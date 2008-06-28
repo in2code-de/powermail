@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txpowermailM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">Powermail</label>
+			<label index="function1">Powermail list and export</label>
+			<label index="nopowermails1">No powermails on current page!</label>
+			<label index="nopowermails2">Please choose a page with powermails inside from the pagetree or change the time filter.</label>
+			<label index="title_no">#</label>
+			<label index="title_date">Date</label>
+			<label index="title_sender">Sender</label>
+			<label index="title_IP">Sender IP</label>
+			<label index="title_receiver">Receiver</label>
+			<label index="title_details">Details</label>
+			<label index="export_download_success">Success!</label>
+			<label index="export_download_download">Download CSV File</label>
+			<label index="export_download_downloadZIP">Download compressed CSV File</label>
+			<label index="export_icon_excel">Export to excel file format</label>
+			<label index="export_icon_csv">Export to csv file format</label>
+			<label index="export_icon_html">Export to HTML table</label>
+			<label index="pagebrowser_page">page</label>
+			<label index="pagebrowser_upto">up to</label>
+			<label index="pagebrowser_within">within</label>
+			<label index="filter_start">Start</label>
+			<label index="filter_end">End</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="title">Powermail</label>
+			<label index="function1">Powermail Liste und Export</label>
+			<label index="nopowermails1">Keine Powermails auf aktueller Seite!</label>
+			<label index="nopowermails2">Bitte wählen Sie eine Seite mit Powermails aus dem Seitenbaum aus oder verändern Sie den Zeitfilter.</label>
+			<label index="title_no">#</label>
+			<label index="title_date">Datum</label>
+			<label index="title_sender">Absender</label>
+			<label index="title_IP">Absender IP</label>
+			<label index="title_receiver">Empfänger</label>
+			<label index="title_details">Details</label>
+			<label index="export_download_success">Erfolg!</label>
+			<label index="export_download_download">CSV Datei Download</label>
+			<label index="export_download_downloadZIP">CSV Datei Download (komprimiert)</label>
+			<label index="export_icon_excel">Export im Excel Format</label>
+			<label index="export_icon_csv">Export im CSV Format</label>
+			<label index="export_icon_html">Export im HTML Format</label>
+			<label index="pagebrowser_page">Seite</label>
+			<label index="pagebrowser_upto">bis</label>
+			<label index="pagebrowser_within">von insgesamt</label>
+			<label index="filter_start">Beginn</label>
+			<label index="filter_end">Ende</label>
+		</languageKey>
+		<languageKey index="en" type="array">
+			<label index="title">Powermail</label>
+			<label index="function1">Powermail list and export</label>
+			<label index="nopowermails1">No powermails on current page!</label>
+			<label index="nopowermails2">Please choose a page with powermails inside from the pagetree or change the time filter.</label>
+			<label index="title_no">#</label>
+			<label index="title_date">Date</label>
+			<label index="title_sender">Sender</label>
+			<label index="title_IP">Sender IP</label>
+			<label index="title_receiver">Receiver</label>
+			<label index="title_details">Details</label>
+			<label index="export_download_success">Success!</label>
+			<label index="export_download_download">Download CSV File</label>
+			<label index="export_download_downloadZIP">Download compressed CSV File</label>
+			<label index="export_icon_excel">Export to excel file format</label>
+			<label index="export_icon_csv">Export to csv file format</label>
+			<label index="export_icon_html">Export to HTML table</label>
+			<label index="pagebrowser_page">page</label>
+			<label index="pagebrowser_upto">up to</label>
+			<label index="pagebrowser_within">within</label>
+			<label index="filter_start">Start</label>
+			<label index="filter_end">End</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="title">Powermail</label>
+			<label index="function1">Powermail liste et export</label>
+			<label index="nopowermails1">Aucun powermail sur cette page!</label>
+			<label index="nopowermails2">Vueillez choisir une page avec powermail dans l'arborescence.</label>
+			<label index="title_no">#</label>
+			<label index="title_date">Date</label>
+			<label index="title_sender">Expéditeur</label>
+			<label index="title_IP">IP de l'expéditeur</label>
+			<label index="title_receiver">Destinataire</label>
+			<label index="title_details">Details</label>
+			<label index="export_download_success">Succès!</label>
+			<label index="export_download_download">Télécharger le fichier CSV</label>
+			<label index="export_download_downloadZIP">Télécharger le fichier CSV compressé</label>
+		</languageKey>
+		<languageKey index="nl" type="array">
+			<label index="title">Powermail</label>
+			<label index="function1">Powermail lijst en export</label>
+			<label index="nopowermails1">Geen powermails op de huidige pagina!</label>
+			<label index="nopowermails2">Selecteer een pagina waar powermail(s) in staan.</label>
+			<label index="title_no">#</label>
+			<label index="title_date">Datum</label>
+			<label index="title_sender">Verzender</label>
+			<label index="title_IP">IP</label>
+			<label index="title_receiver">Ontvanger</label>
+			<label index="title_details">Details</label>
+			<label index="export_download_success">Succes!</label>
+			<label index="export_download_download">Download een CSV bestand</label>
+			<label index="export_download_downloadZIP">Download een gecomprimeerd CSV bestand</label>
+		</languageKey>
+	</data>
+</T3locallang>

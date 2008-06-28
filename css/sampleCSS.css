@@ -1,0 +1,42 @@
+/* Powermail */
+span.powermail_mandatory {
+	color: red;
+}
+input.validation-failed,
+textarea.validation-failed {
+	background-color: red;
+}
+div.powermail_mandatory_js {
+	color: red;
+	margin: 3px 0 15px 120px;
+}
+fieldset.tx-powermail-pi1_fieldset {
+	border: 1px solid #A5ACB2;
+	background-image: url(../img/handy.jpg);
+	background-repeat: no-repeat;
+	background-position: 100% 60%;
+	padding: 10px;
+}
+fieldset.tx-powermail-pi1_fieldset label {
+	display: block;
+	width: 120px;
+	float: left;
+	clear: both;
+	font-weight: bold;
+}
+fieldset.tx-powermail-pi1_fieldset input,
+fieldset.tx-powermail-pi1_fieldset textarea {
+	width: 260px;
+}
+div.tx_powermail_pi1_fieldwrap_html {
+	margin: 3px 0;
+}
+input.powermail_submit {
+	margin: 20px 0px;
+	font-weight: bold;
+	border: 1px solid #444;
+	width: 130px;
+}
+td.powermail_all_td {
+	padding: 3px 10px 3px 0;
+}

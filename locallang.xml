@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'powermail'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Powerful and easy mailform extension with database storing, javascript validation and many more...</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Umfangreiche E-Mail-Formular Erweiterung mit Datenbank Speicherung, Feldüberprüfung und vielem mehr...</label>
+		</languageKey>
+		<languageKey index="en" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Powerful mailform extension with database storing, javascript validation and many more...</label>
+		</languageKey>
+		<data type="array">
+			<languageKey index="fr" type="array">
+				<label index="pi1_title">Powermail</label>
+				<label index="pi1_plus_wiz_description">Extension puissante et flexible pour la création de formulaires et leur envoi par mail</label>
+			</languageKey>
+		</data>
+		<languageKey index="nl" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Krachtige mailform module</label>
+		</languageKey>
+	</data>
+</T3locallang>
