@@ -93,7 +93,7 @@ $TCA["tx_powermail_mails"] = array (
 
 t3lib_div::loadTCA("tt_content");
 
-t3lib_extMgm::addPlugin(array('LLL:EXT:powermail/locallang_db.xml:tt_content.CType_pi1', $_EXTKEY.'_pi1'),'CType');
+t3lib_extMgm::addPlugin(array('LLL:EXT:powermail/locallang_db.xml:tt_content.CType_pi1', $_EXTKEY.'_pi1', t3lib_extMgm::extRelPath($_EXTKEY).'ext_icon.gif'),'CType');
 
 $tempColumns = Array (
     "tx_powermail_title" => Array (        
@@ -314,8 +314,10 @@ if($confArr['usePreview'] != 1) $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['sh
 
 // add tx_powermail_recip_table to the requestUpdate
 $TCA['tt_content']['ctrl']['requestUpdate'] .= $TCA['tt_content']['ctrl']['requestUpdate'] ? ",tx_powermail_recip_table" : "tx_powermail_recip_table";
-// activate dividers2tabs
-$TCA['tt_content']['ctrl']['dividers2tabs'] = $confArr['TabDividers'] == 0 ? FALSE : TRUE; 
+// activate dividers2tabs if version is lower than 4.1
+if (t3lib_div::int_from_ver(TYPO3_version) < 4002000) {
+	$TCA['tt_content']['ctrl']['dividers2tabs'] = $confArr['TabDividers'] == 0 ? FALSE : TRUE; 
+}
 
 
 
