@@ -157,6 +157,9 @@ class tx_powermail_pi1 extends tslib_pibase {
 		if (!$this->cObj->data['tx_powermail_recipient'] && !$this->cObj->data['tx_powermail_query'] && (!$this->cObj->data['tx_powermail_recip_table'] || !$this->cObj->data['tx_powermail_recip_id'])) { // If email of receiver is not set
 			$error .= $prefix.'<b>'.$this->pi_getLL('error_check_recipient','<strong>Email address of receiver</strong>').'</b><br />'; // Error MSG
 		}
+		if (count($this->conf['template.']) == 0 || count($this->conf) < 10) { // check if powermail ts is not available
+			$error = '<strong>'.$this->pi_getLL('error_check_noTS','ERROR: Typoscript for powermail missing!').'</strong>';
+		}
 		return $error;
 	}
 	

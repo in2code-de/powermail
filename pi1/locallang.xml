@@ -23,6 +23,7 @@
 			<label index="error_check_prefix">PowerMail error!! Please fill in this backend fields: </label>
 			<label index="error_check_subject_r">Email receiver subject</label>
 			<label index="error_check_recipient">Email address of receiver</label>
+			<label index="error_check_noTS">ERROR: Typoscript for powermail missing!</label>
 			<label index="error_captcha_empty">Captcha Code empty</label>
 			<label index="error_captcha_wrong">Captcha Code wrong</label>
 			<label index="error_backend_noip">IP logging disabled</label>
@@ -65,6 +66,7 @@
 			<label index="error_check_prefix">PowerMail Fehler!! Bitte füllen Sie folgende Felder im Backend aus: </label>
 			<label index="error_check_subject_r">Betreff für Empfängermail</label>
 			<label index="error_check_recipient">Empfänger</label>
+			<label index="error_check_noTS">FEHLER: Powermail - Typoscript nicht vorhanden!</label>
 			<label index="error_captcha_empty">Sie haben vergessen einen Code einzutragen</label>
 			<label index="error_captcha_wrong">Der eingetragene Code war leider falsch</label>
 			<label index="error_backend_noip">IP Speicherung deaktiviert</label>
@@ -107,6 +109,7 @@
 			<label index="error_check_prefix">PowerMail error!! Please fill in this backend fields: </label>
 			<label index="error_check_subject_r">Email receiver subject</label>
 			<label index="error_check_recipient">Email address of receiver</label>
+			<label index="error_check_noTS">ERROR: Typoscript for powermail missing!</label>
 			<label index="error_captcha_empty">Captcha Code empty</label>
 			<label index="error_captcha_wrong">Captcha Code wrong</label>
 			<label index="error_backend_noip">IP logging disabled</label>

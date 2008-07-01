@@ -6,6 +6,7 @@
 	<ROOT>
 		<type>array</type>
 		<el>
+			<!-- 
 			<value>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.value</label>
@@ -15,6 +16,7 @@
 					</config>
 				</TCEforms>
 			</value>
+			-->
 			<example>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>

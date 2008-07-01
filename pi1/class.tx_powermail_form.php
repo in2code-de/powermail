@@ -266,7 +266,7 @@ class tx_powermail_form extends tslib_pibase {
 				'tx_powermail_fieldsets',
 				$where_clause = 'tt_content = '.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).tslib_cObj::enableFields('tx_powermail_fieldsets'),
 				$groupBy = '',
-				$orderBy = '',
+				$orderBy = 'sorting ASC',
 				''
 			);
 			if ($res) { // If there is a result
