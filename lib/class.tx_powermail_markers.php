@@ -122,7 +122,7 @@ class tx_powermail_markers extends tslib_pibase {
 				'tx_powermail_fields.title',
 				'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON (tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid) LEFT JOIN tt_content ON (tt_content.uid = tx_powermail_fieldsets.tt_content)',
 				//$where_clause = 'tt_content.uid = '.($this->pibase->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->pibase->cObj->data['uid']).' AND tx_powermail_fields.uid = '.$uid.' AND tx_powermail_fields.hidden = 0 AND tx_powermail_fields.deleted = 0'.tslib_cObj::enableFields('tt_content'),
-				$where_clause = 'tx_powermail_fields.uid = '.$uid.' AND tx_powermail_fields.hidden = 0 AND tx_powermail_fields.deleted = 0',
+				$where_clause = 'tx_powermail_fields.uid = '.$uid,
 				$groupBy = '',
 				$orderBy = '',
 				$limit = ''

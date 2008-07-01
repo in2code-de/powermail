@@ -314,7 +314,7 @@ if($confArr['usePreview'] != 1) $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['sh
 
 // add tx_powermail_recip_table to the requestUpdate
 $TCA['tt_content']['ctrl']['requestUpdate'] .= $TCA['tt_content']['ctrl']['requestUpdate'] ? ",tx_powermail_recip_table" : "tx_powermail_recip_table";
-// activate dividers2tabs if version is lower than 4.1
+// possibility to activate dividers2tabs only if version is lower than 4.2
 if (t3lib_div::int_from_ver(TYPO3_version) < 4002000) {
 	$TCA['tt_content']['ctrl']['dividers2tabs'] = $confArr['TabDividers'] == 0 ? FALSE : TRUE; 
 }
