@@ -28,7 +28,9 @@ $TCA["tx_powermail_fieldsets"] = array (
 		'default_sortby' => "ORDER BY crdate",	
 		'delete' => 'deleted',		
 		'enablecolumns' => array (		
-			'disabled' => 'hidden'
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime'
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
 		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'icon_tx_powermail_fieldsets.gif',
@@ -55,7 +57,9 @@ $TCA["tx_powermail_fields"] = array (
 		'sortby' => 'sorting',
 		'delete' => 'deleted',			
 		'enablecolumns' => array (		
-			'disabled' => 'hidden'
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime'
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
 		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'icon_tx_powermail_fields.gif',

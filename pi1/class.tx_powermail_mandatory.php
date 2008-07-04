@@ -65,11 +65,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 		
 		// Give me all fields of current content uid
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-			'f.uid,f.title,f.flexform',
-			'tx_powermail_fields f LEFT JOIN tx_powermail_fieldsets fs ON (f.fieldset = fs.uid) LEFT JOIN tt_content c ON (fs.tt_content = c.uid)',
-			$where_clause = 'fs.tt_content = '.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).' AND fs.hidden = 0 AND fs.deleted = 0 AND f.hidden = 0 AND f.deleted = 0 AND c.hidden = 0 AND c.deleted = 0',
+			'tx_powermail_fields.uid, tx_powermail_fields.title, tx_powermail_fields.flexform',
+			'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON (tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
+			$where_clause = 'tx_powermail_fieldsets.tt_content = '.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).tslib_cObj::enableFields('tt_content').tslib_cObj::enableFields('tx_powermail_fieldsets').tslib_cObj::enableFields('tx_powermail_fields'),
 			$groupBy = '',
-			$orderBy = 'fs.sorting ASC, f.sorting ASC',
+			$orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
 			$limit
 		);
 		if ($res) { // If there is a result
@@ -236,11 +236,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 		
 			// Give me all captcha fields of current tt_content
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-				'f.uid',
-				'tx_powermail_fields f LEFT JOIN tx_powermail_fieldsets fs ON (f.fieldset = fs.uid) LEFT JOIN tt_content c ON (fs.tt_content = c.uid)',
-				$where_clause = 'f.formtype = "captcha" AND fs.tt_content = '.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).' AND fs.hidden = 0 AND fs.deleted = 0 AND f.hidden = 0 AND f.deleted = 0 AND c.hidden = 0 AND c.deleted = 0',
+				'tx_powermail_fields.uid',
+				'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON (tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
+				$where_clause = 'tx_powermail_fields.formtype = "captcha" AND tx_powermail_fieldsets.tt_content = '.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).tslib_cObj::enableFields('tt_content').tslib_cObj::enableFields('tx_powermail_fieldsets').tslib_cObj::enableFields('tx_powermail_fields'),
 				$groupBy = '',
-				$orderBy = 'fs.sorting ASC, f.sorting ASC',
+				$orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
 				$limit = 1
 			);
 			if ($res) { // If there is a result

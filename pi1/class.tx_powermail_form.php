@@ -127,7 +127,7 @@ class tx_powermail_form extends tslib_pibase {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid','tx_powermail_fieldsets','tt_content = '.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).tslib_cObj::enableFields('tx_powermail_fieldsets'),'','sorting DESC','1');
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		$this->lastfieldset = $row['uid']; // uid of last fieldset to current tt_content (needed to show only on the last fieldset the captcha code)
-		
+
 		// Give me all needed fieldsets
 		$res1 = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'uid,title',
@@ -143,11 +143,11 @@ class tx_powermail_form extends tslib_pibase {
 
 				// Give me all fields in current fieldset, which are related to current content
 				$res2 = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-					'fs.uid fs_uid,f.uid f_uid,fs.felder fs_fields,fs.title fs_title,f.title f_title,f.formtype f_type,f.flexform f_field,c.tx_powermail_title c_title,f.fe_field f_fefield',
-					'tx_powermail_fieldsets fs LEFT JOIN tx_powermail_fields f ON (fs.uid = f.fieldset) LEFT JOIN tt_content c ON (fs.tt_content = c.uid)',
-					$where_clause = 'fs.deleted = 0 AND fs.hidden = 0 AND fs.tt_content = '.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).' AND f.hidden = 0 AND f.deleted = 0 AND f.fieldset = '.$row_fs['uid'].$whereadd,
+					'tx_powermail_fieldsets.uid fs_uid, tx_powermail_fields.uid f_uid, tx_powermail_fieldsets.felder fs_fields, tx_powermail_fields.title fs_title, tx_powermail_fields.title f_title, tx_powermail_fields.formtype f_type, tx_powermail_fields.flexform f_field, tt_content.tx_powermail_title c_title, tx_powermail_fields.fe_field f_fefield',
+					'tx_powermail_fieldsets LEFT JOIN tx_powermail_fields ON (tx_powermail_fieldsets.uid = tx_powermail_fields.fieldset) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
+					$where_clause = 'tx_powermail_fieldsets.tt_content = '.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).' AND tx_powermail_fields.fieldset = '.$row_fs['uid'].tslib_cObj::enableFields('tx_powermail_fieldsets').tslib_cObj::enableFields('tx_powermail_fields'),
 					$groupBy = '',
-					$orderBy = 'fs.sorting, f.sorting',
+					$orderBy = 'tx_powermail_fieldsets.sorting, tx_powermail_fields.sorting',
 					$limit1 = ''
 				);
 				if ($res2) { // If there is a result
