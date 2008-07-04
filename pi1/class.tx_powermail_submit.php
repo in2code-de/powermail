@@ -176,13 +176,13 @@ class tx_powermail_submit extends tslib_pibase {
 	}
 	
 	
-	// Function saveMail() to save piVars and some more infos to DB (tx_powermail_mails)
+	// Function saveMail() to save piVars and some more infos via xml to DB (tx_powermail_mails)
 	function saveMail() {
 		
 		// Configuration
 		$this->save_PID = $GLOBALS['TSFE']->id; // PID where to save: Take current page
 		if (intval($this->conf['PID.']['dblog']) > 0) $this->save_PID = $this->conf['PID.']['dblog']; // PID where to save: Get it from TS if set
-		if (intval($this->pibase->cObj->data['pages']) > 0) $this->save_PID = $this->pibase->cObj->data['pages']; // PID where to save: Get it from plugin
+		if (intval($this->pibase->cObj->data['tx_powermail_pages']) > 0) $this->save_PID = $this->pibase->cObj->data['tx_powermail_pages']; // PID where to save: Get it from plugin
 		
 		// DB entry for table Tabelle: tx_powermail_mails
 		$this->db_values = array (
