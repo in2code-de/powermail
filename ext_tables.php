@@ -309,8 +309,8 @@ $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = '
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div3, tx_powermail_sender, tx_powermail_subject_s,, tx_powermail_mailsender;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts],
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div4, tx_powermail_subject_r, tx_powermail_recipient, tx_powermail_users;;;;5-5-5,tx_powermail_recip_table, tx_powermail_recip_id, tx_powermail_query;;;;6-6-6,, tx_powermail_mailreceiver;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts],
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div5, tx_powermail_thanks;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts], tx_powermail_redirect,
-	--div--;LLL:EXT:cms/locallang_tca.xml:pages.tabs.access, starttime, endtime
-';
+	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div8' . (t3lib_div::int_from_ver(TYPO3_version) < t3lib_div::int_from_ver('4.2.0') ? '' : ', starttime, endtime');
+	
 // If preview window is deactivated, clear tx_powermail_preview
 if($confArr['usePreview'] != 1) $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = str_replace('tx_powermail_preview,','',$TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem']); // remove field
 
@@ -319,7 +319,7 @@ if($confArr['usePreview'] != 1) $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['sh
 // add tx_powermail_recip_table to the requestUpdate
 $TCA['tt_content']['ctrl']['requestUpdate'] .= $TCA['tt_content']['ctrl']['requestUpdate'] ? ",tx_powermail_recip_table" : "tx_powermail_recip_table";
 // possibility to activate dividers2tabs only if version is lower than 4.2
-if (t3lib_div::int_from_ver(TYPO3_version) < 4002000) {
+if (t3lib_div::int_from_ver(TYPO3_version) < t3lib_div::int_from_ver('4.2.0')) {
 	$TCA['tt_content']['ctrl']['dividers2tabs'] = $confArr['TabDividers'] == 0 ? FALSE : TRUE; 
 }
 
