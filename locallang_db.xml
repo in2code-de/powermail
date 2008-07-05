@@ -19,7 +19,7 @@
 			<label index="tx_powermail_forms.recipient">Recipient</label>
 			<label index="tx_powermail_forms.subject_r">Subject for recipient's mail</label>
 			<label index="tx_powermail_forms.subject_s">Subject for sender's mail</label>
-			<label index="tx_powermail_forms.sender">Sender field</label>
+			<label index="tx_powermail_forms.sender">Senders email address</label>
 			<label index="tx_powermail_forms.confirm">Activate confirmation page</label>
 			<label index="tx_powermail_forms.startingpoint">Save mails in page</label>
 			<label index="tx_powermail_forms.multiple">Muliple steps</label>
@@ -152,7 +152,7 @@
 			<label index="tx_powermail_forms.recipient">Empfänger</label>
 			<label index="tx_powermail_forms.subject_r">Betreff für Empfängermail</label>
 			<label index="tx_powermail_forms.subject_s">Betreff für Absendermail</label>
-			<label index="tx_powermail_forms.sender">Absenderfeld</label>
+			<label index="tx_powermail_forms.sender">E-Mail Adresse des Absenders</label>
 			<label index="tx_powermail_forms.confirm">Bestätigungsseite aktivieren</label>
 			<label index="tx_powermail_forms.startingpoint">Speicherort für Mails</label>
 			<label index="tx_powermail_forms.multiple">Mehrere Schritte</label>
@@ -283,7 +283,7 @@
 			<label index="tx_powermail_forms.recipient">Recipient</label>
 			<label index="tx_powermail_forms.subject_r">Subject for recipient's mail</label>
 			<label index="tx_powermail_forms.subject_s">Subject for sender's mail</label>
-			<label index="tx_powermail_forms.sender">Sender field</label>
+			<label index="tx_powermail_forms.sender">Senders email address</label>
 			<label index="tx_powermail_forms.confirm">Activate confirmation page</label>
 			<label index="tx_powermail_forms.startingpoint">Save mails in page</label>
 			<label index="tx_powermail_forms.multiple">Muliple steps</label>
@@ -413,7 +413,7 @@
 			<label index="tx_powermail_forms.recipient">Destinataire</label>
 			<label index="tx_powermail_forms.subject_r">Sujet du mail au destinataire</label>
 			<label index="tx_powermail_forms.subject_s">Sujet du mail à l'expéditeur</label>
-			<label index="tx_powermail_forms.sender">Champ de l'expéditeur</label>
+			<label index="tx_powermail_forms.sender">Champ de l'expéditeur (email)</label>
 			<label index="tx_powermail_forms.confirm">Activer la page de confirmation</label>
 			<label index="tx_powermail_forms.multiple">Etapes multiples</label>
 			<label index="tx_powermail_forms.multiple.I.0">Etape unique</label>
@@ -533,7 +533,7 @@
 			<label index="tx_powermail_forms.recipient">Ontvanger</label>
 			<label index="tx_powermail_forms.subject_r">Onderwerp voor de email aan de ontvanger</label>
 			<label index="tx_powermail_forms.subject_s">Onderwerp voor de email aan de verzender</label>
-			<label index="tx_powermail_forms.sender">Verzender</label>
+			<label index="tx_powermail_forms.sender">Verzender (email)</label>
 			<label index="tx_powermail_forms.confirm">Activeer de bevestigingspagina</label>
 			<label index="tx_powermail_forms.multiple">Meerdere stappen</label>
 			<label index="tx_powermail_forms.multiple.I.0">Een stap</label>
