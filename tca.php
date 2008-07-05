@@ -9,6 +9,33 @@ $TCA["tx_powermail_fieldsets"] = array (
 	),
 	"feInterface" => $TCA["tx_powermail_fieldsets"]["feInterface"],
 	"columns" => array (
+		'starttime' => array (
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
+			'config'  => array (
+				'type'    => 'input',
+				'size' => '8',
+				'max' => '20',
+				'eval' => 'date',
+				'checkbox' => 0,
+				'default' => 0
+			)
+		),
+		'endtime' => array (
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
+			'config'  => array (
+				'type'    => 'input',
+				'size' => '8',
+				'max' => '20',
+				'eval' => 'date',
+				'checkbox' => 0,
+				'default' => 0,
+				'range' => array (
+					'upper' => 1609369200
+				)
+			)
+		),
 		'hidden' => array (		
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
@@ -56,7 +83,7 @@ $TCA["tx_powermail_fieldsets"] = array (
 	),	
 	"palettes" => array (
 		"1" => array (
-			"showitem" => "form, title, hidden",
+			"showitem" => "form, title, hidden, starttime, endtime",
 			'canNotCollapse' => '1'
 		)
 	)
@@ -84,6 +111,33 @@ $TCA["tx_powermail_fields"] = array (
 	),
 	"feInterface" => $TCA["tx_powermail_fields"]["feInterface"],
 	"columns" => array (
+		'starttime' => array (
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
+			'config'  => array (
+				'type'    => 'input',
+				'size' => '8',
+				'max' => '20',
+				'eval' => 'date',
+				'checkbox' => 0,
+				'default' => 0
+			)
+		),
+		'endtime' => array (
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
+			'config'  => array (
+				'type'    => 'input',
+				'size' => '8',
+				'max' => '20',
+				'eval' => 'date',
+				'checkbox' => 0,
+				'default' => 0,
+				'range' => array (
+					'upper' => 1609369200
+				)
+			)
+		),
 		'hidden' => array (		
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
@@ -194,7 +248,7 @@ $TCA["tx_powermail_fields"] = array (
 	),	
 	"palettes" => array (
 		"1" => array (
-			"showitem" => "title, hidden",
+			"showitem" => "title, hidden, starttime, endtime",
 			'canNotCollapse' => '1'
 		)
 	)
