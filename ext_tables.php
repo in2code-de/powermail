@@ -303,7 +303,7 @@ if($confArr['usePreview'] != 1) unset($tempColumns["tx_powermail_preview"]);
 t3lib_div::loadTCA("tt_content");
 t3lib_extMgm::addTCAcolumns("tt_content",$tempColumns,1);
 $TCA['tt_content']['types'][$_EXTKEY.'_pi1']['showitem'] = '
-	CType;;4;button;1-1-1, hidden,1-1-1, l18n_parent, l18n_diffsource, header;;3;;3-3-3, linkToTop;;;;3-3-3,
+	CType;;4;button;1-1-1, hidden,1-1-1, header;;3;;3-3-3, linkToTop;;;;3-3-3,
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div1, tx_powermail_title;;;;2-2-2, tx_powermail_pages;;;;3-3-3, tx_powermail_confirm;;;;3-3-3, tx_powermail_multiple,
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div2, tx_powermail_fieldsets;;;;4-4-4, tx_powermail_preview,
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div3, tx_powermail_sender, tx_powermail_subject_s,, tx_powermail_mailsender;;;richtext[paste|bold|italic|underline|formatblock|class|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image]:rte_transform[mode=ts],
