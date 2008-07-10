@@ -397,9 +397,17 @@ $TCA["tx_powermail_mails"] = array (
 				"size" => "30",
 			)
 		),
+		"Additional" => array (		
+			"exclude" => 1,		
+			"label" => "LLL:EXT:powermail/locallang_db.xml:tx_powermail_mails.Additional",		
+			"config" => array (
+				"type" => "input",	
+				"size" => "30",
+			)
+		),
 	),
 	"types" => array (
-		"0" => array("showitem" => "hidden;;1;;1-1-1, formid, recipient, subject_r, sender, content;;;richtext[cut|copy|paste|formatblock|textcolor|bold|italic|underline|left|center|right|orderedlist|unorderedlist|outdent|indent|link|table|image|line|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_powermail/rte/], piVars, senderIP, UserAgent, Referer, SP_TZ")
+		"0" => array("showitem" => "hidden;;1;;1-1-1, formid, recipient, subject_r, sender, content;;;richtext[cut|copy|paste|formatblock|textcolor|bold|italic|underline|left|center|right|orderedlist|unorderedlist|outdent|indent|link|table|image|line|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_powermail/rte/], piVars, senderIP, UserAgent, Referer, SP_TZ, Additional")
 	),
 	"palettes" => array (
 		"1" => array("showitem" => "")
