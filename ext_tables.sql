@@ -75,6 +75,7 @@ CREATE TABLE tx_powermail_mails (
 	UserAgent text NOT NULL,
 	Referer text NOT NULL,
 	SP_TZ tinytext NOT NULL,
+	Additional text NOT NULL,
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid)

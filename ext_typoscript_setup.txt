@@ -47,6 +47,8 @@ plugin.tx_powermail_pi1 {
 	powermail.charset = {$plugin.powermail.powermail.charset}
 	barrier-free.tabindex = {$plugin.powermail.barrier-free.tabindex}
 	barrier-free.accesskey = {$plugin.powermail.barrier-free.accesskey}
+	geoip.file = {$plugin.powermail.geoip.file}
+	geoip.addValuesToMarkerALL = {$plugin.powermail.geoip.addValuesToMarkerALL}
 	debug.output = {$plugin.powermail.debug.output}
 	
 	

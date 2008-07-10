@@ -24,6 +24,7 @@
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_functions_div.php'); // file for div functions
+require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_geoip.php'); // file for geo info
 
 class tx_powermail_markers extends tslib_pibase {
 
@@ -35,6 +36,8 @@ class tx_powermail_markers extends tslib_pibase {
     function GetMarkerArray() {
         
         // Configuration
+		$this->geo = t3lib_div::makeInstance('tx_powermail_geoip'); // Instance with geo class
+		$this->geoArray = $this->geo->main($this->conf); // Get geoinfo array
         $this->markerArray = array(); $this->markerArray['###POWERMAIL_ALL###'] = ''; // init
         $this->sessiondata = $GLOBALS['TSFE']->fe_user->getKey('ses',$this->extKey.'_'.($this->pibase->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->pibase->cObj->data['uid'])); // Get piVars from session
        	$this->div_functions = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
@@ -44,6 +47,7 @@ class tx_powermail_markers extends tslib_pibase {
 		$content_item = ''; $markerArray = array();
 
 		if(isset($this->sessiondata) && is_array($this->sessiondata)) {
+			// normal markers
             foreach($this->sessiondata as $k => $v) { // One loop for every piVar
 				if($k == 'FILE' && count($v)>0) { // only if min one file
 				    $i = 1;
@@ -97,11 +101,25 @@ class tx_powermail_markers extends tslib_pibase {
 					}
 				}
             }
+			// geo info
+			if (count($this->geoArray) > 0 && $this->conf['geoip.']['addValuesToMarkerALL']) { // If geoip info should be added to marker All
+				$geoAllArray = t3lib_div::trimExplode(',', $this->conf['geoip.']['addValuesToMarkerALL'], 1); // explode at ,
+				if (count($geoAllArray) > 0) { // if array 
+					foreach ($geoAllArray as $geokey => $geovalue) { // one loop for every geoinfo
+						if($this->geoArray[$geovalue]) { // if this key exists
+							$markerArray['###POWERMAIL_LABEL###'] = $this->pi_getLL('geoip_'.$geovalue, ucfirst($geovalue));
+							$markerArray['###POWERMAIL_VALUE###'] = $this->geoArray[$geovalue];
+							$content_item .= $this->pibase->pibase->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'],$markerArray); // add line
+						}
+					}
+				}
+			}
 			$subpartArray['###CONTENT###'] = $content_item; // ###POWERMAIL_ALL###
         }
         
         // add standard Markers
 		$this->markerArray['###POWERMAIL_UPLOADFOLDER###'] = $this->conf['upload.']['folder']; // Relative upload folder from constants
+		if (count($this->geoArray) > 0) foreach ($this->geoArray as $key => $value) $this->markerArray['###POWERMAIL_GEO_'.strtoupper($key).'###'] = $this->geoArray[$key]; // Add standardmarker for geo info (ip, countryCode, countryName, region, city, zip, lng, lat, dmaCode, areaCode)
 		$this->markerArray['###POWERMAIL_BASEURL###'] = ($GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] ? $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] : t3lib_div::getIndpEnv('TYPO3_SITE_URL')); // absolute path (baseurl)
 		$this->markerArray['###POWERMAIL_ALL###'] = trim($this->pibase->pibase->cObj->substituteMarkerArrayCached($this->tmpl['all']['all'], array(), $subpartArray)); // Fill ###POWERMAIL_ALL###
         

@@ -147,6 +147,12 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//1310; type=text; label= Adding accesskeys: You can add some accesskeys to the fields if you want (e.g. uid1(colon)f,uid3(colon)g or 1(colon)a,2(colon)b,3_1(colon)c)
 	barrier-free.accesskey = 
 	
+	# cat=plugin.powermail_additionalconfig//1600; type=text; label= Add geoip file: If you want to use geoip, you can enter the relative path to the .dat file for geo info (e.g. fileadmin/geoinfo.dat)
+	geoip.file = 
+	
+	# cat=plugin.powermail_additionalconfig//1610; type=text; label= Add geo info to marker ALL: The most people don't want to use single markers, they just use ###POWERMAIL_ALL###, if you want to add some geoinfo, you can add those to the all marker (e.g. countryName, city) (available keys - ip, countryCode, countryName, region, city, zip, lng, lat, dmaCode, areaCode)
+	geoip.addValuesToMarkerALL = 
+	
 	# cat=plugin.powermail_additionalconfig//9999; type=options[,all,session,email,db]; label= Activate debug output: Possibility to print a debug output over the html. All displays session and email array, Session prints only session array, Email prints only email array (empty or all or session or email)
 	debug.output = 
 	

@@ -47,6 +47,16 @@
 			<label index="JSvalidation_label_validate_currency_dollar">Please enter a valid $ amount. For example $100.00</label>
 			<label index="JSvalidation_label_validate_selection">Please make a selection</label>
 			<label index="JSvalidation_label_validate_one_required">Please select one of the above options</label>
+			<label index="geoip_ip">IP address</label>
+			<label index="geoip_countryCode">Country Code</label>
+			<label index="geoip_countryName">Country</label>
+			<label index="geoip_region">Region</label>
+			<label index="geoip_city">City</label>
+			<label index="geoip_zip">ZIP</label>
+			<label index="geoip_lng">LNG</label>
+			<label index="geoip_lat">LAT</label>
+			<label index="geoip_dmaCode">DMA Code</label>
+			<label index="geoip_areaCode">Area Code</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="powermailmarker_notitle">FEHLER: Kein Titel zu Feld (%s) in DB gefunden</label>
@@ -90,6 +100,12 @@
 			<label index="JSvalidation_label_validate_currency_dollar">Bitte tragen Sie einen gültigen Betrag ein ($100.00)</label>
 			<label index="JSvalidation_label_validate_selection">Bitte treffen Sie eine Auswahl</label>
 			<label index="JSvalidation_label_validate_one_required">Bitte füllen Sie min. 1 Feld aus</label>
+			<label index="geoip_ip">IP Adresse</label>
+			<label index="geoip_countryCode">Länder Code</label>
+			<label index="geoip_countryName">Land</label>
+			<label index="geoip_region">Region</label>
+			<label index="geoip_city">Stadt</label>
+			<label index="geoip_zip">PLZ</label>
 		</languageKey>
 		<languageKey index="en" type="array">
 			<label index="powermailmarker_notitle">ERROR: No title to current field found in DB (%s)</label>
