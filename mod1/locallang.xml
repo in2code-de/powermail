@@ -16,17 +16,23 @@
 			<label index="title_IP">Sender IP</label>
 			<label index="title_receiver">Receiver</label>
 			<label index="title_details">Details</label>
+			<label index="title_delete">Delete</label>
 			<label index="export_download_success">Success!</label>
 			<label index="export_download_download">Download CSV File</label>
 			<label index="export_download_downloadZIP">Download compressed CSV File</label>
 			<label index="export_icon_excel">Export to excel file format</label>
 			<label index="export_icon_csv">Export to csv file format</label>
 			<label index="export_icon_html">Export to HTML table</label>
+			<label index="icon_deloff">Delete after export disabled! Click to enable delete after export</label>
+			<label index="icon_delon">Delete after export enabled! Click to disable delete after export</label>
+			<label index="delall_sure">If you are going on, all mails will be deleted after export, are you sure?</label>
 			<label index="pagebrowser_page">page</label>
 			<label index="pagebrowser_upto">up to</label>
 			<label index="pagebrowser_within">within</label>
 			<label index="filter_start">Start</label>
 			<label index="filter_end">End</label>
+			<label index="del_sure">Are you sure to delete this entry?</label>
+			<label index="del_message">Mail with uid %s deleted!</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="title">Powermail</label>
@@ -39,17 +45,23 @@
 			<label index="title_IP">Absender IP</label>
 			<label index="title_receiver">Empfänger</label>
 			<label index="title_details">Details</label>
+			<label index="title_delete">Löschen</label>
 			<label index="export_download_success">Erfolg!</label>
 			<label index="export_download_download">CSV Datei Download</label>
 			<label index="export_download_downloadZIP">CSV Datei Download (komprimiert)</label>
 			<label index="export_icon_excel">Export im Excel Format</label>
 			<label index="export_icon_csv">Export im CSV Format</label>
 			<label index="export_icon_html">Export im HTML Format</label>
+			<label index="icon_deloff">Löschen nach Export deaktiviert! Klicken um Löschen nach Export zu aktivieren</label>
+			<label index="icon_delon">Löschen nach Export aktiviert! Klicken um Löschen nach Export zu deaktivieren</label>
+			<label index="delall_sure">Alle Mails werden nach dem Export automatisch gelöscht, sind Sie sicher?</label>
 			<label index="pagebrowser_page">Seite</label>
 			<label index="pagebrowser_upto">bis</label>
 			<label index="pagebrowser_within">von insgesamt</label>
 			<label index="filter_start">Beginn</label>
 			<label index="filter_end">Ende</label>
+			<label index="del_sure">Soll dieser Datensatz gelöscht werden?</label>
+			<label index="del_message">Mail mit der uid %s erfolgreich gelöscht!</label>
 		</languageKey>
 		<languageKey index="en" type="array">
 			<label index="title">Powermail</label>
@@ -62,17 +74,23 @@
 			<label index="title_IP">Sender IP</label>
 			<label index="title_receiver">Receiver</label>
 			<label index="title_details">Details</label>
+			<label index="title_delete">Delete</label>
 			<label index="export_download_success">Success!</label>
 			<label index="export_download_download">Download CSV File</label>
 			<label index="export_download_downloadZIP">Download compressed CSV File</label>
 			<label index="export_icon_excel">Export to excel file format</label>
 			<label index="export_icon_csv">Export to csv file format</label>
 			<label index="export_icon_html">Export to HTML table</label>
+			<label index="icon_deloff">Delete after export disabled! Click to enable delete after export</label>
+			<label index="icon_delon">Delete after export enabled! Click to disable delete after export</label>
+			<label index="delall_sure">If you are going on, all mails will be deleted after export, are you sure?</label>
 			<label index="pagebrowser_page">page</label>
 			<label index="pagebrowser_upto">up to</label>
 			<label index="pagebrowser_within">within</label>
 			<label index="filter_start">Start</label>
 			<label index="filter_end">End</label>
+			<label index="del_sure">Are you sure to delete this entry?</label>
+			<label index="del_message">Mail with uid %s deleted!</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="title">Powermail</label>

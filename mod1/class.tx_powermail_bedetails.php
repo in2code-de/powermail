@@ -28,7 +28,9 @@ class tx_powermail_bedetails {
 			if(isset($values) && is_array($values)) {
 				foreach ($values as $key => $value) { // one loop for every piVar
 					if(!is_array($value)) { // non array (first level)
-						$this->content .= '<tr>'.'<td><strong>'.$this->GetLabelfromBackend($key,$value).':</strong></td>'.'<td style="padding-left: 10px;">'.$value.'</td><td style="padding-left: 10px; color: #888;">('.$key.')</td></tr>';
+						if (is_numeric(str_replace('uid', '', $key))) { // only if uid34
+							$this->content .= '<tr>'.'<td><strong>'.$this->GetLabelfromBackend($key,$value).':</strong></td>'.'<td style="padding-left: 10px;">'.$value.'</td><td style="padding-left: 10px; color: #888;">('.$key.')</td></tr>';
+						}
 					} else { // is array (second level)
 						foreach ($values[$key] as $key2 => $value2) { // one loop for every piVar in second level
 							$this->content .= '<tr>'.'<td><strong>'.$this->GetLabelfromBackend($key,$value).':</strong></td>'.'<td style="padding-left: 10px;">'.$value2.'</td><td style="padding-left: 10px; color: #888;">('.$key.'_'.$key2.')</td></tr>';

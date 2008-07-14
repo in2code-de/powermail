@@ -160,6 +160,17 @@ class tx_powermail_export {
 			$content = 'Wrong export method chosen!';
 		}
 		
+		if ($_GET['delafterexport']==1) { // delete all exported mails now
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery ( // deleted = 1 in db
+				'tx_powermail_mails',
+				'pid = '.$this->pid.' AND hidden = 0 AND deleted = 0 AND crdate > '.strtotime($this->startdate).' AND crdate < '.strtotime($this->enddate),
+				array (
+					'deleted' => 1
+				)
+			);
+		}
+		
+		
 		return $content;
 	}
 

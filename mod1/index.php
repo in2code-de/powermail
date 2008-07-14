@@ -31,6 +31,7 @@ require_once($BACK_PATH.'template.php');
 require_once('class.tx_powermail_belist.php'); // include Backend list function
 require_once('class.tx_powermail_export.php'); // include Backend export function
 require_once('class.tx_powermail_bedetails.php'); // include Backend detail function
+require_once('class.tx_powermail_action.php'); // include Backend detail function
 
 $LANG->includeLLFile('EXT:powermail/mod1/locallang.xml');
 require_once(PATH_t3lib.'class.t3lib_scbase.php');
@@ -72,6 +73,17 @@ class  tx_powermail_module1 extends t3lib_SCbase {
 						document.location = URL;
 					}
 				</script>
+				<script type="text/javascript">
+					<!--
+					function confirmSubmit(form) {
+						if (confirm("'.$LANG->getLL('del_sure').'")) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+					// -->
+				</script> 
 			';
 			$this->doc->postCode='
 				<script language="javascript" type="text/javascript">
@@ -135,6 +147,11 @@ class  tx_powermail_module1 extends t3lib_SCbase {
 	function moduleContent()	{
 		global $BACK_PATH,$LANG;
 		
+		if ($_GET['deleteID'] > 0) { // a mail should be deleted
+			$this->action = t3lib_div::makeInstance('tx_powermail_action');
+			$this->content .= $this->action->main(intval($_GET['deleteID']), $LANG); // Show export functions
+		}
+		
 		switch((string)$this->MOD_SETTINGS['function'])	{
 			case 1:
 			default:
@@ -150,15 +167,15 @@ class  tx_powermail_module1 extends t3lib_SCbase {
 				} else { // show only one with details
 					$this->belist = t3lib_div::makeInstance('tx_powermail_belist');
 					$this->belist->init($LANG);
-					$this->content .= $this->belist->main($this->id, $BACK_PATH, $_GET['mailID']); // Show 1 intem of list
+					$this->content .= $this->belist->main($this->id, $BACK_PATH, intval($_GET['mailID'])); // Show 1 intem of list
 					
 					$this->bedetails = t3lib_div::makeInstance('tx_powermail_bedetails');
-					$this->content .= $this->bedetails->main($_GET['mailID'],$LANG); // Show details
+					$this->content .= $this->bedetails->main(intval($_GET['mailID']), $LANG); // Show details
 				}
 			break;
 			case 2:
 				$this->content .= 'xx';
-				print_r($_GET);
+				//print_r($_GET);
 			break;
 		}
 	}

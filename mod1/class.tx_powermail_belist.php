@@ -64,6 +64,7 @@ class tx_powermail_belist {
 					<td><b style="color: white; padding: 0 5px;">'.$this->LANG->getLL('title_receiver').'</b></td>
 					<td><b style="color: white; padding: 0 5px;">'.$this->LANG->getLL('title_IP').'</b></td>
 					<td><b style="color: white; padding: 0 5px;">'.$this->LANG->getLL('title_details').'</b></td>
+					<td><b style="color: white; padding: 0 5px;">'.$this->LANG->getLL('title_delete').'</b></td>
 				</tr>'."\n"
 			; // write table head
 			$i = $this->pointer; // init
@@ -78,6 +79,7 @@ class tx_powermail_belist {
 				$this->content .= '<td style="color: white; padding: 0 5px;">'.$this->divfunctions->linker($row['recipient'],' style="color: white; text-decoration: underline;"').'</td>'; // receiver email
 				$this->content .= '<td style="color: white; padding: 0 5px;">'.$row['senderIP'].'</td>'; // sender IP
 				$this->content .= '<td style="color: white; padding: 0 5px; text-align: center;">'.($_GET['mailID'] > 0 ? '<img src="'.(is_file($this->backpath.'sysext/t3skin/icons/gfx/i/pages.gif') ? $this->backpath.'sysext/t3skin/icons/gfx/i/pages.gif' : $this->backpath.'gfx/i/pages.gif').'" title="Not available in detail view" alt="detail" />' : '<a href="index.php?id='.$pid.'&mailID='.$row['uid'].'" onclick="vHWin=window.open(\'index.php?id='.$pid.'&mailID='.$row['uid'].'\',\'FEopenLink\',\'width=510,height=600,scrollbars=yes,resize=yes\');vHWin.focus();return false;"><img src="'.(is_file($this->backpath.'sysext/t3skin/icons/gfx/zoom.gif') ? $this->backpath.'sysext/t3skin/icons/gfx/zoom.gif' : $this->backpath.'gfx/zoom.gif').'" title="Open mail details" alt="detail" /></a>').'</td>';
+				$this->content .= '<td style="color: white; padding: 0 5px; text-align: center;"><a href="index.php?id='.$pid.'&deleteID='.$row['uid'] . ($_GET['startdate'] ? '&startdate='.$_GET['startdate'] : '') . ($_GET['enddate'] ? '&enddate='.$_GET['enddate'] : '') . '" onclick="return confirmSubmit(this)"><img src="'.$this->backpath.'sysext/t3skin/icons/gfx/garbage.gif" title="Delete this entry" alt="delete" /></a>'.'</td>';
 				
 				$this->content .= '</tr>'."\n";
 			}
@@ -133,9 +135,14 @@ class tx_powermail_belist {
 	// Show links for export methods
 	function exportIcons() {
 		$content = '<div style="float: right;">';
-		$content .= '<a href="index.php?id='.$this->pid.'&export=xls&startdate='.urlencode($this->startdate).'&enddate='.urlencode($this->enddate).'"><img src="../img/icon_xls.gif" style="margin: 5px;" title="'.$this->LANG->getLL('export_icon_excel').'" /></a>';
-		$content .= '<a href="index.php?id='.$this->pid.'&export=csv&startdate='.urlencode($this->startdate).'&enddate='.urlencode($this->enddate).'"><img src="../img/icon_csv.gif" style="margin: 5px;" title="'.$this->LANG->getLL('export_icon_csv').'" /></a>';
-		$content .= '<a href="index.php?id='.$this->pid.'&export=table&startdate='.urlencode($this->startdate).'&enddate='.urlencode($this->enddate).'" target="_blank"><img src="../img/icon_table.gif" style="margin: 5px;" title="'.$this->LANG->getLL('export_icon_html').'" /></a>';
+		$content .= '<a href="index.php?id='.$this->pid.'&export=xls&startdate='.urlencode($this->startdate).'&enddate='.urlencode($this->enddate) . ($_GET['delafterexport'] == 1 ? '&delafterexport=1' : '') . '"><img src="../img/icon_xls.gif" style="margin: 5px;" title="'.$this->LANG->getLL('export_icon_excel').'" alt="XLS export" /></a>';
+		$content .= '<a href="index.php?id='.$this->pid.'&export=csv&startdate='.urlencode($this->startdate).'&enddate='.urlencode($this->enddate) . ($_GET['delafterexport'] == 1 ? '&delafterexport=1' : '') . '"><img src="../img/icon_csv.gif" style="margin: 5px;" title="'.$this->LANG->getLL('export_icon_csv').'" alt="CSV export" /></a>';
+		$content .= '<a href="index.php?id='.$this->pid.'&export=table&startdate='.urlencode($this->startdate).'&enddate='.urlencode($this->enddate) . ($_GET['delafterexport'] == 1 ? '&delafterexport=1' : '') . '" target="_blank"><img src="../img/icon_table.gif" style="margin: 5px;" title="'.$this->LANG->getLL('export_icon_html').'" alt="HTML export" /></a>';
+		if ($_GET['delafterexport'] != 1) { // off
+			$content .= '<a href="index.php?id='.$this->pid.'&delafterexport=1&startdate='.urlencode($this->startdate).'&enddate='.urlencode($this->enddate).'" onclick="if (confirm(\''.$this->LANG->getLL('delall_sure').'\')) return true; else return false;"><img src="../img/icon_deloff.gif" style="margin: 5px;" title="'.$this->LANG->getLL('icon_deloff').'" alt="deleteOff" /></a>';
+		} else { // on
+			$content .= '<a href="index.php?id='.$this->pid.'&delafterexport=0&startdate='.urlencode($this->startdate).'&enddate='.urlencode($this->enddate).'"><img src="../img/icon_delon.gif" style="margin: 5px;" title="'.$this->LANG->getLL('icon_delon').'" alt="deleteOn" /></a>';		
+		}
 		$content .= '</div>';
 		$content .= '<div style="clear: both;"></div>';
 		$content .= '<br />';
