@@ -28,7 +28,6 @@ require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_function
 require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_markers.php'); // file for marker functions
 require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_db.php'); // file for marker functions
 require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_geoip.php'); // file for geo info
 
 
 class tx_powermail_submit extends tslib_pibase {
@@ -54,7 +53,6 @@ class tx_powermail_submit extends tslib_pibase {
 		$this->markers = t3lib_div::makeInstance('tx_powermail_markers'); // New object: TYPO3 mail functions
 		$this->markers->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
 		$this->confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extKey]); // Get config from localconf.php
-		$this->geo = t3lib_div::makeInstance('tx_powermail_geoip'); // Instance with geo class
 		
 		// Configuration
 		$this->noReplyEmail = str_replace('###DOMAIN###',str_replace('www.','',$_SERVER['SERVER_NAME']),$this->conf['email.']['noreply']); // no reply email address from TS setup
@@ -185,7 +183,6 @@ class tx_powermail_submit extends tslib_pibase {
 		$this->save_PID = $GLOBALS['TSFE']->id; // PID where to save: Take current page
 		if (intval($this->conf['PID.']['dblog']) > 0) $this->save_PID = $this->conf['PID.']['dblog']; // PID where to save: Get it from TS if set
 		if (intval($this->pibase->cObj->data['tx_powermail_pages']) > 0) $this->save_PID = $this->pibase->cObj->data['tx_powermail_pages']; // PID where to save: Get it from plugin
-		$geoArray = $this->geo->main($this->conf); // Get geoinfo array
 		
 		// DB entry for table Tabelle: tx_powermail_mails
 		$this->db_values = array (
@@ -201,8 +198,7 @@ class tx_powermail_submit extends tslib_pibase {
 			'senderIP' => ($this->confArr['disableIPlog'] == 1 ? $this->pi_getLL('error_backend_noip') : $_SERVER['REMOTE_ADDR']),
 			'UserAgent' => $_SERVER['HTTP_USER_AGENT'],
 			'Referer' => $_SERVER['HTTP_REFERER'],
-			'SP_TZ' => $_SERVER['SP_TZ'],
-			'Additional' => $this->confArr['disableIPlog'] != 1 && count($geoArray) > 0 ? $geoArray['countryCode']. ', ' . $geoArray['countryName']. ', ' . $geoArray['region']. ', ' . $geoArray['city']. ', ' . $geoArray['zip'] : ''
+			'SP_TZ' => $_SERVER['SP_TZ']
 		);
 		if ($this->dbInsert) $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_mails',$this->db_values); // DB entry
 		$this->debug('db'); // Debug output

@@ -150,6 +150,47 @@
 			<label index="JSvalidation_label_validate_selection">Please make a selection</label>
 			<label index="JSvalidation_label_validate_one_required">Please select one of the above options</label>
 		</languageKey>		
+		<languageKey index="es" type="array">
+			<label index="locallangmarker_confirmation_question">¿ Son los datos correctos?</label>
+			<label index="locallangmarker_confirmation_back">Volver</label>
+			<label index="locallangmarker_confirmation_files">Archivo adjunto %s:</label>
+			<label index="locallangmarker_confirmation_submit">Enviar datos</label>
+			<label index="locallangmarker_email_receiver">Gracias por su EMAIL:</label>
+			<label index="locallangmarker_email_sender">Tiene EMAIL nuevo:</label>
+			<label index="locallangmarker_mandatory_message">Se han encontrado errores:</label>
+			<label index="locallangmarker_mandatory_emptyfield">Este campo es obligatorio:</label>
+			<label index="locallangmarker_mandatory_submit">Volver al formulario</label>
+			<label index="locallangmarker_error_validemail">La dirección de EMAIL es incorrecta:</label>
+			<label index="locallangmarker_error_file_main">Este archivo no hay podido descargarse:</label>
+			<label index="locallangmarker_error_file_toolarge">El archivo es demasiado grande:</label>
+			<label index="locallangmarker_error_file_extension">Este tipo de extension no está permitida:</label>
+			<label index="error_check_prefix">Error PowerMail!! Por favor  vuelva a intentarlo: </label>
+			<label index="error_check_subject_r">Asunto del Email del destinatario</label>
+			<label index="error_check_recipient">Dirección EMAIL del destinatario</label>
+			<label index="error_captcha_empty">Falta código</label>
+			<label index="error_captcha_wrong">Código erroneo</label>
+			<label index="error_backend_noip">IP cargada desconectada</label>
+			<label index="error_validemail">Dirección de Email no válida</label>
+			<label index="error_nomx">Email address don't exist</label>
+			<label index="error_unique_field">%s was already used</label>
+			<label index="error_unique_ip">IP address %s already made an entry</label>
+			<label index="error_expression_validation">Validación fallida</label>
+			<label index="multiple_forward">siguiente</label>
+			<label index="multiple_back">Anterior</label>
+			<label index="pagebrowser_inner"> de </label>
+			<label index="JSvalidation_label_required">Este campo es obligatorio</label>
+			<label index="JSvalidation_label_validate_number">Por favor introduzca un número correcto en este campo</label>
+			<label index="JSvalidation_label_validate_digits">Por favor utilice números en este campo. Evitar espacios, comas, puntos, etc…</label>
+			<label index="JSvalidation_label_validate_alpha">Por favor utilice letras (a-z) en este campo</label>
+			<label index="JSvalidation_label_validate_alphanum">Por favor utilice únicamente letras (a-z) o números (0-9) en este campo. Espacios u otros caracteres no están permitidos</label>
+			<label index="JSvalidation_label_validate_date">Por favor introduzca un fecha correctae</label>
+			<label index="JSvalidation_label_validate_email">Por favor introduzca una dirección Email correcta (test@test.com)</label>
+			<label index="JSvalidation_label_validate_url">Por favor introduzca una URL  correcta (http://www.test.com)</label>
+			<label index="JSvalidation_label_validate_date_au">Por favor utilice una fecha con formato: dd/mm/yyyy. Por ejemplo 17/03/2006 para el  17 de Marzo, 2006</label>
+			<label index="JSvalidation_label_validate_currency_dollar">Por favor introduzca una camtidad $ correcta. Por ejemplo $100.00</label>
+			<label index="JSvalidation_label_validate_selection">Por favor haga una selección</label>
+			<label index="JSvalidation_label_validate_one_required">Por favor seleccione una de las opciones mostradas arriba</label>
+		</languageKey>		
 		<languageKey index="fr" type="array">
 			<label index="locallangmarker_confirmation_question">Ces informations sont-elles correctes?</label>
 			<label index="locallangmarker_confirmation_back">Retour</label>
@@ -186,6 +227,47 @@
 			<label index="JSvalidation_label_validate_selection">Veuillez faire un choix</label>
 			<label index="JSvalidation_label_validate_one_required">Veuillez choisir une des options ci-dessus</label>
 		</languageKey>
+		<languageKey index="it" type="array">
+			<label index="locallangmarker_confirmation_question">Are this values correct?</label>
+			<label index="locallangmarker_confirmation_back">Go back</label>
+			<label index="locallangmarker_confirmation_files">Attached file %s:</label>
+			<label index="locallangmarker_confirmation_submit">Send values now</label>
+			<label index="locallangmarker_email_receiver">Thank you for your email:</label>
+			<label index="locallangmarker_email_sender">You've got a new email:</label>
+			<label index="locallangmarker_mandatory_message">There are some errors:</label>
+			<label index="locallangmarker_mandatory_emptyfield">This field must be filled:</label>
+			<label index="locallangmarker_mandatory_submit">Go back to the form</label>
+			<label index="locallangmarker_error_validemail">This is not a valid email address:</label>
+			<label index="locallangmarker_error_file_main">This file could not be uploaded:</label>
+			<label index="locallangmarker_error_file_toolarge">This file is too large:</label>
+			<label index="locallangmarker_error_file_extension">This file extension is not allowed:</label>
+			<label index="error_check_prefix">PowerMail error!! Please fill in this backend fields: </label>
+			<label index="error_check_subject_r">Email receiver subject</label>
+			<label index="error_check_recipient">Email address of receiver</label>
+			<label index="error_captcha_empty">Captcha Code empty</label>
+			<label index="error_captcha_wrong">Captcha Code wrong</label>
+			<label index="error_backend_noip">IP logging disabled</label>
+			<label index="error_validemail">Email addres is not valid</label>
+			<label index="error_nomx">Email address don't exist</label>
+			<label index="error_unique_field">%s was already used</label>
+			<label index="error_unique_ip">IP address %s already made an entry</label>
+			<label index="error_expression_validation">Validation failed</label>
+			<label index="multiple_forward">Next step</label>
+			<label index="multiple_back">Previous step</label>
+			<label index="pagebrowser_inner"> of </label>
+			<label index="JSvalidation_label_required">Campo obbligatorio</label>
+			<label index="JSvalidation_label_validate_number">Please enter a valid number in this field</label>
+			<label index="JSvalidation_label_validate_digits">Please use numbers only in this field. please avoid spaces or other characters such as dots or commas</label>
+			<label index="JSvalidation_label_validate_alpha">Please use letters only (a-z) in this field</label>
+			<label index="JSvalidation_label_validate_alphanum">Please use only letters (a-z) or numbers (0-9) only in this field. No spaces or other characters are allowed</label>
+			<label index="JSvalidation_label_validate_date">Please enter a valid date</label>
+			<label index="JSvalidation_label_validate_email">Please enter a valid email address (test@test.com)</label>
+			<label index="JSvalidation_label_validate_url">Please enter a valid URL (http://www.test.com)</label>
+			<label index="JSvalidation_label_validate_date_au">Please use this date format: dd/mm/yyyy. For example 17/03/2006 for the 17th of March, 2006</label>
+			<label index="JSvalidation_label_validate_currency_dollar">Please enter a valid $ amount. For example $100.00</label>
+			<label index="JSvalidation_label_validate_selection">Please make a selection</label>
+			<label index="JSvalidation_label_validate_one_required">Please select one of the above options</label>
+		</languageKey>
 		<languageKey index="nl" type="array">
 			<label index="locallangmarker_confirmation_question">Zijn deze waarden correct?</label>
 			<label index="locallangmarker_confirmation_back">Ga terug</label>
@@ -220,6 +302,88 @@
 			<label index="JSvalidation_label_validate_currency_dollar">Vul een correct bedrag in.</label>
 			<label index="JSvalidation_label_validate_selection">Maak een keuze.</label>
 			<label index="JSvalidation_label_validate_one_required">Kieze een van de bovenstaande opties</label>
+		</languageKey>
+		<languageKey index="pl" type="array">
+			<label index="locallangmarker_confirmation_question">Czy te dane są poprawne?</label>
+			<label index="locallangmarker_confirmation_back">Wstecz</label>
+			<label index="locallangmarker_confirmation_files">Załączony plik %:</label>
+			<label index="locallangmarker_confirmation_submit">Wyślij dane</label>
+			<label index="locallangmarker_email_receiver">Dziękujemy za Twój e-mail</label>
+			<label index="locallangmarker_email_sender">Otrzymałeś nowy e-mail</label>
+			<label index="locallangmarker_mandatory_message">Komunikat o wystąpieniu błędów</label>
+			<label index="locallangmarker_mandatory_emptyfield">To pole musi zostać wypełnione:</label>
+			<label index="locallangmarker_mandatory_submit">Wróć do formularza</label>
+			<label index="locallangmarker_error_validemail">Ten adres e-mail jest niepoprawny</label>
+			<label index="locallangmarker_error_file_main">Ten plik nie może zostać załadowany</label>
+			<label index="locallangmarker_error_file_toolarge">Ten plik jest za duży</label>
+			<label index="locallangmarker_error_file_extension">Takie rozszerzenie pliku nie jest dozwolone</label>
+			<label index="error_check_prefix">Błąd PowerMail! Wypełnij następujące pola backendzie: </label>
+			<label index="error_check_subject_r">Temat dla odbiorcy e-maila</label>
+			<label index="error_check_recipient">Adres e-mail odbiorcy</label>
+			<label index="error_captcha_empty">Zapomniałeś wprowadzić kod</label>
+			<label index="error_captcha_wrong">Wprowadzony kod jest niepoprawny</label>
+			<label index="error_backend_noip">Zapisywanie danych w sieci IP zostało dezaktywowane</label>
+			<label index="error_validemail">Podany adres e-mail zawiera błędy</label>
+			<label index="error_nomx">Email address don't exist</label>
+			<label index="error_unique_field">%s was already used</label>
+			<label index="error_unique_ip">IP address %s already made an entry</label>
+			<label index="error_expression_validation">Zatwierdzenie nie powiodło się</label>
+			<label index="multiple_forward">Następny krok</label>
+			<label index="multiple_back">Poprzedni krok</label>
+			<label index="pagebrowser_inner"> od </label>
+			<label index="JSvalidation_label_required">To pole jest wymagane</label>
+			<label index="JSvalidation_label_validate_number">Proszę wprowadzić numer</label>
+			<label index="JSvalidation_label_validate_digits">Proszę wprowadzić numer bez przecinków ani kropek</label>
+			<label index="JSvalidation_label_validate_alpha">Proszę używać tylko liter (a-z)</label>
+			<label index="JSvalidation_label_validate_alphanum">Proszę używać tylko liter (a-z) lub cyfr (0-9) tylko w tym polu. Spacje i inne znaki nie są dozwolone.</label>
+			<label index="JSvalidation_label_validate_date">Proszę wprowadzić poprawną datę</label>
+			<label index="JSvalidation_label_validate_email">Proszę wprowadzić ważny adres e-mail (test@test.pl)</label>
+			<label index="JSvalidation_label_validate_url">Proszę wprowadzić ważny adres URL (http://www.test.pl)</label>
+			<label index="JSvalidation_label_validate_date_au">Proszę wprowadzić datę w następującym formacie: dd/mm/rrrr (np. 17/03/2006)</label>
+			<label index="JSvalidation_label_validate_currency_dollar">Proszę wprowadzić ważną kwotę (np. € 100,00)</label>
+			<label index="JSvalidation_label_validate_selection">Dokonaj wyboru</label>
+			<label index="JSvalidation_label_validate_one_required">Proszę wybrać jedną z powyższych opcji</label>
+		</languageKey>
+		<languageKey index="pt" type="array">
+			<label index="locallangmarker_confirmation_question">Estes valores estão correctos?</label>
+			<label index="locallangmarker_confirmation_back">Voltar atrás</label>
+			<label index="locallangmarker_confirmation_files">Ficheiro anexo %s:</label>
+			<label index="locallangmarker_confirmation_submit">Enviar valores agora</label>
+			<label index="locallangmarker_email_receiver">Obrigado pelo seu e-mail</label>
+			<label index="locallangmarker_email_sender">Tem uma nova mensagem de correio:</label>
+			<label index="locallangmarker_mandatory_message">Existem alguns erros:</label>
+			<label index="locallangmarker_mandatory_emptyfield">Este campo deve ser preenchido:</label>
+			<label index="locallangmarker_mandatory_submit">Voltar ao formulário</label>
+			<label index="locallangmarker_error_validemail">Endereço de e-mail não é válido:</label>
+			<label index="locallangmarker_error_file_main">Não foi possivel fazer o upload deste ficheiro:</label>
+			<label index="locallangmarker_error_file_toolarge">O ficheiro ultrapassou o tamanho máximo permitido:</label>
+			<label index="locallangmarker_error_file_extension">Extensão de ficheiro não permitida:</label>
+			<label index="error_check_prefix">Erro de PowerMail! Por favor preencha estes campos: </label>
+			<label index="error_check_subject_r">assunto destinatário</label>
+			<label index="error_check_recipient">Endereço de e-mail do recipiente</label>
+			<label index="error_captcha_empty">Código vazio</label>
+			<label index="error_captcha_wrong">Código errado</label>
+			<label index="error_backend_noip">Registo de endereço IP desabilitado</label>                              
+			<label index="error_validemail">Endereço de e-mail inválido</label>
+			<label index="error_nomx">Email address don't exist</label>
+			<label index="error_unique_field">%s was already used</label>
+			<label index="error_unique_ip">IP address %s already made an entry</label>
+			<label index="error_expression_validation">Validação falhou</label>
+			<label index="multiple_forward">Próxima etapa</label>
+			<label index="multiple_back">Etapa anterior</label>
+			<label index="pagebrowser_inner"> de </label>
+			<label index="JSvalidation_label_required">Este campo é de preenchimento obrigatório</label>
+			<label index="JSvalidation_label_validate_number">Por favor, introduza um número válido neste campo</label>
+			<label index="JSvalidation_label_validate_digits">Por favor, use apenas algarismos neste campo. Evite espaços ou caracteres como pontos ou vírgulas</label>
+			<label index="JSvalidation_label_validate_alpha">Por favor, use apenas letras (a-z) neste campo</label>
+			<label index="JSvalidation_label_validate_alphanum">Por favor, use apenas letras (a-z) ou números neste campo. Espaços ou outros caracteres não são permitidos.</label>
+			<label index="JSvalidation_label_validate_date">Por favor, introduza uma data válida.</label>
+			<label index="JSvalidation_label_validate_email">Por favor, introduza um endereço de e-mail válido (ex. teste@teste.pt)</label>
+			<label index="JSvalidation_label_validate_url">Por favor, introduza um endereço válido(ex. http://www.teste.pt)</label>
+			<label index="JSvalidation_label_validate_date_au">Por favor, use o formato: dd/mm/aaaa. Por exemplo, 17/03/2006 para a data de 17 de Março de 2006.</label>
+			<label index="JSvalidation_label_validate_currency_dollar">Por favor, introduza um montante válido. Por exemplo, €100.00</label>
+			<label index="JSvalidation_label_validate_selection">Por favor, faça uma selecção</label>
+			<label index="JSvalidation_label_validate_one_required">Por favor, seleccione uma pelo menos uma das opções</label>
 		</languageKey>
 	</data>
 </T3locallang>

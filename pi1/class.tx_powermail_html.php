@@ -126,7 +126,7 @@ class tx_powermail_html extends tslib_pibase {
 					if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldHook'][$this->type])) { // Adds hook for processing of extra fields
 						foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldHook'][$this->type] as $_classRef) {
 							$_procObj = &t3lib_div::getUserObj($_classRef);
-							$this->content = $_procObj->PM_FieldHook($this->xml, $this->title, $this->type, $this->uid, $this->markerArray, $this);
+							$this->content = $_procObj->PM_FieldHook($this->xml, $this->title, $this->type, $this->uid, $this->markerArray, $this->piVarsFromSession, $this);
 						}
 					} else { // no hook so write errormessage
 						$this->content = 'POWERMAIL: wrong input field required: <strong>'.$this->type.'</strong> in tx_powermail_pi1_html (field uid '.$row['f_uid'].')<br />'; // errormessage
@@ -373,8 +373,14 @@ class tx_powermail_html extends tslib_pibase {
 	 * @return	[type]		...
 	 */
 	function html_reset() {
+			
 		$this->tmpl['html_reset'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_RESET###'); // work on subpart
-
+		
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'clearSession')) { // if checkbox clearSession is checked
+			//$this->markerArray['###JS###'] = 'onclick="location=\'/'.$this->pibase->pi_linkTP_keepPIvars_url(array('clearSession' => 1)).'\'" '; // Fill marker ###JS### with eventhandler
+			$this->markerArray['###JS###'] = 'onclick="location=\'/'.$this->pibase->cObj->typolink('x',array("returnLast"=>"url", "parameter"=>$GLOBALS['TSFE']->id, "additionalParams"=>'&tx_powermail_pi1[clearSession]=-1'), 1).'\'" '; // Fill marker ###JS### with eventhandler
+		}
+		
 		$this->markerArray['###CLASS###'] = 'class="powermail_'.$this->formtitle.' powermail_'.$this->type.' powermail_reset_uid'.$this->uid.'" '; // add class name to markerArray
 		$this->markerArray['###VALUE###'] = 'value="'.$this->dontAllow($this->title).'" '; // add value (used from title) to markerArray
 
@@ -382,6 +388,7 @@ class tx_powermail_html extends tslib_pibase {
 		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_reset'],$this->markerArray); // substitute Marker in Template
 		$content = $this->dynamicMarkers->main($this->conf, $this->pibase->pibase->cObj, $content); // Fill dynamic locallang or typoscript markers
 		$content = preg_replace("|###.*?###|i","",$content); // Finally clear not filled markers
+		
 		return $content; // return HTML
 	}
 
@@ -394,7 +401,7 @@ class tx_powermail_html extends tslib_pibase {
 	function html_label() {
 		$this->tmpl['html_label'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_LABEL###'); // work on subpart
 
-		if($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'send')) { // label should be send with email
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'send')) { // label should be send with email
 			$this->markerArray['###HIDDEN###'] = '<input type="hidden" name="'.$this->prefixId.'[uid'.$this->uid.']" value="'.$this->div_functions->clearValue($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')).'" />'; // create hidden field
 		}
 		$this->markerArray['###CONTENT###'] = strip_tags($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value'),$this->conf['label.']['allowTags']); // fill label marker
@@ -480,13 +487,24 @@ class tx_powermail_html extends tslib_pibase {
 	 * @return	[type]		...
 	 */
 	function html_file() {
-		$this->tmpl['html_file'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_FILE###'); // work on subpart
-
+		if (!$this->piVarsFromSession['uid'.$this->uid]) { // There is no uploaded file in the session
+			$this->tmpl['html_file'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_FILE###'); // work on subpart
+		
+		} else { // There is an uploaded file in the session
+			$this->tmpl['html_file'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_FILE_LIST###'); // work on subpart
+			
+			$this->markerArray['###FILE###'] = $this->piVarsFromSession['uid'.$this->uid];
+			$this->markerArray['###DELETEFILE_URL###'] = $this->pibase->pi_linkTP_keepPIvars_url(array('clearSession' => $this->uid));
+			$this->markerArray['###DELETEFILE###'] .= t3lib_extMgm::siteRelPath('powermail').'img/icon_del.gif';
+			
+		}
+	
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
-		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_file'],$this->markerArray); // substitute Marker in Template
+		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_file'], $this->markerArray); // substitute Marker in Template
 		$content = $this->dynamicMarkers->main($this->conf, $this->pibase->pibase->cObj, $content); // Fill dynamic locallang or typoscript markers
 		$content = preg_replace("|###.*?###|i","",$content); // Finally clear not filled markers
-		return $content; // return HTML
+		
+		if (!empty($content)) return $content; // return HTML
 	}
 	
 
@@ -856,6 +874,12 @@ class tx_powermail_html extends tslib_pibase {
 			$this->markerArray['###ROWS###'] = 'rows="'.intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'rows')).'" '; // add number of rows to markerArray
 		}
 		
+		// ###POWERMAIL_TARGET###
+		$this->markerArray['###POWERMAIL_TARGET###'] = $this->pibase->cObj->typolink('x', array("returnLast" => "url", "parameter" => $GLOBALS['TSFE']->id, "useCacheHash"=>1)); // Global marker with form target
+		
+		// ###POWERMAIL_NAME###
+		$this->markerArray['###POWERMAIL_NAME###'] = $this->formtitle; // Global Marker with formname
+		
 		// ###TABINDEX###
 		// 1. add tabindex automaticly
 		if (in_array($this->uid, $this->tabindex)) { // if current uid within tabindex array
@@ -931,7 +955,7 @@ class tx_powermail_html extends tslib_pibase {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
-				$_procObj->PM_FieldWrapMarkerHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->content, $this); // Get new marker Array from other extensions
+				$_procObj->PM_FieldWrapMarkerHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->content, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
 			}
 		}
 	}
@@ -942,7 +966,7 @@ class tx_powermail_html extends tslib_pibase {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
-				$_procObj->PM_FieldWrapMarkerHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this); // Get new marker Array from other extensions
+				$_procObj->PM_FieldWrapMarkerHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
 			}
 		}
 	}

@@ -6,17 +6,14 @@
 	<ROOT>
 		<type>array</type>
 		<el>
-			<!-- 
-			<value>
+			<clearSession>
 				<TCEforms>
-					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.value</label>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.clearSession</label>
 					<config>
-						<type>input</type>
-						<size>35</size>
+						<type>check</type>
 					</config>
 				</TCEforms>
-			</value>
-			-->
+			</clearSession>
 			<example>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>

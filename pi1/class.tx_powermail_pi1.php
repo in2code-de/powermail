@@ -65,6 +65,7 @@ class tx_powermail_pi1 extends tslib_pibase {
 		
 		// Sessionwork
 		$this->sessions->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
+		$this->sessions->deleteSession($this->piVars['clearSession']); // If GET Param clearSession is set, delete complete Session
 		$this->piVars = $this->sessions->changeData($this->piVars); // manipulate data (upload fields, check email, etc..)
 		$this->sessions->setSession($this->piVars,0); // Set piVars to session (but don't overwrite old values)
 		$this->sessionfields = $this->sessions->getSession(0); // give me all piVars from session (without not needed values)

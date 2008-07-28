@@ -20,6 +20,8 @@ Powermail HTML Template for fieldwraps
 	###TABINDEX###				Uses tabindex (automaticly or via constants)
 	###ACCESSKEY###				Uses acceskeys if set in constants
 	###JS###					Could be used in different powermail extensions to add eventhandler, etc..
+    ###POWERMAIL_TARGET### 		Link to the same page (could be used for different javascripts, etc..)
+    ###POWERMAIL_NAME###		Form name (could be used for different javascripts, etc..)
 	
 	--- GENERAL MARKERS --
 	Displaying any value from pi1/locallang.xml:		###POWERMAIL_LOCALLANG_YOURFIELD### (Could be filled via locallang.xml or typoscript - see manual for details)
@@ -241,6 +243,13 @@ Fieldwrap for file fields like <input type="file" />
 		<input type="file" ###NAME######CLASS######ID######SIZE######TABINDEX######ACCESSKEY######JS###/>
 	</div>
 <!-- ###POWERMAIL_FIELDWRAP_HTML_FILE### end -->
+
+<!-- ###POWERMAIL_FIELDWRAP_HTML_FILE_LIST### begin -->
+	<div class="tx_powermail_pi1_fieldwrap_html tx_powermail_pi1_fieldwrap_html_file tx_powermail_pi1_fieldwrap_html_###POWERMAIL_FIELD_UID###">
+		###FILE###
+		<a href="###DELETEFILE_URL###"><img src="###DELETEFILE###" /></a>
+	</div>
+<!-- ###POWERMAIL_FIELDWRAP_HTML_FILE_LIST### end -->
 
 
 

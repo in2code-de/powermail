@@ -72,6 +72,41 @@ class tx_powermail_sessions extends tslib_pibase {
 	}
 	
 	
+	// Function deleteSession() 
+	function deleteSession($uid) {
+		if (!is_array($uid)) { // is not an array
+			if ($uid == -1) { // delete all
+				
+				$GLOBALS['TSFE']->fe_user->setKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']), array()); // Overwrite Session with empty array
+				$GLOBALS['TSFE']->storeSessionData(); // Save session
+				
+			} elseif ($uid > 0) { // delete only one value from session
+				
+				$oldPiVars = $this->getSession(); // Get all old piVars from Session
+				$oldvalue = $oldPiVars['uid'.$uid]; // filename
+				if (count($oldPiVars['FILE']) > 0) { // if there are values in the FILE array
+					foreach ($oldPiVars['FILE'] as $key => $value) { // one loop for every file in array
+						if ($value == $oldvalue) unset($oldPiVars['FILE'][$key]); // delete FILE array value
+					}
+				}
+				unset($oldPiVars['uid'.$uid]); // Delete one uid
+				$GLOBALS['TSFE']->fe_user->setKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
+				$GLOBALS['TSFE']->storeSessionData(); // Save session
+				
+			}
+		} else { // is an array (multiple upload)
+			if (count($uid)>0) {
+				$oldPiVars = $this->getSession(); // Get all old piVars from Session
+				foreach ($uid as $key => $value) {
+					unset($oldPiVars['FILE'][$key]); // delete FILE array value
+				}
+				$GLOBALS['TSFE']->fe_user->setKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
+				$GLOBALS['TSFE']->storeSessionData(); // Save session
+			}
+		}
+	}
+	
+	
 	// change Date to manipulate piVars (maybe uploads should be changed, sender email address should be valid, etc..)
 	function changeData($piVars) {
 		
