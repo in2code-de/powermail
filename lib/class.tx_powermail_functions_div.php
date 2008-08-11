@@ -36,6 +36,7 @@
 class tx_powermail_functions_div {
 
 	var $extKey = 'powermail';
+	var $scriptRelPath = 'pi1/class.tx_powermail_pi1.php';	// Path to any script in the pi folder for locallang
 	
 	// Function sec() is a security function against all bad guys :) 
 	function sec($array) {
@@ -249,6 +250,23 @@ class tx_powermail_functions_div {
 		$content = str_replace($notallowed, '', $content); // 6. remove not allowed signs
 		
 		if (!empty($content)) return $content;
+	}
+	
+	
+	// Function subpartsExists() checks if every part of the array contains min one sign
+	function subpartsExists($array) {
+		if (count($array) > 0) { // if there are values
+			foreach ($array as $key => $value) { // one loop for every array part
+				if (!is_array($value)) { // first level
+					if (strlen($value) == 0) return false; // error
+				} else { // second level
+					foreach ($value as $key2 => $value2) { // one loop for every array part in second level
+						if (strlen($value2) == 0) return false; // error
+					}
+				}
+			}
+		}
+		return true; // ok
 	}
 
 

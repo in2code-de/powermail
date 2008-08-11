@@ -9,6 +9,7 @@ Powermail HTML Template for formwrap
 	Backlink (only if multiple):						###POWERMAIL_MULTIPLE_BACKLINK###
 	Nextlink (only if multiple):						###POWERMAIL_MULTIPLE_FORWARDLINK###
 	JavaScript for validation:							###POWERMAIL_MANDATORY_JS###
+    Marker for Extensions:								###POWERMAIL_JS###
 	
 	-- MARKERS INSIDE SUBPARTS ---
 	Name of fieldset (small letters):					###POWERMAIL_FIELDSETNAME_small###
@@ -26,7 +27,7 @@ Powermail HTML Template for formwrap
 		<form name="###POWERMAIL_NAME###" id="###POWERMAIL_NAME###" action="###POWERMAIL_TARGET###" method="###POWERMAIL_METHOD###" class="tx_powermail_pi1_form" enctype="multipart/form-data">
 			###POWERMAIL_MULTIPLE_PAGEBROWSER###
 			<!-- ###POWERMAIL_CONTENT### --><!-- ###POWERMAIL_ITEM### -->
-				<fieldset class="tx-powermail-pi1_fieldset tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSETNAME_small### tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSET_UID###" id="tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSET_UID###">
+				<fieldset class="tx-powermail-pi1_fieldset tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSETNAME_small### tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSET_UID###" id="tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSET_UID###"###POWERMAIL_JS###>
 					<legend>###POWERMAIL_FIELDSETNAME###</legend>
 					###POWERMAIL_FIELDS###
 				</fieldset>

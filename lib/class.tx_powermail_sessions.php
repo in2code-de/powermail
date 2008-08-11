@@ -133,18 +133,18 @@ class tx_powermail_sessions extends tslib_pibase {
 				$limit =''
 			);
 			if ($res) { // If there is a result
-				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every uploadfield 
-					if($_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']]) { // if there is a content in current upload field
-						if(is_array($_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']])) { // is this an array? Can be for multiple file-upload
-							foreach($_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']] as $key => $file) {
-								if($file != ''){
+				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every uploadfield 
+					if ($_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']]) { // if there is a content in current upload field
+						if (is_array($_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']])) { // is this an array? Can be for multiple file-upload
+							foreach ($_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']] as $key => $file) {
+								if ($file != '') {
 									$fileinfo = pathinfo($file); // get info about uploaded file
 									$newfilename = str_replace('.'.$fileinfo['extension'],'',$file).'_'.t3lib_div::md5int($file.time()).'.'.$fileinfo['extension']; // filename like name_md5ofnameandtime.ext
 
-									if(filesize($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']][$key]) < ($this->conf['upload.']['filesize'] * 1024)) { // filesize check
-										if(in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions)) { // if current fileextension is allowed
+									if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']][$key]) < ($this->conf['upload.']['filesize'] * 1024)) { // filesize check
+										if (in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions)) { // if current fileextension is allowed
 											// upload copy move uploaded files to destination
-											if(t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']][$key], t3lib_div::getFileAbsFileName($this->div_functions->correctPath($this->conf['upload.']['folder']).$newfilename))) {
+											if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']][$key], t3lib_div::getFileAbsFileName($this->div_functions->correctPath($this->conf['upload.']['folder']).$newfilename))) {
 												$piVars['uid'.$row['uid']] = $newfilename; // write new filename to session (area for normal fields)
 												$piVars['FILE'][] = $newfilename; // write new filename to session (area for files)
 											} else { // could not be copied (maybe write permission error or wrong path)
@@ -163,10 +163,10 @@ class tx_powermail_sessions extends tslib_pibase {
 							$fileinfo = pathinfo($_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']]); // get info about uploaded file
 							$newfilename = str_replace('.'.$fileinfo['extension'],'',$_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']]).'_'.t3lib_div::md5int($_FILES['tx_powermail_pi1']['name']['uid'.$row['uid']].time()).'.'.$fileinfo['extension']; // filename like name_md5ofnameandtime.ext
 
-							if(filesize($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']]) < ($this->conf['upload.']['filesize'] * 1024)) { // filesize check
-								if(in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions)) { // if current fileextension is allowed
+							if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']]) < ($this->conf['upload.']['filesize'] * 1024)) { // filesize check
+								if (in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions)) { // if current fileextension is allowed
 									// upload copy move uploaded files to destination
-									if(t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']], t3lib_div::getFileAbsFileName($this->div_functions->correctPath($this->conf['upload.']['folder']).$newfilename))) {
+									if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']], t3lib_div::getFileAbsFileName($this->div_functions->correctPath($this->conf['upload.']['folder']).$newfilename))) {
 										$piVars['uid'.$row['uid']] = $newfilename; // write new filename to session (area for normal fields)
 										$piVars['FILE'][] = $newfilename; // write new filename to session (area for files)
 									} else { // could not be copied (maybe write permission error or wrong path)

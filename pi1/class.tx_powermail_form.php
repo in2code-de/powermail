@@ -43,6 +43,8 @@ class tx_powermail_form extends tslib_pibase {
 		$this->conf = $conf;
 		$this->baseurl = ($GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] ? $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] : 'http://'.$_SERVER['HTTP_HOST'].'/'); // set baseurl
 		$this->dynamicMarkers = t3lib_div::makeInstance('tx_powermail_dynamicmarkers'); // New object: TYPO3 marker function
+		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
+		$this->html_input_field = t3lib_div::makeInstance('tx_powermail_html'); // New object: html generation of input fields
 		
 		// load mandatory javascript in header if needed
 		$js = '';
@@ -96,8 +98,6 @@ class tx_powermail_form extends tslib_pibase {
 	// Function form() generates form tags and loads field
 	function form($limit = '') {
 		// Configuration
-		$div_functions = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
-		$html_input_field = t3lib_div::makeInstance('tx_powermail_html'); // New object: html generation of input fields
 		$i=1; // counter for automatic tabindex
 
 		$this->tmpl['all'] = tslib_cObj::fileResource($this->conf['template.']['formWrap']); // Load HTML Template
@@ -151,16 +151,17 @@ class tx_powermail_form extends tslib_pibase {
 					$limit1 = ''
 				);
 				if ($res2) { // If there is a result
-					$html_input_field->init($this->conf,$this);
+					$this->html_input_field->init($this->conf,$this);
 					while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res2)) { // One loop for every field
-						$this->InnerMarkerArray['###POWERMAIL_FIELDS###'] .= $html_input_field->main($conf, $row, $this->tabindexArray()); // Get HTML code for each field
+						$this->InnerMarkerArray['###POWERMAIL_FIELDS###'] .= $this->html_input_field->main($conf, $row, $this->tabindexArray()); // Get HTML code for each field
 						$i++; // increase counter
 					}
 				}
 				
 				$this->InnerMarkerArray['###POWERMAIL_FIELDSETNAME###'] = $row_fs['title']; // Name of fieldset
-				$this->InnerMarkerArray['###POWERMAIL_FIELDSETNAME_small###'] = $div_functions->clearName($row_fs['title'],1,32); // Fieldsetname clear (strtolower = 1 / cut after 32 letters)
+				$this->InnerMarkerArray['###POWERMAIL_FIELDSETNAME_small###'] = $this->div->clearName($row_fs['title'],1,32); // Fieldsetname clear (strtolower = 1 / cut after 32 letters)
 				$this->InnerMarkerArray['###POWERMAIL_FIELDSET_UID###'] = $row_fs['uid']; // uid of fieldset
+				$this->hookInner(); // adds hookInner
 				$this->content_item .= $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['formwrap']['item'],$this->InnerMarkerArray);
 			}
 		}
@@ -171,6 +172,7 @@ class tx_powermail_form extends tslib_pibase {
 		$this->contentForm = $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['formwrap']['all'],$this->OuterMarkerArray,$this->subpartArray); // substitute Marker in Template
 		$this->contentForm = $this->dynamicMarkers->main($this->conf, $this->pibase->cObj, $this->contentForm); // Fill dynamic locallang or typoscript markers
 		$this->contentForm = preg_replace("|###.*?###|i","",$this->contentForm); // Finally clear not filled markers
+		if (!$this->div->subpartsExists($this->tmpl)) $this->contentForm = $this->pi_getLL('error_templateNotFound', 'Template not found, check path to your powermail templates');
 		
 		return $this->contentForm; // return HTML
 	}
@@ -291,15 +293,27 @@ class tx_powermail_form extends tslib_pibase {
 	}
 	
 	
+	// Function hookInner() to enable manipulation datas with another extension(s) within loop
+	function hookInner() {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormWrapMarkerHookInner'])) { // Adds hook for processing of extra global markers
+			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormWrapMarkerHookInner'] as $_classRef) {
+				$_procObj = & t3lib_div::getUserObj($_classRef);
+				$_procObj->PM_FormWrapMarkerHookInner($this->InnerMarkerArray, $this->conf, $this); // Open function to manipulate datas
+			}
+		}
+	}
+	
+	
 	// Function hook() to enable manipulation datas with another extension(s)
 	function hook() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormWrapMarkerHook'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormWrapMarkerHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
-				$_procObj->PM_FormWrapMarkerHook($this->OuterMarkerArray,$this->subpartArray,$this->conf,$this); // Open function to manipulate datas
+				$_procObj->PM_FormWrapMarkerHook($this->OuterMarkerArray, $this->subpartArray, $this->conf, $this); // Open function to manipulate datas
 			}
 		}
 	}
+	
 	
 	// Generates JavaScript HTML output
 	function includeJavaScript($path,$file) {
@@ -308,6 +322,7 @@ class tx_powermail_form extends tslib_pibase {
 			return $js;
 		}
 	}
+	
 	
 	// Add Javascript after form output for mandatory check
 	function AddMandatoryJS() {

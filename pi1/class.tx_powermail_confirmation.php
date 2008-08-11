@@ -23,6 +23,7 @@
 ***************************************************************/
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
+require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_functions_div.php'); // file for div functions
 require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_markers.php'); // file for marker functions
 require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
 
@@ -40,6 +41,7 @@ class tx_powermail_confirmation extends tslib_pibase {
 		$this->dynamicMarkers = t3lib_div::makeInstance('tx_powermail_dynamicmarkers'); // New object: TYPO3 dynamicmarker function
 		$this->markers = t3lib_div::makeInstance('tx_powermail_markers'); // New object: TYPO3 marker functions
 		$this->markers->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
+		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
 		
 		// Template
 		$this->tmpl = array();
@@ -58,6 +60,7 @@ class tx_powermail_confirmation extends tslib_pibase {
 		$this->content = $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['all'],$this->markerArray); // substitute Marker in Template
 		$this->content = $this->dynamicMarkers->main($this->conf, $this->pibase->cObj, $this->content); // Fill dynamic locallang or typoscript markers
 		$this->content = preg_replace("|###.*?###|i","",$this->content); // Finally clear not filled markers
+		if (!$this->div->subpartsExists($this->tmpl)) $this->content = $this->pi_getLL('error_templateNotFound', 'Template not found, check path to your powermail templates').'<br />';
 		return $this->content; // return HTML
 	}
 	

@@ -32,6 +32,7 @@
 			<label index="error_unique_field">%s was already used</label>
 			<label index="error_unique_ip">IP address %s already made an entry</label>
 			<label index="error_expression_validation">Validation failed</label>
+			<label index="error_templateNotFound">Template not found, check path to your powermail templates</label>
 			<label index="multiple_forward">Next step</label>
 			<label index="multiple_back">Previous step</label>
 			<label index="pagebrowser_inner"> of </label>
@@ -85,6 +86,7 @@
 			<label index="error_unique_field">%s wurde bereits eingetragen</label>
 			<label index="error_unique_ip">Ein Besucher mit der IP Adresse %s hat bereits einen Eintrag hinterlassen</label>
 			<label index="error_expression_validation">Check fehlgeschlagen</label>
+			<label index="error_templateNotFound">Template nicht vorhanden, Pfad zum HTML Template überprüfen</label>
 			<label index="multiple_forward">Nächster Schritt</label>
 			<label index="multiple_back">Vorheriger Schritt</label>
 			<label index="pagebrowser_inner"> von </label>
@@ -134,6 +136,7 @@
 			<label index="error_unique_field">%s was already used</label>
 			<label index="error_unique_ip">IP address %s already made an entry</label>
 			<label index="error_expression_validation">Validation failed</label>
+			<label index="error_templateNotFound">Template not found, check path to your powermail templates</label>
 			<label index="multiple_forward">Next step</label>
 			<label index="multiple_back">Previous step</label>
 			<label index="pagebrowser_inner"> of </label>

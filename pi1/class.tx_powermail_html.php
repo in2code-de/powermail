@@ -53,7 +53,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->tmpl = array('all' => tslib_cObj::fileResource($this->conf['template.']['fieldWrap'])); // Load HTML Template
 		$this->dynamicMarkers = t3lib_div::makeInstance('tx_powermail_dynamicmarkers'); // New object: TYPO3 marker function
 		$this->removeXSS = t3lib_div::makeInstance('tx_powermail_removexss'); // New object: removeXSS function
-		$this->div_functions = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
+		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
 
 		// Main functions
 		$this->GetSessionValue(); // get value from session (if any)
@@ -138,6 +138,7 @@ class tx_powermail_html extends tslib_pibase {
 		}
 		
 		$this->html_hook(); // adds hook to manipulate content before return
+		if (!$this->div->subpartsExists($this->tmpl)) $this->content = $this->pi_getLL('error_templateNotFound', 'Template not found, check path to your powermail templates').'<br />';
 		
 		if(isset($this->content)) return $this->content;
 	}
@@ -313,7 +314,8 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###LABEL_NAME###'] = 'uid'.$this->uid.'_'.$i; // add labelname
 				$markerArray['###ID###'] = 'id="uid'.$this->uid.'_'.$i.'" '; // add labelname
 				$markerArray['###VALUE###'] = 'value="'.$this->dontAllow(isset($options[$i][1])?$options[$i][1]:$options[$i][0]).'" '; // add labelname
-				$markerArray['###CLASS###'] = 'class="powermail_'.$this->formtitle.' powermail_'.$this->type.' powermail_uid'.$this->uid.' powermail_subuid'.$this->uid.'_'.$i.'" '; // add class name to markerArray
+				//$markerArray['###CLASS###'] = 'class="powermail_'.$this->formtitle.' powermail_'.$this->type.' powermail_uid'.$this->uid.' powermail_subuid'.$this->uid.'_'.$i.'" '; // add class name to markerArray
+				$markerArray['###CLASS###'] = 'class="'. ($i==(count($optionlines)-1 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'mandatory') == 1) ? 'validate-one-required' : '') .' powermail_'.$this->formtitle.' powermail_'.$this->type.' powermail_uid'.$this->uid.' powermail_subuid'.$this->uid.'_'.$i.'" '; // add class name to markerArray
 				$this->turnedtabindex[$this->uid.'_'.$i] !== '' ? $markerArray['###TABINDEX###'] = 'tabindex="'.($this->turnedtabindex[$this->uid.'_'.$i] + 1).'" ' : $markerArray['###TABINDEX###'] = ''; // tabindex for every radiobutton
 				isset($this->newaccesskey[$this->uid][$i]) ? $markerArray['###ACCESSKEY###'] = 'accesskey="'.$this->newaccesskey[$this->uid][$i].'" ' : $markerArray['###ACCESSKEY###'] = ''; // accesskey for every radiobutton
 				
@@ -402,7 +404,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->tmpl['html_label'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_LABEL###'); // work on subpart
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'send')) { // label should be send with email
-			$this->markerArray['###HIDDEN###'] = '<input type="hidden" name="'.$this->prefixId.'[uid'.$this->uid.']" value="'.$this->div_functions->clearValue($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')).'" />'; // create hidden field
+			$this->markerArray['###HIDDEN###'] = '<input type="hidden" name="'.$this->prefixId.'[uid'.$this->uid.']" value="'.$this->div->clearValue($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')).'" />'; // create hidden field
 		}
 		$this->markerArray['###CONTENT###'] = strip_tags($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value'),$this->conf['label.']['allowTags']); // fill label marker
 
@@ -424,7 +426,7 @@ class tx_powermail_html extends tslib_pibase {
 		
 		/*
 		if($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'send')) { // label should be send with email
-			$this->markerArray['###HIDDEN###'] = '<input type="hidden" name="'.$this->prefixId.'['.$this->div_functions->clearName($this->title,1).']" value="'.$this->div_functions->clearValue($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')).'" />'; // create hidden field
+			$this->markerArray['###HIDDEN###'] = '<input type="hidden" name="'.$this->prefixId.'['.$this->div->clearName($this->title,1).']" value="'.$this->div->clearValue($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')).'" />'; // create hidden field
 		}
 		*/
 		$this->markerArray['###CONTENT###'] = ($this->conf['html.']['removeXSS'] == 1 ? $this->removeXSS->RemoveXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) : $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')); // fill label marker (with or without removeXSS)
@@ -453,7 +455,7 @@ class tx_powermail_html extends tslib_pibase {
 		
 		/*
 		if($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'send')) { // content should be send with email
-			$this->markerArray['###HIDDEN###'] = '<input type="hidden" name="'.$this->prefixId.'[tt_content]['.$this->div_functions->clearName($this->title,1).']" value="'.$uid.'" />'; // create hidden field
+			$this->markerArray['###HIDDEN###'] = '<input type="hidden" name="'.$this->prefixId.'[tt_content]['.$this->div->clearName($this->title,1).']" value="'.$uid.'" />'; // create hidden field
 		}
 		*/
 
@@ -541,7 +543,7 @@ class tx_powermail_html extends tslib_pibase {
 				if($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field])
 					$value = strftime($this->conf['format.']['datetime'], $this->dontAllow(strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]))); // add value to markerArray if should filled from feuser data
 				if(isset($this->piVarsFromSession['uid'.$this->uid]))
-					$value = $this->dontAllow($this->div_functions->nl2nl2($this->piVarsFromSession['uid'.$this->uid])); // Overwrite value from session value
+					$value = $this->dontAllow($this->div->nl2nl2($this->piVarsFromSession['uid'.$this->uid])); // Overwrite value from session value
 		
 				// init jscalendar class
 				$JSCalendar = JSCalendar::getInstance();
@@ -594,7 +596,7 @@ class tx_powermail_html extends tslib_pibase {
 				if($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field])
 					$value = strftime($this->conf['format.']['date'], $this->dontAllow(strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]))); // add value to markerArray if should filled from feuser data
 				if(isset($this->piVarsFromSession['uid'.$this->uid]))
-					$value = $this->dontAllow($this->div_functions->nl2nl2($this->piVarsFromSession['uid'.$this->uid])); // Overwrite value from session value
+					$value = $this->dontAllow($this->div->nl2nl2($this->piVarsFromSession['uid'.$this->uid])); // Overwrite value from session value
 				
 				// init jscalendar class
 				$JSCalendar = JSCalendar::getInstance();
@@ -676,7 +678,7 @@ class tx_powermail_html extends tslib_pibase {
 			);
 			if ($res) { // If there is a result
 				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every country
-					$row['cn_short'] = $this->div_functions->charset($row['cn_short'], $this->conf['countryselect.']['charset']); // change charset of value
+					$row['cn_short'] = $this->div->charset($row['cn_short'], $this->conf['countryselect.']['charset']); // change charset of value
 					
 					// Fill markers
 					$markerArray['###VALUE###'] = $this->dontAllow($row['cn_iso_2']);
@@ -844,7 +846,7 @@ class tx_powermail_html extends tslib_pibase {
 		
 		// ###VALUE###
 		if (isset($this->piVarsFromSession['uid'.$this->uid])) { // 1. if value is in session
-			$this->markerArray['###VALUE###'] = 'value="'.$this->dontAllow(stripslashes($this->div_functions->nl2nl2($this->piVarsFromSession['uid'.$this->uid]))).'" '; // value from session value
+			$this->markerArray['###VALUE###'] = 'value="'.$this->dontAllow(stripslashes($this->div->nl2nl2($this->piVarsFromSession['uid'.$this->uid]))).'" '; // value from session value
 		} elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. else if value should be filled from current logged in user
 			$this->markerArray['###VALUE###'] = 'value="'.$this->dontAllow(strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field])).'" '; // add value to markerArray if should filled from feuser data
 		} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) { // 3. take value from backend (default value)

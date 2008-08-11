@@ -129,7 +129,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 			foreach ($uniquearray as $value) {
 				
 				// check for unique uids
-				if (is_numeric(str_replace('uid','',strtolower($value)))) { // like uid11
+				if (is_numeric(str_replace('uid','',strtolower($value))) && $this->sessionfields[strtolower($value)]) { // like uid11 and value exists
 					
 					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // Get all emails with any entry of current value
 						'piVars',
