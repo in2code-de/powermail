@@ -413,4 +413,11 @@ $TCA["tx_powermail_mails"] = array (
 		"1" => array("showitem" => "")
 	)
 );
+
+
+// Disable Start- and Stoptime for fields and fieldsets
+if ($confArr['disableStartStop'] == 1) {
+	$TCA["tx_powermail_fieldsets"]["palettes"]['1']['showitem'] = "form, title, hidden";
+	$TCA["tx_powermail_fields"]["palettes"]['1']['showitem'] = "title, hidden";
+}
 ?>

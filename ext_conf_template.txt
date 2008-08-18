@@ -15,3 +15,6 @@ disableIPlog = 0
 
 # cat=basic/enable/060; type=boolean; label= Deactivate config for Realurl: Powermail uses an automatic realurlconf array for type=3131. You can disable this feature if you want to use your own configuration or you don't need a realurl configuration. (see ext_localconf.php for configuration details)
 disablePMRealUrlConfig = 0
+
+# cat=basic/enable/070; type=boolean; label= Deactivate Start- and Stoptime: If there are problems with adding fields, this could be caused by date2cal. You can disable start- and stoptime for fields and fieldsets with this flag.
+disableStartStop = 0
