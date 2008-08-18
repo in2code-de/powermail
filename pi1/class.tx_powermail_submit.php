@@ -288,6 +288,8 @@ class tx_powermail_submit extends tslib_pibase {
 					$link = 'mailto:'.$link; // add mailto: 
 				}
 				
+				$link = str_replace('//', '/', $link); // strip out //
+				
 				// Header for redirect
 				header("Location: $link"); 
 				header("Connection: close");
