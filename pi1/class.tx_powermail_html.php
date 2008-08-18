@@ -216,6 +216,7 @@ class tx_powermail_html extends tslib_pibase {
 					if(!$set[$i]) $markerArray['###SELECTED###'] = ''; // clear
 				}
 				
+				$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 				$content_item .= $this->pibase->pibase->cObj->substituteMarkerArrayCached($this->tmpl['html_select']['item'], $markerArray);
 			}
 		}
@@ -273,6 +274,7 @@ class tx_powermail_html extends tslib_pibase {
 					else $markerArray['###CHECKED###'] = ''; // clear
 				}
 				
+				$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 				$content_item .= $this->pibase->pibase->cObj->substituteMarkerArrayCached($this->tmpl['html_check']['item'], $markerArray); // substitute Marker in Template (subpart 2)
  			}
 
@@ -329,6 +331,7 @@ class tx_powermail_html extends tslib_pibase {
 					} else $markerArray['###CHECKED###'] = ''; // clear
 				}
 				
+				$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 				$content_item .= $this->pibase->pibase->cObj->substituteMarkerArrayCached($this->tmpl['html_radio']['item'], $markerArray); // substitute Marker in Template (subpart 2)
  			}
 
@@ -693,6 +696,7 @@ class tx_powermail_html extends tslib_pibase {
 						} else $markerArray['###SELECTED###'] = '';
 					}
 					
+					$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 					$content_item .= $this->pibase->pibase->cObj->substituteMarkerArrayCached($this->tmpl['html_countryselect']['item'], $markerArray);
 				}
 			}
@@ -970,6 +974,17 @@ class tx_powermail_html extends tslib_pibase {
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
 				$_procObj->PM_FieldWrapMarkerHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
+			}
+		}
+	}
+	
+	
+	// function html_hookwithinfieldsinner($markerArray) to add a hook in every field generation to manipulate markerArray in the inner loop (checkboxes, radiobuttons, etc..)
+	function html_hookwithinfieldsinner(&$markerArray) {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHookInner'])) { // Adds hook for processing of extra global markers
+			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHookInner'] as $_classRef) {
+				$_procObj = & t3lib_div::getUserObj($_classRef);
+				$_procObj->PM_FieldWrapMarkerHookInner($this->uid, $this->xml, $this->type, $this->title, $markerArray, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
 			}
 		}
 	}

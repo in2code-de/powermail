@@ -20,6 +20,7 @@ Powermail HTML Template for fieldwraps
 	###TABINDEX###				Uses tabindex (automaticly or via constants)
 	###ACCESSKEY###				Uses acceskeys if set in constants
 	###JS###					Fields: Could be used in different powermail extensions to add eventhandler, etc...
+	###JS_INNER###				Fields: Could be used in different powermail extensions to add eventhandler in the innerMarkerArray, etc... (radiobuttons, checkboxes, etc...)
     ###DIVJS###					DIV arround Fields: Could be used in different powermail extensions to add eventhandler, etc...
     ###POWERMAIL_TARGET### 		Link to the same page (could be used for different javascripts, etc..)
     ###POWERMAIL_NAME###		Form name (could be used for different javascripts, etc..)
@@ -73,7 +74,7 @@ Fieldwrap for select fields (dropdown) like <select>
 		<select ###NAME######ID######CLASS######ONCHANGE######ONFOCUS######SIZE######TABINDEX######ACCESSKEY######MULTIPLE######JS###>
 		 <!-- ###CONTENT### -->
 		 	<!-- ###ITEM### -->
-		 		<option value="###VALUE###"###SELECTED###>###LABEL###</option>
+		 		<option value="###VALUE###"###SELECTED######JS_INNER###>###LABEL###</option>
 		 	<!-- ###ITEM### -->
 		 <!-- ###CONTENT### -->
 		 </select>
@@ -97,7 +98,7 @@ NEW HTML Template for checkboxes (uses hidden fields)
 		 	<!-- ###ITEM### begin -->
 				<div class="powermail_check_inner powermail_check_inner_###LABEL_NAME###">
 					<label for="check_###LABEL_NAME###">###LABEL###</label>
-					<input type="checkbox" name="check_###LABEL_NAME###" onClick="checkbox('###LABEL_NAME###');" id="check_###LABEL_NAME###" ###CHECKED######CLASS######ACCESSKEY######TABINDEX######JS###/>
+					<input type="checkbox" name="check_###LABEL_NAME###" onClick="checkbox('###LABEL_NAME###');" id="check_###LABEL_NAME###" ###CHECKED######CLASS######ACCESSKEY######TABINDEX######JS_INNER###/>
 					<input type="hidden" ###VALUE### name="value_###LABEL_NAME###" />
 					<input type="hidden" ###ID######NAME######HIDDENVALUE###/>
 				</div>
@@ -114,7 +115,7 @@ OLD HTML Template for checkboxes (don't use hidden fields - just checkboxes)
 		 	<!-- ###ITEM### begin -->
 				<div class="powermail_check_inner powermail_check_inner_###LABEL_NAME###">
 					<label for="###LABEL_NAME###">###LABEL###</label>
-					<input type="checkbox" ###NAME######VALUE######CLASS######ID######CHECKED######ACCESSKEY######TABINDEX######JS###/>
+					<input type="checkbox" ###NAME######VALUE######CLASS######ID######CHECKED######ACCESSKEY######TABINDEX######JS_INNER###/>
 				</div>
 		 	<!-- ###ITEM### end -->
 		 <!-- ###CONTENT### end -->
@@ -137,7 +138,7 @@ Fieldwrap for radiobuttons like <input type="radio" />
 		 	<!--###ITEM### begin-->
 				<div class="powermail_radio_inner powermail_radio_inner_###LABEL_NAME###">
 					<label for="###LABEL_NAME###">###LABEL###</label>
-					<input type="radio" ###NAME######VALUE######CLASS######ID######CHECKED######ACCESSKEY######TABINDEX######JS###/>
+					<input type="radio" ###NAME######VALUE######CLASS######ID######CHECKED######ACCESSKEY######TABINDEX######JS_INNER###/>
 				</div>
 		 	<!--###ITEM### end-->
 		 <!--###CONTENT### end-->
@@ -327,7 +328,7 @@ Fieldwrap for dropdown with countries <select>
 		<select ###NAME######ID######CLASS######ONCHANGE######ONFOCUS######TABINDEX######ACCESSKEY######JS###>
 		 <!-- ###CONTENT### -->
 		 	<!-- ###ITEM### -->
-		 		<option value="###VALUE###"###SELECTED###>###LONGVALUE###</option>
+		 		<option value="###VALUE###"###SELECTED######JS_INNER###>###LONGVALUE###</option>
 		 	<!-- ###ITEM### -->
 		 <!-- ###CONTENT### -->
 		 </select>
