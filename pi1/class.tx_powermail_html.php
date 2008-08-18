@@ -35,7 +35,7 @@ if(t3lib_extMgm::isLoaded('date2cal',0)) { // if date2cal is loaded
 
 class tx_powermail_html extends tslib_pibase {
 	var $prefixId      = 'tx_powermail_pi1';		// Same as class name
-	var $scriptRelPath = 'pi1/class.tx_powermail_form.php';	// Path to this script relative to the extension dir.
+	var $scriptRelPath = 'pi1/class.tx_powermail_html.php';	// Path to this script relative to the extension dir.
 	var $extKey        = 'powermail';	// The extension key.
 	var $pi_checkCHash = true;
 
@@ -727,14 +727,15 @@ class tx_powermail_html extends tslib_pibase {
 				$this->freeCap = t3lib_div::makeInstance('tx_srfreecap_pi2'); // new object
 				$freecaparray = $this->freeCap->makeCaptcha(); // array with freecap marker
 				
-				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = $freecaparray['###SR_FREECAP_IMAGE###'];
-				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURERELOAD###'] = $freecaparray['###SR_FREECAP_CANT_READ###'];
-				$this->markerArray['###LABEL###'] = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'label');
+				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = $freecaparray['###SR_FREECAP_IMAGE###']; // captcha image
+				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURERELOAD###'] = $freecaparray['###SR_FREECAP_CANT_READ###']; // reload image button
+				$this->markerArray['###POWERMAIL_CAPTCHA_ACCESSIBLE###'] = $freecaparray['###SR_FREECAP_ACCESSIBLE###']; // audio output
+				$this->markerArray['###LABEL###'] = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'label'); // captcha label
 			
 			} elseif (t3lib_extMgm::isLoaded('captcha',0) && $this->conf['captcha.']['use'] == 'captcha') { // use captcha if available
 			
-				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = '<img src="'.t3lib_extMgm::siteRelPath('captcha').'captcha/captcha.php" alt="" class="powermail_captcha powermail_captcha_captcha" />';
-				$this->markerArray['###LABEL###'] = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'label');
+				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = '<img src="'.t3lib_extMgm::siteRelPath('captcha').'captcha/captcha.php" alt="" class="powermail_captcha powermail_captcha_captcha" />'; // captcha image
+				$this->markerArray['###LABEL###'] = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'label'); // captcha label
 			
 			} else return 'Powermail ERROR: Please check if you have chosen the right captcha extension in the powermail constants!';
 			
@@ -984,6 +985,8 @@ class tx_powermail_html extends tslib_pibase {
 	function init(&$conf,&$pibase) {
 		$this->conf = $conf;
 		$this->pibase = $pibase;
+		$this->pi_setPiVarDefaults();
+		$this->pi_loadLL();
 	}
 
 }
