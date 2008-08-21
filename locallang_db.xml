@@ -20,6 +20,7 @@
 			<label index="tx_powermail_forms.subject_r">Subject for recipient's mail</label>
 			<label index="tx_powermail_forms.subject_s">Subject for sender's mail</label>
 			<label index="tx_powermail_forms.sender">Senders email address</label>
+			<label index="tx_powermail_forms.sendername">Senders name</label>
 			<label index="tx_powermail_forms.confirm">Activate confirmation page</label>
 			<label index="tx_powermail_forms.startingpoint">Save mails in page</label>
 			<label index="tx_powermail_forms.multiple">Muliple steps</label>
@@ -155,6 +156,7 @@
 			<label index="tx_powermail_forms.subject_r">Betreff für Empfängermail</label>
 			<label index="tx_powermail_forms.subject_s">Betreff für Absendermail</label>
 			<label index="tx_powermail_forms.sender">E-Mail Adresse des Absenders</label>
+			<label index="tx_powermail_forms.sendername">Name des Absenders</label>
 			<label index="tx_powermail_forms.confirm">Bestätigungsseite aktivieren</label>
 			<label index="tx_powermail_forms.startingpoint">Speicherort für Mails</label>
 			<label index="tx_powermail_forms.multiple">Mehrere Schritte</label>
@@ -288,6 +290,7 @@
 			<label index="tx_powermail_forms.subject_r">Subject for recipient's mail</label>
 			<label index="tx_powermail_forms.subject_s">Subject for sender's mail</label>
 			<label index="tx_powermail_forms.sender">Senders email address</label>
+			<label index="tx_powermail_forms.sendername">Senders name</label>
 			<label index="tx_powermail_forms.confirm">Activate confirmation page</label>
 			<label index="tx_powermail_forms.startingpoint">Save mails in page</label>
 			<label index="tx_powermail_forms.multiple">Muliple steps</label>

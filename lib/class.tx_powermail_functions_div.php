@@ -36,7 +36,6 @@
 class tx_powermail_functions_div {
 
 	var $extKey = 'powermail';
-	var $scriptRelPath = 'pi1/class.tx_powermail_pi1.php';	// Path to any script in the pi folder for locallang
 	
 	// Function sec() is a security function against all bad guys :) 
 	function sec($array) {

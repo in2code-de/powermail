@@ -91,6 +91,7 @@ CREATE TABLE tt_content (
 	tx_powermail_subject_r tinytext NOT NULL,
 	tx_powermail_subject_s tinytext NOT NULL,
 	tx_powermail_sender tinytext NOT NULL,
+	tx_powermail_sendername tinytext NOT NULL,
 	tx_powermail_confirm tinyint(3) DEFAULT '0' NOT NULL,
 	tx_powermail_pages tinytext NOT NULL,
 	tx_powermail_multiple tinyint(3) DEFAULT '0' NOT NULL,

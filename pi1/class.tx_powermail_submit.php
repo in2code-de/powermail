@@ -58,6 +58,7 @@ class tx_powermail_submit extends tslib_pibase {
 		$this->noReplyEmail = str_replace('###DOMAIN###',str_replace('www.','',$_SERVER['SERVER_NAME']),$this->conf['email.']['noreply']); // no reply email address from TS setup
 		$this->sessiondata = $GLOBALS['TSFE']->fe_user->getKey('ses',$this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid'])); // Get piVars from session
 		$this->sender = ($this->pibase->cObj->data['tx_powermail_sender'] && t3lib_div::validEmail($this->sessiondata[$this->pibase->cObj->data['tx_powermail_sender']]) ? $this->sessiondata[$this->pibase->cObj->data['tx_powermail_sender']] : $this->noReplyEmail); // email sender (if sender is selected and email exists)
+		$this->username = ($this->pibase->cObj->data['tx_powermail_sendername'] ? $this->sessiondata[$this->pibase->cObj->data['tx_powermail_sendername']] : 'x'); // name of sender (if field is selected)
 		$this->emailReceiver(); // Receiver mail
 		$this->subject_r = $this->pibase->cObj->data['tx_powermail_subject_r']; // Subject of mails (receiver)
 		$this->subject_s = $this->pibase->cObj->data['tx_powermail_subject_s']; // Subject of mails (sender)
@@ -127,7 +128,7 @@ class tx_powermail_submit extends tslib_pibase {
 			$this->maildata['receiver'] = $this->MainReceiver; // set receiver
 			$this->maildata['sender'] = $this->sender; // set sender
 			$this->maildata['subject'] = $this->subject_r; // set subject
-			$this->maildata['sendername'] = $this->sender; // set sendername
+			$this->maildata['sendername'] = !empty($this->username) ? $this->username : $this->sender; // set sendername (if not exists, take email)
 			$this->maildata['cc'] = (isset($this->CCReceiver) ? $this->CCReceiver : ''); // carbon copy (take email addresses or nothing if not available)
 		} elseif ($this->subpart == 'sender_mail') { // extended settings: mail to sender
 			$this->maildata['receiver'] = $this->sender; // set receiver
@@ -288,7 +289,7 @@ class tx_powermail_submit extends tslib_pibase {
 					$link = 'mailto:'.$link; // add mailto: 
 				}
 				
-				$link = str_replace('//', '/', $link); // strip out //
+				$link = preg_replace('#([^:])//#', '$1/', $link); // strip out "//"
 				
 				// Header for redirect
 				header("Location: $link"); 

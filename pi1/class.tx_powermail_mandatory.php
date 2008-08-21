@@ -74,7 +74,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 		);
 		if ($res) { // If there is a result
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every field
-				if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']),'mandatory') == 1) { // if in current xml mandatory == 1
+				if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']),'mandatory') == 1 || $this->conf['validate.']['uid'.$row['uid'].'.'][required] == 1) { // if in current xml mandatory == 1 OR mandatory was set via TS for current field
 					if (!is_array($this->sessionfields['uid'.$row['uid']])) { // first level
 						if (!trim($this->sessionfields['uid'.$row['uid']]) || !isset($this->sessionfields['uid'.$row['uid']])) { // only if current value is not set in session (piVars)
 							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield').' <b>'.$row['title'].'</b>'; // set current error to sessionlist
@@ -130,11 +130,16 @@ class tx_powermail_mandatory extends tslib_pibase {
 				
 				// check for unique uids
 				if (is_numeric(str_replace('uid','',strtolower($value))) && $this->sessionfields[strtolower($value)]) { // like uid11 and value exists
+					// pid
+					$this->save_PID = $GLOBALS['TSFE']->id; // PID where to save: Take current page
+					if (intval($this->conf['PID.']['dblog']) > 0) $this->save_PID = $this->conf['PID.']['dblog']; // PID where to save: Get it from TS if set
+					if (intval($this->pibase->cObj->data['tx_powermail_pages']) > 0) $this->save_PID = $this->pibase->cObj->data['tx_powermail_pages']; // PID where to save: Get it from plugin
 					
+					// DB Select
 					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // Get all emails with any entry of current value
 						'piVars',
 						'tx_powermail_mails',
-						$where_clause = 'pid = '.($this->conf['PID.']['dblog'] ? intval($this->conf['PID.']['dblog']) : $GLOBALS['TSFE']->id).' AND piVars LIKE "%'.$this->sessionfields[strtolower($value)].'%"'.tslib_cObj::enableFields('tx_powermail_mails'),
+						$where_clause = 'pid = '.intval($this->save_PID).' AND piVars LIKE "%'.$this->sessionfields[strtolower($value)].'%"'.tslib_cObj::enableFields('tx_powermail_mails'),
 						$groupBy = '',
 						$orderBy = '',
 						$limit = ''
