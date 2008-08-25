@@ -1,42 +1,62 @@
 /* Powermail */
+	/* Form */
 span.powermail_mandatory {
+	/* Color of mandatory error message */
 	color: red;
 }
 input.validation-failed,
 textarea.validation-failed {
+	/* Background color if validation failed */
 	background-color: red;
 }
 div.powermail_mandatory_js {
+	/* DIV container of errormessage */
 	color: red;
-	margin: 3px 0 15px 120px;
+	margin: 3px 0 15px 150px;
 }
 fieldset.tx-powermail-pi1_fieldset {
-	border: 1px solid #A5ACB2;
-	background-image: url(../img/handy.jpg);
-	background-repeat: no-repeat;
-	background-position: 100% 60%;
+	/* Fieldset */
+	border: 1px solid #aaa;
+	background-color: #ccc;
 	padding: 10px;
 }
+fieldset.tx-powermail-pi1_fieldset legend {
+	/* legend of Fieldset */
+	font-weight: bold;
+	color: black;
+}
 fieldset.tx-powermail-pi1_fieldset label {
+	/* label */
 	display: block;
-	width: 120px;
+	width: 150px;
 	float: left;
 	clear: both;
 	font-weight: bold;
 }
-fieldset.tx-powermail-pi1_fieldset input,
-fieldset.tx-powermail-pi1_fieldset textarea {
+fieldset.tx-powermail-pi1_fieldset input.powermail_text,
+fieldset.tx-powermail-pi1_fieldset textarea.powermail_textarea,
+fieldset.tx-powermail-pi1_fieldset select.powermail_select {
+	/* Input and textarea */
 	width: 260px;
 }
 div.tx_powermail_pi1_fieldwrap_html {
-	margin: 3px 0;
+	/* DIV container arround every field */
+	margin: 10px 0;
 }
-input.powermail_submit {
-	margin: 20px 0px;
+fieldset.tx-powermail-pi1_fieldset input.powermail_submit {
+	/* submit button */
+	margin: 20px 0 10px 150px;
 	font-weight: bold;
-	border: 1px solid #444;
-	width: 130px;
 }
+p.tx_powermail_pi1_fieldwrap_html_checkbox_title,
+p.tx_powermail_pi1_fieldwrap_html_radio_title {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+
+	/* Confirmation */
 td.powermail_all_td {
 	padding: 3px 10px 3px 0;
 }

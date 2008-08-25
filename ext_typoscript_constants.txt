@@ -66,6 +66,9 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0415; type=text; label= E-Mail sender address: If you add an email address in this field, this email address will be used for the user mail as senderemail and returning email address. Normally the main receiver address is used as sender for the returning mail, but you can overwrite this if you want (e.G. mail@mail.com) Note - if you don't use a correct mail address, this field will be ignored!
 	email.overwritesender = 
 	
+	# cat=plugin.powermail_additionalconfig//0417; type=text; label= Don't show hiddenfield values: Show or hide values of hiddenfields on recipient mail, confirmation mail to sender, thx message page, confirmation message page, mandatory page (default 1,0,0,0,1)
+	hiddenfields.show = 1,0,0,0,1
+	
 	# cat=plugin.powermail_additionalconfig//0420; type=boolean; label= Hide label if empty value: This option hides labels if its value is empty in marker ###POWERMAIL_ALL###
 	markerALL.hideLabel = 0
 	
