@@ -55,13 +55,14 @@ class tx_powermail_submit extends tslib_pibase {
 		$this->confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$this->extKey]); // Get config from localconf.php
 		
 		// Configuration
-		$this->noReplyEmail = str_replace('###DOMAIN###',str_replace('www.','',$_SERVER['SERVER_NAME']),$this->conf['email.']['noreply']); // no reply email address from TS setup
+		$this->noReplyEmail = str_replace('###DOMAIN###', str_replace(array('www.','www1','www2','www3','www4','www5'), '', $_SERVER['SERVER_NAME']), $this->conf['email.']['noreply']); // no reply email address from TS setup
 		$this->sessiondata = $GLOBALS['TSFE']->fe_user->getKey('ses',$this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid'])); // Get piVars from session
 		$this->sender = ($this->pibase->cObj->data['tx_powermail_sender'] && t3lib_div::validEmail($this->sessiondata[$this->pibase->cObj->data['tx_powermail_sender']]) ? $this->sessiondata[$this->pibase->cObj->data['tx_powermail_sender']] : $this->noReplyEmail); // email sender (if sender is selected and email exists)
-		$this->username = ($this->pibase->cObj->data['tx_powermail_sendername'] ? $this->sessiondata[$this->pibase->cObj->data['tx_powermail_sendername']] : 'x'); // name of sender (if field is selected)
+		$this->username = ($this->pibase->cObj->data['tx_powermail_sendername'] ? $this->sessiondata[$this->pibase->cObj->data['tx_powermail_sendername']] : ''); // name of sender (if field is selected)
 		$this->emailReceiver(); // Receiver mail
 		$this->subject_r = $this->pibase->cObj->data['tx_powermail_subject_r']; // Subject of mails (receiver)
 		$this->subject_s = $this->pibase->cObj->data['tx_powermail_subject_s']; // Subject of mails (sender)
+		$this->markerArray = array();
 		
 		// Templates
 		$this->tmpl = array(); $this->mailcontent = array();
@@ -71,7 +72,7 @@ class tx_powermail_submit extends tslib_pibase {
 		
 		
 		// 1. Set $this->markerArray
-		$this->markerArray = $this->markers->GetMarkerArray(); // Fill markerArray
+		//$this->markerArray = $this->markers->GetMarkerArray('submit'); // Fill markerArray
  		
 		// 2. add hook for manipulation of data after E-Mails where sent
 		if(!$this->hook_submit_beforeEmails()) { // All is ok (no spam maybe)
@@ -87,6 +88,7 @@ class tx_powermail_submit extends tslib_pibase {
 		}
 		
 		// 3. Return Message to FE
+		$this->markerArray = $this->markers->GetMarkerArray('thx'); // Fill markerArray
 		$this->hook_submit_afterEmails(); // add hook for manipulation of data after E-Mails where sent
 		$this->content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['thx'],$this->markerArray); // substitute Marker in Template
 		$this->content = $this->dynamicMarkers->main($this->conf, $this->pibase->cObj, $this->content); // Fill dynamic locallang or typoscript markers
@@ -117,6 +119,7 @@ class tx_powermail_submit extends tslib_pibase {
 
 		// Configuration
 		$this->subpart = $subpart;
+		$this->markerArray = $this->markers->GetMarkerArray($this->subpart); // Fill markerArray
 		$this->tmpl['emails'][$this->subpart] = $this->pibase->cObj->getSubpart($this->tmpl['emails']['all'],'###POWERMAIL_'.strtoupper($this->subpart).'###'); // Content for HTML Template
 		$this->mailcontent[$this->subpart] = $this->pibase->cObj->substituteMarkerArrayCached(trim($this->tmpl['emails'][$this->subpart]),$this->markerArray); // substitute markerArray for HTML content
 		$this->mailcontent[$this->subpart] = $this->dynamicMarkers->main($this->conf, $this->pibase->cObj, $this->mailcontent[$this->subpart]); // Fill dynamic locallang or typoscript markers
@@ -157,7 +160,7 @@ class tx_powermail_submit extends tslib_pibase {
 		$this->htmlMail->replyto_email = ''; // clear replyto email
 		$this->htmlMail->replyto_name = ''; // clear replyto name
 		
-		// add atachment if neeeded
+		// add attachment if neeeded
 		if(isset($this->sessiondata['FILE']) && $this->conf['upload.']['attachment'] == 1) { // if there are uploaded files AND attachment to emails is activated via constants
 			if(is_array($this->sessiondata['FILE']) && $this->subpart == 'recipient_mail') { // only if array and mail to receiver
 				foreach ($this->sessiondata['FILE'] as $file) { // one loop for every file
@@ -391,6 +394,7 @@ class tx_powermail_submit extends tslib_pibase {
 		if(isset($_SESSION['tx_captcha_string'])) $_SESSION['tx_captcha_string'] = ''; // clear session of captcha
 		if(isset($_SESSION['sr_freecap_attempts'])) $_SESSION['sr_freecap_attempts'] = 0; // clear session of sr_freecap
 		if(isset($_SESSION['sr_freecap_word_hash'])) $_SESSION['sr_freecap_word_hash'] = false; // clear session of sr_freecap
+		unset($GLOBALS['TSFE']->fe_user->sesData['powermail_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid'])]['OK']); // clear all OK from Session (used e.g. from recaptcha)
 	}
 	
 	

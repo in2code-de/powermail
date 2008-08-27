@@ -29,9 +29,8 @@ class tx_powermail_export {
 		count($this->tsconfig['properties']['export.']) > 0 ? $this->rowconfig = $this->tsconfig['properties']['export.'] : ''; // overwrite rowconfig if set
 		if (empty($this->tsconfig['properties']['config.']['export.']['encoding.'][$export])) { // Define output encoding -> No encoding is defined, set default
 			if ($export == 'csv') $this->outputEncoding = 'latin1'; // Set LATIN1 for csv
-			else $this->outputEncoding = $this->LANG->charSet;
-		} else $this->outputEncoding = $this->tsconfig['properties']['config.']['export.']['encoding.'][$export];
-
+			else $this->outputEncoding = $this->LANG->charSet; // Take standard charset
+		} else $this->outputEncoding = $this->tsconfig['properties']['config.']['export.']['encoding.'][$export]; // Take charset from tsconfig
 
 		// DB query
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
@@ -43,13 +42,13 @@ class tx_powermail_export {
 			$limit = ''
 		);
 		if ($res) { // If on current page is a result
-			if($export == 'xls' || $export == 'table') {
+			if($export == 'xls' || $export == 'table') { // if Excel export or HTML Table
 				$table = '<table>'; // Init table
 				$table .= $this->setTitle($export,$row); // Title
 				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // one loop for every db entry
 					if($row['piVars']) {
+						if ($this->outputEncoding != 'utf-8') $row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8'); // change to utf8 to avoid problems with umlauts
 						$values = t3lib_div::xml2array($row['piVars'], 'piVars'); // xml2array
-						if ($this->outputEncoding != 'utf-8') $this->LANG->csConvObj->convArray($values, 'utf-8', $this->outputEncoding);
 						
 						$i++; // increase counter
 						$table .= '<tr>';
@@ -91,15 +90,15 @@ class tx_powermail_export {
 					}
 				}
 				$table .= '</table>';
-			} elseif ($export == 'csv') {
+			} elseif ($export == 'csv') { // if CSV Export
 				//$table .= 'sep=,'."\n"; // write first line
 				$table .= $this->setTitle($export,$row); // Title
 				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // one loop for every db entry
 					if($row['piVars']) {
 						$i++; // increase counter
-						if ($this->LANG->charSet != 'utf-8') $row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8');
+						if ($this->LANG->charSet != 'utf-8') $row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8'); // change to utf8 to avoid problems with umlauts
 						$values = t3lib_div::xml2array($row['piVars'], 'piVars'); // xml2array
-						if ($this->outputEncoding != 'utf-8') $this->LANG->csConvObj->convArray($values, 'utf-8', $this->outputEncoding);
+						//if ($this->outputEncoding != 'utf-8') $this->LANG->csConvObj->convArray($values, 'utf-8', $this->outputEncoding);
 						
 						
 						foreach ($this->rowconfig as $key => $value) { // every row from config

@@ -56,12 +56,11 @@ class tx_powermail_sessions extends tslib_pibase {
 	// Function getSession() to get all saved session data in an array
 	function getSession($all = 1) {
 		$piVars = $GLOBALS['TSFE']->fe_user->getKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid'])); // Get piVars from Session
-		//$piVars = array_map('html_entity_decode',$piVars);
 		
 		if($all == 0) { // delete not allowed values from piVars
 			if(isset($piVars) && is_array($piVars)) {
 				foreach($piVars as $key => $value) { // one loop for every piVar
-					if(!is_numeric(str_replace('uid','',$key)) && $key != 'FILE' && $key != 'ERROR') {
+					if(!is_numeric(str_replace('uid','',$key)) && $key != 'FILE' && $key != 'ERROR' && $key != 'OK') {
 						unset($piVars[$key]); // delete current value (like mailID or sendnow)
 					}
 				}

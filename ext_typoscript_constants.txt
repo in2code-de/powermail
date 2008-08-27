@@ -99,7 +99,7 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0510; type=wrap; label= Wrap mandatory symbol: You can wrap the mandatory symbol with any html code
 	mandatory.wrap = <span class="powermail_mandatory">|</span>
 	
-	# cat=plugin.powermail_additionalconfig//0520; type=options[sr_freecap,captcha]; label= Use captcha extension: If you have installed sr_freecap and captcha, you can select which extension should be used
+	# cat=plugin.powermail_additionalconfig//0520; type=options[sr_freecap,captcha,recaptcha]; label= Use captcha extension: If you have installed sr_freecap and captcha, you can select which extension should be used
 	captcha.use = sr_freecap
 	
 	# cat=plugin.powermail_additionalconfig//0530; type=wrap; label= Wrap pagebrowser: If you use multiple pages (PHP), you can show the current page like 1 of 3

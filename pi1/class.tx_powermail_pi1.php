@@ -66,7 +66,6 @@ class tx_powermail_pi1 extends tslib_pibase {
 		// Sessionwork
 		$this->sessions->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
 		$this->sessions->deleteSession($this->piVars['clearSession']); // If GET Param clearSession is set, delete complete Session
-		//$this->piVars = $this->sessions->changeData($this->piVars); // manipulate data (upload fields, check email, etc..)
 		$this->sessions->setSession($this->piVars,0); // Set piVars to session (but don't overwrite old values)
 		$this->sessionfields = $this->sessions->getSession(0); // give me all piVars from session (without not needed values)
 		$this->sessions->setSession($this->sessions->changeData($this->sessionfields), 0); // NEW: manipulate data (upload fields, check email, etc..) and save it at once in the session
@@ -77,7 +76,7 @@ class tx_powermail_pi1 extends tslib_pibase {
 		$this->hook_main_content_before(); // hook for content manipulation 1
 		if(t3lib_div::GPvar('type') != 3131) { // typenum is not 3131
 			if(isset($this->piVars['multiple']) || isset($this->piVars['mailID']) || isset($this->piVars['sendNow'])) {
-				// What kind of function should be showed in frontend
+				// What kind of function should be shown in frontend
 				if(!$this->piVars['multiple']) { // if multiple is not set
 					if($this->piVars['mailID']) { // submitted
 						if($this->cObj->data['tx_powermail_confirm']) { // Confirm page activated

@@ -52,7 +52,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 		
 		// Fill Markers
 		$content_item = ''; $this->innerMarkerArray = array(); $fieldarray = array(); $this->error = 0;
-		$this->markerArray = $this->markers->GetMarkerArray(); // Fill markerArray
+		$this->markerArray = $this->markers->GetMarkerArray('mandatory'); // Fill markerArray
 		$this->markerArray['###POWERMAIL_TARGET###'] = $this->pibase->cObj->typolink('x',array("returnLast"=>"url","parameter"=>$GLOBALS['TSFE']->id,"useCacheHash"=>1)); // Fill Marker with action parameter
 		$this->markerArray['###POWERMAIL_NAME###'] = $this->pibase->cObj->data['tx_powermail_title'].'_mandatory'; // Fill Marker with formname
 		$this->markerArray['###POWERMAIL_METHOD###'] = $this->conf['form.']['method']; // Form method
@@ -63,6 +63,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 		$this->emailCheck(); // Email Check
 		$this->regulareExpressions(); // Regulare Expression Check
 		
+		// Mandatory check
 		// Give me all fields of current content uid
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'tx_powermail_fields.uid, tx_powermail_fields.title, tx_powermail_fields.flexform',
@@ -79,13 +80,13 @@ class tx_powermail_mandatory extends tslib_pibase {
 						if (!trim($this->sessionfields['uid'.$row['uid']]) || !isset($this->sessionfields['uid'.$row['uid']])) { // only if current value is not set in session (piVars)
 							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield').' <b>'.$row['title'].'</b>'; // set current error to sessionlist
 						}
-					} else { // second level (maybe for checkboxes
+					} else { // second level (maybe for checkboxes)
 						if (isset($this->sessionfields['uid'.$row['uid']])) {
-							$error=1; // errors on start (by default)
+							$error = 1; // errors on start (by default)
 							foreach ($this->sessionfields['uid'.$row['uid']] as $key => $value) { // one loop for every field
 								if ($this->sessionfields['uid'.$row['uid']][$key] != '') $error = 0; // set error
 							}
-							if ($error) $this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield').' <b>'.$row['title'].'</b>'; // set current error to sessionlist
+							if ($error) $this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield').' <b>'.$row['title'].'</b>'; // set current error
 						}
 					}
 				}
@@ -95,7 +96,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 		// Check for errors
 		if(isset($this->sessionfields['ERROR']) && is_array($this->sessionfields['ERROR'])) {
 			foreach($this->sessionfields['ERROR'] as $key1 => $value1) { // one loop for every field with an error
-				if(isset($this->sessionfields['ERROR'][$key1])) {
+				if(isset($this->sessionfields['ERROR'][$key1])) { // if error was set
 					foreach($this->sessionfields['ERROR'][$key1] as $key2 => $value2) { // one loop for every error on current field
 						$this->error = 1; // mark as error
 						$this->innerMarkerArray['###POWERMAIL_MANDATORY_LABEL###'] = $value2; // current field title (label)
@@ -111,7 +112,8 @@ class tx_powermail_mandatory extends tslib_pibase {
 		$this->content = $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['mandatory']['all'],$this->markerArray,$subpartArray); // substitute Marker in Template
 		$this->content = $this->dynamicMarkers->main($this->conf, $this->pibase->cObj, $this->content); // Fill dynamic locallang or typoscript markers
 		$this->content = preg_replace("|###.*?###|i","",$this->content); // Finally clear not filled markers
-		if($this->error == 1) { // if there is an error
+		$this->overwriteSession(); // write $this->sessionfields to session if there is an ok for an error
+        if($this->error == 1) { // if there is an error
 			$this->clearErrorsInSession();
 			return $this->content; // return HTML
 		}
@@ -251,6 +253,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 			if ($res) { // If there is a result
 				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every captcha field
 					
+					// sr_freecap
 					if (t3lib_extMgm::isLoaded('sr_freecap',0) && $this->conf['captcha.']['use'] == 'sr_freecap') { // use sr_freecap if available
 						
 						session_start(); // start session
@@ -267,6 +270,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 						}
 					}
 					
+					// captcha
 					elseif (t3lib_extMgm::isLoaded('captcha',0) && $this->conf['captcha.']['use'] == 'captcha') { // use captcha if available
 					
 						session_start(); // start session
@@ -281,11 +285,37 @@ class tx_powermail_mandatory extends tslib_pibase {
 						}
 						
 					}
+					
+					// jm_recaptcha
+					elseif (t3lib_extMgm::isLoaded('jm_recaptcha',0) && $this->conf['captcha.']['use'] == 'recaptcha') { // use recaptcha if available
+						
+                        if (!$this->sessionfields['OK'][$row['uid']]) { // do this check only if recaptcha gave not ok before // if ok, you don't have to check again if captcha is right
+    						require_once(t3lib_extMgm::extPath('jm_recaptcha')."class.tx_jmrecaptcha.php"); // include recaptcha class
+    						$recaptcha = t3lib_div::makeInstance('tx_jmrecaptcha'); // new object
+    						
+    						$status = $recaptcha->validateReCaptcha(); // get status
+    						if (!$status['verified']) { // if code is ok
+    							 $this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('error_captcha_wrong'); // error message
+    						} else { // code ok
+    							$this->sessionfields['OK'][$row['uid']] = 'recaptcha'; // recaptcha code is ok - set an ok to the session for further checks
+    						}
+    					}
+						
+					}
 				}
 			}
 			
 		}
 	}
+	
+	
+	// Function overwriteSession() saves $this->sessionfields to session to overwrite errors (recaptcha can set an OK for errors in future) 
+	function overwriteSession() {
+        if (count($this->sessionfields['OK']) > 0) { // only if min 1 OK value
+            $GLOBALS['TSFE']->fe_user->setKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']), $this->sessionfields); // Generate Session without ERRORS
+    		$GLOBALS['TSFE']->storeSessionData(); // Save session
+    	}
+    }
 	
 	
 	// Function clearErrorsInSession() removes all global errors, which are marked as an error in the session
