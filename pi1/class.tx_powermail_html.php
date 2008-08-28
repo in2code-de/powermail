@@ -749,6 +749,7 @@ class tx_powermail_html extends tslib_pibase {
 				$recaptcha = t3lib_div::makeInstance('tx_jmrecaptcha'); // new object
 				
 				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = $recaptcha->getReCaptcha(); // get captcha
+				$this->markerArray['###LABEL###'] = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'label'); // captcha label
 				
 			} else return 'Powermail ERROR: Please check if you have chosen the right captcha extension in the powermail constants!';
 			

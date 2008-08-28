@@ -44,6 +44,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 		$this->dynamicMarkers = t3lib_div::makeInstance('tx_powermail_dynamicmarkers'); // New object: TYPO3 dynamicmarker function
 		$this->markers = t3lib_div::makeInstance('tx_powermail_markers'); // New object: TYPO3 mail functions
 		$this->markers->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions
+		unset($this->sessionfields['ERROR']); // don't start with errors, because here we have to check for errors
 		
 		// Template
 		$this->tmpl = array();
@@ -62,9 +63,40 @@ class tx_powermail_mandatory extends tslib_pibase {
 		$this->captchaCheck(); // Captcha Check
 		$this->emailCheck(); // Email Check
 		$this->regulareExpressions(); // Regulare Expression Check
+		$this->mandatoryCheck(); // Mandatory check
 		
-		// Mandatory check
-		// Give me all fields of current content uid
+		// Check for errors
+		if(isset($this->sessionfields['ERROR']) && is_array($this->sessionfields['ERROR'])) {
+			foreach($this->sessionfields['ERROR'] as $key1 => $value1) { // one loop for every field with an error
+				if(isset($this->sessionfields['ERROR'][$key1])) { // if error was set
+					foreach($this->sessionfields['ERROR'][$key1] as $key2 => $value2) { // one loop for every error on current field
+						$this->error = 1; // mark as error
+						$this->innerMarkerArray['###POWERMAIL_MANDATORY_LABEL###'] = $value2; // current field title (label)
+						$content_item .= $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['mandatory']['item'], $this->innerMarkerArray); // add to content_item
+					}
+				}
+			}
+		}
+		$subpartArray['###CONTENT###'] = $content_item;
+		
+		// Return
+		$this->hook(); // adds hook
+		$this->content = $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['mandatory']['all'],$this->markerArray,$subpartArray); // substitute Marker in Template
+		$this->content = $this->dynamicMarkers->main($this->conf, $this->pibase->cObj, $this->content); // Fill dynamic locallang or typoscript markers
+		$this->content = preg_replace("|###.*?###|i","",$this->content); // Finally clear not filled markers
+		$this->overwriteSession(); // write $this->sessionfields to session if there is an ok for an error
+        
+        if($this->error == 1) { // if there is an error
+			$this->clearErrorsInSession();
+			return $this->content; // return HTML
+		}
+	}
+	
+	
+	// Function mandatoryCheck() checks if a field has to contain anything
+	function mandatoryCheck() {
+		
+        // Give me all fields of current content uid
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'tx_powermail_fields.uid, tx_powermail_fields.title, tx_powermail_fields.flexform',
 			'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON (tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
@@ -92,31 +124,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 				}
 			}
 		}
-		
-		// Check for errors
-		if(isset($this->sessionfields['ERROR']) && is_array($this->sessionfields['ERROR'])) {
-			foreach($this->sessionfields['ERROR'] as $key1 => $value1) { // one loop for every field with an error
-				if(isset($this->sessionfields['ERROR'][$key1])) { // if error was set
-					foreach($this->sessionfields['ERROR'][$key1] as $key2 => $value2) { // one loop for every error on current field
-						$this->error = 1; // mark as error
-						$this->innerMarkerArray['###POWERMAIL_MANDATORY_LABEL###'] = $value2; // current field title (label)
-						$content_item .= $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['mandatory']['item'], $this->innerMarkerArray); // add to content_item
-					}
-				}
-			}
-		}
-		$subpartArray['###CONTENT###'] = $content_item;
-		
-		// Return
-		$this->hook(); // adds hook
-		$this->content = $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['mandatory']['all'],$this->markerArray,$subpartArray); // substitute Marker in Template
-		$this->content = $this->dynamicMarkers->main($this->conf, $this->pibase->cObj, $this->content); // Fill dynamic locallang or typoscript markers
-		$this->content = preg_replace("|###.*?###|i","",$this->content); // Finally clear not filled markers
-		$this->overwriteSession(); // write $this->sessionfields to session if there is an ok for an error
-        if($this->error == 1) { // if there is an error
-			$this->clearErrorsInSession();
-			return $this->content; // return HTML
-		}
+	
 	}
 	
 	
@@ -230,7 +238,9 @@ class tx_powermail_mandatory extends tslib_pibase {
 				if(!t3lib_div::validEmail($this->sessionfields[$this->pibase->cObj->data['tx_powermail_sender']])) { // Value is not an email address
 					$this->sessionfields['ERROR'][str_replace('uid','',$this->pibase->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_validemail'); // write error message to session
 				} else { // Syntax of email address is correct - check for MX Record (if activated via constants)
-					if( !$this->div_functions->checkMX( $this->sessionfields[$this->pibase->cObj->data['tx_powermail_sender']] ) && $this->conf['email.']['checkMX'] ) $this->sessionfields['ERROR'][str_replace('uid','',$this->pibase->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_nomx'); // write error message to session
+					if( !$this->div_functions->checkMX( $this->sessionfields[$this->pibase->cObj->data['tx_powermail_sender']] ) && $this->conf['email.']['checkMX'] ) {
+                        $this->sessionfields['ERROR'][str_replace('uid','',$this->pibase->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_nomx'); // write error message to session
+                    }
 				}
 			}
 		}
@@ -239,7 +249,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	
 	// Function captchaCheck check if captcha fields are within current content and set errof if value is wrong
 	function captchaCheck() {
-		if(t3lib_extMgm::isLoaded('captcha',0) || t3lib_extMgm::isLoaded('sr_freecap',0)) { // only if a captcha extension is loaded
+		if(t3lib_extMgm::isLoaded('captcha',0) || t3lib_extMgm::isLoaded('sr_freecap',0) || t3lib_extMgm::isLoaded('jm_recaptcha',0)) { // only if a captcha extension is loaded
 		
 			// Give me all captcha fields of current tt_content
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
