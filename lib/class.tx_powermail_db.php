@@ -23,6 +23,7 @@
 ***************************************************************/
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
+require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_functions_div.php'); // file for div functions
 
 // This class saves powermail values in OTHER db tables if wanted (this class is not the main database class for storing)
 class tx_powermail_db extends tslib_pibase {
@@ -33,17 +34,17 @@ class tx_powermail_db extends tslib_pibase {
 	
 	
 	// Main Function for inserting datas to other tables
-	function main($conf, $sessiondata, $ok) {
+	function main($conf, $sessiondata, $cObj, $ok) {
+		// config
+		$this->cObj = $cObj; // cObject
+		$this->conf = $conf; // conf
+		$this->sessiondata = $sessiondata; // sessionvalues
+		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // Create new instance for div class
+		$db_values = $this->debug_array = array(); // init dbArray
+		
+		// let's go
 		if ($ok) { // if it's allowed to save db values
-			
-			// config
-			global $TSFE;
-			$this->cObj = $TSFE->cObj; // cObject
-			$this->conf = $conf;
-			$this->sessiondata = $sessiondata;
-			$db_values = array(); // init dbArray
-			
-			// Let's go
+		
 			if (isset($this->conf['dbEntry.']) && is_array($this->conf['dbEntry.'])) { // Only if any dbEntry is set per typoscript
 				foreach ($this->conf['dbEntry.'] as $key => $value) { // One loop for every table to insert
 					
@@ -68,7 +69,8 @@ class tx_powermail_db extends tslib_pibase {
 						if ($this->dbInsert && count($db_values) > 0) { // if its allowed and db array is not empty
 							
 							// 2.1 Main db insert for main table
-							$GLOBALS['TYPO3_DB']->exec_INSERTquery(str_replace('.','',$key), $db_values); // DB entry for every table
+							$this->debug_array['Main Table'] = $db_values; // array for debug view
+							$GLOBALS['TYPO3_DB']->exec_INSERTquery(str_replace('.', '', $key), $db_values); // DB entry for every table
 							$uid[$key] = mysql_insert_id(); // Get uid of current db entry
 							
 							
@@ -87,6 +89,7 @@ class tx_powermail_db extends tslib_pibase {
 												'uid_local' => $uid[$key],
 												'uid_foreign' => $this->cObj->cObjGetSingle($this->conf['dbEntry.'][$key]['_mm.'][$kkk]['3'], $this->conf['dbEntry.'][$key]['_mm.'][$kkk]['3.'])
 											);
+											$this->debug_array['MM Table'] = $db_values_mm; // array for debug view
 											if ($this->dbInsert && count($db_values_mm) > 0) $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->cObj->cObjGetSingle($this->conf['dbEntry.'][$key]['_mm.'][$kkk]['1'], $this->conf['dbEntry.'][$key]['_mm.'][$kkk]['1.']), $db_values_mm); // DB entry for every table
 										}
 									}
@@ -94,6 +97,8 @@ class tx_powermail_db extends tslib_pibase {
 							}
 						}
 						
+						// 3. Debug output
+						if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'externdbtable') $this->div->debug($this->debug_array, 'Extern DB-table entries'); // Debug function
 							
 					}		
 				}
@@ -105,10 +110,16 @@ class tx_powermail_db extends tslib_pibase {
 	// Function fieldExists() checks if a table and field exist in mysql db
 	function fieldExists($field = '', $table = '') {
 		if (!empty($field) && !empty($table) && strpos($field, ".") === false) {
+			// check if table and field exits in db
 			$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc( mysql_query('SHOW TABLES LIKE "'.$table.'"') ); // check if table exist
-			if($row1) $row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc( mysql_query('DESCRIBE '.$table.' '.$field) ); // check if field exist (if table is wront - errormessage)
+			if ($row1) $row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc( mysql_query('DESCRIBE '.$table.' '.$field) ); // check if field exist (if table is wront - errormessage)
 			
-			if($row1 && $row2) return 1; // table and field exist
+			// debug values
+			if (!$row1) $this->debug_array['ERROR'][] = 'Table "'.$table.'" don\'t exists in db'; // errormessage if table don't exits
+			if (!$row2 && $row1) $this->debug_array['ERROR'][] = 'Field "'.$field.'" don\'t exists in db table "'.$table.'"'; // errormessage if field don't exits
+			
+			// return true or false
+			if ($row1 && $row2) return 1; // table and field exist
 			else return 0; // table or field don't exist
 		}
 	}

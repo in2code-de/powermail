@@ -136,15 +136,15 @@ Fieldwrap for radiobuttons like <input type="radio" />
 		<p class="tx_powermail_pi1_fieldwrap_html_radio_title">###LABEL_MAIN######MANDATORY_SYMBOL###</p>
 		 <!--###CONTENT### begin -->
 		 	<!--###ITEM### begin-->
-				<div class="powermail_radio_inner powermail_radio_inner_###LABEL_NAME###">
-					<label for="###LABEL_NAME###">###LABEL###</label>
-					<input type="radio" ###NAME######VALUE######CLASS######ID######CHECKED######ACCESSKEY######TABINDEX######JS_INNER###/>
-				</div>
-		 	<!--###ITEM### end-->
+                <label for="###LABEL_NAME###">###LABEL###</label>
+				<input type="radio" ###NAME######VALUE######CLASS######ID######CHECKED######ACCESSKEY######TABINDEX######JS_INNER###/>
+                <br />
+            <!--###ITEM### end-->
 		 <!--###CONTENT### end-->
 	</div>
 <!-- ###POWERMAIL_FIELDWRAP_HTML_RADIO### end -->
-
+Removed this DIV in Powermail 1.4 so mandatory js check works:
+<div class="powermail_radio_inner powermail_radio_inner_###LABEL_NAME###"></div>
 
 
 
@@ -334,11 +334,24 @@ Fieldwrap for dropdown with countries <select>
 	<div id="powermaildiv_uid###POWERMAIL_FIELD_UID###" class="tx_powermail_pi1_fieldwrap_html tx_powermail_pi1_fieldwrap_html_select tx_powermail_pi1_fieldwrap_html_###POWERMAIL_FIELD_UID###"###DIVJS###>
 		<label for="###LABEL_NAME###">###LABEL######MANDATORY_SYMBOL###</label>
 		<select ###NAME######ID######CLASS######ONCHANGE######ONFOCUS######TABINDEX######ACCESSKEY######JS###>
+		<option value=""></option>
 		 <!-- ###CONTENT### -->
 		 	<!-- ###ITEM### -->
 		 		<option value="###VALUE###"###SELECTED######JS_INNER###>###LONGVALUE###</option>
 		 	<!-- ###ITEM### -->
 		 <!-- ###CONTENT### -->
 		 </select>
+         <div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone"></div>
 	</div>
 <!-- ###POWERMAIL_FIELDWRAP_HTML_COUNTRYSELECT### end -->
+
+<!-- ###POWERMAIL_FIELDWRAP_HTML_COUNTRYZONESELECT### begin -->
+	<select ###NAME######ID######CLASS######ONCHANGE######ONFOCUS######TABINDEX######ACCESSKEY######JS###>
+	<option value=""></option>
+	<!-- ###CONTENT### -->
+		<!-- ###ITEM### -->
+			<option value="###VALUE###"###SELECTED######JS_INNER###>###LONGVALUE###</option>
+		<!-- ###ITEM### -->
+	<!-- ###CONTENT### -->
+	</select>
+<!-- ###POWERMAIL_FIELDWRAP_HTML_COUNTRYZONESELECT### end -->

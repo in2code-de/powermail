@@ -1,6 +1,8 @@
 # POWERMAIL PLUGIN #
+
 plugin.tx_powermail_pi1 {
-	# get constants
+
+	# --- CONSTANTS ---
 	template.fieldWrap = {$plugin.powermail.template.fieldWrap}
 	template.formWrap = {$plugin.powermail.template.formWrap}
 	template.thxMessage = {$plugin.powermail.template.thxMessage}
@@ -9,12 +11,9 @@ plugin.tx_powermail_pi1 {
 	template.all = {$plugin.powermail.template.all}
 	template.mandatory = {$plugin.powermail.template.mandatory}
 	template.MultipleJS = {$plugin.powermail.template.MultipleJS}
-	allow.email2receiver = {$plugin.powermail.allow.email2receiver}
-	allow.email2sender = {$plugin.powermail.allow.email2sender}
-	allow.dblog = {$plugin.powermail.allow.dblog}
 	emailformat.recipient_mail = {$plugin.powermail.emailformat.recipient_mail}
 	emailformat.sender_mail = {$plugin.powermail.emailformat.sender_mail}
-	
+	---
 	enable.unique = {$plugin.powermail.enable.unique}
 	email.noreply = {$plugin.powermail.email.noreply}
 	email.checkMX = {$plugin.powermail.email.checkMX}
@@ -38,13 +37,11 @@ plugin.tx_powermail_pi1 {
 	upload.filesize = {$plugin.powermail.upload.filesize}
 	upload.attachment = {$plugin.powermail.upload.attachment}
 	clear.session = {$plugin.powermail.clear.session}
-	js.mandatorycheck = {$plugin.powermail.js.mandatorycheck}
 	js.mandatorydivclass = {$plugin.powermail.js.mandatorydivclass}
 	js.onfocus = {$plugin.powermail.js.onfocus}
-	js.Prototype = {$plugin.powermail.js.Prototype}
-	js.HTMLentities = {$plugin.powermail.js.HTMLentities}
 	field.checkboxJS = {$plugin.powermail.field.checkboxJS}
 	rte.parse = {$plugin.powermail.rte.parse}
+	label.parse = {$plugin.powermail.label.parse}
 	powermail.charset = {$plugin.powermail.powermail.charset}
 	barrier-free.tabindex = {$plugin.powermail.barrier-free.tabindex}
 	barrier-free.accesskey = {$plugin.powermail.barrier-free.accesskey}
@@ -53,16 +50,74 @@ plugin.tx_powermail_pi1 {
 	debug.output = {$plugin.powermail.debug.output}
 	
 	
-	# adding (or changing) flexible locallang markers in any HTML template or RTE field (example)
-	_LOCAL_LANG.en {
-		locallangmarker_yourvalue = this is a new text
+	# Enable, Disable email to sender or receiver or db saving
+	allow {
+		# Enable or disable email to receiver (main mail)
+		email2receiver = TEXT
+		email2receiver.value = {$plugin.powermail.allow.email2receiver}
+		
+		# Enable or disable email to sender
+		email2sender = TEXT
+		email2sender.value = {$plugin.powermail.allow.email2sender}
+		
+		# Enable or disable saving values to database
+		dblog = TEXT
+		dblog.value = {$plugin.powermail.allow.dblog}
 	}
 	
 	
-	# adding flexible typoscript markers in any HTML template or RTE field (example)
-	dynamicTyposcript {
-		yourmarker = TEXT
-		yourmarker.value = This is a new text
+	# --- EXAMPLE CODE SECTION ---
+	
+	
+	# Manipulation of values in every mode (email to receiver, db log, etc..)
+	mode {
+	
+		# Manipulation of values in dblog
+		dblog {
+			uid999 = TEXT
+			uid999.field = uid999
+			uid999.wrap = <b>|</b>
+			
+			uid998_0 = TEXT
+			uid998_0.field = uid998_0
+			uid998_0.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to receiver (main mail)
+		recipient_mail {
+			uid999 = TEXT
+			uid999.field = uid999
+			uid999.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to sender (confirmation mail)
+		sender_mail {
+			uid999 = TEXT
+			uid999.field = uid999
+			uid999.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to sender (confirmation mail)
+		thx {
+			uid999 = TEXT
+			uid999.field = uid999
+			uid999.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to sender (confirmation mail)
+		confirmation {
+			uid999 = TEXT
+			uid999.field = uid999
+			uid999.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to sender (confirmation mail)
+		mandatory {
+			uid999 = TEXT
+			uid999.field = uid999
+			uid999.wrap = <b>|</b>
+		}
+		
 	}
 	
 	
@@ -86,6 +141,18 @@ plugin.tx_powermail_pi1 {
 		uid995.data = getIndpEnv:REMOTE_ADDR
 	}
 	
+	
+	# adding (or changing) flexible locallang markers in any HTML template or RTE field (example)
+	_LOCAL_LANG.en {
+		locallangmarker_yourvalue = this is a new text
+	}
+	
+	
+	# adding flexible typoscript markers in any HTML template or RTE field (example)
+	dynamicTyposcript {
+		yourmarker = TEXT
+		yourmarker.value = This is a new text
+	}
 	
 	
 	# extern db entry (example for tt_adress)
@@ -141,15 +208,77 @@ plugin.tx_powermail_pi1 {
 
 
 
-# TypeNum 3131 offers a dynamic javascript for powermail which allows to validate different fields
+# ---------------------- Additional Typoscript ---------------------
+
+
+
+
+# Add Javascript files to page header
+page.includeJS.file31311 = EXT:powermail/js/checkbox/checkbox.js
+page.includeJS.file31312 = EXT:powermail/js/mandatoryjs/lib/prototype.js
+page.includeJS.file31313 = EXT:powermail/js/mandatoryjs/src/effects.js
+page.includeJS.file31314 = EXT:powermail/js/mandatoryjs/fabtabulous.js
+
+page.headerData.31310 = TEXT
+page.headerData.31310 {
+	wrap = <script src="|" type="text/javascript"></script>
+	typolink.parameter.data = page : uid
+	typolink.additionalParams = &type=3131
+	typolink.addQueryString = 1
+	typolink.returnLast = url
+}
+
+seite.headerData.31310 < page.headerData.31310
+seite.includeJS.31311 < page.includeJS.file31311
+seite.includeJS.31312 < page.includeJS.file31312
+seite.includeJS.31313 < page.includeJS.file31313
+seite.includeJS.31314 < page.includeJS.file31314
+
+
+
+
+
+
+# TypeNum 3131 for field validation via prototype (current page with &type=3131 with Javascript)
 powermailJS = PAGE
 powermailJS {
 	typeNum = 3131
-	10 < plugin.tx_powermail_pi1
 	
 	config {
 		disableAllHeaderCode = 1
+		disablePrefixComment = 1
 		xhtml_cleaning = 0
 		admPanel = 0
+	}
+	
+	10 = TEMPLATE
+	10 {
+		template = FILE
+		template.file = EXT:powermail/js/mandatoryjs/validation.js
+		
+		subparts.REQUIRED = TEXT
+		subparts.REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+		subparts.VALIDATE_REQUIRED = TEXT
+		subparts.VALIDATE_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_number
+		subparts.VALIDATE_DIGITS = TEXT
+		subparts.VALIDATE_DIGITS.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_digits
+		subparts.VALIDATE_ALPHA = TEXT
+		subparts.VALIDATE_ALPHA.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_alpha
+		subparts.VALIDATE_ALPHANUM = TEXT
+		subparts.VALIDATE_ALPHANUM.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_alphanum
+		subparts.VALIDATE_DATE = TEXT
+		subparts.VALIDATE_DATE.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_date
+		subparts.VALIDATE_EMAIL = TEXT
+		subparts.VALIDATE_EMAIL.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_email
+		subparts.VALIDATE_URL = TEXT
+		subparts.VALIDATE_URL.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_url
+		subparts.VALIDATE_DATE_AU = TEXT
+		subparts.VALIDATE_DATE_AU.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_date_au
+		subparts.VALIDATE_CURRENCY_DOLLAR = TEXT
+		subparts.VALIDATE_CURRENCY_DOLLAR.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_currency_dollar
+		subparts.VALIDATE_SELECTION = TEXT
+		subparts.VALIDATE_SELECTION.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_selection
+		subparts.VALIDATE_ONE_REQUIRED = TEXT
+		subparts.VALIDATE_ONE_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
 	}
 }

@@ -109,11 +109,11 @@ class tx_powermail_export {
 								if(isset($values) && is_array($values)) {
 									foreach ($values as $key => $value) { // one loop for every piVar
 										//if(!is_array($value)) $table .= '"'.str_replace('"',"'",str_replace(array("\n\r","\r\n","\n","\r"),'',$value)).'"'.$this->seperator;
-										if(!is_array($value)) $table .= '"'.$this->cleanString($value).'"'.$this->separator;
+										if(!is_array($value)) $table .= '"'.$this->cleanString($value).'"'.$this->seperator;
 										else {
 											foreach ($values[$key] as $key2 => $value2) { // one loop for every piVar in second level
 												//$table .= '"'.str_replace('"',"'",str_replace(array("\n\r","\r\n","\n","\r"),'',$value2)).'"'.$this->seperator;
-												$table .= '"'.$this->cleanString($value2).'"'.$this->separator;
+												$table .= '"'.$this->cleanString($value2).'"'.$this->seperator;
 											}
 										}
 									}
@@ -228,7 +228,7 @@ class tx_powermail_export {
 							if ($this->outputEncoding != 'utf-8') $label = $this->LANG->csConvObj->conv($label, 'utf-8', $this->outputEncoding);
 							if (!is_array($value)) {
 								if ($export == 'csv') {
-									$table .= '"'.$this->cleanString($label).'"'.$this->separator;
+									$table .= '"'.$this->cleanString($label).'"'.$this->seperator;
 								}
 								else {
 									$table .= '<td>'.$label.'</td>';
@@ -261,7 +261,7 @@ class tx_powermail_export {
 			if ($res) $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
 			if(isset($row['title'])) return $row['title']; // if title was found return ist
-			else return 'POWERMAIL ERROR: No title to current field found in DB'; // if no title was found return 
+			else if ($uid < 100000) return 'POWERMAIL ERROR: No title to current field found in DB'; // if no title was found return 
 		} else { // no uid55 so return $name
 			return $name;
 		}

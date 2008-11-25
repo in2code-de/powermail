@@ -62,7 +62,7 @@ class tx_powermail_bedetails {
 			if ($res) $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 			
 			if(isset($row['title'])) return $row['title']; // if title was found return ist
-			else return 'POWERMAIL ERROR: No title to current field found in DB'; // if no title was found return 
+			else if ($uid < 100000) return 'POWERMAIL ERROR: No title to current field found in DB'; // if no title was found return 
 		} else { // no uid55 so return $name
 			return $name;
 		}

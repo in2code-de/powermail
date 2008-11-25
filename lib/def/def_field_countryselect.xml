@@ -13,6 +13,14 @@
 						<foreign_table>static_countries</foreign_table>
 						<size>1</size>
 						<max>1</max>
+						<minitems>0</minitems>
+						<maxitems>1</maxitems>
+						<items type="array">
+							<numIndex index="" type="array">
+								<numIndex index="0"></numIndex>
+								<numIndex index="1"></numIndex>
+							</numIndex>
+						</items>
 					</config>
 				</TCEforms>
 			</preselect>         
@@ -48,6 +56,22 @@
 					</config>
 				</TCEforms>
 			</without>
+			<mandatory>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mandatory</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</mandatory>
+			<countryzone>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.countryzone</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</countryzone>
 			<name>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>

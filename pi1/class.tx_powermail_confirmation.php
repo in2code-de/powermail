@@ -31,8 +31,10 @@ class tx_powermail_confirmation extends tslib_pibase {
 	var $extKey        = 'powermail';	// The extension key.
 	var $pi_checkCHash = true;
 
-	function main($content,$conf){
+	function main($conf, $sessionfields, $cObj) {
 		$this->conf = $conf;
+		$this->cObj = $cObj;
+		$this->sessionfields = $sessionfields;
 		$this->pi_setPiVarDefaults();
 		$this->pi_loadLL();
 		$this->pi_initPIflexform(); // Init and get the flexform data of the plugin
@@ -40,26 +42,25 @@ class tx_powermail_confirmation extends tslib_pibase {
 		// Instances
 		$this->dynamicMarkers = t3lib_div::makeInstance('tx_powermail_dynamicmarkers'); // New object: TYPO3 dynamicmarker function
 		$this->markers = t3lib_div::makeInstance('tx_powermail_markers'); // New object: TYPO3 marker functions
-		$this->markers->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
 		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
 		
 		// Template
 		$this->tmpl = array();
-		$this->tmpl['all'] = $this->pibase->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['confirmation']),'###POWERMAIL_CONFIRMATION###'); // Load HTML Template (work on subpart)
+		$this->tmpl['all'] = $this->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['confirmation']),'###POWERMAIL_CONFIRMATION###'); // Load HTML Template (work on subpart)
 		
 		// Fill Markers
-		$this->markerArray = $this->markers->GetMarkerArray(); // Fill markerArray
-		$this->markerArray['###POWERMAIL_NAME_BACK###'] = $this->pibase->cObj->data['tx_powermail_title'].'_confirmation_back'; // Fill Marker with formname
-		$this->markerArray['###POWERMAIL_NAME_SUBMIT###'] = $this->pibase->cObj->data['tx_powermail_title'].'_confirmation_submit'; // Fill Marker with formname
+		$this->markerArray = $this->markers->GetMarkerArray($this->conf, $this->sessionfields, $this->cObj, 'confirmation'); // Fill markerArray
+		$this->markerArray['###POWERMAIL_NAME_BACK###'] = $this->cObj->data['tx_powermail_title'].'_confirmation_back'; // Fill Marker with formname
+		$this->markerArray['###POWERMAIL_NAME_SUBMIT###'] = $this->cObj->data['tx_powermail_title'].'_confirmation_submit'; // Fill Marker with formname
 		$this->markerArray['###POWERMAIL_METHOD###'] = $this->conf['form.']['method']; // Form method
-		$this->markerArray['###POWERMAIL_TARGET_BACK###'] = $this->pibase->cObj->typolink('x',array('returnLast'=>'url','parameter'=>$GLOBALS['TSFE']->id,'useCacheHash'=>1)); // Create target url
-		$this->markerArray['###POWERMAIL_TARGET_SUBMIT###'] = $this->pibase->cObj->typolink('x',array('returnLast'=>'url','parameter'=>$GLOBALS['TSFE']->id,'additionalParams'=>'&tx_powermail_pi1[mailID]='.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']).'&tx_powermail_pi1[sendNow]=1','useCacheHash'=>1)); // Create target url
+		$this->markerArray['###POWERMAIL_TARGET_BACK###'] = $this->cObj->typolink('x',array('returnLast'=>'url','parameter'=>$GLOBALS['TSFE']->id,'useCacheHash'=>1)); // Create target url
+		$this->markerArray['###POWERMAIL_TARGET_SUBMIT###'] = $this->cObj->typolink('x',array('returnLast'=>'url','parameter'=>$GLOBALS['TSFE']->id,'additionalParams'=>'&tx_powermail_pi1[mailID]='.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).'&tx_powermail_pi1[sendNow]=1','useCacheHash'=>1)); // Create target url
 			
 		// Return
 		$this->hook(); // adds hook
-		$this->content = $this->pibase->cObj->substituteMarkerArrayCached($this->tmpl['all'],$this->markerArray); // substitute Marker in Template
-		$this->content = $this->dynamicMarkers->main($this->conf, $this->pibase->cObj, $this->content); // Fill dynamic locallang or typoscript markers
-		$this->content = preg_replace("|###.*?###|i","",$this->content); // Finally clear not filled markers
+		$this->content = $this->cObj->substituteMarkerArrayCached($this->tmpl['all'],$this->markerArray); // substitute Marker in Template
+		$this->content = $this->dynamicMarkers->main($this->conf, $this->cObj, $this->content); // Fill dynamic locallang or typoscript markers
+		$this->content = preg_replace("|###.*?###|i", "", $this->content); // Finally clear not filled markers
 		if (!$this->div->subpartsExists($this->tmpl)) $this->content = $this->pi_getLL('error_templateNotFound', 'Template not found, check path to your powermail templates').'<br />';
 		return $this->content; // return HTML
 	}
@@ -73,14 +74,6 @@ class tx_powermail_confirmation extends tslib_pibase {
 				$_procObj->PM_ConfirmationHook($this->markerArray,$this); // Open function to manipulate data
 			}
 		}
-	}
-
-
-	//function for initialisation.
-	// to call cObj, make $this->pibase->cObj->function()
-	function init(&$conf,&$pibase) {
-		$this->conf = $conf;
-		$this->pibase = $pibase;
 	}
 }
 

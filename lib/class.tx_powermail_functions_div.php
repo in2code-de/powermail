@@ -76,13 +76,6 @@ class tx_powermail_functions_div {
 	}
 	
 	
-	// Function changeValues() to change values after submit (timestring to date or something like that...)
-	function changeValues($piVars) {
-		// TODO Changing piVars via typoscript
-		return $piVars;
-	}
-	
-	
 	// Add debug view for any array
 	function debug($array, $msg = 'Debug output') {
 		echo '<b>'.$msg.':</b>'; // title output
@@ -92,7 +85,7 @@ class tx_powermail_functions_div {
 	
 	
 	// Function clearName() to disable not allowed letters (only A-Z and 0-9 allowed) (e.g. Perfect Extension -> perfectextension)
-	function clearName($string,$strtolower = 0,$cut = 0) {
+	function clearName($string, $strtolower = 0, $cut = 0) {
 		$string = preg_replace("/[^a-zA-Z0-9]/","",$string); // replace not allowed letters with nothing
 		if($strtolower) $string = strtolower($string); // string to lower if active
 		if($cut) $string = substr($string,0,$cut); // cut after X signs if active
@@ -102,7 +95,7 @@ class tx_powermail_functions_div {
 	
 	
 	// Function clearValue() to remove all " or ' from code
-	function clearValue($string,$htmlentities = 1,$strip_tags = 0) {
+	function clearValue($string, $htmlentities = 1, $strip_tags = 0) {
 		$notallowed = array('"',"'");
 		$string = str_replace($notallowed,"",$string); // replace not allowed letters with nothing
 		if($htmlentities) $string = htmlentities($string); // change code to ascii code
@@ -113,7 +106,7 @@ class tx_powermail_functions_div {
 	
 	
 	// Function linker() generates link (email and url) from pure text string within an email or url ('test www.test.de test' => 'test <a href="http://www.test.de">www.test.de</a> test')
-    function linker($link,$additinalParams = '') {
+    function linker($link, $additinalParams = '') {
         $link = str_replace("http://www.","www.",$link);
         $link = str_replace("www.","http://www.",$link);
         $link = preg_replace("/([\w]+:\/\/[\w-?&;#~=\.\/\@]+[\w\/])/i","<a href=\"$1\"$additinalParams>$1</a>", $link);
@@ -154,7 +147,7 @@ class tx_powermail_functions_div {
 	
 	
 	// Function marker2value() replaces ###UID3### with its value from session
-	function marker2value($string,$sessiondata) {
+	function marker2value($string, $sessiondata) {
 		$this->sessiondata = $sessiondata; // make session array available in other functions
 		
 		$string = preg_replace_callback ( // Automaticly replace ###UID55### with value from session to use markers in query strings
@@ -189,7 +182,7 @@ class tx_powermail_functions_div {
 	
 	
 	// Function checkMX() checks if a domain exists
-	function checkMX($email,$record = 'MX') {
+	function checkMX($email, $record = 'MX') {
 		if (function_exists('checkdnsrr')) { // if function checkdnsrr() exist (not available on windows systems)
 			list($user,$domain) = split('@',$email); // split email in user and domain
 			
@@ -267,13 +260,67 @@ class tx_powermail_functions_div {
 		}
 		return true; // ok
 	}
-
-
-	// Function for initialisation.
-	// to call cObj, make $this->pibase->pibase->cObj->function()
-	function init(&$conf,&$pibase) {
+	
+	
+	// Function TSmanipulation() manipulates session values before output with typoscript
+	function TSmanipulation($array, $mode, $conf, $cObj) {
+		// config
 		$this->conf = $conf;
-		$this->pibase = $pibase;
+		$this->cObj = $cObj;
+		
+		// let's go
+		if (is_array($this->conf['mode.'][$mode.'.']) && count($this->conf['mode.'][$mode.'.']) > 0) { // if there are configurations in typoscript
+			foreach ($this->conf['mode.'][$mode.'.'] as $key => $value) { // one loop for every ts configuration
+				if (strpos($key, '.') === false) { // if no point in the key
+					if (strpos($key, '_') === false) { // like uid43
+						$this->cObj->start(array_merge((array) $this->arraytwo2arrayone($array), (array) $this->cObj->data), 'tx_powermail_fields'); // enable .field in typoscript
+						$array[$key] = $this->cObj->cObjGetSingle($this->conf['mode.'][$mode.'.'][$key], $this->conf['mode.'][$mode.'.'][$key.'.']); // overwrite value with ts manipulation
+					} else { // like uid43_0
+						$tmpkey = t3lib_div::trimExplode('_', $key); // split key at underscore
+						$array[$tmpkey[0]][$tmpkey[1]] = $this->cObj->cObjGetSingle($this->conf['mode.'][$mode.'.'][$key], $this->conf['mode.'][$mode.'.'][$key.'.']); // overwrite value with ts manipulation
+					}
+				}
+			}
+		}
+		
+		return $array; // return array
+	}
+	
+	
+	// Function arraytwo2arrayone() changes: array('v1', array('v2')) to array('v1', 'v1_v2)
+	function arraytwo2arrayone($array) {
+		$newarray = array();
+		
+		if (count($array) > 0 && is_array($array)) {
+			foreach ($array as $k => $v) {
+				if (!is_array($v)) { // first level
+					
+					$newarray[$k] = $v; // no change
+				
+				} else { // second level
+					if (count($v) > 0) {
+						
+						foreach ($v as $k2 => $v2) {
+							if (!is_array($v2)) $newarray[$k.'_'.$k2] = $v2; // change to first level
+						}
+					
+					}
+				}
+			}
+		}
+		
+		return $newarray;
+	}
+	
+	
+	// Function parseFunc() parses a string to support LINK syntax
+	function parseFunc($str, $cObj, $act = 1) {
+		$this->cObj = $cObj;
+		$parseFunc = $GLOBALS['TSFE']->tmpl->setup['lib.']['parseFunc_RTE.']; // Get parseFunc array from Globals
+		$parseFunc['nonTypoTagStdWrap.']['encapsLines.']['removeWrapping'] = 1; // add removeWrapping to this array (we don't want the p-tags)
+
+		if ($act == 1) return $this->cObj->parseFunc($str, $parseFunc); // return string
+		else return $str; // return string
 	}
 	
 }

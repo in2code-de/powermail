@@ -58,87 +58,73 @@ class tx_powermail_pi1 extends tslib_pibase {
 		$this->submit = t3lib_div::makeInstance('tx_powermail_submit'); // Create new instance for submit class
 		$this->confirmation = t3lib_div::makeInstance('tx_powermail_confirmation'); // Create new instance for confirmation class
 		$this->mandatory = t3lib_div::makeInstance('tx_powermail_mandatory'); // Create new instance for mandatory class
-		$this->mandatory->init($this->conf,$this); // mandatory init
 		
 		// Security for piVars
 		$this->piVars = $this->div->sec($this->piVars); // first of all clean piVars
 		
 		// Sessionwork
-		$this->sessions->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
-		$this->sessions->deleteSession($this->piVars['clearSession']); // If GET Param clearSession is set, delete complete Session
-		$this->sessions->setSession($this->piVars,0); // Set piVars to session (but don't overwrite old values)
-		$this->sessionfields = $this->sessions->getSession(0); // give me all piVars from session (without not needed values)
-		$this->sessions->setSession($this->sessions->changeData($this->sessionfields), 0); // NEW: manipulate data (upload fields, check email, etc..) and save it at once in the session
-		$this->sessionfields = $this->div->changeValues($this->sessionfields); // changing sessionvalues with typoscript // TODO
+		$this->sessions->deleteSession($this->conf, $this->cObj, $this->piVars['clearSession']); // If GET Param clearSession is set, delete complete Session
+		$this->sessions->setSession($this->conf, $this->piVars, $this->cObj, 0); // Set piVars to session (but don't overwrite old values)
+		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // give me all piVars from session (without not needed values)
+		$this->sessions->setSession($this->conf, $this->sessions->changeData($this->sessionfields), $this->cObj, 0); // manipulate data (upload fields, check email, etc..) and save it at once in the session
+		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // get values from session again
 		if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'session') $this->div->debug($this->sessionfields, 'Values from session'); // Debug function (Array from Session)
 		
 		// Start main choose
 		$this->hook_main_content_before(); // hook for content manipulation 1
-		if(t3lib_div::GPvar('type') != 3131) { // typenum is not 3131
-			if(isset($this->piVars['multiple']) || isset($this->piVars['mailID']) || isset($this->piVars['sendNow'])) {
-				// What kind of function should be shown in frontend
-				if(!$this->piVars['multiple']) { // if multiple is not set
-					if($this->piVars['mailID']) { // submitted
-						if($this->cObj->data['tx_powermail_confirm']) { // Confirm page activated
+		
+		if(isset($this->piVars['multiple']) || isset($this->piVars['mailID']) || isset($this->piVars['sendNow'])) {
+			// What kind of function should be shown in frontend
+			if(!$this->piVars['multiple']) { // if multiple is not set
+				if($this->piVars['mailID']) { // submitted
+					if($this->cObj->data['tx_powermail_confirm']) { // Confirm page activated
+					
+						if(!$this->piVars['sendNow']) { // If sendNow is not set
 						
-							if(!$this->piVars['sendNow']) { // If sendNow is not set
-							
-								$this->confirmation->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
-								if(!$this->check()) { // if all needed fields in backend where filled
-									if(!$this->mandatory->main($this->conf,$this->sessionfields)) { // Mandatory check negative
-										$this->content = $this->confirmation->main($this->content,$this->conf); // Call the confirmation function.
-									} else { // Mandatory check positive
-										$this->content = $this->mandatory->main($this->conf,$this->sessionfields); // Call the mandatory function
-									}
-								}
-								else $this->content = $this->check(); // Error message
-								
-							} else { // sendNow is set - so call submit function
-							
-								$this->submit->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
-								if(!$this->check()) { // if all needed fields in backend where filled
-									if(!$this->mandatory->main($this->conf,$this->sessionfields)) { // Mandatory check negative
-										$this->content = $this->submit->main($this->content,$this->conf); // Call the submit function.
-									} else { // Mandatory check positive
-										$this->content = $this->mandatory->main($this->conf,$this->sessionfields); // Call the mandatory function
-									}
-								}
-								else $this->content = $this->check(); // Error message
-								
-							}
-							
-						} else { // No confirm page active, so start submit
-							
-							$this->submit->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
-							if(!$this->check()) {
-								if(!$this->mandatory->main($this->conf,$this->sessionfields)) { // Mandatory check negative
-									$this->content = $this->submit->main($this->content,$this->conf); // Call the submit function.
+							if(!$this->check()) { // if all needed fields in backend where filled
+								if(!$this->mandatory->main($this->conf, $this->sessionfields, $this->cObj)) { // Mandatory check negative
+									$this->content = $this->confirmation->main($this->conf, $this->sessionfields, $this->cObj); // Call the confirmation function.
 								} else { // Mandatory check positive
-									$this->content = $this->mandatory->main($this->conf,$this->sessionfields); // Call the mandatory function
-								}			
+									$this->content = $this->mandatory->main($this->conf, $this->sessionfields, $this->cObj); // Call the mandatory function
+								}
+							}
+							else $this->content = $this->check(); // Error message
+							
+						} else { // sendNow is set - so call submit function
+						
+							if(!$this->check()) { // if all needed fields in backend where filled
+								if(!$this->mandatory->main($this->conf, $this->sessionfields, $this->cObj)) { // Mandatory check negative
+									$this->content = $this->submit->main($this->conf, $this->sessionfields, $this->cObj); // Call the submit function.
+								} else { // Mandatory check positive
+									$this->content = $this->mandatory->main($this->conf, $this->sessionfields, $this->cObj); // Call the mandatory function
+								}
 							}
 							else $this->content = $this->check(); // Error message
 							
 						}
+						
+					} else { // No confirm page active, so start submit
+						
+						if(!$this->check()) {
+							if(!$this->mandatory->main($this->conf, $this->sessionfields, $this->cObj)) { // Mandatory check negative
+								$this->content = $this->submit->main($this->conf, $this->sessionfields, $this->cObj); // Call the submit function.
+							} else { // Mandatory check positive
+								$this->content = $this->mandatory->main($this->conf, $this->sessionfields, $this->cObj); // Call the mandatory function
+							}			
+						}
+						else $this->content = $this->check(); // Error message
+						
 					}
-					
-				} else { // multiple link is set, so show form again
-					$this->form->init($this->conf,$this); // init
-					if(!$this->check()) $this->content = $this->form->main($this->content,$this->conf); // Show form
-					else $this->content = $this->check(); // Error message
 				}
 				
-			} else { // No piVars so show form
-				$this->form->init($this->conf,$this); // init
-				if(!$this->check()) $this->content = $this->form->main($this->content,$this->conf); // Show form
+			} else { // multiple link is set, so show form again
+				if(!$this->check()) $this->content = $this->form->main($this->conf, $this->sessionfields, $this->cObj); // Show form
 				else $this->content = $this->check(); // Error message
 			}
-		
-		
-		} else { // typenum 3131 - show js for mandatory
-			include 'JSvalidation.php'; // load JSvalidation.php from pi1 folder (load dynamic js)
 			
-			return $validationJS;
+		} else { // No piVars so show form
+			if(!$this->check()) $this->content = $this->form->main($this->conf, $this->sessionfields, $this->cObj); // Show form
+			else $this->content = $this->check(); // Error message
 		}
 		
 		$this->content = $this->div->charset($this->content, $this->conf['powermail.']['charset']); // use utf8_encode or _decode if wanted (set via constants)

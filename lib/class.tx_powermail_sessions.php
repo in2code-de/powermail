@@ -28,7 +28,7 @@ require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_function
 /**
  * Class with collection of different functions (like string and array functions)
  *
- * @author	Mischa Heiﬂmann, Alexander Kellner <typo3.2008@heissmann.org, alexander.kellner@einpraegsam.net>
+ * @author	Alexander Kellner, Mischa Heiﬂmann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
  * @package	TYPO3
  * @subpackage	tx_powermail
  */
@@ -36,52 +36,66 @@ class tx_powermail_sessions extends tslib_pibase {
 
 	var $extKey = 'powermail';
     var $scriptRelPath = 'pi1/class.tx_powermail_pi1.php';    // Path to pi1 to get locallang.xml from pi1 folder
+	var $extendedSessionValues = array('FILE', 'ERROR', 'OK'); // define other keys which could be listed in a session
 	
 	
 	// Function setSession() to save all piVars to a session
-	function setSession($piVars,$overwrite = 1) {
-		if(isset($piVars)) { // Only if piVars are existing
+	function setSession($conf, $piVars, $cObj, $overwrite = 1) {
+		// conf
+		$this->conf = $conf;
+		$this->cObj = $cObj;
+		
+		// start
+		if (isset($piVars)) { // Only if piVars are existing
 			// get old values before overwriting
-			if($overwrite == 0) { // get old values so, it can be set again
-				$oldPiVars = $this->getSession(0); // Get Old piVars from Session (without not allowed piVars)
-				if(isset($oldPiVars) && is_array($oldPiVars)) $piVars = array_merge($oldPiVars, $piVars); // Add old piVars to new piVars
+			if ($overwrite == 0) { // get old values so, it can be set again
+				$oldPiVars = $this->getSession($this->conf, $this->cObj, 0); // Get Old piVars from Session (without not allowed piVars)
+				if (isset($oldPiVars) && is_array($oldPiVars)) $piVars = array_merge($oldPiVars, $piVars); // Add old piVars to new piVars
 			}
 			// Set Session (overwrite all values)
-			$GLOBALS['TSFE']->fe_user->setKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']), $piVars); // Generate Session with piVars array
+			$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $piVars); // Generate Session with piVars array
 			$GLOBALS['TSFE']->storeSessionData(); // Save session
 		}
 	}
 	
 	
 	// Function getSession() to get all saved session data in an array
-	function getSession($all = 1) {
-		$piVars = $GLOBALS['TSFE']->fe_user->getKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid'])); // Get piVars from Session
+	function getSession($conf, $cObj, $all = 1) {
+		// conf
+		$this->conf = $conf;
+		$this->cObj = $cObj;
 		
-		if($all == 0) { // delete not allowed values from piVars
-			if(isset($piVars) && is_array($piVars)) {
+		// start
+		$piVars = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'])); // Get piVars from Session
+		
+		if ($all == 0) { // delete not allowed values from piVars
+			if (isset($piVars) && is_array($piVars)) {
 				foreach($piVars as $key => $value) { // one loop for every piVar
-					if(!is_numeric(str_replace('uid','',$key)) && $key != 'FILE' && $key != 'ERROR' && $key != 'OK') {
+					if (!is_numeric(str_replace('uid','',$key)) && !in_array($key, $this->extendedSessionValues)) { // all values which are not like uid3 && Not especially values
 						unset($piVars[$key]); // delete current value (like mailID or sendnow)
 					}
 				}
 			}
 		}
 		
-		if(isset($piVars)) return $piVars;
+		if (isset($piVars)) return $piVars;
 	}
 	
 	
 	// Function deleteSession() 
-	function deleteSession($uid) {
+	function deleteSession($conf, $cObj, $uid) {
+		$this->conf = $conf;
+		$this->cObj = $cObj;
+		
 		if (!is_array($uid)) { // is not an array
 			if ($uid == -1) { // delete all
 				
-				$GLOBALS['TSFE']->fe_user->setKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']), array()); // Overwrite Session with empty array
+				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), array()); // Overwrite Session with empty array
 				$GLOBALS['TSFE']->storeSessionData(); // Save session
 				
 			} elseif ($uid > 0) { // delete only one value from session
 				
-				$oldPiVars = $this->getSession(); // Get all old piVars from Session
+				$oldPiVars = $this->getSession($this->conf, $this->cObj); // Get all old piVars from Session
 				$oldvalue = $oldPiVars['uid'.$uid]; // filename
 				if (count($oldPiVars['FILE']) > 0) { // if there are values in the FILE array
 					foreach ($oldPiVars['FILE'] as $key => $value) { // one loop for every file in array
@@ -89,17 +103,17 @@ class tx_powermail_sessions extends tslib_pibase {
 					}
 				}
 				unset($oldPiVars['uid'.$uid]); // Delete one uid
-				$GLOBALS['TSFE']->fe_user->setKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
+				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
 				$GLOBALS['TSFE']->storeSessionData(); // Save session
 				
 			}
 		} else { // is an array (multiple upload)
-			if (count($uid)>0) {
-				$oldPiVars = $this->getSession(); // Get all old piVars from Session
+			if (count($uid) > 0) {
+				$oldPiVars = $this->getSession($this->conf, $this->cObj); // Get all old piVars from Session
 				foreach ($uid as $key => $value) {
 					unset($oldPiVars['FILE'][$key]); // delete FILE array value
 				}
-				$GLOBALS['TSFE']->fe_user->setKey("ses", $this->extKey.'_'.($this->pibase->cObj->data['_LOCALIZED_UID'] > 0 ? $this->pibase->cObj->data['_LOCALIZED_UID'] : $this->pibase->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
+				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
 				$GLOBALS['TSFE']->storeSessionData(); // Save session
 			}
 		}
@@ -111,18 +125,18 @@ class tx_powermail_sessions extends tslib_pibase {
 		
 		// config
 		$this->pi_loadLL();
+		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // Create new instance for div class
 		
-		
-		// 1. CHECK FOR UPLOAD FIELDS AND COPY UPLOADED FILE...
-		$this->allowedFileExtensions = t3lib_div::trimExplode(',',$this->conf['upload.']['file_extensions'],1); // get all allowed fileextensions
+		// check for uploaded files and copy them...
+		$this->allowedFileExtensions = t3lib_div::trimExplode(',', $this->conf['upload.']['file_extensions'], 1); // get all allowed fileextensions
 		$this->uids = '';
-		if(is_array($_FILES['tx_powermail_pi1']['name'])) {
+		if (is_array($_FILES['tx_powermail_pi1']['name'])) {
 			foreach ($_FILES['tx_powermail_pi1']['name'] as $key => $value) { // one loop for every piVar
-				if(is_numeric(str_replace('uid','',$key))) $this->uids .= str_replace('uid','',$key).','; // generate uid list like 5,6,77,23,
+				if(is_numeric(str_replace('uid', '', $key))) $this->uids .= str_replace('uid', '', $key).','; // generate uid list like 5,6,77,23,
 			}
-			if(strlen($this->uids) > 0) $this->uids = substr($this->uids,0,-1); // delete last ,
+			if (strlen($this->uids) > 0) $this->uids = substr($this->uids,0,-1); // delete last ,
 		}
-		if(trim($this->uids) != '') {
+		if (trim($this->uids) != '') {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // search for all uploads fields within piVars
 				'uid',
 				'tx_powermail_fields',
@@ -143,7 +157,7 @@ class tx_powermail_sessions extends tslib_pibase {
 									if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']][$key]) < ($this->conf['upload.']['filesize'] * 1024)) { // filesize check
 										if (in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions)) { // if current fileextension is allowed
 											// upload copy move uploaded files to destination
-											if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']][$key], t3lib_div::getFileAbsFileName($this->div_functions->correctPath($this->conf['upload.']['folder']).$newfilename))) {
+											if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']][$key], t3lib_div::getFileAbsFileName($this->div->correctPath($this->conf['upload.']['folder']).$newfilename))) {
 												$piVars['uid'.$row['uid']] = $newfilename; // write new filename to session (area for normal fields)
 												$piVars['FILE'][] = $newfilename; // write new filename to session (area for files)
 											} else { // could not be copied (maybe write permission error or wrong path)
@@ -165,7 +179,7 @@ class tx_powermail_sessions extends tslib_pibase {
 							if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']]) < ($this->conf['upload.']['filesize'] * 1024)) { // filesize check
 								if (in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions)) { // if current fileextension is allowed
 									// upload copy move uploaded files to destination
-									if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']], t3lib_div::getFileAbsFileName($this->div_functions->correctPath($this->conf['upload.']['folder']).$newfilename))) {
+									if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid'.$row['uid']], t3lib_div::getFileAbsFileName($this->div->correctPath($this->conf['upload.']['folder']).$newfilename))) {
 										$piVars['uid'.$row['uid']] = $newfilename; // write new filename to session (area for normal fields)
 										$piVars['FILE'][] = $newfilename; // write new filename to session (area for files)
 									} else { // could not be copied (maybe write permission error or wrong path)
@@ -184,27 +198,7 @@ class tx_powermail_sessions extends tslib_pibase {
 			}
 		}
 		
-		
-		// 2. CHECK IF EMAIL FIELD HAS AN VALID EMAIL
-		if($this->pibase->cObj->data['tx_powermail_sender']) { // if in backend is an sender field defined
-			if($piVars[$this->pibase->cObj->data['tx_powermail_sender']]) { // if field is not empty
-				if(!t3lib_div::validEmail($piVars[$this->pibase->cObj->data['tx_powermail_sender']])) { // check if string is a valid email
-					$piVars['ERROR'][str_replace('uid','',$this->pibase->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('locallangmarker_error_validemail').' <b>'.$piVars[$this->pibase->cObj->data['tx_powermail_sender']].'</b>'; // set error to piVars
-				}
-			}
-		}
-		
 		return $piVars;
-	}
-
-
-	// Function for initialisation.
-	// to call cObj, make $this->pibase->cObj->function()
-	function init($conf,$pibase) {
-		$this->conf = $conf;
-		$this->pibase = $pibase;
-		$this->div_functions = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
-		$this->div_functions->init($this->conf,$this); // Initialise the new instance to make cObj available in all other functions.
 	}
 }
 

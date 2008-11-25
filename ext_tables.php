@@ -98,7 +98,14 @@ $TCA["tx_powermail_mails"] = array (
 
 t3lib_div::loadTCA("tt_content");
 
-t3lib_extMgm::addPlugin(array('LLL:EXT:powermail/locallang_db.xml:tt_content.CType_pi1', $_EXTKEY.'_pi1', t3lib_extMgm::extRelPath($_EXTKEY).'ext_icon.gif'),'CType');
+t3lib_extMgm::addPlugin(
+	array(
+		'LLL:EXT:powermail/locallang_db.xml:tt_content.CType_pi1', 
+		$_EXTKEY.'_pi1', 
+		t3lib_extMgm::extRelPath($_EXTKEY).'ext_icon.gif'
+	),
+	'CType'
+);
 
 $tempColumns = Array (
     "tx_powermail_title" => Array (        
@@ -154,12 +161,10 @@ $tempColumns = Array (
 		"label" => "LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.sendername",		
 		"config" => Array (
 			"type" => "select",	
-			"items" => Array (
-				Array("LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.recip_table.I.0", "0"),
-			),
+			"items" => array(),
 			"itemsProcFunc" => "user_powermail_tx_powermail_forms_sender_field->main",
-			"size" => 1,	
-			"maxitems" => 1,
+			"size" => 3,	
+			"maxitems" => 10,
 		)
 	),
 	"tx_powermail_confirm" => Array (		

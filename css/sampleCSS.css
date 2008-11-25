@@ -39,6 +39,10 @@ fieldset.tx-powermail-pi1_fieldset select.powermail_select {
 	/* Input and textarea */
 	width: 260px;
 }
+fieldset.tx-powermail-pi1_fieldset div.tx_powermail_pi1_fieldwrap_html_radio input.powermail_radio {
+	/* Radiobuttons */
+	margin: 5px 0;
+}
 div.tx_powermail_pi1_fieldwrap_html {
 	/* DIV container arround every field */
 	margin: 10px 0;
@@ -53,6 +57,9 @@ p.tx_powermail_pi1_fieldwrap_html_radio_title {
 	margin: 0;
 	padding: 0;
 	font-weight: bold;
+}
+div.countryzone {
+	margin: 10px 0 0 150px;
 }
 
 

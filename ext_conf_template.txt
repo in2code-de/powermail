@@ -17,4 +17,4 @@ disableIPlog = 0
 disablePMRealUrlConfig = 0
 
 # cat=basic/enable/070; type=boolean; label= Deactivate Start- and Stoptime: If there are problems with adding fields, this could be caused by date2cal. You can disable start- and stoptime for fields and fieldsets with this flag.
-disableStartStop = 0
+disableStartStop = 1

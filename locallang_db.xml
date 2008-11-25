@@ -122,7 +122,7 @@
 			<label index="tx_powermail_forms.xml.value">Default value</label>
 			<label index="tx_powermail_forms.xml.src">Grafic source</label>
 			<label index="tx_powermail_forms.xml.alt">Alternative text for image</label>
-			<label index="tx_powermail_forms.xml.preselect">Country shortage for preselect</label>
+			<label index="tx_powermail_forms.xml.preselect">Preselect country</label>
 			<label index="tx_powermail_forms.xml.within">Only show this countries</label>
 			<label index="tx_powermail_forms.xml.without">Show list without this countries</label>
 			<label index="tx_powermail_forms.xml.typoscript">Typoscript object</label>
@@ -134,6 +134,7 @@
 			<label index="tx_powermail_forms.xml.validate.5">letters only</label>
 			<label index="tx_powermail_forms.xml.validate.6">letters and digits only</label>
 			<label index="tx_powermail_forms.xml.example">Field example</label>
+			<label index="tx_powermail_forms.xml.countryzone">Add Countryzone select (XAJAX needed)</label>
 			<label index="tx_powermail_forms.xml.error">Please select a fieldtype to continue.</label>
 			<label index="tx_powermail_forms.xml.countryselect.error">Please install the extension static_info_tables to use this feature.</label>
 			<label index="tx_powermail_forms.xml.date.error">Please install the extension date2cal to use this feature.</label>
@@ -255,7 +256,7 @@
 			<label index="tx_powermail_forms.xml.value">Standard Wert</label>
 			<label index="tx_powermail_forms.xml.src">Bildpfad</label>
 			<label index="tx_powermail_forms.xml.alt">Alternativer Text für Grafik</label>
-			<label index="tx_powermail_forms.xml.preselect">Länderkürzel für Vorauswahl</label>
+			<label index="tx_powermail_forms.xml.preselect">Länder Vorauswahl</label>
 			<label index="tx_powermail_forms.xml.within">Zeige nur diese Länder</label>
 			<label index="tx_powermail_forms.xml.without">Schließe diese Länder aus Liste aus</label>
 			<label index="tx_powermail_forms.xml.typoscript">Typoscript Objekt</label>
@@ -268,6 +269,7 @@
 			<label index="tx_powermail_forms.xml.validate.5">nur Buchstaben</label>
 			<label index="tx_powermail_forms.xml.validate.6">nur Buchstaben und Zahlen</label>
 			<label index="tx_powermail_forms.xml.example">Beispiel</label>
+			<label index="tx_powermail_forms.xml.countryzone">Bundesländerauswahl hinzufügen (XAJAX benötigt)</label>
 			<label index="tx_powermail_forms.xml.error">Bitte wählen Sie einen Feldtypen um fortzufahren.</label>
 			<label index="tx_powermail_forms.xml.countryselect.error">Bitte installieren Sie static_info_tables um dieses Feature nutzen zu können.</label>
 			<label index="tx_powermail_forms.xml.date.error">Bitte installieren Sie date2cal um dieses Feature nutzen zu können.</label>
@@ -393,7 +395,7 @@
 			<label index="tx_powermail_forms.xml.value">Default value</label>
 			<label index="tx_powermail_forms.xml.src">Grafic source</label>
 			<label index="tx_powermail_forms.xml.alt">Alternative text for image</label>
-			<label index="tx_powermail_forms.xml.preselect">Country shortage for preselect</label>
+			<label index="tx_powermail_forms.xml.preselect">Preselect country</label>
 			<label index="tx_powermail_forms.xml.within">Only show this countries</label>
 			<label index="tx_powermail_forms.xml.without">Show list without this countries</label>
 			<label index="tx_powermail_forms.xml.typoscript">Typoscript object</label>
@@ -405,6 +407,7 @@
 			<label index="tx_powermail_forms.xml.validate.5">letters only</label>
 			<label index="tx_powermail_forms.xml.validate.6">letters and digits only</label>
 			<label index="tx_powermail_forms.xml.example">Field example</label>
+			<label index="tx_powermail_forms.xml.countryzone">Add Countryzone select (XAJAX needed)</label>
 			<label index="tx_powermail_forms.xml.error">Please select a fieldtype to continue.</label>
 			<label index="tx_powermail_forms.xml.countryselect.error">Please install the extension static_info_tables to use this feature.</label>
 			<label index="tx_powermail_forms.xml.date.error">Please install the extension date2cal to use this feature.</label>

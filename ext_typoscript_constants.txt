@@ -120,26 +120,20 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0620; type=boolean; label= Clear Session: Check if session should be cleared after submit (emails sent)
 	clear.session = 0
 	
-	# cat=plugin.powermail_additionalconfig//0900; type=boolean; label= Check for mandatory fields: (De)activate including JavaScript file for mandatory fields check (and other fields like email, url, etc..).
-	js.mandatorycheck = 1
-	
 	# cat=plugin.powermail_additionalconfig//0910; type=text; label= Mandatory JS DIV class: Enter your own css class for the mandatory javascript div layer (div layer which is shown, if a field was not filled, etc...)
 	js.mandatorydivclass = powermail_mandatory_js
 	
 	# cat=plugin.powermail_additionalconfig//0920; type=boolean; label= OnFocus JavaScript: (De)activate onfocus javascript in fields - removes standard value of (e.g. text-) fields onclick, so the user can click and begin to write
 	js.onfocus = 1
 
-	# cat=plugin.powermail_additionalconfig//0940; type=boolean; label= Load prototype.js: (De)activate loading prototype.js in html head of page where powermail is in (prototype.js is needed for JS validation of fields and for date2cal fields like date, datetime and time)	
-	js.Prototype = 1
-
-	# cat=plugin.powermail_additionalconfig//0950; type=boolean; label= HTMLentities for JS: (De)activate the php function htmlentities for the dynamic javascript in the html header. Example with htmlentities: index.php?id=1& amp;type=3131 / Example without htmlentities: index.php?id=1&type=3131
-	js.HTMLentities = 1
-
 	# cat=plugin.powermail_additionalconfig//1000; type=boolean; label= Hiddenfields for checkboxes: (De)activate the hiddenfields for checkboxes. If only checkboxes are in use, there is a problem to enable a checkbox, submit, go back and deaktivate checkbox and submit again - the value ist still set. To fix this, you can use a JavaScript with hiddenfields (set by default).
 	field.checkboxJS = 1
 	
 	# cat=plugin.powermail_additionalconfig//1100; type=boolean; label= Use rteCSStext function: Text from rich text editor will be parsed automaticly for emails and thx message (every line gets an p tag, etc...). Disabling could be useful if you want to use only plaintext mails.
 	rte.parse = 1
+	
+	# cat=plugin.powermail_additionalconfig//1110; type=boolean; label= Use labelparse function: Labels could be used with TYPO3 LINK syntax (e.g. 1)
+	label.parse = 1
 	
 	# cat=plugin.powermail_additionalconfig//1200; type=options[,utf8_encode,utf8_decode]; label= Charset for powermail: You can use the php functions utf8_encode or utf8_decode to change the whole powermail output
 	powermail.charset = 
@@ -156,7 +150,7 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//1610; type=text; label= Add geo info to marker ALL: The most people don't want to use single markers, they just use ###POWERMAIL_ALL###, if you want to add some geoinfo, you can add those to the all marker (e.g. countryName, city) (available keys - ip, countryCode, countryName, region, city, zip, lng, lat, dmaCode, areaCode)
 	geoip.addValuesToMarkerALL = 
 	
-	# cat=plugin.powermail_additionalconfig//9999; type=options[,all,session,email,db]; label= Activate debug output: Possibility to print a debug output over the html. All displays session and email array, Session prints only session array, Email prints only email array (empty or all or session or email)
+	# cat=plugin.powermail_additionalconfig//9999; type=options[,all,session,email,db,externdbtable]; label= Activate debug output: Possibility to print a debug output over the html. All displays session-, email-, db- and externtable - array, Session prints only session array, Email prints only email array, DB prints the values which have been stored in the Database (powermail default table), externdbtable prints values which should be stored in another db table
 	debug.output = 
 	
 }
