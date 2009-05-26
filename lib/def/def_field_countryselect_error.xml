@@ -1,0 +1,19 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<error>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.countryselect.error</label>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_uid->noReturn</userFunc>
+					</config>
+				</TCEforms>
+			</error>
+		</el>
+	</ROOT>
+</T3DataStructure>

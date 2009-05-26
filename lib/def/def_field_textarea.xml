@@ -1,0 +1,98 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+		<!--  <langChildren>1</langChildren>!-->
+	</meta>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<cols>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.cols</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+					</config>
+				</TCEforms>
+			</cols>
+			<rows>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.rows</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+					</config>
+				</TCEforms>
+			</rows>
+			<!--
+			<wrap>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.wrap</label>
+					<config>
+						<type>select</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.wrap.0</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.wrap.1</numIndex>
+								<numIndex index="1">hard</numIndex>
+							</numIndex>
+						</items>
+						<minitems>0</minitems>
+						<maxitems>1</maxitems>
+						<size>1</size>
+					</config>
+				</TCEforms>
+			</wrap>
+			-->
+			<readonly>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.readonly</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</readonly>
+			<mandatory>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mandatory</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</mandatory>
+			<value>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.value</label>
+					<config>
+						<type>text</type>
+						<cols>30</cols>
+						<rows>5</rows>
+					</config>
+				</TCEforms>
+			</value>
+			<name>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_uid->main</userFunc>
+						<field>text</field>
+					</config>
+				</TCEforms>
+			</name>
+			<example>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_example->main</userFunc>
+						<field>textarea</field>
+					</config>
+				</TCEforms>
+			</example>
+		</el>
+	</ROOT>
+</T3DataStructure>
