@@ -1,0 +1,20 @@
+Powermail HTML Template if you want to use the marker ###POWERMAIL_ALL##, this HTML template wraps each line of it
+
+	--- MARKERS INSIDE SUBPARTS ---
+	Label of current field:								###POWERMAIL_LABEL###
+	Value of current field:								###POWERMAIL_VALUE###
+	
+	--- GENERAL MARKERS --
+	Displaying any value from pi1/locallang.xml:		###POWERMAIL_LOCALLANG_YOURFIELD### (Could be filled via locallang.xml or typoscript - see manual for details)
+	Displaying any value from typoscript:				###POWERMAIL_TYPOSCRIPT_YOURFIELD### (Could be filled via typoscript - see manual for details)
+
+<!-- ###POWERMAIL_ALL### begin -->
+	<table class="powermail_all powermail_all_table">
+		<!-- ###CONTENT### --><!-- ###ITEM### -->
+			<tr class="powermail_all powermail_all_tr">
+				<td class="powermail_all powermail_all_td" valign="top"><b>###POWERMAIL_LABEL###</b></td> 
+				<td class="powermail_all powermail_all_td" valign="top">###POWERMAIL_VALUE###</td>
+			</tr>
+		<!-- ###ITEM### --><!-- ###CONTENT### -->
+	</table>
+<!-- ###POWERMAIL_ALL### end -->
