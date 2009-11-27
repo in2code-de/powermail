@@ -10,7 +10,8 @@ Powermail HTML Template for formwrap
 	Nextlink (only if multiple):						###POWERMAIL_MULTIPLE_FORWARDLINK###
 	JavaScript for validation:							###POWERMAIL_MANDATORY_JS###
     Marker for Extensions:								###POWERMAIL_JS###
-    Fill Marker with any parsed field:					###UID23###
+    Own CSS class for fieldset (with ending space):		###OWNCSS###
+    Fill Marker with any parsed field:					###UID[number]### (e.g. ###UID23###)
 	
 	-- MARKERS INSIDE SUBPARTS ---
 	Name of fieldset (small letters):					###POWERMAIL_FIELDSETNAME_small###
@@ -28,7 +29,7 @@ Powermail HTML Template for formwrap
 		<form name="###POWERMAIL_NAME###" id="###POWERMAIL_NAME###" action="###POWERMAIL_TARGET###" method="###POWERMAIL_METHOD###" class="tx_powermail_pi1_form" enctype="multipart/form-data">
 			###POWERMAIL_MULTIPLE_PAGEBROWSER###
 			<!-- ###POWERMAIL_CONTENT### --><!-- ###POWERMAIL_ITEM### -->
-				<fieldset class="tx-powermail-pi1_fieldset tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSETNAME_small### tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSET_UID###" id="tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSET_UID###"###POWERMAIL_JS###>
+				<fieldset class="###OWNCSS###tx-powermail-pi1_fieldset tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSETNAME_small### tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSET_UID###" id="tx-powermail-pi1_fieldset_###POWERMAIL_FIELDSET_UID###"###POWERMAIL_JS###>
 					<legend>###POWERMAIL_FIELDSETNAME###</legend>
 					###POWERMAIL_FIELDS###
 				</fieldset>
@@ -36,6 +37,11 @@ Powermail HTML Template for formwrap
 			###POWERMAIL_MULTIPLE_BACKLINK###
 			###POWERMAIL_MULTIPLE_FORWARDLINK###
 		</form>
-		###POWERMAIL_MANDATORY_JS###
+		<script type="text/javascript">
+			function formCallback(result, form) {
+				window.status = "valiation callback for form '" + form.id + "': result = " + result;
+			}
+			var valid = new Validation('###POWERMAIL_NAME###', {immediate : true, onFormValidate : formCallback});
+		</script>
 	</div>
 <!-- ###POWERMAIL_FORMWRAP### end -->

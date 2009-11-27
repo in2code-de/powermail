@@ -1,4 +1,27 @@
 <?php
+/***************************************************************
+*  Copyright notice
+*
+*  (c) 2008 Alexander Kellner, Mischa Heissmann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
+*  All rights reserved
+*
+*  This script is part of the TYPO3 project. The TYPO3 project is
+*  free software; you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation; either version 2 of the License, or
+*  (at your option) any later version.
+*
+*  The GNU General Public License can be found at
+*  http://www.gnu.org/copyleft/gpl.html.
+*
+*  This script is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  This copyright notice MUST APPEAR in all copies of the script!
+***************************************************************/
+
 require_once('../lib/class.tx_powermail_functions_div.php'); // include div functions
 
 class tx_powermail_belist {
@@ -8,14 +31,14 @@ class tx_powermail_belist {
 	var $pointer = 0; // pointer for pagebrowser
 	
 	// Function Main
-	function main($pid, $BACK_PATH = '', $mailID = 0) {
+	function main($pid, $BACK_PATH = '', $mailID = 0, $noHeader = 0) {
 		
 		// config
 		$this->pid = $pid;
 		$this->backpath = $BACK_PATH;
 		$this->mailID = $mailID;
 		$this->content = '';
-		$this->tsconfig = t3lib_BEfunc::getModTSconfig($this->pid,'tx_powermail_mod1'); // Get tsconfig from current page
+		$this->tsconfig = t3lib_BEfunc::getModTSconfig($this->pid, 'tx_powermail_mod1'); // Get tsconfig from current page
 		$this->divfunctions = t3lib_div::makeInstance('tx_powermail_functions_div'); // make instance with dif functions
 		
 		// settings of values
@@ -29,7 +52,7 @@ class tx_powermail_belist {
 		
 		// DB query
 		// 1. get numbers of all entries
-		if($this->mailID > 0) $where_add = ' AND uid = '.intval($this->mailID); else $where_add = '';
+		if ($this->mailID > 0) $where_add = ' AND uid = '.intval($this->mailID); else $where_add = '';
 		$res1 = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'*',
 			'tx_powermail_mails',
@@ -51,7 +74,7 @@ class tx_powermail_belist {
 		);
 		if ($res) { // If on current page is a result
 			$this->num2 = $GLOBALS['TYPO3_DB']->sql_num_rows($res); // numbers of all entries
-			if(!isset($_GET['mailID'])) { // If mailID was set per GET params
+			if (!isset($_GET['mailID']) && !$noHeader) { // If mailID was not set per GET params AND if header is allowed to show (don't need header in chart view)
 				$this->content .= $this->inputFields(); // Show input fields for date filter
 				$this->content .= $this->exportIcons(); // Show export images
 			}
@@ -69,7 +92,7 @@ class tx_powermail_belist {
 			; // write table head
 			$i = $this->pointer; // init
 			
-			while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // one loop for every db entry
+			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // one loop for every db entry
 				$i++; // increase
 				
 				$this->content .= '<tr>';
@@ -87,8 +110,12 @@ class tx_powermail_belist {
 			if (!isset($_GET['mailID'])) $this->content .= $this->pageBrowser($this->num, $this->num2, $this->pointer, $this->perpage); // show pagebrowser below table
 		}
 		
-		if(!$i) { // if on current page is no result
-			if (!isset($_GET['mailID'])) $this->content = $this->inputFields(); // Show input fields for date filter
+		if (!$i) { // if on current page is no result
+			if (!isset($_GET['mailID']) && !$noHeader && $this->num > 0) { // if no mailId and header should be displayed
+				$this->content = $this->inputFields(); // Show input fields for date filter
+			} else {
+				$this->content = ''; // clear content
+			}
 			$this->content .= '<br /><br /><br /><br /><strong>'.$this->LANG->getLL('nopowermails1').'</strong><br />';
 			$this->content .= $this->LANG->getLL('nopowermails2').'<br />';
 		}

@@ -102,7 +102,7 @@ class tx_powermail_form extends tslib_pibase {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			'uid',
 			'tx_powermail_fieldsets',
-			'tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).tslib_cObj::enableFields('tx_powermail_fieldsets'),
+			'tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tx_powermail_fieldsets'),
 			'',
 			'sorting DESC',
 			'1'
@@ -114,7 +114,7 @@ class tx_powermail_form extends tslib_pibase {
 		$res1 = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'*', // 'uid,title', before
 			'tx_powermail_fieldsets',
-			$where_clause = 'tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).tslib_cObj::enableFields('tx_powermail_fieldsets'),
+			$where_clause = 'tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tx_powermail_fieldsets'),
 			$groupBy = '',
 			$orderBy = 'sorting ASC',
 			$limit
@@ -125,9 +125,9 @@ class tx_powermail_form extends tslib_pibase {
 
 				// Give me all fields in current fieldset, which are related to current content
 				$res2 = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-					'tx_powermail_fieldsets.uid fs_uid, tx_powermail_fields.uid f_uid, tx_powermail_fieldsets.felder fs_fields, tx_powermail_fieldsets.title fs_title, tx_powermail_fields.title f_title, tx_powermail_fields.formtype f_type, tx_powermail_fields.flexform f_field, tt_content.tx_powermail_title c_title, tx_powermail_fields.fe_field f_fefield, tx_powermail_fields.description f_description',
+					'tx_powermail_fieldsets.uid fs_uid, tx_powermail_fields.uid f_uid, tx_powermail_fieldsets.felder fs_fields, tx_powermail_fieldsets.title fs_title, tx_powermail_fieldsets.class fs_class, tx_powermail_fields.title f_title, tx_powermail_fields.formtype f_type, tx_powermail_fields.flexform f_field, tt_content.tx_powermail_title c_title, tx_powermail_fields.fe_field f_fefield, tx_powermail_fields.description f_description, tx_powermail_fields.class f_class',
 					'tx_powermail_fieldsets LEFT JOIN tx_powermail_fields ON (tx_powermail_fieldsets.uid = tx_powermail_fields.fieldset) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
-					$where_clause = 'tx_powermail_fieldsets.tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).' AND tx_powermail_fields.fieldset = '.$row_fs['uid'].tslib_cObj::enableFields('tx_powermail_fieldsets').tslib_cObj::enableFields('tx_powermail_fields'),
+					$where_clause = 'tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).' AND tx_powermail_fields.fieldset = '.$row_fs['uid'] . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
 					$groupBy = '',
 					$orderBy = 'tx_powermail_fieldsets.sorting, tx_powermail_fields.sorting',
 					$limit1 = ''
@@ -140,8 +140,9 @@ class tx_powermail_form extends tslib_pibase {
 				}
 				
 				$this->InnerMarkerArray['###POWERMAIL_FIELDSETNAME###'] = $row_fs['title']; // Name of fieldset
-				$this->InnerMarkerArray['###POWERMAIL_FIELDSETNAME_small###'] = $this->div->clearName($row_fs['title'],1,32); // Fieldsetname clear (strtolower = 1 / cut after 32 letters)
+				$this->InnerMarkerArray['###POWERMAIL_FIELDSETNAME_small###'] = $this->div->clearName($row_fs['title'], 1, 32); // Fieldsetname clear (strtolower = 1 / cut after 32 letters)
 				$this->InnerMarkerArray['###POWERMAIL_FIELDSET_UID###'] = $row_fs['uid']; // uid of fieldset
+				if (1) $this->InnerMarkerArray['###OWNCSS###'] = $row_fs['class'] . ' '; // own css for fieldset
 				$this->hookInner($row_fs); // adds hookInner
 				$this->content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['formwrap']['item'], $this->InnerMarkerArray);
 			}

@@ -28,6 +28,7 @@ CREATE TABLE tx_powermail_fieldsets (
 	tt_content int(11) DEFAULT '0' NOT NULL,
 	felder int(11) DEFAULT '0' NOT NULL,
 	title tinytext NOT NULL,
+	class text NOT NULL,
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid)
@@ -69,6 +70,7 @@ CREATE TABLE tx_powermail_fields (
 	fe_field text NOT NULL,
 	name tinytext NOT NULL,
 	description text NOT NULL,
+	class text NOT NULL,
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid)

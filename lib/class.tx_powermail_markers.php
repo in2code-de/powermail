@@ -93,7 +93,8 @@ class tx_powermail_markers extends tslib_pibase {
 									if ($vv) { // if value exists
 										$this->markerArray['###'.strtoupper($k).'_'.$kv.'###'] = stripslashes($this->div->nl2br2($vv)); // fill ###UID55_0###
 										$this->markerArray['###'.strtolower($k).'_'.$kv.'###'] = stripslashes($this->div->nl2br2($vv)); // fill ###uid55_0###
-										$this->markerArray['###'.strtoupper($k).'###'] .= ($i!=0?', ':'').stripslashes($this->div->nl2br2($vv)); // fill ###UID55### (comma between every value)
+										//$this->markerArray['###'.strtoupper($k).'###'] .= ($i != 0 ? ', ' : '') . stripslashes($this->div->nl2br2($vv)); // fill ###UID55### (comma between every value)
+										$this->markerArray['###'.strtoupper($k).'###'] .= ($i != 0 ? $this->cObj->stdWrap($this->conf['field.']['checkboxSplitSign'], $this->conf['field.']['checkboxSplitSign.']) : '') . stripslashes($this->div->nl2br2($vv)); // fill ###UID55### (comma between every value)
 										$this->markerArray['###LABEL_'.strtoupper($k).'###'] = $this->GetLabelfromBackend($k,$v); // fill ###LABEL_UID55###
 										$this->markerArray['###LABEL_'.strtolower($k).'###'] = $this->GetLabelfromBackend($k,$v); // fill ###label_uid55###
 	

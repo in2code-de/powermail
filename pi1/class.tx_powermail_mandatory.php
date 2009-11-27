@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2007 Alexander Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
+*  (c) 2007 Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -64,6 +64,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 		$this->emailCheck(); // Email Check
 		$this->regulareExpressions(); // Regulare Expression Check
 		$this->mandatoryCheck(); // Mandatory check
+		$this->customValidation(); //custom validation done through custom php code
 		$this->hookBefore(); // adds hook
 		
 		// Check for errors
@@ -234,13 +235,13 @@ class tx_powermail_mandatory extends tslib_pibase {
 	
 	// Function emailCheck() checks if sender email address is a real email address, if not write error to session
 	function emailCheck() {
-		if($this->cObj->data['tx_powermail_sender'] && is_array($this->sessionfields)) { // If email address from sender is set in backend
-			if($this->sessionfields[$this->cObj->data['tx_powermail_sender']]) { // if there is content in the email sender field
-				if(!t3lib_div::validEmail($this->sessionfields[$this->cObj->data['tx_powermail_sender']])) { // Value is not an email address
-					$this->sessionfields['ERROR'][str_replace('uid','',$this->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_validemail'); // write error message to session
+		if ($this->cObj->data['tx_powermail_sender'] && is_array($this->sessionfields)) { // If email address from sender is set in backend
+			if ($this->sessionfields[$this->cObj->data['tx_powermail_sender']]) { // if there is content in the email sender field
+				if (!t3lib_div::validEmail($this->sessionfields[$this->cObj->data['tx_powermail_sender']])) { // Value is not an email address
+					$this->sessionfields['ERROR'][str_replace('uid', '', $this->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_validemail'); // write error message to session
 				} else { // Syntax of email address is correct - check for MX Record (if activated via constants)
-					if( !$this->div->checkMX( $this->sessionfields[$this->cObj->data['tx_powermail_sender']] ) && $this->conf['email.']['checkMX'] ) {
-                        $this->sessionfields['ERROR'][str_replace('uid','',$this->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_nomx'); // write error message to session
+					if ($this->conf['email.']['checkMX'] && !$this->div->checkMX($this->sessionfields[$this->cObj->data['tx_powermail_sender']] )) {
+                        $this->sessionfields['ERROR'][str_replace('uid', '', $this->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_nomx'); // write error message to session
                     }
 				}
 			}
@@ -340,6 +341,87 @@ class tx_powermail_mandatory extends tslib_pibase {
 			
 		}
 	}
+	
+	
+	/********************************************
+	* Custom php validation
+	* Loop all 'customvalidation' keys for possible requests. A custom validation requires 3 
+	* configuration keys:
+	*      - includelib - the files to include (file that contains definition for the function 
+	*					to call for validation). Can be an absolute path or it can be in any
+	*					file path that TypoScript allows to configure. This key is optional.
+	*      - userfunc - the user function to call for validation. This has teh same format as 
+	*					the 'userFunc' TypoScript page setting. The function receives an array, 
+	*					having 3 items, 'value' with the value of the control, 'uid' with the id
+	*					of the control (without the 'uid' prefix), 'conf' as the configuration 
+	*					of powermail ($this->conf)
+	*      - errormsg - the error message to be displayed to the user. This can contain JS code,		
+	*					as the error message is writen directly to the page without being escaped.
+	*					(You might wan't a global configuration at server level it to escape the 
+	*					error messages writen by powermail).
+	*		
+	* The called function has two type of return values:
+	*      - true/false - if the validation succeded or not		
+	*      - an array with 2 elements: 'result' that has to be true/false (as above) and 
+	*		'errormsg' as the custom error message to be displayed. If the 'errormsg' info is 
+	*		missing the configured errormsg for this control is used (or the default message).
+	* In case the called user function throws an exception, this is treated as a failed 
+	* validation.
+	********************************************/	
+	function customValidation(){		
+	
+		$configKey = 'customvalidation.';
+		if (isset($this->conf[$configKey]) && is_array($this->conf[$configKey])) { // Only if any validation is set per typoscript		
+			foreach ($this->conf[$configKey] as $key => $value) { // One loop for every validation
+		
+				$file = $value['includelib'];
+				$method = $value['userfunc'];
+				$message = $value['errormsg'];
+				
+				if ($file){
+					$file = t3lib_div::getFileAbsFileName($file);
+					require_once($file);	
+				}	
+		
+				$paramsValue = array();	
+				$paramsValue['value'] = $this->sessionfields[str_replace('.', '', $key)];		
+				$paramsValue['conf'] = $this->conf;		
+				$paramsRef = null;
+				
+				try	{
+					$result = t3lib_div::callUserFunction($method, $paramsValue, $paramsRef, null, 2);
+					$resultStatus = false;
+					
+					// Get the actual validation result and eventual error message
+					if (is_object($result)){ // check if userFunc returns an object
+						$resultStatus = $result->result;
+						if (isset($result->errormsg)){
+							$message = $result->errormsg;
+						}
+					} elseif (is_array($result)) { // check if userFunc returns an array
+						$resultStatus = $result['result'];
+						if (isset($result->errormsg)){
+							$message = $result['errormsg'];
+						}
+					} elseif (is_bool($result)) { // check if userFunc returns true or false
+						$resultStatus = $result;
+					} else {
+						throw new Exception('Unknown return on custom validation');
+					}
+				} catch (Exception $e) {
+					$resultStatus = false;
+					$message = 'Unable to validate field ' . $this->markerArray['###LABEL_' . str_replace('.', '',  $key) . '###']; // error in using userFunc
+				}
+				if ($resultStatus !== true) {
+					if (!$message) {
+						$message = $this->pi_getLL('error_expression_validation'); // write errormessage
+					}
+					$this->sessionfields['ERROR'][str_replace(array('.', 'uid'), '', $key)][] = $message; // set error
+				}
+			}
+		}
+	}
+
 	
 	
 	// Function overwriteSession() saves $this->sessionfields to session to overwrite errors (recaptcha can set an OK for errors in future) 

@@ -4,8 +4,8 @@ useIRRE = 1
 # cat=basic/enable/020; type=boolean; label= Preview window active: Activate frontend preview window under field definitions (iframe with frontend view of current page). Deactivate for a faster work with powermail.
 usePreview = 1
 
-# cat=basic/enable/030; type=boolean; label= Activate tab dividers: Powermail uses tab dividers in backend so every category seems to be a new site (like General, Formdata, Fields, Sender, Recipients, Answerpage and Access). You can disable tabdividers if you want to show all stuff on only one page or if there are problems with tab dividers and other extensions.
-TabDividers = 1
+# cat=basic/enable/030; type=boolean; label= Enable CSS Selectors: If you want to enable CSS selectors instead of CSS input fields for the fields and fieldsets of powermail, you can enable this checkbox (See manual how to add some options in the selectorbox with TSconfig).
+cssSelection = 0
 
 # cat=basic/enable/040; type=text; label= Fill field with fe data: A dropdown is shown in the backend which enables to prefill any field with the value of a current logged in feuser. You can increase or decrease the fe_user field values in the dropdown menu. Just use the wanted fieldnames of the fe_user table in a comma-separated list.
 feusersPrefill = name, address, telephone, fax, email, zip, city, country, www, company
@@ -13,8 +13,11 @@ feusersPrefill = name, address, telephone, fax, email, zip, city, country, www, 
 # cat=basic/enable/050; type=boolean; label= Deactivate IP logging: If you don't want to save the sender IP address in the database, you can use this checkbox.
 disableIPlog = 0
 
-# cat=basic/enable/060; type=boolean; label= Deactivate config for Realurl: Powermail uses an automatic realurlconf array for type=3131. You can disable this feature if you want to use your own configuration or you don't need a realurl configuration. (see ext_localconf.php for configuration details)
+# cat=basic/enable/060; type=boolean; label= Activate tab dividers: Powermail uses tab dividers in backend so every category seems to be a new site (like General, Formdata, Fields, Sender, Recipients, Answerpage and Access). You can disable tabdividers if you want to show all stuff on only one page or if there are problems with tab dividers and other extensions.
+TabDividers = 1
+
+# cat=basic/enable/070; type=boolean; label= Deactivate config for Realurl: Powermail uses an automatic realurlconf array for type=3131. You can disable this feature if you want to use your own configuration or you don't need a realurl configuration. (see ext_localconf.php for configuration details)
 disablePMRealUrlConfig = 0
 
-# cat=basic/enable/070; type=boolean; label= Deactivate Start- and Stoptime: If there are problems with adding fields, this could be caused by date2cal. You can disable start- and stoptime for fields and fieldsets with this flag.
+# cat=basic/enable/080; type=boolean; label= Deactivate Start- and Stoptime: If there are problems with adding fields, this could be caused by date2cal. You can disable start- and stoptime for fields and fieldsets with this flag.
 disableStartStop = 1

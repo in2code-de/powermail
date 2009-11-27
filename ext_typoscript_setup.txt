@@ -18,7 +18,6 @@ plugin.tx_powermail_pi1 {
 	enable.unique = {$plugin.powermail.enable.unique}
 	email.noreply = {$plugin.powermail.email.noreply}
 	email.checkMX = {$plugin.powermail.email.checkMX}
-	email.overwritesender = {$plugin.powermail.email.overwritesender}
 	hiddenfields.show = {$plugin.powermail.hiddenfields.show}
 	markerALL.hideLabel = {$plugin.powermail.markerALL.hideLabel}
 	markerALL.notIn = {$plugin.powermail.markerALL.notIn}
@@ -44,6 +43,7 @@ plugin.tx_powermail_pi1 {
 	js.mandatorydivclass = {$plugin.powermail.js.mandatorydivclass}
 	js.onfocus = {$plugin.powermail.js.onfocus}
 	field.checkboxJS = {$plugin.powermail.field.checkboxJS}
+	field.checkboxSplitSign.noTrimWrap = |, ||
 	rte.parse = {$plugin.powermail.rte.parse}
 	label.parse = {$plugin.powermail.label.parse}
 	input.style = {$plugin.powermail.input.style}
@@ -60,6 +60,14 @@ plugin.tx_powermail_pi1 {
 	
 		# Settings for mail to the default receiver(s)
 		recipient_mail {
+			# Sender name (overwrite)
+			sender.name = TEXT
+			sender.name.value =
+			
+			# Sender email (overwrite)
+			sender.email = TEXT
+			sender.email.value =
+			
 			# Reply name
 			reply.name = TEXT
 			reply.name.value = 
@@ -85,8 +93,16 @@ plugin.tx_powermail_pi1 {
 			}
 		}
 		
-		# Settings for mail to the user
+		# Settings for (confirmation) mail to the user
 		sender_mail {
+			# Sender name (overwrite)
+			sender.name = TEXT
+			sender.name.value =
+			
+			# Sender email (overwrite)
+			sender.email = TEXT
+			sender.email.value =
+			
 			# Reply name
 			reply.name = TEXT
 			reply.name.value = 
@@ -270,6 +286,19 @@ plugin.tx_powermail_pi1 {
 #		tt_address.company.data = TSFE:fe_user|sesData|powermail_88|uid21|1
 	}
 	
+	
+	### Redirection after submit ###
+	# 	Return a Number: Typolink to the pid
+	# 	Return a URL: Link to an intern or extern URL
+	# 	Return a File: Link to a file (within fileadmin folder)
+#	redirect = COA
+#	redirect {
+#		10 = TEXT
+#		10.value = x
+#		10.typolink.parameter = 100
+#		10.typolink.returnLast = url
+#	}
+	
 }
 
 
@@ -354,10 +383,12 @@ powermailJS {
 		subparts.VALIDATE_SELECTION.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_selection
 		subparts.VALIDATE_ONE_REQUIRED = TEXT
 		subparts.VALIDATE_ONE_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
+		subparts.DIV_CLASS = TEXT
+		subparts.DIV_CLASS.value = {$plugin.powermail.js.mandatorydivclass}
 	}
 }
 
 
 [globalVar = LIT:mootools = {$plugin.powermail.libraryToUse}]
-	#powermailJS.10.template.file = EXT:powermail/js/mootools/tx_powermail-packed.js
+	powermailJS.10.template.file = EXT:powermail/js/mootools/tx_powermail-packed.js
 [global]

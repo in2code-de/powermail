@@ -136,13 +136,13 @@ Object.extend(Validation, {
 				var advice = Validation.getAdvice(name, elm);
 				if(advice == null) {
 					var errorMsg = useTitle ? ((elm && elm.title) ? elm.title : v.error) : v.error;
-					advice = '<div class="powermail_mandatory_js" id="advice-' + name + '-' + Validation.getElmID(elm) +'" style="display:none">' + errorMsg + '</div>'
+					advice = '<div class="<!-- ###DIV_CLASS### -->powermail_mandatory_js<!-- ###DIV_CLASS### -->" id="advice-' + name + '-' + Validation.getElmID(elm) +'" style="display:none">' + errorMsg + '</div>'
 					switch (elm.type.toLowerCase()) {
 						case 'checkbox':
 						case 'radio':
 							/*var p = elm.parentNode; // 20090224 #2694 Powermail update */
 							var p = elm.parentNode.parentNode;
-							advice = '<div class="powermail_mandatory_js" id="advice-' + name + '-' + Validation.getElmID(p) +'" style="display:none">' + errorMsg + '</div>'
+							advice = '<div class="<!-- ###DIV_CLASS### -->powermail_mandatory_js<!-- ###DIV_CLASS### -->" id="advice-' + name + '-' + Validation.getElmID(p) +'" style="display:none">' + errorMsg + '</div>'
 
 							if(p) {
 								new Insertion.Bottom(p, advice);
@@ -151,7 +151,7 @@ Object.extend(Validation, {
 							}
 							break;
 						default:
-							advice = '<div class="powermail_mandatory_js" id="advice-' + name + '-' + Validation.getElmID(elm) +'" style="display:none">' + errorMsg + '</div>'
+							advice = '<div class="<!-- ###DIV_CLASS### -->powermail_mandatory_js<!-- ###DIV_CLASS### -->" id="advice-' + name + '-' + Validation.getElmID(elm) +'" style="display:none">' + errorMsg + '</div>'
 							new Insertion.After(elm, advice);
 				    }
 					advice = Validation.getAdvice(name, elm);

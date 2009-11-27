@@ -50,6 +50,8 @@
 			<label index="tx_powermail_fieldsets.title">Title</label>
 			<label index="tx_powermail_fieldsets.fields">Fields</label>
 			<label index="tx_powermail_fieldsets.addition">Additional Settings</label>
+			<label index="tx_powermail_fieldsets.class">Add CSS class</label>
+			<label index="tx_powermail_fieldsets.tt_content">Powermail Content Element</label>
 			<label index="tx_powermail_fields">Fields</label>
 			<label index="tx_powermail_fields.fieldset">Fieldset</label>
 			<label index="tx_powermail_fields.title">Title</label>
@@ -58,6 +60,7 @@
 			<label index="tx_powermail_fields.type">Fieldtype</label>
 			<label index="tx_powermail_fields.field">Settings</label>
 			<label index="tx_powermail_fields.fe_field">Fill out this field with fe_user field</label>
+			<label index="tx_powermail_fields.class">Add CSS class</label>
 			<label index="tx_powermail_mails">Mails</label>
 			<label index="tx_powermail_mails.formid">Content UID where form is in</label>
 			<label index="tx_powermail_mails.recipient">Recipient</label>
@@ -71,6 +74,7 @@
 			<label index="tx_powermail_mails.Referer">Link to page with form</label>
 			<label index="tx_powermail_mails.SP_TZ">User location</label>
 			<label index="tx_powermail_mails.Additional">Additional information</label>
+			<label index="tx_powermail_mails.feuser">Filled out from FE_User</label>
 			<label index="tt_content.list_type_pi1">Powermail</label>
 
 			<!--For BE-Labels-->
@@ -190,6 +194,8 @@
 			<label index="tx_powermail_fieldsets.title">Titel</label>
 			<label index="tx_powermail_fieldsets.fields">Felder</label>
 			<label index="tx_powermail_fieldsets.addition">Zusätzliche Einstellungen</label>
+			<label index="tx_powermail_fieldsets.class">CSS Klasse hinzufügen</label>
+			<label index="tx_powermail_fieldsets.tt_content">Powermail Seiteninhalt</label>
 			<label index="tx_powermail_fields">Formularfelder</label>
 			<label index="tx_powermail_fields.fieldset">Fieldset</label>
 			<label index="tx_powermail_fields.title">Beschriftung</label>
@@ -198,6 +204,7 @@
 			<label index="tx_powermail_fields.type">Feldtyp</label>
 			<label index="tx_powermail_fields.field">Einstellungen</label>
 			<label index="tx_powermail_fields.fe_field">Dieses Feld mit Daten aus der fe_user füllen</label>
+			<label index="tx_powermail_fields.class">CSS Klasse hinzufügen</label>
 			<label index="tx_powermail_mails">E-Mails</label>
 			<label index="tx_powermail_mails.formid">UID des Seiteninhaltes des Formulare</label>
 			<label index="tx_powermail_mails.recipient">Empfänger</label>
@@ -211,6 +218,7 @@
 			<label index="tx_powermail_mails.Referer">URL der Seite des verwendeten Formulares</label>
 			<label index="tx_powermail_mails.SP_TZ">Sender Ort</label>
 			<label index="tx_powermail_mails.Additional">Weitere Informationen</label>
+			<label index="tx_powermail_mails.feuser">Ausgefüllt von FE_User</label>
 			<label index="tt_content.list_type_pi1">Powermail</label>
 
 			<!--For BE-Labels-->
@@ -326,6 +334,8 @@
 			<label index="tx_powermail_fieldsets.title">Title</label>
 			<label index="tx_powermail_fieldsets.fields">Fields</label>
 			<label index="tx_powermail_fieldsets.addition">Additional Settings</label>
+			<label index="tx_powermail_fieldsets.class">Add CSS class</label>
+			<label index="tx_powermail_fieldsets.tt_content">Powermail Content Element</label>
 			<label index="tx_powermail_fields">Fields</label>
 			<label index="tx_powermail_fields.fieldset">Fieldset</label>
 			<label index="tx_powermail_fields.title">Title</label>
@@ -334,6 +344,7 @@
 			<label index="tx_powermail_fields.type">Fieldtype</label>
 			<label index="tx_powermail_fields.field">Settings</label>
 			<label index="tx_powermail_fields.fe_field">Fill out this field with fe_user field</label>
+			<label index="tx_powermail_fields.class">Add CSS class</label>
 			<label index="tx_powermail_mails">Mails</label>
 			<label index="tx_powermail_mails.formid">Content UID where form is in</label>
 			<label index="tx_powermail_mails.recipient">Recipient</label>
@@ -347,6 +358,7 @@
 			<label index="tx_powermail_mails.Referer">Link to page with form</label>
 			<label index="tx_powermail_mails.SP_TZ">User location</label>
 			<label index="tx_powermail_mails.Additional">Additional information</label>
+			<label index="tx_powermail_mails.feuser">Filled out from FE_User</label>
 			<label index="tt_content.list_type_pi1">Powermail</label>
 
 			<!--For BE-Labels-->

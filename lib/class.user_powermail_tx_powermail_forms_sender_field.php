@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2007 Mischa Heissmann, Alexander Kellner <typo3.2008@heissmann.org, alexander.kellner@wunschtacho.de>
+*  (c) 2009 Alex Kellner, Mischa Heissmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,9 +26,9 @@
 
 
 /**
- * Class/Function which manipulates the item-array for table/field tx_powermail_forms_recip_table.
+ * Class/Function which manipulates the item-array for the sender-name AND the sender-email field.
  *
- * @author	Mischa Heißmann, Alexander Kellner <typo3.2008@heissmann.org, alexander.kellner@einpraegsam.net>
+ * @author	Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
  * @package	TYPO3
  * @subpackage	tx_powermail
  */
@@ -44,10 +44,10 @@ class user_powermail_tx_powermail_forms_sender_field {
 			$limit = ''
 		);
 
-		if($res != '' || $res > 0) {
-			while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+		if ($res != '' || $res > 0) {
+			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 				// Adding an item!
-				if($row['uid'] != '') {
+				if ($row['uid'] > 0) {
 					if ($GLOBALS['TYPO3_CONF_VARS']['BE']['forceCharset'] == 'utf-8') $params['items'][] = array($pObj->sL($row['title']), 'uid'.$row['uid']);
 					else $params['items'][] = array($pObj->sL(utf8_decode($row['title'])), utf8_decode('uid'.$row['uid']));
 				}

@@ -53,7 +53,8 @@ class tx_powermail_confirmation extends tslib_pibase {
 		$this->markerArray['###POWERMAIL_NAME_BACK###'] = $this->cObj->data['tx_powermail_title'].'_confirmation_back'; // Fill Marker with formname
 		$this->markerArray['###POWERMAIL_NAME_SUBMIT###'] = $this->cObj->data['tx_powermail_title'].'_confirmation_submit'; // Fill Marker with formname
 		$this->markerArray['###POWERMAIL_METHOD###'] = $this->conf['form.']['method']; // Form method
-		$this->markerArray['###POWERMAIL_TARGET_BACK###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'section' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'useCacheHash'=>1)); // Create target url
+		//$this->markerArray['###POWERMAIL_TARGET_BACK###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'section' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'useCacheHash'=>1)); // Create target url
+		$this->markerArray['###POWERMAIL_TARGET_BACK###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'useCacheHash'=>1)); // Create target url
 		$this->markerArray['###POWERMAIL_TARGET_SUBMIT###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'section' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'additionalParams' => '&tx_powermail_pi1[mailID]='.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).'&tx_powermail_pi1[sendNow]=1', 'useCacheHash' => 1)); // Create target url
 			
 		// Return

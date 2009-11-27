@@ -66,9 +66,6 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0410; type=boolean; label= Check MX record of sender mail: This is a small test, if senders email address exists (MX record check of domain)
 	email.checkMX = 1
 	
-	# cat=plugin.powermail_additionalconfig//0415; type=text; label= E-Mail sender address: If you add an email address in this field, this email address will be used for the user mail as senderemail and returning email address. Normally the main receiver address is used as sender for the returning mail, but you can overwrite this if you want (e.G. mail@mail.com) Note - if you don't use a correct mail address, this field will be ignored!
-	email.overwritesender = 
-	
 	# cat=plugin.powermail_additionalconfig//0417; type=text; label= Don't show hiddenfield values: Show or hide values of hiddenfields on recipient mail, confirmation mail to sender, thx message page, confirmation message page, mandatory page (default 1,0,0,0,1)
 	hiddenfields.show = 1,0,0,0,1
 	
@@ -118,7 +115,7 @@ plugin.powermail {
 	upload.folder = uploads/tx_powermail/files/
 	
 	# cat=plugin.powermail_additionalconfig//0570; type=text; label= Allow files for upload: If you are using min. one upload field in frontend, you can set the allowed extension of this files (use small letters)
-	upload.file_extensions = jpg,jpeg,gif,png,tif,txt,doc,xls,sxw,html,swf,pdf
+	upload.file_extensions = jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace
 	
 	# cat=plugin.powermail_additionalconfig//0580; type=boolean; label= Mime check for upload: Checks if uploaded file is realy the file which it should be (mime check)
 	upload.mimecheck = 1

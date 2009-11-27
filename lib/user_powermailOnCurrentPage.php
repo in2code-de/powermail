@@ -30,7 +30,7 @@ function user_powermailOnCurrentPage($mode) {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // DB query
 			'uid',
 			'tt_content',
-			$where_clause = 'pid = ' . ($GLOBALS['TSFE']->id ? $GLOBALS['TSFE']->id : 0) . ' AND CType = "powermail_pi1"' . (!is_array($TCA['tt_content']) ? 'deleted = 0 AND hidden = 0' : $GLOBALS['TSFE']->sys_page->enableFields('tt_content')),
+			$where_clause = 'pid = ' . ($GLOBALS['TSFE']->id ? $GLOBALS['TSFE']->id : 0) . ' AND CType = "powermail_pi1"' . (!is_array($TCA['tt_content']) ? 'AND deleted = 0 AND hidden = 0' : $GLOBALS['TSFE']->sys_page->enableFields('tt_content')),
 			$groupBy = '',
 			$orderBy = '',
 			$limit = 1
