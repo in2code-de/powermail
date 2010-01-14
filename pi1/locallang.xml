@@ -423,7 +423,7 @@
 			<label index="JSvalidation_label_validate_date_au">Gebruik dit format voor de datum: dd/mm/jjjj. Bijvoorbeeld 17/03/2006.</label>
 			<label index="JSvalidation_label_validate_currency_dollar">Vul een correct bedrag in.</label>
 			<label index="JSvalidation_label_validate_selection">Maak een keuze.</label>
-			<label index="JSvalidation_label_validate_one_required">Kieze een van de bovenstaande opties</label>
+			<label index="JSvalidation_label_validate_one_required">Kies een van de bovenstaande opties</label>
 		</languageKey>
 		<languageKey index="pl" type="array">
 			<label index="locallangmarker_confirmation_question">Czy te dane są poprawne?</label>
