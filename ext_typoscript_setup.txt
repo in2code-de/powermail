@@ -91,6 +91,16 @@ plugin.tx_powermail_pi1 {
 				#10.value = fileadmin/pic.jpg
 				#10.wrap = |,
 			}
+			
+			# Sender email (SQL Query - only if field receiver is empty in BE)
+				# Markers should contain only integer or integer lists (e.g. ###UID123### => 1,2,3)
+#			email_query = TEXT
+				# Search for an email where feuser has uid X
+#			email_query.value = SELECT email FROM fe_users WHERE uid = ###UID123### AND disable = 0 AND deleted = 0 
+				# Search for an email where feuser is in fe group X (could be in more groups)
+#			email_query.value = SELECT email FROM fe_users WHERE find_in_set(###UID123###, usergroup) > 0 AND disable = 0 AND deleted = 0
+				# Search for an email where address has uid X or Y or Z
+#			email_query.value = SELECT email FROM tt_address WHERE uid IN (###UID123###) AND hidden = 0 AND deleted = 0 
 		}
 		
 		# Settings for (confirmation) mail to the user

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Alexander Kellner, Mischa Heissmann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
+*  (c) 2010 Alex Kellner, Mischa Heissmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -36,8 +36,8 @@ class tx_powermail_bedetails {
 		$this->content = '';
 		$this->content .= '<br /><hr />';
 		$this->content .= '<div style="padding-bottom: 5px;">';
-		$this->content .= '<a href="#" onclick="window.close();"><img src="'.(is_file($this->backpath.'sysext/t3skin/icons/gfx/closedok.gif') ? $this->backpath.'sysext/t3skin/icons/gfx/closedok.gif' : $this->backpath.'gfx/closedok.gif').'" title="'.$this->LANG->getLL('icon_close').'" alt="Close" style="margin: 6px;" /></a>'; // close icon
-		$this->content .= '<a href="#" onclick="window.print();"><img src="../img/icon_print.gif" style="margin: 5px;" title="'.$this->LANG->getLL('icon_print').'" alt="Print" /></a>'; // print icon
+		$this->content .= '<a href="#" onclick="window.close();"><img src="' . (is_file($this->backpath . 'sysext/t3skin/icons/gfx/closedok.gif') ? $this->backpath . 'sysext/t3skin/icons/gfx/closedok.gif' : $this->backpath . 'gfx/closedok.gif') . '" title="' . $this->LANG->getLL('icon_close') . '" alt="Close" style="margin: 6px;" /></a>'; // close icon
+		$this->content .= '<a href="#" onclick="window.print();"><img src="../img/icon_print.gif" style="margin: 5px;" title="' . $this->LANG->getLL('icon_print') . '" alt="Print" /></a>'; // print icon
 		$this->content .= '</div>';
 		$this->content .= '<table>';
 		
@@ -45,7 +45,7 @@ class tx_powermail_bedetails {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'piVars',
 			'tx_powermail_mails',
-			$where_clause = 'hidden = 0 AND deleted = 0 AND uid = '.intval($this->mailID),
+			$where_clause = 'hidden = 0 AND deleted = 0 AND uid = ' . intval($this->mailID),
 			$groupBy = '',
 			$orderBy = '',
 			$limit = ''
@@ -87,11 +87,11 @@ class tx_powermail_bedetails {
 		if (strpos($name, 'uid') !== FALSE) { // $name like uid55
 			$uid = str_replace('uid', '', $name);
 
-			$where_clause = 'c.deleted=0 AND c.hidden=0 AND (c.starttime<='.time().') AND (c.endtime=0 OR c.endtime>'.time().') AND (c.fe_group="" OR c.fe_group IS NULL OR c.fe_group="0" OR (c.fe_group LIKE "%,0,%" OR c.fe_group LIKE "0,%" OR c.fe_group LIKE "%,0" OR c.fe_group="0") OR (c.fe_group LIKE "%,-1,%" OR c.fe_group LIKE "-1,%" OR c.fe_group LIKE "%,-1" OR c.fe_group="-1"))'; // enable fields for tt_content
+			$where_clause = 'c.deleted=0 AND c.hidden=0 AND (c.starttime<=' . time() . ') AND (c.endtime=0 OR c.endtime>' . time() . ') AND (c.fe_group="" OR c.fe_group IS NULL OR c.fe_group="0" OR (c.fe_group LIKE "%,0,%" OR c.fe_group LIKE "0,%" OR c.fe_group LIKE "%,0" OR c.fe_group="0") OR (c.fe_group LIKE "%,-1,%" OR c.fe_group LIKE "-1,%" OR c.fe_group LIKE "%,-1" OR c.fe_group="-1"))'; // enable fields for tt_content
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // GET title where fields.flexform LIKE <value index="vDEF">vorname</value>
 				'f.title',
-				'tx_powermail_fields f LEFT JOIN tx_powermail_fieldsets fs ON (f.fieldset = fs.uid) LEFT JOIN tt_content c ON (c.uid = fs.tt_content)',
-				$where_clause .= ' AND f.uid = '.intval($uid).' AND f.hidden = 0 AND f.deleted = 0',
+				'tx_powermail_fields f LEFT JOIN tx_powermail_fieldsets fs ON f.fieldset = fs.uid LEFT JOIN tt_content c ON c.uid = fs.tt_content',
+				$where_clause .= ' AND f.uid = ' . intval($uid) . ' AND f.hidden = 0 AND f.deleted = 0',
 				$groupBy = '',
 				$orderBy = '',
 				$limit = ''

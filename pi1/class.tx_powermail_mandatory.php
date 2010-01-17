@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2007 Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
+*  (c) 2010 Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,10 +22,10 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(PATH_tslib.'class.tslib_pibase.php');
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_functions_div.php'); // file for div functions
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_markers.php'); // file for marker functions
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
+require_once(PATH_tslib . 'class.tslib_pibase.php');
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functions_div.php'); // file for div functions
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_markers.php'); // file for marker functions
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
 
 class tx_powermail_mandatory extends tslib_pibase {
 	var $extKey        = 'powermail';	// The extension key.
@@ -54,8 +54,8 @@ class tx_powermail_mandatory extends tslib_pibase {
 		
 		// Fill Markers
 		$this->markerArray = $this->markers->GetMarkerArray($this->conf, $this->sessionfields, $this->cObj, 'mandatory'); // Fill markerArray
-		$this->markerArray['###POWERMAIL_TARGET###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'useCacheHash' => 1)); // Fill Marker with action parameter
-		$this->markerArray['###POWERMAIL_NAME###'] = $this->cObj->data['tx_powermail_title'].'_mandatory'; // Fill Marker with formname
+		$this->markerArray['###POWERMAIL_TARGET###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'useCacheHash' => 1, 'section' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']))); // Fill Marker with action parameter
+		$this->markerArray['###POWERMAIL_NAME###'] = $this->cObj->data['tx_powermail_title'] . '_mandatory'; // Fill Marker with formname
 		$this->markerArray['###POWERMAIL_METHOD###'] = $this->conf['form.']['method']; // Form method
 		
 		// Different check functions
@@ -101,26 +101,26 @@ class tx_powermail_mandatory extends tslib_pibase {
         // Give me all fields of current content uid
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'tx_powermail_fields.uid, tx_powermail_fields.title, tx_powermail_fields.flexform',
-			'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON (tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
-			$where_clause = 'tx_powermail_fieldsets.tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).tslib_cObj::enableFields('tt_content').tslib_cObj::enableFields('tx_powermail_fieldsets').tslib_cObj::enableFields('tx_powermail_fields'),
+			'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
+			$where_clause = 'tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tt_content') . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
 			$groupBy = '',
 			$orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
 			$limit
 		);
 		if ($res) { // If there is a result
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every field
-				if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']),'mandatory') == 1 || $this->conf['validate.']['uid'.$row['uid'].'.'][required] == 1) { // if in current xml mandatory == 1 OR mandatory was set via TS for current field
-					if (!is_array($this->sessionfields['uid'.$row['uid']])) { // first level
-						if (!trim($this->sessionfields['uid'.$row['uid']]) || !isset($this->sessionfields['uid'.$row['uid']])) { // only if current value is not set in session (piVars)
-							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield').' <b>'.$row['title'].'</b>'; // set current error to sessionlist
+				if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'mandatory') == 1 || $this->conf['validate.']['uid' . $row['uid'] . '.'][required] == 1) { // if in current xml mandatory == 1 OR mandatory was set via TS for current field
+					if (!is_array($this->sessionfields['uid' . $row['uid']])) { // first level
+						if (!trim($this->sessionfields['uid' . $row['uid']]) || !isset($this->sessionfields['uid'.$row['uid']])) { // only if current value is not set in session (piVars)
+							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield') . ' <b>' . $row['title'] . '</b>'; // set current error to sessionlist
 						}
 					} else { // second level (maybe for checkboxes)
-						if (isset($this->sessionfields['uid'.$row['uid']])) {
+						if (isset($this->sessionfields['uid' . $row['uid']])) {
 							$error = 1; // errors on start (by default)
-							foreach ($this->sessionfields['uid'.$row['uid']] as $key => $value) { // one loop for every field
-								if ($this->sessionfields['uid'.$row['uid']][$key] != '') $error = 0; // set error
+							foreach ($this->sessionfields['uid' . $row['uid']] as $key => $value) { // one loop for every field
+								if ($this->sessionfields['uid' . $row['uid']][$key] != '') $error = 0; // set error
 							}
-							if ($error) $this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield').' <b>'.$row['title'].'</b>'; // set current error
+							if ($error) $this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield') . ' <b>' . $row['title'] . '</b>'; // set current error
 						}
 					}
 				}
@@ -133,7 +133,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	// Function uniqueCheck() checks (if activated via constants) if a field is already filled with this value (like email addresses)
 	function uniqueCheck() {
 		// config
-		$uniquearray = t3lib_div::trimExplode(',', $this->conf['enable.']['unique'],1); // Get unique constants from ts
+		$uniquearray = t3lib_div::trimExplode(',', $this->conf['enable.']['unique'], 1); // Get unique constants from ts
 		$confarray = unserialize($GLOBALS['TSFE']->TYPO3_CONF_VARS['EXT']['extConf'][$this->extKey]); // get config from localconf.php
 		
 		// let's go
@@ -141,7 +141,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 			foreach ($uniquearray as $value) {
 				
 				// check for unique uids
-				if (is_numeric(str_replace('uid','',strtolower($value))) && $this->sessionfields[strtolower($value)]) { // like uid11 and value exists
+				if (is_numeric(str_replace('uid', '', strtolower($value))) && $this->sessionfields[strtolower($value)]) { // like uid11 and value exists
 					// pid
 					$this->save_PID = $GLOBALS['TSFE']->id; // PID where to save: Take current page
 					if (intval($this->conf['PID.']['dblog']) > 0) $this->save_PID = $this->conf['PID.']['dblog']; // PID where to save: Get it from TS if set
@@ -151,7 +151,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // Get all emails with any entry of current value
 						'piVars',
 						'tx_powermail_mails',
-						$where_clause = 'pid = '.intval($this->save_PID).' AND piVars LIKE "%'.$this->sessionfields[strtolower($value)].'%"'.tslib_cObj::enableFields('tx_powermail_mails'),
+						$where_clause = 'pid = ' . intval($this->save_PID) . ' AND piVars LIKE "%' . $this->sessionfields[strtolower($value)] . '%"' . tslib_cObj::enableFields('tx_powermail_mails'),
 						$groupBy = '',
 						$orderBy = '',
 						$limit = ''
@@ -177,7 +177,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // get any entry with same IP address like current user
 						'senderIP',
 						'tx_powermail_mails',
-						$where_clause = 'pid = '.($this->conf['PID.']['dblog'] ? intval($this->conf['PID.']['dblog']) : $GLOBALS['TSFE']->id).' AND senderIP = "'.$_SERVER['REMOTE_ADDR'].'"'.tslib_cObj::enableFields('tx_powermail_mails'),
+						$where_clause = 'pid = ' . ($this->conf['PID.']['dblog'] ? intval($this->conf['PID.']['dblog']) : $GLOBALS['TSFE']->id) . ' AND senderIP = "' . $_SERVER['REMOTE_ADDR'] . '"' . tslib_cObj::enableFields('tx_powermail_mails'),
 						$groupBy = '',
 						$orderBy = '',
 						$limit = 1
@@ -256,8 +256,8 @@ class tx_powermail_mandatory extends tslib_pibase {
 			// Give me all captcha fields of current tt_content
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 				'tx_powermail_fields.uid',
-				'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON (tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
-				$where_clause = 'tx_powermail_fields.formtype = "captcha" AND tx_powermail_fieldsets.tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).tslib_cObj::enableFields('tt_content').tslib_cObj::enableFields('tx_powermail_fieldsets').tslib_cObj::enableFields('tx_powermail_fields'),
+				'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
+				$where_clause = 'tx_powermail_fields.formtype = "captcha" AND tx_powermail_fieldsets.tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tt_content') . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
 				$groupBy = '',
 				$orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
 				$limit = 1
@@ -268,18 +268,19 @@ class tx_powermail_mandatory extends tslib_pibase {
 					// sr_freecap
 					if (t3lib_extMgm::isLoaded('sr_freecap', 0) && $this->conf['captcha.']['use'] == 'sr_freecap') { // use sr_freecap if available
 						
-						require_once(t3lib_extMgm::extPath('sr_freecap').'pi2/class.tx_srfreecap_pi2.php');
+						require_once(t3lib_extMgm::extPath('sr_freecap') . 'pi2/class.tx_srfreecap_pi2.php');
 						$this->freeCap = t3lib_div::makeInstance('tx_srfreecap_pi2');
 						session_start(); // start session
 						
-						if ($this->sessionfields['uid'.$row['uid']] == '') { // if captcha value is empty
+						if ($this->sessionfields['uid' . $row['uid']] == '') { // if captcha value is empty
 							
 							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('error_captcha_empty'); // write error message to session
 						
 						} elseif (
-							($_SESSION['sr_freecap_word_hash'] != md5($this->sessionfields['uid'.$row['uid']])) && 
-							($_SESSION['sr_freecap_word_hash'] != md5($this->sessionfields['uid'.$row['uid']]."\n")) &&
-							(is_object($this->freeCap) && !$this->freeCap->checkWord($this->sessionfields['uid'.$row['uid']]))
+							($_SESSION['sr_freecap_word_hash'] != md5($this->sessionfields['uid' . $row['uid']])) && 
+							($_SESSION['sr_freecap_word_hash'] != md5($this->sessionfields['uid' . $row['uid']]."\n")) &&
+							($GLOBALS['TSFE']->fe_user->sesData['tx_sr_freecap']['sr_freecap_word_hash'] != md5($this->sessionfields['uid' . $row['uid']])) &&
+							(is_object($this->freeCap) && !$this->freeCap->checkWord($this->sessionfields['uid' . $row['uid']]))
 						) {
 							
 							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('error_captcha_wrong'); // write error message to session
@@ -368,8 +369,8 @@ class tx_powermail_mandatory extends tslib_pibase {
 	* In case the called user function throws an exception, this is treated as a failed 
 	* validation.
 	********************************************/	
-	function customValidation(){		
-	
+	function customValidation() {
+			
 		$configKey = 'customvalidation.';
 		if (isset($this->conf[$configKey]) && is_array($this->conf[$configKey])) { // Only if any validation is set per typoscript		
 			foreach ($this->conf[$configKey] as $key => $value) { // One loop for every validation
@@ -427,7 +428,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	// Function overwriteSession() saves $this->sessionfields to session to overwrite errors (recaptcha can set an OK for errors in future) 
 	function overwriteSession() {
         if (count($this->sessionfields['OK']) > 0) { // only if min 1 OK value
-            $GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $this->sessionfields); // Generate Session without ERRORS
+            $GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $this->sessionfields); // Generate Session without ERRORS
     		$GLOBALS['TSFE']->storeSessionData(); // Save session
     	}
     }
@@ -437,7 +438,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	function clearErrorsInSession() {
 		// Set Session (overwrite all values)
 		unset($this->sessionfields['ERROR']); // remove all error messages
-		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $this->sessionfields); // Generate Session without ERRORS
+		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $this->sessionfields); // Generate Session without ERRORS
 		$GLOBALS['TSFE']->storeSessionData(); // Save session
 	}
 	

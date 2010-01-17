@@ -228,6 +228,7 @@ class tx_powermail_submit extends tslib_pibase {
 			'crdate' => time(), // save current time
 			'formid' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), // save pid
 			'recipient' => $this->MainReceiver, // save receiver mail
+			'cc_recipient' => (isset($this->CCReceiver) ? $this->CCReceiver : ''),
 			'subject_r' => $this->subject_r, // save subject of receiver mail
 			'sender' => $this->sender, // save sender mail
 			'content' => trim($this->mailcontent['recipient_mail']), // save content of receiver mail
@@ -261,8 +262,8 @@ class tx_powermail_submit extends tslib_pibase {
 			$emailarray = t3lib_div::trimExplode(',', $emails, 1); // write every part to an array
 			
 			for ($i=0,$emails='';$i<count($emailarray);$i++) { // one loop for every key
-				if (t3lib_div::validEmail($emailarray[$i])) $emails .= $emailarray[$i].', '; // if current value is an email write to $emails
-				else $this->sendername .= $emailarray[$i].' '; // if current value is no email, take it for sender name and write to $this->sendername
+				if (t3lib_div::validEmail($emailarray[$i])) $emails .= $emailarray[$i] . ', '; // if current value is an email write to $emails
+				else $this->sendername .= $emailarray[$i] . ' '; // if current value is no email, take it for sender name and write to $this->sendername
 			}
 			if ($emails) $emails = substr(trim($emails), 0, -1); // delete last ,
 			if (!empty($this->sendername)) $this->sendername = trim($this->sendername); // trim name
@@ -274,9 +275,9 @@ class tx_powermail_submit extends tslib_pibase {
 		}
 		
 		// 3. Field receiver query
-		elseif ($this->cObj->data['tx_powermail_query']) { // If own select query is chosen
-			$query = $this->secQuery($this->cObj->data['tx_powermail_query']); // secure function of query
-			$query = $this->div->marker2value($query, $this->sessiondata); // make markers available in email query
+		elseif ($this->conf['email.']['recipient_mail.']['email_query.']) { // If own select query is chosen
+			$query = $this->secQuery($this->cObj->cObjGetSingle($this->conf['email.']['recipient_mail.']['email_query'], $this->conf['email.']['recipient_mail.']['email_query.'])); // secure function of query
+			$query = $this->div->marker2value($query, $this->sessiondata, 1); // make markers available in email query
 			
 			$res = mysql_query($query); // mysql query
 			
@@ -285,7 +286,7 @@ class tx_powermail_submit extends tslib_pibase {
 					if (is_array($row)) { // if $row is an array
 						foreach ($row as $key => $value) { // give me the key
 							if (t3lib_div::validEmail($row[$key])) { // only if result is a valid email address
-								$emails .= $row[$key].', '; // add email address with comma at the end
+								$emails .= $row[$key] . ', '; // add email address with comma at the end
 							}
 						}
 					}
@@ -298,7 +299,7 @@ class tx_powermail_submit extends tslib_pibase {
 		if (isset($emails)) { // if email string is set
 			if (strpos($emails,',') > 1) { // if there is a , in the string (more than only one email is set)
 				$this->MainReceiver = substr($emails, 0, strpos($emails, ',')); // aa@aa.com
-				$this->CCReceiver = substr($emails, trim(strpos($emails, ',')+1)); // bb@bb.com, cc@cc.com
+				$this->CCReceiver = substr($emails, trim(strpos($emails, ',') +1)); // bb@bb.com, cc@cc.com
 			} else { // only one email is set
 				$this->MainReceiver = $emails; // set mail
 			}
@@ -358,6 +359,9 @@ class tx_powermail_submit extends tslib_pibase {
 				  'useCacheHash' => 0, // Don't use cache
 				  'section' => '' // clear section value if any
 				);
+				$link = t3lib_div::locationHeaderUrl($this->cObj->typolink('x', $typolink_conf)); // Create target url
+			
+				/*
 				$link = $this->cObj->typolink('x', $typolink_conf); // Create target url
 				
 				if (intval($target) > 0 || strpos($target, 'fileadmin/') !== false) { // PID (intern link) OR file
@@ -370,7 +374,8 @@ class tx_powermail_submit extends tslib_pibase {
 				}
 				
 				$link = preg_replace('#([^:])//#', '$1/', $link); // strip out "//"
-				
+				*/
+
 				// Set Header for redirect
 				header('Location: ' . $link); 
 				header('Connection: close');

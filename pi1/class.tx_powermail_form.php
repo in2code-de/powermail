@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2007 Alexander Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
+*  (c) 2010 Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,11 +22,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(PATH_tslib.'class.tslib_pibase.php'); // get pibase
-require_once(t3lib_extMgm::extPath('powermail').'pi1/class.tx_powermail_html.php'); // get html and field functions
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_functions_div.php'); // file for div functions
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_sessions.php'); // load session class
+require_once(PATH_tslib . 'class.tslib_pibase.php'); // get pibase
+require_once(t3lib_extMgm::extPath('powermail') . 'pi1/class.tx_powermail_html.php'); // get html and field functions
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functions_div.php'); // file for div functions
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_sessions.php'); // load session class
 
 
 class tx_powermail_form extends tslib_pibase {
@@ -53,19 +53,19 @@ class tx_powermail_form extends tslib_pibase {
 			// Set limit
 			$limitArray = array(0,1); // If multiple (PHP) set limit
 			if (isset($this->piVars['multiple'])) $limitArray[0] = ($this->piVars['multiple'] - 1); // Set current fieldset
-			$limit = $limitArray[0].','.$limitArray[1]; // e.g. 0,1
+			$limit = $limitArray[0] . ',' . $limitArray[1]; // e.g. 0,1
 		
 		} elseif ($this->cObj->data['tx_powermail_multiple'] == 1) { // If multiple (JS) active
 			
 			// add css for multiple javascript
-			$GLOBALS['TSFE']->additionalHeaderData[$this->extKey] .= "\t".'<link rel="stylesheet" type="text/css" href="'.$GLOBALS['TSFE']->tmpl->getFileName($this->conf['css.']['MultipleJS']).'" />';
+			$GLOBALS['TSFE']->additionalHeaderData[$this->extKey] .= "\t" . '<link rel="stylesheet" type="text/css" href="' . $GLOBALS['TSFE']->tmpl->getFileName($this->conf['css.']['MultipleJS']) . '" />';
 			$limit = ''; // no limit for SQL select
 			
 		} elseif ($this->cObj->data['tx_powermail_multiple'] == 0) { // Standardmode
 			
 			$limit = ''; // no limit for SQL select
 			
-		} else return 'Wrong multiple setting ('.$this->cObj->data['tx_powermail_multiple'].') in backend'; // Errormessage if wrong multiple choose
+		} else return 'Wrong multiple setting (' . $this->cObj->data['tx_powermail_multiple'] . ') in backend'; // Errormessage if wrong multiple choose
 		
 		return $this->form($limit); // Load only
 	}
@@ -77,9 +77,9 @@ class tx_powermail_form extends tslib_pibase {
 		$this->InnerMarkerArray = $this->OuterMarkerArray = $this->tmpl = array(); $this->content_item = ''; // init
 		$i=1; // counter for automatic tabindex
 		$this->tmpl['all'] = tslib_cObj::fileResource($this->conf['template.']['formWrap']); // Load HTML Template
-		$this->tmpl['formwrap']['all'] = $this->cObj->getSubpart($this->tmpl['all'],'###POWERMAIL_FORMWRAP###'); // work on subpart 1
-		$this->tmpl['formwrap']['item'] = $this->cObj->getSubpart($this->tmpl['formwrap']['all'],'###POWERMAIL_ITEM###'); // work on subpart 2
-		$this->tmpl['multiplejs']['all'] = $this->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['MultipleJS']),'###POWERMAIL_MULTIPLEJS_PAGEBROWSER###'); // Load HTML Template for multiple JS (work on subpart)
+		$this->tmpl['formwrap']['all'] = $this->cObj->getSubpart($this->tmpl['all'], '###POWERMAIL_FORMWRAP###'); // work on subpart 1
+		$this->tmpl['formwrap']['item'] = $this->cObj->getSubpart($this->tmpl['formwrap']['all'], '###POWERMAIL_ITEM###'); // work on subpart 2
+		$this->tmpl['multiplejs']['all'] = $this->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['MultipleJS']), '###POWERMAIL_MULTIPLEJS_PAGEBROWSER###'); // Load HTML Template for multiple JS (work on subpart)
 
 		// Form tag generation
 		$this->OuterMarkerArray['###POWERMAIL_TARGET###'] = htmlentities($this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'section' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'additionalParams' => '&tx_powermail_pi1[mailID]='.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'useCacheHash'=>1))); // Fill Marker with action parameter
@@ -126,8 +126,8 @@ class tx_powermail_form extends tslib_pibase {
 				// Give me all fields in current fieldset, which are related to current content
 				$res2 = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 					'tx_powermail_fieldsets.uid fs_uid, tx_powermail_fields.uid f_uid, tx_powermail_fieldsets.felder fs_fields, tx_powermail_fieldsets.title fs_title, tx_powermail_fieldsets.class fs_class, tx_powermail_fields.title f_title, tx_powermail_fields.formtype f_type, tx_powermail_fields.flexform f_field, tt_content.tx_powermail_title c_title, tx_powermail_fields.fe_field f_fefield, tx_powermail_fields.description f_description, tx_powermail_fields.class f_class',
-					'tx_powermail_fieldsets LEFT JOIN tx_powermail_fields ON (tx_powermail_fieldsets.uid = tx_powermail_fields.fieldset) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
-					$where_clause = 'tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).' AND tx_powermail_fields.fieldset = '.$row_fs['uid'] . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
+					'tx_powermail_fieldsets LEFT JOIN tx_powermail_fields ON tx_powermail_fieldsets.uid = tx_powermail_fields.fieldset LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
+					$where_clause = 'tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . ' AND tx_powermail_fields.fieldset = ' . $row_fs['uid'] . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
 					$groupBy = '',
 					$orderBy = 'tx_powermail_fieldsets.sorting, tx_powermail_fields.sorting',
 					$limit1 = ''
@@ -170,8 +170,8 @@ class tx_powermail_form extends tslib_pibase {
 		// Let's go
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'tx_powermail_fields.uid, tx_powermail_fields.formtype, tx_powermail_fields.flexform',
-			'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON (tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
-			$where_clause = 'tx_powermail_fieldsets.tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).tslib_cObj::enableFields('tx_powermail_fieldsets').tslib_cObj::enableFields('tx_powermail_fields'),
+			'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
+			$where_clause = 'tx_powermail_fieldsets.tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
 			$groupBy = '',
 			$orderBy = 'tx_powermail_fieldsets.sorting, tx_powermail_fields.sorting',
 			$limit = ''
@@ -184,7 +184,7 @@ class tx_powermail_form extends tslib_pibase {
 					$options = t3lib_div::trimExplode("\n", $this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'options'), 1); // all options in an array
 					
 					for ($i=0; $i<count($options); $i++) { // one loop for every option
-						$array[] = $row['uid'].'_'.$i; // increase array with this uid
+						$array[] = $row['uid'] . '_' . $i; // increase array with this uid
 					}
 				}
 			}
@@ -201,7 +201,7 @@ class tx_powermail_form extends tslib_pibase {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'count(*) no',
 			'tx_powermail_fieldsets',
-			$where_clause = 'tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).tslib_cObj::enableFields('tx_powermail_fieldsets'),
+			$where_clause = 'tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tx_powermail_fieldsets'),
 			$groupBy = '',
 			$orderBy = '',
 			$limit
@@ -216,14 +216,14 @@ class tx_powermail_form extends tslib_pibase {
 		if ($add === 1) { // Forward link
 		
 			if ($this->multiple['numberoffieldsets'] != $this->multiple['currentpage']) { // If current fieldset is not the latest
-				$content = '<input type="submit" value="'.$this->pi_getLL('multiple_forward', 'Next step').'" class="tx_powermail_pi1_submitmultiple_forward" />';
+				$content = '<input type="submit" value="' . $this->pi_getLL('multiple_forward', 'Next step') . '" class="tx_powermail_pi1_submitmultiple_forward" />';
 			} else $content = ''; // clear it if it's not needed
 			
 		} elseif ($add === -1) { // Backward link
 		
 			if ($this->multiple['currentpage'] > 1) { // If current fieldset is not the first
 				$link = ($GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'] == '' ? $this->baseurl : '') . $this->cObj->typolink('x', array('parameter' => $GLOBALS['TSFE']->id, 'returnLast' => 'url', 'additionalParams' => '&tx_powermail_pi1[multiple]='.($this->multiple['currentpage'] + $add).'&tx_powermail_pi1[mailID]='.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'useCacheHash' => 1)); // Create target url
-				$content = '<input type="button" value="'.$this->pi_getLL('multiple_back', 'Previous step').'" onclick="location=\''.$link.'\'" class="tx_powermail_pi1_submitmultiple_back" />';
+				$content = '<input type="button" value="' . $this->pi_getLL('multiple_back', 'Previous step') . '" onclick="location=\'' . $link . '\'" class="tx_powermail_pi1_submitmultiple_back" />';
 			}
 			else $content = ''; // clear it if it's not needed
 		
@@ -239,18 +239,18 @@ class tx_powermail_form extends tslib_pibase {
 			*/
 			
 			// e.g. 3 of 8
-			$content = $this->multiple['currentpage'].$this->pi_getLL('pagebrowser_inner').$this->multiple['numberoffieldsets']; // 1 of 4
-			$content = $this->cObj->wrap($content,$this->conf['pagebrowser.']['wrap'],'|'); // wrap this
+			$content = $this->multiple['currentpage'] . $this->pi_getLL('pagebrowser_inner') . $this->multiple['numberoffieldsets']; // 1 of 4
+			$content = $this->cObj->wrap($content, $this->conf['pagebrowser.']['wrap'], '|'); // wrap this
 		
 		} elseif ($add === 'js') { // Pagebrowser Multiple JS
 			
-			$this->tmpl['multiplejs']['item'] = $this->cObj->getSubpart($this->tmpl['multiplejs']['all'],'###POWERMAIL_ITEM###');
+			$this->tmpl['multiplejs']['item'] = $this->cObj->getSubpart($this->tmpl['multiplejs']['all'], '###POWERMAIL_ITEM###');
 			$content_item = '';
 			
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 				'uid,title',
 				'tx_powermail_fieldsets',
-				$where_clause = 'tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).tslib_cObj::enableFields('tx_powermail_fieldsets'),
+				$where_clause = 'tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tx_powermail_fieldsets'),
 				$groupBy = '',
 				$orderBy = 'sorting ASC',
 				''
@@ -282,7 +282,7 @@ class tx_powermail_form extends tslib_pibase {
 		// Give me current field details
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'tx_powermail_fieldsets.uid fs_uid, tx_powermail_fields.uid f_uid, tx_powermail_fieldsets.felder fs_fields, tx_powermail_fieldsets.title fs_title, tx_powermail_fields.title f_title, tx_powermail_fields.formtype f_type, tx_powermail_fields.flexform f_field, tt_content.tx_powermail_title c_title, tx_powermail_fields.fe_field f_fefield, tx_powermail_fields.description f_description',
-			'tx_powermail_fieldsets LEFT JOIN tx_powermail_fields ON (tx_powermail_fieldsets.uid = tx_powermail_fields.fieldset) LEFT JOIN tt_content ON (tx_powermail_fieldsets.tt_content = tt_content.uid)',
+			'tx_powermail_fieldsets LEFT JOIN tx_powermail_fields ON tx_powermail_fieldsets.uid = tx_powermail_fields.fieldset LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
 			$where_clause = 'tx_powermail_fields.uid = '.$array[1],
 			$groupBy = '',
 			$orderBy = '',
@@ -302,7 +302,7 @@ class tx_powermail_form extends tslib_pibase {
 				function formCallback(result, form) {
 					window.status = "valiation callback for form \'" + form.id + "\': result = " + result;
 				}
-				var valid = new Validation(\''.$this->OuterMarkerArray['###POWERMAIL_NAME###'].'\', {immediate : true, onFormValidate : formCallback});
+				var valid = new Validation(\'' . $this->OuterMarkerArray['###POWERMAIL_NAME###'] . '\', {immediate : true, onFormValidate : formCallback});
 			</script>
 		';
 		

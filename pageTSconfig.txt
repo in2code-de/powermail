@@ -1,0 +1,9 @@
+mod.wizards.newContentElement.wizardItems.plugins.elements.powermail {
+	icon = ../typo3conf/ext/powermail/ext_icon.gif
+	title = Powermail
+	description = Formular mit erweiterten Funktionen
+	tt_content_defValues {
+		CType = powermail_pi1
+	}
+}
+mod.wizards.newContentElement.wizardItems.plugins.show := addToList(powermail)

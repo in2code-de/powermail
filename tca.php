@@ -486,7 +486,7 @@ if(t3lib_div::int_from_ver(TYPO3_version) < t3lib_div::int_from_ver('4.1.0') || 
 $TCA['tx_powermail_mails'] = array (
 	'ctrl' => $TCA['tx_powermail_mails']['ctrl'],
 	'interface' => array (
-		'showRecordFieldList' => 'hidden,formid,recipient,subject_r,sender,content'
+		'showRecordFieldList' => 'hidden,formid,recipient,cc_recipient,subject_r,sender,content'
 	),
 	'feInterface' => $TCA['tx_powermail_mails']['feInterface'],
 	'columns' => array (
@@ -514,6 +514,14 @@ $TCA['tx_powermail_mails'] = array (
 		'recipient' => array (		
 			'exclude' => 1,		
 			'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_mails.recipient',		
+			'config' => array (
+				'type' => 'input',	
+				'size' => '30',
+			)
+		),
+		'cc_recipient' => array (		
+			'exclude' => 1,		
+			'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_mails.cc_recipient',		
 			'config' => array (
 				'type' => 'input',	
 				'size' => '30',
@@ -618,7 +626,7 @@ $TCA['tx_powermail_mails'] = array (
 		),
 	),
 	'types' => array (
-		'0' => array('showitem' => 'hidden;;1;;1-1-1, formid, recipient, subject_r, sender, content;;;richtext[cut|copy|paste|formatblock|textcolor|bold|italic|underline|left|center|right|orderedlist|unorderedlist|outdent|indent|link|table|image|line|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_powermail/rte/], piVars, feuser, senderIP, UserAgent, Referer, SP_TZ, Additional')
+		'0' => array('showitem' => 'hidden;;1;;1-1-1, formid, recipient, cc_recipient, subject_r, sender, content;;;richtext[cut|copy|paste|formatblock|textcolor|bold|italic|underline|left|center|right|orderedlist|unorderedlist|outdent|indent|link|table|image|line|chMode]:rte_transform[mode=ts_css|imgpath=uploads/tx_powermail/rte/], piVars, feuser, senderIP, UserAgent, Referer, SP_TZ, Additional')
 	),
 	'palettes' => array (
 		'1' => array('showitem' => '')

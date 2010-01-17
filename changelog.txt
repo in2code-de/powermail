@@ -4,6 +4,23 @@
 
 
 ## Powermail version 1.5.x stable ##
+- Update on 17.01.2010 version 1.5.3
+Bugfix #4998: Countryselector fallback
+Bugfix #5000: TabIndex in date fields
+Bugfix #5093: Cronjob Export outputs L
+Bugfix #5371: DBAL suggested
+Bugfix #5588: Mime Type check
+Bugfix #5596: PHP5 needed
+Bugfix #5821: No time filter when no mails in selection
+Bugfix #5957: Redirection with absRefPrefix and mailto
+Bugfix #6039: SQL query with text marker
+Bugfix #6031: Typo in NL part of locallang.xml
+Feature #6010: Jump to anchor if error
+Feature #5614: CC receiver in db table
+
+- Update on 10.01.2010 version 1.5.2
+Security Update: Moving SQL selection field to typoscript - admins only
+
 - Update on 13.11.2009 version 1.5.1
 Bugfix #5265: Refill fields if user go back from confirmation page to form in other FE languages
 Bugfix #5076: Add CSS class does not affect Radiobuttons

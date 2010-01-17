@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Alexander Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
+*  (c) 2010 Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,8 +22,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(PATH_tslib.'class.tslib_pibase.php');
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
+require_once(PATH_tslib . 'class.tslib_pibase.php');
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
 
 // This class saves powermail values in OTHER db tables if wanted (this class is not the main database class for storing)
 class tx_powermail_countryzones extends tslib_pibase {
@@ -121,7 +121,7 @@ class tx_powermail_countryzones extends tslib_pibase {
 		// select
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'static_country_zones.zn_code, static_country_zones.zn_name_local',
-			'static_countries LEFT JOIN static_country_zones ON (static_countries.cn_iso_2 = static_country_zones.zn_country_iso_2)',
+			'static_countries LEFT JOIN static_country_zones ON static_countries.cn_iso_2 = static_country_zones.zn_country_iso_2',
 			$where_clause,
 			$groupBy = '',
 			$orderBy = 'static_country_zones.zn_code',
@@ -144,7 +144,7 @@ class tx_powermail_countryzones extends tslib_pibase {
 		
 		$content = $this->cObj->substituteMarkerArrayCached($this->tmpl['html_countryzoneselect']['all'], $outerMarkerArray, $subpartArray); // substitute Marker in Template
 		$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
-		$content = preg_replace("|###.*?###|i", "", $content); // Finally clear not filled markers
+		$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
 	
 		if ($i>1) return $content; // only if there are results
 		else return false;

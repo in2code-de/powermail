@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2007 Mischa Heißmann, Alexander Kellner <typo3.2008@heissmann.org, alexander.kellner@wunschtacho.de>
+*  (c) 2010 Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,8 +27,8 @@ require_once('class.tx_powermail_form.php');
 require_once('class.tx_powermail_submit.php');
 require_once('class.tx_powermail_confirmation.php');
 require_once('class.tx_powermail_mandatory.php');
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_sessions.php'); // load session class
-require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_functions_div.php'); // file for div functions
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_sessions.php'); // load session class
+require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functions_div.php'); // file for div functions
 
 
 class tx_powermail_pi1 extends tslib_pibase {
@@ -68,7 +68,9 @@ class tx_powermail_pi1 extends tslib_pibase {
 		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // give me all piVars from session (without not needed values)
 		$this->sessions->setSession($this->conf, $this->sessions->changeData($this->sessionfields), $this->cObj, 0); // manipulate data (upload fields, check email, etc..) and save it at once in the session
 		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // get values from session again
-		if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'session') $this->div->debug($this->sessionfields, 'Values from session'); // Debug function (Array from Session)
+		if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'session') { // if debug
+			$this->div->debug($this->sessionfields, 'Values from session'); // Debug function (Array from Session)
+		}
 		
 		// Start main choose
 		$this->hook_main_content_before(); // hook for content manipulation 1
@@ -141,15 +143,11 @@ class tx_powermail_pi1 extends tslib_pibase {
 	// Function check() checks if all needed fields are filled in backend
 	function check() {
 		$error = ''; // init
-		$prefix = $this->pi_getLL('error_check_prefix','<strong>PowerMail error</strong> - Please fill in this backend field: ');
 		if (!$this->cObj->data['tx_powermail_subject_r']) { // If subject of receiver is not set
-			$error .= $prefix.'<b>'.$this->pi_getLL('error_check_subject_r','<strong>Email receiver subject</strong>').'</b><br />'; // Error MSG
-		}
-		if (!$this->cObj->data['tx_powermail_recipient'] && !$this->cObj->data['tx_powermail_query'] && (!$this->cObj->data['tx_powermail_recip_table'] || !$this->cObj->data['tx_powermail_recip_id'])) { // If email of receiver is not set
-			$error .= $prefix.'<b>'.$this->pi_getLL('error_check_recipient','<strong>Email address of receiver</strong>').'</b><br />'; // Error MSG
+			$error .= $this->div->msg($this->pi_getLL('error_check_subject_r', '<strong>Email receiver subject</strong>'));
 		}
 		if (count($this->conf['template.']) == 0 || count($this->conf) < 10) { // check if powermail ts is not available
-			$error = '<strong>'.$this->pi_getLL('error_check_noTS','ERROR: Typoscript for powermail missing!').'</strong>';
+			$error .= $this->div->msg($this->pi_getLL('error_check_noTS', 'ERROR: Typoscript for powermail missing!'));
 		}
 		return $error;
 	}

@@ -644,7 +644,20 @@ class tx_powermail_html extends tslib_pibase {
 				$JSCalendar->setConfigOption('daFormat', $this->conf['format.']['datetime']);
 				$JSCalendar->setDateFormat(true);
 				$JSCalendar->setInputField('uid' . $this->uid);
-				$this->markerArray['###FIELD###'] .= $JSCalendar->render($value, 'tx_powermail_pi1[uid' . $this->uid . ']');
+				#$this->markerArray['###FIELD###'] .= $JSCalendar->render($value, 'tx_powermail_pi1[uid' . $this->uid . ']');
+				$params = array(
+					'checkboxField' => array(
+						'name' => 'tx_powermail_pi1[uid' . $this->uid . ']'
+					),
+					'inputField' => array(
+						'name' => 'tx_powermail_pi1[uid' . $this->uid . ']',
+						'tabindex' => $this->turnedtabindex[$this->uid] + 1
+					)
+				);
+				if ($this->markerArray['###ACCESSKEY###'] != '') { // if there is a defined accesskey
+					$params['inputField']['accesskey'] = $this->accesskeyarray[$i][2]; // set accesskey for datefield
+				}
+				$this->markerArray['###FIELD###'] .= $JSCalendar->render($value, $params);
 	
 				// get initialisation code of the calendar
 				if (($jsCode = $JSCalendar->getMainJS()) != '') $GLOBALS['TSFE']->additionalHeaderData['powermail_date2cal'] = $jsCode;
@@ -696,11 +709,25 @@ class tx_powermail_html extends tslib_pibase {
 				$JSCalendar->setConfigOption('ifFormat', $this->conf['format.']['date']);
 				$JSCalendar->setConfigOption('daFormat', $this->conf['format.']['date']);
 				$JSCalendar->setInputField('uid' . $this->uid);
-				$this->markerArray['###FIELD###'] .= $JSCalendar->render($value, 'tx_powermail_pi1[uid' . $this->uid . ']');
+				#$this->markerArray['###FIELD###'] .= $JSCalendar->render($value, 'tx_powermail_pi1[uid' . $this->uid . ']');
+				$params = array(
+					'checkboxField' => array(
+						'name' => 'tx_powermail_pi1[uid' . $this->uid . ']'
+					),
+					'inputField' => array(
+						'name' => 'tx_powermail_pi1[uid' . $this->uid . ']',
+						'tabindex' => $this->turnedtabindex[$this->uid] + 1
+					)
+				);
+				if ($this->markerArray['###ACCESSKEY###'] != '') { // if there is a defined accesskey
+					$params['inputField']['accesskey'] = $this->accesskeyarray[$i][2]; // set accesskey for datefield
+				}
+				$this->markerArray['###FIELD###'] .= $JSCalendar->render($value, $params);
 				
 				// get initialisation code of the calendar
-				if (($jsCode = $JSCalendar->getMainJS()) != '')
+				if (($jsCode = $JSCalendar->getMainJS()) != '') {
 					$GLOBALS['TSFE']->additionalHeaderData['powermail_date2cal'] = $jsCode;			
+				}
 		
 				$this->markerArray['###LABEL###'] = $this->title; // add label
 				$this->markerArray['###LABEL_NAME###'] = 'uid' . $this->uid . '_hr'; // add name for label
@@ -743,78 +770,84 @@ class tx_powermail_html extends tslib_pibase {
 	/**
 	 * Function html_countryselect() returns select field with countries from static_info_tables
 	 *
-	 * @return	string	$content
+	 * @return    [type]        ...
 	 */
 	function html_countryselect() {
-		
-		if (t3lib_extMgm::isLoaded('static_info_tables',0)) { // only if static_info_tables is loaded
+	
+		if (t3lib_extMgm::isLoaded('static_info_tables', 0)) { // only if static_info_tables is loaded
+			// config
 			$this->tmpl['html_countryselect']['all'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_COUNTRYSELECT###'); // work on subpart 1
 			$this->tmpl['html_countryselect']['item'] = tslib_cObj::getSubpart($this->tmpl['html_countryselect']['all'], '###ITEM###'); // work on subpart 2
-			$content_item = ''; $valuearray = array(); $longvaluearray = array(); // init
-			
+			$valuearray = $longvaluearray = array();
+			$localfield = $whereadd = $content_item = ''; 
+			$sort = 'cn_short_en'; // sort for a field
+	
 			// Filter for some countries
-			if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within')) $whereadd = ' AND uid IN (' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within') . ')'; // sqp whereadd for within values
-			elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without')) $whereadd = ' AND uid NOT IN (' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without') . ')'; // sqp whereadd for within values
-			else $whereadd = '';
-			
+			if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within')) { // if some countries for include where selected
+				$whereadd = ' AND uid IN (' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within')  .')'; // whereadd for within values
+			} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without')) { // if some country for exclude where selected
+				$whereadd = ' AND uid NOT IN (' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without') . ')'; //  whereadd for eclude values
+			}
+	
 			// Look for another lang version (maybe static_info_tables_de or _fr)
-			if ($GLOBALS['TSFE']->tmpl->setup['config.']['language']) $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc( mysql_query('DESCRIBE static_countries cn_short_' . $GLOBALS['TSFE']->tmpl->setup['config.']['language']) );
-			$uselang = ($row['Field'] ? $GLOBALS['TSFE']->tmpl->setup['config.']['language'] : 'en'); // postfix for table field
-			
+			if ($GLOBALS['TSFE']->tmpl->setup['config.']['language']) { // if language was set in ts
+				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc( mysql_query('DESCRIBE static_countries cn_short_' . $GLOBALS['TSFE']->tmpl->setup['config.']['language']) ); // check for localized version of static_info_tables
+			}
+			if ($row['Field']) { // if there is a localized version of static_info_tables
+				$localfield = ', cn_short_' . $GLOBALS['TSFE']->tmpl->setup['config.']['language'] . ' cn_short_lang'; // add to query
+				$sort = 'cn_short_lang'; // change sort
+			} 
+	
 			// Give me all needed fields from static_info_tables
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-				'uid, cn_iso_2, cn_short_local, cn_short_' . $uselang . ' cn_short, uid',
+				'uid, cn_iso_2, cn_short_local, cn_short_en' . $localfield,
 				'static_countries',
-				$where_clause = '1=1' . $whereadd,
+				$where_clause = '1' . $whereadd,
 				$groupBy = '',
-				$orderBy = 'cn_short',
+				$orderBy = $sort,
 				$limit = ''
 			);
 			if ($res) { // If there is a result
-				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every country
-					$row['cn_short'] = $this->div->charset($row['cn_short'], $this->conf['countryselect.']['charset']); // change charset of value
-					
+				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every country
+					if ($row['cn_short_lang']) $row['cn_short_lang'] = $this->div->charset($row['cn_short_lang'], $this->conf['countryselect.']['charset']); // change charset of value
+					$row['cn_short_en'] = $this->div->charset($row['cn_short_en'], $this->conf['countryselect.']['charset']); // change charset of value
+	
 					// Fill markers
 					$markerArray['###VALUE###'] = $this->dontAllow($row['cn_iso_2']);
-					$markerArray['###LONGVALUE###'] = ($row['cn_short'] ? $this->dontAllow($row['cn_short']) : 'empty field cn_short_' . $uselang . ' (uid ' . $row['uid'] . ')' );
-					
+					$markerArray['###LONGVALUE###'] = ($row['cn_short_lang'] ? $this->dontAllow($row['cn_short_lang']) : $this->dontAllow($row['cn_short_en']));
+	
 					// Preselection
-					if ($row['uid'] == $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'preselect') && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect') > 0) $markerArray['###SELECTED###'] = ' selected="selected"'; // preselect one country
+					if ($row['uid'] == $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect') && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect') > 0) $markerArray['###SELECTED###'] = ' selected="selected"'; // preselect one country
 					else $markerArray['###SELECTED###'] = '';
 					if (isset($this->piVarsFromSession['uid' . $this->uid])) { // if there is a session entry
-						if ($this->piVarsFromSession['uid' . $this->uid] == $row['cn_iso_2'] || $this->piVarsFromSession['uid' . $this->uid] == $row['cn_short']) { // check for short or long value
+						if ($this->piVarsFromSession['uid' . $this->uid] == $row['cn_iso_2'] || $this->piVarsFromSession['uid' . $this->uid] == $row['cn_short_lang'] || $this->piVarsFromSession['uid' . $this->uid] == $row['cn_short_en']) { // check for short or long value
 							$markerArray['###SELECTED###'] = ' selected="selected"'; // preselect one country
 						} else $markerArray['###SELECTED###'] = '';
 					}
-					
+	
 					$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 					$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['html_countryselect']['item'], $markerArray);
 				}
 			}
-			
+	
 			$subpartArray['###CONTENT###'] = $content_item; // subpart 3
-			
-			
+	
 			$this->countryzones = t3lib_div::makeInstance('tx_powermail_countryzones');
 			$this->countryzones->preflight($this->uid, $this->xml, $this->markerArray, $this->tmpl, $this->formtitle, $this->conf, $this->piVarsFromSession, $this->cObj);
-			
-			
+	
 			$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 			$content = $this->cObj->substituteMarkerArrayCached($this->tmpl['html_countryselect']['all'], $this->markerArray, $subpartArray); // substitute Marker in Template
 			$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
 			$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
-			
-			
-			
-		
+	
 		} else { // Extension static_info_tables is missing
 			$content = 'Please install extension <strong>static_info_tables</strong> to use countryselect feature';
 		}
-		
+	
 		return $content; // return HTML
 	}
-	
 
+	
 	/**
 	 * Function html_captcha() returns captcha request
 	 *
