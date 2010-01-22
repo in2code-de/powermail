@@ -82,6 +82,11 @@ class tx_powermail_export {
 		if ($res) { // If on current page is a result
 			if ($export == 'xls' || $export == 'table' || $export == 'email') { // if Excel export or HTML Table
 				$table = '<table>'; // Init table
+				
+				// Get first row for "$this->setTitle"-call and reset database result pointer
+				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+				$GLOBALS['TYPO3_DB']->sql_data_seek($res, 0);
+				
 				$table .= $this->setTitle($export,$row); // Title
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // one loop for every db entry
 					if ($row['piVars']) {
@@ -277,7 +282,7 @@ class tx_powermail_export {
 									$table .= '"' . $this->cleanString($label) . '"' . $this->seperator;
 								}
 								else {
-									$table .= '<td>' . $label . '</td>';
+									$table .= '<td><b>' . $label . '</b></td>';
 								}
 							}
 						}
