@@ -458,7 +458,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->tmpl['html_reset'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_RESET###'); // work on subpart
 		
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'clearSession')) { // if checkbox clearSession is checked
-			$this->markerArray['###JS###'] = 'onclick="location=\'' . (strpos($GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'], 'http://') !== false ? '' : t3lib_div::getIndpEnv('TYPO3_SITE_URL')) . $this->cObj->typolink('x',array('returnLast'=>'url', 'parameter'=>$GLOBALS['TSFE']->id, 'additionalParams'=>'&tx_powermail_pi1[clearSession]=-1'), 1) . '\'" '; // Fill marker ###JS### with eventhandler
+			$this->markerArray['###JS###'] = 'onclick="location=\'' . (strpos($GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'], 'http://') !== false ? '' : t3lib_div::getIndpEnv('TYPO3_SITE_URL')) . $this->cObj->typolink('x',array('returnLast'=>'url', 'parameter'=>$GLOBALS['TSFE']->id, 'additionalParams'=>'&amp;tx_powermail_pi1[clearSession]=-1'), 1) . '\'" '; // Fill marker ###JS### with eventhandler
 		}
 		
 		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle; // add formname
