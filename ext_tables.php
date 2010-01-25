@@ -306,7 +306,7 @@ $tempColumns = Array (
 				'expandSingle' => 1,
 				'useSortable' => 1,
 				'newRecordLinkAddTitle' => 1,
-				'newRecordLinkPosition' => 'both',
+				'levelLinksPosition' => 'both',
 				
 				'showSynchronizationLink' => 0,
 				'showAllLocalizationLink' => 1,
