@@ -770,7 +770,7 @@ class tx_powermail_html extends tslib_pibase {
 	/**
 	 * Function html_countryselect() returns select field with countries from static_info_tables
 	 *
-	 * @return    [type]        ...
+	 * @return    string		$content: HTML content of current field
 	 */
 	function html_countryselect() {
 	
@@ -800,7 +800,8 @@ class tx_powermail_html extends tslib_pibase {
 	
 			// Give me all needed fields from static_info_tables
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-				'uid, cn_iso_2, cn_short_local, cn_short_en' . $localfield,
+				//'uid, cn_iso_2, cn_short_local, cn_short_en' . $localfield,
+				'*' . $localfield,
 				'static_countries',
 				$where_clause = '1' . $whereadd,
 				$groupBy = '',
@@ -813,8 +814,17 @@ class tx_powermail_html extends tslib_pibase {
 					$row['cn_short_en'] = $this->div->charset($row['cn_short_en'], $this->conf['countryselect.']['charset']); // change charset of value
 	
 					// Fill markers
+					// old fill (for old html templates)
 					$markerArray['###VALUE###'] = $this->dontAllow($row['cn_iso_2']);
 					$markerArray['###LONGVALUE###'] = ($row['cn_short_lang'] ? $this->dontAllow($row['cn_short_lang']) : $this->dontAllow($row['cn_short_en']));
+					
+					// new fill
+					$markerArray['###CN_SHORT_MERGE###'] = ($row['cn_short_lang'] ? $this->dontAllow($row['cn_short_lang']) : $this->dontAllow($row['cn_short_en'])); // merge value from current FE lang to default lang
+					foreach ((array) $row as $key => $value) { // one loop for every field in the database
+						if (!empty($value)) { // if value is not empty
+							$markerArray['###' . strtoupper($key) . '###'] = $this->dontAllow($value); // write value to marker
+						}
+					}
 	
 					// Preselection
 					if ($row['uid'] == $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect') && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect') > 0) $markerArray['###SELECTED###'] = ' selected="selected"'; // preselect one country

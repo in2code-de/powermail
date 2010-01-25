@@ -74,10 +74,10 @@ class tx_powermail_countryzones extends tslib_pibase {
 				
 				// Insert code of zone selector via php (if preselected country or in session)
 				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect') > 0 && empty($this->piVars['uid' . ($this->uid + $this->add)])) { // if there is a country preselected and no other country chosen meanwhile
-					$this->tmpl['html_countryselect']['all'] = str_replace('<div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone"></div>', '<div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone">'.$this->codeForZoneSelector($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect'), '').'</div>', $this->tmpl['html_countryselect']['all']); // add countryzoneselector code to html template
+					$this->tmpl['html_countryselect']['all'] = str_replace('<div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone"></div>', '<div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone">' . $this->codeForZoneSelector($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect'), '') . '</div>', $this->tmpl['html_countryselect']['all']); // add countryzoneselector code to html template
 				}
 				if (!empty($this->piVars['uid' . ($this->uid + $this->add)])) { // if there is already a value in the session for countryzoneselect
-					$this->tmpl['html_countryselect']['all'] = str_replace('<div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone"></div>', '<div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone">'.$this->codeForZoneSelector(0, $this->piVars['uid' . $this->uid]).'</div>', $this->tmpl['html_countryselect']['all']); // add countryzoneselector code to html template
+					$this->tmpl['html_countryselect']['all'] = str_replace('<div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone"></div>', '<div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone">' . $this->codeForZoneSelector(0, $this->piVars['uid' . $this->uid]) . '</div>', $this->tmpl['html_countryselect']['all']); // add countryzoneselector code to html template
 				}
 				
 				$this->markerArray['###JS###'] = 'onchange="tx_powermail_pi1addZoneSelector(this.value);"';
@@ -94,8 +94,8 @@ class tx_powermail_countryzones extends tslib_pibase {
 		$objResponse = t3lib_div::makeInstance('tx_xajax_response');
 		
 		// return
-		$objResponse->addClear('powermail_countryzoneselect'.$this->uid, "innerHTML"); // clear div container vor selector box
-		if ($this->codeForZoneSelector(0, $value)) $objResponse->addAppend('powermail_countryzoneselect'.$this->uid, "innerHTML", $this->codeForZoneSelector(0, $value)); // add new content // if there are results 
+		$objResponse->addClear('powermail_countryzoneselect' . $this->uid, 'innerHTML'); // clear div container vor selector box
+		if ($this->codeForZoneSelector(0, $value)) $objResponse->addAppend('powermail_countryzoneselect' . $this->uid, 'innerHTML', $this->codeForZoneSelector(0, $value)); // add new content // if there are results 
 		
 		return $objResponse->getXML(); // return xml für javascript
 	}
@@ -105,22 +105,26 @@ class tx_powermail_countryzones extends tslib_pibase {
 	function codeForZoneSelector($uid = 0, $value = '') {
 		// config
 		$value = preg_replace('/[^\sa-zA-Z0-9]/', '', $value); // allow only letters, numbers and space
-		$this->tmpl['html_countryzoneselect']['all'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_COUNTRYZONESELECT###'); // work on subpart 1
-		$this->tmpl['html_countryzoneselect']['item'] = tslib_cObj::getSubpart($this->tmpl['html_countryzoneselect']['all'],'###ITEM###'); // work on subpart 2
+		$this->tmpl['html_countryzoneselect']['all'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_COUNTRYZONESELECT###'); // work on subpart 1
+		$this->tmpl['html_countryzoneselect']['item'] = tslib_cObj::getSubpart($this->tmpl['html_countryzoneselect']['all'], '###ITEM###'); // work on subpart 2
 		$content_item = ''; $markerArray = array(); $outerMarkerArray = array(); $i=0;
 			
 		// change markers of countryzoneselect
-		$outerMarkerArray['###NAME###'] = 'name="'.$this->prefixId.'[uid'.($this->add + $this->uid).']" '; // name in markerArray tx_powermail_pi1[55][1]
-		$outerMarkerArray['###ID###'] = 'id="uid'.($this->add + $this->uid).'" '; // id in markerArray uid55_1
+		$outerMarkerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . ($this->add + $this->uid) . ']" '; // name in markerArray tx_powermail_pi1[55][1]
+		$outerMarkerArray['###ID###'] = 'id="uid' . ($this->add + $this->uid) . '" '; // id in markerArray uid55_1
 		$outerMarkerArray['###CLASS###'] = str_replace($this->uid, ($this->add + $this->uid), $this->markerArray['###CLASS###']); // change class="... uid55" -> class="... uid100055"
 		
 		// where clause
-		if ($uid==0) $where_clause = 'static_countries.cn_iso_2 = "'.$value.'" OR static_countries.cn_iso_3 = "'.$value.'" OR static_countries.cn_short_en = "'.$value.'"'; // where clause if value of country given
-		else $where_clause = 'static_countries.uid = "'.$uid.'"'; // where clause if uid of country given
+		if ($uid==0) {
+			$where_clause = 'static_countries.cn_iso_2 = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($value);
+			$where_clause .= ' OR static_countries.cn_iso_3 = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($value);
+			$where_clause .= ' OR static_countries.cn_short_en = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($value); // where clause if value of country given
+		}
+		else $where_clause = 'static_countries.uid = "' . intval($uid) . '"'; // where clause if uid of country given
 		
 		// select
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-			'static_country_zones.zn_code, static_country_zones.zn_name_local',
+			'*',
 			'static_countries LEFT JOIN static_country_zones ON static_countries.cn_iso_2 = static_country_zones.zn_country_iso_2',
 			$where_clause,
 			$groupBy = '',
@@ -130,10 +134,23 @@ class tx_powermail_countryzones extends tslib_pibase {
 		if ($res) { // If there is a result
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every country_zone
 				// markers
+				
+				// old fill
 				$markerArray['###LONGVALUE###'] = $row['zn_name_local']; // Name of state
 				$markerArray['###VALUE###'] = $row['zn_code']; // Shortage of state
-				if ($this->piVars['uid' . ($this->uid + $this->add)] == $row['zn_code'] || $this->piVars['uid' . ($this->uid + $this->add)] == $row['zn_name_local']) $markerArray['###SELECTED###'] = ' selected="selected"'; // preselect one countryzone
-				else $markerArray['###SELECTED###'] = ''; // clear selected marker
+				
+				//new fill
+				foreach ((array) $row as $key => $value) { // one loop for every field in the database
+					if (!empty($value)) { // if value is not empty
+						$markerArray['###' . strtoupper($key) . '###'] = $value; // write value to marker
+					}
+				}
+				
+				if ($this->piVars['uid' . ($this->uid + $this->add)] == $row['zn_code'] || $this->piVars['uid' . ($this->uid + $this->add)] == $row['zn_name_local']) {
+					$markerArray['###SELECTED###'] = ' selected="selected"'; // preselect one countryzone
+				} else {
+					$markerArray['###SELECTED###'] = ''; // clear selected marker
+				}
 				
 				// add code
 				$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['html_countryzoneselect']['item'], $markerArray);
@@ -146,7 +163,7 @@ class tx_powermail_countryzones extends tslib_pibase {
 		$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
 		$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
 	
-		if ($i>1) return $content; // only if there are results
+		if ($i > 1) return $content; // only if there are results
 		else return false;
 	}
 	
