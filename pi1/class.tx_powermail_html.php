@@ -1232,7 +1232,6 @@ class tx_powermail_html extends tslib_pibase {
 	}
 	
 	
-	
 	/**
 	* Function isPrefilled returns whether a option is prefilled or not
 	*
