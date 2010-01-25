@@ -149,6 +149,10 @@ plugin.tx_powermail_pi1 {
 		# Enable or disable saving values to database
 		dblog = TEXT
 		dblog.value = {$plugin.powermail.allow.dblog}
+		
+		# Enable or disable hidden=1 for the values which will be saved in the database
+		hidden = TEXT
+		hidden.value = 0
 	}
 	
 	

@@ -226,6 +226,7 @@ class tx_powermail_submit extends tslib_pibase {
 			'pid' => intval($this->save_PID), // PID
 			'tstamp' => time(), // save current time
 			'crdate' => time(), // save current time
+			'hidden' => $this->cObj->cObjGetSingle($this->conf['allow.']['hidden'], $this->conf['allow.']['hidden.']), // hidden = 0 or hidden = 1
 			'formid' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), // save pid
 			'recipient' => $this->MainReceiver, // save receiver mail
 			'cc_recipient' => (isset($this->CCReceiver) ? $this->CCReceiver : ''),
