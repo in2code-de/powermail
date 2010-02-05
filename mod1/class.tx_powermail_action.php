@@ -29,15 +29,37 @@
  */
 
 class tx_powermail_action {
-
-	// Function main() to set powermailmail entries as deleted in the database
+	
+	/**
+	 * $LANG object
+	 *
+	 * @var language
+	 */
+	var $LANG = null;
+	
+	/**
+	 * Content to output
+	 *
+	 * @var string
+	 */
+	var $content = '';
+	
+	/**
+	 * Function main() to set powermailmail entries as deleted in the database
+	 *
+	 * @param int $deleteID
+	 * @param lang $LANG
+	 * @return string
+	 */
 	function main($deleteID, $LANG) {
-		// config
-		$this->mailID = $mailID;
 		$this->LANG = $LANG;
-		$this->content = '<div style="margin: 10px 0; padding: 10px; border: 1px solid #7D838C; background-color: green; color: white;"><strong>'.sprintf($this->LANG->getLL('del_message'), $deleteID).'</strong></div>';
 		
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery ( // deleted = 1 in db
+		$this->content = '
+			<div style="margin: 10px 0; padding: 10px; border: 1px solid #7D838C; background-color: green; color: white;">
+				<strong>'.sprintf($this->LANG->getLL('del_message'), $deleteID).'</strong>
+			</div>';
+		
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
 			'tx_powermail_mails',
 			'uid = '.$deleteID,
 			array (
@@ -45,22 +67,25 @@ class tx_powermail_action {
 			)
 		);
 		
-		return $this->content; // return message
+		return $this->content;
 	}
 	
-	
-	// Function deleteFiles() delete old temp files
+	/**
+	 * Function deleteFiles() delete old temp files
+	 * 
+	 * @return void
+	 */
 	function deleteFiles() {
 		$fileArray = t3lib_div::getFilesInDir(t3lib_div::getIndpEnv('TYPO3_DOCUMENT_ROOT').'/typo3temp/', 'csv,gz', 1, 1); // file array of all csv and gz files in the typo3temp directory
 		
-		foreach ((array) $fileArray as $key => $value) { // one loop for every file
+		foreach ((array) $fileArray as $value) { // one loop for every file
 			if (strpos($value, 'powermail_export') !== false) { // string powermail_export found in current name
 				unlink($value); // delte current file
 			}
 		}
 	}
-
 }
+
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/mod1/class.tx_powermail_action.php']) {
 	include_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/mod1/class.tx_powermail_action.php']);
 }
