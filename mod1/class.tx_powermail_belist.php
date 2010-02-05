@@ -97,11 +97,39 @@ class tx_powermail_belist {
 	var $content = '';
 	
 	/**
+	 * Startdate for filterform
+	 *
+	 * @var string
+	 */
+	var $startdate = '';
+	
+	/**
 	 * Enddate for filterform
 	 *
 	 * @var string
 	 */
 	var $enddate = '';
+	
+	/**
+	 * Timeformat for start
+	 *
+	 * @var string
+	 */
+	var $timeformat_start = '';
+	
+	/**
+	 * Number of all rows
+	 *
+	 * @var int
+	 */
+	var $num = 0;
+	
+	/**
+	 * Number of rows with filter
+	 *
+	 * @var int
+	 */
+	var $num2 = 0;
 	
 	/**
 	 * Main method
