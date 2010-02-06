@@ -343,7 +343,7 @@ lib.powermail_dynJavascript {
 [end]
 		# powermail is on current page
 [userFunc = user_powermailOnCurrentPage]
-	page.includeJS.file31311 = EXT:powermail/js/checkbox/checkbox.js
+	page.includeJS.file31311 = EXT:powermail/js/misc/misc.js
 	page.headerData.31310 < lib.powermail_dynJavascript
 	seite.headerData.31310 < page.headerData.31310
 	seite.includeJS.31311 < page.includeJS.file31311

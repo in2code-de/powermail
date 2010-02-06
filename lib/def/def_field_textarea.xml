@@ -24,29 +24,15 @@
 					</config>
 				</TCEforms>
 			</rows>
-			<!--
-			<wrap>
+			<maxlength>
 				<TCEforms>
-					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.wrap</label>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.maxlength</label>
 					<config>
-						<type>select</type>
-						<items type="array">
-							<numIndex index="0" type="array">
-								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.wrap.0</numIndex>
-								<numIndex index="1">0</numIndex>
-							</numIndex>
-							<numIndex index="1" type="array">
-								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.wrap.1</numIndex>
-								<numIndex index="1">hard</numIndex>
-							</numIndex>
-						</items>
-						<minitems>0</minitems>
-						<maxitems>1</maxitems>
-						<size>1</size>
+						<type>input</type>
+						<size>5</size>
 					</config>
 				</TCEforms>
-			</wrap>
-			-->
+			</maxlength>
 			<readonly>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.readonly</label>

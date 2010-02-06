@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2009 Alexander Kellner, Mischa Heißmann, <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
+*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -196,6 +196,9 @@ class tx_powermail_html extends tslib_pibase {
 		$this->tmpl['html_textarea'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_TEXTAREA###'); // work on subpart
 
 		$this->markerArray['###VALUE###'] = substr(trim($this->markerArray['###VALUE###']), 7, -1); // remove the first 7 letters (value=") and the last letter (")
+		if (intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxlength')) > 0) { // if there is a number in the maxlength field
+			$this->markerArray['###MAXLENGTH###'] = 'onKeyPress="checkTextArea(this, ' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxlength')) . ');" '; // add size to markerArray
+		}
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_textarea'], $this->markerArray); // substitute Marker in Template
