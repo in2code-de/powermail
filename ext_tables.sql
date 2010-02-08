@@ -29,6 +29,7 @@ CREATE TABLE tx_powermail_fieldsets (
 	felder int(11) DEFAULT '0' NOT NULL,
 	title tinytext NOT NULL,
 	class text NOT NULL,
+	is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid)
@@ -71,6 +72,7 @@ CREATE TABLE tx_powermail_fields (
 	name tinytext NOT NULL,
 	description text NOT NULL,
 	class text NOT NULL,
+	is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid)
@@ -102,6 +104,7 @@ CREATE TABLE tx_powermail_mails (
 	Referer text NOT NULL,
 	SP_TZ tinytext NOT NULL,
 	Additional text NOT NULL,
+	is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid)
