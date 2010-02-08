@@ -22,20 +22,79 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once('../lib/class.tx_powermail_functions_div.php'); // include div functions
+require_once('../lib/class.tx_powermail_functions_div.php');
 
 class tx_powermail_export {
 
-	var $extKey = 'powermail'; // Extension key
-	var $dateformat = 'Y-m-d'; // timeformat for displaying date
-	var $timeformat = 'H:i:s'; // timeformat for displaying date
-	var $seperator = ';'; // separator for csv
-	var $csvfilename = 'powermail_export_'; // filename of exported CSV file
-	var $zip = 1; // activate CSV file compressing to .gz
-	var $LANG; // Local copy of lang object
-	var $outputEncoding; // Encoding for data output
-	var $tsconfig; // Module's TSconfig
-	var $rowconfig = array ( // set order for export
+	/**
+	 * Extension key
+	 *
+	 * @var string
+	 */
+	var $extKey = 'powermail';
+	
+	/**
+	 * Timeformat for displaying date
+	 *
+	 * @var string
+	 */
+	var $dateformat = 'Y-m-d';
+	
+	/**
+	 * Timeformat for displaying time
+	 *
+	 * @var string
+	 */
+	var $timeformat = 'H:i:s';
+	
+	/**
+	 * Separator for csv
+	 *
+	 * @var string
+	 */
+	var $seperator = ';'; // 
+	
+	/**
+	 * Filename of exported CSV file
+	 *
+	 * @var string
+	 */
+	var $csvfilename = 'powermail_export_';
+	
+	/**
+	 * Activate CSV file compressing to .gz
+	 *
+	 * @var bool
+	 */
+	var $zip = 1;
+	
+	/**
+	 * $LANG object
+	 *
+	 * @var language
+	 */
+	var $LANG = null;
+	
+	/**
+	 * Encoding for data output
+	 *
+	 * @var string
+	 */
+	var $outputEncoding;
+	
+	/**
+	 * Module's TSconfig
+	 *
+	 * @var array
+	 */
+	var $tsconfig;
+	
+	/**
+	 * Order for export
+	 *
+	 * @var array
+	 */
+	var $rowconfig = array (
 		'number' => '#', 
 		'date' => 'Date', 
 		'time' => 'Time', 
@@ -49,179 +108,287 @@ class tx_powermail_export {
 		'Referer' => 'Referer', 
 		'SP_TZ' => 'Sender location'
 	);
+	
+	/**
+	 * Startdate
+	 *
+	 * @var string
+	 */
 	var $default_start;
+	
+	/**
+	 * Enddate
+	 *
+	 * @var string
+	 */
 	var $default_end;
 
-	// Function Main
+	/**
+	 * Dispatcher main method for export
+	 *
+	 * @param string $export
+	 * @param int $pid
+	 * @param language $LANG
+	 * @return string
+	 */
 	function main($export, $pid = 0, $LANG = '') {
-		// config
-		$this->pid = $pid; // Page ID
-		isset($this->default_start) ? $this->startdate = $this->default_start : $this->startdate = $_GET['startdate']; // startdate from GET var
-		isset($this->default_end) ? $this->enddate = $this->default_end : $this->enddate = $_GET['enddate']; // enddate from GET var
-		$this->LANG = $LANG; // make $LANG global
-		$content = ''; $i = 0; // init 
-		$this->tsconfig = t3lib_BEfunc::getModTSconfig($this->pid, 'tx_powermail_mod1'); // Get tsconfig from current page
-		!empty($this->tsconfig['properties']['config.']['export.']['dateformat']) ? $this->dateformat = $this->tsconfig['properties']['config.']['export.']['dateformat'] : ''; // set dateformat
-		!empty($this->tsconfig['properties']['config.']['export.']['timeformat']) ? $this->timeformat = $this->tsconfig['properties']['config.']['export.']['timeformat'] : ''; // set timeformat
-		$this->tsconfig['properties']['config.']['export.']['useTitle'] == 0 && isset($this->tsconfig['properties']['config.']['export.']['useTitle']) ? $this->useTitle = $this->tsconfig['properties']['config.']['useTitle'] : $this->useTitle = 1; // titles should be set
-		count($this->tsconfig['properties']['export.']) > 0 ? $this->rowconfig = $this->tsconfig['properties']['export.'] : ''; // overwrite rowconfig if set
-		if (empty($this->tsconfig['properties']['config.']['export.']['encoding.'][$export])) { // Define output encoding -> No encoding is defined, set default
-			if ($export == 'csv') $this->outputEncoding = 'latin1'; // Set LATIN1 for csv
-			else $this->outputEncoding = $this->LANG->charSet; // Take standard charset
-		} else $this->outputEncoding = $this->tsconfig['properties']['config.']['export.']['encoding.'][$export]; // Take charset from tsconfig
+		$this->pid = $pid;
+		
+		$this->startdate = t3lib_div::_GET('startdate');
+		if(isset($this->default_start)){
+			$this->startdate = $this->default_start;
+		}
+		
+		$this->enddate = t3lib_div::_GET('enddate');
+		if(isset($this->default_end)){
+			$this->enddate = $this->default_end;
+		}
+		
+		$this->LANG = $LANG;
+		$content = ''; 
+		$i = 0;
+		$this->tsconfig = t3lib_BEfunc::getModTSconfig($this->pid, 'tx_powermail_mod1');
+		
+		if(!empty($this->tsconfig['properties']['config.']['export.']['dateformat'])){
+			$this->dateformat = $this->tsconfig['properties']['config.']['export.']['dateformat'];
+		}
+		
+		if(!empty($this->tsconfig['properties']['config.']['export.']['timeformat'])) {
+			$this->timeformat = $this->tsconfig['properties']['config.']['export.']['timeformat'];
+		}
+		
+		$this->useTitle = 1;
+		if($this->tsconfig['properties']['config.']['export.']['useTitle'] == 0 && isset($this->tsconfig['properties']['config.']['export.']['useTitle'])){
+			$this->useTitle = $this->tsconfig['properties']['config.']['useTitle'];
+		}
+		
+		if(count($this->tsconfig['properties']['export.']) > 0){
+			$this->rowconfig = $this->tsconfig['properties']['export.'];
+		}
+		
+		// Define output encoding -> No encoding is defined, set default
+		if (empty($this->tsconfig['properties']['config.']['export.']['encoding.'][$export])) { 
+			// Set LATIN1 for csv
+			if ($export == 'csv'){
+				$this->outputEncoding = 'latin1'; 
+				
+			// Take standard charset
+			} else {
+				$this->outputEncoding = $this->LANG->charSet; 
+			}
+		} else {
+			$this->outputEncoding = $this->tsconfig['properties']['config.']['export.']['encoding.'][$export];
+		}
 
-		// DB query
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-			'*',
-			'tx_powermail_mails',
-			$where_clause = 'pid = ' . $this->pid . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate),
-			$groupBy = '',
-			$orderBy = 'crdate DESC',
-			$limit = ''
-		);
-		if ($res) { // If on current page is a result
-			if ($export == 'xls' || $export == 'table' || $export == 'email') { // if Excel export or HTML Table
-				$table = '<table>'; // Init table
+		$select = '*';
+		$from = 'tx_powermail_mails';
+		$where = 'pid = ' . $this->pid . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate);
+		$groupBy = $limit = '';
+		$orderBy = 'crdate DESC';
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+		
+		// If on current page is a result
+		if ($res) {
+			if ($export == 'xls' || $export == 'table' || $export == 'email') {
+				$table = '<table>';
 				
 				// Get first row for "$this->setTitle"-call and reset database result pointer
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 				$GLOBALS['TYPO3_DB']->sql_data_seek($res, 0);
 				
-				$table .= $this->setTitle($export,$row); // Title
-				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // one loop for every db entry
+				$table .= $this->setTitle($export, $row);
+				while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
 					if ($row['piVars']) {
-						if ($this->outputEncoding != 'utf-8') if (method_exists($this->LANG->csConvObj, 'conv')) $row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8'); // change to utf8 to avoid problems with umlauts
-						$values = t3lib_div::xml2array($row['piVars'], 'piVars'); // xml2array
+						if ($this->outputEncoding != 'utf-8') {
+							 // Change to utf8 to avoid problems with umlauts
+							if (method_exists($this->LANG->csConvObj, 'conv')){
+								$row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8');
+							}
+						}
+						$values = t3lib_div::xml2array($row['piVars'], 'piVars');
 						
-						$i++; // increase counter
+						$i++;
 						$table .= '<tr>';
-						foreach ($this->rowconfig as $key => $value) { // every row from config
-							if ($key == 'number') $table .= '<td>' . $i . '.</td>'; // if current row is number
-							elseif ($key == 'date') $table .= '<td>' . date($this->dateformat, $row['crdate']) . '</td>'; // if current row is date
-							elseif ($key == 'time') $table .= '<td>' . date($this->timeformat, $row['crdate']) . '</td>'; // if current row is time
-							elseif ($key == 'uid') { // if current row should show all dynamic values (piVars)
+						foreach ($this->rowconfig as $key => $value) {
+							 // If current row is number
+							if ($key == 'number'){
+								$table .= '<td>' . $i . '.</td>';
+							
+							// If current row is date		
+							} elseif ($key == 'date') {
+								$table .= '<td>' . date($this->dateformat, $row['crdate']) . '</td>'; 
+								
+							// If current row is time
+							} elseif ($key == 'time') {
+								$table .= '<td>' . date($this->timeformat, $row['crdate']) . '</td>'; 
+							
+							// If current row should show all dynamic values (piVars)
+							} elseif ($key == 'uid') { 
 								if (isset($values) && is_array($values)) {
-									foreach ($values as $key => $value) { // one loop for every piVar
-										if (!is_array($value)) $table .= '<td>' . $this->cleanString($value, $export) . '</td>';
-										else {
-											foreach ($values[$key] as $key2 => $value2) { // one loop for every piVar in second level
+									
+									// One loop for every piVar
+									foreach ($values as $key => $value) { 
+										if (!is_array($value)) {
+											$table .= '<td>' . $this->cleanString($value, $export) . '</td>';
+										} else {
+											// One loop for every piVar in second level
+											foreach ($values[$key] as $key2 => $value2) {
 												$table .= '<td>' . $this->cleanString($value2, $export) . '</td>';
 											}
 										}
 									}
 								}
-							}
-							elseif (is_numeric(str_replace(array('uid', '_'), '', $key))) { // dynamic value like uid45
-								$newkey = explode('_', $key); // explode uid44_0 to uid44 and 0
-								if (!is_array($values[$newkey[0]])) { // piVars in first level
-									if (!empty($values[$key])) { // if is set
-										$table .= '<td>' . $this->cleanString($values[$key], $export) . '</td>'; // fill cell with content
+								
+							// Dynamic value like uid45
+							} elseif (is_numeric(str_replace(array('uid', '_'), '', $key))) { 
+								
+								// Explode uid44_0 to uid44 and 0
+								$newkey = explode('_', $key); 
+								// piVars in first level
+								if (!is_array($values[$newkey[0]])) { 
+									if (!empty($values[$key])) {
+										$table .= '<td>' . $this->cleanString($values[$key], $export) . '</td>';
 									} else {
-										$table .= '<td></td>'; // empty cell
+										$table .= '<td></td>';
 									}
-								} else { // piVars in second level
-									if (!empty($values[$newkey[0]][$newkey[1]])) { // if is set
-										$table .= '<td>' . $this->cleanString($values[$newkey[0]][$newkey[1]], $export) . '</td>'; // fill cell with content
+									
+								// PiVars in second level	
+								} else {
+									if (!empty($values[$newkey[0]][$newkey[1]])) {
+										$table .= '<td>' . $this->cleanString($values[$newkey[0]][$newkey[1]], $export) . '</td>';
 									} else {
-										$table .= '<td></td>'; // empty cell
+										$table .= '<td></td>';
 									}
 								}
+							} else {
+								$table .= '<td>' . $row[$key] . '</td>';
 							}
-							else $table .= '<td>' . $row[$key] . '</td>';
 						}
 						$table .= '</tr>';
 					}
 				}
 				$table .= '</table>';
-			} elseif ($export == 'csv') { // if CSV Export
-				//$table .= 'sep=,'."\n"; // write first line
-				$table .= $this->setTitle($export,$row); // Title
-				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // one loop for every db entry
+				
+			// If CSV Export	
+			} elseif ($export == 'csv') { 
+				
+				$table .= $this->setTitle($export,$row);
+				while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
 					if($row['piVars']) {
-						$i++; // increase counter
-						if ($this->LANG->charSet != 'utf-8') if (method_exists($this->LANG->csConvObj, 'conv')) $row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8'); // change to utf8 to avoid problems with umlauts
-						$values = t3lib_div::xml2array($row['piVars'], 'piVars'); // xml2array
-						//if ($this->outputEncoding != 'utf-8') $this->LANG->csConvObj->convArray($values, 'utf-8', $this->outputEncoding);
+						$i++;
+						if ($this->LANG->charSet != 'utf-8') {
 						
+							// Change to utf8 to avoid problems with umlauts
+							if (method_exists($this->LANG->csConvObj, 'conv')) {
+								$row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8'); 
+							}
+						}
+						$values = t3lib_div::xml2array($row['piVars'], 'piVars');						
 						
-						foreach ($this->rowconfig as $key => $value) { // every row from config
-							if ($key == 'number') $table .= '"' . $i . '."' . $this->seperator; // if current row is number
-							elseif ($key == 'date') $table .= '"' . date($this->dateformat, $row['crdate']) . '"' . $this->seperator; // if current row is date
-							elseif ($key == 'time') $table .= '"' . date($this->timeformat, $row['crdate']) . '"' . $this->seperator; // if current row is time
-							elseif ($key == 'uid') { // if current row should show all dynamic values (piVars)
+						foreach ($this->rowconfig as $key => $value) {
+							// If current row is number
+							if ($key == 'number') {
+								$table .= '"' . $i . '."' . $this->seperator; 
+								
+							// If current row is date	
+							} elseif ($key == 'date') {
+								$table .= '"' . date($this->dateformat, $row['crdate']) . '"' . $this->seperator; 
+							
+							// If current row is time
+							} elseif ($key == 'time') {
+								$table .= '"' . date($this->timeformat, $row['crdate']) . '"' . $this->seperator; 
+								
+							// If current row should show all dynamic values (piVars)	
+							} elseif ($key == 'uid') { 
 								if (isset($values) && is_array($values)) {
-									foreach ($values as $key => $value) { // one loop for every piVar
-										//if(!is_array($value)) $table .= '"'.str_replace('"',"'",str_replace(array("\n\r","\r\n","\n","\r"),'',$value)).'"'.$this->seperator;
-										if (!is_array($value)) $table .= '"' . $this->cleanString($value) . '"' . $this->seperator;
-										else {
-											foreach ($values[$key] as $key2 => $value2) { // one loop for every piVar in second level
-												//$table .= '"'.str_replace('"',"'",str_replace(array("\n\r","\r\n","\n","\r"),'',$value2)).'"'.$this->seperator;
+									// One loop for every piVar
+									foreach ($values as $key => $value) {
+										if (!is_array($value)){
+											$table .= '"' . $this->cleanString($value) . '"' . $this->seperator;
+										} else {
+											
+											// One loop for every piVar in second level
+											foreach ($values[$key] as $value2) { 
 												$table .= '"' . $this->cleanString($value2) . '"' . $this->seperator;
 											}
 										}
 									}
 								}
-							}
-							elseif (is_numeric(str_replace(array('uid','_'),'',$key))) { // dynamic value like uid45
-								$newkey = explode('_',$key); // explode uid44_0 to uid44 and 0
-								if (!is_array($values[$newkey[0]])) { // piVars in first level
-									if (!empty($values[$key])) { // if is set
-										$table .= '"' . $this->cleanString($values[$key]) . '"' . $this->seperator; // fill cell with content
+								
+							// Dynamic value like uid45
+							} elseif (is_numeric(str_replace(array('uid','_'),'',$key))) {
+								// Explode uid44_0 to uid44 and 0
+								$newkey = explode('_',$key); 
+								
+								// PiVars in first level
+								if (!is_array($values[$newkey[0]])) { 
+									if (!empty($values[$key])) {
+										$table .= '"' . $this->cleanString($values[$key]) . '"' . $this->seperator;
 									} else {
-										$table .= '" "' . $this->seperator; // empty cell
+										$table .= '" "' . $this->seperator;
 									}
-								} else { // piVars in second level
-									if (!empty($values[$newkey[0]][$newkey[1]])) { // if is set
-										$table .= '"' . $this->cleanString($values[$newkey[0]][$newkey[1]]) . '"' . $this->seperator; // fill cell with content
+									
+								// PiVars in second level
+								} else { 
+									if (!empty($values[$newkey[0]][$newkey[1]])) {
+										$table .= '"' . $this->cleanString($values[$newkey[0]][$newkey[1]]) . '"' . $this->seperator;
 									} else {
-										$table .= '" "' . $this->seperator; // empty cell
+										$table .= '" "' . $this->seperator;
 									}
 								}
+							} else {
+								$table .= '"' . $row[$key] . '"' . $this->seperator;
 							}
-							else $table .= '"' . $row[$key] . '"' . $this->seperator;
 						}
-						$table = substr($table,0,-1); // delete last ,
-						$table .= "\n"; // new line
+						
+						// Delete last ,
+						$table = substr($table,0,-1); 
+						$table .= "\n";
 					}
 				}
 			}
 		}
 		
-		// What to show
-		$hash = $this->getHash(); // get random number
+		$hash = $this->getHash();
 		if ($export == 'xls') {
 			$content .= header("Content-type: application/vnd-ms-excel");
 			$content .= header("Content-Disposition: attachment; filename=export.xls");
-			$content .= $table; // add table to content
+			$content .= $table;
 		
 		} elseif ($export == 'csv') {
-			
-			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv', $table)) { // write to typo3temp and if success returns FALSE
+			// Write to typo3temp and if success returns FALSE
+			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv', $table)) { 
 				$content .= '<strong>' . $this->LANG->getLL('export_download_success') . '</strong><br />';
-				$this->gzcompressfile(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv'); // compress file
-				$content .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . 'typo3temp/' . $this->csvfilename . $hash . '.csv' . '" target="_blank"><u>' . $this->LANG->getLL('export_download_download') . '</u></a><br />'; // link to xx.csv.gz
-				$content .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . 'typo3temp/' . $this->csvfilename . $hash . '.csv' . '.gz" target="_blank"><u>' . $this->LANG->getLL('export_download_downloadZIP') . '</u></a><br />'; // link to xx.csv
+				$this->gzcompressfile(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv');
+				$content .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . 'typo3temp/' . $this->csvfilename . $hash . '.csv' . '" target="_blank"><u>' . $this->LANG->getLL('export_download_download') . '</u></a><br />';
+				$content .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . 'typo3temp/' . $this->csvfilename . $hash . '.csv' . '.gz" target="_blank"><u>' . $this->LANG->getLL('export_download_downloadZIP') . '</u></a><br />';
+			
 			} else {
-				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv', $table); // errormessage
+				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv', $table);
 			}
 		
 		} elseif ($export == 'email') {
-			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.xls', $table)) { // write to typo3temp and if success returns FALSE
+			// Write to typo3temp and if success returns FALSE
+			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.xls', $table)) { 
+				if ($i > 0) {
+					$content .= 'typo3temp/' . $this->csvfilename . $hash . '.xls';
+				}
 				
-				if ($i > 0) $content .= 'typo3temp/' . $this->csvfilename . $hash . '.xls'; // filename if i greater than 0
-				
-			} else $content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.xls', $table); // errormessage
+			} else {
+				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.xls', $table);
+			}
 			
 		} elseif ($export == 'table') {
+			$content .= $table;
 		
-			$content .= $table; // add table to content
-		
-		} else { // not supported method
+		// Not supported method
+		} else { 
 			$content = 'Wrong export method chosen!';
 		}
 		
-		if ($_GET['delafterexport']==1) { // delete all exported mails now
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery ( // deleted = 1 in db
+		// Delete all exported mails now
+		if (t3lib_div::_GET('delafterexport') == 1) { 
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery (
 				'tx_powermail_mails',
 				'pid = ' . $this->pid . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate),
 				array (
@@ -230,58 +397,98 @@ class tx_powermail_export {
 			);
 		}
 		
-		
 		return $content;
 	}
 
-	// Compress a file
+	/**
+	 * Compress a file
+	 *
+	 * @param string $source
+	 * @param bool $level
+	 * @return string
+	 */
 	function gzcompressfile($source, $level = false) { 
 		$dest = $source . '.gz';
 		$mode = 'wb' . $level;
 		$error = false;
-		if ($fp_out = gzopen($dest, $mode)) {
-			if ($fp_in = fopen($source, 'rb')) {
-				while (!feof($fp_in))
-				gzwrite($fp_out, fread($fp_in, 1024*512));
-				fclose($fp_in);
-			}
-			else $error = true;
-			gzclose($fp_out);
-		}
-		else $error = true;
 		
-		if ($error) return false;
-		else return $dest;
+		if (($fp_out = gzopen($dest, $mode))) {
+			if (($fp_in = fopen($source, 'rb'))) {
+				while (!feof($fp_in)) {
+					gzwrite($fp_out, fread($fp_in, 1024 * 512));
+				}
+				
+				fclose($fp_in);
+			} else {
+				$error = true;
+			}
+			gzclose($fp_out);
+			
+		} else {
+			$error = true;
+		}
+		
+		if ($error) {
+			return false;
+		} else {
+			return $dest;
+		}
 	}
 	
-	
-	// Set title (TODO: extend to dynamic Titles)
+	/**
+	 * Set title
+	 *
+	 * @param string $export
+	 * @param array $row
+	 * @return string
+	 */
 	function setTitle($export, $row) {
-		if ($this->useTitle == 1 && isset($this->rowconfig)) {	// if title should be used
-			if ($this->LANG->charSet != 'utf-8') if (method_exists($this->LANG->csConvObj, 'conv')) $row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8');
-			$values = t3lib_div::xml2array($row['piVars'], 'pivars'); // xml2array
+		// If title should be used
+		if ($this->useTitle == 1 && isset($this->rowconfig)) {	
+			if ($this->LANG->charSet != 'utf-8') {
+				if (method_exists($this->LANG->csConvObj, 'conv')) {
+					$row['piVars'] = $this->LANG->csConvObj->conv($row['piVars'], $this->LANG->charSet, 'utf-8');
+				}
+			}
+			$values = t3lib_div::xml2array($row['piVars'], 'pivars');
 			
-			($export == 'csv' ? $table = '' : $table = '<tr>'); // init
-			foreach ($this->rowconfig as $key => $value) { // one loop for every row
-				if ($this->outputEncoding != 'utf-8') if (method_exists($this->LANG->csConvObj, 'conv')) $value = $this->LANG->csConvObj->conv($value, 'utf-8', $this->outputEncoding);
-				if ($key != 'uid') { // static values
-					if ($export == 'csv') { // CSV only
+			$table = '<tr>';
+			if($export == 'csv') {
+				$table = '';
+			}
+			foreach ($this->rowconfig as $key => $value) {
+				if ($this->outputEncoding != 'utf-8') {
+					if (method_exists($this->LANG->csConvObj, 'conv')) {
+						$value = $this->LANG->csConvObj->conv($value, 'utf-8', $this->outputEncoding);
+					}
+				}
+				
+				// Static values
+				if ($key != 'uid') { 
+					if ($export == 'csv') {
 						$table .= '"' . $value . '"' . $this->seperator;
-					} else { // HTML and EXCEL only
+						
+					// HTML and EXCEL only
+					} else { 
 						$table .= '<td><b>' . $value . '</b></td>';
 					}
+					
 				} else {
 					if (isset($values) && is_array($values)) {
-						foreach ($values as $key => $value) { // one loop for every piVar
-							//if (!is_array($value) && $export == 'csv') $table .= '"'.str_replace('"',"'",str_replace(array("\n\r","\r\n","\n","\r"),'', $this->GetLabelfromBackend($key, $value))).'"'.$this->seperator;
-							//elseif (!is_array($value)) $table .= '<td>'.$this->GetLabelfromBackend($key, $value).'</td>';
+						foreach ($values as $key => $value) {
 							$label = $this->GetLabelfromBackend($key, $value);
-							if ($this->outputEncoding != 'utf-8') if (method_exists($this->LANG->csConvObj, 'conv')) $label = $this->LANG->csConvObj->conv($label, 'utf-8', $this->outputEncoding);
+							
+							if ($this->outputEncoding != 'utf-8') {
+								if (method_exists($this->LANG->csConvObj, 'conv')) {
+									$label = $this->LANG->csConvObj->conv($label, 'utf-8', $this->outputEncoding);
+								}
+							}
+							
 							if (!is_array($value)) {
 								if ($export == 'csv') {
 									$table .= '"' . $this->cleanString($label) . '"' . $this->seperator;
-								}
-								else {
+									
+								} else {
 									$table .= '<td><b>' . $label . '</b></td>';
 								}
 							}
@@ -289,60 +496,135 @@ class tx_powermail_export {
 					}
 				}
 			}
-			($export == 'csv' ? $table = substr($table,0,-1) . "\n" : $table .= '</tr>'); // init
-			if (!empty($table)) return $table;
+			
+			$table .= '</tr>';
+			if($export == 'csv') {
+				$table = substr($table,0,-1) . "\n";
+			}
+			
+			if (!empty($table)) {
+				return $table;
+			}
 		}
 	}
     
-	
-    // Function GetLabelfromBackend() to get label to current field for emails and thx message
+    /**
+     * Method GetLabelfromBackend() to get label to current field for emails and thx message
+     *
+     * @param string $name
+     * @param string $value
+     * @return string
+     */
     function GetLabelfromBackend($name, $value) {
-		if (strpos($name, 'uid') !== FALSE) { // $name like uid55
+    	
+    	// $name like uid55
+		if (strpos($name, 'uid') !== FALSE) {
 			$uid = str_replace('uid', '', $name);
 
-			$where_clause = 'c.deleted=0 AND c.hidden=0 AND (c.starttime<=' . time() . ') AND (c.endtime=0 OR c.endtime>' . time() . ') AND (c.fe_group="" OR c.fe_group IS NULL OR c.fe_group="0" OR (c.fe_group LIKE "%,0,%" OR c.fe_group LIKE "0,%" OR c.fe_group LIKE "%,0" OR c.fe_group="0") OR (c.fe_group LIKE "%,-1,%" OR c.fe_group LIKE "-1,%" OR c.fe_group LIKE "%,-1" OR c.fe_group="-1"))'; // enable fields for tt_content
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // GET title where fields.flexform LIKE <value index="vDEF">vorname</value>
-				'f.title',
-				'tx_powermail_fields f LEFT JOIN tx_powermail_fieldsets fs ON f.fieldset = fs.uid LEFT JOIN tt_content c ON c.uid = fs.tt_content',
-				$where_clause .= ' AND f.uid = ' . $uid . ' AND f.hidden = 0 AND f.deleted = 0',
-				$groupBy = '',
-				$orderBy = '',
-				$limit = ''
-			);
-			if ($res) $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+			$select = 'f.title';
+			$from = '
+				tx_powermail_fields f 
+				LEFT JOIN tx_powermail_fieldsets fs 
+				ON (
+					f.fieldset = fs.uid 
+				) 
+				LEFT JOIN tt_content c 
+				ON (
+					c.uid = fs.tt_content
+				)';
+			$where = '
+				c.deleted=0 
+				AND c.hidden=0
+				AND (
+					c.starttime<=' . time() . '
+				) 
+				AND (
+					c.endtime=0 
+					OR c.endtime>' . time() . '
+				) 
+				AND (
+					c.fe_group="" 
+					OR c.fe_group IS NULL 
+					OR c.fe_group="0" 
+					OR (
+						c.fe_group LIKE "%,0,%" 
+						OR c.fe_group LIKE "0,%" 
+						OR c.fe_group LIKE "%,0" 
+						OR c.fe_group="0"
+					) 
+					OR (
+						c.fe_group LIKE "%,-1,%" 
+						OR c.fe_group LIKE "-1,%" 
+						OR c.fe_group LIKE "%,-1" 
+						OR c.fe_group="-1"
+					)
+				)
+				AND f.uid = ' . $uid . ' 
+				AND f.hidden = 0 
+				AND f.deleted = 0';
+			$groupBy = $orderBy = $limit = '';
+			// GET title where fields.flexform LIKE <value index="vDEF">vorname</value>
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 
-			if (isset($row['title'])) return $row['title']; // if title was found return ist
-			else if ($uid < 100000) return 'POWERMAIL ERROR: No title to current field found in DB'; // if no title was found return 
-		} else { // no uid55 so return $name
+			if ($res) {
+				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+			}
+
+			// If title was found return it
+			if (isset($row['title'])) {
+				return $row['title']; 
+				
+			// If no title was found return 	
+			} else if ($uid < 100000) {
+				return 'POWERMAIL ERROR: No title to current field found in DB'; 
+			}
+			
+		// No uid55 so return $name
+		} else { 
 			return $name;
 		}
     }
 	
-	
-	// Function cleanString() cleans up a string
+	/**
+	 * Method cleanString() cleans up a string
+	 *
+	 * @param string $string
+	 * @param string $export
+	 * @return string
+	 */
 	function cleanString($string, $export = 'csv') {
-		if ($export == 'csv') { // csv
-			$string = str_replace(array("\n\r","\r\n","\n","\r"), '', $string);
-			$string = str_replace('"', "'", $string);
-			$string = stripslashes($string);
-			if ($this->outputEncoding == 'utf-8') $string = utf8_decode($string); // if utf8 - decode for CSV
-		} elseif ($export == 'xls') { // xls
-			$string = stripslashes($string);
-			if ($this->outputEncoding == 'utf-8') $string = utf8_decode($string); // if utf8 - decode for Excel
-		} else { // table
-			$string = stripslashes($string);
+		switch ($export){
+			case 'csv':
+				$string = str_replace(array("\n\r", "\r\n", "\n", "\r"), '', $string);
+				$string = str_replace('"', "'", $string);
+				$string = stripslashes($string);
+				if ($this->outputEncoding == 'utf-8') {
+					$string = utf8_decode($string);
+				}
+			break;
+			case 'xls':
+				$string = stripslashes($string);
+				if ($this->outputEncoding == 'utf-8') {
+					$string = utf8_decode($string);
+				}
+			break;
+			default:
+				$string = stripslashes($string);
 		}
 		
     	return $string;
     }
 	
-	
-	// Function getHash() returns random hash code
+	/**
+	 * Method getHash() returns random hash code
+	 *
+	 * @return string
+	 */
 	function getHash() {
-		return md5(uniqid(rand(), true)); // return random string
+		return md5(uniqid(rand(), true));
 	}
-
 }
+
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/mod1/class.tx_powermail_export.php']) {
 	include_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/mod1/class.tx_powermail_export.php']);
 }
