@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Alexander Kellner, Mischa Heissmann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
+*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,40 +25,55 @@
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- * Hint: use extdeveval to insert/update function index above.
+ *
+ *
+ *   46: class tx_powermail_action
+ *   69:     function main($deleteID, $LANG)
+ *   93:     function deleteFiles()
+ *
+ * TOTAL FUNCTIONS: 2
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
  */
 
+/**
+ * Plugin 'tx_powermail_action' for the 'powermail' extension.
+ *
+ * @author	powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
+ * @package	TYPO3
+ * @subpackage	tx_powermail
+ */
 class tx_powermail_action {
-	
+
 	/**
 	 * $LANG object
 	 *
-	 * @var language
+	 * @var	language
 	 */
 	var $LANG = null;
-	
+
 	/**
 	 * Content to output
 	 *
-	 * @var string
+	 * @var	string
 	 */
 	var $content = '';
-	
+
 	/**
-	 * Function main() to set powermailmail entries as deleted in the database
+	 * Method main() to set powermail mail entries as deleted in the database
 	 *
-	 * @param int $deleteID
-	 * @param lang $LANG
-	 * @return string
+	 * @param	int		$deleteID
+	 * @param	lang		$LANG
+	 * @return	string
 	 */
 	function main($deleteID, $LANG) {
 		$this->LANG = $LANG;
-		
+
 		$this->content = '
 			<div style="margin: 10px 0; padding: 10px; border: 1px solid #7D838C; background-color: green; color: white;">
 				<strong>'.sprintf($this->LANG->getLL('del_message'), $deleteID).'</strong>
 			</div>';
-		
+
 		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
 			'tx_powermail_mails',
 			'uid = '.$deleteID,
@@ -66,21 +81,21 @@ class tx_powermail_action {
 				'deleted' => 1
 			)
 		);
-		
+
 		return $this->content;
 	}
-	
+
 	/**
-	 * Function deleteFiles() delete old temp files
-	 * 
-	 * @return void
+	 * Method deleteFiles() delete old temp files
+	 *
+	 * @return	void
 	 */
 	function deleteFiles() {
-		$fileArray = t3lib_div::getFilesInDir(t3lib_div::getIndpEnv('TYPO3_DOCUMENT_ROOT').'/typo3temp/', 'csv,gz', 1, 1); // file array of all csv and gz files in the typo3temp directory
-		
-		foreach ((array) $fileArray as $value) { // one loop for every file
-			if (strpos($value, 'powermail_export') !== false) { // string powermail_export found in current name
-				unlink($value); // delte current file
+		$fileArray = t3lib_div::getFilesInDir(t3lib_div::getIndpEnv('TYPO3_DOCUMENT_ROOT').'/typo3temp/', 'csv,gz', 1, 1);
+
+		foreach ((array) $fileArray as $value) {
+			if (strpos($value, 'powermail_export') !== false) {
+				unlink($value);
 			}
 		}
 	}

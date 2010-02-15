@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Alex Kellner, Mischa Heissmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
+*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,58 +22,80 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+/**
+ * [CLASS/FUNCTION INDEX of SCRIPT]
+ *
+ *
+ *
+ *   47: class tx_powermail_bedetails
+ *   85:     function main($mailID, $LANG)
+ *  167:     function GetLabelfromBackend($name, $value)
+ *  230:     function init($LANG)
+ *
+ * TOTAL FUNCTIONS: 3
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
+ */
+
+/**
+ * Plugin 'tx_powermail_bedetails' for the 'powermail' extension.
+ *
+ * @author 	powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
+ * @package	TYPO3
+ * @subpackage	tx_powermail
+ */
 class tx_powermail_bedetails {
 
 	/**
 	 * $LANG object
 	 *
-	 * @var language
+	 * @var	language
 	 */
 	var $LANG = null;
-	
+
 	/**
 	 * Mail ID
 	 *
-	 * @var int
+	 * @var	int
 	 */
 	var $mailID = 0;
-	
+
 	/**
 	 * TYPO3 $BACK_PATH
 	 *
-	 * @var string
+	 * @var	string
 	 */
 	var $backpath = '';
-	
+
 	/**
 	 * Content to output
 	 *
-	 * @var string
+	 * @var	string
 	 */
 	var $content = '';
-	
+
 	/**
 	 * Main method of bedetails class
 	 * Method to show the details of a single mail
 	 *
-	 * @param int $mailID
-	 * @param lang $LANG
-	 * @return string
+	 * @param	int		$mailID
+	 * @param	lang		$LANG
+	 * @return	string
 	 */
 	function main($mailID, $LANG) {
 		global $BACK_PATH;
-		
+
 		$this->mailID = $mailID;
 		$this->LANG = $LANG;
 		$this->backpath = $BACK_PATH;
-		
+
 		// Building "src" parameter for close image
 		$imgSrc = $this->backpath . 'gfx/closedok.gif';
 		$alternativCloseSrc = $this->backpath . 'sysext/t3skin/icons/gfx/closedok.gif';
 		if(is_file($alternativCloseSrc)) {
 			$imgSrc = $alternativCloseSrc;
 		}
-		
+
 		$this->content = '
 			<br />
 			<hr />
@@ -86,35 +108,38 @@ class tx_powermail_bedetails {
 				</a
 			</div>
 			<table>';
-		
+
 		$select = 'piVars';
 		$from = 'tx_powermail_mails';
 		$where = 'hidden = 0 AND deleted = 0 AND uid = ' . intval($this->mailID);
 		$groupBy = $orderBy = $limit = '';
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		
+
 		if (is_array($row)) {
-			
+
 			$values = t3lib_div::xml2array($row['piVars'], 'pivars');
 			if (!is_array($values)){
 				$values = t3lib_div::xml2array(utf8_encode($row['piVars']), 'pivars');
 			} elseif ($this->LANG->charSet != 'utf-8') {
 				$values = t3lib_div::xml2array(utf8_decode($row['piVars']), 'pivars');
 			}
-			
+
 			if (isset($values) && is_array($values)) {
-				foreach ($values as $key => $value) { // one loop for every piVar
-					if (!is_array($value)) { // if value is not an array (first level)
+				foreach ($values as $key => $value) {
+					// If value is not an array (first level)
+					if (!is_array($value)) {
 						$this->content .= '
 							<tr>
 								<td><strong>' . $this->GetLabelfromBackend($key, $value) . ':</strong></td>
 								<td style="padding-left: 10px;">' . $value . '</td>
 								<td style="padding-left: 10px; color: #aaa;">(' . $key . ')</td>
 							</tr>';
-						
-					} else { // is array (second level)
-						foreach ($values[$key] as $key2 => $value2) { // one loop for every piVar in second level
+
+					// Is array (second level)
+					} else {
+						// One loop for every piVar in second level
+						foreach ($values[$key] as $key2 => $value2) {
 							$this->content .= '
 								<tr>
 									<td><strong>' . $this->GetLabelfromBackend($key, $value) . ':</strong></td>
@@ -131,74 +156,76 @@ class tx_powermail_bedetails {
 
 		return $this->content;
 	}
-    
+
     /**
-     * Method GetLabelfromBackend() to get label to current field for emails and thx message
-     *
-     * @param string $name
-     * @param string $value
-     * @return string
-     */
+ * Method GetLabelfromBackend() to get label to current field for emails and thx message
+ *
+ * @param	string		$name
+ * @param	string		$value
+ * @return	string
+ */
     function GetLabelfromBackend($name, $value) {
     	$labelToReturn = $name;
-    	
-		if (strpos($name, 'uid') !== FALSE) { // $name like uid55
+
+    	// $name like uid55
+		if (strpos($name, 'uid') !== FALSE) {
 			$uid = str_replace('uid', '', $name);
-			
+
 			$select = 'f.title';
 			$from = '
-				tx_powermail_fields f 
-				LEFT JOIN tx_powermail_fieldsets fs 
+				tx_powermail_fields f
+				LEFT JOIN tx_powermail_fieldsets fs
 				ON (
 					f.fieldset = fs.uid
-				) 
-				LEFT JOIN tt_content c 
+				)
+				LEFT JOIN tt_content c
 				ON (
 					c.uid = fs.tt_content
 				)';
 			$where = '
-				c.deleted=0 
-				AND c.hidden=0 
-				AND (c.starttime<=' . time() . ') 
-				AND (c.endtime=0 OR c.endtime>' . time() . ') 
+				c.deleted=0
+				AND c.hidden=0
+				AND (c.starttime<=' . time() . ')
+				AND (c.endtime=0 OR c.endtime>' . time() . ')
 				AND (
-					c.fe_group="" 
-					OR c.fe_group IS NULL 
-					OR c.fe_group="0" 
+					c.fe_group=""
+					OR c.fe_group IS NULL
+					OR c.fe_group="0"
 					OR (
-						c.fe_group LIKE "%,0,%" 
-						OR c.fe_group LIKE "0,%" 
-						OR c.fe_group LIKE "%,0" 
+						c.fe_group LIKE "%,0,%"
+						OR c.fe_group LIKE "0,%"
+						OR c.fe_group LIKE "%,0"
 						OR c.fe_group="0"
-					) 
+					)
 					OR (
-						c.fe_group LIKE "%,-1,%" 
-						OR c.fe_group LIKE "-1,%" 
-						OR c.fe_group LIKE "%,-1" 
+						c.fe_group LIKE "%,-1,%"
+						OR c.fe_group LIKE "-1,%"
+						OR c.fe_group LIKE "%,-1"
 						OR c.fe_group="-1"
 					)
 				)
-				AND f.uid = ' . intval($uid) . ' 
-				AND f.hidden = 0 
+				AND f.uid = ' . intval($uid) . '
+				AND f.hidden = 0
 				AND f.deleted = 0';
 			$groupBy = $orderBy = $limit = '';
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-			
+
 			$labelToReturn = '[NO TITLE]';
 			if (isset($row['title'])){
 				$labelToReturn = $row['title'];
 			}
 		}
-		
+
 		return $labelToReturn;
     }
-	
+
 	/**
 	 * Init method
 	 * Setting class attributes
 	 *
-	 * @param lang $LANG
+	 * @param	lang		$LANG
+	 * @return	void
 	 */
 	function init($LANG) {
 		$this->LANG = $LANG;
