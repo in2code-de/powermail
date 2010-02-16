@@ -29,15 +29,16 @@ require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_sessio
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_removexss.php'); // file for removexss function class
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_countryzones.php'); // file for countryzones function class
-// extern resources
-	// date2cal
-if (t3lib_extMgm::isLoaded('date2cal', 0)) { // if date2cal is loaded
-	if (file_exists(t3lib_extMgm::siteRelPath('date2cal') . 'src/class.jscalendar.php')) { // if file exists (date2cal 7.0.0 or newer)
-		include_once(t3lib_extMgm::siteRelPath('date2cal') . 'src/class.jscalendar.php'); // include calendar class
+
+// Extern resources: date2cal
+if (t3lib_extMgm::isLoaded('date2cal', 0)) {
+	$pathToJsCalendar = t3lib_extMgm::extPath('date2cal') . 'src/class.jscalendar.php';
+	
+	// If file exists (date2cal 7.0.0 or newer)
+	if (file_exists($pathToJsCalendar)) { 
+		include_once($pathToJsCalendar);
 	}
 }
-
-
 
 class tx_powermail_html extends tslib_pibase {
 	
@@ -631,7 +632,7 @@ class tx_powermail_html extends tslib_pibase {
 		
 		if (t3lib_extMgm::isLoaded('date2cal', 0)) { // only if date2cal is loaded
 			$this->tmpl['html_datetime'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATETIME###'); // work on subpart
-			if (file_exists(t3lib_extMgm::siteRelPath('date2cal') . 'src/class.jscalendar.php')) { // search for class.jscalendar.php (only available if date2cal version > 7.0.0)
+			if (file_exists(t3lib_extMgm::extPath('date2cal') . 'src/class.jscalendar.php')) { // search for class.jscalendar.php (only available if date2cal version > 7.0.0)
 			
 				// Set value
 				if (intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) != 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'))
@@ -695,7 +696,7 @@ class tx_powermail_html extends tslib_pibase {
 	function html_date() {
 		
 		if (t3lib_extMgm::isLoaded('date2cal', 0)) { // only if date2cal is loaded
-			if (file_exists(t3lib_extMgm::siteRelPath('date2cal') . 'src/class.jscalendar.php')) { // search for class.jscalendar.php (only available if date2cal version > 7.0.0)
+			if (file_exists(t3lib_extMgm::extPath('date2cal') . 'src/class.jscalendar.php')) { // search for class.jscalendar.php (only available if date2cal version > 7.0.0)
 				
 				$this->tmpl['html_date'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATE###'); // work on subpart
 				
