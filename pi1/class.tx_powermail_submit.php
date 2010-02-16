@@ -68,7 +68,8 @@ class tx_powermail_submit extends tslib_pibase {
 		
 		
 		// 1. add hook for manipulation of data after E-Mails where sent
-		if(!$this->hook_submit_beforeEmails()) { // All is ok (no spam maybe)
+		$submitBeforeEmailsHookResult = $this->hook_submit_beforeEmails();
+		if(!$submitBeforeEmailsHookResult) { // All is ok (no spam maybe)
 			
 			$this->ok = 1; // sending allowed
 			if ($this->cObj->cObjGetSingle($this->conf['allow.']['email2receiver'], $this->conf['allow.']['email2receiver.'])) { // main email is allowed
@@ -84,7 +85,7 @@ class tx_powermail_submit extends tslib_pibase {
 			
 		} else { // Spam hook is true (maybe spam recognized)
 			$this->markerArray = array(); // clear markerArray
-			$this->markerArray['###POWERMAIL_THX_ERROR###'] = $this->hook_submit_beforeEmails(); // Fill ###POWERMAIL_THX_MESSAGE### with error message from Hook
+			$this->markerArray['###POWERMAIL_THX_ERROR###'] = $submitBeforeEmailsHookResult; // Fill ###POWERMAIL_THX_MESSAGE### with error message from Hook
 		}
 		
 		// 2. Return Message to FE
