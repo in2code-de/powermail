@@ -157,13 +157,13 @@ class tx_powermail_bedetails {
 		return $this->content;
 	}
 
-    /**
- * Method GetLabelfromBackend() to get label to current field for emails and thx message
- *
- * @param	string		$name
- * @param	string		$value
- * @return	string
- */
+	/**
+	 * Method GetLabelfromBackend() to get label to current field for emails and thx message
+	 *
+	 * @param	string		$name
+	 * @param	string		$value
+	 * @return	string
+	 */
     function GetLabelfromBackend($name, $value) {
     	$labelToReturn = $name;
 
