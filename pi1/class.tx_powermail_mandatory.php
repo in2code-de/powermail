@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
+*  (c) 2010 powermail development team
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,11 +27,29 @@ require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functi
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_markers.php'); // file for marker functions
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
 
+
+/**
+ * Plugin 'Powermail Form' for the 'powermail' extension.
+ *
+ * @author	powermail development team
+ * @package	TYPO3
+ * @subpackage	tx_powermail_mandatory
+ */
 class tx_powermail_mandatory extends tslib_pibase {
+	
 	var $extKey        = 'powermail';	// The extension key.
 	var $pi_checkCHash = true;
     var $scriptRelPath = 'pi1/class.tx_powermail_mandatory.php';    // Path to pi1 to get locallang.xml from pi1 folder
 
+	
+	/**
+	 * Mandatory main method calls another check functions after a submit
+	 *
+	 * @param	array		$conf: Typoscript configuration
+	 * @param	array		$sessionfields: Values from session
+	 * @param	object		$cObj: Content Object
+	 * @return	If there is an error, a message will be returned
+	 */
 	function main($conf, $sessionfields, $cObj) {
 		$this->conf = $conf;
 		$this->cObj = $cObj;
@@ -95,7 +113,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 	}
 	
 	
-	// Function mandatoryCheck() checks if a field has to contain anything
+	/**
+	 * Function mandatoryCheck() checks if a field has to contain anything
+	 *
+	 * @return	void
+	*/
 	function mandatoryCheck() {
 		
         // Give me all fields of current content uid
@@ -130,7 +152,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 	}
 	
 	
-	// Function uniqueCheck() checks (if activated via constants) if a field is already filled with this value (like email addresses)
+	/**
+	 * Function uniqueCheck() checks (if activated via constants) if a field is already filled with this value (like email addresses)
+	 *
+	 * @return	void
+	*/
 	function uniqueCheck() {
 		// config
 		$uniquearray = t3lib_div::trimExplode(',', $this->conf['enable.']['unique'], 1); // Get unique constants from ts
@@ -192,7 +218,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 	}
 	
 	
-	// Functions regulareExpressions() checks values
+	/**
+	 * Functions regulareExpressions() checks if values from the form fits to an expression
+	 *
+	 * @return	void
+	*/
 	function regulareExpressions() {
 		// Config - set regulare expressions for autocheck
 		$autoarray = array (
@@ -233,7 +263,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 	}
 	
 	
-	// Function emailCheck() checks if sender email address is a real email address, if not write error to session
+	/**
+	 * Function emailCheck() checks if sender email address is a real email address, if not write error to session
+	 *
+	 * @return	void
+	*/
 	function emailCheck() {
 		if ($this->cObj->data['tx_powermail_sender'] && is_array($this->sessionfields)) { // If email address from sender is set in backend
 			if ($this->sessionfields[$this->cObj->data['tx_powermail_sender']]) { // if there is content in the email sender field
@@ -249,15 +283,24 @@ class tx_powermail_mandatory extends tslib_pibase {
 	}
 	
 	
-	// Function captchaCheck check if captcha fields are within current content and set errof if value is wrong
+	/**
+	 * Function captchaCheck check if captcha fields are within current content and set errof if value is wrong
+	 *
+	 * @return	void
+	*/
 	function captchaCheck() {
-		if(t3lib_extMgm::isLoaded('captcha',0) || t3lib_extMgm::isLoaded('sr_freecap',0) || t3lib_extMgm::isLoaded('jm_recaptcha',0) || t3lib_extMgm::isLoaded('wt_calculating_captcha',0)) { // only if a captcha extension is loaded
+		if ( // only if a supported captcha extension is loaded
+			t3lib_extMgm::isLoaded('captcha', 0) || 
+			t3lib_extMgm::isLoaded('sr_freecap', 0) || 
+			t3lib_extMgm::isLoaded('jm_recaptcha', 0) || 
+			t3lib_extMgm::isLoaded('wt_calculating_captcha', 0)
+		) {
 		
 			// Give me all captcha fields of current tt_content
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 				'tx_powermail_fields.uid',
 				'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
-				$where_clause = 'tx_powermail_fields.formtype = "captcha" AND tx_powermail_fieldsets.tt_content = '.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tt_content') . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
+				$where_clause = 'tx_powermail_fields.formtype = "captcha" AND tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tt_content') . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
 				$groupBy = '',
 				$orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
 				$limit = 1
@@ -422,10 +465,13 @@ class tx_powermail_mandatory extends tslib_pibase {
 			}
 		}
 	}
-
 	
 	
-	// Function overwriteSession() saves $this->sessionfields to session to overwrite errors (recaptcha can set an OK for errors in future) 
+	/**
+	 * Function overwriteSession() saves $this->sessionfields to session to overwrite errors (recaptcha can set an OK for errors in future) 
+	 *
+	 * @return	void
+	*/
 	function overwriteSession() {
         if (count($this->sessionfields['OK']) > 0) { // only if min 1 OK value
             $GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $this->sessionfields); // Generate Session without ERRORS
@@ -434,7 +480,11 @@ class tx_powermail_mandatory extends tslib_pibase {
     }
 	
 	
-	// Function clearErrorsInSession() removes all global errors, which are marked as an error in the session
+	/**
+	 * Function clearErrorsInSession() removes all global errors, which are marked as an error in the session
+	 *
+	 * @return	void
+	*/
 	function clearErrorsInSession() {
 		// Set Session (overwrite all values)
 		unset($this->sessionfields['ERROR']); // remove all error messages
@@ -443,7 +493,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 	}
 	
 	
-	// Function hookBefore() to enable manipulation datas with another extension(s) before mandatory message creation
+	/**
+	 * Function hookBefore() to enable manipulation datas with another extension(s) before mandatory message creation
+	 *
+	 * @return	void
+	*/
 	function hookBefore() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHookBefore'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHookBefore'] as $_classRef) {
@@ -454,7 +508,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 	}
 	
 	
-	// Function hook() to enable manipulation datas with another extension(s) after mandatory message creation
+	/**
+	 * Function hook() to enable manipulation datas with another extension(s) after mandatory message creation
+	 *
+	 * @return	void
+	*/
 	function hook() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHook'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHook'] as $_classRef) {
