@@ -38,6 +38,7 @@ class tx_powermail_submit extends tslib_pibase {
 	var $email_send = 1; // Enable email send function (disable for testing only)
 	var $dbInsert = 1; // Enable db insert of every sent item (disable for testing only)
 	var $ok = 0; // disallow sending (standard false)
+	var $PM_SubmitBeforeMarkerHook_return;
 
 	function main($conf, $sessionfields, $cObj) {
 		$this->conf = $conf;
@@ -69,7 +70,7 @@ class tx_powermail_submit extends tslib_pibase {
 		
 		// 1. add hook for manipulation of data after E-Mails where sent
 		$submitBeforeEmailsHookResult = $this->hook_submit_beforeEmails();
-		if(!$submitBeforeEmailsHookResult) { // All is ok (no spam maybe)
+		if (!$submitBeforeEmailsHookResult) { // All is ok (no spam maybe)
 			
 			$this->ok = 1; // sending allowed
 			if ($this->cObj->cObjGetSingle($this->conf['allow.']['email2receiver'], $this->conf['allow.']['email2receiver.'])) { // main email is allowed
@@ -448,9 +449,9 @@ class tx_powermail_submit extends tslib_pibase {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_SubmitBeforeMarkerHook'])) { // Adds hook for processing of extra global markers
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_SubmitBeforeMarkerHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
-				$hookreturn = $_procObj->PM_SubmitBeforeMarkerHook($this, $this->markerArray, $this->sessiondata); // Get new marker Array from other extensions - if TRUE, don't send mails (maybe spam)
+				$this->PM_SubmitBeforeMarkerHook_return .= $_procObj->PM_SubmitBeforeMarkerHook($this, $this->markerArray, $this->sessiondata); // Get new marker Array from other extensions - if TRUE, don't send mails (maybe spam)
 			}
-			return $hookreturn; // Return value from hook if given
+			return $this->PM_SubmitBeforeMarkerHook_return; // Return value from hook if given
 		} else { // if hook is not set
 			return FALSE; // Return False is default (no spam, so emails could be sent)
 		}
