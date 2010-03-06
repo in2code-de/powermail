@@ -362,6 +362,7 @@ powermailJS {
 	typeNum = 3131
 	
 	config {
+		additionalHeaders = Content-Type: application/x-javascript
 		disableAllHeaderCode = 1
 		disablePrefixComment = 1
 		xhtml_cleaning = 0
