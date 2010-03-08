@@ -1,8 +1,59 @@
-###############################
-#	Changelog 
-###############################
+2010-03-06  Alex Kellner  <alexander.kellner@einpraegsam.net>
 
+	* Cleanup #6722: Little bit cleaning of the mandatory class
+	* Fixed bug #6436: /validation/* JS gets served with content type text/html
+	* Fixed bug #6721: Hook PM_SubmitBeforeMarkerHook couldn't be used from more extensions
 
+2010-02-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #6428: hook_submit_beforeEmails called twice
+	* Fixed bug #5732: date2cal Integration: Path is incorrect on some systems
+	* Follow up to task #6472: Set correct comments in backend module (correct copyright, remove obsolote / unusefull comments, add api description ...)
+	
+2010-02-15  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Task #6472: Set correct comments in backend module (correct copyright, remove obsolote / unusefull comments, add api description ...)
+	
+2010-02-11  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #6451: Wrong require_once of lib/ classes in mod1/ classes
+	
+2010-02-08  Andy Grunwald  <andreas.grunwald@wmdb.de>	
+	
+	* Task #6412: Make powermail ready for unit testing
+	* Task #6370: Cleanup: mod1/class.tx_powermail_export.php
+	
+2010-02-06  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Cleanup: Deleting obsolete files
+	* Feature #6379: Maxlength for textareas
+
+2010-02-05  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Task #6369: Cleanup: mod1/class.tx_powermail_charts.php
+	* Follow up to task #6368: Cleanup: mod1/class.tx_powermail_belist.php
+	* Task #6368: Cleanup: mod1/class.tx_powermail_belist.php
+	* Task #6367: Cleanup: mod1/class.tx_powermail_bedetails.php
+	* Cleanup mod1/class.tx_powermail_action.php: Adding whitespace for readability, delete obsolete code, adding comments
+	* Cleanup mod1/conf.php: Adding whitespace for readability
+	* Cleanup mod1/index.php: Remove whitespace, add comments, use core functions to access  parameters, define all used class attributes
+
+2010-01-25  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Feature #6088: Switch new db values to hidden
+	* Fixed bug #6045: Usage of Deprecated Methods
+	* Feature #6102: Enable more field in countryselector
+
+2010-01-24  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #5742: Wrong hook call (Thanks to Chris Mueller)
+	* Fixed bug #5848: Powermail 1.5.1 doesn't generate valid XHTML (Thanks to Jens Beuckenhauer)
+
+2010-01-22  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #6148: Backend-Export: If field uid is included in export, no dynamic titles will be shown
+	
+	
 ## Powermail version 1.5.x stable ##
 - Update on 17.01.2010 version 1.5.3
 Bugfix #4998: Countryselector fallback
@@ -214,7 +265,7 @@ Feature #1419: Make .field available for typoscript fields for powermail
 Feature #1358: Integrate recaptcha as third captcha possibility
 Bugfix #1498: Small fix in using wt_spamshield
 Bugfix #1395: Error in MX Check (user goes back and tries to submit again)
-Bugfig #1393: If empty sendername don't take “x”
+Bugfig #1393: If empty sendername don't take “x�?
 Bugfix #1022: Export of mails (XLS, CSV, HTML) without umlauts problems
 
 - Update on 24.08.2008 version 1.3.12
@@ -432,7 +483,7 @@ Manual: Addes some new examples
 
 - Update on 08.03.2008 version 1.0.7
 Bugfix: require_once error on a few server
-Some kind of “code cleaning”
+Some kind of “code cleaning�?
 
 - Update on 06.03.2008 version 1.0.6
 New feature: Uploaded files will be attached to emails
@@ -489,7 +540,7 @@ Hook documentation added
 ## Powermail version 0.6.x beta ##
 
 - Update on 21.02.2008 version 0.6.3
-Small bugfix (“array” in ###POWERMAIL_ALL###)
+Small bugfix (“array�? in ###POWERMAIL_ALL###)
 Database relation added to manual
 
 - Update on 20.02.2008 version 0.6.2
@@ -497,7 +548,7 @@ Recipients sql query finally possible in backend
 French translation added to powermail
 trim() will be used for all values
 Single quote allowed in fields
-Bugfix if “onfocus” is not used
+Bugfix if “onfocus�? is not used
 
 - Update on 18.02.2008 version 0.6.1
 Small bugfix for checkbox css classes in frontend
@@ -569,7 +620,7 @@ Small bugfixes for content element in backend
 Global Marker ###POWERMALL_ALL### fix (with checkboxes)
 Constants markerALL.notIn changed
 Additional RTE fields for both emails in backend (can be used with existing HTML template) 
-Field “name” in backend of each field removed (not in use any more)
+Field “name�? in backend of each field removed (not in use any more)
 Changes in php
 Pagebrowser in multiple available (2 of 4)
 
