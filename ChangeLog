@@ -1,3 +1,7 @@
+2010-03-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #6679: javascript inclusion (type=3131) not xhtml valid (Thanks to Robert Heel)
+
 2010-03-08  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Task #6737: Updating Changelog.txt

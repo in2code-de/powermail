@@ -324,11 +324,13 @@ plugin.tx_powermail_pi1 {
 
 
 	# Add Javascript files to page header if a powermail plugin is on current page
-lib.powermail_dynJavascript = TEXT
+lib.powermail_dynJavascript = COA
 lib.powermail_dynJavascript {
-    wrap = <script src="|" type="text/javascript"></script>
-	typolink.parameter.dataWrap = {TSFE:id},3131
-    typolink.returnLast = url
+	10.typolink.parameter.dataWrap = {TSFE:id},3131
+	10.typolink.returnLast = url
+	
+	stdWrap.wrap = <script src="|" type="text/javascript"></script>
+	stdWrap.htmlSpecialChars = 1
 }
 	# userFunc to check if powermail is on current page
 		# powermail is on current page and prototype should be used
