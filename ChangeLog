@@ -1,5 +1,6 @@
 2010-03-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #6550: Mimecheck for docx in Powermail Version 1.5.1
 	* Fixed bug #6679: javascript inclusion (type=3131) not xhtml valid (Thanks to Robert Heel)
 
 2010-03-08  Andy Grunwald  <andreas.grunwald@wmdb.de>

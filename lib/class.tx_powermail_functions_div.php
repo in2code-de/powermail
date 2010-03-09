@@ -592,9 +592,18 @@ class tx_powermail_functions_div {
 			'rtf' => 'application/rtf',
 			'xls' => 'application/vnd.ms-excel',
 			'ppt' => 'application/vnd.ms-powerpoint',
-			'docx' => 'application/x-zip',
-			'xlsx' => 'application/x-zip',
-			'pptx' => 'application/x-zip',
+			'docx' => array(
+				'application/x-zip',
+				'application/zip',
+			),
+			'xlsx' => array(
+				'application/x-zip',
+				'application/zip',
+			),
+			'pptx' => array(
+				'application/x-zip',
+				'application/zip',
+			),
 
 			// open office
 			'odt' => 'application/vnd.oasis.opendocument.text',
