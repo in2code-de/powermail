@@ -88,6 +88,23 @@ $TCA['tx_powermail_fieldsets'] = array (
 				'default' => '0'
 			)
 		),
+		'fe_group' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
+			'config' => array (
+				'type'  => 'select',
+				'size' => 5,
+				'maxitems' => 20,
+				'items' => array (
+					array('LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1),
+					array('LLL:EXT:lang/locallang_general.xml:LGL.any_login', -2),
+					array('LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--')
+				),
+				'exclusiveKeys' => '-1,-2',
+				'foreign_table' => 'fe_groups',
+				'foreign_table_where' => 'ORDER BY fe_groups.title'
+			)
+		),
 		'tt_content' => array (		
 			'config' => array (
 				'type' => 'passthrough'
@@ -279,6 +296,23 @@ $TCA['tx_powermail_fields'] = array (
 				'range' => array (
 					'upper' => 1609369200
 				)
+			)
+		),
+		'fe_group' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
+			'config' => array (
+				'type'  => 'select',
+				'size' => 5,
+				'maxitems' => 20,
+				'items' => array (
+					array('LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1),
+					array('LLL:EXT:lang/locallang_general.xml:LGL.any_login', -2),
+					array('LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--')
+				),
+				'exclusiveKeys' => '-1,-2',
+				'foreign_table' => 'fe_groups',
+				'foreign_table_where' => 'ORDER BY fe_groups.title'
 			)
 		),
 		'hidden' => array (		
