@@ -1,3 +1,7 @@
+2010-04-01  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #7079: redirect-field in answerpage is not checked for space characters
+	
 2010-03-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #6550: Mimecheck for docx in Powermail Version 1.5.1
