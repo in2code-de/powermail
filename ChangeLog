@@ -1,7 +1,3 @@
-2010-04-19  Andy Grunwald  <andreas.grunwald@wmdb.de>
-
-	* Fixed bug #7329: Powermail don`t use "###POWERMAIL_MANDATORY_JS###"-Marker in formwrap template
-
 2010-04-01  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #7079: redirect-field in answerpage is not checked for space characters
