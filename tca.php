@@ -200,8 +200,10 @@ if ($confArr['cssSelection'] == 0) { // selector box is not wanted
 	);
 }
 
-// Make powermail available in older TYPO3 version (fieldsets)
-if (t3lib_div::int_from_ver(TYPO3_version) < t3lib_div::int_from_ver('4.1.0') || $confArr['useIRRE'] == 0) { // if current version older than 4.1 or IRRE deaktivated in ext manager
+/**
+ * If IRRE deactivated in extension manager
+ */
+if ($confArr['useIRRE'] == 0) {
 	$TCA['tx_powermail_fieldsets']['columns']['tt_content'] = array (
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_fieldsets.tt_content',
 		'config' => array (
@@ -494,8 +496,10 @@ if (!t3lib_extMgm::isLoaded('date2cal',0)) {
 	$TCA['tx_powermail_fields']['columns']['flexform']['config']['ds']['datetime'] = 'FILE:EXT:powermail/lib/def/def_field_date2calversion_error.xml';
 }
 
-// Make powermail available in older TYPO3 version (fields)
-if(t3lib_div::int_from_ver(TYPO3_version) < t3lib_div::int_from_ver('4.1.0') || $confArr['useIRRE'] == 0) { // if current version older than 4.1 or IRRE deaktivated in ext manager
+/**
+ * If IRRE deactivated in extension manager
+ */
+if($confArr['useIRRE'] == 0) {
 	$TCA['tx_powermail_fields']['columns']['fieldset'] = array (
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_fields.fieldset',
 		'config' => array (
@@ -507,11 +511,6 @@ if(t3lib_div::int_from_ver(TYPO3_version) < t3lib_div::int_from_ver('4.1.0') || 
 	);
 	$TCA['tx_powermail_fields']['palettes']['1']['showitem'] = 'fieldset, ' . $TCA['tx_powermail_fields']['palettes']['1']['showitem']; // add "fieldset" field in front of the first palette
 }
-
-
-
-
-
 
 #######################################
 ### TABLE 3: tx_powermail_mails #######
