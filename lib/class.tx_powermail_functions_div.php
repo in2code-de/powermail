@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Alex Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
+*  (c) 2010 Alex Kellner, Mischa Heiï¿½mann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,7 +25,7 @@
 /**
  * Class with collection of different functions (like string and array functions)
  *
- * @author	Mischa Heißmann, Alexander Kellner <typo3.2008@heissmann.org, alexander.kellner@einpraegsam.net>
+ * @author	Mischa Heiï¿½mann, Alexander Kellner <typo3.2008@heissmann.org, alexander.kellner@einpraegsam.net>
  * @package	TYPO3
  * @subpackage	tx_powermail
  */
@@ -609,21 +609,30 @@ class tx_powermail_functions_div {
 			'odt' => 'application/vnd.oasis.opendocument.text',
 			'ods' => 'application/vnd.oasis.opendocument.spreadsheet'
 		);
-		
-		if (array_key_exists($ext, $mime_types)) { // if there is a mimetype definition of current uploaded file
+	
+			// If there is a mimetype definition of current uploaded file
+		if (array_key_exists($ext, $mime_types)) { 
 			
-			// 1. get mimetype
-			if (function_exists('finfo_open')) { // Get mimetype via finfo (PECL-Extension needed)
+				// 1. Get mimetype
+				// Get mimetype via finfo (PECL-Extension needed)
+			if (function_exists('finfo_open')) { 
 				$finfo = finfo_open(FILEINFO_MIME);
 				$mimetype = finfo_file($finfo, $filename);
+				$mimetype = array_shift(t3lib_div::trimExplode(';', $mimetype, 1));
 				finfo_close($finfo);
-			} elseif (function_exists('mime_content_type')) { // Get mimetype via mime_content_type (Deprecated function, but sometimes still active)
+				
+				// Get mimetype via mime_content_type (Deprecated function, but sometimes still active)
+			} elseif (function_exists('mime_content_type')) { 
 				$mimetype = mime_content_type($filename);
-			} elseif (file_exists('/usr/bin/file')) { // Use file-command with unix to determine
+				
+				// Use file-command with unix to determine
+			} elseif (file_exists('/usr/bin/file')) { 
 				$mimetype = exec('/usr/bin/file -bi '. $filename);
 				$mimetype = array_shift(t3lib_div::trimExplode(';', $mimetype, 1));
-			} else { // If no method above applies, shrug with your shoulders and make the result true
-				$ok = 1; // allow upload
+				
+				// If no method above applies, shrug with your shoulders and make the result true
+			} else { 
+				$ok = 1;
 			}
 			
 			// 2. set variable $ok if ok
