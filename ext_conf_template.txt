@@ -13,9 +13,6 @@ feusersPrefill = name, address, telephone, fax, email, zip, city, country, www, 
 # cat=basic/enable/050; type=boolean; label= Deactivate IP logging: If you don't want to save the sender IP address in the database, you can use this checkbox.
 disableIPlog = 0
 
-# cat=basic/enable/060; type=boolean; label= Activate tab dividers: Powermail uses tab dividers in backend so every category seems to be a new site (like General, Formdata, Fields, Sender, Recipients, Answerpage and Access). You can disable tabdividers if you want to show all stuff on only one page or if there are problems with tab dividers and other extensions.
-TabDividers = 1
-
 # cat=basic/enable/070; type=boolean; label= Deactivate config for Realurl: Powermail uses an automatic realurlconf array for type=3131. You can disable this feature if you want to use your own configuration or you don't need a realurl configuration. (see ext_localconf.php for configuration details)
 disablePMRealUrlConfig = 0
 

@@ -1,6 +1,7 @@
 2010-05-02  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #7257: mimecheck fails in general with finfo_open/finfo_file
+	* Feature #6502: Extension config "Activate tab dividers" has no effects
 
 2010-04-01  Andy Grunwald  <andreas.grunwald@wmdb.de>
 

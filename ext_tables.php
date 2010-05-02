@@ -353,16 +353,8 @@ $TCA['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = '
 // If preview window is deactivated, clear tx_powermail_preview
 if($confArr['usePreview'] != 1) $TCA['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = str_replace('tx_powermail_preview,','',$TCA['tt_content']['types'][$_EXTKEY . '_pi1']['showitem']); // remove field
 
-
-
-// add tx_powermail_recip_table to the requestUpdate
+	// Add "tx_powermail_recip_table" to the requestUpdate
 $TCA['tt_content']['ctrl']['requestUpdate'] .= $TCA['tt_content']['ctrl']['requestUpdate'] ? ',tx_powermail_recip_table' : 'tx_powermail_recip_table';
-// possibility to activate dividers2tabs only if version is lower than 4.2
-if (t3lib_div::int_from_ver(TYPO3_version) < t3lib_div::int_from_ver('4.2.0')) {
-	$TCA['tt_content']['ctrl']['dividers2tabs'] = $confArr['TabDividers'] == 0 ? FALSE : TRUE; 
-}
-
-
 
 t3lib_extMgm::addLLrefForTCAdescr('tt_content','EXT:powermail/lang/locallang_csh_tt_content.php');
 
