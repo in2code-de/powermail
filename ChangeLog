@@ -3,6 +3,7 @@
 	* Fixed bug #7257: mimecheck fails in general with finfo_open/finfo_file
 	* Feature #6502: Extension config "Activate tab dividers" has no effects
 	* Task #7593: Remove conditions hich checks for TYPO3 version < 4.2.0
+	* Fixed bug #5969: New Content Element Wizard in 4.3
 
 2010-04-01  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
