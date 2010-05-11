@@ -295,11 +295,11 @@ class tx_powermail_export {
 				$table .= '</table>';
 
 			// If CSV Export
-			} elseif ($export == 'csv') {
+			} elseif ($export == 'csv' || $export == 'email_csv') {
 
-				$table .= $this->setTitle($export,$row);
+				$table .= $this->setTitle($export, $row);
 				while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
-					if($row['piVars']) {
+					if ($row['piVars']) {
 						$i++;
 						if ($this->LANG->charSet != 'utf-8') {
 
@@ -374,33 +374,41 @@ class tx_powermail_export {
 			}
 		}
 
-		$hash = $this->getHash();
+		$hash = $this->getHash(); // get random hash
+		$filename = 'typo3temp/' . $this->csvfilename . $hash; // generate filename
+		
 		if ($export == 'xls') {
-			$content .= header("Content-type: application/vnd-ms-excel");
-			$content .= header("Content-Disposition: attachment; filename=export.xls");
+			$content .= header('Content-type: application/vnd-ms-excel');
+			$content .= header('Content-Disposition: attachment; filename=export.xls');
 			$content .= $table;
 
 		} elseif ($export == 'csv') {
+			$filename_ext = $filename . '.csv';
 			// Write to typo3temp and if success returns FALSE
-			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv', $table)) {
+			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . $filename_ext, $table)) {
 				$content .= '<strong>' . $this->LANG->getLL('export_download_success') . '</strong><br />';
-				$this->gzcompressfile(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv');
-				$content .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . 'typo3temp/' . $this->csvfilename . $hash . '.csv' . '" target="_blank"><u>' . $this->LANG->getLL('export_download_download') . '</u></a><br />';
-				$content .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . 'typo3temp/' . $this->csvfilename . $hash . '.csv' . '.gz" target="_blank"><u>' . $this->LANG->getLL('export_download_downloadZIP') . '</u></a><br />';
+				$this->gzcompressfile(PATH_site . $filename_ext);
+				$content .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $filename_ext . '" target="_blank"><u>' . $this->LANG->getLL('export_download_download') . '</u></a><br />';
+				$content .= '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $filename_ext . '.gz" target="_blank"><u>' . $this->LANG->getLL('export_download_downloadZIP') . '</u></a><br />';
 
 			} else {
-				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.csv', $table);
+				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . $filename_ext, $table);
 			}
 
-		} elseif ($export == 'email') {
+		} elseif ($export == 'email' || $export == 'email_csv') {
+			if ($export == 'email') {
+				$filename_ext = $filename . '.xls';
+			} elseif ($export == 'email_csv') {
+				$filename_ext = $filename . '.csv';
+			}
 			// Write to typo3temp and if success returns FALSE
-			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.xls', $table)) {
+			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . $filename_ext, $table)) {
 				if ($i > 0) {
-					$content .= 'typo3temp/' . $this->csvfilename . $hash . '.xls';
+					$content .= $filename_ext;
 				}
 
 			} else {
-				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . 'typo3temp/' . $this->csvfilename . $hash . '.xls', $table);
+				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . $filename_ext, $table);
 			}
 
 		} elseif ($export == 'table') {
@@ -478,19 +486,22 @@ class tx_powermail_export {
 			$values = t3lib_div::xml2array($row['piVars'], 'pivars');
 
 			$table = '<tr>';
-			if($export == 'csv') {
+			if ($export == 'csv' || $export == 'email_csv') {
 				$table = '';
 			}
 			foreach ($this->rowconfig as $key => $value) {
 				if ($this->outputEncoding != 'utf-8') {
 					if (method_exists($this->LANG->csConvObj, 'conv')) {
-						$value = $this->LANG->csConvObj->conv($value, 'utf-8', $this->outputEncoding);
+						$newValue = $this->LANG->csConvObj->conv($value, 'utf-8', $this->outputEncoding);
+						if (!empty($newValue)) {
+							$value = $newValue;
+						}
 					}
 				}
 
 				// Static values
 				if ($key != 'uid') {
-					if ($export == 'csv') {
+					if ($export == 'csv' || $export == 'email_csv') {
 						$table .= '"' . $value . '"' . $this->seperator;
 
 					// HTML and EXCEL only
@@ -510,7 +521,7 @@ class tx_powermail_export {
 							}
 
 							if (!is_array($value)) {
-								if ($export == 'csv') {
+								if ($export == 'csv' || $export == 'email_csv') {
 									$table .= '"' . $this->cleanString($label) . '"' . $this->seperator;
 
 								} else {
@@ -522,9 +533,10 @@ class tx_powermail_export {
 				}
 			}
 
-			$table .= '</tr>';
-			if($export == 'csv') {
+			if ($export == 'csv' || $export == 'email_csv') {
 				$table = substr($table,0,-1) . "\n";
+			} else {
+				$table .= '</tr>';
 			}
 
 			if (!empty($table)) {
@@ -534,12 +546,12 @@ class tx_powermail_export {
 	}
 
     /**
- * Method GetLabelfromBackend() to get label to current field for emails and thx message
- *
- * @param	string		$name
- * @param	string		$value
- * @return	string
- */
+	 * Method GetLabelfromBackend() to get label to current field for emails and thx message
+	 *
+	 * @param	string		$name
+	 * @param	string		$value
+	 * @return	string
+	 */
     function GetLabelfromBackend($name, $value) {
 
     	// $name like uid55

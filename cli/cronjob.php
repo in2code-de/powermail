@@ -52,7 +52,8 @@ if ($pid > 0) { // if Page id given from GET param
 		'email_receiver' => '', // default: no receiver mail
 		'email_receiver_cc' => '', // default: no cc mail
 		'email_sender' => 'noreply@einpraegsam.net', // default sender address
-		'sender' => 'powermail' // default sender name
+		'sender' => 'powermail', // default sender name
+		'format' => 'xls'
 	);
 	$tmp_tsconfig = t3lib_BEfunc::getModTSconfig($pid, 'tx_powermail_cli'); // get whole tsconfig from backend
 	$tsconfig = array_merge((array) $tmp_defaultconfig, (array) $tmp_tsconfig['properties']['exportmail.']); // get tsconfig from powermail cli
@@ -63,7 +64,7 @@ if ($pid > 0) { // if Page id given from GET param
 		$export = t3lib_div::makeInstance('tx_powermail_export');
 		$export->default_start = strftime('%Y-%m-%d %H:%M', (time() - $tsconfig['time'])); // current time minus delta
 		$export->default_end = strftime('%Y-%m-%d %H:%M', time()); // current time (like 2010-01-01 00:00)
-		$file = t3lib_div::getFileAbsFileName($export->main('email', $pid, $LANG));
+		$file = t3lib_div::getFileAbsFileName($export->main($tsconfig['format'] != 'csv' ? 'email' : 'email_csv', $pid, $LANG));
 		
 		if (!empty($file)) { // if file is not empty
 			
@@ -87,7 +88,7 @@ if ($pid > 0) { // if Page id given from GET param
 			}
 	
 		} else {
-			$content .= 'There are no mails to export in the last ' . $tsconfig['time'] . ' seconds in pid ' . $pid;
+			$content .= 'There are no mails to export in the last ' . intval($tsconfig['time']) . ' seconds in pid ' . $pid;
 		}
 	} else {
 		$content .= 'Powermail Error: No or invalid receiver Email address (maybe you forget to set the receiver email in the tsconfig of page ' . $pid . ')';
