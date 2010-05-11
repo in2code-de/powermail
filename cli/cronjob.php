@@ -53,7 +53,8 @@ if ($pid > 0) { // if Page id given from GET param
 		'email_receiver_cc' => '', // default: no cc mail
 		'email_sender' => 'noreply@einpraegsam.net', // default sender address
 		'sender' => 'powermail', // default sender name
-		'format' => 'xls'
+		'format' => 'xls', // export in format xls or csv
+		'attachedFilename' => '' // overwrite filename
 	);
 	$tmp_tsconfig = t3lib_BEfunc::getModTSconfig($pid, 'tx_powermail_cli'); // get whole tsconfig from backend
 	$tsconfig = array_merge((array) $tmp_defaultconfig, (array) $tmp_tsconfig['properties']['exportmail.']); // get tsconfig from powermail cli
@@ -64,6 +65,9 @@ if ($pid > 0) { // if Page id given from GET param
 		$export = t3lib_div::makeInstance('tx_powermail_export');
 		$export->default_start = strftime('%Y-%m-%d %H:%M', (time() - $tsconfig['time'])); // current time minus delta
 		$export->default_end = strftime('%Y-%m-%d %H:%M', time()); // current time (like 2010-01-01 00:00)
+		if (!empty($tsconfig['attachedFilename'])) {
+			$export->attachedFilename = $tsconfig['attachedFilename']; // overwrite filename with this
+		}
 		$file = t3lib_div::getFileAbsFileName($export->main($tsconfig['format'] != 'csv' ? 'email' : 'email_csv', $pid, $LANG));
 		
 		if (!empty($file)) { // if file is not empty

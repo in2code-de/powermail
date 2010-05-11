@@ -149,6 +149,13 @@ class tx_powermail_export {
 	var $default_end;
 
 	/**
+	 * Filename for attachments
+	 *
+	 * @var	string
+	 */
+	var $attachedFilename;
+
+	/**
 	 * Dispatcher main method for export
 	 *
 	 * @param	string		$export
@@ -160,12 +167,12 @@ class tx_powermail_export {
 		$this->pid = $pid;
 
 		$this->startdate = t3lib_div::_GET('startdate');
-		if(isset($this->default_start)){
+		if (isset($this->default_start)){
 			$this->startdate = $this->default_start;
 		}
 
 		$this->enddate = t3lib_div::_GET('enddate');
-		if(isset($this->default_end)){
+		if (isset($this->default_end)){
 			$this->enddate = $this->default_end;
 		}
 
@@ -174,20 +181,20 @@ class tx_powermail_export {
 		$i = 0;
 		$this->tsconfig = t3lib_BEfunc::getModTSconfig($this->pid, 'tx_powermail_mod1');
 
-		if(!empty($this->tsconfig['properties']['config.']['export.']['dateformat'])){
+		if (!empty($this->tsconfig['properties']['config.']['export.']['dateformat'])) {
 			$this->dateformat = $this->tsconfig['properties']['config.']['export.']['dateformat'];
 		}
 
-		if(!empty($this->tsconfig['properties']['config.']['export.']['timeformat'])) {
+		if (!empty($this->tsconfig['properties']['config.']['export.']['timeformat'])) {
 			$this->timeformat = $this->tsconfig['properties']['config.']['export.']['timeformat'];
 		}
 
 		$this->useTitle = 1;
-		if($this->tsconfig['properties']['config.']['export.']['useTitle'] == 0 && isset($this->tsconfig['properties']['config.']['export.']['useTitle'])){
+		if ($this->tsconfig['properties']['config.']['export.']['useTitle'] == 0 && isset($this->tsconfig['properties']['config.']['export.']['useTitle'])){
 			$this->useTitle = $this->tsconfig['properties']['config.']['useTitle'];
 		}
 
-		if(count($this->tsconfig['properties']['export.']) > 0){
+		if (count($this->tsconfig['properties']['export.']) > 0){
 			$this->rowconfig = $this->tsconfig['properties']['export.'];
 		}
 
@@ -396,10 +403,14 @@ class tx_powermail_export {
 			}
 
 		} elseif ($export == 'email' || $export == 'email_csv') {
-			if ($export == 'email') {
-				$filename_ext = $filename . '.xls';
-			} elseif ($export == 'email_csv') {
-				$filename_ext = $filename . '.csv';
+			if (empty($this->attachedFilename)) { // no given filename in TSconfig
+				if ($export == 'email') {
+					$filename_ext = $filename . '.xls';
+				} elseif ($export == 'email_csv') {
+					$filename_ext = $filename . '.csv';
+				}
+			} else {
+				$filename_ext = 'typo3temp/' . $this->attachedFilename; // overwrite filename with filename and path from TSconfig
 			}
 			// Write to typo3temp and if success returns FALSE
 			if (!t3lib_div::writeFileToTypo3tempDir(PATH_site . $filename_ext, $table)) {
@@ -407,8 +418,8 @@ class tx_powermail_export {
 					$content .= $filename_ext;
 				}
 
-			} else {
-				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . $filename_ext, $table);
+			} else { // file could not be written
+				$content .= t3lib_div::writeFileToTypo3tempDir(PATH_site . $filename_ext, $table); // show error msg
 			}
 
 		} elseif ($export == 'table') {
