@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Alexander Kellner <alexander.kellner@einpraegsam.net>
+*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,8 +22,14 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-// Function user_powermailOnCurrentPage() checks if a powermail plugin is inserted on current page
-function user_powermailOnCurrentPage($mode) {
+
+/**
+ * Function user_powermailOnCurrentPage() checks if a powermail plugin is inserted on current page
+ *
+ * @param	string		$mode: mode could be empty or "ssd"
+ * @return	boolean		0/1
+ */
+function user_powermailOnCurrentPage($mode = '') {
 	if (TYPO3_MODE == 'FE') { // only in Frontend
 		global $TCA;
 		
