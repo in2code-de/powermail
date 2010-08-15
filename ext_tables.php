@@ -3,20 +3,23 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+$extPath = t3lib_extMgm::extPath($_EXTKEY);
+$extRelPath = t3lib_extMgm::extRelPath($_EXTKEY);
+
 t3lib_extMgm::addStaticFile($_EXTKEY, 'static/default_css/', 'Add default CSS');
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
 t3lib_extMgm::allowTableOnStandardPages('tx_powermail_fieldsets');
 
 
-require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_forms_recip_id.php');
+require_once($extPath . 'lib/class.user_powermail_tx_powermail_forms_recip_id.php');
 if (TYPO3_MODE=='BE') {
-	require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_forms_recip_table.php');
-	require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_forms_preview.php');
-	require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_forms_sender_field.php');
-	require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_fields_fe_field.php');
-	require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_example.php');
-	require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_uid.php');
-	require_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermail_updateError.php');
+	require_once($extPath . 'lib/class.user_powermail_tx_powermail_forms_recip_table.php');
+	require_once($extPath . 'lib/class.user_powermail_tx_powermail_forms_preview.php');
+	require_once($extPath . 'lib/class.user_powermail_tx_powermail_forms_sender_field.php');
+	require_once($extPath . 'lib/class.user_powermail_tx_powermail_fields_fe_field.php');
+	require_once($extPath . 'lib/class.user_powermail_tx_powermail_example.php');
+	require_once($extPath . 'lib/class.user_powermail_tx_powermail_uid.php');
+	require_once($extPath . 'lib/user_powermail_updateError.php');
 }
 
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] = 'layout,select_key,pages,recursive';
@@ -43,8 +46,8 @@ $TCA['tx_powermail_fieldsets'] = array (
 			'starttime' => 'starttime',
 			'endtime' => 'endtime'
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'icon_tx_powermail_fieldsets.gif',
+		'dynamicConfigFile' => $extPath . 'tca.php',
+		'iconfile'          => $extRelPath . 'icon_tx_powermail_fieldsets.gif',
 	),
 	'feInterface' => array (
 		'fe_admin_fieldList' => 'fe_group, form, title, felder, hidden',
@@ -76,8 +79,8 @@ $TCA['tx_powermail_fields'] = array (
 			'starttime' => 'starttime',
 			'endtime' => 'endtime'
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'icon_tx_powermail_fields.gif',
+		'dynamicConfigFile' => $extPath . 'tca.php',
+		'iconfile'          => $extRelPath . 'icon_tx_powermail_fields.gif',
 	),
 	'feInterface' => array (
 		'fe_admin_fieldList' => 'fieldset, title, name, flexform, value, size, maxsize, mandantory, more, fe_field, hidden',
@@ -100,8 +103,8 @@ $TCA['tx_powermail_mails'] = array (
 		'enablecolumns' => array (
 			'disabled' => 'hidden'
 		),
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'tca.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY) . 'icon_tx_powermail_mails.gif',
+		'dynamicConfigFile' => $extPath . 'tca.php',
+		'iconfile'          => $extRelPath . 'icon_tx_powermail_mails.gif',
 	),
 	'feInterface' => array (
 		'fe_admin_fieldList' => 'formid, recipient, subject_r, sender, content, piVars, senderIP, UserAgent, Referer, SP_TZ, hidden',
@@ -114,7 +117,7 @@ t3lib_extMgm::addPlugin(
 	array(
 		'LLL:EXT:powermail/locallang_db.xml:tt_content.CType_pi1',
 		$_EXTKEY . '_pi1',
-		t3lib_extMgm::extRelPath($_EXTKEY) . 'ext_icon.gif'
+		$extRelPath . 'ext_icon.gif'
 	),
 	'CType'
 );
@@ -367,7 +370,7 @@ $TCA['tt_content']['ctrl']['requestUpdate'] .= $TCA['tt_content']['ctrl']['reque
 t3lib_extMgm::addLLrefForTCAdescr('tt_content', 'EXT:powermail/lang/locallang_csh_tt_content.php');
 
 if (TYPO3_MODE=='BE') {
-	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_powermail_pi1_wizicon'] = t3lib_extMgm::extPath($_EXTKEY) . 'pi1/class.tx_powermail_pi1_wizicon.php';
-	t3lib_extMgm::addModule('web', 'txpowermailM1', '', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
+	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_powermail_pi1_wizicon'] = $extPath . 'pi1/class.tx_powermail_pi1_wizicon.php';
+	t3lib_extMgm::addModule('web', 'txpowermailM1', '', $extPath . 'mod1/');
 }
 ?>
