@@ -504,12 +504,6 @@ class tx_powermail_html extends tslib_pibase {
             $this->markerArray['###HIDDEN###'] = '<input type="hidden" name="' . $this->prefixId . '[uid' . $this->uid . ']" value="' . $this->div->clearValue($this->markerArray['###CONTENT###']) . '" />'; // create hidden field
         }
 
-		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle;
-		$this->markerArray['###CLASS###'] .= ' powermail_' . $this->type;
-		$this->markerArray['###CLASS###'] .= ' powermail_submit_uid' . $this->uid;
-		$this->markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . $this->class_f : '');
-		$this->markerArray['###CLASS###'] .= '" ';
-
         $this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
         $content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_label'], $this->markerArray); // substitute Marker in Template
         $content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
