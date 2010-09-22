@@ -76,7 +76,7 @@ class tx_powermail_action {
 
 		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
 			'tx_powermail_mails',
-			'uid = '.$deleteID,
+			'uid = ' . intval($deleteID),
 			array (
 				'deleted' => 1
 			)

@@ -34,10 +34,10 @@
 class tx_powermail_functions_div {
 
 	var $extKey = 'powermail';
-	
-	
+
+
 	/**
-	 * Function sec() is a security function against all bad guys :) 
+	 * Function sec() is a security function against all bad guys :)
 	 *
 	 * @param	array		$array: Unfiltered piVars Array
 	 * @return	array		$array: Filtered piVars Array
@@ -46,40 +46,40 @@ class tx_powermail_functions_div {
 		if (isset($array) && is_array($array)) { // if array
 			//$this->removeXSS = t3lib_div::makeInstance('tx_powermail_removexss'); // New object: removeXSS function
 			//t3lib_div::addSlashesOnArray($array); // addslashes for every piVar (He'l"lo => He\'l\"lo)
-			
+
 			foreach ($array as $key => $value) { // one loop for every key in first level
-				
+
 				if (!is_numeric(str_replace('UID', '', $key)) && !is_array($value)) { // all others piVars than UID34
 					$array[$key] = intval(trim($value)); // the value should be integer
 				}
-					
+
 				if (!is_array($value)) {	// if value is not an array
-				
+
 					$array[$key] = strip_tags(trim($value)); // strip_tags removes html and php code
-					$array[$key] = addslashes($array[$key]); // use addslashes
+					$array[$key] = htmlspecialchars($array[$key]); // use addslashes
 					//$array[$key] = $this->removeXSS->RemoveXSS($array[$key]); // use remove XSS for piVars
-					
+
 				} else { // value is still an array (second level)
-					
+
 					if (!is_array($key2)) {	// if value is not an array
 						foreach ($value as $key2 => $value2) { // one loop for every key in second level
-						
+
 							$array[$key][$key2] = strip_tags(trim($value2)); // strip_tags removes html and php code
-							$array[$key][$key2] = addslashes($array[$key][$key2]); // use addslashes
+							$array[$key][$key2] = htmlspecialchars($array[$key][$key2]); // use addslashes
 							//$array[$key][$key2] = $this->removeXSS->RemoveXSS($array[$key][$key2]); // use remove XSS for piVars
-							
+
 						}
 					} else unset($array[$key][$key2]); // if array with 3 or more dimensions - delete this value
-					
+
 				}
 			}
-			
+
 			return $array;
-			
+
 		}
 	}
-	
-	
+
+
 	/**
 	 * Add debug view for any array
 	 *
@@ -93,8 +93,8 @@ class tx_powermail_functions_div {
 		#echo '<hr /><br />'; // separator after debug output
 		t3lib_div::debug($array, $this->extKey.': '.$msg); // debug output
 	}
-	
-	
+
+
 	/**
 	 * Function clearName() to disable not allowed letters (only A-Z and 0-9 allowed) (e.g. Perfect Extension -> perfectextension)
 	 *
@@ -107,11 +107,11 @@ class tx_powermail_functions_div {
 		$string = preg_replace('/[^a-zA-Z0-9]/' ,'', $string); // replace not allowed letters with nothing
 		if ($strtolower) $string = strtolower($string); // string to lower if active
 		if ($cut) $string = substr($string, 0, $cut); // cut after X signs if active
-		
+
 		if (!empty($string)) return $string;
 	}
-	
-	
+
+
 	/**
 	 * Function clearValue() to remove all " or ' from any string
 	 *
@@ -125,13 +125,13 @@ class tx_powermail_functions_div {
 		$string = str_replace($notallowed,"",$string); // replace not allowed letters with nothing
 		if($htmlentities) $string = htmlentities($string); // change code to ascii code
 		if($strip_tags) $string = strip_tags($string); // disable html/php code
-		
+
 		if(isset($string)) return $string;
 	}
-	
-	
+
+
 	/**
-	 * Function linker() generates link (email and url) from pure text string within an email or url 
+	 * Function linker() generates link (email and url) from pure text string within an email or url
 	 * 'test www.test.de test' => 'test <a href="http://www.test.de">www.test.de</a> test'
 	 *
 	 * @param	string		$link: string input with links
@@ -143,11 +143,11 @@ class tx_powermail_functions_div {
         $link = str_replace('www.', 'http://www.', $link);
         $link = preg_replace("/([\w]+:\/\/[\w-?&;#~=\.\/\@]+[\w\/])/i", "<a href=\"$1\"$additinalParams>$1</a>", $link);
         $link = preg_replace("/([\w-?&;#~=\.\/]+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,3}|[0-9]{1,3})(\]?))/i", "<a href=\"mailto:$1\"$additinalParams>$1</a>", $link);
-    
+
         return $link;
     }
-	
-	
+
+
 	/**
 	 * Function nl2br2() changes breakes to html breakes
 	 *
@@ -167,8 +167,8 @@ class tx_powermail_functions_div {
 		);
 		return str_replace($array, '<br />', $string);
 	}
-	
-	
+
+
 	/**
 	 * Function nl2br2() changes breakes to real breakes
 	 *
@@ -178,8 +178,8 @@ class tx_powermail_functions_div {
 	function nl2nl2($string) {
 		return str_replace('\r\n', "\r\n", $string);
 	}
-	
-	
+
+
 	/**
 	 * Function br2nl is the opposite of nl2br
 	 *
@@ -194,15 +194,15 @@ class tx_powermail_functions_div {
 			'<br />'
 		);
 		$content = str_replace($array, "\n", $content); // replacer
-		
+
 		if (!empty($content)) return $content;
 	}
-	
-	
+
+
 	/**
 	 * Function correctPath() checks if the link is like "fileadmin/test/ and not "/fileadmin/test"
 	 * If there is no Slash at the end of the picture folder, add a slash and if there is a slash at the beginning, remove this slash
-	 * 
+	 *
 	 * @param	string		$value: Path
 	 * @return	string		$value: Manipulated path
 	 */
@@ -213,11 +213,11 @@ class tx_powermail_functions_div {
 		if (substr($value, 0, 1) == '/') {
 			$value = substr($value, 1); // remove slash from the front
 		}
-		
+
 		if ($value) return $value;
 	}
-	
-	
+
+
 	/**
 	 * Function marker2value() replaces ###UID3### with its value from session
 	 *
@@ -229,17 +229,17 @@ class tx_powermail_functions_div {
 	function marker2value($string, $sessiondata, $quoted = 0) {
 		$this->sessiondata = $sessiondata; // make session array available in other functions
 		$this->activateQuotedList = $quoted; // activate intList
-		
+
 		$string = preg_replace_callback ( // Automaticly replace ###UID55### with value from session to use markers in query strings
 			'#\#\#\#UID(.*)\#\#\##Uis', // regulare expression
 			array($this, 'uidReplaceIt'), // open function
 			$string // current string
 		);
-	
+
 		return $string;
 	}
-	
-	
+
+
 	/**
 	 * Function uidReplaceIt is used for the callback function to replace ###UID55## with it's value
 	 *
@@ -250,15 +250,15 @@ class tx_powermail_functions_div {
 		if (strpos($uid[1], '_')  === false) { // if this is a field like ###UID55### and not like ###UID55_1###
 			if (isset($this->sessiondata['uid' . $uid[1]])) { // if there is a value in the session like uid32 = bla
 				if (!is_array($this->sessiondata['uid' . $uid[1]])) { // value is not an array
-					
+
 					if (!$this->activateQuotedList) { // return without int transformation
 						return $this->sessiondata['uid' . $uid[1]]; // return bla (e.g.)
 					} else { // transform to quotedList
 						return $this->makeQuotedList($this->sessiondata['uid' . $uid[1]]); // return bla (e.g.)
 					}
-					
+
 				} else { // value is an array
-				
+
 					$return = ''; $i=0; // init counter
 					foreach ($this->sessiondata['uid' . $uid[1]] as $key => $value) { // one loop for every value
 						if ($value != '') {
@@ -267,7 +267,7 @@ class tx_powermail_functions_div {
 						}
 					}
 					return $return; // return 44,45,46 (e.g.)
-					
+
 				}
 			}
 		} else { // if this is a field like ###UID55_1###
@@ -281,8 +281,8 @@ class tx_powermail_functions_div {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Function makeQuotedList() to transfor string list to an quoted list
 	 * 	1,2 => "1","2"
@@ -300,57 +300,57 @@ class tx_powermail_functions_div {
 		$list = implode(',', $str_arr); // merge with , as glue
 		return $list;
 	}
-	
-	
+
+
 	/**
 	 * Function checkMX() checks if a domain exists
 	 *
 	 * @param	string		$email: string like "aaa@bbb.cc"
 	 * @param	string		$record: Check for a special function
-	 * @return	boolean		
+	 * @return	boolean
 	 */
 	function checkMX($email, $record = 'MX') {
 		if (function_exists('checkdnsrr')) { // if function checkdnsrr() exist (not available on windows systems)
 			$emailparts = t3lib_div::trimExplode('@', $email, 1); // split on @
-			
+
 			if (checkdnsrr($emailparts[1], $record) == 1) { // if mx record exist
 				return TRUE; // return true
 			} else { // mx record don't exist
 				return FALSE; // return false
 			}
-		
+
 		} else { // function checkdnsrr() don't exist
 			return TRUE; // so always return TRUE
 		}
 	}
-	
-	
+
+
 	/**
 	 * Function charset() changes content with utf8_decode or utf8_encode or nothing
 	 *
 	 * @param	string		$content: any string
 	 * @param	string		$function: Should be empty or utf8_encode or utf8_decode
-	 * @return	string		$content		
+	 * @return	string		$content
 	 */
 	function charset($content, $function = '') {
 		switch ($function) {
 			case 'utf8_encode': // utf8_encode
 				$content = utf8_encode($content); // encode
 				break;
-				
+
 			case 'utf8_decode': // utf8_decode
 				$content = utf8_decode($content); // decode
 				break;
-				
+
 			default: // if empty or something else
 				$content = $content; // do nothing
 				break;
 		}
-		
+
 		if (!empty($content)) return $content;
 	}
-	
-	
+
+
 	/**
 	 * Function makePlain() removes html tags and add linebreaks
 	 * Easy generate a plain email bodytext from a html bodytext
@@ -359,7 +359,7 @@ class tx_powermail_functions_div {
 	 * @return	string		$content: Plain Mail bodytext
 	 */
 	function makePlain($content) {
-		
+
 		// config
 		$htmltagarray = array ( // This tags will be added with linebreaks
 			'</p>',
@@ -373,7 +373,7 @@ class tx_powermail_functions_div {
 			'</h6>',
 			'</div>',
 			'</legend>',
-			'</fieldset>', 
+			'</fieldset>',
 			'</dd>',
 			'</dt>'
 		);
@@ -387,7 +387,7 @@ class tx_powermail_functions_div {
 			'&Auml;',
 			'&auml;',
 		);
-		
+
 		// let's go
 		$content = str_replace($htmltagarray, $htmltagarray[0].'<br />', $content); // 1. add linebreaks on some parts (</p> => </p><br />)
 		$content = strip_tags($content, '<br>'); // 2. remove all tags but not linebreak (<b>bla</b><br /> => bla<br />)
@@ -395,11 +395,11 @@ class tx_powermail_functions_div {
 		$content = $this->br2nl($content); // 4. <br /> to \n
 		$content = implode("\n", t3lib_div::trimExplode("\n", $content)); // 5. explode and trim each line and implode again (" bla \n blabla " => "bla\nbla")
 		$content = str_replace($notallowed, '', $content); // 6. remove not allowed signs
-		
+
 		if (!empty($content)) return $content;
 	}
-	
-	
+
+
 	/**
 	 * Function subpartsExists() checks if every part of the array contains min one sign
 	 *
@@ -420,8 +420,8 @@ class tx_powermail_functions_div {
 		}
 		return true; // ok
 	}
-	
-	
+
+
 	/**
 	 * Function TSmanipulation() manipulates session values before output with typoscript
 	 * stdWrap for any value of the session
@@ -436,7 +436,7 @@ class tx_powermail_functions_div {
 		// config
 		$this->conf = $conf;
 		$this->cObj = $cObj;
-		
+
 		// let's go
 		if (is_array($this->conf['mode.'][$mode.'.']) && count($this->conf['mode.'][$mode.'.']) > 0) { // if there are configurations in typoscript
 			foreach ($this->conf['mode.'][$mode.'.'] as $key => $value) { // one loop for every ts configuration
@@ -451,11 +451,11 @@ class tx_powermail_functions_div {
 				}
 			}
 		}
-		
+
 		return $array; // return array
 	}
-	
-	
+
+
 	/**
 	 * Function arraytwo2arrayone() changes array with two levels to an array with one leven
 	 * array('v1', array('v2')) => array('v1', 'v1_v2)
@@ -465,29 +465,29 @@ class tx_powermail_functions_div {
 	 */
 	function arraytwo2arrayone($array) {
 		$newarray = array();
-		
+
 		if (count($array) > 0 && is_array($array)) {
 			foreach ($array as $k => $v) {
 				if (!is_array($v)) { // first level
-					
+
 					$newarray[$k] = $v; // no change
-				
+
 				} else { // second level
 					if (count($v) > 0) {
-						
+
 						foreach ($v as $k2 => $v2) {
 							if (!is_array($v2)) $newarray[$k.'_'.$k2] = $v2; // change to first level
 						}
-					
+
 					}
 				}
 			}
 		}
-		
+
 		return $newarray;
 	}
-	
-	
+
+
 	/**
 	 * Function parseFunc() parses a string to support LINK syntax
 	 *
@@ -500,15 +500,15 @@ class tx_powermail_functions_div {
 		if (!$act) { // if function should be turned off
 			return $str; // just return given value
 		}
-		
+
 		$this->cObj = $cObj;
 		$parseFunc = $GLOBALS['TSFE']->tmpl->setup['lib.']['parseFunc_RTE.']; // Get parseFunc array from Globals
 		$parseFunc['nonTypoTagStdWrap.']['encapsLines.']['removeWrapping'] = 1; // add removeWrapping to this array (we don't want the p-tags)
 
 		return $this->cObj->parseFunc($str, $parseFunc); // return string
 	}
-	
-	
+
+
 	/**
 	 * Function alternate() checks if a number is odd or even
 	 *
@@ -518,12 +518,12 @@ class tx_powermail_functions_div {
 	function alternate($int = 0) {
 		if ($int % 2 != 0) { // odd or even
 			return false; // return false
-		} else { 
+		} else {
 			return true; // return true
 		}
 	}
-	
-	
+
+
 	/**
 	 * Function mimecheck() returns true or false if file fits mime check
 	 *
@@ -536,7 +536,7 @@ class tx_powermail_functions_div {
 		$ext = strtolower(array_pop(explode('.', $origfilename))); // get the extension of the upload
 
 		$mime_types = array( // mime-type definition of files
-		
+
 			// basic mime-types
 			'txt' => 'text/plain',
 			'htm' => 'text/html',
@@ -609,32 +609,32 @@ class tx_powermail_functions_div {
 			'odt' => 'application/vnd.oasis.opendocument.text',
 			'ods' => 'application/vnd.oasis.opendocument.spreadsheet'
 		);
-	
+
 			// If there is a mimetype definition of current uploaded file
-		if (array_key_exists($ext, $mime_types)) { 
-			
+		if (array_key_exists($ext, $mime_types)) {
+
 				// 1. Get mimetype
 				// Get mimetype via finfo (PECL-Extension needed)
-			if (function_exists('finfo_open')) { 
+			if (function_exists('finfo_open')) {
 				$finfo = finfo_open(FILEINFO_MIME);
 				$mimetype = finfo_file($finfo, $filename);
 				$mimetype = array_shift(t3lib_div::trimExplode(';', $mimetype, 1));
 				finfo_close($finfo);
-				
+
 				// Get mimetype via mime_content_type (Deprecated function, but sometimes still active)
-			} elseif (function_exists('mime_content_type')) { 
+			} elseif (function_exists('mime_content_type')) {
 				$mimetype = mime_content_type($filename);
-				
+
 				// Use file-command with unix to determine
-			} elseif (file_exists('/usr/bin/file')) { 
+			} elseif (file_exists('/usr/bin/file')) {
 				$mimetype = exec('/usr/bin/file -bi '. $filename);
 				$mimetype = array_shift(t3lib_div::trimExplode(';', $mimetype, 1));
-				
+
 				// If no method above applies, shrug with your shoulders and make the result true
-			} else { 
+			} else {
 				$ok = 1;
 			}
-			
+
 			// 2. set variable $ok if ok
 			if (!$ok) { // if it's not yet ok to upload files
 				if (!is_array($mime_types[$ext])) { // if definition is not an array
@@ -647,20 +647,20 @@ class tx_powermail_functions_div {
 					}
 				}
 			}
-			
+
 			// 3. return 0/1
 			if ($ok) { // if upload allowed
 				return true; // upload allowed, stop further process
 			} else { // if upload not allowed
 				return false; // upload disallowed
 			}
-			
+
 		} else { // no mime type definition in array above
 			return true; // upload allowed
 		}
 	}
-	
-	
+
+
 	/**
 	 * Returns message with optical flair
 	 *
@@ -678,8 +678,8 @@ class tx_powermail_functions_div {
 		$URLprefix = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . '/'; // URLprefix with domain
 		if (t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST') . '/' != t3lib_div::getIndpEnv('TYPO3_SITE_URL')) { // if request_host is different to site_url (TYPO3 runs in a subfolder)
 		    $URLprefix .= str_replace(t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST') . '/', '', t3lib_div::getIndpEnv('TYPO3_SITE_URL')); // add folder (like "subfolder/")
-		} 
-		
+		}
+
 		// let's go
 		switch ($pos) {
 			default: // error
@@ -687,27 +687,27 @@ class tx_powermail_functions_div {
 				if ($id) $wrap .= ' id="' . $id . '"'; // add css id
 				$wrap .= '>';
 				break;
-				
+
 			case 1: // success
 				$wrap = '<div class="' . $this->extKey . '_msg_status" style="background-color: #CDEACA; background-position: 4px 4px; background-image: url(' . $URLprefix . 'typo3/gfx/ok.png); background-repeat: no-repeat; padding: 5px 30px; font-weight: bold; border: 1px solid #58B548; margin-bottom: 20px; font-family: arial, verdana; color: #444; font-size: 12px;"';
 				if ($id) $wrap .= ' id="' . $id . '"'; // add css id
 				$wrap .= '>';
 				break;
-				
+
 			case 2: // note
 				$wrap = '<div class="' . $this->extKey . '_msg_error" style="background-color: #DDEEF9; background-position: 4px 4px; background-image: url(' . $URLprefix . 'typo3/gfx/information.png); background-repeat: no-repeat; padding: 5px 30px; font-weight: bold; border: 1px solid #8AAFC4; margin-bottom: 20px; font-family: arial, verdana; color: #444; font-size: 12px;"';
 				if ($id) $wrap .= ' id="' . $id . '"'; // add css id
 				$wrap .= '>';
 				break;
 		}
-		
+
 		if (!$die) {
 			 return $wrap . $string . '</div>'; // return message
 		} else {
 			 die ($string); // die process and write message
 		}
 	}
-	
+
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/class.tx_powermail_functions_div.php'])	{

@@ -214,7 +214,7 @@ class tx_powermail_export {
 
 		$select = '*';
 		$from = 'tx_powermail_mails';
-		$where = 'pid = ' . $this->pid . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate);
+		$where = 'pid = ' . intval($this->pid) . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate);
 		$groupBy = $limit = '';
 		$orderBy = 'crdate DESC';
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
@@ -383,7 +383,7 @@ class tx_powermail_export {
 
 		$hash = $this->getHash(); // get random hash
 		$filename = 'typo3temp/' . $this->csvfilename . $hash; // generate filename
-		
+
 		if ($export == 'xls') {
 			$content .= header('Content-type: application/vnd-ms-excel');
 			$content .= header('Content-Disposition: attachment; filename=export.xls');
@@ -434,7 +434,7 @@ class tx_powermail_export {
 		if (t3lib_div::_GET('delafterexport') == 1) {
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery (
 				'tx_powermail_mails',
-				'pid = ' . $this->pid . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate),
+				'pid = ' . intval($this->pid) . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate),
 				array (
 					'deleted' => 1
 				)
@@ -607,7 +607,7 @@ class tx_powermail_export {
 						OR c.fe_group="-1"
 					)
 				)
-				AND f.uid = ' . $uid . '
+				AND f.uid = ' . intval($uid) . '
 				AND f.hidden = 0
 				AND f.deleted = 0';
 			$groupBy = $orderBy = $limit = '';
