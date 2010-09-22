@@ -1,3 +1,21 @@
+2010-09-22  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Follow up to task #6737: Updating Changelog.txt
+
+2010-08-30  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #8500: Custom CSS classes not rendered for field type "Show some text"
+
+2010-06-07  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Fixed bug #8086: userFunc user_powermailOnCurrentPage with a small bug
+	
+2010-05-11  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Fixed bug #7744: CSV Export without header
+	* Feature #7737: Enable CSV Export via Cronjob
+	* Feature #7745: Set a fix filename for cronjob export files
+
 2010-05-02  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #7257: mimecheck fails in general with finfo_open/finfo_file
