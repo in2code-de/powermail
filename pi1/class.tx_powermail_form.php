@@ -283,7 +283,7 @@ class tx_powermail_form extends tslib_pibase {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'tx_powermail_fieldsets.uid fs_uid, tx_powermail_fields.uid f_uid, tx_powermail_fieldsets.felder fs_fields, tx_powermail_fieldsets.title fs_title, tx_powermail_fields.title f_title, tx_powermail_fields.formtype f_type, tx_powermail_fields.flexform f_field, tt_content.tx_powermail_title c_title, tx_powermail_fields.fe_field f_fefield, tx_powermail_fields.description f_description',
 			'tx_powermail_fieldsets LEFT JOIN tx_powermail_fields ON tx_powermail_fieldsets.uid = tx_powermail_fields.fieldset LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
-			$where_clause = 'tx_powermail_fields.uid = '.$array[1],
+			$where_clause = 'tx_powermail_fields.uid = ' . intval($array[1]),
 			$groupBy = '',
 			$orderBy = '',
 			$limit1 = ''

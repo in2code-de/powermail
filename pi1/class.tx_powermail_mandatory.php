@@ -148,10 +148,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 					if (intval($this->cObj->data['tx_powermail_pages']) > 0) $this->save_PID = $this->cObj->data['tx_powermail_pages']; // PID where to save: Get it from plugin
 					
 					// DB Select
+					$likeValue = $GLOBALS['TYPO3_DB']->escapeStrForLike($GLOBALS['TYPO3_DB']->quoteStr($this->sessionfields[strtolower($value)], 'tx_powermail_mails'), 'tx_powermail_mails');
 					$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // Get all emails with any entry of current value
 						'piVars',
 						'tx_powermail_mails',
-						$where_clause = 'pid = ' . intval($this->save_PID) . ' AND piVars LIKE "%' . $this->sessionfields[strtolower($value)] . '%"' . tslib_cObj::enableFields('tx_powermail_mails'),
+						$where_clause = 'pid = ' . intval($this->save_PID) . ' AND piVars LIKE "%' . $likeValue . '%"' . tslib_cObj::enableFields('tx_powermail_mails'),
 						$groupBy = '',
 						$orderBy = '',
 						$limit = ''
@@ -196,11 +197,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 	function regulareExpressions() {
 		// Config - set regulare expressions for autocheck
 		$autoarray = array (
-			'email' => "^[_a-z0-9]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.)+([a-z0-9]{2,4})$^",
-			'url' => "^(http://)?([a-z0-9-]+\.)+([a-z0-9-]{2,3})$^",
-			'numbers' => "/[0-9]+$/",
-			'phone' => "/[0-9\/+-]+$/",
-			'alphanum' => "/[a-zA-Z0-9]/"
+			'email' => "#^[_a-z0-9]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.)+([a-z0-9]{2,4})$#",
+			'url' => "#^(http://)?([a-z0-9-]+\.)+([a-z0-9-]{2,3})$#",
+			'numbers' => "/^[0-9]+$/",
+			'phone' => "/^[0-9\/+-]+$/",
+			'alphanum' => "/^[a-zA-Z0-9]+$/"
 		);
 		
 		// Let's go and check

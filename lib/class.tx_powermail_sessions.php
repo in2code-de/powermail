@@ -145,7 +145,7 @@ class tx_powermail_sessions extends tslib_pibase {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // search for all uploads fields within piVars
 				'uid',
 				'tx_powermail_fields',
-				$where_clause = 'uid IN (' . $this->uids . ') AND (formtype = "file" OR formtype="multiupload")'  .tslib_cObj::enableFields('tx_powermail_fields'),
+				$where_clause = 'uid IN (' . $GLOBALS['TYPO3_DB']->cleanIntList($this->uids) . ') AND (formtype = "file" OR formtype="multiupload")'  .tslib_cObj::enableFields('tx_powermail_fields'),
 				$groupBy = '',
 				$orderBy = '',
 				$limit =''
@@ -174,17 +174,17 @@ class tx_powermail_sessions extends tslib_pibase {
 													$piVars['uid' . $row['uid']] = $newfilename; // write new filename to session (area for normal fields)
 													$piVars['FILE'][] = $newfilename; // write new filename to session (area for files)
 												} else { // could not be copied (maybe write permission error or wrong path)
-													$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_main') . ' <b>' . $_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']][$key] . '</b>'; // write error to session
+													$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_main') . ' <b>' . htmlspecialchars($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']][$key]) . '</b>'; // write error to session
 												}
 												
 											} else { // mimecheck don't fit
-												$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_mimetype') . ' <b>' . $_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']][$key] . '</b>'; // write error to session
+												$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_mimetype') . ' <b>' . htmlspecialchars($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']][$key]) . '</b>'; // write error to session
 											}
 										} else { // fileextension is not allowed
-											$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_extension') . ' <b>' . $_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']][$key] . '</b>'; // write error to session
+											$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_extension') . ' <b>' . htmlspecialchars($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']][$key]) . '</b>'; // write error to session
 										}
 									} else { // filesize to large
-										$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_toolarge') . ' <b>' . $_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']][$key] . '</b>'; // write error to session
+										$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_toolarge') . ' <b>' . htmlspecialchars($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']][$key]) . '</b>'; // write error to session
 									}
 								}
 							}
@@ -207,17 +207,17 @@ class tx_powermail_sessions extends tslib_pibase {
 											$piVars['uid' . $row['uid']] = $newfilename; // write new filename to session (area for normal fields)
 											$piVars['FILE'][] = $newfilename; // write new filename to session (area for files)
 										} else { // could not be copied (maybe write permission error or wrong path)
-											$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_main') . ' <b>' . $_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']] . '</b>'; // write error to session
+											$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_main') . ' <b>' . htmlspecialchars($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']]) . '</b>'; // write error to session
 										}
 										
 									} else { // mimecheck don't fit
-										$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_mimetype') . ' <b>' . $_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']] . '</b>'; // write error to session
+										$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_mimetype') . ' <b>' . htmlspecialchars($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']]) . '</b>'; // write error to session
 									}
 								} else { // fileextension is not allowed
-									$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_extension') . ' <b>' . $_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']] . '</b>'; // write error to session
+									$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_extension') . ' <b>' . htmlspecialchars($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']]) . '</b>'; // write error to session
 								}
 							} else { // filesize to large
-								$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_toolarge') . ' <b>' . $_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']] . '</b>'; // write error to session
+								$piVars['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_error_file_toolarge') . ' <b>' . htmlspecialchars($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']]) . '</b>'; // write error to session
 							}
 						}
 					}

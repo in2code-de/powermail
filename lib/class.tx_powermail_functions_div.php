@@ -56,7 +56,7 @@ class tx_powermail_functions_div {
 				if (!is_array($value)) {	// if value is not an array
 				
 					$array[$key] = strip_tags(trim($value)); // strip_tags removes html and php code
-					$array[$key] = addslashes($array[$key]); // use addslashes
+					$array[$key] = htmlspecialchars($array[$key]); // use addslashes
 					//$array[$key] = $this->removeXSS->RemoveXSS($array[$key]); // use remove XSS for piVars
 					
 				} else { // value is still an array (second level)
@@ -65,7 +65,7 @@ class tx_powermail_functions_div {
 						foreach ($value as $key2 => $value2) { // one loop for every key in second level
 						
 							$array[$key][$key2] = strip_tags(trim($value2)); // strip_tags removes html and php code
-							$array[$key][$key2] = addslashes($array[$key][$key2]); // use addslashes
+							$array[$key][$key2] = htmlspecialchars($array[$key][$key2]); // use addslashes
 							//$array[$key][$key2] = $this->removeXSS->RemoveXSS($array[$key][$key2]); // use remove XSS for piVars
 							
 						}

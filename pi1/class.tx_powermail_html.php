@@ -784,9 +784,13 @@ class tx_powermail_html extends tslib_pibase {
 	
 			// Filter for some countries
 			if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within')) { // if some countries for include where selected
-				$whereadd = ' AND uid IN (' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within')  .')'; // whereadd for within values
+				$within_flexform = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within');
+				$within_flexform = $GLOBALS['TYPO3_DB']->cleanIntList($within_flexform);
+				$whereadd = ' AND uid IN (' . $within_flexform . ')';
 			} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without')) { // if some country for exclude where selected
-				$whereadd = ' AND uid NOT IN (' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without') . ')'; //  whereadd for eclude values
+				$without_flexform = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without');
+				$without_flexform = $GLOBALS['TYPO3_DB']->cleanIntList($without_flexform);
+				$whereadd = ' AND uid NOT IN (' . $without_flexform . ')'; //  whereadd for eclude values
 			}
 	
 			// Look for another lang version (maybe static_info_tables_de or _fr)

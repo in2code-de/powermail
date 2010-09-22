@@ -74,7 +74,7 @@ class tx_powermail_export {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 			'*',
 			'tx_powermail_mails',
-			$where_clause = 'pid = ' . $this->pid . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate),
+			$where_clause = 'pid = ' . intval($this->pid) . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate),
 			$groupBy = '',
 			$orderBy = 'crdate DESC',
 			$limit = ''
@@ -218,7 +218,7 @@ class tx_powermail_export {
 		if ($_GET['delafterexport']==1) { // delete all exported mails now
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery ( // deleted = 1 in db
 				'tx_powermail_mails',
-				'pid = ' . $this->pid . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate),
+				'pid = ' . intval($this->pid) . ' AND hidden = 0 AND deleted = 0 AND crdate > ' . strtotime($this->startdate) . ' AND crdate < ' . strtotime($this->enddate),
 				array (
 					'deleted' => 1
 				)
@@ -299,7 +299,7 @@ class tx_powermail_export {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // GET title where fields.flexform LIKE <value index="vDEF">vorname</value>
 				'f.title',
 				'tx_powermail_fields f LEFT JOIN tx_powermail_fieldsets fs ON f.fieldset = fs.uid LEFT JOIN tt_content c ON c.uid = fs.tt_content',
-				$where_clause .= ' AND f.uid = ' . $uid . ' AND f.hidden = 0 AND f.deleted = 0',
+				$where_clause .= ' AND f.uid = ' . intval($uid) . ' AND f.hidden = 0 AND f.deleted = 0',
 				$groupBy = '',
 				$orderBy = '',
 				$limit = ''

@@ -133,7 +133,7 @@ class tx_powermail_db extends tslib_pibase {
 				if ($row['uid'] > 0) { // there is already an entry in the database
 					switch ($mode) {
 						case 'update': // mode is update
-							$GLOBALS['TYPO3_DB']->exec_UPDATEquery($table, 'uid = '.$row['uid'], $values); // update old entry with new values
+							$GLOBALS['TYPO3_DB']->exec_UPDATEquery($table, 'uid = ' . intval($row['uid']), $values); // update old entry with new values
 							//$this->uid[$table] = $row['uid']; // make row uid global
 							break;
 							
