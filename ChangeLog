@@ -1,5 +1,6 @@
 2010-10-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #9043: Missing class in frontend editing
 	* Fixed bug #9965: It's not possible to add two class names to a field / fieldset
 
 2010-09-22  Andy Grunwald  <andreas.grunwald@wmdb.de>
