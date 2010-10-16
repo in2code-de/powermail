@@ -1,5 +1,6 @@
 2010-10-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #10297: TCA-Field "tx_powermail_subject_r" is not required, but will be checked in pi1
 	* Fixed bug #9043: Missing class in frontend editing
 	* Fixed bug #9965: It's not possible to add two class names to a field / fieldset
 

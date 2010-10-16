@@ -143,9 +143,6 @@ class tx_powermail_pi1 extends tslib_pibase {
 	// Function check() checks if all needed fields are filled in backend
 	function check() {
 		$error = ''; // init
-		if (!$this->cObj->data['tx_powermail_subject_r']) { // If subject of receiver is not set
-			$error .= $this->div->msg($this->pi_getLL('error_check_subject_r', '<strong>Email receiver subject</strong>'));
-		}
 		if (count($this->conf['template.']) == 0 || count($this->conf) < 10) { // check if powermail ts is not available
 			$error .= $this->div->msg($this->pi_getLL('error_check_noTS', 'ERROR: Typoscript for powermail missing!'));
 		}

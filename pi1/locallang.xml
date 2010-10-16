@@ -21,7 +21,6 @@
 			<label index="locallangmarker_error_file_toolarge">This file is too large:</label>
 			<label index="locallangmarker_error_file_extension">This file extension is not allowed:</label>
 			<label index="locallangmarker_error_file_mimetype">Uploaded file don't fits mime check:</label>
-			<label index="error_check_subject_r">Please fill in this backend field: Email receiver subject</label>
 			<label index="error_check_recipient">Please fill in this backend field: Email address of receiver</label>
 			<label index="error_check_noTS">Typoscript for powermail missing!</label>
 			<label index="error_captcha_empty">Captcha Code empty</label>
