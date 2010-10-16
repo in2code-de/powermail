@@ -310,7 +310,7 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add input type
 				$markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add input uid
 				$markerArray['###CLASS###'] .= ' powermail_subuid' . $this->uid . '_' . $i; // add input subuid
-				$markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . $this->class_f : ''); // add manual class
+				$markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . htmlspecialchars($this->class_f) : ''); // add manual class
 				$markerArray['###CLASS###'] .= '" '; // close tag
 				$markerArray['###HIDDENVALUE###'] = 'value="' . $this->piVarsFromSession['uid' . $this->uid][$i] . '"'; // add value for hidden field to markerArray
 				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'mandatory') == 1) $markerArray['###MANDATORY_SYMBOL###'] = $this->cObj->wrap($this->conf['mandatory.']['symbol'], $this->conf['mandatory.']['wrap'],'|'); // add mandatory symbol if current field is a mandatory field
@@ -391,7 +391,7 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add input type
 				$markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add input uid
 				$markerArray['###CLASS###'] .= ' powermail_subuid' . $this->uid . '_' . $i; // add input subuid
-				$markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . $this->class_f : ''); // add manual class
+				$markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . htmlspecialchars($this->class_f) : ''); // add manual class
 				$markerArray['###CLASS###'] .= '" '; // close tag
 				$this->turnedtabindex[$this->uid . '_' . $i] !== '' ? $markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid . '_' . $i] + 1) . '" ' : $markerArray['###TABINDEX###'] = ''; // tabindex for every radiobutton
 				isset($this->newaccesskey[$this->uid][$i]) ? $markerArray['###ACCESSKEY###'] = 'accesskey="' . $this->newaccesskey[$this->uid][$i] . '" ' : $markerArray['###ACCESSKEY###'] = ''; // accesskey for every radiobutton
@@ -440,7 +440,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle; // add formname
 		$this->markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add type
 		$this->markerArray['###CLASS###'] .= ' powermail_submit_uid' . $this->uid; // add field uid
-		$this->markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . $this->class_f : ''); // Add manual class
+		$this->markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . htmlspecialchars($this->class_f) : ''); // Add manual class
 		$this->markerArray['###CLASS###'] .= '" '; // close tag
 		$this->markerArray['###VALUE###'] = 'value="' . $this->dontAllow($this->title) . '" '; // add value (used from title) to markerArray
 
@@ -468,7 +468,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle; // add formname
 		$this->markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add type
 		$this->markerArray['###CLASS###'] .= ' powermail_submit_uid' . $this->uid; // add field uid
-		$this->markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . $this->class_f : ''); // Add manual class
+		$this->markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . htmlspecialchars($this->class_f) : ''); // Add manual class
 		$this->markerArray['###CLASS###'] .= '" '; // close tag
 		$this->markerArray['###VALUE###'] = 'value="'.$this->dontAllow($this->title).'" '; // add value (used from title) to markerArray
 
@@ -511,7 +511,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle;
 		$this->markerArray['###CLASS###'] .= ' powermail_' . $this->type;
 		$this->markerArray['###CLASS###'] .= ' powermail_submit_uid' . $this->uid;
-		$this->markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . $this->class_f : '');
+		$this->markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . htmlspecialchars($this->class_f) : '');
 		$this->markerArray['###CLASS###'] .= '" ';
 
         $this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
