@@ -305,7 +305,12 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
 				$markerArray['###VALUE###'] = 'value="' . $this->dontAllow(isset($options[$i][1]) ? $options[$i][1] : $options[$i][0]) . '" '; // add value (take value after pipe symbol or all if no pipe: "red | rd")
 				$markerArray['###CLASS###'] = 'class="'; // start class tag
-				$markerArray['###CLASS###'] .= ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1 ? 'validate-one-required ' : ''); // add required class if needed
+
+					// Add required class if needed
+				if((count($optionlines) - 1) == $i && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
+					$markerArray['###CLASS###'] .= 'validate-one-required ';
+				}
+				
 				$markerArray['###CLASS###'] .= 'powermail_' . $this->formtitle; // add form title
 				$markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add input type
 				$markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add input uid
@@ -386,7 +391,12 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###VALUE###'] = 'value="' . $this->dontAllow(isset($options[$i][1]) ? $options[$i][1] : $options[$i][0]) . '" '; // add labelname
 				//$markerArray['###CLASS###'] = 'class="'. ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'mandatory') == 1 ? 'validate-one-required' : '') .' powermail_'.$this->formtitle.' powermail_'.$this->type.' powermail_uid'.$this->uid.' powermail_subuid'.$this->uid.'_'.$i.'" '; // add class name to markerArray
 				$markerArray['###CLASS###'] = 'class="'; // start class tag
-				$markerArray['###CLASS###'] .= ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1 ? 'validate-one-required ' : ''); // add required class if needed
+				
+					// Add required class if needed
+				if((count($optionlines) - 1) == $i && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
+					$markerArray['###CLASS###'] .= 'validate-one-required ';
+				}
+				
 				$markerArray['###CLASS###'] .= 'powermail_' . $this->formtitle; // add form title
 				$markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add input type
 				$markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add input uid
