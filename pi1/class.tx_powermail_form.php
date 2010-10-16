@@ -142,7 +142,8 @@ class tx_powermail_form extends tslib_pibase {
 				$this->InnerMarkerArray['###POWERMAIL_FIELDSETNAME###'] = $row_fs['title']; // Name of fieldset
 				$this->InnerMarkerArray['###POWERMAIL_FIELDSETNAME_small###'] = $this->div->clearName($row_fs['title'], 1, 32); // Fieldsetname clear (strtolower = 1 / cut after 32 letters)
 				$this->InnerMarkerArray['###POWERMAIL_FIELDSET_UID###'] = $row_fs['uid']; // uid of fieldset
-				if (1) $this->InnerMarkerArray['###OWNCSS###'] = $row_fs['class'] . ' '; // own css for fieldset
+					 // own css for fieldset
+				$this->InnerMarkerArray['###OWNCSS###'] = htmlspecialchars($row_fs['class']) . ' ';
 				$this->hookInner($row_fs); // adds hookInner
 				$this->content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['formwrap']['item'], $this->InnerMarkerArray);
 			}
