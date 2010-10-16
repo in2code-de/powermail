@@ -1,5 +1,6 @@
 2010-10-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #8045: Hook PM_FieldMarkerArrayHook not working
 	* Fixed bug #8905: CSS Class "validate-one-required" is added to every radio button
 	* Fixed bug #10297: TCA-Field "tx_powermail_subject_r" is not required, but will be checked in pi1
 	* Fixed bug #9043: Missing class in frontend editing

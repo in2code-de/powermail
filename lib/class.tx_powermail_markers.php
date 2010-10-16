@@ -80,10 +80,10 @@ class tx_powermail_markers extends tslib_pibase {
 								if (!in_array(strtoupper($k),$this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###',$this->notInMarkerAll)) {
 									$markerArray['###POWERMAIL_LABEL###'] = $this->GetLabelfromBackend($k,$v);
 									$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($v));
+									$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v);
 									if ($this->conf['markerALL.']['hideLabel'] == 1 && $markerArray['###POWERMAIL_VALUE###'] || $this->conf['markerALL.']['hideLabel'] == 0) { // if hideLabel on in backend: add only if value exists
 										$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray); // add line
 									}
-									$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v); // add hook
 								}
 							}
 						} else { // value is still an array (needed for e.g. checkboxes tx_powermail_pi1[uid55][0])
