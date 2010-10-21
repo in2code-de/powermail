@@ -1,5 +1,6 @@
 2010-10-21  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #8843: user_powermailOnCurrentPage failed on insert records
 	* Fixed bug #7806: Back button is not working
 
 2010-10-16  Andy Grunwald  <andreas.grunwald@wmdb.de>

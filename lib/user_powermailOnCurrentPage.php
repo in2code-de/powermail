@@ -30,30 +30,63 @@
  * @return	boolean		0/1
  */
 function user_powermailOnCurrentPage($mode = '') {
-	if (TYPO3_MODE == 'FE') { // only in Frontend
-		global $TCA;
+	if (TYPO3_MODE == 'FE') {
+		$ttContentWhere = 'AND deleted = 0 AND hidden = 0';
+		if (!is_array($GLOBALS['TCA']['tt_content'])) {
+			$ttContentWhere = $GLOBALS['TSFE']->sys_page->enableFields('tt_content');
+		}
 		
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // DB query
-			'uid',
-			'tt_content',
-			$where_clause = 'pid = ' . ($GLOBALS['TSFE']->id ? $GLOBALS['TSFE']->id : 0) . ' AND CType = "powermail_pi1"' . (!is_array($TCA['tt_content']) ? 'AND deleted = 0 AND hidden = 0' : $GLOBALS['TSFE']->sys_page->enableFields('tt_content')),
-			$groupBy = '',
-			$orderBy = '',
-			$limit = 1
-		);
-		if ($res) {
-			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res); // Result in array
-			
-			if ($mode != 'ssd') { // if default or realurl
-				if ($row['uid'] > 0) return true;
-			} else {
-				if ($GLOBALS['TSFE']->tmpl->setup['config.']['simulateStaticDocuments'] == 1 && $row['uid'] > 0) { // if ssd activated
-					return true;
-				}
+		$where = 'pid = ' . intval($GLOBALS['TSFE']->id) . ' AND (CType = "powermail_pi1"  OR CType = "shortcut")' . $ttContentWhere;
+		$orderBy = 'CType';
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ('uid, CType, records', 'tt_content', $where, '', $orderBy, '');
+		
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			switch($row['CType']) {
+					// Normal content element
+				case 'powermail_pi1':
+					return isPowermailOnCurrentPage($mode, $row['uid']);
+					break;
+				
+					// Content element "Insert plugin"
+				case 'shortcut':
+					$records = t3lib_div::trimExplode(',', $row['records'], TRUE);
+					foreach ($records as $record) {
+						$recordInfo = t3lib_BEfunc::splitTable_Uid($record);
+						if ($recordInfo[0] === 'tt_content') {
+							$recordUids[] = $recordInfo[1];
+						}
+					}
+					$recordUids = $GLOBALS['TYPO3_DB']->cleanIntList(implode(',', $recordUids));
+				
+					$where = 'uid IN ( ' . $recordUids . ' ) AND CType = "powermail_pi1"' . $ttContentWhere;
+					$shortcutRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid', 'tt_content', $where, '', '', 1);
+					$shortcutRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($shortcutRes);
+					return isPowermailOnCurrentPage($mode, $shortcutRow['uid']);
+					break;
 			}
 		}
 	}
-	return false;
+	
+	return FALSE;
+}
+
+function isPowermailOnCurrentPage($mode, $uid) {
+	$result = FALSE;
+	
+		// Default or RealURL
+	if ($mode != 'ssd') {
+		if ($uid > 0) {
+			$result = TRUE;
+		}
+		
+		// Simulate Static Documents
+	} else {
+		if ($GLOBALS['TSFE']->tmpl->setup['config.']['simulateStaticDocuments'] == 1 && $uid > 0) {
+			$result = TRUE;
+		}
+	}
+	
+	return $result;
 }
 
 
