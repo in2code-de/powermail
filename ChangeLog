@@ -1,3 +1,7 @@
+2010-10-21  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #7806: Back button is not working
+
 2010-10-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #8045: Hook PM_FieldMarkerArrayHook not working
