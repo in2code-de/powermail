@@ -1,5 +1,6 @@
 2010-10-21  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #5527: Mandatory Field with Value 0 is not accepted
 	* Fixed bug #8843: user_powermailOnCurrentPage failed on insert records
 	* Fixed bug #7806: Back button is not working
 

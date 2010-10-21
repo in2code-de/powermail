@@ -141,7 +141,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every field
 				if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'mandatory') == 1 || $this->conf['validate.']['uid' . $row['uid'] . '.'][required] == 1) { // if in current xml mandatory == 1 OR mandatory was set via TS for current field
 					if (!is_array($this->sessionfields['uid' . $row['uid']])) { // first level
-						if (!trim($this->sessionfields['uid' . $row['uid']]) || !isset($this->sessionfields['uid'.$row['uid']])) { // only if current value is not set in session (piVars)
+						if (trim($this->sessionfields['uid' . $row['uid']]) === '' || !isset($this->sessionfields['uid'.$row['uid']])) { // only if current value is not set in session (piVars)
 							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield') . ' <b>' . $row['title'] . '</b>'; // set current error to sessionlist
 						}
 					} else { // second level (maybe for checkboxes)
