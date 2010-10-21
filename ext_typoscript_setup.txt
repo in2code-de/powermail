@@ -369,6 +369,7 @@ powermailJS {
 		disablePrefixComment = 1
 		xhtml_cleaning = 0
 		admPanel = 0
+		index_enable = 0
 	}
 	
 	10 = TEMPLATE

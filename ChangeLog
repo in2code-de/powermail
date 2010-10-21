@@ -1,5 +1,6 @@
 2010-10-21  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #9489: powermailJS page type 3131 get indexed by index_search
 	* Fixed bug #7707: wrong code in documentation
 	* Fixed bug #7852: UID is not set when saved in DB (with db_entry)
 	* Fixed bug #9887: [userFunc=user_powermailOnCurrentPage] breaks some extensions
