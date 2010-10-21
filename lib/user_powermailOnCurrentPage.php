@@ -30,6 +30,7 @@
  * @return	boolean		0/1
  */
 function user_powermailOnCurrentPage($mode = '') {
+	$result = FALSE;
 	if (TYPO3_MODE == 'FE') {
 		$ttContentWhere = 'AND deleted = 0 AND hidden = 0';
 		if (!is_array($GLOBALS['TCA']['tt_content'])) {
@@ -44,7 +45,7 @@ function user_powermailOnCurrentPage($mode = '') {
 			switch($row['CType']) {
 					// Normal content element
 				case 'powermail_pi1':
-					return isPowermailOnCurrentPage($mode, $row['uid']);
+					$result = isPowermailOnCurrentPage($mode, $row['uid']);
 					break;
 				
 					// Content element "Insert plugin"
@@ -61,13 +62,17 @@ function user_powermailOnCurrentPage($mode = '') {
 					$where = 'uid IN ( ' . $recordUids . ' ) AND CType = "powermail_pi1"' . $ttContentWhere;
 					$shortcutRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid', 'tt_content', $where, '', '', 1);
 					$shortcutRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($shortcutRes);
-					return isPowermailOnCurrentPage($mode, $shortcutRow['uid']);
+					$result = isPowermailOnCurrentPage($mode, $shortcutRow['uid']);
 					break;
+			}
+			
+			if ($result === TRUE) {
+				break;
 			}
 		}
 	}
 	
-	return FALSE;
+	return $result;
 }
 
 function isPowermailOnCurrentPage($mode, $uid) {
