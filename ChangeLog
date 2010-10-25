@@ -1,3 +1,7 @@
+2010-10-25  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Task #10440: Remove tx_powermail_html::dontAllow()-Calls
+
 2010-10-21  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #9489: powermailJS page type 3131 get indexed by index_search
