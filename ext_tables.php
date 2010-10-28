@@ -357,7 +357,7 @@ $GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = '
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div3, tx_powermail_sender, tx_powermail_sendername, tx_powermail_subject_s,, tx_powermail_mailsender;;;richtext:rte_transform[mode=ts],
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div4, tx_powermail_subject_r, tx_powermail_recipient, tx_powermail_users;;;;5-5-5,tx_powermail_recip_table, tx_powermail_recip_id, tx_powermail_mailreceiver;;;richtext:rte_transform[mode=ts],
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div5, tx_powermail_thanks;;;richtext:rte_transform[mode=ts], tx_powermail_redirect,
-	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div8, starttime, endtime';
+	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div8, starttime, endtime, fe_group';
 
 	// If preview window is deactivated, clear tx_powermail_preview
 if ($confArr['usePreview'] != 1) {

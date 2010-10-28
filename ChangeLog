@@ -1,3 +1,7 @@
+2010-10-28  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #10504: No "Access"-Field for backend groups in TYPO3 V. 4.4
+
 2010-10-25  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Task #10440: Remove tx_powermail_html::dontAllow()-Calls
