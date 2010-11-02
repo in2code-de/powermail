@@ -344,7 +344,7 @@ class tx_powermail_submit extends tslib_pibase {
 		if ($this->ok) { // only if spamhook is not set
 		
 			// 1. Get Target from Flexform or Typoscript
-			$redirectPidFromFlexform = $this->cObj->data['tx_powermail_redirect'];
+			$redirectPidFromFlexform = trim($this->cObj->data['tx_powermail_redirect']);
 			if (!empty($redirectPidFromFlexform)) {
 				$target = $redirectPidFromFlexform; // get target from flexform in Backend
 				
