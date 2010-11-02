@@ -1,5 +1,6 @@
 2010-11-02  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #10228: markers are not substituted in subject of Database entry
 	* Fixed bug #6692: Form with "Activate confirmation page" and "ResponseText (shown on website)" fails on TYPO3 4.3
 
 2010-10-28  Andy Grunwald  <andreas.grunwald@wmdb.de>

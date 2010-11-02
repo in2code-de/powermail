@@ -232,7 +232,7 @@ class tx_powermail_submit extends tslib_pibase {
 			'formid' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), // save pid
 			'recipient' => $this->MainReceiver, // save receiver mail
 			'cc_recipient' => (isset($this->CCReceiver) ? $this->CCReceiver : ''),
-			'subject_r' => $this->subject_r, // save subject of receiver mail
+			'subject_r' => $this->dynamicMarkers->main($this->conf, $this->cObj, $this->div->marker2value($this->subject_r, $this->sessiondata)),
 			'sender' => $this->sender, // save sender mail
 			'content' => trim($this->mailcontent['recipient_mail']), // save content of receiver mail
 			'piVars' => t3lib_div::array2xml($this->div->TSmanipulation($this->sessiondata, 'dblog', $this->conf, $this->cObj), '', 0, 'piVars'), // save values of session as xml
