@@ -64,17 +64,21 @@ class tx_powermail_charts {
 				}
 			}
 		}
+
+		$this->tsconfig['properties']['config.']['chart.']['timeframe'] = intval($this->tsconfig['properties']['config.']['chart.']['timeframe']);
+		$this->tsconfig['properties']['config.']['chart.']['sectionframe'] = intval($this->tsconfig['properties']['config.']['chart.']['sectionframe']);
+
 		$values = $content = '';
 		$no = 0;
 		$_GET['startdate'] = strftime('%Y-%m-%d %H:%M', (time() - $this->tsconfig['properties']['config.']['chart.']['timeframe'])); // overwrite GET param for start for listview
 		$_GET['enddate'] = strftime('%Y-%m-%d %H:%M', time()); // overwrite GET param for end for listview
-		
+
 		// 1. get needed values
 		$no_sec = floor($this->tsconfig['properties']['config.']['chart.']['timeframe'] / $this->tsconfig['properties']['config.']['chart.']['sectionframe']); // number of sections
 		for ($i=0; $i < $no_sec; $i++) { // one loop for every section
 			$delta1 = $this->tsconfig['properties']['config.']['chart.']['sectionframe'] * $i; // number of seconds from now to the past in current sectionframe
 			$delta2 = $this->tsconfig['properties']['config.']['chart.']['timeframe'] - $delta1 - $this->tsconfig['properties']['config.']['chart.']['sectionframe']; // number of seconds inverted to $delta1
-			
+
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // get number of mails
 				'count(*) as no',
 				$table = 'tx_powermail_mails',
@@ -95,11 +99,11 @@ class tx_powermail_charts {
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res); // get values
 				$no += $GLOBALS['TYPO3_DB']->sql_num_rows($res2); // get numbers of entries (and add with last loop)
 			}
-			
+
 			$values .= ($row['no'] > 0 ? $row['no'] : '0') . ',';
 		}
 		$values = substr($values, 0, -1); // delete last sign of commaseparated list
-		
+
 		if ($no > 0) { // if there are entries
 			// 2. make chart link for google
 			$url = 'http://chart.apis.google.com/chart?cht=lc&chd=t:' . $this->reverseList($values) . '&chs=700x200&chxt=x,y&chl=' . $this->urlencode2($this->tsconfig['properties']['config.']['chart.']['title'], '|');
@@ -108,17 +112,17 @@ class tx_powermail_charts {
 			$content .= $url;
 			$content .= '"></iframe>';
 		}
-			
+
 		// 3. make listview
 		if ($no > 0) $content .= '<p>&nbsp;</p>';
 		if ($no > 0) $content .= '<h2>' . $pObj->lang->getLL('chart_table') . '</h2>';
 		$this->belist = t3lib_div::makeInstance('tx_powermail_belist'); // list methods
 		$this->belist->init($pObj->lang); // init lang
 		$content .= $this->belist->main($pObj->id, $pObj->back_path, 0, 1); // show list of emails
-		
+
 		return $content;
 	}
-	
+
 
 	/**
 	 * like urlencode but splits on delimiter and than merges again (urlencode without delimiter)
@@ -130,13 +134,13 @@ class tx_powermail_charts {
 	function urlencode2($string, $delimiter) {
 		$parts = t3lib_div::trimExplode($delimiter, $string, 1);
 		foreach ((array) $parts as $key => $value) { // one loop for every part
-			$parts[$key] = urlencode($value); // encode current part
+			$parts[$key] = rawurlencode($value); // encode current part
 		}
 		$string = implode($delimiter, $parts); // merge again
 
 		return $string;
 	}
-	
+
 
 	/**
 	 * reverseList() reverses commaseparetd string (1,2,3 => 3,2,1)
@@ -148,7 +152,7 @@ class tx_powermail_charts {
 		$tmp_array = t3lib_div::trimExplode(',', $string, 1); // split on ,
 		$tmp_array = array_reverse($tmp_array); // reverse array
 		$string = implode(',', $tmp_array); // glue on ,
-		
+
 		return $string;
 	}
 
