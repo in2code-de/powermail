@@ -217,12 +217,21 @@ class tx_powermail_belist {
 			$where_add = ' AND uid = ' . intval($this->mailID);
 		}
 
+		$startDateAdd = $endDateAdd = '';
+		if (strtotime($this->startdate) > 0){
+			$startDateAdd = ' AND crdate > ' . strtotime($this->startdate);
+		}
+
+		if (strtotime($this->enddate) > 0){
+			$endDateAdd = ' AND crdate < ' . strtotime($this->enddate);
+		}
+
 		$select = '*';
 		$from = 'tx_powermail_mails';
 		$where = '
-			pid = ' . intval($this->pid) . '
-			AND crdate > ' . strtotime($this->startdate) . '
-			AND crdate < ' . strtotime($this->enddate) . '
+			pid = ' . intval($this->pid) .
+			$startDateAdd .
+			$endDateAdd . '
 			AND hidden = 0
 			AND deleted = 0' .
 			$where_add;

@@ -1,5 +1,6 @@
 2010-11-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #10456: SQL-Error occur, if enter a not valid date in backend module date fields
 	* Raised version from 1.5.5 to 1.5.6-dev
 	* Applied security fixes. For more information look at Security Bulletin TYPO3-SA-2010-021
 
