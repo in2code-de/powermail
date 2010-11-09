@@ -1,5 +1,6 @@
 2010-11-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Raised version from 1.5.5 to 1.5.6-dev
 	* Applied security fixes. For more information look at Security Bulletin TYPO3-SA-2010-021
 
 2010-11-02  Andy Grunwald  <andreas.grunwald@wmdb.de>
