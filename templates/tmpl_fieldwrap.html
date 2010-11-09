@@ -100,7 +100,7 @@ NEW HTML Template for checkboxes (uses hidden fields)
 		 	<!-- ###ITEM### begin -->
 				<div class="powermail_check_inner powermail_check_inner_###LABEL_NAME###">
 					<label for="check_###LABEL_NAME###">###LABEL###</label>
-					<input type="checkbox" name="check_###LABEL_NAME###" onclick="checkbox('###LABEL_NAME###'); ###JS_INNER###" id="check_###LABEL_NAME###" ###CHECKED######CLASS######ACCESSKEY######TABINDEX###/>
+					<input type="checkbox" name="check_###LABEL_NAME###" onclick="insertCheckboxValueToHiddenField('###LABEL_NAME###'); ###JS_INNER###" id="check_###LABEL_NAME###" ###CHECKED######CLASS######ACCESSKEY######TABINDEX###/>
 					<input type="hidden" ###VALUE### name="value_###LABEL_NAME###" />
 					<input type="hidden" ###ID######NAME######HIDDENVALUE###/>
 				</div>

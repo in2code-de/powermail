@@ -1,5 +1,5 @@
 // Function to update checkboxes
-function checkbox(id) {
+function insertCheckboxValueToHiddenField(id) {
 	var checkid = 'check_' + id;
 	var valueid = 'value_' + id;
 	var checked = document.getElementsByName(checkid)[0].checked;
