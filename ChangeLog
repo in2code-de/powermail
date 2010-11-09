@@ -1,5 +1,6 @@
 2010-11-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #4843: Zero-Values and Multi-Select-Values are not exported
 	* Fixed bug #3161: GET vars should be urldecoded before inserted in field
 	* Fixed bug #1090: form.HTMLentities - no double &amp; in formaction
 	* Fixed bug #6336: powermail checkboxes and date2cal

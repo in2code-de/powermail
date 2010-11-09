@@ -278,19 +278,14 @@ class tx_powermail_export {
 								$newkey = explode('_', $key);
 								// piVars in first level
 								if (!is_array($values[$newkey[0]])) {
-									if (!empty($values[$key])) {
-										$table .= '<td>' . $this->cleanString($values[$key], $export) . '</td>';
-									} else {
-										$table .= '<td></td>';
-									}
+									$values[$key] = trim($values[$key]);
+									$table .= '<td>' . $this->cleanString($values[$key], $export) . '</td>';
 
 								// PiVars in second level
 								} else {
-									if (!empty($values[$newkey[0]][$newkey[1]])) {
-										$table .= '<td>' . $this->cleanString($values[$newkey[0]][$newkey[1]], $export) . '</td>';
-									} else {
-										$table .= '<td></td>';
-									}
+									$values[$newkey[0]][$newkey[1]] = trim($values[$newkey[0]][$newkey[1]]);
+									$table .= '<td>' . $this->cleanString($values[$newkey[0]][$newkey[1]], $export) . '</td>';
+
 								}
 							} else {
 								$table .= '<td>' . $row[$key] . '</td>';
@@ -354,19 +349,13 @@ class tx_powermail_export {
 
 								// PiVars in first level
 								if (!is_array($values[$newkey[0]])) {
-									if (!empty($values[$key])) {
-										$table .= '"' . $this->cleanString($values[$key]) . '"' . $this->seperator;
-									} else {
-										$table .= '" "' . $this->seperator;
-									}
+									$values[$key] = trim($values[$key]);
+									$table .= '"' . $this->cleanString($values[$key]) . '"' . $this->seperator;
 
 								// PiVars in second level
 								} else {
-									if (!empty($values[$newkey[0]][$newkey[1]])) {
-										$table .= '"' . $this->cleanString($values[$newkey[0]][$newkey[1]]) . '"' . $this->seperator;
-									} else {
-										$table .= '" "' . $this->seperator;
-									}
+									$values[$newkey[0]][$newkey[1]] = trim($values[$newkey[0]][$newkey[1]]);
+									$table .= '"' . $this->cleanString($values[$newkey[0]][$newkey[1]]) . '"' . $this->seperator;
 								}
 							} else {
 								$table .= '"' . $row[$key] . '"' . $this->seperator;
@@ -504,7 +493,8 @@ class tx_powermail_export {
 				if ($this->outputEncoding != 'utf-8') {
 					if (method_exists($this->LANG->csConvObj, 'conv')) {
 						$newValue = $this->LANG->csConvObj->conv($value, 'utf-8', $this->outputEncoding);
-						if (!empty($newValue)) {
+						$newValue = trim($newValue);
+						if ($newValue !== '') {
 							$value = $newValue;
 						}
 					}
