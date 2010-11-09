@@ -52,12 +52,36 @@ class tx_powermail_sessions extends tslib_pibase {
 				$oldPiVars = $this->getSession($this->conf, $this->cObj, 0); // Get Old piVars from Session (without not allowed piVars)
 				if (isset($oldPiVars) && is_array($oldPiVars)) $piVars = array_merge($oldPiVars, $piVars); // Add old piVars to new piVars
 			}
+
+			$piVars = $this->urldecodeArrayRecursive($piVars);
+
 			// Set Session (overwrite all values)
 			$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $piVars); // Generate Session with piVars array
 			$GLOBALS['TSFE']->storeSessionData(); // Save session
 		}
 	}
 
+	/**
+	 * Apply the function "urldecode" on all values in the incomming array.
+	 * Is the proceeded value always an array, this method will be called recursive.
+	 *
+	 * @param array $dataArray
+	 */
+	protected function urldecodeArrayRecursive(array $dataArray) {
+		$urldecodedData = array();
+
+		foreach ($dataArray as $key => $val) {
+			if (is_array($val)){
+				$this->urldecodeArrayRecursive($val);
+			}else {
+				$val = urldecode($val);
+			}
+
+			$urldecodedData[$key] = $val;
+		}
+
+		return $urldecodedData;
+	}
 
 	// Function getSession() to get all saved session data in an array
 	function getSession($conf, $cObj, $all = 1) {
