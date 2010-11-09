@@ -289,7 +289,7 @@ class tx_powermail_belist {
 						<td style="color: white; padding: 0 5px;">' . $this->divfunctions->linker($row['recipient'],' style="color: white; text-decoration: underline;"') . '</td>
 						<td style="color: white; padding: 0 5px;">' . $row['senderIP'] . '</td>
 						<td style="color: white; padding: 0 5px; text-align: center;">' . $detailContent . '</td>
-						<td style="color: white; padding: 0 5px; text-align: center;"><a href="index.php?id=' . $pid . '&deleteID=' . $row['uid'] . ($_GET['startdate'] ? '&startdate=' . $_GET['startdate'] : '') . ($_GET['enddate'] ? '&enddate=' . $_GET['enddate'] : '') . '" onclick="return confirmSubmit(this)"><img src="' . $this->backpath . 'sysext/t3skin/icons/gfx/garbage.gif" title="Delete this entry" alt="delete" /></a>' . '</td>
+						<td style="color: white; padding: 0 5px; text-align: center;"><a href="index.php?id=' . $pid . '&deleteID=' . $row['uid'] . ($_GET['startdate'] ? '&startdate=' . rawurlencode($_GET['startdate']) : '') . ($_GET['enddate'] ? '&enddate=' . rawurlencode($_GET['enddate']) : '') . '" onclick="return confirmSubmit(this)"><img src="' . $this->backpath . 'sysext/t3skin/icons/gfx/garbage.gif" title="Delete this entry" alt="delete" /></a>' . '</td>
 					</tr>' . "\n";
 			}
 
@@ -344,13 +344,13 @@ class tx_powermail_belist {
 		// Generate startdate parameter
 		$startDate = '';
 		if(isset($_GET['startdate'])) {
-			$startDate = '&startdate='.$this->startdate;
+			$startDate = '&startdate=' . rawurlencode($this->startdate);
 		}
 
 		// Generate enddate parameter
 		$endDate = '';
 		if(isset($_GET['enddate'])) {
-			$endDate = '&enddate=' . $this->enddate;
+			$endDate = '&enddate=' . rawurlencode($this->enddate);
 		}
 
 		for($x = 0; $x < ceil($num / $b); $x++) {
@@ -384,9 +384,9 @@ class tx_powermail_belist {
 		$content = '
 			<div style="float: left;">' . "\n" .
 				'<label for="startdate" style="font-weight: bold; display: block; float: left; width: 50px;">' . $this->LANG->getLL('filter_start') . ':</label>
-				<input type="text" name="startdate" id="startdate" value="' . $this->startdate . '" /><br />' . "\n" .
+				<input type="text" name="startdate" id="startdate" value="' . htmlspecialchars($this->startdate) . '" /><br />' . "\n" .
 				'<label for="enddate" style="font-weight: bold; display: block; float: left; width: 50px; clear: both;">' . $this->LANG->getLL('filter_end') . ':</label>
-				<input type="text" name="enddate" id="enddate" value="' . $this->enddate . '" />' . "\n";
+				<input type="text" name="enddate" id="enddate" value="' . htmlspecialchars($this->enddate) . '" />' . "\n";
 
 		if(isset($_GET['id'])) {
 			$content .= '<input type="hidden" name="id" value="' . intval(t3lib_div::_GET('id')) . '" />' . "\n";
@@ -411,8 +411,8 @@ class tx_powermail_belist {
 			$deleteAfterExport = '&delafterexport=1';
 		}
 
-		$startDate = urlencode($this->startdate);
-		$endDate = urlencode($this->enddate);
+		$startDate = rawurlencode($this->startdate);
+		$endDate = rawurlencode($this->enddate);
 
 		$content = '
 			<div style="float: right;">

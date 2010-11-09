@@ -517,7 +517,7 @@ class tx_powermail_export {
 
 					// HTML and EXCEL only
 					} else {
-						$table .= '<td><b>' . $value . '</b></td>';
+						$table .= '<td><b>' . htmlspecialchars($value) . '</b></td>';
 					}
 
 				} else {

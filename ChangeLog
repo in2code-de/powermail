@@ -1,3 +1,7 @@
+2010-11-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Applied security fixes. For more information look at Security Bulletin TYPO3-SA-2010-021
+
 2010-11-02  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #10228: markers are not substituted in subject of Database entry

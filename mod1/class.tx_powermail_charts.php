@@ -93,6 +93,9 @@ class tx_powermail_charts {
 			}
 		}
 
+		$this->tsconfig['properties']['config.']['chart.']['timeframe'] = intval($this->tsconfig['properties']['config.']['chart.']['timeframe']);
+		$this->tsconfig['properties']['config.']['chart.']['sectionframe'] = intval($this->tsconfig['properties']['config.']['chart.']['sectionframe']);
+
 		$values = $content = '';
 		$no = 0;
 
@@ -172,7 +175,7 @@ class tx_powermail_charts {
 	function urlencode2($string, $delimiter) {
 		$parts = t3lib_div::trimExplode($delimiter, $string, 1);
 		foreach ((array) $parts as $key => $value) {
-			$parts[$key] = urlencode($value);
+			$parts[$key] = rawurlencode($value);
 		}
 		$string = implode($delimiter, $parts);
 
