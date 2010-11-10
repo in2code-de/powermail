@@ -33,7 +33,7 @@ function user_powermailOnCurrentPage($mode = '') {
 	$result = FALSE;
 	if (TYPO3_MODE == 'FE') {
 		$ttContentWhere = 'AND deleted = 0 AND hidden = 0';
-		if (!is_array($GLOBALS['TCA']['tt_content'])) {
+		if (is_array($GLOBALS['TCA']['tt_content']) && method_exists($GLOBALS['TSFE']->sys_page, 'enableFields')) {
 			$ttContentWhere = $GLOBALS['TSFE']->sys_page->enableFields('tt_content');
 		}
 		

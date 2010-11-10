@@ -1,3 +1,7 @@
+2010-11-10  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #5603: Call to an non member function enableFields
+
 2010-11-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #4843: Zero-Values and Multi-Select-Values are not exported
