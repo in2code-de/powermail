@@ -1,5 +1,6 @@
 2010-11-10  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #5894: Typo in pi1/locallang.xml
 	* Fixed bug #5603: Call to an non member function enableFields
 
 2010-11-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
