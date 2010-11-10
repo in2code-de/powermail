@@ -66,7 +66,7 @@ class tx_powermail_pi1 extends tslib_pibase {
 		$this->sessions->deleteSession($this->conf, $this->cObj, $this->piVars['clearSession']); // If GET Param clearSession is set, delete complete Session
 		$this->sessions->setSession($this->conf, $this->piVars, $this->cObj, 0); // Set piVars to session (but don't overwrite old values)
 		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // give me all piVars from session (without not needed values)
-		$this->sessions->setSession($this->conf, $this->sessions->changeData($this->sessionfields), $this->cObj, 0); // manipulate data (upload fields, check email, etc..) and save it at once in the session
+		$this->sessions->setSession($this->conf, $this->sessions->changeData($this->sessionfields, $this->cObj->data), $this->cObj, 0); // manipulate data (upload fields, check email, etc..) and save it at once in the session
 		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // get values from session again
 		if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'session') { // if debug
 			$this->div->debug($this->sessionfields, 'Values from session'); // Debug function (Array from Session)
