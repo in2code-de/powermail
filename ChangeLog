@@ -1,3 +1,7 @@
+2010-11-15  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #10815: JS-Validation broken in current trunk
+
 2010-11-10  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #3767: Multiple forms on 1 page with mandatory file uploads fields gives errors

@@ -254,7 +254,7 @@ plugin.tx_powermail_pi1 {
 		# write only if field email is not yet filled with current value
 			# (update - update values of existing entry) 
 			# (none - no entry if field is filled)
-			# (disable – always add values – don't care about existing values)
+			# (disable always add values don't care about existing values)
 #		tt_address._ifUnique.email = update
 		
 		# add mm relation to uid 2 of tt_address_group (via mm table)
@@ -326,6 +326,7 @@ plugin.tx_powermail_pi1 {
 	# Add Javascript files to page header if a powermail plugin is on current page
 lib.powermail_dynJavascript = COA
 lib.powermail_dynJavascript {
+	10 = TEXT
 	10.typolink.parameter.dataWrap = {TSFE:id},3131
 	10.typolink.returnLast = url
 	
