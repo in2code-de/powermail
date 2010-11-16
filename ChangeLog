@@ -1,3 +1,8 @@
+2010-11-16  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Release of Powermail 1.5.6
+	* Task #6185: Important manual changes needed
+
 2010-11-15  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #10815: JS-Validation broken in current trunk
