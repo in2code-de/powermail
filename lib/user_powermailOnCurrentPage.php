@@ -50,6 +50,7 @@ function user_powermailOnCurrentPage($mode = '') {
 				
 					// Content element "Insert plugin"
 				case 'shortcut':
+					$recordUids = array();
 					$records = t3lib_div::trimExplode(',', $row['records'], TRUE);
 					foreach ($records as $record) {
 						$recordInfo = t3lib_BEfunc::splitTable_Uid($record);
@@ -59,6 +60,10 @@ function user_powermailOnCurrentPage($mode = '') {
 					}
 					$recordUids = $GLOBALS['TYPO3_DB']->cleanIntList(implode(',', $recordUids));
 				
+					if(!$recordUids) {
+						break;
+					}
+					
 					$where = 'uid IN ( ' . $recordUids . ' ) AND CType = "powermail_pi1"' . $ttContentWhere;
 					$shortcutRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid', 'tt_content', $where, '', '', 1);
 					$shortcutRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($shortcutRes);
