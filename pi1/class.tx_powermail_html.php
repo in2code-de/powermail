@@ -674,6 +674,12 @@ class tx_powermail_html extends tslib_pibase {
 						'tabindex' => $this->turnedtabindex[$this->uid] + 1
 					)
 				);
+				
+					// Set mandatory class
+				if($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
+					$params['inputField']['class'] = 'jscalendar required';
+				}
+				
 				if ($this->markerArray['###ACCESSKEY###'] != '') { // if there is a defined accesskey
 					$params['inputField']['accesskey'] = $this->accesskeyarray[$i][2]; // set accesskey for datefield
 				}
@@ -739,6 +745,12 @@ class tx_powermail_html extends tslib_pibase {
 						'tabindex' => $this->turnedtabindex[$this->uid] + 1
 					)
 				);
+				
+					// Set mandatory class
+				if($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
+					$params['inputField']['class'] = 'jscalendar required';
+				}
+				
 				if ($this->markerArray['###ACCESSKEY###'] != '') { // if there is a defined accesskey
 					$params['inputField']['accesskey'] = $this->accesskeyarray[$i][2]; // set accesskey for datefield
 				}

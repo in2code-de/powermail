@@ -1,5 +1,6 @@
 2010-11-17  Andy Grunwald  <andreas.grunwald@wmdb.de>
 	
+	* Fixed bug #6523: date fields are ignored by JavaScript Validation
 	* Fixed bug #10901: Fatal error: [] operator not supported for strings
 	* Changed Powermail version to 1.5.7-dev
 	* Fixed bug #10903: isFrontendEditingActive not exists in TYPO3 4.2
