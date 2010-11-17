@@ -1,3 +1,7 @@
+2010-11-17  Andy Grunwald  <andreas.grunwald@wmdb.de>
+	
+	* Fixed bug #10903: isFrontendEditingActive not exists in TYPO3 4.2
+
 2010-11-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Raised Powermail version to 1.6.0-dev

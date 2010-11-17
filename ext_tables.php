@@ -12,7 +12,7 @@ t3lib_extMgm::allowTableOnStandardPages('tx_powermail_fieldsets');
 
 
 require_once($extPath . 'lib/class.user_powermail_tx_powermail_forms_recip_id.php');
-if (TYPO3_MODE == 'BE' || (TYPO3_MODE == 'FE' && isset($GLOBALS['BE_USER']) && $GLOBALS['BE_USER']->isFrontendEditingActive())) {
+if (TYPO3_MODE == 'BE' || (TYPO3_MODE == 'FE' && t3lib_div::int_from_ver(TYPO3_version) > t3lib_div::int_from_ver('4.2.99') && isset($GLOBALS['BE_USER']) && $GLOBALS['BE_USER']->isFrontendEditingActive())) {
 	require_once($extPath . 'lib/class.user_powermail_tx_powermail_forms_recip_table.php');
 	require_once($extPath . 'lib/class.user_powermail_tx_powermail_forms_preview.php');
 	require_once($extPath . 'lib/class.user_powermail_tx_powermail_forms_sender_field.php');
