@@ -1,5 +1,6 @@
 2010-12-03  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
+	* Fixed bug #11255: "user_powermailOnCurrentPage" fails if "Show content from this page" is used
 	* Fixed bug #11250: JavaScript Validation (Prototype) fails if mandatory Radio-Buttons / Checkboxes has not the same parent Element
 
 2010-11-17  Andy Grunwald  <andreas.grunwald@wmdb.de>

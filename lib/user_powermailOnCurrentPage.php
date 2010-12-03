@@ -36,18 +36,19 @@ function user_powermailOnCurrentPage($mode = '') {
 		if (is_array($GLOBALS['TCA']['tt_content']) && method_exists($GLOBALS['TSFE']->sys_page, 'enableFields')) {
 			$ttContentWhere = $GLOBALS['TSFE']->sys_page->enableFields('tt_content');
 		}
-		
-		$where = 'pid = ' . intval($GLOBALS['TSFE']->id) . ' AND (CType = "powermail_pi1"  OR CType = "shortcut")' . $ttContentWhere;
+
+		$pid = getCorrectPageIdForPowermailOnCurrentPageUserfunc();
+		$where = 'pid = ' . intval($pid) . ' AND (CType = "powermail_pi1"  OR CType = "shortcut")' . $ttContentWhere;
 		$orderBy = 'CType';
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ('uid, CType, records', 'tt_content', $where, '', $orderBy, '');
-		
+
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			switch($row['CType']) {
 					// Normal content element
 				case 'powermail_pi1':
 					$result = isPowermailOnCurrentPage($mode, $row['uid']);
 					break;
-				
+
 					// Content element "Insert plugin"
 				case 'shortcut':
 					$recordUids = array();
@@ -59,43 +60,67 @@ function user_powermailOnCurrentPage($mode = '') {
 						}
 					}
 					$recordUids = $GLOBALS['TYPO3_DB']->cleanIntList(implode(',', $recordUids));
-				
+
 					if(!$recordUids) {
 						break;
 					}
-					
+
 					$where = 'uid IN ( ' . $recordUids . ' ) AND CType = "powermail_pi1"' . $ttContentWhere;
 					$shortcutRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid', 'tt_content', $where, '', '', 1);
 					$shortcutRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($shortcutRes);
 					$result = isPowermailOnCurrentPage($mode, $shortcutRow['uid']);
 					break;
 			}
-			
+
 			if ($result === TRUE) {
 				break;
 			}
 		}
 	}
-	
+
 	return $result;
+}
+
+/**
+ * Returns the correct Page-ID for the "isPowermailOnCurrentPage"-Check
+ * This method has a check for "content_from_pid"-field of pages table
+ *
+ * @return	integer		Correct PageID
+ */
+function getCorrectPageIdForPowermailOnCurrentPageUserfunc() {
+	$pid = $GLOBALS['TSFE']->id;
+
+		// This part is copied and modified from TSpagegen::pagegenInit();
+		// because we can`t call it directly. It is to early.
+	if ($GLOBALS['TSFE']->page['content_from_pid'] > 0) {
+			// make REAL copy of TSFE object - not reference!
+		$temp_copy_TSFE = clone($GLOBALS['TSFE']);
+			// Set ->id to the content_from_pid value - we are going to evaluate this pid as was it a given id for a page-display!
+		$temp_copy_TSFE->id = $GLOBALS['TSFE']->page['content_from_pid'];
+		$temp_copy_TSFE->getPageAndRootlineWithDomain($GLOBALS['TSFE']->tmpl->setup['config.']['content_from_pid_allowOutsideDomain'] ? 0 : $GLOBALS['TSFE']->domainStartPage);
+		$pid = intval($temp_copy_TSFE->id);
+		unset($temp_copy_TSFE);
+	}
+
+	return $pid;
 }
 
 function isPowermailOnCurrentPage($mode, $uid) {
 	$result = FALSE;
-	
+
 		// Default or RealURL
 	if ($mode != 'ssd') {
 		if ($uid > 0) {
 			$result = TRUE;
 		}
-		
+
 		// Simulate Static Documents
 	} else {
 		if ($GLOBALS['TSFE']->tmpl->setup['config.']['simulateStaticDocuments'] == 1 && $uid > 0) {
 			$result = TRUE;
 		}
 	}
-	
+
 	return $result;
 }
 
