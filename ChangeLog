@@ -1,3 +1,7 @@
+2010-12-03  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #11250: JavaScript Validation (Prototype) fails if mandatory Radio-Buttons / Checkboxes has not the same parent Element
+
 2010-11-17  Andy Grunwald  <andreas.grunwald@wmdb.de>
 	
 	* Fixed bug #6523: date fields are ignored by JavaScript Validation

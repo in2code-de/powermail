@@ -288,14 +288,25 @@ Validation.addAllThese([
 				return elm.options ? elm.selectedIndex > 0 : !Validation.get('IsEmpty').test(v);
 			}],
 	['validate-one-required', '<!-- ###VALIDATE_ONE_REQUIRED### -->Please select one of the above options.<!-- ###VALIDATE_ONE_REQUIRED### -->', function (v,elm) {
-				var p = elm.parentNode;    
-				p = p.parentNode; // enable parent DIV with parent DIV - Powermail Fix #2263
+			// Search for field class powermail_uid###UID-OF-FIELD### e.g. "powermail_uid840"
+			// This is needed because this original library "Really Easy Field Validation" search only 
+			// in the parent element for all checkboxes / radio buttons of a group
+			// We use the css class, because we can`t use the "name" attribute for checkboxes
+			// Powermail chose the name for checkboxes like "check_uid4711_0", "check_uid4711_1", ...
+		var uidFieldClassName = '';
+		$w(elm.className).each(function(value) {
+			if(value.startsWith('powermail_uid')) {
+				uidFieldClassName = value;
+				throw $break;
+			}
+		});
 
-				var options = p.getElementsByTagName('INPUT');
-				return $A(options).any(function(elm) {
-					if(elm.type.toLowerCase() == 'radio' || elm.type.toLowerCase() == 'checkbox') {  /* // 20090224 #2695 Powermail update */
-						return $F(elm);
-					}
-				});
-			}]
+		var options = $$('input.' + uidFieldClassName);
+		return $A(options).any(function(fieldElement) {
+				// 2009-02-24: #2695 Powermail update
+			if(fieldElement.type.toLowerCase() == 'radio' || fieldElement.type.toLowerCase() == 'checkbox') {  
+				return $F(fieldElement);
+			}
+		});
+	}]
 ]);
