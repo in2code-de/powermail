@@ -1087,9 +1087,9 @@ class tx_powermail_html extends tslib_pibase {
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'readonly')) { // if there is value in the readonly field
 			$this->markerArray['###READONLY###'] = 'readonly="readonly" '; // add readonly to markerArray
 		}
-
+		
 		// ###VALUE###
-		if (isset($this->piVarsFromSession['uid' . $this->uid])) { // 1. if value is in session
+		if (isset($this->piVarsFromSession['uid' . $this->uid]) && !is_array($this->piVarsFromSession['uid' . $this->uid])) { // 1. if value is in session
 			$this->markerArray['###VALUE###'] = 'value="' . stripslashes($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid])) . '" ';
 		} elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. else if value should be filled from current logged in user
 			$this->markerArray['###VALUE###'] = 'value="' . strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]) . '" ';
@@ -1100,7 +1100,7 @@ class tx_powermail_html extends tslib_pibase {
 		} else { // 5. no prefilling - so clear value marker
 			$this->markerArray['###VALUE###'] = 'value="" '; // clear
 		}
-
+		
 		// ###LABEL###
 		if (!empty($this->title)) $this->markerArray['###LABEL###'] = $this->title;
 

@@ -1,3 +1,7 @@
+2010-12-11  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #11310: PHP Warning: stripslashes() expects parameter 1 to be string in class.tx_powermail_html.php line 1050
+
 2010-12-03  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #10926: dynamicTyposcript Marker must be lowercase
