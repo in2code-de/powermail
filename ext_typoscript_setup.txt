@@ -371,6 +371,7 @@ powermailJS {
 		xhtml_cleaning = 0
 		admPanel = 0
 		index_enable = 0
+		message_preview = function tx_powermail_previewMessageOverwrite(){}
 	}
 	
 	10 = TEMPLATE

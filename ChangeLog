@@ -1,3 +1,7 @@
+2010-01-28  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #12601: JavaScript-Error on preview page
+
 2010-12-22  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Raised Powermail version to 1.6.0-dev
