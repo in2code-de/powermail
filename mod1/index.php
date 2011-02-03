@@ -45,7 +45,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 		parent::init();
 	}
 
-	
+
 	/**
 	 * Main method of be module
 	 * Generates header and module menu
@@ -54,36 +54,36 @@ class tx_powermail_module1 extends t3lib_SCbase {
 	 */
 	function main()	{
 		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
-		
+
 		$this->LANG = $LANG;
-		
+
 		$PATH_TYPO3 = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . 'typo3/';
 
 		// Access check!
 		// The page will show only if there is a valid page and if this page may be viewed by the user
 		$this->pageinfo = t3lib_BEfunc::readPageAccess($this->id, $this->perms_clause);
 		$this->tsconfig = t3lib_BEfunc::getModTSconfig($this->id, 'tx_powermail_mod1');
-		
+
 		$access = is_array($this->pageinfo) ? 1 : 0;
 
 		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id)) {
-			
+
 			if(!t3lib_div::_GP('export')) {
-				
+
 				$this->perpage = 25;
 				// Get hits per page if set by tsconfig
 				if($this->tsconfig['properties']['config.']['list.']['perPage'] > 0) {
 					$this->perpage = intval($this->tsconfig['properties']['config.']['list.']['perPage']);
 				}
-				
+
 				// Draw the header.
 				$this->doc = t3lib_div::makeInstance('template');
 				$this->doc->backPath = $BACK_PATH;
 				$this->pageRenderer = $this->doc->getPageRenderer();
-				
+
 				// Add CSS for backend modul
 				$this->pageRenderer->addCssFile( $BACK_PATH . t3lib_extMgm::extRelPath('powermail') .  'res/css/powermail_backend.css' );
-				
+
 				// Include Ext JS stuff
 				$this->pageRenderer->loadExtJS();
 				$this->pageRenderer->enableExtJSQuickTips();
@@ -91,17 +91,17 @@ class tx_powermail_module1 extends t3lib_SCbase {
 				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.plugin.FitToParent.js');
 				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.form.DateTime.js');
 				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.grid.RowExpander.js');
-				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.LinkButton.js');					
+				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.LinkButton.js');
 				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/powermail_backend.js');
-				
+
 				// Enable debug mode for Ext JS
 				$this->pageRenderer->enableExtJsDebug();
-	
+
 				// Include Ext JS inline code
 				$this->pageRenderer->addJsInlineCode('Powermail_Overview',"
-				
+
 	Ext.namespace('Powermail');
-	
+
 	// Parameter definition
 	Powermail.statics = {
 		'pagingSize': " . $this->perpage . ",
@@ -120,7 +120,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 		'startDateTime': 0,
 	 	'endDateTime': 0
 	};
-	
+
 	// Localisation:
 	Powermail.lang = {
 		'title': 'Powermail',
@@ -154,7 +154,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 		'senderIP': 'Absender-IP'
 	};
 				");
-	
+
 				$this->content .= $this->doc->startPage($LANG->getLL('title'));
 				$this->content .= '
 		<div id="typo3-docheader">
@@ -169,10 +169,10 @@ class tx_powermail_module1 extends t3lib_SCbase {
 			<div id="tx_powermail-grid"></div>
 			<div id="label-grid"></div>
 		</div>';
-				
+
 				$this->doc->form = '';
 				$this->content .= $this->doc->endPage();
-				
+
 			} else {
 				$this->export = t3lib_div::makeInstance('tx_powermail_export');
 				$this->export->LANG = $this->LANG;
@@ -194,7 +194,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 			$this->content .= $this->doc->spacer(10);
 		}
 	}
-	
+
 	/**
 	 * Setting up the config for the module menu
 	 *
