@@ -22,37 +22,10 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- *
- *
- *   68: class tx_powermail_module1 extends t3lib_SCbase
- *  130:     function main()
- *  149:     function jumpToUrl(URL)
- *  155:     function confirmSubmit(form)
- *  211:     function menuConfig()
- *  229:     function printContent()
- *  242:     function moduleContent()
- *  297:     function stringReplace($content)
- *  309:     function init()
- *
- * TOTAL FUNCTIONS: 8
- * (This index is automatically created/updated by the extension "extdeveval")
- *
- */
-
 unset($MCONF);
 require_once('conf.php');
 require_once($BACK_PATH . 'init.php');
 require_once($BACK_PATH . 'template.php');
-
-// Include backend powermail classes
-require_once('class.tx_powermail_belist.php');
-require_once('class.tx_powermail_export.php');
-require_once('class.tx_powermail_bedetails.php');
-require_once('class.tx_powermail_action.php');
-require_once('class.tx_powermail_charts.php');
 
 $LANG->includeLLFile('EXT:powermail/mod1/locallang.xml');
 require_once(PATH_t3lib . 'class.t3lib_scbase.php');
@@ -67,60 +40,12 @@ $BE_USER->modAccess($MCONF, 1);
  */
 class tx_powermail_module1 extends t3lib_SCbase {
 
-	/**
-	 * @var mixed
-	 */
-	var $pageinfo;
+	function init()	{
+		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
+		parent::init();
+	}
 
-	/**
-	 * $LANG object
-	 *
-	 * @var language
-	 */
-	var $lang = null;
-
-	/**
-	 * TYPO3 $BACK_PATH
-	 *
-	 * @var string
-	 */
-	var $back_path = '';
-
-	/**
-	 * Action object
-	 *
-	 * @var tx_powermail_action
-	 */
-	var $action = null;
-
-	/**
-	 * Chart object
-	 *
-	 * @var tx_powermail_charts
-	 */
-	var $charts = null;
-
-	/**
-	 * BeList object
-	 *
-	 * @var tx_powermail_belist
-	 */
-	var $belist = null;
-
-	/**
-	 * BeDetails object
-	 *
-	 * @var tx_powermail_bedetails
-	 */
-	var $bedetails = null;
-
-	/**
-	 * Export object
-	 *
-	 * @var tx_powermail_export
-	 */
-	var $export = null;
-
+	
 	/**
 	 * Main method of be module
 	 * Generates header and module menu
@@ -129,70 +54,137 @@ class tx_powermail_module1 extends t3lib_SCbase {
 	 */
 	function main()	{
 		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
+		
+		$this->LANG = $LANG;
+		
+		$PATH_TYPO3 = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . 'typo3/';
 
 		// Access check!
 		// The page will show only if there is a valid page and if this page may be viewed by the user
 		$this->pageinfo = t3lib_BEfunc::readPageAccess($this->id, $this->perms_clause);
+		$this->tsconfig = t3lib_BEfunc::getModTSconfig($this->id, 'tx_powermail_mod1');
+		
 		$access = is_array($this->pageinfo) ? 1 : 0;
 
 		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id)) {
-
+			
+			if(!t3lib_div::_GP('export')) {
+				
+				$this->perpage = 25;
+				// Get hits per page if set by tsconfig
+				if($this->tsconfig['properties']['config.']['list.']['perPage'] > 0) {
+					$this->perpage = intval($this->tsconfig['properties']['config.']['list.']['perPage']);
+				}
+				
 				// Draw the header.
-			$this->doc = t3lib_div::makeInstance('bigDoc');
-			$this->doc->backPath = $BACK_PATH;
-			$this->doc->form = '<form action="" method="GET">';
-
-				// JavaScript
-			$this->doc->JScode = '
-				<script language="javascript" type="text/javascript">
-					script_ended = 0;
-					function jumpToUrl(URL)	{
-						document.location = URL;
-					}
-				</script>
-				<script type="text/javascript">
-					<!--
-					function confirmSubmit(form) {
-						if (confirm("' . $LANG->getLL('del_sure') . '")) {
-							return true;
-						} else {
-							return false;
-						}
-					}
-					// -->
-				</script>
-			';
-			$this->doc->postCode = '
-				<script language="javascript" type="text/javascript">
-					script_ended = 1;
-					if (top.fsMod) top.fsMod.recentIds["web"] = 0;
-				</script>
-			';
-
-			$headerSection = $this->doc->getHeader('pages', $this->pageinfo, $this->pageinfo['_thePath']) . '<br />';
-			$headerSection .= $LANG->sL('LLL:EXT:lang/locallang_core.xml:labels.path') . ': ';
-			$headerSection .= t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50);
-
-			$this->content .= $this->doc->startPage($LANG->getLL('title'));
-			$this->content .= $this->doc->header($LANG->getLL('title'));
-			$this->content .= $this->doc->spacer(5);
-			$this->content .= $this->doc->section('', $this->doc->funcMenu($headerSection, t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])));
-			$this->content .= $this->doc->divider(5);
-
-			// Render content:
-			$this->moduleContent();
-
-			// ShortCut
-			if ($BE_USER->mayMakeShortcut() && !isset($_GET['export']))	{
-				$this->content .= $this->doc->spacer(20) . $this->doc->section('', $this->doc->makeShortcutIcon('id', implode(',', array_keys($this->MOD_MENU)), $this->MCONF['name']));
+				$this->doc = t3lib_div::makeInstance('template');
+				$this->doc->backPath = $BACK_PATH;
+				$this->pageRenderer = $this->doc->getPageRenderer();
+				
+				// Add CSS for backend modul
+				$this->pageRenderer->addCssFile( $BACK_PATH . t3lib_extMgm::extRelPath('powermail') .  'res/css/powermail_backend.css' );
+				
+				// Include Ext JS stuff
+				$this->pageRenderer->loadExtJS();
+				$this->pageRenderer->enableExtJSQuickTips();
+				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.plugin.PagingToolbarResizer.js');
+				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.plugin.FitToParent.js');
+				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.form.DateTime.js');
+				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.grid.RowExpander.js');
+				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.LinkButton.js');					
+				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/powermail_backend.js');
+				
+				// Enable debug mode for Ext JS
+				$this->pageRenderer->enableExtJsDebug();
+	
+				// Include Ext JS inline code
+				$this->pageRenderer->addJsInlineCode('Powermail_Overview',"
+				
+	Ext.namespace('Powermail');
+	
+	// Parameter definition
+	Powermail.statics = {
+		'pagingSize': " . $this->perpage . ",
+		'pid': " . $this->id .",
+		'sort': 'crdate',
+		'dir': 'DESC',
+		'filterIcon': '" . t3lib_iconWorks::getSpriteIcon('actions-system-tree-search-open') . "',
+		'renderTo': 'tx_powermail-grid',
+		'ajaxController': '" . $this->doc->backPath . "ajax.php?ajaxID=tx_powermail::controller',
+		'excelIcon': '" . t3lib_iconWorks::getSpriteIcon('mimetypes-excel') . "',
+		'csvIcon': '" . t3lib_iconWorks::getSpriteIcon('mimetypes-text-csv') . "',
+		'htmlIcon': '" . t3lib_iconWorks::getSpriteIcon('mimetypes-text-html') . "',
+		'pdfIcon': '" . t3lib_iconWorks::getSpriteIcon('mimetypes-pdf') . "',
+		'shortcutLink': '" . addslashes($this->doc->makeShortcutIcon('id', implode(',', array_keys($this->MOD_MENU)), $this->MCONF['name'])) . "',
+		'deleteIcon': '" . t3lib_iconWorks::getSpriteIcon('actions-edit-delete') . "',
+		'startDateTime': 0,
+	 	'endDateTime': 0
+	};
+	
+	// Localisation:
+	Powermail.lang = {
+		'title': 'Powermail',
+		'path': 'Pfad',
+		'loadMessage': 'Bitte warten...<br \/>Datens\u00e4tze werden geladen!',
+		'deleteButton_text': 'L\u00f6schen',
+		'deleteButton_tooltip': 'Ausgew\u00e4hlte Datens\u00e4tze l\u00f6schen',
+		'error_NoSelectedRows_title': 'Keine Zeile ausgew\u00e4hlt',
+		'error_NoSelectedRows_msg': 'Sie m\u00fcssen eine Zeile ausw\u00e4hlen!',
+		'yes': 'Ja',
+		'no': 'Nein',
+		'crdate': 'Erstellt',
+		'title_delete': 'L\u00f6schen?',
+		'text_delete': 'Ausgew\u00e4hlte Datens\u00e4tze wirklich l\u00f6schen?',
+		'pagingMessage': 'Anzeigen der Datens\u00e4tze {0} - {1} von {2}',
+		'pagingEmpty': 'Keine Datens\u00e4tze anzuzeigen',
+		'records': 'Datens\u00e4tze',
+		'recordsPerPage': 'Datens\u00e4tze pro Seite',
+		'createShortcut': 'Create a shortcut to this page',
+		'exportAs': 'Export als:',
+		'exportPdfText': 'Export in PDF format',
+		'exportHtmlText': 'Export in HTML format',
+		'exportCsvText': 'Export in CSV format',
+		'exportExcelText': 'Export in Excel format',
+		'filterBegin': 'Beginn:',
+		'filterEnd': 'Ende:',
+		'piVars': 'piVars',
+		'date': 'Datum',
+		'sender': 'Absender',
+		'receiver': 'Empf\u00e4nger',
+		'senderIP': 'Absender-IP'
+	};
+				");
+	
+				$this->content .= $this->doc->startPage($LANG->getLL('title'));
+				$this->content .= '
+		<div id="typo3-docheader">
+			<div id="typo3-docheader-row1"></div>
+			<div id="typo3-docheader-row2">
+				<div class="docheader-row2-left"><div class="docheader-funcmenu"></div></div>
+				<div class="docheader-row2-right">' . $LANG->sL('LLL:EXT:lang/locallang_core.xml:labels.path') . ': <strong>' . t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50) . '</strong></div>
+			</div>
+		</div>
+		<div id="typo3-inner-docbody">
+			<h4 class="uppercase">Powermail</h4>
+			<div id="tx_powermail-grid"></div>
+			<div id="label-grid"></div>
+		</div>';
+				
+				$this->doc->form = '';
+				$this->content .= $this->doc->endPage();
+				
+			} else {
+				$this->export = t3lib_div::makeInstance('tx_powermail_export');
+				$this->export->LANG = $this->LANG;
+				$this->export->pid = t3lib_div::_GP('pid');
+				$this->export->title = $this->pageinfo['_thePath'];
+				$this->export->startDateTime = t3lib_div::_GP('startDateTime');
+				$this->export->endDateTime = t3lib_div::_GP('endDateTime');
+				$this->export->export = t3lib_div::_GP('export');
+				$this->content = $this->export->main();
 			}
-
-			if (!isset($_GET['export'])){
-				$this->content .= $this->doc->spacer(10);
-			}
-
-		// If no access or if ID == zero
 		} else {
+			// If no access or if ID == zero
 			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $BACK_PATH;
 
@@ -202,7 +194,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 			$this->content .= $this->doc->spacer(10);
 		}
 	}
-
+	
 	/**
 	 * Setting up the config for the module menu
 	 *
@@ -227,89 +219,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 	 * @return	void
 	 */
 	function printContent()	{
-		if (!isset($_GET['export'])){
-			$this->content .= $this->doc->endPage();
-		}
-
-		echo $this->stringReplace($this->content);
-	}
-
-	/**
-	 * Dispatch method for backend module
-	 *
-	 * @return	void
-	 */
-	function moduleContent()	{
-		global $BACK_PATH, $LANG;
-
-		$this->lang = $LANG;
-		$this->back_path = $BACK_PATH;
-		$this->action = t3lib_div::makeInstance('tx_powermail_action');
-
-		// A mail should be deleted
-		$deleteID = t3lib_div::_GET('deleteID');
-		if ($deleteID > 0) {
-			$this->content .= $this->action->main(intval($deleteID), $this->lang); // Show export functions
-		}
-		$this->action->deleteFiles(); // delete old temp files from typo3temp folder
-
-		switch ((string) $this->MOD_SETTINGS['function']) { // show function 1 or 2
-			case 1: // powermail list view
-			default:
-				$mailID = t3lib_div::_GET('mailID');
-				if (empty($mailID)) { // no mailID set in GET params
-
-					$export = t3lib_div::_GET('export');
-					if (empty($export)) { // no export
-						$this->belist = t3lib_div::makeInstance('tx_powermail_belist');
-						$this->belist->init($this->lang);
-						$this->content .= $this->belist->main($this->id, $this->back_path); // Show list
-
-					} else {
-						$this->export = t3lib_div::makeInstance('tx_powermail_export');
-						$this->content = $this->export->main($export, $this->id, $this->lang); // Show export functions
-					}
-
-				} else { // show only one with details
-					$this->belist = t3lib_div::makeInstance('tx_powermail_belist');
-					$this->belist->init($LANG);
-					$this->content .= $this->belist->main($this->id, $this->back_path, intval($mailID)); // Show 1 intem of list
-
-					$this->bedetails = t3lib_div::makeInstance('tx_powermail_bedetails');
-					$this->content .= $this->bedetails->main(intval($mailID), $this->lang); // Show details
-				}
-			break;
-
-			// Powermail chart view
-			case 2:
-				$this->charts = t3lib_div::makeInstance('tx_powermail_charts');
-				$this->content .= $this->charts->main($this);
-			break;
-		}
-	}
-
-	/**
-	 * Replaces markers with icons in module menu
-	 *
-	 * @param	string		$content
-	 * @return	string
-	 */
-	function stringReplace($content) {
-		$content = str_replace('>[icon_table]', ' style="background-image: url(../img/icon_select_table.gif); background-position: left 0; background-repeat: no-repeat; padding: 2px 0 2px 20px;">', $content); // add table icon
-		$content = str_replace('>[icon_chart]', ' style="background-image: url(../img/icon_select_chart.gif); background-position: left 0; background-repeat: no-repeat; padding: 2px 0 2px 20px;">', $content); // add chart icon
-
-		return $content;
-	}
-
-	/**
-	 * Init method for backend module
-	 *
-	 * @return	void
-	 */
-	function init()	{
-		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
-
-		parent::init();
+		echo $this->content;
 	}
 }
 

@@ -1,6 +1,6 @@
 page {
 	includeCSS {
-		file3131 = EXT:powermail/css/sampleCSS.css
+		file3131 = EXT:powermail/res/css/powermail_frontend.css
 		file3131.title = powermail default CSS
 		#file3131.media = screen
 	}

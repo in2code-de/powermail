@@ -1,7 +1,7 @@
 <?php
 define('TYPO3_MOD_PATH', '../typo3conf/ext/powermail/mod1/');
 
-$BACK_PATH = '../../../../typo3/';
+$BACK_PATH='../../../../typo3/';
 $MCONF['name'] = 'web_txpowermailM1';
 	
 $MCONF['access'] = 'user,group';

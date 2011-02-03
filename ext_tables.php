@@ -5,8 +5,10 @@ if (!defined ('TYPO3_MODE')) {
 
 $extPath = t3lib_extMgm::extPath($_EXTKEY);
 $extRelPath = t3lib_extMgm::extRelPath($_EXTKEY);
+$extIconPath = $extRelPath . 'res/img/';
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'static/default_css/', 'Add default CSS');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'static/default_css/', 'Powermail default CSS');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'static/pi1/', 'Powermail');
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
 t3lib_extMgm::allowTableOnStandardPages('tx_powermail_fieldsets');
 
@@ -47,7 +49,7 @@ $GLOBALS['TCA']['tx_powermail_fieldsets'] = array (
 			'endtime' => 'endtime'
 		),
 		'dynamicConfigFile' => $extPath . 'tca.php',
-		'iconfile'          => $extRelPath . 'icon_tx_powermail_fieldsets.gif',
+		'iconfile'          => $extIconPath . 'icon_tx_powermail_fieldsets.gif',
 	),
 	'feInterface' => array (
 		'fe_admin_fieldList' => 'fe_group, form, title, felder, hidden',
@@ -80,10 +82,10 @@ $GLOBALS['TCA']['tx_powermail_fields'] = array (
 			'endtime' => 'endtime'
 		),
 		'dynamicConfigFile' => $extPath . 'tca.php',
-		'iconfile'          => $extRelPath . 'icon_tx_powermail_fields.gif',
+		'iconfile'          => $extIconPath . 'icon_tx_powermail_fields.gif',
 	),
 	'feInterface' => array (
-		'fe_admin_fieldList' => 'fieldset, title, name, flexform, value, size, maxsize, mandantory, more, fe_field, hidden',
+		'fe_admin_fieldList' => 'fieldset, title, name, flexform, value, size, maxsize, max, min, step, pattern, placeholder, mandantory, more, fe_field, hidden',
 	)
 );
 
@@ -104,7 +106,7 @@ $GLOBALS['TCA']['tx_powermail_mails'] = array (
 			'disabled' => 'hidden'
 		),
 		'dynamicConfigFile' => $extPath . 'tca.php',
-		'iconfile'          => $extRelPath . 'icon_tx_powermail_mails.gif',
+		'iconfile'          => $extIconPath . 'icon_tx_powermail_mails.gif',
 	),
 	'feInterface' => array (
 		'fe_admin_fieldList' => 'formid, recipient, subject_r, sender, content, piVars, senderIP, UserAgent, Referer, SP_TZ, hidden',
@@ -366,8 +368,6 @@ if ($confArr['usePreview'] != 1) {
 
 	// Add "tx_powermail_recip_table" to the requestUpdate
 $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] .= $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] ? ',tx_powermail_recip_table' : 'tx_powermail_recip_table';
-
-t3lib_extMgm::addLLrefForTCAdescr('tt_content', 'EXT:powermail/lang/locallang_csh_tt_content.php');
 
 if (TYPO3_MODE=='BE') {
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_powermail_pi1_wizicon'] = $extPath . 'pi1/class.tx_powermail_pi1_wizicon.php';

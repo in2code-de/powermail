@@ -37,11 +37,5 @@ Powermail HTML Template for formwrap
 			###POWERMAIL_MULTIPLE_BACKLINK###
 			###POWERMAIL_MULTIPLE_FORWARDLINK###
 		</form>
-		<script type="text/javascript">
-			function formCallback(result, form) {
-				window.status = "valiation callback for form '" + form.id + "': result = " + result;
-			}
-			var valid = new Validation('###POWERMAIL_NAME###', {immediate : true, onFormValidate : formCallback});
-		</script>
 	</div>
 <!-- ###POWERMAIL_FORMWRAP### end -->

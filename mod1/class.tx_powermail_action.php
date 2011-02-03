@@ -46,43 +46,24 @@
 class tx_powermail_action {
 
 	/**
-	 * $LANG object
-	 *
-	 * @var	language
-	 */
-	var $LANG = null;
-
-	/**
-	 * Content to output
-	 *
-	 * @var	string
-	 */
-	var $content = '';
-
-	/**
 	 * Method main() to set powermail mail entries as deleted in the database
 	 *
 	 * @param	int		$deleteID
-	 * @param	lang		$LANG
-	 * @return	string
+	 * @return	boolean Returns true if success
 	 */
-	function main($deleteID, $LANG) {
-		$this->LANG = $LANG;
-
-		$this->content = '
-			<div style="margin: 10px 0; padding: 10px; border: 1px solid #7D838C; background-color: green; color: white;">
-				<strong>'.sprintf($this->LANG->getLL('del_message'), $deleteID).'</strong>
-			</div>';
-
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-			'tx_powermail_mails',
-			'uid = ' . intval($deleteID),
-			array (
-				'deleted' => 1
-			)
-		);
-
-		return $this->content;
+	function deleteItem($uids) {
+		
+		$uids_array = json_decode($uids);
+		foreach($uids_array as $uid){
+			$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+				'tx_powermail_mails',
+				'uid = ' . intval($uid),
+				array (
+					'deleted' => 1
+				)
+			);
+		}
+		return $res;
 	}
 
 	/**

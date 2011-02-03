@@ -49,14 +49,6 @@ plugin.powermail {
 	# cat=plugin.powermail_mainconfig//0310; type=options[both,html,plain]; label= Sendermail HTML or Plain: If you use this value, emails to the sender will be send in html or plaintext or both formats (both, html or plain)
 	emailformat.sender_mail = both
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	# cat=plugin.powermail_additionalconfig//0390; type=text; label= Onetime form: Checks if a field has already this entry (maybe email address), IP check is also possible if ip addresses will be logged) - (e.G. uid11,ip checks for unique IP and unique entry in field uid11)
 	enable.unique = 
 	
@@ -94,7 +86,7 @@ plugin.powermail {
 	countryselect.charset = 
 	
 	# cat=plugin.powermail_additionalconfig//0500; type=text; label= Description wrap: Define the wrap for the field description
-	description.wrap = <a href="#" onclick="return false;"><img src="/typo3conf/ext/powermail/img/icon_info.gif" alt="Description" class="icon icon_info" style="border: none;" /><dfn>|</dfn></a>
+	description.wrap = <a href="#" onclick="return false;"><img src="/typo3conf/ext/powermail/res/img/icon_info.gif" alt="Description" class="icon icon_info" style="border: none;" /><dfn>|</dfn></a>
 	
 	# cat=plugin.powermail_additionalconfig//0510; type=boolean; label= Mandatory message above form: You can switch between mandatory messages above form or show this messages on an extra page with backtoform button (default)
 	mandatory.messages = 0

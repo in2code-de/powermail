@@ -48,9 +48,19 @@
 					</config>
 				</TCEforms>
 			</value>
+			<placeholder>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.placeholder</label>
+					<config>
+						<type>input</type>
+						<size>35</size>
+					</config>
+				</TCEforms>
+			</placeholder>
 			<validate>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate</label>
+					<onChange>reload</onChange>
 					<config>
 						<type>select</type>
 						<size>1</size>
@@ -83,10 +93,86 @@
 								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.6</numIndex>
 								<numIndex index="1">validate-alphanum</numIndex>
 							</numIndex>
+							<numIndex index="7" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.7</numIndex>
+								<numIndex index="1">validate-pattern</numIndex>
+							</numIndex>
 						</items>
 					</config>
 				</TCEforms>
 			</validate>
+			<inputtype>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype</label>
+					<displayCond>FIELD:validate:!IN:validate-email,validate-url</displayCond>
+					<config>
+						<type>select</type>
+						<size>1</size>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.0</numIndex>
+								<numIndex index="1"></numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.1</numIndex>
+								<numIndex index="1">color</numIndex>
+							</numIndex>
+							<numIndex index="2" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.2</numIndex>
+								<numIndex index="1">range</numIndex>
+							</numIndex>
+							<numIndex index="3" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.3</numIndex>
+								<numIndex index="1">tel</numIndex>
+							</numIndex>
+							<numIndex index="4" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.4</numIndex>
+								<numIndex index="1">time</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+			</inputtype>
+			<min>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.min</label>
+					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
+					<config>
+						<type>input</type>
+						<size>10</size>
+					</config>
+				</TCEforms>
+			</min>
+			<max>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.max</label>
+					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
+					<config>
+						<type>input</type>
+						<size>10</size>
+					</config>
+				</TCEforms>
+			</max>
+			<step>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.step</label>
+					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
+					<config>
+						<type>input</type>
+						<size>10</size>
+					</config>
+				</TCEforms>
+			</step>
+			<pattern>
+				<TCEforms>
+					<displayCond>FIELD:validate:=:validate-pattern</displayCond>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.pattern</label>
+					<config>
+						<type>input</type>
+						<size>35</size>
+					</config>
+				</TCEforms>
+			</pattern>
 			<name>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>

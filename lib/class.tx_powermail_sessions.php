@@ -74,7 +74,7 @@ class tx_powermail_sessions extends tslib_pibase {
 			if (is_array($val)){
 				$this->urldecodeArrayRecursive($val);
 			}else {
-				$val = urldecode($val);
+				$val = rawurldecode($val);
 			}
 
 			$urldecodedData[$key] = $val;

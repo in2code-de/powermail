@@ -230,7 +230,7 @@ if ($confArr['useIRRE'] == 0) {
 $TCA['tx_powermail_fields'] = array (
 	'ctrl' => $TCA['tx_powermail_fields']['ctrl'],
 	'interface' => array (
-		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,fieldset,title,name,type,value,size,maxsize,mandantory,more,fe_field,description,class'
+		'showRecordFieldList' => 'hidden,starttime,endtime,fe_group,fieldset,title,name,type,value,valueto,valuefrom,size,maxsize,mandantory,more,fe_field,description,class'
 	),
 	'feInterface' => $TCA['tx_powermail_fields']['feInterface'],
 	'columns' => array (
@@ -484,16 +484,6 @@ if ($confArr['cssSelection'] == 0) { // selector box is not wanted
 // Check if static_info_tables is loaded. If not, display error on flexform and prevent from executing an SQL-Query
 if (!t3lib_extMgm::isLoaded('static_info_tables',0)) {
 	$TCA['tx_powermail_fields']['columns']['flexform']['config']['ds']['countryselect'] = 'FILE:EXT:powermail/lib/def/def_field_countryselect_error.xml';
-}
-
-// Check if date2cal is loaded. If not, show a note
-if (!t3lib_extMgm::isLoaded('date2cal',0)) {
-	$TCA['tx_powermail_fields']['columns']['flexform']['config']['ds']['date'] = 'FILE:EXT:powermail/lib/def/def_field_date_error.xml';
-	$TCA['tx_powermail_fields']['columns']['flexform']['config']['ds']['datetime'] = 'FILE:EXT:powermail/lib/def/def_field_date_error.xml';
-	//$TCA['tx_powermail_fields']['columns']['flexform']['config']['ds']['time'] = 'FILE:EXT:powermail/lib/def/def_field_date_error.xml';
-} elseif (!file_exists(t3lib_extMgm::extPath('date2cal').'src/class.jscalendar.php')) { // date2cal is loaded but too old
-	$TCA['tx_powermail_fields']['columns']['flexform']['config']['ds']['date'] = 'FILE:EXT:powermail/lib/def/def_field_date2calversion_error.xml';
-	$TCA['tx_powermail_fields']['columns']['flexform']['config']['ds']['datetime'] = 'FILE:EXT:powermail/lib/def/def_field_date2calversion_error.xml';
 }
 
 /**

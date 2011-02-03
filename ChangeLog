@@ -1,3 +1,11 @@
+2010-12-13  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Release of Powermail 1.5.7
+	
+2010-12-11  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #11310: PHP Warning: stripslashes() expects parameter 1 to be string in class.tx_powermail_html.php line 1050
+
 2010-01-28  Andy Grunwald  <andreas.grunwald@wmdb.de>
 
 	* Fixed bug #12601: JavaScript-Error on preview page

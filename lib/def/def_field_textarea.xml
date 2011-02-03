@@ -59,6 +59,15 @@
 					</config>
 				</TCEforms>
 			</value>
+			<placeholder>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.placeholder</label>
+					<config>
+						<type>input</type>
+						<size>35</size>
+					</config>
+				</TCEforms>
+			</placeholder>
 			<name>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>
