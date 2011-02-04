@@ -1067,7 +1067,7 @@ class tx_powermail_html extends tslib_pibase {
 		
 		// ###PATTERN###
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'pattern')) { // if there is value in the pattern field
-			$this->markerArray['###PATTERN###'] = 'pattern="' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'pattern') . '" '; // add pattern to markerArray
+			$this->markerArray['###PATTERN###'] = 'pattern="' . t3lib_div::removeXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'pattern')) . '" '; // add pattern to markerArray
 		} else {
 			switch ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate')) {
 				case 'validate-digits':
@@ -1084,7 +1084,7 @@ class tx_powermail_html extends tslib_pibase {
 		
 		// ###PLACEHOLDER###
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'placeholder')) { // if there is value in the pattern field
-			$this->markerArray['###PLACEHOLDER###'] = 'placeholder="' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'placeholder') . '" '; // add placeholder to markerArray
+			$this->markerArray['###PLACEHOLDER###'] = 'placeholder="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'placeholder')) . '" '; // add placeholder to markerArray
 		}
 		
 		// ###VALUE###
