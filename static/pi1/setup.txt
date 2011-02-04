@@ -320,18 +320,29 @@ plugin.tx_powermail_pi1 {
 
 # ---------------------- Additional Typoscript ---------------------
 [userFunc = user_powermailOnCurrentPage] && [userFunc = user_checkT3jquery(false)]
+
 page.includeJSFooter {
 	powermail_jQuery.external = 1
 	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.js
-}
-[end]
-
-[userFunc = user_powermailOnCurrentPage]
-page.includeJSFooter {
-	powermail_jQueryTools.external = 1	
+	powermail_jQueryTools.external = 1
 	powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
 	powermail_checkbox = EXT:powermail/res/js/powermail_frontend.js
 }
+
+[end]
+
+[userFunc = user_powermailOnCurrentPage] && [userFunc = user_checkT3jquery(true)]
+
+includeLibs.t3jquery = EXT:t3jquery/class.tx_t3jquery.php
+page.31320 = USER
+page.31320.userFunc = tx_t3jquery->addJS
+page.31320.jsfile = EXT:powermail/res/js/powermail_frontend.js
+page.31320.compress = 1
+page.31320.tofooter = 1
+
+[end]
+
+[userFunc = user_powermailOnCurrentPage]
 
 page.footerData.31320 = COA
 page.footerData.31320 {
