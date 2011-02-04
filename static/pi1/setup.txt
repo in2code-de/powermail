@@ -319,226 +319,257 @@ plugin.tx_powermail_pi1 {
 
 
 # ---------------------- Additional Typoscript ---------------------
+
+[userFunc = user_powermailOnCurrentPage]
+
+    // if powermail is on current page build up validation js
+
+lib.powermailjs = COA
+lib.powermailjs {
+    wrap = (function($){|})(jQuery);
+    10 = COA
+    10 {
+		wrap = $.tools.validator.localize('en', {|});
+	
+        10 = TEXT
+        10 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_please_correct
+            wrap = '*': '|',
+        }
+
+        # required
+        20 = TEXT
+        20 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+            wrap = '[required]': '|',
+        }
+
+        # email
+        30 = TEXT
+        30 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_email
+            wrap = ':email': '|',
+        }
+
+        # url
+        40 = TEXT
+        40 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_url
+            wrap = ':url': '|',
+
+        }
+
+        # number
+        50 = TEXT
+        50 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_number
+            wrap = ':number': '|',
+
+        }
+
+        # digits
+        60 = TEXT
+        60 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_digits
+            wrap = ':digits': '|',
+
+        }
+
+        # username / alphanumeric
+        70 = TEXT
+        70 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_alphanum
+            wrap = ':username': '|',
+
+        }
+
+        # date
+        80 = TEXT
+        80 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_date
+            wrap = ':date': '|',
+
+        }
+
+        # datetime
+        90 = TEXT
+        90 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_datetime
+            wrap = ':datetime': '|',
+
+        }
+
+        # max
+        100 = TEXT
+        100 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_max
+            wrap = '[max]': '|',
+
+        }
+
+        # min
+        110 = TEXT
+        110 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_min
+            wrap = '[min]': '|'
+
+        }
+    }
+
+    20 = COA
+    20 {
+    	wrap = $.tools.dateinput.localize('en', {|});
+	
+        10 = TEXT
+        10 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_months
+            wrap = 'months': '|',
+        }
+
+        20 = TEXT
+        20 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortMonths
+            wrap = 'shortMonths': '|',
+        }
+
+        30 = TEXT
+        30 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_days
+            wrap = 'days': '|',
+        }
+
+        40 = TEXT
+        40 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortDays
+            wrap = 'shortDays': '|',
+        }
+    }
+
+    30 = COA
+    30 {
+        wrap = $(function(){|});
+
+        10 = COA
+        10 {
+            wrap = $(':date').dateinput({|});
+
+            10 = TEXT
+            10 {
+                data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_format
+                wrap = format: '|',
+            }
+
+            20 = TEXT
+            20 {
+                data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_firstDay
+                wrap = firstDay: |,
+            }
+
+            /*
+            30 = TEXT
+            30 {
+                value = true
+                wrap = selectors: |,
+            }
+            */
+
+            100 = TEXT
+            100.value (
+
+                selectors: true,
+                disabled: false,
+                readonly: false,
+                yearRange: [-99, 99],
+                change: function(event, date){
+                    this.getInput().next('input').val(new Date(this.getValue('yyyy,m,d')).getTime()/1000);
+                }
+            }).each(function(i){
+                initDate = $(this).next('input').val();
+                if(initDate != '') {
+                    $(this).data('dateinput').setValue(new Date(parseInt(initDate)*1000));
+                }
+            )
+        }
+        40 = TEXT
+        40.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
+        40.wrap = $.tools.validator.fn('[type=time]', '|', function(input, value) { if(value != '' && input.find('.required')) { return /\d\d:\d\d/.test(value); } else { return true; }});
+        /*
+        50 = TEXT
+        50.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+        50.wrap = $.tools.validator.fn('input:not(:checked).required', '|', function(input, value) { return (input.parent().parent().find('input:checkbox:checked').length > 0)});
+        */
+        60 = TEXT
+        60.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+        60.wrap = $.tools.validator.fn('input:checkbox', '|', function(input, value) { if(input.parent().parent().find('input:checkbox.required_one').length > 0 && input.parent().parent().find('input:checkbox:checked').length > 0 && input.find('[class*=required_one]').length > 0) { return false; } else {return true;}});
+
+        60 = TEXT
+        60.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+        60.wrap = $.tools.validator.fn('input[type=select].required', function(input, value) {	return value.length != 0 ? true : {  en: '|' }; });
+
+        70 = COA
+        70 {
+            wrap = $('.tx_powermail_pi1_form').validator({|});
+            10 = TEXT
+            10.value (
+
+                inputEvent: 'blur',
+                grouped: true,
+                singleError: false,
+                position: 'top right',
+                offset: [-5, -20],
+                message: '<div><em/></div>'
+
+            )
+        }
+
+        80 = COA
+        80.wrap = $(":range").rangeinput(|);
+    }
+}
+
+[end]
+
 [userFunc = user_powermailOnCurrentPage] && [userFunc = user_checkT3jquery(false)]
+
+    // if powermail is on current page and t3jquery is NOT loaded include jquery and jquery tools from cdn
 
 page.includeJSFooter {
 	powermail_jQuery.external = 1
 	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.js
 	powermail_jQueryTools.external = 1
 	powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
-	powermail_checkbox = EXT:powermail/res/js/powermail_frontend.js
+	powermail_frontend = EXT:powermail/res/js/powermail_frontend.js
 }
+
+    // if powermail is on current page and t3jquery is NOT loaded include validation js into page footer
+
+page.footerData.31320 < lib.powermailjs
+page.footerData.31320.wrap (
+ <script type="text/javascript">
+ /* <![CDATA[*/
+ <!--
+ (function($){|})(jQuery);
+ // -->
+ /*]]>*/
+ </script>
+)
 
 [end]
 
 [userFunc = user_powermailOnCurrentPage] && [userFunc = user_checkT3jquery(true)]
 
+    // if powermail is on current page and t3jquery is loaded include jquery and validation js using t3jquery
+
 includeLibs.t3jquery = EXT:t3jquery/class.tx_t3jquery.php
-page.31320 = USER
-page.31320.userFunc = tx_t3jquery->addJS
-page.31320.jsfile = EXT:powermail/res/js/powermail_frontend.js
-page.31320.compress = 1
-page.31320.tofooter = 1
+page.31320 = COA
+page.31320 {
+    10 = USER
+    10 {
+        userFunc = tx_t3jquery->addJS
+        jsfile = EXT:powermail/res/js/powermail_frontend.js
+        jsdata.cObject < lib.powermailjs
+        compress = 1
+        tofooter = 1
+    }
 
-[end]
-
-[userFunc = user_powermailOnCurrentPage]
-
-page.footerData.31320 = COA
-page.footerData.31320 {
-	wrap = <script type="text/javascript">(function($){$.tools.validator.localize('en', {|});})(jQuery);</script>
-	
-	5 = TEXT
-	5 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_please_correct
-		wrap = '*': '|',
-	}
-
-	# required
-	10 = TEXT
-	10 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-		wrap = '[required]': '|',
-	}
-	
-	# email
-	20 = TEXT
-	20 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_email
-		wrap = ':email': '|',
-	}
-	
-	# url
-	30 = TEXT
-	30 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_url
-		wrap = ':url': '|',
-		
-	}
-	
-	# number
-	40 = TEXT
-	40 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_number
-		wrap = ':number': '|',
-		
-	}
-	
-	# digits
-	50 = TEXT
-	50 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_digits
-		wrap = ':digits': '|',
-		
-	}
-	
-	# username / alphanum
-	60 = TEXT
-	60 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_alphanum
-		wrap = ':username': '|',
-		
-	}
-	 
-	# date
-	70 = TEXT
-	70 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_date
-		wrap = ':date': '|',
-		
-	}
-
-	# datetime
-	80 = TEXT
-	80 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_datetime
-		wrap = ':datetime': '|',
-		
-	}
-	
-	# max
-	90 = TEXT
-	90 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_max
-		wrap = '[max]': '|',
-		
-	}
-	
-	# min
-	100 = TEXT
-	100 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_min
-		wrap = '[min]': '|'
-		
-	}
-}
-
-page.footerData.31330 = COA
-page.footerData.31330 {
-	wrap = <script type="text/javascript">(function($){$.tools.dateinput.localize('en', {|});})(jQuery);</script>
-	
-	10 = TEXT
-	10 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_months
-		wrap = 'months': '|',
-	}
-
-	20 = TEXT
-	20 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortMonths
-		wrap = 'shortMonths': '|',
-	}
-
-	30 = TEXT
-	30 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_days
-		wrap = 'days': '|',
-	}
-
-	40 = TEXT
-	40 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortDays
-		wrap = 'shortDays': '|',
-	}
-}
-
-page.footerData.31340 = COA
-page.footerData.31340 {
-	wrap = <script type="text/javascript">(function($){$(function(){|});})(jQuery);</script>
-	
-	10 = COA
-	10.wrap = $(':date').dateinput({|});
-
-	10.10 = TEXT
-	10.10 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_format
-		wrap = format: '|',
-	}
-
-	10.20 = TEXT
-	10.20 {
-		data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_firstDay
-		wrap = firstDay: |,
-	}
-	
-	/*
-	10.30 = TEXT
-	10.30 {
-		value = true
-		wrap = selectors: |,
-	}
-	*/
-
-	10.100 = TEXT
-	10.100.value (
-
-			selectors: true,
-			disabled: false,
-			readonly: false,
-			yearRange: [-99, 99],
-			change: function(event, date){
-				this.getInput().next('input').val(new Date(this.getValue('yyyy,m,d')).getTime()/1000);
-			}
-		}).each(function(i){
-			initDate = $(this).next('input').val();
-			if(initDate != '') {
-				$(this).data('dateinput').setValue(new Date(parseInt(initDate)*1000));
-			}
-			
-	)
-	
-	100 = TEXT
-	100.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
-	100.wrap = $.tools.validator.fn('[type=time]', '|', function(input, value) { if(value != '' && input.find('.required')) { return /\d\d:\d\d/.test(value); } else { return true; }});
-	/*
-	110 = TEXT
-	110.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-	110.wrap = $.tools.validator.fn('input:not(:checked).required', '|', function(input, value) { return (input.parent().parent().find('input:checkbox:checked').length > 0)}); 
-	*/
-	120 = TEXT
-	120.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-	120.wrap = $.tools.validator.fn('input:checkbox', '|', function(input, value) { if(input.parent().parent().find('input:checkbox.required_one').length > 0 && input.parent().parent().find('input:checkbox:checked').length > 0 && input.find('[class*=required_one]').length > 0) { return false; } else {return true;}}); 
-
-	130 = TEXT
-	130.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-	130.wrap = $.tools.validator.fn('input[type=select].required', function(input, value) {	return value.length != 0 ? true : {  en: '|' }; });
-
-	200 = COA
-	200.wrap = $('.tx_powermail_pi1_form').validator({|});
-	
-	200.10 = TEXT
-	200.10.value (
-	
-			inputEvent: 'blur',
-			grouped: true,
-			singleError: false,
-			position: 'top right', 
-			offset: [-5, -20],
-			message: '<div><em/></div>'
-			
-	)
-	
-	300 = COA
-	300.wrap = $(":range").rangeinput(|);
-}
 [end]
