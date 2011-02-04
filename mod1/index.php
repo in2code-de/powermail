@@ -40,7 +40,7 @@ $BE_USER->modAccess($MCONF, 1);
  */
 class tx_powermail_module1 extends t3lib_SCbase {
 
-	function init()	{
+	public function init()	{
 		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
 		parent::init();
 	}
@@ -52,7 +52,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 	 *
 	 * @return	void
 	 */
-	function main()	{
+	public function main()	{
 		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
 
 		$this->LANG = $LANG;
@@ -98,77 +98,81 @@ class tx_powermail_module1 extends t3lib_SCbase {
 				$this->pageRenderer->enableExtJsDebug();
 
 				// Include Ext JS inline code
-				$this->pageRenderer->addJsInlineCode('Powermail_Overview',"
+				$this->pageRenderer->addJsInlineCode(
+					'Powermail_Overview',
+					
+					'Ext.namespace("Powermail");
 
-	Ext.namespace('Powermail');
-
-	// Parameter definition
-	Powermail.statics = {
-		'pagingSize': " . $this->perpage . ",
-		'pid': " . $this->id .",
-		'sort': 'crdate',
-		'dir': 'DESC',
-		'filterIcon': '" . t3lib_iconWorks::getSpriteIcon('actions-system-tree-search-open') . "',
-		'renderTo': 'tx_powermail-grid',
-		'ajaxController': '" . $this->doc->backPath . "ajax.php?ajaxID=tx_powermail::controller',
-		'excelIcon': '" . t3lib_iconWorks::getSpriteIcon('mimetypes-excel') . "',
-		'csvIcon': '" . t3lib_iconWorks::getSpriteIcon('mimetypes-text-csv') . "',
-		'htmlIcon': '" . t3lib_iconWorks::getSpriteIcon('mimetypes-text-html') . "',
-		'pdfIcon': '" . t3lib_iconWorks::getSpriteIcon('mimetypes-pdf') . "',
-		'shortcutLink': '" . addslashes($this->doc->makeShortcutIcon('id', implode(',', array_keys($this->MOD_MENU)), $this->MCONF['name'])) . "',
-		'deleteIcon': '" . t3lib_iconWorks::getSpriteIcon('actions-edit-delete') . "',
-		'startDateTime': 0,
-	 	'endDateTime': 0
-	};
-
-	// Localisation:
-	Powermail.lang = {
-		'title': 'Powermail',
-		'path': 'Pfad',
-		'loadMessage': 'Bitte warten...<br \/>Datens\u00e4tze werden geladen!',
-		'deleteButton_text': 'L\u00f6schen',
-		'deleteButton_tooltip': 'Ausgew\u00e4hlte Datens\u00e4tze l\u00f6schen',
-		'error_NoSelectedRows_title': 'Keine Zeile ausgew\u00e4hlt',
-		'error_NoSelectedRows_msg': 'Sie m\u00fcssen eine Zeile ausw\u00e4hlen!',
-		'yes': 'Ja',
-		'no': 'Nein',
-		'crdate': 'Erstellt',
-		'title_delete': 'L\u00f6schen?',
-		'text_delete': 'Ausgew\u00e4hlte Datens\u00e4tze wirklich l\u00f6schen?',
-		'pagingMessage': 'Anzeigen der Datens\u00e4tze {0} - {1} von {2}',
-		'pagingEmpty': 'Keine Datens\u00e4tze anzuzeigen',
-		'records': 'Datens\u00e4tze',
-		'recordsPerPage': 'Datens\u00e4tze pro Seite',
-		'createShortcut': 'Create a shortcut to this page',
-		'exportAs': 'Export als:',
-		'exportPdfText': 'Export in PDF format',
-		'exportHtmlText': 'Export in HTML format',
-		'exportCsvText': 'Export in CSV format',
-		'exportExcelText': 'Export in Excel format',
-		'filterBegin': 'Beginn:',
-		'filterEnd': 'Ende:',
-		'piVars': 'piVars',
-		'date': 'Datum',
-		'sender': 'Absender',
-		'receiver': 'Empf\u00e4nger',
-		'senderIP': 'Absender-IP'
-	};
-				");
+					// Parameter definition
+					Powermail.statics = {
+						"pagingSize": ' . $this->perpage . ',
+						"pid": ' . $this->id .',
+						"sort": "crdate",
+						"dir": "DESC",
+						"filterIcon": "' . $this->enableQuotes(t3lib_iconWorks::getSpriteIcon('actions-system-tree-search-open')) . '",
+						"renderTo": "tx_powermail-grid",
+						"ajaxController": "' . $this->doc->backPath . 'ajax.php?ajaxID=tx_powermail::controller",
+						"excelIcon": "' . $this->enableQuotes(t3lib_iconWorks::getSpriteIcon('mimetypes-excel')) . '",
+						"csvIcon": "' . $this->enableQuotes(t3lib_iconWorks::getSpriteIcon('mimetypes-text-csv')) . '",
+						"htmlIcon": "' . $this->enableQuotes(t3lib_iconWorks::getSpriteIcon('mimetypes-text-html')) . '",
+						"pdfIcon": "' . $this->enableQuotes(t3lib_iconWorks::getSpriteIcon('mimetypes-pdf')) . '",
+						"shortcutLink": "' . addslashes($this->doc->makeShortcutIcon('id', implode(',', array_keys($this->MOD_MENU)), $this->MCONF['name'])) . '",
+						"deleteIcon": "' . $this->enableQuotes(t3lib_iconWorks::getSpriteIcon('actions-edit-delete')) . '",
+						"startDateTime": 0,
+						"endDateTime": 0,
+						"phpexcel_library_loaded": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '1' : '0') . '
+					};
+				
+					// Localisation:
+					Powermail.lang = {
+						"title": "Powermail",
+						"path": "Pfad",
+						"loadMessage": "Bitte warten...<br \/>Datens\u00e4tze werden geladen!",
+						"deleteButton_text": "L\u00f6schen",
+						"deleteButton_tooltip": "Ausgew\u00e4hlte Datens\u00e4tze l\u00f6schen",
+						"error_NoSelectedRows_title": "Keine Zeile ausgew\u00e4hlt",
+						"error_NoSelectedRows_msg": "Sie m\u00fcssen eine Zeile ausw\u00e4hlen!",
+						"yes": "Ja",
+						"no": "Nein",
+						"crdate": "Erstellt",
+						"title_delete": "L\u00f6schen?",
+						"text_delete": "Ausgew\u00e4hlte Datens\u00e4tze wirklich l\u00f6schen?",
+						"pagingMessage": "Anzeigen der Datens\u00e4tze {0} - {1} von {2}",
+						"pagingEmpty": "Keine Datens\u00e4tze anzuzeigen",
+						"records": "Datens\u00e4tze",
+						"recordsPerPage": "Datens\u00e4tze pro Seite",
+						"createShortcut": "Create a shortcut to this page",
+						"exportAs": "Export als:",
+						"exportPdfText": "Export in PDF format",
+						"exportHtmlText": "Export in HTML format",
+						"exportCsvText": "Export in CSV format",
+						"exportExcelText": "Export in Excel format",
+						"filterBegin": "Beginn:",
+						"filterEnd": "Ende:",
+						"piVars": "piVars",
+						"date": "Datum",
+						"sender": "Absender",
+						"receiver": "Empf\u00e4nger",
+						"senderIP": "Absender-IP",
+						"noExcel": "You need to add the extension bla to use this feature!"
+					};
+				');
 
 				$this->content .= $this->doc->startPage($LANG->getLL('title'));
 				$this->content .= '
-		<div id="typo3-docheader">
-			<div id="typo3-docheader-row1"></div>
-			<div id="typo3-docheader-row2">
-				<div class="docheader-row2-left"><div class="docheader-funcmenu"></div></div>
-				<div class="docheader-row2-right">' . $LANG->sL('LLL:EXT:lang/locallang_core.xml:labels.path') . ': <strong>' . t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50) . '</strong></div>
-			</div>
-		</div>
-		<div id="typo3-inner-docbody">
-			<h4 class="uppercase">Powermail</h4>
-			<div id="tx_powermail-grid"></div>
-			<div id="label-grid"></div>
-		</div>';
+					<div id="typo3-docheader">
+						<div id="typo3-docheader-row1"></div>
+						<div id="typo3-docheader-row2">
+							<div class="docheader-row2-left"><div class="docheader-funcmenu"></div></div>
+							<div class="docheader-row2-right">' . $LANG->sL('LLL:EXT:lang/locallang_core.xml:labels.path') . ': <strong>' . t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50) . '</strong></div>
+						</div>
+					</div>
+					<div id="typo3-inner-docbody">
+						<h4 class="uppercase">Powermail</h4>
+						<div id="tx_powermail-grid"></div>
+						<div id="label-grid"></div>
+					</div>
+				';
 
 				$this->doc->form = '';
 				$this->content .= $this->doc->endPage();
@@ -200,7 +204,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 	 *
 	 * @return	void
 	 */
-	function menuConfig()	{
+	public function menuConfig()	{
 		global $LANG;
 
 		$this->MOD_MENU = array (
@@ -214,11 +218,21 @@ class tx_powermail_module1 extends t3lib_SCbase {
 	}
 
 	/**
+	 * Enable double quotes in a string for javascript
+	 *
+	 * @param	string		A given string with quotes
+	 * @return	string		String with enabled quotes
+	 */
+	private function enableQuotes($string) {
+		return str_replace('"', '\"', $string);
+	}
+
+	/**
 	 * Final output for backend module
 	 *
 	 * @return	void
 	 */
-	function printContent()	{
+	public function printContent()	{
 		echo $this->content;
 	}
 }

@@ -7,9 +7,15 @@ Ext.onReady( function() {
 	new Powermail.grid.init();
 });
 
-
 Powermail.topMenu = {
 	init: function() {
+		var icon_xls = '<a href="?export=xls&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.excelIcon + '</a>';
+		var icon_csv = '<a href="?export=csv&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.csvIcon + '</a>';
+		var icon_html = '<a href="?export=html&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.htmlIcon + '</a>';
+		var icon_pdf = '<a href="?export=pdf&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.pdfIcon + '</a>';
+		if (!Powermail.statics.phpexcel_library_loaded) {
+			icon_xls = '<a href="#" onclick="msg(\'' + Powermail.lang.noExcel + '\'); return false;" target="_blank" style="filter:alpha(opacity=30); -moz-opacity: 0.30; opacity: 0.30;">' + Powermail.statics.excelIcon + '</a>';
+		}
 		var powermailtopmenu = new Ext.Toolbar({
 			id: 'topmenu',
 		    width: 'auto',
@@ -20,25 +26,35 @@ Powermail.topMenu = {
 				{
 		            xtype: 'linkbutton',
 		            text: Powermail.lang.exportExcelText,
-		            html: '<a href="?export=xls&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.excelIcon + '</a>'
+		            html: icon_xls
 		        },
-		        {xtype: 'tbspacer', width: 5},
+		        {
+					xtype: 'tbspacer', 
+					width: 5
+				},
 		        {
 		            xtype: 'linkbutton',
 		            text: Powermail.lang.exportCsvText,
-		            html: '<a href="?export=csv&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.csvIcon + '</a>'
+		            html: icon_csv
 		        },
-		        {xtype: 'tbspacer', width: 5},
+		        {
+		            xtype: 'linkbutton',
+					xtype: 'tbspacer', 
+					width: 5
+				},
 		        {
 		            xtype: 'linkbutton',
 		            text: Powermail.lang.exportHtmlText,
-		            html: '<a href="?export=html&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.htmlIcon + '</a>'
+		            html: icon_html
 		        },
-		        {xtype: 'tbspacer', width: 5},
+		        {
+					xtype: 'tbspacer', 
+					width: 5
+				},
 		        {
 		            xtype: 'linkbutton',
 		            text: Powermail.lang.exportPdfText,
-		            html: '<a href="?export=pdf&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.pdfIcon + '</a>'
+		            html: icon_pdf
 		        },
 		        '->',
 				{
@@ -54,7 +70,6 @@ Powermail.topMenu = {
 		new Powermail.topMenu.init();
 	}
 };
-
 Powermail.utility = {
 	updatePageTree: function() {
 		if (top && top.content && top.content.nav_frame && top.content.nav_frame.Tree) {
@@ -421,3 +436,7 @@ Powermail.grid = {
 		//gridDs.load();
 	}
 };
+
+function msg(string) {
+	Ext.Msg.alert('Error:', string);
+}
