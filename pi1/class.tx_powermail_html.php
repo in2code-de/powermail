@@ -955,11 +955,9 @@ class tx_powermail_html extends tslib_pibase {
 		// ###CLASS###
 		$this->required = '';
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1 || $this->type == 'captcha') {
-			$this->required = 'required '; // add class="required" if javascript mandatory should be activated and in captcha fields
 			$this->markerArray['###REQUIRED###'] = 'required="required" '; // add html5 required attribute
 		}
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') != '' && $this->type == 'text') {
-			$this->required .= $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') . ' '; // add another key in class if javascript mandatory should be activated
 			// Set input type to be HTML5 conform
 			switch ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate')){
 				case 'validate-email':
@@ -981,7 +979,6 @@ class tx_powermail_html extends tslib_pibase {
 		}
 		// class="required powermail_title powermail_text powermail_uid12"
 		$this->markerArray['###CLASS###'] = 'class="'; // open tag
-		$this->markerArray['###CLASS###'] .= $this->required; // if required class for JS
 		$this->markerArray['###CLASS###'] .= 'powermail_' . $this->formtitle; // add formtitle
 		$this->markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add type of field
 		$this->markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add uid of field
