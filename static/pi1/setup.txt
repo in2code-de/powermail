@@ -566,10 +566,37 @@ page.31320 {
     10 = USER
     10 {
         userFunc = tx_t3jquery->addJS
+        tofooter = 1
+        forceOnTop = 1
+    }
+    20 = USER
+    20 {
+        userFunc = tx_t3jquery->addJS
+	    jsurl = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+        tofooter = 1
+    }
+    30 = USER
+    30 {
+        userFunc = tx_t3jquery->addJS
         jsfile = EXT:powermail/res/js/powermail_frontend.js
+        compress = 1
+        tofooter = 1
+    }
+    40 = USER
+    40 {
+        userFunc = tx_t3jquery->addJS
         jsdata.cObject < lib.powermailjs
         compress = 1
         tofooter = 1
     }
+}
+
+[end]
+
+[userFunc = user_powermailOnCurrentPage] && [userFunc = user_checkT3jqueryCDNMode(false)]
+
+    // if powermail is on current page and t3jquery is loaded and NOT in CDN Mode delete jquery tools
+
+page.31320.20 >
 
 [end]
