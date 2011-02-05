@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
+*  (c) 2011 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -68,7 +68,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 
 		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id)) {
 
-			if(!t3lib_div::_GP('export')) {
+			if (!t3lib_div::_GP('export')) {
 
 				$this->perpage = 25;
 				// Get hits per page if set by tsconfig
@@ -125,39 +125,40 @@ class tx_powermail_module1 extends t3lib_SCbase {
 				
 					// Localisation:
 					Powermail.lang = {
-						"title": "Powermail",
-						"path": "Pfad",
-						"loadMessage": "Bitte warten...<br \/>Datens\u00e4tze werden geladen!",
-						"deleteButton_text": "L\u00f6schen",
-						"deleteButton_tooltip": "Ausgew\u00e4hlte Datens\u00e4tze l\u00f6schen",
-						"error_NoSelectedRows_title": "Keine Zeile ausgew\u00e4hlt",
-						"error_NoSelectedRows_msg": "Sie m\u00fcssen eine Zeile ausw\u00e4hlen!",
-						"yes": "Ja",
-						"no": "Nein",
-						"crdate": "Erstellt",
-						"title_delete": "L\u00f6schen?",
-						"text_delete": "Ausgew\u00e4hlte Datens\u00e4tze wirklich l\u00f6schen?",
-						"pagingMessage": "Anzeigen der Datens\u00e4tze {0} - {1} von {2}",
-						"pagingEmpty": "Keine Datens\u00e4tze anzuzeigen",
-						"records": "Datens\u00e4tze",
-						"recordsPerPage": "Datens\u00e4tze pro Seite",
-						"createShortcut": "Create a shortcut to this page",
-						"exportAs": "Export als:",
-						"exportPdfText": "Export in PDF format",
-						"exportHtmlText": "Export in HTML format",
-						"exportCsvText": "Export in CSV format",
-						"exportExcelText": "Export in Excel format",
-						"filterBegin": "Beginn:",
-						"filterEnd": "Ende:",
-						"piVars": "piVars",
-						"date": "Datum",
-						"sender": "Absender",
-						"receiver": "Empf\u00e4nger",
-						"senderIP": "Absender-IP",
-						"noExcel": "You need to add the extension bla to use this feature!"
+						"title": "' . $LANG->getLL('title') . '",
+						"path": "' . $LANG->getLL('path') . '",
+						"loadMessage": "' . $LANG->getLL('wait') . '<br \/>' . $LANG->getLL('loading') . '",
+						"deleteButton_text": "' . $LANG->getLL('delete') . '",
+						"deleteButton_tooltip": "' . $LANG->getLL('deletechosen') . '",
+						"error_NoSelectedRows_title": "' . $LANG->getLL('choseline') . '",
+						"error_NoSelectedRows_msg": "' . $LANG->getLL('choseline2') . '",
+						"yes": "' . $LANG->getLL('yes') . '",
+						"no": "' . $LANG->getLL('no') . '",
+						"crdate": "' . $LANG->getLL('created') . '",
+						"title_delete": "' . $LANG->getLL('delete') . '?",
+						"text_delete": "' . $LANG->getLL('delsure') . '",
+						"pagingMessage": "' . $LANG->getLL('showrows') . '",
+						"pagingEmpty": "' . $LANG->getLL('nowresults') . '",
+						"records": "' . $LANG->getLL('rows') . '",
+						"recordsPerPage": "' . $LANG->getLL('perpage') . '",
+						"createShortcut": "' . $LANG->getLL('shortcut') . '",
+						"exportAs": "' . $LANG->getLL('exportformat') . '",
+						"exportPdfText": "' . $LANG->getLL('exportpdf') . '",
+						"exportHtmlText": "' . $LANG->getLL('exportpdf') . '",
+						"exportCsvText": "' . $LANG->getLL('exportpdf') . '",
+						"exportExcelText": "' . $LANG->getLL('exportpdf') . '",
+						"filterBegin": "' . $LANG->getLL('start') . '",
+						"filterEnd": "' . $LANG->getLL('end') . '",
+						"piVars": "' . $LANG->getLL('pivars') . '",
+						"date": "' . $LANG->getLL('date') . '",
+						"sender": "' . $LANG->getLL('sender') . '",
+						"receiver": "' . $LANG->getLL('receiver') . '",
+						"senderIP": "' . $LANG->getLL('ip') . '",
+						"noExcel": "' . $LANG->getLL('phpexcel_library') . '"
 					};
 				');
 
+				//$this->content .= $LANG->getLL('delete');
 				$this->content .= $this->doc->startPage($LANG->getLL('title'));
 				$this->content .= '
 					<div id="typo3-docheader">
@@ -244,10 +245,10 @@ if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powerma
 // Make instance:
 $SOBE = t3lib_div::makeInstance('tx_powermail_module1');
 $SOBE->init();
-
 // Include files?
-foreach($SOBE->include_once as $INC_FILE) include_once($INC_FILE);
-
+foreach($SOBE->include_once as $INC_FILE) {
+	include_once($INC_FILE);
+}
 $SOBE->main();
 $SOBE->printContent();
 ?>
