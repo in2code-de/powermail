@@ -222,8 +222,8 @@ class tx_powermail_html extends tslib_pibase {
 
 
 			for ($i=0; $i < count($optionlines); $i++) { // One tag for every option
-				$markerArray['###LABEL###'] = $options[$i][0];
-				$markerArray['###VALUE###'] = (isset($options[$i][1]) ? $options[$i][1] : $options[$i][0]);
+				$markerArray['###LABEL###'] = htmlspecialchars($options[$i][0]);
+				$markerArray['###VALUE###'] = (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0]));
 
 				// ###SELECTED###
 				if (!is_array($this->piVarsFromSession['uid' . $this->uid])) { // no multiple
@@ -258,7 +258,9 @@ class tx_powermail_html extends tslib_pibase {
 			}
 		}
 		$subpartArray['###CONTENT###'] = $content_item; // subpart 3
-		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'multiple')) $this->markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . '][]" '; // overwrite name to markerArray like tx_powermail_pi1[55][]
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'multiple')) {
+			$this->markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . '][]" '; // overwrite name to markerArray like tx_powermail_pi1[55][]
+		}
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 		$content = $this->cObj->substituteMarkerArrayCached($this->tmpl['html_select']['all'], $this->markerArray, $subpartArray); // substitute Marker in Template
@@ -285,7 +287,7 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###LABEL###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
 				$markerArray['###LABEL_NAME###'] = 'uid' . $this->uid . '_' . $i; // add labelname
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
-				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? $options[$i][1] : $options[$i][0]) . '" ';
+				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
 				$markerArray['###CLASS###'] = 'class="'; // start class tag
 
 				// Add required class if needed
@@ -304,7 +306,9 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . htmlspecialchars($this->class_f) : ''); // add manual class
 				$markerArray['###CLASS###'] .= '" '; // close tag
 				$markerArray['###HIDDENVALUE###'] = 'value="' . $this->piVarsFromSession['uid' . $this->uid][$i] . '"'; // add value for hidden field to markerArray
-				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'mandatory') == 1) $markerArray['###MANDATORY_SYMBOL###'] = $this->cObj->wrap($this->conf['mandatory.']['symbol'], $this->conf['mandatory.']['wrap'],'|'); // add mandatory symbol if current field is a mandatory field
+				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'mandatory') == 1) {
+					$markerArray['###MANDATORY_SYMBOL###'] = $this->cObj->wrap($this->conf['mandatory.']['symbol'], $this->conf['mandatory.']['wrap'],'|'); // add mandatory symbol if current field is a mandatory field
+				}
 				$this->turnedtabindex[$this->uid . '_' . $i] !== '' ? $markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid . '_' . $i] + 1) . '" ' : $markerArray['###TABINDEX###'] = ''; // tabindex for every checkbox
 				isset($this->newaccesskey[$this->uid][$i]) ? $markerArray['###ACCESSKEY###'] = 'accesskey="' . $this->newaccesskey[$this->uid][$i] . '" ' : $markerArray['###ACCESSKEY###'] = ''; // accesskey for every checkbox
 
