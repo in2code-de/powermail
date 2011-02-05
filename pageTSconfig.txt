@@ -1,0 +1,9 @@
+# ***************************************************************************************
+# Page TSconfig for "powermail"
+#
+# Prfills tx_powermail_fields.formtype with "text"
+# ***************************************************************************************
+
+TCAdefaults.tx_powermail_fields {
+	formtype = text
+}

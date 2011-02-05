@@ -1,5 +1,8 @@
 <?php
-if (!defined ('TYPO3_MODE')) die ('Access denied.');
+if (!defined ('TYPO3_MODE')) {
+	die ('Access denied.');
+}
+
 if (TYPO3_MODE == 'BE') {
 	include_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_fieldsetchoose.php');
 }
@@ -11,9 +14,9 @@ include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermailOnCurrentPa
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermail_misc.php'); // Some powermail userFunc (Conditions if any further step)
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_checkT3jquery.php'); // Conditions for Check if t3jquery is loaded or not
 
-t3lib_extMgm::addUserTSConfig('options.saveDocNew.tx_powermail_fieldsets=1');
-t3lib_extMgm::addUserTSConfig('options.saveDocNew.tx_powermail_fields=1');
-t3lib_extMgm::addPItoST43($_EXTKEY,'pi1/class.tx_powermail_pi1.php','_pi1','CType',0);
+t3lib_extMgm::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/pageTSconfig.txt">');
+
+t3lib_extMgm::addPItoST43($_EXTKEY, 'pi1/class.tx_powermail_pi1.php', '_pi1', 'CType', 0);
 
 $TYPO3_CONF_VARS['EXTCONF']['cms']['db_layout']['addTables']['tx_powermail_fieldsets'][0] = array(
 	'fList' => 'uid,title',

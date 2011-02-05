@@ -345,7 +345,7 @@ $TCA['tx_powermail_fields'] = array (
 			'config' => array (
 				'type' => 'select',
 				'items' => array (
-					//array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_fields.type.I.0', '0',),
+					array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_fields.type.I.0', '0',),
 					array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.fieldtitle.div1', '--div--'),
 					array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.fieldtitle.text', 'text'),
 					array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.fieldtitle.textarea', 'textarea'),
