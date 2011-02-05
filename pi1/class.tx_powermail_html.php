@@ -588,7 +588,7 @@ class tx_powermail_html extends tslib_pibase {
 
 			$this->markerArray['###FILE###'] = $this->piVarsFromSession['uid' . $this->uid];
 			$this->markerArray['###DELETEFILE_URL###'] = $this->pi_linkTP_keepPIvars_url(array('clearSession' => $this->uid));
-			$this->markerArray['###DELETEFILE###'] .= t3lib_extMgm::siteRelPath('powermail') . 'img/icon_del.gif';
+			$this->markerArray['###DELETEFILE###'] .= t3lib_extMgm::siteRelPath('powermail') . 'res/img/icon_del.gif';
 
 		}
 
