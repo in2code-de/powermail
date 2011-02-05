@@ -13,6 +13,7 @@ $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermailOnCurrentPage.php'); // Conditions for JS including
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermail_misc.php'); // Some powermail userFunc (Conditions if any further step)
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_checkT3jquery.php'); // Conditions for Check if t3jquery is loaded or not
+include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_checkT3jqueryCDNMode.php'); // Conditions for Check if t3jquery is in CDN Mode
 
 t3lib_extMgm::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/pageTSconfig.txt">');
 
