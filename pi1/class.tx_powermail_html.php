@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
+*  (c) 2011 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -32,11 +32,10 @@ require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_countr
 
 class tx_powermail_html extends tslib_pibase {
 
-	var $prefixId      = 'tx_powermail_pi1';		// Same as class name
-	var $scriptRelPath = 'pi1/class.tx_powermail_html.php';	// Path to this script relative to the extension dir.
-	var $extKey        = 'powermail';	// The extension key.
-	var $pi_checkCHash = true;
-
+	public $prefixId      = 'tx_powermail_pi1';		// Same as class name
+	public $scriptRelPath = 'pi1/class.tx_powermail_html.php';	// Path to this script relative to the extension dir.
+	public $extKey        = 'powermail';	// The extension key.
+	public $pi_checkCHash = true;
 
 	/**
 	 * Function main() is checks which field has to be rendered and returns needed field
@@ -49,7 +48,7 @@ class tx_powermail_html extends tslib_pibase {
 	 * @param	string	$counter
 	 * @return	string	$content
 	 */
-	function main($conf, $sessionfields, $cObj, $row, $tabindex, $counter = 0) {
+	public function main($conf, $sessionfields, $cObj, $row, $tabindex, $counter = 0) {
 		// Config
 		$this->conf = $conf;
 		$this->sessionfields = $sessionfields;
@@ -161,13 +160,12 @@ class tx_powermail_html extends tslib_pibase {
 		if (isset($this->content)) return $this->content;
 	}
 
-
 	/**
 	 * Function html_text() returns HTML tag for textfields
 	 *
 	 * @return	string	$content
 	 */
-	function html_text() {
+	private function html_text() {
 		$this->tmpl['html_text'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_TEXT###'); // work on subpart
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
@@ -177,13 +175,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_textarea() returns HTML tag for textareas
 	 *
 	 * @return	string	$content
 	 */
-	function html_textarea() {
+	private function html_textarea() {
 		$this->tmpl['html_textarea'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_TEXTAREA###'); // work on subpart
 
 		$this->markerArray['###VALUE###'] = substr(trim($this->markerArray['###VALUE###']), 7, -1); // remove the first 7 letters (value=") and the last letter (")
@@ -198,13 +195,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_select() returns HTML tag for selectorbox
 	 *
 	 * @return	string	$content
 	 */
-	function html_select() {
+	private function html_select() {
 		$this->tmpl['html_select']['all'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_SELECT###'); // work on subpart 1
 		$this->tmpl['html_select']['item'] = tslib_cObj::getSubpart($this->tmpl['html_select']['all'], '###ITEM###'); // work on subpart 2
 
@@ -271,13 +267,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_check() returns HTML tag for checkboxes
 	 *
 	 * @return	string	$content
 	 */
-	function html_check() {
+	private function html_check() {
 		$this->tmpl['html_check']['all'] = $this->cObj->getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_CHECK' . ($this->conf['field.']['checkboxJS']==1 ? 'JS' : '') . '###'); // work on subpart 1 (###POWERMAIL_FIELDWRAP_HTML_CHECK### OR ###POWERMAIL_FIELDWRAP_HTML_CHECKJS###)
 		$this->tmpl['html_check']['item'] = $this->cObj->getSubpart($this->tmpl['html_check']['all'], '###ITEM###'); // work on subpart 2
 
@@ -357,13 +352,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_radio() returns HTML tag for radio buttons
 	 *
 	 * @return	string	$content
 	 */
-	function html_radio() {
+	private function html_radio() {
 		$this->tmpl['html_radio']['all'] = $this->cObj->getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_RADIO###'); // work on subpart 1
 		$this->tmpl['html_radio']['item'] = $this->cObj->getSubpart($this->tmpl['html_radio']['all'], '###ITEM###'); // work on subpart 2
 
@@ -428,13 +422,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_submit() returns HTML tag for submit button
 	 *
 	 * @return	string	$content
 	 */
-	function html_submit() {
+	private function html_submit() {
 		$this->tmpl['html_submit'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_SUBMIT###'); // work on subpart
 
 		// add class name to markerArray
@@ -452,13 +445,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_reset() returns HTML tag for reset button
 	 *
 	 * @return	string	$content
 	 */
-	function html_reset() {
+	private function html_reset() {
 
 		$this->tmpl['html_reset'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_RESET###'); // work on subpart
 
@@ -481,13 +473,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_label() returns HTML tag for some text
 	 *
 	 * @return	string	$content
 	 */
-	function html_label() {
+	private function html_label() {
         $this->tmpl['html_label'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_LABEL###'); // work on subpart
 
         // ###CONTENT###
@@ -522,13 +513,12 @@ class tx_powermail_html extends tslib_pibase {
         return $content; // return HTML
     }
 
-
 	/**
 	 * Function html_html() returns pure HTML
 	 *
 	 * @return	string	$content
 	 */
-	function html_html() {
+	private function html_html() {
 		$this->tmpl['html_html'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_HTML###'); // work on subpart
 
 		/*
@@ -545,13 +535,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_content() returns page content
 	 *
 	 * @return	string	$content
 	 */
-	function html_content() {
+	private function html_content() {
 		$this->tmpl['html_content'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_CONTENT###'); // work on subpart
 
 		$uid = str_replace('tt_content_', '', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')); // get uid from flexform
@@ -570,13 +559,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_password() returns password field like
 	 *
 	 * @return	string	$content
 	 */
-	function html_password() {
+	private function html_password() {
 		$this->tmpl['html_password'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_PASSWORD###'); // work on subpart
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
@@ -586,13 +574,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_file() returns file field
 	 *
 	 * @return	string	$content
 	 */
-	function html_file() {
+	private function html_file() {
 		if (!$this->piVarsFromSession['uid' . $this->uid]) { // There is no uploaded file in the session
 			$this->tmpl['html_file'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_FILE###'); // work on subpart
 
@@ -613,13 +600,12 @@ class tx_powermail_html extends tslib_pibase {
 		if (!empty($content)) return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_hidden() returns hidden field
 	 *
 	 * @return	string	$content
 	 */
-	function html_hidden() {
+	private function html_hidden() {
 		$this->tmpl['html_hidden'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_HIDDEN###'); // work on subpart
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
@@ -629,13 +615,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_datetime() returns text field for date and time with calender help
 	 *
 	 * @return	string	$content
 	 */
-	function html_datetime() {
+	private function html_datetime() {
 		$this->tmpl['html_datetime'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATETIME###'); // work on subpart
 		
 		$this->markerArray['###LABEL###'] = $this->title; // add label
@@ -664,13 +649,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_date() returns text field for date with calender help
 	 *
 	 * @return	string	$content
 	 */
-	function html_date() {
+	private function html_date() {
 		$this->tmpl['html_date'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATE###'); // work on subpart
 
 		$this->markerArray['###LABEL###'] = $this->title; // add label
@@ -717,13 +701,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_button() returns button field
 	 *
 	 * @return	string	$content
 	 */
-	function html_button() {
+	private function html_button() {
 		$this->tmpl['html_button'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_BUTTON###'); // work on subpart
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
@@ -733,13 +716,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_countryselect() returns select field with countries from static_info_tables
 	 *
 	 * @return    string		$content: HTML content of current field
 	 */
-	function html_countryselect() {
+	private function html_countryselect() {
 
 		if (t3lib_extMgm::isLoaded('static_info_tables', 0)) { // only if static_info_tables is loaded
 			// config
@@ -828,13 +810,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_captcha() returns captcha request
 	 *
 	 * @return	string	$content
 	 */
-	function html_captcha() {
+	private function html_captcha() {
 		if (t3lib_extMgm::isLoaded('captcha',0) || t3lib_extMgm::isLoaded('sr_freecap',0) || t3lib_extMgm::isLoaded('jm_recaptcha',0) || t3lib_extMgm::isLoaded('wt_calculating_captcha',0)) { // only if a captcha extension is loaded
 			$this->tmpl['html_captcha'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_CAPTCHA###'); // work on subpart
 
@@ -891,13 +872,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content;
 	}
 
-
 	/**
 	 * Function html_graphicsubmit() returns graphic as submitbutton
 	 *
 	 * @return	string	$content
 	 */
-	function html_submitgraphic() {
+	private function html_submitgraphic() {
 		$this->tmpl['html_submitgraphic'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_SUBMITGRAPHIC###'); // work on subpart
 
 		$this->markerArray['###SRC###'] = 'src="' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'src') . '" '; // source path for image
@@ -910,13 +890,12 @@ class tx_powermail_html extends tslib_pibase {
 		return $content; // return HTML
 	}
 
-
 	/**
 	 * Function html_typoscript() returns result of a typoscript
 	 *
 	 * @return	string	$content
 	 */
-	function html_typoscript() {
+	private function html_typoscript() {
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'typoscriptobject') != '') { // only if object field was set
 			// config
 			$str = array(); $array = array(); // init
@@ -951,14 +930,12 @@ class tx_powermail_html extends tslib_pibase {
 
 
 
-
-
 	/**
 	* Function setGlobalMarkers() to fill global markers with values
 	*
 	* @return    void
 	*/
-	function setGlobalMarkers() {
+	private function setGlobalMarkers() {
 
 		// set global markers
 		$this->markerArray = array(); // init
@@ -1184,24 +1161,22 @@ class tx_powermail_html extends tslib_pibase {
 		if (!isset($this->markerArray['###ONFOCUS###'])) $this->markerArray['###ONFOCUS###'] = '';
 	}
 
-
 	/**
 	* Function GetSessionValue() to get any field value which is already in the session
 	*
 	* @return    void
 	*/
-	function GetSessionValue() {
+	private function GetSessionValue() {
 		$this->sessions = t3lib_div::makeInstance('tx_powermail_sessions');
 		$this->piVarsFromSession = $this->sessions->getSession($this->conf, $this->cObj, 0);
 	}
-
 
 	/**
 	* Function html_hook1() to add a hook to manipulate some content
 	*
 	* @return	void
 	*/
-	function html_hook1() {
+	private function html_hook1() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook1'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook1'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
@@ -1210,13 +1185,12 @@ class tx_powermail_html extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	* Function html_hook2() to add a hook at the end of this file to manipulate content
 	*
 	* @return	void
 	*/
-	function html_hook2() {
+	private function html_hook2() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
@@ -1225,13 +1199,12 @@ class tx_powermail_html extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	* Function html_hookwithinfields() to add a hook in every field generation to manipulate markerArray
 	*
 	* @return	void
 	*/
-	function html_hookwithinfields() {
+	private function html_hookwithinfields() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
@@ -1240,14 +1213,13 @@ class tx_powermail_html extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	* Function html_hookwithinfieldsinner($markerArray) to add a hook in every field generation to manipulate markerArray in the inner loop (checkboxes, radiobuttons, etc..)
 	*
 	* @param	$markerArray: markerArray
 	* @return	void
 	*/
-	function html_hookwithinfieldsinner(&$markerArray) {
+	private function html_hookwithinfieldsinner(&$markerArray) {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHookInner'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHookInner'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
@@ -1255,18 +1227,6 @@ class tx_powermail_html extends tslib_pibase {
 			}
 		}
 	}
-
-
-	/**
-	* Function dontAllow() removes not allowed signs from html tags (obsolete function)
-	*
-	* @return    $string
-	*/
-	function dontAllow($string) {
-		return $string;
-		#return str_replace(array('"'), '', $string); // return value without don't allowed signs
-	}
-
 
 	/**
 	* Function isPrefilled returns whether a option is prefilled or not
@@ -1277,7 +1237,7 @@ class tx_powermail_html extends tslib_pibase {
 	*
 	* @return	boolean
 	*/
-	function isPrefilled($index, $selected, $value) {
+	private function isPrefilled($index, $selected, $value) {
 		if ($this->cObj->stdWrap($this->conf['prefill.']['uid' . $this->uid . '_' . $index], $this->conf['prefill.']['uid' . $this->uid . '_' . $index . '.'])) {
 			return true; // by field
 		} elseif (is_int($selected[0]) && in_array($index, (array) $selected)) {
@@ -1288,13 +1248,9 @@ class tx_powermail_html extends tslib_pibase {
 
 		return false; // default
 	}
-
 }
-
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_html.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_html.php']);
 }
-
 ?>
