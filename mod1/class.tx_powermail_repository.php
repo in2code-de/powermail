@@ -183,6 +183,38 @@ class tx_powermail_repository {
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		return $labels;
 	}
+
+    /**
+     * getFieldTypes method			Returns field types of powermail on selected page as array
+     *
+     * @return	array
+     */
+    function getFieldTypes() {
+        $formtypes = array();
+        $i = 0;
+
+        $select = 'uid,formtype';
+        $from = 'tx_powermail_fields';
+        $where = 'pid = ' . intval($this->pid);
+        $orderBy = '';
+        $groupBy = '';
+        $limit = '';
+
+        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        if ($res) {
+            while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+                $formtypes['labels'][] = array(
+                    'uid' => $row['uid'],
+                    'formtype' => $row['formtype']
+                );
+                $i ++;
+            }
+            $formtypes['results'] = $i;
+            $formtypes['success'] = true;
+        }
+        $GLOBALS['TYPO3_DB']->sql_free_result($res);
+        return $formtypes;
+    }
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/mod1/class.tx_powermail_repository.php']) {

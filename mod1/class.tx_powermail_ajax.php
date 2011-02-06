@@ -50,6 +50,10 @@ class tx_powermail_Ajax {
 				// Generate labels of Powermail fields
 				$this->ajaxGetLabels($params,&$ajaxObj);
 				break;
+            case 'getFieldTypes':
+                // Generate field types of Powermail fields
+                $this->ajaxGetFieldTypes($params,&$ajaxObj);
+                break;
 			case 'getItemDetails':
 				// Generate details of Powermail
 				break;
@@ -117,6 +121,13 @@ class tx_powermail_Ajax {
 		$ajaxObj->setContentFormat('jsonbody');
 	}
 	
+    protected function ajaxGetFieldTypes($params, &$ajaxObj) {
+        $this->fieldTypes = t3lib_div::makeInstance('tx_powermail_repository');
+        $this->fieldTypes->pid = intval(t3lib_div::_GP('pid'));
+        $ajaxObj->setContent($this->fieldTypes->getFieldTypes());
+        $ajaxObj->setContentFormat('jsonbody');
+    }
+
 	protected function ajaxDeleteItem($params, &$ajaxObj) {
 		$uids = t3lib_div::_GP('uids');
 		$this->action = t3lib_div::makeInstance('tx_powermail_action');

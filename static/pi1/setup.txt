@@ -455,7 +455,8 @@ lib.powermailjs {
 
             10 = TEXT
             10 {
-                data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_format
+                //data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_format
+                value = {$plugin.powermail.format.date}
                 wrap = format: '|',
             }
 
