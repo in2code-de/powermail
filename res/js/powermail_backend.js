@@ -433,6 +433,30 @@ Powermail.grid = {
 		
 		labelstore.load({params: {pid: Powermail.statics.pid}});
 
+         /****************************************************
+          * get field types for piVars
+          ****************************************************/
+
+         var formtypestore = new Ext.data.JsonStore({
+              url: Powermail.statics.ajaxController + '&cmd=getFormTypes',
+              root: 'formTypes',
+              fields: [
+                 'uid',
+                 'formtype'
+              ],
+              listeners: {
+                  load: {
+                     fn: function(store, records, options){
+                         for(i=0; i < store.getCount(); i++) {
+                             Powermail.statics['uid' + store.getAt(i).data.uid] = store.getAt(i).data.formtype;
+                         }
+                         gridDs.load();
+                     }
+                 }
+              }
+          });
+
+         formtypestore.load({params: {pid: Powermail.statics.pid}});
 		//gridDs.load();
 	}
 };

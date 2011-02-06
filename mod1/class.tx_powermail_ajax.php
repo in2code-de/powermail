@@ -43,22 +43,22 @@ class tx_powermail_Ajax {
 		$cmd = t3lib_div::_GP('cmd');
 		switch ($cmd) {
 			case 'getItems':
-				// Generate list of Powermails on the selected page
+				// get list of Powermails on the selected page
 				$this->ajaxGetItems($params, &$ajaxObj);
 				break;
 			case 'getLabels':
-				// Generate labels of Powermail fields
+				// get labels of Powermail fields
 				$this->ajaxGetLabels($params,&$ajaxObj);
 				break;
-            case 'getFieldTypes':
-                // Generate field types of Powermail fields
-                $this->ajaxGetFieldTypes($params,&$ajaxObj);
+            case 'getFormTypes':
+                // get form types of Powermail fields
+                $this->ajaxGetFormTypes($params,&$ajaxObj);
                 break;
 			case 'getItemDetails':
-				// Generate details of Powermail
+				// get details of Powermail
 				break;
 			case 'doDelete':
-				// Delete Item(s)
+				// delete Item(s)
 				$this->ajaxDeleteItem($params, &$ajaxObj);
 				break;
 			case 'getExcel':
@@ -121,10 +121,10 @@ class tx_powermail_Ajax {
 		$ajaxObj->setContentFormat('jsonbody');
 	}
 	
-    protected function ajaxGetFieldTypes($params, &$ajaxObj) {
-        $this->fieldTypes = t3lib_div::makeInstance('tx_powermail_repository');
-        $this->fieldTypes->pid = intval(t3lib_div::_GP('pid'));
-        $ajaxObj->setContent($this->fieldTypes->getFieldTypes());
+    protected function ajaxGetFormTypes($params, &$ajaxObj) {
+        $this->formTypes = t3lib_div::makeInstance('tx_powermail_repository');
+        $this->formTypes->pid = intval(t3lib_div::_GP('pid'));
+        $ajaxObj->setContent($this->formTypes->getFormTypes());
         $ajaxObj->setContentFormat('jsonbody');
     }
 

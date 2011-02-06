@@ -185,11 +185,11 @@ class tx_powermail_repository {
 	}
 
     /**
-     * getFieldTypes method			Returns field types of powermail on selected page as array
+     * getFormTypes method			Returns form types of powermail on selected page as array
      *
      * @return	array
      */
-    function getFieldTypes() {
+    function getFormTypes() {
         $formtypes = array();
         $i = 0;
 
