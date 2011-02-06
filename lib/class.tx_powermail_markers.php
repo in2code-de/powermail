@@ -77,9 +77,10 @@ class tx_powermail_markers extends tslib_pibase {
 								$this->markerArray['###LABEL_' . strtolower($k) . '###'] = $this->GetLabelfromBackend($k,$v); // fill ###label_uid55###
 
 								// ###POWERMAIL_ALL###
-								if (!in_array(strtoupper($k),$this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###',$this->notInMarkerAll)) {
+								if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
 									$markerArray['###POWERMAIL_LABEL###'] = $this->GetLabelfromBackend($k,$v);
 									$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($v));
+									$markerArray['###POWERMAIL_UID###'] = $k;
 									$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v);
 									if ($this->conf['markerALL.']['hideLabel'] == 1 && $markerArray['###POWERMAIL_VALUE###'] || $this->conf['markerALL.']['hideLabel'] == 0) { // if hideLabel on in backend: add only if value exists
 										$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray); // add line
@@ -99,7 +100,7 @@ class tx_powermail_markers extends tslib_pibase {
 										$this->markerArray['###LABEL_' . strtolower($k) . '###'] = $this->GetLabelfromBackend($k,$v); // fill ###label_uid55###
 
 										// ###POWERMAIL_ALL###
-										if (!in_array(strtoupper($k),$this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###',$this->notInMarkerAll)) {
+										if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
 											$markerArray['###POWERMAIL_LABEL###'] = $this->GetLabelfromBackend($k,$v);
 											$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($vv));
 											$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v, $kv, $vv); // add hook

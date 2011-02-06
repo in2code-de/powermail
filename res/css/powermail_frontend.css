@@ -160,6 +160,9 @@ div.powermail_check_inner label {
 td.powermail_all_td {
 	padding: 3px 10px 3px 0;
 }
+td.powermail_all_label {
+	font-weight: bold;
+}
 
 	/* THX */
 td.powermail_all p.bodytext {
