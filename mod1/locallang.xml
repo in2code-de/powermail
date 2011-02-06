@@ -130,6 +130,10 @@
 			<label index="receiver">Empf\u00e4nger</label>
 			<label index="ip">IP-Adresse</label>
 			<label index="phpexcel_library">Bitte installieren Sie die Erweiterung phpexcel_library!</label>
+			<label index="noMails1">No mails found</label>
+			<label index="noMails2">Please choose a page with mails inside</label>
+			<label index="noMails1">Keine Mails auf aktueller Seite</label>
+			<label index="noMails2">Bitte w\u00e4hlen Sie eine Seite mit powermail Datens\u00e4tzen</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="title">Powermail</label>

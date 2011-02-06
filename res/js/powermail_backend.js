@@ -3,9 +3,30 @@ Ext.ns('Powermail');
 Ext.onReady( function() {
 	Ext.QuickTips.init();
 	Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
-	new Powermail.topMenu.init();
-	new Powermail.grid.init();
+	if (Powermail.statics.mailsOnCurrentPage) {
+		new Powermail.topMenu.init();
+		new Powermail.grid.init();
+	} else {
+		new Powermail.noRows.init();
+	}
 });
+
+Powermail.noRows = {
+	init: function() {
+		Ext.MessageBox.show({
+			title: Powermail.lang.noMails1,
+			msg: Powermail.lang.noMails2,
+			buttons: Ext.MessageBox.OK,
+			minWidth: 300,
+			minHeight: 200,
+			icon: Ext.MessageBox.INFO
+		});
+	},
+	reload: function() {
+		Ext.getCmp('noRows').destroy();		
+		new Powermail.noRows.init();
+	}
+};
 
 Powermail.topMenu = {
 	init: function() {

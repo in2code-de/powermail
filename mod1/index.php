@@ -32,11 +32,11 @@ require_once(PATH_t3lib . 'class.t3lib_scbase.php');
 $BE_USER->modAccess($MCONF, 1);
 
 /**
- * Module 'Powermail' for the 'powermail' extension.
+ * Module 'mod1' for the 'powermail' extension.
  *
  * @author	powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
  * @package	TYPO3
- * @subpackage	tx_powermail
+ * @subpackage	tx_powermail_module1
  */
 class tx_powermail_module1 extends t3lib_SCbase {
 
@@ -44,7 +44,6 @@ class tx_powermail_module1 extends t3lib_SCbase {
 		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
 		parent::init();
 	}
-
 
 	/**
 	 * Main method of be module
@@ -120,7 +119,8 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"deleteIcon": "' . $this->enableQuotes(t3lib_iconWorks::getSpriteIcon('actions-edit-delete')) . '",
 						"startDateTime": 0,
 						"endDateTime": 0,
-						"phpexcel_library_loaded": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '1' : '0') . '
+						"phpexcel_library_loaded": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '1' : '0') . ',
+						"mailsOnCurrentPage": ' . $this->mailsOnCurrentPage() . '
 					};
 				
 					// Localisation:
@@ -154,7 +154,9 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"sender": "' . $LANG->getLL('sender') . '",
 						"receiver": "' . $LANG->getLL('receiver') . '",
 						"senderIP": "' . $LANG->getLL('ip') . '",
-						"noExcel": "' . $LANG->getLL('phpexcel_library') . '"
+						"noExcel": "' . $LANG->getLL('phpexcel_library') . '",
+						"noMails1": "' . $LANG->getLL('noMails1') . '",
+						"noMails2": "' . $LANG->getLL('noMails2') . '"
 					};
 				');
 
@@ -198,6 +200,28 @@ class tx_powermail_module1 extends t3lib_SCbase {
 			$this->content .= $this->doc->spacer(5);
 			$this->content .= $this->doc->spacer(10);
 		}
+	}
+
+	/**
+	 * Check if there are mails on the current page
+	 *
+	 * @return	boolean
+	 */
+	private function mailsOnCurrentPage() {
+		$select = 'uid';
+		$from = 'tx_powermail_mails';
+		$where = 'pid = ' . intval($this->id) . ' AND hidden = 0 AND deleted = 0';
+		$groupBy = '';
+		$orderBy = '';
+		$limit = 1;
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ($select, $from, $where, $groupBy, $orderBy, $limit);
+		if ($res) {
+			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res); // Result in array
+			if ($row['uid'] > 0) {
+				return 1;
+			}
+		}
+		return 0;
 	}
 
 	/**
