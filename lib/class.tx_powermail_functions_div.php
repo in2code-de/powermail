@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Alex Kellner, Mischa Hei�mann <alexander.kellner@einpraegsam.net, typo3.YYYY@heissmann.org>
+*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,16 +25,13 @@
 /**
  * Class with collection of different functions (like string and array functions)
  *
- * @author	Mischa Hei�mann, Alexander Kellner <typo3.2008@heissmann.org, alexander.kellner@einpraegsam.net>
+ * @author	Alex Kellner <alexander.kellner@in2code.de>
  * @package	TYPO3
- * @subpackage	tx_powermail
+ * @subpackage	tx_powermail_functions_div
  */
-
-
 class tx_powermail_functions_div {
 
-	var $extKey = 'powermail';
-
+	public $extKey = 'powermail';
 
 	/**
 	 * Function sec() is a security function against all bad guys :)
@@ -42,7 +39,7 @@ class tx_powermail_functions_div {
 	 * @param	array		$array: Unfiltered piVars Array
 	 * @return	array		$array: Filtered piVars Array
 	 */
-	function sec($array) {
+	public function sec($array) {
 		if (isset($array) && is_array($array)) { // if array
 			//$this->removeXSS = t3lib_div::makeInstance('tx_powermail_removexss'); // New object: removeXSS function
 			//t3lib_div::addSlashesOnArray($array); // addslashes for every piVar (He'l"lo => He\'l\"lo)
@@ -79,7 +76,6 @@ class tx_powermail_functions_div {
 		}
 	}
 
-
 	/**
 	 * Add debug view for any array
 	 *
@@ -87,13 +83,9 @@ class tx_powermail_functions_div {
 	 * @param	string		$msg: Message
 	 * @return	void
 	 */
-	function debug($array, $msg = 'Debug output') {
-		#echo '<b>'.$msg.':</b>'; // title output
-		#t3lib_div::print_array($array); // debug output of sessiondata
-		#echo '<hr /><br />'; // separator after debug output
-		t3lib_div::debug($array, $this->extKey.': '.$msg); // debug output
+	public function debug($array, $msg = 'Debug output') {
+		t3lib_div::debug($array, $this->extKey . ': ' . $msg); // debug output
 	}
-
 
 	/**
 	 * Function clearName() to disable not allowed letters (only A-Z and 0-9 allowed) (e.g. Perfect Extension -> perfectextension)
@@ -103,14 +95,13 @@ class tx_powermail_functions_div {
 	 * @param	int			$cut: Should the string cutted after X signs?
 	 * @return	string		$string: Manipulated string
 	 */
-	function clearName($string, $strtolower = 0, $cut = 0) {
-		$string = preg_replace('/[^a-zA-Z0-9]/' ,'', $string); // replace not allowed letters with nothing
+	public function clearName($string, $strtolower = 0, $cut = 0) {
+		$string = preg_replace('/[^a-zA-Z0-9]/', '', $string); // replace not allowed letters with nothing
 		if ($strtolower) $string = strtolower($string); // string to lower if active
 		if ($cut) $string = substr($string, 0, $cut); // cut after X signs if active
 
 		if (!empty($string)) return $string;
 	}
-
 
 	/**
 	 * Function clearValue() to remove all " or ' from any string
@@ -120,15 +111,18 @@ class tx_powermail_functions_div {
 	 * @param	boolean		$strip_tags: (De)activate strip_tags
 	 * @return	string		$string: Filtered string
 	 */
-	function clearValue($string, $htmlentities = 1, $strip_tags = 0) {
-		$notallowed = array('"',"'");
-		$string = str_replace($notallowed,"",$string); // replace not allowed letters with nothing
-		if($htmlentities) $string = htmlentities($string); // change code to ascii code
-		if($strip_tags) $string = strip_tags($string); // disable html/php code
+	public function clearValue($string, $htmlentities = 1, $strip_tags = 0) {
+		$notallowed = array('"', "'");
+		$string = str_replace($notallowed, "" ,$string); // replace not allowed letters with nothing
+		if ($htmlentities) {
+			$string = htmlentities($string); // change code to ascii code
+		}
+		if ($strip_tags) {
+			$string = strip_tags($string); // disable html/php code
+		}
 
-		if(isset($string)) return $string;
+		return $string;
 	}
-
 
 	/**
 	 * Function linker() generates link (email and url) from pure text string within an email or url
@@ -138,7 +132,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$additinalParams: Without function
 	 * @return	string		$link: string with links
 	 */
-	function linker($link, $additinalParams = '') {
+	public function linker($link, $additinalParams = '') {
         $link = str_replace('http://www.', 'www.', $link);
         $link = str_replace('www.', 'http://www.', $link);
         $link = preg_replace("/([\w]+:\/\/[\w-?&;#~=\.\/\@]+[\w\/])/i", "<a href=\"$1\"$additinalParams>$1</a>", $link);
@@ -147,14 +141,13 @@ class tx_powermail_functions_div {
         return $link;
     }
 
-
 	/**
 	 * Function nl2br2() changes breakes to html breakes
 	 *
 	 * @param	string		$string: Anystring
 	 * @return	string		$string: Manipulated string
 	 */
-	function nl2br2($string) {
+	public function nl2br2($string) {
 		$array = array(
 			'\r\n',
 			'\n',
@@ -168,17 +161,15 @@ class tx_powermail_functions_div {
 		return str_replace($array, '<br />', $string);
 	}
 
-
 	/**
 	 * Function nl2br2() changes breakes to real breakes
 	 *
 	 * @param	string		$string: Anystring
 	 * @return	string		$string: Manipulated string
 	 */
-	function nl2nl2($string) {
+	public function nl2nl2($string) {
 		return str_replace('\r\n', "\r\n", $string);
 	}
-
 
 	/**
 	 * Function br2nl is the opposite of nl2br
@@ -186,7 +177,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$content: Anystring
 	 * @return	string		$content: Manipulated string
 	 */
-	function br2nl($content) {
+	public function br2nl($content) {
 		$array = array(
 			'<br >',
 			'<br>',
@@ -198,7 +189,6 @@ class tx_powermail_functions_div {
 		if (!empty($content)) return $content;
 	}
 
-
 	/**
 	 * Function correctPath() checks if the link is like "fileadmin/test/ and not "/fileadmin/test"
 	 * If there is no Slash at the end of the picture folder, add a slash and if there is a slash at the beginning, remove this slash
@@ -206,7 +196,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$value: Path
 	 * @return	string		$value: Manipulated path
 	 */
-	function correctPath($value) {
+	public function correctPath($value) {
 		if (substr($value, -1, 1) != '/') {
 			$value .= '/'; // add a slash at the end if there is no slash
 		}
@@ -217,7 +207,6 @@ class tx_powermail_functions_div {
 		if ($value) return $value;
 	}
 
-
 	/**
 	 * Function marker2value() replaces ###UID3### with its value from session
 	 *
@@ -226,7 +215,7 @@ class tx_powermail_functions_div {
 	 * @param	boolean		$quoted: Should the string transformed to a quoted list
 	 * @return	string		replaced string
 	 */
-	function marker2value($string, $sessiondata, $quoted = 0) {
+	public function marker2value($string, $sessiondata, $quoted = 0) {
 		$this->sessiondata = $sessiondata; // make session array available in other functions
 		$this->activateQuotedList = $quoted; // activate intList
 
@@ -239,14 +228,13 @@ class tx_powermail_functions_div {
 		return $string;
 	}
 
-
 	/**
 	 * Function uidReplaceIt is used for the callback function to replace ###UID55## with it's value
 	 *
 	 * @param	string		$uid: field uid
 	 * @return	string		it's value from the session
 	 */
-	function uidReplaceIt($uid) {
+	public function uidReplaceIt($uid) {
 		if (strpos($uid[1], '_')  === false) { // if this is a field like ###UID55### and not like ###UID55_1###
 			if (isset($this->sessiondata['uid' . $uid[1]])) { // if there is a value in the session like uid32 = bla
 				if (!is_array($this->sessiondata['uid' . $uid[1]])) { // value is not an array
@@ -282,7 +270,6 @@ class tx_powermail_functions_div {
 		}
 	}
 
-
 	/**
 	 * Function makeQuotedList() to transfor string list to an quoted list
 	 * 	1,2 => "1","2"
@@ -291,7 +278,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$string: string like "1,2,3,4"
 	 * @return	string		it's integer values
 	 */
-	function makeQuotedList($string) {
+	public function makeQuotedList($string) {
 		$str_arr = explode(',', $string); // split on ,
 		for ($i=0; $i<count($str_arr); $i++) { // one loop for every part of the list
 			//$str_arr[$i] = intval($str_arr[$i]); // transform to integer
@@ -301,7 +288,6 @@ class tx_powermail_functions_div {
 		return $list;
 	}
 
-
 	/**
 	 * Function checkMX() checks if a domain exists
 	 *
@@ -309,7 +295,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$record: Check for a special function
 	 * @return	boolean
 	 */
-	function checkMX($email, $record = 'MX') {
+	public function checkMX($email, $record = 'MX') {
 		if (function_exists('checkdnsrr')) { // if function checkdnsrr() exist (not available on windows systems)
 			$emailparts = t3lib_div::trimExplode('@', $email, 1); // split on @
 
@@ -324,7 +310,6 @@ class tx_powermail_functions_div {
 		}
 	}
 
-
 	/**
 	 * Function charset() changes content with utf8_decode or utf8_encode or nothing
 	 *
@@ -332,7 +317,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$function: Should be empty or utf8_encode or utf8_decode
 	 * @return	string		$content
 	 */
-	function charset($content, $function = '') {
+	public function charset($content, $function = '') {
 		switch ($function) {
 			case 'utf8_encode': // utf8_encode
 				$content = utf8_encode($content); // encode
@@ -350,7 +335,6 @@ class tx_powermail_functions_div {
 		if (!empty($content)) return $content;
 	}
 
-
 	/**
 	 * Function makePlain() removes html tags and add linebreaks
 	 * Easy generate a plain email bodytext from a html bodytext
@@ -358,8 +342,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$content: HTML Mail bodytext
 	 * @return	string		$content: Plain Mail bodytext
 	 */
-	function makePlain($content) {
-
+	public function makePlain($content) {
 		// config
 		$htmltagarray = array ( // This tags will be added with linebreaks
 			'</p>',
@@ -399,14 +382,13 @@ class tx_powermail_functions_div {
 		if (!empty($content)) return $content;
 	}
 
-
 	/**
 	 * Function subpartsExists() checks if every part of the array contains min one sign
 	 *
 	 * @param	array		$array: Subpartarray
 	 * @return	boolean
 	 */
-	function subpartsExists($array) {
+	public function subpartsExists($array) {
 		if (count($array) > 0) { // if there are values
 			foreach ($array as $key => $value) { // one loop for every array part
 				if (!is_array($value)) { // first level
@@ -421,7 +403,6 @@ class tx_powermail_functions_div {
 		return true; // ok
 	}
 
-
 	/**
 	 * Function TSmanipulation() manipulates session values before output with typoscript
 	 * stdWrap for any value of the session
@@ -432,7 +413,7 @@ class tx_powermail_functions_div {
 	 * @param	array		$cObj: content object
 	 * @return	boolean
 	 */
-	function TSmanipulation($array, $mode, $conf, $cObj) {
+	public function TSmanipulation($array, $mode, $conf, $cObj) {
 		// config
 		$this->conf = $conf;
 		$this->cObj = $cObj;
@@ -455,7 +436,6 @@ class tx_powermail_functions_div {
 		return $array; // return array
 	}
 
-
 	/**
 	 * Function arraytwo2arrayone() changes array with two levels to an array with one leven
 	 * array('v1', array('v2')) => array('v1', 'v1_v2)
@@ -463,7 +443,7 @@ class tx_powermail_functions_div {
 	 * @param	array		$array: Any array with values
 	 * @return	array		$newarray
 	 */
-	function arraytwo2arrayone($array) {
+	public function arraytwo2arrayone($array) {
 		$newarray = array();
 
 		if (count($array) > 0 && is_array($array)) {
@@ -487,7 +467,6 @@ class tx_powermail_functions_div {
 		return $newarray;
 	}
 
-
 	/**
 	 * Function parseFunc() parses a string to support LINK syntax
 	 *
@@ -496,7 +475,7 @@ class tx_powermail_functions_div {
 	 * @param	boolean		$act: (De)Activates whole function
 	 * @return	array		$newarray
 	 */
-	function parseFunc($str, $cObj, $act = 1) {
+	public function parseFunc($str, $cObj, $act = 1) {
 		if (!$act) { // if function should be turned off
 			return $str; // just return given value
 		}
@@ -508,21 +487,19 @@ class tx_powermail_functions_div {
 		return $this->cObj->parseFunc($str, $parseFunc); // return string
 	}
 
-
 	/**
 	 * Function alternate() checks if a number is odd or even
 	 *
 	 * @param	integer		$int: Any number (maybe $i)
 	 * @return	boolean
 	 */
-	function alternate($int = 0) {
+	public function alternate($int = 0) {
 		if ($int % 2 != 0) { // odd or even
 			return false; // return false
 		} else {
 			return true; // return true
 		}
 	}
-
 
 	/**
 	 * Function mimecheck() returns true or false if file fits mime check
@@ -531,7 +508,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$origfilename: Any filename before transformation (original.zip)
 	 * @return	boolean
 	 */
-	function mimecheck($filename, $origfilename) {
+	public function mimecheck($filename, $origfilename) {
 		$ok = 0; // disallow on begin
 		$ext = strtolower(array_pop(explode('.', $origfilename))); // get the extension of the upload
 
@@ -660,7 +637,6 @@ class tx_powermail_functions_div {
 		}
 	}
 
-
 	/**
 	 * Returns message with optical flair
 	 *
@@ -671,7 +647,7 @@ class tx_powermail_functions_div {
 	 * @param	string		$id: id to add to the message (maybe to do some javascript effects)
 	 * @return	string		$string: Manipulated string
 	 */
-	function msg($str, $pos = 0, $die = 0, $prefix = 1, $id = '') {
+	public function msg($str, $pos = 0, $die = 0, $prefix = 1, $id = '') {
 		// config
 		if ($prefix) $string = $this->extKey . ($pos != 1 && $pos != 2 ? ' Error' : '') . ': ';  // Add prefix
 		$string .= $str; // add string
@@ -713,5 +689,4 @@ class tx_powermail_functions_div {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/class.tx_powermail_functions_div.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/class.tx_powermail_functions_div.php']);
 }
-
 ?>
