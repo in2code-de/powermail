@@ -59,43 +59,48 @@ if ($pid > 0) { // if Page id given from GET param
 	$tsconfig = array_merge((array) $tmp_defaultconfig, (array) $tmp_tsconfig['properties']['exportmail.']); // get tsconfig from powermail cli
 	
 	if (t3lib_div::validEmail($tsconfig['email_receiver'])) { // if receiver email is set
-
-		// Generate the xls file
-		$export = t3lib_div::makeInstance('tx_powermail_export');
-		$export->pid = $pid; // set page id
-		$export->startDateTime = (time() - $tsconfig['time']); // set starttime
-		$export->endDateTime = time(); // set endtime
-		$export->export = (stristr($tsconfig['format'], 'email_') ? $tsconfig['format'] : $this->tmp_defaultconfig['format']); // set
-		$export->LANG = $LANG;
-		$export->main();
-		$file = t3lib_div::getFileAbsFileName('typo3temp/' . $export->filename);
-		if (!empty($tsconfig['attachedFilename'])) {
-			$export->overwriteFilename = $tsconfig['attachedFilename']; // overwrite filename with this
-		}
 		
-		if (!empty($file)) { // if file is not empty
-			
-			// Generate the mail
-			$htmlMail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
-			$htmlMail->start(); // start htmlmail
-			$htmlMail->recipient = $tsconfig['email_receiver']; // main receiver
-			$htmlMail->recipient_copy = $tsconfig['email_receiver_cc']; // cc
-			$htmlMail->subject = $tsconfig['subject']; // mail subject
-			$htmlMail->from_email = $tsconfig['email_sender']; // sender email
-			$htmlMail->from_name = $tsconfig['sender']; // sender name
-			$htmlMail->addAttachment($file); // add attachment
-			$htmlMail->addPlain($tsconfig['body']); // add plaintext
-			$htmlMail->setHTML($htmlMail->encodeMsg($tsconfig['body'])); // html format if active via constants
-			$htmlMail->setHeaders();
-			$htmlMail->setContent();
-			if ($htmlMail->sendTheMail()) {
-				$content .= 'Mail successfully sent';
-			} else {
-				$content .= 'Powermail Error in sending mail';
+		if (t3lib_extMgm::isLoaded('phpexcel_library') || $tsconfig['format'] != 'email_xls') {
+
+			// Generate the xls file
+			$export = t3lib_div::makeInstance('tx_powermail_export');
+			$export->pid = $pid; // set page id
+			$export->startDateTime = (time() - $tsconfig['time']); // set starttime
+			$export->endDateTime = time(); // set endtime
+			$export->export = (stristr($tsconfig['format'], 'email_') ? $tsconfig['format'] : $this->tmp_defaultconfig['format']); // set
+			$export->LANG = $LANG;
+			if (!empty($tsconfig['attachedFilename'])) {
+				$export->overwriteFilename = $tsconfig['attachedFilename']; // overwrite filename with this
 			}
-	
+			$export->main(); // generate file
+			$file = t3lib_div::getFileAbsFileName('typo3temp/' . $export->filename); // read filename
+			
+			if (!empty($file)) { // if file is not empty
+				
+				// Generate the mail
+				$htmlMail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
+				$htmlMail->start(); // start htmlmail
+				$htmlMail->recipient = $tsconfig['email_receiver']; // main receiver
+				$htmlMail->recipient_copy = $tsconfig['email_receiver_cc']; // cc
+				$htmlMail->subject = $tsconfig['subject']; // mail subject
+				$htmlMail->from_email = $tsconfig['email_sender']; // sender email
+				$htmlMail->from_name = $tsconfig['sender']; // sender name
+				$htmlMail->addAttachment($file); // add attachment
+				$htmlMail->addPlain($tsconfig['body']); // add plaintext
+				$htmlMail->setHTML($htmlMail->encodeMsg($tsconfig['body'])); // html format if active via constants
+				$htmlMail->setHeaders();
+				$htmlMail->setContent();
+				if ($htmlMail->sendTheMail()) {
+					$content .= 'Mail successfully sent';
+				} else {
+					$content .= 'Powermail Error in sending mail';
+				}
+		
+			} else {
+				$content .= 'There are no mails to export in the last ' . intval($tsconfig['time']) . ' seconds in pid ' . $pid;
+			}
 		} else {
-			$content .= 'There are no mails to export in the last ' . intval($tsconfig['time']) . ' seconds in pid ' . $pid;
+			$content .= 'Please install the extension phpexcel_library or change your settings to a csv file';
 		}
 	} else {
 		$content .= 'Powermail Error: No or invalid receiver Email address (maybe you forget to set the receiver email in the tsconfig of page ' . $pid . ')';
