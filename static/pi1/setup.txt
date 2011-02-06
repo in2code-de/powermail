@@ -164,10 +164,13 @@ plugin.tx_powermail_pi1 {
 	
 		# Manipulation of values in dblog
 		dblog {
+		
+			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
 #			uid999.wrap = <b>|</b>
 			
+			# Example to manipulate checkbox field 1 with uid 998
 #			uid998_0 = TEXT
 #			uid998_0.field = uid998_0
 #			uid998_0.wrap = <b>|</b>
@@ -175,6 +178,14 @@ plugin.tx_powermail_pi1 {
 		
 		# Manipulation of values for email to receiver (main mail)
 		recipient_mail {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime = %d.%m.%Y
+			}
+			
+			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
 #			uid999.wrap = <b>|</b>
@@ -182,6 +193,14 @@ plugin.tx_powermail_pi1 {
 		
 		# Manipulation of values for email to sender (confirmation mail)
 		sender_mail {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime = %d.%m.%Y
+			}
+			
+			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
 #			uid999.wrap = <b>|</b>
@@ -189,6 +208,14 @@ plugin.tx_powermail_pi1 {
 		
 		# Manipulation of values for email to sender (confirmation mail)
 		thx {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime = %d.%m.%Y
+			}
+			
+			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
 #			uid999.wrap = <b>|</b>
@@ -196,6 +223,14 @@ plugin.tx_powermail_pi1 {
 		
 		# Manipulation of values for email to sender (confirmation mail)
 		confirmation {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime = %d.%m.%Y
+			}
+			
+			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
 #			uid999.wrap = <b>|</b>
@@ -203,6 +238,14 @@ plugin.tx_powermail_pi1 {
 		
 		# Manipulation of values for email to sender (confirmation mail)
 		mandatory {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime = %d.%m.%Y
+			}
+		
+			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
 #			uid999.wrap = <b>|</b>

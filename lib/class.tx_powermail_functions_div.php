@@ -419,22 +419,67 @@ class tx_powermail_functions_div {
 		$this->cObj = $cObj;
 
 		// let's go
-		if (is_array($this->conf['mode.'][$mode.'.']) && count($this->conf['mode.'][$mode.'.']) > 0) { // if there are configurations in typoscript
-			foreach ($this->conf['mode.'][$mode.'.'] as $key => $value) { // one loop for every ts configuration
-				if (strpos($key, '.') === false) { // if no point in the key
-					if (strpos($key, '_') === false) { // like uid43
-						$this->cObj->start(array_merge((array) $this->arraytwo2arrayone($array), (array) $this->cObj->data), 'tx_powermail_fields'); // enable .field in typoscript
-						$array[$key] = $this->cObj->cObjGetSingle($this->conf['mode.'][$mode.'.'][$key], $this->conf['mode.'][$mode.'.'][$key.'.']); // overwrite value with ts manipulation
-					} else { // like uid43_0
-						$tmpkey = t3lib_div::trimExplode('_', $key); // split key at underscore
-						$array[$tmpkey[0]][$tmpkey[1]] = $this->cObj->cObjGetSingle($this->conf['mode.'][$mode.'.'][$key], $this->conf['mode.'][$mode.'.'][$key.'.']); // overwrite value with ts manipulation
-					}
+		$arr = $this->arraytwo2arrayone($array);
+			
+		foreach ((array) $arr as $uid => $value) {
+			if (!stristr($uid, 'uid')) { // ignore FILE
+				continue;
+			}
+			
+			// 1. check uid
+			if (is_array($this->conf['mode.'][$mode . '.'][$uid . '.'])) { // if there are uid settings
+				$tmp_arr = array_merge((array) $arr, (array) $this->cObj->data); // extend cObj
+				$this->cObj->start($tmp_arr, 'tx_powermail_fields'); // enable .field in typoscript
+				if (!stristr($uid, '_')) { // first level
+					$array[$uid] = $this->cObj->cObjGetSingle($this->conf['mode.'][$mode . '.'][$uid], $this->conf['mode.'][$mode . '.'][$uid . '.']);
+				} else { // second level (for checkboxes)
+					$tmpuid = t3lib_div::trimExplode('_', $uid); // split uid at underscore
+					$array[$tmpuid[0]][$tmpuid[1]] = $this->cObj->cObjGetSingle($this->conf['mode.'][$mode . '.'][$uid], $this->conf['mode.'][$mode . '.'][$uid . '.']);
 				}
+				continue; // go to the next loop (uid has priorty to type)
+			}
+			
+			// 2. check type
+			$type = $this->getTypeFromFieldUid($uid); // get field type
+			if (is_array($this->conf['mode.'][$mode . '.'][$type . '.'])) { // if there are type settings
+				$tmp_arr = array_merge((array) $this->cObj->data, array($type => $array[$uid])); // extend cObj
+				$this->cObj->start($tmp_arr, 'tx_powermail_fields'); // enable .field in typoscript
+				$array[$uid] = $this->cObj->cObjGetSingle($this->conf['mode.'][$mode . '.'][$type], $this->conf['mode.'][$mode . '.'][$type . '.']);
 			}
 		}
 
 		return $array; // return array
 	}
+
+    /**
+	 * Read type of a field
+	 *
+	 * @param	string		Field Uid
+	 * @return	string		Label to field
+	 */
+    private function getTypeFromFieldUid($uid) {
+		if (!stristr($uid, 'uid')) { // $name not like uid55
+			return $uid;
+		}
+		
+		$uid = str_replace('uid', '', $uid); // remove uid from uid43 to get 43
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
+			'tx_powermail_fields.formtype',
+			'
+				tx_powermail_fields 
+				LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid 
+				LEFT JOIN tt_content ON tt_content.uid = tx_powermail_fieldsets.tt_content
+			',
+			$where_clause = 'tx_powermail_fields.uid = ' . intval($uid),
+			$groupBy = '',
+			$orderBy = '',
+			$limit = ''
+		);
+		if ($res) {
+			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+			return $row['formtype']; // return type
+		}
+    }
 
 	/**
 	 * Function arraytwo2arrayone() changes array with two levels to an array with one leven
