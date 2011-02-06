@@ -3,7 +3,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Alex Kellner <alexander.kellner@einpraegsam.net>
+*  (c) 2010 Alex Kellner <alexander.kellner@in2code.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,7 +29,7 @@ define('TYPO3_cliMode', TRUE);
 define('PATH_thisScript', $_SERVER['SCRIPT_FILENAME']);
 if (!PATH_thisScript) define('PATH_thisScript', $_ENV['_'] ? $_ENV['_'] : $_SERVER['_']);
 require(dirname(PATH_thisScript) . '/conf.php');
-require(dirname(PATH_thisScript) . '/'.$BACK_PATH.'init.php');
+require(dirname(PATH_thisScript) . '/' . $BACK_PATH.'init.php');
 require_once(PATH_t3lib . 'class.t3lib_admin.php');
 require_once(PATH_t3lib . 'class.t3lib_cli.php');
 require_once(PATH_typo3 . 'template.php');
@@ -38,7 +38,6 @@ require_once('../mod1/class.tx_powermail_export.php'); // include div functions
 require_once(t3lib_extMgm::extPath('lang', 'lang.php')); // include lang class
 $LANG = t3lib_div::makeInstance('language');
 $LANG->init('en');
-#$LANG->includeLLFile(dirname(dirname(PATH_thisScript)) . '/mod1/locallang.xml');
 $pid = intval($_GET['pid']);
 $content = $file = '';
 
@@ -53,7 +52,7 @@ if ($pid > 0) { // if Page id given from GET param
 		'email_receiver_cc' => '', // default: no cc mail
 		'email_sender' => 'noreply@einpraegsam.net', // default sender address
 		'sender' => 'powermail', // default sender name
-		'format' => 'xls', // export in format xls or csv
+		'format' => 'email_csv', // export in format email_csv or email_html or email_xls
 		'attachedFilename' => '' // overwrite filename
 	);
 	$tmp_tsconfig = t3lib_BEfunc::getModTSconfig($pid, 'tx_powermail_cli'); // get whole tsconfig from backend
@@ -63,12 +62,16 @@ if ($pid > 0) { // if Page id given from GET param
 
 		// Generate the xls file
 		$export = t3lib_div::makeInstance('tx_powermail_export');
-		$export->default_start = strftime('%Y-%m-%d %H:%M', (time() - $tsconfig['time'])); // current time minus delta
-		$export->default_end = strftime('%Y-%m-%d %H:%M', time()); // current time (like 2010-01-01 00:00)
+		$export->pid = $pid; // set page id
+		$export->startDateTime = (time() - $tsconfig['time']); // set starttime
+		$export->endDateTime = time(); // set endtime
+		$export->export = (stristr($tsconfig['format'], 'email_') ? $tsconfig['format'] : $this->tmp_defaultconfig['format']); // set
+		$export->LANG = $LANG;
+		$export->main();
+		$file = t3lib_div::getFileAbsFileName('typo3temp/' . $export->filename);
 		if (!empty($tsconfig['attachedFilename'])) {
-			$export->attachedFilename = $tsconfig['attachedFilename']; // overwrite filename with this
+			$export->overwriteFilename = $tsconfig['attachedFilename']; // overwrite filename with this
 		}
-		$file = t3lib_div::getFileAbsFileName($export->main($tsconfig['format'] != 'csv' ? 'email' : 'email_csv', $pid, $LANG));
 		
 		if (!empty($file)) { // if file is not empty
 			

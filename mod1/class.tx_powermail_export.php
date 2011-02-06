@@ -56,6 +56,13 @@ class tx_powermail_export {
 	var $pid;
 
 	/**
+	 * Export method
+	 *
+	 * @var	string
+	 */
+	var $export;
+
+	/**
 	 * Debug
 	 *
 	 * @var	boolean
@@ -209,6 +216,13 @@ class tx_powermail_export {
 	var $defaultEnd;
 
 	/**
+	 * overwriteFilename
+	 *
+	 * @var	string
+	 */
+	var $overwriteFilename;
+
+	/**
 	 * Dispatcher main method for export
 	 *
 	 * @return	string
@@ -316,6 +330,9 @@ class tx_powermail_export {
 				case 'email_html':
 					$this->generateHtmlTable();
 					$this->writeContentToTypo3tempDir();
+					break;
+				default:
+					die ('no export method given!');
 					break;
 			}
 		}		
@@ -789,7 +806,9 @@ tr.odd td{background:#eee;}
 		} else {
 			$this->outputEncoding = $this->tsConfig['properties']['config.']['export.'][$this->export . '.']['encoding'];
 		}
-		if($this->debug) t3lib_div::devLog('outputEncoding was set to ' . $this->outputEncoding, $this->extKey, 0);
+		if ($this->debug) {
+			t3lib_div::devLog('outputEncoding was set to ' . $this->outputEncoding, $this->extKey, 0);
+		}
 	}
 	
 	/**
@@ -811,6 +830,14 @@ tr.odd td{background:#eee;}
 	 * @return	void
 	 */
 	function setFilenames() {
+		
+		// overwrite filename if wanted
+		if (!empty($this->overwriteFilename)) {
+			$this->filename = $this->overwriteFilename;
+			return;
+		}
+		
+		// create filename
 		switch ($this->export) {
 			case 'xls':
 			case 'email_xls':
@@ -886,13 +913,13 @@ tr.odd td{background:#eee;}
 	 * @return	void
 	 */
 	function generateFileHeader() {
-		if(strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'),'MSIE')) {
+		if (strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'),'MSIE')) {
 			$this->header .= header('Content-Type: application/force-download; charset=' . $this->outputEncoding);
 			$this->header .= header('Content-Disposition: attachment; filename="' . $this->filename . '"');
 		} else {
 			switch ($this->export) {
 				case 'xls':
-					if($this->xlsFileFormat == 'Excel2007') {
+					if ($this->xlsFileFormat == 'Excel2007') {
 						$contenttype = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=' . $this->outputEncoding;
 					} else {
 						$contenttype = 'application/vnd.ms-excel; charset=' . $this->outputEncoding;
@@ -905,16 +932,20 @@ tr.odd td{background:#eee;}
 			$this->header .= header('Content-Disposition: inline; filename="' . $this->filename . '"');
 		}
 
-		if($this->debug) t3lib_div::devLog('Header Content-Type was set to ' . $contenttype, $this->extKey, 0);
-		if($this->debug) t3lib_div::devLog('Header filename was set to ' . $this->filename, $this->extKey, 0);
-		if($this->debug) t3lib_div::devLog('Temporary filename was set to ' . $this->tempFilename, $this->extKey, 0);
+		if ($this->debug) {
+			t3lib_div::devLog('Header Content-Type was set to ' . $contenttype, $this->extKey, 0);
+			t3lib_div::devLog('Header filename was set to ' . $this->filename, $this->extKey, 0);
+			t3lib_div::devLog('Temporary filename was set to ' . $this->tempFilename, $this->extKey, 0);
+		}
 		
-		if(file_exists($this->tempFilename)) {
+		if (file_exists($this->tempFilename)) {
 			$this->header .= header('Content-Length: ' . filesize($this->tempFilename));
-			if($this->debug) t3lib_div::devLog('Header Content-Length was set to ' . filesize($this->tempFilename), $this->extKey, 0);
+			if ($this->debug) {
+				t3lib_div::devLog('Header Content-Length was set to ' . filesize($this->tempFilename), $this->extKey, 0);
+			}
 		}
 		$this->header .= header('Expires: Fri, 01 Jan 2010 05:00:00 GMT');
-		if(strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'),'MSIE') == false) {
+		if (strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'), 'MSIE') == false) {
 			$this->header .= header('Cache-Control: no-cache');
 			$this->header .= header('Pragma: no-cache');
 		}
@@ -941,7 +972,7 @@ tr.odd td{background:#eee;}
 		$rowWithMostPiVars = 0;
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
 		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
-			if($row['piVars']) {
+			if ($row['piVars']) {
 				$piVars = t3lib_div::xml2array($row['piVars'], 'piVars');
 				$countPiVars = count($piVars);
 				if ($countPiVars > $mostPiVars && $this->piVarsFromExportLanguageUid($piVars) ) {
