@@ -14,6 +14,7 @@ include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermailOnCurrentPa
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermail_misc.php'); // Some powermail userFunc (Conditions if any further step)
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_checkT3jquery.php'); // Conditions for Check if t3jquery is loaded or not
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_checkT3jqueryCDNMode.php'); // Conditions for Check if t3jquery is in CDN Mode
+include_once(t3lib_extMgm::extPath('powermail') . 'cli/class.tx_powermail_scheduler_addFields.php'); // Scheduler addFields class
 
 t3lib_extMgm::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/pageTSconfig.txt">');
 
@@ -33,7 +34,7 @@ $TYPO3_CONF_VARS['SC_OPTIONS']['scheduler']['tasks']['tx_powermail_scheduler'] =
 	'extension' => 'powermail',
 	'title' => 'Automatic Export Mails',
 	'description' => 'Send your CSV or XLS exports via Email to a defined target',
-	'additionalFields' => 'tx_powermail_scheduler_addField'
+	'additionalFields' => 'tx_powermail_scheduler_addFields'
 );
 
 ?>
