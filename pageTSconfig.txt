@@ -10,4 +10,5 @@ TCAdefaults.tx_powermail_fields {
 tx_powermail_mod1.config.list {
     datetimeFormat = d.m.Y H:i
     dateFormat = d.m.Y
+    uploadFolder = uploads/tx_powermail/files/
 }

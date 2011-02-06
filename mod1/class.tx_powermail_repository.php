@@ -88,7 +88,7 @@ class tx_powermail_repository {
 	 *
 	 * @return	array
 	 */
-	function main() {
+	public function main() {
 
 		$this->ajaxContentArray['success'] = false;
 		
@@ -141,7 +141,7 @@ class tx_powermail_repository {
 					'sender' => $row['sender'], 
 					'recipient' => $row['recipient'], 
 					'senderIP' => $row['senderIP'],
-					'piVars' => t3lib_div::removeArrayEntryByValue(t3lib_div::xml2array($row['piVars']), '')
+					'piVars' => $this->transformPiVars($row['piVars'])
 				);
 			}
 		}
@@ -152,12 +152,37 @@ class tx_powermail_repository {
 		return $this->ajaxContentArray;
 	}
 	
+    /**
+     * transformPiVars method			Returns labels of powermail on selected page as array
+     *
+     * @return	array
+     */
+
+    protected function transformPiVars($piVars){
+        $piVarsArray = t3lib_div::removeArrayEntryByValue(t3lib_div::xml2array($piVars), '');
+
+        if(array_key_exists('FILE', $piVarsArray)) {
+            // transform file values to uid values
+            /*
+            $uid = array_search($piVarsArray['FILE'][0], $piVarsArray);
+            unset($piVarsArray[$uid]);
+            $piVarsArray[$uid] = array();
+            foreach( $piVarsArray['FILE'] as $key => $value ) {
+                $piVarsArray[$uid][$key] = $value;
+            }
+            */
+            unset($piVarsArray['FILE']);
+        }
+
+        return $piVarsArray;
+    }
+
 	/**
 	 * getLabels method			Returns labels of powermail on selected page as array
 	 *
 	 * @return	array
 	 */
-	function getLabelsAndFormtypes() {
+	public function getLabelsAndFormtypes() {
 		$labels = array();
 		$i = 0;
 		

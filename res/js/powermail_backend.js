@@ -159,9 +159,15 @@ Powermail.grid = {
                         value = makeEmailLink(value);
                         break;
                     case 'file':
+                        value = makeFileLink(value);
                         break;
+                    case 'text':
+                        var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+                        if(value.search(emailRegEx) != -1) {
+                            value = makeEmailLink(value);
+                        }
                 }
-	 			returnPiVars += '<tr class="' + ((i % 2) ? 'even' : 'odd') + '"><th>' + Powermail.statics[key].title + ':</th><td>' + value + ' (' + Powermail.statics[key].formtype + ')</td></tr>';
+	 			returnPiVars += '<tr class="' + ((i % 2) ? 'even' : 'odd') + '"><th>' + Powermail.statics[key].title + ':</th><td>' + value + '</td></tr>';
 	 			i ++;
 	 		});
 	 		return returnPiVars + '</table>';
@@ -174,7 +180,15 @@ Powermail.grid = {
 		var makeEmailLink = function(v, record){
 	 		return '<a href="mailto:' + v + '">' + v + '</a>';
 	 	}
-		
+
+        /****************************************************
+        * makeFileLink
+        ****************************************************/
+
+        var makeFileLink = function(v, record){
+          return '<a href="/' + Powermail.statics.uploadFolder + v + '" target="_blank">' + v + '</a>';
+        }
+
 		/****************************************************
 		 * grid datastore
 		 ****************************************************/

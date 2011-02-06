@@ -122,7 +122,8 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"dateFormat": "' . $this->tsconfig['properties']['config.']['list.']['dateFormat'] . '",
 						"datetimeFormat": "' . $this->tsconfig['properties']['config.']['list.']['datetimeFormat'] . '",
 						"phpexcel_library_loaded": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '1' : '0') . ',
-						"mailsOnCurrentPage": ' . $this->mailsOnCurrentPage() . '
+						"mailsOnCurrentPage": ' . $this->mailsOnCurrentPage() . ',
+						"uploadFolder": "' . $this->tsconfig['properties']['config.']['list.']['uploadFolder'] . '"
 					};
 				
 					// Localisation:
