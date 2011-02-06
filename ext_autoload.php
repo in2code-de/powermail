@@ -16,6 +16,10 @@ return array(
 
 		/* div */
 	'tx_powermail_functions_div'	=> $powermailExtPath . 'lib/class.tx_powermail_functions_div.php',
+	
+		/* scheduler */
+	'tx_powermail_scheduler' => $powermailExtPath . 'cli/class.tx_powermail_scheduler.php',
+	'tx_powermail_scheduler_addField' => $powermailExtPath . 'cli/class.tx_powermail_scheduler_addField.php'
 
 );
 ?>

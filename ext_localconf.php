@@ -7,7 +7,7 @@ if (TYPO3_MODE == 'BE') {
 	include_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_fieldsetchoose.php');
 }
 
-$TYPO3_CONF_VARS['BE']['AJAX']['tx_powermail::controller']   = 'EXT:powermail/mod1/class.tx_powermail_ajax.php:tx_powermail_Ajax->ajaxController';
+$TYPO3_CONF_VARS['BE']['AJAX']['tx_powermail::controller'] = 'EXT:powermail/mod1/class.tx_powermail_ajax.php:tx_powermail_Ajax->ajaxController';
 
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']); // Get backend config
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermailOnCurrentPage.php'); // Conditions for JS including
@@ -26,6 +26,14 @@ $TYPO3_CONF_VARS['EXTCONF']['cms']['db_layout']['addTables']['tx_powermail_field
 $TYPO3_CONF_VARS['EXTCONF']['cms']['db_layout']['addTables']['tx_powermail_fields'][0] = array(
 	'fList' => 'uid,title,name,type,fieldset',
 	'icon' => TRUE,
+);
+
+/* SCHEDULER SETTINGS */
+$TYPO3_CONF_VARS['SC_OPTIONS']['scheduler']['tasks']['tx_powermail_scheduler'] = array(
+	'extension' => 'powermail',
+	'title' => 'Automatic Export Mails',
+	'description' => 'Send your CSV or XLS exports via Email to a defined target',
+	'additionalFields' => 'tx_powermail_scheduler_addField'
 );
 
 ?>
