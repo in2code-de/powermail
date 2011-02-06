@@ -157,8 +157,8 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"receiver": "' . $LANG->getLL('receiver') . '",
 						"senderIP": "' . $LANG->getLL('ip') . '",
 						"noExcel": "' . $LANG->getLL('phpexcel_library') . '",
-						"noMails1": "' . $LANG->getLL('noMails1') . '",
-						"noMails2": "' . $LANG->getLL('noMails2') . '"
+						"noMails1": "' . $LANG->getLL('nopowermails1') . '",
+						"noMails2": "' . $LANG->getLL('nopowermails2') . '"
 					};
 				');
 

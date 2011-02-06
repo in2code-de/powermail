@@ -10,7 +10,7 @@
 			<label index="function1">Powermail list and export</label>
 			<label index="function2">Powermail charts</label>
 			<label index="nopowermails1">No powermails on current page!</label>
-			<label index="nopowermails2">Please choose a page with powermails inside from the pagetree or change the time filter.</label>
+			<label index="nopowermails2">Please choose a page with powermails inside.</label>
 			<label index="title_no">#</label>
 			<label index="title_date">Date</label>
 			<label index="title_sender">Sender</label>
@@ -73,7 +73,7 @@
 			<label index="function1">Powermail Liste und Export</label>
 			<label index="function2">Powermail Diagramme</label>
 			<label index="nopowermails1">Keine Powermails auf aktueller Seite!</label>
-			<label index="nopowermails2">Bitte wählen Sie eine Seite mit Powermails aus dem Seitenbaum aus oder verändern Sie den Zeitfilter.</label>
+			<label index="nopowermails2">Bitte wählen Sie eine Seite mit Powermails aus.</label>
 			<label index="title_no">#</label>
 			<label index="title_date">Datum</label>
 			<label index="title_sender">Absender</label>
@@ -130,16 +130,12 @@
 			<label index="receiver">Empf\u00e4nger</label>
 			<label index="ip">IP-Adresse</label>
 			<label index="phpexcel_library">Bitte installieren Sie die Erweiterung phpexcel_library!</label>
-			<label index="noMails1">No mails found</label>
-			<label index="noMails2">Please choose a page with mails inside</label>
-			<label index="noMails1">Keine Mails auf aktueller Seite</label>
-			<label index="noMails2">Bitte w\u00e4hlen Sie eine Seite mit powermail Datens\u00e4tzen</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="title">Powermail</label>
 			<label index="function1">Powermail liste og eksport</label>
 			<label index="nopowermails1">Ingen powermails i nuværende side!</label>
-			<label index="nopowermails2">Vælg venligst en side med powermails fra sidetræet eller skift filtreringen på tid.</label>
+			<label index="nopowermails2">Vælg venligst en side med powermails fra sidetræet.</label>
 			<label index="title_no">#</label>
 			<label index="title_date">Dato</label>
 			<label index="title_sender">Afsender</label>
