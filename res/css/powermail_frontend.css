@@ -48,6 +48,8 @@ fieldset.tx-powermail-pi1_fieldset input.powermail_text,
 fieldset.tx-powermail-pi1_fieldset input.powermail_date,
 fieldset.tx-powermail-pi1_fieldset textarea,
 fieldset.tx-powermail-pi1_fieldset select {
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 14px;
 	width: 400px;
 	padding: 3px;
 	border: 1px solid #ccc;
