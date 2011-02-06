@@ -119,6 +119,8 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"deleteIcon": "' . $this->enableQuotes(t3lib_iconWorks::getSpriteIcon('actions-edit-delete')) . '",
 						"startDateTime": 0,
 						"endDateTime": 0,
+						"dateFormat": "' . $this->tsconfig['properties']['config.']['list.']['dateFormat'] . '",
+						"datetimeFormat": "' . $this->tsconfig['properties']['config.']['list.']['datetimeFormat'] . '",
 						"phpexcel_library_loaded": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '1' : '0') . ',
 						"mailsOnCurrentPage": ' . $this->mailsOnCurrentPage() . '
 					};
