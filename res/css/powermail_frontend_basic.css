@@ -15,23 +15,28 @@ fieldset.tx-powermail-pi1_fieldset legend {
 	font-weight: bold;
 	color: black;
 }
-fieldset.tx-powermail-pi1_fieldset label {
+fieldset.tx-powermail-pi1_fieldset label,
+fieldset.tx-powermail-pi1_fieldset fieldset legend {
 	/* label */
 	display: block;
 	width: 200px;
 	float: left;
 	font-weight: bold;
+    color:#515151;
 }
 fieldset.tx-powermail-pi1_fieldset input {
 	margin-left:0;
 }
 fieldset.tx-powermail-pi1_fieldset input.powermail_text,
+fieldset.tx-powermail-pi1_fieldset input.powermail_date,
+fieldset.tx-powermail-pi1_fieldset input.powermail_datetime,
 fieldset.tx-powermail-pi1_fieldset textarea.powermail_textarea {
 	/* Input and textarea */
 	border:1px solid #ccc;
 	background:#f8f8f8 none;
 	-moz-box-shadow:0 0 5px #eee inset;
 	-webkit-box-shadow:0 0 5px #eee inset;
+    padding:2px;
 	width:300px;
 }
 
@@ -44,7 +49,7 @@ fieldset.tx-powermail-pi1_fieldset input:not([type="submit"]):focus {
 }
 fieldset.tx-powermail-pi1_fieldset div.tx_powermail_pi1_fieldwrap_html_radio input.powermail_radio {
 	/* Radiobuttons */
-	margin: 5px 0;
+	margin: 3px 0;
 }
 div.tx_powermail_pi1_fieldwrap_html {
 	/* DIV container arround every field */
@@ -191,7 +196,7 @@ fieldset.tx-powermail-pi1_fieldset .powermail_radio_inner input {
 
 /* the input field */
 .date {
-	width:198px;
+	width:198px !important;
 }
 
 /* calendar root element */
@@ -256,7 +261,7 @@ fieldset.tx-powermail-pi1_fieldset .powermail_radio_inner input {
 
 /* names of the days */
 #caldays {
-	height:14px;
+	height:18px;
 	border-bottom:1px solid #ddd;
 }
 
