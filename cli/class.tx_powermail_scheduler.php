@@ -22,6 +22,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+require_once(PATH_t3lib . 'class.t3lib_befunc.php');
+require_once(PATH_t3lib . 'stddb/tables.php');
+//require_once(t3lib_extMgm::extPath('cms', 'ext_tables.php'));
+require_once(PATH_tslib . 'class.tslib_pibase.php');
+
 /**
  * Plugin 'tx_powermail' for the 'powermail' extension.
  *
@@ -82,7 +87,7 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 		
 		// Generate the xls file
 		$export = t3lib_div::makeInstance('tx_powermail_export');
-		$export->pid = $pid; // set page id
+		$export->pid = $this->pid; // set page id
 		$export->startDateTime = (time() - $tsconfig['time']); // set starttime
 		$export->endDateTime = time(); // set endtime
 		$export->export = (stristr($tsconfig['format'], 'email_') ? $tsconfig['format'] : $this->tmp_defaultconfig['format']); // set
