@@ -709,7 +709,7 @@ page.31320 {
     20 = USER
     20 {
         userFunc = tx_t3jquery->addJS
-	    jsurl = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+	    jsurl = http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js
         tofooter = 1
     }
     30 = USER
