@@ -658,7 +658,7 @@ tr.odd td{background:#eee;}
 				
 				foreach ($this->rowConfig as $key => $value) {
 					$newValue = $this->charConvert($value);
-					if(trim($newValue != '')) {
+					if (trim($newValue != '')) {
 						$value = $newValue;
 					}					
 	
@@ -781,7 +781,7 @@ tr.odd td{background:#eee;}
 				}
 			}
 			
-			if($this->xlsFileFormat != 'Excel2007') {
+			if ($this->xlsFileFormat != 'Excel2007') {
 				// Save Excel 5 file
 				$objWriter = new PHPExcel_Writer_Excel5($excelObject);
 				$objWriter->save($this->tempFilename);
