@@ -40,7 +40,7 @@ if (t3lib_extMgm::isLoaded('phpexcel_library')) {
  * @subpackage tx_powermail
  */
 class tx_powermail_export {
-	
+
 	/**
 	 * Extension key
 	 *
@@ -52,7 +52,7 @@ class tx_powermail_export {
 	 * Pid
 	 *
 	 * @var	string
-	 */	
+	 */
 	var $pid;
 
 	/**
@@ -70,18 +70,25 @@ class tx_powermail_export {
 	var $debug = false;
 
 	/**
-	 * timeFormat for displaying date
+	 * dateFormat for date values
 	 *
 	 * @var	string
 	 */
 	var $dateFormat = 'Y-m-d';
 
 	/**
-	 * timeFormat for displaying time
+	 * timeFormat for time values
 	 *
 	 * @var	string
 	 */
 	var $timeFormat = 'H:i:s';
+
+    /**
+     * dateTimeFormat for datetime values
+     *
+     * @var	string
+     */
+    var $datetimeFormat = 'Y-m-d H:i';
 
 	/**
 	 * Time filter prefix for export file
@@ -89,49 +96,57 @@ class tx_powermail_export {
 	 * @var	string
 	 */
 	var $timeFilePrefix = '';
-	
+
+
+    /**
+     * uploadFolder for generating links in export files
+     *
+     * @var	string
+     */
+    var $uploadFolder = 'uploads/tx_powermail/files/';
+
 	/**
 	 * filename of export file
 	 *
 	 * @var	string
 	 */
 	var $filename = 'powermail';
-	
+
 	/**
 	 * Prefix for export files
 	 *
 	 * @var	string
 	 */
 	var $filePrefix = 'powermail';
-	
+
 	/**
 	 * Suffix for EXCEL export file
 	 *
 	 * @var	string
 	 */
 	var $xlsFileSuffix = '.xlsx';
-	
+
 	/**
 	 * Fileformat for EXCEL export file
 	 *
 	 * @var	string
 	 */
 	var $xlsFileFormat = 'Excel2007';
-	
+
 	/**
 	 * Autosize columns of EXCEL export file
 	 *
 	 * @var	boolean
 	 */
 	var $xlsAutoSize = true;
-	
+
 	/**
 	 * Suffix for CSV export file
 	 *
 	 * @var	string
 	 */
 	var $csvFileSuffix = '.csv';
-	
+
 	/**
 	 * Default encoding for CSV export file
 	 *
@@ -144,7 +159,7 @@ class tx_powermail_export {
 	 *
 	 * @var	string
 	 */
-	var $seperator = ';'; 
+	var $seperator = ';';
 
 	/**
 	 * Suffix for HTML export file
@@ -152,7 +167,7 @@ class tx_powermail_export {
 	 * @var	string
 	 */
 	var $htmlFileSuffix = '.html';
-	
+
 	/**
 	 * Activate CSV file compressing to .gz
 	 *
@@ -227,24 +242,24 @@ class tx_powermail_export {
 	 *
 	 * @return	string
 	 */
-	function main() {
+	public function main() {
 		$this->debug = t3lib_extMgm::isLoaded('devlog');
-		
+
 		$this->pid = intval($this->pid);
-		
+
 		$pageArray = t3lib_BEfunc::getRecord('pages', $this->pid, 'title');
 		$this->pageTitle = $pageArray['title'];
-		
+
 		$this->phpexcel = t3lib_extMgm::isLoaded('phpexcel_library');
 		$this->header = '';
 		$this->content = '';
 		$i = 0;
 
-		
-		
-		// Set absolute path to typo3temp dir 
+
+
+		// Set absolute path to typo3temp dir
 		$this->absFilePath = PATH_site . 'typo3temp/';
-		
+
 		$this->tempFilename = t3lib_div::tempnam($this->extKey);
 
 		$this->timeFilter = '';
@@ -256,8 +271,8 @@ class tx_powermail_export {
 			$this->timeFilter .= ' AND crdate < ' . intval($this->endDateTime);
 			$this->timeFilePrefix .= strftime('_%Y-%m-%d_%H.%M', intval($this->endDateTime));
 		}
-		
-		
+
+
 		// Get values from page tsConfig
 		$this->tsConfig = t3lib_BEfunc::getModtsConfig($this->pid, 'tx_powermail_mod1');
 
@@ -271,16 +286,32 @@ class tx_powermail_export {
 			$this->exportHeaderLanguageUid = intval($this->tsConfig['properties']['config.']['export.']['allTitleLanguageUid']);
 		}
 
+        if (isset($this->tsConfig['properties']['config.']['export.']['dateFormat'])){
+            $this->dateFormat = $this->tsConfig['properties']['config.']['export.']['dateFormat'];
+        }
+
+        if (isset($this->tsConfig['properties']['config.']['export.']['timeFormat'])){
+            $this->timeFormat = $this->tsConfig['properties']['config.']['export.']['timeFormat'];
+        }
+
+        if (isset($this->tsConfig['properties']['config.']['export.']['datetimeFormat'])){
+            $this->datetimeFormat = $this->tsConfig['properties']['config.']['export.']['datetimeFormat'];
+        }
+
+        if (isset($this->tsConfig['properties']['config.']['export.']['uploadFolder'])){
+            $this->uploadFolder = $this->tsConfig['properties']['config.']['export.']['uploadFolder'];
+        }
+
 		// Not used Yet!
 		$this->excludeFromAll = array();
 		if (isset($this->tsConfig['properties']['config.']['export.']['excludeFromAll'])){
 			$this->excludeFromAll = explode(',', $this->tsConfig['properties']['config.']['export.']['excludeFromAll']);
 		}
-		
+
 		if (isset($this->tsConfig['properties']['config.']['export.']['xls.']['format'])){
 			$this->xlsFileFormat = $this->tsConfig['properties']['config.']['export.']['xls.']['format'];
 		}
-		
+
 		if ($this->xlsFileFormat != 'Excel2007') {
 			$this->xlsFileSuffix = '.xls';
 		}
@@ -296,7 +327,8 @@ class tx_powermail_export {
 		$this->setDateTimeFormat();
 		$this->setEncoding();
 		$this->setFilenames();
-		
+        $this->generateFormtypesArray();
+
 		$this->generalRecordsFilter = ' AND hidden = 0 AND deleted = 0';
 		$select = '*';
 		$from = 'tx_powermail_mails';
@@ -304,7 +336,7 @@ class tx_powermail_export {
 		$groupBy = $limit = '';
 		$orderBy = 'crdate DESC';
 		$this->res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-		
+
 		// If on current page is a result
 		if ($this->res) {
 			switch ($this->export) {
@@ -335,7 +367,7 @@ class tx_powermail_export {
 					die ('no export method given!');
 					break;
 			}
-		}		
+		}
 
 		// Delete all exported mails now
 		if (t3lib_div::_GET('delafterexport') == 1) {
@@ -348,17 +380,17 @@ class tx_powermail_export {
 			);
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($this->res);
-				
+
 		return $this->header . $this->content;
 	}
-	
+
 	/**
 	 * Generate HTML Table and stores result in $this->content
 	 *
 	 * @return	void
 	 */
-	function generateHtmlTable() {
-		
+	protected function generateHtmlTable() {
+
 		$htmlHeader = '<!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -373,14 +405,16 @@ tr.odd td{background:#eee;}
 <body>';
 		$htmlFooter = '</body></html>';
 
-		
+
 		$htmlContent = '<table>';
-		
+
 		// Generate table header
 		$tableHeaderContent = '';
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, $this->getRowWithMostPiVars());
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res);
 		$headerPiVars = t3lib_div::xml2array($row['piVars'], 'piVars');
+        // Get form type of piVars
+
 		$tableHeaderContent .= '<thead><tr>';
 		foreach ($this->rowConfig as $key => $value) {
 			$value = $this->charConvert(trim($value));
@@ -397,11 +431,11 @@ tr.odd td{background:#eee;}
 			}
 		}
 		$tableHeaderContent .= '</tr></thead>';
-		
+
 		if ($this->useTitle) {
 			$htmlContent .= $tableHeaderContent;
 		}
-		
+
 		// Generate table body
 		$htmlContent .= '<tbody>';
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
@@ -430,7 +464,19 @@ tr.odd td{background:#eee;}
 							// One loop for every piVar
 							foreach ($piVars as $key => $value) {
 								if (!is_array($value)) {
-									$htmlContent .= '<td>' . $this->charConvert($this->cleanString($value)) . '</td>';
+                                    $value = $this->charConvert($this->cleanString($value));
+                                    switch ($this->formtypes[$key]){
+                                        case 'date':
+                                            $value = date($this->dateFormat, $value);
+                                            break;
+                                        case 'datetime':
+                                            $value = date($this->datetimeFormat, $value);
+                                            break;
+                                        case 'file':
+                                            $value = '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value . '">' . $value . '</a>';
+                                            break;
+                                    }
+									$htmlContent .= '<td>' . $value . '</td>';
 								} else {
 									$htmlContentSecondLevel = array();
 									// One loop for every piVar in second level
@@ -459,7 +505,7 @@ tr.odd td{background:#eee;}
 						$orgkey = $this->getOriginalLanguageFieldUid($piVars, $key);
 						//if($this->debug) t3lib_div::devLog('$orgkey: ' . $orgkey, $this->extKey, 0, $piVars);
 						if (!is_array($piVars[$key]) && !is_array($piVars[$orgkey])) {
-							
+
 							$piVars[$key] = trim($piVars[$key]);
 							// If $piVars[$key] is empty lookup for $key from original language
 							if ($piVars[$key] == '') {
@@ -488,15 +534,15 @@ tr.odd td{background:#eee;}
 			}
 		}
 		$htmlContent .= '</tbody></table>';
-		$this->content .= $htmlHeader . $htmlContent . $htmlFooter;		
+		$this->content .= $htmlHeader . $htmlContent . $htmlFooter;
 	}
-	
+
 	/**
 	 * Generate CSV Table and stores result in $this->content
 	 *
 	 * @return	void
 	 */
-	function generateCsvTable() {
+	protected function generateCsvTable() {
 		$csvContent = '';
 		$csvHeader = '';
 
@@ -526,7 +572,7 @@ tr.odd td{background:#eee;}
 		if ($this->useTitle) {
 			$csvContent .= $csvHeader;
 		}
-		
+
 		// Generate CSV Rows
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
 		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
@@ -553,7 +599,19 @@ tr.odd td{background:#eee;}
 							// One loop for every piVar
 							foreach ($piVars as $key => $value) {
 								if (!is_array($value)){
-									$csvContent .= '"' . $this->charConvert($this->cleanString($value)) . '"' . $this->seperator;
+                                    $value = $this->charConvert($this->cleanString($value));
+                                    switch ($this->formtypes[$key]){
+                                        case 'date':
+                                            $value = date($this->dateFormat, $value);
+                                            break;
+                                        case 'datetime':
+                                            $value = date($this->datetimeFormat, $value);
+                                            break;
+                                        case 'file':
+                                            $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
+                                            break;
+                                    }
+									$csvContent .= '"' . $value . '"' . $this->seperator;
 								} else {
 
 									$csvContentSecondLevel = array();
@@ -583,7 +641,7 @@ tr.odd td{background:#eee;}
 						$orgkey = $this->getOriginalLanguageFieldUid($piVars, $key);
 						//if($this->debug) t3lib_div::devLog('$orgkey: ' . $orgkey, $this->extKey, 0, $piVars);
 						if (!is_array($piVars[$key]) && !is_array($piVars[$orgkey])) {
-							
+
 							$piVars[$key] = trim($piVars[$key]);
 							// If $piVars[$key] is empty lookup for $key from original language
 							if ($piVars[$key] == '') {
@@ -604,7 +662,7 @@ tr.odd td{background:#eee;}
 							}
 							$csvContent .= '"' . implode(', ', $csvContentSecondLevel) . '"' . $this->seperator;
 						}
-						
+
 					} else {
 						$csvContent .= '"' . $this->charConvert($row[$key]) . '"' . $this->seperator;
 					}
@@ -623,12 +681,12 @@ tr.odd td{background:#eee;}
 	 *
 	 * @return	void
 	 */
-	function generateXlsTable() {
+	protected function generateXlsTable() {
 		if ($this->phpexcel) {
-			
+
 			$sheetRow = 1;
 			$excelObject = new PHPExcel();
-			
+
 			// Set properties
 			$excelObject->getProperties()->setCreator('Powermail');
 			$excelObject->getProperties()->setTitle('Powermail Export');
@@ -646,7 +704,7 @@ tr.odd td{background:#eee;}
 			}
 			$excelObject->getActiveSheet()->setTitle($title);
 			$excelObject->setActiveSheetIndex(0);
-			
+
 			// Generate EXCEL Header
 			if ($this->useTitle) {
 				$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, $this->getRowWithMostPiVars());
@@ -655,13 +713,13 @@ tr.odd td{background:#eee;}
 				$sheetHeaderCol = 0;
 				$sheetHeaderCols = array();
 				$excelColNames = $this->getExcelColNames(intval(count($headerPiVars) + count($this->rowConfig)));
-				
+
 				foreach ($this->rowConfig as $key => $value) {
 					$newValue = $this->charConvert($value);
 					if (trim($newValue != '')) {
 						$value = $newValue;
-					}					
-	
+					}
+
 					// Static values
 					if ($key != 'uid') {
 						$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetHeaderCol] . '1', $value);
@@ -677,11 +735,11 @@ tr.odd td{background:#eee;}
 							}
 						}
 					}
-					
+
 				}
 				$sheetRow = 2;
 			}
-			
+
 			// Generate EXCEL Rows
 			$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
 			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
@@ -692,7 +750,7 @@ tr.odd td{background:#eee;}
 					}
  					$i ++;
 					$piVars = t3lib_div::xml2array($row['piVars'], 'piVars');
-					
+
 					$sheetCol = 0;
 					foreach ($this->rowConfig as $key => $value) {
 						$colname = $excelColNames[$sheetCol] . $sheetRow;
@@ -700,26 +758,38 @@ tr.odd td{background:#eee;}
 						if ($key == 'number') {
 							$excelObject->getActiveSheet()->setCellValue($colname, $i);
 							$sheetCol ++;
-							
+
 						// If current row is date
 						} elseif ($key == 'date') {
 							$excelObject->getActiveSheet()->setCellValue($colname, date($this->dateFormat, $row['crdate']));
 							$sheetCol ++;
-	
+
 						// If current row is time
 						} elseif ($key == 'time') {
 							$excelObject->getActiveSheet()->setCellValue($colname, date($this->timeFormat, $row['crdate']));
 							$sheetCol ++;
-	
+
 						// If current row should show all dynamic values (piVars)
 						} elseif ($key == 'uid') {
 							if (isset($piVars) && is_array($piVars)) {
 								// One loop for every piVar
 								foreach ($piVars as $key => $value) {
 									if (!is_array($value)){
-										$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetCol] . $sheetRow, $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($value))));
+                                        $value = $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($value)));
+                                        switch ($this->formtypes[$key]){
+                                            case 'date':
+                                                $value = date($this->dateFormat, $value);
+                                                break;
+                                            case 'datetime':
+                                                $value = date($this->datetimeFormat, $value);
+                                                break;
+                                            case 'file':
+                                                $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
+                                                break;
+                                        }
+										$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetCol] . $sheetRow, $value);
 									} else {
-	
+
 										$xlsContentSecondLevel = array();
 										// One loop for every piVar in second level
 										foreach ($piVars[$key] as $value2) {
@@ -733,10 +803,10 @@ tr.odd td{background:#eee;}
 								}
 								$sheetCol += intval(count($headerPiVars) - count($piVars));
 							}
-	
+
 						// Dynamic value like uid45
 						} elseif (is_numeric(str_replace(array('uid', '_'), '', $key))) {
-	
+
 							// Explode uid44_0 to uid44 and 0
 							$newkey = explode('_', $key);
 							// piVars in first level
@@ -748,7 +818,7 @@ tr.odd td{background:#eee;}
 									$key = $this->getOriginalLanguageFieldUid($piVars, $key);
 								}
 								$excelObject->getActiveSheet()->setCellValue($colname, $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($piVars[$key]))));
-								
+
 							// PiVars in second level
 							} else {
 								if($orgkey != $key) {
@@ -764,7 +834,7 @@ tr.odd td{background:#eee;}
 								$excelObject->getActiveSheet()->setCellValue($colname, implode(', ', $excelContentSecondLevel));
 							}
 							$sheetCol ++;
-							
+
 						} else {
 							$excelObject->getActiveSheet()->setCellValue($colname, $this->charConvert($row[$key]));
 							$sheetCol ++;
@@ -773,14 +843,14 @@ tr.odd td{background:#eee;}
 					$sheetRow ++;
 				}
 			}
-			
+
 			if ($this->xlsAutoSize) {
 				// Set width of all columns to autosize
 				for ($autosize = 0; $autosize < $sheetCol; $autosize ++) {
 					$excelObject->getActiveSheet()->getColumnDimension($excelColNames[$autosize])->setAutoSize(true);
 				}
 			}
-			
+
 			if ($this->xlsFileFormat != 'Excel2007') {
 				// Save Excel 5 file
 				$objWriter = new PHPExcel_Writer_Excel5($excelObject);
@@ -794,13 +864,13 @@ tr.odd td{background:#eee;}
 			t3lib_div::unlink_tempfile($this->tempFilename);
 		}
 	}
-	
+
 	/**
 	 * Set output encoding and stores result in $this->outputEncoding
 	 *
 	 * @return	void
 	 */
-	function setEncoding() {
+	protected function setEncoding() {
 		// Define output encoding -> No encoding is defined, set default
 		if (empty($this->tsConfig['properties']['config.']['export.'][$this->export . '.']['encoding'])) {
 			if ($this->export == 'csv'){
@@ -816,33 +886,33 @@ tr.odd td{background:#eee;}
 			t3lib_div::devLog('outputEncoding was set to ' . $this->outputEncoding, $this->extKey, 0);
 		}
 	}
-	
+
 	/**
 	 * clean up file name for export
 	 *
-	 * @param	string	$raw is the filename to clean	
+	 * @param	string	$raw is the filename to clean
 	 * @return	string	the new filename
 	 */
-	function cleanFileName($raw){ 
-	    $raw = $this->LANG->csConvObj->specCharsToASCII($this->LANG->charSet, trim($raw)); 
-	    $removeChars  = array( "([\40])" , "([^a-zA-Z0-9-_])", "(-{2,})" ); 
-	    $replaceWith = array("-", "", "-"); 
-	    return preg_replace($removeChars, $replaceWith, $raw); 
-	} 
-	
+	protected function cleanFileName($raw){
+	    $raw = $this->LANG->csConvObj->specCharsToASCII($this->LANG->charSet, trim($raw));
+	    $removeChars  = array( "([\40])" , "([^a-zA-Z0-9-_])", "(-{2,})" );
+	    $replaceWith = array("-", "", "-");
+	    return preg_replace($removeChars, $replaceWith, $raw);
+	}
+
 	/**
 	 * Set filenames for export and stores result in $this->filename
 	 *
 	 * @return	void
 	 */
-	function setFilenames() {
-		
+	protected function setFilenames() {
+
 		// overwrite filename if wanted
 		if (!empty($this->overwriteFilename)) {
 			$this->filename = $this->overwriteFilename;
 			return;
 		}
-		
+
 		// create filename
 		switch ($this->export) {
 			case 'xls':
@@ -858,20 +928,20 @@ tr.odd td{background:#eee;}
 				$this->filename = $this->cleanFileName($this->pageTitle . $this->timeFilePrefix) . $this->htmlFileSuffix;
 				break;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Set time date format and stores result in $this->timeFormat
 	 *
 	 * @return	void
 	 */
-	function setDateTimeFormat() {
+	protected function setDateTimeFormat() {
 		if (!empty($this->tsConfig['properties']['config.']['export.']['dateformat'])) {
 			$this->dateFormat = $this->tsConfig['properties']['config.']['export.']['dateformat'];
 		}
 		if($this->debug) t3lib_div::devLog('dateFormat was set to ' . $this->dateFormat, $this->extKey, 0);
-		
+
 		if (!empty($this->tsConfig['properties']['config.']['export.']['timeformat'])) {
 			$this->timeFormat = $this->tsConfig['properties']['config.']['export.']['timeformat'];
 		}
@@ -885,7 +955,7 @@ tr.odd td{background:#eee;}
 	 * @param	boolean		$level 	Defines Compression level
 	 * @return	string
 	 */
-	function gzcompressfile($source, $level = false) {
+	protected function gzcompressfile($source, $level = false) {
 		$dest = $source . '.gz';
 		$mode = 'wb' . $level;
 		$error = false;
@@ -912,13 +982,13 @@ tr.odd td{background:#eee;}
 			return $dest;
 		}
 	}
-	
+
 	/**
 	 * Generate header and stores result in $this->header
 	 *
 	 * @return	void
 	 */
-	function generateFileHeader() {
+	protected function generateFileHeader() {
 		if (strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'),'MSIE')) {
 			$this->header .= header('Content-Type: application/force-download; charset=' . $this->outputEncoding);
 			$this->header .= header('Content-Disposition: attachment; filename="' . $this->filename . '"');
@@ -943,7 +1013,7 @@ tr.odd td{background:#eee;}
 			t3lib_div::devLog('Header filename was set to ' . $this->filename, $this->extKey, 0);
 			t3lib_div::devLog('Temporary filename was set to ' . $this->tempFilename, $this->extKey, 0);
 		}
-		
+
 		if (file_exists($this->tempFilename)) {
 			$this->header .= header('Content-Length: ' . filesize($this->tempFilename));
 			if ($this->debug) {
@@ -962,7 +1032,7 @@ tr.odd td{background:#eee;}
 	 *
 	 * @return	void
 	 */
-	function writeContentToTypo3tempDir() {
+	protected function writeContentToTypo3tempDir() {
 		t3lib_div::writeFileToTypo3tempDir($this->absFilePath . $this->filename, $this->content);
 	}
 
@@ -971,7 +1041,7 @@ tr.odd td{background:#eee;}
 	 *
 	 * @return	integer
 	 */
-	function getRowWithMostPiVars() {
+	protected function getRowWithMostPiVars() {
 		// Find the record with the most piVars for generating correct header
 		$rowCounter = 0;
 		$mostPiVars = 0;
@@ -997,7 +1067,7 @@ tr.odd td{background:#eee;}
 	 * @param	array	$piVars this are the piVars to check
 	 * @return	boolean	returns true if piVars are from export header language uid
 	 */
-    function piVarsFromExportLanguageUid($piVars) {
+    protected function piVarsFromExportLanguageUid($piVars) {
     	$piVarsKeys = array_keys($piVars);
     	$fieldUid = $piVarsKeys[0];
     	$fieldUidInt = intval(str_replace(array('uid', '_'), '', $fieldUid));
@@ -1014,13 +1084,37 @@ tr.odd td{background:#eee;}
     }
 
     /**
+     * generateFormtypesArray method			Generate form types array of powermail on selected page as array
+     *
+     * @return	void
+     */
+    protected function generateFormtypesArray() {
+        $this->formtypes = array();
+
+        $select = 'uid,formtype';
+        $from = 'tx_powermail_fields';
+        $where = 'pid = ' . intval($this->pid);
+        $orderBy = '';
+        $groupBy = '';
+        $limit = '';
+
+        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        if ($res) {
+            while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+                $this->formtypes['uid' . $row['uid']] = $row['formtype'];
+            }
+        }
+        $GLOBALS['TYPO3_DB']->sql_free_result($res);
+    }
+
+    /**
 	 * Method getLabelfromBackend() to get label to current field for emails and thx message
 	 *
 	 * @param	string		$name	The uid with "uid" prefix
 	 * @param	string		$value	I have no dam idea about this var
 	 * @return	string
 	 */
-    function getLabelfromBackend($name, $value) {
+    protected function getLabelfromBackend($name, $value) {
 
     	// $name like uid55
 		if (strpos($name, 'uid') !== FALSE) {
@@ -1089,7 +1183,7 @@ tr.odd td{background:#eee;}
 			return $name;
 		}
     }
-    
+
 	/**
 	 * Method getOriginalLanguageFieldUid() get the original language field uid
 	 *
@@ -1098,7 +1192,7 @@ tr.odd td{background:#eee;}
 	 * @param	string	$fieldUidLevel2 this is the original field uid from level 2 (used by checkboxes and multiselect)
 	 * @return	string	returns the new field uid with 'uid' prefix
 	 */
-    function getOriginalLanguageFieldUid($piVars, $fieldUid, $fieldUidLevel2 = '') {
+    protected function getOriginalLanguageFieldUid($piVars, $fieldUid, $fieldUidLevel2 = '') {
     	$newFieldUid = $fieldUid;
     	$fieldUidInt = intval(str_replace(array('uid', '_'), '', $fieldUid));
 		$select = 'uid';
@@ -1113,7 +1207,7 @@ tr.odd td{background:#eee;}
 			$newFieldUid = 'uid' . $lookupRow['uid'];
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($lookupRes);
-		return $newFieldUid;    	
+		return $newFieldUid;
     }
 
 	/**
@@ -1122,17 +1216,17 @@ tr.odd td{background:#eee;}
 	 * @param	string	$string2convert this is the string to convert
 	 * @return	string	returns the converted value
 	 */
-	function charConvert($string2convert) {
+	protected function charConvert($string2convert) {
 		return $this->LANG->csConvObj->conv($string2convert, $this->LANG->charSet, $this->outputEncoding);
 	}
-	
+
     /**
 	 * Method cleanString() cleans up a string
 	 *
 	 * @param	string	$string2clean this is the string to clean
 	 * @return	string	returns the cleaned string
 	 */
-	function cleanString($string2clean) {
+	protected function cleanString($string2clean) {
 		switch ($this->export){
 			case 'csv':
 				$string2clean = str_replace(array("\n\r", "\r\n", "\n", "\r"), '', $string2clean);
@@ -1144,14 +1238,14 @@ tr.odd td{background:#eee;}
 		}
     	return $string2clean;
     }
-    
+
     /**
 	 * Method getExcelColNames() returns an array with Excel colnames like A or AA
 	 *
 	 * @param	integer		$cols this is the number of cols who should be generated
 	 * @return	array	returns the excelColNames array;
 	 */
-    function getExcelColNames($cols = 1000) {
+    protected function getExcelColNames($cols = 1000) {
     	$excelColNames = array();
     	$colnames = 'ABCDEFHGIJKLMNOPQRSTUVWXYZ';
     	for ($excelCol = 0; $excelCol < $cols; $excelCol ++) {
@@ -1164,7 +1258,7 @@ tr.odd td{background:#eee;}
     	}
     	return $excelColNames;
     }
-    
+
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/mod1/class.tx_powermail_export.php']) {
