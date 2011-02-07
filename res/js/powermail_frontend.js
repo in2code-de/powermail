@@ -21,3 +21,8 @@ function checkTextArea(obj, maxLength) {
 		textArea.value = textArea.value.substr(0, maxLength);
 	}
 }
+
+(function($) {
+	// add tabs to fieldsets for multiple page
+	$('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset');
+})(jQuery);
