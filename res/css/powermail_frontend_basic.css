@@ -39,6 +39,10 @@ fieldset.tx-powermail-pi1_fieldset textarea.powermail_textarea {
     padding:2px;
 	width:300px;
 }
+fieldset.tx-powermail-pi1_fieldset input.powermail_time {
+    width:60px;
+}
+
 
 fieldset.tx-powermail-pi1_fieldset textarea:focus,
 fieldset.tx-powermail-pi1_fieldset input:not([type="submit"]):focus {

@@ -23,11 +23,31 @@ function checkTextArea(obj, maxLength) {
 }
 
 (function($) {
-	// add tabs to fieldsets for multiple page
-	$('ul.powermail_multiplejs_tabs li a:first').addClass('act'); // first tab with class "act"
-	$('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset'); // enable tabs()
-	$('ul.powermail_multiplejs_tabs li a').click(function() { // change "act" on click
-		$('ul.powermail_multiplejs_tabs li a').removeClass('act');
-		$(this).addClass('act');
-	});
+    $(function(){
+        $('input[type=time]').addClass('powermail_time').each(function(i){
+            if($(this).prevAll('input.powermail_datetime').length > 0) {
+                if($(this).prevAll('input.powermail_datetime[required=required]').length > 0) {
+                    $(this).attr('required','required');
+                }
+                if ($(this).prev('input').val() != '') {
+                    timestamp = new Date($(this).prev('input').val() * 1000);
+                    h = timestamp.getHours();
+                    m = timestamp.getMinutes();
+                    h = (h < 10) ? '0' + h : h;
+                    m = (m < 10) ? '0' + m : m;
+                    $(this).val(h + ':' + m);
+                } else {
+                    $(this).attr('placeholder','00:00');
+                }
+            }
+        });
+        
+        // add tabs to fieldsets for multiple page
+        $('ul.powermail_multiplejs_tabs li a:first').addClass('act'); // first tab with class "act"
+        $('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset'); // enable tabs()
+        $('ul.powermail_multiplejs_tabs li a').click(function() { // change "act" on click
+            $('ul.powermail_multiplejs_tabs li a').removeClass('act');
+            $(this).addClass('act');
+        });
+    });
 })(jQuery);
