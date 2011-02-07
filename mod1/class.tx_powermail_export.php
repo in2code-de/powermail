@@ -631,14 +631,20 @@ tr.odd td{background:#eee;}
 			
 			// Set properties
 			$excelObject->getProperties()->setCreator('Powermail');
-			$excelObject->getProperties()->setTitle("Powermail Export");
-			$excelObject->getProperties()->setDescription("This document was exported from the TYPO3 extension 'powermail'.");
+			$excelObject->getProperties()->setTitle('Powermail Export');
+			$excelObject->getProperties()->setDescription('This document was exported from the TYPO3 extension "powermail".');
 			/*
 			$excelObject->getProperties()->setLastModifiedBy("Maarten Balliauw");
 			$excelObject->getProperties()->setSubject("Office 2007 XLSX Test Document");
 			*/
-			// Rename sheet			
-			$excelObject->getActiveSheet()->setTitle(substr($this->LANG->getLL('title'), 0, 32));
+			// Rename sheet
+			$title = $this->LANG->getLL('title');
+			if (empty($title)) {
+				$title = 'powermail export';
+			} else {
+				$title = substr($title, 0, 31);
+			}
+			$excelObject->getActiveSheet()->setTitle($title);
 			$excelObject->setActiveSheetIndex(0);
 			
 			// Generate EXCEL Header
