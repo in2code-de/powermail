@@ -30,12 +30,12 @@ Powermail.noRows = {
 
 Powermail.topMenu = {
 	init: function() {
-		var icon_xls = '<a href="?export=xls&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.excelIcon + '</a>';
-		var icon_csv = '<a href="?export=csv&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.csvIcon + '</a>';
-		var icon_html = '<a href="?export=html&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.htmlIcon + '</a>';
-		var icon_pdf = '<a href="?export=pdf&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank">' + Powermail.statics.pdfIcon + '</a>';
+		var icon_xls = '<a href="?export=xls&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank" class="powermail_icon_xls">' + Powermail.statics.excelIcon + '</a>';
+		var icon_csv = '<a href="?export=csv&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank" class="powermail_icon_csv">' + Powermail.statics.csvIcon + '</a>';
+		var icon_html = '<a href="?export=html&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank" class="powermail_icon_html">' + Powermail.statics.htmlIcon + '</a>';
+		var icon_pdf = '<a href="?export=pdf&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank" class="powermail_icon_pdf">' + Powermail.statics.pdfIcon + '</a>';
 		if (!Powermail.statics.phpexcel_library_loaded) {
-			icon_xls = '<a href="#" onclick="msg(\'' + Powermail.lang.noExcel + '\'); return false;" target="_blank" style="filter:alpha(opacity=30); -moz-opacity: 0.30; opacity: 0.30;">' + Powermail.statics.excelIcon + '</a>';
+			icon_xls = '<a href="#" onclick="msg(\'' + Powermail.lang.noExcel + '\'); return false;" target="_blank" class="powermail_icon_xls powermail_icon_inactive">' + Powermail.statics.excelIcon + '</a>';
 		}
 		var powermailtopmenu = new Ext.Toolbar({
 			id: 'topmenu',

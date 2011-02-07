@@ -101,6 +101,9 @@ body .x-panel {
 .x-toolbar button {
 	color: #fff;
 }
+.x-toolbar button.delete {
+	color: #444;
+}
 
 .delete { background-image: url('../img/icon_del.gif') !important; }
 
@@ -171,4 +174,12 @@ body .x-panel {
 .x-grid3-row-body-td,
 .x-grid3-body-cell {
 	background-color: none;
+}
+.powermail_icon_pdf {
+	display: none;
+}
+.powermail_icon_inactive {
+	filter: alpha(opacity=30); 
+	-moz-opacity: 0.30; 
+	opacity: 0.30;
 }
