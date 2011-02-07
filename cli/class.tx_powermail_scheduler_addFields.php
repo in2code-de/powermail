@@ -23,7 +23,7 @@
 ***************************************************************/
  
 // stop implementation in frontend (only for backend)
-if (!class_exists(tx_scheduler_AdditionalFieldProvider)) {
+if (!interface_exists(tx_scheduler_AdditionalFieldProvider)) {
 	return;
 }
 
