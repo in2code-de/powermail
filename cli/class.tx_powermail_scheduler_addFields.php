@@ -23,7 +23,7 @@
 ***************************************************************/
  
 // stop implementation in frontend (only for backend)
-if (TYPO3_MODE == 'FE') {
+if (!class_exists(tx_scheduler_AdditionalFieldProvider)) {
 	return;
 }
 
