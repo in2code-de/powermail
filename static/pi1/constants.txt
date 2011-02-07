@@ -29,7 +29,7 @@ plugin.powermail {
 	template.MultipleJS = EXT:powermail/templates/tmpl_multiplejs.html
 	
 	# cat=plugin.powermail_mainconfig/file/0090; type=file[css]; label= Multiple JS CSS: CSS file for multiple page via JS (see EXT:powermail/css/multipleJS.css for an example)
-	css.MultipleJS = EXT:powermail/css/multipleJS.css
+	css.MultipleJS = EXT:powermail/res/css/powermail_frontend_multipleJS.css
 
 	# cat=plugin.powermail_mainconfig/enable/0100; type=boolean; label= Email to receiver active: You can disable emails to receiver (maybe if you want only to store the values to db)
 	allow.email2receiver = 1

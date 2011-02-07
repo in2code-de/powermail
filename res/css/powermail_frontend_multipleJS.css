@@ -1,0 +1,6 @@
+.tx-powermail-pi1_fieldset {
+	display: none;
+}
+.tx-powermail-pi1_fieldset.active-tab-body {
+	display: block;
+}
