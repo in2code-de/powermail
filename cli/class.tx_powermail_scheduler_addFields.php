@@ -21,6 +21,11 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+ 
+// stop implementation in frontend (only for backend)
+if (TYPO3_MODE == 'FE') {
+	return;
+}
 
 /**
  * Plugin 'tx_powermail' for the 'powermail' extension.
@@ -29,6 +34,7 @@
  * @package	TYPO3
  * @subpackage	tx_powermail_scheduler_addFields
  */
+
 class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldProvider {
    
 	/**
