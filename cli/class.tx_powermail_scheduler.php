@@ -22,11 +22,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(PATH_t3lib . 'class.t3lib_befunc.php');
-require_once(PATH_t3lib . 'stddb/tables.php');
-//require_once(t3lib_extMgm::extPath('cms', 'ext_tables.php'));
-require_once(PATH_tslib . 'class.tslib_pibase.php');
-
 /**
  * Plugin 'tx_powermail' for the 'powermail' extension.
  *
