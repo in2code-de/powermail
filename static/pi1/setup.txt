@@ -185,6 +185,12 @@ plugin.tx_powermail_pi1 {
 				strftime = %d.%m.%Y
 			}
 			
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime = %d.%m.%Y %H:%M
+			}
+
 			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
@@ -200,6 +206,12 @@ plugin.tx_powermail_pi1 {
 				strftime = %d.%m.%Y
 			}
 			
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime = %d.%m.%Y %H:%M
+			}
+
 			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
@@ -215,6 +227,12 @@ plugin.tx_powermail_pi1 {
 				strftime = %d.%m.%Y
 			}
 			
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime = %d.%m.%Y %H:%M
+			}
+
 			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
@@ -230,6 +248,12 @@ plugin.tx_powermail_pi1 {
 				strftime = %d.%m.%Y
 			}
 			
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime = %d.%m.%Y %H:%M
+			}
+
 			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
@@ -245,6 +269,12 @@ plugin.tx_powermail_pi1 {
 				strftime = %d.%m.%Y
 			}
 		
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime = %d.%m.%Y %H:%M
+			}
+
 			# Example to manipulate field with uid 999
 #			uid999 = TEXT
 #			uid999.field = uid999
@@ -552,7 +582,14 @@ lib.powermailjs {
                 readonly: false,
                 yearRange: [-99, 99],
                 change: function(event, date){
-                    this.getInput().next('input').val(new Date(this.getValue('yyyy,m,d')).getTime()/1000);
+                    timestamp = new Date(this.getValue('yyyy,m,d')).getTime() / 1000;
+                    if(this.getInput().nextAll('input.powermail_time').length != 0 && this.getInput().next('input').val() != '') {
+                        oldDate = new Date(this.getInput().next('input').val() * 1000);
+                        h = oldDate.getHours();
+                        m = oldDate.getMinutes();
+                        timestamp += h * 3600 + m * 60;
+                    }
+                    this.getInput().next('input').val(timestamp);
                 }
             }).each(function(i){
                 initDate = $(this).next('input').val();
@@ -561,17 +598,46 @@ lib.powermailjs {
                 }
             )
         }
-        40 = TEXT
-        40.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
-        40.wrap = $.tools.validator.fn('[type=time]', '|', function(input, value) { if(value != '' && input.find('.required')) { return /\d\d:\d\d/.test(value); } else { return true; }});
+        
+        20 = TEXT
+        20.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
+        20.wrap = $.tools.validator.fn('input[type=time]', '|',
+        30 = TEXT
+        30.value (
+
+            function(input, value) {
+                if(value != '' && !/\d\d:\d\d/.test(value)) {
+                    return false;
+                } else {
+                    time = value.split(':');
+                    hour = parseInt(time[0]);
+                    minute = parseInt(time[1]);
+                    if(hour > 23 || hour < 0 || minute > 59 || minute < 0) {
+                        return false;
+                    }
+                    if(input.prevAll('input.powermail_datetime').length > 0) {
+                        oldDate = new Date(input.prev('input').val() * 1000);
+                        year = oldDate.getFullYear();
+                        month = oldDate.getMonth();
+                        day = oldDate.getDate();
+                        secondsToAdd = hour * 3600 + minute * 60;
+                        timestamp = (new Date(year, month, day).getTime() / 1000) + secondsToAdd;
+                        input.prev('input').val(timestamp);
+                    }
+                    return true;
+                }
+            });
+        )
+
         /*
+        40 = TEXT
+        40.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+        40.wrap = $.tools.validator.fn('input:not(:checked).required', '|', function(input, value) { return (input.parent().parent().find('input:checkbox:checked').length > 0)});
+        */
+        
         50 = TEXT
         50.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-        50.wrap = $.tools.validator.fn('input:not(:checked).required', '|', function(input, value) { return (input.parent().parent().find('input:checkbox:checked').length > 0)});
-        */
-        60 = TEXT
-        60.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-        60.wrap = $.tools.validator.fn('input:checkbox', '|', function(input, value) { if(input.parent().parent().find('input:checkbox.required_one').length > 0 && input.parent().parent().find('input:checkbox:checked').length > 0 && input.find('[class*=required_one]').length > 0) { return false; } else {return true;}});
+        50.wrap = $.tools.validator.fn('input:checkbox', '|', function(input, value) { if(input.parent().parent().find('input:checkbox.required_one').length > 0 && input.parent().parent().find('input:checkbox:checked').length > 0 && input.find('[class*=required_one]').length > 0) { return false; } else {return true;}});
 
         60 = TEXT
         60.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
