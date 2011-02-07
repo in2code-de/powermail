@@ -5,6 +5,7 @@ Powermail HTML Template for formwrap
 	Target for form:				 					###POWERMAIL_ACTION###
 	UID of content element: 							###POWERMAIL_FORM_UID###
 	Pagebrowser (only if multiple):						###POWERMAIL_MULTIPLE_PAGEBROWSER###
+    CSS classname (only if multiple):					###POWERMAIL_MULTIPLE###
 	Backlink (only if multiple):						###POWERMAIL_MULTIPLE_BACKLINK###
 	Nextlink (only if multiple):						###POWERMAIL_MULTIPLE_FORWARDLINK###
 	JavaScript for validation:							###POWERMAIL_MANDATORY_JS###
@@ -24,7 +25,7 @@ Powermail HTML Template for formwrap
 	
 
 <!-- ###POWERMAIL_FORMWRAP### begin -->
-	<div class="tx-powermail-pi1_formwrap tx-powermail-pi1_formwrap_###POWERMAIL_FORM_UID###">
+	<div class="tx-powermail-pi1_formwrap tx-powermail-pi1_formwrap_###POWERMAIL_FORM_UID######POWERMAIL_MULTIPLE###">
 		<form name="###POWERMAIL_NAME###" id="###POWERMAIL_NAME###" action="###POWERMAIL_ACTION###" method="POST" class="tx_powermail_pi1_form" enctype="multipart/form-data">
 			###POWERMAIL_MULTIPLE_PAGEBROWSER###
 			<div class="fieldsets">

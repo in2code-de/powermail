@@ -153,6 +153,54 @@ fieldset.tx-powermail-pi1_fieldset .powermail_radio_inner input {
 	clear: left;
 }
 
+        /* Multiple JS */
+div.fieldsets {
+    clear: both;
+}
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset legend {
+    display:none;
+}
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset {
+    padding-top:15px;
+}
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset fieldset legend {
+    display:block;
+}
+ul.powermail_multiplejs_tabs {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+ul.powermail_multiplejs_tabs li {
+    float: left;
+    margin: 0 1px 0 0;
+    padding: 0;
+    list-style-type: none;
+}
+ul.powermail_multiplejs_tabs li a {
+    display: block;
+    padding: 5px 10px;
+    color: #666;
+    font-weight: bold;
+    text-decoration: none;
+    background: #E0E0E0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    outline: none;
+}
+ul.powermail_multiplejs_tabs li a.act {
+    background: #F0F0F0;
+    color: #333;
+    padding:5px 10px 6px 10px;
+    position:relative;
+    margin-bottom:-1px
+}
+
 /* error message */
 .error {
 	/* supply height to ensure consistent positioning for every browser */
