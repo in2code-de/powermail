@@ -74,8 +74,21 @@ fieldset.tx-powermail-pi1_fieldset select:focus {
 	outline: none;
 }
 		/* radio buttons */
+div.tx_powermail_pi1_fieldwrap_html_radio fieldset {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+fieldset.tx-powermail-pi1_fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title {
+	font-weight: bold;
+	color: #1E5799;
+	float: none;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+}
 div.tx_powermail_pi1_fieldwrap_html_radio {
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 }
 p.tx_powermail_pi1_fieldwrap_html_radio_title {
 	font-weight: bold;
@@ -106,7 +119,7 @@ div.tx_powermail_pi1_fieldwrap_html_check fieldset {
 	border: none;
 	margin: 0;
 	padding: 0;
-}	
+}
 fieldset.tx-powermail-pi1_fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title {
 	font-weight: bold;
 	color: #1E5799;
