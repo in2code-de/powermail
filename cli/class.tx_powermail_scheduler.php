@@ -62,7 +62,13 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 			'attachedFilename' => '' // overwrite filename
 		);
 		$tmp_tsconfig = t3lib_BEfunc::getModTSconfig($this->pid, 'tx_powermail_cli'); // get whole tsconfig from backend
-		$tsconfig = array_merge((array) $tmp_defaultconfig, (array) $tmp_tsconfig['properties']['exportmail.']);
+		$tsconfig = array_merge((array) $tmp_defaultconfig, (array) $tmp_tsconfig['properties']['exportmail.']); // overwrite from page tsconfig
+		if (t3lib_div::validEmail($this->email)) {
+			$tsconfig['email_receiver'] = $this->email; // overwrite from schedular settings
+		}
+		if (intval($this->timeframe) > 0) {
+			$tsconfig['time'] = intval($this->timeframe); // overwrite from schedular settings
+		}
 		
 		if (!t3lib_div::validEmail($tsconfig['email_receiver'])) { // if receiver email is set
 			$this->msg = 'Wrong receiver mail given!';
