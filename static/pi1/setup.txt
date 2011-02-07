@@ -277,12 +277,14 @@ plugin.tx_powermail_pi1 {
 	
 	# adding (or changing) flexible locallang markers in any HTML template or RTE field (example)
 	_LOCAL_LANG.en {
+		# define your own locallang markers
 		locallangmarker_yourvalue = this is a new text
 	}
 	
 	
 	# adding flexible typoscript markers in any HTML template or RTE field (example)
 	dynamicTyposcript {
+		# define your own dynamic typoscript markers
 		yourmarker = TEXT
 		yourmarker.value = This is a new text
 	}
@@ -341,6 +343,31 @@ plugin.tx_powermail_pi1 {
 		# table "tt_address" with field "company" is the value from powermail (tt_content uid 88) field uid21_1 (###uid21_1###) (e.g. a checkbox value)
 #		tt_address.company = TEXT
 #		tt_address.company.data = TSFE:fe_user|sesData|powermail_88|uid21|1
+	}
+	
+	
+	# target of the form
+	formaction = TEXT
+	formaction {
+		typolink {
+			parameter.data = TSFE:id
+			returnLast = url
+			useCacheHash = 1
+			additionalParams.cObject = COA
+			additionalParams.cObject {
+				wrap = &tx_powermail_pi1[mailID]=|
+				10 = TEXT
+				10 {
+					field = uid
+					if.isFalse.field = _LOCALIZED_UID
+				}
+				20 = TEXT
+				20 {
+					field = _LOCALIZED_UID
+					if.isTrue.field = _LOCALIZED_UID
+				}
+			}
+		}
 	}
 	
 	
