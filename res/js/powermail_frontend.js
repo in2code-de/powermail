@@ -24,5 +24,10 @@ function checkTextArea(obj, maxLength) {
 
 (function($) {
 	// add tabs to fieldsets for multiple page
-	$('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset');
+	$('ul.powermail_multiplejs_tabs li a:first').addClass('act'); // first tab with class "act"
+	$('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset'); // enable tabs()
+	$('ul.powermail_multiplejs_tabs li a').click(function() { // change "act" on click
+		$('ul.powermail_multiplejs_tabs li a').removeClass('act');
+		$(this).addClass('act');
+	});
 })(jQuery);

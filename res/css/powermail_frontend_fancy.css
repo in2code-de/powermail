@@ -202,6 +202,43 @@ div.tx_powermail_pi1_fieldwrap_html img.icon_info {
 	/* Description icon */
 	padding: 2px 2px 0 2px;
 }
+		/* Multiple JS */
+div.fieldsets {
+	clear: both;
+}
+ul.powermail_multiplejs_tabs {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+ul.powermail_multiplejs_tabs li {
+	float: left;
+	margin: 0 1px 0 0;
+	padding: 0;
+}
+ul.powermail_multiplejs_tabs li a {
+	display: block;
+	padding: 10px;
+	color: #1E5799;
+	font-weight: bold;
+	text-decoration: none;
+	background: #ffffff; /* old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* ie */
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-khtml-border-radius: 2px;
+	border-radius: 2px;
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
+	outline: none;
+}
+ul.powermail_multiplejs_tabs li a.act {
+	padding: 15px 10px 10px 10px;
+	margin-top: -5px;
+}
 		/* error message */
 .error {
 	background: #ffb76b; /* old browsers */
