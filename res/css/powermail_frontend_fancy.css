@@ -174,19 +174,25 @@ input.powermail_submit {
 }
 		/* Description */
 div.tx_powermail_pi1_fieldwrap_html label a,
-div.tx_powermail_pi1_fieldwrap_html p a {
+div.tx_powermail_pi1_fieldwrap_html p a,
+legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a,
+legend.tx_powermail_pi1_fieldwrap_html_radio_title a {
 	/* Description */
 	cursor: help;
 	text-decoration: none;
 }
 div.tx_powermail_pi1_fieldwrap_html label a dfn,
-div.tx_powermail_pi1_fieldwrap_html p a dfn {
+div.tx_powermail_pi1_fieldwrap_html p a dfn,
+legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a dfn,
+legend.tx_powermail_pi1_fieldwrap_html_radio_title a dfn {
 	/* Description */
 	display: none;
 	text-decoration: none;
 }
 div.tx_powermail_pi1_fieldwrap_html label a:hover dfn,
-div.tx_powermail_pi1_fieldwrap_html p a:hover dfn {
+div.tx_powermail_pi1_fieldwrap_html p a:hover dfn,
+legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a:hover dfn,
+legend.tx_powermail_pi1_fieldwrap_html_radio_title a:hover dfn {
 	/* Description on mouseover */
 	position: absolute;
 	display: block;
@@ -206,7 +212,7 @@ div.tx_powermail_pi1_fieldwrap_html p a:hover dfn {
 	-khtml-border-radius: 3px;
 	border-radius: 3px;
 }
-div.tx_powermail_pi1_fieldwrap_html img.icon_info {
+img.icon_info {
 	/* Description icon */
 	padding: 2px 2px 0 2px;
 }
