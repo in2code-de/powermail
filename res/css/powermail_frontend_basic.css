@@ -39,7 +39,8 @@ fieldset.tx-powermail-pi1_fieldset textarea.powermail_textarea {
     padding:2px;
 	width:300px;
 }
-fieldset.tx-powermail-pi1_fieldset input.powermail_time {
+fieldset.tx-powermail-pi1_fieldset input.powermail_time,
+fieldset.tx-powermail-pi1_fieldset input[type=time]{
     width:60px;
 }
 
@@ -75,30 +76,43 @@ div.countryzone {
 	margin: 10px 0 0 200px;
 }
 div.tx_powermail_pi1_fieldwrap_html label a,
-div.tx_powermail_pi1_fieldwrap_html p a {
+div.tx_powermail_pi1_fieldwrap_html p a,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title a{
 	/* Description */
 	cursor: help;
 	text-decoration: none;
 }
 div.tx_powermail_pi1_fieldwrap_html label a dfn,
-div.tx_powermail_pi1_fieldwrap_html p a dfn {
+div.tx_powermail_pi1_fieldwrap_html p a dfn,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a dfn,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title a dfn{
 	/* Description */
 	display: none;
 	text-decoration: none;
+    width: auto;
+    height:15px;
+    padding:3px 10px 5px 10px;
+    background-color:#00559E;
+    border:1px solid #00559E;
+    font-size:11px;
+    color:#fff;
+    text-decoration: none;
+    /* CSS3 spicing for mozilla and webkit */
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+
+    -moz-box-shadow:0 0 6px #ddd;
+    -webkit-box-shadow:0 0 6px #ddd;
+    box-shadow:0 0 6px #ddd;
 }
 div.tx_powermail_pi1_fieldwrap_html label a:hover dfn,
-div.tx_powermail_pi1_fieldwrap_html p a:hover dfn {
+div.tx_powermail_pi1_fieldwrap_html p a:hover dfn,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a:hover dfn,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title a:hover dfn{
 	/* Description on mouseover */
 	display: block;
-	position: absolute;
-	width: 250px;
-	padding: 5px;
-	background-color: #ddd;
-	border: 1px solid red;
-	color: black;
-	text-decoration: none;
-	font-size: 0.8em;
-	text-decoration: none;
 }
 div.tx_powermail_pi1_fieldwrap_html img.icon_info {
 	/* Description icon */

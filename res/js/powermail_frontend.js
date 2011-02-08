@@ -24,11 +24,21 @@ function checkTextArea(obj, maxLength) {
 
 (function($) {
     $(function(){
+
+        // validate checkboxes
+        $.tools.validator.fn('input:checkbox', '|',
+        function(input, value) {
+            if (input.parent().parent().find('input:checkbox.required_one').length > 0 && input.parent().parent().find('input:checkbox:checked').length > 0 && input.find('[class*=required_one]').length > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+
+        // validate time fields
         $('input[type=time]').addClass('powermail_time').each(function(i){
+            // check if part of datetime field
             if($(this).prevAll('input.powermail_datetime').length > 0) {
-                if($(this).prevAll('input.powermail_datetime[required=required]').length > 0) {
-                    $(this).attr('required','required');
-                }
                 if ($(this).prev('input').val() != '') {
                     timestamp = new Date($(this).prev('input').val() * 1000);
                     h = timestamp.getHours();
