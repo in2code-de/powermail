@@ -90,6 +90,8 @@ div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_h
 	/* Description */
 	display: none;
 	text-decoration: none;
+    position:absolute;
+    z-index:1;
     width: auto;
     height:15px;
     padding:3px 10px 5px 10px;
