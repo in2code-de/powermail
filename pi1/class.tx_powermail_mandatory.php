@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 powermail development team
+*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +27,6 @@ require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functi
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_markers.php'); // file for marker functions
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
 
-
 /**
  * Plugin 'Powermail Form' for the 'powermail' extension.
  *
@@ -37,10 +36,9 @@ require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_dynami
  */
 class tx_powermail_mandatory extends tslib_pibase {
 
-	var $extKey        = 'powermail';	// The extension key.
-	var $pi_checkCHash = true;
-    var $scriptRelPath = 'pi1/class.tx_powermail_mandatory.php';    // Path to pi1 to get locallang.xml from pi1 folder
-
+	public $extKey        = 'powermail';	// The extension key.
+	public $pi_checkCHash = true;
+    public $scriptRelPath = 'pi1/class.tx_powermail_mandatory.php';    // Path to pi1 to get locallang.xml from pi1 folder
 
 	/**
 	 * Mandatory main method calls another check functions after a submit
@@ -50,7 +48,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	 * @param	object		$cObj: Content Object
 	 * @return	If there is an error, a message will be returned
 	 */
-	function main($conf, $sessionfields, $cObj) {
+	public function main($conf, $sessionfields, $cObj) {
 		$this->conf = $conf;
 		$this->cObj = $cObj;
 		$this->sessionfields = $sessionfields;
@@ -120,13 +118,12 @@ class tx_powermail_mandatory extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	 * Function mandatoryCheck() checks if a field has to contain anything
 	 *
 	 * @return	void
 	*/
-	function mandatoryCheck() {
+	private function mandatoryCheck() {
 
         // Give me all fields of current content uid
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
@@ -135,7 +132,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 			$where_clause = 'tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tt_content') . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
 			$groupBy = '',
 			$orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
-			$limit
+			$limit = 10000
 		);
 		if ($res) { // If there is a result
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every field
@@ -159,13 +156,12 @@ class tx_powermail_mandatory extends tslib_pibase {
 
 	}
 
-
 	/**
 	 * Function uniqueCheck() checks (if activated via constants) if a field is already filled with this value (like email addresses)
 	 *
 	 * @return	void
 	*/
-	function uniqueCheck() {
+	private function uniqueCheck() {
 		// config
 		$uniquearray = t3lib_div::trimExplode(',', $this->conf['enable.']['unique'], 1); // Get unique constants from ts
 		$confarray = unserialize($GLOBALS['TSFE']->TYPO3_CONF_VARS['EXT']['extConf'][$this->extKey]); // get config from localconf.php
@@ -226,13 +222,12 @@ class tx_powermail_mandatory extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	 * Functions regulareExpressions() checks if values from the form fits to an expression
 	 *
 	 * @return	void
 	*/
-	function regulareExpressions() {
+	private function regulareExpressions() {
 		// Config - set regulare expressions for autocheck
 		$autoarray = array (
 			'email' => "#^[_a-z0-9]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.)+([a-z0-9]{2,4})$#",
@@ -271,13 +266,12 @@ class tx_powermail_mandatory extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	 * Function emailCheck() checks if sender email address is a real email address, if not write error to session
 	 *
 	 * @return	void
 	*/
-	function emailCheck() {
+	private function emailCheck() {
 		if ($this->cObj->data['tx_powermail_sender'] && is_array($this->sessionfields)) { // If email address from sender is set in backend
 			if ($this->sessionfields[$this->cObj->data['tx_powermail_sender']]) { // if there is content in the email sender field
 				if (!t3lib_div::validEmail($this->sessionfields[$this->cObj->data['tx_powermail_sender']])) { // Value is not an email address
@@ -291,13 +285,12 @@ class tx_powermail_mandatory extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	 * Function captchaCheck check if captcha fields are within current content and set errof if value is wrong
 	 *
 	 * @return	void
 	*/
-	function captchaCheck() {
+	private function captchaCheck() {
 		if ( // only if a supported captcha extension is loaded
 			t3lib_extMgm::isLoaded('captcha', 0) ||
 			t3lib_extMgm::isLoaded('sr_freecap', 0) ||
@@ -395,7 +388,6 @@ class tx_powermail_mandatory extends tslib_pibase {
 		}
 	}
 
-
 	/********************************************
 	* Custom php validation
 	* Loop all 'customvalidation' keys for possible requests. A custom validation requires 3
@@ -421,7 +413,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	* In case the called user function throws an exception, this is treated as a failed
 	* validation.
 	********************************************/
-	function customValidation() {
+	private function customValidation() {
 
 		$configKey = 'customvalidation.';
 		if (isset($this->conf[$configKey]) && is_array($this->conf[$configKey])) { // Only if any validation is set per typoscript
@@ -475,39 +467,36 @@ class tx_powermail_mandatory extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	 * Function overwriteSession() saves $this->sessionfields to session to overwrite errors (recaptcha can set an OK for errors in future)
 	 *
 	 * @return	void
 	*/
-	function overwriteSession() {
+	private function overwriteSession() {
         if (count($this->sessionfields['OK']) > 0) { // only if min 1 OK value
             $GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $this->sessionfields); // Generate Session without ERRORS
     		$GLOBALS['TSFE']->storeSessionData(); // Save session
     	}
     }
 
-
 	/**
 	 * Function clearErrorsInSession() removes all global errors, which are marked as an error in the session
 	 *
 	 * @return	void
 	*/
-	function clearErrorsInSession() {
+	private function clearErrorsInSession() {
 		// Set Session (overwrite all values)
 		unset($this->sessionfields['ERROR']); // remove all error messages
 		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $this->sessionfields); // Generate Session without ERRORS
 		$GLOBALS['TSFE']->storeSessionData(); // Save session
 	}
 
-
 	/**
 	 * Function hookBefore() to enable manipulation datas with another extension(s) before mandatory message creation
 	 *
 	 * @return	void
 	*/
-	function hookBefore() {
+	private function hookBefore() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHookBefore'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHookBefore'] as $_classRef) {
 				$_procObj = &t3lib_div::getUserObj($_classRef);
@@ -516,13 +505,12 @@ class tx_powermail_mandatory extends tslib_pibase {
 		}
 	}
 
-
 	/**
 	 * Function hook() to enable manipulation datas with another extension(s) after mandatory message creation
 	 *
 	 * @return	void
 	*/
-	function hook() {
+	private function hook() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHook'])) { // Adds hook for processing of extra global markers
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHook'] as $_classRef) {
 				$_procObj = &t3lib_div::getUserObj($_classRef);
@@ -531,8 +519,6 @@ class tx_powermail_mandatory extends tslib_pibase {
 		}
 	}
 }
-
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_mandatory.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_mandatory.php']);
