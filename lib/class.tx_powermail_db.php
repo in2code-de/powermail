@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Alexander Kellner, Mischa Heißmann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
+*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,16 +25,30 @@
 require_once(PATH_tslib.'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_functions_div.php'); // file for div functions
 
-// This class saves powermail values in OTHER db tables if wanted (this class is not the main database class for storing)
+
+/**
+ * This class saves powermail values in OTHER db tables if wanted (this class is not the main database class for storing)
+ *
+ * @author	Alex Kellner <alexander.kellner@in2code.de>
+ * @package	TYPO3
+ * @subpackage	tx_powermail_functions_div
+ */
 class tx_powermail_db extends tslib_pibase {
 
-	var $extKey = 'powermail';
-    var $scriptRelPath = 'pi1/class.tx_powermail_pi1.php'; // Path to pi1 to get locallang.xml from pi1 folder
-	var $dbInsert = 1; // Disable db insert for testing only
+	public $extKey = 'powermail';
+    public $scriptRelPath = 'pi1/class.tx_powermail_pi1.php'; // Path to pi1 to get locallang.xml from pi1 folder
+	public $dbInsert = 1; // Disable db insert for testing only
 
-
-	// Main Function for inserting datas to other tables
-	function main($conf, $sessiondata, $cObj, $ok) {
+	/**
+	 * Main Function for inserting datas to other tables
+	 *
+	 * @param	array		TypoScript configuration
+	 * @param	array		Session values
+	 * @param	object		content object
+	 * @param	bool		if storing is allowed
+	 * @return	array		$array: Filtered piVars Array
+	 */
+	public function main($conf, $sessiondata, $cObj, $ok) {
 		// config
 		$this->cObj = $cObj; // cObject
 		$this->conf = $conf; // conf
@@ -99,12 +113,18 @@ class tx_powermail_db extends tslib_pibase {
 				}
 			}
 			$this->debug(); // 3. Debug output
+			$this->hook_AfterDbImport(); // add hook for manipulation after DB Import
 		}
 	}
 
-
-	// Function dbUpdate() inserts or updates database
-	function dbUpdate($table, $values) {
+	/**
+	 * Function dbUpdate() inserts or updates database
+	 *
+	 * @param	string		Table
+	 * @param	array		values
+	 * @return	void
+	 */
+	private function dbUpdate($table, $values) {
 
 		if (count($values) > 0) { // if there are values
 			if (!isset($this->conf['dbEntry.'][$table.'.']['_ifUnique.']) || $this->conf['dbEntry.'][$table.'.']['_ifUnique.'] == 'disable') { // no unique values
@@ -157,31 +177,64 @@ class tx_powermail_db extends tslib_pibase {
 
 	}
 
-
-	// Function fieldExists() checks if a table and field exist in mysql db
-	function fieldExists($field = '', $table = '') {
+	/**
+	 * Function fieldExists() checks if a table and field exist in mysql db
+	 *
+	 * @param	string		field
+	 * @param	string		table
+	 * @return	void
+	 */
+	private function fieldExists($field = '', $table = '') {
 		if (!empty($field) && !empty($table) && strpos($field, ".") === false) {
 			// check if table and field exits in db
-			$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc( mysql_query('SHOW TABLES LIKE "'.$table.'"') ); // check if table exist
-			if ($row1) $row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc( mysql_query('DESCRIBE '.$table.' '.$field) ); // check if field exist (if table is wront - errormessage)
+			$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc(mysql_query('SHOW TABLES LIKE "' . $table . '"')); // check if table exist
+			if ($row1) {
+				$row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc(mysql_query('DESCRIBE ' . $table . ' ' . $field)); // check if field exist (if table is wront - errormessage)
+			}
 
 			// debug values
-			if (!$row1) $this->debug_array['ERROR'][] = 'Table "'.$table.'" don\'t exists in db'; // errormessage if table don't exits
-			if (!$row2 && $row1) $this->debug_array['ERROR'][] = 'Field "'.$field.'" don\'t exists in db table "'.$table.'"'; // errormessage if field don't exits
+			if (!$row1) {
+				$this->debug_array['ERROR'][] = 'Table "' . $table . '" don\'t exists in db'; // errormessage if table don't exits
+			}
+			if (!$row2 && $row1) {
+				$this->debug_array['ERROR'][] = 'Field "' . $field . '" don\'t exists in db table "' . $table . '"'; // errormessage if field don't exits
+			}
 
 			// return true or false
-			if ($row1 && $row2) return 1; // table and field exist
-			else return 0; // table or field don't exist
+			if ($row1 && $row2) {
+				return 1; // table and field exist
+			} else {
+				return 0; // table or field don't exist
+			}
 		}
 	}
 
-
-	// Function debug() generates debug output
-	function debug() {
+	/**
+	 * Function debug() generates debug output
+	 *
+	 * @return	void
+	 */
+	private function debug() {
 		$this->debug_array['Main Table'] = $this->db_values; // array for debug view
 		$this->debug_array['MM Table'] = (count($this->db_values_mm) > 0 ? $this->db_values_mm : 'no values or entry already exists'); // array for debug view
-		if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'externdbtable') $this->div->debug($this->debug_array, 'Extern DB-table entries'); // Debug function
+		if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'externdbtable') {
+			$this->div->debug($this->debug_array, 'Extern DB-table entries'); // Debug function
+		}
 	}
+
+	/**
+	 * Add hook
+	 *
+	 * @return	void
+	 */
+	private function hook_AfterDbImport() {
+        if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_AfterDbImportHook'])) { // Adds hook for processing
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_AfterDbImportHook'] as $_classRef) {
+                $_procObj = &t3lib_div::getUserObj($_classRef);
+                $_procObj->PM_AfterDbImportHook($this); // Get new marker Array from other extensions
+            }
+        }
+    }
 
 }
 
