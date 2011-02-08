@@ -16,6 +16,54 @@
 					</config>
 				</TCEforms>
 			</value>
+			<showmonthyearselector>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.date.showselector</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</showmonthyearselector>
+			<min>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.min</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+						<eval>date</eval>
+						<checkbox>0</checkbox>
+					</config>
+				</TCEforms>
+			</min>
+			<mincalc>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mincalc</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+					</config>
+				</TCEforms>
+			</mincalc>
+			<max>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.max</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+						<eval>date</eval>
+						<checkbox>0</checkbox>
+					</config>
+				</TCEforms>
+			</max>
+			<maxcalc>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.maxcalc</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+					</config>
+				</TCEforms>
+			</maxcalc>
 			<size>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.size</label>
@@ -41,6 +89,15 @@
 					</config>
 				</TCEforms>
 			</mandatory>
+			<placeholder>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.placeholder</label>
+					<config>
+						<type>input</type>
+						<size>35</size>
+					</config>
+				</TCEforms>
+			</placeholder>
 			<name>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>
