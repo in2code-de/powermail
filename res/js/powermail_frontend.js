@@ -25,15 +25,60 @@ function checkTextArea(obj, maxLength) {
 (function($) {
     $(function(){
 
-        // validate checkboxes
-        $.tools.validator.fn('input:checkbox', '|',
-        function(input, value) {
-            if (input.parent().parent().find('input:checkbox.required_one').length > 0 && input.parent().parent().find('input:checkbox:checked').length > 0 && input.find('[class*=required_one]').length > 0) {
-                return false;
-            } else {
-                return true;
-            }
+        var powermail_validator = $('.tx_powermail_pi1_form').validator({
+            inputEvent: 'blur',
+            grouped: true,
+            singleError: false,
+            position: 'top right',
+            offset: [-5, -20],
+            message: '<div><em/></div>'
+
         });
+
+        // initialize range input
+        $(':range').rangeinput();
+        
+        // validate multiple checkboxes
+        $.tools.validator.fn('input:checkbox', 'required',
+            function(input, value) {
+                checkboxes = input.parent().parent().find('input:checkbox');
+                if (checkboxes.filter('.required_one').length > 0) {
+                    if (checkboxes.filter(':checked').length == 0) {
+                        return (input.filter('.required_one').length == 0);
+                    } else {
+                        powermail_validator.data('validator').reset(checkboxes);
+                        return true;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        );
+
+        $.tools.validator.fn('input[type=time]', 'required',
+            function(input, value) {
+                if(value != '' && !/\d\d:\d\d/.test(value)) {
+                    return false;
+                } else {
+                    time = value.split(':');
+                    hour = parseInt(time[0]);
+                    minute = parseInt(time[1]);
+                    if(hour > 23 || hour < 0 || minute > 59 || minute < 0) {
+                        return false;
+                    }
+                    if(input.prevAll('input.powermail_datetime').length > 0) {
+                        oldDate = new Date(input.prev('input').val() * 1000);
+                        year = oldDate.getFullYear();
+                        month = oldDate.getMonth();
+                        day = oldDate.getDate();
+                        secondsToAdd = hour * 3600 + minute * 60;
+                        timestamp = (new Date(year, month, day).getTime() / 1000) + secondsToAdd;
+                        input.prev('input').val(timestamp);
+                    }
+                    return true;
+                }
+            }
+        );
 
         // validate time fields
         $('input[type=time]').addClass('powermail_time').each(function(i){

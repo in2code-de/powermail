@@ -296,6 +296,7 @@ class tx_powermail_html extends tslib_pibase {
 						$markerArray['###CLASS###'] .= 'required_one  ';
 					} else {
 						$markerArray['###CLASS###'] .= 'required  ';
+                        $markerArray['###REQUIRED###'] = ' required="required"';
 					}
 				}
 				
@@ -647,6 +648,24 @@ class tx_powermail_html extends tslib_pibase {
 			$this->markerArray['###MIN###'] = '';
 		}
 		
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max') != 0) {
+			$this->markerArray['###MAX###'] = 'max="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')). '" '; // add max to markerArray
+		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) != '') {
+			$this->markerArray['###MAX###'] = 'max="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) . '" ';
+		} else {
+			$this->markerArray['###MAX###'] = '';
+		}
+
+		$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" ';
+
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') != 0) {
+			$this->markerArray['###MIN###'] = 'min="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')). '" '; // add min to markerArray
+		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mincalc')) != '') {
+			$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mincalc')) . '" ';
+		} else {
+			$this->markerArray['###MIN###'] = '';
+		}
+
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max') != 0) {
 			$this->markerArray['###MAX###'] = 'max="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')). '" '; // add max to markerArray
 		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) != '') {
