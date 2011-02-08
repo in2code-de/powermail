@@ -516,6 +516,7 @@ lib.powermailjs {
         }
     }
 
+	# date
     20 = COA
     20 {
     	wrap = $.tools.dateinput.localize('en', {|});
@@ -545,6 +546,7 @@ lib.powermailjs {
         }
     }
 
+	# date
     30 = COA
     30 {
         wrap = $(function(){|});

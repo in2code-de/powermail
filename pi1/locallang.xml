@@ -44,6 +44,7 @@
 			<label index="JSvalidation_label_validate_alpha">Please use letters only (a-z) in this field</label>
 			<label index="JSvalidation_label_validate_alphanum">Please use only letters (a-z) or numbers (0-9) only in this field. No spaces or other characters are allowed</label>
 			<label index="JSvalidation_label_validate_date">Please enter a valid date</label>
+			<label index="JSvalidation_label_validate_datetime">Please enter a valid date and time</label>
 			<label index="JSvalidation_label_validate_email">Please enter a valid email address (test@test.com)</label>
 			<label index="JSvalidation_label_validate_url">Please enter a valid URL (http://www.test.com)</label>
 			<label index="JSvalidation_label_validate_date_au">Please use this date format: dd/mm/yyyy. For example 17/03/2006 for the 17th of March, 2006</label>
@@ -164,6 +165,7 @@
 			<label index="JSvalidation_label_validate_alpha">Bitte nutzen Sie nur Buchstaben (a-z)</label>
 			<label index="JSvalidation_label_validate_alphanum">Bitte nutzen Sie hier nur Buchstaben (a-z) oder Zahlen (0-9) nur in diesem Feld. Leer- oder andere Zeichen sind nicht erlaubt</label>
 			<label index="JSvalidation_label_validate_date">Bitte tragen Sie ein korrektes Datum ein</label>
+			<label index="JSvalidation_label_validate_datetime">Bitte tragen Sie ein korrektes Datum sowie Uhrzeit ein</label>
 			<label index="JSvalidation_label_validate_email">Bitte tragen Sie eine gültige E-Mail Adresse ein (test@test.de)</label>
 			<label index="JSvalidation_label_validate_url">Bitte tragen Sie eine gültige URL ein (http://www.test.de)</label>
 			<label index="JSvalidation_label_validate_date_au">Bitte tragen Sie das Datum so ein: dd/mm/yyyy.(Beispiel 17/03/2006)</label>
