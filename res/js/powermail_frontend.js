@@ -54,26 +54,16 @@ function checkTextArea(obj, maxLength) {
                 }
             }
         );
-
-        $('input:radio.required_one').parent().parent().append($(this).find('input:radio.required_one').clone()).find('> input').removeAttr('tabindex').removeAttr('id').removeAttr('class').val('').attr('checked', 'checked').attr('style','visibility:hidden;height:1px;');
-
-        // multiple radio validation
-        $.tools.validator.fn('input:radio', 'required',
-            function(input, value) {
-                radios = input.parent().parent().find('input:radio');
-                if (radios.filter('.required_one').length > 0) {
-                    //alert(value);
-                    if (value == '') {
-                        return (input.filter('.required_one').length == 0);
-                    } else {
-                        powermail_validator.data('validator').reset(radios);
-                        return true;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        );
+		
+		// radio buttons validation (workarround with a checkbox)
+		var checkbox = '';
+		checkbox += '<div style="visibility: hidden; height: 1px; width: 1px; overflow: hidden;" class="checkbox_workarround">';
+		checkbox += '<input type="checkbox" value="1" required="required" />';
+		checkbox += '</div>';
+		$('input:radio.required_one').parent().parent().children('div:first').prepend(checkbox);
+		$('input[type=radio][required]').live('click', function() {
+			$(this).parent().parent().children('div').children('.checkbox_workarround').children('input[type=checkbox]').attr('checked', true).change();
+		});
 
         // time validation
         $.tools.validator.fn('input[type=time]', 'required',
