@@ -1132,34 +1132,33 @@ tr.odd td{background:#eee;}
 					c.uid = fs.tt_content
 				)';
 			$where = '
-				c.deleted=0
-				AND c.hidden=0
+				c.deleted = 0
+				AND c.hidden = 0
 				AND (
-					c.starttime<=' . time() . '
+					c.starttime <= ' . time() . '
 				)
 				AND (
-					c.endtime=0
+					c.endtime = 0
 					OR c.endtime>' . time() . '
 				)
 				AND (
-					c.fe_group=""
+					c.fe_group = ""
 					OR c.fe_group IS NULL
-					OR c.fe_group="0"
+					OR c.fe_group = "0"
 					OR (
 						c.fe_group LIKE "%,0,%"
 						OR c.fe_group LIKE "0,%"
 						OR c.fe_group LIKE "%,0"
-						OR c.fe_group="0"
+						OR c.fe_group = "0"
 					)
 					OR (
 						c.fe_group LIKE "%,-1,%"
 						OR c.fe_group LIKE "-1,%"
 						OR c.fe_group LIKE "%,-1"
-						OR c.fe_group="-1"
+						OR c.fe_group = "-1"
 					)
 				)
 				AND f.uid = ' . intval($uid) . '
-				AND f.hidden = 0
 				AND f.deleted = 0';
 			$groupBy = $orderBy = $limit = '';
 			// GET title where fields.flexform LIKE <value index="vDEF">vorname</value>
