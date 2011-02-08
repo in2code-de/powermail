@@ -261,15 +261,27 @@ class tx_powermail_form extends tslib_pibase {
 
 			if ($this->multiple['numberoffieldsets'] != $this->multiple['currentpage']) { // If current fieldset is not the latest
 				$content = '<input type="submit" value="' . $this->pi_getLL('multiple_forward', 'Next step') . '" class="tx_powermail_pi1_submitmultiple_forward" />';
-			} else $content = ''; // clear it if it's not needed
+			} else {
+				$content = ''; // clear it if it's not needed
+			}
 
 		} elseif ($add === -1) { // Backward link
 
 			if ($this->multiple['currentpage'] > 1) { // If current fieldset is not the first
-				$link = ($GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'] == '' ? $this->baseurl : '') . $this->cObj->typolink('x', array('parameter' => $GLOBALS['TSFE']->id, 'returnLast' => 'url', 'additionalParams' => '&tx_powermail_pi1[multiple]='.($this->multiple['currentpage'] + $add).'&tx_powermail_pi1[mailID]='.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'useCacheHash' => 1)); // Create target url
+				$linkVars = array(
+					'parameter' => $GLOBALS['TSFE']->id, 
+					'returnLast' => 'url', 
+					'additionalParams' => '
+						&tx_powermail_pi1[multiple]=' . ($this->multiple['currentpage'] + $add) . '
+						&tx_powermail_pi1[mailID]=' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 
+					'useCacheHash' => 1
+				);
+				$link = ($GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'] == '' ? $this->baseurl : '');
+				$link .= $this->cObj->typolink('x', $linkVars); // Create target url
 				$content = '<input type="button" value="' . $this->pi_getLL('multiple_back', 'Previous step') . '" onclick="location=\'' . $link . '\'" class="tx_powermail_pi1_submitmultiple_back" />';
+			} else {
+				$content = ''; // clear it if it's not needed
 			}
-			else $content = ''; // clear it if it's not needed
 
 		} elseif ($add === 0) { // show pagebrowser
 
