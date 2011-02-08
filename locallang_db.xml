@@ -13,25 +13,25 @@
 			<!--Formfields-->
 			<label index="tx_powermail_forms">Forms</label>
 			<label index="tt_content.CType_pi1">powermail</label>
-			<label index="tx_powermail_forms.title">Formtitle</label>
+			<label index="tx_powermail_forms.title">Formtitle (for internal usage only)</label>
 			<label index="tx_powermail_forms.fieldsets">Formpages</label>
 			<label index="tx_powermail_forms.preview">Preview</label>
-			<label index="tx_powermail_forms.recipient">Recipient</label>
+			<label index="tx_powermail_forms.recipient">Email of Recipient (and Name of Recipient)</label>
 			<label index="tx_powermail_forms.subject_r">Subject for recipient's mail</label>
 			<label index="tx_powermail_forms.subject_s">Subject for sender's mail</label>
 			<label index="tx_powermail_forms.sender">Senders email address</label>
 			<label index="tx_powermail_forms.sendername">Senders name</label>
 			<label index="tx_powermail_forms.confirm">Activate confirmation page</label>
-			<label index="tx_powermail_forms.startingpoint">Save mails in page</label>
-			<label index="tx_powermail_forms.multiple">Muliple steps</label>
-			<label index="tx_powermail_forms.multiple.I.0">Single step</label>
-			<label index="tx_powermail_forms.multiple.I.1">Muliple steps JS</label>
-			<label index="tx_powermail_forms.multiple.I.2">Muliple steps PHP</label>
+			<label index="tx_powermail_forms.startingpoint">Save mails in page (empty for same page)</label>
+			<label index="tx_powermail_forms.multiple">Muliple Steps (Every Fieldset is a single Page)</label>
+			<label index="tx_powermail_forms.multiple.I.0">Show all Fieldsets on one page (default)</label>
+			<label index="tx_powermail_forms.multiple.I.1">Muliple Pages (Server Application)</label>
+			<label index="tx_powermail_forms.multiple.I.2">Muliple Pages (Client Application)</label>
 			<label index="tx_powermail_forms.recip_table">Table of recipients</label>
 			<label index="tx_powermail_forms.recip_id">Recipients from upper table</label>
 			<label index="tx_powermail_forms.recip_field">Fieldname where mail is stored</label>
 			<label index="tx_powermail_forms.query">Alternative SQL-Query</label>
-			<label index="tx_powermail_forms.thanks">ResponseText (shown on website)</label>
+			<label index="tx_powermail_forms.thanks">ResponseText (Shown on Website after Submit)</label>
 			<label index="tx_powermail_forms.mailsender">Email-Text for sender</label>
 			<label index="tx_powermail_forms.mailsender.default">Thank you for your message.
 
@@ -174,25 +174,25 @@
 			<!--Formfields-->
 			<label index="tx_powermail_forms">Formulare</label>
 			<label index="tt_content.CType_pi1">powermail</label>
-			<label index="tx_powermail_forms.title">Formularname</label>
+			<label index="tx_powermail_forms.title">Formularname (für internen Gebrauch)</label>
 			<label index="tx_powermail_forms.fieldsets">Formularseiten</label>
 			<label index="tx_powermail_forms.preview">Voransicht</label>
-			<label index="tx_powermail_forms.recipient">Empfänger</label>
+			<label index="tx_powermail_forms.recipient">Empfänger E-Mail (und optional Empfänger Name)</label>
 			<label index="tx_powermail_forms.subject_r">Betreff für Empfängermail</label>
 			<label index="tx_powermail_forms.subject_s">Betreff für Absendermail</label>
 			<label index="tx_powermail_forms.sender">E-Mail Adresse des Absenders</label>
 			<label index="tx_powermail_forms.sendername">Name des Absenders</label>
 			<label index="tx_powermail_forms.confirm">Bestätigungsseite aktivieren</label>
-			<label index="tx_powermail_forms.startingpoint">Speicherort für Mails</label>
-			<label index="tx_powermail_forms.multiple">Mehrere Schritte</label>
-			<label index="tx_powermail_forms.multiple.I.0">Eine Seite</label>
-			<label index="tx_powermail_forms.multiple.I.1">Mehrere Schritte JS</label>
-			<label index="tx_powermail_forms.multiple.I.2">Mehrere Schritte PHP</label>
+			<label index="tx_powermail_forms.startingpoint">Speicherort für Mails (Leer für gleiche Seite)</label>
+			<label index="tx_powermail_forms.multiple">Mehrere Schritte (Jedes Fieldset ist eine eigene Seite)</label>
+			<label index="tx_powermail_forms.multiple.I.0">Zeige alle Fieldsets auf einer Seite (standard)</label>
+			<label index="tx_powermail_forms.multiple.I.1">Mehrere Seiten (Clientseitig)</label>
+			<label index="tx_powermail_forms.multiple.I.2">Mehrere Seiten (Serverseitig)</label>
 			<label index="tx_powermail_forms.recip_table">Tabelle mit Empfängern</label>
 			<label index="tx_powermail_forms.recip_id">Empfänger aus obiger Tabelle</label>
 			<label index="tx_powermail_forms.recip_field">Feldname in dem die E-Mail-Adresse gespeichert ist</label>
 			<label index="tx_powermail_forms.query">Alternativer SQL-Query</label>
-			<label index="tx_powermail_forms.thanks">AntwortText (wird auf Website angezeigt)</label>
+			<label index="tx_powermail_forms.thanks">AntwortText (wird nach dem Versand auf Website angezeigt)</label>
 			<label index="tx_powermail_forms.mailsender">Email-Text an Absender</label>
 			<label index="tx_powermail_forms.mailsender.default">Vielen Dank für Ihre Mitteilung.
 
