@@ -39,6 +39,7 @@ plugin.tx_powermail_pi1 {
 	upload.mimecheck = {$plugin.powermail.upload.mimecheck}
 	upload.filesize = {$plugin.powermail.upload.filesize}
 	upload.attachment = {$plugin.powermail.upload.attachment}
+	upload.delete = {$plugin.powermail.upload.delete}
 	clear.session = {$plugin.powermail.clear.session}
 	js.mandatorydivclass = {$plugin.powermail.js.mandatorydivclass}
 	js.onfocus = {$plugin.powermail.js.onfocus}

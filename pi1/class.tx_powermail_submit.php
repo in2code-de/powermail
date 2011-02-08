@@ -188,8 +188,9 @@ class tx_powermail_submit extends tslib_pibase {
 						);
 						$localCObj->start($row, 'tx_powermail_fields'); // enable .field in typoscript
 						$this->htmlMail->addAttachment($localCObj->cObjGetSingle($this->conf['email.']['recipient_mail.']['attachment'], $this->conf['email.']['recipient_mail.']['attachment.'])); // add attachment
-						#$this->htmlMail->addAttachment($this->div->correctPath($this->conf['upload.']['folder']).$file); // add attachment
-						
+						if ($this->conf['upload.']['delete'] == 1) {
+							unlink($this->div->correctPath($this->conf['upload.']['folder']) . $file); // delete attachment
+						}
 					}
 				}
 			}

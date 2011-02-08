@@ -116,9 +116,12 @@ plugin.powermail {
 	upload.filesize = 1000
 	
 	# cat=plugin.powermail_additionalconfig//0610; type=boolean; label= Upload and attach: If checked, all files will be sent as an attachment to the receiver (if disabled, files will only stored on server)
-	upload.attachment = 1
+	upload.attachment = 1 	
 
-	# cat=plugin.powermail_additionalconfig//0620; type=boolean; label= Clear Session: Check if session should be cleared after submit (emails sent)
+	# cat=plugin.powermail_additionalconfig//0620; type=boolean; label= Delete after attach: If checked, all uploaded files will be deleted from the server after the mail was sent
+	upload.delete = 0
+
+	# cat=plugin.powermail_additionalconfig//0630; type=boolean; label= Clear Session: Check if session should be cleared after submit (emails sent)
 	clear.session = 0
 	
 	# cat=plugin.powermail_additionalconfig//0900; type=options[mootools,prototype]; label= Javascript Library: Set to either "mootools" or "prototype" to choose a javascript library for frontend validation	
