@@ -355,20 +355,21 @@ td.powermail_all p.bodytext {
 	/* place on top of other elements. set a higher value if nessessary */
 	z-index:10000;
 	
-	margin-top:-1px;
-	width:198px;
-	padding:2px;
-	background-color:#fff;
-	font-size:11px;
-	border:1px solid #ccc;
+	margin-top: -1px;
+	width: 198px;
+	padding: 2px;
+	background-color: #fff;
+	font-size: 11px;
+	border: 1px solid #ccc;
 	
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 	
 	-moz-box-shadow: 0 0 15px #666;
 	-webkit-box-shadow: 0 0 15px #666;
-	box-shadow:0 0 15px #666;
+	box-shadow: 0 0 15px #666;
+	font-family: Calibri, Arial, sans-serif;
 }
 /* head. contains title, prev/next month controls and possible month/year selectors */
 #calhead {	
