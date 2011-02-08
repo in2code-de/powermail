@@ -369,17 +369,23 @@ class tx_powermail_html extends tslib_pibase {
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options')) { // Only if options are set
 			$content_item = ''; $options = array(); // init
 			$optionlines = t3lib_div::trimExplode("\n", $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options'), 1); // Every row is a new option
-			for ($i=0;$i<count($optionlines);$i++) { // Every loop for every option
-				$options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
-			}
-
 			for ($i=0;$i<count($optionlines);$i++) { // One tag for every option
+                $options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
 				$markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . ']" '; // add name to markerArray
 				$markerArray['###LABEL###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
 				$markerArray['###LABEL_NAME###'] = 'uid' . $this->uid . '_' . $i; // add labelname
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
 				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
 				$markerArray['###CLASS###'] = 'class="'; // start class tag
+                // Add required class if needed
+                if($i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
+                    if(count($optionlines) > 1) {
+                        $markerArray['###CLASS###'] .= 'required_one ';
+                    } else {
+                        $markerArray['###CLASS###'] .= 'required ';
+                        $markerArray['###REQUIRED###'] = ' required="required"';
+                    }
+                }
 				$markerArray['###CLASS###'] .= 'powermail_' . $this->formtitle; // add form title
 				$markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add input type
 				$markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add input uid

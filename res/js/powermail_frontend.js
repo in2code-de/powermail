@@ -38,7 +38,7 @@ function checkTextArea(obj, maxLength) {
         // initialize range input
         $(':range').rangeinput();
         
-        // validate multiple checkboxes
+        // multiple checkbox validation
         $.tools.validator.fn('input:checkbox', 'required',
             function(input, value) {
                 checkboxes = input.parent().parent().find('input:checkbox');
@@ -55,6 +55,27 @@ function checkTextArea(obj, maxLength) {
             }
         );
 
+        $('input:radio.required_one').parent().parent().append($(this).find('input:radio.required_one').clone()).find('> input').removeAttr('tabindex').removeAttr('id').removeAttr('class').val('').attr('checked', 'checked').attr('style','visibility:hidden;height:1px;');
+
+        // multiple radio validation
+        $.tools.validator.fn('input:radio', 'required',
+            function(input, value) {
+                radios = input.parent().parent().find('input:radio');
+                if (radios.filter('.required_one').length > 0) {
+                    //alert(value);
+                    if (value == '') {
+                        return (input.filter('.required_one').length == 0);
+                    } else {
+                        powermail_validator.data('validator').reset(radios);
+                        return true;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        );
+
+        // time validation
         $.tools.validator.fn('input[type=time]', 'required',
             function(input, value) {
                 if(value != '' && !/\d\d:\d\d/.test(value)) {
@@ -96,6 +117,13 @@ function checkTextArea(obj, maxLength) {
                 }
             }
         });
+
+        // select validation
+        $.tools.validator.fn('input[type=select].required', 'required',
+            function(input, value) {
+                return value.length > 0;
+            }
+        );
         
         // add tabs to fieldsets for multiple page
         $('ul.powermail_multiplejs_tabs li a:first').addClass('act'); // first tab with class "act"

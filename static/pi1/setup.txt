@@ -605,8 +605,12 @@ lib.powermailjs {
         30.wrap = $.tools.validator.localizeFn("input:checkbox", { en: '|'});
 
         40 = TEXT
-        40.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-        40.wrap = $.tools.validator.fn('input[type=select].required', function(input, value) {	return value.length != 0 ? true : {  en: '|' }; });
+        40.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
+        40.wrap = $.tools.validator.localizeFn("input:radio", { en: '|'});
+
+        50 = TEXT
+        50.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+        50.wrap = $.tools.validator.localizeFn('input[type=select].required', { en: '|'});
 
     }
 }
