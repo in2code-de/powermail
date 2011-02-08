@@ -25,8 +25,8 @@
 			<label index="tx_powermail_forms.startingpoint">Save mails in page (empty for same page)</label>
 			<label index="tx_powermail_forms.multiple">Muliple Steps (Every Fieldset is a single Page)</label>
 			<label index="tx_powermail_forms.multiple.I.0">Show all Fieldsets on one page (default)</label>
-			<label index="tx_powermail_forms.multiple.I.1">Muliple Pages (Server Application)</label>
-			<label index="tx_powermail_forms.multiple.I.2">Muliple Pages (Client Application)</label>
+			<label index="tx_powermail_forms.multiple.I.1">Muliple Pages (Client Application)</label>
+			<label index="tx_powermail_forms.multiple.I.2">Muliple Pages (Server Application)</label>
 			<label index="tx_powermail_forms.recip_table">Table of recipients</label>
 			<label index="tx_powermail_forms.recip_id">Recipients from upper table</label>
 			<label index="tx_powermail_forms.recip_field">Fieldname where mail is stored</label>
