@@ -467,10 +467,10 @@ tr.odd td{background:#eee;}
                                     $value = $this->charConvert($this->cleanString($value));
                                     switch ($this->formtypes[$key]){
                                         case 'date':
-                                            $value = date($this->dateFormat, $value);
+                                            $value = ($value == intval($value)) ? date($this->dateFormat, $value) : $value;
                                             break;
                                         case 'datetime':
-                                            $value = date($this->datetimeFormat, $value);
+                                            $value = ($value == intval($value)) ? date($this->datetimeFormat, $value) : $value;
                                             break;
                                         case 'file':
                                             $value = '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value . '">' . $value . '</a>';
@@ -602,10 +602,10 @@ tr.odd td{background:#eee;}
                                     $value = $this->charConvert($this->cleanString($value));
                                     switch ($this->formtypes[$key]){
                                         case 'date':
-                                            $value = date($this->dateFormat, $value);
+                                            $value = ($value == intval($value)) ? date($this->dateFormat, $value) : $value;
                                             break;
                                         case 'datetime':
-                                            $value = date($this->datetimeFormat, $value);
+                                            $value = ($value == intval($value)) ? date($this->datetimeFormat, $value) : $value;
                                             break;
                                         case 'file':
                                             $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
@@ -778,10 +778,10 @@ tr.odd td{background:#eee;}
                                         $value = $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($value)));
                                         switch ($this->formtypes[$key]){
                                             case 'date':
-                                                $value = date($this->dateFormat, $value);
+                                                $value = ($value == intval($value)) ? date($this->dateFormat, $value) : $value;
                                                 break;
                                             case 'datetime':
-                                                $value = date($this->datetimeFormat, $value);
+                                                $value = ($value == intval($value)) ? date($this->datetimeFormat, $value) : $value;
                                                 break;
                                             case 'file':
                                                 $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
