@@ -378,14 +378,12 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
 				$markerArray['###CLASS###'] = 'class="'; // start class tag
                 // Add required class if needed
-                if($i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
-                    if(count($optionlines) > 1) {
-                        $markerArray['###CLASS###'] .= 'required_one ';
-                    } else {
-                        $markerArray['###CLASS###'] .= 'required ';
-                        $markerArray['###REQUIRED###'] = ' required="required"';
-                    }
+                if ($i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
+					$markerArray['###CLASS###'] .= 'required_one ';
                 }
+				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
+					$markerArray['###REQUIRED###'] = ' required="required"';
+				}
 				$markerArray['###CLASS###'] .= 'powermail_' . $this->formtitle; // add form title
 				$markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add input type
 				$markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add input uid

@@ -56,13 +56,9 @@ function checkTextArea(obj, maxLength) {
         );
 		
 		// radio buttons validation (workarround with a checkbox)
-		var checkbox = '';
-		checkbox += '<div style="visibility: hidden; height: 1px; width: 1px; overflow: hidden;" class="checkbox_workarround">';
-		checkbox += '<input type="checkbox" value="1" required="required" />';
-		checkbox += '</div>';
-		$('input:radio.required_one').parent().parent().children('div:first').prepend(checkbox);
+		$('input[type=radio][required]:checked').parent().siblings('.powermail_radio_inner_fake').children('input[type=checkbox]').attr('checked', true).change();
 		$('input[type=radio][required]').live('click', function() {
-			$(this).parent().parent().children('div').children('.checkbox_workarround').children('input[type=checkbox]').attr('checked', true).change();
+			$('div.powermail_radio_inner_fake').children('input[type=checkbox]').attr('checked', true).change();
 		});
 
         // time validation
@@ -74,10 +70,10 @@ function checkTextArea(obj, maxLength) {
                     time = value.split(':');
                     hour = parseInt(time[0]);
                     minute = parseInt(time[1]);
-                    if(hour > 23 || hour < 0 || minute > 59 || minute < 0) {
+                    if (hour > 23 || hour < 0 || minute > 59 || minute < 0) {
                         return false;
                     }
-                    if(input.prevAll('input.powermail_datetime').length > 0) {
+                    if (input.prevAll('input.powermail_datetime').length > 0) {
                         oldDate = new Date(input.prev('input').val() * 1000);
                         year = oldDate.getFullYear();
                         month = oldDate.getMonth();
@@ -94,7 +90,7 @@ function checkTextArea(obj, maxLength) {
         // validate time fields
         $('input[type=time]').addClass('powermail_time').each(function(i){
             // check if part of datetime field
-            if($(this).prevAll('input.powermail_datetime').length > 0) {
+            if ($(this).prevAll('input.powermail_datetime').length > 0) {
                 if ($(this).prev('input').val() != '') {
                     timestamp = new Date($(this).prev('input').val() * 1000);
                     h = timestamp.getHours();
