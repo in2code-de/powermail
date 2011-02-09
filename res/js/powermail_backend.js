@@ -150,10 +150,10 @@ Powermail.grid = {
 	 			}
                 switch (Powermail.statics[key].formtype) {
                     case 'date':
-                        value = new Date(parseInt(value) * 1000).format(Powermail.statics.dateFormat);
+                        value = (parseInt(value) == value) ? new Date(parseInt(value) * 1000).format(Powermail.statics.dateFormat) : value;
                         break;
                     case 'datetime':
-                        value = new Date(parseInt(value) * 1000).format(Powermail.statics.datetimeFormat);
+                        value = (parseInt(value) == value) ? new Date(parseInt(value) * 1000).format(Powermail.statics.datetimeFormat) : value;
                         break;
                     case 'email':
                         value = makeEmailLink(value);
