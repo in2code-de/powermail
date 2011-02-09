@@ -28,9 +28,6 @@ plugin.powermail {
 	# cat=plugin.powermail_mainconfig/file/0080; type=file[html,htm,tmpl,txt]; label= Template File multiple: HTML-template file for multiple pages (see EXT:powermail/templates/tmpl_multiplejs.html for an example)
 	template.MultipleJS = EXT:powermail/templates/tmpl_multiplejs.html
 	
-	# cat=plugin.powermail_mainconfig/file/0090; type=file[css]; label= Multiple JS CSS: CSS file for multiple page via JS (see EXT:powermail/css/multipleJS.css for an example)
-	css.MultipleJS = EXT:powermail/res/css/powermail_frontend_multipleJS.css
-
 	# cat=plugin.powermail_mainconfig/enable/0100; type=boolean; label= Email to receiver active: You can disable emails to receiver (maybe if you want only to store the values to db)
 	allow.email2receiver = 1
 
@@ -123,9 +120,6 @@ plugin.powermail {
 
 	# cat=plugin.powermail_additionalconfig//0630; type=boolean; label= Clear Session: Check if session should be cleared after submit (emails sent)
 	clear.session = 0
-	
-	# cat=plugin.powermail_additionalconfig//0900; type=options[mootools,prototype]; label= Javascript Library: Set to either "mootools" or "prototype" to choose a javascript library for frontend validation	
-	libraryToUse = prototype
 	
 	# cat=plugin.powermail_additionalconfig//0910; type=text; label= Mandatory JS DIV class: Enter your own css class for the mandatory javascript div layer (div layer which is shown, if a field was not filled, etc...)
 	js.mandatorydivclass = powermail_mandatory_js
