@@ -71,11 +71,11 @@ plugin.powermail {
 	form.method = post
 	
 	# cat=plugin.powermail_additionalconfig//0450; type=text; label= Datetime format: Frontend datetime format if datetime field is in use (see http://php.net/manual/function.strftime.php for strftime details)
-	format.datetime = %H:%M %d-%m-%Y
-	
+	format.datetime = %Y-%m-%d %H:%M
+
 	# cat=plugin.powermail_additionalconfig//0460; type=text; label= Date format: Frontend date format if date field is in use (see http://php.net/manual/function.strftime.php for strftime details)
-	format.date = dd.mm.yyyy
-	
+	format.date = %Y-%m-%d
+
 	# cat=plugin.powermail_additionalconfig//0470; type=text; label= Allowed tags in labels: Allow some tags for label fields
 	label.allowTags = <p><br><b><strong><a>
 	

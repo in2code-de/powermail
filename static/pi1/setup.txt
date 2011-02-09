@@ -183,13 +183,13 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
-				strftime = %d.%m.%Y
+				strftime = {$plugin.powermail.format.date}
 			}
 			
 			datetime = TEXT
 			datetime {
 				field = datetime
-				strftime = %d.%m.%Y %H:%M
+				strftime = {$plugin.powermail.format.datetime}
 			}
 
 			# Example to manipulate field with uid 999
@@ -204,13 +204,13 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
-				strftime = %d.%m.%Y
+				strftime = {$plugin.powermail.format.date}
 			}
 			
 			datetime = TEXT
 			datetime {
 				field = datetime
-				strftime = %d.%m.%Y %H:%M
+				strftime = {$plugin.powermail.format.datetime}
 			}
 
 			# Example to manipulate field with uid 999
@@ -225,13 +225,13 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
-				strftime = %d.%m.%Y
+				strftime = {$plugin.powermail.format.date}
 			}
 			
 			datetime = TEXT
 			datetime {
 				field = datetime
-				strftime = %d.%m.%Y %H:%M
+				strftime = {$plugin.powermail.format.datetime}
 			}
 
 			# Example to manipulate field with uid 999
@@ -246,13 +246,13 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
-				strftime = %d.%m.%Y
+				strftime = {$plugin.powermail.format.date}
 			}
 			
 			datetime = TEXT
 			datetime {
 				field = datetime
-				strftime = %d.%m.%Y %H:%M
+				strftime = {$plugin.powermail.format.datetime}
 			}
 
 			# Example to manipulate field with uid 999
@@ -267,13 +267,13 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
-				strftime = %d.%m.%Y
+				strftime = {$plugin.powermail.format.date}
 			}
 		
 			datetime = TEXT
 			datetime {
 				field = datetime
-				strftime = %d.%m.%Y %H:%M
+				strftime = {$plugin.powermail.format.datetime}
 			}
 
 			# Example to manipulate field with uid 999
@@ -296,9 +296,11 @@ plugin.tx_powermail_pi1 {
 #		uid998.data = date:U
 		
 		# fill field uid998 with current date like "Date: 20.01.2009"
+		# if field type is date or datetime, don't use strftime, because this type needs a timestamp.
+		# The final format shown to the user can be changed via locallang (e.g. plugin.tx_powermail_pi1._LOCAL_LANG.de.JSvalidation_dateinput_format = dd.mm.yyyy)
 #		uid996 = TEXT
 #		uid996.data = date:U
-#		uid996.strftime = Date: %d.%m.%Y
+#		uid996.strftime = Date: {$plugin.powermail.format.date}
 		
 		# fill field uid995 with IP address of the user
 #		uid995 = TEXT
@@ -310,6 +312,10 @@ plugin.tx_powermail_pi1 {
 	_LOCAL_LANG.en {
 		# define your own locallang markers
 		locallangmarker_yourvalue = this is a new text
+		# define date format of datepicker in frontend
+#       JSvalidation_dateinput_format = dd.mm.yyyy
+        # define first day of week of datepicker in frontend
+#       JSvalidation_dateinput_firstDay = 0
 	}
 	
 	
