@@ -494,7 +494,7 @@ class tx_powermail_html extends tslib_pibase {
         } elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. if value should be filled from current logged in user
             $this->markerArray['###CONTENT###'] = strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]);
         } elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) { // 3. take value from backend (default value)
-            $this->markerArray['###CONTENT###'] = htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'), $this->conf['label.']['allowTags']);
+            $this->markerArray['###CONTENT###'] = strip_tags($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'), $this->conf['label.']['allowTags']);
         } elseif (!empty($this->conf['prefill.']['uid' . $this->uid])) { // 4. prefilling with typoscript for current field enabled
             $this->markerArray['###CONTENT###'] = $this->cObj->cObjGetSingle($this->conf['prefill.']['uid' . $this->uid], $this->conf['prefill.']['uid' . $this->uid . '.']); // add typoscript value
         } else { // 5. no prefilling - so clear value marker
