@@ -23,6 +23,7 @@ fieldset.tx-powermail-pi1_fieldset fieldset legend {
 	float: left;
 	font-weight: bold;
     color:#515151;
+    white-space:normal;
 }
 fieldset.tx-powermail-pi1_fieldset input {
 	margin-left:0;
