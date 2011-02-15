@@ -549,7 +549,7 @@ lib.powermailjs {
         40 = TEXT
         40 {
             data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortDays
-            wrap = 'shortDays': '|',
+            wrap = 'shortDays': '|'
         }
     }
 
