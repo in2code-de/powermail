@@ -623,7 +623,7 @@ lib.powermailjs {
 
 [end]
 
-[userFunc = user_powermailOnCurrentPage] && [userFunc = user_checkT3jquery(false)]
+[userFunc = user_powermailOnCurrentPage] && [userFunc = user_powermailCheckT3jquery(false)]
 
     // if powermail is on current page and t3jquery is NOT loaded include jquery and jquery tools from cdn
 
@@ -650,7 +650,7 @@ page.footerData.31320.wrap (
 
 [end]
 
-[userFunc = user_powermailOnCurrentPage] && [userFunc = user_checkT3jquery(true)]
+[userFunc = user_powermailOnCurrentPage] && [userFunc = user_powermailCheckT3jquery(true)]
 
     // if powermail is on current page and t3jquery is loaded include jquery and validation js using t3jquery
 
@@ -687,7 +687,7 @@ page.31320 {
 
 [end]
 
-[userFunc = user_powermailOnCurrentPage] && [userFunc = user_checkT3jqueryCDNMode(false)]
+[userFunc = user_powermailOnCurrentPage] && [userFunc = user_powermailCheckT3jqueryCDNMode(false)]
 
     // if powermail is on current page and t3jquery is loaded and NOT in CDN Mode delete jquery tools
 

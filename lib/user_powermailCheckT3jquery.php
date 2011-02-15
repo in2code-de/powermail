@@ -24,30 +24,23 @@
 
 
 /**
- * Function user_checkT3jqueryCDNMode() checks if t3jquery plugin is in CDN mode
+ * Function user_powermailCheckT3jquery() checks if t3jquery plugin is loaded or not
  * 
- * @param	string		If string is "false" result will be inverted
+ * @param	string		If string is "false" result will be revert
  * @return	boolean		0/1
  */
-
-function user_checkT3jqueryCDNMode($mode = 'true') {
-    //global $TYPO3_CONF_VARS;
-    if (t3lib_extMgm::isLoaded('t3jquery')) {
-        $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3jquery']);
-        //$confArr = $TYPO3_CONF_VARS['EXT']['extConf']['t3jquery'];
-        //t3lib_div::devLog('$confArr', 'powermail', 0, $confArr);
-        switch($mode){
-            case 'false':
-                return !($confArr['integrateFromCDN'] == 1);
-                break;
-            default:
-                return ($confArr['integrateFromCDN'] == 1);
-        }
-    }
-    return false;
+function user_powermailCheckT3jquery($mode = 'true') {
+	switch($mode){
+		case 'false':
+			return !t3lib_extMgm::isLoaded('t3jquery');
+			break;
+		default:
+			return t3lib_extMgm::isLoaded('t3jquery');
+	}
+	return false;
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/user_checkT3jqueryCDNMode.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/user_checkT3jqueryCDNMode.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/user_powermailCheckT3jquery.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/user_powermailCheckT3jquery.php']);
 }
 ?>
