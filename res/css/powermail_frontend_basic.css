@@ -150,6 +150,7 @@ fieldset.tx-powermail-pi1_fieldset fieldset legend {
 .powermail_mandatory {
 	color: #f00;
 }
+.powermail_mandatory_helper{visibility:hidden;height:1px;position:absolute;}
 fieldset.tx-powermail-pi1_fieldset .powermail_check_inner,
 fieldset.tx-powermail-pi1_fieldset .powermail_radio_inner {
 	margin-left: 200px;

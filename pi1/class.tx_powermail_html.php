@@ -365,11 +365,26 @@ class tx_powermail_html extends tslib_pibase {
 	private function html_radio() {
 		$this->tmpl['html_radio']['all'] = $this->cObj->getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_RADIO###'); // work on subpart 1
 		$this->tmpl['html_radio']['item'] = $this->cObj->getSubpart($this->tmpl['html_radio']['all'], '###ITEM###'); // work on subpart 2
+        //$this->tmpl['html_radio']['mandatory_helper'] = $this->cObj->getSubpart($this->tmpl['html_radio']['all'], '###MANDATORY_HELPER###'); // work on subpart 3
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options')) { // Only if options are set
-			$content_item = ''; $options = array(); // init
+			$content_item = '';
+            $options = array(); // init
+            $options_temp = array();
+            $preSelectionFound = false;
 			$optionlines = t3lib_div::trimExplode("\n", $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options'), 1); // Every row is a new option
-			for ($i=0;$i<count($optionlines);$i++) { // One tag for every option
+            for ($i = 0; $i < count($optionlines); $i ++) { // One tag for every option
+                $options_temp[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
+                if (isset($options_temp[$i][2]) && $options_temp[$i][2] == '*') {
+                    $preSelectionFound = true;
+                    break;
+                }
+            }
+            if ($preSelectionFound == false && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
+                // if no pre selection is found, add a mandatory helper radio button
+                $optionlines = array_merge(array(' ||*'), $optionlines);
+            }
+			for ($i = 0; $i < count($optionlines); $i ++) { // One tag for every option
                 $options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
 				$markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . ']" '; // add name to markerArray
 				$markerArray['###LABEL###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
@@ -377,9 +392,13 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
 				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
 				$markerArray['###CLASS###'] = 'class="'; // start class tag
+                $markerArray['###MANDATORY_HELPER###'] = '';
                 // Add required class if needed
-                if ($i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
+                if ($preSelectionFound == false && $i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
 					$markerArray['###CLASS###'] .= 'required_one ';
+                    $markerArray['###VALUE###'] = 'value="" ';
+                    $markerArray['###CHECKED###'] = 'checked="checked" ';
+                    $markerArray['###MANDATORY_HELPER###'] = ' powermail_mandatory_helper';
                 }
 				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
 					$markerArray['###REQUIRED###'] = ' required="required"';
@@ -396,11 +415,15 @@ class tx_powermail_html extends tslib_pibase {
 				// ###CHECKED###
 				if ($options[$i][2] == '*') { // Preselection from backend
 					$markerArray['###CHECKED###'] = 'checked="checked" '; // precheck radiobutton
-				} else $markerArray['###CHECKED###'] = ''; // clear
+				} else {
+                    $markerArray['###CHECKED###'] = ''; // clear
+                }
 				if (isset($this->piVarsFromSession['uid' . $this->uid])) { // Preselection from session
 					if ($this->piVarsFromSession['uid' . $this->uid] == ($options[$i][1] ? $options[$i][1] : $options[$i][0])) { // mark as selected
 						$markerArray['###CHECKED###'] = 'checked="checked" '; // precheck radiobutton
-					} else $markerArray['###CHECKED###'] = ''; // clear
+					} else {
+                        $markerArray['###CHECKED###'] = '';
+                    } // clear
 				}
 
 				$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
