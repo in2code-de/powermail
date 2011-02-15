@@ -629,7 +629,7 @@ lib.powermailjs {
 
 page.includeJSFooter {
 	powermail_jQuery.external = 1
-	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.js
+	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js
 	powermail_jQueryTools.external = 1
 	powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js
 	powermail_frontend = EXT:powermail/res/js/powermail_frontend.js
