@@ -1,0 +1,185 @@
+body{padding:0 !important;}
+#typo3-docheader-row1{padding:0 15px 0 5px;}
+#tx_powermail-grid{}
+h2{margin-left:7px;}
+.x-grid3-row td, .x-grid3-summary-row td {-moz-user-select:text;-webkit-user-select:text;user-select:text;}
+.tx_powermail-piVars{margin:10px 10px 10px 40px;}
+.tx_powermail-piVars table tr.odd{background:#f9f9f9;}
+
+table.x-btn .x-btn-small td.x-btn-mc em a {
+    text-decoration: none;
+    display: block;
+    height: 12px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+
+body.ext-opera  table.x-btn .x-btn-small td.x-btn-mc em a,
+body.ext-chrome table.x-btn .x-btn-small td.x-btn-mc em a {
+    padding-top: 1px;
+}
+
+body.ext-chrome table.x-btn .x-btn-small td.x-btn-mc em a {
+    padding-bottom: 3px;
+}
+
+.x-panel .x-grid-panel {
+	padding: 0;
+	margin: 0;
+	background-image: none;
+	background: none;
+	border: none;
+}
+
+body .x-panel {
+	margin-bottom:20px;
+}
+
+.x-toolbar-left, .x-toolbar-right, .x-panel-mc, x-panel-tbar, .x-toolbar .x-small-editor .x-toolbar-layout-ct, x-toolbar-ct,
+.x-panel-nofooter .x-panel-bc, .x-panel-nofooter .x-window-bc,
+.x-toolbar,
+.x-small-editor,
+.x-toolbar-layout-ct,
+.x-panel-mr, .x-panel-ml, .x-panel-tr, .x-panel-tl, .x-panel-br, .x-panel-bl, .x-panel-ml, .x-panel-mr, .x-panel-tm, .x-panel-tc {
+	background-image: none;
+	background: none;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+.x-panel-bbar .x-toolbar, .x-panel-tbar .x-toolbar {
+	padding: 2px;
+	margin: 0;
+	border: 0;
+}
+
+.x-panel-mr, .x-panel-ml {
+	padding: 0;
+	margin: 0;
+}
+
+.x-toolbar {
+	padding: 0;
+	margin: 0;
+}
+
+.x-panel-bbar .x-toolbar, .x-panel-tbar .x-toolbar,
+.x-panel-tbar-noheader .x-toolbar, .x-panel-mc .x-panel-tbar .x-toolbar {
+	background-color: #585858;
+}
+
+.x-toolbar-ct .x-toolbar-left {
+	width: 400px;
+}
+
+.x-toolbar-ct .x-toolbar-right, .x-toolbar-cell {
+}
+
+.x-toolbar-ct .xtb-text {
+	color: #fff;
+}
+
+.icon-grid { background-image:url('../img/icon_del.gif') !important; }
+
+#button-grid .x-panel-body {
+	border:1px solid #99bbe8;
+	border-top:0 none;
+}
+
+.loadingClass { top:200px !important; }
+
+.ext-el-mask-msg { width:200px; }
+
+.ext-el-mask-msg div {
+	height:30px;
+	background-image: url('../img/loading.gif');
+	background-position: 155px 3px;
+	background-repeat: no-repeat;
+}
+
+.x-toolbar button {
+	color: #fff;
+}
+.x-toolbar button.delete {
+	color: #444;
+}
+
+.delete { background-image: url('../img/icon_del.gif') !important; }
+
+.deletedPath { color: #ff0000; font-weight: bold; }
+
+.x-toolbar table {  }
+
+#recordPaging table { width: auto; }
+#recordPaging .x-tbar-page-number { text-align: center; }
+
+.x-window-body { padding: 5px; }
+.x-window-body label { display: block; margin: 5px 0; }
+.x-window-body .x-form-cb-label { margin-left: 5px; }
+
+/*  Single rows and elements */
+.x-grid3-body .x-grid3-td-expander {
+	background-image: none;
+}
+
+.x-grid3-row {
+	background-image:none;
+}
+
+.x-grid3-row-selected {
+	background-color:#fff !important;
+	background-image:none;
+}
+
+/* Flyout Menus */
+.x-menu-sep {
+	display: none;
+}
+
+.x-menu {
+	background-image: none;
+}
+
+.x-menu-item-active a.x-menu-item {
+	border: 1px solid #adb5c1;
+	background-color: #adb5c1;
+	color: #fff;
+}
+
+.x-menu-list {
+	padding:0;
+}
+
+/* Flyout Menu Shadows */
+.x-shadow .xstl, .x-shadow .xstc, .x-shadow .xstr, .x-shadow .xsbl, 
+.x-shadow .xsbc, .x-shadow .xsbr, .x-shadow .xstl, .x-shadow .xstr, .x-shadow .xsml, .x-shadow .xsmr {
+	background-image: none;
+}
+
+.x-grid3-body .x-grid3-td-checker {
+	background-image: none;
+	background-color: none;
+}
+
+.x-grid3-body .x-grid3-row-selected .x-grid3-td-numberer,
+.x-grid3-body .x-grid3-row-selected .x-grid3-td-checker,
+.x-grid3-body .x-grid3-row-selected .x-grid3-td-expander {
+	background-image: none;
+	background-color: none;
+}
+
+.x-grid3-row-body,
+.x-grid3-row-body-tr,
+.x-grid3-row-body-td,
+.x-grid3-body-cell {
+	background-color: none;
+}
+.powermail_icon_pdf {
+	display: none;
+}
+.powermail_icon_inactive {
+	filter: alpha(opacity=30); 
+	-moz-opacity: 0.30; 
+	opacity: 0.30;
+}

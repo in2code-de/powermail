@@ -1,0 +1,35 @@
+Powermail HTML Template mandatory, errormessages if fields where not filled (e.g.)
+
+	--- MARKERS OUTSIDE SUBPARTS ---
+	Title for errormessages: 							###POWERMAIL_LOCALLANG_MANDATORY_MESSAGE###
+	Form name for backlink (formname_mandatory): 		###POWERMAIL_NAME###
+	Target for backlink:								###POWERMAIL_TARGET###
+	Form method for backlink:							###POWERMAIL_METHOD###
+	Submitbutton value:									###POWERMAIL_LOCALLANG_MANDATORY_SUBMIT###
+    Subpart for backbutton (clear if needed):			###BACKBUTTON###
+	
+	-- MARKERS INSIDE SUBPARTS ---
+	Current Errormessage:								###POWERMAIL_MANDATORY_LABEL###
+	
+	--- GENERAL MARKERS (INSIDE/OUTSIDE) --
+	Displaying any value from pi1/locallang.xml:		###POWERMAIL_LOCALLANG_YOURFIELD### (Could be filled via locallang.xml or typoscript - see manual for details)
+	Displaying any value from typoscript:				###POWERMAIL_TYPOSCRIPT_YOURFIELD### (Could be filled via typoscript - see manual for details)
+
+
+<!-- ###POWERMAIL_MANDATORY_ALL### begin -->
+	<div class="tx-powermail-pi1_mandatory">
+		<strong>###POWERMAIL_LOCALLANG_MANDATORY_MESSAGE###</strong><br />
+		
+		<ul class="powermail_mandatory_list">
+		<!-- ###CONTENT### --><!-- ###ITEM### -->
+			<li class="powermail_mandatory_listitem"><strong>###POWERMAIL_MANDATORY_LABEL###</strong></li>
+		<!-- ###ITEM### --><!-- ###CONTENT### -->
+		</ul>
+		
+        <!-- ###BACKBUTTON### -->
+            <form name="###POWERMAIL_NAME###" action="###POWERMAIL_TARGET###" method="###POWERMAIL_METHOD###">
+                <input type="submit" value="###POWERMAIL_LOCALLANG_MANDATORY_SUBMIT###" class="tx-powermail-pi1_mandatory_submit" />
+            </form>
+        <!-- ###BACKBUTTON### -->
+	</div>
+<!-- ###POWERMAIL_MANDATORY_ALL### end -->

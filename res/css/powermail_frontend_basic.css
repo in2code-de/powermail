@@ -1,0 +1,463 @@
+/* Powermail */
+	/* Form */
+span.powermail_mandatory {
+	/* Color of mandatory error message */
+	color: red;
+}
+fieldset.tx-powermail-pi1_fieldset {
+	/* Fieldset */
+	border: 1px solid #ccc;
+	background-color: #f0f0f0;
+	padding: 10px;
+}
+fieldset.tx-powermail-pi1_fieldset legend {
+	/* legend of Fieldset */
+	font-weight: bold;
+	color: black;
+}
+fieldset.tx-powermail-pi1_fieldset label,
+fieldset.tx-powermail-pi1_fieldset fieldset legend {
+	/* label */
+	display: block;
+	width: 200px;
+	float: left;
+	font-weight: bold;
+    color:#515151;
+}
+fieldset.tx-powermail-pi1_fieldset input {
+	margin-left:0;
+}
+fieldset.tx-powermail-pi1_fieldset input.powermail_text,
+fieldset.tx-powermail-pi1_fieldset input.powermail_date,
+fieldset.tx-powermail-pi1_fieldset input.powermail_datetime,
+fieldset.tx-powermail-pi1_fieldset textarea.powermail_textarea {
+	/* Input and textarea */
+	border:1px solid #ccc;
+	background:#f8f8f8 none;
+	-moz-box-shadow:0 0 5px #eee inset;
+	-webkit-box-shadow:0 0 5px #eee inset;
+    padding:2px;
+	width:300px;
+}
+fieldset.tx-powermail-pi1_fieldset input.powermail_time,
+fieldset.tx-powermail-pi1_fieldset input[type=time]{
+    width:60px;
+}
+
+
+fieldset.tx-powermail-pi1_fieldset textarea:focus,
+fieldset.tx-powermail-pi1_fieldset input:not([type="submit"]):focus {
+	background:#fff none;
+	border:1px solid #333;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+fieldset.tx-powermail-pi1_fieldset div.tx_powermail_pi1_fieldwrap_html_radio input.powermail_radio {
+	/* Radiobuttons */
+	margin: 3px 0;
+}
+div.tx_powermail_pi1_fieldwrap_html {
+	/* DIV container arround every field */
+	margin: 0 0 0.5em 0;
+	clear:both;
+}
+fieldset.tx-powermail-pi1_fieldset input.powermail_submit {
+	/* submit button */
+	margin: 20px 0 10px 200px;
+	font-weight: bold;
+}
+p.tx_powermail_pi1_fieldwrap_html_checkbox_title,
+p.tx_powermail_pi1_fieldwrap_html_radio_title {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+div.countryzone {
+	margin: 10px 0 0 200px;
+}
+div.tx_powermail_pi1_fieldwrap_html label a,
+div.tx_powermail_pi1_fieldwrap_html p a,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title a{
+	/* Description */
+	cursor: help;
+	text-decoration: none;
+}
+div.tx_powermail_pi1_fieldwrap_html label a dfn,
+div.tx_powermail_pi1_fieldwrap_html p a dfn,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a dfn,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title a dfn{
+	/* Description */
+	display: none;
+	text-decoration: none;
+    position:absolute;
+    z-index:1;
+    width: auto;
+    height:15px;
+    padding:3px 10px 5px 10px;
+    background-color:#00559E;
+    border:1px solid #00559E;
+    font-size:11px;
+    color:#fff;
+    text-decoration: none;
+    /* CSS3 spicing for mozilla and webkit */
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+
+    -moz-box-shadow:0 0 6px #ddd;
+    -webkit-box-shadow:0 0 6px #ddd;
+    box-shadow:0 0 6px #ddd;
+}
+div.tx_powermail_pi1_fieldwrap_html label a:hover dfn,
+div.tx_powermail_pi1_fieldwrap_html p a:hover dfn,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a:hover dfn,
+div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title a:hover dfn{
+	/* Description on mouseover */
+	display: block;
+}
+div.tx_powermail_pi1_fieldwrap_html img.icon_info {
+	/* Description icon */
+	padding: 2px 2px 0 2px;
+}
+fieldset.tx-powermail-pi1_fieldset div.even {
+}
+
+
+	/* Confirmation */
+td.powermail_all_td {
+	padding: 3px 10px 3px 0;
+}
+
+	/* THX */
+td.powermail_all p.bodytext {
+	margin: 0;
+}
+
+fieldset.tx-powermail-pi1_fieldset fieldset {
+	border: 0 none;
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+fieldset.tx-powermail-pi1_fieldset fieldset legend {
+	position: absolute;
+	left: 0;
+	padding: 0;
+	margin: 0;
+}
+.powermail_mandatory {
+	color: #f00;
+}
+fieldset.tx-powermail-pi1_fieldset .powermail_check_inner,
+fieldset.tx-powermail-pi1_fieldset .powermail_radio_inner {
+	margin-left: 200px;
+	clear: both;
+}
+fieldset.tx-powermail-pi1_fieldset .powermail_check_inner label,
+fieldset.tx-powermail-pi1_fieldset .powermail_radio_inner label {
+	float: none;
+	width: auto;
+	display: inline;
+	font-weight: normal;
+	margin-left: 7px;
+}
+fieldset.tx-powermail-pi1_fieldset .powermail_check_inner input,
+fieldset.tx-powermail-pi1_fieldset .powermail_radio_inner input {
+	float: left;
+	position: relative;
+	clear: left;
+}
+
+        /* Multiple JS */
+div.fieldsets {
+    clear: both;
+}
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset legend {
+    display:none;
+}
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset {
+    padding-top:15px;
+}
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset fieldset legend {
+    display:block;
+}
+ul.powermail_multiplejs_tabs {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+ul.powermail_multiplejs_tabs li {
+    float: left;
+    margin: 0 1px 0 0;
+    padding: 0;
+    list-style-type: none;
+}
+ul.powermail_multiplejs_tabs li a {
+    display: block;
+    padding: 5px 10px;
+    color: #666;
+    font-weight: bold;
+    text-decoration: none;
+    background: #E0E0E0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2px;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    outline: none;
+}
+ul.powermail_multiplejs_tabs li a.act {
+    background: #F0F0F0;
+    color: #333;
+    padding:5px 10px 6px 10px;
+    position:relative;
+    margin-bottom:-1px
+}
+
+/* error message */
+.error {
+	/* supply height to ensure consistent positioning for every browser */
+	height:15px;
+	background-color:#FF0000;
+	border:1px solid #FF0000;
+	font-size:11px;
+	color:#fff;
+	padding:3px 10px 5px 10px;
+	margin-left:-2px;
+
+
+	/* CSS3 spicing for mozilla and webkit */
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+
+	-moz-box-shadow:0 0 6px #ddd;
+	-webkit-box-shadow:0 0 6px #ddd;
+	box-shadow:0 0 6px #ddd;
+}
+
+.error p {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+/* pure CSS arrow */
+.error em {
+	display:block;
+	width:0;
+	height:0;
+	border:10px solid;
+	border-color:#FF0000 transparent transparent;
+
+	/* positioning */
+	position:absolute;
+	bottom:-7px;
+	left:5px;
+	border-bottom:0 none;
+}
+
+/* For the details, see: http://flowplayer.org/tools/dateinput/index.html#skinning */
+
+/* the input field */
+.date {
+	width:198px !important;
+}
+
+/* calendar root element */
+#calroot {
+	/* place on top of other elements. set a higher value if nessessary */
+	z-index:10000;
+	
+	margin-top:-1px;
+	width:198px;
+	padding:2px;
+	background-color:#fff;
+	font-size:11px;
+	border:1px solid #ccc;
+	
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	
+	-moz-box-shadow: 0 0 15px #666;
+	-webkit-box-shadow: 0 0 15px #666;
+	box-shadow:0 0 15px #666;
+}
+
+/* head. contains title, prev/next month controls and possible month/year selectors */
+#calhead {	
+	padding:2px 0;
+	height:22px;
+} 
+
+#caltitle {
+	font-size:14px;
+	color:#FA8800;	
+	float:left;
+	text-align:center;
+	width:155px;
+	line-height:20px;
+	text-shadow:0 1px 0 #ddd;
+}
+
+#calnext, #calprev {
+	display:block;
+	width:20px;
+	height:20px;
+	background:transparent url(../img/prev.gif) no-repeat scroll center center;
+	float:left;
+	cursor:pointer;
+}
+
+#calnext {
+	background-image:url(../img/next.gif);
+	float:right;
+}
+
+#calprev.caldisabled, #calnext.caldisabled {
+	visibility:hidden;	
+}
+
+/* year/month selector */
+#caltitle select {
+	font-size:10px;	
+}
+
+/* names of the days */
+#caldays {
+	height:18px;
+	border-bottom:1px solid #ddd;
+}
+
+#caldays span {
+	display:block;
+	float:left;
+	width:28px;
+	text-align:center;
+}
+
+/* container for weeks */
+#calweeks {
+	background-color:#fff;
+	margin-top:4px;
+}
+
+/* single week */
+.calweek {
+	clear:left;
+	height:22px;
+}
+
+/* single day */
+.calweek a {
+	display:block;
+	float:left;
+	width:27px;
+	height:20px;
+	text-decoration:none;
+	font-size:11px;
+	margin-left:1px;
+	text-align:center;
+	line-height:20px;
+	color:#666;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px; 		
+} 
+
+/* different states */
+.calweek a:hover, .calfocus {
+	background-color:#ddd;
+}
+
+/* sunday */
+a.calsun {
+	color:red;		
+}
+
+/* offmonth day */
+a.caloff {
+	color:#ccc;		
+}
+
+a.caloff:hover {
+	background-color:rgb(245, 245, 250);		
+}
+
+
+/* unselecteble day */
+a.caldisabled {
+	background-color:#efefef !important;
+	color:#ccc	!important;
+	cursor:default;
+}
+
+/* current day */
+#calcurrent {
+	background-color:#498CE2;
+	color:#fff;
+}
+
+/* today */
+#caltoday {
+	background-color:#333;
+	color:#fff;
+}
+
+/* slider root element */
+.slider { 
+	background:#3C72E6 url(../img/h30.png) repeat-x 0 0; 
+	height:9px; 
+	position:relative; 
+	cursor:pointer;
+	border:1px solid #333;
+	width:300px;
+	float:left; 
+	clear:right;
+	margin-top:10px;
+	-moz-border-radius:5px; 
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	-moz-box-shadow:inset 0 0 8px #000;
+	box-shadow:inset 0 0 8px #000;
+}
+
+/* progress bar (enabled with progress: true) */
+.progress {
+	height:9px; 
+	background-color:#C5FF00; 
+	display:none;
+	opacity:0.6;
+}
+
+/* drag handle */
+.handle { 
+	background:#fff url(../img/h30.png) repeat-x 0 0; 
+	height:28px;
+	width:28px;
+	top:-12px;
+	position:absolute; 
+	display:block; 
+	margin-top:1px;
+	border:1px solid #000;
+	cursor:move;
+	-moz-box-shadow:0 0 6px #000;
+	-webkit-box-shadow:0 0 6px #000;
+	box-shadow:0 0 6px #000;
+	-moz-border-radius:14px;
+	-webkit-border-radius:14px; 
+	border-radius:14px;
+}
+
+/* the input field */
+fieldset.tx-powermail-pi1_fieldset input.powermail_text.range {
+	float:left;
+	margin:0 0 0 15px;
+	padding:3px 0;
+	text-align:center;
+	width:50px;
+}
+

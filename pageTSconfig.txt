@@ -1,0 +1,23 @@
+# ***************************************************************************************
+# Page TSconfig for "powermail"
+#
+# Prfills tx_powermail_fields.formtype with "text"
+# ***************************************************************************************
+
+TCAdefaults.tx_powermail_fields {
+	formtype = text
+}
+tx_powermail_mod1.config {
+    list {
+        datetimeFormat = d.m.Y H:i
+        dateFormat = d.m.Y
+        timeFormat = H:i
+        uploadFolder = uploads/tx_powermail/files/
+    }
+    export {
+        datetimeFormat = d.m.Y H:i
+        dateFormat = d.m.Y
+        timeFormat = H:i
+        uploadFolder = uploads/tx_powermail/files/
+    }
+}

@@ -1,0 +1,97 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<preselect>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.preselect</label>
+					<config>
+						<type>select</type>
+						<foreign_table>static_countries</foreign_table>
+						<size>1</size>
+						<max>1</max>
+						<minitems>0</minitems>
+						<maxitems>1</maxitems>
+						<items type="array">
+							<numIndex index="" type="array">
+								<numIndex index="0"></numIndex>
+								<numIndex index="1"></numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+			</preselect>         
+			<within>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.within</label>
+					<config>
+						<type>select</type>
+						<foreign_table>static_countries</foreign_table>
+						<size>5</size>
+						<iconsInOptionTags>1</iconsInOptionTags>
+						<maxitems>999</maxitems>
+						<itemListStyle>width:175px;</itemListStyle>
+						<selectedListStyle>width:175px;</selectedListStyle>
+						<foreign_table_where>ORDER BY cn_short_en</foreign_table_where>
+						<foreign_table_loadIcons>1</foreign_table_loadIcons>
+					</config>
+				</TCEforms>
+			</within>     
+			<without>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.without</label>
+					<config>
+						<type>select</type>
+						<foreign_table>static_countries</foreign_table>
+						<size>5</size>
+						<iconsInOptionTags>1</iconsInOptionTags>
+						<maxitems>999</maxitems>
+						<itemListStyle>width:175px;</itemListStyle>
+						<selectedListStyle>width:175px;</selectedListStyle>
+						<foreign_table_where>ORDER BY cn_short_en</foreign_table_where>
+						<foreign_table_loadIcons>1</foreign_table_loadIcons>
+					</config>
+				</TCEforms>
+			</without>
+			<mandatory>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mandatory</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</mandatory>
+			<countryzone>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.countryzone</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</countryzone>
+			<name>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_uid->main</userFunc>
+						<field>text</field>
+					</config>
+				</TCEforms>
+			</name>
+			<example>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_example->main</userFunc>
+						<field>countryselect</field>
+					</config>
+				</TCEforms>
+			</example>
+		</el>
+	</ROOT>
+</T3DataStructure>

@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<HTML>
+<HEAD>
+	
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.4  (Win32)">
+	<META NAME="CREATED" CONTENT="20080223;18491000">
+	<META NAME="CHANGEDBY" CONTENT="Alex Kellner">
+	<META NAME="CHANGED" CONTENT="20080930;16504964">
+	
+	<STYLE>
+		<!-- 
+		BODY,DIV,TABLE,THEAD,TBODY,TFOOT,TR,TH,TD,P { font-family:"Arial"; font-size:x-small }
+		 -->
+	</STYLE>
+	
+</HEAD>
+
+<BODY TEXT="#000000">
+<TABLE FRAME=VOID CELLSPACING=0 COLS=9 RULES=NONE BORDER=0>
+	<COLGROUP><COL WIDTH=31><COL WIDTH=204><COL WIDTH=235><COL WIDTH=60><COL WIDTH=217><COL WIDTH=467><COL WIDTH=139><COL WIDTH=443><COL WIDTH=595></COLGROUP>
+	<TBODY>
+		<TR>
+			<TD WIDTH=31 HEIGHT=30 ALIGN=CENTER><B><FONT SIZE=3>#</FONT></B></TD>
+			<TD WIDTH=204 ALIGN=LEFT><B><FONT SIZE=3>Information</FONT></B></TD>
+			<TD WIDTH=235 ALIGN=LEFT><B><FONT SIZE=3>File</FONT></B></TD>
+			<TD WIDTH=60 ALIGN=LEFT><B><FONT SIZE=3>Folder</FONT></B></TD>
+			<TD WIDTH=217 ALIGN=LEFT><B><FONT SIZE=3>Function name</FONT></B></TD>
+			<TD WIDTH=467 ALIGN=LEFT><B><FONT SIZE=3>Input</FONT></B></TD>
+			<TD WIDTH=139 ALIGN=LEFT><B><FONT SIZE=3>Return</FONT></B></TD>
+			<TD WIDTH=443 ALIGN=LEFT><B><FONT SIZE=3>Note</FONT></B></TD>
+			<TD WIDTH=595 ALIGN=LEFT><B><FONT SIZE=3>Use in own Extension in ext_localconf.php</FONT></B></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="1" SDNUM="1031;"><B>1</B></TD>
+			<TD ALIGN=LEFT>Real markerArray hook</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_markers.php</TD>
+			<TD ALIGN=LEFT>lib</TD>
+			<TD ALIGN=LEFT>PM_markerArrayHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;what, $this-&gt;geoArray, $this-&gt;markerArray, $this-&gt;sessiondata, $this-&gt;tmpl, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>This is the main markerArray hook. Every action in powermail (show confirmationpage, show thx page, show mandatory page, generate email to receiver, generate email to sender) uses the marker class to show fieldvalues. With this you you can manipulate this output as you want</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MarkerArrayHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="2" SDNUM="1031;"><B>2</B></TD>
+			<TD ALIGN=LEFT>Adding or changing markers (for all views)</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_markers.php</TD>
+			<TD ALIGN=LEFT>lib</TD>
+			<TD ALIGN=LEFT>PM_FieldMarkerArrayHook</TD>
+			<TD ALIGN=LEFT>$markerArray, $formValues, $k, $v, $kv, $vv, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>Every marker (confirmation page, mandatory page, thx page, email sender, email receiver) will be using this hook</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldMarkerArrayHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="3" SDNUM="1031;"><B>3</B></TD>
+			<TD ALIGN=LEFT>Hook for main manipulation1</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_pi1.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_MainContentBeforeHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;sessionfields, $this-&gt;piVars, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>You can change the sessions or piVars or something like that</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MainContentHookBefore'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="4" SDNUM="1031;"><B>4</B></TD>
+			<TD ALIGN=LEFT>Hook for main manipulation2</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_pi1.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_MainContentAfterHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;content, $this-&gt;piVars, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>Change the whole output $content</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MainContentHookAfter'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="5" SDNUM="1031;"><B>5</B></TD>
+			<TD ALIGN=LEFT>Hook for page with form</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_form.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_FormWrapMarkerHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;OuterMarkerArray,$this-&gt;subpartArray,$this-&gt;conf,$this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>This hook will be opened before the marker array is substituted with HTML template on the form page. Maybe if you want to add some hiddenfields in the end of the form, you can use this marker</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormWrapMarkerHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="6" SDNUM="1031;"><B>6</B></TD>
+			<TD ALIGN=LEFT>Hook for page with form for inner wrap</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_form.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_FormWrapMarkerHookInner</TD>
+			<TD ALIGN=LEFT>$this-&gt;InnerMarkerArray, $this-&gt;conf, $row, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>This hook allows to change markers in the formwrap (inner loop)</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormWrapMarkerHookInner']</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="7" SDNUM="1031;"><B>7</B></TD>
+			<TD ALIGN=LEFT>Hook for adding new fields</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_html.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_FieldHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;xml, $this-&gt;title, $this-&gt;type, $this-&gt;uid, $this-&gt;markerArray, $this-&gt;piVarsFromSession, $this</TD>
+			<TD ALIGN=LEFT>$this-&gt;content</TD>
+			<TD ALIGN=LEFT>This hook allows you to add new fields to powermail (see powermail_mul for an example)</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldHook']['FIELDNAME'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="8" SDNUM="1031;"><B>8</B></TD>
+			<TD ALIGN=LEFT>Hook after field generation</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_html.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_FieldWrapMarkerHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;uid, $this-&gt;xml, $this-&gt;type, $this-&gt;title, $this-&gt;markerArray, $this-&gt;content, $this-&gt;piVarsFromSession, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>This hook will be opened before the html code of the current field is given back (at the end of fieldgeneration). Maybe if you want to manipulate a special field</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="9" SDNUM="1031;"><B>9</B></TD>
+			<TD ALIGN=LEFT>Hook for markerArray in field generation</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_html.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_FieldWrapMarkerHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;uid, $this-&gt;xml, $this-&gt;type, $this-&gt;title, $this-&gt;markerArray, $this-&gt;piVarsFromSession, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>This hook will be used for every kind of field. You can manipulate the markerArray before the field is generated</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="10" SDNUM="1031;"><B>10</B></TD>
+			<TD ALIGN=LEFT>Hook for markerArray in field generation (inner markerArray for checkboxes, radiobuttons, and so on)</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_html.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_FieldWrapMarkerHookInner</TD>
+			<TD ALIGN=LEFT>$this-&gt;uid, $this-&gt;xml, $this-&gt;type, $this-&gt;title, $markerArray, $this-&gt;piVarsFromSession, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>This hook will be used for every kind of field. You can manipulate the markerArray before the field is generated (this hook will be used for innerMarkerArray &ndash; checkbox, radiobuttons, etc...)</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHookInner'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="11" SDNUM="1031;"><B>11</B></TD>
+			<TD ALIGN=LEFT>Hook for manipulation of default markers</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_html.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_FieldWrapMarkerHook1</TD>
+			<TD ALIGN=LEFT>$this-&gt;uid, $this-&gt;xml, $this-&gt;type, $this-&gt;title, $this-&gt;markerArray, $this-&gt;piVarsFromSession, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>Useful if you want to prefill some powermail fields with your own stuff, etc...</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook1'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="12" SDNUM="1031;"><B>12</B></TD>
+			<TD ALIGN=LEFT>Hook for confirmation page</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_confirmation.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_ConfirmationHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;markerArray,$this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>This hook will be opened before the marker array is substituted with HTML template on the confirmation page.</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_ConfirmationHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="13" SDNUM="1031;"><B>13</B></TD>
+			<TD ALIGN=LEFT>Mandatory and error check hook</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_mandatory.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_MandatoryHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;error,$this-&gt;markerArray,$this-&gt;innerMarkerArray,$this-&gt;sessionfields,$this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>If you set $this-&gt;error to 1, powermail will stop the submit process, with $this-&gt;sessionfields you can write your own error message</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MandatoryHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="14" SDNUM="1031;"><B>14</B></TD>
+			<TD ALIGN=LEFT>Hook for email change</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_submit.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_SubmitEmailHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;subpart,$this-&gt;maildata,$this-&gt;sessiondata,$this-&gt;markerArray,$this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>This hook allows to change the emails (subject, receiver, sender, etc..)</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_SubmitEmailHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="15" SDNUM="1031;"><B>15</B></TD>
+			<TD ALIGN=LEFT>Submit hook before submit</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_submit.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_SubmitBeforeMarkerHook</TD>
+			<TD ALIGN=LEFT>$this,$this-&gt;markerArray,$this-&gt;sessiondata</TD>
+			<TD ALIGN=LEFT>Errorcode (0/1 bolean)</TD>
+			<TD ALIGN=LEFT>If you want to stop the submit (emails and db insert), you can return TRUE</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_SubmitBeforeMarkerHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=88 ALIGN=CENTER SDVAL="16" SDNUM="1031;"><B>16</B></TD>
+			<TD ALIGN=LEFT>Submit hook after emails</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_submit.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_SubmitAfterMarkerHook</TD>
+			<TD ALIGN=LEFT>$this,$this-&gt;markerArray,$this-&gt;sessiondata</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>If you want to do something after a correct submit, you can use this hook (maybe an additional db entry)</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_SubmitAfterMarkerHook'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=87 ALIGN=CENTER SDVAL="17" SDNUM="1031;"><B>17</B></TD>
+			<TD ALIGN=LEFT>Thx message hook</TD>
+			<TD ALIGN=LEFT>class.tx_powermail_submit.php</TD>
+			<TD ALIGN=LEFT>pi1</TD>
+			<TD ALIGN=LEFT>PM_SubmitLastOneHook</TD>
+			<TD ALIGN=LEFT>$this-&gt;content, $this-&gt;conf, $this-&gt;sessiondata, $this-&gt;ok, $this</TD>
+			<TD ALIGN=LEFT>none</TD>
+			<TD ALIGN=LEFT>If you want to manipulate the thx message after submit</TD>
+			<TD ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_SubmitLastOne'][]</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=82 ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=17 ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+			<TD ALIGN=LEFT><BR></TD>
+		</TR>
+		<TR>
+			<TD COLSPAN=9 HEIGHT=18 ALIGN=LEFT><B>Example for using a powermail hook in your own extension in the ext_localconf.php:</B></TD>
+			</TR>
+		<TR>
+			<TD COLSPAN=9 HEIGHT=17 ALIGN=LEFT>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormWrapMarkerHook'][] = 'EXT:yourextension/targetphpfile:tx_yourphpclass';</TD>
+			</TR>
+		<TR>
+			<TD COLSPAN=9 HEIGHT=17 ALIGN=LEFT>This hook want to use the function PM_FormWrapMarkerHook() in your class</TD>
+			</TR>
+		<TR>
+			<TD COLSPAN=9 HEIGHT=17 ALIGN=LEFT>Note: The classname must start with a tx_</TD>
+			</TR>
+	</TBODY>
+</TABLE>
+<!-- ************************************************************************** -->
+</BODY>
+
+</HTML>
