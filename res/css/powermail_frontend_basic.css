@@ -220,13 +220,15 @@ ul.powermail_multiplejs_tabs li a.act {
 /* error message */
 .error {
 	/* supply height to ensure consistent positioning for every browser */
-	height:15px;
 	background-color:#FF0000;
 	border:1px solid #FF0000;
 	font-size:11px;
 	color:#fff;
 	padding:3px 10px 5px 10px;
 	margin-left:-2px;
+    z-index:10;
+    text-align:left;
+    height:auto;
 
 
 	/* CSS3 spicing for mozilla and webkit */
