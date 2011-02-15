@@ -29,6 +29,7 @@ fieldset.tx-powermail-pi1_fieldset legend {
 	float: right;
 	margin: 3px 10px 10px 0;
 	font-size: 30px;
+    white-space:normal;
 }
 fieldset.tx-powermail-pi1_fieldset label {
 	/* label */
@@ -307,7 +308,9 @@ ul.powermail_multiplejs_tabs li a.act {
 	color: #fff;
 	padding: 3px 10px 5px 10px;
 	margin-left: -2px;
-	
+    z-index:10;
+    text-align:left;
+    height:auto;
 	-webkit-box-shadow: 3px 3px 5px #eee;
 	-moz-box-shadow: 3px 3px 5px #eee;
 	box-shadow: 3px 3px 5px #eee;
