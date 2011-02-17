@@ -262,6 +262,7 @@ p.powermail_pagebrowser {
 div.fieldsets {
 	clear: both;
 }
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset.ui-tabs-hide{display:none;}
 ul.powermail_multiplejs_tabs {
 	list-style-type: none;
 	padding: 0;

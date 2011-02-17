@@ -80,10 +80,24 @@ function checkTextArea(obj, maxLength) {
                 return value.length > 0;
             }
         );
-        
+
         // add tabs to fieldsets for multiple page
         $('ul.powermail_multiplejs_tabs li a:first').addClass('act'); // first tab with class "act"
-        $('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset'); // enable tabs()
+        if ($.ui && typeof($.ui.tabs) == 'function') {
+            // Add UI tabs
+            $('.powermail_multiple_js .powermail_multiplejs_tabs_item a').each(function(id, item){
+                var temp = item.href.split('#');
+                var temp_last = temp[temp.length - 1];
+                var search = /^tx\-powermail\-pi1\_fieldset/;
+                if (search.test(temp_last)){
+                    item.href = '#' + temp_last;
+                }
+            });
+            $('.powermail_multiple_js').tabs(); // enable UI tabs()
+        } else {
+            // Add TOOLS tabs
+            $('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset'); // enable TOOLS tabs()
+        }
         $('ul.powermail_multiplejs_tabs li a').click(function() { // change "act" on click
             $('ul.powermail_multiplejs_tabs li a').removeClass('act');
             $(this).addClass('act');

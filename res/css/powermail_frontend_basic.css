@@ -175,7 +175,8 @@ fieldset.tx-powermail-pi1_fieldset .powermail_radio_inner input {
 div.fieldsets {
     clear: both;
 }
-div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset legend {
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset legend,
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset.ui-tabs-hide{
     display:none;
 }
 div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset {
