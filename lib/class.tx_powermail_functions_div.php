@@ -295,20 +295,16 @@ class tx_powermail_functions_div {
 	 * @param	string		$record: Check for a special function
 	 * @return	boolean
 	 */
-	public function checkMX($email, $record = 'MX') {
-		if (function_exists('checkdnsrr')) { // if function checkdnsrr() exist (not available on windows systems)
-			$emailparts = t3lib_div::trimExplode('@', $email, 1); // split on @
-
-			if (checkdnsrr($emailparts[1], $record) == 1) { // if mx record exist
-				return TRUE; // return true
-			} else { // mx record don't exist
-				return FALSE; // return false
-			}
-
-		} else { // function checkdnsrr() don't exist
-			return TRUE; // so always return TRUE
-		}
-	}
+	public function checkMX($email, $record = 'NS') {
+        if (function_exists('checkdnsrr')) { // if function checkdnsrr() exist (not available on windows systems)
+            $emailparts = explode('@', $email);
+            $emailparts = explode('.', $emailparts[1]);
+            $emailparts = $emailparts[sizeof($emailparts) - 2] . '.' . $emailparts[sizeof($emailparts) - 1];
+            return (checkdnsrr($emailparts, $record) == 1);
+        } else { // function checkdnsrr() don't exist
+            return TRUE; // so always return TRUE
+        }
+    }
 
 	/**
 	 * Function charset() changes content with utf8_decode or utf8_encode or nothing
