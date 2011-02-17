@@ -96,11 +96,17 @@ function checkTextArea(obj, maxLength) {
             $('.powermail_multiple_js').tabs(); // enable UI tabs()
         } else {
             // Add TOOLS tabs
-            $('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset'); // enable TOOLS tabs()
+            $('ul.powermail_multiplejs_tabs').tabs('div.fieldsets > fieldset');
         }
         $('ul.powermail_multiplejs_tabs li a').click(function() { // change "act" on click
             $('ul.powermail_multiplejs_tabs li a').removeClass('act');
             $(this).addClass('act');
+            // reset error messages
+            $(this).parent().parent().find('a:NOT(.current)').each(function(id, item){
+                var temp = item.href.split('#');
+                var resetSelector = $('#' + temp[temp.length - 1] + ' :input');
+                powermail_validator.data('validator').reset(resetSelector);
+            });
         });
     });
 })(jQuery);

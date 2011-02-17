@@ -623,7 +623,7 @@ lib.powermailjs {
         20 = TEXT
         20.value (
 
-        var powermail_validator = $('.tx_powermail_pi1_form').validator($.extend({
+        powermail_validator = $('.tx_powermail_pi1_form').validator($.extend({
            inputEvent: 'blur',
            grouped: true,
            singleError: false
