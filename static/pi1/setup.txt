@@ -433,9 +433,22 @@ plugin.tx_powermail_pi1 {
 
 lib.powermailjs = COA
 lib.powermailjs {
+
+    // use closure to avoid conflicts with other js frameworks
     wrap = (function($){|})(jQuery);
-    10 = COA
-    10 {
+
+	10 = TEXT
+	10 {
+		wrap = var powermail_customValidatorConfiguration = {|};
+		value (
+			position: 'top right',
+			offset: [-5, -20],
+            message: '<div><em/></div>'
+		)
+	}
+
+    20 = COA
+    20 {
 		wrap = $.tools.validator.localize('en', {|});
 	
         10 = TEXT
@@ -506,17 +519,23 @@ lib.powermailjs {
 
         }
 
-        # max
         100 = TEXT
         100 {
+            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
+            wrap = ':time': '|',
+        }
+
+        # max
+        110 = TEXT
+        110 {
             data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_max
             wrap = '[max]': '|',
 
         }
 
         # min
-        110 = TEXT
-        110 {
+        120 = TEXT
+        120 {
             data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_min
             wrap = '[min]': '|'
 
@@ -524,8 +543,8 @@ lib.powermailjs {
     }
 
 	# date
-    20 = COA
-    20 {
+    30 = COA
+    30 {
     	wrap = $.tools.dateinput.localize('en', {|});
 	
         10 = TEXT
@@ -553,11 +572,10 @@ lib.powermailjs {
         }
     }
 
-	# date
-    30 = COA
-    30 {
+	# onDomReady
+    100 = COA
+    100 {
         wrap = $(function(){|});
-
         10 = COA
         10 {
             wrap = $(':date').dateinput({|});
@@ -595,28 +613,58 @@ lib.powermailjs {
                 }
             }).each(function(i){
                 initTimestamp = $(this).nextAll('input[type=hidden]').val();
-                initDate = new Date(parseInt(initTimestamp)*1000);
                 if(initTimestamp != '' && parseInt(initTimestamp) == initTimestamp) {
-                    $(this).data('dateinput').setValue(initDate);
+                    $(this).data('dateinput').setValue(new Date(parseInt(initTimestamp)*1000));
                 }
             )
         }
         
+
         20 = TEXT
-        20.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
-        20.wrap = $.tools.validator.localizeFn("input[type=time]", { en: '|'});
+        20.value (
 
+        var powermail_validator = $('.tx_powermail_pi1_form').validator($.extend({
+           inputEvent: 'blur',
+           grouped: true,
+           singleError: false
+        }, powermail_customValidatorConfiguration));
+
+        )
+
+        // multiple checkbox validation
         30 = TEXT
-        30.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
-        30.wrap = $.tools.validator.localizeFn("input:checkbox", { en: '|'});
+        30.value (
+        
+        $.tools.validator.fn('input:checkbox', 'required',
+            function(input, value) {
+                checkboxes = input.parent().parent().find('input:checkbox');
+                if (checkboxes.filter('.required_one').length > 0) {
+                    if (checkboxes.filter(':checked').length == 0) {
+                        return (input.filter('.required_one').length == 0);
+                    } else {
+                        powermail_validator.data('validator').reset(checkboxes);
+                    }
+                }
+                return true;
+            });
 
-        40 = TEXT
-        40.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
-        40.wrap = $.tools.validator.localizeFn("input:radio", { en: '|'});
+        )
 
         50 = TEXT
-        50.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-        50.wrap = $.tools.validator.localizeFn('input[type=select].required', { en: '|'});
+        50.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
+        50.wrap = $.tools.validator.localizeFn('input:time', { en: '|'});
+
+        60 = TEXT
+        60.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
+        60.wrap = $.tools.validator.localizeFn('input:checkbox', { en: '|'});
+
+        70 = TEXT
+        70.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
+        70.wrap = $.tools.validator.localizeFn('input:radio', { en: '|'});
+
+        80 = TEXT
+        80.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+        80.wrap = $.tools.validator.localizeFn('input:select.required', { en: '|'});
 
     }
 }
@@ -627,7 +675,7 @@ lib.powermailjs {
 
     // if powermail is on current page and t3jquery is NOT loaded include jquery and jquery tools from cdn
 
-page.includeJSFooter {
+page.includeJSFooterlibs {
 	powermail_jQuery.external = 1
 	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js
 	powermail_jQueryTools.external = 1
@@ -637,16 +685,7 @@ page.includeJSFooter {
 
     // if powermail is on current page and t3jquery is NOT loaded include validation js into page footer
 
-page.footerData.31320 < lib.powermailjs
-page.footerData.31320.wrap (
- <script type="text/javascript">
- /* <![CDATA[*/
- <!--
- (function($){|})(jQuery);
- // -->
- /*]]>*/
- </script>
-)
+page.jsFooterInline.10 < lib.powermailjs
 
 [end]
 

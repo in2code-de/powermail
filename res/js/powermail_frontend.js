@@ -25,41 +25,11 @@ function checkTextArea(obj, maxLength) {
 (function($) {
     $(function(){
 
-        var powermail_validator = $('.tx_powermail_pi1_form').validator({
-            inputEvent: 'blur',
-            grouped: true,
-            singleError: false,
-            position: 'top right',
-            offset: [-5, -20],
-            message: '<div><em/></div>'
-
-        });
-
         // initialize range input
         $(':range').rangeinput();
-        
-        // multiple checkbox validation
-        $.tools.validator.fn('input:checkbox', 'required',
-            function(input, value) {
-                checkboxes = input.parent().parent().find('input:checkbox');
-                if (checkboxes.filter('.required_one').length > 0) {
-                    if (checkboxes.filter(':checked').length == 0) {
-                        return (input.filter('.required_one').length == 0);
-                    } else {
-                        powermail_validator.data('validator').reset(checkboxes);
-                        return true;
-                    }
-                } else {
-                    return true;
-                }
-            }
-        );
-		
-		// radio buttons validation (workarround with a checkbox)
-		$('input[type=radio][required]:checked').parent().siblings('.powermail_radio_inner_fake').children('input[type=checkbox]').attr('checked', true).change();
-		$('input[type=radio][required]').live('click', function() {
-			$('div.powermail_radio_inner_fake').children('input[type=checkbox]').attr('checked', true).change();
-		});
+
+        $('.tx_powermail_pi1_form input:checkbox').click(function(){$(this).parent().parent().find('input:checkbox').blur();});
+
 
         // time validation
         $.tools.validator.fn('input[type=time]', 'required',
