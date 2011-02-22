@@ -117,7 +117,6 @@ class tx_powermail_repository {
 
 		// Get number of results
 		$res1 = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-		//$this->ajaxContentArray['results'] = $GLOBALS['TYPO3_DB']->sql_num_rows($res1);
 		$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res1);
 		$this->ajaxContentArray['results'] = $row1['results'];
 		$this->ajaxContentArray['mindatetime'] = $row1['mindate'];
@@ -188,7 +187,7 @@ class tx_powermail_repository {
 		
 		$select = 'uid,title,formtype';
 		$from = 'tx_powermail_fields';
-		$where = 'pid = ' . intval($this->pid);
+		$where = 'pid = ' . intval($this->getPidOfFormFromMailsOnGivenPage($this->pid));
 		$orderBy = '';
 		$groupBy = '';
 		$limit = '';
@@ -207,8 +206,50 @@ class tx_powermail_repository {
 			$labels['success'] = true;
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);
+        
 		return $labels;
 	}
+
+    /**
+     * getPidOfFormFromMailsOnGivenPage method     Returns the correct pid of the form from mails on given page
+     *
+     * @param  $pid     The pid where the mails are stored
+     * @return integer  The pid where the form to this mails are stored
+     */
+    protected function getPidOfFormFromMailsOnGivenPage($pid){
+
+        $formIdPid = $pid;
+
+        $select = 'formid';
+        $from = 'tx_powermail_mails';
+        $where = 'pid = ' . intval($pid);
+        $orderBy = '';
+        $groupBy = '';
+        $limit = '1';
+
+        $res1 = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        if($res1){
+            $row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res1);
+            $formid = $row1['formid'];
+
+            $select = 'pid';
+            $from = 'tt_content';
+            $where = 'uid = ' . intval($formid);
+            $orderBy = '';
+            $groupBy = '';
+            $limit = '1';
+
+            $res2 = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+            if($res2){
+                $row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res2);
+                $formIdPid = $row2['pid'];
+            }
+            $GLOBALS['TYPO3_DB']->sql_free_result($res2);
+        }
+        $GLOBALS['TYPO3_DB']->sql_free_result($res1);
+
+        return $formIdPid;
+    }
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/mod1/class.tx_powermail_repository.php']) {
