@@ -299,6 +299,8 @@ ul.powermail_multiplejs_tabs li a.act {
 }
 .powermail_mandatory_helper{visibility:hidden;height:1px;position:absolute;}
 
+.placeholder {color:#999;}
+
 		/* error message */
 .error {
 	background: #ffb76b; /* old browsers */
