@@ -347,7 +347,7 @@ class tx_powermail_html extends tslib_pibase {
 		$subpartArray['###CONTENT###'] = $content_item; // subpart 3
 
 		// Outer Marker array
-		$this->markerArray['###LABEL_MAIN###'] = $this->title;
+		$this->markerArray['###LABEL_MAIN###'] = htmlspecialchars($this->title);
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid;
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
@@ -387,7 +387,7 @@ class tx_powermail_html extends tslib_pibase {
 			for ($i = 0; $i < count($optionlines); $i ++) { // One tag for every option
                 $options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
 				$markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . ']" '; // add name to markerArray
-				$markerArray['###LABEL###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
+				$markerArray['###LABEL###'] = htmlspecialchars($this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']));
 				$markerArray['###LABEL_NAME###'] = 'uid' . $this->uid . '_' . $i; // add labelname
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
 				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
@@ -434,7 +434,7 @@ class tx_powermail_html extends tslib_pibase {
 		}
 		$subpartArray = array(); // init
 		$subpartArray['###CONTENT###'] = $content_item; // subpart 3
-		$this->markerArray['###LABEL_MAIN###'] = $this->title;
+		$this->markerArray['###LABEL_MAIN###'] = htmlspecialchars($this->title);
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid;
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
@@ -651,7 +651,7 @@ class tx_powermail_html extends tslib_pibase {
 	private function html_datetime() {
 		$this->tmpl['html_datetime'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATETIME###'); // work on subpart
 		
-		$this->markerArray['###LABEL###'] = $this->title; // add label
+		$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
 		
@@ -721,7 +721,7 @@ class tx_powermail_html extends tslib_pibase {
 	private function html_date() {
 		$this->tmpl['html_date'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATE###'); // work on subpart
 
-		$this->markerArray['###LABEL###'] = $this->title; // add label
+		$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
 		
