@@ -396,6 +396,7 @@ class tx_powermail_export {
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
 <head><title>Powermail HTML Export</title>
+<meta http-equiv="Content-Type" content="text/html; charset=' . $this->outputEncoding . '" />
 <style type="text/css">
 table{font-size:10px;font-family:Arial,Helvetica,_sans_serif;}
 th{background:#999;color:#fff;padding:2px;}
