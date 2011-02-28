@@ -43,34 +43,37 @@ function checkTextArea(obj, maxLength) {
         // Applies placeholder attribute behavior in web browsers that don't support it
         if (!placeHolderSupport) {
             $('input:text, textarea').each(function(i){
-                var originalText = $(this).attr('placeholder');
+                if($(this).val().length === 0) {
+                    var originalText = $(this).attr('placeholder');
 
-                $(this).val(originalText);
-                $(this).addClass('placeholder');
+                    $(this).val(originalText);
+                    $(this).addClass('placeholder');
 
-                $(this).bind('focus', function (i) {
-                    $(this).removeClass('placeholder');
-                    if ($(this).val() === $(this).attr('placeholder')) {
-                        $(this).val('');
-                    }
-                });
+                    $(this).bind('focus', function (i) {
+                        $(this).removeClass('placeholder');
+                        if ($(this).val() === $(this).attr('placeholder')) {
+                            $(this).val('');
+                        }
+                    });
 
-                $(this).bind('blur', function (i) {
-                    if ($(this).val().length === 0) {
-                        $(this).val($(this).attr('placeholder'));
-                        $(this).addClass('placeholder');
-                    }
-                });
+                    $(this).bind('blur', function (i) {
+                        $(this).validator().data("validator").checkValidity();
+                        if ($(this).val().length === 0) {
+                            $(this).val($(this).attr('placeholder'));
+                            $(this).addClass('placeholder');
+                        }
+                    });
+                }
 
-                // Empties the placeholder text at form submit if it hasn't changed
-                $(this).parents('form').bind('submit', function () {
-                    clearValues();
-                });
+            });
+            // Empties the placeholder text at form submit if it hasn't changed
+            $('form').bind('submit', function () {
+                clearValues();
+            });
 
-                // Clear at window reload to avoid it stored in autocomplete
-                $(window).bind('unload', function () {
-                    clearValues();
-                });
+            // Clear at window reload to avoid it stored in autocomplete
+            $(window).bind('unload', function () {
+                clearValues();
             });
         }
 
