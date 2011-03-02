@@ -94,7 +94,7 @@ class tx_powermail_Ajax {
 		}
 	}
 	
-	protected function ajaxGetItems($params, &$ajaxObj) {
+	private function ajaxGetItems($params, &$ajaxObj) {
 		$this->belist = t3lib_div::makeInstance('tx_powermail_repository');
 		$this->belist->pid = intval(t3lib_div::_GP('pid'));
 		$this->belist->pointer = intval(t3lib_div::_GP('start'));
@@ -110,14 +110,14 @@ class tx_powermail_Ajax {
 		$ajaxObj->setContentFormat('jsonbody');
 	}
 	
-	protected function ajaxGetLabelsAndFormtypes($params, &$ajaxObj) {
+	private function ajaxGetLabelsAndFormtypes($params, &$ajaxObj) {
 		$this->labelsAndFormtypes = t3lib_div::makeInstance('tx_powermail_repository');
 		$this->labelsAndFormtypes->pid = intval(t3lib_div::_GP('pid'));
 		$ajaxObj->setContent($this->labelsAndFormtypes->getLabelsAndFormtypes());
 		$ajaxObj->setContentFormat('jsonbody');
 	}
 
-	protected function ajaxDeleteItem($params, &$ajaxObj) {
+	private function ajaxDeleteItem($params, &$ajaxObj) {
 		$uids = t3lib_div::_GP('uids');
 		$this->action = t3lib_div::makeInstance('tx_powermail_action');
 		$this->ajaxReturn = $this->action->deleteItem($uids);
