@@ -1114,13 +1114,13 @@ class tx_powermail_html extends tslib_pibase {
 		} else {
 			switch ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate')) {
 				case 'validate-digits':
-					$this->markerArray['###PATTERN###'] = 'pattern="[0-9]" '; // add only numbers pattern to markerArray
+					$this->markerArray['###PATTERN###'] = 'pattern="^[0-9]+$" '; // add only numbers pattern to markerArray
 					break;
 				case 'validate-alpha':
-					$this->markerArray['###PATTERN###'] = 'pattern="[a-zA-Z]" '; // add only alpha pattern to markerArray
+					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-Z]+$" '; // add only alpha pattern to markerArray
 					break;
 				case 'validate-alphanum':
-					$this->markerArray['###PATTERN###'] = 'pattern="[a-zA-Z0-9]" '; // add only alphanum pattern to markerArray
+					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-Z0-9]+$" '; // add only alphanum pattern to markerArray
 					break;
 			}
 		}
