@@ -114,6 +114,21 @@ class tx_powermail_submit extends tslib_pibase {
 		
 		return $this->content; // return HTML for THX Message
 	}
+
+	/**
+	 * Returns a string wrapped inside quotes if it contains a comma character. Any '"'
+	 * characters will be removed inside the string if it must be quoted.
+	 *
+	 * @param string $string the text
+	 * @return string
+	 */
+	protected function quoteStringWithComma($string) {
+		if (strpos($string, ',') !== FALSE) {
+			$string = '"' . str_replace('"', '', $string) . '"';
+		}
+
+		return $string;
+	}
 	
 	
 	// Function sendMail() generates mail for sender and receiver
@@ -157,62 +172,123 @@ class tx_powermail_submit extends tslib_pibase {
 		
 		$this->hook_submit_changeEmail(); // Last chance to manipulate the mail via hook
 		$this->debug($this->subpart); // Debug output
-		
-		
-		
-		
-		// start main mail function
-		$this->htmlMail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
-		$this->htmlMail->start(); // start htmlmail
-		$this->htmlMail->recipient = $this->maildata['receiver']; // main receiver email address
-		$this->htmlMail->recipient_copy = $this->maildata['cc']; // cc field (other email addresses)
-		$this->htmlMail->subject = $this->dynamicMarkers->main($this->conf, $this->cObj, $this->div->marker2value($this->maildata['subject'], $this->sessiondata)); // mail subject (with dynamicmarkers and markers2value)
-		$this->htmlMail->from_email = $this->maildata['sender']; // sender email address
-		$this->htmlMail->from_name = $this->maildata['sendername']; // sender email name
-		$this->htmlMail->returnPath = (t3lib_div::validEmail($this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart.'.']['returnpath'], $this->conf['email.'][$this->subpart.'.']['returnpath.'])) ? $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart.'.']['returnpath'], $this->conf['email.'][$this->subpart.'.']['returnpath.']) : $this->maildata['sender']); // return path
-		$this->htmlMail->replyto_email = $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart.'.']['reply.']['email'], $this->conf['email.'][$this->subpart.'.']['reply.']['email.']); // set replyto email
-		$this->htmlMail->replyto_name = $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart.'.']['reply.']['name'], $this->conf['email.'][$this->subpart.'.']['reply.']['name.']); // set replyto name
-		
-		// add attachment (from user upload)
-		if (isset($this->sessiondata['FILE']) && $this->conf['upload.']['attachment'] == 1) { // if there are uploaded files AND attachment to emails is activated via constants
-			if (is_array($this->sessiondata['FILE']) && $this->subpart == 'recipient_mail') { // only if array and mail to receiver
-				foreach ($this->sessiondata['FILE'] as $file) { // one loop for every file
-					if (is_file(t3lib_div::getFileAbsFileName($this->div->correctPath($this->conf['upload.']['folder']).$file))) { // If file exists
-						
-						// stdWrap for each file
-						$localCObj = t3lib_div::makeInstance('tslib_cObj'); // local cObj
-						$row = array ( // $row for using .field in typoscript
-							'file' => $this->div->correctPath($this->conf['upload.']['folder']) . $file, // whole file with path
-							'filename' => $file, // filename
-							'path' => $this->div->correctPath($this->conf['upload.']['folder']) // path
-						);
-						$localCObj->start($row, 'tx_powermail_fields'); // enable .field in typoscript
-						$this->htmlMail->addAttachment($localCObj->cObjGetSingle($this->conf['email.']['recipient_mail.']['attachment'], $this->conf['email.']['recipient_mail.']['attachment.'])); // add attachment
-						if ($this->conf['upload.']['delete'] == 1) {
-							unlink($this->div->correctPath($this->conf['upload.']['folder']) . $file); // delete attachment
-						}
-					}
-				}
-			}
-		}
+
+        $subject = $this->dynamicMarkers->main($this->conf, $this->cObj, $this->div->marker2value($this->maildata['subject'], $this->sessiondata)); // mail subject (with dynamicmarkers and markers2value)
+        $receiver = $this->maildata['receiver'];
+        $from = $this->maildata['sender'];
+        $fromName = ($this->maildata['sendername'] !== '') ? $this->quoteStringWithComma($this->maildata['sendername']) : $this->extKey;
+        $returnPath = $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['returnpath'], $this->conf['email.'][$this->subpart . '.']['returnpath.']);
+        $returnPath = (t3lib_div::validEmail($returnPath)) ? $returnPath : $from; // return path
+        $replyToEmail = $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['reply.']['email'], $this->conf['email.'][$this->subpart . '.']['reply.']['email.']); // set replyto email
+        $replyToName = $this->quoteStringWithComma($this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['reply.']['name'], $this->conf['email.'][$this->subpart . '.']['reply.']['name.'])); // set replyto name
+
+        if (t3lib_div::compat_version('4.5')){
+            // new TYPO3 swiftmailer code
+            $this->mail = t3lib_div::makeInstance('t3lib_mail_Message');
+            $this->mail->setTo(array($receiver))
+                ->setFrom(array($from => $fromName))
+                ->setSubject($subject)
+                ->setReturnPath($returnPath)
+                ->setCharset($GLOBALS['TSFE']->metaCharset);
+
+            if ($this->maildata['cc'] !== ''){
+                $this->mail->setCc(t3lib_div::trimExplode(',', $this->maildata['cc']));
+            }
+
+            if ($replyToEmail !== '') {
+                if($replyToName !== '') {
+                    $this->mail->setReplyTo(array($replyToEmail => $replyToName));
+                } else {
+                    $this->mail->setReplyTo(array($replyToEmail));
+                }
+            }
+
+        } else {
+            // old TYPO3 mail system code
+            $this->mail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
+            $this->mail->start(); // start htmlmail
+            $this->mail->recipient = $receiver; // main receiver email address
+            $this->mail->recipient_copy = $this->maildata['cc']; // cc field (other email addresses)
+            $this->mail->subject = $subject;
+            $this->mail->from_email = $from; // sender email address
+            $this->mail->from_name = $fromName; // sender email name
+            $this->mail->returnPath = $returnPath;
+            $this->mail->replyto_email = $replyToEmail;
+            $this->mail->replyto_name = $replyToName;
+            $this->mail->charset = $GLOBALS['TSFE']->metaCharset; // set current charset
+            $this->mail->defaultCharset = $GLOBALS['TSFE']->metaCharset; // set current charset
+        }
+        
+        // add attachment (from user upload)
+        if (isset($this->sessiondata['FILE']) && $this->conf['upload.']['attachment'] == 1) { // if there are uploaded files AND attachment to emails is activated via constants
+            if (is_array($this->sessiondata['FILE']) && $this->subpart == 'recipient_mail') { // only if array and mail to receiver
+                $path = $this->div->correctPath($this->conf['upload.']['folder']);
+                foreach ($this->sessiondata['FILE'] as $fileName) { // one loop for every file
+                    $file = $path . $fileName;
+                    if (is_file(t3lib_div::getFileAbsFileName($file))) { // If file exists
+
+                        // stdWrap for each file
+                        $localCObj = t3lib_div::makeInstance('tslib_cObj'); // local cObj
+                        $row = array ( // $row for using .field in typoscript
+                         'file' => $file, // whole file with path
+                         'filename' => $fileName, // filename
+                         'path' => $path // path
+                        );
+                        $localCObj->start($row, 'tx_powermail_fields'); // enable .field in typoscript
+                        $attachment = t3lib_div::getFileAbsFileName($localCObj->cObjGetSingle($this->conf['email.']['recipient_mail.']['attachment'], $this->conf['email.']['recipient_mail.']['attachment.']));
+
+                        // add attachment
+                        if (t3lib_div::compat_version('4.5')){
+                            $this->mail->attach(Swift_Attachment::fromPath($attachment));
+                        } else {
+                            $this->mail->addAttachment($attachment);
+                        }
+                        if ($this->conf['upload.']['delete'] == 1) {
+                            unlink($file); // delete attachment
+                        }
+                    }
+                }
+            }
+        }
+
 		// add attachment (from typoscript)
-		if ($this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart.'.']['addAttachment'], $this->conf['email.'][$this->subpart.'.']['addAttachment.'])) { // if there is an entry in the typoscript
-			$files = t3lib_div::trimExplode(',', $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart.'.']['addAttachment'], $this->conf['email.'][$this->subpart.'.']['addAttachment.']), 1); // get an array with all files to add
-			for ($i=0; $i < count($files); $i++) { // one loop for every file to add
-				$this->htmlMail->addAttachment($files[$i]); // add attachment
-			}
+		if ($this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['addAttachment'], $this->conf['email.'][$this->subpart . '.']['addAttachment.'])) { // if there is an entry in the typoscript
+			$files = t3lib_div::trimExplode(',', $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['addAttachment'], $this->conf['email.'][$this->subpart . '.']['addAttachment.']), 1); // get an array with all files to add
+            for ($i = 0; $i < count($files); $i ++) { // one loop for every file to add
+                if (t3lib_div::compat_version('4.5')){
+                    $this->mail->attach(Swift_Attachment::fromPath($files[$i]));
+                } else {
+                    $this->mail->addAttachment(t3lib_div::getFileAbsFileName($files[$i])); // add attachment
+                }
+            }
 		}
-		
-		$this->htmlMail->charset = $GLOBALS['TSFE']->metaCharset; // set current charset
-		$this->htmlMail->defaultCharset = $GLOBALS['TSFE']->metaCharset; // set current charset
+
+        // add plain text part
 		if ($this->conf['emailformat.'][$this->subpart] != 'html') { // add plaintext only if emailformat "both" or "plain"
-			$this->htmlMail->addPlain($this->div->makePlain($this->mailcontent[$this->subpart])); // add plaintext
+            $plainText = $this->div->makePlain($this->mailcontent[$this->subpart]);
+            if(t3lib_div::compat_version('4.5')) {
+                $this->mail->addPart($plainText, 'text/plain');
+            } else {
+                $this->mail->addPlain($plainText);
+            }
 		}
-		if ($this->conf['emailformat.'][$this->subpart] != 'plain') { // add html only if emailformat "both" or "html"
-			$this->htmlMail->setHTML($this->htmlMail->encodeMsg($this->mailcontent[$this->subpart])); // html format if active via constants
+
+		// add html part
+        if ($this->conf['emailformat.'][$this->subpart] != 'plain') { // add html only if emailformat "both" or "html"
+            $html = $this->mailcontent[$this->subpart];
+            if(t3lib_div::compat_version('4.5')) {
+                $this->mail->setBody($html, 'text/html');
+            } else {
+                $this->mail->setHTML($this->mail->encodeMsg($html));
+            }
 		}
+
 		$this->hook_submit_changeEmail2(); // hook with last chance to manipulate email values like attachment, etc...
-		if ($this->email_send) $this->htmlMail->send($this->maildata['receiver']);
+
+        // send mail
+		if ($this->email_send) {
+            $this->mail->send();
+        }
 	}
 	
 	
@@ -318,7 +394,7 @@ class tx_powermail_submit extends tslib_pibase {
 	}
 	
 	
-	// Function userName() defindes sendername for email to receiver
+	// Function userName() defines sendername for email to receiver
 	function userName() {
 		if ($this->cObj->data['tx_powermail_sendername']) { // if name of sender was defined in flexform
 			// config
@@ -437,12 +513,12 @@ class tx_powermail_submit extends tslib_pibase {
 	}
 	
 
-	// Function hook_submit_changeEmail2() to add a hook and change the email datas short befor sending (changing attachments, subject, receiver, sender, sendername)
+	// Function hook_submit_changeEmail2() to add a hook and change the email datas short before sending (changing attachments, subject, receiver, sender, sendername)
 	function hook_submit_changeEmail2() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_SubmitEmailHook2'])) { // Adds hook for processing
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_SubmitEmailHook2'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
-				$_procObj->PM_SubmitEmailHook2($this->subpart, $this->htmlMail, $this); // Get new marker Array from other extensions
+                $_procObj->PM_SubmitEmailHook2($this->subpart, $this->mail, $this); // Get new marker Array from other extensions
 			}
 		}
 	}
