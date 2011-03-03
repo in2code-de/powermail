@@ -1206,14 +1206,14 @@ class tx_powermail_html extends tslib_pibase {
 			$this->markerArray['###ONCHANGE###'] = 'onchange="this.form.submit()"'; // onchange js for select fields
 		}
 
-		// ###ONFOCUS### Marker
-		$this->markerArray['###ONFOCUS###'] = '';
-		if ($this->conf['js.']['onfocus']) { // only allowed if jsinit or onfocus set
-			if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && $this->conf['js.']['onfocus'] && !$this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'readonly')) { // if value exists
-				$js = 'onfocus="if (this.value==\'' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') . '\') this.value=\'\';" onblur="if (this.value==\'\') this.value=\'' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') . '\'; ' . $init . '" '; // add onfocus js to markerArray
-			}
-			$this->markerArray['###ONFOCUS###'] = $js; // Fill markerArray with JS
-		}
+//		// ###ONFOCUS### Marker
+//		$this->markerArray['###ONFOCUS###'] = '';
+//		if ($this->conf['js.']['onfocus']) { // only allowed if jsinit or onfocus set
+//			if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && $this->conf['js.']['onfocus'] && !$this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'readonly')) { // if value exists
+//				$js = 'onfocus="if (this.value==\'' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') . '\') this.value=\'\';" onblur="if (this.value==\'\') this.value=\'' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') . '\'; ' . $init . '" '; // add onfocus js to markerArray
+//			}
+//			$this->markerArray['###ONFOCUS###'] = $js; // Fill markerArray with JS
+//		}
 	}
 
 	/**
