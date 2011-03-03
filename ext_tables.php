@@ -370,8 +370,10 @@ if ($confArr['usePreview'] != 1) {
 	// Add "tx_powermail_recip_table" to the requestUpdate
 $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] .= $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] ? ',tx_powermail_recip_table' : 'tx_powermail_recip_table';
 
-if (TYPO3_MODE=='BE') {
+if (TYPO3_MODE == 'BE') {
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_powermail_pi1_wizicon'] = $extPath . 'pi1/class.tx_powermail_pi1_wizicon.php';
-	t3lib_extMgm::addModule('web', 'txpowermailM1', '', $extPath . 'mod1/');
+	if ($confArr['disableBackendModule'] !== '1') {
+		t3lib_extMgm::addModule('web', 'txpowermailM1', '', $extPath . 'mod1/');
+	}
 }
 ?>

@@ -10,8 +10,11 @@ feusersPrefill = name, address, telephone, fax, email, zip, city, country, www, 
 # cat=basic/enable/040; type=boolean; label= Deactivate IP logging: If you don't want to save the sender IP address in the database, you can use this checkbox.
 disableIPlog = 0
 
-# cat=basic/enable/050; type=boolean; label= Deactivate Start- and Stoptime: If there are problems with adding fields or if you do not need this fields, you can disable start- and stoptime for fields and fieldsets with this flag.
+# cat=basic/enable/050; type=boolean; label= Disable the BE Module: You can safely disable the backend module if you don't store sent mails into your database.
+disableBackendModule = 0
+
+# cat=basic/enable/060; type=boolean; label= Deactivate Start- and Stoptime: If there are problems with adding fields or if you do not need this fields, you can disable start- and stoptime for fields and fieldsets with this flag.
 disableStartStop = 0
 
-# cat=basic/enable/060; type=boolean; label= Use IRRE: Inline Relational Record Editing (IRRE) to enter your fieldsets and fields just by opening only one content. If you want to use the listview and manually enter the relation between tt_content and fieldsets and fields you can disable IRRE.
+# cat=basic/enable/070; type=boolean; label= Use IRRE: Inline Relational Record Editing (IRRE) to enter your fieldsets and fields just by opening only one content. If you want to use the listview and manually enter the relation between tt_content and fieldsets and fields you can disable IRRE.
 useIRRE = 1
