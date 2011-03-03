@@ -27,7 +27,6 @@ require_once(PATH_tslib . 'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functions_div.php'); // file for div functions
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_sessions.php'); // load session class
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_dynamicmarkers.php'); // file for dynamicmarker functions
-require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_removexss.php'); // file for removexss function class
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_countryzones.php'); // file for countryzones function class
 
 class tx_powermail_html extends tslib_pibase {
@@ -67,7 +66,6 @@ class tx_powermail_html extends tslib_pibase {
 		$this->pi_initPIflexForm(); // allow flexform
 		$this->tmpl = array('all' => tslib_cObj::fileResource($this->conf['template.']['fieldWrap'])); // Load HTML Template
 		$this->dynamicMarkers = t3lib_div::makeInstance('tx_powermail_dynamicmarkers'); // New object: TYPO3 marker function
-		$this->removeXSS = t3lib_div::makeInstance('tx_powermail_removexss'); // New object: removeXSS function
 		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
 		$this->title = $this->div->parseFunc($row['f_title'], $this->cObj, $this->conf['label.']['parse']); // get label to current field
 
@@ -515,9 +513,9 @@ class tx_powermail_html extends tslib_pibase {
         if (isset($this->piVarsFromSession['uid' . $this->uid])) { // 1. if value is in piVars
             $this->markerArray['###CONTENT###'] = stripslashes($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
         } elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. if value should be filled from current logged in user
-            $this->markerArray['###CONTENT###'] = strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]);
+            $this->markerArray['###CONTENT###'] = t3lib_div::removeXSS($GLOBALS['TSFE']->fe_user->user[$this->fe_field]);
         } elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) { // 3. take value from backend (default value)
-            $this->markerArray['###CONTENT###'] = strip_tags($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'), $this->conf['label.']['allowTags']);
+            $this->markerArray['###CONTENT###'] = t3lib_div::removeXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'), $this->conf['label.']['allowTags']);
         } elseif (!empty($this->conf['prefill.']['uid' . $this->uid])) { // 4. prefilling with typoscript for current field enabled
             $this->markerArray['###CONTENT###'] = $this->cObj->cObjGetSingle($this->conf['prefill.']['uid' . $this->uid], $this->conf['prefill.']['uid' . $this->uid . '.']); // add typoscript value
         } else { // 5. no prefilling - so clear value marker
@@ -551,7 +549,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->tmpl['html_html'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_HTML###'); // work on subpart
 
 		if ($this->conf['html.']['removeXSS'] == 1) { // fill label marker (with or without removeXSS)
-			$this->markerArray['###CONTENT###'] = $this->removeXSS->RemoveXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'));
+			$this->markerArray['###CONTENT###'] = t3lib_div::removeXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'));
 		} else {
 			$this->markerArray['###CONTENT###'] = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value');
 		}
