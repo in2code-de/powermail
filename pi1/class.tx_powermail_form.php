@@ -105,8 +105,7 @@ class tx_powermail_form extends tslib_pibase {
 		$this->tmpl['multiplejs']['all'] = $this->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['MultipleJS']), '###POWERMAIL_MULTIPLEJS_PAGEBROWSER###'); // Load HTML Template for multiple JS (work on subpart)
 
 		// Form tag generation
-		//$this->OuterMarkerArray['###POWERMAIL_ACTION###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'section' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'additionalParams' => '&tx_powermail_pi1[mailID]='.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'useCacheHash'=>1)); // Fill Marker with action parameter
-		//$this->cObj->start($this->cObj->data, 'tt_content'); // enable .field in typoscript
+		$this->cObj->start($this->cObj->data, 'tx_powermail_fieldsets'); // enable .field in typoscript
 		$this->OuterMarkerArray['###POWERMAIL_ACTION###'] = $this->cObj->cObjGetSingle($this->conf['formaction'], $this->conf['formaction.']);
 		$this->OuterMarkerArray['###POWERMAIL_NAME###'] = $this->cObj->data['tx_powermail_title']; // Fill Marker with formname
         $formUid = $this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'];
@@ -131,7 +130,6 @@ class tx_powermail_form extends tslib_pibase {
 			$this->OuterMarkerArray['###POWERMAIL_MULTIPLE_PAGEBROWSER###'] = $this->multipleLink('js'); // JavaScript switch
             $this->OuterMarkerArray['###POWERMAIL_MULTIPLE###'] = ' powermail_multiple_js';
 		}
-        //$this->OuterMarkerArray['###POWERMAIL_ACTION###'] .= '#c' . $formUid;
 
 		// UID of the last fieldset to current tt_content
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(

@@ -390,6 +390,7 @@ plugin.tx_powermail_pi1 {
 			parameter.data = TSFE:id
 			returnLast = url
 			useCacheHash = 1
+			section.field = uid
 			additionalParams.cObject = COA
 			additionalParams.cObject {
 				wrap = &tx_powermail_pi1[mailID]=|
