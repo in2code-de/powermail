@@ -42,7 +42,6 @@ plugin.tx_powermail_pi1 {
 	upload.delete = {$plugin.powermail.upload.delete}
 	clear.session = {$plugin.powermail.clear.session}
 	js.mandatorydivclass = {$plugin.powermail.js.mandatorydivclass}
-	js.onfocus = {$plugin.powermail.js.onfocus}
 	field.checkboxJS = {$plugin.powermail.field.checkboxJS}
 	field.checkboxSplitSign.noTrimWrap = |, ||
 	rte.parse = {$plugin.powermail.rte.parse}
@@ -677,6 +676,12 @@ lib.powermailjs {
 }
 
 [end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.validation}]
+lib.powermailjs.100.110 = TEXT
+lib.powermailjs.100.110.value = powermail_validator.data('validator').destroy();
+[end]
+
 
 [userFunc = user_powermailOnCurrentPage] && [userFunc = user_powermailCheckT3jquery(false)]
 
