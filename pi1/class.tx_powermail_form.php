@@ -109,7 +109,8 @@ class tx_powermail_form extends tslib_pibase {
 		//$this->cObj->start($this->cObj->data, 'tt_content'); // enable .field in typoscript
 		$this->OuterMarkerArray['###POWERMAIL_ACTION###'] = $this->cObj->cObjGetSingle($this->conf['formaction'], $this->conf['formaction.']);
 		$this->OuterMarkerArray['###POWERMAIL_NAME###'] = $this->cObj->data['tx_powermail_title']; // Fill Marker with formname
-		$this->OuterMarkerArray['###POWERMAIL_FORM_UID###'] = ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']); // Form method
+        $formUid = $this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'];
+		$this->OuterMarkerArray['###POWERMAIL_FORM_UID###'] = $formUid; // Form method
 		if ($this->cObj->data['tx_powermail_multiple'] == 2) { // If multiple PHP is set
 			$this->OuterMarkerArray['###POWERMAIL_MULTIPLE_BACKLINK###'] = $this->multipleLink(-1); // Backward Link (-1)
 			$this->OuterMarkerArray['###POWERMAIL_MULTIPLE_FORWARDLINK###'] = $this->multipleLink(1); // Forward Link (+1)
@@ -120,7 +121,7 @@ class tx_powermail_form extends tslib_pibase {
 					'returnLast' => 'url', 
 					'parameter' => $GLOBALS['TSFE']->id, 
 					'additionalParams' => '
-						&tx_powermail_pi1[mailID]=' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . '
+						&tx_powermail_pi1[mailID]=' . $formUid . '
 						&tx_powermail_pi1[multiple]=' . ($this->multiple['currentpage'] + 1), 
 					'useCacheHash' => 1
 				);
@@ -130,6 +131,7 @@ class tx_powermail_form extends tslib_pibase {
 			$this->OuterMarkerArray['###POWERMAIL_MULTIPLE_PAGEBROWSER###'] = $this->multipleLink('js'); // JavaScript switch
             $this->OuterMarkerArray['###POWERMAIL_MULTIPLE###'] = ' powermail_multiple_js';
 		}
+        //$this->OuterMarkerArray['###POWERMAIL_ACTION###'] .= '#c' . $formUid;
 
 		// UID of the last fieldset to current tt_content
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
