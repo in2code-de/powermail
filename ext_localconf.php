@@ -33,7 +33,7 @@ $TYPO3_CONF_VARS['EXTCONF']['cms']['db_layout']['addTables']['tx_powermail_field
 $TYPO3_CONF_VARS['SC_OPTIONS']['scheduler']['tasks']['tx_powermail_scheduler'] = array(
 	'extension' => 'powermail',
 	'title' => 'Automatic Export Mails',
-	'description' => 'Send your CSV or XLS exports via Email to a defined target',
+	'description' => 'Send your CSV, XLS or HTML exports via Email to a defined target',
 	'additionalFields' => 'tx_powermail_scheduler_addFields'
 );
 

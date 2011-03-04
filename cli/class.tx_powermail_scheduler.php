@@ -64,12 +64,27 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 		$tmp_tsconfig = t3lib_BEfunc::getModTSconfig($this->pid, 'tx_powermail_cli'); // get whole tsconfig from backend
 		$tsconfig = array_merge((array) $tmp_defaultconfig, (array) $tmp_tsconfig['properties']['exportmail.']); // overwrite from page tsconfig
 		if (t3lib_div::validEmail($this->email)) {
-			$tsconfig['email_receiver'] = $this->email; // overwrite from schedular settings
+			$tsconfig['email_receiver'] = $this->email; // overwrite from scheduler settings
 		}
+        if (t3lib_div::validEmail($this->email_sender)) {
+            $tsconfig['email_sender'] = $this->email_sender; // overwrite from scheduler settings
+        }
+        if (trim($this->sender) != '') {
+            $tsconfig['sender'] = $this->sender; // overwrite from scheduler settings
+        }
+        if (trim($this->subject) != '') {
+            $tsconfig['subject'] = $this->subject; // overwrite from scheduler settings
+        }
+        if (trim($this->body) != '') {
+            $tsconfig['body'] = $this->body; // overwrite from scheduler settings
+        }
 		if (intval($this->timeframe) > 0) {
-			$tsconfig['time'] = intval($this->timeframe); // overwrite from schedular settings
+			$tsconfig['time'] = intval($this->timeframe); // overwrite from scheduler settings
 		}
-		
+        if (trim($this->format) != '') {
+            $tsconfig['format'] = $this->format; // overwrite from scheduler settings
+        }
+
 		if (!t3lib_div::validEmail($tsconfig['email_receiver'])) { // if receiver email is set
 			$this->msg = 'Wrong receiver mail given!';
 			return false;
@@ -95,26 +110,45 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 		
 		if (!empty($file)) { // if file is not empty
 			// Generate the mail
-			$htmlMail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
-			$htmlMail->start(); // start htmlmail
-			$htmlMail->recipient = $tsconfig['email_receiver']; // main receiver
-			$htmlMail->recipient_copy = $tsconfig['email_receiver_cc']; // cc
-			$htmlMail->subject = $tsconfig['subject']; // mail subject
-			$htmlMail->from_email = $tsconfig['email_sender']; // sender email
-			$htmlMail->from_name = $tsconfig['sender']; // sender name
-			$htmlMail->addAttachment($file); // add attachment
-			$htmlMail->addPlain($tsconfig['body']); // add plaintext
-			$htmlMail->setHTML($htmlMail->encodeMsg($tsconfig['body'])); // html format if active via constants
-			$htmlMail->setHeaders();
-			$htmlMail->setContent();
-			if ($htmlMail->sendTheMail()) {
+            if (t3lib_div::compat_version('4.5')){
+                // new TYPO3 swiftmailer code
+                $mail = t3lib_div::makeInstance('t3lib_mail_Message');
+                $mail->setTo(array($tsconfig['email_receiver']))
+                    ->setFrom(array($tsconfig['email_sender'] => $tsconfig['sender']))
+                    ->setSubject($tsconfig['subject'])
+                    ->addPart($tsconfig['body'], 'text/plain')
+                    ->setBody($tsconfig['body'], 'text/html')
+                    ->attach(Swift_Attachment::fromPath($file))
+                    ->setCharset($GLOBALS['TSFE']->metaCharset);
+
+                if ($tsconfig['email_receiver_cc'] !== ''){
+                    $mail->setCc(t3lib_div::trimExplode(',', $tsconfig['email_receiver_cc']));
+                }
+                $mail->send();
+                $success = $mail->isSent();
+
+            } else {
+                $mail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
+                $mail->start(); // start htmlmail
+                $mail->recipient = $tsconfig['email_receiver']; // main receiver
+                $mail->recipient_copy = $tsconfig['email_receiver_cc']; // cc
+                $mail->subject = $tsconfig['subject']; // mail subject
+                $mail->from_email = $tsconfig['email_sender']; // sender email
+                $mail->from_name = $tsconfig['sender']; // sender name
+                $mail->addAttachment($file); // add attachment
+                $mail->addPlain($tsconfig['body']); // add plaintext
+                $mail->setHTML($mail->encodeMsg($tsconfig['body'])); // html format if active via constants
+                $success = $mail->send();
+            }
+			if ($success) {
 				$this->msg = 'Mail successfully sent';
 			} else {
 				$this->msg = 'Powermail Error in sending mail';
 			}
-	
+            unlink($file);
+
 		} else {
-			$content = 'There are no mails to export in the last ' . intval($tsconfig['time']) . ' seconds in pid ' . $this->pid;
+			$this->msg = 'There are no mails to export in the last ' . intval($tsconfig['time']) . ' seconds in pid ' . $this->pid;
 		}
 		
 		return true;
