@@ -34,6 +34,9 @@ require_once(PATH_t3lib . 'class.t3lib_admin.php');
 require_once(PATH_t3lib . 'class.t3lib_cli.php');
 require_once(PATH_typo3 . 'template.php');
 require_once(PATH_t3lib . 'class.t3lib_htmlmail.php');
+if (t3lib_div::compat_version('4.5')){
+    require_once(PATH_t3lib . 'class.t3lib_mail_message.php');
+}
 require_once('../mod1/class.tx_powermail_export.php'); // include div functions
 require_once(t3lib_extMgm::extPath('lang', 'lang.php')); // include lang class
 $LANG = t3lib_div::makeInstance('language');
@@ -46,7 +49,7 @@ if ($pid > 0) { // if Page id given from GET param
 	// tsconfig
 	$tmp_defaultconfig = array (
 		'time' => 86400, // default setting 1 day
-		'body' => 'See XLS file in attachment', // default body
+		'body' => 'See attached file', // default body
 		'subject' => 'New powermail export email', // default subject
 		'email_receiver' => '', // default: no receiver mail
 		'email_receiver_cc' => '', // default: no cc mail
@@ -77,24 +80,43 @@ if ($pid > 0) { // if Page id given from GET param
 			
 			if (!empty($file)) { // if file is not empty
 				
-				// Generate the mail
-				$htmlMail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
-				$htmlMail->start(); // start htmlmail
-				$htmlMail->recipient = $tsconfig['email_receiver']; // main receiver
-				$htmlMail->recipient_copy = $tsconfig['email_receiver_cc']; // cc
-				$htmlMail->subject = $tsconfig['subject']; // mail subject
-				$htmlMail->from_email = $tsconfig['email_sender']; // sender email
-				$htmlMail->from_name = $tsconfig['sender']; // sender name
-				$htmlMail->addAttachment($file); // add attachment
-				$htmlMail->addPlain($tsconfig['body']); // add plaintext
-				$htmlMail->setHTML($htmlMail->encodeMsg($tsconfig['body'])); // html format if active via constants
-				$htmlMail->setHeaders();
-				$htmlMail->setContent();
-				if ($htmlMail->sendTheMail()) {
+                if (t3lib_div::compat_version('4.5')){
+                    // new TYPO3 swiftmailer code
+                    $mail = t3lib_div::makeInstance('t3lib_mail_Message');
+                    $mail->setTo(array($tsconfig['email_receiver']))
+                        ->setFrom(array($tsconfig['email_sender'] => $tsconfig['sender']))
+                        ->setSubject($tsconfig['subject'])
+                        ->addPart($tsconfig['body'], 'text/plain')
+                        ->setBody($tsconfig['body'], 'text/html')
+                        ->attach(Swift_Attachment::fromPath($file))
+                        ->setCharset($GLOBALS['TSFE']->metaCharset);
+
+                    if ($tsconfig['email_receiver_cc'] !== ''){
+                        $mail->setCc(t3lib_div::trimExplode(',', $tsconfig['email_receiver_cc']));
+                    }
+                    $mail->send();
+                    $success = $mail->isSent();
+
+                } else {
+                    // Generate the mail
+                    $mail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
+                    $mail->start(); // start htmlmail
+                    $mail->recipient = $tsconfig['email_receiver']; // main receiver
+                    $mail->recipient_copy = $tsconfig['email_receiver_cc']; // cc
+                    $mail->subject = $tsconfig['subject']; // mail subject
+                    $mail->from_email = $tsconfig['email_sender']; // sender email
+                    $mail->from_name = $tsconfig['sender']; // sender name
+                    $mail->addAttachment($file); // add attachment
+                    $mail->addPlain($tsconfig['body']); // add plaintext
+                    $mail->setHTML($mail->encodeMsg($tsconfig['body'])); // html format if active via constants
+                    $success = $mail->send();
+                }
+				if ($success) {
 					$content .= 'Mail successfully sent';
 				} else {
 					$content .= 'Powermail Error in sending mail';
 				}
+                unlink($file);
 		
 			} else {
 				$content .= 'There are no mails to export in the last ' . intval($tsconfig['time']) . ' seconds in pid ' . $pid;
