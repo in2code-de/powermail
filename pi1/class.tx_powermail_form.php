@@ -75,7 +75,7 @@ class tx_powermail_form extends tslib_pibase {
 		} elseif ($this->cObj->data['tx_powermail_multiple'] == 1) { // If multiple (JS) active
 
 			// add css for multiple javascript
-			$GLOBALS['TSFE']->additionalHeaderData[$this->extKey] .= "\t" . '<link rel="stylesheet" type="text/css" href="' . $GLOBALS['TSFE']->tmpl->getFileName($this->conf['css.']['MultipleJS']) . '" />';
+			//$GLOBALS['TSFE']->additionalHeaderData[$this->extKey] .= "\t" . '<link rel="stylesheet" type="text/css" href="' . $GLOBALS['TSFE']->tmpl->getFileName($this->conf['css.']['MultipleJS']) . '" />';
 			$limit = ''; // no limit for SQL select
 
 		} elseif ($this->cObj->data['tx_powermail_multiple'] == 0) { // Standardmode

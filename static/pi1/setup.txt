@@ -11,7 +11,6 @@ plugin.tx_powermail_pi1 {
 	template.all = {$plugin.powermail.template.all}
 	template.mandatory = {$plugin.powermail.template.mandatory}
 	template.MultipleJS = {$plugin.powermail.template.MultipleJS}
-	css.MultipleJS = {$plugin.powermail.css.MultipleJS}
 	emailformat.recipient_mail = {$plugin.powermail.emailformat.recipient_mail}
 	emailformat.sender_mail = {$plugin.powermail.emailformat.sender_mail}
 	# ---
