@@ -237,6 +237,13 @@ class tx_powermail_export {
 	 */
 	var $overwriteFilename;
 
+    /**
+     * number of results
+     * 
+     * @var int
+     */
+    var $resNumRows;
+
 	/**
 	 * Dispatcher main method for export
 	 *
@@ -336,6 +343,7 @@ class tx_powermail_export {
 		$groupBy = $limit = '';
 		$orderBy = 'crdate DESC';
 		$this->res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        $this->resNumRows = $GLOBALS['TYPO3_DB']->sql_num_rows($this->res);
 
 		// If on current page is a result
 		if ($this->res) {
@@ -576,10 +584,12 @@ tr.odd td{background:#eee;}
 
 		// Generate CSV Rows
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
+        $i = 0;
 		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
 			if ($row['piVars']) {
 				$i++;
 				$piVars = t3lib_div::xml2array(($row['piVars']), 'piVars');
+                //if($this->debug) t3lib_div::devLog('piVars found: ' . $i, $this->extKey, 0, $piVars);
 
 				foreach ($this->rowConfig as $key => $value) {
 					// If current row is number
@@ -675,6 +685,7 @@ tr.odd td{background:#eee;}
 			}
 		}
 		$this->content .= $csvContent;
+        //if($this->debug) t3lib_div::devLog($this->content, $this->extKey, 0);
 	}
 
 	/**
@@ -1015,12 +1026,6 @@ tr.odd td{background:#eee;}
 			t3lib_div::devLog('Temporary filename was set to ' . $this->tempFilename, $this->extKey, 0);
 		}
 
-		if (file_exists($this->tempFilename)) {
-			$this->header .= header('Content-Length: ' . filesize($this->tempFilename));
-			if ($this->debug) {
-				t3lib_div::devLog('Header Content-Length was set to ' . filesize($this->tempFilename), $this->extKey, 0);
-			}
-		}
 		$this->header .= header('Expires: Fri, 01 Jan 2010 05:00:00 GMT');
 		if (strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'), 'MSIE') == false) {
 			$this->header .= header('Cache-Control: no-cache');
