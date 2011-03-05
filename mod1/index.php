@@ -43,6 +43,9 @@ class tx_powermail_module1 extends t3lib_SCbase {
 	public function init()	{
 		global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
 		parent::init();
+		if (intval($this->id) === 0) {
+			$this->id = t3lib_div::_GET('pid');
+		}
 	}
 
 	/**
@@ -64,7 +67,6 @@ class tx_powermail_module1 extends t3lib_SCbase {
 		$this->tsconfig = t3lib_BEfunc::getModTSconfig($this->id, 'tx_powermail_mod1');
 
 		$access = is_array($this->pageinfo) ? 1 : 0;
-
 		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id)) {
 
 			if (!t3lib_div::_GP('export')) {
