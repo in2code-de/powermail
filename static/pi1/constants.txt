@@ -64,9 +64,6 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0430; type=text; label= Exclude fields from marker ALL: Exclude some fields from marker ###POWERMAIL_ALL### (e.g.: ###UID14###,###UID22### or UID14,UID22)
 	markerALL.notIn = 
 	
-	# cat=plugin.powermail_additionalconfig//0440; type=text; label= Form method: use post or get as post format (details see on selfhtml.org)
-	form.method = post
-	
 	# cat=plugin.powermail_additionalconfig//0450; type=text; label= Datetime format: Frontend datetime format if datetime field is in use (see http://php.net/manual/function.strftime.php for strftime details)
 	format.datetime = %Y-%m-%d %H:%M
 

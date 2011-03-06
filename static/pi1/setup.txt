@@ -21,7 +21,6 @@ plugin.tx_powermail_pi1 {
 	markerALL.hideLabel = {$plugin.powermail.markerALL.hideLabel}
 	markerALL.notIn = {$plugin.powermail.markerALL.notIn}
 	PID.dblog = {$plugin.powermail.PID.dblog}
-	form.method = {$plugin.powermail.form.method}
 	format.datetime = {$plugin.powermail.format.datetime}
 	format.date = {$plugin.powermail.format.date}
 	label.allowTags = {$plugin.powermail.label.allowTags}
@@ -685,7 +684,7 @@ lib.powermailjs.100.110.value = powermail_validator.data('validator').destroy();
 [userFunc = user_powermailOnCurrentPage] && [userFunc = user_powermailCheckT3jquery(false)]
 
     // if powermail is on current page and t3jquery is NOT loaded include jquery and jquery tools from cdn
-
+	
 page.includeJSFooterlibs {
 	powermail_jQuery.external = 1
 	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js

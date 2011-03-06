@@ -1,4 +1,76 @@
-2010-12-13  Alex Kellner  <alexander.kellner@einpraegsam.net>
+2011-02-09  Alex Kellner  <alexander.kellner@in2code.de>, Alexander Grein <ag@typo3-webagentur.com>
+
+	* Release of Powermail 1.6.1
+	* Bug #13022: Manual update: add jQuery Tools if you use t3jquery
+    * Bug #13047: Radio button always shows validation error if not marked as required
+    * Bug #13167: Unable to export data as non-admin user
+    * Bug #13564: Powermail > Jump to anker on submit is not working
+    * Feature #12910: Add a global option for disabling the backend module
+    * Feature #13021: constant to include the JS in header
+    * Feature #13048: Add Basic and Fancy CSS improvements
+    * Feature #13049: Correct text messages for checkbox and radio button validation
+    * Task #13330: Title should be filtered
+    * Task #13331: Fieldsetname should be filtered
+	
+2011-02-09  Alex Kellner  <alexander.kellner@in2code.de>, Alexander Grein <ag@typo3-webagentur.com>
+
+	* Release of Powermail 1.6.0
+	* Bug #1441: RealURL's autoconf generation is blocked by powermail
+    * Bug #6052: Non-mandatory radio buttons export bug
+    * Bug #7329: Powermail don`t use "###POWERMAIL_MANDATORY_JS###"-Marker in formwrap template
+    * Bug #9048: Email Validation is not correct, neither on server side nor in JavaScript
+    * Bug #9986: XLS export via cronjob: Umlaut failure Charset issues
+    * Bug #10698: automatic realurlconf array for type 3131 break type config filename
+    * Bug #10904: Additional css class not used in some field types
+    * Bug #12223: powermail Error: Powermail - Typoscript nicht vorhanden!
+    * Bug #12513: Dutch translation causes JS error
+    * Bug #12522: Wrong position for $this->hook_additional_marker()
+    * Bug #12601: JavaScript-Error on preview page
+    * Bug #12807: Date and Datetime
+    * Bug #12808: Date field always starts with 1.1.1970
+    * Bug #12809: Delete image icon not available
+    * Bug #12810: Convert date fields from timestamp to a date format configured by typoscript
+    * Bug #12836: Backend Module: PDF Export shows error
+    * Bug #12856: JS Valiation for Radio Buttons failed
+    * Bug #12858: Multiple steps PHP do not work
+    * Bug #12859: Add HTML5 options to datetime field
+    * Bug #12871: Style Description fields for radio-buttons and checkboxes
+    * Bug #12875: HTML5 Attributes are missing for datetime field
+    * Bug #13210: IE7 Javascript Problem
+    * Bug #13565: Powermail does not store sent emails
+    * Bug #13566: Powermail radiobutton Mandatory field validating
+    * Feature #1532: Provide links to stored attachments in details view of powermail backend
+    * Feature #4762: Validation via jQuery
+    * Feature #6441: JS validation should be loaded at the end of the <body> tag
+    * Feature #6697: Hook after dbentry
+    * Feature #6749: Delete attached files from server after mail sent
+    * Feature #6767: Prefill Field Selectorbox in Backend with value "text"
+    * Feature #7830: Redirect to another page than the current - Patch attached!
+    * Feature #8373: new validator for date (only future)
+    * Feature #8480: new field auto-default to fieldtype textfield
+    * Feature #12803: Minimize reloading of fieldsets and fields with prefilled fields
+    * Feature #12821: Add class with uid to marker all
+    * Task #10441: Mark tx_powermail_html::dontAllow() as deprecated
+    * Task #12781: Improve default CSS
+    * Task #12782: check flexform values
+    * Task #12784: Validation classes not needed any more
+    * Task #12785: Check email sending
+    * Task #12786: Hide XLS Button if no Ext for export
+    * Task #12787: Message if there are no mails
+    * Task #12788: Localized message in BE module
+    * Task #12789: Checkbox javascript validation
+    * Task #12790: Multipage with javascript
+    * Task #12791: Check Placeholder, Pattern and so on
+    * Task #12792: Add t3jquery.txt
+    * Task #12822: StdWrap for FE Values related to fieldtype (to use strftime for date fields)
+    * Task #12823: Codecleaning in class.tx_powermail_markers.php
+    * Task #12826: Before release: Update manual
+    * Task #12830: Add scheduler for cronjob exports
+    * Task #12839: Add basic CSS
+    * Task #12857: Change fancy.css for datetime
+    * Task #12867: Improve labels in plugin
+
+2010-12-13  Alex Kellner  <alexander.kellner@in2code.de>
 
 	* Release of Powermail 1.5.7
 	
@@ -14,7 +86,7 @@
 
 	* Raised Powermail version to 1.6.0-dev
 
-2010-12-13  Alex Kellner  <alexander.kellner@einpraegsam.net>
+2010-12-13  Alex Kellner  <alexander.kellner@in2code.de>
 
 	* Release of Powermail 1.5.7
 
@@ -39,7 +111,7 @@
 
 	* Raised Powermail version to 1.6.0-dev
 
-2010-11-16  Alex Kellner  <alexander.kellner@einpraegsam.net>
+2010-11-16  Alex Kellner  <alexander.kellner@in2code.de>
 
 	* Release of Powermail 1.5.6
 	* Task #6185: Important manual changes needed
@@ -103,11 +175,11 @@
 
 	* Fixed bug #8500: Custom CSS classes not rendered for field type "Show some text"
 
-2010-06-07  Alex Kellner  <alexander.kellner@einpraegsam.net>
+2010-06-07  Alex Kellner  <alexander.kellner@in2code.de>
 
 	* Fixed bug #8086: userFunc user_powermailOnCurrentPage with a small bug
 	
-2010-05-11  Alex Kellner  <alexander.kellner@einpraegsam.net>
+2010-05-11  Alex Kellner  <alexander.kellner@in2code.de>
 
 	* Fixed bug #7744: CSV Export without header
 	* Feature #7737: Enable CSV Export via Cronjob
@@ -134,7 +206,7 @@
 
 	* Task #6737: Updating Changelog.txt
 
-2010-03-06  Alex Kellner  <alexander.kellner@einpraegsam.net>
+2010-03-06  Alex Kellner  <alexander.kellner@in2code.de>
 
 	* Cleanup #6722: Little bit cleaning of the mandatory class
 	* Fixed bug #6436: /validation/* JS gets served with content type text/html
@@ -159,7 +231,7 @@
 	* Task #6412: Make powermail ready for unit testing
 	* Task #6370: Cleanup: mod1/class.tx_powermail_export.php
 	
-2010-02-06  Alex Kellner  <alexander.kellner@einpraegsam.net>
+2010-02-06  Alex Kellner  <alexander.kellner@in2code.de>
 
 	* Cleanup: Deleting obsolete files
 	* Feature #6379: Maxlength for textareas
@@ -174,7 +246,7 @@
 	* Cleanup mod1/conf.php: Adding whitespace for readability
 	* Cleanup mod1/index.php: Remove whitespace, add comments, use core functions to access  parameters, define all used class attributes
 
-2010-01-25  Alex Kellner  <alexander.kellner@einpraegsam.net>
+2010-01-25  Alex Kellner  <alexander.kellner@in2code.de>
 
 	* Feature #6088: Switch new db values to hidden
 	* Fixed bug #6045: Usage of Deprecated Methods
