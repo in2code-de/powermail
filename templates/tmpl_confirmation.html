@@ -10,7 +10,6 @@ Powermail HTML Template for confirmation page after submit
 	Form name (submit values)							###POWERMAIL_NAME_SUBMIT###
 	Form target (back to form)							###POWERMAIL_TARGET_BACK###
 	Form target (submit values)							###POWERMAIL_TARGET_SUBMIT###
-	Form method (all forms)								###POWERMAIL_METHOD###
 	Submit value (back to form)							###POWERMAIL_LOCALLANG_CONFIRMATION_BACK###
 	Submit value (submit values)						###POWERMAIL_LOCALLANG_CONFIRMATION_SUBMIT###
 	
@@ -24,10 +23,10 @@ Powermail HTML Template for confirmation page after submit
 		
 		###POWERMAIL_ALL###
 		
-		<form name="###POWERMAIL_NAME_BACK###" action="###POWERMAIL_TARGET_BACK###" method="###POWERMAIL_METHOD###" class="tx_powermail_pi1_formconfirmation_back">
+		<form name="###POWERMAIL_NAME_BACK###" action="###POWERMAIL_TARGET_BACK###" method="post" class="tx_powermail_pi1_formconfirmation_back">
 			<input type="submit" value="###POWERMAIL_LOCALLANG_CONFIRMATION_BACK###" class="tx-powermail-pi1_confirmation tx-powermail-pi1_confirmation_back" />
 		</form>
-		<form name="###POWERMAIL_NAME_SUBMIT###" action="###POWERMAIL_TARGET_SUBMIT###" method="###POWERMAIL_METHOD###" class="tx_powermail_pi1_formconfirmation_submit">
+		<form name="###POWERMAIL_NAME_SUBMIT###" action="###POWERMAIL_TARGET_SUBMIT###" method="post" class="tx_powermail_pi1_formconfirmation_submit">
 			<input type="submit" value="###POWERMAIL_LOCALLANG_CONFIRMATION_SUBMIT###" class="tx-powermail-pi1_confirmation tx-powermail-pi1_confirmation_submit" />
 		</form>
 	</div>
