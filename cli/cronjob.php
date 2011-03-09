@@ -34,7 +34,7 @@ require_once(PATH_t3lib . 'class.t3lib_admin.php');
 require_once(PATH_t3lib . 'class.t3lib_cli.php');
 require_once(PATH_typo3 . 'template.php');
 require_once(PATH_t3lib . 'class.t3lib_htmlmail.php');
-if (t3lib_div::compat_version('4.5')){
+if (t3lib_div::int_from_ver(TYPO3_version) >= 4005000 && empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport']) === FALSE){
     require_once(PATH_t3lib . 'class.t3lib_mail_message.php');
 }
 require_once('../mod1/class.tx_powermail_export.php'); // include div functions
@@ -80,7 +80,7 @@ if ($pid > 0) { // if Page id given from GET param
 			if ($export->resNumRows > 0) { // if file is not empty
 				
                 $file = t3lib_div::getFileAbsFileName('typo3temp/' . $export->filename); // read filename
-                if (t3lib_div::compat_version('4.5')){
+                if (t3lib_div::int_from_ver(TYPO3_version) >= 4005000 && empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport']) === FALSE){
                     // new TYPO3 swiftmailer code
                     $mail = t3lib_div::makeInstance('t3lib_mail_Message');
                     $mail->setTo(array($tsconfig['email_receiver']))

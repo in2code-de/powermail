@@ -39,6 +39,7 @@ class tx_powermail_submit extends tslib_pibase {
 	var $dbInsert = 1; // Enable db insert of every sent item (disable for testing only)
 	var $ok = 0; // disallow sending (standard false)
 	var $PM_SubmitBeforeMarkerHook_return;
+    var $useSwiftMailer = false;
 
 	function main($conf, $sessionfields, $cObj) {
 		$this->conf = $conf;
@@ -181,8 +182,9 @@ class tx_powermail_submit extends tslib_pibase {
         $returnPath = (t3lib_div::validEmail($returnPath)) ? $returnPath : $from; // return path
         $replyToEmail = $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['reply.']['email'], $this->conf['email.'][$this->subpart . '.']['reply.']['email.']); // set replyto email
         $replyToName = $this->quoteStringWithComma($this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['reply.']['name'], $this->conf['email.'][$this->subpart . '.']['reply.']['name.'])); // set replyto name
+        $this->useSwiftMailer = t3lib_div::int_from_ver(TYPO3_version) >= 4005000 && empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport']) === FALSE;
 
-        if (t3lib_div::compat_version('4.5')){
+        if ($this->useSwiftMailer){
             // new TYPO3 swiftmailer code
             $this->mail = t3lib_div::makeInstance('t3lib_mail_Message');
             $this->mail->setTo(array($receiver))
@@ -238,7 +240,7 @@ class tx_powermail_submit extends tslib_pibase {
                         $attachment = t3lib_div::getFileAbsFileName($localCObj->cObjGetSingle($this->conf['email.']['recipient_mail.']['attachment'], $this->conf['email.']['recipient_mail.']['attachment.']));
 
                         // add attachment
-                        if (t3lib_div::compat_version('4.5')){
+                        if ($this->useSwiftMailer){
                             $this->mail->attach(Swift_Attachment::fromPath($attachment));
                         } else {
                             $this->mail->addAttachment($attachment);
@@ -255,7 +257,7 @@ class tx_powermail_submit extends tslib_pibase {
 		if ($this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['addAttachment'], $this->conf['email.'][$this->subpart . '.']['addAttachment.'])) { // if there is an entry in the typoscript
 			$files = t3lib_div::trimExplode(',', $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['addAttachment'], $this->conf['email.'][$this->subpart . '.']['addAttachment.']), 1); // get an array with all files to add
             for ($i = 0; $i < count($files); $i ++) { // one loop for every file to add
-                if (t3lib_div::compat_version('4.5')){
+                if ($this->useSwiftMailer){
                     $this->mail->attach(Swift_Attachment::fromPath($files[$i]));
                 } else {
                     $this->mail->addAttachment(t3lib_div::getFileAbsFileName($files[$i])); // add attachment
@@ -266,7 +268,7 @@ class tx_powermail_submit extends tslib_pibase {
         // add plain text part
 		if ($this->conf['emailformat.'][$this->subpart] != 'html') { // add plaintext only if emailformat "both" or "plain"
             $plainText = $this->div->makePlain($this->mailcontent[$this->subpart]);
-            if(t3lib_div::compat_version('4.5')) {
+            if($this->useSwiftMailer) {
                 $this->mail->addPart($plainText, 'text/plain');
             } else {
                 $this->mail->addPlain($plainText);
@@ -276,7 +278,7 @@ class tx_powermail_submit extends tslib_pibase {
 		// add html part
         if ($this->conf['emailformat.'][$this->subpart] != 'plain') { // add html only if emailformat "both" or "html"
             $html = $this->mailcontent[$this->subpart];
-            if(t3lib_div::compat_version('4.5')) {
+            if($this->useSwiftMailer) {
                 $this->mail->setBody($html, 'text/html');
             } else {
                 $this->mail->setHTML($this->mail->encodeMsg($html));
