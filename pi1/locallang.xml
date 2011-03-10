@@ -157,7 +157,7 @@
 			<label index="error_captchaNoExtFound">Bitte installieren Sie eine captcha Extension wie captcha, sr_freecap, jm_recaptcha oder wt_calculating_captcha!</label>
 			<label index="multiple_forward">Nächster Schritt</label>
 			<label index="multiple_back">Vorheriger Schritt</label>
-			<label index="pagebrowser_inner">von</label>
+			<label index="pagebrowser_inner"> von </label>
 			<label index="JSvalidation_label_required">Das ist ein Pflichtfeld</label>
 			<label index="JSvalidation_label_please_correct">Bitte korrigieren Sie diesen Wert</label>
 			<label index="JSvalidation_label_validate_number">Bitte tragen Sie eine Nummer ein</label>
@@ -303,7 +303,7 @@
 			<label index="error_validemail">Cette adresse email n'est pas valable</label>
 			<label index="multiple_forward">Etape suivante</label>
 			<label index="multiple_back">Etape précédente</label>
-			<label index="pagebrowser_inner">de</label>
+			<label index="pagebrowser_inner"> de </label>
 			<label index="JSvalidation_label_required">Ce champ est obligatoire</label>
 			<label index="JSvalidation_label_validate_number">Veuillez entrer un chiffre valable dans ce champ</label>
 			<label index="JSvalidation_label_validate_digits">Veuillez utiliser uniquement des chiffres dans ce champ. Evitez les espaces et d\'autres caractères comme les points ou les virgules</label>
