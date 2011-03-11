@@ -92,7 +92,6 @@ class tx_powermail_module1 extends t3lib_SCbase {
 				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.plugin.FitToParent.js');
 				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.form.DateTime.js');
 				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.grid.RowExpander.js');
-				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/Ext.ux.LinkButton.js');
 				$this->pageRenderer->addJsFile($BACK_PATH . t3lib_extMgm::extRelPath('powermail') . 'res/js/powermail_backend.js');
 
 				// Enable debug mode for Ext JS
@@ -149,9 +148,9 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"createShortcut": "' . $LANG->getLL('shortcut') . '",
 						"exportAs": "' . $LANG->getLL('exportformat') . '",
 						"exportPdfText": "' . $LANG->getLL('exportpdf') . '",
-						"exportHtmlText": "' . $LANG->getLL('exportpdf') . '",
-						"exportCsvText": "' . $LANG->getLL('exportpdf') . '",
-						"exportExcelText": "' . $LANG->getLL('exportpdf') . '",
+						"exportHtmlText": "' . $LANG->getLL('exporthtml') . '",
+						"exportCsvText": "' . $LANG->getLL('exportcsv') . '",
+						"exportExcelText": "' . $LANG->getLL('exportxls') . '",
 						"filterBegin": "' . $LANG->getLL('start') . '",
 						"filterEnd": "' . $LANG->getLL('end') . '",
 						"piVars": "' . $LANG->getLL('pivars') . '",

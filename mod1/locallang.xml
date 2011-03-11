@@ -44,8 +44,8 @@
 			<label index="delete">Delete</label>
 			<label index="perpage">Per Page</label>
 			<label index="deletechosen">Delete chosen mails</label>
-			<label index="choseline">Please select some rows before</label>
-			<label index="choseline2">You have to chose a row before!</label>
+			<label index="choseline">An error has occurred</label>
+			<label index="choseline2">Please select at least one row.</label>
 			<label index="yes">Yes</label>
 			<label index="no">No</label>
 			<label index="created">Created</label>
@@ -107,8 +107,8 @@
 			<label index="delete">L\u00f6schen</label>
 			<label index="perpage">Datens\u00e4tze pro Seite</label>
 			<label index="deletechosen">Ausgew\u00e4hlte Datens\u00e4tze l\u00f6schen</label>
-			<label index="choseline">Bitte w\u00e4hlen Sie zuerst die betroffenen Zeilen</label>
-			<label index="choseline2">Sie m\u00fcssen eine Zeile ausw\u00e4hlen!</label>
+			<label index="choseline">Ein Fehler ist aufgetreten</label>
+			<label index="choseline2">Bitte w\u00e4hlen Sie mindestens eine Zeile aus!</label>
 			<label index="yes">Ja</label>
 			<label index="no">Nein</label>
 			<label index="created">Erstellt</label>

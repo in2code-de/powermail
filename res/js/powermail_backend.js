@@ -30,12 +30,13 @@ Powermail.noRows = {
 
 Powermail.topMenu = {
 	init: function() {
-		var icon_xls = '<a href="?export=xls&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank" class="powermail_icon_xls">' + Powermail.statics.excelIcon + '</a>';
-		var icon_csv = '<a href="?export=csv&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank" class="powermail_icon_csv">' + Powermail.statics.csvIcon + '</a>';
-		var icon_html = '<a href="?export=html&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank" class="powermail_icon_html">' + Powermail.statics.htmlIcon + '</a>';
-		var icon_pdf = '<a href="?export=pdf&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime + '" target="_blank" class="powermail_icon_pdf">' + Powermail.statics.pdfIcon + '</a>';
+        var filterUrlPart = '&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime;
+        var xls_button = {tag: 'a', href: '?export=xls' + filterUrlPart, target:'_self', html: Powermail.statics.excelIcon, title: Powermail.lang.exportExcelText};
+        var csv_button = {tag: 'a', href: '?export=csv' + filterUrlPart, target:'_self', html: Powermail.statics.csvIcon, title: Powermail.lang.exportCsvText};
+        var html_button = {tag: 'a', href: '?export=html' + filterUrlPart, target:'_self', html: Powermail.statics.htmlIcon, title: Powermail.lang.exportHtmlText};
+        var pdf_button = {tag: 'a', href: '?export=pdf' + filterUrlPart, target:'_self', html: Powermail.statics.pdfIcon, title: Powermail.lang.exportPdfText};
 		if (!Powermail.statics.phpexcel_library_loaded) {
-			icon_xls = '<a href="#" onclick="msg(\'' + Powermail.lang.noExcel + '\'); return false;" target="_blank" class="powermail_icon_xls powermail_icon_inactive">' + Powermail.statics.excelIcon + '</a>';
+            var xls_button = {tag: 'a', href: '#', target:'_self', html: Powermail.statics.excelIcon, title: Powermail.lang.noExcel, cls: 'powermail_icon_inactive', onclick: 'msg(\'' + Powermail.lang.noExcel + '\'); return false;'};
 		}
 		var powermailtopmenu = new Ext.Toolbar({
 			id: 'topmenu',
@@ -44,42 +45,37 @@ Powermail.topMenu = {
 		    hideBorders: true,
 		    items: [
 		        Powermail.lang.exportAs,
-				{
-		            xtype: 'linkbutton',
-		            text: Powermail.lang.exportExcelText,
-		            html: icon_xls
+                {
+                    xtype: 'box',
+                    autoEl: xls_button
+                },
+		        {
+					xtype: 'tbspacer', 
+					width: 5
+				},
+		        {
+		            xtype: 'box',
+		            autoEl: csv_button
+		        },
+		        {
+					xtype: 'tbspacer',
+					width: 5
+				},
+		        {
+		            xtype: 'box',
+		            autoEl: html_button
 		        },
 		        {
 					xtype: 'tbspacer', 
 					width: 5
 				},
 		        {
-		            xtype: 'linkbutton',
-		            text: Powermail.lang.exportCsvText,
-		            html: icon_csv
-		        },
-		        {
-		            xtype: 'linkbutton',
-					xtype: 'tbspacer', 
-					width: 5
-				},
-		        {
-		            xtype: 'linkbutton',
-		            text: Powermail.lang.exportHtmlText,
-		            html: icon_html
-		        },
-		        {
-					xtype: 'tbspacer', 
-					width: 5
-				},
-		        {
-		            xtype: 'linkbutton',
-		            text: Powermail.lang.exportPdfText,
-		            html: icon_pdf
+		            xtype: 'box',
+		            autoEl:  pdf_button
 		        },
 		        '->',
 				{
-		            xtype: 'button',
+		            xtype: 'box',
 		            text: Powermail.lang.createShortcut,
 		            html: Powermail.statics.shortcutLink
 		        }
@@ -132,7 +128,7 @@ Powermail.grid = {
 	 		var returnPiVars = '<table>';
 	 		//alert(v);
 	 		i = 0;
-	 		Ext.iterate(v,function(key, value) { 
+	 		Ext.iterate(v,function(key, value) {
 	 			if(Ext.isObject(value)) {
 	 				//console.log(value);
 	 				newValues = new Array();
@@ -172,7 +168,7 @@ Powermail.grid = {
 	 		});
 	 		return returnPiVars + '</table>';
 	 	}
-	 	
+
 		/****************************************************
 		 * makeEmailLink
 		 ****************************************************/
@@ -204,7 +200,7 @@ Powermail.grid = {
 					{name: 'id', type: 'int'},
 					{name: 'uid', type: 'int'},
 					{name: 'crdate'},
-					{name: 'sender', convert: makeEmailLink}, 
+					{name: 'sender', convert: makeEmailLink},
 					{name: 'recipient', convert: makeEmailLink},
 					{name: 'senderIP'},
 					{name: 'piVars', convert: showPiVars}
@@ -235,7 +231,7 @@ Powermail.grid = {
 				load: function() {
 						if(Powermail.statics.startDateTime == 0) {
 							Ext.getCmp('beginDateTime').setValue(gridDs.reader.jsonData.mindatetime);
-					}
+					    }
 						if(Powermail.statics.endDateTime == 0) {
 							Ext.getCmp('endDateTime').setValue(new Date().getTime());
 						}
@@ -271,7 +267,7 @@ Powermail.grid = {
 				var frmConfirm = new Ext.Window({
 					xtype: 'form',
 					width: 200,
-					height: 100,
+					height: 'auto',
 					modal: true,
 					title: confirmTitle,
 					items: [
@@ -376,8 +372,7 @@ Powermail.grid = {
 				forceFit: true
 			},
 			sm: sm,
-			plugins: [expander, new Ext.ux.plugin.FitToParent()],							
-
+			plugins: [expander, new Ext.ux.plugin.FitToParent()],
 			tbar: [
 		    	Powermail.lang.filterBegin,
 		    	{
@@ -422,17 +417,17 @@ Powermail.grid = {
 		        {xtype: 'tbspacer', width: 10},
 				{
 					xtype: 'button',
-					text: 'Filter',
 					id: 'filterButton',
-					html: Powermail.statics.filterIcon,
+					text: Powermail.statics.filterIcon,
 					handler: function_filter
 				}
 			],
 			bbar: [
 				{
-					/****************************************************
+					/*****************************************************
 					 * Paging toolbar
-					 ****************************************************/
+					 *****************************************************/
+
 					id: 'recordPaging',
 					xtype: 'paging',
 					store: gridDs,
@@ -445,13 +440,16 @@ Powermail.grid = {
 					/****************************************************
 					 * Delete button
 					 ****************************************************/
-					xtype: 'button',
-					width: 80,
-					id: 'deleteButton',
-					text: Powermail.lang.deleteButton_text,
-					tooltip: Powermail.lang.deleteButton_tooltip,
-					iconCls: 'delete',
-					handler: function_delete
+
+                    xtype: 'button',
+                    width: 80,
+                    id: 'deleteButton',
+                    text: Powermail.lang.deleteButton_text,
+                    title: Powermail.lang.deleteButton_tooltip,
+                    iconCls: 'delete',
+                    cls: 'x-btn-over',
+                    handleMouseEvents: false,
+                    handler: function_delete
 				}
 			]
 		});
