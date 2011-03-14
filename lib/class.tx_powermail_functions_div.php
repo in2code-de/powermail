@@ -32,8 +32,7 @@
 class tx_powermail_functions_div {
 
 	public $extKey = 'powermail';
-    public $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-
+    public $confArr;
 	/**
 	 * Function sec() is a security function against all bad guys :)
 	 *
@@ -724,6 +723,15 @@ class tx_powermail_functions_div {
 		} else {
 			 die ($string); // die process and write message
 		}
+	}
+
+	/**
+	 * Construct for div class
+	 *
+	 * void
+	 */
+	public function __construct() {
+		$this->confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
 	}
 
 }
