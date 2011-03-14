@@ -18,3 +18,6 @@ disableStartStop = 0
 
 # cat=basic/enable/070; type=boolean; label= Use IRRE: Inline Relational Record Editing (IRRE) to enter your fieldsets and fields just by opening only one content. If you want to use the listview and manually enter the relation between tt_content and fieldsets and fields you can disable IRRE.
 useIRRE = 1
+
+# cat=basic//080; type=text; label= Path to Unix/Linux "file" tool with tailing slash.
+fileToolPath = /usr/bin/

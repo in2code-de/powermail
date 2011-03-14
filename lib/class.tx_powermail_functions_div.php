@@ -32,6 +32,7 @@
 class tx_powermail_functions_div {
 
 	public $extKey = 'powermail';
+    public $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
 
 	/**
 	 * Function sec() is a security function against all bad guys :)
@@ -644,8 +645,8 @@ class tx_powermail_functions_div {
 				$mimetype = mime_content_type($filename);
 
 				// Use file-command with unix to determine
-			} elseif (file_exists('/usr/bin/file')) {
-				$mimetype = exec('/usr/bin/file -bi '. $filename);
+			} elseif (file_exists($this->confArr['fileToolPath'] . 'file')) {
+				$mimetype = exec($this->confArr['fileToolPath'] . 'file -bi '. $filename);
 				$mimetype = array_shift(t3lib_div::trimExplode(';', $mimetype, 1));
 
 				// If no method above applies, shrug with your shoulders and make the result true
