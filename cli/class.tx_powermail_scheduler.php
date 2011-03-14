@@ -110,7 +110,7 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 		if ($export->resNumRows > 0) { // if file is not empty
             $file = t3lib_div::getFileAbsFileName('typo3temp/' . $export->filename); // read filename
 			// Generate the mail
-            if (t3lib_div::compatVersion('4.5')){
+            if (t3lib_div::compat_version('4.5')){
                 // new TYPO3 swiftmailer code
                 $mail = t3lib_div::makeInstance('t3lib_mail_Message');
                 $mail->setTo(array($tsconfig['email_receiver']))
