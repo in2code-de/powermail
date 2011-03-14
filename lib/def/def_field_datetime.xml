@@ -16,14 +16,6 @@
 					</config>
 				</TCEforms>
 			</value>
-			<showmonthyearselector>
-				<TCEforms>
-					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.date.showselector</label>
-					<config>
-						<type>check</type>
-					</config>
-				</TCEforms>
-			</showmonthyearselector>
 			<min>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.min</label>
