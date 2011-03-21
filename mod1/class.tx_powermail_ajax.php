@@ -103,7 +103,7 @@ class tx_powermail_Ajax {
 		if (!t3lib_div::inArray(array('crdate', 'uid', 'sender', 'recipient', 'senderIP'), $this->belist->sort)) {
 			$this->belist->sort = 'crdate';
 		}
-		$this->belist->dir = (t3lib_div::_GP('dir')) ? t3lib_div::_GP('dir') : 'DESC';
+		$this->belist->dir = (t3lib_div::_GP('dir')) ? 'ASC' : 'DESC';
 		$this->belist->startDateTime = intval(t3lib_div::_GP('startDateTime'));
 		$this->belist->endDateTime = intval(t3lib_div::_GP('endDateTime'));
 		$ajaxObj->setContent($this->belist->main());
