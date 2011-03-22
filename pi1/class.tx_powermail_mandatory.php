@@ -230,8 +230,8 @@ class tx_powermail_mandatory extends tslib_pibase {
 	private function regulareExpressions() {
 		// Config - set regulare expressions for autocheck
 		$autoarray = array (
-			'email' => "#^[_a-z0-9]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.)+([a-z0-9]{2,4})$#",
-			'url' => "#^(http://)?([a-z0-9-]+\.)+([a-z0-9-]{2,3})$#",
+			'email' => "#^[_a-z0-9!#$%&\\'*+-\/=?^_`.{|}~]+(\.[_a-z0-9!#$%&\'*+-\\/=?^_`.{|}~]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$#",
+			'url' => "#^(http://|https://)?([a-z0-9-]+\.)+([a-z0-9-]{2,3})$#",
 			'numbers' => "/^[0-9]+$/",
 			'phone' => "/^[0-9\/+-]+$/",
 			'alphanum' => "/^[a-zA-Z0-9]+$/"
