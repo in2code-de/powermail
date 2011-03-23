@@ -126,15 +126,15 @@ Powermail.grid = {
 
 		var showPiVars = function(v, record){
 	 		var returnPiVars = '<table>';
-	 		//alert(v);
 	 		i = 0;
 	 		Ext.iterate(v,function(key, value) {
+                if(!Ext.isObject(Powermail.statics[key])) {
+                    Powermail.statics[key] = {'title': key, 'formtype': 'text'};
+                }
 	 			if(Ext.isObject(value)) {
-	 				//console.log(value);
 	 				newValues = new Array();
 	 				Ext.iterate(value, function(key2, value2){
 	 					newValues.push(value2);
-	 					//console.log(value2);
 	 				});
 	 				value = newValues.join(', ');
 	 			} else if(Ext.isArray(value)) {
