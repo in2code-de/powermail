@@ -297,6 +297,7 @@ class tx_powermail_form extends tslib_pibase {
 			// e.g. 3 of 8
 			$content = $this->multiple['currentpage'] . $this->pi_getLL('pagebrowser_inner') . $this->multiple['numberoffieldsets']; // 1 of 4
 			$content = $this->cObj->wrap($content, $this->conf['pagebrowser.']['wrap'], '|'); // wrap this
+            $this->hookPageBrowser($content);
 
 		} elseif ($add === 'js') { // Pagebrowser Multiple JS
 
@@ -383,6 +384,20 @@ class tx_powermail_form extends tslib_pibase {
 			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormWrapMarkerHookInner'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
 				$_procObj->PM_FormWrapMarkerHookInner($this->InnerMarkerArray, $this->conf, $row, $this); // Open function to manipulate datas
+			}
+		}
+	}
+
+    /**
+     * Function hookPageBrowser() to enable manipulation of the php-pagebrowser
+     * @param  $content
+     * @return void
+     */
+	function hookPageBrowser(&$content) {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormPageBrowserHook'])) {
+			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FormPageBrowserHook'] as $_classRef) {
+				$_procObj = & t3lib_div::getUserObj($_classRef);
+				$_procObj->PM_FormPageBrowserHook($this->multiple, $content, $this->conf, $this);
 			}
 		}
 	}
