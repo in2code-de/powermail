@@ -72,6 +72,10 @@ class tx_powermail_pi1 extends tslib_pibase {
 			$this->div->debug($this->sessionfields, 'Values from session'); // Debug function (Array from Session)
 		}
 		
+        if($this->sessionfields){
+			$GLOBALS['TSFE']->set_no_cache();
+		}
+
 		// Start main choose
 		$this->hook_main_content_before(); // hook for content manipulation 1
 		

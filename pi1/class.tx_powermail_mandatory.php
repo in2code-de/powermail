@@ -75,7 +75,8 @@ class tx_powermail_mandatory extends tslib_pibase {
 		$targetLinkParams = array(
 			'returnLast' => 'url', 
 			'parameter' => $GLOBALS['TSFE']->id, 
-			'useCacheHash' => 1, 
+			'useCacheHash' => 1,
+            'no_cache' => 1
 			#'section' => 
 		);
 		$this->markerArray['###POWERMAIL_TARGET###'] = $this->cObj->typolink('x', $targetLinkParams) . '#' . $anchorId;
