@@ -599,7 +599,10 @@ lib.powermailjs {
                 readonly: false,
                 yearRange: [-99, 99],
                 change: function(event, date){
-                    timestampOfDate = new Date(this.getValue('yyyy,m,d')).getTime() / 1000;
+                    y = parseInt(this.getValue('yyyy'));
+                    m = parseInt(this.getValue('m'))-1;
+                    d = parseInt(this.getValue('d'));
+                    timestampOfDate = new Date(y,m,d).getTime() / 1000;
                     oldTimestamp = this.getInput().nextAll('input[type=hidden]').val();
                     if(this.getInput().nextAll('input[type=time]').length > 0 && oldTimestamp != '' && parseInt(oldTimestamp) == oldTimestamp) {
                         oldDate = new Date(oldTimestamp * 1000);
