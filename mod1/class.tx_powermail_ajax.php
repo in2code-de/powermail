@@ -99,11 +99,8 @@ class tx_powermail_Ajax {
 		$this->belist->pid = intval(t3lib_div::_GP('pid'));
 		$this->belist->pointer = intval(t3lib_div::_GP('start'));
 		$this->belist->perpage = intval(t3lib_div::_GP('pagingSize'));
-		$this->belist->sort = (t3lib_div::_GP('sort')) ? t3lib_div::_GP('sort') : 'crdate';
-		if (!t3lib_div::inArray(array('crdate', 'uid', 'sender', 'recipient', 'senderIP'), $this->belist->sort)) {
-			$this->belist->sort = 'crdate';
-		}
-		$this->belist->dir = (t3lib_div::_GP('dir')) ? 'ASC' : 'DESC';
+		$this->belist->sort = (!t3lib_div::inArray(array('crdate', 'uid', 'sender', 'recipient', 'senderIP'), t3lib_div::_GP('sort'))) ? 'crdate' : t3lib_div::_GP('sort');
+		$this->belist->dir = (t3lib_div::_GP('dir') == 'ASC') ? 'ASC' : 'DESC';
 		$this->belist->startDateTime = intval(t3lib_div::_GP('startDateTime'));
 		$this->belist->endDateTime = intval(t3lib_div::_GP('endDateTime'));
 		$ajaxObj->setContent($this->belist->main());
