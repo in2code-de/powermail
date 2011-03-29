@@ -25,22 +25,17 @@
 
 	// Function user_step() could be used as condition instead of globalVar in Backend
 		// This won't work: [globalVar = GP:tx_powermail_pi1|mailID > 0]
-		// This will work: [userFunc = user_stap()] // submitted form
-		// This will work: [userFunc = user_step(2)] // user ist on step 2 if morestep form
+		// This will work: [userFunc = user_powermail_step()] // submitted form
+		// This will work: [userFunc = user_powermail_step(2)] // user ist on step 2 if multiple step form
 	function user_powermail_step($id = 0) {
-	    $piVars = t3lib_div::_GET('tx_powermail_pi1'); // get GET params from powermail
+	    $piVars = t3lib_div::_GP('tx_powermail_pi1'); // get params from powermail
 		
 	    if (!$id) { // if no id given from outside
-	        
 			if (intval($piVars['mailID']) > 0) return true; // if there is a mailID, return true
-	        else return false; // no mailID, return false
-			
 	    } else { // if there is an id given from outside
-	        
 			if (intval($piVars['multiple']) == $id) return true; // if multiple == given param, return true
-	        else return false; // not given param, return false
-			
 	    }
-	
+
+        return false;
 	}
 ?>

@@ -76,10 +76,10 @@ class tx_powermail_mandatory extends tslib_pibase {
 			'returnLast' => 'url', 
 			'parameter' => $GLOBALS['TSFE']->id, 
 			'useCacheHash' => 1,
-            'no_cache' => 1
+            #'no_cache' => 1
 			#'section' => 
 		);
-		$this->markerArray['###POWERMAIL_TARGET###'] = $this->cObj->typolink('x', $targetLinkParams) . '#' . $anchorId;
+		$this->markerArray['###POWERMAIL_TARGET###'] = $this->cObj->typolink('x', $targetLinkParams) . '#c' . $anchorId;
 		$this->markerArray['###POWERMAIL_NAME###'] = $this->cObj->data['tx_powermail_title'] . '_mandatory'; // Fill Marker with formname
 		$this->markerArray['###POWERMAIL_METHOD###'] = $this->conf['form.']['method']; // Form method
 

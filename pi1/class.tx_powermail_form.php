@@ -119,9 +119,7 @@ class tx_powermail_form extends tslib_pibase {
 				$linkVars = array(
 					'returnLast' => 'url', 
 					'parameter' => $GLOBALS['TSFE']->id, 
-					'additionalParams' => '
-						&tx_powermail_pi1[mailID]=' . $formUid . '
-						&tx_powermail_pi1[multiple]=' . ($this->multiple['currentpage'] + 1), 
+					'additionalParams' => '&tx_powermail_pi1[mailID]=' . intval($formUid) .	'&tx_powermail_pi1[multiple]=' . ($this->multiple['currentpage'] + 1),
 					'useCacheHash' => 1
 				);
 				$this->OuterMarkerArray['###POWERMAIL_ACTION###'] = $this->cObj->typolink('x', $linkVars); // Overwrite Target
@@ -271,9 +269,7 @@ class tx_powermail_form extends tslib_pibase {
 				$linkVars = array(
 					'parameter' => $GLOBALS['TSFE']->id, 
 					'returnLast' => 'url', 
-					'additionalParams' => '
-						&tx_powermail_pi1[multiple]=' . ($this->multiple['currentpage'] + $add) . '
-						&tx_powermail_pi1[mailID]=' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 
+					'additionalParams' => '&tx_powermail_pi1[multiple]=' . ($this->multiple['currentpage'] + $add) . '&tx_powermail_pi1[mailID]=' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']),
 					'useCacheHash' => 1
 				);
 				$link = ($GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'] == '' ? $this->baseurl : '');

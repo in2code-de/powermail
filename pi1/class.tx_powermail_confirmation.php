@@ -60,7 +60,6 @@ class tx_powermail_confirmation extends tslib_pibase {
 			'returnLast' => 'url',
 			'parameter' => $GLOBALS['TSFE']->id,
 			'useCacheHash' => 1,
-			'no_cache' => 1,
 		));
 		$this->markerArray['###POWERMAIL_TARGET_SUBMIT###'] = $this->cObj->typolink('x', array(
 			'returnLast' => 'url',
@@ -68,7 +67,6 @@ class tx_powermail_confirmation extends tslib_pibase {
 			'section' => ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']),
 			'additionalParams' => '&tx_powermail_pi1[mailID]='.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']).'&tx_powermail_pi1[sendNow]=1',
 			'useCacheHash' => 1,
-			'no_cache' => 1,
 		));
 		$this->hook(); // adds hook
 		$this->content = $this->cObj->substituteMarkerArrayCached($this->tmpl['all'],$this->markerArray); // substitute Marker in Template

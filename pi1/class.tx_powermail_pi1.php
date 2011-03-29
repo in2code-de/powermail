@@ -30,7 +30,6 @@ require_once('class.tx_powermail_mandatory.php');
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_sessions.php'); // load session class
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functions_div.php'); // file for div functions
 
-
 class tx_powermail_pi1 extends tslib_pibase {
 
 	var $prefixId      = 'tx_powermail_pi1';		// Same as class name
@@ -73,7 +72,8 @@ class tx_powermail_pi1 extends tslib_pibase {
 		}
 		
         if($this->sessionfields){
-			$GLOBALS['TSFE']->set_no_cache();
+			//$GLOBALS['TSFE']->set_no_cache();
+            // TODO: Switch Plugin to USER_INT
 		}
 
 		// Start main choose
@@ -139,8 +139,9 @@ class tx_powermail_pi1 extends tslib_pibase {
 		
 		$this->content = $this->div->charset($this->content, $this->conf['powermail.']['charset']); // use utf8_encode or _decode if wanted (set via constants)
 		$this->hook_main_content_after(); // hook for content manipulation 2
-		
-		return $this->pi_wrapInBaseClass($this->content);
+
+		return time() . $this->pi_wrapInBaseClass($this->content);
+
 	}
 	
 	

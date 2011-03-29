@@ -1,5 +1,11 @@
 # POWERMAIL PLUGIN #
 
+plugin.tx_powermail_pi1 = USER
+
+[userFunc = user_powermail_step()]
+plugin.tx_powermail_pi1 = USER_INT
+[global]
+
 plugin.tx_powermail_pi1 {
 
 	# --- CONSTANTS ---
@@ -387,7 +393,6 @@ plugin.tx_powermail_pi1 {
 			parameter.data = TSFE:id
 			returnLast = url
 			useCacheHash = 1
-			no_cache = 1
 			section.field = uid
 			additionalParams.cObject = COA
 			additionalParams.cObject {
