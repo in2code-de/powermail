@@ -124,7 +124,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	 *
 	 * @return	void
 	*/
-	private function mandatoryCheck() {
+	public function mandatoryCheck() {
 
         // Give me all fields of current content uid
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
@@ -162,7 +162,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	 *
 	 * @return	void
 	*/
-	private function uniqueCheck() {
+	public function uniqueCheck() {
 		// config
 		$uniquearray = t3lib_div::trimExplode(',', $this->conf['enable.']['unique'], 1); // Get unique constants from ts
 		$confarray = unserialize($GLOBALS['TSFE']->TYPO3_CONF_VARS['EXT']['extConf'][$this->extKey]); // get config from localconf.php
@@ -228,7 +228,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	 *
 	 * @return	void
 	*/
-	private function regulareExpressions() {
+	public function regulareExpressions() {
 		// Config - set regulare expressions for autocheck
 		$autoarray = array (
 			'email' => "#^[_a-z0-9!#$%&\\'*+-\/=?^_`.{|}~]+(\.[_a-z0-9!#$%&\'*+-\\/=?^_`.{|}~]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$#",
@@ -272,7 +272,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	 *
 	 * @return	void
 	*/
-	private function emailCheck() {
+	public function emailCheck() {
 		if ($this->cObj->data['tx_powermail_sender'] && is_array($this->sessionfields)) { // If email address from sender is set in backend
 			if ($this->sessionfields[$this->cObj->data['tx_powermail_sender']]) { // if there is content in the email sender field
 				if (!t3lib_div::validEmail($this->sessionfields[$this->cObj->data['tx_powermail_sender']])) { // Value is not an email address
@@ -291,7 +291,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	 *
 	 * @return	void
 	*/
-	private function captchaCheck() {
+	public function captchaCheck() {
 		if ( // only if a supported captcha extension is loaded
 			t3lib_extMgm::isLoaded('captcha', 0) ||
 			t3lib_extMgm::isLoaded('sr_freecap', 0) ||
@@ -414,7 +414,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 	* In case the called user function throws an exception, this is treated as a failed
 	* validation.
 	********************************************/
-	private function customValidation() {
+	public function customValidation() {
 
 		$configKey = 'customvalidation.';
 		if (isset($this->conf[$configKey]) && is_array($this->conf[$configKey])) { // Only if any validation is set per typoscript
