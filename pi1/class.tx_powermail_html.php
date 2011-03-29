@@ -1125,7 +1125,7 @@ class tx_powermail_html extends tslib_pibase {
 		
 		// ###PLACEHOLDER###
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'placeholder')) { // if there is value in the pattern field
-			$this->markerArray['###PLACEHOLDER###'] = 'placeholder="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'placeholder')) . '" '; // add placeholder to markerArray
+			$this->markerArray['###PLACEHOLDER###'] = 'placeholder="' . htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'placeholder')) . '" '; // add placeholder to markerArray
 		}
 		
 		// ###VALUE###

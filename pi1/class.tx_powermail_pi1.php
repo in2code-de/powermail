@@ -140,7 +140,7 @@ class tx_powermail_pi1 extends tslib_pibase {
 		$this->content = $this->div->charset($this->content, $this->conf['powermail.']['charset']); // use utf8_encode or _decode if wanted (set via constants)
 		$this->hook_main_content_after(); // hook for content manipulation 2
 
-		return time() . $this->pi_wrapInBaseClass($this->content);
+		return $this->pi_wrapInBaseClass($this->content);
 
 	}
 	
