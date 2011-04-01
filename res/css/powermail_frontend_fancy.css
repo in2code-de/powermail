@@ -152,13 +152,20 @@ div.powermail_check_inner input {
 	float: left;
 	clear: left;
 }
-		/* date time */
-fieldset.tx-powermail-pi1_fieldset input.powermail_datetime {
-	width: 300px;
+
+fieldset.tx-powermail-pi1_fieldset input.powermail_time,
+fieldset.tx-powermail-pi1_fieldset input[type=time]{
+    width:88px;
 }
-fieldset.tx-powermail-pi1_fieldset input.powermail_time {
-	width: 97px;
+/* the input field */
+fieldset.tx-powermail-pi1_fieldset input.date {
+	width:300px !important;
 }
+
+fieldset.tx-powermail-pi1_fieldset .tx_powermail_pi1_fieldwrap_html_date input.date {
+    width:400px !important;
+}
+
 		/* submit */
 input.powermail_submit {
 	margin: 20px 0 0 200px;
@@ -348,7 +355,6 @@ ul.powermail_multiplejs_tabs li a.act {
 	left: 5px;
 	border-bottom: 0 none;
 }
-
 
 	/* Confirmation */
 td.powermail_all_td {
