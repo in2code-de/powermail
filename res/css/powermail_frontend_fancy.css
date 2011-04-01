@@ -5,6 +5,11 @@ div.tx-powermail-pi1 {
 	width: 640px;
 }
 	/* Form */
+
+fieldset.tx-powermail-pi1_fieldset input {
+	margin-left:0;
+}
+
 fieldset.tx-powermail-pi1_fieldset {
 	/* Fieldset */
 	border: 0;
@@ -113,6 +118,7 @@ div.powermail_radio_inner input {
 	float: left;
 	clear: left;
 }
+
 		/* checkboxes */
 div.tx_powermail_pi1_fieldwrap_html_check {
 	padding-bottom: 10px;
@@ -299,14 +305,13 @@ ul.powermail_multiplejs_tabs li a.act {
 }
 .powermail_mandatory_helper{visibility:hidden;height:1px;position:absolute;}
 
-.placeholder {color:#999;}
+.placeholder {color:#ccc !important;}
 
 		/* error message */
 .error {
-	background: #ffb76b; /* old browsers */
+	background: #ff7f04; /* old browsers */
 	background: -moz-linear-gradient(top, #ffb76b 0%, #ffa73d 45%, #ff7c00 56%, #ff7f04 100%); /* firefox */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb76b), color-stop(45%,#ffa73d), color-stop(56%,#ff7c00), color-stop(100%,#ff7f04)); /* webkit */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=0 ); /* ie */
 	border-top: 1px solid #FFAF56;
 	border-left: 1px solid #FFAF56;
 	border-right: 1px solid #FFAF56;
@@ -334,11 +339,12 @@ ul.powermail_multiplejs_tabs li a.act {
 .error em {
 	display: block;
 	width: 0;
-	height: 0;
+	height: 5px;
 	border: 10px solid;
 	border-color: #FF7E03 transparent transparent;
 	position: absolute;
-	bottom: -10px;
+	bottom: -12px;
+    overflow:visible;
 	left: 5px;
 	border-bottom: 0 none;
 }
