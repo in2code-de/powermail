@@ -65,17 +65,21 @@ class tx_powermail_pi1 extends tslib_pibase {
 		$this->sessions->deleteSession($this->conf, $this->cObj, $this->piVars['clearSession']); // If GET Param clearSession is set, delete complete Session
 		$this->sessions->setSession($this->conf, $this->piVars, $this->cObj, 0); // Set piVars to session (but don't overwrite old values)
 		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // give me all piVars from session (without not needed values)
+
+        // Caching or not - That is here the question
+        if(((!empty($this->sessionfields) && !$this->conf['allowCaching']) // If session exists and cache is disabled
+            || intval($this->piVars['mailID']) > 0 // Or if mailId is set
+            || (!empty($this->sessionfields) && intval($this->piVars['mailID']) == 0)) // Or if session exists but no mailId is given
+            && $this->cObj->getUserObjectType() == tslib_cObj::OBJECTTYPE_USER) { // And cObj is not already a user_int object
+            $this->cObj->convertToUserIntObject(); // Convert object to user_int (do not cache it)
+        }
+
 		$this->sessions->setSession($this->conf, $this->sessions->changeData($this->sessionfields, $this->cObj->data), $this->cObj, 0); // manipulate data (upload fields, check email, etc..) and save it at once in the session
 		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // get values from session again
 		if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'session') { // if debug
 			$this->div->debug($this->sessionfields, 'Values from session'); // Debug function (Array from Session)
 		}
 		
-        if($this->sessionfields){
-			//$GLOBALS['TSFE']->set_no_cache();
-            // TODO: Switch Plugin to USER_INT
-		}
-
 		// Start main choose
 		$this->hook_main_content_before(); // hook for content manipulation 1
 		

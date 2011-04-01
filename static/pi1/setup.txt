@@ -2,10 +2,6 @@
 
 plugin.tx_powermail_pi1 = USER
 
-[userFunc = user_powermail_step()]
-plugin.tx_powermail_pi1 = USER_INT
-[global]
-
 plugin.tx_powermail_pi1 {
 
 	# --- CONSTANTS ---
@@ -57,6 +53,7 @@ plugin.tx_powermail_pi1 {
 	geoip.file = {$plugin.powermail.geoip.file}
 	geoip.addValuesToMarkerALL = {$plugin.powermail.geoip.addValuesToMarkerALL}
 	debug.output = {$plugin.powermail.debug.output}
+	allowCaching = {$plugin.powermail.allowCaching}
 	
 	
 	# Some settings for Emails
@@ -438,255 +435,61 @@ plugin.tx_powermail_pi1 {
 lib.powermailjs = COA
 lib.powermailjs {
 
-    // use closure to avoid conflicts with other js frameworks
-    wrap = (function($){|})(jQuery);
-
-	10 = TEXT
-	10 {
-		wrap = var powermail_customValidatorConfiguration = {|};
-		value (
-			position: 'top right',
-			offset: [-5, -20],
-            message: '<div><em/></div>'
-		)
-	}
-
-    20 = COA
-    20 {
-		wrap = $.tools.validator.localize('en', {|});
-	
-        10 = TEXT
-        10 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_please_correct
-            wrap = '*': '|',
+    10 = TEMPLATE
+    10 {
+        template = FILE
+        template.file = {$plugin.powermail.template.frontendJsTemplatePath}
+        marks {
+                VALIDATOR_LABEL_PLEASE_CORRECT = TEXT
+                VALIDATOR_LABEL_PLEASE_CORRECT.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_please_correct
+                VALIDATOR_LABEL_REQUIRED = TEXT
+                VALIDATOR_LABEL_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+                VALIDATOR_LABEL_EMAIL = TEXT
+                VALIDATOR_LABEL_EMAIL.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_email
+                VALIDATOR_LABEL_URL = TEXT
+                VALIDATOR_LABEL_URL.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_url
+                VALIDATOR_LABEL_NUMBER = TEXT
+                VALIDATOR_LABEL_NUMBER.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_number
+                VALIDATOR_LABEL_DIGITS = TEXT
+                VALIDATOR_LABEL_DIGITS.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_digits
+                VALIDATOR_LABEL_ALPHANUM = TEXT
+                VALIDATOR_LABEL_ALPHANUM.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_alphanum
+                VALIDATOR_LABEL_DATE = TEXT
+                VALIDATOR_LABEL_DATE.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_date
+                VALIDATOR_LABEL_DATETIME = TEXT
+                VALIDATOR_LABEL_DATETIME.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_datetime
+                VALIDATOR_INVALIDTIME = TEXT
+                VALIDATOR_INVALIDTIME.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
+                VALIDATOR_LABEL_MAX = TEXT
+                VALIDATOR_LABEL_MAX.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_max
+                VALIDATOR_LABEL_MIN = TEXT
+                VALIDATOR_LABEL_MIN.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_min
+                VALIDATOR_DATEINPUT_MONTH = TEXT
+                VALIDATOR_DATEINPUT_MONTH.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_months
+                VALIDATOR_DATEINPUT_SHORTMONTH = TEXT
+                VALIDATOR_DATEINPUT_SHORTMONTH.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortMonths
+                VALIDATOR_DATEINPUT_DAYS = TEXT
+                VALIDATOR_DATEINPUT_DAYS.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_days
+                VALIDATOR_DATEINPUT_SHORTDAYS = TEXT
+                VALIDATOR_DATEINPUT_SHORTDAYS.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortDays
+                VALIDATOR_DATEINPUT_FORMAT = TEXT
+                VALIDATOR_DATEINPUT_FORMAT.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_format
+                VALIDATOR_DATEINPUT_FIRSTDAY = TEXT
+                VALIDATOR_DATEINPUT_FIRSTDAY.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_firstDay
+                VALIDATOR_ONE_REQUIRED = TEXT
+                VALIDATOR_ONE_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_validate_one_required
+                VALIDATOR_DISABLE = TEXT
+                VALIDATOR_DISABLE.value = false
         }
-
-        # required
-        20 = TEXT
-        20 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-            wrap = '[required]': '|',
-        }
-
-        # email
-        30 = TEXT
-        30 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_email
-            wrap = ':email': '|',
-        }
-
-        # url
-        40 = TEXT
-        40 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_url
-            wrap = ':url': '|',
-
-        }
-
-        # number
-        50 = TEXT
-        50 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_number
-            wrap = ':number': '|',
-
-        }
-
-        # digits
-        60 = TEXT
-        60 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_digits
-            wrap = ':digits': '|',
-
-        }
-
-        # username / alphanumeric
-        70 = TEXT
-        70 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_alphanum
-            wrap = ':username': '|',
-
-        }
-
-        # date
-        80 = TEXT
-        80 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_date
-            wrap = ':date': '|',
-
-        }
-
-        # datetime
-        90 = TEXT
-        90 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_datetime
-            wrap = ':datetime': '|',
-
-        }
-
-        100 = TEXT
-        100 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
-            wrap = ':time': '|',
-        }
-
-        # max
-        110 = TEXT
-        110 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_max
-            wrap = '[max]': '|',
-
-        }
-
-        # min
-        120 = TEXT
-        120 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_min
-            wrap = '[min]': '|'
-
-        }
-    }
-
-	# date
-    30 = COA
-    30 {
-    	wrap = $.tools.dateinput.localize('en', {|});
-	
-        10 = TEXT
-        10 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_months
-            wrap = 'months': '|',
-        }
-
-        20 = TEXT
-        20 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortMonths
-            wrap = 'shortMonths': '|',
-        }
-
-        30 = TEXT
-        30 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_days
-            wrap = 'days': '|',
-        }
-
-        40 = TEXT
-        40 {
-            data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortDays
-            wrap = 'shortDays': '|'
-        }
-    }
-
-	# onDomReady
-    100 = COA
-    100 {
-        wrap = $(function(){|});
-        10 = COA
-        10 {
-            wrap = $(':date').dateinput({|});
-
-            10 = TEXT
-            10 {
-                data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_format
-                //value = {$plugin.powermail.format.date}
-                wrap = format: '|',
-            }
-
-            20 = TEXT
-            20 {
-                data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_firstDay
-                wrap = firstDay: |,
-            }
-
-            30 = TEXT
-            30.value (
-
-                selectors: true,
-                disabled: false,
-                readonly: false,
-                yearRange: [-99, 99],
-                change: function(event, date){
-                    y = parseInt(this.getValue('yyyy'));
-                    m = parseInt(this.getValue('m'))-1;
-                    d = parseInt(this.getValue('d'));
-                    timestampOfDate = new Date(y,m,d).getTime() / 1000;
-                    oldTimestamp = this.getInput().nextAll('input[type=hidden]').val();
-                    if(this.getInput().nextAll('input[type=time]').length > 0 && oldTimestamp != '' && parseInt(oldTimestamp) == oldTimestamp) {
-                        oldDate = new Date(oldTimestamp * 1000);
-                        h = oldDate.getHours();
-                        m = oldDate.getMinutes();
-                        timestampOfDate += h * 3600 + m * 60;
-                    }
-                    this.getInput().nextAll('input[type=hidden]').val(timestampOfDate);
-                }
-            }).each(function(i){
-                initTimestamp = $(this).nextAll('input[type=hidden]').val();
-                if(initTimestamp != '' && parseInt(initTimestamp) == initTimestamp) {
-                    $(this).data('dateinput').setValue(new Date(parseInt(initTimestamp)*1000));
-                }
-            )
-        }
-        
-
-        // multiple checkbox validation
-        30 = TEXT
-        30.value (
-        
-        $.tools.validator.fn('input:checkbox', 'required',
-            function(input, value) {
-                checkboxes = input.parent().parent().find('input:checkbox');
-                if (checkboxes.filter('.required_one').length > 0) {
-                    if (checkboxes.filter(':checked').length == 0) {
-                        return (input.filter('.required_one').length == 0);
-                    } else {
-                        powermail_validator.data('validator').reset(checkboxes);
-                    }
-                }
-                return true;
-            });
-
-        )
-
-        50 = TEXT
-        50.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
-        50.wrap = $.tools.validator.localizeFn('input:time', { en: '|'});
-
-        60 = TEXT
-        60.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
-        60.wrap = $.tools.validator.localizeFn('input:checkbox', { en: '|'});
-
-        70 = TEXT
-        70.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
-        70.wrap = $.tools.validator.localizeFn('input:radio', { en: '|'});
-
-        80 = TEXT
-        80.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
-        80.wrap = $.tools.validator.localizeFn('input:select.required', { en: '|'});
-
-        100 = TEXT
-        100.value (
-
-        powermail_validator = $('.tx_powermail_pi1_form').validator($.extend({
-           inputEvent: 'blur',
-           grouped: true,
-           singleError: false,
-           onBeforeValidate: function(e, els) {
-               clearPlaceholderValue(e, els);
-           },
-           onBeforeFail: function(e, els, matcher) {
-               setPlaceholderValue(e, els, matcher);
-           }
-        }, powermail_customValidatorConfiguration));
-
-        )
-
     }
 }
 
 [end]
 
 [globalVar = LIT:1 > {$plugin.powermail.js.validation}]
-lib.powermailjs.100.110 = TEXT
-lib.powermailjs.100.110.value = powermail_validator.data('validator').destroy();
+
+lib.powermailjs.10.marks.VALIDATOR_DISABLE.value = true
+
 [end]
 
 
@@ -699,7 +502,6 @@ page.includeJSFooterlibs {
 	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js
 	powermail_jQueryTools.external = 1
 	powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js
-	powermail_frontend = EXT:powermail/res/js/powermail_frontend.js
 }
 
     // if powermail is on current page and t3jquery is NOT loaded include validation js into page footer
@@ -729,13 +531,6 @@ page.31320 {
     }
     30 = USER
     30 {
-        userFunc = tx_t3jquery->addJS
-        jsfile = EXT:powermail/res/js/powermail_frontend.js
-        compress = 1
-        tofooter = 1
-    }
-    40 = USER
-    40 {
         userFunc = tx_t3jquery->addJS
         jsdata.cObject < lib.powermailjs
         compress = 1
