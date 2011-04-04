@@ -524,7 +524,7 @@ class tx_powermail_html extends tslib_pibase {
         
         // add hidden field
         if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'send')) { // label should be send with email
-            $this->markerArray['###HIDDEN###'] = '<input type="hidden" name="' . $this->prefixId . '[uid' . $this->uid . ']" value="' . $this->div->clearValue($this->markerArray['###CONTENT###']) . '" />'; // create hidden field
+            $this->markerArray['###HIDDEN###'] = '<input type="hidden" name="' . $this->prefixId . '[uid' . $this->uid . ']" value="' . htmlspecialchars($this->markerArray['###CONTENT###']) . '" />'; // create hidden field
         }
 
 		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle;
