@@ -166,7 +166,10 @@ function checkTextArea(obj, maxLength) {
                 },
                 onBeforeFail: function(e, els, matcher) {
                    setPlaceholderValue(e, els, matcher);
-                }
+                },
+	            onFail: function(e, els){
+		            $('html,body').animate({ "scrollTop": $(els[0].input).offset().top - 50}, 1000);
+	            }
             });
         }
 
