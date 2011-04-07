@@ -31,6 +31,8 @@
  */
 function user_powermailOnCurrentPage($mode = '') {
 	$result = FALSE;
+	if ($mode == '1') { return true; }
+
 	if (TYPO3_MODE == 'FE') {
 		$ttContentWhere = 'AND deleted = 0 AND hidden = 0';
 		if (is_array($GLOBALS['TCA']['tt_content']) && method_exists($GLOBALS['TSFE']->sys_page, 'enableFields')) {
@@ -106,22 +108,12 @@ function getCorrectPageIdForPowermailOnCurrentPageUserfunc() {
 }
 
 function isPowermailOnCurrentPage($mode, $uid) {
-	$result = FALSE;
 
-		// Default or RealURL
-	if ($mode != 'ssd') {
-		if ($uid > 0) {
-			$result = TRUE;
-		}
-
-		// Simulate Static Documents
-	} else {
-		if ($GLOBALS['TSFE']->tmpl->setup['config.']['simulateStaticDocuments'] == 1 && $uid > 0) {
-			$result = TRUE;
-		}
+	if ((($mode != 'ssd' || $GLOBALS['TSFE']->tmpl->setup['config.']['simulateStaticDocuments'] == 1) && $uid > 0)) {
+		return TRUE;
 	}
 
-	return $result;
+	return FALSE;
 }
 
 

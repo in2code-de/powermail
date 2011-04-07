@@ -127,8 +127,11 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0910; type=text; label= Mandatory JS DIV class: Enter your own css class for the mandatory javascript div layer (div layer which is shown, if a field was not filled, etc...)
 	js.mandatorydivclass = powermail_mandatory_js
 	
-	# cat=plugin.powermail_additionalconfig//0920; type=boolean; label= Activate JavaScript Validation: (De)activate javascript validation in fields
+	# cat=plugin.powermail_additionalconfig//0920; type=boolean; label= Activate javascript validation: (De)activate javascript validation in fields
 	js.validation = 1
+
+	# cat=plugin.powermail_additionalconfig//0930; type=boolean; label= Always include javascript for form validation and special input types (date/datetime/slider)
+	js.alwaysInclude = 0
 
 	# cat=plugin.powermail_additionalconfig//1000; type=boolean; label= Hiddenfields for checkboxes: (De)activate the hiddenfields for checkboxes. If only checkboxes are in use, there is a problem to enable a checkbox, submit, go back and deaktivate checkbox and submit again - the value ist still set. To fix this, you can use a JavaScript with hiddenfields (set by default).
 	field.checkboxJS = 1

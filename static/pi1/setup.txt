@@ -428,7 +428,7 @@ plugin.tx_powermail_pi1 {
 
 # ---------------------- Additional Typoscript ---------------------
 
-[userFunc = user_powermailOnCurrentPage]
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})]
 
     // if powermail is on current page build up validation js
 
@@ -493,7 +493,7 @@ lib.powermailjs.10.marks.VALIDATOR_DISABLE.value = true
 [end]
 
 
-[userFunc = user_powermailOnCurrentPage] && [userFunc = user_powermailCheckT3jquery(false)]
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jquery(false)]
 
     // if powermail is on current page and t3jquery is NOT loaded include jquery and jquery tools from cdn
 	
@@ -510,7 +510,7 @@ page.jsFooterInline.10 < lib.powermailjs
 
 [end]
 
-[userFunc = user_powermailOnCurrentPage] && [userFunc = user_powermailCheckT3jquery(true)]
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jquery(true)]
 
     // if powermail is on current page and t3jquery is loaded include jquery and validation js using t3jquery
 
@@ -540,7 +540,7 @@ page.31320 {
 
 [end]
 
-[userFunc = user_powermailOnCurrentPage] && [userFunc = user_powermailCheckT3jqueryCDNMode(false)]
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jqueryCDNMode(false)]
 
     // if powermail is on current page and t3jquery is loaded and NOT in CDN Mode delete jquery tools
 
