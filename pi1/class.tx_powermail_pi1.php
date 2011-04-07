@@ -32,10 +32,10 @@ require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functi
 
 class tx_powermail_pi1 extends tslib_pibase {
 
-	var $prefixId      = 'tx_powermail_pi1';		// Same as class name
-	var $scriptRelPath = 'pi1/class.tx_powermail_pi1.php';	// Path to this script relative to the extension dir.
-	var $extKey        = 'powermail';	// The extension key.
-	var $pi_checkCHash = true;
+	public $prefixId      = 'tx_powermail_pi1';		// Same as class name
+	public $scriptRelPath = 'pi1/class.tx_powermail_pi1.php';	// Path to this script relative to the extension dir.
+	public $extKey        = 'powermail';	// The extension key.
+	public $pi_checkCHash = true;
 
 	/**
 	 * The main method of the PlugIn
@@ -44,11 +44,16 @@ class tx_powermail_pi1 extends tslib_pibase {
 	 * @param	array		$conf: The PlugIn configuration
 	 * @return	The		content that is displayed on the website
 	 */
-	function main($content,$conf)	{
+	public function main($content, $conf)	{
 		$this->conf = $conf;
 		$this->content = $content;
 		$this->pi_setPiVarDefaults();
 		$this->pi_loadLL();
+		
+		// disable caching if needed
+		if ($this->switchToUserInt()) { // if switch is done
+			return; // stop doublicated output of powermail
+		}
 		
 		// Instances
 		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // Create new instance for div class
@@ -65,15 +70,6 @@ class tx_powermail_pi1 extends tslib_pibase {
 		$this->sessions->deleteSession($this->conf, $this->cObj, $this->piVars['clearSession']); // If GET Param clearSession is set, delete complete Session
 		$this->sessions->setSession($this->conf, $this->piVars, $this->cObj, 0); // Set piVars to session (but don't overwrite old values)
 		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // give me all piVars from session (without not needed values)
-
-        // Caching or not - That is here the question
-        if(((!empty($this->sessionfields) && !$this->conf['allowCaching']) // If session exists and cache is disabled
-            || intval($this->piVars['mailID']) > 0 // Or if mailId is set
-            || (!empty($this->sessionfields) && intval($this->piVars['mailID']) == 0)) // Or if session exists but no mailId is given
-            && $this->cObj->getUserObjectType() == tslib_cObj::OBJECTTYPE_USER) { // And cObj is not already a user_int object
-            $this->cObj->convertToUserIntObject(); // Convert object to user_int (do not cache it)
-        }
-
 		$this->sessions->setSession($this->conf, $this->sessions->changeData($this->sessionfields, $this->cObj->data), $this->cObj, 0); // manipulate data (upload fields, check email, etc..) and save it at once in the session
 		$this->sessionfields = $this->sessions->getSession($this->conf, $this->cObj, 0); // get values from session again
 		if ($this->conf['debug.']['output'] == 'all' || $this->conf['debug.']['output'] == 'session') { // if debug
@@ -147,20 +143,41 @@ class tx_powermail_pi1 extends tslib_pibase {
 		return $this->pi_wrapInBaseClass($this->content);
 
 	}
-	
-	
-	// Function check() checks if all needed fields are filled in backend
-	function check() {
+
+	/**
+	 * Switch from USER to USER_INT if a piVar is given
+	 *
+	 * @return	boolean		Was switched?
+	 */
+	private function switchToUserInt() {
+        if (count($this->piVars)) { // if any powermail GET or POST param given
+			$this->cObj->convertToUserIntObject(); // Convert object to user_int (do not cache it)
+			if ($this->cObj->getUserObjectType() == 2) { // if USER
+				return true; // stop process (avoid double output)
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check if typoscript is loaded
+	 *
+	 * @return	string		Error Message
+	 */
+	private function check() {
 		$error = ''; // init
 		if (count($this->conf['template.']) == 0 || count($this->conf) < 10) { // check if powermail ts is not available
 			$error .= $this->div->msg($this->pi_getLL('error_check_noTS', 'ERROR: Typoscript for powermail missing!'));
 		}
 		return $error;
 	}
-	
 
-	// Function hook_main_content_before() to change the main content 1
-	function hook_main_content_before() {
+	/**
+	 * Function hook_main_content_before() to change the main content 1
+	 *
+	 * @return	void
+	 */
+	public function hook_main_content_before() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MainContentHookBefore'])) { // Adds hook for processing
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MainContentHookBefore'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
@@ -168,10 +185,13 @@ class tx_powermail_pi1 extends tslib_pibase {
 			}
 		}
 	}
-	
 
-	// Function hook_main_content_after() to change the main content 2
-	function hook_main_content_after() {
+	/**
+	 * Function hook_main_content_after() to change the main content 2
+	 *
+	 * @return	void
+	 */
+	public function hook_main_content_after() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MainContentHookAfter'])) { // Adds hook for processing
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_MainContentHookAfter'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
@@ -181,8 +201,6 @@ class tx_powermail_pi1 extends tslib_pibase {
 	}
 	
 }
-
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_pi1.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_pi1.php']);
