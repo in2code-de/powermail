@@ -52,7 +52,7 @@ class tx_powermail_pi1 extends tslib_pibase {
 		
 		// disable caching if needed
 		if ($this->switchToUserInt()) { // if switch is done
-			return; // stop doublicated output of powermail
+			return; // stop duplicated output of powermail
 		}
 		
 		// Instances
