@@ -121,7 +121,7 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0630; type=boolean; label= Clear Session: Check if session should be cleared after submit (emails sent)
 	clear.session = 0
 	
-	# cat=plugin.powermail_additionalconfig//0640; type=boolean; label= Allow caching: Check if powermail frontend (first page for multiple step forms) should be cached
+	# cat=plugin.powermail_additionalconfig//0640; type=boolean; label= Allow caching: Check if powermail frontend output (first page for php multiple step forms) should be cached. Do NOT use this feature if a captcha field is on the first page of a form!
 	allowCaching = 0
 
 	# cat=plugin.powermail_additionalconfig//0910; type=text; label= Mandatory JS DIV class: Enter your own css class for the mandatory javascript div layer (div layer which is shown, if a field was not filled, etc...)
