@@ -242,7 +242,7 @@ class tx_powermail_html extends tslib_pibase {
 				}
 
 				// Preselection from typoscript
-				if (!$set[$i] && !empty($this->conf['prefill.'])) {
+				if (!$set[$i] && !empty($this->conf['prefill.']['uid' . $this->uid])) {
 					if ($this->isPrefilled($i, $selected, ($options[$i][1] ? $options[$i][1] : $options[$i][0])) != false) {
 						$markerArray['###SELECTED###'] = ' selected="selected"'; // mark as selected
 					} else {
