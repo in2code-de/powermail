@@ -251,6 +251,7 @@ class tx_powermail_submit extends tslib_pibase {
                             }
                             if ($this->conf['upload.']['delete'] == 1) {
                                 unlink($file); // delete attachment
+	                            //t3lib_div::devlog('delete file: ' . $file, 'powermail', 0);
                             }
                         }
                     }
@@ -292,7 +293,11 @@ class tx_powermail_submit extends tslib_pibase {
             $this->hook_submit_changeEmail2(); // hook with last chance to manipulate email values like attachment, etc...
 
             // send mail
-            $this->mail->send();
+	        if ($this->useSwiftMailer){
+	            $this->mail->send();
+	        } else {
+		        $this->mail->send($receiver);
+	        }
         }
 	}
 	
