@@ -144,6 +144,8 @@
 			<label index="tx_powermail_forms.xml.validate.5">letters only</label>
 			<label index="tx_powermail_forms.xml.validate.6">letters and digits only</label>
 			<label index="tx_powermail_forms.xml.validate.7">regular expression</label>
+			<label index="tx_powermail_forms.xml.validate.8">letters only (incl. Umlauts)</label>
+			<label index="tx_powermail_forms.xml.validate.9">letters and digits only (incl. Umlauts)</label>
 			<label index="tx_powermail_forms.xml.inputtype">HTML5 input type</label>
 			<label index="tx_powermail_forms.xml.inputtype.0">Text</label>
 			<label index="tx_powermail_forms.xml.inputtype.1">Color</label>
@@ -302,6 +304,8 @@
 			<label index="tx_powermail_forms.xml.validate.5">nur Buchstaben</label>
 			<label index="tx_powermail_forms.xml.validate.6">nur Buchstaben und Zahlen</label>
 			<label index="tx_powermail_forms.xml.validate.7">Regulären Ausdruck</label>
+			<label index="tx_powermail_forms.xml.validate.8">nur Buchstaben (inkl. Umlaute)</label>
+			<label index="tx_powermail_forms.xml.validate.9">nur Buchstaben und Zahlen (inkl. Umlaute)</label>
 			<label index="tx_powermail_forms.xml.inputtype">HTML5 input type</label>
 			<label index="tx_powermail_forms.xml.inputtype.0">Text</label>
 			<label index="tx_powermail_forms.xml.inputtype.1">Farbe</label>

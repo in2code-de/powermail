@@ -97,6 +97,14 @@
 								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.7</numIndex>
 								<numIndex index="1">validate-pattern</numIndex>
 							</numIndex>
+							<numIndex index="8" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.8</numIndex>
+								<numIndex index="1">validate-alpha-w-umlaut</numIndex>
+							</numIndex>
+							<numIndex index="9" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.9</numIndex>
+								<numIndex index="1">validate-alphanum-w-umlaut</numIndex>
+							</numIndex>
 						</items>
 					</config>
 				</TCEforms>
