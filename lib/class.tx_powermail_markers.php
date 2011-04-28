@@ -112,6 +112,7 @@ class tx_powermail_markers extends tslib_pibase {
 										if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
 											$markerArray['###POWERMAIL_LABEL###'] = $this->GetLabelfromBackend($k,$v);
 											$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($vv));
+											$markerArray['###POWERMAIL_UID###'] = $k;
 											$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v, $kv, $vv); // add hook
 											$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'],$markerArray);
 										}
