@@ -520,7 +520,21 @@ tr.odd td{background:#eee;}
 							if ($piVars[$key] == '') {
 								$key = $this->getOriginalLanguageFieldUid($piVars, $key);
 							}
-							$htmlContent .= '<td>' . $this->charConvert($this->cleanString($piVars[$key])) . '</td>';
+							//$htmlContent .= '<td>' . $this->charConvert($this->cleanString($piVars[$key])) . '</td>';
+
+							$value = $this->charConvert($this->cleanString($piVars[$key]));
+							switch ($this->formtypes[$key]){
+							    case 'date':
+							        $value = ($value == intval($value)) ? date($this->dateFormat, $value) : $value;
+							        break;
+							    case 'datetime':
+							        $value = ($value == intval($value)) ? date($this->datetimeFormat, $value) : $value;
+							        break;
+							    case 'file':
+							        $value = '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value . '">' . $value . '</a>';
+							        break;
+							}
+							$htmlContent .= '<td>' . $value . '</td>';
 
 						// PiVars in second level
 						} else {
@@ -658,7 +672,21 @@ tr.odd td{background:#eee;}
 							if ($piVars[$key] == '') {
 								$key = $this->getOriginalLanguageFieldUid($piVars, $key);
 							}
-							$csvContent .= '"' . $this->charConvert($this->cleanString($piVars[$key])) . '"' . $this->seperator;
+							//$csvContent .= '"' . $this->charConvert($this->cleanString($piVars[$key])) . '"' . $this->seperator;
+
+							$value = $this->charConvert($this->cleanString($piVars[$key]));
+							switch ($this->formtypes[$key]){
+							    case 'date':
+							        $value = ($value == intval($value)) ? date($this->dateFormat, $value) : $value;
+							        break;
+							    case 'datetime':
+							        $value = ($value == intval($value)) ? date($this->datetimeFormat, $value) : $value;
+							        break;
+							    case 'file':
+							        $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
+							        break;
+							}
+							$csvContent .= '"' . $value . '"' . $this->seperator;
 
 						// PiVars in second level
 						} else {
@@ -832,7 +860,21 @@ tr.odd td{background:#eee;}
 								if ($piVars[$key] == '') {
 									$key = $this->getOriginalLanguageFieldUid($piVars, $key);
 								}
-								$excelObject->getActiveSheet()->setCellValue($colname, $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($piVars[$key]))));
+								//$excelObject->getActiveSheet()->setCellValue($colname, $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($piVars[$key]))));
+
+								$value = $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($piVars[$key])));
+								switch ($this->formtypes[$key]){
+								    case 'date':
+								        $value = ($value == intval($value)) ? date($this->dateFormat, $value) : $value;
+								        break;
+								    case 'datetime':
+								        $value = ($value == intval($value)) ? date($this->datetimeFormat, $value) : $value;
+								        break;
+								    case 'file':
+								        $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
+								        break;
+								}
+								$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetCol] . $sheetRow, $value);
 
 							// PiVars in second level
 							} else {
