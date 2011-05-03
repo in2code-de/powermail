@@ -725,6 +725,9 @@ tr.odd td{background:#eee;}
 				$sheetHeaderCol = 0;
 				$sheetHeaderCols = array();
 				$excelColNames = $this->getExcelColNames(intval(count($headerPiVars) + count($this->rowConfig)));
+				if ($this->debug) {
+					t3lib_div::devLog('Generated excelColNames: ', $this->extKey, 0, $excelColNames);
+				}
 
 				foreach ($this->rowConfig as $key => $value) {
 					$newValue = $this->charConvert($value);
@@ -1099,7 +1102,8 @@ tr.odd td{background:#eee;}
 
         $select = 'uid,formtype';
         $from = 'tx_powermail_fields';
-        $where = 'pid = ' . intval($this->pid);
+        //$where = 'pid = ' . intval($this->pid);
+	    $where = '';
         $orderBy = '';
         $groupBy = '';
         $limit = '';
@@ -1245,24 +1249,31 @@ tr.odd td{background:#eee;}
     }
 
     /**
-	 * Method getExcelColNames() returns an array with Excel colnames like A or AA
+	 * Method getExcelColNames() returns an array with Excel column names like A or AA
 	 *
 	 * @param	integer		$cols this is the number of cols who should be generated
 	 * @return	array	returns the excelColNames array;
 	 */
     protected function getExcelColNames($cols = 1000) {
     	$excelColNames = array();
-    	$colnames = 'ABCDEFHGIJKLMNOPQRSTUVWXYZ';
     	for ($excelCol = 0; $excelCol < $cols; $excelCol ++) {
-			$colname = substr($colnames, $excelCol, 1);
-			$coloverflow = floor(($excelCol + 1) / strlen($colnames));
-			if($coloverflow >= 1) {
-				$colname = substr($colnames, $coloverflow - 1, 1) . $colname;
-			}
-			$excelColNames[] .= $colname;
+			$excelColNames[] .= $this->num2alpha($excelCol);
     	}
     	return $excelColNames;
     }
+
+	/**
+	 * Method num2alpha() returns a string with a Excel column name like A or AA of a give column position
+	 *
+	 * @param	integer	position which should be converted to a excel column value
+	 * @return	string	returns the excel column value;
+	 */
+	protected function num2alpha($n) {
+		for($r = ''; $n >= 0; $n = intval($n / 26) - 1) {
+			$r = chr($n %26 + 0x41) . $r;
+		}
+		return $r;
+	}
 
 }
 
