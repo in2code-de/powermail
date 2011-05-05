@@ -133,6 +133,15 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0930; type=boolean; label= Always include javascript for form validation and special input types (date/datetime/slider)
 	js.alwaysInclude = 0
 
+	# cat=plugin.powermail_additionalconfig//0940; type=boolean; label= Include jQuery and jQueryTools libraries to header (only for usage without t3jquery)
+	js.toHeader = 0
+
+	# cat=plugin.powermail_additionalconfig//0950; type=boolean; label= Include jQuery library (only for usage without t3jquery)
+	js.includeJquery = 1
+
+	# cat=plugin.powermail_additionalconfig//0960; type=boolean; label= Include jQueryTools library (only for usage without t3jquery)
+	js.includeJqueryTools = 1
+
 	# cat=plugin.powermail_additionalconfig//1000; type=boolean; label= Hiddenfields for checkboxes: (De)activate the hiddenfields for checkboxes. If only checkboxes are in use, there is a problem to enable a checkbox, submit, go back and deaktivate checkbox and submit again - the value ist still set. To fix this, you can use a JavaScript with hiddenfields (set by default).
 	field.checkboxJS = 1
 	

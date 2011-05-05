@@ -153,7 +153,7 @@ function checkTextArea(obj, maxLength) {
                 // workaround for jquery tools 1.2.5 bug with firefox 4.0 & chrome 11
                 $('.tx_powermail_pi1_form').attr('novalidate', 'novalidate');
             }
-		    console.info($.browser);
+		    //console.info($.browser);
             powermail_validator = $('.tx_powermail_pi1_form').validator({
                 position: 'top right',
                 offset: [-5, -20],
@@ -252,7 +252,7 @@ function checkTextArea(obj, maxLength) {
             $(this).addClass('act');
             // reset error messages if js validation is enabled
             if (!###VALIDATOR_DISABLE###) {
-                $(this).parent().parent().find('a:NOT(.current)').each(function(id, item){
+                $(this).parent().parent().find('a').not('.current').each(function(id, item){
                     var temp = item.href.split('#');
                     var resetSelector = $('#' + temp[temp.length - 1] + ' :input');
                     powermail_validator.data('validator').reset(resetSelector);

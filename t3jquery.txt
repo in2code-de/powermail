@@ -1,1 +1,1 @@
-components=jQuery,Core,ToolsTabs,ToolsTabsSlideshow,ToolsTooltip,ToolsTooltipSlide,ToolsTooltipDynamic,ToolsFormDateinput,ToolsFormRangeinput,ToolsFormValidator
+components=jQuery,Core,ToolsTabs,ToolsFormDateinput,ToolsFormRangeinput,ToolsFormValidator
