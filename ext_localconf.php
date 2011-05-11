@@ -7,7 +7,7 @@ if (TYPO3_MODE == 'BE') {
 	include_once(t3lib_extMgm::extPath('powermail') . 'lib/class.user_powermail_tx_powermail_fieldsetchoose.php');
 }
 
-$TYPO3_CONF_VARS['BE']['AJAX']['tx_powermail::controller'] = 'EXT:powermail/mod1/class.tx_powermail_ajax.php:tx_powermail_Ajax->ajaxController';
+$TYPO3_CONF_VARS['BE']['AJAX']['tx_powermail::controller'] = t3lib_extMgm::extPath('powermail') . 'mod1/class.tx_powermail_ajax.php:tx_powermail_Ajax->ajaxController';
 
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']); // Get backend config
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermailOnCurrentPage.php'); // Conditions for JS including
