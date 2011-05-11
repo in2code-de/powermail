@@ -250,6 +250,7 @@ class tx_powermail_submit extends tslib_pibase {
                                 $this->mail->addAttachment($attachment);
                             }
                             if ($this->conf['upload.']['delete'] == 1) {
+                                //t3lib_div::devlog($file, 'powermail', 0);
                                 unlink($file); // delete attachment
 	                            //t3lib_div::devlog('delete file: ' . $file, 'powermail', 0);
                             }

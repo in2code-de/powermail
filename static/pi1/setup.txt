@@ -1,7 +1,5 @@
 # POWERMAIL PLUGIN #
 
-plugin.tx_powermail_pi1 = USER
-
 plugin.tx_powermail_pi1 {
 
 	# --- CONSTANTS ---
@@ -53,8 +51,8 @@ plugin.tx_powermail_pi1 {
 	geoip.file = {$plugin.powermail.geoip.file}
 	geoip.addValuesToMarkerALL = {$plugin.powermail.geoip.addValuesToMarkerALL}
 	debug.output = {$plugin.powermail.debug.output}
-	allowCaching = {$plugin.powermail.allowCaching}
-	
+	caching = {$plugin.powermail.caching}
+
 	
 	# Some settings for Emails
 	email {
@@ -423,7 +421,16 @@ plugin.tx_powermail_pi1 {
 	
 }
 
+[globalVar = LIT:1 > {$plugin.powermail.caching}]
 
+plugin.tx_powermail_pi1 = USER_INT
+
+[else]
+
+plugin.tx_powermail_pi1 = USER
+plugin.tx_powermail_pi1.clear.session = 1
+
+[end]
 
 
 # ---------------------- Additional Typoscript ---------------------

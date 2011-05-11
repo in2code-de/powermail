@@ -150,14 +150,49 @@ class tx_powermail_pi1 extends tslib_pibase {
 	 * @return	boolean		Was switched?
 	 */
 	private function switchToUserInt() {
-        if (count($this->piVars)) { // if any powermail GET or POST param given
+        //t3lib_div::devlog('piVars', 'powermail', 0, $this->piVars);
+        t3lib_div::devlog('captchaCheck: ' . (($this->captchaCheck2()) ? 'found' : 'not found'), 'powermail', 0, $this->piVars);
+        t3lib_div::devlog('caching: ' . $this->conf['caching'], 'powermail', 0);
+        if (count($this->piVars) || $this->captchaCheck2() || $this->conf['caching'] != '1') { // if any powermail GET or POST param given
 			$this->cObj->convertToUserIntObject(); // Convert object to user_int (do not cache it)
+            t3lib_div::devlog('piVars', 'powermail', 0, $this->piVars);
 			if ($this->cObj->getUserObjectType() == 2) { // if USER
 				return true; // stop process (avoid double output)
 			}
 		}
 		return false;
 	}
+
+    /**
+     * Function captchaCheck2 check if captcha fields are within current content
+     *
+     * @return	boolean
+    */
+    private function captchaCheck2() {
+        if ( // only if a supported captcha extension is loaded
+            t3lib_extMgm::isLoaded('captcha', 0) ||
+            t3lib_extMgm::isLoaded('sr_freecap', 0) ||
+            t3lib_extMgm::isLoaded('jm_recaptcha', 0) ||
+            t3lib_extMgm::isLoaded('wt_calculating_captcha', 0)
+        ) {
+
+            // Give me all captcha fields of current tt_content
+            $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
+                'tx_powermail_fields.uid',
+                'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
+                $where_clause = 'tx_powermail_fields.formtype = "captcha" AND tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tt_content') . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
+                $groupBy = '',
+                $orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
+                $limit = 1
+            );
+            if ($res) { // If there is a result
+                while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every captcha field
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 	/**
 	 * Check if typoscript is loaded
