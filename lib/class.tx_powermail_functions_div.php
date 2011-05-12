@@ -107,15 +107,15 @@ class tx_powermail_functions_div {
 	 * Function clearValue() to remove all " or ' from any string
 	 *
 	 * @param	string		$string: string input
-	 * @param	boolean		$htmlentities: (De)activate htmlentities
+	 * @param	boolean		$htmlspecialchars: (De)activate htmlspecialchars
 	 * @param	boolean		$strip_tags: (De)activate strip_tags
 	 * @return	string		$string: Filtered string
 	 */
-	public function clearValue($string, $htmlentities = 1, $strip_tags = 0) {
+	public function clearValue($string, $htmlspecialchars = 1, $strip_tags = 0) {
 		$notallowed = array('"', "'");
-		$string = str_replace($notallowed, "" ,$string); // replace not allowed letters with nothing
-		if ($htmlentities) {
-			$string = htmlentities($string); // change code to ascii code
+		$string = str_replace($notallowed, '' , $string); // replace not allowed letters with nothing
+		if ($htmlspecialchars) {
+			$string = htmlspecialchars($string); // change code to ascii code
 		}
 		if ($strip_tags) {
 			$string = strip_tags($string); // disable html/php code
