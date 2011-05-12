@@ -50,6 +50,7 @@ class tx_powermail_markers extends tslib_pibase {
 	 */
 	public function GetMarkerArray($conf, $sessionfields, $cObj, $what = '') {
 		// Configuration
+		$this->pi_loadLL();
 		$this->conf = $conf;
 		$this->cObj = $cObj;
 		$this->what = $what;
