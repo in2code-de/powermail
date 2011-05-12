@@ -151,11 +151,11 @@ class tx_powermail_pi1 extends tslib_pibase {
 	 */
 	private function switchToUserInt() {
         //t3lib_div::devlog('piVars', 'powermail', 0, $this->piVars);
-        t3lib_div::devlog('captchaCheck: ' . (($this->captchaCheck2()) ? 'found' : 'not found'), 'powermail', 0, $this->piVars);
-        t3lib_div::devlog('caching: ' . $this->conf['caching'], 'powermail', 0);
+        //t3lib_div::devlog('captchaCheck: ' . (($this->captchaCheck2()) ? 'found' : 'not found'), 'powermail', 0, $this->piVars);
+        //t3lib_div::devlog('caching: ' . $this->conf['caching'], 'powermail', 0);
         if (count($this->piVars) || $this->captchaCheck2() || $this->conf['caching'] != '1') { // if any powermail GET or POST param given
 			$this->cObj->convertToUserIntObject(); // Convert object to user_int (do not cache it)
-            t3lib_div::devlog('piVars', 'powermail', 0, $this->piVars);
+            //t3lib_div::devlog('piVars', 'powermail', 0, $this->piVars);
 			if ($this->cObj->getUserObjectType() == 2) { // if USER
 				return true; // stop process (avoid double output)
 			}

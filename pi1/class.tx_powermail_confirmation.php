@@ -60,6 +60,7 @@ class tx_powermail_confirmation extends tslib_pibase {
 			'returnLast' => 'url',
 			'parameter' => $GLOBALS['TSFE']->id,
 			'useCacheHash' => 1,
+            'no_cache' => $this->conf['caching']
 		));
 		$this->markerArray['###POWERMAIL_TARGET_SUBMIT###'] = $this->cObj->typolink('x', array(
 			'returnLast' => 'url',
