@@ -158,6 +158,8 @@ class tx_powermail_repository {
      */
 
     protected function transformPiVars($piVars){
+	    if (!is_array(t3lib_div::xml2array($piVars))) return t3lib_div::xml2array($piVars);
+	    
         $piVarsArray = t3lib_div::removeArrayEntryByValue(t3lib_div::xml2array($piVars), '');
 
         if(array_key_exists('FILE', $piVarsArray)) {
