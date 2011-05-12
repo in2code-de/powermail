@@ -138,7 +138,7 @@ $TCA['tx_powermail_fieldsets'] = array (
 				    'showRemovedLocalizationRecords' => 1,
 				),
 				'behaviour' => array(
-					'localizeChildrenAtParentLocalization' => 1,						    			
+					'localizeChildrenAtParentLocalization' => 1,
 					'localizationMode' => 'select',
 				),
 			)
