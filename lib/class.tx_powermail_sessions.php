@@ -171,16 +171,14 @@ class tx_powermail_sessions extends tslib_pibase {
 				'FROM' => '
 					tx_powermail_fields
 					INNER JOIN tx_powermail_fieldsets
-					ON (
+					ON
 						tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid
 						' . tslib_cObj::enableFields('tx_powermail_fieldsets') . '
-					)
 					INNER JOIN tt_content
-					ON (
+					ON
 						tx_powermail_fieldsets.tt_content = tt_content.uid
 						AND tt_content = ' . intval($contentElementData['uid'])
-						. tslib_cObj::enableFields('tt_content') . '
-					)',
+						. tslib_cObj::enableFields('tt_content'),
 				'WHERE' => '
 					tx_powermail_fields.uid IN (' . $GLOBALS['TYPO3_DB']->cleanIntList($this->uids) . ') 
 					AND (
