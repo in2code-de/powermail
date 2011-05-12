@@ -65,6 +65,28 @@ class tx_powermail_markers extends tslib_pibase {
 
 
 		if (isset($this->sessiondata) && is_array($this->sessiondata)) {
+
+			// sort session vars to match the order specified in backend
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
+				'tx_powermail_fields.uid AS uid',
+				'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid',
+				'tx_powermail_fieldsets.tt_content = ' . $this->cObj->data['uid'] . ' AND tx_powermail_fields.deleted = 0 AND tx_powermail_fields.hidden = 0 ',
+				'',
+				'tx_powermail_fieldsets.sorting,tx_powermail_fields.sorting',
+				''
+			);
+			
+			if ($res) {
+				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
+					if($this->sessiondata['uid' . $row['uid']] != "") {
+						$orderedSessionData['uid' . $row['uid']] = $this->sessiondata['uid' . $row['uid']];
+					}
+					unset($this->sessiondata['uid' . $row['uid']]);
+				}
+				$this->sessiondata = array_merge($orderedSessionData, $this->sessiondata);
+			}
+
+
 			// normal markers
             foreach ($this->sessiondata as $k => $v) { // One loop for every piVar
 				if ($k == 'FILE' && count($v) > 1) { // only if min two files uploaded (don't show uploaded files two times if only one upload field)
