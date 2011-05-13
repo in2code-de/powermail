@@ -3,6 +3,8 @@
 	<meta type="array">
 		<type>module</type>
 		<description>Language labels for module &quot;web_txpowermailM1&quot; - header, description</description>
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -36,4 +38,18 @@
 			<label index="mlang_labels_tablabel">Powermail lijst</label>
 		</languageKey>
 	</data>
+	<orig_hash type="array">
+		<languageKey index="de" type="array">
+			<label index="mlang_tabs_tab" type="integer">107899698</label>
+			<label index="mlang_labels_tabdescr" type="integer">164560845</label>
+			<label index="mlang_labels_tablabel" type="integer">248416704</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="de" type="array">
+			<label index="mlang_tabs_tab">Powermail</label>
+			<label index="mlang_labels_tabdescr">List of all registered mails in database. Possibility to filter and export to CSV (Excel).</label>
+			<label index="mlang_labels_tablabel">Powermail list</label>
+		</languageKey>
+	</orig_text>
 </T3locallang>

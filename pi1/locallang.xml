@@ -3,13 +3,15 @@
 	<meta type="array">
 		<type>module</type>
 		<description>Language labels for plugin &quot;tx_powermail_pi1&quot;</description>
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="powermailmarker_notitle">ERROR: No title to current field found in DB (%s)</label>
 			<label index="locallangmarker_confirmation_question">Are these values correct?</label>
 			<label index="locallangmarker_confirmation_back">Go back</label>
-			<label index="locallangmarker_confirmation_files">Attached file %s: </label>
+			<label index="locallangmarker_confirmation_files">Attached file %s:</label>
 			<label index="locallangmarker_confirmation_submit">Send values now</label>
 			<label index="locallangmarker_email_receiver">Thank you for your email:</label>
 			<label index="locallangmarker_email_sender">You've got a new email:</label>
@@ -36,7 +38,7 @@
 			<label index="error_captchaNoExtFound">Please install a captcha extension like captcha, sr_freecap, jm_recaptcha or wt_calculating_captcha!</label>
 			<label index="multiple_forward">Next step</label>
 			<label index="multiple_back">Previous step</label>
-			<label index="pagebrowser_inner"> of </label>
+			<label index="pagebrowser_inner">of</label>
 			<label index="JSvalidation_label_required">This is a required field</label>
 			<label index="JSvalidation_label_please_correct">Please correct this value</label>
 			<label index="JSvalidation_label_validate_number">Please enter a valid number in this field</label>
@@ -127,24 +129,24 @@
 			<label index="geoip_areaCode">地区码</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="powermailmarker_notitle">FEHLER: Kein Titel zu Feld (%s) in DB gefunden</label>
+			<label index="powermailmarker_notitle">Feldtitel für %s nicht vorhanden</label>
 			<label index="locallangmarker_confirmation_question">Sind diese Angaben korrekt?</label>
 			<label index="locallangmarker_confirmation_back">Zurück</label>
 			<label index="locallangmarker_confirmation_files">Angehängte Datei %s:</label>
 			<label index="locallangmarker_confirmation_submit">Angaben abschicken</label>
-			<label index="locallangmarker_email_receiver">Danke fuer Ihre E-Mail:</label>
+			<label index="locallangmarker_email_receiver">Vielen Dank für die E-Mail:</label>
 			<label index="locallangmarker_email_sender">Sie haben eine neue E-Mail erhalten:</label>
-			<label index="locallangmarker_mandatory_message">Bitte beachten Sie folgende Fehlermeldungen:</label>
-			<label index="locallangmarker_mandatory_emptyfield">Bitte füllen Sie dieses Feld aus:</label>
+			<label index="locallangmarker_mandatory_message">Folgende Fehler sind aufgetreten:</label>
+			<label index="locallangmarker_mandatory_emptyfield">Diese Felder bitte ausfüllen:</label>
 			<label index="locallangmarker_mandatory_submit">Zurück zum Formular</label>
 			<label index="locallangmarker_error_validemail">Dies ist keine gültige E-Mail Adresse:</label>
 			<label index="locallangmarker_error_file_main">Die Datei konnte nicht hochgeladen werden:</label>
 			<label index="locallangmarker_error_file_toolarge">Diese Datei ist zu groß:</label>
-			<label index="locallangmarker_error_file_extension">Diese Datei Endung ist nicht erlaubt:</label>
+			<label index="locallangmarker_error_file_extension">Diese Dateiendung ist nicht erlaubt:</label>
 			<label index="locallangmarker_error_file_mimetype">Diese Datei besteht nicht den mime Test:</label>
-			<label index="error_check_recipient">Bitte füllen Sie folgende Felder im Backend aus: Empfänger</label>
+			<label index="error_check_recipient">Empfängerfeld im Backend nicht ausgefüllt!</label>
 			<label index="error_check_noTS">Powermail - Typoscript nicht vorhanden!</label>
-			<label index="error_captcha_empty">Sie haben vergessen einen Code einzutragen</label>
+			<label index="error_captcha_empty">Bitte den angezeigten Captcha-Code eintragen</label>
 			<label index="error_captcha_wrong">Der eingetragene Code war leider falsch</label>
 			<label index="error_backend_noip">IP Speicherung deaktiviert</label>
 			<label index="error_validemail">Die eingegebenen E-Mail Adresse enthält Fehler</label>
@@ -157,23 +159,23 @@
 			<label index="error_captchaNoExtFound">Bitte installieren Sie eine captcha Extension wie captcha, sr_freecap, jm_recaptcha oder wt_calculating_captcha!</label>
 			<label index="multiple_forward">Nächster Schritt</label>
 			<label index="multiple_back">Vorheriger Schritt</label>
-			<label index="pagebrowser_inner"> von </label>
-			<label index="JSvalidation_label_required">Das ist ein Pflichtfeld</label>
-			<label index="JSvalidation_label_please_correct">Bitte korrigieren Sie diesen Wert</label>
-			<label index="JSvalidation_label_validate_number">Bitte tragen Sie eine Nummer ein</label>
-			<label index="JSvalidation_label_validate_digits">Bitte tragen Sie eine Nummer ohne Komma oder Punkt ein</label>
-			<label index="JSvalidation_label_validate_alpha">Bitte nutzen Sie nur Buchstaben (a-z)</label>
-			<label index="JSvalidation_label_validate_alphanum">Bitte nutzen Sie hier nur Buchstaben (a-z) oder Zahlen (0-9) nur in diesem Feld. Leer- oder andere Zeichen sind nicht erlaubt</label>
-			<label index="JSvalidation_label_validate_date">Bitte tragen Sie ein korrektes Datum ein</label>
-			<label index="JSvalidation_label_validate_datetime">Bitte tragen Sie ein korrektes Datum sowie Uhrzeit ein</label>
-			<label index="JSvalidation_label_validate_email">Bitte tragen Sie eine gültige E-Mail Adresse ein (test@test.de)</label>
-			<label index="JSvalidation_label_validate_url">Bitte tragen Sie eine gültige URL ein (http://www.test.de)</label>
-			<label index="JSvalidation_label_validate_date_au">Bitte tragen Sie das Datum so ein: dd/mm/yyyy.(Beispiel 17/03/2006)</label>
-			<label index="JSvalidation_label_validate_currency_dollar">Bitte tragen Sie einen gültigen Betrag ein ($100.00)</label>
+			<label index="pagebrowser_inner">von</label>
+			<label index="JSvalidation_label_required">Dies ist ein Pflichtfeld</label>
+			<label index="JSvalidation_label_please_correct">Bitte diesen Wert korrigieren</label>
+			<label index="JSvalidation_label_validate_number">Bitte eine Nummer eintragen</label>
+			<label index="JSvalidation_label_validate_digits">Bitte eine Nummer ohne Komma oder Punkt eintragen</label>
+			<label index="JSvalidation_label_validate_alpha">Bitte nur Buchstaben (a-z) eingeben</label>
+			<label index="JSvalidation_label_validate_alphanum">Bitte nur Buchstaben (a-z) oder Zahlen (0-9) eingeben. Leer- oder andere Zeichen sind nicht erlaubt</label>
+			<label index="JSvalidation_label_validate_date">Bitte ein gültiges Datum eingeben</label>
+			<label index="JSvalidation_label_validate_datetime">Bitte ein gültiges Datum mit Uhrzeit eingeben</label>
+			<label index="JSvalidation_label_validate_email">Bitte eine gültige E-Mail Adresse eingeben</label>
+			<label index="JSvalidation_label_validate_url">Bitte eine gültige URL eingeben (z.B. http://www.test.de)</label>
+			<label index="JSvalidation_label_validate_date_au">Bitte ein Datum im Format dd/mm/yyyy eingeben</label>
+			<label index="JSvalidation_label_validate_currency_dollar">Bitte einen gültigen Betrag eingeben (z.B. $100.00)</label>
 			<label index="JSvalidation_label_validate_selection">Bitte treffen Sie eine Auswahl</label>
-			<label index="JSvalidation_label_validate_one_required">Bitte treffen Sie eine Auswahl</label>
-			<label index="JSvalidation_label_validate_max">Bitte geben Sie einen Wert grösser als $1 ein</label>
-			<label index="JSvalidation_label_validate_min">Bitte geben Sie einen Wert kleiner als $1 ein</label>
+			<label index="JSvalidation_label_validate_one_required">Bitte treffen Sie mindestens eine Auswahl</label>
+			<label index="JSvalidation_label_validate_max">Bitte einen Wert grösser als $1 eingeben</label>
+			<label index="JSvalidation_label_validate_min">Bitte einen Wert kleiner als $1 eingeben</label>
 			<label index="JSvalidation_dateinput_months">Januar,Februar,März,April,Mai,Juni,July,August,September,Oktober,November,Dezember</label>
 			<label index="JSvalidation_dateinput_shortMonths">Jan,Feb,Mrz,Apr,Mai,Jun,Jul,Aug,Sep,Okt,Nov,Dez</label>
 			<label index="JSvalidation_dateinput_days">Sonntag,Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag</label>
@@ -187,6 +189,10 @@
 			<label index="geoip_region">Region</label>
 			<label index="geoip_city">Stadt</label>
 			<label index="geoip_zip">PLZ</label>
+			<label index="geoip_lng">Längengrad</label>
+			<label index="geoip_lat">Breitengrad</label>
+			<label index="geoip_dmaCode">DMA-Kennung</label>
+			<label index="geoip_areaCode">Gebietskennung</label>
 			<label index="error_check_subject_r">Bitte füllen Sie folgende Felder im Backend aus: Betreff für Empfängermail</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
@@ -530,7 +536,7 @@
 			<label index="powermailmarker_notitle" type="integer">178881436</label>
 			<label index="locallangmarker_confirmation_question" type="integer">188616386</label>
 			<label index="locallangmarker_confirmation_back" type="integer">36398395</label>
-			<label index="locallangmarker_confirmation_files" type="integer">113922966</label>
+			<label index="locallangmarker_confirmation_files" type="integer">112471241</label>
 			<label index="locallangmarker_confirmation_submit" type="integer">247463137</label>
 			<label index="locallangmarker_email_receiver" type="integer">202173972</label>
 			<label index="locallangmarker_email_sender" type="integer">182398465</label>
@@ -557,7 +563,7 @@
 			<label index="error_captchaNoExtFound" type="integer">118240955</label>
 			<label index="multiple_forward" type="integer">204016217</label>
 			<label index="multiple_back" type="integer">186298610</label>
-			<label index="pagebrowser_inner" type="integer">132636790</label>
+			<label index="pagebrowser_inner" type="integer">146770004</label>
 			<label index="JSvalidation_label_required" type="integer">195477513</label>
 			<label index="JSvalidation_label_please_correct" type="integer">145885712</label>
 			<label index="JSvalidation_label_validate_number" type="integer">42850760</label>
@@ -570,7 +576,7 @@
 			<label index="JSvalidation_label_validate_date_au" type="integer">37977572</label>
 			<label index="JSvalidation_label_validate_currency_dollar" type="integer">163075022</label>
 			<label index="JSvalidation_label_validate_selection" type="integer">52679539</label>
-			<label index="JSvalidation_label_validate_one_required" type="integer">220307784</label>
+			<label index="JSvalidation_label_validate_one_required" type="integer">228337041</label>
 			<label index="JSvalidation_label_validate_max" type="integer">22499284</label>
 			<label index="JSvalidation_label_validate_min" type="integer">45764811</label>
 			<label index="geoip_ip" type="integer">123447511</label>
@@ -579,6 +585,18 @@
 			<label index="geoip_region" type="integer">256146120</label>
 			<label index="geoip_city" type="integer">92079470</label>
 			<label index="geoip_zip" type="integer">70553491</label>
+			<label index="JSvalidation_label_validate_datetime" type="integer">249903567</label>
+			<label index="JSvalidation_dateinput_months" type="integer">63563419</label>
+			<label index="JSvalidation_dateinput_shortMonths" type="integer">24585306</label>
+			<label index="JSvalidation_dateinput_days" type="integer">173114383</label>
+			<label index="JSvalidation_dateinput_shortDays" type="integer">264931617</label>
+			<label index="JSvalidation_dateinput_firstDay" type="integer">217895432</label>
+			<label index="JSvalidation_dateinput_format" type="integer">229329690</label>
+			<label index="JSvalidation_invalidtime" type="integer">146147582</label>
+			<label index="geoip_lng" type="integer">162677881</label>
+			<label index="geoip_lat" type="integer">206211834</label>
+			<label index="geoip_dmaCode" type="integer">104494091</label>
+			<label index="geoip_areaCode" type="integer">193838762</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">
@@ -586,7 +604,7 @@
 			<label index="powermailmarker_notitle">ERROR: No title to current field found in DB (%s)</label>
 			<label index="locallangmarker_confirmation_question">Are these values correct?</label>
 			<label index="locallangmarker_confirmation_back">Go back</label>
-			<label index="locallangmarker_confirmation_files">Attached file %s: </label>
+			<label index="locallangmarker_confirmation_files">Attached file %s:</label>
 			<label index="locallangmarker_confirmation_submit">Send values now</label>
 			<label index="locallangmarker_email_receiver">Thank you for your email:</label>
 			<label index="locallangmarker_email_sender">You've got a new email:</label>
@@ -613,7 +631,7 @@
 			<label index="error_captchaNoExtFound">Please install a captcha extension like captcha, sr_freecap, jm_recaptcha or wt_calculating_captcha!</label>
 			<label index="multiple_forward">Next step</label>
 			<label index="multiple_back">Previous step</label>
-			<label index="pagebrowser_inner"> of </label>
+			<label index="pagebrowser_inner">of</label>
 			<label index="JSvalidation_label_required">This is a required field</label>
 			<label index="JSvalidation_label_please_correct">Please correct this value</label>
 			<label index="JSvalidation_label_validate_number">Please enter a valid number in this field</label>
@@ -626,7 +644,7 @@
 			<label index="JSvalidation_label_validate_date_au">Please use this date format: dd/mm/yyyy. For example 17/03/2006 for the 17th of March, 2006</label>
 			<label index="JSvalidation_label_validate_currency_dollar">Please enter a valid $ amount. For example $100.00</label>
 			<label index="JSvalidation_label_validate_selection">Please make a selection</label>
-			<label index="JSvalidation_label_validate_one_required">Please select one of the above options</label>
+			<label index="JSvalidation_label_validate_one_required">Please select one of the below options</label>
 			<label index="JSvalidation_label_validate_max">Please enter a value greater than $1</label>
 			<label index="JSvalidation_label_validate_min">Please enter a value smaller than $1</label>
 			<label index="geoip_ip">IP address</label>
@@ -635,6 +653,18 @@
 			<label index="geoip_region">Region</label>
 			<label index="geoip_city">City</label>
 			<label index="geoip_zip">ZIP</label>
+			<label index="JSvalidation_label_validate_datetime">Please enter a valid date and time</label>
+			<label index="JSvalidation_dateinput_months">January,February,March,April,May,June,July,August,September,October,November,December</label>
+			<label index="JSvalidation_dateinput_shortMonths">Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec</label>
+			<label index="JSvalidation_dateinput_days">Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday</label>
+			<label index="JSvalidation_dateinput_shortDays">Sun,Mon,Tue,Wed,Thu,Fri,Sat</label>
+			<label index="JSvalidation_dateinput_firstDay">0</label>
+			<label index="JSvalidation_dateinput_format">yyyy-mm-dd</label>
+			<label index="JSvalidation_invalidtime">Invalid time</label>
+			<label index="geoip_lng">LNG</label>
+			<label index="geoip_lat">LAT</label>
+			<label index="geoip_dmaCode">DMA Code</label>
+			<label index="geoip_areaCode">Area Code</label>
 		</languageKey>
 	</orig_text>
 </T3locallang>

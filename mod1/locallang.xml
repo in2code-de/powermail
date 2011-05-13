@@ -3,6 +3,8 @@
 	<meta type="array">
 		<type>module</type>
 		<description>Language labels for module &quot;web_txpowermailM1&quot;</description>
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -105,7 +107,7 @@
 			<label index="wait">Bitte warten...</label>
 			<label index="loading">Datens\u00e4tze werden geladen!</label>
 			<label index="delete">L\u00f6schen</label>
-			<label index="perpage">Datens\u00e4tze pro Seite</label>
+			<label index="perpage">Pro Seite</label>
 			<label index="deletechosen">Ausgew\u00e4hlte Datens\u00e4tze l\u00f6schen</label>
 			<label index="choseline">Ein Fehler ist aufgetreten</label>
 			<label index="choseline2">Bitte w\u00e4hlen Sie mindestens eine Zeile aus!</label>
@@ -113,8 +115,8 @@
 			<label index="no">Nein</label>
 			<label index="created">Erstellt</label>
 			<label index="delsure">Ausgew\u00e4hlte Datens\u00e4tze wirklich l\u00f6schen?</label>
-			<label index="showrows">Anzeigen der Datens\u00e4tze {0} - {1} von {2}</label>
-			<label index="noresults">Keine Datens\u00e4tze anzuzeigen</label>
+			<label index="showrows">Zeige Datens\u00e4tze {0} - {1} von {2}</label>
+			<label index="noresults">Keine Datens\u00e4tze vorhanden</label>
 			<label index="rows">Datens\u00e4tze</label>
 			<label index="shortcut">Erstellt eine Verknuepfung zu dieser Seite</label>
 			<label index="exportformat">Export Format:</label>
@@ -191,4 +193,134 @@
 			<label index="export_download_downloadZIP">Download een gecomprimeerd CSV bestand</label>
 		</languageKey>
 	</data>
+	<orig_hash type="array">
+		<languageKey index="de" type="array">
+			<label index="title" type="integer">107899698</label>
+			<label index="function1" type="integer">12723624</label>
+			<label index="function2" type="integer">149175615</label>
+			<label index="nopowermails1" type="integer">254326986</label>
+			<label index="nopowermails2" type="integer">69815061</label>
+			<label index="title_no" type="integer">1753031</label>
+			<label index="title_date" type="integer">71780721</label>
+			<label index="title_sender" type="integer">145411646</label>
+			<label index="title_IP" type="integer">223765872</label>
+			<label index="title_receiver" type="integer">178063677</label>
+			<label index="title_details" type="integer">65812061</label>
+			<label index="title_delete" type="integer">254438473</label>
+			<label index="export_download_success" type="integer">67299232</label>
+			<label index="export_download_download" type="integer">35649774</label>
+			<label index="export_download_downloadZIP" type="integer">51317423</label>
+			<label index="export_icon_excel" type="integer">128979836</label>
+			<label index="export_icon_csv" type="integer">58458417</label>
+			<label index="export_icon_html" type="integer">266031985</label>
+			<label index="icon_deloff" type="integer">144456694</label>
+			<label index="icon_delon" type="integer">132838751</label>
+			<label index="icon_print" type="integer">50143072</label>
+			<label index="icon_close" type="integer">19956722</label>
+			<label index="delall_sure" type="integer">149982297</label>
+			<label index="pagebrowser_page" type="integer">26464201</label>
+			<label index="pagebrowser_upto" type="integer">207332430</label>
+			<label index="pagebrowser_within" type="integer">101579238</label>
+			<label index="filter_start" type="integer">174138022</label>
+			<label index="filter_end" type="integer">141907953</label>
+			<label index="del_sure" type="integer">219972440</label>
+			<label index="del_message" type="integer">116193294</label>
+			<label index="chart_chart" type="integer">249512432</label>
+			<label index="chart_table" type="integer">201974759</label>
+			<label index="path" type="integer">180814866</label>
+			<label index="wait" type="integer">39751471</label>
+			<label index="loading" type="integer">75822755</label>
+			<label index="delete" type="integer">254438473</label>
+			<label index="perpage" type="integer">120901625</label>
+			<label index="deletechosen" type="integer">32088762</label>
+			<label index="choseline" type="integer">148593618</label>
+			<label index="choseline2" type="integer">147565440</label>
+			<label index="yes" type="integer">154974727</label>
+			<label index="no" type="integer">196073266</label>
+			<label index="created" type="integer">15527604</label>
+			<label index="delsure" type="integer">15568051</label>
+			<label index="showrows" type="integer">235906298</label>
+			<label index="noresults" type="integer">164440984</label>
+			<label index="rows" type="integer">87094408</label>
+			<label index="shortcut" type="integer">184118785</label>
+			<label index="exportformat" type="integer">18534886</label>
+			<label index="exportpdf" type="integer">161363441</label>
+			<label index="exporthtml" type="integer">21122019</label>
+			<label index="exportcsv" type="integer">161014981</label>
+			<label index="exportxls" type="integer">36486419</label>
+			<label index="start" type="integer">14051517</label>
+			<label index="end" type="integer">100832164</label>
+			<label index="pivars" type="integer">134233994</label>
+			<label index="date" type="integer">71780721</label>
+			<label index="sender" type="integer">145411646</label>
+			<label index="receiver" type="integer">178063677</label>
+			<label index="ip" type="integer">109163395</label>
+			<label index="phpexcel_library" type="integer">136600961</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="de" type="array">
+			<label index="title">Powermail</label>
+			<label index="function1">Powermail list and export</label>
+			<label index="function2">Powermail charts</label>
+			<label index="nopowermails1">No powermails on current page!</label>
+			<label index="nopowermails2">Please choose a page with powermails inside.</label>
+			<label index="title_no">#</label>
+			<label index="title_date">Date</label>
+			<label index="title_sender">Sender</label>
+			<label index="title_IP">Sender IP</label>
+			<label index="title_receiver">Receiver</label>
+			<label index="title_details">Details</label>
+			<label index="title_delete">Delete</label>
+			<label index="export_download_success">Success!</label>
+			<label index="export_download_download">Download CSV File</label>
+			<label index="export_download_downloadZIP">Download compressed CSV File</label>
+			<label index="export_icon_excel">Export to excel file format</label>
+			<label index="export_icon_csv">Export to csv file format</label>
+			<label index="export_icon_html">Export to HTML table</label>
+			<label index="icon_deloff">Delete after export disabled! Click to enable delete after export</label>
+			<label index="icon_delon">Delete after export enabled! Click to disable delete after export</label>
+			<label index="icon_print">Click here to print this view</label>
+			<label index="icon_close">Click hier to close the window</label>
+			<label index="delall_sure">If you are going on, all mails will be deleted after export, are you sure?</label>
+			<label index="pagebrowser_page">Page</label>
+			<label index="pagebrowser_upto">up to</label>
+			<label index="pagebrowser_within">within</label>
+			<label index="filter_start">Start</label>
+			<label index="filter_end">End</label>
+			<label index="del_sure">Are you sure to delete this entry?</label>
+			<label index="del_message">Mail with uid %s deleted!</label>
+			<label index="chart_chart">Chart: Number of the last mails</label>
+			<label index="chart_table">Table: Details about the last mails</label>
+			<label index="path">Path</label>
+			<label index="wait">Please wait...</label>
+			<label index="loading">Loading mails</label>
+			<label index="delete">Delete</label>
+			<label index="perpage">Per Page</label>
+			<label index="deletechosen">Delete chosen mails</label>
+			<label index="choseline">An error has occurred</label>
+			<label index="choseline2">Please select at least one row.</label>
+			<label index="yes">Yes</label>
+			<label index="no">No</label>
+			<label index="created">Created</label>
+			<label index="delsure">Do you really want to delete the chosen rows?</label>
+			<label index="showrows">Show rows {0} - {1} of {2}</label>
+			<label index="noresults">There are no mails</label>
+			<label index="rows">Rows</label>
+			<label index="shortcut">Create a shortcut to this page</label>
+			<label index="exportformat">Export format:</label>
+			<label index="exportpdf">PDF Export</label>
+			<label index="exporthtml">HTML Export</label>
+			<label index="exportcsv">CSV Export</label>
+			<label index="exportxls">XLS Export</label>
+			<label index="start">Start:</label>
+			<label index="end">End:</label>
+			<label index="pivars">piVars</label>
+			<label index="date">Date</label>
+			<label index="sender">Sender</label>
+			<label index="receiver">Receiver</label>
+			<label index="ip">IP-Address</label>
+			<label index="phpexcel_library">You need the extension phpexcel_library to use this feature!</label>
+		</languageKey>
+	</orig_text>
 </T3locallang>

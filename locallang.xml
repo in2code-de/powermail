@@ -3,6 +3,8 @@
 	<meta type="array">
 		<type>module</type>
 		<description>Language labels for extension 'powermail'</description>
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -34,4 +36,16 @@
 			<label index="pi1_plus_wiz_description">Močna in enostavna ekstenzija za e-pošto z podatkovno bazo za shranjevanje, uveljavitev javaskripta in še več...</label>
 		</languageKey>
 	</data>
+	<orig_hash type="array">
+		<languageKey index="de" type="array">
+			<label index="pi1_title" type="integer">10284569</label>
+			<label index="pi1_plus_wiz_description" type="integer">857060</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="de" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Powerful and easy mailform extension with database storing, javascript validation and many more...</label>
+		</languageKey>
+	</orig_text>
 </T3locallang>
