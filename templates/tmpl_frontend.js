@@ -38,11 +38,6 @@ function checkTextArea(obj, maxLength) {
         '[min]': '###VALIDATOR_LABEL_MIN###'
     });
     
-    $.tools.validator.localizeFn('input:time', { en: '###VALIDATOR_INVALIDTIME###'});
-    $.tools.validator.localizeFn('input:checkbox', { en: '###VALIDATOR_ONE_REQUIRED###'});
-    $.tools.validator.localizeFn('input:radio', { en: '###VALIDATOR_ONE_REQUIRED###'});
-    $.tools.validator.localizeFn('input:select.required', { en: '###VALIDATOR_LABEL_REQUIRED###'});
-
     $.tools.dateinput.localize('en', {
         'months': '###VALIDATOR_DATEINPUT_MONTH###',
         'shortMonths': '###VALIDATOR_DATEINPUT_SHORTMONTH###',
@@ -79,12 +74,12 @@ function checkTextArea(obj, maxLength) {
                 }
         });
 
-        $.tools.validator.fn('input:checkbox', 'required',
+        $.tools.validator.fn('input:checkbox',
             function(input, value) {
                 checkboxes = input.parent().parent().find('input:checkbox');
                 if (checkboxes.filter('.required_one').length > 0) {
                     if (checkboxes.filter(':checked').length == 0) {
-                        return (input.filter('.required_one').length == 0);
+                        return (input.filter('.required_one').length == 0) ? true : '###VALIDATOR_LABEL_ONE_REQUIRED###';
                     } else {
                         powermail_validator.data('validator').reset(checkboxes);
                     }
@@ -99,7 +94,7 @@ function checkTextArea(obj, maxLength) {
         $('.tx_powermail_pi1_form input:checkbox').click(function(){$(this).parent().parent().find('input:checkbox').blur();});
 
         // time validation
-        $.tools.validator.fn('input[type=time]', 'required',
+        $.tools.validator.fn('input[type=time]', '###VALIDATOR_LABEL_REQUIRED###',
             function(input, value) {
                 if(value != '' && !/\d\d:\d\d/.test(value)) {
                     return false;
@@ -142,9 +137,10 @@ function checkTextArea(obj, maxLength) {
         });
 
         // select validation
-        $.tools.validator.fn('input[type=select].required', 'required',
-            function(input, value) {
+        $.tools.validator.fn('select', '###VALIDATOR_LABEL_ONE_REQUIRED###',
+            function(el, value) {
                 return value.length > 0;
+                //return (value.length > 0) ? true : 'Treffen Sie mindestens eine Auswahl';
             }
         );
 

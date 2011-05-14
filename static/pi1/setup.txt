@@ -451,6 +451,8 @@ lib.powermailjs {
                 VALIDATOR_LABEL_PLEASE_CORRECT.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_please_correct
                 VALIDATOR_LABEL_REQUIRED = TEXT
                 VALIDATOR_LABEL_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+                VALIDATOR_LABEL_ONE_REQUIRED = TEXT
+                VALIDATOR_LABEL_ONE_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
                 VALIDATOR_LABEL_EMAIL = TEXT
                 VALIDATOR_LABEL_EMAIL.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_email
                 VALIDATOR_LABEL_URL = TEXT
@@ -483,8 +485,6 @@ lib.powermailjs {
                 VALIDATOR_DATEINPUT_FORMAT.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_format
                 VALIDATOR_DATEINPUT_FIRSTDAY = TEXT
                 VALIDATOR_DATEINPUT_FIRSTDAY.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_firstDay
-                VALIDATOR_ONE_REQUIRED = TEXT
-                VALIDATOR_ONE_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_validate_one_required
                 VALIDATOR_DISABLE = TEXT
                 VALIDATOR_DISABLE.value = false
         }
