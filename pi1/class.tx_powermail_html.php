@@ -283,6 +283,7 @@ class tx_powermail_html extends tslib_pibase {
 				$options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // Every row is a new option
 				$markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . '][' . $i . ']" '; // add name to markerArray
 				$markerArray['###LABEL###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
+				$markerArray['###LABEL###'] = ($this->conf['label.']['parse']) ? $markerArray['###LABEL###'] : htmlspecialchars($markerArray['###LABEL###']);
 				$markerArray['###LABEL_NAME###'] = 'uid' . $this->uid . '_' . $i; // add labelname
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
 				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
@@ -385,7 +386,8 @@ class tx_powermail_html extends tslib_pibase {
 			for ($i = 0; $i < count($optionlines); $i ++) { // One tag for every option
                 $options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
 				$markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . ']" '; // add name to markerArray
-				$markerArray['###LABEL###'] = htmlspecialchars($this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']));
+				$markerArray['###LABEL###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
+				$markerArray['###LABEL###'] = ($this->conf['label.']['parse']) ? $markerArray['###LABEL###'] : htmlspecialchars($markerArray['###LABEL###']);
 				$markerArray['###LABEL_NAME###'] = 'uid' . $this->uid . '_' . $i; // add labelname
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
 				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
@@ -432,7 +434,10 @@ class tx_powermail_html extends tslib_pibase {
 		}
 		$subpartArray = array(); // init
 		$subpartArray['###CONTENT###'] = $content_item; // subpart 3
-		$this->markerArray['###LABEL_MAIN###'] = htmlspecialchars($this->title);
+
+		$this->markerArray['###LABEL_MAIN###'] = $this->div->parseFunc($this->title, $this->cObj, $this->conf['label.']['parse']);
+		$this->markerArray['###LABEL_MAIN###'] = ($this->conf['label.']['parse']) ? $this->title : htmlspecialchars($this->title);
+
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid;
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
@@ -649,7 +654,7 @@ class tx_powermail_html extends tslib_pibase {
 	private function html_datetime() {
 		$this->tmpl['html_datetime'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATETIME###'); // work on subpart
 		
-		$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
+		//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
 		
@@ -719,7 +724,7 @@ class tx_powermail_html extends tslib_pibase {
 	private function html_date() {
 		$this->tmpl['html_date'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATE###'); // work on subpart
 
-		$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
+		//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
 		
@@ -893,13 +898,13 @@ class tx_powermail_html extends tslib_pibase {
 				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = $freecaparray['###SR_FREECAP_IMAGE###']; // captcha image
 				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURERELOAD###'] = $freecaparray['###SR_FREECAP_CANT_READ###']; // reload image button
 				$this->markerArray['###POWERMAIL_CAPTCHA_ACCESSIBLE###'] = $freecaparray['###SR_FREECAP_ACCESSIBLE###']; // audio output
-				$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // captcha label
+				//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // captcha label
 				$this->markerArray['###POWERMAIL_CAPTCHA_DESCRIPTION###'] = htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'label')); // add captcha description to the marker
 
 			} elseif (t3lib_extMgm::isLoaded('captcha', 0) && $this->conf['captcha.']['use'] == 'captcha') { // use captcha if available
 
 				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = '<img src="' . t3lib_extMgm::siteRelPath('captcha') . 'captcha/captcha.php" alt="" class="powermail_captcha powermail_captcha_captcha" />'; // captcha image
-				$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // captcha label
+				//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // captcha label
 				$this->markerArray['###POWERMAIL_CAPTCHA_DESCRIPTION###'] = htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'label')); // add captcha description to the marker
 
 			} elseif (t3lib_extMgm::isLoaded('jm_recaptcha', 0) && $this->conf['captcha.']['use'] == 'recaptcha') { // use recaptcha if available
@@ -910,7 +915,7 @@ class tx_powermail_html extends tslib_pibase {
 				$recaptcha = t3lib_div::makeInstance('tx_jmrecaptcha'); // new object
 
 				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = $recaptcha->getReCaptcha(); // get captcha
-				$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // captcha label
+				//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // captcha label
 				$this->markerArray['###POWERMAIL_CAPTCHA_DESCRIPTION###'] = htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'label')); // add captcha description to the marker
 
 			} elseif (t3lib_extMgm::isLoaded('wt_calculating_captcha', 0) && $this->conf['captcha.']['use'] == 'wt_calculating_captcha') { // use wt_calculating_captcha if available
@@ -919,7 +924,7 @@ class tx_powermail_html extends tslib_pibase {
 				$captcha = t3lib_div::makeInstance('tx_wtcalculatingcaptcha'); // generate object
 
 				$this->markerArray['###POWERMAIL_CAPTCHA_PICTURE###'] = $captcha->generateCaptcha(); // image return
-				$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // captcha label
+				//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // captcha label
 				$this->markerArray['###POWERMAIL_CAPTCHA_DESCRIPTION###'] = htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'label')); // add captcha description to the marker
 
 			} else {
@@ -1149,7 +1154,9 @@ class tx_powermail_html extends tslib_pibase {
 		
 		// ###LABEL###
 		if (!empty($this->title)) {
-			$this->markerArray['###LABEL###'] = htmlspecialchars($this->title);
+			$this->markerArray['###LABEL###'] = $this->title;
+			$this->markerArray['###LABEL###'] = ($this->conf['label.']['parse']) ? $this->markerArray['###LABEL###'] : htmlspecialchars($this->markerArray['###LABEL###']);
+
 		}
 
 		// ###DESCRIPTION###

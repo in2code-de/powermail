@@ -208,7 +208,7 @@ class tx_powermail_markers extends tslib_pibase {
 		if ($res) {
 			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		}
-		if (!empty($row['title'])) { // if title was found
+		if (!empty($row['title'])) { // if title was foun
 			return $this->div->parseFunc($row['title'], $this->cObj, $this->conf['label.']['parse']); // return title
 		} else { // no label to field found (Countryzoneselect, etc...)
 			return ''; // empty return
