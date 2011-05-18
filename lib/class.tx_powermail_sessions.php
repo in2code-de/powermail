@@ -166,27 +166,28 @@ class tx_powermail_sessions extends tslib_pibase {
 			if (strlen($this->uids) > 0) $this->uids = substr($this->uids, 0, -1); // delete last ,
 		}
 		if (trim($this->uids) != '') {
-			$queryParts = array(
-				'SELECT' => 'tx_powermail_fields.uid',
-				'FROM' => '
-					tx_powermail_fields
-					INNER JOIN tx_powermail_fieldsets
-					ON
-						tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid
-						' . tslib_cObj::enableFields('tx_powermail_fieldsets') . '
-					INNER JOIN tt_content
-					ON
-						tx_powermail_fieldsets.tt_content = tt_content.uid
-						AND tt_content = ' . intval($contentElementData['uid'])
-						. tslib_cObj::enableFields('tt_content'),
-				'WHERE' => '
-					tx_powermail_fields.uid IN (' . $GLOBALS['TYPO3_DB']->cleanIntList($this->uids) . ') 
-					AND (
-						tx_powermail_fields.formtype = "file" 
-						OR tx_powermail_fields.formtype="multiupload"
-					)' . tslib_cObj::enableFields('tx_powermail_fields')
-			);
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECT_queryArray($queryParts);
+
+			$query = 'SELECT tx_powermail_fields.uid FROM tx_powermail_fields
+						INNER JOIN tx_powermail_fieldsets
+						ON
+							tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid
+							' . tslib_cObj::enableFields('tx_powermail_fieldsets') . '
+
+						INNER JOIN tt_content
+						ON
+							tx_powermail_fieldsets.tt_content = tt_content.uid
+							AND tt_content = ' . intval($contentElementData['uid'])
+							. tslib_cObj::enableFields('tt_content') . '
+
+						WHERE
+							tx_powermail_fields.uid IN (' . $GLOBALS['TYPO3_DB']->cleanIntList($this->uids) . ')
+							AND (
+								tx_powermail_fields.formtype = "file"
+								OR tx_powermail_fields.formtype="multiupload"
+							)' . tslib_cObj::enableFields('tx_powermail_fields');
+
+			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+
 			if ($res) { // If there is a result
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every uploadfield
 					if ($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']]) { // if there is a content in current upload field
