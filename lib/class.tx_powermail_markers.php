@@ -238,33 +238,33 @@ class tx_powermail_markers extends tslib_pibase {
 		// config
 		$allowhidden = t3lib_div::trimExplode(',', $this->conf['hiddenfields.']['show'], 1); // allow/disallow hidden fields
 
-		// 1. get sessionarray
+		// 1. get session array
 		$sessionArray = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'])); // Get piVars from session
 
 		// 2. manipulate session values via typoscript (if wanted)
 		$sessionArray = $this->div->TSmanipulation($sessionArray, $what, $this->conf, $this->cObj); // manipulate values via typoscript
 
-		// 3. delete hiddenfield from session array if should
+		// 3. delete hidden field from session array if should
 		if (
-			($what == 'recipient_mail' && !$allowhidden[0]) || // if current action is recipient_mail and hiddenfields are not allowed for this
-			($what == 'sender_mail' && !$allowhidden[1]) || // if current action is sender_mail and hiddenfields are not allowed for this
-			($what == 'thx' && !$allowhidden[2]) || // if current action is thx and hiddenfields are not allowed for this
-			($what == 'confirmation' && !$allowhidden[3]) || // if current action is confirmation and hiddenfields are not allowed for this
-			($what == 'mandatory' && !$allowhidden[4]) // if current action is mandatory and hiddenfields are not allowed for this
+			($what == 'recipient_mail' && !$allowhidden[0]) || // if current action is recipient_mail and hidden fields are not allowed for this
+			($what == 'sender_mail' && !$allowhidden[1]) || // if current action is sender_mail and hidden fields are not allowed for this
+			($what == 'thx' && !$allowhidden[2]) || // if current action is thx and hidden fields are not allowed for this
+			($what == 'confirmation' && !$allowhidden[3]) || // if current action is confirmation and hidden fields are not allowed for this
+			($what == 'mandatory' && !$allowhidden[4]) // if current action is mandatory and hidden fields are not allowed for this
 		) {
-			// Give me all hidden field of current page
+			// Give me all hidden and deleted field of current page
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 				'uid',
 				'tx_powermail_fields',
-				$where_clause = 'pid = ' . $GLOBALS['TSFE']->id . ' AND formtype = "hidden"' . tslib_cObj::enableFields('tx_powermail_fields'),
+				$where_clause = '( pid = ' . $GLOBALS['TSFE']->id . ' AND formtype = "hidden"' . tslib_cObj::enableFields('tx_powermail_fields') . ') OR ( pid = ' . $GLOBALS['TSFE']->id . ' AND deleted = 1 )',
 				$groupBy = '',
 				$orderBy = '',
 				$limit = ''
 			);
 			if ($res) { // If there is a result
-				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every hiddenfield
-					if (!empty($sessionArray['uid' . $row['uid']])) { // if value exists in session to current hiddenfield
-						unset($sessionArray['uid' . $row['uid']]); // delete hiddenfield from session array
+				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every hidden or deleted field
+					if (!empty($sessionArray['uid' . $row['uid']])) {
+						unset($sessionArray['uid' . $row['uid']]); // unset all hidden or deleted session variables
 					}
 				}
 			}
