@@ -657,17 +657,6 @@ class tx_powermail_html extends tslib_pibase {
 		//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
-		
-		// Set value
-		$value = '';
-		if (intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) != 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'))
-			$value = intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')); // add value to markerArray
-		if ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field])
-			$value = intval(strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]));
-		if (isset($this->piVarsFromSession['uid' . $this->uid]))
-			$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
-		$this->markerArray['###VALUE###'] = 'value="' . $value . '" ';
-		
 		$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" ';
 		
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') != 0) {
@@ -729,7 +718,6 @@ class tx_powermail_html extends tslib_pibase {
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
 		
 		// Set value
-		$value = '';
 		if (intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) != 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) {
 			$value = intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')); // add value to markerArray
 		}
@@ -1140,8 +1128,8 @@ class tx_powermail_html extends tslib_pibase {
 		}
 		
 		// ###VALUE###
-		if (isset($this->piVarsFromSession['uid' . $this->uid]) && !is_array($this->piVarsFromSession['uid' . $this->uid])) { // 1. if value is in session
-			$this->markerArray['###VALUE###'] = 'value="' . stripslashes($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid])) . '" ';
+		if (isset($this->sessionfields['uid' . $this->uid]) && !is_array($this->sessionfields['uid' . $this->uid])) { // 1. if value is in session
+			$this->markerArray['###VALUE###'] = 'value="' . stripslashes($this->div->nl2nl2($this->sessionfields['uid' . $this->uid])) . '" ';
 		} elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. else if value should be filled from current logged in user
 			$this->markerArray['###VALUE###'] = 'value="' . strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]) . '" ';
 		} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value') ||  $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value') === '0') { // 3. take value from backend (default value)
@@ -1156,7 +1144,6 @@ class tx_powermail_html extends tslib_pibase {
 		if (!empty($this->title)) {
 			$this->markerArray['###LABEL###'] = $this->title;
 			$this->markerArray['###LABEL###'] = ($this->conf['label.']['parse']) ? $this->markerArray['###LABEL###'] : htmlspecialchars($this->markerArray['###LABEL###']);
-
 		}
 
 		// ###DESCRIPTION###
