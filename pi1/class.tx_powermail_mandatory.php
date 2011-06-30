@@ -128,7 +128,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 
         // Give me all fields of current content uid
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-			'tx_powermail_fields.uid, tx_powermail_fields.title, tx_powermail_fields.flexform',
+			'tx_powermail_fields.uid, tx_powermail_fields.title, tx_powermail_fields.flexform, tx_powermail_fields.class',
 			'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
 			$where_clause = 'tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . tslib_cObj::enableFields('tt_content') . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
 			$groupBy = '',
@@ -137,7 +137,11 @@ class tx_powermail_mandatory extends tslib_pibase {
 		);
 		if ($res) { // If there is a result
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every field
-				if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'mandatory') == 1 || $this->conf['validate.']['uid' . $row['uid'] . '.'][required] == 1) { // if in current xml mandatory == 1 OR mandatory was set via TS for current field
+				t3lib_div::devlog('class found: ' . $row['class'], 'powermail', 0);
+				/**
+				 * Modified for Bel: do not validate on server side if class of field is set to "donotcheckmandatory"
+				 */
+				if (($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'mandatory') == 1 || $this->conf['validate.']['uid' . $row['uid'] . '.']['required'] == 1) && $row['class'] != 'donotcheckmandatory') { // if in current xml mandatory == 1 OR mandatory was set via TS for current field
 					if (!is_array($this->sessionfields['uid' . $row['uid']])) { // first level
 						if (trim($this->sessionfields['uid' . $row['uid']]) === '' || !isset($this->sessionfields['uid'.$row['uid']])) { // only if current value is not set in session (piVars)
 							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('locallangmarker_mandatory_emptyfield') . ' <b>' . $row['title'] . '</b>'; // set current error to sessionlist
