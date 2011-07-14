@@ -19,6 +19,7 @@
 			<showmonthyearselector>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.date.showselector</label>
+					<exclude>1</exclude>
 					<config>
 						<type>check</type>
 					</config>
@@ -27,6 +28,7 @@
 			<min>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.min</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>10</size>
@@ -38,6 +40,7 @@
 			<mincalc>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mincalc</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>10</size>
@@ -47,6 +50,7 @@
 			<max>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.max</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>10</size>
@@ -58,6 +62,7 @@
 			<maxcalc>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.maxcalc</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>10</size>
@@ -67,6 +72,7 @@
 			<size>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.size</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -76,6 +82,7 @@
 			<readonly>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.readonly</label>
+					<exclude>1</exclude>
 					<config>
 						<type>check</type>
 					</config>
@@ -84,6 +91,7 @@
 			<mandatory>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mandatory</label>
+					<exclude>1</exclude>
 					<config>
 						<type>check</type>
 					</config>
@@ -92,6 +100,7 @@
 			<placeholder>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.placeholder</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>35</size>
@@ -111,6 +120,7 @@
 			<example>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>
+					<exclude>1</exclude>
 					<config>
 						<type>user</type>
 						<userFunc>user_powermail_tx_powermail_example->main</userFunc>

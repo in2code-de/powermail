@@ -8,6 +8,7 @@
 			<size>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.size</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -17,6 +18,7 @@
 			<maxlength>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.maxlength</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -26,6 +28,7 @@
 			<readonly>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.readonly</label>
+					<exclude>1</exclude>
 					<config>
 						<type>check</type>
 					</config>
@@ -34,6 +37,7 @@
 			<mandatory>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mandatory</label>
+					<exclude>1</exclude>
 					<config>
 						<type>check</type>
 					</config>
@@ -51,6 +55,7 @@
 			<placeholder>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.placeholder</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>35</size>
@@ -60,6 +65,7 @@
 			<validate>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate</label>
+					<exclude>1</exclude>
 					<onChange>reload</onChange>
 					<config>
 						<type>select</type>
@@ -112,6 +118,7 @@
 			<inputtype>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype</label>
+					<exclude>1</exclude>
 					<displayCond>FIELD:validate:!IN:validate-email,validate-url</displayCond>
 					<config>
 						<type>select</type>
@@ -144,6 +151,7 @@
 			<min>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.min</label>
+					<exclude>1</exclude>
 					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
 					<config>
 						<type>input</type>
@@ -154,6 +162,7 @@
 			<max>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.max</label>
+					<exclude>1</exclude>
 					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
 					<config>
 						<type>input</type>
@@ -164,6 +173,7 @@
 			<step>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.step</label>
+					<exclude>1</exclude>
 					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
 					<config>
 						<type>input</type>
@@ -175,6 +185,7 @@
 				<TCEforms>
 					<displayCond>FIELD:validate:=:validate-pattern</displayCond>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.pattern</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>35</size>
@@ -194,6 +205,7 @@
 			<example>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>
+					<exclude>1</exclude>
 					<config>
 						<type>user</type>
 						<userFunc>user_powermail_tx_powermail_example->main</userFunc>

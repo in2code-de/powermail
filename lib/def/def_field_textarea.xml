@@ -9,6 +9,7 @@
 			<cols>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.cols</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -18,6 +19,7 @@
 			<rows>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.rows</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -27,6 +29,7 @@
 			<maxlength>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.maxlength</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>5</size>
@@ -36,6 +39,7 @@
 			<readonly>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.readonly</label>
+					<exclude>1</exclude>
 					<config>
 						<type>check</type>
 					</config>
@@ -44,6 +48,7 @@
 			<mandatory>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mandatory</label>
+					<exclude>1</exclude>
 					<config>
 						<type>check</type>
 					</config>
@@ -62,6 +67,7 @@
 			<placeholder>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.placeholder</label>
+					<exclude>1</exclude>
 					<config>
 						<type>input</type>
 						<size>35</size>
@@ -81,6 +87,7 @@
 			<example>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>
+					<exclude>1</exclude>
 					<config>
 						<type>user</type>
 						<userFunc>user_powermail_tx_powermail_example->main</userFunc>
