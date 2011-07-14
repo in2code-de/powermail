@@ -195,7 +195,7 @@ if ($confArr['cssSelection'] == 0) { // selector box is not wanted
 		'config' => array (
 			'type' => 'input',
 			'size' => '10',
-			'eval' => 'trim,lower'
+			'eval' => 'trim'
 		)
 	);
 }
@@ -476,7 +476,7 @@ if ($confArr['cssSelection'] == 0) { // selector box is not wanted
 		'config' => array (
 			'type' => 'input',
 			'size' => '10',
-			'eval' => 'trim,lower'
+			'eval' => 'trim'
 		)
 	);
 }
