@@ -49,6 +49,9 @@ plugin.powermail {
 	# cat=plugin.powermail_mainconfig//0310; type=options[both,html,plain]; label= Sendermail HTML or Plain: If you use this value, emails to the sender will be send in html or plaintext or both formats (both, html or plain)
 	emailformat.sender_mail = both
 	
+	# cat=plugin.powermail_mainconfig//0320; type=boolean; label= Enables tags in plain part of receiver and sendermails. This makes it possible to send xml (e.g.) syntax in plain text email part
+	emailformat.enableTagsInPlainTextPart = 0
+
 	# cat=plugin.powermail_additionalconfig//0390; type=text; label= Onetime form: Checks if a field has already this entry (maybe email address), IP check is also possible if ip addresses will be logged) - (e.G. uid11,ip checks for unique IP and unique entry in field uid11)
 	enable.unique = 
 	
@@ -109,7 +112,7 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0580; type=boolean; label= Mime check for upload: Checks if uploaded file is realy the file which it should be (mime check)
 	upload.mimecheck = 1
 	
-	# cat=plugin.powermail_additionalconfig//0600; type=int; label= Allow filesize for upload: If you are using min. one upload field in frontend, you can set the allowed filesize of the files (in kB)
+	# cat=plugin.powermail_additionalconfig//0600; type=int; label= Allowed file size for upload: If you are using min. one upload field in frontend, you can set the allowed file size of the files (in kB)
 	upload.filesize = 1000
 	
 	# cat=plugin.powermail_additionalconfig//0610; type=boolean; label= Upload and attach: If checked, all files will be sent as an attachment to the receiver (if disabled, files will only stored on server)
@@ -145,7 +148,7 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//1000; type=boolean; label= Hiddenfields for checkboxes: (De)activate the hiddenfields for checkboxes. If only checkboxes are in use, there is a problem to enable a checkbox, submit, go back and deaktivate checkbox and submit again - the value ist still set. To fix this, you can use a JavaScript with hiddenfields (set by default).
 	field.checkboxJS = 1
 	
-	# cat=plugin.powermail_additionalconfig//1100; type=boolean; label= Use rteCSStext function: Text from rich text editor will be parsed automaticly for emails and thx message (every line gets an p tag, etc...). Disabling could be useful if you want to use only plaintext mails.
+	# cat=plugin.powermail_additionalconfig//1100; type=boolean; label= Use rteCSStext function: Text from rich text editor will be parsed automatically for emails and thx message (every line gets an p tag, etc...). Disabling could be useful if you want to use only plain text mails.
 	rte.parse = 1
 	
 	# cat=plugin.powermail_additionalconfig//1110; type=boolean; label= Use labelparse function: Labels could be used with TYPO3 LINK syntax (e.g. 1)

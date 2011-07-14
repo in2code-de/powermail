@@ -63,7 +63,8 @@ class tx_powermail_submit extends tslib_pibase {
 		$this->markerArray = array();
 		
 		// Templates
-		$this->tmpl = array(); $this->mailcontent = array();
+		$this->tmpl = array();
+		$this->mailcontent = array();
 		$this->tmpl['thx'] = $this->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['thxMessage']), '###POWERMAIL_THX###'); // Load HTML Template: THX (works on subpart ###POWERMAIL_THX###)
 		$this->tmpl['all'] = $this->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['all']), '###POWERMAIL_ALL###'); // Load HTML Template: ALL (works on subpart ###POWERMAIL_ALL###)
 		$this->tmpl['emails']['all'] = tslib_cObj::fileResource($this->conf['template.']['emails']); // Load HTML Template: Emails
@@ -274,6 +275,11 @@ class tx_powermail_submit extends tslib_pibase {
             // add plain text part
             if ($this->conf['emailformat.'][$this->subpart] != 'html') { // add plaintext only if emailformat "both" or "plain"
                 $plainText = $this->div->makePlain($this->mailcontent[$this->subpart]);
+
+	            if ($this->conf['emailformat.']['enableTagsInPlainTextPart'] == 1) {
+		            $plainText = htmlspecialchars_decode($plainText);
+	            }
+
                 if($this->useSwiftMailer) {
                     $this->mail->addPart($plainText, 'text/plain');
                 } else {

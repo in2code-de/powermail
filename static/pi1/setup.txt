@@ -13,6 +13,7 @@ plugin.tx_powermail_pi1 {
 	template.MultipleJS = {$plugin.powermail.template.MultipleJS}
 	emailformat.recipient_mail = {$plugin.powermail.emailformat.recipient_mail}
 	emailformat.sender_mail = {$plugin.powermail.emailformat.sender_mail}
+	emailformat.enableTagsInPlainTextPart = {$plugin.powermail.emailformat.enableTagsInPlainTextPart}
 	# ---
 	enable.unique = {$plugin.powermail.enable.unique}
 	email.noreply = {$plugin.powermail.email.noreply}
@@ -508,7 +509,7 @@ lib.powermailjs.10.marks.VALIDATOR_DISABLE.value = true
 
 page.includeJSlibs {
   powermail_jQuery.external = 1
-  powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js
+  powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
   powermail_jQueryTools.external = 1
   powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
 }
@@ -532,7 +533,7 @@ page.includeJSlibs {
 
 page.includeJSFooterlibs {
 	powermail_jQuery.external = 1
-	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js
+	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
 	powermail_jQueryTools.external = 1
 	powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
 }
