@@ -69,6 +69,7 @@
 			<label index="receiver">Receiver</label>
 			<label index="ip">IP-Address</label>
 			<label index="phpexcel_library">You need the extension phpexcel_library to use this feature!</label>
+			<label index="noPdf">This export format is currently not implemented. Please contact the powermail development team, if you want to sponsor this feature.</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="title">Powermail</label>
@@ -132,6 +133,7 @@
 			<label index="receiver">Empf\u00e4nger</label>
 			<label index="ip">IP-Adresse</label>
 			<label index="phpexcel_library">Bitte installieren Sie die Erweiterung phpexcel_library!</label>
+			<label index="noPdf">Dieses Exportformat ist noch nicht implementiert. Bitte kontaktieren Sie das Powermail Development Team, falls Sie diese Funktion sponsern wollen.</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="title">Powermail</label>

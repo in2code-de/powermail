@@ -123,6 +123,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"dateFormat": "' . htmlspecialchars($this->tsconfig['properties']['config.']['list.']['dateFormat']) . '",
 						"datetimeFormat": "' . htmlspecialchars($this->tsconfig['properties']['config.']['list.']['datetimeFormat']) . '",
 						"phpexcel_library_loaded": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '1' : '0') . ',
+						"pdfExport": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '0' : '0') . ',
 						"mailsOnCurrentPage": ' . $this->mailsOnCurrentPage() . ',
 						"uploadFolder": "' . htmlspecialchars($this->tsconfig['properties']['config.']['list.']['uploadFolder']) . '"
 					};
@@ -159,6 +160,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"receiver": "' . $LANG->getLL('receiver') . '",
 						"senderIP": "' . $LANG->getLL('ip') . '",
 						"noExcel": "' . $LANG->getLL('phpexcel_library') . '",
+						"noPdf": "' . $LANG->getLL('noPdf' , 'This export format is currently not implemented. Please contact the powermail development team, if you want to sponsor this feature.') . '",
 						"noMails1": "' . $LANG->getLL('nopowermails1') . '",
 						"noMails2": "' . $LANG->getLL('nopowermails2') . '"
 					};

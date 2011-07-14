@@ -38,6 +38,9 @@ Powermail.topMenu = {
 		if (!Powermail.statics.phpexcel_library_loaded) {
             var xls_button = {tag: 'a', href: '#', target:'_self', html: Powermail.statics.excelIcon, title: Powermail.lang.noExcel, cls: 'powermail_icon_inactive', onclick: 'msg(\'' + Powermail.lang.noExcel + '\'); return false;'};
 		}
+		if (!Powermail.statics.pdfExport) {
+            var pdf_button = {tag: 'a', href: '#', target:'_self', html: Powermail.statics.pdfIcon, title: Powermail.lang.noPdf, cls: 'powermail_icon_inactive', onclick: 'msg(\'' + Powermail.lang.noPdf + '\'); return false;'};
+		}
 		var powermailtopmenu = new Ext.Toolbar({
 			id: 'topmenu',
 		    width: 'auto',
