@@ -640,7 +640,7 @@ $TCA['tx_powermail_mails'] = array (
 			)
 		),
 		'Additional' => array (		
-			'exclude' => 1,		
+			'exclude' => 1,
 			'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_mails.Additional',		
 			'config' => array (
 				'type' => 'input',	
