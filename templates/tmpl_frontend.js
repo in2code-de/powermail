@@ -208,6 +208,11 @@ function checkTextArea(obj, maxLength) {
                             $(this).val('');
                         }
                     });
+	                $(this).bind('blur', function (i) {
+		                if (!$(this).attr('required') && $(this).val() === '') {
+			                $(this).val($(this).attr('placeholder'));
+		                }
+	                });
                 }
             });
             // empties the placeholder text at form submit if it hasn't changed
