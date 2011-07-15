@@ -40,7 +40,7 @@ plugin.powermail {
 	# cat=plugin.powermail_mainconfig/enable/0130; type=boolean; label= Log every mail in db: Disable logging, if you want only to get mails
 	allow.dblog = 1
 	
-	# cat=plugin.powermail_mainconfig/enable/0200; type=int; label= PID where to save logfiles: Enter a Page ID where the form values should be saved to the db (empty: same PID as form PID)
+	# cat=plugin.powermail_mainconfig/enable/0200; type=int+; label= PID where to save logfiles: Enter a Page ID where the form values should be saved to the db (empty: same PID as form PID)
 	PID.dblog = 
 	
 	# cat=plugin.powermail_mainconfig//0300; type=options[both,html,plain]; label= Receivermail HTML or Plain: If you use this value, emails to the receiver will be send in html or plaintext or both formats (both, html or plain)
@@ -112,7 +112,7 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//0580; type=boolean; label= Mime check for upload: Checks if uploaded file is realy the file which it should be (mime check)
 	upload.mimecheck = 1
 	
-	# cat=plugin.powermail_additionalconfig//0600; type=int; label= Allowed file size for upload: If you are using min. one upload field in frontend, you can set the allowed file size of the files (in kB)
+	# cat=plugin.powermail_additionalconfig//0600; type=int+; label= Allowed file size for upload: If you are using min. one upload field in frontend, you can set the allowed file size of the files (in kB)
 	upload.filesize = 1000
 	
 	# cat=plugin.powermail_additionalconfig//0610; type=boolean; label= Upload and attach: If checked, all files will be sent as an attachment to the receiver (if disabled, files will only stored on server)
