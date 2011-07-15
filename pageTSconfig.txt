@@ -24,9 +24,17 @@ tx_powermail_mod1.config {
         	format = Excel2007
         	encoding = utf-8
         	autoSize = 1
+        	enable = 1
         }
         csv {
         	encoding = utf-8
+        	enable = 1
+        }
+        html {
+        	enable = 1
+        }
+        pdf {
+        	enable = 0
         }
     }
 }

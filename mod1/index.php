@@ -123,9 +123,12 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"dateFormat": "' . htmlspecialchars($this->tsconfig['properties']['config.']['list.']['dateFormat']) . '",
 						"datetimeFormat": "' . htmlspecialchars($this->tsconfig['properties']['config.']['list.']['datetimeFormat']) . '",
 						"phpexcel_library_loaded": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '1' : '0') . ',
-						"pdfExport": ' . (t3lib_extMgm::isLoaded('phpexcel_library') ? '0' : '0') . ',
 						"mailsOnCurrentPage": ' . $this->mailsOnCurrentPage() . ',
-						"uploadFolder": "' . htmlspecialchars($this->tsconfig['properties']['config.']['list.']['uploadFolder']) . '"
+						"uploadFolder": "' . htmlspecialchars($this->tsconfig['properties']['config.']['list.']['uploadFolder']) . '",
+						"enableCsvExport": ' . ($this->tsconfig['properties']['config.']['export.']['csv.']['enable'] ? '1' : '0') . ',
+						"enableHtmlExport": ' . ($this->tsconfig['properties']['config.']['export.']['html.']['enable'] ? '1' : '0') . ',
+						"enableXlsExport": ' . ($this->tsconfig['properties']['config.']['export.']['xls.']['enable'] && t3lib_extMgm::isLoaded('phpexcel_library') ? '1' : '0') . ',
+						"enablePdfExport": ' . ($this->tsconfig['properties']['config.']['export.']['pdf.']['enable'] && t3lib_extMgm::isLoaded('phpexcel_library') ? '0' : '0') . '
 					};
 				
 					// Localisation:
@@ -147,7 +150,7 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"records": "' . $LANG->getLL('rows') . '",
 						"recordsPerPage": "' . $LANG->getLL('perpage') . '",
 						"createShortcut": "' . $LANG->getLL('shortcut') . '",
-						"exportAs": "' . $LANG->getLL('exportformat') . '",
+						"exportAs": "' . (($this->tsconfig['properties']['config.']['export.']['csv.']['enable'] || $this->tsconfig['properties']['config.']['export.']['html.']['enable'] || $this->tsconfig['properties']['config.']['export.']['xls.']['enable'] || $this->tsconfig['properties']['config.']['export.']['pdf.']['enable']) ? $LANG->getLL('exportformat') : '') . '",
 						"exportPdfText": "' . $LANG->getLL('exportpdf') . '",
 						"exportHtmlText": "' . $LANG->getLL('exporthtml') . '",
 						"exportCsvText": "' . $LANG->getLL('exportcsv') . '",

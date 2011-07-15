@@ -31,16 +31,10 @@ Powermail.noRows = {
 Powermail.topMenu = {
 	init: function() {
         var filterUrlPart = '&pid=' + Powermail.statics.pid + '&startDateTime=' + Powermail.statics.startDateTime + '&endDateTime=' + Powermail.statics.endDateTime;
-        var xls_button = {tag: 'a', href: '?export=xls' + filterUrlPart, target:'_self', html: Powermail.statics.excelIcon, title: Powermail.lang.exportExcelText};
-        var csv_button = {tag: 'a', href: '?export=csv' + filterUrlPart, target:'_self', html: Powermail.statics.csvIcon, title: Powermail.lang.exportCsvText};
-        var html_button = {tag: 'a', href: '?export=html' + filterUrlPart, target:'_self', html: Powermail.statics.htmlIcon, title: Powermail.lang.exportHtmlText};
-        var pdf_button = {tag: 'a', href: '?export=pdf' + filterUrlPart, target:'_self', html: Powermail.statics.pdfIcon, title: Powermail.lang.exportPdfText};
-		if (!Powermail.statics.phpexcel_library_loaded) {
-            var xls_button = {tag: 'a', href: '#', target:'_self', html: Powermail.statics.excelIcon, title: Powermail.lang.noExcel, cls: 'powermail_icon_inactive', onclick: 'msg(\'' + Powermail.lang.noExcel + '\'); return false;'};
-		}
-		if (!Powermail.statics.pdfExport) {
-            var pdf_button = {tag: 'a', href: '#', target:'_self', html: Powermail.statics.pdfIcon, title: Powermail.lang.noPdf, cls: 'powermail_icon_inactive', onclick: 'msg(\'' + Powermail.lang.noPdf + '\'); return false;'};
-		}
+        var xls_button = Powermail.statics.enableXlsExport ? {tag: 'a', href: '?export=xls' + filterUrlPart, target:'_self', html: Powermail.statics.excelIcon, title: Powermail.lang.exportExcelText} : {};
+        var csv_button = Powermail.statics.enableCsvExport ? {tag: 'a', href: '?export=csv' + filterUrlPart, target:'_self', html: Powermail.statics.csvIcon, title: Powermail.lang.exportCsvText} : {};
+        var html_button = Powermail.statics.enableHtmlExport ? {tag: 'a', href: '?export=html' + filterUrlPart, target:'_self', html: Powermail.statics.htmlIcon, title: Powermail.lang.exportHtmlText} : {};
+        var pdf_button = Powermail.statics.enablePdfExport ? {tag: 'a', href: '?export=pdf' + filterUrlPart, target:'_self', html: Powermail.statics.pdfIcon, title: Powermail.lang.exportPdfText} : {};
 		var powermailtopmenu = new Ext.Toolbar({
 			id: 'topmenu',
 		    width: 'auto',
