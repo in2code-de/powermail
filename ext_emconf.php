@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "powermail".
 #
-# Auto generated 15-07-2011 16:29
+# Auto generated 15-07-2011 16:32
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next

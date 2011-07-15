@@ -145,11 +145,6 @@ function checkTextArea(obj, maxLength) {
         );
 
         if (!###VALIDATOR_DISABLE###) {
-            if (($.browser.mozilla && $.browser.version.slice(0,3) == '2.0') || ($.browser.webkit && $.browser.version.slice(0,3) >= 534)) {
-                // workaround for jquery tools 1.2.5 bug with firefox 4.0 & chrome 11
-                $('.tx_powermail_pi1_form').attr('novalidate', 'novalidate');
-            }
-		    //console.info($.browser);
             powermail_validator = $('.tx_powermail_pi1_form').validator({
                 position: 'top right',
                 offset: [-5, -20],
