@@ -40,7 +40,6 @@ plugin.tx_powermail_pi1 {
 	upload.attachment = {$plugin.powermail.upload.attachment}
 	upload.delete = {$plugin.powermail.upload.delete}
 	clear.session = {$plugin.powermail.clear.session}
-	js.mandatorydivclass = {$plugin.powermail.js.mandatorydivclass}
 	field.checkboxJS = {$plugin.powermail.field.checkboxJS}
 	field.checkboxSplitSign.noTrimWrap = |, ||
 	rte.parse = {$plugin.powermail.rte.parse}
