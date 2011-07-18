@@ -101,7 +101,7 @@ div.tx_powermail_pi1_fieldwrap_html fieldset legend.tx_powermail_pi1_fieldwrap_h
     border:1px solid #00559E;
     font-size:11px;
     color:#fff;
-    text-decoration: none;
+    white-space: normal;
     /* CSS3 spicing for mozilla and webkit */
     -moz-border-radius:5px;
     -webkit-border-radius:5px;

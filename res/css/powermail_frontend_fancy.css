@@ -215,6 +215,7 @@ legend.tx_powermail_pi1_fieldwrap_html_radio_title a:hover dfn {
 	color: #444;
 	font-style: normal;
 	font-size: 0.8em;
+    white-space: normal;
 	background: #ffffff; /* old browsers */
 	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5));
