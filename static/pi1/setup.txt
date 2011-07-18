@@ -512,6 +512,8 @@ page.includeJSlibs {
   powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
   powermail_jQueryTools.external = 1
   powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+  powermail_jQueryToolsTabs.external = 1
+  powermail_jQueryToolsTabs = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
 }
 
     // if powermail is on current page and t3jquery is NOT loaded include validation js into page footer
@@ -527,6 +529,7 @@ page.jsFooterInline.10 < lib.powermailjs
 page.includeJSlibs {
   powermail_jQuery >
   powermail_jQueryTools >
+  powermail_jQueryToolsTabs >
 }
 
 	// Include needed JS libraries to footer
@@ -536,6 +539,8 @@ page.includeJSFooterlibs {
 	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
 	powermail_jQueryTools.external = 1
 	powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+	powermail_jQueryToolsTabs.external = 1
+	powermail_jQueryToolsTabs = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
 }
 
 [end]
@@ -558,6 +563,15 @@ page.includeJSlibs.powermail_jQueryTools >
 
 [end]
 
+[globalVar = LIT:1 > {$plugin.powermail.js.includeJqueryToolsTabs}]
+
+	// remove jQueryTools Tab library
+
+page.includeJSFooterlibs.powermail_jQueryToolsTabs >
+page.includeJSlibs.powermail_jQueryToolsTabs >
+
+[end]
+
 [userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jquery(true)]
 
     // if powermail is on current page and t3jquery is loaded include jquery and validation js using t3jquery
@@ -575,6 +589,12 @@ page.31320 {
     20 {
         userFunc = tx_t3jquery->addJS
 	    jsurl = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+        tofooter = 0
+    }
+    25 = USER
+    25 {
+        userFunc = tx_t3jquery->addJS
+	    jsurl = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
         tofooter = 0
     }
     30 = USER
@@ -595,6 +615,7 @@ page.31320 {
 page.31320 {
 	10.tofooter = 1
 	20.tofooter = 1
+	25.tofooter = 1
 	30.tofooter = 1
 }
 
@@ -605,5 +626,14 @@ page.31320 {
     // if powermail is on current page and t3jquery is loaded and NOT in CDN Mode delete jquery tools
 
 page.31320.20 >
+page.31320.25 >
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.includeJqueryToolsTabs}]
+
+	// remove jQueryTools tab library if not needed
+
+page.31320.25 >
 
 [end]
