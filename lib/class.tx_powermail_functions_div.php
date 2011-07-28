@@ -292,15 +292,15 @@ class tx_powermail_functions_div {
 	 * Function checkMX() checks if a domain exists
 	 *
 	 * @param	string		$email: string like "aaa@bbb.cc"
-	 * @param	string		$record: Check for a special function
 	 * @return	boolean
 	 */
-	public function checkMX($email, $record = 'NS') {
+	public function checkMX($email) {
         if (function_exists('checkdnsrr')) { // if function checkdnsrr() exist (not available on windows systems)
-            $emailparts = explode('@', $email);
-            $emailparts = explode('.', $emailparts[1]);
-            $emailparts = $emailparts[sizeof($emailparts) - 2] . '.' . $emailparts[sizeof($emailparts) - 1];
-            return (checkdnsrr($emailparts, $record) == 1);
+	        return !!checkdnsrr(array_pop(explode('@',$email)),'MX');
+            //$emailparts = explode('@', $email);
+            //$emailparts = explode('.', $emailparts[1]);
+            //$emailparts = $emailparts[sizeof($emailparts) - 2] . '.' . $emailparts[sizeof($emailparts) - 1];
+            //return (checkdnsrr($emailparts[1], $record) == 1);
         } else { // function checkdnsrr() don't exist
             return TRUE; // so always return TRUE
         }
