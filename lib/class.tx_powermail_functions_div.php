@@ -289,24 +289,6 @@ class tx_powermail_functions_div {
 	}
 
 	/**
-	 * Function checkMX() checks if a domain exists
-	 *
-	 * @param	string		$email: string like "aaa@bbb.cc"
-	 * @return	boolean
-	 */
-	public function checkMX($email) {
-        if (function_exists('checkdnsrr')) { // if function checkdnsrr() exist (not available on windows systems)
-	        return !!checkdnsrr(array_pop(explode('@',$email)),'MX');
-            //$emailparts = explode('@', $email);
-            //$emailparts = explode('.', $emailparts[1]);
-            //$emailparts = $emailparts[sizeof($emailparts) - 2] . '.' . $emailparts[sizeof($emailparts) - 1];
-            //return (checkdnsrr($emailparts[1], $record) == 1);
-        } else { // function checkdnsrr() don't exist
-            return TRUE; // so always return TRUE
-        }
-    }
-
-	/**
 	 * Function charset() changes content with utf8_decode or utf8_encode or nothing
 	 *
 	 * @param	string		$content: any string
