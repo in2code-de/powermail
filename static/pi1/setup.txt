@@ -182,12 +182,14 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.date}
 			}
 			
 			datetime = TEXT
 			datetime {
 				field = datetime
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.datetime}
 			}
 
@@ -203,12 +205,14 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.date}
 			}
 			
 			datetime = TEXT
 			datetime {
 				field = datetime
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.datetime}
 			}
 
@@ -224,12 +228,14 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.date}
 			}
 			
 			datetime = TEXT
 			datetime {
 				field = datetime
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.datetime}
 			}
 
@@ -245,12 +251,14 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.date}
 			}
 			
 			datetime = TEXT
 			datetime {
 				field = datetime
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.datetime}
 			}
 
@@ -266,12 +274,14 @@ plugin.tx_powermail_pi1 {
 			date = TEXT
 			date {
 				field = date
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.date}
 			}
 		
 			datetime = TEXT
 			datetime {
 				field = datetime
+				strftime.GMT = 1
 				strftime = {$plugin.powermail.format.datetime}
 			}
 

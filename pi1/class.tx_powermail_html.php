@@ -658,6 +658,32 @@ class tx_powermail_html extends tslib_pibase {
 		//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
+
+		$value = '';
+
+		// use value from flexform if not empty
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) != 0) {
+			$value = intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'));
+			if($value > 0) {
+				// convert timestamp to gmt timestamp
+				$value = gmmktime(date("H", $value), date("i", $value), date("s", $value), date("m", $value), date("d", $value), date("Y", $value));
+			}
+		}
+
+		if ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) {
+			$value = intval(strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]));
+			if($value > 0) {
+				// convert timestamp to gmt timestamp
+				$value = gmmktime(date("H", $value), date("i", $value), date("s", $value), date("m", $value), date("d", $value), date("Y", $value));
+			}
+		}
+
+		if (isset($this->piVarsFromSession['uid' . $this->uid])) {
+			$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+		}
+
+		$this->markerArray['###VALUE###'] = 'value="' . $value . '" ';
+
 		$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" ';
 		
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') != 0) {
@@ -718,16 +744,29 @@ class tx_powermail_html extends tslib_pibase {
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
 		
-		// Set value
-		if (intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) != 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) {
-			$value = intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')); // add value to markerArray
+		$value = '';
+
+		// use value from flexform if not empty
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) != 0) {
+			$value = intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'));
+			if($value > 0) {
+				// convert timestamp to gmt timestamp
+				$value = gmmktime(date("H", $value), date("i", $value), date("s", $value), date("m", $value), date("d", $value), date("Y", $value));
+			}
 		}
+
 		if ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) {
 			$value = intval(strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]));
+			if($value > 0) {
+				// convert timestamp to gmt timestamp
+				$value = gmmktime(date("H", $value), date("i", $value), date("s", $value), date("m", $value), date("d", $value), date("Y", $value));
+			}
 		}
+
 		if (isset($this->piVarsFromSession['uid' . $this->uid])) {
 			$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
 		}
+
 		$this->markerArray['###VALUE###'] = 'value="' . $value . '" ';
 		
 		$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" ';

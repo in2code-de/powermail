@@ -29,8 +29,8 @@ class tx_powermail_geoip extends tslib_pibase {
 
 	var $extKey = 'powermail';
     var $scriptRelPath = 'pi1/class.tx_powermail_pi1.php'; // Path to pi1 to get locallang.xml from pi1 folder
-	var $ipOverride = 0; //'83.236.183.130'; // set a hardcoded user ip (only for testing)
-	
+	var $ipOverride = false;
+	//var $ipOverride = '83.236.183.130';// set a hardcoded user ip (only for testing)
 	
 	// Main Function for inserting datas to other tables
 	function main($conf) {
