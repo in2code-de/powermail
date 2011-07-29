@@ -386,7 +386,7 @@
 			<label index="pagebrowser_inner"> van </label>
 			<label index="JSvalidation_label_required">Dit is een verplicht veld</label>
 			<label index="JSvalidation_label_validate_number">Vul een correct cijfer in dit veld in</label>
-			<label index="JSvalidation_label_validate_digits">Gebruik alleen cijfers in dit veld. Vermijd spaties en andere karakter zoals punten en komma\'s.</label>
+			<label index="JSvalidation_label_validate_digits">Gebruik alleen cijfers in dit veld. Vermijd spaties en andere karakter zoals punten en kommas.</label>
 			<label index="JSvalidation_label_validate_alpha">Gebruik alleen letters (a-z) in dit veld</label>
 			<label index="JSvalidation_label_validate_alphanum">Gebruik alleen  letters (a-z) of cijfers (0-9) in dit veld. Geen spatied of andere karakters toegestaan.</label>
 			<label index="JSvalidation_label_validate_date">Vul een correcte datum in.</label>
