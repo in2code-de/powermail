@@ -200,7 +200,7 @@ class tx_powermail_submit extends tslib_pibase {
                     ->setCharset($GLOBALS['TSFE']->metaCharset);
 
                 if ($this->maildata['cc'] !== ''){
-                    $this->mail->setCc(t3lib_div::trimExplode(',', $this->maildata['cc']));
+                    $this->mail->setBcc(t3lib_div::trimExplode(',', $this->maildata['cc']));
                 }
 
                 if ($replyToEmail !== '') {
