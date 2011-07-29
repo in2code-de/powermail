@@ -291,7 +291,7 @@ class tx_powermail_form extends tslib_pibase {
 			*/
 
 			// e.g. 3 of 8
-			$content = $this->multiple['currentpage'] . $this->pi_getLL('pagebrowser_inner') . $this->multiple['numberoffieldsets']; // 1 of 4
+			$content = $this->multiple['currentpage'] . ' ' . $this->pi_getLL('pagebrowser_inner') . ' ' . $this->multiple['numberoffieldsets']; // 1 of 4
 			$content = $this->cObj->wrap($content, $this->conf['pagebrowser.']['wrap'], '|'); // wrap this
             $this->hookPageBrowser($content);
 
