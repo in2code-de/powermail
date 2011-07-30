@@ -176,7 +176,7 @@ class tx_powermail_sessions extends tslib_pibase {
 						INNER JOIN tt_content
 						ON
 							tx_powermail_fieldsets.tt_content = tt_content.uid
-							AND tt_content = ' . intval($contentElementData['uid'])
+							AND tt_content = ' . intval((isset($contentElementData['_LOCALIZED_UID'])? $contentElementData['_LOCALIZED_UID'] : $contentElementData['uid']))
 							. tslib_cObj::enableFields('tt_content') . '
 
 						WHERE
@@ -271,5 +271,4 @@ class tx_powermail_sessions extends tslib_pibase {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/class.tx_powermail_sessions.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/lib/class.tx_powermail_sessions.php']);
 }
-
 ?>
