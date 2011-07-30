@@ -678,7 +678,7 @@ class tx_powermail_html extends tslib_pibase {
 			}
 		}
 
-		if (isset($this->piVarsFromSession['uid' . $this->uid])) {
+		if (isset($this->piVarsFromSession['uid' . $this->uid]) && $this->piVarsFromSession['uid' . $this->uid] != '') {
 			$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
 		}
 
@@ -763,7 +763,7 @@ class tx_powermail_html extends tslib_pibase {
 			}
 		}
 
-		if (isset($this->piVarsFromSession['uid' . $this->uid])) {
+		if (isset($this->piVarsFromSession['uid' . $this->uid]) && $this->piVarsFromSession['uid' . $this->uid] != '') {
 			$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
 		}
 

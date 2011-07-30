@@ -121,7 +121,6 @@ function checkTextArea(obj, maxLength) {
 							var secondsToAdd = hour * 3600 + minute * 60;
 							var timestamp = (new Date(year, month, day, hour, minute, 0).getTime() / 1000);
 							var timezoneOffset = new Date(year, month, day, hour, minute, 0).getTimezoneOffset() * 60;
-							//console.log(timezoneOffset);
 							input.prev('input').val(timestamp - timezoneOffset);
 						}
 						return true;
