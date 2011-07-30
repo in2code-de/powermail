@@ -71,7 +71,7 @@ class tx_powermail_markers extends tslib_pibase {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 				'tx_powermail_fields.uid AS uid',
 				'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid',
-				'tx_powermail_fieldsets.tt_content = ' . $this->cObj->data['uid'] . ' AND tx_powermail_fields.deleted = 0 AND tx_powermail_fields.hidden = 0 ',
+				'tx_powermail_fieldsets.tt_content = ' . intval($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . ' AND tx_powermail_fields.deleted = 0 AND tx_powermail_fields.hidden = 0 ',
 				'',
 				'tx_powermail_fieldsets.sorting,tx_powermail_fields.sorting',
 				''
@@ -86,7 +86,6 @@ class tx_powermail_markers extends tslib_pibase {
 				}
 				$this->sessiondata = array_merge($orderedSessionData, $this->sessiondata);
 			}
-
 
 			// normal markers
             foreach ($this->sessiondata as $k => $v) { // One loop for every piVar
@@ -208,7 +207,7 @@ class tx_powermail_markers extends tslib_pibase {
 		if ($res) {
 			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		}
-		if (!empty($row['title'])) { // if title was foun
+		if (!empty($row['title'])) { // if title was found
 			return $this->div->parseFunc($row['title'], $this->cObj, $this->conf['label.']['parse']); // return title
 		} else { // no label to field found (Countryzoneselect, etc...)
 			return ''; // empty return
@@ -216,7 +215,7 @@ class tx_powermail_markers extends tslib_pibase {
     }
 
     /**
-	 * Function DynamicLocalLangMarker() to get automaticly a marker from locallang.xml (###LOCALLANG_BLABLA### from locallang.xml: locallangmarker_blabla
+	 * Function DynamicLocalLangMarker() to get automaticaly a marker from locallang.xml (###LOCALLANG_BLABLA### from locallang.xml: locallangmarker_blabla
 	 *
 	 * @param	array		Locallang array
 	 * @return	string		Label from locallang
@@ -256,7 +255,7 @@ class tx_powermail_markers extends tslib_pibase {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 				'uid',
 				'tx_powermail_fields',
-				$where_clause = '( pid = ' . $GLOBALS['TSFE']->id . ' AND formtype = "hidden"' . tslib_cObj::enableFields('tx_powermail_fields') . ') OR ( pid = ' . $GLOBALS['TSFE']->id . ' AND deleted = 1 )',
+				$where_clause = '( pid = ' . intval($GLOBALS['TSFE']->id) . ' AND formtype = "hidden"' . tslib_cObj::enableFields('tx_powermail_fields') . ') OR ( pid = ' . intval($GLOBALS['TSFE']->id) . ' AND deleted = 1 )',
 				$groupBy = '',
 				$orderBy = '',
 				$limit = ''
