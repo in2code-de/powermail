@@ -132,7 +132,7 @@ class tx_powermail_pi1 extends tslib_pibase {
 				else $this->content = $this->check(); // Error message
 			}
 			
-		} else { // No piVars so show form
+		} elseif(empty($this->piVars['mailID'])) { // No piVars so show form
 			if (!$this->check()) $this->content = $this->form->main($this->conf, $this->sessionfields, $this->cObj); // Show form
 			else $this->content = $this->check(); // Error message
 		}
