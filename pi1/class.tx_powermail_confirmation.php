@@ -74,6 +74,7 @@ class tx_powermail_confirmation extends tslib_pibase {
 		$this->content = $this->dynamicMarkers->main($this->conf, $this->cObj, $this->content); // Fill dynamic locallang or typoscript markers
 		$this->content = preg_replace("|###.*?###|i", "", $this->content); // Finally clear not filled markers
 		if (!$this->div->subpartsExists($this->tmpl)) $this->content = $this->pi_getLL('error_templateNotFound', 'Template not found, check path to your powermail templates').'<br />';
+
 		return $this->content; // return HTML
 	}
 	

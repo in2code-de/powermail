@@ -58,7 +58,7 @@ class tx_powermail_submit extends tslib_pibase {
 		
 		// Configuration
 		$this->noReplyEmail = str_replace('###DOMAIN###', str_replace(array('www.','www1.','www2.','www3.','www4.','www5.'), '', $_SERVER['SERVER_NAME']), $this->conf['email.']['noreply']); // no reply email address from TS setup
-		$this->sessiondata = $GLOBALS['TSFE']->fe_user->getKey('ses',$this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'])); // Get piVars from session
+		$this->sessiondata = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'])); // Get piVars from session
 		$this->emailSettings(); // emailSettings
 		$this->markerArray = array();
 		
@@ -79,12 +79,14 @@ class tx_powermail_submit extends tslib_pibase {
 				$this->sendMail('recipient_mail'); // 2a. Email: Generate the Mail for the recipient (if allowed via TS)
 			}
 			if ($this->cObj->cObjGetSingle($this->conf['allow.']['email2sender'], $this->conf['allow.']['email2sender.']) // email to sender allowed in ts
-				&& t3lib_div::validEmail($this->sessiondata[$this->cObj->data['tx_powermail_sender']]) // senderemail is defined in backend and is an email address
+				&& t3lib_div::validEmail($this->sessiondata[$this->cObj->data['tx_powermail_sender']]) // sender email is defined in backend and is an valid email address
 				&& (!empty($this->subject_s) || !empty($this->cObj->data['tx_powermail_mailsender'])) // subject and body may not be empty to the same time
 			) {
 				$this->sendMail('sender_mail'); // 2b. Email: Generate the Mail for the sender (if allowed via TS and sender is selected and email exists)
 			}
-			if ($this->cObj->cObjGetSingle($this->conf['allow.']['dblog'], $this->conf['allow.']['dblog.'])) $this->saveMail(); // 2c. Safe values to DB (if allowed via TS)
+			if ($this->cObj->cObjGetSingle($this->conf['allow.']['dblog'], $this->conf['allow.']['dblog.'])) {
+                $this->saveMail(); // 2c. Safe values to DB (if allowed via TS)
+            }
 			
 		} else { // Spam hook is true (maybe spam recognized)
 			$this->markerArray = array(); // clear markerArray
@@ -353,7 +355,7 @@ class tx_powermail_submit extends tslib_pibase {
 		
 		// 1. Field receiver (and sendername!)
 		if ($this->cObj->data['tx_powermail_recipient']) { // If receivers are listed in field receiver
-			$emails = str_replace(array("\r\n", "\n\r", "\n", "\r", ";", "|", "+"), ',', $this->cObj->data['tx_powermail_recipient']); // commaseparated list of emails
+			$emails = str_replace(array("\r\n", "\n\r", "\n", "\r", ";", "|"), ',', $this->cObj->data['tx_powermail_recipient']); // commaseparated list of emails
 			$emails = $this->dynamicMarkers->main($this->conf, $this->cObj, $emails); // set dynamic markers receiver
 			$emails = $this->div->marker2value($emails, $this->sessiondata); // make markers available in email receiver field
 			$emailarray = t3lib_div::trimExplode(',', $emails, 1); // write every part to an array
@@ -460,21 +462,6 @@ class tx_powermail_submit extends tslib_pibase {
 				  'section' => '' // clear section value if any
 				);
 				$link = t3lib_div::locationHeaderUrl($this->cObj->typolink('x', $typolink_conf)); // Create target url
-			
-				/*
-				$link = $this->cObj->typolink('x', $typolink_conf); // Create target url
-				
-				if (intval($target) > 0 || strpos($target, 'fileadmin/') !== false) { // PID (intern link) OR file
-					if (!strstr($link, '://')) { // if no http:// could be found in current link
-						$link = ($GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] ? $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] : t3lib_div::getIndpEnv('TYPO3_SITE_URL')) . $link; // Add baseurl or host in front of the link
-					} 
-				
-				} elseif (t3lib_div::validEmail($target)) { // if email recognized
-					$link = 'mailto:' . $link; // add mailto: 
-				}
-				
-				$link = preg_replace('#([^:])//#', '$1/', $link); // strip out "//"
-				*/
 
 				// Set Header for redirect
 				header('Location: ' . $link); 
