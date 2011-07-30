@@ -137,7 +137,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 		);
 		if ($res) { // If there is a result
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every field
-				t3lib_div::devlog('class found: ' . $row['class'], 'powermail', 0);
+				//t3lib_div::devlog('class found: ' . $row['class'], 'powermail', 0);
 				/**
 				 * Modified for Bel: do not validate on server side if class of field is set to "donotcheckmandatory"
 				 */
