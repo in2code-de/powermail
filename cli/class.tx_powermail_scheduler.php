@@ -33,6 +33,8 @@
 class tx_powermail_scheduler extends tx_scheduler_Task {
 	
 	public $lang;
+
+	private $msg;
 	
 	/**
 	* Function executed from the Scheduler.
