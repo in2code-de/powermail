@@ -141,11 +141,10 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
                 $success = $mail->send();
             }
 			if ($success) {
-				$this->msg = 'Mail successfully sent';
+				$this->msg = 'Mail successfully sent. Generated and attached file: ' . $file;
 			} else {
-				$this->msg = 'Powermail Error in sending mail';
+				$this->msg = 'Powermail Error in sending mail. Generated file: ' . $file;
 			}
-			t3lib_div::devlog('file: ' . $file, 'powermail', 0);
             unlink($file);
 
 		} else {
