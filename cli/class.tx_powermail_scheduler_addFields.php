@@ -40,7 +40,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 	/**
 	* Add additional fields to the scheduler
 	*
-	* @return    bool
+	* @return    array
 	*/
     public function getAdditionalFields(array &$taskInfo, $task, tx_scheduler_Module $parentObject) {
     	$additionalFields = array(); 

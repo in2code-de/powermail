@@ -157,10 +157,10 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 	/**
 	* Return message for backend
 	*
-	* @return    bool
+	* @return    string
 	*/
 	public function getAdditionalInformation() {
-		return $this->msg;
+		return 'message: ' . $this->msg;
 	}
 }
 
