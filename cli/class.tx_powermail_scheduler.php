@@ -145,6 +145,7 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 			} else {
 				$this->msg = 'Powermail Error in sending mail';
 			}
+			t3lib_div::devlog('file: ' . $file, 'powermail', 0);
             unlink($file);
 
 		} else {
