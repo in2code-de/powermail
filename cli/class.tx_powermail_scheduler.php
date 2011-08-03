@@ -108,9 +108,9 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 			$export->overwriteFilename = $tsconfig['attachedFilename']; // overwrite filename with this
 		}
 		$export->main(); // generate file
+		$file = t3lib_div::getFileAbsFileName('typo3temp/' . $export->filename); // read filename
 
 		if ($export->resNumRows > 0) { // if file is not empty
-            $file = t3lib_div::getFileAbsFileName('typo3temp/' . $export->filename); // read filename
 			// Generate the mail
             if (t3lib_div::compat_version('4.5')){
                 // new TYPO3 swiftmailer code
@@ -147,12 +147,12 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 			} else {
 				$this->msg = 'Powermail Error in sending mail. Generated file: ' . $file;
 			}
-            unlink($file);
 
 		} else {
 			$this->msg = 'There are no mails to export in the last ' . intval($tsconfig['time']) . ' seconds in pid ' . $this->pid;
 		}
-		t3lib_div::devlog($this->msg, 'powermail', 0);
+		//t3lib_div::devlog($this->msg, 'powermail', 0);
+		unlink($file);
 		return true;
 	}
 	
@@ -162,7 +162,19 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 	* @return    string
 	*/
 	public function getAdditionalInformation() {
-		return '';
+		$format = '';
+		switch ($this->format) {
+			case 'email_csv':
+				$format = 'CSV';
+				break;
+			case 'email_xls':
+				$format = 'XLS';
+				break;
+			case 'email_html':
+				$format = 'HTML';
+				break;
+		}
+		return 'Send powermails from page ' . $this->pid . ' to ' . $this->email . ' as ' . $format;
 	}
 }
 
