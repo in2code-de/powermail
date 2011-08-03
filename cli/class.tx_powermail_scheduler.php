@@ -162,7 +162,7 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 	* @return    string
 	*/
 	public function getAdditionalInformation() {
-		return 'message: ' . $this->msg;
+		return 'message: ' . time() . $this->msg;
 	}
 }
 
