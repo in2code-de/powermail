@@ -267,8 +267,6 @@ class tx_powermail_export {
 		// Set absolute path to typo3temp dir
 		$this->absFilePath = PATH_site . 'typo3temp/';
 
-		$this->tempFilename = t3lib_div::tempnam($this->extKey);
-
 		$this->timeFilter = '';
 		if ($this->startDateTime > 0){
 			$this->timeFilter .= ' AND crdate > ' . intval($this->startDateTime);
@@ -907,6 +905,8 @@ tr.odd td{background:#eee;}
 					$excelObject->getActiveSheet()->getColumnDimension($excelColNames[$autosize])->setAutoSize(true);
 				}
 			}
+
+			$this->tempFilename = t3lib_div::tempnam($this->extKey);
 
 			if ($this->xlsFileFormat != 'Excel2007') {
 				// Save Excel 5 file
