@@ -117,7 +117,7 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
                 $mail = t3lib_div::makeInstance('t3lib_mail_Message');
                 $mail->setTo(array($tsconfig['email_receiver']))
                     ->setFrom(array($tsconfig['email_sender'] => $tsconfig['sender']))
-                    ->setSubject($tsconfig['subject'] . $file)
+                    ->setSubject($tsconfig['subject'])
                     ->addPart($tsconfig['body'], 'text/plain')
                     ->setBody($tsconfig['body'], 'text/html')
                     ->attach(Swift_Attachment::fromPath($file))
