@@ -126,7 +126,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
         );
 
         // Write the code for the filename field
-        $fieldID = 'task_pid';
+        $fieldID = 'task_filename';
         $fieldCode = '<input type="text" name="tx_scheduler[filename]" id="' . $fieldID . '" value="' . $taskInfo['filename'] . '" />';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
