@@ -117,7 +117,7 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
                 $mail = t3lib_div::makeInstance('t3lib_mail_Message');
                 $mail->setTo(array($tsconfig['email_receiver']))
                     ->setFrom(array($tsconfig['email_sender'] => $tsconfig['sender']))
-                    ->setSubject($tsconfig['subject'])
+                    ->setSubject($tsconfig['subject'] . $file)
                     ->addPart($tsconfig['body'], 'text/plain')
                     ->setBody($tsconfig['body'], 'text/html')
                     ->attach(Swift_Attachment::fromPath($file))
@@ -152,7 +152,7 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 		} else {
 			$this->msg = 'There are no mails to export in the last ' . intval($tsconfig['time']) . ' seconds in pid ' . $this->pid;
 		}
-		
+		t3lib_div::devlog($this->msg, 'powermail', 0);
 		return true;
 	}
 	
@@ -162,7 +162,7 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 	* @return    string
 	*/
 	public function getAdditionalInformation() {
-		return 'message: ' . time() . $this->msg;
+		return '';
 	}
 }
 
