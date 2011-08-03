@@ -150,6 +150,7 @@ class tx_powermail_submit extends tslib_pibase {
         $this->mailcontent[$this->subpart] = $this->dynamicMarkers->main($this->conf, $this->cObj, $this->mailcontent[$this->subpart]); // Fill dynamic locallang or typoscript markers
         $this->mailcontent[$this->subpart] = preg_replace('|###.*?###|i', '', $this->mailcontent[$this->subpart]); // Finally clear not filled markers
         $this->maildata = array();
+        $this->attachments = array();
 
         // Set emails and names
         if ($this->subpart == 'recipient_mail') { // default settings: mail to receiver
@@ -252,11 +253,7 @@ class tx_powermail_submit extends tslib_pibase {
                             } else {
                                 $this->mail->addAttachment($attachment);
                             }
-                            if ($this->conf['upload.']['delete'] == 1) {
-                                //t3lib_div::devlog($file, 'powermail', 0);
-                                unlink($file); // delete attachment
-	                            //t3lib_div::devlog('delete file: ' . $file, 'powermail', 0);
-                            }
+	                        $this->attachments[] .= $attachment;
                         }
                     }
                 }
@@ -306,6 +303,12 @@ class tx_powermail_submit extends tslib_pibase {
 	            $this->mail->send();
 	        } else {
 		        $this->mail->send($receiver);
+	        }
+	        if ($this->conf['upload.']['delete'] == 1 && count($this->attachments) > 0) {
+		        foreach ($this->attachments as $attachment) {
+					t3lib_div::devlog('delete file ' . $attachment, 'powermail', 0);
+					unlink($attachment); // delete attachment
+		        }
 	        }
         }
 	}
