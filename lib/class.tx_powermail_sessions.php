@@ -187,7 +187,6 @@ class tx_powermail_sessions extends tslib_pibase {
 							)' . tslib_cObj::enableFields('tx_powermail_fields');
 
 			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-			t3lib_div::devlog('query: ' . $query, 'powermail', 0);
 
 			if ($res) { // If there is a result
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every uploadfield
