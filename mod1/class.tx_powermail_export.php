@@ -958,34 +958,31 @@ tr.odd td{background:#eee;}
 	}
 
 	/**
-	 * Set filenames for export and stores result in $this->filename
+	 * Set filename for export and stores result in $this->filename
 	 *
 	 * @return	void
 	 */
 	protected function setFilenames() {
-
 		// overwrite filename if wanted
 		if (!empty($this->overwriteFilename)) {
 			$this->filename = $this->overwriteFilename;
-			return;
+		} else {
+			// create filename
+			switch ($this->export) {
+				case 'xls':
+				case 'email_xls':
+					$this->filename = $this->cleanFileName($this->pageTitle . $this->timeFilePrefix) . $this->xlsFileSuffix;
+					break;
+				case 'csv':
+				case 'email_csv':
+					$this->filename = $this->cleanFileName($this->pageTitle . $this->timeFilePrefix) . $this->csvFileSuffix;
+					break;
+				case 'html':
+				case 'email_html':
+					$this->filename = $this->cleanFileName($this->pageTitle . $this->timeFilePrefix) . $this->htmlFileSuffix;
+					break;
+			}
 		}
-
-		// create filename
-		switch ($this->export) {
-			case 'xls':
-			case 'email_xls':
-				$this->filename = $this->cleanFileName($this->pageTitle . $this->timeFilePrefix) . $this->xlsFileSuffix;
-				break;
-			case 'csv':
-			case 'email_csv':
-				$this->filename = $this->cleanFileName($this->pageTitle . $this->timeFilePrefix) . $this->csvFileSuffix;
-				break;
-			case 'html':
-			case 'email_html':
-				$this->filename = $this->cleanFileName($this->pageTitle . $this->timeFilePrefix) . $this->htmlFileSuffix;
-				break;
-		}
-
 	}
 
 	/**

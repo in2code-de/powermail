@@ -104,8 +104,21 @@ class tx_powermail_scheduler extends tx_scheduler_Task {
 		$export->endDateTime = time(); // set endtime
 		$export->export = (stristr($tsconfig['format'], 'email_') ? $tsconfig['format'] : $this->tmp_defaultconfig['format']); // set
 		$export->LANG = $LANG;
-		if (!empty($tsconfig['attachedFilename'])) {
-			$export->overwriteFilename = $tsconfig['attachedFilename']; // overwrite filename with this
+		if (!empty($this->filename)) {
+			$formatExtension = '';
+			switch ($this->format) {
+				case 'email_csv':
+					$formatExtension = '.csv';
+					break;
+				case 'email_xls':
+					$formatExtension = '.xls';
+					break;
+				case 'email_html':
+					$formatExtension = '.html';
+					break;
+			}
+
+			$export->overwriteFilename = $this->filename . $formatExtension; // overwrite filename with this
 		}
 		$export->main(); // generate file
 		$file = t3lib_div::getFileAbsFileName('typo3temp/' . $export->filename); // read filename

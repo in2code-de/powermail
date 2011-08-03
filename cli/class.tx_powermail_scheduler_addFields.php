@@ -53,6 +53,14 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
             }
         }
 		
+        if (empty($taskInfo['filename'])) {
+            if ($parentObject->CMD == 'edit') {
+                $taskInfo['filename'] = $task->filename;
+            } else {
+                $taskInfo['filename'] = '';
+            }
+        }
+
         if (empty($taskInfo['email'])) {
             if ($parentObject->CMD == 'edit') {
                 $taskInfo['email'] = $task->email;
@@ -115,6 +123,14 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Page ID with powermails'
+        );
+
+        // Write the code for the filename field
+        $fieldID = 'task_pid';
+        $fieldCode = '<input type="text" name="tx_scheduler[filename]" id="' . $fieldID . '" value="' . $taskInfo['filename'] . '" />';
+        $additionalFields[$fieldID] = array(
+            'code'     => $fieldCode,
+            'label'    => 'Filename for export without extension (leave empty for automatic generated filename)'
         );
 
         // Write the code for the email field
@@ -187,6 +203,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 	*/
     public function validateAdditionalFields(array &$submittedData, tx_scheduler_Module $parentObject) {
         $submittedData['pid'] = intval($submittedData['pid']); // should be integer
+        $submittedData['filename'] = trim($submittedData['filename']); // should be integer
         $submittedData['timeframe'] = intval($submittedData['timeframe']); // should be integer
         if (!t3lib_div::validEmail($submittedData['email'])) { // should be a valid email address
 			$submittedData['email'] = ''; // clean
@@ -204,6 +221,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 	*/
     public function saveAdditionalFields(array $submittedData, tx_scheduler_Task $task) {
         $task->pid = $submittedData['pid'];
+        $task->filename = $submittedData['filename'];
         $task->email = $submittedData['email'];
         $task->email_sender = $submittedData['email_sender'];
         $task->sender = $submittedData['sender'];
