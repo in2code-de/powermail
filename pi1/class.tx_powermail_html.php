@@ -1128,22 +1128,22 @@ class tx_powermail_html extends tslib_pibase {
 		}
 
 		// ###MIN###
-		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') === '0') { // if there is value in the min field
+		if (($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-number' || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-digits') && ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') === '0')) { // if there is value in the min field
 			$this->markerArray['###MIN###'] = 'min="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" '; // add min to markerArray
 		}
 		
 		// ###MAX###
-		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')) { // if there is value in the max field
+		if (($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-number' || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-digits') && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')) { // if there is value in the max field
 			$this->markerArray['###MAX###'] = 'max="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')) . '" '; // add max to markerArray
 		}
 		
 		// ###STEP###
-		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'step')) { // if there is value in the step field
+		if (($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-number' || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-digits') && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'step')) { // if there is value in the step field
 			$this->markerArray['###STEP###'] = 'step="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'step')) . '" '; // add step to markerArray
 		}
 		
 		// ###PATTERN###
-		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'pattern')) { // if there is value in the pattern field
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-pattern' && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'pattern')) { // if there is value in the pattern field
 			$this->markerArray['###PATTERN###'] = 'pattern="' . t3lib_div::removeXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'pattern')) . '" '; // add pattern to markerArray
 		} else {
 			switch ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate')) {
