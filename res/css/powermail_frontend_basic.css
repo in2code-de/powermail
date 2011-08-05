@@ -255,7 +255,7 @@ ul.powermail_multiplejs_tabs li a.act {
 }
 
 /* pure CSS arrow */
-.error em {
+html:root .error em {
 	display:block;
 	width:0;
 	height:0;
@@ -264,7 +264,7 @@ ul.powermail_multiplejs_tabs li a.act {
 
 	/* positioning */
 	position:absolute;
-	bottom:-7px;
+	bottom:-10px;
 	left:5px;
 	border-bottom:0 none;
 }
@@ -273,7 +273,7 @@ ul.powermail_multiplejs_tabs li a.act {
 
 /* the input field */
 .date {
-	width:198px !important;
+	width: 237px !important;
 }
 
 /* calendar root element */

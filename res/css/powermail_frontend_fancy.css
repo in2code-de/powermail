@@ -3,11 +3,13 @@ div.tx-powermail-pi1 {
 	font-family: Calibri, Arial, sans-serif;
 	font-size: 14px;
 	width: 640px;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 	/* Form */
 
 fieldset.tx-powermail-pi1_fieldset input {
-	margin-left:0;
+	margin-left: 0;
 }
 
 fieldset.tx-powermail-pi1_fieldset {
@@ -15,13 +17,20 @@ fieldset.tx-powermail-pi1_fieldset {
 	border: 0;
 	padding: 10px;
 	margin-bottom: 20px;
-	background: #ffffff; /* old browsers */
-	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5));
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
-	-webkit-box-shadow: 5px 5px 10px #888;
-	-moz-box-shadow: 5px 5px 10px #888;
-	box-shadow: 5px 5px 10px #888;
+	
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+	
+	-webkit-box-shadow: 0px 0px 8px 0px;
+	-moz-box-shadow: 0px 0px 8px 0px;
+	box-shadow: 0px 0px 8px 0px; 
+	
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-khtml-border-radius: 3px;
@@ -55,7 +64,7 @@ fieldset.tx-powermail-pi1_fieldset input.powermail_date,
 fieldset.tx-powermail-pi1_fieldset input.powermail_datetime,
 fieldset.tx-powermail-pi1_fieldset textarea,
 fieldset.tx-powermail-pi1_fieldset select,
-fieldset.tx-powermail-pi1_fieldset input.powermail_captcha{
+fieldset.tx-powermail-pi1_fieldset input.powermail_captcha {
 	font-family: Calibri, Arial, sans-serif;
 	font-size: 14px;
 	width: 400px;
@@ -66,6 +75,7 @@ fieldset.tx-powermail-pi1_fieldset input.powermail_captcha{
 	-webkit-box-shadow: 3px 3px 5px #eee;
 	-moz-box-shadow: 3px 3px 5px #eee;
 	box-shadow: 3px 3px 5px #eee;
+	
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-khtml-border-radius: 2px;
@@ -153,39 +163,48 @@ div.powermail_check_inner input {
 	float: left;
 	clear: left;
 }
-
 fieldset.tx-powermail-pi1_fieldset input.powermail_time,
-fieldset.tx-powermail-pi1_fieldset input[type=time]{
-    width:88px;
+fieldset.tx-powermail-pi1_fieldset input[type=time] {
+    width: 88px;
+	margin-left: 9px;
 }
+
 /* the input field */
 fieldset.tx-powermail-pi1_fieldset input.date {
-	width:300px !important;
+	width: 300px !important;
 }
 
 fieldset.tx-powermail-pi1_fieldset .tx_powermail_pi1_fieldwrap_html_date input.date {
-    width:400px !important;
+    width: 400px !important;
 }
 
 		/* submit */
-input.powermail_submit {
-	margin: 20px 0 0 200px;
+fieldset.tx-powermail-pi1_fieldset input.powermail_submit {
+	margin: 10px 20px 10px 0;
+	float: right;
 	border: 0;
 	padding: 5px 20px;
 	color: white;
 	font-weight: bold;
-	background: #1E5799; /* old browsers */
-	background: -moz-linear-gradient(top, #1E5799 0%, #2989D8 50%, #207cca 51%, #7db9e8 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1E5799), color-stop(50%,#2989D8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* webkit */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1E5799', endColorstr='#7db9e8',GradientType=0 ); /* ie */
+	cursor: pointer;
+	
+	background: rgb(30,87,153); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(50%,rgba(41,137,216,1)), color-stop(51%,rgba(32,124,202,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C */
+	
 	-webkit-box-shadow: 3px 3px 5px #aaa;
 	-moz-box-shadow: 3px 3px 5px #aaa;
 	box-shadow: 3px 3px 5px #aaa;
+	
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-khtml-border-radius: 2px;
 	border-radius: 2px;
-	cursor: pointer;
 }
 		/* Description */
 div.tx_powermail_pi1_fieldwrap_html label a,
@@ -216,13 +235,20 @@ legend.tx_powermail_pi1_fieldwrap_html_radio_title a:hover dfn {
 	font-style: normal;
 	font-size: 0.8em;
     white-space: normal;
-	background: #ffffff; /* old browsers */
-	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5));
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
+	
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+	
 	-webkit-box-shadow: 5px 5px 10px #888;
 	-moz-box-shadow: 5px 5px 10px #888;
 	box-shadow: 5px 5px 10px #888;
+	
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-khtml-border-radius: 3px;
@@ -237,36 +263,50 @@ input.tx_powermail_pi1_submitmultiple_back {
 	padding: 5px 20px;
 	color: white;
 	font-weight: bold;
-	background: #1E5799; /* old browsers */
-	background: -moz-linear-gradient(top, #1E5799 0%, #2989D8 50%, #207cca 51%, #7db9e8 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1E5799), color-stop(50%,#2989D8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* webkit */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1E5799', endColorstr='#7db9e8',GradientType=0 ); /* ie */
+	cursor: pointer;
+	
+	background: rgb(30,87,153); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(50%,rgba(41,137,216,1)), color-stop(51%,rgba(32,124,202,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C */
+	
 	-webkit-box-shadow: 3px 3px 5px #aaa;
 	-moz-box-shadow: 3px 3px 5px #aaa;
 	box-shadow: 3px 3px 5px #aaa;
+	
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-khtml-border-radius: 2px;
 	border-radius: 2px;
-	cursor: pointer;
 }
 input.tx_powermail_pi1_submitmultiple_forward {
 	padding: 5px 20px;
 	color: white;
 	font-weight: bold;
-	background: #1E5799; /* old browsers */
-	background: -moz-linear-gradient(top, #1E5799 0%, #2989D8 50%, #207cca 51%, #7db9e8 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1E5799), color-stop(50%,#2989D8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* webkit */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1E5799', endColorstr='#7db9e8',GradientType=0 ); /* ie */
+	cursor: pointer;
+	float: right;
+	
+	background: rgb(30,87,153); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(50%,rgba(41,137,216,1)), color-stop(51%,rgba(32,124,202,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C */
+	
 	-webkit-box-shadow: 3px 3px 5px #aaa;
 	-moz-box-shadow: 3px 3px 5px #aaa;
 	box-shadow: 3px 3px 5px #aaa;
+	
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-khtml-border-radius: 2px;
 	border-radius: 2px;
-	cursor: pointer;
-	float: right;
 }
 p.powermail_pagebrowser {
 	font-weight: bold;
@@ -277,7 +317,9 @@ p.powermail_pagebrowser {
 div.fieldsets {
 	clear: both;
 }
-div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset.ui-tabs-hide{display:none;}
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset.ui-tabs-hide{
+	display: none;
+}
 ul.powermail_multiplejs_tabs {
 	list-style-type: none;
 	padding: 0;
@@ -295,45 +337,67 @@ ul.powermail_multiplejs_tabs li a {
 	color: #1E5799;
 	font-weight: bold;
 	text-decoration: none;
-	background: #ffffff; /* old browsers */
-	background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6)); /* webkit */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* ie */
+	outline: none;
+	
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(50%,rgba(241,241,241,1)), color-stop(51%,rgba(225,225,225,1)), color-stop(100%,rgba(246,246,246,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%); /* W3C */
+	
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-khtml-border-radius: 2px;
+	
 	border-radius: 2px;
 	border-top: 1px solid #ddd;
 	border-left: 1px solid #eee;
 	border-right: 1px solid #eee;
-	outline: none;
 }
 ul.powermail_multiplejs_tabs li a.act {
 	padding: 15px 10px 10px 10px;
 	margin-top: -5px;
 }
-.powermail_mandatory_helper{visibility:hidden;height:1px;position:absolute;}
+.powermail_mandatory_helper {
+	visibility: hidden;
+	height: 1px;
+	position: absolute;
+}
 
-.placeholder {color:#ccc !important;}
+.placeholder {
+	color: #ccc !important;
+}
 
 		/* error message */
 .error {
-	background: #ff7f04; /* old browsers */
-	background: -moz-linear-gradient(top, #ffb76b 0%, #ffa73d 45%, #ff7c00 56%, #ff7f04 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb76b), color-stop(45%,#ffa73d), color-stop(56%,#ff7c00), color-stop(100%,#ff7f04)); /* webkit */
 	border-top: 1px solid #FFAF56;
 	border-left: 1px solid #FFAF56;
 	border-right: 1px solid #FFAF56;
 	font-size: 11px;
 	color: #fff;
 	padding: 3px 10px 5px 10px;
-	margin-left: -2px;
-    z-index:10;
-    text-align:left;
-    height:auto;
+	margin-left: 0 0 0 -2px;
+    z-index: 10;
+    text-align: left;
+    height: auto;
+	overflow: visible !important;
+	
+	background: rgb(255,183,107); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,183,107,1) 0%, rgba(255,167,61,1) 45%, rgba(255,124,0,1) 56%, rgba(255,127,4,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,183,107,1)), color-stop(45%,rgba(255,167,61,1)), color-stop(56%,rgba(255,124,0,1)), color-stop(100%,rgba(255,127,4,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 45%,rgba(255,124,0,1) 56%,rgba(255,127,4,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 45%,rgba(255,124,0,1) 56%,rgba(255,127,4,1) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 45%,rgba(255,124,0,1) 56%,rgba(255,127,4,1) 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(255,183,107,1) 0%,rgba(255,167,61,1) 45%,rgba(255,124,0,1) 56%,rgba(255,127,4,1) 100%); /* W3C */
+	
 	-webkit-box-shadow: 3px 3px 5px #eee;
 	-moz-box-shadow: 3px 3px 5px #eee;
 	box-shadow: 3px 3px 5px #eee;
+	
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-khtml-border-radius: 2px;
@@ -345,17 +409,16 @@ ul.powermail_multiplejs_tabs li a.act {
 	font-family: Calibri, Arial, sans-serif;
 	font-weight: bold;
 }
-.error em {
+html:root .error em {
+	position: absolute;
 	display: block;
-	width: 0;
 	height: 5px;
 	border: 10px solid;
 	border-color: #FF7E03 transparent transparent;
-	position: absolute;
-	bottom: -12px;
-    overflow:visible;
-	left: 5px;
 	border-bottom: 0 none;
+	bottom: -15px;
+    overflow: visible;
+	left: 5px;
 }
 
 	/* Confirmation */
@@ -537,9 +600,9 @@ a.caldisabled {
 }
 /* the input field */
 fieldset.tx-powermail-pi1_fieldset input.powermail_text.range {
-	float:left;
-	margin:0 0 0 15px;
-	padding:3px 0;
-	text-align:center;
-	width:50px;
+	float: left;
+	margin: 0 0 0 15px;
+	padding: 3px 0;
+	text-align: center;
+	width: 50px;
 }
