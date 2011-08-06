@@ -225,7 +225,7 @@ ul.powermail_multiplejs_tabs li a.act {
 }
 
 input.tx_powermail_pi1_submitmultiple_forward,
-input.tx_powermail_pi1_submitmultiple_back {margin-top:15px;}
+input.tx_powermail_pi1_submitmultiple_back {margin-top:1em;}
 
 /* error message */
 .error {
