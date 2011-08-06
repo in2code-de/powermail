@@ -165,7 +165,11 @@ class tx_powermail_form extends tslib_pibase {
 				);
 				if ($res2) { // If there is a result
 					while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res2)) { // One loop for every field
-						$this->InnerMarkerArray['###POWERMAIL_FIELDS###'] .= $this->html_input_field->main($this->conf, $this->sessionfields, $this->cObj, $row, $this->tabindexArray(), $i); // Get HTML code for each field
+                        if($this->conf['moveSubmitOfMultiplePagesToOuterMarker'] && $row['f_type'] == 'submit') {
+                            $this->OuterMarkerArray['###POWERMAIL_SUBMIT_FIELDS###'] .= $this->html_input_field->main($this->conf, $this->sessionfields, $this->cObj, $row, $this->tabindexArray(), $i); // Submit button
+                        } else {
+                            $this->InnerMarkerArray['###POWERMAIL_FIELDS###'] .= $this->html_input_field->main($this->conf, $this->sessionfields, $this->cObj, $row, $this->tabindexArray(), $i); // Get HTML code for each field
+                        }
 						$i++; // increase counter
 					}
 				}

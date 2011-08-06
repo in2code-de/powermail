@@ -160,6 +160,9 @@ plugin.powermail {
 	# cat=plugin.powermail_additionalconfig//1130; type=boolean; label= Move "Add CSS class" assignment back to input tag (old style < 1.6.4). Before 1.6.5, this assignment was added to the class attribute of the input tags. For better styling possibilities it is now added to the surrounding div tag.
 	additionalCssToInputField = 0
 
+	# cat=plugin.powermail_additionalconfig//1140; type=boolean; label= Move submit field(s) of multiple pages form (server application) to outer markers.
+	moveSubmitOfMultiplePagesToOuterMarker = 0
+
 	# cat=plugin.powermail_additionalconfig//1200; type=options[,utf8_encode,utf8_decode]; label= Charset for powermail: You can use the php functions utf8_encode or utf8_decode to change the whole powermail output
 	powermail.charset = 
 	

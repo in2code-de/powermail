@@ -227,6 +227,16 @@ ul.powermail_multiplejs_tabs li a.act {
 input.tx_powermail_pi1_submitmultiple_forward,
 input.tx_powermail_pi1_submitmultiple_back {margin-top:1em;}
 
+input.tx_powermail_pi1_submitmultiple_forward {
+    float: right;
+}
+
+.powermail_multiple_php form > div.tx_powermail_pi1_fieldwrap_html_submit {
+    display: inline;
+    float: right;
+    margin-top:1em;
+}
+
 /* error message */
 .error {
 	/* supply height to ensure consistent positioning for every browser */

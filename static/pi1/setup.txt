@@ -46,6 +46,7 @@ plugin.tx_powermail_pi1 {
 	label.parse = {$plugin.powermail.label.parse}
 	input.style = {$plugin.powermail.input.style}
 	additionalCssToInputField = {$plugin.powermail.additionalCssToInputField}
+	moveSubmitOfMultiplePagesToOuterMarker = {$plugin.powermail.moveSubmitOfMultiplePagesToOuterMarker}
 	powermail.charset = {$plugin.powermail.powermail.charset}
 	barrier-free.tabindex = {$plugin.powermail.barrier-free.tabindex}
 	barrier-free.accesskey = {$plugin.powermail.barrier-free.accesskey}
