@@ -126,9 +126,13 @@
 		});
 
 		// select validation
-		$.tools.validator.fn('select', '###VALIDATOR_LABEL_ONE_REQUIRED###',
+		$.tools.validator.fn('select', '',
 				function(el, value) {
-					return value.length > 0;
+                    if (el.attr('multiple')) {
+                        return value != null ? true: '###VALIDATOR_LABEL_ONE_REQUIRED###';
+                    } else {
+                        return value.length > 0 ? true : '';
+                    }
 				}
 		);
 
