@@ -184,7 +184,7 @@ class tx_powermail_html extends tslib_pibase {
 
 		$this->markerArray['###VALUE###'] = substr(trim($this->markerArray['###VALUE###']), 7, -1); // remove the first 7 letters (value=") and the last letter (")
 		if (intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxlength')) > 0) { // if there is a number in the maxlength field
-			$this->markerArray['###MAXLENGTH###'] = 'onKeyPress="checkTextArea(this, ' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxlength')) . ');" '; // add size to markerArray
+			$this->markerArray['###MAXLENGTH###'] = 'maxlength="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxlength')) . '" '; // add size to markerArray
 		}
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field

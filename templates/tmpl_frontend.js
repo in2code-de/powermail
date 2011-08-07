@@ -1,27 +1,3 @@
-// function to update checkboxes
-function insertCheckboxValueToHiddenField(id) {
-	var checkid = 'check_' + id;
-	var valueid = 'value_' + id;
-	var checked = document.getElementsByName(checkid)[0].checked;
-	var cvalue = document.getElementsByName(valueid)[0].value;
-
-	if (checked == false) {
-		document.getElementById(id).value = '';
-	} else {
-		document.getElementById(id).value = cvalue;
-	}
-}
-
-// maxlength for textareas
-function checkTextArea(obj, maxLength) {
-	var textArea = obj;
-	var length = textArea.value.length;
-
-	if (length > maxLength) {
-		textArea.value = textArea.value.substr(0, maxLength);
-	}
-}
-
 (function($) {
 	$.tools.validator.localize('en', {
 		'*': '###VALIDATOR_LABEL_PLEASE_CORRECT###',
@@ -99,6 +75,10 @@ function checkTextArea(obj, maxLength) {
 
 		$('.tx_powermail_pi1_form input:checkbox').click(function() {
 			$(this).parent().parent().find('input:checkbox').blur();
+            var checkid = $(this).attr('id');
+            var valueid = checkid.replace(/check_/, 'value_');
+            var targetid = checkid.replace(/check_/, '');
+            $('#' + targetid).val($(this).is(':checked') ? $('#' + valueid).val() : '');
 		});
 
 		// time validation
@@ -172,6 +152,17 @@ function checkTextArea(obj, maxLength) {
 				}
 			});
 		}
+
+        var fakeTextarea = document.createElement('textarea'),
+            textareaMaxlengthSupport = ('maxlength' in fakeTextarea);
+
+        if (!textareaMaxlengthSupport) {
+			$('textarea[maxlength]').each(function() {
+                $(this).bind('keypress', function() {
+                    $(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+                });
+            });
+        }
 
 		// add placeholder attribute behavior in web browsers that don't support it
 		var fakeInput = document.createElement('input'),
