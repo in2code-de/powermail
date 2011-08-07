@@ -1,0 +1,184 @@
+###
+# This are the default TS-constants for powermail
+##
+
+plugin.powermail {
+
+	# cat=plugin.powermail_mainconfig/file/0010; type=file[html,htm,tmpl,txt]; label= Template File formwrap: HTML-template file for formwrap (see EXT:powermail/templates/tmpl_formwrap.html for an example)
+	template.formWrap = EXT:powermail/templates/tmpl_formwrap.html
+	
+	# cat=plugin.powermail_mainconfig/file/0020; type=file[html,htm,tmpl,txt]; label= Template File fieldwrap: HTML-template file for fieldwraps (see EXT:powermail/templates/tmpl_fieldwrap.html for an example)
+	template.fieldWrap = EXT:powermail/templates/tmpl_fieldwrap.html
+	
+	# cat=plugin.powermail_mainconfig/file/0030; type=file[html,htm,tmpl,txt]; label= Template File thx-message: HTML-template file for thx message after submit (see EXT:powermail/templates/tmpl_thx.html for an example)
+	template.thxMessage = EXT:powermail/templates/tmpl_thx.html
+	
+	# cat=plugin.powermail_mainconfig/file/0040; type=file[html,htm,tmpl,txt]; label= Template File emails: HTML-template file for emails messages (sender and receiver) (see EXT:powermail/templates/tmpl_emails.html for an example)
+	template.emails = EXT:powermail/templates/tmpl_emails.html
+	
+	# cat=plugin.powermail_mainconfig/file/0050; type=file[html,htm,tmpl,txt]; label= Template File confirmation: HTML-template file to change html code of the confirmation page (if confirmation is active) (see EXT:powermail/templates/tmpl_confirmation.html for an example)
+	template.confirmation = EXT:powermail/templates/tmpl_confirmation.html
+	
+	# cat=plugin.powermail_mainconfig/file/0060; type=file[html,htm,tmpl,txt]; label= Template File ALL marker: HTML-template file if you want to use the marker ###POWERMAIL_ALL### - here you can set the HTML code for each line (see EXT:powermail/templates/tmpl_all.html for an example)
+	template.all = EXT:powermail/templates/tmpl_all.html
+	
+	# cat=plugin.powermail_mainconfig/file/0070; type=file[html,htm,tmpl,txt]; label= Template File mandatory: HTML-template file for mandatory page (if any mandatory field was not filled) (see EXT:powermail/templates/tmpl_mandatory.html for an example)
+	template.mandatory = EXT:powermail/templates/tmpl_mandatory.html
+	
+	# cat=plugin.powermail_mainconfig/file/0080; type=file[html,htm,tmpl,txt]; label= Template File multiple: HTML-template file for multiple pages (see EXT:powermail/templates/tmpl_multiplejs.html for an example)
+	template.MultipleJS = EXT:powermail/templates/tmpl_multiplejs.html
+
+	# cat=plugin.powermail_mainconfig/file/0090; type=file[js,tmpl,txt]; label= Template File Frontend JS: Template file for frontend javascript (see EXT:powermail/templates/tmpl_frontend.js for an example)
+	template.frontendJsTemplatePath = EXT:powermail/templates/tmpl_frontend.js
+	
+	# cat=plugin.powermail_mainconfig/enable/0100; type=boolean; label= Email to receiver active: You can disable emails to receiver (maybe if you want only to store the values to db)
+	allow.email2receiver = 1
+
+	# cat=plugin.powermail_mainconfig/enable/0110; type=boolean; label= Email to sender active: You can disable confirmation emails to sender
+	allow.email2sender = 1
+
+	# cat=plugin.powermail_mainconfig/enable/0130; type=boolean; label= Log every mail in db: Disable logging, if you want only to get mails
+	allow.dblog = 1
+	
+	# cat=plugin.powermail_mainconfig/enable/0200; type=int+; label= PID where to save logfiles: Enter a Page ID where the form values should be saved to the db (empty: same PID as form PID)
+	PID.dblog = 
+	
+	# cat=plugin.powermail_mainconfig//0300; type=options[both,html,plain]; label= Receivermail HTML or Plain: If you use this value, emails to the receiver will be send in html or plaintext or both formats (both, html or plain)
+	emailformat.recipient_mail = both
+	
+	# cat=plugin.powermail_mainconfig//0310; type=options[both,html,plain]; label= Sendermail HTML or Plain: If you use this value, emails to the sender will be send in html or plaintext or both formats (both, html or plain)
+	emailformat.sender_mail = both
+	
+	# cat=plugin.powermail_mainconfig//0320; type=boolean; label= Enables tags in plain part of receiver and sendermails. This makes it possible to send xml (e.g.) syntax in plain text email part
+	emailformat.enableTagsInPlainTextPart = 0
+
+	# cat=plugin.powermail_additionalconfig//0390; type=text; label= Onetime form: Checks if a field has already this entry (maybe email address), IP check is also possible if ip addresses will be logged) - (e.G. uid11,ip checks for unique IP and unique entry in field uid11)
+	enable.unique = 
+	
+	# cat=plugin.powermail_additionalconfig//0400; type=text; label= Standard sender address: This email address is important, if no sender field was chosen in the backend, so this email address will be used for the sender (###DOMAIN### will be replaced with current domain like test.com)
+	email.noreply = noreply@###DOMAIN###
+	
+	# cat=plugin.powermail_additionalconfig//0410; type=boolean; label= Check MX record of sender mail: This is a small test, if senders email address exists (MX record check of domain)
+	email.checkMX = 1
+	
+	# cat=plugin.powermail_additionalconfig//0417; type=text; label= Don't show hiddenfield values: Show or hide values of hiddenfields on recipient mail, confirmation mail to sender, thx message page, confirmation message page, mandatory page (default 1,0,0,0,1)
+	hiddenfields.show = 1,0,0,0,1
+	
+	# cat=plugin.powermail_additionalconfig//0420; type=boolean; label= Hide label if empty value: This option hides labels if its value is empty in marker ###POWERMAIL_ALL###
+	markerALL.hideLabel = 0
+	
+	# cat=plugin.powermail_additionalconfig//0430; type=text; label= Exclude fields from marker ALL: Exclude some fields from marker ###POWERMAIL_ALL### (e.g.: ###UID14###,###UID22### or UID14,UID22)
+	markerALL.notIn = 
+	
+	# cat=plugin.powermail_additionalconfig//0450; type=text; label= Datetime format: Frontend datetime format if datetime field is in use (see http://php.net/manual/function.strftime.php for strftime details)
+	format.datetime = %Y-%m-%d %H:%M
+
+	# cat=plugin.powermail_additionalconfig//0460; type=text; label= Date format: Frontend date format if date field is in use (see http://php.net/manual/function.strftime.php for strftime details)
+	format.date = %Y-%m-%d
+
+	# cat=plugin.powermail_additionalconfig//0470; type=text; label= Allowed tags in labels: Allow some tags for label fields
+	label.allowTags = <p><br><b><strong><a>
+	
+	# cat=plugin.powermail_additionalconfig//0480; type=boolean; label= RemoveXSS for html fields: (de)activate security function to disable Cross Site Scripting with the html field (removeXSS on or off)
+	html.removeXSS = 1
+	
+	# cat=plugin.powermail_additionalconfig//0490; type=options[,utf8_encode,utf8_decode]; label= Charset for countryselector: You can use the php functions utf8_encode or utf8_decode to change the countryselector output
+	countryselect.charset = 
+	
+	# cat=plugin.powermail_additionalconfig//0500; type=text; label= Description wrap: Define the wrap for the field description
+	description.wrap = <a href="#" onclick="return false;"><img src="/typo3conf/ext/powermail/res/img/icon_info.gif" alt="Description" class="icon icon_info" style="border: none;" /><dfn>|</dfn></a>
+	
+	# cat=plugin.powermail_additionalconfig//0510; type=boolean; label= Mandatory message above form: You can switch between mandatory messages above form or show this messages on an extra page with backtoform button (default)
+	mandatory.messages = 0
+	
+	# cat=plugin.powermail_additionalconfig//0520; type=text; label= Add symbol for mandatory fields: If any field is a mandatory field, add this at the end of the label
+	mandatory.symbol = *
+	
+	# cat=plugin.powermail_additionalconfig//0530; type=wrap; label= Wrap mandatory symbol: You can wrap the mandatory symbol with any html code
+	mandatory.wrap = <span class="powermail_mandatory">|</span>
+	
+	# cat=plugin.powermail_additionalconfig//0540; type=options[sr_freecap,captcha,recaptcha,wt_calculating_captcha]; label= Use captcha extension: If you have installed sr_freecap and captcha, you can select which extension should be used
+	captcha.use = sr_freecap
+	
+	# cat=plugin.powermail_additionalconfig//0550; type=wrap; label= Wrap pagebrowser: If you use multiple pages (PHP), you can show the current page like 1 of 3
+	pagebrowser.wrap = <p class="powermail_pagebrowser">|</p>
+	
+	# cat=plugin.powermail_additionalconfig//0560; type=text; label= Folder for uploaded files: If you are using min. one upload field in frontend, you can change the folder where the uploaded file is safed
+	upload.folder = uploads/tx_powermail/files/
+	
+	# cat=plugin.powermail_additionalconfig//0570; type=text; label= Allow files for upload: If you are using min. one upload field in frontend, you can set the allowed extension of this files (use small letters)
+	upload.file_extensions = jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace
+	
+	# cat=plugin.powermail_additionalconfig//0580; type=boolean; label= Mime check for upload: Checks if uploaded file is realy the file which it should be (mime check)
+	upload.mimecheck = 1
+	
+	# cat=plugin.powermail_additionalconfig//0600; type=int+; label= Allowed file size for upload: If you are using min. one upload field in frontend, you can set the allowed file size of the files (in kB)
+	upload.filesize = 1000
+	
+	# cat=plugin.powermail_additionalconfig//0610; type=boolean; label= Upload and attach: If checked, all files will be sent as an attachment to the receiver (if disabled, files will only stored on server)
+	upload.attachment = 1 	
+
+	# cat=plugin.powermail_additionalconfig//0620; type=boolean; label= Delete after attach: If checked, all uploaded files will be deleted from the server after the mail was sent
+	upload.delete = 0
+
+	# cat=plugin.powermail_additionalconfig//0630; type=boolean; label= Clear Session: Check if session should be cleared after submit (emails sent)
+	clear.session = 0
+	
+	# cat=plugin.powermail_additionalconfig//0640; type=boolean; label= Allow caching: Check if powermail frontend output (first page for php multiple step forms) should be cached. Please empty TYPO3 frontend cache of all pages containing powermail forms after changing. Please Do NOT use this feature if a captcha field is on the first page of a form.
+	caching = 0
+
+	# cat=plugin.powermail_additionalconfig//0920; type=boolean; label= Activate javascript validation: (De)activate javascript validation in fields
+	js.validation = 1
+
+	# cat=plugin.powermail_additionalconfig//0930; type=boolean; label= Always include javascript for form validation and special input types (date/datetime/slider)
+	js.alwaysInclude = 0
+
+	# cat=plugin.powermail_additionalconfig//0940; type=boolean; label= Include jQuery and jQueryTools libraries to header (only for usage without t3jquery)
+	js.toHeader = 0
+
+	# cat=plugin.powermail_additionalconfig//0950; type=boolean; label= Include jQuery library (only for usage without t3jquery)
+	js.includeJquery = 1
+
+	# cat=plugin.powermail_additionalconfig//0960; type=boolean; label= Include jQueryTools Form library (only for usage without t3jquery)
+	js.includeJqueryTools = 1
+
+	# cat=plugin.powermail_additionalconfig//0970; type=boolean; label= Include jQueryTools Tab library (only for usage without t3jquery)
+	js.includeJqueryToolsTabs = 1
+
+	# cat=plugin.powermail_additionalconfig//1000; type=boolean; label= Hiddenfields for checkboxes: (De)activate the hiddenfields for checkboxes. If only checkboxes are in use, there is a problem to enable a checkbox, submit, go back and deaktivate checkbox and submit again - the value ist still set. To fix this, you can use a JavaScript with hiddenfields (set by default).
+	field.checkboxJS = 1
+	
+	# cat=plugin.powermail_additionalconfig//1100; type=boolean; label= Use rteCSStext function: Text from rich text editor will be parsed automatically for emails and thx message (every line gets an p tag, etc...). Disabling could be useful if you want to use only plain text mails.
+	rte.parse = 1
+	
+	# cat=plugin.powermail_additionalconfig//1110; type=boolean; label= Use labelparse function: Labels could be used with TYPO3 LINK syntax (e.g. 1)
+	label.parse = 1
+	
+	# cat=plugin.powermail_additionalconfig//1120; type=boolean; label= Style instead of size: Using a local stylesheet in the input fields and in all textareas instead of size or rows and cols - the value in the flexform should be in pixel (e.g. 1)
+	input.style = 0
+	
+	# cat=plugin.powermail_additionalconfig//1130; type=boolean; label= Move "Add CSS class" assignment back to input tag (old style < 1.6.4). Before 1.6.5, this assignment was added to the class attribute of the input tags. For better styling possibilities it is now added to the surrounding div tag.
+	additionalCssToInputField = 0
+
+	# cat=plugin.powermail_additionalconfig//1140; type=boolean; label= Move submit field(s) to outer markers.
+	moveSubmitToOuterMarker = 0
+
+	# cat=plugin.powermail_additionalconfig//1200; type=options[,utf8_encode,utf8_decode]; label= Charset for powermail: You can use the php functions utf8_encode or utf8_decode to change the whole powermail output
+	powermail.charset = 
+	
+	# cat=plugin.powermail_additionalconfig//1300; type=text; label= Manual sorting of tabindex: Powermail adds tabindex to the fields (automaticly via sorting). If you want to use another order, you can change the order with this settings (e.g. uid5,uid4,uid3_0,uid3_1 or 5,4,6,4_0,4_1,3)
+	barrier-free.tabindex = 
+	
+	# cat=plugin.powermail_additionalconfig//1310; type=text; label= Adding accesskeys: You can add some accesskeys to the fields if you want (e.g. uid1(colon)f,uid3(colon)g or 1(colon)a,2(colon)b,3_1(colon)c)
+	barrier-free.accesskey = 
+	
+	# cat=plugin.powermail_additionalconfig//1600; type=text; label= Add geoip file: If you want to use geoip, you can enter the relative path to the .dat file for geo info (e.g. fileadmin/geoinfo.dat)
+	geoip.file = 
+	
+	# cat=plugin.powermail_additionalconfig//1610; type=text; label= Add geo info to marker ALL: The most people don't want to use single markers, they just use ###POWERMAIL_ALL###, if you want to add some geoinfo, you can add those to the all marker (e.g. countryName, city) (available keys - ip, countryCode, countryName, region, city, zip, lng, lat, dmaCode, areaCode)
+	geoip.addValuesToMarkerALL = 
+	
+	# cat=plugin.powermail_additionalconfig//9999; type=options[,all,session,email,db,externdbtable]; label= Activate debug output: Possibility to print a debug output over the html. All displays session-, email-, db- and externtable - array, Session prints only session array, Email prints only email array, DB prints the values which have been stored in the Database (powermail default table), externdbtable prints values which should be stored in another db table
+	debug.output = 
+	
+}

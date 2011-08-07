@@ -1,0 +1,219 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<size>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.size</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+					</config>
+				</TCEforms>
+			</size>
+			<maxlength>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.maxlength</label>
+					<config>
+						<type>input</type>
+						<size>5</size>
+					</config>
+				</TCEforms>
+			</maxlength>
+			<readonly>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.readonly</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</readonly>
+			<mandatory>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.mandatory</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</mandatory>
+			<value>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.value</label>
+					<config>
+						<type>input</type>
+						<size>35</size>
+					</config>
+				</TCEforms>
+			</value>
+			<placeholder>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.placeholder</label>
+					<config>
+						<type>input</type>
+						<size>35</size>
+					</config>
+				</TCEforms>
+			</placeholder>
+			<validate>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate</label>
+					<onChange>reload</onChange>
+					<config>
+						<type>select</type>
+						<size>1</size>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.0</numIndex>
+								<numIndex index="1"></numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.1</numIndex>
+								<numIndex index="1">validate-email</numIndex>
+							</numIndex>
+							<numIndex index="2" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.2</numIndex>
+								<numIndex index="1">validate-url</numIndex>
+							</numIndex>
+							<numIndex index="3" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.3</numIndex>
+								<numIndex index="1">validate-number</numIndex>
+							</numIndex>
+							<numIndex index="4" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.4</numIndex>
+								<numIndex index="1">validate-digits</numIndex>
+							</numIndex>
+							<numIndex index="5" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.5</numIndex>
+								<numIndex index="1">validate-alpha</numIndex>
+							</numIndex>
+							<numIndex index="6" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.6</numIndex>
+								<numIndex index="1">validate-alphanum</numIndex>
+							</numIndex>
+							<numIndex index="7" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.7</numIndex>
+								<numIndex index="1">validate-pattern</numIndex>
+							</numIndex>
+							<numIndex index="8" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.8</numIndex>
+								<numIndex index="1">validate-alpha-w-umlaut</numIndex>
+							</numIndex>
+							<numIndex index="9" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.validate.9</numIndex>
+								<numIndex index="1">validate-alphanum-w-umlaut</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+			</validate>
+			<inputtype>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype</label>
+					<displayCond>FIELD:validate:!IN:validate-email,validate-url</displayCond>
+					<config>
+						<type>select</type>
+						<size>1</size>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.0</numIndex>
+								<numIndex index="1"></numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.1</numIndex>
+								<numIndex index="1">color</numIndex>
+							</numIndex>
+							<numIndex index="2" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.2</numIndex>
+								<numIndex index="1">range</numIndex>
+							</numIndex>
+							<numIndex index="3" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.3</numIndex>
+								<numIndex index="1">tel</numIndex>
+							</numIndex>
+							<numIndex index="4" type="array">
+								<numIndex index="0">LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.inputtype.4</numIndex>
+								<numIndex index="1">time</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+			</inputtype>
+			<min>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.min</label>
+					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
+					<config>
+						<type>input</type>
+						<size>10</size>
+					</config>
+				</TCEforms>
+			</min>
+			<max>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.max</label>
+					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
+					<config>
+						<type>input</type>
+						<size>10</size>
+					</config>
+				</TCEforms>
+			</max>
+			<step>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.step</label>
+					<displayCond>FIELD:validate:IN:validate-number,validate-digits</displayCond>
+					<config>
+						<type>input</type>
+						<size>10</size>
+					</config>
+				</TCEforms>
+			</step>
+			<pattern>
+				<TCEforms>
+					<exclude>1</exclude>
+					<displayCond>FIELD:validate:=:validate-pattern</displayCond>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.pattern</label>
+					<config>
+						<type>input</type>
+						<size>35</size>
+					</config>
+				</TCEforms>
+			</pattern>
+			<name>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_uid->main</userFunc>
+						<field>text</field>
+					</config>
+				</TCEforms>
+			</name>
+			<example>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_example->main</userFunc>
+						<field>text</field>
+					</config>
+				</TCEforms>
+			</example>
+		</el>
+	</ROOT>
+</T3DataStructure>

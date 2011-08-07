@@ -1,0 +1,650 @@
+# POWERMAIL PLUGIN #
+
+plugin.tx_powermail_pi1 {
+
+	# --- CONSTANTS ---
+	template.fieldWrap = {$plugin.powermail.template.fieldWrap}
+	template.formWrap = {$plugin.powermail.template.formWrap}
+	template.thxMessage = {$plugin.powermail.template.thxMessage}
+	template.emails = {$plugin.powermail.template.emails}
+	template.confirmation = {$plugin.powermail.template.confirmation}
+	template.all = {$plugin.powermail.template.all}
+	template.mandatory = {$plugin.powermail.template.mandatory}
+	template.MultipleJS = {$plugin.powermail.template.MultipleJS}
+	emailformat.recipient_mail = {$plugin.powermail.emailformat.recipient_mail}
+	emailformat.sender_mail = {$plugin.powermail.emailformat.sender_mail}
+	emailformat.enableTagsInPlainTextPart = {$plugin.powermail.emailformat.enableTagsInPlainTextPart}
+	# ---
+	enable.unique = {$plugin.powermail.enable.unique}
+	email.noreply = {$plugin.powermail.email.noreply}
+	email.checkMX = {$plugin.powermail.email.checkMX}
+	hiddenfields.show = {$plugin.powermail.hiddenfields.show}
+	markerALL.hideLabel = {$plugin.powermail.markerALL.hideLabel}
+	markerALL.notIn = {$plugin.powermail.markerALL.notIn}
+	PID.dblog = {$plugin.powermail.PID.dblog}
+	format.datetime = {$plugin.powermail.format.datetime}
+	format.date = {$plugin.powermail.format.date}
+	label.allowTags = {$plugin.powermail.label.allowTags}
+	html.removeXSS = {$plugin.powermail.html.removeXSS}
+	countryselect.charset = {$plugin.powermail.countryselect.charset}
+	description.wrap = {$plugin.powermail.description.wrap}
+	mandatory.messages = {$plugin.powermail.mandatory.messages}
+	mandatory.symbol = {$plugin.powermail.mandatory.symbol}
+	mandatory.wrap = {$plugin.powermail.mandatory.wrap}
+	captcha.use = {$plugin.powermail.captcha.use}
+	pagebrowser.wrap = {$plugin.powermail.pagebrowser.wrap}
+	upload.folder = {$plugin.powermail.upload.folder}
+	upload.file_extensions = {$plugin.powermail.upload.file_extensions}
+	upload.mimecheck = {$plugin.powermail.upload.mimecheck}
+	upload.filesize = {$plugin.powermail.upload.filesize}
+	upload.attachment = {$plugin.powermail.upload.attachment}
+	upload.delete = {$plugin.powermail.upload.delete}
+	clear.session = {$plugin.powermail.clear.session}
+	field.checkboxJS = {$plugin.powermail.field.checkboxJS}
+	field.checkboxSplitSign.noTrimWrap = |, ||
+	rte.parse = {$plugin.powermail.rte.parse}
+	label.parse = {$plugin.powermail.label.parse}
+	input.style = {$plugin.powermail.input.style}
+	additionalCssToInputField = {$plugin.powermail.additionalCssToInputField}
+	moveSubmitToOuterMarker = {$plugin.powermail.moveSubmitToOuterMarker}
+	powermail.charset = {$plugin.powermail.powermail.charset}
+	barrier-free.tabindex = {$plugin.powermail.barrier-free.tabindex}
+	barrier-free.accesskey = {$plugin.powermail.barrier-free.accesskey}
+	geoip.file = {$plugin.powermail.geoip.file}
+	geoip.addValuesToMarkerALL = {$plugin.powermail.geoip.addValuesToMarkerALL}
+	debug.output = {$plugin.powermail.debug.output}
+	caching = {$plugin.powermail.caching}
+
+	
+	# Some settings for Emails
+	email {
+	
+		# Settings for mail to the default receiver(s)
+		recipient_mail {
+			# Sender name (overwrite)
+			sender.name = TEXT
+			sender.name.value =
+			
+			# Sender email (overwrite)
+			sender.email = TEXT
+			sender.email.value =
+			
+			# Reply name
+			reply.name = TEXT
+			reply.name.value = 
+			
+			# Reply email
+			reply.email = TEXT
+			reply.email.value = 
+			
+			# Return path (if not set, sender will be used)
+			returnpath = TEXT
+			returnpath.value = 
+			
+			# stdWrap for uploaded attachments
+			attachment = TEXT
+			attachment.field = file
+			
+			# Add some attachments to the email (wrap every attachment with , if you want to add more than only one)
+			addAttachment = COA
+			addAttachment {
+				10 = TEXT
+				#10.value = fileadmin/pic.jpg
+				#10.wrap = |,
+			}
+			
+			# Sender email (SQL Query - only if field receiver is empty in BE)
+				# Markers should contain only integer or integer lists (e.g. ###UID123### => 1,2,3)
+#			email_query = TEXT
+				# Search for an email where feuser has uid X
+#			email_query.value = SELECT email FROM fe_users WHERE uid = ###UID123### AND disable = 0 AND deleted = 0 
+				# Search for an email where feuser is in fe group X (could be in more groups)
+#			email_query.value = SELECT email FROM fe_users WHERE find_in_set(###UID123###, usergroup) > 0 AND disable = 0 AND deleted = 0
+				# Search for an email where address has uid X or Y or Z
+#			email_query.value = SELECT email FROM tt_address WHERE uid IN (###UID123###) AND hidden = 0 AND deleted = 0 
+		}
+		
+		# Settings for (confirmation) mail to the user
+		sender_mail {
+			# Sender name (overwrite)
+			sender.name = TEXT
+			sender.name.value =
+			
+			# Sender email (overwrite)
+			sender.email = TEXT
+			sender.email.value =
+			
+			# Reply name
+			reply.name = TEXT
+			reply.name.value = 
+			
+			# Reply email
+			reply.email = TEXT
+			reply.email.value = 
+			
+			# Return path (if not set, main receiver will be used)
+			returnpath = TEXT
+			returnpath.value = 
+			
+			# Add some attachments to the email (split every attachment with , if you want to add more than only one)
+			addAttachment = COA
+			addAttachment {
+				10 = TEXT
+				#10.value = fileadmin/pic.jpg
+				#10.wrap = |,
+			}
+		}
+	}
+	
+	
+	# Enable, Disable email to sender or receiver or db saving
+	allow {
+		# Enable or disable email to receiver (main mail)
+		email2receiver = TEXT
+		email2receiver.value = {$plugin.powermail.allow.email2receiver}
+		
+		# Enable or disable email to sender
+		email2sender = TEXT
+		email2sender.value = {$plugin.powermail.allow.email2sender}
+		
+		# Enable or disable saving values to database
+		dblog = TEXT
+		dblog.value = {$plugin.powermail.allow.dblog}
+		
+		# Enable or disable hidden=1 for the values which will be saved in the database
+		hidden = TEXT
+		hidden.value = 0
+	}
+	
+	
+	# --- EXAMPLE CODE SECTION ---
+	
+	
+	# Manipulation of values in every mode (email to receiver, db log, etc..)
+	mode {
+	
+		# Manipulation of values in dblog
+		dblog {
+		
+			# Example to manipulate field with uid 999
+#			uid999 = TEXT
+#			uid999.field = uid999
+#			uid999.wrap = <b>|</b>
+			
+			# Example to manipulate checkbox field 1 with uid 998
+#			uid998_0 = TEXT
+#			uid998_0.field = uid998_0
+#			uid998_0.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to receiver (main mail)
+		recipient_mail {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.date}
+			}
+			
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.datetime}
+			}
+
+			# Example to manipulate field with uid 999
+#			uid999 = TEXT
+#			uid999.field = uid999
+#			uid999.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to sender (confirmation mail)
+		sender_mail {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.date}
+			}
+			
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.datetime}
+			}
+
+			# Example to manipulate field with uid 999
+#			uid999 = TEXT
+#			uid999.field = uid999
+#			uid999.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to sender (confirmation mail)
+		thx {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.date}
+			}
+			
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.datetime}
+			}
+
+			# Example to manipulate field with uid 999
+#			uid999 = TEXT
+#			uid999.field = uid999
+#			uid999.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to sender (confirmation mail)
+		confirmation {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.date}
+			}
+			
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.datetime}
+			}
+
+			# Example to manipulate field with uid 999
+#			uid999 = TEXT
+#			uid999.field = uid999
+#			uid999.wrap = <b>|</b>
+		}
+		
+		# Manipulation of values for email to sender (confirmation mail)
+		mandatory {
+			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
+			date = TEXT
+			date {
+				field = date
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.date}
+			}
+		
+			datetime = TEXT
+			datetime {
+				field = datetime
+				strftime.GMT = 1
+				strftime = {$plugin.powermail.format.datetime}
+			}
+
+			# Example to manipulate field with uid 999
+#			uid999 = TEXT
+#			uid999.field = uid999
+#			uid999.wrap = <b>|</b>
+		}
+		
+	}
+	
+	
+	# prefilling form fields (example)
+	prefill {
+		# fill field uid997 with a static text
+#		uid997 = TEXT
+#		uid997.value = example value
+		
+		# fill field uid998 with current timestamp
+#		uid998 = TEXT
+#		uid998.data = date:U
+		
+		# fill field uid998 with current date like "Date: 20.01.2009"
+		# if field type is date or datetime, don't use strftime, because this type needs a timestamp.
+		# The final format shown to the user can be changed via locallang (e.g. plugin.tx_powermail_pi1._LOCAL_LANG.de.JSvalidation_dateinput_format = dd.mm.yyyy)
+#		uid996 = TEXT
+#		uid996.data = date:U
+#		uid996.strftime = Date: {$plugin.powermail.format.date}
+		
+		# fill field uid995 with IP address of the user
+#		uid995 = TEXT
+#		uid995.data = getIndpEnv:REMOTE_ADDR
+	}
+	
+	
+	# adding (or changing) flexible locallang markers in any HTML template or RTE field (example)
+	_LOCAL_LANG.en {
+		# define your own locallang markers
+		locallangmarker_yourvalue = this is a new text
+		# define date format of datepicker in frontend
+#       JSvalidation_dateinput_format = dd.mm.yyyy
+        # define first day of week of datepicker in frontend
+#       JSvalidation_dateinput_firstDay = 0
+	}
+	
+	
+	# adding flexible typoscript markers in any HTML template or RTE field (example)
+	dynamicTyposcript {
+		# define your own dynamic typoscript markers
+		yourmarker = TEXT
+		yourmarker.value = This is a new text
+	}
+	
+	
+	# extern db entry (example for tt_adress)
+	dbEntry {
+		# enable or disable db entry for tt_address
+#		tt_address._enable = TEXT
+#		tt_address._enable.value = 1
+
+		# write only if field email is not yet filled with current value
+			# (update - update values of existing entry) 
+			# (none - no entry if field is filled)
+			# (disable always add values don't care about existing values)
+#		tt_address._ifUnique.email = update
+		
+		# add mm relation to uid 2 of tt_address_group (via mm table)
+#		tt_address._mm = COA
+#		tt_address._mm.10 = COA
+			# 1 is always the mm table
+#		tt_address._mm.10.1 = TEXT
+#		tt_address._mm.10.1.value = tt_address_group_mm
+			# 2 is always the other table
+#		tt_address._mm.10.2 = TEXT
+#		tt_address._mm.10.2.value = tt_address_group
+			# 3 is always the uid of the other table to get a relation to this (in this case uid2 of tt_address_group)
+#		tt_address._mm.10.3 = TEXT
+#		tt_address._mm.10.3.value = 2
+	
+		# table "tt_address" with field "email" is a static value => alexander.kellner@einpraegsam.net
+#		tt_address.email = TEXT
+#		tt_address.email.value = alexander.kellner@einpraegsam.net
+	
+		# table "tt_address" with field "pid" is the current pid (e.g. 12)
+#		tt_address.pid = TEXT
+#		tt_address.pid.field = uid
+		
+		# table "tt_address" with field "tstamp" is the current time as timestamp (like 123456789)
+#		tt_address.tstamp = TEXT
+#		tt_address.tstamp.data = date:U
+		
+		# table "tt_address" with field "address" is the current formatted time (like "Date: 20.01.2009")
+#		tt_address.address = TEXT
+#		tt_address.address.data = date:U
+#		tt_address.address.strftime = Date: %d.%m.%Y
+		
+		# table "tt_address" with field "name" is the value from powermail (tt_content uid 88) field uid18 (###uid18###)
+#		tt_address.name = TEXT
+#		tt_address.name.data = TSFE:fe_user|sesData|powermail_88|uid18
+		
+		# table "tt_address" with field "last_name" is the value from powermail (tt_content uid 88) field uid18 (###uid18###)
+#		tt_address.last_name = TEXT
+#		tt_address.last_name.data = TSFE:fe_user|sesData|powermail_88|uid18
+		
+		# table "tt_address" with field "company" is the value from powermail (tt_content uid 88) field uid21_1 (###uid21_1###) (e.g. a checkbox value)
+#		tt_address.company = TEXT
+#		tt_address.company.data = TSFE:fe_user|sesData|powermail_88|uid21|1
+	}
+	
+	
+	# target of the form
+	formaction = TEXT
+	formaction {
+		typolink {
+			parameter.data = TSFE:id
+			returnLast = url
+			useCacheHash = 1
+			section.field = uid
+			additionalParams.cObject = COA
+			additionalParams.cObject {
+				wrap = &tx_powermail_pi1[mailID]=|
+				10 = TEXT
+				10 {
+					field = uid
+					if.isFalse.field = _LOCALIZED_UID
+				}
+				20 = TEXT
+				20 {
+					field = _LOCALIZED_UID
+					if.isTrue.field = _LOCALIZED_UID
+				}
+			}
+		}
+	}
+	
+	
+	### Redirection after submit ###
+	# 	Return a Number: Typolink to the pid
+	# 	Return a URL: Link to an intern or extern URL
+	# 	Return a File: Link to a file (within fileadmin folder)
+#	redirect = COA
+#	redirect {
+#		10 = TEXT
+#		10.value = x
+#		10.typolink.parameter = 100
+#		10.typolink.returnLast = url
+#	}
+	
+}
+
+[globalVar = LIT:1 > {$plugin.powermail.caching}]
+
+plugin.tx_powermail_pi1 = USER_INT
+
+[else]
+
+plugin.tx_powermail_pi1 = USER
+plugin.tx_powermail_pi1.clear.session = 1
+
+[end]
+
+
+# ---------------------- Additional Typoscript ---------------------
+
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})]
+
+    // if powermail is on current page build up validation js
+
+lib.powermailjs = COA
+lib.powermailjs {
+
+    10 = TEMPLATE
+    10 {
+        template = FILE
+        template.file = {$plugin.powermail.template.frontendJsTemplatePath}
+        marks {
+                VALIDATOR_LABEL_PLEASE_CORRECT = TEXT
+                VALIDATOR_LABEL_PLEASE_CORRECT.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_please_correct
+                VALIDATOR_LABEL_REQUIRED = TEXT
+                VALIDATOR_LABEL_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_required
+                VALIDATOR_LABEL_ONE_REQUIRED = TEXT
+                VALIDATOR_LABEL_ONE_REQUIRED.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_one_required
+                VALIDATOR_LABEL_EMAIL = TEXT
+                VALIDATOR_LABEL_EMAIL.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_email
+                VALIDATOR_LABEL_URL = TEXT
+                VALIDATOR_LABEL_URL.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_url
+                VALIDATOR_LABEL_NUMBER = TEXT
+                VALIDATOR_LABEL_NUMBER.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_number
+                VALIDATOR_LABEL_DIGITS = TEXT
+                VALIDATOR_LABEL_DIGITS.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_digits
+                VALIDATOR_LABEL_ALPHANUM = TEXT
+                VALIDATOR_LABEL_ALPHANUM.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_alphanum
+                VALIDATOR_LABEL_DATE = TEXT
+                VALIDATOR_LABEL_DATE.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_date
+                VALIDATOR_LABEL_DATETIME = TEXT
+                VALIDATOR_LABEL_DATETIME.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_datetime
+                VALIDATOR_INVALIDTIME = TEXT
+                VALIDATOR_INVALIDTIME.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_invalidtime
+                VALIDATOR_LABEL_MAX = TEXT
+                VALIDATOR_LABEL_MAX.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_max
+                VALIDATOR_LABEL_MIN = TEXT
+                VALIDATOR_LABEL_MIN.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_label_validate_min
+                VALIDATOR_DATEINPUT_MONTH = TEXT
+                VALIDATOR_DATEINPUT_MONTH.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_months
+                VALIDATOR_DATEINPUT_SHORTMONTH = TEXT
+                VALIDATOR_DATEINPUT_SHORTMONTH.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortMonths
+                VALIDATOR_DATEINPUT_DAYS = TEXT
+                VALIDATOR_DATEINPUT_DAYS.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_days
+                VALIDATOR_DATEINPUT_SHORTDAYS = TEXT
+                VALIDATOR_DATEINPUT_SHORTDAYS.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_shortDays
+                VALIDATOR_DATEINPUT_FORMAT = TEXT
+                VALIDATOR_DATEINPUT_FORMAT.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_format
+                VALIDATOR_DATEINPUT_FIRSTDAY = TEXT
+                VALIDATOR_DATEINPUT_FIRSTDAY.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_firstDay
+                VALIDATOR_DISABLE = TEXT
+                VALIDATOR_DISABLE.value = false
+        }
+    }
+}
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.validation}]
+
+lib.powermailjs.10.marks.VALIDATOR_DISABLE.value = true
+
+[end]
+
+
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jquery(false)]
+
+    // if powermail is on current page and t3jquery is NOT loaded include jquery and jquery tools from cdn
+
+	// Include needed JS libraries to header
+
+page.includeJSlibs {
+  powermail_jQuery.external = 1
+  powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
+  powermail_jQueryTools.external = 1
+  powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+  powermail_jQueryToolsTabs.external = 1
+  powermail_jQueryToolsTabs = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
+}
+
+    // if powermail is on current page and t3jquery is NOT loaded include validation js into page footer
+
+page.jsFooterInline.10 < lib.powermailjs
+
+[end]
+
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jquery(false)] && [globalVar = LIT:1 > {$plugin.powermail.js.toHeader}]
+
+	// remove jQuery and jQueryTools libraries from header
+
+page.includeJSlibs {
+  powermail_jQuery >
+  powermail_jQueryTools >
+  powermail_jQueryToolsTabs >
+}
+
+	// Include needed JS libraries to footer
+
+page.includeJSFooterlibs {
+	powermail_jQuery.external = 1
+	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
+	powermail_jQueryTools.external = 1
+	powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+	powermail_jQueryToolsTabs.external = 1
+	powermail_jQueryToolsTabs = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
+}
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.includeJquery}]
+
+	// remove jQuery library
+
+page.includeJSFooterlibs.powermail_jQuery >
+page.includeJSlibs.powermail_jQuery >
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.includeJqueryTools}]
+
+	// remove jQueryTools library
+
+page.includeJSFooterlibs.powermail_jQueryTools >
+page.includeJSlibs.powermail_jQueryTools >
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.includeJqueryToolsTabs}]
+
+	// remove jQueryTools Tab library
+
+page.includeJSFooterlibs.powermail_jQueryToolsTabs >
+page.includeJSlibs.powermail_jQueryToolsTabs >
+
+[end]
+
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jquery(true)]
+
+    // if powermail is on current page and t3jquery is loaded include jquery and validation js using t3jquery
+
+includeLibs.t3jquery = EXT:t3jquery/class.tx_t3jquery.php
+page.31320 = COA
+page.31320 {
+    10 = USER
+    10 {
+        userFunc = tx_t3jquery->addJS
+        tofooter = 0
+        forceOnTop = 1
+    }
+    20 = USER
+    20 {
+        userFunc = tx_t3jquery->addJS
+	    jsurl = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+        tofooter = 0
+    }
+    25 = USER
+    25 {
+        userFunc = tx_t3jquery->addJS
+	    jsurl = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
+        tofooter = 0
+    }
+    30 = USER
+    30 {
+        userFunc = tx_t3jquery->addJS
+        jsdata.cObject < lib.powermailjs
+        compress = 1
+        tofooter = 0
+    }
+}
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.toHeader}]
+
+	// move js code to header
+
+page.31320 {
+	10.tofooter = 1
+	20.tofooter = 1
+	25.tofooter = 1
+	30.tofooter = 1
+}
+
+[end]
+
+[userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jqueryCDNMode(false)]
+
+    // if powermail is on current page and t3jquery is loaded and NOT in CDN Mode delete jquery tools
+
+page.31320.20 >
+page.31320.25 >
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.includeJqueryToolsTabs}]
+
+	// remove jQueryTools tab library if not needed
+
+page.31320.25 >
+
+[end]

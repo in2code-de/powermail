@@ -1,0 +1,23 @@
+# cat=basic/enable/010; type=boolean; label= Preview window active: Activate frontend preview window under field definitions (iframe with frontend view of current page). Deactivate for a faster work with powermail.
+usePreview = 1
+
+# cat=basic/enable/020; type=boolean; label= Enable CSS Selectors: If you want to enable CSS selectors instead of CSS input fields for the fields and fieldsets of powermail, you can enable this checkbox (See manual how to add some options in the selectorbox with TSconfig).
+cssSelection = 1
+
+# cat=basic/enable/030; type=text; label= Fill field with fe data: A dropdown is shown in the backend which enables to prefill any field with the value of a current logged in feuser. You can increase or decrease the fe_user field values in the dropdown menu. Just use the wanted fieldnames of the fe_user table in a comma-separated list.
+feusersPrefill = name, address, telephone, fax, email, zip, city, country, www, company
+
+# cat=basic/enable/040; type=boolean; label= Deactivate IP logging: If you don't want to save the sender IP address in the database, you can use this checkbox.
+disableIPlog = 0
+
+# cat=basic/enable/050; type=boolean; label= Disable the BE Module: You can safely disable the backend module if you don't store sent mails into your database.
+disableBackendModule = 0
+
+# cat=basic/enable/060; type=boolean; label= Deactivate Start- and Stoptime: If there are problems with adding fields or if you do not need this fields, you can disable start- and stoptime for fields and fieldsets with this flag.
+disableStartStop = 0
+
+# cat=basic/enable/070; type=boolean; label= Use IRRE: Inline Relational Record Editing (IRRE) to enter your fieldsets and fields just by opening only one content. If you want to use the listview and manually enter the relation between tt_content and fieldsets and fields you can disable IRRE.
+useIRRE = 1
+
+# cat=basic//080; type=text; label= Path to Unix/Linux "file" tool with tailing slash.
+fileToolPath = /usr/bin/

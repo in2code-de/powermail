@@ -1,0 +1,18 @@
+Powermail HTML Template thx message in content after submit
+
+	-- THX MARKERS --
+	Fill with RTE of backend (thx message field)		###POWERMAIL_THX_RTE### 
+	Errormessage if an error (e.g. wt_spamshield)		###POWERMAIL_THX_ERROR###
+	Use special marker of any sent value: 				###UID5###
+	Get label of any special value:		 				###LABEL_UID5###
+	
+	--- GENERAL MARKERS --
+	Displaying any value from pi1/locallang.xml:		###POWERMAIL_LOCALLANG_YOURFIELD### (Could be filled via locallang.xml or typoscript - see manual for details)
+	Displaying any value from typoscript:				###POWERMAIL_TYPOSCRIPT_YOURFIELD### (Could be filled via typoscript - see manual for details)
+
+<!-- ###POWERMAIL_THX### begin -->
+	<div class="tx-powermail-pi1_thx">
+		###POWERMAIL_THX_RTE###
+		###POWERMAIL_THX_ERROR###
+	</div>
+<!-- ###POWERMAIL_THX### end -->
