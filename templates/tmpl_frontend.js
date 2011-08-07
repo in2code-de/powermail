@@ -158,7 +158,7 @@
 
         if (!textareaMaxlengthSupport) {
 			$('textarea[maxlength]').each(function() {
-                $(this).bind('keypress', function() {
+                $(this).bind('keypress blur', function() {
                     $(this).val($(this).val().substr(0, $(this).attr('maxlength')));
                 });
             });
