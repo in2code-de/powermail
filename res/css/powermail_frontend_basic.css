@@ -285,7 +285,7 @@ html:root .error em {
 /* For the details, see: http://flowplayer.org/tools/dateinput/index.html#skinning */
 
 /* the input field */
-.date {
+.tx_powermail_pi1_fieldwrap_html_datetime .date {
 	width: 237px !important;
 }
 
@@ -427,6 +427,19 @@ a.caldisabled {
 #caltoday {
 	background-color:#333;
 	color:#fff;
+}
+
+a.caltrigger {
+    position: absolute;
+    left: 454px;
+    margin: 2px;
+    background: url(../img/calendar.png) no-repeat 0 0;
+    width:16px;
+    height:16px;
+}
+
+.tx_powermail_pi1_fieldwrap_html_date a.caltrigger {
+    left: 517px;
 }
 
 /* slider root element */

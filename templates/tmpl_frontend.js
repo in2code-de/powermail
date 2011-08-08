@@ -26,6 +26,7 @@
 			format: '###VALIDATOR_DATEINPUT_FORMAT###',
 			firstDay: parseInt('###VALIDATOR_DATEINPUT_FIRSTDAY###'),
 			selectors: true,
+			trigger: ###SHOW_TRIGGER_ICON###,
 			disabled: false,
 			readonly: false,
 			yearRange: [-99, 99],

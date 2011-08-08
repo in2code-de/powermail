@@ -501,6 +501,8 @@ lib.powermailjs {
                 VALIDATOR_DISABLE.value = false
                 SCROLL_TO_ERROR = TEXT
                 SCROLL_TO_ERROR.value = true
+                SHOW_TRIGGER_ICON = TEXT
+                SHOW_TRIGGER_ICON.value = true
         }
     }
 }
@@ -516,6 +518,12 @@ lib.powermailjs.10.marks.VALIDATOR_DISABLE.value = true
 [globalVar = LIT:1 > {$plugin.powermail.js.scrolltoerror}]
 
 lib.powermailjs.10.marks.SCROLL_TO_ERROR.value = false
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.showtriggericon}]
+
+lib.powermailjs.10.marks.SHOW_TRIGGER_ICON.value = false
 
 [end]
 

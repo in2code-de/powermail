@@ -556,6 +556,20 @@ a.caldisabled {
 	background-color:#333;
 	color:#fff;
 }
+/* calendar icon */
+a.caltrigger {
+    position: absolute;
+    left: 514px;
+    margin: 4px;
+    background: url(../img/calendar.png) no-repeat 0 0;
+    width:16px;
+    height:16px;
+}
+
+.tx_powermail_pi1_fieldwrap_html_date a.caltrigger {
+    left: 614px;
+}
+
 /* slider root element */
 .slider { 
 	background:#3C72E6 url(../img/h30.png) repeat-x 0 0; 
