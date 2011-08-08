@@ -43,7 +43,7 @@ fieldset.tx-powermail-pi1_fieldset input.powermail_captcha{
 }
 fieldset.tx-powermail-pi1_fieldset input.powermail_time,
 fieldset.tx-powermail-pi1_fieldset input[type=time]{
-    width:53px;
+    width:60px;
 }
 
 
@@ -286,7 +286,7 @@ html:root .error em {
 
 /* the input field */
 .tx_powermail_pi1_fieldwrap_html_datetime .date {
-	width: 237px !important;
+	width: 230px !important;
 }
 
 /* calendar root element */
@@ -431,7 +431,7 @@ a.caldisabled {
 
 a.caltrigger {
     position: absolute;
-    left: 454px;
+    left: 446px;
     margin: 2px;
     background: url(../img/calendar.png) no-repeat 0 0;
     width:16px;
