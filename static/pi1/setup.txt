@@ -499,6 +499,8 @@ lib.powermailjs {
                 VALIDATOR_DATEINPUT_FIRSTDAY.data = LLL:EXT:powermail/pi1/locallang.xml:JSvalidation_dateinput_firstDay
                 VALIDATOR_DISABLE = TEXT
                 VALIDATOR_DISABLE.value = false
+                SCROLL_TO_ERROR = TEXT
+                SCROLL_TO_ERROR.value = true
         }
     }
 }
@@ -508,6 +510,12 @@ lib.powermailjs {
 [globalVar = LIT:1 > {$plugin.powermail.js.validation}]
 
 lib.powermailjs.10.marks.VALIDATOR_DISABLE.value = true
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.scrolltoerror}]
+
+lib.powermailjs.10.marks.SCROLL_TO_ERROR.value = false
 
 [end]
 
