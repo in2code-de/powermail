@@ -60,16 +60,6 @@
 					</config>
 				</TCEforms>
 			</maxcalc>
-			<size>
-				<TCEforms>
-					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.size</label>
-					<exclude>1</exclude>
-					<config>
-						<type>input</type>
-						<size>5</size>
-					</config>
-				</TCEforms>
-			</size>
 			<readonly>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.readonly</label>
@@ -88,16 +78,6 @@
 					</config>
 				</TCEforms>
 			</mandatory>
-			<placeholder>
-				<TCEforms>
-					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.placeholder</label>
-					<exclude>1</exclude>
-					<config>
-						<type>input</type>
-						<size>35</size>
-					</config>
-				</TCEforms>
-			</placeholder>
 			<name>
 				<TCEforms>
 					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>
