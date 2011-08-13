@@ -57,13 +57,19 @@ class tx_powermail_markers extends tslib_pibase {
 		$this->geo = t3lib_div::makeInstance('tx_powermail_geoip'); // Instance with geo class
        	$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
 		$this->geoArray = $this->geo->main($this->conf); // Get geoinfo array
-        $this->markerArray['###POWERMAIL_ALL###'] = $content_item = ''; $this->markerArray = array(); // init
+        $this->markerArray['###POWERMAIL_ALL###'] = '';
+        $content_item = '';
+        $this->markerArray = array(); // init
         $this->sessiondata = $this->getSession($what); // fill variable with values from session
         $this->notInMarkerAll = t3lib_div::trimExplode(',', $this->conf['markerALL.']['notIn'], 1); // choose which fields should not be listed in marker ###ALL### (ERROR is never allowed to be shown)
         $this->tmpl['all']['all'] = $this->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['all']), "###POWERMAIL_ALL###"); // Load HTML Template: ALL (works on subpart ###POWERMAIL_ALL###)
 		$this->tmpl['all']['item'] = $this->cObj->getSubpart($this->tmpl['all']['all'], "###ITEM###"); // Load HTML Template: ALL (works on subpart ###POWERMAIL_ALL###)
 		$this->hook_markerArray(); // adds hook
-
+        $this->baseURL = ($GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] ? $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] : t3lib_div::getIndpEnv('TYPO3_SITE_URL')); // absolute path (baseurl)
+        $this->uploadFolder = $this->conf['upload.']['folder']; // Relative upload folder from constants
+        if (!!$this->conf['upload.']['useTitleAsUploadFolderName'] || $this->cObj->data['tx_powermail_useTitleAsUploadFolderName']) {
+            $this->uploadFolder .= $this->cObj->data['tx_powermail_title'] . '/';
+        }
 
 		if (isset($this->sessiondata) && is_array($this->sessiondata)) {
 
@@ -73,11 +79,10 @@ class tx_powermail_markers extends tslib_pibase {
 				'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid',
 				'tx_powermail_fieldsets.tt_content = ' . intval($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']) . ' AND tx_powermail_fields.deleted = 0 AND tx_powermail_fields.hidden = 0 ',
 				'',
-				'tx_powermail_fieldsets.sorting,tx_powermail_fields.sorting',
-				''
+				'tx_powermail_fieldsets.sorting,tx_powermail_fields.sorting'
 			);
 			
-			if ($res) {
+			if ($res !== false) {
 				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
 					if($this->sessiondata['uid' . $row['uid']] != "") {
 						$orderedSessionData['uid' . $row['uid']] = $this->sessiondata['uid' . $row['uid']];
@@ -85,22 +90,28 @@ class tx_powermail_markers extends tslib_pibase {
 					unset($this->sessiondata['uid' . $row['uid']]);
 				}
 				$this->sessiondata = array_merge($orderedSessionData, $this->sessiondata);
+                $GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 
 			// normal markers
             foreach ($this->sessiondata as $k => $v) { // One loop for every piVar
+                $this->label = $k;
+                $this->setLabelAndType();
 				if ($k == 'FILE' && count($v) > 1) { // only if min two files uploaded (don't show uploaded files two times if only one upload field)
 				    $i = 1;
 					foreach ($v as $key => $file) {
 						$this->markerArray['###' . strtoupper($k) . '_' . $key . '###'] = stripslashes($this->div->nl2br2($file)); // Filename
-						$this->markerArray['###LABEL_' . strtolower($k) . '_' . $key . '###'] = sprintf($this->pi_getLL('locallangmarker_confirmation_files','Attached file %s: '),$i); // Label to filename
+						$this->markerArray['###LABEL_' . strtolower($k) . '_' . $key . '###'] = sprintf($this->pi_getLL('locallangmarker_confirmation_files','Attached file %s: '), $i); // Label to filename
 						if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
-							$markerArray['###POWERMAIL_LABEL###'] = sprintf($this->pi_getLL('locallangmarker_confirmation_files','Attached file %s: '),$i);
+							$markerArray['###POWERMAIL_LABEL###'] = sprintf($this->pi_getLL('locallangmarker_confirmation_files','Attached file %s: '), $i);
 							$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($file));
+                            if (!!$this->conf['upload.']['addLinkToUploads'] && $this->what == 'recipient_mail') {
+                                $markerArray['###POWERMAIL_VALUE###'] = '<a href="' . $this->baseURL . $this->uploadFolder . $markerArray['###POWERMAIL_VALUE###'] . '" target="_blank">' . $markerArray['###POWERMAIL_VALUE###'] . '</a>';
+                            }
 						}
 						$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v); // add hook
 						$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray);
-					$i++;
+					$i ++;
 					}
 				}
 				else {
@@ -108,12 +119,15 @@ class tx_powermail_markers extends tslib_pibase {
 						if (!is_array($v)) { // standard: value is not an array
 							if (is_numeric(str_replace('uid', '', $k))) { // check if key is like uid55
 								$this->markerArray['###' . strtoupper($k) . '###'] = stripslashes($this->div->nl2br2($v)); // fill ###UID55###
-								$this->markerArray['###LABEL_' . strtoupper($k) . '###'] = $this->GetLabelfromBackend($k,$v); // fill ###LABEL_UID55###
+								$this->markerArray['###LABEL_' . strtoupper($k) . '###'] = $this->label; // fill ###LABEL_UID55###
 								
 								// ###POWERMAIL_ALL###
 								if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
-									$markerArray['###POWERMAIL_LABEL###'] = $this->GetLabelfromBackend($k,$v);
+									$markerArray['###POWERMAIL_LABEL###'] = $this->label;
 									$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($v));
+                                    if (!!$this->conf['upload.']['addLinkToUploads'] && $this->type == 'file' && $this->what == 'recipient_mail') {
+                                        $markerArray['###POWERMAIL_VALUE###'] = '<a href="' . $this->baseURL . $this->uploadFolder . $markerArray['###POWERMAIL_VALUE###'] . '" target="_blank">' . $markerArray['###POWERMAIL_VALUE###'] . '</a>';
+                                    }
 									$markerArray['###POWERMAIL_UID###'] = $k;
 									$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v);
 									if ($this->conf['markerALL.']['hideLabel'] == 1 && $markerArray['###POWERMAIL_VALUE###'] || $this->conf['markerALL.']['hideLabel'] == 0) { // if hideLabel on in backend: add only if value exists
@@ -122,23 +136,23 @@ class tx_powermail_markers extends tslib_pibase {
 								}
 							}
 						} else { // value is still an array (needed for e.g. checkboxes tx_powermail_pi1[uid55][0])
-							$i=0; // init counter
+							$i = 0; // init counter
 							foreach ($v as $kv => $vv) { // One loop for every piVar
 								if (is_numeric(str_replace('uid','',$k))) { // check if key is like uid55
 									if ($vv) { // if value exists
 										$this->markerArray['###' . strtoupper($k) . '_' . $kv . '###'] = stripslashes($this->div->nl2br2($vv)); // fill ###UID55_0###
 										$this->markerArray['###' . strtoupper($k) . '###'] .= ($i != 0 ? $this->cObj->stdWrap($this->conf['field.']['checkboxSplitSign'], $this->conf['field.']['checkboxSplitSign.']) : '') . stripslashes($this->div->nl2br2($vv)); // fill ###UID55### (comma between every value)
-										$this->markerArray['###LABEL_' . strtoupper($k) . '###'] = $this->GetLabelfromBackend($k,$v); // fill ###LABEL_UID55###
+										$this->markerArray['###LABEL_' . strtoupper($k) . '###'] = $this->label; // fill ###LABEL_UID55###
 										
 										// ###POWERMAIL_ALL###
 										if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
-											$markerArray['###POWERMAIL_LABEL###'] = $this->GetLabelfromBackend($k,$v);
+											$markerArray['###POWERMAIL_LABEL###'] = $this->label;
 											$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($vv));
 											$markerArray['###POWERMAIL_UID###'] = $k;
 											$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v, $kv, $vv); // add hook
-											$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'],$markerArray);
+											$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray);
 										}
-										$i++; // increase counter
+										$i ++; // increase counter
 									}
 								}
 							}
@@ -154,7 +168,7 @@ class tx_powermail_markers extends tslib_pibase {
 						if ($this->geoArray[$geovalue]) { // if this key exists
 							$markerArray['###POWERMAIL_LABEL###'] = $this->pi_getLL('geoip_' . $geovalue, ucfirst($geovalue));
 							$markerArray['###POWERMAIL_VALUE###'] = $this->geoArray[$geovalue];
-							$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'],$markerArray); // add line
+							$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray); // add line
 						}
 					}
 				}
@@ -163,64 +177,52 @@ class tx_powermail_markers extends tslib_pibase {
         }
 
         // add standard Markers
-		$this->markerArray['###POWERMAIL_UPLOADFOLDER###'] = $this->conf['upload.']['folder']; // Relative upload folder from constants
+		$this->markerArray['###POWERMAIL_UPLOADFOLDER###'] = $this->uploadFolder; // Relative upload folder
 		if (count($this->geoArray) > 0) foreach ($this->geoArray as $key => $value) {
 			$this->markerArray['###POWERMAIL_GEO_' . strtoupper($key) . '###'] = $this->geoArray[$key]; // Add standardmarker for geo info (ip, countryCode, countryName, region, city, zip, lng, lat, dmaCode, areaCode)
 		}
 		$this->markerArray['###POWERMAIL_BASEURL###'] = ($GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] ? $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] : t3lib_div::getIndpEnv('TYPO3_SITE_URL')); // absolute path (baseurl)
 		$this->markerArray['###POWERMAIL_ALL###'] = trim($this->cObj->substituteMarkerArrayCached($this->tmpl['all']['all'], array(), $subpartArray)); // Fill ###POWERMAIL_ALL###
 
-		$this->markerArray['###POWERMAIL_THX_RTE###'] = ( $this->conf['rte.']['parse'] == 1 ? $this->pi_RTEcssText(tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_thanks'],$this->markerArray)) : tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_thanks'],$this->markerArray) ); // Thx message with ###fields###
-        $this->markerArray['###POWERMAIL_EMAILRECIPIENT_RTE###'] = ( $this->conf['rte.']['parse'] == 1 ? $this->pi_RTEcssText(tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_mailreceiver'],$this->markerArray)) : tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_mailreceiver'],$this->markerArray) ); // Email to receiver message with ###fields###
-        $this->markerArray['###POWERMAIL_EMAILSENDER_RTE###'] = ( $this->conf['rte.']['parse'] == 1 ? $this->pi_RTEcssText(tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_mailsender'],$this->markerArray)) : tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_mailsender'],$this->markerArray) ); // Email to sender message with ###fields###
+		$this->markerArray['###POWERMAIL_THX_RTE###'] = ( $this->conf['rte.']['parse'] == 1 ? $this->pi_RTEcssText(tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_thanks'],$this->markerArray)) : tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_thanks'], $this->markerArray)); // Thx message with ###fields###
+        $this->markerArray['###POWERMAIL_EMAILRECIPIENT_RTE###'] = ( $this->conf['rte.']['parse'] == 1 ? $this->pi_RTEcssText(tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_mailreceiver'], $this->markerArray)) : tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_mailreceiver'], $this->markerArray)); // Email to receiver message with ###fields###
+        $this->markerArray['###POWERMAIL_EMAILSENDER_RTE###'] = ( $this->conf['rte.']['parse'] == 1 ? $this->pi_RTEcssText(tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_mailsender'], $this->markerArray)) : tslib_cObj::substituteMarkerArrayCached($this->cObj->data['tx_powermail_mailsender'], $this->markerArray)); // Email to sender message with ###fields###
 
 		return $this->markerArray;
     }
 
     /**
-	 * Function GetLabelfromBackend() to get label to current field for emails and thx message
+	 * Function setLabelAndType() set label and field type to current field for emails and thx message
 	 *
-	 * @param	string		Field Uid
-	 * @param	string		Value
-	 * @return	string		Label to field
 	 */
-    private function GetLabelfromBackend($name, $value = '') {
-		$this->div = t3lib_div::makeInstance('tx_powermail_functions_div'); // New object: div functions
-
-		if (strpos($name, 'uid') === FALSE) { // $name not like uid55
-			return $name;
-		}
-		
-		$uid = str_replace('uid', '', $name); // remove uid from uid43 to get 43
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery ( // GET title where fields.flexform LIKE <value index="vDEF">vorname</value>
-			'tx_powermail_fields.title',
-			'
-				tx_powermail_fields 
-				LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid 
-				LEFT JOIN tt_content ON tt_content.uid = tx_powermail_fieldsets.tt_content
-			',
-			$where_clause = 'tx_powermail_fields.uid = ' . intval($uid),
-			$groupBy = '',
-			$orderBy = '',
-			$limit = ''
-		);
-		if ($res) {
-			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		}
-		if (!empty($row['title'])) { // if title was found
-			return $this->div->parseFunc($row['title'], $this->cObj, $this->conf['label.']['parse']); // return title
-		} else { // no label to field found (Countryzoneselect, etc...)
-			return ''; // empty return
-		}
+    private function setLabelAndType() {
+        $this->type = 'undefined';
+ 		if (strpos($this->label, 'uid') !== false) { // if label like uid55
+            $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
+                'tx_powermail_fields.title, tx_powermail_fields.formtype',
+                'tx_powermail_fields
+                LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid
+                LEFT JOIN tt_content ON tt_content.uid = tx_powermail_fieldsets.tt_content',
+                'tx_powermail_fields.uid = ' . intval(str_replace('uid', '', $this->label))
+            );
+            if ($res !== false) {
+                $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+                if ($row !== false) {
+                    $this->label = $this->div->parseFunc($row['title'], $this->cObj, $this->conf['label.']['parse']); // set label to title
+                    $this->type = $row['formtype']; // set type to formtype
+                }
+                $GLOBALS['TYPO3_DB']->sql_free_result($res);
+            }
+        }
     }
 
     /**
-	 * Function DynamicLocalLangMarker() to get automaticaly a marker from locallang.xml (###LOCALLANG_BLABLA### from locallang.xml: locallangmarker_blabla
+	 * Function dynamicLocalLangMarker() to get automatically a marker from locallang.xml (###LOCALLANG_BLABLA### from locallang.xml: locallangmarker_blabla
 	 *
 	 * @param	array		Locallang array
 	 * @return	string		Label from locallang
 	 */
-    private function DynamicLocalLangMarker($array) {
+    private function dynamicLocalLangMarker($array) {
         $string = $this->pi_getLL(strtolower($this->locallangmarker_prefix . $array[1]));
         return $string;
     }
@@ -255,17 +257,15 @@ class tx_powermail_markers extends tslib_pibase {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 				'uid',
 				'tx_powermail_fields',
-				$where_clause = '( pid = ' . intval($GLOBALS['TSFE']->id) . ' AND formtype = "hidden"' . tslib_cObj::enableFields('tx_powermail_fields') . ') OR ( pid = ' . intval($GLOBALS['TSFE']->id) . ' AND deleted = 1 )',
-				$groupBy = '',
-				$orderBy = '',
-				$limit = ''
+				'( pid = ' . intval($GLOBALS['TSFE']->id) . ' AND formtype = "hidden"' . tslib_cObj::enableFields('tx_powermail_fields') . ') OR ( pid = ' . intval($GLOBALS['TSFE']->id) . ' AND deleted = 1 )'
 			);
-			if ($res) { // If there is a result
+			if ($res !== false) { // If there is a result
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every hidden or deleted field
 					if (!empty($sessionArray['uid' . $row['uid']])) {
 						unset($sessionArray['uid' . $row['uid']]); // unset all hidden or deleted session variables
 					}
 				}
+                $GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 		}
 

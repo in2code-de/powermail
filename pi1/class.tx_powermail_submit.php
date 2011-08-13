@@ -232,7 +232,7 @@ class tx_powermail_submit extends tslib_pibase {
             // add attachment (from user upload)
             if (isset($this->sessiondata['FILE']) && $this->conf['upload.']['attachment'] == 1) { // if there are uploaded files AND attachment to emails is activated via constants
                 if (is_array($this->sessiondata['FILE']) && $this->subpart == 'recipient_mail') { // only if array and mail to receiver
-                    $path = $this->div->correctPath($this->conf['upload.']['folder']);
+                    $path = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadFolderName'] || $this->cObj->data['tx_powermail_useTitleAsUploadFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
                     foreach ($this->sessiondata['FILE'] as $fileName) { // one loop for every file
                         $file = $path . $fileName;
                         if (is_file(t3lib_div::getFileAbsFileName($file))) { // If file exists

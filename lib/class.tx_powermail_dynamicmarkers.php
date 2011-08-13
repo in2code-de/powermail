@@ -44,16 +44,16 @@ class tx_powermail_dynamicmarkers extends tslib_pibase {
 
 			// let's go
 			// 1. replace locallang markers
-			$this->content = preg_replace_callback ( // Automaticly fill locallangmarkers with fitting value of locallang.xml
+			$this->content = preg_replace_callback ( // Automatically fill locallangmarkers with fitting value of locallang.xml
 				'#\#\#\#'.$this->locallangmarker_prefix[0].'(.*)\#\#\##Uis', // regulare expression
-				array($this, 'DynamicLocalLangMarker'), // open function
+				array($this, 'dynamicLocalLangMarker'), // open function
 				$this->content // current content
 			);
 
 			// 2. replace typoscript markers
-			$this->content = preg_replace_callback ( // Automaticly fill locallangmarkers with fitting value of locallang.xml
+			$this->content = preg_replace_callback ( // Automatically fill locallangmarkers with fitting value of locallang.xml
 				'#\#\#\#'.$this->typoscriptmarker_prefix[0].'(.*)\#\#\##Uis', // regulare expression
-				array($this, 'DynamicTyposcriptMarker'), // open function
+				array($this, 'dynamicTyposcriptMarker'), // open function
 				$this->content // current content
 			);
 
@@ -63,8 +63,8 @@ class tx_powermail_dynamicmarkers extends tslib_pibase {
 	}
 
 
-    // Function DynamicLocalLangMarker() to get automaticly a marker from locallang.xml (###LOCALLANG_BLABLA### from locallang.xml: locallangmarker_blabla)
-    function DynamicLocalLangMarker($array) {
+    // Function DynamicLocalLangMarker() to get automatically a marker from locallang.xml (###LOCALLANG_BLABLA### from locallang.xml: locallangmarker_blabla)
+    function dynamicLocalLangMarker($array) {
 		if ($this->pi_getLL(strtolower($this->locallangmarker_prefix[1].$array[1]))) { // if there is an entry in locallang.xml
 			$string = $this->pi_getLL(strtolower($this->locallangmarker_prefix[1].$array[1])); // search for a fitting entry in locallang.xml or typoscript
 		}
@@ -73,8 +73,8 @@ class tx_powermail_dynamicmarkers extends tslib_pibase {
     }
 
 
-	// Function DynamicTyposcriptMarker() to get automaticly a marker from typoscript
-	function DynamicTyposcriptMarker($array) {
+	// Function DynamicTyposcriptMarker() to get automatically a marker from typoscript
+	function dynamicTyposcriptMarker($array) {
 		if (!is_array($this->conf['dynamicTyposcript.'])) {
 			return '';
 		}

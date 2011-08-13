@@ -116,6 +116,7 @@ CREATE TABLE tx_powermail_mails (
 #
 CREATE TABLE tt_content (
 	tx_powermail_title tinytext NOT NULL,
+	tx_powermail_useTitleAsUploadFolderName tinyint(3) DEFAULT '0' NOT NULL,
 	tx_powermail_recipient text NOT NULL,
 	tx_powermail_subject_r tinytext NOT NULL,
 	tx_powermail_subject_s tinytext NOT NULL,
@@ -123,6 +124,7 @@ CREATE TABLE tt_content (
 	tx_powermail_sendername tinytext NOT NULL,
 	tx_powermail_confirm tinyint(3) DEFAULT '0' NOT NULL,
 	tx_powermail_pages tinytext NOT NULL,
+	tx_powermail_disableSaveToPage tinyint(3) DEFAULT '0' NOT NULL,
 	tx_powermail_multiple tinyint(3) DEFAULT '0' NOT NULL,
 	tx_powermail_recip_table text NOT NULL,
 	tx_powermail_recip_id text NOT NULL,

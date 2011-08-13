@@ -208,7 +208,11 @@ class tx_powermail_sessions extends tslib_pibase {
 											if (($this->conf['upload.']['mimecheck'] && $this->div->mimecheck($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']][$key], $newfilename)) || $this->conf['upload.']['mimecheck'] != 1) { // mimecheck off OR mimecheck true
 
 												// upload copy move uploaded files to destination
-												if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']][$key], t3lib_div::getFileAbsFileName($this->div->correctPath($this->conf['upload.']['folder']) . $newfilename))) {
+                                                $filepath = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadFolderName'] || $this->cObj->data['tx_powermail_useTitleAsUploadFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
+                                                if (!is_dir(t3lib_div::dirname($filepath))) {
+                                                    t3lib_div::mkdir(t3lib_div::dirname($filepath));
+                                                }
+												if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']][$key], t3lib_div::getFileAbsFileName($filepath . $newfilename))) {
 													$piVars['uid' . $row['uid']] = $newfilename; // write new filename to session (area for normal fields)
 													$piVars['FILE'][] = $newfilename; // write new filename to session (area for files)
 												} else { // could not be copied (maybe write permission error or wrong path)
@@ -241,7 +245,11 @@ class tx_powermail_sessions extends tslib_pibase {
 									if (($this->conf['upload.']['mimecheck'] && $this->div->mimecheck($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']], $newfilename)) || $this->conf['upload.']['mimecheck'] != 1) { // mimecheck off OR mimecheck true
 
 										// upload copy move uploaded files to destination
-										if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']], t3lib_div::getFileAbsFileName($this->div->correctPath($this->conf['upload.']['folder']) . $newfilename))) {
+                                        $filepath = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadFolderName'] || $this->cObj->data['tx_powermail_useTitleAsUploadFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
+                                        if (!is_dir(t3lib_div::dirname($filepath))) {
+                                            t3lib_div::mkdir(t3lib_div::dirname($filepath));
+                                        }
+										if (t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']], t3lib_div::getFileAbsFileName($filepath . $newfilename))) {
 											$piVars['uid' . $row['uid']] = $newfilename; // write new filename to session (area for normal fields)
 											$piVars['FILE'][] = $newfilename; // write new filename to session (area for files)
 										} else { // could not be copied (maybe write permission error or wrong path)

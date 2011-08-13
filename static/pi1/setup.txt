@@ -34,10 +34,12 @@ plugin.tx_powermail_pi1 {
 	captcha.use = {$plugin.powermail.captcha.use}
 	pagebrowser.wrap = {$plugin.powermail.pagebrowser.wrap}
 	upload.folder = {$plugin.powermail.upload.folder}
+	upload.useTitleAsUploadFolderName = {$plugin.powermail.upload.useTitleAsUploadFolderName}
 	upload.file_extensions = {$plugin.powermail.upload.file_extensions}
 	upload.mimecheck = {$plugin.powermail.upload.mimecheck}
 	upload.filesize = {$plugin.powermail.upload.filesize}
 	upload.attachment = {$plugin.powermail.upload.attachment}
+	upload.addLinkToUploads = {$plugin.powermail.upload.addLinkToUploads}
 	upload.delete = {$plugin.powermail.upload.delete}
 	clear.session = {$plugin.powermail.clear.session}
 	field.checkboxJS = {$plugin.powermail.field.checkboxJS}

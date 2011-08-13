@@ -41,6 +41,8 @@
 			<label index="tx_powermail_forms.redirect">Auto-redirect after confirmation-page</label>
 			<label index="tx_powermail_forms.updateError">Powermail ERROR: Please go back to the extension manager, choose powermail and click the update button!</label>
 			<label index="tx_powermail_forms.noError">No errors found</label>
+            <label index="tx_powermail_forms.disableSaveToPage">Disable save to page</label>
+            <label index="tx_powermail_forms.useTitleAsUploadFolderName">Use title as folder name for uploads</label>
 			<label index="tx_powermail_fieldsets">Fieldsets</label>
 			<label index="tx_powermail_fieldsets.form">Form</label>
 			<label index="tx_powermail_fieldsets.title">Title</label>
