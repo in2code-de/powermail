@@ -165,7 +165,8 @@ class tx_powermail_module1 extends t3lib_SCbase {
 						"noExcel": "' . $LANG->getLL('phpexcel_library') . '",
 						"noPdf": "' . $LANG->getLL('noPdf' , 'This export format is currently not implemented. Please contact the powermail development team, if you want to sponsor this feature.') . '",
 						"noMails1": "' . $LANG->getLL('nopowermails1') . '",
-						"noMails2": "' . $LANG->getLL('nopowermails2') . '"
+						"noMails2": "' . $LANG->getLL('nopowermails2') . '",
+						"uploadPath": "' . $LANG->getLL('uploadPath' , 'uploadPath') . '"
 					};
 				');
 

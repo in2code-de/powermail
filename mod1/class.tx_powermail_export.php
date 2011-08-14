@@ -97,14 +97,6 @@ class tx_powermail_export {
 	 */
 	var $timeFilePrefix = '';
 
-
-    /**
-     * uploadFolder for generating links in export files
-     *
-     * @var	string
-     */
-    var $uploadFolder = 'uploads/tx_powermail/files/';
-
 	/**
 	 * filename of export file
 	 *
@@ -254,7 +246,7 @@ class tx_powermail_export {
 
 		$this->pid = intval($this->pid);
 
-		$pageArray = t3lib_BEfunc::getRecord('pages', $this->pid, 'title');
+		$pageArray = t3lib_BEfunc::getRecord('pages', $this->pid, 'title, tx_powermail_title, tx_powermail_useTitleAsUploadFolderName');
 		$this->pageTitle = $pageArray['title'];
 
 		$this->phpexcel = t3lib_extMgm::isLoaded('phpexcel_library');
@@ -301,10 +293,6 @@ class tx_powermail_export {
 
         if (isset($this->tsConfig['properties']['config.']['export.']['datetimeFormat'])){
             $this->datetimeFormat = $this->tsConfig['properties']['config.']['export.']['datetimeFormat'];
-        }
-
-        if (isset($this->tsConfig['properties']['config.']['export.']['uploadFolder'])){
-            $this->uploadFolder = $this->tsConfig['properties']['config.']['export.']['uploadFolder'];
         }
 
 		// Not used Yet!
@@ -447,6 +435,7 @@ tr.odd td{background:#eee;}
 		$htmlContent .= '<tbody>';
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
 		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
+            $uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
 			if ($row['piVars']) {
 				$piVars = t3lib_div::xml2array($row['piVars'], 'piVars');
 				$i++;
@@ -480,7 +469,7 @@ tr.odd td{background:#eee;}
                                             $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
                                             break;
                                         case 'file':
-                                            $value = '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value . '">' . $value . '</a>';
+                                            $value = '<a href="' . $uploadURLPath . $value . '">' . $value . '</a>';
                                             break;
                                     }
 									$htmlContent .= '<td>' . $value . '</td>';
@@ -529,7 +518,7 @@ tr.odd td{background:#eee;}
 							        $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
 							        break;
 							    case 'file':
-							        $value = '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value . '">' . $value . '</a>';
+							        $value = '<a href="' . $uploadURLPath . $value . '">' . $value . '</a>';
 							        break;
 							}
 							$htmlContent .= '<td>' . $value . '</td>';
@@ -598,6 +587,7 @@ tr.odd td{background:#eee;}
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
         $i = 0;
 		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
+            $uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
 			if ($row['piVars']) {
 				$i++;
 				$piVars = t3lib_div::xml2array(($row['piVars']), 'piVars');
@@ -631,7 +621,7 @@ tr.odd td{background:#eee;}
                                             $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
                                             break;
                                         case 'file':
-                                            $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
+                                            $value = $uploadURLPath . $value;
                                             break;
                                     }
 									$csvContent .= '"' . $value . '"' . $this->seperator;
@@ -681,7 +671,7 @@ tr.odd td{background:#eee;}
 							        $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
 							        break;
 							    case 'file':
-							        $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
+							        $value = $uploadURLPath . $value;
 							        break;
 							}
 							$csvContent .= '"' . $value . '"' . $this->seperator;
@@ -784,6 +774,7 @@ tr.odd td{background:#eee;}
 			// Generate EXCEL Rows
 			$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
 			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
+                $uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
 				if ($row['piVars']) {
 					if($sheetRow == 1) {
 						// if no header row was set, generate 1000 ExcelColNames
@@ -825,7 +816,7 @@ tr.odd td{background:#eee;}
                                                 $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
                                                 break;
                                             case 'file':
-                                                $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
+                                                $value = $uploadURLPath . $value;
                                                 break;
                                         }
 										$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetCol] . $sheetRow, $value);
@@ -869,7 +860,7 @@ tr.odd td{background:#eee;}
 								        $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
 								        break;
 								    case 'file':
-								        $value = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value;
+								        $value = $uploadURLPath . $value;
 								        break;
 								}
 								$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetCol] . $sheetRow, $value);

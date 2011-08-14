@@ -152,7 +152,7 @@ Powermail.grid = {
                         value = makeEmailLink(value);
                         break;
                     case 'file':
-                        value = makeFileLink(value);
+                        value = makeFileLink(value, record.uploadPath);
                         break;
                     case 'text':
                         var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -170,7 +170,7 @@ Powermail.grid = {
 		 * makeEmailLink
 		 ****************************************************/
 
-		var makeEmailLink = function(v, record){
+		var makeEmailLink = function(v){
 	 		return '<a href="mailto:' + v + '">' + v + '</a>';
 	 	}
 
@@ -178,8 +178,17 @@ Powermail.grid = {
         * makeFileLink
         ****************************************************/
 
-        var makeFileLink = function(v, record){
-          return '<a href="/' + Powermail.statics.uploadFolder + v + '" target="_blank">' + v + '</a>';
+        var makeFileLink = function(v,k){
+          return '<a href="/' + k + v + '" target="_blank">' + v + '</a>';
+        }
+
+        /****************************************************
+        * setSubFolder
+        ****************************************************/
+
+        var setSubFolder = function(v,record){
+          Powermail.statics[record].subfolder = v;
+          return v;
         }
 
 		/****************************************************
@@ -200,7 +209,8 @@ Powermail.grid = {
 					{name: 'sender', convert: makeEmailLink},
 					{name: 'recipient', convert: makeEmailLink},
 					{name: 'senderIP'},
-					{name: 'piVars', convert: showPiVars}
+					{name: 'piVars', convert: showPiVars},
+                    {name: 'uploadPath'}
 				]
 			),
 			sortInfo: {
@@ -233,9 +243,6 @@ Powermail.grid = {
 							Ext.getCmp('endDateTime').setValue(new Date().getTime());
 						}
 						gridContainer.getSelectionModel().clearSelections();
-			 			//Powermail.statics.startDateTime = Ext.getCmp('beginDateTime').getValue().format('U');
-			 			//Powermail.statics.endDateTime = Ext.getCmp('endDateTime').getValue().format('U');
-						//Powermail.topMenu.reload();
 					}
 			}
 		});
@@ -363,7 +370,8 @@ Powermail.grid = {
 				{header: Powermail.lang.date, width: 110, dataIndex: 'crdate', sortable: true},
 				{header: Powermail.lang.sender, width: 150, dataIndex: 'sender', sortable: true},
 				{header: Powermail.lang.receiver, width: 130, dataIndex: 'recipient', sortable: true},
-				{header: Powermail.lang.senderIP, width: 170, dataIndex: 'senderIP', sortable: true}
+				{header: Powermail.lang.senderIP, width: 170, dataIndex: 'senderIP', sortable: true},
+                {header: Powermail.lang.uploadPath, width: 110, dataIndex: 'uploadPath', sortable: true, hidden: true}
 			]),
 			viewConfig: {
 				forceFit: true

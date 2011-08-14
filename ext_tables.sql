@@ -105,7 +105,8 @@ CREATE TABLE tx_powermail_mails (
 	SP_TZ tinytext NOT NULL,
 	Additional text NOT NULL,
 	is_dummy_record tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	
+	uploadPath tinytext NOT NULL,
+
 	PRIMARY KEY (uid),
 	KEY parent (pid)
 );

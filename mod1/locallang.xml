@@ -70,6 +70,7 @@
 			<label index="ip">IP-Address</label>
 			<label index="phpexcel_library">You need the extension phpexcel_library to use this feature!</label>
 			<label index="noPdf">This export format is currently not implemented. Please contact the powermail development team, if you want to sponsor this feature.</label>
+            <label index="uploadPath">Path for uploads</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="title">Powermail</label>

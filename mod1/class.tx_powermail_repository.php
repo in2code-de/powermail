@@ -117,37 +117,38 @@ class tx_powermail_repository {
 
 		// Get number of results
 		$res1 = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-		$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res1);
-		$this->ajaxContentArray['results'] = $row1['results'];
-		$this->ajaxContentArray['mindatetime'] = $row1['mindate'];
-		$this->ajaxContentArray['maxdatetime'] = $row1['maxdate'];
-		
-		// Get entries
-		$select = '*';
-		$limit = intval($this->pointer) . ',' . intval($this->perpage);
-		$res2 = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        if ($res1 !== false) {
+            $row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res1);
+            $this->ajaxContentArray['results'] = $row1['results'];
+            $this->ajaxContentArray['mindatetime'] = $row1['mindate'];
+            $this->ajaxContentArray['maxdatetime'] = $row1['maxdate'];
 
-		// If on current page is a result
-		if ($res2) {
-			$this->ajaxContentArray['success'] = true;
-			$i = $this->pointer;
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res2)) {
-				$i++;
-				$this->ajaxContentArray['rows'][] = array(
-					'id' => $i, 
-					'uid' => $row['uid'], 
-					'crdate' => date($this->timeformat, $row['crdate']), 
-					'sender' => $row['sender'], 
-					'recipient' => $row['recipient'], 
-					'senderIP' => $row['senderIP'],
-					'piVars' => $this->transformPiVars($row['piVars'])
-				);
-			}
-		}
-		
-		$GLOBALS['TYPO3_DB']->sql_free_result($res1);
-		$GLOBALS['TYPO3_DB']->sql_free_result($res2);
-		
+            // Get entries
+            $select = '*';
+            $limit = intval($this->pointer) . ',' . intval($this->perpage);
+            $res2 = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+
+            // If on current page is a result
+            if ($res2 !== false) {
+                $this->ajaxContentArray['success'] = true;
+                $i = $this->pointer;
+                while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res2)) {
+                    $i++;
+                    $this->ajaxContentArray['rows'][] = array(
+                        'id' => $i,
+                        'uid' => $row['uid'],
+                        'crdate' => date($this->timeformat, $row['crdate']),
+                        'sender' => $row['sender'],
+                        'recipient' => $row['recipient'],
+                        'senderIP' => $row['senderIP'],
+                        'piVars' => $this->transformPiVars($row['piVars']),
+                        'uploadPath' => $row['uploadPath']
+                    );
+                }
+                $GLOBALS['TYPO3_DB']->sql_free_result($res2);
+            }
+            $GLOBALS['TYPO3_DB']->sql_free_result($res1);
+        }
 		return $this->ajaxContentArray;
 	}
 	
@@ -159,22 +160,10 @@ class tx_powermail_repository {
 
     protected function transformPiVars($piVars){
 	    if (!is_array(t3lib_div::xml2array($piVars))) return t3lib_div::xml2array($piVars);
-	    
         $piVarsArray = t3lib_div::removeArrayEntryByValue(t3lib_div::xml2array($piVars), '');
-
         if(array_key_exists('FILE', $piVarsArray)) {
-            // transform file values to uid values
-            /*
-            $uid = array_search($piVarsArray['FILE'][0], $piVarsArray);
-            unset($piVarsArray[$uid]);
-            $piVarsArray[$uid] = array();
-            foreach( $piVarsArray['FILE'] as $key => $value ) {
-                $piVarsArray[$uid][$key] = $value;
-            }
-            */
             unset($piVarsArray['FILE']);
         }
-
         return $piVarsArray;
     }
 
@@ -186,16 +175,13 @@ class tx_powermail_repository {
 	public function getLabelsAndFormtypes() {
 		$labels = array();
 		$i = 0;
-		
+
 		$select = 'uid,title,formtype';
 		$from = 'tx_powermail_fields';
 		$where = 'pid = ' . intval($this->getPidOfFormFromMailsOnGivenPage($this->pid));
-		$orderBy = '';
-		$groupBy = '';
-		$limit = '';
 
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-		if ($res) {
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where);
+		if ($res !== false) {
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 				$labels['labels'][] = array(
 					'uid' => $row['uid'],
@@ -206,9 +192,9 @@ class tx_powermail_repository {
 			}
 			$labels['results'] = $i;
 			$labels['success'] = true;
+            $GLOBALS['TYPO3_DB']->sql_free_result($res);
 		}
-		$GLOBALS['TYPO3_DB']->sql_free_result($res);
-        
+
 		return $labels;
 	}
 
@@ -230,7 +216,7 @@ class tx_powermail_repository {
         $limit = '1';
 
         $res1 = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-        if($res1){
+        if($res1 !== false){
             $row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res1);
             $formid = $row1['formid'];
 
@@ -242,13 +228,13 @@ class tx_powermail_repository {
             $limit = '1';
 
             $res2 = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-            if($res2){
+            if($res2 !== false){
                 $row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res2);
                 $formIdPid = $row2['pid'];
+                $GLOBALS['TYPO3_DB']->sql_free_result($res2);
             }
-            $GLOBALS['TYPO3_DB']->sql_free_result($res2);
+            $GLOBALS['TYPO3_DB']->sql_free_result($res1);
         }
-        $GLOBALS['TYPO3_DB']->sql_free_result($res1);
 
         return $formIdPid;
     }
