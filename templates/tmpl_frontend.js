@@ -31,6 +31,7 @@
 			readonly: false,
 			yearRange: [-99, 99],
 			change: function(event, date) {
+                console.log('change');
 				var y = parseInt(this.getValue('yyyy'));
 				var m = parseInt(this.getValue('m')) - 1;
 				var d = parseInt(this.getValue('d'));
@@ -44,10 +45,10 @@
 					var minutes = parseInt(oldDate.getUTCMinutes());
 					timestampOfDate += parseInt(hours * 3600 + minutes * 60);
 				}
-				this.getInput().next('input[type=hidden]').val(timestampOfDate);
+				this.getInput().nextAll('input[type=hidden]').val(timestampOfDate);
 			}
 		}).each(function(i) {
-					var initTimestamp = $(this).next('input[type=hidden]').val();
+					var initTimestamp = $(this).nextAll('input[type=hidden]').val();
 					if (initTimestamp != '' && parseInt(initTimestamp) == initTimestamp) {
 						var initDatetime = new Date(parseInt(initTimestamp) * 1000);
 						var year = initDatetime.getUTCFullYear();
