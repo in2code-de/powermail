@@ -161,6 +161,10 @@
 			});
 		}
 
+        if (###SHOW_TRIGGER_ICON###) {
+            $('.tx_powermail_pi1_fieldwrap_html_datetime, .tx_powermail_pi1_fieldwrap_html_date').addClass('calendar_icon');
+        }
+
         var fakeTextarea = document.createElement('textarea'),
             textareaMaxlengthSupport = ('maxlength' in fakeTextarea);
 
