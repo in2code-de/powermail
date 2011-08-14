@@ -560,17 +560,12 @@ a.caldisabled {
 a.caltrigger {
     position: relative;
     display: inline-block;
-    left: -19px;
+    margin-left: -19px;
     top:4px;
     vertical-align: top;
     background: url(../img/calendar.png) no-repeat 0 0;
     width:16px;
     height:16px;
-}
-
-.tx_powermail_pi1_fieldwrap_html_datetime.calendar_icon .powermail_time {
-    position: relative;
-    left:-15px;
 }
 
 /* slider root element */
