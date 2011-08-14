@@ -2,7 +2,7 @@
 div.tx-powermail-pi1 {
 	font-family: Calibri, Arial, sans-serif;
 	font-size: 14px;
-	width: 640px;
+	width: 650px;
 	margin: 0 !important;
 	padding: 0 !important;
 }
@@ -171,7 +171,7 @@ fieldset.tx-powermail-pi1_fieldset input[type=time] {
 
 /* the input field */
 fieldset.tx-powermail-pi1_fieldset input.date {
-	width: 300px !important;
+	width: 290px !important;
 }
 
 fieldset.tx-powermail-pi1_fieldset .tx_powermail_pi1_fieldwrap_html_date input.date {
@@ -558,16 +558,19 @@ a.caldisabled {
 }
 /* calendar icon */
 a.caltrigger {
-    position: absolute;
-    left: 514px;
-    margin: 4px;
+    position: relative;
+    display: inline-block;
+    left: -19px;
+    top:4px;
+    vertical-align: top;
     background: url(../img/calendar.png) no-repeat 0 0;
     width:16px;
     height:16px;
 }
 
-.tx_powermail_pi1_fieldwrap_html_date a.caltrigger {
-    left: 614px;
+.tx_powermail_pi1_fieldwrap_html_datetime.calendar_icon .powermail_time {
+    position: relative;
+    left:-15px;
 }
 
 /* slider root element */
