@@ -1086,7 +1086,11 @@ class tx_powermail_html extends tslib_pibase {
 		
 		// Add manual class
 		$this->markerArray['###CLASS###'] .= ($this->class_f != '' && $this->additionalCssToInputField) ? ' ' . htmlspecialchars($this->class_f) : '';
+        if ($this->type == 'datetime') {
+            $this->markerArray['###CLASS_TIME###'] = $this->markerArray['###CLASS###'] . ' powermail_time' . '" ';
+        }
 		$this->markerArray['###CLASS###'] .= '" '; // close tag
+
 
 		// Add manual class to outer div
 		$this->markerArray['###CLASS_ADDITIONAL###'] .= ($this->class_f != '' && !$this->additionalCssToInputField) ? ' ' . htmlspecialchars($this->class_f) : '';

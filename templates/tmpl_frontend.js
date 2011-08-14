@@ -111,7 +111,7 @@
 		);
 
 		// validate time fields
-		$('input[type=time]').addClass('powermail_time').each(function(i) {
+		$('input[type=time]').each(function(i) {
 			// check if part of datetime field
 			if ($(this).prevAll('input.powermail_datetime').length > 0) {
 				if ($(this).prev('input').val() != '') {

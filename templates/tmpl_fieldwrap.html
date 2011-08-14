@@ -9,6 +9,7 @@ Powermail HTML Template for fieldwraps
 	###VALUE###					Standard-value
 	###CLASS###					Field's class
 	###CLASS_ADDITIONAL###      Additional class set in fields, without class attribute
+    ###CLASS_TIME###			Field's class for time fields
 	###ID###					Field's id
 	###SIZE###					Field's size
 	###MULTIPLE###				If multiple is allowed in select
@@ -300,7 +301,7 @@ Fieldwrap for text fields with datetime help
 		<label for="###LABEL_NAME###">###LABEL######DESCRIPTION######MANDATORY_SYMBOL###</label>
 		<input type="date" id="###LABEL_NAME###" name="###LABEL_NAME###" autocomplete="off" ###CLASS######MIN######MAX######READONLY######TABINDEX######ACCESSKEY######REQUIRED###/>
         <input type="hidden" ###ID######NAME######VALUE###/>
-        <input type="time" id="###LABEL_NAME###_time" name="###LABEL_NAME###_time" size="5" maxlength="5" ###CLASS######READONLY######REQUIRED###/>
+        <input type="time" id="###LABEL_NAME###_time" name="###LABEL_NAME###_time" size="5" maxlength="5" ###CLASS_TIME######READONLY######REQUIRED###/>
 	</div>
 <!-- ###POWERMAIL_FIELDWRAP_HTML_DATETIME### end -->
 
