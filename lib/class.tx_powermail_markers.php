@@ -67,7 +67,7 @@ class tx_powermail_markers extends tslib_pibase {
 		$this->hook_markerArray(); // adds hook
         $this->baseURL = ($GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] ? $GLOBALS['TSFE']->tmpl->setup['config.']['baseURL'] : t3lib_div::getIndpEnv('TYPO3_SITE_URL')); // absolute path (baseurl)
         $this->uploadFolder = $this->conf['upload.']['folder']; // Relative upload folder from constants
-        if (!!$this->conf['upload.']['useTitleAsUploadFolderName'] || $this->cObj->data['tx_powermail_useTitleAsUploadFolderName']) {
+        if (!!$this->conf['upload.']['useTitleAsUploadSubFolderName']) {
             $this->uploadFolder .= $this->cObj->data['tx_powermail_title'] . '/';
         }
 

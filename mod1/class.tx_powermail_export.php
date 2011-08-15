@@ -246,7 +246,7 @@ class tx_powermail_export {
 
 		$this->pid = intval($this->pid);
 
-		$pageArray = t3lib_BEfunc::getRecord('pages', $this->pid, 'title, tx_powermail_title, tx_powermail_useTitleAsUploadFolderName');
+		$pageArray = t3lib_BEfunc::getRecord('pages', $this->pid, 'title, tx_powermail_title, tx_powermail_useTitleAsUploadSubFolderName');
 		$this->pageTitle = $pageArray['title'];
 
 		$this->phpexcel = t3lib_extMgm::isLoaded('phpexcel_library');

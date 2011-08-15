@@ -232,7 +232,7 @@ class tx_powermail_submit extends tslib_pibase {
             // add attachment (from user upload)
             if (isset($this->sessiondata['FILE']) && $this->conf['upload.']['attachment'] == 1) { // if there are uploaded files AND attachment to emails is activated via constants
                 if (is_array($this->sessiondata['FILE']) && $this->subpart == 'recipient_mail') { // only if array and mail to receiver
-                    $path = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadFolderName'] || $this->cObj->data['tx_powermail_useTitleAsUploadFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
+                    $path = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadSubFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
                     foreach ($this->sessiondata['FILE'] as $fileName) { // one loop for every file
                         $file = $path . $fileName;
                         if (is_file(t3lib_div::getFileAbsFileName($file))) { // If file exists
@@ -340,7 +340,7 @@ class tx_powermail_submit extends tslib_pibase {
 			'UserAgent' => t3lib_div::getIndpEnv('HTTP_USER_AGENT'), // save user agent
 			'Referer' => t3lib_div::getIndpEnv('HTTP_REFERER'), // save referer
 			'SP_TZ' => $_SERVER['SP_TZ'], // save sp_tz if available
-            'uploadPath' => t3lib_div::dirname($this->conf['upload.']['folder']) . '/' . ((!!$this->cObj->data['tx_powermail_useTitleAsUploadFolderName'] || $this->conf['upload.']['useTitleAsUploadFolderName'])? $this->cObj->data['tx_powermail_title'] . '/' : '')
+            'uploadPath' => t3lib_div::dirname($this->conf['upload.']['folder']) . '/' . ((!!$this->conf['upload.']['useTitleAsUploadSubFolderName'])? $this->cObj->data['tx_powermail_title'] . '/' : '')
 		);
 		if ($this->dbInsert) $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_mails', $this->db_values); // DB entry
 		$this->debug('db'); // Debug output

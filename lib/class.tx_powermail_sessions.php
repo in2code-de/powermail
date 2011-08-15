@@ -208,7 +208,7 @@ class tx_powermail_sessions extends tslib_pibase {
 											if (($this->conf['upload.']['mimecheck'] && $this->div->mimecheck($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']][$key], $newfilename)) || $this->conf['upload.']['mimecheck'] != 1) { // mimecheck off OR mimecheck true
 
 												// upload copy move uploaded files to destination
-                                                $filepath = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadFolderName'] || $this->cObj->data['tx_powermail_useTitleAsUploadFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
+                                                $filepath = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadSubFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
                                                 if (!is_dir(t3lib_div::dirname($filepath))) {
                                                     t3lib_div::mkdir(t3lib_div::dirname($filepath));
                                                 }
@@ -245,7 +245,7 @@ class tx_powermail_sessions extends tslib_pibase {
 									if (($this->conf['upload.']['mimecheck'] && $this->div->mimecheck($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']], $newfilename)) || $this->conf['upload.']['mimecheck'] != 1) { // mimecheck off OR mimecheck true
 
 										// upload copy move uploaded files to destination
-                                        $filepath = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadFolderName'] || $this->cObj->data['tx_powermail_useTitleAsUploadFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
+                                        $filepath = $this->div->correctPath($this->conf['upload.']['folder']) . ((!!$this->conf['upload.']['useTitleAsUploadSubFolderName']) ? $this->cObj->data['tx_powermail_title'] . '/' : '');
                                         if (!is_dir(t3lib_div::dirname($filepath))) {
                                             t3lib_div::mkdir(t3lib_div::dirname($filepath));
                                         }

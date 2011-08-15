@@ -106,8 +106,8 @@ plugin.powermail {
 	# cat=plugin.powermail.additionalconfig//0560; type=text; label= Folder for uploaded files: If you are using min. one upload field in frontend, you can change the folder where the uploaded file is safed
 	upload.folder = uploads/tx_powermail/files/
 	
-	# cat=plugin.powermail.additionalconfig//0565; type=boolean; label= Use form title as upload folder name: If you use an upload field, all files will be stored in a subfolder of the folder defined above
-	upload.useTitleAsUploadFolderName = 0
+	# cat=plugin.powermail.additionalconfig//0565; type=boolean; label= Use form title as upload subfolder name: Uploads from forms will be stored in a subfolder (of the folder defined by upload.folder) defined by the form title
+	upload.useTitleAsUploadSubFolderName = 0
 
 	# cat=plugin.powermail.additionalconfig//0570; type=text; label= Allow files for upload: If you are using min. one upload field in frontend, you can set the allowed extension of this files (use small letters)
 	upload.file_extensions = jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace

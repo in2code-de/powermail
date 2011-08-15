@@ -34,7 +34,7 @@ plugin.tx_powermail_pi1 {
 	captcha.use = {$plugin.powermail.captcha.use}
 	pagebrowser.wrap = {$plugin.powermail.pagebrowser.wrap}
 	upload.folder = {$plugin.powermail.upload.folder}
-	upload.useTitleAsUploadFolderName = {$plugin.powermail.upload.useTitleAsUploadFolderName}
+	upload.useTitleAsUploadSubFolderName = {$plugin.powermail.upload.useTitleAsUploadSubFolderName}
 	upload.file_extensions = {$plugin.powermail.upload.file_extensions}
 	upload.mimecheck = {$plugin.powermail.upload.mimecheck}
 	upload.filesize = {$plugin.powermail.upload.filesize}
