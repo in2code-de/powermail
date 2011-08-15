@@ -64,7 +64,8 @@ class tx_powermail_tsparserext {
             $url = 'mod.php?&id=0&M=tools_em&CMD[showExt]=powermail&SET[singleDetails]=updateModule';
         }
 
-        $out .= '
+        if (count($GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid', 'sys_log', 'type = 4 AND details LIKE \'%updateStoragePage%\'' . t3lib_BEfunc::deleteClause('sys_log'))) == 0) {
+            $out .= '
 <div style="position:absolute;top:10px;right:10px; width:300px;">
 	<div class="typo3-message message-information">
 		<div class="message-header">' . $GLOBALS['LANG']->sL('LLL:EXT:powermail/locallang.xml:extmng.updatermsgHeader') . '</div>
@@ -76,6 +77,7 @@ class tx_powermail_tsparserext {
 	</div>
 	' . $checkConfig . '
 </div>';
+        }
 
         return $out;
     }
