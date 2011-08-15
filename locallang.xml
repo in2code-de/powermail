@@ -10,6 +10,31 @@
 		<languageKey index="default" type="array">
 			<label index="pi1_title">powermail</label>
 			<label index="pi1_plus_wiz_description">Powerful and easy mailform extension with database storing, javascript validation and many more...</label>
+            <label index="extmng.classInnerHeader">Warning!</label>
+            <label index="extmng.classInner">You have to use the "Update"-Button below to ensure proper working for all functions in this extension.</label>
+            <label index="extmng.updatermsgHeader">Important!</label>
+            <label index="extmng.updatermsg">Powermail comes with a new updater-script which fix pages with "none"-effects selected. You have to run this script if you are updating from older installation.</label>
+            <label index="extmng.updatermsgLink">[Click here to open the updater]</label>
+            <label index="extmng.classInnerHeader">Warning!</label>
+            <label index="extmng.classInner">You have to use the "Update"-Button below to ensure proper working for all functions in this extension.</label>
+            <label index="updater.back">[&lt;- back]</label>
+            <label index="updater.reload">[reload this page]</label>
+            <label index="updater.warningHeader">Important! Please Read!</label>
+            <label index="updater.nothingtodo">Nothing to do</label>
+            <label index="updater.actions">Actions:</label>
+            <label index="updater.updateresults">Update results:</label>
+            <label index="updater.warningMsg">
+                The updater manipulates your database and due to the huge amount of configuration variants it is
+                possible that it &lt;br&gt;might not produce the expected results.&lt;br&gt;
+                So backup your database (at least the table tt_content) or do a t3d export of your site
+                &lt;strong&gt;BEFORE&lt;/strong&gt; &lt;br&gt;
+                you click on any of the "DO IT" Buttons.
+            </label>
+            <label index="updater.lbl_searchStoragePageEmpty">Search for empty powermail storage page settings in tt_content</label>
+            <label index="updater.msg_searchStoragePageEmpty">Result:</label>
+            <label index="updater.foundMsg_searchStoragePageEmpty">Found ###COUNT### content elements.</label>
+            <label index="updater.question_searchStoragePageEmpty">Should the updater fix this settings?</label>
+            <label index="updater.questionInfo_searchStoragePageEmpty">(If you click "DO IT" all empty storage page settings inside powermail content elements will be set to the page containing itself)</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pi1_title">powermail</label>

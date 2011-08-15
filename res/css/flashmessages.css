@@ -1,0 +1,15 @@
+/* - - - - - - - - - - - - - - - - - - - - -
+Flash Messages 
+this file is needed only in TYPO3 versions lower than 4.3.0
+- - - - - - - - - - - - - - - - - - - - - */
+#typo3-messages{margin-bottom:10px;}
+.typo3-message{padding:6px;padding-left:26px;margin-bottom:4px;background-repeat:no-repeat;background-position:4px 4px;border:1px solid;}
+.typo3-message a{text-decoration:underline;}
+.typo3-message ul,
+.typo3-message ol{padding-left:16px;}
+.typo3-message .message-header{display:block;margin-bottom:5px;margin-top:-1px;font-size:11px;font-weight:bold;}
+.message-notice{background-image:url(../img/notice.png);background-color:#f6f7fa;border-color:#c2cbcf;}
+.message-information{background-image:url(../img/information.png);background-color:#ddeef9;border-color:#8aafc4;}
+.message-ok{background-image:url(../img/ok.png);background-color:#cdeaca;border-color:#58b548;}
+.message-warning{background-image:url(../img/warning.png);background-color:#fbffb3;border-color:#c4b70d;}
+.message-error{background-image:url(../img/error.png);background-color:#fbb19b;border-color:#dc4c42;}

@@ -21,3 +21,6 @@ useIRRE = 1
 
 # cat=basic//080; type=text; label= Path to Unix/Linux "file" tool with tailing slash.
 fileToolPath = /usr/bin/
+
+# cat=basic/dev/1000; type=user[EXT:powermail/lib/class.tx_powermail_tsparserext.php:tx_powermail_tsparserext->displayMessage]; label=Updater
+updateMessage = 0
