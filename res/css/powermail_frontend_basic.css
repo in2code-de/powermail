@@ -234,6 +234,7 @@ input.tx_powermail_pi1_submitmultiple_forward {
 .powermail_multiple_php form > div.tx_powermail_pi1_fieldwrap_html_submit {
     display: inline;
     float: right;
+    clear: none;
     margin-top:1em;
 }
 
