@@ -138,7 +138,7 @@
 		);
 
 		if (!###VALIDATOR_DISABLE###) {
-			powermail_validator = $('.tx_powermail_pi1_form').validator({
+			powermail_validator = $('.tx_powermail_pi1_form').attr('novalidate','novalidate').validator({
 				position: 'top right',
 				offset: [-5, -20],
 				message: '<div><em/></div>',
