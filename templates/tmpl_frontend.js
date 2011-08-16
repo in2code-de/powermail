@@ -31,7 +31,6 @@
 			readonly: false,
 			yearRange: [-99, 99],
 			change: function(event, date) {
-                console.log('change');
 				var y = parseInt(this.getValue('yyyy'));
 				var m = parseInt(this.getValue('m')) - 1;
 				var d = parseInt(this.getValue('d'));
