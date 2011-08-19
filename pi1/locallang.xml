@@ -51,8 +51,8 @@
 			<label index="JSvalidation_label_validate_url">Please enter a valid URL (http://www.test.com)</label>
 			<label index="JSvalidation_label_validate_date_au">Please use this date format: dd/mm/yyyy. For example 17/03/2006 for the 17th of March, 2006</label>
 			<label index="JSvalidation_label_validate_currency_dollar">Please enter a valid $ amount. For example $100.00</label>
-			<label index="JSvalidation_label_validate_selection">Please make a selection</label>
-			<label index="JSvalidation_label_validate_one_required">Please select one of the below options</label>
+			<label index="JSvalidation_label_validate_selection">Please select an option</label>
+			<label index="JSvalidation_label_validate_one_required">Please select at least one option</label>
 			<label index="JSvalidation_label_validate_max">Please enter a value greater than $1</label>
 			<label index="JSvalidation_label_validate_min">Please enter a value smaller than $1</label>
 			<label index="JSvalidation_dateinput_months">January,February,March,April,May,June,July,August,September,October,November,December</label>
@@ -172,8 +172,8 @@
 			<label index="JSvalidation_label_validate_url">Bitte eine gültige URL eingeben (z.B. http://www.test.de)</label>
 			<label index="JSvalidation_label_validate_date_au">Bitte ein Datum im Format dd/mm/yyyy eingeben</label>
 			<label index="JSvalidation_label_validate_currency_dollar">Bitte einen gültigen Betrag eingeben (z.B. $100.00)</label>
-			<label index="JSvalidation_label_validate_selection">Bitte treffen Sie eine Auswahl</label>
-			<label index="JSvalidation_label_validate_one_required">Bitte treffen Sie mindestens eine Auswahl</label>
+			<label index="JSvalidation_label_validate_selection">Bitte eine Auswahl treffen</label>
+			<label index="JSvalidation_label_validate_one_required">Bitte mindestens eine Auswahl treffen</label>
 			<label index="JSvalidation_label_validate_max">Bitte einen Wert grösser als $1 eingeben</label>
 			<label index="JSvalidation_label_validate_min">Bitte einen Wert kleiner als $1 eingeben</label>
 			<label index="JSvalidation_dateinput_months">Januar,Februar,März,April,Mai,Juni,July,August,September,Oktober,November,Dezember</label>

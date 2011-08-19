@@ -71,6 +71,10 @@
 				}
 		);
 
+        $('.tx_powermail_pi1_form input:radio').change(function(e) {
+            powermail_validator.data('validator').reset($('.tx_powermail_pi1_form input:radio'));
+        });
+
 		// initialize range input
 		$(':range').rangeinput();
 
@@ -132,7 +136,7 @@
                     if (el.attr('multiple')) {
                         return value != null ? true: '###VALIDATOR_LABEL_ONE_REQUIRED###';
                     } else {
-                        return value.length > 0 ? true : '';
+                        return value.length > 0 ? true : '###VALIDATOR_LABEL_SELECTION###';
                     }
 				}
 		);
