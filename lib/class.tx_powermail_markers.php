@@ -83,13 +83,13 @@ class tx_powermail_markers extends tslib_pibase {
 			);
 			
 			if ($res !== false) {
-				while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
-					if($this->sessiondata['uid' . $row['uid']] != "") {
+				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
+					if ($this->sessiondata['uid' . $row['uid']] != "") {
 						$orderedSessionData['uid' . $row['uid']] = $this->sessiondata['uid' . $row['uid']];
 					}
 					unset($this->sessiondata['uid' . $row['uid']]);
 				}
-				$this->sessiondata = array_merge($orderedSessionData, $this->sessiondata);
+				$this->sessiondata = array_merge((array) $orderedSessionData, $this->sessiondata);
                 $GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 
