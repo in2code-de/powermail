@@ -1,0 +1,4 @@
+plugin.powermail {
+    js.validationOffsetX = -22
+    js.validationOffsetY = -13
+}
