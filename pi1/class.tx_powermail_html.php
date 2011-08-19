@@ -464,7 +464,7 @@ class tx_powermail_html extends tslib_pibase {
 		// add class name to markerArray
 		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle; // add formname
 		$this->markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add type
-		$this->markerArray['###CLASS###'] .= ' powermail_submit_uid' . $this->uid; // add field uid
+		$this->markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add field uid
 		$this->markerArray['###CLASS###'] .= ($this->class_f != '' && $this->additionalCssToInputField) ? ' ' . htmlspecialchars($this->class_f) : ''; // Add manual class
 		$this->markerArray['###CLASS###'] .= '" '; // close tag
 		$this->markerArray['###VALUE###'] = 'value="' . $this->title . '" ';
