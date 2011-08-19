@@ -127,7 +127,7 @@
 		});
 
 		// select validation
-		$.tools.validator.fn('select', '',
+		$.tools.validator.fn('select[required="required"]', '',
 				function(el, value) {
                     if (el.attr('multiple')) {
                         return value != null ? true: '###VALIDATOR_LABEL_ONE_REQUIRED###';
@@ -153,6 +153,9 @@
 					setPlaceholderValue(e, els, matcher);
 				},
 				onFail: function(e, els) {
+                    if ($('ul.powermail_multiplejs_tabs li').length > 0) {
+                        $('ul.powermail_multiplejs_tabs li a[href*="#' + $(els[0].input).closest('fieldset.tx-powermail-pi1_fieldset').attr('id') + '"]').click();
+                    }
 					if (###SCROLL_TO_ERROR###) {
 						$('html,body').animate({ "scrollTop": $(els[0].input).offset().top - 50}, 1000);
 					}
