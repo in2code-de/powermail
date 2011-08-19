@@ -225,7 +225,7 @@ plugin.tx_powermail_pi1 {
 #			uid999.wrap = <b>|</b>
 		}
 		
-		# Manipulation of values for email to sender (confirmation mail)
+		# Manipulation of values for thanks page
 		thx {
 			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
 			date = TEXT
@@ -248,7 +248,7 @@ plugin.tx_powermail_pi1 {
 #			uid999.wrap = <b>|</b>
 		}
 		
-		# Manipulation of values for email to sender (confirmation mail)
+		# Manipulation of values for confirmation page
 		confirmation {
 			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
 			date = TEXT
@@ -271,7 +271,7 @@ plugin.tx_powermail_pi1 {
 #			uid999.wrap = <b>|</b>
 		}
 		
-		# Manipulation of values for email to sender (confirmation mail)
+		# Manipulation of values for server side validation error page
 		mandatory {
 			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
 			date = TEXT
@@ -507,6 +507,16 @@ lib.powermailjs {
                 SCROLL_TO_ERROR.value = true
                 SHOW_TRIGGER_ICON = TEXT
                 SHOW_TRIGGER_ICON.value = true
+                VALIDATOR_POSITION = TEXT
+                VALIDATOR_POSITION.value = {$plugin.powermail.js.validationPosition}
+                VALIDATOR_OFFSET_X = TEXT
+                VALIDATOR_OFFSET_X.value = {$plugin.powermail.js.validationOffsetX}
+                VALIDATOR_OFFSET_Y = TEXT
+                VALIDATOR_OFFSET_Y.value = {$plugin.powermail.js.validationOffsetY}
+                VALIDATOR_MESSAGE = TEXT
+                VALIDATOR_MESSAGE.value = {$plugin.powermail.js.validationMessage}
+                VALIDATOR_SINGLE_ERROR = TEXT
+                VALIDATOR_SINGLE_ERROR.value = false
         }
     }
 }
@@ -530,6 +540,13 @@ lib.powermailjs.10.marks.SCROLL_TO_ERROR.value = false
 lib.powermailjs.10.marks.SHOW_TRIGGER_ICON.value = false
 
 [end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.singleError}]
+
+lib.powermailjs.10.marks.VALIDATOR_SINGLE_ERROR.value = true
+
+[end]
+
 
 
 [userFunc = user_powermailOnCurrentPage({$plugin.powermail.js.alwaysInclude})] && [userFunc = user_powermailCheckT3jquery(false)]
