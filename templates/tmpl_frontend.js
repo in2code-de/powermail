@@ -71,10 +71,6 @@
 				}
 		);
 
-        $('.tx_powermail_pi1_form input:radio').change(function(e) {
-            powermail_validator.data('validator').reset($('.tx_powermail_pi1_form input:radio'));
-        });
-
 		// initialize range input
 		$(':range').rangeinput();
 
@@ -143,12 +139,12 @@
 
 		if (!###VALIDATOR_DISABLE###) {
 			powermail_validator = $('.tx_powermail_pi1_form').attr('novalidate','novalidate').validator({
-				position: 'top right',
-				offset: [-5, -20],
-				message: '<div><em/></div>',
+				position: '###VALIDATOR_POSITION###',
+				offset: [###VALIDATOR_OFFSET_Y###, ###VALIDATOR_OFFSET_X###],
+				message: '###VALIDATOR_MESSAGE###',
 				inputEvent: 'blur',
 				grouped: true,
-				singleError: false,
+				singleError: ###VALIDATOR_SINGLE_ERROR###,
 				formEvent : 'submit',
 				onBeforeValidate: function(e, els) {
 					clearPlaceholderValue(e, els);
@@ -159,27 +155,33 @@
 				onFail: function(e, els) {
                     if ($('ul.powermail_multiplejs_tabs li').length > 0) {
                         $('ul.powermail_multiplejs_tabs li a[href*="#' + $(els[0].input).closest('fieldset.tx-powermail-pi1_fieldset').attr('id') + '"]').click();
+                        
                     }
 					if (###SCROLL_TO_ERROR###) {
 						$('html,body').animate({ "scrollTop": $(els[0].input).offset().top - 50}, 1000);
 					}
 				}
 			});
+
+            $('.tx_powermail_pi1_form input:radio').change(function(e) {
+                powermail_validator.data('validator').reset($('.tx_powermail_pi1_form input:radio'));
+            });
+
+            var fakeTextarea = document.createElement('textarea'),
+                textareaMaxlengthSupport = ('maxlength' in fakeTextarea);
+
+            if (!textareaMaxlengthSupport) {
+                $('textarea[maxlength]').each(function() {
+                    $(this).bind('keypress blur', function() {
+                        $(this).val($(this).val().substr(0, $(this).attr('maxlength')));
+                    });
+                });
+            }
+
 		}
 
         if (###SHOW_TRIGGER_ICON###) {
             $('.tx_powermail_pi1_fieldwrap_html_datetime, .tx_powermail_pi1_fieldwrap_html_date').addClass('calendar_icon');
-        }
-
-        var fakeTextarea = document.createElement('textarea'),
-            textareaMaxlengthSupport = ('maxlength' in fakeTextarea);
-
-        if (!textareaMaxlengthSupport) {
-			$('textarea[maxlength]').each(function() {
-                $(this).bind('keypress blur', function() {
-                    $(this).val($(this).val().substr(0, $(this).attr('maxlength')));
-                });
-            });
         }
 
 		// add placeholder attribute behavior in web browsers that don't support it
