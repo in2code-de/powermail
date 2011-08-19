@@ -45,10 +45,10 @@ class user_powermail_tx_powermail_forms_sender_field {
 			RIGHT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid 
 			LEFT JOIN tx_powermail_fields ON tx_powermail_fieldsets.uid = tx_powermail_fields.fieldset
 		';
-		$where = 'tt_content.uid = \'' . intval($params['row']['uid']) . '\' AND tx_powermail_fields.deleted = 0 AND tx_powermail_fields.hidden = 0',
-		$groupBy = 'tx_powermail_fields.uid',
-		$orderBy = 'tx_powermail_fields.sorting',
-		$limit = ''
+		$where = 'tt_content.uid = \'' . intval($params['row']['uid']) . '\' AND tx_powermail_fields.deleted = 0 AND tx_powermail_fields.hidden = 0';
+		$groupBy = 'tx_powermail_fields.uid';
+		$orderBy = 'tx_powermail_fields.sorting';
+		$limit = '';
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 
 		if ($res) {
