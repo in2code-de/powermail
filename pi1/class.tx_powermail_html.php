@@ -679,7 +679,13 @@ class tx_powermail_html extends tslib_pibase {
 		}
 
 		if (isset($this->piVarsFromSession['uid' . $this->uid]) && $this->piVarsFromSession['uid' . $this->uid] != '') {
-			$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+            if ($this->piVarsFromSession['uid' . $this->uid] == intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]))) {
+                // value from session is an integer -> javascript seems to be activated -> return integer from session
+                $value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+            } else {
+                // value from session is not an integer -> javascript seems to be deactivated -> return value from session
+                $value = t3lib_div::removeXSS($this->piVarsFromSession['uid' . $this->uid]);
+            }
 		}
 
 		$this->markerArray['###VALUE###'] = 'value="' . $value . '" ';
@@ -764,7 +770,13 @@ class tx_powermail_html extends tslib_pibase {
 		}
 
 		if (isset($this->piVarsFromSession['uid' . $this->uid]) && $this->piVarsFromSession['uid' . $this->uid] != '') {
-			$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+            if ($this->piVarsFromSession['uid' . $this->uid] == intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]))) {
+                // value from session is a integer -> javascript seems to be activated -> return integer from session
+                $value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+            } else {
+                // value from session is not a integer -> javascript seems to be deactivated -> return value from session
+                $value = t3lib_div::removeXSS($this->piVarsFromSession['uid' . $this->uid]);
+            }
 		}
 
 		$this->markerArray['###VALUE###'] = 'value="' . $value . '" ';

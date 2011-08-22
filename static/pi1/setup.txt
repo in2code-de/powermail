@@ -182,18 +182,36 @@ plugin.tx_powermail_pi1 {
 		# Manipulation of values for email to receiver (main mail)
 		recipient_mail {
 			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
-			date = TEXT
+			date = COA
 			date {
-				field = date
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.date}
+			    10 = TEXT
+			    10 {
+    				field = date
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.date}
+		    		if.value.field = date
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = date
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
-			
-			datetime = TEXT
+
+			datetime = COA
 			datetime {
-				field = datetime
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.datetime}
+			    10 = TEXT
+			    10 {
+    				field = datetime
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.datetime}
+		    		if.value.field = datetime
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = datetime
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
 
 			# Example to manipulate field with uid 999
@@ -205,18 +223,36 @@ plugin.tx_powermail_pi1 {
 		# Manipulation of values for email to sender (confirmation mail)
 		sender_mail {
 			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
-			date = TEXT
+			date = COA
 			date {
-				field = date
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.date}
+			    10 = TEXT
+			    10 {
+    				field = date
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.date}
+		    		if.value.field = date
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = date
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
-			
-			datetime = TEXT
+
+			datetime = COA
 			datetime {
-				field = datetime
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.datetime}
+			    10 = TEXT
+			    10 {
+    				field = datetime
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.datetime}
+		    		if.value.field = datetime
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = datetime
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
 
 			# Example to manipulate field with uid 999
@@ -228,18 +264,36 @@ plugin.tx_powermail_pi1 {
 		# Manipulation of values for thanks page
 		thx {
 			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
-			date = TEXT
+			date = COA
 			date {
-				field = date
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.date}
+			    10 = TEXT
+			    10 {
+    				field = date
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.date}
+		    		if.value.field = date
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = date
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
-			
-			datetime = TEXT
+
+			datetime = COA
 			datetime {
-				field = datetime
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.datetime}
+			    10 = TEXT
+			    10 {
+    				field = datetime
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.datetime}
+		    		if.value.field = datetime
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = datetime
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
 
 			# Example to manipulate field with uid 999
@@ -251,18 +305,36 @@ plugin.tx_powermail_pi1 {
 		# Manipulation of values for confirmation page
 		confirmation {
 			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
-			date = TEXT
+			date = COA
 			date {
-				field = date
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.date}
+			    10 = TEXT
+			    10 {
+    				field = date
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.date}
+		    		if.value.field = date
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = date
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
 			
-			datetime = TEXT
+			datetime = COA
 			datetime {
-				field = datetime
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.datetime}
+			    10 = TEXT
+			    10 {
+    				field = datetime
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.datetime}
+		    		if.value.field = datetime
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = datetime
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
 
 			# Example to manipulate field with uid 999
@@ -274,18 +346,36 @@ plugin.tx_powermail_pi1 {
 		# Manipulation of values for server side validation error page
 		mandatory {
 			# manipulate values related to its fieldtype (text, textarea, select, check, radio, date, etc...)
-			date = TEXT
+			date = COA
 			date {
-				field = date
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.date}
+			    10 = TEXT
+			    10 {
+    				field = date
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.date}
+		    		if.value.field = date
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = date
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
-		
-			datetime = TEXT
+
+			datetime = COA
 			datetime {
-				field = datetime
-				strftime.GMT = 1
-				strftime = {$plugin.powermail.format.datetime}
+			    10 = TEXT
+			    10 {
+    				field = datetime
+				    strftime.GMT = 1
+				    strftime = {$plugin.powermail.format.datetime}
+		    		if.value.field = datetime
+			    	if.value.prioriCalc = intval
+			    	if.equals.field = datetime
+			    }
+			    20 < .10
+			    20.if.negate = 1
+			    20.strftime >
 			}
 
 			# Example to manipulate field with uid 999

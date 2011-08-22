@@ -31,6 +31,7 @@ fieldset.tx-powermail-pi1_fieldset input {
 fieldset.tx-powermail-pi1_fieldset input.powermail_text,
 fieldset.tx-powermail-pi1_fieldset input.powermail_date,
 fieldset.tx-powermail-pi1_fieldset input.powermail_datetime,
+fieldset.tx-powermail-pi1_fieldset input.powermail_time,
 fieldset.tx-powermail-pi1_fieldset textarea.powermail_textarea,
 fieldset.tx-powermail-pi1_fieldset input.powermail_captcha{
 	/* Input and textarea */
@@ -44,6 +45,7 @@ fieldset.tx-powermail-pi1_fieldset input.powermail_captcha{
 fieldset.tx-powermail-pi1_fieldset input.powermail_time,
 fieldset.tx-powermail-pi1_fieldset input[type=time]{
     width:60px;
+    margin-left:8px;
 }
 
 
