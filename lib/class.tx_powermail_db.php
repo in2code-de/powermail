@@ -131,7 +131,7 @@ class tx_powermail_db extends tslib_pibase {
 
 				if ($this->dbInsert) { // if allowed
 					$GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $values); // DB entry for every table
-					$this->uid[$table] = mysql_insert_id(); // Get uid of current db entry
+                    $this->uid[$table] = $GLOBALS['TYPO3_DB']->sql_insert_id();
 				}
 
 			} else { // unique values
@@ -168,7 +168,7 @@ class tx_powermail_db extends tslib_pibase {
 				} else { // there is no entry in the database
 
 					$GLOBALS['TYPO3_DB']->exec_INSERTquery($table, $values); // New DB entry
-					$this->uid[$table] = mysql_insert_id(); // Get uid of current db entry
+					$this->uid[$table] = $GLOBALS['TYPO3_DB']->sql_insert_id(); // Get uid of current db entry
 
 				}
 
@@ -178,7 +178,7 @@ class tx_powermail_db extends tslib_pibase {
 	}
 
 	/**
-	 * Function fieldExists() checks if a table and field exist in mysql db
+	 * Function fieldExists() checks if a table and field exists in db
 	 *
 	 * @param	string		field
 	 * @param	string		table
@@ -187,26 +187,25 @@ class tx_powermail_db extends tslib_pibase {
 	private function fieldExists($field = '', $table = '') {
 		if (!empty($field) && !empty($table) && strpos($field, ".") === false) {
 			// check if table and field exits in db
-			$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc(mysql_query('SHOW TABLES LIKE "' . $table . '"')); // check if table exist
-			if ($row1) {
-				$row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc(mysql_query('DESCRIBE ' . $table . ' ' . $field)); // check if field exist (if table is wront - errormessage)
-			}
-
-			// debug values
-			if (!$row1) {
-				$this->debug_array['ERROR'][] = 'Table "' . $table . '" don\'t exists in db'; // errormessage if table don't exits
-			}
-			if (!$row2 && $row1) {
-				$this->debug_array['ERROR'][] = 'Field "' . $field . '" don\'t exists in db table "' . $table . '"'; // errormessage if field don't exits
-			}
-
-			// return true or false
-			if ($row1 && $row2) {
-				return 1; // table and field exist
+            $res1 = $GLOBALS['TYPO3_DB']->sql_query('SHOW TABLES LIKE "' . $table . '"');
+			$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res1); // check if table exist
+			if ($row1 !== false) {
+                $res2 = $GLOBALS['TYPO3_DB']->sql_query('DESCRIBE ' . $table . ' ' . $field);
+				$row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res2); // check if field exist (if table is wrong - error message)
+                // debug values
+                if ($row2 === false) {
+                    $this->debug_array['ERROR'][] = 'Field "' . $field . '" don\'t exists in db table "' . $table . '"'; // error message if field don't exits
+                }
 			} else {
-				return 0; // table or field don't exist
-			}
-		}
+                $this->debug_array['ERROR'][] = 'Table "' . $table . '" don\'t exists in db'; // error message if table don't exits
+            }
+            $GLOBALS['TYPO3_DB']->sql_free_result($res1);
+            $GLOBALS['TYPO3_DB']->sql_free_result($res2);
+			// return true if field and table exists
+			return ($row1 && $row2);
+		} else {
+            return false;
+        }
 	}
 
 	/**
