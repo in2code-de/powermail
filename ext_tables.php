@@ -195,7 +195,7 @@ $tempColumns = Array (
 	),
 	'tx_powermail_pages' => Array (
 		'exclude' => 1,
-		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.startingpoint',
+		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.savemailstopage',
 		'config' => Array (
 			'type' => 'group',
 			'internal_type' => 'db',
