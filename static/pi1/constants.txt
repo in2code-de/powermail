@@ -37,10 +37,7 @@ plugin.powermail {
 	# cat=powermail main/enable/0110; type=boolean; label= Email to sender active: You can disable confirmation emails to sender
 	allow.email2sender = 1
 
-	# cat=powermail main/enable/0120; type=boolean; label= Log every mail in db: Disable logging, if you want only to get mails
-	allow.dblog = 1
-	
-	# cat=powermail main/enable/0130; type=int+; label= PID where to save logfiles: Enter a Page ID where the form values should be saved to the db (empty: same PID as form PID)
+	# cat=powermail main/enable/0130; type=int+; label= PID where to save powermails: Enter a page ID where the form values should be saved (NO data storage, if this value is empty and no page in the frontend plugin setting is selected!)
 	PID.dblog = 
 	
 	# cat=powermail main/enable/0140; type=boolean; label= Enables tags in plain part of receiver and sendermails. This makes it possible to send xml (e.g.) syntax in plain text email part

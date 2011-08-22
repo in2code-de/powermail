@@ -84,8 +84,13 @@ class tx_powermail_submit extends tslib_pibase {
 			) {
 				$this->sendMail('sender_mail'); // 2b. Email: Generate the Mail for the sender (if allowed via TS and sender is selected and email exists)
 			}
+            /*
 			if ($this->cObj->cObjGetSingle($this->conf['allow.']['dblog'], $this->conf['allow.']['dblog.']) && !$this->cObj->data['tx_powermail_disableSaveToPage']) {
                 $this->saveMail(); // 2c. Safe values to DB (if allowed via TS)
+            }
+            */
+            if ($this->confArr['disableBackendModule'] == 0 && ($this->cObj->cObjGetSingle($this->conf['allow.']['dblog'], $this->conf['allow.']['dblog.']) || intval($this->cObj->data['tx_powermail_pages']) > 0)) {
+                $this->saveMail(); // 2c. Safe values to DB (if db storage is set in extension setting and storage page in plugin is defined)
             }
 			
 		} else { // Spam hook is true (maybe spam recognized)
@@ -318,7 +323,8 @@ class tx_powermail_submit extends tslib_pibase {
 	function saveMail() {
 		
 		// Configuration
-		$this->save_PID = $GLOBALS['TSFE']->id; // PID where to save: Take current page
+		//$this->save_PID = $GLOBALS['TSFE']->id; // PID where to save: Take current page
+        $this->save_PID = 0;
 		if (intval($this->conf['PID.']['dblog']) > 0) $this->save_PID = $this->conf['PID.']['dblog']; // PID where to save: Get it from TS if set
 		if (intval($this->cObj->data['tx_powermail_pages']) > 0) $this->save_PID = $this->cObj->data['tx_powermail_pages']; // PID where to save: Get it from plugin
 		
@@ -342,7 +348,7 @@ class tx_powermail_submit extends tslib_pibase {
 			'SP_TZ' => $_SERVER['SP_TZ'], // save sp_tz if available
             'uploadPath' => t3lib_div::dirname($this->conf['upload.']['folder']) . '/' . ((!!$this->conf['upload.']['useTitleAsUploadSubFolderName'])? $this->cObj->data['tx_powermail_title'] . '/' : '')
 		);
-		if ($this->dbInsert) $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_mails', $this->db_values); // DB entry
+		if ($this->dbInsert && intval($this->save_PID) > 0) $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_mails', $this->db_values); // DB entry
 		$this->debug('db'); // Debug output
 	}
 	

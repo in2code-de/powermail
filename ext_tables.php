@@ -211,14 +211,6 @@ $tempColumns = Array (
             )
 		)
 	),
-    'tx_powermail_disableSaveToPage' => Array (
-        'exclude' => 1,
-        'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.disableSaveToPage',
-        'config' => Array (
-            'type' => 'check',
-            'default' => 0,
-        )
-    ),
 	'tx_powermail_multiple' => Array (
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.multiple',
@@ -354,6 +346,11 @@ $tempColumns = Array (
 	),
 );
 
+	// If db-storing is disabled, clear tx_powermail_pages
+if ($confArr['disableBackendModule'] == 1) {
+	unset($tempColumns['tx_powermail_pages']);
+}
+
 	// If preview window is deactivated, clear tx_powermail_preview
 if ($confArr['usePreview'] != 1) {
 	unset($tempColumns['tx_powermail_preview']);
@@ -364,28 +361,28 @@ if (strlen($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']) > 1) {
 	unset($tempColumns['user_powermail_updateError']);
 }
 
-t3lib_div::loadTCA('tt_content');
+//t3lib_div::loadTCA('tt_content');
 t3lib_extMgm::addTCAcolumns('tt_content', $tempColumns, 1);
-
-$TCA['tt_content']['palettes'][$_EXTKEY . '_pages'] = array(
-    'showitem' => 'tx_powermail_disableSaveToPage',
-    'canNotCollapse' => '0'
-);
 
 $GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = '
 	CType;;4;button;1-1-1, hidden,1-1-1, header;;3;;3-3-3, linkToTop;;;;3-3-3,
-	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div1, tx_powermail_title;;;;2-2-2, tx_powermail_pages;;powermail_pages;;1-1-1, tx_powermail_confirm;;;;3-3-3, tx_powermail_multiple,
-	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div2, tx_powermail_fieldsets;;;;4-4-4, user_powermail_updateError, tx_powermail_preview,
+	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div1, tx_powermail_title;;;;2-2-2, ' . ($confArr['disableBackendModule'] != 1 ? 'tx_powermail_pages;;;;1-1-1, ' : '') . 'tx_powermail_confirm;;;;3-3-3, tx_powermail_multiple,
+	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div2, tx_powermail_fieldsets;;;;4-4-4, user_powermail_updateError, ' . ($confArr['usePreview'] != 1 ? 'tx_powermail_preview' : '') . ',
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div3, tx_powermail_sender, tx_powermail_sendername, tx_powermail_subject_s,, tx_powermail_mailsender;;;richtext:rte_transform[mode=ts],
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div4, tx_powermail_subject_r, tx_powermail_recipient, tx_powermail_users;;;;5-5-5,tx_powermail_recip_table, tx_powermail_recip_id, tx_powermail_mailreceiver;;;richtext:rte_transform[mode=ts],
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div5, tx_powermail_thanks;;;richtext:rte_transform[mode=ts], tx_powermail_redirect,
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div8, starttime, endtime, fe_group';
 
+/*
 	// If preview window is deactivated, clear tx_powermail_preview
 if ($confArr['usePreview'] != 1) {
 	$GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = str_replace('tx_powermail_preview,', '', $GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem']);
 }
 
+if ($confArr['disableDBStorage'] == 1) {
+	$GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = str_replace('tx_powermail_preview,', '', $GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem']);
+}
+*/
 	// Add "tx_powermail_recip_table" to the requestUpdate
 $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] .= $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] ? ',tx_powermail_recip_table' : 'tx_powermail_recip_table';
 
