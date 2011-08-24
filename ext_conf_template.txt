@@ -7,11 +7,11 @@ cssSelection = 1
 # cat=basic/enable/030; type=text; label= Fill field with fe data: A dropdown is shown in the backend which enables to prefill any field with the value of a current logged in feuser. You can increase or decrease the fe_user field values in the dropdown menu. Just use the wanted fieldnames of the fe_user table in a comma-separated list.
 feusersPrefill = name, address, telephone, fax, email, zip, city, country, www, company
 
-# cat=basic/enable/040; type=boolean; label= Disable IP logging: If you don't want to save the sender IP address in the database, activate this.
-disableIPlog = 0
-
-# cat=basic/enable/050; type=boolean; label= Disable BE module AND DB saving: If you don't want to save powermails to database, activate this. The corresponding fields in the plugin settings and the backend module will disappear.
+# cat=basic/enable/040; type=boolean; label= Disable BE module AND DB saving: If you don't want to save powermails to database, activate this. The corresponding fields in the plugin settings and the backend module will disappear.
 disableBackendModule = 0
+
+# cat=basic/enable/050; type=boolean; label= Disable IP logging: If you don't want to save the sender IP address in the database, activate this.
+disableIPlog = 0
 
 # cat=basic/enable/060; type=boolean; label= Disable start/stop-time: If there are problems with adding fields or if you don't need this feature at all, you can disable start/stop-time for fields and fieldsets.
 disableStartStop = 0
