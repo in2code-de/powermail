@@ -1,0 +1,568 @@
+/**********************************************************/
+/* Less file for Powermail Basic CSS.                     */
+/* Target -> ../css/powermail_frontend_basic.css          */
+/* Use less.app to compile                                */
+/* More info about less.app: http://incident57.com/less/  */
+/**********************************************************/
+
+@labelWidth: 200px;
+@fieldWidth: 400px;
+@timeFieldWidth: 60px;
+@fieldMarginBottom: 1em;
+@inputPadding: 2px;
+@calTriggerIconWidth: 16px;
+@calTriggerIconHeight: 16px;
+@errorArrowSize: 10px;
+
+@borderRadius: 5px;
+@inputBorderRadius: @borderRadius;
+@errorBorderRadius: @borderRadius;
+@descriptionBorderRadius: @borderRadius;
+@calBorderRadius: @borderRadius;
+@sliderBorderRadius: @borderRadius;
+
+@shadowWidth: 10px;
+@descriptionShadowWidth: @shadowWidth;
+@errorShadowWidth: @shadowWidth;
+@calShadowWidth: @shadowWidth;
+@fieldsetShadowWidth: 0;
+
+@fieldsetBackgroundColor: #f0f0f0;
+@multipleTabBackgroundColor: #e0e0e0;
+@multipleTabActiveBackgroundColor: @fieldsetBackgroundColor;
+@multipleTabColor: #666;
+@multipleTabActiveColor: #333;
+@fieldsetBorderColor: #ccc;
+@mandatoryColor: #f00;
+@errorColor: #fff;
+@errorBackgroundColor: @mandatoryColor;
+@shadowColor: rgba(0,0,0,0.5);
+@fieldsetShadowColor: rgba(0,0,0,0.2);
+@errorShadowColor: @shadowColor;
+@calShadowColor: @shadowColor;
+@descriptionShadowColor: @shadowColor;
+@placeHolderColor: #999;
+@legendColor: #000;
+@labelColor: #515151;
+@inputBackgroundColor: #f8f8f8;
+@inputBorderColor: #ccc;
+@inputFocusBackgroundColor: #fff;
+@inputFocusBorderColor: #333;
+@descriptionBackgroundColor: #00559E;
+@progressBackgroundColor: #C5FF00;
+@calTitleColor: #FA8800;
+@calWeekColor: #666;
+@calSunColor: #f00;
+@calCurrentDayBackgroundColor: #498CE2;
+@calCurrentDayColor: #fff;
+@calTodayBackgroundColor: #333;
+@calTodayColor: #fff;
+
+@calPrevIcon: '../img/prev.gif';
+@calNextIcon: '../img/next.gif';
+@calTriggerIcon: '../img/calendar.png';
+@calH30: '../img/h30.png';
+
+
+fieldset.tx-powermail-pi1_fieldset {
+    /* Fieldset */
+    padding: 10px;
+    margin-bottom:10px;
+    clear: both;
+    border: 1px solid @fieldsetBorderColor;
+    background-color: @fieldsetBackgroundColor;
+    legend {
+        /* legend of Fieldset */
+        font-weight: bold;
+        color: @legendColor;
+    }
+    label,
+    fieldset legend {
+        /* label */
+        display: block;
+        width: @labelWidth;
+        float: left;
+        font-weight: bold;
+        color:@labelColor;
+        white-space:normal;
+    }
+    /* radio and checkboxes are surround by a fieldset */
+    fieldset {
+        border: 0 none;
+        padding: 0;
+        margin: 0;
+        position: relative;
+    }
+    /* radio and checkboxes use legend as label */
+    fieldset legend {
+        position: absolute;
+        left: 0;
+        padding: 0;
+        margin: 0;
+    }
+    input {
+        margin-left:0;
+    }
+    input.powermail_text,
+    input.powermail_date,
+    input.powermail_datetime,
+    input.powermail_time,
+    textarea.powermail_textarea,
+    input.powermail_captcha {
+        /* Input and textarea */
+        border:1px solid @inputBorderColor;
+        background:@inputBackgroundColor none;
+        padding:@inputPadding;
+        width:@fieldWidth;
+        /* CSS3 spicing for mozilla and webkit */
+        -moz-box-shadow:0 0 5px #eee inset;
+        -webkit-box-shadow:0 0 5px #eee inset;
+        box-shadow:0 0 5px #eee inset;
+        -moz-border-radius:@inputBorderRadius;
+        -webkit-border-radius:@inputBorderRadius;
+        border-radius:@inputBorderRadius;
+    }
+    input.powermail_datetime.date {
+        width: (@fieldWidth - @timeFieldWidth - 10);
+    }
+    input.powermail_time,
+    input[type=time] {
+        width:@timeFieldWidth;
+        margin-left:8px;
+    }
+    textarea:focus,
+    input:not([type="submit"]):focus {
+        background:@inputFocusBackgroundColor none;
+        border:1px solid @inputFocusBorderColor;
+        -moz-box-shadow:none;
+        -webkit-box-shadow:none;
+        box-shadow:none;
+    }
+    input.powermail_radio {
+        /* Radiobuttons */
+        margin: 3px 0;
+    }
+    .powermail_check_inner,
+    .powermail_radio_inner {
+        margin-left: @labelWidth;
+        clear: both;
+    }
+    .powermail_check_inner label,
+    .powermail_radio_inner label {
+        float: none;
+        width: auto;
+        display: inline;
+        font-weight: normal;
+        margin-left: 7px;
+    }
+    .powermail_check_inner input,
+    .powermail_radio_inner input {
+        float: left;
+        position: relative;
+        clear: left;
+    }
+    input.powermail_text.range {
+        float:left;
+        margin:0 0 0 15px;
+        padding:3px 0;
+        text-align:center;
+        width:50px;
+    }
+    input.powermail_submit {
+        /* submit button */
+        margin: 20px 0 10px @labelWidth;
+        font-weight: bold;
+    }
+    div.countryzone {
+        margin: 10px 0 0 @labelWidth;
+    }
+    div.tx_powermail_pi1_fieldwrap_html {
+        /* DIV container around every field */
+        margin-bottom: @fieldMarginBottom;
+        clear:both;
+    }
+    label a,
+    fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a,
+    fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title a {
+        /* Description */
+        cursor: help;
+        text-decoration: none;
+    }
+    label a dfn,
+    legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a dfn,
+    legend.tx_powermail_pi1_fieldwrap_html_radio_title a dfn{
+        /* Description */
+        display: none;
+        text-decoration: none;
+        position:absolute;
+        z-index:1;
+        width: auto;
+        padding:3px 10px 5px 10px;
+        background-color:@descriptionBackgroundColor;
+        border:1px solid @descriptionBackgroundColor;
+        font-size:11px;
+        color:#fff;
+        white-space: normal;
+        /* CSS3 spicing for mozilla and webkit */
+        -moz-border-radius:@descriptionBorderRadius;
+        -webkit-border-radius:@descriptionBorderRadius;
+        border-radius:@descriptionBorderRadius;
+        -moz-box-shadow:0 0 @descriptionShadowWidth @descriptionShadowColor;
+        -webkit-box-shadow:0 0 @descriptionShadowWidth @descriptionShadowColor;
+        box-shadow:0 0 @descriptionShadowWidth @descriptionShadowColor;
+    }
+    label a:hover dfn,
+    legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a:hover dfn,
+    legend.tx_powermail_pi1_fieldwrap_html_radio_title a:hover dfn{
+        /* Description on mouseover */
+        display: block;
+    }
+    img.icon_info {
+        /* Description icon */
+        padding: 2px 2px 0 2px;
+    }
+}
+
+.powermail_mandatory {
+	color: @mandatoryColor;
+}
+
+.placeholder {
+    color: @placeHolderColor;
+}
+
+.powermail_mandatory_helper {
+    position:absolute;
+    visibility:hidden;
+    height:1px;
+}
+
+.wtcalculatingcaptcha {
+    margin-left:@labelWidth;
+}
+
+/* error message */
+.error {
+	/* supply height to ensure consistent positioning for every browser */
+	background-color:@errorBackgroundColor;
+	border:1px solid @errorBackgroundColor;
+	font-size:11px;
+	color:@errorColor;
+	padding:3px 10px 5px 10px;
+	margin-left:8 - @errorArrowSize;
+    z-index:10;
+    text-align:left;
+    height:auto;
+    p {
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+    }
+
+	/* CSS3 spicing for mozilla and webkit */
+	-moz-border-radius:@errorBorderRadius;
+	-webkit-border-radius:@errorBorderRadius;
+	border-radius:@errorBorderRadius;
+	-moz-box-shadow:0 0 @errorShadowWidth @errorShadowColor;
+	-webkit-box-shadow:0 0 @errorShadowWidth @errorShadowColor;
+	box-shadow:0 0 @errorShadowWidth @errorShadowColor;
+}
+
+/* pure CSS arrow */
+html:root .error em {
+	display:block;
+	width:0;
+	height:0;
+	border:@errorArrowSize solid;
+	border-color:@errorBackgroundColor transparent transparent;
+
+	/* positioning */
+	position:absolute;
+	bottom:-@errorArrowSize;
+	left:@errorArrowSize / 2;
+	border-bottom:0 none;
+}
+
+/* jQuery Tools CSS                                                                */
+/* For the details, see: http://flowplayer.org/tools/dateinput/index.html#skinning */
+
+/* calendar root element */
+#calroot {
+	/* place on top of other elements. set a higher value if necessary */
+	z-index:10000;
+	
+	margin-top:-1px;
+	width:@labelWidth - 2;
+	padding:2px;
+	background-color:#fff;
+	font-size:11px;
+	border:1px solid #ccc;
+	
+	-moz-border-radius:@calBorderRadius;
+	-webkit-border-radius:@calBorderRadius;
+	border-radius:@calBorderRadius;
+	
+	-moz-box-shadow: 0 0 @calShadowWidth @calShadowColor;
+	-webkit-box-shadow: 0 0 @calShadowWidth @calShadowColor;
+	box-shadow:0 0 @calShadowWidth @calShadowColor;
+}
+
+/* head. contains title, prev/next month controls and possible month/year selectors */
+#calhead {	
+	padding:2px 0;
+	height:22px;
+} 
+
+#caltitle {
+	font-size:14px;
+	color:@calTitleColor;
+	float:left;
+	text-align:center;
+	width:155px;
+	line-height:20px;
+	text-shadow:0 1px 0 #ddd;
+}
+
+#calnext, #calprev {
+	display:block;
+	width:20px;
+	height:20px;
+	background:transparent url(@calPrevIcon) no-repeat scroll center center;
+	float:left;
+	cursor:pointer;
+}
+
+#calnext {
+	background-image:url(@calNextIcon);
+	float:right;
+}
+
+#calprev.caldisabled, #calnext.caldisabled {
+	visibility:hidden;	
+}
+
+/* year/month selector */
+#caltitle select {
+	font-size:10px;	
+}
+
+/* names of the days */
+#caldays {
+	height:18px;
+	border-bottom:1px solid #ddd;
+}
+
+#caldays span {
+	display:block;
+	float:left;
+	width:28px;
+	text-align:center;
+}
+
+/* container for weeks */
+#calweeks {
+	background-color:#fff;
+	margin-top:4px;
+}
+
+/* single week */
+.calweek {
+	clear:left;
+	height:22px;
+}
+
+/* single day */
+.calweek a {
+	display:block;
+	float:left;
+	width:27px;
+	height:20px;
+	text-decoration:none;
+	font-size:11px;
+	margin-left:1px;
+	text-align:center;
+	line-height:20px;
+	color:@calWeekColor;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+    border-radius:3px;
+} 
+
+/* different states */
+.calweek a:hover, .calfocus {
+	background-color:#ddd;
+}
+
+/* sunday */
+a.calsun {
+	color:@calSunColor;
+}
+
+/* offmonth day */
+a.caloff {
+	color:#ccc;		
+}
+
+a.caloff:hover {
+	background-color:rgb(245, 245, 250);		
+}
+
+
+/* unselecteble day */
+a.caldisabled {
+	background-color:#efefef !important;
+	color:#ccc	!important;
+	cursor:default;
+}
+
+/* current day */
+#calcurrent {
+	background-color:@calCurrentDayBackgroundColor;
+	color:@calCurrentDayColor;
+}
+
+/* today */
+#caltoday {
+	background-color:@calTodayBackgroundColor;
+	color:@calTodayColor;
+}
+
+a.caltrigger {
+    position: relative;
+    display: inline-block;
+    margin-left: -@calTriggerIconWidth - 2;
+    margin-top: @inputPadding + 1;
+    vertical-align: top;
+    background: url(@calTriggerIcon) no-repeat 0 0;
+    width:@calTriggerIconWidth;
+    height:@calTriggerIconHeight;
+}
+
+/* slider root element */
+.slider { 
+	background:#3C72E6 url(@calH30) repeat-x 0 0;
+	height:9px; 
+	position:relative; 
+	cursor:pointer;
+	border:1px solid #333;
+	width:@fieldWidth;
+	float:left; 
+	clear:right;
+	margin-top:10px;
+	-moz-border-radius:@sliderBorderRadius;
+	-webkit-border-radius:@sliderBorderRadius;
+	border-radius:@sliderBorderRadius;
+	-moz-box-shadow:inset 0 0 8px #000;
+	-webkit-box-shadow:inset 0 0 8px #000;
+	box-shadow:inset 0 0 8px #000;
+}
+
+/* progress bar (enabled with progress: true) */
+.progress {
+	height:9px; 
+	background-color:@progressBackgroundColor;
+	display:none;
+	opacity:0.6;
+}
+
+/* drag handle */
+.handle { 
+	background:#fff url(@calH30) repeat-x 0 0;
+	height:28px;
+	width:28px;
+	top:-12px;
+	position:absolute; 
+	display:block; 
+	margin-top:1px;
+	border:1px solid #000;
+	cursor:move;
+	-moz-box-shadow:0 0 6px #000;
+	-webkit-box-shadow:0 0 6px #000;
+	box-shadow:0 0 6px #000;
+	-moz-border-radius:14px;
+	-webkit-border-radius:14px; 
+	border-radius:14px;
+}
+
+
+/* Multiple JS */
+div.powermail_multiple_js {
+    fieldset.tx-powermail-pi1_fieldset legend,
+    fieldset.tx-powermail-pi1_fieldset.ui-tabs-hide {
+        display:none;
+    }
+    fieldset.tx-powermail-pi1_fieldset {
+        padding-top:15px;
+        -moz-box-shadow:@fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowColor;
+        -webkit-box-shadow:@fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowColor;
+        box-shadow:@fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowColor;
+        fieldset legend {
+            display:block;
+        }
+    }
+}
+
+ul.powermail_multiplejs_tabs {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    li {
+        float: left;
+        margin: 0 1px 0 0;
+        padding: 0;
+        list-style-type: none;
+        a {
+            display: block;
+            padding: 5px 10px;
+            color: @multipleTabColor;
+            font-weight: bold;
+            text-decoration: none;
+            background: @multipleTabBackgroundColor;
+            -webkit-border-top-left-radius: 2px;
+            -webkit-border-top-right-radius: 2px;
+            -moz-border-radius-topleft: 2px;
+            -moz-border-radius-topright: 2px;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            border-top: 1px solid @fieldsetBorderColor;
+            border-left: 1px solid @fieldsetBorderColor;
+            border-right: 1px solid @fieldsetBorderColor;
+            outline: none;
+        }
+        a.act {
+            background: @multipleTabActiveBackgroundColor;
+            color: @multipleTabActiveColor;
+            padding:5px 10px 6px 10px;
+            position:relative;
+            margin-bottom:-1px;
+            -moz-box-shadow:@fieldsetShadowWidth 0 0 @fieldsetShadowColor;
+            -webkit-box-shadow:@fieldsetShadowWidth 0 0 @fieldsetShadowColor;
+            box-shadow:@fieldsetShadowWidth 0 0 @fieldsetShadowColor;
+        }
+    }
+}
+
+/* Multiple PHP */
+input.tx_powermail_pi1_submitmultiple_forward,
+input.tx_powermail_pi1_submitmultiple_back {margin-top:1em;}
+
+input.tx_powermail_pi1_submitmultiple_forward {
+    float: right;
+}
+
+.powermail_multiple_php form > div.tx_powermail_pi1_fieldwrap_html_submit {
+    display: inline;
+    float: right;
+    clear: none;
+    margin-top:1em;
+}
+
+/* Confirmation */
+td.powermail_all_td {
+	padding: 3px 10px 3px 0;
+}
+
+/* THX */
+td.powermail_all p.bodytext {
+	margin: 0;
+}
