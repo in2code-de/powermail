@@ -428,7 +428,7 @@ plugin.tx_powermail_pi1 {
 		yourmarker.value = This is a new text
 	}
 	
-	
+
 	# extern db entry (example for tt_adress)
 	dbEntry {
 		# enable or disable db entry for tt_address

@@ -26,13 +26,13 @@
         $('form.tx_powermail_pi1_form input.powermail_date').each( function() {
             var uid = $(this).attr('id');
             var value = $(this).attr('value');
-            $(this).removeAttr('name').removeAttr('value').after('<input type="hidden" name="tx_powermail_pi1[' + uid +  ']" value="' + value + '" />');
+            $(this).removeAttr('name').removeAttr('placeholder').removeAttr('value').after('<input type="hidden" name="tx_powermail_pi1[' + uid +  ']" value="' + value + '" />');
         });
 
         $('form.tx_powermail_pi1_form input.powermail_datetime').each( function() {
             var uid = $(this).attr('id');
             var value = $(this).attr('value');
-            $(this).removeAttr('name').removeAttr('value').after('<input type="hidden" name="tx_powermail_pi1[' + uid +  ']" value="' + value + '" /><input type="time" size="5" maxlength="5" class="powermail_datetime powermail_time" />');
+            $(this).removeAttr('name').removeAttr('placeholder').removeAttr('value').after('<input type="hidden" name="tx_powermail_pi1[' + uid +  ']" value="' + value + '" /><input type="time" size="5" maxlength="5" class="powermail_datetime powermail_time" />');
         });
 
         $('form.tx_powermail_pi1_form input.powermail_check').each( function() {
