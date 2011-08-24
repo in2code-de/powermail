@@ -41,7 +41,7 @@ html:root .error em{display:block;width:0;height:0;border:10px solid;border-colo
 a.calsun{color:#ff0000;}
 a.caloff{color:#ccc;}
 a.caloff:hover{background-color:#f5f5fa;}
-a.caldisabled{background-color:#efefef !important;color:#ccc	!important;cursor:default;}
+a.caldisabled{background-color:#efefef !important;color:#ccc !important;cursor:default;}
 #calcurrent{background-color:#498ce2;color:#ffffff;}
 #caltoday{background-color:#333333;color:#ffffff;}
 a.caltrigger{position:relative;display:inline-block;margin-left:-18px;margin-top:3px;vertical-align:top;background:url('../img/calendar.png') no-repeat 0 0;width:16px;height:16px;}
