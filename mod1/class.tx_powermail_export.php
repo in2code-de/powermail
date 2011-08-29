@@ -246,7 +246,7 @@ class tx_powermail_export {
 
 		$this->pid = intval($this->pid);
 
-		$pageArray = t3lib_BEfunc::getRecord('pages', $this->pid, 'title, tx_powermail_title, tx_powermail_useTitleAsUploadSubFolderName');
+		$pageArray = t3lib_BEfunc::getRecord('pages', $this->pid, 'title');
 		$this->pageTitle = $pageArray['title'];
 
 		$this->phpexcel = t3lib_extMgm::isLoaded('phpexcel_library');
@@ -810,10 +810,10 @@ tr.odd td{background:#eee;}
                                         $value = $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($value)));
                                         switch ($this->formtypes[$key]){
                                             case 'date':
-                                                $value = ($value == intval($value)) ? gmdate($this->dateFormat, $value) : $value;
+                                                $value = ($value == intval($value) && $value !== '') ? gmdate($this->dateFormat, $value) : $value;
                                                 break;
                                             case 'datetime':
-                                                $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
+                                                $value = ($value == intval($value) && $value !== '') ? gmdate($this->datetimeFormat, $value) : $value;
                                                 break;
                                             case 'file':
                                                 $value = $uploadURLPath . $value;
@@ -854,10 +854,10 @@ tr.odd td{background:#eee;}
 								$value = $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($piVars[$key])));
 								switch ($this->formtypes[$key]){
 								    case 'date':
-								        $value = ($value == intval($value)) ? gmdate($this->dateFormat, $value) : $value;
+								        $value = ($value == intval($value) && $value !== '') ? gmdate($this->dateFormat, $value) : $value;
 								        break;
 								    case 'datetime':
-								        $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
+								        $value = ($value == intval($value) && $value !== '') ? gmdate($this->datetimeFormat, $value) : $value;
 								        break;
 								    case 'file':
 								        $value = $uploadURLPath . $value;
