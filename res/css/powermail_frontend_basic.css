@@ -1,5 +1,5 @@
 .tx-powermail-pi1_fieldset{padding:10px;margin-bottom:10px;clear:both;border:1px solid #cccccc;background-color:#f0f0f0;}.tx-powermail-pi1_fieldset legend{font-weight:bold;color:#000000;}
-.tx-powermail-pi1_fieldset label,.tx-powermail-pi1_fieldset fieldset legend{display:block;width:200px;float:left;font-weight:bold;color:#515151;white-space:normal;}
+.tx-powermail-pi1_fieldset label,.tx-powermail-pi1_fieldset fieldset legend,.tx-powermail-pi1_fieldset .powermail_file_list_label{display:block;width:200px;float:left;font-weight:bold;color:#515151;white-space:normal;}
 .tx-powermail-pi1_fieldset fieldset{border:0 none;padding:0;margin:0;position:relative;}.tx-powermail-pi1_fieldset fieldset legend{position:absolute;left:0;padding:0;margin:0;}
 .tx-powermail-pi1_fieldset input,.tx-powermail-pi1_fieldset select,.tx-powermail-pi1_fieldset textarea{margin-left:0;}
 .tx-powermail-pi1_fieldset .powermail_text,.tx-powermail-pi1_fieldset .powermail_date,.tx-powermail-pi1_fieldset .powermail_datetime,.tx-powermail-pi1_fieldset .powermail_time,.tx-powermail-pi1_fieldset .powermail_textarea,.tx-powermail-pi1_fieldset .powermail_captcha{border:1px solid #cccccc;background:#f8f8f8 none;padding:2px;width:400px;-moz-box-shadow:inset 0 0 2px rgba(0, 0, 0, 0.1);-webkit-box-shadow:inset 0 0 2px rgba(0, 0, 0, 0.1);box-shadow:inset 0 0 2px rgba(0, 0, 0, 0.1);border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;}
@@ -48,5 +48,10 @@ ul.powermail_multiplejs_tabs{list-style-type:none;padding:0;margin:0;}ul.powerma
 input.tx_powermail_pi1_submitmultiple_forward,input.tx_powermail_pi1_submitmultiple_back{margin-top:1em;}
 input.tx_powermail_pi1_submitmultiple_forward{float:right;}
 .powermail_multiple_php form>div.tx_powermail_pi1_fieldwrap_html_submit{display:inline;float:right;clear:none;margin-top:1em;}
-td.powermail_all_td{padding:3px 10px 3px 0;}
+.tx-powermail-pi1_confirmation table.powermail_all,.tx-powermail-pi1_thx table{font-size:1em;margin-bottom:10px;}.tx-powermail-pi1_confirmation table.powermail_all:after,.tx-powermail-pi1_thx table:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+* html .tx-powermail-pi1_confirmation table.powermail_all,*:first-child+html .tx-powermail-pi1_confirmation table.powermail_all{zoom:1;}
+.powermail_all_td,.powermail_all_th{padding:3px 10px 3px 0;width:400px;}
+.powermail_all_th{font-weight:bold;width:190px;}
+.tx_powermail_pi1_formconfirmation_back{width:200px;float:left;}
+.tx_powermail_pi1_formconfirmation_submit{width:400px;float:left;}
 td.powermail_all p.bodytext{margin:0;}

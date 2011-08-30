@@ -98,6 +98,7 @@ class tx_powermail_markers extends tslib_pibase {
                 $GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 
+			$markerArray['###POWERMAIL_EVEN_ODD###'] = 'even';
 			// normal markers
             foreach ($this->sessiondata as $k => $v) { // One loop for every piVar
                 $this->label = $k;
@@ -105,6 +106,7 @@ class tx_powermail_markers extends tslib_pibase {
 				if ($k == 'FILE' && count($v) > 1) { // only if min two files uploaded (don't show uploaded files two times if only one upload field)
 				    $i = 1;
 					foreach ($v as $key => $file) {
+						$markerArray['###POWERMAIL_EVEN_ODD###'] = $markerArray['###POWERMAIL_EVEN_ODD###'] == 'even' ? 'odd' : 'even';
 						$this->markerArray['###' . strtoupper($k) . '_' . $key . '###'] = stripslashes($this->div->nl2br2($file)); // Filename
 						$this->markerArray['###LABEL_' . strtolower($k) . '_' . $key . '###'] = sprintf($this->pi_getLL('locallangmarker_confirmation_files','Attached file %s: '), $i); // Label to filename
 						if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
@@ -125,11 +127,12 @@ class tx_powermail_markers extends tslib_pibase {
 							if (is_numeric(str_replace('uid', '', $k))) { // check if key is like uid55
 								$this->markerArray['###' . strtoupper($k) . '###'] = stripslashes($this->div->nl2br2($v)); // fill ###UID55###
 								$this->markerArray['###LABEL_' . strtoupper($k) . '###'] = $this->label; // fill ###LABEL_UID55###
-								
+
 								// ###POWERMAIL_ALL###
 								if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
 									$markerArray['###POWERMAIL_LABEL###'] = $this->label;
 									$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($v));
+									$markerArray['###POWERMAIL_EVEN_ODD###'] = $markerArray['###POWERMAIL_EVEN_ODD###'] == 'even' ? 'odd' : 'even';
                                     if (!!$this->conf['upload.']['addLinkToUploads'] && $this->type == 'file' && $this->what == 'recipient_mail') {
                                         $markerArray['###POWERMAIL_VALUE###'] = '<a href="' . $this->baseURL . $this->uploadFolder . $markerArray['###POWERMAIL_VALUE###'] . '" target="_blank">' . $markerArray['###POWERMAIL_VALUE###'] . '</a>';
                                     }
@@ -142,6 +145,7 @@ class tx_powermail_markers extends tslib_pibase {
 							}
 						} else { // value is still an array (needed for e.g. checkboxes tx_powermail_pi1[uid55][0])
 							$i = 0; // init counter
+							$markerArray['###POWERMAIL_VALUE###'] = '';
 							foreach ($v as $kv => $vv) { // One loop for every piVar
 								if (is_numeric(str_replace('uid','',$k))) { // check if key is like uid55
 									if ($vv) { // if value exists
@@ -152,15 +156,18 @@ class tx_powermail_markers extends tslib_pibase {
 										// ###POWERMAIL_ALL###
 										if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
 											$markerArray['###POWERMAIL_LABEL###'] = $this->label;
-											$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($vv));
+											$markerArray['###POWERMAIL_VALUE###'] .= stripslashes($this->div->nl2br2($vv)) . ', ';
+											$markerArray['###POWERMAIL_EVEN_ODD###'] = $markerArray['###POWERMAIL_EVEN_ODD###'] == 'even' ? 'odd' : 'even';
 											$markerArray['###POWERMAIL_UID###'] = $k;
 											$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v, $kv, $vv); // add hook
-											$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray);
+											//$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray);
 										}
 										$i ++; // increase counter
 									}
 								}
 							}
+							$markerArray['###POWERMAIL_VALUE###'] = rtrim($markerArray['###POWERMAIL_VALUE###'], ', ');
+							$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray);
 						}
 					}
 				}
@@ -173,6 +180,7 @@ class tx_powermail_markers extends tslib_pibase {
 						if ($this->geoArray[$geovalue]) { // if this key exists
 							$markerArray['###POWERMAIL_LABEL###'] = $this->pi_getLL('geoip_' . $geovalue, ucfirst($geovalue));
 							$markerArray['###POWERMAIL_VALUE###'] = $this->geoArray[$geovalue];
+							$markerArray['###POWERMAIL_EVEN_ODD###'] = $markerArray['###POWERMAIL_EVEN_ODD###'] == 'even' ? 'odd' : 'even';
 							$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray); // add line
 						}
 					}
