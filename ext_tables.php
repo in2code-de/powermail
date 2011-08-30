@@ -1,5 +1,5 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
@@ -29,30 +29,30 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY 
 
 t3lib_extMgm::addToInsertRecords('tx_powermail_fieldsets');
 
-$GLOBALS['TCA']['tx_powermail_fieldsets'] = array (
-	'ctrl' => array (
-		'title'     => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_fieldsets',
-		'label'     => 'title',
-		'tstamp'    => 'tstamp',
-		'crdate'    => 'crdate',
+$GLOBALS['TCA']['tx_powermail_fieldsets'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_fieldsets',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
 		'versioningWS' => TRUE,
 		'origUid' => 't3_origuid',
-		'languageField'            => 'sys_language_uid',
-		'transOrigPointerField'    => 'l18n_parent',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l18n_parent',
 		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'sortby' => 'sorting',
 		'default_sortby' => 'ORDER BY crdate',
 		'delete' => 'deleted',
-		'enablecolumns' => array (
+		'enablecolumns' => array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime'
 		),
 		'dynamicConfigFile' => $extPath . 'tca.php',
-		'iconfile'          => $extIconPath . 'icon_tx_powermail_fieldsets.gif',
+		'iconfile' => $extIconPath . 'icon_tx_powermail_fieldsets.gif',
 	),
-	'feInterface' => array (
+	'feInterface' => array(
 		'fe_admin_fieldList' => 'fe_group, form, title, felder, hidden',
 	)
 );
@@ -62,30 +62,30 @@ t3lib_extMgm::allowTableOnStandardPages('tx_powermail_fields');
 
 t3lib_extMgm::addToInsertRecords('tx_powermail_fields');
 
-$GLOBALS['TCA']['tx_powermail_fields'] = array (
-	'ctrl' => array (
-		'title'     => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_fields',
+$GLOBALS['TCA']['tx_powermail_fields'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_fields',
 		'requestUpdate' => 'formtype',
-		'label'     => 'title',
-		'tstamp'    => 'tstamp',
-		'crdate'    => 'crdate',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
 		'versioningWS' => TRUE,
 		'origUid' => 't3_origuid',
-		'languageField'            => 'sys_language_uid',
-		'transOrigPointerField'    => 'l18n_parent',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l18n_parent',
 		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'sortby' => 'sorting',
 		'delete' => 'deleted',
-		'enablecolumns' => array (
+		'enablecolumns' => array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime'
 		),
 		'dynamicConfigFile' => $extPath . 'tca.php',
-		'iconfile'          => $extIconPath . 'icon_tx_powermail_fields.gif',
+		'iconfile' => $extIconPath . 'icon_tx_powermail_fields.gif',
 	),
-	'feInterface' => array (
+	'feInterface' => array(
 		'fe_admin_fieldList' => 'fieldset, title, name, flexform, value, size, maxsize, max, min, step, pattern, placeholder, mandantory, more, fe_field, hidden',
 	)
 );
@@ -94,22 +94,22 @@ t3lib_extMgm::allowTableOnStandardPages('tx_powermail_mails');
 
 t3lib_extMgm::addToInsertRecords('tx_powermail_mails');
 
-$GLOBALS['TCA']['tx_powermail_mails'] = array (
-	'ctrl' => array (
-		'title'     => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_mails',
-		'label'     => 'sender',
-		'tstamp'    => 'tstamp',
-		'crdate'    => 'crdate',
+$GLOBALS['TCA']['tx_powermail_mails'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_mails',
+		'label' => 'sender',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
 		'default_sortby' => 'ORDER BY crdate DESC',
 		'delete' => 'deleted',
-		'enablecolumns' => array (
+		'enablecolumns' => array(
 			'disabled' => 'hidden'
 		),
 		'dynamicConfigFile' => $extPath . 'tca.php',
-		'iconfile'          => $extIconPath . 'icon_tx_powermail_mails.gif',
+		'iconfile' => $extIconPath . 'icon_tx_powermail_mails.gif',
 	),
-	'feInterface' => array (
+	'feInterface' => array(
 		'fe_admin_fieldList' => 'formid, recipient, subject_r, sender, content, piVars, senderIP, UserAgent, Referer, SP_TZ, hidden',
 	)
 );
@@ -118,55 +118,55 @@ t3lib_div::loadTCA('tt_content');
 
 t3lib_extMgm::addPlugin(
 	array(
-		'LLL:EXT:powermail/locallang_db.xml:tt_content.CType_pi1',
-		$_EXTKEY . '_pi1',
-		$extRelPath . 'ext_icon.gif'
+		 'LLL:EXT:powermail/locallang_db.xml:tt_content.CType_pi1',
+		 $_EXTKEY . '_pi1',
+		 $extRelPath . 'ext_icon.gif'
 	),
 	'CType'
 );
 
-$tempColumns = Array (
-	'tx_powermail_title' => Array (
+$tempColumns = Array(
+	'tx_powermail_title' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.title',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'input',
 			'size' => '30',
 			'max' => '30',
 			'eval' => 'required,trim,lower,alphanum_x,nospace',
 		)
 	),
-	'tx_powermail_recipient' => Array (
+	'tx_powermail_recipient' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.recipient',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'text',
 			'cols' => '60',
 			'rows' => '2',
 		)
 	),
-	'tx_powermail_subject_r' => Array (
+	'tx_powermail_subject_r' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.subject_r',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'input',
 			'size' => '30',
 		)
 	),
-	'tx_powermail_subject_s' => Array (
+	'tx_powermail_subject_s' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.subject_s',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'input',
 			'size' => '30',
 		)
 	),
-	'tx_powermail_sender' => Array (
+	'tx_powermail_sender' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.sender',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'select',
-			'items' => Array (
+			'items' => Array(
 				Array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.recip_table.I.0', '0'),
 			),
 			'itemsProcFunc' => 'user_powermail_tx_powermail_forms_sender_field->main',
@@ -174,10 +174,10 @@ $tempColumns = Array (
 			'maxitems' => 1,
 		)
 	),
-	'tx_powermail_sendername' => Array (
+	'tx_powermail_sendername' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.sendername',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'select',
 			'items' => array(),
 			'itemsProcFunc' => 'user_powermail_tx_powermail_forms_sender_field->main',
@@ -185,50 +185,50 @@ $tempColumns = Array (
 			'maxitems' => 10,
 		)
 	),
-	'tx_powermail_confirm' => Array (
+	'tx_powermail_confirm' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.confirm',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'check',
 			'default' => 1,
 		)
 	),
-	'tx_powermail_pages' => Array (
+	'tx_powermail_pages' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.savemailstopage',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'group',
 			'internal_type' => 'db',
 			'allowed' => 'pages',
 			'size' => '1',
 			'maxitems' => '1',
-            'minitems' => '0',
+			'minitems' => '0',
 			'show_thumbs' => '1',
-            'wizards' => array(
-                'suggest' => array(
-                    'type' => 'suggest'
-                )
-            )
+			'wizards' => array(
+				'suggest' => array(
+					'type' => 'suggest'
+				)
+			)
 		)
 	),
-	'tx_powermail_multiple' => Array (
+	'tx_powermail_multiple' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.multiple',
-		'config' => Array (
-			'type'  => 'select',
-			'items' => array (
+		'config' => Array(
+			'type' => 'select',
+			'items' => array(
 				Array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.multiple.I.0', '0'),
 				Array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.multiple.I.1', '1'),
 				Array('LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.multiple.I.2', '2'),
 			),
 		)
 	),
-	'tx_powermail_recip_table' => Array (
+	'tx_powermail_recip_table' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.recip_table',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'select',
-			'items' => Array (
+			'items' => Array(
 				Array('', '0'),
 			),
 			'itemsProcFunc' => 'user_powermail_tx_powermail_forms_recip_table->main',
@@ -236,13 +236,13 @@ $tempColumns = Array (
 			'maxitems' => 1,
 		)
 	),
-	'tx_powermail_recip_id' => Array (
+	'tx_powermail_recip_id' => Array(
 		'exclude' => 1,
 		'displayCond' => 'FIELD:tx_powermail_recip_table:REQ:true',
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.recip_id',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'select',
-			'items' => Array (
+			'items' => Array(
 			),
 			'itemsProcFunc' => 'user_powermail_tx_powermail_forms_recip_id->main',
 			'size' => 5,
@@ -250,40 +250,40 @@ $tempColumns = Array (
 			'allowNonIdValues' => 1,
 		)
 	),
-	'tx_powermail_thanks' => Array (
+	'tx_powermail_thanks' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.thanks',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'text',
 			'cols' => '60',
 			'rows' => '2',
 			'default' => '###POWERMAIL_ALL###',
 		)
 	),
-	'tx_powermail_mailsender' => Array (
+	'tx_powermail_mailsender' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.mailsender',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'text',
 			'cols' => '60',
 			'rows' => '2',
 			'default' => '###POWERMAIL_ALL###',
 		)
 	),
-	'tx_powermail_mailreceiver' => Array (
+	'tx_powermail_mailreceiver' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.mailreceiver',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'text',
 			'cols' => '60',
 			'rows' => '2',
 			'default' => '###POWERMAIL_ALL###',
 		)
 	),
-	'tx_powermail_redirect' => Array (
+	'tx_powermail_redirect' => Array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.redirect',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'input',
 			'size' => '30',
 			'wizards' => Array(
@@ -298,16 +298,16 @@ $tempColumns = Array (
 			),
 		)
 	),
-	'user_powermail_updateError' => Array (
+	'user_powermail_updateError' => Array(
 		'label' => 'Powermail error',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'user',
 			'userFunc' => 'user_powermail_updateError->user_updateError'
 		)
 	),
 	'tx_powermail_fieldsets' => Array(
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.fieldsets',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'inline',
 			'foreign_table' => 'tx_powermail_fieldsets',
 			'foreign_field' => 'tt_content',
@@ -331,32 +331,32 @@ $tempColumns = Array (
 			),
 		)
 	),
-	'tx_powermail_users' => Array (
+	'tx_powermail_users' => Array(
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.users',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'passthrough'
 		)
 	),
-	'tx_powermail_preview' => Array (
+	'tx_powermail_preview' => Array(
 		'label' => 'LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.preview',
-		'config' => Array (
+		'config' => Array(
 			'type' => 'user',
 			'userFunc' => 'user_powermail_tx_powermail_forms_preview->main',
 		)
 	),
 );
 
-	// If db-storing is disabled, clear tx_powermail_pages
+// If db-storing is disabled, clear tx_powermail_pages
 if ($confArr['disableBackendModule'] == 1) {
 	unset($tempColumns['tx_powermail_pages']);
 }
 
-	// If preview window is deactivated, clear tx_powermail_preview
+// If preview window is deactivated, clear tx_powermail_preview
 if ($confArr['usePreview'] != 1) {
 	unset($tempColumns['tx_powermail_preview']);
 }
 
-	// If settings for powermail found in localconf, clear user_powermail_updateError
+// If settings for powermail found in localconf, clear user_powermail_updateError
 if (strlen($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']) > 1) {
 	unset($tempColumns['user_powermail_updateError']);
 }
@@ -373,17 +373,7 @@ $GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = '
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div5, tx_powermail_thanks;;;richtext:rte_transform[mode=ts], tx_powermail_redirect,
 	--div--;LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.div8, starttime, endtime, fe_group';
 
-/*
-	// If preview window is deactivated, clear tx_powermail_preview
-if ($confArr['usePreview'] != 1) {
-	$GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = str_replace('tx_powermail_preview,', '', $GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem']);
-}
-
-if ($confArr['disableDBStorage'] == 1) {
-	$GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem'] = str_replace('tx_powermail_preview,', '', $GLOBALS['TCA']['tt_content']['types'][$_EXTKEY . '_pi1']['showitem']);
-}
-*/
-	// Add "tx_powermail_recip_table" to the requestUpdate
+// Add "tx_powermail_recip_table" to the requestUpdate
 $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] .= $GLOBALS['TCA']['tt_content']['ctrl']['requestUpdate'] ? ',tx_powermail_recip_table' : 'tx_powermail_recip_table';
 
 if (TYPO3_MODE == 'BE') {

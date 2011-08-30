@@ -1,5 +1,5 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
@@ -8,6 +8,8 @@ if (TYPO3_MODE == 'BE') {
 }
 
 $TYPO3_CONF_VARS['BE']['AJAX']['tx_powermail::controller'] = t3lib_extMgm::extPath('powermail') . 'mod1/class.tx_powermail_ajax.php:tx_powermail_Ajax->ajaxController';
+
+$TYPO3_CONF_VARS['FE']['eID_include']['tx_powermail::countryzones'] = t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_countryzones.php';
 
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']); // Get backend config
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermailOnCurrentPage.php'); // Conditions for JS including

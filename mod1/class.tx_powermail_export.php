@@ -1,32 +1,32 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2011 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functions_div.php');
 
 if (t3lib_extMgm::isLoaded('phpexcel_library')) {
-    require_once(t3lib_extMgm::extPath('phpexcel_library') . 'sv1/class.tx_phpexcellibrary_sv1.php');
+	require_once(t3lib_extMgm::extPath('phpexcel_library') . 'sv1/class.tx_phpexcellibrary_sv1.php');
 	$PHPExcelSV = t3lib_div::makeInstance('tx_phpexcellibrary_sv1');
 	$PHPExcelSV->init();
 }
@@ -83,12 +83,12 @@ class tx_powermail_export {
 	 */
 	var $timeFormat = 'H:i:s';
 
-    /**
-     * dateTimeFormat for datetime values
-     *
-     * @var	string
-     */
-    var $datetimeFormat = 'Y-m-d H:i';
+	/**
+	 * dateTimeFormat for datetime values
+	 *
+	 * @var	string
+	 */
+	var $datetimeFormat = 'Y-m-d H:i';
 
 	/**
 	 * Time filter prefix for export file
@@ -193,7 +193,7 @@ class tx_powermail_export {
 	 *
 	 * @var	array
 	 */
-	var $rowConfig = array (
+	var $rowConfig = array(
 		'number' => '#',
 		'date' => 'Date',
 		'time' => 'Time',
@@ -229,12 +229,12 @@ class tx_powermail_export {
 	 */
 	var $overwriteFilename;
 
-    /**
-     * number of results
-     * 
-     * @var int
-     */
-    var $resNumRows;
+	/**
+	 * number of results
+	 *
+	 * @var int
+	 */
+	var $resNumRows;
 
 	/**
 	 * Dispatcher main method for export
@@ -255,16 +255,15 @@ class tx_powermail_export {
 		$i = 0;
 
 
-
 		// Set absolute path to typo3temp dir
 		$this->absFilePath = PATH_site . 'typo3temp/';
 
 		$this->timeFilter = '';
-		if ($this->startDateTime > 0){
+		if ($this->startDateTime > 0) {
 			$this->timeFilter .= ' AND crdate > ' . intval($this->startDateTime);
 			$this->timeFilePrefix .= strftime('_%Y-%m-%d_%H.%M', intval($this->startDateTime));
 		}
-		if ($this->endDateTime > 0){
+		if ($this->endDateTime > 0) {
 			$this->timeFilter .= ' AND crdate < ' . intval($this->endDateTime);
 			$this->timeFilePrefix .= strftime('_%Y-%m-%d_%H.%M', intval($this->endDateTime));
 		}
@@ -274,34 +273,34 @@ class tx_powermail_export {
 		$this->tsConfig = t3lib_BEfunc::getModtsConfig($this->pid, 'tx_powermail_mod1');
 
 		$this->useTitle = true;
-		if (isset($this->tsConfig['properties']['config.']['export.']['useTitle'])){
+		if (isset($this->tsConfig['properties']['config.']['export.']['useTitle'])) {
 			$this->useTitle = ($this->tsConfig['properties']['config.']['export.']['useTitle'] == '0') ? false : true;
 		}
 
 		$this->exportHeaderLanguageUid = 0;
-		if (isset($this->tsConfig['properties']['config.']['export.']['allTitleLanguageUid'])){
+		if (isset($this->tsConfig['properties']['config.']['export.']['allTitleLanguageUid'])) {
 			$this->exportHeaderLanguageUid = intval($this->tsConfig['properties']['config.']['export.']['allTitleLanguageUid']);
 		}
 
-        if (isset($this->tsConfig['properties']['config.']['export.']['dateFormat'])){
-            $this->dateFormat = $this->tsConfig['properties']['config.']['export.']['dateFormat'];
-        }
+		if (isset($this->tsConfig['properties']['config.']['export.']['dateFormat'])) {
+			$this->dateFormat = $this->tsConfig['properties']['config.']['export.']['dateFormat'];
+		}
 
-        if (isset($this->tsConfig['properties']['config.']['export.']['timeFormat'])){
-            $this->timeFormat = $this->tsConfig['properties']['config.']['export.']['timeFormat'];
-        }
+		if (isset($this->tsConfig['properties']['config.']['export.']['timeFormat'])) {
+			$this->timeFormat = $this->tsConfig['properties']['config.']['export.']['timeFormat'];
+		}
 
-        if (isset($this->tsConfig['properties']['config.']['export.']['datetimeFormat'])){
-            $this->datetimeFormat = $this->tsConfig['properties']['config.']['export.']['datetimeFormat'];
-        }
+		if (isset($this->tsConfig['properties']['config.']['export.']['datetimeFormat'])) {
+			$this->datetimeFormat = $this->tsConfig['properties']['config.']['export.']['datetimeFormat'];
+		}
 
 		// Not used Yet!
 		$this->excludeFromAll = array();
-		if (isset($this->tsConfig['properties']['config.']['export.']['excludeFromAll'])){
+		if (isset($this->tsConfig['properties']['config.']['export.']['excludeFromAll'])) {
 			$this->excludeFromAll = explode(',', $this->tsConfig['properties']['config.']['export.']['excludeFromAll']);
 		}
 
-		if (isset($this->tsConfig['properties']['config.']['export.']['xls.']['format'])){
+		if (isset($this->tsConfig['properties']['config.']['export.']['xls.']['format'])) {
 			$this->xlsFileFormat = $this->tsConfig['properties']['config.']['export.']['xls.']['format'];
 		}
 
@@ -309,18 +308,19 @@ class tx_powermail_export {
 			$this->xlsFileSuffix = '.xls';
 		}
 
-		if (isset($this->tsConfig['properties']['config.']['export.']['xls.']['autoSize'])){
-			$this->xlsAutoSize = ($this->tsConfig['properties']['config.']['export.']['xls.']['autoSize'] == '1') ? true : false;
+		if (isset($this->tsConfig['properties']['config.']['export.']['xls.']['autoSize'])) {
+			$this->xlsAutoSize = ($this->tsConfig['properties']['config.']['export.']['xls.']['autoSize'] == '1') ? true
+					: false;
 		}
 
-		if (count($this->tsConfig['properties']['export.']) > 0){
+		if (count($this->tsConfig['properties']['export.']) > 0) {
 			$this->rowConfig = $this->tsConfig['properties']['export.'];
 		}
 
 		$this->setDateTimeFormat();
 		$this->setEncoding();
 		$this->setFilenames();
-        $this->generateFormtypesArray();
+		$this->generateFormtypesArray();
 
 		$this->generalRecordsFilter = ' AND hidden = 0 AND deleted = 0';
 		$select = '*';
@@ -329,7 +329,7 @@ class tx_powermail_export {
 		$groupBy = $limit = '';
 		$orderBy = 'crdate DESC';
 		$this->res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-        $this->resNumRows = $GLOBALS['TYPO3_DB']->sql_num_rows($this->res);
+		$this->resNumRows = $GLOBALS['TYPO3_DB']->sql_num_rows($this->res);
 
 		// If on current page is a result
 		if ($this->res) {
@@ -365,11 +365,11 @@ class tx_powermail_export {
 
 		// Delete all exported mails now
 		if (t3lib_div::_GET('delafterexport') == 1) {
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery (
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
 				'tx_powermail_mails',
 				'pid = ' . $this->pid . $this->generalRecordsFilter,
-				array (
-					'deleted' => 1
+				array(
+					 'deleted' => 1
 				)
 			);
 		}
@@ -408,7 +408,7 @@ tr.odd td{background:#eee;}
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, $this->getRowWithMostPiVars());
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res);
 		$headerPiVars = t3lib_div::xml2array($row['piVars'], 'piVars');
-        // Get form type of piVars
+		// Get form type of piVars
 
 		$tableHeaderContent .= '<thead><tr>';
 		foreach ($this->rowConfig as $key => $value) {
@@ -419,7 +419,9 @@ tr.odd td{background:#eee;}
 			} else {
 				if (isset($headerPiVars) && is_array($headerPiVars)) {
 					foreach ($headerPiVars as $key => $value) {
-						$label = $this->charConvert($this->getLabelfromBackend($key, $value));
+						$this->fieldUid = $key;
+						$this->getFieldLabelFromBackend();
+						$label = $this->charConvert($this->fieldLabel);
 						$tableHeaderContent .= '<th>' . $label . '</th>';
 					}
 				}
@@ -435,43 +437,45 @@ tr.odd td{background:#eee;}
 		$htmlContent .= '<tbody>';
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
 		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
-            $uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
+			$uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
 			if ($row['piVars']) {
 				$piVars = t3lib_div::xml2array($row['piVars'], 'piVars');
 				$i++;
 				$htmlContent .= ($i % 2 === 0) ? '<tr>' : '<tr class="odd">';
 				foreach ($this->rowConfig as $key => $value) {
-					 // If current row is number
-					if ($key == 'number'){
+					// If current row is number
+					if ($key == 'number') {
 						$htmlContent .= '<td>' . $i . '.</td>';
 
-					// If current row is date
+						// If current row is date
 					} elseif ($key == 'date') {
 						$htmlContent .= '<td>' . date($this->dateFormat, $row['crdate']) . '</td>';
 
-					// If current row is time
+						// If current row is time
 					} elseif ($key == 'time') {
 						$htmlContent .= '<td>' . date($this->timeFormat, $row['crdate']) . '</td>';
 
-					// If current row should show all dynamic values (piVars)
+						// If current row should show all dynamic values (piVars)
 					} elseif ($key == 'uid') {
 						if (isset($piVars) && is_array($piVars)) {
 
 							// One loop for every piVar
 							foreach ($piVars as $key => $value) {
 								if (!is_array($value)) {
-                                    $value = $this->charConvert($this->cleanString($value));
-                                    switch ($this->formtypes[$key]){
-                                        case 'date':
-                                            $value = ($value == intval($value)) ? gmdate($this->dateFormat, $value) : $value;
-                                            break;
-                                        case 'datetime':
-                                            $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
-                                            break;
-                                        case 'file':
-                                            $value = '<a href="' . $uploadURLPath . $value . '">' . $value . '</a>';
-                                            break;
-                                    }
+									$value = $this->charConvert($this->cleanString($value));
+									switch ($this->formtypes[$key]) {
+										case 'date':
+											$value = ($value == intval($value)) ? gmdate($this->dateFormat, $value)
+													: $value;
+											break;
+										case 'datetime':
+											$value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value)
+													: $value;
+											break;
+										case 'file':
+											$value = '<a href="' . $uploadURLPath . $value . '">' . $value . '</a>';
+											break;
+									}
 									$htmlContent .= '<td>' . $value . '</td>';
 								} else {
 									$htmlContentSecondLevel = array();
@@ -487,11 +491,11 @@ tr.odd td{background:#eee;}
 							$piVarsCounter = count($piVars);
 							while ($piVarsCounter < count($headerPiVars)) {
 								$htmlContent .= '<td></td>';
-								$piVarsCounter ++;
+								$piVarsCounter++;
 							}
 						}
 
-					// Dynamic value like uid45
+						// Dynamic value like uid45
 					} elseif (is_numeric(str_replace(array('uid', '_'), '', $key))) {
 
 						// Explode uid44_0 to uid44 and 0
@@ -510,26 +514,27 @@ tr.odd td{background:#eee;}
 							//$htmlContent .= '<td>' . $this->charConvert($this->cleanString($piVars[$key])) . '</td>';
 
 							$value = $this->charConvert($this->cleanString($piVars[$key]));
-							switch ($this->formtypes[$key]){
-							    case 'date':
-							        $value = ($value == intval($value)) ? gmdate($this->dateFormat, $value) : $value;
-							        break;
-							    case 'datetime':
-							        $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
-							        break;
-							    case 'file':
-							        $value = '<a href="' . $uploadURLPath . $value . '">' . $value . '</a>';
-							        break;
+							switch ($this->formtypes[$key]) {
+								case 'date':
+									$value = ($value == intval($value)) ? gmdate($this->dateFormat, $value) : $value;
+									break;
+								case 'datetime':
+									$value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value)
+											: $value;
+									break;
+								case 'file':
+									$value = '<a href="' . $uploadURLPath . $value . '">' . $value . '</a>';
+									break;
 							}
 							$htmlContent .= '<td>' . $value . '</td>';
 
-						// PiVars in second level
+							// PiVars in second level
 						} else {
-							if($orgkey != $key) {
+							if ($orgkey != $key) {
 								$newkey = explode('_', $orgkey);
 							}
 							$htmlContentSecondLevel = array();
-							foreach($piVars[$newkey[0]] as $key2 => $value2) {
+							foreach ($piVars[$newkey[0]] as $key2 => $value2) {
 								if ($value2 != '') {
 									$htmlContentSecondLevel[] .= $this->charConvert($this->cleanString($value2));
 								}
@@ -562,7 +567,7 @@ tr.odd td{background:#eee;}
 		$headerPiVars = t3lib_div::xml2array(($row['piVars']), 'piVars');
 		foreach ($this->rowConfig as $key => $value) {
 			$newValue = $this->charConvert($value);
-			if(trim($newValue != '')) {
+			if (trim($newValue != '')) {
 				$value = $newValue;
 			}
 			// Static values
@@ -571,13 +576,15 @@ tr.odd td{background:#eee;}
 			} else {
 				if (isset($headerPiVars) && is_array($headerPiVars)) {
 					foreach ($headerPiVars as $key => $value) {
-						$label = $this->charConvert($this->getLabelfromBackend($key, $value));
+						$this->fieldUid = $key;
+						$this->getFieldLabelFromBackend();
+						$label = $this->charConvert($this->fieldLabel);
 						$csvHeader .= '"' . $this->cleanString($label) . '"' . $this->seperator;
 					}
 				}
 			}
 		}
-		$csvHeader = substr($csvHeader,0,-1) . "\n";
+		$csvHeader = substr($csvHeader, 0, -1) . "\n";
 
 		if ($this->useTitle) {
 			$csvContent .= $csvHeader;
@@ -585,45 +592,47 @@ tr.odd td{background:#eee;}
 
 		// Generate CSV Rows
 		$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
-        $i = 0;
+		$i = 0;
 		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
-            $uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
+			$uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
 			if ($row['piVars']) {
 				$i++;
 				$piVars = t3lib_div::xml2array(($row['piVars']), 'piVars');
-                //if($this->debug) t3lib_div::devLog('piVars found: ' . $i, $this->extKey, 0, $piVars);
+				//if($this->debug) t3lib_div::devLog('piVars found: ' . $i, $this->extKey, 0, $piVars);
 
 				foreach ($this->rowConfig as $key => $value) {
 					// If current row is number
 					if ($key == 'number') {
 						$csvContent .= '"' . $i . '."' . $this->seperator;
 
-					// If current row is date
+						// If current row is date
 					} elseif ($key == 'date') {
 						$csvContent .= '"' . date($this->dateFormat, $row['crdate']) . '"' . $this->seperator;
 
-					// If current row is time
+						// If current row is time
 					} elseif ($key == 'time') {
 						$csvContent .= '"' . date($this->timeFormat, $row['crdate']) . '"' . $this->seperator;
 
-					// If current row should show all dynamic values (piVars)
+						// If current row should show all dynamic values (piVars)
 					} elseif ($key == 'uid') {
 						if (isset($piVars) && is_array($piVars)) {
 							// One loop for every piVar
 							foreach ($piVars as $key => $value) {
-								if (!is_array($value)){
-                                    $value = $this->charConvert($this->cleanString($value));
-                                    switch ($this->formtypes[$key]){
-                                        case 'date':
-                                            $value = ($value == intval($value)) ? gmdate($this->dateFormat, $value) : $value;
-                                            break;
-                                        case 'datetime':
-                                            $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
-                                            break;
-                                        case 'file':
-                                            $value = $uploadURLPath . $value;
-                                            break;
-                                    }
+								if (!is_array($value)) {
+									$value = $this->charConvert($this->cleanString($value));
+									switch ($this->formtypes[$key]) {
+										case 'date':
+											$value = ($value == intval($value)) ? gmdate($this->dateFormat, $value)
+													: $value;
+											break;
+										case 'datetime':
+											$value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value)
+													: $value;
+											break;
+										case 'file':
+											$value = $uploadURLPath . $value;
+											break;
+									}
 									$csvContent .= '"' . $value . '"' . $this->seperator;
 								} else {
 
@@ -640,11 +649,11 @@ tr.odd td{background:#eee;}
 							$piVarsCounter = count($piVars);
 							while ($piVarsCounter < count($headerPiVars)) {
 								$csvContent .= $this->seperator;
-								$piVarsCounter ++;
+								$piVarsCounter++;
 							}
 						}
 
-					// Dynamic value like uid45
+						// Dynamic value like uid45
 					} elseif (is_numeric(str_replace(array('uid', '_'), '', $key))) {
 
 						// Explode uid44_0 to uid44 and 0
@@ -663,26 +672,27 @@ tr.odd td{background:#eee;}
 							//$csvContent .= '"' . $this->charConvert($this->cleanString($piVars[$key])) . '"' . $this->seperator;
 
 							$value = $this->charConvert($this->cleanString($piVars[$key]));
-							switch ($this->formtypes[$key]){
-							    case 'date':
-							        $value = ($value == intval($value)) ? gmdate($this->dateFormat, $value) : $value;
-							        break;
-							    case 'datetime':
-							        $value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value) : $value;
-							        break;
-							    case 'file':
-							        $value = $uploadURLPath . $value;
-							        break;
+							switch ($this->formtypes[$key]) {
+								case 'date':
+									$value = ($value == intval($value)) ? gmdate($this->dateFormat, $value) : $value;
+									break;
+								case 'datetime':
+									$value = ($value == intval($value)) ? gmdate($this->datetimeFormat, $value)
+											: $value;
+									break;
+								case 'file':
+									$value = $uploadURLPath . $value;
+									break;
 							}
 							$csvContent .= '"' . $value . '"' . $this->seperator;
 
-						// PiVars in second level
+							// PiVars in second level
 						} else {
-							if($orgkey != $key) {
+							if ($orgkey != $key) {
 								$newkey = explode('_', $orgkey);
 							}
 							$csvContentSecondLevel = array();
-							foreach($piVars[$newkey[0]] as $key2 => $value2) {
+							foreach ($piVars[$newkey[0]] as $key2 => $value2) {
 								if ($value2 != '') {
 									$csvContentSecondLevel[] .= $this->charConvert($this->cleanString($value2));
 								}
@@ -696,12 +706,12 @@ tr.odd td{background:#eee;}
 				}
 
 				// Delete last seperator
-				$csvContent = substr($csvContent,0,-1);
+				$csvContent = substr($csvContent, 0, -1);
 				$csvContent .= "\n";
 			}
 		}
 		$this->content .= $csvContent;
-        //if($this->debug) t3lib_div::devLog($this->content, $this->extKey, 0);
+		//if($this->debug) t3lib_div::devLog($this->content, $this->extKey, 0);
 	}
 
 	/**
@@ -755,14 +765,16 @@ tr.odd td{background:#eee;}
 					if ($key != 'uid') {
 						$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetHeaderCol] . '1', $value);
 						$sheetHeaderCols[$sheetHeaderCol] = $colname;
-						$sheetHeaderCol ++;
+						$sheetHeaderCol++;
 					} else {
 						if (isset($headerPiVars) && is_array($headerPiVars)) {
 							foreach ($headerPiVars as $key => $value) {
-								$label = $this->getLabelfromBackend($key, $value);
+								$this->fieldUid = $key;
+								$this->getFieldLabelFromBackend();
+								$label = $this->charConvert($this->fieldLabel);
 								$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetHeaderCol] . '1', $this->cleanString($this->charConvert($label)));
 								$sheetHeaderCols[$sheetHeaderCol] = $colname;
-								$sheetHeaderCol ++;
+								$sheetHeaderCol++;
 							}
 						}
 					}
@@ -774,13 +786,13 @@ tr.odd td{background:#eee;}
 			// Generate EXCEL Rows
 			$GLOBALS['TYPO3_DB']->sql_data_seek($this->res, 0);
 			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($this->res))) {
-                $uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
+				$uploadURLPath = t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $row['uploadPath'];
 				if ($row['piVars']) {
-					if($sheetRow == 1) {
+					if ($sheetRow == 1) {
 						// if no header row was set, generate 1000 ExcelColNames
 						$excelColNames = $this->getExcelColNames(1000);
 					}
- 					$i ++;
+					$i++;
 					$piVars = t3lib_div::xml2array($row['piVars'], 'piVars');
 
 					$sheetCol = 0;
@@ -789,36 +801,38 @@ tr.odd td{background:#eee;}
 						// If current row is number
 						if ($key == 'number') {
 							$excelObject->getActiveSheet()->setCellValue($colname, $i);
-							$sheetCol ++;
+							$sheetCol++;
 
-						// If current row is date
+							// If current row is date
 						} elseif ($key == 'date') {
 							$excelObject->getActiveSheet()->setCellValue($colname, date($this->dateFormat, $row['crdate']));
-							$sheetCol ++;
+							$sheetCol++;
 
-						// If current row is time
+							// If current row is time
 						} elseif ($key == 'time') {
 							$excelObject->getActiveSheet()->setCellValue($colname, date($this->timeFormat, $row['crdate']));
-							$sheetCol ++;
+							$sheetCol++;
 
-						// If current row should show all dynamic values (piVars)
+							// If current row should show all dynamic values (piVars)
 						} elseif ($key == 'uid') {
 							if (isset($piVars) && is_array($piVars)) {
 								// One loop for every piVar
 								foreach ($piVars as $key => $value) {
-									if (!is_array($value)){
-                                        $value = $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($value)));
-                                        switch ($this->formtypes[$key]){
-                                            case 'date':
-                                                $value = ($value == intval($value) && $value !== '') ? gmdate($this->dateFormat, $value) : $value;
-                                                break;
-                                            case 'datetime':
-                                                $value = ($value == intval($value) && $value !== '') ? gmdate($this->datetimeFormat, $value) : $value;
-                                                break;
-                                            case 'file':
-                                                $value = $uploadURLPath . $value;
-                                                break;
-                                        }
+									if (!is_array($value)) {
+										$value = $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($value)));
+										switch ($this->formtypes[$key]) {
+											case 'date':
+												$value = ($value == intval($value) && $value !== '')
+														? gmdate($this->dateFormat, $value) : $value;
+												break;
+											case 'datetime':
+												$value = ($value == intval($value) && $value !== '')
+														? gmdate($this->datetimeFormat, $value) : $value;
+												break;
+											case 'file':
+												$value = $uploadURLPath . $value;
+												break;
+										}
 										$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetCol] . $sheetRow, $value);
 									} else {
 
@@ -831,12 +845,12 @@ tr.odd td{background:#eee;}
 										}
 										$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetCol] . $sheetRow, implode(', ', $xlsContentSecondLevel));
 									}
-									$sheetCol ++;
+									$sheetCol++;
 								}
 								$sheetCol += intval(count($headerPiVars) - count($piVars));
 							}
 
-						// Dynamic value like uid45
+							// Dynamic value like uid45
 						} elseif (is_numeric(str_replace(array('uid', '_'), '', $key))) {
 
 							// Explode uid44_0 to uid44 and 0
@@ -852,26 +866,28 @@ tr.odd td{background:#eee;}
 								//$excelObject->getActiveSheet()->setCellValue($colname, $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($piVars[$key]))));
 
 								$value = $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($piVars[$key])));
-								switch ($this->formtypes[$key]){
-								    case 'date':
-								        $value = ($value == intval($value) && $value !== '') ? gmdate($this->dateFormat, $value) : $value;
-								        break;
-								    case 'datetime':
-								        $value = ($value == intval($value) && $value !== '') ? gmdate($this->datetimeFormat, $value) : $value;
-								        break;
-								    case 'file':
-								        $value = $uploadURLPath . $value;
-								        break;
+								switch ($this->formtypes[$key]) {
+									case 'date':
+										$value = ($value == intval($value) && $value !== '')
+												? gmdate($this->dateFormat, $value) : $value;
+										break;
+									case 'datetime':
+										$value = ($value == intval($value) && $value !== '')
+												? gmdate($this->datetimeFormat, $value) : $value;
+										break;
+									case 'file':
+										$value = $uploadURLPath . $value;
+										break;
 								}
 								$excelObject->getActiveSheet()->setCellValue($excelColNames[$sheetCol] . $sheetRow, $value);
 
-							// PiVars in second level
+								// PiVars in second level
 							} else {
-								if($orgkey != $key) {
+								if ($orgkey != $key) {
 									$newkey = explode('_', $orgkey);
 								}
 								$excelContentSecondLevel = array();
-								foreach($piVars[$newkey[0]] as $key2 => $value2) {
+								foreach ($piVars[$newkey[0]] as $key2 => $value2) {
 									if ($value2 != '') {
 										$excelContentSecondLevel[] .= $this->charConvert($this->cleanString(t3lib_div::htmlspecialchars_decode($value2)));
 									}
@@ -879,20 +895,20 @@ tr.odd td{background:#eee;}
 								$csvContent .= '"' . implode(', ', $excelContentSecondLevel) . '"' . $this->seperator;
 								$excelObject->getActiveSheet()->setCellValue($colname, implode(', ', $excelContentSecondLevel));
 							}
-							$sheetCol ++;
+							$sheetCol++;
 
 						} else {
 							$excelObject->getActiveSheet()->setCellValue($colname, $this->charConvert($row[$key]));
-							$sheetCol ++;
+							$sheetCol++;
 						}
 					}
-					$sheetRow ++;
+					$sheetRow++;
 				}
 			}
 
 			if ($this->xlsAutoSize) {
 				// Set width of all columns to autosize
-				for ($autosize = 0; $autosize < $sheetCol; $autosize ++) {
+				for ($autosize = 0; $autosize < $sheetCol; $autosize++) {
 					$excelObject->getActiveSheet()->getColumnDimension($excelColNames[$autosize])->setAutoSize(true);
 				}
 			}
@@ -921,7 +937,7 @@ tr.odd td{background:#eee;}
 	protected function setEncoding() {
 		// Define output encoding -> No encoding is defined, set default
 		if (empty($this->tsConfig['properties']['config.']['export.'][$this->export . '.']['encoding'])) {
-			if ($this->export == 'csv'){
+			if ($this->export == 'csv') {
 				$this->outputEncoding = $this->csvDefaultEncoding;
 			} else {
 				// Take standard charset from BE
@@ -941,11 +957,11 @@ tr.odd td{background:#eee;}
 	 * @param	string	$raw is the filename to clean
 	 * @return	string	the new filename
 	 */
-	protected function cleanFileName($raw){
-	    $raw = $this->LANG->csConvObj->specCharsToASCII($this->LANG->charSet, trim($raw));
-	    $removeChars  = array( "([\40])" , "([^a-zA-Z0-9-_])", "(-{2,})" );
-	    $replaceWith = array("-", "", "-");
-	    return preg_replace($removeChars, $replaceWith, $raw);
+	protected function cleanFileName($raw) {
+		$raw = $this->LANG->csConvObj->specCharsToASCII($this->LANG->charSet, trim($raw));
+		$removeChars = array("([\40])", "([^a-zA-Z0-9-_])", "(-{2,})");
+		$replaceWith = array("-", "", "-");
+		return preg_replace($removeChars, $replaceWith, $raw);
 	}
 
 	/**
@@ -985,19 +1001,19 @@ tr.odd td{background:#eee;}
 		if (!empty($this->tsConfig['properties']['config.']['export.']['dateformat'])) {
 			$this->dateFormat = $this->tsConfig['properties']['config.']['export.']['dateformat'];
 		}
-		if($this->debug) t3lib_div::devLog('dateFormat was set to ' . $this->dateFormat, $this->extKey, 0);
+		if ($this->debug) t3lib_div::devLog('dateFormat was set to ' . $this->dateFormat, $this->extKey, 0);
 
 		if (!empty($this->tsConfig['properties']['config.']['export.']['timeformat'])) {
 			$this->timeFormat = $this->tsConfig['properties']['config.']['export.']['timeformat'];
 		}
-		if($this->debug) t3lib_div::devLog('timeFormat was set to ' . $this->timeFormat, $this->extKey, 0);
+		if ($this->debug) t3lib_div::devLog('timeFormat was set to ' . $this->timeFormat, $this->extKey, 0);
 	}
 
 	/**
 	 * Compress a file (not used any more)
 	 *
 	 * @param	string		$source Defines Source file to compress
-	 * @param	boolean		$level 	Defines Compression level
+	 * @param	boolean		$level	 Defines Compression level
 	 * @return	string
 	 */
 	protected function gzcompressfile($source, $level = false) {
@@ -1034,7 +1050,7 @@ tr.odd td{background:#eee;}
 	 * @return	void
 	 */
 	protected function generateFileHeader() {
-		if (strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'),'MSIE')) {
+		if (strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'), 'MSIE')) {
 			$this->header .= header('Content-Type: application/force-download; charset=' . $this->outputEncoding);
 			$this->header .= header('Content-Disposition: attachment; filename="' . $this->filename . '"');
 		} else {
@@ -1090,11 +1106,11 @@ tr.odd td{background:#eee;}
 			if ($row['piVars']) {
 				$piVars = t3lib_div::xml2array($row['piVars'], 'piVars');
 				$countPiVars = count($piVars);
-				if ($countPiVars > $mostPiVars && $this->piVarsFromExportLanguageUid($piVars) ) {
+				if ($countPiVars > $mostPiVars && $this->piVarsFromExportLanguageUid($piVars)) {
 					$mostPiVars = $countPiVars;
 					$rowWithMostPiVars = $rowCounter;
 				}
-				$rowCounter ++;
+				$rowCounter++;
 			}
 		}
 		return $rowWithMostPiVars;
@@ -1106,10 +1122,10 @@ tr.odd td{background:#eee;}
 	 * @param	array	$piVars this are the piVars to check
 	 * @return	boolean	returns true if piVars are from export header language uid
 	 */
-    protected function piVarsFromExportLanguageUid($piVars) {
-    	$piVarsKeys = array_keys($piVars);
-    	$fieldUid = $piVarsKeys[0];
-    	$fieldUidInt = intval(str_replace(array('uid', '_'), '', $fieldUid));
+	protected function piVarsFromExportLanguageUid($piVars) {
+		$piVarsKeys = array_keys($piVars);
+		$fieldUid = $piVarsKeys[0];
+		$fieldUidInt = intval(str_replace(array('uid', '_'), '', $fieldUid));
 		$select = 'uid';
 		$from = 'tx_powermail_fields';
 		$where = 'pid = ' . $this->pid . ' AND uid = ' . $fieldUidInt . ' AND sys_language_uid = ' . $this->exportHeaderLanguageUid . $this->generalRecordsFilter;
@@ -1120,47 +1136,45 @@ tr.odd td{background:#eee;}
 		$lookupRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($lookupRes);
 		//if($this->debug) t3lib_div::devLog('SELECT ' . $select . ' FROM ' . $from . ' WHERE ' . $where . ' LIMIT ' . $limit, $this->extKey, 0);
 		return $lookupRow ? true : false;
-    }
+	}
 
-    /**
-     * generateFormtypesArray method			Generate form types array of powermail on selected page as array
-     *
-     * @return	void
-     */
-    protected function generateFormtypesArray() {
-        $this->formtypes = array();
-
-        $select = 'uid,formtype';
-        $from = 'tx_powermail_fields';
-        //$where = 'pid = ' . intval($this->pid);
-	    $where = '';
-        $orderBy = '';
-        $groupBy = '';
-        $limit = '';
-
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-        if ($res) {
-            while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-                $this->formtypes['uid' . $row['uid']] = $row['formtype'];
-            }
-        }
-        $GLOBALS['TYPO3_DB']->sql_free_result($res);
-    }
-
-    /**
-	 * Method getLabelfromBackend() to get label to current field for emails and thx message
+	/**
+	 * generateFormtypesArray method			Generate form types array of powermail on selected page as array
 	 *
-	 * @param	string		$name	The uid with "uid" prefix
-	 * @param	string		$value	I have no dam idea about this var
-	 * @return	string
+	 * @return	void
 	 */
-    protected function getLabelfromBackend($name, $value) {
+	protected function generateFormtypesArray() {
+		$this->formtypes = array();
 
-    	// $name like uid55
-		if (strpos($name, 'uid') !== FALSE) {
-			$uid = str_replace('uid', '', $name);
+		$select = 'uid,formtype';
+		$from = 'tx_powermail_fields';
+		//$where = 'pid = ' . intval($this->pid);
+		$where = '';
+		$orderBy = '';
+		$groupBy = '';
+		$limit = '';
 
-			$select = 'f.title';
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+		if ($res !== false) {
+			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+				$this->formtypes['uid' . $row['uid']] = $row['formtype'];
+			}
+			$GLOBALS['TYPO3_DB']->sql_free_result($res);
+		}
+	}
+
+	/**
+	 * Method getFieldLabelFromBackend() to get label to current field for emails and thx message
+	 *
+	 */
+	protected function getFieldLabelFromBackend() {
+
+		$this->fieldLabel = $this->fieldUid;
+
+		if (strpos($this->fieldUid, 'uid') !== FALSE) {
+			$uid = intval(str_replace('uid', '', $this->fieldUid));
+
+			$select = 'f.title, f.formtype';
 			$from = '
 				tx_powermail_fields f
 				LEFT JOIN tx_powermail_fieldsets fs
@@ -1198,30 +1212,31 @@ tr.odd td{background:#eee;}
 						OR c.fe_group = "-1"
 					)
 				)
-				AND f.uid = ' . intval($uid) . '
+				AND f.uid = ' . $uid . '
 				AND f.deleted = 0';
-			$groupBy = $orderBy = $limit = '';
+
 			// GET title where fields.flexform LIKE <value index="vDEF">vorname</value>
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where);
 
-			if ($res) {
+			if ($res !== false) {
 				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+				$GLOBALS['TYPO3_DB']->sql_free_result($res);
+				if (count($row) > 0) {
+					if (!empty($row['title'])) {
+						$this->fieldLabel = $row['title'];
+						$this->fieldType = $row['formtype'];
+					} else if ($uid >= 100000) {
+						// check for country select
+						$this->fieldUid = 'uid' . ($uid - 100000);
+						$this->getFieldLabelFromBackend();
+						if ($this->fieldType == 'countryselect') {
+							$this->fieldLabel = sprintf($this->tsConfig['properties']['config.']['export.'][$this->export . '.']['country_zone_label'], $this->fieldLabel);
+						}
+					}
+				}
 			}
-
-			// If title was found return it
-			if (isset($row['title'])) {
-				return $row['title'];
-
-			// If no title was found return
-			} else if ($uid < 100000) {
-				return 'POWERMAIL ERROR: No title to current field found in DB';
-			}
-
-		// No uid55 so return $name
-		} else {
-			return $name;
 		}
-    }
+	}
 
 	/**
 	 * Method getOriginalLanguageFieldUid() get the original language field uid
@@ -1231,9 +1246,9 @@ tr.odd td{background:#eee;}
 	 * @param	string	$fieldUidLevel2 this is the original field uid from level 2 (used by checkboxes and multiselect)
 	 * @return	string	returns the new field uid with 'uid' prefix
 	 */
-    protected function getOriginalLanguageFieldUid($piVars, $fieldUid, $fieldUidLevel2 = '') {
-    	$newFieldUid = $fieldUid;
-    	$fieldUidInt = intval(str_replace(array('uid', '_'), '', $fieldUid));
+	protected function getOriginalLanguageFieldUid($piVars, $fieldUid, $fieldUidLevel2 = '') {
+		$newFieldUid = $fieldUid;
+		$fieldUidInt = intval(str_replace(array('uid', '_'), '', $fieldUid));
 		$select = 'uid';
 		$from = 'tx_powermail_fields';
 		$where = 'pid = ' . $this->pid . ' AND l18n_parent = ' . $fieldUidInt . $this->generalRecordsFilter;
@@ -1247,7 +1262,7 @@ tr.odd td{background:#eee;}
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($lookupRes);
 		return $newFieldUid;
-    }
+	}
 
 	/**
 	 * Method charConvert() converts a string from backend charset to outputEncoding charset
@@ -1259,38 +1274,38 @@ tr.odd td{background:#eee;}
 		return $this->LANG->csConvObj->conv($string2convert, $this->LANG->charSet, $this->outputEncoding);
 	}
 
-    /**
+	/**
 	 * Method cleanString() cleans up a string
 	 *
 	 * @param	string	$string2clean this is the string to clean
 	 * @return	string	returns the cleaned string
 	 */
 	protected function cleanString($string2clean) {
-		switch ($this->export){
+		switch ($this->export) {
 			case 'csv':
 				$string2clean = str_replace(array("\n\r", "\r\n", "\n", "\r"), '', $string2clean);
 				$string2clean = str_replace('"', "'", $string2clean);
 				$string2clean = stripslashes($string2clean);
-			break;
+				break;
 			default:
 				$string2clean = stripslashes($string2clean);
 		}
-    	return $string2clean;
-    }
+		return $string2clean;
+	}
 
-    /**
+	/**
 	 * Method getExcelColNames() returns an array with Excel column names like A or AA
 	 *
 	 * @param	integer		$cols this is the number of cols who should be generated
 	 * @return	array	returns the excelColNames array;
 	 */
-    protected function getExcelColNames($cols = 1000) {
-    	$excelColNames = array();
-    	for ($excelCol = 0; $excelCol < $cols; $excelCol ++) {
+	protected function getExcelColNames($cols = 1000) {
+		$excelColNames = array();
+		for ($excelCol = 0; $excelCol < $cols; $excelCol++) {
 			$excelColNames[] .= $this->num2alpha($excelCol);
-    	}
-    	return $excelColNames;
-    }
+		}
+		return $excelColNames;
+	}
 
 	/**
 	 * Method num2alpha() returns a string with a Excel column name like A or AA of a give column position
@@ -1299,8 +1314,8 @@ tr.odd td{background:#eee;}
 	 * @return	string	returns the excel column value;
 	 */
 	protected function num2alpha($n) {
-		for($r = ''; $n >= 0; $n = intval($n / 26) - 1) {
-			$r = chr($n %26 + 0x41) . $r;
+		for ($r = ''; $n >= 0; $n = intval($n / 26) - 1) {
+			$r = chr($n % 26 + 0x41) . $r;
 		}
 		return $r;
 	}

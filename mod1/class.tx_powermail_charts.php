@@ -1,26 +1,26 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
@@ -28,9 +28,9 @@
  *
  *
  *   50: class tx_powermail_charts
- *   84:     function main($pObj)
- *  172:     function urlencode2($string, $delimiter)
- *  188:     function reverseList($string)
+ *   84:	 function main($pObj)
+ *  172:	 function urlencode2($string, $delimiter)
+ *  188:	 function reverseList($string)
  *
  * TOTAL FUNCTIONS: 3
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -54,10 +54,10 @@ class tx_powermail_charts {
 	 *
 	 * @var	array
 	 */
-	var $tsconfig = array (
-		'properties' => array (
-			'config.' => array (
-				'chart.' => array (
+	var $tsconfig = array(
+		'properties' => array(
+			'config.' => array(
+				'chart.' => array(
 					// Default settings for timeframe (1 month in seconds)
 					'timeframe' => 2678400,
 					// Default settings for sectionframe (1 week in seconds)
@@ -118,7 +118,7 @@ class tx_powermail_charts {
 			$where = '
 				pid = ' . intval($pObj->id) . '
 				AND crdate < ' . (time() - $delta1) . '
-				AND crdate > ' . (time() -  $this->tsconfig['properties']['config.']['chart.']['timeframe'] + $delta2) . '
+				AND crdate > ' . (time() - $this->tsconfig['properties']['config.']['chart.']['timeframe'] + $delta2) . '
 				AND hidden = 0
 				AND deleted = 0';
 			$groupBy = $orderBy = '';
@@ -133,10 +133,10 @@ class tx_powermail_charts {
 				$no += $GLOBALS['TYPO3_DB']->sql_num_rows($res2);
 			}
 
-			if($row['no'] > 0) {
+			if ($row['no'] > 0) {
 				$values .= $row['no'];
 
-			}else{
+			} else {
 				$values .= '0';
 			}
 			$values .= ',';
@@ -148,7 +148,7 @@ class tx_powermail_charts {
 			$url = 'http://chart.apis.google.com/chart?cht=lc&chd=t:' . $this->reverseList($values) . '&chs=700x200&chxt=x,y&chl=' . $this->urlencode2($this->tsconfig['properties']['config.']['chart.']['title'], '|');
 			$content .= '
 				<h2>' . $pObj->lang->getLL('chart_chart') . '</h2>
-				<iframe style="width: 728px; height: 220px; border: 1px solid #444; padding: 5px; background-color: white;" src="'.$url.'"></iframe>';
+				<iframe style="width: 728px; height: 220px; border: 1px solid #444; padding: 5px; background-color: white;" src="' . $url . '"></iframe>';
 		}
 
 		// Make listview
@@ -174,7 +174,7 @@ class tx_powermail_charts {
 	 */
 	function urlencode2($string, $delimiter) {
 		$parts = t3lib_div::trimExplode($delimiter, $string, 1);
-		foreach ((array) $parts as $key => $value) {
+		foreach ((array)$parts as $key => $value) {
 			$parts[$key] = rawurlencode($value);
 		}
 		$string = implode($delimiter, $parts);

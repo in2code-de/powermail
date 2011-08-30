@@ -411,13 +411,9 @@ plugin.tx_powermail_pi1 {
 	
 	
 	# adding (or changing) flexible locallang markers in any HTML template or RTE field (example)
-	_LOCAL_LANG.en {
+	_LOCAL_LANG.default {
 		# define your own locallang markers
-		locallangmarker_yourvalue = this is a new text
-		# define date format of datepicker in frontend
-#       JSvalidation_dateinput_format = dd.mm.yyyy
-        # define first day of week of datepicker in frontend
-#       JSvalidation_dateinput_firstDay = 0
+#		locallangmarker_yourvalue = this is a new text
 	}
 	
 	
@@ -607,6 +603,10 @@ lib.powermailjs {
                 VALIDATOR_MESSAGE.value = {$plugin.powermail.js.validationMessage}
                 VALIDATOR_SINGLE_ERROR = TEXT
                 VALIDATOR_SINGLE_ERROR.value = false
+                PLEASE_SELECT = TEXT
+                PLEASE_SELECT.data = LLL:EXT:powermail/pi1/locallang.xml:please_select
+                COUNTRY_ZONE = TEXT
+                COUNTRY_ZONE.data = LLL:EXT:powermail/pi1/locallang.xml:country_zone
         }
     }
 }

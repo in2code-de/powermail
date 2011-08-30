@@ -352,7 +352,7 @@ Fieldwrap for dropdown with countries <select>
 	###CN_PARENT_TR_ISO_NR###		Another ISO No.
 	###CN_OFFICIAL_NAME_LOCAL###	Local name of country
 	###CN_OFFICIAL_NAME_EN###		English name of country
-	###CN_CAPITOL###				Counry capital
+	###CN_CAPITOL###				Country capital
 	###CN_TLDOMAIN###				Top level domain of country
 	###CN_CURRENCY_ISO_3###			Currency
 	###CN_CURRENCY_ISO_NR###		Currency No.
@@ -366,37 +366,16 @@ Fieldwrap for dropdown with countries <select>
 	###CN_UNO_MEMBER###				Boolean code: 1 if UNO member / 0 if not
 	###SELECTED###					Preselection (if selected in backend or if in session)
 
-	Special markers (Countryzoneselect):
-	###UID###						UID in tabel static_country_zones
-	###ZN_COUNTRY_ISO_2###			Country name in 2 letters
-	###ZN_COUNTRY_ISO_2###			Country name in 3 letters
-	###ZN_COUNTRY_ISO_NR###			Country ISO No.
-	###ZN_CODE###					Short countryzone code with 2 letters
-	###ZN_NAME_LOCAL###				Local countryzone name
-	###ZN_NAME_EN###				English countryzone name (if filled)
-
 <!-- ###POWERMAIL_FIELDWRAP_HTML_COUNTRYSELECT### begin -->
 	<div id="powermaildiv_uid###POWERMAIL_FIELD_UID###" class="tx_powermail_pi1_fieldwrap_html tx_powermail_pi1_fieldwrap_html_select tx_powermail_pi1_fieldwrap_html_###POWERMAIL_FIELD_UID######ALTERNATE######CLASS_ADDITIONAL###"###DIVJS###>
 		<label for="###LABEL_NAME###">###LABEL######DESCRIPTION######MANDATORY_SYMBOL###</label>
 		<select ###NAME######ID######CLASS######ONCHANGE######ONFOCUS######TABINDEX######ACCESSKEY######JS######REQUIRED###>
-		<option value=""></option>
+		<option value="">###PLEASE_SELECT###</option>
 		 <!-- ###CONTENT### -->
 		 	<!-- ###ITEM### -->
 		 		<option value="###CN_ISO_2###"###SELECTED######JS_INNER###>###CN_SHORT_MERGE###</option>
 		 	<!-- ###ITEM### -->
 		 <!-- ###CONTENT### -->
 		 </select>
-         <div id="powermail_countryzoneselect###POWERMAIL_FIELD_UID###" class="countryzone"></div>
 	</div>
 <!-- ###POWERMAIL_FIELDWRAP_HTML_COUNTRYSELECT### end -->
-
-<!-- ###POWERMAIL_FIELDWRAP_HTML_COUNTRYZONESELECT### begin -->
-	<select ###NAME######ID######CLASS######ONCHANGE######ONFOCUS######TABINDEX######ACCESSKEY######JS######REQUIRED###>
-	<option value=""></option>
-	<!-- ###CONTENT### -->
-		<!-- ###ITEM### -->
-			<option value="###ZN_CODE###"###SELECTED######JS_INNER###>###ZN_NAME_LOCAL###</option>
-		<!-- ###ITEM### -->
-	<!-- ###CONTENT### -->
-	</select>
-<!-- ###POWERMAIL_FIELDWRAP_HTML_COUNTRYZONESELECT### end -->

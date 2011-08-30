@@ -12,6 +12,7 @@ tx_powermail_mod1.config {
         datetimeFormat = d.m.Y H:i
         dateFormat = d.m.Y
         timeFormat = H:i
+        country_zone_label = State of %s
     }
     export {
         datetimeFormat = d.m.Y H:i
@@ -23,16 +24,20 @@ tx_powermail_mod1.config {
         	encoding = utf-8
         	autoSize = 1
         	enable = 1
+        	country_zone_label = State of %s
         }
         csv {
         	encoding = utf-8
         	enable = 1
+        	country_zone_label = State of %s
         }
         html {
         	enable = 1
+        	country_zone_label = State of %s
         }
         pdf {
         	enable = 0
+        	country_zone_label = State of %s
         }
     }
 }

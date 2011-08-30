@@ -25,13 +25,13 @@
 
         $('form.tx_powermail_pi1_form input.powermail_date').each( function() {
             var uid = $(this).attr('id');
-            var value = $(this).attr('value');
+            var value = $(this).attr('value') != '' ? $(this).attr('value'): '';
             $(this).removeAttr('name').removeAttr('placeholder').removeAttr('value').after('<input type="hidden" name="tx_powermail_pi1[' + uid +  ']" value="' + value + '" />');
         });
 
         $('form.tx_powermail_pi1_form input.powermail_datetime').each( function() {
             var uid = $(this).attr('id');
-            var value = $(this).attr('value');
+            var value = $(this).val() != '' ? $(this).val() : '';
             $(this).removeAttr('name').removeAttr('placeholder').removeAttr('value').after('<input type="hidden" name="tx_powermail_pi1[' + uid +  ']" value="' + value + '" /><input type="time" size="5" maxlength="5" class="powermail_datetime powermail_time" />');
         });
 
@@ -109,22 +109,24 @@
 					if (value != '' && !/\d\d:\d\d/.test(value)) {
 						return false;
 					} else {
-						var time = value.split(':');
-						var hour = parseInt(time[0]);
-						var minute = parseInt(time[1]);
-						if (hour > 23 || hour < 0 || minute > 59 || minute < 0) {
-							return false;
-						}
-						if (input.prevAll('input.powermail_datetime').length > 0) {
-							var oldDate = new Date(input.prev('input').val() * 1000);
-							var year = oldDate.getUTCFullYear();
-							var month = oldDate.getUTCMonth();
-							var day = oldDate.getUTCDate();
-							var secondsToAdd = hour * 3600 + minute * 60;
-							var timestamp = (new Date(year, month, day, hour, minute, 0).getTime() / 1000);
-							var timezoneOffset = new Date(year, month, day, hour, minute, 0).getTimezoneOffset() * 60;
-							input.prev('input').val(timestamp - timezoneOffset);
-						}
+                        if (input.prev('input').val() != '') {
+                            var time = value.split(':');
+                            var hour = parseInt(time[0]);
+                            var minute = parseInt(time[1]);
+                            if (hour > 23 || hour < 0 || minute > 59 || minute < 0) {
+                                return false;
+                            }
+                            if (input.prevAll('input.powermail_datetime').length > 0) {
+                                var oldDate = new Date(input.prev('input').val() * 1000);
+                                var year = oldDate.getUTCFullYear();
+                                var month = oldDate.getUTCMonth();
+                                var day = oldDate.getUTCDate();
+                                var secondsToAdd = hour * 3600 + minute * 60;
+                                var timestamp = (new Date(year, month, day, hour, minute, 0).getTime() / 1000);
+                                var timezoneOffset = new Date(year, month, day, hour, minute, 0).getTimezoneOffset() * 60;
+                                input.prev('input').val(timestamp - timezoneOffset);
+                            }
+                        }
 						return true;
 					}
 				}
@@ -141,8 +143,6 @@
 					h = (h < 10) ? '0' + h : h;
 					m = (m < 10) ? '0' + m : m;
 					$(this).val(h + ':' + m);
-				} else {
-					$(this).attr('placeholder', '00:00');
 				}
 			}
 		});
@@ -200,6 +200,95 @@
             }
 
 		}
+
+        reinitializeValidator = function() {
+            if (!###VALIDATOR_DISABLE###) {
+                var validatorConf = powermail_validator.data('validator').getConf();
+                powermail_validator.data('validator').destroy();
+                powermail_validator = $('form.tx_powermail_pi1_form').validator(validatorConf);
+            }
+        }
+
+        $.fn.getCountryZones = function() {
+            $.ajax({
+                    url: '/index.php',
+                    type: "GET",
+                    data: {
+                        eID: 'tx_powermail::countryzones',
+                        iso2: $(this).val(),
+                        uid: $(this).attr('id')
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (!###VALIDATOR_DISABLE###) {
+                            powermail_validator.data('validator').reset();
+                        }
+                        var idCountry = parseInt(response[0]['id']);
+                        var idCountryZone = idCountry + 100000;
+                        var uidCountryZone = 'uid' + idCountryZone;
+                        var countyClass = $('#uid' + idCountry).attr('class');
+                        var selectedZone = response[0]['selected'];
+                        $('#powermaildiv_' + uidCountryZone).remove();
+                        if(response.length > 1 && response[1]['zn_code'] != null) {
+                            var new_content = '';
+                            var option = 0;
+                            $.each(response, function(i, row) {
+                                if (option == 0) {
+                                    new_content += '<option value="">###PLEASE_SELECT###</option>';
+                                    option ++;
+                                } else {
+                                    new_content += '<option value="' + row.zn_code + '"' + (row.zn_code == selectedZone ? ' selected="selected"' : '') + '>' + row.zn_name_local + '</option>';
+                                }
+                            });
+                            // TODO: Labelname in piVars
+
+                            $('#powermaildiv_uid' + idCountry)
+                                .clone().removeAttr('id')
+                                .attr('id', 'powermaildiv_' + uidCountryZone)
+                                .removeClass('tx_powermail_pi1_fieldwrap_html_' + idCountry)
+                                .addClass('tx_powermail_pi1_fieldwrap_html_' + idCountryZone)
+                                .insertAfter('#powermaildiv_uid' + idCountry)
+                                .find('label').html('###COUNTRY_ZONE###')
+                                .attr('for', uidCountryZone)
+                                .parent().find('select')
+                                .replaceWith('<select name="tx_powermail_pi1[' + uidCountryZone + ']" id="' + uidCountryZone + '" class="' + countyClass + '">' + new_content + '</select>');
+                            $('#' + uidCountryZone)
+                                .removeClass('powermail_uid' + idCountry)
+                                .addClass('powermail_' + uidCountryZone)
+                                .attr('tabindex', parseInt($('#uid' + idCountry).attr('tabindex')) + 1);
+                            if ($('#uid' + idCountry).attr('required') == 'required') {
+                                $('#' + uidCountryZone).attr('required', 'required');
+                            }
+                            reinitializeValidator();
+                        }
+                    },
+                    error: function(error) {
+                            alert('Ajax request not successful.');
+                    }
+            });
+        }
+
+        if ($('.powermail_countryselect.powermail_with_countryzone').length > 0) {
+            $('.powermail_countryselect.powermail_with_countryzone').each(function () {
+                if ($(this).val() != '') {
+                    $(this).getCountryZones();
+                }
+            });
+        };
+
+        $('.powermail_countryselect.powermail_with_countryzone').change(function () {
+            if ($(this).val() != '') {
+                $(this).getCountryZones();
+            } else {
+                if (!###VALIDATOR_DISABLE###) {
+                    powermail_validator.data('validator').reset();
+                }
+                idCountryZone = parseInt($(this).attr('id').substr(3)) + 100000;
+                $('#powermaildiv_uid' + idCountryZone).remove();
+                reinitializeValidator();
+            }
+        });
+
 
         if (###SHOW_TRIGGER_ICON###) {
             $('.tx_powermail_pi1_fieldwrap_html_datetime, .tx_powermail_pi1_fieldwrap_html_date').addClass('calendar_icon');
@@ -287,7 +376,7 @@
 				$(this).parent().parent().find('a').not('.current').each(function(id, item) {
 					var temp = item.href.split('#');
 					var resetSelector = $('#' + temp[temp.length - 1] + ' :input');
-					powermail_validator.data('validator').reset(resetSelector);
+   				powermail_validator.data('validator').reset(resetSelector);
 				});
 			}
 		});

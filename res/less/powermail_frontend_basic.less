@@ -5,6 +5,7 @@
 /* More info about less.app: http://incident57.com/less/  */
 /**********************************************************/
 
+/* Dimensions definitions start */
 @labelWidth: 200px;
 @fieldWidth: 400px;
 @timeFieldWidth: 60px;
@@ -13,20 +14,9 @@
 @calTriggerIconWidth: 16px;
 @calTriggerIconHeight: 16px;
 @errorArrowSize: 10px;
+/* Dimensions definitions end */
 
-@borderRadius: 5px;
-@inputBorderRadius: @borderRadius;
-@errorBorderRadius: @borderRadius;
-@descriptionBorderRadius: @borderRadius;
-@calBorderRadius: @borderRadius;
-@sliderBorderRadius: @borderRadius;
-
-@shadowWidth: 10px;
-@descriptionShadowWidth: @shadowWidth;
-@errorShadowWidth: @shadowWidth;
-@calShadowWidth: @shadowWidth;
-@fieldsetShadowWidth: 0;
-
+/* Colors definitions start */
 @fieldsetBackgroundColor: #f0f0f0;
 @multipleTabBackgroundColor: #e0e0e0;
 @multipleTabActiveBackgroundColor: @fieldsetBackgroundColor;
@@ -36,11 +26,6 @@
 @mandatoryColor: #f00;
 @errorColor: #fff;
 @errorBackgroundColor: @mandatoryColor;
-@shadowColor: rgba(0,0,0,0.5);
-@fieldsetShadowColor: rgba(0,0,0,0.2);
-@errorShadowColor: @shadowColor;
-@calShadowColor: @shadowColor;
-@descriptionShadowColor: @shadowColor;
 @placeHolderColor: #999;
 @legendColor: #000;
 @labelColor: #515151;
@@ -57,14 +42,60 @@
 @calCurrentDayColor: #fff;
 @calTodayBackgroundColor: #333;
 @calTodayColor: #fff;
+/* Colors definitions end */
 
-@calPrevIcon: '../img/prev.gif';
-@calNextIcon: '../img/next.gif';
-@calTriggerIcon: '../img/calendar.png';
-@calH30: '../img/h30.png';
+/* Imagepath definitions start */
+@imagePath: '../img/';
+@calPrevIcon: %('%sprev.gif', @imagePath);
+@calNextIcon: %('%snext.gif', @imagePath);
+@calTriggerIcon: %('%scalendar.png', @imagePath);
+@calH30: %('%sh30.png', @imagePath);
+/* Imagepath definitions end */
+
+/* CSS3 var definitions start */
+@borderRadius: 0px;
+@inputBorderRadius: @borderRadius;
+@errorBorderRadius: @borderRadius;
+@descriptionBorderRadius: @borderRadius;
+@calBorderRadius: @borderRadius;
+@sliderBorderRadius: @borderRadius;
+
+@shadowWidth: 10px;
+@fieldsetShadowWidth: 0;
+@descriptionShadowWidth: @shadowWidth;
+@errorShadowWidth: @shadowWidth;
+@calShadowWidth: @shadowWidth;
+
+@shadowStrength: 0.5;
+@fieldsetShadowStrength: @shadowStrength;
+@descriptionShadowStrength: @shadowStrength;
+@errorShadowStrength: @shadowStrength;
+@calShadowStrength: @shadowStrength;
+/* CSS3 var definitions end */
+
+/* Mixins definitions start */
+.rounded-corners (@radius: 5px) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+}
+
+.box-shadow (@x: 0, @y: 0, @shadowWidth: 10px, @shadowStrength: 0.5) {
+    -moz-box-shadow:@x @y @shadowWidth rgba(0,0,0,@shadowStrength);
+    -webkit-box-shadow:@x @y @shadowWidth rgba(0,0,0,@shadowStrength);
+    box-shadow:@x @y @shadowWidth rgba(0,0,0,@shadowStrength);
+}
+
+.box-shadow-inset (@x: 0, @y: 0, @shadowWidth: 10px, @shadowStrength: 0.5) {
+    -moz-box-shadow:inset @x @y @shadowWidth rgba(0,0,0,@shadowStrength);
+    -webkit-box-shadow:inset @x @y @shadowWidth rgba(0,0,0,@shadowStrength);
+    box-shadow:inset @x @y @shadowWidth rgba(0,0,0,@shadowStrength);
+}
+/* Mixins definitions end */
 
 
-fieldset.tx-powermail-pi1_fieldset {
+/* Main CSS definitions start */
+.tx-powermail-pi1_fieldset {
     /* Fieldset */
     padding: 10px;
     margin-bottom:10px;
@@ -72,7 +103,6 @@ fieldset.tx-powermail-pi1_fieldset {
     border: 1px solid @fieldsetBorderColor;
     background-color: @fieldsetBackgroundColor;
     legend {
-        /* legend of Fieldset */
         font-weight: bold;
         color: @legendColor;
     }
@@ -92,53 +122,45 @@ fieldset.tx-powermail-pi1_fieldset {
         padding: 0;
         margin: 0;
         position: relative;
+        /* use legend as label for radio and checkboxes */
+        legend {
+            position: absolute;
+            left: 0;
+            padding: 0;
+            margin: 0;
+        }
     }
-    /* radio and checkboxes use legend as label */
-    fieldset legend {
-        position: absolute;
-        left: 0;
-        padding: 0;
-        margin: 0;
-    }
-    input {
+    input,select,textarea {
         margin-left:0;
     }
-    input.powermail_text,
-    input.powermail_date,
-    input.powermail_datetime,
-    input.powermail_time,
-    textarea.powermail_textarea,
-    input.powermail_captcha {
-        /* Input and textarea */
+    .powermail_text,
+    .powermail_date,
+    .powermail_datetime,
+    .powermail_time,
+    .powermail_textarea,
+    .powermail_captcha {
         border:1px solid @inputBorderColor;
         background:@inputBackgroundColor none;
         padding:@inputPadding;
         width:@fieldWidth;
-        /* CSS3 spicing for mozilla and webkit */
-        -moz-box-shadow:0 0 5px #eee inset;
-        -webkit-box-shadow:0 0 5px #eee inset;
-        box-shadow:0 0 5px #eee inset;
-        -moz-border-radius:@inputBorderRadius;
-        -webkit-border-radius:@inputBorderRadius;
-        border-radius:@inputBorderRadius;
+        .box-shadow-inset(0, 0, 2px, 0.1);
+        .rounded-corners(@inputBorderRadius);
     }
-    input.powermail_datetime.date {
+    .powermail_datetime.date {
         width: (@fieldWidth - @timeFieldWidth - 10);
     }
-    input.powermail_time,
+    .powermail_time,
     input[type=time] {
         width:@timeFieldWidth;
-        margin-left:8px;
+        margin-left:6px;
     }
     textarea:focus,
     input:not([type="submit"]):focus {
         background:@inputFocusBackgroundColor none;
         border:1px solid @inputFocusBorderColor;
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
+        .box-shadow-inset(0, 0, 0, 0);
     }
-    input.powermail_radio {
+    .powermail_radio {
         /* Radiobuttons */
         margin: 3px 0;
     }
@@ -146,37 +168,35 @@ fieldset.tx-powermail-pi1_fieldset {
     .powermail_radio_inner {
         margin-left: @labelWidth;
         clear: both;
+        label {
+            float: none;
+            width: auto;
+            display: inline;
+            font-weight: normal;
+            margin-left: 7px;
+        }
+        input {
+            float: left;
+            position: relative;
+            clear: left;
+        }
     }
-    .powermail_check_inner label,
-    .powermail_radio_inner label {
-        float: none;
-        width: auto;
-        display: inline;
-        font-weight: normal;
-        margin-left: 7px;
-    }
-    .powermail_check_inner input,
-    .powermail_radio_inner input {
-        float: left;
-        position: relative;
-        clear: left;
-    }
-    input.powermail_text.range {
+    .powermail_text.range {
         float:left;
         margin:0 0 0 15px;
         padding:3px 0;
         text-align:center;
         width:50px;
     }
-    input.powermail_submit {
+    .powermail_submit {
         /* submit button */
         margin: 20px 0 10px @labelWidth;
         font-weight: bold;
     }
-    div.countryzone {
+    .countryzone {
         margin: 10px 0 0 @labelWidth;
     }
-    div.tx_powermail_pi1_fieldwrap_html {
+    .tx_powermail_pi1_fieldwrap_html {
         /* DIV container around every field */
         margin-bottom: @fieldMarginBottom;
         clear:both;
@@ -187,35 +207,26 @@ fieldset.tx-powermail-pi1_fieldset {
         /* Description */
         cursor: help;
         text-decoration: none;
-    }
-    label a dfn,
-    legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a dfn,
-    legend.tx_powermail_pi1_fieldwrap_html_radio_title a dfn{
-        /* Description */
-        display: none;
-        text-decoration: none;
-        position:absolute;
-        z-index:1;
-        width: auto;
-        padding:3px 10px 5px 10px;
-        background-color:@descriptionBackgroundColor;
-        border:1px solid @descriptionBackgroundColor;
-        font-size:11px;
-        color:#fff;
-        white-space: normal;
-        /* CSS3 spicing for mozilla and webkit */
-        -moz-border-radius:@descriptionBorderRadius;
-        -webkit-border-radius:@descriptionBorderRadius;
-        border-radius:@descriptionBorderRadius;
-        -moz-box-shadow:0 0 @descriptionShadowWidth @descriptionShadowColor;
-        -webkit-box-shadow:0 0 @descriptionShadowWidth @descriptionShadowColor;
-        box-shadow:0 0 @descriptionShadowWidth @descriptionShadowColor;
-    }
-    label a:hover dfn,
-    legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a:hover dfn,
-    legend.tx_powermail_pi1_fieldwrap_html_radio_title a:hover dfn{
-        /* Description on mouseover */
-        display: block;
+        dfn {
+            /* Description */
+            display: none;
+            text-decoration: none;
+            position:absolute;
+            z-index:1;
+            width: auto;
+            padding:3px 10px 5px 10px;
+            background-color:@descriptionBackgroundColor;
+            border:1px solid @descriptionBackgroundColor;
+            font-size:11px;
+            color:#fff;
+            white-space: normal;
+            .rounded-corners(@descriptionBorderRadius);
+            .box-shadow(0, 0, @descriptionShadowWidth, @descriptionShadowStrength);
+        }
+        &:hover dfn {
+            /* Description on mouseover */
+            display: block;
+        }
     }
     img.icon_info {
         /* Description icon */
@@ -258,14 +269,8 @@ fieldset.tx-powermail-pi1_fieldset {
         padding: 0;
         font-weight: bold;
     }
-
-	/* CSS3 spicing for mozilla and webkit */
-	-moz-border-radius:@errorBorderRadius;
-	-webkit-border-radius:@errorBorderRadius;
-	border-radius:@errorBorderRadius;
-	-moz-box-shadow:0 0 @errorShadowWidth @errorShadowColor;
-	-webkit-box-shadow:0 0 @errorShadowWidth @errorShadowColor;
-	box-shadow:0 0 @errorShadowWidth @errorShadowColor;
+    .rounded-corners(@errorBorderRadius);
+    .box-shadow(0, 0, @errorShadowWidth, @errorShadowStrength);
 }
 
 /* pure CSS arrow */
@@ -275,7 +280,6 @@ html:root .error em {
 	height:0;
 	border:@errorArrowSize solid;
 	border-color:@errorBackgroundColor transparent transparent;
-
 	/* positioning */
 	position:absolute;
 	bottom:-@errorArrowSize;
@@ -292,19 +296,13 @@ html:root .error em {
 	z-index:10000;
 	
 	margin-top:-1px;
-	width:@labelWidth - 2;
+	width:198px;
 	padding:2px;
 	background-color:#fff;
 	font-size:11px;
 	border:1px solid #ccc;
-	
-	-moz-border-radius:@calBorderRadius;
-	-webkit-border-radius:@calBorderRadius;
-	border-radius:@calBorderRadius;
-	
-	-moz-box-shadow: 0 0 @calShadowWidth @calShadowColor;
-	-webkit-box-shadow: 0 0 @calShadowWidth @calShadowColor;
-	box-shadow:0 0 @calShadowWidth @calShadowColor;
+	.rounded-corners(@calBorderRadius);
+    .box-shadow(0, 0, @calShadowWidth, @calShadowStrength);
 }
 
 /* head. contains title, prev/next month controls and possible month/year selectors */
@@ -350,13 +348,12 @@ html:root .error em {
 #caldays {
 	height:18px;
 	border-bottom:1px solid #ddd;
-}
-
-#caldays span {
-	display:block;
-	float:left;
-	width:28px;
-	text-align:center;
+    span {
+        display:block;
+        float:left;
+        width:28px;
+        text-align:center;
+    }
 }
 
 /* container for weeks */
@@ -369,24 +366,24 @@ html:root .error em {
 .calweek {
 	clear:left;
 	height:22px;
+    a {
+        display:block;
+        float:left;
+        width:27px;
+        height:20px;
+        text-decoration:none;
+        font-size:11px;
+        margin-left:1px;
+        text-align:center;
+        line-height:20px;
+        color:@calWeekColor;
+        -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border-radius:3px;
+    }
 }
 
 /* single day */
-.calweek a {
-	display:block;
-	float:left;
-	width:27px;
-	height:20px;
-	text-decoration:none;
-	font-size:11px;
-	margin-left:1px;
-	text-align:center;
-	line-height:20px;
-	color:@calWeekColor;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-    border-radius:3px;
-} 
 
 /* different states */
 .calweek a:hover, .calfocus {
@@ -400,13 +397,11 @@ a.calsun {
 
 /* offmonth day */
 a.caloff {
-	color:#ccc;		
+    color:#ccc;
+    &:hover {
+        background-color:rgb(245, 245, 250);
+    }
 }
-
-a.caloff:hover {
-	background-color:rgb(245, 245, 250);		
-}
-
 
 /* unselecteble day */
 a.caldisabled {
@@ -449,12 +444,8 @@ a.caltrigger {
 	float:left; 
 	clear:right;
 	margin-top:10px;
-	-moz-border-radius:@sliderBorderRadius;
-	-webkit-border-radius:@sliderBorderRadius;
-	border-radius:@sliderBorderRadius;
-	-moz-box-shadow:inset 0 0 8px #000;
-	-webkit-box-shadow:inset 0 0 8px #000;
-	box-shadow:inset 0 0 8px #000;
+    .rounded-corners(@sliderBorderRadius);
+    .box-shadow-inset(0, 0, 8px, 1);
 }
 
 /* progress bar (enabled with progress: true) */
@@ -476,29 +467,21 @@ a.caltrigger {
 	margin-top:1px;
 	border:1px solid #000;
 	cursor:move;
-	-moz-box-shadow:0 0 6px #000;
-	-webkit-box-shadow:0 0 6px #000;
-	box-shadow:0 0 6px #000;
-	-moz-border-radius:14px;
-	-webkit-border-radius:14px; 
-	border-radius:14px;
+    .box-shadow(0, 0, 6px, 1);
+    .rounded-corners(14px);
 }
 
 
 /* Multiple JS */
-div.powermail_multiple_js {
-    fieldset.tx-powermail-pi1_fieldset legend,
-    fieldset.tx-powermail-pi1_fieldset.ui-tabs-hide {
+div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset {
+    padding-top:15px;
+    .box-shadow(@fieldsetShadowWidth, @fieldsetShadowWidth, @fieldsetShadowWidth, @fieldsetShadowStrength);
+    legend,
+    &.ui-tabs-hide {
         display:none;
     }
-    fieldset.tx-powermail-pi1_fieldset {
-        padding-top:15px;
-        -moz-box-shadow:@fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowColor;
-        -webkit-box-shadow:@fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowColor;
-        box-shadow:@fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowWidth @fieldsetShadowColor;
-        fieldset legend {
-            display:block;
-        }
+    fieldset legend {
+        display:block;
     }
 }
 
@@ -528,16 +511,14 @@ ul.powermail_multiplejs_tabs {
             border-left: 1px solid @fieldsetBorderColor;
             border-right: 1px solid @fieldsetBorderColor;
             outline: none;
-        }
-        a.act {
-            background: @multipleTabActiveBackgroundColor;
-            color: @multipleTabActiveColor;
-            padding:5px 10px 6px 10px;
-            position:relative;
-            margin-bottom:-1px;
-            -moz-box-shadow:@fieldsetShadowWidth 0 0 @fieldsetShadowColor;
-            -webkit-box-shadow:@fieldsetShadowWidth 0 0 @fieldsetShadowColor;
-            box-shadow:@fieldsetShadowWidth 0 0 @fieldsetShadowColor;
+            &.act {
+                background: @multipleTabActiveBackgroundColor;
+                color: @multipleTabActiveColor;
+                padding:5px 10px 6px 10px;
+                position:relative;
+                margin-bottom:-1px;
+                .box-shadow(@fieldsetShadowWidth, 0, 0, @fieldsetShadowStrength);
+            }
         }
     }
 }

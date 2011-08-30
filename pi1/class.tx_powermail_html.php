@@ -1,26 +1,26 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2011 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2011 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 
 require_once(PATH_tslib . 'class.tslib_pibase.php');
@@ -31,9 +31,9 @@ require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_countr
 
 class tx_powermail_html extends tslib_pibase {
 
-	public $prefixId      = 'tx_powermail_pi1';		// Same as class name
-	public $scriptRelPath = 'pi1/class.tx_powermail_html.php';	// Path to this script relative to the extension dir.
-	public $extKey        = 'powermail';	// The extension key.
+	public $prefixId = 'tx_powermail_pi1'; // Same as class name
+	public $scriptRelPath = 'pi1/class.tx_powermail_html.php'; // Path to this script relative to the extension dir.
+	public $extKey = 'powermail'; // The extension key.
 	public $pi_checkCHash = true;
 
 	/**
@@ -77,77 +77,77 @@ class tx_powermail_html extends tslib_pibase {
 
 		// selection
 		if ($this->type) { // If type exists
-			switch($this->type) {
+			switch ($this->type) {
 				case 'text':
 					$this->content = $this->html_text(); // generate text field <input type="text"...
-				break;
+					break;
 				case 'textarea':
 					$this->content = $this->html_textarea(); // generate textarea <textarea...
-				break;
+					break;
 				case 'check':
 					$this->content = $this->html_check(); // generate textarea <input type="checkbox"
-				break;
+					break;
 				case 'select':
 					$this->content = $this->html_select(); // generate selectorbox <select><option>...
-				break;
+					break;
 				case 'captcha':
 					$this->content = $this->html_captcha(); // generate captcha request
-				break;
+					break;
 				case 'radio':
 					$this->content = $this->html_radio(); // generate radio buttons <input type="radio"...
-				break;
+					break;
 				case 'submit':
 					$this->content = $this->html_submit(); // generate submitbutton <input type="submit"...
-				break;
+					break;
 				case 'reset':
 					$this->content = $this->html_reset(); // generate resetbutton <input type="reset"...
-				break;
+					break;
 				case 'label':
 					$this->content = $this->html_label(); // generate textlabel
-				break;
+					break;
 				case 'html':
 					$this->content = $this->html_html(); // generate pure html
-				break;
+					break;
 				case 'content':
 					$this->content = $this->html_content(); // returns page content
-				break;
+					break;
 				case 'file':
 					$this->content = $this->html_file(); // generate file field
-				break;
+					break;
 				case 'password':
 					$this->content = $this->html_password(); // generate password field
-				break;
+					break;
 				case 'hidden':
 					$this->content = $this->html_hidden(); // generate hidden field
-				break;
+					break;
 				case 'datetime':
 					$this->content = $this->html_datetime(); // generate datetime field
-				break;
+					break;
 				case 'date':
 					$this->content = $this->html_date(); // generate date field
-				break;
+					break;
 				case 'button':
 					$this->content = $this->html_button(); // generate button field
-				break;
+					break;
 				case 'submitgraphic':
 					$this->content = $this->html_submitgraphic(); // generate submitgraphic button
-				break;
+					break;
 				case 'countryselect':
 					$this->content = $this->html_countryselect(); // generate select fields with countries from static_info_tables
-				break;
+					break;
 				case 'typoscript':
 					$this->content = $this->html_typoscript(); // gets typoscript element and output the result of it
-				break;
+					break;
 				default: // default settings
 					if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldHook'][$this->type])) { // Adds hook for processing of extra fields
-						foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldHook'][$this->type] as $_classRef) {
+						foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldHook'][$this->type] as $_classRef) {
 							$_procObj = &t3lib_div::getUserObj($_classRef);
 							$this->content = $_procObj->PM_FieldHook($this->xml, $this->title, $this->type, $this->uid, $this->markerArray, $this->piVarsFromSession, $this);
 						}
 					} else { // no hook so write errormessage
 						$this->content = 'POWERMAIL: wrong input field required: <strong>' . $this->type . '</strong> in tx_powermail_pi1_html (field uid ' . $row['f_uid'] . ')<br />'; // errormessage
 					}
-				break;
+					break;
 			}
 		} else { // no type selected
 			$this->content = 'POWERMAIL: <strong>no field type</strong> in backend selected (field uid ' . $row['f_uid'] . ')<br />'; // errormessage
@@ -204,36 +204,44 @@ class tx_powermail_html extends tslib_pibase {
 		$this->tmpl['html_select']['item'] = tslib_cObj::getSubpart($this->tmpl['html_select']['all'], '###ITEM###'); // work on subpart 2
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options')) { // Only if options are set
-			$content_item = ''; $options = $set = array(); // init
+			$content_item = '';
+			$options = $set = array(); // init
 			$optionlines = t3lib_div::trimExplode("\n", $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options'), 1); // Every row is a new option
-			for ($i=0; $i < count($optionlines); $i++) { // Every loop for every option
+			for ($i = 0; $i < count($optionlines); $i++) { // Every loop for every option
 				$options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // Every row is a new option
 			}
 
 			// preparing an array for preselection of multi fields
 			if ($this->conf['prefill.']['uid' . $this->uid . '.']['selectedIndexes'] || is_array($this->conf['prefill.']['uid' . $this->uid . '.']['selectedIndexes.'])) { // if there are values in the array selectedIndexes.
 				$selected = t3lib_div::intExplode(',', $this->cObj->stdWrap($this->conf['prefill.']['uid' . $this->uid . '.']['selectedIndexes'], $this->conf['prefill.']['uid' . $this->uid . '.']['selectedIndexes.']));
-			} elseif ($this->conf['prefill.']['uid' . $this->uid . '.']['selectedValues'] || is_array($this->conf['prefill.']['uid' . $this->uid . '.']['selectedValues.'])) {
+			} else if ($this->conf['prefill.']['uid' . $this->uid . '.']['selectedValues'] || is_array($this->conf['prefill.']['uid' . $this->uid . '.']['selectedValues.'])) {
 				$selected = t3lib_div::trimExplode(',', $this->cObj->stdWrap($this->conf['prefill.']['uid' . $this->uid . '.']['selectedValues'], $this->conf['prefill.']['uid' . $this->uid . '.']['selectedValues.']));
 			} else {
 				$selected = array();
 			}
 
 
-			for ($i=0; $i < count($optionlines); $i++) { // One tag for every option
+			for ($i = 0; $i < count($optionlines); $i++) { // One tag for every option
 				$markerArray['###LABEL###'] = htmlspecialchars($options[$i][0]);
-				$markerArray['###VALUE###'] = (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0]));
+				$markerArray['###VALUE###'] = (isset($options[$i][1]) ? htmlspecialchars($options[$i][1])
+						: htmlspecialchars($options[$i][0]));
 
 				// ###SELECTED###
 				if (!is_array($this->piVarsFromSession['uid' . $this->uid])) { // no multiple
-					if ($options[$i][2] == '*') $markerArray['###SELECTED###'] = ' selected="selected"'; // selected from backend
-					else $markerArray['###SELECTED###'] = ''; // clear
+					if ($options[$i][2] == '*') {
+						$markerArray['###SELECTED###'] = ' selected="selected"';
+					} else {
+						$markerArray['###SELECTED###'] = '';
+					} // clear
 					if (isset($this->piVarsFromSession['uid' . $this->uid])) { // if session was set
-						if ($this->piVarsFromSession['uid' . $this->uid] == ($options[$i][1] ? $options[$i][1] : $options[$i][0])) $markerArray['###SELECTED###'] = 'selected="selected" '; // mark as selected
-						else $markerArray['###SELECTED###'] = ''; // clear
+						if ($this->piVarsFromSession['uid' . $this->uid] == ($options[$i][1] ? $options[$i][1] : $options[$i][0])) {
+							 $markerArray['###SELECTED###'] = 'selected="selected" '; // mark as selected
+						} else {
+							$markerArray['###SELECTED###'] = '';
+						} // clear
 					}
 				} else { // multiple
-					for ($j=0; $j<count($this->piVarsFromSession['uid' . $this->uid]); $j++) {
+					for ($j = 0; $j < count($this->piVarsFromSession['uid' . $this->uid]); $j++) {
 						if ($this->piVarsFromSession['uid' . $this->uid][$j] == ($options[$i][1] ? $options[$i][1] : $options[$i][0])) {
 							$markerArray['###SELECTED###'] = ' selected="selected"'; // mark as selected
 							$set[$i] = 1;
@@ -244,13 +252,14 @@ class tx_powermail_html extends tslib_pibase {
 
 				// Preselection from typoscript
 				if (!$set[$i] && !empty($this->conf['prefill.']['uid' . $this->uid])) {
-					if ($this->isPrefilled($i, $selected, ($options[$i][1] ? $options[$i][1] : $options[$i][0])) != false) {
+					if ($this->isPrefilled($i, $selected, ($options[$i][1] ? $options[$i][1]
+								: $options[$i][0])) != false
+					) {
 						$markerArray['###SELECTED###'] = ' selected="selected"'; // mark as selected
 					} else {
 						$markerArray['###SELECTED###'] = ''; // clear
 					}
 				}
-
 
 				$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 				$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['html_select']['item'], $markerArray);
@@ -274,73 +283,86 @@ class tx_powermail_html extends tslib_pibase {
 	 * @return	string	$content
 	 */
 	private function html_check() {
-		$this->tmpl['html_check']['all'] = $this->cObj->getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_CHECK' . ($this->conf['field.']['checkboxJS']==1 ? 'JS' : '') . '###'); // work on subpart 1 (###POWERMAIL_FIELDWRAP_HTML_CHECK### OR ###POWERMAIL_FIELDWRAP_HTML_CHECKJS###)
+		$this->tmpl['html_check']['all'] = $this->cObj->getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_CHECK' . ($this->conf['field.']['checkboxJS'] == 1
+				? 'JS'
+				: '') . '###'); // work on subpart 1 (###POWERMAIL_FIELDWRAP_HTML_CHECK### OR ###POWERMAIL_FIELDWRAP_HTML_CHECKJS###)
 		$this->tmpl['html_check']['item'] = $this->cObj->getSubpart($this->tmpl['html_check']['all'], '###ITEM###'); // work on subpart 2
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options')) { // Only if options are set
-			$content_item = ''; $options = array(); // init
+			$content_item = '';
+			$options = array(); // init
 			$optionlines = t3lib_div::trimExplode("\n", $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options'), 1); // Every row is a new option
-			for ($i=0; $i < count($optionlines); $i++) { // One tag for every option
+			for ($i = 0; $i < count($optionlines); $i++) { // One tag for every option
 				$options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // Every row is a new option
 				$markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . '][' . $i . ']" '; // add name to markerArray
 				$markerArray['###LABEL###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
-				$markerArray['###LABEL###'] = ($this->conf['label.']['parse']) ? $markerArray['###LABEL###'] : htmlspecialchars($markerArray['###LABEL###']);
+				$markerArray['###LABEL###'] = ($this->conf['label.']['parse']) ? $markerArray['###LABEL###']
+						: htmlspecialchars($markerArray['###LABEL###']);
 				$markerArray['###LABEL_NAME###'] = 'uid' . $this->uid . '_' . $i; // add labelname
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
-				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
+				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1])
+						: htmlspecialchars($options[$i][0])) . '" ';
 				$markerArray['###CLASS###'] = 'class="'; // start class tag
 
 				// Add required class if needed
-				if($i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
-					if(count($optionlines) > 1) {
+				if ($i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
+					if (count($optionlines) > 1) {
 						$markerArray['###CLASS###'] .= 'required_one  ';
 					} else {
 						$markerArray['###CLASS###'] .= 'required  ';
-                        $markerArray['###REQUIRED###'] = ' required="required"';
+						$markerArray['###REQUIRED###'] = ' required="required"';
 					}
 				}
-				
+
 				$markerArray['###CLASS###'] .= 'powermail_' . $this->formtitle; // add form title
 				$markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add input type
 				$markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add input uid
 				$markerArray['###CLASS###'] .= ' powermail_subuid' . $this->uid . '_' . $i; // add input subuid
-				$markerArray['###CLASS###'] .= ($this->class_f != '' && $this->additionalCssToInputField) ? ' ' . htmlspecialchars($this->class_f) : ''; // add manual class
+				$markerArray['###CLASS###'] .= ($this->class_f != '' && $this->additionalCssToInputField)
+						? ' ' . htmlspecialchars($this->class_f) : ''; // add manual class
 				$markerArray['###CLASS###'] .= '" '; // close tag
 				$markerArray['###HIDDENVALUE###'] = 'value="' . $this->piVarsFromSession['uid' . $this->uid][$i] . '"'; // add value for hidden field to markerArray
-				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'mandatory') == 1) {
-					$markerArray['###MANDATORY_SYMBOL###'] = $this->cObj->wrap($this->conf['mandatory.']['symbol'], $this->conf['mandatory.']['wrap'],'|'); // add mandatory symbol if current field is a mandatory field
+				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
+					$markerArray['###MANDATORY_SYMBOL###'] = $this->cObj->wrap($this->conf['mandatory.']['symbol'], $this->conf['mandatory.']['wrap'], '|'); // add mandatory symbol if current field is a mandatory field
 				}
-				$this->turnedtabindex[$this->uid . '_' . $i] !== '' ? $markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid . '_' . $i] + 1) . '" ' : $markerArray['###TABINDEX###'] = ''; // tabindex for every checkbox
-				isset($this->newaccesskey[$this->uid][$i]) ? $markerArray['###ACCESSKEY###'] = 'accesskey="' . $this->newaccesskey[$this->uid][$i] . '" ' : $markerArray['###ACCESSKEY###'] = ''; // accesskey for every checkbox
+				$this->turnedtabindex[$this->uid . '_' . $i] !== ''
+						? $markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid . '_' . $i] + 1) . '" '
+						: $markerArray['###TABINDEX###'] = ''; // tabindex for every checkbox
+				isset($this->newaccesskey[$this->uid][$i])
+						? $markerArray['###ACCESSKEY###'] = 'accesskey="' . $this->newaccesskey[$this->uid][$i] . '" '
+						: $markerArray['###ACCESSKEY###'] = ''; // accesskey for every checkbox
 
 				// ###CHECKED###
-				if ($options[$i][2] == '*')  {
+				if ($options[$i][2] == '*') {
 
 					$markerArray['###CHECKED###'] = 'checked="checked" '; // checked from backend
-    				$markerArray['###HIDDENVALUE###'] = 'value="' . (isset($options[$i][1]) ? $options[$i][1] : $options[$i][0]) . '" ';
+					$markerArray['###HIDDENVALUE###'] = 'value="' . (isset($options[$i][1]) ? $options[$i][1] : $options[$i][0]) . '" ';
 
-				} elseif (!empty($this->conf['prefill.']['uid' . $this->uid . '_' . $i])) { // prechecking with typoscript for current field enabled
+				} else if (!empty($this->conf['prefill.']['uid' . $this->uid . '_' . $i])) { // prechecking with typoscript for current field enabled
 
 					if ($this->cObj->cObjGetSingle($this->conf['prefill.']['uid' . $this->uid . '_' . $i], $this->conf['prefill.']['uid' . $this->uid . '_' . $i . '.']) == 1) {
 						$markerArray['###CHECKED###'] = 'checked="checked" '; // checked from backend
-						$markerArray['###HIDDENVALUE###'] = 'value="' . (isset($options[$i][1]) ? $options[$i][1] : $options[$i][0]) . '" ';
-					} else $markerArray['###CHECKED###'] = ''; // clear
+						$markerArray['###HIDDENVALUE###'] = 'value="' . (isset($options[$i][1]) ? $options[$i][1]
+								: $options[$i][0]) . '" ';
+					} else {
+						$markerArray['###CHECKED###'] = '';
+					} // clear
 
 				}
-				// AST end
+					// AST end
 				else $markerArray['###CHECKED###'] = ''; // clear
 				if (isset($this->piVarsFromSession['uid' . $this->uid])) { // Preselection from session
 					if (isset($this->piVarsFromSession['uid' . $this->uid][$i]) && $this->piVarsFromSession['uid' . $this->uid][$i] != '') {
-					    $markerArray['###CHECKED###'] = 'checked="checked" '; // mark as checked
-        				$markerArray['###HIDDENVALUE###'] = 'value="' . $this->piVarsFromSession['uid' . $this->uid][$i] . '"'; // add value for hidden field to markerArray
-        			}
-
-					else $markerArray['###CHECKED###'] = ''; // clear
+						$markerArray['###CHECKED###'] = 'checked="checked" '; // mark as checked
+						$markerArray['###HIDDENVALUE###'] = 'value="' . $this->piVarsFromSession['uid' . $this->uid][$i] . '"'; // add value for hidden field to markerArray
+					} else {
+						$markerArray['###CHECKED###'] = '';
+					} // clear
 				}
 
 				$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 				$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['html_check']['item'], $markerArray); // substitute Marker in Template (subpart 2)
- 			}
+			}
 
 		}
 		$subpartArray = array(); // init
@@ -365,42 +387,44 @@ class tx_powermail_html extends tslib_pibase {
 	private function html_radio() {
 		$this->tmpl['html_radio']['all'] = $this->cObj->getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_RADIO###'); // work on subpart 1
 		$this->tmpl['html_radio']['item'] = $this->cObj->getSubpart($this->tmpl['html_radio']['all'], '###ITEM###'); // work on subpart 2
-        //$this->tmpl['html_radio']['mandatory_helper'] = $this->cObj->getSubpart($this->tmpl['html_radio']['all'], '###MANDATORY_HELPER###'); // work on subpart 3
+		//$this->tmpl['html_radio']['mandatory_helper'] = $this->cObj->getSubpart($this->tmpl['html_radio']['all'], '###MANDATORY_HELPER###'); // work on subpart 3
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options')) { // Only if options are set
 			$content_item = '';
-            $options = array(); // init
-            $options_temp = array();
-            $preSelectionFound = false;
+			$options = array(); // init
+			$options_temp = array();
+			$preSelectionFound = false;
 			$optionlines = t3lib_div::trimExplode("\n", $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'options'), 1); // Every row is a new option
-            for ($i = 0; $i < count($optionlines); $i ++) { // One tag for every option
-                $options_temp[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
-                if (isset($options_temp[$i][2]) && $options_temp[$i][2] == '*') {
-                    $preSelectionFound = true;
-                    break;
-                }
-            }
-            if ($preSelectionFound == false && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
-                // if no pre selection is found, add a mandatory helper radio button
-                $optionlines = array_merge(array(' ||*'), $optionlines);
-            }
-			for ($i = 0; $i < count($optionlines); $i ++) { // One tag for every option
-                $options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
+			for ($i = 0; $i < count($optionlines); $i++) { // One tag for every option
+				$options_temp[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
+				if (isset($options_temp[$i][2]) && $options_temp[$i][2] == '*') {
+					$preSelectionFound = true;
+					break;
+				}
+			}
+			if ($preSelectionFound == false && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
+				// if no pre selection is found, add a mandatory helper radio button
+				$optionlines = array_merge(array(' ||*'), $optionlines);
+			}
+			for ($i = 0; $i < count($optionlines); $i++) { // One tag for every option
+				$options[$i] = t3lib_div::trimExplode('|', $optionlines[$i], 0); // To split: label | value | *
 				$markerArray['###NAME###'] = 'name="' . $this->prefixId . '[uid' . $this->uid . ']" '; // add name to markerArray
 				$markerArray['###LABEL###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
-				$markerArray['###LABEL###'] = ($this->conf['label.']['parse']) ? $markerArray['###LABEL###'] : htmlspecialchars($markerArray['###LABEL###']);
+				$markerArray['###LABEL###'] = ($this->conf['label.']['parse']) ? $markerArray['###LABEL###']
+						: htmlspecialchars($markerArray['###LABEL###']);
 				$markerArray['###LABEL_NAME###'] = 'uid' . $this->uid . '_' . $i; // add labelname
 				$markerArray['###ID###'] = 'id="uid' . $this->uid . '_' . $i . '" '; // add labelname
-				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1]) : htmlspecialchars($options[$i][0])) . '" ';
+				$markerArray['###VALUE###'] = 'value="' . (isset($options[$i][1]) ? htmlspecialchars($options[$i][1])
+						: htmlspecialchars($options[$i][0])) . '" ';
 				$markerArray['###CLASS###'] = 'class="'; // start class tag
-                $markerArray['###MANDATORY_HELPER###'] = '';
-                // Add required class if needed
-                if ($preSelectionFound == false && $i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1){
+				$markerArray['###MANDATORY_HELPER###'] = '';
+				// Add required class if needed
+				if ($preSelectionFound == false && $i == 0 && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
 					$markerArray['###CLASS###'] .= 'required_one ';
-                    $markerArray['###VALUE###'] = 'value="" ';
-                    $markerArray['###CHECKED###'] = 'checked="checked" ';
-                    $markerArray['###MANDATORY_HELPER###'] = ' powermail_mandatory_helper';
-                }
+					$markerArray['###VALUE###'] = 'value="" ';
+					$markerArray['###CHECKED###'] = 'checked="checked" ';
+					$markerArray['###MANDATORY_HELPER###'] = ' powermail_mandatory_helper';
+				}
 				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
 					$markerArray['###REQUIRED###'] = ' required="required"';
 				}
@@ -408,28 +432,35 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add input type
 				$markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add input uid
 				$markerArray['###CLASS###'] .= ' powermail_subuid' . $this->uid . '_' . $i; // add input subuid
-				$markerArray['###CLASS###'] .= ($this->class_f != '' && $this->additionalCssToInputField) ? ' ' . htmlspecialchars($this->class_f) : ''; // add manual class
+				$markerArray['###CLASS###'] .= ($this->class_f != '' && $this->additionalCssToInputField)
+						? ' ' . htmlspecialchars($this->class_f) : ''; // add manual class
 				$markerArray['###CLASS###'] .= '" '; // close tag
-				$this->turnedtabindex[$this->uid . '_' . $i] !== '' ? $markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid . '_' . $i] + 1) . '" ' : $markerArray['###TABINDEX###'] = ''; // tabindex for every radiobutton
-				isset($this->newaccesskey[$this->uid][$i]) ? $markerArray['###ACCESSKEY###'] = 'accesskey="' . $this->newaccesskey[$this->uid][$i] . '" ' : $markerArray['###ACCESSKEY###'] = ''; // accesskey for every radiobutton
+				$this->turnedtabindex[$this->uid . '_' . $i] !== ''
+						? $markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid . '_' . $i] + 1) . '" '
+						: $markerArray['###TABINDEX###'] = ''; // tabindex for every radiobutton
+				isset($this->newaccesskey[$this->uid][$i])
+						? $markerArray['###ACCESSKEY###'] = 'accesskey="' . $this->newaccesskey[$this->uid][$i] . '" '
+						: $markerArray['###ACCESSKEY###'] = ''; // accesskey for every radiobutton
 
 				// ###CHECKED###
 				if ($options[$i][2] == '*') { // Preselection from backend
 					$markerArray['###CHECKED###'] = 'checked="checked" '; // precheck radiobutton
 				} else {
-                    $markerArray['###CHECKED###'] = ''; // clear
-                }
+					$markerArray['###CHECKED###'] = ''; // clear
+				}
 				if (isset($this->piVarsFromSession['uid' . $this->uid])) { // Preselection from session
-					if ($this->piVarsFromSession['uid' . $this->uid] == ($options[$i][1] ? $options[$i][1] : $options[$i][0])) { // mark as selected
+					if ($this->piVarsFromSession['uid' . $this->uid] == ($options[$i][1] ? $options[$i][1]
+							: $options[$i][0])
+					) { // mark as selected
 						$markerArray['###CHECKED###'] = 'checked="checked" '; // precheck radiobutton
 					} else {
-                        $markerArray['###CHECKED###'] = '';
-                    } // clear
+						$markerArray['###CHECKED###'] = '';
+					} // clear
 				}
 
 				$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 				$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['html_radio']['item'], $markerArray); // substitute Marker in Template (subpart 2)
- 			}
+			}
 
 
 		}
@@ -438,7 +469,6 @@ class tx_powermail_html extends tslib_pibase {
 
 		$this->markerArray['###LABEL_MAIN###'] = $this->div->parseFunc($this->title, $this->cObj, $this->conf['label.']['parse']);
 		$this->markerArray['###LABEL_MAIN###'] = ($this->conf['label.']['parse']) ? $this->title : htmlspecialchars($this->title);
-
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid;
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1) {
@@ -459,7 +489,7 @@ class tx_powermail_html extends tslib_pibase {
 	 * @return	string	$content
 	 */
 	private function html_submit() {
-		$this->tmpl['html_submit'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_SUBMIT###'); // work on subpart
+		$this->tmpl['html_submit'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_SUBMIT###'); // work on subpart
 
 		// add class name to markerArray
 		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle; // add formname
@@ -483,7 +513,7 @@ class tx_powermail_html extends tslib_pibase {
 	 */
 	private function html_reset() {
 
-		$this->tmpl['html_reset'] = tslib_cObj::getSubpart($this->tmpl['all'],'###POWERMAIL_FIELDWRAP_HTML_RESET###'); // work on subpart
+		$this->tmpl['html_reset'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_RESET###'); // work on subpart
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'clearSession')) { // if checkbox clearSession is checked
 			$this->markerArray['###JS###'] = 'onclick="location=\''; // Fill marker ###JS### with eventhandler
@@ -502,7 +532,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_reset'], $this->markerArray); // substitute Marker in Template
 		$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
-		$content = preg_replace('|###.*?###|i' ,'', $content); // Finally clear not filled markers
+		$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
 
 		return $content; // return HTML
 	}
@@ -513,25 +543,25 @@ class tx_powermail_html extends tslib_pibase {
 	 * @return	string	$content
 	 */
 	private function html_label() {
-        $this->tmpl['html_label'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_LABEL###'); // work on subpart
+		$this->tmpl['html_label'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_LABEL###'); // work on subpart
 
-        // ###CONTENT###
-        if (isset($this->piVarsFromSession['uid' . $this->uid])) { // 1. if value is in piVars
-            $this->markerArray['###CONTENT###'] = stripslashes($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
-        } elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. if value should be filled from current logged in user
-            $this->markerArray['###CONTENT###'] = t3lib_div::removeXSS($GLOBALS['TSFE']->fe_user->user[$this->fe_field]);
-        } elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) { // 3. take value from backend (default value)
-            $this->markerArray['###CONTENT###'] = t3lib_div::removeXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'), $this->conf['label.']['allowTags']);
-        } elseif (!empty($this->conf['prefill.']['uid' . $this->uid])) { // 4. prefilling with typoscript for current field enabled
-            $this->markerArray['###CONTENT###'] = $this->cObj->cObjGetSingle($this->conf['prefill.']['uid' . $this->uid], $this->conf['prefill.']['uid' . $this->uid . '.']); // add typoscript value
-        } else { // 5. no prefilling - so clear value marker
-            $this->markerArray['###CONTENT###'] = ''; // clear
-        }
-        
-        // add hidden field
-        if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'send')) { // label should be send with email
-            $this->markerArray['###HIDDEN###'] = '<input type="hidden" name="' . $this->prefixId . '[uid' . $this->uid . ']" value="' . htmlspecialchars($this->markerArray['###CONTENT###']) . '" />'; // create hidden field
-        }
+		// ###CONTENT###
+		if (isset($this->piVarsFromSession['uid' . $this->uid])) { // 1. if value is in piVars
+			$this->markerArray['###CONTENT###'] = stripslashes($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+		} elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. if value should be filled from current logged in user
+			$this->markerArray['###CONTENT###'] = t3lib_div::removeXSS($GLOBALS['TSFE']->fe_user->user[$this->fe_field]);
+		} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) { // 3. take value from backend (default value)
+			$this->markerArray['###CONTENT###'] = t3lib_div::removeXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'), $this->conf['label.']['allowTags']);
+		} elseif (!empty($this->conf['prefill.']['uid' . $this->uid])) { // 4. prefilling with typoscript for current field enabled
+			$this->markerArray['###CONTENT###'] = $this->cObj->cObjGetSingle($this->conf['prefill.']['uid' . $this->uid], $this->conf['prefill.']['uid' . $this->uid . '.']); // add typoscript value
+		} else { // 5. no prefilling - so clear value marker
+			$this->markerArray['###CONTENT###'] = ''; // clear
+		}
+
+		// add hidden field
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'send')) { // label should be send with email
+			$this->markerArray['###HIDDEN###'] = '<input type="hidden" name="' . $this->prefixId . '[uid' . $this->uid . ']" value="' . htmlspecialchars($this->markerArray['###CONTENT###']) . '" />'; // create hidden field
+		}
 
 		$this->markerArray['###CLASS###'] = 'class="powermail_' . $this->formtitle;
 		$this->markerArray['###CLASS###'] .= ' powermail_' . $this->type;
@@ -539,12 +569,12 @@ class tx_powermail_html extends tslib_pibase {
 		$this->markerArray['###CLASS###'] .= ($this->class_f != '' && $this->additionalCssToInputField) ? ' ' . htmlspecialchars($this->class_f) : '';
 		$this->markerArray['###CLASS###'] .= '" ';
 
-        $this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
-        $content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_label'], $this->markerArray); // substitute Marker in Template
-        $content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
-        $content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
-        return $content; // return HTML
-    }
+		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
+		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_label'], $this->markerArray); // substitute Marker in Template
+		$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
+		$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
+		return $content; // return HTML
+	}
 
 	/**
 	 * Function html_html() returns pure HTML
@@ -614,21 +644,16 @@ class tx_powermail_html extends tslib_pibase {
 	private function html_file() {
 		if (!$this->piVarsFromSession['uid' . $this->uid]) { // There is no uploaded file in the session
 			$this->tmpl['html_file'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_FILE###'); // work on subpart
-
 		} else { // There is an uploaded file in the session
 			$this->tmpl['html_file'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_FILE_LIST###'); // work on subpart
-
 			$this->markerArray['###FILE###'] = $this->piVarsFromSession['uid' . $this->uid];
 			$this->markerArray['###DELETEFILE_URL###'] = $this->pi_linkTP_keepPIvars_url(array('clearSession' => $this->uid));
 			$this->markerArray['###DELETEFILE###'] .= t3lib_extMgm::siteRelPath('powermail') . 'res/img/icon_del.gif';
-
 		}
-
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_file'], $this->markerArray); // substitute Marker in Template
 		$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
 		$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
-
 		if (!empty($content)) return $content; // return HTML
 	}
 
@@ -639,7 +664,6 @@ class tx_powermail_html extends tslib_pibase {
 	 */
 	private function html_hidden() {
 		$this->tmpl['html_hidden'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_HIDDEN###'); // work on subpart
-
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_hidden'], $this->markerArray); // substitute Marker in Template
 		$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
@@ -654,17 +678,14 @@ class tx_powermail_html extends tslib_pibase {
 	 */
 	private function html_datetime() {
 		$this->tmpl['html_datetime'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_DATETIME###'); // work on subpart
-		
-		//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
-
 		$value = '';
 
 		// use value from flexform if not empty
-		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) != 0) {
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) != 0) {
 			$value = intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'));
-			if($value > 0) {
+			if ($value > 0) {
 				// convert timestamp to gmt timestamp
 				$value = gmmktime(date("H", $value), date("i", $value), date("s", $value), date("m", $value), date("d", $value), date("Y", $value));
 			}
@@ -672,36 +693,36 @@ class tx_powermail_html extends tslib_pibase {
 
 		if ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) {
 			$value = intval(strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]));
-			if($value > 0) {
+			if ($value > 0) {
 				// convert timestamp to gmt timestamp
 				$value = gmmktime(date("H", $value), date("i", $value), date("s", $value), date("m", $value), date("d", $value), date("Y", $value));
 			}
 		}
 
 		if (isset($this->piVarsFromSession['uid' . $this->uid]) && $this->piVarsFromSession['uid' . $this->uid] != '') {
-            if ($this->piVarsFromSession['uid' . $this->uid] == intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]))) {
-                // value from session is an integer -> javascript seems to be activated -> return integer from session
-                $value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
-            } else {
-                // value from session is not an integer -> javascript seems to be deactivated -> return value from session
-                $value = t3lib_div::removeXSS($this->piVarsFromSession['uid' . $this->uid]);
-            }
+			if ($this->piVarsFromSession['uid' . $this->uid] == intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]))) {
+				// value from session is an integer -> javascript seems to be activated -> return integer from session
+				$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+			} else {
+				// value from session is not an integer -> javascript seems to be deactivated -> return value from session
+				$value = t3lib_div::removeXSS($this->piVarsFromSession['uid' . $this->uid]);
+			}
 		}
 
 		$this->markerArray['###VALUE###'] = 'value="' . $value . '" ';
 
 		$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" ';
-		
+
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') != 0) {
-			$this->markerArray['###MIN###'] = 'min="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')). '" '; // add min to markerArray
+			$this->markerArray['###MIN###'] = 'min="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" '; // add min to markerArray
 		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mincalc')) != '') {
 			$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mincalc')) . '" ';
 		} else {
 			$this->markerArray['###MIN###'] = '';
 		}
-		
+
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max') != 0) {
-			$this->markerArray['###MAX###'] = 'max="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')). '" '; // add max to markerArray
+			$this->markerArray['###MAX###'] = 'max="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')) . '" '; // add max to markerArray
 		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) != '') {
 			$this->markerArray['###MAX###'] = 'max="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) . '" ';
 		} else {
@@ -711,7 +732,7 @@ class tx_powermail_html extends tslib_pibase {
 		$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" ';
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') != 0) {
-			$this->markerArray['###MIN###'] = 'min="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')). '" '; // add min to markerArray
+			$this->markerArray['###MIN###'] = 'min="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" '; // add min to markerArray
 		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mincalc')) != '') {
 			$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mincalc')) . '" ';
 		} else {
@@ -719,19 +740,19 @@ class tx_powermail_html extends tslib_pibase {
 		}
 
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max') != 0) {
-			$this->markerArray['###MAX###'] = 'max="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')). '" '; // add max to markerArray
+			$this->markerArray['###MAX###'] = 'max="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')) . '" '; // add max to markerArray
 		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) != '') {
 			$this->markerArray['###MAX###'] = 'max="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) . '" ';
 		} else {
 			$this->markerArray['###MAX###'] = '';
 		}
 
-        $this->markerArray['###PLACEHOLDER###'] = 'placeholder="'. $this->pi_getLL('JSvalidation_dateinput_format', 'yyyy-mm-dd') . ' hh:mm" ';
+		$this->markerArray['###PLACEHOLDER###'] = 'placeholder="' . $this->pi_getLL('JSvalidation_dateinput_format', 'yyyy-mm-dd') . ' hh:mm" ';
 
 		if ($this->markerArray['###ACCESSKEY###'] != '') { // if there is a defined accesskey
 			$params['inputField']['accesskey'] = $this->accesskeyarray[$i][2]; // set accesskey for datefield
 		}
-		
+
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_datetime'], $this->markerArray); // substitute Marker in Template
 		$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
@@ -751,13 +772,13 @@ class tx_powermail_html extends tslib_pibase {
 		//$this->markerArray['###LABEL###'] = htmlspecialchars($this->title); // add label
 		$this->markerArray['###LABEL_NAME###'] = 'dateinput_uid' . $this->uid; // add name for label
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid; // UID to marker
-		
+
 		$value = '';
 
 		// use value from flexform if not empty
-		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) != 0) {
+		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) != 0) {
 			$value = intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value'));
-			if($value > 0) {
+			if ($value > 0) {
 				// convert timestamp to gmt timestamp
 				$value = gmmktime(date("H", $value), date("i", $value), date("s", $value), date("m", $value), date("d", $value), date("Y", $value));
 			}
@@ -765,36 +786,36 @@ class tx_powermail_html extends tslib_pibase {
 
 		if ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) {
 			$value = intval(strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]));
-			if($value > 0) {
+			if ($value > 0) {
 				// convert timestamp to gmt timestamp
 				$value = gmmktime(date("H", $value), date("i", $value), date("s", $value), date("m", $value), date("d", $value), date("Y", $value));
 			}
 		}
 
 		if (isset($this->piVarsFromSession['uid' . $this->uid]) && $this->piVarsFromSession['uid' . $this->uid] != '') {
-            if ($this->piVarsFromSession['uid' . $this->uid] == intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]))) {
-                // value from session is a integer -> javascript seems to be activated -> return integer from session
-                $value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
-            } else {
-                // value from session is not a integer -> javascript seems to be deactivated -> return value from session
-                $value = t3lib_div::removeXSS($this->piVarsFromSession['uid' . $this->uid]);
-            }
+			if ($this->piVarsFromSession['uid' . $this->uid] == intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]))) {
+				// value from session is a integer -> javascript seems to be activated -> return integer from session
+				$value = intval($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+			} else {
+				// value from session is not a integer -> javascript seems to be deactivated -> return value from session
+				$value = t3lib_div::removeXSS($this->piVarsFromSession['uid' . $this->uid]);
+			}
 		}
 
 		$this->markerArray['###VALUE###'] = 'value="' . $value . '" ';
-		
+
 		$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" ';
-		
+
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') != 0) {
-			$this->markerArray['###MIN###'] = 'min="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')). '" '; // add min to markerArray
+			$this->markerArray['###MIN###'] = 'min="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" '; // add min to markerArray
 		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mincalc')) != '') {
 			$this->markerArray['###MIN###'] = 'min="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mincalc')) . '" ';
 		} else {
 			$this->markerArray['###MIN###'] = '';
 		}
-		
+
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max') != 0) {
-			$this->markerArray['###MAX###'] = 'max="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')). '" '; // add max to markerArray
+			$this->markerArray['###MAX###'] = 'max="' . strftime('%Y-%m-%d', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')) . '" '; // add max to markerArray
 		} elseif (trim($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) != '') {
 			$this->markerArray['###MAX###'] = 'max="' . htmlentities($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'maxcalc')) . '" ';
 		} else {
@@ -805,13 +826,13 @@ class tx_powermail_html extends tslib_pibase {
 			$params['inputField']['accesskey'] = $this->accesskeyarray[$i][2]; // set accesskey for datefield
 		}
 
-        $this->markerArray['###PLACEHOLDER###'] = 'placeholder="'. $this->pi_getLL('JSvalidation_dateinput_format', 'yyyy-mm-dd') . '" ';
+		$this->markerArray['###PLACEHOLDER###'] = 'placeholder="' . $this->pi_getLL('JSvalidation_dateinput_format', 'yyyy-mm-dd') . '" ';
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 		$content = tslib_cObj::substituteMarkerArrayCached($this->tmpl['html_date'], $this->markerArray); // substitute Marker in Template
 		$content = $this->dynamicMarkers->main($this->conf, $this->cObj, $content); // Fill dynamic locallang or typoscript markers
-		$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers		
-		
+		$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
+
 		return $content; // return HTML
 	}
 
@@ -833,7 +854,7 @@ class tx_powermail_html extends tslib_pibase {
 	/**
 	 * Function html_countryselect() returns select field with countries from static_info_tables
 	 *
-	 * @return    string		$content: HTML content of current field
+	 * @return	string		$content: HTML content of current field
 	 */
 	private function html_countryselect() {
 
@@ -841,63 +862,68 @@ class tx_powermail_html extends tslib_pibase {
 			// config
 			$this->tmpl['html_countryselect']['all'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_COUNTRYSELECT###'); // work on subpart 1
 			$this->tmpl['html_countryselect']['item'] = tslib_cObj::getSubpart($this->tmpl['html_countryselect']['all'], '###ITEM###'); // work on subpart 2
-			$valuearray = $longvaluearray = array();
-			$localfield = $whereadd = $content_item = '';
-			$sort = 'cn_short_en'; // sort for a field
+			$content_item = '';
+			$localfield = false;
+			$sorting = '';
+			$orderBy = 'cn_short_en'; // set default sorting to short english county name
 
 			// Filter for some countries
-			if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within')) { // if some countries for include where selected
+			if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within')) { // if some countries to include are selected
 				$within_flexform = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'within');
 				$within_flexform = $GLOBALS['TYPO3_DB']->cleanIntList($within_flexform);
-				$whereadd = ' AND uid IN (' . $within_flexform . ')';
-			} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without')) { // if some country for exclude where selected
+				$where = 'uid IN (' . $within_flexform . ')';
+			} else if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without')) { // if some country to exclude are selected
 				$without_flexform = $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'without');
 				$without_flexform = $GLOBALS['TYPO3_DB']->cleanIntList($without_flexform);
-				$whereadd = ' AND uid NOT IN (' . $without_flexform . ')'; //  whereadd for eclude values
+				$where = 'uid NOT IN (' . $without_flexform . ')'; //  whereadd for exclude values
 			}
 
 			// Look for another lang version (maybe static_info_tables_de or _fr)
 			if ($GLOBALS['TSFE']->tmpl->setup['config.']['language']) { // if language was set in ts
-				$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc( mysql_query('DESCRIBE static_countries cn_short_' . $GLOBALS['TSFE']->tmpl->setup['config.']['language']) ); // check for localized version of static_info_tables
-			}
-			if ($row['Field']) { // if there is a localized version of static_info_tables
-				$localfield = ', cn_short_' . $GLOBALS['TSFE']->tmpl->setup['config.']['language'] . ' cn_short_lang'; // add to query
-				$sort = 'cn_short_lang'; // change sort
+				$res1 = $GLOBALS['TYPO3_DB']->sql_query('DESCRIBE static_countries cn_short_' . $GLOBALS['TSFE']->tmpl->setup['config.']['language']);
+				if ($res1 !== false) {
+					$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res1); // check for localized version of static_info_tables
+					if (!empty($row1['Field'])) { // if there is a localized version of static_info_tables
+						$localfield = 'cn_short_' . $GLOBALS['TSFE']->tmpl->setup['config.']['language'];
+						// workaround for wrong sorting of umlauts in some mysql installations and some empty localization values
+						$sorting = ", REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( IF($localfield <> '', $localfield, cn_short_en), 'Ã„', 'A'), 'Ã–', 'O'), 'Ãœ', 'U'), 'Ã¤', 'a'), 'Ã¶', 'o'), 'Ã¼','u'), 'ÃŸ', 's'), 'Ã…','A') AS sorting, IF($localfield <> '', $localfield, cn_short_en) AS cn_short_merged";
+						$orderBy = 'sorting'; // change sort
+					}
+					$GLOBALS['TYPO3_DB']->sql_free_result($res1);
+				}
 			}
 
 			// Give me all needed fields from static_info_tables
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
-				//'uid, cn_iso_2, cn_short_local, cn_short_en' . $localfield,
-				'*' . $localfield,
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+				"*" . $sorting,
 				'static_countries',
-				$where_clause = '1' . $whereadd,
-				$groupBy = '',
-				$orderBy = $sort,
-				$limit = ''
+				$where,
+				'',
+				$orderBy
 			);
-			if ($res) { // If there is a result
+			if ($res !== false) { // If there is a result
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every country
-					if ($row['cn_short_lang']) $row['cn_short_lang'] = $this->div->charset($row['cn_short_lang'], $this->conf['countryselect.']['charset']); // change charset of value
+					$row['cn_short_local'] = $this->div->charset($row['cn_short_local'], $this->conf['countryselect.']['charset']);
 					$row['cn_short_en'] = $this->div->charset($row['cn_short_en'], $this->conf['countryselect.']['charset']); // change charset of value
 
 					// Fill markers
-					// old fill (for old html templates)
 					$markerArray['###VALUE###'] = $row['cn_iso_2'];
-					$markerArray['###LONGVALUE###'] = ($row['cn_short_lang'] ? $row['cn_short_lang'] : $row['cn_short_en']);
-
-					// new fill
-					$markerArray['###CN_SHORT_MERGE###'] = ($row['cn_short_lang'] ? $row['cn_short_lang'] : $row['cn_short_en']);
-					foreach ((array) $row as $key => $value) { // one loop for every field in the database
+					foreach ((array)$row as $key => $value) { // one loop for every field in the database
 						if (!empty($value)) { // if value is not empty
 							$markerArray['###' . strtoupper($key) . '###'] = $value;
 						}
+					}
+					$markerArray['###CN_SHORT_MERGE###'] = $row['cn_short_local'] ? $row['cn_short_local']
+							: $row['cn_short_en'];
+					if ($localfield !== false) {
+						$markerArray['###CN_SHORT_MERGE###'] = $this->div->charset($row['cn_short_merged'], $this->conf['countryselect.']['charset']);
 					}
 
 					// Preselection
 					if ($row['uid'] == $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect') && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'preselect') > 0) $markerArray['###SELECTED###'] = ' selected="selected"'; // preselect one country
 					else $markerArray['###SELECTED###'] = '';
 					if (isset($this->piVarsFromSession['uid' . $this->uid])) { // if there is a session entry
-						if ($this->piVarsFromSession['uid' . $this->uid] == $row['cn_iso_2'] || $this->piVarsFromSession['uid' . $this->uid] == $row['cn_short_lang'] || $this->piVarsFromSession['uid' . $this->uid] == $row['cn_short_en']) { // check for short or long value
+						if ($this->piVarsFromSession['uid' . $this->uid] == $row['cn_iso_2'] || $this->piVarsFromSession['uid' . $this->uid] == $row['cn_short_local'] || $this->piVarsFromSession['uid' . $this->uid] == $row['cn_short_en']) { // check for short or long value
 							$markerArray['###SELECTED###'] = ' selected="selected"'; // preselect one country
 						} else $markerArray['###SELECTED###'] = '';
 					}
@@ -905,12 +931,10 @@ class tx_powermail_html extends tslib_pibase {
 					$this->html_hookwithinfieldsinner($markerArray); // adds hook to manipulate the markerArray for any field
 					$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['html_countryselect']['item'], $markerArray);
 				}
+				$GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 
 			$subpartArray['###CONTENT###'] = $content_item; // subpart 3
-
-			$this->countryzones = t3lib_div::makeInstance('tx_powermail_countryzones');
-			$this->countryzones->preflight($this->uid, $this->xml, $this->markerArray, $this->tmpl, $this->formtitle, $this->conf, $this->piVarsFromSession, $this->cObj);
 
 			$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
 			$content = $this->cObj->substituteMarkerArrayCached($this->tmpl['html_countryselect']['all'], $this->markerArray, $subpartArray); // substitute Marker in Template
@@ -918,7 +942,7 @@ class tx_powermail_html extends tslib_pibase {
 			$content = preg_replace('|###.*?###|i', '', $content); // Finally clear not filled markers
 
 		} else { // Extension static_info_tables is missing
-			$content = 'Please install extension <strong>static_info_tables</strong> to use countryselect feature';
+			$content = 'Please install extension <strong>static_info_tables</strong> to use country select feature';
 		}
 
 		return $content; // return HTML
@@ -930,12 +954,12 @@ class tx_powermail_html extends tslib_pibase {
 	 * @return	string	$content
 	 */
 	private function html_captcha() {
-		if (t3lib_extMgm::isLoaded('captcha',0) || t3lib_extMgm::isLoaded('sr_freecap',0) || t3lib_extMgm::isLoaded('jm_recaptcha',0) || t3lib_extMgm::isLoaded('wt_calculating_captcha',0)) { // only if a captcha extension is loaded
+		if (t3lib_extMgm::isLoaded('captcha', 0) || t3lib_extMgm::isLoaded('sr_freecap', 0) || t3lib_extMgm::isLoaded('jm_recaptcha', 0) || t3lib_extMgm::isLoaded('wt_calculating_captcha', 0)) { // only if a captcha extension is loaded
 			$this->tmpl['html_captcha'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_CAPTCHA###'); // work on subpart
 
 			if (t3lib_extMgm::isLoaded('sr_freecap', 0) && $this->conf['captcha.']['use'] == 'sr_freecap') { // use sr_freecap if available
 
-				require_once(t3lib_extMgm::extPath('sr_freecap').'pi2/class.tx_srfreecap_pi2.php'); // include freecap class
+				require_once(t3lib_extMgm::extPath('sr_freecap') . 'pi2/class.tx_srfreecap_pi2.php'); // include freecap class
 				$this->freeCap = t3lib_div::makeInstance('tx_srfreecap_pi2'); // new object
 				$freecaparray = $this->freeCap->makeCaptcha(); // array with freecap marker
 
@@ -1016,12 +1040,14 @@ class tx_powermail_html extends tslib_pibase {
 	private function html_typoscript() {
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'typoscriptobject') != '') { // only if object field was set
 			// config
-			$str = array(); $array = array(); // init
+			$str = array();
+			$array = array(); // init
 			$tsarray = t3lib_div::trimExplode('.', $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'typoscriptobject'), 1); // $tsarray[0] = lib // $tsarray[1] = object
 
 			// let's go
-			for ($i=0; $i<count($tsarray); $i++) { // One loop for every level in typoscript object array
-				$str[0] .= '[\'' . str_replace(';', '', $tsarray[$i]) . ($i==(count($tsarray)-1) ? '' : '.') . '\']'; // create php code for array like ['lib.']['object']
+			for ($i = 0; $i < count($tsarray); $i++) { // One loop for every level in typoscript object array
+				$str[0] .= '[\'' . str_replace(';', '', $tsarray[$i]) . ($i == (count($tsarray) - 1) ? ''
+						: '.') . '\']'; // create php code for array like ['lib.']['object']
 				$str[1] .= '[\'' . str_replace(';', '', $tsarray[$i]) . '.\']'; // create php code for array like ['lib.']['object.']
 			}
 			eval("\$array[0] = \$GLOBALS['TSFE']->tmpl->setup$str[0];"); // $newarray = $array['lib.']['object']
@@ -1029,29 +1055,28 @@ class tx_powermail_html extends tslib_pibase {
 
 
 			$localCObj = t3lib_div::makeInstance('tslib_cObj');
-			$row = array ( // $row for using .field in typoscript
+			$row = array( // $row for using .field in typoscript
 				'uid' => $this->uid, // make current field uid available
 				'label' => $this->title,
-				'ttcontent_uid' => $this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'] // make current tt_content uid available
+				'ttcontent_uid' => $this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID']
+						: $this->cObj->data['uid'] // make current tt_content uid available
 			);
 			$localCObj->start($row, 'tx_powermail_fields'); // enable .field to use uid and label in typoscript
 			$content = $localCObj->cObjGetSingle($array[0], $array[1]); // parse typoscript
 		}
-		
+
 		return $content;
 	}
-
 
 
 	################################################################################################################
 
 
-
 	/**
-	* Function setGlobalMarkers() to fill global markers with values
-	*
-	* @return    void
-	*/
+	 * Function setGlobalMarkers() to fill global markers with values
+	 *
+	 * @return	void
+	 */
 	private function setGlobalMarkers() {
 
 		// set global markers
@@ -1068,7 +1093,7 @@ class tx_powermail_html extends tslib_pibase {
 
 		// ###TYPE###
 		$this->markerArray['###TYPE###'] = 'text';
-		
+
 		// ###CLASS###
 		$this->required = '';
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'mandatory') == 1 || $this->type == 'captcha') {
@@ -1076,7 +1101,7 @@ class tx_powermail_html extends tslib_pibase {
 		}
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') != '' && $this->type == 'text') {
 			// Set input type to be HTML5 conform
-			switch ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate')){
+			switch ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate')) {
 				case 'validate-email':
 					$this->markerArray['###TYPE###'] = 'email';
 					break;
@@ -1099,21 +1124,26 @@ class tx_powermail_html extends tslib_pibase {
 		$this->markerArray['###CLASS###'] .= 'powermail_' . $this->formtitle; // add formtitle
 		$this->markerArray['###CLASS###'] .= ' powermail_' . $this->type; // add type of field
 		$this->markerArray['###CLASS###'] .= ' powermail_uid' . $this->uid; // add uid of field
-		
+
+		if ($this->type == 'countryselect' && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'countryzone') == 1) {
+			$this->markerArray['###CLASS###'] .= ' powermail_with_countryzone'; // add css to enable countryzone detection over jQuery
+		}
+
 		// Add manual class
 		$this->markerArray['###CLASS###'] .= ($this->class_f != '' && $this->additionalCssToInputField) ? ' ' . htmlspecialchars($this->class_f) : '';
-        if ($this->type == 'datetime') {
-            $this->markerArray['###CLASS_TIME###'] = $this->markerArray['###CLASS###'] . ' powermail_time' . '" ';
-        }
+		if ($this->type == 'datetime') {
+			$this->markerArray['###CLASS_TIME###'] = $this->markerArray['###CLASS###'] . ' powermail_time' . '" ';
+		}
 		$this->markerArray['###CLASS###'] .= '" '; // close tag
-
 
 		// Add manual class to outer div
 		$this->markerArray['###CLASS_ADDITIONAL###'] .= ($this->class_f != '' && !$this->additionalCssToInputField) ? ' ' . htmlspecialchars($this->class_f) : '';
-		
+
 		// ###SIZE###
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'size')) { // if size is set in flexform
-			$this->markerArray['###SIZE###'] = ($this->conf['input.']['style'] == 1 ? 'style="width: ' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'size')) . 'px;" ' : 'size="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'size')) . '" '); // add size to markerArray
+			$this->markerArray['###SIZE###'] = ($this->conf['input.']['style'] == 1
+					? 'style="width: ' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'size')) . 'px;" '
+					: 'size="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'size')) . '" '); // add size to markerArray
 		}
 
 		// ###COLS###
@@ -1151,17 +1181,17 @@ class tx_powermail_html extends tslib_pibase {
 		if (($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-number' || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-digits') && ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min') === '0')) { // if there is value in the min field
 			$this->markerArray['###MIN###'] = 'min="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'min')) . '" '; // add min to markerArray
 		}
-		
+
 		// ###MAX###
 		if (($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-number' || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-digits') && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')) { // if there is value in the max field
 			$this->markerArray['###MAX###'] = 'max="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'max')) . '" '; // add max to markerArray
 		}
-		
+
 		// ###STEP###
 		if (($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-number' || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-digits') && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'step')) { // if there is value in the step field
 			$this->markerArray['###STEP###'] = 'step="' . intval($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'step')) . '" '; // add step to markerArray
 		}
-		
+
 		// ###PATTERN###
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'validate') == 'validate-pattern' && $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'pattern')) { // if there is value in the pattern field
 			$this->markerArray['###PATTERN###'] = 'pattern="' . t3lib_div::removeXSS($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'pattern')) . '" '; // add pattern to markerArray
@@ -1177,32 +1207,32 @@ class tx_powermail_html extends tslib_pibase {
 					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-Z0-9\s]*$" '; // add only alphanum pattern to markerArray
 					break;
 				case 'validate-alpha-w-umlaut':
-					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-ZŠ€š…Ÿ†§‡ˆŽ“ï™\s]*$" '; // add only alpha pattern to markerArray
+					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\s]*$" '; // add only alpha pattern to markerArray
 					break;
 				case 'validate-alphanum-w-umlaut':
-					$this->markerArray['###PATTERN###'] = 'pattern="^[0-9a-zA-ZŠ€š…Ÿ†§‡ˆŽ“ï™\s]*$" '; // add only alpha pattern to markerArray
+					$this->markerArray['###PATTERN###'] = 'pattern="^[0-9a-zA-Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\s]*$" '; // add only alpha pattern to markerArray
 					break;
 			}
 		}
-		
+
 		// ###PLACEHOLDER###
 		if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'placeholder')) { // if there is value in the pattern field
 			$this->markerArray['###PLACEHOLDER###'] = 'placeholder="' . htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'placeholder')) . '" '; // add placeholder to markerArray
 		}
-		
+
 		// ###VALUE###
 		if (isset($this->sessionfields['uid' . $this->uid]) && !is_array($this->sessionfields['uid' . $this->uid])) { // 1. if value is in session
 			$this->markerArray['###VALUE###'] = 'value="' . stripslashes($this->div->nl2nl2($this->sessionfields['uid' . $this->uid])) . '" ';
 		} elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. else if value should be filled from current logged in user
 			$this->markerArray['###VALUE###'] = 'value="' . strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]) . '" ';
-		} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value') ||  $this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value') === '0') { // 3. take value from backend (default value)
+		} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') === '0') { // 3. take value from backend (default value)
 			$this->markerArray['###VALUE###'] = 'value="' . htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) . '" ';
 		} elseif (!empty($this->conf['prefill.']['uid' . $this->uid])) { // 4. prefilling with typoscript for current field enabled
 			$this->markerArray['###VALUE###'] = 'value="' . $this->cObj->cObjGetSingle($this->conf['prefill.']['uid' . $this->uid], $this->conf['prefill.']['uid' . $this->uid . '.']) . '" '; // add typoscript value
 		} else { // 5. no prefilling - so clear value marker
 			$this->markerArray['###VALUE###'] = 'value="" '; // clear
 		}
-		
+
 		// ###LABEL###
 		if (!empty($this->title)) {
 			$this->markerArray['###LABEL###'] = $this->title;
@@ -1224,26 +1254,28 @@ class tx_powermail_html extends tslib_pibase {
 
 		// ###POWERMAIL_TARGET###
 		#$this->markerArray['###POWERMAIL_TARGET###'] = $GLOBALS['TSFE']->absRefPrefix.$this->cObj->typolink('x', array("returnLast" => "url", "parameter" => $GLOBALS['TSFE']->id, "useCacheHash"=>1)); // Global marker with form target
-		$this->markerArray['###POWERMAIL_TARGET###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'additionalParams' => '&tx_powermail_pi1[mailID]=' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), 'useCacheHash' => 1));
+		$this->markerArray['###POWERMAIL_TARGET###'] = $this->cObj->typolink('x', array('returnLast' => 'url', 'parameter' => $GLOBALS['TSFE']->id, 'additionalParams' => '&tx_powermail_pi1[mailID]=' . ($this->cObj->data['_LOCALIZED_UID'] > 0
+																						? $this->cObj->data['_LOCALIZED_UID']
+																						: $this->cObj->data['uid']), 'useCacheHash' => 1));
 
 		// ###POWERMAIL_NAME###
 		$this->markerArray['###POWERMAIL_NAME###'] = htmlspecialchars($this->formtitle); // Global Marker with formname
 
 		// ###ALTERNATE###
-		$this->markerArray['###ALTERNATE###'] = ($this->div->alternate($this->counter) ? ' odd' : ' even'); // Fill class with "odd" or "even"
+		$this->markerArray['###ALTERNATE###'] = $this->div->alternate($this->counter) ? ' odd' : ' even'; // Fill class with "odd" or "even"
 
 		// ###TABINDEX###
-		// 1. add tabindex automaticly
+		// 1. add tabindex automatically
 		if (in_array($this->uid, $this->tabindex)) { // if current uid within tabindex array
 			$this->turnedtabindex = array_flip($this->tabindex); // array flipped (values and keys)
-			$this->markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid] + 1) . '" '; // add tabindex automaticly
+			$this->markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid] + 1) . '" '; // add tabindex automatically
 		}
 		// 2. set tabindex from ts
 		if (!empty($this->conf['barrier-free.']['tabindex'])) { // If manually set tabindex in ts
 			$this->tabindex = t3lib_div::trimExplode(',', str_replace('uid', '', $this->conf['barrier-free.']['tabindex']), 1); // Array with uids
 			$this->turnedtabindex = array_flip($this->tabindex); // array flipped (values and keys)
 			if (in_array($this->uid, $this->tabindex)) { // If current uid exists in tabindex settings from ts
-				$this->markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid] + 1) . '" '; // add tabindex automaticly
+				$this->markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid] + 1) . '" '; // add tabindex automatically
 			}
 		}
 
@@ -1251,7 +1283,7 @@ class tx_powermail_html extends tslib_pibase {
 		if (!empty($this->conf['barrier-free.']['accesskey'])) { // If manually set accesskey in ts
 			$array = t3lib_div::trimExplode(',', $this->conf['barrier-free.']['accesskey'], 1); // Array with uids and subuids
 
-			for ($i=0; $i<count($array); $i++) { // one loop for every uid/accesskey part
+			for ($i = 0; $i < count($array); $i++) { // one loop for every uid/accesskey part
 				$temparray[$i] = t3lib_div::trimExplode(':', $array[$i], 1); // Split on :
 				$this->accesskeyarray[$i] = t3lib_div::trimExplode('_', str_replace('uid', '', $temparray[$i][0]), 1); // split on _
 				$this->accesskeyarray[$i][2] = $temparray[$i][1]; // [2] = accesskey value
@@ -1269,34 +1301,28 @@ class tx_powermail_html extends tslib_pibase {
 			$this->markerArray['###ONCHANGE###'] = 'onchange="this.form.submit()"'; // onchange js for select fields
 		}
 
-//		// ###ONFOCUS### Marker
-//		$this->markerArray['###ONFOCUS###'] = '';
-//		if ($this->conf['js.']['onfocus']) { // only allowed if jsinit or onfocus set
-//			if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') && $this->conf['js.']['onfocus'] && !$this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'readonly')) { // if value exists
-//				$js = 'onfocus="if (this.value==\'' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') . '\') this.value=\'\';" onblur="if (this.value==\'\') this.value=\'' . $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') . '\'; ' . $init . '" '; // add onfocus js to markerArray
-//			}
-//			$this->markerArray['###ONFOCUS###'] = $js; // Fill markerArray with JS
-//		}
+		$this->markerArray['###PLEASE_SELECT###'] = $this->pi_getLL('please_select', 'Please select...');
+
 	}
 
 	/**
-	* Function GetSessionValue() to get any field value which is already in the session
-	*
-	* @return    void
-	*/
+	 * Function GetSessionValue() to get any field value which is already in the session
+	 *
+	 * @return	void
+	 */
 	private function GetSessionValue() {
 		$this->sessions = t3lib_div::makeInstance('tx_powermail_sessions');
 		$this->piVarsFromSession = $this->sessions->getSession($this->conf, $this->cObj, 0);
 	}
 
 	/**
-	* Function html_hook1() to add a hook to manipulate some content
-	*
-	* @return	void
-	*/
+	 * Function html_hook1() to add a hook to manipulate some content
+	 *
+	 * @return	void
+	 */
 	private function html_hook1() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook1'])) { // Adds hook for processing of extra global markers
-			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook1'] as $_classRef) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook1'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
 				$_procObj->PM_FieldWrapMarkerHook1($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
 			}
@@ -1304,13 +1330,13 @@ class tx_powermail_html extends tslib_pibase {
 	}
 
 	/**
-	* Function html_hook2() to add a hook at the end of this file to manipulate content
-	*
-	* @return	void
-	*/
+	 * Function html_hook2() to add a hook at the end of this file to manipulate content
+	 *
+	 * @return	void
+	 */
 	private function html_hook2() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'])) { // Adds hook for processing of extra global markers
-			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'] as $_classRef) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
 				$_procObj->PM_FieldWrapMarkerHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->content, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
 			}
@@ -1318,13 +1344,13 @@ class tx_powermail_html extends tslib_pibase {
 	}
 
 	/**
-	* Function html_hookwithinfields() to add a hook in every field generation to manipulate markerArray
-	*
-	* @return	void
-	*/
+	 * Function html_hookwithinfields() to add a hook in every field generation to manipulate markerArray
+	 *
+	 * @return	void
+	 */
 	private function html_hookwithinfields() {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'])) { // Adds hook for processing of extra global markers
-			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'] as $_classRef) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
 				$_procObj->PM_FieldWrapMarkerArrayHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
 			}
@@ -1332,14 +1358,14 @@ class tx_powermail_html extends tslib_pibase {
 	}
 
 	/**
-	* Function html_hookwithinfieldsinner($markerArray) to add a hook in every field generation to manipulate markerArray in the inner loop (checkboxes, radiobuttons, etc..)
-	*
-	* @param	$markerArray: markerArray
-	* @return	void
-	*/
+	 * Function html_hookwithinfieldsinner($markerArray) to add a hook in every field generation to manipulate markerArray in the inner loop (checkboxes, radiobuttons, etc..)
+	 *
+	 * @param	$markerArray: markerArray
+	 * @return	void
+	 */
 	private function html_hookwithinfieldsinner(&$markerArray) {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHookInner'])) { // Adds hook for processing of extra global markers
-			foreach($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHookInner'] as $_classRef) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerArrayHookInner'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
 				$_procObj->PM_FieldWrapMarkerHookInner($this->uid, $this->xml, $this->type, $this->title, $markerArray, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
 			}
@@ -1347,20 +1373,20 @@ class tx_powermail_html extends tslib_pibase {
 	}
 
 	/**
-	* Function isPrefilled returns whether a option is prefilled or not
-	*
-	* @param  	int		current index
-	* @param  	array	array of values or indexes to select/check
-	* @param  	value	current value
-	*
-	* @return	boolean
-	*/
+	 * Function isPrefilled returns whether a option is prefilled or not
+	 *
+	 * @param	  int		current index
+	 * @param	  array	array of values or indexes to select/check
+	 * @param	  value	current value
+	 *
+	 * @return	boolean
+	 */
 	private function isPrefilled($index, $selected, $value) {
 		if ($this->cObj->stdWrap($this->conf['prefill.']['uid' . $this->uid . '_' . $index], $this->conf['prefill.']['uid' . $this->uid . '_' . $index . '.'])) {
 			return true; // by field
-		} elseif (is_int($selected[0]) && in_array($index, (array) $selected)) {
+		} elseif (is_int($selected[0]) && in_array($index, (array)$selected)) {
 			return true; // by index
-		} elseif (in_array($value, (array) $selected)) {
+		} elseif (in_array($value, (array)$selected)) {
 			return true; // by value
 		}
 
@@ -1368,7 +1394,7 @@ class tx_powermail_html extends tslib_pibase {
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_html.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_html.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/powermail/pi1/class.tx_powermail_html.php']);
 }
 ?>

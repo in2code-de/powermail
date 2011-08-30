@@ -36,6 +36,9 @@
 			<label index="error_templateNotFound">Template not found, check path to your powermail templates</label>
 			<label index="error_captchaWrongExt">Powermail ERROR: The chosen captcha extension &quot;%s&quot; is not loaded! Choose another captcha extension in the powermail constants or install the extension &quot;%s&quot;.</label>
 			<label index="error_captchaNoExtFound">Please install a captcha extension like captcha, sr_freecap, jm_recaptcha or wt_calculating_captcha!</label>
+   <label index="please_select">Please select...</label>
+   <label index="country_zone">State</label>
+   <label index="country_zone_of">State of %s</label>
 			<label index="multiple_forward">Next step</label>
 			<label index="multiple_back">Previous step</label>
 			<label index="pagebrowser_inner">of</label>

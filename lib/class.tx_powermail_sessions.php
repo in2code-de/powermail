@@ -1,26 +1,26 @@
 <?php
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2007 Alexander Kellner, Mischa Hei�mann <alexander.kellner@einpraegsam.net, typo3.2008@heissmann.org>
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2011 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_functions_div.php'); // file for div functions
@@ -56,7 +56,7 @@ class tx_powermail_sessions extends tslib_pibase {
 			$piVars = $this->urldecodeArrayRecursive($piVars);
 
 			// Set Session (overwrite all values)
-			$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $piVars); // Generate Session with piVars array
+			$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $piVars); // Generate Session with piVars array
 			$GLOBALS['TSFE']->storeSessionData(); // Save session
 		}
 	}
@@ -73,7 +73,7 @@ class tx_powermail_sessions extends tslib_pibase {
 		foreach ($dataArray as $key => $val) {
 			if (is_array($val)){
 				$this->urldecodeArrayRecursive($val);
-			}else {
+			} else {
 				$val = rawurldecode($val);
 			}
 
@@ -90,12 +90,12 @@ class tx_powermail_sessions extends tslib_pibase {
 		$this->cObj = $cObj;
 
 		// start
-		$piVars = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'])); // Get piVars from Session
+		$piVars = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid'])); // Get piVars from Session
 
 		if ($all == 0) { // delete not allowed values from piVars
 			if (isset($piVars) && is_array($piVars)) {
 				foreach($piVars as $key => $value) { // one loop for every piVar
-					if (!is_numeric(str_replace('uid','',$key)) && !in_array($key, $this->extendedSessionValues)) { // all values which are not like uid3 && Not especially values
+					if (!is_numeric(str_replace('uid', '', $key)) && !in_array($key, $this->extendedSessionValues)) { // all values which are not like uid3 && Not especially values
 						unset($piVars[$key]); // delete current value (like mailID or sendnow)
 					}
 				}
@@ -114,20 +114,20 @@ class tx_powermail_sessions extends tslib_pibase {
 		if (!is_array($uid)) { // is not an array
 			if ($uid == -1) { // delete all
 
-				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), array()); // Overwrite Session with empty array
+				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), array()); // Overwrite Session with empty array
 				$GLOBALS['TSFE']->storeSessionData(); // Save session
 
 			} elseif ($uid > 0) { // delete only one value from session
 
 				$oldPiVars = $this->getSession($this->conf, $this->cObj); // Get all old piVars from Session
-				$oldvalue = $oldPiVars['uid'.$uid]; // filename
+				$oldvalue = $oldPiVars['uid' . $uid]; // filename
 				if (count($oldPiVars['FILE']) > 0) { // if there are values in the FILE array
 					foreach ($oldPiVars['FILE'] as $key => $value) { // one loop for every file in array
 						if ($value == $oldvalue) unset($oldPiVars['FILE'][$key]); // delete FILE array value
 					}
 				}
 				unset($oldPiVars['uid'.$uid]); // Delete one uid
-				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
+				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
 				$GLOBALS['TSFE']->storeSessionData(); // Save session
 
 			}
@@ -137,7 +137,7 @@ class tx_powermail_sessions extends tslib_pibase {
 				foreach ($uid as $key => $value) {
 					unset($oldPiVars['FILE'][$key]); // delete FILE array value
 				}
-				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey.'_'.($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
+				$GLOBALS['TSFE']->fe_user->setKey('ses', $this->extKey . '_' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID'] : $this->cObj->data['uid']), $oldPiVars); // Overwrite Session with array
 				$GLOBALS['TSFE']->storeSessionData(); // Save session
 			}
 		}
@@ -188,7 +188,7 @@ class tx_powermail_sessions extends tslib_pibase {
 
 			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 
-			if ($res) { // If there is a result
+			if ($res !== false) { // If there is a result
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every uploadfield
 					if ($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']]) { // if there is a content in current upload field
 						if (is_array($_FILES['tx_powermail_pi1']['name']['uid' . $row['uid']])) { // is this an array? Can be for multiple file-upload
@@ -267,11 +267,10 @@ class tx_powermail_sessions extends tslib_pibase {
 							}
 						}
 					}
-
-				}
+				}   
+                $GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 		}
-
 		return $piVars;
 	}
 }

@@ -83,13 +83,18 @@ class tx_powermail_markers extends tslib_pibase {
 			);
 			
 			if ($res !== false) {
+                $orderedSessionData = array();
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
 					if ($this->sessiondata['uid' . $row['uid']] != "") {
 						$orderedSessionData['uid' . $row['uid']] = $this->sessiondata['uid' . $row['uid']];
+                        if (isset($this->sessiondata['uid' . ($row['uid'] + 100000)])) { // handle session var with offset of 100000 as countryzone
+                            $orderedSessionData['uid' . ($row['uid'] + 100000)] = $this->sessiondata['uid' . ($row['uid'] + 100000)];
+                            unset($this->sessiondata['uid' . $row['uid'] + 100000]);
+                        }
 					}
-					unset($this->sessiondata['uid' . $row['uid']]);
+                    unset($this->sessiondata['uid' . $row['uid']]);
 				}
-				$this->sessiondata = array_merge((array) $orderedSessionData, $this->sessiondata);
+				$this->sessiondata = array_merge($orderedSessionData, $this->sessiondata);
                 $GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 
@@ -210,6 +215,23 @@ class tx_powermail_markers extends tslib_pibase {
                 if ($row !== false) {
                     $this->label = $this->div->parseFunc($row['title'], $this->cObj, $this->conf['label.']['parse']); // set label to title
                     $this->type = $row['formtype']; // set type to formtype
+                } else {
+                    // if no result found, check for country zone select
+                    $res2 = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
+                        'tx_powermail_fields.title, tx_powermail_fields.formtype',
+                        'tx_powermail_fields
+                        LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid
+                        LEFT JOIN tt_content ON tt_content.uid = tx_powermail_fieldsets.tt_content',
+                        'tx_powermail_fields.uid = ' . (intval(str_replace('uid', '', $this->label)) - 100000)
+                    );
+                    $row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res2);
+                    if ($row2 !== false) {
+                        $this->LOCAL_LANG_loaded = 0;
+                        $this->pi_loadLL();
+                        $this->label = sprintf($this->pi_getLL('country_zone_of', 'State of %s'), $this->div->parseFunc($row2['title'], $this->cObj, $this->conf['label.']['parse']));
+                        $this->type = 'select';
+                        $GLOBALS['TYPO3_DB']->sql_free_result($res2);
+                    }
                 }
                 $GLOBALS['TYPO3_DB']->sql_free_result($res);
             }
