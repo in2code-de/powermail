@@ -21,7 +21,7 @@
 			<label index="tx_powermail_forms.sendername">Senders name</label>
 			<label index="tx_powermail_forms.confirm">Activate confirmation page</label>
 			<label index="tx_powermail_forms.startingpoint">Save mails in page (empty for same page)</label>
-   <label index="tx_powermail_forms.savemailstopage">Save powermails to page (NO data storage, if the field is empty!)</label>
+			<label index="tx_powermail_forms.savemailstopage">Save powermails to page (NO data storage, if this field is empty!)</label>
 			<label index="tx_powermail_forms.multiple">Multiple steps (every fieldset is a single page)</label>
 			<label index="tx_powermail_forms.multiple.I.0">Show all fieldsets on one page (default)</label>
 			<label index="tx_powermail_forms.multiple.I.1">Multiple pages (client application)</label>
@@ -174,7 +174,7 @@
 			<label index="tx_powermail_forms.sendername">Name des Absenders</label>
 			<label index="tx_powermail_forms.confirm">Bestätigungsseite aktivieren</label>
 			<label index="tx_powermail_forms.startingpoint">Speicherort für Mails (leer für gleiche Seite)</label>
-   <label index="tx_powermail_forms.savemailstopage">Speicherort für Powermails (KEINE Datenspeicherung, wenn dieses Feld leer ist!)</label>
+			<label index="tx_powermail_forms.savemailstopage">Speicherort für Powermails (KEINE Datenspeicherung, wenn dieses Feld leer ist!)</label>
 			<label index="tx_powermail_forms.multiple">Mehrere Schritte (jedes Fieldset ist eine eigene Seite)</label>
 			<label index="tx_powermail_forms.multiple.I.0">Zeige alle Fieldsets auf einer Seite (Standard)</label>
 			<label index="tx_powermail_forms.multiple.I.1">Mehrere Seiten (Clientseitig)</label>
