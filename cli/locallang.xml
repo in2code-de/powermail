@@ -8,6 +8,8 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="import_scheduler.title">Automatic CSV import</label>
+			<label index="import_scheduler.descrition">Automatic import of CSV data to powermail</label>
 			<label index="label.fileurl">URL of file to import (with http://)</label>
 			<label index="label.delimiter">Field delimiter</label>
 			<label index="label.enclosure">Field enclosure</label>
@@ -31,9 +33,11 @@
 			<label index="msg.successfullyImport">%s rows have been imported.</label>
 			<label index="msg.fileNotFound">%s not found!</label>
 			<label index="msg.error">Error</label>
-			<label index="msg.additionalInformation">Import CSV (%s) to page %s</label>
+			<label index="msg.additionalInformation">Import %s to page %s</label>
 		</languageKey>
 		<languageKey index="de" type="array">
+			<label index="import_scheduler.title">Automatischer CSV Import</label>
+			<label index="import_scheduler.descrition">Automatischer Import von CSV-Daten in Powermail</label>
 			<label index="label.fileurl">URL der zu importierenden Datei (mit http://)</label>
 			<label index="label.delimiter">Feldtrenner</label>
 			<label index="label.enclosure">Feldumschließungen</label>
@@ -57,7 +61,7 @@
 			<label index="msg.successfullyImport">Es wurden %s Zeilen importiert.</label>
 			<label index="msg.fileNotFound">%s nicht gefunden!</label>
 			<label index="msg.error">Fehler</label>
-			<label index="msg.additionalInformation">Importiere CSV (%s) nach Seite %s</label>
+			<label index="msg.additionalInformation">Importiere %s in Seite %s</label>
 		</languageKey>
 	</data>
 </T3locallang>

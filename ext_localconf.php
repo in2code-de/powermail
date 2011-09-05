@@ -42,8 +42,8 @@ $TYPO3_CONF_VARS['SC_OPTIONS']['scheduler']['tasks']['tx_powermail_scheduler'] =
 
 $TYPO3_CONF_VARS['SC_OPTIONS']['scheduler']['tasks']['tx_powermail_import_scheduler'] = array(
 	'extension' => 'powermail',
-	'title' => 'Automatic CSV Import',
-	'description' => 'Automatic import of CSV data to powermail',
+	'title' => 'LLL:EXT:' . $_EXTKEY . '/cli/locallang.xml:import_scheduler.title',
+	'description' => 'LLL:EXT:' . $_EXTKEY . '/cli/locallang.xml:import_scheduler.description',
 	'additionalFields' => 'tx_powermail_import_scheduler_addFields'
 );
 ?>
