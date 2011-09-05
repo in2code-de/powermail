@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_powermail_pi1 (scheduler tasks)&quot;</description>
+		<labelContext type="array">
+		</labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="label.fileurl">URL of file to import (with http://)</label>
+			<label index="label.delimiter">Field delimiter</label>
+			<label index="label.enclosure">Field enclosure</label>
+			<label index="label.encoding">File encoding</label>
+			<label index="label.firstline">First line contains field names (do not import)</label>
+			<label index="label.limit">Number of rows to be imported (empty = all)</label>
+			<label index="label.pid">Page ID where to store imported data</label>
+			<label index="label.formuid">Form UID where fields are defined</label>
+			<label index="label.connections"><![CDATA[Field connections (one line per field)<br />CSV-Columnnumber = Powermail-Uid<br />Example:<br />1 = uid100<br />2 = uid101<br />3 = uid107]]></label>
+			<label index="msg.noPid">No Page id defined!</label>
+			<label index="enclosure.0">Quotation marks (double)</label>
+			<label index="enclosure.1">Quotation marks (single)</label>
+			<label index="enclosure.2">None</label>
+			<label index="delimiter.0">Semicolon</label>
+			<label index="delimiter.1">Comma</label>
+			<label index="delimiter.2">Tab</label>
+			<label index="msg.noFormuid">No Form id defined!</label>
+			<label index="msg.noFileurl">No file url defined!</label>
+			<label index="msg.noEncoding">No encoding defined!</label>
+			<label index="msg.successfullyImportHeader">Import successfully finished</label>
+			<label index="msg.successfullyImport">%s rows have been imported.</label>
+			<label index="msg.fileNotFound">%s not found!</label>
+			<label index="msg.error">Error</label>
+			<label index="msg.additionalInformation">Import CSV (%s) to page %s</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="label.fileurl">URL der zu importierenden Datei (mit http://)</label>
+			<label index="label.delimiter">Feldtrenner</label>
+			<label index="label.enclosure">Feldumschließungen</label>
+			<label index="label.encoding">Dateiencoding</label>
+			<label index="label.firstline">Erste Zeile beinhaltet Feldnamen (nicht importieren)</label>
+			<label index="label.limit">Anzahl der zu importierenden Zeilen (leer = alle)</label>
+			<label index="label.pid">Seiten-ID wohin die Daten importiert werden sollen</label>
+			<label index="label.formuid">Form-UID in der die Powermailfelder definiert sind</label>
+			<label index="label.connections"><![CDATA[Feldverbindungen (eine Zeile pro Feld)<br />CSV-Spaltennummer = Powermail-Uid<br />Beispiel:<br />1 = uid100<br />2 = uid101<br />3 = uid107]]></label>
+			<label index="enclosure.0">Anführungszeichen (doppelt)</label>
+			<label index="enclosure.1">Anführungszeichen (einfach)</label>
+			<label index="enclosure.2">Keine</label>
+			<label index="delimiter.0">Semicolon</label>
+			<label index="delimiter.1">Komma</label>
+			<label index="delimiter.2">Tabulator</label>
+			<label index="msg.noPid">Keine Page id definiert!</label>
+			<label index="msg.noFormuid">Keine Form id definiert!</label>
+			<label index="msg.noFileurl">Keine Datei-URL definiert!</label>
+			<label index="msg.noEncoding">Kein Encoding definiert!</label>
+			<label index="msg.successfullyImportHeader">Import erfolgreich beendet</label>
+			<label index="msg.successfullyImport">Es wurden %s Zeilen importiert.</label>
+			<label index="msg.fileNotFound">%s nicht gefunden!</label>
+			<label index="msg.error">Fehler</label>
+			<label index="msg.additionalInformation">Importiere CSV (%s) nach Seite %s</label>
+		</languageKey>
+	</data>
+</T3locallang>

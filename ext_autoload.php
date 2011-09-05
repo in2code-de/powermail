@@ -19,7 +19,9 @@ $arr = array(
 
 	/* scheduler */
 	'tx_powermail_scheduler' => $powermailExtPath . 'cli/class.tx_powermail_scheduler.php',
-	'tx_powermail_scheduler_addFields' => $powermailExtPath . 'cli/class.tx_powermail_scheduler_addFields.php'
+	'tx_powermail_scheduler_addFields' => $powermailExtPath . 'cli/class.tx_powermail_scheduler_addFields.php',
+	'tx_powermail_import_scheduler' => $powermailExtPath . 'cli/class.tx_powermail_import_scheduler.php',
+	'tx_powermail_import_scheduler_addFields' => $powermailExtPath . 'cli/class.tx_powermail_import_scheduler_addFields.php'
 
 );
 

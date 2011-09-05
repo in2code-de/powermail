@@ -17,6 +17,7 @@ include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermail_misc.php')
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermailCheckT3jquery.php'); // Conditions for Check if t3jquery is loaded or not
 include_once(t3lib_extMgm::extPath('powermail') . 'lib/user_powermailCheckT3jqueryCDNMode.php'); // Conditions for Check if t3jquery is in CDN Mode
 include_once(t3lib_extMgm::extPath('powermail') . 'cli/class.tx_powermail_scheduler_addFields.php'); // Scheduler addFields class
+include_once(t3lib_extMgm::extPath('powermail') . 'cli/class.tx_powermail_import_scheduler_addFields.php'); // Scheduler addFields class
 
 t3lib_extMgm::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/pageTSconfig.txt">');
 
@@ -39,4 +40,10 @@ $TYPO3_CONF_VARS['SC_OPTIONS']['scheduler']['tasks']['tx_powermail_scheduler'] =
 	'additionalFields' => 'tx_powermail_scheduler_addFields'
 );
 
+$TYPO3_CONF_VARS['SC_OPTIONS']['scheduler']['tasks']['tx_powermail_import_scheduler'] = array(
+	'extension' => 'powermail',
+	'title' => 'Automatic CSV Import',
+	'description' => 'Automatic import of CSV data to powermail',
+	'additionalFields' => 'tx_powermail_import_scheduler_addFields'
+);
 ?>
