@@ -19,7 +19,7 @@
 .powermail_mandatory{color:#ff0000;}
 .placeholder{color:#999999;}
 .powermail_mandatory_helper{position:absolute;visibility:hidden;height:1px;}
-.wtcalculatingcaptcha{margin-left:200px;}
+.wtcalculatingcaptcha,#recaptcha_widget_div{margin-left:200px;}
 .error{background-color:#ff0000;border:1px solid #ff0000;font-size:11px;color:#ffffff;padding:3px 10px 5px 10px;margin-left:-2px;z-index:10;text-align:left;height:auto;border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);box-shadow:0 0 10px rgba(0, 0, 0, 0.5);}.error p{margin:0;padding:0;font-weight:bold;}
 html:root .error em{display:block;width:0;height:0;border:10px solid;border-color:#ff0000 transparent transparent;position:absolute;bottom:-10px;left:5px;border-bottom:0 none;}
 #calroot{z-index:10000;margin-top:-1px;width:198px;padding:2px;background-color:#fff;font-size:11px;border:1px solid #ccc;border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);box-shadow:0 0 10px rgba(0, 0, 0, 0.5);}
@@ -45,7 +45,7 @@ a.caltrigger{position:relative;display:inline-block;margin-left:-18px;margin-top
 div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset{padding-top:15px;-moz-box-shadow:0 0 0 rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 0 rgba(0, 0, 0, 0.5);box-shadow:0 0 0 rgba(0, 0, 0, 0.5);}div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset legend,div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset.ui-tabs-hide{display:none;}
 div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset fieldset legend{display:block;}
 ul.powermail_multiplejs_tabs{list-style-type:none;padding:0;margin:0;}ul.powermail_multiplejs_tabs li{float:left;margin:0 1px 0 0;padding:0;list-style-type:none;}ul.powermail_multiplejs_tabs li a{display:block;padding:5px 10px;color:#666666;font-weight:bold;text-decoration:none;background:#e0e0e0;-webkit-border-top-left-radius:2px;-webkit-border-top-right-radius:2px;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-top:1px solid #cccccc;border-left:1px solid #cccccc;border-right:1px solid #cccccc;outline:none;}ul.powermail_multiplejs_tabs li a.act{background:#f0f0f0;color:#333333;padding:5px 10px 6px 10px;position:relative;margin-bottom:-1px;-moz-box-shadow:0 0 0 rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 0 rgba(0, 0, 0, 0.5);box-shadow:0 0 0 rgba(0, 0, 0, 0.5);}
-input.tx_powermail_pi1_submitmultiple_forward,input.tx_powermail_pi1_submitmultiple_back{margin-top:1em;}
+input.tx_powermail_pi1_submitmultiple_forward,input.tx_powermail_pi1_submitmultiple_back,input.tx-powermail-pi1_confirmation_back,input.tx-powermail-pi1_confirmation_submit{margin-top:1em;}
 input.tx_powermail_pi1_submitmultiple_forward{float:right;}
 .powermail_multiple_php form>div.tx_powermail_pi1_fieldwrap_html_submit{display:inline;float:right;clear:none;margin-top:1em;}
 .tx-powermail-pi1_confirmation table.powermail_all,.tx-powermail-pi1_thx table{font-size:1em;margin-bottom:10px;}.tx-powermail-pi1_confirmation table.powermail_all:after,.tx-powermail-pi1_thx table:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}

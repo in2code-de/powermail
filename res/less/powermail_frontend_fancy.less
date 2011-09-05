@@ -1,6 +1,6 @@
 /**********************************************************/
-/* Less file for Powermail Basic CSS.                     */
-/* Target -> ../css/powermail_frontend_basic.css          */
+/* Less file for Powermail Fancy CSS.                     */
+/* Target -> ../css/powermail_frontend_fancy.css          */
 /* Use less.app to compile                                */
 /* More info about less.app: http://incident57.com/less/  */
 /**********************************************************/
@@ -303,7 +303,8 @@ div.tx-powermail-pi1 {
     height:1px;
 }
 
-.wtcalculatingcaptcha {
+.wtcalculatingcaptcha,
+#recaptcha_widget_div {
     margin-left:@labelWidth;
 }
 
@@ -581,7 +582,9 @@ ul.powermail_multiplejs_tabs {
 
 /* Multiple PHP */
 input.tx_powermail_pi1_submitmultiple_forward,
-input.tx_powermail_pi1_submitmultiple_back {
+input.tx_powermail_pi1_submitmultiple_back,
+input.tx-powermail-pi1_confirmation_back,
+input.tx-powermail-pi1_confirmation_submit {
     margin-top:1em;
     padding: 5px 20px;
     font-weight: bold;

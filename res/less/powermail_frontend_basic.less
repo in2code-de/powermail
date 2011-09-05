@@ -6,6 +6,8 @@
 /**********************************************************/
 
 /* Dimensions definitions start */
+//@labelWidth: 130px;
+//@fieldWidth: 380px;
 @labelWidth: 200px;
 @fieldWidth: 400px;
 @timeFieldWidth: 60px;
@@ -23,7 +25,7 @@
 @multipleTabColor: #666;
 @multipleTabActiveColor: #333;
 @fieldsetBorderColor: #ccc;
-@mandatoryColor: #f00;
+@mandatoryColor: #ff0000;
 @errorColor: #fff;
 @errorBackgroundColor: @mandatoryColor;
 @placeHolderColor: #999;
@@ -46,6 +48,7 @@
 
 /* Imagepath definitions start */
 @imagePath: '../img/';
+//@imagePath: 'images/';
 @calPrevIcon: %('%sprev.gif', @imagePath);
 @calNextIcon: %('%snext.gif', @imagePath);
 @calTriggerIcon: %('%scalendar.png', @imagePath);
@@ -249,7 +252,8 @@
     height:1px;
 }
 
-.wtcalculatingcaptcha {
+.wtcalculatingcaptcha,
+#recaptcha_widget_div {
     margin-left:@labelWidth;
 }
 
@@ -526,7 +530,11 @@ ul.powermail_multiplejs_tabs {
 
 /* Multiple PHP */
 input.tx_powermail_pi1_submitmultiple_forward,
-input.tx_powermail_pi1_submitmultiple_back {margin-top:1em;}
+input.tx_powermail_pi1_submitmultiple_back,
+input.tx-powermail-pi1_confirmation_back,
+input.tx-powermail-pi1_confirmation_submit {
+    margin-top:1em;
+}
 
 input.tx_powermail_pi1_submitmultiple_forward {
     float: right;
