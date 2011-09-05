@@ -138,7 +138,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 			$orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
 			$limit = 10000
 		);
-		if ($res) { // If there is a result
+		if ($res !== false) { // If there is a result
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every field
 				/**
 				 * Modified for Bel: do not validate on server side if class of field is set to "donotcheckmandatory"
@@ -159,6 +159,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 					}
 				}
 			}
+			$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		}
 
 	}
@@ -194,7 +195,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 						$orderBy = '',
 						$limit = ''
 					);
-					if ($res) { // If there is a result
+					if ($res !== false) { // If there is a result
 						while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every found email
 							if ($row['piVars']) { // entry found
 								$vars = t3lib_div::xml2array($row['piVars'], 'piVars'); // array of values
@@ -206,8 +207,8 @@ class tx_powermail_mandatory extends tslib_pibase {
 								}
 							}
 						}
+						$GLOBALS['TYPO3_DB']->sql_free_result($res);
 					}
-
 				}
 
 					// check for IP address
@@ -221,9 +222,12 @@ class tx_powermail_mandatory extends tslib_pibase {
 						$orderBy = '',
 						$limit = 1
 					);
-					if ($res) $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-					if ($row['senderIP']) { // IP address found
-						$this->sessionfields['ERROR'][strtolower($value)][] = sprintf($this->pi_getLL('error_unique_ip', 'IP address %s already made an entry'), $_SERVER['REMOTE_ADDR']); // add errormsg
+					if ($res !== false) {
+						$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+						if ($row['senderIP']) { // IP address found
+							$this->sessionfields['ERROR'][strtolower($value)][] = sprintf($this->pi_getLL('error_unique_ip', 'IP address %s already made an entry'), $_SERVER['REMOTE_ADDR']); // add errormsg
+						}
+						$GLOBALS['TYPO3_DB']->sql_free_result($res);
 					}
 				}
 			}
@@ -274,6 +278,48 @@ class tx_powermail_mandatory extends tslib_pibase {
 				}
 			}
 		}
+
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+			'tx_powermail_fields.uid, tx_powermail_fields.title, tx_powermail_fields.flexform',
+			'tx_powermail_fields LEFT JOIN tx_powermail_fieldsets ON tx_powermail_fields.fieldset = tx_powermail_fieldsets.uid LEFT JOIN tt_content ON tx_powermail_fieldsets.tt_content = tt_content.uid',
+			'tx_powermail_fields.formtype = \'text\' AND tx_powermail_fieldsets.tt_content = ' . ($this->cObj->data['_LOCALIZED_UID'] > 0 ? $this->cObj->data['_LOCALIZED_UID']
+					: $this->cObj->data['uid']) . tslib_cObj::enableFields('tt_content') . tslib_cObj::enableFields('tx_powermail_fieldsets') . tslib_cObj::enableFields('tx_powermail_fields'),
+			'',
+			'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
+			10000
+		);
+		if ($res !== false) { // If there is a result
+			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every found email
+				if (trim($this->sessionfields['uid' . $row['uid']]) != '') {
+					if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'validate') == 'validate-digits') {
+						if (!preg_match('/^[0-9]+$/', $this->sessionfields['uid' . $row['uid']])) {
+							$this->sessionfields['ERROR'][$row['uid']][] = sprintf($this->pi_getLL('error_validate_digits', 'The value of "%s" is not correct'), $row['title']); // set current error to sessionlist
+						}
+					}
+					if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'validate') == 'validate-alpha') {
+						if (!preg_match('/^[a-zA-Z-\s]+$/', $this->sessionfields['uid' . $row['uid']])) {
+							$this->sessionfields['ERROR'][$row['uid']][] = sprintf($this->pi_getLL('error_validate_alpha', 'The value of "%s" is not correct'), $row['title']); // set current error to sessionlist
+						}
+					}
+					if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'validate') == 'validate-alphanum') {
+						if (!preg_match('/^[a-zA-Z0-9-\s]+$/', $this->sessionfields['uid' . $row['uid']])) {
+							$this->sessionfields['ERROR'][$row['uid']][] = sprintf($this->pi_getLL('error_validate_alphanum', 'The value of "%s" is not correct'), $row['title']); // set current error to sessionlist
+						}
+					}
+					if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'validate') == 'validate-alpha-w-umlaut') {
+						if (!preg_match('/^[a-zA-ZžœšŒŠŽŸÀ-ÖØ-Ýß-öø-ÿ-\s]+$/', $this->sessionfields['uid' . $row['uid']])) {
+							$this->sessionfields['ERROR'][$row['uid']][] = sprintf($this->pi_getLL('error_validate_alpha_w_umlaut', 'The value of "%s" is not correct'), $row['title']); // set current error to sessionlist
+						}
+					}
+					if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'validate') == 'validate-alphanum-w-umlaut') {
+						if (!preg_match('/^[a-zA-ZžœšŒŠŽŸÀ-ÖØ-Ýß-öø-ÿ0-9-\s]+$/', $this->sessionfields['uid' . $row['uid']])) {
+							$this->sessionfields['ERROR'][$row['uid']][] = sprintf($this->pi_getLL('error_validate_alphanum_w_umlaut', 'The value of "%s" is not correct'), $row['title']); // set current error to sessionlist
+						}
+					}
+				}
+			}
+			$GLOBALS['TYPO3_DB']->sql_free_result($res);
+		}
 	}
 
 	/**
@@ -287,7 +333,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 				if (!t3lib_div::validEmail($this->sessionfields[$this->cObj->data['tx_powermail_sender']])) { // Value is not an email address
 					$this->sessionfields['ERROR'][str_replace('uid', '', $this->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_validemail'); // write error message to session
 				} else { // Syntax of email address is correct - check for MX Record (if activated via constants)
-					if ($this->conf['email.']['checkMX'] && !t3lib_div::validEmail($this->sessionfields[$this->cObj->data['tx_powermail_sender']])) {
+					if ($this->conf['email.']['checkMX'] && !$this->div->checkMX($this->sessionfields[$this->cObj->data['tx_powermail_sender']])) {
 						$this->sessionfields['ERROR'][str_replace('uid', '', $this->cObj->data['tx_powermail_sender'])][] = $this->pi_getLL('error_nomx'); // write error message to session
 					}
 				}
@@ -319,7 +365,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 				$orderBy = 'tx_powermail_fieldsets.sorting ASC, tx_powermail_fields.sorting ASC',
 				$limit = 1
 			);
-			if ($res) { // If there is a result
+			if ($res !== false) { // If there is a result
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every captcha field
 
 					// sr_freecap
@@ -392,11 +438,10 @@ class tx_powermail_mandatory extends tslib_pibase {
 						elseif (!$captcha->correctCode($this->sessionfields['uid' . $row['uid']])) { // if captcha value is wrong
 							$this->sessionfields['ERROR'][$row['uid']][] = $this->pi_getLL('error_captcha_wrong'); // write error message to session
 						}
-
 					}
 				}
+				$GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
-
 		}
 	}
 
