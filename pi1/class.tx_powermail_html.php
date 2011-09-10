@@ -1338,7 +1338,6 @@ class tx_powermail_html extends tslib_pibase {
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_FieldWrapMarkerHook'] as $_classRef) {
 				$_procObj = & t3lib_div::getUserObj($_classRef);
 				$_procObj->PM_FieldWrapMarkerHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->content, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
-				$_procObj->PM_FieldWrapMarkerHook($this->uid, $this->xml, $this->type, $this->title, $this->markerArray, $this->content, $this->piVarsFromSession, $this); // Get new marker Array from other extensions
 			}
 		}
 	}
