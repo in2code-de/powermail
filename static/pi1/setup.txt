@@ -411,7 +411,7 @@ plugin.tx_powermail_pi1 {
 	
 	
 	# adding (or changing) flexible locallang markers in any HTML template or RTE field (example)
-	_LOCAL_LANG.default {
+	_LOCAL_LANG.en {
 		# define your own locallang markers
 #		locallangmarker_yourvalue = this is a new text
 	}
