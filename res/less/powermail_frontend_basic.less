@@ -6,8 +6,8 @@
 /**********************************************************/
 
 /* Dimensions definitions start */
-//@labelWidth: 130px;
-//@fieldWidth: 380px;
+//@labelWidth: 180px;
+//@fieldWidth: 300px;
 @labelWidth: 200px;
 @fieldWidth: 400px;
 @timeFieldWidth: 60px;
@@ -48,7 +48,8 @@
 
 /* Imagepath definitions start */
 @imagePath: '../img/';
-//@imagePath: 'images/';
+@imagePath: 'images/';
+@descriptionIcon: %('%sinformation.png', @imagePath);
 @calPrevIcon: %('%sprev.gif', @imagePath);
 @calNextIcon: %('%snext.gif', @imagePath);
 @calTriggerIcon: %('%scalendar.png', @imagePath);
@@ -56,7 +57,7 @@
 /* Imagepath definitions end */
 
 /* CSS3 var definitions start */
-@borderRadius: 0px;
+@borderRadius: 3px;
 @inputBorderRadius: @borderRadius;
 @errorBorderRadius: @borderRadius;
 @descriptionBorderRadius: @borderRadius;
@@ -101,7 +102,7 @@
 .tx-powermail-pi1_fieldset {
     /* Fieldset */
     padding: 10px;
-    margin-bottom:10px;
+    margin: 0 0 10px 0;
     clear: both;
     border: 1px solid @fieldsetBorderColor;
     background-color: @fieldsetBackgroundColor;
@@ -192,7 +193,8 @@
         text-align:center;
         width:50px;
     }
-    .powermail_submit {
+    .powermail_submit,
+    .powermail_reset {
         /* submit button */
         margin: 20px 0 10px @labelWidth;
         font-weight: bold;
@@ -242,6 +244,13 @@
 	color: @mandatoryColor;
 }
 
+.powermail_description {
+	width:18px;
+	height:16px;
+	background:url(@descriptionIcon) no-repeat 50% 50%;
+	display:inline-block;
+}
+
 .placeholder {
     color: @placeHolderColor;
 }
@@ -266,7 +275,7 @@
 	color:@errorColor;
 	padding:3px 10px 5px 10px;
 	margin-left:8 - @errorArrowSize;
-    z-index:10;
+    z-index:10000;
     text-align:left;
     height:auto;
     p {
@@ -506,12 +515,12 @@ ul.powermail_multiplejs_tabs {
             font-weight: bold;
             text-decoration: none;
             background: @multipleTabBackgroundColor;
-            -webkit-border-top-left-radius: 2px;
-            -webkit-border-top-right-radius: 2px;
-            -moz-border-radius-topleft: 2px;
-            -moz-border-radius-topright: 2px;
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
+            -webkit-border-top-left-radius: @borderRadius;
+            -webkit-border-top-right-radius: @borderRadius;
+            -moz-border-radius-topleft: @borderRadius;
+            -moz-border-radius-topright: @borderRadius;
+            border-top-left-radius: @borderRadius;
+            border-top-right-radius: @borderRadius;
             border-top: 1px solid @fieldsetBorderColor;
             border-left: 1px solid @fieldsetBorderColor;
             border-right: 1px solid @fieldsetBorderColor;

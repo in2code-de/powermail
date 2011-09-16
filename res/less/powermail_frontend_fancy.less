@@ -56,6 +56,7 @@
 
 /* Imagepath definitions start */
 @imagePath: '../img/';
+@descriptionIcon: %('%sinformation.png', @imagePath);
 @calPrevIcon: %('%sprev.gif', @imagePath);
 @calNextIcon: %('%snext.gif', @imagePath);
 @calTriggerIcon: %('%scalendar.png', @imagePath);
@@ -275,7 +276,8 @@ div.tx-powermail-pi1 {
         padding: 2px 2px 0 2px;
     }
 }
-.powermail_submit {
+.powermail_submit,
+.powermail_reset {
 	/* submit button */
 	margin: 10px 23px 10px 0;
 	float:right;
@@ -289,8 +291,19 @@ div.tx-powermail-pi1 {
 	.rounded-corners(2px);
 }
 
+.powermail_reset {
+	float:left;
+}
+
 .powermail_mandatory {
 	color: @mandatoryColor;
+}
+
+.powermail_description {
+	width:18px;
+	height:16px;
+	background:url(@descriptionIcon) no-repeat 50% 50%;
+	display:inline-block;
 }
 
 .placeholder {
