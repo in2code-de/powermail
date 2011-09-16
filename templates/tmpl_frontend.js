@@ -39,7 +39,7 @@
             var uid = $(this).attr('id').replace(/check_/, '');
             var name = $(this).attr('name');
             var value = $(this).attr('value');
-            var checked = $(this).attr('checked') == 'checked';
+            var checked = $(this).attr('checked');
             $(this).removeAttr('name').removeAttr('value').after('<input type="hidden" id="value_' + uid +  '" value="' + value + '" /><input type="hidden" id="' + uid + '" name="' + name + '"' + (checked ? ' value="' + value + '"':'') + ' />');
         });
 
