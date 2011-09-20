@@ -17,7 +17,7 @@
 .tx-powermail-pi1_fieldset label a:hover dfn,.tx-powermail-pi1_fieldset fieldset legend.tx_powermail_pi1_fieldwrap_html_checkbox_title a:hover dfn,.tx-powermail-pi1_fieldset fieldset legend.tx_powermail_pi1_fieldwrap_html_radio_title a:hover dfn{display:block;}
 .tx-powermail-pi1_fieldset img.icon_info{padding:2px 2px 0 2px;}
 .powermail_mandatory{color:#ff0000;}
-.powermail_description{width:18px;height:16px;background:url("images/information.png") no-repeat 50% 50%;display:inline-block;}
+.powermail_description{width:18px;height:16px;background:url("../img/information.png") no-repeat 50% 50%;display:inline-block;}
 .placeholder{color:#999999;}
 .powermail_mandatory_helper{position:absolute;visibility:hidden;height:1px;}
 .wtcalculatingcaptcha,#recaptcha_widget_div{margin-left:200px;}
@@ -26,8 +26,8 @@ html:root .error em{display:block;width:0;height:0;border:10px solid;border-colo
 #calroot{z-index:10000;margin-top:-1px;width:198px;padding:2px;background-color:#fff;font-size:11px;border:1px solid #ccc;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);box-shadow:0 0 10px rgba(0, 0, 0, 0.5);}
 #calhead{padding:2px 0;height:22px;}
 #caltitle{font-size:14px;color:#fa8800;float:left;text-align:center;width:155px;line-height:20px;text-shadow:0 1px 0 #ddd;}
-#calnext,#calprev{display:block;width:20px;height:20px;background:transparent url("images/prev.gif") no-repeat scroll center center;float:left;cursor:pointer;}
-#calnext{background-image:url("images/next.gif");float:right;}
+#calnext,#calprev{display:block;width:20px;height:20px;background:transparent url("../img/prev.gif") no-repeat scroll center center;float:left;cursor:pointer;}
+#calnext{background-image:url("../img/next.gif");float:right;}
 #calprev.caldisabled,#calnext.caldisabled{visibility:hidden;}
 #caltitle select{font-size:10px;}
 #caldays{height:18px;border-bottom:1px solid #ddd;}#caldays span{display:block;float:left;width:28px;text-align:center;}
@@ -39,10 +39,10 @@ a.caloff{color:#ccc;}a.caloff:hover{background-color:#f5f5fa;}
 a.caldisabled{background-color:#efefef !important;color:#ccc !important;cursor:default;}
 #calcurrent{background-color:#498ce2;color:#ffffff;}
 #caltoday{background-color:#333333;color:#ffffff;}
-a.caltrigger{position:relative;display:inline-block;margin-left:-18px;margin-top:3px;vertical-align:top;background:url("images/calendar.png") no-repeat 0 0;width:16px;height:16px;}
-.slider{background:#3c72e6 url("images/h30.png") repeat-x 0 0;height:9px;position:relative;cursor:pointer;border:1px solid #333;width:400px;float:left;clear:right;margin-top:10px;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;-moz-box-shadow:inset 0 0 8px #000000;-webkit-box-shadow:inset 0 0 8px #000000;box-shadow:inset 0 0 8px #000000;}
+a.caltrigger{position:relative;display:inline-block;margin-left:-18px;margin-top:3px;vertical-align:top;background:url("../img/calendar.png") no-repeat 0 0;width:16px;height:16px;}
+.slider{background:#3c72e6 url("../img/h30.png") repeat-x 0 0;height:9px;position:relative;cursor:pointer;border:1px solid #333;width:400px;float:left;clear:right;margin-top:10px;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;-moz-box-shadow:inset 0 0 8px #000000;-webkit-box-shadow:inset 0 0 8px #000000;box-shadow:inset 0 0 8px #000000;}
 .progress{height:9px;background-color:#c5ff00;display:none;opacity:0.6;}
-.handle{background:#ffffff url("images/h30.png") repeat-x 0 0;height:28px;width:28px;top:-12px;position:absolute;display:block;margin-top:1px;border:1px solid #000;cursor:move;-moz-box-shadow:0 0 6px #000000;-webkit-box-shadow:0 0 6px #000000;box-shadow:0 0 6px #000000;border-radius:14px;-webkit-border-radius:14px;-moz-border-radius:14px;}
+.handle{background:#ffffff url("../img/h30.png") repeat-x 0 0;height:28px;width:28px;top:-12px;position:absolute;display:block;margin-top:1px;border:1px solid #000;cursor:move;-moz-box-shadow:0 0 6px #000000;-webkit-box-shadow:0 0 6px #000000;box-shadow:0 0 6px #000000;border-radius:14px;-webkit-border-radius:14px;-moz-border-radius:14px;}
 div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset{padding-top:15px;-moz-box-shadow:0 0 0 rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 0 rgba(0, 0, 0, 0.5);box-shadow:0 0 0 rgba(0, 0, 0, 0.5);}div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset legend,div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset.ui-tabs-hide{display:none;}
 div.powermail_multiple_js fieldset.tx-powermail-pi1_fieldset fieldset legend{display:block;}
 ul.powermail_multiplejs_tabs{list-style-type:none;padding:0;margin:0;}ul.powermail_multiplejs_tabs li{float:left;margin:0 1px 0 0;padding:0;list-style-type:none;}ul.powermail_multiplejs_tabs li a{display:block;padding:5px 10px;color:#666666;font-weight:bold;text-decoration:none;background:#e0e0e0;-webkit-border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-top:1px solid #cccccc;border-left:1px solid #cccccc;border-right:1px solid #cccccc;outline:none;}ul.powermail_multiplejs_tabs li a.act{background:#f0f0f0;color:#333333;padding:5px 10px 6px 10px;position:relative;margin-bottom:-1px;-moz-box-shadow:0 0 0 rgba(0, 0, 0, 0.5);-webkit-box-shadow:0 0 0 rgba(0, 0, 0, 0.5);box-shadow:0 0 0 rgba(0, 0, 0, 0.5);}

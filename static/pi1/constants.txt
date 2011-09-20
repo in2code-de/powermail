@@ -114,6 +114,9 @@ plugin.powermail {
 	# cat=powermail validation client//0430; type=text; label= Tags for error messages generation
 	js.validationMessage = <div><em/></div>
 
+	# cat=powermail validation client//0440; type=text; label= CSS class of error messages
+	js.validationMessageClass = error
+
 
 
 

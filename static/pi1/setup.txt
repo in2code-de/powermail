@@ -601,6 +601,8 @@ lib.powermailjs {
                 VALIDATOR_OFFSET_Y.value = {$plugin.powermail.js.validationOffsetY}
                 VALIDATOR_MESSAGE = TEXT
                 VALIDATOR_MESSAGE.value = {$plugin.powermail.js.validationMessage}
+                VALIDATOR_MESSAGE_CLASS = TEXT
+                VALIDATOR_MESSAGE_CLASS.value = {$plugin.powermail.js.validationMessageClass}
                 VALIDATOR_SINGLE_ERROR = TEXT
                 VALIDATOR_SINGLE_ERROR.value = false
                 PLEASE_SELECT = TEXT

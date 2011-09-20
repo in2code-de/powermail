@@ -163,6 +163,7 @@
 				position: '###VALIDATOR_POSITION###',
 				offset: [###VALIDATOR_OFFSET_Y###, ###VALIDATOR_OFFSET_X###],
 				message: '###VALIDATOR_MESSAGE###',
+				messageClass: '###VALIDATOR_MESSAGE_CLASS###',
 				inputEvent: 'blur',
 				grouped: true,
 				singleError: ###VALIDATOR_SINGLE_ERROR###,
