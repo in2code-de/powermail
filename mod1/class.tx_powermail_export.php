@@ -322,6 +322,8 @@ class tx_powermail_export {
 		$this->setFilenames();
 		$this->generateFormtypesArray();
 
+		$this->hook_exportclass(); // adds hook
+
 		$this->generalRecordsFilter = ' AND hidden = 0 AND deleted = 0';
 		$select = '*';
 		$from = 'tx_powermail_mails';
@@ -1319,6 +1321,17 @@ tr.odd td{background:#eee;}
 		}
 		return $r;
 	}
+
+	// Method hook_exportclass allows to manipulate config at the point of exporting
+	protected function hook_exportclass() {
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_exportConfigHook'])) { // Adds hook for processing
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['powermail']['PM_exportConfigHook'] as $_classRef) {
+				$_procObj = & t3lib_div::getUserObj($_classRef);
+				$_procObj->PM_exportConfigHook($this); // Get new marker Array from other extensions
+			}
+		}
+	}
+
 
 }
 
