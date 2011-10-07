@@ -1206,10 +1206,10 @@ class tx_powermail_html extends tslib_pibase {
 					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-Z0-9-\s]*$" '; // add only alphanum pattern to markerArray
 					break;
 				case 'validate-alpha-w-umlaut':
-					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-ZžœšŒŠŽŸÀ-ÖØ-Ýß-öø-ÿ-\s]*$" '; // add only alpha pattern to markerArray
+					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-Z\u00C0-\u00FF\s]*$" '; // add only alpha pattern to markerArray
 					break;
 				case 'validate-alphanum-w-umlaut':
-					$this->markerArray['###PATTERN###'] = 'pattern="^[a-zA-ZžœšŒŠŽŸÀ-ÖØ-Ýß-öø-ÿ0-9-\s]*$" '; // add only alpha pattern to markerArray
+					$this->markerArray['###PATTERN###'] = 'pattern="^[0-9a-zA-Z\u00C0-\u00FF\s]*$" '; // add only alpha pattern to markerArray
 					break;
 			}
 		}

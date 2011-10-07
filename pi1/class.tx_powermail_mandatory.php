@@ -307,12 +307,12 @@ class tx_powermail_mandatory extends tslib_pibase {
 						}
 					}
 					if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'validate') == 'validate-alpha-w-umlaut') {
-						if (!preg_match('/^[a-zA-ZžœšŒŠŽŸÀ-ÖØ-Ýß-öø-ÿ-\s]+$/', $this->sessionfields['uid' . $row['uid']])) {
+						if (!preg_match('/^[a-zA-Z\u00C0-\u00FF\s]+$/', $this->sessionfields['uid' . $row['uid']])) {
 							$this->sessionfields['ERROR'][$row['uid']][] = sprintf($this->pi_getLL('error_validate_alpha_w_umlaut', 'The value of "%s" is not correct'), $row['title']); // set current error to sessionlist
 						}
 					}
 					if ($this->pi_getFFvalue(t3lib_div::xml2array($row['flexform']), 'validate') == 'validate-alphanum-w-umlaut') {
-						if (!preg_match('/^[a-zA-ZžœšŒŠŽŸÀ-ÖØ-Ýß-öø-ÿ0-9-\s]+$/', $this->sessionfields['uid' . $row['uid']])) {
+						if (!preg_match('/^[0-9a-zA-Z\u00C0-\u00FF\s]+$/', $this->sessionfields['uid' . $row['uid']])) {
 							$this->sessionfields['ERROR'][$row['uid']][] = sprintf($this->pi_getLL('error_validate_alphanum_w_umlaut', 'The value of "%s" is not correct'), $row['title']); // set current error to sessionlist
 						}
 					}
