@@ -502,7 +502,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 						}
 					} elseif (is_array($result)) { // check if userFunc returns an array
 						$resultStatus = $result['result'];
-						if (isset($result->errormsg)) {
+						if (isset($result['errormsg'])) {
 							$message = $result['errormsg'];
 						}
 					} elseif (is_bool($result)) { // check if userFunc returns true or false
