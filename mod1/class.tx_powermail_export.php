@@ -1081,6 +1081,10 @@ tr.odd td{background:#eee;}
 		if (strstr(t3lib_div::getIndpEnv('HTTP_USER_AGENT'), 'MSIE') == false) {
 			$this->header .= header('Cache-Control: no-cache');
 			$this->header .= header('Pragma: no-cache');
+		} else {
+			// Fixes a bug which won't allow a XLS download to start in IE with SSL on
+			$this->header .= header('Pragma: public');
+			$this->header .= header('Cache-Control: private');
 		}
 	}
 
