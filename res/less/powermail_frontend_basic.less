@@ -37,6 +37,9 @@
 @inputFocusBorderColor: #333;
 @descriptionBackgroundColor: #00559E;
 @progressBackgroundColor: #C5FF00;
+@buttonBackgroundColor: #ccc;
+@buttonBorderColor: #666;
+@buttonColor: #515151;
 @calTitleColor: #FA8800;
 @calWeekColor: #666;
 @calSunColor: #f00;
@@ -63,6 +66,7 @@
 @descriptionBorderRadius: @borderRadius;
 @calBorderRadius: @borderRadius;
 @sliderBorderRadius: @borderRadius;
+@buttonBorderRadius: @borderRadius;
 
 @shadowWidth: 10px;
 @fieldsetShadowWidth: 0;
@@ -95,6 +99,18 @@
     -webkit-box-shadow:inset @x @y @shadowWidth rgba(0,0,0,@shadowStrength);
     box-shadow:inset @x @y @shadowWidth rgba(0,0,0,@shadowStrength);
 }
+
+.button-gradient (@buttonColor1: rgba(255,255,255,1), @buttonColor2: rgba(247,247,247,1), @buttonColor3: rgba(239,239,239,1), @buttonColor4: rgba(229,229,229,1)) {
+	background: @buttonBackgroundColor; /* Old browsers */
+	background: -moz-linear-gradient(top, @buttonColor1 0%, @buttonColor2 50%, @buttonColor3 51%, @buttonColor4 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@buttonColor1), color-stop(50%,@buttonColor2), color-stop(51%,@buttonColor3), color-stop(100%,@buttonColor4)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, @buttonColor1 0%,@buttonColor2 50%,@buttonColor3 51%,@buttonColor4 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, @buttonColor1 0%,@buttonColor2 50%,@buttonColor3 51%,@buttonColor4 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, @buttonColor1 0%,@buttonColor2 50%,@buttonColor3 51%,@buttonColor4 100%); /* IE10+ */
+	filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 )"; /* IE6-9 */
+	background: linear-gradient(top, @buttonColor1 0%,@buttonColor2 50%,@buttonColor3 51%,@buttonColor4 100%); /* W3C */
+}
+
 /* Mixins definitions end */
 
 
@@ -197,6 +213,11 @@
     .powermail_reset {
         /* submit button */
         margin: 20px 0 10px @labelWidth;
+        padding:2px 5px;
+        border:1px solid @buttonBorderColor;
+        color: @buttonColor;
+        .rounded-corners(@buttonBorderRadius);
+        .button-gradient();
         font-weight: bold;
     }
     .countryzone {
