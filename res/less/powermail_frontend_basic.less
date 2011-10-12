@@ -167,6 +167,9 @@
         .box-shadow-inset(0, 0, 2px, 0.1);
         .rounded-corners(@inputBorderRadius);
     }
+    .powermail_captcha {
+    	margin-left: @labelWidth;
+    }
     .powermail_datetime.date {
         width: (@fieldWidth - @timeFieldWidth - 10);
     }
@@ -282,9 +285,13 @@
     height:1px;
 }
 
-.wtcalculatingcaptcha,
 #recaptcha_widget_div {
     margin-left:@labelWidth;
+}
+
+.wtcalculatingcaptcha {
+	margin-left:0;
+	margin-bottom: 3px;
 }
 
 /* error message */
