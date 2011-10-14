@@ -38,7 +38,7 @@
 @descriptionBackgroundColor: #00559E;
 @progressBackgroundColor: #C5FF00;
 @buttonBackgroundColor: #ccc;
-@buttonBorderColor: #666;
+@buttonBorderColor: #888;
 @buttonColor: #515151;
 @calTitleColor: #FA8800;
 @calWeekColor: #666;
@@ -252,10 +252,12 @@
             white-space: normal;
             .rounded-corners(@descriptionBorderRadius);
             .box-shadow(0, 0, @descriptionShadowWidth, @descriptionShadowStrength);
+            left:auto;
+            top:auto;
         }
         &:hover dfn {
             /* Description on mouseover */
-            display: block;
+            display: block !important;
         }
     }
     img.icon_info {
