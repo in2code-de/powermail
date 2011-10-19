@@ -163,9 +163,7 @@
 			<label index="error_unique_ip">Ein Besucher mit der IP Adresse %s hat bereits einen Eintrag hinterlassen</label>
 			<label index="error_expression_validation">Check fehlgeschlagen</label>
 			<label index="error_templateNotFound">Template nicht vorhanden, Pfad zum HTML Template überprüfen</label>
-			<label index="error_captchaWrongExt">Die gewählte Extension &quot;%s&quot; ist nicht geladen! Wählen Sie eine andere captcha Extension in den powermail Konstanten oder
-				installieren Sie die Extension &quot;%s&quot;.
-			</label>
+			<label index="error_captchaWrongExt">Die gewählte Extension &quot;%s&quot; ist nicht geladen! Wählen Sie eine andere captcha Extension in den powermail Konstanten oder installieren Sie die Extension &quot;%s&quot;.</label>
 			<label index="error_captchaNoExtFound">Bitte installieren Sie eine captcha Extension wie captcha, sr_freecap, jm_recaptcha oder wt_calculating_captcha!</label>
 			<label index="multiple_forward">Nächster Schritt</label>
 			<label index="multiple_back">Vorheriger Schritt</label>
@@ -289,9 +287,7 @@
 			<label index="JSvalidation_label_validate_number">Por favor introduzca un número correcto en este campo</label>
 			<label index="JSvalidation_label_validate_digits">Por favor utilice números en este campo. Evitar espacios, comas, puntos, etc…</label>
 			<label index="JSvalidation_label_validate_alpha">Por favor utilice letras (a-z) en este campo</label>
-			<label index="JSvalidation_label_validate_alphanum">Por favor utilice únicamente letras (a-z) o números (0-9) en este campo. Espacios u otros caracteres no están
-				permitidos
-			</label>
+			<label index="JSvalidation_label_validate_alphanum">Por favor utilice únicamente letras (a-z) o números (0-9) en este campo. Espacios u otros caracteres no están permitidos</label>
 			<label index="JSvalidation_label_validate_date">Por favor introduzca un fecha correctae</label>
 			<label index="JSvalidation_label_validate_email">Por favor introduzca una dirección Email correcta (test@test.com)</label>
 			<label index="JSvalidation_label_validate_url">Por favor introduzca una URL correcta (http://www.test.com)</label>
@@ -324,13 +320,9 @@
 			<label index="pagebrowser_inner">de</label>
 			<label index="JSvalidation_label_required">Ce champ est obligatoire</label>
 			<label index="JSvalidation_label_validate_number">Veuillez entrer un chiffre valable dans ce champ</label>
-			<label index="JSvalidation_label_validate_digits">Veuillez utiliser uniquement des chiffres dans ce champ. Evitez les espaces et d\'autres caractères comme les points
-				ou les virgules
-			</label>
+			<label index="JSvalidation_label_validate_digits">Veuillez utiliser uniquement des chiffres dans ce champ. Evitez les espaces et d\'autres caractères comme les points ou les virgules</label>
 			<label index="JSvalidation_label_validate_alpha">Veuillez utiliser uniquement des lettres (a-z) dans ce champ</label>
-			<label index="JSvalidation_label_validate_alphanum">Veuillez utiliser uniquement des lettres (a-z) ou des chiffres (0-9) dans ce champ. Aucun espace ou autres
-				caractères ne sont autorisés.
-			</label>
+			<label index="JSvalidation_label_validate_alphanum">Veuillez utiliser uniquement des lettres (a-z) ou des chiffres (0-9) dans ce champ. Aucun espace ou autres caractères ne sont autorisés.</label>
 			<label index="JSvalidation_label_validate_date">Veuillez entrer une date valable</label>
 			<label index="JSvalidation_label_validate_email">Veuillez entrer une adresse email valable (test@test.com)</label>
 			<label index="JSvalidation_label_validate_url">Veuillez entrer une URL valable (http://www.test.com)</label>
@@ -370,9 +362,7 @@
 			<label index="JSvalidation_label_validate_number">La casella richiede un valore numerico</label>
 			<label index="JSvalidation_label_validate_digits">Si utilizzino valori numerici. Spazio, punteggiatura ed altri caratteri simili non sono ammessi</label>
 			<label index="JSvalidation_label_validate_alpha">La casella richiede caratteri alfabetici (a-z)</label>
-			<label index="JSvalidation_label_validate_alphanum">La casella richiede caratteri alfabetici (a-z) o numerici (0-9). Spazio, punteggiatura ed altri caratteri simili non
-				sono ammessi
-			</label>
+			<label index="JSvalidation_label_validate_alphanum">La casella richiede caratteri alfabetici (a-z) o numerici (0-9). Spazio, punteggiatura ed altri caratteri simili non sono ammessi</label>
 			<label index="JSvalidation_label_validate_date">La casella richiede una data</label>
 			<label index="JSvalidation_label_validate_email">La casella richiede un indirizzo email (test@test.com)</label>
 			<label index="JSvalidation_label_validate_url">La casella richiede un indirizzo URL (http://www.test.com)</label>
@@ -527,11 +517,9 @@
 			<label index="pagebrowser_inner">od</label>
 			<label index="JSvalidation_label_required">To polje je zahtevano</label>
 			<label index="JSvalidation_label_validate_number">Prosimo vpišite veljavno število v tem polju</label>
-			<label index="JSvalidation_label_validate_digits">Prosimo uporabite številke samo v tem polju. Prosimo izogibajte se prostorom ali drugim znakom kot so pike ali vejice
-			</label>
+			<label index="JSvalidation_label_validate_digits">Prosimo uporabite številke samo v tem polju. Prosimo izogibajte se prostorom ali drugim znakom kot so pike ali vejice</label>
 			<label index="JSvalidation_label_validate_alpha">Prosimo uporabljajte samo črke (a-z) v tem polju</label>
-			<label index="JSvalidation_label_validate_alphanum">Prosimo uporabljajte samo črke (a-z) ali številke (0-9) samo v tem polju. Prostori ali drugi znaki so dovoljeni
-			</label>
+			<label index="JSvalidation_label_validate_alphanum">Prosimo uporabljajte samo črke (a-z) ali številke (0-9) samo v tem polju. Prostori ali drugi znaki so dovoljeni</label>
 			<label index="JSvalidation_label_validate_date">Prosimo vpišite veljaven datum</label>
 			<label index="JSvalidation_label_validate_email">Prosimo vpišite veljaven e-poštni naslov (test@test.com)</label>
 			<label index="JSvalidation_label_validate_url">Prosimo vpišite veljaven URL (http://www.test.com)</label>
@@ -647,9 +635,7 @@
 			<label index="error_unique_ip">IP address %s already made an entry</label>
 			<label index="error_expression_validation">Validation failed</label>
 			<label index="error_templateNotFound">Template not found, check path to your powermail templates</label>
-			<label index="error_captchaWrongExt">Powermail ERROR: The chosen captcha extension &quot;%s&quot; is not loaded! Choose another captcha extension in the powermail
-				constants or install the extension &quot;%s&quot;.
-			</label>
+			<label index="error_captchaWrongExt">Powermail ERROR: The chosen captcha extension &quot;%s&quot; is not loaded! Choose another captcha extension in the powermail constants or install the extension &quot;%s&quot;.</label>
 			<label index="error_captchaNoExtFound">Please install a captcha extension like captcha, sr_freecap, jm_recaptcha or wt_calculating_captcha!</label>
 			<label index="multiple_forward">Next step</label>
 			<label index="multiple_back">Previous step</label>
