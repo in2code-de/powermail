@@ -255,7 +255,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 				// autocheck
 				if ($this->conf['validate.'][$key]['auto']) { // If autocheck of current value is active
 					if (isset($autoarray[$this->conf['validate.'][$key]['auto']])) { // if regulare expression in $autoarray
-						if ($this->sessionfields[str_replace('.', '', $key)]) { // if there is a value in the field, which to check
+						if ($this->sessionfields[str_replace('.', '', $key != '')]) { // if there is a value in the field, which to check
 
 							// Check
 							if (!preg_match($autoarray[$this->conf['validate.'][$key]['auto']], $this->sessionfields[str_replace('.', '', $key)])) { // If check failed
@@ -266,7 +266,7 @@ class tx_powermail_mandatory extends tslib_pibase {
 						}
 					}
 				} elseif ($this->conf['validate.'][$key]['expression']) { // regulare expression
-					if ($this->sessionfields[str_replace('.', '', $key)]) { // if there is a value in the field, which to check
+					if ($this->sessionfields[str_replace('.', '', $key)] != '') { // if there is a value in the field, which to check
 
 						// Check
 						if (!preg_match($this->div->marker2value($this->conf['validate.'][$key]['expression'], $this->sessionfields), $this->sessionfields[str_replace('.', '', $key)])) { // If check failed
