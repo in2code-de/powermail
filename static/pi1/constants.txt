@@ -31,6 +31,15 @@ plugin.powermail {
 	# cat=powermail main/file/0090; type=file[js,tmpl,txt]; label= Template File Frontend JS: Template file for frontend javascript (see EXT:powermail/templates/tmpl_frontend.js for an example)
 	template.frontendJsTemplatePath = EXT:powermail/templates/tmpl_frontend.js
 	
+	# cat=powermail main/file/0090; type=file[js]; label= Path to jQuery
+	js.jQueryPath = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
+
+	# cat=powermail main/file/0090; type=file[js]; label= Path to jQueryTools Form
+	js.jQueryToolsFormPath = http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js
+
+	# cat=powermail main/file/0090; type=file[js]; label= Path to jQueryTools Tiny
+	js.jQueryToolsTinyPath = http://cdn.jquerytools.org/1.2.6/tiny/jquery.tools.min.js
+
 	# cat=powermail main/enable/0100; type=boolean; label= Email to receiver active: You can disable emails to receiver (maybe if you want only to store the values to db)
 	allow.email2receiver = 1
 

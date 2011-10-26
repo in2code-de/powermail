@@ -649,11 +649,11 @@ lib.powermailjs.10.marks.VALIDATOR_SINGLE_ERROR.value = true
 
 page.includeJSlibs {
   powermail_jQuery.external = 1
-  powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
+  powermail_jQuery = {$plugin.powermail.js.jQueryPath}
   powermail_jQueryTools.external = 1
-  powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+  powermail_jQueryTools = {$plugin.powermail.js.jQueryToolsFormPath}
   powermail_jQueryToolsTabs.external = 1
-  powermail_jQueryToolsTabs = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
+  powermail_jQueryToolsTabs = {$plugin.powermail.js.jQueryToolsTinyPath}
 }
 
     // if powermail is on current page and t3jquery is NOT loaded include validation js into page footer
@@ -676,11 +676,11 @@ page.includeJSlibs {
 
 page.includeJSFooterlibs {
 	powermail_jQuery.external = 1
-	powermail_jQuery = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
+	powermail_jQuery = {$plugin.powermail.js.jQueryPath}
 	powermail_jQueryTools.external = 1
-	powermail_jQueryTools = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+	powermail_jQueryTools = {$plugin.powermail.js.jQueryToolsFormPath}
 	powermail_jQueryToolsTabs.external = 1
-	powermail_jQueryToolsTabs = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
+	powermail_jQueryToolsTabs = {$plugin.powermail.js.jQueryToolsTinyPath}
 }
 
 [end]
@@ -728,13 +728,13 @@ page.31320 {
     20 = USER
     20 {
         userFunc = tx_t3jquery->addJS
-	    jsurl = http://cdn.jquerytools.org/1.2.5/form/jquery.tools.min.js
+	    jsurl = {$plugin.powermail.js.jQueryToolsFormPath}
         tofooter = 0
     }
     25 = USER
     25 {
         userFunc = tx_t3jquery->addJS
-	    jsurl = http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js
+	    jsurl = {$plugin.powermail.js.jQueryToolsTinyPath}
         tofooter = 0
     }
     30 = USER
