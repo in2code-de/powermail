@@ -368,7 +368,9 @@ class tx_powermail_html extends tslib_pibase {
 		$subpartArray['###CONTENT###'] = $content_item; // subpart 3
 
 		// Outer Marker array
-		$this->markerArray['###LABEL_MAIN###'] = htmlspecialchars($this->title);
+		$markerArray['###LABEL_MAIN###'] = $this->div->parseFunc($options[$i][0], $this->cObj, $this->conf['label.']['parse']);
+		$markerArray['###LABEL_MAIN###'] = ($this->conf['label.']['parse']) ? $markerArray['###LABEL_MAIN###']
+				: htmlspecialchars($markerArray['###LABEL_MAIN###']);
 		$this->markerArray['###POWERMAIL_FIELD_UID###'] = $this->uid;
 
 		$this->html_hookwithinfields(); // adds hook to manipulate the markerArray for any field
