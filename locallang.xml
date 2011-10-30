@@ -35,6 +35,9 @@
             <label index="updater.foundMsg_searchStoragePageEmpty">Found ###COUNT### content elements.</label>
             <label index="updater.question_searchStoragePageEmpty">Should the updater fix this settings?</label>
             <label index="updater.questionInfo_searchStoragePageEmpty">(If you click "DO IT" all empty storage page settings inside powermail content elements will be set to the page containing itself)</label>
+			<label index="constants.powermail_template_files">Template files</label>
+			<label index="constants.powermail_javascript_files">Javascript files</label>
+			<label index="constants.powermail_validation_error">Validation error</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pi1_title">powermail</label>

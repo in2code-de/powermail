@@ -2,44 +2,39 @@
 # This are the default TS-constants for powermail
 ##
 
+# customsubcategory=powermail_template_files=LLL:EXT:powermail/locallang.xml:constants.powermail_template_files
+# customsubcategory=powermail_javascript_files=LLL:EXT:powermail/locallang.xml:constants.powermail_javascript_files
+# customsubcategory=powermail_validation_error=LLL:EXT:powermail/locallang.xml:constants.powermail_validation_error
+
 plugin.powermail {
 
-	# cat=powermail main/file/0010; type=file[html,htm,tmpl,txt]; label= Template File formwrap: HTML-template file for formwrap (see EXT:powermail/templates/tmpl_formwrap.html for an example)
+	# cat=powermail main/powermail_template_files/0010; type=file[html,htm,tmpl,txt]; label= Template File formwrap: HTML-template file for formwrap (see EXT:powermail/templates/tmpl_formwrap.html for an example)
 	template.formWrap = EXT:powermail/templates/tmpl_formwrap.html
 	
-	# cat=powermail main/file/0020; type=file[html,htm,tmpl,txt]; label= Template File fieldwrap: HTML-template file for fieldwraps (see EXT:powermail/templates/tmpl_fieldwrap.html for an example)
+	# cat=powermail main/powermail_template_files/0020; type=file[html,htm,tmpl,txt]; label= Template File fieldwrap: HTML-template file for fieldwraps (see EXT:powermail/templates/tmpl_fieldwrap.html for an example)
 	template.fieldWrap = EXT:powermail/templates/tmpl_fieldwrap.html
 	
-	# cat=powermail main/file/0030; type=file[html,htm,tmpl,txt]; label= Template File thx-message: HTML-template file for thx message after submit (see EXT:powermail/templates/tmpl_thx.html for an example)
+	# cat=powermail main/powermail_template_files/0030; type=file[html,htm,tmpl,txt]; label= Template File thx-message: HTML-template file for thx message after submit (see EXT:powermail/templates/tmpl_thx.html for an example)
 	template.thxMessage = EXT:powermail/templates/tmpl_thx.html
 	
-	# cat=powermail main/file/0040; type=file[html,htm,tmpl,txt]; label= Template File emails: HTML-template file for emails messages (sender and receiver) (see EXT:powermail/templates/tmpl_emails.html for an example)
+	# cat=powermail main/powermail_template_files/0040; type=file[html,htm,tmpl,txt]; label= Template File emails: HTML-template file for emails messages (sender and receiver) (see EXT:powermail/templates/tmpl_emails.html for an example)
 	template.emails = EXT:powermail/templates/tmpl_emails.html
 	
-	# cat=powermail main/file/0050; type=file[html,htm,tmpl,txt]; label= Template File confirmation: HTML-template file to change html code of the confirmation page (if confirmation is active) (see EXT:powermail/templates/tmpl_confirmation.html for an example)
+	# cat=powermail main/powermail_template_files/0050; type=file[html,htm,tmpl,txt]; label= Template File confirmation: HTML-template file to change html code of the confirmation page (if confirmation is active) (see EXT:powermail/templates/tmpl_confirmation.html for an example)
 	template.confirmation = EXT:powermail/templates/tmpl_confirmation.html
 	
-	# cat=powermail main/file/0060; type=file[html,htm,tmpl,txt]; label= Template File ALL marker: HTML-template file if you want to use the marker ###POWERMAIL_ALL### - here you can set the HTML code for each line (see EXT:powermail/templates/tmpl_all.html for an example)
+	# cat=powermail main/powermail_template_files/0060; type=file[html,htm,tmpl,txt]; label= Template File ALL marker: HTML-template file if you want to use the marker ###POWERMAIL_ALL### - here you can set the HTML code for each line (see EXT:powermail/templates/tmpl_all.html for an example)
 	template.all = EXT:powermail/templates/tmpl_all.html
 	
-	# cat=powermail main/file/0070; type=file[html,htm,tmpl,txt]; label= Template File mandatory: HTML-template file for mandatory page (if any mandatory field was not filled) (see EXT:powermail/templates/tmpl_mandatory.html for an example)
+	# cat=powermail main/powermail_template_files/0070; type=file[html,htm,tmpl,txt]; label= Template File mandatory: HTML-template file for mandatory page (if any mandatory field was not filled) (see EXT:powermail/templates/tmpl_mandatory.html for an example)
 	template.mandatory = EXT:powermail/templates/tmpl_mandatory.html
 	
-	# cat=powermail main/file/0080; type=file[html,htm,tmpl,txt]; label= Template File multiple: HTML-template file for multiple pages (see EXT:powermail/templates/tmpl_multiplejs.html for an example)
+	# cat=powermail main/powermail_template_files/0080; type=file[html,htm,tmpl,txt]; label= Template File multiple: HTML-template file for multiple pages (see EXT:powermail/templates/tmpl_multiplejs.html for an example)
 	template.MultipleJS = EXT:powermail/templates/tmpl_multiplejs.html
 
-	# cat=powermail main/file/0090; type=file[js,tmpl,txt]; label= Template File Frontend JS: Template file for frontend javascript (see EXT:powermail/templates/tmpl_frontend.js for an example)
+	# cat=powermail main/powermail_template_files/0090; type=file[js,tmpl,txt]; label= Template File Frontend JS: Template file for frontend javascript (see EXT:powermail/templates/tmpl_frontend.js for an example)
 	template.frontendJsTemplatePath = EXT:powermail/templates/tmpl_frontend.js
 	
-	# cat=powermail main/file/0090; type=file[js]; label= Path to jQuery
-	js.jQueryPath = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
-
-	# cat=powermail main/file/0090; type=file[js]; label= Path to jQueryTools Form
-	js.jQueryToolsFormPath = http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js
-
-	# cat=powermail main/file/0090; type=file[js]; label= Path to jQueryTools Tiny
-	js.jQueryToolsTinyPath = http://cdn.jquerytools.org/1.2.6/tiny/jquery.tools.min.js
-
 	# cat=powermail main/enable/0100; type=boolean; label= Email to receiver active: You can disable emails to receiver (maybe if you want only to store the values to db)
 	allow.email2receiver = 1
 
@@ -81,6 +76,15 @@ plugin.powermail {
 
 
 
+	# cat=powermail validation client/powermail_javascript_files/0270; type=file[js]; label= Path to jQuery
+	js.jQueryPath = http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
+
+	# cat=powermail validation client/powermail_javascript_files/0280; type=file[js]; label= Path to jQueryTools Form
+	js.jQueryToolsFormPath = http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js
+
+	# cat=powermail validation client/powermail_javascript_files/0290; type=file[js]; label= Path to jQueryTools Tiny
+	js.jQueryToolsTinyPath = http://cdn.jquerytools.org/1.2.6/tiny/jquery.tools.min.js
+
 	# cat=powermail validation client/enable/0300; type=boolean; label= Activate javascript validation: (De)activate javascript validation in fields
 	js.validation = 1
 
@@ -99,31 +103,31 @@ plugin.powermail {
 	# cat=powermail validation client/enable/0350; type=boolean; label= Include jQueryTools Tab library: Include jQueryTools Tab library (only for usage without t3jquery)
 	js.includeJqueryToolsTabs = 1
 
-	# cat=powermail validation client/enable/0360; type=boolean; label= Show only one validation error: Show only one validation error at the same time
-	js.singleError = 0
-
-	# cat=powermail validation client/enable/0370; type=boolean; label= Automatically scroll to error: Automatically scroll to form element with first validation error
-	js.scrolltoerror = 1
-
-	# cat=powermail validation client/enable/0380; type=boolean; label= Show date icons: Show trigger icons in date and datetime fields
+	# cat=powermail validation client/enable/0360; type=boolean; label= Show date icons: Show trigger icons in date and datetime fields
 	js.showtriggericon = 0
 
-	# cat=powermail validation client/enable/0390; type=boolean; label= Hiddenfields for checkboxes: (De)activate the hiddenfields for checkboxes. If only checkboxes are in use, there is a problem to enable a checkbox, submit, go back and deaktivate checkbox and submit again - the value ist still set. To fix this, you can use a JavaScript with hiddenfields (set by default).
+	# cat=powermail validation client/enable/0370; type=boolean; label= Hiddenfields for checkboxes: (De)activate the hiddenfields for checkboxes. If only checkboxes are in use, there is a problem to enable a checkbox, submit, go back and deaktivate checkbox and submit again - the value ist still set. To fix this, you can use a JavaScript with hiddenfields (set by default).
 	field.checkboxJS = 1
 
-	# cat=powermail validation client/dims/0400; type=options[top center, top right, center right, bottom right, bottom center, bottom left, center left, top left]; label= Validation errors position: Position of validation errors
+	# cat=powermail validation client/powermail_validation_error/0380; type=boolean; label= Show only one validation error: Show only one validation error at the same time
+	js.singleError = 0
+
+	# cat=powermail validation client/powermail_validation_error/0390; type=boolean; label= Automatically scroll to error: Automatically scroll to form element with first validation error
+	js.scrolltoerror = 1
+
+	# cat=powermail validation client/powermail_validation_error/0400; type=options[top right, center right, bottom right, bottom center, bottom left, center left, top left, top center]; label= Validation errors position: Position of validation errors
 	js.validationPosition = top right
 
-	# cat=powermail validation client/dims/0410; type=int; label= Validation errors x-offset: Position x offset of validation error
+	# cat=powermail validation client/powermail_validation_error/0410; type=int; label= Validation errors x-offset: Position x offset of validation error
 	js.validationOffsetX = -20
 
-	# cat=powermail validation client/dims/0420; type=int; label= Validation errors y-offset: Position y offset of validation error
+	# cat=powermail validation client/powermail_validation_error/0420; type=int; label= Validation errors y-offset: Position y offset of validation error
 	js.validationOffsetY = -5
 
-	# cat=powermail validation client//0430; type=text; label= Tags for error messages generation
+	# cat=powermail validation client/powermail_validation_error/0430; type=text; label= Tags for error messages generation
 	js.validationMessage = <div><em/></div>
 
-	# cat=powermail validation client//0440; type=text; label= CSS class of error messages
+	# cat=powermail validation client/powermail_validation_error/0440; type=text; label= CSS class of error messages
 	js.validationMessageClass = error
 
 
