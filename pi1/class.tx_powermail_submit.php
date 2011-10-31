@@ -183,7 +183,7 @@ class tx_powermail_submit extends tslib_pibase {
 		$this->debug($this->subpart); // Debug output
 
 		if ($this->email_send) {
-			$subject = $this->dynamicMarkers->main($this->conf, $this->cObj, $this->div->marker2value($this->maildata['subject'], $this->sessiondata)); // mail subject (with dynamicmarkers and markers2value)
+			$subject = html_entity_decode($this->dynamicMarkers->main($this->conf, $this->cObj, $this->div->marker2value($this->maildata['subject'], $this->sessiondata)), ENT_QUOTES, $GLOBALS['TSFE']->metaCharset); // mail subject (with dynamicmarkers and markers2value)
 			$receiver = $this->maildata['receiver'];
 			$from = $this->maildata['sender'];
 			$fromName = ($this->maildata['sendername'] !== '') ? $this->quoteStringWithComma($this->maildata['sendername']) : $this->extKey;
