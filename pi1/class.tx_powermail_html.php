@@ -1224,15 +1224,20 @@ class tx_powermail_html extends tslib_pibase {
 		}
 
 		// ###VALUE###
-		if (isset($this->sessionfields['uid' . $this->uid]) && !is_array($this->sessionfields['uid' . $this->uid])) { // 1. if value is in session
-			$this->markerArray['###VALUE###'] = 'value="' . stripslashes($this->div->nl2nl2($this->sessionfields['uid' . $this->uid])) . '" ';
-		} elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. else if value should be filled from current logged in user
+		if (isset($this->sessionfields['uid' . $this->uid]) && !is_array($this->sessionfields['uid' . $this->uid])) {
+			// 1. if value is in session
+			$this->markerArray['###VALUE###'] = 'value="' . htmlspecialchars(stripslashes($this->div->nl2nl2($this->sessionfields['uid' . $this->uid]))) . '" ';
+		} elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) {
+			// 2. else if value should be filled from current logged in user
 			$this->markerArray['###VALUE###'] = 'value="' . strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]) . '" ';
-		} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') === '0') { // 3. take value from backend (default value)
+		} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') || $this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value') === '0') {
+			// 3. take value from backend (default value)
 			$this->markerArray['###VALUE###'] = 'value="' . htmlspecialchars($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) . '" ';
-		} elseif (!empty($this->conf['prefill.']['uid' . $this->uid])) { // 4. prefilling with typoscript for current field enabled
+		} elseif (!empty($this->conf['prefill.']['uid' . $this->uid])) {
+			// 4. prefilling with typoscript for current field enabled
 			$this->markerArray['###VALUE###'] = 'value="' . $this->cObj->cObjGetSingle($this->conf['prefill.']['uid' . $this->uid], $this->conf['prefill.']['uid' . $this->uid . '.']) . '" '; // add typoscript value
-		} else { // 5. no prefilling - so clear value marker
+		} else {
+			// 5. no prefilling - so clear value marker
 			$this->markerArray['###VALUE###'] = 'value="" '; // clear
 		}
 
