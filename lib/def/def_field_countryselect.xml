@@ -69,7 +69,7 @@
 			</mandatory>
 			<countryzone>
 				<TCEforms>
-					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.countryzone</label>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.addCountryzone</label>
 					<exclude>1</exclude>
 					<config>
 						<type>check</type>

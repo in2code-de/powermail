@@ -155,6 +155,7 @@
 			<label index="tx_powermail_forms.xml.placeholder">Placeholder</label>
 			<label index="tx_powermail_forms.xml.example">Field example</label>
 			<label index="tx_powermail_forms.xml.countryzone">Add countryzone select (XAJAX needed)</label>
+			<label index="tx_powermail_forms.xml.addCountryzone">Add countryzone select (needs javascript on client side)</label>
 			<label index="tx_powermail_forms.xml.error">Please select a fieldtype to continue.</label>
 			<label index="tx_powermail_forms.xml.countryselect.error">Please install the extension static_info_tables to use this feature.</label>
 			<label index="tx_powermail_forms.xml.date.showselector">Show month and year selector</label>
@@ -306,6 +307,7 @@
 			<label index="tx_powermail_forms.xml.placeholder">Platzhalter</label>
 			<label index="tx_powermail_forms.xml.example">Beispiel</label>
 			<label index="tx_powermail_forms.xml.countryzone">Bundesländerauswahl hinzufügen (XAJAX benötigt)</label>
+			<label index="tx_powermail_forms.xml.addCountryzone">Bundesländerauswahl hinzufügen (benötigt Javascript auf Benutzerseite)</label>
 			<label index="tx_powermail_forms.xml.error">Bitte wählen Sie einen Feldtypen um fortzufahren.</label>
 			<label index="tx_powermail_forms.xml.countryselect.error">Bitte installieren Sie static_info_tables um dieses Feature nutzen zu können.</label>
 			<label index="tx_powermail_forms.xml.date.showselector">Zeige Monat- und Jahresauswahl</label>
