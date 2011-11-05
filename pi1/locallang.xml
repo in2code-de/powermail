@@ -81,7 +81,7 @@
 			<label index="geoip_dmaCode">DMA Code</label>
 			<label index="geoip_areaCode">Area Code</label>
 		</languageKey>
-		<languageKey index="cn" type="array">
+		<languageKey index="ch" type="array">
 			<label index="powermailmarker_notitle">错误：数据库中未找到符合标题的字段(%s)</label>
 			<label index="locallangmarker_confirmation_question">输入值是否正确？</label>
 			<label index="locallangmarker_confirmation_back">返回</label>
