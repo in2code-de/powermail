@@ -75,10 +75,9 @@ class tx_powermail_pi1_wizicon {
 	 * @return	The array with language labels
 	 */
 	function includeLocalLang()	{
-		$llFile = t3lib_extMgm::extPath(powermail) . 'locallang.xml';
-		$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
-
-		return $LOCAL_LANG;
+        $localizationParser = t3lib_div::makeInstance('t3lib_l10n_parser_Llxml');
+        $llFile = t3lib_extMgm::extPath(powermail) . 'locallang.xml';
+        return $localizationParser->getParsedData($llFile, $GLOBALS['LANG']->lang);
 	}
 }
 
