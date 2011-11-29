@@ -35,33 +35,5 @@
 			<label index="msg.error">Error</label>
 			<label index="msg.additionalInformation">Import %s to page %s</label>
 		</languageKey>
-		<languageKey index="de" type="array">
-			<label index="import_scheduler.title">Automatischer CSV Import</label>
-			<label index="import_scheduler.descrition">Automatischer Import von CSV-Daten in Powermail</label>
-			<label index="label.fileurl">URL der zu importierenden Datei (mit http://)</label>
-			<label index="label.delimiter">Feldtrenner</label>
-			<label index="label.enclosure">Feldumschließungen</label>
-			<label index="label.encoding">Dateiencoding</label>
-			<label index="label.firstline">Erste Zeile beinhaltet Feldnamen (nicht importieren)</label>
-			<label index="label.limit">Anzahl der zu importierenden Zeilen (leer = alle)</label>
-			<label index="label.pid">Seiten-ID wohin die Daten importiert werden sollen</label>
-			<label index="label.formuid">Form-UID in der die Powermailfelder definiert sind</label>
-			<label index="label.connections"><![CDATA[Feldverbindungen (eine Zeile pro Feld)<br />CSV-Spaltennummer = Powermail-Uid<br />Beispiel:<br />1 = uid100<br />2 = uid101<br />3 = uid107]]></label>
-			<label index="enclosure.0">Anführungszeichen (doppelt)</label>
-			<label index="enclosure.1">Anführungszeichen (einfach)</label>
-			<label index="enclosure.2">Keine</label>
-			<label index="delimiter.0">Semicolon</label>
-			<label index="delimiter.1">Komma</label>
-			<label index="delimiter.2">Tabulator</label>
-			<label index="msg.noPid">Keine Page id definiert!</label>
-			<label index="msg.noFormuid">Keine Form id definiert!</label>
-			<label index="msg.noFileurl">Keine Datei-URL definiert!</label>
-			<label index="msg.noEncoding">Kein Encoding definiert!</label>
-			<label index="msg.successfullyImportHeader">Import erfolgreich beendet</label>
-			<label index="msg.successfullyImport">Es wurden %s Zeilen importiert.</label>
-			<label index="msg.fileNotFound">%s nicht gefunden!</label>
-			<label index="msg.error">Fehler</label>
-			<label index="msg.additionalInformation">Importiere %s in Seite %s</label>
-		</languageKey>
 	</data>
 </T3locallang>
