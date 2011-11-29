@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2011-11-29T22:56:05Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="title">
+				<source>Powermail</source>
+			</trans-unit>
+			<trans-unit id="function1">
+				<source>Powermail list and export</source>
+			</trans-unit>
+			<trans-unit id="function2">
+				<source>Powermail charts</source>
+			</trans-unit>
+			<trans-unit id="nopowermails1">
+				<source>No powermails on current page!</source>
+			</trans-unit>
+			<trans-unit id="nopowermails2">
+				<source>Please choose a page with powermails inside.</source>
+			</trans-unit>
+			<trans-unit id="title_no">
+				<source>#</source>
+			</trans-unit>
+			<trans-unit id="title_date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="title_sender">
+				<source>Sender</source>
+			</trans-unit>
+			<trans-unit id="title_IP">
+				<source>Sender IP</source>
+			</trans-unit>
+			<trans-unit id="title_receiver">
+				<source>Receiver</source>
+			</trans-unit>
+			<trans-unit id="title_details">
+				<source>Details</source>
+			</trans-unit>
+			<trans-unit id="title_delete">
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="export_download_success">
+				<source>Success!</source>
+			</trans-unit>
+			<trans-unit id="export_download_download">
+				<source>Download CSV File</source>
+			</trans-unit>
+			<trans-unit id="export_download_downloadZIP">
+				<source>Download compressed CSV File</source>
+			</trans-unit>
+			<trans-unit id="export_icon_excel">
+				<source>Export to excel file format</source>
+			</trans-unit>
+			<trans-unit id="export_icon_csv">
+				<source>Export to csv file format</source>
+			</trans-unit>
+			<trans-unit id="export_icon_html">
+				<source>Export to HTML table</source>
+			</trans-unit>
+			<trans-unit id="icon_deloff">
+				<source>Delete after export disabled! Click to enable delete after export</source>
+			</trans-unit>
+			<trans-unit id="icon_delon">
+				<source>Delete after export enabled! Click to disable delete after export</source>
+			</trans-unit>
+			<trans-unit id="icon_print">
+				<source>Click here to print this view</source>
+			</trans-unit>
+			<trans-unit id="icon_close">
+				<source>Click hier to close the window</source>
+			</trans-unit>
+			<trans-unit id="delall_sure">
+				<source>If you are going on, all mails will be deleted after export, are you sure?</source>
+			</trans-unit>
+			<trans-unit id="pagebrowser_page">
+				<source>page</source>
+			</trans-unit>
+			<trans-unit id="pagebrowser_upto">
+				<source>up to</source>
+			</trans-unit>
+			<trans-unit id="pagebrowser_within">
+				<source>within</source>
+			</trans-unit>
+			<trans-unit id="filter_start">
+				<source>Start</source>
+			</trans-unit>
+			<trans-unit id="filter_end">
+				<source>End</source>
+			</trans-unit>
+			<trans-unit id="del_sure">
+				<source>Are you sure to delete this entry?</source>
+			</trans-unit>
+			<trans-unit id="del_message">
+				<source>Mail with uid %s deleted!</source>
+			</trans-unit>
+			<trans-unit id="chart_chart">
+				<source>Chart: Number of the last mails</source>
+			</trans-unit>
+			<trans-unit id="chart_table">
+				<source>Table: Details about the last mails</source>
+			</trans-unit>
+			<trans-unit id="path">
+				<source>Path</source>
+			</trans-unit>
+			<trans-unit id="wait">
+				<source>Please wait...</source>
+			</trans-unit>
+			<trans-unit id="loading">
+				<source>Loading mails</source>
+			</trans-unit>
+			<trans-unit id="delete">
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="perpage">
+				<source>Per Page</source>
+			</trans-unit>
+			<trans-unit id="deletechosen">
+				<source>Delete chosen mails</source>
+			</trans-unit>
+			<trans-unit id="choseline">
+				<source>An error has occurred</source>
+			</trans-unit>
+			<trans-unit id="choseline2">
+				<source>Please select at least one row.</source>
+			</trans-unit>
+			<trans-unit id="yes">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="no">
+				<source>No</source>
+			</trans-unit>
+			<trans-unit id="created">
+				<source>Created</source>
+			</trans-unit>
+			<trans-unit id="delsure">
+				<source>Do you really want to delete the chosen rows?</source>
+			</trans-unit>
+			<trans-unit id="showrows">
+				<source>Show rows {0} - {1} of {2}</source>
+			</trans-unit>
+			<trans-unit id="noresults">
+				<source>There are no mails</source>
+			</trans-unit>
+			<trans-unit id="rows">
+				<source>Rows</source>
+			</trans-unit>
+			<trans-unit id="shortcut">
+				<source>Create a shortcut to this page</source>
+			</trans-unit>
+			<trans-unit id="exportformat">
+				<source>Export format:</source>
+			</trans-unit>
+			<trans-unit id="exportpdf">
+				<source>PDF Export</source>
+			</trans-unit>
+			<trans-unit id="exporthtml">
+				<source>HTML Export</source>
+			</trans-unit>
+			<trans-unit id="exportcsv">
+				<source>CSV Export</source>
+			</trans-unit>
+			<trans-unit id="exportxls">
+				<source>XLS Export</source>
+			</trans-unit>
+			<trans-unit id="start">
+				<source>Start:</source>
+			</trans-unit>
+			<trans-unit id="end">
+				<source>End:</source>
+			</trans-unit>
+			<trans-unit id="pivars">
+				<source>piVars</source>
+			</trans-unit>
+			<trans-unit id="date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="sender">
+				<source>Sender</source>
+			</trans-unit>
+			<trans-unit id="receiver">
+				<source>Receiver</source>
+			</trans-unit>
+			<trans-unit id="ip">
+				<source>IP-Address</source>
+			</trans-unit>
+			<trans-unit id="phpexcel_library">
+				<source>You need the extension phpexcel_library to use this feature!</source>
+			</trans-unit>
+			<trans-unit id="noPdf">
+				<source>This export format is currently not implemented. Please contact the powermail development team, if you want to sponsor this feature.</source>
+			</trans-unit>
+			<trans-unit id="uploadPath">
+				<source>Path for uploads</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

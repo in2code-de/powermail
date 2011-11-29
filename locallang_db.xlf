@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2011-11-29T22:40:42Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="please_select">
+				<source>Please select...</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms">
+				<source>Forms</source>
+			</trans-unit>
+			<trans-unit id="tt_content.CType_pi1">
+				<source>powermail</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.title">
+				<source>Form title (for internal usage and subfolder name of uploads, if activated)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldsets">
+				<source>Form pages</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.preview">
+				<source>Preview</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.recipient">
+				<source>Email of recipient (and optional name of recipient)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.subject_r">
+				<source>Subject for recipient's mail</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.subject_s">
+				<source>Subject for sender's mail</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.sender">
+				<source>Senders email address</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.sendername">
+				<source>Senders name</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.confirm">
+				<source>Activate confirmation page</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.startingpoint">
+				<source>Save mails in page (empty for same page)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.savemailstopage">
+				<source>Save powermails to page (NO data storage, if this field is empty!)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.multiple">
+				<source>Multiple steps (every fieldset is a single page)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.multiple.I.0">
+				<source>Show all fieldsets on one page (default)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.multiple.I.1">
+				<source>Multiple pages (client application)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.multiple.I.2">
+				<source>Multiple pages (server application)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.recip_table">
+				<source>Table of recipients</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.recip_id">
+				<source>Recipients from upper table</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.recip_field">
+				<source>Fieldname where mail is stored</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.query">
+				<source>Alternative SQL-Query</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.thanks">
+				<source>Response text (shown on website after submit)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.mailsender">
+				<source>Email-Text for sender</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.mailsender.default">
+				<source>Thank you for your message:
+
+###POWERMAIL_ALL###</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.mailreceiver">
+				<source>Email-Text for receiver</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.mailreceiver.default">
+				<source>This is an email from your website:
+
+###POWERMAIL_ALL###</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.redirect">
+				<source>Auto-redirect after confirmation-page</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.updateError">
+				<source>Powermail ERROR: Please go back to the extension manager, choose powermail and click the update button!</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.noError">
+				<source>No errors found</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.disableSaveToPage">
+				<source>Disable save to page</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.useTitleAsUploadSubFolderName">
+				<source>Use title as folder name for uploads</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fieldsets">
+				<source>Fieldsets</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fieldsets.form">
+				<source>Form</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fieldsets.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fieldsets.fields">
+				<source>Fields</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fieldsets.addition">
+				<source>Additional Settings</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fieldsets.class">
+				<source>Add CSS class</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fieldsets.tt_content">
+				<source>Powermail Content Element</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields">
+				<source>Fields</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.fieldset">
+				<source>Fieldset</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.type">
+				<source>Fieldtype</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.field">
+				<source>Settings</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.fe_field">
+				<source>Fill out this field with fe_user field</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.class">
+				<source>Add CSS class</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_fields.pattern">
+				<source>RegExp Pattern</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails">
+				<source>Mails</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.formid">
+				<source>Content UID where form is in</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.recipient">
+				<source>Recipient</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.cc_recipient">
+				<source>CC recipient(s)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.subject_r">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.sender">
+				<source>Sender</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.content">
+				<source>Content</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.content_RTE">
+				<source>Full screen Rich Text Editing</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.piVars">
+				<source>All values</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.senderIP">
+				<source>IP address of sender</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.UserAgent">
+				<source>User agent of sender</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.Referer">
+				<source>Link to page with form</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.SP_TZ">
+				<source>User location</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.Additional">
+				<source>Additional information</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_mails.feuser">
+				<source>Filled out from FE_User</source>
+			</trans-unit>
+			<trans-unit id="tt_content.list_type_pi1">
+				<source>Powermail</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.div1">
+				<source>Formdata</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.div2">
+				<source>Fields</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.div4">
+				<source>Recipients</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.div3">
+				<source>Sender</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.div5">
+				<source>Answer page</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.div6">
+				<source>Email-Text sender</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.div7">
+				<source>Email-Text receiver</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.div8">
+				<source>Access</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.text">
+				<source>Textfield</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.textarea">
+				<source>Textarea</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.select">
+				<source>Select box</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.check">
+				<source>Checkbox(s)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.radio">
+				<source>Radiobutton(s)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.password">
+				<source>Password field</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.file">
+				<source>File upload</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.content">
+				<source>TYPO3 pagecontent</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.hidden">
+				<source>Hidden field</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.label">
+				<source>Show some text</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.html">
+				<source>Enter your own HTML code</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.submit">
+				<source>Submit button</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.reset">
+				<source>Reset button</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.datetime">
+				<source>Date and time field</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.date">
+				<source>Date field</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.button">
+				<source>Button</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.submitgraphic">
+				<source>Graphic as submit</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.countryselect">
+				<source>Country selection</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.captcha">
+				<source>Captcha request</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.typoscript">
+				<source>Add typoscript object</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.div1">
+				<source>Standard</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.div2">
+				<source>Extra</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.fieldtitle.div3">
+				<source>Extensions</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.name">
+				<source>Name for templates</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.label">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.size">
+				<source>Size</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.maxlength">
+				<source>Max. length</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.readonly">
+				<source>Read only</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.mandatory">
+				<source>Mandatory field</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.cols">
+				<source>Number of columns</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.rows">
+				<source>Number of rows</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.wrap">
+				<source>Break allowed</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.wrap.0">
+				<source>No break</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.wrap.1">
+				<source>Break allowed</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.multiple">
+				<source>Multiple select allowed</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.options">
+				<source>Enter your options</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.relation">
+				<source>TYPO3 content</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.send">
+				<source>Send this content via email</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.value">
+				<source>Default value</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.src">
+				<source>Grafic source</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.alt">
+				<source>Alternative text for image</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.preselect">
+				<source>Preselect country</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.within">
+				<source>Only show this countries</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.without">
+				<source>Show list without this countries</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.typoscript">
+				<source>Typoscript object</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate">
+				<source>Validate this field for</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.1">
+				<source>Email-address</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.2">
+				<source>URL</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.3">
+				<source>Digits only</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.4">
+				<source>Digits only (without comma or point)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.5">
+				<source>Letters only</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.6">
+				<source>Letters and digits only</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.7">
+				<source>Regular expression</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.8">
+				<source>Letters only (incl. Umlauts)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.validate.9">
+				<source>Letters and digits only (incl. Umlauts)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.inputtype">
+				<source>HTML5 input type</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.inputtype.0">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.inputtype.1">
+				<source>Color</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.inputtype.2">
+				<source>Range</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.inputtype.3">
+				<source>Tel</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.inputtype.4">
+				<source>Time</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.min">
+				<source>Minimum</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.max">
+				<source>Maximum</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.mincalc">
+				<source>Calculated minimum date from now (in days)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.maxcalc">
+				<source>Calculated maximum date from now (in days)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.step">
+				<source>Allowed steps (HTML5)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.pattern">
+				<source>RegEx pattern for value (HTML5)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.placeholder">
+				<source>Placeholder</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.example">
+				<source>Field example</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.countryzone">
+				<source>Add countryzone select (XAJAX needed)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.addCountryzone">
+				<source>Add countryzone select (needs javascript on client side)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.error">
+				<source>Please select a fieldtype to continue.</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.countryselect.error">
+				<source>Please install the extension static_info_tables to use this feature.</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.date.showselector">
+				<source>Show month and year selector</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_forms.xml.clearSession">
+				<source>Refresh page and clear whole session</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

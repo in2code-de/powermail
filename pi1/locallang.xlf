@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2011-11-29T22:50:29Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="powermailmarker_notitle">
+				<source>ERROR: No title to current field found in DB (%s)</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_confirmation_question">
+				<source>Are these values correct?</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_confirmation_back">
+				<source>Go back</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_confirmation_files">
+				<source>Attached file %s:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_confirmation_submit">
+				<source>Send values now</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_email_receiver">
+				<source>Thank you for your email:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_email_sender">
+				<source>You've got a new email:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_mandatory_message">
+				<source>There are some errors:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_mandatory_emptyfield">
+				<source>This field must be filled:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_mandatory_submit">
+				<source>Go back to the form</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_validemail">
+				<source>This is not a valid email address:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_file_main">
+				<source>This file could not be uploaded:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_file_toolarge">
+				<source>This file is too large:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_file_extension">
+				<source>This file extension is not allowed:</source>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_file_mimetype">
+				<source>Uploaded file don't fits mime check:</source>
+			</trans-unit>
+			<trans-unit id="error_check_recipient">
+				<source>Please fill in this backend field: Email address of receiver</source>
+			</trans-unit>
+			<trans-unit id="error_check_noTS">
+				<source>Typoscript for powermail missing!</source>
+			</trans-unit>
+			<trans-unit id="error_captcha_empty">
+				<source>Captcha Code empty</source>
+			</trans-unit>
+			<trans-unit id="error_captcha_wrong">
+				<source>Captcha Code wrong</source>
+			</trans-unit>
+			<trans-unit id="error_backend_noip">
+				<source>IP logging disabled</source>
+			</trans-unit>
+			<trans-unit id="error_validemail">
+				<source>Email address is not valid</source>
+			</trans-unit>
+			<trans-unit id="error_nomx">
+				<source>Email address doesn't exist</source>
+			</trans-unit>
+			<trans-unit id="error_unique_field">
+				<source>%s was already used</source>
+			</trans-unit>
+			<trans-unit id="error_unique_ip">
+				<source>IP address %s already made an entry</source>
+			</trans-unit>
+			<trans-unit id="error_expression_validation">
+				<source>Validation failed</source>
+			</trans-unit>
+			<trans-unit id="error_templateNotFound">
+				<source>Template not found, check path to your powermail templates</source>
+			</trans-unit>
+			<trans-unit id="error_captchaWrongExt">
+				<source>Powermail ERROR: The chosen captcha extension &quot;%s&quot; is not loaded! Choose another captcha extension in the powermail constants or install the extension &quot;%s&quot;.</source>
+			</trans-unit>
+			<trans-unit id="error_captchaNoExtFound">
+				<source>Please install a captcha extension like captcha, sr_freecap, jm_recaptcha or wt_calculating_captcha!</source>
+			</trans-unit>
+			<trans-unit id="error_validate_digits">
+				<source>Please use numbers only in the field &quot;%s&quot;. Please avoid spaces or other characters such as dots or commas</source>
+			</trans-unit>
+			<trans-unit id="error_validate_alpha">
+				<source>Please use letters only (a-z) in the field &quot;%s&quot;</source>
+			</trans-unit>
+			<trans-unit id="error_validate_alphanum">
+				<source>Please use only letters (a-z) or numbers (0-9) only in the field &quot;%s&quot;.</source>
+			</trans-unit>
+			<trans-unit id="error_validate_alpha_w_umlaut">
+				<source>Please use letters only (a-z) in the field &quot;%s&quot;</source>
+			</trans-unit>
+			<trans-unit id="error_validate_alphanum_w_umlaut">
+				<source>Please use only letters (a-z) or numbers (0-9) only in the field &quot;%s&quot;.</source>
+			</trans-unit>
+			<trans-unit id="please_select">
+				<source>Please select...</source>
+			</trans-unit>
+			<trans-unit id="country_zone">
+				<source>State</source>
+			</trans-unit>
+			<trans-unit id="country_zone_of">
+				<source>State of %s</source>
+			</trans-unit>
+			<trans-unit id="multiple_forward">
+				<source>Next step</source>
+			</trans-unit>
+			<trans-unit id="multiple_back">
+				<source>Previous step</source>
+			</trans-unit>
+			<trans-unit id="pagebrowser_inner">
+				<source>of</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_required">
+				<source>This is a required field</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_please_correct">
+				<source>Please correct this value</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_number">
+				<source>Please enter a valid number in this field</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_digits">
+				<source>Please use numbers only in this field. Please avoid other characters such as dots or commas</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_alpha">
+				<source>Please use only letters (a-z) in this field</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_alphanum">
+				<source>Please use only letters (a-z) and numbers (0-9) in this field.</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_date">
+				<source>Please enter a valid date</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_datetime">
+				<source>Please enter a valid date and time</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_email">
+				<source>Please enter a valid email address (test@test.com)</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_url">
+				<source>Please enter a valid URL (http://www.test.com)</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_date_au">
+				<source>Please use this date format: dd/mm/yyyy. For example 17/03/2006 for the 17th of March, 2006</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_currency_dollar">
+				<source>Please enter a valid $ amount. For example $100.00</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_selection">
+				<source>Please select an option</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_one_required">
+				<source>Please select at least one option</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_max">
+				<source>Please enter a value greater than $1</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_min">
+				<source>Please enter a value smaller than $1</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_dateinput_months">
+				<source>January,February,March,April,May,June,July,August,September,October,November,December</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_dateinput_shortMonths">
+				<source>Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_dateinput_days">
+				<source>Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_dateinput_shortDays">
+				<source>Sun,Mon,Tue,Wed,Thu,Fri,Sat</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_dateinput_firstDay">
+				<source>0</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_dateinput_format">
+				<source>yyyy-mm-dd</source>
+			</trans-unit>
+			<trans-unit id="JSvalidation_invalidtime">
+				<source>Invalid time</source>
+			</trans-unit>
+			<trans-unit id="geoip_ip">
+				<source>IP address</source>
+			</trans-unit>
+			<trans-unit id="geoip_countryCode">
+				<source>Country Code</source>
+			</trans-unit>
+			<trans-unit id="geoip_countryName">
+				<source>Country</source>
+			</trans-unit>
+			<trans-unit id="geoip_region">
+				<source>Region</source>
+			</trans-unit>
+			<trans-unit id="geoip_city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="geoip_zip">
+				<source>ZIP</source>
+			</trans-unit>
+			<trans-unit id="geoip_lng">
+				<source>LNG</source>
+			</trans-unit>
+			<trans-unit id="geoip_lat">
+				<source>LAT</source>
+			</trans-unit>
+			<trans-unit id="geoip_dmaCode">
+				<source>DMA Code</source>
+			</trans-unit>
+			<trans-unit id="geoip_areaCode">
+				<source>Area Code</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2011-11-29T22:57:12Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="pi1_title">
+				<source>powermail</source>
+			</trans-unit>
+			<trans-unit id="pi1_plus_wiz_description">
+				<source>Powerful and easy mailform extension with database storing, javascript validation and many more...</source>
+			</trans-unit>
+			<trans-unit id="extmng.classInnerHeader">
+				<source>Warning!</source>
+			</trans-unit>
+			<trans-unit id="extmng.classInner">
+				<source>You have to use the &quot;Update&quot;-Button below to ensure proper working for all functions in this extension.</source>
+			</trans-unit>
+			<trans-unit id="extmng.updatermsgHeader">
+				<source>Important!</source>
+			</trans-unit>
+			<trans-unit id="extmng.updatermsg">
+				<source>Powermail comes with a new updater-script which fix pages with &quot;none&quot;-effects selected. You have to run this script if you are updating from older installation.</source>
+			</trans-unit>
+			<trans-unit id="extmng.updatermsgLink">
+				<source>[Click here to open the updater]</source>
+			</trans-unit>
+			<trans-unit id="updater.back">
+				<source>[&lt;- back]</source>
+			</trans-unit>
+			<trans-unit id="updater.reload">
+				<source>[reload this page]</source>
+			</trans-unit>
+			<trans-unit id="updater.warningHeader">
+				<source>Important! Please Read!</source>
+			</trans-unit>
+			<trans-unit id="updater.nothingtodo">
+				<source>Nothing to do</source>
+			</trans-unit>
+			<trans-unit id="updater.actions">
+				<source>Actions:</source>
+			</trans-unit>
+			<trans-unit id="updater.updateresults">
+				<source>Update results:</source>
+			</trans-unit>
+			<trans-unit id="updater.warningMsg">
+				<source>
+                The updater manipulates your database and due to the huge amount of configuration variants it is
+                possible that it &lt;br&gt;might not produce the expected results.&lt;br&gt;
+                So backup your database (at least the table tt_content) or do a t3d export of your site
+                &lt;strong&gt;BEFORE&lt;/strong&gt; &lt;br&gt;
+                you click on any of the &quot;DO IT&quot; Buttons.
+            </source>
+			</trans-unit>
+			<trans-unit id="updater.lbl_searchStoragePageEmpty">
+				<source>Search for empty powermail storage page settings in tt_content</source>
+			</trans-unit>
+			<trans-unit id="updater.msg_searchStoragePageEmpty">
+				<source>Result:</source>
+			</trans-unit>
+			<trans-unit id="updater.foundMsg_searchStoragePageEmpty">
+				<source>Found ###COUNT### content elements.</source>
+			</trans-unit>
+			<trans-unit id="updater.question_searchStoragePageEmpty">
+				<source>Should the updater fix this settings?</source>
+			</trans-unit>
+			<trans-unit id="updater.questionInfo_searchStoragePageEmpty">
+				<source>(If you click &quot;DO IT&quot; all empty storage page settings inside powermail content elements will be set to the page containing itself)</source>
+			</trans-unit>
+			<trans-unit id="constants.powermail_template_files">
+				<source>Template files</source>
+			</trans-unit>
+			<trans-unit id="constants.powermail_javascript_files">
+				<source>Javascript files</source>
+			</trans-unit>
+			<trans-unit id="constants.powermail_validation_error">
+				<source>Validation error</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2011-11-29T22:49:06Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="import_scheduler.title">
+				<source>Automatic CSV import</source>
+			</trans-unit>
+			<trans-unit id="import_scheduler.descrition">
+				<source>Automatic import of CSV data to powermail</source>
+			</trans-unit>
+			<trans-unit id="label.fileurl">
+				<source>URL of file to import (with http://)</source>
+			</trans-unit>
+			<trans-unit id="label.delimiter">
+				<source>Field delimiter</source>
+			</trans-unit>
+			<trans-unit id="label.enclosure">
+				<source>Field enclosure</source>
+			</trans-unit>
+			<trans-unit id="label.encoding">
+				<source>File encoding</source>
+			</trans-unit>
+			<trans-unit id="label.firstline">
+				<source>First line contains field names (do not import)</source>
+			</trans-unit>
+			<trans-unit id="label.limit">
+				<source>Number of rows to be imported (empty = all)</source>
+			</trans-unit>
+			<trans-unit id="label.pid">
+				<source>Page ID where to store imported data</source>
+			</trans-unit>
+			<trans-unit id="label.formuid">
+				<source>Form UID where fields are defined</source>
+			</trans-unit>
+			<trans-unit id="label.connections">
+				<source>Field connections (one line per field)&lt;br /&gt;CSV-Columnnumber = Powermail-Uid&lt;br /&gt;Example:&lt;br /&gt;1 = uid100&lt;br /&gt;2 = uid101&lt;br /&gt;3 = uid107</source>
+			</trans-unit>
+			<trans-unit id="msg.noPid">
+				<source>No Page id defined!</source>
+			</trans-unit>
+			<trans-unit id="enclosure.0">
+				<source>Quotation marks (double)</source>
+			</trans-unit>
+			<trans-unit id="enclosure.1">
+				<source>Quotation marks (single)</source>
+			</trans-unit>
+			<trans-unit id="enclosure.2">
+				<source>None</source>
+			</trans-unit>
+			<trans-unit id="delimiter.0">
+				<source>Semicolon</source>
+			</trans-unit>
+			<trans-unit id="delimiter.1">
+				<source>Comma</source>
+			</trans-unit>
+			<trans-unit id="delimiter.2">
+				<source>Tab</source>
+			</trans-unit>
+			<trans-unit id="msg.noFormuid">
+				<source>No Form id defined!</source>
+			</trans-unit>
+			<trans-unit id="msg.noFileurl">
+				<source>No file url defined!</source>
+			</trans-unit>
+			<trans-unit id="msg.noEncoding">
+				<source>No encoding defined!</source>
+			</trans-unit>
+			<trans-unit id="msg.successfullyImportHeader">
+				<source>Import successfully finished</source>
+			</trans-unit>
+			<trans-unit id="msg.successfullyImport">
+				<source>%s rows have been imported.</source>
+			</trans-unit>
+			<trans-unit id="msg.fileNotFound">
+				<source>%s not found!</source>
+			</trans-unit>
+			<trans-unit id="msg.error">
+				<source>Error</source>
+			</trans-unit>
+			<trans-unit id="msg.additionalInformation">
+				<source>Import %s to page %s</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
