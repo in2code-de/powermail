@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="ch" datatype="plaintext" original="messages" date="2011-11-29T22:50:29Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="powermailmarker_notitle" approved="yes">
+				<source>ERROR: No title to current field found in DB (%s)</source>
+				<target>错误：数据库中未找到符合标题的字段(%s)</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_confirmation_question" approved="yes">
+				<source>Are these values correct?</source>
+				<target>输入值是否正确？</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_confirmation_back" approved="yes">
+				<source>Go back</source>
+				<target>返回</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_confirmation_files" approved="yes">
+				<source>Attached file %s:</source>
+				<target>附加文件 %s:</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_confirmation_submit" approved="yes">
+				<source>Send values now</source>
+				<target>现在发送值</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_email_receiver" approved="yes">
+				<source>Thank you for your email:</source>
+				<target>感谢您的邮件：</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_email_sender" approved="yes">
+				<source>You've got a new email:</source>
+				<target>您有一封信邮件</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_mandatory_message" approved="yes">
+				<source>There are some errors:</source>
+				<target>有一些错误</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_mandatory_emptyfield" approved="yes">
+				<source>This field must be filled:</source>
+				<target>这一字段必须填写完整：</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_mandatory_submit" approved="yes">
+				<source>Go back to the form</source>
+				<target>返回表格：</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_validemail" approved="yes">
+				<source>This is not a valid email address:</source>
+				<target>邮件地址无效</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_file_main" approved="yes">
+				<source>This file could not be uploaded:</source>
+				<target>文件无法上传：</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_file_toolarge" approved="yes">
+				<source>This file is too large:</source>
+				<target>文件过大：</target>
+			</trans-unit>
+			<trans-unit id="locallangmarker_error_file_extension" approved="yes">
+				<source>This file extension is not allowed:</source>
+				<target>非法的文件扩展名：</target>
+			</trans-unit>
+			<trans-unit id="error_check_subject_r" approved="yes">
+				<source></source>
+				<target>错误！！请填写后端字段：收件人主题</target>
+			</trans-unit>
+			<trans-unit id="error_check_recipient" approved="yes">
+				<source>Please fill in this backend field: Email address of receiver</source>
+				<target>错误！！请填写后端字段：收件人地址</target>
+			</trans-unit>
+			<trans-unit id="error_check_noTS" approved="yes">
+				<source>Typoscript for powermail missing!</source>
+				<target>源代码丢失！</target>
+			</trans-unit>
+			<trans-unit id="error_captcha_empty" approved="yes">
+				<source>Captcha Code empty</source>
+				<target>验证码为空</target>
+			</trans-unit>
+			<trans-unit id="error_captcha_wrong" approved="yes">
+				<source>Captcha Code wrong</source>
+				<target>验证码错误</target>
+			</trans-unit>
+			<trans-unit id="error_backend_noip" approved="yes">
+				<source>IP logging disabled</source>
+				<target>登录无效</target>
+			</trans-unit>
+			<trans-unit id="error_validemail" approved="yes">
+				<source>Email address is not valid</source>
+				<target>无效电子邮件地址</target>
+			</trans-unit>
+			<trans-unit id="error_nomx" approved="yes">
+				<source>Email address doesn't exist</source>
+				<target>没有这个电子邮件地址</target>
+			</trans-unit>
+			<trans-unit id="error_unique_field" approved="yes">
+				<source>%s was already used</source>
+				<target>%s 已经被使用</target>
+			</trans-unit>
+			<trans-unit id="error_unique_ip" approved="yes">
+				<source>IP address %s already made an entry</source>
+				<target>已经输入了一个IP地址</target>
+			</trans-unit>
+			<trans-unit id="error_expression_validation" approved="yes">
+				<source>Validation failed</source>
+				<target>确认失败</target>
+			</trans-unit>
+			<trans-unit id="error_templateNotFound" approved="yes">
+				<source>Template not found, check path to your powermail templates</source>
+				<target>未发现模板，检查您的powermail路径</target>
+			</trans-unit>
+			<trans-unit id="error_captchaWrongExt" approved="yes">
+				<source>Powermail ERROR: The chosen captcha extension &quot;%s&quot; is not loaded! Choose another captcha extension in the powermail constants or install the extension &quot;%s&quot;.</source>
+				<target>如果您在powermail常量中选择了正确的验证码扩展名请核对！</target>
+			</trans-unit>
+			<trans-unit id="error_captchaNoExtFound" approved="yes">
+				<source>Please install a captcha extension like captcha, sr_freecap, jm_recaptcha or wt_calculating_captcha!</source>
+				<target>请设置验证码扩展名，如 captcha, sr_freecap, jm_recaptcha 或wt_calculating_captcha!</target>
+			</trans-unit>
+			<trans-unit id="multiple_forward" approved="yes">
+				<source>Next step</source>
+				<target>下一步</target>
+			</trans-unit>
+			<trans-unit id="multiple_back" approved="yes">
+				<source>Previous step</source>
+				<target>上一步</target>
+			</trans-unit>
+			<trans-unit id="pagebrowser_inner" approved="yes">
+				<source>of</source>
+				<target>的</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_required" approved="yes">
+				<source>This is a required field</source>
+				<target>这是要求的字段</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_number" approved="yes">
+				<source>Please enter a valid number in this field</source>
+				<target>请在此字段中输入有效编号</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_digits" approved="yes">
+				<source>Please use numbers only in this field. Please avoid other characters such as dots or commas</source>
+				<target>此字段中只能使用数字，请勿使用空格或句号、逗号等其它符号。</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_alpha" approved="yes">
+				<source>Please use only letters (a-z) in this field</source>
+				<target>此字段中只能使用字母（a至z）</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_alphanum" approved="yes">
+				<source>Please use only letters (a-z) and numbers (0-9) in this field.</source>
+				<target>此字段中只能使用字母（a至z）或数字（0至9）。不得使用空格或其它字符！</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_date" approved="yes">
+				<source>Please enter a valid date</source>
+				<target>请输入有效日期</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_email" approved="yes">
+				<source>Please enter a valid email address (test@test.com)</source>
+				<target>请输入有效的电子邮件地址(test@test.com)</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_url" approved="yes">
+				<source>Please enter a valid URL (http://www.test.com)</source>
+				<target>请输入有效的网页地址(http://www.test.com)</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_date_au" approved="yes">
+				<source>Please use this date format: dd/mm/yyyy. For example 17/03/2006 for the 17th of March, 2006</source>
+				<target>请使用这种日期格式：日/月/年。例如2006年3月17日表示为17/03/2006</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_currency_dollar" approved="yes">
+				<source>Please enter a valid $ amount. For example $100.00</source>
+				<target>请输入有效的数额，如100.00美元</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_selection" approved="yes">
+				<source>Please select an option</source>
+				<target>请选择</target>
+			</trans-unit>
+			<trans-unit id="JSvalidation_label_validate_one_required" approved="yes">
+				<source>Please select at least one option</source>
+				<target>请选择您最中意的选项</target>
+			</trans-unit>
+			<trans-unit id="geoip_ip" approved="yes">
+				<source>IP address</source>
+				<target>地址</target>
+			</trans-unit>
+			<trans-unit id="geoip_countryCode" approved="yes">
+				<source>Country Code</source>
+				<target>国家代码</target>
+			</trans-unit>
+			<trans-unit id="geoip_countryName" approved="yes">
+				<source>Country</source>
+				<target>国家</target>
+			</trans-unit>
+			<trans-unit id="geoip_region" approved="yes">
+				<source>Region</source>
+				<target>地区</target>
+			</trans-unit>
+			<trans-unit id="geoip_city" approved="yes">
+				<source>City</source>
+				<target>城市</target>
+			</trans-unit>
+			<trans-unit id="geoip_zip" approved="yes">
+				<source>ZIP</source>
+				<target>邮政编码</target>
+			</trans-unit>
+			<trans-unit id="geoip_lng" approved="yes">
+				<source>LNG</source>
+				<target>LNG</target>
+			</trans-unit>
+			<trans-unit id="geoip_lat" approved="yes">
+				<source>LAT</source>
+				<target>LAT</target>
+			</trans-unit>
+			<trans-unit id="geoip_dmaCode" approved="yes">
+				<source>DMA Code</source>
+				<target>DMA码</target>
+			</trans-unit>
+			<trans-unit id="geoip_areaCode" approved="yes">
+				<source>Area Code</source>
+				<target>地区码</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

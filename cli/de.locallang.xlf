@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2011-11-29T22:49:06Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="import_scheduler.title" approved="yes">
+				<source>Automatic CSV import</source>
+				<target>Automatischer CSV Import</target>
+			</trans-unit>
+			<trans-unit id="import_scheduler.descrition" approved="yes">
+				<source>Automatic import of CSV data to powermail</source>
+				<target>Automatischer Import von CSV-Daten in Powermail</target>
+			</trans-unit>
+			<trans-unit id="label.fileurl" approved="yes">
+				<source>URL of file to import (with http://)</source>
+				<target>URL der zu importierenden Datei (mit http://)</target>
+			</trans-unit>
+			<trans-unit id="label.delimiter" approved="yes">
+				<source>Field delimiter</source>
+				<target>Feldtrenner</target>
+			</trans-unit>
+			<trans-unit id="label.enclosure" approved="yes">
+				<source>Field enclosure</source>
+				<target>Feldumschließungen</target>
+			</trans-unit>
+			<trans-unit id="label.encoding" approved="yes">
+				<source>File encoding</source>
+				<target>Dateiencoding</target>
+			</trans-unit>
+			<trans-unit id="label.firstline" approved="yes">
+				<source>First line contains field names (do not import)</source>
+				<target>Erste Zeile beinhaltet Feldnamen (nicht importieren)</target>
+			</trans-unit>
+			<trans-unit id="label.limit" approved="yes">
+				<source>Number of rows to be imported (empty = all)</source>
+				<target>Anzahl der zu importierenden Zeilen (leer = alle)</target>
+			</trans-unit>
+			<trans-unit id="label.pid" approved="yes">
+				<source>Page ID where to store imported data</source>
+				<target>Seiten-ID wohin die Daten importiert werden sollen</target>
+			</trans-unit>
+			<trans-unit id="label.formuid" approved="yes">
+				<source>Form UID where fields are defined</source>
+				<target>Form-UID in der die Powermailfelder definiert sind</target>
+			</trans-unit>
+			<trans-unit id="label.connections" approved="yes">
+				<source>Field connections (one line per field)&lt;br /&gt;CSV-Columnnumber = Powermail-Uid&lt;br /&gt;Example:&lt;br /&gt;1 = uid100&lt;br /&gt;2 = uid101&lt;br /&gt;3 = uid107</source>
+				<target>Feldverbindungen (eine Zeile pro Feld)&lt;br /&gt;CSV-Spaltennummer = Powermail-Uid&lt;br /&gt;Beispiel:&lt;br /&gt;1 = uid100&lt;br /&gt;2 = uid101&lt;br /&gt;3 = uid107</target>
+			</trans-unit>
+			<trans-unit id="enclosure.0" approved="yes">
+				<source>Quotation marks (double)</source>
+				<target>Anführungszeichen (doppelt)</target>
+			</trans-unit>
+			<trans-unit id="enclosure.1" approved="yes">
+				<source>Quotation marks (single)</source>
+				<target>Anführungszeichen (einfach)</target>
+			</trans-unit>
+			<trans-unit id="enclosure.2" approved="yes">
+				<source>None</source>
+				<target>Keine</target>
+			</trans-unit>
+			<trans-unit id="delimiter.0" approved="yes">
+				<source>Semicolon</source>
+				<target>Semicolon</target>
+			</trans-unit>
+			<trans-unit id="delimiter.1" approved="yes">
+				<source>Comma</source>
+				<target>Komma</target>
+			</trans-unit>
+			<trans-unit id="delimiter.2" approved="yes">
+				<source>Tab</source>
+				<target>Tabulator</target>
+			</trans-unit>
+			<trans-unit id="msg.noPid" approved="yes">
+				<source>No Page id defined!</source>
+				<target>Keine Page id definiert!</target>
+			</trans-unit>
+			<trans-unit id="msg.noFormuid" approved="yes">
+				<source>No Form id defined!</source>
+				<target>Keine Form id definiert!</target>
+			</trans-unit>
+			<trans-unit id="msg.noFileurl" approved="yes">
+				<source>No file url defined!</source>
+				<target>Keine Datei-URL definiert!</target>
+			</trans-unit>
+			<trans-unit id="msg.noEncoding" approved="yes">
+				<source>No encoding defined!</source>
+				<target>Kein Encoding definiert!</target>
+			</trans-unit>
+			<trans-unit id="msg.successfullyImportHeader" approved="yes">
+				<source>Import successfully finished</source>
+				<target>Import erfolgreich beendet</target>
+			</trans-unit>
+			<trans-unit id="msg.successfullyImport" approved="yes">
+				<source>%s rows have been imported.</source>
+				<target>Es wurden %s Zeilen importiert.</target>
+			</trans-unit>
+			<trans-unit id="msg.fileNotFound" approved="yes">
+				<source>%s not found!</source>
+				<target>%s nicht gefunden!</target>
+			</trans-unit>
+			<trans-unit id="msg.error" approved="yes">
+				<source>Error</source>
+				<target>Fehler</target>
+			</trans-unit>
+			<trans-unit id="msg.additionalInformation" approved="yes">
+				<source>Import %s to page %s</source>
+				<target>Importiere %s in Seite %s</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
