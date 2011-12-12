@@ -61,7 +61,13 @@ class tx_powermail_markers extends tslib_pibase {
         $content_item = '';
         $this->markerArray = array(); // init
         $this->sessiondata = $this->getSession($what); // fill variable with values from session
-		unset($this->sessiondata['FILE']);
+        switch ($what) {
+            case 'confirmation':
+            case 'recipient_mail':
+            case 'sender_mail':
+            case 'thx':
+                unset($this->sessiondata['FILE']);
+        }
         $this->notInMarkerAll = t3lib_div::trimExplode(',', $this->conf['markerALL.']['notIn'], 1); // choose which fields should not be listed in marker ###ALL### (ERROR is never allowed to be shown)
         $this->tmpl['all']['all'] = $this->cObj->getSubpart(tslib_cObj::fileResource($this->conf['template.']['all']), "###POWERMAIL_ALL###"); // Load HTML Template: ALL (works on subpart ###POWERMAIL_ALL###)
 		$this->tmpl['all']['item'] = $this->cObj->getSubpart($this->tmpl['all']['all'], "###ITEM###"); // Load HTML Template: ALL (works on subpart ###POWERMAIL_ALL###)
