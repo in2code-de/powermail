@@ -484,7 +484,7 @@ plugin.tx_powermail_pi1 {
 	# target of the form
 	formaction = TEXT
 	formaction {
-		typolink {
+		stdWrap.typolink {
 			parameter.data = TSFE:id
 			returnLast = url
 			useCacheHash = 1
@@ -504,6 +504,7 @@ plugin.tx_powermail_pi1 {
 				}
 			}
 		}
+		htmlSpecialChars = 1
 	}
 	
 	
