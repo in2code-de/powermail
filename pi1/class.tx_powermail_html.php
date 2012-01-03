@@ -229,6 +229,7 @@ class tx_powermail_html extends tslib_pibase {
 				if (!is_array($this->piVarsFromSession['uid' . $this->uid])) { // no multiple
 					if ($options[$i][2] == '*') {
 						$markerArray['###SELECTED###'] = ' selected="selected"';
+                        $set[$i] = 1;
 					} else {
 						$markerArray['###SELECTED###'] = '';
 					} // clear
