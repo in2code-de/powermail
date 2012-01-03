@@ -111,8 +111,8 @@
 					} else {
                         if (input.prev('input').val() != '') {
                             var time = value.split(':');
-                            var hour = parseInt(time[0]);
-                            var minute = parseInt(time[1]);
+                            var hour = parseInt(time[0], 10);
+                            var minute = parseInt(time[1], 10);
                             if (hour > 23 || hour < 0 || minute > 59 || minute < 0) {
                                 return false;
                             }
