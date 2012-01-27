@@ -138,7 +138,7 @@ class tx_powermail_markers extends tslib_pibase {
 								// ###POWERMAIL_ALL###
 								if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
 									$markerArray['###POWERMAIL_LABEL###'] = $this->label;
-									$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($v));
+									$markerArray['###POWERMAIL_VALUE###'] = t3lib_div::removeXSS(stripslashes($this->div->nl2br2($v))); // XSS Protection
 									$markerArray['###POWERMAIL_EVEN_ODD###'] = $markerArray['###POWERMAIL_EVEN_ODD###'] == 'even' ? 'odd' : 'even';
                                     if (!!$this->conf['upload.']['addLinkToUploads'] && $this->type == 'file' && $this->what == 'recipient_mail') {
                                         $markerArray['###POWERMAIL_VALUE###'] = '<a href="' . $this->baseURL . $this->uploadFolder . $markerArray['###POWERMAIL_VALUE###'] . '" target="_blank">' . $markerArray['###POWERMAIL_VALUE###'] . '</a>';
