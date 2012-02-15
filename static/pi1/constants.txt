@@ -115,6 +115,9 @@ plugin.powermail {
 	# cat=powermail validation client/powermail_validation_error/0390; type=boolean; label= Automatically scroll to error: Automatically scroll to form element with first validation error
 	js.scrolltoerror = 1
 
+	# cat=powermail validation client/enable/0395; type=boolean; label= Show month and year selectors: Show pull down menu for date and year
+	js.showselectors = 0
+
 	# cat=powermail validation client/powermail_validation_error/0400; type=options[top right, center right, bottom right, bottom center, bottom left, center left, top left, top center]; label= Validation errors position: Position of validation errors
 	js.validationPosition = top right
 

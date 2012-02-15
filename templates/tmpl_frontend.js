@@ -23,6 +23,62 @@
 
 	$(function() {
 
+		// add placeholder attribute behavior in web browsers that don't support it
+		var fakeInput = document.createElement('input'),
+				placeHolderSupport = ('placeholder' in fakeInput);
+		clearPlaceholderValues = function () {
+			if (!placeHolderSupport) {
+				$('input:text, textarea').each(function(i) {
+					if ($(this).val() === $(this).attr('placeholder')) {
+						$(this).val('');
+					}
+				});
+			}
+		};
+
+		clearPlaceholderValue = function (e, els) {
+			if (!placeHolderSupport) {
+				$(this).removeClass('placeholder');
+				if (els.val() === els.attr('placeholder')) {
+					els.val('');
+				}
+			}
+		};
+
+		setPlaceholderValue = function (e, els, matcher) {
+			if (!placeHolderSupport) {
+				if (els.val().length === 0 && e.keyCode != 9 && els.attr('placeholder') != undefined) {
+					els.val(els.attr('placeholder'));
+					els.addClass('placeholder');
+				}
+			}
+		};
+
+		if (!placeHolderSupport) {
+			$('input:text, textarea').each(function(i) {
+				if ($(this).val().length === 0) {
+					var originalText = $(this).attr('placeholder');
+					$(this).val(originalText);
+					$(this).addClass('placeholder');
+					$(this).bind('focus', function (i) {
+						$(this).removeClass('placeholder');
+						if ($(this).val() === $(this).attr('placeholder')) {
+							$(this).val('');
+						}
+					});
+				}
+			});
+			// empties the placeholder text at form submit if it hasn't changed
+			$('form').bind('submit', function () {
+				clearPlaceholderValues();
+			});
+
+			// clear at window reload to avoid it stored in autocomplete
+			$(window).bind('unload', function () {
+				clearPlaceholderValues();
+			});
+		}
+
         $('form.tx_powermail_pi1_form input.powermail_date').each( function() {
             var uid = $(this).attr('id');
             var value = $(this).attr('value') != '' ? $(this).attr('value'): '';
@@ -46,7 +102,7 @@
 		$(':date').dateinput({
 			format: '###VALIDATOR_DATEINPUT_FORMAT###',
 			firstDay: parseInt('###VALIDATOR_DATEINPUT_FIRSTDAY###'),
-			selectors: true,
+			selectors: ###SHOW_SELECTORS###,
 			trigger: ###SHOW_TRIGGER_ICON###,
 			disabled: false,
 			readonly: false,
@@ -294,62 +350,6 @@
         if (###SHOW_TRIGGER_ICON###) {
             $('.tx_powermail_pi1_fieldwrap_html_datetime, .tx_powermail_pi1_fieldwrap_html_date').addClass('calendar_icon');
         }
-
-		// add placeholder attribute behavior in web browsers that don't support it
-		var fakeInput = document.createElement('input'),
-				placeHolderSupport = ('placeholder' in fakeInput);
-		clearPlaceholderValues = function () {
-			if (!placeHolderSupport) {
-				$('input:text, textarea').each(function(i) {
-					if ($(this).val() === $(this).attr('placeholder')) {
-						$(this).val('');
-					}
-				});
-			}
-		};
-
-		clearPlaceholderValue = function (e, els) {
-			if (!placeHolderSupport) {
-				$(this).removeClass('placeholder');
-				if (els.val() === els.attr('placeholder')) {
-					els.val('');
-				}
-			}
-		};
-
-		setPlaceholderValue = function (e, els, matcher) {
-			if (!placeHolderSupport) {
-				if (els.val().length === 0 && e.keyCode != 9 && els.attr('placeholder') != undefined) {
-					els.val(els.attr('placeholder'));
-					els.addClass('placeholder');
-				}
-			}
-		};
-
-		if (!placeHolderSupport) {
-			$('input:text, textarea').each(function(i) {
-				if ($(this).val().length === 0) {
-					var originalText = $(this).attr('placeholder');
-					$(this).val(originalText);
-					$(this).addClass('placeholder');
-					$(this).bind('focus', function (i) {
-						$(this).removeClass('placeholder');
-						if ($(this).val() === $(this).attr('placeholder')) {
-							$(this).val('');
-						}
-					});
-				}
-			});
-			// empties the placeholder text at form submit if it hasn't changed
-			$('form').bind('submit', function () {
-				clearPlaceholderValues();
-			});
-
-			// clear at window reload to avoid it stored in autocomplete
-			$(window).bind('unload', function () {
-				clearPlaceholderValues();
-			});
-		}
 
 		// add tabs to fieldsets for multiple page
 		$('ul.powermail_multiplejs_tabs li a:first').addClass('act'); // first tab with class "act"

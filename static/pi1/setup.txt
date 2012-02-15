@@ -594,6 +594,8 @@ lib.powermailjs {
                 SCROLL_TO_ERROR.value = true
                 SHOW_TRIGGER_ICON = TEXT
                 SHOW_TRIGGER_ICON.value = true
+                SHOW_SELECTORS = TEXT
+                SHOW_SELECTORS.value = true
                 VALIDATOR_POSITION = TEXT
                 VALIDATOR_POSITION.value = {$plugin.powermail.js.validationPosition}
                 VALIDATOR_OFFSET_X = TEXT
@@ -618,25 +620,31 @@ lib.powermailjs {
 
 [globalVar = LIT:1 > {$plugin.powermail.js.validation}]
 
-lib.powermailjs.10.marks.VALIDATOR_DISABLE.value = true
+	lib.powermailjs.10.marks.VALIDATOR_DISABLE.value = true
 
 [end]
 
 [globalVar = LIT:1 > {$plugin.powermail.js.scrolltoerror}]
 
-lib.powermailjs.10.marks.SCROLL_TO_ERROR.value = false
+	lib.powermailjs.10.marks.SCROLL_TO_ERROR.value = false
 
 [end]
 
 [globalVar = LIT:1 > {$plugin.powermail.js.showtriggericon}]
 
-lib.powermailjs.10.marks.SHOW_TRIGGER_ICON.value = false
+	lib.powermailjs.10.marks.SHOW_TRIGGER_ICON.value = false
+
+[end]
+
+[globalVar = LIT:1 > {$plugin.powermail.js.showselectors}]
+
+	lib.powermailjs.10.marks.SHOW_SELECTORS.value = false
 
 [end]
 
 [globalVar = LIT:1 > {$plugin.powermail.js.singleError}]
 
-lib.powermailjs.10.marks.VALIDATOR_SINGLE_ERROR.value = true
+	lib.powermailjs.10.marks.VALIDATOR_SINGLE_ERROR.value = true
 
 [end]
 
