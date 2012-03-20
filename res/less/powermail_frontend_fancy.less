@@ -341,20 +341,19 @@ div.tx-powermail-pi1 {
     .rounded-corners(@errorBorderRadius);
     .box-shadow(0, 0, @errorShadowWidth, @errorShadowStrength);
     .button-gradient(rgba(255,183,107,1), rgba(255,167,61,1), rgba(255,124,0,1), rgba(255,127,4,1));
-}
-
-/* pure CSS arrow */
-html:root .error em {
-	display:block;
-	width:0;
-	height:0;
-	border:@errorArrowSize solid;
-	border-color:@errorBackgroundColor transparent transparent;
-	/* positioning */
-	position:absolute;
-	bottom:-@errorArrowSize;
-	left:@errorArrowSize / 2;
-	border-bottom:0 none;
+	/* pure CSS arrow */
+	em {
+		display:block;
+		width:0;
+		height:0;
+		border:@errorArrowSize solid;
+		border-color:@errorBackgroundColor transparent transparent;
+		/* positioning */
+		position:absolute;
+		bottom:-@errorArrowSize;
+		left:@errorArrowSize / 2;
+		border-bottom:0 none;
+	}
 }
 
 /* jQuery Tools CSS                                                                */
