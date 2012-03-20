@@ -313,21 +313,21 @@
     }
     .rounded-corners(@errorBorderRadius);
     .box-shadow(0, 0, @errorShadowWidth, @errorShadowStrength);
+	/* pure CSS arrow */
+    em {
+    	display:block;
+    	width:0;
+    	height:0;
+    	border:@errorArrowSize solid;
+    	border-color:@errorBackgroundColor transparent transparent;
+    	/* positioning */
+    	position:absolute;
+    	bottom:-@errorArrowSize;
+    	left:@errorArrowSize / 2;
+    	border-bottom:0 none;
+    }
 }
 
-/* pure CSS arrow */
-html:root .error em {
-	display:block;
-	width:0;
-	height:0;
-	border:@errorArrowSize solid;
-	border-color:@errorBackgroundColor transparent transparent;
-	/* positioning */
-	position:absolute;
-	bottom:-@errorArrowSize;
-	left:@errorArrowSize / 2;
-	border-bottom:0 none;
-}
 
 /* jQuery Tools CSS                                                                */
 /* For the details, see: http://flowplayer.org/tools/dateinput/index.html#skinning */
