@@ -317,7 +317,7 @@ class tx_powermail_html extends tslib_pibase {
 				$markerArray['###CLASS###'] .= ' powermail_subuid' . $this->uid . '_' . $i; // add input subuid
 				$markerArray['###CLASS###'] .= ($this->class_f != '' ? ' ' . htmlspecialchars($this->class_f) : ''); // add manual class
 				$markerArray['###CLASS###'] .= '" '; // close tag
-				$markerArray['###HIDDENVALUE###'] = 'value="' . $this->piVarsFromSession['uid' . $this->uid][$i] . '"'; // add value for hidden field to markerArray
+				$markerArray['###HIDDENVALUE###'] = 'value="' . htmlspecialchars($this->piVarsFromSession['uid' . $this->uid][$i]) . '"'; // add value for hidden field to markerArray
 				if ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'mandatory') == 1) $markerArray['###MANDATORY_SYMBOL###'] = $this->cObj->wrap($this->conf['mandatory.']['symbol'], $this->conf['mandatory.']['wrap'],'|'); // add mandatory symbol if current field is a mandatory field
 				$this->turnedtabindex[$this->uid . '_' . $i] !== '' ? $markerArray['###TABINDEX###'] = 'tabindex="' . ($this->turnedtabindex[$this->uid . '_' . $i] + 1) . '" ' : $markerArray['###TABINDEX###'] = ''; // tabindex for every checkbox
 				isset($this->newaccesskey[$this->uid][$i]) ? $markerArray['###ACCESSKEY###'] = 'accesskey="' . $this->newaccesskey[$this->uid][$i] . '" ' : $markerArray['###ACCESSKEY###'] = ''; // accesskey for every checkbox
@@ -341,7 +341,7 @@ class tx_powermail_html extends tslib_pibase {
 				if (isset($this->piVarsFromSession['uid' . $this->uid])) { // Preselection from session
 					if (isset($this->piVarsFromSession['uid' . $this->uid][$i]) && $this->piVarsFromSession['uid' . $this->uid][$i] != '') {
 					    $markerArray['###CHECKED###'] = 'checked="checked" '; // mark as checked
-        				$markerArray['###HIDDENVALUE###'] = 'value="' . $this->piVarsFromSession['uid' . $this->uid][$i] . '"'; // add value for hidden field to markerArray
+        				$markerArray['###HIDDENVALUE###'] = 'value="' . htmlspecialchars($this->piVarsFromSession['uid' . $this->uid][$i]) . '"'; // add value for hidden field to markerArray
         			}
 
 					else $markerArray['###CHECKED###'] = ''; // clear
@@ -501,7 +501,7 @@ class tx_powermail_html extends tslib_pibase {
 
         // ###CONTENT###
         if (isset($this->piVarsFromSession['uid' . $this->uid])) { // 1. if value is in piVars
-            $this->markerArray['###CONTENT###'] = stripslashes($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]));
+            $this->markerArray['###CONTENT###'] = stripslashes($this->div->nl2nl2(htmlspecialchars($this->piVarsFromSession['uid' . $this->uid])));
         } elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. if value should be filled from current logged in user
             $this->markerArray['###CONTENT###'] = strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]);
         } elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml), 'value')) { // 3. take value from backend (default value)
@@ -608,7 +608,7 @@ class tx_powermail_html extends tslib_pibase {
 		} else { // There is an uploaded file in the session
 			$this->tmpl['html_file'] = tslib_cObj::getSubpart($this->tmpl['all'], '###POWERMAIL_FIELDWRAP_HTML_FILE_LIST###'); // work on subpart
 
-			$this->markerArray['###FILE###'] = $this->piVarsFromSession['uid' . $this->uid];
+			$this->markerArray['###FILE###'] = htmlspecialchars($this->piVarsFromSession['uid' . $this->uid]);
 			$this->markerArray['###DELETEFILE_URL###'] = $this->pi_linkTP_keepPIvars_url(array('clearSession' => $this->uid));
 			$this->markerArray['###DELETEFILE###'] .= t3lib_extMgm::siteRelPath('powermail') . 'img/icon_del.gif';
 
@@ -656,7 +656,7 @@ class tx_powermail_html extends tslib_pibase {
 				if ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field])
 					$value = strftime($this->conf['format.']['datetime'], strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]));
 				if (isset($this->piVarsFromSession['uid' . $this->uid]))
-					$value = $this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]);
+					$value = $this->div->nl2nl2(htmlspecialchars($this->piVarsFromSession['uid' . $this->uid]));
 
 				// init jscalendar class
 				$JSCalendar = JSCalendar::getInstance();
@@ -728,7 +728,7 @@ class tx_powermail_html extends tslib_pibase {
 				if ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field])
 					$value = strftime($this->conf['format.']['date'], strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]));
 				if (isset($this->piVarsFromSession['uid' . $this->uid]))
-					$value = $this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid]);
+					$value = $this->div->nl2nl2(htmlspecialchars($this->piVarsFromSession['uid' . $this->uid]));
 
 				// init jscalendar class
 				$JSCalendar = JSCalendar::getInstance();
@@ -1090,7 +1090,7 @@ class tx_powermail_html extends tslib_pibase {
 		
 		// ###VALUE###
 		if (isset($this->piVarsFromSession['uid' . $this->uid]) && !is_array($this->piVarsFromSession['uid' . $this->uid])) { // 1. if value is in session
-			$this->markerArray['###VALUE###'] = 'value="' . stripslashes($this->div->nl2nl2($this->piVarsFromSession['uid' . $this->uid])) . '" ';
+			$this->markerArray['###VALUE###'] = 'value="' . stripslashes($this->div->nl2nl2(htmlspecialchars($this->piVarsFromSession['uid' . $this->uid]))) . '" ';
 		} elseif ($this->fe_field && $GLOBALS['TSFE']->fe_user->user[$this->fe_field]) { // 2. else if value should be filled from current logged in user
 			$this->markerArray['###VALUE###'] = 'value="' . strip_tags($GLOBALS['TSFE']->fe_user->user[$this->fe_field]) . '" ';
 		} elseif ($this->pi_getFFvalue(t3lib_div::xml2array($this->xml),'value')) { // 3. take value from backend (default value)

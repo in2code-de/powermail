@@ -60,7 +60,7 @@ class tx_powermail_markers extends tslib_pibase {
 						$this->markerArray['###LABEL_' . strtolower($k) . '_' . $key . '###'] = sprintf($this->pi_getLL('locallangmarker_confirmation_files','Attached file %s: '),$i); // Label to filename
 						if (!in_array(strtoupper($k), $this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###', $this->notInMarkerAll)) {
 							$markerArray['###POWERMAIL_LABEL###'] = sprintf($this->pi_getLL('locallangmarker_confirmation_files','Attached file %s: '),$i);
-							$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($file));
+							$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2(htmlspecialchars($file)));
 						}
 						$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v); // add hook
 						$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray);
@@ -71,15 +71,15 @@ class tx_powermail_markers extends tslib_pibase {
 					if (is_numeric(str_replace('uid', '', $k))) { // use only piVars like UID555
 						if (!is_array($v)) { // standard: value is not an array
 							if (is_numeric(str_replace('uid', '', $k))) { // check if key is like uid55
-								$this->markerArray['###' . strtoupper($k) . '###'] = stripslashes($this->div->nl2br2($v)); // fill ###UID55###
-								$this->markerArray['###' . strtolower($k) . '###'] = stripslashes($this->div->nl2br2($v)); // fill ###uid55###
+								$this->markerArray['###' . strtoupper($k) . '###'] = stripslashes($this->div->nl2br2(htmlspecialchars($v))); // fill ###UID55###
+								$this->markerArray['###' . strtolower($k) . '###'] = stripslashes($this->div->nl2br2(htmlspecialchars($v))); // fill ###uid55###
 								$this->markerArray['###LABEL_' . strtoupper($k) . '###'] = $this->GetLabelfromBackend($k,$v); // fill ###LABEL_UID55###
 								$this->markerArray['###LABEL_' . strtolower($k) . '###'] = $this->GetLabelfromBackend($k,$v); // fill ###label_uid55###
 
 								// ###POWERMAIL_ALL###
 								if (!in_array(strtoupper($k),$this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###',$this->notInMarkerAll)) {
 									$markerArray['###POWERMAIL_LABEL###'] = $this->GetLabelfromBackend($k,$v);
-									$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($v));
+									$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2(htmlspecialchars($v)));
 									$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v);
 									if ($this->conf['markerALL.']['hideLabel'] == 1 && $markerArray['###POWERMAIL_VALUE###'] || $this->conf['markerALL.']['hideLabel'] == 0) { // if hideLabel on in backend: add only if value exists
 										$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'], $markerArray); // add line
@@ -91,8 +91,8 @@ class tx_powermail_markers extends tslib_pibase {
 							foreach ($v as $kv => $vv) { // One loop for every piVar
 								if (is_numeric(str_replace('uid','',$k))) { // check if key is like uid55
 									if ($vv) { // if value exists
-										$this->markerArray['###' . strtoupper($k) . '_' . $kv . '###'] = stripslashes($this->div->nl2br2($vv)); // fill ###UID55_0###
-										$this->markerArray['###' . strtolower($k) . '_' . $kv . '###'] = stripslashes($this->div->nl2br2($vv)); // fill ###uid55_0###
+										$this->markerArray['###' . strtoupper($k) . '_' . $kv . '###'] = stripslashes($this->div->nl2br2($htmlspecialchars(vv))); // fill ###UID55_0###
+										$this->markerArray['###' . strtolower($k) . '_' . $kv . '###'] = stripslashes($this->div->nl2br2(htmlspecialchars($vv))); // fill ###uid55_0###
 										//$this->markerArray['###'.strtoupper($k).'###'] .= ($i != 0 ? ', ' : '') . stripslashes($this->div->nl2br2($vv)); // fill ###UID55### (comma between every value)
 										$this->markerArray['###' . strtoupper($k) . '###'] .= ($i != 0 ? $this->cObj->stdWrap($this->conf['field.']['checkboxSplitSign'], $this->conf['field.']['checkboxSplitSign.']) : '') . stripslashes($this->div->nl2br2($vv)); // fill ###UID55### (comma between every value)
 										$this->markerArray['###LABEL_' . strtoupper($k) . '###'] = $this->GetLabelfromBackend($k,$v); // fill ###LABEL_UID55###
@@ -101,7 +101,7 @@ class tx_powermail_markers extends tslib_pibase {
 										// ###POWERMAIL_ALL###
 										if (!in_array(strtoupper($k),$this->notInMarkerAll) && !in_array('###' . strtoupper($k) . '###',$this->notInMarkerAll)) {
 											$markerArray['###POWERMAIL_LABEL###'] = $this->GetLabelfromBackend($k,$v);
-											$markerArray['###POWERMAIL_VALUE###'] = stripslashes($this->div->nl2br2($vv));
+											$markerArray['###POWERMAIL_VALUE###'] = stripslashes(htmlspecialchars($this->div->nl2br2($vv)));
 											$this->hook_additional_marker($markerArray, $this->sessiondata, $k, $v, $kv, $vv); // add hook
 											$content_item .= $this->cObj->substituteMarkerArrayCached($this->tmpl['all']['item'],$markerArray);
 										}
