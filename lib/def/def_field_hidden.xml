@@ -1,0 +1,30 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+		<!--  <langChildren>1</langChildren>!-->
+	</meta>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<value>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.value</label>
+					<config>
+						<type>input</type>
+						<size>35</size>
+					</config>
+				</TCEforms>
+			</value>
+			<name>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.name</label>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_uid->main</userFunc>
+						<field>text</field>
+					</config>
+				</TCEforms>
+			</name>
+		</el>
+	</ROOT>
+</T3DataStructure>

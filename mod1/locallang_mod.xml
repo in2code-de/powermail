@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txpowermailM1&quot; - header, description</description>
+		<labelContext type="array">
+		</labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="mlang_tabs_tab">Powermail</label>
+			<label index="mlang_labels_tabdescr">List of all registered mails in database. Possibility to filter and export to CSV (Excel).</label>
+			<label index="mlang_labels_tablabel">Powermail list</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="mlang_tabs_tab">Powermail</label>
+			<label index="mlang_labels_tabdescr">Liste aller empfangenen E-Mails in der Datenbank. Es besteht die Möglichkeit die Liste zu filtern und als CSV zu exportieren (Excel)</label>
+			<label index="mlang_labels_tablabel">Powermail Liste</label>
+		</languageKey>
+		<languageKey index="dk" type="array">
+			<label index="mlang_tabs_tab">Powermail</label>
+			<label index="mlang_labels_tabdescr">Liste over alle registrerede mails i databasen. Mulighed for at filtrere og eksportere til CSV (Excel).</label>
+			<label index="mlang_labels_tablabel">Powermail liste</label>
+		</languageKey>
+		<languageKey index="en" type="array">
+			<label index="mlang_tabs_tab">Powermail</label>
+			<label index="mlang_labels_tabdescr">List of all registered mails in database. Possibility to filter and export to CSV (Excel).</label>
+			<label index="mlang_labels_tablabel">Powermail list</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="mlang_tabs_tab">Powermail</label>
+			<label index="mlang_labels_tabdescr">Liste de tous les mails enregistrés dans la base de donnée. Possibilités de filtrer et d'exporter en CSV (Excel).</label>
+			<label index="mlang_labels_tablabel">Liste powermail</label>
+		</languageKey>
+		<languageKey index="nl" type="array">
+			<label index="mlang_tabs_tab">Powermail</label>
+			<label index="mlang_labels_tabdescr">Een opsomming van alle e-mails in de database. Mogelijkheid tot filteren en te exporteren naar CSV (Excel).</label>
+			<label index="mlang_labels_tablabel">Powermail lijst</label>
+		</languageKey>
+	</data>
+	<orig_hash type="array">
+		<languageKey index="de" type="array">
+			<label index="mlang_tabs_tab" type="integer">107899698</label>
+			<label index="mlang_labels_tabdescr" type="integer">164560845</label>
+			<label index="mlang_labels_tablabel" type="integer">248416704</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="de" type="array">
+			<label index="mlang_tabs_tab">Powermail</label>
+			<label index="mlang_labels_tabdescr">List of all registered mails in database. Possibility to filter and export to CSV (Excel).</label>
+			<label index="mlang_labels_tablabel">Powermail list</label>
+		</languageKey>
+	</orig_text>
+</T3locallang>

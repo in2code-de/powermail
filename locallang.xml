@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'powermail'</description>
+		<labelContext type="array">
+		</labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Powerful and easy mailform extension with database storing, javascript validation and many more...</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Umfangreiche Kontaktformular Erweiterung mit Datenbank Speicherung, Feldüberprüfung und vielem mehr...</label>
+		</languageKey>
+		<languageKey index="dk" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Kraftfuld og nem mail-form udvidelse med mulighed for at gemme i databasen, javascript validering og meget mere...</label>
+		</languageKey>
+		<languageKey index="en" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Powerful mailform extension with database storing, javascript validation and many more...</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="pi1_title">Powermail</label>
+			<label index="pi1_plus_wiz_description">Extension puissante et flexible pour la création de formulaires et leur envoi par mail</label>
+		</languageKey>
+		<languageKey index="nl" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Krachtige mailform module</label>
+		</languageKey>
+		<languageKey index="si" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Močna in enostavna ekstenzija za e-pošto z podatkovno bazo za shranjevanje, uveljavitev javaskripta in še več...</label>
+		</languageKey>
+	</data>
+	<orig_hash type="array">
+		<languageKey index="de" type="array">
+			<label index="pi1_title" type="integer">10284569</label>
+			<label index="pi1_plus_wiz_description" type="integer">857060</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="de" type="array">
+			<label index="pi1_title">powermail</label>
+			<label index="pi1_plus_wiz_description">Powerful and easy mailform extension with database storing, javascript validation and many more...</label>
+		</languageKey>
+	</orig_text>
+</T3locallang>

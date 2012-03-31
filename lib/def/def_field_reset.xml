@@ -1,0 +1,30 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+		<!--  <langChildren>1</langChildren>!-->
+	</meta>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<clearSession>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.clearSession</label>
+					<config>
+						<type>check</type>
+					</config>
+				</TCEforms>
+			</clearSession>
+			<example>
+				<TCEforms>
+					<label>LLL:EXT:powermail/locallang_db.xml:tx_powermail_forms.xml.example</label>
+					<exclude>1</exclude>
+					<config>
+						<type>user</type>
+						<userFunc>user_powermail_tx_powermail_example->main</userFunc>
+						<field>reset</field>
+					</config>
+				</TCEforms>
+			</example>
+		</el>
+	</ROOT>
+</T3DataStructure>

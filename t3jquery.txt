@@ -1,0 +1,1 @@
+components=jQuery,Core,ToolsTabs,ToolsFormDateinput,ToolsFormRangeinput,ToolsFormValidator
