@@ -1,0 +1,5 @@
+plugin.tx_powermail {
+	settings {
+		CssFancy = EXT:powermail/Resources/Public/Css/CssFancy.css
+	}
+}
