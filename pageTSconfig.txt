@@ -1,0 +1,94 @@
+# ***************************************************************************************
+# Page TSconfig for "powermail"
+# ***************************************************************************************
+
+# Prefill tx_powermail_fields.formtype with "text"
+TCAdefaults.tx_powermail_fields {
+	formtype = text
+}
+
+tx_powermail_mod1.config {
+    list {
+        datetimeFormat = d.m.Y H:i
+        dateFormat = d.m.Y
+        timeFormat = H:i
+        uploadFolder = uploads/tx_powermail/files/
+    }
+    export {
+        datetimeFormat = d.m.Y H:i
+        dateFormat = d.m.Y
+        timeFormat = H:i
+        uploadFolder = uploads/tx_powermail/files/
+        xls {
+        	// Supported format: Excel5, Excel2007
+        	format = Excel2007
+        	encoding = utf-8
+        	autoSize = 1
+        	enable = 1
+        }
+        csv {
+        	encoding = utf-8
+        	enable = 1
+        }
+        html {
+        	enable = 1
+        }
+        pdf {
+        	enable = 0
+        }
+    }
+}
+
+// Example configuration if you want to enable XML-Syntax in RTE
+// Useful in combination with constant emailformat.enableTagsInPlainTextPart = 1
+/*
+RTE.default {
+  disableEnterParagraphs = 1
+  hidePStyleItems = pre
+  allowTagsOutside = hr,img
+  removeTagsAndContents = link, meta, script, style
+  proc {
+    overruleMode = css
+    allowTags = a, abbr, acronym, b, bdo, big, blockquote, br, caption, center, cite, code, col, colgroup, dd, del, dfn, dl, div, dt, em, font, h1, h2, h3, h4, h5, h6, hr, i, img, ins, kbd, label, li, link, meta, ol, p, pre, q, samp, sdfield, small, span, strike, strong, style, sub, sup, table, thead, tbody, tfoot, td, th, tr, tt, u, ul, var, language, title, lastname, firstname, company, address, zipcode, city, country, email, phone1, phone2, subject, subjecttype, brand, variety, format, weight, bestbeforedate, purchasedate, batchcode, store, storage, comment
+    keepNonMatchedTags = 1
+    allowTagsOutside = hr,img
+    hidePStyleItems = pre
+    disableEnterParagraphs = 1
+    removeTagsAndContents = link, meta, script, style
+    HTMLparser_rte {
+      removeTags = center, font, link, meta, o:p, sdfield, strike, style, u
+    }
+    entryHTMLparser_db {
+      allowTags < RTE.default.proc.allowTags
+      removeTags < RTE.default.proc.HTMLparser_rte.removeTags
+      keepNonMatchedTags < RTE.default.proc.keepNonMatchedTags
+      allowTagsOutside < RTE.default.proc.allowTagsOutside
+      hidePStyleItems < RTE.default.proc.hidePStyleItems
+      disableEnterParagraphs < RTE.default.proc.disableEnterParagraphs
+      removeTagsAndContents < RTE.default.proc.removeTagsAndContents
+    }
+  }
+  enableWordClean.HTMLparser < RTE.default.proc.entryHTMLparser_db
+}
+*/
+
+// Example for defining CSS-Selection if cssSelection in Extension Manager is set to 1
+/*
+TCEFORM {
+  # change CSS dropdown for fieldset
+  tx_powermail_fieldsets {
+    class {
+      removeItems = style1,style2,style3
+      addItems.left = Left Fieldset
+      addItems.right = Right Fieldset
+    }
+  }
+  # change CSS dropdown for fields
+  tx_powermail_fields {
+    class {
+      removeItems = style2,style3
+      addItems.donotcheckmandatory = Do not check mandatory on serverside
+    }
+  }
+}
+*/

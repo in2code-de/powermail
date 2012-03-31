@@ -1,0 +1,19 @@
+Powermail HTML Template for pagebrowser (only if multiple JS)
+
+	--- MARKERS INSIDE SUBPARTS ---
+	Link to the current fieldset:						###POWERMAIL_MULTIPLEJS_PAGEBROWSER_LINK###
+	Title of the current fieldset:						###POWERMAIL_MULTIPLEJS_PAGEBROWSER_TITLE###
+	
+	--- GENERAL MARKERS --
+	Displaying any value from pi1/locallang.xml:		###POWERMAIL_LOCALLANG_YOURFIELD### (Could be filled via locallang.xml or typoscript - see manual for details)
+	Displaying any value from typoscript:				###POWERMAIL_TYPOSCRIPT_YOURFIELD### (Could be filled via typoscript - see manual for details)
+
+<!-- ###POWERMAIL_MULTIPLEJS_PAGEBROWSER### begin -->
+	<ul class="powermail_multiplejs_tabs">
+		<!-- ###POWERMAIL_CONTENT### --><!-- ###POWERMAIL_ITEM### -->
+			<li class="powermail_multiplejs_tabs_item">
+				<a href="###POWERMAIL_MULTIPLEJS_PAGEBROWSER_LINK###">###POWERMAIL_MULTIPLEJS_PAGEBROWSER_TITLE###</a>
+			</li>
+		<!-- ###POWERMAIL_ITEM### --><!-- ###POWERMAIL_CONTENT### -->
+	</ul>
+<!-- ###POWERMAIL_MULTIPLEJS_PAGEBROWSER### end -->
