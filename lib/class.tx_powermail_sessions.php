@@ -34,13 +34,13 @@ require_once(t3lib_extMgm::extPath('powermail').'lib/class.tx_powermail_function
  */
 class tx_powermail_sessions extends tslib_pibase {
 
-	var $extKey = 'powermail';
-    var $scriptRelPath = 'pi1/class.tx_powermail_pi1.php';    // Path to pi1 to get locallang.xml from pi1 folder
-	var $extendedSessionValues = array('FILE', 'ERROR', 'OK'); // define other keys which could be listed in a session
+	public $extKey = 'powermail';
+	public $scriptRelPath = 'pi1/class.tx_powermail_pi1.php';    // Path to pi1 to get locallang.xml from pi1 folder
+	public $extendedSessionValues = array('FILE', 'ERROR', 'OK'); // define other keys which could be listed in a session
 
 
 	// Function setSession() to save all piVars to a session
-	function setSession($conf, $piVars, $cObj, $overwrite = 1) {
+	public function setSession($conf, $piVars, $cObj, $overwrite = 1) {
 		// conf
 		$this->conf = $conf;
 		$this->cObj = $cObj;
@@ -50,7 +50,25 @@ class tx_powermail_sessions extends tslib_pibase {
 			// get old values before overwriting
 			if ($overwrite == 0) { // get old values so, it can be set again
 				$oldPiVars = $this->getSession($this->conf, $this->cObj, 0); // Get Old piVars from Session (without not allowed piVars)
-				if (isset($oldPiVars) && is_array($oldPiVars)) $piVars = array_merge($oldPiVars, $piVars); // Add old piVars to new piVars
+
+//				if (isset($oldPiVars) && is_array($oldPiVars)) { // Add old piVars to new piVars
+//					$piVars = array_merge($oldPiVars, $piVars);
+//				}
+
+				if (isset($oldPiVars) && is_array($oldPiVars)) {
+					// Ralf Merz <rfm@lightwerk.com>: if no checkbox is set now, do not set it again from oldPiVars
+					// problem was: check checkbox, go to confirmation page. Go back. Remove checkbox selection (empty)
+					// then go to confirmation again: checkbox values from oldPiVars got merged again
+					// with this loop, everythings fine
+					foreach ($oldPiVars as $key => $item) {
+						if (!array_key_exists($key, $piVars)) {
+							if (!empty($piVars) && intval($piVars['sendNow']) != 1) {
+								unset($oldPiVars[$key]);
+							}
+						}
+					}
+					$piVars = array_merge($oldPiVars, $piVars); // Add old piVars to new piVars
+				}
 			}
 
 			$piVars = $this->urldecodeArrayRecursive($piVars);
