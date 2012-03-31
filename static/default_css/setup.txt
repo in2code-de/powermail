@@ -1,0 +1,8 @@
+page {
+	includeCSS {
+		file3131 = EXT:powermail/css/sampleCSS.css
+		file3131.title = powermail default CSS
+		#file3131.media = screen
+	}
+}
+seite.includeCSS.file3131 < page.includeCSS.file3131

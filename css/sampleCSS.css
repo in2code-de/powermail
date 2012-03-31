@@ -1,0 +1,110 @@
+/* Powermail */
+	/* Form */
+span.powermail_mandatory {
+	/* Color of mandatory error message */
+	color: red;
+}
+input.validation-failed,
+textarea.validation-failed {
+	/* Background color if validation failed 
+	background-color: red;*/
+	background-image: url(/typo3conf/ext/powermail/img/icon_exclamation.gif);
+	background-repeat: no-repeat;
+	background-position: 98% 1px;
+}
+div.powermail_mandatory_js {
+	/* DIV container of errormessage */
+	color: red;
+	margin: 3px 0 15px 200px;
+}
+fieldset.tx-powermail-pi1_fieldset {
+	/* Fieldset */
+	border: 1px solid #aaa;
+	background-color: #ccc;
+	padding: 10px;
+}
+fieldset.tx-powermail-pi1_fieldset legend {
+	/* legend of Fieldset */
+	font-weight: bold;
+	color: black;
+}
+fieldset.tx-powermail-pi1_fieldset label {
+	/* label */
+	display: block;
+	width: 200px;
+	float: left;
+	clear: both;
+	font-weight: bold;
+}
+fieldset.tx-powermail-pi1_fieldset input.powermail_text,
+fieldset.tx-powermail-pi1_fieldset textarea.powermail_textarea,
+fieldset.tx-powermail-pi1_fieldset select.powermail_select {
+	/* Input and textarea */
+	width: 260px;
+}
+fieldset.tx-powermail-pi1_fieldset div.tx_powermail_pi1_fieldwrap_html_radio input.powermail_radio {
+	/* Radiobuttons */
+	margin: 5px 0;
+}
+div.tx_powermail_pi1_fieldwrap_html {
+	/* DIV container arround every field */
+	margin: 10px 0;
+}
+fieldset.tx-powermail-pi1_fieldset input.powermail_submit {
+	/* submit button */
+	margin: 20px 0 10px 200px;
+	font-weight: bold;
+}
+p.tx_powermail_pi1_fieldwrap_html_checkbox_title,
+p.tx_powermail_pi1_fieldwrap_html_radio_title {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+div.countryzone {
+	margin: 10px 0 0 200px;
+}
+div.tx_powermail_pi1_fieldwrap_html label a,
+div.tx_powermail_pi1_fieldwrap_html p a {
+	/* Description */
+	cursor: help;
+	text-decoration: none;
+}
+div.tx_powermail_pi1_fieldwrap_html label a dfn,
+div.tx_powermail_pi1_fieldwrap_html p a dfn {
+	/* Description */
+	display: none;
+	text-decoration: none;
+}
+div.tx_powermail_pi1_fieldwrap_html label a:hover dfn,
+div.tx_powermail_pi1_fieldwrap_html p a:hover dfn {
+	/* Description on mouseover */
+	display: block;
+	position: absolute;
+	width: 250px;
+	padding: 5px;
+	background-color: #ddd;
+	border: 1px solid red;
+	color: black;
+	text-decoration: none;
+	font-size: 0.8em;
+	text-decoration: none;
+}
+div.tx_powermail_pi1_fieldwrap_html img.icon_info {
+	/* Description icon */
+	padding: 2px 2px 0 2px;
+}
+fieldset.tx-powermail-pi1_fieldset div.even {
+	background-color: #eee;
+}
+
+
+	/* Confirmation */
+td.powermail_all_td {
+	padding: 3px 10px 3px 0;
+}
+
+	/* THX */
+td.powermail_all p.bodytext {
+	margin: 0;
+}

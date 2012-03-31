@@ -1,0 +1,813 @@
+2010-12-13  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Release of Powermail 1.5.7
+
+2010-12-11  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #11310: PHP Warning: stripslashes() expects parameter 1 to be string in class.tx_powermail_html.php line 1050
+
+2010-12-03  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #10926: dynamicTyposcript Marker must be lowercase
+	* Fixed bug #11255: "user_powermailOnCurrentPage" fails if "Show content from this page" is used
+	* Fixed bug #11250: JavaScript Validation (Prototype) fails if mandatory Radio-Buttons / Checkboxes has not the same parent Element
+
+2010-11-17  Andy Grunwald  <andreas.grunwald@wmdb.de>
+	
+	* Fixed bug #6523: date fields are ignored by JavaScript Validation
+	* Fixed bug #10901: Fatal error: [] operator not supported for strings
+	* Changed Powermail version to 1.5.7-dev
+	* Fixed bug #10903: isFrontendEditingActive not exists in TYPO3 4.2
+
+2010-11-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Raised Powermail version to 1.6.0-dev
+
+2010-11-16  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Release of Powermail 1.5.6
+	* Task #6185: Important manual changes needed
+
+2010-11-15  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #10815: JS-Validation broken in current trunk
+
+2010-11-10  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #3767: Multiple forms on 1 page with mandatory file uploads fields gives errors
+	* Fixed bug #5894: Typo in pi1/locallang.xml
+	* Fixed bug #5603: Call to an non member function enableFields
+
+2010-11-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #4843: Zero-Values and Multi-Select-Values are not exported
+	* Fixed bug #3161: GET vars should be urldecoded before inserted in field
+	* Fixed bug #1090: form.HTMLentities - no double &amp; in formaction
+	* Fixed bug #6336: powermail checkboxes and date2cal
+	* Fixed bug #10456: SQL-Error occur, if enter a not valid date in backend module date fields
+	* Raised version from 1.5.5 to 1.5.6-dev
+	* Applied security fixes. For more information look at Security Bulletin TYPO3-SA-2010-021
+
+2010-11-02  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #10228: markers are not substituted in subject of Database entry
+	* Fixed bug #6692: Form with "Activate confirmation page" and "ResponseText (shown on website)" fails on TYPO3 4.3
+
+2010-10-28  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #10504: No "Access"-Field for backend groups in TYPO3 V. 4.4
+
+2010-10-25  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Task #10440: Remove tx_powermail_html::dontAllow()-Calls
+
+2010-10-21  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #9489: powermailJS page type 3131 get indexed by index_search
+	* Fixed bug #7707: wrong code in documentation
+	* Fixed bug #7852: UID is not set when saved in DB (with db_entry)
+	* Fixed bug #9887: [userFunc=user_powermailOnCurrentPage] breaks some extensions
+	* Fixed bug #5527: Mandatory Field with Value 0 is not accepted
+	* Fixed bug #8843: user_powermailOnCurrentPage failed on insert records
+	* Fixed bug #7806: Back button is not working
+
+2010-10-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #8045: Hook PM_FieldMarkerArrayHook not working
+	* Fixed bug #8905: CSS Class "validate-one-required" is added to every radio button
+	* Fixed bug #10297: TCA-Field "tx_powermail_subject_r" is not required, but will be checked in pi1
+	* Fixed bug #9043: Missing class in frontend editing
+	* Fixed bug #9965: It's not possible to add two class names to a field / fieldset
+
+2010-09-22  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Follow up to task #6737: Updating Changelog.txt
+
+2010-08-30  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #8500: Custom CSS classes not rendered for field type "Show some text"
+
+2010-06-07  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Fixed bug #8086: userFunc user_powermailOnCurrentPage with a small bug
+	
+2010-05-11  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Fixed bug #7744: CSV Export without header
+	* Feature #7737: Enable CSV Export via Cronjob
+	* Feature #7745: Set a fix filename for cronjob export files
+
+2010-05-02  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #7257: mimecheck fails in general with finfo_open/finfo_file
+	* Feature #6502: Extension config "Activate tab dividers" has no effects
+	* Task #7593: Remove conditions hich checks for TYPO3 version < 4.2.0
+	* Fixed bug #5969: New Content Element Wizard in 4.3
+
+2010-04-01  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #7079: redirect-field in answerpage is not checked for space characters
+	* Fixed bug #6516: "fe_group" field config missing in powermail tca.php
+	
+2010-03-09  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #6550: Mimecheck for docx in Powermail Version 1.5.1
+	* Fixed bug #6679: javascript inclusion (type=3131) not xhtml valid (Thanks to Robert Heel)
+
+2010-03-08  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Task #6737: Updating Changelog.txt
+
+2010-03-06  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Cleanup #6722: Little bit cleaning of the mandatory class
+	* Fixed bug #6436: /validation/* JS gets served with content type text/html
+	* Fixed bug #6721: Hook PM_SubmitBeforeMarkerHook couldn't be used from more extensions
+
+2010-02-16  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #6428: hook_submit_beforeEmails called twice
+	* Fixed bug #5732: date2cal Integration: Path is incorrect on some systems
+	* Follow up to task #6472: Set correct comments in backend module (correct copyright, remove obsolote / unusefull comments, add api description ...)
+	
+2010-02-15  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Task #6472: Set correct comments in backend module (correct copyright, remove obsolote / unusefull comments, add api description ...)
+	
+2010-02-11  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #6451: Wrong require_once of lib/ classes in mod1/ classes
+	
+2010-02-08  Andy Grunwald  <andreas.grunwald@wmdb.de>	
+	
+	* Task #6412: Make powermail ready for unit testing
+	* Task #6370: Cleanup: mod1/class.tx_powermail_export.php
+	
+2010-02-06  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Cleanup: Deleting obsolete files
+	* Feature #6379: Maxlength for textareas
+
+2010-02-05  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Task #6369: Cleanup: mod1/class.tx_powermail_charts.php
+	* Follow up to task #6368: Cleanup: mod1/class.tx_powermail_belist.php
+	* Task #6368: Cleanup: mod1/class.tx_powermail_belist.php
+	* Task #6367: Cleanup: mod1/class.tx_powermail_bedetails.php
+	* Cleanup mod1/class.tx_powermail_action.php: Adding whitespace for readability, delete obsolete code, adding comments
+	* Cleanup mod1/conf.php: Adding whitespace for readability
+	* Cleanup mod1/index.php: Remove whitespace, add comments, use core functions to access  parameters, define all used class attributes
+
+2010-01-25  Alex Kellner  <alexander.kellner@einpraegsam.net>
+
+	* Feature #6088: Switch new db values to hidden
+	* Fixed bug #6045: Usage of Deprecated Methods
+	* Feature #6102: Enable more field in countryselector
+
+2010-01-24  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #5742: Wrong hook call (Thanks to Chris Mueller)
+	* Fixed bug #5848: Powermail 1.5.1 doesn't generate valid XHTML (Thanks to Jens Beuckenhauer)
+
+2010-01-22  Andy Grunwald  <andreas.grunwald@wmdb.de>
+
+	* Fixed bug #6148: Backend-Export: If field uid is included in export, no dynamic titles will be shown
+	
+	
+## Powermail version 1.5.x stable ##
+- Update on 17.01.2010 version 1.5.3
+Bugfix #4998: Countryselector fallback
+Bugfix #5000: TabIndex in date fields
+Bugfix #5093: Cronjob Export outputs L
+Bugfix #5371: DBAL suggested
+Bugfix #5588: Mime Type check
+Bugfix #5596: PHP5 needed
+Bugfix #5821: No time filter when no mails in selection
+Bugfix #5957: Redirection with absRefPrefix and mailto
+Bugfix #6039: SQL query with text marker
+Bugfix #6031: Typo in NL part of locallang.xml
+Feature #6010: Jump to anchor if error
+Feature #5614: CC receiver in db table
+
+- Update on 10.01.2010 version 1.5.2
+Security Update: Moving SQL selection field to typoscript - admins only
+
+- Update on 13.11.2009 version 1.5.1
+Bugfix #5265: Refill fields if user go back from confirmation page to form in other FE languages
+Bugfix #5076: Add CSS class does not affect Radiobuttons
+Feature #5323: Redirect target via typoscript stdWrap enabled
+Feature #5271: Show fe_user in list view of mails
+Feature #5228: Custom server side validation of field inputs (via userFunc)
+Feature #5089: Using selectorboxes to choose Field design in Backend
+
+- Update on 21.10.2009 version 1.5.0
+Major Feature #5071: Charts to BE added
+Bugfix #4998: Countryselector Fallback to english
+
+
+
+## Powermail version 1.4.x stable ##
+- Update on 08.10.2009 version 1.4.18
+Bugfix #4946: Additional settings in the default CSS
+Bugfix #4851: uidReplaceIt() check session for real values now
+Feature #4926: Don't send mail to sender if subject and body empty
+Feature #4925: Overwrite Senderemail and -name via typoscript
+Feature #4912: File upload: filenames without space now
+
+- Update on 18.09.2009 version 1.4.17
+Bugfix #4651: Add css class for checkboxes
+Bugfix #4400: SQL Error if eID Feature is in use
+Bugfix #4253: Wrong foreign table in TCA
+Bugfix #4237: SQL Query for receivers too strong
+Bugfix #4090: SQL Warning in Backend
+Bugfix #3709: Select Box preselection via typoscript enabled
+Bugfix #3256: No more hardcoding of the css class of "JS Error DIV"
+Feature #4612: Italian translation
+Feature #3914: Default sendername if no sendername was set
+
+- Update on 15.07.2009 version 1.4.16
+Bugfix #3112: Don't use onfocus javascript with readonly fields
+Bugfix #3632: Recipient Table shouldn't list deleted records
+Bugfix #3638: "Missing argument 6 for tx_powermail_html::main() fixed
+Bugfix #3652: Additional CSS class for submit and reset
+Bugfix #3696: Backlink on confirmation page
+Bugfix #3724: Mime check fix for ZIP files
+Bugfix #3853: Set Additional CSS classes without IRRE
+Feature #2697: Mootools instead of Prototype
+
+- Update on 28.05.2009 version 1.4.15
+Feature #3493: Add own classes to fields and fieldsets
+Feature #3108: JS in form.html to add own regEx
+Bugfix #3361: Auto Redirect - Error in URL
+Bugfix #3310: 2. Level Values in Backen Detailview
+Bugfix #3301: Charsetsettings in BE Export
+
+- Update on 03.05.2009 version 1.4.14
+Bugfix #3213: Redirect function with https
+Bugfix #3187: Added new hook for mandatory messages
+Feature #3158: New userFunc for steps
+
+- Update on 16.04.2009 version 1.4.13
+Bugfix #2433: Bugfix in absRefPrefix function
+Bugfix #3025: Click on description should not be a link
+Feature #3012: Mime check for uploading files
+Feature #3060: Enable ###UID1_0### in receiver field 
+Feature #3104: stdWrap for uploaded files (possibility to resize pictures)
+
+- Update on 29.03.2009 version 1.4.12
+Bugfix #2964: Small change in tmpl_fieldwrap.html
+Bugfix #2963: Small change in html output of selected selectboxes
+Feature #2985: Chinese FE translation added
+Feature #2975: Sending Export file via cronjob to admin
+Feature #2973: Showing mandatory messages (php) above form
+Feature #2907: Prefilling checkboxes with typoscript
+Feature #2890: Changes in manual
+Feature #1043: Jump to anker on submit
+
+- Update on 15.03.2009 version 1.4.11
+Bugfix #2433: absRefPrefix Fix
+Bugfix #2710: JS Warning in non powermail pages
+Feature #2785: Configurable return path of mails
+
+- Update on 24.02.2009 version 1.4.10
+Bugfix #2695: JS Validation for checkboxes
+Bugfix #2694: Fix in JS Validation for checkboxes and radiobuttons
+Bugfix #2657: ERROR array in mandatory class was wrong
+Bugfix #2656: Hook name changed in mandatory class
+Feature #2703: New class added: Odd or Even
+Feature #2701: Hook for adding file attachments added
+Feature #2697: Select mootools or prototype for JS validation
+Feature #2690: Manual field creation added
+Feature #2658: Print and close function in detail view of backend plugin 
+Feature #2654: Prefilling text fields like input fields
+Feature #2651: Db entries in extern tables: Don't overwrite existing values
+Feature #2647: Logging FEUSER Id in mail
+Feature #2624: Dynamic markers in recipient field 
+
+- Update on 16.02.2009 version 1.4.9
+Bugfix #2625: JS validation and SimulateStaticDocuments
+Bugfix #2622: Saving values to more than only one extern db table
+Bugfix #2434: Improvement of alphanum and alpha JS validation (with umlauts)
+Bugfix #2433: Using absRefPrefix
+Bugfix #2127: More powermail forms on one page 
+Feature #2624: Enabling dynamictyposcript for subject and email of recipient mail
+
+- Update on 04.02.2009 version 1.4.8
+Bugfix #2433: Using of absRefPrefix in a current T3 installation fixed
+Bugfix #2290: typoscript fields could disable session datas
+Feature #2571: Setting reply name and reply email address for emails
+Feature #2569: Using style information instead if cols, rows and size
+Feature #2568: Adding attachments to emails via typoscript stdWrap
+Feature #2561: Enabling LINK syntax in Radiobutton and Checkbox labels
+Feature #2559: Random filenames for export
+
+- Update on 26.01.2009 version 1.4.7
+Bugfix #2500: Sessionproblems - this bugfix is integrated in TYPO3 4.2.5
+Bugfix #2460: Powermail work with sr_freecal (all versions)
+Bugfix #2490: JS validation for checkboxes
+Small improvement of debug output (set IP address in Install Tool)
+
+- Update on 10.01.2009 version 1.4.6
+wt_calculating_captcha integration
+Small fix in JS integration
+Small fix in captcha code
+
+- Update on 08.01.2009 version 1.4.5
+Bugfix #2430, 2429, 2261: Fatal error with GLOBALS[TSFE] in FE
+Feature #2428: Danish translation added
+
+- Update on 07.01.2009 version 1.4.4
+Bugfix #2390: ###POWERMAIL_TARGET### with wrong target
+Bugfix #1414: Copy to other languages copies fields and fieldsets
+Feature #2255: Tooltip and Description function added
+Feature #1181: Localization in Backend with fieldsets and fields
+
+- Update on 21.12.2008 version 1.4.3
+Bugfix #2261: JS library will be only included if powermail on same page 
+Bugfix #2263: Every Radiobutton get an own DIV container and JS validation works
+Bugfix #2272: dd and dt tags can be used with plaintext mails
+Bugfix #2278: Small bugfix in french language with JS validation
+Bugfix #2280: German umlauts enabled in alphanum validation
+Feature #2282: Add slovenian language
+
+- Update on 01.12.2008 version 1.4.2
+Bugfix #2197: Empty captcha label
+Bugfix #2196: Powermail work with date2cal 1.1.0 now
+Bugfix #2173: MultipleJS css will be included again
+Bugfix #2171: Dynamic JS will be included in the right way via ext_typoscript_setup.txt
+Bugfix #2161: Errormessage in markers class
+Bugfix #2157: Mandatory html Template now XHTML valid
+Bugfix #2153: Value for next and previous button no more empty
+
+- Update on 09.11.2008 version 1.4.1
+Small bugfix in ext_typoscript_setup.txt
+Some explanations in the manual to 1.4.0 features
+
+- Update on 07.11.2008 version 1.4.0
+Feature #1534: Support for LINK syntax in labels
+Feature #1919: User checks for confirmation mail (mail via typoscript)
+Feature #1915: TS Manipulation of every field
+Feature: Debug output for externdbentries
+Bugfix #1889: Problems with CSV export fixed in export class
+Bugfix #1773: JS Path available via setup
+Bugfix #1752: File validation
+Bugfix #1733: Mandatory upload field
+Bugfix #1540: "Cannot redeclare xajaxerrorhandler" countryzoneselector
+Bugfix #1914: absRefPrefix supported now
+Bugfix #1122: Mandatory Radio Buttons (no more xhtml valide)
+Bugfix: URL problem with reset button
+Code cleaning
+
+
+
+## Powermail version 1.3.x stable ##
+
+- Update on 22.10.2008 version 1.3.16
+Feature #1777: Individual labels in html Template enabled
+Feature #1704: Prototype.js update
+Bugfix #1721: Default CSS typoscript fix
+Bugfix #1720: Submit redirect fixed
+Bugfix #1530: Countryselect prefilling
+
+- Update on 12.10.2008 version 1.3.15
+Bugfix #1648: Better links in multiple pages
+Bugfix #1686: Disable hiddenfields in confirmation page
+
+- Update on 30.09.2008 version 1.3.14
+Bugfix #1530: Countryzone fix
+Feature new Hook: Prefilling fields
+Feature #1504: Small changes in Hook, add new hook
+
+- Update on 11.09.2008 version 1.3.13
+Feature #1499: Choose more than only one field for sendername in flexform
+Feature #1497: Countryzone Selectorbox via AJAX (add to countryselector)
+Feature #1419: Make .field available for typoscript fields for powermail
+Feature #1358: Integrate recaptcha as third captcha possibility
+Bugfix #1498: Small fix in using wt_spamshield
+Bugfix #1395: Error in MX Check (user goes back and tries to submit again)
+Bugfig #1393: If empty sendername don't take “x�?
+Bugfix #1022: Export of mails (XLS, CSV, HTML) without umlauts problems
+
+- Update on 24.08.2008 version 1.3.12
+Feature #1203: Disable hiddenfields for sender (via constants)
+Feature #1275:  Get RTE configuration from tsconfig
+Feature #1207:  Errormessage if no html template could be found
+Feature #1308:  Mandatory fields can be set via typoscript (to use ts conditions)
+Feature #1309:  Set sendername via flexform
+Feature #1313:  Add static template for default css
+Fix for #1059: Workarround: Disable start- / stoptime for fields/fieldsets 
+(avoid problem with date2cal in BE)
+Fix for #1293: redirect with absRefPrefix
+Fix for #1299: UTF8 Problem in backend
+Fix for #1304: Small change in fieldwrap.html (onClick -> onclick)
+Fix for #1122: Radio buttons no more mandatory
+Feature: Prepare for InnerMarkerArray in fieldwrap
+(powermail_cond within checkboxes)
+Feature: Real markerArray hook in marker function
+Feature: Audio feature for sr_freecap
+Small Fix for unique Check and savetopid via Flexform
+
+- Update on 03.08.2008 version 1.3.11
+New Hook: Inner Form markerArray
+Changed HTML Template Formwrap and Fieldwrap for other extensions
+Removed too much code and files
+Bugfix #1189: unique with empty values
+Bugfix #1122: preparing mandatory for radio buttons 
+Bugifx for powermail_multiple
+Prepare for powermail_cond (conditions for powermail) 
+
+- Update on 28.07.2008 version 1.3.10
+New languages: PL, ES, PT
+New global Markers in fieldwrap (formname and formtarget)
+Uploaded files could be deleted
+Reset button with clearing whole session
+Small change in the three fieldwrap hook (session will be delivered)
+
+- Update on 14.07.2008 version 1.3.9
+Backend module with possibility to delete mails manually
+Backend module with possibility to delete mails after export
+Powermail suggests geoip for geo information
+Added markerArray hook for field generation
+
+- Update on 06.07.2008 version 1.3.8
+Bugfix: Dividers2tab for TYPO3 4.2
+Start and Stop added for TYPO3 4.2
+Start and Stop added for fields and fieldsets
+Add icon to CType selection
+Language selection is no more shown twice
+Bugfix: Values of submit and reset
+Bugfix: Save mails was shown in other plugins
+
+- Update on 29.06.2008 version 1.3.7
+Errormessage if no TS found 
+Sorting of pagebrowser in js multiple fixed 
+Value of submit and reset removed 
+
+- Update on 21.06.2008 version 1.3.6
+PID where to save could be set via plugin now (and via ts too)
+Sender E-Mail can be set via constants
+Labels for ts fields can be used now
+Bugfix: Shows breaks on confirmation page (e.g. textarea)
+NoIRRE: uid added to dropdown (fieldset and content choose)
+Debug output: Added array with db values
+Removed SQL debug output
+Some bugfixes in php files
+Small improvement in english locallang part
+
+- Update on 07.06.2008 version 1.3.5
+Small fix for mm relations with external db entries
+Small fix for powermail_mul
+
+- Update on 28.05.2008 version 1.3.4
+Fixed problem with localization on some systems
+
+- Update on 25.05.2008 version 1.3.3
+Improvement for Plaintext (html tags will be removed)
+Improvement in constants for plaintext and html mails
+Small fix in Sender name
+
+- Update on 21.05.2008 version 1.3.2
+Debug output added (activate via constants)
+
+- Update on 20.05.2008 version 1.3.1
+Set date2cal date format via constants
+Manual fix
+
+- Update on 15.05.2008 version 1.3.0
+Db entries to other tables with mm relations available 
+(Attention: New dbEntry typoscript)
+Plaintext available (enable in constants)
+RTE parsing can be disabled via constants
+No more removeXSS for piVars
+Bugfix: MX check for windows disabled
+
+
+
+## Powermail version 1.2.x stable ##
+
+- Update on 12.05.2008 version 1.2.4
+Failure fixex: tt_address entries activated by default
+
+- Update on 08.05.2008 version 1.2.3
+New feature: Accesskeys available in fields (automaticly or manually via constants)
+New feature: Tabindex available in fields (via constants)
+
+- Update on 07.05.2008 version 1.2.2
+Adding new field to powermail: Typoscript element - 
+Possibility to use a userfunc, etc... as a new field
+Adding a new hook: Easy adding new fields to powermail
+
+- Update on 06.05.2008 version 1.2.1
+Onetime filling available (check by fieldcontent or IP address)
+Bugfix for checkbox (javascript was not included in 1.2.0)
+
+- Update on 05.05.2008 version 1.2.0
+Fields can be prefilled with typoscript
+Dynamic typoscriptmarker can be used in every HTML Template or RTE field
+Dynamic locallangmarker can be used in every HTML Template or RTE field now
+MX Record check of sender email address (disabling via constants)
+###POWERMAIL_ALL### Don't show label if value is empty (enabling via constants)
+Removed unnecessary p-tags in emails
+DB entries in other tables (use typoscript)
+Mandatory check of checkboxes
+Disable automatic realurl settings in extension manager (if wanted)
+DB entry in other db table in second level (like uid3_0)
+Hiddenfields and JavaScript for checkboxes can be disabled (via constants) 
+(Attention: Changes HTML Template tmpl_fieldwrap.html)
+Fix: Checkbox CSS classes added
+Country selection available with static_info_tables_de, _fr, _da, and so on...
+RemoveXSS for HTML fields can be disabled if wanted (via constants)
+Charset of output can be set via constants (utf8)
+Small fix in html for countryselection
+
+
+
+## Powermail version 1.1.x stable ##
+
+- Update on 05.05.2008 version 1.1.10
+Security fix
+
+- Update on 20.04.2008 version 1.1.9
+Update for handling checkboxes (disabling of checkbox values possible – via JS)
+
+- Update on 14.04.2008 version 1.1.8
+Extern db entry (timestamp and current pid enabled)
+
+- Update on 10.04.2008 version 1.1.7
+Improved hook loop in submit.php
+Fixed CSS class of previous and next button
+Small fix in realurlconf
+Prepared fileupload in second level (in array)
+
+- Update on 09.04.2008 version 1.1.6
+Small bugfix
+
+- Update on 09.04.2008 version 1.1.5
+File upload: Error messages if file is to large or has wrong extension
+Added new div layer to html_fieldwrap for checkboxes and radiobuttons
+Export with piVars in second level available (checboxes, multiple selctions, etc...)
+Filter is always visible in backend module (even if current page has no powermails)
+
+- Update on 07.04.2008 version 1.1.4
+Small fixes in use with powermail_optin
+
+- Update on 06.04.2008 version 1.1.3
+Enabled powermail_optin with powermail
+3 more hooks added
+redirect fix
+small fix for mod1
+
+- Update on 01.04.2008 version 1.1.2
+Individual configuration of export files via tsconfig now available!
+Backend module with some configuration possibilities
+Pagebrowser to backend module added
+Small fix for redirect after submit (without baseurl)
+
+- Update on 27.03.2008 version 1.1.1
+Preselection for checkbox, radiobuttons and selectfields available
+Small fix for country preselection
+CSS example added to manual
+
+- Update on 25.03.2008 version 1.1.0
+Noreply email address (sender) can be set via constants
+Easy saving values to any db table via typoscript
+No more emails to noreply@domain.org
+Allowed upload file extensions decreased to lower case letters
+
+
+
+## Powermail version 1.0.x stable ##
+
+- Update on 21.03.2008 version 1.0.12
+Small fix for formsonpage use
+Small fix if you want to send text in emails
+
+- Update on 19.03.2008 version 1.0.11
+SQL debug output deactivated
+Small change for TYPO3 4.2
+
+- Update on 14.03.2008 version 1.0.10
+New feature: Markers available in receiver field
+Added a new hook to manipulate email receiver, sender and subject
+Hook documentation added to manual
+
+- Update on 12.03.2008 version 1.0.9
+Bugfix: Multiple within select fields available
+
+- Update on 09.03.2008 version 1.0.8
+New feature: Markers allowed in email subjects
+New feature: Markers allowed in regulare expressions (php validation check of fields)
+Added realurl example in the folder ext/powermail/doc/
+Bugfix: Confirmationpage error if content was only available for a special usergroup
+Manual: Addes some new examples
+
+- Update on 08.03.2008 version 1.0.7
+Bugfix: require_once error on a few server
+Some kind of “code cleaning�?
+
+- Update on 06.03.2008 version 1.0.6
+New feature: Uploaded files will be attached to emails
+If captcha and sr_freecap is loaded, select one via constants
+
+- Update on 04.03.2008 version 1.0.5
+Fixed a language problem with javascript validation error messages
+Javascript validation of text fields: Added german umlauts
+Constants splitted into two parts
+
+- Update on 02.03.2008 version 1.0.4
+date2cal is not needed any more
+
+- Update on 01.03.2008 version 1.0.3
+Bugfixing linebreaks (e.g. In textareas)
+
+- Update on 29.02.2008 version 1.0.1 / 1.0.2
+Uses new API from date2cal 7.0.0 
+(faster and better work between powermail and date2cal)
+Some mall bugfixes
+
+- Update on 28.02.2008 version 1.0.0
+Fields and Fieldsets can be set to hidden
+HTMLentities for JS integration can be disabled per constants
+Bugfix: JS errormessage in IE removed
+Bugfix: Files could not be uploaded on some TYPO3 installations
+Bugfix: Content with powermail can be set to hidden
+Bugfix: Starttime and Endtime available in Content with powermail
+
+
+
+## Powermail version 0.7.x beta ##
+
+- Update on 27.02.2008 version 0.7.2
+Main bug finally fixed: On some T3 installations no field could be added!
+
+- Update on 25.02.2008 version 0.7.1
+Auto PHP validation of every field available
+Manual PHP validation of every field available (with regulare expressions)
+Bugfix: Addslashes two times to one time
+Small HTML bugfix for id in frontend
+Sender email address will be automaticly validated
+
+- Update on 23.02.2008 version 0.7.0
+Select, Checkboxes, Radiobuttons with different label/values available
+You can set a sender name
+First email as sender, rest with cc
+Marker available in receiver db select
+Possibilty to select receiver in frontend
+Hook documentation added
+
+
+
+## Powermail version 0.6.x beta ##
+
+- Update on 21.02.2008 version 0.6.3
+Small bugfix (“array�? in ###POWERMAIL_ALL###)
+Database relation added to manual
+
+- Update on 20.02.2008 version 0.6.2
+Recipients sql query finally possible in backend
+French translation added to powermail
+trim() will be used for all values
+Single quote allowed in fields
+Bugfix if “onfocus�? is not used
+
+- Update on 18.02.2008 version 0.6.1
+Small bugfix for checkbox css classes in frontend
+Standard values from datetime fields will be filled correctly (no more timestamp)
+
+- Update on 17.02.2008 version 0.6.0
+Multiple page via javascript finally added
+Changes in manual
+Sample CSS added
+
+
+
+## Powermail version 0.5.x beta ##
+
+- Update on 15.02.2008 version 0.5.9
+JavaScript validation enabled with simulatestaticdocuments
+IP logging can be disabled
+Bugfix: Date fields will be prefilled now
+
+- Update on 14.02.2008 version 0.5.8
+Small bugfix in upload fields
+New screenshot in manual
+
+- Update on 11.02.2008 version 0.5.7
+Bugfix: Sender email 
+HTML validation passed
+ID's for checkboxes and radiobuttons improved
+
+- Update on 10.02.2008 version 0.5.6
+New global marker added: ###POWERMAIL_UPLOADFOLDER###
+Check: Upload field function
+Bugfix in sender email address if no address defined (noreplay@domain.com)
+Bugfix in ext_localconf.php in realurl settings (no more foreach error)
+
+- Update on 03.02.2008 version 0.5.5
+New translation added: Dutch
+
+- Update on 31.01.2008 version 0.5.4
+Bugfix: No more error message if you choose the backend module
+Marker ###POWERMAIL_BASEURL### filled with baseurl or absolute URL to your Server 
+Powermail can be used in TYPO3 4.2 if wanted
+
+- Update on 26.01.2008 version 0.5.3
+Prototype.js can be disabled via constants
+Bugfix: Another umlauts problem (utf-8)
+Disallow quotes in tags
+You can disable tab dividers if wanted
+Define which fe_users fields are available for prefilling
+
+- Update on 26.01.2008 version 0.5.2
+Bugfix: Small change in showing error message (wt_spamshield)
+Spam Hook with further objects
+
+- Update on 24.01.2008 version 0.5.1
+Bugfix: Default values in RTE: ###POWERMAIL_ALL###
+Bugfix: Break in textareas is allowed now (NOTE: Changes in tmpl_all.html)
+Fields submit, reset, check and radio with better css class
+Umlauts in emails possible
+Frontend preview can be deactivated in backend
+
+- Update on 22.01.2008 version 0.5.0
+Change of version status: from alpha to beta
+Redirect instead of thx message possible
+Marker of each field will be displayed in backend
+Small security fix
+Captcha fix
+Bug in countryselect fixed
+Small bugfixes for content element in backend
+Global Marker ###POWERMALL_ALL### fix (with checkboxes)
+Constants markerALL.notIn changed
+Additional RTE fields for both emails in backend (can be used with existing HTML template) 
+Field “name�? in backend of each field removed (not in use any more)
+Changes in php
+Pagebrowser in multiple available (2 of 4)
+
+
+
+## Powermail version 0.4.x alpha ##
+
+- Update on 21.01.2008 version 0.4.1
+Bugfix: Captcha use with Confirmation page
+
+- Update on 20.01.2008 version 0.4.0
+Security update
+Captcha can be used: sr_freecap
+Captcha can be used: captcha
+PHP bugfixes
+Example pictures for every field in the backend
+New screenshots in manual
+
+
+
+## Powermail version 0.3.x alpha ##
+
+- Update on 18.01.2008 version 0.3.4
+Mandatory JS check was disabled if date2cal was in use
+Some bugfixes in php
+Now: User int plugin
+Small changes in locallang.xml
+
+- Update on 16.01.2008 version 0.3.3
+Add mandatory and validation javascript for fieldcheck
+
+- Update on 16.01.2008 version 0.3.2
+Some changes in the manual
+Some small fixes
+Small change in html template: fieldwrap
+Now, you can clear session after submit (set via constants)
+
+- Update on 16.01.2008 version 0.3.1
+Upload field enabled (updated constants)
+Get values from logged in fe_user
+Checks for valid sender email address
+Improved error management
+
+
+
+## Powermail version 0.2.x alpha ##
+
+- Update on 15.01.2008 version 0.2.2
+Mandatory fields will be added with a symbol (*) (Symbol can be wrapped in constants)
+Bugfix in Excel export
+Powermail can be used with older TYPO3 versions (tested on TYPO3 3.8)
+IRRE can be deactivated if wanted (so you can enter the relation by hand)
+Bugfix (checkbox label)
+
+- Update on 14.01.2008 version 0.2.1
+Mandatory field check enabled
+
+- Update on 13.01.2008 version 0.2.0
+Backend module with list-, export- and filter functions
+Bugfixes in main code
+
+
+
+## Powermail version 0.1.x alpha ##
+
+- Update on 10.01.2008 version 0.1.4
+Backend module integrated
+Many bugfixes
+Initial Release to TER on 08.01.2008 version 0.1.3
+Main functions for powermail
