@@ -23,7 +23,6 @@
 ***************************************************************/
 
 require_once(PATH_tslib . 'class.tslib_pibase.php');
-require_once(PATH_t3lib . 'class.t3lib_htmlmail.php');
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_functions_div.php'); // file for div functions
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_markers.php'); // file for marker functions
 require_once(t3lib_extMgm::extPath('powermail') . 'lib/class.tx_powermail_db.php'); // file for marker functions
@@ -191,7 +190,9 @@ class tx_powermail_submit extends tslib_pibase {
             $returnPath = (t3lib_div::validEmail($returnPath)) ? $returnPath : $from; // return path
             $replyToEmail = $this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['reply.']['email'], $this->conf['email.'][$this->subpart . '.']['reply.']['email.']); // set replyto email
             $replyToName = $this->quoteStringWithComma($this->cObj->cObjGetSingle($this->conf['email.'][$this->subpart . '.']['reply.']['name'], $this->conf['email.'][$this->subpart . '.']['reply.']['name.'])); // set replyto name
-            $this->useSwiftMailer = t3lib_div::compat_version('4.5');
+			if (t3lib_div::int_from_ver(TYPO3_version) >= t3lib_div::int_from_ver('4.5')) {
+				$this->useSwiftMailer = 1;
+			}
 
             if ($this->useSwiftMailer){
                 // new TYPO3 swiftmailer code
@@ -215,6 +216,7 @@ class tx_powermail_submit extends tslib_pibase {
                 }
             } else {
                 // old TYPO3 mail system code
+				require_once(PATH_t3lib . 'class.t3lib_htmlmail.php');
                 $this->mail = t3lib_div::makeInstance('t3lib_htmlmail'); // New object: TYPO3 mail class
                 $this->mail->start(); // start htmlmail
                 $this->mail->recipient = $receiver; // main receiver email address
@@ -279,7 +281,7 @@ class tx_powermail_submit extends tslib_pibase {
 		            $plainText = htmlspecialchars_decode($plainText);
 	            }
 
-                if($this->useSwiftMailer) {
+                if ($this->useSwiftMailer) {
                     $this->mail->addPart($plainText, 'text/plain');
                 } else {
                     $this->mail->addPlain($plainText);
