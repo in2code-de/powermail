@@ -74,6 +74,7 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 
 		// get piVars
 		$this->view->assign('piVars', $this->piVars);
+		$this->view->assign('abc', $this->div->getAbcArray());
 	}
 
 	/**

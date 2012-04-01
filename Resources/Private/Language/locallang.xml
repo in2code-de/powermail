@@ -134,12 +134,13 @@
 			<label index="BackendReportingFormAmount">Amount</label>
 			<label index="BackendReportingMarketing">Marketing Reporting</label>
 			<label index="BackendReportingMarketingTitle">Marketing Reporting</label>
+			<label index="PowermailFrontendNoMails">No Mails found.</label>
+			<label index="PowermailFrontendNoMailsDetail">Please edit your filtersettings.</label>
 			<label index="Clock">o'clock</label>
+			<label index="ClearFilter">Delete Filter</label>
 			<label index="Emails">Emails</label>
 			<label index="FormField">Formfield</label>
 			<label index="MarketingInformation">Marketing Information</label>
-			<label index="PowermailFrontendNoMails">No Mails found.</label>
-			<label index="PowermailFrontendNoMailsDetail">Please edit your filtersettings.</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pleaseChoose">Bitte wählen...</label>
@@ -270,12 +271,13 @@
 			<label index="BackendReportingFormTitle">Formular Auswertung</label>
 			<label index="BackendReportingMarketing">Marketing Auswertung</label>
 			<label index="BackendReportingMarketingTitle">Marketing Auswertung</label>
+			<label index="PowermailFrontendNoMails">Keine Mails gefunden.</label>
+			<label index="PowermailFrontendNoMailsDetail">Bitte passen Sie Ihre Filtereinstellungen an.</label>
 			<label index="Clock">Uhr</label>
+			<label index="ClearFilter">Filter löschen</label>
 			<label index="Emails">E-Mails</label>
 			<label index="FormField">Formularfeld</label>
 			<label index="MarketingInformation">Marketing Informationen</label>
-			<label index="PowermailFrontendNoMails">Keine Mails gefunden.</label>
-			<label index="PowermailFrontendNoMailsDetail">Bitte passen Sie Ihre Filtereinstellungen an.</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="pi1_title">powermail</label>

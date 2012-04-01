@@ -10,7 +10,7 @@ Render Powermail_Frontend List View
 
 	<div class="powermail_frontend">
 
-		<f:render partial="Output/Search" arguments="{piVars: piVars}" />
+		<f:render partial="Output/Search" arguments="{mails: mails, piVars: piVars, abc: abc}" />
 
 		<f:if condition="{mails}">
 			<f:then>

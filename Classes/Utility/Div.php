@@ -747,6 +747,19 @@ class Tx_Powermail_Utility_Div {
 	}
 
 	/**
+	 * Returns array with alphabetical letters
+	 *
+	 * @return	array
+	 */
+	public function getAbcArray() {
+		$arr = array();
+		for ($a=A; $a != AA; $a++) { // ABC loop
+			$arr[] = $a;
+		}
+		return $arr;
+	}
+
+	/**
 	 * Merges Flexform and TypoScript Settings (up to 2 levels) and add Global Config from ext_conf_template.txt
 	 *
 	 * @param	array	All settings

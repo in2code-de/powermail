@@ -251,7 +251,13 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 			$and[] = $query->equals('feuser', $GLOBALS['TSFE']->fe_user->user['uid']);
 		}
 
-		// FILTER: showownonly
+		// FILTER: abc
+		if (isset($piVars['filter']['abc'])) {
+			$and[] = $query->equals('answers.field', $settings['search']['abc']);
+			$and[] = $query->like('answers.value', $piVars['filter']['abc'] . '%');
+		}
+
+		// FILTER: field
 		if (isset($piVars['filter'])) {
 			if (isset($piVars['filter']['_all'])) { // fulltext
 

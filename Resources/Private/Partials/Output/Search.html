@@ -26,7 +26,12 @@
 			</f:for>
 
 			<f:form.submit value="Go" class="powermail_frontend_search_submit" />
+
 		</div>
+	</f:if>
+
+	<f:if condition="{settings.search.abc}">
+		<f:render partial="Output/Abc" arguments="{mails: mails, piVars: piVars, abc : abc}" />
 	</f:if>
 
 </f:form>
