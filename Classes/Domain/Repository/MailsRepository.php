@@ -233,7 +233,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 
 		// FILTER: form
 		if (intval($settings['main']['form']) > 0) {
-//			$and[] = $query->equals('pid', $settings['main']['pid']);
+			$and[] = $query->equals('form', $settings['main']['form']);
 		}
 
 		// FILTER: pid
