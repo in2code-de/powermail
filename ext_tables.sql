@@ -153,6 +153,7 @@ CREATE TABLE tx_powermail_domain_model_mails (
 	sender_ip tinytext NOT NULL,
 	user_agent text NOT NULL,
 	time int(11) DEFAULT '0' NOT NULL,
+	form int(11) DEFAULT '0' NOT NULL,
 	answers int(11) unsigned DEFAULT '0' NOT NULL,
 	marketing_searchterm text NOT NULL,
 	marketing_referer text NOT NULL,

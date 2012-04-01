@@ -12,6 +12,7 @@
 			<label index="tx_powermail_domain_model_mails.subject">Mail Subject</label>
 			<label index="tx_powermail_domain_model_mails.body">Parameter</label>
 			<label index="tx_powermail_domain_model_mails.receiver_mail">Receivers Mail</label>
+			<label index="tx_powermail_domain_model_mails.form">Related Form</label>
 			<label index="tx_powermail_domain_model_mails.answers">Answers</label>
 			<label index="tx_powermail_domain_model_mails.feuser">FE_User</label>
 			<label index="tx_powermail_domain_model_mails.time">Time for submitting form (in seconds)</label>
@@ -162,6 +163,7 @@
 			<label index="tx_powermail_domain_model_mails.subject">E-Mail Betreffzeile</label>
 			<label index="tx_powermail_domain_model_mails.body">Parameter</label>
 			<label index="tx_powermail_domain_model_mails.receiver_mail">Empfänger E-Mail</label>
+			<label index="tx_powermail_domain_model_mails.form">Formular</label>
 			<label index="tx_powermail_domain_model_mails.answers">Antworten</label>
 			<label index="tx_powermail_domain_model_mails.feuser">Frontent-Benutzer</label>
 			<label index="tx_powermail_domain_model_mails.time">Zeit zum Ausfüllen des Formulares (in Sekunden)</label>

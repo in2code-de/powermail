@@ -271,6 +271,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$marketingInfos = $this->div->getMarketingInfos();
 		$newMail = t3lib_div::makeInstance('Tx_Powermail_Domain_Model_Mails');
 		$newMail->setPid($this->div->getStoragePage($this->settings['main']['pid']));
+		$newMail->setForm($form);
 		$newMail->setSenderMail($this->div->getSenderMailFromArguments($field));
 		$newMail->setSenderName($this->div->getSenderNameFromArguments($field));
 		$newMail->setSubject($this->settings['receiver']['subject']);

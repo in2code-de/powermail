@@ -98,6 +98,13 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	protected $time;
 
 	/**
+	 * form
+	 *
+	 * @var int
+	 */
+	protected $form;
+
+	/**
 	 * Powermail Fields
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Powermail_Domain_Model_Answers>
@@ -350,23 +357,22 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	}
 
 	/**
-	 * Adds an Answer
+	 * Returns the form
 	 *
-	 * @param Tx_Powermail_Domain_Model_Answers $answer
-	 * @return void
+	 * @return int $form
 	 */
-	public function addAnswer(Tx_Powermail_Domain_Model_Answers $answer) {
-		$this->answer->attach($answer);
+	public function getForm() {
+		return $this->form;
 	}
 
 	/**
-	 * Removes an Answer
+	 * Sets the form
 	 *
-	 * @param Tx_Powermail_Domain_Model_Answers $answerToRemove The Fields to be removed
+	 * @param int $form
 	 * @return void
 	 */
-	public function removeAnswer(Tx_Powermail_Domain_Model_Answers $answerToRemove) {
-		$this->answer->detach($answerToRemove);
+	public function setForm($form) {
+		$this->form = $form;
 	}
 
 	/**
@@ -386,6 +392,26 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setAnswers(Tx_Extbase_Persistence_ObjectStorage $answers) {
 		$this->answers = $answers;
+	}
+
+	/**
+	 * Adds an Answer
+	 *
+	 * @param Tx_Powermail_Domain_Model_Answers $answer
+	 * @return void
+	 */
+	public function addAnswer(Tx_Powermail_Domain_Model_Answers $answer) {
+		$this->answer->attach($answer);
+	}
+
+	/**
+	 * Removes an Answer
+	 *
+	 * @param Tx_Powermail_Domain_Model_Answers $answerToRemove The Fields to be removed
+	 * @return void
+	 */
+	public function removeAnswer(Tx_Powermail_Domain_Model_Answers $answerToRemove) {
+		$this->answer->detach($answerToRemove);
 	}
 
 	/**
