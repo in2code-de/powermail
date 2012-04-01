@@ -9,12 +9,19 @@ if (!defined('TYPO3_MODE')) {
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
 
 /**
- * Include Plugin
+ * Include Plugins
  */
+	// Pi1
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
 	'Pi1',
 	'Powermail'
+);
+	// Pi2
+Tx_Extbase_Utility_Extension::registerPlugin(
+	$_EXTKEY,
+	'Pi2',
+	'Powermail_Frontend'
 );
 
 /**
@@ -40,9 +47,14 @@ if (TYPO3_MODE === 'BE' && !$confArr['disableBackendModule'] && !(TYPO3_REQUESTT
 /**
  * Include Flexform
  */
-$pluginSignature = str_replace('_', '', $_EXTKEY) . '_' . pi1;
+	// Pi1
+$pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi1';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_pi1.xml');
+	// Pi2
+$pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi2';
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_pi2.xml');
 
 /**
  * Include UserFuncs

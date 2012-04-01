@@ -17,7 +17,7 @@ if ($confArr['enableCaching'] == 1) {
 }
 
 /**
- * Include Frontend Plugin for Powermail
+ * Include Frontend Plugins for Powermail
  */
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
@@ -29,9 +29,19 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		'Forms' => $uncachedFormActions
 	)
 );
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'Pi2',
+	array(
+		'Output' => 'list, show'
+	),
+	array(
+		'Output' => 'list'
+	)
+);
 
 /**
- * Hooking Plugin View
+ * Hooking for PluginInfo
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info'][$_EXTKEY . '_pi1'][$_EXTKEY] =
 	'EXT:' . $_EXTKEY . '/Classes/Utility/PluginInfo.php:Tx_Powermail_Utility_PluginInfo->getInfo';

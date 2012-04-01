@@ -2,9 +2,9 @@ powermail 2.0 roadmap
 
 o Spamfactor for mails
 x Saving to other tables
-o powermail_frontend
+=> powermail_frontend
 o powermail_frontend RSS
-=> Plugin Info in Page-View
+x Plugin Info in Page-View
 x backend module list and filter
 x backend module xls export
 x backend module csv export
