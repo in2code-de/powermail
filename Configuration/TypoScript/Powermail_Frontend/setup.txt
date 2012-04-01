@@ -1,0 +1,15 @@
+##################
+# POWERMAIL_FRONTEND
+##################
+plugin.tx_powermail {
+	settings {
+		Pi2 {
+			lalelu = testtest
+
+
+
+			# Don't touch this (this is just to let the extension know, that there is TypoScript included)
+			staticTemplate = 1
+		}
+	}
+}

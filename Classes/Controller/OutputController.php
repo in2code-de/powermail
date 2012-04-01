@@ -35,12 +35,45 @@
 class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
+	 * mailsRepository
+	 *
+	 * @var Tx_Powermail_Domain_Repository_MailsRepository
+	 */
+	protected $mailsRepository;
+
+	/**
 	  * Show mails in a list
 	  *
 	  * @return void
 	  */
 	public function listAction() {
-		echo 'läuft';
+//		$mails = $this->mailsRepository->findByForm();
+		$this->view->assign('mails', $mails);
+	}
+
+	/**
+	 * injectMailsRepository
+	 *
+	 * @param Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository
+	 * @return void
+	 */
+	public function injectMailsRepository(Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository) {
+		$this->mailsRepository = $mailsRepository;
+	}
+
+	/**
+	 * Initializes the current action
+	 *
+	 * @return void
+	 */
+	protected function initializeAction() {
+		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
+		$this->div->mergeTypoScript2FlexForm($this->settings, 'Pi2'); // merge typoscript to flexform
+
+		// check if ts is included
+		if (!isset($this->settings['staticTemplate'])) {
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript_pi2', 'powermail'));
+		}
 	}
 }
 

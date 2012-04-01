@@ -350,7 +350,6 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {
-			$this->messageClass = 'error';
 			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail'));
 		}
 

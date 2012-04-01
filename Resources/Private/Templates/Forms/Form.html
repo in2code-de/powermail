@@ -7,6 +7,8 @@ Render Powermail Form
 
 <f:section name="main">
 
+	<f:flashMessages class="powermail_message powermail_message_error" />
+
 	<f:for each="{forms}" as="form">
 
 		<f:form action="{action}" controller="Forms" enctype="multipart/form-data" class="powermail_form {vh:MorestepClass(activate: '{settings.main.moresteps}', class: 'powermail_morestep')}">

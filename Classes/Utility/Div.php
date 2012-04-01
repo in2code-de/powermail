@@ -733,13 +733,13 @@ class Tx_Powermail_Utility_Div {
 	 * @param	array	All settings
 	 * @return	array	Merged settings
 	 */
-	public function mergeTypoScript2FlexForm(&$settings) {
+	public function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup') {
 		// config
 		$tmp_settings = array();
 		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
 
-		if (isset($settings['setup']) && is_array($settings['setup'])) {
-			$tmp_settings = $settings['setup']; // copy typoscript part to conf part
+		if (isset($settings[$typoScriptLevel]) && is_array($settings[$typoScriptLevel])) {
+			$tmp_settings = $settings[$typoScriptLevel]; // copy typoscript part to conf part
 		}
 
 		if (isset($settings['flexform']) && is_array($settings['flexform'])) {
@@ -749,16 +749,16 @@ class Tx_Powermail_Utility_Div {
 		// merge ts and ff (loop every flexform)
 		foreach ($tmp_settings as $key1 => $value1) {
 			if (!is_array($value1)) { // 1. level
-				if (isset($settings['setup'][$key1]) && isset($settings['flexform'][$key1])) { // only if this key exists in ff and ts
-					if ($settings['setup'][$key1] && !$settings['flexform'][$key1]) { // only if ff is empty and ts not
-						$tmp_settings[$key1] = $settings['setup'][$key1]; // overwrite with typoscript settings
+				if (isset($settings[$typoScriptLevel][$key1]) && isset($settings['flexform'][$key1])) { // only if this key exists in ff and ts
+					if ($settings[$typoScriptLevel][$key1] && !$settings['flexform'][$key1]) { // only if ff is empty and ts not
+						$tmp_settings[$key1] = $settings[$typoScriptLevel][$key1]; // overwrite with typoscript settings
 					}
 				}
 			} else {
 				foreach ($value1 as $key2 => $value2) { // 2. level
-					if (isset($settings['setup'][$key1][$key2]) && isset($settings['flexform'][$key1][$key2])) { // only if this key exists in ff and ts
-						if ($settings['setup'][$key1][$key2] && !$settings['flexform'][$key1][$key2]) { // only if ff is empty and ts not
-							$tmp_settings[$key1][$key2] = $settings['setup'][$key1][$key2]; // overwrite with typoscript settings
+					if (isset($settings[$typoScriptLevel][$key1][$key2]) && isset($settings['flexform'][$key1][$key2])) { // only if this key exists in ff and ts
+						if ($settings[$typoScriptLevel][$key1][$key2] && !$settings['flexform'][$key1][$key2]) { // only if ff is empty and ts not
+							$tmp_settings[$key1][$key2] = $settings[$typoScriptLevel][$key1][$key2]; // overwrite with typoscript settings
 						}
 					}
 				}
@@ -766,14 +766,14 @@ class Tx_Powermail_Utility_Div {
 		}
 
 		// merge ts and ff (loop every typoscript)
-		foreach ((array) $settings['setup'] as $key1 => $value1) {
+		foreach ((array) $settings[$typoScriptLevel] as $key1 => $value1) {
 			if (!is_array($value1)) { // 1. level
-				if (isset($settings['setup'][$key1]) && !isset($settings['flexform'][$key1])) { // only if this key exists in ts and not in ff
+				if (isset($settings[$typoScriptLevel][$key1]) && !isset($settings['flexform'][$key1])) { // only if this key exists in ts and not in ff
 					$tmp_settings[$key1] = $value1; // set value from ts
 				}
 			} else {
 				foreach ($value1 as $key2 => $value2) { // 2. level
-					if (isset($settings['setup'][$key1][$key2]) && !isset($settings['flexform'][$key1][$key2])) { // only if this key exists in ts and not in ff
+					if (isset($settings[$typoScriptLevel][$key1][$key2]) && !isset($settings['flexform'][$key1][$key2])) { // only if this key exists in ts and not in ff
 						$tmp_settings[$key1][$key2] = $value2; // set value from ts
 					}
 				}
