@@ -115,6 +115,13 @@
 			<label index="flexform.thx">Submit Page</label>
 			<label index="flexform.thx.body">Text on submit page</label>
 			<label index="flexform.thx.redirect">Redirect to any other Page after submit</label>
+			<label index="pluginInfo.receiverEmail">Receivers Email Address</label>
+			<label index="pluginInfo.receiverName">Receivers Name</label>
+			<label index="pluginInfo.subject">Mail Subject</label>
+			<label index="pluginInfo.subject">Mail Subject</label>
+			<label index="pluginInfo.form">Form Title</label>
+			<label index="pluginInfo.savePid">Storage Location for Mails</label>
+			<label index="pluginInfo.confirmationPage">Confirmation Page activated?</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tx_powermail_domain_model_mails">Mails</label>
@@ -221,6 +228,12 @@
 			<label index="flexform.thx">Antwortseite</label>
 			<label index="flexform.thx.body">Text auf Antwortseite</label>
 			<label index="flexform.thx.redirect">Weiterleitung nach Ausfüllen auf beliebige Seite</label>
+			<label index="pluginInfo.receiverEmail">Empfänger E-Mail</label>
+			<label index="pluginInfo.receiverName">Empfänger Name</label>
+			<label index="pluginInfo.subject">Betreff</label>
+			<label index="pluginInfo.form">Formular Bezeichnung</label>
+			<label index="pluginInfo.savePid">Speicherort der E-Mails</label>
+			<label index="pluginInfo.confirmationPage">Bestätigungsseite aktiv?</label>
 		</languageKey>
 	</data>
 </T3locallang>

@@ -44,6 +44,11 @@ class Tx_Powermail_Utility_PluginInfo {
 	public $showTable = 1;
 
 	/**
+	 * Path to locallang file
+	 */
+	private $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:pluginInfo.';
+
+	/**
 	 * Main Function
 	 *
 	 * @param array $params
@@ -60,17 +65,30 @@ class Tx_Powermail_Utility_PluginInfo {
 
 		// let's go
 		$array = array(
-			'Empfänger E-Mail' => $this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.email'),
-			'Empfänger Name' => $this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.name'),
-			'Betreff' => $this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.subject'),
-			'Formular' => $this->getFieldFromFlexform('main', 'settings.flexform.main.form'),
-			'Bestätigungsseite' => $this->getFieldFromFlexform('main', 'settings.flexform.main.confirmation') ?
+			$GLOBALS['LANG']->sL($this->locallangPath . 'receiverEmail') => $this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.email'),
+			$GLOBALS['LANG']->sL($this->locallangPath . 'receiverName') => $this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.name'),
+			$GLOBALS['LANG']->sL($this->locallangPath . 'subject') => $this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.subject'),
+			$GLOBALS['LANG']->sL($this->locallangPath . 'form') => $this->getFormTitle($this->getFieldFromFlexform('main', 'settings.flexform.main.form')),
+//			$GLOBALS['LANG']->sL($this->locallangPath . 'savePid') => $this->getFieldFromFlexform('main', 'settings.flexform.main.form'),
+			$GLOBALS['LANG']->sL($this->locallangPath . 'confirmationPage') => $this->getFieldFromFlexform('main', 'settings.flexform.main.confirmation') ?
 				'<img src="/typo3conf/ext/powermail/Resources/Public/Image/icon-check.png" alt="1" />' :
 				'<img src="/typo3conf/ext/powermail/Resources/Public/Image/icon-notchecked.png" alt="0" />',
 		);
 		if ($this->showTable) {
 			return $this->createOutput($array);
 		}
+		return false;
+	}
+
+	/**
+	 * Get form title from uid
+	 *
+	 * @param 	integer 	Form uid
+	 * @return 	string		Form Title
+	 */
+	private function getFormTitle($uid) {
+		$row = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('title', 'tx_powermail_domain_model_forms', 'uid=' . intval($uid));
+		return $row['title'];
 	}
 
 	/**
@@ -116,6 +134,7 @@ class Tx_Powermail_Utility_PluginInfo {
 		}
 
 		$this->showTable = 0;
+		return false;
 	}
 }
 ?>
