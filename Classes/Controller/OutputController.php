@@ -42,26 +42,29 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	protected $mailsRepository;
 
 	/**
+	 * formsRepository
+	 *
+	 * @var Tx_Powermail_Domain_Repository_FormsRepository
+	 */
+	protected $formsRepository;
+
+	/**
 	  * Show mails in a list
 	  *
 	  * @return void
 	  */
 	public function listAction() {
+		t3lib_utility_Debug::debug($this->settings, __FILE__ . " " . __LINE__);
+		// get all mails
 		$mails = $this->mailsRepository->findListBySettings($this->settings);
 		$this->view->assign('mails', $mails);
 
+		// get field array for output
 		$fields = t3lib_div::trimExplode(',', $this->settings['list']['fields'], 1);
+		if (!$fields) {
+			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
+		}
 		$this->view->assign('fields', $fields);
-	}
-
-	/**
-	 * injectMailsRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository
-	 * @return void
-	 */
-	public function injectMailsRepository(Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository) {
-		$this->mailsRepository = $mailsRepository;
 	}
 
 	/**
@@ -77,6 +80,26 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 		if (!isset($this->settings['staticTemplate'])) {
 			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript_pi2', 'powermail'));
 		}
+	}
+
+	/**
+	 * injectMailsRepository
+	 *
+	 * @param Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository
+	 * @return void
+	 */
+	public function injectMailsRepository(Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository) {
+		$this->mailsRepository = $mailsRepository;
+	}
+
+	/**
+	 * injectFormsRepository
+	 *
+	 * @param Tx_Powermail_Domain_Repository_FormsRepository $formsRepository
+	 * @return void
+	 */
+	public function injectFormsRepository(Tx_Powermail_Domain_Repository_FormsRepository $formsRepository) {
+		$this->formsRepository = $formsRepository;
 	}
 }
 

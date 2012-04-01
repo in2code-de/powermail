@@ -35,6 +35,25 @@
 class Tx_Powermail_Utility_Div {
 
 	/**
+	 * Get Field Uid List from given Form Uid
+	 *
+	 * @param	integer		Form Uid
+	 * return	array		Fieldlist
+	 */
+	public function getFieldsFromForm($formUid) {
+		$formsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FormsRepository');
+		$fields = array();
+		$form = $formsRepository->findByUid($formUid);
+		foreach ($form->getPages() as $page) {
+			foreach ($page->getFields() as $field) {
+				$fields[] = $field->getUid();
+			}
+		}
+
+		return $fields;
+	}
+
+	/**
 	 * Returns sendername from a couple of arguments
 	 *
 	 * @param	array	Given Params

@@ -163,7 +163,7 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
-					<settings.flexform.list.fields>
+					<settings.flexform.single.fields>
 						<TCEforms>
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.single.fields</label>
 							<config>
@@ -180,8 +180,8 @@
 								<itemsProcFunc>Tx_Powermail_Utility_FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
 							</config>
 						</TCEforms>
-					</settings.flexform.list.fields>
-					<settings.flexform.list.pid>
+					</settings.flexform.single.fields>
+					<settings.flexform.single.pid>
 						<TCEforms>
 							<exclude>1</exclude>
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.single.pid</label>
@@ -195,7 +195,7 @@
 								<show_thumbs>1</show_thumbs>
 							</config>
 						</TCEforms>
-					</settings.flexform.list.pid>
+					</settings.flexform.single.pid>
 				</el>
 			</ROOT>
 		</single>

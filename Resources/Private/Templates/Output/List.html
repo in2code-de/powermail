@@ -6,21 +6,34 @@ Render Powermail_Frontend List View
 
 
 <f:section name="main">
-	<div class="powermail_frontent">
-		<f:flashMessages class="powermail_message powermail_message_error" />
+	<f:flashMessages class="powermail_message powermail_message_error" />
 
-		(<f:count subject="{mails}" />)<br />
+	<div class="powermail_frontend">
 
-		<f:for each="{mails}" as="mail">
-			<ul>
-			<f:for each="{fields}" as="field">
-				<f:for each="{mail.answers}" as="answer">
-					<f:if condition="{answer.field} == {field}">
-						<li>{answer.value}</li>
-					</f:if>
-				</f:for>
+		<table class="powermail_frontend_list">
+			<f:for each="{mails}" as="mail" iteration="index">
+
+				<f:if condition="{index.isFirst}">
+					<tr>
+						<th>(<f:count subject="{mails}" />)</th>
+						<f:for each="{fields}" as="field">
+							<th><vh:GetFieldLabelFromUid uid="{field}" /></th>
+						</f:for>
+					</tr>
+				</f:if>
+
+				<tr>
+					<td><span title="{mail.uid}">{index.cycle}.</span></td>
+					<f:for each="{fields}" as="field">
+						<f:for each="{mail.answers}" as="answer">
+							<f:if condition="{answer.field} == {field}">
+								<td>{answer.value}</td>
+							</f:if>
+						</f:for>
+					</f:for>
+				</tr>
 			</f:for>
-			</ul>
-		</f:for>
+		</table>
+
 	</div>
 </f:section>

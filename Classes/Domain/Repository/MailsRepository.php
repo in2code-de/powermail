@@ -218,7 +218,6 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 	 * @param	array		$settings TypoScript Settings
 	 */
 	public function findListBySettings($settings) {
-		t3lib_utility_Debug::debug($settings, __FILE__ . " " . __LINE__);
 		$query = $this->createQuery(); // initialize query
 		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
 
@@ -256,6 +255,13 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		$query->matching($constraint);
 
 
+
+		// sorting
+		$query->setOrderings(
+			array(
+				 'crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+			)
+		);
 
 		// set limit
 		if (intval($settings['list']['limit']) > 0) {
