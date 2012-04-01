@@ -12,7 +12,15 @@ Render Powermail_Frontend List View
 		(<f:count subject="{mails}" />)<br />
 
 		<f:for each="{mails}" as="mail">
-			{mail.senderName}<br />
+			<ul>
+			<f:for each="{fields}" as="field">
+				<f:for each="{mail.answers}" as="answer">
+					<f:if condition="{answer.field} == {field}">
+						<li>{answer.value}</li>
+					</f:if>
+				</f:for>
+			</f:for>
+			</ul>
 		</f:for>
 	</div>
 </f:section>

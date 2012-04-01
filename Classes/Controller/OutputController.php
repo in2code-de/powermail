@@ -49,6 +49,9 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	public function listAction() {
 		$mails = $this->mailsRepository->findListBySettings($this->settings);
 		$this->view->assign('mails', $mails);
+
+		$fields = t3lib_div::trimExplode(',', $this->settings['list']['fields'], 1);
+		$this->view->assign('fields', $fields);
 	}
 
 	/**
