@@ -273,7 +273,7 @@
 			<label index="flexform_pi2.list">Listenansicht</label>
 			<label index="flexform_pi2.list.fields">Felder für Ansicht wählen (Leer: Alle Felder)</label>
 			<label index="flexform_pi2.list.delta">Zeige nur Mails der letzten X Sekunden (Leer: Funktion deaktiviert)</label>
-			<label index="flexform_pi2.list.limit">Zeige max X Mails (Leer: Funktion deaktiviert)</label>
+			<label index="flexform_pi2.list.limit">Zeige max X Mails (Leer: Zeige Alle)</label>
 			<label index="flexform_pi2.list.pid">Seite mit Listenansicht (Leer: Gleiche Seite)</label>
 			<label index="flexform_pi2.list.showownonly">Eigene Mails</label>
 			<label index="flexform_pi2.list.showownonly.0">Zeige nur eigene Mails des eingeloggten Frontend-Benutzers</label>

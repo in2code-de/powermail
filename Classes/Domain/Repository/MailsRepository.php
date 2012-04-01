@@ -241,11 +241,26 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 			$and[] = $query->equals('pid', $settings['main']['pid']);
 		}
 
+		// FILTER: delta
+		if (intval($settings['list']['delta']) > 0) {
+			$and[] = $query->greaterThan('crdate', (time() - $settings['list']['delta']));
+		}
+
+		// FILTER: showownonly
+		if ($settings['list']['showownonly']) {
+			$and[] = $query->equals('feuser', $GLOBALS['TSFE']->fe_user->user['uid']);
+		}
+
 		// FILTER: create constraint
 		$constraint = $query->logicalAnd($and);
 		$query->matching($constraint);
 
 
+
+		// set limit
+		if (intval($settings['list']['limit']) > 0) {
+			$query->setLimit(intval($settings['list']['limit']));
+		}
 
 		/**
 		 * FINISH

@@ -95,7 +95,7 @@ plugin.tx_powermail {
 			}
 
 			db {
-				enable = 0
+				enable = 1
 			}
 
 
