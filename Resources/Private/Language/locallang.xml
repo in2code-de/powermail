@@ -138,7 +138,8 @@
 			<label index="Emails">Emails</label>
 			<label index="FormField">Formfield</label>
 			<label index="MarketingInformation">Marketing Information</label>
-			<label index="Results">Results found:</label>
+			<label index="PowermailFrontendNoMails">No Mails found.</label>
+			<label index="PowermailFrontendNoMailsDetail">Please edit your filtersettings.</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pleaseChoose">Bitte wählen...</label>
@@ -273,7 +274,8 @@
 			<label index="Emails">E-Mails</label>
 			<label index="FormField">Formularfeld</label>
 			<label index="MarketingInformation">Marketing Informationen</label>
-			<label index="Results">Ergebnisse gefunden:</label>
+			<label index="PowermailFrontendNoMails">Keine Mails gefunden.</label>
+			<label index="PowermailFrontendNoMailsDetail">Bitte passen Sie Ihre Filtereinstellungen an.</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="pi1_title">powermail</label>

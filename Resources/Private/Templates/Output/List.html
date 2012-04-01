@@ -10,30 +10,45 @@ Render Powermail_Frontend List View
 
 	<div class="powermail_frontend">
 
-		<table class="powermail_frontend_list">
-			<f:for each="{mails}" as="mail" iteration="index">
+		<f:render partial="Output/Search" arguments="{piVars: piVars}" />
 
-				<f:if condition="{index.isFirst}">
-					<tr>
-						<th>(<f:count subject="{mails}" />)</th>
-						<f:for each="{fields}" as="field">
-							<th><vh:GetFieldLabelFromUid uid="{field}" /></th>
-						</f:for>
-					</tr>
-				</f:if>
+		<f:if condition="{mails}">
+			<f:then>
+				<table class="powermail_frontend_list">
+					<f:for each="{mails}" as="mail" iteration="index">
 
-				<tr>
-					<td><span title="{mail.uid}">{index.cycle}.</span></td>
-					<f:for each="{fields}" as="field">
-						<f:for each="{mail.answers}" as="answer">
-							<f:if condition="{answer.field} == {field}">
-								<td>{answer.value}</td>
-							</f:if>
-						</f:for>
+						<f:if condition="{index.isFirst}">
+							<tr>
+								<th>(<f:count subject="{mails}" />)</th>
+								<f:for each="{fields}" as="field">
+									<th><vh:GetFieldLabelFromUid uid="{field}" /></th>
+								</f:for>
+							</tr>
+						</f:if>
+
+						<tr>
+							<td><span title="{mail.uid}">{index.cycle}.</span></td>
+							<f:for each="{fields}" as="field">
+								<td>
+									<f:for each="{mail.answers}" as="answer">
+										<f:if condition="{answer.field} == {field}">
+											{answer.value}
+										</f:if>
+									</f:for>
+								</td>
+							</f:for>
+						</tr>
+
 					</f:for>
-				</tr>
-			</f:for>
-		</table>
+				</table>
+			</f:then>
+			<f:else>
+				<p>
+					<f:translate key="BackendListNoMails" /><br />
+					<f:translate key="PowermailFrontendNoMailsDetail" />
+				</p>
+			</f:else>
+		</f:if>
 
 	</div>
 </f:section>

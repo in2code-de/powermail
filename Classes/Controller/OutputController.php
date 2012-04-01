@@ -49,14 +49,20 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	protected $formsRepository;
 
 	/**
+	 * piVars
+	 *
+	 * @var array
+	 */
+	protected $piVars;
+
+	/**
 	  * Show mails in a list
 	  *
 	  * @return void
 	  */
 	public function listAction() {
-		t3lib_utility_Debug::debug($this->settings, __FILE__ . " " . __LINE__);
 		// get all mails
-		$mails = $this->mailsRepository->findListBySettings($this->settings);
+		$mails = $this->mailsRepository->findListBySettings($this->settings, $this->piVars);
 		$this->view->assign('mails', $mails);
 
 		// get field array for output
@@ -65,6 +71,9 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
 		$this->view->assign('fields', $fields);
+
+		// get piVars
+		$this->view->assign('piVars', $this->piVars);
 	}
 
 	/**
@@ -75,6 +84,7 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	protected function initializeAction() {
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
 		$this->div->mergeTypoScript2FlexForm($this->settings, 'Pi2'); // merge typoscript to flexform
+		$this->piVars = $this->request->getArguments();
 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {

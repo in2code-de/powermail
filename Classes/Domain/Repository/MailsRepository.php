@@ -216,11 +216,12 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 	 * Query for Pi2
 	 *
 	 * @param	array		$settings TypoScript Settings
+	 * @param	array		$piVars Plugin Variables
+	 * @return	void
 	 */
-	public function findListBySettings($settings) {
+	public function findListBySettings($settings, $piVars) {
 		$query = $this->createQuery(); // initialize query
 		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
-
 
 
 		/**
@@ -250,10 +251,36 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 			$and[] = $query->equals('feuser', $GLOBALS['TSFE']->fe_user->user['uid']);
 		}
 
+		// FILTER: showownonly
+		if (isset($piVars['filter'])) {
+			if (isset($piVars['filter']['_all'])) { // fulltext
+
+				$and[] = $query->like('answers.value', '%' . $piVars['filter']['_all'] . '%');
+
+			} else { // or single field search
+
+				$filter = array();
+				foreach ((array) $piVars['filter'] as $field => $value) {
+					if (is_numeric($field) && !empty($value)) {
+						$filterAnd = array(
+							$query->equals('answers.field', $field),
+							$query->like('answers.value', '%' . $value . '%')
+						);
+						$filter[] = $query->logicalAnd($filterAnd);
+					}
+				}
+
+				if (count($filter) > 0) {
+					$and[] = $query->logicalOr($filter); // TODO AND
+				}
+
+			}
+
+		}
+
 		// FILTER: create constraint
 		$constraint = $query->logicalAnd($and);
 		$query->matching($constraint);
-
 
 
 		// sorting
