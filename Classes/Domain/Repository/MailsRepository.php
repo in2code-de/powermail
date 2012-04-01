@@ -211,6 +211,48 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		$mails = $query->execute();
 		return $mails;
 	}
+
+	/**
+	 * Query for Pi2
+	 *
+	 * @param	array		$settings TypoScript Settings
+	 */
+	public function findListBySettings($settings) {
+		t3lib_utility_Debug::debug($settings, __FILE__ . " " . __LINE__);
+		$query = $this->createQuery(); // initialize query
+		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
+
+
+
+		/**
+		 * FILTER start
+		 */
+		$and = array(
+			$query->greaterThan('uid', 0)
+		);
+
+		// FILTER: form
+		if (intval($settings['main']['form']) > 0) {
+//			$and[] = $query->equals('pid', $settings['main']['pid']);
+		}
+
+		// FILTER: pid
+		if (intval($settings['main']['pid']) > 0) {
+			$and[] = $query->equals('pid', $settings['main']['pid']);
+		}
+
+		// FILTER: create constraint
+		$constraint = $query->logicalAnd($and);
+		$query->matching($constraint);
+
+
+
+		/**
+		 * FINISH
+		 */
+		$mails = $query->execute();
+		return $mails;
+	}
 }
 
 ?>

@@ -6,6 +6,13 @@ Render Powermail_Frontend List View
 
 
 <f:section name="main">
-	<f:flashMessages class="powermail_message powermail_message_error" />
-	weiter gehts
+	<div class="powermail_frontent">
+		<f:flashMessages class="powermail_message powermail_message_error" />
+
+		(<f:count subject="{mails}" />)<br />
+
+		<f:for each="{mails}" as="mail">
+			{mail.senderName}<br />
+		</f:for>
+	</div>
 </f:section>

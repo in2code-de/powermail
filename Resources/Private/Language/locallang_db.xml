@@ -122,6 +122,7 @@
 			<label index="flexform_pi2.main.switchableControllerActions.1">Detail View</label>
 			<label index="flexform_pi2.main.switchableControllerActions.2">Edit View</label>
 			<label index="flexform_pi2.main.form">Choose a form</label>
+			<label index="flexform_pi2.main.pid">Select a page with mails (optional)</label>
 			<label index="flexform_pi2.list">Listview</label>
 			<label index="flexform_pi2.list.fields">Choose Fields to show (Empty: All Fields)</label>
 			<label index="flexform_pi2.list.delta">Show entries of the last X Seconds (Empty: Function disabled)</label>
@@ -266,6 +267,7 @@
 			<label index="flexform_pi2.main.switchableControllerActions.1">Detailansicht</label>
 			<label index="flexform_pi2.main.switchableControllerActions.2">Ändeungsansicht</label>
 			<label index="flexform_pi2.main.form">Wählen Sie ein Formular</label>
+			<label index="flexform_pi2.main.pid">Seite mit Mails auswählen (optional)</label>
 			<label index="flexform_pi2.list">Listenansicht</label>
 			<label index="flexform_pi2.list.fields">Felder für Ansicht wählen (Leer: Alle Felder)</label>
 			<label index="flexform_pi2.list.delta">Zeige nur Mails der letzten X Sekunden (Leer: Funktion deaktiviert)</label>

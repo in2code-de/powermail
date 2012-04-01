@@ -47,7 +47,7 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	  * @return void
 	  */
 	public function listAction() {
-//		$mails = $this->mailsRepository->findByForm();
+		$mails = $this->mailsRepository->findListBySettings($this->settings);
 		$this->view->assign('mails', $mails);
 	}
 
