@@ -26,7 +26,7 @@
 
 
 /**
- *
+ * Class to extend Pi1 field marker
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
