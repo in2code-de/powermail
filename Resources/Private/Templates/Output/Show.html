@@ -1,0 +1,24 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Default" />
+
+Render Powermail_Frontend Show View
+{mail} 			Mail Object
+
+
+<f:section name="main">
+	<f:flashMessages class="powermail_message powermail_message_error" />
+
+	<div class="powermail_frontend">
+		<ul>
+			<f:for each="{fields}" as="field">
+				<li>
+					<f:for each="{mail.answers}" as="answer">
+						<f:if condition="{answer.field} == {field}">
+							{answer.value}
+						</f:if>
+					</f:for>
+				</li>
+			</f:for>
+		</ul>
+	</div>
+</f:section>

@@ -78,6 +78,23 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
+	  * Show mails in a list
+	  *
+	  * @param		Tx_Powermail_Domain_Model_Mails $mail
+	  * @return 	void
+	  */
+	public function showAction(Tx_Powermail_Domain_Model_Mails $mail) {
+		$this->view->assign('mail', $mail);
+
+		// get field array for output
+		$fields = t3lib_div::trimExplode(',', $this->settings['detail']['fields'], 1);
+		if (!$fields) {
+			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
+		}
+		$this->view->assign('fields', $fields);
+	}
+
+	/**
 	 * Initializes the current action
 	 *
 	 * @return void

@@ -2,6 +2,7 @@
 <f:layout name="Default" />
 
 Render Powermail_Frontend List View
+{mails} 			Mail Objects
 
 
 
@@ -23,6 +24,7 @@ Render Powermail_Frontend List View
 								<f:for each="{fields}" as="field">
 									<th><vh:GetFieldLabelFromUid uid="{field}" /></th>
 								</f:for>
+								<th></th>
 							</tr>
 						</f:if>
 
@@ -37,6 +39,9 @@ Render Powermail_Frontend List View
 									</f:for>
 								</td>
 							</f:for>
+							<td>
+								<f:link.action action="show" arguments="{mail : mail}">Detail</f:link.action>
+							</td>
 						</tr>
 
 					</f:for>
