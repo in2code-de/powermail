@@ -61,7 +61,6 @@ class Tx_Powermail_Domain_Model_Answers extends Tx_Extbase_DomainObject_Abstract
 	 * @return void
 	 */
 	public function __construct() {
-
 	}
 
 	/**
@@ -70,6 +69,11 @@ class Tx_Powermail_Domain_Model_Answers extends Tx_Extbase_DomainObject_Abstract
 	 * @return string $value
 	 */
 	public function getValue() {
+		// workarround to get array from database (checkbox values)
+		$div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
+		if ($div->is_serialized($this->value)) {
+			return unserialize($this->value);
+		}
 		return $this->value;
 	}
 
@@ -77,9 +81,14 @@ class Tx_Powermail_Domain_Model_Answers extends Tx_Extbase_DomainObject_Abstract
 	 * Sets the value
 	 *
 	 * @param string $value
+	 * @dontvalidate $value
 	 * @return void
 	 */
 	public function setValue($value) {
+		// workarround to store array in database (checkbox values)
+		if (is_array($value)) {
+			$value = serialize($value);
+		}
 		$this->value = $value;
 	}
 

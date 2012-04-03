@@ -760,6 +760,22 @@ class Tx_Powermail_Utility_Div {
 	}
 
 	/**
+	 * Check of value is serialized
+	 *
+	 * @param $val Any String
+	 * @return bool
+	 */
+	function is_serialized($val) {
+		if (!is_string($val) || trim($val) == '') {
+			return false;
+		}
+		if (preg_match('/^(i|s|a|o|d):(.*);/si', $val)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Merges Flexform and TypoScript Settings (up to 2 levels) and add Global Config from ext_conf_template.txt
 	 *
 	 * @param	array	All settings

@@ -104,7 +104,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	}
 
 	/**
-	 * Show Confirmation message after submit
+	 * Show Confirmation message after submit (if view is activated)
 	 *
 	 * @param array Field values
 	 * @param integer Form UID
