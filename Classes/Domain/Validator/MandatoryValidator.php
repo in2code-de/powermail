@@ -40,6 +40,7 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 					$empty = 1;
 					foreach ($params[$field->getUid()] as $value) {
 						if (!empty($value)) {
+							$empty = 0;
 							break;
 						}
 					}
