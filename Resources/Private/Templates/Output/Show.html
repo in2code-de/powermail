@@ -9,16 +9,17 @@ Render Powermail_Frontend Show View
 	<f:flashMessages class="powermail_message powermail_message_error" />
 
 	<div class="powermail_frontend">
-		<ul>
 			<f:for each="{fields}" as="field">
-				<li>
+				<dl>
 					<f:for each="{mail.answers}" as="answer">
 						<f:if condition="{answer.field} == {field}">
-							{answer.value}
+							<dt><vh:GetFieldLabelFromUid uid="{field}" /></dt>
+							<dd>{answer.value} </dd>
 						</f:if>
 					</f:for>
-				</li>
+				</dl>
 			</f:for>
-		</ul>
+
+		<f:link.page pageUid="{listPid}"><f:translate key="Back" /></f:link.page>
 	</div>
 </f:section>

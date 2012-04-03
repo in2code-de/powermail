@@ -638,3 +638,17 @@ span.abc a {
     font-weight: bold;
     text-decoration: none;
 }
+.powermail_frontend dl {
+    clear: both;
+    padding: 5px 0;
+}
+.powermail_frontend dt {
+    float: left;
+    width: 150px;
+    font-weight: bold;
+    clear: left;
+    margin-right: 10px;
+}
+.powermail_frontend dd {
+    float: left;
+}

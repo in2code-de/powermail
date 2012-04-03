@@ -75,6 +75,12 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 		// get piVars
 		$this->view->assign('piVars', $this->piVars);
 		$this->view->assign('abc', $this->div->getAbcArray());
+
+		// single pid
+		if (empty($this->settings['single']['pid'])) {
+			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		$this->view->assign('singlePid', $this->settings['single']['pid']);
 	}
 
 	/**
@@ -92,6 +98,12 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
 		$this->view->assign('fields', $fields);
+
+		// list pid
+		if (empty($this->settings['list']['pid'])) {
+			$this->settings['list']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		$this->view->assign('listPid', $this->settings['list']['pid']);
 	}
 
 	/**
