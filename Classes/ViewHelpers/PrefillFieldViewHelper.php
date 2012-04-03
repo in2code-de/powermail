@@ -71,7 +71,7 @@ class Tx_Powermail_ViewHelpers_PrefillFieldViewHelper extends Tx_Fluid_Core_View
 				$value = $field->getPrefillValue();
 			}
 
-			// if prefill value (from typoscripty)
+			// if prefill value (from typoscript)
 			elseif ($this->settings['prefill.'][$marker]) {
 				if (isset($this->settings['prefill.'][$marker . '.']) && is_array($this->settings['prefill.'][$marker . '.'])) { // Parse cObject
 					$data =  Tx_Extbase_Reflection_ObjectAccess::getGettableProperties($field); // make array from object
@@ -102,8 +102,16 @@ class Tx_Powermail_ViewHelpers_PrefillFieldViewHelper extends Tx_Fluid_Core_View
 
 			// if GET/POST with new uid (&tx_powermail_pi1[field][123]=value)
 			elseif (isset($this->piVars['field'][$uid])) {
-				if ($this->piVars['field'][$uid] == $options[$index]['value'] || $this->piVars['field'][$uid] == $options[$index]['label']) {
-					$selected = 1;
+				if (is_array($this->piVars['field'][$uid])) {
+					foreach ($this->piVars['field'][$uid] as $key => $value) {
+						if ($this->piVars['field'][$uid][$key] == $options[$index]['value'] || $this->piVars['field'][$uid][$key] == $options[$index]['label']) {
+							$selected = 1;
+						}
+					}
+				} else {
+					if ($this->piVars['field'][$uid] == $options[$index]['value'] || $this->piVars['field'][$uid] == $options[$index]['label']) {
+						$selected = 1;
+					}
 				}
 			}
 
@@ -126,7 +134,7 @@ class Tx_Powermail_ViewHelpers_PrefillFieldViewHelper extends Tx_Fluid_Core_View
 				$selected = 1;
 			}
 
-			// if prefill value (from typoscripty)
+			// if prefill value (from typoscript)
 			elseif ($this->settings['prefill.'][$marker]) {
 				if (isset($this->settings['prefill.'][$marker . '.']) && is_array($this->settings['prefill.'][$marker . '.'])) { // Parse cObject
 					$data =  Tx_Extbase_Reflection_ObjectAccess::getGettableProperties($field); // make array from object
