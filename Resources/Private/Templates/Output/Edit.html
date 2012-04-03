@@ -9,31 +9,15 @@ Render Powermail_Frontend Edit View
 	<f:flashMessages class="powermail_message powermail_message_error" />
 
 	<div class="powermail_frontend">
-		<f:for each="{fields}" as="field">
-			<dl>
+		<f:form action="update" controller="Output" enctype="multipart/form-data" class="powermail_form">
+			<f:for each="{fields}" as="field">
 				<f:for each="{mail.answers}" as="answer">
-					<f:if condition="{answer.field} == {field}">
-						<dt><vh:GetFieldLabelFromUid uid="{field}" /></dt>
-
-						<f:if condition="{vh:IsArray(val: '{answer.value}')}">
-							<f:then>
-								<dd>
-									<f:for each="{answer.value}" as="value2" iteration="index2">
-										<f:if condition="{value2}">
-											{value2}<f:if condition="{index2.isLast}"><f:else>, </f:else></f:if>
-										</f:if>
-									</f:for>
-								</dd>
-							</f:then>
-							<f:else>
-								<dd>{answer.value}</dd>
-							</f:else>
-						</f:if>
-
+					<f:if condition="{answer.field} == {field.uid}">
+						<f:render partial="Forms/{vh:upper(string: '{field.type}')}" arguments="{field: field, overwriteValue: answer.value}" />
 					</f:if>
 				</f:for>
-			</dl>
-		</f:for>
+			</f:for>
+		</f:form>
 
 		<f:link.page pageUid="{listPid}"><f:translate key="Back" /></f:link.page>
 	</div>

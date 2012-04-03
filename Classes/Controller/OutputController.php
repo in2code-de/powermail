@@ -49,6 +49,13 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	protected $formsRepository;
 
 	/**
+	 * fieldsRepository
+	 *
+	 * @var Tx_Powermail_Domain_Repository_FieldsRepository
+	 */
+	protected $fieldsRepository;
+
+	/**
 	 * piVars
 	 *
 	 * @var array
@@ -132,6 +139,9 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 		if (!$fields) {
 			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
+		foreach ((array) $fields as $key => $field) {
+			$fields[$key] = $this->fieldsRepository->findByUid($field);
+		}
 		$this->view->assign('fields', $fields);
 
 		// list pid
@@ -181,6 +191,16 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	 */
 	public function injectFormsRepository(Tx_Powermail_Domain_Repository_FormsRepository $formsRepository) {
 		$this->formsRepository = $formsRepository;
+	}
+
+	/**
+	 * injectFieldsRepository
+	 *
+	 * @param Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository
+	 * @return void
+	 */
+	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
+		$this->fieldsRepository = $fieldsRepository;
 	}
 }
 

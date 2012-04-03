@@ -4,5 +4,5 @@
 	<label for="powermail_field_{field.marker}" class="powermail_label">
 		{field.title}<f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
 	</label>
-	<f:form.textarea cols="20" rows="5" id="powermail_field_{field.marker}" name="field[{field.uid}]" value="{vh:PrefillField(field: '{field}')}" class="powermail_field powermail_textarea {vh:ValidationClass(field: '{field}')}" />
+	<f:form.textarea cols="20" rows="5" id="powermail_field_{field.marker}" name="field[{field.uid}]" value="{vh:PrefillField(field: '{field}', overwrite: '{overwriteValue}')}" class="powermail_field powermail_textarea {vh:ValidationClass(field: '{field}')}" />
 </div>
