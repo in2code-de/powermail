@@ -604,10 +604,14 @@ class Tx_Powermail_Utility_Div {
 		$arr = array();
 		foreach ($mails as $mail) {
 			foreach ($mail->getAnswers() as $answer) {
-				if (!isset($arr[$answer->getField()][$answer->getValue()])) {
-					$arr[$answer->getField()][$answer->getValue()] = 1;
+				$value = $answer->getValue();
+				if (is_array($answer->getValue())) {
+					$value = implode(', ', $value);
+				}
+				if (!isset($arr[$answer->getField()][$value])) {
+					$arr[$answer->getField()][$value] = 1;
 				} else {
-					$arr[$answer->getField()][$answer->getValue()]++;
+					$arr[$answer->getField()][$value]++;
 				}
 			}
 		}
@@ -648,7 +652,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param 	string 		Label for "Max Labels" - could be "all others"
 	 * @return	array
 	 */
-	public function getGroupedMarketingStuff($mails, $max = 20, $maxLabel = 'All others') {
+	public function getGroupedMarketingStuff($mails, $max = 10, $maxLabel = 'All others') {
 		$arr = array(
 			'marketingSearchterm' => array(),
 			'marketingReferer' => array(),
