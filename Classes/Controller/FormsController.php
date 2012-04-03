@@ -308,6 +308,29 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	}
 
 	/**
+	 * Initializes the current action
+	 *
+	 * @return void
+	 */
+	protected function initializeAction() {
+		$this->cObj = $this->configurationManager->getContentObject();
+		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
+		$this->div->mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform
+
+		// check if ts is included
+		if (!isset($this->settings['staticTemplate'])) {
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail'));
+		}
+
+		// Debug Output
+		if ($this->settings['debug']['settings']) {
+			t3lib_utility_Debug::debug($this->settings, 'powermail debug: Show Settings');
+		}
+	}
+
+	/**
 	 * injectFormsRepository
 	 *
 	 * @param Tx_Powermail_Domain_Repository_FormsRepository $formsRepository
@@ -335,29 +358,6 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function injectAnswersRepository(Tx_Powermail_Domain_Repository_AnswersRepository $answersRepository) {
 		$this->answersRepository = $answersRepository;
-	}
-
-	/**
-	 * Initializes the current action
-	 *
-	 * @return void
-	 */
-	protected function initializeAction() {
-		$this->cObj = $this->configurationManager->getContentObject();
-		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
-		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
-		$this->div->mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform
-
-		// check if ts is included
-		if (!isset($this->settings['staticTemplate'])) {
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail'));
-		}
-
-		// Debug Output
-		if ($this->settings['debug']['settings']) {
-			t3lib_utility_Debug::debug($this->settings, 'powermail debug: Show Settings');
-		}
 	}
 
 }

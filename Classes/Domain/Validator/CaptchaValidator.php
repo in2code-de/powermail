@@ -16,6 +16,13 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 	protected $formsRepository;
 
 	/**
+	 * Captcha Session clean (only if mail is out)
+	 *
+	 * @var bool
+	 */
+	protected $clearSession;
+
+	/**
 	 * Return variable
 	 *
 	 * @var bool
@@ -51,7 +58,7 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 
 			// if field wrong code given - set error
 			$captcha = t3lib_div::makeInstance('Tx_Powermail_Utility_CalculatingCaptcha');
-			if (!$captcha->validCode($value)) {
+			if (!$captcha->validCode($value, $this->clearSession)) {
 				$this->addError('captcha', $uid);
 				$this->isValid = false;
 			}
@@ -77,6 +84,16 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 		$formUid = $gp['form'];
 		$form = $this->formsRepository->hasCaptcha($formUid);
 		return count($form);
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @return	void
+	 */
+	public function __construct() {
+		$piVars = t3lib_div::_GP('tx_powermail_pi1');
+		$this->clearSession = ($piVars['__referrer']['actionName'] == 'confirmation' ? true : false);
 	}
 
 	/**

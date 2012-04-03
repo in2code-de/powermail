@@ -57,15 +57,19 @@ class Tx_Powermail_Utility_CalculatingCaptcha {
 	/**
 	 * Check if given code is correct
 	 *
-	 * @param	string		Code
+	 * @param	string		$code String to compare
+	 * @param	boolean		$clearSession Flag if session should be cleared or not
 	 * @return	boolean
 	 */
-	public function validCode($code) {
+	public function validCode($code, $clearSession = 1) {
 		$valid = 0;
 		if (intval($code) == $GLOBALS['TSFE']->fe_user->sesData['powermail_captcha_value'] && !empty($code)) { // if code is set and equal to session value
-			// Clear session
-			$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_captcha_value', '');
-			$GLOBALS['TSFE']->storeSessionData();
+
+			// clear session
+			if ($clearSession) {
+				$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_captcha_value', '');
+				$GLOBALS['TSFE']->storeSessionData();
+			}
 
 			// Set error code
 			$valid = 1;
