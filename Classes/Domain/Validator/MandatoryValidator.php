@@ -36,9 +36,22 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 				}
 
 				// set error
-				if (empty($params[$field->getUid()])) {
-					$this->addError('mandatory', $field->getUid());
-					$this->isValid = false;
+				if (is_array($params[$field->getUid()])) {
+					$empty = 1;
+					foreach ($params[$field->getUid()] as $value) {
+						if (!empty($value)) {
+							break;
+						}
+					}
+					if ($empty) {
+						$this->addError('mandatory', $field->getUid());
+						$this->isValid = false;
+					}
+				} else {
+					if (empty($params[$field->getUid()])) {
+						$this->addError('mandatory', $field->getUid());
+						$this->isValid = false;
+					}
 				}
 			}
 		}
