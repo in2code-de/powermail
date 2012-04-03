@@ -81,6 +81,12 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
 		}
 		$this->view->assign('singlePid', $this->settings['single']['pid']);
+
+		// edit pid
+		if (empty($this->settings['edit']['pid'])) {
+			$this->settings['edit']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		$this->view->assign('editPid', $this->settings['edit']['pid']);
 	}
 
 	/**
@@ -104,6 +110,41 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 			$this->settings['list']['pid'] = $GLOBALS['TSFE']->id;
 		}
 		$this->view->assign('listPid', $this->settings['list']['pid']);
+
+		// edit pid
+		if (empty($this->settings['edit']['pid'])) {
+			$this->settings['edit']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		$this->view->assign('editPid', $this->settings['edit']['pid']);
+	}
+
+	/**
+	  * Edit mail
+	  *
+	  * @param		Tx_Powermail_Domain_Model_Mails $mail
+	  * @return 	void
+	  */
+	public function editAction(Tx_Powermail_Domain_Model_Mails $mail) {
+		$this->view->assign('mail', $mail);
+
+		// get field array for output
+		$fields = t3lib_div::trimExplode(',', $this->settings['edit']['fields'], 1);
+		if (!$fields) {
+			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
+		}
+		$this->view->assign('fields', $fields);
+
+		// list pid
+		if (empty($this->settings['list']['pid'])) {
+			$this->settings['list']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		$this->view->assign('listPid', $this->settings['list']['pid']);
+
+		// single pid
+		if (empty($this->settings['single']['pid'])) {
+			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		$this->view->assign('singlePid', $this->settings['single']['pid']);
 	}
 
 	/**

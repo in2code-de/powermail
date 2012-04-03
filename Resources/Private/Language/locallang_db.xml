@@ -267,7 +267,7 @@
 			<label index="flexform_pi2.main.switchableControllerActions">Wählen Sie Ihre Ansicht</label>
 			<label index="flexform_pi2.main.switchableControllerActions.0">Listenansicht</label>
 			<label index="flexform_pi2.main.switchableControllerActions.1">Detailansicht</label>
-			<label index="flexform_pi2.main.switchableControllerActions.2">Ändeungsansicht</label>
+			<label index="flexform_pi2.main.switchableControllerActions.2">Änderungsansicht</label>
 			<label index="flexform_pi2.main.form">Wählen Sie ein Formular</label>
 			<label index="flexform_pi2.main.pid">Seite mit Mails auswählen (optional)</label>
 			<label index="flexform_pi2.list">Listenansicht</label>
