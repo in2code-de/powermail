@@ -7,10 +7,10 @@
 
 	<f:if condition="{field.mandatory}">
 		<f:then>
-			<f:form.textfield id="powermail_field_{field.marker}" name="field[{field.uid}]" value="{vh:PrefillField(field: '{field}', overwrite: '{overwriteValue}')}" class="powermail_field powermail_input {vh:ValidationClass(field: '{field}')} {vh:ErrorClass(field: '{field}', class: 'powermail_field_error')}" required="{field.mandatory}" />
+			<f:form.textfield id="powermail_field_{field.marker}" name="field[{field.uid}]" value="{vh:PrefillField(field: '{field}')}" class="powermail_field powermail_input {vh:ValidationClass(field: '{field}')} {vh:ErrorClass(field: '{field}', class: 'powermail_field_error')}" required="{field.mandatory}" />
 		</f:then>
 		<f:else>
-			<f:form.textfield id="powermail_field_{field.marker}" name="field[{field.uid}]" value="{vh:PrefillField(field: '{field}', overwrite: '{overwriteValue}')}" class="powermail_field powermail_input {vh:ValidationClass(field: '{field}')} {vh:ErrorClass(field: '{field}', class: 'powermail_field_error')}" />
+			<f:form.textfield id="powermail_field_{field.marker}" name="field[{field.uid}]" value="{vh:PrefillField(field: '{field}')}" class="powermail_field powermail_input {vh:ValidationClass(field: '{field}')} {vh:ErrorClass(field: '{field}', class: 'powermail_field_error')}" />
 		</f:else>
 	</f:if>
 </div>

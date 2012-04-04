@@ -9,7 +9,7 @@
 		<div class="powermail_radio_outer">
 			<f:for each="{field.settings}" as="setting" iteration="index">
 				<div class="powermail_radio_inner powermail_radio_inner_{index.cycle}">
-					<f:form.radio name="field[{field.uid}]" value="{setting.value}" checked="{vh:PrefillField(field: '{field}', cycle: '{index.cycle}, overwrite: '{overwriteValue}')}" id="powermail_field_{field.uid}_{index.cycle}" class="powermail_radio {vh:ValidationClass(field: '{field}')}" />
+					<f:form.radio name="field[{field.uid}]" value="{setting.value}" checked="{vh:PrefillField(field: '{field}', cycle: '{index.cycle}')}" id="powermail_field_{field.uid}_{index.cycle}" class="powermail_radio {vh:ValidationClass(field: '{field}')}" />
 					<label for="powermail_field_{field.uid}_{index.cycle}">{setting.label}</label>
 				</div>
 			</f:for>

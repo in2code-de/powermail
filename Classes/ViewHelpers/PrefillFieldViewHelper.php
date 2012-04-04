@@ -35,10 +35,9 @@ class Tx_Powermail_ViewHelpers_PrefillFieldViewHelper extends Tx_Fluid_Core_View
      * @param 	object 		$field Field Object
      * @param 	int 		$cycle Cycle Number (1,2,3...) - if filled it's a checkbox or radiobutton
      * @param 	string 		$overwrite Value (Overwrites everything)
-     * @param 	array 		$overwriteArray Array (Values => Overwrites everything)
      * @return 	string		Prefill field with this string
      */
-    public function render($field, $cycle = 0, $overwrite = false) {
+    public function render($field, $cycle = 0) {
 		// config
 		$value = '';
 		$marker = $field->getMarker();
@@ -46,11 +45,6 @@ class Tx_Powermail_ViewHelpers_PrefillFieldViewHelper extends Tx_Fluid_Core_View
 
 		// Default fieldtypes (input, textarea, hidden, select)
 		if ($cycle == 0) {
-
-			// if overwrite was set - always use this
-			if ($overwrite) {
-				return $overwrite;
-			}
 
 			// if GET/POST with marker (&tx_powermail_pi1[marker]=value)
 			if (isset($this->piVars[$marker])) {

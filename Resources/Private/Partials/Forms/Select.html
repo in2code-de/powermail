@@ -4,5 +4,5 @@
 	<label for="powermail_field_{field.marker}" class="powermail_label">
 		{field.title}<f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
 	</label>
-	<vh:SelectField options="{field.settings}" name="field[{field.uid}]" class="powermail_field powermail_input {vh:ValidationClass(field: '{field}')} {vh:ErrorClass(field: '{field}', class: 'powermail_field_error')}" id="powermail_field_{field.marker}" value="{vh:PrefillField(field: '{field}', overwrite: '{overwriteValue}')}" />
+	<vh:SelectField options="{field.settings}" name="field[{field.uid}]" class="powermail_field powermail_input {vh:ValidationClass(field: '{field}')} {vh:ErrorClass(field: '{field}', class: 'powermail_field_error')}" id="powermail_field_{field.marker}" value="{vh:PrefillField(field: '{field}')}" />
 </div>
