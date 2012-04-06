@@ -138,6 +138,7 @@
 			<label index="PowermailFrontendNoMailsDetail">Please edit your filtersettings.</label>
 			<label index="PowermailFrontendDetailView">Details</label>
 			<label index="PowermailFrontendEditView">Edit</label>
+			<label index="PowermailFrontendEditSubmit">Save Changes</label>
 			<label index="Back">Back</label>
 			<label index="Clock">o'clock</label>
 			<label index="ClearFilter">Delete Filter</label>
@@ -278,6 +279,7 @@
 			<label index="PowermailFrontendNoMailsDetail">Bitte passen Sie Ihre Filtereinstellungen an.</label>
 			<label index="PowermailFrontendDetailView">Details</label>
 			<label index="PowermailFrontendEditView">Bearbeiten</label>
+			<label index="PowermailFrontendEditSubmit">Änderungen Speichern</label>
 			<label index="Back">Zurück</label>
 			<label index="Clock">Uhr</label>
 			<label index="ClearFilter">Filter löschen</label>
