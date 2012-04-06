@@ -26,7 +26,7 @@
 									</numIndex>
 									<numIndex index="2" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.switchableControllerActions.2</numIndex>
-										<numIndex index="1">Output->edit;</numIndex>
+										<numIndex index="1">Output->edit;Output->update;</numIndex>
 									</numIndex>
 								</items>
 								<maxitems>1</maxitems>

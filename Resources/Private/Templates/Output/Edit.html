@@ -6,7 +6,7 @@ Render Powermail_Frontend Edit View
 
 
 <f:section name="main">
-	<f:flashMessages class="powermail_message powermail_message_error" />
+	<f:flashMessages class="powermail_message powermail_message_ok" />
 
 	<div class="powermail_frontend">
 		<f:form action="update" controller="Output" enctype="multipart/form-data" class="powermail_form">
@@ -21,6 +21,7 @@ Render Powermail_Frontend Edit View
 			</f:for>
 
 			<f:form.submit value="{f:translate(key: 'PowermailFrontendEditSubmit')}" class="powermail_field powermail_submit" />
+			<f:form.hidden value="{mail.uid}" name="mail" />
 		</f:form>
 
 		<f:link.page pageUid="{listPid}">

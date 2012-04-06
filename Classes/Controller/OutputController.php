@@ -56,6 +56,13 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	protected $fieldsRepository;
 
 	/**
+	 * answersRepository
+	 *
+	 * @var Tx_Powermail_Domain_Repository_AnswersRepository
+	 */
+	protected $answersRepository;
+
+	/**
 	 * piVars
 	 *
 	 * @var array
@@ -158,6 +165,26 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
+	  * Update mail
+	  *
+	  * @param		Tx_Powermail_Domain_Model_Mails $mail
+	  * @param		$field Field Array with changes
+	  * @dontvalidate $mail
+	  * @dontvalidate $field
+	  * @return 	void
+	  */
+	public function updateAction(Tx_Powermail_Domain_Model_Mails $mail, $field = array()) {
+		foreach ((array) $field as $fieldUid => $value) { // one loop for every received field
+			$answer = $this->answersRepository->findByFieldAndMail($fieldUid, $mail);
+			$answer->setValue($value);
+			$this->answersRepository->update($answer);
+		}
+
+		$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('PowermailFrontendEditConfirm', 'powermail'));
+		$this->redirect('edit', null, null, array('mail' => $mail));
+	}
+
+	/**
 	 * Initializes the current action
 	 *
 	 * @return void
@@ -201,6 +228,16 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	 */
 	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
 		$this->fieldsRepository = $fieldsRepository;
+	}
+
+	/**
+	 * injectAnswersRepository
+	 *
+	 * @param Tx_Powermail_Domain_Repository_AnswersRepository $answersRepository
+	 * @return void
+	 */
+	public function injectAnswersRepository(Tx_Powermail_Domain_Repository_AnswersRepository $answersRepository) {
+		$this->answersRepository = $answersRepository;
 	}
 }
 

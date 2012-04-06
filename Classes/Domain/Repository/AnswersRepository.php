@@ -32,6 +32,29 @@
  *
  */
 class Tx_Powermail_Domain_Repository_AnswersRepository extends Tx_Extbase_Persistence_Repository {
+
+	/**
+	 * Find single Answer by field uid and mail uid
+	 *
+	 * @param 	int 	Field Uid
+	 * @param 	int 	Mail Uid
+	 * @return	Query Object
+	 */
+	public function findByFieldAndMail($fieldUid, $mailUid) {
+		$query = $this->createQuery(); // initialize query
+		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
+
+		$and = array(
+			$query->equals('mail', $mailUid),
+			$query->equals('field', $fieldUid)
+		);
+
+		$constraint = $query->logicalAnd($and);
+		$query->matching($constraint);
+		$query->setLimit(1);
+		return $query->execute()->getFirst();
+	}
+
 }
 
 ?>
