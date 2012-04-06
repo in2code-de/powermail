@@ -22,13 +22,15 @@ class Tx_Powermail_ViewHelpers_Form_SelectFieldViewHelper extends Tx_Fluid_ViewH
      */
     public function render($options, $class = '', $id = '') {
 		// config
-		$this->registerFieldNameForFormTokenGeneration($this->prefixFieldName($this->getName()));
+//		$this->registerFieldNameForFormTokenGeneration($this->prefixFieldName($this->getName()));
+		$this->registerFieldNameForFormTokenGeneration($this->getName());
 		$string = '';
 
 		// select
 		$string .= '<select';
 		if ($this->getName()) {
-			$string .= ' name="' . $this->prefixFieldName($this->getName()) . '"';
+//			$string .= ' name="' . $this->prefixFieldName($this->getName()) . '"';
+			$string .= ' name="' . $this->getName() . '"';
 		}
 		if ($class) {
 			$string .= ' class="' . $class . '"';
