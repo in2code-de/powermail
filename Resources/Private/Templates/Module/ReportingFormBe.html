@@ -28,7 +28,7 @@ Show Backend Module: Powermail Reporting Form
 						<f:for each="{firstMail.answers}" as="answer">
 
 							<div class="powermail_reporting_form_fields_item">
-								<h4>{vh:GetFieldLabelFromUid(uid: '{answer.field}')}</h4>
+								<h4>{vh:Getter.GetFieldLabelFromUid(uid: '{answer.field}')}</h4>
 
 								<img src="http://chart.apis.google.com/chart?
 									chf=bg,s,F8F8F8
@@ -47,7 +47,7 @@ Show Backend Module: Powermail Reporting Form
 										<th width="90%" class="close"><f:translate key="BackendReportingFormValue" /></th>
 										<th width="10%"><f:translate key="BackendReportingFormAmount" /></th>
 									</tr>
-									<f:for each="{vh:VariableInVariable(obj:'{groupedAnswers}', prop: '{answer.field}')}" as="amount" key="value">
+									<f:for each="{vh:Misc.VariableInVariable(obj:'{groupedAnswers}', prop: '{answer.field}')}" as="amount" key="value">
 										<tr>
 											<td>{value}</td>
 											<td>{amount}</td>

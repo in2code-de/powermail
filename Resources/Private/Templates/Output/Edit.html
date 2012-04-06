@@ -13,7 +13,10 @@ Render Powermail_Frontend Edit View
 			<f:for each="{fields}" as="field">
 				<f:for each="{mail.answers}" as="answer">
 					<f:if condition="{answer.field} == {field.uid}">
-						<f:render partial="Forms/{vh:upper(string: '{field.type}')}" arguments="{field: field, overwriteValue: answer.value}" />
+						<f:if condition="{vh:Condition.Or(array: '{0: 'input', 1: 'check'}')}">
+
+							{field.type}
+						</f:if>
 					</f:if>
 				</f:for>
 			</f:for>
@@ -22,3 +25,4 @@ Render Powermail_Frontend Edit View
 		<f:link.page pageUid="{listPid}"><f:translate key="Back" /></f:link.page>
 	</div>
 </f:section>
+<f:render partial="Forms/{vh:String.Upper(string: '{field.type}')}" arguments="{field: field, overwriteValue: answer.value}" />

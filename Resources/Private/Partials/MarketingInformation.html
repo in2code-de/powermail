@@ -18,7 +18,7 @@
 					<f:then>
 						<td style="font-size: 12px;" width="50%">
 							<f:for each="{value}" as="subvalue" iteration="index">
-								<f:link.page pageUid="{subvalue}" absolute="1"><vh:GetPageNameFromUid uid="{subvalue}" /></f:link.page><f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
+								<f:link.page pageUid="{subvalue}" absolute="1"><vh:Getter.GetPageNameFromUid uid="{subvalue}" /></f:link.page><f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
 							</f:for>
 						</td>
 					</f:then>

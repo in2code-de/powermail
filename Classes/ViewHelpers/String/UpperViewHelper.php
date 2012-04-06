@@ -7,7 +7,7 @@
  * @subpackage Fluid
  * @version
  */
-class Tx_Powermail_ViewHelpers_UpperViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Powermail_ViewHelpers_String_UpperViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
     /**
      * Use PHP Function ucfirst()

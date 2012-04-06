@@ -8,11 +8,11 @@ Render Powermail Mail to Receiver
 NOTE: See example section after main section
 
 <f:section name="main">
-	<vh:Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}" type="mail">
+	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}" type="mail">
 		<f:format.html parseFuncTSPath="lib.parseFunc">
 			{powermail_rte}
 		</f:format.html>
-	</vh:Variables>
+	</vh:Misc.Variables>
 
 	<f:render partial="MarketingInformation" arguments="{marketingInfos : marketingInfos}" />
 </f:section>
@@ -27,11 +27,11 @@ THIS IS ONLY AN EXAMPLE SECTION
 <f:section name="example">
 
 	1. Get values from RTE from Backend:
-	<vh:Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}" type="mail">
+	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}" type="mail">
 		<f:format.html parseFuncTSPath="lib.parseFunc">
 			{powermail_rte}
 		</f:format.html>
-	</vh:Variables>
+	</vh:Misc.Variables>
 
 
 	2. Get all Values by using powermail_all

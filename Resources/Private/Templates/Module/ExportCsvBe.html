@@ -5,17 +5,17 @@ Render Powermail XLS Export
 {mails}					All Mails for exporting
 {fields}				Fields to export (drag'n drop settings in module)
 
-<f:section name="main"><vh:Utf8Decode><vh:trim>
+<f:section name="main"><vh:String.Utf8Decode><vh:string.Trim>
 
 	<f:for each="{mails}" as="mail" iteration="index">
 		<f:if condition="{index.isFirst}">
 			<f:for each="{fields}" as="field">
-				<f:if condition="{vh:IsNumber(val: '{field}')}">
+				<f:if condition="{vh:Condition.IsNumber(val: '{field}')}">
 					<f:then>
-						"<vh:RemoveQuote><vh:GetFieldLabelFromUid uid="{field}" /></vh:RemoveQuote>";
+						"<vh:String.RemoveQuote><vh:Getter.GetFieldLabelFromUid uid="{field}" /></vh:String.RemoveQuote>";
 					</f:then>
 					<f:else>
-						"<vh:RemoveQuote><f:translate key="Tx_Powermail_Domain_Model_Mails.{vh:UnderscoredToLowerCamelCase(val: '{field}')}" /></vh:RemoveQuote>";
+						"<vh:String.RemoveQuote><f:translate key="Tx_Powermail_Domain_Model_Mails.{vh:String.UnderscoredToLowerCamelCase(val: '{field}')}" /></vh:String.RemoveQuote>";
 					</f:else>
 				</f:if>
 			</f:for>
@@ -24,36 +24,36 @@ Render Powermail XLS Export
 
 
 		<f:for each="{fields}" as="field">
-			<f:if condition="{vh:IsNumber(val: '{field}')}">
+			<f:if condition="{vh:Condition.IsNumber(val: '{field}')}">
 				<f:then>
 					<f:for each="{mail.answers}" as="answer">
 						<f:if condition="{field} == {answer.field}">
-							"<vh:RemoveQuote>{answer.value}</vh:RemoveQuote>";
+							"<vh:String.RemoveQuote>{answer.value}</vh:String.RemoveQuote>";
 						</f:if>
 					</f:for>
 				</f:then>
 				<f:else>
-					<f:if condition="{vh:IsDateTimeVariableInVariable(obj: '{mail}', prop: '{field}')}">
+					<f:if condition="{vh:Condition.IsDateTimeVariableInVariable(obj: '{mail}', prop: '{field}')}">
 						<f:then>
 							<f:if condition="{0 : field} == {0 : 'crdate'}">
 								<f:then>
-									"<vh:RemoveQuote><f:format.date format="d.m.Y H:i:s"><vh:VariableInVariable obj="{mail}" prop="{field}" /></f:format.date>
-									<f:translate key="Clock" /></vh:RemoveQuote>";
+									"<vh:String.RemoveQuote><f:format.date format="d.m.Y H:i:s"><vh:Misc.VariableInVariable obj="{mail}" prop="{field}" /></f:format.date>
+									<f:translate key="Clock" /></vh:String.RemoveQuote>";
 								</f:then>
 								<f:else>
-									"<vh:RemoveQuote><f:format.date format="H:i:s"><vh:VariableInVariable obj="{mail}" prop="{field}" /></f:format.date></vh:RemoveQuote>";
+									"<vh:String.RemoveQuote><f:format.date format="H:i:s"><vh:Misc.VariableInVariable obj="{mail}" prop="{field}" /></f:format.date></vh:String.RemoveQuote>";
 								</f:else>
 							</f:if>
 						</f:then>
 						<f:else>
 							<f:if condition="{0 : field} == {0 : 'marketing_funnel'}">
 								<f:then>
-									<f:if condition="{vh:isArray(val: '{vh:VariableInVariable(obj: \'{mail}\', prop: \'{field}\')}')}">
-										"<f:for each="{vh:VariableInVariable(obj: '{mail}', prop: '{field}')}" as="pid" iteration="pageIndex"><vh:GetPageNameFromUid uid="{pid}" /><f:if condition="{pageIndex.isLast}"><f:else> > </f:else></f:if></f:for>"
+									<f:if condition="{vh:Condition.IsArray(val: '{vh:Misc.VariableInVariable(obj: \'{mail}\', prop: \'{field}\')}')}">
+										"<f:for each="{vh:Misc.VariableInVariable(obj: '{mail}', prop: '{field}')}" as="pid" iteration="pageIndex"><vh:Getter.GetPageNameFromUid uid="{pid}" /><f:if condition="{pageIndex.isLast}"><f:else> > </f:else></f:if></f:for>"
 									</f:if>
 								</f:then>
 								<f:else>
-									"<vh:RemoveQuote><vh:VariableInVariable obj="{mail}" prop="{field}" /></vh:RemoveQuote>";
+									"<vh:String.RemoveQuote><vh:VariableInVariable obj="{mail}" prop="{field}" /></vh:String.RemoveQuote>";
 								</f:else>
 							</f:if>
 						</f:else>
@@ -64,4 +64,4 @@ Render Powermail XLS Export
 		<br />
 	</f:for>
 
-</vh:trim></vh:Utf8Decode></f:section>
+</vh:String.Trim></vh:String.Utf8Decode></f:section>

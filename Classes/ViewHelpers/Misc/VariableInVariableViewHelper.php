@@ -6,7 +6,7 @@
  * @package TYPO3
  * @subpackage Fluid
  */
-class Tx_Powermail_ViewHelpers_VariableInVariableViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
+class Tx_Powermail_ViewHelpers_Misc_VariableInVariableViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
 	/**
 	 * Solution for {outer.{inner}} problem with variables in fluid

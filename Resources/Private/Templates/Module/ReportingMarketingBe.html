@@ -202,8 +202,8 @@ Show Backend Module: Powermail Reporting Marketing
 													{value}
 												</f:then>
 												<f:else>
-													<f:for each="{vh:Explode(string: '{value}')}" as="page" iteration="index">
-														<vh:GetPageNameFromUid uid="{page}" /><f:if condition="{index.isLast}"><f:else> &gt;</f:else></f:if>
+													<f:for each="{vh:String.Explode(string: '{value}')}" as="page" iteration="index">
+														<vh:Getter.GetPageNameFromUid uid="{page}" /><f:if condition="{index.isLast}"><f:else> &gt;</f:else></f:if>
 													</f:for>
 												</f:else>
 											</f:if>

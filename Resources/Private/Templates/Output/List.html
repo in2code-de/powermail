@@ -22,7 +22,7 @@ Render Powermail_Frontend List View
 							<tr>
 								<th>(<f:count subject="{mails}" />)</th>
 								<f:for each="{fields}" as="field">
-									<th><vh:GetFieldLabelFromUid uid="{field}" /></th>
+									<th><vh:Getter.GetFieldLabelFromUid uid="{field}" /></th>
 								</f:for>
 								<th></th>
 							</tr>
@@ -34,7 +34,7 @@ Render Powermail_Frontend List View
 								<td>
 									<f:for each="{mail.answers}" as="answer">
 										<f:if condition="{answer.field} == {field}">
-											<f:if condition="{vh:IsArray(val: '{answer.value}')}">
+											<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
 												<f:then>
 													<f:for each="{answer.value}" as="value2" iteration="index2">
 														<f:if condition="{value2}">

@@ -13,7 +13,7 @@ Section for Web view
 		<dl class="powermail_all">
 			<dt>{label}</dt>
 			<dd>
-				<f:if condition="{vh:IsArray(val: '{variable}')}">
+				<f:if condition="{vh:Condition.IsArray(val: '{variable}')}">
 					<f:then>
 						<f:for each="{variable}" as="variable2" iteration="index">
 							<f:if condition="{variable2}">
@@ -41,7 +41,7 @@ Section for Mails
 			<tr>
 				<td><b>{label}</b></td>
 				<td>
-					<f:if condition="{vh:IsArray(val: '{variable}')}">
+					<f:if condition="{vh:Condition.IsArray(val: '{variable}')}">
 						<f:then>
 							<f:for each="{variable}" as="variable2" iteration="index">
 								<f:if condition="{variable2}">

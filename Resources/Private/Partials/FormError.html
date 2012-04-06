@@ -5,7 +5,7 @@
 		<f:for each="{error.errors}" as="singeleError">
 			<li>
 				<f:if condition="{singeleError.code}">
-					<vh:GetFieldLabelFromUid uid="{singeleError.code}" />:
+					<vh:Getter.GetFieldLabelFromUid uid="{singeleError.code}" />:
 				</f:if>
 				<f:translate key="validationerror_{singeleError.message}" />
 			</li>

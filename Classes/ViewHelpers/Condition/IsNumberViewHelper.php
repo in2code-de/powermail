@@ -6,7 +6,7 @@
  * @package TYPO3
  * @subpackage Fluid
  */
-class Tx_Powermail_ViewHelpers_IsNumberViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
+class Tx_Powermail_ViewHelpers_Condition_IsNumberViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
     /**
      * View helper check if given value is number or not

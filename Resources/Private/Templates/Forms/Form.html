@@ -11,7 +11,7 @@ Render Powermail Form
 
 	<f:for each="{forms}" as="form">
 
-		<f:form action="{action}" controller="Forms" enctype="multipart/form-data" class="powermail_form {vh:MorestepClass(activate: '{settings.main.moresteps}', class: 'powermail_morestep')}">
+		<f:form action="{action}" controller="Forms" enctype="multipart/form-data" class="powermail_form {vh:Misc.MorestepClass(activate: '{settings.main.moresteps}', class: 'powermail_morestep')}">
 			<h3>{form.title}</h3>
 
 			<f:render partial="FormError" arguments="{error}" />
@@ -21,7 +21,7 @@ Render Powermail Form
 					<legend class="powermail_legend">{page.title}</legend>
 
 					<f:for each="{page.fields}" as="field">
-						<f:render partial="Forms/{vh:upper(string: '{field.type}')}" arguments="{field: field}" />
+						<f:render partial="Forms/{vh:String.Upper(string: '{field.type}')}" arguments="{field: field}" />
 					</f:for>
 
 				</fieldset>

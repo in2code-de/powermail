@@ -94,9 +94,9 @@
 			<f:for each="{firstMail.answers}" as="answer">
 				<div class="powermail_module_search_field searchHidden">
 					<label>
-						<vh:GetFieldLabelFromUid uid="{answer.field}" />
+						<vh:Getter.GetFieldLabelFromUid uid="{answer.field}" />
 					</label>
-					<f:form.textfield property="answer.{answer.field}" class="powermail_module_search_field_dynamicfield" value="{vh:GetPiVarAnswerField(piVars: '{piVars}', fieldUid: '{answer.field}')}" />
+					<f:form.textfield property="answer.{answer.field}" class="powermail_module_search_field_dynamicfield" value="{vh:Getter.GetPiVarAnswerField(piVars: '{piVars}', fieldUid: '{answer.field}')}" />
 				</div>
 			</f:for>
 		</div>

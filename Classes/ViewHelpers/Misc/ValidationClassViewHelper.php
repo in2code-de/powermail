@@ -7,7 +7,7 @@
  * @subpackage Fluid
  * @version
  */
-class Tx_Powermail_ViewHelpers_ValidationClassViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Powermail_ViewHelpers_Misc_ValidationClassViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
 	 * Validation array

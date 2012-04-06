@@ -5,8 +5,8 @@
 		{field.title}<f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
 	</label>
 
-	<div class="powermail_captcha_outer {vh:ErrorClass(field: '{field}', class: 'error')}">
-		<f:form.textfield id="powermail_field_{field.marker}" name="field[{field.uid}]" value="" class="powermail_field powermail_captcha validate[required] {vh:ErrorClass(field: '{field}', class: 'powermail_field_error')}" required="required" />
-		<img src="{vh:Captcha()}" alt="captcha" class="powermail_captchaimage" id="powermail_captchaimage" />
+	<div class="powermail_captcha_outer {vh:Misc.ErrorClass(field: '{field}', class: 'error')}">
+		<f:form.textfield id="powermail_field_{field.marker}" name="field[{field.uid}]" value="" class="powermail_field powermail_captcha validate[required] {vh:Misc.ErrorClass(field: '{field}', class: 'powermail_field_error')}" required="required" />
+		<img src="{vh:Misc.Captcha()}" alt="captcha" class="powermail_captchaimage" id="powermail_captchaimage" />
 	</div>
 </div>

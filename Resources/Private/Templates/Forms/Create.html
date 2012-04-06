@@ -11,11 +11,11 @@ NOTE: See example section after main section
 
 <f:section name="main">
 	<div class="powermail_create">
-		<vh:Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}">
+		<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}">
 			<f:format.html parseFuncTSPath="lib.parseFunc">
 				{powermail_rte}
 			</f:format.html>
-		</vh:Variables>
+		</vh:Misc.Variables>
 	</div>
 
 	<f:render partial="GoogleAdwordsConversion" />
@@ -33,11 +33,11 @@ THIS IS ONLY AN EXAMPLE SECTION
 	<f:flashMessages class="powermail_message powermail_message_{messageClass}" />
 
 	1. Get values from RTE from Backend:
-	<vh:Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}">
+	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}">
 		<f:format.html parseFuncTSPath="lib.parseFunc">
 			{powermail_rte}
 		</f:format.html>
-	</vh:Variables>
+	</vh:Misc.Variables>
 
 
 	2. Get all Values by using powermail_all

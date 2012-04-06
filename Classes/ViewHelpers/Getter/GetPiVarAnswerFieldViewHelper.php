@@ -6,7 +6,7 @@
  * @package TYPO3
  * @subpackage Fluid
  */
-class Tx_Powermail_ViewHelpers_GetPiVarAnswerFieldViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Powermail_ViewHelpers_Getter_GetPiVarAnswerFieldViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
 	 * Used in the Backendmodule to get a defined piVar

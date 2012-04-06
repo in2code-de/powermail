@@ -6,7 +6,7 @@
  * @package TYPO3
  * @subpackage Fluid
  */
-class Tx_Powermail_ViewHelpers_VariablesViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
 	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Read Marker of a field from given UID
+ * Read Label of a field from given UID
  *
  * @package TYPO3
  * @subpackage Fluid
  * @version
  */
-class Tx_Powermail_ViewHelpers_GetFieldMarkerFromUidViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Powermail_ViewHelpers_Getter_GetFieldLabelFromUidViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
 	 * fieldsRepository
@@ -24,8 +24,8 @@ class Tx_Powermail_ViewHelpers_GetFieldMarkerFromUidViewHelper extends Tx_Fluid_
      */
     public function render($uid) {
 		$field = $this->fieldsRepository->findByUid($uid);
-		if (method_exists($field, 'getMarker')) {
-			return $field->getMarker();
+		if (method_exists($field, 'getTitle')) {
+			return $field->getTitle();
 		}
     }
 
