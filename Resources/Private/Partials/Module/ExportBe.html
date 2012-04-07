@@ -86,8 +86,8 @@
 			</div>
 		</div>
 
-		<f:form.hidden property="fields" value="{vh:String.ImplodeUid(objects: '{firstMail.answers}')}" id="export_fields" />
-		<f:form.hidden property="mails" value="{vh:String.ImplodeUid(objects: '{mails}')}" id="export_mails" />
+		<f:form.hidden property="fields" value="{vh:String.ImplodeField(objects: '{firstMail.answers}', field: 'field')}" id="export_fields" />
+		<f:form.hidden property="mails" value="{vh:String.ImplodeField(objects: '{mails}')}" id="export_mails" />
 		<f:form.hidden property="format" value="xls" id="export_format" />
 
 		<f:if condition="{piVars.sorting}">

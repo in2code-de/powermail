@@ -10,7 +10,7 @@
 					<f:form action="export" name="export" additionalParams="{type: 31311}">
 						<f:form.submit value="XLS" class="export_icon export_icon_xls" />
 
-						<f:form.hidden name="export[fields]" value="{vh:String.ImplodeUid(objects: '{mails}')}" id="export_mails" />
+						<f:form.hidden name="export[fields]" value="{vh:String.ImplodeField(objects: '{mails}')}" id="export_mails" />
 						<f:form.hidden name="export[format]" value="xls" id="export_format" />
 					</f:form>
 				</f:if>
@@ -19,7 +19,7 @@
 					<f:form action="export" name="export" additionalParams="{type: 31312}">
 						<f:form.submit value="CSV" class="export_icon export_icon_csv" />
 
-						<f:form.hidden name="export[fields]" value="{vh:String.ImplodeUid(objects: '{mails}')}" id="export_mails" />
+						<f:form.hidden name="export[fields]" value="{vh:String.ImplodeField(objects: '{mails}')}" id="export_mails" />
 						<f:form.hidden name="export[format]" value="csv" id="export_format" />
 					</f:form>
 					<div class="clear"></div>
