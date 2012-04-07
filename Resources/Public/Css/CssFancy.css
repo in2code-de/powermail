@@ -525,6 +525,9 @@ body.rtl .formError .formErrorArrow {
 /**
  * Powermail_Frontend
  */
+#powermail_frontend_search {
+    margin: 0;
+}
 .powermail_frontend {
     clear: left;
 	border: 0;
@@ -550,6 +553,12 @@ body.rtl .formError .formErrorArrow {
 	-khtml-border-radius: 3px;
 	border-radius: 3px;
 }
+.powermail_frontend_list {
+    width: 100%;
+    font-size: 0.9em;
+    border: 1px solid #070708;
+    margin-top: 15px;
+}
 .powermail_frontend_list th {
     color: white;
     font-weight: bold;
@@ -564,11 +573,6 @@ body.rtl .formError .formErrorArrow {
     background: -ms-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* IE10+ */
     background: linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
-}
-.powermail_frontend_list {
-    width: 100%;
-    font-size: 0.9em;
-    border: 1px solid #070708;
 }
 .powermail_frontend_list td {
     border-top: 1px solid #ccc;
@@ -618,7 +622,8 @@ body.rtl .formError .formErrorArrow {
     background: linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
-.powermail_frontend_abc {
+.powermail_frontend_abc,
+.powermail_frontend_export {
     background: rgb(252,255,244); /* Old browsers */
     background: -moz-linear-gradient(top, rgba(252,255,244,1) 0%, rgba(223,229,215,1) 40%, rgba(179,190,173,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,255,244,1)), color-stop(40%,rgba(223,229,215,1)), color-stop(100%,rgba(179,190,173,1))); /* Chrome,Safari4+ */
@@ -630,7 +635,8 @@ body.rtl .formError .formErrorArrow {
     border: 1px solid #ccc;
     padding: 10px 0;
 }
-.powermail_frontend_abc_inner {
+.powermail_frontend_abc_inner,
+.powermail_frontend_export_inner {
     margin: 0 10px;
 }
 span.abc,
@@ -651,4 +657,10 @@ span.abc a {
 }
 .powermail_frontend dd {
     float: left;
+}
+.powermail_frontend_export img {
+    float: right;
+    margin: 0 8px;
+    padding-top: 2px;
+    cursor: pointer;
 }

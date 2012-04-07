@@ -13,6 +13,8 @@ Render Powermail_Frontend List View
 
 		<f:render partial="Output/Search" arguments="{mails: mails, piVars: piVars, abc: abc}" />
 
+		<f:render partial="Output/Export" arguments="{mails: mails, piVars: piVars}" />
+
 		<f:if condition="{mails}">
 			<f:then>
 				<table class="powermail_frontend_list">
@@ -20,9 +22,13 @@ Render Powermail_Frontend List View
 
 						<f:if condition="{index.isFirst}">
 							<tr>
-								<th>(<f:count subject="{mails}" />)</th>
+								<th>
+									(<f:count subject="{mails}" />)
+								</th>
 								<f:for each="{fields}" as="field">
-									<th><vh:Getter.GetFieldLabelFromUid uid="{field}" /></th>
+									<th class="powermail_sorting">
+										<vh:Getter.GetFieldLabelFromUid uid="{field}" />
+									</th>
 								</f:for>
 								<th></th>
 							</tr>

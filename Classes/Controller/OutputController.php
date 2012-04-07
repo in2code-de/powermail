@@ -189,6 +189,15 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
+	 * Deactivate errormessages in flashmessages
+	 *
+	 * @return bool
+	 */
+	protected function getErrorFlashMessage() {
+		return false;
+	}
+
+	/**
 	 * Initializes the current action
 	 *
 	 * @return void

@@ -29,9 +29,8 @@
 
 		</div>
 	</f:if>
-
-	<f:if condition="{settings.search.abc}">
-		<f:render partial="Output/Abc" arguments="{mails: mails, piVars: piVars, abc : abc}" />
-	</f:if>
-
 </f:form>
+
+<f:if condition="{settings.search.abc}">
+	<f:render partial="Output/Abc" arguments="{mails: mails, piVars: piVars, abc : abc}" />
+</f:if>
