@@ -55,7 +55,7 @@ Render Powermail_Frontend List View
 									<f:translate key="PowermailFrontendDetailView" />
 								</f:link.action>
 
-								<f:if condition="{vh:Condition.IsAllowedToEdit(settings: '{settings}')}">
+								<f:if condition="{vh:Condition.IsAllowedToEdit(settings: '{settings}', mail: '{mail}')}">
 									<f:link.action action="edit" pageUid="{editPid}" arguments="{mail : mail}">
 										<f:translate key="PowermailFrontendEditView" />
 									</f:link.action>

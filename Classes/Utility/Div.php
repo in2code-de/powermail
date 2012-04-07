@@ -783,13 +783,28 @@ class Tx_Powermail_Utility_Div {
 	 * Check if logged in user is allowed to make changes in Pi2
 	 *
 	 * @param 	array		$settings TypoScript and Flexform Settings
+	 * @param	object		$mail Mail Object
 	 * @return	bool
 	 */
-	public function isAllowedToEdit($settings) {
+	public function isAllowedToEdit($settings, $mail) {
 		// settings
+		if (!$GLOBALS['TSFE']->fe_user->user['uid']) {
+			return false;
+		}
 		$usergroups = t3lib_div::trimExplode(',', $GLOBALS['TSFE']->fe_user->user['usergroup'], 1); // array with usergroups of current logged in user
 		$usersSettings = t3lib_div::trimExplode(',', $settings['edit']['feuser'], 1); // array with all allowed users
 		$usergroupsSettings = t3lib_div::trimExplode(',', $settings['edit']['fegroup'], 1); // array with all allowed groups
+
+		// replace "_owner" with uid of owner in array with users
+		if (method_exists($mail, 'getFeuser') && is_numeric(array_search('_owner', $usersSettings))) {
+			$usersSettings[array_search('_owner', $usersSettings)] = $mail->getFeuser();
+		}
+
+		// add owner groups to allowed groups (if "_owner")
+		if (method_exists($mail, 'getFeuser') && is_numeric(array_search('_owner', $usergroupsSettings))) { // if one entry is "_ownergroup"
+			$usergroupsFromOwner = $this->getUserGroupsFromUser($mail->getFeuser()); // get usergroups of owner user
+			$usergroupsSettings = array_merge((array) $usergroupsSettings, (array) $usergroupsFromOwner); // add owner usergroups to allowed usergroups array
+		}
 
 		// 1. check user
 		if (in_array($GLOBALS['TSFE']->fe_user->user['uid'], $usersSettings)) {
@@ -802,6 +817,31 @@ class Tx_Powermail_Utility_Div {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Return usergroups uid of a given fe_user
+	 *
+	 * @param 	string 	$uid				FE_user UID
+	 * @param 	string 	$table				Table name		('fe_users' or 'fe_groups')
+	 * @return	array	Usergroups
+	 */
+	private function getUserGroupsFromUser($uid) {
+		$groups = array();
+		$select = 'fe_groups.uid';
+		$from = 'fe_users, fe_groups, sys_refindex';
+		$where = 'sys_refindex.tablename = "fe_users" AND sys_refindex.ref_table = "fe_groups" AND fe_users.uid = sys_refindex.recuid AND fe_groups.uid = sys_refindex.ref_uid AND fe_users.uid = ' . intval($uid);
+		$groupBy = '';
+		$orderBy = '';
+		$limit = 1000;
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+		if ($res) {
+			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) { // One loop for every entry
+				$groups[] = $row['uid'];
+			}
+		}
+
+		return $groups;
 	}
 
 	/**

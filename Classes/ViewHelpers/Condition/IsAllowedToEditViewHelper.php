@@ -19,10 +19,11 @@ class Tx_Powermail_ViewHelpers_Condition_IsAllowedToEditViewHelper extends Tx_Fl
      * Check if logged in User is allowed to edit
      *
      * @param 	array 		TypoScript and FlexForm Settings
+     * @param 	object 		Mail Object
      * @return 	boolean
      */
-    public function render($settings = array()) {
-		if ($this->div->isAllowedToEdit($settings)) {
+    public function render($settings = array(), $mail) {
+		if ($this->div->isAllowedToEdit($settings, $mail)) {
 			return true;
 		}
 		return false;
