@@ -1,23 +1,30 @@
 {namespace vh=Tx_Powermail_ViewHelpers}
 
 <f:if condition="{settings.list.export}">
-	<f:form action="export" name="export" id="powermail_frontend_export">
 
 		<div class="powermail_frontend_export">
 			<div class="powermail_frontend_export_inner">
+
+
 				<f:if condition="{vh:Condition.IsStringInString(haystack: '{settings.list.export}', needle: 'xls')}">
-					<f:image src="{f:uri.resource(path: 'Image/icon_xls.gif')}" alt="XLS" class="export_icon export_icon_xls" />
+					<f:form action="export" name="export" additionalParams="{type: 31311}">
+						<f:form.submit value="XLS" class="export_icon export_icon_xls" />
+
+						<f:form.hidden name="export[fields]" value="{vh:String.ImplodeUid(objects: '{mails}')}" id="export_mails" />
+						<f:form.hidden name="export[format]" value="xls" id="export_format" />
+					</f:form>
 				</f:if>
+
 				<f:if condition="{vh:Condition.IsStringInString(haystack: '{settings.list.export}', needle: 'csv')}">
-					<f:image src="{f:uri.resource(path: 'Image/icon_csv.gif')}" alt="CSV" class="export_icon export_icon_csv" />
+					<f:form action="export" name="export" additionalParams="{type: 31312}">
+						<f:form.submit value="CSV" class="export_icon export_icon_csv" />
+
+						<f:form.hidden name="export[fields]" value="{vh:String.ImplodeUid(objects: '{mails}')}" id="export_mails" />
+						<f:form.hidden name="export[format]" value="csv" id="export_format" />
+					</f:form>
+					<div class="clear"></div>
 				</f:if>
-
-				<f:form.hidden name="export[fields]" value="{vh:String.ImplodeUid(objects: '{mails}')}" id="export_mails" />
-				<f:form.hidden name="export[format]" value="" id="export_format" />
-
-				<div class="clear"></div>
 			</div>
 		</div>
 
-	</f:form>
 </f:if>

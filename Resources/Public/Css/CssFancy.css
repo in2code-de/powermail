@@ -658,9 +658,19 @@ span.abc a {
 .powermail_frontend dd {
     float: left;
 }
-.powermail_frontend_export img {
+.powermail_frontend_export input {
     float: right;
+    width: 17px;
+    height: 16px;
     margin: 0 8px;
     padding-top: 2px;
     cursor: pointer;
+    text-indent: -99999px;
+    border: 0;
+    background: none;
+    background-repeat: no-repeat;
+    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_csv.gif');
+}
+.powermail_frontend_export input.export_icon_xls {
+    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_xls.gif');
 }
