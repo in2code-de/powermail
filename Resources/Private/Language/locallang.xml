@@ -140,6 +140,7 @@
 			<label index="PowermailFrontendEditView">Edit</label>
 			<label index="PowermailFrontendEditSubmit">Save Changes</label>
 			<label index="PowermailFrontendEditConfirm">Changes successfully saved</label>
+			<label index="PowermailFrontendEditFailed">You are not allowed to make changes</label>
 			<label index="Back">Back</label>
 			<label index="Clock">o'clock</label>
 			<label index="ClearFilter">Delete Filter</label>
@@ -282,6 +283,7 @@
 			<label index="PowermailFrontendEditView">Bearbeiten</label>
 			<label index="PowermailFrontendEditSubmit">Änderungen Speichern</label>
 			<label index="PowermailFrontendEditConfirm">Änderungen erfolgreich gespeichert</label>
+			<label index="PowermailFrontendEditFailed">Sie haben nicht die benötigte Berechtigung um Änderungen durchzuführen</label>
 			<label index="Back">Zurück</label>
 			<label index="Clock">Uhr</label>
 			<label index="ClearFilter">Filter löschen</label>
