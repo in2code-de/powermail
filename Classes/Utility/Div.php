@@ -769,13 +769,38 @@ class Tx_Powermail_Utility_Div {
 	 * @param $val Any String
 	 * @return bool
 	 */
-	function is_serialized($val) {
+	public function is_serialized($val) {
 		if (!is_string($val) || trim($val) == '') {
 			return false;
 		}
 		if (preg_match('/^(i|s|a|o|d):(.*);/si', $val)) {
 			return true;
 		}
+		return false;
+	}
+
+	/**
+	 * Check if logged in user is allowed to make changes in Pi2
+	 *
+	 * @param 	array		$settings TypoScript and Flexform Settings
+	 * @return	bool
+	 */
+	public function isAllowedToEdit($settings) {
+		// settings
+		$usergroups = t3lib_div::trimExplode(',', $GLOBALS['TSFE']->fe_user->user['usergroup'], 1); // array with usergroups of current logged in user
+		$usersSettings = t3lib_div::trimExplode(',', $settings['edit']['feuser'], 1); // array with all allowed users
+		$usergroupsSettings = t3lib_div::trimExplode(',', $settings['edit']['fegroup'], 1); // array with all allowed groups
+
+		// 1. check user
+		if (in_array($GLOBALS['TSFE']->fe_user->user['uid'], $usersSettings)) {
+			return true;
+		}
+
+		// 2. check usergroup
+		if (count(array_intersect($usergroups, $usergroupsSettings))) { // if there is one of the groups allowed
+			return true;
+		}
+
 		return false;
 	}
 

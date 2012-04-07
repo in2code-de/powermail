@@ -18,6 +18,13 @@ class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_Vi
 	 */
 	protected $objectManager;
 
+	/**
+	 * Div Methods
+	 *
+	 * @var		Tx_Powermail_Utility_Div
+	 */
+	private $div;
+
     /**
      * Parses variables again
      *
