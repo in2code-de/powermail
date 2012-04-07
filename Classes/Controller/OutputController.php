@@ -189,6 +189,59 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
+	  * Export mails
+	  *
+	  * @param		$export Field Array with mails and format
+	  * @dontvalidate $export
+	  * @return 	void
+	  */
+	public function exportAction($export = array()) {
+		if (!$this->settings['list']['export']) {
+			return;
+		}
+		$mails = $this->mailsRepository->findByUidList($export['fields']);
+
+		// get field array for output
+		$fields = t3lib_div::trimExplode(',', $this->settings['list']['fields'], 1);
+		if (!$fields) {
+			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
+		}
+
+		if ($export['format'] == 'xls') {
+			$this->forward('exportXls', NULL, NULL, array('mails' => $mails, 'fields' => $fields));
+		}
+		$this->forward('exportCsv', NULL, NULL, array('mails' => $mails, 'fields' => $fields));
+	}
+
+	/**
+	  * Export mails XLS
+	  *
+	  * @param		array		$mails mails objects
+	  * @param		array		$fields uid field list
+	  * @dontvalidate $mails
+	  * @dontvalidate $fields
+	  * @return 	void
+	  */
+	public function exportXlsAction($mails = array(), $fields = array()) {
+		$this->view->assign('mails', $mails);
+		$this->view->assign('fields', $fields);
+	}
+
+	/**
+	  * Export mails CSV
+	  *
+	  * @param		array		$mails mails objects
+	  * @param		array		$fields uid field list
+	  * @dontvalidate $mails
+	  * @dontvalidate $fields
+	  * @return 	void
+	  */
+	public function exportCsvAction($mails = array(), $fields = array()) {
+		$this->view->assign('mails', $mails);
+		$this->view->assign('fields', $fields);
+	}
+
+	/**
 	 * Deactivate errormessages in flashmessages
 	 *
 	 * @return bool

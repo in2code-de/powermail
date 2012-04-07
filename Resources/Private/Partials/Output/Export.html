@@ -12,13 +12,8 @@
 					<f:image src="{f:uri.resource(path: 'Image/icon_csv.gif')}" alt="CSV" class="export_icon export_icon_csv" />
 				</f:if>
 
-				<f:for each="{mails}" as="{mail}">
-					<input type="hidden" name="tx_powermail_pi2[export][fields]"
-						   value="<f:for each="{mails}" as="mail" iteration="index">{mail.uid}<f:if condition="{index.isLast}"><f:else>,</f:else></f:if></f:for>"
-					id="export_fields" />
-				</f:for>
-
-				<f:form.hidden name="format" value="" id="export_format" />
+				<f:form.hidden name="export[fields]" value="{vh:String.ImplodeUid(objects: '{mails}')}" id="export_mails" />
+				<f:form.hidden name="export[format]" value="" id="export_format" />
 
 				<div class="clear"></div>
 			</div>

@@ -86,14 +86,8 @@
 			</div>
 		</div>
 
-		<input type="hidden" name="tx_powermail_web_powermailm1[export][fields]"
-			   value="<f:for each="{firstMail.answers}" as="answer" iteration="index">{answer.field}<f:if condition="{index.isLast}"><f:else>,</f:else></f:if></f:for>"
-		id="export_fields" />
-
-		<input type="hidden" name="tx_powermail_web_powermailm1[export][mails]"
-			   value="<f:for each="{mails}" as="mail" iteration="index">{mail.uid}<f:if condition="{index.isLast}"><f:else>,</f:else></f:if></f:for>"
-		id="export_mails" />
-
+		<f:form.hidden property="fields" value="{vh:String.ImplodeUid(objects: '{firstMail.answers}')}" id="export_fields" />
+		<f:form.hidden property="mails" value="{vh:String.ImplodeUid(objects: '{mails}')}" id="export_mails" />
 		<f:form.hidden property="format" value="xls" id="export_format" />
 
 		<f:if condition="{piVars.sorting}">

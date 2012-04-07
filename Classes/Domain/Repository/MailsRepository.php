@@ -176,7 +176,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 	 * @param 	array 		Sorting array('field' => 'asc')
 	 * @return	Query Object
 	 */
-	public function findByUidList($uidList, $sorting) {
+	public function findByUidList($uidList, $sorting = array()) {
 		// settings
 		$uids = t3lib_div::trimExplode(',', $uidList, 1);
 		$query = $this->createQuery(); // initialize query

@@ -33,10 +33,10 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Pi2',
 	array(
-		'Output' => 'list, show, edit, update'
+		'Output' => 'list, show, edit, update, export'
 	),
 	array(
-		'Output' => 'list, edit, update'
+		'Output' => 'list, edit, update, export'
 	)
 );
 
