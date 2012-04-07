@@ -5,6 +5,16 @@ plugin.tx_powermail {
 	settings {
 		Pi2 {
 
+			rss {
+				title = Powermail 2.0 RSS Feed
+				link = http://www.in2code.de
+				description = Powermail_Frontend RSS Feed
+				language = en
+				copyright = in2code.de
+				updatePeriod = hourly
+				updateFrequency = 1
+			}
+
 			# Don't touch this (this is just to let the extension know, that there is TypoScript included)
 			staticTemplate = 1
 		}
@@ -55,10 +65,33 @@ powermail_frontend_csv {
 
 	10 < styles.content.get
 }
-[globalVar = GP:type = 31311] || [globalVar = GP:type = 31312]
+
+
+
+############################
+# RSS section
+############################
+
+powermail_frontend_rss = PAGE
+powermail_frontend_rss {
+	typeNum = 31319
+
+	config {
+		disableAllHeaderCode = 1
+		disablePrefixComment = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+    	#additionalHeaders = Content-type:application/xml
+	}
+
+	10 < styles.content.get
+}
+[globalVar = GP:type = 31311] || [globalVar = GP:type = 31312] || [globalVar = GP:type = 31319]
 	# we don't want the wrapper div in our export files
 	tt_content.stdWrap.innerWrap >
 [end]
+
+
 
 
 ############################

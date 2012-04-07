@@ -132,9 +132,10 @@
 			<label index="flexform_pi2.list.pid">Page with Plugin for list view (Empty: Same page)</label>
 			<label index="flexform_pi2.list.showownonly">Own entries</label>
 			<label index="flexform_pi2.list.showownonly.0">Show only entries from logged in Frontend-User</label>
-			<label index="flexform_pi2.list.export">Export</label>
+			<label index="flexform_pi2.list.export">Export Formats</label>
 			<label index="flexform_pi2.list.export.0">XLS Export</label>
 			<label index="flexform_pi2.list.export.1">CSV Export</label>
+			<label index="flexform_pi2.list.export.2">RSS Feed</label>
 			<label index="flexform_pi2.single">Detailview</label>
 			<label index="flexform_pi2.single.fields">Choose Fields to show (Empty: All Fields)</label>
 			<label index="flexform_pi2.single.pid">Page with Plugin for detail view (Empty: Same page)</label>
@@ -282,9 +283,10 @@
 			<label index="flexform_pi2.list.pid">Seite mit Listenansicht (Leer: Gleiche Seite)</label>
 			<label index="flexform_pi2.list.showownonly">Eigene Mails</label>
 			<label index="flexform_pi2.list.showownonly.0">Zeige nur eigene Mails des eingeloggten Frontend-Benutzers</label>
-			<label index="flexform_pi2.list.export">Export</label>
+			<label index="flexform_pi2.list.export">Export Formate</label>
 			<label index="flexform_pi2.list.export.0">XLS Export</label>
 			<label index="flexform_pi2.list.export.1">CSV Export</label>
+			<label index="flexform_pi2.list.export.2">RSS Feed</label>
 			<label index="flexform_pi2.single">Detailansicht</label>
 			<label index="flexform_pi2.single.fields">Felder für Ansicht wählen (Leer: Alle Felder)</label>
 			<label index="flexform_pi2.single.pid">Seite mit Detailansicht (Leer: Gleiche Seite)</label>

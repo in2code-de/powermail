@@ -18,11 +18,11 @@
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.switchableControllerActions.0</numIndex>
-										<numIndex index="1">Output->list;Output->show;Output->export;</numIndex>
+										<numIndex index="1">Output->list;Output->show;Output->export;Output->rss;</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.switchableControllerActions.1</numIndex>
-										<numIndex index="1">Output->list;Output->show;Output->export;</numIndex>
+										<numIndex index="1">Output->list;Output->show;Output->export;Output->rss;</numIndex>
 									</numIndex>
 									<numIndex index="2" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.switchableControllerActions.2</numIndex>
@@ -116,6 +116,10 @@
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.export.1</numIndex>
 										<numIndex index="1">csv</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.export.2</numIndex>
+										<numIndex index="1">rss</numIndex>
 									</numIndex>
 								</items>
 								<maxitems>10</maxitems>

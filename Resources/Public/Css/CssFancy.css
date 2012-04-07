@@ -658,11 +658,15 @@ span.abc a {
 .powermail_frontend dd {
     float: left;
 }
-.powermail_frontend_export input {
+.powermail_frontend_export_icon {
     float: right;
+    margin: 0 8px;
+    padding-top: 5px;
+    height: 19px;
+}
+.powermail_frontend_export input {
     width: 17px;
     height: 16px;
-    margin: 0 8px;
     padding-top: 2px;
     cursor: pointer;
     text-indent: -99999px;

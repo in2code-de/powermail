@@ -242,6 +242,20 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
+	 * RSS Action List
+	 */
+	public function rssAction() {
+		$mails = $this->mailsRepository->findListBySettings($this->settings, $this->piVars);
+		$this->view->assign('mails', $mails);
+
+		// single pid
+		if (empty($this->settings['single']['pid'])) {
+			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		$this->view->assign('singlePid', $this->settings['single']['pid']);
+	}
+
+	/**
 	 * Deactivate errormessages in flashmessages
 	 *
 	 * @return bool
