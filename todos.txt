@@ -3,7 +3,7 @@ powermail 2.0 roadmap
 o Spamfactor for mails
 x Saving to other tables
 x powermail_frontend
-=> powermail_frontend RSS
+x powermail_frontend RSS
 x Plugin Info in Page-View
 x backend module list and filter
 x backend module xls export
@@ -64,8 +64,8 @@ o remove from all marker
 o new fields (dynamic from html folder)
 
 Do we want this Features?
-o enable unique value ?
-o using session ?
-o optin ?
-o tabindex ?
-o accesskey ?
+o enable unique value
+o using session
+o optin
+o tabindex
+o accesskey
