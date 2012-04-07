@@ -174,13 +174,17 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	  * @return 	void
 	  */
 	public function updateAction(Tx_Powermail_Domain_Model_Mails $mail, $field = array()) {
-		foreach ((array) $field as $fieldUid => $value) { // one loop for every received field
-			$answer = $this->answersRepository->findByFieldAndMail($fieldUid, $mail);
-			$answer->setValue($value);
-			$this->answersRepository->update($answer);
+		if ($this->div->isAllowedToEdit($this->settings, $mail)) {
+			foreach ((array) $field as $fieldUid => $value) { // one loop for every received field
+				$answer = $this->answersRepository->findByFieldAndMail($fieldUid, $mail);
+				$answer->setValue($value);
+				$this->answersRepository->update($answer);
+			}
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('PowermailFrontendEditConfirm', 'powermail'));
+		} else {
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('PowermailFrontendEditFailed', 'powermail'));
 		}
 
-		$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('PowermailFrontendEditConfirm', 'powermail'));
 		$this->redirect('edit', null, null, array('mail' => $mail));
 	}
 
