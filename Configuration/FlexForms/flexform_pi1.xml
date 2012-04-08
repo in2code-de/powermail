@@ -78,6 +78,15 @@
 							</config>
 						</TCEforms>
 					</settings.flexform.main.confirmation>
+					<settings.flexform.main.optin>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform.main.optin</label>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.flexform.main.optin>
 					<settings.flexform.main.moresteps>
 						<TCEforms>
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform.main.moresteps</label>

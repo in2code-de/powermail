@@ -73,6 +73,9 @@ class Tx_Powermail_Utility_PluginInfo {
 			$GLOBALS['LANG']->sL($this->locallangPath . 'confirmationPage') => $this->getFieldFromFlexform('main', 'settings.flexform.main.confirmation') ?
 				'<img src="/typo3conf/ext/powermail/Resources/Public/Image/icon-check.png" alt="1" />' :
 				'<img src="/typo3conf/ext/powermail/Resources/Public/Image/icon-notchecked.png" alt="0" />',
+			$GLOBALS['LANG']->sL($this->locallangPath . 'optin') => $this->getFieldFromFlexform('main', 'settings.flexform.main.optin') ?
+				'<img src="/typo3conf/ext/powermail/Resources/Public/Image/icon-check.png" alt="1" />' :
+				'<img src="/typo3conf/ext/powermail/Resources/Public/Image/icon-notchecked.png" alt="0" />',
 		);
 		if ($this->showTable) {
 			return $this->createOutput($array);

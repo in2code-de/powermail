@@ -101,6 +101,7 @@
 			<label index="flexform.main">Main Settings</label>
 			<label index="flexform.main.form">Choose a Powermail Form</label>
 			<label index="flexform.main.pid">Where to save Mails (empty = same page)</label>
+			<label index="flexform.main.optin">Mail must be confirmed (Double Opt-In)</label>
 			<label index="flexform.main.confirmation">Do you want a confirmation page?</label>
 			<label index="flexform.main.moresteps">Do you want to split each page (step by step)?</label>
 			<label index="flexform.receiver">Receiver</label>
@@ -160,6 +161,7 @@
 			<label index="pluginInfo.form">Form Title</label>
 			<label index="pluginInfo.savePid">Storage Location for Mails</label>
 			<label index="pluginInfo.confirmationPage">Confirmation Page activated?</label>
+			<label index="pluginInfo.optin">Double Opt-In active?</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tx_powermail_domain_model_mails">Mails</label>
@@ -252,6 +254,7 @@
 			<label index="flexform.main">Einstellungen</label>
 			<label index="flexform.main.form">Powermail Formular wählen</label>
 			<label index="flexform.main.pid">Wo sollen die Mails gespeichert werden? (leer = gleiche Seite)</label>
+			<label index="flexform.main.optin">E-Mail muss bestätigt werden (Double Opt-In)</label>
 			<label index="flexform.main.confirmation">Bestätigungsseite aktivieren</label>
 			<label index="flexform.main.moresteps">Mehrschrittformular aktivieren (Schritt für Schritt)</label>
 			<label index="flexform.receiver">Empfänger</label>
@@ -310,6 +313,7 @@
 			<label index="pluginInfo.form">Formular Bezeichnung</label>
 			<label index="pluginInfo.savePid">Speicherort der E-Mails</label>
 			<label index="pluginInfo.confirmationPage">Bestätigungsseite aktiv?</label>
+			<label index="pluginInfo.optin">Double Opt-In aktiv?</label>
 		</languageKey>
 	</data>
 </T3locallang>
