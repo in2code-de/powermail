@@ -1,0 +1,41 @@
+<f:be.container addCssFile="{f:uri.resource(path:'Css/Backend.css')}">
+
+	<div class="overlay"></div>
+
+	<div class="typo3-fullDoc">
+		<div id="typo3-docheader">
+			<div id="typo3-docheader-row1">
+				<div class="buttonsleft">
+					&nbsp;
+				</div>
+				<div class="buttonsright">
+					<f:be.buttons.shortcut />
+				</div>
+			</div>
+			<div id="typo3-docheader-row2">
+				<div class="docheader-row2-left">
+					<f:be.menus.actionMenu>
+						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionList')}" controller="Module" action="listBe" />
+						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionReporting')}" controller="Module" action="reportingBe" />
+						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionCheck')}" controller="Module" action="checkBe" />
+					</f:be.menus.actionMenu>
+				</div>
+				<div class="docheader-row2-right">
+					<f:be.pagePath />
+				</div>
+			</div>
+		</div>
+		<div id="typo3-docbody">
+			<div id="typo3-inner-docbody">
+				<f:flashMessages renderMode="div" />
+				<f:render section="content" />
+			</div>
+		</div>
+	</div>
+
+	<link rel="stylesheet" type="text/css" href="/typo3conf/ext/powermail/Resources/Public/Css/jquery.ui.theme.css" />
+	<link rel="stylesheet" type="text/css" href="/typo3conf/ext/powermail/Resources/Public/Css/jquery.ui.datepicker.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/typo3conf/ext/powermail/Resources/Public/Js/be_effects.js"></script>
+</f:be.container>

@@ -1,0 +1,40 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Default" />
+
+Render Powermail_Frontend Edit View
+{mail} 			Mail Object
+
+
+<f:section name="main">
+	<f:flashMessages class="powermail_message powermail_message_ok" />
+
+	<div class="powermail_frontend">
+		<f:if condition="{vh:Condition.IsAllowedToEdit(settings: '{settings}', mail: '{mail}')}">
+			
+			<f:then>
+				<f:form action="update" controller="Output" enctype="multipart/form-data" class="powermail_form">
+					<f:for each="{fields}" as="field">
+						<f:for each="{mail.answers}" as="answer">
+							<f:if condition="{answer.field} == {field.uid}">
+								<f:if condition="{vh:Condition.Or(array: '{0: \'input\', 1: \'check\', 2: \'radio\', 3: \'select\', 4: \'textarea\'}', string: '{field.type}')}">
+									<f:render partial="Output/Field/{vh:String.Upper(string: '{field.type}')}" arguments="{field: field, answer: answer}" />
+								</f:if>
+							</f:if>
+						</f:for>
+					</f:for>
+		
+					<f:form.submit value="{f:translate(key: 'PowermailFrontendEditSubmit')}" class="powermail_field powermail_submit" />
+					<f:form.hidden value="{mail.uid}" name="mail" />
+				</f:form>
+			</f:then>
+			
+			<f:else>
+				<p><f:translate key="PowermailFrontendEditFailed" /></p>
+			</f:else>
+		</f:if>
+		
+		<f:link.page pageUid="{listPid}">
+			<f:translate key="Back" />
+		</f:link.page>
+	</div>
+</f:section>

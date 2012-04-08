@@ -1,0 +1,36 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+
+<f:form action="list" name="filter" id="powermail_frontend_search">
+
+	<f:if condition="{settings.search.fields}">
+		<div class="powermail_frontend_filter">
+			<f:for each="{vh:String.Explode(string: '{settings.search.fields}')}" as="field">
+				<f:if condition="{0 : field} == {0 : '_all'}">
+					<f:then>
+						<div class="powermail_frontend_search_container">
+							<label for="powermail_frontend_search_all">
+								Alle
+							</label>
+							<f:form.textfield property="{field}" id="powermail_frontend_search_all" class="powermail_frontend_search powermail_frontend_search_all" value="{piVars.filter._all}" />
+						</div>
+					</f:then>
+					<f:else>
+						<div class="powermail_frontend_search_container">
+							<label for="powermail_frontend_search_{vh:Getter.GetFieldMarkerFromUid(uid: '{field}')}">
+								<vh:Getter.GetFieldLabelFromUid uid="{field}" />
+							</label>
+							<f:form.textfield property="{field}" id="powermail_frontend_search_{vh:Getter.GetFieldMarkerFromUid(uid: '{field}')}" class="powermail_frontend_search powermail_frontend_search_{vh:Getter.GetFieldMarkerFromUid(uid: '{field}')}" value="{vh:Misc.VariableInVariable(obj: '{piVars.filter}', prop: '{field}')}" />
+						</div>
+					</f:else>
+				</f:if>
+			</f:for>
+
+			<f:form.submit value="Go" class="powermail_frontend_search_submit" />
+
+		</div>
+	</f:if>
+</f:form>
+
+<f:if condition="{settings.search.abc}">
+	<f:render partial="Output/Abc" arguments="{mails: mails, piVars: piVars, abc : abc}" />
+</f:if>

@@ -1,0 +1,60 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="PowermailAll" />
+
+Render Powermail All Part
+{variables}			Contains all given Plugins variables
+{section}			Contains "web" or "mail"
+
+
+Section for Web view
+
+<f:section name="web">
+	<f:for each="{variables}" as="variable" key="label">
+		<dl class="powermail_all">
+			<dt>{label}</dt>
+			<dd>
+				<f:if condition="{vh:Condition.IsArray(val: '{variable}')}">
+					<f:then>
+						<f:for each="{variable}" as="variable2" iteration="index">
+							<f:if condition="{variable2}">
+								{variable2}<f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
+							</f:if>
+						</f:for>
+					</f:then>
+					<f:else>
+						{variable}
+					</f:else>
+				</f:if>
+			</dd>
+		</dl>
+	</f:for>
+	<div class="clear"></div>
+</f:section>
+
+
+
+Section for Mails
+
+<f:section name="mail">
+	<table class="powermail_all">
+		<f:for each="{variables}" as="variable" key="label">
+			<tr>
+				<td><b>{label}</b></td>
+				<td>
+					<f:if condition="{vh:Condition.IsArray(val: '{variable}')}">
+						<f:then>
+							<f:for each="{variable}" as="variable2" iteration="index">
+								<f:if condition="{variable2}">
+									{variable2}<f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
+								</f:if>
+							</f:for>
+						</f:then>
+						<f:else>
+							{variable}
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
+		</f:for>
+	</table>
+</f:section>

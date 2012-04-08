@@ -1,0 +1,71 @@
+powermail 2.0 roadmap
+
+o Spamfactor for mails
+x double optin
+x Saving to other tables
+x powermail_frontend
+x powermail_frontend RSS
+x Plugin Info in Page-View
+x backend module list and filter
+x backend module xls export
+x backend module csv export
+x backend module reporting fields
+x backend module reporting marketing
+x backend check (session is working, etc...)
+o dynamic field preview
+x Bugfix Marker Backend
+x prefill
+x all fields marker
+x validation js
+x validation php
+x confirmation page
+x morestep
+x wizard - for better include of the pi
+x wizard - manage forms via flexform
+x email to fe_group
+x form caching
+x cObject viewhelper for subject and name
+x sendpost
+x Marketing Session
+x Easy Adwords Code implementation
+x parsing subjectn, name and RTE fields
+x overwrite email, name, subject via TS
+x reply name and mail
+x add attachment via ts (sender, receiver)
+o email receiver via typoscript cobject
+x redirect after submit via ts
+o localization improvement
+o add constants
+o add some signalslots
+o documentation
+o small video
+
+Fields:
+x input
+x textara
+x select
+x radio
+x check
+x submit
+x captcha
+x content
+x date
+x file
+x hidden
+x html
+x password
+x reset
+x text
+x typoscript
+
+Features next version?
+o mx check
+o remove from all marker
+o new fields (dynamic from html folder)
+
+Do we want this Features?
+o enable unique value
+o using session
+o tabindex
+o accesskey
+o email receiver via ts: select query

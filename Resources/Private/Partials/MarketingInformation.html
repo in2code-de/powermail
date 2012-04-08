@@ -1,0 +1,33 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:if condition="{marketingInfos}">
+	<p>&nbsp;</p>
+	<table width="500px">
+		<tr>
+			<th colspan="2" align="left" style="font-size: 14px;">
+				<b><f:translate key="MarketingInformation" default="Marketing Information" /></b>
+			</th>
+		</tr>
+		<f:for each="{marketingInfos}" as="value" key="key">
+			<tr valign="top">
+
+				<td style="font-size: 12px;" width="50%">
+					<b><f:translate key="Tx_Powermail_Domain_Model_Mails.{key}" default="{key}" /></b>
+				</td>
+
+				<f:if condition="{0 : key} == {0 : 'marketingFunnel'}">
+					<f:then>
+						<td style="font-size: 12px;" width="50%">
+							<f:for each="{value}" as="subvalue" iteration="index">
+								<f:link.page pageUid="{subvalue}" absolute="1"><vh:Getter.GetPageNameFromUid uid="{subvalue}" /></f:link.page><f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
+							</f:for>
+						</td>
+					</f:then>
+					<f:else>
+						<td style="font-size: 12px;" width="50%">{value}</td>
+					</f:else>
+				</f:if>
+
+			</tr>
+		</f:for>
+	</table>
+</f:if>

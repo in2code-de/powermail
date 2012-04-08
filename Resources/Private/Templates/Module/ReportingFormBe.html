@@ -1,0 +1,70 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Backend"/>
+
+
+Show Backend Module: Powermail Reporting Form
+
+<f:section name="content">
+
+	<h2><f:translate key="BackendReportingFormTitle" /></h2>
+
+	<f:flashMessages class="powermail_message" />
+
+	<div class="powermail_reporting_form">
+		<div class="powermail_module_search">
+			<div class="powermail_module_search_inner">
+				<f:render partial="Module/SearchBe" arguments="{piVars: piVars, mails: mails, firstMail: firstMail, action : 'reportingFormBe'}" />
+			</div>
+		</div>
+
+		<f:if condition="{f:count(subject: '{mails}')}">
+			<f:then>
+
+				<h3><f:translate key="BackendReportingFormSubtitle1" /> <f:count subject="{mails}" /> <f:translate key="Emails" />:</h3>
+
+				<div class="powermail_reporting_form_fields">
+					<div class="powermail_reporting_form_fields_inner">
+
+						<f:for each="{firstMail.answers}" as="answer">
+
+							<div class="powermail_reporting_form_fields_item">
+								<h4>{vh:Getter.GetFieldLabelFromUid(uid: '{answer.field}')}</h4>
+
+								<img src="http://chart.apis.google.com/chart?
+									chf=bg,s,F8F8F8
+									&chxs=0,676767,10.5
+									&chxt=x
+									&chs=350x200
+									&cht=p3
+									&chd=t:50,50
+									&chdl={vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}')}
+									&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}', separator: ',')}
+									&chl={vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}', separator: '|')}
+								" width="350" height="200" alt="Error, no graphic available" />
+
+								<table class="powermail_reporting_form_fields_table">
+									<tr>
+										<th width="90%" class="close"><f:translate key="BackendReportingFormValue" /></th>
+										<th width="10%"><f:translate key="BackendReportingFormAmount" /></th>
+									</tr>
+									<f:for each="{vh:Misc.VariableInVariable(obj:'{groupedAnswers}', prop: '{answer.field}')}" as="amount" key="value">
+										<tr>
+											<td>{value}</td>
+											<td>{amount}</td>
+										</tr>
+									</f:for>
+								</table>
+							</div>
+
+						</f:for>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</f:then>
+			<f:else>
+				<h3><f:translate key="BackendListNoMails" /></h3>
+				<p><f:translate key="BackendListNoMailsSub" /></p>
+			</f:else>
+		</f:if>
+	</div>
+</f:section>

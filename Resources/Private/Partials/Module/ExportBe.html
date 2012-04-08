@@ -1,0 +1,105 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+
+
+<f:form action="exportBe" name="export" id="powermail_module_export">
+
+	<div class="export_icons">
+		<f:image src="{f:uri.resource(path: 'Image/icon_csv.gif')}" alt="CSV" class="export_icon export_icon_csv" />
+		<f:image src="{f:uri.resource(path: 'Image/icon_xls.gif')}" alt="XLS" class="export_icon export_icon_xls" />
+	</div>
+
+	<h4 class="extended_export_title close">
+		<span class="t3-icon t3-icon-actions t3-icon-actions-view t3-icon-move-down collapseIcon">&nbsp;</span>
+		<f:translate key="BackendListFilterExtendedExport" />
+	</h4>
+
+
+	<fieldset class="extended_export close">
+
+		<div class="extended_export_inner">
+			<div class="extended_export_inner_left">
+				<label for="export_field_selection" class="export_field_selection_label">
+					<f:translate key="BackendListFilterExtendedExportLeftLabel" />
+				</label>
+				<ul class="extended_export_field connected" id="export_field_selection">
+					<f:for each="{firstMail.answers}" as="answer">
+						<li id="{answer.field}">
+							<vh:Getter.GetFieldLabelFromUid uid="{answer.field}" /> <span class="info">(<f:translate key="FormField" />)</span>
+						</li>
+					</f:for>
+				</ul>
+			</div>
+			<div class="extended_export_inner_right">
+				<label for="export_field_selection_container" class="export_field_selection_container_label">
+					<f:translate key="BackendListFilterExtendedExportRightLabel" />
+				</label>
+				<ul class="extended_export_field_container connected" id="export_field_selection_container">
+					<li id="crdate">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.date" />
+					</li>
+					<li id="sender_name">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.senderName" />
+					</li>
+					<li id="sender_mail">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.senderMail" />
+					</li>
+					<li id="receiver_mail">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.receiverMail" />
+					</li>
+					<li id="subject">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.subject" />
+					</li>
+					<li id="marketing_searchterm">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingSearchterm" />
+					</li>
+					<li id="marketing_referer">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingReferer" />
+					</li>
+					<li id="marketing_payed_search_result">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingPayedSearchResult" />
+					</li>
+					<li id="marketing_language">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingLanguage" />
+					</li>
+					<li id="marketing_browser_language">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingBrowserLanguage" />
+					</li>
+					<li id="marketing_funnel">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingFunnel" />
+					</li>
+					<li id="uid">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.uid" />
+					</li>
+					<li id="time">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.time" />
+					</li>
+					<li id="feuser">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.feuser" />
+					</li>
+					<li id="sender_ip">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.senderIp" />
+					</li>
+					<li id="user_agent">
+						<f:translate key="Tx_Powermail_Domain_Model_Mails.userAgent" />
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<f:form.hidden property="fields" value="{vh:String.ImplodeField(objects: '{firstMail.answers}', field: 'field')}" id="export_fields" />
+		<f:form.hidden property="mails" value="{vh:String.ImplodeField(objects: '{mails}')}" id="export_mails" />
+		<f:form.hidden property="format" value="xls" id="export_format" />
+
+		<f:if condition="{piVars.sorting}">
+			<f:then>
+				<f:for each="{piVars.sorting}" key="sortingKey" as="order">
+					<f:form.hidden property="sorting.{sortingKey}" value="{order}" />
+				</f:for>
+			</f:then>
+			<f:else>
+				<f:form.hidden property="sorting.{settings.sortby}" value="{settings.order}" />
+			</f:else>
+		</f:if>
+	</fieldset>
+
+</f:form>
