@@ -140,10 +140,10 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @validate $field Tx_Powermail_Domain_Validator_StringValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_CaptchaValidator
 	 * @validate $form notEmpty
-	 * @dontvalidate $newMail
+	 * @dontvalidate $mail
 	 * @return void
 	 */
-	public function createAction(array $field = array(), $form = NULL, $newMail = NULL) {
+	public function createAction(array $field = array(), $form = NULL, $mail = NULL) {
 		// add uploaded files to $field
 		$this->div->addUploadsToFields($field);
 
@@ -153,12 +153,12 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		}
 
 		// Save Mail to DB
-		if ($this->settings['db']['enable'] && !$newMail) {
+		if ($this->settings['db']['enable'] && !$mail) {
 			$dbField = $this->div->rewriteDateInFields($field, $this->settings);
 			$newMail = $this->saveMail($dbField, $form);
 		}
 
-		if (!$this->settings['main']['optin'] || ($this->settings['main']['optin'] && $newMail)) {
+		if (!$this->settings['main']['optin'] || ($this->settings['main']['optin'] && $mail)) {
 			// Send Mail to receivers
 			$this->sendMail($field);
 
@@ -174,6 +174,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		} else {
 			$this->sendConfirmationMail($field, $newMail);
 		}
+
+		$this->view->assign('optinActive', (!$this->settings['main']['optin'] || ($this->settings['main']['optin'] && $mail) ? 0 : 1));
 	}
 
 	/**
@@ -390,7 +392,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 				foreach ($mail->getAnswers() as $answer) {
 					$fields[$answer->getField()] = $answer->getValue();
 				}
-				$this->forward('create', null, null, array('field' => $fields, 'form' => $mail->getForm(), 'newMail' => $mail));
+				$this->forward('create', null, null, array('field' => $fields, 'form' => $mail->getForm(), 'mail' => $mail));
 			}
 		}
 	}

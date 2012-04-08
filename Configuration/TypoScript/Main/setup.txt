@@ -473,7 +473,7 @@ module.tx_powermail {
 		# crdate, sender_name, sender_email, subject, receiver_mail, feuser, time
 		sortby = crdate
 		order = desc
-		perPage = 10
+		perPage = 25
 		export {
 			filenameXls = powermail.xls
 			filenameCsv = powermail.csv
