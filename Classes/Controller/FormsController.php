@@ -226,7 +226,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			$mail['senderName'] = $this->settings['sender']['name'];
 			$mail['senderEmail'] = $this->settings['sender']['email'];
 			$mail['subject'] = $this->settings['sender']['subject'];
-			$mail['template'] = 'Mails/ReceiverMail';
+			$mail['template'] = 'Mails/SenderMail';
 			$mail['rteBody'] = $this->settings['sender']['body'];
 			$mail['format'] = $this->settings['sender']['mailformat'];
 			if ($this->cObj->cObjGetSingle($this->conf['sender.']['overwrite.']['email'], $this->conf['sender.']['overwrite.']['email.'])) { // overwrite from typoscript
