@@ -1,6 +1,7 @@
 powermail 2.0 roadmap
 
 o Spamfactor for mails
+=> double optin
 x Saving to other tables
 x powermail_frontend
 x powermail_frontend RSS
@@ -29,10 +30,9 @@ x Marketing Session
 x Easy Adwords Code implementation
 x parsing subjectn, name and RTE fields
 x overwrite email, name, subject via TS
-=> reply name and mail
+x reply name and mail
 x add attachment via ts (sender, receiver)
 o email receiver via typoscript cobject
-o email receiver via ts: select query
 x redirect after submit via ts
 o localization improvement
 o add constants
@@ -66,6 +66,6 @@ o new fields (dynamic from html folder)
 Do we want this Features?
 o enable unique value
 o using session
-o optin
 o tabindex
 o accesskey
+o email receiver via ts: select query
