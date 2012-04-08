@@ -20,19 +20,16 @@ plugin.tx_powermail {
 			}
 
 			receiver {
-				enable = 0
+				enable = 1
 				email =
 				subject =
 				body =
+
+				# add file attachments from upload fields
 				attachment = 1
 
 				# html, plain, both
 				mailformat = both
-
-				# Add attachments to the mail (separate each with comma)
-#				addAttachment = TEXT
-#				addAttachment.value = fileadmin/file.jpg
-#				addAttachment.wrap = |,
 
 				# Normally you do not need to overwrite a flexform setting, but this allows you to use cObject functions
 				overwrite {
@@ -50,25 +47,47 @@ plugin.tx_powermail {
 
 #					subject = TEXT
 #					subject.value = The new subject
+
+					# Add further CC Receivers (split them via comma)
+#					cc = TEXT
+#					cc.value = rec2@mail.com, rec3@mail.com
+
+					# Add further BCC Receivers (split them via comma)
+#					bcc = TEXT
+#					bcc.value = rec2@mail.com, rec3@mail.com
+
+					# Add return path
+#					returnPath = TEXT
+#					returnPath.value = return@mail.com
+
+					# Reply address
+#					replyToEmail = TEXT
+#					replyToEmail.value = reply@mail.com
+#					replyToName = TEXT
+#					replyToName.value = Mr. Reply
+
+					# Set mail priority from 1 to 5
+#					priority = 3
 				}
+
+				# Add additional attachments to the mail (separate each with comma)
+#				addAttachment = TEXT
+#				addAttachment.value = fileadmin/file.jpg
+#				addAttachment.wrap = |,
 			}
 
 			sender {
-				enable = 0
+				enable = 1
 				name =
 				email =
 				subject =
 				body =
+
+				# add file attachments from upload fields
 				attachment = 0
 
 				# html, plain, both
 				mailformat = both
-
-				# Add attachments to the mail (separate each with comma)
-#				addAttachment = TEXT
-#				addAttachment.value = fileadmin/file.jpg
-#				addAttachment.wrap = |,
-
 
 				# Normally you do not need to overwrite a flexform settings, but this allows you to use cObject functions
 				overwrite {
@@ -86,7 +105,33 @@ plugin.tx_powermail {
 
 #					subject = TEXT
 #					subject.value = The new subject
+
+					# Add further CC Receivers (split them via comma)
+#					cc = TEXT
+#					cc.value = rec2@mail.com, rec3@mail.com
+
+					# Add further BCC Receivers (split them via comma)
+#					bcc = TEXT
+#					bcc.value = rec2@mail.com, rec3@mail.com
+
+					# Add return path
+#					returnPath = TEXT
+#					returnPath.value = return@mail.com
+
+					# Reply address
+#					replyToEmail = TEXT
+#					replyToEmail.value = reply@mail.com
+#					replyToName = TEXT
+#					replyToName.value = Mr. Reply
+
+					# Set mail priority from 1 to 5
+#					priority = 3
 				}
+
+				# Add additional attachments to the mail (separate each with comma)
+#				addAttachment = TEXT
+#				addAttachment.value = fileadmin/file.jpg
+#				addAttachment.wrap = |,
 			}
 
 			thx {

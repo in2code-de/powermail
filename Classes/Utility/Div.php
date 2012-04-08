@@ -308,7 +308,9 @@ class Tx_Powermail_Utility_Div {
 	 * @return 	boolean 	TRUE on success, otherwise false
 	 */
 	public function sendTemplateEmail($mail, $fields, $settings, $type, $objectManager, $configurationManager) {
-		// settings
+		/*****************
+		 * Settings
+		 ****************/
 		$cObj = $configurationManager->getContentObject();
 		$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray($settings);
 
@@ -360,17 +362,51 @@ class Tx_Powermail_Utility_Div {
 		$emailView->assign('marketingInfos', $this->getMarketingInfos());
 		$emailBody = $emailView->render();
 
-		// generate mail
+
+		/*****************
+		 * generate mail
+		 ****************/
 		$message = t3lib_div::makeInstance('t3lib_mail_Message');
 		$message
 			->setTo(array($mail['receiverEmail'] => $mail['receiverName']))
 			->setFrom(array($mail['senderEmail'] => $mail['senderName']))
 			->setSubject($mail['subject'])
-//			->setReturnPath($returnPath)
-//			->setReplyTo(array($mail => 'name'))
-//			->setBcc($mailarray)
-//			->setCc($mailarray)
 			->setCharset($GLOBALS['TSFE']->metaCharset);
+
+		// add cc receivers
+		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.'])) {
+			$ccArray = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.']), 1);
+			$message->setCc($ccArray);
+		}
+
+		// add bcc receivers
+		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'], $conf[$type . '.']['overwrite.']['bcc.'])) {
+			$bccArray = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'], $conf[$type . '.']['overwrite.']['bcc.']), 1);
+			$message->setBcc($bccArray);
+		}
+
+		// add Return Path
+		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'], $conf[$type . '.']['overwrite.']['returnPath.'])) {
+			$message->setReturnPath($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'], $conf[$type . '.']['overwrite.']['returnPath.']));
+		}
+
+		// add Reply Addresses
+		if (
+			$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToEmail'], $conf[$type . '.']['overwrite.']['replyToEmail.'])
+			&&
+			$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToName'], $conf[$type . '.']['overwrite.']['replyToName.'])
+		) {
+			$replyArray = array(
+				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToEmail'], $conf[$type . '.']['overwrite.']['replyToEmail.']) =>
+					$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToName'], $conf[$type . '.']['overwrite.']['replyToName.'])
+			);
+			$message->setReplyTo($replyArray);
+		}
+
+		// add priority
+		if ($settings[$type]['overwrite']['priority']) {
+			$message->setPriority(intval($settings[$type]['overwrite']['priority']));
+		}
 
 		// add attachments from upload fields
 		if ($settings[$type]['attachment']) {
@@ -378,6 +414,7 @@ class Tx_Powermail_Utility_Div {
 				$message->attach(Swift_Attachment::fromPath($settings['misc']['file']['folder'] . $GLOBALS['powermail']['file'][$uid]['newFilename']));
 			}
 		}
+
 		// add attachments from typoscript
 		if ($cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.'])) {
 			$files = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.']), 1);
