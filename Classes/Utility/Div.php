@@ -92,9 +92,9 @@ class Tx_Powermail_Utility_Div {
 
 		$email = '';
 		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
-		foreach ($fields['field'] as $uid => $value) {
+		foreach ($fields as $uid => $value) {
 			$field = $fieldsRepository->findByUid($uid); // get field
-			if ($field->getSenderEmail() && t3lib_div::validEmail($value)) {
+			if (method_exists($field, 'getSenderEmail') && $field->getSenderEmail() && t3lib_div::validEmail($value)) {
 				$email = $value;
 				break;
 			}
@@ -337,16 +337,22 @@ class Tx_Powermail_Utility_Div {
 		}
 
 		// generate mail body
-		$emailView = $objectManager->create('Tx_Fluid_View_StandaloneView');
-		$emailView->setFormat('html');
 		$extbaseFrameworkConfiguration = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$templatePathAndFilename = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']) . $mail['template'] . '.html';
+		$emailView = $objectManager->create('Tx_Fluid_View_StandaloneView');
+		$emailView->getRequest()->setControllerExtensionName('powermail');
+		$emailView->getRequest()->setPluginName('Pi1');
+		$emailView->setFormat('html');
 		$emailView->setTemplatePathAndFilename($templatePathAndFilename);
 		$emailView->setPartialRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['partialRootPath']));
 		$emailView->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['layoutRootPath']));
 		$emailView->getRequest()->setControllerExtensionName('Powermail'); // extension name for translate viewhelper
 
 		// get variables
+			// additional variables
+		if (isset($mail['variables']) && is_array($mail['variables'])) {
+			$emailView->assignMultiple($mail['variables']);
+		}
 			// markers in HTML Template
 		$variablesWithMarkers = $this->getVariablesWithMarkers($fields);
 		$emailView->assign('variablesWithMarkers', $this->htmlspecialcharsOnArray($variablesWithMarkers));
@@ -879,6 +885,16 @@ class Tx_Powermail_Utility_Div {
 		}
 
 		return $groups;
+	}
+
+	/**
+	 * Create Hash from String and TYPO3 Encryption Key
+	 *
+	 * @param $string	Any String
+	 * @return string	Hashed String
+	 */
+	public function createOptinHash($string) {
+		return t3lib_div::shortMD5($string . $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey']);
 	}
 
 	/**

@@ -92,7 +92,7 @@ plugin.tx_powermail {
 				# Normally you do not need to overwrite a flexform settings, but this allows you to use cObject functions
 				overwrite {
 #					email = TEXT
-#					email.value = alexander.kellner@in2code.de
+#					email.value = receiver@mail.com
 
 #					name = TEXT
 #					name.value = Receivers Name
@@ -140,7 +140,30 @@ plugin.tx_powermail {
 			}
 
 			db {
+				# Enable mail storage
 				enable = 1
+
+				# Add new mails with hidden=1
+				hidden = 0
+			}
+
+			optin {
+				subject = TEXT
+				subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:optin_subject
+
+				overwrite {
+#					email = TEXT
+#					email.value = alexander.kellner@in2code.de
+
+#					name = TEXT
+#					name.value = Receivers Name
+
+#					senderName = TEXT
+#					senderName.value = Sender Name
+
+#					senderEmail = TEXT
+#					senderEmail.value = sender@mail.com
+				}
 			}
 
 

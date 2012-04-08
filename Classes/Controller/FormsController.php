@@ -153,10 +153,34 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		// Save Mail to DB
 		if ($this->settings['db']['enable']) {
 			$dbField = $this->div->rewriteDateInFields($field, $this->settings);
-			$this->saveMail($dbField, $form);
+			$newMail = $this->saveMail($dbField, $form);
 		}
 
-		// Send Mail to reiceivers
+		if (!$this->settings['main']['optin']) {
+			// Send Mail to receivers
+			$this->sendMail($field);
+
+			// Save to other tables
+			$saveToTable = t3lib_div::makeInstance('Tx_Powermail_Utility_SaveToTable');
+			$saveToTable->main($this->div->getVariablesWithMarkers($field), $this->conf, $this->cObj);
+
+			// Powermail sendpost
+			$this->div->sendPost($field, $this->conf, $this->configurationManager);
+
+			// Some output stuff
+			$this->showThx($field);
+		} else {
+			$this->sendConfirmationMail($field, $newMail);
+		}
+	}
+
+	/**
+	 * Send Mails
+	 *
+	 * @param $field
+	 * @return void
+	 */
+	private function sendMail($field) {
 		if ($this->settings['receiver']['enable']) {
 			$receivers = $this->div->getReceiverEmails($this->settings['receiver']['email'], $this->settings['receiver']['fe_group']);
 			if ($this->cObj->cObjGetSingle($this->conf['receiver.']['overwrite.']['email'], $this->conf['receiver.']['overwrite.']['email.'])) { // overwrite from typoscript
@@ -215,16 +239,46 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			}
 			$this->div->sendTemplateEmail($mail, $field, $this->settings, 'sender', $this->objectManager, $this->configurationManager);
 		}
+	}
 
-		// Save to other tables
-		$saveToTable = t3lib_div::makeInstance('Tx_Powermail_Utility_SaveToTable');
-		$saveToTable->main($this->div->getVariablesWithMarkers($field), $this->conf, $this->cObj);
-
-		// Powermail sendpost
-		$this->div->sendPost($field, $this->conf, $this->configurationManager);
-
-		// Some output stuff
-		$this->showThx($field);
+	/**
+	 * Send Optin Confirmation Mail
+	 *
+	 * @param $field		array with field values
+	 * @param $newMail		new mail object from db
+	 * @return void
+	 */
+	private function sendConfirmationMail($field, $newMail) {
+		// Send Mail to sender
+		$mail = array();
+		$mail['receiverName'] = 'Powermail';
+		if ($this->div->getSenderNameFromArguments($field)) {
+			$mail['receiverName'] = $this->div->getSenderNameFromArguments($field);
+		}
+		if ($this->cObj->cObjGetSingle($this->conf['optin.']['overwrite.']['name'], $this->conf['optin.']['overwrite.']['name.'])) { // overwrite from typoscript
+			$mail['receiverName'] = $this->cObj->cObjGetSingle($this->conf['optin.']['overwrite.']['name'], $this->conf['optin.']['overwrite.']['name.']);
+		}
+		$mail['receiverEmail'] = $this->div->getSenderMailFromArguments($field);
+		if ($this->cObj->cObjGetSingle($this->conf['optin.']['overwrite.']['email'], $this->conf['optin.']['overwrite.']['email.'])) { // overwrite from typoscript
+			$mail['receiverEmail'] = $this->cObj->cObjGetSingle($this->conf['optin.']['overwrite.']['email'], $this->conf['optin.']['overwrite.']['email.']);
+		}
+		$mail['senderName'] = $this->settings['sender']['name'];
+		if ($this->cObj->cObjGetSingle($this->conf['optin.']['overwrite.']['senderName'], $this->conf['optin.']['overwrite.']['senderName.'])) { // overwrite from typoscript
+			$mail['senderName'] = $this->cObj->cObjGetSingle($this->conf['optin.']['overwrite.']['senderName'], $this->conf['optin.']['overwrite.']['senderName.']);
+		}
+		$mail['senderEmail'] = $this->settings['sender']['email'];
+		if ($this->cObj->cObjGetSingle($this->conf['optin.']['overwrite.']['senderEmail'], $this->conf['optin.']['overwrite.']['senderEmail.'])) { // overwrite from typoscript
+			$mail['senderEmail'] = $this->cObj->cObjGetSingle($this->conf['optin.']['overwrite.']['senderEmail'], $this->conf['optin.']['overwrite.']['senderEmail.']);
+		}
+		$mail['subject'] = $this->cObj->cObjGetSingle($this->conf['optin.']['subject'], $this->conf['optin.']['subject.']);
+		$mail['template'] = 'Mails/OptinMail';
+		$mail['rteBody'] = '';
+		$mail['format'] = $this->settings['sender']['mailformat'];
+		$mail['variables'] = array(
+			'optinHash' => $this->div->createOptinHash($newMail->getUid() . $newMail->getPid() . $newMail->getForm()),
+			'mail' => $newMail->getUid()
+		);
+		$this->div->sendTemplateEmail($mail, $field, $this->settings, 'optin', $this->objectManager, $this->configurationManager);
 	}
 
 	/**
@@ -264,7 +318,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 *
 	 * @param	array		Field values
 	 * @param	integer		Form uid
-	 * @return	void
+	 * @return	object		Mail object
 	 */
 	private function saveMail($field, $form) {
 		// tx_powermail_domain_model_mails
@@ -291,6 +345,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$newMail->setMarketingLanguage($marketingInfos['marketingLanguage']);
 		$newMail->setMarketingBrowserLanguage($marketingInfos['marketingBrowserLanguage']);
 		$newMail->setMarketingFunnel($marketingInfos['marketingFunnel']);
+		if ($this->settings['main']['optin'] || $this->settings['db']['hidden']) {
+			$newMail->setHidden(1);
+		}
 		$this->mailsRepository->add($newMail);
 		$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
 		$persistenceManager->persistAll();
@@ -305,6 +362,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 			$this->answersRepository->add($newAnswer);
 		}
+
+		return $newMail;
 	}
 
 	/**

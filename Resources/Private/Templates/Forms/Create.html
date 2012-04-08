@@ -11,14 +11,21 @@ NOTE: See example section after main section
 
 <f:section name="main">
 	<div class="powermail_create">
-		<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}">
-			<f:format.html parseFuncTSPath="lib.parseFunc">
-				{powermail_rte}
-			</f:format.html>
-		</vh:Misc.Variables>
-	</div>
+		<f:if condition="{settings.main.optin}">
+			<f:else>
+				<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}">
+					<f:format.html parseFuncTSPath="lib.parseFunc">
+						{powermail_rte}
+					</f:format.html>
+				</vh:Misc.Variables>
 
-	<f:render partial="GoogleAdwordsConversion" />
+				<f:render partial="GoogleAdwordsConversion" />
+			</f:else>
+			<f:then>
+				<f:translate key="optin_seeMail" />
+			</f:then>
+		</f:if>
+	</div>
 </f:section>
 
 

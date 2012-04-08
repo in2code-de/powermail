@@ -33,6 +33,10 @@
 			<label index="confirmation_message">Are these values correct?</label>
 			<label index="confirmation_next">Next</label>
 			<label index="confirmation_prev">Previous</label>
+			<label index="optin_seeMail">Please have a look into your mail account and confirm this action.</label>
+			<label index="optin_subject">Please confirm your Email</label>
+			<label index="optin_mail_entries">Theese are your given entries:</label>
+			<label index="optin_mail_link">Please confirm with a click:</label>
 			<label index="error_mail_not_created">Error, Mail could not sent correctly!</label>
 			<label index="error_no_typoscript">No TypoScript settings given. Admin, did you already include the "Main" static template?</label>
 			<label index="error_no_typoscript_pi2">No TypoScript settings given. Admin, did you already include the "Powermail_Frontend" static template?</label>
@@ -176,6 +180,10 @@
 			<label index="confirmation_message">Sind diese Eingaben korrekt?</label>
 			<label index="confirmation_next">Weiter</label>
 			<label index="confirmation_prev">Zurück</label>
+			<label index="optin_seeMail">Bitte überprüfen Sie Ihr E-Mail-Postfach und bestätigen Sie diese Aktion.</label>
+			<label index="optin_subject">Bitte bestätigen Sie Ihre E-Mail</label>
+			<label index="optin_mail_entries">Ihre Eingaben:</label>
+			<label index="optin_mail_link">Bitte bestätigen Sie Ihre E-Mail:</label>
 			<label index="error_mail_not_created">Fehler, die Nachricht konnte leider nicht korrekt versendet werden!</label>
 			<label index="error_no_typoscript">Kein TypoScript gefunden. Sind Sie sicher, dass Sie das "Main" Static Template eingebunden haben?</label>
 			<label index="error_no_typoscript_pi2">Kein TypoScript gefunden. Sind Sie sicher, dass Sie das "Powermail_Frontend" Static Template eingebunden haben?</label>
