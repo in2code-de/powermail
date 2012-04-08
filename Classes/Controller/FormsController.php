@@ -369,14 +369,17 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Confirm Double Optin
 	 *
-	 * @param		Tx_Powermail_Domain_Model_Mails $mail
-	 * @param 		null $hash
-	 * @dontvalidate @mail
-	 * @dontvalidate @hash
+	 * @param $mail Mail Uid
+	 * @param $hash Given Hash String
+	 * @dontvalidate $mail
+	 * @dontvalidate $hash
 	 * return void
 	 */
-	public function optinConfirmAction(Tx_Powermail_Domain_Model_Mails $mail, $hash = null) {
-		t3lib_utility_Debug::debug($mail, __FILE__ . " " . __LINE__);
+	public function optinConfirmAction($mail = null, $hash = null) {
+		$mail = $this->mailsRepository->findByUid($mail);
+		if (!empty($hash) && $hash == $this->div->createOptinHash($mail->getUid() . $mail->getPid() . $mail->getForm())) {
+			t3lib_utility_Debug::debug('passt', __FILE__ . " " . __LINE__);
+		}
 	}
 
 	/**

@@ -170,6 +170,19 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 	}
 
 	/**
+	 * Find mails by given UID
+	 *
+	 * @param 	integer 		Mail uid
+	 * @return	Query Object
+	 */
+	public function findByUid($uid) {
+		$query = $this->createQuery(); // initialize query
+		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
+		$query->getQuerySettings()->setRespectEnableFields(FALSE); // show also hidden
+		return $query->matching($query->equals('uid', $uid))->execute()->getFirst();
+	}
+
+	/**
 	 * Find mails in UID List
 	 *
 	 * @param 	string 		Commaseparated UID List of mails
