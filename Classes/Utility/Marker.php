@@ -26,7 +26,7 @@
 
 
 /**
- * Class to extend Pi1 field marker
+ * Class to extend Pi1 field marker e.g. {firstname}
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
@@ -43,9 +43,9 @@ class Tx_Powermail_Utility_Marker {
 	 */
 	public function createMarker($PA, $fobj) {
 		$content = '';
-		if (isset($PA['row']['marker']) && !empty($PA['row']['marker'])) {
+		if (isset($PA['row']['marker']) && !empty($PA['row']['marker'])) { // if entry in db
 			$marker = $PA['row']['marker'];
-		} else {
+		} else { // no entry
 			$marker = $PA['row']['title'];
 		}
 		$marker = preg_replace('/[^a-zA-Z0-9_-]/', '', $marker);
@@ -67,7 +67,7 @@ class Tx_Powermail_Utility_Marker {
 	}
 
 	/**
-	 * Workarround to only show a label and no field
+	 * Workarround to only show a label and no field in TCA
 	 *
 	 * @param	array	Config Array
 	 * @param	object	Parent Object

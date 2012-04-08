@@ -84,7 +84,7 @@
 			<label index="tx_powermail_domain_model_fields.sender_name">This field contains the Name of the sender</label>
 			<label index="tx_powermail_domain_model_fields.marker_title">Variablen</label>
 			<label index="tx_powermail_domain_model_fields.own_marker">Enter your own Variable Name</label>
-			<label index="tx_powermail_domain_model_fields.auto_marker">Individual Fieldname to use as Variable (wrapped with {})</label>
+			<label index="tx_powermail_domain_model_fields.auto_marker">Individual Fieldname to use as Variable (automaticly wrapped with {})</label>
 			<label index="tx_powermail_domain_model_fields.own_marker_select">Add my own Variable Name</label>
 			<label index="tx_powermail_domain_model_fields.sheet1">Extended</label>
 			<label index="tx_powermail_domain_model_fields.sheet2">Marketing</label>
@@ -234,7 +234,7 @@
 			<label index="tx_powermail_domain_model_fields.sender_email">Dieses Feld beinhaltet die E-Mail des Absenders</label>
 			<label index="tx_powermail_domain_model_fields.sender_name">Dieses Feld beinhaltet den Namen des Absenders</label>
 			<label index="tx_powermail_domain_model_fields.marker_title">Variablen</label>
-			<label index="tx_powermail_domain_model_fields.own_marker">Variablenname (eingeschlossen in {})</label>
+			<label index="tx_powermail_domain_model_fields.own_marker">Variablenname (ohne umschließende {})</label>
 			<label index="tx_powermail_domain_model_fields.auto_marker">Variablenname für dieses Feld</label>
 			<label index="tx_powermail_domain_model_fields.own_marker_select">Eigenen Variablennamen vergeben</label>
 			<label index="tx_powermail_domain_model_fields.sheet1">Erweitert</label>
