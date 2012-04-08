@@ -367,6 +367,19 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	}
 
 	/**
+	 * Confirm Double Optin
+	 *
+	 * @param		Tx_Powermail_Domain_Model_Mails $mail
+	 * @param 		null $hash
+	 * @dontvalidate @mail
+	 * @dontvalidate @hash
+	 * return void
+	 */
+	public function optinConfirmAction(Tx_Powermail_Domain_Model_Mails $mail, $hash = null) {
+		t3lib_utility_Debug::debug($mail, __FILE__ . " " . __LINE__);
+	}
+
+	/**
 	 * Deactivate errormessages in flashmessages
 	 *
 	 * @return bool

@@ -342,6 +342,7 @@ class Tx_Powermail_Utility_Div {
 		$emailView = $objectManager->create('Tx_Fluid_View_StandaloneView');
 		$emailView->getRequest()->setControllerExtensionName('powermail');
 		$emailView->getRequest()->setPluginName('Pi1');
+		$emailView->getRequest()->setControllerName('Forms');
 		$emailView->setFormat('html');
 		$emailView->setTemplatePathAndFilename($templatePathAndFilename);
 		$emailView->setPartialRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['partialRootPath']));

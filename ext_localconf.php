@@ -11,9 +11,9 @@ $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'
 /**
  * Enable caching for show action in form controller
  */
-$uncachedFormActions = 'form, create, confirmation';
+$uncachedFormActions = 'form, create, confirmation, optinConfirm';
 if ($confArr['enableCaching'] == 1) {
-	$uncachedFormActions = 'create, confirmation';
+	$uncachedFormActions = 'create, confirmation, optinConfirm';
 }
 
 /**
@@ -23,7 +23,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Pi1',
 	array(
-		'Forms' => 'form, create, confirmation'
+		'Forms' => 'form, create, confirmation, optinConfirm'
 	),
 	array(
 		'Forms' => $uncachedFormActions
