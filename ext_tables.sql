@@ -7,7 +7,7 @@ CREATE TABLE tx_powermail_domain_model_forms (
 
 
 	title varchar(255) DEFAULT '' NOT NULL,
-	css int(11) DEFAULT '0' NOT NULL,
+	css varchar(255) DEFAULT '' NOT NULL,
 	pages int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE tx_powermail_domain_model_pages (
 	forms int(11) unsigned DEFAULT '0' NOT NULL,
 
 	title varchar(255) DEFAULT '' NOT NULL,
-	css int(11) DEFAULT '0' NOT NULL,
+	css varchar(255) DEFAULT '' NOT NULL,
 	fields int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE tx_powermail_domain_model_fields (
 	text text NOT NULL,
 	prefill_value varchar(255) DEFAULT '' NOT NULL,
 	validation int(11) DEFAULT '0' NOT NULL,
-	css int(11) DEFAULT '0' NOT NULL,
+	css varchar(255) DEFAULT '' NOT NULL,
 	feuser_value varchar(255) DEFAULT '' NOT NULL,
 	sender_email tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	sender_name tinyint(4) unsigned DEFAULT '0' NOT NULL,

@@ -110,7 +110,22 @@ $TCA['tx_powermail_domain_model_pages'] = array(
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
-					array('-- Label --', 0),
+					array(
+						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:pleaseChoose',
+						''
+					),
+					array(
+						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_pages.css.1',
+						'layout1'
+					),
+					array(
+						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_pages.css.2',
+						'layout2'
+					),
+					array(
+						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_pages.css.3',
+						'layout3'
+					),
 				),
 				'size' => 1,
 				'maxitems' => 1,

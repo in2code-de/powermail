@@ -402,16 +402,16 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 						''
 					),
 					array(
-						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.css.0',
-						1
-					),
-					array(
 						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.css.1',
-						2
+						'layout1'
 					),
 					array(
 						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.css.2',
-						3
+						'layout2'
+					),
+					array(
+						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.css.3',
+						'layout3'
 					),
 				),
 				'size' => 1,
