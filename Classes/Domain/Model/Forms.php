@@ -45,7 +45,7 @@ class Tx_Powermail_Domain_Model_Forms extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * css
 	 *
-	 * @var integer
+	 * @var string
 	 */
 	protected $css;
 
@@ -87,7 +87,7 @@ class Tx_Powermail_Domain_Model_Forms extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Returns the css
 	 *
-	 * @return integer $css
+	 * @return string $css
 	 */
 	public function getCss() {
 		return $this->css;
@@ -96,7 +96,7 @@ class Tx_Powermail_Domain_Model_Forms extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Sets the css
 	 *
-	 * @param integer $css
+	 * @param string $css
 	 * @return void
 	 */
 	public function setCss($css) {

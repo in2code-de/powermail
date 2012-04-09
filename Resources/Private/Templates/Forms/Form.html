@@ -11,13 +11,13 @@ Render Powermail Form
 
 	<f:for each="{forms}" as="form">
 
-		<f:form action="{action}" controller="Forms" enctype="multipart/form-data" class="powermail_form {vh:Misc.MorestepClass(activate: '{settings.main.moresteps}', class: 'powermail_morestep')}">
+		<f:form action="{action}" controller="Forms" enctype="multipart/form-data" class="powermail_form {form.css} {vh:Misc.MorestepClass(activate: '{settings.main.moresteps}', class: 'powermail_morestep')}">
 			<h3>{form.title}</h3>
 
 			<f:render partial="FormError" arguments="{error}" />
 
 			<f:for each="{form.pages}" as="page">
-				<fieldset class="powermail_fieldset">
+				<fieldset class="powermail_fieldset {page.css}">
 					<legend class="powermail_legend">{page.title}</legend>
 
 					<f:for each="{page.fields}" as="field">
