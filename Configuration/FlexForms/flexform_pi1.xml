@@ -23,7 +23,7 @@
 								<autoSizeMax>10</autoSizeMax>
 								<minitems>1</minitems>
 								<foreign_table>tx_powermail_domain_model_forms</foreign_table>
-								<foreign_table_where>AND tx_powermail_domain_model_forms.deleted = 0 AND tx_powermail_domain_model_forms.hidden = 0 order by tx_powermail_domain_model_forms.title</foreign_table_where>
+								<foreign_table_where>AND tx_powermail_domain_model_forms.deleted = 0 AND tx_powermail_domain_model_forms.hidden = 0 AND tx_powermail_domain_model_forms.sys_language_uid = 0 order by tx_powermail_domain_model_forms.title</foreign_table_where>
 								<requestUpdate>1</requestUpdate>
 								<wizards>
 									<_PADDING>16</_PADDING>

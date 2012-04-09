@@ -55,6 +55,7 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 			)
 		),
 		'hidden' => array(
+			'l10n_mode' => 'exclude',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => array(
@@ -62,8 +63,8 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 			),
 		),
 		'starttime' => array(
+			'l10n_mode' => 'exclude',
 			'exclude' => 1,
-			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
 			'config' => array(
 				'type' => 'input',
@@ -78,8 +79,8 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 			),
 		),
 		'endtime' => array(
+			'l10n_mode' => 'exclude',
 			'exclude' => 1,
-			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
 			'config' => array(
 				'type' => 'input',
@@ -116,6 +117,7 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 			),
 		),
 		'pages' => array(
+			'l10n_mode' => 'exclude',
 			'exclude' => 0,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_forms.pages',
 			'config' => array(
