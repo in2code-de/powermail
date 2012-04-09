@@ -459,6 +459,7 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 			)
 		),
 		'pages' => array(
+			'l10n_mode' => 'exclude',
 			'config' => array(
 				'type' => 'passthrough',
 			),

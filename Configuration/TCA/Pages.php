@@ -104,6 +104,7 @@ $TCA['tx_powermail_domain_model_pages'] = array(
 			),
 		),
 		'css' => array(
+			'l10n_mode' => 'exclude',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_pages.css',
 			'config' => array(
@@ -135,6 +136,7 @@ $TCA['tx_powermail_domain_model_pages'] = array(
 			),
 		),
 		'forms' => array(
+			'l10n_mode' => 'exclude',
 			'config' => array(
 				'type' => 'passthrough',
 			),

@@ -104,6 +104,7 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 			),
 		),
 		'css' => array(
+			'l10n_mode' => 'exclude',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_forms.css',
 			'config' => array(
@@ -123,14 +124,15 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 			'config' => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_powermail_domain_model_pages',
+				'foreign_table_where' => 'AND tx_powermail_domain_model_pages.deletex = 1 AND tx_powermail_domain_model_pages.hidden = 0 and tx_powermail_domain_model_pages.sys_language_uid = 0',
 				'foreign_field' => 'forms',
 				'maxitems'      => 1000,
 				'appearance' => array(
 					'collapse' => 1,
 					'levelLinksPosition' => 'top',
 					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
+					'showPossibleLocalizationRecords' => 0,
+					'showAllLocalizationLink' => 0
 				),
 			),
 		),
