@@ -12,9 +12,9 @@ plugin.tx_powermail {
 
 			main {
 				pid = {$plugin.tx_powermail.settings.main.pid}
-				form = {$plugin.tx_powermail.main.settings.form}
-				confirmation = {$plugin.tx_powermail.main.settings.confirmation}
-				optin = {$plugin.tx_powermail.main.settings.optin}
+				form = {$plugin.tx_powermail.settings.main.form}
+				confirmation = {$plugin.tx_powermail.settings.main.confirmation}
+				optin = {$plugin.tx_powermail.settings.main.optin}
 				moresteps = {$plugin.tx_powermail.settings.main.moresteps}
 			}
 

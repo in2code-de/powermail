@@ -12,21 +12,24 @@ plugin.tx_powermail {
 	}
 
 	settings {
+		main {
 
-		# cat=plugin.tx_powermail//0010; type=int+; label= Storage PID: Save mails in a defined Page (normally set via Flexform)
-		pid =
+			# cat=plugin.tx_powermail//0010; type=int+; label= Storage PID: Save mails in a defined Page (normally set via Flexform)
+			pid =
 
-		# cat=plugin.tx_powermail//0020; type=text; label= Form Uid: Commaseparated list of forms to show (normally set via Flexform)
-		form =
+			# cat=plugin.tx_powermail//0020; type=text; label= Form Uid: Commaseparated list of forms to show (normally set via Flexform)
+			form =
 
-		# cat=plugin.tx_powermail//0030; type=boolean; label= Confirmation Page Active: Activate Confirmation Page (normally set via Flexform)
-		confirmation =
+			# cat=plugin.tx_powermail//0030; type=boolean; label= Confirmation Page Active: Activate Confirmation Page (normally set via Flexform)
+			confirmation =
 
-		# cat=plugin.tx_powermail//0040; type=boolean; label= Double Optin Active: Activate Double Optin for Mail sender (normally set via Flexform)
-		optin =
+			# cat=plugin.tx_powermail//0040; type=boolean; label= Double Optin Active: Activate Double Optin for Mail sender (normally set via Flexform)
+			optin =
 
-		# cat=plugin.tx_powermail//0050; type=boolean; label= Morestep Active: Activate Morestep Forms (normally set via Flexform)
-		moresteps =
+			# cat=plugin.tx_powermail//0050; type=boolean; label= Morestep Active: Activate Morestep Forms (normally set via Flexform)
+			moresteps =
+
+		}
 
 	}
 }
