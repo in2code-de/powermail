@@ -50,6 +50,8 @@
 			<label index="validationerror_upload_extension">It's not allowed to upload a file with this extension!</label>
 			<label index="validationerror_upload_size">The file, that you want to upload is too large!</label>
 			<label index="validationerror_upload_error">Upload failed, please check permissons on the server!</label>
+			<label index="validationerror_spam">Spam recognized:</label>
+			<label index="validationerror_spamshield_akismet">Spam chance in this message!</label>
 			<label index="writePasswordAgain">Please write again</label>
 			<label index="datepicker_dateformat">yy-mm-dd</label>
 			<label index="datepicker_day_so">So</label>
@@ -198,6 +200,8 @@
 			<label index="validationerror_upload_extension">Der Dateityp ist nicht erlaubt, bitte versuchen Sie einen anderen Typ!</label>
 			<label index="validationerror_upload_size">Die hochgeladene Datei ist zu groß!</label>
 			<label index="validationerror_upload_error">Upload fehlgeschlagen, bitte Berechtigungen auf Server überprüfen!</label>
+			<label index="validationerror_spam">Spam in Nachricht vermutet:</label>
+			<label index="validationerror_spam_details">Spam-Wahrscheinlichkeit in dieser Nachricht!</label>
 			<label index="writePasswordAgain">Bitte erneut eintragen</label>
 			<label index="datepicker_dateformat">dd.mm.yy</label>
 			<label index="datepicker_day_so">So</label>

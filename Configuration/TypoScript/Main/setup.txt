@@ -170,6 +170,7 @@ plugin.tx_powermail {
 
 			# Captcha Settings
 			captcha {
+				# TODO: Use other Captcha Extensions
 				use = default
 
 				default {
@@ -180,6 +181,40 @@ plugin.tx_powermail {
 					textAngle = -5,5
 					distanceHor = 20,80
                 	distanceVer = 30,60
+				}
+			}
+
+
+			# Spam Settings
+			spamshield {
+				# Spam Factor Limit in %
+				factor = 20
+
+				indicator {
+					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					honeypod = 2
+
+					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					link = 1
+
+					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					name = 1
+
+					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					session = 2
+
+					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					unique = 1
+
+					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					blacklistString = 1
+					# blacklisted values
+					blacklistStringValues = viagra,sex,porn,p0rn
+
+					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					blacklistIp = 1
+					# blacklisted values
+					blacklistIpValues = 84.172.207.193,123.132.125.123
 				}
 			}
 
