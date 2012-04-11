@@ -37,11 +37,12 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @return bool
 	 */
 	public function isValid($params) {
-//		t3lib_utility_Debug::debug($params, __FILE__ . " " . __LINE__);
+		t3lib_utility_Debug::debug($params, __FILE__ . " " . __LINE__);
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
 		$spamFactor = $this->settings['spamshield.']['factor'] / 100;
 
 		// Different checks to increase spam indicator
+		$this->honeypodCheck($params, $this->settings['spamshield.']['indicator.']['honeypod']);
 		$this->linkCheck($params, $this->settings['spamshield.']['indicator.']['name'], $this->settings['spamshield.']['indicator.']['linkLimit']);
 		$this->nameCheck($params, $this->settings['spamshield.']['indicator.']['name']);
 		$this->sessionCheck($this->settings['spamshield.']['indicator.']['session']);
@@ -64,6 +65,26 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		}
 
 		return true;
+	}
+
+	/**
+	 * Honeypod Check: Spam recognized if Honeypod field is filled
+	 *
+	 * @param $params array Given params
+	 * @param $indication float Indication if check fails
+	 * @return void
+	 */
+	private function honeypodCheck($params, $indication = 1) {
+		if (!$indication) {
+			return;
+		}
+
+		// if check failes
+		if (isset($params['hp']) && !empty($params['hp'])) {
+			$this->spamIndicator += $indication;
+			$this->msg[] = __FUNCTION__ . ' failed';
+		}
+		return;
 	}
 
 	/**

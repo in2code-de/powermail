@@ -40,6 +40,9 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 		foreach ((array) $params as $uid => $value) {
 			// get current field values
 			$field = $this->fieldsRepository->findByUid($uid);
+			if (!method_exists($field, 'getUid')) {
+				continue;
+			}
 
 			// if mandatory field not activated
 			if (!$field->getValidation()) {

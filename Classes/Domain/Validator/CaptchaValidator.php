@@ -50,6 +50,9 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 		foreach ((array) $params as $uid => $value) {
 			// get current field values
 			$field = $this->fieldsRepository->findByUid($uid);
+			if (!method_exists($field, 'getUid')) {
+				continue;
+			}
 
 			// if not a captcha field
 			if ($field->getType() != 'captcha') {

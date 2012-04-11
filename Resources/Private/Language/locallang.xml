@@ -154,6 +154,7 @@
 			<label index="Emails">Emails</label>
 			<label index="FormField">Formfield</label>
 			<label index="MarketingInformation">Marketing Information</label>
+			<label index="honeypodLabel">Don't fill this field!</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pleaseChoose">Bitte wählen...</label>
@@ -304,6 +305,7 @@
 			<label index="Emails">E-Mails</label>
 			<label index="FormField">Formularfeld</label>
 			<label index="MarketingInformation">Marketing Informationen</label>
+			<label index="honeypodLabel">Bitte dieses Feld NICHT ausfüllen!</label>
 		</languageKey>
 		<languageKey index="dk" type="array">
 			<label index="pi1_title">powermail</label>
