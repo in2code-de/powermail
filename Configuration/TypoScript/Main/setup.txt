@@ -196,6 +196,8 @@ plugin.tx_powermail {
 
 					# if this check failed - add this indication value to indicator (0 disables this check complete)
 					link = 1
+					# Limit of links allowed
+					linkLimit = 2
 
 					# if this check failed - add this indication value to indicator (0 disables this check complete)
 					name = 1
