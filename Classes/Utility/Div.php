@@ -254,22 +254,6 @@ class Tx_Powermail_Utility_Div {
 	}
 
 	/**
-	 * Add uploaded files to field array in controller
-	 *
-	 * @param	array		Field array
-	 * @return	void
-	 */
-//	public function addUploadsToFields(&$fields) {
-//		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
-//			foreach ((array) $_FILES['tx_powermail_pi1']['name']['field'] as $uid => $filename) {
-//				if (!empty($filename)) {
-//					$fields[$uid] = $GLOBALS['powermail']['file'][$uid]['newFilename'];
-//				}
-//			}
-//		}
-//	}
-
-	/**
 	 * Add uploads fields and rewrite date fields
 	 *
 	 * @param	array		Field array
@@ -896,6 +880,20 @@ class Tx_Powermail_Utility_Div {
 	 */
 	public function createOptinHash($string) {
 		return t3lib_div::shortMD5($string . $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey']);
+	}
+
+	/**
+	 * Plain String output for given array
+	 *
+	 * @param $array
+	 * @return string
+	 */
+	public function viewPlainArray($array) {
+		$string = '';
+		foreach ((array) $array as $key => $value) {
+			$string .= $key . ': ' . $value . "\n";
+		}
+		return $string;
 	}
 
 	/**

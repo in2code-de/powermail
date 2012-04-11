@@ -37,7 +37,6 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @return bool
 	 */
 	public function isValid($params) {
-		t3lib_utility_Debug::debug($params, __FILE__ . " " . __LINE__);
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
 		$spamFactor = $this->settings['spamshield.']['factor'] / 100;
 
@@ -53,13 +52,31 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		// spam formula with asymptote 1 (100%)
 		$thisSpamFactor = -1 / $this->spamIndicator + 1;
 
+		// Save Spam Factor in session for db storage
+		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_spamfactor', $this->formatSpamFactor($thisSpamFactor));
+		$GLOBALS['TSFE']->storeSessionData();
+
 		// if spam
 		if ($thisSpamFactor >= $spamFactor) {
-			$this->addError('spam_details', number_format(($thisSpamFactor * 100), 0) . '%');
+			$this->addError('spam_details', $this->formatSpamFactor($thisSpamFactor));
 
-			// TODO send mail to admin
-			// TODO save spamfactor in session for db entry
-			t3lib_utility_Debug::debug($this->msg, __FILE__ . " " . __LINE__);
+			// Send notification email to admin
+			if (t3lib_div::validEmail($this->settings['spamshield.']['email'])) {
+				$subject = 'Spam in powermail form recognized';
+				$message = 'Possible spam in powermail form on page with PID ' . $GLOBALS['TSFE']->id;
+				$message .= "\n\n";
+				$message .= 'Spamfactor of this mail: ' . $this->formatSpamFactor($thisSpamFactor) . "\n";
+				$message .= "\n\n";
+				$message .= 'Failed Spamchecks:' . "\n";
+				$message .= $this->div->viewPlainArray($this->msg);
+				$message .= "\n\n";
+				$message .= 'Given Form variables:' . "\n";
+				$message .= $this->div->viewPlainArray($params);
+				$header  = 'MIME-Version: 1.0' . "\r\n";
+				$header .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+				$header .= 'From: powermail@' . t3lib_div::getIndpEnv('HTTP_HOST') . "\r\n";
+				t3lib_div::plainMailEncoded($this->settings['spamshield.']['email'], $subject, $message, $header);
+			}
 
 			return false;
 		}
@@ -267,6 +284,15 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 			$this->msg[] = __FUNCTION__ . ' failed';
 			return;
 		}
+	}
+
+	/**
+	 * Format for Spamfactor (0.23 => 23%)
+	 *
+	 * @param $factor
+	 */
+	private function formatSpamFactor($factor) {
+		return number_format(($factor * 100), 0) . '%';
 	}
 
 	/**
