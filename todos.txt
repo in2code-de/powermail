@@ -34,7 +34,7 @@ x reply name and mail
 x add attachment via ts (sender, receiver)
 x redirect after submit via ts
 x localization improvement
-=> CSS selector to output
+x CSS selector to output
 o add constants
 o add some signalslots
 o documentation

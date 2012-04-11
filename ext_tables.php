@@ -192,7 +192,8 @@ $TCA['tx_powermail_domain_model_mails'] = array(
 			'endtime' => 'endtime',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Mails.php',
-		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_powermail_domain_model_mails.gif'
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_powermail_domain_model_mails.gif',
+		'searchFields' => 'sender_mail, sender_name, subject, body'
 	),
 );
 

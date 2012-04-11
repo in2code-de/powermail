@@ -1,7 +1,7 @@
 # cat=basic/enable/010; type=boolean; label= Disable IP logging: If you don't want to save the sender IP address in the database, you can use this checkbox.
 disableIpLog = 0
 
-# cat=basic/enable/020; type=boolean; label= Disable BE Module: You can safely disable the backend module if you don't store sent mails into your database.
+# cat=basic/enable/020; type=boolean; label= Disable BE Module: You can disable the backend module if you don't store mails in your database or you don't need the module.
 disableBackendModule = 0
 
 # cat=basic/enable/030; type=boolean; label= Disable Plugin Information: Below every powermail plugin is a short info table with form settings. You can disable theese information.

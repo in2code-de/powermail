@@ -140,6 +140,7 @@ $TCA['tx_powermail_domain_model_pages'] = array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_powermail_domain_model_fields',
 				'foreign_field' => 'pages',
+				'foreign_sortby' => 'sorting',
 				'maxitems'      => 1000,
 				'appearance' => array(
 					'collapse' => 1,
