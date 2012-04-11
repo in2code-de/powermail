@@ -1,16 +1,32 @@
 plugin.tx_powermail {
+
 	view {
-		# cat=plugin.tx_powermail/file; type=string; label=Path to template root (FE)
+		# cat=plugin.tx_powermail/file; type=string; label= Path to template root (FE)
 		templateRootPath = EXT:powermail/Resources/Private/Templates/
 
-		# cat=plugin.tx_powermail/file; type=string; label=Path to template partials (FE)
+		# cat=plugin.tx_powermail/file; type=string; label= Path to template partials (FE)
 		partialRootPath = EXT:powermail/Resources/Private/Partials/
 
-		# cat=plugin.tx_powermail/file; type=string; label=Path to template layouts (FE)
+		# cat=plugin.tx_powermail/file; type=string; label= Path to template layouts (FE)
 		layoutRootPath = EXT:powermail/Resources/Private/Layouts/
 	}
-	persistence {
-		# cat=plugin.tx_powermail//a; type=int+; label=Default storage PID
-		storagePid =
+
+	settings {
+
+		# cat=plugin.tx_powermail//0010; type=int+; label= Storage PID: Save mails in a defined Page (normally set via Flexform)
+		pid =
+
+		# cat=plugin.tx_powermail//0020; type=text; label= Form Uid: Commaseparated list of forms to show (normally set via Flexform)
+		form =
+
+		# cat=plugin.tx_powermail//0030; type=boolean; label= Confirmation Page Active: Activate Confirmation Page (normally set via Flexform)
+		confirmation =
+
+		# cat=plugin.tx_powermail//0040; type=boolean; label= Double Optin Active: Activate Double Optin for Mail sender (normally set via Flexform)
+		optin =
+
+		# cat=plugin.tx_powermail//0050; type=boolean; label= Morestep Active: Activate Morestep Forms (normally set via Flexform)
+		moresteps =
+
 	}
 }

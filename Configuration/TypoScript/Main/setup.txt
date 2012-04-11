@@ -7,16 +7,15 @@ plugin.tx_powermail {
 		partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
 	}
-	persistence {
-		storagePid = {$plugin.tx_powermail.persistence.storagePid}
-	}
 	settings {
 		setup {
 
 			main {
-				pid = 19
-				confirmation =
-				moresteps =
+				pid = {$plugin.tx_powermail.settings.main.pid}
+				form = {$plugin.tx_powermail.main.settings.form}
+				confirmation = {$plugin.tx_powermail.main.settings.confirmation}
+				optin = {$plugin.tx_powermail.main.settings.optin}
+				moresteps = {$plugin.tx_powermail.settings.main.moresteps}
 			}
 
 			receiver {
