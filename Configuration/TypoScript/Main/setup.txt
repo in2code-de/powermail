@@ -19,7 +19,7 @@ plugin.tx_powermail {
 			}
 
 			receiver {
-				enable = 1
+				enable = {$plugin.tx_powermail.settings.receiver.enable}
 				email =
 				subject =
 				body =
@@ -76,7 +76,7 @@ plugin.tx_powermail {
 			}
 
 			sender {
-				enable = 1
+				enable = {$plugin.tx_powermail.settings.sender.enable}
 				name =
 				email =
 				subject =
@@ -140,7 +140,7 @@ plugin.tx_powermail {
 
 			db {
 				# Enable mail storage
-				enable = 1
+				enable = {$plugin.tx_powermail.settings.db.enable}
 
 				# Add new mails with hidden=1
 				hidden = 0

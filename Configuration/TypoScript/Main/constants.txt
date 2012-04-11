@@ -12,8 +12,8 @@ plugin.tx_powermail {
 	}
 
 	settings {
-		main {
 
+		main {
 			# cat=plugin.tx_powermail//0010; type=int+; label= Storage PID: Save mails in a defined Page (normally set via Flexform)
 			pid =
 
@@ -28,7 +28,21 @@ plugin.tx_powermail {
 
 			# cat=plugin.tx_powermail//0050; type=boolean; label= Morestep Active: Activate Morestep Forms (normally set via Flexform)
 			moresteps =
+		}
 
+		receiver {
+			# cat=plugin.tx_powermail/enable/0200; type=boolean; label= Enable Receiver Mail: Enable Email to Receiver
+			enable = 1
+		}
+
+		sender {
+			# cat=plugin.tx_powermail/enable/0400; type=boolean; label= Enable Sender Mail: Enable Email to Sender
+			enable = 1
+		}
+
+		db {
+			# cat=plugin.tx_powermail/enable/0600; type=boolean; label= Enable Storage: Store Mails in database
+			enable = 1
 		}
 
 	}

@@ -1,6 +1,6 @@
 powermail 2.0 roadmap
 
-o Spamfactor for mails
+=> Spamfactor for mails
 x double optin
 x Saving to other tables
 x powermail_frontend
