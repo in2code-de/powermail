@@ -94,7 +94,7 @@ class Tx_Powermail_Utility_Div {
 		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
 		foreach ($fields as $uid => $value) {
 			$field = $fieldsRepository->findByUid($uid); // get field
-			if (method_exists($field, 'getSenderEmail') && $field->getSenderEmail() && t3lib_div::validEmail($value)) {
+			if (method_exists($field, 'getUid') && $field->getSenderEmail() && t3lib_div::validEmail($value)) {
 				$email = $value;
 				break;
 			}
@@ -178,6 +178,9 @@ class Tx_Powermail_Utility_Div {
 	public function getVariablesWithMarkers($fields) {
 		$variables = array();
 		foreach ((array) $fields as $uid => $value) { // one loop for every received field
+			if (!is_numeric($uid)) {
+				continue;
+			}
 			$variables[$this->getMarkerFromField($uid)] = $value;
 		}
 		return $variables;
@@ -194,6 +197,9 @@ class Tx_Powermail_Utility_Div {
 	public function getVariablesWithLabels($fields) {
 		$variables = array();
 		foreach ((array) $fields as $uid => $value) { // one loop for every received field
+			if (!is_numeric($uid)) {
+				continue;
+			}
 			$variables[$this->getLabelFromField($uid)] = $value;
 		}
 		return $variables;

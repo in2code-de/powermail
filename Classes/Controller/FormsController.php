@@ -360,6 +360,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// tx_powermail_domain_model_answers
 		foreach ((array) $field as $uid => $value) { // one loop for every received field
+			if (!is_numeric($uid)) {
+				continue;
+			}
 			$newAnswer = t3lib_div::makeInstance('Tx_Powermail_Domain_Model_Answers');
 			$newAnswer->setPid($this->div->getStoragePage($this->settings['main']['pid']));
 			$newAnswer->setValue($value);
