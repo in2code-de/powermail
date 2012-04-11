@@ -187,11 +187,14 @@ plugin.tx_powermail {
 
 			# Spam Settings
 			spamshield {
+				# enable or disabe spam regocnition
+				_enable = {$plugin.tx_powermail.settings.spamshield.enable}
+
 				# Spam Factor Limit in %
-				factor = 65
+				factor = {$plugin.tx_powermail.settings.spamshield.factor}
 
 				# Notification Email to Admin if spam recognized (empty disables email to admin)
-				email = alexander.kellner@in2code.de
+				email = {$plugin.tx_powermail.settings.spamshield.email}
 
 				indicator {
 					# if this check failed - add this indication value to indicator (0 disables this check completely)

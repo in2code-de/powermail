@@ -91,6 +91,13 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	protected $userAgent;
 
 	/**
+	 * spamFactor
+	 *
+	 * @var string
+	 */
+	protected $spamFactor;
+
+	/**
 	 * time
 	 *
 	 * @var DateTime
@@ -297,6 +304,25 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setFeuser($feuser) {
 		$this->feuser = $feuser;
+	}
+
+	/**
+	 * Returns the spamFactor
+	 *
+	 * @return string $spamFactor
+	 */
+	public function getSpamFactor() {
+		return $this->spamFactor;
+	}
+
+	/**
+	 * Sets the spamFactor
+	 *
+	 * @param string $spamFactor
+	 * @return void
+	 */
+	public function setSpamFactor($spamFactor) {
+		$this->spamFactor = $spamFactor;
 	}
 
 	/**

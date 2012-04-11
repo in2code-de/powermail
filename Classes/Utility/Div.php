@@ -68,7 +68,7 @@ class Tx_Powermail_Utility_Div {
 		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
 		foreach ($fields as $uid => $value) {
 			$field = $fieldsRepository->findByUid($uid); // get field
-			if ($field->getSenderName()) {
+			if (method_exists($field, 'getUid') && $field->getSenderName()) {
 				$name .= $value . ' ';
 			}
 		}

@@ -161,6 +161,7 @@ CREATE TABLE tx_powermail_domain_model_mails (
 	marketing_language int(11) DEFAULT '0' NOT NULL,
 	marketing_browser_language text NOT NULL,
 	marketing_funnel text NOT NULL,
+	spam_factor varchar(255) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

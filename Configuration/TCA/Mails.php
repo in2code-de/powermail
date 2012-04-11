@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_powermail_domain_model_mails'] = array(
 	'ctrl' => $TCA['tx_powermail_domain_model_mails']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, crdate, sender_mail, sender_name, subject, receiver_mail, form, answers, body, feuser, time, sender_ip, user_agent, marketing_searchterm, marketing_referer, marketing_payed_search_result, marketing_language, marketing_browser_language, marketing_funnel',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, crdate, sender_mail, sender_name, subject, receiver_mail, form, answers, body, feuser, spam_factor, time, sender_ip, user_agent, marketing_searchterm, marketing_referer, marketing_payed_search_result, marketing_language, marketing_browser_language, marketing_funnel',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'crdate, sender_mail, sender_name, subject, body;;;richtext[], --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.sheet1, receiver_mail, form, answers, feuser, time, sender_ip, user_agent, --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.sheet2, marketing_searchterm, marketing_referer, marketing_payed_search_result, marketing_language, marketing_browser_language, marketing_funnel, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, hidden;;1, starttime, endtime'),
+		'1' => array('showitem' => 'crdate, sender_mail, sender_name, subject, body;;;richtext[], --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.sheet1, receiver_mail, form, answers, feuser, spam_factor, time, sender_ip, user_agent, --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.sheet2, marketing_searchterm, marketing_referer, marketing_payed_search_result, marketing_language, marketing_browser_language, marketing_funnel, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, hidden;;1, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array(),
@@ -195,6 +195,16 @@ $TCA['tx_powermail_domain_model_mails'] = array(
 				'minitems' => 0,
 				'maxitems' => 1
 			)
+		),
+		'spam_factor' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_mails.spam_factor',
+			'config' => array(
+				'type' => 'input',
+				'size' => 13,
+				'eval' => 'trim',
+				'readOnly' => 1
+			),
 		),
 		'time' => array(
 			'exclude' => 1,

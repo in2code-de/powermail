@@ -37,6 +37,9 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @return bool
 	 */
 	public function isValid($params) {
+		if (!$this->settings['spamshield.']['_enable']) {
+			return true;
+		}
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
 		$spamFactor = $this->settings['spamshield.']['factor'] / 100;
 

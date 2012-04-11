@@ -339,6 +339,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		if (intval($GLOBALS['TSFE']->fe_user->user['uid']) > 0) {
 			$newMail->setFeuser($GLOBALS['TSFE']->fe_user->user['uid']);
 		}
+		$newMail->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'));
 		$newMail->setTime((time() - $this->div->getFormStartFromSession($form)));
 		if (isset($this->settings['global']['disableIpLog']) && $this->settings['global']['disableIpLog'] == 0) {
 			$newMail->setSenderIp(t3lib_div::getIndpEnv('REMOTE_ADDR'));
