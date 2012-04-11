@@ -23,6 +23,13 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	protected $div;
 
 	/**
+	 * Error messages for email to admin
+	 *
+	 * @var array
+	 */
+	protected $msg = array();
+
+	/**
 	 * Spam-Validation of given Params
 	 * 		see powermail/doc/SpamDetection for formula
 	 *
@@ -30,7 +37,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @return bool
 	 */
 	public function isValid($params) {
-		t3lib_utility_Debug::debug($params, __FILE__ . " " . __LINE__);
+//		t3lib_utility_Debug::debug($params, __FILE__ . " " . __LINE__);
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
 		$spamFactor = $this->settings['spamshield.']['factor'] / 100;
 
@@ -50,6 +57,9 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 			$this->addError('spam_details', number_format(($thisSpamFactor * 100), 0) . '%');
 
 			// TODO send mail to admin
+			// TODO save spamfactor in session for db entry
+			t3lib_utility_Debug::debug($this->msg, __FILE__ . " " . __LINE__);
+
 			return false;
 		}
 
@@ -84,6 +94,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		// if check failes
 		if ($linkAmount > $limit) {
 			$this->spamIndicator += $indication;
+			$this->msg[] = __FUNCTION__ . ' failed';
 		}
 		return;
 	}
@@ -131,6 +142,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		if (isset($firstname) && isset($lastname)) {
 			if ($firstname && $firstname == $lastname) {
 				$this->spamIndicator += $indication;
+				$this->msg[] = __FUNCTION__ . ' failed';
 				return;
 			}
 		}
@@ -153,6 +165,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		// if check failes
 		if (!isset($time) || !$time) {
 			$this->spamIndicator += $indication;
+			$this->msg[] = __FUNCTION__ . ' failed';
 		}
 		return;
 	}
@@ -181,6 +194,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		// if check failes
 		if (count($arr) != count(array_unique($arr))) {
 			$this->spamIndicator += $indication;
+			$this->msg[] = __FUNCTION__ . ' failed';
 			return;
 		}
 	}
@@ -206,6 +220,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 				}
 				if (stristr($value, $blackword)) {
 					$this->spamIndicator += $indication;
+					$this->msg[] = __FUNCTION__ . ' failed';
 					return;
 				}
 			}
@@ -228,6 +243,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		// if check failes
 		if (in_array(t3lib_div::getIndpEnv('REMOTE_ADDR'), $blacklist)) {
 			$this->spamIndicator += $indication;
+			$this->msg[] = __FUNCTION__ . ' failed';
 			return;
 		}
 	}

@@ -191,29 +191,29 @@ plugin.tx_powermail {
 				factor = 20
 
 				indicator {
-					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					honeypod = 2
 
-					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					link = 1
 					# Limit of links allowed
 					linkLimit = 2
 
-					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					name = 1
 
-					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					session = 2
 
-					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					unique = 1
 
-					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					blacklistString = 1
 					# blacklisted values
 					blacklistStringValues = viagra,sex,porn,p0rn
 
-					# if this check failed - add this indication value to indicator (0 disables this check complete)
+					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					blacklistIp = 1
 					# blacklisted values
 					blacklistIpValues = 84.172.207.193,123.132.125.123
