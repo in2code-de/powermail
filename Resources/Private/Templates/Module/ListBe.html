@@ -257,6 +257,16 @@ Show Backend Module: Powermail List
 											</f:if>
 										</f:for>
 
+										<f:if condition="{mail.spamFactor}">
+											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+												<dt>
+													<strong><f:translate key="Tx_Powermail_Domain_Model_Mails.spamFactor" /></strong>
+												</dt>
+												<dd>
+													{mail.spamFactor}
+												</dd>
+											</dl>
+										</f:if>
 										<f:if condition="{mail.marketingSearchterm}">
 											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
 												<dt>

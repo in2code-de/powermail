@@ -17,6 +17,7 @@
 			<label index="Tx_Powermail_Domain_Model_Mails.feuser">Frontend User</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.senderIp">Senders IP-Address</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.userAgent">Senders Browser-Signature</label>
+			<label index="Tx_Powermail_Domain_Model_Mails.spamFactor">Spamfactor</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.time">Time for form submit</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.uid">Uid</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.crdate">Date</label>
@@ -168,6 +169,7 @@
 			<label index="Tx_Powermail_Domain_Model_Mails.feuser">Frontend Benutzer</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.senderIp">IP-Adresse des Absenders</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.userAgent">Browser-Kennung des Absenders</label>
+			<label index="Tx_Powermail_Domain_Model_Mails.spamFactor">Spamfaktor</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.time">Zeit zum Ausfüllen des Formulars</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.uid">Uid</label>
 			<label index="Tx_Powermail_Domain_Model_Mails.crdate">Datum</label>
