@@ -112,6 +112,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @validate $field Tx_Powermail_Domain_Validator_MandatoryValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_StringValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_CaptchaValidator
+	 * @validate $field Tx_Powermail_Domain_Validator_SpamShieldValidator
 	 * @return void
 	 */
 	public function confirmationAction(array $field = array(), $form = NULL) {

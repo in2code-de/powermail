@@ -6,7 +6,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 *
 	 * @var integer
 	 */
-	private $spamIndicator = 0.5;
+	private $spamIndicator = 0;
 
 	/**
 	 * TypoScript Settings
@@ -58,6 +58,11 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		// Save Spam Factor in session for db storage
 		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_spamfactor', $this->formatSpamFactor($thisSpamFactor));
 		$GLOBALS['TSFE']->storeSessionData();
+
+		// Spam debugging
+		if ($this->settings['debug.']['spamshield']) {
+			t3lib_utility_Debug::debug($this->msg, 'powermail debug: Show Spamchecks - Spamfactor ' . $this->formatSpamFactor($thisSpamFactor));
+		}
 
 		// if spam
 		if ($thisSpamFactor >= $spamFactor) {

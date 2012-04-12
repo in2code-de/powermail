@@ -50,7 +50,7 @@ plugin.tx_powermail {
 			enable = 1
 
 			# cat=powermail_spamshield//0810; type=int+; label= Spamfactor in %: Set limit for spamfactor in powermail forms
-			factor = 80
+			factor = 75
 
 			# cat=powermail_spamshield//0820; type=text; label= Notifymail on Spam: Admin can get an email if he/she wants to get informed if a mail failed. Let this field empty - no mail will be sent.
 			email =
