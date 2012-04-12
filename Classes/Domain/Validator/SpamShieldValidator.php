@@ -53,7 +53,11 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		$this->blacklistIpCheck($this->settings['spamshield.']['indicator.']['blacklistIp']);
 
 		// spam formula with asymptote 1 (100%)
-		$thisSpamFactor = -1 / $this->spamIndicator + 1;
+		if ($this->spamIndicator > 0) {
+			$thisSpamFactor = -1 / $this->spamIndicator + 1;
+		} else {
+			$thisSpamFactor = 0;
+		}
 
 		// Save Spam Factor in session for db storage
 		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_spamfactor', $this->formatSpamFactor($thisSpamFactor));
