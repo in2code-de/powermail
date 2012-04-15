@@ -134,14 +134,29 @@ plugin.tx_powermail {
 			# cat=powermail_additional//0800; type=boolean; label= Misc Enable HTML Field: Per default HTML-Fields are disabled in powermail for security reasons. If you aware of possible XSS from your editors, you can enable this field type (e.g. 1)
 			htmlField = 0
 
-			# cat=powermail_additional//0810; type=text; label= Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
+			# cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
 			uploadFolder = uploads/tx_powermail/
 
-			# cat=powermail_additional//0820; type=int+; label= Upload Filesize: Define the maximum filesize of file uploads in bytes (10000000 default -> 10 MByte)
+			# cat=powermail_additional//0820; type=int+; label= Misc Upload Filesize: Define the maximum filesize of file uploads in bytes (10000000 default -> 10 MByte)
 			uploadSize = 10000000
 
-			# cat=powermail_additional//0830; type=text; label= Upload Fileextensions: Define the allowed filetypes with their extensions for fileuploads and separate them with commas (e.g. jpg,jpeg,gif)
+			# cat=powermail_additional//0830; type=text; label= Misc Upload Fileextensions: Define the allowed filetypes with their extensions for fileuploads and separate them with commas (e.g. jpg,jpeg,gif)
 			uploadFileExtensions = jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace
+
+			# cat=powermail_additional//0850; type=boolean; label= Debug Settings: Show all Settings from TypoScript, Flexform and Global Config in Frontend (e.g. 1)
+			debugSettings = 0
+
+			# cat=powermail_additional//0860; type=boolean; label= Debug Variables: Show all given Plugin variables from GET or POST (e.g. 1)
+			debugVariables = 0
+
+			# cat=powermail_additional//0870; type=boolean; label= Debug Mails: Show all mail values (e.g. 1)
+			debugMail = 0
+
+			# cat=powermail_additional//0880; type=boolean; label= Debug Save to Table: Show all values if you want to save powermail variables to another table (e.g. 1)
+			debugSaveToTable = 0
+
+			# cat=powermail_additional//0890; type=boolean; label= Debug Spamshield: Show Spamshield Functions (e.g. 1)
+			debugSpamshield = 0
 		}
 
 		spamshield {
