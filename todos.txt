@@ -34,7 +34,7 @@ x add attachment via ts (sender, receiver)
 x redirect after submit via ts
 x localization improvement
 x CSS selector to output
-o add constants
+x add constants
 o add some signalslots
 o documentation
 o small video
@@ -61,11 +61,11 @@ Features next version?
 o mx check
 o remove from all marker
 o new fields (dynamic from html folder)
+o using session
 
 Do we want this Features?
 o dynamic field preview
 o enable unique value
-o using session
 o tabindex
 o accesskey
 o email receiver via ts: select query
