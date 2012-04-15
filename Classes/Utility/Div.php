@@ -370,6 +370,11 @@ class Tx_Powermail_Utility_Div {
 			->setSubject($mail['subject'])
 			->setCharset($GLOBALS['TSFE']->metaCharset);
 
+		// overwrite subject
+		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['subject'], $conf[$type . '.']['overwrite.']['subject.'])) {
+			$message->setSubject($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['subject'], $conf[$type . '.']['overwrite.']['subject.']));
+		}
+
 		// add cc receivers
 		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.'])) {
 			$ccArray = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.']), 1);

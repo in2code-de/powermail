@@ -79,6 +79,47 @@ plugin.tx_powermail {
 		sender {
 			# cat=powermail_main/enable/0400; type=boolean; label= Sender Mail: Enable Email to Sender
 			enable = 1
+
+			# cat=powermail_main//0410; type=boolean; label= Sender Attachments: Add uploaded files to emails
+			attachment = 0
+
+			# cat=powermail_main//0420; type=options[both,html,plain]; label= Sender Mail Format: Change mail format
+			mailformat = both
+
+			overwrite {
+				# cat=powermail_additional//0450; type=text; label= Sender overwrite Email: Commaseparated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)
+				email =
+
+				# cat=powermail_additional//0452; type=text; label= Sender overwrite Name: Receiver Name overwrites flexform settings (e.g. Receiver Name)
+				name =
+
+				# cat=powermail_additional//0454; type=text; label= Sender overwrite SenderName: Sender Name for mail to sender overwrites flexform settings (e.g. Sender Name)
+				senderName =
+
+				# cat=powermail_additional//0456; type=text; label= Sender overwrite SenderEmail: Sender Email for mail to sender overwrites flexform settings (e.g. sender@mail.com)
+				senderEmail =
+
+				# cat=powermail_additional//0458; type=text; label= Sender overwrite Mail Subject: Subject for mail to sender overwrites flexform settings (e.g. Thx for your mail)
+				subject =
+
+				# cat=powermail_additional//0460; type=text; label= Sender CC Email Addresses: Commaseparated list of cc mail receivers (e.g. rec2@mail.com, rec3@mail.com)
+				cc =
+
+				# cat=powermail_additional//0462; type=text; label= Sender BCC Email Addresses: Commaseparated list of bcc mail receivers (e.g. rec2@mail.com, rec3@mail.com)
+				bcc =
+
+				# cat=powermail_additional//0464; type=text; label= Sender Mail Return Path: Return Path for emails to sender (e.g. return@mail.com)
+				returnPath =
+
+				# cat=powermail_additional//0466; type=text; label= Sender Mail Reply Mail: Reply Email address for mail to sender (e.g. reply@mail.com)
+				replyToEmail =
+
+				# cat=powermail_additional//0468; type=text; label= Sender Mail Reply Name: Reply Name for mail to sender (e.g. Mr. Reply)
+				replyToName =
+
+				# cat=powermail_additional//0470; type=options[1,2,3,4,5]; label= Sender Mail Priority: Set mail priority for mail to sender (e.g. 3)
+				priority = 3
+			}
 		}
 
 		db {

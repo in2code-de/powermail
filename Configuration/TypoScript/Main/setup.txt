@@ -79,54 +79,56 @@ plugin.tx_powermail {
 
 			sender {
 				enable = {$plugin.tx_powermail.settings.sender.enable}
+
+				# Following settings are normally set via Flexform
 				name =
 				email =
 				subject =
 				body =
 
 				# add file attachments from upload fields
-				attachment = 0
+				attachment = {$plugin.tx_powermail.settings.sender.attachment}
 
 				# html, plain, both
-				mailformat = both
+				mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
 
 				# Normally you do not need to overwrite a flexform settings, but this allows you to use cObject functions
 				overwrite {
-#					email = TEXT
-#					email.value = receiver@mail.com
+					email = TEXT
+					email.value = {$plugin.tx_powermail.settings.sender.overwrite.email}
 
-#					name = TEXT
-#					name.value = Receivers Name
+					name = TEXT
+					name.value = {$plugin.tx_powermail.settings.sender.overwrite.name}
 
-#					senderName = TEXT
-#					senderName.value = Sender Name
+					senderName = TEXT
+					senderName.value = {$plugin.tx_powermail.settings.sender.overwrite.senderName}
 
-#					senderEmail = TEXT
-#					senderEmail.value = sender@mail.com
+					senderEmail = TEXT
+					senderEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.senderEmail}
 
-#					subject = TEXT
-#					subject.value = The new subject
+					subject = TEXT
+					subject.value = {$plugin.tx_powermail.settings.sender.overwrite.subject}
 
 					# Add further CC Receivers (split them via comma)
-#					cc = TEXT
-#					cc.value = rec2@mail.com, rec3@mail.com
+					cc = TEXT
+					cc.value = {$plugin.tx_powermail.settings.sender.overwrite.cc}
 
 					# Add further BCC Receivers (split them via comma)
-#					bcc = TEXT
-#					bcc.value = rec2@mail.com, rec3@mail.com
+					bcc = TEXT
+					bcc.value = {$plugin.tx_powermail.settings.sender.overwrite.bcc}
 
 					# Add return path
-#					returnPath = TEXT
-#					returnPath.value = return@mail.com
+					returnPath = TEXT
+					returnPath.value = {$plugin.tx_powermail.settings.sender.overwrite.returnPath}
 
 					# Reply address
-#					replyToEmail = TEXT
-#					replyToEmail.value = reply@mail.com
-#					replyToName = TEXT
-#					replyToName.value = Mr. Reply
+					replyToEmail = TEXT
+					replyToEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToEmail}
+					replyToName = TEXT
+					replyToName.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToName}
 
 					# Set mail priority from 1 to 5
-#					priority = 3
+					priority = {$plugin.tx_powermail.settings.sender.overwrite.priority}
 				}
 
 				# Add additional attachments to the mail (separate each with comma)
@@ -218,12 +220,12 @@ plugin.tx_powermail {
 
 					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					blacklistString = 7
-					# blacklisted values
+					# blacklisted values (default values should be extended with your experience)
 					blacklistStringValues = viagra,sex,porn,p0rn
 
 					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					blacklistIp = 7
-					# blacklisted values
+					# blacklisted values (default values should be extended with your experience)
 					blacklistIpValues = 84.172.207.193,123.132.125.123
 				}
 			}
