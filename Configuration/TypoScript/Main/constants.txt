@@ -123,19 +123,59 @@ plugin.tx_powermail {
 		}
 
 		db {
-			# cat=powermail_main/enable/0600; type=boolean; label= Mail Storage enabled: Store Mails in database
+			# cat=powermail_main/enable/0600; type=boolean; label= Storage Mails enabled: Store Mails in database
 			enable = 1
+
+			# cat=powermail_additional//0610; type=boolean; label= Storage Hidden Mails: Add mails with hidden flag (e.g. 1)
+			hidden = 0
+		}
+		
+		misc {
+			# cat=powermail_additional//0800; type=boolean; label= Misc Enable HTML Field: Per default HTML-Fields are disabled in powermail for security reasons. If you aware of possible XSS from your editors, you can enable this field type (e.g. 1)
+			htmlField = 0
+
+			# cat=powermail_additional//0810; type=text; label= Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
+			uploadFolder = uploads/tx_powermail/
+
+			# cat=powermail_additional//0820; type=int+; label= Upload Filesize: Define the maximum filesize of file uploads in bytes (10000000 default -> 10 MByte)
+			uploadSize = 10000000
+
+			# cat=powermail_additional//0830; type=text; label= Upload Fileextensions: Define the allowed filetypes with their extensions for fileuploads and separate them with commas (e.g. jpg,jpeg,gif)
+			uploadFileExtensions = jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace
 		}
 
 		spamshield {
-			# cat=powermail_spamshield//0800; type=boolean; label= Enable SpamShield: En- or disable Spamshield for Powermail
+			# cat=powermail_spam//0900; type=boolean; label= SpamShield Active: En- or disable Spamshield for Powermail
 			enable = 1
 
-			# cat=powermail_spamshield//0810; type=int+; label= Spamfactor in %: Set limit for spamfactor in powermail forms
+			# cat=powermail_spam//0910; type=int+; label= Spamshield Spamfactor in %: Set limit for spamfactor in powermail forms in % (e.g. 85)
 			factor = 75
 
-			# cat=powermail_spamshield//0820; type=text; label= Notifymail on Spam: Admin can get an email if he/she wants to get informed if a mail failed. Let this field empty - no mail will be sent.
+			# cat=powermail_spam//0920; type=text; label= Spamshield Notifymail: Admin can get an email if he/she wants to get informed if a mail failed. Let this field empty and no mail will be sent (e.g. admin@mail.com)
 			email =
+		}
+
+		captcha {
+			# cat=powermail_spam//0930; type=text; label= Captcha Background: Set own captcha background image (e.g. fileadmin/bg.png)
+			image = EXT:powermail/Resources/Private/Image/captcha_bg.png
+
+			# cat=powermail_spam//0940; type=text; label= Captcha Font: Set TTF-Font for captcha image (e.g. fileadmin/font.ttf)
+			font = EXT:powermail/Resources/Private/Fonts/ARCADE.TTF
+
+			# cat=powermail_spam//0950; type=text; label= Captcha Text Color: Define your text color in hex code - must start with # (e.g. #ff0000)
+			textColor = #444444
+
+			# cat=powermail_spam//0960; type=int+; label= Captcha Text Size: Define your text size in px (e.g. 24)
+			textSize = 32
+
+			# cat=powermail_spam//0970; type=text; label= Captcha Text Angle: Define two different values (start and stop) for your text random angle and separate it with a comma (e.g. -10,10)
+			textAngle = -5,5
+
+			# cat=powermail_spam//0980; type=text; label= Captcha Text Distance Hor: Define two different values (start and stop) for your text horizontal random distance and separate it with a comma (e.g. 20,80)
+			distanceHor = 20,80
+
+			# cat=powermail_spam//0990; type=text; label= Captcha Text Distance Ver: Define two different values (start and stop) for your text vertical random distance and separate it with a comma (e.g. 30,60)
+			distanceVer = 30,60
 		}
 
 	}

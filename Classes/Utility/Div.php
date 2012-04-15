@@ -626,7 +626,7 @@ class Tx_Powermail_Utility_Div {
 		foreach ((array) $fields as $uid => $value) {
 			$field = $fieldsRepository->findByUid($uid);
 			if (method_exists($field, 'getType') && $field->getType() == 'date') {
-				$fields[$uid] = strftime($settings['misc']['dateFormat'], $value);
+				$fields[$uid] = strftime('%d.%m.%Y', $value);
 			}
 		}
 	}

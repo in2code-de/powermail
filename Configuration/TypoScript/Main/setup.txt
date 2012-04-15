@@ -147,15 +147,15 @@ plugin.tx_powermail {
 					# 	Return a Number: Typolink to the pid
 					# 	Return a URL: Link to an intern or extern URL
 					# 	Return a File: Link to a file (within fileadmin folder)
-					redirect = COA
-					redirect {
-						10 = TEXT
-						10 {
-							typolink.parameter = 2
-							typolink.returnLast = url
-							typolink.additionalParams = &x=y
-						}
-					}
+#					redirect = COA
+#					redirect {
+#						10 = TEXT
+#						10 {
+#							typolink.parameter = 2
+#							typolink.returnLast = url
+#							typolink.additionalParams = &x=y
+#						}
+#					}
 				}
 			}
 
@@ -164,7 +164,7 @@ plugin.tx_powermail {
 				enable = {$plugin.tx_powermail.settings.db.enable}
 
 				# Add new mails with hidden=1
-				hidden = 0
+				hidden = {$plugin.tx_powermail.settings.db.hidden}
 			}
 
 			optin {
@@ -191,17 +191,17 @@ plugin.tx_powermail {
 
 			# Captcha Settings
 			captcha {
-				# TODO: Use other Captcha Extensions
+				# TODO: Use other Captcha Extensions (sr_freecap, captcha)
 				use = default
 
 				default {
-					image = EXT:powermail/Resources/Private/Image/captcha_bg.png
-					font = EXT:powermail/Resources/Private/Fonts/ARCADE.TTF
-					textColor = #444444
-					textSize = 32
-					textAngle = -5,5
-					distanceHor = 20,80
-                	distanceVer = 30,60
+					image = {$plugin.tx_powermail.settings.captcha.image}
+					font = {$plugin.tx_powermail.settings.captcha.font}
+					textColor = {$plugin.tx_powermail.settings.captcha.textColor}
+					textSize = {$plugin.tx_powermail.settings.captcha.textSize}
+					textAngle = {$plugin.tx_powermail.settings.captcha.textAngle}
+					distanceHor = {$plugin.tx_powermail.settings.captcha.distanceHor}
+                	distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
 				}
 			}
 
@@ -243,7 +243,7 @@ plugin.tx_powermail {
 					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					blacklistIp = 7
 					# blacklisted values (default values should be extended with your experience)
-					blacklistIpValues = 84.172.207.193,123.132.125.123
+					blacklistIpValues = 123.132.125.123,123.132.125.124
 				}
 			}
 
@@ -251,24 +251,20 @@ plugin.tx_powermail {
 
 			# Misc Settings
 			misc {
-				# Date format
-				dateFormat = %d.%m.%Y
-
 				# HTML Output allowed
-				htmlField = 0
+				htmlField = {$plugin.tx_powermail.settings.misc.htmlField}
 
 				# File upload settings
 				file {
-					folder = uploads/tx_powermail/
-					# size in bytes (10000000 default -> 10 MByte)
-					size = 10000000
-					extension = jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace
+					folder = {$plugin.tx_powermail.settings.misc.uploadFolder}
+					size = {$plugin.tx_powermail.settings.misc.uploadSize}
+					extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
 				}
 			}
 
 
 
-			# Prefill some fields
+			# Prefill some fields with their marker - e.g. {firstname}
 			prefill {
 				# example: fill with string
 #				firstname = Alex
