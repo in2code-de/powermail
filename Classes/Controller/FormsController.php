@@ -294,12 +294,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @return	void
 	 */
 	private function showThx($field) {
-		// redirect if activated
-		if (!empty($this->settings['thx']['redirect'])) {
-			$url = $this->cObj->typolink('', array('parameter' => $this->settings['thx']['redirect'], 'returnLast' => 'url'));
-			$this->redirectToUri($url);
-			return;
-		}
+		$this->redirectToTarget();
 
 		// assign
 		$this->view->assign('marketingInfos', $this->div->getMarketingInfos());
@@ -317,6 +312,38 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$variables = $this->div->getVariablesWithLabels($field);
 		$content = $this->div->powermailAll($variables, $this->configurationManager, $this->objectManager);
 		$this->view->assign('powermail_all', $content);
+	}
+
+	/**
+	 * Redirect on thx action
+	 *
+	 * @return void
+	 */
+	protected function redirectToTarget() {
+		$target = null;
+
+		// redirect from flexform
+		if (!empty($this->settings['thx']['redirect'])) {
+			$target = $this->settings['thx']['redirect'];
+		}
+
+		// redirect from TypoScript cObject
+		if ($this->cObj->cObjGetSingle($this->conf['thx.']['overwrite.']['redirect'], $this->conf['thx.']['overwrite.']['redirect.'])) {
+			$target = $this->cObj->cObjGetSingle($this->conf['thx.']['overwrite.']['redirect'], $this->conf['thx.']['overwrite.']['redirect.']);
+		}
+
+		// if redirect target
+		if ($target) {
+			$linkVars = array(
+				'parameter' => $target,
+				'returnLast' => 'url', // Give me only the string
+				'useCacheHash' => 0, // Don't use cache
+				'section' => '' // clear section value if any
+			);
+			$url = $this->cObj->typolink('', $linkVars);
+			$this->redirectToUri($url);
+			return;
+		}
 	}
 
 	/**
