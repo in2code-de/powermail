@@ -20,32 +20,34 @@ plugin.tx_powermail {
 
 			receiver {
 				enable = {$plugin.tx_powermail.settings.receiver.enable}
+
+				# Following settings are normally set via Flexform
 				email =
 				subject =
 				body =
 
 				# add file attachments from upload fields
-				attachment = 1
+				attachment = {$plugin.tx_powermail.settings.receiver.attachment}
 
 				# html, plain, both
-				mailformat = both
+				mailformat = {$plugin.tx_powermail.settings.receiver.mailformat}
 
 				# Normally you do not need to overwrite a flexform setting, but this allows you to use cObject functions
 				overwrite {
-#					email = TEXT
-#					email.value = receiver1@mail.com, receiver1@mail.com
+					email = TEXT
+					email.value = {$plugin.tx_powermail.settings.receiver.overwrite.email}
 
-#					name = TEXT
-#					name.value = Receivers Name
+					name = TEXT
+					name.value = {$plugin.tx_powermail.settings.receiver.overwrite.name}
 
-#					senderName = TEXT
-#					senderName.value = Sender Name
+					senderName = TEXT
+					senderName.value = {$plugin.tx_powermail.settings.receiver.overwrite.senderName}
 
-#					senderEmail = TEXT
-#					senderEmail.value = sender@mail.com
+					senderEmail = TEXT
+					senderEmail.value = {$plugin.tx_powermail.settings.receiver.overwrite.senderEmail}
 
-#					subject = TEXT
-#					subject.value = The new subject
+					subject = TEXT
+					subject.value = {$plugin.tx_powermail.settings.receiver.overwrite.subject}
 
 					# Add further CC Receivers (split them via comma)
 #					cc = TEXT
