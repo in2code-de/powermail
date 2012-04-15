@@ -21,6 +21,23 @@
   </component>
   <component name="ProjectRootManager" version="2" />
   <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://svn.typo3.org/TYPO3v4/Extensions/powermail/branches" />
+                  <option value="https://svn.typo3.org/TYPO3v4/Extensions/powermail/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://svn.typo3.org/TYPO3v4/Extensions/powermail/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
 </project>

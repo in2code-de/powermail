@@ -12,7 +12,6 @@ x backend module csv export
 x backend module reporting fields
 x backend module reporting marketing
 x backend check (session is working, etc...)
-o dynamic field preview
 x Bugfix Marker Backend
 x prefill
 x all fields marker
@@ -64,6 +63,7 @@ o remove from all marker
 o new fields (dynamic from html folder)
 
 Do we want this Features?
+o dynamic field preview
 o enable unique value
 o using session
 o tabindex
