@@ -50,25 +50,25 @@ plugin.tx_powermail {
 					subject.value = {$plugin.tx_powermail.settings.receiver.overwrite.subject}
 
 					# Add further CC Receivers (split them via comma)
-#					cc = TEXT
-#					cc.value = rec2@mail.com, rec3@mail.com
+					cc = TEXT
+					cc.value = {$plugin.tx_powermail.settings.receiver.overwrite.cc}
 
 					# Add further BCC Receivers (split them via comma)
-#					bcc = TEXT
-#					bcc.value = rec2@mail.com, rec3@mail.com
+					bcc = TEXT
+					bcc.value = {$plugin.tx_powermail.settings.receiver.overwrite.bcc}
 
 					# Add return path
-#					returnPath = TEXT
-#					returnPath.value = return@mail.com
+					returnPath = TEXT
+					returnPath.value = {$plugin.tx_powermail.settings.receiver.overwrite.returnPath}
 
 					# Reply address
-#					replyToEmail = TEXT
-#					replyToEmail.value = reply@mail.com
-#					replyToName = TEXT
-#					replyToName.value = Mr. Reply
+					replyToEmail = TEXT
+					replyToEmail.value = {$plugin.tx_powermail.settings.receiver.overwrite.replyToEmail}
+					replyToName = TEXT
+					replyToName.value = {$plugin.tx_powermail.settings.receiver.overwrite.replyToName}
 
 					# Set mail priority from 1 to 5
-#					priority = 3
+					priority = {$plugin.tx_powermail.settings.receiver.overwrite.priority}
 				}
 
 				# Add additional attachments to the mail (separate each with comma)

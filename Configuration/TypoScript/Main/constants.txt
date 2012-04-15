@@ -41,20 +41,38 @@ plugin.tx_powermail {
 			mailformat = both
 
 			overwrite {
-				# cat=powermail_additional//0230; type=text; label= Receiver overwrite Email: Commaseparated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)
+				# cat=powermail_additional//0250; type=text; label= Receiver overwrite Email: Commaseparated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)
 				email =
 
-				# cat=powermail_additional//0240; type=text; label= Receiver overwrite Name: Receiver Name overwrites flexform settings (e.g. Receiver Name)
+				# cat=powermail_additional//0252; type=text; label= Receiver overwrite Name: Receiver Name overwrites flexform settings (e.g. Receiver Name)
 				name =
 
-				# cat=powermail_additional//0250; type=text; label= Receiver SenderName: Sender Name for mail to receiver overwrites flexform settings (e.g. Sender Name)
+				# cat=powermail_additional//0254; type=text; label= Receiver overwrite SenderName: Sender Name for mail to receiver overwrites flexform settings (e.g. Sender Name)
 				senderName =
 
-				# cat=powermail_additional//0260; type=text; label= Receiver SenderEmail: Sender Email for mail to receiver overwrites flexform settings (e.g. sender@mail.com)
+				# cat=powermail_additional//0256; type=text; label= Receiver overwrite SenderEmail: Sender Email for mail to receiver overwrites flexform settings (e.g. sender@mail.com)
 				senderEmail =
 
-				# cat=powermail_additional//0270; type=text; label= Receiver Mail Subject: Subject for mail to receiver overwrites flexform settings (e.g. New Mail from website)
+				# cat=powermail_additional//0258; type=text; label= Receiver overwrite Mail Subject: Subject for mail to receiver overwrites flexform settings (e.g. New Mail from website)
 				subject =
+
+				# cat=powermail_additional//0260; type=text; label= Receiver CC Email Addresses: Commaseparated list of cc mail receivers (e.g. rec2@mail.com, rec3@mail.com)
+				cc =
+
+				# cat=powermail_additional//0262; type=text; label= Receiver BCC Email Addresses: Commaseparated list of bcc mail receivers (e.g. rec2@mail.com, rec3@mail.com)
+				bcc =
+
+				# cat=powermail_additional//0264; type=text; label= Receiver Mail Return Path: Return Path for emails to receiver (e.g. return@mail.com)
+				returnPath =
+
+				# cat=powermail_additional//0266; type=text; label= Receiver Mail Reply Mail: Reply Email address for mail to receiver (e.g. reply@mail.com)
+				replyToEmail =
+
+				# cat=powermail_additional//0268; type=text; label= Receiver Mail Reply Name: Reply Name for mail to receiver (e.g. Mr. Reply)
+				replyToName =
+
+				# cat=powermail_additional//0270; type=options[1,2,3,4,5]; label= Receiver Mail Priority: Set mail priority for mail to receiver (e.g. 3)
+				priority = 3
 			}
 		}
 
