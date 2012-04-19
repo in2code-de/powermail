@@ -56,6 +56,11 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	protected $answersRepository;
 
 	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * cObj
 	 *
 	 * @var Content Object
@@ -95,6 +100,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// get forms
 		$forms = $this->formsRepository->findByUids($this->settings['main']['form']);
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($forms, $this));
 		$this->view->assign('forms', $forms);
 		$this->view->assign('messageClass', $this->messageClass);
 		$this->view->assign('action', ($this->settings['main']['confirmation'] ? 'confirmation' : 'create'));
@@ -117,6 +123,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function confirmationAction(array $field = array(), $form = NULL) {
 		$this->div->addUploadsToFields($field); // add upload fields
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($field, $form, $this));
 		$this->view->assign('field', $field);
 		$this->view->assign('form', $form);
 
@@ -148,6 +155,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	public function createAction(array $field = array(), $form = NULL, $mail = NULL) {
 		// add uploaded files to $field
 		$this->div->addUploadsToFields($field);
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($field, $form, $mail, $this));
 
 		// Debug Output
 		if ($this->settings['debug']['variables']) {
@@ -413,6 +421,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * return void
 	 */
 	public function optinConfirmAction($mail = null, $hash = null) {
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		$mail = $this->mailsRepository->findByUid($mail);
 
 		if (!empty($hash) && $hash == $this->div->createOptinHash($mail->getUid() . $mail->getPid() . $mail->getForm())) {
@@ -450,6 +459,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
 		$this->div->mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {
@@ -490,6 +500,13 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 */
 	public function injectAnswersRepository(Tx_Powermail_Domain_Repository_AnswersRepository $answersRepository) {
 		$this->answersRepository = $answersRepository;
+	}
+
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+	    $this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 
 }
