@@ -35,7 +35,7 @@ x redirect after submit via ts
 x localization improvement
 x CSS selector to output
 x add constants
-o add some signalslots
+x add some signalslots
 o documentation
 o small video
 
