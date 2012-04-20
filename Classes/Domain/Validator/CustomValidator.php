@@ -25,6 +25,16 @@ class Tx_Powermail_Domain_Validator_CustomValidator extends Tx_Extbase_Validatio
 	}
 
 	/**
+	 * Function can be called from slot to set an error message
+	 *
+	 * @param $message
+	 * @param $code
+	 */
+	public function setError($message, $code) {
+		$this->addError($message, $code);
+	}
+
+	/**
 	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
 	 */
 	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
