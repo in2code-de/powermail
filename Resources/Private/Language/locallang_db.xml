@@ -61,7 +61,8 @@
 			<label index="tx_powermail_domain_model_fields.type.12">File Upload</label>
 			<label index="tx_powermail_domain_model_fields.type.13">Hidden Field</label>
 			<label index="tx_powermail_domain_model_fields.type.14">Date</label>
-			<label index="tx_powermail_domain_model_fields.type.15">TypoScript</label>
+			<label index="tx_powermail_domain_model_fields.type.15">Location</label>
+			<label index="tx_powermail_domain_model_fields.type.16">TypoScript</label>
 			<label index="tx_powermail_domain_model_fields.settings">Options</label>
 			<label index="tx_powermail_domain_model_fields.path">TypoScript Path (e.g. lib.test)</label>
 			<label index="tx_powermail_domain_model_fields.content_element">Select Content Element</label>
@@ -226,7 +227,8 @@
 			<label index="tx_powermail_domain_model_fields.type.12">Datei Upload</label>
 			<label index="tx_powermail_domain_model_fields.type.13">Verstecktes Feld</label>
 			<label index="tx_powermail_domain_model_fields.type.14">Datum</label>
-			<label index="tx_powermail_domain_model_fields.type.15">TypoScript</label>
+			<label index="tx_powermail_domain_model_fields.type.15">Location</label>
+			<label index="tx_powermail_domain_model_fields.type.16">TypoScript</label>
 			<label index="tx_powermail_domain_model_fields.settings">Optionen</label>
 			<label index="tx_powermail_domain_model_fields.path">TypoScript Pfad (z.B. lib.test)</label>
 			<label index="tx_powermail_domain_model_fields.content_element">Inhalt auswählen</label>

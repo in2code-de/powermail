@@ -183,6 +183,10 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 					),
 					array(
 						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.type.15',
+						'location'
+					),
+					array(
+						'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.type.16',
 						'typoscript'
 					),
 					array(
@@ -418,7 +422,7 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 				'maxitems' => 1,
 				'eval' => ''
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,submit'
+			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,submit,location'
 		),
 		'marker_title' => array(
 			'l10n_mode' => 'exclude',
