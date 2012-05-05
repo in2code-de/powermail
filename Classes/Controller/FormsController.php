@@ -372,7 +372,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$newMail->setSenderMail($this->div->getSenderMailFromArguments($field));
 		$newMail->setSenderName($this->div->getSenderNameFromArguments($field));
 		$newMail->setSubject($this->settings['receiver']['subject']);
-		$newMail->setBody(t3lib_div::view_array($this->div->getVariablesWithLabels($field)));
+		$newMail->setBody(t3lib_utility_Debug::viewArray($this->div->getVariablesWithLabels($field)));
 		$newMail->setReceiverMail($this->settings['receiver']['email']);
 		if (intval($GLOBALS['TSFE']->fe_user->user['uid']) > 0) {
 			$newMail->setFeuser($GLOBALS['TSFE']->fe_user->user['uid']);

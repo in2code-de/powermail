@@ -152,7 +152,7 @@ class Tx_Powermail_Utility_Marketing {
 		$info = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionPrefix);
 		$string = 'Powermail Marketing:<br />';
 		if (is_array($info)) {
-			$string .= t3lib_div::view_array($info);
+			$string .= t3lib_utility_Debug::viewArray($info);
 		} else {
 			$string .= 'Empty Session!';
 		}
