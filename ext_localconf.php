@@ -53,6 +53,11 @@ $GLOBALS ['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['pro
 	'EXT:' . $_EXTKEY . '/Classes/Utility/InitialMarker.php:Tx_Powermail_Utility_InitialMarker';
 
 /**
+ * eID to get location from geo coordinates
+ */
+$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] = 'EXT:powermail/Classes/Utility/EidGetLocation.php';
+
+/**
  * Extra evaluation of TCA fields
  */
 $TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['Tx_Powermail_Utility_EvaluateEmail'] = 'EXT:powermail/Classes/Utility/EvaluateEmail.php';

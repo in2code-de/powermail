@@ -3,6 +3,9 @@
  */
 jQuery(document).ready(function($) {
 
+	// Baseurl
+	var baseurl = getBaseUrl();
+
 	// Form validation
 	$('.powermail_form').validationEngine();
 
@@ -39,6 +42,11 @@ jQuery(document).ready(function($) {
 		prevText: '&lt;',
 		firstDay: 1
 	});
+
+	// Location field
+	if ($('.powermail_fieldwrap_location input').length > 0) {
+		getLocationAndWrite();
+	}
 });
 
 /**
@@ -62,4 +70,49 @@ function checkCheckboxes(field, rules, i, options) {
 	if (!checked) {
 		return options.allrules.checkCheckboxes.alertText;
 	}
+}
+
+/**
+ * Getting the Location by the browser and write to inputform as address
+ *
+ * @return void
+ */
+function getLocationAndWrite() {
+	if (navigator.geolocation) { // Read location from Browser
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var lat = position.coords.latitude;
+			var lng = position.coords.longitude;
+			var url = baseurl + '/index.php' + '?eID=' + 'powermailEidGetLocation';
+			$.ajax({
+				url: url,
+				data: 'lat=' + lat + '&lng=' + lng,
+				cache: false,
+				beforeSend: function(jqXHR, settings) {
+					$('body').css('cursor', 'wait');
+				},
+				complete: function(jqXHR, textStatus) {
+					$('body').css('cursor', 'default');
+				},
+				success: function(data) { // return values
+					if (data) {
+						$('.powermail_fieldwrap_location input').val(data);
+					}
+				}
+			});
+		});
+	}
+}
+
+/**
+ * Return BaseUrl as prefix
+ *
+ * @return	string	Base Url
+ */
+function getBaseUrl() {
+	if ($('base').length > 0) {
+		baseurl = $('base').attr('href');
+	} else {
+		baseurl = window.location.hostname;
+	}
+	return baseurl;
 }
