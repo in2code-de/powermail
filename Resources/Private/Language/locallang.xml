@@ -52,7 +52,7 @@
 			<label index="validationerror_upload_size">The file, that you want to upload is too large!</label>
 			<label index="validationerror_upload_error">Upload failed, please check permissons on the server!</label>
 			<label index="validationerror_spam">Spam recognized:</label>
-			<label index="validationerror_spamshield_akismet">Spam chance in this message!</label>
+			<label index="validationerror_spam_details">Spam chance in this message!</label>
 			<label index="writePasswordAgain">Please write again</label>
 			<label index="datepicker_dateformat">yy-mm-dd</label>
 			<label index="datepicker_day_so">So</label>
