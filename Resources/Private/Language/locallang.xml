@@ -125,7 +125,7 @@
 			<label index="BackendListFilterName">Sender Name</label>
 			<label index="BackendListFilterMail">Sender Email</label>
 			<label index="BackendListFilterSubject">Subject</label>
-			<label index="BackendListFilterHidden">Deaktivated Mails</label>
+			<label index="BackendListFilterHidden">Deactivated Mails</label>
 			<label index="BackendListFilterAddField">Additional Fields</label>
 			<label index="BackendListFilterClean">Delete Filters</label>
 			<label index="BackendListFilterCleanLink">Show all Mails</label>
