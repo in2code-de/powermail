@@ -344,16 +344,11 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// if redirect target
 		if ($target) {
-			$linkVars = array(
-				'parameter' => $target,
-				'returnLast' => 'url', // Give me only the string
-				'useCacheHash' => 0, // Don't use cache
-				'section' => '' // clear section value if any
-			);
-			$url = $this->cObj->typolink('', $linkVars);
-			$this->redirectToUri($url);
-			return;
+			$this->uriBuilder->setTargetPageUid($target);
+			$link = $this->uriBuilder->build();
+			$this->redirectToUri($link);
 		}
+		return;
 	}
 
 	/**

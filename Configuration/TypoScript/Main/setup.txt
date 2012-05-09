@@ -286,7 +286,7 @@ plugin.tx_powermail {
 
 				# Use Google Adwords Conversion JavaScript on form submit
 				googleAdwords {
-					_enable = 1
+					_enable = 0
 					google_conversion_id = 1234567890
 					google_conversion_label = abcdefghijklmnopqrs
 					google_conversion_language = en
