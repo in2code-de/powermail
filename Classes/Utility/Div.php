@@ -316,14 +316,19 @@ class Tx_Powermail_Utility_Div {
 			$mail[$value] = $this->fluidParseString($mail[$value], $objectManager, $this->getVariablesWithMarkers($fields));
 		}
 
-		// stop mail process if subject is empty
-		if (empty($mail['subject'])) {
-			return false;
-		}
-
 		// Debug Output
 		if ($settings['debug']['mail']) {
 			t3lib_utility_Debug::debug($mail, 'powermail debug: Show Mail');
+		}
+
+		// stop mail process if receiver email is not valid
+		if (!t3lib_div::validEmail($mail['receiverEmail'])) {
+			return false;
+		}
+
+		// stop mail process if subject is empty
+		if (empty($mail['subject'])) {
+			return false;
 		}
 
 		// generate mail body
@@ -582,9 +587,9 @@ class Tx_Powermail_Utility_Div {
 		$string = str_replace(array("\n", ';', '|'), ',', $string);
 		$arr = t3lib_div::trimExplode(',', $string, 1);
 		foreach ($arr as $email) {
-			if (t3lib_div::validEmail($email)) {
-				$array[] = $email;
-			}
+//			if (t3lib_div::validEmail($email)) {
+			$array[] = $email;
+//			}
 		}
 		return $array;
 	}
