@@ -440,9 +440,9 @@ config.tx_extbase.persistence.classes {
 page {
 	# Inlude JavaScript files
 	includeJSFooterlibs {
-		jQuery = https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
+		jQuery = {$plugin.tx_powermail.settings.javascript.jQuery}
 		jQuery.external = 1
-		jQueryUi = https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js
+		jQueryUi = {$plugin.tx_powermail.settings.javascript.jQueryUi}
 		jQueryUi.external = 1
 		jQueryUiDatepicker = EXT:powermail/Resources/Public/Js/jquery.ui.datepicker.min.js
 		jQueryFormValidationLanguage = EXT:powermail/Resources/Public/Js/jquery.validationEngine-en.js
