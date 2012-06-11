@@ -21,7 +21,7 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
- 
+
 // stop implementation in frontend (only for backend)
 if (!interface_exists(tx_scheduler_AdditionalFieldProvider)) {
 	return;
@@ -36,15 +36,15 @@ if (!interface_exists(tx_scheduler_AdditionalFieldProvider)) {
  */
 
 class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldProvider {
-   
+
 	/**
 	* Add additional fields to the scheduler
 	*
 	* @return    array
 	*/
     public function getAdditionalFields(array &$taskInfo, $task, tx_scheduler_Module $parentObject) {
-    	$additionalFields = array(); 
-		
+    	$additionalFields = array();
+
         if (empty($taskInfo['pid'])) {
             if ($parentObject->CMD == 'edit') {
                 $taskInfo['pid'] = $task->pid;
@@ -52,7 +52,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
                 $taskInfo['pid'] = '';
             }
         }
-		
+
         if (empty($taskInfo['filename'])) {
             if ($parentObject->CMD == 'edit') {
                 $taskInfo['filename'] = $task->filename;
@@ -68,7 +68,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
                 $taskInfo['email'] = '';
             }
         }
-		
+
         if (empty($taskInfo['email_sender'])) {
             if ($parentObject->CMD == 'edit') {
                 $taskInfo['email_sender'] = $task->email_sender;
@@ -119,7 +119,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 
         // Write the code for the pid field
         $fieldID = 'task_pid';
-        $fieldCode = '<input type="text" name="tx_scheduler[pid]" id="' . $fieldID . '" value="' . $taskInfo['pid'] . '" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[pid]" id="' . $fieldID . '" value="' . htmlspecialchars($taskInfo['pid']) . '" />';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Page ID with powermails'
@@ -127,7 +127,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 
         // Write the code for the filename field
         $fieldID = 'task_filename';
-        $fieldCode = '<input type="text" name="tx_scheduler[filename]" id="' . $fieldID . '" value="' . $taskInfo['filename'] . '" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[filename]" id="' . $fieldID . '" value="' . htmlspecialchars($taskInfo['filename']) . '" />';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Filename for export without extension (leave empty for automatic generated filename)'
@@ -135,7 +135,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 
         // Write the code for the email field
         $fieldID = 'task_email';
-        $fieldCode = '<input type="text" name="tx_scheduler[email]" id="' . $fieldID . '" value="' . $taskInfo['email'] . '" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[email]" id="' . $fieldID . '" value="' . htmlspecialchars($taskInfo['email']) . '" />';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Email receiver'
@@ -143,7 +143,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 
         // Write the code for the email_sender field
         $fieldID = 'task_email_sender';
-        $fieldCode = '<input type="text" name="tx_scheduler[email_sender]" id="' . $fieldID . '" value="' . $taskInfo['email_sender'] . '" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[email_sender]" id="' . $fieldID . '" value="' . htmlspecialchars($taskInfo['email_sender']) . '" />';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Email sender'
@@ -151,7 +151,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 
         // Write the code for the sender field
         $fieldID = 'task_sender';
-        $fieldCode = '<input type="text" name="tx_scheduler[sender]" id="' . $fieldID . '" value="' . $taskInfo['sender'] . '" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[sender]" id="' . $fieldID . '" value="' . htmlspecialchars($taskInfo['sender']) . '" />';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Sender Name'
@@ -159,7 +159,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 
         // Write the code for the subject field
         $fieldID = 'task_subject';
-        $fieldCode = '<input type="text" name="tx_scheduler[subject]" id="' . $fieldID . '" value="' . $taskInfo['subject'] . '" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[subject]" id="' . $fieldID . '" value="' . htmlspecialchars($taskInfo['subject']) . '" />';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Email subject'
@@ -167,7 +167,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 
         // Write the code for the body field
         $fieldID = 'task_body';
-        $fieldCode = '<textarea name="tx_scheduler[body]" id="' . $fieldID . '" cols="30" rows="5">' . $taskInfo['body'] . '</textarea>';
+        $fieldCode = '<textarea name="tx_scheduler[body]" id="' . $fieldID . '" cols="30" rows="5">' . htmlspecialchars($taskInfo['body']) . '</textarea>';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Email body'
@@ -175,7 +175,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 
         // Write the code for the timeframe field
         $fieldID = 'task_timeframe';
-        $fieldCode = '<input type="text" name="tx_scheduler[timeframe]" id="' . $fieldID . '" value="' . ($taskInfo['timeframe'] == '' ? '86400' : $taskInfo['timeframe']) . '" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[timeframe]" id="' . $fieldID . '" value="' . ($taskInfo['timeframe'] == '' ? '86400' : htmlspecialchars($taskInfo['timeframe'])) . '" />';
         $additionalFields[$fieldID] = array(
             'code'     => $fieldCode,
             'label'    => 'Timeframe in seconds'
@@ -213,7 +213,7 @@ class tx_powermail_scheduler_addFields implements tx_scheduler_AdditionalFieldPr
 		}
         return true;
     }
-   
+
 	/**
 	* make values available in scheduler object
 	*
