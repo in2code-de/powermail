@@ -96,8 +96,8 @@
 			<label index="BackendCheckT3VersionCorrect">The used TYPO3 version is correct for this Powermail version</label>
 			<label index="BackendCheckT3VersionFailed">Please check the TYPO3 version - maybe Powermail works not properly in this version</label>
 			<label index="BackendCheckUploadsFolderTitle">Upload Folder</label>
-			<label index="BackendCheckUploadsFolderCorrect">Default Upload exists (uploads/tx_powermail/)</label>
-			<label index="BackendCheckUploadsFolderFailed">Default Upload don't exists (uploads/tx_powermail/)</label>
+			<label index="BackendCheckUploadsFolderCorrect">Default Upload Folder exists (uploads/tx_powermail/)</label>
+			<label index="BackendCheckUploadsFolderFailed">Default Upload Folder don't exists (uploads/tx_powermail/)</label>
 			<label index="BackendEmailTitle">Test Email Sending</label>
 			<label index="BackendEmailFormTitle">Test email generation with powermail</label>
 			<label index="BackendEmailFormReceiver">Receiver Email</label>
