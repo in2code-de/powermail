@@ -497,7 +497,8 @@ class Tx_Powermail_Utility_Div {
 		);
 
 		// let's go
-		$content = str_replace($htmltagarray, $htmltagarray[0].'<br />', $content); // 1. add linebreaks on some parts (</p> => </p><br />)
+		$content = nl2br($content);
+		$content = str_replace($htmltagarray, $htmltagarray[0] . '<br />', $content); // 1. add linebreaks on some parts (</p> => </p><br />)
 		$content = strip_tags($content, '<br><address>'); // 2. remove all tags but not linebreaks and address (<b>bla</b><br /> => bla<br />)
 		$content = preg_replace('/\s+/', ' ', $content); // 3. removes tabs and whitespaces
 		$content = $this->br2nl($content); // 4. <br /> to \n
