@@ -19,6 +19,7 @@ class Tx_Powermail_ViewHelpers_Misc_ErrorClassViewHelper extends Tx_Fluid_Core_V
     public function render($field, $class) {
 
 		// get all errors
+		// @TODO remove the deprecated method call
 		$errors = $this->controllerContext->getRequest()->getErrors();
 		foreach ($errors as $key => $error) {
 			if ($key != 'field') {

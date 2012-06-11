@@ -22,7 +22,9 @@ class Tx_Powermail_ViewHelpers_BeCheck_T3VersionViewHelper extends Tx_Fluid_View
 		$versionString = $EM_CONF[$_EXTKEY]['constraints']['depends']['typo3'];
 		$versions = explode('-', $versionString);
 
-		if (t3lib_div::int_from_ver(TYPO3_version) > t3lib_div::int_from_ver($versions[0]) && t3lib_div::int_from_ver(TYPO3_version) < t3lib_div::int_from_ver($versions[1])) {
+		$isAboveMinVersion = (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) > t3lib_utility_VersionNumber::convertVersionNumberToInteger($versions[0]));
+		$isBelowMaxVersion = (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < t3lib_utility_VersionNumber::convertVersionNumberToInteger($versions[1]));
+		if ($isAboveMinVersion && $isBelowMaxVersion) {
 			return true;
 		}
 		return false;

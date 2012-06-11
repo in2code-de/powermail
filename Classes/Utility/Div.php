@@ -293,7 +293,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param	array		All arguments from POST or GET
 	 * @param	array		TypoScript Settings
 	 * @param	string		Email to "sender" or "receiver"
-	 * @param 	object		$objectManager
+	 * @param Tx_Extbase_Object_ObjectManager $objectManager
 	 * @param 	object		$configurationManager
 	 * @return 	boolean 	TRUE on success, otherwise false
 	 */
@@ -302,7 +302,8 @@ class Tx_Powermail_Utility_Div {
 		 * Settings
 		 ****************/
 		$cObj = $configurationManager->getContentObject();
-		$conf = Tx_Extbase_Utility_TypoScript::convertPlainArrayToTypoScriptArray($settings);
+		$typoScriptService = $objectManager->get('Tx_Extbase_Service_TypoScriptService');
+		$conf = $typoScriptService->convertTypoScriptArrayToPlainArray($settings);
 
 		// parsing variables with fluid engine to allow viewhelpers and variables in some flexform fields
 		$parse = array(
