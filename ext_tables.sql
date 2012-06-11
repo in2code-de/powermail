@@ -107,6 +107,12 @@ CREATE TABLE tx_powermail_domain_model_fields (
 	own_marker_select tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	marker varchar(255) DEFAULT '' NOT NULL,
 
+	# Dummy Fields
+	validation_title tinyint(2) unsigned DEFAULT '0' NOT NULL,
+	prefill_title tinyint(2) unsigned DEFAULT '0' NOT NULL,
+	marker_title tinyint(2) unsigned DEFAULT '0' NOT NULL,
+	auto_marker tinyint(2) unsigned DEFAULT '0' NOT NULL,
+
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
