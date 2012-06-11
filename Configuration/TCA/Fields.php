@@ -9,7 +9,7 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, type, settings, path, content_element, text, prefill_value, mandatory, validation, css, feuser_value, sender_email, sender_name, own_marker_select, auto_marker, marker',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'title, type, settings, path, content_element, text, --palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.palette1;1, --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.sheet1, validation_title, --palette--;Own marker;2, prefill_title, --palette--;Own marker;3, css, marker_title, --palette--;Own marker;4,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime'),
+		'1' => array('showitem' => 'title, type, settings, path, content_element, text, --palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.palette1;1, --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.sheet1, validation_title, --palette--;Validation;2, prefill_title, --palette--;Prefill;3, css, marker_title, --palette--;Variables;4,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => 'sender_email, sender_name'),
