@@ -422,7 +422,7 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 				'maxitems' => 1,
 				'eval' => ''
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,submit,location'
+			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,submit,location,text'
 		),
 		'marker_title' => array(
 			'l10n_mode' => 'exclude',
