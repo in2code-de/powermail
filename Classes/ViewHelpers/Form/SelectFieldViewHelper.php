@@ -42,7 +42,7 @@ class Tx_Powermail_ViewHelpers_Form_SelectFieldViewHelper extends Tx_Fluid_ViewH
 
 		// option
 		foreach ($options as $option) {
-			$string .= '<option value="' . $option['value'] . '"';
+			$string .= '<option value="' . htmlspecialchars($option['value']) . '"';
 			if (
 				($option['selected'] && !$this->getValue()) || // preselect from flexform
 				($this->getValue() && ($option['value'] == $this->getValue() || $option['label'] == $this->getValue())) // preselect from piVars
@@ -50,7 +50,7 @@ class Tx_Powermail_ViewHelpers_Form_SelectFieldViewHelper extends Tx_Fluid_ViewH
 				$string .= ' selected="selected"';
 			}
 			$string .= '>';
-			$string .= $option['label'];
+			$string .= htmlspecialchars($option['label']);
 			$string .= '</option>';
 		}
 		$string .= '</select>';

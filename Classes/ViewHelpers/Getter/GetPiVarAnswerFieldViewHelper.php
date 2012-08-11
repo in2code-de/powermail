@@ -17,7 +17,7 @@ class Tx_Powermail_ViewHelpers_Getter_GetPiVarAnswerFieldViewHelper extends Tx_F
 	 */
 	public function render($fieldUid, $piVars) {
 		if (isset($piVars['filter']['answer'][$fieldUid])) {
-			return $piVars['filter']['answer'][$fieldUid];
+			return htmlspecialchars($piVars['filter']['answer'][$fieldUid]);
 		}
 	}
 }

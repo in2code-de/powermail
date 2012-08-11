@@ -121,9 +121,10 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 				break;
 			}
 		}
+		$sortby = preg_replace('/[^a-zA-Z0-9_-]/', '', $sortby);
 		$query->setOrderings(
 			array(
-				 $sortby => $order
+				$sortby => $order
 			)
 		);
 
@@ -213,9 +214,10 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 			)
 		);
 		foreach ((array) $sorting as $field => $order) {
+			$field = preg_replace('/[^a-zA-Z0-9_-]/', '', $field);
 			$query->setOrderings(
 				array(
-					 $field => ($order == 'asc' ? Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING)
+					$field => ($order == 'asc' ? Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING)
 				)
 			);
 		}
