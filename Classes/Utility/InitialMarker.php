@@ -45,7 +45,7 @@ class Tx_Powermail_Utility_InitialMarker {
 	 * @return	an updated fieldArray()
 	 */
 	public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, $pObj) {
-		if ($table != 'tx_powermail_domain_model_fields') { // stop if not powermail field table
+		if ($table != 'tx_powermail_domain_model_fields' || $status != 'new') { // stop if not powermail field table
 			return $fieldArray;
 		}
 		if (!empty($fieldArray['marker'])) { // stop if marker field is already filled
