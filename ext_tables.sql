@@ -207,7 +207,7 @@ CREATE TABLE tx_powermail_domain_model_answers (
 
 	mail int(11) unsigned DEFAULT '0' NOT NULL,
 
-	value varchar(255) DEFAULT '' NOT NULL,
+	value text NOT NULL,
 	field int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
