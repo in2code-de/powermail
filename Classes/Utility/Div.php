@@ -322,8 +322,8 @@ class Tx_Powermail_Utility_Div {
 			t3lib_utility_Debug::debug($mail, 'powermail debug: Show Mail');
 		}
 
-		// stop mail process if receiver email is not valid
-		if (!t3lib_div::validEmail($mail['receiverEmail'])) {
+		// stop mail process if receiver or sender email is not valid
+		if (!t3lib_div::validEmail($mail['receiverEmail']) || !t3lib_div::validEmail($mail['senderEmail'])) {
 			return false;
 		}
 
