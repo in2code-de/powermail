@@ -440,23 +440,23 @@ config.tx_extbase.persistence.classes {
 page {
 	# Inlude JavaScript files
 	includeJSFooterlibs {
-		jQuery = {$plugin.tx_powermail.settings.javascript.jQuery}
-		jQuery.external = 1
-		jQueryUi = {$plugin.tx_powermail.settings.javascript.jQueryUi}
-		jQueryUi.external = 1
-		jQueryUiDatepicker = EXT:powermail/Resources/Public/Js/jquery.ui.datepicker.min.js
-		jQueryFormValidationLanguage = EXT:powermail/Resources/Public/Js/jquery.validationEngine-en.js
-		jQueryFormValidation = EXT:powermail/Resources/Public/Js/jquery.validationEngine.js
-		jQueryTabs = EXT:powermail/Resources/Public/Js/tabs.js
+		powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
+		powermailJQuery.external = 1
+		powermailJQueryUi = {$plugin.tx_powermail.settings.javascript.powermailJQueryUi}
+		powermailJQueryUi.external = 1
+		powermailJQueryUiDatepicker = EXT:powermail/Resources/Public/Js/jquery.ui.datepicker.min.js
+		powermailJQueryFormValidationLanguage = EXT:powermail/Resources/Public/Js/jquery.validationEngine-en.js
+		powermailJQueryFormValidation = EXT:powermail/Resources/Public/Js/jquery.validationEngine.js
+		powermailJQueryTabs = EXT:powermail/Resources/Public/Js/tabs.js
 	}
 	includeJSFooter {
-		powermail_form = EXT:powermail/Resources/Public/Js/form.js
+		powermailForm = EXT:powermail/Resources/Public/Js/form.js
 	}
 
 	# Include CSS files
 	includeCSS {
-		jQueryUiTheme = EXT:powermail/Resources/Public/Css/jquery.ui.theme.css
-		jQueryUiDatepicker = EXT:powermail/Resources/Public/Css/jquery.ui.datepicker.css
+		powermailJQueryUiTheme = EXT:powermail/Resources/Public/Css/jquery.ui.theme.css
+		powermailJQueryUiDatepicker = EXT:powermail/Resources/Public/Css/jquery.ui.datepicker.css
 	}
 }
 

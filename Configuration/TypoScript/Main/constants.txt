@@ -194,11 +194,11 @@ plugin.tx_powermail {
 		}
 
 		javascript {
-			# cat=powermail_additional//1000; type=boolean; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
-			jQuery = https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
+			# cat=powermail_additional//1000; type=text; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
+			powermailJQuery = https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
 
-			# cat=powermail_additional//1010; type=boolean; label= jQuery UI Source: Change jQuery UI Source - per default it will be loaded from googleapis.com
-			jQueryUi = https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js
+			# cat=powermail_additional//1010; type=text; label= jQuery UI Source: Change jQuery UI Source - per default it will be loaded from googleapis.com
+			powermailJQueryUi = https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js
 		}
 
 	}
