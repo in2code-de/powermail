@@ -528,7 +528,7 @@ module.tx_powermail {
 		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = EXT:powermail/Resources/Private/Templates/
 	}
 	persistence {
-		storagePid = {$plugin.tx_powermail.persistence.storagePid}
+		storagePid = {$plugin.tx_powermail.settings.main.pid}
 	}
 	settings {
 
