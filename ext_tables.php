@@ -75,6 +75,7 @@ if (TYPO3_MODE == 'BE') {
  */
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Main', 'Main Template');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Powermail_Frontend', 'Powermail_Frontend');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/CssBasic', 'Add basic CSS');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/CssFancy', 'Add fancy CSS');
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Marketing', 'Marketing Information');
 
