@@ -303,7 +303,7 @@ class Tx_Powermail_Utility_Div {
 		 ****************/
 		$cObj = $configurationManager->getContentObject();
 		$typoScriptService = $objectManager->get('Tx_Extbase_Service_TypoScriptService');
-		$conf = $typoScriptService->convertTypoScriptArrayToPlainArray($settings);
+		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
 
 		// parsing variables with fluid engine to allow viewhelpers and variables in some flexform fields
 		$parse = array(
