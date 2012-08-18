@@ -22,7 +22,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-$.fn.tabs = function(options){
+$.fn.tabs = function(options) {
+	'use strict';
 	var $this = $(this);
 	options = $.extend({
 		container: 'fieldset',
@@ -30,18 +31,26 @@ $.fn.tabs = function(options){
 	},options);
 
 	// generate menu
-	var string = '<ul id="powermail_tabmenu">';
-	$this.children(options.container).children(options.header).each(function(i){
-		if (i == 0) {
-			string += '<li class="act">';
-		} else {
-			string += '<li>';
-		}
-		string += $(this).html();
-		string += '</li>';
+	var $ul = $('<ul />', {id:'powermail_tabmenu', class:'powermail_tabmenu'}).insertBefore($this.children(options.container).filter(':first'));
+
+	//all containers
+	$this.children(options.container).each(function(i, $fieldset){
+		//tab_menu
+		$ul.append(
+			$('<li/>')
+			.html($(this).children(options.header).html())
+			.addClass((i==0) ? 'act' : '')
+			.click({
+				container: $this.children(options.container),
+				fieldset: $($fieldset)
+			}, function(e){
+				$('.powermail_tabmenu li', $this).removeClass('act');
+				$(this).addClass('act');
+				e.data.container.hide();
+				e.data.fieldset.show()
+			})
+		)
 	});
-	string += '</ul>';
-	$this.prepend(string);
 
 	// initial show first fieldset
 	$this.children(options.container).hide();
@@ -50,13 +59,5 @@ $.fn.tabs = function(options){
 	// Stop submit
 	$this.submit(function(e) {
 		//e.preventDefault();
-	});
-
-	$('#powermail_tabmenu li').live('click', function() {
-		$('#powermail_tabmenu li').removeClass('act');
-		$(this).addClass('act');
-		$this.children(options.container).hide(); // hide all fieldsets
-		var index = $(this).index('#powermail_tabmenu li'); // get index
-		$this.children(options.container).slice(index, index +1).show(); // show selected fieldset
 	});
 }
