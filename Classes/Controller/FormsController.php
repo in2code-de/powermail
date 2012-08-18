@@ -432,7 +432,16 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 				foreach ($mail->getAnswers() as $answer) {
 					$fields[$answer->getField()] = $answer->getValue();
 				}
-				$this->forward('create', null, null, array('field' => $fields, 'form' => $mail->getForm(), 'mail' => $mail));
+				$arguments = array(
+					'field' => $fields,
+					'form' => $mail->getForm(),
+					'mail' => $mail,
+					'__referrer' => array(
+						'actionName' => 'optinConfirm'
+					)
+				);
+				$_POST['tx_powermail_pi1']['__referrer']['actionName'] = 'optinConfirm'; // workarround to set the referrer and call it again in the validator
+				$this->forward('create', null, null, $arguments);
 			}
 		}
 	}
@@ -456,7 +465,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
-		$this->div->mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform
+		$this->div->mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
 
 		// check if ts is included

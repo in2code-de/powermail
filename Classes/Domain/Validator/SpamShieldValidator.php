@@ -23,6 +23,13 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	protected $div;
 
 	/**
+	 * Referrer action
+	 *
+	 * @var string
+	 */
+	protected $referrer;
+
+	/**
 	 * Error messages for email to admin
 	 *
 	 * @var array
@@ -205,7 +212,8 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @return void
 	 */
 	private function sessionCheck($indication = 1) {
-		if (!$indication) {
+		// Stop sessionCheck if indicator was turned to 0 OR if last action was optinConfirm
+		if (!$indication || $this->referrer == 'optinConfirm') {
 			return;
 		}
 		$gp = t3lib_div::_GP('tx_powermail_pi1');
@@ -305,6 +313,16 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 */
 	private function formatSpamFactor($factor) {
 		return number_format(($factor * 100), 0) . '%';
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @return	void
+	 */
+	public function __construct() {
+		$piVars = t3lib_div::_GP('tx_powermail_pi1');
+		$this->referrer = $piVars['__referrer']['actionName'];
 	}
 
 	/**
