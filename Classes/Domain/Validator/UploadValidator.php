@@ -63,7 +63,10 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 	 */
 	public function isValid($field) {
 		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
+			// session stuff
 			$uploadSession = array();
+			Tx_Powermail_Utility_Div::setSessionValue('upload', array(), true); // clean old session before
+
 			foreach ($_FILES['tx_powermail_pi1']['name']['field'] as $uid => $filename) {
 
 				// if no file given
