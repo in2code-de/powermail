@@ -197,8 +197,10 @@ Show Backend Module: Powermail List
 			<f:translate key="BackendEmailFormTitle" />
 		</div>
 		<div class="message-body powermail-padding-bottom powermail_email">
-			<f:form action="checkBe" controller="List">
-				<label for="powermail_email"><f:translate key="BackendEmailFormReceiver" /></label>
+			<f:form action="checkBe" controller="Module">
+				<label for="powermail_email">
+					<f:translate key="BackendEmailFormReceiver" />
+				</label>
 				<f:form.textfield name="email" value="" id="powermail_email" class="powermail_email_input" />
 				<f:form.submit value="Send Mail Now" class="powermail_email_submit" />
 			</f:form>
