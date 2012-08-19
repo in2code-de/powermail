@@ -25,7 +25,7 @@
 
 
 /**
- * Class for uploading files and check if they are valide
+ * Class for uploading files and check if they are valid
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
@@ -63,6 +63,7 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 	 */
 	public function isValid($field) {
 		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
+			$uploadSession = array();
 			foreach ($_FILES['tx_powermail_pi1']['name']['field'] as $uid => $filename) {
 
 				// if no file given
@@ -82,17 +83,17 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 
 				// create new filename with absolute path
 				$newFile = $this->basicFileFunctions->getUniqueName($filename, t3lib_div::getFileAbsFileName($this->settings['misc.']['file.']['folder']));
-//				$GLOBALS['powermail']['file'][$uid] = array(
-//					'filename' => $filename,
-//					'newFilename' => basename($newFile)
-//				);
-				$_FILES['tx_powermail_pi1']['name']['field'][$uid] = basename($newFile);
+				$uploadSession[] = $newFile; // create array for upload session
 				if (!t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['field'][$uid], $newFile)) {
 					$this->addError('upload_error', $uid);
 					$this->isValid = false;
 				}
 			}
+
+			// save uploaded filenames to session (to attach it later)
+			Tx_Powermail_Utility_Div::setSessionValue('upload', $uploadSession, true);
 		}
+
 		return $this->isValid;
   	}
 

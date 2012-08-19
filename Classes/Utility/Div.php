@@ -35,6 +35,11 @@
 class Tx_Powermail_Utility_Div {
 
 	/**
+	 * Extension Ke3y
+	 */
+	public static $extKey = 'powermail';
+
+	/**
 	 * Get Field Uid List from given Form Uid
 	 *
 	 * @param	integer		Form Uid
@@ -418,8 +423,9 @@ class Tx_Powermail_Utility_Div {
 
 		// add attachments from upload fields
 		if ($settings[$type]['attachment']) {
-			foreach ((array) $GLOBALS['powermail']['file'] as $uid => $upload) {
-				$message->attach(Swift_Attachment::fromPath($settings['misc']['file']['folder'] . $GLOBALS['powermail']['file'][$uid]['newFilename']));
+			$uploadsFromSession = Tx_Powermail_Utility_Div::getSessionValue('upload'); // read upload session
+			foreach ((array) $uploadsFromSession as $file) {
+				$message->attach(Swift_Attachment::fromPath($file));
 			}
 		}
 
@@ -915,7 +921,43 @@ class Tx_Powermail_Utility_Div {
 	}
 
 	/**
+	 * Set a powermail session (don't overwrite existing sessions)
+	 *
+	 * @param $name string			A session name
+	 * @param $value mixed			Values to save
+	 * @param $overwrite bool		Overwrite existing values
+	 * @return void
+	 */
+	static public function setSessionValue($name, $values, $overwrite = 0) {
+		if (!$overwrite) {
+			$oldValues = self::getSessionValue($name); // read existing values
+			$values = array_merge((array) $oldValues, (array) $values); // merge old values with new
+		}
+		$newValues = array(
+			$name => $values
+		);
+
+		$GLOBALS['TSFE']->fe_user->setKey('ses', self::$extKey, $newValues);
+		$GLOBALS['TSFE']->storeSessionData();
+	}
+
+	/**
+	 * Read a powermail session
+	 *
+	 * @param $name string			A session name
+	 * @return mixed				Values from session
+	 */
+	static public function getSessionValue($name = '') {
+		$powermailSession = $GLOBALS['TSFE']->fe_user->getKey('ses', self::$extKey);
+		if ($name && isset($powermailSession[$name])) {
+			return $powermailSession[$name];
+		}
+		return $powermailSession;
+	}
+
+	/**
 	 * Merges Flexform and TypoScript Settings (up to 2 levels) and add Global Config from ext_conf_template.txt
+	 * 		Why: It's not possible to have the same field in TypoScript and Flexform and if FF value is empty, we want the TypoScript value instead
 	 *
 	 * @param	array	All settings
 	 * @return	array	Merged settings
