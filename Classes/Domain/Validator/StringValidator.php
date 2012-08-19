@@ -44,7 +44,7 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 				continue;
 			}
 
-			// if mandatory field not activated
+			// if validation is empty
 			if (!$field->getValidation()) {
 				continue;
 			}
