@@ -53,8 +53,11 @@ div.tx-powermail {
 /**
  * Form
  */
+.powermail_form {
+	position: relative;
+}
 .powermail_fieldset {
-    clear: left;
+	clear: left;
 	border: 0;
 	padding: 10px;
 	margin-bottom: 20px;

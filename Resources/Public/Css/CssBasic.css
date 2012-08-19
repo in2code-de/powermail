@@ -36,6 +36,9 @@ div.tx-powermail {
 /**
  * Form
  */
+.powermail_form {
+	position: relative;
+}
 .powermail_fieldset {
 	clear: left;
 	border: 0;
