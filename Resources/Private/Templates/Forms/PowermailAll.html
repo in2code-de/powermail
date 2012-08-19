@@ -22,7 +22,7 @@ Section for Web view
 						</f:for>
 					</f:then>
 					<f:else>
-						{variable}
+						<f:format.nl2br>{variable}</f:format.nl2br>
 					</f:else>
 				</f:if>
 			</dd>
@@ -39,8 +39,10 @@ Section for Mails
 	<table class="powermail_all">
 		<f:for each="{variables}" as="variable" key="label">
 			<tr>
-				<td><b>{label}</b></td>
-				<td>
+				<td valign="top">
+					<b>{label}</b>
+				</td>
+				<td valign="top">
 					<f:if condition="{vh:Condition.IsArray(val: '{variable}')}">
 						<f:then>
 							<f:for each="{variable}" as="variable2" iteration="index">
@@ -50,7 +52,7 @@ Section for Mails
 							</f:for>
 						</f:then>
 						<f:else>
-							{variable}
+							<f:format.nl2br>{variable}</f:format.nl2br>
 						</f:else>
 					</f:if>
 				</td>
