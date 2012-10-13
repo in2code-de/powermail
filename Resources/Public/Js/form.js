@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 	$('.powermail_form').validationEngine();
 
 	// Tabs
-	$('.powermail_morestep').tabs();
+	$('.powermail_morestep').powermailTabs();
 
 	// Datepicker field
 	$('.powermail_date').datepicker({

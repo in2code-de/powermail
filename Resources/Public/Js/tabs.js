@@ -22,7 +22,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-$.fn.tabs = function(options) {
+$.fn.powermailTabs = function(options) {
 	'use strict';
 	var $this = $(this);
 	options = $.extend({
