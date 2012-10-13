@@ -101,8 +101,8 @@ powermail_frontend_rss {
 page {
 	# Inlude JavaScript files
 	includeJSFooterlibs {
-		jQuery = https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
-		jQuery.external = 1
+		powermailJQuery = https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
+		powermailJQuery.external = 1
 	}
 	includeJSFooter {
 		powermail_frontend = EXT:powermail/Resources/Public/Js/powermail_frontend.js
