@@ -31,7 +31,10 @@ $.fn.powermailTabs = function(options) {
 	},options);
 
 	// generate menu
-	var $ul = $('<ul />', {id:'powermail_tabmenu', class:'powermail_tabmenu'}).insertBefore($this.children(options.container).filter(':first'));
+	var $ul = $('<ul />', {
+		'id': 'powermail_tabmenu',
+		'class': 'powermail_tabmenu'
+	}).insertBefore($this.children(options.container).filter(':first'));
 
 	//all containers
 	$this.children(options.container).each(function(i, $fieldset){
