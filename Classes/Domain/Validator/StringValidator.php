@@ -44,7 +44,7 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 				continue;
 			}
 
-			// if validation of field Value empty
+			// if validation of field or value empty
 			if (empty($value) || !$field->getValidation()) {
 				continue;
 			}
