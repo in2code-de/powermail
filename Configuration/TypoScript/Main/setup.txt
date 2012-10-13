@@ -286,10 +286,10 @@ plugin.tx_powermail {
 
 				# Use Google Adwords Conversion JavaScript on form submit
 				googleAdwords {
-					_enable = 1
-					google_conversion_id = 1234567890
-					google_conversion_label = abcdefghijklmnopqrs
-					google_conversion_language = en
+					_enable = {$plugin.tx_powermail.settings.marketing.enable}
+					google_conversion_id = {$plugin.tx_powermail.settings.marketing.google_conversion_id}
+					google_conversion_label = {$plugin.tx_powermail.settings.marketing.google_conversion_label}
+					google_conversion_language = {$plugin.tx_powermail.settings.marketing.google_conversion_language}
 					google_conversion_format = 3
 				}
 

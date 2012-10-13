@@ -129,6 +129,20 @@ plugin.tx_powermail {
 			# cat=powermail_additional//0610; type=boolean; label= Storage Hidden Mails: Add mails with hidden flag (e.g. 1)
 			hidden = 0
 		}
+
+		marketing {
+			# cat=powermail_additional//0700; type=boolean; label= Enable Google Conversion: Enable JavaScript for google conversion - This is interesting if you want to track every submit in your Google Adwords account for a complete conversion.
+			enable = 0
+
+			# cat=powermail_additional//0710; type=int+; label= Google Conversion Id: Add your google conversion id (see www.google.com/adwords for details)
+			google_conversion_id = 1234567890
+
+			# cat=powermail_additional//0720; type=text; label= Google Conversion Label: Add your google conversion label (see www.google.com/adwords for details)
+			google_conversion_label = abcdefghijklmnopqrs
+
+			# cat=powermail_additional//0730; type=text; label= Google Conversion Language: Add your google conversion language (see www.google.com/adwords for details)
+			google_conversion_language = en
+		}
 		
 		misc {
 			# cat=powermail_additional//0800; type=boolean; label= Misc Enable HTML Field: Per default HTML-Fields are disabled in powermail for security reasons. If you aware of possible XSS from your editors, you can enable this field type (e.g. 1)
