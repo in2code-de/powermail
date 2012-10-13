@@ -44,8 +44,8 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 				continue;
 			}
 
-			// if validation is empty
-			if (!$field->getValidation()) {
+			// if validation of field Value empty
+			if (empty($value) || !$field->getValidation()) {
 				continue;
 			}
 
@@ -54,7 +54,7 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 
 				if (is_numeric($this->regEx[$field->getValidation()])) { // filter
 
-					if (!filter_var($value, $this->regEx[$field->getValidation()])) { // check failed
+					if (filter_var($value, $this->regEx[$field->getValidation()]) === false) { // check failed
 						$this->addError('validation', $uid);
 						$this->isValid = false;
 					}
