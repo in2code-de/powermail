@@ -52,7 +52,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 
 		// Different checks to increase spam indicator
 		$this->honeypodCheck($params, $this->settings['spamshield.']['indicator.']['honeypod']);
-		$this->linkCheck($params, $this->settings['spamshield.']['indicator.']['name'], $this->settings['spamshield.']['indicator.']['linkLimit']);
+		$this->linkCheck($params, $this->settings['spamshield.']['indicator.']['link'], $this->settings['spamshield.']['indicator.']['linkLimit']);
 		$this->nameCheck($params, $this->settings['spamshield.']['indicator.']['name']);
 		$this->sessionCheck($this->settings['spamshield.']['indicator.']['session']);
 		$this->uniqueCheck($params, $this->settings['spamshield.']['indicator.']['unique']);
