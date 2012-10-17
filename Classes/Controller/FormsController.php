@@ -154,7 +154,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @dontvalidate $mail
 	 * @return void
 	 */
-	public function createAction(array $field = array(), $form = NULL, $mail = NULL) {
+	public function createAction(array $field = array(), $form, $mail = NULL) {
 		// add uploaded files to $field
 		$this->div->addUploadsToFields($field);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($field, $form, $mail, $this));
