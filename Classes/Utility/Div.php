@@ -903,7 +903,12 @@ class Tx_Powermail_Utility_Div {
 	 * @return string	Hashed String
 	 */
 	public function createOptinHash($string) {
-		return t3lib_div::shortMD5($string . $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey']);
+		if (!empty($GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'])) {
+			$hash = t3lib_div::shortMD5($string . $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey']);
+		} else {
+			$hash = t3lib_div::shortMD5($string);
+		}
+		return $hash;
 	}
 
 	/**
