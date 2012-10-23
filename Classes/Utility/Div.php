@@ -49,6 +49,9 @@ class Tx_Powermail_Utility_Div {
 		$formsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FormsRepository');
 		$fields = array();
 		$form = $formsRepository->findByUid($formUid);
+		if (!method_exists($form, 'getPages')) {
+			return;
+		}
 		foreach ($form->getPages() as $page) {
 			foreach ($page->getFields() as $field) {
 				$fields[] = $field->getUid();
