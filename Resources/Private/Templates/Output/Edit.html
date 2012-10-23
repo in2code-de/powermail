@@ -12,7 +12,7 @@ Render Powermail_Frontend Edit View
 		<f:if condition="{vh:Condition.IsAllowedToEdit(settings: '{settings}', mail: '{mail}')}">
 			
 			<f:then>
-				<f:form action="update" controller="Output" enctype="multipart/form-data" class="powermail_form">
+				<f:form action="update" controller="Output" enctype="multipart/form-data" class="powermail_form powermail_form_{mail.form}">
 					<f:for each="{fields}" as="field">
 						<f:for each="{mail.answers}" as="answer">
 							<f:if condition="{answer.field} == {field.uid}">
