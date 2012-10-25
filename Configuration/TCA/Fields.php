@@ -475,4 +475,24 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 		),
 	),
 );
+
+/**
+ * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
+ */
+$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+if ($confArr['l10n_mode_merge']) {
+	$TCA['tx_powermail_domain_model_fields']['columns']['path']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['sender_email']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['sender_name']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['validation_title']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['mandatory']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['validation']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['feuser_value']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['marker_title']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['auto_marker']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['marker']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['own_marker_select']['l10n_mode'] = 'mergeIfNotBlank';
+	$TCA['tx_powermail_domain_model_fields']['columns']['pages']['l10n_mode'] = 'mergeIfNotBlank';
+}
 ?>

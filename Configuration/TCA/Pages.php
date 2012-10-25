@@ -165,4 +165,12 @@ $TCA['tx_powermail_domain_model_pages'] = array(
 		),
 	),
 );
+
+/**
+ * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
+ */
+$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+if ($confArr['l10n_mode_merge']) {
+	$TCA['tx_powermail_domain_model_pages']['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
+}
 ?>
