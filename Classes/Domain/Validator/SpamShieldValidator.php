@@ -93,7 +93,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 				$message .= $this->div->viewPlainArray($params);
 				$header  = 'MIME-Version: 1.0' . "\r\n";
 				$header .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-				$header .= 'From: powermail@' . t3lib_div::getIndpEnv('HTTP_HOST') . "\r\n";
+				$header .= 'From: powermail@' . t3lib_div::getIndpEnv('TYPO3_HOST_ONLY') . "\r\n";
 				t3lib_div::plainMailEncoded($this->settings['spamshield.']['email'], $subject, $message, $header);
 			}
 
