@@ -107,7 +107,7 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * form
 	 *
-	 * @var int
+	 * @var Tx_Powermail_Domain_Model_Forms
 	 */
 	protected $form;
 
@@ -385,7 +385,7 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Returns the form
 	 *
-	 * @return int $form
+	 * @return Tx_Powermail_Domain_Model_Forms $form
 	 */
 	public function getForm() {
 		return $this->form;
@@ -394,7 +394,7 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Sets the form
 	 *
-	 * @param int $form
+	 * @param Tx_Powermail_Domain_Model_Forms $form
 	 * @return void
 	 */
 	public function setForm($form) {

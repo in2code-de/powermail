@@ -10,9 +10,12 @@ Render Powermail_Frontend Edit View
 
 	<div class="powermail_frontend">
 		<f:if condition="{vh:Condition.IsAllowedToEdit(settings: '{settings}', mail: '{mail}')}">
-			
+
 			<f:then>
 				<f:form action="update" controller="Output" enctype="multipart/form-data" class="powermail_form powermail_form_{mail.form}">
+					<h3>{mail.form.title}</h3>
+					<legend class="powermail_legend">{mail.form.pages.1.title}</legend>
+
 					<f:for each="{fields}" as="field">
 						<f:for each="{mail.answers}" as="answer">
 							<f:if condition="{answer.field} == {field.uid}">
@@ -22,17 +25,17 @@ Render Powermail_Frontend Edit View
 							</f:if>
 						</f:for>
 					</f:for>
-		
+
 					<f:form.submit value="{f:translate(key: 'PowermailFrontendEditSubmit')}" class="powermail_field powermail_submit" />
 					<f:form.hidden value="{mail.uid}" name="mail" />
 				</f:form>
 			</f:then>
-			
+
 			<f:else>
 				<p><f:translate key="PowermailFrontendEditFailed" /></p>
 			</f:else>
 		</f:if>
-		
+
 		<f:link.page pageUid="{listPid}">
 			<f:translate key="Back" />
 		</f:link.page>
