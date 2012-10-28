@@ -110,6 +110,8 @@ class Tx_Powermail_Utility_Div {
 
 		if (!$email) {
 			$email = Tx_Extbase_Utility_Localization::translate('error_no_sender_email', 'powermail');
+			$email .= '@';
+			$email .= t3lib_div::getIndpEnv('TYPO3_HOST_ONLY');
 		}
 		return $email;
 	}
