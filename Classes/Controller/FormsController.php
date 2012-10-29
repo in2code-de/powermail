@@ -123,6 +123,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function confirmationAction(array $field = array(), $form = NULL) {
+		// forward back to formAction if wrong form
+		$this->ignoreWrongForm($form);
+
 		$this->div->addUploadsToFields($field); // add upload fields
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($field, $form, $this));
 		$this->view->assign('field', $field);
@@ -155,6 +158,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function createAction(array $field = array(), $form, $mail = NULL) {
+		// forward back to formAction if wrong form
+		$this->ignoreWrongForm($form);
+
 		// add uploaded files to $field
 		$this->div->addUploadsToFields($field);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($field, $form, $mail, $this));
@@ -443,6 +449,19 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 				$_POST['tx_powermail_pi1']['__referrer']['actionName'] = 'optinConfirm'; // workarround to set the referrer and call it again in the validator
 				$this->forward('create', null, null, $arguments);
 			}
+		}
+	}
+
+	/**
+	 * Forward to form action if wrong form in plugin variables
+	 *
+	 * @form int		Form Uid
+	 * @return void
+	 */
+	protected function ignoreWrongForm($form) {
+		$pluginHasThisAssignedForms = t3lib_div::intExplode(',', $this->settings['main']['form']);
+		if (!in_array($form, $pluginHasThisAssignedForms)) {
+			$this->forward('form');
 		}
 	}
 
