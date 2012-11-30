@@ -420,16 +420,16 @@ plugin.tx_powermail {
 }
 
 config.tx_extbase.persistence.classes {
-    Tx_Powermail_Domain_Model_User {
-        mapping {
-            tableName = fe_users
-        }
-    }
-    Tx_Powermail_Domain_Model_UserGroup {
-    	mapping {
-    		tableName = fe_groups
-    	}
-    }
+	Tx_Powermail_Domain_Model_User {
+		mapping {
+			tableName = fe_users
+		}
+	}
+	Tx_Powermail_Domain_Model_UserGroup {
+		mapping {
+			tableName = fe_groups
+		}
+	}
 }
 
 
