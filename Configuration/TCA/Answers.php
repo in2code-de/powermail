@@ -97,9 +97,9 @@ $TCA['tx_powermail_domain_model_answers'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_answers.value',
 			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => ''
+				'type' => 'text',
+				'cols' => '60',
+				'rows' => '3'
 			),
 		),
 		'field' => array(
