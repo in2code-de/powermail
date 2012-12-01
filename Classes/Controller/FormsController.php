@@ -428,7 +428,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		$mail = $this->mailsRepository->findByUid($mail);
 
-		if (!empty($hash) && $hash == $this->div->createOptinHash($mail->getUid() . $mail->getPid() . $mail->getForm())) {
+		if (!empty($hash) && $hash == $this->div->createOptinHash($mail->getUid() . $mail->getPid() . $mail->getForm()->getUid())) {
 			// only if hidden = 0
 			if ($mail->getHidden() == 1) {
 				$mail->setHidden(0);
@@ -440,8 +440,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 				}
 				$arguments = array(
 					'field' => $fields,
-					'form' => $mail->getForm(),
-					'mail' => $mail,
+					'form' => $mail->getForm()->getUid(),
+					'mail' => $mail->getUid(),
 					'__referrer' => array(
 						'actionName' => 'optinConfirm'
 					)
