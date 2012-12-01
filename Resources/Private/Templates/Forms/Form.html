@@ -28,7 +28,7 @@ Render Powermail Form
 			</f:for>
 
 			<f:form.hidden name="form" value="{form.uid}" />
-			<f:render partial="HoneyPod" />
+			<f:render partial="HoneyPod" arguments="{form: form}" />
 		</f:form>
 
 	</f:for>
