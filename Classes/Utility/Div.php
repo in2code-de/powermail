@@ -170,7 +170,7 @@ class Tx_Powermail_Utility_Div {
 		$templatePathAndFilename = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']) . 'Forms/PowermailAll.html';
 		$powermailAll->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['layoutRootPath']));
 		$powermailAll->setTemplatePathAndFilename($templatePathAndFilename);
-		$powermailAll->assign('variables', $this->htmlspecialcharsOnArray($variables));
+		$powermailAll->assign('variables', $variables);
 		$powermailAll->assign('section', $section);
 		$content = $powermailAll->render();
 

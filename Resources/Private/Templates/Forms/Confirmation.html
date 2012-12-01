@@ -11,10 +11,13 @@ Show Confirmation Page
 	<div class="powermail_confirmation">
 		<h4><f:translate key="confirmation_message" /></h4>
 
-		<f:format.raw>
+		<vh:string.RawAndRemoveXss>
 			{powermail_all}
-		</f:format.raw>
+		</vh:string.RawAndRemoveXss>
 
+		<f:comment>
+			Link: Back to form
+		</f:comment>
 		<f:form action="form" controller="Forms" enctype="multipart/form-data" class="powermail_form">
 			<f:for each="{field}" as="value" key="uid">
 				<f:if condition="{vh:Condition.IsArray(val: '{value}')}">
@@ -33,6 +36,10 @@ Show Confirmation Page
 			<f:form.submit value="{f:translate(key: 'confirmation_prev')}" class="powermail_confirmation_form" />
 		</f:form>
 
+
+		<f:comment>
+			Link: Submit form
+		</f:comment>
 		<f:form action="create" controller="Forms" enctype="multipart/form-data" class="powermail_form">
 			<f:for each="{field}" as="value" key="uid">
 				<f:if condition="{vh:Condition.IsArray(val: '{value}')}">
