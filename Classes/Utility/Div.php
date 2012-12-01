@@ -597,12 +597,10 @@ class Tx_Powermail_Utility_Div {
 	 */
 	public function getEmailsFromString($string) {
 		$array = array();
-		$string = str_replace(array("\n", ';', '|'), ',', $string);
-		$arr = t3lib_div::trimExplode(',', $string, 1);
+		$string = str_replace(array("\n", '|'), ';', $string);
+		$arr = t3lib_div::trimExplode(';', $string, 1);
 		foreach ($arr as $email) {
-//			if (t3lib_div::validEmail($email)) {
 			$array[] = $email;
-//			}
 		}
 		return $array;
 	}
