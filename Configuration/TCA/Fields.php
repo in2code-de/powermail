@@ -278,7 +278,7 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 			'config' => array(
 				'type' => 'check'
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,date'
+			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,date,password'
 		),
 		'validation' => array(
 			'l10n_mode' => 'exclude',
