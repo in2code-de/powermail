@@ -32,39 +32,33 @@
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  *
  */
-class Tx_Powermail_Utility_InitialMarker {
+class Tx_Powermail_Utility_InitialMarker extends Tx_Powermail_Utility_MarkerBase {
 
 	/**
 	 * Initialy filling of marker field
 	 *
 	 * @param	string		$status mode of change
 	 * @param	string		$table the table which gets changed
-	 * @param	string		$id uid of the record
+	 * @param	string		$uid uid of the record
 	 * @param	array		$fieldArray the updateArray
 	 * @param	array		$this obj
-	 * @return	an updated fieldArray()
+	 * @return	an updated $fieldArray
 	 */
-	public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, $pObj) {
-		if ($table != 'tx_powermail_domain_model_fields' || $status != 'new') { // stop if not powermail field table
+	public function processDatamap_postProcessFieldArray($status, $table, $uid, &$fieldArray, $pObj) {
+		if ($table != 'tx_powermail_domain_model_fields') { // stop if not powermail field table
 			return $fieldArray;
 		}
-		if (!empty($fieldArray['marker'])) { // stop if marker field is already filled
-			return $fieldArray;
-		}
-		$fieldArray['marker'] = $this->cleanString($fieldArray['title']);
-	}
 
-	/**
-	 * Clean Marker String ("My Field" => "my_field")
-	 *
-	 * @param	string		$string Any String
-	 * @return	string
-	 */
-	private function cleanString($string) {
-		$string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
-		$string = str_replace(array('-'), '_', $string);
-		$string = strtolower($string);
-		return $string;
+		// get large array with markers (from db and new)
+		$markers = array_merge((array) $this->existingMarkers, (array) $this->marker);
+		$this->makeUniqueValueInArray($markers); // get array with unique markers
+
+		// marker should be changed OR this is a new field
+		if (isset($this->data['tx_powermail_domain_model_fields'][$uid]['marker']) || stristr($uid, 'NEW')) {
+			$fieldArray['marker'] = $markers['_' . $uid]; // rewrite
+		}
+
+		return $fieldArray;
 	}
 }
 ?>
