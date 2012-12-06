@@ -43,14 +43,13 @@ class Tx_Powermail_Utility_Marker {
 	 */
 	public function createMarker($PA, $fobj) {
 		$content = '';
-		if (isset($PA['row']['marker']) && !empty($PA['row']['marker'])) { // if entry in db
+
+		// if entry in db
+		if (isset($PA['row']['marker']) && !empty($PA['row']['marker'])) {
 			$marker = $PA['row']['marker'];
 		} else { // no entry
-			$marker = $PA['row']['title'];
+			$marker = 'Error: Marker is empty';
 		}
-		$marker = preg_replace('/[^a-zA-Z0-9_-]/', '', $marker);
-		$marker = str_replace(array('-'), '_', $marker);
-		$marker = strtolower($marker);
 
 		if (stristr($PA['row']['uid'], 'NEW')) { // field just generated
 			$content .= '<div style="background-color: #F4DA5C; padding: 5px 10px;">';
