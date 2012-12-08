@@ -145,9 +145,10 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 				'appearance' => array(
 					'collapse' => 1,
 					'levelLinksPosition' => 'top',
+					'useSortable' => 1,
 					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 0,
-					'showAllLocalizationLink' => 0
+					'showPossibleLocalizationRecords' => 1,
+					'showAllLocalizationLink' => 1
 				),
 			),
 		),

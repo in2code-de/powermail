@@ -146,6 +146,7 @@ $TCA['tx_powermail_domain_model_pages'] = array(
 					'collapse' => 1,
 					'levelLinksPosition' => 'top',
 					'showSynchronizationLink' => 1,
+					'useSortable' => 1,
 					'showPossibleLocalizationRecords' => 1,
 					'showAllLocalizationLink' => 1
 				),
