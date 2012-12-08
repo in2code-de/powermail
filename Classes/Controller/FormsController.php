@@ -205,7 +205,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 */
 	private function sendMail($field) {
 		if ($this->settings['receiver']['enable']) {
-			$receivers = $this->div->getReceiverEmails($this->settings['receiver']['email'], $this->settings['receiver']['fe_group']);
+			$receiverString = $this->div->fluidParseString($this->settings['receiver']['email'], $this->objectManager);
+			$receivers = $this->div->getReceiverEmails($receiverString, $this->settings['receiver']['fe_group']);
 			if ($this->cObj->cObjGetSingle($this->conf['receiver.']['overwrite.']['email'], $this->conf['receiver.']['overwrite.']['email.'])) { // overwrite from typoscript
 				$receivers = t3lib_div::trimExplode(',', $this->cObj->cObjGetSingle($this->conf['receiver.']['overwrite.']['email'], $this->conf['receiver.']['overwrite.']['email.']), 1);
 			}

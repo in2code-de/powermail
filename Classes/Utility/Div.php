@@ -460,7 +460,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param 	array		Variables
 	 * @return	string		Parsed string
 	 */
-	private function fluidParseString($string, $objectManager, $variables = array()) {
+	public function fluidParseString($string, $objectManager, $variables = array()) {
 		if (!$string) {
 			return '';
 		}
