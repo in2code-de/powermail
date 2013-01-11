@@ -84,6 +84,27 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 		$result = $query->execute();
 		return $result;
 	}
+
+	/**
+	 * This function is a workarround to get the field value of "pages" in the table "forms" (only relevant if IRRE was replaced by Element Browser)
+	 *
+	 * @param int $uid		Form UID
+	 * @return string
+	 */
+	public function getPagesValue($uid) {
+		$query = $this->createQuery();
+
+		// create sql statement
+		$sql = 'select pages';
+		$sql .= ' from tx_powermail_domain_model_forms';
+		$sql .= ' where uid = ' . intval($uid);
+		$sql .= ' limit 1';
+
+		$query->getQuerySettings()->setReturnRawQueryResult(true); //this generates an array and makes it much slower
+		$result = $query->statement($sql)->execute();
+
+		return $result[0]['pages'];
+	}
 }
 
 ?>

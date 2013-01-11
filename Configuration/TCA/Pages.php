@@ -175,9 +175,20 @@ $TCA['tx_powermail_domain_model_pages'] = array(
 );
 
 /**
- * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
+ * Different settings related to ext_conf_template.txt
  */
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+
+/**
+ * Replace IRRE relation with element browser for page selection
+ */
+if ($confArr['replaceIrreWithElementBrowser']) {
+	unset($TCA['tx_powermail_domain_model_pages']['columns']['forms']);
+}
+
+/**
+ * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
+ */
 if ($confArr['l10n_mode_merge']) {
 	$TCA['tx_powermail_domain_model_pages']['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
 }

@@ -141,6 +141,7 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 				'foreign_table' => 'tx_powermail_domain_model_pages',
 				'foreign_table_where' => 'AND tx_powermail_domain_model_pages.deletex = 1 AND tx_powermail_domain_model_pages.hidden = 0 and tx_powermail_domain_model_pages.sys_language_uid = 0',
 				'foreign_field' => 'forms',
+				'foreign_sortby' => 'sorting',
 				'maxitems'      => 1000,
 				'appearance' => array(
 					'collapseAll' => 1,
@@ -163,9 +164,33 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 );
 
 /**
- * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
+ * Different settings related to ext_conf_template.txt
  */
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+
+/**
+ * Replace IRRE relation with element browser for page selection
+ */
+if ($confArr['replaceIrreWithElementBrowser']) {
+	$TCA['tx_powermail_domain_model_forms']['columns']['pages'] = array(
+		'l10n_mode' => 'exclude',
+		'exclude' => 0,
+		'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_forms.pages',
+		'config' => array(
+			'type' => 'group',
+			'internal_type' => 'db',
+			'allowed' => 'tx_powermail_domain_model_pages',
+			'foreign_sortby' => 'sorting',
+			'foreign_table' => 'tx_powermail_domain_model_pages',
+			'minitems' => 1,
+			'maxitems' => 100
+		),
+	);
+}
+
+/**
+ * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
+ */
 if ($confArr['l10n_mode_merge']) {
 	$TCA['tx_powermail_domain_model_forms']['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
 }
