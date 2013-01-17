@@ -22,16 +22,16 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-$.fn.powermailTabs = function(options) {
+jQuery.fn.powermailTabs = function(options) {
 	'use strict';
-	var $this = $(this);
-	options = $.extend({
+	var $this = jQuery(this);
+	options = jQuery.extend({
 		container: 'fieldset',
 		header: 'legend'
 	},options);
 
 	// generate menu
-	var $ul = $('<ul />', {
+	var $ul = jQuery('<ul />', {
 		'id': 'powermail_tabmenu',
 		'class': 'powermail_tabmenu'
 	}).insertBefore($this.children(options.container).filter(':first'));
@@ -40,15 +40,15 @@ $.fn.powermailTabs = function(options) {
 	$this.children(options.container).each(function(i, $fieldset){
 		//tab_menu
 		$ul.append(
-			$('<li/>')
+			jQuery('<li/>')
 			.html($(this).children(options.header).html())
 			.addClass((i==0) ? 'act' : '')
 			.click({
 				container: $this.children(options.container),
 				fieldset: $($fieldset)
 			}, function(e){
-				$('.powermail_tabmenu li', $this).removeClass('act');
-				$(this).addClass('act');
+				jQuery('.powermail_tabmenu li', $this).removeClass('act');
+				jQuery(this).addClass('act');
 				e.data.container.hide();
 				e.data.fieldset.show()
 			})

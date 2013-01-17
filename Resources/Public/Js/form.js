@@ -61,8 +61,8 @@ jQuery(document).ready(function($) {
 function checkCheckboxes(field, rules, i, options) {
 	var checked = 0; // no checkbox checked at the beginning
 	var classes = field.attr('class').split(' ');
-	$('.' + classes[1]).each(function() {
-		if ($(this).attr('checked')) {
+	jQuery('.' + classes[1]).each(function() {
+		if (jQuery(this).attr('checked')) {
 			checked = 1;
 		}
 	});
@@ -83,19 +83,19 @@ function getLocationAndWrite() {
 			var lat = position.coords.latitude;
 			var lng = position.coords.longitude;
 			var url = baseurl + '/index.php' + '?eID=' + 'powermailEidGetLocation';
-			$.ajax({
+			jQuery.ajax({
 				url: url,
 				data: 'lat=' + lat + '&lng=' + lng,
 				cache: false,
 				beforeSend: function(jqXHR, settings) {
-					$('body').css('cursor', 'wait');
+					jQuery('body').css('cursor', 'wait');
 				},
 				complete: function(jqXHR, textStatus) {
-					$('body').css('cursor', 'default');
+					jQuery('body').css('cursor', 'default');
 				},
 				success: function(data) { // return values
 					if (data) {
-						$('.powermail_fieldwrap_location input').val(data);
+						jQuery('.powermail_fieldwrap_location input').val(data);
 					}
 				}
 			});
@@ -109,8 +109,8 @@ function getLocationAndWrite() {
  * @return	string	Base Url
  */
 function getBaseUrl() {
-	if ($('base').length > 0) {
-		baseurl = $('base').attr('href');
+	if (jQuery('base').length > 0) {
+		baseurl = jQuery('base').attr('href');
 	} else {
 		baseurl = window.location.hostname;
 	}
