@@ -158,7 +158,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function createAction($form, array $field = array(), $mail = NULL) {
-		// forward back to formAction if wrong form
+		// forward back to formAction if wrong form (only relevant if there are more powermail forms on one page)
 		$this->ignoreWrongForm($form);
 
 		// add uploaded files to $field
@@ -205,7 +205,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 */
 	private function sendMail($field) {
 		if ($this->settings['receiver']['enable']) {
-			$receiverString = $this->div->fluidParseString($this->settings['receiver']['email'], $this->objectManager);
+			$receiverString = $this->div->fluidParseString($this->settings['receiver']['email'], $this->objectManager, $this->div->getVariablesWithMarkers($field));
 			$receivers = $this->div->getReceiverEmails($receiverString, $this->settings['receiver']['fe_group']);
 			if ($this->cObj->cObjGetSingle($this->conf['receiver.']['overwrite.']['email'], $this->conf['receiver.']['overwrite.']['email.'])) { // overwrite from typoscript
 				$receivers = t3lib_div::trimExplode(',', $this->cObj->cObjGetSingle($this->conf['receiver.']['overwrite.']['email'], $this->conf['receiver.']['overwrite.']['email.']), 1);
