@@ -41,8 +41,6 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 				if (is_array($params[$field->getUid()])) {
 					$empty = 1;
 					foreach ($params[$field->getUid()] as $value) {
-						t3lib_utility_Debug::debug($value, 'in2code Debug: ' . __FILE__ . ' in Line: ' . __LINE__);
-						t3lib_utility_Debug::debug(strlen($value), 'in2code Debug: ' . __FILE__ . ' in Line: ' . __LINE__);
 						if (strlen($value)) {
 							$empty = 0;
 							break;
