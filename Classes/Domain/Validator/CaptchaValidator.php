@@ -95,8 +95,8 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 	 * @return	void
 	 */
 	public function __construct() {
-		$piVars = t3lib_div::_GP('tx_powermail_pi1');
-		$this->clearSession = ($piVars['__referrer']['actionName'] == 'confirmation' ? true : false);
+		$piVars = t3lib_div::_GET('tx_powermail_pi1');
+		$this->clearSession = ($piVars['action'] == 'create' ? true : false); // clear captcha on create action
 	}
 
 	/**
