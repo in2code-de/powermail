@@ -37,7 +37,7 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 	 * Find Form objects by its given uids
 	 *
 	 * @param 	$uids	string		commaseparated list of uids
-	 * @return	void
+	 * @return	Tx_Extbase_Persistence_QueryResult
 	 */
 	public function findByUids($uids) {
 		$query = $this->createQuery();
@@ -67,7 +67,8 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 	 * Returns form with captcha from given UID
 	 *
 	 * @param	$uid	int		Form Uid
-	 * @return	Query Object
+	 * @return	Tx_Extbase_Persistence_QueryResult
+	 * @return	Tx_Extbase_Persistence_QueryResult
 	 */
 	public function hasCaptcha($uid) {
 		$query = $this->createQuery();
