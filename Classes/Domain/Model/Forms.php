@@ -40,28 +40,28 @@ class Tx_Powermail_Domain_Model_Forms extends Tx_Extbase_DomainObject_AbstractEn
 	 * @var string
 	 * @validate NotEmpty
 	 */
-	protected $title;
+	protected $title ='';
 
 	/**
 	 * css
 	 *
 	 * @var string
 	 */
-	protected $css;
+	protected $css ='';
 
 	/**
 	 * pages
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Powermail_Domain_Model_Pages>
 	 */
-	protected $pages;
+	protected $pages = NULL;
 
 	/**
 	 * formsRepository
 	 *
 	 * @var Tx_Powermail_Domain_Repository_FormsRepository
 	 */
-	protected $formsRepository;
+	protected $formsRepository = NULL;
 
 	/**
 	 * __construct
