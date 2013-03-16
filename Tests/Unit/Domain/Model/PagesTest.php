@@ -71,9 +71,9 @@ class Tx_Powermail_Domain_Model_PagesTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function getCssReturnsInitialValueForInteger() { 
+	public function getCssReturnsInitialValueForString() {
 		$this->assertSame(
-			0,
+			'',
 			$this->fixture->getCss()
 		);
 	}
@@ -81,11 +81,11 @@ class Tx_Powermail_Domain_Model_PagesTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function setCssForIntegerSetsCss() { 
-		$this->fixture->setCss(12);
+	public function setCssForStringSetsCss() {
+		$this->fixture->setCss('my CSS');
 
 		$this->assertSame(
-			12,
+			'my CSS',
 			$this->fixture->getCss()
 		);
 	}
@@ -94,9 +94,9 @@ class Tx_Powermail_Domain_Model_PagesTest extends Tx_Extbase_Tests_Unit_BaseTest
 	 * @test
 	 */
 	public function getFieldsReturnsInitialValueForObjectStorageContainingTx_Powermail_Domain_Model_Fields() { 
-		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
-		$this->assertEquals(
-			$newObjectStorage,
+		#$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->assertSame(
+			array(),
 			$this->fixture->getFields()
 		);
 	}
@@ -105,14 +105,19 @@ class Tx_Powermail_Domain_Model_PagesTest extends Tx_Extbase_Tests_Unit_BaseTest
 	 * @test
 	 */
 	public function setFieldsForObjectStorageContainingTx_Powermail_Domain_Model_FieldsSetsFields() { 
-		$field = new Tx_Powermail_Domain_Model_Fields();
-		$objectStorageHoldingExactlyOneFields = new Tx_Extbase_Persistence_ObjectStorage();
-		$objectStorageHoldingExactlyOneFields->attach($field);
-		$this->fixture->setFields($objectStorageHoldingExactlyOneFields);
+		$objectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+
+        $field = new Tx_Powermail_Domain_Model_Fields();
+        $field->setSorting(42);
+        $objectStorage->attach($field);
+
+		$this->fixture->setFields($objectStorage);
 
 		$this->assertSame(
-			$objectStorageHoldingExactlyOneFields,
-			$this->fixture->getFields()
+            array(
+                42 => $field,
+            ),
+            $this->fixture->getFields()
 		);
 	}
 	
@@ -121,13 +126,14 @@ class Tx_Powermail_Domain_Model_PagesTest extends Tx_Extbase_Tests_Unit_BaseTest
 	 */
 	public function addFieldToObjectStorageHoldingFields() {
 		$field = new Tx_Powermail_Domain_Model_Fields();
-		$objectStorageHoldingExactlyOneField = new Tx_Extbase_Persistence_ObjectStorage();
-		$objectStorageHoldingExactlyOneField->attach($field);
-		$this->fixture->addField($field);
+		$field->setSorting(42);
+        $this->fixture->addField($field);
 
-		$this->assertEquals(
-			$objectStorageHoldingExactlyOneField,
-			$this->fixture->getFields()
+		$this->assertSame(
+            array(
+                    42 => $field,
+            ),
+            $this->fixture->getFields()
 		);
 	}
 
@@ -135,17 +141,22 @@ class Tx_Powermail_Domain_Model_PagesTest extends Tx_Extbase_Tests_Unit_BaseTest
 	 * @test
 	 */
 	public function removeFieldFromObjectStorageHoldingFields() {
-		$field = new Tx_Powermail_Domain_Model_Fields();
-		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
-		$localObjectStorage->attach($field);
-		$localObjectStorage->detach($field);
-		$this->fixture->addField($field);
-		$this->fixture->removeField($field);
+        $field = new Tx_Powermail_Domain_Model_Fields();
+        $field->setSorting(42);
+        $this->fixture->addField($field);
 
-		$this->assertEquals(
-			$localObjectStorage,
-			$this->fixture->getFields()
-		);
+        $this->assertSame(
+            array(
+                42 => $field,
+            ),
+            $this->fixture->getFields()
+        );
+        $this->fixture->removeField($field);
+
+        $this->assertSame(
+            array(),
+            $this->fixture->getFields()
+        );
 	}
 	
 }
