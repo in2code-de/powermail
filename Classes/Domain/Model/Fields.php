@@ -40,7 +40,7 @@ class Tx_Powermail_Domain_Model_Fields extends Tx_Extbase_DomainObject_AbstractE
 	 * @var string
 	 * @validate NotEmpty
 	 */
-	protected $title;
+	protected $title = '';
 
 	/**
 	 * type
@@ -48,98 +48,98 @@ class Tx_Powermail_Domain_Model_Fields extends Tx_Extbase_DomainObject_AbstractE
 	 * @var string
 	 * @validate NotEmpty
 	 */
-	protected $type;
+	protected $type = '';
 
 	/**
 	 * settings
 	 *
 	 * @var string
 	 */
-	protected $settings;
+	protected $settings = '';
 
 	/**
 	 * path
 	 *
 	 * @var string
 	 */
-	protected $path;
+	protected $path = '';
 
 	/**
 	 * contentElement
 	 *
 	 * @var string
 	 */
-	protected $contentElement;
+	protected $contentElement = '';
 
 	/**
 	 * text
 	 *
 	 * @var string
 	 */
-	protected $text;
+	protected $text = '';
 
 	/**
 	 * prefillValue
 	 *
 	 * @var string
 	 */
-	protected $prefillValue;
+	protected $prefillValue = '';
 
 	/**
 	 * validation
 	 *
 	 * @var integer
 	 */
-	protected $validation;
+	protected $validation = 0;
 
 	/**
 	 * css
 	 *
 	 * @var string
 	 */
-	protected $css;
+	protected $css = '';
 
 	/**
 	 * feuserValue
 	 *
 	 * @var string
 	 */
-	protected $feuserValue;
+	protected $feuserValue = '';
 
 	/**
 	 * senderName
 	 *
 	 * @var string
 	 */
-	protected $senderName;
+	protected $senderName = '';
 
 	/**
 	 * senderEmail
 	 *
 	 * @var string
 	 */
-	protected $senderEmail;
+	protected $senderEmail = '';
 
 	/**
 	 * mandatory
 	 *
 	 * @var boolean
 	 */
-	protected $mandatory;
+	protected $mandatory = false;
 
 	/**
 	 * marker
 	 *
 	 * @var string
 	 */
-	protected $marker;
+	protected $marker = '';
 
 	/**
 	 * sorting
 	 *
 	 * @var integer
 	 */
-	protected $sorting;
+	protected $sorting = 0;
 
 	/**
 	 * __construct
