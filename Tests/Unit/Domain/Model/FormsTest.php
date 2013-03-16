@@ -71,9 +71,9 @@ class Tx_Powermail_Domain_Model_FormsTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function getCssReturnsInitialValueForInteger() { 
+	public function getCssReturnsInitialValueForString() {
 		$this->assertSame(
-			0,
+			'',
 			$this->fixture->getCss()
 		);
 	}
@@ -81,11 +81,11 @@ class Tx_Powermail_Domain_Model_FormsTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function setCssForIntegerSetsCss() { 
-		$this->fixture->setCss(12);
+	public function setCssForStringSetsCss() {
+		$this->fixture->setCss('my CSS');
 
 		$this->assertSame(
-			12,
+			'my CSS',
 			$this->fixture->getCss()
 		);
 	}
@@ -104,7 +104,7 @@ class Tx_Powermail_Domain_Model_FormsTest extends Tx_Extbase_Tests_Unit_BaseTest
 	 * @test
 	 */
 	public function setPagesForTx_Powermail_Domain_Model_PagesSetsPages() { 
-		$dummyObject = new Tx_Powermail_Domain_Model_Pages();
+		$dummyObject = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->fixture->setPages($dummyObject);
 
 		$this->assertSame(
