@@ -71,11 +71,13 @@ class Tx_Powermail_Domain_Model_FieldsTest extends Tx_Extbase_Tests_Unit_BaseTes
 	/**
 	 * @test
 	 */
-	public function getTypeReturnsInitialValueForInteger() { 
-		$this->assertSame(
-			0,
-			$this->fixture->getType()
-		);
+	public function getTypeReturnsInitialValueForSting() {
+        $this->fixture->setType('Conceived at T3CON10');
+
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getType()
+        );
 	}
 
 	/**
@@ -132,9 +134,9 @@ class Tx_Powermail_Domain_Model_FieldsTest extends Tx_Extbase_Tests_Unit_BaseTes
 	/**
 	 * @test
 	 */
-	public function getCssReturnsInitialValueForInteger() { 
+	public function getCssReturnsInitialValueForString() {
 		$this->assertSame(
-			0,
+			'',
 			$this->fixture->getCss()
 		);
 	}
@@ -142,21 +144,21 @@ class Tx_Powermail_Domain_Model_FieldsTest extends Tx_Extbase_Tests_Unit_BaseTes
 	/**
 	 * @test
 	 */
-	public function setCssForIntegerSetsCss() { 
-		$this->fixture->setCss(12);
+	public function setCssForStringSetsCss() {
+        $this->fixture->setCss('Conceived at T3CON10');
 
-		$this->assertSame(
-			12,
-			$this->fixture->getCss()
-		);
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getCss()
+        );
 	}
 	
 	/**
 	 * @test
 	 */
-	public function getFeuserValueReturnsInitialValueForInteger() { 
+	public function getFeuserValueReturnsInitialValueForString() {
 		$this->assertSame(
-			0,
+			'',
 			$this->fixture->getFeuserValue()
 		);
 	}
@@ -164,11 +166,11 @@ class Tx_Powermail_Domain_Model_FieldsTest extends Tx_Extbase_Tests_Unit_BaseTes
 	/**
 	 * @test
 	 */
-	public function setFeuserValueForIntegerSetsFeuserValue() { 
-		$this->fixture->setFeuserValue(12);
+	public function setFeuserValueForStringSetsFeuserValue() {
+		$this->fixture->setFeuserValue('my FrontendUser');
 
 		$this->assertSame(
-			12,
+			'my FrontendUser',
 			$this->fixture->getFeuserValue()
 		);
 	}
