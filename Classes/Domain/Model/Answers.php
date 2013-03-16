@@ -39,21 +39,21 @@ class Tx_Powermail_Domain_Model_Answers extends Tx_Extbase_DomainObject_Abstract
 	 *
 	 * @var string
 	 */
-	protected $value;
+	protected $value = '';
 
 	/**
 	 * mail
 	 *
 	 * @var integer
 	 */
-	protected $mail;
+	protected $mail = 0;
 
 	/**
 	 * field
 	 *
 	 * @var integer
 	 */
-	protected $field;
+	protected $field = 0;
 
 	/**
 	 * __construct
