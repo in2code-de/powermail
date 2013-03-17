@@ -39,140 +39,140 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	 *
 	 * @var string
 	 */
-	protected $senderName;
+	protected $senderName = '';
 
 	/**
 	 * senderMail
 	 *
 	 * @var string
 	 */
-	protected $senderMail;
+	protected $senderMail = '';
 
 	/**
 	 * subject
 	 *
 	 * @var string
 	 */
-	protected $subject;
+	protected $subject = '';
 
 	/**
 	 * receiverMail
 	 *
 	 * @var string
 	 */
-	protected $receiverMail;
+	protected $receiverMail = '';
 
 	/**
 	 * body
 	 *
 	 * @var string
 	 */
-	protected $body;
+	protected $body = '';
 
 	/**
 	 * feuser
 	 *
 	 * @var string
 	 */
-	protected $feuser;
+	protected $feuser = '';
 
 	/**
 	 * senderIp
 	 *
 	 * @var string
 	 */
-	protected $senderIp;
+	protected $senderIp = '';
 
 	/**
 	 * userAgent
 	 *
 	 * @var string
 	 */
-	protected $userAgent;
+	protected $userAgent = '';
 
 	/**
 	 * spamFactor
 	 *
 	 * @var string
 	 */
-	protected $spamFactor;
+	protected $spamFactor = '';
 
 	/**
 	 * time
 	 *
 	 * @var DateTime
 	 */
-	protected $time;
+	protected $time = NULL;
 
 	/**
 	 * form
 	 *
 	 * @var Tx_Powermail_Domain_Model_Forms
 	 */
-	protected $form;
+	protected $form = NULL;
 
 	/**
 	 * Powermail Fields
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Powermail_Domain_Model_Answers>
 	 */
-	protected $answers;
+	protected $answers = NULL;
 
 	/**
 	 * crdate
 	 *
 	 * @var DateTime
 	 */
-	protected $crdate;
+	protected $crdate = NULL;
 
 	/**
 	 * hidden
 	 *
 	 * @var bool
 	 */
-	protected $hidden;
+	protected $hidden = false;
 
 	/**
 	 * marketingSearchterm
 	 *
 	 * @var string
 	 */
-	protected $marketingSearchterm;
+	protected $marketingSearchterm = '';
 
 	/**
 	 * marketingReferer
 	 *
 	 * @var string
 	 */
-	protected $marketingReferer;
+	protected $marketingReferer = '';
 
 	/**
 	 * marketingPayedSearchResult
 	 *
 	 * @var string
 	 */
-	protected $marketingPayedSearchResult;
+	protected $marketingPayedSearchResult = '';
 
 	/**
 	 * marketingLanguage
 	 *
 	 * @var string
 	 */
-	protected $marketingLanguage;
+	protected $marketingLanguage = '';
 
 	/**
 	 * marketingBrowserLanguage
 	 *
 	 * @var string
 	 */
-	protected $marketingBrowserLanguage;
+	protected $marketingBrowserLanguage = '';
 
 	/**
 	 * marketingFunnel
 	 *
 	 * @var string
 	 */
-	protected $marketingFunnel;
+	protected $marketingFunnel = '';
 
 	/**
 	 * __construct
