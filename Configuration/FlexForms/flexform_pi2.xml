@@ -1,0 +1,391 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<main>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<switchableControllerActions>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.switchableControllerActions</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.switchableControllerActions.0</numIndex>
+										<numIndex index="1">Output->list;Output->show;Output->export;Output->rss;</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.switchableControllerActions.1</numIndex>
+										<numIndex index="1">Output->list;Output->show;Output->export;Output->rss;</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.switchableControllerActions.2</numIndex>
+										<numIndex index="1">Output->edit;Output->update;</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>1</maxitems>
+								<size>1</size>
+							</config>
+						</TCEforms>
+					</switchableControllerActions>
+					<settings.flexform.main.form>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.form</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:pleaseChoose</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+								</items>
+								<size>1</size>
+								<minitems>1</minitems>
+								<required>1</required>
+								<default></default>
+								<foreign_table>tx_powermail_domain_model_forms</foreign_table>
+								<foreign_table_where>AND tx_powermail_domain_model_forms.deleted = 0 AND tx_powermail_domain_model_forms.hidden = 0 order by tx_powermail_domain_model_forms.title</foreign_table_where>
+								<wizards>
+									<_PADDING>0</_PADDING>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+							<onChange>reload</onChange>
+						</TCEforms>
+					</settings.flexform.main.form>
+					<settings.flexform.main.pid>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.main.pid</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</settings.flexform.main.pid>
+				</el>
+			</ROOT>
+		</main>
+		<list>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.flexform.list.fields>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.fields</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+
+								</items>
+								<maxitems>100</maxitems>
+								<size>5</size>
+								<autoSizeMax>10</autoSizeMax>
+								<minitems>0</minitems>
+								<selectedListStyle>width:350px</selectedListStyle>
+								<itemListStyle>width:350px</itemListStyle>
+								<itemsProcFunc>Tx_Powermail_Utility_FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
+							</config>
+						</TCEforms>
+					</settings.flexform.list.fields>
+					<settings.flexform.list.export>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.export</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.export.0</numIndex>
+										<numIndex index="1">xls</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.export.1</numIndex>
+										<numIndex index="1">csv</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.export.2</numIndex>
+										<numIndex index="1">rss</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>10</maxitems>
+								<size>4</size>
+								<autoSizeMax>10</autoSizeMax>
+								<minitems>0</minitems>
+								<selectedListStyle>width:350px</selectedListStyle>
+								<itemListStyle>width:350px</itemListStyle>
+								<allowNonIdValues>1</allowNonIdValues>
+							</config>
+						</TCEforms>
+					</settings.flexform.list.export>
+					<settings.flexform.list.delta>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.delta</label>
+							<config>
+								<type>input</type>
+								<size>10</size>
+							</config>
+						</TCEforms>
+					</settings.flexform.list.delta>
+					<settings.flexform.list.limit>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.limit</label>
+							<config>
+								<type>input</type>
+								<size>10</size>
+							</config>
+						</TCEforms>
+					</settings.flexform.list.limit>
+					<settings.flexform.list.pid>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.pid</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</settings.flexform.list.pid>
+					<settings.flexform.list.showownonly>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.showownonly</label>
+							<config>
+								<type>check</type>
+								<items type="array">
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.list.showownonly.0</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+								</items>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.flexform.list.showownonly>
+				</el>
+			</ROOT>
+		</list>
+		<single>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.single</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.flexform.single.fields>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.single.fields</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+
+								</items>
+								<maxitems>100</maxitems>
+								<size>5</size>
+								<autoSizeMax>10</autoSizeMax>
+								<minitems>0</minitems>
+								<selectedListStyle>width:350px</selectedListStyle>
+								<itemListStyle>width:350px</itemListStyle>
+								<itemsProcFunc>Tx_Powermail_Utility_FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
+							</config>
+						</TCEforms>
+					</settings.flexform.single.fields>
+					<settings.flexform.single.pid>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.single.pid</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</settings.flexform.single.pid>
+				</el>
+			</ROOT>
+		</single>
+		<search>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.search</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.flexform.search.fields>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.search.fields</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.search.fields.all</numIndex>
+										<numIndex index="1">_all</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>100</maxitems>
+								<size>3</size>
+								<autoSizeMax>10</autoSizeMax>
+								<minitems>0</minitems>
+								<selectedListStyle>width:350px</selectedListStyle>
+								<itemListStyle>width:350px</itemListStyle>
+								<itemsProcFunc>Tx_Powermail_Utility_FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
+								<allowNonIdValues>1</allowNonIdValues>
+							</config>
+						</TCEforms>
+					</settings.flexform.search.fields>
+					<!--<settings.flexform.search.operator>-->
+						<!--<TCEforms>-->
+							<!--<exclude>1</exclude>-->
+							<!--<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.search.operator</label>-->
+							<!--<config>-->
+								<!--<type>select</type>-->
+								<!--<items type="array">-->
+									<!--<numIndex index="0" type="array">-->
+										<!--<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.search.operator.0</numIndex>-->
+										<!--<numIndex index="1">OR</numIndex>-->
+									<!--</numIndex>-->
+									<!--<numIndex index="1" type="array">-->
+										<!--<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.search.operator.1</numIndex>-->
+										<!--<numIndex index="1">AND</numIndex>-->
+									<!--</numIndex>-->
+								<!--</items>-->
+								<!--<default>OR</default>-->
+							<!--</config>-->
+						<!--</TCEforms>-->
+					<!--</settings.flexform.search.operator>-->
+					<settings.flexform.search.abc>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.search.abc</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.search.abc.off</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+								</items>
+								<maxitems>1</maxitems>
+								<size>1</size>
+								<minitems>1</minitems>
+								<itemsProcFunc>Tx_Powermail_Utility_FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
+							</config>
+						</TCEforms>
+					</settings.flexform.search.abc>
+				</el>
+			</ROOT>
+		</search>
+		<edit>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.edit</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.flexform.edit.fields>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.edit.fields</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+
+								</items>
+								<maxitems>100</maxitems>
+								<size>5</size>
+								<autoSizeMax>10</autoSizeMax>
+								<minitems>0</minitems>
+								<selectedListStyle>width:350px</selectedListStyle>
+								<itemListStyle>width:350px</itemListStyle>
+								<itemsProcFunc>Tx_Powermail_Utility_FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
+							</config>
+						</TCEforms>
+					</settings.flexform.edit.fields>
+					<settings.flexform.edit.feuser>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.edit.feuser</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.edit.feuser.owner</numIndex>
+										<numIndex index="1">_owner</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>100</maxitems>
+								<size>5</size>
+								<autoSizeMax>10</autoSizeMax>
+								<minitems>0</minitems>
+								<selectedListStyle>width:350px</selectedListStyle>
+								<itemListStyle>width:350px</itemListStyle>
+								<foreign_table>fe_users</foreign_table>
+								<foreign_table_where>AND fe_users.disable = 0 AND fe_users.deleted = 0 order by fe_users.username</foreign_table_where>
+								<allowNonIdValues>1</allowNonIdValues>
+							</config>
+						</TCEforms>
+					</settings.flexform.edit.feuser>
+					<settings.flexform.edit.fegroup>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.edit.fegroup</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.edit.feuser.owner</numIndex>
+										<numIndex index="1">_owner</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>100</maxitems>
+								<size>5</size>
+								<autoSizeMax>10</autoSizeMax>
+								<minitems>0</minitems>
+								<selectedListStyle>width:350px</selectedListStyle>
+								<itemListStyle>width:350px</itemListStyle>
+								<foreign_table>fe_groups</foreign_table>
+								<foreign_table_where>AND fe_groups.hidden = 0 AND fe_groups.deleted = 0 order by fe_groups.title</foreign_table_where>
+								<allowNonIdValues>1</allowNonIdValues>
+							</config>
+						</TCEforms>
+					</settings.flexform.edit.fegroup>
+					<settings.flexform.edit.pid>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:flexform_pi2.edit.pid</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</settings.flexform.edit.pid>
+				</el>
+			</ROOT>
+		</edit>
+	</sheets>
+</T3DataStructure>

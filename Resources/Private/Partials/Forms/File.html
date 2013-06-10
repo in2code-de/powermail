@@ -1,0 +1,11 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+
+<div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_file powermail_fieldwrap_{field.uid} {field.css}">
+	<label for="powermail_field_{field.marker}" class="powermail_label">
+		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss>
+	</label>
+
+	<div class="powermail_fieldwrap_file_inner">
+		<f:form.upload id="powermail_field_{field.marker}" name="field[{field.uid}]" class="powermail_field powermail_file {vh:Misc.ErrorClass(field: '{field}', class: 'powermail_field_error')}" />
+	</div>
+</div>

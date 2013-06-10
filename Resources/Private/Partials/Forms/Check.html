@@ -1,0 +1,20 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+
+<div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_check powermail_fieldwrap_{field.uid} {field.css}">
+	<fieldset>
+		<legend class="powermail_label powermail_check_legend">
+			<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+		</legend>
+
+		<div class="powermail_check_outer">
+			<f:for each="{field.settings}" as="setting" iteration="index">
+				<div class="powermail_check_inner powermail_check_inner_{index.cycle}">
+					<f:form.checkbox name="field[{field.uid}][{index.index}]" value="{setting.value}" checked="{vh:Misc.PrefillField(field: '{field}', cycle: '{index.cycle}')}" id="powermail_field_{field.marker}_{index.cycle}" class="powermail_checkbox powermail_checkbox_{field.uid} {vh:Misc.ValidationClass(field: '{field}')}" />
+					<label for="powermail_field_{field.marker}_{index.cycle}">
+						<vh:string.RawAndRemoveXss>{setting.label}</vh:string.RawAndRemoveXss>
+					</label>
+				</div>
+			</f:for>
+		</div>
+	</fieldset>
+</div>

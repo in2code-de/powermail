@@ -1,0 +1,19 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Mail" />
+
+Render Powermail Optin Mail
+
+<f:section name="main">
+	<f:translate key="optin_mail_link" /><br>
+
+	<f:link.action action="optinConfirm" absolute="1" additionalParams="{tx_powermail_pi1: '{hash: optinHash, mail: mail}'}">
+		<f:uri.action action="optinConfirm" absolute="1" additionalParams="{tx_powermail_pi1: '{hash: optinHash, mail: mail}'}" />
+	</f:link.action>
+
+	<br><br><hr>
+	<f:translate key="optin_mail_entries" />
+
+	<vh:string.RawAndRemoveXss>
+		{powermail_all}
+	</vh:string.RawAndRemoveXss>
+</f:section>

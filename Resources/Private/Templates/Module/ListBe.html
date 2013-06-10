@@ -1,0 +1,348 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Backend"/>
+
+
+Show Backend Module: Powermail List
+
+<f:section name="content">
+
+	<h2><f:translate key="BackendListTitle" /></h2>
+
+	<f:flashMessages class="powermail_message" />
+
+
+	<f:comment>
+		<!--Filter Area-->
+	</f:comment>
+	<f:render partial="Module/FilterBe" arguments="{piVars: piVars, mails: mails, firstMail: firstMail}" />
+
+
+
+	<f:if condition="{f:count(subject: '{mails}')}">
+		<f:then>
+			<f:widget.paginate objects="{mails}" as="mailsPage" configuration="{itemsPerPage: '{perPage}', insertAbove: 1, insertBelow: 1}">
+				<table cellspacing="0" cellpadding="0" border="0" class="typo3-dblist">
+					<tbody>
+
+						<tr class="c-table-row-spacer">
+							<td nowrap="nowrap" class="col-icon"><img width="1" height="8" alt="" src="clear.gif"></td>
+							<td nowrap="nowrap" class=""><img width="230" height="1" alt="" src="clear.gif"></td>
+							<td nowrap="nowrap" class=""><img width="230" height="1" alt="" src="clear.gif"></td>
+							<td nowrap="nowrap" class=""><img width="230" height="1" alt="" src="clear.gif"></td>
+							<td nowrap="nowrap" class=""><img width="230" height="1" alt="" src="clear.gif"></td>
+							<td nowrap="nowrap" class="" width="10"><img width="1" height="1" alt="" src="clear.gif"></td>
+						</tr>
+						<tr class="t3-row-header">
+							<td nowrap="nowrap" class="col-icon">&nbsp;</td>
+							<td nowrap="nowrap" colspan="5">
+								<span class="c-table">
+									<f:translate key="BackendListMails" />
+								</span>
+								(<f:count subject="{mails}" />)
+							</td>
+							<td nowrap="nowrap" class="col-icon">&nbsp;</td>
+						</tr>
+						<tr class="c-headLine">
+							<td nowrap="nowrap" class="col-icon">
+								<!--<a title="Create New Mail" onclick="window.location.href='alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[tx_powermail_domain_model_mails][{pid}]=new'; return false;" href="#">-->
+									<!--<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-new">&nbsp;</span>-->
+								<!--</a>-->
+							</td>
+							<td nowrap="nowrap" class="col-title">
+								<f:if condition="{piVars.sorting.crdate}">
+									<f:then>
+										<f:if condition="{0 : piVars.sorting.crdate} == {0 : 'desc'}">
+											<f:then>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting sorting_desc">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.date" />
+												</f:link.action>
+											</f:then>
+											<f:else>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}" class="sorting sorting_asc">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.date" />
+												</f:link.action>
+											</f:else>
+										</f:if>
+									</f:then>
+									<f:else>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting">
+											<f:translate key="Tx_Powermail_Domain_Model_Mails.date" />
+										</f:link.action>
+									</f:else>
+								</f:if>
+							</td>
+							<td nowrap="nowrap" class="col-title">
+								<f:if condition="{piVars.sorting.crdate}">
+									<f:then>
+										<f:if condition="{0 : piVars.sorting.crdate} == {0 : 'desc'}">
+											<f:then>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.datetime" />
+												</f:link.action>
+											</f:then>
+											<f:else>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}" class="sorting">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.datetime" />
+												</f:link.action>
+											</f:else>
+										</f:if>
+									</f:then>
+									<f:else>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting">
+											<f:translate key="Tx_Powermail_Domain_Model_Mails.datetime" />
+										</f:link.action>
+									</f:else>
+								</f:if>
+							</td>
+							<td nowrap="nowrap" class="col-title">
+								<f:if condition="{piVars.sorting.sender_name}">
+									<f:then>
+										<f:if condition="{0 : piVars.sorting.sender_name} == {0 : 'desc'}">
+											<f:then>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {sender_name: 'asc'}}}" class="sorting sorting_desc">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.senderName" />
+												</f:link.action>
+											</f:then>
+											<f:else>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {sender_name: 'desc'}}}" class="sorting sorting_asc">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.senderName" />
+												</f:link.action>
+											</f:else>
+										</f:if>
+									</f:then>
+									<f:else>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {sender_name: 'asc'}}}" class="sorting">
+											<f:translate key="Tx_Powermail_Domain_Model_Mails.senderName" />
+										</f:link.action>
+									</f:else>
+								</f:if>
+							</td>
+							<td nowrap="nowrap" class="col-title">
+								<f:if condition="{piVars.sorting.sender_mail}">
+									<f:then>
+										<f:if condition="{0 : piVars.sorting.sender_mail} == {0 : 'desc'}">
+											<f:then>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {sender_mail: 'asc'}}}" class="sorting sorting_desc">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.senderMail" />
+												</f:link.action>
+											</f:then>
+											<f:else>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {sender_mail: 'desc'}}}" class="sorting sorting_asc">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.senderMail" />
+												</f:link.action>
+											</f:else>
+										</f:if>
+									</f:then>
+									<f:else>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {sender_mail: 'asc'}}}" class="sorting">
+											<f:translate key="Tx_Powermail_Domain_Model_Mails.senderMail" />
+										</f:link.action>
+									</f:else>
+								</f:if>
+							</td>
+							<td nowrap="nowrap" class="col-title">
+								<f:if condition="{piVars.sorting.subject}">
+									<f:then>
+										<f:if condition="{0 : piVars.sorting.subject} == {0 : 'desc'}">
+											<f:then>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting sorting_desc">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.subject" />
+												</f:link.action>
+											</f:then>
+											<f:else>
+												<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'desc'}}}" class="sorting sorting_asc">
+													<f:translate key="Tx_Powermail_Domain_Model_Mails.subject" />
+												</f:link.action>
+											</f:else>
+										</f:if>
+									</f:then>
+									<f:else>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting">
+											<f:translate key="Tx_Powermail_Domain_Model_Mails.subject" />
+										</f:link.action>
+									</f:else>
+								</f:if>
+							</td>
+							<td nowrap="nowrap" class="col-icon"></td>
+						</tr>
+
+						<f:for each="{mailsPage}" as="mail">
+							<tr class="db_list_normal firstcol powermail_listbe_overview">
+								<td nowrap="nowrap" class="col-icon">
+									<f:if condition="{mail.hidden}">
+										<f:then>
+											<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default transparent" title="id={mail.uid}">&nbsp;</span>
+										</f:then>
+										<f:else>
+											<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default" title="id={mail.uid}">&nbsp;</span>
+										</f:else>
+									</f:if>
+								</td>
+								<td nowrap="nowrap" class="col-title">
+									<f:format.date format="d.m.Y">{mail.crdate}</f:format.date>
+								</td>
+								<td nowrap="nowrap" class="col-title">
+									<f:format.date format="H:i">{mail.crdate}</f:format.date>
+								</td>
+								<td nowrap="nowrap" class="col-title">
+									<span title="{mail.senderName}">
+										<f:format.crop maxCharacters="50" append="&nbsp;[...]">{mail.senderName}</f:format.crop>
+									</span>
+								</td>
+								<td nowrap="nowrap" class="col-title">
+									<span title="{mail.senderMail}">
+										<f:format.crop maxCharacters="50" append="&nbsp;[...]">{mail.senderMail}</f:format.crop>
+									</span>
+								</td>
+								<td nowrap="nowrap" class="col-title">
+									<span title="{mail.subject}">
+										<f:format.crop maxCharacters="60" append="&nbsp;[...]">{mail.subject}</f:format.crop>
+									</span>
+								</td>
+								<td nowrap="nowrap" class="">
+									<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-view openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
+
+									<a title="{f:translate(key: 'BackendListHelpEdit')}" onclick="window.location.href = 'alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[tx_powermail_domain_model_mails][{mail.uid}]=edit'; return false;" href="#">
+										<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open">&nbsp;</span>
+									</a>
+
+									<span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-delete deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
+
+									<f:if condition="{mail.hidden} == 1">
+										<f:then>
+											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-unhide hideMail">&nbsp;</span>
+										</f:then>
+										<f:else>
+											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-hide unhideMail">&nbsp;</span>
+										</f:else>
+									</f:if>
+
+									<input type="hidden" class="container_uid" name="container_uid" value="{mail.uid}" />
+									<input type="hidden" class="container_formtoken" name="container_formtoken" value="{token}" />
+									<input type="hidden" class="container_table" name="container_table" value="tx_powermail_domain_model_mails" />
+									<input type="hidden" class="container_label_delete_confirmation" name="container_label_delete_confirmation" value="{f:translate(key:'BackendListMailDeleteConfirmation')}" />
+								</td>
+							</tr>
+							<tr class="db_list_normal powermail_listbe_details">
+								<td colspan="7">
+									<div class="powermail_listbe_details_container">
+										<f:for each="{mail.answers}" as="answer">
+											<f:if condition="{answer.value}">
+												<dl class="powermail_listbe_details_dl">
+													<dt>
+														<f:if condition="{vh:Getter.GetFieldLabelFromUid(uid: '{answer.field}')}">
+															<f:then>
+																<strong><vh:Getter.GetFieldLabelFromUid uid="{answer.field}" />:</strong>
+															</f:then>
+															<f:else>
+																<strong>No Label:</strong>
+															</f:else>
+														</f:if>
+													</dt>
+													<dd>
+														<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+															<f:then>
+																<f:for each="{answer.value}" as="value2" iteration="index2">
+																	<f:if condition="{value2}">
+																		{value2}<f:if condition="{index2.isLast}"><f:else>, </f:else></f:if>
+																	</f:if>
+																</f:for>
+															</f:then>
+															<f:else>
+																{answer.value}
+															</f:else>
+														</f:if>
+													</dd>
+												</dl>
+											</f:if>
+										</f:for>
+
+										<f:if condition="{mail.spamFactor}">
+											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+												<dt>
+													<strong><f:translate key="Tx_Powermail_Domain_Model_Mails.spamFactor" /></strong>
+												</dt>
+												<dd>
+													{mail.spamFactor}
+												</dd>
+											</dl>
+										</f:if>
+										<f:if condition="{mail.marketingSearchterm}">
+											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+												<dt>
+													<strong><f:translate key="Tx_Powermail_Domain_Model_Mails.marketingSearchterm" /></strong>
+												</dt>
+												<dd>
+													{mail.marketingSearchterm}
+												</dd>
+											</dl>
+										</f:if>
+										<f:if condition="{mail.marketingReferer}">
+											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+												<dt>
+													<strong><f:translate key="Tx_Powermail_Domain_Model_Mails.marketingReferer" /></strong>
+												</dt>
+												<dd>
+													{mail.marketingReferer}
+												</dd>
+											</dl>
+										</f:if>
+										<f:if condition="{mail.marketingPayedSearchResult}">
+											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+												<dt>
+													<strong><f:translate key="Tx_Powermail_Domain_Model_Mails.marketingPayedSearchResult" /></strong>
+												</dt>
+												<dd>
+													{mail.marketingPayedSearchResult}
+												</dd>
+											</dl>
+										</f:if>
+										<f:if condition="{mail.marketingLanguage}">
+											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+												<dt>
+													<strong><f:translate key="Tx_Powermail_Domain_Model_Mails.marketingLanguage" /></strong>
+												</dt>
+												<dd>
+													{mail.marketingLanguage}
+												</dd>
+											</dl>
+										</f:if>
+										<f:if condition="{mail.marketingBrowserLanguage}">
+											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+												<dt>
+													<strong><f:translate key="Tx_Powermail_Domain_Model_Mails.marketingBrowserLanguage" /></strong>
+												</dt>
+												<dd>
+													{mail.marketingBrowserLanguage}
+												</dd>
+											</dl>
+										</f:if>
+										<f:if condition="{mail.marketingFunnel}">
+											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+												<dt>
+													<strong><f:translate key="Tx_Powermail_Domain_Model_Mails.marketingFunnel" /></strong>
+												</dt>
+												<dd>
+													<f:for each="{mail.marketingFunnel}" as="page" iteration="index">
+														<vh:Getter.GetPageNameFromUid uid="{page}" /> (PID {page})<f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
+													</f:for>
+												</dd>
+											</dl>
+										</f:if>
+									</div>
+								</td>
+							</tr>
+
+						</f:for>
+
+					</tbody>
+				</table>
+			</f:widget.paginate>
+		</f:then>
+		<f:else>
+			<h3><f:translate key="BackendListNoMails" /></h3>
+			<p><f:translate key="BackendListNoMailsSub" /></p>
+		</f:else>
+	</f:if>
+
+</f:section>

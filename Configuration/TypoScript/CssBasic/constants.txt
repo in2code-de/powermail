@@ -1,0 +1,5 @@
+plugin.tx_powermail {
+	settings {
+		CssBasic = EXT:powermail/Resources/Public/Css/CssBasic.css
+	}
+}

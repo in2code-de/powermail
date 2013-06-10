@@ -1,0 +1,45 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Mail" />
+
+Render Powermail Mail to Receiver
+{powermail_rte}					Variable is filled with values from RTE in backend
+{powermail_all}					Outputs all fields
+{marker1}, {firstname}, etc..	Outputs a field
+NOTE: See example section after main section
+
+<f:section name="main">
+	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}" type="mail">
+		<f:format.html parseFuncTSPath="lib.parseFunc">
+			{powermail_rte}
+		</f:format.html>
+	</vh:Misc.Variables>
+
+	<f:render partial="MarketingInformation" arguments="{marketingInfos : marketingInfos}" />
+</f:section>
+
+
+
+
+
+
+THIS IS ONLY AN EXAMPLE SECTION
+
+<f:section name="example">
+
+	1. Get values from RTE from Backend:
+	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" variablesLabels="{variablesWithLabels}" type="mail">
+		<f:format.html parseFuncTSPath="lib.parseFunc">
+			{powermail_rte}
+		</f:format.html>
+	</vh:Misc.Variables>
+
+
+	2. Get all Values by using powermail_all
+	<vh:string.RawAndRemoveXss>
+		{powermail_all}
+	</vh:string.RawAndRemoveXss>
+
+	3. Get some lonely fields
+	Hi {firstname} {lastname}, this is a test...
+
+</f:section>

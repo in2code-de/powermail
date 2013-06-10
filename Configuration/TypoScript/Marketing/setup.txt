@@ -1,0 +1,8 @@
+#####################################
+# Adding Powermail Marketing Function
+#####################################
+page.3131 = USER_INT
+page.3131 {
+	# storing misc user informations in session (last page, google keyword, page funnel)
+	userFunc = Tx_Powermail_Utility_Marketing->store
+}

@@ -1,0 +1,21 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+
+<f:form.errors>
+	<ul class="powermail_message powermail_message_error">
+		<f:for each="{error.errors}" as="singleError">
+			<li>
+				<f:if condition="{singleError.code}">
+					<f:if condition="{vh:Condition.IsNumber(val: '{singleError.code}')}">
+						<f:then>
+							<vh:Getter.GetFieldLabelFromUid uid="{singleError.code}" />:
+						</f:then>
+						<f:else>
+							<f:translate key="validationerror_spam" /> {singleError.code}
+						</f:else>
+					</f:if>
+				</f:if>
+				<f:translate key="validationerror_{singleError.message}" />
+			</li>
+		</f:for>
+	</ul>
+</f:form.errors>

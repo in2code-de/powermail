@@ -1,0 +1,84 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Default" />
+
+Render Powermail_Frontend List View
+{mails} 			Mail Objects
+
+
+
+<f:section name="main">
+	<f:flashMessages class="powermail_message powermail_message_error" />
+
+	<div class="powermail_frontend">
+
+		<f:render partial="Output/Search" arguments="{mails: mails, piVars: piVars, abc: abc}" />
+
+		<f:render partial="Output/Export" arguments="{mails: mails, piVars: piVars}" />
+
+		<f:if condition="{mails}">
+			<f:then>
+				<table class="powermail_frontend_list">
+					<f:for each="{mails}" as="mail" iteration="index">
+
+						<f:if condition="{index.isFirst}">
+							<tr>
+								<th>
+									(<f:count subject="{mails}" />)
+								</th>
+								<f:for each="{fields}" as="field">
+									<th class="powermail_sorting">
+										<vh:Getter.GetFieldLabelFromUid uid="{field}" />
+									</th>
+								</f:for>
+								<th></th>
+							</tr>
+						</f:if>
+
+						<tr>
+							<td><span title="{mail.uid}">{index.cycle}.</span></td>
+							<f:for each="{fields}" as="field">
+								<td>
+									<f:for each="{mail.answers}" as="answer">
+										<f:if condition="{answer.field} == {field}">
+											<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+												<f:then>
+													<f:for each="{answer.value}" as="value2" iteration="index2">
+														<f:if condition="{value2}">
+															{value2}<f:if condition="{index2.isLast}"><f:else>, </f:else></f:if>
+														</f:if>
+													</f:for>
+												</f:then>
+												<f:else>
+													{answer.value}
+												</f:else>
+											</f:if>
+										</f:if>
+									</f:for>
+								</td>
+							</f:for>
+							<td>
+								<f:link.action action="show" pageUid="{singlePid}" arguments="{mail : mail}">
+									<f:translate key="PowermailFrontendDetailView" />
+								</f:link.action>
+
+								<f:if condition="{vh:Condition.IsAllowedToEdit(settings: '{settings}', mail: '{mail}')}">
+									<f:link.action action="edit" pageUid="{editPid}" arguments="{mail : mail}">
+										<f:translate key="PowermailFrontendEditView" />
+									</f:link.action>
+								</f:if>
+							</td>
+						</tr>
+
+					</f:for>
+				</table>
+			</f:then>
+			<f:else>
+				<p>
+					<f:translate key="BackendListNoMails" /><br />
+					<f:translate key="PowermailFrontendNoMailsDetail" />
+				</p>
+			</f:else>
+		</f:if>
+
+	</div>
+</f:section>

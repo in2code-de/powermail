@@ -1,0 +1,14 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Default" />
+
+Render Powermail Confirm Failed Page
+
+<f:section name="main">
+	<f:render partial="FormError" arguments="{error}" />
+
+	<div class="powermail_create">
+		<f:flashMessages class="powermail_message powermail_message_error" />
+
+		<f:translate key="optin_mail_confirm_failed" />
+	</div>
+</f:section>

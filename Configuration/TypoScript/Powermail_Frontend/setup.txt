@@ -1,0 +1,110 @@
+############################
+# POWERMAIL_FRONTEND
+############################
+plugin.tx_powermail {
+	settings {
+		Pi2 {
+
+			rss {
+				title = Powermail 2.0 RSS Feed
+				link = http://www.in2code.de
+				description = Powermail_Frontend RSS Feed
+				language = en
+				copyright = in2code.de
+				updatePeriod = hourly
+				updateFrequency = 1
+			}
+
+			# Don't touch this (this is just to let the extension know, that there is TypoScript included)
+			staticTemplate = 1
+		}
+	}
+}
+
+
+
+############################
+# Export section
+############################
+
+powermail_frontend_xls = PAGE
+powermail_frontend_xls {
+	typeNum = 31311
+
+	config {
+		disableAllHeaderCode = 1
+		disablePrefixComment = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		additionalHeaders = Content-type:application/xls | Content-Disposition: inline; filename=export.xls | Cache-control: | Pragma:
+	}
+
+	10 = TEXT
+	10 {
+		value = <html><head></head><body>
+	}
+
+	20 < styles.content.get
+
+	30 = TEXT
+	30 {
+		value = </body></html>
+	}
+}
+powermail_frontend_csv = PAGE
+powermail_frontend_csv {
+	typeNum = 31312
+
+	config {
+		disableAllHeaderCode = 1
+		disablePrefixComment = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		additionalHeaders = Content-type:text/x-csv | Content-Disposition: inline; filename=export.csv | Cache-control: | Pragma:
+	}
+
+	10 < styles.content.get
+}
+
+
+
+############################
+# RSS section
+############################
+
+powermail_frontend_rss = PAGE
+powermail_frontend_rss {
+	typeNum = 31319
+
+	config {
+		disableAllHeaderCode = 1
+		disablePrefixComment = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+    	#additionalHeaders = Content-type:application/xml
+	}
+
+	10 < styles.content.get
+}
+[globalVar = GP:type = 31311] || [globalVar = GP:type = 31312] || [globalVar = GP:type = 31319]
+	# we don't want the wrapper div in our export files
+	tt_content.stdWrap.innerWrap >
+[end]
+
+
+
+
+############################
+# JavaScript and CSS section
+############################
+
+page {
+	# Inlude JavaScript files
+	includeJSFooterlibs {
+		powermailJQuery = https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
+		powermailJQuery.external = 1
+	}
+	includeJSFooter {
+		powermail_frontend = EXT:powermail/Resources/Public/Js/powermail_frontend.js
+	}
+}

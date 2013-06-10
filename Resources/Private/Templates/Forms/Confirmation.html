@@ -1,0 +1,64 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<f:layout name="Default" />
+
+Show Confirmation Page
+{field} 			All Field values with their uids
+{powermail_all}		All Field values with their markers
+
+
+<f:section name="main">
+
+	<div class="powermail_confirmation">
+		<h4><f:translate key="confirmation_message" /></h4>
+
+		<vh:string.RawAndRemoveXss>
+			{powermail_all}
+		</vh:string.RawAndRemoveXss>
+
+		<f:comment>
+			Link: Back to form
+		</f:comment>
+		<f:form action="form" controller="Forms" enctype="multipart/form-data" class="powermail_form">
+			<f:for each="{field}" as="value" key="uid">
+				<f:if condition="{vh:Condition.IsArray(val: '{value}')}">
+					<f:then>
+						<f:for each="{value}" as="value2" key="uid2">
+							<f:form.hidden name="field[{uid}][{uid2}]" value="{value2}" />
+						</f:for>
+					</f:then>
+					<f:else>
+						<f:form.hidden name="field[{uid}]" value="{value}" />
+					</f:else>
+				</f:if>
+			</f:for>
+			<f:form.hidden name="form" value="{form}" />
+
+			<f:form.submit value="{f:translate(key: 'confirmation_prev')}" class="powermail_confirmation_form" />
+		</f:form>
+
+
+		<f:comment>
+			Link: Submit form
+		</f:comment>
+		<f:form action="create" controller="Forms" enctype="multipart/form-data" class="powermail_form">
+			<f:for each="{field}" as="value" key="uid">
+				<f:if condition="{vh:Condition.IsArray(val: '{value}')}">
+					<f:then>
+						<f:for each="{value}" as="value2" key="uid2">
+							<f:form.hidden name="field[{uid}][{uid2}]" value="{value2}" />
+						</f:for>
+					</f:then>
+					<f:else>
+						<f:form.hidden name="field[{uid}]" value="{value}" />
+					</f:else>
+				</f:if>
+			</f:for>
+			<f:form.hidden name="form" value="{form}" />
+
+			<f:form.submit value="{f:translate(key: 'confirmation_next')}" class="powermail_confirmation_submit" />
+		</f:form>
+
+		<div class="clear"></div>
+	</div>
+
+</f:section>

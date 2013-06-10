@@ -1,0 +1,8 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+
+<div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_textarea powermail_fieldwrap_{field.uid}">
+	<label for="powermail_field_{field.marker}" class="powermail_label">
+		{field.title}<f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+	</label>
+	<f:form.textarea cols="20" rows="5" id="powermail_field_{field.marker}" name="field[{field.uid}]" value="{answer.value}" class="powermail_field powermail_textarea {vh:Misc.ValidationClass(field: '{field}')}" />
+</div>
