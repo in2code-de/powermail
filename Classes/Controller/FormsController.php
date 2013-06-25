@@ -174,6 +174,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		if ($this->settings['db']['enable'] && !$mail) {
 			$dbField = $this->div->rewriteDateInFields($field, $this->settings);
 			$newMail = $this->saveMail($dbField, $form);
+			$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', array($field, $form, $mail, $this));
 		}
 
 		if (!$this->settings['main']['optin'] || ($this->settings['main']['optin'] && $mail)) {
