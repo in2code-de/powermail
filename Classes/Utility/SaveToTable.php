@@ -145,7 +145,7 @@ class Tx_Powermail_Utility_SaveToTable {
 	 * @param	array		values
 	 * @return	void
 	 */
-	private function dbUpdate($table, $values) {
+	protected function dbUpdate($table, $values) {
 		if (count($values) == 0) { // if there are values
 			return;
 		}
@@ -207,27 +207,29 @@ class Tx_Powermail_Utility_SaveToTable {
 	 * @param	string		table
 	 * @return	void
 	 */
-	private function fieldExists($field = '', $table = '') {
+	protected function fieldExists($field = '', $table = '') {
 		if (empty($field) || empty($table) || stristr($field, '.')) {
 			return 0;
 		}
 
 		// check if table and field exits in db
-		$row1 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc(mysql_query('SHOW TABLES LIKE "' . $table . '"')); // check if table exist
-		if ($row1) {
-			$row2 = $GLOBALS['TYPO3_DB']->sql_fetch_assoc(mysql_query('DESCRIBE ' . $table . ' ' . $field)); // check if field exist (if table is wront - errormessage)
+		$allTables = $GLOBALS['TYPO3_DB']->admin_get_tables();
+		$tableInfo = $allTables[$table];
+		if (is_array($tableInfo)) {
+			$allFields = $GLOBALS['TYPO3_DB']->admin_get_fields($table); // check if field exist (if table is wront - errormessage)
+			$fieldInfo = $allFields[$field];
 		}
 
 		// debug values
-		if (!$row1) {
+		if (!is_array($tableInfo)) {
 			$this->debug_array['ERROR'][] = 'Table "' . $table . '" don\'t exists in db'; // errormessage if table don't exits
 		}
-		if (!$row2 && $row1) {
+		if (is_array($tableInfo) && !is_array($fieldInfo)) {
 			$this->debug_array['ERROR'][] = 'Field "' . $field . '" don\'t exists in db table "' . $table . '"'; // errormessage if field don't exits
 		}
 
 		// return true or false
-		if ($row1 && $row2) {
+		if (is_array($tableInfo) && is_array($fieldInfo)) {
 			return 1; // table and field exist
 		} else {
 			return 0; // table or field don't exist
@@ -240,7 +242,7 @@ class Tx_Powermail_Utility_SaveToTable {
 	 * @param	string	string with a .
 	 * @return	string	string without any .
 	 */
-	private function removeDot($string) {
+	protected function removeDot($string) {
 		return str_replace('.', '', $string);
 	}
 
@@ -249,7 +251,7 @@ class Tx_Powermail_Utility_SaveToTable {
 	 *
 	 * @return void
 	 */
-	private function debug() {
+	protected function debug() {
 		// Debug Output
 		$this->debug_array['Main Table'] = $this->db_values; // array for debug view
 		$this->debug_array['MM Table'] = (count($this->db_values_mm) > 0 ? $this->db_values_mm : 'no values or entry already exists'); // array for debug view
