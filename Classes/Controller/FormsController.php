@@ -269,8 +269,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Send Optin Confirmation Mail
 	 *
-	 * @param $field		array with field values
-	 * @param $newMail		new mail object from db
+	 * @param array $field array with field values
+	 * @param Tx_Powermail_Domain_Model_Mails $newMail new mail object from db
 	 * @return void
 	 */
 	private function sendConfirmationMail($field, $newMail) {
@@ -309,8 +309,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Show THX message after submit
 	 *
-	 * @param	array
-	 * @return	void
+	 * @param array $field
+	 * @return void
 	 */
 	private function showThx($field) {
 		$this->redirectToTarget();
@@ -363,9 +363,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Save mail on submit
 	 *
-	 * @param	array		Field values
-	 * @param	integer		Form uid
-	 * @return	object		Mail object
+	 * @param array $field Field values
+	 * @param int $form Form uid
+	 * @return Tx_Powermail_Domain_Model_Mails Mail object
 	 */
 	private function saveMail($field, $form) {
 		// tx_powermail_domain_model_mails
@@ -420,8 +420,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Confirm Double Optin
 	 *
-	 * @param $mail Mail Uid
-	 * @param $hash Given Hash String
+	 * @param int $mail Mail Uid
+	 * @param string $hash Given Hash String
 	 * @dontvalidate $mail
 	 * @dontvalidate $hash
 	 * return void
@@ -457,7 +457,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Forward to form action if wrong form in plugin variables
 	 *
-	 * @form int		Form Uid
+	 * @param int $form Form Uid
 	 * @return void
 	 */
 	protected function ignoreWrongForm($form) {
