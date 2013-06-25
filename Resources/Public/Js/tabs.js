@@ -63,4 +63,4 @@ jQuery.fn.powermailTabs = function(options) {
 	$this.submit(function(e) {
 		//e.preventDefault();
 	});
-}
+};
