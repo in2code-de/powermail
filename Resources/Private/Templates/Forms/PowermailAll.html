@@ -10,8 +10,8 @@ Section for Web view
 
 <f:section name="web">
 	<vh:string.RawAndRemoveXss>
-		<f:for each="{variables}" as="variable" key="label">
-			<dl class="powermail_all">
+		<dl class="powermail_all">
+			<f:for each="{variables}" as="variable" key="label">
 				<dt>{label}</dt>
 				<dd>
 					<f:if condition="{vh:Condition.IsArray(val: '{variable}')}">
@@ -27,8 +27,8 @@ Section for Web view
 						</f:else>
 					</f:if>
 				</dd>
-			</dl>
-		</f:for>
+			</f:for>
+		</dl>
 
 		<div class="clear"></div>
 	</vh:string.RawAndRemoveXss>
