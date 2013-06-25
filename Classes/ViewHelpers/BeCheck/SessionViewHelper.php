@@ -15,16 +15,22 @@ class Tx_Powermail_ViewHelpers_BeCheck_SessionViewHelper extends Tx_Fluid_ViewHe
 	 */
 	public $sessionKey = 'powermail_be_check_test';
 
-    /**
-     * Check FE Session
-     *
-     * @return 	boolean
-     */
-    public function render() {
+	/**
+	 * Check FE Session
+	 *
+	 * @return 	boolean
+	 */
+	public function render() {
 		// settings
+		global $TYPO3_CONF_VARS;
 		$userObj = tslib_eidtools::initFeUser();
-		$temp_TSFEclassName = t3lib_div::makeInstance('tslib_fe');
-		$GLOBALS['TSFE'] = new $temp_TSFEclassName($TYPO3_CONF_VARS, t3lib_div::_GET('id'), 0, true);
+		$GLOBALS['TSFE'] = t3lib_div::makeInstance(
+			'tslib_fe',
+			$TYPO3_CONF_VARS,
+			t3lib_div::_GET('id'),
+			0,
+			true
+		);
 		$GLOBALS['TSFE']->fe_user = $userObj;
 
 		// random value for session storing
@@ -34,11 +40,11 @@ class Tx_Powermail_ViewHelpers_BeCheck_SessionViewHelper extends Tx_Fluid_ViewHe
 		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->sessionKey, $value);
 		$GLOBALS['TSFE']->storeSessionData();
 
-		if ($GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionKey) == $value) {
+		if ($GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionKey) === $value) {
 			return true;
 		}
 		return false;
-    }
+	}
 }
 
 ?>
