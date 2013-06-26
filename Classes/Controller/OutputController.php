@@ -106,8 +106,8 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	  * Show mails in a list
 	  *
-	  * @param		Tx_Powermail_Domain_Model_Mails $mail
-	  * @return 	void
+	  * @param Tx_Powermail_Domain_Model_Mails $mail
+	  * @return void
 	  */
 	public function showAction(Tx_Powermail_Domain_Model_Mails $mail) {
 		$this->view->assign('mail', $mail);
@@ -135,8 +135,8 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	  * Edit mail
 	  *
-	  * @param		Tx_Powermail_Domain_Model_Mails $mail
-	  * @return 	void
+	  * @param Tx_Powermail_Domain_Model_Mails $mail
+	  * @return void
 	  */
 	public function editAction(Tx_Powermail_Domain_Model_Mails $mail) {
 		$this->view->assign('mail', $mail);
@@ -167,11 +167,11 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	  * Update mail
 	  *
-	  * @param		Tx_Powermail_Domain_Model_Mails $mail
-	  * @param		$field Field Array with changes
+	  * @param Tx_Powermail_Domain_Model_Mails $mail
+	  * @param array $field Field Array with changes
 	  * @dontvalidate $mail
 	  * @dontvalidate $field
-	  * @return 	void
+	  * @return void
 	  */
 	public function updateAction(Tx_Powermail_Domain_Model_Mails $mail, $field = array()) {
 		if ($this->div->isAllowedToEdit($this->settings, $mail)) {
@@ -191,9 +191,9 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	  * Export mails
 	  *
-	  * @param		$export Field Array with mails and format
+	  * @param array $export Field Array with mails and format
 	  * @dontvalidate $export
-	  * @return 	void
+	  * @return void
 	  */
 	public function exportAction($export = array()) {
 		if (!$this->settings['list']['export']) {
@@ -230,11 +230,11 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	  * Export mails CSV
 	  *
-	  * @param		array		$mails mails objects
-	  * @param		array		$fields uid field list
+	  * @param array $mails mails objects
+	  * @param array $fields uid field list
 	  * @dontvalidate $mails
 	  * @dontvalidate $fields
-	  * @return 	void
+	  * @return void
 	  */
 	public function exportCsvAction($mails = array(), $fields = array()) {
 		$this->view->assign('mails', $mails);
@@ -243,6 +243,8 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 
 	/**
 	 * RSS Action List
+	 *
+	 * @return void
 	 */
 	public function rssAction() {
 		$mails = $this->mailsRepository->findListBySettings($this->settings, $this->piVars);

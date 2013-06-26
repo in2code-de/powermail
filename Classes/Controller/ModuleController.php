@@ -57,7 +57,7 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	/**
 	 * List View Backend
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function listBeAction() {
 		$mails = $this->mailsRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);

@@ -112,8 +112,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Show Confirmation message after submit (if view is activated)
 	 *
-	 * @param array Field values
-	 * @param integer Form UID
+	 * @param array $field Field values
+	 * @param integer $form Form UID
 	 * @validate $field Tx_Powermail_Domain_Validator_UploadValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_MandatoryValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_StringValidator
@@ -144,9 +144,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Action create entry
 	 *
-	 * @param integer $form			Form UID
-	 * @param array $field			Field Values
-	 * @param integer $mail			Mail object (normally empty, filled when mail already exists via double-optin)
+	 * @param integer $form Form UID
+	 * @param array $field Field Values
+	 * @param integer $mail Mail object (normally empty, filled when mail already exists via double-optin)
 	 * @validate $field Tx_Powermail_Domain_Validator_UploadValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_MandatoryValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_StringValidator
@@ -201,7 +201,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Send Mails
 	 *
-	 * @param $field
+	 * @param array $field
 	 * @return void
 	 */
 	private function sendMail($field) {
