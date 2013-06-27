@@ -42,8 +42,8 @@ class Tx_Powermail_Utility_Div {
 	/**
 	 * Get Field Uid List from given Form Uid
 	 *
-	 * @param	integer		Form Uid
-	 * return	array		Fieldlist
+	 * @param integer $formUid Form Uid
+	 * @return array
 	 */
 	public function getFieldsFromForm($formUid) {
 		$formsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FormsRepository');
@@ -64,8 +64,8 @@ class Tx_Powermail_Utility_Div {
 	/**
 	 * Returns sendername from a couple of arguments
 	 *
-	 * @param	array	Given Params
-	 * @return	string	Sender Name
+	 * @param array $fields Given Params
+	 * @return string Sender Name
 	 */
 	public function getSenderNameFromArguments($fields) {
 		if (!is_array($fields)) {
@@ -90,8 +90,8 @@ class Tx_Powermail_Utility_Div {
 	/**
 	 * Returns senderemail from a couple of arguments
 	 *
-	 * @param	array	Given Params
-	 * @return	string	Sender Email
+	 * @param array $fields Given Params
+	 * @return string Sender Email
 	 */
 	public function getSenderMailFromArguments($fields) {
 		if (!is_array($fields)) {
@@ -111,7 +111,7 @@ class Tx_Powermail_Utility_Div {
 		if (!$email) {
 			$email = Tx_Extbase_Utility_Localization::translate('error_no_sender_email', 'powermail');
 			$email .= '@';
-			$email .= t3lib_div::getIndpEnv('TYPO3_HOST_ONLY');
+			$email .= str_replace('www.', '', t3lib_div::getIndpEnv('TYPO3_HOST_ONLY'));
 		}
 		return $email;
 	}
@@ -119,8 +119,8 @@ class Tx_Powermail_Utility_Div {
 	/**
 	 * Save current timestamp to session
 	 *
-	 * @param	integer		Form uid
-	 * @return	void
+	 * @param integer $formUid Form uid
+	 * @return void
 	 */
 	public function saveFormStartInSession($formUid) {
 		if (intval($formUid) === 0) {
@@ -134,8 +134,8 @@ class Tx_Powermail_Utility_Div {
 	/**
 	 * Read FormStart
 	 *
-	 * @param	integer		Form UID
-	 * return	integer		Timestamp
+	 * @param integer $formUid Form UID
+	 * @return integer Timestamp
 	 */
 	public function getFormStartFromSession($formUid) {
 		$timestamp = $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
@@ -145,8 +145,8 @@ class Tx_Powermail_Utility_Div {
 	/**
 	 * Returns given number or the current PID
 	 *
-	 * @param	int		Storage PID or nothing
-	 * @return	int		Storage PID or current PID
+	 * @param integer $pid Storage PID or nothing
+	 * @return integer
 	 */
 	public function getStoragePage($pid = '') {
 		if (!$pid) {
