@@ -214,6 +214,10 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 			)
 		);
 		foreach ((array) $sorting as $field => $order) {
+			if (empty($order)) {
+				continue;
+			}
+
 			$field = preg_replace('/[^a-zA-Z0-9_-]/', '', $field);
 			$query->setOrderings(
 				array(
