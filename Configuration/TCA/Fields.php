@@ -330,9 +330,9 @@ $TCA['tx_powermail_domain_model_fields'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:tx_powermail_domain_model_fields.prefill_value',
 			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
+				'type' => 'text',
+				'cols' => '32',
+				'rows' => '2'
 			),
 			'displayCond' => 'FIELD:type:IN:input,textarea,hidden'
 		),

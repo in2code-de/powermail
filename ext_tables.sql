@@ -99,7 +99,7 @@ CREATE TABLE tx_powermail_domain_model_fields (
 	path varchar(255) DEFAULT '' NOT NULL,
 	content_element int(11) DEFAULT '0' NOT NULL,
 	text text NOT NULL,
-	prefill_value varchar(255) DEFAULT '' NOT NULL,
+	prefill_value text NOT NULL,
 	validation int(11) DEFAULT '0' NOT NULL,
 	css varchar(255) DEFAULT '' NOT NULL,
 	feuser_value varchar(255) DEFAULT '' NOT NULL,
