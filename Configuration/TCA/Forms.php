@@ -139,7 +139,7 @@ $TCA['tx_powermail_domain_model_forms'] = array(
 			'config' => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_powermail_domain_model_pages',
-				'foreign_table_where' => 'AND tx_powermail_domain_model_pages.deletex = 1 AND tx_powermail_domain_model_pages.hidden = 0 and tx_powermail_domain_model_pages.sys_language_uid = 0',
+				'foreign_table_where' => 'AND tx_powermail_domain_model_pages.deleted = 1 AND tx_powermail_domain_model_pages.hidden = 0 and tx_powermail_domain_model_pages.sys_language_uid = 0',
 				'foreign_field' => 'forms',
 				'foreign_sortby' => 'sorting',
 				'maxitems'      => 1000,
