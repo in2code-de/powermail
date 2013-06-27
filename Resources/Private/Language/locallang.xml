@@ -312,22 +312,243 @@
 		<languageKey index="dk" type="array">
 			<label index="pi1_title">powermail</label>
 			<label index="pi1_plus_wiz_description">Kraftfuld og nem mail-form udvidelse med mulighed for at gemme i databasen, javascript validering og meget mere...</label>
+			<label index="validationerror_mandatory">Udfyld dette felt.</label>
+			<label index="validationerror_captcha">Talkoden stemmer ikke overens. Venligst prøv igen.</label>
+			<label index="validationerror_validation">Din indtastning er ikke tilladt!</label>
+			<label index="validationerror_upload_extension">Denne filtype kan ikke uploades.</label>
+			<label index="validationerror_upload_size">Filen, som du ønsker at uploade, overskrider den maksimale filstørrelse.</label>
+			<label index="validationerror_upload_error">Upload af filen mislykkedes. Kontakt dit service team.</label>
+			<label index="validationerror_spam">Kontakt dit service team.</label>
+			<label index="validationerror_spam_details">Kontakt dit service team.</label>
+			<label index="writePasswordAgain">Prøv igen.</label>
 		</languageKey>
 		<languageKey index="en" type="array">
 			<label index="pi1_title">powermail</label>
 			<label index="pi1_plus_wiz_description">Powerful mailform extension with database storing, javascript validation and many more...</label>
+			<label index="validationerror_mandatory">Please complete this field.</label>
+			<label index="validationerror_captcha">The numerical code doesn&apos;t match. Please try again.</label>
+			<label index="validationerror_validation">You are not permitted to input information!</label>
+			<label index="validationerror_upload_extension">This file format cannot be uploaded.</label>
+			<label index="validationerror_upload_size">The file you wish you upload is too big.</label>
+			<label index="validationerror_upload_error">The file failed to upload. Please contact the service team.</label>
+			<label index="validationerror_spam">Please contact the service team.</label>
+			<label index="validationerror_spam_details">Please contact the service team.</label>
+			<label index="writePasswordAgain">Please try again.</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="pi1_title">Powermail</label>
 			<label index="pi1_plus_wiz_description">Extension puissante et flexible pour la création de formulaires et leur envoi par mail</label>
+			<label index="validationerror_mandatory">Veuillez remplir ce champ.</label>
+			<label index="validationerror_captcha">Le code numérique ne correspond pas. Veuillez réessayer.</label>
+			<label index="validationerror_validation">Your input is not allowed!</label>
+			<label index="validationerror_upload_extension">Ce type de fichier ne peut pas être téléchargé.</label>
+			<label index="validationerror_upload_size">Le fichier que vous souhaitez télécharger dépasse la taille de fichier maximum.</label>
+			<label index="validationerror_upload_error">Le document n&apos;a pas pu être téléchargé. Veuillez contacter l&apos;équipe de conseillers .</label>
+			<label index="validationerror_spam">Veuillez contacter l&apos;équipe de conseillers .</label>
+			<label index="validationerror_spam_details">Veuillez contacter l&apos;équipe de conseillers .</label>
+			<label index="writePasswordAgain">Veuillez réessayer.</label>
 		</languageKey>
 		<languageKey index="nl" type="array">
 			<label index="pi1_title">powermail</label>
 			<label index="pi1_plus_wiz_description">Krachtige mailform module</label>
+			<label index="validationerror_mandatory">Vul dit veld in.</label>
+			<label index="validationerror_captcha">De cijfercode klopt niet. Probeer het nog een keer.</label>
+			<label index="validationerror_validation">Deze vermelding is niet toegestaan!</label>
+			<label index="validationerror_upload_extension">Dit soort bestand kan niet geladen worden.</label>
+			<label index="validationerror_upload_size">Het bestand dat je wilt uploaden, is groter dan de maximaal toegestane bestandsgrootte.</label>
+			<label index="validationerror_upload_error">Het bestand kon niet worden geupload. Neem contact op met het serviceteam.</label>
+			<label index="validationerror_spam">Neem contact op met het serviceteam.</label>
+			<label index="validationerror_spam_details">Neem contact op met het serviceteam.</label>
+			<label index="writePasswordAgain">Probeer het nog een keer.</label>
 		</languageKey>
 		<languageKey index="si" type="array">
 			<label index="pi1_title">powermail</label>
 			<label index="pi1_plus_wiz_description">Močna in enostavna ekstenzija za e-pošto z podatkovno bazo za shranjevanje, uveljavitev javaskripta in še več...</label>
+			<label index="validationerror_mandatory">Prosimo, izpolni polje.</label>
+			<label index="validationerror_captcha">Plačilna koda se ne ujema. Prosimo, poskusi znova.</label>
+			<label index="validationerror_validation">Tvoj vnos ni dovoljen!</label>
+			<label index="validationerror_upload_extension">Te vrste datoteke ni mogoče naložiti.</label>
+			<label index="validationerror_upload_size">Datoteka, ki jo želiš naložiti, presega maksmalno velikost datoteke.</label>
+			<label index="validationerror_upload_error">Datoteke ni mogoče naložiti. Prosimo, obvesti ekipo za podporo .</label>
+			<label index="validationerror_spam">Prosimo, obvesti ekipo za podporo .</label>
+			<label index="validationerror_spam_details">Prosimo, obvesti ekipo za podporo .</label>
+			<label index="writePasswordAgain">Prosimo, poskusi znova.</label>
+		</languageKey>
+		<languageKey index="cz" type="array">
+			<label index="validationerror_mandatory">Vyplň toto pole.</label>
+			<label index="validationerror_captcha">Číselný kód nesouhlasí. Zkus to prosím znovu.</label>
+			<label index="validationerror_validation">Zadání není povoleno!</label>
+			<label index="validationerror_upload_extension">Tento typ souboru nelze odeslat.</label>
+			<label index="validationerror_upload_size">Soubor, který chceš odeslat, přesahuje maximální limit.</label>
+			<label index="validationerror_upload_error">Soubor se nepodařilo odeslat. Kontaktuj tým podpory .</label>
+			<label index="validationerror_spam">Kontaktuj tým podpory .</label>
+			<label index="validationerror_spam_details">Kontaktuj tým podpory .</label>
+			<label index="writePasswordAgain">Zkus to prosím znovu.</label>
+		</languageKey>
+		<languageKey index="gr" type="array">
+			<label index="validationerror_mandatory">Συμπλήρωσε αυτό το πεδίο.</label>
+			<label index="validationerror_captcha">Ο αλφαριθμητικός κωδικός δεν ταιριάζει. Προσπάθησε ξανά.</label>
+			<label index="validationerror_validation">Αυτή η εισαγωγή δεν επιτρέπεται!</label>
+			<label index="validationerror_upload_extension">Δεν είναι δυνατή η φόρτωση αυτού του τύπου αρχείου.</label>
+			<label index="validationerror_upload_size">Το αρχείο που θέλεις να φορτώσεις υπερβαίνει το μέγιστο επιτρεπτό μέγεθος αρχείου.</label>
+			<label index="validationerror_upload_error">Δεν είναι δυνατή η φόρτωση αυτού του αρχείου. Επικοινώνησε με την ομάδα εξυπηρέτησης της .</label>
+			<label index="validationerror_spam">Επικοινώνησε με την ομάδα εξυπηρέτησης της .</label>
+			<label index="validationerror_spam_details">Επικοινώνησε με την ομάδα εξυπηρέτησης της .</label>
+			<label index="writePasswordAgain">Προσπάθησε ξανά.</label>
+		</languageKey>
+		<languageKey index="es" type="array">
+			<label index="validationerror_mandatory">Por favor, rellena este campo.</label>
+			<label index="validationerror_captcha">El código numérico no coincide. Por favor, inténtalo de nuevo.</label>
+			<label index="validationerror_validation">¡El dato que has introducido no está permitido!</label>
+			<label index="validationerror_upload_extension">No se puede cargar este tipo de archivo.</label>
+			<label index="validationerror_upload_size">El archivo que deseas cargar supera el tamaño máximo de archivo permitido.</label>
+			<label index="validationerror_upload_error">No se pudo cargar el archivo. Por favor, ponte en contacto con el equipo de atención al cliente de .</label>
+			<label index="validationerror_spam">Por favor, ponte en contacto con el equipo de atención al cliente de .</label>
+			<label index="validationerror_spam_details">Por favor, ponte en contacto con el equipo de atención al cliente de .</label>
+			<label index="writePasswordAgain">Por favor, inténtalo de nuevo.</label>
+		</languageKey>
+		<languageKey index="fi" type="array">
+			<label index="validationerror_mandatory">Täytä tämä kenttä.</label>
+			<label index="validationerror_captcha">Numerokoodi ei täsmää. Yritä uudelleen.</label>
+			<label index="validationerror_validation">Syötteesi ei kelpaa!</label>
+			<label index="validationerror_upload_extension">Tätä tiedostotyyppiä ei voi ladata sivustolle.</label>
+			<label index="validationerror_upload_size">Tiedosto, jonka yrität ladata, ylittää suurimman sallitun tiedostokoon.</label>
+			<label index="validationerror_upload_error">Tiedostoa ei voitu ladata sivustolle. Ota yhteyttä in asiakaspalveluun.</label>
+			<label index="validationerror_spam">Ota yhteyttä in asiakaspalveluun.</label>
+			<label index="validationerror_spam_details">Ota yhteyttä in asiakaspalveluun.</label>
+			<label index="writePasswordAgain">Yritä uudelleen.</label>
+		</languageKey>
+		<languageKey index="hr" type="array">
+			<label index="validationerror_mandatory">Molimo ispunite ovo polje.</label>
+			<label index="validationerror_captcha">Brojčani kod se ne podudara. Pokušajte ponovno.</label>
+			<label index="validationerror_validation">Vaš unos nije dopušten!</label>
+			<label index="validationerror_upload_extension">Ova vrsta datoteke ne može se učitati.</label>
+			<label index="validationerror_upload_size">Datoteka koju želite učitati premašuje najveću dopuštenu veličinu.</label>
+			<label index="validationerror_upload_error">Datoteka se nije mogla učitati. Molimo obratite se ovoj službi za korisnike.</label>
+			<label index="validationerror_spam">Molimo obratite se ovoj službi za korisnike.</label>
+			<label index="validationerror_spam_details">Molimo obratite se ovoj službi za korisnike.</label>
+			<label index="writePasswordAgain">Pokušajte ponovno.</label>
+		</languageKey>
+		<languageKey index="hu" type="array">
+			<label index="validationerror_mandatory">Kérjük, töltsd ki ezt a mezőt.</label>
+			<label index="validationerror_captcha">Nem egyezik a számkód. Kérjük, próbáld újra.</label>
+			<label index="validationerror_validation">Érvénytelen bevitel!</label>
+			<label index="validationerror_upload_extension">Ezt a fájltípust nem lehet feltölteni.</label>
+			<label index="validationerror_upload_size">Az általad feltölteni kívánt fájl mérete meghaladja a maximális fájlméretet.</label>
+			<label index="validationerror_upload_error">A fájl feltöltése sikertelen volt. Kérjük, lépj kapcsolatba a ügyfélszolgálatával.</label>
+			<label index="validationerror_spam">Kérjük, lépj kapcsolatba a ügyfélszolgálatával.</label>
+			<label index="validationerror_spam_details">Kérjük, lépj kapcsolatba a ügyfélszolgálatával.</label>
+			<label index="writePasswordAgain">Kérjük, próbáld újra.</label>
+		</languageKey>
+		<languageKey index="it" type="array">
+			<label index="validationerror_mandatory">Compila questo campo.</label>
+			<label index="validationerror_captcha">Il codice numerico non corrisponde. Riprova.</label>
+			<label index="validationerror_validation">Immissione non consentita!</label>
+			<label index="validationerror_upload_extension">Impossibile caricare questo tipo di file.</label>
+			<label index="validationerror_upload_size">Il file che desideri caricare supera le dimensioni massime consentite per i file.</label>
+			<label index="validationerror_upload_error">Impossibile caricare il file. Contatta il team del servizio clienti .</label>
+			<label index="validationerror_spam">Contatta il team del servizio clienti .</label>
+			<label index="validationerror_spam_details">Contatta il team del servizio clienti .</label>
+			<label index="writePasswordAgain">Riprova.</label>
+		</languageKey>
+		<languageKey index="no" type="array">
+			<label index="validationerror_mandatory">Fyll ut dette feltet.</label>
+			<label index="validationerror_captcha">Tallkoden stemmer ikke overens. Vennligst prøv på nytt.</label>
+			<label index="validationerror_validation">Inntastingen ikke tillatt!</label>
+			<label index="validationerror_upload_extension">Denne filtypen kan ikke lastes opp.</label>
+			<label index="validationerror_upload_size">Filen som du ønsker å laste opp, overskrider den maksimale filstørrelsen.</label>
+			<label index="validationerror_upload_error">Filen kunne ikke lastes opp. Ta kontakt med serviceteamet.</label>
+			<label index="validationerror_spam">Ta kontakt med serviceteamet.</label>
+			<label index="validationerror_spam_details">Ta kontakt med serviceteamet.</label>
+			<label index="writePasswordAgain">Vennligst prøv på nytt.</label>
+		</languageKey>
+		<languageKey index="pl" type="array">
+			<label index="validationerror_mandatory">Wypełnij to pole.</label>
+			<label index="validationerror_captcha">Kombinacja cyfr jest niepoprawna. Spróbuj ponownie.</label>
+			<label index="validationerror_validation">Your input is not allowed!</label>
+			<label index="validationerror_upload_extension">Ten rodzaj plików nie może zostać wczytany.</label>
+			<label index="validationerror_upload_size">Plik, który chcesz wczytać, przekracza dozwolony rozmiar.</label>
+			<label index="validationerror_upload_error">Wczytanie tego pliku nie jest możliwe. Skontaktuj się z Centrum Serwisowym .</label>
+			<label index="validationerror_spam">Skontaktuj się z Centrum Serwisowym .</label>
+			<label index="validationerror_spam_details">Skontaktuj się z Centrum Serwisowym .</label>
+			<label index="writePasswordAgain">Spróbuj ponownie.</label>
+		</languageKey>
+		<languageKey index="ro" type="array">
+			<label index="validationerror_mandatory">Completează acest câmp.</label>
+			<label index="validationerror_captcha">Codul numeric este incorect. Încearcă din nou.</label>
+			<label index="validationerror_validation">Your input is not allowed!</label>
+			<label index="validationerror_upload_extension">Nu este posibilă încărcarea acestui tip de fişiere.</label>
+			<label index="validationerror_upload_size">Fişierul pe care doreşti să-l încarci depăşeşte mărimea maximă.</label>
+			<label index="validationerror_upload_error">Nu a fost posibilă încărcarea fişierului. Contactează echipa de service .</label>
+			<label index="validationerror_spam">Contactează echipa de service .</label>
+			<label index="validationerror_spam_details">Contactează echipa de service .</label>
+			<label index="writePasswordAgain">Încearcă din nou.</label>
+		</languageKey>
+		<languageKey index="ru" type="array">
+			<label index="validationerror_mandatory">Заполните это поле.</label>
+			<label index="validationerror_captcha">Цифровой код не совпадает. Попробуйте заново.</label>
+			<label index="validationerror_validation">Недопустимое значение!</label>
+			<label index="validationerror_upload_extension">Не допускается загрузка данного типа файла.</label>
+			<label index="validationerror_upload_size">Размер загружаемого файла превышает максимальный размер.</label>
+			<label index="validationerror_upload_error">Не удалось загрузить файл. Обратитесь в службу поддержки .</label>
+			<label index="validationerror_spam">Обратитесь в службу поддержки .</label>
+			<label index="validationerror_spam_details">Обратитесь в службу поддержки .</label>
+			<label index="writePasswordAgain">Попробуйте заново.</label>
+		</languageKey>
+		<languageKey index="sk" type="array">
+			<label index="validationerror_mandatory">Prosím, vyplň toto pole.</label>
+			<label index="validationerror_captcha">Číselný kód sa nezhoduje. Prosím, skús to znova.</label>
+			<label index="validationerror_validation">Toto zadanie nie je povolené!</label>
+			<label index="validationerror_upload_extension">Tento typ súboru sa nedá nahrať.</label>
+			<label index="validationerror_upload_size">Súbor, ktorý by si chcel nahrať, prekračuje maximálnu veľkosť súboru.</label>
+			<label index="validationerror_upload_error">Súbor nemohol byť nahratý. Prosím, kontaktuj servisný tím .</label>
+			<label index="validationerror_spam">Prosím, kontaktuj servisný tím .</label>
+			<label index="validationerror_spam_details">Prosím, kontaktuj servisný tím .</label>
+			<label index="writePasswordAgain">Prosím, skús to znova.</label>
+		</languageKey>
+		<languageKey index="tr" type="array">
+			<label index="validationerror_mandatory">Lütfen bu alanı doldur.</label>
+			<label index="validationerror_captcha">Sayı kodu hatalı. Lütfen tekrar dene.</label>
+			<label index="validationerror_validation">Yaptığın giriş geçersiz!</label>
+			<label index="validationerror_upload_extension">Bu dosya türü yüklenemez.</label>
+			<label index="validationerror_upload_size">Yüklemek istediğin dosya izin verilen azami dosya boyutunu aşıyor.</label>
+			<label index="validationerror_upload_error">Dosya yüklenemedi. Lütfen servis ekibine danış.</label>
+			<label index="validationerror_spam">Lütfen servis ekibine danış.</label>
+			<label index="validationerror_spam_details">Lütfen servis ekibine danış.</label>
+			<label index="writePasswordAgain">Lütfen tekrar dene.</label>
+		</languageKey>
+		<languageKey index="lv" type="array">
+			<label index="validationerror_mandatory">Lūdzu, aizpildi šo lauku.</label>
+			<label index="validationerror_captcha">Ciparu kods nesakrīt. Lūdzu, mēģini vēlreiz.</label>
+			<label index="validationerror_validation">Ievade nav atļauta!</label>
+			<label index="validationerror_upload_extension">Šāda veida datni nevar augšupielādēt.</label>
+			<label index="validationerror_upload_size">Datne, ko vēlies augšupielādēt, pārsniedz maksimālo datnes lielumu.</label>
+			<label index="validationerror_upload_error">Datni nevar augšupielādēt. Lūdzu, sazinies ar palīdzības dienestu.</label>
+			<label index="validationerror_spam">Lūdzu, sazinies ar palīdzības dienestu.</label>
+			<label index="validationerror_spam_details">Lūdzu, sazinies ar palīdzības dienestu.</label>
+			<label index="writePasswordAgain">Lūdzu, mēģini vēlreiz.</label>
+		</languageKey>
+		<languageKey index="pt" type="array">
+			<label index="validationerror_mandatory">Preenche o seguinte campo.</label>
+			<label index="validationerror_captcha">O código numérico não corresponde ao indicado. Tenta novamente.</label>
+			<label index="validationerror_validation">Os dados que introduziste são inválidos!</label>
+			<label index="validationerror_upload_extension">Não é permitido carregar este tipo de ficheiro.</label>
+			<label index="validationerror_upload_size">O ficheiro que pretendes carregar excede o tamanho permitido.</label>
+			<label index="validationerror_upload_error">Não foi possível carregar o ficheiro. Contacta a equipa de assistência .</label>
+			<label index="validationerror_spam">Contacta a equipa de assistência .</label>
+			<label index="validationerror_spam_details">Contacta a equipa de assistência .</label>
+			<label index="writePasswordAgain">Tenta novamente.</label>
+		</languageKey>
+		<languageKey index="se" type="array">
+			<label index="validationerror_mandatory">Fyll i detta fält.</label>
+			<label index="validationerror_captcha">Sifferkoderna stämmer inte överens. Försök igen.</label>
+			<label index="validationerror_validation">Your input is not allowed!</label>
+			<label index="validationerror_upload_extension">Den här filtypen kan inte laddas upp.</label>
+			<label index="validationerror_upload_size">Filen som du vill ladda upp överskrider maximal filstorlek.</label>
+			<label index="validationerror_upload_error">Filen kunde inte laddas upp. Kontakta s serviceteam.</label>
+			<label index="validationerror_spam">Kontakta s serviceteam.</label>
+			<label index="validationerror_spam_details">Kontakta s serviceteam.</label>
+			<label index="writePasswordAgain">Försök igen.</label>
 		</languageKey>
 	</data>
 </T3locallang>
