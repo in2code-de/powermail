@@ -43,21 +43,20 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
 
-		$and = array(
-			$query->greaterThan('uid', 0), // always true like 1=1
-			$query->in('uid', t3lib_div::trimExplode(',', $uids, 1))
-		);
+		if ($query->getQuerySettings()->getSysLanguageUid() == 0) {
+			$and = array(
+				$query->greaterThan('uid', 0), // always true like 1=1
+				$query->in('uid', t3lib_div::trimExplode(',', $uids, 1))
+			);
+		} else {
+			$and = array(
+				$query->greaterThan('uid', 0), // always true like 1=1
+				$query->in('l10n_parent', t3lib_div::trimExplode(',', $uids, 1))
+			);
+		}
 
 		$constraint = $query->logicalAnd($and); // create where object with AND
 		$query->matching($constraint); // use constraint
-
-		// set sorting
-		//		$query->setOrderings(
-		//			array(
-		//				'date_start' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING,
-		//				'languages.titel' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING,
-		//			)
-		//		);
 
 		$result = $query->execute();
 		return $result;
