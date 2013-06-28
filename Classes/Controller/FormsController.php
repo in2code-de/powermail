@@ -106,7 +106,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$this->view->assign('action', ($this->settings['main']['confirmation'] ? 'confirmation' : 'create'));
 
 		// open session
-		$this->div->saveFormStartInSession($forms->getFirst()->getUid());
+		if (method_exists($forms->getFirst(), 'getUid')) {
+			$this->div->saveFormStartInSession($forms->getFirst()->getUid());
+		}
 	}
 
 	/**

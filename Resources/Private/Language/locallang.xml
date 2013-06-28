@@ -44,6 +44,7 @@
 			<label index="error_no_typoscript_pi2">No TypoScript settings given. Admin, did you already include the "Powermail_Frontend" static template?</label>
 			<label index="error_no_sender_name">No Sendername</label>
 			<label index="error_no_sender_email">noreply</label>
+			<label index="error_no_form">No form to show</label>
 			<label index="error_wrong_captcha">Wrong Captcha value, please try again!</label>
 			<label index="validationerror_mandatory">This field must be filled!</label>
 			<label index="validationerror_captcha">Wrong captcha code entered - please try again!</label>
@@ -196,6 +197,7 @@
 			<label index="error_no_typoscript_pi2">Kein TypoScript gefunden. Sind Sie sicher, dass Sie das "Powermail_Frontend" Static Template eingebunden haben?</label>
 			<label index="error_no_sender_name">Kein Absendername</label>
 			<label index="error_no_sender_email">nichtantworten</label>
+			<label index="error_no_form">Kein Formular zur Anzeige</label>
 			<label index="error_wrong_captcha">Falschen Code eingetragen, bitte erneut versuchen!</label>
 			<label index="validationerror_mandatory">Dieses Feld muss ausgefüllt werden!</label>
 			<label index="validationerror_captcha">Falscher Captcha Code eingetragen, bitte erneut versuchen!</label>
