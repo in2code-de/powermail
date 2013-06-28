@@ -162,16 +162,19 @@ class Tx_Powermail_Utility_Div {
 	 * @param object $configurationManager Configuration Manager
 	 * @param object $objectManager Object Manager
 	 * @param string $section Choose a section (web or mail)
+	 * @param array $settings TypoScript Settings
 	 * @return string content parsed from powermailAll HTML Template
 	 */
-	public function powermailAll($variables, $configurationManager, $objectManager, $section = 'web') {
+	public function powermailAll($variables, $configurationManager, $objectManager, $section = 'web', $settings = array()) {
 		$powermailAll = $objectManager->create('Tx_Fluid_View_StandaloneView');
 		$extbaseFrameworkConfiguration = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$templatePathAndFilename = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']) . 'Forms/PowermailAll.html';
 		$powermailAll->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['layoutRootPath']));
+		$powermailAll->setPartialRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['partialRootPath']));
 		$powermailAll->setTemplatePathAndFilename($templatePathAndFilename);
 		$powermailAll->assign('variables', $variables);
 		$powermailAll->assign('section', $section);
+		$powermailAll->assign('settings', $settings);
 		$content = $powermailAll->render();
 
 		return $content;
@@ -346,14 +349,13 @@ class Tx_Powermail_Utility_Div {
 		$extbaseFrameworkConfiguration = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$templatePathAndFilename = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']) . $mail['template'] . '.html';
 		$emailView = $objectManager->create('Tx_Fluid_View_StandaloneView');
-		$emailView->getRequest()->setControllerExtensionName('powermail');
+		$emailView->getRequest()->setControllerExtensionName('Powermail'); // extension name for translate viewhelper
 		$emailView->getRequest()->setPluginName('Pi1');
 		$emailView->getRequest()->setControllerName('Forms');
 		$emailView->setFormat('html');
 		$emailView->setTemplatePathAndFilename($templatePathAndFilename);
 		$emailView->setPartialRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['partialRootPath']));
 		$emailView->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['layoutRootPath']));
-		$emailView->getRequest()->setControllerExtensionName('Powermail'); // extension name for translate viewhelper
 
 		// get variables
 			// additional variables
@@ -366,7 +368,7 @@ class Tx_Powermail_Utility_Div {
 		$emailView->assignMultiple($variablesWithMarkers);
 			// powermail_all
 		$variables = $this->getVariablesWithLabels($fields);
-		$content = $this->powermailAll($variables, $configurationManager, $objectManager, 'mail');
+		$content = $this->powermailAll($variables, $configurationManager, $objectManager, 'mail', $settings);
 		$emailView->assign('powermail_all', $content);
 			// from rte
 		$emailView->assign('powermail_rte', $mail['rteBody']);

@@ -1,0 +1,20 @@
+{namespace vh=Tx_Powermail_ViewHelpers}
+<tr>
+	<td valign="top">
+		<b>{label}</b>
+	</td>
+	<td valign="top">
+		<f:if condition="{vh:Condition.IsArray(val: '{variable}')}">
+			<f:then>
+				<f:for each="{variable}" as="variable2" iteration="index">
+					<f:if condition="{variable2}">
+						{variable2}<f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
+					</f:if>
+				</f:for>
+			</f:then>
+			<f:else>
+				<f:format.nl2br>{variable}</f:format.nl2br>
+			</f:else>
+		</f:if>
+	</td>
+</tr>

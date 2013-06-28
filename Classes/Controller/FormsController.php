@@ -137,7 +137,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// powermail_all
 		$variables = $this->div->getVariablesWithLabels($field);
-		$content = $this->div->powermailAll($variables, $this->configurationManager, $this->objectManager);
+		$content = $this->div->powermailAll($variables, $this->configurationManager, $this->objectManager, 'web', $this->settings);
 		$this->view->assign('powermail_all', $content);
 	}
 
@@ -329,7 +329,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// powermail_all
 		$variables = $this->div->getVariablesWithLabels($field);
-		$content = $this->div->powermailAll($variables, $this->configurationManager, $this->objectManager);
+		$content = $this->div->powermailAll($variables, $this->configurationManager, $this->objectManager, 'web', $this->settings);
 		$this->view->assign('powermail_all', $content);
 	}
 
