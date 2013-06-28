@@ -41,9 +41,32 @@ class eidGetLocation {
 		$lat = t3lib_div::_GP('lat');
 		$lng = t3lib_div::_GP('lng');
 
-        $csv = t3lib_div::getUrl('http://maps.google.com/maps/geo?&output=csv&q=' . $lat . ',' . $lng);
-		$csvParts = Tx_Extbase_Utility_Arrays::trimExplode('"', $csv, 1);
-		return $csvParts[1];
+		$address = $this->getAddressFromGeo($lat, $lng);
+		return $address['route'] . ' ' . $address['street_number'];
+	}
+
+	/**
+	 * Get Address from geo coordinates
+	 *
+	 * @param float $lat
+	 * @param float $lng
+	 * @return array all location infos
+	 * 		['street_number'] = 12;
+	 * 		['route'] = 'Kunstmuehlstr.';
+	 * 		['locality'] = 'Rosenheim';
+	 * 		['country'] = 'Germany';
+	 * 		['postal_code'] = '83026';
+	 */
+	protected function getAddressFromGeo($lat, $lng) {
+		$result = array();
+		$json = t3lib_div::getUrl('https://maps.googleapis.com/maps/api/geocode/json?sensor=false&region=de&latlng=' . urlencode($lat . ',' . $lng));
+		$jsonDecoded = json_decode($json, true);
+		if (!empty($jsonDecoded['results'])) {
+			foreach ((array) $jsonDecoded['results'][0]['address_components'] as $values) {
+				$result[$values['types'][0]] = $values['long_name'];
+			}
+		}
+		return $result;
 	}
 }
 

@@ -1,10 +1,17 @@
 /**
+ * Baseurl
+ *
+ * @type {string}
+ */
+var baseurl;
+
+/**
  * Powermail main JavaScript for form validation
  */
 jQuery(document).ready(function($) {
 
-	// Baseurl
-	var baseurl = getBaseUrl();
+	// Read baseURL
+	baseurl = getBaseUrl();
 
 	// Form validation
 	if ($.fn.validationEngine) {
@@ -115,10 +122,15 @@ function getLocationAndWrite() {
  * @return	string	Base Url
  */
 function getBaseUrl() {
+	var baseurl;
 	if (jQuery('base').length > 0) {
 		baseurl = jQuery('base').attr('href');
 	} else {
-		baseurl = window.location.hostname;
+		if (window.location.protocol != "https:") {
+			baseurl = 'http://' + window.location.hostname;
+		} else {
+			baseurl = 'https://' + window.location.hostname;
+		}
 	}
 	return baseurl;
 }
