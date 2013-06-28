@@ -25,19 +25,18 @@
 
 
 /**
- *
+ * FormsRepository
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
  */
 class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persistence_Repository {
 
 	/**
 	 * Find Form objects by its given uids
 	 *
-	 * @param 	$uids	string		commaseparated list of uids
-	 * @return	Tx_Extbase_Persistence_QueryResult
+	 * @param string $uids commaseparated list of uids
+	 * @return Tx_Extbase_Persistence_QueryResult
 	 */
 	public function findByUids($uids) {
 		$query = $this->createQuery();
@@ -65,9 +64,8 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 	/**
 	 * Returns form with captcha from given UID
 	 *
-	 * @param	$uid	int		Form Uid
-	 * @return	Tx_Extbase_Persistence_QueryResult
-	 * @return	Tx_Extbase_Persistence_QueryResult
+	 * @param int $uid Form Uid
+	 * @return Tx_Extbase_Persistence_QueryResult
 	 */
 	public function hasCaptcha($uid) {
 		$query = $this->createQuery();
@@ -88,11 +86,12 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 	/**
 	 * This function is a workarround to get the field value of "pages" in the table "forms" (only relevant if IRRE was replaced by Element Browser)
 	 *
-	 * @param int $uid		Form UID
+	 * @param int $uid Form UID
 	 * @return string
 	 */
 	public function getPagesValue($uid) {
 		$query = $this->createQuery();
+		$query->getQuerySettings()->setReturnRawQueryResult(true);
 
 		// create sql statement
 		$sql = 'select pages';
@@ -100,7 +99,6 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 		$sql .= ' where uid = ' . intval($uid);
 		$sql .= ' limit 1';
 
-		$query->getQuerySettings()->setReturnRawQueryResult(true); //this generates an array and makes it much slower
 		$result = $query->statement($sql)->execute();
 
 		return $result[0]['pages'];
