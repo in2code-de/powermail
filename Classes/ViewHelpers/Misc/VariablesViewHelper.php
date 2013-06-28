@@ -23,7 +23,7 @@ class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_Vi
 	 *
 	 * @var		Tx_Powermail_Utility_Div
 	 */
-	private $div;
+	protected $div;
 
     /**
      * Parses variables again
@@ -31,9 +31,9 @@ class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_Vi
 	 * @param	array		Variables and Markers array
 	 * @param	array		Variables and Labels array
 	 * @param	string		"web" or "mail"
-     * @return 	string		Changed string
-     */
-    public function render($variablesMarkers = array(), $variablesLabels = array(), $type = 'web') {
+	 * @return 	string		Changed string
+	 */
+	public function render($variablesMarkers = array(), $variablesLabels = array(), $type = 'web') {
 		$parseObject = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
 		$parseObject->setTemplateSource($this->renderChildren());
 		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($variablesMarkers));
@@ -42,7 +42,7 @@ class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_Vi
 		$parseObject->assign('powermail_all', $powermailAll);
 
 		return html_entity_decode($parseObject->render());
-    }
+	}
 
 	/**
 	 * Injects the Configuration Manager

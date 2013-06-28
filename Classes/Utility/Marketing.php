@@ -59,7 +59,7 @@ class Tx_Powermail_Utility_Marketing {
 	 * @param	array		Info Array
 	 * @return	void
 	 */
-	private function storeInSession($newInfo) {
+	protected function storeInSession($newInfo) {
 		// 1. get old values
 		$oldInfo = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionPrefix);
 
@@ -95,7 +95,7 @@ class Tx_Powermail_Utility_Marketing {
 	 *
 	 * return	string		URL of the last page (if different domain)
 	 */
-	private function getExternalReferer() {
+	protected function getExternalReferer() {
 		$url = parse_url(htmlentities(t3lib_div::getIndpEnv('HTTP_REFERER'))); // every part of the referer in an own array
 
 		// if this domain is different to referer domain
@@ -110,7 +110,7 @@ class Tx_Powermail_Utility_Marketing {
 	 *
 	 * return	string		Searchterm
 	 */
-	private function getSearchTerm() {
+	protected function getSearchTerm() {
 		$url = parse_url(htmlentities(t3lib_div::getIndpEnv('HTTP_REFERER'))); // every part of the referer in an own array
 
 		if (!isset($url['query'])) { // if GET params is set
@@ -131,7 +131,7 @@ class Tx_Powermail_Utility_Marketing {
 	 *
 	 * return	bool
 	 */
-	private function fromAdwords() {
+	protected function fromAdwords() {
 		$url = parse_url(htmlentities(t3lib_div::getIndpEnv('HTTP_REFERER'))); // every part of the referer in an own array
 
 		preg_match('/adurl=([^&]+)(&amp;)?/', $url['query'], $output); // give me only the &q="searchword" part
@@ -144,9 +144,9 @@ class Tx_Powermail_Utility_Marketing {
 	/**
 	 * Function to read values from session
 	 *
-	 * @param	string		Given content (normally empty)
-	 * @param	array		TypoScript configuration for this userFunc
-	 * return	sting		Session values
+	 * @param string $content Given content (normally empty)
+	 * @param array $conf TypoScript configuration for this userFunc
+	 * @return string Session values
 	 */
 	public function readSession($content = '', $conf = array()) {
 		$info = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionPrefix);

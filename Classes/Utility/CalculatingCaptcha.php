@@ -37,7 +37,7 @@ class Tx_Powermail_Utility_CalculatingCaptcha {
 	/**
 	 * @var 	array		TypoScript
 	 */
-	private $conf;
+	protected $conf;
 
 	/**
 	 * @var 	string		New Image Path
@@ -83,7 +83,7 @@ class Tx_Powermail_Utility_CalculatingCaptcha {
 	 * @param $content
 	 * @return string	Image HTML Code
 	 */
-	private function createImage($content) {
+	protected function createImage($content) {
 		$subfolder = '';
 		if (t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST') . '/' != t3lib_div::getIndpEnv('TYPO3_SITE_URL')) { // if request_host is different to site_url (TYPO3 runs in a subfolder)
 			$subfolder = str_replace(t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST') . '/', '', t3lib_div::getIndpEnv('TYPO3_SITE_URL')); // get the folder (like "subfolder/")
@@ -118,7 +118,7 @@ class Tx_Powermail_Utility_CalculatingCaptcha {
 	 *
 	 * @return string
 	 */
-	private function getString() {
+	protected function getString() {
 		// config
 		// 1. Get random numbers
 		$op = mt_rand(0, 1); // operator +/-

@@ -39,7 +39,7 @@ class Tx_Powermail_Utility_FieldSelectorUserFunc {
 	 *
 	 * @var int
 	 */
-	private $limit = 10000;
+	protected $limit = 10000;
 
 	/**
 	 * Cretae Array for Field Selector
@@ -76,7 +76,7 @@ class Tx_Powermail_Utility_FieldSelectorUserFunc {
 	 * @param	array	Config Array
 	 * @return	int		Form Uid
 	 */
-	private function getFormFromFlexform($params) {
+	protected function getFormFromFlexform($params) {
 		$xml = $params['row']['pi_flexform'];
 		$flexform = t3lib_div::xml2array($xml);
 		if (is_array($flexform) && isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
@@ -88,9 +88,10 @@ class Tx_Powermail_Utility_FieldSelectorUserFunc {
 	/**
 	 * Get Fieldlist from Form UID
 	 *
-	 * @param	integer		$formUid Form UID
+	 * @param integer $formUid Form UID
+	 * @return array
 	 */
-	private function getFieldsFromForm($formUid) {
+	protected function getFieldsFromForm($formUid) {
 		$select = 'tx_powermail_domain_model_fields.uid, tx_powermail_domain_model_fields.title, tx_powermail_domain_model_fields.marker';
 		$from = '
 			tx_powermail_domain_model_fields

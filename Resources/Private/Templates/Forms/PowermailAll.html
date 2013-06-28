@@ -1,14 +1,17 @@
 {namespace vh=Tx_Powermail_ViewHelpers}
 <f:layout name="PowermailAll" />
 
-Render Powermail All Part
-{variables}			Contains all given Plugins variables
-{section}			Contains "web" or "mail"
+	Render Powermail All Part
+		Available variables:
+		{variables}			Contains all given Plugins variables
+		{section}			Contains "web" or "mail"
+		{settings}			TypoScript and FlexForm values
 
 
 Section for Web view
 
 <f:section name="web">
+	<f:debug>{settings}</f:debug>
 	<vh:string.RawAndRemoveXss>
 		<dl class="powermail_all">
 			<f:for each="{variables}" as="variable" key="label">

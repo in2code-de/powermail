@@ -145,7 +145,10 @@ plugin.tx_powermail {
 		}
 		
 		misc {
-			# cat=powermail_additional//0800; type=boolean; label= Misc Enable HTML Field: Per default HTML-Fields are disabled in powermail for security reasons. If you aware of possible XSS from your editors, you can enable this field type (e.g. 1)
+			# cat=powermail_additional//0800; type=boolean; label= Show only filled values: If the user submits a form, even not filled values are viewable. If you only want to show labels with filled values, use this setting
+			showOnlyFilledValues = 0
+
+			# cat=powermail_additional//0805; type=boolean; label= Misc Enable HTML Field: Per default HTML-Fields are disabled in powermail for security reasons. If you aware of possible XSS from your editors, you can enable this field type (e.g. 1)
 			htmlField = 0
 
 			# cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)

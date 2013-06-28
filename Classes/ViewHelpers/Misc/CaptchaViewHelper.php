@@ -11,14 +11,14 @@ class Tx_Powermail_ViewHelpers_Misc_CaptchaViewHelper extends Tx_Fluid_ViewHelpe
 	/**
 	 * Configuration
 	 */
-	private $settings;
+	protected $settings;
 
-    /**
-     * Returns Captcha-Image String
-     *
-     * @return 	string		HTML-Tag for Captcha image
-     */
-    public function render() {
+	/**
+	 * Returns Captcha-Image String
+	 *
+	 * @return 	string		HTML-Tag for Captcha image
+	 */
+	public function render() {
 		$captcha = t3lib_div::makeInstance('Tx_Powermail_Utility_CalculatingCaptcha');
 		return $captcha->render($this->settings);
     }

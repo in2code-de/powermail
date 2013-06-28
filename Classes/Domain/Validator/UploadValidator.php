@@ -53,12 +53,12 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 	 *
 	 * @var bool
 	 */
-	private $isValid = true;
+	protected $isValid = true;
 
 	/**
 	 * Validation of given Params
 	 *
-	 * @param $params
+	 * @param array $field
 	 * @return bool
 	 */
 	public function isValid($field) {
@@ -106,7 +106,7 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 	 * @param	int			Field uid
 	 * @return	bool		If file is not larger than allowed
 	 */
-	private function checkFilesize($uid) {
+	protected function checkFilesize($uid) {
 		if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['field'][$uid]) > $this->settings['misc.']['file.']['size']) {
 			$this->addError('upload_size', $uid);
 			$this->isValid = false;
@@ -122,7 +122,7 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 	 * @param	int			Field uid
 	 * @return	bool		If Extension is allowed via ts
 	 */
-	private function checkExtension($filename, $uid) {
+	protected function checkExtension($filename, $uid) {
 		$fileInfo = pathinfo($filename);
 		if (!isset($fileInfo['extension']) || !t3lib_div::inList($this->settings['misc.']['file.']['extension'], $fileInfo['extension'])) {
 			$this->addError('upload_extension', $uid);

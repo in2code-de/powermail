@@ -27,7 +27,7 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 	 *
 	 * @var bool
 	 */
-	private $isValid = true;
+	protected $isValid = true;
 
 	/**
 	 * Validation of given Params

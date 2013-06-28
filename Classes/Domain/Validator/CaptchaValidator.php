@@ -27,14 +27,14 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 	 *
 	 * @var bool
 	 */
-	private $isValid = true;
+	protected $isValid = true;
 
 	/**
 	 * Captcha Field found
 	 *
 	 * @var bool
 	 */
-	private $captchaFound = false;
+	protected $captchaFound = false;
 
 	/**
 	 * Validation of given Captcha fields
@@ -82,7 +82,7 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 	/**
 	 * Checks if given form has a captcha
 	 */
-	private function formHasCaptcha() {
+	protected function formHasCaptcha() {
 		$gp = t3lib_div::_GP('tx_powermail_pi1');
 		$formUid = $gp['form'];
 		$form = $this->formsRepository->hasCaptcha($formUid);
@@ -91,8 +91,6 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 
 	/**
 	 * Constructor
-	 *
-	 * @return	void
 	 */
 	public function __construct() {
 		$piVars = t3lib_div::_GET('tx_powermail_pi1');

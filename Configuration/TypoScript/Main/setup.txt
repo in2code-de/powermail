@@ -251,6 +251,9 @@ plugin.tx_powermail {
 
 			# Misc Settings
 			misc {
+				# Show only values if they are filled (for all views and for mails)
+				showOnlyFilledValues = {$plugin.tx_powermail.settings.misc.showOnlyFilledValues}
+
 				# HTML Output allowed
 				htmlField = {$plugin.tx_powermail.settings.misc.htmlField}
 

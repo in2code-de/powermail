@@ -6,14 +6,14 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 *
 	 * @var integer
 	 */
-	private $spamIndicator = 0;
+	protected $spamIndicator = 0;
 
 	/**
 	 * TypoScript Settings
 	 *
 	 * @var array
 	 */
-	private $settings;
+	protected $settings;
 
 	/**
 	 * Instance for Misc Functions
@@ -110,7 +110,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @param $indication float Indication if check fails
 	 * @return void
 	 */
-	private function honeypodCheck($params, $indication = 1) {
+	protected function honeypodCheck($params, $indication = 1) {
 		if (!$indication) {
 			return;
 		}
@@ -131,7 +131,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @param $limit integer Limit of allowed links in mail
 	 * @return void
 	 */
-	private function linkCheck($params, $indication = 1, $limit = 2) {
+	protected function linkCheck($params, $indication = 1, $limit = 2) {
 		if (!$indication) {
 			return;
 		}
@@ -163,7 +163,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @param $indication float Indication if check fails
 	 * @return void
 	 */
-	private function nameCheck($params, $indication = 1) {
+	protected function nameCheck($params, $indication = 1) {
 		if (!$indication) {
 			return;
 		}
@@ -211,7 +211,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @param $indication float Indication if check fails
 	 * @return void
 	 */
-	private function sessionCheck($indication = 1) {
+	protected function sessionCheck($indication = 1) {
 		// Stop sessionCheck if indicator was turned to 0 OR if last action was optinConfirm
 		if (!$indication || $this->referrer == 'optinConfirm') {
 			return;
@@ -235,7 +235,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @param $indication float Indication if check fails
 	 * @return void
 	 */
-	private function uniqueCheck($params, $indication = 1) {
+	protected function uniqueCheck($params, $indication = 1) {
 		if (!$indication) {
 			return;
 		}
@@ -264,7 +264,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @param $indication float Indication if check fails
 	 * @return void
 	 */
-	private function blacklistStringCheck($params, $indication = 1) {
+	protected function blacklistStringCheck($params, $indication = 1) {
 		if (!$indication) {
 			return;
 		}
@@ -292,7 +292,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @param $indication float Indication if check fails
 	 * @return void
 	 */
-	private function blacklistIpCheck($indication = 1) {
+	protected function blacklistIpCheck($indication = 1) {
 		if (!$indication) {
 			return;
 		}
@@ -311,7 +311,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 *
 	 * @param $factor
 	 */
-	private function formatSpamFactor($factor) {
+	protected function formatSpamFactor($factor) {
 		return number_format(($factor * 100), 0) . '%';
 	}
 

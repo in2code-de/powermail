@@ -46,7 +46,7 @@ class Tx_Powermail_Utility_PluginInfo {
 	/**
 	 * Path to locallang file
 	 */
-	private $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:pluginInfo.';
+	protected $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xml:pluginInfo.';
 
 	/**
 	 * Main Function
@@ -89,7 +89,7 @@ class Tx_Powermail_Utility_PluginInfo {
 	 * @param 	integer 	Form uid
 	 * @return 	string		Form Title
 	 */
-	private function getFormTitle($uid) {
+	protected function getFormTitle($uid) {
 		$row = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('title', 'tx_powermail_domain_model_forms', 'uid=' . intval($uid));
 		return $row['title'];
 	}
@@ -97,9 +97,10 @@ class Tx_Powermail_Utility_PluginInfo {
 	/**
 	 * Create HTML Output
 	 *
-	 * @param $array	Values to show
+	 * @param array $array Values to show
+	 * @return string
 	 */
-	private function createOutput($array) {
+	protected function createOutput($array) {
 		$i = 0;
 		$content = '';
 		$content .= '<tr class="bgColor2">';
@@ -123,7 +124,7 @@ class Tx_Powermail_Utility_PluginInfo {
 	 * @param 	string 		$key name of the key
 	 * @return 	string		value if found
 	 */
-	private function getFieldFromFlexform($sheet, $key) {
+	protected function getFieldFromFlexform($sheet, $key) {
 		$flexform = t3lib_div::xml2array($this->params['row']['pi_flexform']);
 
 		if (

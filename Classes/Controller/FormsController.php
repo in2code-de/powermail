@@ -204,7 +204,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @param array $field
 	 * @return void
 	 */
-	private function sendMail($field) {
+	protected function sendMail($field) {
 		if ($this->settings['receiver']['enable']) {
 			$receiverString = $this->div->fluidParseString($this->settings['receiver']['email'], $this->objectManager, $this->div->getVariablesWithMarkers($field));
 			$receivers = $this->div->getReceiverEmails($receiverString, $this->settings['receiver']['fe_group']);
@@ -273,7 +273,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @param Tx_Powermail_Domain_Model_Mails $newMail new mail object from db
 	 * @return void
 	 */
-	private function sendConfirmationMail($field, $newMail) {
+	protected function sendConfirmationMail($field, $newMail) {
 		// Send Mail to sender
 		$mail = array();
 		$mail['receiverName'] = 'Powermail';
@@ -312,7 +312,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @param array $field
 	 * @return void
 	 */
-	private function showThx($field) {
+	protected function showThx($field) {
 		$this->redirectToTarget();
 
 		// assign
@@ -367,7 +367,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @param int $form Form uid
 	 * @return Tx_Powermail_Domain_Model_Mails Mail object
 	 */
-	private function saveMail($field, $form) {
+	protected function saveMail($field, $form) {
 		// tx_powermail_domain_model_mails
 		$marketingInfos = $this->div->getMarketingInfos();
 		$newMail = t3lib_div::makeInstance('Tx_Powermail_Domain_Model_Mails');
