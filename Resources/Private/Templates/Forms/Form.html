@@ -22,7 +22,7 @@ Render Powermail Form
 							<f:for each="{page.fields}" as="field">
 								<f:render partial="Forms/{vh:String.Upper(string: '{field.type}')}" arguments="{field: field}" />
 							</f:for>
-y						</fieldset>
+						</fieldset>
 					</f:for>
 
 					<f:form.hidden name="form" value="{form.uid}" />
