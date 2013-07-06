@@ -536,7 +536,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
 	 */
 	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
-	    $this->signalSlotDispatcher = $signalSlotDispatcher;
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 
 }
