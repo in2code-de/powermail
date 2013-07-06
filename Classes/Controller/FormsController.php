@@ -107,7 +107,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// open session
 		if (method_exists($forms->getFirst(), 'getUid')) {
-			$this->div->saveFormStartInSession($forms->getFirst()->getUid());
+			Tx_Powermail_Utility_Div::saveFormStartInSession($forms->getFirst()->getUid());
 		}
 	}
 
@@ -128,7 +128,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		// forward back to formAction if wrong form
 		$this->ignoreWrongForm($form);
 
-		$this->div->addUploadsToFields($field); // add upload fields
+		Tx_Powermail_Utility_Div::addUploadsToFields($field); // add upload fields
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($field, $form, $this));
 		$this->view->assign('field', $field);
 		$this->view->assign('form', $form);
@@ -164,7 +164,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$this->ignoreWrongForm($form);
 
 		// add uploaded files to $field
-		$this->div->addUploadsToFields($field);
+		Tx_Powermail_Utility_Div::addUploadsToFields($field);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($field, $form, $mail, $this));
 
 		// Debug Output
@@ -174,7 +174,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// Save Mail to DB
 		if ($this->settings['db']['enable'] && !$mail) {
-			$dbField = $this->div->rewriteDateInFields($field, $this->settings);
+			$dbField = $this->div->rewriteDateInFields($field);
 			$newMail = $this->saveMail($dbField, $form);
 			$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', array($field, $form, $mail, $this));
 		}
@@ -188,7 +188,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			$saveToTable->main($this->div->getVariablesWithMarkers($field), $this->conf, $this->cObj);
 
 			// Powermail sendpost
-			$this->div->sendPost($field, $this->conf, $this->configurationManager);
+			Tx_Powermail_Utility_Div::sendPost($field, $this->conf, $this->configurationManager);
 
 			// Some output stuff
 			$this->showThx($field);
@@ -302,7 +302,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$mail['rteBody'] = '';
 		$mail['format'] = $this->settings['sender']['mailformat'];
 		$mail['variables'] = array(
-			'optinHash' => $this->div->createOptinHash($newMail->getUid() . $newMail->getPid() . $newMail->getForm()),
+			'optinHash' => Tx_Powermail_Utility_Div::createOptinHash($newMail->getUid() . $newMail->getPid() . $newMail->getForm()),
 			'mail' => $newMail->getUid()
 		);
 		$this->div->sendTemplateEmail($mail, $field, $this->settings, 'optin', $this->objectManager, $this->configurationManager);
@@ -318,7 +318,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$this->redirectToTarget();
 
 		// assign
-		$this->view->assign('marketingInfos', $this->div->getMarketingInfos());
+		$this->view->assign('marketingInfos', Tx_Powermail_Utility_Div::getMarketingInfos());
 		$this->view->assign('messageClass', $this->messageClass);
 		$this->view->assign('powermail_rte', $this->settings['thx']['body']);
 
@@ -371,9 +371,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 */
 	protected function saveMail($field, $form) {
 		// tx_powermail_domain_model_mails
-		$marketingInfos = $this->div->getMarketingInfos();
+		$marketingInfos = Tx_Powermail_Utility_Div::getMarketingInfos();
 		$newMail = t3lib_div::makeInstance('Tx_Powermail_Domain_Model_Mails');
-		$newMail->setPid($this->div->getStoragePage($this->settings['main']['pid']));
+		$newMail->setPid(Tx_Powermail_Utility_Div::getStoragePage($this->settings['main']['pid']));
 		$newMail->setForm($form);
 		$newMail->setSenderMail($this->div->getSenderMailFromArguments($field));
 		$newMail->setSenderName($this->div->getSenderNameFromArguments($field));
@@ -384,7 +384,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			$newMail->setFeuser($GLOBALS['TSFE']->fe_user->user['uid']);
 		}
 		$newMail->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'));
-		$newMail->setTime((time() - $this->div->getFormStartFromSession($form)));
+		$newMail->setTime((time() - Tx_Powermail_Utility_Div::getFormStartFromSession($form)));
 		if (isset($this->settings['global']['disableIpLog']) && $this->settings['global']['disableIpLog'] == 0) {
 			$newMail->setSenderIp(t3lib_div::getIndpEnv('REMOTE_ADDR'));
 		}
@@ -408,7 +408,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 				continue;
 			}
 			$newAnswer = t3lib_div::makeInstance('Tx_Powermail_Domain_Model_Answers');
-			$newAnswer->setPid($this->div->getStoragePage($this->settings['main']['pid']));
+			$newAnswer->setPid(Tx_Powermail_Utility_Div::getStoragePage($this->settings['main']['pid']));
 			$newAnswer->setValue($value);
 			$newAnswer->setField($uid);
 			$newAnswer->setMail($newMail->getUid());
@@ -432,7 +432,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		$mail = $this->mailsRepository->findByUid($mail);
 
-		if (!empty($hash) && $hash == $this->div->createOptinHash($mail->getUid() . $mail->getPid() . $mail->getForm()->getUid())) {
+		if (!empty($hash) && $hash == Tx_Powermail_Utility_Div::createOptinHash($mail->getUid() . $mail->getPid() . $mail->getForm()->getUid())) {
 			// only if hidden = 0
 			if ($mail->getHidden() == 1) {
 				$mail->setHidden(0);
@@ -488,7 +488,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
-		$this->div->mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
+		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
 
 		// check if ts is included

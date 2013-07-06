@@ -198,8 +198,7 @@ class Tx_Powermail_Domain_Model_Fields extends Tx_Extbase_DomainObject_AbstractE
 	 * @return string $settings
 	 */
 	public function getSettings() {
-		$div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
-		return $div->optionArray($this->settings);
+		return Tx_Powermail_Utility_Div::optionArray($this->settings);
 	}
 
 	/**

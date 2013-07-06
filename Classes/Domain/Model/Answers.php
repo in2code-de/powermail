@@ -70,8 +70,7 @@ class Tx_Powermail_Domain_Model_Answers extends Tx_Extbase_DomainObject_Abstract
 	 */
 	public function getValue() {
 		// workarround to get array from database (checkbox values)
-		$div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
-		if ($div->is_serialized($this->value)) {
+		if (Tx_Powermail_Utility_Div::is_serialized($this->value)) {
 			return unserialize($this->value);
 		}
 		return $this->value;

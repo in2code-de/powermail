@@ -88,7 +88,7 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 
 		// get piVars
 		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('abc', $this->div->getAbcArray());
+		$this->view->assign('abc', Tx_Powermail_Utility_Div::getAbcArray());
 
 		// single pid
 		if (empty($this->settings['single']['pid'])) {
@@ -273,7 +273,7 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	 */
 	protected function initializeAction() {
 		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
-		$this->div->mergeTypoScript2FlexForm($this->settings, 'Pi2'); // merge typoscript to flexform
+		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings, 'Pi2'); // merge typoscript to flexform
 		$this->piVars = $this->request->getArguments();
 
 		// check if ts is included

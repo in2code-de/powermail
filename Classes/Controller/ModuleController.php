@@ -121,7 +121,7 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	public function reportingFormBeAction() {
 		$mails = $this->mailsRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
 		$firstMail = $this->mailsRepository->findFirstInPid(t3lib_div::_GP('id'));
-		$groupedAnswers = $this->div->getGroupedMailAnswers($mails);
+		$groupedAnswers = Tx_Powermail_Utility_Div::getGroupedMailAnswers($mails);
 
 		$this->view->assign('groupedAnswers', $groupedAnswers);
 		$this->view->assign('mails', $mails);
@@ -140,7 +140,7 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	public function reportingMarketingBeAction() {
 		$mails = $this->mailsRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
 		$firstMail = $this->mailsRepository->findFirstInPid(t3lib_div::_GP('id'));
-		$groupedMarketingStuff = $this->div->getGroupedMarketingStuff($mails);
+		$groupedMarketingStuff = Tx_Powermail_Utility_Div::getGroupedMarketingStuff($mails);
 
 		$this->view->assign('groupedMarketingStuff', $groupedMarketingStuff);
 		$this->view->assign('mails', $mails);

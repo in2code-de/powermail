@@ -87,10 +87,10 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 				$message .= 'Spamfactor of this mail: ' . $this->formatSpamFactor($thisSpamFactor) . "\n";
 				$message .= "\n\n";
 				$message .= 'Failed Spamchecks:' . "\n";
-				$message .= $this->div->viewPlainArray($this->msg);
+				$message .= Tx_Powermail_Utility_Div::viewPlainArray($this->msg);
 				$message .= "\n\n";
 				$message .= 'Given Form variables:' . "\n";
-				$message .= $this->div->viewPlainArray($params);
+				$message .= Tx_Powermail_Utility_Div::viewPlainArray($params);
 				$header  = 'MIME-Version: 1.0' . "\r\n";
 				$header .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 				$header .= 'From: powermail@' . t3lib_div::getIndpEnv('TYPO3_HOST_ONLY') . "\r\n";
@@ -218,7 +218,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		}
 		$gp = t3lib_div::_GP('tx_powermail_pi1');
 		$formUid = $gp['form'];
-		$time = $this->div->getFormStartFromSession($formUid);
+		$time = Tx_Powermail_Utility_Div::getFormStartFromSession($formUid);
 
 		// if check failes
 		if (!isset($time) || !$time) {

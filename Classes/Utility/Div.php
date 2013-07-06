@@ -122,7 +122,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param integer $formUid Form uid
 	 * @return void
 	 */
-	public function saveFormStartInSession($formUid) {
+	public static function saveFormStartInSession($formUid) {
 		if (intval($formUid) === 0) {
 			return;
 		}
@@ -137,7 +137,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param integer $formUid Form UID
 	 * @return integer Timestamp
 	 */
-	public function getFormStartFromSession($formUid) {
+	public static function getFormStartFromSession($formUid) {
 		$timestamp = $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
 		return $timestamp;
 	}
@@ -148,7 +148,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param integer $pid Storage PID or nothing
 	 * @return integer $pid
 	 */
-	public function getStoragePage($pid = 0) {
+	public static function getStoragePage($pid = 0) {
 		if (!$pid) {
 			$pid = $GLOBALS['TSFE']->id;
 		}
@@ -261,7 +261,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param array $fields Field array
 	 * @return void
 	 */
-	public function addUploadsToFields(&$fields) {
+	public static function addUploadsToFields(&$fields) {
 		// add filenames to variable
 		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
 			foreach ((array) $_FILES['tx_powermail_pi1']['name']['field'] as $uid => $value) {
@@ -276,10 +276,9 @@ class Tx_Powermail_Utility_Div {
 	 * Add uploads fields and rewrite date fields
 	 *
 	 * @param array $fields Field array
-	 * @param array $settings TypoScript Settings
 	 * @return void
 	 */
-	public function rewriteDateInFields($fields, $settings) {
+	public function rewriteDateInFields($fields) {
 		// rewrite datetime
 		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
 		foreach ((array) $fields as $uid => $value) {
@@ -374,7 +373,7 @@ class Tx_Powermail_Utility_Div {
 		$emailView->assign('powermail_rte', $mail['rteBody']);
 		$variablesWithLabels = $this->getVariablesWithLabels($fields);
 		$emailView->assign('variablesWithLabels', $variablesWithLabels);
-		$emailView->assign('marketingInfos', $this->getMarketingInfos());
+		$emailView->assign('marketingInfos', self::getMarketingInfos());
 		$emailBody = $emailView->render();
 
 
@@ -618,7 +617,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param string $string Options from the Textarea
 	 * @return array Options Array
 	 */
-	public function optionArray($string) {
+	public static function optionArray($string) {
 		$options = array();
 		$settingsField = t3lib_div::trimExplode("\n", $string, 1);
 		foreach ($settingsField as $line) {
@@ -632,23 +631,6 @@ class Tx_Powermail_Utility_Div {
 
 		return $options;
 	}
-	
-	/**
-	 * Change Timestamp to String
-	 * 
-	 * @param array $fields Field array with uids and strings
-	 * @param array TypoScript settings
-	 * @return void
-	 */
-	public function changeDateFieldsToString(&$fields, $settings) {
-		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
-		foreach ((array) $fields as $uid => $value) {
-			$field = $fieldsRepository->findByUid($uid);
-			if (method_exists($field, 'getType') && $field->getType() == 'date') {
-				$fields[$uid] = strftime('%d.%m.%Y', $value);
-			}
-		}
-	}
 
 	/**
 	 * Get grouped mail answers for reporting
@@ -658,7 +640,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param string $maxLabel Label for "Max Labels" - could be "all others"
 	 * @return array
 	 */
-	public function getGroupedMailAnswers($mails, $max = 5, $maxLabel = 'All others') {
+	public static function getGroupedMailAnswers($mails, $max = 5, $maxLabel = 'All others') {
 		$arr = array();
 		foreach ($mails as $mail) {
 			foreach ($mail->getAnswers() as $answer) {
@@ -710,7 +692,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param string $maxLabel Label for "Max Labels" - could be "all others"
 	 * @return array
 	 */
-	public function getGroupedMarketingStuff($mails, $max = 10, $maxLabel = 'All others') {
+	public static function getGroupedMarketingStuff($mails, $max = 10, $maxLabel = 'All others') {
 		$arr = array(
 			'marketingSearchterm' => array(),
 			'marketingReferer' => array(),
@@ -769,7 +751,7 @@ class Tx_Powermail_Utility_Div {
 	 *
 	 * @return array
 	 */
-	public function getMarketingInfos() {
+	public static function getMarketingInfos() {
 		$info = $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_marketing');
 		return $info;
 	}
@@ -782,11 +764,11 @@ class Tx_Powermail_Utility_Div {
 	 * @param object $configurationManager Configuration Manager
 	 * @return void
 	 */
-	public function sendPost($fields, $conf, $configurationManager) {
+	public static function sendPost($fields, $conf, $configurationManager) {
 		if (!$conf['marketing.']['sendPost.']['_enable']) {
 			return;
 		}
-		$fields = $this->getVariablesWithMarkers($fields);
+		$fields = self::getVariablesWithMarkers($fields);
 		$cObj = $configurationManager->getContentObject();
 		$cObj->start($fields);
 		$curl = array(
@@ -813,7 +795,7 @@ class Tx_Powermail_Utility_Div {
 	 *
 	 * @return array
 	 */
-	public function getAbcArray() {
+	public static function getAbcArray() {
 		$arr = array();
 		for ($a=A; $a != AA; $a++) { // ABC loop
 			$arr[] = $a;
@@ -827,7 +809,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param string $val Any String
 	 * @return bool
 	 */
-	public function is_serialized($val) {
+	public static function is_serialized($val) {
 		if (!is_string($val) || trim($val) == '') {
 			return false;
 		}
@@ -907,7 +889,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param string $string Any String
 	 * @return string Hashed String
 	 */
-	public function createOptinHash($string) {
+	public static function createOptinHash($string) {
 		if (!empty($GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'])) {
 			$hash = t3lib_div::shortMD5($string . $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey']);
 		} else {
@@ -922,7 +904,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param array $array
 	 * @return string
 	 */
-	public function viewPlainArray($array) {
+	public static function viewPlainArray($array) {
 		$string = '';
 		foreach ((array) $array as $key => $value) {
 			$string .= $key . ': ' . $value . "\n";
@@ -938,7 +920,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param int $overwrite Overwrite existing values
 	 * @return void
 	 */
-	static public function setSessionValue($name, $values, $overwrite = 0) {
+	public static function setSessionValue($name, $values, $overwrite = 0) {
 		if (!$overwrite) {
 			$oldValues = self::getSessionValue($name); // read existing values
 			$values = array_merge((array) $oldValues, (array) $values); // merge old values with new
@@ -957,7 +939,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param string $name A session name
 	 * @return mixed Values from session
 	 */
-	static public function getSessionValue($name = '') {
+	public static function getSessionValue($name = '') {
 		$powermailSession = $GLOBALS['TSFE']->fe_user->getKey('ses', self::$extKey);
 		if ($name && isset($powermailSession[$name])) {
 			return $powermailSession[$name];
@@ -973,7 +955,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param string $typoScriptLevel Startpoint
 	 * @return array Merged settings
 	 */
-	public function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup') {
+	public static function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup') {
 		// config
 		$tmp_settings = array();
 		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
