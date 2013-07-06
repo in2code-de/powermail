@@ -194,7 +194,22 @@ class Tx_Powermail_Utility_Div {
 			if (!is_numeric($uid)) {
 				continue;
 			}
-			$variables[$this->getMarkerFromField($uid)] = $value;
+			if (!is_array($value)) {
+				// default values
+				$variables[$this->getMarkerFromField($uid)] = $value;
+			} else {
+				// values from checkboxes
+				$marker = $this->getMarkerFromField($uid);
+				$variables[$marker] = '';
+				foreach ($value as $singleValue) {
+					if (empty($singleValue)) {
+						continue;
+					}
+					$variables[$marker] .= $singleValue;
+					$variables[$marker] .= ', ';
+				}
+				$variables[$marker] = substr(trim($variables[$marker]), 0, -1); // remove last comma
+			}
 		}
 		return $variables;
 	}
