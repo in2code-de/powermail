@@ -89,6 +89,30 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	protected $messageClass = 'error';
 
 	/**
+	 * Initializes this object
+	 *
+	 * @return void
+	 */
+	public function initializeObject() {
+		$this->cObj = $this->configurationManager->getContentObject();
+		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+
+		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
+
+		// check if ts is included
+		if (!isset($this->settings['staticTemplate'])) {
+			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail'));
+		}
+
+		// Debug Output
+		if ($this->settings['debug']['settings']) {
+			t3lib_utility_Debug::debug($this->settings, 'powermail debug: Show Settings');
+		}
+	}
+
+	/**
 	  * action show form for creating new mails
 	  *
 	  * @return void
@@ -479,27 +503,11 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	}
 
 	/**
-	 * Initializes the current action
-	 *
+	 * @param Tx_Powermail_Utility_Div $div
 	 * @return void
 	 */
-	protected function initializeAction() {
-		$this->cObj = $this->configurationManager->getContentObject();
-		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
-		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
-		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
-		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
-
-		// check if ts is included
-		if (!isset($this->settings['staticTemplate'])) {
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail'));
-		}
-
-		// Debug Output
-		if ($this->settings['debug']['settings']) {
-			t3lib_utility_Debug::debug($this->settings, 'powermail debug: Show Settings');
-		}
+	public function injectDiv(Tx_Powermail_Utility_Div $div) {
+		$this->div = $div;
 	}
 
 	/**
