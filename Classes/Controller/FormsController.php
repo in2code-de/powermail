@@ -399,7 +399,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			$newMail->setHidden(1);
 		}
 		$this->mailsRepository->add($newMail);
-		$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
+		$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
 		$persistenceManager->persistAll();
 
 		// tx_powermail_domain_model_answers
@@ -440,6 +440,10 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			// only if hidden = 0
 			if ($mail->getHidden() == 1) {
 				$mail->setHidden(0);
+
+				$this->mailsRepository->update($mail);
+				$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
+				$persistenceManager->persistAll();
 
 				// call create action
 				$fields = array();
