@@ -1,16 +1,25 @@
 {namespace vh=Tx_Powermail_ViewHelpers}
-<dt>{variable.0}</dt>
-<dd>
-	<f:if condition="{vh:Condition.IsArray(val: '{variable.1}')}">
+
+<f:comment>
+	Label: {variable.label}
+	Value: {variable.value}
+	Uid: {variable.uid}
+</f:comment>
+
+<dt class="powermail_all_label powermail_all_label_{vh:Getter.GetFieldMarkerFromUid(uid:'{variable.uid}')}">
+	<vh:string.RawAndRemoveXss>{variable.label}</vh:string.RawAndRemoveXss>
+</dt>
+<dd class="powermail_all_value powermail_all_value_{vh:Getter.GetFieldMarkerFromUid(uid:'{variable.uid}')}">
+	<f:if condition="{vh:Condition.IsArray(val: '{variable.value}')}">
 		<f:then>
-			<f:for each="{variable.1}" as="subValue" iteration="index">
+			<f:for each="{variable.value}" as="subValue" iteration="index">
 				<f:if condition="{subValue}">
 					{subValue}<f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
 				</f:if>
 			</f:for>
 		</f:then>
 		<f:else>
-			<f:format.nl2br>{variable.1}</f:format.nl2br>
+			<f:format.nl2br>{variable.value}</f:format.nl2br>
 		</f:else>
 	</f:if>
 </dd>

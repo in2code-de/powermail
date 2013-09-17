@@ -229,8 +229,9 @@ class Tx_Powermail_Utility_Div {
 				continue;
 			}
 			$variables[] = array(
-				$this->getLabelFromField($uid),
-				$value
+				'label' => $this->getLabelFromField($uid),
+				'value' => $value,
+				'uid' => $uid
 			);
 		}
 		return $variables;
