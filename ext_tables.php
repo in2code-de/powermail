@@ -66,6 +66,9 @@ if (TYPO3_MODE == 'BE') {
 	// marker field in Pi1
 	require_once(t3lib_extMgm::extPath($_EXTKEY) . 'Classes/Utility/Marker.php');
 
+	// add options to TCA select fields with itemsProcFunc
+	require_once(t3lib_extMgm::extPath($_EXTKEY) . 'Classes/Utility/FlexFormFieldSelection.php');
+
 	// WizIcon for Pi1
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_powermail_pi1_wizicon'] = t3lib_extMgm::extPath($_EXTKEY) . 'Classes/Utility/WizIcon.php';
 }
