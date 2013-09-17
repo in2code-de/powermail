@@ -108,6 +108,7 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	 * form
 	 *
 	 * @var Tx_Powermail_Domain_Model_Forms
+	 * @lazy
 	 */
 	protected $form = NULL;
 
@@ -115,6 +116,7 @@ class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEn
 	 * Powermail Fields
 	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Powermail_Domain_Model_Answers>
+	 * @lazy
 	 */
 	protected $answers = NULL;
 
