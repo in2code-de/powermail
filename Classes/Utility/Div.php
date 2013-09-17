@@ -228,7 +228,10 @@ class Tx_Powermail_Utility_Div {
 			if (!is_numeric($uid)) {
 				continue;
 			}
-			$variables[$this->getLabelFromField($uid)] = $value;
+			$variables[] = array(
+				$this->getLabelFromField($uid),
+				$value
+			);
 		}
 		return $variables;
 	}
