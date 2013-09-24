@@ -197,13 +197,20 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
-	 * Initializes the current action
+	 * Object initialization
 	 *
 	 * @return void
 	 */
 	protected function initializeAction() {
-		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
 		$this->piVars = $this->request->getArguments();
+	}
+
+	/**
+	 * @param Tx_Powermail_Utility_Div $div
+	 * @return void
+	 */
+	public function injectDiv(Tx_Powermail_Utility_Div $div) {
+		$this->div = $div;
 	}
 
 	/**

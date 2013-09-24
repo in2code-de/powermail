@@ -21,7 +21,7 @@ class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_Vi
 	/**
 	 * Div Methods
 	 *
-	 * @var		Tx_Powermail_Utility_Div
+	 * @var	 Tx_Powermail_Utility_Div
 	 */
 	protected $div;
 
@@ -72,12 +72,11 @@ class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_Vi
 	}
 
 	/**
-	 * Constructor
+	 * @param Tx_Powermail_Utility_Div $div
+	 * @return void
 	 */
-	public function __construct() {
-		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
+	public function injectDiv(Tx_Powermail_Utility_Div $div) {
+		$this->div = $div;
 	}
 
 }
-
-?>

@@ -16,9 +16,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	protected $settings;
 
 	/**
-	 * Instance for Misc Functions
-	 *
-	 * @var object
+	 * @var Tx_Powermail_Utility_Div
 	 */
 	protected $div;
 
@@ -47,7 +45,6 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		if (!$this->settings['spamshield.']['_enable']) {
 			return true;
 		}
-		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
 		$spamFactor = $this->settings['spamshield.']['factor'] / 100;
 
 		// Different checks to increase spam indicator
@@ -335,6 +332,14 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
 		$typoScriptSetup = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+	}
+
+	/**
+	 * @param Tx_Powermail_Utility_Div $div
+	 * @return void
+	 */
+	public function injectDiv(Tx_Powermail_Utility_Div $div) {
+		$this->div = $div;
 	}
 }
 ?>

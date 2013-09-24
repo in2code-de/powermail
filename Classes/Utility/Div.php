@@ -40,15 +40,29 @@ class Tx_Powermail_Utility_Div {
 	public static $extKey = 'powermail';
 
 	/**
+	 * @var Tx_Powermail_Domain_Repository_FormsRepository
+	 */
+	protected $formsRepository;
+
+	/**
+	 * @var Tx_Powermail_Domain_Repository_FieldsRepository
+	 */
+	protected $fieldsRepository;
+
+	/**
+	 * @var Tx_Powermail_Domain_Repository_UserRepository
+	 */
+	protected $userRepository;
+
+	/**
 	 * Get Field Uid List from given Form Uid
 	 *
 	 * @param integer $formUid Form Uid
 	 * @return array
 	 */
 	public function getFieldsFromForm($formUid) {
-		$formsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FormsRepository');
 		$fields = array();
-		$form = $formsRepository->findByUid($formUid);
+		$form = $this->formsRepository->findByUid($formUid);
 		if (!method_exists($form, 'getPages')) {
 			return;
 		}
@@ -73,9 +87,8 @@ class Tx_Powermail_Utility_Div {
 		}
 
 		$name = '';
-		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
 		foreach ($fields as $uid => $value) {
-			$field = $fieldsRepository->findByUid($uid); // get field
+			$field = $this->fieldsRepository->findByUid($uid); // get field
 			if (method_exists($field, 'getUid') && $field->getSenderName()) {
 				$name .= $value . ' ';
 			}
@@ -99,9 +112,8 @@ class Tx_Powermail_Utility_Div {
 		}
 
 		$email = '';
-		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
 		foreach ($fields as $uid => $value) {
-			$field = $fieldsRepository->findByUid($uid); // get field
+			$field = $this->fieldsRepository->findByUid($uid); // get field
 			if (method_exists($field, 'getUid') && $field->getSenderEmail() && t3lib_div::validEmail($value)) {
 				$email = $value;
 				break;
@@ -244,8 +256,7 @@ class Tx_Powermail_Utility_Div {
 	 * @return string Label
 	 */
 	public function getLabelFromField($uid) {
-		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
-		$field = $fieldsRepository->findByUid($uid); // get field
+		$field = $this->fieldsRepository->findByUid($uid); // get field
 		if (method_exists($field, 'getTitle')) {
 			$title = $field->getTitle();
 		}
@@ -262,8 +273,8 @@ class Tx_Powermail_Utility_Div {
 	 * @return string Marker name
 	 */
 	public function getMarkerFromField($uid) {
-		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
-		$field = $fieldsRepository->findByUid($uid); // get field
+		$field = $this->fieldsRepository->findByUid($uid); // get field
+		$marker = NULL;
 		if (method_exists($field, 'getMarker')) {
 			$marker = $field->getMarker();
 		}
@@ -299,9 +310,8 @@ class Tx_Powermail_Utility_Div {
 	 */
 	public function rewriteDateInFields($fields) {
 		// rewrite datetime
-		$fieldsRepository = t3lib_div::makeInstance('Tx_Powermail_Domain_Repository_FieldsRepository');
 		foreach ((array) $fields as $uid => $value) {
-			$field = $fieldsRepository->findByUid($uid);
+			$field = $this->fieldsRepository->findByUid($uid);
 			if (method_exists($field, 'getType') && $field->getType() == 'date') {
 				$fields[$uid] = strtotime($value);
 			}
@@ -1027,5 +1037,28 @@ class Tx_Powermail_Utility_Div {
 		$settings = $tmp_settings;
 		unset($tmp_settings);
 	}
+
+	/**
+	 * @param Tx_Powermail_Domain_Repository_FormsRepository $formsRepository
+	 * @return void
+	 */
+	public function injectFormsRepository(Tx_Powermail_Domain_Repository_FormsRepository $formsRepository) {
+		$this->formsRepository = $formsRepository;
+	}
+
+	/**
+	 * @param Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository
+	 * @return void
+	 */
+	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
+		$this->fieldsRepository = $fieldsRepository;
+	}
+
+	/**
+	 * @param Tx_Powermail_Domain_Repository_UserRepository $userRepository
+	 * @return void
+	 */
+	public function injectUserRepository(Tx_Powermail_Domain_Repository_UserRepository $userRepository) {
+		$this->userRepository = $userRepository;
+	}
 }
-?>

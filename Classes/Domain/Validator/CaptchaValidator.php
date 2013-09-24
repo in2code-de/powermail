@@ -1,5 +1,5 @@
 <?php
-class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
+class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain_Validator_AbstractValidator {
 
 	/**
 	 * fieldsRepository
@@ -60,7 +60,7 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Extbase_Validati
 			}
 
 			// if field wrong code given - set error
-			$captcha = t3lib_div::makeInstance('Tx_Powermail_Utility_CalculatingCaptcha');
+			$captcha = $this->objectManager->get('Tx_Powermail_Utility_CalculatingCaptcha');
 			if (!$captcha->validCode($value, $this->clearSession)) {
 				$this->addError('captcha', $uid);
 				$this->isValid = false;

@@ -35,35 +35,32 @@
 class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller_ActionController {
 
 	/**
-	 * mailsRepository
-	 *
 	 * @var Tx_Powermail_Domain_Repository_MailsRepository
 	 */
 	protected $mailsRepository;
 
 	/**
-	 * formsRepository
-	 *
 	 * @var Tx_Powermail_Domain_Repository_FormsRepository
 	 */
 	protected $formsRepository;
 
 	/**
-	 * fieldsRepository
-	 *
 	 * @var Tx_Powermail_Domain_Repository_FieldsRepository
 	 */
 	protected $fieldsRepository;
 
 	/**
-	 * answersRepository
-	 *
 	 * @var Tx_Powermail_Domain_Repository_AnswersRepository
 	 */
 	protected $answersRepository;
 
 	/**
-	 * piVars
+	 * @var Tx_Powermail_Utility_Div
+	 */
+	protected $div;
+
+	/**
+	 * Request arguments
 	 *
 	 * @var array
 	 */
@@ -267,19 +264,34 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
-	 * Initializes the current action
+	 * Object initialization
 	 *
 	 * @return void
 	 */
-	protected function initializeAction() {
-		$this->div = t3lib_div::makeInstance('Tx_Powermail_Utility_Div');
+	public function initializeObject() {
 		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings, 'Pi2'); // merge typoscript to flexform
-		$this->piVars = $this->request->getArguments();
 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {
 			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript_pi2', 'powermail'));
 		}
+	}
+
+	/**
+	 * Action initialization
+	 *
+	 * @return void
+	 */
+	protected function initializeAction() {
+		$this->piVars = $this->request->getArguments();
+	}
+
+	/**
+	 * @param Tx_Powermail_Utility_Div $div
+	 * @return void
+	 */
+	public function injectDiv(Tx_Powermail_Utility_Div $div) {
+		$this->div = $div;
 	}
 
 	/**

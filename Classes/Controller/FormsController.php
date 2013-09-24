@@ -184,7 +184,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			$this->sendMail($field);
 
 			// Save to other tables
-			$saveToTable = t3lib_div::makeInstance('Tx_Powermail_Utility_SaveToTable');
+			$saveToTable = $this->objectManager->get('Tx_Powermail_Utility_SaveToTable');
 			$saveToTable->main($this->div->getVariablesWithMarkers($field), $this->conf, $this->cObj);
 
 			// Powermail sendpost
@@ -372,7 +372,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	protected function saveMail($field, $form) {
 		// tx_powermail_domain_model_mails
 		$marketingInfos = Tx_Powermail_Utility_Div::getMarketingInfos();
-		$newMail = t3lib_div::makeInstance('Tx_Powermail_Domain_Model_Mails');
+		$newMail = $this->objectManager->create('Tx_Powermail_Domain_Model_Mails');
 		$newMail->setPid(Tx_Powermail_Utility_Div::getStoragePage($this->settings['main']['pid']));
 		$newMail->setForm($form);
 		$newMail->setSenderMail($this->div->getSenderMailFromArguments($field));
@@ -407,7 +407,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			if (!is_numeric($uid)) {
 				continue;
 			}
-			$newAnswer = t3lib_div::makeInstance('Tx_Powermail_Domain_Model_Answers');
+			$newAnswer = $this->objectManager->create('Tx_Powermail_Domain_Model_Answers');
 			$newAnswer->setPid(Tx_Powermail_Utility_Div::getStoragePage($this->settings['main']['pid']));
 			$newAnswer->setValue($value);
 			$newAnswer->setField($uid);
