@@ -77,7 +77,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * Instance for Misc Functions
 	 *
-	 * @var object
+	 * @var Tx_Powermail_Utility_Div
 	 */
 	protected $div;
 
@@ -188,7 +188,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			$saveToTable->main($this->div->getVariablesWithMarkers($field), $this->conf, $this->cObj);
 
 			// Powermail sendpost
-			Tx_Powermail_Utility_Div::sendPost($field, $this->conf, $this->configurationManager);
+			$this->div->sendPost($field, $this->conf, $this->configurationManager);
 
 			// Some output stuff
 			$this->showThx($field);

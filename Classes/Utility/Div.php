@@ -793,11 +793,11 @@ class Tx_Powermail_Utility_Div {
 	 * @param object $configurationManager Configuration Manager
 	 * @return void
 	 */
-	public static function sendPost($fields, $conf, $configurationManager) {
+	public function sendPost($fields, $conf, $configurationManager) {
 		if (!$conf['marketing.']['sendPost.']['_enable']) {
 			return;
 		}
-		$fields = self::getVariablesWithMarkers($fields);
+		$fields = $this->getVariablesWithMarkers($fields);
 		$cObj = $configurationManager->getContentObject();
 		$cObj->start($fields);
 		$curl = array(
