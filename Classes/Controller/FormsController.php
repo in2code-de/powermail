@@ -415,7 +415,6 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 			$this->answersRepository->add($newAnswer);
 		}
-		$persistenceManager = $this->objectManager->get('Tx_Extbase_Persistence_Manager');
 		$persistenceManager->persistAll();
 
 		return $newMail;
