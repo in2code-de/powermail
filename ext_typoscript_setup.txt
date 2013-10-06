@@ -3,7 +3,7 @@ config.tx_extbase {
 		classes {
 			Tx_Powermail_Domain_Model_MailsBasic {
 				mapping {
-					tableName = Tx_Powermail_Domain_Model_Mails
+					tableName = tx_powermail_domain_model_mails
 					recordType =
 				}
 			}
