@@ -515,36 +515,3 @@ page.1000 {
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckLetters
 	}
 }
-
-
-
-
-
-#################
-# Backend Module
-#################
-module.tx_powermail {
-	view {
-		templateRootPath = {$plugin.tx_powermail.view.templateRootPath}
-		partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
-		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = EXT:powermail/Resources/Private/Templates/
-	}
-	persistence {
-		storagePid = {$plugin.tx_powermail.settings.main.pid}
-	}
-	settings {
-
-		# crdate, sender_name, sender_email, subject, receiver_mail, feuser, time
-		sortby = crdate
-		order = desc
-		perPage = 25
-		export {
-			filenameXls = powermail.xls
-			filenameCsv = powermail.csv
-		}
-
-		# Don't touch this (this is just to let the extension know, that there is TypoScript included)
-		staticTemplate = 1
-	}
-}
