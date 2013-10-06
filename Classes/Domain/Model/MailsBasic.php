@@ -31,7 +31,7 @@
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class Tx_Powermail_Domain_Model_Mails extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_Powermail_Domain_Model_MailsBasic extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
 	 * senderName

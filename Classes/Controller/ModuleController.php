@@ -41,6 +41,13 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	protected $mailsRepository;
 
 	/**
+	 * mailsBasicRepository
+	 *
+	 * @var Tx_Powermail_Domain_Repository_MailsBasicRepository
+	 */
+	protected $mailsBasicRepository;
+
+	/**
 	 * piVars
 	 *
 	 * @var array
@@ -61,9 +68,11 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	 */
 	public function listBeAction() {
 		$mails = $this->mailsRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
+		$mailsBasic = $this->mailsBasicRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
 		$firstMail = $this->mailsRepository->findFirstInPid(t3lib_div::_GP('id'));
 
 		$this->view->assign('mails', $mails);
+		$this->view->assign('mailsBasic', $mailsBasic);
 		$this->view->assign('firstMail', $firstMail);
 		$this->view->assign('piVars', $this->piVars);
 		$this->view->assign('pid', t3lib_div::_GP('id'));
@@ -221,6 +230,16 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	 */
 	public function injectMailsRepository(Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository) {
 		$this->mailsRepository = $mailsRepository;
+	}
+
+	/**
+	 * injectMailsBasicRepository
+	 *
+	 * @param Tx_Powermail_Domain_Repository_MailsBasicRepository $mailsBasicRepository
+	 * @return void
+	 */
+	public function injectMailsBasicRepository(Tx_Powermail_Domain_Repository_MailsBasicRepository $mailsBasicRepository) {
+		$this->mailsBasicRepository = $mailsBasicRepository;
 	}
 }
 
