@@ -474,6 +474,12 @@ class Tx_Powermail_Utility_Div {
 			$message->setReplyTo($replyArray);
 		}
 
+		// set Sender Header according to RFC 2822 - 3.6.2 Originator fields
+		if ($cObj->cObjGetSingle($conf[$type . '.']['senderHeader.']['email'], $conf[$type . '.']['senderHeader.']['email.'])) {
+			$senderName = $cObj->cObjGetSingle($conf[$type . '.']['senderHeader.']['name'], $conf[$type . '.']['senderHeader.']['name.']);
+			$message->setSender($cObj->cObjGetSingle($conf[$type . '.']['senderHeader.']['email'], $conf[$type . '.']['senderHeader.']['email.']), ($senderName?$senderName:null));
+		}
+
 		// add priority
 		if ($settings[$type]['overwrite']['priority']) {
 			$message->setPriority(intval($settings[$type]['overwrite']['priority']));

@@ -74,6 +74,13 @@ plugin.tx_powermail {
 				# cat=powermail_additional//0270; type=options[1,2,3,4,5]; label= Receiver Mail Priority: Set mail priority for mail to receiver (e.g. 3)
 				priority = 3
 			}
+			senderHeader {
+				# cat=powermail_additional//0060; type=text; label= Server-Mail: If set, the Mail-Header Sender is set (RFC 2822 - 3.6.2 Originator fields)
+				email = 
+				
+				# cat=powermail_additional//0070; type=text; label= Server-Name: you can define a name along with the mail address (optional)
+				name = 
+			}
 		}
 
 		sender {
@@ -119,6 +126,13 @@ plugin.tx_powermail {
 
 				# cat=powermail_additional//0470; type=options[1,2,3,4,5]; label= Sender Mail Priority: Set mail priority for mail to sender (e.g. 3)
 				priority = 3
+			}
+			senderHeader {
+				# cat=powermail_additional//0060; type=text; label= Server-Mail: If set, the Mail-Header Sender is set (RFC 2822 - 3.6.2 Originator fields)
+				email = 
+				
+				# cat=powermail_additional//0070; type=text; label= Server-Name: you can define a name along with the mail address (optional)
+				name = 
 			}
 		}
 
