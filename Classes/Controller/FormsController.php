@@ -449,7 +449,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 				// call create action
 				$fields = array();
 				foreach ($mail->getAnswers() as $answer) {
-					$fields[$answer->getField()] = $answer->getValue();
+					$fields[$answer->getField()] = $this->div->getDateFromTimestamp($answer->getValue(), $answer->getField());
 				}
 				$arguments = array(
 					'field' => $fields,

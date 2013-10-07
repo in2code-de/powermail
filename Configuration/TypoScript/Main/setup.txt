@@ -263,6 +263,9 @@ plugin.tx_powermail {
 					size = {$plugin.tx_powermail.settings.misc.uploadSize}
 					extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
 				}
+
+				# Date Format for Double-Optin together with date fields
+				dateFormat = {$plugin.tx_powermail.settings.misc.dateFormat}
 			}
 
 

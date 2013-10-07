@@ -303,10 +303,10 @@ class Tx_Powermail_Utility_Div {
 	}
 
 	/**
-	 * Add uploads fields and rewrite date fields
+	 * Generate Timestamp from date
 	 *
 	 * @param array $fields Field array
-	 * @return void
+	 * @return array
 	 */
 	public function rewriteDateInFields($fields) {
 		// rewrite datetime
@@ -317,6 +317,25 @@ class Tx_Powermail_Utility_Div {
 			}
 		}
 		return $fields;
+	}
+
+	/**
+	 * Generate Date from Timestamp
+	 *
+	 * @param string $value
+	 * @param integer $fieldUid
+	 * @param string
+	 */
+	public function getDateFromTimestamp($value, $fieldUid) {
+		$field = $this->fieldsRepository->findByUid($fieldUid);
+		if ($field->getType() == 'date') {
+			$format = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_powermail.']['settings.']['misc.']['dateFormat'];
+			if (empty($format)) {
+				$format = '%d.%m.%Y';
+			}
+			$value = strftime($format, $value);
+		}
+		return $value;
 	}
 
 	/**

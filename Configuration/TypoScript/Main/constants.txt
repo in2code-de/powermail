@@ -160,6 +160,9 @@ plugin.tx_powermail {
 			# cat=powermail_additional//0830; type=text; label= Misc Upload Fileextensions: Define the allowed filetypes with their extensions for fileuploads and separate them with commas (e.g. jpg,jpeg,gif)
 			uploadFileExtensions = jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace
 
+			# cat=powermail_additional//0820; type=text; label= Date Format: This dateformat is needed, if you want to use double-optin with Datepicker
+			dateFormat = %d.%m.%Y
+
 			# cat=powermail_additional//0850; type=boolean; label= Debug Settings: Show all Settings from TypoScript, Flexform and Global Config in Frontend (e.g. 1)
 			debugSettings = 0
 
