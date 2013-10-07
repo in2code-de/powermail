@@ -324,7 +324,7 @@ class Tx_Powermail_Utility_Div {
 	 *
 	 * @param string $value
 	 * @param integer $fieldUid
-	 * @param string
+	 * @return string
 	 */
 	public function getDateFromTimestamp($value, $fieldUid) {
 		$field = $this->fieldsRepository->findByUid($fieldUid);
