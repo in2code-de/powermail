@@ -329,11 +329,15 @@ class Tx_Powermail_Utility_Div {
 	public function getDateFromTimestamp($value, $fieldUid) {
 		$field = $this->fieldsRepository->findByUid($fieldUid);
 		if ($field->getType() == 'date') {
-			$format = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_powermail.']['settings.']['misc.']['dateFormat'];
-			if (empty($format)) {
-				$format = '%d.%m.%Y';
+			if (intval($value) > 0) {
+				$format = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_powermail.']['settings.']['misc.']['dateFormat'];
+				if (empty($format)) {
+					$format = '%d.%m.%Y';
+				}
+				$value = strftime($format, $value);
+			} else {
+				$value = '';
 			}
-			$value = strftime($format, $value);
 		}
 		return $value;
 	}
