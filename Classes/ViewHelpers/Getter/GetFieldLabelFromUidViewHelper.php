@@ -16,18 +16,18 @@ class Tx_Powermail_ViewHelpers_Getter_GetFieldLabelFromUidViewHelper extends Tx_
 	 */
 	protected $fieldsRepository;
 
-    /**
-     * Read Label of a field from given UID
-     *
-     * @param 	int 		field uid
-     * @return 	string		Label
-     */
-    public function render($uid) {
+	/**
+	 * Read Label of a field from given UID
+	 *
+	 * @param 	int 		field uid
+	 * @return 	string		Label
+	 */
+	public function render($uid) {
 		$field = $this->fieldsRepository->findByUid($uid);
 		if (method_exists($field, 'getTitle')) {
 			return $field->getTitle();
 		}
-    }
+	}
 
 	/**
 	 * injectFieldsRepository

@@ -87,7 +87,7 @@ class Tx_Powermail_Utility_SaveToTable {
 			return;
 		}
 
- 		// One loop for every table to insert
+		// One loop for every table to insert
 		foreach ($this->conf['dbEntry.'] as $table => $value) {
 
 			if ($this->cObj->cObjGetSingle($this->conf['dbEntry.'][$table]['_enable'], $this->conf['dbEntry.'][$table]['_enable.']) != 1) {

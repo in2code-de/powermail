@@ -60,7 +60,7 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 		}
 
 		return $this->isValid;
-  	}
+	}
 
 	/**
 	 * injectFormsRepository

@@ -77,7 +77,7 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 			$this->addError('captcha', 0);
 			return false;
 		}
-  	}
+	}
 
 	/**
 	 * Checks if given form has a captcha

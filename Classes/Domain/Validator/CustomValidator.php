@@ -38,7 +38,7 @@ class Tx_Powermail_Domain_Validator_CustomValidator extends Tx_Extbase_Validatio
 	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
 	 */
 	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
-	    $this->signalSlotDispatcher = $signalSlotDispatcher;
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 
 }

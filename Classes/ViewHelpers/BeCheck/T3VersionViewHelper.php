@@ -9,12 +9,12 @@
  */
 class Tx_Powermail_ViewHelpers_BeCheck_T3VersionViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
-    /**
-     * Check if TYPO3 Version is correct
-     *
-     * @return 	boolean
-     */
-    public function render() {
+	/**
+	 * Check if TYPO3 Version is correct
+	 *
+	 * @return 	boolean
+	 */
+	public function render() {
 		// settings
 		global $EM_CONF, $_EXTKEY;
 		$_EXTKEY = 'powermail';
@@ -28,7 +28,7 @@ class Tx_Powermail_ViewHelpers_BeCheck_T3VersionViewHelper extends Tx_Fluid_View
 			return true;
 		}
 		return false;
-    }
+	}
 }
 
 ?>
