@@ -63,7 +63,7 @@ class Tx_Powermail_Utility_CalculatingCaptcha {
 	 */
 	public function validCode($code, $clearSession = 1) {
 		$valid = 0;
-		if (intval($code) == $GLOBALS['TSFE']->fe_user->sesData['powermail_captcha_value'] && !empty($code)) { // if code is set and equal to session value
+		if (intval($code) === $GLOBALS['TSFE']->fe_user->sesData['powermail_captcha_value'] && !empty($code)) { // if code is set and equal to session value
 
 			// clear session
 			if ($clearSession) {
