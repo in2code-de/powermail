@@ -29,7 +29,8 @@
  * Controller for powermail forms
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  *
  */
 class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_ActionController {
@@ -89,10 +90,10 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	protected $messageClass = 'error';
 
 	/**
-	  * action show form for creating new mails
-	  *
-	  * @return void
-	  */
+	 * action show form for creating new mails
+	 *
+	 * @return void
+	 */
 	public function formAction() {
 		if (!isset($this->settings['main']['form']) || !$this->settings['main']['form']) {
 			return;
@@ -127,8 +128,8 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	public function confirmationAction(array $field = array(), $form = NULL) {
 		// forward back to formAction if wrong form
 		$this->ignoreWrongForm($form);
-
-		Tx_Powermail_Utility_Div::addUploadsToFields($field); // add upload fields
+		// add upload fields
+		Tx_Powermail_Utility_Div::addUploadsToFields($field);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($field, $form, $this));
 		$this->view->assign('field', $field);
 		$this->view->assign('form', $form);
@@ -148,7 +149,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 *
 	 * @param integer $form Form UID
 	 * @param array $field Field Values
-	 * @param integer $mail Mail object (normally empty, filled when mail already exists via double-optin)
+	 * @param integer $mail Mail object (normally empty, used for double-optin)
 	 * @validate $field Tx_Powermail_Domain_Validator_UploadValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_MandatoryValidator
 	 * @validate $field Tx_Powermail_Domain_Validator_StringValidator
@@ -160,7 +161,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function createAction($form, array $field = array(), $mail = NULL) {
-		// forward back to formAction if wrong form (only relevant if there are more powermail forms on one page)
+		// forward to formAction if wrong form - relevant if there are more forms
 		$this->ignoreWrongForm($form);
 
 		// add uploaded files to $field
@@ -557,4 +558,3 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	}
 
 }
-?>
