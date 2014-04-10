@@ -17,19 +17,33 @@ class Tx_Powermail_ViewHelpers_Misc_ErrorClassViewHelper extends Tx_Fluid_Core_V
 	 * @return string Changed string
 	 */
 	public function render($field, $class) {
-		// get all errors
-		// @TODO remove the deprecated method call
-		$errors = $this->controllerContext->getRequest()->getErrors();
-		foreach ($errors as $key => $error) {
-			if ($key != 'field') {
-				continue;
+		if (method_exists($this->controllerContext->getRequest(), 'getOriginalRequestMappingResults')) {
+			// newer TYPO3 versions
+			/* @var TYPO3\CMS\Extbase\Error\Result $validationResults */
+			$validationResults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults();
+			$errors = $validationResults->getFlattenedErrors();
+			foreach ($errors as $error) {
+				foreach ((array) $error as $singleError) {
+					if ($field->getUid() === $singleError->getCode()) {
+						return $class;
+					}
+				}
 			}
+		} else {
 
-			// we want the field errors
-			$fieldErrors = $error->getErrors();
-			foreach ($fieldErrors as $fieldError) {
-				if ($field->getUid() == $fieldError->getCode()) {
-					return $class;
+			// older TYPO3 versions
+			$errors = $this->controllerContext->getRequest()->getErrors();
+			foreach ($errors as $key => $error) {
+				if ($key != 'field') {
+					continue;
+				}
+
+				// we want the field errors
+				$fieldErrors = $error->getErrors();
+				foreach ($fieldErrors as $fieldError) {
+					if ($field->getUid() == $fieldError->getCode()) {
+						return $class;
+					}
 				}
 			}
 		}
