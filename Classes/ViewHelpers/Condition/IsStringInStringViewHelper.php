@@ -8,16 +8,14 @@
  */
 class Tx_Powermail_ViewHelpers_Condition_IsStringInStringViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
-    /**
-     * Check if there is a string in another string
-     *
-     * @param 	string 		Haystack
-     * @param 	string 		Needle
-     * @return 	boolean
-     */
-    public function render($haystack, $needle) {
+	/**
+	 * Check if there is a string in another string
+	 *
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return boolean
+	 */
+	public function render($haystack, $needle) {
 		return stristr($haystack, $needle);
-    }
+	}
 }
-
-?>

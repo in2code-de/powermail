@@ -11,23 +11,23 @@ class Tx_Powermail_ViewHelpers_Condition_IsAllowedToEditViewHelper extends Tx_Fl
 	/**
 	 * Div Methods
 	 *
-	 * @var	 Tx_Powermail_Utility_Div
+	 * @var Tx_Powermail_Utility_Div
 	 */
 	protected $div;
 
 	/**
 	 * Check if logged in User is allowed to edit
 	 *
-	 * @param 	array 		TypoScript and FlexForm Settings
-	 * @param 	object 		Mail Object
-	 * @return 	boolean
+	 * @param array $settings TypoScript and FlexForm Settings
+	 * @param object $mail Mail Object
+	 * @return boolean
 	 */
 	public function render($settings = array(), $mail) {
 		if ($this->div->isAllowedToEdit($settings, $mail)) {
-			return true;
+			return TRUE;
 		}
-		return false;
-    }
+		return FALSE;
+	}
 
 	/**
 	 * @param Tx_Powermail_Utility_Div $div

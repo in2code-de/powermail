@@ -11,8 +11,9 @@ class Tx_Powermail_ViewHelpers_Misc_VariableInVariableViewHelper extends Tx_Flui
 	/**
 	 * Solution for {outer.{inner}} problem with variables in fluid
 	 *
-	 * @param $obj  object Object
-	 * @param $prop	string Property
+	 * @param object $obj Object
+	 * @param string $prop Property
+	 * @return mixed
 	 */
 	public function render($obj, $prop) {
 		if (is_object($obj) && method_exists($obj, 'get' . t3lib_div::underscoredToUpperCamelCase($prop))) {
@@ -25,5 +26,3 @@ class Tx_Powermail_ViewHelpers_Misc_VariableInVariableViewHelper extends Tx_Flui
 		return NULL;
 	}
 }
-
-?>

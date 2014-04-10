@@ -8,28 +8,26 @@
  */
 class Tx_Powermail_ViewHelpers_Reporting_GetValuesGoogleChartsViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
-    /**
-     * View helper check if given value is array or not
-     *
-     * @param 	array 		Grouped Answers
-     * @param 	int 		Field UID
-     * @param 	string 		Separator
-	 * @return 	string		"label1|label2|label3"
-     */
-    public function render($answers, $field, $separator = ',') {
+	/**
+	 * View helper check if given value is array or not
+	 *
+	 * @param array $answers Grouped Answers
+	 * @param int $field Field UID
+	 * @param string $separator Separator
+	 * @return string "label1|label2|label3"
+	 */
+	public function render($answers, $field, $separator = ',') {
 		$string = '';
 		if (!isset($answers[$field])) {
-			return;
+			return '';
 		}
 
 		// create string
-		foreach ((array) $answers[$field] as $value => $amount) {
+		foreach ((array) $answers[$field] as $amount) {
 			$string .= $amount;
 			$string .= $separator;
 		}
 
 		return urlencode(substr($string, 0, -1));
-    }
+	}
 }
-
-?>

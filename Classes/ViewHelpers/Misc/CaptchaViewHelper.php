@@ -16,7 +16,7 @@ class Tx_Powermail_ViewHelpers_Misc_CaptchaViewHelper extends Tx_Fluid_ViewHelpe
 	/**
 	 * Returns Captcha-Image String
 	 *
-	 * @return 	string		HTML-Tag for Captcha image
+	 * @return string HTML-Tag for Captcha image
 	 */
 	public function render() {
 		$captcha = t3lib_div::makeInstance('Tx_Powermail_Utility_CalculatingCaptcha');
@@ -29,9 +29,9 @@ class Tx_Powermail_ViewHelpers_Misc_CaptchaViewHelper extends Tx_Fluid_ViewHelpe
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
-		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$typoScriptSetup = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
 		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 	}
 }
-
-?>

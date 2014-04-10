@@ -16,18 +16,19 @@ class Tx_Powermail_ViewHelpers_Getter_GetFieldMarkerFromUidViewHelper extends Tx
 	 */
 	protected $fieldsRepository;
 
-    /**
-     * Read Label of a field from given UID
-     *
-     * @param 	int 		field uid
-     * @return 	string		Label
-     */
-    public function render($uid) {
+	/**
+	 * Read Label of a field from given UID
+	 *
+	 * @param int $uid field uid
+	 * @return string Label
+	 */
+	public function render($uid) {
 		$field = $this->fieldsRepository->findByUid($uid);
 		if (method_exists($field, 'getMarker')) {
 			return $field->getMarker();
 		}
-    }
+		return '';
+	}
 
 	/**
 	 * injectFieldsRepository
@@ -39,5 +40,3 @@ class Tx_Powermail_ViewHelpers_Getter_GetFieldMarkerFromUidViewHelper extends Tx
 		$this->fieldsRepository = $fieldsRepository;
 	}
 }
-
-?>

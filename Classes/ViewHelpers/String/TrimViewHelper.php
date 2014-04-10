@@ -8,12 +8,12 @@
  */
 class Tx_Powermail_ViewHelpers_String_TrimViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
-    /**
-     * Trim Inner HTML
-     *
-     * @return 	boolean
-     */
-    public function render() {
+	/**
+	 * Trim Inner HTML
+	 *
+	 * @return 	boolean
+	 */
+	public function render() {
 		$string = trim($this->renderChildren());
 		$string = preg_replace('/\\s\\s+/', ' ', $string);
 		$string = str_replace(array('"; "', '" ; "', '" ;"'), '";"', $string);
@@ -21,7 +21,5 @@ class Tx_Powermail_ViewHelpers_String_TrimViewHelper extends Tx_Fluid_ViewHelper
 		$string = str_replace(array(" \n ", "\n ", " \n"), "\n", $string);
 
 		return $string;
-    }
+	}
 }
-
-?>

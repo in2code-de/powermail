@@ -18,7 +18,7 @@ class Tx_Powermail_ViewHelpers_BeCheck_SessionViewHelper extends Tx_Fluid_ViewHe
 	/**
 	 * Check FE Session
 	 *
-	 * @return 	boolean
+	 * @return boolean
 	 */
 	public function render() {
 		// settings
@@ -29,7 +29,7 @@ class Tx_Powermail_ViewHelpers_BeCheck_SessionViewHelper extends Tx_Fluid_ViewHe
 			$TYPO3_CONF_VARS,
 			t3lib_div::_GET('id'),
 			0,
-			true
+			TRUE
 		);
 		$GLOBALS['TSFE']->fe_user = $userObj;
 
@@ -41,10 +41,8 @@ class Tx_Powermail_ViewHelpers_BeCheck_SessionViewHelper extends Tx_Fluid_ViewHe
 		$GLOBALS['TSFE']->storeSessionData();
 
 		if ($GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionKey) === $value) {
-			return true;
+			return TRUE;
 		}
-		return false;
+		return FALSE;
 	}
 }
-
-?>

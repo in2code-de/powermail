@@ -8,22 +8,23 @@
  */
 class Tx_Powermail_ViewHelpers_Reporting_GetLabelsGoogleChartsViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
-    /**
-     * View helper check if given value is array or not
-     *
-     * @param 	array 		Grouped Answers
-     * @param 	int 		Field UID
-	 * @param 	int 		Crop each label after X signs
-	 * @return 	string		"label1|label2|label3"
-     */
-    public function render($answers, $field, $crop = 15) {
+	/**
+	 * View helper check if given value is array or not
+	 *
+	 * @param array $answers Grouped Answers
+	 * @param int $field Field UID
+	 * @param int $crop Crop each label after X signs
+	 * @return string "label1|label2|label3"
+	 */
+	public function render($answers, $field, $crop = 15) {
 		$string = '';
 		if (!isset($answers[$field])) {
-			return;
+			return '';
 		}
 
 		// create string
 		foreach ((array) $answers[$field] as $value => $amount) {
+			unset($amount);
 			if (strlen($value) > $crop) {
 				$value = substr($value, 0, $crop) . '...';
 			}
@@ -32,7 +33,5 @@ class Tx_Powermail_ViewHelpers_Reporting_GetLabelsGoogleChartsViewHelper extends
 		}
 
 		return urlencode(substr($string, 0, -1));
-    }
+	}
 }
-
-?>

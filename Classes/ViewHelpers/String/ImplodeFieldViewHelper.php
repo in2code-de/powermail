@@ -31,5 +31,3 @@ class Tx_Powermail_ViewHelpers_String_ImplodeFieldViewHelper extends Tx_Fluid_Vi
 		return substr($string, 0, (-1 * strlen($separator)));
 	}
 }
-
-?>
