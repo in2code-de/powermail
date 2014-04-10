@@ -8,15 +8,15 @@
  */
 class Tx_Powermail_ViewHelpers_Reporting_GetValuesGoogleChartsViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
-    /**
-     * View helper check if given value is array or not
-     *
-     * @param 	array 		Grouped Answers
-     * @param 	int 		Field UID
-     * @param 	string 		Separator
+	/**
+	 * View helper check if given value is array or not
+	 *
+	 * @param 	array 		Grouped Answers
+	 * @param 	int 		Field UID
+	 * @param 	string 		Separator
 	 * @return 	string		"label1|label2|label3"
-     */
-    public function render($answers, $field, $separator = ',') {
+	 */
+	public function render($answers, $field, $separator = ',') {
 		$string = '';
 		if (!isset($answers[$field])) {
 			return;
@@ -29,7 +29,7 @@ class Tx_Powermail_ViewHelpers_Reporting_GetValuesGoogleChartsViewHelper extends
 		}
 
 		return urlencode(substr($string, 0, -1));
-    }
+	}
 }
 
 ?>

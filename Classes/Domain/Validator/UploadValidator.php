@@ -98,7 +98,7 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 		}
 
 		return $this->isValid;
-  	}
+	}
 
 	/**
 	 * Check filesize of given file

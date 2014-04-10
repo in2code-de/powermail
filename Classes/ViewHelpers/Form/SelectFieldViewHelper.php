@@ -8,19 +8,19 @@
  */
 class Tx_Powermail_ViewHelpers_Form_SelectFieldViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
-    /**
-     * Generate Select
-     *
-     * @param 	array 		Options to render
+	/**
+	 * Generate Select
+	 *
+	 * @param 	array 		Options to render
 	 * 		option1 =>
 	 * 			label => Red Shoes
 	 * 			value => red
 	 * 			selected => 1
-     * @param 	string 		Class
-     * @param 	string 		ID
-     * @return 	string		Select field
-     */
-    public function render($options, $class = '', $id = '') {
+	 * @param 	string 		Class
+	 * @param 	string 		ID
+	 * @return 	string		Select field
+	 */
+	public function render($options, $class = '', $id = '') {
 		// config
 //		$this->registerFieldNameForFormTokenGeneration($this->prefixFieldName($this->getName()));
 		$this->registerFieldNameForFormTokenGeneration($this->getName());
@@ -56,7 +56,7 @@ class Tx_Powermail_ViewHelpers_Form_SelectFieldViewHelper extends Tx_Fluid_ViewH
 		$string .= '</select>';
 
 		return $string;
-    }
+	}
 }
 
 ?>

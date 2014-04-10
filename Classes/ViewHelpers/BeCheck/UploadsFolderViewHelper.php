@@ -15,14 +15,14 @@ class Tx_Powermail_ViewHelpers_BeCheck_UploadsFolderViewHelper extends Tx_Fluid_
 	 */
 	public $folder = 'uploads/tx_powermail/';
 
-    /**
-     * Check if uploads folder exists
-     *
-     * @return 	boolean
-     */
-    public function render() {
+	/**
+	 * Check if uploads folder exists
+	 *
+	 * @return 	boolean
+	 */
+	public function render() {
 		return file_exists(t3lib_div::getFileAbsFileName($this->folder));
-    }
+	}
 }
 
 ?>

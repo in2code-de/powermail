@@ -8,15 +8,15 @@
  */
 class Tx_Powermail_ViewHelpers_Condition_IsThereAMailWithStartingLetterViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
 
-    /**
-     * View helper check if given value is number or not
-     *
-     * @param 	object 		Current Mail Query
-     * @param 	string 		Starting Letter to search for
-     * @param 	int 		Field Uid
-     * @return 	boolean
-     */
-    public function render($mails, $letter, $answerField) {
+	/**
+	 * View helper check if given value is number or not
+	 *
+	 * @param 	object 		Current Mail Query
+	 * @param 	string 		Starting Letter to search for
+	 * @param 	int 		Field Uid
+	 * @return 	boolean
+	 */
+	public function render($mails, $letter, $answerField) {
 		foreach ($mails as $mail) {
 			foreach ($mail->getAnswers() as $answer) {
 				if ($answer->getField() == $answerField) {
@@ -28,7 +28,7 @@ class Tx_Powermail_ViewHelpers_Condition_IsThereAMailWithStartingLetterViewHelpe
 			}
 		}
 		return false;
-    }
+	}
 }
 
 ?>

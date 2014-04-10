@@ -27,8 +27,8 @@ class Tx_Powermail_ViewHelpers_Form_AdvancedSelectViewHelper extends Tx_Fluid_Vi
 	 * Initialize
 	 */
 	public function initializeArguments() {
-	    parent::initializeArguments();
-	    $this->registerArgument('defaultOption', 'string', 'value to prepend', FALSE);
+		parent::initializeArguments();
+		$this->registerArgument('defaultOption', 'string', 'value to prepend', FALSE);
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Tx_Powermail_ViewHelpers_Form_AdvancedSelectViewHelper extends Tx_Fluid_Vi
 	 * @return array
 	 */
 	protected function getOptions() {
-	    return array("" => $this->arguments['defaultOption']) + parent::getOptions();
+		return array("" => $this->arguments['defaultOption']) + parent::getOptions();
 	}
 }
 

@@ -1,15 +1,18 @@
 <?php
-
+/**
+ * @package powermail
+ * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ */
 class Tx_Powermail_ViewHelpers_Condition_OrViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
-    /**
-     * OR viewhelper for if widget in fluid
-     *
-     * @param 	array		Array with strings
-     * @param 	string		String to compare (if empty, just check array if there are values)
-     * @return 	boolean		true/false
-     */
-    public function render($array, $string = null) {
+	/**
+	 * OR viewhelper for if widget in fluid
+	 *
+	 * @param 	array		Array with strings
+	 * @param 	string		String to compare (if empty, just check array if there are values)
+	 * @return 	boolean		true/false
+	 */
+	public function render($array, $string = null) {
 		foreach ((array) $array as $value) {
 			if (!$string && $value) {
 				return true;
@@ -19,7 +22,7 @@ class Tx_Powermail_ViewHelpers_Condition_OrViewHelper extends Tx_Fluid_Core_View
 			}
 		}
 		return false;
-    }
+	}
 }
 
 ?>

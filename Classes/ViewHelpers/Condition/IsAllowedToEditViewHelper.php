@@ -27,7 +27,7 @@ class Tx_Powermail_ViewHelpers_Condition_IsAllowedToEditViewHelper extends Tx_Fl
 			return true;
 		}
 		return false;
-    }
+	}
 
 	/**
 	 * @param Tx_Powermail_Utility_Div $div

@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package powermail
+ * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ */
 class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain_Validator_AbstractValidator {
 
 	/**
@@ -77,7 +81,7 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 			$this->addError('captcha', 0);
 			return false;
 		}
-  	}
+	}
 
 	/**
 	 * Checks if given form has a captcha

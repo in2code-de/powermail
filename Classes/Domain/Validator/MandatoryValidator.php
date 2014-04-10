@@ -1,4 +1,8 @@
 <?php
+/**
+ * @package powermail
+ * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ */
 class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
 
 	/**
@@ -60,7 +64,7 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 		}
 
 		return $this->isValid;
-  	}
+	}
 
 	/**
 	 * injectFormsRepository
