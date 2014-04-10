@@ -107,7 +107,7 @@ CREATE TABLE tx_powermail_domain_model_fields (
 	sender_name tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	mandatory tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	own_marker_select tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	marker varchar(255) DEFAULT '' NOT NULL,
+	marker varchar(255) DEFAULT '0' NOT NULL,
 
 	# Dummy Fields
 	validation_title tinyint(2) unsigned DEFAULT '0' NOT NULL,
