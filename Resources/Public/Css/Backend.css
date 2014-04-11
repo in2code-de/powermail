@@ -23,6 +23,9 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.powermail-backend-select {
+	padding-left: 0;
+}
 
 
 /**

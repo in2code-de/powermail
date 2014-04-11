@@ -48,9 +48,12 @@ class Tx_Powermail_Domain_Repository_MailsBasicRepository extends Tx_Powermail_D
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$this->ignoreEnableFields($query);
-		$query->matching(
-			$query->in('uid', $uidList)
-		);
+
+		if (count($uidList)) {
+			$query->matching(
+				$query->in('uid', $uidList)
+			);
+		}
 		return $query->execute();
 	}
 }
