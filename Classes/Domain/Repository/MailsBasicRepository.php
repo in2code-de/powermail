@@ -32,5 +32,3 @@
  */
 class Tx_Powermail_Domain_Repository_MailsBasicRepository extends Tx_Powermail_Domain_Repository_MailsRepository {
 }
-
-?>

@@ -25,11 +25,11 @@
 
 
 /**
- *
+ * PagesRepository
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Repository_PagesRepository extends Tx_Extbase_Persistence_Repository {
 
@@ -47,11 +47,9 @@ class Tx_Powermail_Domain_Repository_PagesRepository extends Tx_Extbase_Persiste
 		$sql .= ' where uid = ' . intval($uid);
 		$sql .= ' limit 1';
 
-		$query->getQuerySettings()->setReturnRawQueryResult(true); //this generates an array and makes it much slower
+		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
 		$result = $query->statement($sql)->execute();
 
 		return $result[0]['title'];
 	}
 }
-
-?>
