@@ -29,7 +29,8 @@
  * Context Model for Tx_Powermail_Domain_Model_Mails without relations
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Model_MailsBasic extends Tx_Extbase_DomainObject_AbstractEntity {
 
@@ -69,24 +70,10 @@ class Tx_Powermail_Domain_Model_MailsBasic extends Tx_Extbase_DomainObject_Abstr
 	protected $body = '';
 
 	/**
-	 * @param string $subject
-	 */
-	public function setSubject($subject) {
-		$this->subject = $subject;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getSubject() {
 		return $this->subject;
-	}
-
-	/**
-	 * @param string $body
-	 */
-	public function setBody($body) {
-		$this->body = $body;
 	}
 
 	/**
@@ -97,24 +84,10 @@ class Tx_Powermail_Domain_Model_MailsBasic extends Tx_Extbase_DomainObject_Abstr
 	}
 
 	/**
-	 * @param string $receiverMail
-	 */
-	public function setReceiverMail($receiverMail) {
-		$this->receiverMail = $receiverMail;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getReceiverMail() {
 		return $this->receiverMail;
-	}
-
-	/**
-	 * @param string $senderMail
-	 */
-	public function setSenderMail($senderMail) {
-		$this->senderMail = $senderMail;
 	}
 
 	/**
@@ -125,13 +98,6 @@ class Tx_Powermail_Domain_Model_MailsBasic extends Tx_Extbase_DomainObject_Abstr
 	}
 
 	/**
-	 * @param string $senderName
-	 */
-	public function setSenderName($senderName) {
-		$this->senderName = $senderName;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getSenderName() {
@@ -139,4 +105,3 @@ class Tx_Powermail_Domain_Model_MailsBasic extends Tx_Extbase_DomainObject_Abstr
 	}
 
 }
-?>
