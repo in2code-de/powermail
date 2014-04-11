@@ -290,7 +290,7 @@
 								</items>
 								<maxitems>1</maxitems>
 								<size>1</size>
-								<minitems>1</minitems>
+								<!--<minitems>1</minitems>-->
 								<itemsProcFunc>Tx_Powermail_Utility_FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
 							</config>
 						</TCEforms>

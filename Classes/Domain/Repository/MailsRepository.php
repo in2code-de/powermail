@@ -34,20 +34,6 @@
 class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persistence_Repository {
 
 	/**
-	 * Disable enable fields for a query object (respect T3 version)
-	 *
-	 * @param $query
-	 * @return void
-	 */
-	protected function ignoreEnableFields(&$query) {
-		if (1) {
-
-		} else {
-
-		}
-	}
-
-	/**
 	 * Find all mails in given PID (BE List)
 	 *
 	 * @param int $pid Page Id
@@ -59,8 +45,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		// settings
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectEnableFields(FALSE);
-//		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+		$this->ignoreEnableFields($query);
 
 		// initial filter
 		$and = array(
@@ -160,7 +145,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		// settings
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectEnableFields(FALSE);
+		$this->ignoreEnableFields($query);
 
 		// initial filter
 		$and = array(
@@ -196,7 +181,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 	public function findByUid($uid) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectEnableFields(FALSE);
+		$this->ignoreEnableFields($query);
 		return $query->matching($query->equals('uid', $uid))->execute()->getFirst();
 	}
 
@@ -212,7 +197,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		$uids = t3lib_div::trimExplode(',', $uidList, 1);
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectEnableFields(FALSE);
+		$this->ignoreEnableFields($query);
 
 		// initial filter
 		$and = array(
@@ -343,5 +328,19 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		 */
 		$mails = $query->execute();
 		return $mails;
+	}
+
+	/**
+	 * Disable enableFields for a query object (respect T3 version)
+	 *
+	 * @param $query
+	 * @return void
+	 */
+	protected function ignoreEnableFields(&$query) {
+		if (method_exists($query->getQuerySettings(), 'setIgnoreEnableFields')) {
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+		} else {
+			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+		}
 	}
 }
