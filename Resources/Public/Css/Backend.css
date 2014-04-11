@@ -360,7 +360,7 @@ span.info {
 	background-color: #DDDDDD;
 	border: 1px solid #A2AAB8;
 	margin: 15px 0;
-	width: 98%;
+	width: 100%;
 }
 .powermail_reporting_form_fields_inner,
 .powermail_reporting_marketing_fields_inner {
@@ -371,35 +371,54 @@ span.info {
 	background-color: #F8F8F8;
 	float: left;
 	border: 1px solid #A2AAB8;
-	padding: 20px;
-	width: 40%;
-	margin-right: 30px;
+	padding: 0 20px 45px 20px;
+	width: 49%;
+	margin-right: 2%;
 	margin-bottom: 20px;
+	position: relative;
+}
+.powermail_reporting_form_fields_item:nth-child(even),
+.powermail_reporting_marketing_fields_item:nth-child(even) {
+	margin-right: 0;
+}
+.powermail_reporting_form_fields_item img,
+.powermail_reporting_marketing_fields_item img {
+	height: auto;
+	max-width: 100%;
+}
+.powermail_reporting_form_fields_table_absolute {
+	position: relative;
 }
 table.powermail_reporting_form_fields_table {
 	border: 1px solid #A2AAB8;
+	background-color: #FFFFFF;
+	position: absolute;
+	z-index: 10;
+	width: 100%;
 }
 table.powermail_reporting_form_fields_table tr.even {
-	background-color: #DDDDDD;
+	background-color: #EEEEEE;
 }
 table.powermail_reporting_form_fields_table th {
 	border-bottom: 1px dashed #A2AAB8;
-	padding: 2px;
+	padding: 5px 10px;
 	cursor: pointer;
 }
 table.powermail_reporting_form_fields_table td {
-	padding: 2px;
-	padding-left: 10px;
+	padding: 5px 10px;
+}
+.powermail_reporting_form_fields_table_right {
+	text-align: right;
 }
 table.powermail_reporting_form_fields_table th.open {
 	padding-left: 10px;
 	background-repeat: no-repeat;
-	background-position: 0 6px;
+	background-position: 10px 11px;
 	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_desc.png');
 }
 table.powermail_reporting_form_fields_table th.close {
 	padding-left: 10px;
 	background-repeat: no-repeat;
-	background-position: 0 6px;
+	background-position: 10px 11px;
 	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
 }

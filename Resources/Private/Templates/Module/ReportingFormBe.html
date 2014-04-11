@@ -34,26 +34,28 @@ Show Backend Module: Powermail Reporting Form
 									chf=bg,s,F8F8F8
 									&chxs=0,676767,10.5
 									&chxt=x
-									&chs=350x200
+									&chs=600x200
 									&cht=p3
 									&chd=t:50,50
 									&chdl={vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}')}
 									&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}', separator: ',')}
 									&chl={vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}', separator: '|')}
-								" width="350" height="200" alt="Error, no graphic available" />
+								" alt="Error, no graphic available" />
 
-								<table class="powermail_reporting_form_fields_table">
-									<tr>
-										<th width="90%" class="close"><f:translate key="BackendReportingFormValue" /></th>
-										<th width="10%"><f:translate key="BackendReportingFormAmount" /></th>
-									</tr>
-									<f:for each="{vh:Misc.VariableInVariable(obj:'{groupedAnswers}', prop: '{answer.field}')}" as="amount" key="value">
+								<div class="powermail_reporting_form_fields_table_absolute">
+									<table class="powermail_reporting_form_fields_table">
 										<tr>
-											<td>{value}</td>
-											<td>{amount}</td>
+											<th width="90%" class="close"><f:translate key="BackendReportingFormValue" /></th>
+											<th width="10%" class="powermail_reporting_form_fields_table_right"><f:translate key="BackendReportingFormAmount" /></th>
 										</tr>
-									</f:for>
-								</table>
+										<f:for each="{vh:Misc.VariableInVariable(obj:'{groupedAnswers}', prop: '{answer.field}')}" as="amount" key="value">
+											<tr>
+												<td>{value}</td>
+												<td class="powermail_reporting_form_fields_table_right">{amount}</td>
+											</tr>
+										</f:for>
+									</table>
+								</div>
 							</div>
 
 						</f:for>
