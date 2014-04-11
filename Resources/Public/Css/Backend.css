@@ -282,16 +282,19 @@ h4.extended_export_title {
 .extended_export_field,
 .extended_export_field_container {
 	margin-top: 15px;
+	list-style-type: none;
+	padding: 0;
+	margin-bottom: 0;
 }
 .extended_export_field li,
 .extended_export_field_container li {
 	cursor: pointer;
 	margin: 2px 0;
-	padding: 3px 20px 3px 0;
+	padding: 5px 10px;
 	color: #444;
 	border: 1px solid #d3d3d3;
 	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon-check.png');
-	background-position: 100% 0;
+	background-position: 99% 50%;
 	background-repeat: no-repeat;
 	font-weight: bold;
 	background-color: #eee;
@@ -301,6 +304,13 @@ h4.extended_export_title {
 	color: #999;
 	background-color: #efefef;
 	font-weight: normal;
+}
+.extended_export_field li:hover,
+.extended_export_field_container li:hover,
+.extended_export_field li:hover .info,
+.extended_export_field_container li:hover .info {
+	background-color: #999999;
+	color: #EEEEEE;
 }
 span.info {
 	color: #999;
