@@ -85,6 +85,8 @@
 			<label index="JsValidationCheckLetters">Only Letters allowed</label>
 			<label index="BackendSelectionList">Mail List</label>
 			<label index="BackendSelectionReporting">Reporting</label>
+			<label index="BackendSelectionReportingForm">Reporting (Form)</label>
+			<label index="BackendSelectionReportingMarketing">Reporting (Marketing)</label>
 			<label index="BackendSelectionCheck">Powermail Function Check</label>
 			<label index="BackendCheckTitle">Powermail Check</label>
 			<label index="BackendCheckSessionTitle">Frontend Session Check</label>
@@ -238,6 +240,8 @@
 			<label index="JsValidationCheckLetters">Ungültige Zeichen</label>
 			<label index="BackendSelectionList">E-Mail Auflistung</label>
 			<label index="BackendSelectionReporting">Auswertung</label>
+			<label index="BackendSelectionReportingForm">Auswertung (Formular)</label>
+			<label index="BackendSelectionReportingMarketing">Auswertung (Marketing)</label>
 			<label index="BackendSelectionCheck">Powermail Funktions-Check</label>
 			<label index="BackendCheckTitle">Powermail Funktionstests</label>
 			<label index="BackendCheckSessionTitle">Frontend Session Check</label>
