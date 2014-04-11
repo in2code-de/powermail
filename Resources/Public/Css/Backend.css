@@ -50,14 +50,17 @@ input.powermail_email_input {
 	margin-bottom: 15px;
 }
 .powermail_listbe_details_dl {
-	margin-left: 23px;
 	clear: both;
-	padding: 3px 0;
-	border-top: 1px dashed #F8F8F8;
-	width: 80%;
+	padding: 5px 0 5px 42px;
+	border-top: 1px dashed #cccccc;
+	width: 100%;
+	margin: 0;
 }
-.powermail_listbe_details_dl:first-child {
-	border: 0;
+.powermail_listbe_details_container:hover .powermail_listbe_details_dl {
+	border-top: 1px dashed #F8F8F8;
+}
+.powermail_listbe_details_container .powermail_listbe_details_dl:first-child {
+	border-style: none;
 }
 .powermail_listbe_details_dl dt {
 	display: block;
@@ -73,6 +76,9 @@ input.powermail_email_input {
 }
 .powermail_listbe_details_dl_additional:first-child {
 	border-top: 1px solid #aaa;
+}
+.powermail_listbe_details > td {
+	padding: 1px !important;
 }
 .hideMail,
 .unhideMail,
