@@ -2,21 +2,29 @@
  * Misc Settings
  */
 .powermail-message {
-    margin: 20px 0;
+	margin: 20px 0;
 }
 .powermail-padding-bottom {
-    padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 .powermail-padding-top {
-    padding-top: 30px;
+	padding-top: 30px;
 }
 .transparent {
-    filter: alpha(opacity=33);
-    -moz-opacity: 0.33;
-    opacity: 0.33;
+	filter: alpha(opacity=33);
+	-moz-opacity: 0.33;
+	opacity: 0.33;
 }
 .clear {
-    clear: both;
+	clear: both;
+}
+.powermail-backend * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.powermail-backend-select {
+	padding-left: 0;
 }
 
 
@@ -24,14 +32,14 @@
  * Check View
  */
 .powermail_email label {
-    font-weight: bold;
+	font-weight: bold;
 }
 .powermail_email input {
-    margin-left: 20px;
+	margin-left: 20px;
 }
 input.powermail_email_input {
-    padding: 4px;
-    width: 250px;
+	padding: 4px;
+	width: 250px;
 }
 
 
@@ -39,71 +47,89 @@ input.powermail_email_input {
  * List View
  */
 .powermail_listbe_details_container {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 .powermail_listbe_details_dl {
-    margin-left: 23px;
-    clear: both;
-    padding: 3px 0;
-    border-top: 1px dashed #F8F8F8;
-    width: 80%;
+	clear: both;
+	padding: 5px 0 5px 42px;
+	border-top: 1px dashed #cccccc;
+	width: 100%;
+	margin: 0;
 }
-.powermail_listbe_details_dl:first-child {
-    border: 0;
+.powermail_listbe_details_container:hover .powermail_listbe_details_dl {
+	border-top: 1px dashed #F8F8F8;
+}
+.powermail_listbe_details_container .powermail_listbe_details_dl:first-child {
+	border-style: none;
 }
 .powermail_listbe_details_dl dt {
-    display: block;
-    float: left;
-    width: 180px;
-    margin-right: 10px;
+	display: block;
+	float: left;
+	width: 180px;
+	margin-right: 10px;
 }
 .powermail_listbe_details_dl dd {
-    margin-left: 190px;
+	margin-left: 190px;
 }
 .powermail_listbe_details_dl_additional {
-    color: #aaa;
+	color: #aaa;
 }
 .powermail_listbe_details_dl_additional:first-child {
-    border-top: 1px solid #aaa;
+	border-top: 1px solid #aaa;
+}
+.powermail_listbe_details > td {
+	padding: 1px 0 0 0 !important;
 }
 .hideMail,
 .unhideMail,
 .deleteMail,
 .openPowermailDetails {
-    cursor: pointer;
+	cursor: pointer;
 }
 ul.f3-widget-paginator {
-    border: 1px solid #A2AAB8;
-    height: 26px;
-    width: 98%;
-    margin-top: 20px;
+	border: 1px solid #A2AAB8;
+	width: 100%;
+	margin-top: 20px;
+	padding: 5px;
+	overflow: hidden;
+	list-style-type: none;
 }
 ul.f3-widget-paginator li {
-    float: left;
-    display: block;
-    padding: 2px 6px;
-    margin: 3px;
-    background-color: #DADADA;
-    border: 1px solid #585858;
-    color: #999;
+	float: left;
+	display: block;
+	background-color: #DADADA;
+	border: 1px solid #585858;
+	color: #999;
+	margin: 0 5px 0 0;
+	line-height: normal;
+}
+ul.f3-widget-paginator li.current {
+	padding: 0 5px;
 }
 ul.f3-widget-paginator li a {
-    color: #444;
+	color: #444;
+	padding: 1px 5px;
+	cursor: pointer;
+}
+ul.f3-widget-paginator li a:hover {
+	background-color: #666666;
+	color: white;
+	text-decoration: none;
 }
 ul.f3-widget-paginator li.next {
-    margin-right: 15px;
+	margin-right: 15px;
 }
 a.sorting {
-    padding-right: 10px;
-    background-repeat: no-repeat;
-    background-position: 100% 4px;
+	padding-right: 10px;
+	background-repeat: no-repeat;
+	background-position: 100% 4px;
 }
 a.sorting_desc {
-    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_desc.png');
+	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_desc.png');
 }
 
 a.sorting_asc {
-    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
+	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
 }
 
 
@@ -114,108 +140,108 @@ a.sorting_asc {
 .searchall_mails,
 .extended_search,
 typo3-dblist {
-    clear: both;
+	clear: both;
 }
 .powermail_module_search {
-    margin: 15px 0;
-    background-color: #DDDDDD;
-    border: 1px solid #A2AAB8;
-    width: 98%;
+	margin: 15px 0;
+	background-color: #DDDDDD;
+	border: 1px solid #A2AAB8;
+	width: 100%;
 }
 .powermail_module_search_inner {
-    margin: 15px 15px;
+	margin: 15px 15px;
 }
 .powermail_module_search_field {
-    float: left;
-    width: 50%;
-    padding: 5px 0;
+	float: left;
+	width: 50%;
+	padding: 5px 0;
 }
 .powermail_module_search_field label {
-    font-weight: bold;
-    width: 150px;
-    float: left;
-    display: block;
-    padding-top: 5px;
+	font-weight: bold;
+	width: 150px;
+	float: left;
+	display: block;
+	padding-top: 5px;
 }
 .powermail_module_search_field input,
 .powermail_module_search_field select {
-    padding: 3px;
-    width: 220px;
-    border-top: 1px solid #A2AAB8;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+	padding: 3px;
+	width: 220px;
+	border-top: 1px solid #A2AAB8;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 .powermail_module_search_field select {
-    width: 227px;
+	width: 227px;
 }
 .powermail_module_search_field select.addField {
-    width: 205px;
-    display: none;
+	width: 205px;
+	display: none;
 }
 input.powermail_date {
-    background-position: 98% 1px;
-    background-repeat: no-repeat;
-    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_calendar.png');
+	background-position: 98% 1px;
+	background-repeat: no-repeat;
+	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_calendar.png');
 }
 .searchall_mails {
-    width: auto;
+	width: auto;
 }
 .searchall_mails label {
-    width: 172px;
+	width: 172px;
 }
 .searchall_mails input {
-    padding: 5px;
-    width: 508px;
+	padding: 5px;
+	width: 508px;
 }
 input.searchall_submit {
-    padding: 4px 15px;
-    margin-left: 20px;
-    width: 100px;
-    border: 1px solid #A2AAB8;
+	padding: 4px 15px;
+	margin-left: 20px;
+	width: 100px;
+	border: 1px solid #A2AAB8;
 }
 h4.extended_search_title {
-    padding-top: 20px;
-    width: 300px;
+	padding-top: 20px;
+	width: 300px;
 }
 .extended_search {
-    padding:  15px 22px;
-    border: 1px solid #A2AAB8;
+	padding:  15px 22px;
+	border: 1px solid #A2AAB8;
 }
 .cleanLink {
-    padding-top: 5px;
-    display: block;
+	padding-top: 5px;
+	display: block;
 }
 .cleanLink a {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 .extended_search_title {
-    cursor: pointer;
+	cursor: pointer;
 }
 fieldset.close {
-    display: none;
+	display: none;
 }
 fieldset.close .powermail_module_search_field_container1 .powermail_module_search_field {
-    opacity: 0;
-    -moz-opacity: 0;
-    -webkit-opacity: 0;
-    filter: alpha(opacity=0);
+	opacity: 0;
+	-moz-opacity: 0;
+	-webkit-opacity: 0;
+	filter: alpha(opacity=0);
 }
 div.searchAddField label {
-    cursor: pointer;
+	cursor: pointer;
 }
 .addSearchField {
-    cursor: pointer;
-    margin-top: 3px;
+	cursor: pointer;
+	margin-top: 3px;
 }
 fieldset.extended_search .close {
-    display: none;
+	display: none;
 }
 fieldset.extended_search .powermail_module_search_field_container2 {
-    clear: both;
-    padding-top: 10px;
-    margin-top: 140px;
-    border-top: 1px dashed #A2AAB8;
+	clear: both;
+	padding-top: 10px;
+	margin-top: 140px;
+	border-top: 1px dashed #A2AAB8;
 }
 
 
@@ -223,72 +249,81 @@ fieldset.extended_search .powermail_module_search_field_container2 {
  * List View: Export
  */
 .export_icons {
-    width: 100px;
-    float: right;
-    margin-right: 60px;
+	width: 100px;
+	float: right;
 }
 .export_icon {
-    float: right;
-    margin-left: 10px;
-    cursor: pointer;
+	float: right;
+	margin-left: 10px;
+	cursor: pointer;
 }
 h4.extended_export_title {
-    margin-top: 20px;
-    cursor: pointer;
-    width: 300px;
+	margin-top: 20px;
+	cursor: pointer;
+	width: 300px;
 }
 .extended_export {
-    padding:  15px 22px;
-    border: 1px solid #A2AAB8;
+	padding:  15px 22px;
+	border: 1px solid #A2AAB8;
 }
 .extended_export_inner_left,
 .extended_export_inner_right {
-    padding: 10px;
-    width: 47%;
-    background-color: white;
-    min-height: 100px;
-    border: 1px dashed #A2AAB8;
+	padding: 10px;
+	width: 47%;
+	background-color: white;
+	min-height: 100px;
+	border: 1px dashed #A2AAB8;
 
-    opacity: 0;
-    -moz-opacity: 0;
-    -webkit-opacity: 0;
-    filter: alpha(opacity=0);
+	opacity: 0;
+	-moz-opacity: 0;
+	-webkit-opacity: 0;
+	filter: alpha(opacity=0);
 }
 .extended_export_inner_left {
-    float: left;
+	float: left;
 }
 .extended_export_inner_right {
-    float: right;
+	float: right;
 }
 .extended_export_inner label {
-    font-weight: bold;
+	font-weight: bold;
 }
 .extended_export_field,
 .extended_export_field_container {
-    margin-top: 15px;
+	margin-top: 15px;
+	list-style-type: none;
+	padding: 0;
+	margin-bottom: 0;
 }
 .extended_export_field li,
 .extended_export_field_container li {
-    cursor: pointer;
-    margin: 2px 0;
-    padding: 3px 20px 3px 0;
-    color: #444;
-    border: 1px solid #d3d3d3;
-    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon-check.png');
-    background-position: 100% 0;
-    background-repeat: no-repeat;
-    font-weight: bold;
-    background-color: #eee;
+	cursor: pointer;
+	margin: 2px 0;
+	padding: 5px 10px;
+	color: #444;
+	border: 1px solid #d3d3d3;
+	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon-check.png');
+	background-position: 99% 50%;
+	background-repeat: no-repeat;
+	font-weight: bold;
+	background-color: #eee;
 }
 .extended_export_field_container li {
-    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon-notchecked.png');
-    color: #999;
-    background-color: #efefef;
-    font-weight: normal;
+	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon-notchecked.png');
+	color: #999;
+	background-color: #efefef;
+	font-weight: normal;
+}
+.extended_export_field li:hover,
+.extended_export_field_container li:hover,
+.extended_export_field li:hover .info,
+.extended_export_field_container li:hover .info {
+	background-color: #999999;
+	color: #EEEEEE;
 }
 span.info {
-    color: #999;
-    font-weight: normal;
+	color: #999;
+	font-weight: normal;
 }
 
 
@@ -296,26 +331,26 @@ span.info {
  * Reporting View: Selection
  */
 .powermail_reporting_selection {
-    background-color: #DDDDDD;
-    border: 1px solid #A2AAB8;
-    padding: 20px;
+	background-color: #DDDDDD;
+	border: 1px solid #A2AAB8;
+	padding: 20px;
 }
 .powermail_reporting_selection_left {
-    float: left;
-    margin-right: 80px;
-    background-color: #F8F8F8;
-    padding: 15px;
-    border: 1px solid #A2AAB8;
+	float: left;
+	margin-right: 80px;
+	background-color: #F8F8F8;
+	padding: 15px;
+	border: 1px solid #A2AAB8;
 }
 .powermail_reporting_selection_right {
-    float: left;
-    background-color: #F8F8F8;
-    padding: 15px;
-    border: 1px solid #A2AAB8;
+	float: left;
+	background-color: #F8F8F8;
+	padding: 15px;
+	border: 1px solid #A2AAB8;
 }
 .powermail_reporting_selection_left img,
 .powermail_reporting_selection_right img {
-    padding-top: 15px;
+	padding-top: 15px;
 }
 
 
@@ -324,53 +359,75 @@ span.info {
  */
 .powermail_reporting_form h3,
 .powermail_reporting_marketing h3 {
-    margin-top: 40px;
+	margin-top: 40px;
 }
 .powermail_reporting_form_fields,
 .powermail_reporting_marketing_fields {
-    background-color: #DDDDDD;
-    border: 1px solid #A2AAB8;
-    margin: 15px 0;
-    width: 98%;
+	background-color: #DDDDDD;
+	border: 1px solid #A2AAB8;
+	margin: 15px 0;
+	width: 100%;
 }
 .powermail_reporting_form_fields_inner,
 .powermail_reporting_marketing_fields_inner {
-    padding: 20px;
+	padding: 20px;
 }
 .powermail_reporting_form_fields_item,
 .powermail_reporting_marketing_fields_item {
-    background-color: #F8F8F8;
-    float: left;
-    border: 1px solid #A2AAB8;
-    padding: 20px;
-    width: 40%;
-    margin-right: 30px;
-    margin-bottom: 20px;
+	background-color: #F8F8F8;
+	float: left;
+	border: 1px solid #A2AAB8;
+	padding: 0 20px 45px 20px;
+	width: 49%;
+	margin-right: 2%;
+	margin-bottom: 20px;
+	position: relative;
+}
+.powermail_reporting_form_fields_item:nth-child(even),
+.powermail_reporting_marketing_fields_item:nth-child(even) {
+	margin-right: 0;
+}
+.powermail_reporting_form_fields_item img,
+.powermail_reporting_marketing_fields_item img {
+	height: auto;
+	max-width: 100%;
+}
+.powermail_reporting_form_fields_table_absolute {
+	position: relative;
 }
 table.powermail_reporting_form_fields_table {
-    border: 1px solid #A2AAB8;
+	border: 1px solid #A2AAB8;
+	background-color: #FFFFFF;
+	position: absolute;
+	z-index: 10;
+	width: 100%;
 }
 table.powermail_reporting_form_fields_table tr.even {
-    background-color: #DDDDDD;
+	background-color: #EEEEEE;
 }
 table.powermail_reporting_form_fields_table th {
-    border-bottom: 1px dashed #A2AAB8;
-    padding: 2px;
-    cursor: pointer;
+	border-bottom: 1px dashed #A2AAB8;
+	padding: 5px 10px;
+	cursor: pointer;
 }
 table.powermail_reporting_form_fields_table td {
-    padding: 2px;
-    padding-left: 10px;
+	padding: 5px 10px;
+}
+.powermail_reporting_form_fields_table_right {
+	text-align: right;
 }
 table.powermail_reporting_form_fields_table th.open {
-    padding-left: 10px;
-    background-repeat: no-repeat;
-    background-position: 0 6px;
-    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_desc.png');
+	padding-left: 10px;
+	background-repeat: no-repeat;
+	background-position: 10px 11px;
+	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_desc.png');
 }
 table.powermail_reporting_form_fields_table th.close {
-    padding-left: 10px;
-    background-repeat: no-repeat;
-    background-position: 0 6px;
-    background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
+	padding-left: 10px;
+	background-repeat: no-repeat;
+	background-position: 10px 11px;
+	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
+}
+tr.powermail_listbe_overview:hover a {
+	text-decoration: none;
 }

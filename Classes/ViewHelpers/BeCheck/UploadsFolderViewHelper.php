@@ -13,7 +13,7 @@ class Tx_Powermail_ViewHelpers_BeCheck_UploadsFolderViewHelper extends Tx_Fluid_
 	 *
 	 * @var		string
 	 */
-	public $folder = 'uploads/tx_powermail/';
+	protected $folder = 'uploads/tx_powermail/';
 
 	/**
 	 * Check if uploads folder exists
@@ -24,5 +24,3 @@ class Tx_Powermail_ViewHelpers_BeCheck_UploadsFolderViewHelper extends Tx_Fluid_
 		return file_exists(t3lib_div::getFileAbsFileName($this->folder));
 	}
 }
-
-?>

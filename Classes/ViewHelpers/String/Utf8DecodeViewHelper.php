@@ -11,11 +11,9 @@ class Tx_Powermail_ViewHelpers_String_Utf8DecodeViewHelper extends Tx_Fluid_View
 	/**
 	 * utf8_decode for Inner HTML
 	 *
-	 * @return 	string
+	 * @return string
 	 */
 	public function render() {
 		return utf8_decode($this->renderChildren());
 	}
 }
-
-?>

@@ -11,12 +11,10 @@ class Tx_Powermail_ViewHelpers_String_UnderscoredToLowerCamelCaseViewHelper exte
 	/**
 	 * Underscored value to lower camel case value (nice_field => niceField)
 	 *
-	 * @param 	string 		String
-	 * @return 	string
+	 * @param string $val String
+	 * @return string
 	 */
 	public function render($val = '') {
 		return t3lib_div::underscoredToLowerCamelCase($val);
 	}
 }
-
-?>

@@ -18,14 +18,12 @@ class Tx_Powermail_ViewHelpers_Condition_IsNotEmptyViewHelper extends Tx_Fluid_V
 		if (!is_array($val)) {
 			return !empty($val);
 		} else {
-			foreach ((array) $val as $key => $subValue) {
+			foreach ((array) $val as $subValue) {
 				if (!empty($subValue)) {
 					return TRUE;
 				}
 			}
-			return FALSE;
 		}
+		return FALSE;
 	}
 }
-
-?>

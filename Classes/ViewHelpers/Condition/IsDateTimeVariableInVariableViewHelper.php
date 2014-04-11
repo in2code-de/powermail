@@ -11,9 +11,9 @@ class Tx_Powermail_ViewHelpers_Condition_IsDateTimeVariableInVariableViewHelper 
 	/**
 	 * Is {outer.{inner}} a datetime?
 	 *
-	 * @param	$obj	object Object
-	 * @param	$prop	string Property
-	 * @return	bool
+	 * @param $obj object Object
+	 * @param $prop string Property
+	 * @return bool
 	 */
 	public function render($obj, $prop) {
 		if (is_object($obj) && method_exists($obj, 'get' . t3lib_div::underscoredToUpperCamelCase($prop))) {
@@ -22,5 +22,3 @@ class Tx_Powermail_ViewHelpers_Condition_IsDateTimeVariableInVariableViewHelper 
 		return method_exists($mixed, 'getTimestamp');
 	}
 }
-
-?>

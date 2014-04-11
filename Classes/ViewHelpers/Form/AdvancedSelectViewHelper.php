@@ -25,6 +25,8 @@ class Tx_Powermail_ViewHelpers_Form_AdvancedSelectViewHelper extends Tx_Fluid_Vi
 
 	/**
 	 * Initialize
+	 *
+	 * @return void
 	 */
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -37,8 +39,6 @@ class Tx_Powermail_ViewHelpers_Form_AdvancedSelectViewHelper extends Tx_Fluid_Vi
 	 * @return array
 	 */
 	protected function getOptions() {
-		return array("" => $this->arguments['defaultOption']) + parent::getOptions();
+		return array('' => $this->arguments['defaultOption']) + parent::getOptions();
 	}
 }
-
-?>

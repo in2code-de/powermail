@@ -33,17 +33,23 @@ class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_Vi
 	/**
 	 * Parses variables again
 	 *
-	 * @param	array		Variables and Markers array
-	 * @param	array		Variables and Labels array
-	 * @param	string		"web" or "mail"
-	 * @return 	string		Changed string
+	 * @param array $variablesMarkers Variables and Markers array
+	 * @param array $variablesLabels Variables and Labels array
+	 * @param string $type "web" or "mail"
+	 * @return string Changed string
 	 */
 	public function render($variablesMarkers = array(), $variablesLabels = array(), $type = 'web') {
 		$parseObject = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
 		$parseObject->setTemplateSource($this->renderChildren());
 		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($variablesMarkers));
 
-		$powermailAll = $this->div->powermailAll($variablesLabels, $this->configurationManager, $this->objectManager, $type, $this->settings);
+		$powermailAll = $this->div->powermailAll(
+			$variablesLabels,
+			$this->configurationManager,
+			$this->objectManager,
+			$type,
+			$this->settings
+		);
 		$parseObject->assign('powermail_all', $powermailAll);
 
 		return html_entity_decode($parseObject->render());
@@ -67,7 +73,9 @@ class Tx_Powermail_ViewHelpers_Misc_VariablesViewHelper extends Tx_Fluid_Core_Vi
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
-		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$typoScriptSetup = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
 		$this->settings = t3lib_div::removeDotsFromTS($typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.']);
 	}
 

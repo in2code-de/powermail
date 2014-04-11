@@ -25,33 +25,24 @@
 /**
  * Plugin 'Powermail' for the 'powermail' extension.
  *
- * @author	2010 powermail development team (details on http://forge.typo3.org/projects/show/extension-powermail)
- * @package	TYPO3
- * @subpackage	tx_powermail
+ * @author 2010 powermail development team
+ * 		(details on http://forge.typo3.org/projects/show/extension-powermail)
+ * @package TYPO3
+ * @subpackage tx_powermail
  */
 
 /**
- * [CLASS/FUNCTION INDEX of SCRIPT]
- *
- *
- *
- *   49: class tx_powermail_pi1_wizicon
- *   57:     function proc($wizardItems)
- *   80:     function includeLocalLang()
- *
- * TOTAL FUNCTIONS: 2
- * (This index is automatically created/updated by the extension "extdeveval")
- *
+ * Wizard Icon for Backend
  */
 class tx_powermail_pi1_wizicon {
 
 	/**
 	 * Processing the wizard items array
 	 *
-	 * @param	array		$wizardItems: The wizard items
-	 * @return	array		array with wizard items
+	 * @param array $wizardItems: The wizard items
+	 * @return array with wizard items
 	 */
-	function proc($wizardItems)	{
+	function proc($wizardItems){
 		global $LANG;
 
 		$LL = $this->includeLocalLang();
@@ -70,7 +61,8 @@ class tx_powermail_pi1_wizicon {
 	}
 
 	/**
-	 * Reads the [extDir]/locallang.xml and returns the \$LOCAL_LANG array found in that file.
+	 * Reads the [extDir]/locallang.xml and
+	 * 			returns the \$LOCAL_LANG array found in that file.
 	 *
 	 * @return	The array with language labels
 	 */
@@ -84,4 +76,3 @@ class tx_powermail_pi1_wizicon {
 		return $LOCAL_LANG;
 	}
 }
-?>

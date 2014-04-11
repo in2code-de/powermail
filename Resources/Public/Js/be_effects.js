@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
 	});
 
 	// Hide/Unhide Mails
-    $('.unhideMail, .hideMail').live('click', function() {
+	$('.unhideMail, .hideMail').live('click', function() {
 		$this = $(this);
 		formToken = $this.siblings('.container_formtoken').val();
 		uid = $this.siblings('.container_uid').val();
@@ -30,10 +30,10 @@ jQuery(document).ready(function($) {
 			hidden = 0;
 		}
 		url = 'tce_db.php?&data[' + table + '][' + uid + '][hidden]=' + hidden + '&redirect=' + T3_THIS_LOCATION + '&vC=b601970a97' + formToken + '&prErr=1&uPT=1';
-        $.ajax({
-            url: url
-        });
-    });
+		$.ajax({
+			url: url
+		});
+	});
 
 	// Delete Mail
 	$('.deleteMail').live('click', function() {

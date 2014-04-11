@@ -13,10 +13,12 @@
 				</div>
 			</div>
 			<div id="typo3-docheader-row2">
-				<div class="docheader-row2-left">
+				<div class="docheader-row2-left typo3-docheader-functions powermail-backend-select">
 					<f:be.menus.actionMenu>
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionList')}" controller="Module" action="listBe" />
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionReporting')}" controller="Module" action="reportingBe" />
+						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionReportingForm')}" controller="Module" action="reportingFormBe" />
+						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionReportingMarketing')}" controller="Module" action="reportingMarketingBe" />
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionCheck')}" controller="Module" action="checkBe" />
 					</f:be.menus.actionMenu>
 				</div>
@@ -26,7 +28,7 @@
 			</div>
 		</div>
 		<div id="typo3-docbody">
-			<div id="typo3-inner-docbody">
+			<div id="typo3-inner-docbody" class="powermail-backend">
 				<f:flashMessages renderMode="div" />
 				<f:render section="content" />
 			</div>

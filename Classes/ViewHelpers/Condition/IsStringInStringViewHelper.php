@@ -11,13 +11,11 @@ class Tx_Powermail_ViewHelpers_Condition_IsStringInStringViewHelper extends Tx_F
 	/**
 	 * Check if there is a string in another string
 	 *
-	 * @param 	string 		Haystack
-	 * @param 	string 		Needle
-	 * @return 	boolean
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return boolean
 	 */
 	public function render($haystack, $needle) {
 		return stristr($haystack, $needle);
 	}
 }
-
-?>

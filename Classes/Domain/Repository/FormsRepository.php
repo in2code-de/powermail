@@ -28,7 +28,8 @@
  * FormsRepository
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persistence_Repository {
 
@@ -59,29 +60,31 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 	 */
 	public function hasCaptcha($uid) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 
 		$and = array(
 			$query->equals('uid', $uid),
 			$query->equals('pages.fields.type', 'captcha')
 		);
 
-		$constraint = $query->logicalAnd($and); // create where object with AND
-		$query->matching($constraint); // use constraint
+		$constraint = $query->logicalAnd($and);
+		$query->matching($constraint);
 
 		$result = $query->execute();
 		return $result;
 	}
 
 	/**
-	 * This function is a workarround to get the field value of "pages" in the table "forms" (only relevant if IRRE was replaced by Element Browser)
+	 * This function is a workarround to get the field value
+	 * 		of "pages" in the table "forms"
+	 * 		(only relevant if IRRE was replaced by Element Browser)
 	 *
 	 * @param int $uid Form UID
 	 * @return string
 	 */
 	public function getPagesValue($uid) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setReturnRawQueryResult(true);
+		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
 
 		// create sql statement
 		$sql = 'select pages';
@@ -94,5 +97,3 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 		return $result[0]['pages'];
 	}
 }
-
-?>

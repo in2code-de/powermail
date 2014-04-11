@@ -12,10 +12,14 @@
 
 $EM_CONF[$_EXTKEY] = array (
 	'title' => 'powermail',
-	'description' => 'Powermail is a well-known, powerful and easy to use mailform extension with a lots of features (spam prevention, marketing, double-optin, etc...)',
+	'description' => '
+		Powermail is a well-known,
+		powerful and easy to use mailform extension with a lots
+		of features (spam prevention, marketing, double-optin, etc...)
+	',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '2.0.11',
+	'version' => '2.0.12',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
@@ -33,9 +37,9 @@ $EM_CONF[$_EXTKEY] = array (
 	'CGLcompliance_note' => '',
 	'constraints' => array (
 		'depends' => array (
-			'typo3' => '4.6.0-6.1.99',
-			'extbase' => '1.4.0-6.1.99',
-			'fluid' => '1.4.0-6.1.99',
+			'typo3' => '4.6.0-6.2.99',
+			'extbase' => '1.4.0-6.2.99',
+			'fluid' => '1.4.0-6.2.99',
 		),
 		'conflicts' => array (
 		),
@@ -43,5 +47,3 @@ $EM_CONF[$_EXTKEY] = array (
 		),
 	),
 );
-
-?>

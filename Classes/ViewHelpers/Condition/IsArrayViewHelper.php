@@ -11,12 +11,10 @@ class Tx_Powermail_ViewHelpers_Condition_IsArrayViewHelper extends Tx_Fluid_View
 	/**
 	 * View helper check if given value is array or not
 	 *
-	 * @param 	mixed 		String or Array
-	 * @return 	boolean
+	 * @param mixed $val
+	 * @return boolean
 	 */
 	public function render($val = '') {
 		return is_array($val);
 	}
 }
-
-?>

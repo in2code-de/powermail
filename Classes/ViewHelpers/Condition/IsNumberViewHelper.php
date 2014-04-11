@@ -11,12 +11,10 @@ class Tx_Powermail_ViewHelpers_Condition_IsNumberViewHelper extends Tx_Fluid_Vie
 	/**
 	 * View helper check if given value is number or not
 	 *
-	 * @param 	mixed 		String or Number
-	 * @return 	boolean
+	 * @param mixed $val
+	 * @return boolean
 	 */
 	public function render($val = '') {
 		return is_numeric($val);
 	}
 }
-
-?>

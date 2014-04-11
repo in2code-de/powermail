@@ -11,25 +11,23 @@ class Tx_Powermail_ViewHelpers_Form_SelectFieldViewHelper extends Tx_Fluid_ViewH
 	/**
 	 * Generate Select
 	 *
-	 * @param 	array 		Options to render
+	 * @param array $options Options to render
 	 * 		option1 =>
 	 * 			label => Red Shoes
 	 * 			value => red
 	 * 			selected => 1
-	 * @param 	string 		Class
-	 * @param 	string 		ID
-	 * @return 	string		Select field
+	 * @param string $class
+	 * @param string $id
+	 * @return string Select field
 	 */
 	public function render($options, $class = '', $id = '') {
 		// config
-//		$this->registerFieldNameForFormTokenGeneration($this->prefixFieldName($this->getName()));
 		$this->registerFieldNameForFormTokenGeneration($this->getName());
 		$string = '';
 
 		// select
 		$string .= '<select';
 		if ($this->getName()) {
-//			$string .= ' name="' . $this->prefixFieldName($this->getName()) . '"';
 			$string .= ' name="' . $this->getName() . '"';
 		}
 		if ($class) {
@@ -44,8 +42,8 @@ class Tx_Powermail_ViewHelpers_Form_SelectFieldViewHelper extends Tx_Fluid_ViewH
 		foreach ($options as $option) {
 			$string .= '<option value="' . htmlspecialchars($option['value']) . '"';
 			if (
-				($option['selected'] && !$this->getValue()) || // preselect from flexform
-				($this->getValue() && ($option['value'] == $this->getValue() || $option['label'] == $this->getValue())) // preselect from piVars
+				($option['selected'] && !$this->getValue()) ||
+				($this->getValue() && ($option['value'] == $this->getValue() || $option['label'] == $this->getValue()))
 			) {
 				$string .= ' selected="selected"';
 			}
@@ -58,5 +56,3 @@ class Tx_Powermail_ViewHelpers_Form_SelectFieldViewHelper extends Tx_Fluid_ViewH
 		return $string;
 	}
 }
-
-?>

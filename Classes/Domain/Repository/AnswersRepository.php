@@ -25,11 +25,11 @@
 
 
 /**
- *
+ * AnswersRepository
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Repository_AnswersRepository extends Tx_Extbase_Persistence_Repository {
 
@@ -41,8 +41,8 @@ class Tx_Powermail_Domain_Repository_AnswersRepository extends Tx_Extbase_Persis
 	 * @return	Query Object
 	 */
 	public function findByFieldAndMail($fieldUid, $mailUid) {
-		$query = $this->createQuery(); // initialize query
-		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 
 		$and = array(
 			$query->equals('mail', $mailUid),
@@ -56,5 +56,3 @@ class Tx_Powermail_Domain_Repository_AnswersRepository extends Tx_Extbase_Persis
 	}
 
 }
-
-?>

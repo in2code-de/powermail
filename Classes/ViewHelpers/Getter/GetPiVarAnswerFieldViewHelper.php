@@ -11,15 +11,14 @@ class Tx_Powermail_ViewHelpers_Getter_GetPiVarAnswerFieldViewHelper extends Tx_F
 	/**
 	 * Used in the Backendmodule to get a defined piVar
 	 *
-	 * @param 	int			Field UID
-	 * @param 	array		Plugin Vars
-	 * @return	string		parsed Variable
+	 * @param int $fieldUid Field UID
+	 * @param array $piVars Plugin Vars
+	 * @return string parsed Variable
 	 */
 	public function render($fieldUid, $piVars) {
 		if (isset($piVars['filter']['answer'][$fieldUid])) {
 			return htmlspecialchars($piVars['filter']['answer'][$fieldUid]);
 		}
+		return '';
 	}
 }
-
-?>

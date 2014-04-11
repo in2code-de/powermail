@@ -28,31 +28,30 @@
  * FE_User Repository
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Repository_UserRepository extends Tx_Extbase_Persistence_Repository {
 
 	/**
 	 * Find FE_Users by their group
 	 *
-	 * @param 	$uid	int		fe_groups UID
-	 * @return	query result
+	 * @param int $uid fe_groups UID
+	 * @return object
 	 */
 	public function findByUsergroup($uid) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 
 		$and = array(
-			$query->greaterThan('uid', 0), // always true like 1=1
+			$query->greaterThan('uid', 0),
 			$query->contains('usergroup', $uid)
 		);
 
-		$constraint = $query->logicalAnd($and); // create where object with AND
-		$query->matching($constraint); // use constraint
+		$constraint = $query->logicalAnd($and);
+		$query->matching($constraint);
 
 		$result = $query->execute();
 		return $result;
 	}
 }
-
-?>

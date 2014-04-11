@@ -118,8 +118,15 @@ div.powermail_fieldwrap {
 	-khtml-border-radius: 2px;
 	border-radius: 2px;
 }
+.powermail_select {
+	width: 408px;
+}
 .powermail_captcha {
 	width: 392px;
+
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 .powermail_textarea {
 	height: 80px;
@@ -130,13 +137,14 @@ input.powermail_field:focus {
 	outline: none;
 }
 .powermail_submit {
-	margin: 10px 16px 10px 0;
+	margin: 10px 8px 10px 0;
 	float: right;
 	border: 0;
 	padding: 5px 20px;
 	color: white;
 	font-weight: bold;
 	cursor: pointer;
+	width: 408px;
 
 	background: rgb(30,87,153); /* Old browsers */
 	background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6+ */
@@ -173,7 +181,7 @@ input.powermail_field:focus {
 	border: 1px solid #ccc;
 	float: left;
 	padding: 3px;
-	width: 392px;
+	width: 400px;
 }
 .powermail_radio_outer label,
 .powermail_captcha_outer label,
@@ -181,7 +189,7 @@ input.powermail_field:focus {
 	color: #444;
 }
 .powermail_captchaimage {
-	width: 392px;
+	width: 399px;
 	margin-top: 10px;
 }
 div.error {

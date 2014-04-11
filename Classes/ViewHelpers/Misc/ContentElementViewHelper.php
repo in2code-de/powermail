@@ -21,11 +21,11 @@ class Tx_Powermail_ViewHelpers_Misc_ContentElementViewHelper extends Tx_Fluid_Co
 	/**
 	 * Parse a content element
 	 *
-	 * @param	int			UID of any content element
-	 * @return 	string		Parsed Content Element
+	 * @param int $uid UID of any content element
+	 * @return string Parsed Content Element
 	 */
 	public function render($uid) {
-		$conf = array( // config
+		$conf = array(
 			'tables' => 'tt_content',
 			'source' => $uid,
 			'dontCheckPid' => 1
@@ -45,5 +45,3 @@ class Tx_Powermail_ViewHelpers_Misc_ContentElementViewHelper extends Tx_Fluid_Co
 	}
 
 }
-
-?>

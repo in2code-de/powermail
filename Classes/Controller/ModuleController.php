@@ -28,8 +28,8 @@
  * Controller for powermail list views (BE and FE)
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller_ActionController {
 
@@ -68,7 +68,7 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	 */
 	public function listBeAction() {
 		$mails = $this->mailsRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
-		$mailsBasic = $this->mailsBasicRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
+		$mailsBasic = $this->mailsBasicRepository->findMailsByUids($mails);
 		$firstMail = $this->mailsRepository->findFirstInPid(t3lib_div::_GP('id'));
 
 		$this->view->assign('mails', $mails);
@@ -91,7 +91,8 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 
 		if ($email) {
 			if (t3lib_div::validEmail($email)) {
-				$body = 'New <b>Test Email</b> from User ' . $GLOBALS['BE_USER']->user['username'] . ' (' . t3lib_div::getIndpEnv('HTTP_HOST') . ')';
+				$body = 'New <b>Test Email</b> from User ';
+				$body .= $GLOBALS['BE_USER']->user['username'] . ' (' . t3lib_div::getIndpEnv('HTTP_HOST') . ')';
 
 				$message = t3lib_div::makeInstance('t3lib_mail_Message');
 				$message
@@ -183,9 +184,10 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 		$mails = $this->mailsRepository->findByUidList($export['mails'], $export['sorting']);
 		$this->view->assign('mails', $mails);
 		$this->view->assign('fields', t3lib_div::trimExplode(',', $export['fields'], 1));
+		$filename = ($this->settings['export']['filenameXls'] ? $this->settings['export']['filenameXls'] : 'export.xls');
 
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: inline; filename="' . ($this->settings['export']['filenameXls'] ? $this->settings['export']['filenameXls'] : 'export.xls') . '"');
+		header('Content-Disposition: inline; filename="' . $filename . '"');
 		header('Pragma: no-cache');
 	}
 
@@ -199,9 +201,10 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 		$mails = $this->mailsRepository->findByUidList($export['mails'], $export['sorting']);
 		$this->view->assign('mails', $mails);
 		$this->view->assign('fields', t3lib_div::trimExplode(',', $export['fields'], 1));
+		$filename = ($this->settings['export']['filenameCsv'] ? $this->settings['export']['filenameCsv'] : 'export.csv');
 
 		header('Content-Type: text/x-csv');
-		header('Content-Disposition: attachment; filename="' . ($this->settings['export']['filenameCsv'] ? $this->settings['export']['filenameCsv'] : 'export.csv') . '"');
+		header('Content-Disposition: attachment; filename="' . $filename . '"');
 		header('Pragma: no-cache');
 	}
 
@@ -242,5 +245,3 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 		$this->mailsBasicRepository = $mailsBasicRepository;
 	}
 }
-
-?>

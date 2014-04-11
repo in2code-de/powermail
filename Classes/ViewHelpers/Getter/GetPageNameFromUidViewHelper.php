@@ -18,8 +18,8 @@ class Tx_Powermail_ViewHelpers_Getter_GetPageNameFromUidViewHelper extends Tx_Fl
 	/**
 	 * View helper check if given value is array or not
 	 *
-	 * @param 	int 		PID
-	 * @return 	string		Page Name
+	 * @param string $uid PID
+	 * @return string Page Name
 	 */
 	public function render($uid = '') {
 		return $this->pagesRepository->getPageNameFromUid($uid);
@@ -35,5 +35,3 @@ class Tx_Powermail_ViewHelpers_Getter_GetPageNameFromUidViewHelper extends Tx_Fl
 		$this->pagesRepository = $pagesRepository;
 	}
 }
-
-?>

@@ -12,12 +12,10 @@ class Tx_Powermail_ViewHelpers_String_EncodeViewHelper extends Tx_Fluid_Core_Vie
 	/**
 	 * Returns encoded string
 	 *
-	 * @return 	string		Encoded string
+	 * @return string Encoded string
 	 */
 	public function render() {
 		$string = htmlspecialchars($this->renderChildren());
 		return $string;
 	}
 }
-
-?>

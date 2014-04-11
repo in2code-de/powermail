@@ -25,27 +25,27 @@
 
 
 /**
- *
+ * MailsRepository
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persistence_Repository {
 
 	/**
 	 * Find all mails in given PID (BE List)
 	 *
-	 * @param 	int 	Page Id
-	 * @param 	array 	TypoScript Config Array
-	 * @param 	array 	Plugin Variables
-	 * @return	Query Object
+	 * @param int $pid Page Id
+	 * @param array $settings TypoScript Config Array
+	 * @param array $piVars Plugin Variables
+	 * @return object
 	 */
 	public function findAllInPid($pid = 0, $settings = array(), $piVars = array()) {
 		// settings
-		$query = $this->createQuery(); // initialize query
-		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
-		$query->getQuerySettings()->setRespectEnableFields(FALSE); // show also hidden
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$this->ignoreEnableFields($query);
 
 		// initial filter
 		$and = array(
@@ -84,7 +84,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 
 					// Hidden Filter
 					elseif ($field == 'hidden' && !empty($value)) {
-						$and[] = $query->equals($field, ($value-1));
+						$and[] = $query->equals($field, ($value - 1));
 					}
 
 					// Other Fields
@@ -113,11 +113,13 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 
 		// set sorting
 		$sortby = ($settings['sortby'] ? $settings['sortby'] : 'crdate');
-		$order = ($settings['order'] == 'asc' ? Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING);
+		$order = ($settings['order'] == 'asc' ?
+			Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING);
 		if (isset($piVars['sorting'])) {
 			foreach ((array) $piVars['sorting'] as $key => $value) {
 				$sortby = $key;
-				$order = ($value == 'asc' ? Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING);
+				$order = ($value == 'asc' ?
+					Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING);
 				break;
 			}
 		}
@@ -136,14 +138,14 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 	/**
 	 * Find first mail in given PID
 	 *
-	 * @param 	int 	Page Id
-	 * @return	Query Object
+	 * @param int $pid Page Id
+	 * @return bject
 	 */
 	public function findFirstInPid($pid = 0) {
 		// settings
-		$query = $this->createQuery(); // initialize query
-		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
-		$query->getQuerySettings()->setRespectEnableFields(FALSE); // show also hidden
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$this->ignoreEnableFields($query);
 
 		// initial filter
 		$and = array(
@@ -158,7 +160,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		// sorting
 		$query->setOrderings(
 			array(
-				 'crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+				'crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 			)
 		);
 
@@ -173,29 +175,29 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 	/**
 	 * Find mails by given UID (also hidden and don't care about starting page)
 	 *
-	 * @param 	integer 		Mail uid
-	 * @return	Query Object
+	 * @param integer $uid Mail uid
+	 * @return Object
 	 */
 	public function findByUid($uid) {
-		$query = $this->createQuery(); // initialize query
-		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
-		$query->getQuerySettings()->setRespectEnableFields(FALSE); // show also hidden
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$this->ignoreEnableFields($query);
 		return $query->matching($query->equals('uid', $uid))->execute()->getFirst();
 	}
 
 	/**
 	 * Find mails in UID List
 	 *
-	 * @param 	string 		Commaseparated UID List of mails
-	 * @param 	array 		Sorting array('field' => 'asc')
-	 * @return	Query Object
+	 * @param string $uidList Commaseparated UID List of mails
+	 * @param array $sorting Sorting array('field' => 'asc')
+	 * @return object
 	 */
 	public function findByUidList($uidList, $sorting = array()) {
 		// settings
 		$uids = t3lib_div::trimExplode(',', $uidList, 1);
-		$query = $this->createQuery(); // initialize query
-		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
-		$query->getQuerySettings()->setRespectEnableFields(FALSE); // show also hidden
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$this->ignoreEnableFields($query);
 
 		// initial filter
 		$and = array(
@@ -210,7 +212,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		// sorting
 		$query->setOrderings(
 			array(
-				 'crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+				'crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 			)
 		);
 		foreach ((array) $sorting as $field => $order) {
@@ -221,7 +223,8 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 			$field = preg_replace('/[^a-zA-Z0-9_-]/', '', $field);
 			$query->setOrderings(
 				array(
-					$field => ($order == 'asc' ? Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING)
+					$field => ($order == 'asc' ?
+							Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING : Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING)
 				)
 			);
 		}
@@ -234,13 +237,13 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 	/**
 	 * Query for Pi2
 	 *
-	 * @param	array		$settings TypoScript Settings
-	 * @param	array		$piVars Plugin Variables
-	 * @return	void
+	 * @param array $settings TypoScript Settings
+	 * @param array $piVars Plugin Variables
+	 * @return object
 	 */
 	public function findListBySettings($settings, $piVars) {
-		$query = $this->createQuery(); // initialize query
-		$query->getQuerySettings()->setRespectStoragePage(FALSE); // disable storage pid
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 
 
 		/**
@@ -278,11 +281,11 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 
 		// FILTER: field
 		if (isset($piVars['filter'])) {
-			if (isset($piVars['filter']['_all'])) { // fulltext
+			if (isset($piVars['filter']['_all'])) {
 
 				$and[] = $query->like('answers.value', '%' . $piVars['filter']['_all'] . '%');
 
-			} else { // or single field search
+			} else {
 
 				$filter = array();
 				foreach ((array) $piVars['filter'] as $field => $value) {
@@ -296,7 +299,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 				}
 
 				if (count($filter) > 0) {
-					$and[] = $query->logicalOr($filter); // TODO AND
+					$and[] = $query->logicalOr($filter);
 				}
 
 			}
@@ -311,7 +314,7 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		// sorting
 		$query->setOrderings(
 			array(
-				 'crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
+				'crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING
 			)
 		);
 
@@ -326,6 +329,18 @@ class Tx_Powermail_Domain_Repository_MailsRepository extends Tx_Extbase_Persiste
 		$mails = $query->execute();
 		return $mails;
 	}
-}
 
-?>
+	/**
+	 * Disable enableFields for a query object (respect T3 version)
+	 *
+	 * @param $query
+	 * @return void
+	 */
+	protected function ignoreEnableFields(&$query) {
+		if (method_exists($query->getQuerySettings(), 'setIgnoreEnableFields')) {
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+		} else {
+			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+		}
+	}
+}

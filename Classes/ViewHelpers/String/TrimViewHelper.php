@@ -23,5 +23,3 @@ class Tx_Powermail_ViewHelpers_String_TrimViewHelper extends Tx_Fluid_ViewHelper
 		return $string;
 	}
 }
-
-?>

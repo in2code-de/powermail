@@ -25,12 +25,35 @@
 
 
 /**
- * Context Repository
+ * Context Repository for Mails
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Repository_MailsBasicRepository extends Tx_Powermail_Domain_Repository_MailsRepository {
-}
 
-?>
+	/**
+	 * Find Mails by its uids
+	 *
+	 * @param Tx_Extbase_Persistence_QueryResult $mails
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findMailsByUids(Tx_Extbase_Persistence_QueryResult $mails) {
+		$uidList = array();
+		foreach ($mails as $mail) {
+			$uidList[] = $mail->getUid();
+		}
+
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$this->ignoreEnableFields($query);
+
+		if (count($uidList)) {
+			$query->matching(
+				$query->in('uid', $uidList)
+			);
+		}
+		return $query->execute();
+	}
+}
