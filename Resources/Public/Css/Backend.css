@@ -78,7 +78,7 @@ input.powermail_email_input {
 	border-top: 1px solid #aaa;
 }
 .powermail_listbe_details > td {
-	padding: 1px !important;
+	padding: 1px 0 0 0 !important;
 }
 .hideMail,
 .unhideMail,
@@ -427,4 +427,7 @@ table.powermail_reporting_form_fields_table th.close {
 	background-repeat: no-repeat;
 	background-position: 10px 11px;
 	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
+}
+tr.powermail_listbe_overview:hover a {
+	text-decoration: none;
 }
