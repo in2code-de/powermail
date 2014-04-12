@@ -28,10 +28,15 @@
  * Class for uploading files and check if they are valid
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
+
+	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
 
 	/**
 	 * BasicFileFunctions
@@ -53,7 +58,7 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 	 *
 	 * @var bool
 	 */
-	protected $isValid = true;
+	protected $isValid = TRUE;
 
 	/**
 	 * Validation of given Params
@@ -65,7 +70,7 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
 			// session stuff
 			$uploadSession = array();
-			Tx_Powermail_Utility_Div::setSessionValue('upload', array(), true); // clean old session before
+			Tx_Powermail_Utility_Div::setSessionValue('upload', array(), TRUE);
 
 			foreach ($_FILES['tx_powermail_pi1']['name']['field'] as $uid => $filename) {
 
@@ -85,51 +90,59 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 				}
 
 				// create new filename with absolute path
-				$newFile = $this->basicFileFunctions->getUniqueName($filename, t3lib_div::getFileAbsFileName($this->settings['misc.']['file.']['folder']));
-				$uploadSession[] = $newFile; // create array for upload session
+				$newFile = $this->basicFileFunctions->getUniqueName(
+					$filename, t3lib_div::getFileAbsFileName($this->settings['misc.']['file.']['folder'])
+				);
+				$uploadSession[] = $newFile;
 				if (!t3lib_div::upload_copy_move($_FILES['tx_powermail_pi1']['tmp_name']['field'][$uid], $newFile)) {
 					$this->addError('upload_error', $uid);
-					$this->isValid = false;
+					$this->isValid = FALSE;
 				}
 			}
 
 			// save uploaded filenames to session (to attach it later)
-			Tx_Powermail_Utility_Div::setSessionValue('upload', $uploadSession, true);
+			Tx_Powermail_Utility_Div::setSessionValue('upload', $uploadSession, TRUE);
 		}
 
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'UploadValidation', array($field, $this));
+
 		return $this->isValid;
-  	}
+	}
 
 	/**
 	 * Check filesize of given file
 	 *
-	 * @param	int			Field uid
-	 * @return	bool		If file is not larger than allowed
+	 * @param int $uid Field uid
+	 * @return bool If file is not larger than allowed
 	 */
 	protected function checkFilesize($uid) {
-		if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['field'][$uid]) > $this->settings['misc.']['file.']['size']) {
-			$this->addError('upload_size', $uid);
-			$this->isValid = false;
-			return false;
+		if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['field'][$uid]) <= $this->settings['misc.']['file.']['size']) {
+			return TRUE;
 		}
-		return true;
+		$this->addError('upload_size', $uid);
+		$this->isValid = FALSE;
+		return FALSE;
 	}
 
 	/**
 	 * Check extension of given filename
 	 *
-	 * @param	string		Filename like (upload.txt)
-	 * @param	int			Field uid
-	 * @return	bool		If Extension is allowed via ts
+	 * @param string $filename Filename like (upload.txt)
+	 * @param int $uid Field uid
+	 * @return bool If Extension is allowed via ts
 	 */
 	protected function checkExtension($filename, $uid) {
 		$fileInfo = pathinfo($filename);
-		if (!isset($fileInfo['extension']) || !t3lib_div::inList($this->settings['misc.']['file.']['extension'], $fileInfo['extension'])) {
-			$this->addError('upload_extension', $uid);
-			$this->isValid = false;
-			return false;
+		if (
+			!empty($fileInfo['extension']) &&
+			!empty($this->settings['misc.']['file.']['extension']) &&
+			t3lib_div::inList($this->settings['misc.']['file.']['extension'], $fileInfo['extension'])
+		) {
+			return TRUE;
 		}
-		return true;
+		$this->addError('upload_extension', $uid);
+		$this->isValid = FALSE;
+		return FALSE;
 	}
 
 	/**
@@ -138,18 +151,24 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
-		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$typoScriptSetup = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
 		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 	}
 
 	/**
 	 * Constructor
-	 *
-	 * @return	void
 	 */
 	public function __construct() {
 		$this->basicFileFunctions = t3lib_div::makeInstance('t3lib_basicFileFunctions');
 	}
-}
 
-?>
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
+	}
+}
