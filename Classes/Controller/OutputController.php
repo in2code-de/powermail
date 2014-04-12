@@ -74,8 +74,6 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	 * @return void
 	 */
 	public function listAction() {
-		$this->checkIfTypoScriptIsLoaded();
-
 		// get all mails
 		$mails = $this->mailsRepository->findListBySettings($this->settings, $this->piVars);
 		$this->view->assign('mails', $mails);
@@ -277,25 +275,22 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
-	 * check if ts is included
-	 *
-	 * @return void
-	 */
-	protected function checkIfTypoScriptIsLoaded() {
-		if (!isset($this->settings['staticTemplate'])) {
-			$this->flashMessageContainer->add(
-				Tx_Extbase_Utility_Localization::translate('error_no_typoscript_pi2', 'powermail')
-			);
-		}
-	}
-
-	/**
 	 * Action initialization
 	 *
 	 * @return void
 	 */
 	protected function initializeAction() {
 		$this->piVars = $this->request->getArguments();
+
+		// check if ts is included
+		if (!isset($this->settings['staticTemplate'])) {
+			if ($this->controllerContext === NULL) {
+				$this->controllerContext = $this->buildControllerContext();
+			}
+			$this->flashMessageContainer->add(
+				Tx_Extbase_Utility_Localization::translate('error_no_typoscript_pi2', 'powermail')
+			);
+		}
 	}
 
 	/**
