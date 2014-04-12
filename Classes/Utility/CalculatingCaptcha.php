@@ -36,6 +36,11 @@
 class Tx_Powermail_Utility_CalculatingCaptcha {
 
 	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * TypoScript
 	 *
 	 * @var array
@@ -191,6 +196,14 @@ class Tx_Powermail_Utility_CalculatingCaptcha {
 		$GLOBALS['TSFE']->storeSessionData();
 
 		return $number1 . ' ' . $operator . ' ' . $number2;
+	}
+
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 
 }

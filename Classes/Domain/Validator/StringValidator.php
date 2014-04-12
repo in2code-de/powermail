@@ -13,6 +13,11 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 	protected $fieldsRepository;
 
 	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * regEx and filter array
 	 * Note: PHP filters see
 	 * 			http://php.net/manual/en/filter.filters.sanitize.php and
@@ -89,5 +94,13 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 	 */
 	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
 		$this->fieldsRepository = $fieldsRepository;
+	}
+
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 }

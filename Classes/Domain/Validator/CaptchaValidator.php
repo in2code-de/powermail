@@ -16,6 +16,11 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 	protected $formsRepository;
 
 	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * Captcha Session clean (only if mail is out)
 	 *
 	 * @var bool
@@ -121,5 +126,13 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 	 */
 	public function injectFormsRepository(Tx_Powermail_Domain_Repository_FormsRepository $formsRepository) {
 		$this->formsRepository = $formsRepository;
+	}
+
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 }
