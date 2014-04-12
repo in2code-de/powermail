@@ -73,6 +73,8 @@ class Tx_Powermail_Utility_CalculatingCaptcha {
 	public function validCode($code, $clearSession = TRUE) {
 		$valid = FALSE;
 
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeValidateCaptchaCode', array($code, $this));
+
 		// if code is set and equal to session value
 		if (intval($code) === $GLOBALS['TSFE']->fe_user->sesData['powermail_captcha_value'] && !empty($code)) {
 
