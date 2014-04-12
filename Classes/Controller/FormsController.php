@@ -197,7 +197,9 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			$this->sendConfirmationMail($field, $newMail);
 		}
 
-		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($field, $form, $mail, $this, $newMail));
+		$this->signalSlotDispatcher->dispatch(
+			__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($field, $form, $mail, $this, $newMail)
+		);
 		$this->view->assign('optinActive', (!$this->settings['main']['optin'] || ($this->settings['main']['optin'] && $mail) ? 0 : 1));
 	}
 
@@ -209,10 +211,24 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 */
 	protected function sendMail($field) {
 		if ($this->settings['receiver']['enable']) {
-			$receiverString = $this->div->fluidParseString($this->settings['receiver']['email'], $this->objectManager, $this->div->getVariablesWithMarkers($field));
+			$receiverString = $this->div->fluidParseString(
+				$this->settings['receiver']['email'],
+				$this->objectManager,
+				$this->div->getVariablesWithMarkers($field)
+			);
 			$receivers = $this->div->getReceiverEmails($receiverString, $this->settings['receiver']['fe_group']);
-			if ($this->cObj->cObjGetSingle($this->conf['receiver.']['overwrite.']['email'], $this->conf['receiver.']['overwrite.']['email.'])) { // overwrite from typoscript
-				$receivers = t3lib_div::trimExplode(',', $this->cObj->cObjGetSingle($this->conf['receiver.']['overwrite.']['email'], $this->conf['receiver.']['overwrite.']['email.']), 1);
+			if ($this->cObj->cObjGetSingle(
+				$this->conf['receiver.']['overwrite.']['email'],
+				$this->conf['receiver.']['overwrite.']['email.'])
+			) {
+				$receivers = t3lib_div::trimExplode(
+					',',
+					$this->cObj->cObjGetSingle(
+						$this->conf['receiver.']['overwrite.']['email'],
+						$this->conf['receiver.']['overwrite.']['email.']
+					),
+					TRUE
+				);
 			}
 			foreach ($receivers as $receiver) {
 				$mail = array();
@@ -342,7 +358,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	protected function redirectToTarget() {
-		$target = null;
+		$target = NULL;
 
 		// redirect from flexform
 		if (!empty($this->settings['thx']['redirect'])) {
@@ -351,7 +367,10 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 
 		// redirect from TypoScript cObject
 		if ($this->cObj->cObjGetSingle($this->conf['thx.']['overwrite.']['redirect'], $this->conf['thx.']['overwrite.']['redirect.'])) {
-			$target = $this->cObj->cObjGetSingle($this->conf['thx.']['overwrite.']['redirect'], $this->conf['thx.']['overwrite.']['redirect.']);
+			$target = $this->cObj->cObjGetSingle(
+				$this->conf['thx.']['overwrite.']['redirect'],
+				$this->conf['thx.']['overwrite.']['redirect.']
+			);
 		}
 
 		// if redirect target
@@ -471,17 +490,25 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 *
 	 * @return void
 	 */
-	public function initializeObject() {
+	public function initializeAction() {
 		$this->cObj = $this->configurationManager->getContentObject();
-		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$typoScriptSetup = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
 		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 
-		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
+		// merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
+		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail'));
+			if ($this->controllerContext === NULL) {
+				$this->controllerContext = $this->buildControllerContext();
+			}
+			$this->flashMessageContainer->add(
+				Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail')
+			);
 		}
 
 		// Debug Output
@@ -509,7 +536,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @return bool
 	 */
 	protected function getErrorFlashMessage() {
-		return false;
+		return FALSE;
 	}
 
 	/**

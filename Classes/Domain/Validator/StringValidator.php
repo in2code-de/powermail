@@ -1,7 +1,7 @@
 <?php
+
 /**
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * Class Tx_Powermail_Domain_Validator_StringValidator
  */
 class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
 
@@ -13,17 +13,24 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 	protected $fieldsRepository;
 
 	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * regEx and filter array
-	 * Note: PHP filters see http://php.net/manual/en/filter.filters.sanitize.php and http://de.php.net/manual/de/function.filter-var.php
+	 * Note: PHP filters see
+	 * 			http://php.net/manual/en/filter.filters.sanitize.php and
+	 * 			http://de.php.net/manual/de/function.filter-var.php
 	 *
 	 * @var regEx
 	 */
 	protected $regEx = array(
-		1 => FILTER_VALIDATE_EMAIL, // email
-		2 => FILTER_VALIDATE_URL, // url
-		3 => '/[^0-9+ .]/', // phone
-		4 => FILTER_SANITIZE_NUMBER_INT, // numbers
-		5 => '/[^a-zA-Z]/', // letters
+		1 => FILTER_VALIDATE_EMAIL,
+		2 => FILTER_VALIDATE_URL,
+		3 => '/[^0-9+ .]/',
+		4 => FILTER_SANITIZE_NUMBER_INT,
+		5 => '/[^a-zA-Z]/'
 	);
 
 	/**
@@ -31,7 +38,7 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 	 *
 	 * @var bool
 	 */
-	protected $isValid = true;
+	protected $isValid = TRUE;
 
 	/**
 	 * Validation of given Params
@@ -40,6 +47,7 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 	 * @return bool
 	 */
 	public function isValid($params) {
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'StringValidation', array($params, $this));
 
 		foreach ((array) $params as $uid => $value) {
 			// get current field values
@@ -56,18 +64,18 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 			// if regex or filter found
 			if (isset($this->regEx[$field->getValidation()])) {
 
-				if (is_numeric($this->regEx[$field->getValidation()])) { // filter
+				if (is_numeric($this->regEx[$field->getValidation()])) {
 
-					if (filter_var($value, $this->regEx[$field->getValidation()]) === false) { // check failed
+					if (filter_var($value, $this->regEx[$field->getValidation()]) === FALSE) {
 						$this->addError('validation', $uid);
-						$this->isValid = false;
+						$this->isValid = FALSE;
 					}
 
-				} else { // regex
+				} else {
 
-					if (preg_replace($this->regEx[$field->getValidation()], '', $value) != $value) { // check failed
+					if (preg_replace($this->regEx[$field->getValidation()], '', $value) != $value) {
 						$this->addError('validation', $uid);
-						$this->isValid = false;
+						$this->isValid = FALSE;
 					}
 
 				}
@@ -87,5 +95,12 @@ class Tx_Powermail_Domain_Validator_StringValidator extends Tx_Extbase_Validatio
 	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
 		$this->fieldsRepository = $fieldsRepository;
 	}
+
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
+	}
 }
-?>

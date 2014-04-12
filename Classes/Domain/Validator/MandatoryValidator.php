@@ -1,8 +1,4 @@
 <?php
-/**
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- */
 class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
 
 	/**
@@ -13,11 +9,16 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 	protected $formsRepository;
 
 	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * Return variable
 	 *
 	 * @var bool
 	 */
-	protected $isValid = true;
+	protected $isValid = TRUE;
 
 	/**
 	 * Validation of given Params
@@ -33,8 +34,8 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 			return $this->isValid;
 		}
 
-		foreach ($form->getPages() as $page) { // every page in current form
-			foreach ($page->getFields() as $field) { // every field in current page
+		foreach ($form->getPages() as $page) {
+			foreach ($page->getFields() as $field) {
 
 				// if not a mandatory field
 				if (!$field->getMandatory()) {
@@ -52,16 +53,17 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 					}
 					if ($empty) {
 						$this->addError('mandatory', $field->getUid());
-						$this->isValid = false;
+						$this->isValid = FALSE;
 					}
 				} else {
 					if (!strlen($params[$field->getUid()])) {
 						$this->addError('mandatory', $field->getUid());
-						$this->isValid = false;
+						$this->isValid = FALSE;
 					}
 				}
 			}
 		}
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'MandatoryValidation', array($params, $this));
 
 		return $this->isValid;
 	}
@@ -75,5 +77,12 @@ class Tx_Powermail_Domain_Validator_MandatoryValidator extends Tx_Extbase_Valida
 	public function injectFormsRepository(Tx_Powermail_Domain_Repository_FormsRepository $formsRepository) {
 		$this->formsRepository = $formsRepository;
 	}
+
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
+	}
 }
-?>

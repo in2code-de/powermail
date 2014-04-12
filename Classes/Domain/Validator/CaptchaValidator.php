@@ -1,8 +1,4 @@
 <?php
-/**
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- */
 class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain_Validator_AbstractValidator {
 
 	/**
@@ -20,6 +16,11 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 	protected $formsRepository;
 
 	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * Captcha Session clean (only if mail is out)
 	 *
 	 * @var bool
@@ -31,14 +32,14 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 	 *
 	 * @var bool
 	 */
-	protected $isValid = true;
+	protected $isValid = TRUE;
 
 	/**
 	 * Captcha Field found
 	 *
 	 * @var bool
 	 */
-	protected $captchaFound = false;
+	protected $captchaFound = FALSE;
 
 	/**
 	 * Validation of given Captcha fields
@@ -67,20 +68,24 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 			$captcha = $this->objectManager->get('Tx_Powermail_Utility_CalculatingCaptcha');
 			if (!$captcha->validCode($value, $this->clearSession)) {
 				$this->addError('captcha', $uid);
-				$this->isValid = false;
+				$this->isValid = FALSE;
 			}
 
 			// Captcha field found
-			$this->captchaFound = true;
+			$this->captchaFound = TRUE;
 		}
+
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'CaptchaValidation', array($params, $this));
 
 		if ($this->captchaFound) {
 			return $this->isValid;
 		} else {
 			// if no captcha vars given
 			$this->addError('captcha', 0);
-			return false;
+			return FALSE;
 		}
+
+		return FALSE;
 	}
 
 	/**
@@ -98,7 +103,9 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 	 */
 	public function __construct() {
 		$piVars = t3lib_div::_GET('tx_powermail_pi1');
-		$this->clearSession = ($piVars['action'] == 'create' ? true : false); // clear captcha on create action
+
+		// clear captcha on create action
+		$this->clearSession = ($piVars['action'] == 'create' ? TRUE : FALSE);
 	}
 
 	/**
@@ -120,5 +127,12 @@ class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain
 	public function injectFormsRepository(Tx_Powermail_Domain_Repository_FormsRepository $formsRepository) {
 		$this->formsRepository = $formsRepository;
 	}
+
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
+	}
 }
-?>

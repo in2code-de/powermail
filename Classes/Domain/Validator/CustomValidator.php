@@ -1,7 +1,7 @@
 <?php
+
 /**
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * Class Tx_Powermail_Domain_Validator_CustomValidator
  */
 class Tx_Powermail_Domain_Validator_CustomValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
 
@@ -15,7 +15,7 @@ class Tx_Powermail_Domain_Validator_CustomValidator extends Tx_Extbase_Validatio
 	 *
 	 * @var bool
 	 */
-	public $isValid = true;
+	public $isValid = TRUE;
 
 	/**
 	 * Validation of given fields with a SignalSlot
@@ -33,6 +33,7 @@ class Tx_Powermail_Domain_Validator_CustomValidator extends Tx_Extbase_Validatio
 	 *
 	 * @param $message
 	 * @param $code
+	 * @return void
 	 */
 	public function setError($message, $code) {
 		$this->addError($message, $code);
@@ -40,10 +41,10 @@ class Tx_Powermail_Domain_Validator_CustomValidator extends Tx_Extbase_Validatio
 
 	/**
 	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
 	 */
 	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
 		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 
 }
-?>

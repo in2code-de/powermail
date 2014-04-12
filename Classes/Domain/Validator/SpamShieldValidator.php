@@ -6,6 +6,11 @@
 class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
 
 	/**
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
 	 * Spam indication start value
 	 *
 	 * @var integer
@@ -47,13 +52,17 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 */
 	public function isValid($params) {
 		if (!$this->settings['spamshield.']['_enable']) {
-			return true;
+			return TRUE;
 		}
 		$spamFactor = $this->settings['spamshield.']['factor'] / 100;
 
 		// Different checks to increase spam indicator
 		$this->honeypodCheck($params, $this->settings['spamshield.']['indicator.']['honeypod']);
-		$this->linkCheck($params, $this->settings['spamshield.']['indicator.']['link'], $this->settings['spamshield.']['indicator.']['linkLimit']);
+		$this->linkCheck(
+			$params,
+			$this->settings['spamshield.']['indicator.']['link'],
+			$this->settings['spamshield.']['indicator.']['linkLimit']
+		);
 		$this->nameCheck($params, $this->settings['spamshield.']['indicator.']['name']);
 		$this->sessionCheck($this->settings['spamshield.']['indicator.']['session']);
 		$this->uniqueCheck($params, $this->settings['spamshield.']['indicator.']['unique']);
@@ -61,11 +70,12 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		$this->blacklistIpCheck($this->settings['spamshield.']['indicator.']['blacklistIp']);
 
 		// spam formula with asymptote 1 (100%)
+		$thisSpamFactor = 0;
 		if ($this->spamIndicator > 0) {
 			$thisSpamFactor = -1 / $this->spamIndicator + 1;
-		} else {
-			$thisSpamFactor = 0;
 		}
+
+		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'SpamShieldValidation', array($params, $this));
 
 		// Save Spam Factor in session for db storage
 		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_spamfactor', $this->formatSpamFactor($thisSpamFactor));
@@ -73,7 +83,9 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 
 		// Spam debugging
 		if ($this->settings['debug.']['spamshield']) {
-			t3lib_utility_Debug::debug($this->msg, 'powermail debug: Show Spamchecks - Spamfactor ' . $this->formatSpamFactor($thisSpamFactor));
+			t3lib_utility_Debug::debug(
+				$this->msg, 'powermail debug: Show Spamchecks - Spamfactor ' . $this->formatSpamFactor($thisSpamFactor)
+			);
 		}
 
 		// if spam
@@ -98,10 +110,10 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 				t3lib_div::plainMailEncoded($this->settings['spamshield.']['email'], $subject, $message, $header);
 			}
 
-			return false;
+			return FALSE;
 		}
 
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -121,7 +133,6 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 			$this->spamIndicator += $indication;
 			$this->msg[] = __FUNCTION__ . ' failed';
 		}
-		return;
 	}
 
 	/**
@@ -145,7 +156,8 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 			}
 			preg_match_all('@http://|https://|ftp.@', $value, $result);
 			if (isset($result[0])) {
-				$linkAmount += count($result[0]); // add numbers of http://
+				// add numbers of http://
+				$linkAmount += count($result[0]);
 			}
 		}
 
@@ -154,7 +166,6 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 			$this->spamIndicator += $indication;
 			$this->msg[] = __FUNCTION__ . ' failed';
 		}
-		return;
 	}
 
 	/**
@@ -168,12 +179,12 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 		if (!$indication) {
 			return;
 		}
-		$keys_firstname = array(
+		$keysFirstname = array(
 			'first_name',
 			'firstname',
 			'vorname'
 		);
-		$keys_lastname = array(
+		$keysLastname = array(
 			'last_name',
 			'lastname',
 			'sur_name',
@@ -188,10 +199,10 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 				continue;
 			}
 			$marker = $this->div->getMarkerFromField($field);
-			if (in_array($marker, $keys_firstname)) {
+			if (in_array($marker, $keysFirstname)) {
 				$firstname = $value;
 			}
-			if (in_array($marker, $keys_lastname)) {
+			if (in_array($marker, $keysLastname)) {
 				$lastname = $value;
 			}
 		}
@@ -213,7 +224,7 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @return void
 	 */
 	protected function sessionCheck($indication = 1.0) {
-		// Stop sessionCheck if indicator was turned to 0 OR if last action was optinConfirm
+		// Stop sessionCheck if indicator turned to 0 OR if last action = optinConfirm
 		if (!$indication || $this->referrer == 'optinConfirm') {
 			return;
 		}
@@ -226,7 +237,6 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 			$this->spamIndicator += $indication;
 			$this->msg[] = __FUNCTION__ . ' failed';
 		}
-		return;
 	}
 
 	/**
@@ -288,7 +298,6 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 				}
 			}
 		}
-		return;
 	}
 
 	/**
@@ -334,7 +343,9 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	 * @return void
 	 */
 	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
-		$typoScriptSetup = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$typoScriptSetup = $configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
 		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 	}
 
@@ -345,5 +356,12 @@ class Tx_Powermail_Domain_Validator_SpamShieldValidator extends Tx_Extbase_Valid
 	public function injectDiv(Tx_Powermail_Utility_Div $div) {
 		$this->div = $div;
 	}
+
+	/**
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
+	}
 }
-?>
