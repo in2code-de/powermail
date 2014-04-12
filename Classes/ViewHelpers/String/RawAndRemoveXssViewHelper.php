@@ -30,9 +30,9 @@ class Tx_Powermail_ViewHelpers_String_RawAndRemoveXssViewHelper extends Tx_Fluid
 	public function render() {
 		$string = $this->renderChildren();
 
-		// parse string
+		/** @var Tx_Fluid_View_StandaloneView $parseObject */
 		$parseObject = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
-		$parseObject->setTemplateSource($string);
+		$parseObject->setTemplateSource((string) $string);
 		$string = $parseObject->render();
 
 		// remove XSS
