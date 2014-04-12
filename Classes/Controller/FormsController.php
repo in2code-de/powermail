@@ -471,17 +471,22 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 *
 	 * @return void
 	 */
-	public function initializeObject() {
+	public function initializeAction() {
 		$this->cObj = $this->configurationManager->getContentObject();
-		$typoScriptSetup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$typoScriptSetup = $this->configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
 		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 
-		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings); // merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
+		// merge typoscript to flexform (if flexform field also exists and is empty, take typoscript part)
+		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail'));
+			$this->flashMessageContainer->add(
+				Tx_Extbase_Utility_Localization::translate('error_no_typoscript', 'powermail')
+			);
 		}
 
 		// Debug Output
