@@ -432,7 +432,7 @@ tr.odd td{background:#eee;}
 				if (isset($headerPiVars) && is_array($headerPiVars)) {
 					foreach ($headerPiVars as $key => $value) {
 						$label = $this->charConvert($this->getLabelfromBackend($key, $value));
-						$tableHeaderContent .= '<th>' . $label . '</th>';
+						$tableHeaderContent .= '<th>' . htmlspecialchars($label) . '</th>';
 					}
 				}
 			}
@@ -454,15 +454,15 @@ tr.odd td{background:#eee;}
 				foreach ($this->rowConfig as $key => $value) {
 					 // If current row is number
 					if ($key == 'number'){
-						$htmlContent .= '<td>' . $i . '.</td>';
+						$htmlContent .= '<td>' . htmlspecialchars($i) . '.</td>';
 
 					// If current row is date
 					} elseif ($key == 'date') {
-						$htmlContent .= '<td>' . date($this->dateFormat, $row['crdate']) . '</td>';
+						$htmlContent .= '<td>' . htmlspecialchars(date($this->dateFormat, $row['crdate'])) . '</td>';
 
 					// If current row is time
 					} elseif ($key == 'time') {
-						$htmlContent .= '<td>' . date($this->timeFormat, $row['crdate']) . '</td>';
+						$htmlContent .= '<td>' . htmlspecialchars(date($this->timeFormat, $row['crdate'])) . '</td>';
 
 					// If current row should show all dynamic values (piVars)
 					} elseif ($key == 'uid') {
@@ -492,7 +492,7 @@ tr.odd td{background:#eee;}
 											$htmlContentSecondLevel[] .= $this->charConvert($this->cleanString($value2));
 										}
 									}
-									$htmlContent .= '<td>' . implode(', ', $htmlContentSecondLevel) . '</td>';
+									$htmlContent .= '<td>' . htmlspecialchars(implode(', ', $htmlContentSecondLevel)) . '</td>';
 								}
 							}
 							$piVarsCounter = count($piVars);
@@ -532,7 +532,7 @@ tr.odd td{background:#eee;}
 							        $value = '<a href="' . t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->tsConfig['properties']['config.']['list.']['uploadFolder'] . $value . '">' . $value . '</a>';
 							        break;
 							}
-							$htmlContent .= '<td>' . $value . '</td>';
+							$htmlContent .= '<td>' . htmlspecialchars($value) . '</td>';
 
 						// PiVars in second level
 						} else {
@@ -545,10 +545,10 @@ tr.odd td{background:#eee;}
 									$htmlContentSecondLevel[] .= $this->charConvert($this->cleanString($value2));
 								}
 							}
-							$htmlContent .= '<td>' . $this->charConvert($this->cleanString(implode(', ', $htmlContentSecondLevel))) . '</td>';
+							$htmlContent .= '<td>' . htmlspecialchars($this->charConvert($this->cleanString(implode(', ', $htmlContentSecondLevel)))) . '</td>';
 						}
 					} else {
-						$htmlContent .= '<td>' . $this->charConvert($row[$key]) . '</td>';
+						$htmlContent .= '<td>' . htmlspecialchars($this->charConvert($row[$key])) . '</td>';
 					}
 				}
 				$htmlContent .= '</tr>';
