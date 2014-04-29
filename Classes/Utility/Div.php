@@ -236,10 +236,11 @@ class Tx_Powermail_Utility_Div {
 	 */
 	public function getVariablesWithLabels($fields) {
 		$variables = array();
-		foreach ((array) $fields as $uid => $value) { // one loop for every received field
+		foreach ((array) $fields as $uid => $value) {
 			if (!is_numeric($uid)) {
 				continue;
 			}
+			$this->cleanSubValues($value);
 			$variables[] = array(
 				'label' => $this->getLabelFromField($uid),
 				'value' => $value,
@@ -247,6 +248,22 @@ class Tx_Powermail_Utility_Div {
 			);
 		}
 		return $variables;
+	}
+
+	/**
+	 * Workarround to eliminate uploaded values from subvalues
+	 *
+	 * @param mixed $subValue
+	 * @return void
+	 */
+	protected function cleanSubValues(&$subValue) {
+		if (is_array($subValue)) {
+			foreach (array_keys($subValue) as $key) {
+				if (!is_numeric($key)) {
+					unset($subValue[$key]);
+				}
+			}
+		}
 	}
 
 	/**
