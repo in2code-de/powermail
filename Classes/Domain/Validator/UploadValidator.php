@@ -136,7 +136,8 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 		if (
 			!empty($fileInfo['extension']) &&
 			!empty($this->settings['misc.']['file.']['extension']) &&
-			t3lib_div::inList($this->settings['misc.']['file.']['extension'], $fileInfo['extension'])
+			t3lib_div::inList($this->settings['misc.']['file.']['extension'], $fileInfo['extension']) &&
+			t3lib_div::verifyFilenameAgainstDenyPattern($filename)
 		) {
 			return TRUE;
 		}
