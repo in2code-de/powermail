@@ -7,6 +7,7 @@ plugin.tx_powermail {
 		partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
 	}
+	features.rewrittenPropertyMapper = 1
 	settings {
 		setup {
 
@@ -215,7 +216,7 @@ plugin.tx_powermail {
 					textSize = {$plugin.tx_powermail.settings.captcha.textSize}
 					textAngle = {$plugin.tx_powermail.settings.captcha.textAngle}
 					distanceHor = {$plugin.tx_powermail.settings.captcha.distanceHor}
-                	distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
+					distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
 				}
 			}
 
