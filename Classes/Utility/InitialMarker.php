@@ -4,7 +4,7 @@
  *  Copyright notice
  *
  *  (c) 2012 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,36 +29,37 @@
  * Class to extend Pi1 field marker e.g. {firstname}
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Utility_InitialMarker extends Tx_Powermail_Utility_MarkerBase {
 
 	/**
 	 * Initialy filling of marker field
 	 *
-	 * @param	string		$status mode of change
-	 * @param	string		$table the table which gets changed
-	 * @param	string		$uid uid of the record
-	 * @param	array		$fieldArray the updateArray
-	 * @param	array		$this obj
-	 * @return	an updated $fieldArray
+	 * @param string $status mode of change
+	 * @param string $table the table which gets changed
+	 * @param string $uid uid of the record
+	 * @param array $fieldArray the updateArray
+	 * @param array $pObj obj
+	 * @return array $fieldArray
 	 */
 	public function processDatamap_postProcessFieldArray($status, $table, $uid, &$fieldArray, $pObj) {
-		if ($table != 'tx_powermail_domain_model_fields') { // stop if not powermail field table
+		if ($table != 'tx_powermail_domain_model_fields') {
 			return $fieldArray;
 		}
 
 		// get large array with markers (from db and new)
 		$markers = array_merge((array) $this->existingMarkers, (array) $this->marker);
-		$this->makeUniqueValueInArray($markers); // get array with unique markers
+		$this->makeUniqueValueInArray($markers);
 
 		// marker should be changed OR this is a new field
 		if (isset($this->data['tx_powermail_domain_model_fields'][$uid]['marker']) || stristr($uid, 'NEW')) {
-			$fieldArray['marker'] = $markers['_' . $uid]; // rewrite
+			if (!empty($markers['_' . $uid])) {
+				$fieldArray['marker'] = $markers['_' . $uid];
+			}
 		}
 
 		return $fieldArray;
 	}
 }
-?>
