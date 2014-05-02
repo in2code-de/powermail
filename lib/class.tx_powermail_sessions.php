@@ -222,7 +222,7 @@ class tx_powermail_sessions extends tslib_pibase {
 									$newfilename .= '.' . $fileinfo['extension']; // new extension
 
 									if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']][$key]) < ($this->conf['upload.']['filesize'] * 1024)) { // filesize check
-										if (in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions)) { // if current fileextension is allowed
+										if (in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions) && t3lib_div::verifyFilenameAgainstDenyPattern($newfilename)) { // if current fileextension is allowed
 											if (($this->conf['upload.']['mimecheck'] && $this->div->mimecheck($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']][$key], $newfilename)) || $this->conf['upload.']['mimecheck'] != 1) { // mimecheck off OR mimecheck true
 
 												// upload copy move uploaded files to destination
@@ -255,7 +255,7 @@ class tx_powermail_sessions extends tslib_pibase {
 							$newfilename .= '.' . $fileinfo['extension']; // new extension
 
 							if (filesize($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']]) < ($this->conf['upload.']['filesize'] * 1024)) { // filesize check
-								if (in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions)) { // if current fileextension is allowed
+								if (in_array(strtolower($fileinfo['extension']), $this->allowedFileExtensions) && t3lib_div::verifyFilenameAgainstDenyPattern($newfilename)) { // if current fileextension is allowed
 									if (($this->conf['upload.']['mimecheck'] && $this->div->mimecheck($_FILES['tx_powermail_pi1']['tmp_name']['uid' . $row['uid']], $newfilename)) || $this->conf['upload.']['mimecheck'] != 1) { // mimecheck off OR mimecheck true
 
 										// upload copy move uploaded files to destination
