@@ -29,8 +29,8 @@
  * Base Class for Backend-Marker functions
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Utility_MarkerBase {
 
@@ -78,22 +78,26 @@ class Tx_Powermail_Utility_MarkerBase {
 	/**
 	 * Read Form Uid from GET params
 	 *
-	 * return int		form uid
+	 * return int form uid
 	 */
 	protected function getFormUid() {
 		// if form is given in GET params (open form and pages and fields via IRRE)
-		if (isset($data['tx_powermail_domain_model_forms'])) {
-			foreach ((array) $this->data['tx_powermail_domain_model_forms'] as $uid => $field) {
+		if (isset($data['tx_powermail_domain_model_forms']) && is_array($data['tx_powermail_domain_model_forms'])) {
+			foreach (array_keys($this->data['tx_powermail_domain_model_forms']) as $uid) {
 				return $uid;
 			}
 		}
 
-		// if field is directly opened (no IRRE OR opened pages with their fields via IRRE)
-		foreach ((array) $this->data['tx_powermail_domain_model_fields'] as $uid => $field) {
-			if (isset($this->data['tx_powermail_domain_model_fields'][$uid]['marker'])) {
-				return $this->getFormUidFromFieldUid($uid);
+		// if field is directly opened (no IRRE OR opened pages with fields via IRRE)
+		if (isset($data['tx_powermail_domain_model_fields']) && is_array($data['tx_powermail_domain_model_fields'])) {
+			foreach (array_keys($this->data['tx_powermail_domain_model_fields']) as $uid) {
+				if (isset($this->data['tx_powermail_domain_model_fields'][$uid]['marker'])) {
+					return $this->getFormUidFromFieldUid($uid);
+				}
 			}
 		}
+
+		return 0;
 	}
 
 	/**
@@ -118,6 +122,7 @@ class Tx_Powermail_Utility_MarkerBase {
 			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 			return $row['uid'];
 		}
+		return 0;
 	}
 
 	/**
@@ -126,24 +131,25 @@ class Tx_Powermail_Utility_MarkerBase {
 	 * @return array
 	 */
 	protected function getFieldMarkersFromForm() {
+		$array = array();
 		$select = 'tx_powermail_domain_model_fields.marker, tx_powermail_domain_model_fields.uid';
 		$from = '
 			tx_powermail_domain_model_forms
 			LEFT JOIN tx_powermail_domain_model_pages ON tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid
 			LEFT JOIN tx_powermail_domain_model_fields ON tx_powermail_domain_model_fields.pages = tx_powermail_domain_model_pages.uid
 		';
-		$where = 'tx_powermail_domain_model_forms.uid = ' . intval($this->formUid) . ' and tx_powermail_domain_model_fields.deleted = 0';
+		$where = 'tx_powermail_domain_model_forms.uid = ' . intval($this->formUid);
+		$where .= ' and tx_powermail_domain_model_fields.deleted = 0';
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1000;
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 		if ($res) {
-			$array = array();
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
 				$array['_' . $row['uid']] = $row['marker'];
 			}
-			return $array;
 		}
+		return $array;
 	}
 
 	/**
@@ -159,7 +165,8 @@ class Tx_Powermail_Utility_MarkerBase {
 				$newArray[$key] = $value;
 			} else {
 				for ($i = 1; $i < 100; $i++) {
-					$value = preg_replace('/_[0-9][0-9]$/', '', $value); // remove appendix "_xx"
+					// remove appendix "_xx"
+					$value = preg_replace('/_[0-9][0-9]$/', '', $value);
 					$value .= '_' . str_pad($i, 2, '0', STR_PAD_LEFT);
 					if (!in_array($value, $newArray)) {
 						$newArray[$key] = $value;
@@ -175,13 +182,14 @@ class Tx_Powermail_Utility_MarkerBase {
 	/**
 	 * Get marker values
 	 *
-	 * @return array $markers
+	 * @return void
 	 */
 	protected function getMarkers() {
 		$this->marker = array();
 		foreach ((array) $this->data['tx_powermail_domain_model_fields'] as $fieldUid => $fieldValues) {
 			if (!empty($fieldValues['title'])) {
-				$this->marker['_' . $fieldUid] = (isset($fieldValues['marker']) ? $fieldValues['marker'] : $this->cleanString($fieldValues['title']));
+				$this->marker['_' . $fieldUid] =
+					(isset($fieldValues['marker']) ? $fieldValues['marker'] : $this->cleanString($fieldValues['title']));
 			}
 		}
 	}
@@ -196,4 +204,3 @@ class Tx_Powermail_Utility_MarkerBase {
 		$this->existingMarkers = $this->getFieldMarkersFromForm();
 	}
 }
-?>
