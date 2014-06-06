@@ -458,6 +458,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 			$mail instanceof Tx_Powermail_Domain_Model_Mails &&
 			$hash == Tx_Powermail_Utility_Div::createOptinHash($mail->getUid() . $mail->getPid() . $mail->getForm()->getUid())
 		) {
+			$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSuccessfulConfirmation', array($mail, $hash, $this));
 			// only if hidden = 0
 			if ($mail->getHidden() == 1) {
 				$mail->setHidden(0);
