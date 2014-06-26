@@ -18,9 +18,9 @@ config.tx_extbase {
 #################
 module.tx_powermail {
 	view {
-		templateRootPath = {$plugin.tx_powermail.view.templateRootPath}
-		partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
+		templateRootPath = EXT:powermail/Resources/Private/Templates/
+		partialRootPath = EXT:powermail/Resources/Private/Partials/
+		layoutRootPath = EXT:powermail/Resources/Private/Layouts/
 		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = EXT:powermail/Resources/Private/Templates/
 	}
 	persistence {
