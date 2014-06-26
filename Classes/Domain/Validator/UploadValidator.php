@@ -34,6 +34,13 @@
 class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
 
 	/**
+	 * fieldsRepository
+	 *
+	 * @var Tx_Powermail_Domain_Repository_FieldsRepository
+	 */
+	protected $fieldsRepository;
+
+	/**
 	 * @var Tx_Extbase_SignalSlot_Dispatcher
 	 */
 	protected $signalSlotDispatcher;
@@ -73,6 +80,11 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 			Tx_Powermail_Utility_Div::setSessionValue('upload', array(), TRUE);
 
 			foreach ($_FILES['tx_powermail_pi1']['name']['field'] as $uid => $filename) {
+
+				$field = $this->fieldsRepository->findByUid($uid);
+				if ($field->getType() !== 'file') {
+					continue;
+				}
 
 				// if no file given
 				if (empty($filename)) {
@@ -136,7 +148,7 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 		if (
 			!empty($fileInfo['extension']) &&
 			!empty($this->settings['misc.']['file.']['extension']) &&
-			t3lib_div::inList($this->settings['misc.']['file.']['extension'], $fileInfo['extension']) &&
+			t3lib_div::inList($this->settings['misc.']['file.']['extension'], strtolower($fileInfo['extension'])) &&
 			t3lib_div::verifyFilenameAgainstDenyPattern($filename)
 		) {
 			return TRUE;
@@ -163,6 +175,16 @@ class Tx_Powermail_Domain_Validator_UploadValidator extends Tx_Extbase_Validatio
 	 */
 	public function __construct() {
 		$this->basicFileFunctions = t3lib_div::makeInstance('t3lib_basicFileFunctions');
+	}
+
+	/**
+	 * injectFieldsRepository
+	 *
+	 * @param Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository
+	 * @return void
+	 */
+	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
+		$this->fieldsRepository = $fieldsRepository;
 	}
 
 	/**
