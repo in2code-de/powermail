@@ -229,5 +229,3 @@ $TCA['tx_powermail_domain_model_answers'] = array(
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_powermail_domain_model_answers.gif'
 	),
 );
-
-?>
