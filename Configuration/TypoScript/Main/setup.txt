@@ -489,45 +489,51 @@ page.1000 {
 	10 {
 		wrap = var JsValidationCheckCheckboxes = '|';
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckCheckboxes
+		stdWrap.replacement {
+			10 {
+				search = '
+				replace = \'
+			}
+		}
 	}
 
-	20 = TEXT
+	20 < .10
 	20 {
 		wrap = var JsValidationCheckInteger = '|';
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckInteger
 	}
 
-	30 = TEXT
+	30 < .10
 	30 {
 		wrap = var JsValidationCheckRequired = '|';
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckRequired
 	}
 
-	40 = TEXT
+	40 < .10
 	40 {
 		wrap = var JsValidationCheckRequiredOption = '|';
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckRequiredOption
 	}
 
-	50 = TEXT
+	50 < .10
 	50 {
 		wrap = var JsValidationCheckEmail = '|';
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckEmail
 	}
 
-	60 = TEXT
+	60 < .10
 	60 {
 		wrap = var JsValidationCheckUrl = '|';
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckUrl
 	}
 
-	70 = TEXT
+	70 < .10
 	70 {
 		wrap = var JsValidationCheckPhone = '|';
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckPhone
 	}
 
-	80 = TEXT
+	80 < .10
 	80 {
 		wrap = var JsValidationCheckLetters = '|';
 		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckLetters
