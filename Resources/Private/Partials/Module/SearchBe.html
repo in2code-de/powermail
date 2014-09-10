@@ -1,8 +1,8 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 
 <f:form action="{action}" name="filter" id="powermail_module_search">
 
-	<div class="powermail_module_search_field searchall_mails" class="searchall">
+	<div class="powermail_module_search_field searchall searchall_mails">
 
 		<label for="searchall_mails">
 			<f:translate key="BackendListFilterFulltextSearch" />
@@ -31,42 +31,69 @@
 				<label for="searchStart">
 					<f:translate key="BackendListFilterStart" />
 				</label>
-				<f:form.textfield property="start" id="searchStart" class="powermail_module_search_field_start powermail_date" value="{piVars.filter.start}" />
+				<f:form.textfield
+						property="start"
+						id="searchStart"
+						class="powermail_module_search_field_start powermail_date"
+						additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field)}"
+						value="{piVars.filter.start}" />
 			</div>
 
 			<div class="powermail_module_search_field searchEnd">
 				<label for="searchEnd">
 					<f:translate key="BackendListFilterEnd" />
 				</label>
-				<f:form.textfield property="stop" id="searchEnd" class="powermail_module_search_field_end powermail_date" value="{piVars.filter.stop}" />
+				<f:form.textfield
+						property="stop"
+						id="searchEnd"
+						class="powermail_module_search_field_end powermail_date"
+						additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field)}"
+						value="{piVars.filter.stop}" />
 			</div>
 
 			<div class="powermail_module_search_field searchName">
 				<label for="searchName">
 					<f:translate key="BackendListFilterName" />
 				</label>
-				<f:form.textfield property="sender_name" id="searchName" class="powermail_module_search_field_name" value="{piVars.filter.sender_name}" />
+				<f:form.textfield
+						property="sender_name"
+						id="searchName"
+						class="powermail_module_search_field_name"
+						value="{piVars.filter.sender_name}" />
 			</div>
 
 			<div class="powermail_module_search_field searchMail">
 				<label for="searchMail">
 					<f:translate key="BackendListFilterMail" />
 				</label>
-				<f:form.textfield property="sender_mail" id="searchMail" class="powermail_module_search_field_mail" value="{piVars.filter.sender_mail}" />
+				<f:form.textfield
+						property="sender_mail"
+						id="searchMail"
+						class="powermail_module_search_field_mail"
+						value="{piVars.filter.sender_mail}" />
 			</div>
 
 			<div class="powermail_module_search_field searchSubject">
 				<label for="searchSubject">
 					<f:translate key="BackendListFilterSubject" />
 				</label>
-				<f:form.textfield property="subject" id="searchSubject" class="powermail_module_search_field_subject" value="{piVars.filter.subject}" />
+				<f:form.textfield
+						property="subject"
+						id="searchSubject"
+						class="powermail_module_search_field_subject"
+						value="{piVars.filter.subject}" />
 			</div>
 
 			<div class="powermail_module_search_field searchHidden">
 				<label for="searchHidden">
 					<f:translate key="BackendListFilterHidden" />
 				</label>
-				<vh:form.advancedSelect property="hidden" options="{1: '{f:translate(key: \'BackendListFilterShowNonHidden\')}', 2: '{f:translate(key: \'BackendListFilterShowHidden\')}'}" id="searchHidden" defaultOption="{f:translate(key: 'pleaseChoose')}" value="{piVars.filter.hidden}" />
+				<vh:form.advancedSelect
+						property="hidden"
+						options="{1: '{f:translate(key: \'BackendListFilterShowNonHidden\')}', 2: '{f:translate(key: \'BackendListFilterShowHidden\')}'}"
+						id="searchHidden"
+						defaultOption="{f:translate(key: 'pleaseChoose')}"
+						value="{piVars.filter.hidden}" />
 			</div>
 
 			<div class="powermail_module_search_field searchAddField clear">
@@ -94,9 +121,12 @@
 			<f:for each="{firstMail.answers}" as="answer">
 				<div class="powermail_module_search_field searchHidden">
 					<label>
-						<vh:Getter.GetFieldLabelFromUid uid="{answer.field}" />
+						{answer.field.title}
 					</label>
-					<f:form.textfield property="answer.{answer.field}" class="powermail_module_search_field_dynamicfield" value="{vh:Getter.GetPiVarAnswerField(piVars: '{piVars}', fieldUid: '{answer.field}')}" />
+					<f:form.textfield
+							property="answer.{answer.field.uid}"
+							class="powermail_module_search_field_dynamicfield"
+							value="{vh:Getter.GetPiVarAnswerField(piVars: '{piVars}', field: '{answer.field}')}" />
 				</div>
 			</f:for>
 		</div>
@@ -114,30 +144,4 @@
 			</f:for>
 		</f:if>
 	</div>
-
-
-
-	<f:comment>
-		<!--Settings for Datepicker-->
-	</f:comment>
-	<input type="hidden" name="container_datepicker_dateformat" class="container_datepicker_dateformat" value="{f:translate(key: 'datepicker_dateformat')}" />
-	<input type="hidden" name="container_datepicker_day_so" class="container_datepicker_day_so" value="{f:translate(key: 'datepicker_day_so')}" />
-	<input type="hidden" name="container_datepicker_day_mo" class="container_datepicker_day_mo" value="{f:translate(key: 'datepicker_day_mo')}" />
-	<input type="hidden" name="container_datepicker_day_tu" class="container_datepicker_day_tu" value="{f:translate(key: 'datepicker_day_tu')}" />
-	<input type="hidden" name="container_datepicker_day_we" class="container_datepicker_day_we" value="{f:translate(key: 'datepicker_day_we')}" />
-	<input type="hidden" name="container_datepicker_day_th" class="container_datepicker_day_th" value="{f:translate(key: 'datepicker_day_th')}" />
-	<input type="hidden" name="container_datepicker_day_fr" class="container_datepicker_day_fr" value="{f:translate(key: 'datepicker_day_fr')}" />
-	<input type="hidden" name="container_datepicker_day_sa" class="container_datepicker_day_sa" value="{f:translate(key: 'datepicker_day_sa')}" />
-	<input type="hidden" name="container_datepicker_month_jan" class="container_datepicker_month_jan" value="{f:translate(key: 'datepicker_month_jan')}" />
-	<input type="hidden" name="container_datepicker_month_feb" class="container_datepicker_month_feb" value="{f:translate(key: 'datepicker_month_feb')}" />
-	<input type="hidden" name="container_datepicker_month_mar" class="container_datepicker_month_mar" value="{f:translate(key: 'datepicker_month_mar')}" />
-	<input type="hidden" name="container_datepicker_month_apr" class="container_datepicker_month_apr" value="{f:translate(key: 'datepicker_month_apr')}" />
-	<input type="hidden" name="container_datepicker_month_may" class="container_datepicker_month_may" value="{f:translate(key: 'datepicker_month_may')}" />
-	<input type="hidden" name="container_datepicker_month_jun" class="container_datepicker_month_jun" value="{f:translate(key: 'datepicker_month_jun')}" />
-	<input type="hidden" name="container_datepicker_month_jul" class="container_datepicker_month_jul" value="{f:translate(key: 'datepicker_month_jul')}" />
-	<input type="hidden" name="container_datepicker_month_aug" class="container_datepicker_month_aug" value="{f:translate(key: 'datepicker_month_aug')}" />
-	<input type="hidden" name="container_datepicker_month_sep" class="container_datepicker_month_sep" value="{f:translate(key: 'datepicker_month_sep')}" />
-	<input type="hidden" name="container_datepicker_month_oct" class="container_datepicker_month_oct" value="{f:translate(key: 'datepicker_month_oct')}" />
-	<input type="hidden" name="container_datepicker_month_nov" class="container_datepicker_month_nov" value="{f:translate(key: 'datepicker_month_nov')}" />
-	<input type="hidden" name="container_datepicker_month_dec" class="container_datepicker_month_dec" value="{f:translate(key: 'datepicker_month_dec')}" />
 </f:form>

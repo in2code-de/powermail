@@ -1,23 +1,16 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 <f:layout name="Export" />
 
 Render Powermail CSV Export
 {mails}					All Mails for exporting
 {fields}				Fields to export (drag'n drop settings in module)
 
-<f:section name="main"><vh:String.Utf8Decode><vh:string.Trim>
+<f:section name="main"><vh:String.Utf8ToUtf16><vh:string.Trim>
 
 	<f:for each="{mails}" as="mail" iteration="index">
 		<f:if condition="{index.isFirst}">
 			<f:for each="{fields}" as="field">
-				<f:if condition="{vh:Condition.IsNumber(val: '{field}')}">
-					<f:then>
-						"<vh:String.RemoveQuote><vh:Getter.GetFieldLabelFromUid uid="{field}" /></vh:String.RemoveQuote>";
-					</f:then>
-					<f:else>
-						"<vh:String.RemoveQuote><f:translate key="Tx_Powermail_Domain_Model_Mails.{vh:String.UnderscoredToLowerCamelCase(val: '{field}')}" /></vh:String.RemoveQuote>";
-					</f:else>
-				</f:if>
+				"<vh:String.RemoveQuote>{field.title}</vh:String.RemoveQuote>";
 			</f:for>
 			<br />
 		</f:if>
@@ -28,6 +21,9 @@ Render Powermail CSV Export
 				<f:if condition="{field} == {answer.field}">
 
 					<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+						<f:else>
+							"<vh:String.RemoveQuote>{answer.value}</vh:String.RemoveQuote>";
+						</f:else>
 						<f:then>
 							"<vh:String.RemoveQuote>
 								<f:for each="{answer.value}" as="singleValue">
@@ -37,9 +33,6 @@ Render Powermail CSV Export
 								</f:for>
 							</vh:String.RemoveQuote>";
 						</f:then>
-						<f:else>
-							"<vh:String.RemoveQuote>{answer.value}</vh:String.RemoveQuote>";
-						</f:else>
 					</f:if>
 
 				</f:if>
@@ -48,4 +41,4 @@ Render Powermail CSV Export
 		<br />
 	</f:for>
 
-</vh:String.Trim></vh:String.Utf8Decode></f:section>
+</vh:String.Trim></vh:String.Utf8ToUtf16></f:section>

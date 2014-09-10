@@ -1,4 +1,8 @@
 <?php
+namespace In2code\Powermail\Domain\Validator;
+
+use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,19 +27,102 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-abstract class Tx_Powermail_Domain_Validator_AbstractValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
+/**
+ * AbstractValidator
+ *
+ * @package powermail
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
+ */
+abstract class AbstractValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 *
+	 * @inject
 	 */
 	protected $objectManager;
 
 	/**
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * formRepository
+	 *
+	 * @var \In2code\Powermail\Domain\Repository\FormRepository
+	 * @inject
+	 */
+	protected $formRepository;
+
+	/**
+	 * @var \In2code\Powermail\Utility\Div
+	 *
+	 * @inject
+	 */
+	protected $div;
+
+	/**
+	 * SignalSlot Dispatcher
+	 *
+	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+	 * @inject
+	 */
+	protected $signalSlotDispatcher;
+
+	/**
+	 * Return variable
+	 *
+	 * @var bool
+	 */
+	protected $isValid = TRUE;
+
+	/**
+	 * TypoScript Setup for powermail Pi1
+	 */
+	protected $settings;
+
+	/**
+	 * @param boolean $isValid
 	 * @return void
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
+	public function setIsValid($isValid) {
+		$this->isValid = $isValid;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getIsValid() {
+		return $this->isValid;
+	}
+
+	/**
+	 * Set Error
+	 *
+	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param string $label
+	 * @return void
+	 */
+	protected function setErrorAndMessage(\In2code\Powermail\Domain\Model\Field $field, $label) {
+		$this->setIsValid(FALSE);
+		$this->addError($label, $field->getMarker());
+	}
+
+	/**
+	 * Check if javascript validation is activated
+	 *
+	 * @return bool
+	 */
+	protected function isServerValidationEnabled() {
+		return $this->settings['validation.']['server'] === '1';
+	}
+
+	/**
+	 * @param ConfigurationManagerInterface $configurationManager
+	 * @return void
+	 */
+	public function injectTypoScript(ConfigurationManagerInterface $configurationManager) {
+		$typoScriptSetup = $configurationManager->getConfiguration(
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
+		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 	}
 
 }

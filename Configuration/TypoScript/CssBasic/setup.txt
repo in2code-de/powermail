@@ -1,1 +1,0 @@
-page.includeCSS.powermailCssBasic = {$plugin.tx_powermail.settings.CssBasic}

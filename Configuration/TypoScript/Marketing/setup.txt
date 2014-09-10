@@ -1,8 +1,32 @@
 #####################################
 # Adding Powermail Marketing Function
 #####################################
-page.3131 = USER_INT
+
+# storing misc user informations in session via JavaScript (last page, google keyword, page funnel)
+page.3131 = COA
 page.3131 {
-	# storing misc user informations in session (last page, google keyword, page funnel)
-	userFunc = Tx_Powermail_Utility_Marketing->store
+	wrap = <script id="powermail_marketing_information"|></script>
+
+	# Current Page Id
+	10 = TEXT
+	10 {
+		noTrimWrap = | data-pid="|"|
+		data = TSFE:id
+		intval = 1
+	}
+
+	# Current FE Language Uid
+	20 = TEXT
+	20 {
+		noTrimWrap = | data-language="|"|
+		data = GP:L
+		intval = 1
+	}
+}
+
+# Add JavaScript
+page {
+	includeJSFooter {
+		powermailMarketing = EXT:powermail/Resources/Public/JavaScripts/Marketing.js
+	}
 }

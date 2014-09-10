@@ -1,4 +1,4 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 
 
 <f:form action="exportBe" name="export" id="powermail_module_export">
@@ -23,8 +23,8 @@
 				</label>
 				<ul class="extended_export_field connected" id="export_field_selection">
 					<f:for each="{firstMail.answers}" as="answer">
-						<li id="{answer.field}">
-							<vh:Getter.GetFieldLabelFromUid uid="{answer.field}" /> <span class="info">(<f:translate key="FormField" />)</span>
+						<li id="{answer.field.uid}">
+							{answer.field.title} <span class="info">(<f:translate key="FormField" />)</span>
 						</li>
 					</f:for>
 				</ul>
@@ -35,59 +35,62 @@
 				</label>
 				<ul class="extended_export_field_container connected" id="export_field_selection_container">
 					<li id="crdate">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.date" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
 					</li>
 					<li id="sender_name">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.senderName" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderName" />
 					</li>
 					<li id="sender_mail">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.senderMail" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderMail" />
 					</li>
 					<li id="receiver_mail">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.receiverMail" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.receiverMail" />
 					</li>
 					<li id="subject">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.subject" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
 					</li>
-					<li id="marketing_searchterm">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingSearchterm" />
+					<li id="marketing_referer_domain">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" />
 					</li>
 					<li id="marketing_referer">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingReferer" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer" />
 					</li>
-					<li id="marketing_payed_search_result">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingPayedSearchResult" />
-					</li>
-					<li id="marketing_language">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingLanguage" />
+					<li id="marketing_frontend_language">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" />
 					</li>
 					<li id="marketing_browser_language">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingBrowserLanguage" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" />
 					</li>
-					<li id="marketing_funnel">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.marketingFunnel" />
+					<li id="marketing_country">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry" />
+					</li>
+					<li id="marketing_mobile_device">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" />
+					</li>
+					<li id="marketing_page_funnel">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" />
 					</li>
 					<li id="uid">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.uid" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.uid" />
 					</li>
 					<li id="time">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.time" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.time" />
 					</li>
 					<li id="feuser">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.feuser" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.feuser" />
 					</li>
 					<li id="sender_ip">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.senderIp" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderIp" />
 					</li>
 					<li id="user_agent">
-						<f:translate key="Tx_Powermail_Domain_Model_Mails.userAgent" />
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.userAgent" />
 					</li>
 				</ul>
 			</div>
 		</div>
 
 		<f:form.hidden property="fields" value="{vh:String.ImplodeField(objects: '{firstMail.answers}', field: 'field')}" id="export_fields" />
-		<f:form.hidden property="mails" value="{vh:String.ImplodeField(objects: '{mailsBasic}')}" id="export_mails" />
+		<f:form.hidden property="mails" value="{vh:String.ImplodeField(objects: '{mails}', field: 'uid')}" id="export_mails" />
 		<f:form.hidden property="format" value="xls" id="export_format" />
 
 		<f:if condition="{piVars.sorting}">

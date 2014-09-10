@@ -1,27 +1,26 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 
 <f:comment>
-	Label: {variable.label}
-	Value: {variable.value}
-	Uid: {variable.uid}
+	Mail: {mail}
+	Answer: {answer}
 </f:comment>
 
 <tr>
 	<td valign="top">
-		<b><vh:string.RawAndRemoveXss>{variable.label}</vh:string.RawAndRemoveXss></b>
+		<b><vh:string.RawAndRemoveXss>{answer.field.title}</vh:string.RawAndRemoveXss></b>
 	</td>
 	<td valign="top">
-		<f:if condition="{vh:Condition.IsArray(val: '{variable.value}')}">
+		<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+			<f:else>
+				<f:format.nl2br>{answer.value}</f:format.nl2br>
+			</f:else>
 			<f:then>
-				<f:for each="{variable.value}" as="subValue" iteration="index">
+				<f:for each="{answer.value}" as="subValue" iteration="index">
 					<f:if condition="{subValue}">
 						{subValue}<f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
 					</f:if>
 				</f:for>
 			</f:then>
-			<f:else>
-				<f:format.nl2br>{variable.value}</f:format.nl2br>
-			</f:else>
 		</f:if>
 	</td>
 </tr>

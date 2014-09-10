@@ -1,12 +1,12 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 <f:layout name="Backend"/>
 
 
-Show Backend Module: Powermail Reporting Form
+	Show Backend Module: Powermail Reporting Form
 
 <f:section name="content">
 
-	<h2><f:translate key="BackendReportingFormTitle" /></h2>
+	<h1><f:translate key="BackendReportingFormTitle" /></h1>
 
 	<f:flashMessages class="powermail_message" />
 
@@ -17,9 +17,8 @@ Show Backend Module: Powermail Reporting Form
 			</div>
 		</div>
 
-		<f:if condition="{f:count(subject: '{mails}')}">
+		<f:if condition="{mails}">
 			<f:then>
-
 				<h3><f:translate key="BackendReportingFormSubtitle1" /> <f:count subject="{mails}" /> <f:translate key="Emails" />:</h3>
 
 				<div class="powermail_reporting_form_fields">
@@ -28,7 +27,7 @@ Show Backend Module: Powermail Reporting Form
 						<f:for each="{firstMail.answers}" as="answer">
 
 							<div class="powermail_reporting_form_fields_item">
-								<h4>{vh:Getter.GetFieldLabelFromUid(uid: '{answer.field}')}</h4>
+								<h4>{answer.field.title}</h4>
 
 								<img src="http://chart.apis.google.com/chart?
 									chf=bg,s,F8F8F8
@@ -37,18 +36,18 @@ Show Backend Module: Powermail Reporting Form
 									&chs=600x200
 									&cht=p3
 									&chd=t:50,50
-									&chdl={vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}')}
-									&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}', separator: ',')}
-									&chl={vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', field: '{answer.field}', separator: '|')}
+									&chdl={vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedAnswers}', fieldUidOrKey: '{answer.field.uid}')}
+									&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', fieldUidOrKey: '{answer.field.uid}', separator: ',')}
+									&chl={vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', fieldUidOrKey: '{answer.field.uid}', separator: '|')}
 								" alt="Error, no graphic available" />
 
 								<div class="powermail_reporting_form_fields_table_absolute">
 									<table class="powermail_reporting_form_fields_table">
 										<tr>
-											<th width="90%" class="close"><f:translate key="BackendReportingFormValue" /></th>
-											<th width="10%" class="powermail_reporting_form_fields_table_right"><f:translate key="BackendReportingFormAmount" /></th>
+											<th style="width: 90%;" class="close"><f:translate key="BackendReportingFormValue" /></th>
+											<th style="width: 10%;" class="powermail_reporting_form_fields_table_right"><f:translate key="BackendReportingFormAmount" /></th>
 										</tr>
-										<f:for each="{vh:Misc.VariableInVariable(obj:'{groupedAnswers}', prop: '{answer.field}')}" as="amount" key="value">
+										<f:for each="{vh:Misc.VariableInVariable(obj:'{groupedAnswers}', prop: '{answer.field.uid}')}" as="amount" key="value">
 											<tr>
 												<td>{value}</td>
 												<td class="powermail_reporting_form_fields_table_right">{amount}</td>

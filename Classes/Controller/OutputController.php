@@ -1,4 +1,11 @@
 <?php
+namespace In2code\Powermail\Controller;
+
+use \In2code\Powermail\Utility\Div,
+	\In2code\Powermail\Domain\Model\Mail,
+	\TYPO3\CMS\Core\Utility\GeneralUtility,
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 /***************************************************************
  *  Copyright notice
@@ -26,47 +33,14 @@
 
 
 /**
- * Controller for powermail frontend output (
- * 				former part of the powermail_frontend extension)
+ * Controller for powermail frontend output
+ * (former part of the powermail_frontend extension)
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
- *
  */
-class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller_ActionController {
-
-	/**
-	 * @var Tx_Powermail_Domain_Repository_MailsRepository
-	 */
-	protected $mailsRepository;
-
-	/**
-	 * @var Tx_Powermail_Domain_Repository_FormsRepository
-	 */
-	protected $formsRepository;
-
-	/**
-	 * @var Tx_Powermail_Domain_Repository_FieldsRepository
-	 */
-	protected $fieldsRepository;
-
-	/**
-	 * @var Tx_Powermail_Domain_Repository_AnswersRepository
-	 */
-	protected $answersRepository;
-
-	/**
-	 * @var Tx_Powermail_Utility_Div
-	 */
-	protected $div;
-
-	/**
-	 * Request arguments
-	 *
-	 * @var array
-	 */
-	protected $piVars;
+class OutputController extends \In2code\Powermail\Controller\AbstractController {
 
 	/**
 	 * Show mails in a list
@@ -75,19 +49,21 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	 */
 	public function listAction() {
 		// get all mails
-		$mails = $this->mailsRepository->findListBySettings($this->settings, $this->piVars);
+		$mails = $this->mailRepository->findListBySettings($this->settings, $this->piVars);
 		$this->view->assign('mails', $mails);
 
-		// get field array for output
-		$fields = t3lib_div::trimExplode(',', $this->settings['list']['fields'], 1);
-		if (!$fields) {
-			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
+		// get fields for iteration
+		if ($this->settings['list']['fields']) {
+			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
+		} else {
+			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
+		$fields = $this->fieldRepository->findByUids($fieldArray);
+		$searchFields = $this->fieldRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['search']['fields'], TRUE));
+		$this->view->assign('searchFields', $searchFields);
 		$this->view->assign('fields', $fields);
-
-		// get piVars
 		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('abc', Tx_Powermail_Utility_Div::getAbcArray());
+		$this->view->assign('abc', Div::getAbcArray());
 
 		// single pid
 		if (empty($this->settings['single']['pid'])) {
@@ -105,17 +81,19 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	 * Show mails in a list
 	 *
-	 * @param Tx_Powermail_Domain_Model_Mails $mail
+	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return void
 	 */
-	public function showAction(Tx_Powermail_Domain_Model_Mails $mail) {
+	public function showAction(Mail $mail) {
 		$this->view->assign('mail', $mail);
 
-		// get field array for output
-		$fields = t3lib_div::trimExplode(',', $this->settings['detail']['fields'], 1);
-		if (!$fields) {
-			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
+		// get fields for iteration
+		if ($this->settings['single']['fields']) {
+			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['single']['fields'], TRUE);
+		} else {
+			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
+		$fields = $this->fieldRepository->findByUids($fieldArray);
 		$this->view->assign('fields', $fields);
 
 		// list pid
@@ -134,21 +112,20 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	 * Edit mail
 	 *
-	 * @param Tx_Powermail_Domain_Model_Mails $mail
+	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return void
 	 */
-	public function editAction(Tx_Powermail_Domain_Model_Mails $mail) {
+	public function editAction(Mail $mail = NULL) {
 		$this->view->assign('mail', $mail);
 
-		// get field array for output
-		$fields = t3lib_div::trimExplode(',', $this->settings['edit']['fields'], 1);
-		if (!$fields) {
-			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
+		// get fields for iteration
+		if ($this->settings['edit']['fields']) {
+			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['edit']['fields'], TRUE);
+		} else {
+			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
-		foreach ((array) $fields as $key => $field) {
-			$fields[$key] = $this->fieldsRepository->findByUid($field);
-		}
-		$this->view->assign('fields', $fields);
+		$fields = $this->fieldRepository->findByUids($fieldArray);
+		$this->view->assign('selectedFields', $fields);
 
 		// list pid
 		if (empty($this->settings['list']['pid'])) {
@@ -164,26 +141,30 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
-	 * Update mail
+	 * Rewrite Arguments to receive a clean mail object
 	 *
-	 * @param Tx_Powermail_Domain_Model_Mails $mail
-	 * @param array $field Field Array with changes
-	 * @dontvalidate $mail
-	 * @dontvalidate $field
 	 * @return void
 	 */
-	public function updateAction(Tx_Powermail_Domain_Model_Mails $mail, $field = array()) {
-		if ($this->div->isAllowedToEdit($this->settings, $mail)) {
-			foreach ((array) $field as $fieldUid => $value) {
-				$answer = $this->answersRepository->findByFieldAndMail($fieldUid, $mail);
-				$answer->setValue($value);
-				$this->answersRepository->update($answer);
-			}
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('PowermailFrontendEditConfirm', 'powermail'));
-		} else {
-			$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('PowermailFrontendEditFailed', 'powermail'));
+	public function initializeUpdateAction() {
+		$arguments = $this->request->getArguments();
+		if (!$this->div->isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
+			$this->controllerContext = $this->buildControllerContext();
+			$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditFailed', 'powermail'));
+			$this->forward('list');
 		}
+		$this->reformatParamsForAction();
+	}
 
+	/**
+	 * Update mail
+	 *
+	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
+	 * @return void
+	 */
+	public function updateAction(Mail $mail) {
+		$this->mailRepository->update($mail);
+		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful', 'powermail'));
 		$this->redirect('edit', NULL, NULL, array('mail' => $mail));
 	}
 
@@ -198,13 +179,15 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 		if (!$this->settings['list']['export']) {
 			return;
 		}
-		$mails = $this->mailsRepository->findByUidList($export['fields']);
+		$mails = $this->mailRepository->findByUidList($export['fields']);
 
 		// get field array for output
-		$fields = t3lib_div::trimExplode(',', $this->settings['list']['fields'], 1);
-		if (!$fields) {
-			$fields = $this->div->getFieldsFromForm($this->settings['main']['form']);
+		if ($this->settings['list']['fields']) {
+			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
+		} else {
+			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
+		$fields = $this->fieldRepository->findByUids($fieldArray);
 
 		if ($export['format'] == 'xls') {
 			$this->forward('exportXls', NULL, NULL, array('mails' => $mails, 'fields' => $fields));
@@ -215,13 +198,13 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	 * Export mails XLS
 	 *
-	 * @param array $mails mails objects
-	 * @param array $fields uid field list
+	 * @param QueryResult $mails mails objects
+	 * @param QueryResult $fields uid field list
 	 * @dontvalidate $mails
 	 * @dontvalidate $fields
 	 * @return 	void
 	 */
-	public function exportXlsAction($mails = array(), $fields = array()) {
+	public function exportXlsAction(QueryResult $mails = NULL, QueryResult $fields = NULL) {
 		$this->view->assign('mails', $mails);
 		$this->view->assign('fields', $fields);
 	}
@@ -229,13 +212,13 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	/**
 	 * Export mails CSV
 	 *
-	 * @param array $mails mails objects
-	 * @param array $fields uid field list
+	 * @param QueryResult $mails mails objects
+	 * @param QueryResult $fields uid field list
 	 * @dontvalidate $mails
 	 * @dontvalidate $fields
 	 * @return void
 	 */
-	public function exportCsvAction($mails = array(), $fields = array()) {
+	public function exportCsvAction(QueryResult $mails = NULL, QueryResult $fields = NULL) {
 		$this->view->assign('mails', $mails);
 		$this->view->assign('fields', $fields);
 	}
@@ -246,7 +229,7 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	 * @return void
 	 */
 	public function rssAction() {
-		$mails = $this->mailsRepository->findListBySettings($this->settings, $this->piVars);
+		$mails = $this->mailRepository->findListBySettings($this->settings, $this->piVars);
 		$this->view->assign('mails', $mails);
 
 		// single pid
@@ -257,21 +240,13 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
-	 * Deactivate errormessages in flashmessages
-	 *
-	 * @return bool
-	 */
-	protected function getErrorFlashMessage() {
-		return FALSE;
-	}
-
-	/**
 	 * Object initialization
 	 *
 	 * @return void
 	 */
 	public function initializeObject() {
-		Tx_Powermail_Utility_Div::mergeTypoScript2FlexForm($this->settings, 'Pi2');
+		// merge typoscript to flexform
+		Div::mergeTypoScript2FlexForm($this->settings, 'Pi2');
 	}
 
 	/**
@@ -284,60 +259,9 @@ class Tx_Powermail_Controller_OutputController extends Tx_Extbase_MVC_Controller
 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {
-			if ($this->controllerContext === NULL) {
-				$this->controllerContext = $this->buildControllerContext();
-			}
-			$this->flashMessageContainer->add(
-				Tx_Extbase_Utility_Localization::translate('error_no_typoscript_pi2', 'powermail')
-			);
+			$this->controllerContext = $this->buildControllerContext();
+			$this->addFlashMessage(LocalizationUtility::translate('error_no_typoscript_pi2', 'powermail'));
 		}
 	}
 
-	/**
-	 * @param Tx_Powermail_Utility_Div $div
-	 * @return void
-	 */
-	public function injectDiv(Tx_Powermail_Utility_Div $div) {
-		$this->div = $div;
-	}
-
-	/**
-	 * injectMailsRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository
-	 * @return void
-	 */
-	public function injectMailsRepository(Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository) {
-		$this->mailsRepository = $mailsRepository;
-	}
-
-	/**
-	 * injectFormsRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_FormsRepository $formsRepository
-	 * @return void
-	 */
-	public function injectFormsRepository(Tx_Powermail_Domain_Repository_FormsRepository $formsRepository) {
-		$this->formsRepository = $formsRepository;
-	}
-
-	/**
-	 * injectFieldsRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository
-	 * @return void
-	 */
-	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
-		$this->fieldsRepository = $fieldsRepository;
-	}
-
-	/**
-	 * injectAnswersRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_AnswersRepository $answersRepository
-	 * @return void
-	 */
-	public function injectAnswersRepository(Tx_Powermail_Domain_Repository_AnswersRepository $answersRepository) {
-		$this->answersRepository = $answersRepository;
-	}
 }

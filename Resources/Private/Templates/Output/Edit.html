@@ -1,42 +1,67 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 <f:layout name="Default" />
 
-Render Powermail_Frontend Edit View
-{mail} 			Mail Object
+	Render Powermail_Frontend Edit View
+	{mail}                  Mail Object
+	{selectedFields}        Selected Fields
 
 
 <f:section name="main">
 	<f:flashMessages class="powermail_message powermail_message_ok" />
 
 	<div class="powermail_frontend">
-		<f:if condition="{vh:Condition.IsAllowedToEdit(settings: '{settings}', mail: '{mail}')}">
-
+		<f:if condition="{mail}">
 			<f:then>
-				<f:form action="update" controller="Output" enctype="multipart/form-data" class="powermail_form powermail_form_{mail.form}">
-					<h3>{mail.form.title}</h3>
-					<legend class="powermail_legend">{mail.form.pages.1.title}</legend>
+				<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
 
-					<f:for each="{fields}" as="field">
-						<f:for each="{mail.answers}" as="answer">
-							<f:if condition="{answer.field} == {field.uid}">
-								<f:if condition="{vh:Condition.Or(array: '{0: \'input\', 1: \'check\', 2: \'radio\', 3: \'select\', 4: \'textarea\'}', string: '{field.type}')}">
-									<f:render partial="Output/Field/{vh:String.Upper(string: '{field.type}')}" arguments="{field: field, answer: answer}" />
-								</f:if>
-							</f:if>
-						</f:for>
-					</f:for>
+					<f:then>
+						<f:form
+								action="update"
+								name="field"
+								object="{mail}"
+								enctype="multipart/form-data"
+								additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:mail.form)}"
+								class="powermail_form powermail_form_{mail.form.uid}">
 
-					<f:form.submit value="{f:translate(key: 'PowermailFrontendEditSubmit')}" class="powermail_field powermail_submit" />
-					<f:form.hidden value="{mail.uid}" name="mail" />
-				</f:form>
+							<fieldset class="powermail_fieldset">
+
+								<h3>{mail.form.title}</h3>
+								<f:render partial="Misc/FormError" arguments="{form:mail.form}" />
+
+								<f:for each="{mail.form.pages}" as="page" iteration="pageIteration">
+									<legend class="powermail_legend">
+										<f:if condition="{pageIteration.isFirst}">{page.title}</f:if>
+									</legend>
+
+									<f:for each="{page.fields}" as="field">
+										<f:for each="{selectedFields}" as="selectedField">
+											<f:if condition="{selectedField} == {field}">
+												<f:if condition="{vh:Condition.Or(array: '{0: \'input\', 1: \'check\', 2: \'radio\', 3: \'select\', 4: \'textarea\'}', string:field.type)}">
+													<f:render partial="Form/{vh:String.Upper(string:field.type)}" arguments="{_all}" />
+												</f:if>
+											</f:if>
+										</f:for>
+									</f:for>
+								</f:for>
+
+								<f:form.hidden name="mail[form]" value="{mail.form.uid}" class="powermail_form_uid" />
+								<f:form.submit value="{f:translate(key: 'PowermailFrontendEditSubmit')}" class="powermail_field powermail_submit" />
+
+							</fieldset>
+						</f:form>
+					</f:then>
+
+					<f:else>
+						<p><f:translate key="PowermailFrontendEditFailed">No Mail given</f:translate></p>
+					</f:else>
+				</f:if>
 			</f:then>
-
 			<f:else>
-				<p><f:translate key="PowermailFrontendEditFailed" /></p>
+				<p><f:translate key="PowermailFrontendEditNoMail">Wrong Permissions</f:translate></p>
 			</f:else>
 		</f:if>
 
-		<f:link.page pageUid="{listPid}">
+		<f:link.page pageUid="{listPid}" class="powermail_frontend_back">
 			<f:translate key="Back" />
 		</f:link.page>
 	</div>

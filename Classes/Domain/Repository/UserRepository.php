@@ -1,4 +1,5 @@
 <?php
+namespace In2code\Powermail\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -25,33 +26,43 @@
 
 
 /**
- * FE_User Repository
+ * UserRepository
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class Tx_Powermail_Domain_Repository_UserRepository extends Tx_Extbase_Persistence_Repository {
+class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * Find FE_Users by their group
 	 *
 	 * @param int $uid fe_groups UID
-	 * @return object
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
 	 */
 	public function findByUsergroup($uid) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 
-		$and = array(
-			$query->greaterThan('uid', 0),
+		$query->matching(
 			$query->contains('usergroup', $uid)
 		);
 
-		$constraint = $query->logicalAnd($and);
-		$query->matching($constraint);
+		return $query->execute();
+	}
 
-		$result = $query->execute();
-		return $result;
+	/**
+	 * Find by Uid but don't respect storage page
+	 *
+	 * @param \int $uid
+	 * @return \In2code\Powermail\Domain\Model\User
+	 */
+	public function findByUid($uid) {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->matching(
+			$query->equals('uid', $uid)
+		);
+		return $query->execute()->getFirst();
 	}
 }

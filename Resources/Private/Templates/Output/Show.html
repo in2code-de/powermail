@@ -1,4 +1,4 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 <f:layout name="Default" />
 
 Render Powermail_Frontend Show View
@@ -13,28 +13,50 @@ Render Powermail_Frontend Show View
 			<dl>
 				<f:for each="{mail.answers}" as="answer">
 					<f:if condition="{answer.field} == {field}">
-						<dt><vh:Getter.GetFieldLabelFromUid uid="{field}" /></dt>
+						<dt>{field.title}</dt>
 
-						<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
-							<f:then>
-								<dd>
-									<f:for each="{answer.value}" as="value2" iteration="index2">
-										<f:if condition="{value2}">
-											{value2}<f:if condition="{index2.isLast}"><f:else>, </f:else></f:if>
+						<dd>
+
+							<f:comment>Data Type String</f:comment>
+							<f:if condition="{answer.valueType} == 0">
+								<f:format.nl2br>{answer.value}</f:format.nl2br>
+							</f:if>
+
+							<f:comment>Data Type Array</f:comment>
+							<f:if condition="{answer.valueType} == 1">
+								<vh:String.ImplodeField objects="{answer.value}" separator=", " />
+							</f:if>
+
+							<f:comment>Data Type Date (already parsed Timestamp by Model)</f:comment>
+							<f:if condition="{answer.valueType} == 2">
+								{answer.value}
+							</f:if>
+
+							<f:comment>Data Type Fileupload</f:comment>
+							<f:if condition="{answer.valueType} == 3">
+								<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
+									<f:link.page pageUid="{settings.misc.file.folder}{subValue}" target="_blank">
+										<f:if condition="{vh:Condition.IsImage(path:subValue)}">
+											<f:then>
+												<f:image src="{settings.misc.file.folder}{subValue}" alt="{subValue}" width="200" maxHeight="200" />
+											</f:then>
+											<f:else>
+												{subValue}
+											</f:else>
 										</f:if>
-									</f:for>
-								</dd>
-							</f:then>
-							<f:else>
-								<dd>{answer.value}</dd>
-							</f:else>
-						</f:if>
+									</f:link.page>
+									<br />
+								</f:for>
+							</f:if>
+						</dd>
 
 					</f:if>
 				</f:for>
 			</dl>
 		</f:for>
 
-		<f:link.page pageUid="{listPid}"><f:translate key="Back" /></f:link.page>
+		<f:link.page pageUid="{listPid}" class="powermail_frontend_back">
+			<f:translate key="Back">Back</f:translate>
+		</f:link.page>
 	</div>
 </f:section>

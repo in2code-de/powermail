@@ -7,6 +7,7 @@ CREATE TABLE tx_powermail_domain_model_forms (
 
 
 	title varchar(255) DEFAULT '' NOT NULL,
+	note tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	css varchar(255) DEFAULT '' NOT NULL,
 	pages varchar(255) DEFAULT '' NOT NULL,
 
@@ -100,19 +101,22 @@ CREATE TABLE tx_powermail_domain_model_fields (
 	content_element int(11) DEFAULT '0' NOT NULL,
 	text text NOT NULL,
 	prefill_value text NOT NULL,
+	placeholder text NOT NULL,
+	create_from_typoscript text NOT NULL,
 	validation int(11) DEFAULT '0' NOT NULL,
+	validation_configuration varchar(255) DEFAULT '' NOT NULL,
 	css varchar(255) DEFAULT '' NOT NULL,
+	description varchar(255) DEFAULT '' NOT NULL,
+	multiselect tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	datepicker_settings varchar(255) DEFAULT '' NOT NULL,
 	feuser_value varchar(255) DEFAULT '' NOT NULL,
 	sender_email tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	sender_name tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	mandatory tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	own_marker_select tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	marker varchar(255) DEFAULT '0' NOT NULL,
+	marker varchar(255) DEFAULT '' NOT NULL,
 
 	# Dummy Fields
-	validation_title tinyint(2) unsigned DEFAULT '0' NOT NULL,
-	prefill_title tinyint(2) unsigned DEFAULT '0' NOT NULL,
-	marker_title tinyint(2) unsigned DEFAULT '0' NOT NULL,
 	auto_marker tinyint(2) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -163,12 +167,13 @@ CREATE TABLE tx_powermail_domain_model_mails (
 	time int(11) DEFAULT '0' NOT NULL,
 	form int(11) DEFAULT '0' NOT NULL,
 	answers int(11) unsigned DEFAULT '0' NOT NULL,
-	marketing_searchterm text NOT NULL,
+	marketing_referer_domain text NOT NULL,
 	marketing_referer text NOT NULL,
-	marketing_payed_search_result tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	marketing_language int(11) DEFAULT '0' NOT NULL,
+	marketing_country text NOT NULL,
+	marketing_mobile_device tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	marketing_frontend_language int(11) DEFAULT '0' NOT NULL,
 	marketing_browser_language text NOT NULL,
-	marketing_funnel text NOT NULL,
+	marketing_page_funnel text NOT NULL,
 	spam_factor varchar(255) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -210,6 +215,7 @@ CREATE TABLE tx_powermail_domain_model_answers (
 	mail int(11) unsigned DEFAULT '0' NOT NULL,
 
 	value text NOT NULL,
+	value_type int(11) unsigned DEFAULT '0' NOT NULL,
 	field int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

@@ -7,7 +7,9 @@ plugin.tx_powermail {
 		partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
 	}
-	features.rewrittenPropertyMapper = 1
+	features {
+		rewrittenPropertyMapper = 1
+	}
 	settings {
 		setup {
 
@@ -17,6 +19,38 @@ plugin.tx_powermail {
 				confirmation = {$plugin.tx_powermail.settings.main.confirmation}
 				optin = {$plugin.tx_powermail.settings.main.optin}
 				moresteps = {$plugin.tx_powermail.settings.main.moresteps}
+			}
+
+			validation {
+				# enable native HTML5 validation
+				native = {$plugin.tx_powermail.settings.validation.native}
+
+				# enable clientside validation
+				client = {$plugin.tx_powermail.settings.validation.client}
+
+				# enable serverside validation
+				server = {$plugin.tx_powermail.settings.validation.server}
+
+				##########################################################
+				# CUSTOMVALIDATION EXAMPLE
+				#
+				# E.g. Validation was extended with Page TSconfig
+				# 		tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
+				#
+				# Register your Class and Method with TypoScript Setup
+				# 		plugin.tx_powermail.settings.setup.validation.customValidation.100 =
+				# 			\In2code\Powermailextended\Domain\Validator\ZipValidator
+				#
+				# Add method to your class
+				# 		validate100($value, $validationConfiguration)
+				#
+				# Define your Errormessage with TypoScript Setup
+				# 		plugin.tx_powermail._LOCAL_LANG.default.validationerror_validation.100 = Error happens!
+				#
+				# ##########################################################
+				customValidation {
+#					100 = \In2code\Powermailextended\Domain\Validator\ZipValidator
+				}
 			}
 
 			receiver {
@@ -184,7 +218,7 @@ plugin.tx_powermail {
 
 			optin {
 				subject = TEXT
-				subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:optin_subject
+				subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:optin_subject
 
 				overwrite {
 #					email = TEXT
@@ -217,6 +251,9 @@ plugin.tx_powermail {
 					textAngle = {$plugin.tx_powermail.settings.captcha.textAngle}
 					distanceHor = {$plugin.tx_powermail.settings.captcha.distanceHor}
 					distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
+
+					# You can force a fix captcha - operator must be "+" (for testing only)
+#					forceValue = 1+1
 				}
 			}
 
@@ -269,23 +306,29 @@ plugin.tx_powermail {
 				# Show only values if they are filled (for all views and for mails)
 				showOnlyFilledValues = {$plugin.tx_powermail.settings.misc.showOnlyFilledValues}
 
-				# HTML Output allowed
-				htmlField = {$plugin.tx_powermail.settings.misc.htmlField}
+				# HTML Output without removeXSS
+				disableRemoveXss = {$plugin.tx_powermail.settings.misc.disableRemoveXss}
+
+				# Submit Powermail Forms with AJAX (browser will not reload complete page)
+				ajaxSubmit = {$plugin.tx_powermail.settings.misc.ajaxSubmit}
 
 				# File upload settings
 				file {
 					folder = {$plugin.tx_powermail.settings.misc.uploadFolder}
 					size = {$plugin.tx_powermail.settings.misc.uploadSize}
 					extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
+					randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
 				}
 
-				# Date Format for Double-Optin together with date fields
-				dateFormat = {$plugin.tx_powermail.settings.misc.dateFormat}
+				datepicker {
+					# Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
+					forceJavaScriptDatePicker = {$plugin.tx_powermail.settings.misc.forceJavaScriptDatePicker}
+				}
 			}
 
 
 
-			# Prefill some fields with their marker - e.g. {firstname}
+			# Prefill fields with their marker - e.g. {firstname} (Fields available for prefill: input, textarea, select, select multi, radio, checkbox)
 			prefill {
 				# example: fill with string
 #				firstname = Alex
@@ -293,10 +336,16 @@ plugin.tx_powermail {
 				# example: fill with TypoScript
 #				email = TEXT
 #				email.value = alex@in2code.de
-#				eamil.wrap = <b>|</b>
+#				email.wrap = <b>|</b>
 
-				# example: fill with value from Flexform
-					# available: css, feuserValue, mandatory, marker, pid, prefillValue, senderEmail, senderName, sorting, title, type, uid, validation
+				# example: fill checkboxes or multiselect with more values
+#				category.0 = TEXT
+#				category.0.value = IT
+#				category.1 = TEXT
+#				category.1.value = Real Estate
+
+				# example: fill with value from Field Record
+					# available: uid, title, type, settings, css, feuserValue, mandatory, marker, pid, prefillValue, senderEmail, senderName, sorting, validation
 #				comment = TEXT
 #				comment.field = type
 			}
@@ -314,10 +363,11 @@ plugin.tx_powermail {
 					google_conversion_format = 3
 				}
 
-				# Send Form values to CRM like salesforce or eloqua
+				# Send Form values to a third party software (like a CRM - e.g. salesforce or eloqua)
 				sendPost {
 					# Activate sendPost (0/1)
-					_enable = 0
+					_enable = TEXT
+					_enable.value = 0
 
 					# Target URL for POST values (like http://www.target.com/target.php)
 					targetUrl = http://eloqua.com/e/f.aspx
@@ -347,7 +397,7 @@ plugin.tx_powermail {
 						}
 					}
 
-					# activate debug mode - shows all configuration from curl settings
+					# activate debug - log all configuration from curl settings to devlog (use extension devlog to view this values)
 					debug = 0
 				}
 			}
@@ -358,63 +408,73 @@ plugin.tx_powermail {
 			# Save values to any table (example for tt_adress)
 			dbEntry {
 
-				# enable or disable db entry for tt_address
+				#####################################################
+				### EXAMPLE for adding values to table tt_address ###
+				#####################################################
+
+				# Enable or disable db entry for table tt_address
 #				tt_address._enable = TEXT
 #				tt_address._enable.value = 1
 
-				# write only if field email is not yet filled with current value
-					# (update: update values of existing entry)
-					# (none: no entry if field is filled)
-					# (disable: always add values don't care about existing values)
+				# Write only if any field is not yet filled with current value (e.g. test if an email is already in database)
+					# default: always add new records (don't care about existing values)
+					# update: update record if there is an existing entry (e.g. if email is already there)
+					# none: no entry if field is filled (do nothing if record already exists)
 #				tt_address._ifUnique.email = update
 
-				# add mm relation to uid 2 of tt_address_group (via mm table)
-#				tt_address._mm = COA
-#				tt_address._mm.10 = COA
-					# 1 is always the mm table
-#				tt_address._mm.10.1 = TEXT
-#				tt_address._mm.10.1.value = tt_address_group_mm
-					# 2 is always the second table (e.g. categories table)
-#				tt_address._mm.10.2 = TEXT
-#				tt_address._mm.10.2.value = tt_address_group
-					# 3 is always the uid of a data record of the second table to get a relation to this (in this case uid 1 of tt_address_group)
-#				tt_address._mm.10.3 = TEXT
-#				tt_address._mm.10.3.value = 1
-
-				# fill table "tt_address" with field "email" with a static value => mail@mail.com
+				# Fill new record of table "tt_address" with field "email" with a static value => mail@mail.com
 #				tt_address.email = TEXT
 #				tt_address.email.value = mail@mail.com
 
-				# fill table "tt_address" with field "pid" with the current pid (e.g. 12)
+				# Fill new record of table "tt_address" with field "pid" with the current pid (e.g. 12)
 #				tt_address.pid = TEXT
 #				tt_address.pid.data = TSFE:id
 
-				# fill table "tt_address" with field "tstamp" with the current time as timestamp (like 123456789)
+				# Fill new record of table "tt_address" with field "tstamp" with the current time as timestamp (like 123456789)
 #				tt_address.tstamp = TEXT
 #				tt_address.tstamp.data = date:U
 
-				# fill table "tt_address" with field "address" with the current formatted time (like "Date: 20.01.2013")
+				# Fill new record of table "tt_address" with field "address" with the current formatted time (like "Date: 20.01.2013")
 #				tt_address.address = TEXT
 #				tt_address.address.data = date:U
 #				tt_address.address.strftime = Date: %d.%m.%Y
 
-				# fill table "tt_address" with field "name" with the value from powermail {firstname}
+				# Fill new record of table "tt_address" with field "name" with the value from powermail {firstname}
 #				tt_address.name = TEXT
 #				tt_address.name.field = firstname
 
-				# fill table "tt_address" with field "last_name" with the value from powermail {lastname}
+				# Fill new record of table "tt_address" with field "last_name" with the value from powermail {lastname}
 #				tt_address.last_name = TEXT
 #				tt_address.last_name.field = lastname
 
-				# fill table "tt_address" with field "company" with the value from powermail {company}
+				# Fill new record of table "tt_address" with field "company" with the value from powermail {company}
 #				tt_address.company = TEXT
 #				tt_address.company.field = company
+
+
+
+				##############################################################
+				### EXAMPLE for adding values to table tt_address_group_mm ###
+				### Add relation to an existing address group with uid 123 ###
+				##############################################################
+
+				# Enable or disable db entry for table tt_address_group_mm
+#				tt_address_group_mm._enable = TEXT
+#				tt_address_group_mm._enable.value = 1
+
+				# Fill new record of table "tt_address_group_mm" with field "uid_local" with uid of tt_address record that was just created before with .field=uid_[tablename]
+#				tt_address_group_mm.uid_local = TEXT
+#				tt_address_group_mm.uid_local.field = uid_tt_address
+
+				# Fill new record of table "tt_address_group_mm" with field "uid_foreign" with uid 123
+#				tt_address_group_mm.uid_foreign = TEXT
+#				tt_address_group_mm.uid_foreign.value = 123
 			}
 
 
 
 
-			# Switch on or off Debug mode
+			# Switch on or off Debug mode (use extension devlog to view this values)
 			debug {
 				# All views: Show Settings from TypoScript, Flexform and Extension Manager
 				settings = {$plugin.tx_powermail.settings.misc.debugSettings}
@@ -422,7 +482,7 @@ plugin.tx_powermail {
 				# Create view: Show submitted variables
 				variables = {$plugin.tx_powermail.settings.misc.debugVariables}
 
-				# Create view: Show mail arrays
+				# Create view: Show complete mail settings
 				mail = {$plugin.tx_powermail.settings.misc.debugMail}
 
 				# Create view: Show saveToTable array
@@ -440,102 +500,32 @@ plugin.tx_powermail {
 	}
 }
 
-config.tx_extbase.persistence.classes {
-	Tx_Powermail_Domain_Model_User {
-		mapping {
-			tableName = fe_users
-		}
-	}
-	Tx_Powermail_Domain_Model_UserGroup {
-		mapping {
-			tableName = fe_groups
-		}
-	}
-}
-
 
 
 ############################
 # JavaScript and CSS section
 ############################
+
+# add jQuery if it was turned on in the constants
+[globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle}]
+page.includeJSFooterlibs.powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
+page.includeJSFooterlibs.powermailJQuery.external = 1
+[end]
+
+# add jQuery if it was turned on in the constants
+[globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addAdditionalJavaScript}]
 page {
 	# Inlude JavaScript files
-	includeJSFooterlibs {
-		powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
-		powermailJQuery.external = 1
-		powermailJQueryUi = {$plugin.tx_powermail.settings.javascript.powermailJQueryUi}
-		powermailJQueryUi.external = 1
-		powermailJQueryUiDatepicker = EXT:powermail/Resources/Public/Js/jquery.ui.datepicker.min.js
-		powermailJQueryFormValidationLanguage = EXT:powermail/Resources/Public/Js/jquery.validationEngine-en.js
-		powermailJQueryFormValidation = EXT:powermail/Resources/Public/Js/jquery.validationEngine.js
-		powermailJQueryTabs = EXT:powermail/Resources/Public/Js/tabs.js
-	}
 	includeJSFooter {
-		powermailForm = EXT:powermail/Resources/Public/Js/form.js
+		powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/jquery.datetimepicker.js
+		powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/parsley.min.js
+		powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/tabs.js
+		powermailForm = EXT:powermail/Resources/Public/JavaScripts/form.js
 	}
 
 	# Include CSS files
 	includeCSS {
-		powermailJQueryUiTheme = EXT:powermail/Resources/Public/Css/jquery.ui.theme.css
 		powermailJQueryUiDatepicker = EXT:powermail/Resources/Public/Css/jquery.ui.datepicker.css
 	}
 }
-
-page.1000 = COA
-page.1000 {
-	wrap = <script type="text/javascript">|</script>
-
-	10 = TEXT
-	10 {
-		wrap = var JsValidationCheckCheckboxes = '|';
-		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckCheckboxes
-		stdWrap.replacement {
-			10 {
-				search = '
-				replace = \'
-			}
-		}
-	}
-
-	20 < .10
-	20 {
-		wrap = var JsValidationCheckInteger = '|';
-		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckInteger
-	}
-
-	30 < .10
-	30 {
-		wrap = var JsValidationCheckRequired = '|';
-		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckRequired
-	}
-
-	40 < .10
-	40 {
-		wrap = var JsValidationCheckRequiredOption = '|';
-		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckRequiredOption
-	}
-
-	50 < .10
-	50 {
-		wrap = var JsValidationCheckEmail = '|';
-		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckEmail
-	}
-
-	60 < .10
-	60 {
-		wrap = var JsValidationCheckUrl = '|';
-		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckUrl
-	}
-
-	70 < .10
-	70 {
-		wrap = var JsValidationCheckPhone = '|';
-		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckPhone
-	}
-
-	80 < .10
-	80 {
-		wrap = var JsValidationCheckLetters = '|';
-		data = LLL:EXT:powermail/Resources/Private/Language/locallang.xml:JsValidationCheckLetters
-	}
-}
+[end]

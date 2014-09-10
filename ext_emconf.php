@@ -12,38 +12,36 @@
 
 $EM_CONF[$_EXTKEY] = array (
 	'title' => 'powermail',
-	'description' => '
-		Powermail is a well-known,
-		powerful and easy to use mailform extension with a lots
-		of features (spam prevention, marketing, double-optin, etc...)
-	',
+	'description' => 'Powermail is a well-known, powerful and easy to use
+		mailform extension with a lots of features (spam prevention, marketing, double-optin, etc...)',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '2.0.17',
+	'version' => '2.1.0RC5',
+	'dependencies' => 'cms,extbase,fluid',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
 	'module' => '',
-	'state' => 'stable',
+	'state' => 'beta',
 	'uploadfolder' => 0,
-	'createDirs' => 'uploads/tx_powermail',
+	'createDirs' => 'uploads/tx_powermail,typo3temp/tx_powermail',
 	'modify_tables' => '',
-	'clearcacheonload' => 0,
+	'clearcacheonload' => 1,
 	'lockType' => '',
 	'author' => 'Powermail dev team',
 	'author_email' => 'alexander.kellner@in2code.de',
 	'author_company' => 'in2code.de',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
-	'constraints' => array (
-		'depends' => array (
-			'typo3' => '4.6.0-6.2.99',
-			'extbase' => '1.4.0-6.2.99',
-			'fluid' => '1.4.0-6.2.99',
+	'constraints' => array(
+		'depends' => array(
+			'typo3' => '6.2.0-6.2.99',
+			'extbase' => '6.2.0-6.2.99',
+			'fluid' => '6.2.0-6.2.99',
+			'cms' => '',
 		),
-		'conflicts' => array (
-		),
-		'suggests' => array (
-		),
+		'conflicts' => array(),
+		'suggests' => array(),
 	),
+	'_md5_values_when_last_written' => '',
 );

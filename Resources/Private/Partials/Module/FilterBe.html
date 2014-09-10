@@ -1,18 +1,18 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 <div class="powermail_module_search">
 	<div class="powermail_module_search_inner">
 
 		<f:comment>
 			<!--Search Partial-->
 		</f:comment>
-		<f:render partial="Module/SearchBe" arguments="{firstMail: firstMail, mails: mails, piVars: piVars, action : 'listBe'}" />
+		<f:render partial="Module/SearchBe" arguments="{firstMail:firstMail, mails:mails, piVars:piVars, action:'listBe'}" />
 
 
 
 		<f:comment>
 			<!--Extended Export Partial-->
 		</f:comment>
-		<f:render partial="Module/ExportBe" arguments="{firstMail: firstMail, mails: mails, mailsBasic: mailsBasic, piVars: piVars}" />
+		<f:render partial="Module/ExportBe" arguments="{_all}" />
 
 	</div>
 </div>

@@ -1,4 +1,5 @@
 <?php
+namespace In2code\Powermail\ViewHelpers\Condition;
 
 /**
  * Check if logged in User is allowed to edit
@@ -6,12 +7,13 @@
  * @package TYPO3
  * @subpackage Fluid
  */
-class Tx_Powermail_ViewHelpers_Condition_IsAllowedToEditViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
+class IsAllowedToEditViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Div Methods
 	 *
-	 * @var Tx_Powermail_Utility_Div
+	 * @var \In2code\Powermail\Utility\Div
+	 * @inject
 	 */
 	protected $div;
 
@@ -19,21 +21,11 @@ class Tx_Powermail_ViewHelpers_Condition_IsAllowedToEditViewHelper extends Tx_Fl
 	 * Check if logged in User is allowed to edit
 	 *
 	 * @param array $settings TypoScript and FlexForm Settings
-	 * @param object $mail Mail Object
-	 * @return boolean
+	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @return bool
 	 */
 	public function render($settings = array(), $mail) {
-		if ($this->div->isAllowedToEdit($settings, $mail)) {
-			return TRUE;
-		}
-		return FALSE;
+		return $this->div->isAllowedToEdit($settings, $mail);
 	}
 
-	/**
-	 * @param Tx_Powermail_Utility_Div $div
-	 * @return void
-	 */
-	public function injectDiv(Tx_Powermail_Utility_Div $div) {
-		$this->div = $div;
-	}
 }

@@ -1,4 +1,5 @@
 <?php
+namespace In2code\Powermail\ViewHelpers\String;
 
 /**
  * Remove Quotes from Inner HTML
@@ -6,13 +7,13 @@
  * @package TYPO3
  * @subpackage Fluid
  */
-class Tx_Powermail_ViewHelpers_String_RemoveQuoteViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
+class RemoveQuoteViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	* Remove Quotes from Inner HTML
-	*
-	* @return 	boolean
-	*/
+	 * Remove Quotes from Inner HTML
+	 *
+	 * @return 	boolean
+	 */
 	public function render() {
 		$string = str_replace('"', '\'', $this->renderChildren());
 

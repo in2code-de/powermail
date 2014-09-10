@@ -1,4 +1,5 @@
 <?php
+namespace In2code\Powermail\ViewHelpers\String;
 
 /**
  * View helper for upper (ucfirst())
@@ -7,7 +8,7 @@
  * @subpackage Fluid
  * @version
  */
-class Tx_Powermail_ViewHelpers_String_UpperViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class UpperViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Use PHP Function ucfirst()

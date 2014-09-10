@@ -1,10 +1,15 @@
 <?php
+namespace In2code\Powermail\Controller;
+
+use \In2code\Powermail\Utility\Div,
+	\In2code\Powermail\Utility\FormConverter,
+	\TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2012 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -31,35 +36,14 @@
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller_ActionController {
+class ModuleController extends \In2code\Powermail\Controller\AbstractController {
 
 	/**
-	 * mailsRepository
-	 *
-	 * @var Tx_Powermail_Domain_Repository_MailsRepository
-	 */
-	protected $mailsRepository;
-
-	/**
-	 * mailsBasicRepository
-	 *
-	 * @var Tx_Powermail_Domain_Repository_MailsBasicRepository
-	 */
-	protected $mailsBasicRepository;
-
-	/**
-	 * piVars
+	 * Request arguments
 	 *
 	 * @var array
 	 */
 	protected $piVars;
-
-	/**
-	 * div
-	 *
-	 * @var object
-	 */
-	protected $div;
 
 	/**
 	 * List View Backend
@@ -67,45 +51,15 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	 * @return void
 	 */
 	public function listBeAction() {
-		$mails = $this->mailsRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
-		$mailsBasic = $this->mailsBasicRepository->findMailsByUids($mails);
-		$firstMail = $this->mailsRepository->findFirstInPid(t3lib_div::_GP('id'));
+		$mails = $this->mailRepository->findAllInPid(GeneralUtility::_GP('id'), $this->settings, $this->piVars);
+		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
 
 		$this->view->assign('mails', $mails);
-		$this->view->assign('mailsBasic', $mailsBasic);
 		$this->view->assign('firstMail', $firstMail);
 		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('pid', t3lib_div::_GP('id'));
-		$this->view->assign('token', t3lib_BEfunc::getUrlToken('tceAction'));
+		$this->view->assign('pid', GeneralUtility::_GP('id'));
+		$this->view->assign('token', \TYPO3\CMS\Backend\Utility\BackendUtility::getUrlToken('tceAction'));
 		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
-	}
-
-	/**
-	 * Check View Backend
-	 *
-	 * @param string $email email address
-	 * @return void
-	 */
-	public function checkBeAction($email = NULL) {
-		$this->view->assign('pid', t3lib_div::_GP('id'));
-
-		if ($email) {
-			if (t3lib_div::validEmail($email)) {
-				$body = 'New <b>Test Email</b> from User ';
-				$body .= $GLOBALS['BE_USER']->user['username'] . ' (' . t3lib_div::getIndpEnv('HTTP_HOST') . ')';
-
-				$message = t3lib_div::makeInstance('t3lib_mail_Message');
-				$message
-					->setTo(array($email => 'Receiver'))
-					->setFrom(array('powermail@domain.net' => 'powermail'))
-					->setSubject('New Powermail Test Email')
-					->setBody($body, 'text/html')
-					->send();
-
-				$this->view->assign('issent', $message->isSent());
-				$this->view->assign('email', $email);
-			}
-		}
 	}
 
 	/**
@@ -124,21 +78,126 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	}
 
 	/**
+	 * Tools overview
+	 *
+	 * @return void
+	 */
+	public function toolsBeAction() {
+	}
+
+	/**
+	 * Form Overview
+	 *
+	 * @return void
+	 */
+	public function overviewBeAction() {
+		$pid = GeneralUtility::_GET('id');
+		$forms = $this->formRepository->findAllInPid($pid);
+		$this->view->assign('forms', $forms);
+		$this->view->assign('pid', $pid);
+	}
+
+	/**
+	 * Check View Backend
+	 *
+	 * @param string $email email address
+	 * @return void
+	 */
+	public function checkBeAction($email = NULL) {
+		$this->view->assign('pid', GeneralUtility::_GP('id'));
+
+		if ($email) {
+			if (GeneralUtility::validEmail($email)) {
+				$body = 'New <b>Test Email</b> from User ';
+				$body .= $GLOBALS['BE_USER']->user['username'] . ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
+
+				$message = GeneralUtility::makeInstance('\TYPO3\CMS\Core\Mail\MailMessage');
+				$message
+					->setTo(array($email => 'Receiver'))
+					->setFrom(array('powermail@domain.net' => 'powermail'))
+					->setSubject('New Powermail Test Email')
+					->setBody($body, 'text/html')
+					->send();
+
+				$this->view->assign('issent', $message->isSent());
+				$this->view->assign('email', $email);
+			}
+		}
+	}
+
+	/**
+	 * Init
+	 *
+	 * @return void
+	 */
+	public function initializeConverterBeAction() {
+		if (!Div::isBackendAdmin()) {
+			$this->controllerContext = $this->buildControllerContext();
+			$this->forward('toolsBe');
+		}
+	}
+
+	/**
+	 * Convert all old forms preflight
+	 *
+	 * @return void
+	 */
+	public function converterBeAction() {
+		$oldForms = $this->formRepository->findAllOldForms();
+		$this->view->assign('oldForms', $oldForms);
+	}
+
+	/**
+	 * Init
+	 *
+	 * @return void
+	 */
+	public function initializeConverterUpdateBeAction() {
+		if (!Div::isBackendAdmin()) {
+			$this->controllerContext = $this->buildControllerContext();
+			$this->forward('toolsBe');
+		}
+	}
+
+	/**
+	 * Convert all old forms
+	 *
+	 * @param array $converter
+	 * @return void
+	 */
+	public function converterUpdateBeAction($converter) {
+		$oldForms = $this->formRepository->findAllOldForms();
+		$formCounter = 0;
+		$oldFormsWithFieldsetsAndFields = array();
+		foreach ($oldForms as $form) {
+			$oldFormsWithFieldsetsAndFields[$formCounter] = $form;
+			$oldFormsWithFieldsetsAndFields[$formCounter]['_fieldsets'] =
+				$this->formRepository->findOldFieldsetsAndFieldsToTtContentRecord($form['uid']);
+			$formCounter++;
+		}
+		/** @var \In2code\Powermail\Utility\FormConverter $formConverter */
+		$formConverter = $this->objectManager->get('\In2code\Powermail\Utility\FormConverter');
+		$result = $formConverter->createNewFromOldForms($oldFormsWithFieldsetsAndFields, $converter);
+		$this->view->assign('result', $result);
+		$this->view->assign('converter', $converter);
+	}
+
+	/**
 	 * Reporting Form
 	 *
 	 * @return void
 	 */
 	public function reportingFormBeAction() {
-		$mails = $this->mailsRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
-		$firstMail = $this->mailsRepository->findFirstInPid(t3lib_div::_GP('id'));
-		$groupedAnswers = Tx_Powermail_Utility_Div::getGroupedMailAnswers($mails);
+		$mails = $this->mailRepository->findAllInPid(GeneralUtility::_GP('id'), $this->settings, $this->piVars);
+		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
+		$groupedAnswers = Div::getGroupedMailAnswers($mails);
 
 		$this->view->assign('groupedAnswers', $groupedAnswers);
 		$this->view->assign('mails', $mails);
 		$this->view->assign('firstMail', $firstMail);
 		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('pid', t3lib_div::_GP('id'));
-		$this->view->assign('token', t3lib_BEfunc::getUrlToken('tceAction'));
+		$this->view->assign('pid', GeneralUtility::_GP('id'));
+		$this->view->assign('token', \TYPO3\CMS\Backend\Utility\BackendUtility::getUrlToken('tceAction'));
 		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
 	}
 
@@ -148,16 +207,16 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	 * @return void
 	 */
 	public function reportingMarketingBeAction() {
-		$mails = $this->mailsRepository->findAllInPid(t3lib_div::_GP('id'), $this->settings, $this->piVars);
-		$firstMail = $this->mailsRepository->findFirstInPid(t3lib_div::_GP('id'));
-		$groupedMarketingStuff = Tx_Powermail_Utility_Div::getGroupedMarketingStuff($mails);
+		$mails = $this->mailRepository->findAllInPid(GeneralUtility::_GP('id'), $this->settings, $this->piVars);
+		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
+		$groupedMarketingStuff = Div::getGroupedMarketingStuff($mails);
 
 		$this->view->assign('groupedMarketingStuff', $groupedMarketingStuff);
 		$this->view->assign('mails', $mails);
 		$this->view->assign('firstMail', $firstMail);
 		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('pid', t3lib_div::_GP('id'));
-		$this->view->assign('token', t3lib_BEfunc::getUrlToken('tceAction'));
+		$this->view->assign('pid', GeneralUtility::_GP('id'));
+		$this->view->assign('token', \TYPO3\CMS\Backend\Utility\BackendUtility::getUrlToken('tceAction'));
 		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
 	}
 
@@ -181,13 +240,13 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	 * @return void
 	 */
 	public function exportXlsBeAction(array $export = array()) {
-		$mails = $this->mailsRepository->findByUidList($export['mails'], $export['sorting']);
+		$mails = $this->mailRepository->findByUidList($export['mails'], $export['sorting']);
 		$this->view->assign('mails', $mails);
-		$this->view->assign('fields', t3lib_div::trimExplode(',', $export['fields'], 1));
-		$filename = ($this->settings['export']['filenameXls'] ? $this->settings['export']['filenameXls'] : 'export.xls');
+		$this->view->assign('fieldUids', GeneralUtility::trimExplode(',', $export['fields'], TRUE));
 
+		$fileName = ($this->settings['export']['filenameXls'] ? $this->settings['export']['filenameXls'] : 'export.xls');
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: inline; filename="' . $filename . '"');
+		header('Content-Disposition: inline; filename="' . $fileName . '"');
 		header('Pragma: no-cache');
 	}
 
@@ -198,13 +257,13 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 	 * @return void
 	 */
 	public function exportCsvBeAction(array $export = array()) {
-		$mails = $this->mailsRepository->findByUidList($export['mails'], $export['sorting']);
+		$mails = $this->mailRepository->findByUidList($export['mails'], $export['sorting']);
 		$this->view->assign('mails', $mails);
-		$this->view->assign('fields', t3lib_div::trimExplode(',', $export['fields'], 1));
-		$filename = ($this->settings['export']['filenameCsv'] ? $this->settings['export']['filenameCsv'] : 'export.csv');
+		$this->view->assign('fieldUids', GeneralUtility::trimExplode(',', $export['fields'], TRUE));
 
+		$fileName = ($this->settings['export']['filenameCsv'] ? $this->settings['export']['filenameCsv'] : 'export.csv');
 		header('Content-Type: text/x-csv');
-		header('Content-Disposition: attachment; filename="' . $filename . '"');
+		header('Content-Disposition: attachment; filename="' . $fileName . '"');
 		header('Pragma: no-cache');
 	}
 
@@ -217,31 +276,4 @@ class Tx_Powermail_Controller_ModuleController extends Tx_Extbase_MVC_Controller
 		$this->piVars = $this->request->getArguments();
 	}
 
-	/**
-	 * @param Tx_Powermail_Utility_Div $div
-	 * @return void
-	 */
-	public function injectDiv(Tx_Powermail_Utility_Div $div) {
-		$this->div = $div;
-	}
-
-	/**
-	 * injectMailsRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository
-	 * @return void
-	 */
-	public function injectMailsRepository(Tx_Powermail_Domain_Repository_MailsRepository $mailsRepository) {
-		$this->mailsRepository = $mailsRepository;
-	}
-
-	/**
-	 * injectMailsBasicRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_MailsBasicRepository $mailsBasicRepository
-	 * @return void
-	 */
-	public function injectMailsBasicRepository(Tx_Powermail_Domain_Repository_MailsBasicRepository $mailsBasicRepository) {
-		$this->mailsBasicRepository = $mailsBasicRepository;
-	}
 }

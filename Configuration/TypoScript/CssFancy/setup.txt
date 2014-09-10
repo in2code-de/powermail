@@ -1,1 +1,0 @@
-page.includeCSS.powermailCssFancy = {$plugin.tx_powermail.settings.CssFancy}

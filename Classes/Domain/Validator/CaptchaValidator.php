@@ -1,138 +1,86 @@
 <?php
-class Tx_Powermail_Domain_Validator_CaptchaValidator extends Tx_Powermail_Domain_Validator_AbstractValidator {
+namespace In2code\Powermail\Domain\Validator;
+
+/**
+ * CaptchaValidator
+ *
+ * @package powermail
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * GNU Lesser General Public License, version 3 or later
+ */
+class CaptchaValidator extends \In2code\Powermail\Domain\Validator\AbstractValidator {
 
 	/**
-	 * fieldsRepository
+	 * @var \In2code\Powermail\Utility\CalculatingCaptcha
 	 *
-	 * @var Tx_Powermail_Domain_Repository_FieldsRepository
+	 * @inject
 	 */
-	protected $fieldsRepository;
-
-	/**
-	 * formsRepository
-	 *
-	 * @var Tx_Powermail_Domain_Repository_FormsRepository
-	 */
-	protected $formsRepository;
-
-	/**
-	 * @var Tx_Extbase_SignalSlot_Dispatcher
-	 */
-	protected $signalSlotDispatcher;
+	protected $captchaEngine;
 
 	/**
 	 * Captcha Session clean (only if mail is out)
 	 *
 	 * @var bool
 	 */
-	protected $clearSession;
+	protected $clearSession = TRUE;
 
 	/**
-	 * Return variable
+	 * Captcha arguments found
 	 *
 	 * @var bool
 	 */
-	protected $isValid = TRUE;
+	protected $captchaArgumentFound = FALSE;
 
 	/**
-	 * Captcha Field found
+	 * Validation of given Params
 	 *
-	 * @var bool
-	 */
-	protected $captchaFound = FALSE;
-
-	/**
-	 * Validation of given Captcha fields
-	 *
-	 * @param $params
+	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return bool
 	 */
-	public function isValid($params) {
-		if (!$this->formHasCaptcha()) {
-			return $this->isValid;
+	public function isValid($mail) {
+		if (!$this->formHasCaptcha($mail->getForm())) {
+			return TRUE;
 		}
 
-		foreach ((array) $params as $uid => $value) {
-			// get current field values
-			$field = $this->fieldsRepository->findByUid($uid);
-			if (!method_exists($field, 'getUid')) {
+		foreach ($mail->getAnswers() as $answer) {
+			if ($answer->getField()->getType() !== 'captcha') {
 				continue;
 			}
 
-			// if not a captcha field
-			if ($field->getType() != 'captcha') {
-				continue;
+			$this->captchaArgumentFound = TRUE;
+			if (!$this->captchaEngine->validCode($answer->getValue(), $this->clearSession)) {
+				$this->setErrorAndMessage($answer->getField(), 'captcha');
 			}
 
-			// if field wrong code given - set error
-			$captcha = $this->objectManager->get('Tx_Powermail_Utility_CalculatingCaptcha');
-			if (!$captcha->validCode($value, $this->clearSession)) {
-				$this->addError('captcha', $uid);
-				$this->isValid = FALSE;
-			}
-
-			// Captcha field found
-			$this->captchaFound = TRUE;
 		}
 
-		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'CaptchaValidation', array($params, $this));
-
-		if ($this->captchaFound) {
-			return $this->isValid;
-		} else {
-			// if no captcha vars given
+			// if no captcha arguments given (maybe deleted from DOM)
+		if (!$this->captchaArgumentFound) {
 			$this->addError('captcha', 0);
-			return FALSE;
+			$this->setIsValid(FALSE);
 		}
 
-		return FALSE;
+		return $this->getIsValid();
+
 	}
 
 	/**
 	 * Checks if given form has a captcha
+	 *
+	 * @param \In2code\Powermail\Domain\Model\Form $form
+	 * @return boolean
 	 */
-	protected function formHasCaptcha() {
-		$gp = t3lib_div::_GP('tx_powermail_pi1');
-		$formUid = $gp['form'];
-		$form = $this->formsRepository->hasCaptcha($formUid);
-		return count($form);
+	protected function formHasCaptcha(\In2code\Powermail\Domain\Model\Form $form) {
+		$form = $this->formRepository->hasCaptcha($form);
+		return count($form) ? TRUE : FALSE;
 	}
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$piVars = t3lib_div::_GET('tx_powermail_pi1');
-
-		// clear captcha on create action
+		$piVars = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('tx_powermail_pi1');
+			// clear captcha on create action
 		$this->clearSession = ($piVars['action'] == 'create' ? TRUE : FALSE);
-	}
-
-	/**
-	 * injectFieldsRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository
-	 * @return void
-	 */
-	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
-		$this->fieldsRepository = $fieldsRepository;
-	}
-
-	/**
-	 * injectFormsRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_FormsRepository $formsRepository
-	 * @return void
-	 */
-	public function injectFormsRepository(Tx_Powermail_Domain_Repository_FormsRepository $formsRepository) {
-		$this->formsRepository = $formsRepository;
-	}
-
-	/**
-	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
-	 * @return void
-	 */
-	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
-		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 }

@@ -1,4 +1,7 @@
 <?php
+namespace In2code\Powermail\ViewHelpers\Misc;
+
+use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Shows Content Element
@@ -6,42 +9,36 @@
  * @package TYPO3
  * @subpackage Fluid
  */
-class Tx_Powermail_ViewHelpers_Misc_ContentElementViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class ContentElementViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
-	protected $configurationManager;
-
-	/**
-	 * @var Content Object
-	 */
-	protected $cObj;
+	protected $contentObject;
 
 	/**
 	 * Parse a content element
 	 *
-	 * @param int $uid UID of any content element
-	 * @return string Parsed Content Element
+	 * @param \int $uid UID of any content element
+	 * @return \string Parsed Content Element
 	 */
 	public function render($uid) {
 		$conf = array(
 			'tables' => 'tt_content',
-			'source' => $uid,
+			'source' => intval($uid),
 			'dontCheckPid' => 1
 		);
-		return $this->cObj->RECORDS($conf);
+		return $this->contentObject->RECORDS($conf);
 	}
 
 	/**
-	 * Injects the Configuration Manager
+	 * Injects the content object
 	 *
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
+	 * @param ConfigurationManagerInterface $configurationManager
 	 * @return void
-	*/
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
-		$this->cObj = $this->configurationManager->getContentObject();
+	 */
+	public function injectContentObject(ConfigurationManagerInterface $configurationManager) {
+		$this->contentObject = $configurationManager->getContentObject();
 	}
 
 }

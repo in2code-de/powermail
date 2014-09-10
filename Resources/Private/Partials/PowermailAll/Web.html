@@ -1,25 +1,25 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 
 <f:comment>
-	Label: {variable.label}
-	Value: {variable.value}
-	Uid: {variable.uid}
+	Mail: {mail}
+	Answer: {answer}
 </f:comment>
 
-<dt class="powermail_all_label powermail_all_label_{vh:Getter.GetFieldMarkerFromUid(uid:'{variable.uid}')}">
-	<vh:string.RawAndRemoveXss>{variable.label}</vh:string.RawAndRemoveXss>
+
+<dt class="powermail_all_label powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
+	<vh:string.RawAndRemoveXss>{answer.field.title}</vh:string.RawAndRemoveXss>
 </dt>
-<dd class="powermail_all_value powermail_all_value_{vh:Getter.GetFieldMarkerFromUid(uid:'{variable.uid}')}">
-	<f:if condition="{vh:Condition.IsArray(val: '{variable.value}')}">
+<dd class="powermail_all_value powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
+	<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+		<f:else>
+			<f:format.nl2br>{answer.value}</f:format.nl2br>
+		</f:else>
 		<f:then>
-			<f:for each="{variable.value}" as="subValue" iteration="index">
+			<f:for each="{answer.value}" as="subValue" iteration="index">
 				<f:if condition="{subValue}">
 					{subValue}<f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
 				</f:if>
 			</f:for>
 		</f:then>
-		<f:else>
-			<f:format.nl2br>{variable.value}</f:format.nl2br>
-		</f:else>
 	</f:if>
 </dd>

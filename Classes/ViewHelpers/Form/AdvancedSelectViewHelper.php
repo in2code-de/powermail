@@ -1,4 +1,6 @@
 <?php
+namespace In2code\Powermail\ViewHelpers\Form;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -21,7 +23,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class Tx_Powermail_ViewHelpers_Form_AdvancedSelectViewHelper extends Tx_Fluid_ViewHelpers_Form_SelectViewHelper {
+/**
+ * AdvancedSelectViewHelper
+ *
+ * @package powermail
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
+ */
+class AdvancedSelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
 
 	/**
 	 * Initialize

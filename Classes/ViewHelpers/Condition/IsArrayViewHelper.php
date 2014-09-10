@@ -1,4 +1,5 @@
 <?php
+namespace In2code\Powermail\ViewHelpers\Condition;
 
 /**
  * View helper check if given value is array or not
@@ -6,13 +7,13 @@
  * @package TYPO3
  * @subpackage Fluid
  */
-class Tx_Powermail_ViewHelpers_Condition_IsArrayViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
+class IsArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * View helper check if given value is array or not
 	 *
-	 * @param mixed $val
-	 * @return boolean
+	 * @param mixed $val String or Array
+	 * @return bool
 	 */
 	public function render($val = '') {
 		return is_array($val);

@@ -1,4 +1,5 @@
 <?php
+namespace In2code\Powermail\ViewHelpers\Getter;
 
 /**
  * Read Marker of a field from given UID
@@ -7,36 +8,30 @@
  * @subpackage Fluid
  * @version
  */
-class Tx_Powermail_ViewHelpers_Getter_GetFieldMarkerFromUidViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class GetFieldMarkerFromUidViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * fieldsRepository
+	 * fieldRepository
 	 *
-	 * @var Tx_Powermail_Domain_Repository_FieldsRepository
+	 * @var \In2code\Powermail\Domain\Repository\FieldRepository
+	 * @inject
 	 */
-	protected $fieldsRepository;
+	protected $fieldRepository;
 
 	/**
 	 * Read Label of a field from given UID
 	 *
-	 * @param int $uid field uid
+	 * @param int $uid
 	 * @return string Label
 	 */
 	public function render($uid) {
-		$field = $this->fieldsRepository->findByUid($uid);
+		$result = '';
+		$field = $this->fieldRepository->findByUid($uid);
 		if (method_exists($field, 'getMarker')) {
-			return $field->getMarker();
+			$result = $field->getMarker();
 		}
-		return '';
+
+		return $result;
 	}
 
-	/**
-	 * injectFieldsRepository
-	 *
-	 * @param Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository
-	 * @return void
-	 */
-	public function injectFieldsRepository(Tx_Powermail_Domain_Repository_FieldsRepository $fieldsRepository) {
-		$this->fieldsRepository = $fieldsRepository;
-	}
 }

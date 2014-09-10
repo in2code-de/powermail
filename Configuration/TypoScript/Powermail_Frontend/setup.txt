@@ -15,6 +15,10 @@ plugin.tx_powermail {
 				updateFrequency = 1
 			}
 
+			misc {
+				file.folder = uploads/tx_powermail/
+			}
+
 			# Don't touch this (this is just to let the extension know, that there is TypoScript included)
 			staticTemplate = 1
 		}
@@ -39,31 +43,12 @@ powermail_frontend_xls {
 		additionalHeaders = Content-type:application/xls | Content-Disposition: inline; filename=export.xls | Cache-control: | Pragma:
 	}
 
-	10 = TEXT
-	10 {
-		value = <html><head></head><body>
-	}
-
-	20 < styles.content.get
-
-	30 = TEXT
-	30 {
-		value = </body></html>
-	}
+	10 < styles.content.get
 }
-powermail_frontend_csv = PAGE
+powermail_frontend_csv < powermail_frontend_xls
 powermail_frontend_csv {
 	typeNum = 31312
-
-	config {
-		disableAllHeaderCode = 1
-		disablePrefixComment = 1
-		xhtml_cleaning = 0
-		admPanel = 0
-		additionalHeaders = Content-type:text/x-csv | Content-Disposition: inline; filename=export.csv | Cache-control: | Pragma:
-	}
-
-	10 < styles.content.get
+	config.additionalHeaders = Content-type:text/x-csv | Content-Disposition: inline; filename=export.csv | Cache-control: | Pragma:
 }
 
 
@@ -105,6 +90,6 @@ page {
 		powermailJQuery.external = 1
 	}
 	includeJSFooter {
-		powermail_frontend = EXT:powermail/Resources/Public/Js/powermail_frontend.js
+		powermail_frontend = EXT:powermail/Resources/Public/JavaScripts/powermail_frontend.js
 	}
 }

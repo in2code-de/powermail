@@ -1,15 +1,49 @@
 config.tx_extbase {
 	persistence {
 		classes {
-			Tx_Powermail_Domain_Model_MailsBasic {
+			In2code\Powermail\Domain\Model\User {
+				mapping {
+					tableName = fe_users
+				}
+			}
+			In2code\Powermail\Domain\Model\UserGroup {
+				mapping {
+					tableName = fe_groups
+				}
+			}
+			In2code\Powermail\Domain\Model\Form {
+				mapping {
+					tableName = tx_powermail_domain_model_forms
+				}
+			}
+			In2code\Powermail\Domain\Model\Page {
+				mapping {
+					tableName = tx_powermail_domain_model_pages
+				}
+			}
+			In2code\Powermail\Domain\Model\Field {
+				mapping {
+					tableName = tx_powermail_domain_model_fields
+				}
+			}
+			In2code\Powermail\Domain\Model\Mail {
 				mapping {
 					tableName = tx_powermail_domain_model_mails
-					recordType =
+				}
+			}
+			In2code\Powermail\Domain\Model\Answer {
+				mapping {
+					tableName = tx_powermail_domain_model_answers
 				}
 			}
 		}
 	}
 }
+
+# ParseFunc Configuration for using FAL links in receiver and sender mail
+lib.parseFunc_powermail < lib.parseFunc_RTE
+lib.parseFunc_powermail.tags.link.typolink.forceAbsoluteUrl = 1
+
 
 
 
@@ -23,11 +57,7 @@ module.tx_powermail {
 		layoutRootPath = EXT:powermail/Resources/Private/Layouts/
 		widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = EXT:powermail/Resources/Private/Templates/
 	}
-	persistence {
-		storagePid = {$plugin.tx_powermail.settings.main.pid}
-	}
 	settings {
-
 		# crdate, sender_name, sender_email, subject, receiver_mail, feuser, time
 		sortby = crdate
 		order = desc
@@ -36,6 +66,7 @@ module.tx_powermail {
 			filenameXls = powermail.xls
 			filenameCsv = powermail.csv
 		}
+		uploadPath = {$plugin.tx_powermail.settings.misc.uploadFolder}
 
 		# Don't touch this (this is just to let the extension know, that there is TypoScript included)
 		staticTemplate = 1

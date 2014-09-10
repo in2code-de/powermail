@@ -1,4 +1,4 @@
-{namespace vh=Tx_Powermail_ViewHelpers}
+{namespace vh=In2code\Powermail\ViewHelpers}
 <f:layout name="Export" />
 
 RSS Feed for Powermail_Frontend
@@ -23,7 +23,7 @@ RSS Feed for Powermail_Frontend
 						<f:for each="{mail.answers}" as="answer">
 							<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
 								<f:else>
-									<vh:Getter.GetFieldLabelFromUid uid="{answer.field}" />: {answer.value};
+									{answer.field.title}: {answer.value};
 								</f:else>
 							</f:if>
 						</f:for>
