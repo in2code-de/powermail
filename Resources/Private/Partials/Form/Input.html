@@ -1,0 +1,15 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_input powermail_fieldwrap_{field.uid} {field.css}">
+	<label for="powermail_field_{field.marker}" class="powermail_label" title="{field.description}">
+		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+	</label>
+	<f:form.textfield
+		type="{vh:Validation.FieldTypeFromValidation(field:field)}"
+		property="{field.marker}"
+		placeholder="{field.placeholder}"
+		value="{vh:Misc.PrefillField(field:field, mail:mail)}"
+		class="powermail_field powermail_input {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
+		additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field)}"
+		id="powermail_field_{field.marker}" />
+</div>

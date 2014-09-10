@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-02T12:00:00Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="value.description">
+				<source>This is the Answer of a User within this field</source>
+			</trans-unit>
+			<trans-unit id="value_type.description">
+				<source>Datatype of this answer</source>
+			</trans-unit>
+			<trans-unit id="field.description">
+				<source>The answer is related to this field</source>
+			</trans-unit>
+			<trans-unit id="mail.description">
+				<source>This is the related mail to this answer</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

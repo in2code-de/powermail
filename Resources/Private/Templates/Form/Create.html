@@ -1,0 +1,62 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+<f:layout name="Default" />
+
+Render Powermail Thx Page
+{powermail_rte}									Variable is filled with values from RTE in backend
+{powermail_all}									Outputs all fields
+{mail}											Complete Mail Object
+{marker1}, {firstname}, etc.. 					Outputs a field
+{label_marker1}, {label_firstname}, etc... 		Outputs a label to a field
+NOTE: See example section after main section
+
+
+
+<f:section name="main">
+	<div class="powermail_create" data-powermail-form="{mail.form.uid}">
+		<f:if condition="{optinActive}">
+			<f:else>
+				<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}">
+					<f:format.html parseFuncTSPath="lib.parseFunc">
+						{powermail_rte}
+					</f:format.html>
+				</vh:Misc.Variables>
+
+				<f:render partial="Misc/GoogleAdwordsConversion" />
+			</f:else>
+			<f:then>
+				<f:translate key="optin_seeMail" />
+			</f:then>
+		</f:if>
+	</div>
+</f:section>
+
+
+
+
+
+
+
+THIS IS ONLY AN EXAMPLE SECTION
+
+<f:section name="example">
+	<f:flashMessages class="powermail_message powermail_message_{messageClass}" />
+
+	1. Get values from RTE from Backend:
+	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}">
+		<f:format.html parseFuncTSPath="lib.parseFunc">
+			{powermail_rte}
+		</f:format.html>
+	</vh:Misc.Variables>
+
+
+	2. Get all Values by using powermail_all
+	<vh:string.RawAndRemoveXss>
+		{powermail_all}
+	</vh:string.RawAndRemoveXss>
+
+	3. Get some lonely fields
+	Hi {firstname} {lastname}, thank you for your email.<br />
+	{label_email}: {email}<br />
+	{label_text}: {text}
+
+</f:section>

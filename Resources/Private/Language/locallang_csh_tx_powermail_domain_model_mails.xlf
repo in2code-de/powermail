@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-02T12:00:00Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="crdate.description">
+				<source>Time of mail creation</source>
+			</trans-unit>
+			<trans-unit id="sender_mail.description">
+				<source>This is the email of the sender</source>
+			</trans-unit>
+			<trans-unit id="sender_name.description">
+				<source>This is the name of the sender</source>
+			</trans-unit>
+			<trans-unit id="subject.description">
+				<source>E-Mail Subject</source>
+			</trans-unit>
+			<trans-unit id="body.description">
+				<source>All input values at a glance</source>
+			</trans-unit>
+			<trans-unit id="receiver_mail.description">
+				<source>E-Mail Receiver</source>
+			</trans-unit>
+			<trans-unit id="form.description">
+				<source>Related Form</source>
+			</trans-unit>
+			<trans-unit id="answers.description">
+				<source>All transferred Answers</source>
+			</trans-unit>
+			<trans-unit id="feuser.description">
+				<source>This FE User send the mail (if empty, no logged in User sends the mail)</source>
+			</trans-unit>
+			<trans-unit id="spam_factor.description">
+				<source>Powermail identifies this mail as spam with this factor (if factor is too high, mail sending will be refused)</source>
+			</trans-unit>
+			<trans-unit id="time.description">
+				<source>User needs this time to fill out the form</source>
+			</trans-unit>
+			<trans-unit id="sender_ip.description">
+				<source>IP-Address of the sender</source>
+			</trans-unit>
+			<trans-unit id="user_agent.description">
+				<source>Browser characteristic of the sender</source>
+			</trans-unit>
+			<trans-unit id="marketing_referer_domain.description">
+				<source>Last Domain of the user before he surfed to this URL</source>
+			</trans-unit>
+			<trans-unit id="marketing_referer.description">
+				<source>Last URL of the user before he surfed to this URL</source>
+			</trans-unit>
+			<trans-unit id="marketing_country.description">
+				<source>User is located in this country</source>
+			</trans-unit>
+			<trans-unit id="marketing_mobile_device.description">
+				<source>User uses a mobile device</source>
+			</trans-unit>
+			<trans-unit id="marketing_frontend_language.description">
+				<source>User surfed in this TYPO3-Frontend-Language</source>
+			</trans-unit>
+			<trans-unit id="marketing_browser_language.description">
+				<source>Users Browser Language</source>
+			</trans-unit>
+			<trans-unit id="marketing_page_funnel.description">
+				<source>Internal Page funnel up to the form submit</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

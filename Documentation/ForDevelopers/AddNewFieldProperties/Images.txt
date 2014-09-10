@@ -1,0 +1,9 @@
+.. |img-newfieldproperties|     image:: ../../Images/newFieldProperties.png
+.. :align: left
+.. :border: 0
+.. :name: newfieldproperties
+
+.. |img-newfieldproperties2|     image:: ../../Images/newFieldProperties2.png
+.. :align: left
+.. :border: 0
+.. :name: newfieldproperties2

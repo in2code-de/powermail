@@ -1,0 +1,6 @@
+.. |img-93|     image:: ../Images/manual_html_m4678c8d7.png
+   :height: 89
+   :width: 278
+.. :align: left
+.. :border:
+.. :name: Grafik 93

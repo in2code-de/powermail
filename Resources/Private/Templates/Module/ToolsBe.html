@@ -1,0 +1,47 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+<f:layout name="Backend" />
+
+
+	Show Backend Module: Tools
+
+<f:section name="content">
+
+	<h1><f:translate key="BackendReportingTitle" /></h1>
+
+	<f:flashMessages class="powermail_message" />
+
+	<div class="powermail_reporting">
+
+		<div class="powermail_reporting_selection">
+			<div class="powermail_reporting_selection_inner">
+				<h2>
+					<f:link.action action="overviewBe">
+						<f:translate key="BackendSelectionOverview">Form Overview</f:translate>
+					</f:link.action>
+				</h2>
+				<f:link.action action="overviewBe"><f:image src="{f:uri.resource(path: 'Image/chart_form_overview.png')}" alt="Form Reporting" /></f:link.action>
+			</div>
+			<f:if condition="{vh:BeCheck.IsAdmin()}">
+				<div class="powermail_reporting_selection_inner">
+					<h2>
+						<f:link.action action="checkBe">
+							<f:translate key="BackendSelectionCheck">Function Check</f:translate>
+						</f:link.action>
+					</h2>
+					<f:link.action action="checkBe"><f:image src="{f:uri.resource(path: 'Image/chart_function_check.png')}" alt="Marketing Reporting" /></f:link.action>
+				</div>
+				<div class="powermail_reporting_selection_inner">
+					<h2>
+						<f:link.action action="converterBe">
+							<f:translate key="BackendSelectionConverterTitle">Form Converter</f:translate>
+						</f:link.action>
+					</h2>
+					<f:link.action action="converterBe"><f:image src="{f:uri.resource(path: 'Image/chart_form_converter.png')}" alt="Marketing Reporting" /></f:link.action>
+				</div>
+			</f:if>
+			<div class="clear"></div>
+		</div>
+
+	</div>
+
+</f:section>

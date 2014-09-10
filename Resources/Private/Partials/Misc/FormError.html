@@ -1,0 +1,26 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:form.validationResults>
+	<f:if condition="{validationResults.flattenedErrors}">
+		<ul class="powermail_message powermail_message_error">
+			<f:for each="{validationResults.flattenedErrors}" as="errors">
+				<f:for each="{errors}" as="singleError">
+					<li>
+						<f:if condition="{singleError.code}">
+							<f:if condition="{vh:Getter.GetFieldPropertyFromMarkerAndForm(marker:singleError.code, form:form, property:'title')}">
+								<f:then>
+									<vh:Getter.GetFieldPropertyFromMarkerAndForm marker="{singleError.code}" form="{form}" property="title" />:
+								</f:then>
+								<f:else>
+									<f:translate key="validationerror_spam" /> {singleError.code}
+								</f:else>
+							</f:if>
+						</f:if>
+
+						<f:translate key="validationerror_{singleError.message}">{singleError.message}</f:translate>
+					</li>
+				</f:for>
+			</f:for>
+		</ul>
+	</f:if>
+</f:form.validationResults>

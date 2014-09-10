@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-05-02T12:00:00Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="crdate.description">
+				<source>Time of mail creation</source>
+				<target state="translated">Zu diesem Zeitpunkt wurde die E-Mail versandt</target>
+			</trans-unit>
+			<trans-unit id="sender_mail.description">
+				<source>This is the email of the sender</source>
+				<target state="translated">E-Mail-Adresse des Absenders</target>
+			</trans-unit>
+			<trans-unit id="sender_name.description">
+				<source>This is the name of the sender</source>
+				<target state="translated">Name des Absenders</target>
+			</trans-unit>
+			<trans-unit id="subject.description">
+				<source>E-Mail Subject</source>
+				<target state="translated">E-Mail-Betreffzeile</target>
+			</trans-unit>
+			<trans-unit id="body.description">
+				<source>All input values at a glance</source>
+				<target state="translated">Alle eingegebenen Daten auf einen Blick</target>
+			</trans-unit>
+			<trans-unit id="receiver_mail.description">
+				<source>E-Mail Receiver</source>
+				<target state="translated">E-Mail-Empfänger</target>
+			</trans-unit>
+			<trans-unit id="form.description">
+				<source>Related Form</source>
+				<target state="translated">Verknüpftes Formular</target>
+			</trans-unit>
+			<trans-unit id="answers.description">
+				<source>All transferred Answers</source>
+				<target state="translated">Alle übermittelten Antworten</target>
+			</trans-unit>
+			<trans-unit id="feuser.description">
+				<source>This FE User send the mail (if empty, no logged in User sends the mail)</source>
+				<target state="translated">Dieser Frontendbenutzer hat die E-Mail versandt (wenn leer, war Absender nicht eingeloggt)</target>
+			</trans-unit>
+			<trans-unit id="spam_factor.description">
+				<source>Powermail identifies this mail as spam with this factor (if factor is too high, mail sending will be refused)</source>
+				<target state="translated">Powermail geht von einem Spam Faktor aus (wenn der Faktor zu hoch ist, wird der Versandt abgelehnt)</target>
+			</trans-unit>
+			<trans-unit id="time.description">
+				<source>User needs this time to fill out the form</source>
+				<target state="translated">Der Benutzer hat diese Zeit benötigt, das Formular auszufüllen</target>
+			</trans-unit>
+			<trans-unit id="sender_ip.description">
+				<source>IP-Address of the sender</source>
+				<target state="translated">IP-Adresse des Absenders</target>
+			</trans-unit>
+			<trans-unit id="user_agent.description">
+				<source>Browser characteristic of the sender</source>
+				<target state="translated">Browser Kennung des Absenders</target>
+			</trans-unit>
+			<trans-unit id="marketing_referer_domain.description">
+				<source>Last Domain of the user before he surfed to this URL</source>
+				<target state="translated">Letzte externe Domain des Besuchers</target>
+			</trans-unit>
+			<trans-unit id="marketing_referer.description">
+				<source>Last URL of the user before he surfed to this URL</source>
+				<target state="translated">Letzte externe URL des Besuchers</target>
+			</trans-unit>
+			<trans-unit id="marketing_country.description">
+				<source>User is located in this country</source>
+				<target state="translated">Besucher kommt aus diesem Land</target>
+			</trans-unit>
+			<trans-unit id="marketing_mobile_device.description">
+				<source>User uses a mobile device</source>
+				<target state="translated">Besucher nutzte ein mobiles Endgerät</target>
+			</trans-unit>
+			<trans-unit id="marketing_frontend_language.description">
+				<source>User surfed in this TYPO3-Frontend-Language</source>
+				<target state="translated">Besucher nutzte diese TYPO3-Frontend-Sprache</target>
+			</trans-unit>
+			<trans-unit id="marketing_browser_language.description">
+				<source>Users Browser Language</source>
+				<target state="translated">Browserspracheinstellung des Besuchers</target>
+			</trans-unit>
+			<trans-unit id="marketing_page_funnel.description">
+				<source>Internal Page funnel up to the form submit</source>
+				<target state="translated">Aufgezeichnete Seiten bis zum Powermail Submit</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

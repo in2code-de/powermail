@@ -1,0 +1,7 @@
+.. |img-91|     image:: ../../Images/manual_html_5658a541.png
+   :height: 176
+   :width: 416
+.. :align: left
+.. :border: 0
+.. :name: Grafik96
+

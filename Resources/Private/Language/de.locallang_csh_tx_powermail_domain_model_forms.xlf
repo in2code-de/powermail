@@ -1,0 +1,19 @@
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-05-02T12:00:00Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="title.description">
+				<source>Enter a title for this form</source>
+				<target state="translated">Geben Sie eine Bezeichnung für dieses Formular ein</target>
+			</trans-unit>
+			<trans-unit id="pages.description">
+				<source>Add one or more pages to this form</source>
+				<target state="translated">Ein oder mehrere Seiten zu diesem Formular hinzufügen</target>
+			</trans-unit>
+			<trans-unit id="css.description">
+				<source>Choose a Layout (This may change the Frontend Rendering - please ask your administrator for more information)</source>
+				<target state="translated">Wählen Sie ein Layout (Diese Änderung kann sich auf das Aussehen im Frontend auswirken - bitte fragen Sie Ihren Administrator für weitere Informationen)</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

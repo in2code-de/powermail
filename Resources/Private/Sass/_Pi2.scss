@@ -1,0 +1,130 @@
+.powermail_frontend {
+	clear: left;
+	margin: 0 0 20px 0;
+	background: $greySoft1;
+	overflow: auto;
+
+	/**
+	 * List View
+	 */
+	table.powermail_frontend_list {
+		width: 100%;
+		font-size: 0.8em;
+		border: 1px solid $grey1;
+		margin-top: 15px;
+		border-spacing: 0;
+		border-collapse: separate;
+
+		tr {
+			th {
+				color: white;
+				font-weight: bold;
+				padding: 7px 3px;
+				text-align: left;
+				background: $grey1;
+			}
+			td {
+				padding: 3px;
+			}
+
+			&:nth-child(even) {
+				background: $greySoft2;
+			}
+		}
+	}
+
+	.powermail_frontend_filter {
+		background: $greySoft2;
+		padding: 10px 0;
+
+		.powermail_frontend_search_container {
+			padding: 5px 10px;
+			clear: both;
+
+			label {
+				float: left;
+				display: block;
+				width: $widthLabel;
+				padding-top: 3px;
+			}
+			input {
+				width: $widthField;
+				padding: 5px;
+				float: right;
+				border: none;
+			}
+			.powermail_frontend_search_submit {
+				color: white;
+				cursor: pointer;
+				background: $blue1;
+				clear: both;
+			}
+		}
+	}
+	.powermail_frontend_abc,
+	.powermail_frontend_export {
+		width: $widthLabel + $widthField;
+		margin: 10px 0;
+
+		.powermail_frontend_abc_inner,
+		.powermail_frontend_export_inner {
+			margin: 0 10px;
+
+			span.abc,
+			span.abc a {
+				font-weight: bold;
+				text-decoration: none;
+			}
+		}
+	}
+	.powermail_frontend_export {
+		width: $widthPowermail;
+		input {
+			width: 17px;
+			height: 16px;
+			padding-top: 2px;
+			cursor: pointer;
+			text-indent: -99999px;
+			border: 0;
+			background-repeat: no-repeat;
+			background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_csv.gif');
+			&.export_icon_xls {
+				background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_xls.gif');
+			}
+		}
+		.powermail_frontend_export_icon {
+			float: right;
+			padding-top: 5px;
+			margin-left: 5px;
+			height: 19px;
+		}
+	}
+
+
+	/**
+	 * Detail View
+	 */
+	dl {
+		clear: both;
+		padding: 5px 10px;
+		dt {
+			float: left;
+			width: 150px;
+			font-weight: bold;
+			clear: left;
+			margin-right: 10px;
+		}
+		dd {
+			float: left;
+		}
+	}
+	.powermail_frontend_back {
+		margin: 10px;
+		display: inline-block;
+		padding: 5px 20px;
+		background-color: $greySoft2;
+		border: 1px solid $greySoft1;
+		color: white;
+		text-decoration: none;
+	}
+}

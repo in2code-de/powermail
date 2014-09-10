@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3FlexForms>
+	<data>
+		<sheet index="main">
+			<language index="lDEF">
+				<field index="settings.flexform.main.form">
+					<value index="vDEF">{formUid}</value>
+				</field>
+				<field index="settings.flexform.main.confirmation">
+					<value index="vDEF">{tx_powermail_confirm}</value>
+				</field>
+				<field index="settings.flexform.main.optin">
+					<value index="vDEF">0</value>
+				</field>
+				<field index="settings.flexform.main.moresteps">
+					<value index="vDEF"><f:if condition="{tx_powermail_multiple} > 0"><f:then>1</f:then><f:else>0</f:else></f:if></value>
+				</field>
+				<field index="settings.flexform.main.pid">
+					<value index="vDEF">{tx_powermail_pages}</value>
+				</field>
+			</language>
+		</sheet>
+		<sheet index="receiver">
+			<language index="lDEF">
+				<field index="settings.flexform.receiver.name">
+					<value index="vDEF">Powermail</value>
+				</field>
+				<field index="settings.flexform.receiver.email">
+					<value index="vDEF">{tx_powermail_recipient}</value>
+				</field>
+				<field index="settings.flexform.receiver.fe_group">
+					<value index="vDEF"></value>
+				</field>
+				<field index="settings.flexform.receiver.subject">
+					<value index="vDEF">{tx_powermail_subject_r}</value>
+				</field>
+				<field index="settings.flexform.receiver.body">
+					<value index="vDEF">{tx_powermail_mailreceiver}</value>
+					<value index="_TRANSFORM_vDEF.vDEFbase">{tx_powermail_mailreceiver}</value>
+				</field>
+			</language>
+		</sheet>
+		<sheet index="sender">
+			<language index="lDEF">
+				<field index="settings.flexform.sender.name">
+					<value index="vDEF">Administrator</value>
+				</field>
+				<field index="settings.flexform.sender.email">
+					<value index="vDEF">administrator@domain.org</value>
+				</field>
+				<field index="settings.flexform.sender.subject">
+					<value index="vDEF">{tx_powermail_subject_s}</value>
+				</field>
+				<field index="settings.flexform.sender.body">
+					<value index="vDEF">{tx_powermail_mailsender}</value>
+					<value index="_TRANSFORM_vDEF.vDEFbase">{tx_powermail_mailsender}</value>
+				</field>
+			</language>
+		</sheet>
+		<sheet index="thx">
+			<language index="lDEF">
+				<field index="settings.flexform.thx.body">
+					<value index="vDEF">{tx_powermail_thanks}</value>
+					<value index="_TRANSFORM_vDEF.vDEFbase">{tx_powermail_thanks}</value>
+				</field>
+				<field index="settings.flexform.thx.redirect">
+					<value index="vDEF">{tx_powermail_redirect}</value>
+				</field>
+			</language>
+		</sheet>
+	</data>
+</T3FlexForms>

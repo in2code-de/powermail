@@ -1,0 +1,29 @@
+.. |frontend1|      image:: ../Images/frontend1.png
+.. :align: left
+.. :border: 0
+.. :name: frontend1
+.. :vspace: 57
+
+.. |frontend2|      image:: ../Images/frontend2.png
+.. :align: left
+.. :border: 0
+.. :name: frontend2
+.. :vspace: 57
+
+.. |backend1|      image:: ../Images/backend1.png
+.. :align: left
+.. :border: 0
+.. :name: backend1
+.. :vspace: 57
+
+.. |backend2|      image:: ../Images/backend2.png
+.. :align: left
+.. :border: 0
+.. :name: backend2
+.. :vspace: 57
+
+.. |pi2|      image:: ../Images/pi2.png
+.. :align: left
+.. :border: 0
+.. :name: pi2
+.. :vspace: 57

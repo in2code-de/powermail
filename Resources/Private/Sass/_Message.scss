@@ -1,0 +1,39 @@
+.powermail_message {
+	padding: 5px 0 10px 20px;
+	min-height: 65px;
+	background-color: $red2;
+	border: 1px solid $red3;
+	background-position: 98% 10px;
+	background-repeat: no-repeat;
+	list-style: circle;
+
+	li {
+		padding: 5px 50px 0 0;
+	}
+
+	&.powermail_message_ok {
+		background-image: url("/typo3conf/ext/powermail/Resources/Public/Image/icon_ok.png");
+		background-color: $green1;
+		border: 1px solid $green3;
+
+		li {
+			color: $green3;
+		}
+	}
+	&.powermail_message_error {
+		background-image: url("/typo3conf/ext/powermail/Resources/Public/Image/icon_error.png");
+
+		li {
+			color: $red3;
+		}
+	}
+	&.powermail_message_note {
+		background-image: url("/typo3conf/ext/powermail/Resources/Public/Image/icon_ok.png");
+		background-color: $orange1;
+		border: 1px solid $orange3;
+
+		li {
+			color: $orange3;
+		}
+	}
+}

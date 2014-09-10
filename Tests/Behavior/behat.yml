@@ -1,0 +1,11 @@
+default:
+    paths:
+      features: Features
+      bootstrap: %behat.paths.features%/Bootstrap
+    extensions:
+        Behat\MinkExtension\Extension:
+            #base_url: http://powermail21.dev.in2code.ws
+            base_url: http://powermail.localhost.de
+            files_path: /var/www/html/powermail.localhost.de/fileadmin/user_upload
+            goutte: ~
+            selenium2: ~

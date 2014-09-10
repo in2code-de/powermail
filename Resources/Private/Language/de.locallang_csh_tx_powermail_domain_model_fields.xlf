@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-05-02T12:00:00Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="title.description">
+				<source>Enter a label for your Field</source>
+				<target state="translated">Geben Sie eine Feldbezeichnung ein</target>
+			</trans-unit>
+			<trans-unit id="type.description">
+				<source>Choose the type of your Field</source>
+				<target state="translated">Wählen Sie den Feldtyp aus</target>
+			</trans-unit>
+			<trans-unit id="settings.description">
+				<source>One option per line. If you want to split value and label, use a | symbol. Preselect with *</source>
+				<target state="translated">Pro Option eine neue Zeile. Wenn Bezeichnung und Wert getrennt werden sollen, kann das Zeichen | verwendet werden. Vorauswahl mit *</target>
+			</trans-unit>
+			<trans-unit id="path.description">
+				<source>Add a path to the TypoScript that should be rendered (e.g. lib.showsometext)</source>
+				<target state="translated">TypoScript Pfad eintragen, der gerendert werden soll (z.B. lib.zeigeeinentext)</target>
+			</trans-unit>
+			<trans-unit id="content_element.description">
+				<source>Choose a content element that should be renderen within your form</source>
+				<target state="translated">Wählen Sie einen beliebigen Seiteninhalt aus, der im Formular angezeigt werden soll</target>
+			</trans-unit>
+			<trans-unit id="text.description">
+				<source>Save a text for a frontend output</source>
+				<target state="translated">Geben Sie einen Text ein, der im Formular angezeigt werden soll</target>
+			</trans-unit>
+			<trans-unit id="sender_email.description">
+				<source>Will this field contain the Email of the user?</source>
+				<target state="translated">Wird dieses Feld die E-Mail des Benutzers beinhalten?</target>
+			</trans-unit>
+			<trans-unit id="sender_name.description">
+				<source>Will this field contain the Name or a part of the Name of the user?</source>
+				<target state="translated">Wird dieses Feld den Namen oder einen Teil des Namens des Benutzers beinhalten?</target>
+			</trans-unit>
+			<trans-unit id="validation_title.description">
+				<source>Validation Settings</source>
+				<target state="translated">Validierungseinstellungen</target>
+			</trans-unit>
+			<trans-unit id="mandatory.description">
+				<source>Should this field be a mandatory field?</source>
+				<target state="translated">Muss der Benutzer dieses Feld ausfüllen?</target>
+			</trans-unit>
+			<trans-unit id="validation.description">
+				<source>Validate the field value (url, email, etc...)</source>
+				<target state="translated">Überprüfung ob dieses Feld (z.B.) eine E-Mail beinhaltet</target>
+			</trans-unit>
+			<trans-unit id="validation_configuration.description">
+				<source>This value influences the validation (if you choose range, you can use e.g. 1,10 to have a range field from 1 to 10) (if you choose pattern validation, you can use regular expressions e.g. like https?://.+ to validate for a beginning https-link)</source>
+				<target state="translated">Dieser Wert beeinflusst die vorgenommene Validierung (Wenn Sie eine Validierung vom Typ Zahl mit Minimum und Maximum gewählt haben dann bedeutet 1,10 eine Auswahl von 1 bis 10) (Wenn Sie beispielsweise eine Validierung mit Pattern ausgewählt haben und https?://.+ eintragen, wird auf einen beginnenden https-link hin überprüft)</target>
+			</trans-unit>
+			<trans-unit id="prefill_title.description">
+				<source>Prefill Settings</source>
+				<target state="translated">Vorfüll-Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="prefill_value.description">
+				<source>Prefill this field with a static text. The related field wil be prefilled (If you use a prefill value for a country-field, add the wanted code - e.g. DEU or USA)</source>
+				<target state="translated">Füllen Sie dieses Feld mit einem statischen Text vor (Wenn Sie ein Feld vom Typ Länderauswahl nutzen, können Sie mit dem entsprechenden Code diese Auswahl vordefinieren - z.B. DEU oder USA)</target>
+			</trans-unit>
+			<trans-unit id="placeholder.description">
+				<source>A placeholder text is an example, that should help the user to fill out an input field. This text is shown in bright grey within the input field. If you have a name field, you could use the placeholder "John Doe"</source>
+				<target state="translated">Ein Platzhalter ist ein Text, der dem Besucher die Eingabe erleichtert soll. Der Text erscheint hellgrau im Feld. Bei einem Feld, dass den Namen abfragen soll, könnte man z.B. "Rainer Zufall" eintragen</target>
+			</trans-unit>
+			<trans-unit id="feuser_value.description">
+				<source>Prefill this field with value of a logged in fe_user (overwrites the static prefill text)</source>
+				<target state="translated">Füllen Sie dieses Feld mit einem Wert aus der Frontend-Benutzer-Tabelle (dies überschreibt den statischen Text)</target>
+			</trans-unit>
+			<trans-unit id="create_from_typoscript.description">
+				<source>Options can be dynamicly generated by TypoScript (e.g. lib.options=TEXT lib.options.value=red[\n]blue[\n]pink). Add the path to the TypoScript object.</source>
+				<target state="translated">Optionen können dynamisch über TypoScript erstellt und verwendet werden (z.B. lib.options=TEXT lib.options.value=red[\n]blue[\n]pink). Einfach Pfad zum TypoScript Objekt einfügen.</target>
+			</trans-unit>
+			<trans-unit id="css.description">
+				<source>Choose a Layout (This may change the Frontend Rendering - please ask your administrator for more information)</source>
+				<target state="translated">Wählen Sie ein Layout (Diese Änderung kann sich auf das Aussehen im Frontend auswirken - bitte fragen Sie Ihren Administrator für weitere Informationen)</target>
+			</trans-unit>
+			<trans-unit id="multiselect.description">
+				<source>If you want to have a select field, where your users can select more than only one entry, activate this settings</source>
+				<target state="translated">Wenn Sie ein Auswahlfeld benötigen, bei dem der Besucher mehr als nur eine Auswahl treffen kann, können Sie diese Einstellung wählen</target>
+			</trans-unit>
+			<trans-unit id="datepicker_settings.description">
+				<source>Choose the type of the datepicker (date only or date and time or time only)</source>
+				<target state="translated">Typ des Datepickers auswählen (nur Datum oder Datum und Uhrzeit oder nur Uhrzeit)</target>
+			</trans-unit>
+			<trans-unit id="marker_title.description">
+				<source>Variables Settings</source>
+				<target state="translated">Variablen-Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="auto_marker.description">
+				<source>This variable was automaticly generated by the system</source>
+				<target state="translated">Diese Variable wurde automatisch vom System erstellt</target>
+			</trans-unit>
+			<trans-unit id="marker.description">
+				<source>Use your own variable in a Rich Text Editor (e.g.)</source>
+				<target state="translated">Benutzen Sie Ihre eigene Variable in einem RTE</target>
+			</trans-unit>
+			<trans-unit id="own_marker_select.description">
+				<source>Check this if you want to change the automaticly generated variable</source>
+				<target state="translated">Nutzen Sie diese Einstellung, wenn Sie die automatisch erstellte Variable überschreiben wollen</target>
+			</trans-unit>
+			<trans-unit id="pages.description">
+				<source>Add the related page to this field</source>
+				<target state="translated">Verknüpfte Seite zu diesem Feld auswählen</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

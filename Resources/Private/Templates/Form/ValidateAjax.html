@@ -1,0 +1,8 @@
+<f:if condition="{isValid}">
+	<f:else>
+		{"error": "<f:for each='{errors}' as='error'><f:translate key='validationerror_{error.message}'>{error.message}</f:translate></f:for>"}
+	</f:else>
+	<f:then>
+		{"success": "validation ok"}
+	</f:then>
+</f:if>

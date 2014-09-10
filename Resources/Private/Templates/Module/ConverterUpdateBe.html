@@ -1,0 +1,162 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+<f:layout name="Backend" />
+
+
+	Show Backend Module: Converter Update
+	{result}         Result array
+	{converter}      Configuration array
+
+
+<f:section name="content">
+
+	<h1><f:translate key="BackendSelectionConverterTitle" /></h1>
+	<h2><f:translate key="BackendConverterUpdateTitle2">Overview: Converted Forms</f:translate></h2>
+
+	<f:flashMessages class="powermail_message" />
+
+	<div class="powermail_converter">
+
+		<f:if condition="{result}">
+			<f:then>
+				<f:if condition="{converter.dryrun}">
+					<f:else>
+						<ul class="powermail_message powermail_message_ok">
+							<li>
+								<f:count>{result}</f:count>
+								<f:translate key="BackendConverterUpdateMessageOk">Forms successfully generated!</f:translate>
+							</li>
+						</ul>
+					</f:else>
+					<f:then>
+						<ul class="powermail_message powermail_message_note">
+							<li>
+								<f:count>{result}</f:count>
+								<f:translate key="BackendConverterUpdateMessageNote">Forms could be migrated</f:translate>
+							</li>
+						</ul>
+					</f:then>
+				</f:if>
+				<table cellspacing="0" cellpadding="0" border="0" class="typo3-dblist">
+					<tbody>
+						<tr class="t3-row-header">
+							<td nowrap="nowrap">
+								<span class="c-table">
+									<f:translate key="BackendConverterUpdateFormTitle">Title</f:translate>
+								</span>
+							</td>
+							<td nowrap="nowrap">
+								<span class="c-table">
+									<f:translate key="BackendConverterUpdateFormPid">PID</f:translate>
+								</span>
+							</td>
+							<td nowrap="nowrap">
+								<span class="c-table">
+									<f:translate key="BackendConverterUpdateFormHidden">Hidden</f:translate>
+								</span>
+							</td>
+							<td nowrap="nowrap">
+								<span class="c-table">
+									<f:translate key="BackendConverterUpdateFormPageAmount">Page Amount</f:translate>
+								</span>
+							</td>
+							<td nowrap="nowrap">
+								<span class="c-table">
+									<f:translate key="BackendConverterUpdateFormPages">Pages</f:translate>
+								</span>
+							</td>
+						</tr>
+						<f:for each="{result}" as="form">
+							<tr>
+								<td>
+									{form.title}
+								</td>
+								<td>
+									{form.pid}
+								</td>
+								<td>
+									{form.hidden}
+								</td>
+								<td>
+									{form.pages}
+								</td>
+								<td>
+									<table cellspacing="0" cellpadding="0" border="0" class="typo3-dblist">
+										<tbody>
+											<tr class="t3-row-header">
+												<td>
+													<span class="c-table">
+														<f:translate key="BackendConverterUpdatePageTitle">Title</f:translate>
+													</span>
+												</td>
+												<td>
+													<span class="c-table">
+														<f:translate key="BackendConverterUpdatePageLayout">Layout</f:translate>
+													</span>
+												</td>
+												<td>
+													<span class="c-table">
+														<f:translate key="BackendConverterUpdatePageFieldAmount">Field Amount</f:translate>
+													</span>
+												</td>
+												<td>
+													<span class="c-table">
+														<f:translate key="BackendConverterUpdatePageFields">Fields</f:translate>
+													</span>
+												</td>
+											</tr>
+											<f:for each="{form._pages}" as="page">
+												<tr>
+													<td>{page.title}</td>
+													<td>{page.css}</td>
+													<td><f:count>{page.fields}</f:count></td>
+													<td>
+														<table cellspacing="0" cellpadding="0" border="0" class="typo3-dblist converterTable">
+															<tbody>
+																<tr class="t3-row-header">
+																	<td>
+																		<span class="c-table">
+																			<f:translate key="BackendConverterUpdateFieldTitle">Title</f:translate>
+																		</span>
+																	</td>
+																	<td>
+																		<span class="c-table">
+																			<f:translate key="BackendConverterUpdateFieldProperties">Properties</f:translate>
+																		</span>
+																	</td>
+																</tr>
+																<f:for each="{page._fields}" as="field">
+																	<tr class="db_list_normal">
+																		<td class="openHiddenTable">{field.title}</td>
+																		<td>
+																			<span class="openHiddenTable dots">...</span>
+																			<table class="hiddenConverterTable">
+																				<f:for each="{field}" as="fieldValue" key="fieldProperty">
+																					<tr>
+																						<td><b>{fieldProperty}</b></td>
+																						<td>{fieldValue}</td>
+																					</tr>
+																				</f:for>
+																			</table>
+																		</td>
+																	</tr>
+																</f:for>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+											</f:for>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</f:for>
+					</tbody>
+				</table>
+			</f:then>
+			<f:else>
+				<f:translate key="BackendConverterUpdateNoFormsConverted">No Forms converted</f:translate>
+			</f:else>
+		</f:if>
+	</div>
+
+</f:section>

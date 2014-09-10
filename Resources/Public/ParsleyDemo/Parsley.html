@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Parsley.js Test</title>
+		<link href="http://parsleyjs.org/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+		<link href="http://parsleyjs.org/src/parsley.css" rel="stylesheet">
+	</head>
+	<body>
+		<form id="demo-form" data-parsley-validate>
+
+			<div>
+				<label>
+					Required
+					<input type="text" name="name" required />
+				</label>
+			</div>
+
+			<div>
+				<label>
+					Numbers only (Parsley)
+					<input type="text" name="name" data-parsley-type="integer" />
+				</label>
+			</div>
+
+			<div>
+				<label>
+					Numbers only (HTML5)
+					<input type="number" name="name" />
+				</label>
+			</div>
+
+			<div>
+				<label>
+					Numbers only (HTML5, Parsley)
+					<input type="number" name="name" data-parsley-type="integer" />
+				</label>
+			</div>
+
+			<input type="submit" value="submit" />
+		</form>
+
+		<script type="text/javascript" src="http://parsleyjs.org/bower_components/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="http://parsleyjs.org/dist/parsley.js"></script>
+	</body>
+</html>

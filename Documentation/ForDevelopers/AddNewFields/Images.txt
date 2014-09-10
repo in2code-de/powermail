@@ -1,0 +1,9 @@
+.. |img-typeselection|     image:: ../../Images/typeselection.jpg
+.. :align: left
+.. :border: 0
+.. :name: typeselection
+
+.. |img-typeselection2|     image:: ../../Images/typeselection2.jpg
+.. :align: left
+.. :border: 0
+.. :name: typeselection2
