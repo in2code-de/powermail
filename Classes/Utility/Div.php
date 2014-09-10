@@ -33,7 +33,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility,
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *            GNU Lesser General Public License, version 3 or later
  */
 class Div {
 
@@ -245,7 +245,7 @@ class Div {
 
 	/**
 	 * Generate a new array with markers and their values
-	 * 		firstname => value
+	 *        firstname => value
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
@@ -267,7 +267,7 @@ class Div {
 
 	/**
 	 * Generate a new array with labels
-	 * 		label_firstname => Firstname
+	 *        label_firstname => Firstname
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
@@ -285,7 +285,7 @@ class Div {
 
 	/**
 	 * Generate a new array their labels and respect FE language
-	 * 		Your Firstname: => value
+	 *        Your Firstname: => value
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array new array
@@ -426,7 +426,7 @@ class Div {
 	 */
 	public function htmlspecialcharsOnArray($array) {
 		$newArray = array();
-		foreach ((array) $array as $key => $value) {
+		foreach ((array)$array as $key => $value) {
 			if (is_array($value)) {
 				$newArray[htmlspecialchars($key)] = $this->htmlspecialcharsOnArray($value);
 			} else {
@@ -477,7 +477,11 @@ class Div {
 	 */
 	public function getEmailsFromString($string) {
 		$array = array();
-		$string = str_replace(array("\n", '|', ','), ';', $string);
+		$string = str_replace(array(
+			"\n",
+			'|',
+			','
+		), ';', $string);
 		$arr = GeneralUtility::trimExplode(';', $string, TRUE);
 		foreach ($arr as $email) {
 			$array[] = $email;
@@ -507,10 +511,10 @@ class Div {
 
 	/**
 	 * Create an options array (Needed for fieldsettings: select, radio, check)
-	 * 		option1 =>
-	 * 			label => Red Shoes
-	 * 			value => red
-	 * 			selected => 1
+	 *        option1 =>
+	 *            label => Red Shoes
+	 *            value => red
+	 *            selected => 1
 	 *
 	 * @param string $string Options from the Textarea
 	 * @param string $typoScriptObjectPath Path to TypoScript like lib.blabla
@@ -573,7 +577,7 @@ class Div {
 		}
 
 		// if too much values
-		foreach ((array) $arr as $key => $array) {
+		foreach ((array)$arr as $key => $array) {
 			$array = NULL;
 
 			if (count($arr[$key]) >= $max) {
@@ -789,7 +793,7 @@ class Div {
 			// get usergroups of owner user
 			$usergroupsFromOwner = $this->getUserGroupsFromUser($mail->getFeuser());
 			// add owner usergroups to allowed usergroups array
-			$usergroupsSettings = array_merge((array) $usergroupsSettings, (array) $usergroupsFromOwner);
+			$usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
 		}
 
 		// 1. check user
@@ -894,7 +898,7 @@ class Div {
 	 */
 	public static function viewPlainArray($array) {
 		$string = '';
-		foreach ((array) $array as $key => $value) {
+		foreach ((array)$array as $key => $value) {
 			$string .= $key . ': ' . $value . "\n";
 		}
 		return $string;
@@ -902,14 +906,14 @@ class Div {
 
 	/**
 	 * Store Marketing Information in Session
-	 * 		'refererDomain' => domain.org
-	 * 		'referer' => http://domain.org/xyz/test.html
-	 * 		'country' => Germany
-	 * 		'mobileDevice' => 1
-	 * 		'frontendLanguage' => 3
-	 * 		'browserLanguage' => en-us
-	 * 		'feUser' => userAbc
-	 * 		'pageFunnel' => array(2, 5, 1)
+	 *        'refererDomain' => domain.org
+	 *        'referer' => http://domain.org/xyz/test.html
+	 *        'country' => Germany
+	 *        'mobileDevice' => 1
+	 *        'frontendLanguage' => 3
+	 *        'browserLanguage' => en-us
+	 *        'feUser' => userAbc
+	 *        'pageFunnel' => array(2, 5, 1)
 	 *
 	 * @param \string $referer Referer
 	 * @param \int $language Frontend Language Uid
@@ -1021,7 +1025,7 @@ class Div {
 			// read existing values
 			$oldValues = self::getSessionValue($name);
 			// merge old values with new
-			$values = array_merge((array) $oldValues, (array) $values);
+			$values = array_merge((array)$oldValues, (array)$values);
 		}
 		$newValues = array(
 			$name => $values
@@ -1060,7 +1064,7 @@ class Div {
 		$startArray = $this->getVariablesWithMarkers($mail);
 
 		// one loop per table
-		foreach ((array) $conf['dbEntry.'] as $table => $settings) {
+		foreach ((array)$conf['dbEntry.'] as $table => $settings) {
 			$settings = NULL;
 
 			// remove ending .
@@ -1088,7 +1092,7 @@ class Div {
 			}
 
 			// one loop per field
-			foreach ((array) $conf['dbEntry.'][$table . '.'] as $field => $settingsInner) {
+			foreach ((array)$conf['dbEntry.'][$table . '.'] as $field => $settingsInner) {
 				$settingsInner = NULL;
 
 				// skip if key. or if it starts with _
@@ -1118,10 +1122,10 @@ class Div {
 
 	/**
 	 * Read pid from current URL
-	 * 		URL example:
-	 * 		http://powermailt361.in2code.de/typo3/alt_doc.php?
-	 * 		&returnUrl=%2Ftypo3%2Fsysext%2Fcms%2Flayout%2Fdb_layout.php%3Fid%3D17%23
-	 * 		element-tt_content-14&edit[tt_content][14]=edit
+	 *        URL example:
+	 *        http://powermailt361.in2code.de/typo3/alt_doc.php?
+	 *        &returnUrl=%2Ftypo3%2Fsysext%2Fcms%2Flayout%2Fdb_layout.php%3Fid%3D17%23
+	 *        element-tt_content-14&edit[tt_content][14]=edit
 	 *
 	 * @return int
 	 */
@@ -1140,7 +1144,7 @@ class Div {
 
 	/**
 	 * Get Subfolder of current TYPO3 Installation
-	 * 		and never return "//"
+	 *        and never return "//"
 	 *
 	 * @param bool $leadingSlash will be prepended
 	 * @param bool $trailingSlash will be appended
@@ -1185,8 +1189,8 @@ class Div {
 			$characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		}
 		$fileName = '';
-		for ($i = 0; $i <= $length; $i++) {
-			$key = mt_rand(0, strlen($characters));
+		for ($i = 0; $i < $length; $i++) {
+			$key = mt_rand(0, strlen($characters) - 1);
 			$fileName .= $characters[$key];
 		}
 		return $fileName;
@@ -1234,8 +1238,8 @@ class Div {
 
 	/**
 	 * Merges Flexform, TypoScript and Extension Manager Settings (up to 2 levels)
-	 * 		Note: It's not possible to have the same field in TypoScript and Flexform
-	 * 		and if FF value is empty, we want the TypoScript value instead
+	 *        Note: It's not possible to have the same field in TS and Flexform
+	 *        and if FF value is empty, we want the TypoScript value instead
 	 *
 	 * @param array $settings All settings
 	 * @param string $typoScriptLevel Startpoint
@@ -1253,7 +1257,7 @@ class Div {
 
 		if (isset($settings['flexform']) && is_array($settings['flexform'])) {
 			// copy flexform part to conf part
-			$temporarySettings = array_merge((array) $temporarySettings, (array) $settings['flexform']);
+			$temporarySettings = array_merge((array)$temporarySettings, (array)$settings['flexform']);
 		}
 
 		// merge ts and ff (loop every flexform)
@@ -1286,7 +1290,7 @@ class Div {
 		}
 
 		// merge ts and ff (loop every typoscript)
-		foreach ((array) $settings[$typoScriptLevel] as $key1 => $value1) {
+		foreach ((array)$settings[$typoScriptLevel] as $key1 => $value1) {
 			// 1. level
 			if (!is_array($value1)) {
 				// only if this key exists in ts and not in ff
@@ -1312,5 +1316,4 @@ class Div {
 		$settings = $temporarySettings;
 		unset($temporarySettings);
 	}
-
 }

@@ -209,4 +209,54 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		$result = \In2code\Powermail\Utility\Div::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);
 		$this->assertSame($result, $expectedResult);
 	}
+
+	/**
+	 * Data Provider for createRandomStringAlwaysReturnsStringsOfGivenLength
+	 *
+	 * @return array
+	 */
+	public function createRandomStringAlwaysReturnsStringsOfGivenLengthDateProvider() {
+		return array(
+			'default params' => array(
+				32,
+				TRUE,
+			),
+			'default length lowercase' => array(
+				32,
+				FALSE,
+			),
+			'60 length' => array(
+				60,
+				TRUE,
+			),
+			'60 length lowercase' => array(
+				60,
+				FALSE,
+			),
+		);
+	}
+
+	/**
+	 * createRandomStringAlwaysReturnsStringsOfGivenLength Test
+	 *
+	 * @param int $length
+	 * @param bool $uppercase
+	 * @dataProvider createRandomStringAlwaysReturnsStringsOfGivenLengthDateProvider
+	 * @return void
+	 * @test
+	 */
+	public function createRandomStringAlwaysReturnsStringsOfGivenLength($length, $uppercase) {
+		for ($i = 0; $i < 10; $i++) {
+			$string = \In2code\Powermail\Utility\Div::createRandomString($length, $uppercase);
+
+			if ($uppercase) {
+				$regex = '~[a-zA-Z0-9]{' . $length . '}~';
+			} else {
+				$regex = '~[a-z0-9]{' . $length . '}~';
+			}
+
+			$this->assertSame(1, preg_match($regex, $string));
+
+		}
+	}
 }

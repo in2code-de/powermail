@@ -92,7 +92,7 @@ class BasicFileFunctions {
 	 * Only allowed a-z, A-Z, 0-9, -, .
 	 * Others will be replaced
 	 *
-	 * @param string $filename
+	 * @param string &$filename
 	 * @param string $replace
 	 * @return void
 	 */
@@ -226,8 +226,8 @@ class BasicFileFunctions {
 	/**
 	 * Get Randomized Filename and overwrite $_FILES array
 	 *
-	 * @param $filename
-	 * @param $randomized
+	 * @param string &$filename
+	 * @param bool $randomized
 	 * @return void
 	 */
 	public function getAndSetRandomizedFileName(&$filename, $randomized) {
