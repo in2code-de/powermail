@@ -505,16 +505,25 @@ class Tx_Powermail_Utility_Div {
 		// add attachments from upload fields
 		if ($settings[$type]['attachment']) {
 			$uploadsFromSession = Tx_Powermail_Utility_Div::getSessionValue('upload'); // read upload session
-			foreach ((array) $uploadsFromSession as $file) {
-				$message->attach(Swift_Attachment::fromPath($file));
+			if (!empty($uploadsFromSession)) {
+				foreach ((array) $uploadsFromSession as $file) {
+					if (file_exists($file)) {
+						$message->attach(Swift_Attachment::fromPath($file));
+					}
+				}
 			}
 		}
 
 		// add attachments from typoscript
 		if ($cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.'])) {
 			$files = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.']), 1);
-			foreach ($files as $file) {
-				$message->attach(Swift_Attachment::fromPath($file));
+			if (!empty($files)) {
+				foreach ((array) $files as $file) {
+					if (file_exists($file)) {
+						$message->attach(Swift_Attachment::fromPath($file));
+
+					}
+				}
 			}
 		}
 		if ($mail['format'] != 'plain') {

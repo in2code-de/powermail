@@ -200,6 +200,7 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 		$this->signalSlotDispatcher->dispatch(
 			__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($field, $form, $mail, $this, $newMail)
 		);
+		Tx_Powermail_Utility_Div::setSessionValue('', array());
 		$this->view->assign('optinActive', (!$this->settings['main']['optin'] || ($this->settings['main']['optin'] && $mail) ? 0 : 1));
 	}
 
