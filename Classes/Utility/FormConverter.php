@@ -128,31 +128,6 @@ class FormConverter {
 	}
 
 	/**
-	 * Set flag to deleted=1 for old stuff
-	 *
-	 * @param array $oldFormsWithFieldsetsAndFields
-	 * @return void
-	 */
-	protected function deleteOldRecords($oldFormsWithFieldsetsAndFields) {
-		if ($this->getDryrun() || !$this->deleteOldForms) {
-			return;
-		}
-		foreach ($oldFormsWithFieldsetsAndFields as $ttContent) {
-			// ignore hidden forms
-			if ($ttContent['hidden'] === '1' && $this->configuration['hidden'] === '1') {
-				continue;
-			}
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('tt_content', 'uid = ' . $ttContent['uid'], array('deleted' => 1));
-			foreach ($ttContent['_fieldsets'] as $fieldset) {
-				$GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_powermail_fieldsets', 'uid = ' . $fieldset['uid'], array('deleted' => 1));
-				foreach ($fieldset['_fields'] as $field) {
-					$GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_powermail_fields', 'uid = ' . $field['uid'], array('deleted' => 1));
-				}
-			}
-		}
-	}
-
-	/**
 	 * Create tt_content record
 	 *
 	 * @param array $form
@@ -200,8 +175,8 @@ class FormConverter {
 	 * @return int $formUid
 	 */
 	protected function createFormRecord($form, $formCounter) {
-		$formUid = 0;
 		$formProperties = array(
+			'uid' => 0,
 			'pid' => ($this->configuration['save'] === '[samePage]' ? $form['pid'] : intval($this->configuration['save'])),
 			'title' => $form['tx_powermail_title'],
 			'pages' => $form['tx_powermail_fieldsets'],
@@ -214,20 +189,20 @@ class FormConverter {
 			$formProperties['sys_language_uid'] = $form['sys_language_uid'];
 			$formProperties['l10n_parent'] = $this->localizationRelations['form'][$form['l18n_parent']];
 		}
-		$this->result[$formCounter] = $formProperties;
 		if (!$this->getDryrun()) {
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_domain_model_forms', $formProperties);
-			$formUid = $GLOBALS['TYPO3_DB']->sql_insert_id();
-			$this->localizationRelations['form'][$form['uid']] = $formUid;
+			$formProperties['uid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
+			$this->localizationRelations['form'][$form['uid']] = $formProperties['uid'];
 		}
+		$this->result[$formCounter] = $formProperties;
 
 		// create pages
 		$pageCounter = 0;
 		foreach ((array) $form['_fieldsets'] as $page) {
-			$this->createPageRecord($form, $page, $formUid, $formCounter, $pageCounter);
+			$this->createPageRecord($form, $page, $formProperties['uid'], $formCounter, $pageCounter);
 			$pageCounter++;
 		}
-		return $formUid;
+		return $formProperties['uid'];
 	}
 
 	/**
@@ -241,8 +216,8 @@ class FormConverter {
 	 * @return void
 	 */
 	protected function createPageRecord($form, $page, $formUid, $formCounter, $pageCounter) {
-		$pageUid = 0;
 		$pageProperties = array(
+			'uid' => 0,
 			'pid' => ($this->configuration['save'] === '[samePage]' ? $form['pid'] : intval($this->configuration['save'])),
 			'forms' => $formUid,
 			'title' => $page['title'],
@@ -258,12 +233,12 @@ class FormConverter {
 			$pageProperties['l10n_parent'] = $this->localizationRelations['page'][$page['l18n_parent']];
 			unset($pageProperties['forms']);
 		}
-		$this->result[$formCounter]['_pages'][$pageCounter] = $pageProperties;
 		if (!$this->getDryrun()) {
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_domain_model_pages', $pageProperties);
-			$pageUid = $GLOBALS['TYPO3_DB']->sql_insert_id();
-			$this->localizationRelations['page'][$page['uid']] = $pageUid;
+			$pageProperties['uid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
+			$this->localizationRelations['page'][$page['uid']] = $pageProperties['uid'];
 		}
+		$this->result[$formCounter]['_pages'][$pageCounter] = $pageProperties;
 
 		// create fields
 		$fieldCounter = 0;
@@ -271,7 +246,7 @@ class FormConverter {
 			if (!$this->rewriteFormType($field)) {
 				continue;
 			}
-			$this->createFieldRecord($form, $pageUid, $field, $formCounter, $pageCounter, $fieldCounter);
+			$this->createFieldRecord($form, $pageProperties['uid'], $field, $formCounter, $pageCounter, $fieldCounter);
 			$fieldCounter++;
 		}
 	}
@@ -289,6 +264,7 @@ class FormConverter {
 	 */
 	protected function createFieldRecord($form, $pageUid, $field, $formCounter, $pageCounter, $fieldCounter) {
 		$fieldProperties = array(
+			'uid' => 0,
 			'pid' => ($this->configuration['save'] === '[samePage]' ? $form['pid'] : intval($this->configuration['save'])),
 			'pages' => $pageUid,
 			'title' => $field['title'],
@@ -320,12 +296,12 @@ class FormConverter {
 			$fieldProperties['l10n_parent'] = $this->localizationRelations['field'][$field['l18n_parent']];
 			unset($fieldProperties['pages']);
 		}
-		$this->result[$formCounter]['_pages'][$pageCounter]['_fields'][$fieldCounter] = $fieldProperties;
 		if (!$this->getDryrun()) {
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_domain_model_fields', $fieldProperties);
-			$fieldUid = $GLOBALS['TYPO3_DB']->sql_insert_id();
-			$this->localizationRelations['field'][$field['uid']] = $fieldUid;
+			$fieldProperties['uid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
+			$this->localizationRelations['field'][$field['uid']] = $fieldProperties['uid'];
 		}
+		$this->result[$formCounter]['_pages'][$pageCounter]['_fields'][$fieldCounter] = $fieldProperties;
 	}
 
 	/**
@@ -362,6 +338,31 @@ class FormConverter {
 		$view->assignMultiple($form);
 
 		return $view->render();
+	}
+
+	/**
+	 * Set flag to deleted=1 for old stuff
+	 *
+	 * @param array $oldFormsWithFieldsetsAndFields
+	 * @return void
+	 */
+	protected function deleteOldRecords($oldFormsWithFieldsetsAndFields) {
+		if ($this->getDryrun() || !$this->deleteOldForms) {
+			return;
+		}
+		foreach ($oldFormsWithFieldsetsAndFields as $ttContent) {
+			// ignore hidden forms
+			if ($ttContent['hidden'] === '1' && $this->configuration['hidden'] === '1') {
+				continue;
+			}
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('tt_content', 'uid = ' . $ttContent['uid'], array('deleted' => 1));
+			foreach ($ttContent['_fieldsets'] as $fieldset) {
+				$GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_powermail_fieldsets', 'uid = ' . $fieldset['uid'], array('deleted' => 1));
+				foreach ($fieldset['_fields'] as $field) {
+					$GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_powermail_fields', 'uid = ' . $field['uid'], array('deleted' => 1));
+				}
+			}
+		}
 	}
 
 	/**
