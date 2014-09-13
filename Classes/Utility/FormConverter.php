@@ -334,8 +334,13 @@ class FormConverter {
 		if ($form['sys_language_uid'] > 0) {
 			$formUid = $this->localizationRelations['form'][$form['l18n_parent']];
 		}
-		$view->assign('formUid', $formUid);
-		$view->assignMultiple($form);
+		$view->assignMultiple(
+			array(
+				'formUid' => $formUid,
+				'form' => $form,
+				'configuration' => $this->configuration
+			)
+		);
 
 		return $view->render();
 	}
