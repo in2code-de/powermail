@@ -725,7 +725,7 @@ Explanation
    :Description:
       Validate the user input with a validator.
    :Explanation:
-      Possible Validation Methods are: Email, URL, Phone, Numbers only, Letters only, Min Number, Max Number, Range, Length, Pattern (RegEx)
+      Possible Validation Methods are: Email, URL, Phone, Numbers only, Letters only, Min Number, Max Number, Range, Length, Pattern (RegEx) - see table below for more details.
    :Tab:
       Extended
 
@@ -827,6 +827,186 @@ Explanation
       Same function as known from default content elements or pages in TYPO3.
    :Tab:
       Access
+
+Validation
+''''''''''
+
+Administrator can enable or disable the validation in general with TypoScript (see TypoScript part in manual).
+
+- HTML5 Validation
+- Clientside Validation with JavaScript (see parsleyjs.org)
+- Serverside Validation with PHP
+
+.. t3-field-list-table::
+ :header-rows: 1
+
+ - :Type:
+      Validation Type
+   :Description:
+      Description
+   :Examples:
+      Examples
+   :Note:
+      Note
+
+ - :Type:
+      Mandatory
+   :Description:
+      This simple checkbox forces the user to add a value for the current field.
+   :Examples:
+      ::
+
+        any text
+   :Note:
+      The HTML5 attribute required="required" is used if HTML5-Validation is turned on.
+
+ - :Type:
+      Email
+   :Description:
+      If email validation is turned on, the visitor has to fill in the field with a correct email address or let it empty.
+   :Examples:
+      ::
+
+        firstname.lastname@domain.org
+        name@subdomain.domain.org
+   :Note:
+      input with type="email" is used if HTML5-Validation is turned on.
+
+ - :Type:
+      URL
+   :Description:
+      If url validation is turned on, the visitor has to fill in the field with a correct url.
+   :Examples:
+      ::
+
+        http://www.test.org
+        www.test.org
+   :Note:
+      No HTML5 attribute - type="text" is used
+
+
+ - :Type:
+      Phone
+   :Description:
+      If turned on, visitor must leave a string with a phone syntax.
+   :Examples:
+      ::
+
+        01234567890
+        0123 4567890
+        0123 456 789
+        (0123) 45678 - 90
+        0012 345 678 9012
+        0012 (0)345 / 67890 - 12
+        +123456789012
+        +12 345 678 9012
+        +12 3456 7890123
+        +49 (0) 123 3456789
+        +49 (0)123 / 34567 - 89
+   :Note:
+      input with type="tel" is used if HTML5-Validation is turned on.
+
+ - :Type:
+      Numbers only
+   :Description:
+      If turned on, visitor can only fill in numbers (no space or other characters allowed)
+   :Examples:
+      ::
+
+        123
+        68465135135135185
+   :Note:
+      input with type="number" is used if HTML5-Validation is turned on.
+
+ - :Type:
+      Letters only
+   :Description:
+      If turned on, visitor can only fill in letters (no space or numbers allowed)
+   :Examples:
+      ::
+
+        abc
+        qwertz
+   :Note:
+      No HTML5 attribute - type="text" is used
+
+ - :Type:
+      Min Number
+   :Description:
+      Min Number is used to check if a number (integer) is greater then a configured number.
+      So the visitor has to insert an integer.
+
+      If turned on, an additional field "Validation Configuration" comes up. Validation depends on the value in this field.
+      The editor should enter an integer in this field - e.g. 3
+   :Examples:
+      ::
+
+        3 => 4 or 5 or 1000 or more
+        123 => 124 or 1000 or 99999 or more
+   :Note:
+      No HTML5 attribute - type="text" is used
+
+ - :Type:
+      Max Number
+   :Description:
+      Max Number is used to check if a number (integer) is less then a configured number.
+      So the visitor has to insert an integer.
+
+      If turned on, an additional field "Validation Configuration" comes up. Validation depends on the value in this field.
+      The editor should enter an integer in this field - e.g. 3
+   :Examples:
+      ::
+
+        3 => 2 or 1 or 0
+        123 => 122 or 100 or 10 or less
+   :Note:
+      No HTML5 attribute - type="text" is used
+
+ - :Type:
+      Range
+   :Description:
+      Range allows the visitor to add an integer between a start and a stop value.
+
+      If turned on, an additional field "Validation Configuration" comes up. Validation depends on the value in this field.
+      The editor should enter a start and a stop value - e.g. 5,15 for start with 5 and stop with 15
+   :Examples:
+      ::
+
+        5,15 => 5 or 10 or 15
+        0,100 => 1 or 25 or 100
+   :Note:
+      input with type="range" is used if HTML5-Validation is turned on.
+
+ - :Type:
+      Length
+   :Description:
+      Length allows the visitor to add characters and numbers. But the length is validated.
+
+      If turned on, an additional field "Validation Configuration" comes up. Validation depends on the value in this field.
+      The editor should enter a start and a stop length - e.g. 5,15 for startlength on 5 and stoplength on 15
+   :Examples:
+      ::
+
+        5,15 => ab or abc23efg or abcdefghijklmno
+        0,3 => 1 or ab or abc
+   :Note:
+      No HTML5 attribute - type="text" is used
+
+ - :Type:
+      Pattern
+   :Description:
+      The visitors input will be validated against a regulare expression.
+
+      If turned on, an additional field "Validation Configuration" comes up. Validation depends on the value in this field.
+      The editor can add a regulare expression in this field. See http://bueltge.de/php-regular-expression-schnipsel/917/ for a lot of examples and an introduction to pattern.
+   :Examples:
+      ::
+
+        ~https?://.+~ => An url with https beginning - https://www.test.org
+
+        ^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$ => IP addresses - 192.168.0.1
+   :Note:
+      No HTML5 attribute - type="text" is used
 
 
 .. _textarea:

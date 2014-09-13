@@ -17,6 +17,7 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper {
 	protected $html5InputTypes = array(
 		1 => 'email',
 		2 => 'url',
+		3 => 'tel',
 		4 => 'number',
 		8 => 'range'
 	);

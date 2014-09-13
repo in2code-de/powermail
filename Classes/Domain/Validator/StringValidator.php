@@ -73,13 +73,13 @@ class StringValidator extends \In2code\Powermail\Domain\Validator\AbstractValida
 	 * 		0123 4567890
 	 * 		01234567890
 	 * 		+12 345 6789012
-	 * 		+12 345 678 9012
+	 * 			see StringValidatorTest for all possibility
 	 *
 	 * @param \string $value
 	 * @return bool
 	 */
 	protected function validatePhone($value) {
-		preg_match('/((\+[\d]{2}|0)\s[\d]{3,}\s[\d\s]+|[0-9 ]+)/', $value, $result);
+		preg_match('/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/', $value, $result);
 		if (!empty($result[0]) && $result[0] === $value) {
 			return TRUE;
 		}
