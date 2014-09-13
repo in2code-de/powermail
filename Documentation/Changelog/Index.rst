@@ -20,9 +20,29 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
  - :Version:
       2.1.0
    :Date:
-      2014-08-01
+      2014-09-10
    :Changes:
-      Complete Refactored Powermail - Enjoy
+      Refactored Powermail 2 extension with a lot of usability improvements, a powermail 1.x formconverter and a lot of new cool stuff. See forge.typo3.org for details. We're looking forward for your feedback. Thank to the universities, who sponsored this version!
+
+      See http://forge.typo3.org for Details
+
+ - :Version:
+      2.0.17
+   :Date:
+      2014-09-05
+   :Changes:
+      Small Bugfix updates
+
+      See http://forge.typo3.org for Details
+
+ - :Version:
+      2.0.16
+   :Date:
+      2014-06-26
+   :Changes:
+      Bugfix updates #59902, #54648, #53786
+
+      Feature updates #59395
 
       See http://forge.typo3.org for Details
 
