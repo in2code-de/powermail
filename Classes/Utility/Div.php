@@ -213,10 +213,10 @@ class Div {
 	 */
 	public function powermailAll(\In2code\Powermail\Domain\Model\Mail $mail, $section = 'web', $settings = array()) {
 		$powermailAll = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
-		$templatePathAndFilename = $this->getTemplatePath() . 'Form/PowermailAll.html';
+		$templatePathAndFilename = $this->getTemplateFolder() . 'Form/PowermailAll.html';
 		$powermailAll->setTemplatePathAndFilename($templatePathAndFilename);
-		$powermailAll->setLayoutRootPath($this->getTemplatePath('layout'));
-		$powermailAll->setPartialRootPath($this->getTemplatePath('partial'));
+		$powermailAll->setLayoutRootPath($this->getTemplateFolder('layout'));
+		$powermailAll->setPartialRootPath($this->getTemplateFolder('partial'));
 		$powermailAll->assign('mail', $mail);
 		$powermailAll->assign('section', $section);
 		$powermailAll->assign('settings', $settings);
@@ -231,7 +231,7 @@ class Div {
 	 * @param string $part "template", "partial", "layout"
 	 * @return string
 	 */
-	public function getTemplatePath($part = 'template') {
+	public function getTemplateFolder($part = 'template') {
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
 			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
 		);
@@ -241,6 +241,38 @@ class Div {
 		}
 		$absoluteTemplatePath = GeneralUtility::getFileAbsFileName($templatePath);
 		return $absoluteTemplatePath;
+	}
+
+	/**
+	 * Return path and filename for a file
+	 * 		respect *RootPaths and *RootPath
+	 *
+	 * @param string $relativePathAndFilename e.g. Email/Name.html
+	 * @param string $part "template", "partial", "layout"
+	 * @return string
+	 */
+	public function getTemplatePath($relativePathAndFilename, $part = 'template') {
+		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
+			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+		);
+		if (!empty($extbaseFrameworkConfiguration['view'][$part . 'RootPaths'])) {
+			foreach ($extbaseFrameworkConfiguration['view'][$part . 'RootPaths'] as $path) {
+				$absolutePath = GeneralUtility::getFileAbsFileName($path);
+				if (file_exists($absolutePath . $relativePathAndFilename)) {
+					$absolutePathAndFilename = $absolutePath . $relativePathAndFilename;
+				}
+			}
+		} else {
+			$absolutePathAndFilename = GeneralUtility::getFileAbsFileName(
+				$extbaseFrameworkConfiguration['view'][$part . 'RootPath'] . $relativePathAndFilename
+			);
+		}
+		if (empty($absolutePathAndFilename)) {
+			$absolutePathAndFilename = GeneralUtility::getFileAbsFileName(
+				'EXT:powermail/Resources/Private/' . ucfirst($part) . 's/' . $relativePathAndFilename
+			);
+		}
+		return $absolutePathAndFilename;
 	}
 
 	/**
