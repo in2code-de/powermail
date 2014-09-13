@@ -425,8 +425,12 @@
 				<target state="translated">Standard Sender-E-Mail für Bestätigungs-E-Mail</target>
 			</trans-unit>
 			<trans-unit id="BackendConverterFormDefaultParseFunc">
-				<source>RTE ParseFunc Path in TypoScript (without prefix lib.). If you have trouble with form converting, you can also clean this value completely.</source>
-				<target state="translated">RTE ParseFunc Pfad in TypoScript (ohne Präfix lib.). Wenn beim Konvertieren Probleme auftreten, kann testweise dieses Feld komplett geleert werden.</target>
+				<source>ParseFunc Path in TypoScript (without prefix lib.).</source>
+				<target state="translated">ParseFunc Pfad in TypoScript (ohne Präfix lib.).</target>
+			</trans-unit>
+			<trans-unit id="BackendConverterFormDefaultParseFuncTroubleText">
+				<source>If you have trouble with form converting, you can let this value completely empty.</source>
+				<target state="translated">Wenn beim Konvertieren Probleme auftreten, kann dieses Feld komplett leer gelassen werden.</target>
 			</trans-unit>
 			<trans-unit id="BackendConverterFormHidden">
 				<source>Ignore Old Hidden Forms</source>

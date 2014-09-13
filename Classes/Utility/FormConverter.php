@@ -604,15 +604,16 @@ class FormConverter {
 			$GLOBALS['TT']->start();
 		}
 		if (!is_object($GLOBALS['TSFE'])) {
+			$id = (GeneralUtility::_GP('id') ? GeneralUtility::_GP('id') : 1);
 			$GLOBALS['TSFE'] = new \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController(
-				$GLOBALS['TYPO3_CONF_VARS'], 1, 0, 0, 0, 0, 0, 0
+				$GLOBALS['TYPO3_CONF_VARS'], $id, 0, 0, 0, 0, 0, 0
 			);
 			$GLOBALS['TSFE']->tmpl = GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\ExtendedTemplateService');
 			$GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\Page\PageRepository');
 			$GLOBALS['TSFE']->tmpl->tt_track = 0;
 			$GLOBALS['TSFE']->tmpl->init();
-			$rootLine = $GLOBALS['TSFE']->sys_page->getRootLine(1);
-			$GLOBALS['TSFE']->tmpl->runThroughTemplates($rootLine, 1);
+			$rootLine = $GLOBALS['TSFE']->sys_page->getRootLine($id);
+			$GLOBALS['TSFE']->tmpl->runThroughTemplates($rootLine);
 			$GLOBALS['TSFE']->tmpl->generateConfig();
 			$GLOBALS['TSFE']->tmpl->loaded = 1;
 			$GLOBALS['TSFE']->getConfigArray();

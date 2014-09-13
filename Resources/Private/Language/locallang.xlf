@@ -319,7 +319,10 @@
 				<source>Default Sender Email for Confirmation Mail</source>
 			</trans-unit>
 			<trans-unit id="BackendConverterFormDefaultParseFunc">
-				<source>RTE ParseFunc Path in TypoScript (without prefix lib.). If you have trouble with form converting, you can also clean this value completely.</source>
+				<source>ParseFunc Path in TypoScript (without prefix lib.).</source>
+			</trans-unit>
+			<trans-unit id="BackendConverterFormDefaultParseFuncTroubleText">
+				<source>If you have trouble with form converting, you can let this value completely empty.</source>
 			</trans-unit>
 			<trans-unit id="BackendConverterFormHidden">
 				<source>Ignore Old Hidden Forms</source>
