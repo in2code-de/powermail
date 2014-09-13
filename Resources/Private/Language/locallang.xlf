@@ -448,7 +448,7 @@
 				<source>Extension Manager Updated</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckExtMngConfigCorrect">
-				<source>Extension was not correct installed - all settings available from localconf.php</source>
+				<source>Extension is correct installed - all settings available from localconf.php</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckExtMngConfigFailed">
 				<source>Extension was not correct installed - please click the update button in the Extension Manager</source>

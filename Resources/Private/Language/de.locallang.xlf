@@ -601,7 +601,7 @@
 				<target state="translated">Aktualisierter Extension Manager</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckExtMngConfigCorrect">
-				<source>Extension was not correct installed - all settings available from localconf.php</source>
+				<source>Extension is correct installed - all settings available from localconf.php</source>
 				<target state="translated">Extension wurde korrekt installiert - alle Einstellungen aus der localconf.php sind lesbar</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckExtMngConfigFailed">
