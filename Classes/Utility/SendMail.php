@@ -251,8 +251,8 @@ class SendMail {
 	 * @return bool
 	 */
 	protected function createEmailBody($email, \In2code\Powermail\Domain\Model\Mail &$mail, $settings) {
-		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailBodyObject */
-		$emailBodyObject = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
+		/** @var \In2code\Powermail\Utility\StandaloneViewMultiplePaths $emailBodyObject */
+		$emailBodyObject = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
 		$emailBodyObject->getRequest()->setControllerExtensionName('Powermail');
 		$emailBodyObject->getRequest()->setPluginName('Pi1');
 		$emailBodyObject->getRequest()->setControllerName('Form');
@@ -260,8 +260,8 @@ class SendMail {
 		$emailBodyObject->setTemplatePathAndFilename(
 			$this->div->getTemplatePath($email['template'] . '.html')
 		);
-		$emailBodyObject->setLayoutRootPath($this->div->getTemplateFolder('layout'));
-		$emailBodyObject->setPartialRootPath($this->div->getTemplateFolder('partial'));
+		$emailBodyObject->setLayoutRootPaths($this->div->getTemplateFolders('layout'));
+		$emailBodyObject->setPartialRootPaths($this->div->getTemplateFolders('partial'));
 
 		// get variables
 		// additional variables
