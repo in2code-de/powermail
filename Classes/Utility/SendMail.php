@@ -279,7 +279,11 @@ class SendMail {
 		$emailBodyObject->assign('marketingInfos', Div::getMarketingInfos());
 		$emailBodyObject->assign('mail', $mail);
 
-		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRender', array($emailBodyObject, $email, $mail, $settings));
+		$this->signalSlotDispatcher->dispatch(
+			__CLASS__,
+			__FUNCTION__ . 'BeforeRender',
+			array($emailBodyObject, $email, $mail, $settings)
+		);
 
 		$body = $emailBodyObject->render();
 		$mail->setBody($body);

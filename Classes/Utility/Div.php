@@ -227,8 +227,8 @@ class Div {
 
 	/**
 	 * Get absolute path for templates with fallback
-	 *
-	 * In case of multiple paths this will just return the first one. See getTemplateFolders() for an array of paths.
+	 * 		In case of multiple paths this will just return the first one.
+	 * 		See getTemplateFolders() for an array of paths.
 	 *
 	 * @param string $part "template", "partial", "layout"
 	 * @return string
@@ -241,11 +241,13 @@ class Div {
 
 	/**
 	 * Get absolute paths for templates with fallback
-	 *
-	 * Returns paths from *RootPaths and *RootPath and "hardcoded" paths pointing to the EXT:powermial-resources.
+	 * 		Returns paths from *RootPaths and *RootPath and "hardcoded"
+	 * 		paths pointing to the EXT:powermail-resources.
 	 *
 	 * @param string $part "template", "partial", "layout"
-	 * @param boolean $returnAllPaths Default: FALSE. If FALSE only paths for the first configuration (Paths, Path, hardcoded) will be returned. If TRUE all (possible) paths will be returned.
+	 * @param boolean $returnAllPaths Default: FALSE, If FALSE only paths
+	 * 		for the first configuration (Paths, Path, hardcoded)
+	 * 		will be returned. If TRUE all (possible) paths will be returned.
 	 * @return array
 	 */
 	public function getTemplateFolders($part = 'template', $returnAllPaths = FALSE) {
@@ -276,7 +278,8 @@ class Div {
 	}
 
 	/**
-	 * Return path and filename for a file or path. Only the first existing file/path will be returned.
+	 * Return path and filename for a file or path.
+	 * 		Only the first existing file/path will be returned.
 	 * 		respect *RootPaths and *RootPath
 	 *
 	 * @param string $relativePathAndFilename e.g. Email/Name.html
@@ -289,10 +292,11 @@ class Div {
 	}
 
 	/**
-	 * Return path and filename for one or many files/paths. Only existing files/paths will be returned.
+	 * Return path and filename for one or many files/paths.
+	 * 		Only existing files/paths will be returned.
 	 * 		respect *RootPaths and *RootPath
 	 *
-	 * @param string $relativePathAndFilename Path and filename (e.g. Email/Name.html) or just a pathname
+	 * @param string $relativePathAndFilename Path/filename (Email/Name.html) or path
 	 * @param string $part "template", "partial", "layout"
 	 * @return array All existing matches found
 	 */
