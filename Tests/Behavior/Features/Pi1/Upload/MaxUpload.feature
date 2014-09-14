@@ -1,5 +1,5 @@
 # Features/Pi1/Upload/MaxUpload.feature
-@Pi1UploadMaxUpload
+@Pi1 @Pi1Upload @Pi1UploadMaxUpload
 Feature: MaxUpload
   In order to see a word definition
   As a website user

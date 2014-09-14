@@ -1,5 +1,5 @@
 # Features/Pi1/Validation/NumberEmailValidation.feature
-@Pi1ValidationNumberEmailValidation
+@Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscNumberEmailValidation
 Feature: NumberEmailValidation
   In order to see a word definition
   As a website user

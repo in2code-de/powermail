@@ -1,5 +1,5 @@
 # Features/Pi1/Default/ShortForm.feature
-@Pi1DefaultShortFormAjax
+@Pi1 @Pi1Default @Pi1DefaultShortFormAjax
 Feature: ShortFormAjax
   In order to see a word definition
   As a website user

@@ -1,5 +1,5 @@
 # Features/Pi1/Upload/RandomizedUpload.feature
-@Pi1UploadRandomizedUpload
+@Pi1 @Pi1Upload @Pi1UploadRandomizedUpload
 Feature: RandomizedUpload
   In order to see a word definition
   As a website user

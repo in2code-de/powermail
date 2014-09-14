@@ -1,5 +1,5 @@
 # Features/Pi1/Default/ShortForm.feature
-@Pi1DefaultShortForm
+@Pi1 @Pi1Default @Pi1DefaultShortForm
 Feature: ShortForm
   In order to see a word definition
   As a website user

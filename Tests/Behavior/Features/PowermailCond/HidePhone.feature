@@ -1,5 +1,5 @@
 # Features/PowermailCond/HidePhone.feature
-@PowermailCondHidePhone
+@PowermailCond @PowermailCondHidePhone
 Feature: HidePhone
 
   @javascript

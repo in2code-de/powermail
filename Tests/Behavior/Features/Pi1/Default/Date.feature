@@ -1,5 +1,5 @@
 # Features/Pi1/Default/Date.feature
-@Pi1DefaultDate
+@Pi1 @Pi1Default @Pi1DefaultDate
 Feature: Date
   In order to see a word definition
   As a website user

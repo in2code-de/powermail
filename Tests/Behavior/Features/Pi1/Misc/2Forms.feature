@@ -1,5 +1,5 @@
 # Features/Pi1/Misc/2Forms.feature
-@Pi1Misc2Forms
+@Pi1 @Pi1Misc @Pi1Misc2Forms
 Feature: 2Forms
 
   Scenario: Check if 2 Powermail Forms work properly on one page

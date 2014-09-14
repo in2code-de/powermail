@@ -1,5 +1,5 @@
 # Features/TYPO3/Start.feature
-@TYPO3Start
+@TYPO3 @TYPO3Start
 Feature: Search
   In order to see a word definition
   As a website user

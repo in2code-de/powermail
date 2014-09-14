@@ -1,5 +1,5 @@
 # Features/Pi1/Default/AllFields.feature
-@Pi1DefaultAllFields
+@Pi1 @Pi1Default @Pi1DefaultAllFields
 Feature: AllFields
   In order to see a word definition
   As a website user

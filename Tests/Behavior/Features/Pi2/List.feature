@@ -1,5 +1,5 @@
 # Features/Pi2/List.feature
-@Pi2List
+@Pi2 @Pi2List
 Feature: List
 
   @Pi2ListEntry

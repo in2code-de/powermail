@@ -1,11 +1,11 @@
 # Features/Pi1/Validation/Html5Validation.feature
-@Pi1ValidationHtml5Validation
+@Pi1 @Pi1Validation @Pi1ValidationMandatory @Pi1ValidationMandatoryHtml5Validation
 Feature: Html5Validation
   In order to see a word definition
   As a website user
   I need to be able to submit a form
 
-  @javascript @Pi1ValidationHtml5Validation0
+  @javascript
   Scenario: Check if mandatory Validation works (on &L=0)
     Given I am on "/index.php?id=27"
     Then I should see "Input"

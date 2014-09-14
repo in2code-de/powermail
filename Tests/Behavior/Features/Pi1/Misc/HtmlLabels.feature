@@ -1,5 +1,5 @@
 # Features/Pi1/Misc/HtmlLabels.feature
-@Pi1MiscHtmlLabels
+@Pi1 @Pi1Misc @Pi1MiscHtmlLabels
 Feature: HtmlLabels
   In order to see a word definition
   As a website user

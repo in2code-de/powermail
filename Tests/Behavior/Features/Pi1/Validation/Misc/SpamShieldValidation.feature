@@ -1,5 +1,5 @@
 # Features/Pi1/Validation/SpamShieldValidation.feature
-@Pi1ValidationSpamShieldValidation
+@Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscSpamShieldValidation
 Feature: SpamShieldValidation
   In order to see a word definition
   As a website user
