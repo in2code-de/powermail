@@ -41,7 +41,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Set different mandatory attributes
 	 *
-	 * @param \array $dataArray
+	 * @param \array &$dataArray
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @param \mixed $iteration
 	 * @return void
@@ -110,7 +110,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Set different validation attributes
 	 *
-	 * @param \array $dataArray
+	 * @param \array &$dataArray
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return void
 	 */
@@ -154,16 +154,19 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 			 * 		+12 345 678 9012
 			 *
 			 * html5 example:
-			 * 		<input type="text" pattern="((\+[\d]{2}|0)\s[\d]{3,}\s[\d\s]+|[0-9 ]+)" />
+			 * 		<input type="text"
+			 * 			pattern="/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
 			 * javascript example:
-			 * 		<input ... data-parsley-pattern="((\+[\d]{2}|0)\s[\d]{3,}\s[\d\s]+|[0-9 ]+)" />
+			 * 		<input ... data-parsley-pattern=
+			 * 			"/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
 			 */
 			case 3:
+				$pattern = '/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/';
 				if ($this->isNativeValidationEnabled()) {
-					$dataArray['pattern'] = '((\+[\d]{2}|0)\s[\d]{3,}\s[\d\s]+|[0-9 ]+)';
+					$dataArray['pattern'] = $pattern;
 				} else {
 					if ($this->isClientValidationEnabled()) {
-						$dataArray['data-parsley-pattern'] = '((\+[\d]{2}|0)\s[\d]{3,}\s[\d\s]+|[0-9 ]+)';
+						$dataArray['data-parsley-pattern'] = $pattern;
 					}
 				}
 				break;
@@ -327,7 +330,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Set different remote validation attributes
 	 *
-	 * @param \array $dataArray
+	 * @param \array &$dataArray
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return void
 	 */

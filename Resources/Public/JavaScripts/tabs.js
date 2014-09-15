@@ -31,7 +31,8 @@ jQuery(document).ready(function() {
 			header: 'legend',
 			tabs: true,
 			navigation: true,
-			openTabOnError: true
+			openTabOnError: true,
+			tabIndex: true
 		}, options);
 
 		// initial show first fieldset
@@ -204,24 +205,27 @@ jQuery(document).ready(function() {
 			'id': 'powermail_tabmenu',
 			'class': 'powermail_tabmenu'
 		}).insertBefore(
-				element.children(options.container).filter(':first')
+			element.children(options.container).filter(':first')
 		);
 
 		// all containers
 		element.children(options.container).each(function(i, $fieldset){
 			//tab_menu
-			$ul.append(
-				$('<li/>')
-					.html($(this).children(options.header).html())
-					.addClass((i==0) ? 'act' : '')
-					.click({
-						container: element.children(options.container),
-						fieldset: $($fieldset)
-					}, function() {
-						var indexTab = $('.powermail_tabmenu li', element).index($(this));
-						showTab($(this), element, options, indexTab);
-					})
-			)
+			var li = $('<li/>')
+				.html($(this).children(options.header).html())
+				.addClass((i==0) ? 'act' : '')
+				.addClass('item' + i)
+				.on('click keypress', {
+					container: element.children(options.container),
+					fieldset: $($fieldset)
+				}, function() {
+					var indexTab = $('.powermail_tabmenu li', element).index($(this));
+					showTab($(this), element, options, indexTab);
+				});
+			if (options.tabIndex) {
+				li.prop('tabindex', i);
+			}
+			$ul.append(li);
 		});
 	}
 });

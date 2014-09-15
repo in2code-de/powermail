@@ -86,7 +86,7 @@ class SendMail {
 	 * 		$email['template'] = 'PathToTemplate/';
 	 * 		$email['rteBody'] = 'This is the <b>content</b> of the RTE';
 	 * 		$email['format'] = 'both'; // or plain or html
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param \In2code\Powermail\Domain\Model\Mail &$mail
 	 * @param array $settings TypoScript Settings
 	 * @param string $type Email to "sender" or "receiver"
 	 * @return bool Mail successfully sent
@@ -246,20 +246,22 @@ class SendMail {
 	 * Create Email Body
 	 *
 	 * @param array $email Array with all needed mail information
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param \In2code\Powermail\Domain\Model\Mail &$mail
 	 * @param array $settings TypoScript Settings
 	 * @return bool
 	 */
 	protected function createEmailBody($email, \In2code\Powermail\Domain\Model\Mail &$mail, $settings) {
-		$emailBodyObject = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
+		/** @var \In2code\Powermail\Utility\StandaloneViewMultiplePaths $emailBodyObject */
+		$emailBodyObject = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
 		$emailBodyObject->getRequest()->setControllerExtensionName('Powermail');
 		$emailBodyObject->getRequest()->setPluginName('Pi1');
 		$emailBodyObject->getRequest()->setControllerName('Form');
 		$emailBodyObject->setFormat('html');
-		$templatePathAndFilename = $this->div->getTemplatePath() . $email['template'] . '.html';
-		$emailBodyObject->setTemplatePathAndFilename($templatePathAndFilename);
-		$emailBodyObject->setLayoutRootPath($this->div->getTemplatePath('layout'));
-		$emailBodyObject->setPartialRootPath($this->div->getTemplatePath('partial'));
+		$emailBodyObject->setTemplatePathAndFilename(
+			$this->div->getTemplatePath($email['template'] . '.html')
+		);
+		$emailBodyObject->setLayoutRootPaths($this->div->getTemplateFolders('layout'));
+		$emailBodyObject->setPartialRootPaths($this->div->getTemplateFolders('partial'));
 
 		// get variables
 		// additional variables
@@ -277,7 +279,11 @@ class SendMail {
 		$emailBodyObject->assign('marketingInfos', Div::getMarketingInfos());
 		$emailBodyObject->assign('mail', $mail);
 
-		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRender', array($emailBodyObject, $email, $mail, $settings));
+		$this->signalSlotDispatcher->dispatch(
+			__CLASS__,
+			__FUNCTION__ . 'BeforeRender',
+			array($emailBodyObject, $email, $mail, $settings)
+		);
 
 		$body = $emailBodyObject->render();
 		$mail->setBody($body);
@@ -326,8 +332,8 @@ class SendMail {
 	/**
 	 * Function br2nl is the opposite of nl2br
 	 *
-	 * @param string $content: Anystring
-	 * @return string $content: Manipulated string
+	 * @param string $content Anystring
+	 * @return string $content Manipulated string
 	 */
 	protected function br2nl($content) {
 		$array = array(
@@ -336,7 +342,6 @@ class SendMail {
 			'<br/>',
 			'<br />'
 		);
-		// replacer
 		$content = str_replace($array, "\n", $content);
 
 		return $content;

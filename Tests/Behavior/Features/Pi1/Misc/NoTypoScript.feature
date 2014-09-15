@@ -1,5 +1,5 @@
 # Features/Pi1/Misc/NoTypoScript.feature
-@Pi1MiscNoTypoScript
+@Pi1 @Pi1Misc @Pi1MiscNoTypoScript
 Feature: NoTypoScript
 
   Scenario: Check if No-TypoScript-Message appears

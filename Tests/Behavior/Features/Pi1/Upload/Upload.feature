@@ -1,5 +1,5 @@
 # Features/Pi1/Default/Upload.feature
-@Pi1DefaultUpload
+@Pi1 @Pi1Default @Pi1DefaultUpload
 Feature: Upload
   In order to see a word definition
   As a website user

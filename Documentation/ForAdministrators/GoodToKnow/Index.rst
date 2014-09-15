@@ -47,7 +47,7 @@ you can copy this file to a fileadmin folder (20) and set a fallback folder (10)
 	plugin.tx_powermail {
 		view {
 			templateRootPath >
-			templateRootPath {
+			templateRootPaths {
 				10 = EXT:powermail/Resources/Private/Templates/
 				20 = fileadmin/templates/powermail/Resources/Private/Templates/
 			}

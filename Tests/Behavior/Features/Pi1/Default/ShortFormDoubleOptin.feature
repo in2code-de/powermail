@@ -1,5 +1,5 @@
 # Features/Pi1/Default/ShortFormDoubleOptin.feature
-@Pi1DefaultShortDoubleOptin
+@Pi1 @Pi1Default @Pi1DefaultShortDoubleOptin
 Feature: ShortFormDoubleOptin
   In order to see a word definition
   As a website user

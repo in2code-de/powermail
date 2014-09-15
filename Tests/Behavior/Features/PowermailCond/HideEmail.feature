@@ -1,5 +1,5 @@
 # Features/PowermailCond/HideEmail.feature
-@PowermailCondHideEmail
+@PowermailCond @PowermailCondHideEmail
 Feature: HideEmail
 
   @javascript

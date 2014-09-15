@@ -1,5 +1,5 @@
 # Features/Pi1/Validation/PhpValidation.feature
-@Pi1ValidationPhpValidation
+@Pi1 @Pi1Validation @Pi1ValidationMandatory @Pi1ValidationMandatoryPhpValidation
 Feature: PhpValidation
   In order to see a word definition
   As a website user

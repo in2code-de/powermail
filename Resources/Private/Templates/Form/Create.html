@@ -16,9 +16,7 @@ NOTE: See example section after main section
 		<f:if condition="{optinActive}">
 			<f:else>
 				<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}">
-					<f:format.html parseFuncTSPath="lib.parseFunc">
-						{powermail_rte}
-					</f:format.html>
+					<f:format.html parseFuncTSPath="lib.parseFunc_RTE">{powermail_rte}</f:format.html>
 				</vh:Misc.Variables>
 
 				<f:render partial="Misc/GoogleAdwordsConversion" />
@@ -43,7 +41,7 @@ THIS IS ONLY AN EXAMPLE SECTION
 
 	1. Get values from RTE from Backend:
 	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}">
-		<f:format.html parseFuncTSPath="lib.parseFunc">
+		<f:format.html parseFuncTSPath="lib.parseFunc_RTE">
 			{powermail_rte}
 		</f:format.html>
 	</vh:Misc.Variables>

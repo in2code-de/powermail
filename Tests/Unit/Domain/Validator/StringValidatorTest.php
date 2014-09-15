@@ -229,7 +229,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	public function validatePhoneReturnsBoolDataProvider() {
 		return array(
 			'phone1' => array(
-				'0 123 456 7890',
+				'01234567890',
 				TRUE
 			),
 			'phone2' => array(
@@ -237,35 +237,71 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 				TRUE
 			),
 			'phone3' => array(
-				'01234567890',
+				'0123 456 789',
 				TRUE
 			),
 			'phone4' => array(
-				'+12 345 6789012',
+				'(0123) 45678 - 90',
 				TRUE
 			),
 			'phone5' => array(
-				'+12 345 678 9012',
-				TRUE
-			),
-			'phone6' => array(
 				'0012 345 678 9012',
 				TRUE
 			),
+			'phone6' => array(
+				'0012 (0)345 / 67890 - 12',
+				TRUE
+			),
 			'phone7' => array(
-				'a123546',
-				FALSE
+				'+123456789012',
+				TRUE
 			),
 			'phone8' => array(
-				'12(3)45',
-				FALSE
+				'+12 345 678 9012',
+				TRUE
 			),
 			'phone9' => array(
-				'ab cd ef',
-				FALSE
+				'+12 3456 7890123',
+				TRUE
 			),
 			'phone10' => array(
 				'+49 (0) 123 3456789',
+				TRUE
+			),
+			'phone11' => array(
+				'+49 (0)123 / 34567 - 89',
+				TRUE
+			),
+			'phone12' => array(
+				'a123546',
+				FALSE
+			),
+			'phone13' => array(
+				'12(3)45',
+				FALSE
+			),
+			'phone14' => array(
+				'ab cd ef',
+				FALSE
+			),
+			'phone15' => array(
+				'0 123 456 7890',
+				FALSE
+			),
+			'phone16' => array(
+				'+49 (0) 36 43/58 xx xx',
+				FALSE
+			),
+			'phone17' => array(
+				'+3a',
+				FALSE
+			),
+			'phone18' => array(
+				'0',
+				FALSE
+			),
+			'phone19' => array(
+				0,
 				FALSE
 			),
 		);

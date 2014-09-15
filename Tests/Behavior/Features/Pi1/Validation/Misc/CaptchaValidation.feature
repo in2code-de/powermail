@@ -1,5 +1,5 @@
 # Features/Pi1/Validation/CaptchaValidation.feature
-@Pi1ValidationCaptchaValidation @Pi1ValidationMisc
+@Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscCaptchaValidation
 Feature: CaptchaValidation
   In order to see a word definition
   As a website user

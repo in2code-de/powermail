@@ -1,5 +1,5 @@
 # Features/Pi1/Validation/ExtendedJsPhpValidation.feature
-@Pi1ValidationExtendedJsPhpValidation
+@Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscExtendedJsPhpValidation
 Feature: ExtendedJsPhpValidation
   In order to see a word definition
   As a website user

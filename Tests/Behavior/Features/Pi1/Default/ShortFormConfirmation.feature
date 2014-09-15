@@ -1,5 +1,5 @@
 # Features/Pi1/Default/ShortFormConfirmation.feature
-@Pi1DefaultShortConfirmation
+@Pi1 @Pi1Default @Pi1DefaultShortConfirmation
 Feature: ShortFormConfirmation
   In order to see a word definition
   As a website user

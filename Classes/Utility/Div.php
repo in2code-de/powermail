@@ -212,11 +212,11 @@ class Div {
 	 * @return string content parsed from powermailAll HTML Template
 	 */
 	public function powermailAll(\In2code\Powermail\Domain\Model\Mail $mail, $section = 'web', $settings = array()) {
-		$powermailAll = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
-		$templatePathAndFilename = $this->getTemplatePath() . 'Form/PowermailAll.html';
+		$powermailAll = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
+		$templatePathAndFilename = $this->getTemplatePath('Form/PowermailAll.html');
 		$powermailAll->setTemplatePathAndFilename($templatePathAndFilename);
-		$powermailAll->setLayoutRootPath($this->getTemplatePath('layout'));
-		$powermailAll->setPartialRootPath($this->getTemplatePath('partial'));
+		$powermailAll->setLayoutRootPaths($this->getTemplateFolders('layout'));
+		$powermailAll->setPartialRootPaths($this->getTemplateFolders('partial'));
 		$powermailAll->assign('mail', $mail);
 		$powermailAll->assign('section', $section);
 		$powermailAll->assign('settings', $settings);
@@ -226,21 +226,89 @@ class Div {
 	}
 
 	/**
-	 * Get absolute paths for templates with fallback
+	 * Get absolute path for templates with fallback
+	 * 		In case of multiple paths this will just return the first one.
+	 * 		See getTemplateFolders() for an array of paths.
 	 *
 	 * @param string $part "template", "partial", "layout"
 	 * @return string
+	 * @see getTemplateFolders()
 	 */
-	public function getTemplatePath($part = 'template') {
+	public function getTemplateFolder($part = 'template') {
+		$matches = $this->getTemplateFolders($part);
+		return !empty($matches) ? $matches[0] : '';
+	}
+
+	/**
+	 * Get absolute paths for templates with fallback
+	 * 		Returns paths from *RootPaths and *RootPath and "hardcoded"
+	 * 		paths pointing to the EXT:powermail-resources.
+	 *
+	 * @param string $part "template", "partial", "layout"
+	 * @param boolean $returnAllPaths Default: FALSE, If FALSE only paths
+	 * 		for the first configuration (Paths, Path, hardcoded)
+	 * 		will be returned. If TRUE all (possible) paths will be returned.
+	 * @return array
+	 */
+	public function getTemplateFolders($part = 'template', $returnAllPaths = FALSE) {
+		$templatePaths = array();
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
 			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
 		);
-		$templatePath = $extbaseFrameworkConfiguration['view'][$part . 'RootPath'];
-		if (empty($templatePath)) {
-			$templatePath = 'EXT:powermail/Resources/Private/' . ucfirst($part) . 's/';
+		if (!empty($extbaseFrameworkConfiguration['view'][$part . 'RootPaths'])) {
+			$templatePaths = $extbaseFrameworkConfiguration['view'][$part . 'RootPaths'];
+			krsort($templatePaths);
+			$templatePaths = array_values($templatePaths);
 		}
-		$absoluteTemplatePath = GeneralUtility::getFileAbsFileName($templatePath);
-		return $absoluteTemplatePath;
+		if ($returnAllPaths || empty($templatePaths)) {
+			$path = $extbaseFrameworkConfiguration['view'][$part . 'RootPath'];
+			if (!empty($path)) {
+				$templatePaths[] = $path;
+			}
+		}
+		if ($returnAllPaths || empty($templatePaths)) {
+			$templatePaths[] = 'EXT:powermail/Resources/Private/' . ucfirst($part) . 's/';
+		}
+		$templatePaths = array_unique($templatePaths);
+		$absoluteTemplatePaths = array();
+		foreach ($templatePaths as $templatePath) {
+			$absoluteTemplatePaths[] = GeneralUtility::getFileAbsFileName($templatePath);
+		}
+		return $absoluteTemplatePaths;
+	}
+
+	/**
+	 * Return path and filename for a file or path.
+	 * 		Only the first existing file/path will be returned.
+	 * 		respect *RootPaths and *RootPath
+	 *
+	 * @param string $relativePathAndFilename e.g. Email/Name.html
+	 * @param string $part "template", "partial", "layout"
+	 * @return string Filename/path
+	 */
+	public function getTemplatePath($relativePathAndFilename, $part = 'template') {
+		$matches = $this->getTemplatePaths($relativePathAndFilename, $part);
+		return !empty($matches) ? $matches[0] : '';
+	}
+
+	/**
+	 * Return path and filename for one or many files/paths.
+	 * 		Only existing files/paths will be returned.
+	 * 		respect *RootPaths and *RootPath
+	 *
+	 * @param string $relativePathAndFilename Path/filename (Email/Name.html) or path
+	 * @param string $part "template", "partial", "layout"
+	 * @return array All existing matches found
+	 */
+	public function getTemplatePaths($relativePathAndFilename, $part = 'template') {
+		$absolutePathAndFilenameMatches = array();
+		$absolutePaths = $this->getTemplateFolders($part, TRUE);
+		foreach ($absolutePaths as $absolutePath) {
+			if (file_exists($absolutePath . $relativePathAndFilename)) {
+				$absolutePathAndFilenameMatches[] = $absolutePath . $relativePathAndFilename;
+			}
+		}
+		return $absolutePathAndFilenameMatches;
 	}
 
 	/**

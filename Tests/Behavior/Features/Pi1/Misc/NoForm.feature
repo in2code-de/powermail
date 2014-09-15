@@ -1,5 +1,5 @@
 # Features/Pi1/Misc/NoForm.feature
-@Pi1MiscNoForm
+@Pi1 @Pi1Misc @Pi1MiscNoForm
 Feature: NoForm
 
   Scenario: Check if No-Form Message appears
