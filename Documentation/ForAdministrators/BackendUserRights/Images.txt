@@ -1,0 +1,14 @@
+.. |missingrights|     image:: ../../Images/missingrights.png
+.. :align: left
+.. :border: 0
+.. :name: MissingRights
+
+.. |beuserrights|     image:: ../../Images/beuserrights.png
+.. :align: left
+.. :border: 0
+.. :name: BackendUserRights
+
+.. |fullaccessrights|     image:: ../../Images/fullaccessrights.png
+.. :align: left
+.. :border: 0
+.. :name: FullAccessRights

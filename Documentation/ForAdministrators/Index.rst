@@ -25,6 +25,7 @@ For Administrators
    :glob:
 
    Installation/Index
+   BackendUserRights/Index
    PowermailFrontend/Index
    GoodToKnow/Index
 
