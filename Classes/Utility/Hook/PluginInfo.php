@@ -72,12 +72,13 @@ class PluginInfo {
 			return '';
 		}
 		$this->params = $params;
-//		$returnUrl = 'alt_doc.php?edit[tt_content][' . $pa['row']['uid'] . ']=edit&returnUrl=' . GeneralUtility::_GET('returnUrl');
-//		$returnUrl = rawurlencode($returnUrl);
 		$returnUrl = rawurlencode(
 			Div::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT')
 		);
-		$editFormLink = Div::getSubFolderOfCurrentUrl() . 'typo3/alt_doc.php?edit[tx_powermail_domain_model_forms][' . $this->getFormProperty($this->getFieldFromFlexform('main', 'settings.flexform.main.form'), 'uid') . ']=edit';
+		$editFormLink = Div::getSubFolderOfCurrentUrl();
+		$editFormLink .= 'typo3/alt_doc.php?edit[tx_powermail_domain_model_forms][';
+		$editFormLink .= $this->getFormProperty($this->getFieldFromFlexform('main', 'settings.flexform.main.form'), 'uid');
+		$editFormLink .= ']=edit';
 		$editFormLink .= '&returnUrl=' . $returnUrl;
 
 		// let's go

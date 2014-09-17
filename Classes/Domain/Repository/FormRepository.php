@@ -155,6 +155,9 @@ class FormRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @return mixed
 	 */
 	public function findAllOldForms() {
+		if (!$this->oldPowermailTablesExists()) {
+			return array();
+		}
 		$query = $this->createQuery();
 
 		$sql = 'select c.*';
@@ -278,5 +281,18 @@ class FormRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			}
 		}
 		return '';
+	}
+
+	/**
+	 * Check if old powermail tables existing
+	 *
+	 * @return bool
+	 */
+	protected function oldPowermailTablesExists() {
+		$allTables = $GLOBALS['TYPO3_DB']->admin_get_tables();
+		if (array_key_exists('tx_powermail_fields', $allTables) && array_key_exists('tx_powermail_fieldsets', $allTables)) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 }

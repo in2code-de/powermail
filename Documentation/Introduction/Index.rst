@@ -196,23 +196,48 @@ See videos to 2.0 on youtube
 Compatible TYPO3 versions
 -------------------------
 
+We will rollout a powermail version that will support TYPO3 6.2LTS until next LTS version. That will increase professionality of this extension.
+See in list, what's the plan with older branches:
+
 .. t3-field-list-table::
  :header-rows: 1
 
- - :Tab:
-      Powermail Versions
-   :Field:
+ - :PowermailVersion:
+      Powermail Version
+   :TYPO3Version:
       TYPO3 Versions
+   :Support:
+      Support
 
- - :Tab:
+ - :PowermailVersion:
       2.1.x
-   :Field:
+   :TYPO3Version:
       6.2 LTS and newer
+   :Support:
+      This version will be provided with
 
- - :Tab:
+      - New Features
+      - Bugfixes
+      - Security Updates
+
+ - :PowermailVersion:
       2.0.x
-   :Field:
+   :TYPO3Version:
       4.6, 4.7, 6.1, 6.2 LTS
+   :Support:
+      This version will be provided with
+
+      - Bugfixes
+      - Security Updates
+
+ - :PowermailVersion:
+      1.6.x
+   :TYPO3Version:
+      4.4, 4.5, 4.6, 4.7
+   :Support:
+      This version will be provided with
+
+      - Security Updates
 
 .. _screenshots:
 

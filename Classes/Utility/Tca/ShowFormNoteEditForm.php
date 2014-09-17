@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\In2code\Powermail\Utility\Div;
 
 /**
  * Class ShowFormNoteEditForm shows note in FlexForm
@@ -27,9 +28,11 @@ class ShowFormNoteEditForm {
 		$formUid = $this->getRelatedForm($pa);
 
 		if ($formUid) {
-			$returnUrl = 'alt_doc.php?edit[tt_content][' . $pa['row']['uid'] . ']=edit&returnUrl=' . GeneralUtility::_GET('returnUrl');
-			$returnUrl = rawurlencode($returnUrl);
-			$editFormLink = 'alt_doc.php?edit[tx_powermail_domain_model_forms][' . $formUid . ']=edit';
+			$returnUrl = rawurlencode(
+				Div::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT')
+			);
+			$editFormLink = Div::getSubFolderOfCurrentUrl();
+			$editFormLink .= 'typo3/alt_doc.php?edit[tx_powermail_domain_model_forms][' . $formUid . ']=edit';
 			$editFormLink .= '&returnUrl=' . $returnUrl;
 
 			$content .= '
@@ -64,7 +67,7 @@ class ShowFormNoteEditForm {
 						</tr>
 						<tr class="db_list_normal">
 							<td nowrap="nowrap" class="col-title">
-								<a title="Edit" onclick="window.location.href = \'' . $editFormLink . '\'; return false;" href="#">
+								<a title="Edit" href="' . $editFormLink . '">
 									' . $this->getFormPropertyFromUid($formUid, 'title') . '
 								</a>
 							</td>
@@ -88,7 +91,7 @@ class ShowFormNoteEditForm {
 								</span>
 							</td>
 							<td nowrap="nowrap" class="col-icon">
-								<a title="Edit" onclick="window.location.href = \'' . $editFormLink . '\'; return false;" href="#">
+								<a title="Edit" href="' . $editFormLink . '">
 									<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open"
 										title="Edit Form">
 										&nbsp;
