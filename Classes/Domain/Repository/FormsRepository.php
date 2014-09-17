@@ -61,6 +61,7 @@ class Tx_Powermail_Domain_Repository_FormsRepository extends Tx_Extbase_Persiste
 	public function hasCaptcha($uid) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
 
 		$and = array(
 			$query->equals('uid', $uid),

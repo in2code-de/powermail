@@ -125,7 +125,7 @@ class Tx_Powermail_Domain_Model_Fields extends Tx_Extbase_DomainObject_AbstractE
 	 *
 	 * @var boolean
 	 */
-	protected $mandatory = false;
+	protected $mandatory = FALSE;
 
 	/**
 	 * marker
@@ -135,20 +135,9 @@ class Tx_Powermail_Domain_Model_Fields extends Tx_Extbase_DomainObject_AbstractE
 	protected $marker = '';
 
 	/**
-	 * sorting
-	 *
-	 * @var integer
-	 */
-	protected $sorting = 0;
-
-	/**
 	 * __construct
-	 *
-	 * @return void
 	 */
-	public function __construct() {
-
-	}
+	public function __construct() {}
 
 	/**
 	 * Returns the title
@@ -419,25 +408,4 @@ class Tx_Powermail_Domain_Model_Fields extends Tx_Extbase_DomainObject_AbstractE
 	public function setMarker($marker) {
 		$this->marker = $marker;
 	}
-
-	/**
-	 * Returns the sorting
-	 *
-	 * @return integer $sorting
-	 */
-	public function getSorting() {
-		return $this->sorting;
-	}
-
-	/**
-	 * Sets the sorting
-	 *
-	 * @param integer $sorting
-	 * @return void
-	 */
-	public function setSorting($sorting) {
-		$this->sorting = $sorting;
-	}
-
 }
-?>
