@@ -26,11 +26,11 @@
 
 
 /**
- *
+ * Tx_Powermail_Domain_Model_Pages
  *
  * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *
+ * @license http://www.gnu.org/licenses/lgpl.html
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class Tx_Powermail_Domain_Model_Pages extends Tx_Extbase_DomainObject_AbstractEntity {
 
@@ -57,16 +57,7 @@ class Tx_Powermail_Domain_Model_Pages extends Tx_Extbase_DomainObject_AbstractEn
 	protected $fields = NULL;
 
 	/**
-	 * sorting
-	 *
-	 * @var integer
-	 */
-	protected $sorting = 0;
-
-	/**
 	 * __construct
-	 *
-	 * @return void
 	 */
 	public function __construct() {
 		//Do not remove the next line: It would break the functionality
@@ -151,15 +142,7 @@ class Tx_Powermail_Domain_Model_Pages extends Tx_Extbase_DomainObject_AbstractEn
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Powermail_Domain_Model_Fields> $fields
 	 */
 	public function getFields() {
-//		return $this->fields;
-
-		// Workarround to get the fields sorted
-		$fieldArray = array();
-		foreach ($this->fields as $field) {
-			$fieldArray[$field->getSorting()] = $field;
-		}
-		ksort($fieldArray);
-		return $fieldArray;
+		return $this->fields;
 	}
 
 	/**
@@ -171,25 +154,4 @@ class Tx_Powermail_Domain_Model_Pages extends Tx_Extbase_DomainObject_AbstractEn
 	public function setFields(Tx_Extbase_Persistence_ObjectStorage $fields) {
 		$this->fields = $fields;
 	}
-
-	/**
-	 * Returns the sorting
-	 *
-	 * @return integer $sorting
-	 */
-	public function getSorting() {
-		return $this->sorting;
-	}
-
-	/**
-	 * Sets the sorting
-	 *
-	 * @param integer $sorting
-	 * @return void
-	 */
-	public function setSorting($sorting) {
-		$this->sorting = $sorting;
-	}
-
 }
-?>
