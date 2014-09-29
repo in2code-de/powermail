@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Parses Variables for powermail
@@ -13,6 +14,7 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
 	 */
 	protected $configurationManager;
 
@@ -47,31 +49,43 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	 */
 	public function render($variablesMarkers = array(), \In2code\Powermail\Domain\Model\Mail $mail, $type = 'web') {
 		$parseObject = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
-		$parseObject->setTemplateSource($this->renderChildren());
+		$parseObject->setTemplateSource($this->getContent());
 		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($variablesMarkers));
 
 		$powermailAll = $this->div->powermailAll($mail, $type, $this->settings);
 		$parseObject->assign('powermail_all', $powermailAll);
 
-		return html_entity_decode($parseObject->render());
+		return html_entity_decode($parseObject->render(), NULL, 'UTF-8');
 	}
 
 	/**
-	 * Injects the Configuration Manager
+	 * Get renderChildren
+	 * 		<p>{powermail_all}</p> =>
+	 * 			{powermail_all}
 	 *
-	 * @param ConfigurationManagerInterface $configurationManager
+	 * @return string
+	 */
+	protected function getContent() {
+		return preg_replace(
+			'#<p(.*)>\s*{powermail_all}\s*<\/p>#',
+			'{powermail_all}',
+			$this->renderChildren()
+		);
+	}
+
+	/**
+	 * Init to get TypoScript Configuration
+	 *
 	 * @return void
-	*/
-	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
+	 */
+	public function initialize() {
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
-			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		if (!empty($typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'])) {
-			$this->settings = \TYPO3\CMS\Core\Utility\GeneralUtility::removeDotsFromTS(
+			$this->settings = GeneralUtility::removeDotsFromTS(
 				$typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.']
 			);
 		}
 	}
-
 }
