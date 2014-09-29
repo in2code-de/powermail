@@ -15,6 +15,7 @@ class UploadAttributesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstra
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
 	 */
 	protected $configurationManager;
 
@@ -56,13 +57,11 @@ class UploadAttributesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstra
 	}
 
 	/**
-	 * Injects the Configuration Manager
+	 * Init
 	 *
-	 * @param ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
-	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
+	public function initialize() {
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
