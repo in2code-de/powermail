@@ -97,7 +97,8 @@ class BasicFileFunctions {
 	 * @return void
 	 */
 	public static function cleanFileName(&$filename, $replace = '_') {
-		$filename = preg_replace('/[^a-z0-9-\.]/', $replace, trim($filename));
+		$filename = strtolower(trim($filename));
+		$filename = preg_replace('/[^a-z0-9-\.]/', $replace, $filename);
 	}
 
 	/**
