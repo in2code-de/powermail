@@ -34,6 +34,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 		$additionalAttributes['data-datepicker-months'] = $this->getMonthNames();
 		$additionalAttributes['data-datepicker-days'] = $this->getDayNames();
 		$additionalAttributes['data-datepicker-format'] = $this->getFormat($field);
+		$additionalAttributes['data-parsley-trigger'] = 'change';
 		if ($value) {
 			$additionalAttributes['data-date-value'] = $value;
 		}
