@@ -3169,6 +3169,41 @@ Explanation
    :Tab:
       Access
 
+
+Date Formats
+''''''''''''
+
+If you use a browser, that support modern date fields (e.g. Chrome),
+JavaScript Datepicker will not be loaded by default.
+In this case the Browser takes the configured language of the OS to set the date-format automaticly.
+There is no change to define another dateformat.
+
+But it's possible to enforce the JavaScript Datepicker even in Chrome with a line of TypoScript Constants:
+
+:typoscript:`plugin.tx_powermail.settings.misc.forceJavaScriptDatePicker = 1`
+
+Beside that, you can define the dateformat for the JavaScript Datepicker.
+Depending on the datepicker settings (date, datetime, time), there are different entries in the locallang files.
+You can overwrite that via TypoScript:
+
+.. code-block:: text
+
+  plugin.tx_powermail {
+    _LOCAL_LANG {
+      default {
+        datepicker_format_date = Y/m/d
+        datepicker_format_time = Y/m/d H:i:s
+        datepicker_format_datetime = H:i:s
+      }
+      fr {
+        datepicker_format_date = Y/m/d
+        datepicker_format_time = Y/m/d H:i:s
+        datepicker_format_datetime = H:i:s
+      }
+    }
+  }
+
+
 .. _country:
 
 Country
