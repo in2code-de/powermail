@@ -326,38 +326,4 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 			);
 		}
 	}
-
-	/**
-	 * Set different remote validation attributes
-	 *
-	 * @param \array &$dataArray
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @return void
-	 */
-	protected function addRemoteValidationAttributes(&$dataArray, $field) {
-		if ($field->getValidation()) {
-			$uriBuilder = $this->controllerContext->getUriBuilder();
-			$uri = $uriBuilder
-				->setCreateAbsoluteUri(TRUE)
-				->setArguments(
-					array(
-						'L' => $this->getLanguageUid(),
-						'tx_powermail_pi1' => array(
-							'mail' => array(
-								'form' => $field->getPages()->getForms()->getUid()
-							),
-						),
-						'eID' => 'powermailEidValidator'
-					)
-				)
-				->build();
-
-			$dataArray['data-parsley-remote'] = $uri;
-			$dataArray['data-parsley-trigger'] = 'change';
-			$dataArray['data-parsley-error-message'] = LocalizationUtility::translate(
-				'validationerror_validation.' . $field->getValidation(),
-				$this->extensionName
-			);
-		}
-	}
 }
