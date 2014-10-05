@@ -13,6 +13,7 @@ class ContentElementViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
 
 	/**
 	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+	 * @inject
 	 */
 	protected $contentObject;
 
@@ -30,15 +31,4 @@ class ContentElementViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
 		);
 		return $this->contentObject->RECORDS($conf);
 	}
-
-	/**
-	 * Injects the content object
-	 *
-	 * @param ConfigurationManagerInterface $configurationManager
-	 * @return void
-	 */
-	public function injectContentObject(ConfigurationManagerInterface $configurationManager) {
-		$this->contentObject = $configurationManager->getContentObject();
-	}
-
 }

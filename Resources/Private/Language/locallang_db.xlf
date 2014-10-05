@@ -87,6 +87,12 @@
 			<trans-unit id="tx_powermail_domain_model_forms.note.4">
 				<source>Note hidden</source>
 			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_forms.error.1">
+				<source>Error: Non-Unique marker names in the fields of this form detected</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_forms.error.2">
+				<source>This should not happen in powermail. Please check marker names of all fields to this form and fix it manually.</source>
+			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_forms.css">
 				<source>Layout</source>
 			</trans-unit>

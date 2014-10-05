@@ -88,23 +88,6 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 		if ($field->getMandatory() && $this->isClientValidationEnabled() && $field->getType() == 'check' && $iteration['total'] > 1) {
 			$dataArray['data-parsley-multiple'] = $field->getMarker();
 		}
-
-			// Captcha
-		if ($field->getType() === 'captcha') {
-			if ($this->isNativeValidationEnabled()) {
-				$dataArray['required'] = 'required';
-			} elseif ($this->isClientValidationEnabled()) {
-				$dataArray['data-parsley-required'] = 'true';
-			}
-			if ($this->isClientValidationEnabled()) {
-				$dataArray['data-parsley-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
-				$dataArray['data-parsley-class-handler'] = '.powermail_fieldwrap_' . $field->getUid() . ' > div';
-				$dataArray['data-parsley-required-message'] = LocalizationUtility::translate(
-					'validationerror_mandatory',
-					$this->extensionName
-				);
-			}
-		}
 	}
 
 	/**
@@ -320,40 +303,6 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 
 			// set errormessage if javascript validation active
 		if ($field->getValidation() && $this->isClientValidationEnabled()) {
-			$dataArray['data-parsley-error-message'] = LocalizationUtility::translate(
-				'validationerror_validation.' . $field->getValidation(),
-				$this->extensionName
-			);
-		}
-	}
-
-	/**
-	 * Set different remote validation attributes
-	 *
-	 * @param \array &$dataArray
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @return void
-	 */
-	protected function addRemoteValidationAttributes(&$dataArray, $field) {
-		if ($field->getValidation()) {
-			$uriBuilder = $this->controllerContext->getUriBuilder();
-			$uri = $uriBuilder
-				->setCreateAbsoluteUri(TRUE)
-				->setArguments(
-					array(
-						'L' => $this->getLanguageUid(),
-						'tx_powermail_pi1' => array(
-							'mail' => array(
-								'form' => $field->getPages()->getForms()->getUid()
-							),
-						),
-						'eID' => 'powermailEidValidator'
-					)
-				)
-				->build();
-
-			$dataArray['data-parsley-remote'] = $uri;
-			$dataArray['data-parsley-trigger'] = 'change';
 			$dataArray['data-parsley-error-message'] = LocalizationUtility::translate(
 				'validationerror_validation.' . $field->getValidation(),
 				$this->extensionName

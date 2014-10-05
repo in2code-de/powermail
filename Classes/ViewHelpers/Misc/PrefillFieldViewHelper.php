@@ -14,6 +14,7 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
 	 */
 	protected $configurationManager;
 
@@ -310,26 +311,16 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	}
 
 	/**
-	 * Inject Configuration Manager
+	 * Init
 	 *
-	 * @param ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
-	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
+	public function initialize() {
+		$this->piVars = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_powermail_pi1');
 		$this->cObj = $this->configurationManager->getContentObject();
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
-	}
-
-	/**
-	 * Object initialization
-	 *
-	 * @return void
-	 */
-	public function initializeObject() {
-		$this->piVars = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_powermail_pi1');
 	}
 }

@@ -120,6 +120,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 			// if date, get timestamp (datepicker)
 		if (
+			!empty($value) &&
 			method_exists($this->getField(), 'getType') &&
 			Div::getDataTypeFromFieldType($this->getField()->getType()) === 2 &&
 			!is_numeric($value)

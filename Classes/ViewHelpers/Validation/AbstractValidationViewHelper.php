@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Abstract Validation ViewHelper
@@ -14,6 +15,7 @@ class AbstractValidationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
 	 */
 	protected $configurationManager;
 
@@ -56,13 +58,36 @@ class AbstractValidationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
 	}
 
 	/**
-	 * Injects the Configuration Manager
+	 * Set mandatory attributes
 	 *
-	 * @param ConfigurationManagerInterface $configurationManager
+	 * @param \array &$additionalAttributes
+	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return void
 	 */
-	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
+	protected function addMandatoryAttributes(&$additionalAttributes, $field) {
+		if ($field->getMandatory()) {
+			if ($this->isNativeValidationEnabled()) {
+				$additionalAttributes['required'] = 'required';
+			} else {
+				if ($this->isClientValidationEnabled()) {
+					$additionalAttributes['data-parsley-required'] = 'true';
+				}
+			}
+			if ($this->isClientValidationEnabled()) {
+				$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
+					'validationerror_mandatory',
+					$this->extensionName
+				);
+			}
+		}
+	}
+
+	/**
+	 * Init
+	 *
+	 * @return void
+	 */
+	public function initialize() {
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);

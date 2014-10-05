@@ -55,6 +55,15 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 			}
 		}
 
+		if (!$this->hasFormUniqueFieldMarkers($pa['row']['uid'])) {
+			$content .= '<div style="background:#F2DEDE; border:1px solid #A94442; padding: 5px 10px; color: #A94442; margin-top: 10px">';
+			$content .= '<p><strong>';
+			$content .= $GLOBALS['LANG']->sL($this->locallangPath . 'tx_powermail_domain_model_forms.error.1', TRUE);
+			$content .= '</strong></p>';
+			$content .= '<p>' . $GLOBALS['LANG']->sL($this->locallangPath . 'tx_powermail_domain_model_forms.error.2', TRUE) . '</p>';
+			$content .= '</div>';
+		}
+
 		return $content;
 	}
 
@@ -105,6 +114,24 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 					return TRUE;
 				}
 			}
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Check if form has unique field markers
+	 *
+	 * @param $formUid
+	 * @return bool
+	 */
+	protected function hasFormUniqueFieldMarkers($formUid) {
+		$fields = Div::getFieldsFromFormWithSelectQuery($formUid);
+		$markers = array();
+		foreach ($fields as $field) {
+			$markers[] = $field['marker'];
+		}
+		if (array_unique($markers) === $markers) {
+			return TRUE;
 		}
 		return FALSE;
 	}
