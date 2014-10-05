@@ -114,29 +114,4 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 		}
 		return implode(',', $monthArray);
 	}
-
-	/**
-	 * Set mandatory attributes
-	 *
-	 * @param \array &$additionalAttributes
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @return void
-	 */
-	protected function addMandatoryAttributes(&$additionalAttributes, $field) {
-		if ($field->getMandatory()) {
-			if ($this->isNativeValidationEnabled()) {
-				$additionalAttributes['required'] = 'required';
-			} else {
-				if ($this->isClientValidationEnabled()) {
-					$additionalAttributes['data-parsley-required'] = 'true';
-				}
-			}
-			if ($this->isClientValidationEnabled()) {
-				$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
-					'validationerror_mandatory',
-					$this->extensionName
-				);
-			}
-		}
-	}
 }

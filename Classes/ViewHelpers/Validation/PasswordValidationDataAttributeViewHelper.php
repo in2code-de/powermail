@@ -22,7 +22,8 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
 	 * @return array for data attributes
 	 */
 	public function render(Field $field, $additionalAttributes = array(), $iteration = NULL) {
-		$additionalAttributes = parent::render($field, $additionalAttributes);
+		$additionalAttributes = parent::render($field, $additionalAttributes, $iteration);
+
 		if ($this->isClientValidationEnabled()) {
 			$additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
 			$additionalAttributes['data-parsley-equalto-message'] = LocalizationUtility::translate(
@@ -30,6 +31,7 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
 				$this->extensionName
 			);
 		}
+
 		return $additionalAttributes;
 	}
 }

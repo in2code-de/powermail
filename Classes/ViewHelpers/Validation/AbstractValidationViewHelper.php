@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Abstract Validation ViewHelper
@@ -54,6 +55,31 @@ class AbstractValidationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
 	protected function getLanguageUid() {
 		return $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] ?
 			$GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] : 0;
+	}
+
+	/**
+	 * Set mandatory attributes
+	 *
+	 * @param \array &$additionalAttributes
+	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @return void
+	 */
+	protected function addMandatoryAttributes(&$additionalAttributes, $field) {
+		if ($field->getMandatory()) {
+			if ($this->isNativeValidationEnabled()) {
+				$additionalAttributes['required'] = 'required';
+			} else {
+				if ($this->isClientValidationEnabled()) {
+					$additionalAttributes['data-parsley-required'] = 'true';
+				}
+			}
+			if ($this->isClientValidationEnabled()) {
+				$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
+					'validationerror_mandatory',
+					$this->extensionName
+				);
+			}
+		}
 	}
 
 	/**
