@@ -55,7 +55,7 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 		$powermailAll = $this->div->powermailAll($mail, $type, $this->settings);
 		$parseObject->assign('powermail_all', $powermailAll);
 
-		return html_entity_decode($parseObject->render(), NULL, 'UTF-8');
+		return html_entity_decode($parseObject->render(), ENT_QUOTES, 'UTF-8');
 	}
 
 	/**
@@ -67,7 +67,7 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	 */
 	protected function getContent() {
 		return preg_replace(
-			'#<p(.*)>\s*{powermail_all}\s*<\/p>#',
+			'#<p([^>]*)>\s*{powermail_all}\s*<\/p>#',
 			'{powermail_all}',
 			$this->renderChildren()
 		);
