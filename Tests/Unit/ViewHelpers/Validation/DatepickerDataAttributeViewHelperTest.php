@@ -84,6 +84,7 @@ class DatepickerDataAttributeViewHelper extends \TYPO3\CMS\Extbase\Tests\Unit\Ba
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
 					'data-datepicker-format' => 'Y-m-d',
+					'data-parsley-trigger' => 'change',
 					'data-date-value' => 'anyvalue',
 					'required' => 'required',
 					'data-parsley-required-message' => 'This field must be filled!'
@@ -105,6 +106,7 @@ class DatepickerDataAttributeViewHelper extends \TYPO3\CMS\Extbase\Tests\Unit\Ba
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
 					'data-datepicker-format' => 'Y-m-d',
+					'data-parsley-trigger' => 'change',
 					'data-date-value' => 'anyvalue',
 				)
 			),
@@ -123,7 +125,8 @@ class DatepickerDataAttributeViewHelper extends \TYPO3\CMS\Extbase\Tests\Unit\Ba
 					'data-datepicker-settings' => 'date',
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
-					'data-datepicker-format' => 'Y-m-d'
+					'data-datepicker-format' => 'Y-m-d',
+					'data-parsley-trigger' => 'change'
 				)
 			),
 			'datepickerWithClientvalidation' => array(
@@ -141,7 +144,8 @@ class DatepickerDataAttributeViewHelper extends \TYPO3\CMS\Extbase\Tests\Unit\Ba
 					'data-datepicker-settings' => 'date',
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
-					'data-datepicker-format' => 'Y-m-d'
+					'data-datepicker-format' => 'Y-m-d',
+					'data-parsley-trigger' => 'change'
 				)
 			),
 			'datepickerWithoutValidation' => array(
@@ -159,7 +163,8 @@ class DatepickerDataAttributeViewHelper extends \TYPO3\CMS\Extbase\Tests\Unit\Ba
 					'data-datepicker-settings' => 'date',
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
-					'data-datepicker-format' => 'Y-m-d'
+					'data-datepicker-format' => 'Y-m-d',
+					'data-parsley-trigger' => 'change'
 				)
 			),
 		);
