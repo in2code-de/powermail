@@ -88,23 +88,6 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 		if ($field->getMandatory() && $this->isClientValidationEnabled() && $field->getType() == 'check' && $iteration['total'] > 1) {
 			$dataArray['data-parsley-multiple'] = $field->getMarker();
 		}
-
-			// Captcha
-		if ($field->getType() === 'captcha') {
-			if ($this->isNativeValidationEnabled()) {
-				$dataArray['required'] = 'required';
-			} elseif ($this->isClientValidationEnabled()) {
-				$dataArray['data-parsley-required'] = 'true';
-			}
-			if ($this->isClientValidationEnabled()) {
-				$dataArray['data-parsley-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
-				$dataArray['data-parsley-class-handler'] = '.powermail_fieldwrap_' . $field->getUid() . ' > div';
-				$dataArray['data-parsley-required-message'] = LocalizationUtility::translate(
-					'validationerror_mandatory',
-					$this->extensionName
-				);
-			}
-		}
 	}
 
 	/**
