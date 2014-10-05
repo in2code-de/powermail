@@ -49,7 +49,7 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	 */
 	public function render($variablesMarkers = array(), \In2code\Powermail\Domain\Model\Mail $mail, $type = 'web') {
 		$parseObject = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
-		$parseObject->setTemplateSource($this->getContent());
+		$parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
 		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($variablesMarkers));
 
 		$powermailAll = $this->div->powermailAll($mail, $type, $this->settings);
@@ -63,13 +63,14 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	 * 		<p>{powermail_all}</p> =>
 	 * 			{powermail_all}
 	 *
+	 * @param string $content
 	 * @return string
 	 */
-	protected function getContent() {
+	protected function removePowermailAllParagraphTagWrap($content) {
 		return preg_replace(
 			'#<p([^>]*)>\s*{powermail_all}\s*<\/p>#',
 			'{powermail_all}',
-			$this->renderChildren()
+			$content
 		);
 	}
 
