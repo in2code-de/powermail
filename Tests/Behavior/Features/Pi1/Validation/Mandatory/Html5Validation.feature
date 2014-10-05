@@ -10,6 +10,7 @@ Feature: Html5Validation
     Given I am on "/index.php?id=27"
     Then I should see "Input"
     Then I should see "Input (Pattern http://ww)"
+    Then I should see "Date"
     Then I should see "Textarea"
     Then I should see "Select"
     Then I should see "Select Multi"
