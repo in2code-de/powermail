@@ -64,8 +64,8 @@ class AbstractValidationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return void
 	 */
-	protected function addMandatoryAttributes(&$additionalAttributes, $field) {
-		if ($field->getMandatory()) {
+	protected function addMandatoryAttributes(&$additionalAttributes, \In2code\Powermail\Domain\Model\Field $field = NULL) {
+		if ($field !== NULL && $field->getMandatory()) {
 			if ($this->isNativeValidationEnabled()) {
 				$additionalAttributes['required'] = 'required';
 			} else {
