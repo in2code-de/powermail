@@ -42,4 +42,35 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext {
 		$html = str_replace('\n', "\n", $html);
 		$this->assertSession()->responseContains($this->fixStepArgument($html));
 	}
+
+	/**
+	 * Click on any HTML element
+	 *
+	 * @When /^(?:|I )click on the element "([^"]*)"$/
+	 *
+	 * @param string $locator
+	 * @return void
+	 */
+	public function iClickOnTheElement($locator) {
+		$session = $this->getSession();
+		$element = $session->getPage()->find('css', $locator);
+
+		if (NULL === $element) {
+			throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector: "%s"', $locator));
+		}
+
+		$element->click();
+	}
+
+	/**
+	 * Select an iframe
+	 *
+	 * @Given /^I swith to iframe "([^"]*)"$/
+	 *
+	 * @param string $arg1
+	 * @return void
+	 */
+	public function iSwithToIframe($arg1 = NULL) {
+		$this->getSession()->switchToIFrame($arg1);
+	}
 }
