@@ -803,22 +803,6 @@ class Div {
 	}
 
 	/**
-	 * Check of value is serialized
-	 *
-	 * @param string $val Any String
-	 * @return bool
-	 */
-	public static function isSerialized($val) {
-		if (!is_string($val) || trim($val) == '') {
-			return FALSE;
-		}
-		if (preg_match('/^(i|s|a|o|d):(.*);/si', $val)) {
-			return TRUE;
-		}
-		return FALSE;
-	}
-
-	/**
 	 * Check if String is JSON Array
 	 *
 	 * @param string $string
@@ -1191,8 +1175,8 @@ class Div {
 	/**
 	 * Read pid from current URL
 	 *        URL example:
-	 *        http://powermailt361.in2code.de/typo3/alt_doc.php?
-	 *        &returnUrl=%2Ftypo3%2Fsysext%2Fcms%2Flayout%2Fdb_layout.php%3Fid%3D17%23
+	 *        http://powermailt361.in2code.de/typo3/alt_doc.php?&
+	 *        returnUrl=%2Ftypo3%2Fsysext%2Fcms%2Flayout%2Fdb_layout.php%3Fid%3D17%23
 	 *        element-tt_content-14&edit[tt_content][14]=edit
 	 *
 	 * @return int
