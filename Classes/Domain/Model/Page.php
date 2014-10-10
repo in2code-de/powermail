@@ -72,6 +72,15 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $sorting = 0;
 
 	/**
+	 * formRepository
+	 *
+	 * @var \In2code\Powermail\Domain\Repository\FormRepository
+	 *
+	 * @inject
+	 */
+	protected $formRepository;
+
+	/**
 	 * __construct
 	 */
 	public function __construct() {
@@ -196,6 +205,11 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return \In2code\Powermail\Domain\Model\Form
 	 */
 	public function getForms() {
+		// if elementbrowser instead of IRRE (get related form)
+		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+		if ($confArr['replaceIrreWithElementBrowser']) {
+			return $this->formRepository->findByPages($this->uid);
+		}
 		return $this->forms;
 	}
 

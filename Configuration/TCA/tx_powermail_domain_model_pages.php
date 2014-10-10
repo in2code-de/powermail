@@ -212,13 +212,6 @@ $pagesTca = array(
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
 
 /**
- * Replace IRRE relation with element browser for page selection
- */
-if ($confArr['replaceIrreWithElementBrowser']) {
-	unset($pagesTca['columns']['forms']);
-}
-
-/**
  * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
  */
 if ($confArr['l10n_mode_merge']) {
