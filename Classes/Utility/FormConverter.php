@@ -279,6 +279,7 @@ class FormConverter {
 			'content_element' => $field['path'],
 			'text' => $field['value'],
 			'placeholder' => $field['placeholder'],
+			'description' => $field['description'],
 			'prefill_value' => $this->getPrefillValue($field),
 			'feuser_value' => $this->getValueIfDefaultLanguage($field, 'fe_field'),
 			'mandatory' => $this->getValueIfDefaultLanguage($field, 'mandatory'),
