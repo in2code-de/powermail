@@ -100,7 +100,7 @@ abstract class AbstractValidator extends \TYPO3\CMS\Extbase\Validation\Validator
 	 * @param string $label
 	 * @return void
 	 */
-	protected function setErrorAndMessage(\In2code\Powermail\Domain\Model\Field $field, $label) {
+	public function setErrorAndMessage(\In2code\Powermail\Domain\Model\Field $field, $label) {
 		$this->setIsValid(FALSE);
 		$this->addError($label, $field->getMarker());
 	}
@@ -110,7 +110,7 @@ abstract class AbstractValidator extends \TYPO3\CMS\Extbase\Validation\Validator
 	 *
 	 * @return bool
 	 */
-	protected function isServerValidationEnabled() {
+	public function isServerValidationEnabled() {
 		return $this->settings['validation.']['server'] === '1';
 	}
 
