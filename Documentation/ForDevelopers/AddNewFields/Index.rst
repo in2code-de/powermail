@@ -30,6 +30,10 @@ If you want to add further fields, you can do this with a little bit of Page TSC
 
    tx_powermail.flexForm.type.addFieldOptions.new = New Field
 
+   # Tell powermail that the new fieldtype will transmit an array (0:string, 1:array, 2:date, 3:file)
+   # This is only needed, if the new field transmit something and this is not a string
+   #tx_powermail.flexForm.type.addFieldOptions.new.dataType = 1
+
 With this TSConfig, a new Option is available:
 
 |img-typeselection2|

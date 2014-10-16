@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use \TYPO3\CMS\Core\Utility\GeneralUtility,
 	\In2code\Powermail\Domain\Model\Mail;
 
@@ -450,6 +451,14 @@ class Div {
 			'textarea' => 0,
 			'typoscript' => 0
 		);
+
+		// extend dataType with TSConfig
+		$typoScriptConfiguration = BackendUtility::getPagesTSconfig($GLOBALS['TSFE']->id);
+		$extensionConfiguration = $typoScriptConfiguration['tx_powermail.']['flexForm.'];
+		if (!empty($extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
+			$types[$fieldType] = $extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
+		}
+
 		if (array_key_exists($fieldType, $types)) {
 			return $types[$fieldType];
 		}
