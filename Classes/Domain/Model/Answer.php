@@ -131,11 +131,17 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 			);
 			$date = \DateTime::createFromFormat($format, $value);
 			if ($date) {
+				if ($this->getField()->getDatepickerSettings() === 'date') {
+					$date->setTime(0, 0, 0);
+				}
 				$value = $date->getTimestamp();
 			} else {
 					// fallback html5 date field - always Y-m-d H:i
 				$date = new \DateTime($value);
 				if ($date) {
+					if ($this->getField()->getDatepickerSettings() === 'date') {
+						$date->setTime(0, 0, 0);
+					}
 					$value = $date->getTimestamp();
 				}
 			}

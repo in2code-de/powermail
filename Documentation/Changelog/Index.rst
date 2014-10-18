@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.1.5
+   :Date:
+      2014-10-18
+   :Changes:
+      Bugfix updates #62058, #62097, #62135
+
+      Feature updates #62262, #60504 (Templa Voila with Form Converter)
+
+      See http://forge.typo3.org for Details
+
+ - :Version:
       2.1.4
    :Date:
       2014-10-06

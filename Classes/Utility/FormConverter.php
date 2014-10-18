@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -117,7 +118,8 @@ class FormConverter {
 				continue;
 			}
 			$formUid = $this->createFormRecord($form, $formCounter);
-			$this->createTtContentRecord($form, $formUid);
+			$ttContentIdNew = $this->createTtContentRecord ( $form, $formUid );
+			$this->updateTvMapping($form['pid'], $form['uid'], $ttContentIdNew);
 			$formCounter++;
 		}
 
@@ -125,6 +127,46 @@ class FormConverter {
 		$this->deleteOldRecords($oldFormsWithFieldsetsAndFields);
 
 		return $this->result;
+	}
+
+	/**
+	 * Update templavoila mapping if new tt_content was created
+	 *
+	 * @param int $pid
+	 * @param int $uidOld
+	 * @param int $uidNew
+	 * @return void
+	 */
+	protected function updateTvMapping($pid, $uidOld, $uidNew) {
+		if (!ExtensionManagementUtility::isLoaded('templavoila') || $this->getDryrun()) {
+			return;
+		}
+		if ($uidOld > 1 && $uidNew > 1) {
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('tx_templavoila_flex', 'pages', 'uid = ' . intval($pid), '', '', 1);
+			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+
+			$flex = preg_replace_callback(
+				'~>(\S*)<~',
+				function($matches) use ($uidOld, $uidNew) {
+					$uids = explode(',', $matches[1]);
+					foreach ($uids as $key => $uid) {
+						if ($uid === $uidOld) {
+							$uids[$key] = $uidNew;
+						}
+					}
+					return '>' . implode(',', $uids) . '<';
+				},
+				$row['tx_templavoila_flex']
+			);
+
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+				'pages',
+				'uid = ' . intval($pid),
+				array(
+					'tx_templavoila_flex' => $flex
+				)
+			);
+		}
 	}
 
 	/**
@@ -279,6 +321,7 @@ class FormConverter {
 			'content_element' => $field['path'],
 			'text' => $field['value'],
 			'placeholder' => $field['placeholder'],
+			'description' => $field['description'],
 			'prefill_value' => $this->getPrefillValue($field),
 			'feuser_value' => $this->getValueIfDefaultLanguage($field, 'fe_field'),
 			'mandatory' => $this->getValueIfDefaultLanguage($field, 'mandatory'),

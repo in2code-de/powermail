@@ -1,8 +1,6 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-
 /***************************************************************
  *  Copyright notice
  *
@@ -37,6 +35,14 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
 class FieldRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
+	 * formRepository
+	 *
+	 * @var \In2code\Powermail\Domain\Repository\FormRepository
+	 * @inject
+	 */
+	protected $formRepository;
+
+	/**
 	 * @param \array $uids
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
@@ -54,9 +60,14 @@ class FieldRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 *
 	 * @param \string $marker
 	 * @param \int $formUid
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 * @return \In2code\Powermail\Domain\Model\Field
 	 */
 	public function findByMarkerAndForm($marker, $formUid = 0) {
+		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+		if ($confArr['replaceIrreWithElementBrowser']) {
+			return $this->findByMarkerAndFormAlternative($marker, $formUid);
+		}
+
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
@@ -71,5 +82,37 @@ class FieldRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query->setLimit(1);
 		$result = $query->execute()->getFirst();
 		return $result;
+	}
+
+	/**
+	 * Return uid from given field marker and form (if no IRRE)
+	 *
+	 * @param \string $marker
+	 * @param \int $formUid
+	 * @return \In2code\Powermail\Domain\Model\Field
+	 */
+	protected function findByMarkerAndFormAlternative($marker, $formUid = 0) {
+		// get pages from form
+		$form = $this->formRepository->findByUid($formUid);
+		$pageUids = array();
+		foreach ($form->getPages() as $page) {
+			$pageUids[] = $page->getUid();
+		}
+
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+		$query->matching(
+			$query->logicalAnd(
+				array(
+					$query->equals('marker', $marker),
+					$query->in('pages', $pageUids)
+				)
+			)
+		);
+		return $query
+			->setLimit(1)
+			->execute()
+			->getFirst();
 	}
 }

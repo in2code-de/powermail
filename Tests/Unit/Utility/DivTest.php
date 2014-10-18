@@ -116,6 +116,95 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	}
 
 	/**
+	 * Dataprovider optionArrayReturnsArray()
+	 *
+	 * @return array
+	 */
+	public function optionArrayReturnsArrayDataProvider() {
+		return array(
+			array(
+				'abc',
+				array(
+					array(
+						'label' => 'abc',
+						'value' => 'abc',
+						'selected' => 0
+					),
+				)
+			),
+			array(
+				"red\nblue\nyellow",
+				array(
+					array(
+						'label' => 'red',
+						'value' => 'red',
+						'selected' => 0
+					),
+					array(
+						'label' => 'blue',
+						'value' => 'blue',
+						'selected' => 0
+					),
+					array(
+						'label' => 'yellow',
+						'value' => 'yellow',
+						'selected' => 0
+					),
+				)
+			),
+			array(
+				"please choose...|\nred\nblue|blue|*",
+				array(
+					array(
+						'label' => 'please choose...',
+						'value' => '',
+						'selected' => 0
+					),
+					array(
+						'label' => 'red',
+						'value' => 'red',
+						'selected' => 0
+					),
+					array(
+						'label' => 'blue',
+						'value' => 'blue',
+						'selected' => 1
+					),
+				)
+			),
+			array(
+				"||*\nred|red shoes",
+				array(
+					array(
+						'label' => '',
+						'value' => '',
+						'selected' => 1
+					),
+					array(
+						'label' => 'red',
+						'value' => 'red shoes',
+						'selected' => 0
+					),
+				)
+			),
+		);
+	}
+
+	/**
+	 * Test for optionArray()
+	 *
+	 * @param string $value
+	 * @param array $expectedResult
+	 * @return void
+	 * @dataProvider optionArrayReturnsArrayDataProvider
+	 * @test
+	 */
+	public function optionArrayReturnsArray($value, $expectedResult) {
+		$result = \In2code\Powermail\Utility\Div::optionArray($value, '');
+		$this->assertSame($result, $expectedResult);
+	}
+
+	/**
 	 * Test for createHash()
 	 *
 	 * @return void
@@ -215,7 +304,7 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 *
 	 * @return array
 	 */
-	public function createRandomStringAlwaysReturnsStringsOfGivenLengthDateProvider() {
+	public function createRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider() {
 		return array(
 			'default params' => array(
 				32,
@@ -241,7 +330,7 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 *
 	 * @param int $length
 	 * @param bool $uppercase
-	 * @dataProvider createRandomStringAlwaysReturnsStringsOfGivenLengthDateProvider
+	 * @dataProvider createRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider
 	 * @return void
 	 * @test
 	 */
@@ -258,5 +347,162 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->assertSame(1, preg_match($regex, $string));
 
 		}
+	}
+
+	/**
+	 * Data Provider for isJsonArrayReturnsBool()
+	 *
+	 * @return array
+	 */
+	public function isJsonArrayReturnsBoolDataProvider() {
+		return array(
+			array(
+				json_encode(array('a')),
+				TRUE
+			),
+			array(
+				json_encode('a,b:c'),
+				FALSE
+			),
+			array(
+				'a,b:c',
+				FALSE
+			),
+		);
+	}
+
+	/**
+	 * isJsonArray Test
+	 *
+	 * @param string $value
+	 * @param bool $expectedResult
+	 * @dataProvider isJsonArrayReturnsBoolDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function isJsonArrayReturnsBool($value, $expectedResult) {
+		$this->assertSame(
+			\In2code\Powermail\Utility\Div::isJsonArray($value),
+			$expectedResult
+		);
+	}
+
+	/**
+	 * Data Provider for isBackendAdminReturnsBool()
+	 *
+	 * @return array
+	 */
+	public function isBackendAdminReturnsBoolDataProvider() {
+		return array(
+			array(
+				1,
+				TRUE
+			),
+			array(
+				0,
+				FALSE
+			),
+		);
+	}
+
+	/**
+	 * isBackendAdmin Test
+	 *
+	 * @param string $value
+	 * @param bool $expectedResult
+	 * @dataProvider isBackendAdminReturnsBoolDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function isBackendAdminReturnsBool($value, $expectedResult) {
+		$GLOBALS['BE_USER']->user['admin'] = $value;
+		$this->assertSame(
+			\In2code\Powermail\Utility\Div::isBackendAdmin(),
+			$expectedResult
+		);
+	}
+
+	/**
+	 * Data Provider for getDomainFromUriReturnsString()
+	 *
+	 * @return array
+	 */
+	public function getDomainFromUriReturnsStringDataProvider() {
+		return array(
+			array(
+				'http://subdomain.domain.org/folder/file.html',
+				'subdomain.domain.org'
+			),
+			array(
+				'ftp://domain.org',
+				'domain.org'
+			),
+			array(
+				'https://www.domain.co.uk/',
+				'www.domain.co.uk'
+			),
+		);
+	}
+
+	/**
+	 * getDomainFromUri Test
+	 *
+	 * @param string $value
+	 * @param string $expectedResult
+	 * @dataProvider getDomainFromUriReturnsStringDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function getDomainFromUriReturnsString($value, $expectedResult) {
+		$this->assertSame(
+			\In2code\Powermail\Utility\Div::getDomainFromUri($value),
+			$expectedResult
+		);
+	}
+
+	/**
+	 * Data Provider for getCountryFromIpReturnsString()
+	 *
+	 * @return array
+	 */
+	public function getCountryFromIpReturnsStringDataProvider() {
+		return array(
+			array(
+				'217.72.208.133',
+				'Germany'
+			),
+			array(
+				'5.28.31.255',
+				'Russian Federation'
+			),
+			array(
+				'5.226.31.255',
+				'Spain'
+			),
+			array(
+				'66.85.131.18',
+				'United States'
+			),
+			array(
+				'182.118.23.7',
+				'China'
+			),
+		);
+	}
+
+	/**
+	 * getCountryFromIp Test
+	 *
+	 * @param string $ip
+	 * @param string $expectedResult
+	 * @dataProvider getCountryFromIpReturnsStringDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function getCountryFromIpReturnsString($ip, $expectedResult) {
+		$this->assertSame(
+			\In2code\Powermail\Utility\Div::getCountryFromIp($ip),
+			$expectedResult
+		);
 	}
 }

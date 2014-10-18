@@ -56,6 +56,25 @@ class FormRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	}
 
 	/**
+	 * Find Form by given Page Uid
+	 *
+	 * @param int $uid page uid
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
+	 */
+	public function findByPages($uid) {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+
+		$query->matching(
+			$query->equals('pages.uid', $uid)
+		);
+
+		$result = $query->execute()->getFirst();
+		return $result;
+	}
+
+	/**
 	 * Returns form with captcha from given UID
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Form $form

@@ -251,9 +251,8 @@ Example file:
 
    class \Vendor\Extkey\Domain\Validator\CustomValidator {
            public function addInformation($params, $obj) {
-                   // field with uid 12 failed
-                   $obj->isValid = false;
-                   $obj->setError('mandatory', 12);
+                   // $field failed - set error
+                   $obj->setErrorAndMessage($field, 'error message');
            }
    }
 
