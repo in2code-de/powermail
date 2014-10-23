@@ -7,7 +7,7 @@ Good to know
 ------------
 
 
-:ref:`templates` | :ref:`removeValuesFromPowermailAll` | :ref:`ajaxsubmit` | :ref:`filterFormSelection` | :ref:`spamprevention` | :ref:`savingvaluestothirdpartytables` | :ref:`sendvaluestocrm` | :ref:`goodtoknowdebug` | :ref:`mainTypoScript` | :ref:`removeUnusedImages`
+:ref:`templates` | :ref:`changingLabels` | :ref:`removeValuesFromPowermailAll` | :ref:`ajaxsubmit` | :ref:`filterFormSelection` | :ref:`spamprevention` | :ref:`savingvaluestothirdpartytables` | :ref:`sendvaluestocrm` | :ref:`goodtoknowdebug` | :ref:`mainTypoScript` | :ref:`removeUnusedImages`
 
 .. _templates:
 
@@ -93,6 +93,22 @@ RTE? Use a cObject viehelper:
 .. code-block:: text
 
 	{f:cObject(typoscriptObjectPath:'lib.test')}
+
+
+
+.. _changingLabels:
+
+Overwrite Labels and Validation messages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can overwrite any label in powermail via TypoScript Setup. Have a look into locallang.xlf for getting the relevant keys.
+
+.. code-block:: text
+
+	plugin.tx_powermail {
+		_LOCAL_LANG.default.validationerror_mandatory = Please insert a value
+		_LOCAL_LANG.de.validationerror_mandatory = Bitte Pflichtfeld ausfüllen
+	}
 
 
 
