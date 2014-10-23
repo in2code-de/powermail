@@ -302,7 +302,7 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 		$this->view->assignMultiple($this->div->getLabelsAttachedToMarkers($mail));
 
 			// powermail_all
-		$content = $this->div->powermailAll($mail, 'web', $this->settings);
+		$content = $this->div->powermailAll($mail, 'web', $this->settings, $this->actionMethodName);
 		$this->view->assign('powermail_all', $content);
 	}
 

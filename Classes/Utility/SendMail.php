@@ -220,13 +220,13 @@ class SendMail {
 		}
 		if ($email['format'] != 'plain') {
 			$message->setBody(
-				$this->createEmailBody($email, $mail, $settings),
+				$this->createEmailBody($email, $mail, $settings, $type),
 				'text/html'
 			);
 		}
 		if ($email['format'] != 'html') {
 			$message->addPart(
-				$this->makePlain($this->createEmailBody($email, $mail, $settings)),
+				$this->makePlain($this->createEmailBody($email, $mail, $settings, $type)),
 				'text/plain'
 			);
 		}
@@ -248,9 +248,10 @@ class SendMail {
 	 * @param array $email Array with all needed mail information
 	 * @param \In2code\Powermail\Domain\Model\Mail &$mail
 	 * @param array $settings TypoScript Settings
+	 * @param string $type Mail type
 	 * @return bool
 	 */
-	protected function createEmailBody($email, \In2code\Powermail\Domain\Model\Mail &$mail, $settings) {
+	protected function createEmailBody($email, \In2code\Powermail\Domain\Model\Mail &$mail, $settings, $type) {
 		/** @var \In2code\Powermail\Utility\StandaloneViewMultiplePaths $emailBodyObject */
 		$emailBodyObject = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
 		$emailBodyObject->getRequest()->setControllerExtensionName('Powermail');
@@ -273,7 +274,7 @@ class SendMail {
 		$emailBodyObject->assign('variablesWithMarkers', $this->div->htmlspecialcharsOnArray($variablesWithMarkers));
 		$emailBodyObject->assignMultiple($variablesWithMarkers);
 		$emailBodyObject->assignMultiple($this->div->getLabelsAttachedToMarkers($mail));
-		$emailBodyObject->assign('powermail_all', $this->div->powermailAll($mail, 'mail', $settings));
+		$emailBodyObject->assign('powermail_all', $this->div->powermailAll($mail, 'mail', $settings, $type));
 		// from rte
 		$emailBodyObject->assign('powermail_rte', $email['rteBody']);
 		$emailBodyObject->assign('marketingInfos', Div::getMarketingInfos());

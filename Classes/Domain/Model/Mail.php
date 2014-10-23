@@ -197,7 +197,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		$this->answer = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**

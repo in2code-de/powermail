@@ -352,6 +352,47 @@ plugin.tx_powermail {
 
 
 
+			# Exclude values from {powermail_all} by markername or fieldtype
+			excludeFromPowermailAllMarker {
+				# On Confirmation Page (if activated)
+				confirmationPage {
+					# add some markernames (commaseparated) which should be excluded
+					excludeFromMarkerNames =
+
+					# add some fieldtypes (commaseparated) which should be excluded
+					excludeFromFieldTypes =
+				}
+
+				# On Submitpage
+				submitPage {
+					# add some markernames (commaseparated) which should be excluded
+					excludeFromMarkerNames =
+
+					# add some fieldtypes (commaseparated) which should be excluded
+					excludeFromFieldTypes =
+				}
+
+				# In Mail to receiver
+				receiverMail {
+					# add some markernames (commaseparated) which should be excluded
+					excludeFromMarkerNames =
+
+					# add some fieldtypes (commaseparated) which should be excluded
+					excludeFromFieldTypes =
+				}
+
+				# In Mail to sender (if activated)
+				senderMail {
+					# add some markernames (commaseparated) which should be excluded
+					excludeFromMarkerNames =
+
+					# add some fieldtypes (commaseparated) which should be excluded
+					excludeFromFieldTypes =
+				}
+			}
+
+
+
 			marketing {
 
 				# Use Google Adwords Conversion JavaScript on form submit

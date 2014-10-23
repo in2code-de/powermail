@@ -3,9 +3,10 @@
 
 	Render Powermail All Part
 		Available variables:
-		{mail} Complete Mail
-		{section}			Contains "web" or "mail"
-		{settings}			TypoScript and FlexForm values
+		{mail} 					Complete Mail
+		{settings}				TypoScript and FlexForm values
+		{section}				Contains "web" or "mail"
+		{type}					Caller "createAction", "confirmationAction", "sender", "receiver"
 
 
 Section for Web view
@@ -13,15 +14,17 @@ Section for Web view
 <f:section name="web">
 	<dl class="powermail_all">
 		<f:for each="{mail.answers}" as="answer">
-			<f:if condition="{settings.misc.showOnlyFilledValues}">
-				<f:then>
-					<f:if condition="{vh:Condition.IsNotEmpty(val:'{answer.value}')}">
+			<f:if condition="{vh:Condition.isNotExcludedFromPowermailAll(answer:answer, type:type, settings:settings)}">
+				<f:if condition="{settings.misc.showOnlyFilledValues}">
+					<f:then>
+						<f:if condition="{vh:Condition.IsNotEmpty(val:'{answer.value}')}">
+							<f:render partial="PowermailAll/Web" arguments="{_all}" />
+						</f:if>
+					</f:then>
+					<f:else>
 						<f:render partial="PowermailAll/Web" arguments="{_all}" />
-					</f:if>
-				</f:then>
-				<f:else>
-					<f:render partial="PowermailAll/Web" arguments="{_all}" />
-				</f:else>
+					</f:else>
+				</f:if>
 			</f:if>
 		</f:for>
 	</dl>
@@ -34,17 +37,20 @@ Section for Web view
 Section for Mails
 
 <f:section name="mail">
+	<h2>{type}</h2>
 	<table class="powermail_all">
 		<f:for each="{mail.answers}" as="answer">
-			<f:if condition="{settings.misc.showOnlyFilledValues}">
-				<f:then>
-					<f:if condition="{vh:Condition.IsNotEmpty(val:'{answer.value}')}">
+			<f:if condition="{vh:Condition.isNotExcludedFromPowermailAll(answer:answer, type:type, settings:settings)}">
+				<f:if condition="{settings.misc.showOnlyFilledValues}">
+					<f:then>
+						<f:if condition="{vh:Condition.IsNotEmpty(val:'{answer.value}')}">
+							<f:render partial="PowermailAll/Mail" arguments="{_all}" />
+						</f:if>
+					</f:then>
+					<f:else>
 						<f:render partial="PowermailAll/Mail" arguments="{_all}" />
-					</f:if>
-				</f:then>
-				<f:else>
-					<f:render partial="PowermailAll/Mail" arguments="{_all}" />
-				</f:else>
+					</f:else>
+				</f:if>
 			</f:if>
 		</f:for>
 	</table>
