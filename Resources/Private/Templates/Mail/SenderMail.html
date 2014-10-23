@@ -10,7 +10,7 @@ Render Powermail Mail to Sender
 NOTE: See example section after main section
 
 <f:section name="main">
-	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}" type="mail">
+	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}" type="mail" function="sender">
 		<f:format.html parseFuncTSPath="lib.parseFunc_powermail">{powermail_rte}</f:format.html>
 	</vh:Misc.Variables>
 </f:section>
@@ -25,7 +25,7 @@ THIS IS ONLY AN EXAMPLE SECTION
 <f:section name="example">
 
 	1. Get values from RTE from Backend:
-	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}" type="mail">
+	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}" type="mail" function="sender">
 		<f:format.html parseFuncTSPath="lib.parseFunc_powermail">{powermail_rte}</f:format.html>
 	</vh:Misc.Variables>
 

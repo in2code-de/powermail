@@ -7,7 +7,7 @@ Good to know
 ------------
 
 
-:ref:`templates` | :ref:`ajaxsubmit` | :ref:`filterFormSelection` | :ref:`spamprevention` | :ref:`savingvaluestothirdpartytables` | :ref:`sendvaluestocrm` | :ref:`goodtoknowdebug` | :ref:`mainTypoScript` | :ref:`removeUnusedImages`
+:ref:`templates` | :ref:`removeValuesFromPowermailAll` | :ref:`ajaxsubmit` | :ref:`filterFormSelection` | :ref:`spamprevention` | :ref:`savingvaluestothirdpartytables` | :ref:`sendvaluestocrm` | :ref:`goodtoknowdebug` | :ref:`mainTypoScript` | :ref:`removeUnusedImages`
 
 .. _templates:
 
@@ -93,6 +93,77 @@ RTE? Use a cObject viehelper:
 .. code-block:: text
 
 	{f:cObject(typoscriptObjectPath:'lib.test')}
+
+
+
+.. _removeValuesFromPowermailAll:
+
+Remove single values from {powermail_all} marker
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you don't want to show secondary values like captcha result or the value of your hiddenfields on the submitpage and in the mail to the user, you can configure fieldtypes or markernames, that should be excluded from {powermail_all}
+
+You can separate between:
+
+- Marker names AND
+- Field types
+
+on differnt views:
+
+- Confirmation Page
+- Submit Page
+- Mail to Sender
+- Mail to Receiver
+
+See following TypoScript Setup example, how to avoid values from {adminonly} and {referrer} and all fields of type hidden and captcha on all webviews and the mail to the user. In other words - those fieldvalues should only be seen by the admin in the mail to the receiver:
+
+.. code-block:: text
+
+	plugin.tx_powermail {
+		settings {
+			setup {
+
+				# Exclude values from {powermail_all} by markername or fieldtype
+				excludeFromPowermailAllMarker {
+					# On Confirmation Page (if activated)
+					confirmationPage {
+						# add some markernames (commaseparated) which should be excluded
+						excludeFromMarkerNames = adminonly, referrer
+
+						# add some fieldtypes (commaseparated) which should be excluded
+						excludeFromFieldTypes = hidden, captcha
+					}
+
+					# On Submitpage
+					submitPage {
+						# add some markernames (commaseparated) which should be excluded
+						excludeFromMarkerNames = adminonly, referrer
+
+						# add some fieldtypes (commaseparated) which should be excluded
+						excludeFromFieldTypes = hidden, captcha
+					}
+
+					# In Mail to receiver
+					receiverMail {
+						# add some markernames (commaseparated) which should be excluded
+						excludeFromMarkerNames =
+
+						# add some fieldtypes (commaseparated) which should be excluded
+						excludeFromFieldTypes =
+					}
+
+					# In Mail to sender (if activated)
+					senderMail {
+						# add some markernames (commaseparated) which should be excluded
+						excludeFromMarkerNames = adminonly, referrer
+
+						# add some fieldtypes (commaseparated) which should be excluded
+						excludeFromFieldTypes = hidden, captcha
+					}
+				}
+			}
+		}
+	}
 
 
 
@@ -1692,6 +1763,47 @@ Setup
 						# available: uid, title, type, settings, css, feuserValue, mandatory, marker, pid, prefillValue, senderEmail, senderName, sorting, validation
 	#				comment = TEXT
 	#				comment.field = type
+				}
+
+
+
+				# Exclude values from {powermail_all} by markername or fieldtype
+				excludeFromPowermailAllMarker {
+					# On Confirmation Page (if activated)
+					confirmationPage {
+						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+						excludeFromMarkerNames =
+
+						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+						excludeFromFieldTypes =
+					}
+
+					# On Submitpage
+					submitPage {
+						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+						excludeFromMarkerNames =
+
+						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+						excludeFromFieldTypes =
+					}
+
+					# In Mail to receiver
+					receiverMail {
+						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+						excludeFromMarkerNames =
+
+						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+						excludeFromFieldTypes =
+					}
+
+					# In Mail to sender (if activated)
+					senderMail {
+						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+						excludeFromMarkerNames =
+
+						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+						excludeFromFieldTypes =
+					}
 				}
 
 
