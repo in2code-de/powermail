@@ -38,6 +38,13 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
 class GetLocationEid {
 
 	/**
+	 * Language settings for google maps
+	 *
+	 * @var string
+	 */
+	protected $language = 'en';
+
+	/**
 	 * Generates the output
 	 *
 	 * @return string		from action
@@ -65,7 +72,8 @@ class GetLocationEid {
 	protected function getAddressFromGeo($lat, $lng) {
 		$result = array();
 		$json = GeneralUtility::getUrl(
-			'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&region=de&latlng=' . urlencode($lat . ',' . $lng)
+			'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&language=' . $this->language .
+			'&latlng=' . urlencode($lat . ',' . $lng)
 		);
 		$jsonDecoded = json_decode($json, TRUE);
 		if (!empty($jsonDecoded['results'])) {

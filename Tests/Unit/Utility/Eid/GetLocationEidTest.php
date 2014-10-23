@@ -37,13 +37,13 @@ class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @var \In2code\Powermail\Utility\Eid\GetLocationEid
 	 */
-	protected $generalValidatorMock;
+	protected $getLocationEidMock;
 
 	/**
 	 * @return void
 	 */
 	public function setUp() {
-		$this->generalValidatorMock = $this->getAccessibleMock(
+		$this->getLocationEidMock = $this->getAccessibleMock(
 			'\In2code\Powermail\Utility\Eid\GetLocationEid',
 			array('dummy')
 		);
@@ -53,7 +53,7 @@ class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @return void
 	 */
 	public function tearDown() {
-		unset($this->generalValidatorMock);
+		unset($this->getLocationEidMock);
 	}
 
 	/**
@@ -67,7 +67,7 @@ class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 				47.84787,
 				12.113768,
 				array(
-					'route' => 'Kunstmühlstraße',
+					'route' => 'Kunstmuehl Street',
 					'locality' => 'Rosenheim',
 					'country' => 'Germany',
 					'postal_code' => '83026'
@@ -77,7 +77,7 @@ class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 				48.0796126,
 				12.0898908,
 				array(
-					'route' => 'Eisweiherweg',
+					'route' => 'Eisweiher Path',
 					'locality' => 'Pfaffing',
 					'country' => 'Germany',
 					'postal_code' => '83539'
@@ -107,7 +107,7 @@ class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getAddressFromGeoReturnsArray($latitude, $longitude, $expectedResult) {
-		$address = $this->generalValidatorMock->_callRef('getAddressFromGeo', $latitude, $longitude);
+		$address = $this->getLocationEidMock->_callRef('getAddressFromGeo', $latitude, $longitude);
 		foreach (array_keys($expectedResult) as $expectedResultSingleKey) {
 			$this->assertSame($address[$expectedResultSingleKey], $expectedResult[$expectedResultSingleKey]);
 		}
