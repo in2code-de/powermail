@@ -113,7 +113,7 @@ plugin.tx_powermail {
 
 				# Mail Header "Sender:" see RFC 2822 - 3.6.2 Originator fields f.e. webserver@example.com, leave empty if you do not want to set a Sender-Header
 				senderHeader.email = TEXT
-				senderHeader.email.value = {$plugin.tx_powermail.settings.receiver.senderHeader.email} 
+				senderHeader.email.value = {$plugin.tx_powermail.settings.receiver.senderHeader.email}
 				# optional: f.e. Webserver
 				senderHeader.name = TEXT
 				senderHeader.name.value = {$plugin.tx_powermail.settings.receiver.senderHeader.name}
@@ -180,7 +180,7 @@ plugin.tx_powermail {
 
 				# Mail Header "Sender:" see RFC 2822 - 3.6.2 Originator fields f.e. webserver@example.com, leave empty if you do not want to set a Sender-Header
 				senderHeader.email = TEXT
-				senderHeader.email.value = {$plugin.tx_powermail.settings.sender.senderHeader.email} 
+				senderHeader.email.value = {$plugin.tx_powermail.settings.sender.senderHeader.email}
 				# optional: f.e. Webserver
 				senderHeader.name = TEXT
 				senderHeader.name.value = {$plugin.tx_powermail.settings.sender.senderHeader.name}
@@ -356,37 +356,37 @@ plugin.tx_powermail {
 			excludeFromPowermailAllMarker {
 				# On Confirmation Page (if activated)
 				confirmationPage {
-					# add some markernames (commaseparated) which should be excluded
+					# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
 					excludeFromMarkerNames =
 
-					# add some fieldtypes (commaseparated) which should be excluded
+					# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
 					excludeFromFieldTypes =
 				}
 
 				# On Submitpage
 				submitPage {
-					# add some markernames (commaseparated) which should be excluded
+					# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
 					excludeFromMarkerNames =
 
-					# add some fieldtypes (commaseparated) which should be excluded
+					# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
 					excludeFromFieldTypes =
 				}
 
 				# In Mail to receiver
 				receiverMail {
-					# add some markernames (commaseparated) which should be excluded
+					# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
 					excludeFromMarkerNames =
 
-					# add some fieldtypes (commaseparated) which should be excluded
+					# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
 					excludeFromFieldTypes =
 				}
 
 				# In Mail to sender (if activated)
 				senderMail {
-					# add some markernames (commaseparated) which should be excluded
+					# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
 					excludeFromMarkerNames =
 
-					# add some fieldtypes (commaseparated) which should be excluded
+					# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
 					excludeFromFieldTypes =
 				}
 			}
