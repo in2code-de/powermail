@@ -3,7 +3,8 @@ namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Domain\Model\Mail;
+	\In2code\Powermail\Domain\Model\Mail,
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -1260,6 +1261,36 @@ class Div {
 			$fileName .= $characters[$key];
 		}
 		return $fileName;
+	}
+
+	/**
+	 * Get image src from any string with an image tag
+	 *
+	 * @param string $html
+	 * @return mixed
+	 */
+	public static function getImageSourceFromTag($html) {
+		preg_match('~<img[^>]+src=[\'"]([^\'"]+)[\'"][^>]*>~i', $html, $matches);
+		return $matches[1];
+	}
+
+	/**
+	 * Return configured captcha extension
+	 *
+	 * @param array $settings
+	 * @return string
+	 */
+	public static function getCaptchaExtensionFromSettings($settings) {
+		$allowedExtensions = array(
+			'captcha'
+		);
+		if (
+			in_array($settings['captcha.']['use'], $allowedExtensions) &&
+			ExtensionManagementUtility::isLoaded($settings['captcha.']['use'])
+		) {
+			return $settings['captcha.']['use'];
+		}
+		return 'default';
 	}
 
 	/**

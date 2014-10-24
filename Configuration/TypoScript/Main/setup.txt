@@ -240,7 +240,7 @@ plugin.tx_powermail {
 
 			# Captcha Settings
 			captcha {
-				# TODO: Use other Captcha Extensions (sr_freecap, captcha)
+				# Select "default" (on board calculating captcha) or "sr_freecap" (needs extension sr_freecap)
 				use = default
 
 				default {
@@ -252,7 +252,7 @@ plugin.tx_powermail {
 					distanceHor = {$plugin.tx_powermail.settings.captcha.distanceHor}
 					distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
 
-					# You can force a fix captcha - operator must be "+" (for testing only)
+					# You can force a fix captcha - operator must be "+" (for testing only with calculating captcha)
 #					forceValue = 1+1
 				}
 			}

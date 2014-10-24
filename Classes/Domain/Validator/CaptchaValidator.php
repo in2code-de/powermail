@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
+use \In2code\Powermail\Utility\Div;
+
 /**
  * CaptchaValidator
  *
@@ -15,7 +17,7 @@ class CaptchaValidator extends \In2code\Powermail\Domain\Validator\AbstractValid
 	 *
 	 * @inject
 	 */
-	protected $captchaEngine;
+	protected $calculatingCaptchaEngine;
 
 	/**
 	 * Captcha Session clean (only if mail is out)
@@ -47,21 +49,49 @@ class CaptchaValidator extends \In2code\Powermail\Domain\Validator\AbstractValid
 				continue;
 			}
 
-			$this->captchaArgumentFound = TRUE;
-			if (!$this->captchaEngine->validCode($answer->getValue(), $this->clearSession)) {
+			$this->setCaptchaArgumentFound(TRUE);
+			if (!$this->validCodePreflight($answer->getValue())) {
 				$this->setErrorAndMessage($answer->getField(), 'captcha');
 			}
 
 		}
 
-			// if no captcha arguments given (maybe deleted from DOM)
-		if (!$this->captchaArgumentFound) {
+		// if no captcha arguments given (maybe deleted from DOM)
+		if (!$this->getCaptchaArgumentFound()) {
 			$this->addError('captcha', 0);
 			$this->setIsValid(FALSE);
 		}
 
 		return $this->getIsValid();
 
+	}
+
+	/**
+	 * Check if given string is correct
+	 *
+	 * @param string $value
+	 * @return bool
+	 */
+	protected function validCodePreflight($value) {
+		switch (Div::getCaptchaExtensionFromSettings($this->settings)) {
+			case 'captcha':
+				session_start();
+				$generatedCaptchaString = $_SESSION['tx_captcha_string'];
+				if (!empty($value) && $generatedCaptchaString === $value) {
+					return TRUE;
+				}
+				if ($this->getClearSession()) {
+					$_SESSION['tx_captcha_string'] = '';
+				}
+				break;
+
+			default:
+				if ($this->calculatingCaptchaEngine->validCode($value, $this->getClearSession())) {
+					return TRUE;
+				}
+		}
+
+		return FALSE;
 	}
 
 	/**
@@ -76,11 +106,41 @@ class CaptchaValidator extends \In2code\Powermail\Domain\Validator\AbstractValid
 	}
 
 	/**
+	 * @return boolean
+	 */
+	public function getClearSession() {
+		return $this->clearSession;
+	}
+
+	/**
+	 * @param boolean $clearSession
+	 * @return void
+	 */
+	public function setClearSession($clearSession) {
+		$this->clearSession = $clearSession;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getCaptchaArgumentFound() {
+		return $this->captchaArgumentFound;
+	}
+
+	/**
+	 * @param boolean $captchaArgumentFound
+	 * @return void
+	 */
+	public function setCaptchaArgumentFound($captchaArgumentFound) {
+		$this->captchaArgumentFound = $captchaArgumentFound;
+	}
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$piVars = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('tx_powermail_pi1');
-			// clear captcha on create action
-		$this->clearSession = ($piVars['action'] == 'create' ? TRUE : FALSE);
+		$pluginVariables = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('tx_powermail_pi1');
+		// clear captcha only on create action
+		$this->setClearSession(($pluginVariables['action'] == 'create' ? TRUE : FALSE));
 	}
 }
