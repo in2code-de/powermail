@@ -824,7 +824,7 @@ class Div {
 	 * @return bool
 	 */
 	public static function isJsonArray($string) {
-		return is_array(json_decode($string));
+		return is_array(json_decode($string, TRUE));
 	}
 
 	/**

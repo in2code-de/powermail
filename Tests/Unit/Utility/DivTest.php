@@ -365,6 +365,14 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 				FALSE
 			),
 			array(
+				json_encode(array('object' => 'a')),
+				TRUE
+			),
+			array(
+				json_encode(array(array('title' => 'test2'), array('title' => 'test2'))),
+				TRUE
+			),
+			array(
 				'a,b:c',
 				FALSE
 			),
