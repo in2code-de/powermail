@@ -73,4 +73,50 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext {
 	public function iSwithToIframe($arg1 = NULL) {
 		$this->getSession()->switchToIFrame($arg1);
 	}
+
+	/**
+	 * Fills in form field with specified id|name|label|value.
+	 *
+	 * @When /^(?:|I )fill in "(?P<field>(?:[^"]|\\")*)" with a random value$/
+	 * @return void
+	 */
+	public function fillWithRandomValue($field) {
+		$value = $this->createRandomString();
+		$field = $this->fixStepArgument($field);
+		$value = $this->fixStepArgument($value);
+		$this->getSession()->getPage()->fillField($field, $value);
+	}
+
+	/**
+	 * Fills in form field with specified id|name|label|value.
+	 *
+	 * @When /^(?:|I )fill in "(?P<field>(?:[^"]|\\")*)" with a random email$/
+	 * @return void
+	 */
+	public function fillWithRandomEmail($field) {
+		$value = $this->createRandomString() . '@email.org';
+		$field = $this->fixStepArgument($field);
+		$value = $this->fixStepArgument($value);
+		$this->getSession()->getPage()->fillField($field, $value);
+	}
+
+	/**
+	 * createRandomFileName
+	 *
+	 * @param int $length
+	 * @param bool $lowerAndUpperCase
+	 * @return string
+	 */
+	protected function createRandomString($length = 32, $lowerAndUpperCase = TRUE) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+		if ($lowerAndUpperCase) {
+			$characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		}
+		$fileName = '';
+		for ($i = 0; $i < $length; $i++) {
+			$key = mt_rand(0, strlen($characters) - 1);
+			$fileName .= $characters[$key];
+		}
+		return $fileName;
+	}
 }
