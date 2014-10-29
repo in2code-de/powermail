@@ -462,7 +462,7 @@ class Div {
 		$typoScriptConfiguration = BackendUtility::getPagesTSconfig($GLOBALS['TSFE']->id);
 		$extensionConfiguration = $typoScriptConfiguration['tx_powermail.']['flexForm.'];
 		if (!empty($extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
-			$types[$fieldType] = $extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
+			$types[$fieldType] = intval($extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType']);
 		}
 
 		if (array_key_exists($fieldType, $types)) {
