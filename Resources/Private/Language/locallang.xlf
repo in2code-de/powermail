@@ -132,6 +132,9 @@
 			<trans-unit id="validationerror_password">
 				<source>Both Password-Fields are not equal!</source>
 			</trans-unit>
+			<trans-unit id="validationerror_unique">
+				<source>This value is already in use - please use a new one!</source>
+			</trans-unit>
 			<trans-unit id="validationerror_validation">
 				<source>Your input is not allowed!</source>
 			</trans-unit>

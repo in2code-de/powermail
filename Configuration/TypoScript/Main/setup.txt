@@ -31,6 +31,14 @@ plugin.tx_powermail {
 				# enable serverside validation
 				server = {$plugin.tx_powermail.settings.validation.server}
 
+				unique {
+					# Enable unique check for {email}
+					#email = 1
+
+					# Enable a max limit of 3 times for the same entry for {event}
+					#event = 3
+				}
+
 				##########################################################
 				# CUSTOMVALIDATION EXAMPLE
 				#
