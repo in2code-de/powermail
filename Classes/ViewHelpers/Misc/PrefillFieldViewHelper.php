@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use \In2code\Powermail\Domain\Model\Field,
+	\In2code\Powermail\Domain\Model\Mail,
+	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Prefill a field with variables
@@ -41,8 +43,11 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	 * @param \int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
 	 * @return mixed Prefill field with this string
 	 */
-	public function render(
-		\In2code\Powermail\Domain\Model\Field $field, \In2code\Powermail\Domain\Model\Mail $mail = NULL, $cycle = 0) {
+	public function render(Field $field, Mail $mail = NULL, $cycle = 0) {
+		// don't prefill if cached form to prevent wrong cached values
+		if ($this->isCachedForm()) {
+			return '';
+		}
 
 		if ($cycle === 0) {
 			$value = $this->getDefaultValue($field, $mail);
@@ -308,6 +313,19 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 		}
 
 		return $selected;
+	}
+
+	/**
+	 * Check if form is cached
+	 *
+	 * @return bool
+	 */
+	protected function isCachedForm() {
+		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+		if ($confArr['enableCaching'] === '1') {
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 	/**
