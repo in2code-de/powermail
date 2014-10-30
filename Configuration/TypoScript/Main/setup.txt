@@ -248,7 +248,7 @@ plugin.tx_powermail {
 
 			# Captcha Settings
 			captcha {
-				# Select "default" (on board calculating captcha) or "sr_freecap" (needs extension sr_freecap)
+				# Select "default" (on board calculating captcha) or "captcha" (needs extension captcha)
 				use = default
 
 				default {

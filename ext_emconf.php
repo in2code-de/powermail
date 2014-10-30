@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array (
 		(field prefilling, spam prevention, marketing information, double-optin, etc...)',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '2.1.5',
+	'version' => '2.1.6',
 	'dependencies' => 'cms,extbase,fluid',
 	'conflicts' => '',
 	'priority' => '',

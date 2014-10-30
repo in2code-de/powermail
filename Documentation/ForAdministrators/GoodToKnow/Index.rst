@@ -7,7 +7,7 @@ Good to know
 ------------
 
 
-:ref:`templates` | :ref:`changingLabels` | :ref:`removeValuesFromPowermailAll` | :ref:`ajaxsubmit` | :ref:`filterFormSelection` | :ref:`spamprevention` | :ref:`savingvaluestothirdpartytables` | :ref:`sendvaluestocrm` | :ref:`goodtoknowdebug` | :ref:`mainTypoScript` | :ref:`removeUnusedImages`
+:ref:`templates` | :ref:`changingLabels` | :ref:`removeValuesFromPowermailAll` | :ref:`uniqueValues` | :ref:`ajaxsubmit` | :ref:`filterFormSelection` | :ref:`spamprevention` | :ref:`savingvaluestothirdpartytables` | :ref:`sendvaluestocrm` | :ref:`goodtoknowdebug` | :ref:`mainTypoScript` | :ref:`removeUnusedImages`
 
 .. _templates:
 
@@ -183,6 +183,27 @@ See following TypoScript Setup example, how to avoid values from {adminonly} and
 
 
 
+.. _uniqueValues:
+
+Unique Values
+^^^^^^^^^^^^^
+
+As you may know from powermail 1.x you can enforce that every value of a field should only exist once. This could be helpful if you want to start a competition with powermail and every email should only saved once.
+
+.. code-block:: text
+
+	plugin.tx_powermail.settings.setup.validation {
+		unique {
+			# Enable unique check for {email} - every email must be unique on the page where mails are stored
+			email = 1
+
+			# Enable a max limit of 3 times for the same entry for {event}
+			event = 3
+		}
+	}
+
+
+
 .. _ajaxsubmit:
 
 AJAX Submit
@@ -294,7 +315,7 @@ email_                                                      :ref:`t3tsref:data-t
 \_enable
 ~~~~~~~~
 
-:typoscript:`plugin.tx_powermail.settings.setup._enable =` 0 (disable) | 1 (enable)
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield._enable =` 0 (disable) | 1 (enable)
 
 Enable or disable the spamshield of powermail completely
 
@@ -305,7 +326,7 @@ Enable or disable the spamshield of powermail completely
 factor
 ~~~~~~
 
-:typoscript:`plugin.tx_powermail.settings.setup.factor =` :ref:`t3tsref:data-type-integer`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.factor =` :ref:`t3tsref:data-type-integer`
 
 Spam Factor Limit in %
 
@@ -315,7 +336,7 @@ Spam Factor Limit in %
 email
 ~~~~~
 
-:typoscript:`plugin.tx_powermail.settings.setup.factor =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.email =` :ref:`t3tsref:data-type-string`
 
 Notification Email to Admin if spam recognized
 
@@ -325,7 +346,7 @@ Notification Email to Admin if spam recognized
 indicator.honeypod
 ~~~~~~~~~~~~~~~~~~
 
-:typoscript:`plugin.tx_powermail.settings.setup.factor =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.indicator.honeypod =` :ref:`t3tsref:data-type-string`
 
 A Honeypod is an invisible (CSS) field which should not filled with
 any value. If it's even filled, it could be a machine.
@@ -340,7 +361,7 @@ disables this check completely)
 indicator.link
 ~~~~~~~~~~~~~~
 
-:typoscript:`plugin.tx_powermail.settings.setup.factor =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.indicator.link =` :ref:`t3tsref:data-type-string`
 
 Checks the number of Links in the mail. The number of links is a good
 indication of a spammail.
@@ -354,7 +375,7 @@ disables this check completely)
 indicator.linkLimit
 ~~~~~~~~~~~~~~~~~~~
 
-:typoscript:`plugin.tx_powermail.settings.setup.factor =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.indicator.linkLimit =` :ref:`t3tsref:data-type-string`
 
 Limit of links allowed. If there are more links than allowed, the check fails.
 
@@ -518,6 +539,17 @@ which are failed above the form. Enable with TypoScript setup (Use extension dev
 
 
 |img-89|
+
+
+Captcha
+"""""""
+
+Using a captcha extension also helps to prevent spam. You can simply add a new field of type captcha. A build-in calculating captcha will be shown in frontend.
+If you want to use another extension, you can install the extension "captcha" from TER and configure powermail to use this extension for every captcha:
+
+::
+
+	plugin.tx_powermail.settings.setup.captcha.use = captcha
 
 
 .. _savingvaluestothirdpartytables:
@@ -1462,6 +1494,14 @@ Setup
 					# enable serverside validation
 					server = {$plugin.tx_powermail.settings.validation.server}
 
+					unique {
+						# Enable unique check for {email}
+						#email = 1
+
+						# Enable a max limit of 3 times for the same entry for {event}
+						#event = 3
+					}
+
 					##########################################################
 					# CUSTOMVALIDATION EXAMPLE
 					#
@@ -1671,7 +1711,7 @@ Setup
 
 				# Captcha Settings
 				captcha {
-					# TODO: Use other Captcha Extensions (sr_freecap, captcha)
+					# Select "default" (on board calculating captcha) or "captcha" (needs extension captcha)
 					use = default
 
 					default {
@@ -1683,7 +1723,7 @@ Setup
 						distanceHor = {$plugin.tx_powermail.settings.captcha.distanceHor}
 						distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
 
-						# You can force a fix captcha - operator must be "+" (for testing only)
+						# You can force a fix captcha - operator must be "+" (for testing only with calculating captcha)
 	#					forceValue = 1+1
 					}
 				}
