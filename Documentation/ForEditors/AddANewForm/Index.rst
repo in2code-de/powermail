@@ -2029,7 +2029,7 @@ Captcha Field
 What does it do?
 ''''''''''''''''
 
-- **General:** Want to prevent spam? Spamshield is integrated in powermail 2.x. In addtion you can add a calculating-captcha field to the form. The form can only be submitted if the result of the captcha is correct.
+- **General:** Want to prevent spam? Spamshield is integrated in powermail 2.x. In addtion you can add a calculating-captcha field to the form. The form can only be submitted if the result of the captcha is correct. You can use another captcha extension instead of the build-in calculating captcha (see TypoScript part).
 
 Frontend Output Example
 '''''''''''''''''''''''

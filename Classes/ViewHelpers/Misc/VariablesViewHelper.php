@@ -2,6 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\In2code\Powermail\Domain\Model\Mail,
 	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
@@ -45,14 +46,16 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	 * @param array $variablesMarkers Variables and Markers array
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail Variables and Labels array
 	 * @param string $type "web" or "mail"
+	 * @param string $function "createAction", "senderMail", "receiverMail"
 	 * @return string Changed string
 	 */
-	public function render($variablesMarkers = array(), \In2code\Powermail\Domain\Model\Mail $mail, $type = 'web') {
+	public function render($variablesMarkers = array(), Mail $mail, $type = 'web', $function = 'createAction') {
+		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $parseObject */
 		$parseObject = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
 		$parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
 		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($variablesMarkers));
 
-		$powermailAll = $this->div->powermailAll($mail, $type, $this->settings);
+		$powermailAll = $this->div->powermailAll($mail, $type, $this->settings, $function);
 		$parseObject->assign('powermail_all', $powermailAll);
 
 		return html_entity_decode($parseObject->render(), ENT_QUOTES, 'UTF-8');

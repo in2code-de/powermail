@@ -3,7 +3,8 @@ namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Domain\Model\Mail;
+	\In2code\Powermail\Domain\Model\Mail,
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -210,20 +211,25 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @param string $section Choose a section (web or mail)
 	 * @param array $settings TypoScript Settings
+	 * @param string $type "createAction", "confirmationAction", "sender", "receiver"
 	 * @return string content parsed from powermailAll HTML Template
 	 */
-	public function powermailAll(\In2code\Powermail\Domain\Model\Mail $mail, $section = 'web', $settings = array()) {
+	public function powermailAll(Mail $mail, $section = 'web', $settings = array(), $type = NULL) {
+		/** @var \In2code\Powermail\Utility\StandaloneViewMultiplePaths $powermailAll */
 		$powermailAll = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
 		$templatePathAndFilename = $this->getTemplatePath('Form/PowermailAll.html');
 		$powermailAll->setTemplatePathAndFilename($templatePathAndFilename);
 		$powermailAll->setLayoutRootPaths($this->getTemplateFolders('layout'));
 		$powermailAll->setPartialRootPaths($this->getTemplateFolders('partial'));
-		$powermailAll->assign('mail', $mail);
-		$powermailAll->assign('section', $section);
-		$powermailAll->assign('settings', $settings);
-		$content = $powermailAll->render();
-
-		return $content;
+		$powermailAll->assignMultiple(
+			array(
+				'mail' => $mail,
+				'section' => $section,
+				'settings' => $settings,
+				'type' => $type
+			)
+		);
+		return $powermailAll->render();
 	}
 
 	/**
@@ -456,7 +462,7 @@ class Div {
 		$typoScriptConfiguration = BackendUtility::getPagesTSconfig($GLOBALS['TSFE']->id);
 		$extensionConfiguration = $typoScriptConfiguration['tx_powermail.']['flexForm.'];
 		if (!empty($extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
-			$types[$fieldType] = $extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
+			$types[$fieldType] = intval($extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType']);
 		}
 
 		if (array_key_exists($fieldType, $types)) {
@@ -818,7 +824,7 @@ class Div {
 	 * @return bool
 	 */
 	public static function isJsonArray($string) {
-		return is_array(json_decode($string));
+		return is_array(json_decode($string, TRUE));
 	}
 
 	/**
@@ -1255,6 +1261,36 @@ class Div {
 			$fileName .= $characters[$key];
 		}
 		return $fileName;
+	}
+
+	/**
+	 * Get image src from any string with an image tag
+	 *
+	 * @param string $html
+	 * @return mixed
+	 */
+	public static function getImageSourceFromTag($html) {
+		preg_match('~<img[^>]+src=[\'"]([^\'"]+)[\'"][^>]*>~i', $html, $matches);
+		return $matches[1];
+	}
+
+	/**
+	 * Return configured captcha extension
+	 *
+	 * @param array $settings
+	 * @return string
+	 */
+	public static function getCaptchaExtensionFromSettings($settings) {
+		$allowedExtensions = array(
+			'captcha'
+		);
+		if (
+			in_array($settings['captcha.']['use'], $allowedExtensions) &&
+			ExtensionManagementUtility::isLoaded($settings['captcha.']['use'])
+		) {
+			return $settings['captcha.']['use'];
+		}
+		return 'default';
 	}
 
 	/**

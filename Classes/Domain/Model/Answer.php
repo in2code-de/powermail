@@ -54,7 +54,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @var int
 	 */
-	protected $valueType = 0;
+	protected $valueType = NULL;
 
 	/**
 	 * mail
@@ -82,7 +82,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		if (Div::isJsonArray($this->value)) {
 				// only if type multivalue or upload
 			if ($this->getValueType() === 1 || $this->getValueType() === 3) {
-				$value = json_decode($value);
+				$value = json_decode($value, TRUE);
 			}
 		}
 
@@ -122,7 +122,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		if (
 			!empty($value) &&
 			method_exists($this->getField(), 'getType') &&
-			Div::getDataTypeFromFieldType($this->getField()->getType()) === 2 &&
+			$this->getValueType() === 2 &&
 			!is_numeric($value)
 		) {
 			$format = LocalizationUtility::translate(
@@ -155,13 +155,20 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return void
 	 */
 	public function setValueType($valueType) {
-		$this->valueType = $valueType;
+		$this->valueType = intval($valueType);
 	}
 
 	/**
 	 * @return int
 	 */
 	public function getValueType() {
+		if ($this->valueType === NULL) {
+			if ($this->getField() !== NULL) {
+				$this->setValueType(Div::getDataTypeFromFieldType($this->getField()->getType()));
+			} else {
+				$this->setValue(0);
+			}
+		}
 		return $this->valueType;
 	}
 

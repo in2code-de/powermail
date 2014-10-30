@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use In2code\Powermail\Utility\Div;
 use \TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -36,6 +37,14 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * 			GNU Lesser General Public License, version 3 or later
  */
 class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+
+	/**
+	 * fieldRepository
+	 *
+	 * @var \In2code\Powermail\Domain\Repository\FieldRepository
+	 * @inject
+	 */
+	protected $fieldRepository;
 
 	/**
 	 * Find all mails in given PID (BE List)
@@ -240,6 +249,25 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		// go for it
 		$mails = $query->execute();
 		return $mails;
+	}
+
+	/**
+	 * @param string $marker
+	 * @param string $value
+	 * @param \In2code\Powermail\Domain\Model\Form $form
+	 * @param int $pageUid
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findByMarkerValueForm($marker, $value, $form, $pageUid) {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$and = array(
+			$query->equals('answers.field', $this->fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
+			$query->equals('answers.value', $value),
+			$query->equals('pid', $pageUid)
+		);
+		$query->matching($query->logicalAnd($and));
+		return $query->execute();
 	}
 
 	/**

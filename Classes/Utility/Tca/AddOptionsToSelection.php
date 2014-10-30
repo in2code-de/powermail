@@ -70,6 +70,9 @@ class AddOptionsToSelection {
 		if (!empty($extensionConfiguration[$type . '.']['addFieldOptions.'])) {
 			$options = $extensionConfiguration[$type . '.']['addFieldOptions.'];
 			foreach ((array) $options as $value => $label) {
+				if (stristr($value, '.')) {
+					continue;
+				}
 				$params['items'][] = array(
 					$label,
 					$value

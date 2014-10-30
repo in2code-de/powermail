@@ -365,6 +365,14 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 				FALSE
 			),
 			array(
+				json_encode(array('object' => 'a')),
+				TRUE
+			),
+			array(
+				json_encode(array(array('title' => 'test2'), array('title' => 'test2'))),
+				TRUE
+			),
+			array(
 				'a,b:c',
 				FALSE
 			),
@@ -503,6 +511,65 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		$this->assertSame(
 			\In2code\Powermail\Utility\Div::getCountryFromIp($ip),
 			$expectedResult
+		);
+	}
+
+	/**
+	 * Data Provider for getImageSourceFromTagReturnsString()
+	 *
+	 * @return array
+	 */
+	public function getImageSourceFromTagReturnsStringDataProvider() {
+		return array(
+			array(
+				array(
+					'<img class="tx-srfreecap-image" id="tx_srfreecap_captcha_image_6ac99" ',
+					'src="http://powermail.localhost.de/index.php?eID=sr_freecap_EidDispatcher&amp;',
+					'id=111&amp;extensionName=SrFreecap&amp;pluginName=ImageGenerator&amp;controllerName=ImageGenerator',
+					'&amp;actionName=show&amp;formatName=png&amp;set=6ac99" alt="CAPTCHA-Bild zum Spam-Schutz "/>',
+					'<span class="tx-srfreecap-cant-read">Wenn Sie das Wort nicht lesen können, ',
+					'<a href="#" onclick="this.blur();SrFreecap.newImage(\'6ac99\', \'Entschuldigung, wir können nicht ',
+					'automatisch ein neues Bild zeigen. Schicken Sie das Formular ab und ein neues Bild wird geladen.\');',
+					'return false;">bitte hier klicken</a>.</span>'
+				),
+				array(
+					'http://powermail.localhost.de/index.php?eID=sr_freecap_EidDispatcher&amp;',
+					'id=111&amp;extensionName=SrFreecap&amp;pluginName=ImageGenerator&amp;controllerName=ImageGenerator',
+					'&amp;actionName=show&amp;formatName=png&amp;set=6ac99'
+				)
+			),
+			array(
+				array(
+					'abcd <img src="/abc/pic.png" /> adsa ',
+				),
+				array(
+					'/abc/pic.png'
+				)
+			),
+			array(
+				array(
+					'<b> <img src="http://d.org/pic.bmp" /> ads <img src="xyz.php" /> </b>adsa',
+				),
+				array(
+					'http://d.org/pic.bmp'
+				)
+			),
+		);
+	}
+
+	/**
+	 * getImageSourceFromTag Test
+	 *
+	 * @param array $html
+	 * @param array $expectedResult
+	 * @dataProvider getImageSourceFromTagReturnsStringDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function getImageSourceFromTagReturnsString($html, $expectedResult) {
+		$this->assertSame(
+			\In2code\Powermail\Utility\Div::getImageSourceFromTag(implode('', $html)),
+			implode('', $expectedResult)
 		);
 	}
 }

@@ -88,6 +88,7 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 	 * @validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
+	 * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
 	 * @required $mail
 	 * @return void
@@ -160,6 +161,7 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 	 * @validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
+	 * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
 	 * @required $mail
 	 * @return void
@@ -302,7 +304,7 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 		$this->view->assignMultiple($this->div->getLabelsAttachedToMarkers($mail));
 
 			// powermail_all
-		$content = $this->div->powermailAll($mail, 'web', $this->settings);
+		$content = $this->div->powermailAll($mail, 'web', $this->settings, $this->actionMethodName);
 		$this->view->assign('powermail_all', $content);
 	}
 

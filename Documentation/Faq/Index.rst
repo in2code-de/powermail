@@ -150,8 +150,8 @@ Changing values via page tsconfig
 				}
 			}
 		}
-		tx_powermail_domain_model_pages < tx_powermail_domain_model_forms
-		tx_powermail_domain_model_fields < tx_powermail_domain_model_forms
+		tx_powermail_domain_model_pages < .tx_powermail_domain_model_forms
+		tx_powermail_domain_model_fields < .tx_powermail_domain_model_forms
 	}
 
 

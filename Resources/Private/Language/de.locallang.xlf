@@ -176,6 +176,10 @@
 				<source>Both Password-Fields are not equal!</source>
 				<target state="translated">Die beiden Passwort-Felder enthalten nicht den gleichen Wert!</target>
 			</trans-unit>
+			<trans-unit id="validationerror_unique">
+				<source>This value is already in use - please use a new one!</source>
+				<target state="translated">Der Wert wurde bereits verwendet - bitte versuchen Sie einen anderen!</target>
+			</trans-unit>
 			<trans-unit id="validationerror_validation">
 				<source>Your input is not allowed!</source>
 				<target state="translated">Ihre Eingabe ist nicht erlaubt!</target>
