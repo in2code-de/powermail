@@ -37,7 +37,6 @@ Section for Web view
 Section for Mails
 
 <f:section name="mail">
-	<h2>{type}</h2>
 	<table class="powermail_all">
 		<f:for each="{mail.answers}" as="answer">
 			<f:if condition="{vh:Condition.isNotExcludedFromPowermailAll(answer:answer, type:type, settings:settings)}">
