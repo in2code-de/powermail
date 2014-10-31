@@ -28,4 +28,4 @@ For Administrators
    BackendUserRights/Index
    PowermailFrontend/Index
    GoodToKnow/Index
-
+   Upgrade/Index

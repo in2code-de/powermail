@@ -26,7 +26,7 @@ Yes. You can convert old forms (1.x) to version 2.x in powermail 2.1. Please use
 Can I use another Captcha Extension?
 ------------------------------------
 
-No. At the moment we support only a calculating captcha in the powermail core. Maybe other extensions in a later version.
+Yes. At the moment we support a build-in calculating captcha in the powermail core and the extension "captcha".
 
 
 .. _canisavetoothertables:
@@ -347,6 +347,13 @@ See following example to add a new fieldtype with Partial Newfield.html (see Doc
 .. code-block:: text
 
 	tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name
+
+.. _whitepageafterupgrade:
+
+I upgraded powermail and a white page comes up
+----------------------------------------------
+
+See explanation in part "For Administrators" and "Upgrade". If you make an upgrade, only deleting the cache files in typo3temp may not help. Please clean all caches in the install tool and try again.
 
 .. _ihaveaproblem:
 
