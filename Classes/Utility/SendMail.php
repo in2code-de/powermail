@@ -1,7 +1,10 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\In2code\Powermail\Domain\Model\Mail,
+	\In2code\Powermail\Utility\StandaloneViewMultiplePaths,
+	\TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /***************************************************************
  *  Copyright notice
@@ -91,10 +94,11 @@ class SendMail {
 	 * @param string $type Email to "sender" or "receiver"
 	 * @return bool Mail successfully sent
 	 */
-	public function sendTemplateEmail(array $email, \In2code\Powermail\Domain\Model\Mail &$mail, $settings, $type = 'receiver') {
-		$cObj = $this->configurationManager->getContentObject();
+	public function sendTemplateEmail(array $email, Mail &$mail, $settings, $type = 'receiver') {
+		/** @var TypoScriptService $typoScriptService */
 		$typoScriptService = $this->objectManager->get('\TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
+		$cObj = $this->configurationManager->getContentObject();
 
 		// parsing variables with fluid engine to allow viewhelpers in flexform
 		$parse = array(
@@ -258,8 +262,8 @@ class SendMail {
 	 * @param string $type Mail type
 	 * @return bool
 	 */
-	protected function createEmailBody($email, \In2code\Powermail\Domain\Model\Mail &$mail, $settings, $type) {
-		/** @var \In2code\Powermail\Utility\StandaloneViewMultiplePaths $emailBodyObject */
+	protected function createEmailBody($email, Mail &$mail, $settings, $type) {
+		/** @var StandaloneViewMultiplePaths $emailBodyObject */
 		$emailBodyObject = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
 		$emailBodyObject->getRequest()->setControllerExtensionName('Powermail');
 		$emailBodyObject->getRequest()->setPluginName('Pi1');
@@ -271,21 +275,24 @@ class SendMail {
 		$emailBodyObject->setLayoutRootPaths($this->div->getTemplateFolders('layout'));
 		$emailBodyObject->setPartialRootPaths($this->div->getTemplateFolders('partial'));
 
-		// get variables
-		// additional variables
-		if (isset($email['variables']) && is_array($email['variables'])) {
-			$emailBodyObject->assignMultiple($email['variables']);
-		}
-		// markers in HTML Template
+		// variables
 		$variablesWithMarkers = $this->div->getVariablesWithMarkers($mail);
-		$emailBodyObject->assign('variablesWithMarkers', $this->div->htmlspecialcharsOnArray($variablesWithMarkers));
 		$emailBodyObject->assignMultiple($variablesWithMarkers);
 		$emailBodyObject->assignMultiple($this->div->getLabelsAttachedToMarkers($mail));
-		$emailBodyObject->assign('powermail_all', $this->div->powermailAll($mail, 'mail', $settings, $type));
-		// from rte
-		$emailBodyObject->assign('powermail_rte', $email['rteBody']);
-		$emailBodyObject->assign('marketingInfos', Div::getMarketingInfos());
-		$emailBodyObject->assign('mail', $mail);
+		$emailBodyObject->assignMultiple(
+			array(
+				'variablesWithMarkers' => $this->div->htmlspecialcharsOnArray($variablesWithMarkers),
+				'powermail_all' => $this->div->powermailAll($mail, 'mail', $settings, $type),
+				'powermail_rte' => $email['rteBody'],
+				'marketingInfos' => Div::getMarketingInfos(),
+				'mail' => $mail,
+				'email' => $email,
+				'settings' => $settings
+			)
+		);
+		if (!empty($email['variables'])) {
+			$emailBodyObject->assignMultiple($email['variables']);
+		}
 
 		$this->signalSlotDispatcher->dispatch(
 			__CLASS__,
