@@ -230,6 +230,13 @@ class SendMail {
 				'text/plain'
 			);
 		}
+
+		$this->signalSlotDispatcher->dispatch(
+			__CLASS__,
+			__FUNCTION__ . 'BeforeSend',
+			array($message, $email, $mail, $settings, $type)
+		);
+
 		$message->send();
 
 		// update mail (with parsed fields)
