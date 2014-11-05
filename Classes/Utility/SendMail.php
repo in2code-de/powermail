@@ -302,6 +302,7 @@ class SendMail {
 		$rewriteTagsWithLineBreaks = array (
 			'</p>',
 			'</tr>',
+			'<ul>',
 			'</li>',
 			'</h1>',
 			'</h2>',
@@ -316,18 +317,18 @@ class SendMail {
 			'</dt>'
 		);
 
-			// 1. remove linebreaks, tabs
+		// 1. remove linebreaks, tabs
 		$content = trim(str_replace(array("\n", "\r", "\t"), '', $content));
-			// 2. add linebreaks on some parts (</p> => </p><br />)
+		// 2. add linebreaks on some parts (</p> => </p><br />)
 		$content = str_replace($rewriteTagsWithLineBreaks, '</p><br />', $content);
-			// 3. insert space for table cells
-		$content = str_replace('</td>', '</td> ', $content);
-			// 4. remove all tags (<b>bla</b><br /> => bla<br />)
+		// 3. insert space for table cells
+		$content = str_replace(array('</td>', '</th>'), '</td> ', $content);
+		// 4. remove all tags (<b>bla</b><br /> => bla<br />)
 		$content = strip_tags($content, '<br><address>');
-			// 5. <br /> to \n
+		// 5. <br /> to \n
 		$content = $this->br2nl($content);
 
-		return $content;
+		return trim($content);
 	}
 
 	/**
