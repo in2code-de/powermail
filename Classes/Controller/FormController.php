@@ -207,13 +207,15 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 			$this->settings['receiver']['fe_group']
 		);
 		$mail->setReceiverMail(implode("\n", $receivers));
+		$this->div->overwriteValueFromTypoScript($defaultSenderEmail, $this->conf['receiver.']['default.'], 'senderEmail');
+		$this->div->overwriteValueFromTypoScript($defaultSenderName, $this->conf['receiver.']['default.'], 'senderName');
 		foreach ($receivers as $receiver) {
 			$email = array(
 				'template' => 'Mail/ReceiverMail',
 				'receiverEmail' => $receiver,
 				'receiverName' => $this->settings['receiver']['name'] ? $this->settings['receiver']['name'] : 'Powermail',
-				'senderEmail' => $this->div->getSenderMailFromArguments($mail),
-				'senderName' => $this->div->getSenderNameFromArguments($mail),
+				'senderEmail' => $this->div->getSenderMailFromArguments($mail, $defaultSenderEmail),
+				'senderName' => $this->div->getSenderNameFromArguments($mail, $defaultSenderName),
 				'subject' => $this->settings['receiver']['subject'],
 				'rteBody' => $this->settings['receiver']['body'],
 				'format' => $this->settings['receiver']['mailformat']
@@ -239,7 +241,7 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 	protected function sendSenderMail(Mail $mail) {
 		$email = array(
 			'template' => 'Mail/SenderMail',
-			'receiverName' => $this->div->getSenderNameFromArguments($mail) ? $this->div->getSenderNameFromArguments($mail) : 'Powermail',
+			'receiverName' => $this->div->getSenderNameFromArguments($mail, 'Powermail'),
 			'receiverEmail' => $this->div->getSenderMailFromArguments($mail),
 			'senderName' => $this->settings['sender']['name'],
 			'senderEmail' => $this->settings['sender']['email'],

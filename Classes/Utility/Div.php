@@ -4,7 +4,8 @@ namespace In2code\Powermail\Utility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use \TYPO3\CMS\Core\Utility\GeneralUtility,
 	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility,
+	TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -122,10 +123,11 @@ class Div {
 	/**
 	 * Returns sendername from a couple of arguments
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail Given Params
+	 * @param Mail $mail Given Params
+	 * @param string $default
 	 * @return string Sender Name
 	 */
-	public function getSenderNameFromArguments(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getSenderNameFromArguments(Mail $mail, $default = NULL) {
 		$name = '';
 		foreach ($mail->getAnswers() as $answer) {
 			if (method_exists($answer->getField(), 'getUid') && $answer->getField()->getSenderName()) {
@@ -133,8 +135,12 @@ class Div {
 			}
 		}
 
-		if (!$name) {
-			$name = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('error_no_sender_name', 'powermail');
+		if (!trim($name) && $default) {
+			$name = $default;
+		}
+
+		if (!trim($name)) {
+			$name = LocalizationUtility::translate('error_no_sender_name', 'powermail');
 		}
 		return trim($name);
 	}
@@ -142,10 +148,11 @@ class Div {
 	/**
 	 * Returns senderemail from a couple of arguments
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
+	 * @param string $default
 	 * @return string Sender Email
 	 */
-	public function getSenderMailFromArguments(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getSenderMailFromArguments(Mail $mail, $default = NULL) {
 		$email = '';
 		foreach ($mail->getAnswers() as $answer) {
 			if (
@@ -158,8 +165,12 @@ class Div {
 			}
 		}
 
-		if (!$email) {
-			$email = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('error_no_sender_email', 'powermail');
+		if (empty($email) && $default) {
+			$email = $default;
+		}
+
+		if (empty($email)) {
+			$email = LocalizationUtility::translate('error_no_sender_email', 'powermail');
 			$email .= '@';
 			$email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
 		}
@@ -479,7 +490,7 @@ class Div {
 	 * @param string $key Key for TypoScript Configuration
 	 * @return void
 	 */
-	public function overwriteValueFromTypoScript(&$string, $conf, $key) {
+	public function overwriteValueFromTypoScript(&$string = NULL, $conf, $key) {
 		$cObj = $this->configurationManager->getContentObject();
 
 		if ($cObj->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
