@@ -209,7 +209,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				continue;
 			}
 
-
 				// allow subvalues in new property mapper
 			$propertyMappingConfiguration->forProperty('answers')->allowProperties($i);
 			$propertyMappingConfiguration->forProperty('answers.' . $i)->allowAllProperties();
@@ -263,6 +262,15 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$frontendLanguageUid = $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'];
 		$this->view->assign('languageUid', ($frontendLanguageUid ? $frontendLanguageUid : 0));
 		$this->view->assign('Pid', $GLOBALS['TSFE']->id);
+	}
+
+	/**
+	 * Object initialization
+	 *
+	 * @return void
+	 */
+	protected function initializeAction() {
+		$this->piVars = $this->request->getArguments();
 	}
 
 	/**

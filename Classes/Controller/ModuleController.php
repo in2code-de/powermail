@@ -39,13 +39,6 @@ use \In2code\Powermail\Utility\Div,
 class ModuleController extends \In2code\Powermail\Controller\AbstractController {
 
 	/**
-	 * Request arguments
-	 *
-	 * @var array
-	 */
-	protected $piVars;
-
-	/**
 	 * List View Backend
 	 *
 	 * @return void
@@ -265,15 +258,6 @@ class ModuleController extends \In2code\Powermail\Controller\AbstractController 
 		header('Content-Type: text/x-csv');
 		header('Content-Disposition: attachment; filename="' . $fileName . '"');
 		header('Pragma: no-cache');
-	}
-
-	/**
-	 * Object initialization
-	 *
-	 * @return void
-	 */
-	protected function initializeAction() {
-		$this->piVars = $this->request->getArguments();
 	}
 
 }

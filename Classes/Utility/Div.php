@@ -1,11 +1,12 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
+use \TYPO3\CMS\Backend\Utility\BackendUtility,
+	\TYPO3\CMS\Core\Utility\GeneralUtility,
 	\In2code\Powermail\Domain\Model\Mail,
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility,
-	TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -271,7 +272,7 @@ class Div {
 	public function getTemplateFolders($part = 'template', $returnAllPaths = FALSE) {
 		$templatePaths = array();
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
 		);
 		if (!empty($extbaseFrameworkConfiguration['view'][$part . 'RootPaths'])) {
 			$templatePaths = $extbaseFrameworkConfiguration['view'][$part . 'RootPaths'];
@@ -336,7 +337,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
 	 */
-	public function getVariablesWithMarkers(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getVariablesWithMarkers(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -358,7 +359,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
 	 */
-	public function getLabelsAttachedToMarkers(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getLabelsAttachedToMarkers(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -376,7 +377,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array new array
 	 */
-	public function getVariablesWithLabels(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getVariablesWithLabels(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer->getField(), 'getUid')) {
@@ -647,6 +648,7 @@ class Div {
 	 */
 	public static function getGroupedMailAnswers($mails, $max = 5, $maxLabel = 'All others') {
 		$arr = array();
+		/** @var Mail $mail */
 		foreach ($mails as $mail) {
 			foreach ($mail->getAnswers() as $answer) {
 				$value = $answer->getValue();

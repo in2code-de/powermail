@@ -255,7 +255,7 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 	 * @return void
 	 */
 	protected function initializeAction() {
-		$this->piVars = $this->request->getArguments();
+		parent::initializeAction();
 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {
