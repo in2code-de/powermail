@@ -7,6 +7,7 @@ use \TYPO3\CMS\Backend\Utility\BackendUtility,
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility,
 	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
 	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 /***************************************************************
  *  Copyright notice
@@ -641,7 +642,7 @@ class Div {
 	/**
 	 * Get grouped mail answers for reporting
 	 *
-	 * @param array $mails Mail array
+	 * @param QueryResult $mails Mail array
 	 * @param int $max Max Labels
 	 * @param string $maxLabel Label for "Max Labels" - could be "all others"
 	 * @return array
@@ -700,7 +701,7 @@ class Div {
 	/**
 	 * Get grouped marketing stuff for reporting
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mails Mails
+	 * @param QueryResult $mails Mails
 	 * @param int $max Max Labels
 	 * @param string $maxLabel Label for "Max Labels" - could be "all others"
 	 * @return array

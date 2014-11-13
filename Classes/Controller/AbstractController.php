@@ -5,7 +5,8 @@ use \In2code\Powermail\Utility\Div,
 	\TYPO3\CMS\Core\Utility\GeneralUtility,
 	\In2code\Powermail\Utility\BasicFileFunctions,
 	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
+	\TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter,
+	\TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /***************************************************************
  *  Copyright notice
@@ -39,7 +40,7 @@ use \In2code\Powermail\Utility\Div,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class AbstractController extends ActionController {
 
 	/**
 	 * formRepository

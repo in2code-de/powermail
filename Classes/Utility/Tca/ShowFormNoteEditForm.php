@@ -68,25 +68,23 @@ class ShowFormNoteEditForm {
 						<tr class="db_list_normal">
 							<td nowrap="nowrap" class="col-title">
 								<a title="Edit" href="' . $editFormLink . '">
-									' . $this->getFormPropertyFromUid($formUid, 'title') . '
+									' . htmlspecialchars($this->getFormPropertyFromUid($formUid, 'title')) . '
 								</a>
 							</td>
 							<td nowrap="nowrap" class="col-title">
 								<a title="id=' . $this->getFormPropertyFromUid($formUid, 'pid') . '"
-									onclick="top.loadEditId(' . $this->getFormPropertyFromUid($formUid, 'pid') . '
+									onclick="top.loadEditId(' . intval($this->getFormPropertyFromUid($formUid, 'pid')) . '
 									,&quot;&amp;SET[language]=0&quot;); return false;" href="#">
-									' . $this->getPageNameFromUid(
-											$this->getFormPropertyFromUid($formUid, 'pid')
-										) . '
+									' . htmlspecialchars($this->getPageNameFromUid($this->getFormPropertyFromUid($formUid, 'pid'))) . '
 								</a>
 							</td>
 							<td nowrap="nowrap" class="col-title">
-								<span title="' . implode(', ', $this->getPagesFromForm($formUid)) . '">
+								<span title="' . htmlspecialchars(implode(', ', $this->getPagesFromForm($formUid))) . '">
 									' . count($this->getPagesFromForm($formUid)) . '
 								</span>
 							</td>
 							<td nowrap="nowrap" class="col-title">
-								<span title="' . implode(', ', $this->getFieldsFromForm($formUid)) . '">
+								<span title="' . htmlspecialchars(implode(', ', $this->getFieldsFromForm($formUid))) . '">
 									' . count($this->getFieldsFromForm($formUid)) . '
 								</span>
 							</td>
