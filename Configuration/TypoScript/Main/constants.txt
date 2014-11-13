@@ -55,7 +55,7 @@ plugin.tx_powermail {
 				# cat=powermail_additional//0230; type=text; label= Default Sender Name: Sendername if no sender name given
 				senderName =
 
-				# cat=powermail_additional//0240; type=text; label= Defalt Sender Email: Sender-email if no sender email given
+				# cat=powermail_additional//0240; type=text; label= Default Sender Email: Sender-email if no sender email given
 				senderEmail =
 			}
 
