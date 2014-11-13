@@ -79,41 +79,48 @@ class Tx_Powermail_Utility_Div {
 	 * Returns sendername from a couple of arguments
 	 *
 	 * @param array $fields Given Params
+	 * @param string $defaultName Default sender name
 	 * @return string Sender Name
 	 */
-	public function getSenderNameFromArguments($fields) {
+	public function getSenderNameFromArguments($fields, $defaultName = '') {
 		if (!is_array($fields)) {
-			return '';
+			return $defaultName;
 		}
 
 		$name = '';
 		foreach ($fields as $uid => $value) {
-			$field = $this->fieldsRepository->findByUid($uid); // get field
+			$field = $this->fieldsRepository->findByUid($uid);
 			if (method_exists($field, 'getUid') && $field->getSenderName()) {
 				$name .= $value . ' ';
 			}
 		}
 
+		$name = trim($name);
 		if (!$name) {
-			$name = Tx_Extbase_Utility_Localization::translate('error_no_sender_name', 'powermail');
+			$name = $defaultName;
+			if (!$name) {
+				$name = Tx_Extbase_Utility_Localization::translate('error_no_sender_name', 'powermail');
+			}
 		}
-		return trim($name);
+
+		return $name;
 	}
 
 	/**
 	 * Returns senderemail from a couple of arguments
 	 *
 	 * @param array $fields Given Params
+	 * @param string $defaultEmail Default email address
 	 * @return string Sender Email
 	 */
-	public function getSenderMailFromArguments($fields) {
+	public function getSenderMailFromArguments($fields, $defaultEmail = '') {
 		if (!is_array($fields)) {
 			return '';
 		}
 
 		$email = '';
 		foreach ($fields as $uid => $value) {
-			$field = $this->fieldsRepository->findByUid($uid); // get field
+			$field = $this->fieldsRepository->findByUid($uid);
 			if (method_exists($field, 'getUid') && $field->getSenderEmail() && t3lib_div::validEmail($value)) {
 				$email = $value;
 				break;
@@ -121,9 +128,12 @@ class Tx_Powermail_Utility_Div {
 		}
 
 		if (!$email) {
-			$email = Tx_Extbase_Utility_Localization::translate('error_no_sender_email', 'powermail');
-			$email .= '@';
-			$email .= str_replace('www.', '', t3lib_div::getIndpEnv('TYPO3_HOST_ONLY'));
+			$email = $defaultEmail;
+			if (!t3lib_div::validEmail($email)) {
+				$email = Tx_Extbase_Utility_Localization::translate('error_no_sender_email', 'powermail');
+				$email .= '@';
+				$email .= str_replace('www.', '', t3lib_div::getIndpEnv('TYPO3_HOST_ONLY'));
+			}
 		}
 		return $email;
 	}

@@ -231,12 +231,18 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 					TRUE
 				);
 			}
+			$defaultSenderName = $this->cObj->cObjGetSingle(
+				$this->conf['receiver.']['default.']['senderName'], $this->conf['receiver.']['default.']['senderName.']
+			);
+			$defaultSenderEmail = $this->cObj->cObjGetSingle(
+				$this->conf['receiver.']['default.']['senderEmail'], $this->conf['receiver.']['default.']['senderEmail.']
+			);
 			foreach ($receivers as $receiver) {
 				$mail = array();
 				$mail['receiverName'] = $this->settings['receiver']['name'] ? $this->settings['receiver']['name'] : 'Powermail';
 				$mail['receiverEmail'] = $receiver;
-				$mail['senderName'] = $this->div->getSenderNameFromArguments($field);
-				$mail['senderEmail'] = $this->div->getSenderMailFromArguments($field);
+				$mail['senderName'] = $this->div->getSenderNameFromArguments($field, $defaultSenderName);
+				$mail['senderEmail'] = $this->div->getSenderMailFromArguments($field, $defaultSenderEmail);
 				$mail['subject'] = $this->settings['receiver']['subject'];
 				$mail['template'] = 'Mails/ReceiverMail';
 				$mail['rteBody'] = $this->settings['receiver']['body'];
@@ -391,13 +397,15 @@ class Tx_Powermail_Controller_FormsController extends Tx_Extbase_MVC_Controller_
 	 * @return Tx_Powermail_Domain_Model_Mails Mail object
 	 */
 	protected function saveMail($field, $form) {
+		$defaultSenderName = $this->cObj->cObjGetSingle($this->conf['receiver.']['default.']['senderName'], $this->conf['receiver.']['default.']['senderName.']);
+		$defaultSenderEmail = $this->cObj->cObjGetSingle($this->conf['receiver.']['default.']['senderEmail'], $this->conf['receiver.']['default.']['senderEmail.']);
 		// tx_powermail_domain_model_mails
 		$marketingInfos = Tx_Powermail_Utility_Div::getMarketingInfos();
 		$newMail = $this->objectManager->create('Tx_Powermail_Domain_Model_Mails');
 		$newMail->setPid(Tx_Powermail_Utility_Div::getStoragePage($this->settings['main']['pid']));
 		$newMail->setForm($form);
-		$newMail->setSenderMail($this->div->getSenderMailFromArguments($field));
-		$newMail->setSenderName($this->div->getSenderNameFromArguments($field));
+		$newMail->setSenderMail($this->div->getSenderMailFromArguments($field, $defaultSenderEmail));
+		$newMail->setSenderName($this->div->getSenderNameFromArguments($field, $defaultSenderName));
 		$newMail->setSubject($this->settings['receiver']['subject']);
 		$newMail->setBody(t3lib_utility_Debug::viewArray($this->div->getVariablesWithLabels($field)));
 		$newMail->setReceiverMail($this->settings['receiver']['email']);
