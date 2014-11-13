@@ -101,7 +101,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * time
 	 *
-	 * @var \DateTime
+	 * @var int
 	 */
 	protected $time = NULL;
 
@@ -336,7 +336,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the time
 	 *
-	 * @return datetime $time
+	 * @return int $time
 	 */
 	public function getTime() {
 		return $this->time;
@@ -345,7 +345,7 @@ class Mail extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the time
 	 *
-	 * @param datetime $time
+	 * @param int $time
 	 * @return void
 	 */
 	public function setTime($time) {

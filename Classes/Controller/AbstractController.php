@@ -5,7 +5,8 @@ use \In2code\Powermail\Utility\Div,
 	\TYPO3\CMS\Core\Utility\GeneralUtility,
 	\In2code\Powermail\Utility\BasicFileFunctions,
 	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
+	\TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter,
+	\TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /***************************************************************
  *  Copyright notice
@@ -39,7 +40,7 @@ use \In2code\Powermail\Utility\Div,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class AbstractController extends ActionController {
 
 	/**
 	 * formRepository
@@ -209,7 +210,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				continue;
 			}
 
-
 				// allow subvalues in new property mapper
 			$propertyMappingConfiguration->forProperty('answers')->allowProperties($i);
 			$propertyMappingConfiguration->forProperty('answers.' . $i)->allowAllProperties();
@@ -263,6 +263,15 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$frontendLanguageUid = $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'];
 		$this->view->assign('languageUid', ($frontendLanguageUid ? $frontendLanguageUid : 0));
 		$this->view->assign('Pid', $GLOBALS['TSFE']->id);
+	}
+
+	/**
+	 * Object initialization
+	 *
+	 * @return void
+	 */
+	protected function initializeAction() {
+		$this->piVars = $this->request->getArguments();
 	}
 
 	/**

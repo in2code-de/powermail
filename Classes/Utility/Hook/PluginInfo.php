@@ -126,7 +126,7 @@ class PluginInfo {
 		$from = 'tx_powermail_domain_model_forms';
 		$where = 'uid=' . intval($uid);
 		$row = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow($select, $from, $where);
-		return $row[$field];
+		return htmlspecialchars($row[$field]);
 	}
 
 	/**

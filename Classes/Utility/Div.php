@@ -1,10 +1,13 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
+use \TYPO3\CMS\Backend\Utility\BackendUtility,
+	\TYPO3\CMS\Core\Utility\GeneralUtility,
 	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility,
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 /***************************************************************
  *  Copyright notice
@@ -122,10 +125,11 @@ class Div {
 	/**
 	 * Returns sendername from a couple of arguments
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail Given Params
+	 * @param Mail $mail Given Params
+	 * @param string $default
 	 * @return string Sender Name
 	 */
-	public function getSenderNameFromArguments(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getSenderNameFromArguments(Mail $mail, $default = NULL) {
 		$name = '';
 		foreach ($mail->getAnswers() as $answer) {
 			if (method_exists($answer->getField(), 'getUid') && $answer->getField()->getSenderName()) {
@@ -133,8 +137,12 @@ class Div {
 			}
 		}
 
-		if (!$name) {
-			$name = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('error_no_sender_name', 'powermail');
+		if (!trim($name) && $default) {
+			$name = $default;
+		}
+
+		if (!trim($name)) {
+			$name = LocalizationUtility::translate('error_no_sender_name', 'powermail');
 		}
 		return trim($name);
 	}
@@ -142,10 +150,11 @@ class Div {
 	/**
 	 * Returns senderemail from a couple of arguments
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
+	 * @param string $default
 	 * @return string Sender Email
 	 */
-	public function getSenderMailFromArguments(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getSenderMailFromArguments(Mail $mail, $default = NULL) {
 		$email = '';
 		foreach ($mail->getAnswers() as $answer) {
 			if (
@@ -158,8 +167,12 @@ class Div {
 			}
 		}
 
-		if (!$email) {
-			$email = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('error_no_sender_email', 'powermail');
+		if (empty($email) && $default) {
+			$email = $default;
+		}
+
+		if (empty($email)) {
+			$email = LocalizationUtility::translate('error_no_sender_email', 'powermail');
 			$email .= '@';
 			$email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
 		}
@@ -260,7 +273,7 @@ class Div {
 	public function getTemplateFolders($part = 'template', $returnAllPaths = FALSE) {
 		$templatePaths = array();
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
 		);
 		if (!empty($extbaseFrameworkConfiguration['view'][$part . 'RootPaths'])) {
 			$templatePaths = $extbaseFrameworkConfiguration['view'][$part . 'RootPaths'];
@@ -325,7 +338,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
 	 */
-	public function getVariablesWithMarkers(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getVariablesWithMarkers(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -347,7 +360,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
 	 */
-	public function getLabelsAttachedToMarkers(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getLabelsAttachedToMarkers(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -365,7 +378,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array new array
 	 */
-	public function getVariablesWithLabels(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function getVariablesWithLabels(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer->getField(), 'getUid')) {
@@ -479,7 +492,7 @@ class Div {
 	 * @param string $key Key for TypoScript Configuration
 	 * @return void
 	 */
-	public function overwriteValueFromTypoScript(&$string, $conf, $key) {
+	public function overwriteValueFromTypoScript(&$string = NULL, $conf, $key) {
 		$cObj = $this->configurationManager->getContentObject();
 
 		if ($cObj->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
@@ -629,13 +642,14 @@ class Div {
 	/**
 	 * Get grouped mail answers for reporting
 	 *
-	 * @param array $mails Mail array
+	 * @param QueryResult $mails Mail array
 	 * @param int $max Max Labels
 	 * @param string $maxLabel Label for "Max Labels" - could be "all others"
 	 * @return array
 	 */
 	public static function getGroupedMailAnswers($mails, $max = 5, $maxLabel = 'All others') {
 		$arr = array();
+		/** @var Mail $mail */
 		foreach ($mails as $mail) {
 			foreach ($mail->getAnswers() as $answer) {
 				$value = $answer->getValue();
@@ -687,7 +701,7 @@ class Div {
 	/**
 	 * Get grouped marketing stuff for reporting
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mails Mails
+	 * @param QueryResult $mails Mails
 	 * @param int $max Max Labels
 	 * @param string $maxLabel Label for "Max Labels" - could be "all others"
 	 * @return array

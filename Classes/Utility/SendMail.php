@@ -1,7 +1,10 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\In2code\Powermail\Domain\Model\Mail,
+	\In2code\Powermail\Utility\StandaloneViewMultiplePaths,
+	\TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /***************************************************************
  *  Copyright notice
@@ -91,10 +94,11 @@ class SendMail {
 	 * @param string $type Email to "sender" or "receiver"
 	 * @return bool Mail successfully sent
 	 */
-	public function sendTemplateEmail(array $email, \In2code\Powermail\Domain\Model\Mail &$mail, $settings, $type = 'receiver') {
-		$cObj = $this->configurationManager->getContentObject();
+	public function sendTemplateEmail(array $email, Mail &$mail, $settings, $type = 'receiver') {
+		/** @var TypoScriptService $typoScriptService */
 		$typoScriptService = $this->objectManager->get('\TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
+		$cObj = $this->configurationManager->getContentObject();
 
 		// parsing variables with fluid engine to allow viewhelpers in flexform
 		$parse = array(
@@ -230,6 +234,13 @@ class SendMail {
 				'text/plain'
 			);
 		}
+
+		$this->signalSlotDispatcher->dispatch(
+			__CLASS__,
+			__FUNCTION__ . 'BeforeSend',
+			array($message, $email, $mail, $settings, $type)
+		);
+
 		$message->send();
 
 		// update mail (with parsed fields)
@@ -251,8 +262,8 @@ class SendMail {
 	 * @param string $type Mail type
 	 * @return bool
 	 */
-	protected function createEmailBody($email, \In2code\Powermail\Domain\Model\Mail &$mail, $settings, $type) {
-		/** @var \In2code\Powermail\Utility\StandaloneViewMultiplePaths $emailBodyObject */
+	protected function createEmailBody($email, Mail &$mail, $settings, $type) {
+		/** @var StandaloneViewMultiplePaths $emailBodyObject */
 		$emailBodyObject = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
 		$emailBodyObject->getRequest()->setControllerExtensionName('Powermail');
 		$emailBodyObject->getRequest()->setPluginName('Pi1');
@@ -264,21 +275,24 @@ class SendMail {
 		$emailBodyObject->setLayoutRootPaths($this->div->getTemplateFolders('layout'));
 		$emailBodyObject->setPartialRootPaths($this->div->getTemplateFolders('partial'));
 
-		// get variables
-		// additional variables
-		if (isset($email['variables']) && is_array($email['variables'])) {
-			$emailBodyObject->assignMultiple($email['variables']);
-		}
-		// markers in HTML Template
+		// variables
 		$variablesWithMarkers = $this->div->getVariablesWithMarkers($mail);
-		$emailBodyObject->assign('variablesWithMarkers', $this->div->htmlspecialcharsOnArray($variablesWithMarkers));
 		$emailBodyObject->assignMultiple($variablesWithMarkers);
 		$emailBodyObject->assignMultiple($this->div->getLabelsAttachedToMarkers($mail));
-		$emailBodyObject->assign('powermail_all', $this->div->powermailAll($mail, 'mail', $settings, $type));
-		// from rte
-		$emailBodyObject->assign('powermail_rte', $email['rteBody']);
-		$emailBodyObject->assign('marketingInfos', Div::getMarketingInfos());
-		$emailBodyObject->assign('mail', $mail);
+		$emailBodyObject->assignMultiple(
+			array(
+				'variablesWithMarkers' => $this->div->htmlspecialcharsOnArray($variablesWithMarkers),
+				'powermail_all' => $this->div->powermailAll($mail, 'mail', $settings, $type),
+				'powermail_rte' => $email['rteBody'],
+				'marketingInfos' => Div::getMarketingInfos(),
+				'mail' => $mail,
+				'email' => $email,
+				'settings' => $settings
+			)
+		);
+		if (!empty($email['variables'])) {
+			$emailBodyObject->assignMultiple($email['variables']);
+		}
 
 		$this->signalSlotDispatcher->dispatch(
 			__CLASS__,
@@ -302,6 +316,7 @@ class SendMail {
 		$rewriteTagsWithLineBreaks = array (
 			'</p>',
 			'</tr>',
+			'<ul>',
 			'</li>',
 			'</h1>',
 			'</h2>',
@@ -316,18 +331,18 @@ class SendMail {
 			'</dt>'
 		);
 
-			// 1. remove linebreaks, tabs
+		// 1. remove linebreaks, tabs
 		$content = trim(str_replace(array("\n", "\r", "\t"), '', $content));
-			// 2. add linebreaks on some parts (</p> => </p><br />)
+		// 2. add linebreaks on some parts (</p> => </p><br />)
 		$content = str_replace($rewriteTagsWithLineBreaks, '</p><br />', $content);
-			// 3. insert space for table cells
-		$content = str_replace('</td>', '</td> ', $content);
-			// 4. remove all tags (<b>bla</b><br /> => bla<br />)
+		// 3. insert space for table cells
+		$content = str_replace(array('</td>', '</th>'), '</td> ', $content);
+		// 4. remove all tags (<b>bla</b><br /> => bla<br />)
 		$content = strip_tags($content, '<br><address>');
-			// 5. <br /> to \n
+		// 5. <br /> to \n
 		$content = $this->br2nl($content);
 
-		return $content;
+		return trim($content);
 	}
 
 	/**

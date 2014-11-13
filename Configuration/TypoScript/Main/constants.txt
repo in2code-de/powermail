@@ -51,6 +51,14 @@ plugin.tx_powermail {
 			# cat=powermail_main//0220; type=options[both,html,plain]; label= Receiver Mail Format: Change mail format
 			mailformat = both
 
+			default {
+				# cat=powermail_additional//0230; type=text; label= Default Sender Name: Sendername if no sender name given
+				senderName =
+
+				# cat=powermail_additional//0240; type=text; label= Default Sender Email: Sender-email if no sender email given
+				senderEmail =
+			}
+
 			overwrite {
 				# cat=powermail_additional//0250; type=text; label= Receiver overwrite Email: Commaseparated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)
 				email =

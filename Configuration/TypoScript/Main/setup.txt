@@ -75,6 +75,14 @@ plugin.tx_powermail {
 				# html, plain, both
 				mailformat = {$plugin.tx_powermail.settings.receiver.mailformat}
 
+				default {
+					senderName = TEXT
+					senderName.value = {$plugin.tx_powermail.settings.receiver.default.senderName}
+
+					senderEmail = TEXT
+					senderEmail.value = {$plugin.tx_powermail.settings.receiver.default.senderEmail}
+				}
+
 				# Normally you do not need to overwrite a flexform setting, but this allows you to use cObject functions
 				overwrite {
 					email = TEXT

@@ -273,7 +273,7 @@ class FormConverter {
 		if ($page['sys_language_uid'] > 0) {
 			$pageProperties['sys_language_uid'] = $page['sys_language_uid'];
 			$pageProperties['l10n_parent'] = $this->localizationRelations['page'][$page['l18n_parent']];
-			unset($pageProperties['forms']);
+//			unset($pageProperties['forms']);
 		}
 		if (!$this->getDryrun()) {
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_domain_model_pages', $pageProperties);
@@ -337,7 +337,7 @@ class FormConverter {
 		if ($field['sys_language_uid'] > 0) {
 			$fieldProperties['sys_language_uid'] = $field['sys_language_uid'];
 			$fieldProperties['l10n_parent'] = $this->localizationRelations['field'][$field['l18n_parent']];
-			unset($fieldProperties['pages']);
+//			unset($fieldProperties['pages']);
 		}
 		if (!$this->getDryrun()) {
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_domain_model_fields', $fieldProperties);

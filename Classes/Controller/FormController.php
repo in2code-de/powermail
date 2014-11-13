@@ -5,7 +5,9 @@ use \In2code\Powermail\Utility\BasicFileFunctions,
 	\In2code\Powermail\Utility\Div,
 	\In2code\Powermail\Domain\Model\Mail,
 	\TYPO3\CMS\Core\Utility\GeneralUtility,
-	\TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	TYPO3\CMS\Core\Utility\DebugUtility,
+	TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -39,7 +41,7 @@ use \In2code\Powermail\Utility\BasicFileFunctions,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class FormController extends \In2code\Powermail\Controller\AbstractController {
+class FormController extends AbstractController {
 
 	/**
 	 * @var \In2code\Powermail\Utility\SendMail
@@ -207,13 +209,15 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 			$this->settings['receiver']['fe_group']
 		);
 		$mail->setReceiverMail(implode("\n", $receivers));
+		$this->div->overwriteValueFromTypoScript($defaultSenderEmail, $this->conf['receiver.']['default.'], 'senderEmail');
+		$this->div->overwriteValueFromTypoScript($defaultSenderName, $this->conf['receiver.']['default.'], 'senderName');
 		foreach ($receivers as $receiver) {
 			$email = array(
 				'template' => 'Mail/ReceiverMail',
 				'receiverEmail' => $receiver,
 				'receiverName' => $this->settings['receiver']['name'] ? $this->settings['receiver']['name'] : 'Powermail',
-				'senderEmail' => $this->div->getSenderMailFromArguments($mail),
-				'senderName' => $this->div->getSenderNameFromArguments($mail),
+				'senderEmail' => $this->div->getSenderMailFromArguments($mail, $defaultSenderEmail),
+				'senderName' => $this->div->getSenderNameFromArguments($mail, $defaultSenderName),
 				'subject' => $this->settings['receiver']['subject'],
 				'rteBody' => $this->settings['receiver']['body'],
 				'format' => $this->settings['receiver']['mailformat']
@@ -239,7 +243,7 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 	protected function sendSenderMail(Mail $mail) {
 		$email = array(
 			'template' => 'Mail/SenderMail',
-			'receiverName' => $this->div->getSenderNameFromArguments($mail) ? $this->div->getSenderNameFromArguments($mail) : 'Powermail',
+			'receiverName' => $this->div->getSenderNameFromArguments($mail, 'Powermail'),
 			'receiverEmail' => $this->div->getSenderMailFromArguments($mail),
 			'senderName' => $this->settings['sender']['name'],
 			'senderEmail' => $this->settings['sender']['email'],
@@ -314,7 +318,10 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 	 * @return void
 	 */
 	protected function redirectToTarget() {
-		if ($this->request->getControllerActionName() === 'confirmation') {
+		if (
+			$this->request->getControllerActionName() === 'confirmation' ||
+			(!empty($this->settings['main']['optin']) && empty($this->piVars['hash']))
+		) {
 			return;
 		}
 		$target = NULL;
@@ -357,7 +364,7 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 		$mail->setSubject($this->settings['receiver']['subject']);
 		$mail->setReceiverMail($this->settings['receiver']['email']);
 		$mail->setBody(
-			\TYPO3\CMS\Core\Utility\DebugUtility::viewArray(
+			DebugUtility::viewArray(
 				$this->div->getVariablesWithLabels($mail)
 			)
 		);
@@ -438,7 +445,7 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 	public function initializeObject() {
 		$this->cObj = $this->configurationManager->getContentObject();
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
-			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 
@@ -463,6 +470,8 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 	 * @return void
 	 */
 	public function initializeAction() {
+		parent::initializeAction();
+
 		if (!isset($this->settings['staticTemplate'])) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->addFlashMessage(LocalizationUtility::translate('error_no_typoscript', 'powermail'));
@@ -481,5 +490,4 @@ class FormController extends \In2code\Powermail\Controller\AbstractController {
 			$this->forward('form');
 		}
 	}
-
 }

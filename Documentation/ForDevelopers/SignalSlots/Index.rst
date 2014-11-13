@@ -128,6 +128,17 @@ forge.typo3.org if you need a new signal.
  - :Class:
       \\In2code\\Powermail\\Utility\\SendMail
    :Name:
+      sendTemplateEmailBeforeSend
+   :File:
+      SendMail.php
+   :Method:
+      sendTemplateEmail()
+   :Description:
+      Change the emails before sending
+
+ - :Class:
+      \\In2code\\Powermail\\Utility\\SendMail
+   :Name:
       createEmailBodyBeforeRender
    :File:
       SendMail.php

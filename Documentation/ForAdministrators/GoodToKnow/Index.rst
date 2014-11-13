@@ -906,6 +906,22 @@ Constants Overview
       both
 
  - :Constants:
+      receiver.default.senderName
+   :Description:
+      Default Sender Name: Sendername if no sender name given
+   :Type:
+      text
+   :Default:
+
+ - :Constants:
+      receiver.default.senderEmail
+   :Description:
+      Default Sender Email: Sender-email if no sender email given
+   :Type:
+      text
+   :Default:
+
+ - :Constants:
       receiver.overwrite.email
    :Description:
       Receiver overwrite Email: Commaseparated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)
@@ -1538,6 +1554,14 @@ Setup
 					# html, plain, both
 					mailformat = {$plugin.tx_powermail.settings.receiver.mailformat}
 
+					default {
+						senderName = TEXT
+						senderName.value = {$plugin.tx_powermail.settings.receiver.default.senderName}
+
+						senderEmail = TEXT
+						senderEmail.value = {$plugin.tx_powermail.settings.receiver.default.senderEmail}
+					}
+
 					# Normally you do not need to overwrite a flexform setting, but this allows you to use cObject functions
 					overwrite {
 						email = TEXT
@@ -2100,6 +2124,14 @@ Constants
 
 				# cat=powermail_main//0220; type=options[both,html,plain]; label= Receiver Mail Format: Change mail format
 				mailformat = both
+
+				default {
+					# cat=powermail_additional//0230; type=text; label= Default Sender Name: Sendername if no sender name given
+					senderName =
+
+					# cat=powermail_additional//0240; type=text; label= Default Sender Email: Sender-email if no sender email given
+					senderEmail =
+				}
 
 				overwrite {
 					# cat=powermail_additional//0250; type=text; label= Receiver overwrite Email: Commaseparated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)

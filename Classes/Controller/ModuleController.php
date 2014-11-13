@@ -2,8 +2,8 @@
 namespace In2code\Powermail\Controller;
 
 use \In2code\Powermail\Utility\Div,
-	\In2code\Powermail\Utility\FormConverter,
-	\TYPO3\CMS\Core\Utility\GeneralUtility;
+	\TYPO3\CMS\Core\Utility\GeneralUtility,
+	\TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -36,14 +36,7 @@ use \In2code\Powermail\Utility\Div,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class ModuleController extends \In2code\Powermail\Controller\AbstractController {
-
-	/**
-	 * Request arguments
-	 *
-	 * @var array
-	 */
-	protected $piVars;
+class ModuleController extends AbstractController {
 
 	/**
 	 * List View Backend
@@ -58,7 +51,7 @@ class ModuleController extends \In2code\Powermail\Controller\AbstractController 
 		$this->view->assign('firstMail', $firstMail);
 		$this->view->assign('piVars', $this->piVars);
 		$this->view->assign('pid', GeneralUtility::_GP('id'));
-		$this->view->assign('token', \TYPO3\CMS\Backend\Utility\BackendUtility::getUrlToken('tceAction'));
+		$this->view->assign('token', BackendUtility::getUrlToken('tceAction'));
 		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
 	}
 
@@ -197,7 +190,7 @@ class ModuleController extends \In2code\Powermail\Controller\AbstractController 
 		$this->view->assign('firstMail', $firstMail);
 		$this->view->assign('piVars', $this->piVars);
 		$this->view->assign('pid', GeneralUtility::_GP('id'));
-		$this->view->assign('token', \TYPO3\CMS\Backend\Utility\BackendUtility::getUrlToken('tceAction'));
+		$this->view->assign('token', BackendUtility::getUrlToken('tceAction'));
 		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
 	}
 
@@ -216,7 +209,7 @@ class ModuleController extends \In2code\Powermail\Controller\AbstractController 
 		$this->view->assign('firstMail', $firstMail);
 		$this->view->assign('piVars', $this->piVars);
 		$this->view->assign('pid', GeneralUtility::_GP('id'));
-		$this->view->assign('token', \TYPO3\CMS\Backend\Utility\BackendUtility::getUrlToken('tceAction'));
+		$this->view->assign('token', BackendUtility::getUrlToken('tceAction'));
 		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
 	}
 
@@ -265,15 +258,6 @@ class ModuleController extends \In2code\Powermail\Controller\AbstractController 
 		header('Content-Type: text/x-csv');
 		header('Content-Disposition: attachment; filename="' . $fileName . '"');
 		header('Pragma: no-cache');
-	}
-
-	/**
-	 * Object initialization
-	 *
-	 * @return void
-	 */
-	protected function initializeAction() {
-		$this->piVars = $this->request->getArguments();
 	}
 
 }
