@@ -625,7 +625,7 @@ class FormConverter {
 				if ($form['sys_language_uid'] > 0) {
 					$uid = FormConverter::getDefaultUidFromOldLocalizedFieldUid($form, $uid);
 				}
-				return '{UID' . $uid . '}';
+				return '{uid' . $uid . '}';
 			},
 			$string
 		);
@@ -717,7 +717,7 @@ class FormConverter {
 		if ($field['sys_language_uid'] > 0) {
 			return '';
 		}
-		return 'UID' . $field['uid'];
+		return 'uid' . $field['uid'];
 	}
 
 	/**
