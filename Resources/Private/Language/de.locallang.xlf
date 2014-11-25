@@ -625,7 +625,7 @@
 				<target state="translated">Version</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckVersionLastUpdate">
-				<source>Last update in Extension Manager</source>
+				<source>Last Extension Manager update</source>
 				<target state="translated">Letzte Aktualisierung des Extension Managers</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckVersionNoInformation">
@@ -694,6 +694,18 @@
 			<trans-unit id="BackendCheckBackupBefore">
 				<source>Note: Please backup all powermail tables before you choose this option!</source>
 				<target state="translated">Hinweis: Bitte unbedingt alle powermail Tabellen zuvor sichern!</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextTitle">
+				<source>Development Context</source>
+				<target state="translated">Development Context</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextActive">
+				<source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+				<target state="translated">Diese TYPO3-Instanz läuft aktuell im Development Context. Alle E-Mails werden an %s versendet.</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextAvailable">
+				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
+				<target state="translated">Diese TYPO3-Instanz läuft aktuell im Development Context. Mit %s in der AdditionalConfiguration.php kann man powermail anweisen, nur noch an diese Formulare zu senden.</target>
 			</trans-unit>
 			<trans-unit id="BackendOverviewTitle">
 				<source>Form Overview</source>

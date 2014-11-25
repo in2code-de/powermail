@@ -463,7 +463,7 @@
 				<source>Version</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckVersionLastUpdate">
-				<source>Last update in Extension Manager</source>
+				<source>Last Extension Manager update</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckVersionNoInformation">
 				<source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
@@ -515,6 +515,15 @@
 			</trans-unit>
 			<trans-unit id="BackendCheckBackupBefore">
 				<source>Note: Please backup all powermail tables before you choose this option!</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextTitle">
+				<source>Development Context</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextActive">
+				<source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextAvailable">
+				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
 			</trans-unit>
 			<trans-unit id="BackendOverviewTitle">
 				<source>Form Overview</source>

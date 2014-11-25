@@ -546,6 +546,9 @@ class Div {
 		if ($feGroup) {
 			$array = array_merge($array, $this->getEmailsFromFeGroup($feGroup));
 		}
+		if (self::getDevelopmentContextEmail()) {
+			$array = array(self::getDevelopmentContextEmail());
+		}
 		return $array;
 	}
 
@@ -1321,6 +1324,21 @@ class Div {
 			return $version;
 		}
 		return '0.0.0';
+	}
+
+	/**
+	 * Get development email (only if in dev context)
+	 *
+	 * @return false|string
+	 */
+	public static function getDevelopmentContextEmail() {
+		if (
+			GeneralUtility::getApplicationContext()->isDevelopment() &&
+			GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'])
+		) {
+			return $GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'];
+		}
+		return FALSE;
 	}
 
 	/**

@@ -84,7 +84,7 @@ class PluginInfo {
 		// let's go
 		$array = array(
 			$GLOBALS['LANG']->sL($this->locallangPath . 'receiverEmail') =>
-				$this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.email'),
+				$this->getReceiverEmail(),
 			$GLOBALS['LANG']->sL($this->locallangPath . 'receiverName') =>
 				$this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.name'),
 			$GLOBALS['LANG']->sL($this->locallangPath . 'subject') =>
@@ -150,6 +150,25 @@ class PluginInfo {
 			$i++;
 		}
 		return '<table class="typo3-dblist">' . $content . '</table>';
+	}
+
+	/**
+	 * Get receiver mail
+	 *
+	 * @return string
+	 */
+	protected function getReceiverEmail() {
+		$receiver = $this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.email');
+		if (Div::getDevelopmentContextEmail()) {
+			$receiver = '<span style="color: red;"><strong>';
+			$receiver .= Div::getDevelopmentContextEmail();
+			$receiver .= '</strong> &lt;Development context&gt;';
+			$receiver .= '</span><br />';
+			$receiver .= '<span style="color: #999;">';
+			$receiver .= $this->getFieldFromFlexform('receiver', 'settings.flexform.receiver.email');
+			$receiver .= '</span>';
+		}
+		return $receiver;
 	}
 
 	/**

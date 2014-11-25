@@ -1,0 +1,46 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:if condition="{email}">
+	<f:if condition="{issent}">
+		<f:then>
+			<div class="typo3-message message-ok powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckEmailTitle" />
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckEmailCorrect" />
+					</p>
+				</div>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="typo3-message message-error powermail-message">
+				<div class="message-header">
+					<f:translate key="BackendCheckEmailTitle" />
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckEmailFailed" />
+					</p>
+				</div>
+			</div>
+		</f:else>
+	</f:if>
+</f:if>
+<div class="typo3-message message-notice powermail-message">
+	<div class="message-header powermail-padding-bottom">
+		<f:translate key="BackendEmailFormTitle" />
+	</div>
+	<div class="message-body powermail-padding-bottom powermail_email">
+		<f:form action="checkBe" controller="Module">
+			<label for="powermail_email">
+				<f:translate key="BackendEmailFormReceiver" />
+			</label>
+			<f:form.textfield name="email" value="" id="powermail_email" class="powermail_email_input" />
+			<f:form.submit value="Send Mail Now" class="powermail_email_submit" />
+		</f:form>
+	</div>
+</div>

@@ -1,0 +1,32 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:if condition="{settings.staticTemplate}">
+	<f:then>
+		<div class="typo3-message message-ok powermail-message">
+			<div class="header-container">
+				<div class="message-header">
+					<f:translate key="BackendCheckStaticTemplateTitle" />
+				</div>
+			</div>
+			<div class="message-body">
+				<p>
+					<f:translate key="BackendCheckStaticTemplateCorrect" />
+					<f:be.pagePath /> ({pid})
+				</p>
+			</div>
+		</div>
+	</f:then>
+	<f:else>
+		<div class="typo3-message message-warning powermail-message">
+			<div class="message-header">
+				<f:translate key="BackendCheckStaticTemplateTitle" />
+			</div>
+			<div class="message-body">
+				<p>
+					<f:translate key="BackendCheckStaticTemplateFailed" />
+					<f:be.pagePath /> ({pid})
+				</p>
+			</div>
+		</div>
+	</f:else>
+</f:if>
