@@ -22,7 +22,7 @@ class OrViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 			if (!$string && $value) {
 				return TRUE;
 			}
-			if ($string && $value == $string) {
+			if ($string && $value === $string) {
 				return TRUE;
 			}
 		}
