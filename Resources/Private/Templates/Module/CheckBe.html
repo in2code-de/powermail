@@ -6,8 +6,9 @@
 
 <f:section name="content">
 
-	<h1><f:translate key="BackendCheckTitle" /></h1>
+	<h1><f:translate key="BackendCheckTitle">Powermail Function Check</f:translate></h1>
 
+	<h2 class="powermail-padding-top"><f:translate key="BackendFunctionTitle">Function Tests</f:translate></h2>
 	<f:if condition="{settings.staticTemplate}">
 		<f:then>
 			<div class="typo3-message message-ok powermail-message">
@@ -150,6 +151,75 @@
 					<p>
 						<f:translate key="BackendCheckUploadsFolderFailed" />
 					</p>
+					<f:form action="fixUploadFolder">
+						<input type="submit" value="{f:translate(key:'BackendCheckTryToFix', default:'Solve problem')}" />
+					</f:form>
+				</div>
+			</div>
+		</f:else>
+	</f:if>
+
+	<f:if condition="{vh:BeCheck.CheckWrongLocalizedForms()}">
+		<f:then>
+			<div class="typo3-message message-ok powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckWrongLocalizedFormsTitle">Localized Forms</f:translate>
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckWrongLocalizedFormsCorrect">No failures found</f:translate>
+					</p>
+				</div>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="typo3-message message-error powermail-message">
+				<div class="message-header">
+					<f:translate key="BackendCheckWrongLocalizedFormsTitle">Localized Forms</f:translate>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckWrongLocalizedFormsFailed">Broken localized Forms found</f:translate>
+					</p>
+					<f:form action="fixWrongLocalizedForms">
+						<input type="submit" value="{f:translate(key:'BackendCheckTryToFix', default:'Solve problem')}" />
+						<p><strong><f:translate key="BackendCheckBackupBefore">Please backup before!</f:translate></strong></p>
+					</f:form>
+				</div>
+			</div>
+		</f:else>
+	</f:if>
+
+	<f:if condition="{vh:BeCheck.CheckFilledMarkersInLocalizedFields()}">
+		<f:then>
+			<div class="typo3-message message-ok powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckLocalizedFieldsWithFilledMarkersTitle">Localized Fields</f:translate>
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckLocalizedFieldsWithFilledMarkersCorrect">No failures found</f:translate>
+					</p>
+				</div>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="typo3-message message-error powermail-message">
+				<div class="message-header">
+					<f:translate key="BackendCheckWrongLocalizedFormsTitle">Localized Fields</f:translate>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckLocalizedFieldsWithFilledMarkersFailed">Failures found</f:translate>
+					</p>
+					<f:form action="fixFilledMarkersInLocalizedFields">
+						<input type="submit" value="{f:translate(key:'BackendCheckTryToFix', default:'Solve problem')}" />
+						<p><strong><f:translate key="BackendCheckBackupBefore">Please backup before!</f:translate></strong></p>
+					</f:form>
 				</div>
 			</div>
 		</f:else>
@@ -160,7 +230,7 @@
 
 
 
-	<h2 class="powermail-padding-top"><f:translate key="BackendEmailTitle" /></h2>
+	<h2 class="powermail-padding-top"><f:translate key="BackendEmailTitle">Test Email Transmission</f:translate></h2>
 
 	<f:if condition="{email}">
 		<f:if condition="{issent}">

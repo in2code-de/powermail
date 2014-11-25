@@ -289,6 +289,40 @@ class FormRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	}
 
 	/**
+	 * Find all localized records with
+	 * 		tx_powermail_domain_model_forms.pages = ""
+	 *
+	 * @return mixed
+	 */
+	public function findAllWrongLocalizedForms() {
+		$query = $this->createQuery();
+
+		$sql = 'select uid,pid,title';
+		$sql .= ' from tx_powermail_domain_model_forms';
+		$sql .= ' where pages = ""';
+		$sql .= ' and sys_language_uid > 0';
+		$sql .= ' and deleted = 0';
+		$sql .= ' limit 1';
+
+		$result = $query->statement($sql)->execute(TRUE);
+
+		return $result;
+	}
+
+	/**
+	 * Fix wrong localized forms
+	 *
+	 * @return void
+	 */
+	public function fixWrongLocalizedForms() {
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+			'tx_powermail_domain_model_forms',
+			'sys_language_uid > 0 and deleted = 0 and pages = ""',
+			array('pages' => 0)
+		);
+	}
+
+	/**
 	 * @param $xmlArray
 	 * @param $key
 	 * @return string

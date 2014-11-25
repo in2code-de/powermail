@@ -585,8 +585,12 @@
 				<target state="translated">Keine Formulare konvertiert</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckTitle">
-				<source>Powermail Check</source>
+				<source>Powermail Function Check</source>
 				<target state="translated">Powermail Funktionstests</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckTryToFix">
+				<source>Solve problem</source>
+				<target state="translated">Problem beheben</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckSessionTitle">
 				<source>Frontend Session Check</source>
@@ -635,6 +639,34 @@
 			<trans-unit id="BackendCheckUploadsFolderFailed">
 				<source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
 				<target state="translated">Standard Upload Verzeichnis existiert nicht (uploads/tx_powermail/)</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsTitle">
+				<source>Localized Forms</source>
+				<target state="translated">Lokalisierte Formulare</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsCorrect">
+				<source>No failures in forms found on this system</source>
+				<target state="translated">Keine Probleme auf diesem System gefunden</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsFailed">
+				<source>There are localized forms with empty tx_powermail_domain_model_forms.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
+				<target state="translated">Es gibt lokalisierte Formulare mit leeren tx_powermail_domain_model_forms.pages Feldern, welche Probleme in der Frontend-Darstellung verursachen können</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersTitle">
+				<source>Localized Fields</source>
+				<target state="translated">Lokalisierte Felder</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersCorrect">
+				<source>No failures in fields found on this system</source>
+				<target state="translated">Keine Probleme in lokalisierten Felder gefunden</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersFailed">
+				<source>Found some localized fields with filled markers. Markers should be empty in localized records.</source>
+				<target state="translated">Es gibt lokalisierte Felder mit gefüllten tx_powermail_domain_model_forms.marker Feldern, welche Probleme in der Frontend-Darstellung verursachen können</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckBackupBefore">
+				<source>Note: Please backup all powermail tables before you choose this option!</source>
+				<target state="translated">Hinweis: Bitte unbedingt alle powermail Tabellen zuvor sichern!</target>
 			</trans-unit>
 			<trans-unit id="BackendOverviewTitle">
 				<source>Form Overview</source>
@@ -691,6 +723,10 @@
 			<trans-unit id="BackendOverviewNoForms">
 				<source>No Forms found</source>
 				<target state="translated">Keine Formulare zum Anzeigen vorhanden</target>
+			</trans-unit>
+			<trans-unit id="BackendFunctionTitle">
+				<source>Function-Test Section</source>
+				<target state="translated">Bereich der Funktionstests</target>
 			</trans-unit>
 			<trans-unit id="BackendEmailTitle">
 				<source>Test Email Sending</source>

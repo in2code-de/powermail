@@ -47,12 +47,16 @@ class ModuleController extends AbstractController {
 		$mails = $this->mailRepository->findAllInPid(GeneralUtility::_GP('id'), $this->settings, $this->piVars);
 		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
 
-		$this->view->assign('mails', $mails);
-		$this->view->assign('firstMail', $firstMail);
-		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('pid', GeneralUtility::_GP('id'));
-		$this->view->assign('token', BackendUtility::getUrlToken('tceAction'));
-		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
+		$this->view->assignMultiple(
+			array(
+				'mails' => $mails,
+				'firstMail' => $firstMail,
+				'piVars' => $this->piVars,
+				'pid' => GeneralUtility::_GP('id'),
+				'token' => BackendUtility::getUrlToken('tceAction'),
+				'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
+			)
+		);
 	}
 
 	/**
@@ -71,111 +75,6 @@ class ModuleController extends AbstractController {
 	}
 
 	/**
-	 * Tools overview
-	 *
-	 * @return void
-	 */
-	public function toolsBeAction() {
-	}
-
-	/**
-	 * Form Overview
-	 *
-	 * @return void
-	 */
-	public function overviewBeAction() {
-		$pid = GeneralUtility::_GET('id');
-		$forms = $this->formRepository->findAllInPid($pid);
-		$this->view->assign('forms', $forms);
-		$this->view->assign('pid', $pid);
-	}
-
-	/**
-	 * Check View Backend
-	 *
-	 * @param string $email email address
-	 * @return void
-	 */
-	public function checkBeAction($email = NULL) {
-		$this->view->assign('pid', GeneralUtility::_GP('id'));
-
-		if ($email) {
-			if (GeneralUtility::validEmail($email)) {
-				$body = 'New <b>Test Email</b> from User ';
-				$body .= $GLOBALS['BE_USER']->user['username'] . ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
-
-				$message = GeneralUtility::makeInstance('\TYPO3\CMS\Core\Mail\MailMessage');
-				$message
-					->setTo(array($email => 'Receiver'))
-					->setFrom(array('powermail@domain.net' => 'powermail'))
-					->setSubject('New Powermail Test Email')
-					->setBody($body, 'text/html')
-					->send();
-
-				$this->view->assign('issent', $message->isSent());
-				$this->view->assign('email', $email);
-			}
-		}
-	}
-
-	/**
-	 * Init
-	 *
-	 * @return void
-	 */
-	public function initializeConverterBeAction() {
-		if (!Div::isBackendAdmin()) {
-			$this->controllerContext = $this->buildControllerContext();
-			$this->forward('toolsBe');
-		}
-	}
-
-	/**
-	 * Convert all old forms preflight
-	 *
-	 * @return void
-	 */
-	public function converterBeAction() {
-		$oldForms = $this->formRepository->findAllOldForms();
-		$this->view->assign('oldForms', $oldForms);
-	}
-
-	/**
-	 * Init
-	 *
-	 * @return void
-	 */
-	public function initializeConverterUpdateBeAction() {
-		if (!Div::isBackendAdmin()) {
-			$this->controllerContext = $this->buildControllerContext();
-			$this->forward('toolsBe');
-		}
-	}
-
-	/**
-	 * Convert all old forms
-	 *
-	 * @param array $converter
-	 * @return void
-	 */
-	public function converterUpdateBeAction($converter) {
-		$oldForms = $this->formRepository->findAllOldForms();
-		$formCounter = 0;
-		$oldFormsWithFieldsetsAndFields = array();
-		foreach ($oldForms as $form) {
-			$oldFormsWithFieldsetsAndFields[$formCounter] = $form;
-			$oldFormsWithFieldsetsAndFields[$formCounter]['_fieldsets'] =
-				$this->formRepository->findOldFieldsetsAndFieldsToTtContentRecord($form['uid']);
-			$formCounter++;
-		}
-		/** @var \In2code\Powermail\Utility\FormConverter $formConverter */
-		$formConverter = $this->objectManager->get('\In2code\Powermail\Utility\FormConverter');
-		$result = $formConverter->createNewFromOldForms($oldFormsWithFieldsetsAndFields, $converter);
-		$this->view->assign('result', $result);
-		$this->view->assign('converter', $converter);
-	}
-
-	/**
 	 * Reporting Form
 	 *
 	 * @return void
@@ -185,13 +84,17 @@ class ModuleController extends AbstractController {
 		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
 		$groupedAnswers = Div::getGroupedMailAnswers($mails);
 
-		$this->view->assign('groupedAnswers', $groupedAnswers);
-		$this->view->assign('mails', $mails);
-		$this->view->assign('firstMail', $firstMail);
-		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('pid', GeneralUtility::_GP('id'));
-		$this->view->assign('token', BackendUtility::getUrlToken('tceAction'));
-		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
+		$this->view->assignMultiple(
+			array(
+				'groupedAnswers' => $groupedAnswers,
+				'mails' => $mails,
+				'firstMail' => $firstMail,
+				'piVars' => $this->piVars,
+				'pid' => GeneralUtility::_GP('id'),
+				'token' => BackendUtility::getUrlToken('tceAction'),
+				'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
+			)
+		);
 	}
 
 	/**
@@ -204,13 +107,17 @@ class ModuleController extends AbstractController {
 		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
 		$groupedMarketingStuff = Div::getGroupedMarketingStuff($mails);
 
-		$this->view->assign('groupedMarketingStuff', $groupedMarketingStuff);
-		$this->view->assign('mails', $mails);
-		$this->view->assign('firstMail', $firstMail);
-		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('pid', GeneralUtility::_GP('id'));
-		$this->view->assign('token', BackendUtility::getUrlToken('tceAction'));
-		$this->view->assign('perPage', ($this->settings['perPage'] ? $this->settings['perPage'] : 10));
+		$this->view->assignMultiple(
+			array(
+				'groupedMarketingStuff' => $groupedMarketingStuff,
+				'mails' => $mails,
+				'firstMail' => $firstMail,
+				'piVars' => $this->piVars,
+				'pid' => GeneralUtility::_GP('id'),
+				'token' => BackendUtility::getUrlToken('tceAction'),
+				'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
+			)
+		);
 	}
 
 	/**
@@ -220,7 +127,7 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	public function exportBeAction(array $export = array()) {
-		if ($export['format'] == 'xls') {
+		if ($export['format'] === 'xls') {
 			$this->forward('exportXlsBe', NULL, NULL, array('export' => $export));
 		}
 		$this->forward('exportCsvBe', NULL, NULL, array('export' => $export));
@@ -260,4 +167,183 @@ class ModuleController extends AbstractController {
 		header('Pragma: no-cache');
 	}
 
+	/**
+	 * Tools overview
+	 *
+	 * @return void
+	 */
+	public function toolsBeAction() {
+	}
+
+	/**
+	 * Form Overview
+	 *
+	 * @return void
+	 */
+	public function overviewBeAction() {
+		$pid = GeneralUtility::_GET('id');
+		$forms = $this->formRepository->findAllInPid($pid);
+		$this->view->assign('forms', $forms);
+		$this->view->assign('pid', $pid);
+	}
+
+	/**
+	 * Check Permissions
+	 *
+	 * @return void
+	 */
+	public function initializeCheckBeAction() {
+		$this->checkAdminPermissions();
+	}
+
+	/**
+	 * Check View Backend
+	 *
+	 * @param string $email email address
+	 * @return void
+	 */
+	public function checkBeAction($email = NULL) {
+		$this->view->assign('pid', GeneralUtility::_GP('id'));
+
+		if ($email) {
+			if (GeneralUtility::validEmail($email)) {
+				$body = 'New <b>Test Email</b> from User ';
+				$body .= $GLOBALS['BE_USER']->user['username'] . ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
+
+				$message = GeneralUtility::makeInstance('\TYPO3\CMS\Core\Mail\MailMessage');
+				$message
+					->setTo(array($email => 'Receiver'))
+					->setFrom(array('powermail@domain.net' => 'powermail'))
+					->setSubject('New Powermail Test Email')
+					->setBody($body, 'text/html')
+					->send();
+
+				$this->view->assign('issent', $message->isSent());
+				$this->view->assign('email', $email);
+			}
+		}
+	}
+
+	/**
+	 * Check Permissions
+	 *
+	 * @return void
+	 */
+	public function initializeConverterBeAction() {
+		$this->checkAdminPermissions();
+	}
+
+	/**
+	 * Convert all old forms preflight
+	 *
+	 * @return void
+	 */
+	public function converterBeAction() {
+		$oldForms = $this->formRepository->findAllOldForms();
+		$this->view->assign('oldForms', $oldForms);
+	}
+
+	/**
+	 * Check Permissions
+	 *
+	 * @return void
+	 */
+	public function initializeConverterUpdateBeAction() {
+		$this->checkAdminPermissions();
+	}
+
+	/**
+	 * Convert all old forms
+	 *
+	 * @param array $converter
+	 * @return void
+	 */
+	public function converterUpdateBeAction($converter) {
+		$oldForms = $this->formRepository->findAllOldForms();
+		$formCounter = 0;
+		$oldFormsWithFieldsetsAndFields = array();
+		foreach ($oldForms as $form) {
+			$oldFormsWithFieldsetsAndFields[$formCounter] = $form;
+			$oldFormsWithFieldsetsAndFields[$formCounter]['_fieldsets'] =
+				$this->formRepository->findOldFieldsetsAndFieldsToTtContentRecord($form['uid']);
+			$formCounter++;
+		}
+		/** @var \In2code\Powermail\Utility\FormConverter $formConverter */
+		$formConverter = $this->objectManager->get('\In2code\Powermail\Utility\FormConverter');
+		$result = $formConverter->createNewFromOldForms($oldFormsWithFieldsetsAndFields, $converter);
+		$this->view->assign('result', $result);
+		$this->view->assign('converter', $converter);
+	}
+
+	/**
+	 * Check Permissions
+	 *
+	 * @return void
+	 */
+	public function initializeFixUploadFolderAction() {
+		$this->checkAdminPermissions();
+	}
+
+	/**
+	 * Create an upload folder
+	 *
+	 * @return void
+	 */
+	public function fixUploadFolderAction() {
+		GeneralUtility::mkdir(
+			GeneralUtility::getFileAbsFileName('uploads/tx_powermail/')
+		);
+		$this->redirect('checkBe');
+	}
+
+	/**
+	 * Check Permissions
+	 *
+	 * @return void
+	 */
+	public function initializeFixWrongLocalizedFormsAction() {
+		$this->checkAdminPermissions();
+	}
+
+	/**
+	 * Fix wrong localized forms
+	 *
+	 * @return void
+	 */
+	public function fixWrongLocalizedFormsAction() {
+		$this->formRepository->fixWrongLocalizedForms();
+		$this->redirect('checkBe');
+	}
+
+	/**
+	 * Check Permissions
+	 *
+	 * @return void
+	 */
+	public function initializeFixFilledMarkersInLocalizedFieldsAction() {
+		$this->checkAdminPermissions();
+	}
+
+	/**
+	 * Fix wrong localized markers in fields
+	 *
+	 * @return void
+	 */
+	public function fixFilledMarkersInLocalizedFieldsAction() {
+		$this->fieldRepository->fixFilledMarkersInLocalizedFields();
+		$this->redirect('checkBe');
+	}
+
+	/**
+	 * Check if admin is logged in
+	 * 		If not, forward to tools overview
+	 *
+	 * @return void
+	 */
+	protected function checkAdminPermissions() {
+		if (!Div::isBackendAdmin()) {
+			$this->controllerContext = $this->buildControllerContext();
+			$this->forward('toolsBe');
+		}
+	}
 }

@@ -438,6 +438,9 @@
 			<trans-unit id="BackendCheckTitle">
 				<source>Powermail Check</source>
 			</trans-unit>
+			<trans-unit id="BackendCheckTryToFix">
+				<source>Solve problem</source>
+			</trans-unit>
 			<trans-unit id="BackendCheckSessionTitle">
 				<source>Frontend Session Check</source>
 			</trans-unit>
@@ -473,6 +476,27 @@
 			</trans-unit>
 			<trans-unit id="BackendCheckUploadsFolderFailed">
 				<source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsTitle">
+				<source>Localized Forms</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsCorrect">
+				<source>No failures in forms found on this system</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsFailed">
+				<source>There are localized forms with empty tx_powermail_domain_model_forms.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersTitle">
+				<source>Localized Fields</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersCorrect">
+				<source>No failures in fields found on this system</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersFailed">
+				<source>Found some localized fields with filled markers. Markers should be empty in localized records.</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckBackupBefore">
+				<source>Note: Please backup all powermail tables before you choose this option!</source>
 			</trans-unit>
 			<trans-unit id="BackendOverviewTitle">
 				<source>Form Overview</source>
@@ -515,6 +539,9 @@
 			</trans-unit>
 			<trans-unit id="BackendOverviewNoForms">
 				<source>No Forms found</source>
+			</trans-unit>
+			<trans-unit id="BackendFunctionTitle">
+				<source>Function-Test Section</source>
 			</trans-unit>
 			<trans-unit id="BackendEmailTitle">
 				<source>Test Email Sending</source>
