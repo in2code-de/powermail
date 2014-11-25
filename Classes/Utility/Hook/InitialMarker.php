@@ -56,7 +56,9 @@ class InitialMarker extends \In2code\Powermail\Utility\Hook\AbstractMarker {
 
 			// set marker for new field
 		if (isset($this->data['tx_powermail_domain_model_fields'][$uid]['marker']) || stristr($uid, 'NEW')) {
-			$fieldArray['marker'] = 'marker_' . Div::createRandomString(8, FALSE);
+			if (isset($fieldArray['marker']) && empty($fieldArray['marker'])) {
+				$fieldArray['marker'] = 'marker_' . Div::createRandomString(8, FALSE);
+			}
 			if (!empty($markers['_' . $uid])) {
 				$fieldArray['marker'] = $markers['_' . $uid];
 			}
