@@ -20,7 +20,7 @@ class T3VersionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	public function render() {
 		// settings
 		$_EXTKEY = 'powermail';
-		require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
+		require(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
 		$versionString = $EM_CONF['powermail']['constraints']['depends']['typo3'];
 		$versions = explode('-', $versionString);
 		$powermailVersion = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);

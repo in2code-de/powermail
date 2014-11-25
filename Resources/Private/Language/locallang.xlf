@@ -459,6 +459,24 @@
 			<trans-unit id="BackendCheckExtMngConfigFailed">
 				<source>Extension was not correct installed - please click the update button in the Extension Manager</source>
 			</trans-unit>
+			<trans-unit id="BackendCheckVersionTitle">
+				<source>Version</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionLastUpdate">
+				<source>Last update in Extension Manager</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionNoInformation">
+				<source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionUpToDate">
+				<source>The installed version of powermail is up-to-date</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionSecurity">
+				<source>The installed version of powermail contains a known security bug. Please update your powermail extension as soon as possible.</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionUpgrade">
+				<source>A newer version of powermail is available</source>
+			</trans-unit>
 			<trans-unit id="BackendCheckT3VersionTitle">
 				<source>TYPO3 Version</source>
 			</trans-unit>

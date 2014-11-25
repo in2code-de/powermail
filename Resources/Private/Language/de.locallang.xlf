@@ -620,6 +620,33 @@
 				<source>TYPO3 Version</source>
 				<target state="translated">TYPO3 Version</target>
 			</trans-unit>
+			<trans-unit id="BackendCheckVersionTitle">
+				<source>Version</source>
+				<target state="translated">Version</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionLastUpdate">
+				<source>Last update in Extension Manager</source>
+				<target state="translated">Letzte Aktualisierung des Extension Managers</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionNoInformation">
+				<source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+				<target state="translated">Es konnte nicht festgestellt werden, ob die installierte Version von powermail sicher oder unsicher ist. Bitte die Daten des Extension Managers aktualisieren um weitere Informationen zu erhalten.</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionUpToDate">
+				<source>The installed version of powermail is up-to-date</source>
+				<target state="translated">Die installierte Version von powermail ist aktuell</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionSecurity">
+				<source>The installed version of powermail contains a known security bug. Please update your powermail extension as soon as possible.</source>
+				<target state="translated">Die installierte Version von powermail beinhaltet eine bekannte Sicherheitslücke. Bitte aktualisieren Sie powermail zeitnahe.</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionUpgrade">
+				<source>A newer version of powermail is available</source>
+				<target state="translated">Eine neuere Version von powermail steht zum Download bereit</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckT3VersionTitle">
+				<source>TYPO3 Version</source>
+			</trans-unit>
 			<trans-unit id="BackendCheckT3VersionCorrect">
 				<source>The used TYPO3 version is correct for this Powermail version</source>
 				<target state="translated">Die eingesetzte TYPO3-Version funktioniert mit der eingesetzten Powermail Version</target>

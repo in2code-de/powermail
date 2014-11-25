@@ -8,7 +8,113 @@
 
 	<h1><f:translate key="BackendCheckTitle">Powermail Function Check</f:translate></h1>
 
+
 	<h2 class="powermail-padding-top"><f:translate key="BackendFunctionTitle">Function Tests</f:translate></h2>
+
+	<f:switch expression="{vh:BeCheck.PowermailVersionNote()}">
+		<f:case value="0">
+			<div class="typo3-message message-warning powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckVersionTitle">Version</f:translate>
+						{vh:BeCheck.PowermailVersion()}
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckVersionNoInformation">It could not be verified if this version is secure or unsecure</f:translate>
+
+						(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
+						<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:BeCheck.LastUpdateExtensionRepository()}</f:format.date>)
+					</p>
+				</div>
+			</div>
+		</f:case>
+		<f:case value="1">
+			<div class="typo3-message message-ok powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckVersionTitle">Version</f:translate>
+						{vh:BeCheck.PowermailVersion()}
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckVersionUpToDate">Powermail version is up-to-date</f:translate>
+
+						(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
+						<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:BeCheck.LastUpdateExtensionRepository()}</f:format.date>)
+					</p>
+				</div>
+			</div>
+		</f:case>
+		<f:case value="2">
+			<div class="typo3-message message-error powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckVersionTitle">Version</f:translate>
+						{vh:BeCheck.PowermailVersion()}
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckVersionSecurity">The installed powermail version is not secure, please update your version as soon as possible!</f:translate>
+
+						(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
+						<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:BeCheck.LastUpdateExtensionRepository()}</f:format.date>)
+					</p>
+				</div>
+			</div>
+		</f:case>
+		<f:case value="3">
+			<div class="typo3-message message-information powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckVersionTitle">Version</f:translate>
+						{vh:BeCheck.PowermailVersion()}
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckVersionUpgrade">A newer powermail version is available</f:translate>
+
+						(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
+						<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:BeCheck.LastUpdateExtensionRepository()}</f:format.date>)
+					</p>
+				</div>
+			</div>
+		</f:case>
+	</f:switch>
+
+	<f:if condition="{vh:BeCheck.T3Version()}">
+		<f:then>
+			<div class="typo3-message message-ok powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckT3VersionTitle" />
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckT3VersionCorrect" />
+					</p>
+				</div>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="typo3-message message-error powermail-message">
+				<div class="message-header">
+					<f:translate key="BackendCheckT3VersionTitle" />
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckT3VersionFailed" />
+					</p>
+				</div>
+			</div>
+		</f:else>
+	</f:if>
+
 	<f:if condition="{settings.staticTemplate}">
 		<f:then>
 			<div class="typo3-message message-ok powermail-message">
@@ -92,35 +198,6 @@
 				<div class="message-body">
 					<p>
 						<f:translate key="BackendCheckExtMngConfigFailed" />
-					</p>
-				</div>
-			</div>
-		</f:else>
-	</f:if>
-
-	<f:if condition="{vh:BeCheck.T3Version()}">
-		<f:then>
-			<div class="typo3-message message-ok powermail-message">
-				<div class="header-container">
-					<div class="message-header">
-						<f:translate key="BackendCheckT3VersionTitle" />
-					</div>
-				</div>
-				<div class="message-body">
-					<p>
-						<f:translate key="BackendCheckT3VersionCorrect" />
-					</p>
-				</div>
-			</div>
-		</f:then>
-		<f:else>
-			<div class="typo3-message message-error powermail-message">
-				<div class="message-header">
-					<f:translate key="BackendCheckT3VersionTitle" />
-				</div>
-				<div class="message-body">
-					<p>
-						<f:translate key="BackendCheckT3VersionFailed" />
 					</p>
 				</div>
 			</div>
