@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Utility\Hook;
 
 use \In2code\Powermail\Utility\Div;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -64,6 +65,11 @@ class InitialMarker extends \In2code\Powermail\Utility\Hook\AbstractMarker {
 			// revise marker if related to a new page and not allowed
 		if (!empty($markers['_' . $uid]) && $markers['_' . $uid] !== $this->marker['_' . $uid]) {
 			$fieldArray['marker'] = $markers['_' . $uid];
+		}
+
+			// marker should be empty on localized fields
+		if (!empty($fieldArray['sys_language_uid']) && $fieldArray['sys_language_uid'] > 0) {
+			unset($fieldArray['marker']);
 		}
 	}
 }
