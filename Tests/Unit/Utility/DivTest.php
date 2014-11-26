@@ -480,8 +480,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 				'Germany'
 			),
 			array(
-				'5.28.31.255',
-				'Russian Federation'
+				'27.121.255.4',
+				'Japan'
 			),
 			array(
 				'5.226.31.255',
