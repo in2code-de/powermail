@@ -1082,17 +1082,26 @@ class Div {
 	/**
 	 * Get Country Name out of an IP address
 	 *
-	 * @param \string $ip
-	 * @return \string Countryname
+	 * @param string $ip
+	 * @return string Countryname
 	 */
 	public static function getCountryFromIp($ip = NULL) {
 		if ($ip === NULL) {
 			$ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 		}
 		$json = GeneralUtility::getUrl('http://freegeoip.net/json/' . $ip);
-		$geoInfo = json_decode($json);
-		if (!empty($geoInfo->country_name)) {
-			return $geoInfo->country_name;
+		if (!$json) {
+			// fallback geo ip service (if freegeoip is down)
+			$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
+		}
+		if ($json) {
+			$geoInfo = json_decode($json);
+			if (!empty($geoInfo->country_name)) {
+				return $geoInfo->country_name;
+			}
+			if (!empty($geoInfo->country)) {
+				return $geoInfo->country;
+			}
 		}
 		return '';
 	}
