@@ -290,7 +290,89 @@ Function Check
 This views helps you to identify problems with your TYPO3-Installation and Powermail.
 Beside some basic checks there is a mail function. This function basicly works like the main powermail mail function. Test this function if your forms don't send mails.
 
+Note: This view is for admins only.
+
 |img-81f|
+
+.. t3-field-list-table::
+ :header-rows: 1
+
+ - :Title:
+      Title
+   :Description:
+      Description
+   :Additional:
+      Additional
+
+ - :Title:
+      Version
+   :Description:
+      This line shows you the current version of powermail.
+   :Additional:
+      If there are values in tx_extensionmanager_domain_model_extension, you will see a note if there is a newer version of powermail available. If a powermail version was marked as unsecure, this is also shown.
+
+ - :Title:
+      TYPO3 Version
+   :Description:
+      This check compares if the installed powermail version fits to the support TYPO3 version.
+   :Additional:
+      -
+
+ - :Title:
+      Development Context
+   :Description:
+      This line gives you a hint if you use powermailDevelopContextEmail to send all mails to a defined receiver
+   :Additional:
+      This note is only shown, if your TYPO3 runs in Development Context
+
+ - :Title:
+      TypoScript Static Template
+   :Description:
+      Checks if TypoScript is available on current page
+   :Additional:
+      -
+
+ - :Title:
+      Frontend Session Check
+   :Description:
+      Check if Installation can work with FE-Sessions
+   :Additional:
+      -
+
+ - :Title:
+      Extension Manager Updated
+   :Description:
+      Check if all params from Extension Manager settings are available
+   :Additional:
+      -
+
+ - :Title:
+      Upload Folder
+   :Description:
+      Check if folder uploads/tx_powermail/ exists
+   :Additional:
+      If folder does not exist, you can create one, by clicking the "fix it"-button
+
+ - :Title:
+      Localized Forms
+   :Description:
+      Check if there are failures in localized forms
+   :Additional:
+      If there are failures (field pages must not be empty), there is an option to fix it (please backup your database before!)
+
+ - :Title:
+      Localized Fields
+   :Description:
+      Check if there are failures in localized fields
+   :Additional:
+      If there are failures (field marker should be empty), there is an option to fix it (please backup your database before!)
+
+ - :Title:
+      Test Email Sending
+   :Description:
+      If you are not sure if powermail can send mails, enter your email-address and press "Send Mail Now"
+   :Additional:
+      This test is similar to the test in install tool, but this test uses SwiftMailer (the mailer class that uses powermail)
 
 Form Converter
 ~~~~~~~~~~~~~~
