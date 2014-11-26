@@ -29,7 +29,7 @@ You can activate the development context in your apache settings or on your .hta
 
 
 Set Override-Email for Context
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Add a line to your AdditionalConfiguration.php - e.g.:
 
