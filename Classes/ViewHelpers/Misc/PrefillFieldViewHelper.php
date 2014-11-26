@@ -77,6 +77,9 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 			foreach ($mail->getAnswers() as $answer) {
 				if ($answer->getField() === $field) {
 					$value = $answer->getValue();
+					if (is_array($value)) {
+						$value = $value[0];
+					}
 				}
 			}
 		}

@@ -3,8 +3,6 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-use \TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-
 /**
  * Get configuration from extension manager
  */
@@ -22,7 +20,7 @@ $uncachedFormActions .= ', create, confirmation, optinConfirm, validateAjax, mar
 /**
  * Include Frontend Plugins for Powermail
  */
-ExtensionUtility::configurePlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'In2code.' . $_EXTKEY,
 	'Pi1',
 	array(
@@ -32,7 +30,7 @@ ExtensionUtility::configurePlugin(
 		'Form' => $uncachedFormActions
 	)
 );
-ExtensionUtility::configurePlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'In2code.' . $_EXTKEY,
 	'Pi2',
 	array(

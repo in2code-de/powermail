@@ -602,7 +602,7 @@ $fieldsTca = array(
 				'maxitems' => 1,
 				'eval' => ''
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,submit,password,file,location,text,date,country'
+			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,submit,password,file,location,text,date,country,captcha'
 		),
 		'multiselect' => array(
 			'l10n_mode' => 'exclude',

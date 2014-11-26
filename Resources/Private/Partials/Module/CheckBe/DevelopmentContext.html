@@ -1,0 +1,32 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:if condition="{vh:Condition.IsDevelopmentContext()}">
+	<f:if condition="{vh:Getter.GetDevelopmentContextEmail()}">
+		<f:then>
+			<div class="typo3-message message-information powermail-message">
+				<div class="header-container">
+					<div class="message-header">
+						<f:translate key="BackendCheckDevelopmentContextTitle">Development Context</f:translate>
+					</div>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckDevelopmentContextActive" arguments="{0: '{vh:Getter.GetDevelopmentContextEmail()}'}">This TYPO3 instance is running in development context. All mails will be send to %s only.</f:translate>
+					</p>
+				</div>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="typo3-message message-information powermail-message">
+				<div class="message-header">
+					<f:translate key="BackendCheckDevelopmentContextTitle">Development Context</f:translate>
+				</div>
+				<div class="message-body">
+					<p>
+						<f:translate key="BackendCheckDevelopmentContextAvailable" arguments="{0: '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXT\'][\'powermailDevelopContextEmail\']=\'force@email.org\';'}">This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</f:translate>
+					</p>
+				</div>
+			</div>
+		</f:else>
+	</f:if>
+</f:if>

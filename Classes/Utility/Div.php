@@ -6,8 +6,9 @@ use \TYPO3\CMS\Backend\Utility\BackendUtility,
 	\In2code\Powermail\Domain\Model\Mail,
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility,
 	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
-	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
+	\TYPO3\CMS\Core\Utility\VersionNumberUtility,
+	\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 /***************************************************************
  *  Copyright notice
@@ -545,6 +546,9 @@ class Div {
 		if ($feGroup) {
 			$array = array_merge($array, $this->getEmailsFromFeGroup($feGroup));
 		}
+		if (self::getDevelopmentContextEmail()) {
+			$array = array(self::getDevelopmentContextEmail());
+		}
 		return $array;
 	}
 
@@ -1078,17 +1082,26 @@ class Div {
 	/**
 	 * Get Country Name out of an IP address
 	 *
-	 * @param \string $ip
-	 * @return \string Countryname
+	 * @param string $ip
+	 * @return string Countryname
 	 */
 	public static function getCountryFromIp($ip = NULL) {
 		if ($ip === NULL) {
 			$ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 		}
 		$json = GeneralUtility::getUrl('http://freegeoip.net/json/' . $ip);
-		$geoInfo = json_decode($json);
-		if (!empty($geoInfo->country_name)) {
-			return $geoInfo->country_name;
+		if (!$json) {
+			// fallback geo ip service (if freegeoip is down)
+			$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
+		}
+		if ($json) {
+			$geoInfo = json_decode($json);
+			if (!empty($geoInfo->country_name)) {
+				return $geoInfo->country_name;
+			}
+			if (!empty($geoInfo->country)) {
+				return $geoInfo->country;
+			}
 		}
 		return '';
 	}
@@ -1305,6 +1318,36 @@ class Div {
 			return $settings['captcha.']['use'];
 		}
 		return 'default';
+	}
+
+	/**
+	 * Get powermail version from ext_emconf
+	 *
+	 * @return string
+	 */
+	public static function getVersion() {
+		$_EXTKEY = 'powermail';
+		require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
+		$version = $EM_CONF['powermail']['version'];
+		if (VersionNumberUtility::convertVersionNumberToInteger($version) > 0) {
+			return $version;
+		}
+		return '0.0.0';
+	}
+
+	/**
+	 * Get development email (only if in dev context)
+	 *
+	 * @return false|string
+	 */
+	public static function getDevelopmentContextEmail() {
+		if (
+			GeneralUtility::getApplicationContext()->isDevelopment() &&
+			GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'])
+		) {
+			return $GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'];
+		}
+		return FALSE;
 	}
 
 	/**

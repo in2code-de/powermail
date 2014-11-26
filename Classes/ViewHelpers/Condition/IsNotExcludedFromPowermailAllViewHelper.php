@@ -21,12 +21,18 @@ class IsNotExcludedFromPowermailAllViewHelper extends \TYPO3\CMS\Fluid\Core\View
 	 */
 	public function render(\In2code\Powermail\Domain\Model\Answer $answer, $type, $settings = array()) {
 		// excludeFromFieldTypes
-		if (in_array($answer->getField()->getType(), $this->getExcludedValues($type, $settings, 'excludeFromFieldTypes'))) {
+		if (
+			$answer->getField() &&
+			in_array($answer->getField()->getType(), $this->getExcludedValues($type, $settings, 'excludeFromFieldTypes'))
+		) {
 			return FALSE;
 		}
 
 		// excludeFromMarkerNames
-		if (in_array($answer->getField()->getMarker(), $this->getExcludedValues($type, $settings, 'excludeFromMarkerNames'))) {
+		if (
+			$answer->getField() &&
+			in_array($answer->getField()->getMarker(), $this->getExcludedValues($type, $settings, 'excludeFromMarkerNames'))
+		) {
 			return FALSE;
 		}
 

@@ -190,6 +190,7 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+		$query->getQuerySettings()->setLanguageMode(NULL);
 
 		$and = array(
 			$query->equals('uid', $uid),

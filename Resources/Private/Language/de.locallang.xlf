@@ -585,8 +585,12 @@
 				<target state="translated">Keine Formulare konvertiert</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckTitle">
-				<source>Powermail Check</source>
+				<source>Powermail Function Check</source>
 				<target state="translated">Powermail Funktionstests</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckTryToFix">
+				<source>Solve problem</source>
+				<target state="translated">Problem beheben</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckSessionTitle">
 				<source>Frontend Session Check</source>
@@ -616,6 +620,33 @@
 				<source>TYPO3 Version</source>
 				<target state="translated">TYPO3 Version</target>
 			</trans-unit>
+			<trans-unit id="BackendCheckVersionTitle">
+				<source>Version</source>
+				<target state="translated">Version</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionLastUpdate">
+				<source>Last Extension Manager update</source>
+				<target state="translated">Letzte Aktualisierung des Extension Managers</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionNoInformation">
+				<source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+				<target state="translated">Es konnte nicht festgestellt werden, ob die installierte Version von powermail sicher oder unsicher ist. Bitte die Daten des Extension Managers aktualisieren um weitere Informationen zu erhalten.</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionUpToDate">
+				<source>The installed version of powermail is up-to-date</source>
+				<target state="translated">Die installierte Version von powermail ist aktuell</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionSecurity">
+				<source>The installed version of powermail contains a known security bug. Please update your powermail extension as soon as possible.</source>
+				<target state="translated">Die installierte Version von powermail beinhaltet eine bekannte Sicherheitslücke. Bitte aktualisieren Sie powermail zeitnahe.</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckVersionUpgrade">
+				<source>A newer version of powermail is available</source>
+				<target state="translated">Eine neuere Version von powermail steht zum Download bereit</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckT3VersionTitle">
+				<source>TYPO3 Version</source>
+			</trans-unit>
 			<trans-unit id="BackendCheckT3VersionCorrect">
 				<source>The used TYPO3 version is correct for this Powermail version</source>
 				<target state="translated">Die eingesetzte TYPO3-Version funktioniert mit der eingesetzten Powermail Version</target>
@@ -635,6 +666,46 @@
 			<trans-unit id="BackendCheckUploadsFolderFailed">
 				<source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
 				<target state="translated">Standard Upload Verzeichnis existiert nicht (uploads/tx_powermail/)</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsTitle">
+				<source>Localized Forms</source>
+				<target state="translated">Lokalisierte Formulare</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsCorrect">
+				<source>No failures in forms found on this system</source>
+				<target state="translated">Keine Probleme auf diesem System gefunden</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedFormsFailed">
+				<source>There are localized forms with empty tx_powermail_domain_model_forms.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
+				<target state="translated">Es gibt lokalisierte Formulare mit leeren tx_powermail_domain_model_forms.pages Feldern, welche Probleme in der Frontend-Darstellung verursachen können</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersTitle">
+				<source>Localized Fields</source>
+				<target state="translated">Lokalisierte Felder</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersCorrect">
+				<source>No failures in fields found on this system</source>
+				<target state="translated">Keine Probleme in lokalisierten Felder gefunden</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersFailed">
+				<source>Found some localized fields with filled markers. Markers should be empty in localized records.</source>
+				<target state="translated">Es gibt lokalisierte Felder mit gefüllten tx_powermail_domain_model_forms.marker Feldern, welche Probleme in der Frontend-Darstellung verursachen können</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckBackupBefore">
+				<source>Note: Please backup all powermail tables before you choose this option!</source>
+				<target state="translated">Hinweis: Bitte unbedingt alle powermail Tabellen zuvor sichern!</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextTitle">
+				<source>Development Context</source>
+				<target state="translated">Development Context</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextActive">
+				<source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+				<target state="translated">Diese TYPO3-Instanz läuft aktuell im Development Context. Alle E-Mails werden an %s versendet.</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckDevelopmentContextAvailable">
+				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
+				<target state="translated">Diese TYPO3-Instanz läuft aktuell im Development Context. Mit %s in der AdditionalConfiguration.php kann man powermail anweisen, nur noch an diese Formulare zu senden.</target>
 			</trans-unit>
 			<trans-unit id="BackendOverviewTitle">
 				<source>Form Overview</source>
@@ -691,6 +762,10 @@
 			<trans-unit id="BackendOverviewNoForms">
 				<source>No Forms found</source>
 				<target state="translated">Keine Formulare zum Anzeigen vorhanden</target>
+			</trans-unit>
+			<trans-unit id="BackendFunctionTitle">
+				<source>Function-Test Section</source>
+				<target state="translated">Bereich der Funktionstests</target>
 			</trans-unit>
 			<trans-unit id="BackendEmailTitle">
 				<source>Test Email Sending</source>

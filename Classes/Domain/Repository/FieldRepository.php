@@ -85,6 +85,40 @@ class FieldRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	}
 
 	/**
+	 * Find all localized records with
+	 * 		tx_powermail_domain_model_fields.marker != ""
+	 *
+	 * @return mixed
+	 */
+	public function findAllFieldsWithFilledMarkerrsInLocalizedFields() {
+		$query = $this->createQuery();
+
+		$sql = 'select uid,pid,title,marker,sys_language_uid';
+		$sql .= ' from tx_powermail_domain_model_fields';
+		$sql .= ' where marker != ""';
+		$sql .= ' and sys_language_uid > 0';
+		$sql .= ' and deleted = 0';
+		$sql .= ' limit 1';
+
+		$result = $query->statement($sql)->execute(TRUE);
+
+		return $result;
+	}
+
+	/**
+	 * Fix wrong localized fields with markers
+	 *
+	 * @return void
+	 */
+	public function fixFilledMarkersInLocalizedFields() {
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+			'tx_powermail_domain_model_fields',
+			'sys_language_uid > 0 and deleted = 0 and marker != ""',
+			array('marker' => '')
+		);
+	}
+
+	/**
 	 * Return uid from given field marker and form (if no IRRE)
 	 *
 	 * @param \string $marker
