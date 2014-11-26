@@ -1,0 +1,20 @@
+.. |img-87|     image:: ../../../Images/manual_html_m3d145654.png
+   :height: 295
+   :width: 587
+.. :align: left
+.. :border: 0
+.. :name: Grafik92
+
+.. |img-88|     image:: ../../../Images/manual_html_m46da91a8.jpg
+   :height: 313
+   :width: 549
+.. :align: left
+.. :border: 0
+.. :name: Grafik93
+
+.. |img-89|     image:: ../../../Images/manual_html_m60ec3f9.png
+   :height: 231
+   :width: 609
+.. :align: left
+.. :border: 0
+.. :name: Grafik94

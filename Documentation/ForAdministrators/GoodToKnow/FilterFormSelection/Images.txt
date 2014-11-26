@@ -1,0 +1,14 @@
+.. |img-formselection|     image:: ../../../Images/formselection.jpg
+.. :align: left
+.. :border: 0
+.. :name: formselection
+
+.. |img-formselectionfiltered|     image:: ../../../Images/formselectionfiltered.jpg
+.. :align: left
+.. :border: 0
+.. :name: formselectionfiltered
+
+.. |img-formselectionpagetsconfig|     image:: ../../../Images/formselectionpagetsconfig.png
+.. :align: left
+.. :border: 0
+.. :name: formselectionpagetsconfig

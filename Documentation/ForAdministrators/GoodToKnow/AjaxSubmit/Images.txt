@@ -1,0 +1,4 @@
+.. |img-ajaxsubmit|     image:: ../../../Images/ajaxsubmit.jpg
+.. :align: left
+.. :border: 0
+.. :name: Ajaxsubmit
