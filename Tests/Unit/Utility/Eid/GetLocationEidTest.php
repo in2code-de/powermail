@@ -67,7 +67,7 @@ class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 				47.84787,
 				12.113768,
 				array(
-					'route' => 'Kunstmuehl Street',
+					'route' => 'Kunstmühlstraße',
 					'locality' => 'Rosenheim',
 					'country' => 'Germany',
 					'postal_code' => '83026'
@@ -77,7 +77,7 @@ class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 				48.0796126,
 				12.0898908,
 				array(
-					'route' => 'Eisweiher Path',
+					'route' => 'Eisweiherweg',
 					'locality' => 'Pfaffing',
 					'country' => 'Germany',
 					'postal_code' => '83539'
