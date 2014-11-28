@@ -228,7 +228,11 @@ class FormController extends AbstractController {
 			$sent = $this->sendMail->sendTemplateEmail($email, $mail, $this->settings, 'receiver');
 
 			if (!$sent) {
-				$this->addFlashMessage(LocalizationUtility::translate('error_mail_not_created', 'powermail'));
+				$this->addFlashMessage(
+					LocalizationUtility::translate('error_mail_not_created', 'powermail'),
+					'',
+					\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+				);
 				$this->messageClass = 'error';
 			}
 		}
@@ -474,7 +478,11 @@ class FormController extends AbstractController {
 
 		if (!isset($this->settings['staticTemplate'])) {
 			$this->controllerContext = $this->buildControllerContext();
-			$this->addFlashMessage(LocalizationUtility::translate('error_no_typoscript', 'powermail'));
+			$this->addFlashMessage(
+				LocalizationUtility::translate('error_no_typoscript', 'powermail'),
+				'',
+				\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+			);
 		}
 	}
 

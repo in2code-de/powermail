@@ -34,10 +34,10 @@ $uncachedFormActions .= ', create, confirmation, optinConfirm, validateAjax, mar
 	'In2code.' . $_EXTKEY,
 	'Pi2',
 	array(
-		'Output' => 'list, show, edit, update, export, rss'
+		'Output' => 'list, show, edit, update, export, rss, delete'
 	),
 	array(
-		'Output' => 'list, edit, update, export, rss'
+		'Output' => 'list, edit, update, export, rss, delete'
 	)
 );
 

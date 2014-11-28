@@ -6,6 +6,9 @@
 			<trans-unit id="pleaseChoose">
 				<source>Please choose...</source>
 			</trans-unit>
+			<trans-unit id="back">
+				<source>Go back</source>
+			</trans-unit>
 			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName">
 				<source>Senders Name</source>
 			</trans-unit>
@@ -723,6 +726,9 @@
 			<trans-unit id="PowermailFrontendEditView">
 				<source>Edit</source>
 			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteView">
+				<source>Delete</source>
+			</trans-unit>
 			<trans-unit id="PowermailFrontendEditSubmit">
 				<source>Save Changes</source>
 			</trans-unit>
@@ -737,6 +743,12 @@
 			</trans-unit>
 			<trans-unit id="PowermailFrontendEditSuccessful">
 				<source>Changes successfully saved</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteFailed">
+				<source>Record could not be removed</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteSuccessful">
+				<source>Record successfully removed</source>
 			</trans-unit>
 			<trans-unit id="Back">
 				<source>Back</source>

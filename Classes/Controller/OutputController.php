@@ -60,22 +60,15 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 		}
 		$fields = $this->fieldRepository->findByUids($fieldArray);
 		$searchFields = $this->fieldRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['search']['fields'], TRUE));
-		$this->view->assign('searchFields', $searchFields);
-		$this->view->assign('fields', $fields);
-		$this->view->assign('piVars', $this->piVars);
-		$this->view->assign('abc', Div::getAbcArray());
-
-		// single pid
-		if (empty($this->settings['single']['pid'])) {
-			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
-		}
-		$this->view->assign('singlePid', $this->settings['single']['pid']);
-
-		// edit pid
-		if (empty($this->settings['edit']['pid'])) {
-			$this->settings['edit']['pid'] = $GLOBALS['TSFE']->id;
-		}
-		$this->view->assign('editPid', $this->settings['edit']['pid']);
+		$this->view->assignMultiple(
+			array(
+				'searchFields' => $searchFields,
+				'fields' => $fields,
+				'piVars' => $this->piVars,
+				'abc', Div::getAbcArray()
+			)
+		);
+		$this->assignMultipleActions();
 	}
 
 	/**
@@ -85,28 +78,14 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 	 * @return void
 	 */
 	public function showAction(Mail $mail) {
-		$this->view->assign('mail', $mail);
-
-		// get fields for iteration
 		if ($this->settings['single']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['single']['fields'], TRUE);
 		} else {
 			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
-		$fields = $this->fieldRepository->findByUids($fieldArray);
-		$this->view->assign('fields', $fields);
-
-		// list pid
-		if (empty($this->settings['list']['pid'])) {
-			$this->settings['list']['pid'] = $GLOBALS['TSFE']->id;
-		}
-		$this->view->assign('listPid', $this->settings['list']['pid']);
-
-		// edit pid
-		if (empty($this->settings['edit']['pid'])) {
-			$this->settings['edit']['pid'] = $GLOBALS['TSFE']->id;
-		}
-		$this->view->assign('editPid', $this->settings['edit']['pid']);
+		$this->view->assign('fields', $this->fieldRepository->findByUids($fieldArray));
+		$this->view->assign('mail', $mail);
+		$this->assignMultipleActions();
 	}
 
 	/**
@@ -116,9 +95,6 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 	 * @return void
 	 */
 	public function editAction(Mail $mail = NULL) {
-		$this->view->assign('mail', $mail);
-
-		// get fields for iteration
 		if ($this->settings['edit']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['edit']['fields'], TRUE);
 		} else {
@@ -126,18 +102,8 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 		}
 		$fields = $this->fieldRepository->findByUids($fieldArray);
 		$this->view->assign('selectedFields', $fields);
-
-		// list pid
-		if (empty($this->settings['list']['pid'])) {
-			$this->settings['list']['pid'] = $GLOBALS['TSFE']->id;
-		}
-		$this->view->assign('listPid', $this->settings['list']['pid']);
-
-		// single pid
-		if (empty($this->settings['single']['pid'])) {
-			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
-		}
-		$this->view->assign('singlePid', $this->settings['single']['pid']);
+		$this->view->assign('mail', $mail);
+		$this->assignMultipleActions();
 	}
 
 	/**
@@ -149,7 +115,11 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 		$arguments = $this->request->getArguments();
 		if (!$this->div->isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
 			$this->controllerContext = $this->buildControllerContext();
-			$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditFailed', 'powermail'));
+			$this->addFlashmessage(
+				LocalizationUtility::translate('PowermailFrontendEditFailed', 'powermail'),
+				'',
+				\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+			);
 			$this->forward('list');
 		}
 		$this->reformatParamsForAction();
@@ -166,6 +136,36 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 		$this->mailRepository->update($mail);
 		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful', 'powermail'));
 		$this->redirect('edit', NULL, NULL, array('mail' => $mail));
+	}
+
+	/**
+	 * Check authentication
+	 *
+	 * @return void
+	 */
+	public function initializeDeleteAction() {
+		$arguments = $this->request->getArguments();
+		if (!$this->div->isAllowedToEdit($this->settings, $arguments['mail'])) {
+			$this->controllerContext = $this->buildControllerContext();
+			$this->addFlashmessage(
+				LocalizationUtility::translate('PowermailFrontendDeleteFailed', 'powermail'),
+				'',
+				\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+			);
+			$this->forward('list');
+		}
+	}
+
+	/**
+	 * Delete mail
+	 *
+	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @return void
+	 */
+	public function deleteAction(Mail $mail) {
+		$this->assignMultipleActions();
+		$this->mailRepository->remove($mail);
+		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendDeleteSuccessful', 'powermail'));
 	}
 
 	/**
@@ -231,12 +231,7 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 	public function rssAction() {
 		$mails = $this->mailRepository->findListBySettings($this->settings, $this->piVars);
 		$this->view->assign('mails', $mails);
-
-		// single pid
-		if (empty($this->settings['single']['pid'])) {
-			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
-		}
-		$this->view->assign('singlePid', $this->settings['single']['pid']);
+		$this->assignMultipleActions();
 	}
 
 	/**
@@ -245,8 +240,27 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 	 * @return void
 	 */
 	public function initializeObject() {
-		// merge typoscript to flexform
 		Div::mergeTypoScript2FlexForm($this->settings, 'Pi2');
+	}
+
+	/**
+	 * Assign variables
+	 *
+	 * @return void
+	 */
+	protected function assignMultipleActions() {
+		if (empty($this->settings['single']['pid'])) {
+			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		if (empty($this->settings['list']['pid'])) {
+			$this->settings['list']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		if (empty($this->settings['edit']['pid'])) {
+			$this->settings['edit']['pid'] = $GLOBALS['TSFE']->id;
+		}
+		$this->view->assign('singlePid', $this->settings['single']['pid']);
+		$this->view->assign('listPid', $this->settings['list']['pid']);
+		$this->view->assign('editPid', $this->settings['edit']['pid']);
 	}
 
 	/**
@@ -260,8 +274,11 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 		// check if ts is included
 		if (!isset($this->settings['staticTemplate'])) {
 			$this->controllerContext = $this->buildControllerContext();
-			$this->addFlashMessage(LocalizationUtility::translate('error_no_typoscript_pi2', 'powermail'));
+			$this->addFlashMessage(
+				LocalizationUtility::translate('error_no_typoscript_pi2', 'powermail'),
+				'',
+				\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+			);
 		}
 	}
-
 }
