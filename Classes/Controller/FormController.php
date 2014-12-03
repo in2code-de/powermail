@@ -60,12 +60,15 @@ class FormController extends AbstractController {
 		}
 		$forms = $this->formRepository->findByUids($this->settings['main']['form']);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($forms, $this));
-		$this->view->assign('forms', $forms);
-		$this->view->assign('messageClass', $this->messageClass);
-		$this->view->assign('action', ($this->settings['main']['confirmation'] ? 'confirmation' : 'create'));
+		$this->view->assignMultiple(
+			array(
+				'forms' => $forms,
+				'messageClass' => $this->messageClass,
+				'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
+			)
+		);
 		$this->assignForAll();
 
-			// create session
 		if (method_exists($forms->getFirst(), 'getUid')) {
 			Div::saveFormStartInSession($forms->getFirst()->getUid());
 		}
@@ -122,13 +125,8 @@ class FormController extends AbstractController {
 			($this->settings['main']['optin'] && Div::checkOptinHash($hash, $mail) && $hash !== NULL)
 		) {
 			$this->sendMailPreflight($mail);
-
-				// Save to other tables if activated
 			$this->div->saveToAnyTable($mail, $this->conf);
-
-				// Send values to a third party software (like a CRM)
 			$this->div->sendPost($mail, $this->conf);
-
 		} else {
 			$this->sendConfirmationMail($mail);
 			$this->view->assign('optinActive', TRUE);

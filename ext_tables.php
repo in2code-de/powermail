@@ -105,10 +105,12 @@ if (TYPO3_MODE == 'BE') {
 	$_EXTKEY, 'Configuration/TypoScript/CssDemo',
 	'Add Demo CSS'
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-	$_EXTKEY, 'Configuration/TypoScript/Marketing',
-	'Marketing Information'
-);
+if (empty($confArr['disableMarketingInformation'])) {
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+		$_EXTKEY, 'Configuration/TypoScript/Marketing',
+		'Marketing Information'
+	);
+}
 
 /**
  * Table Configuration

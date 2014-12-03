@@ -1,5 +1,5 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<f:if condition="{marketingInfos}">
+<f:if condition="{vh:Condition.IsMarketingInformationActive(marketingInformation:marketingInfos, settings:settings)}">
 	<p>&nbsp;</p>
 	<table width="500px">
 		<tr>

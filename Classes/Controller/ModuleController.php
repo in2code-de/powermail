@@ -66,10 +66,10 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	public function reportingBeAction($subaction = NULL) {
-		if ($subaction == 'form') {
+		if ($subaction === 'form') {
 			$this->forward('reportingFormBe');
 		}
-		if ($subaction == 'marketing') {
+		if ($subaction === 'marketing') {
 			$this->forward('reportingMarketingBe');
 		}
 	}

@@ -44,6 +44,13 @@ Main configuration for powermail for CMS wide settings.
       0
 
  - :Field:
+      Disable Marketing Information
+   :Description:
+      If you want to disable all marketing relevant information of powermail, you can enable this checkbox (effected: mail to admin, backend module, mail records, no static typoscript template).
+   :DefaultValue:
+      0
+
+ - :Field:
       Disable BE Module
    :Description:
       You can disable the backend module if you don't store mails in your database or if you don't need the module.

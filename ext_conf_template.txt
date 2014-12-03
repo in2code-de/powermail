@@ -1,17 +1,20 @@
 # cat=basic/enable/010; type=boolean; label= Disable IP logging: If you don't want to save the sender IP address in the database, you can use this checkbox.
 disableIpLog = 0
 
-# cat=basic/enable/020; type=boolean; label= Disable BE Module: You can disable the backend module if you don't store mails in your database or you don't need the module.
+# cat=basic/enable/020; type=boolean; label= Disable Marketing Information: If you want to disable all marketing relevant information of powermail, you can enable this checkbox (effected: mail to admin, backend module, mail records, no static typoscript template)
+disableMarketingInformation = 0
+
+# cat=basic/enable/030; type=boolean; label= Disable BE Module: You can disable the backend module if you don't store mails in your database or you don't need the module.
 disableBackendModule = 0
 
-# cat=basic/enable/030; type=boolean; label= Disable Plugin Information: Below every powermail plugin is a short info table with form settings. You can disable theese information.
+# cat=basic/enable/040; type=boolean; label= Disable Plugin Information: Below every powermail plugin is a short info table with form settings. You can disable theese information.
 disablePluginInformation = 0
 
-# cat=basic/enable/040; type=boolean; label= Enable Form caching: With this setting, you can enable the caching of the form generation, what speeds up sites with powermail forms in the frontend. On the other hand there no more form prefilling - even with confirmation pages and previous-buttons. Enable this only if you know, what your are doing.
+# cat=basic/enable/050; type=boolean; label= Enable Form caching: With this setting, you can enable the caching of the form view, what speeds up sites with powermail forms in the frontend. On the other hand there is no more form prefilling - even with confirmation pages and previous-buttons. Enable this only if you know, what your are doing.
 enableCaching = 0
 
-# cat=basic/enable/050; type=boolean; label= Enable Merge for l10n_mode: All fields with l10n_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages.
+# cat=basic/enable/060; type=boolean; label= Enable Merge for l10n_mode: All fields with l10n_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages.
 l10n_mode_merge = 0
 
-# cat=basic/enable/060; type=boolean; label= ElementBrowser replaces IRRE: Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation.
+# cat=basic/enable/070; type=boolean; label= ElementBrowser replaces IRRE: Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation.
 replaceIrreWithElementBrowser = 0
