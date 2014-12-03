@@ -17,7 +17,7 @@ class IsMarketingInformationEnabledGloballyViewHelper extends AbstractViewHelper
 	 */
 	public function render() {
 		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-		if (!isset($confArr['disableMarketingInformation']) || $confArr['disableMarketingInformation'] === '1') {
+		if (isset($confArr['disableMarketingInformation']) && $confArr['disableMarketingInformation'] === '1') {
 			return FALSE;
 		}
 		return TRUE;
