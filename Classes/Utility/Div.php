@@ -1158,8 +1158,8 @@ class Div {
 		$startArray = $this->getVariablesWithMarkers($mail);
 
 		// one loop per table
-		foreach ((array)$conf['dbEntry.'] as $table => $settings) {
-			$settings = NULL;
+		foreach ((array) array_keys($conf['dbEntry.']) as $table) {
+			$contentObject->start($startArray);
 
 			// remove ending .
 			$table = substr($table, 0, -1);
@@ -1176,7 +1176,6 @@ class Div {
 			/* @var $storeObject \In2code\Powermail\Utility\SaveToAnyTable */
 			$storeObject = $this->objectManager->get('In2code\Powermail\Utility\SaveToAnyTable');
 			$storeObject->setTable($table);
-			$contentObject->start($startArray);
 
 			// if unique was set
 			if (!empty($conf['dbEntry.'][$table . '.']['_ifUnique.'])) {
