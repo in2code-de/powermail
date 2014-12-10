@@ -148,3 +148,18 @@ if (empty($confArr['disableMarketingInformation'])) {
 	'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_answers.xlf'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_answers');
+
+/**
+ * Garbage Collector
+ */
+$tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
+$table = 'tx_powermail_domain_model_mails';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(
+	'dateField' => 'tstamp',
+	'expirePeriod' => 30
+);
+$table = 'tx_powermail_domain_model_answers';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(
+	'dateField' => 'tstamp',
+	'expirePeriod' => 30
+);
