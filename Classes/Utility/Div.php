@@ -128,13 +128,19 @@ class Div {
 	 *
 	 * @param Mail $mail Given Params
 	 * @param string $default
+	 * @param string $glue
 	 * @return string Sender Name
 	 */
-	public function getSenderNameFromArguments(Mail $mail, $default = NULL) {
+	public function getSenderNameFromArguments(Mail $mail, $default = NULL, $glue = ' ') {
 		$name = '';
 		foreach ($mail->getAnswers() as $answer) {
 			if (method_exists($answer->getField(), 'getUid') && $answer->getField()->getSenderName()) {
-				$name .= $answer->getValue() . ' ';
+				if (!is_array($answer->getValue())) {
+					$value = $answer->getValue();
+				} else {
+					$value = implode($glue, $answer->getValue());
+				}
+				$name .= $value . $glue;
 			}
 		}
 
@@ -1089,18 +1095,17 @@ class Div {
 		if ($ip === NULL) {
 			$ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 		}
-		$json = GeneralUtility::getUrl('http://freegeoip.net/json/' . $ip);
+		$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
 		if (!$json) {
-			// fallback geo ip service (if freegeoip is down)
-			$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
+			$json = GeneralUtility::getUrl('http://freegeoip.net/json/' . $ip);
 		}
 		if ($json) {
 			$geoInfo = json_decode($json);
-			if (!empty($geoInfo->country_name)) {
-				return $geoInfo->country_name;
-			}
 			if (!empty($geoInfo->country)) {
 				return $geoInfo->country;
+			}
+			if (!empty($geoInfo->country_name)) {
+				return $geoInfo->country_name;
 			}
 		}
 		return '';
@@ -1158,8 +1163,8 @@ class Div {
 		$startArray = $this->getVariablesWithMarkers($mail);
 
 		// one loop per table
-		foreach ((array)$conf['dbEntry.'] as $table => $settings) {
-			$settings = NULL;
+		foreach ((array) array_keys($conf['dbEntry.']) as $table) {
+			$contentObject->start($startArray);
 
 			// remove ending .
 			$table = substr($table, 0, -1);
@@ -1176,7 +1181,6 @@ class Div {
 			/* @var $storeObject \In2code\Powermail\Utility\SaveToAnyTable */
 			$storeObject = $this->objectManager->get('In2code\Powermail\Utility\SaveToAnyTable');
 			$storeObject->setTable($table);
-			$contentObject->start($startArray);
 
 			// if unique was set
 			if (!empty($conf['dbEntry.'][$table . '.']['_ifUnique.'])) {

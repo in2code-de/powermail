@@ -85,12 +85,18 @@ Render Powermail_Frontend List View
 							</f:for>
 							<td>
 								<f:link.action action="show" pageUid="{singlePid}" arguments="{mail:mail}">
-									<f:translate key="PowermailFrontendDetailView" />
+									<f:translate key="PowermailFrontendDetailView">Details</f:translate>
 								</f:link.action>
 
 								<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
 									<f:link.action action="edit" pageUid="{editPid}" arguments="{mail:mail}">
-										<f:translate key="PowermailFrontendEditView" />
+										<f:translate key="PowermailFrontendEditView">Edit</f:translate>
+									</f:link.action>
+								</f:if>
+
+								<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
+									<f:link.action action="delete" pageUid="{editPid}" arguments="{mail:mail}">
+										<f:translate key="PowermailFrontendDeleteView">Delete</f:translate>
 									</f:link.action>
 								</f:if>
 							</td>

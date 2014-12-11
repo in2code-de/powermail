@@ -49,41 +49,45 @@
 					<li id="subject">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
 					</li>
-					<li id="marketing_referer_domain">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" />
-					</li>
-					<li id="marketing_referer">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer" />
-					</li>
-					<li id="marketing_frontend_language">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" />
-					</li>
-					<li id="marketing_browser_language">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" />
-					</li>
-					<li id="marketing_country">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry" />
-					</li>
-					<li id="marketing_mobile_device">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" />
-					</li>
-					<li id="marketing_page_funnel">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" />
-					</li>
+					<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
+						<li id="marketing_referer_domain">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" />
+						</li>
+						<li id="marketing_referer">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer" />
+						</li>
+						<li id="marketing_frontend_language">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" />
+						</li>
+						<li id="marketing_browser_language">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" />
+						</li>
+						<li id="marketing_country">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry" />
+						</li>
+						<li id="marketing_mobile_device">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" />
+						</li>
+						<li id="marketing_page_funnel">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" />
+						</li>
+						<li id="user_agent">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.userAgent" />
+						</li>
+						<li id="time">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.time" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsIpInformationEnabledGlobally()}">
+						<li id="sender_ip">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderIp" />
+						</li>
+					</f:if>
 					<li id="uid">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.uid" />
 					</li>
-					<li id="time">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.time" />
-					</li>
 					<li id="feuser">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.feuser" />
-					</li>
-					<li id="sender_ip">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderIp" />
-					</li>
-					<li id="user_agent">
-						<f:translate key="\In2code\Powermail\Domain\Model\Mail.userAgent" />
 					</li>
 				</ul>
 			</div>

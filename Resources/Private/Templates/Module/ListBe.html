@@ -236,81 +236,82 @@
 												</dd>
 											</dl>
 										</f:if>
-										<f:if condition="{mail.marketingRefererDomain}">
-											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
-												<dt>
-													<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" default="marketingRefererDomain" /></strong>
-												</dt>
-												<dd>
-													{mail.marketingRefererDomain}
-												</dd>
-											</dl>
+										<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
+											<f:if condition="{mail.marketingRefererDomain}">
+												<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+													<dt>
+														<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" default="marketingRefererDomain" /></strong>
+													</dt>
+													<dd>
+														{mail.marketingRefererDomain}
+													</dd>
+												</dl>
+											</f:if>
+											<f:if condition="{mail.marketingReferer}">
+												<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+													<dt>
+														<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer" default="marketingReferer" /></strong>
+													</dt>
+													<dd>
+														{mail.marketingReferer}
+													</dd>
+												</dl>
+											</f:if>
+											<f:if condition="{mail.marketingCountry}">
+												<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+													<dt>
+														<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry" default="marketingCountry" /></strong>
+													</dt>
+													<dd>
+														{mail.marketingCountry}
+													</dd>
+												</dl>
+											</f:if>
+											<f:if condition="{mail.marketingMobileDevice}">
+												<f:comment>Use marketingPageFunnel as indicator if marketing is switched on in generally - showing "0" is ok</f:comment>
+												<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+													<dt>
+														<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" default="marketingMobileDevice" /></strong>
+													</dt>
+													<dd>
+														{mail.marketingMobileDevice}
+													</dd>
+												</dl>
+											</f:if>
+											<f:if condition="{mail.marketingPageFunnel}">
+												<f:comment>Use marketingPageFunnel as indicator if marketing is switched on in generally - showing "0" is ok</f:comment>
+												<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+													<dt>
+														<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" default="marketingFrontendLanguage" /></strong>
+													</dt>
+													<dd>
+														{mail.marketingFrontendLanguage}
+													</dd>
+												</dl>
+											</f:if>
+											<f:if condition="{mail.marketingBrowserLanguage}">
+												<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+													<dt>
+														<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" default="marketingBrowserLanguage" /></strong>
+													</dt>
+													<dd>
+														{mail.marketingBrowserLanguage}
+													</dd>
+												</dl>
+											</f:if>
+											<f:if condition="{mail.marketingPageFunnel}">
+												<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+													<dt>
+														<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" /></strong>
+													</dt>
+													<dd>
+														<f:for each="{mail.marketingPageFunnel}" as="page" iteration="index">
+															<span title="id={page}"><vh:Getter.GetPageNameFromUid uid="{page}" /></span> <f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
+														</f:for>
+													</dd>
+												</dl>
+											</f:if>
 										</f:if>
-										<f:if condition="{mail.marketingReferer}">
-											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
-												<dt>
-													<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer" default="marketingReferer" /></strong>
-												</dt>
-												<dd>
-													{mail.marketingReferer}
-												</dd>
-											</dl>
-										</f:if>
-										<f:if condition="{mail.marketingCountry}">
-											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
-												<dt>
-													<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry" default="marketingCountry" /></strong>
-												</dt>
-												<dd>
-													{mail.marketingCountry}
-												</dd>
-											</dl>
-										</f:if>
-										<f:if condition="{mail.marketingMobileDevice}">
-											<f:comment>Use marketingPageFunnel as indicator if marketing is switched on in generally - showing "0" is ok</f:comment>
-											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
-												<dt>
-													<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" default="marketingMobileDevice" /></strong>
-												</dt>
-												<dd>
-													{mail.marketingMobileDevice}
-												</dd>
-											</dl>
-										</f:if>
-										<f:if condition="{mail.marketingPageFunnel}">
-											<f:comment>Use marketingPageFunnel as indicator if marketing is switched on in generally - showing "0" is ok</f:comment>
-											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
-												<dt>
-													<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" default="marketingFrontendLanguage" /></strong>
-												</dt>
-												<dd>
-													{mail.marketingFrontendLanguage}
-												</dd>
-											</dl>
-										</f:if>
-										<f:if condition="{mail.marketingBrowserLanguage}">
-											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
-												<dt>
-													<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" default="marketingBrowserLanguage" /></strong>
-												</dt>
-												<dd>
-													{mail.marketingBrowserLanguage}
-												</dd>
-											</dl>
-										</f:if>
-										<f:if condition="{mail.marketingPageFunnel}">
-											<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
-												<dt>
-													<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" /></strong>
-												</dt>
-												<dd>
-													<f:for each="{mail.marketingPageFunnel}" as="page" iteration="index">
-														<span title="id={page}"><vh:Getter.GetPageNameFromUid uid="{page}" /></span> <f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
-													</f:for>
-												</dd>
-											</dl>
-										</f:if>
-										<f:render partial="Misc/MarketingInformation" arguments="{_all}" />
 									</div>
 								</td>
 							</tr>

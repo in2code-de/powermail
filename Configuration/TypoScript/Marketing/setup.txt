@@ -2,6 +2,9 @@
 # Adding Powermail Marketing Function
 #####################################
 
+# Enable marketing information in mail to administrator
+plugin.tx_powermail.settings.setup.marketing.information = 1
+
 # storing misc user informations in session via JavaScript (last page, google keyword, page funnel)
 page.3131 = COA
 page.3131 {

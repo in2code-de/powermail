@@ -105,10 +105,12 @@ if (TYPO3_MODE == 'BE') {
 	$_EXTKEY, 'Configuration/TypoScript/CssDemo',
 	'Add Demo CSS'
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-	$_EXTKEY, 'Configuration/TypoScript/Marketing',
-	'Marketing Information'
-);
+if (empty($confArr['disableMarketingInformation'])) {
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+		$_EXTKEY, 'Configuration/TypoScript/Marketing',
+		'Marketing Information'
+	);
+}
 
 /**
  * Table Configuration
@@ -146,3 +148,18 @@ if (TYPO3_MODE == 'BE') {
 	'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_answers.xlf'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_answers');
+
+/**
+ * Garbage Collector
+ */
+$tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
+$table = 'tx_powermail_domain_model_mails';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(
+	'dateField' => 'tstamp',
+	'expirePeriod' => 30
+);
+$table = 'tx_powermail_domain_model_answers';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(
+	'dateField' => 'tstamp',
+	'expirePeriod' => 30
+);

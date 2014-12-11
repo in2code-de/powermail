@@ -8,6 +8,10 @@
 				<source>Please choose...</source>
 				<target state="translated">Bitte wählen...</target>
 			</trans-unit>
+			<trans-unit id="back">
+				<source>Go back</source>
+				<target state="translated">Zur letzten Ansicht</target>
+			</trans-unit>
 			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName">
 				<source>Senders Name</source>
 				<target state="translated">Absender Name</target>
@@ -971,6 +975,10 @@
 				<source>Edit</source>
 				<target state="translated">Bearbeiten</target>
 			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteView">
+				<source>Delete</source>
+				<target state="translated">Löschen</target>
+			</trans-unit>
 			<trans-unit id="PowermailFrontendEditSubmit">
 				<source>Save Changes</source>
 				<target state="translated">Änderungen Speichern</target>
@@ -990,6 +998,14 @@
 			<trans-unit id="PowermailFrontendEditSuccessful">
 				<source>Changes successfully saved</source>
 				<target state="translated">Änderungen erfolgreich gespeichert</target>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteFailed">
+				<source>Record could not be removed</source>
+				<target state="translated">Datensatz konnte nicht gelöscht werden</target>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteSuccessful">
+				<source>Record successfully removed</source>
+				<target state="translated">Datensatz erfolgreich gelöscht</target>
 			</trans-unit>
 			<trans-unit id="Back">
 				<source>Back</source>

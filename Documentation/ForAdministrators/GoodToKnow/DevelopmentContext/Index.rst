@@ -13,7 +13,18 @@ Together with the context mode (since TYPO3 6.2) you can test your forms on your
 Activate Development Context
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can activate the development context in your apache settings or on your .htaccess - e.g.:
+You can activate the development context in your apache settings - e.g.:
+
+.. code-block:: text
+
+	<VirtualHost *:80>
+
+		...
+
+		SetEnv TYPO3_CONTEXT Development
+	</VirtualHost>
+
+Or on your .htaccess - e.g.:
 
 .. code-block:: text
 

@@ -112,7 +112,7 @@ function ajaxFormSubmit() {
 			url: $this.prop('action'),
 			data: $this.serialize(),
 			beforeSend: function() {
-				// add progressbar <div class="powermail_progressbar"><div class="powermail_progress"><div class="powermail_progess_inner"></div></div></div>
+				// add progressbar div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
 				var progressBar = $('<div />').addClass('powermail_progressbar').html(
 					$('<div />').addClass('powermail_progress').html(
 						$('<div />').addClass('powermail_progess_inner')
@@ -127,7 +127,7 @@ function ajaxFormSubmit() {
 			},
 			success: function(data) {
 				var html = $('*[data-powermail-form="' + formUid + '"]:first', data);
-				$('.tx-powermail').html(html);
+				$('*[data-powermail-form="' + formUid + '"]:first').closest('.tx-powermail').html(html);
 				// fire tabs and parsley again
 				if ($.fn.powermailTabs) {
 					$('.powermail_morestep').powermailTabs();

@@ -44,7 +44,6 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Utility\Div', array('dummy'));
-		$oM = new \TYPO3\CMS\Extbase\Object\ObjectManager;
 		$objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
 		$this->generalValidatorMock->_set('objectManager', $objectManager);
 	}
@@ -57,6 +56,154 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	}
 
 	/**
+	 * Dataprovider getSenderNameFromArgumentsReturnsString()
+	 *
+	 * @return array
+	 */
+	public function getSenderNameFromArgumentsReturnsStringDataProvider() {
+		return array(
+			array(
+				array(
+					'Alex',
+					'Kellner'
+				),
+				NULL,
+				'Alex Kellner'
+			),
+			array(
+				array(
+					'Prof. Dr.',
+					'Müller'
+				),
+				'abc',
+				'Prof. Dr. Müller'
+			),
+			array(
+				NULL,
+				'Fallback Name',
+				'Fallback Name'
+			),
+			array(
+				NULL,
+				NULL,
+				'No Sendername'
+			),
+			array(
+				array(
+					// test multivalue (e.g. checkbox)
+					array(
+						'Prof.',
+						'Dr.'
+					),
+					'Max',
+					'Muster'
+				),
+				'xyz',
+				'Prof. Dr. Max Muster'
+			),
+		);
+	}
+
+	/**
+	 * Test for getSenderNameFromArguments()
+	 *
+	 * @param array $values
+	 * @param string $fallback
+	 * @param string $expectedResult
+	 * @return void
+	 * @dataProvider getSenderNameFromArgumentsReturnsStringDataProvider
+	 * @test
+	 */
+	public function getSenderNameFromArgumentsReturnsString($values, $fallback, $expectedResult) {
+		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		if (is_array($values)) {
+			foreach ($values as $value) {
+				$answer = new \In2code\Powermail\Domain\Model\Answer;
+				$field = new \In2code\Powermail\Domain\Model\Field;
+				$field->setType('input');
+				$field->setSenderName(TRUE);
+				$answer->setValue($value);
+				$answer->setValueType((is_array($value) ? 1 : 0));
+				$answer->setField($field);
+				$mail->addAnswer($answer);
+			}
+		}
+
+		$result = $this->generalValidatorMock->_callRef('getSenderNameFromArguments', $mail, $fallback);
+		$this->assertSame($result, $expectedResult);
+	}
+
+	/**
+	 * Dataprovider getSenderMailFromArgumentsReturnsString()
+	 *
+	 * @return array
+	 */
+	public function getSenderMailFromArgumentsReturnsStringDataProvider() {
+		return array(
+			array(
+				array(
+					'no email',
+					'abc@def.gh'
+				),
+				NULL,
+				'abc@def.gh'
+			),
+			array(
+				array(
+					'alexander.kellner@in2code.de',
+					'abc@def.gh'
+				),
+				NULL,
+				'alexander.kellner@in2code.de'
+			),
+			array(
+				array(
+					'no email'
+				),
+				'test@email.org',
+				'test@email.org'
+			),
+			array(
+				array(
+					'abc',
+					'def',
+					'ghi'
+				),
+				'abc@email.org',
+				'abc@email.org'
+			)
+		);
+	}
+
+	/**
+	 * Test for getSenderMailFromArguments()
+	 *
+	 * @param array $values
+	 * @param string $fallback
+	 * @param string $expectedResult
+	 * @return void
+	 * @dataProvider getSenderMailFromArgumentsReturnsStringDataProvider
+	 * @test
+	 */
+	public function getSenderMailFromArgumentsReturnsString($values, $fallback, $expectedResult) {
+		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		if (is_array($values)) {
+			foreach ($values as $value) {
+				$answer = new \In2code\Powermail\Domain\Model\Answer;
+				$field = new \In2code\Powermail\Domain\Model\Field;
+				$field->setType('input');
+				$field->setSenderEmail(TRUE);
+				$answer->setValue($value);
+				$answer->setField($field);
+				$mail->addAnswer($answer);
+			}
+		}
+
+		$result = $this->generalValidatorMock->_callRef('getSenderMailFromArguments', $mail, $fallback);
+		$this->assertSame($result, $expectedResult);
+	}
+
+	/**
 	 * Test for getStoragePage()
 	 *
 	 * @return void
@@ -65,6 +212,251 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	public function getStoragePageReturnsInt() {
 		$result = \In2code\Powermail\Utility\Div::getStoragePage(123);
 		$this->assertSame($result, 123);
+	}
+
+	/**
+	 * Dataprovider getVariablesWithMarkersReturnsArray()
+	 *
+	 * @return array
+	 */
+	public function getVariablesWithMarkersReturnsArrayDataProvider() {
+		return array(
+			array(
+				array(
+					array(
+						'marker',
+						'value'
+					),
+				),
+				array(
+					'marker' => 'value'
+				),
+			),
+			array(
+				array(
+					array(
+						'firstname',
+						'Alex'
+					),
+					array(
+						'lastname',
+						'Kellner'
+					),
+					array(
+						'email',
+						'alex@in2code.de'
+					),
+				),
+				array(
+					'firstname' => 'Alex',
+					'lastname' => 'Kellner',
+					'email' => 'alex@in2code.de'
+				),
+			),
+			array(
+				array(
+					array(
+						'checkbox',
+						array(
+							'red',
+							'blue'
+						)
+					),
+					array(
+						'firstname',
+						'Alex'
+					),
+				),
+				array(
+					'checkbox' => 'red, blue',
+					'firstname' => 'Alex'
+				),
+			),
+		);
+	}
+
+	/**
+	 * Test for getVariablesWithMarkers()
+	 *
+	 * @param array $values
+	 * @param string $expectedResult
+	 * @return void
+	 * @dataProvider getVariablesWithMarkersReturnsArrayDataProvider
+	 * @test
+	 */
+	public function getVariablesWithMarkersReturnsArray($values, $expectedResult) {
+		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		if (is_array($values)) {
+			foreach ($values as $markerValueMix) {
+				$answer = new \In2code\Powermail\Domain\Model\Answer;
+				$field = new \In2code\Powermail\Domain\Model\Field;
+				$field->setMarker($markerValueMix[0]);
+				$answer->setValue($markerValueMix[1]);
+				$answer->setField($field);
+				$answer->setValueType((is_array($markerValueMix[1]) ? 1 : 0));
+				$mail->addAnswer($answer);
+			}
+		}
+
+		$result = $this->generalValidatorMock->_callRef('getVariablesWithMarkers', $mail);
+		$this->assertSame($result, $expectedResult);
+	}
+
+	/**
+	 * Dataprovider getLabelsAttachedToMarkersReturnsArray()
+	 *
+	 * @return array
+	 */
+	public function getLabelsAttachedToMarkersReturnsArrayDataProvider() {
+		return array(
+			array(
+				array(
+					array(
+						'marker',
+						'title'
+					),
+				),
+				array(
+					'label_marker' => 'title'
+				),
+			),
+			array(
+				array(
+					array(
+						'firstname',
+						'Firstname'
+					),
+					array(
+						'lastname',
+						'Lastname'
+					),
+					array(
+						'email',
+						'Email Address'
+					),
+				),
+				array(
+					'label_firstname' => 'Firstname',
+					'label_lastname' => 'Lastname',
+					'label_email' => 'Email Address'
+				),
+			),
+		);
+	}
+
+	/**
+	 * Test for getLabelsAttachedToMarkers()
+	 *
+	 * @param array $values
+	 * @param string $expectedResult
+	 * @return void
+	 * @dataProvider getLabelsAttachedToMarkersReturnsArrayDataProvider
+	 * @test
+	 */
+	public function getLabelsAttachedToMarkersReturnsArray($values, $expectedResult) {
+		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		if (is_array($values)) {
+			foreach ($values as $markerTitleMix) {
+				$answer = new \In2code\Powermail\Domain\Model\Answer;
+				$field = new \In2code\Powermail\Domain\Model\Field;
+				$field->setMarker($markerTitleMix[0]);
+				$field->setTitle($markerTitleMix[1]);
+				$answer->setField($field);
+				$mail->addAnswer($answer);
+			}
+		}
+
+		$result = $this->generalValidatorMock->_callRef('getLabelsAttachedToMarkers', $mail);
+		$this->assertSame($result, $expectedResult);
+	}
+
+	/**
+	 * Dataprovider getVariablesWithLabelsReturnsArray()
+	 *
+	 * @return array
+	 */
+	public function getVariablesWithLabelsReturnsArrayDataProvider() {
+		return array(
+			array(
+				array(
+					array(
+						'title',
+						'value',
+						123
+					),
+				),
+				array(
+					array(
+						'label' => 'title',
+						'value' => 'value',
+						'uid' => 123
+					)
+				),
+			),
+			array(
+				array(
+					array(
+						'First Name',
+						'Alex',
+						1
+					),
+					array(
+						'Last Name',
+						'Kellner',
+						2
+					),
+					array(
+						'Email address',
+						'alex@test.de',
+						3
+					),
+				),
+				array(
+					array(
+						'label' => 'First Name',
+						'value' => 'Alex',
+						'uid' => 1
+					),
+					array(
+						'label' => 'Last Name',
+						'value' => 'Kellner',
+						'uid' => 2
+					),
+					array(
+						'label' => 'Email address',
+						'value' => 'alex@test.de',
+						'uid' => 3
+					)
+				),
+			),
+		);
+	}
+
+	/**
+	 * Test for getVariablesWithLabels()
+	 *
+	 * @param array $values
+	 * @param string $expectedResult
+	 * @return void
+	 * @dataProvider getVariablesWithLabelsReturnsArrayDataProvider
+	 * @test
+	 */
+	public function getVariablesWithLabelsReturnsArray($values, $expectedResult) {
+		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		if (is_array($values)) {
+			foreach ($values as $titleValueUidMix) {
+				$answer = new \In2code\Powermail\Domain\Model\Answer;
+				$field = new \In2code\Powermail\Domain\Model\Field;
+				$field->setTitle($titleValueUidMix[0]);
+				$field->_setProperty('uid', $titleValueUidMix[2]);
+				$answer->setField($field);
+				$answer->setValue($titleValueUidMix[1]);
+				$mail->addAnswer($answer);
+			}
+		}
+
+		$result = $this->generalValidatorMock->_callRef('getVariablesWithLabels', $mail);
+		$this->assertSame($result, $expectedResult);
 	}
 
 	/**

@@ -159,16 +159,16 @@ class Field extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * senderName
 	 *
-	 * @var string
+	 * @var bool
 	 */
-	protected $senderName = '';
+	protected $senderName = FALSE;
 
 	/**
 	 * senderEmail
 	 *
-	 * @var string
+	 * @var bool
 	 */
-	protected $senderEmail = '';
+	protected $senderEmail = FALSE;
 
 	/**
 	 * mandatory
@@ -527,7 +527,7 @@ class Field extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the senderEmail
 	 *
-	 * @return string $senderEmail
+	 * @return bool $senderEmail
 	 */
 	public function getSenderEmail() {
 		return $this->senderEmail;
@@ -536,7 +536,7 @@ class Field extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the senderEmail
 	 *
-	 * @param string $senderEmail
+	 * @param bool $senderEmail
 	 * @return void
 	 */
 	public function setSenderEmail($senderEmail) {
@@ -546,7 +546,7 @@ class Field extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the senderName
 	 *
-	 * @return string $senderName
+	 * @return bool $senderName
 	 */
 	public function getSenderName() {
 		return $this->senderName;
@@ -555,7 +555,7 @@ class Field extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the senderName
 	 *
-	 * @param string $senderName
+	 * @param bool $senderName
 	 * @return void
 	 */
 	public function setSenderName($senderName) {

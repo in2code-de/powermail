@@ -99,6 +99,7 @@ class SendMail {
 		$typoScriptService = $this->objectManager->get('\TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
 		$cObj = $this->configurationManager->getContentObject();
+		$cObj->start($this->div->getVariablesWithMarkers($mail));
 
 		// parsing variables with fluid engine to allow viewhelpers in flexform
 		$parse = array(

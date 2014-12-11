@@ -349,4 +349,13 @@ $mailsTca = array(
 	),
 );
 
+$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+if (isset($confArr['disableMarketingInformation']) && $confArr['disableMarketingInformation'] === '1') {
+	foreach (array_keys($mailsTca['columns']) as $columnName) {
+		if (strpos($columnName, 'marketing_') === 0) {
+			unset($mailsTca['columns'][$columnName]);
+		}
+	}
+}
+
 return $mailsTca;

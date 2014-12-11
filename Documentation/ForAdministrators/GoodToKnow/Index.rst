@@ -24,3 +24,4 @@ Good to know
    Debug/Index
    MainTypoScript/Index
    RemoveUnusedImages/Index
+   GarbageCollector/Index
