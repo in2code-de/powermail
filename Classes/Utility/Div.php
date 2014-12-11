@@ -128,13 +128,19 @@ class Div {
 	 *
 	 * @param Mail $mail Given Params
 	 * @param string $default
+	 * @param string $glue
 	 * @return string Sender Name
 	 */
-	public function getSenderNameFromArguments(Mail $mail, $default = NULL) {
+	public function getSenderNameFromArguments(Mail $mail, $default = NULL, $glue = ' ') {
 		$name = '';
 		foreach ($mail->getAnswers() as $answer) {
 			if (method_exists($answer->getField(), 'getUid') && $answer->getField()->getSenderName()) {
-				$name .= $answer->getValue() . ' ';
+				if (!is_array($answer->getValue())) {
+					$value = $answer->getValue();
+				} else {
+					$value = implode($glue, $answer->getValue());
+				}
+				$name .= $value . $glue;
 			}
 		}
 
