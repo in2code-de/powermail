@@ -1089,18 +1089,17 @@ class Div {
 		if ($ip === NULL) {
 			$ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 		}
-		$json = GeneralUtility::getUrl('http://freegeoip.net/json/' . $ip);
+		$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
 		if (!$json) {
-			// fallback geo ip service (if freegeoip is down)
-			$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
+			$json = GeneralUtility::getUrl('http://freegeoip.net/json/' . $ip);
 		}
 		if ($json) {
 			$geoInfo = json_decode($json);
-			if (!empty($geoInfo->country_name)) {
-				return $geoInfo->country_name;
-			}
 			if (!empty($geoInfo->country)) {
 				return $geoInfo->country;
+			}
+			if (!empty($geoInfo->country_name)) {
+				return $geoInfo->country_name;
 			}
 		}
 		return '';
