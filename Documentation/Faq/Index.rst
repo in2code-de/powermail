@@ -241,12 +241,19 @@ How to prefill a field in the powermail form?
 Prefilling of fields will be done by the prefillFieldsViewHelper. It
 listen to the following methods and parameters:
 
-# GET/POST param like &tx\_powermail\_pi1[marker]=value
-# GET/POST param like &tx\_powermail\_pi1[field][123]=value
-# GET/POST param like &tx\_powermail\_pi1[uid123]=value
-# If field should be filled with values from FE\_User (Flexform Settings)
-# If field should be prefilled from static Flexform Setting
-# Fill with TypoScript cObject like
+1. GET/POST param like &tx\_powermail\_pi1[field][marker]=value
+
+2. GET/POST param like &tx\_powermail\_pi1[marker]=value
+
+3. GET/POST param like &tx\_powermail\_pi1[field][123]=value
+
+4. GET/POST param like &tx\_powermail\_pi1[uid123]=value
+
+5. If field should be filled with values from FE\_User (Flexform Settings)
+
+6. If field should be prefilled from static Flexform Setting
+
+7. Fill with TypoScript cObject like
 
 .. code-block:: text
 
@@ -256,7 +263,7 @@ listen to the following methods and parameters:
 		email.value = mail@domain.org
 	}
 
-7. Fill with TypoScript like
+8. Fill with TypoScript like
 
 .. code-block:: text
 
