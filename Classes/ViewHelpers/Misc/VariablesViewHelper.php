@@ -62,6 +62,18 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	}
 
 	/**
+	 * Helper method which triggers the rendering of everything between the
+	 * opening and the closing tag. In addition change -&gt; to ->
+	 *
+	 * @return mixed The finally rendered child nodes.
+	 */
+	public function renderChildren() {
+		$content = parent::renderChildren();
+		$content = str_replace('-&gt;', '->', $content);
+		return $content;
+	}
+
+	/**
 	 * Get renderChildren
 	 * 		<p>{powermail_all}</p> =>
 	 * 			{powermail_all}
