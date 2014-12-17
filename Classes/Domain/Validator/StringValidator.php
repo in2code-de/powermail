@@ -106,7 +106,7 @@ class StringValidator extends \In2code\Powermail\Domain\Validator\AbstractValida
 	 * @return bool
 	 */
 	protected function validateLettersOnly($value) {
-		if (preg_replace('/[^a-zA-ZäüößÄÜÖ]/', '', $value) === $value) {
+		if (preg_replace('/[^a-zA-Z]/', '', $value) === $value) {
 			return TRUE;
 		}
 		return FALSE;
