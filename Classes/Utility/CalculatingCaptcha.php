@@ -131,11 +131,11 @@ class CalculatingCaptcha {
 		imagepng(
 			$img,
 			GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' .
-				Div::getSubFolderOfCurrentUrl() . $GLOBALS['TSFE']->tmpl->getFileName($this->captchaImage)
+			Div::getSubFolderOfCurrentUrl() . $this->captchaImage
 		);
 		imagedestroy($img);
 
-		return $GLOBALS['TSFE']->tmpl->getFileName($this->getCaptchaImage()) . '?hash=' . time();
+		return $this->getCaptchaImage() . '?hash=' . time();
 	}
 
 	/**
