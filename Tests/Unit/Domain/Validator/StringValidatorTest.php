@@ -402,7 +402,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			),
 			'letter7' => array(
 				'abcdefäöüßÄ',
-				TRUE
+				FALSE
 			),
 			'letter8' => array(
 				'abd+d',
