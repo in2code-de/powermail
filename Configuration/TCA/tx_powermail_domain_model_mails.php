@@ -129,6 +129,7 @@ $mailsTca = array(
 			),
 		),
 		'crdate' => array(
+			'exclude' => 1,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_mails.crdate',
 			'config' => array(
 				'type' => 'input',
@@ -344,6 +345,13 @@ $mailsTca = array(
 				'cols' => '30',
 				'rows' => '5',
 				'readOnly' => 1
+			),
+		),
+		'uid' => array(
+			'exclude' => 1,
+			'label' => 'UID',
+			'config' => array(
+				'type' => 'none',
 			),
 		),
 	),
