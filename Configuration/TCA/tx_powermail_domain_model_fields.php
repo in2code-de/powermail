@@ -145,6 +145,7 @@ $fieldsTca = array(
 			),
 		),
 		'type' => array(
+			'l10n_mode' => 'exclude',
 			'exclude' => 0,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.type',
 			'config' => array(
@@ -240,7 +241,6 @@ $fieldsTca = array(
 				'eval' => 'required',
 				'itemsProcFunc' => 'In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForType',
 			),
-			'displayCond' => 'FIELD:sys_language_uid:=:0',
 		),
 		'settings' => array(
 			'exclude' => 0,
