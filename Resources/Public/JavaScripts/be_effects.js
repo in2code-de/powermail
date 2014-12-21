@@ -208,6 +208,18 @@ jQuery(document).ready(function($) {
 
 
 
+
+	/**
+	 * Converter
+	 */
+	$('.openHiddenTable').click(function() {
+		var tr = $(this).closest('tr');
+		tr.find('.dots').toggle();
+		tr.find('.hiddenConverterTable').toggle();
+	});
+
+
+
 	/**
 	 * Reporting View: Form
 	 */
@@ -226,12 +238,52 @@ jQuery(document).ready(function($) {
 		$this.parent().siblings().slideToggle('fast');
 	});
 
-	/**
-	 * Converter
-	 */
-	$('.openHiddenTable').click(function() {
-		var tr = $(this).closest('tr');
-		tr.find('.dots').toggle();
-		tr.find('.hiddenConverterTable').toggle();
+	// Flot.js
+	$('*[data-flot-active="1"]').each(function() {
+		var data = [];
+		var values = $(this).data('flot-data-values').split(',');
+		var labels = $(this).data('flot-data-labels').split(',');
+		var colors = $(this).data('flot-data-colors').split(',');
+		for (var i = 0; i < values.length; i++) {
+			var dataPackage = {
+				data: values[i],
+				label: labels[i],
+				color: colors[i]
+			}
+			data.push(dataPackage);
+		}
+		$.plot($(this), data, {
+			series: {
+				pie: {
+					show: true,
+					innerRadius: 0.5,
+					radius: 1,
+					opacity: 0.3,
+					color: '#FF0000',
+					label: {
+						show: true,
+						radius: 1,
+						formatter: labelFormatter,
+						background: {
+							opacity: 0.8
+						}
+					},
+					combine: {
+						color: '#999',
+						threshold: 0.1
+					}
+
+				}
+			}
+		});
 	});
+
+	/**
+	 * @param label
+	 * @param series
+	 * @returns {string}
+	 */
+	function labelFormatter(label, series) {
+		return '<div class="flotLabel">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+	}
 });

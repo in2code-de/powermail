@@ -28,17 +28,20 @@
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain">Referer Domain</f:translate></h4>
 							<f:if condition="{vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingRefererDomain')}">
 								<f:then>
-									<img src="http://chart.apis.google.com/chart?
-												chf=bg,s,F8F8F8
-												&chxs=0,676767,10.5
-												&chxt=x
-												&chs=600x200
-												&cht=p3
-												&chd=t:50,50
-												&chdl={vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain')}
-												&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: ',')}
-												&chl={vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: '|')}
-											" alt="Error, no graphic available" />
+									x
+									<div class="flotContainer" data-flot-active="1" data-flot-data-colors="#ff0000, #fff000, #ffff00" data-flot-data-values="73,12,44" data-flot-data-labels="Auto, Fahrrad, Motorrad"></div>
+
+									<!--<img src="http://chart.apis.google.com/chart?-->
+												<!--chf=bg,s,F8F8F8-->
+												<!--&chxs=0,676767,10.5-->
+												<!--&chxt=x-->
+												<!--&chs=600x200-->
+												<!--&cht=p3-->
+												<!--&chd=t:50,50-->
+												<!--&chdl={vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain')}-->
+												<!--&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: ',')}-->
+												<!--&chl={vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: '|')}-->
+											<!--" alt="Error, no graphic available" />-->
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
