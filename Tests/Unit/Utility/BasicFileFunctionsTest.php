@@ -1,7 +1,12 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use \In2code\Powermail\Utility\BasicFileFunctions;
+use \TYPO3\CMS\Core\Tests\UnitTestCase,
+	\In2code\Powermail\Utility\BasicFileFunctions,
+	\In2code\Powermail\Domain\Model\Field,
+	\In2code\Powermail\Domain\Model\Page,
+	\In2code\Powermail\Domain\Model\Form,
+	\TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***************************************************************
  *  Copyright notice
@@ -34,7 +39,7 @@ use \In2code\Powermail\Utility\BasicFileFunctions;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class BasicFileFunctionsTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class BasicFileFunctionsTest extends UnitTestCase {
 
 	/**
 	 * @var string
@@ -111,7 +116,7 @@ class BasicFileFunctionsTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 */
 	public function cleanFileNameReturnBool($filename, $replace, $expectedFilename) {
 		BasicFileFunctions::cleanFileName($filename, $replace);
-		$this->assertSame($filename, $expectedFilename);
+		$this->assertSame($expectedFilename, $filename);
 	}
 
 	/**
@@ -190,7 +195,7 @@ class BasicFileFunctionsTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 */
 	public function checkExtensionReturnBool($filename, $allowedFileExtensions, $expectedResult) {
 		$result = BasicFileFunctions::checkExtension($filename, $allowedFileExtensions);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -200,18 +205,18 @@ class BasicFileFunctionsTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 * @test
 	 */
 	public function hasFormAnUploadFieldReturnBool() {
-		$fieldObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-		$field = new \In2code\Powermail\Domain\Model\Field;
+		$fieldObjectStorage = new ObjectStorage;
+		$field = new Field;
 		$field->setType('captcha');
 		$fieldObjectStorage->attach($field);
-		$field2 = new \In2code\Powermail\Domain\Model\Field;
+		$field2 = new Field;
 		$field2->setType('file');
 		$fieldObjectStorage->attach($field2);
-		$pagesObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-		$page = new \In2code\Powermail\Domain\Model\Page;
+		$pagesObjectStorage = new ObjectStorage;
+		$page = new Page;
 		$page->setFields($fieldObjectStorage);
 		$pagesObjectStorage->attach($page);
-		$form = new \In2code\Powermail\Domain\Model\Form;
+		$form = new Form;
 		$form->setPages($pagesObjectStorage);
 		$this->assertTrue(BasicFileFunctions::hasFormAnUploadField($form));
 

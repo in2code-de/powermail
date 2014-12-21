@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\BeCheck;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\BeCheck;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class PowermailVersionNoteViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class PowermailVersionNoteViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface

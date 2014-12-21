@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -34,7 +34,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class CalculatingCaptchaTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class CalculatingCaptchaTest extends UnitTestCase {
 
 	/**
 	 * @var \In2code\Powermail\Utility\CalculatingCaptcha
@@ -79,6 +79,10 @@ class CalculatingCaptchaTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 				'1+3',
 				'typo3temp/tx_powermail/CalculatingCaptcha.png'
 			),
+			array(
+				'5 + 1',
+				'typo3temp/tx_powermail/CalculatingCaptcha.png'
+			)
 		);
 	}
 
@@ -93,7 +97,7 @@ class CalculatingCaptchaTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 */
 	public function createImageReturnString($content, $expectedResult) {
 		$result = $this->generalValidatorMock->_call('createImage', $content, FALSE);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -162,7 +166,7 @@ class CalculatingCaptchaTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 			)
 		);
 		$result = $this->generalValidatorMock->_call('getStringForCaptcha');
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -212,6 +216,6 @@ class CalculatingCaptchaTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase 
 	 */
 	public function mathematicOperationReturnsInt($number1, $number2, $operator, $expectedResult) {
 		$result = $this->generalValidatorMock->_call('mathematicOperation', $number1, $number2, $operator);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 }

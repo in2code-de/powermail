@@ -1,6 +1,9 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Validation;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase,
+	\In2code\Powermail\Domain\Model\Field;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +35,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Validation;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class FieldTypeFromValidationViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class FieldTypeFromValidationViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -145,11 +148,11 @@ class FieldTypeFromValidationViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Uni
 				)
 			)
 		);
-		$field = new \In2code\Powermail\Domain\Model\Field;
+		$field = new Field;
 		$field->setValidation($validation);
 
 		$result = $this->abstractValidationViewHelperMock->_callRef('render', $field);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 }

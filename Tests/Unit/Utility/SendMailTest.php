@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ namespace In2code\Powermail\Tests\Utility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class SendMailTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class SendMailTest extends UnitTestCase {
 
 	/**
 	 * @var \In2code\Powermail\Utility\SendMail
@@ -89,7 +91,7 @@ class SendMailTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function br2nlReturnString($content, $expectedResult) {
 		$result = $this->generalValidatorMock->_call('br2nl', $content);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -133,6 +135,6 @@ class SendMailTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function makePlainReturnString($content, $expectedResult) {
 		$result = $this->generalValidatorMock->_call('makePlain', $content);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 }

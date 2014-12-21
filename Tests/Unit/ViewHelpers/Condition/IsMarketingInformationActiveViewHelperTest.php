@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Condition;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Condition;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class IsMarketingInformationActiveViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class IsMarketingInformationActiveViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var array
@@ -155,7 +157,6 @@ class IsMarketingInformationActiveViewHelperTest extends \TYPO3\CMS\Extbase\Test
 			$marketingInformation,
 			$settings
 		);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
-
 }

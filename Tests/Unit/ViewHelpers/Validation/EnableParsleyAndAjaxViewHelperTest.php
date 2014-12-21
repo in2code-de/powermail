@@ -1,6 +1,9 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Validation;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase,
+	\In2code\Powermail\Domain\Model\Form;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +35,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Validation;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class EnableParsleyAndAjaxViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -186,12 +189,11 @@ class EnableParsleyAndAjaxViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\B
 	 * @test
 	 */
 	public function renderReturnsArray($settings, $additionalAttributes, $expectedResult) {
-		$form = new \In2code\Powermail\Domain\Model\Form;
+		$form = new Form;
 		$form->_setProperty('uid', 123);
 
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
 		$result = $this->abstractValidationViewHelperMock->_callRef('render', $form, $additionalAttributes);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
-
 }

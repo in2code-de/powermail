@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Misc;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Misc;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class VariablesViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class VariablesViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -113,6 +115,6 @@ class VariablesViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase
 	 */
 	public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult) {
 		$result = $this->abstractValidationViewHelperMock->_callRef('removePowermailAllParagraphTagWrap', $content);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 }
