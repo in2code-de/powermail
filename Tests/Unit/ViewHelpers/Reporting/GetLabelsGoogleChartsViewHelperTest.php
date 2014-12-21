@@ -32,7 +32,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Reporting;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class GetLabelsGoogleChartsViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class GetLabelsGoogleChartsViewHelperTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -111,8 +111,8 @@ class GetLabelsGoogleChartsViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\
 			array(
 				array(
 					'0' => array(
-						'Fußgänger' => '15',
-						'Auto, LKW, Krafträder' => '60',
+						'"Fußgänger"' => '15',
+						'"Auto, LKW, Krafträder"' => '60',
 						'Fahrradfahrer' => '25',
 					)
 				),
@@ -131,7 +131,7 @@ class GetLabelsGoogleChartsViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\
 	 *
 	 * @param array $answers Array with answeres
 	 * @param string $field Fieldname (key of answers array)
-	 * @param string $glue
+	 * @param string $separator
 	 * @param int $crop
 	 * @param string $append
 	 * @param bool $urlEncode
@@ -139,8 +139,8 @@ class GetLabelsGoogleChartsViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\
 	 * @dataProvider renderReturnsStringDataProvider
 	 * @test
 	 */
-	public function renderReturnsString($answers, $field, $glue, $crop, $append, $urlEncode, $expectedResult) {
-		$result = $this->abstractValidationViewHelperMock->_callRef('render', $answers, $field, $glue, $crop, $append, $urlEncode);
-		$this->assertSame($result, $expectedResult);
+	public function renderReturnsString($answers, $field, $separator, $crop, $append, $urlEncode, $expectedResult) {
+		$result = $this->abstractValidationViewHelperMock->_callRef('render', $answers, $field, $separator, $crop, $append, $urlEncode);
+		$this->assertSame($expectedResult, $result);
 	}
 }

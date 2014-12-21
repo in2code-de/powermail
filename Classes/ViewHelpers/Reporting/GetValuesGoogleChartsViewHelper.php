@@ -10,6 +10,11 @@ namespace In2code\Powermail\ViewHelpers\Reporting;
 class GetValuesGoogleChartsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
+	 * Not allowed sign
+	 */
+	protected $notAllowedSign = '"';
+
+	/**
 	 * View helper check if given value is array or not
 	 *
 	 * @param array $answers Grouped Answers
@@ -25,7 +30,8 @@ class GetValuesGoogleChartsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\A
 		}
 
 		foreach ($answers[$fieldUidOrKey] as $amount) {
-			$amount = str_replace($separator, '', $amount);
+			$amount = str_replace(array($this->notAllowedSign, $separator), '', $amount);
+			$amount = htmlspecialchars($amount);
 			$string .= $amount;
 			$string .= $separator;
 		}

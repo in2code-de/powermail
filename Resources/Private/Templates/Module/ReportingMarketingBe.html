@@ -28,20 +28,11 @@
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain">Referer Domain</f:translate></h4>
 							<f:if condition="{vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingRefererDomain')}">
 								<f:then>
-									x
-									<div class="flotContainer" data-flot-active="1" data-flot-data-colors="#ff0000, #fff000, #ffff00" data-flot-data-values="73,12,44" data-flot-data-labels="Auto, Fahrrad, Motorrad"></div>
-
-									<!--<img src="http://chart.apis.google.com/chart?-->
-												<!--chf=bg,s,F8F8F8-->
-												<!--&chxs=0,676767,10.5-->
-												<!--&chxt=x-->
-												<!--&chs=600x200-->
-												<!--&cht=p3-->
-												<!--&chd=t:50,50-->
-												<!--&chdl={vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain')}-->
-												<!--&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: ',')}-->
-												<!--&chl={vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: '|')}-->
-											<!--" alt="Error, no graphic available" />-->
+									<div class="flotContainer"
+										 data-flot-active="1"
+										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+										 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -73,17 +64,11 @@
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer">Referer</f:translate></h4>
 							<f:if condition="{vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingReferer')}">
 								<f:then>
-									<img src="http://chart.apis.google.com/chart?
-												chf=bg,s,F8F8F8
-												&chxs=0,676767,10.5
-												&chxt=x
-												&chs=600x200
-												&cht=p3
-												&chd=t:50,50
-												&chdl={vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingReferer')}
-												&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingReferer', separator: ',')}
-												&chl={vh:Reporting.GetValuesGoogleCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingReferer', separator: '|')}
-											" alt="Error, no graphic available" />
+									<div class="flotContainer"
+										 data-flot-active="1"
+										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+										 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingReferer', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingReferer', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -114,17 +99,11 @@
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry">Country</f:translate></h4>
 							<f:if condition="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry')}">
 								<f:then>
-									<img src="http://chart.apis.google.com/chart?
-												chf=bg,s,F8F8F8
-												&chxs=0,676767,10.5
-												&chxt=x
-												&chs=600x200
-												&cht=p3
-												&chd=t:50,50
-												&chdl={vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry')}
-												&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry', separator: ',')}
-												&chl={vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry', separator: '|')}
-											" alt="Error, no graphic available" />
+									<div class="flotContainer"
+										 data-flot-active="1"
+										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+										 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -155,17 +134,11 @@
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice">Mobile Device</f:translate></h4>
 							<f:if condition="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice')}">
 								<f:then>
-									<img src="http://chart.apis.google.com/chart?
-												chf=bg,s,F8F8F8
-												&chxs=0,676767,10.5
-												&chxt=x
-												&chs=600x200
-												&cht=p3
-												&chd=t:50,50
-												&chdl={vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice')}
-												&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice', separator:',')}
-												&chl={vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice', separator:'|')}
-											" alt="Error, no graphic available" />
+									<div class="flotContainer"
+										 data-flot-active="1"
+										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+										 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -196,17 +169,11 @@
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage">Frontend Language</f:translate></h4>
 							<f:if condition="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage')}">
 								<f:then>
-									<img src="http://chart.apis.google.com/chart?
-												chf=bg,s,F8F8F8
-												&chxs=0,676767,10.5
-												&chxt=x
-												&chs=600x200
-												&cht=p3
-												&chd=t:50,50
-												&chdl={vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage')}
-												&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage',separator: ',')}
-												&chl={vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage',separator: '|')}
-											" alt="Error, no graphic available" />
+									<div class="flotContainer"
+										 data-flot-active="1"
+										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+										 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -237,17 +204,11 @@
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage">Browser Language</f:translate></h4>
 							<f:if condition="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff,fieldUidOrKey:'marketingBrowserLanguage')}">
 								<f:then>
-									<img src="http://chart.apis.google.com/chart?
-												chf=bg,s,F8F8F8
-												&chxs=0,676767,10.5
-												&chxt=x
-												&chs=600x200
-												&cht=p3
-												&chd=t:50,50
-												&chdl={vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff,fieldUidOrKey: 'marketingBrowserLanguage')}
-												&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff,fieldUidOrKey: 'marketingBrowserLanguage', separator:',')}
-												&chl={vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff,fieldUidOrKey: 'marketingBrowserLanguage', separator:'|')}
-											" alt="Error, no graphic available" />
+									<div class="flotContainer"
+										 data-flot-active="1"
+										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+										 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingBrowserLanguage', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingBrowserLanguage', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -278,17 +239,11 @@
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel">Page Funnel</f:translate></h4>
 							<f:if condition="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff,fieldUidOrKey:'marketingPageFunnel')}">
 								<f:then>
-									<img src="http://chart.apis.google.com/chart?
-												chf=bg,s,F8F8F8
-												&chxs=0,676767,10.5
-												&chxt=x
-												&chs=600x200
-												&cht=p3
-												&chd=t:50,50
-												&chdl={vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff,fieldUidOrKey: 'marketingPageFunnel')}
-												&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff,fieldUidOrKey: 'marketingPageFunnel', separator:',')}
-												&chl={vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff,fieldUidOrKey: 'marketingPageFunnel', separator:'|')}
-											" alt="Error, no graphic available" />
+									<div class="flotContainer"
+										 data-flot-active="1"
+										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+										 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingPageFunnel', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingPageFunnel', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>

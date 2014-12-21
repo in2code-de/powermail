@@ -92,7 +92,7 @@ class GetValuesGoogleChartsViewHelperTest extends \TYPO3\CMS\Core\Tests\UnitTest
 			array(
 				array(
 					'a' => array(
-						'label1' => '1|2',
+						'label1' => '"1|2"',
 						'label2' => '70|',
 						'label3' => '|18',
 					)

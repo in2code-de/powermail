@@ -240,10 +240,11 @@ jQuery(document).ready(function($) {
 
 	// Flot.js
 	$('*[data-flot-active="1"]').each(function() {
+		var $this = $(this);
 		var data = [];
-		var values = $(this).data('flot-data-values').split(',');
-		var labels = $(this).data('flot-data-labels').split(',');
-		var colors = $(this).data('flot-data-colors').split(',');
+		var values = split($this.data('flot-data-values'), ',');
+		var labels = split($this.data('flot-data-labels'), ',');
+		var colors = split($this.data('flot-data-colors'), ',');
 		for (var i = 0; i < values.length; i++) {
 			var dataPackage = {
 				data: values[i],
@@ -252,7 +253,7 @@ jQuery(document).ready(function($) {
 			}
 			data.push(dataPackage);
 		}
-		$.plot($(this), data, {
+		$.plot($this, data, {
 			series: {
 				pie: {
 					show: true,
@@ -272,9 +273,26 @@ jQuery(document).ready(function($) {
 						color: '#999',
 						threshold: 0.1
 					}
-
 				}
+			},
+			grid: {
+				hoverable: true,
+				clickable: true
 			}
+		});
+		$this.bind("plothover", function(event, pos, obj) {
+			if (!obj) {
+				return;
+			}
+			var percent = parseFloat(obj.series.percent).toFixed(2);
+			$("#hover").html("<span style='font-weight:bold; color:" + obj.series.color + "'>" + obj.series.label + " (" + percent + "%)</span>");
+		});
+		$this.bind("plotclick", function(event, pos, obj) {
+			if (!obj) {
+				return;
+			}
+			percent = parseFloat(obj.series.percent).toFixed(2);
+			alert(""  + obj.series.label + ": " + percent + "%");
 		});
 	});
 
@@ -287,3 +305,19 @@ jQuery(document).ready(function($) {
 		return '<div class="flotLabel">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
 	}
 });
+
+/**
+ * split even if single value
+ *
+ * @param value
+ * @param separator
+ * @returns {Array}
+ */
+function split(value, separator) {
+	if (value.toString().indexOf(separator) !== -1) {
+		var values = value.split(separator);
+	} else {
+		values = [value];
+	}
+	return values;
+}

@@ -10,14 +10,14 @@
 	<script type="text/javascript">
 		$(function() {
 			var data = [
-				{label: "Series1",  data: 10, color: '#f00'},
-				{label: "Series2",  data: 30, color: '#f00'},
-				{label: "Series3",  data: 90, color: '#f00'},
-				{label: "Series4",  data: 70, color: '#f00'},
-				{label: "Series5",  data: 80, color: '#f00'},
-				{label: "Series6",  data: 110, color: '#f00'}
+				{label: "Series1",  data: 10, color: '#FF9900'},
+				{label: "Series2",  data: 30, color: '#FFA722'},
+				{label: "Series3",  data: 90, color: '#FFB444'},
+				{label: "Series4",  data: 70, color: '#FFC266'},
+				{label: "Series5",  data: 80, color: '#FFD088'},
+				{label: "Series6",  data: 110, color: '#FFDDAA'}
 			];
-			$.plot('#placeholder', data, {
+			$.plot('#xxx', data, {
 				series: {
 					pie: {
 						show: true,
@@ -49,10 +49,14 @@
 </head>
 <body>
 	<div id="content">
-		<div class="demo-container">
-			<div class="flotContainer" data-flot-active="1" data-flot-data-colors="#ff0000, #fff000, #ffff00" data-flot-data-values="73,12,44" data-flot-data-labels="Auto, Fahrrad, Motorrad"></div>
-			<div class="flotContainer" data-flot-active="1" data-flot-data-colors="#ff0000, #fff000, #ffff00, #ff0000, #fff000, #ffff00" data-flot-data-values="22, 33, 41, 3, 84, 18" data-flot-data-labels="TYPO3, Joomla, Drupal, Sharepoint, Wordpress, Contao"></div>
+		<div class="demo" style="width: 600px; border: 1px solid #888;">
+			<div style="width: 800px; max-width: 100%;" class="flotContainer" data-flot-active="1" data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC" data-flot-data-values="73" data-flot-data-labels="Auto"></div>
 		</div>
+		<div class="demo" style="width: 600px; border: 1px solid #888;">
+			<div style="width: 800px; max-width: 100%;" class="flotContainer" data-flot-active="1" data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC" data-flot-data-values="22, 33, 41, 3, 84, 18" data-flot-data-labels="TYPO3, Joomla, Drupal, Sharepoint, Wordpress, Contao"></div>
+		</div>
+
+		<div id="xxx" style="width: 600px; height: 200px;"></div>
 	</div>
 </body>
 </html>
