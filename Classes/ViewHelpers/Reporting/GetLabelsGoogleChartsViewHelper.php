@@ -14,25 +14,31 @@ class GetLabelsGoogleChartsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\A
 	 *
 	 * @param array $answers Grouped Answers
 	 * @param string $fieldUidOrKey
+	 * @param string $glue
 	 * @param int $crop Crop each label after X signs
+	 * @param string $append append after crop
+	 * @param bool $urlEncode
 	 * @return string "label1|label2|label3"
 	 */
-	public function render($answers, $fieldUidOrKey, $crop = 15) {
+	public function render($answers, $fieldUidOrKey, $glue = '|', $crop = 15, $append = '...', $urlEncode = TRUE) {
 		$string = '';
-		if (!isset($answers[$fieldUidOrKey])) {
-			return '';
+		if (empty($answers[$fieldUidOrKey]) || !is_array($answers[$fieldUidOrKey])) {
+			return $string;
 		}
 
-		// create string
-		foreach ((array) $answers[$fieldUidOrKey] as $value => $amount) {
-			$amount = NULL;
+		foreach (array_keys($answers[$fieldUidOrKey]) as $value) {
+			$value = str_replace($glue, '', $value);
 			if (strlen($value) > $crop) {
-				$value = substr($value, 0, $crop) . '...';
+				$value = substr($value, 0, $crop) . $append;
 			}
 			$string .= $value;
-			$string .= '|';
+			$string .= $glue;
 		}
 
-		return urlencode(substr($string, 0, -1));
+		$string = substr($string, 0, -1);
+		if ($urlEncode) {
+			$string = urlencode($string);
+		}
+		return $string;
 	}
 }
