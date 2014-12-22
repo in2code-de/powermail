@@ -8,7 +8,7 @@ Feature: 2Forms
     Then I should see "send to alex@in2code.de"
     Then I should see "send to alexander.kellner@einpraegsam.net"
     And I press "Jetzt Absenden"
-    And I wait "5" seconds
+    And I wait "a few" seconds
 
     Then I should not see "Form1 values"
     Then I should see "Form2 values"

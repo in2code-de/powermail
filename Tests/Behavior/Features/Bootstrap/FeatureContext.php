@@ -25,7 +25,7 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext {
 	 */
 	public function iWaitSeconds($seconds) {
 		if ($seconds === 'a few') {
-			$seconds = 8;
+			$seconds = 10;
 		}
 		sleep($seconds);
 	}
