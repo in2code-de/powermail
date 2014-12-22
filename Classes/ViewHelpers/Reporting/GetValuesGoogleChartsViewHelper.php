@@ -10,25 +10,36 @@ namespace In2code\Powermail\ViewHelpers\Reporting;
 class GetValuesGoogleChartsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
+	 * Not allowed sign
+	 */
+	protected $notAllowedSign = '"';
+
+	/**
 	 * View helper check if given value is array or not
 	 *
 	 * @param array $answers Grouped Answers
 	 * @param string $fieldUidOrKey
-	 * @param string $separator Separator
+	 * @param string $separator
+	 * @param bool $urlEncode
 	 * @return string "label1|label2|label3"
 	 */
-	public function render($answers, $fieldUidOrKey, $separator = ',') {
+	public function render($answers, $fieldUidOrKey, $separator = ',', $urlEncode = TRUE) {
 		$string = '';
-		if (!isset($answers[$fieldUidOrKey])) {
-			return '';
+		if (empty($answers[$fieldUidOrKey]) || !is_array($answers[$fieldUidOrKey])) {
+			return $string;
 		}
 
-		// create string
-		foreach ((array) $answers[$fieldUidOrKey] as $amount) {
+		foreach ($answers[$fieldUidOrKey] as $amount) {
+			$amount = str_replace(array($this->notAllowedSign, $separator), '', $amount);
+			$amount = htmlspecialchars($amount);
 			$string .= $amount;
 			$string .= $separator;
 		}
 
-		return urlencode(substr($string, 0, -1));
+		$string = substr($string, 0, -1);
+		if ($urlEncode) {
+			$string = urlencode($string);
+		}
+		return $string;
 	}
 }

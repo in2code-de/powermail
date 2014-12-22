@@ -29,17 +29,11 @@
 							<div class="powermail_reporting_form_fields_item">
 								<h4>{answer.field.title}</h4>
 
-								<img src="http://chart.apis.google.com/chart?
-									chf=bg,s,F8F8F8
-									&chxs=0,676767,10.5
-									&chxt=x
-									&chs=600x200
-									&cht=p3
-									&chd=t:50,50
-									&chdl={vh:Reporting.GetLabelsGoogleCharts(answers: '{groupedAnswers}', fieldUidOrKey: '{answer.field.uid}')}
-									&chd=t:{vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', fieldUidOrKey: '{answer.field.uid}', separator: ',')}
-									&chl={vh:Reporting.GetValuesGoogleCharts(answers: '{groupedAnswers}', fieldUidOrKey: '{answer.field.uid}', separator: '|')}
-								" alt="Error, no graphic available" />
+								<div class="flotContainer"
+									 data-flot-active="1"
+									 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+									 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator: ',', urlEncode:0)}"
+									 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator:',', urlEncode:0)}"></div>
 
 								<div class="powermail_reporting_form_fields_table_absolute">
 									<table class="powermail_reporting_form_fields_table">
