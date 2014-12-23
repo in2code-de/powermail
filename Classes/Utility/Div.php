@@ -1089,16 +1089,10 @@ class Div {
 			$ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 		}
 		$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
-		if (!$json) {
-			$json = GeneralUtility::getUrl('http://freegeoip.net/json/' . $ip);
-		}
 		if ($json) {
 			$geoInfo = json_decode($json);
 			if (!empty($geoInfo->country)) {
 				return $geoInfo->country;
-			}
-			if (!empty($geoInfo->country_name)) {
-				return $geoInfo->country_name;
 			}
 		}
 		return '';
