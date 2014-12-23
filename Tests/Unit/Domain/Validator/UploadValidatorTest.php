@@ -1,6 +1,12 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Validator;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase,
+	\In2code\Powermail\Domain\Model\Mail,
+	\In2code\Powermail\Domain\Model\Field,
+	\In2code\Powermail\Domain\Model\Answer,
+	\TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +38,7 @@ namespace In2code\Powermail\Tests\Domain\Validator;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class UploadValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class UploadValidatorTest extends UnitTestCase {
 
 	/**
 	 * @var \In2code\Powermail\Domain\Validator\UploadValidator
@@ -44,7 +50,10 @@ class UploadValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setUp() {
 
-		$this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Domain\Validator\UploadValidator', array('dummy'));
+		$this->generalValidatorMock = $this->getAccessibleMock(
+			'\In2code\Powermail\Domain\Validator\UploadValidator',
+			array('dummy')
+		);
 		$settings = array(
 			'misc.' => array(
 				'file.' => array(
@@ -115,17 +124,17 @@ class UploadValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function validateIsValidReturnsBool($value, $expectedResult) {
-		$mail = new \In2code\Powermail\Domain\Model\Mail;
-		$field = new \In2code\Powermail\Domain\Model\Field;
+		$mail = new Mail;
+		$field = new Field;
 		$field->setType(1);
-		$answer1 = new \In2code\Powermail\Domain\Model\Answer;
+		$answer1 = new Answer;
 		$answer1->setValueType(3);
 		$answer1->setValue($value);
 		$answer1->setField($field);
-		$objectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+		$objectStorage = new ObjectStorage;
 		$objectStorage->attach($answer1);
 		$mail->setAnswers($objectStorage);
 		$result = $this->generalValidatorMock->_callRef('isValid', $mail);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 }

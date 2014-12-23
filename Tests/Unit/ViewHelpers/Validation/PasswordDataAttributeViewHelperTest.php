@@ -1,6 +1,11 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Validation;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase,
+	\In2code\Powermail\Domain\Model\Field,
+	\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext,
+	\TYPO3\CMS\Extbase\Mvc\Request;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +37,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Validation;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class PasswordDataAttributeViewHelper extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class PasswordDataAttributeViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -141,21 +146,21 @@ class PasswordDataAttributeViewHelper extends \TYPO3\CMS\Extbase\Tests\Unit\Base
 	 * @test
 	 */
 	public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $iteration, $expectedResult) {
-		$field = new \In2code\Powermail\Domain\Model\Field;
+		$field = new Field;
 		foreach ($fieldProperties as $propertyName => $propertyValue) {
 			$field->_setProperty($propertyName, $propertyValue);
 		}
 
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
 
-		$controllerContext = new \TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
-		$request = new \TYPO3\CMS\Extbase\Mvc\Request;
+		$controllerContext = new ControllerContext;
+		$request = new Request;
 		$request->setControllerExtensionName('powermail');
 		$controllerContext->setRequest($request);
 		$this->abstractValidationViewHelperMock->_set('controllerContext', $controllerContext);
 
 		$result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes, $iteration);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 }

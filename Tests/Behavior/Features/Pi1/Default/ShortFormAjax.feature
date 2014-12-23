@@ -20,7 +20,7 @@ Feature: ShortFormAjax
     When I fill in "tx_powermail_pi1[field][lastname]" with "Schwemer"
     When I fill in "tx_powermail_pi1[field][email]" with "ms@in2code.de"
     And I press "Jetzt Absenden"
-    And I wait "5" seconds
+    And I wait "a few" seconds
 
     Then I should see "Sind diese Eingaben korrekt?"
     Then I should see "Marcus"
@@ -28,13 +28,13 @@ Feature: ShortFormAjax
     Then I should not see "Error, this text is only viewable if AJAX"
 
     And I press "Zurück"
-    And I wait "5" seconds
+    And I wait "a few" seconds
     Then the "tx_powermail_pi1[field][firstname]" field should contain "Marcus"
     Then the "tx_powermail_pi1[field][email]" field should contain "ms@in2code.de"
 
     When I fill in "tx_powermail_pi1[field][email]" with "marcus@in2code.de"
     And I press "Jetzt Absenden"
-    And I wait "5" seconds
+    And I wait "a few" seconds
 
     Then I should see "Sind diese Eingaben korrekt?"
     Then I should see "Marcus"
@@ -42,7 +42,7 @@ Feature: ShortFormAjax
     Then I should not see "Error, this text is only viewable if AJAX"
 
     And I press "Weiter"
-    And I wait "5" seconds
+    And I wait "a few" seconds
 
     Then I should see "Danke, das sind Ihre Werte:"
     Then I should see "Marcus"
@@ -61,7 +61,7 @@ Feature: ShortFormAjax
     When I fill in "tx_powermail_pi1[field][lastname]" with "Richter"
     When I fill in "tx_powermail_pi1[field][email]" with "dr@in2code.de"
     And I press "Submit"
-    And I wait "7" seconds
+    And I wait "a few" seconds
 
     Then I should see "Are these values correct?"
     Then I should see "David"
@@ -69,13 +69,13 @@ Feature: ShortFormAjax
     Then I should not see "Error, this text is only viewable if AJAX"
 
     And I press "Previous"
-    And I wait "7" seconds
+    And I wait "a few" seconds
     Then the "tx_powermail_pi1[field][firstname]" field should contain "David"
     Then the "tx_powermail_pi1[field][email]" field should contain "dr@in2code.de"
 
     When I fill in "tx_powermail_pi1[field][email]" with "dave@in2code.de"
     And I press "Submit"
-    And I wait "7" seconds
+    And I wait "a few" seconds
 
     Then I should see "Are these values correct?"
     Then I should see "David"
@@ -83,7 +83,7 @@ Feature: ShortFormAjax
     Then I should not see "Error, this text is only viewable if AJAX"
 
     And I press "Next"
-    And I wait "7" seconds
+    And I wait "a few" seconds
 
     Then I should see "Thx, your values:"
     Then I should see "David"

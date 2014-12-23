@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Validator;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ namespace In2code\Powermail\Tests\Domain\Validator;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class StringValidatorTest extends UnitTestCase {
 
 	/**
 	 * @var \In2code\Powermail\Domain\Validator\StringValidator
@@ -43,7 +45,10 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @return void
 	 */
 	public function setUp() {
-		$this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Domain\Validator\StringValidator', array('dummy'));
+		$this->generalValidatorMock = $this->getAccessibleMock(
+			'\In2code\Powermail\Domain\Validator\StringValidator',
+			array('dummy')
+		);
 	}
 
 	/**
@@ -110,7 +115,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateMandatoryForStringOrArrayReturnsBool($value, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateMandatory', $value);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -166,7 +171,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateEmailReturnsBool($value, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateEmail', $value);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -218,7 +223,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateUrlReturnsBool($value, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateUrl', $value);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -318,7 +323,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validatePhoneReturnsBool($value, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validatePhone', $value);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -366,7 +371,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateNumbersOnlyReturnsBool($value, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateNumbersOnly', $value);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -402,7 +407,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			),
 			'letter7' => array(
 				'abcdefäöüßÄ',
-				TRUE
+				FALSE
 			),
 			'letter8' => array(
 				'abd+d',
@@ -426,7 +431,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateLettersOnlyReturnsBool($value, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateLettersOnly', $value);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -496,7 +501,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateMinNumberReturnsBool($value, $configuration, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateMinNumber', $value, $configuration);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -566,7 +571,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateMaxNumberReturnsBool($value, $configuration, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateMaxNumber', $value, $configuration);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -631,7 +636,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateRangeReturnsBool($value, $configuration, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateRange', $value, $configuration);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -696,7 +701,7 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validateLengthReturnsBool($value, $configuration, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validateLength', $value, $configuration);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -756,6 +761,6 @@ class StringValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function validatePatternReturnsBool($value, $configuration, $expectedResult) {
 		$result = $this->generalValidatorMock->_callRef('validatePattern', $value, $configuration);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 }

@@ -199,12 +199,12 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 	 * Export mails XLS
 	 *
 	 * @param QueryResult $mails mails objects
-	 * @param QueryResult $fields uid field list
+	 * @param array $fields uid field list
 	 * @dontvalidate $mails
 	 * @dontvalidate $fields
 	 * @return 	void
 	 */
-	public function exportXlsAction(QueryResult $mails = NULL, QueryResult $fields = NULL) {
+	public function exportXlsAction(QueryResult $mails = NULL, $fields = array()) {
 		$this->view->assign('mails', $mails);
 		$this->view->assign('fields', $fields);
 	}
@@ -213,12 +213,12 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 	 * Export mails CSV
 	 *
 	 * @param QueryResult $mails mails objects
-	 * @param QueryResult $fields uid field list
+	 * @param array $fields uid field list
 	 * @dontvalidate $mails
 	 * @dontvalidate $fields
 	 * @return void
 	 */
-	public function exportCsvAction(QueryResult $mails = NULL, QueryResult $fields = NULL) {
+	public function exportCsvAction(QueryResult $mails = NULL, $fields = array()) {
 		$this->view->assign('mails', $mails);
 		$this->view->assign('fields', $fields);
 	}

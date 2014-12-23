@@ -1,6 +1,9 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Model;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase,
+	\In2code\Powermail\Domain\Model\Field;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +35,7 @@ namespace In2code\Powermail\Tests\Domain\Model;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class AnswerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class AnswerTest extends UnitTestCase {
 
 	/**
 	 * @var \In2code\Powermail\Domain\Model\Answer
@@ -139,7 +142,7 @@ class AnswerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function getValueReturnMixed($value, $expectedResult, $valueType = 0, $datepickerSettings = NULL) {
 		if ($datepickerSettings) {
-			$field = new \In2code\Powermail\Domain\Model\Field;
+			$field = new Field;
 			if ($datepickerSettings) {
 				$field->setDatepickerSettings($datepickerSettings);
 			}
@@ -150,7 +153,7 @@ class AnswerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		}
 
 		$this->generalValidatorMock->_setProperty('value', $value);
-		$this->assertSame($this->generalValidatorMock->_callRef('getValue', $value), $expectedResult);
+		$this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('getValue', $value));
 	}
 
 	/**
@@ -236,7 +239,7 @@ class AnswerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function setValueReturnVoid($value, $expectedResult, $fieldType = NULL, $datepickerSettings = NULL) {
 		if ($fieldType || $datepickerSettings) {
-			$field = new \In2code\Powermail\Domain\Model\Field;
+			$field = new Field;
 			if ($fieldType) {
 				$field->setType($fieldType);
 			}
@@ -247,6 +250,6 @@ class AnswerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		}
 
 		$this->generalValidatorMock->_callRef('setValue', $value);
-		$this->assertSame($this->generalValidatorMock->_getProperty('value'), $expectedResult);
+		$this->assertSame($expectedResult, $this->generalValidatorMock->_getProperty('value'));
 	}
 }

@@ -2,7 +2,8 @@
 namespace In2code\Powermail\Command;
 
 use \In2code\Powermail\Utility\BasicFileFunctions,
-	\TYPO3\CMS\Core\Utility\GeneralUtility;
+	\TYPO3\CMS\Core\Utility\GeneralUtility,
+	\TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /***************************************************************
  *  Copyright notice
@@ -36,7 +37,7 @@ use \In2code\Powermail\Utility\BasicFileFunctions,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class TaskCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+class TaskCommandController extends CommandController {
 
 	/**
 	 * answerRepository

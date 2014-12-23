@@ -208,6 +208,18 @@ jQuery(document).ready(function($) {
 
 
 
+
+	/**
+	 * Converter
+	 */
+	$('.openHiddenTable').click(function() {
+		var tr = $(this).closest('tr');
+		tr.find('.dots').toggle();
+		tr.find('.hiddenConverterTable').toggle();
+	});
+
+
+
 	/**
 	 * Reporting View: Form
 	 */
@@ -226,12 +238,86 @@ jQuery(document).ready(function($) {
 		$this.parent().siblings().slideToggle('fast');
 	});
 
-	/**
-	 * Converter
-	 */
-	$('.openHiddenTable').click(function() {
-		var tr = $(this).closest('tr');
-		tr.find('.dots').toggle();
-		tr.find('.hiddenConverterTable').toggle();
+	// Flot.js
+	$('*[data-flot-active="1"]').each(function() {
+		var $this = $(this);
+		var data = [];
+		var values = split($this.data('flot-data-values'), ',');
+		var labels = split($this.data('flot-data-labels'), ',');
+		var colors = split($this.data('flot-data-colors'), ',');
+		for (var i = 0; i < values.length; i++) {
+			var dataPackage = {
+				data: values[i],
+				label: labels[i],
+				color: colors[i]
+			}
+			data.push(dataPackage);
+		}
+		$.plot($this, data, {
+			series: {
+				pie: {
+					show: true,
+					innerRadius: 0.5,
+					radius: 1,
+					opacity: 0.3,
+					color: '#FF0000',
+					label: {
+						show: true,
+						radius: 1,
+						formatter: labelFormatter,
+						background: {
+							opacity: 0.8
+						}
+					},
+					combine: {
+						color: '#999',
+						threshold: 0.1
+					}
+				}
+			},
+			grid: {
+				hoverable: true,
+				clickable: true
+			}
+		});
+		$this.bind("plothover", function(event, pos, obj) {
+			if (!obj) {
+				return;
+			}
+			var percent = parseFloat(obj.series.percent).toFixed(2);
+			$("#hover").html("<span style='font-weight:bold; color:" + obj.series.color + "'>" + obj.series.label + " (" + percent + "%)</span>");
+		});
+		$this.bind("plotclick", function(event, pos, obj) {
+			if (!obj) {
+				return;
+			}
+			percent = parseFloat(obj.series.percent).toFixed(2);
+			alert(""  + obj.series.label + ": " + percent + "%");
+		});
 	});
+
+	/**
+	 * @param label
+	 * @param series
+	 * @returns {string}
+	 */
+	function labelFormatter(label, series) {
+		return '<div class="flotLabel">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+	}
 });
+
+/**
+ * split even if single value
+ *
+ * @param value
+ * @param separator
+ * @returns {Array}
+ */
+function split(value, separator) {
+	if (value.toString().indexOf(separator) !== -1) {
+		var values = value.split(separator);
+	} else {
+		values = [value];
+	}
+	return values;
+}

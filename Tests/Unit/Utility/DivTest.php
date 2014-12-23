@@ -1,6 +1,12 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase,
+	\In2code\Powermail\Utility\Div,
+	\In2code\Powermail\Domain\Model\Answer,
+	\In2code\Powermail\Domain\Model\Field,
+	\In2code\Powermail\Domain\Model\Mail;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +38,7 @@ namespace In2code\Powermail\Tests\Utility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class DivTest extends UnitTestCase {
 
 	/**
 	 * @var \In2code\Powermail\Utility\Div
@@ -43,7 +49,10 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @return void
 	 */
 	public function setUp() {
-		$this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Utility\Div', array('dummy'));
+		$this->generalValidatorMock = $this->getAccessibleMock(
+			'\In2code\Powermail\Utility\Div',
+			array('dummy')
+		);
 		$objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
 		$this->generalValidatorMock->_set('objectManager', $objectManager);
 	}
@@ -115,11 +124,11 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getSenderNameFromArgumentsReturnsString($values, $fallback, $expectedResult) {
-		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $value) {
-				$answer = new \In2code\Powermail\Domain\Model\Answer;
-				$field = new \In2code\Powermail\Domain\Model\Field;
+				$answer = new Answer;
+				$field = new Field;
 				$field->setType('input');
 				$field->setSenderName(TRUE);
 				$answer->setValue($value);
@@ -130,7 +139,7 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		}
 
 		$result = $this->generalValidatorMock->_callRef('getSenderNameFromArguments', $mail, $fallback);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -186,11 +195,11 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getSenderMailFromArgumentsReturnsString($values, $fallback, $expectedResult) {
-		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $value) {
-				$answer = new \In2code\Powermail\Domain\Model\Answer;
-				$field = new \In2code\Powermail\Domain\Model\Field;
+				$answer = new Answer;
+				$field = new Field;
 				$field->setType('input');
 				$field->setSenderEmail(TRUE);
 				$answer->setValue($value);
@@ -200,7 +209,7 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		}
 
 		$result = $this->generalValidatorMock->_callRef('getSenderMailFromArguments', $mail, $fallback);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -210,8 +219,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getStoragePageReturnsInt() {
-		$result = \In2code\Powermail\Utility\Div::getStoragePage(123);
-		$this->assertSame($result, 123);
+		$result = Div::getStoragePage(123);
+		$this->assertSame(123, $result);
 	}
 
 	/**
@@ -285,11 +294,11 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getVariablesWithMarkersReturnsArray($values, $expectedResult) {
-		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $markerValueMix) {
-				$answer = new \In2code\Powermail\Domain\Model\Answer;
-				$field = new \In2code\Powermail\Domain\Model\Field;
+				$answer = new Answer;
+				$field = new Field;
 				$field->setMarker($markerValueMix[0]);
 				$answer->setValue($markerValueMix[1]);
 				$answer->setField($field);
@@ -299,7 +308,7 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		}
 
 		$result = $this->generalValidatorMock->_callRef('getVariablesWithMarkers', $mail);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -354,11 +363,11 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getLabelsAttachedToMarkersReturnsArray($values, $expectedResult) {
-		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $markerTitleMix) {
-				$answer = new \In2code\Powermail\Domain\Model\Answer;
-				$field = new \In2code\Powermail\Domain\Model\Field;
+				$answer = new Answer;
+				$field = new Field;
 				$field->setMarker($markerTitleMix[0]);
 				$field->setTitle($markerTitleMix[1]);
 				$answer->setField($field);
@@ -367,7 +376,7 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		}
 
 		$result = $this->generalValidatorMock->_callRef('getLabelsAttachedToMarkers', $mail);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -442,11 +451,11 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getVariablesWithLabelsReturnsArray($values, $expectedResult) {
-		$mail = new \In2code\Powermail\Domain\Model\Mail;
+		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $titleValueUidMix) {
-				$answer = new \In2code\Powermail\Domain\Model\Answer;
-				$field = new \In2code\Powermail\Domain\Model\Field;
+				$answer = new Answer;
+				$field = new Field;
 				$field->setTitle($titleValueUidMix[0]);
 				$field->_setProperty('uid', $titleValueUidMix[2]);
 				$answer->setField($field);
@@ -456,7 +465,7 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		}
 
 		$result = $this->generalValidatorMock->_callRef('getVariablesWithLabels', $mail);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -503,8 +512,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getDataTypeFromFieldTypeReturnsInt($value, $expectedResult) {
-		$result = \In2code\Powermail\Utility\Div::getDataTypeFromFieldType($value);
-		$this->assertSame($result, $expectedResult);
+		$result = Div::getDataTypeFromFieldType($value);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -592,8 +601,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function optionArrayReturnsArray($value, $expectedResult) {
-		$result = \In2code\Powermail\Utility\Div::optionArray($value, '');
-		$this->assertSame($result, $expectedResult);
+		$result = Div::optionArray($value, '');
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -605,7 +614,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	public function createHashReturnsString() {
 		$value = 'abc';
 		$result = $this->generalValidatorMock->_callRef('createHash', $value);
-		$this->assertFalse(($value == $result));
+		$this->assertFalse(($value === $result));
+		$this->assertTrue(strlen($result) === 10);
 	}
 
 	/**
@@ -687,8 +697,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @test
 	 */
 	public function getSubFolderOfCurrentUrlReturnsString($leadingSlash, $trailingSlash, $host, $url, $expectedResult) {
-		$result = \In2code\Powermail\Utility\Div::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);
-		$this->assertSame($result, $expectedResult);
+		$result = Div::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);
+		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
@@ -728,12 +738,11 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function createRandomStringAlwaysReturnsStringsOfGivenLength($length, $uppercase) {
 		for ($i = 0; $i < 10; $i++) {
-			$string = \In2code\Powermail\Utility\Div::createRandomString($length, $uppercase);
+			$string = Div::createRandomString($length, $uppercase);
 
+			$regex = '~[a-z0-9]{' . $length . '}~';
 			if ($uppercase) {
 				$regex = '~[a-zA-Z0-9]{' . $length . '}~';
-			} else {
-				$regex = '~[a-z0-9]{' . $length . '}~';
 			}
 
 			$this->assertSame(1, preg_match($regex, $string));
@@ -782,8 +791,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function isJsonArrayReturnsBool($value, $expectedResult) {
 		$this->assertSame(
-			\In2code\Powermail\Utility\Div::isJsonArray($value),
-			$expectedResult
+			$expectedResult,
+			Div::isJsonArray($value)
 		);
 	}
 
@@ -817,8 +826,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	public function isBackendAdminReturnsBool($value, $expectedResult) {
 		$GLOBALS['BE_USER']->user['admin'] = $value;
 		$this->assertSame(
-			\In2code\Powermail\Utility\Div::isBackendAdmin(),
-			$expectedResult
+			$expectedResult,
+			Div::isBackendAdmin()
 		);
 	}
 
@@ -855,8 +864,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function getDomainFromUriReturnsString($value, $expectedResult) {
 		$this->assertSame(
-			\In2code\Powermail\Utility\Div::getDomainFromUri($value),
-			$expectedResult
+			$expectedResult,
+			Div::getDomainFromUri($value)
 		);
 	}
 
@@ -901,8 +910,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function getCountryFromIpReturnsString($ip, $expectedResult) {
 		$this->assertSame(
-			\In2code\Powermail\Utility\Div::getCountryFromIp($ip),
-			$expectedResult
+			$expectedResult,
+			Div::getCountryFromIp($ip)
 		);
 	}
 
@@ -960,8 +969,8 @@ class DivTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 */
 	public function getImageSourceFromTagReturnsString($html, $expectedResult) {
 		$this->assertSame(
-			\In2code\Powermail\Utility\Div::getImageSourceFromTag(implode('', $html)),
-			implode('', $expectedResult)
+			implode('', $expectedResult),
+			Div::getImageSourceFromTag(implode('', $html))
 		);
 	}
 }

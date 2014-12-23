@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\Utility\Eid;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ namespace In2code\Powermail\Tests\Utility\Eid;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class GetLocationEidTest extends UnitTestCase {
 
 	/**
 	 * @var \In2code\Powermail\Utility\Eid\GetLocationEid
@@ -109,7 +111,7 @@ class GetLocationEidTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	public function getAddressFromGeoReturnsArray($latitude, $longitude, $expectedResult) {
 		$address = $this->getLocationEidMock->_callRef('getAddressFromGeo', $latitude, $longitude);
 		foreach (array_keys($expectedResult) as $expectedResultSingleKey) {
-			$this->assertSame($address[$expectedResultSingleKey], $expectedResult[$expectedResultSingleKey]);
+			$this->assertSame($expectedResult[$expectedResultSingleKey], $address[$expectedResultSingleKey]);
 		}
 	}
 }

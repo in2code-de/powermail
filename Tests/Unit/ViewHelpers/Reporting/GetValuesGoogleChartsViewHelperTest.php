@@ -1,8 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\ViewHelpers\Validation;
-
-use \TYPO3\CMS\Core\Tests\UnitTestCase,
-	\In2code\Powermail\Domain\Model\Field;
+namespace In2code\Powermail\Tests\ViewHelpers\Reporting;
 
 /***************************************************************
  *  Copyright notice
@@ -29,13 +26,13 @@ use \TYPO3\CMS\Core\Tests\UnitTestCase,
  ***************************************************************/
 
 /**
- * FieldTypeFromValidationViewHelper Test
+ * GetLabelsGoogleChartsViewHelper Test
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class FieldTypeFromValidationViewHelperTest extends UnitTestCase {
+class GetValuesGoogleChartsViewHelperTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -47,7 +44,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Validation\FieldTypeFromValidationViewHelper',
+			'\In2code\Powermail\ViewHelpers\Reporting\GetValuesGoogleChartsViewHelper',
 			array('dummy')
 		);
 	}
@@ -60,71 +57,50 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase {
 	}
 
 	/**
-	 * Dataprovider for render()
+	 * Dataprovider for renderReturnsString()
 	 *
 	 * @return array
 	 */
 	public function renderReturnsStringDataProvider() {
 		return array(
-			'defaultWithHtml5' => array(
-				0,
-				'text',
-				TRUE
+			array(
+				array(
+					'test' => array(
+						'label1' => '10',
+						'label2' => '70',
+						'label3' => '20',
+					)
+				),
+				'test',
+				',',
+				FALSE,
+				'10,70,20'
 			),
-			'defaultWithoutHtml5' => array(
-				0,
-				'text',
-				FALSE
+			array(
+				array(
+					'a' => array(
+						'label1' => '12',
+						'label2' => '70',
+						'label3' => '18',
+					)
+				),
+				'a',
+				',',
+				TRUE,
+				'12%2C70%2C18'
 			),
-			'emailValidationWithoutHtml5' => array(
-				1,
-				'text',
-				FALSE
-			),
-			'emailValidationWithHtml5' => array(
-				1,
-				'email',
-				TRUE
-			),
-			'urlValidationWithoutHtml5' => array(
-				2,
-				'text',
-				FALSE
-			),
-			'urlValidationWithHtml5' => array(
-				2,
-				'url',
-				TRUE
-			),
-			'telValidationWithoutHtml5' => array(
-				3,
-				'text',
-				FALSE
-			),
-			'telValidationWithHtml5' => array(
-				3,
-				'tel',
-				TRUE
-			),
-			'numberValidationWithoutHtml5' => array(
-				4,
-				'text',
-				FALSE
-			),
-			'numberValidationWithHtml5' => array(
-				4,
-				'number',
-				TRUE
-			),
-			'rangeValidationWithoutHtml5' => array(
-				8,
-				'text',
-				FALSE
-			),
-			'rangeValidationWithHtml5' => array(
-				8,
-				'range',
-				TRUE
+			array(
+				array(
+					'a' => array(
+						'label1' => '"1|2"',
+						'label2' => '70|',
+						'label3' => '|18',
+					)
+				),
+				'a',
+				'|',
+				FALSE,
+				'12|70|18'
 			),
 		);
 	}
@@ -132,27 +108,17 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase {
 	/**
 	 * Test for render()
 	 *
-	 * @param string $validation
+	 * @param array $answers Array with answeres
+	 * @param string $field Fieldname (key of answers array)
+	 * @param string $glue
+	 * @param bool $urlEncode
 	 * @param string $expectedResult
-	 * @param bool $nativeValidationEnabled
 	 * @return void
 	 * @dataProvider renderReturnsStringDataProvider
 	 * @test
 	 */
-	public function renderReturnsString($validation, $expectedResult, $nativeValidationEnabled) {
-		$this->abstractValidationViewHelperMock->_set(
-			'settings',
-			array(
-				'validation' => array(
-					'native' => ($nativeValidationEnabled ? '1' : '0')
-				)
-			)
-		);
-		$field = new Field;
-		$field->setValidation($validation);
-
-		$result = $this->abstractValidationViewHelperMock->_callRef('render', $field);
+	public function renderReturnsString($answers, $field, $glue, $urlEncode, $expectedResult) {
+		$result = $this->abstractValidationViewHelperMock->_callRef('render', $answers, $field, $glue, $urlEncode);
 		$this->assertSame($expectedResult, $result);
 	}
-
 }

@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Condition;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Condition;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class IsNotExcludedFromPowermailAllViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -147,7 +149,7 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends \TYPO3\CMS\Extbase\Tes
 			$settings,
 			$configurationType
 		);
-		$this->assertSame($result, $expectedResult);
+		$this->assertSame($expectedResult, $result);
 	}
 
 }

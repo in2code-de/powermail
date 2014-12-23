@@ -11,6 +11,7 @@ Feature: CaptchaValidation
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
+    Then the sourcecode should contain '<img src="typo3temp/tx_powermail/CalculatingCaptcha.png'
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "4"
     And I press "Submit"

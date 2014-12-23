@@ -862,28 +862,22 @@ class Div {
 		if (!is_a($mail, '\In2code\Powermail\Domain\Model\Mail')) {
 			$mail = $this->mailRepository->findByUid(intval($mail));
 		}
-		if (!$GLOBALS['TSFE']->fe_user->user['uid']) {
+		if (!$GLOBALS['TSFE']->fe_user->user['uid'] || $mail === NULL) {
 			return FALSE;
 		}
 
-		// array with usergroups of current logged in user
 		$usergroups = GeneralUtility::trimExplode(',', $GLOBALS['TSFE']->fe_user->user['usergroup'], TRUE);
-		// array with all allowed users
 		$usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'], TRUE);
-		// array with all allowed groups
 		$usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'], TRUE);
 
 		// replace "_owner" with uid of owner in array with users
-		if (method_exists($mail, 'getFeuser') && is_numeric(array_search('_owner', $usersSettings))) {
-			$usersSettings[array_search('_owner', $usersSettings)] = $mail->getFeuser();
+		if ($mail->getFeuser() !== NULL && is_numeric(array_search('_owner', $usersSettings))) {
+			$usersSettings[array_search('_owner', $usersSettings)] = $mail->getFeuser()->getUid();
 		}
 
 		// add owner groups to allowed groups (if "_owner")
-		// if one entry is "_ownergroup"
-		if (method_exists($mail, 'getFeuser') && is_numeric(array_search('_owner', $usergroupsSettings))) {
-			// get usergroups of owner user
+		if (is_numeric(array_search('_owner', $usergroupsSettings))) {
 			$usergroupsFromOwner = $this->getUserGroupsFromUser($mail->getFeuser());
-			// add owner usergroups to allowed usergroups array
 			$usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
 		}
 
@@ -893,7 +887,6 @@ class Div {
 		}
 
 		// 2. check usergroup
-		// if there is one of the groups allowed
 		if (count(array_intersect($usergroups, $usergroupsSettings))) {
 			return TRUE;
 		}
@@ -1096,16 +1089,10 @@ class Div {
 			$ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 		}
 		$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
-		if (!$json) {
-			$json = GeneralUtility::getUrl('http://freegeoip.net/json/' . $ip);
-		}
 		if ($json) {
 			$geoInfo = json_decode($json);
 			if (!empty($geoInfo->country)) {
 				return $geoInfo->country;
-			}
-			if (!empty($geoInfo->country_name)) {
-				return $geoInfo->country_name;
 			}
 		}
 		return '';

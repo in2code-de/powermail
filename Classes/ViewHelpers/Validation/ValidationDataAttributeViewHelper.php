@@ -174,10 +174,10 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 			 */
 			case 5:
 				if ($this->isNativeValidationEnabled()) {
-					$dataArray['pattern'] = '[A-Za-z].';
+					$dataArray['pattern'] = '[A-Za-z]+';
 				} else {
 					if ($this->isClientValidationEnabled()) {
-						$dataArray['data-parsley-pattern'] = '[a-zA-Z].';
+						$dataArray['data-parsley-pattern'] = '[a-zA-Z]+';
 					}
 				}
 				break;

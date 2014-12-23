@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Validation;
 
+use \TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Validation;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class AbstractValidationViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class AbstractValidationViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -122,7 +124,7 @@ class AbstractValidationViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\Bas
 		unset($expectedClientResult);
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
 		$result = $this->abstractValidationViewHelperMock->_callRef('isNativeValidationEnabled');
-		$this->assertSame($result, $expectedNativeResult);
+		$this->assertSame($expectedNativeResult, $result);
 	}
 
 	/**
@@ -139,7 +141,6 @@ class AbstractValidationViewHelperTest extends \TYPO3\CMS\Extbase\Tests\Unit\Bas
 		unset($expectedNativeResult);
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
 		$result = $this->abstractValidationViewHelperMock->_callRef('isClientValidationEnabled');
-		$this->assertSame($result, $expectedClientResult);
+		$this->assertSame($expectedClientResult, $result);
 	}
-
 }

@@ -43,16 +43,20 @@ class FieldRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	protected $formRepository;
 
 	/**
+	 * Find all records from given uids and
+	 * respect the sorting
+	 *
 	 * @param \array $uids
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findByUids($uids) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->matching(
-			$query->in('uid', $uids)
-		);
-		return $query->execute();
+		$result = array();
+		foreach ($uids as $uid) {
+			$query = $this->createQuery();
+			$query->getQuerySettings()->setRespectStoragePage(FALSE);
+			$result[] = $query->matching($query->equals('uid', $uid))->execute()->getFirst();
+		}
+		return $result;
 	}
 
 	/**

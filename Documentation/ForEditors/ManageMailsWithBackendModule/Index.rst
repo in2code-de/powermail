@@ -125,6 +125,7 @@ Export Area
 
 Export Area gives you the possibility to export your mails in XLS or
 CSV format.
+Note: For editors only enabled fields are free to export.
 
 |img-81|
 

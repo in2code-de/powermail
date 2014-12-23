@@ -46,6 +46,18 @@ class CalculatingCaptcha {
 	protected $configuration;
 
 	/**
+	 * Operators
+	 *
+	 * @var array
+	 */
+	protected $operators = array(
+		'+',
+		'-',
+		'x',
+		':'
+	);
+
+	/**
 	 * Path to captcha image
 	 *
 	 * @var \string
@@ -58,7 +70,7 @@ class CalculatingCaptcha {
 	 * @return string
 	 */
 	public function render() {
-		$string = $this->getStringForCaptcha();
+		$captchaValue = $this->getStringForCaptcha();
 		if (
 			!is_dir(dirname($this->getCaptchaImage())) &&
 			!GeneralUtility::mkdir(
@@ -67,7 +79,8 @@ class CalculatingCaptcha {
 		) {
 			return 'Error: Folder ' . dirname($this->getCaptchaImage()) . '/ don\'t exists';
 		}
-		return $this->createImage($string);
+		$this->setCaptchaSession($captchaValue[0]);
+		return $this->createImage($captchaValue[1]);
 	}
 
 	/**
@@ -89,14 +102,25 @@ class CalculatingCaptcha {
 	}
 
 	/**
+	 * @param string $string
+	 * @return string
+	 */
+	protected function getFilename($string) {
+		/** @var \TYPO3\CMS\Core\TypoScript\TemplateService $templateService */
+		$templateService = GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\TemplateService');
+		return $templateService->getFileName($string);
+	}
+
+	/**
 	 * Create Image File
 	 *
-	 * @param $content
-	 * @return string	Image HTML Code
+	 * @param string $content
+	 * @param bool $addHash
+	 * @return string Image URI
 	 */
-	protected function createImage($content) {
+	protected function createImage($content, $addHash = TRUE) {
 		$startimage = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . Div::getSubFolderOfCurrentUrl();
-		$startimage .= $GLOBALS['TSFE']->tmpl->getFileName($this->configuration['captcha.']['default.']['image']);
+		$startimage .= $this->getFileName($this->configuration['captcha.']['default.']['image']);
 
 		// if startfile does not exist
 		if (!is_file($startimage)) {
@@ -109,7 +133,7 @@ class CalculatingCaptcha {
 		$config['color_rgb'] = sscanf($this->configuration['captcha.']['default.']['textColor'], '#%2x%2x%2x');
 		$config['color'] = ImageColorAllocate($img, $config['color_rgb'][0], $config['color_rgb'][1], $config['color_rgb'][2]);
 		$config['font'] = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . Div::getSubFolderOfCurrentUrl();
-		$config['font'] .= $GLOBALS['TSFE']->tmpl->getFileName($this->configuration['captcha.']['default.']['font']);
+		$config['font'] .= $this->getFileName($this->configuration['captcha.']['default.']['font']);
 		$config['fontsize'] = $this->configuration['captcha.']['default.']['textSize'];
 		$config['angle'] = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['textAngle'], TRUE);
 		$config['fontangle'] = mt_rand($config['angle'][0], $config['angle'][1]);
@@ -131,66 +155,83 @@ class CalculatingCaptcha {
 		imagepng(
 			$img,
 			GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' .
-				Div::getSubFolderOfCurrentUrl() . $GLOBALS['TSFE']->tmpl->getFileName($this->captchaImage)
+			Div::getSubFolderOfCurrentUrl() . $this->captchaImage
 		);
 		imagedestroy($img);
 
-		return $GLOBALS['TSFE']->tmpl->getFileName($this->getCaptchaImage()) . '?hash=' . time();
+		$imageUri = $this->getCaptchaImage();
+		if ($addHash) {
+			$imageUri .= '?hash=' . time();
+		}
+		return $imageUri;
 	}
 
 	/**
 	 * Create Random String for Captcha Image
 	 *
-	 * @return string
+	 * @param int $maxNumber
+	 * @param int $maxOperatorNumber choose which operators are allowd
+	 * @return array
+	 * 		0 => 3
+	 * 		1 => '1+2'
 	 */
-	protected function getStringForCaptcha() {
-		$operatorNumber = mt_rand(0, 1);
-		$number1 = $number2 = 0;
+	protected function getStringForCaptcha($maxNumber = 15, $maxOperatorNumber = 1) {
+		$result = $number1 = $number2 = 0;
+		$operator = $this->operators[mt_rand(0, $maxOperatorNumber)];
 		for ($i = 0; $i < 100; $i++) {
-			$number1 = mt_rand(0, 15);
-			$number2 = mt_rand(0, 15);
-
-			// don't want negative numbers
-			if ($operatorNumber !== 1 || $number1 > $number2) {
+			$number1 = mt_rand(0, $maxNumber);
+			$number2 = mt_rand(0, $maxNumber);
+			$result = $this->mathematicOperation($number1, $number2, $operator);
+			if ($result > 0) {
 				break;
 			}
 		}
 
+		// Force values for testing
 		if (!empty($this->configuration['captcha.']['default.']['forceValue'])) {
-			$parts = GeneralUtility::trimExplode('+', $this->configuration['captcha.']['default.']['forceValue'], TRUE);
-			if (count($parts) === 2) {
-				$operatorNumber = 0;
-				$number1 = $parts[0];
-				$number2 = $parts[1];
-			}
+			preg_match_all('~(\d+)\s*([+|\-|:|x])\s*(\d+)~', $this->configuration['captcha.']['default.']['forceValue'], $matches);
+			$number1 = $matches[1][0];
+			$number2 = $matches[3][0];
+			$operator = $matches[2][0];
+			$result = $this->mathematicOperation($number1, $number2, $operator);
 		}
 
-		switch ($operatorNumber) {
-			case 1:
-				$operator = '-';
+		return array($result, $number1 . ' ' . $operator . ' ' . $number2);
+	}
+
+	/**
+	 * Mathematic operation
+	 *
+	 * @param int $number1
+	 * @param int $number2
+	 * @param string $operator +|-|x|:
+	 * @return int
+	 */
+	protected function mathematicOperation($number1, $number2, $operator = '+') {
+		switch ($operator) {
+			case '-':
 				$result = $number1 - $number2;
 				break;
-
-			case 2:
-				$operator = 'x';
+			case 'x':
 				$result = $number1 * $number2;
 				break;
-
-			case 3:
-				$operator = ':';
+			case ':':
 				$result = $number1 / $number2;
 				break;
-
-			case 0:
+			case '+':
 			default:
-				$operator = '+';
 				$result = $number1 + $number2;
 		}
+		return $result;
+	}
 
+	/**
+	 * @param string $result
+	 * @return void
+	 */
+	protected function setCaptchaSession($result) {
 		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_captcha_value', $result);
 		$GLOBALS['TSFE']->storeSessionData();
-
-		return $number1 . ' ' . $operator . ' ' . $number2;
 	}
 
 	/**

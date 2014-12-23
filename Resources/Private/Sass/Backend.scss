@@ -301,6 +301,7 @@ h4.extended_export_title {
 .extended_export_field,
 .extended_export_field_container {
 	margin-top: 15px;
+	min-height: 15px;
 	list-style-type: none;
 	padding: 0;
 	margin-bottom: 0;
@@ -372,6 +373,24 @@ span.info {
 	max-width: 100%;
 	height: auto;
 	width: 800px;
+}
+.flotContainer {
+	width: 600px;
+	max-width: 100%;
+	min-width: 100%;
+	height: 200px;
+	max-height: 100%;
+	margin-bottom: 20px;
+}
+.flotLabel {
+	font-size: 8pt;
+	text-align: center;
+	padding: 2px 4px;
+	color: white;
+	border: 1px solid white;
+}
+.legendLabel {
+	padding-left: 5px;
 }
 
 
