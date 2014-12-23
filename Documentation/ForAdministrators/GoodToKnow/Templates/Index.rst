@@ -50,8 +50,17 @@ Using Variables (former known as Markers)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In Fluid you can use all available fields (that you see in the
-backend) and subtables like {firstname}, {mail.subject} or
+backend) and subtables like {firstname}, {label_firstname}, {mail.subject} or
 {mail.answers.0.value}.
+
+.. code-block:: text
+
+	Dear Admin,
+
+	there is a new mail from {firstname} {lastname}
+
+	all values:
+	{powermail_all}
 
 See the hints in the template files or do a debug output with the
 debug viewhelper
@@ -62,15 +71,24 @@ debug viewhelper
 	<f:debug>{mail}</f:debug>
 	<f:debug>{_all}</f:debug>
 
-You can also use the variables in the RTE fields in backend.
+You can also use the variables in the RTE fields in backend:
 
+.. code-block:: text
 
+	Dear {firstname} {lastname},
+	thank you for your mail.
+
+	Your text was:
+	{text -> f:format.nl2br()}
+
+	All transmitted values are:
+	{powermail_all}
 
 
 .. _usingtyposcriptintemplates:
 
-Using TypoScript in Templates
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Using TypoScript in Templates or RTE fields
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Do you need some dynamic values from TypoScript in your Template or
 RTE? Use a cObject viehelper:

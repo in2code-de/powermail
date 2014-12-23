@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.1.11
+   :Date:
+      2014-12-23
+   :Changes:
+      Bugfix update #63972, #63933, #63797, #63796, #63766, #43502
+
+      Task #64019 Remove Google Image Charts
+
+      See http://forge.typo3.org for Details
+
+ - :Version:
       2.1.10
    :Date:
       2014-12-11
