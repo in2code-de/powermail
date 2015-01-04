@@ -64,12 +64,13 @@ class StringValidatorTest extends UnitTestCase {
 	 * @return array
 	 */
 	public function validateMandatoryForStringOrArrayReturnsBoolDataProvider() {
+		// see test \In2code\Powermail\Tests\Utility\DivTest::isNotEmptyReturnsBool()
 		return array(
-			'string 1' => array(
+			'string "in2code.de"' => array(
 				'in2code.de',
 				TRUE
 			),
-			'string a' => array(
+			'string "a"' => array(
 				'a',
 				TRUE
 			),
@@ -77,30 +78,10 @@ class StringValidatorTest extends UnitTestCase {
 				'',
 				FALSE
 			),
-			'null' => array(
-				NULL,
-				FALSE
-			),
-			'bool false' => array(
-				FALSE,
-				FALSE
-			),
-			'bool true' => array(
-				TRUE,
-				FALSE
-			),
-			'array 1' => array(
-				array(1),
+			'string "0"' => array(
+				'0',
 				TRUE
-			),
-			'array abc=>def' => array(
-				array('abc' => 'def'),
-				TRUE
-			),
-			'array etmpy' => array(
-				array(),
-				FALSE
-			),
+			)
 		);
 	}
 

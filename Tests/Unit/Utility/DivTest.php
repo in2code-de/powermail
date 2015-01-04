@@ -606,6 +606,96 @@ class DivTest extends UnitTestCase {
 	}
 
 	/**
+	 * Dataprovider isNotEmptyReturnsBool()
+	 *
+	 * @return array
+	 */
+	public function isNotEmptyReturnsBoolDataProvider() {
+		return array(
+			'string "in2code.de"' => array(
+				'in2code.de',
+				TRUE
+			),
+			'string "a"' => array(
+				'a',
+				TRUE
+			),
+			'string empty' => array(
+				'',
+				FALSE
+			),
+			'string "0"' => array(
+				'0',
+				TRUE
+			),
+			'int 0' => array(
+				0,
+				TRUE
+			),
+			'int 1' => array(
+				1,
+				TRUE
+			),
+			'float 0.0' => array(
+				0.0,
+				TRUE
+			),
+			'float 1.0' => array(
+				1.0,
+				TRUE
+			),
+			'null' => array(
+				NULL,
+				FALSE
+			),
+			'bool false' => array(
+				FALSE,
+				FALSE
+			),
+			'bool true' => array(
+				TRUE,
+				FALSE
+			),
+			'array: string empty' => array(
+				array(''),
+				FALSE
+			),
+			'array: int 0' => array(
+				array(0),
+				TRUE
+			),
+			'array: int 1' => array(
+				array(1),
+				TRUE
+			),
+			'array: "abc" => "def"' => array(
+				array('abc' => 'def'),
+				TRUE
+			),
+			'array: empty' => array(
+				array(),
+				FALSE
+			),
+		);
+	}
+
+	/**
+	 * Test for isNotEmpty()
+	 *
+	 * @param string $value
+	 * @param array $expectedResult
+	 * @return void
+	 * @dataProvider isNotEmptyReturnsBoolDataProvider
+	 * @test
+	 */
+	public function isNotEmptyReturnsBool($value, $expectedResult) {
+		$this->assertSame(
+			$expectedResult,
+			Div::isNotEmpty($value)
+		);
+	}
+
+	/**
 	 * Test for createHash()
 	 *
 	 * @return void
@@ -737,7 +827,7 @@ class DivTest extends UnitTestCase {
 	 * @test
 	 */
 	public function createRandomStringAlwaysReturnsStringsOfGivenLength($length, $uppercase) {
-		for ($i = 0; $i < 10; $i++) {
+		for ($i = 0; $i < 100; $i++) {
 			$string = Div::createRandomString($length, $uppercase);
 
 			$regex = '~[a-z0-9]{' . $length . '}~';
@@ -746,7 +836,6 @@ class DivTest extends UnitTestCase {
 			}
 
 			$this->assertSame(1, preg_match($regex, $string));
-
 		}
 	}
 
