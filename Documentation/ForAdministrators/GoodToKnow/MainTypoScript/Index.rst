@@ -1272,11 +1272,6 @@ Setup
 			powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/tabs.js
 			powermailForm = EXT:powermail/Resources/Public/JavaScripts/form.js
 		}
-
-		# Include CSS files
-		includeCSS {
-			powermailJQueryUiDatepicker = EXT:powermail/Resources/Public/Css/jquery.ui.datepicker.css
-		}
 	}
 	[end]
 
