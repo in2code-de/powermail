@@ -10,7 +10,7 @@ use In2code\Powermail\Utility\Div;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class UniqueValidator extends \In2code\Powermail\Domain\Validator\AbstractValidator {
+class UniqueValidator extends AbstractValidator {
 
 	/**
 	 * mailRepository
