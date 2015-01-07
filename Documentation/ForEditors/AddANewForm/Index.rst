@@ -921,7 +921,7 @@ Administrator can enable or disable the validation in general with TypoScript (s
  - :Type:
       Letters only
    :Description:
-      If turned on, visitor can only fill in letters (no space or numbers allowed)
+      If turned on, visitor can only fill in letters (no space, no numbers, no special characters, no umlauts and no accent allowed)
    :Examples:
       ::
 
