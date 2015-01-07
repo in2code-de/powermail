@@ -998,13 +998,31 @@ Administrator can enable or disable the validation in general with TypoScript (s
       The visitors input will be validated against a regulare expression.
 
       If turned on, an additional field "Validation Configuration" comes up. Validation depends on the value in this field.
-      The editor can add a regulare expression in this field. See http://bueltge.de/php-regular-expression-schnipsel/917/ for a lot of examples and an introduction to pattern.
+      The editor can add a regulare expression in this field. See http://html5pattern.com/ or http://bueltge.de/php-regular-expression-schnipsel/917/ for a lot of examples and an introduction to pattern.
    :Examples:
       ::
 
-        ~https?://.+~ => An url with https beginning - https://www.test.org
+        ~https?://.+~
+        => An url with https beginning - https://www.test.org
 
-        ^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$ => IP addresses - 192.168.0.1
+        ^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
+        => IP addresses - 192.168.0.1
+
+        ^[A-Za-z\u00C0-\u017F]+$
+        => letters with umlauts, accents and other special letters
+
+        ^[A-Za-z\s\u00C0-\u017F]+$
+        => letters with umlauts and space
+
+        ^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$
+        => letters/digits for a username with dash, underscore, point (1-20 signs)
+
+        [0-9]{5}
+        => German ZIP Code (5 digits)
+
+        \d+(,\d{2})?
+        => Price like 2,20
+
    :Note:
       No HTML5 attribute - type="text" is used
 
