@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\In2code\Powermail\Domain\Model\Field,
+	\In2code\Powermail\Domain\Model\Form;
 
 /**
  * PasswordValidator
@@ -10,7 +12,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class PasswordValidator extends \In2code\Powermail\Domain\Validator\AbstractValidator {
+class PasswordValidator extends AbstractValidator {
 
 	/**
 	 * Validation of given Params
@@ -42,7 +44,7 @@ class PasswordValidator extends \In2code\Powermail\Domain\Validator\AbstractVali
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return string
 	 */
-	protected function getMirroredValueOfPasswordField(\In2code\Powermail\Domain\Model\Field $field) {
+	protected function getMirroredValueOfPasswordField(Field $field) {
 		$piVars = GeneralUtility::_GP('tx_powermail_pi1');
 		$mirroredValue = $piVars['field'][$field->getMarker() . '_mirror'];
 		return $mirroredValue;
@@ -54,7 +56,7 @@ class PasswordValidator extends \In2code\Powermail\Domain\Validator\AbstractVali
 	 * @param \In2code\Powermail\Domain\Model\Form $form
 	 * @return boolean
 	 */
-	protected function formHasPassword(\In2code\Powermail\Domain\Model\Form $form) {
+	protected function formHasPassword(Form $form) {
 		$form = $this->formRepository->hasPassword($form);
 		return count($form) ? TRUE : FALSE;
 	}

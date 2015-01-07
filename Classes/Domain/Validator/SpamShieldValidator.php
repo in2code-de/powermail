@@ -1,8 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \In2code\Powermail\Utility\Div;
+use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\In2code\Powermail\Utility\Div,
+	\In2code\Powermail\Domain\Model\Mail;
 
 /**
  * SpamShieldValidator
@@ -11,7 +12,7 @@ use \In2code\Powermail\Utility\Div;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class SpamShieldValidator extends \In2code\Powermail\Domain\Validator\AbstractValidator {
+class SpamShieldValidator extends AbstractValidator {
 
 	/**
 	 * Spam indication start value
@@ -158,7 +159,7 @@ class SpamShieldValidator extends \In2code\Powermail\Domain\Validator\AbstractVa
 	 * @param integer $limit Limit of allowed links in mail
 	 * @return void
 	 */
-	protected function linkCheck(\In2code\Powermail\Domain\Model\Mail $mail, $indication = 1.0, $limit = 2) {
+	protected function linkCheck(Mail $mail, $indication = 1.0, $limit = 2) {
 		if (!$indication) {
 			return;
 		}
@@ -190,7 +191,7 @@ class SpamShieldValidator extends \In2code\Powermail\Domain\Validator\AbstractVa
 	 * @param float $indication Indication if check fails
 	 * @return void
 	 */
-	protected function nameCheck(\In2code\Powermail\Domain\Model\Mail $mail, $indication = 1.0) {
+	protected function nameCheck(Mail $mail, $indication = 1.0) {
 		if (!$indication) {
 			return;
 		}
@@ -238,7 +239,7 @@ class SpamShieldValidator extends \In2code\Powermail\Domain\Validator\AbstractVa
 	 * @param float $indication Indication if check fails
 	 * @return void
 	 */
-	protected function sessionCheck(\In2code\Powermail\Domain\Model\Mail $mail, $indication = 1.0) {
+	protected function sessionCheck(Mail $mail, $indication = 1.0) {
 		// Stop if indicator was turned to 0 OR if last action was optinConfirm
 		if (!$indication || $this->referrer == 'optinConfirm') {
 			return;
@@ -259,7 +260,7 @@ class SpamShieldValidator extends \In2code\Powermail\Domain\Validator\AbstractVa
 	 * @param float $indication Indication if check fails
 	 * @return void
 	 */
-	protected function uniqueCheck(\In2code\Powermail\Domain\Model\Mail $mail, $indication = 1.0) {
+	protected function uniqueCheck(Mail $mail, $indication = 1.0) {
 		if (!$indication) {
 			return;
 		}
@@ -292,7 +293,7 @@ class SpamShieldValidator extends \In2code\Powermail\Domain\Validator\AbstractVa
 	 * @param float $indication Indication if check fails
 	 * @return void
 	 */
-	protected function blacklistStringCheck(\In2code\Powermail\Domain\Model\Mail $mail, $indication = 1.0) {
+	protected function blacklistStringCheck(Mail $mail, $indication = 1.0) {
 		if (!$indication) {
 			return;
 		}
