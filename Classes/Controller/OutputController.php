@@ -5,7 +5,8 @@ use \In2code\Powermail\Utility\Div,
 	\In2code\Powermail\Domain\Model\Mail,
 	\TYPO3\CMS\Core\Utility\GeneralUtility,
 	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
-	\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+	\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult,
+	\TYPO3\CMS\Core\Messaging\AbstractMessage;
 
 /***************************************************************
  *  Copyright notice
@@ -40,7 +41,7 @@ use \In2code\Powermail\Utility\Div,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class OutputController extends \In2code\Powermail\Controller\AbstractController {
+class OutputController extends AbstractController {
 
 	/**
 	 * Show mails in a list
@@ -65,14 +66,14 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 				'searchFields' => $searchFields,
 				'fields' => $fields,
 				'piVars' => $this->piVars,
-				'abc', Div::getAbcArray()
+				'abc' => Div::getAbcArray()
 			)
 		);
 		$this->assignMultipleActions();
 	}
 
 	/**
-	 * Show mails in a list
+	 * Show single mail
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return void
@@ -118,7 +119,7 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 			$this->addFlashmessage(
 				LocalizationUtility::translate('PowermailFrontendEditFailed', 'powermail'),
 				'',
-				\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+				AbstractMessage::ERROR
 			);
 			$this->forward('list');
 		}
@@ -150,7 +151,7 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 			$this->addFlashmessage(
 				LocalizationUtility::translate('PowermailFrontendDeleteFailed', 'powermail'),
 				'',
-				\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+				AbstractMessage::ERROR
 			);
 			$this->forward('list');
 		}
@@ -277,7 +278,7 @@ class OutputController extends \In2code\Powermail\Controller\AbstractController 
 			$this->addFlashMessage(
 				LocalizationUtility::translate('error_no_typoscript_pi2', 'powermail'),
 				'',
-				\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+				AbstractMessage::ERROR
 			);
 		}
 	}
