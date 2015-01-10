@@ -16,7 +16,7 @@
 .. :name: backend1
 .. :vspace: 57
 
-.. |backend2|      image:: ../Images/backend2.png
+.. |backend2|      image:: ../Images/manual_html_m45e59382b.png
 .. :align: left
 .. :border: 0
 .. :name: backend2

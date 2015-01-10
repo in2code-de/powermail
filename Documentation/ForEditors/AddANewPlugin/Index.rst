@@ -14,9 +14,20 @@
    :class:  typoscript
 .. role::   php(code)
 
+.. _addANewPlugin:
 
 Add a new Plugin
-^^^^^^^^^^^^^^^^
+----------------
+
+Introduction
+^^^^^^^^^^^^
+
+If you want to show an existing Powermail form (see :ref:`addANewForm`) in Frontend,
+you have to insert a page content to any page and make some main configuration
+(select form, insert email, subject, etc...)
+
+First step
+^^^^^^^^^^
 
 Choose a page where you want to show a powermail form in the Frontend
 and go to the page module. Click on the New Button to add a new
@@ -25,7 +36,7 @@ content element to this page and choose “powermail”.
 |img-72|
 
 Plugin Settings
-"""""""""""""""
+^^^^^^^^^^^^^^^
 
 You will find the plugin settings within the tab “Plugin”. In this
 area you see another four tabs (Main Settings, Receiver, Sender,
@@ -34,16 +45,15 @@ Submit Page).
 |img-72b|
 
 Main Settings
-~~~~~~~~~~~~~
-
+"""""""""""""
 
 Example Configuration
-'''''''''''''''''''''
+~~~~~~~~~~~~~~~~~~~~~
 
 |img-73|
 
 Explanation
-'''''''''''
+~~~~~~~~~~~
 
 .. t3-field-list-table::
  :header-rows: 1

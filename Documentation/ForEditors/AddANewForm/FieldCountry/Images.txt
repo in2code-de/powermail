@@ -1,0 +1,17 @@
+.. |img-country|     image:: ../../../Images/manual_html_country.png
+   :width: 505
+.. :align: left
+.. :border: 0
+.. :name: img-country
+
+.. |img-country2|     image:: ../../../Images/manual_html_country2.png
+   :width: 505
+.. :align: left
+.. :border: 0
+.. :name: img-country2
+
+.. |img-country3|     image:: ../../../Images/manual_html_country3.png
+   :width: 505
+.. :align: left
+.. :border: 0
+.. :name: img-country3

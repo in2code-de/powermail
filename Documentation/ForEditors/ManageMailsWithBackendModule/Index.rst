@@ -14,11 +14,21 @@
    :class:  typoscript
 .. role::   php(code)
 
+.. _manageMailsWithBackendModule:
 
 Mail Backend Module
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
-Open the Mail Backend Module and choose a page in the foldertree. All mails are listed.
+Introduction
+^^^^^^^^^^^^
+
+Per default powermails adds a new backend module to the TYPO3 backend.
+This module helps you to manage mails and forms.
+
+First step
+^^^^^^^^^^
+
+Open the Mail Backend Module and choose a page with mails in the foldertree. You will see all stored mails.
 
 |img-77|
 

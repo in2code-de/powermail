@@ -1,0 +1,16 @@
+.. |img-42|     image:: ../../../Images/manual_html_m198a2f48.png
+.. :align: left
+.. :border: 0
+.. :name: Grafik44
+
+.. |img-43|     image:: ../../../Images/manual_html_752d3b4a.png
+   :width: 517
+.. :align: left
+.. :border: 0
+.. :name: Grafik21
+
+.. |img-44|     image:: ../../../Images/manual_html_m2ccc0be1.png
+   :width: 515
+.. :align: left
+.. :border: 0
+.. :name: Grafik22
