@@ -24,11 +24,26 @@ Feature: List
     Then I should see "Sandra"
     Then I should see "Alex, Olli"
     Then I should see "Silke"
+    Then the sourcecode should contain '<span class="abc">Z</span>'
+    Then the sourcecode should contain 'powermail_frontend_export_icon'
 
-  @Pi2ListFilter
+  @Pi2ListFilterEmpty
   Scenario: Check empty Filter over List View
     Given I am on "/index.php?id=30"
     When I fill in "tx_powermail_pi2[filter][_all]" with "öoijasd908püuß980asdöijo"
     And I press "Jetzt Filtern"
     Then I should see "Keine Mails gefunden"
     Then I should see "Bitte passen Sie Ihre Filtereinstellungen an"
+
+  @Pi2ListFilter
+  Scenario: Check empty Filter over List View
+    Given I am on "/index.php?id=30"
+    When I fill in "tx_powermail_pi2[filter][_all]" with "Andy"
+    And I press "Jetzt Filtern"
+    Then I should not see "Keine Mails gefunden"
+    Then I should not see "Bitte passen Sie Ihre Filtereinstellungen an"
+    Then I should see "Andy Kräuter"
+    Then I should see "Das ist ein Test"
+    Then I should see "Sandra"
+    Then I should see "Alex, Olli"
+    Then I should see "Silke"

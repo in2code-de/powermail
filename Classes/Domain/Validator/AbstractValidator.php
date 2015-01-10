@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
+	\In2code\Powermail\Domain\Model\Field;
 
 /***************************************************************
  *  Copyright notice
@@ -100,7 +101,7 @@ abstract class AbstractValidator extends \TYPO3\CMS\Extbase\Validation\Validator
 	 * @param string $label
 	 * @return void
 	 */
-	public function setErrorAndMessage(\In2code\Powermail\Domain\Model\Field $field, $label) {
+	public function setErrorAndMessage(Field $field, $label) {
 		$this->setIsValid(FALSE);
 		$this->addError($label, $field->getMarker());
 	}

@@ -852,6 +852,33 @@ class Div {
 	}
 
 	/**
+	 * Check if String/Array is filled
+	 *
+	 * @param mixed $value
+	 * @return bool
+	 */
+	public static function isNotEmpty($value) {
+		// bool
+		if (is_bool($value)) {
+			return FALSE;
+		}
+		// string (default fields)
+		if (!is_array($value)) {
+			if (isset($value) && strlen($value)) {
+				return TRUE;
+			}
+			// array (checkboxes)
+		} else {
+			foreach ($value as $subValue) {
+				if (isset($value) && strlen($subValue)) {
+					return TRUE;
+				}
+			}
+		}
+		return FALSE;
+	}
+
+	/**
 	 * Check if logged in user is allowed to make changes in Pi2
 	 *
 	 * @param array $settings $settings TypoScript and Flexform Settings

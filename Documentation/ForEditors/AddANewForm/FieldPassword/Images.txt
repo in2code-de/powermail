@@ -1,0 +1,15 @@
+.. |img-25|     image:: ../../../Images/manual_html_595532d9.png
+.. :align: left
+.. :border: 0
+.. :name: Grafik36
+
+.. |img-59|     image:: ../../../Images/manual_html_m1954c3a8.png
+.. :align: left
+.. :border: 0
+.. :name: Grafik58
+
+.. |img-60|     image:: ../../../Images/manual_html_de60342.png
+   :width: 502
+.. :align: left
+.. :border: 0
+.. :name: Grafik61

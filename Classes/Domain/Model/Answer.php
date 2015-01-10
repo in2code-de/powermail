@@ -2,7 +2,9 @@
 namespace In2code\Powermail\Domain\Model;
 
 use \In2code\Powermail\Utility\Div,
-	\TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	\In2code\Powermail\Domain\Model\Mail,
+	\In2code\Powermail\Domain\Model\Field;
 
 /***************************************************************
  *  Copyright notice
@@ -159,6 +161,18 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns raw value - could be
+	 * 		- Same as getValue()
+	 * 		- Timestamp (Date fields) instead of human readable date
+	 * 		- JSON string for multiple fields instead of array
+	 *
+	 * @return string
+	 */
+	public function getRawValue() {
+		return $this->value;
+	}
+
+	/**
 	 * @return int
 	 */
 	public function getValueType() {
@@ -187,7 +201,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return void
 	 */
-	public function setMail(\In2code\Powermail\Domain\Model\Mail $mail) {
+	public function setMail(Mail $mail) {
 		$this->mail = $mail;
 	}
 
@@ -206,7 +220,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return void
 	 */
-	public function setField(\In2code\Powermail\Domain\Model\Field $field) {
+	public function setField(Field $field) {
 		$this->field = $field;
 	}
 

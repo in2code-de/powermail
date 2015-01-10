@@ -1,0 +1,13 @@
+.. |img-63|     image:: ../../../Images/manual_html_mb7cd5c0.png
+   :height: 140
+   :width: 508
+.. :align: left
+.. :border: 0
+.. :name: Grafik67
+
+.. |img-64|     image:: ../../../Images/manual_html_6bac3e9.png
+   :height: 142
+   :width: 504
+.. :align: left
+.. :border: 0
+.. :name: Grafik66

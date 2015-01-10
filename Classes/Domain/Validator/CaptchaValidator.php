@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \In2code\Powermail\Utility\Div;
+use \In2code\Powermail\Utility\Div,
+	\In2code\Powermail\Domain\Model\Form,
+	\TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * CaptchaValidator
@@ -10,7 +12,7 @@ use \In2code\Powermail\Utility\Div;
  * @license http://www.gnu.org/licenses/lgpl.html
  * GNU Lesser General Public License, version 3 or later
  */
-class CaptchaValidator extends \In2code\Powermail\Domain\Validator\AbstractValidator {
+class CaptchaValidator extends AbstractValidator {
 
 	/**
 	 * @var \In2code\Powermail\Utility\CalculatingCaptcha
@@ -100,7 +102,7 @@ class CaptchaValidator extends \In2code\Powermail\Domain\Validator\AbstractValid
 	 * @param \In2code\Powermail\Domain\Model\Form $form
 	 * @return boolean
 	 */
-	protected function formHasCaptcha(\In2code\Powermail\Domain\Model\Form $form) {
+	protected function formHasCaptcha(Form $form) {
 		$form = $this->formRepository->hasCaptcha($form);
 		return count($form) ? TRUE : FALSE;
 	}
@@ -139,7 +141,7 @@ class CaptchaValidator extends \In2code\Powermail\Domain\Validator\AbstractValid
 	 * Constructor
 	 */
 	public function __construct() {
-		$pluginVariables = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('tx_powermail_pi1');
+		$pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
 		// clear captcha only on create action
 		$this->setClearSession(($pluginVariables['action'] == 'create' ? TRUE : FALSE));
 	}

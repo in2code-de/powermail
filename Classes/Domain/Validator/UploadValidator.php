@@ -34,7 +34,7 @@ use \In2code\Powermail\Utility\BasicFileFunctions;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class UploadValidator extends \In2code\Powermail\Domain\Validator\AbstractValidator {
+class UploadValidator extends AbstractValidator {
 
 	/**
 	 * Validation of given Mail Params

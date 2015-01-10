@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Utility\Div,
+	TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * StringValidator
@@ -10,38 +11,16 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class StringValidator extends \In2code\Powermail\Domain\Validator\AbstractValidator {
+class StringValidator extends AbstractValidator {
 
 	/**
 	 * Mandatory Check
 	 *
-	 * @param \mixed $value Fieldvalue from user
+	 * @param \mixed $value
 	 * @return bool
 	 */
 	protected function validateMandatory($value) {
-		// bools
-		if (is_bool($value)) {
-			return FALSE;
-		}
-		// default fields
-		if (!is_array($value)) {
-			if (!empty($value)) {
-				return TRUE;
-			}
-		// checkboxes
-		} else {
-			$filled = FALSE;
-			foreach ($value as $subValue) {
-				if (strlen($subValue)) {
-					$filled = TRUE;
-					break;
-				}
-			}
-			if ($filled) {
-				return TRUE;
-			}
-		}
-		return FALSE;
+		return Div::isNotEmpty($value);
 	}
 
 	/**

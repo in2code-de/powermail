@@ -490,7 +490,7 @@ $fieldsTca = array(
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_value',
 			'config' => array(
 				'type' => 'text',
-				'cols' => '32',
+				'cols' => '26',
 				'rows' => '2'
 			),
 			'displayCond' => 'FIELD:type:IN:input,textarea,hidden,country'
@@ -499,10 +499,11 @@ $fieldsTca = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.placeholder',
 			'config' => array(
-				'type' => 'input',
-				'size' => 10
+				'type' => 'text',
+				'cols' => '26',
+				'rows' => '2'
 			),
-			'displayCond' => 'FIELD:type:IN:input'
+			'displayCond' => 'FIELD:type:IN:input,textarea'
 		),
 		'feuser_value' => array(
 			'l10n_mode' => 'exclude',
@@ -675,7 +676,7 @@ $fieldsTca = array(
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.description',
 			'config' => array(
 				'type' => 'text',
-				'cols' => '32',
+				'cols' => '26',
 				'rows' => '2',
 				'eval' => 'trim'
 			),

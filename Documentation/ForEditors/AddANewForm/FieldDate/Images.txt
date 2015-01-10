@@ -1,0 +1,17 @@
+.. |img-65|     image:: ../../../Images/manual_html_68f3820a.png
+   :width: 513
+.. :align: left
+.. :border: 0
+.. :name: Grafik69
+
+.. |img-66|     image:: ../../../Images/manual_html_42f2ce9.png
+   :width: 500
+.. :align: left
+.. :border: 0
+.. :name: Grafik70
+
+.. |img-67|     image:: ../../../Images/manual_html_444872a3.png
+   :width: 499
+.. :align: left
+.. :border: 0
+.. :name: Grafik68

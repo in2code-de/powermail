@@ -8,7 +8,7 @@ namespace In2code\Powermail\Domain\Validator;
  * @license http://www.gnu.org/licenses/lgpl.html
  * GNU Lesser General Public License, version 3 or later
  */
-class CustomValidator extends \In2code\Powermail\Domain\Validator\StringValidator {
+class CustomValidator extends StringValidator {
 
 	/**
 	 * Custom validation of given Params

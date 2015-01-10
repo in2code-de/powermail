@@ -157,6 +157,22 @@ class AnswerTest extends UnitTestCase {
 	}
 
 	/**
+	 * Test for getRawValue()
+	 *
+	 * @param mixed $value
+	 * @return void
+	 * @dataProvider getValueReturnVoidDataProvider
+	 * @test
+	 */
+	public function getRawValueReturnString($value) {
+		$this->generalValidatorMock->_setProperty('value', $value);
+		$this->assertSame(
+			$value,
+			$this->generalValidatorMock->_callRef('getRawValue')
+		);
+	}
+
+	/**
 	 * Dataprovider setValueReturnVoid()
 	 *
 	 * @return array

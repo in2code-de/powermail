@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use In2code\Powermail\Utility\Div;
+
 /**
  * View helper check if given value is empty (also empty arrays)
  *
@@ -10,23 +12,12 @@ namespace In2code\Powermail\ViewHelpers\Condition;
 class IsNotEmptyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * View helper check if given value is number or not
+	 * View helper check if given value is empty
 	 *
 	 * @param mixed $val String or Number
 	 * @return boolean
 	 */
 	public function render($val) {
-		if (!is_array($val)) {
-			$result = !empty($val);
-		} else {
-			$result = FALSE;
-			foreach ($val as $subValue) {
-				if (!empty($subValue)) {
-					$result = TRUE;
-				}
-			}
-		}
-
-		return $result;
+		return Div::isNotEmpty($val);
 	}
 }

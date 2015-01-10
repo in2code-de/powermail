@@ -1,0 +1,4 @@
+.. |img-prefill|     image:: ../../../Images/prefillField.png
+.. :align: left
+.. :border: 0
+.. :name: prefillField
