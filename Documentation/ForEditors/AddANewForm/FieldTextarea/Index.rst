@@ -121,6 +121,15 @@ Explanation
       Extended
 
  - :Field:
+      Placeholder
+   :Description:
+      Add a placeholder for this input field.
+   :Explanation:
+      A placeholder text is an example, that should help the user to fill out an input field. This text is shown in bright grey within the input field. If you have a name field, you could use the placeholder "John Doe".
+   :Tab:
+      Extended
+
+ - :Field:
       Value from logged in Frontend User
    :Description:
       Check if field should be filled from the FE_Users table of a logged in fe_user.
