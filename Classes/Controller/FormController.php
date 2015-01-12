@@ -124,7 +124,7 @@ class FormController extends AbstractController {
 			!$this->settings['main']['optin'] ||
 			($this->settings['main']['optin'] && Div::checkOptinHash($hash, $mail) && $hash !== NULL)
 		) {
-			$this->sendMailPreflight($mail);
+			$this->sendMailPreflight($mail, $hash);
 			$this->div->saveToAnyTable($mail, $this->conf);
 			$this->div->sendPost($mail, $this->conf);
 		} else {
@@ -179,11 +179,12 @@ class FormController extends AbstractController {
 	 * Choose where to send Mails
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param \string $hash
 	 * @return void
 	 */
-	protected function sendMailPreflight(Mail $mail) {
+	protected function sendMailPreflight(Mail $mail, $hash = NULL) {
 		if ($this->settings['receiver']['enable']) {
-			$this->sendReceiverMail($mail);
+			$this->sendReceiverMail($mail, $hash);
 		}
 		if ($this->settings['sender']['enable'] && $this->div->getSenderMailFromArguments($mail)) {
 			$this->sendSenderMail($mail);
@@ -194,9 +195,10 @@ class FormController extends AbstractController {
 	 * Mail Generation for Receiver
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param \string $hash
 	 * @return void
 	 */
-	protected function sendReceiverMail(Mail $mail) {
+	protected function sendReceiverMail(Mail $mail, $hash = NULL) {
 		$receiverString = $this->div->fluidParseString(
 			$this->settings['receiver']['email'],
 			$this->div->getVariablesWithMarkers($mail)
@@ -218,7 +220,10 @@ class FormController extends AbstractController {
 				'senderName' => $this->div->getSenderNameFromArguments($mail, $defaultSenderName),
 				'subject' => $this->settings['receiver']['subject'],
 				'rteBody' => $this->settings['receiver']['body'],
-				'format' => $this->settings['receiver']['mailformat']
+				'format' => $this->settings['receiver']['mailformat'],
+				'variables' => array(
+					'hash' => $hash
+				)
 			);
 			$this->div->overwriteValueFromTypoScript($email['receiverName'], $this->conf['receiver.']['overwrite.'], 'name');
 			$this->div->overwriteValueFromTypoScript($email['senderName'], $this->conf['receiver.']['overwrite.'], 'senderName');
