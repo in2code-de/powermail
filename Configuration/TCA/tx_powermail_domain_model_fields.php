@@ -1,8 +1,191 @@
 <?php
+/**
+ * Fieldtypes
+ * 		"0"
+ * 		input
+ * 		textarea
+ */
+$typeDefault =
+	'pages, title, type,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.palette1;1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;2,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;32,
+	--palette--;Layout;43,
+	description,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		radio
+ * 		check
+ */
+$typeSettings =
+	'pages, title, type, settings,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.palette1;1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;33,
+	--palette--;Layout;43,
+	description,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		select
+ */
+$typeSettingsMultiple =
+	'pages, title, type, settings,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.palette1;1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;33,
+	--palette--;Layout;41,
+	description,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		submit
+ * 		reset
+ */
+$typeSmall =
+	'pages, title, type,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;Layout;43,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		captcha
+ * 		location
+ */
+$typeSmallDescription =
+	'pages, title, type,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;Layout;43,
+	description,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		hidden
+ */
+$typeSmallPrefill =
+	'pages, title, type,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;31,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		country
+ */
+$typeSmallPrefillDescription =
+	'pages, title, type,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;31,
+	--palette--;Layout;43,
+	description,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		password
+ */
+$typeSmallMandatory =
+	'pages, title, type,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
+	--palette--;Layout;43,
+	description,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		text
+ * 		html
+ */
+$typeText =
+	'pages, title, type, text,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;Layout;43,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		content_element
+ */
+$typeContent =
+	'pages, title, type, content_element,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;Layout;43,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		file
+ */
+$typeFile =
+	'pages, title, type,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;Layout;41,
+	description,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		date
+ */
+$typeDate =
+	'pages, title, type,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
+	--palette--;Layout;42,
+	description,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
+/**
+ * Fieldtypes
+ * 		typoscript
+ */
+$typeTypoScript =
+	'pages, title, type, path,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;Layout;43,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
+	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime';
+
 $fieldsTca = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields',
 		'label' => 'title',
+		'type' => 'type',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -21,7 +204,7 @@ $fieldsTca = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'requestUpdate' => 'type,validation,own_marker_select',
+		'requestUpdate' => 'validation,own_marker_select',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('powermail') .
 			'Resources/Public/Icons/tx_powermail_domain_model_fields.gif'
 	),
@@ -32,27 +215,79 @@ $fieldsTca = array(
 			validation, validation_configuration, css, description, multiselect, datepicker_settings,
 			feuser_value, sender_email, sender_name, own_marker_select, auto_marker, marker',
 	),
-	'types' => array(
-		'1' => array(
-			'showitem' =>
-				'pages, title, type, settings, path, content_element, text,
-				--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.palette1;1,
-				--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-				--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;2,
-				--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;3,
-				--palette--;Layout;4,
-				description,
-				--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-				--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-				l10n_parent, l10n_diffsource, hidden;;1,starttime, endtime'),
-	),
 	'palettes' => array(
 		'1' => array('showitem' => 'sender_email, sender_name', '', 'canNotCollapse' => 1),
 		'2' => array('showitem' => 'mandatory, validation, validation_configuration', '', 'canNotCollapse' => 1),
+		'21' => array('showitem' => 'mandatory', '', 'canNotCollapse' => 1),
 		'3' => array('showitem' => 'prefill_value, placeholder, feuser_value, create_from_typoscript', '', 'canNotCollapse' => 1),
+		'31' => array('showitem' => 'prefill_value, feuser_value', '', 'canNotCollapse' => 1),
+		'32' => array('showitem' => 'prefill_value, placeholder, feuser_value', '', 'canNotCollapse' => 1),
+		'33' => array('showitem' => 'feuser_value, create_from_typoscript', '', 'canNotCollapse' => 1),
 		'4' => array('showitem' => 'css, multiselect, datepicker_settings'),
+		'41' => array('showitem' => 'css, multiselect'),
+		'42' => array('showitem' => 'css, datepicker_settings'),
+		'43' => array('showitem' => 'css'),
 		'5' => array('showitem' => 'auto_marker, marker, own_marker_select', '', 'canNotCollapse' => 1),
 		'canNotCollapse' => '1'
+	),
+	'types' => array(
+		'0' => array(
+			'showitem' => $typeDefault
+		),
+		'input' => array(
+			'showitem' => $typeDefault
+		),
+		'textarea' => array(
+			'showitem' => $typeDefault
+		),
+		'select' => array(
+			'showitem' => $typeSettingsMultiple
+		),
+		'check' => array(
+			'showitem' => $typeSettings
+		),
+		'radio' => array(
+			'showitem' => $typeSettings
+		),
+		'submit' => array(
+			'showitem' => $typeSmall
+		),
+		'captcha' => array(
+			'showitem' => $typeSmallDescription
+		),
+		'reset' => array(
+			'showitem' => $typeSmall
+		),
+		'text' => array(
+			'showitem' => $typeText
+		),
+		'content' => array(
+			'showitem' => $typeContent
+		),
+		'html' => array(
+			'showitem' => $typeText
+		),
+		'password' => array(
+			'showitem' => $typeSmallMandatory
+		),
+		'file' => array(
+			'showitem' => $typeFile
+		),
+		'hidden' => array(
+			'showitem' => $typeSmallPrefill
+		),
+		'date' => array(
+			'showitem' => $typeDate
+		),
+		'country' => array(
+			'showitem' => $typeSmallPrefillDescription
+		),
+		'location' => array(
+			'showitem' => $typeSmallDescription
+		),
+		'typoscript' => array(
+			'showitem' => $typeTypoScript
+		),
 	),
 	'columns' => array(
 		'sys_language_uid' => array(
@@ -250,7 +485,6 @@ $fieldsTca = array(
 				'cols' => '32',
 				'rows' => '5'
 			),
-			'displayCond' => 'FIELD:type:IN:select,check,radio'
 		),
 		'path' => array(
 			'l10n_mode' => 'exclude',
@@ -261,7 +495,6 @@ $fieldsTca = array(
 				'size' => 30,
 				'eval' => 'trim'
 			),
-			'displayCond' => 'FIELD:type:IN:typoscript'
 		),
 		'content_element' => array(
 			'exclude' => 1,
@@ -274,7 +507,6 @@ $fieldsTca = array(
 				'maxitems' => 1,
 				'minitems' => 0
 			),
-			'displayCond' => 'FIELD:type:IN:content'
 		),
 		'text' => array(
 			'exclude' => 0,
@@ -284,7 +516,6 @@ $fieldsTca = array(
 				'cols' => '32',
 				'rows' => '5'
 			),
-			'displayCond' => 'FIELD:type:IN:text,html'
 		),
 		'sender_email' => array(
 			'l10n_mode' => 'exclude',
@@ -293,7 +524,6 @@ $fieldsTca = array(
 			'config' => array(
 				'type' => 'check'
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,hidden'
 		),
 		'sender_name' => array(
 			'l10n_mode' => 'exclude',
@@ -302,7 +532,6 @@ $fieldsTca = array(
 			'config' => array(
 				'type' => 'check'
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,hidden'
 		),
 		'mandatory' => array(
 			'l10n_mode' => 'exclude',
@@ -311,7 +540,6 @@ $fieldsTca = array(
 			'config' => array(
 				'type' => 'check'
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,date,password'
 		),
 		'validation' => array(
 			'l10n_mode' => 'exclude',
@@ -473,9 +701,9 @@ $fieldsTca = array(
 				'eval' => '',
 				'itemsProcFunc' => '\In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForValidation',
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea'
 		),
 		'validation_configuration' => array(
+			'l10n_mode' => 'exclude',
 			'exclude' => 1,
 			'label' =>
 				'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validationConfiguration',
@@ -493,7 +721,6 @@ $fieldsTca = array(
 				'cols' => '26',
 				'rows' => '2'
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,hidden,country'
 		),
 		'placeholder' => array(
 			'exclude' => 1,
@@ -503,7 +730,6 @@ $fieldsTca = array(
 				'cols' => '26',
 				'rows' => '2'
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea'
 		),
 		'feuser_value' => array(
 			'l10n_mode' => 'exclude',
@@ -562,7 +788,6 @@ $fieldsTca = array(
 				'eval' => '',
 				'itemsProcFunc' => 'In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForFeUserProperty',
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,hidden,country'
 		),
 		'create_from_typoscript' => array(
 			'exclude' => 1,
@@ -573,7 +798,6 @@ $fieldsTca = array(
 				'size' => 30,
 				'eval' => 'trim'
 			),
-			'displayCond' => 'FIELD:type:IN:select,radio,check'
 		),
 		'css' => array(
 			'l10n_mode' => 'exclude',
@@ -603,7 +827,6 @@ $fieldsTca = array(
 				'maxitems' => 1,
 				'eval' => ''
 			),
-			'displayCond' => 'FIELD:type:IN:input,textarea,select,check,radio,submit,password,file,location,text,date,country,captcha'
 		),
 		'multiselect' => array(
 			'l10n_mode' => 'exclude',
@@ -612,7 +835,6 @@ $fieldsTca = array(
 			'config' => array(
 				'type' => 'check'
 			),
-			'displayCond' => 'FIELD:type:IN:select,file'
 		),
 		'datepicker_settings' => array(
 			'l10n_mode' => 'exclude',
@@ -639,7 +861,6 @@ $fieldsTca = array(
 				'maxitems' => 1,
 				'eval' => ''
 			),
-			'displayCond' => 'FIELD:type:IN:date'
 		),
 		'auto_marker' => array(
 			'l10n_mode' => 'exclude',
@@ -680,9 +901,9 @@ $fieldsTca = array(
 				'rows' => '2',
 				'eval' => 'trim'
 			),
-			'displayCond' => 'FIELD:type:!IN:content,hidden,html,reset,submit,text,typoscript'
 		),
 		'pages' => array(
+			'l10n_mode' => 'noCopy',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.pages',
 			'config' => array(
