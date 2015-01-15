@@ -1098,6 +1098,15 @@ Setup
 						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
 						excludeFromFieldTypes =
 					}
+
+					# In double-opt-in Mail to sender (if activated)
+					optinMail {
+						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+						excludeFromMarkerNames =
+
+						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+						excludeFromFieldTypes =
+					}
 				}
 
 
