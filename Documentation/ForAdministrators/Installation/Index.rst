@@ -72,6 +72,13 @@ Main configuration for powermail for CMS wide settings.
       0
 
  - :Field:
+      Enable table garbage collection
+   :Description:
+      If this is enabled the mail and answer tables will be cleaned up by the TYPO3 table garbage collector scheduler task. Records that are older than a number of given days will be removed.
+   :DefaultValue:
+      0
+
+ - :Field:
       Enable Merge for l10n_mode
    :Description:
       All fields with l10n\_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages.
