@@ -245,7 +245,7 @@ class SendMail {
 		$message->send();
 
 		// update mail (with parsed fields)
-		if ($type === 'receiver') {
+		if ($type === 'receiver' && $email['variables']['hash'] === NULL) {
 			$mail->setSenderMail($email['senderEmail']);
 			$mail->setSenderName($email['senderName']);
 			$mail->setSubject($email['subject']);

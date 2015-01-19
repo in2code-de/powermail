@@ -128,6 +128,38 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase {
 					'firstname'
 				)
 			),
+			array(
+				'optin',
+				array(
+					'excludeFromPowermailAllMarker' => array(
+						'optinMail' => array(
+							'excludeFromMarkerNames' => 'email, firstname',
+							'excludeFromFieldTypes' => 'hidden, input'
+						)
+					)
+				),
+				'excludeFromMarkerNames',
+				array(
+					'email',
+					'firstname'
+				)
+			),
+			array(
+				'optin',
+				array(
+					'excludeFromPowermailAllMarker' => array(
+						'optinMail' => array(
+							'excludeFromMarkerNames' => 'email, firstname',
+							'excludeFromFieldTypes' => 'hidden, input'
+						)
+					)
+				),
+				'excludeFromFieldTypes',
+				array(
+					'hidden',
+					'input'
+				)
+			),
 		);
 	}
 
