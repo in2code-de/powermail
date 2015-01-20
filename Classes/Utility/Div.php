@@ -517,7 +517,7 @@ class Tx_Powermail_Utility_Div {
 			$uploadsFromSession = Tx_Powermail_Utility_Div::getSessionValue('upload'); // read upload session
 			if (!empty($uploadsFromSession)) {
 				foreach ((array) $uploadsFromSession as $file) {
-					if (file_exists($file)) {
+					if (!empty($file) && file_exists($file)) {
 						$message->attach(Swift_Attachment::fromPath($file));
 					}
 				}
@@ -529,7 +529,7 @@ class Tx_Powermail_Utility_Div {
 			$files = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.']), 1);
 			if (!empty($files)) {
 				foreach ((array) $files as $file) {
-					if (file_exists($file)) {
+					if (!empty($file) && file_exists($file)) {
 						$message->attach(Swift_Attachment::fromPath($file));
 
 					}
