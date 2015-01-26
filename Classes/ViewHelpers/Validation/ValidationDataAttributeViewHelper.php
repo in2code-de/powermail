@@ -2,7 +2,8 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility,
-	\TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	\In2code\Powermail\Domain\Model\Field;
 
 /**
  * Returns Data-Attributes for JS and Native Validation
@@ -26,7 +27,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 	 * @param \mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
 	 * @return \array for data attributes
 	 */
-	public function render(\In2code\Powermail\Domain\Model\Field $field, $additionalAttributes = array(), $iteration = NULL) {
+	public function render(Field $field, $additionalAttributes = array(), $iteration = NULL) {
 		$dataArray = $additionalAttributes;
 		$this->extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
 		if ($this->arguments['extensionName'] !== NULL) {
