@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
-	\TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\In2code\Powermail\Domain\Model\Field;
 
 /**
  * Array for multiple upload
@@ -11,7 +11,7 @@ use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
  * @subpackage Fluid
  * @version
  */
-class UploadAttributesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class UploadAttributesViewHelper extends AbstractValidationViewHelper {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -31,7 +31,8 @@ class UploadAttributesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstra
 	 * @param \array $additionalAttributes To add further attributes
 	 * @return array
 	 */
-	public function render(\In2code\Powermail\Domain\Model\Field $field, $additionalAttributes = array()) {
+	public function render(Field $field, $additionalAttributes = array()) {
+		$this->addMandatoryAttributes($additionalAttributes, $field);
 		if ($field->getMultiselectForField()) {
 			$additionalAttributes['multiple'] = 'multiple';
 		}
@@ -54,21 +55,5 @@ class UploadAttributesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstra
 	protected function getDottedListOfExtensions($extensionList) {
 		$extensions = GeneralUtility::trimExplode(',', $extensionList, TRUE);
 		return '.' . implode(',.', $extensions);
-	}
-
-	/**
-	 * Init
-	 *
-	 * @return void
-	 */
-	public function initialize() {
-		$typoScriptSetup = $this->configurationManager->getConfiguration(
-			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-		);
-		if (!empty($typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'])) {
-			$this->settings = \TYPO3\CMS\Core\Utility\GeneralUtility::removeDotsFromTS(
-				$typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.']
-			);
-		}
 	}
 }

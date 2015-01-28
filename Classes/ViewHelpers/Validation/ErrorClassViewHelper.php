@@ -1,6 +1,9 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
+	\In2code\Powermail\Domain\Model\Field;
+
 /**
  * Returns Error Class if Error in form
  *
@@ -8,7 +11,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
  * @subpackage Fluid
  * @version
  */
-class ErrorClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ErrorClassViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Prefill string for fields
@@ -17,10 +20,11 @@ class ErrorClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
 	 * @param string $class Any string for errorclass
 	 * @return string
 	 */
-	public function render(\In2code\Powermail\Domain\Model\Field $field, $class = 'error') {
+	public function render(Field $field, $class = 'error') {
 		$validationResults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults();
 		$errors = $validationResults->getFlattenedErrors();
 		foreach ($errors as $error) {
+			/** @var \TYPO3\CMS\Extbase\Error\Error $singleError */
 			foreach ((array) $error as $singleError) {
 				if ($field->getMarker() === $singleError->getCode()) {
 					return $class;
