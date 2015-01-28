@@ -89,10 +89,10 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase {
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
 					'data-datepicker-format' => 'Y-m-d',
-					'data-parsley-trigger' => 'change',
 					'data-date-value' => 'anyvalue',
 					'required' => 'required',
-					'data-parsley-required-message' => 'This field must be filled!'
+					'data-parsley-required-message' => 'This field must be filled!',
+					'data-parsley-trigger' => 'change'
 				)
 			),
 			'datepickerWithNativevalidationAndClientvalidation' => array(
@@ -111,7 +111,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase {
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
 					'data-datepicker-format' => 'Y-m-d',
-					'data-parsley-trigger' => 'change',
 					'data-date-value' => 'anyvalue',
 				)
 			),
@@ -131,7 +130,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase {
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
 					'data-datepicker-format' => 'Y-m-d',
-					'data-parsley-trigger' => 'change'
 				)
 			),
 			'datepickerWithClientvalidation' => array(
@@ -150,7 +148,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase {
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
 					'data-datepicker-format' => 'Y-m-d',
-					'data-parsley-trigger' => 'change'
 				)
 			),
 			'datepickerWithoutValidation' => array(
@@ -169,7 +166,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase {
 					'data-datepicker-months' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 					'data-datepicker-days' => 'So,Mo,Tu,We,Th,Fr,Sa',
 					'data-datepicker-format' => 'Y-m-d',
-					'data-parsley-trigger' => 'change'
 				)
 			),
 		);
@@ -194,6 +190,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase {
 		}
 
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
+		$this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
 
 		$controllerContext = new ControllerContext;
 		$request = new Request;
