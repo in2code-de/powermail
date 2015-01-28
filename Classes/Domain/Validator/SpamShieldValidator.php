@@ -22,18 +22,30 @@ class SpamShieldValidator extends AbstractValidator {
 	protected $spamIndicator = 0;
 
 	/**
-	 * TypoScript Settings
-	 *
-	 * @var array
-	 */
-	protected $settings;
-
-	/**
 	 * Referrer action
 	 *
 	 * @var string
 	 */
 	protected $referrer;
+
+	/**
+	 * Error messages for email to admin
+	 *
+	 * @var array
+	 */
+	protected $messages = array();
+
+	/**
+	 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+	 */
+	protected $typoScriptFrontendController;
+
+	/**
+	 * TypoScript Settings
+	 *
+	 * @var array
+	 */
+	protected $settings;
 
 	/**
 	 * Plugin arguments
@@ -43,11 +55,9 @@ class SpamShieldValidator extends AbstractValidator {
 	protected $piVars;
 
 	/**
-	 * Error messages for email to admin
-	 *
 	 * @var array
 	 */
-	protected $messages = array();
+	protected $configurationArray;
 
 	/**
 	 * Spam-Validation of given Params
@@ -65,7 +75,8 @@ class SpamShieldValidator extends AbstractValidator {
 		// Different checks to increase spam indicator
 		$this->honeypodCheck($this->settings['spamshield.']['indicator.']['honeypod']);
 		$this->linkCheck(
-			$mail, $this->settings['spamshield.']['indicator.']['link'],
+			$mail,
+			$this->settings['spamshield.']['indicator.']['link'],
 			$this->settings['spamshield.']['indicator.']['linkLimit']
 		);
 		$this->nameCheck($mail, $this->settings['spamshield.']['indicator.']['name']);
@@ -81,53 +92,14 @@ class SpamShieldValidator extends AbstractValidator {
 			$thisSpamFactor = 0;
 		}
 
-		// Save Spam Factor in session for db storage
-		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_spamfactor', $this->formatSpamFactor($thisSpamFactor));
-		$GLOBALS['TSFE']->storeSessionData();
-
-		// Spam debugging
-		if ($this->settings['debug.']['spamshield']) {
-			GeneralUtility::devLog(
-				'Spamshield (Spamfactor ' . $this->formatSpamFactor($thisSpamFactor) . ')',
-				'powermail',
-				0,
-				$this->getMessages()
-			);
-		}
+		$this->saveSpamFactorInSession($thisSpamFactor);
+		$this->saveSpamPropertiesInDevelopmentLog($thisSpamFactor);
 
 		// if spam
 		if ($thisSpamFactor >= $spamFactor) {
 			$this->addError('spam_details', $this->formatSpamFactor($thisSpamFactor));
 			$this->setIsValid(FALSE);
-
-			// Send notification email to admin
-			if (GeneralUtility::validEmail($this->settings['spamshield.']['email'])) {
-				$subject = 'Spam in powermail form recognized';
-				$message = 'Possible spam in powermail form on page with PID ' . $GLOBALS['TSFE']->id;
-				$message .= "\n\n";
-				$message .= 'Spamfactor of this mail: ' . $this->formatSpamFactor($thisSpamFactor) . "\n";
-				$message .= "\n\n";
-				$message .= 'Failed Spamchecks:' . "\n";
-				$message .= Div::viewPlainArray($this->getMessages());
-				$message .= "\n\n";
-				$message .= 'Given Form variables:' . "\n";
-				foreach ($mail->getAnswers() as $answer) {
-					$message .= $answer->getField()->getTitle();
-					$message .= ': ';
-					$message .= $answer->getValue();
-					$message .= "\n";
-				}
-				$header  = 'MIME-Version: 1.0' . "\r\n";
-				$header .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-				$header .= 'From: powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY') . "\r\n";
-				GeneralUtility::plainMailEncoded(
-					$this->settings['spamshield.']['email'],
-					$subject,
-					$message,
-					$header
-				);
-			}
-
+			$this->sendSpamNotificationMail($mail, $thisSpamFactor);
 		}
 
 		return $this->getIsValid();
@@ -335,6 +307,48 @@ class SpamShieldValidator extends AbstractValidator {
 	}
 
 	/**
+	 * Send spam notification mail to admin
+	 *
+	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param float $spamFactor
+	 * @return void
+	 */
+	protected function sendSpamNotificationMail($mail, $spamFactor) {
+		if (!GeneralUtility::validEmail($this->settings['spamshield.']['email'])) {
+			return;
+		}
+
+		$subject = 'Spam in powermail form recognized';
+		$message = 'Possible spam in powermail form on page with PID ' . $this->typoScriptFrontendController->id;
+		$message .= "\n\n";
+		$message .= 'Spamfactor of this mail: ' . $this->formatSpamFactor($spamFactor) . "\n";
+		$message .= "\n\n";
+		$message .= 'Failed Spamchecks:' . "\n";
+		$message .= Div::viewPlainArray($this->getMessages());
+		$message .= "\n\n";
+		$message .= 'Given Form variables:' . "\n";
+		foreach ($mail->getAnswers() as $answer) {
+			$message .= $answer->getField()->getTitle();
+			$message .= ': ';
+			$message .= $answer->getValue();
+			$message .= "\n";
+		}
+		if (empty($this->configurationArray['disableIpLog'])) {
+			$message .= "\n\n";
+			$message .= 'Senders IP address: ' . GeneralUtility::getIndpEnv('REMOTE_ADDR');
+		}
+		$header  = 'MIME-Version: 1.0' . "\r\n";
+		$header .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		$header .= 'From: powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY') . "\r\n";
+		GeneralUtility::plainMailEncoded(
+			$this->settings['spamshield.']['email'],
+			$subject,
+			$message,
+			$header
+		);
+	}
+
+	/**
 	 * Format for Spamfactor (0.23 => 23%)
 	 *
 	 * @param float $factor
@@ -342,14 +356,6 @@ class SpamShieldValidator extends AbstractValidator {
 	 */
 	protected function formatSpamFactor($factor) {
 		return number_format(($factor * 100), 0) . '%';
-	}
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
-		$this->referrer = $this->piVars['__referrer']['@action'];
 	}
 
 	/**
@@ -404,4 +410,41 @@ class SpamShieldValidator extends AbstractValidator {
 		$this->setMessages($messages);
 	}
 
+	/**
+	 * Save Spam Factor in session for db storage
+	 *
+	 * @param float $spamFactor
+	 * @return void
+	 */
+	protected function saveSpamFactorInSession($spamFactor) {
+		$this->typoScriptFrontendController->fe_user->setKey('ses', 'powermail_spamfactor', $this->formatSpamFactor($spamFactor));
+		$this->typoScriptFrontendController->storeSessionData();
+	}
+
+	/**
+	 * Save spam properties in development log
+	 *
+	 * @param float $spamFactor
+	 * @return void
+	 */
+	protected function saveSpamPropertiesInDevelopmentLog($spamFactor) {
+		if ($this->settings['debug.']['spamshield']) {
+			GeneralUtility::devLog(
+				'Spamshield (Spamfactor ' . $this->formatSpamFactor($spamFactor) . ')',
+				'powermail',
+				0,
+				$this->getMessages()
+			);
+		}
+	}
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		$this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
+		$this->referrer = $this->piVars['__referrer']['@action'];
+		$this->typoScriptFrontendController = $GLOBALS['TSFE'];
+		$this->configurationArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+	}
 }
