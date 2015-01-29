@@ -18,6 +18,9 @@
 Signal Slots
 ^^^^^^^^^^^^
 
+Overview
+""""""""
+
 Powermail offers a lot of SignalSlots (Extbase pendant to Hooks) to
 extend the functions from your extension. Please report to
 forge.typo3.org if you need a new signal.
@@ -146,6 +149,88 @@ forge.typo3.org if you need a new signal.
       createEmailBody()
    :Description:
       Change the body of the mails
+
+Example
+"""""""
+
+Introduction
+~~~~~~~~~~~~
+
+Let's say you want to change the receiver email - short before powermail sends the mail.
+
+Add a new extension to your system and use the signal createEmailBodyBeforeRender for example.
+See following code.
+
+ext_emconf.php
+~~~~~~~~~~~~~~
+
+::
+
+    <?php
+    $EM_CONF[$_EXTKEY] = array (
+        'title' => 'powermailextended',
+        'description' => 'Sample Extension to extend powermail 2.1',
+        'category' => 'plugin',
+        'version' => '2.1.0',
+        // ...
+        'constraints' => array(
+            'depends' => array(
+                'typo3' => '6.2.0-6.2.99',
+                'powermail' => '2.1.0-2.1.99',
+            ),
+            'conflicts' => array(),
+            'suggests' => array(),
+        ),
+    );
+
+
+ext_localconf.php
+~~~~~~~~~~~~~~~~~
+
+::
+
+    <?php
+    // enable SignalSlot
+    /** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
+    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
+    $signalSlotDispatcher->connect(
+        'In2code\Powermail\Utility\SendMail',
+        'sendTemplateEmailBeforeSend',
+        'In2code\Powermailextended\Utility\SendMail',
+        'manipulateMail',
+        FALSE
+    );
+
+
+Classes/Utility/SendMail.php
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    <?php
+    namespace In2code\Powermailextended\Utility;
+
+    /**
+     * SendMail
+     *
+     * @package powermailextend
+     * @license http://www.gnu.org/licenses/lgpl.html
+     * 			GNU Lesser General Public License, version 3 or later
+     */
+    class SendMail {
+
+        /**
+         * @param \TYPO3\CMS\Core\Mail\MailMessage $message
+         * @param array $email
+         * @param \In2code\Powermail\Domain\Model\Mail $mail
+         * @param array $settings
+         * @param string $type Email to "sender" or "receiver"
+         */
+        public function manipulateMail($message, $email, $mail, $settings, $type) {
+            $message->setTo(array('anotheremail@domain.org' => 'receiverName'));
+        }
+    }
+
 
 Example Code
 """"""""""""
