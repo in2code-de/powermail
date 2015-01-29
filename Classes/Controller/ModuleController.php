@@ -210,10 +210,18 @@ class ModuleController extends AbstractController {
 				$body = 'New <b>Test Email</b> from User ';
 				$body .= $GLOBALS['BE_USER']->user['username'] . ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
 
+				$senderEmail = 'powermail@domain.net';
+				if (GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'])) {
+					$senderEmail = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'];
+				}
+				$senderName = 'powermail';
+				if (!empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])) {
+					$senderName = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'];
+				}
 				$message = GeneralUtility::makeInstance('\TYPO3\CMS\Core\Mail\MailMessage');
 				$message
 					->setTo(array($email => 'Receiver'))
-					->setFrom(array('powermail@domain.net' => 'powermail'))
+					->setFrom(array($senderEmail => $senderName))
 					->setSubject('New Powermail Test Email')
 					->setBody($body, 'text/html')
 					->send();
