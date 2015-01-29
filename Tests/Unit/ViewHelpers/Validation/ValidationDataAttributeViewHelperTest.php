@@ -86,7 +86,8 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'required' => 'required',
-					'data-parsley-required-message' => 'This field must be filled!'
+					'data-parsley-required-message' => 'This field must be filled!',
+					'data-parsley-trigger' => 'change'
 				)
 			),
 			'textWithClientvalidation' => array(
@@ -107,7 +108,8 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'data-parsley-required' => 'true',
-					'data-parsley-required-message' => 'This field must be filled!'
+					'data-parsley-required-message' => 'This field must be filled!',
+					'data-parsley-trigger' => 'change'
 				)
 			),
 			'radioWithNativevalidationAndClientvalidation' => array(
@@ -403,6 +405,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 		}
 
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
+		$this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
 
 		$controllerContext = new ControllerContext;
 		$request = new Request;
