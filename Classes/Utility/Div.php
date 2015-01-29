@@ -148,6 +148,10 @@ class Div {
 			$name = $default;
 		}
 
+		if (empty($name) && !empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])) {
+			$name = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'];
+		}
+
 		if (!trim($name)) {
 			$name = LocalizationUtility::translate('error_no_sender_name', 'powermail');
 		}
@@ -176,6 +180,10 @@ class Div {
 
 		if (empty($email) && $default) {
 			$email = $default;
+		}
+
+		if (empty($email) && GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'])) {
+			$email = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'];
 		}
 
 		if (empty($email)) {
