@@ -1,13 +1,15 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Form;
 
+use \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
+
 /**
  * View helper to generate select field with empty values, preselected, etc...
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class SelectFieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
+class SelectFieldViewHelper extends SelectViewHelper {
 
 	/**
 	 * Render the tag.
@@ -29,6 +31,11 @@ class SelectFieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectView
 	 */
 	protected function renderOptionTags($options) {
 		$output = '';
+		if ($this->hasArgument('prependOptionLabel')) {
+			$value = $this->hasArgument('prependOptionValue') ? $this->arguments['prependOptionValue'] : '';
+			$label = $this->arguments['prependOptionLabel'];
+			$output .= $this->renderOptionTag($value, $label, FALSE) . chr(10);
+		}
 		foreach ($options as $option) {
 			$output .= $this->renderOptionTag(
 				$option['value'],
