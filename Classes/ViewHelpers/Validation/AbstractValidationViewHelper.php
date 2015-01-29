@@ -93,6 +93,9 @@ class AbstractValidationViewHelper extends AbstractViewHelper {
 	 */
 	public function initialize() {
 		$this->extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
+		if ($this->arguments['extensionName'] !== NULL) {
+			$this->extensionName = $this->arguments['extensionName'];
+		}
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
