@@ -609,4 +609,63 @@ class SpamShieldValidatorTest extends UnitTestCase {
 			$this->generalValidatorMock->_callRef('formatSpamFactor', $factor)
 		);
 	}
+
+	/**
+	 * Dataprovider isSpamToleranceLimitReachedReturnsBool()
+	 *
+	 * @return array
+	 */
+	public function isSpamToleranceLimitReachedReturnsBoolDataProvider() {
+		return array(
+			array(
+				0.8,
+				0.9,
+				FALSE
+			),
+			array(
+				0.5312,
+				0.54,
+				FALSE
+			),
+			array(
+				0.9,
+				0.8,
+				TRUE
+			),
+			array(
+				0.0,
+				0.0,
+				TRUE
+			),
+			array(
+				0.01,
+				0.0,
+				TRUE
+			),
+			array(
+				1.0,
+				1.0,
+				TRUE
+			),
+		);
+	}
+
+	/**
+	 * Test for isSpamToleranceLimitReached()
+	 *
+	 * @param float $calculatedMailSpamFactor
+	 * @param float $spamFactorLimit
+	 * @param bool $expectedResult
+	 * @return void
+	 * @dataProvider isSpamToleranceLimitReachedReturnsBoolDataProvider
+	 * @test
+	 */
+	public function isSpamToleranceLimitReachedReturnsBool($calculatedMailSpamFactor, $spamFactorLimit, $expectedResult) {
+		$this->generalValidatorMock->_set('calculatedMailSpamFactor', $calculatedMailSpamFactor);
+		$this->generalValidatorMock->_set('spamFactorLimit', $spamFactorLimit);
+		$this->assertSame(
+			$expectedResult,
+			$this->generalValidatorMock->_callRef('isSpamToleranceLimitReached')
+		);
+	}
 }
