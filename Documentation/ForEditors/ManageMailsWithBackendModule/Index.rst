@@ -383,7 +383,7 @@ Note: This view is for admins only.
    :Description:
       If you are not sure if powermail can send mails, enter your email-address and press "Send Mail Now"
    :Additional:
-      This test is similar to the test in install tool, but this test uses SwiftMailer (the mailer class that uses powermail)
+      This test is similar to the test in install tool. Sender name and email will be used from LocalConfiguration settings defaultMailFromAddress and defaultMailFromName
 
 Form Converter
 ~~~~~~~~~~~~~~

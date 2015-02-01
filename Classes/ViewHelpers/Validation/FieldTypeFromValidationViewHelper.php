@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use \In2code\Powermail\Domain\Model\Field;
+
 /**
  * Get Field Type for input fields
  *
@@ -28,7 +30,7 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper {
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return string
 	 */
-	public function render(\In2code\Powermail\Domain\Model\Field $field) {
+	public function render(Field $field) {
 		if (!$this->isNativeValidationEnabled()) {
 			return 'text';
 		}

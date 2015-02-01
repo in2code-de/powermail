@@ -80,16 +80,16 @@ jQuery(document).ready(function($) {
 		disableUploadField($(this).closest('.powermail_fieldwrap_file_inner').find('input[type="file"]'));
 	});
 	$('.deleteAllFiles').click(function() {
-		enableUploadField($(this).closest('.powermail_fieldwrap_file_inner').find('input[type="file"]'));
+		enableUploadField($(this).closest('.powermail_fieldwrap_file_inner').children('input[type="hidden"]'));
 		$(this).closest('ul').fadeOut(function() {
 			$(this).remove();
 		});
 	});
 	function disableUploadField(element) {
-		element.prop('disabled', 'disabled').addClass('hide');
+		element.prop('disabled', 'disabled').addClass('hide').prop('type', 'hidden');
 	}
 	function enableUploadField(element) {
-		element.removeProp('disabled').removeClass('hide');
+		element.removeProp('disabled').removeClass('hide').prop('type', 'file');
 	}
 
 	// Password Field Output

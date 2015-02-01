@@ -43,13 +43,13 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	/**
 	 * Parses variables again
 	 *
-	 * @param array $variablesMarkers Variables and Markers array
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail Variables and Labels array
+	 * @param array $variablesMarkers Variables and Markers array
 	 * @param string $type "web" or "mail"
 	 * @param string $function "createAction", "senderMail", "receiverMail"
 	 * @return string Changed string
 	 */
-	public function render($variablesMarkers = array(), Mail $mail, $type = 'web', $function = 'createAction') {
+	public function render(Mail $mail, $variablesMarkers = array(), $type = 'web', $function = 'createAction') {
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $parseObject */
 		$parseObject = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
 		$parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));

@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+jQuery(document).ready(function($) {
 	var data = '';
 	data += 'tx_powermail_pi1[language]=' + $('#powermail_marketing_information').data('language');
 	data += '&tx_powermail_pi1[pid]=' + $('#powermail_marketing_information').data('pid');

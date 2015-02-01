@@ -166,6 +166,7 @@ class CaptchaDataAttributeViewHelperTest extends UnitTestCase {
 		}
 
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
+		$this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
 
 		$controllerContext = new ControllerContext;
 		$request = new Request;

@@ -77,6 +77,7 @@ class DivTest extends UnitTestCase {
 					'Kellner'
 				),
 				NULL,
+				NULL,
 				'Alex Kellner'
 			),
 			array(
@@ -85,14 +86,23 @@ class DivTest extends UnitTestCase {
 					'Müller'
 				),
 				'abc',
+				'def',
 				'Prof. Dr. Müller'
 			),
 			array(
+				NULL,
 				NULL,
 				'Fallback Name',
 				'Fallback Name'
 			),
 			array(
+				NULL,
+				'Fallback Name',
+				NULL,
+				'Fallback Name'
+			),
+			array(
+				NULL,
 				NULL,
 				NULL,
 				'No Sendername'
@@ -108,6 +118,7 @@ class DivTest extends UnitTestCase {
 					'Muster'
 				),
 				'xyz',
+				'abc',
 				'Prof. Dr. Max Muster'
 			),
 		);
@@ -118,12 +129,14 @@ class DivTest extends UnitTestCase {
 	 *
 	 * @param array $values
 	 * @param string $fallback
+	 * @param string $defaultMailFromAddress
 	 * @param string $expectedResult
 	 * @return void
 	 * @dataProvider getSenderNameFromArgumentsReturnsStringDataProvider
 	 * @test
 	 */
-	public function getSenderNameFromArgumentsReturnsString($values, $fallback, $expectedResult) {
+	public function getSenderNameFromArgumentsReturnsString($values, $fallback, $defaultMailFromAddress, $expectedResult) {
+		$GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = $defaultMailFromAddress;
 		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $value) {
@@ -155,6 +168,7 @@ class DivTest extends UnitTestCase {
 					'abc@def.gh'
 				),
 				NULL,
+				NULL,
 				'abc@def.gh'
 			),
 			array(
@@ -163,14 +177,32 @@ class DivTest extends UnitTestCase {
 					'abc@def.gh'
 				),
 				NULL,
+				NULL,
 				'alexander.kellner@in2code.de'
 			),
 			array(
 				array(
 					'no email'
 				),
-				'test@email.org',
-				'test@email.org'
+				'test1@email.org',
+				'test2@email.org',
+				'test1@email.org'
+			),
+			array(
+				array(
+					'no email'
+				),
+				'test1@email.org',
+				NULL,
+				'test1@email.org'
+			),
+			array(
+				array(
+					'no email'
+				),
+				NULL,
+				'test2@email.org',
+				'test2@email.org'
 			),
 			array(
 				array(
@@ -178,8 +210,9 @@ class DivTest extends UnitTestCase {
 					'def',
 					'ghi'
 				),
-				'abc@email.org',
-				'abc@email.org'
+				'test1@email.org',
+				'test2@email.org',
+				'test1@email.org'
 			)
 		);
 	}
@@ -189,12 +222,14 @@ class DivTest extends UnitTestCase {
 	 *
 	 * @param array $values
 	 * @param string $fallback
+	 * @param string $defaultMailFromAddress
 	 * @param string $expectedResult
 	 * @return void
 	 * @dataProvider getSenderMailFromArgumentsReturnsStringDataProvider
 	 * @test
 	 */
-	public function getSenderMailFromArgumentsReturnsString($values, $fallback, $expectedResult) {
+	public function getSenderMailFromArgumentsReturnsString($values, $fallback, $defaultMailFromAddress, $expectedResult) {
+		$GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $defaultMailFromAddress;
 		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $value) {

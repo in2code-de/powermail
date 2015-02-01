@@ -6,8 +6,9 @@ use \In2code\Powermail\Utility\BasicFileFunctions,
 	\In2code\Powermail\Domain\Model\Mail,
 	\TYPO3\CMS\Core\Utility\GeneralUtility,
 	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
-	TYPO3\CMS\Core\Utility\DebugUtility,
-	TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+	\TYPO3\CMS\Core\Utility\DebugUtility,
+	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
+	\TYPO3\CMS\Core\Messaging\AbstractMessage;
 
 /***************************************************************
  *  Copyright notice
@@ -81,6 +82,7 @@ class FormController extends AbstractController {
 	 */
 	public function initializeCreateAction() {
 		$this->reformatParamsForAction();
+		$this->forwardIfFormParamsDoNotMatch();
 	}
 
 	/**
@@ -99,7 +101,6 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	public function createAction(Mail $mail, $hash = NULL) {
-		$this->ignoreWrongForm($mail);
 		BasicFileFunctions::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
 
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
@@ -150,6 +151,7 @@ class FormController extends AbstractController {
 	 */
 	public function initializeConfirmationAction() {
 		$this->reformatParamsForAction();
+		$this->forwardIfFormParamsDoNotMatch();
 	}
 
 	/**
@@ -167,7 +169,6 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	public function confirmationAction(Mail $mail) {
-		$this->ignoreWrongForm($mail);
 		BasicFileFunctions::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
 
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $this));
@@ -234,7 +235,7 @@ class FormController extends AbstractController {
 				$this->addFlashMessage(
 					LocalizationUtility::translate('error_mail_not_created', 'powermail'),
 					'',
-					\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+					AbstractMessage::ERROR
 				);
 				$this->messageClass = 'error';
 			}
@@ -484,20 +485,20 @@ class FormController extends AbstractController {
 			$this->addFlashMessage(
 				LocalizationUtility::translate('error_no_typoscript', 'powermail'),
 				'',
-				\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+				AbstractMessage::ERROR
 			);
 		}
 	}
 
 	/**
-	 * Forward to form action if wrong form in plugin variables
+	 * Forward to form action if wrong form in plugin variables given
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return void
 	 */
-	protected function ignoreWrongForm(Mail $mail) {
-		$pluginHasThisAssignedForms = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-		if (!in_array($mail->getForm()->getUid(), $pluginHasThisAssignedForms)) {
+	protected function forwardIfFormParamsDoNotMatch() {
+		$arguments = $this->request->getArguments();
+		$assignedFormsToContentElement = GeneralUtility::intExplode(',', $this->settings['main']['form']);
+		if (!in_array($arguments['mail']['form'], $assignedFormsToContentElement)) {
 			$this->forward('form');
 		}
 	}

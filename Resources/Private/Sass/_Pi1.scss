@@ -105,7 +105,7 @@
 		.powermail_captcha_outer,
 		.powermail_check_outer,
 		.powermail_fieldwrap_text,
-		.powermail_fieldwrap_file_inner ul {
+		.powermail_fieldwrap_file_inner ul:not(.parsley-errors-list) {
 			background-color: white;
 			border: 1px solid $greySoft2;
 			float: right;

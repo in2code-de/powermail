@@ -287,6 +287,8 @@ see which checks failed and the overall Spam Factor.
    3: Viagra and Free P0rn
    See link on http://freeporn.de or http://freeporn.com
 
+   Senders IP address: 155.233.10.8
+
 You can also enable the Spamshield Debug to see the Methods
 which are failed above the form. Enable with TypoScript setup (Use extension devlog to see this settings):
 

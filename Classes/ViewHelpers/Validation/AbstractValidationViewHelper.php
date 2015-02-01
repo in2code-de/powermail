@@ -2,7 +2,10 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
-	\TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
+	\TYPO3\CMS\Core\Utility\GeneralUtility,
+	\In2code\Powermail\Domain\Model\Field;
 
 /**
  * Abstract Validation ViewHelper
@@ -11,7 +14,7 @@ use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
  * @subpackage Fluid
  * @version
  */
-class AbstractValidationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class AbstractValidationViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -64,7 +67,7 @@ class AbstractValidationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return void
 	 */
-	protected function addMandatoryAttributes(&$additionalAttributes, \In2code\Powermail\Domain\Model\Field $field = NULL) {
+	protected function addMandatoryAttributes(&$additionalAttributes, Field $field = NULL) {
 		if ($field !== NULL && $field->getMandatory()) {
 			if ($this->isNativeValidationEnabled()) {
 				$additionalAttributes['required'] = 'required';
@@ -78,6 +81,7 @@ class AbstractValidationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
 					'validationerror_mandatory',
 					$this->extensionName
 				);
+				$additionalAttributes['data-parsley-trigger'] = 'change';
 			}
 		}
 	}
@@ -88,11 +92,15 @@ class AbstractValidationViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
 	 * @return void
 	 */
 	public function initialize() {
+		$this->extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
+		if ($this->arguments['extensionName'] !== NULL) {
+			$this->extensionName = $this->arguments['extensionName'];
+		}
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		if (!empty($typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'])) {
-			$this->settings = \TYPO3\CMS\Core\Utility\GeneralUtility::removeDotsFromTS(
+			$this->settings = GeneralUtility::removeDotsFromTS(
 				$typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.']
 			);
 		}

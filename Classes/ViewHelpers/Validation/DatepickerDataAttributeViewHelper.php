@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use \TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	\In2code\Powermail\Domain\Model\Field;
 
 /**
  * Returns Data-Attributes for JS and Native Validation
@@ -13,11 +14,6 @@ use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 
 	/**
-	 * @var \string
-	 */
-	protected $extensionName;
-
-	/**
 	 * Returns Data Attribute Array Datepicker settings (FE + BE)
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Field $field
@@ -25,16 +21,13 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 	 * @param \string $value of this field
 	 * @return \array for data attributes
 	 */
-	public function render(\In2code\Powermail\Domain\Model\Field $field = NULL, $additionalAttributes = array(), $value = '') {
-		$this->extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
-
+	public function render(Field $field = NULL, $additionalAttributes = array(), $value = '') {
 		$additionalAttributes['data-datepicker-force'] =
 			$this->settings['misc']['datepicker']['forceJavaScriptDatePicker'];
 		$additionalAttributes['data-datepicker-settings'] = $this->getDatepickerSettings($field);
 		$additionalAttributes['data-datepicker-months'] = $this->getMonthNames();
 		$additionalAttributes['data-datepicker-days'] = $this->getDayNames();
 		$additionalAttributes['data-datepicker-format'] = $this->getFormat($field);
-		$additionalAttributes['data-parsley-trigger'] = 'change';
 		if ($value) {
 			$additionalAttributes['data-date-value'] = $value;
 		}
@@ -50,7 +43,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return string
 	 */
-	protected function getDatepickerSettings(\In2code\Powermail\Domain\Model\Field $field = NULL) {
+	protected function getDatepickerSettings(Field $field = NULL) {
 		if ($field === NULL) {
 			return 'datetime';
 		}
@@ -63,7 +56,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @return string
 	 */
-	protected function getFormat(\In2code\Powermail\Domain\Model\Field $field = NULL) {
+	protected function getFormat(Field $field = NULL) {
 		return LocalizationUtility::translate('datepicker_format_' . $this->getDatepickerSettings($field), $this->extensionName);
 	}
 

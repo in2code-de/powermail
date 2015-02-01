@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use \TYPO3\CMS\Extbase\Utility\LocalizationUtility,
+	\In2code\Powermail\Domain\Model\Field;
 
 /**
  * Returns Data-Attributes for JS and Native Validation
@@ -20,7 +21,7 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper {
 	 * @param \mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
 	 * @return \array for data attributes
 	 */
-	public function render(\In2code\Powermail\Domain\Model\Field $field, $additionalAttributes = array(), $iteration = NULL) {
+	public function render(Field $field, $additionalAttributes = array(), $iteration = NULL) {
 		if ($field->getType() !== 'captcha') {
 			return $additionalAttributes;
 		}

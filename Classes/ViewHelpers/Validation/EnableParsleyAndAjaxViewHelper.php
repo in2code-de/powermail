@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use \In2code\Powermail\Domain\Model\Form;
+
 /**
  * Adds additional attributes for parsley or AJAX submit
  *
@@ -17,7 +19,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper {
 	 * @param \array $additionalAttributes To add further attributes
 	 * @return \array for data attributes
 	 */
-	public function render(\In2code\Powermail\Domain\Model\Form $form, $additionalAttributes = array()) {
+	public function render(Form $form, $additionalAttributes = array()) {
 		$dataArray = $additionalAttributes;
 
 		// add parsley attribute

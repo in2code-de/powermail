@@ -2,7 +2,9 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use \In2code\Powermail\Utility\Div,
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility,
+	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Get Captcha
@@ -10,7 +12,7 @@ use \In2code\Powermail\Utility\Div,
  * @package TYPO3
  * @subpackage Fluid
  */
-class CaptchaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class CaptchaViewHelper extends AbstractViewHelper {
 
 	/**
 	 * PersistenceManager
@@ -64,7 +66,7 @@ class CaptchaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 	 */
 	public function initialize() {
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
-			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 	}
