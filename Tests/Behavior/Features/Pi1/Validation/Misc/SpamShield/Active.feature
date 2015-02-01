@@ -1,12 +1,9 @@
 # Features/Pi1/Validation/SpamShieldValidation.feature
-@Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscSpamShieldValidation
-Feature: SpamShieldValidation
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
+@Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscSpamShield @Pi1ValidationMiscSpamShieldActive
+Feature: Active
 
   # Test Spamshield Form
-  Scenario: Searching for a Form with a captcha
+  Scenario: Validator should calculate 92% chance of spam on submit
     Given I am on "/index.php?id=37"
     Then I should see "Name"
     Then I should see "E-Mail"
