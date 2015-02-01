@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Utility\Tca;
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility,
+	\TYPO3\CMS\Backend\Utility\BackendUtility,
 	\In2code\Powermail\Utility\Div;
 
 /***************************************************************
@@ -69,7 +70,7 @@ class FieldSelectorUserFunc {
 
 	/**
 	 * Return Form Uid from Flexform settings
-	 * 
+	 *
 	 * @param array $params
 	 * @return int
 	 */
@@ -77,7 +78,18 @@ class FieldSelectorUserFunc {
 		$xml = $params['row']['pi_flexform'];
 		$flexform = GeneralUtility::xml2array($xml);
 		if (is_array($flexform) && isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
-			return $flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+			$formValue = (string) $flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+			/**
+			 * It seems that the automatic conversion from the original
+			 * form value (table_uid|title) only works in the main sheet.
+			 * In the other sheets we need to take care of the conversion.
+			 */
+			if ($formValue !== '' && !is_numeric($formValue)) {
+				$tableAndTitle = explode('|', $formValue, 2);
+				$tableAndUid = BackendUtility::splitTable_Uid($tableAndTitle[0]);
+				$formValue = $tableAndUid[1];
+			}
+			return (int) $formValue;
 		}
 		return 0;
 	}
