@@ -71,6 +71,15 @@ Explanation
       General
 
  - :Field:
+      Mandatory Field
+   :Description:
+      This field must contain input.
+   :Explanation:
+      Check this if the field must contain a file for an upload, otherwise submitting the form is not possible.
+   :Tab:
+      Extended
+
+ - :Field:
       Layout
    :Description:
       Choose a layout.
