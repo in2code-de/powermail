@@ -81,7 +81,7 @@ class SpamShieldValidator extends AbstractValidator {
 	 * @return bool
 	 */
 	public function isValid($mail) {
-		if (!$this->settings['spamshield.']['_enable']) {
+		if (empty($this->settings['spamshield.']['_enable'])) {
 			return $this->getIsValid();
 		}
 		$this->runSpamPreventationMethods($mail);
@@ -496,13 +496,15 @@ class SpamShieldValidator extends AbstractValidator {
 	}
 
 	/**
-	 * Constructor
+	 * Initialize
+	 *
+	 * @return void
 	 */
-	public function __construct() {
+	public function initializeObject() {
 		$this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
 		$this->referrer = $this->piVars['__referrer']['@action'];
 		$this->typoScriptFrontendController = $GLOBALS['TSFE'];
 		$this->configurationArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-		$this->spamFactorLimit = $this->settings['spamshield.']['factor'] / 100;
+		$this->setSpamFactorLimit($this->settings['spamshield.']['factor'] / 100);
 	}
 }
