@@ -104,10 +104,10 @@ Example PHP Script
    class user_manipulatePowermailReceiver {
 
            public function getEmail($content = '', $conf = array()) {
-                   $variables = t3lib_div::_GP('tx_powermail_pi1');
+                   $variables = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_powermail_pi1');
                    $email = 'email1@domain.org';
 
-                   if ($variables['field']['2'] == 'Alex') {
+                   if ($variables['field']['firstname'] == 'Alex') {
                            $email = 'email2@domain.org';
                    }
                    return $email;
