@@ -1,19 +1,15 @@
 # Features/Pi1/Default/ShortFormDoubleOptin.feature
 @Pi1 @Pi1Default @Pi1DefaultShortDoubleOptin
 Feature: ShortFormDoubleOptin
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
-  # German
-  Scenario: Searching for a DefaultForm that does exist in german
+  Scenario: Check if form is rendered correct
     Given I am on "/index.php?id=65"
-    Then I should see "ShortFormAndRedirect"
+    Then I should see "Short Form Prefilled"
     Then I should see "Vorname"
     Then I should see "Nachname"
     Then I should see "E-Mail"
 
-  Scenario: Fill out DefaultForm and submit
+  Scenario: Check if submit works properly
     Given I am on "/index.php?id=65"
     When I fill in "tx_powermail_pi1[field][firstname]" with "Alex"
     When I fill in "tx_powermail_pi1[field][lastname]" with "Kellner"
@@ -25,3 +21,7 @@ Feature: ShortFormDoubleOptin
     Then I should see "alex@in2code.de"
     And I press "Weiter"
     Then I should see "Bitte überprüfen Sie Ihr E-Mail-Postfach und bestätigen Sie diese Aktion."
+
+  Scenario: Check if optinConfirm shows error if wrong cHash
+    Given I am on "/index.php?id=65&tx_powermail_pi1%5Bhash%5D=abc&tx_powermail_pi1%5Bmail%5D=3178&tx_powermail_pi1%5Baction%5D=optinConfirm&tx_powermail_pi1%5Bcontroller%5D=Form"
+    Then I should see "Der eingegebene Link ist ungültig"
