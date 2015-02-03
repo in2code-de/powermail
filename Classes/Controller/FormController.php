@@ -498,7 +498,7 @@ class FormController extends AbstractController {
 	protected function forwardIfFormParamsDoNotMatch() {
 		$arguments = $this->request->getArguments();
 		$assignedFormsToContentElement = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-		if (!in_array($arguments['mail']['form'], $assignedFormsToContentElement)) {
+		if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $assignedFormsToContentElement)) {
 			$this->forward('form');
 		}
 	}
