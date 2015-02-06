@@ -46,6 +46,11 @@ class CalculatingCaptcha {
 	protected $configuration;
 
 	/**
+	 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+	 */
+	protected $typoScriptFrontendController;
+
+	/**
 	 * Operators
 	 *
 	 * @var array
@@ -91,10 +96,9 @@ class CalculatingCaptcha {
 	 * @return boolean
 	 */
 	public function validCode($code, $clearSession = TRUE) {
-		if (intval($code) == $GLOBALS['TSFE']->fe_user->sesData['powermail_captcha_value'] && !empty($code)) {
+		if ((int) $code === $this->getCaptchaSession() && !empty($code)) {
 			if ($clearSession) {
-				$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_captcha_value', '');
-				$GLOBALS['TSFE']->storeSessionData();
+				$this->setCaptchaSession('');
 			}
 			return TRUE;
 		}
@@ -122,12 +126,10 @@ class CalculatingCaptcha {
 		$startimage = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . Div::getSubFolderOfCurrentUrl();
 		$startimage .= $this->getFileName($this->configuration['captcha.']['default.']['image']);
 
-		// if startfile does not exist
 		if (!is_file($startimage)) {
 			return 'Error: No Image found on ' . $startimage;
 		}
 
-		// Backgroundimage
 		$img = ImageCreateFromPNG($startimage);
 		$config = array();
 		$config['color_rgb'] = sscanf($this->configuration['captcha.']['default.']['textColor'], '#%2x%2x%2x');
@@ -230,8 +232,15 @@ class CalculatingCaptcha {
 	 * @return void
 	 */
 	protected function setCaptchaSession($result) {
-		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermail_captcha_value', $result);
-		$GLOBALS['TSFE']->storeSessionData();
+		$this->typoScriptFrontendController->fe_user->setKey('ses', 'powermail_captcha_value', $result);
+		$this->typoScriptFrontendController->storeSessionData();
+	}
+
+	/**
+	 * @return int
+	 */
+	protected function getCaptchaSession() {
+		return (int) $this->typoScriptFrontendController->fe_user->sesData['powermail_captcha_value'];
 	}
 
 	/**
@@ -262,5 +271,12 @@ class CalculatingCaptcha {
 	 */
 	public function getCaptchaImage() {
 		return $this->captchaImage;
+	}
+
+	/**
+	 * Init
+	 */
+	public function __construct() {
+		$this->typoScriptFrontendController = $GLOBALS['TSFE'];
 	}
 }

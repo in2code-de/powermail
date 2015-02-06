@@ -190,7 +190,7 @@ class OutputController extends AbstractController {
 		}
 		$fields = $this->fieldRepository->findByUids($fieldArray);
 
-		if ($export['format'] == 'xls') {
+		if ($export['format'] === 'xls') {
 			$this->forward('exportXls', NULL, NULL, array('mails' => $mails, 'fields' => $fields));
 		}
 		$this->forward('exportCsv', NULL, NULL, array('mails' => $mails, 'fields' => $fields));

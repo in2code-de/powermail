@@ -107,7 +107,7 @@ Example PHP Script
                    $variables = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_powermail_pi1');
                    $email = 'email1@domain.org';
 
-                   if ($variables['field']['firstname'] == 'Alex') {
+                   if ($variables['field']['firstname'] === 'Alex') {
                            $email = 'email2@domain.org';
                    }
                    return $email;

@@ -67,7 +67,7 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 /**
  * Include UserFuncs
  */
-if (TYPO3_MODE == 'BE') {
+if (TYPO3_MODE === 'BE') {
 	$extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
 
 	// form selection
