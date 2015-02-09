@@ -375,7 +375,7 @@ class Tx_Powermail_Utility_Div {
 	 * @param array $mail Array with all needed mail information
 	 * 		$mail['receiverName'] = 'Name';
 	 * 		$mail['receiverEmail'] = 'receiver@mail.com';
-	 *		$mail['senderName'] = 'Name';
+	 * 		$mail['senderName'] = 'Name';
 	 * 		$mail['senderEmail'] = 'sender@mail.com';
 	 * 		$mail['subject'] = 'Subject line';
 	 * 		$mail['template'] = 'PathToTemplate/';
@@ -396,7 +396,6 @@ class Tx_Powermail_Utility_Div {
 		$typoScriptService = $objectManager->get('Tx_Extbase_Service_TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
 
-		// parsing variables with fluid engine to allow viewhelpers and variables in some flexform fields
 		$parse = array(
 			'receiverName',
 			'receiverEmail',
@@ -415,19 +414,22 @@ class Tx_Powermail_Utility_Div {
 
 		// stop mail process if receiver or sender email is not valid
 		if (!t3lib_div::validEmail($mail['receiverEmail']) || !t3lib_div::validEmail($mail['senderEmail'])) {
-			return false;
+			return FALSE;
 		}
 
 		// stop mail process if subject is empty
 		if (empty($mail['subject'])) {
-			return false;
+			return FALSE;
 		}
 
 		// generate mail body
-		$extbaseFrameworkConfiguration = $configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		$templatePathAndFilename = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']) . $mail['template'] . '.html';
+		$extbaseFrameworkConfiguration = $configurationManager->getConfiguration(
+			Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+		);
+		$templatePathAndFilename = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']) .
+			$mail['template'] . '.html';
 		$emailView = $objectManager->create('Tx_Fluid_View_StandaloneView');
-		$emailView->getRequest()->setControllerExtensionName('Powermail'); // extension name for translate viewhelper
+		$emailView->getRequest()->setControllerExtensionName('Powermail');
 		$emailView->getRequest()->setPluginName('Pi1');
 		$emailView->getRequest()->setControllerName('Forms');
 		$emailView->setFormat('html');
@@ -468,24 +470,36 @@ class Tx_Powermail_Utility_Div {
 
 		// overwrite subject
 		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['subject'], $conf[$type . '.']['overwrite.']['subject.'])) {
-			$message->setSubject($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['subject'], $conf[$type . '.']['overwrite.']['subject.']));
+			$message->setSubject(
+				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['subject'], $conf[$type . '.']['overwrite.']['subject.'])
+			);
 		}
 
 		// add cc receivers
 		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.'])) {
-			$ccArray = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.']), 1);
+			$ccArray = t3lib_div::trimExplode(
+				',',
+				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.']),
+				TRUE
+			);
 			$message->setCc($ccArray);
 		}
 
 		// add bcc receivers
 		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'], $conf[$type . '.']['overwrite.']['bcc.'])) {
-			$bccArray = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'], $conf[$type . '.']['overwrite.']['bcc.']), 1);
+			$bccArray = t3lib_div::trimExplode(
+				',',
+				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'], $conf[$type . '.']['overwrite.']['bcc.']),
+				TRUE
+			);
 			$message->setBcc($bccArray);
 		}
 
 		// add Return Path
 		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'], $conf[$type . '.']['overwrite.']['returnPath.'])) {
-			$message->setReturnPath($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'], $conf[$type . '.']['overwrite.']['returnPath.']));
+			$message->setReturnPath(
+				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'], $conf[$type . '.']['overwrite.']['returnPath.'])
+			);
 		}
 
 		// add Reply Addresses
@@ -504,7 +518,10 @@ class Tx_Powermail_Utility_Div {
 		// set Sender Header according to RFC 2822 - 3.6.2 Originator fields
 		if ($cObj->cObjGetSingle($conf[$type . '.']['senderHeader.']['email'], $conf[$type . '.']['senderHeader.']['email.'])) {
 			$senderName = $cObj->cObjGetSingle($conf[$type . '.']['senderHeader.']['name'], $conf[$type . '.']['senderHeader.']['name.']);
-			$message->setSender($cObj->cObjGetSingle($conf[$type . '.']['senderHeader.']['email'], $conf[$type . '.']['senderHeader.']['email.']), ($senderName?$senderName:null));
+			$message->setSender(
+				$cObj->cObjGetSingle($conf[$type . '.']['senderHeader.']['email'], $conf[$type . '.']['senderHeader.']['email.']),
+				($senderName ? $senderName : NULL)
+			);
 		}
 
 		// add priority
@@ -514,10 +531,10 @@ class Tx_Powermail_Utility_Div {
 
 		// add attachments from upload fields
 		if ($settings[$type]['attachment']) {
-			$uploadsFromSession = Tx_Powermail_Utility_Div::getSessionValue('upload'); // read upload session
+			$uploadsFromSession = self::getSessionValue('upload');
 			if (!empty($uploadsFromSession)) {
 				foreach ((array) $uploadsFromSession as $file) {
-					if (!empty($file) && file_exists($file)) {
+					if (is_string($file) && file_exists($file)) {
 						$message->attach(Swift_Attachment::fromPath($file));
 					}
 				}
@@ -526,10 +543,14 @@ class Tx_Powermail_Utility_Div {
 
 		// add attachments from typoscript
 		if ($cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.'])) {
-			$files = t3lib_div::trimExplode(',', $cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.']), 1);
+			$files = t3lib_div::trimExplode(
+				',',
+				$cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.']),
+				TRUE
+			);
 			if (!empty($files)) {
 				foreach ((array) $files as $file) {
-					if (!empty($file) && file_exists($file)) {
+					if (is_string($file) && file_exists($file)) {
 						$message->attach(Swift_Attachment::fromPath($file));
 
 					}
