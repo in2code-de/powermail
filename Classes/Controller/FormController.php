@@ -421,7 +421,7 @@ class FormController extends AbstractController {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		$mail = $this->mailRepository->findByUid($mail);
 
-		if (Div::checkOptinHash($hash, $mail)) {
+		if ($mail !== NULL && Div::checkOptinHash($hash, $mail)) {
 			if ($mail->getHidden()) {
 				$mail->setHidden(FALSE);
 				$this->mailRepository->update($mail);
@@ -456,8 +456,6 @@ class FormController extends AbstractController {
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
-
-			// merge extension manager settings and typoscript and flexform
 		Div::mergeTypoScript2FlexForm($this->settings);
 
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
@@ -498,7 +496,7 @@ class FormController extends AbstractController {
 	protected function forwardIfFormParamsDoNotMatch() {
 		$arguments = $this->request->getArguments();
 		$assignedFormsToContentElement = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-		if (!in_array($arguments['mail']['form'], $assignedFormsToContentElement)) {
+		if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $assignedFormsToContentElement)) {
 			$this->forward('form');
 		}
 	}

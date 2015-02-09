@@ -69,7 +69,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 						'validationerror_mandatory_multi',
 						$this->extensionName
 					);
-					if ($field->getType() == 'check' && $iteration['total'] > 1) {
+					if ($field->getType() === 'check' && $iteration['total'] > 1) {
 						$additionalAttributes['data-parsley-required'] = 'true';
 					}
 				}
@@ -84,7 +84,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 		}
 
 			// add multiple attribute to bundle checkboxes for parsley
-		if ($field->getMandatory() && $this->isClientValidationEnabled() && $field->getType() == 'check' && $iteration['total'] > 1) {
+		if ($field->getMandatory() && $this->isClientValidationEnabled() && $field->getType() === 'check' && $iteration['total'] > 1) {
 			$additionalAttributes['data-parsley-multiple'] = $field->getMarker();
 		}
 	}

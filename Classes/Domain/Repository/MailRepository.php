@@ -72,7 +72,7 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 				// Standard Fields
 				if (!is_array($value)) {
 					// Fulltext Search
-					if ($field == 'all' && !empty($value)) {
+					if ($field === 'all' && !empty($value)) {
 						$or = array(
 							$query->like('sender_name', '%' . $value . '%'),
 							$query->like('sender_mail', '%' . $value . '%'),
@@ -85,17 +85,17 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 					}
 
 					// Time Filter Start
-					elseif ($field == 'start' && !empty($value)) {
+					elseif ($field === 'start' && !empty($value)) {
 						$and[] = $query->greaterThan('crdate', strtotime($value));
 					}
 
 					// Time Filter Stop
-					elseif ($field == 'stop' && !empty($value)) {
+					elseif ($field === 'stop' && !empty($value)) {
 						$and[] = $query->lessThan('crdate', strtotime($value));
 					}
 
 					// Hidden Filter
-					elseif ($field == 'hidden' && !empty($value)) {
+					elseif ($field === 'hidden' && !empty($value)) {
 						$and[] = $query->equals($field, ($value - 1));
 					}
 
@@ -124,11 +124,11 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 		// set sorting
 		$sortby = ($settings['sortby'] ? $settings['sortby'] : 'crdate');
-		$order = ($settings['order'] == 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING);
+		$order = ($settings['order'] === 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING);
 		if (isset($piVars['sorting'])) {
 			foreach ((array) $piVars['sorting'] as $key => $value) {
 				$sortby = $key;
-				$order = ($value == 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING);
+				$order = ($value === 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING);
 				break;
 			}
 		}
@@ -241,7 +241,7 @@ class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$query->setOrderings(
 				array (
 					$field => (
-						$order == 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING
+						$order === 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING
 					)
 				)
 			);

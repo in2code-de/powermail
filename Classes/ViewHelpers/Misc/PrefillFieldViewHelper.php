@@ -3,7 +3,10 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 
 use \In2code\Powermail\Domain\Model\Field,
 	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+	\TYPO3\CMS\Core\Utility\GeneralUtility,
+	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
+	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
+	\TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
  * Prefill a field with variables
@@ -12,7 +15,7 @@ use \In2code\Powermail\Domain\Model\Field,
  * @subpackage Fluid
  * @version
  */
-class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class PrefillFieldViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -41,7 +44,7 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail To prefill in Edit Action
 	 * @param \int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
-	 * @return mixed Prefill field with this string
+	 * @return string|array|bool Prefill field with this string
 	 */
 	public function render(Field $field, Mail $mail = NULL, $cycle = 0) {
 		// don't prefill if cached form to prevent wrong cached values
@@ -65,9 +68,7 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail To prefill in Edit Action
 	 * @return string|array
 	 */
-	protected function getDefaultValue(
-		\In2code\Powermail\Domain\Model\Field $field, \In2code\Powermail\Domain\Model\Mail $mail = NULL) {
-
+	protected function getDefaultValue(Field $field, Mail $mail = NULL) {
 		$value = '';
 		$marker = $field->getMarker();
 		$uid = $field->getUid();
@@ -120,7 +121,7 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 		// if prefill value (from typoscript)
 		elseif (isset($this->settings['prefill.'][$marker]) || isset($this->settings['prefill.'][$marker . '.'])) {
 			if (isset($this->settings['prefill.'][$marker . '.']) && is_array($this->settings['prefill.'][$marker . '.'])) {
-				$data = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getGettableProperties($field);
+				$data = ObjectAccess::getGettableProperties($field);
 				$this->cObj->start($data);
 
 				if (isset($this->settings['prefill.'][$marker . '.']['0'])) {
@@ -166,13 +167,12 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	 * @param \In2code\Powermail\Domain\Model\Field $field
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail To prefill in Edit Action
 	 * @param \int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
-	 * @return string
+	 * @return bool
 	 */
-	protected function getMultiValue(
-		\In2code\Powermail\Domain\Model\Field $field, \In2code\Powermail\Domain\Model\Mail $mail = NULL, $cycle = 0) {
+	protected function getMultiValue(Field $field, Mail $mail = NULL, $cycle = 0) {
 		$marker = $field->getMarker();
 		$uid = $field->getUid();
-		$selected = 0;
+		$selected = FALSE;
 		$index = $cycle - 1;
 		$options = $field->getModifiedSettings();
 
@@ -183,7 +183,7 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 					$values = $answer->getValue();
 					foreach ((array) $values as $value) {
 						if ($value === $options[$index]['value'] || $value === $options[$index]['label']) {
-							$selected = 1;
+							$selected = TRUE;
 						}
 					}
 				}
@@ -197,16 +197,16 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 					$this->piVars['field'][$marker][$key] === $options[$index]['value']
 					|| $this->piVars['field'][$marker][$key] === $options[$index]['label']
 				) {
-					$selected = 1;
+					$selected = TRUE;
 				}
 			}
 		}
 
 		// if GET/POST with marker (&tx_powermail_pi1[field][marker]=value)
 		elseif (isset($this->piVars['field'][$marker])) {
-			if ($this->piVars['field'][$marker] == $options[$index]['value'] ||
-				$this->piVars['field'][$marker] == $options[$index]['label']) {
-				$selected = 1;
+			if ($this->piVars['field'][$marker] === $options[$index]['value'] ||
+				$this->piVars['field'][$marker] === $options[$index]['label']) {
+				$selected = TRUE;
 			}
 		}
 
@@ -217,15 +217,15 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 					$this->piVars[$marker][$key] === $options[$index]['value']
 					|| $this->piVars[$marker][$key] === $options[$index]['label']
 				) {
-					$selected = 1;
+					$selected = TRUE;
 				}
 			}
 		}
 
 		// if GET/POST with marker (&tx_powermail_pi1[marker]=value)
 		elseif (isset($this->piVars[$marker])) {
-			if ($this->piVars[$marker] == $options[$index]['value'] || $this->piVars[$marker] == $options[$index]['label']) {
-				$selected = 1;
+			if ($this->piVars[$marker] === $options[$index]['value'] || $this->piVars[$marker] === $options[$index]['label']) {
+				$selected = TRUE;
 			}
 		}
 
@@ -234,43 +234,46 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 			if (is_array($this->piVars['field'][$uid])) {
 				foreach ($this->piVars['field'][$uid] as $key => $value) {
 					$value = NULL;
-					if ($this->piVars['field'][$uid][$key] == $options[$index]['value'] ||
-						$this->piVars['field'][$uid][$key] == $options[$index]['label']) {
-						$selected = 1;
+					if ($this->piVars['field'][$uid][$key] === $options[$index]['value'] ||
+						$this->piVars['field'][$uid][$key] === $options[$index]['label']) {
+						$selected = TRUE;
 					}
 				}
 			} else {
-				if ($this->piVars['field'][$uid] == $options[$index]['value'] || $this->piVars['field'][$uid] == $options[$index]['label']) {
-					$selected = 1;
+				if (
+					$this->piVars['field'][$uid] === $options[$index]['value'] ||
+					$this->piVars['field'][$uid] === $options[$index]['label']
+				) {
+					$selected = TRUE;
 				}
 			}
 		}
 
 		// if GET/POST with old uid (&tx_powermail_pi1[uid123]=value)
 		elseif (isset($this->piVars['uid' . $uid])) {
-			if ($this->piVars['uid' . $uid] == $options[$index]['value'] || $this->piVars['uid' . $uid] == $options[$index]['label']) {
-				$selected = 1;
+			if ($this->piVars['uid' . $uid] === $options[$index]['value'] || $this->piVars['uid' . $uid] === $options[$index]['label']) {
+				$selected = TRUE;
 			}
 		}
 
 		// if field should be filled with FE_User values
 		elseif ($field->getFeuserValue() && intval($GLOBALS['TSFE']->fe_user->user['uid']) !== 0) {
 			// if fe_user is logged in
-			if ($GLOBALS['TSFE']->fe_user->user[$field->getFeuserValue()] == $options[$index]['value'] ||
-				$GLOBALS['TSFE']->fe_user->user[$field->getFeuserValue()] == $options[$index]['label']) {
-				$selected = 1;
+			if ($GLOBALS['TSFE']->fe_user->user[$field->getFeuserValue()] === $options[$index]['value'] ||
+				$GLOBALS['TSFE']->fe_user->user[$field->getFeuserValue()] === $options[$index]['label']) {
+				$selected = TRUE;
 			}
 		}
 
 		// if prefill value (from flexform)
 		elseif ($options[$index]['selected']) {
-			$selected = 1;
+			$selected = TRUE;
 		}
 
 		// if prefill value (from typoscript)
 		elseif (isset($this->settings['prefill.'][$marker]) || isset($this->settings['prefill.'][$marker . '.'])) {
 			if (isset($this->settings['prefill.'][$marker . '.']) && is_array($this->settings['prefill.'][$marker . '.'])) {
-				$data =  \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getGettableProperties($field);
+				$data = ObjectAccess::getGettableProperties($field);
 				$this->cObj->start($data);
 
 				if (isset($this->settings['prefill.'][$marker . '.']['0'])) {
@@ -287,8 +290,8 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 							$this->settings['prefill.'][$marker . '.'][$key],
 							$this->settings['prefill.'][$marker . '.'][$key . '.']
 						);
-						if ($prefill == $options[$index]['value'] || $prefill == $options[$index]['label']) {
-							$selected = 1;
+						if ($prefill === $options[$index]['value'] || $prefill === $options[$index]['label']) {
+							$selected = TRUE;
 						}
 					}
 				} else {
@@ -298,8 +301,8 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 					 * plugin.tx_powermail.settings.setup.prefill.marker.value = red
 					 */
 					$prefill = $this->cObj->cObjGetSingle($this->settings['prefill.'][$marker], $this->settings['prefill.'][$marker . '.']);
-					if ($prefill == $options[$index]['value'] || $prefill == $options[$index]['label']) {
-						$selected = 1;
+					if ($prefill === $options[$index]['value'] || $prefill === $options[$index]['label']) {
+						$selected = TRUE;
 					}
 				}
 			} else {
@@ -307,9 +310,9 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 				/**
 				 * plugin.tx_powermail.settings.setup.prefill.marker = red
 				 */
-				if ($this->settings['prefill.'][$marker] == $options[$index]['value'] ||
-					$this->settings['prefill.'][$marker] == $options[$index]['label']) {
-					$selected = 1;
+				if ($this->settings['prefill.'][$marker] === $options[$index]['value'] ||
+					$this->settings['prefill.'][$marker] === $options[$index]['label']) {
+					$selected = TRUE;
 				}
 			}
 
@@ -337,7 +340,7 @@ class PrefillFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	 * @return void
 	 */
 	public function initialize() {
-		$this->piVars = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_powermail_pi1');
+		$this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
 		$this->cObj = $this->configurationManager->getContentObject();
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT

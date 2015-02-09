@@ -214,7 +214,7 @@ class SpamShieldValidator extends AbstractValidator {
 	 * @return void
 	 */
 	protected function sessionCheck($indication = 1.0, $timeFromSession) {
-		if (!$indication || $this->referrer == 'optinConfirm') {
+		if (!$indication || $this->referrer === 'optinConfirm') {
 			return;
 		}
 

@@ -12,7 +12,7 @@ $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'
  * Enable caching for show action in form controller
  */
 $uncachedFormActions = 'form';
-if ($confArr['enableCaching'] == 1) {
+if ($confArr['enableCaching'] === '1') {
 	$uncachedFormActions = '';
 }
 $uncachedFormActions .= ', create, confirmation, optinConfirm, validateAjax, marketing';
