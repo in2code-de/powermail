@@ -19,7 +19,7 @@ $EM_CONF[$_EXTKEY] = array (
 	',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '2.0.19',
+	'version' => '2.0.20',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
