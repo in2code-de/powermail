@@ -79,11 +79,11 @@ class CaptchaValidator extends AbstractValidator {
 			case 'captcha':
 				session_start();
 				$generatedCaptchaString = $_SESSION['tx_captcha_string'];
-				if (!empty($value) && $generatedCaptchaString === $value) {
-					return TRUE;
-				}
 				if ($this->getClearSession()) {
 					$_SESSION['tx_captcha_string'] = '';
+				}
+				if (!empty($value) && $generatedCaptchaString === $value) {
+					return TRUE;
 				}
 				break;
 
