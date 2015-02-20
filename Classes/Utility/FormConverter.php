@@ -491,7 +491,7 @@ class FormConverter {
 			'radio' => 'radio',
 			'submit' => 'submit',
 			'captcha' => 'captcha',
-			'reset' => FALSE,
+			'reset' => 'reset',
 			'label' => 'text',
 			'content' => 'content',
 			'html' => 'html',
