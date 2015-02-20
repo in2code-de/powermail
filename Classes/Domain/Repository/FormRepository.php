@@ -211,8 +211,7 @@ class FormRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			fs.title,
 			fs.class
 		';
-		$sql .= ' from tx_powermail_fields f
-			left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid
+		$sql .= ' from tx_powermail_fieldsets fs
 			left join tt_content c ON c.uid = fs.tt_content
 		';
 		$sql .= ' where c.deleted = 0 and fs.deleted = 0 and c.uid = ' . intval($uid);
