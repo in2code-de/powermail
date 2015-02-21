@@ -197,7 +197,7 @@ class FormConverter {
 		$ttContentProperties['CType'] = 'list';
 		$ttContentProperties['tstamp'] = time();
 		$ttContentProperties['pi_flexform'] = $this->createFlexForm($form, $formUid);
-		if ($form['sys_language_uid'] > 0) {
+		if ($form['sys_language_uid'] > 0 && !empty($this->localizationRelations['content'][$form['l18n_parent']])) {
 			$ttContentProperties['l18n_parent'] = $this->localizationRelations['content'][$form['l18n_parent']];
 		}
 		if (!$this->getDryrun()) {
@@ -491,7 +491,7 @@ class FormConverter {
 			'radio' => 'radio',
 			'submit' => 'submit',
 			'captcha' => 'captcha',
-			'reset' => FALSE,
+			'reset' => 'reset',
 			'label' => 'text',
 			'content' => 'content',
 			'html' => 'html',
