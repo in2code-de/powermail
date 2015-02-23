@@ -40,7 +40,7 @@ use \In2code\Powermail\Utility\Div,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class AbstractController extends ActionController {
+abstract class AbstractController extends ActionController {
 
 	/**
 	 * formRepository
