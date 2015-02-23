@@ -13,6 +13,14 @@ use \In2code\Powermail\Domain\Model\Field;
 class InputValidator extends StringValidator {
 
 	/**
+	 * @var array
+	 */
+	protected $validationFieldTypes = array(
+		'input',
+		'textarea'
+	);
+
+	/**
 	 * Validation of given Params
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
@@ -25,9 +33,7 @@ class InputValidator extends StringValidator {
 		}
 
 		// iterate through all fields of current form
-		// every page
 		foreach ($mail->getForm()->getPages() as $page) {
-			// every field
 			foreach ($page->getFields() as $field) {
 				$this->isValidField(
 					$field,
@@ -72,7 +78,7 @@ class InputValidator extends StringValidator {
 		}
 
 		// String Checks
-		if (!empty($value)) {
+		if (!empty($value) && in_array($field->getType(), $this->validationFieldTypes)) {
 			switch ($field->getValidation()) {
 
 				// email
