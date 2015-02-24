@@ -10,23 +10,41 @@ jQuery(document).ready(function($) {
 	// slideToggle Details
 	$('.powermail_listbe_details_container').hide();
 	$('.openPowermailDetails, .powermail_listbe_overview > .col-title').click(function() {
-		$(this).closest('tr').next().find('.powermail_listbe_details_container').slideToggle();
+		$(this).closest('tr').next().toggleClass('powermail_listbe_details_closed').find('.powermail_listbe_details_container').slideToggle();
 	});
 
 	// Hide/Unhide Mails
 	$(document).on('click', '.unhideMail, .hideMail', function () {
 		$this = $(this);
-		formToken = $this.siblings('.container_formtoken').val();
-		uid = $this.siblings('.container_uid').val();
-		table = $this.siblings('.container_table').val();
+		formToken = $this.closest('td').find('.container_formtoken').val();
+		uid = $this.closest('td').find('.container_uid').val();
+		table = $this.closest('td').find('.container_table').val();
 
 		if ($this.hasClass('unhideMail')) {
-			$this.removeClass('t3-icon-edit-hide').removeClass('unhideMail').addClass('t3-icon-edit-unhide').addClass('hideMail');
-			$this.parent().parent().children().first().children('.t3-icon').addClass('transparent');
+			$this
+				.removeClass('t3-icon-edit-hide')
+				.removeClass('unhideMail')
+				.removeClass('fa-toggle-on')
+				.addClass('t3-icon-edit-unhide')
+				.addClass('hideMail')
+				.addClass('fa-toggle-off');
+			$this
+				.closest('tr')
+				.find('.t3-icon:first')
+				.addClass('transparent');
 			hidden = 1;
 		} else {
-			$this.removeClass('t3-icon-edit-unhide').removeClass('hideMail').addClass('t3-icon-edit-hide').addClass('unhideMail');
-			$this.parent().parent().children().first().children('.t3-icon').removeClass('transparent');
+			$this
+				.removeClass('t3-icon-edit-unhide')
+				.removeClass('hideMail')
+				.removeClass('fa-toggle-off')
+				.addClass('t3-icon-edit-hide')
+				.addClass('unhideMail')
+				.addClass('fa-toggle-on');
+			$this
+				.closest('tr')
+				.find('.t3-icon:first')
+				.removeClass('transparent');
 			hidden = 0;
 		}
 		url = 'tce_db.php?&data[' + table + '][' + uid + '][hidden]=' + hidden + '&redirect=' + T3_THIS_LOCATION + '&vC=b601970a97' + formToken + '&prErr=1&uPT=1';
@@ -38,14 +56,15 @@ jQuery(document).ready(function($) {
 	// Delete Mail
 	$(document).on('click', '.deleteMail', function () {
 		$this = $(this);
-		formToken = $this.siblings('.container_formtoken').val();
-		uid = $this.siblings('.container_uid').val();
-		table = $this.siblings('.container_table').val();
-		confirmationMessage = $this.siblings('.container_label_delete_confirmation').val();
+		formToken = $this.closest('td').find('.container_formtoken').val();
+		uid = $this.closest('td').find('.container_uid').val();
+		table = $this.closest('td').find('.container_table').val();
+		confirmationMessage = $this.closest('td').find('.container_label_delete_confirmation').val();
 
 		if (confirm(confirmationMessage)) {
-			$this.parent().parent().fadeOut('slow', function() {
-				$(this).next().hide().prev().remove();
+			$this.closest('tr').fadeOut('slow', function() {
+				$(this).next().remove();
+				$(this).remove();
 			});
 
 			url = 'tce_db.php?&cmd[' + table + '][' + uid + '][delete]=1&redirect=' + T3_THIS_LOCATION + '&vC=3c76f1d3bb&prErr=1&uPT=1' + formToken
@@ -104,13 +123,13 @@ jQuery(document).ready(function($) {
 	// Toogle Extended Search
 	$('.extended_search_title').click(function() {
 		$this = $(this);
-		if ($this.hasClass('close')) {
-			$this.removeClass('close').addClass('open').children('span').removeClass('t3-icon-move-down').addClass('t3-icon-move-up');
+		if ($this.hasClass('powermail-close')) {
+			$this.removeClass('powermail-close').addClass('powermail-open').children('span').removeClass('t3-icon-move-down').addClass('t3-icon-move-up');
 			$('fieldset.extended_search').slideDown('', function() {
 				$(this).children('.powermail_module_search_field_container1').children('div.powermail_module_search_field').fadeTo('slow', 1);
 			});
 		} else {
-			$this.removeClass('open').addClass('close').children('span').removeClass('t3-icon-move-up').addClass('t3-icon-move-down');
+			$this.removeClass('powermail-open').addClass('powermail-close').children('span').removeClass('t3-icon-move-up').addClass('t3-icon-move-down');
 			$('fieldset.extended_search').children('.powermail_module_search_field_container1').children('div.powermail_module_search_field').fadeTo('slow', 0, function() {
 				$(this).parent().parent().slideUp();
 			});
@@ -119,14 +138,14 @@ jQuery(document).ready(function($) {
 	// Show Extended Search from the Beginning
 	$('fieldset.extended_search input, fieldset.extended_search select').each(function() {
 		if ($(this).val() != '') { // if there is content in one of the extended fields
-			$('.extended_search_title').removeClass('close').addClass('open');
-			$('.extended_search').removeClass('close').addClass('open');
+			$('.extended_search_title').removeClass('powermail-close').addClass('powermail-open');
+			$('.extended_search').removeClass('powermail-close').addClass('powermail-open');
 			return;
 		}
 	});
 	$('.powermail_module_search_field_container2 input, .powermail_module_search_field_container2 select').each(function() {
 		if ($(this).val() != '') { // if there is content in one of the extended fields
-			$(this).parent().parent().removeClass('close').addClass('open');
+			$(this).parent().parent().removeClass('powermail-close').addClass('powermail-open');
 			return;
 		}
 	});
@@ -159,7 +178,7 @@ jQuery(document).ready(function($) {
 
 	// Add new field
 	$('.searchAddField span, .searchAddField label').click(function() {
-		$('fieldset.extended_search .close').slideToggle();
+		$('fieldset.extended_search .powermail-close').slideToggle();
 	});
 
 
@@ -180,13 +199,13 @@ jQuery(document).ready(function($) {
 	// Toogle Extended Export
 	$('.extended_export_title').click(function() {
 		$this = $(this);
-		if ($this.hasClass('close')) {
-			$this.removeClass('close').addClass('open').children('span').removeClass('t3-icon-move-down').addClass('t3-icon-move-up');
+		if ($this.hasClass('powermail-close')) {
+			$this.removeClass('powermail-close').addClass('powermail-open').children('span').removeClass('t3-icon-move-down').addClass('t3-icon-move-up');
 			$this.next().slideDown('', function() {
 				$this.next().children('div').children('div').fadeTo('slow', 1);
 			});
 		} else {
-			$this.removeClass('open').addClass('close').children('span').removeClass('t3-icon-move-up').addClass('t3-icon-move-down');
+			$this.removeClass('powermail-open').addClass('powermail-close').children('span').removeClass('t3-icon-move-up').addClass('t3-icon-move-down');
 			$this.next().children('div').children('div').fadeTo('slow', 0, function() {
 				$this.next().slideUp();
 			});
@@ -230,10 +249,10 @@ jQuery(document).ready(function($) {
 	$table.find('tr:first').show();
 	$table.find('th').click(function() {
 		$this = $(this);
-		if ($this.hasClass('close')) {
-			$this.removeClass('close').addClass('open');
+		if ($this.hasClass('powermail-close')) {
+			$this.removeClass('powermail-close').addClass('powermail-open');
 		} else {
-			$this.removeClass('open').addClass('close');
+			$this.removeClass('powermail-open').addClass('powermail-close');
 		}
 		$this.parent().siblings().slideToggle('fast');
 	});

@@ -1,0 +1,293 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<f:translate key="BackendListMails" />
+		(<f:count subject="{mails}" />)
+	</div>
+	<div class="table-fit">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th nowrap="nowrap" class="col-icon"></th>
+					<th nowrap="nowrap">
+						<f:if condition="{piVars.sorting.crdate}">
+							<f:then>
+								<f:if condition="{0 : piVars.sorting.crdate} == {0 : 'desc'}">
+									<f:then>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting sorting_desc">
+											<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
+										</f:link.action>
+									</f:then>
+									<f:else>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}" class="sorting sorting_asc">
+											<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
+										</f:link.action>
+									</f:else>
+								</f:if>
+							</f:then>
+							<f:else>
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting">
+									<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
+								</f:link.action>
+							</f:else>
+						</f:if>
+					</th>
+					<th nowrap="nowrap">
+						<strong>
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.datetime" />
+						</strong>
+					</th>
+					<th nowrap="nowrap">
+						<strong>
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderName" />
+						</strong>
+					</th>
+					<th nowrap="nowrap">
+						<strong>
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderMail" />
+						</strong>
+					</th>
+					<th nowrap="nowrap">
+						<f:if condition="{piVars.sorting.subject}">
+							<f:then>
+								<f:if condition="{0 : piVars.sorting.subject} == {0 : 'desc'}">
+									<f:then>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting sorting_desc">
+											<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
+										</f:link.action>
+									</f:then>
+									<f:else>
+										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'desc'}}}" class="sorting sorting_asc">
+											<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
+										</f:link.action>
+									</f:else>
+								</f:if>
+							</f:then>
+							<f:else>
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting">
+									<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
+								</f:link.action>
+							</f:else>
+						</f:if>
+					</th>
+					<th nowrap="nowrap" class="col-control">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<f:for each="{mailsPage}" as="mail" iteration="iteration">
+
+					<f:comment>Basic mail information</f:comment>
+					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
+						<td nowrap="nowrap" class="col-icon">
+							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}"> </span>
+						</td>
+						<td nowrap="nowrap">
+							<f:format.date format="{f:translate(key:'datepicker_format_date')}">{mail.crdate}</f:format.date>
+						</td>
+						<td nowrap="nowrap">
+							<f:format.date format="{f:translate(key:'datepicker_format_time')}">{mail.crdate}</f:format.date>
+						</td>
+						<td nowrap="nowrap">
+							<span title="{mail.senderName}">
+								<f:format.crop maxCharacters="50" append="&nbsp;[...]">{mail.senderName}</f:format.crop>
+							</span>
+						</td>
+						<td nowrap="nowrap">
+							<span title="{mail.senderMail}">
+								<f:format.crop maxCharacters="50" append="&nbsp;[...]">{mail.senderMail}</f:format.crop>
+							</span>
+						</td>
+						<td nowrap="nowrap">
+							<span title="{mail.subject}">
+								<f:format.crop maxCharacters="60" append="&nbsp;[...]">{mail.subject}</f:format.crop>
+							</span>
+						</td>
+
+						<td nowrap="nowrap" class="col-control">
+							<div role="group" class="btn-group">
+								<span class="btn">
+									<span class="t3-icon fa fa-desktop openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
+								</span>
+
+								<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" onclick="window.location.href = 'alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[tx_powermail_domain_model_mails][{mail.uid}]=edit'; return false;" href="#">
+									<span class="t3-icon fa fa-pencil">&nbsp;</span>
+								</a>
+
+								<span class="btn">
+									<span class="t3-icon fa fa-trash deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
+								</span>
+
+								<span class="btn">
+									<f:if condition="{mail.hidden}">
+										<f:then>
+											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off hideMail">&nbsp;</span>
+										</f:then>
+										<f:else>
+											<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on unhideMail">&nbsp;</span>
+										</f:else>
+									</f:if>
+								</span>
+
+								<input type="hidden" class="container_uid" name="container_uid" value="{mail.uid}" />
+								<input type="hidden" class="container_formtoken" name="container_formtoken" value="{token}" />
+								<input type="hidden" class="container_table" name="container_table" value="tx_powermail_domain_model_mails" />
+								<input type="hidden" class="container_label_delete_confirmation" name="container_label_delete_confirmation" value="{f:translate(key:'BackendListMailDeleteConfirmation')}" />
+							</div>
+						</td>
+					</tr>
+
+					<f:comment>More mail details</f:comment>
+					<tr class="db_list_normal powermail_listbe_details powermail_listbe_details_closed">
+						<td colspan="7">
+							<div class="powermail_listbe_details_container">
+								<f:for each="{mail.answers}" as="answer">
+									<f:if condition="{answer.value}">
+										<dl class="powermail_listbe_details_dl">
+											<dt>
+												<f:if condition="{answer.field.title}">
+													<f:then>
+														<strong>{answer.field.title}:</strong>
+													</f:then>
+													<f:else>
+														<strong>No Label:</strong>
+													</f:else>
+												</f:if>
+											</dt>
+											<dd class="powermail_listbe_details_dd powermail_listbe_details_type_{answer.field.type}">
+												<f:comment>Data Type String</f:comment>
+												<f:if condition="{answer.valueType} == 0">
+													<f:format.nl2br>{answer.value}</f:format.nl2br>
+												</f:if>
+
+												<f:comment>Data Type Array</f:comment>
+												<f:if condition="{answer.valueType} == 1">
+													<vh:String.ImplodeField objects="{answer.value}" separator=", " />
+												</f:if>
+
+												<f:comment>Data Type Date (already parsed Timestamp by Model)</f:comment>
+												<f:if condition="{answer.valueType} == 2">
+													{answer.value}
+												</f:if>
+
+												<f:comment>Data Type Fileupload</f:comment>
+												<f:if condition="{answer.valueType} == 3">
+													<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
+														<a href="{vh:Misc.Link(path:'{vh:Misc.GetFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}', absolute:1)}" title="{settings.uploadPath}{subValue}" target="_blank">
+															<f:if condition="{vh:Condition.IsImage(path:subValue)}">
+																<f:then>
+																	<f:if condition="{vh:Condition.FileExists(file:'{vh:Misc.GetFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}')}">
+																		<f:then>
+																			<f:image src="{vh:Misc.GetFileWithPath(path:'{settings.uploadPath}',fileName:'{subValue}')}" alt="{subValue}" width="200" maxHeight="200" />
+																		</f:then>
+																		<f:else>
+																			File does not exist
+																		</f:else>
+																	</f:if>
+																</f:then>
+																<f:else>
+																	{subValue}
+																</f:else>
+															</f:if>
+														</a>
+														<br />
+													</f:for>
+												</f:if>
+											</dd>
+										</dl>
+									</f:if>
+								</f:for>
+								<f:if condition="{mail.spamFactor} != '0%'">
+									<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+										<dt>
+											<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.spamFactor" default="Spamfactor" /></strong>
+										</dt>
+										<dd>
+											{mail.spamFactor}
+										</dd>
+									</dl>
+								</f:if>
+								<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
+									<f:if condition="{mail.marketingRefererDomain}">
+										<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+											<dt>
+												<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" default="marketingRefererDomain" /></strong>
+											</dt>
+											<dd>
+												{mail.marketingRefererDomain}
+											</dd>
+										</dl>
+									</f:if>
+									<f:if condition="{mail.marketingReferer}">
+										<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+											<dt>
+												<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer" default="marketingReferer" /></strong>
+											</dt>
+											<dd>
+												{mail.marketingReferer}
+											</dd>
+										</dl>
+									</f:if>
+									<f:if condition="{mail.marketingCountry}">
+										<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+											<dt>
+												<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry" default="marketingCountry" /></strong>
+											</dt>
+											<dd>
+												{mail.marketingCountry}
+											</dd>
+										</dl>
+									</f:if>
+									<f:if condition="{mail.marketingMobileDevice}">
+										<f:comment>Use marketingPageFunnel as indicator if marketing is switched on in generally - showing "0" is ok</f:comment>
+										<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+											<dt>
+												<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" default="marketingMobileDevice" /></strong>
+											</dt>
+											<dd>
+												{mail.marketingMobileDevice}
+											</dd>
+										</dl>
+									</f:if>
+									<f:if condition="{mail.marketingPageFunnel}">
+										<f:comment>Use marketingPageFunnel as indicator if marketing is switched on in generally - showing "0" is ok</f:comment>
+										<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+											<dt>
+												<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" default="marketingFrontendLanguage" /></strong>
+											</dt>
+											<dd>
+												{mail.marketingFrontendLanguage}
+											</dd>
+										</dl>
+									</f:if>
+									<f:if condition="{mail.marketingBrowserLanguage}">
+										<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+											<dt>
+												<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" default="marketingBrowserLanguage" /></strong>
+											</dt>
+											<dd>
+												{mail.marketingBrowserLanguage}
+											</dd>
+										</dl>
+									</f:if>
+									<f:if condition="{mail.marketingPageFunnel}">
+										<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
+											<dt>
+												<strong><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" /></strong>
+											</dt>
+											<dd>
+												<f:for each="{mail.marketingPageFunnel}" as="page" iteration="index">
+													<span title="id={page}"><vh:Getter.GetPageNameFromUid uid="{page}" /></span> <f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
+												</f:for>
+											</dd>
+										</dl>
+									</f:if>
+								</f:if>
+							</div>
+						</td>
+					</tr>
+				</f:for>
+			</tbody>
+		</table>
+	</div>
+</div>

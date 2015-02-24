@@ -1,0 +1,84 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<f:translate key="BackendOverviewTable">Forms</f:translate>
+		(<f:count subject="{forms}" />)
+	</div>
+	<div class="table-fit">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th nowrap="nowrap" class="col-icon">
+						&nbsp;
+					</th>
+					<th nowrap="nowrap">
+						<f:translate key="BackendOverviewCol1">Form Title</f:translate>
+					</th>
+					<th nowrap="nowrap">
+						<f:translate key="BackendOverviewCol2">Stored on Page</f:translate>
+					</th>
+					<th nowrap="nowrap">
+						<f:translate key="BackendOverviewCol3">Used on Page</f:translate>
+					</th>
+					<th nowrap="nowrap">
+						<f:translate key="BackendOverviewCol4">Powermail Pages</f:translate>
+					</th>
+					<th nowrap="nowrap">
+						<f:translate key="BackendOverviewCol5">Powermail Fields</f:translate>
+					</th>
+					<th nowrap="nowrap">
+						&nbsp;
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<f:for each="{forms}" as="form" iteration="iteration">
+
+					<f:comment>Basic form information</f:comment>
+					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
+						<td nowrap="nowrap" class="col-icon">
+							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_forms t3-icon-tx_powermail_domain_model_forms-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={form.uid}"> </span>
+						</td>
+						<td nowrap="nowrap">
+							<a title="Edit" onclick="window.location.href = 'alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[tx_powermail_domain_model_forms][{form.uid}]=edit'; return false;" href="#">
+								<span title="id={form.uid}">{form.title}</span>
+							</a>
+						</td>
+						<td nowrap="nowrap">
+							<a title="id={form.pid}" onclick="top.loadEditId({form.pid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
+								<vh:Getter.GetPageNameFromUid uid="{form.pid}" />
+							</a>
+						</td>
+						<td nowrap="nowrap">
+							<f:for each="{vh:Getter.GetPagesWithContentRelatedToForm(form:form)}" as="page">
+								<a title="id={page.uid}" onclick="top.loadEditId({page.uid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
+									{page.title}
+								</a>
+								<br />
+							</f:for>
+						</td>
+						<td nowrap="nowrap">
+							<span title="{vh:String.ImplodeField(objects:form.pages, field:'title', separator:', ')}">
+								<f:count>{form.pages}</f:count> <f:translate key="BackendOverviewPages">Pages</f:translate>
+							</span>
+						</td>
+						<td nowrap="nowrap">
+							<span title="{vh:String.ImplodeField(objects:'{vh:Getter.GetFieldsFromForm(form:form)}', separator:', ')}">
+								<f:count><vh:Getter.GetFieldsFromForm form="{form}" /></f:count> <f:translate key="BackendOverviewFields">Fields</f:translate>
+							</span>
+						</td>
+
+						<td nowrap="nowrap" class="col-control">
+							<div role="group" class="btn-group">
+								<a class="btn" title="Edit" onclick="window.location.href = 'alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[tx_powermail_domain_model_forms][{form.uid}]=edit'; return false;" href="#">
+									<span class="t3-icon fa fa-desktop">&nbsp;</span>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</f:for>
+			</tbody>
+		</table>
+	</div>
+</div>

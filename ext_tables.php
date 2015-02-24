@@ -40,7 +40,7 @@ if (TYPO3_MODE === 'BE' && !$confArr['disableBackendModule'] && !(TYPO3_REQUESTT
 		),
 		array(
 			'access' => 'user,group',
-			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
+			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.' . (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'png'),
 			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
 		)
 	);

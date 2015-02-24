@@ -56,6 +56,9 @@ input.powermail_email_input {
 .powermail_listbe_details_container {
 	margin-bottom: 15px;
 }
+.table tr.powermail_listbe_details_closed > td {
+	border-top-style: none;
+}
 .powermail_listbe_details_dl {
 	clear: both;
 	padding: 5px 0 5px 42px;
@@ -96,38 +99,52 @@ input.powermail_email_input {
 .openPowermailDetails {
 	cursor: pointer;
 }
-ul.f3-widget-paginator {
-	border: 1px solid #A2AAB8;
-	width: 100%;
-	margin-top: 20px;
-	padding: 5px;
-	overflow: hidden;
-	list-style-type: none;
+
+.powermail-backend {
+	.panel {
+		margin: 1em 0;
+	}
+	.pagination {
+		margin: 0;
+	}
 }
-ul.f3-widget-paginator li {
-	float: left;
-	display: block;
-	background-color: #DADADA;
-	border: 1px solid #585858;
-	color: #999;
-	margin: 0 5px 0 0;
-	line-height: normal;
-}
-ul.f3-widget-paginator li.current {
-	padding: 0 5px;
-}
-ul.f3-widget-paginator li a {
-	color: #444;
-	padding: 1px 5px;
-	cursor: pointer;
-}
-ul.f3-widget-paginator li a:hover {
-	background-color: #666666;
-	color: white;
-	text-decoration: none;
-}
-ul.f3-widget-paginator li.next {
-	margin-right: 15px;
+
+.powermail-backend-lessthanseven {
+	ul.f3-widget-paginator {
+		border: 1px solid #A2AAB8;
+		width: 100%;
+		margin-top: 20px;
+		margin-bottom: 1.25em;
+		padding: 5px;
+		overflow: hidden;
+		list-style-type: none;
+	}
+	ul.f3-widget-paginator li {
+		float: left;
+		display: block;
+		background-color: #DADADA;
+		border: 1px solid #585858;
+		color: #999;
+		margin: 0 5px 0 0;
+		line-height: normal;
+	}
+	ul.f3-widget-paginator li.disabled {
+		padding: 5px 10px;
+	}
+	ul.f3-widget-paginator li a {
+		color: #444;
+		padding: 5px 10px;
+		display: inline-block;
+		cursor: pointer;
+	}
+	ul.f3-widget-paginator li a:hover {
+		background-color: #666666;
+		color: white;
+		text-decoration: none;
+	}
+	ul.f3-widget-paginator li.next {
+		margin-right: 15px;
+	}
 }
 a.sorting {
 	padding-right: 10px;
@@ -155,11 +172,12 @@ a.sorting_asc {
 .powermail_module_search {
 	margin: 15px 0;
 	background-color: #DDDDDD;
-	border: 1px solid #A2AAB8;
+	border: 1px solid #CCCCCC;
 	width: 100%;
 }
 .powermail_module_search_inner {
 	margin: 15px 15px;
+	overflow: hidden;
 }
 .powermail_module_search_field {
 	float: left;
@@ -228,10 +246,10 @@ h4.extended_search_title {
 .extended_search_title {
 	cursor: pointer;
 }
-fieldset.close {
+fieldset.powermail-close {
 	display: none;
 }
-fieldset.close .powermail_module_search_field_container1 .powermail_module_search_field {
+fieldset.powermail-close .powermail_module_search_field_container1 .powermail_module_search_field {
 	opacity: 0;
 	-moz-opacity: 0;
 	-webkit-opacity: 0;
@@ -244,7 +262,7 @@ div.searchAddField label {
 	cursor: pointer;
 	margin-top: 3px;
 }
-fieldset.extended_search .close {
+fieldset.extended_search .powermail-close {
 	display: none;
 }
 fieldset.extended_search .powermail_module_search_field_container2 {
@@ -463,13 +481,13 @@ table.powermail_reporting_form_fields_table td {
 .powermail_reporting_form_fields_table_right {
 	text-align: right;
 }
-table.powermail_reporting_form_fields_table th.open {
+table.powermail_reporting_form_fields_table th.powermail-open {
 	padding-left: 10px;
 	background-repeat: no-repeat;
 	background-position: 10px 11px;
 	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_desc.png');
 }
-table.powermail_reporting_form_fields_table th.close {
+table.powermail_reporting_form_fields_table th.powermail-close {
 	padding-left: 10px;
 	background-repeat: no-repeat;
 	background-position: 10px 11px;

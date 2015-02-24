@@ -18,16 +18,8 @@
 
 	<div class="typo3-fullDoc">
 		<div id="typo3-docheader">
-			<div id="typo3-docheader-row1">
-				<div class="buttonsleft">
-					&nbsp;
-				</div>
-				<div class="buttonsright">
-					<f:be.buttons.shortcut />
-				</div>
-			</div>
-			<div id="typo3-docheader-row2">
-				<div class="docheader-row2-left typo3-docheader-functions powermail-backend-select">
+			<div class="typo3-docheader-functions">
+				<div class="left powermail-backend-select">
 					<f:be.menus.actionMenu>
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionList')}" controller="Module" action="listBe" />
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionReporting')}" controller="Module" action="reportingBe" />
@@ -39,13 +31,21 @@
 						<f:if condition="{vh:BeCheck.IsAdmin()}"><f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionConverterTitle')}" controller="Module" action="converterBe" /></f:if>
 					</f:be.menus.actionMenu>
 				</div>
-				<div class="docheader-row2-right">
+				<div class="right">
 					<f:be.pagePath />
+				</div>
+			</div>
+			<div class="typo3-docheader-buttons">
+				<div class="left">
+					&nbsp;
+				</div>
+				<div class="right">
+					<f:be.buttons.shortcut />
 				</div>
 			</div>
 		</div>
 		<div id="typo3-docbody">
-			<div id="typo3-inner-docbody" class="powermail-backend">
+			<div id="typo3-inner-docbody" class="powermail-backend{f:if(condition:'{vh:Condition.IsCompatVersion(versionNumber:\'7.0\')}',else:' powermail-backend-lessthanseven')}">
 				<f:flashMessages renderMode="div" />
 				<f:render section="content" />
 			</div>

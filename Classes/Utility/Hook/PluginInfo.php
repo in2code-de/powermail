@@ -139,17 +139,17 @@ class PluginInfo {
 		$i = 0;
 		$content = '';
 		$content .= '<tr class="bgColor2">';
-		$content .= '<td><strong>Settings</strong></td>';
-		$content .= '<td><strong>Value</strong></td>';
+		$content .= '<td style="padding: 5px;"><strong>Settings</strong></td>';
+		$content .= '<td style="padding: 5px;"><strong>Value</strong></td>';
 		$content .= '</tr>';
 		foreach ($array as $key => $value) {
 			$content .= '<tr class="bgColor' . ($i % 2 ? '1' : '4') . '">';
-			$content .= '<td width="40%">' . $key . '</td>';
-			$content .= '<td>' . $value . '</td>';
+			$content .= '<td style="width: 40%; padding: 5px;">' . $key . '</td>';
+			$content .= '<td style="padding: 5px;">' . $value . '</td>';
 			$content .= '</tr>';
 			$i++;
 		}
-		return '<table class="typo3-dblist">' . $content . '</table>';
+		return '<table class="typo3-dblist" style="width: 100%; border: 1px solid #d7d7d7;">' . $content . '</table>';
 	}
 
 	/**
