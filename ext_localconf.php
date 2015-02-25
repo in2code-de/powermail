@@ -15,7 +15,7 @@ $uncachedFormActions = 'form';
 if ($confArr['enableCaching'] === '1') {
 	$uncachedFormActions = '';
 }
-$uncachedFormActions .= ', create, confirmation, optinConfirm, validateAjax, marketing';
+$uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';
 
 /**
  * Include Frontend Plugins for Powermail
@@ -24,7 +24,7 @@ $uncachedFormActions .= ', create, confirmation, optinConfirm, validateAjax, mar
 	'In2code.' . $_EXTKEY,
 	'Pi1',
 	array(
-		'Form' => 'form, create, confirmation, optinConfirm, validateAjax, marketing'
+		'Form' => 'form, create, confirmation, optinConfirm, marketing'
 	),
 	array(
 		'Form' => $uncachedFormActions
@@ -74,12 +74,6 @@ $TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Utility\T
  */
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] =
 	'EXT:powermail/Classes/Utility/Eid/GetLocationEid.php';
-
-/**
- * eID to validate form fields
- */
-$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidValidator'] =
-	'EXT:powermail/Classes/Utility/Eid/ValidatorEid.php';
 
 /**
  * eID to store marketing information
