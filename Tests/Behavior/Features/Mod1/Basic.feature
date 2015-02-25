@@ -6,10 +6,10 @@ Feature: Basic
   @javascript
   Scenario: Login into backend
     Given I am on "/typo3/index.php"
-    Then I should see "Anmeldung am Backend"
+    Then the sourcecode should contain 't3-login-logo'
     When I fill in "username" with "editor"
     When I fill in "p_field" with "editor"
-    And I press "Anmelden"
+    And I press "t3-login-submit"
 
     And I wait "6" seconds
     Then I click on the element "#web_PowermailM1"
