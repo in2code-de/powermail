@@ -155,7 +155,7 @@ abstract class AbstractController extends ActionController {
 			// get value
 		$value = array_shift($pluginVariables['field']);
 
-		$inputValidator = $this->objectManager->get('\In2code\Powermail\Domain\Validator\InputValidator');
+		$inputValidator = $this->objectManager->get('In2code\Powermail\Domain\Validator\InputValidator');
 		$isValid = $inputValidator->isValid($mail, $value);
 
 		$this->view->assign('isValid', $isValid);

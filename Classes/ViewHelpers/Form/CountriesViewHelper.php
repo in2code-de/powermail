@@ -23,7 +23,7 @@ class CountriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 
 		// get countries from static_info_tables
 		if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('static_info_tables')) {
-			$countriesFromStaticInfoTables = $this->objectManager->get('\In2code\Powermail\Utility\CountriesFromStaticInfoTables');
+			$countriesFromStaticInfoTables = $this->objectManager->get('In2code\Powermail\Utility\CountriesFromStaticInfoTables');
 			$countries = $countriesFromStaticInfoTables->getCountries($key, $value, $sortbyField, $sorting);
 		}
 

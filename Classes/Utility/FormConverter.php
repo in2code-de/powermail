@@ -361,7 +361,7 @@ class FormConverter {
 		$templatePathAndFilename = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
 		$templatePathAndFilename .= 'Module/ConverterFlexForm.xml';
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $view */
-		$view = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
+		$view = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$view->getRequest()->setControllerExtensionName('Powermail');
 		$view->getRequest()->setPluginName('Pi1');
 		$view->getRequest()->setControllerName('Module');

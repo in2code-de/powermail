@@ -244,7 +244,7 @@ class Div {
 	 */
 	public function powermailAll(Mail $mail, $section = 'web', $settings = array(), $type = NULL) {
 		/** @var \In2code\Powermail\Utility\StandaloneViewMultiplePaths $powermailAll */
-		$powermailAll = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
+		$powermailAll = $this->objectManager->get('In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
 		$templatePathAndFilename = $this->getTemplatePath('Form/PowermailAll.html');
 		$powermailAll->setTemplatePathAndFilename($templatePathAndFilename);
 		$powermailAll->setLayoutRootPaths($this->getTemplateFolders('layout'));
@@ -523,7 +523,7 @@ class Div {
 	 * @return string Parsed string
 	 */
 	public function fluidParseString($string, $variables = array()) {
-		$parseObject = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
+		$parseObject = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$parseObject->setTemplateSource($string);
 		$parseObject->assignMultiple($variables);
 		return $parseObject->render();

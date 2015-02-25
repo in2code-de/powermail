@@ -157,7 +157,7 @@ class InputValidator extends StringValidator {
 				 *
 				 * Register your Class and Method with TypoScript Setup
 				 * 		plugin.tx_powermail.settings.setup.validation.customValidation.100 =
-				 * 			\In2code\Powermailextended\Domain\Validator\ZipValidator
+				 * 			In2code\Powermailextended\Domain\Validator\ZipValidator
 				 *
 				 * Add method to your class
 				 * 		validate100($value, $validationConfiguration)

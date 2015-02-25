@@ -96,7 +96,7 @@ class SendMail {
 	 */
 	public function sendTemplateEmail(array $email, Mail &$mail, $settings, $type = 'receiver') {
 		/** @var TypoScriptService $typoScriptService */
-		$typoScriptService = $this->objectManager->get('\TYPO3\CMS\Extbase\Service\TypoScriptService');
+		$typoScriptService = $this->objectManager->get('TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
 		$cObj = $this->configurationManager->getContentObject();
 		$cObj->start($this->div->getVariablesWithMarkers($mail));
@@ -266,7 +266,7 @@ class SendMail {
 	 */
 	protected function createEmailBody($email, Mail &$mail, $settings, $type) {
 		/** @var StandaloneViewMultiplePaths $emailBodyObject */
-		$emailBodyObject = $this->objectManager->get('\\In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
+		$emailBodyObject = $this->objectManager->get('In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
 		$emailBodyObject->getRequest()->setControllerExtensionName('Powermail');
 		$emailBodyObject->getRequest()->setPluginName('Pi1');
 		$emailBodyObject->getRequest()->setControllerName('Form');

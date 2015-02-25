@@ -51,7 +51,7 @@ class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	 */
 	public function render(Mail $mail, $variablesMarkers = array(), $type = 'web', $function = 'createAction') {
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $parseObject */
-		$parseObject = $this->objectManager->get('\TYPO3\CMS\Fluid\View\StandaloneView');
+		$parseObject = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
 		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($variablesMarkers));
 

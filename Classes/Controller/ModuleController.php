@@ -277,7 +277,7 @@ class ModuleController extends AbstractController {
 			$formCounter++;
 		}
 		/** @var \In2code\Powermail\Utility\FormConverter $formConverter */
-		$formConverter = $this->objectManager->get('\In2code\Powermail\Utility\FormConverter');
+		$formConverter = $this->objectManager->get('In2code\Powermail\Utility\FormConverter');
 		$result = $formConverter->createNewFromOldForms($oldFormsWithFieldsetsAndFields, $converter);
 		$this->view->assign('result', $result);
 		$this->view->assign('converter', $converter);
