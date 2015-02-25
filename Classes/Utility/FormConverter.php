@@ -656,8 +656,8 @@ class FormConverter {
 			$GLOBALS['TSFE'] = new \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController(
 				$GLOBALS['TYPO3_CONF_VARS'], $id, 0, 0, 0, 0, 0, 0
 			);
-			$GLOBALS['TSFE']->tmpl = GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\ExtendedTemplateService');
-			$GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\Page\PageRepository');
+			$GLOBALS['TSFE']->tmpl = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\ExtendedTemplateService');
+			$GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 			$GLOBALS['TSFE']->tmpl->tt_track = 0;
 			$GLOBALS['TSFE']->tmpl->init();
 			$rootLine = $GLOBALS['TSFE']->sys_page->getRootLine($id);

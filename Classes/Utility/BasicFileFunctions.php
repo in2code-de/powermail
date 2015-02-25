@@ -77,7 +77,7 @@ class BasicFileFunctions {
 		self::getAndSetRandomizedFileName($filename, $randomized);
 
 		/** @var \TYPO3\CMS\Core\Utility\File\BasicFileUtility $basicFileFunctions */
-		$basicFileFunctions = GeneralUtility::makeInstance('\TYPO3\CMS\Core\Utility\File\BasicFileUtility');
+		$basicFileFunctions = GeneralUtility::makeInstance('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
 		$newFileName = $basicFileFunctions->getUniqueName(
 			$filename,
 			GeneralUtility::getFileAbsFileName($destinationPath)

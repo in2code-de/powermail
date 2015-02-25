@@ -218,7 +218,7 @@ class ModuleController extends AbstractController {
 				if (!empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])) {
 					$senderName = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'];
 				}
-				$message = GeneralUtility::makeInstance('\TYPO3\CMS\Core\Mail\MailMessage');
+				$message = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
 				$message
 					->setTo(array($email => 'Receiver'))
 					->setFrom(array($senderEmail => $senderName))

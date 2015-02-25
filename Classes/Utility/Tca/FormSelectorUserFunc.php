@@ -113,7 +113,7 @@ class FormSelectorUserFunc {
 	 */
 	protected function getPidListFromStartingPoint($startPid = 0) {
 		/** @var \TYPO3\CMS\Core\Database\QueryGenerator $queryGenerator */
-		$queryGenerator = GeneralUtility::makeInstance('\TYPO3\CMS\Core\Database\QueryGenerator');
+		$queryGenerator = GeneralUtility::makeInstance('TYPO3\CMS\Core\Database\QueryGenerator');
 		if ($startPid === 'current') {
 			$startPid = Div::getPidFromBackendPage();
 		}

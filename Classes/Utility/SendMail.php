@@ -135,7 +135,7 @@ class SendMail {
 		}
 
 		/** @var \TYPO3\CMS\Core\Mail\MailMessage $message */
-		$message = GeneralUtility::makeInstance('\TYPO3\CMS\Core\Mail\MailMessage');
+		$message = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
 		$this->div->overwriteValueFromTypoScript($email['subject'], $conf[$type . '.']['overwrite.'], 'subject');
 		$message
 			->setTo(array($email['receiverEmail'] => $email['receiverName']))

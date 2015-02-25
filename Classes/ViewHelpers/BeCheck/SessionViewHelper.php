@@ -27,7 +27,7 @@ class SessionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 		// settings
 		$userObj = \TYPO3\CMS\Frontend\Utility\EidUtility::initFeUser();
 		$GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-			'\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+			'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
 			$GLOBALS['TYPO3_CONF_VARS'],
 			GeneralUtility::_GET('id'),
 			0,

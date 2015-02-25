@@ -112,7 +112,7 @@ class CalculatingCaptcha {
 	protected function getFilename($string) {
 		$string = str_replace('EXT:', 'typo3conf/ext/', $string);
 		/** @var \TYPO3\CMS\Core\TypoScript\TemplateService $templateService */
-		$templateService = GeneralUtility::makeInstance('\TYPO3\CMS\Core\TypoScript\TemplateService');
+		$templateService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TemplateService');
 		return $templateService->getFileName($string);
 	}
 

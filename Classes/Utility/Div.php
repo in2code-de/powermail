@@ -614,7 +614,7 @@ class Div {
 			return '';
 		}
 		$setup = $GLOBALS['TSFE']->tmpl->setup;
-		$contentObject = GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
+		$contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
 		$pathSegments = GeneralUtility::trimExplode('.', $typoScriptObjectPath);
 		$lastSegment = array_pop($pathSegments);
 		foreach ($pathSegments as $segment) {
@@ -1357,7 +1357,7 @@ class Div {
 	 */
 	public static function sendPlainMail($receiverEmail, $senderEmail, $subject, $body) {
 		/** @var \TYPO3\CMS\Core\Mail\MailMessage $message */
-		$message = GeneralUtility::makeInstance('\\TYPO3\\CMS\\Core\\Mail\\MailMessage');
+		$message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 		$message->setTo(array($receiverEmail => ''));
 		$message->setFrom(array($senderEmail => 'Sender'));
 		$message->setSubject($subject);
