@@ -22,7 +22,6 @@ Feature: List
     Then I should see "Andy Kräuter"
     Then I should see "Das ist ein Test"
     Then I should see "Sandra"
-    Then I should see "Alex, Olli"
     Then I should see "Silke"
     Then the sourcecode should contain '<span class="abc">Z</span>'
     Then the sourcecode should contain 'powermail_frontend_export_icon'
@@ -44,6 +43,4 @@ Feature: List
     Then I should not see "Bitte passen Sie Ihre Filtereinstellungen an"
     Then I should see "Andy Kräuter"
     Then I should see "Das ist ein Test"
-    Then I should see "Sandra"
-    Then I should see "Alex, Olli"
     Then I should see "Silke"
