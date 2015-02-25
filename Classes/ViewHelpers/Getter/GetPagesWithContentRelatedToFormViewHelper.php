@@ -1,13 +1,16 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Getter;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Domain\Model\Form;
+
 /**
  * Get Pages with contents which are related to a tt_content-powermail-plugin
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class GetPagesWithContentRelatedToFormViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class GetPagesWithContentRelatedToFormViewHelper extends AbstractViewHelper {
 
 	/**
 	 * pageRepository
@@ -20,10 +23,10 @@ class GetPagesWithContentRelatedToFormViewHelper extends \TYPO3\CMS\Fluid\Core\V
 	/**
 	 * Get Pages with contents which are related to a tt_content-powermail-plugin
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Form $form
+	 * @param Form $form
 	 * @return array
 	 */
-	public function render(\In2code\Powermail\Domain\Model\Form $form) {
+	public function render(Form $form) {
 		return $this->pageRepository->getPagesWithContentRelatedToForm($form);
 	}
 

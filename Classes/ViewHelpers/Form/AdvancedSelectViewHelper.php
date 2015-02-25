@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Form;
 
+use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -30,7 +32,7 @@ namespace In2code\Powermail\ViewHelpers\Form;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class AdvancedSelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
+class AdvancedSelectViewHelper extends SelectViewHelper {
 
 	/**
 	 * Initialize

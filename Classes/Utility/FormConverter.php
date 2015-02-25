@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /***************************************************************
  *  Copyright notice

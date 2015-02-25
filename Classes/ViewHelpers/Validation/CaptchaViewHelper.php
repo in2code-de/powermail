@@ -1,10 +1,10 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \In2code\Powermail\Utility\Div,
-	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility,
-	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use In2code\Powermail\Utility\Div;
 
 /**
  * Get Captcha

@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class IsDevelopmentContextViewHelper

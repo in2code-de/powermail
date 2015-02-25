@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Returns Morestep Class if morestep is given
  *
@@ -8,7 +10,7 @@ namespace In2code\Powermail\ViewHelpers\Misc;
  * @subpackage Fluid
  * @version
  */
-class MorestepClassViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class MorestepClassViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Returns CSS class for morestep

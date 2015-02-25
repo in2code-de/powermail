@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Eid;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
 *  Copyright notice

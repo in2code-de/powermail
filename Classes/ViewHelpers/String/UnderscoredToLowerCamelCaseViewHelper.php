@@ -1,13 +1,16 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\String;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Underscored value to lower camel case value
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class UnderscoredToLowerCamelCaseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Underscored value to lower camel case value (nice_field => niceField)
@@ -16,6 +19,6 @@ class UnderscoredToLowerCamelCaseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHe
 	 * @return string
 	 */
 	public function render($val = '') {
-		return \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToLowerCamelCase($val);
+		return GeneralUtility::underscoredToLowerCamelCase($val);
 	}
 }

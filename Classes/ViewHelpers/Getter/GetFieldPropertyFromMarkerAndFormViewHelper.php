@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Getter;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Get a Property from In2code\Powermail\Domain\Model\Field with Marker and Form
  *
@@ -8,7 +10,7 @@ namespace In2code\Powermail\ViewHelpers\Getter;
  * @subpackage Fluid
  * @version
  */
-class GetFieldPropertyFromMarkerAndFormViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class GetFieldPropertyFromMarkerAndFormViewHelper extends AbstractViewHelper {
 
 	/**
 	 * fieldRepository

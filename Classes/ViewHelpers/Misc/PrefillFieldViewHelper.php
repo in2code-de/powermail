@@ -1,12 +1,12 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use \In2code\Powermail\Domain\Model\Field,
-	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Core\Utility\GeneralUtility,
-	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
-	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
-	\TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Prefill a field with variables

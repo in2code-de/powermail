@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
-use \TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 
 /**
@@ -10,7 +12,7 @@ use \TYPO3\CMS\Core\Utility\VersionNumberUtility;
  * @package TYPO3
  * @subpackage Fluid
  */
-class T3VersionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class T3VersionViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Check if TYPO3 Version is correct
@@ -20,7 +22,7 @@ class T3VersionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	public function render() {
 		// settings
 		$_EXTKEY = 'powermail';
-		require(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
+		require_once(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
 		$versionString = $EM_CONF['powermail']['constraints']['depends']['typo3'];
 		$versions = explode('-', $versionString);
 		$powermailVersion = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);

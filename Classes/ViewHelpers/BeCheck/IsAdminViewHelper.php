@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
-use \In2code\Powermail\Utility\Div;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Utility\Div;
 
 /**
  * Is Backend Admin?
@@ -9,7 +10,7 @@ use \In2code\Powermail\Utility\Div;
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsAdminViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class IsAdminViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Is Backend Admin?

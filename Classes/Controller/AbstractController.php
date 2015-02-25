@@ -1,12 +1,12 @@
 <?php
 namespace In2code\Powermail\Controller;
 
-use \In2code\Powermail\Utility\Div,
-	\TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Utility\BasicFileFunctions,
-	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter,
-	\TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use In2code\Powermail\Utility\Div;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Utility\BasicFileFunctions;
+use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /***************************************************************
  *  Copyright notice

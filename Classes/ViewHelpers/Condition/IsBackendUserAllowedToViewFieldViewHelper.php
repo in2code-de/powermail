@@ -1,12 +1,14 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Class IsBackendUserAllowedToViewFieldViewHelper
  *
  * @package In2code\Powermail\ViewHelpers\Condition
  */
-class IsBackendUserAllowedToViewFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class IsBackendUserAllowedToViewFieldViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Backend User Object

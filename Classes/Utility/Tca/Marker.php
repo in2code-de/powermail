@@ -25,7 +25,6 @@ namespace In2code\Powermail\Utility\Tca;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * Class to extend Pi1 field marker e.g. {firstname}
  *

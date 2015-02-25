@@ -1,10 +1,10 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Domain\Model\Mail,
-	\In2code\Powermail\Utility\StandaloneViewMultiplePaths,
-	\TYPO3\CMS\Extbase\Service\TypoScriptService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\StandaloneViewMultiplePaths;
 
 /***************************************************************
  *  Copyright notice

@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Command;
 
-use \In2code\Powermail\Utility\BasicFileFunctions,
-	\TYPO3\CMS\Core\Utility\GeneralUtility,
-	\TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
+use In2code\Powermail\Utility\BasicFileFunctions;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /***************************************************************
  *  Copyright notice

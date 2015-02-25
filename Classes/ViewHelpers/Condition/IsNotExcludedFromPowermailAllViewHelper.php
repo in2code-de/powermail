@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
-use \In2code\Powermail\Domain\Model\Answer,
-	\TYPO3\CMS\Core\Utility\GeneralUtility,
-	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Domain\Model\Answer;
 
 /**
  * View helper check if value should be returned or not

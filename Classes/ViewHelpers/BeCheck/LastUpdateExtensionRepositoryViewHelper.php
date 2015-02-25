@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
-use \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * PowermailVersionViewHelper

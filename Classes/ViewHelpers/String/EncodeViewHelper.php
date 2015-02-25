@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\String;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * View helper encoding of URL for RSS Feeds
  *
@@ -8,7 +10,7 @@ namespace In2code\Powermail\ViewHelpers\String;
  * @subpackage Fluid
  * @version
  */
-class EncodeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class EncodeViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Returns encoded string

@@ -1,13 +1,15 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Check if there is a mail with a starting letter
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsThereAMailWithStartingLetterViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Check if there is a mail with a starting letter

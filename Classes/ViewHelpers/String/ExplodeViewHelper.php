@@ -1,13 +1,16 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\String;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * View helper to explode a list
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class ExplodeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ExplodeViewHelper extends AbstractViewHelper {
 
 	/**
 	 * View helper to explode a list
@@ -18,6 +21,6 @@ class ExplodeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 	 * @return array
 	 */
 	public function render($string = '', $separator = ',', $trim = TRUE) {
-		return \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode($separator, $string, $trim);
+		return GeneralUtility::trimExplode($separator, $string, $trim);
 	}
 }

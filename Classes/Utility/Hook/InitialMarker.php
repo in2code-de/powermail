@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
-use \In2code\Powermail\Utility\Div;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Utility\Div;
 
 /***************************************************************
  *  Copyright notice
@@ -35,7 +35,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class InitialMarker extends \In2code\Powermail\Utility\Hook\AbstractMarker {
+class InitialMarker extends AbstractMarker {
 
 	/**
 	 * Initially fill the marker field from title

@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Form;
 
-use \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
+use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
 
 /**
  * View helper to generate select field with empty values, preselected, etc...

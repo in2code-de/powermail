@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /***************************************************************
  *  Copyright notice
@@ -31,7 +32,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * Extends the regular standalone template view with
  * 		the possibilities to use multiple paths (like TemplateView is able to use).
  */
-class StandaloneViewMultiplePaths extends \TYPO3\CMS\Fluid\View\StandaloneView {
+class StandaloneViewMultiplePaths extends StandaloneView {
 
 	/**
 	 * Path(s) to the template root.

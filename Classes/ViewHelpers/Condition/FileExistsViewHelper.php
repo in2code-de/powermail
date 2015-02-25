@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Check if file exists
@@ -9,7 +10,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package TYPO3
  * @subpackage Fluid
  */
-class FileExistsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class FileExistsViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Check if file exists

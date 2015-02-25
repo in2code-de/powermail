@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
-	\In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Domain\Model\Field;
 
 /**
  * Returns Error Class if Error in form

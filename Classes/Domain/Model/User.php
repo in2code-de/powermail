@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,7 +26,6 @@ namespace In2code\Powermail\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * UserModel
  *
@@ -32,5 +33,5 @@ namespace In2code\Powermail\Domain\Model;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class User extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+class User extends FrontendUser {
 }

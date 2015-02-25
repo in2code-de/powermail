@@ -1,11 +1,11 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
-	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
-	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
-	\TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Domain\Model\Field;
 
 /**
  * Abstract Validation ViewHelper

@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\TYPO3\CMS\Backend\Utility\BackendUtility,
-	\In2code\Powermail\Utility\Div;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use In2code\Powermail\Utility\Div;
 
 /***************************************************************
  *  Copyright notice

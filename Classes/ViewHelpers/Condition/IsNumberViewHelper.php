@@ -1,13 +1,15 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * View helper check if given value is number or not
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsNumberViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class IsNumberViewHelper extends AbstractViewHelper {
 
 	/**
 	 * View helper check if given value is number or not

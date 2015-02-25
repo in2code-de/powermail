@@ -1,14 +1,14 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use \TYPO3\CMS\Backend\Utility\BackendUtility,
-	\TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility,
-	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
-	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
-	\TYPO3\CMS\Core\Utility\VersionNumberUtility,
-	\TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice

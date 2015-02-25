@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -9,7 +10,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsDateTimeVariableInVariableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class IsDateTimeVariableInVariableViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Is {outer.{inner}} a datetime?

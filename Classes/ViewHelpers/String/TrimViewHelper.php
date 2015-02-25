@@ -1,13 +1,15 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\String;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Trim Inner HTML
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class TrimViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class TrimViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Trim Inner HTML

@@ -1,13 +1,15 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Form;
 
+use TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper;
+
 /**
  * View helper to get a country array
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class MultiUploadViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper {
+class MultiUploadViewHelper extends UploadViewHelper {
 
 	/**
 	 * Initialize the arguments.

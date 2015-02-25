@@ -1,13 +1,16 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\String;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * ViewHelper combines Raw and RemoveXss Methods
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class RawAndRemoveXssViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class RawAndRemoveXssViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Disable the escaping because otherwise the child nodes would be escaped before
@@ -30,7 +33,7 @@ class RawAndRemoveXssViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstrac
 	 */
 	public function render() {
 		$string = $this->renderChildren();
-		$string = \TYPO3\CMS\Core\Utility\GeneralUtility::removeXSS($string);
+		$string = GeneralUtility::removeXSS($string);
 
 		return $string;
 	}

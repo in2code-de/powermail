@@ -1,13 +1,15 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Check if Path or File is an image
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class IsImageViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Webimage Formats

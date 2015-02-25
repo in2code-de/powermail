@@ -1,13 +1,15 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\String;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * change utf8 to UTF-16LE for Excel
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class Utf8ToUtf16ViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class Utf8ToUtf16ViewHelper extends AbstractViewHelper {
 
 	/**
 	 * change utf8 to UTF-16LE for Excel

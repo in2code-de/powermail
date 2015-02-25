@@ -1,13 +1,15 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Check if logged in User is allowed to edit
  *
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsAllowedToEditViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class IsAllowedToEditViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Div Methods

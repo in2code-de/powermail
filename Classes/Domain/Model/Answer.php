@@ -1,10 +1,11 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
-use \In2code\Powermail\Utility\Div,
-	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
-	\In2code\Powermail\Domain\Model\Mail,
-	\In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Model\Field;
 
 /***************************************************************
  *  Copyright notice
@@ -30,7 +31,6 @@ use \In2code\Powermail\Utility\Div,
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * Answer Model
  *
@@ -38,7 +38,7 @@ use \In2code\Powermail\Utility\Div,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Answer extends AbstractEntity {
 
 	/**
 	 * value

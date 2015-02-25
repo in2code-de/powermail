@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Field;
 
 /**
  * Get Field Type for input fields

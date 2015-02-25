@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -25,7 +27,6 @@ namespace In2code\Powermail\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * PageModel
  *
@@ -33,7 +34,7 @@ namespace In2code\Powermail\Domain\Model;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Page extends AbstractEntity {
 
 	/**
 	 * title

@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\TYPO3\CMS\Extbase\Utility\LocalizationUtility,
-	\In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use In2code\Powermail\Domain\Model\Field;
 
 /**
  * Returns Data-Attributes for JS and Native Validation

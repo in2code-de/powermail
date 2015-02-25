@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -9,7 +10,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package TYPO3
  * @subpackage Fluid
  */
-class VariableInVariableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class VariableInVariableViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Solution for {outer.{inner}} problem with variables in fluid

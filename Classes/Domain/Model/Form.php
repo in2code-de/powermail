@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -26,7 +28,6 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * FormModel
  *
@@ -34,7 +35,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class Form extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Form extends AbstractEntity {
 
 	/**
 	 * title

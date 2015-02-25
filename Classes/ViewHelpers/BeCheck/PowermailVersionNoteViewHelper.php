@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
-use \In2code\Powermail\Utility\Div,
-	\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper,
-	\TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use In2code\Powermail\Utility\Div;
 
 /**
  * PowermailVersionNoteViewHelper

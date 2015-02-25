@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
-use \In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\Div;
 
 /**
  * Class ShowFormNoteIfNoEmailOrNameSelected shows note if form errors

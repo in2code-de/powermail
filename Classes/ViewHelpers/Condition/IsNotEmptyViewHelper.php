@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use In2code\Powermail\Utility\Div;
 
 /**
@@ -9,7 +10,7 @@ use In2code\Powermail\Utility\Div;
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsNotEmptyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class IsNotEmptyViewHelper extends AbstractViewHelper {
 
 	/**
 	 * View helper check if given value is empty

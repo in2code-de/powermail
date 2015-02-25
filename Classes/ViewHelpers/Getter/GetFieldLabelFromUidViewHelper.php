@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Getter;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Read Marker of a field from given UID
  *
@@ -8,7 +10,7 @@ namespace In2code\Powermail\ViewHelpers\Getter;
  * @subpackage Fluid
  * @version
  */
-class GetFieldLabelFromUidViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class GetFieldLabelFromUidViewHelper extends AbstractViewHelper {
 
 	/**
 	 * fieldRepository

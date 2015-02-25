@@ -1,9 +1,10 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Domain\Model\Mail,
-	\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Parses Variables for powermail
@@ -11,7 +12,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility,
  * @package TYPO3
  * @subpackage Fluid
  */
-class VariablesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class VariablesViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface

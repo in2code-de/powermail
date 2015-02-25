@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * OrViewHelper
  *
@@ -8,7 +10,7 @@ namespace In2code\Powermail\ViewHelpers\Condition;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class OrViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class OrViewHelper extends AbstractViewHelper {
 
 	/**
 	 * OR viewhelper for if widget in fluid
