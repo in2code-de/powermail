@@ -52,7 +52,7 @@ class UploadValidatorTest extends UnitTestCase {
 
 		$this->generalValidatorMock = $this->getAccessibleMock(
 			'\In2code\Powermail\Domain\Validator\UploadValidator',
-			array('dummy')
+			array('setErrorAndMessage')
 		);
 		$settings = array(
 			'misc.' => array(
@@ -134,7 +134,12 @@ class UploadValidatorTest extends UnitTestCase {
 		$objectStorage = new ObjectStorage;
 		$objectStorage->attach($answer1);
 		$mail->setAnswers($objectStorage);
-		$result = $this->generalValidatorMock->_callRef('isValid', $mail);
-		$this->assertSame($expectedResult, $result);
+
+		if ($expectedResult === FALSE) {
+			$this->generalValidatorMock->expects($this->once())->method('setErrorAndMessage');
+		} else {
+			$this->generalValidatorMock->expects($this->never())->method('setErrorAndMessage');
+		}
+		$this->generalValidatorMock->_callRef('isValid', $mail);
 	}
 }

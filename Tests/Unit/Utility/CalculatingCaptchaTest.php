@@ -54,7 +54,8 @@ class CalculatingCaptchaTest extends UnitTestCase {
 			array(
 				'captcha.' => array(
 					'default.' => array(
-						'image' => 'EXT:powermail/Resources/Private/Image/captcha_bg.png'
+						'image' => 'EXT:powermail/Resources/Private/Image/captcha_bg.png',
+						'font' => 'EXT:powermail/Resources/Private/Fonts/ARCADE.TTF'
 					)
 				)
 			)
