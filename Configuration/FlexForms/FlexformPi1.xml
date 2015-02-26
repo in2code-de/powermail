@@ -69,7 +69,7 @@
 						<TCEforms>
 							<config>
 								<type>user</type>
-								<userFunc>\In2code\Powermail\Utility\Tca\ShowFormNoteEditForm->showNote</userFunc>
+								<userFunc>In2code\Powermail\Utility\Tca\ShowFormNoteEditForm->showNote</userFunc>
 							</config>
 						</TCEforms>
 					</settings.flexform.main.formnote>
