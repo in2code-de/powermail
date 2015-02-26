@@ -534,6 +534,12 @@
 			<trans-unit id="flexform_pi2.single.fields">
 				<source>Choose Fields to show (Empty: All Fields)</source>
 			</trans-unit>
+			<trans-unit id="flexform_pi2.single.activateLink">
+				<source>Link to detail view</source>
+			</trans-unit>
+			<trans-unit id="flexform_pi2.single.activateLink.0">
+				<source>active</source>
+			</trans-unit>
 			<trans-unit id="flexform_pi2.single.pid">
 				<source>Page with Plugin for detail view (Empty: Same page)</source>
 			</trans-unit>

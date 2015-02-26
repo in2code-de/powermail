@@ -201,6 +201,21 @@
 							</config>
 						</TCEforms>
 					</settings.flexform.single.fields>
+					<settings.flexform.single.activateLink>
+						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.single.activateLink</label>
+							<config>
+								<type>check</type>
+								<items type="array">
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.single.activateLink.0</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+								</items>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.flexform.single.activateLink>
 					<settings.flexform.single.pid>
 						<TCEforms>
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.single.pid</label>
