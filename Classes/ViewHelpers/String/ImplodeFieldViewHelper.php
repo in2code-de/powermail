@@ -42,7 +42,7 @@ class ImplodeFieldViewHelper extends AbstractViewHelper {
 			$string = substr($string, 0, (-1 * strlen($separator)));
 		}
 		if ($htmlSpecialChars) {
-			$string = htmlspecialchars($htmlSpecialChars);
+			$string = htmlspecialchars($string);
 		}
 		return $string;
 	}
