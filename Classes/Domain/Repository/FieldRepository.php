@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,7 +26,6 @@ namespace In2code\Powermail\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * FieldRepository
  *
@@ -32,7 +33,7 @@ namespace In2code\Powermail\Domain\Repository;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class FieldRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class FieldRepository extends Repository {
 
 	/**
 	 * formRepository
@@ -54,7 +55,10 @@ class FieldRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		foreach ($uids as $uid) {
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(FALSE);
-			$result[] = $query->matching($query->equals('uid', $uid))->execute()->getFirst();
+			$field = $query->matching($query->equals('uid', $uid))->execute()->getFirst();
+			if ($field !== NULL) {
+				$result[] = $field;
+			}
 		}
 		return $result;
 	}
