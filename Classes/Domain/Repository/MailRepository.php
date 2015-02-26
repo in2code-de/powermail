@@ -335,8 +335,15 @@ class MailRepository extends Repository {
 			}
 
 			if (count($filter) > 0) {
-				// TODO AND
-				$and[] = $query->logicalOr($filter);
+				// switch between AND and OR
+				if (
+					!empty($settings['search']['logicalRelation']) &&
+					strtolower($settings['search']['logicalRelation']) === 'and'
+				) {
+					$and[] = $query->logicalAnd($filter);
+				} else {
+					$and[] = $query->logicalOr($filter);
+				}
 			}
 
 		}
