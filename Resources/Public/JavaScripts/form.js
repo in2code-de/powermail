@@ -94,6 +94,13 @@ jQuery(document).ready(function($) {
 
 	// Password Field Output
 	$('.powermail_all_type_password.powermail_all_value').html('********');
+
+	// Reset
+	if ($.fn.parsley) {
+		$('.powermail_reset').on('click', '', function(e) {
+			$('form[data-parsley-validate="data-parsley-validate"]').parsley().reset();
+		});
+	}
 });
 
 /**
