@@ -1,12 +1,12 @@
 <?php
 namespace In2code\Powermail\Controller;
 
-use In2code\Powermail\Utility\Div;
-use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice

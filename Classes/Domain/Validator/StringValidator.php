@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use In2code\Powermail\Utility\Div,
-	TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Utility\Div;
 
 /**
  * StringValidator

@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,7 +26,6 @@ namespace In2code\Powermail\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * UserRepository
  *
@@ -32,7 +33,7 @@ namespace In2code\Powermail\Domain\Repository;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class UserRepository extends Repository {
 
 	/**
 	 * Find FE_Users by their group

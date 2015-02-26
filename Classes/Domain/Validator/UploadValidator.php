@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \In2code\Powermail\Utility\BasicFileFunctions;
+use In2code\Powermail\Utility\BasicFileFunctions;
 
 /***************************************************************
  *  Copyright notice

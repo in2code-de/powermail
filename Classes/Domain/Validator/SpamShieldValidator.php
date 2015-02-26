@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Utility\Div,
-	\In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Domain\Model\Mail;
 
 /**
  * SpamShieldValidator

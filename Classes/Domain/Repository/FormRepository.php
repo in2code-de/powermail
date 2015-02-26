@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -26,7 +27,6 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * FormRepository
  *
@@ -34,7 +34,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class FormRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class FormRepository extends Repository {
 
 	/**
 	 * Find Form objects by its given uids

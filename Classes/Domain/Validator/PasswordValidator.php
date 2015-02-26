@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility,
-	\In2code\Powermail\Domain\Model\Field,
-	\In2code\Powermail\Domain\Model\Form;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Form;
 
 /**
  * PasswordValidator

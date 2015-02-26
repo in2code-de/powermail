@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -31,7 +33,7 @@ namespace In2code\Powermail\Domain\Repository;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class AnswerRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class AnswerRepository extends Repository {
 
 	/**
 	 * Find single Answer by field uid and mail uid

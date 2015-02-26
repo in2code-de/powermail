@@ -1,9 +1,10 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Utility\Div;
-use \TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -28,7 +29,6 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * MailRepository
  *
@@ -36,7 +36,7 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class MailRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class MailRepository extends Repository {
 
 	/**
 	 * fieldRepository

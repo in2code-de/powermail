@@ -1,8 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
-	\In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use In2code\Powermail\Domain\Model\Field;
 
 /***************************************************************
  *  Copyright notice
@@ -35,7 +36,7 @@ use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface,
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+abstract class AbstractValidator extends ExtbaseAbstractValidator {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface

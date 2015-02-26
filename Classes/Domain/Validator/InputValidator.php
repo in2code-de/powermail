@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use \In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Field;
 
 /**
  * InputValidator
