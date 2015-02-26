@@ -36,59 +36,59 @@ class ShowFormNoteEditForm {
 			$editFormLink .= '&returnUrl=' . $returnUrl;
 
 			$content .= '
-				<table cellspacing="0" cellpadding="0" border="0" class="typo3-dblist">
+				<table cellspacing="0" cellpadding="0" border="0" class="typo3-dblist" style="border: 1px solid #d7d7d7;">
 					<tbody>
 						<tr class="t3-row-header">
-							<td nowrap="nowrap">
+							<td nowrap="nowrap" style="padding: 5px; color: white">
 								<span class="c-table">
 									' . $this->getLabel('flexform.main.formnote.formname') . '
 								</span>
 							</td>
-							<td nowrap="nowrap">
+							<td nowrap="nowrap" style="padding: 5px; color: white">
 								<span class="c-table">
 									' . $this->getLabel('flexform.main.formnote.storedinpage') . '
 								</span>
 							</td>
-							<td nowrap="nowrap">
+							<td nowrap="nowrap" style="padding: 5px; color: white">
 								<span class="c-table">
 									' . $this->getLabel('flexform.main.formnote.pages') . '
 								</span>
 							</td>
-							<td nowrap="nowrap">
+							<td nowrap="nowrap" style="padding: 5px; color: white">
 								<span class="c-table">
 									' . $this->getLabel('flexform.main.formnote.fields') . '
 								</span>
 							</td>
-							<td nowrap="nowrap">
+							<td nowrap="nowrap" style="padding: 5px; color: white">
 								<span class="c-table">
 									&nbsp;
 								</span>
 							</td>
 						</tr>
 						<tr class="db_list_normal">
-							<td nowrap="nowrap" class="col-title">
+							<td nowrap="nowrap" class="col-title" style="padding: 5px;">
 								<a title="Edit" href="' . $editFormLink . '">
 									' . htmlspecialchars($this->getFormPropertyFromUid($formUid, 'title')) . '
 								</a>
 							</td>
-							<td nowrap="nowrap" class="col-title">
+							<td nowrap="nowrap" class="col-title" style="padding: 5px;">
 								<a title="id=' . $this->getFormPropertyFromUid($formUid, 'pid') . '"
 									onclick="top.loadEditId(' . intval($this->getFormPropertyFromUid($formUid, 'pid')) . '
 									,&quot;&amp;SET[language]=0&quot;); return false;" href="#">
 									' . htmlspecialchars($this->getPageNameFromUid($this->getFormPropertyFromUid($formUid, 'pid'))) . '
 								</a>
 							</td>
-							<td nowrap="nowrap" class="col-title">
+							<td nowrap="nowrap" class="col-title" style="padding: 5px;">
 								<span title="' . htmlspecialchars(implode(', ', $this->getPagesFromForm($formUid))) . '">
 									' . count($this->getPagesFromForm($formUid)) . '
 								</span>
 							</td>
-							<td nowrap="nowrap" class="col-title">
+							<td nowrap="nowrap" class="col-title" style="padding: 5px;">
 								<span title="' . htmlspecialchars(implode(', ', $this->getFieldsFromForm($formUid))) . '">
 									' . count($this->getFieldsFromForm($formUid)) . '
 								</span>
 							</td>
-							<td nowrap="nowrap" class="col-icon">
+							<td nowrap="nowrap" class="col-icon" style="padding: 5px;">
 								<a title="Edit" href="' . $editFormLink . '">
 									<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open"
 										title="Edit Form">
