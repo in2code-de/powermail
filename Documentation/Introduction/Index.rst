@@ -51,8 +51,8 @@ between powermail and the most other form extensions
 
 .. _whats-new:
 
-What's new in powermail 2.1?
-----------------------------
+What's new in powermail 2.1 or 2.2?
+-----------------------------------
 
 Powermail 2.1 uses the same data-structure that was created with powermail 2.0 (see below).
 But there was another code-refactoring especially for TYPO3 6.2 LTS and upcoming versions.
@@ -210,13 +210,23 @@ See in list, what's the plan with older branches:
       Support
 
  - :PowermailVersion:
+      2.2.x
+   :TYPO3Version:
+      6.2 LTS, 7.0, 7.1
+   :Support:
+      This version will be provided with
+
+      - New Features
+      - Bugfixes
+      - Security Updates
+
+ - :PowermailVersion:
       2.1.x
    :TYPO3Version:
       6.2 LTS and newer
    :Support:
       This version will be provided with
 
-      - New Features
       - Bugfixes
       - Security Updates
 
@@ -227,7 +237,6 @@ See in list, what's the plan with older branches:
    :Support:
       This version will be provided with
 
-      - Bugfixes
       - Security Updates
 
  - :PowermailVersion:

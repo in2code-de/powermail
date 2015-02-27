@@ -107,7 +107,7 @@ First of all, you have to register a PHP Class for your new validation via TypoS
     	settings.setup {
     		validation {
     			customValidation {
-    				100 = \In2code\Powermailextended\Domain\Validator\ZipValidator
+    				100 = In2code\Powermailextended\Domain\Validator\ZipValidator
     			}
     		}
     	}

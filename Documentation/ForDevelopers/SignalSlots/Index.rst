@@ -40,7 +40,7 @@ forge.typo3.org if you need a new signal.
       Description
 
  - :Class:
-      \\In2code\\Powermail\\Domain\\Validator\\CustomValidator
+      In2code\\Powermail\\Domain\\Validator\\CustomValidator
    :Name:
       isValid
    :File:
@@ -51,7 +51,7 @@ forge.typo3.org if you need a new signal.
       Add your own serverside Validation
 
  - :Class:
-      \\In2code\\Powermail\\Controller\\FormController
+      In2code\\Powermail\\Controller\\FormController
    :Name:
       formActionBeforeRenderView
    :File:
@@ -62,7 +62,7 @@ forge.typo3.org if you need a new signal.
       Slot is called before the form is rendered
 
  - :Class:
-      \\In2code\\Powermail\\Controller\\FormController
+      In2code\\Powermail\\Controller\\FormController
    :Name:
       confirmationActionBeforeRenderView
    :File:
@@ -73,7 +73,7 @@ forge.typo3.org if you need a new signal.
       Slot is called before the confirmation view is rendered
 
  - :Class:
-      \\In2code\\Powermail\\Controller\\FormController
+      In2code\\Powermail\\Controller\\FormController
    :Name:
       createActionBeforeRenderView
    :File:
@@ -84,7 +84,7 @@ forge.typo3.org if you need a new signal.
       Slot is called before the answered are stored and the mails are sent
 
  - :Class:
-      \\In2code\\Powermail\\Controller\\FormController
+      In2code\\Powermail\\Controller\\FormController
    :Name:
       createActionAfterMailDbSaved
    :File:
@@ -95,7 +95,7 @@ forge.typo3.org if you need a new signal.
       Slot ist called directly after the mail was stored in the db
 
  - :Class:
-      \\In2code\\Powermail\\Controller\\FormController
+      In2code\\Powermail\\Controller\\FormController
    :Name:
       createActionAfterSubmitView
    :File:
@@ -106,7 +106,7 @@ forge.typo3.org if you need a new signal.
       Slot is called after the thx message was rendered
 
  - :Class:
-      \\In2code\\Powermail\\Controller\\FormController
+      In2code\\Powermail\\Controller\\FormController
    :Name:
       optinConfirmActionBeforeRenderView
    :File:
@@ -118,7 +118,7 @@ forge.typo3.org if you need a new signal.
       Double-Opt-In is in use)
 
  - :Class:
-      \\In2code\\Powermail\\Controller\\FormController
+      In2code\\Powermail\\Controller\\FormController
    :Name:
       initializeObjectSettings
    :File:
@@ -129,7 +129,7 @@ forge.typo3.org if you need a new signal.
       Change Settings from Flexform or TypoScript before Action is called
 
  - :Class:
-      \\In2code\\Powermail\\Utility\\SendMail
+      In2code\\Powermail\\Utility\\SendMail
    :Name:
       sendTemplateEmailBeforeSend
    :File:
@@ -140,7 +140,7 @@ forge.typo3.org if you need a new signal.
       Change the emails before sending
 
  - :Class:
-      \\In2code\\Powermail\\Utility\\SendMail
+      In2code\\Powermail\\Utility\\SendMail
    :Name:
       createEmailBodyBeforeRender
    :File:
@@ -214,8 +214,6 @@ Classes/Utility/SendMail.php
      * SendMail
      *
      * @package powermailextend
-     * @license http://www.gnu.org/licenses/lgpl.html
-     * 			GNU Lesser General Public License, version 3 or later
      */
     class SendMail {
 

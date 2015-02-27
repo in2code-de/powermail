@@ -16,7 +16,7 @@ Bugfix Upgrade
 Example
 """""""
 
-Upgrade from Powermail 2.1.x to 2.1.y
+Upgrade from Powermail 2.1.x to 2.1.y or upgrade from 2.2.x to 2.2.y
 
 Details
 """""""
