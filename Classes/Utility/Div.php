@@ -197,27 +197,44 @@ class Div {
 	/**
 	 * Save current timestamp to session
 	 *
-	 * @param int $formUid Form uid
+	 * @param QueryResult $forms
+	 * @param array $settings
 	 * @return void
 	 */
-	public static function saveFormStartInSession($formUid) {
-		if (intval($formUid) === 0) {
-			return;
+	public static function saveFormStartInSession($forms, array $settings) {
+		$form = $forms->getFirst();
+		if ($form !== NULL && self::sessionCheckEnabled($settings)) {
+			$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermailFormstart' . $form->getUid(), time());
+			$GLOBALS['TSFE']->storeSessionData();
 		}
-
-		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermailFormstart' . $formUid, time());
-		$GLOBALS['TSFE']->storeSessionData();
 	}
 
 	/**
 	 * Read FormStart
 	 *
 	 * @param integer $formUid Form UID
+	 * @param array $settings
 	 * @return integer Timestamp
 	 */
-	public static function getFormStartFromSession($formUid) {
-		$timestamp = $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
-		return $timestamp;
+	public static function getFormStartFromSession($formUid, array $settings) {
+		if (self::sessionCheckEnabled($settings)) {
+			return $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
+		}
+		return 0;
+	}
+
+	/**
+	 * Check if spamshield and sessioncheck is enabled
+	 *
+	 * @param array $settings
+	 * @return bool
+	 */
+	protected static function sessionCheckEnabled(array $settings) {
+		$settings = GeneralUtility::removeDotsFromTS($settings);
+		if (!empty($settings['spamshield']['_enable']) && !empty($settings['spamshield']['indicator']['session'])) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 	/**
