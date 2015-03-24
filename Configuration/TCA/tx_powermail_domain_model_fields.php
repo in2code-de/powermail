@@ -96,6 +96,7 @@ $typeSmallPrefill =
 $typeSmallPrefillDescription =
 	'pages, title, type,
 	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
+	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;31,
 	--palette--;Layout;43,
 	description,
