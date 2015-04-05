@@ -32,11 +32,11 @@
 				<tr>
 					<f:for each="{fieldUids}" as="fieldUid">
 						<td>
-							<f:if condition="{vh:Condition.IsNumber(val: '{fieldUid}')}">
+							<f:if condition="{vh:Condition.IsNumber(val:fieldUid)}">
 								<f:then>
 									<f:for each="{mail.answers}" as="answer">
 										<f:if condition="{fieldUid} == {answer.field.uid}">
-											<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+											<f:if condition="{vh:Condition.IsArray(val:answer.value)}">
 												<f:then>
 													<f:for each="{answer.value}" as="singleValue" iteration="arrayIndex">
 														<f:if condition="{singleValue}">
@@ -52,7 +52,7 @@
 									</f:for>
 								</f:then>
 								<f:else>
-									<f:if condition="{vh:Condition.IsDateTimeVariableInVariable(obj: '{mail}', prop: '{fieldUid}')}">
+									<f:if condition="{vh:Condition.IsDateTimeVariableInVariable(obj:mail, prop:fieldUid)}">
 										<f:then>
 											<f:if condition="{0 : fieldUid} == {0 : 'crdate'}">
 												<f:then>

@@ -851,6 +851,10 @@
 				<source>Fulltext Search:</source>
 				<target state="translated">Volltextsuche:</target>
 			</trans-unit>
+			<trans-unit id="BackendListFilterFulltextSearchFormFilter">
+				<source>Reduce to one form:</source>
+				<target state="translated">Auf ein Formular begrenzen:</target>
+			</trans-unit>
 			<trans-unit id="BackendListFilterFulltextSearchSubmit">
 				<source>Filter List</source>
 				<target state="translated">Filtern</target>

@@ -1,0 +1,151 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<div class="powermail_module_search_field searchall searchall_mails">
+
+	<label for="searchall_mails">
+		<f:translate key="BackendListFilterFulltextSearch" />
+	</label>
+
+	<f:form.textfield
+			property="all"
+			value="{piVars.filter.all}"
+			id="searchall_mails"
+			class="searchall_mails" />
+
+	<f:if condition="{formUids -> f:count()} > 1">
+		<f:form.select
+				property="form"
+				options="{formUids}"
+				value="{piVars.filter.form}"
+				prependOptionLabel="{f:translate(key:'BackendListFilterFulltextSearchFormFilter', default:'Reduce to one form:')}"
+				prependOptionValue="" />
+	</f:if>
+
+	<f:form.submit
+			value="{f:translate(key: 'BackendListFilterFulltextSearchSubmit')}"
+			class="searchall_submit" />
+
+</div>
+
+
+
+
+
+
+<h4 class="extended_search_title powermail-close">
+	<span class="t3-icon t3-icon-actions t3-icon-actions-view t3-icon-move-down collapseIcon">&nbsp;</span>
+	<f:translate key="BackendListFilterExtendedSearch" />
+</h4>
+
+
+<fieldset class="extended_search powermail-close">
+
+	<div class="powermail_module_search_field_container1">
+		<div class="powermail_module_search_field searchStart">
+			<label for="searchStart">
+				<f:translate key="BackendListFilterStart" />
+			</label>
+			<f:form.textfield
+					property="start"
+					id="searchStart"
+					class="powermail_module_search_field_start powermail_date"
+					additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field)}"
+					value="{piVars.filter.start}" />
+		</div>
+
+		<div class="powermail_module_search_field searchEnd">
+			<label for="searchEnd">
+				<f:translate key="BackendListFilterEnd" />
+			</label>
+			<f:form.textfield
+					property="stop"
+					id="searchEnd"
+					class="powermail_module_search_field_end powermail_date"
+					additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field)}"
+					value="{piVars.filter.stop}" />
+		</div>
+
+		<div class="powermail_module_search_field searchName">
+			<label for="searchName">
+				<f:translate key="BackendListFilterName" />
+			</label>
+			<f:form.textfield
+					property="sender_name"
+					id="searchName"
+					class="powermail_module_search_field_name"
+					value="{piVars.filter.sender_name}" />
+		</div>
+
+		<div class="powermail_module_search_field searchMail">
+			<label for="searchMail">
+				<f:translate key="BackendListFilterMail" />
+			</label>
+			<f:form.textfield
+					property="sender_mail"
+					id="searchMail"
+					class="powermail_module_search_field_mail"
+					value="{piVars.filter.sender_mail}" />
+		</div>
+
+		<div class="powermail_module_search_field searchSubject">
+			<label for="searchSubject">
+				<f:translate key="BackendListFilterSubject" />
+			</label>
+			<f:form.textfield
+					property="subject"
+					id="searchSubject"
+					class="powermail_module_search_field_subject"
+					value="{piVars.filter.subject}" />
+		</div>
+
+		<div class="powermail_module_search_field searchHidden">
+			<label for="searchHidden">
+				<f:translate key="BackendListFilterHidden" />
+			</label>
+			<vh:form.advancedSelect
+					property="hidden"
+					options="{1: '{f:translate(key: \'BackendListFilterShowNonHidden\')}', 2: '{f:translate(key: \'BackendListFilterShowHidden\')}'}"
+					id="searchHidden"
+					defaultOption="{f:translate(key: 'pleaseChoose')}"
+					value="{piVars.filter.hidden}" />
+		</div>
+
+		<div class="powermail_module_search_field searchAddField clear">
+			<label>
+				<f:translate key="BackendListFilterAddField" />
+			</label>
+			<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-new addSearchField">&nbsp;</span>
+		</div>
+
+		<f:if condition="{piVars.filter}">
+			<div class="powermail_module_search_field">
+				<label>
+					<f:translate key="BackendListFilterClean" />
+				</label>
+				<span class="cleanLink">
+					<f:link.action action="{action}">
+						<f:translate key="BackendListFilterCleanLink" />
+					</f:link.action>
+				</span>
+			</div>
+		</f:if>
+	</div>
+
+	<div class="powermail_module_search_field_container2 powermail-close">
+		<f:for each="{firstForm.pages}" as="page">
+			<f:for each="{page.fields}" as="field">
+				<f:if condition="{field.basicFieldType}">
+					<div class="powermail_module_search_field searchHidden">
+						<label>
+							{field.title}
+						</label>
+						<f:form.textfield
+								property="answer.{field.uid}"
+								class="powermail_module_search_field_dynamicfield"
+								value="{vh:Getter.GetPiVarAnswerField(piVars:piVars, field:field)}" />
+					</div>
+				</f:if>
+			</f:for>
+		</f:for>
+	</div>
+</fieldset>

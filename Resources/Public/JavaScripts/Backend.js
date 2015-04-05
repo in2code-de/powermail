@@ -95,6 +95,7 @@ jQuery(document).ready(function($) {
 
 	// sorting (add hiddenfield with sorting variables to search form and submit)
 	$('a.sorting').click(function(e) {
+		e.preventDefault();
 		href = $(this).prop('href');
 		hrefParts = href.split('&');
 		for (i = 0; i < hrefParts.length; i++) {
@@ -105,11 +106,18 @@ jQuery(document).ready(function($) {
 		if (params != undefined) {
 			paramsParts = params.split('=');
 			paramsParts[0] = paramsParts[0].replace('%40', '@');
-			html = '<input type="hidden" name="' + paramsParts[0] + '" value="' + paramsParts[1] + '" />';
+
+			var sortingContainer = $('.extended_export_sorting_container[name="' + decodeURI(paramsParts[0]) + '"]');
+			if (sortingContainer.length) {
+				// remove already existing hidden fields
+				sortingContainer.remove();
+			}
+			// add new hidden field
+			var html = '<input type="hidden" name="' + paramsParts[0] + '" value="' + paramsParts[1] + '" />';
 			$('.hiddenvalues').append(decodeURI(html));
+
 			$('#powermail_module_search').submit();
 		}
-		e.preventDefault();
 	});
 
 	// Hide Password values
@@ -186,15 +194,19 @@ jQuery(document).ready(function($) {
 	/**
 	 * List View: Extended Export
 	 */
-	// Submit Icons
+	// On submit
+	$('#powermail_module_search').click(function() {
+		$('#forwardToAction').val('list');
+	});
+	// On export
 	$('.export_icon_xls, .export_icon_csv').click(function() {
 		if ($(this).hasClass('export_icon_csv')) {
-			$('#export_format').val('csv');
+			$('#forwardToAction').val('exportCsv');
 		}
 		if ($(this).hasClass('export_icon_xls')) {
-			$('#export_format').val('xls');
+			$('#forwardToAction').val('exportXls');
 		}
-		$('#powermail_module_export').submit();
+		$(this).closest('form').submit();
 	});
 	// Toogle Extended Export
 	$('.extended_export_title').click(function() {
@@ -217,7 +229,7 @@ jQuery(document).ready(function($) {
 			connectWith: '.connected',
 			update: function(event, ui) {
 				$id = $(this).prop('id');
-				if ($id == 'export_field_selection') {
+				if ($id === 'export_field_selection') {
 					$fields = $(this).sortable('toArray').toString();
 					$('#export_fields').val($fields);
 				}

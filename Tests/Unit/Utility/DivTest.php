@@ -1097,4 +1097,56 @@ class DivTest extends UnitTestCase {
 			Div::getImageSourceFromTag(implode('', $html))
 		);
 	}
+
+	/**
+	 * Data Provider for conditionalVariableReturnsMixed()
+	 *
+	 * @return array
+	 */
+	public function conditionalVariableReturnsMixedDataProvider() {
+		return array(
+			array(
+				'string',
+				'fallbackstring',
+				'string'
+			),
+			array(
+				array('abc'),
+				array('def'),
+				array('abc')
+			),
+			array(
+				'',
+				'fallback',
+				'fallback'
+			),
+			array(
+				NULL,
+				TRUE,
+				TRUE
+			),
+			array(
+				123,
+				234,
+				123
+			)
+		);
+	}
+
+	/**
+	 * conditionalVariable Test
+	 *
+	 * @param mixed $variable
+	 * @param mixed $fallback
+	 * @param mixed $expectedResult
+	 * @dataProvider conditionalVariableReturnsMixedDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function conditionalVariableReturnsMixed($variable, $fallback, $expectedResult) {
+		$this->assertSame(
+			$expectedResult,
+			Div::conditionalVariable($variable, $fallback)
+		);
+	}
 }

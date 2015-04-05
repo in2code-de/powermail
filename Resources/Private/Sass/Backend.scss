@@ -183,6 +183,9 @@ a.sorting_asc {
 	float: left;
 	width: 50%;
 	padding: 5px 0;
+	&.searchall_mails label {
+		padding-top: 0;
+	}
 }
 .powermail_module_search_field label {
 	font-weight: bold;
@@ -195,10 +198,13 @@ a.sorting_asc {
 .powermail_module_search_field select {
 	padding: 3px;
 	width: 220px;
-	border-top: 1px solid #A2AAB8;
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
+	margin: 0;
+	border {
+		top: 1px solid #A2AAB8;
+		left: 1px solid #ddd;
+		right: 1px solid #ddd;
+		bottom: 1px solid #ddd;
+	}
 }
 .powermail_module_search_field select {
 	width: 227px;

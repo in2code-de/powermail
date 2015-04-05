@@ -3,7 +3,8 @@ namespace In2code\Powermail\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Utility\Div;
 
 /***************************************************************
@@ -56,7 +57,6 @@ class MailRepository extends Repository {
 	 */
 	public function findAllInPid($pid = 0, $settings = array(), $piVars = array()) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 
 		// initial filter
@@ -84,6 +84,11 @@ class MailRepository extends Repository {
 						$and[] = $query->logicalOr($or);
 					}
 
+					// Form filter
+					elseif ($field === 'form' && !empty($value)) {
+						$and[] = $query->equals('form', $value);
+					}
+
 					// Time Filter Start
 					elseif ($field === 'start' && !empty($value)) {
 						$and[] = $query->greaterThan('crdate', strtotime($value));
@@ -108,7 +113,7 @@ class MailRepository extends Repository {
 				// Answer Fields
 				if (is_array($value)) {
 					foreach ((array) $value as $answerField => $answerValue) {
-						if (empty($answerValue)) {
+						if (empty($answerValue) || $answerField === 'crdate') {
 							continue;
 						}
 						$and[] = $query->equals('answers.field', $answerField);
@@ -122,26 +127,8 @@ class MailRepository extends Repository {
 		$constraint = $query->logicalAnd($and);
 		$query->matching($constraint);
 
-		// set sorting
-		$sortby = ($settings['sortby'] ? $settings['sortby'] : 'crdate');
-		$order = ($settings['order'] === 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING);
-		if (isset($piVars['sorting'])) {
-			foreach ((array) $piVars['sorting'] as $key => $value) {
-				$sortby = $key;
-				$order = ($value === 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING);
-				break;
-			}
-		}
-		$sortby = preg_replace('/[^a-zA-Z0-9_-]/', '', $sortby);
-		$query->setOrderings(
-			array(
-				$sortby => $order
-			)
-		);
-
-		// go for it
-		$mails = $query->execute();
-		return $mails;
+		$query->setOrderings($this->getSorting($settings, $piVars));
+		return $query->execute();
 	}
 
 	/**
@@ -152,30 +139,14 @@ class MailRepository extends Repository {
 	 */
 	public function findFirstInPid($pid = 0) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
-
-		// initial filter
 		$and = array(
 			$query->equals('deleted', 0),
 			$query->equals('pid', $pid)
 		);
-
-		// create constraint
-		$constraint = $query->logicalAnd($and);
-		$query->matching($constraint);
-
-		// sorting
-		$query->setOrderings(
-			array(
-				'crdate' => QueryInterface::ORDER_DESCENDING
-			)
-		);
-
-		// set limit
+		$query->matching($query->logicalAnd($and));
+		$query->setOrderings(array('crdate' => QueryInterface::ORDER_DESCENDING));
 		$query->setLimit(1);
-
-		// go for it
 		$mails = $query->execute();
 		return $mails->getFirst();
 	}
@@ -188,7 +159,6 @@ class MailRepository extends Repository {
 	 */
 	public function findByUid($uid) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 		$query->getQuerySettings()->setLanguageMode(NULL);
 
@@ -204,55 +174,6 @@ class MailRepository extends Repository {
 	}
 
 	/**
-	 * Find mails in UID List
-	 *
-	 * @param string $uidList Commaseparated UID List of mails
-	 * @param array $sorting array('field' => 'asc')
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
-	 */
-	public function findByUidList($uidList, $sorting = array()) {
-		$uids = GeneralUtility::trimExplode(',', $uidList, TRUE);
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
-
-		// initial filter
-		$and = array(
-			$query->equals('deleted', 0),
-			$query->in('uid', $uids)
-		);
-
-		// create constraint
-		$constraint = $query->logicalAnd($and);
-		$query->matching($constraint);
-
-		// sorting
-		$query->setOrderings(
-			array(
-				'crdate' => QueryInterface::ORDER_DESCENDING
-			)
-		);
-		foreach ((array) $sorting as $field => $order) {
-			if (empty($order)) {
-				continue;
-			}
-
-			$field = preg_replace('/[^a-zA-Z0-9_-]/', '', $field);
-			$query->setOrderings(
-				array (
-					$field => (
-						$order === 'asc' ? QueryInterface::ORDER_ASCENDING : QueryInterface::ORDER_DESCENDING
-					)
-				)
-			);
-		}
-
-		// go for it
-		$mails = $query->execute();
-		return $mails;
-	}
-
-	/**
 	 * @param string $marker
 	 * @param string $value
 	 * @param \In2code\Powermail\Domain\Model\Form $form
@@ -261,7 +182,6 @@ class MailRepository extends Repository {
 	 */
 	public function findByMarkerValueForm($marker, $value, $form, $pageUid) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$and = array(
 			$query->equals('answers.field', $this->fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
 			$query->equals('answers.value', $value),
@@ -280,7 +200,6 @@ class MailRepository extends Repository {
 	 */
 	public function findListBySettings($settings, $piVars) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 
 		/**
 		 * FILTER start
@@ -353,21 +272,98 @@ class MailRepository extends Repository {
 		$query->matching($constraint);
 
 		// sorting
-		$query->setOrderings(
-			array(
-				'crdate' => QueryInterface::ORDER_DESCENDING
-			)
-		);
+		$query->setOrderings(array('crdate' => QueryInterface::ORDER_DESCENDING));
 
 		// set limit
 		if (intval($settings['list']['limit']) > 0) {
 			$query->setLimit(intval($settings['list']['limit']));
 		}
 
-		/**
-		 * FINISH
-		 */
 		$mails = $query->execute();
 		return $mails;
+	}
+
+	/**
+	 * Get all form uids from all mails stored on a given page
+	 *
+	 * @param int $pageUid
+	 * @return array
+	 */
+	public function findGroupedFormUidsToGivenPageUid($pageUid = 0) {
+		$queryResult = $this->findAllInPid($pageUid);
+		$forms = array();
+		foreach ($queryResult as $mail) {
+			/** @var Form $form */
+			$form = $mail->getForm();
+			if ($form !== NULL) {
+				if ((int) $form->getUid() > 0 && !in_array($form->getUid(), $forms)) {
+					$forms[$form->getUid()] = $form->getTitle();
+				}
+			}
+		}
+		return $forms;
+	}
+
+	/**
+	 * General settings
+	 *
+	 * @return void
+	 */
+	public function initializeObject() {
+		/** @var Typo3QuerySettings $querySettings */
+		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+		$querySettings->setRespectStoragePage(FALSE);
+		$this->setDefaultQuerySettings($querySettings);
+	}
+
+	/**
+	 * return sorting array and respect
+	 * settings and piVars
+	 * 		return array(
+	 * 			'property' => 'asc'
+	 * 		)
+	 *
+	 * @param array $settings
+	 * @param array $piVars
+	 * @return array
+	 */
+	protected function getSorting($settings, $piVars) {
+		$sorting = array(
+			$this->cleanStringForQuery(Div::conditionalVariable($settings['sortby'], 'crdate')) =>
+				$this->getSortOrderByString($settings['order'])
+		);
+		if (!empty($piVars['sorting'])) {
+			$sorting = array();
+			foreach ((array) array_reverse($piVars['sorting']) as $property => $sortOrderName) {
+				$sorting[$this->cleanStringForQuery($property)] = $this->getSortOrderByString($sortOrderName);
+			}
+		}
+		return $sorting;
+	}
+
+	/**
+	 * Get sort order (ascending or descending) by given string
+	 *
+	 * @param string $sortOrderString
+	 * @return string
+	 */
+	protected function getSortOrderByString($sortOrderString) {
+		$sortOrder = QueryInterface::ORDER_ASCENDING;
+		if ($sortOrderString !== 'asc') {
+			$sortOrder = QueryInterface::ORDER_DESCENDING;
+		}
+		return $sortOrder;
+	}
+
+	/**
+	 * Make in impossible to hack a sql string
+	 * if we just remove as much unneeded characters
+	 * as possible
+	 *
+	 * @param string $string
+	 * @return string
+	 */
+	protected function cleanStringForQuery($string) {
+		return preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
 	}
 }

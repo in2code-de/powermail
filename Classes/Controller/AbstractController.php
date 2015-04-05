@@ -135,6 +135,13 @@ abstract class AbstractController extends ActionController {
 	protected $messageClass = 'error';
 
 	/**
+	 * selected page Uid
+	 *
+	 * @var int
+	 */
+	protected $id = 0;
+
+	/**
 	 * Reformat Array
 	 *
 	 * @return void
@@ -272,6 +279,7 @@ abstract class AbstractController extends ActionController {
 	 */
 	protected function initializeAction() {
 		$this->piVars = $this->request->getArguments();
+		$this->id = GeneralUtility::_GP('id');
 	}
 
 	/**

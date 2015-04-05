@@ -1345,6 +1345,22 @@ class Div {
 	}
 
 	/**
+	 * Simple function that returns fallback variable
+	 * if main variable is empty to save unnecessary
+	 * long if statements
+	 *
+	 * @param mixed $variable
+	 * @param mixed $fallback
+	 * @return mixed
+	 */
+	public static function conditionalVariable($variable, $fallback) {
+		if (empty($variable)) {
+			return $fallback;
+		}
+		return $variable;
+	}
+
+	/**
 	 * Return configured captcha extension
 	 *
 	 * @param array $settings

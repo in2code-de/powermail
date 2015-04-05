@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use In2code\Powermail\Utility\Div;
 
 /***************************************************************
  *  Copyright notice
@@ -46,6 +47,11 @@ class Field extends AbstractEntity {
 
 	/**
 	 * type
+	 * 		Powermail basic field types are:
+	 * 		"input", "textarea", "select", "check", "radio"
+	 * 		"submit", "captcha", "reset", "text", "content"
+	 * 		"html", "password", "file", "hidden", "date",
+	 * 		"country", "location", "typoscript"
 	 *
 	 * @var string
 	 * @validate NotEmpty
@@ -238,6 +244,27 @@ class Field extends AbstractEntity {
 	}
 
 	/**
+	 * Check if this field is of a basic field type
+	 * Basic field types are:
+	 * 		"input", "textarea", "select", "check", "radio"
+	 *
+	 * @return bool
+	 */
+	public function isBasicFieldType() {
+		$basicFieldTypes = array(
+			'input',
+			'textarea',
+			'select',
+			'check',
+			'radio'
+		);
+		if (in_array($this->getType(), $basicFieldTypes)) {
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
 	 * Returns the settings
 	 *
 	 * @return string $settings
@@ -266,7 +293,7 @@ class Field extends AbstractEntity {
 	 * @return string
 	 */
 	public function getModifiedSettings() {
-		return \In2code\Powermail\Utility\Div::optionArray(
+		return Div::optionArray(
 			$this->getSettings(),
 			$this->getCreateFromTyposcript()
 		);

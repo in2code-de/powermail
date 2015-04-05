@@ -1,0 +1,36 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+<div class="powermail_module_search">
+	<div class="powermail_module_search_inner">
+		<f:form action="dispatch" name="filter" id="powermail_module_search">
+			<f:render partial="Module/Search" arguments="{_all}" />
+			<f:render partial="Module/Export" arguments="{_all}" />
+
+			<f:comment>
+				Action for dispatcher
+			</f:comment>
+			<f:form.hidden name="forwardToAction" value="list" id="forwardToAction" />
+
+			<f:comment>
+				Keep Sorting on filter or export
+			</f:comment>
+			<div class="hiddenvalues">
+				<f:if condition="{piVars.sorting}">
+					<f:then>
+						<f:for each="{piVars.sorting}" key="sortingKey" as="order">
+							<f:form.hidden
+									name="sorting[{sortingKey}]"
+									class="extended_export_sorting_container"
+									value="{order}" />
+						</f:for>
+					</f:then>
+					<f:else>
+						<f:form.hidden
+								name="sorting[{settings.sortby}]"
+								class="extended_export_sorting_container"
+								value="{settings.order}" />
+					</f:else>
+				</f:if>
+			</div>
+		</f:form>
+	</div>
+</div>
