@@ -29,7 +29,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * Controller for powermail tasks
  *
@@ -38,6 +37,14 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
  * 			GNU Lesser General Public License, version 3 or later
  */
 class TaskCommandController extends CommandController {
+
+	/**
+	 * mailRepository
+	 *
+	 * @var \In2code\Powermail\Domain\Repository\MailRepository
+	 * @inject
+	 */
+	protected $mailRepository;
 
 	/**
 	 * answerRepository
@@ -55,18 +62,58 @@ class TaskCommandController extends CommandController {
 	protected $delta = 3600;
 
 	/**
-	 * Remove unused uploaded Files
-	 * 		with a scheduler task
+	 * Export of mails as email attachment
+	 *
+	 * 		This task can send a mail export with an attachment
+	 * 		(XLS or CSV) to a receiver or a group of receivers
+	 *
+	 * @param string $receiverEmails comma separated email addresses for export
+	 * @param string $senderEmail sender email address
+	 * @param string $subject Mail subject
+	 * @param int $pageUid Page Id with existing mails
+	 * @param int $period Select mails that are not older than this seconds
+	 * @param string $fieldList Define needed fields or let it empty for all
+	 * @param string $format Fileformat can be 'xls' or 'csv'
+	 * @return bool
+	 */
+	public function exportCommand(
+		$receiverEmails,
+		$senderEmail,
+		$subject = 'New mail export',
+		$pageUid = 0,
+		$period = 2592000,
+		$fieldList = '',
+		$format = 'xls'
+	) {
+		$variables = array(
+			'filter' => array(
+				'start' => strftime('%Y-%m-%d', (time() - $period)),
+				'stop' => 'now'
+			)
+		);
+		/** @var \In2code\Powermail\Utility\Export $export */
+		$export = $this->objectManager->get(
+			'In2code\Powermail\Utility\Export',
+			$this->mailRepository->findAllInPid($pageUid, array(), $variables),
+			$format
+		);
+		$export->setReceiverEmails($receiverEmails);
+		$export->setSenderEmails($senderEmail);
+		$export->setSubject($subject);
+		$export->setFieldList($fieldList);
+		return $export->send();
+	}
+
+	/**
+	 * Remove unused uploaded Files with a scheduler task
+	 *
+	 * 		This task can clean up unused uploaded files
+	 * 		with powermail from your server
 	 *
 	 * @param string $uploadPath Define the upload Path
 	 * @return void
 	 */
 	public function cleanUnusedUploadsCommand($uploadPath = 'uploads/tx_powermail/') {
-		/**
-		 * Open on Command Line with
-		 * php cli_dispatch.phpsh extbase task:cleanunuseduploads
-		 * Needs BE-User _cli_lowlevel
-		 */
 		$usedUploads = $this->getUsedUploads();
 		$allUploads = BasicFileFunctions::getFilesFromRelativePath($uploadPath);
 		$removeCounter = 0;
@@ -81,6 +128,26 @@ class TaskCommandController extends CommandController {
 		}
 		$this->outputLine('Overall Files: ' . count($allUploads));
 		$this->outputLine('Removed Files: ' . $removeCounter);
+	}
+
+	/**
+	 * Remove all export files in typo3temp/tx_powermail/
+	 *
+	 * 		This task will clean up all (!) files which
+	 * 		are located in typo3temp/tx_powermail/
+	 * 		e.g.: old captcha images and old export files (from export task)
+	 *
+	 * @return void
+	 */
+	public function cleanExportFilesCommand() {
+		$files = GeneralUtility::getFilesInDir(
+			GeneralUtility::getFileAbsFileName('typo3temp/tx_powermail/'),
+			'',
+			TRUE
+		);
+		foreach ($files as $file) {
+			unlink($file);
+		}
 	}
 
 	/**
