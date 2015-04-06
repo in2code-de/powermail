@@ -701,7 +701,7 @@ $fieldsTca = array(
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => '',
-				'itemsProcFunc' => '\In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForValidation',
+				'itemsProcFunc' => 'In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForValidation',
 			),
 		),
 		'validation_configuration' => array(
