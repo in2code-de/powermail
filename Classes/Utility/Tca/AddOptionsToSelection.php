@@ -1,9 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
-use In2code\Powermail\Utility\Div;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use YPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class AddOptionsToSelection allows to add individual options
