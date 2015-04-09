@@ -71,36 +71,40 @@ class TaskCommandController extends CommandController {
 	 * @param string $senderEmail sender email address
 	 * @param string $subject Mail subject
 	 * @param int $pageUid Page Id with existing mails
+	 * @param string $domain Domainname for linkgeneration
 	 * @param int $period Select mails that are not older than this seconds
+	 * @param boolean $attachment Add export file as attachment to mail
 	 * @param string $fieldList Define needed fields or let it empty for all
 	 * @param string $format Fileformat can be 'xls' or 'csv'
+	 * @param string $storageFolder path where to save export file
 	 * @return bool
 	 */
 	public function exportCommand(
 		$receiverEmails,
-		$senderEmail,
+		$senderEmail = 'sender@domain.org',
 		$subject = 'New mail export',
 		$pageUid = 0,
+		$domain = 'http://www.domain.org/',
 		$period = 2592000,
+		$attachment = TRUE,
 		$fieldList = '',
-		$format = 'xls'
+		$format = 'xls',
+		$storageFolder = 'typo3temp/tx_powermail/'
 	) {
-		$variables = array(
-			'filter' => array(
-				'start' => strftime('%Y-%m-%d', (time() - $period)),
-				'stop' => 'now'
-			)
-		);
 		/** @var \In2code\Powermail\Utility\Export $export */
 		$export = $this->objectManager->get(
 			'In2code\Powermail\Utility\Export',
-			$this->mailRepository->findAllInPid($pageUid, array(), $variables),
-			$format
+			$this->mailRepository->findAllInPid($pageUid, array(), $this->getFilterVariables($period)),
+			$format,
+			array('domain' => $domain)
 		);
-		$export->setReceiverEmails($receiverEmails);
-		$export->setSenderEmails($senderEmail);
-		$export->setSubject($subject);
-		$export->setFieldList($fieldList);
+		$export
+			->setReceiverEmails($receiverEmails)
+			->setSenderEmails($senderEmail)
+			->setSubject($subject)
+			->setFieldList($fieldList)
+			->setAddAttachment($attachment)
+			->setStorageFolder($storageFolder);
 		return $export->send();
 	}
 
@@ -135,7 +139,8 @@ class TaskCommandController extends CommandController {
 	 *
 	 * 		This task will clean up all (!) files which
 	 * 		are located in typo3temp/tx_powermail/
-	 * 		e.g.: old captcha images and old export files (from export task)
+	 * 		e.g.: old captcha images and old export files
+	 * 		(from export task - if stored in typo3temp folder)
 	 *
 	 * @return void
 	 */
@@ -164,5 +169,24 @@ class TaskCommandController extends CommandController {
 			}
 		}
 		return $usedUploads;
+	}
+
+	/**
+	 * Create a filter array from given period
+	 *
+	 * @param int $period
+	 * @return array
+	 */
+	protected function getFilterVariables($period) {
+		$variables = array('filter' => array());
+		if ($period > 0) {
+			$variables = array(
+				'filter' => array(
+					'start' => strftime('%Y-%m-%d', (time() - $period)),
+					'stop' => 'now'
+				)
+			);
+		}
+		return $variables;
 	}
 }

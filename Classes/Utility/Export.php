@@ -116,14 +116,31 @@ class Export {
 	protected $fileName = '';
 
 	/**
+	 * @var array
+	 */
+	protected $additionalProperties = array();
+
+	/**
+	 * @var bool
+	 */
+	protected $addAttachment = TRUE;
+
+	/**
+	 * @var string
+	 */
+	protected $storageFolder = 'typo3temp/tx_powermail/';
+
+	/**
 	 * Constructor
 	 *
 	 * @param QueryResult $mails Given mails for export
 	 * @param string $format can be 'xls' or 'csv'
+	 * @param array $additionalProperties add additional properties
 	 */
-	public function __construct(QueryResult $mails, $format = 'xls') {
+	public function __construct(QueryResult $mails, $format = 'xls', $additionalProperties = array()) {
 		$this->setMails($mails);
 		$this->setFormat($format);
+		$this->setAdditionalProperties($additionalProperties);
 		$this->setFieldList(
 			$this->getDefaultFieldListFromFirstMail($mails)
 		);
@@ -137,8 +154,8 @@ class Export {
 	 */
 	public function send() {
 		$result = $this->createExportFile();
-		if ($result !== NULL) {
-			return $result;
+		if (!$result) {
+			return 'File could not be generated';
 		}
 		return $this->sendEmail();
 	}
@@ -154,7 +171,7 @@ class Export {
 		$email->setSubject($this->getSubject());
 		$email->setBody($this->createMailBody());
 		$email->setFormat('html');
-		$email->attach(\Swift_Attachment::fromPath($this->getPathAndFileName()));
+		$email->attach(\Swift_Attachment::fromPath($this->getAbsolutePathAndFileName()));
 		$email->send();
 		return $email->isSent();
 	}
@@ -163,20 +180,26 @@ class Export {
 	 * @return string
 	 */
 	protected function createMailBody() {
-		$body = 'New Mail Export ';
-		$body .= '(' . Div::conditionalVariable(GeneralUtility::getIndpEnv('HTTP_HOST'), 'Powermail') . ')';
-		$body .= "\n";
-		$body .= 'Time: ' . strftime('%d.%m.%Y %H:%M:%S');
-		return $body;
+		$rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
+		/** @var StandaloneView $standAloneView */
+		$standAloneView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
+		$standAloneView->getRequest()->setControllerExtensionName('Powermail');
+		$standAloneView->getRequest()->setPluginName('Pi1');
+		$standAloneView->setFormat('html');
+		$standAloneView->setTemplatePathAndFilename($rootPath . 'Templates/Module/ExportTaskMail.html');
+		$standAloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
+		$standAloneView->setPartialRootPaths(array($rootPath . 'Partials'));
+		$standAloneView->assign('export', $this);
+		return $standAloneView->render();
 	}
 
 	/**
 	 * Create an export file
 	 *
-	 * @return string Returns NULL if success otherwise error string
+	 * @return bool if file operation could done successfully
 	 */
 	protected function createExportFile() {
-		return GeneralUtility::writeFileToTypo3tempDir($this->getPathAndFileName(), $this->getFileContent());
+		return GeneralUtility::writeFile($this->getAbsolutePathAndFileName(), $this->getFileContent(), TRUE);
 	}
 
 	/**
@@ -240,10 +263,11 @@ class Export {
 
 	/**
 	 * @param QueryResult $mails
-	 * @return void
+	 * @return Export
 	 */
 	public function setMails($mails) {
 		$this->mails = $mails;
+		return $this;
 	}
 
 	/**
@@ -255,10 +279,11 @@ class Export {
 
 	/**
 	 * @param string $format
-	 * @return void
+	 * @return Export
 	 */
 	public function setFormat($format) {
 		$this->format = $format;
+		return $this;
 	}
 
 	/**
@@ -270,7 +295,7 @@ class Export {
 
 	/**
 	 * @param string|array $fieldList
-	 * @return void
+	 * @return Export
 	 */
 	public function setFieldList($fieldList) {
 		if (!empty($fieldList)) {
@@ -279,6 +304,7 @@ class Export {
 			}
 			$this->fieldList = $fieldList;
 		}
+		return $this;
 	}
 
 	/**
@@ -300,13 +326,14 @@ class Export {
 
 	/**
 	 * @param string|array $emails
-	 * @return void
+	 * @return Export
 	 */
 	public function setReceiverEmails($emails) {
 		if (is_string($emails)) {
 			$emails = GeneralUtility::trimExplode(',', $emails, TRUE);
 		}
 		$this->receiverEmails = $emails;
+		return $this;
 	}
 
 	/**
@@ -328,13 +355,14 @@ class Export {
 
 	/**
 	 * @param array $senderEmails
-	 * @return void
+	 * @return Export
 	 */
 	public function setSenderEmails($senderEmails) {
 		if (is_string($senderEmails)) {
 			$senderEmails = GeneralUtility::trimExplode(',', $senderEmails, TRUE);
 		}
 		$this->senderEmails = $senderEmails;
+		return $this;
 	}
 
 	/**
@@ -346,10 +374,11 @@ class Export {
 
 	/**
 	 * @param string $subject
-	 * @return void
+	 * @return Export
 	 */
 	public function setSubject($subject) {
 		$this->subject = $subject;
+		return $this;
 	}
 
 	/**
@@ -377,11 +406,77 @@ class Export {
 	}
 
 	/**
+	 * Get relative path and filename
+	 *
+	 * @return string
+	 */
+	public function getRelativePathAndFileName() {
+		return $this->getStorageFolder() . $this->getFileName();
+	}
+
+	/**
 	 * Get absolute path and filename
 	 *
 	 * @return string
 	 */
-	protected function getPathAndFileName() {
-		return GeneralUtility::getFileAbsFileName('typo3temp/tx_powermail/' . $this->getFileName());
+	public function getAbsolutePathAndFileName() {
+		return GeneralUtility::getFileAbsFileName($this->getRelativePathAndFileName());
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getAdditionalProperties() {
+		return $this->additionalProperties;
+	}
+
+	/**
+	 * @param array $additionalProperties
+	 * @return Export
+	 */
+	public function setAdditionalProperties($additionalProperties) {
+		$this->additionalProperties = $additionalProperties;
+		return $this;
+	}
+
+	/**
+	 * @param string $additionalProperty
+	 * @param string $propertyName
+	 * @return void
+	 */
+	public function addAdditionalProperty($additionalProperty, $propertyName) {
+		$this->additionalProperties[$propertyName] = $additionalProperty;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isAddAttachment() {
+		return $this->addAttachment;
+	}
+
+	/**
+	 * @param boolean $addAttachment
+	 * @return Export
+	 */
+	public function setAddAttachment($addAttachment) {
+		$this->addAttachment = $addAttachment;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStorageFolder() {
+		return $this->storageFolder;
+	}
+
+	/**
+	 * @param string $storageFolder
+	 * @return Export
+	 */
+	public function setStorageFolder($storageFolder) {
+		$this->storageFolder = $storageFolder;
+		return $this;
 	}
 }
