@@ -1,0 +1,4 @@
+.. |img-schedulertask-export|     image:: ../../../Images/schedulertask-export.png
+.. :align: left
+.. :border: 0
+.. :name: schedulertask-export
