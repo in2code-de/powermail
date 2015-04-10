@@ -6,6 +6,15 @@ plugin.tx_powermail {
 		Pi2 {
 			search {
 				logicalRelation = OR
+
+				# predefine some filter variables
+				staticPluginsVariables {
+					filter {
+						# examples
+						# [uid] = [value]
+						# _all = [value]
+					}
+				}
 			}
 
 			rss {

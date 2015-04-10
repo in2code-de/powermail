@@ -1380,6 +1380,19 @@ class Div {
 	}
 
 	/**
+	 * Add parameters to piVars from TypoScript
+	 *
+	 * @param array $pluginVariables
+	 * @param string $parameters
+	 * @return void
+	 */
+	public static function preparePluginVariables(&$pluginVariables, $parameters) {
+		if (is_array($parameters)) {
+			$pluginVariables = array_merge($pluginVariables, $parameters);
+		}
+	}
+
+	/**
 	 * Send a plain mail for simple notifies
 	 *
 	 * @param string $receiverEmail Email address to send to
@@ -1402,12 +1415,13 @@ class Div {
 	/**
 	 * Get powermail version from ext_emconf
 	 *
+	 * @param string $extensionKey
 	 * @return string
 	 */
-	public static function getVersion() {
-		$_EXTKEY = 'powermail';
-		require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
-		$version = $EM_CONF['powermail']['version'];
+	public static function getVersion($extensionKey = 'powermail') {
+		$_EXTKEY = $extensionKey;
+		require(ExtensionManagementUtility::extPath($extensionKey) . 'ext_emconf.php');
+		$version = $EM_CONF[$extensionKey]['version'];
 		if (VersionNumberUtility::convertVersionNumberToInteger($version) > 0) {
 			return $version;
 		}

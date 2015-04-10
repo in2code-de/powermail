@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
@@ -127,7 +128,7 @@ class MailRepository extends Repository {
 		$constraint = $query->logicalAnd($and);
 		$query->matching($constraint);
 
-		$query->setOrderings($this->getSorting($settings, $piVars));
+		$query->setOrderings($this->getSorting($settings['sortby'], $settings['order'], $piVars));
 		return $query->execute();
 	}
 
@@ -305,6 +306,31 @@ class MailRepository extends Repository {
 	}
 
 	/**
+	 * Find mails in UID List
+	 *
+	 * @param string $uidList Commaseparated UID List of mails
+	 * @param array $sorting array('field' => 'asc')
+	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
+	 */
+	public function findByUidList($uidList, $sorting = array()) {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+		$and = array(
+			$query->equals('deleted', 0),
+			$query->in('uid', GeneralUtility::trimExplode(',', $uidList, TRUE))
+		);
+		$query->matching($query->logicalAnd($and));
+		$query->setOrderings($this->getSorting('crdate', 'desc'));
+		foreach ((array) $sorting as $field => $order) {
+			if (empty($order)) {
+				continue;
+			}
+			$query->setOrderings($this->getSorting($field, $order));
+		}
+		return $query->execute();
+	}
+
+	/**
 	 * General settings
 	 *
 	 * @return void
@@ -323,14 +349,15 @@ class MailRepository extends Repository {
 	 * 			'property' => 'asc'
 	 * 		)
 	 *
-	 * @param array $settings
+	 * @param string $sortby
+	 * @param string $order
 	 * @param array $piVars
 	 * @return array
 	 */
-	protected function getSorting($settings, $piVars) {
+	protected function getSorting($sortby, $order, $piVars = array()) {
 		$sorting = array(
-			$this->cleanStringForQuery(Div::conditionalVariable($settings['sortby'], 'crdate')) =>
-				$this->getSortOrderByString($settings['order'])
+			$this->cleanStringForQuery(Div::conditionalVariable($sortby, 'crdate')) =>
+				$this->getSortOrderByString($order)
 		);
 		if (!empty($piVars['sorting'])) {
 			$sorting = array();
