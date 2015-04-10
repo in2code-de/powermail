@@ -32,7 +32,6 @@ use In2code\Powermail\Domain\Model\Mail;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * Controller for powermail frontend output
  * (former part of the powermail_frontend extension)
@@ -49,22 +48,18 @@ class OutputController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		// get all mails
-		$mails = $this->mailRepository->findListBySettings($this->settings, $this->piVars);
-		$this->view->assign('mails', $mails);
-
-		// get fields for iteration
+		Div::preparePluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
 		if ($this->settings['list']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
 		} else {
 			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
 		}
-		$fields = $this->fieldRepository->findByUids($fieldArray);
 		$searchFields = $this->fieldRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['search']['fields'], TRUE));
 		$this->view->assignMultiple(
 			array(
+				'mails' => $this->mailRepository->findListBySettings($this->settings, $this->piVars),
 				'searchFields' => $searchFields,
-				'fields' => $fields,
+				'fields' => $this->fieldRepository->findByUids($fieldArray),
 				'piVars' => $this->piVars,
 				'abc' => Div::getAbcArray()
 			)
