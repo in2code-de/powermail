@@ -22,7 +22,7 @@ class T3VersionViewHelper extends AbstractViewHelper {
 	public function render() {
 		// settings
 		$_EXTKEY = 'powermail';
-		require_once(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
+		require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
 		$versionString = $EM_CONF['powermail']['constraints']['depends']['typo3'];
 		$versions = explode('-', $versionString);
 		$powermailVersion = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
