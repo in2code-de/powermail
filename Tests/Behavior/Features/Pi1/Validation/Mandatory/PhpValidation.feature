@@ -18,17 +18,17 @@ Feature: PhpValidation
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
-    Then I should see 9 ".powermail_message_error > li" elements
+    Then I should see 10 ".powermail_message_error > li" elements
     Then I fill in "tx_powermail_pi1[field][lastname]" with "Christian"
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
-    Then I should see 8 ".powermail_message_error > li" elements
+    Then I should see 9 ".powermail_message_error > li" elements
     Then I fill in "tx_powermail_pi1[field][inputpattern]" with "test"
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
-    Then I should see 8 ".powermail_message_error > li" elements
+    Then I should see 9 ".powermail_message_error > li" elements
     Then I fill in "tx_powermail_pi1[field][inputpattern]" with "http://www.test.de"
     Then I fill in "tx_powermail_pi1[field][firstname]" with "Sonntag"
     Then I fill in "tx_powermail_pi1[field][date]" with "17.10.2014"
@@ -38,6 +38,7 @@ Feature: PhpValidation
     Then I check "tx_powermail_pi1[field][validation][]"
     Then I select "pink" from "tx_powermail_pi1[field][marker]"
     When I attach the file "test.txt" to "tx_powermail_pi1[field][file][]"
+    Then I select "Deutschland" from "tx_powermail_pi1[field][marker_02]"
     And I press "Submit"
 
     Then I should see "Sind diese Eingaben korrekt?"
@@ -50,6 +51,7 @@ Feature: PhpValidation
     Then I should see "blau"
     Then I should see "lila"
     Then I should see "pink"
+    Then I should see "DEU"
     And I press "Weiter"
 
     Then I should see "Danke, Ihre Eingaben:"
@@ -62,3 +64,4 @@ Feature: PhpValidation
     Then I should see "blau"
     Then I should see "lila"
     Then I should see "pink"
+    Then I should see "DEU"

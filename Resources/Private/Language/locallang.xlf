@@ -633,6 +633,9 @@
 			<trans-unit id="BackendListFilterFulltextSearch">
 				<source>Fulltext Search:</source>
 			</trans-unit>
+			<trans-unit id="BackendListFilterFulltextSearchFormFilter">
+				<source>Reduce to one form:</source>
+			</trans-unit>
 			<trans-unit id="BackendListFilterFulltextSearchSubmit">
 				<source>Filter List</source>
 			</trans-unit>

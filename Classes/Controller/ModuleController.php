@@ -39,24 +39,79 @@ use In2code\Powermail\Utility\Div;
 class ModuleController extends AbstractController {
 
 	/**
+	 * @param string $forwardToAction
+	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+	 * @return void
+	 */
+	public function dispatchAction($forwardToAction = 'list') {
+		$this->forward($forwardToAction);
+	}
+
+	/**
 	 * List View Backend
 	 *
 	 * @return void
 	 */
-	public function listBeAction() {
-		$mails = $this->mailRepository->findAllInPid(GeneralUtility::_GP('id'), $this->settings, $this->piVars);
-		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
-
+	public function listAction() {
+		$formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
+		$firstFormUid = Div::conditionalVariable($this->piVars['filter']['form'], key($formUids));
 		$this->view->assignMultiple(
 			array(
-				'mails' => $mails,
-				'firstMail' => $firstMail,
+				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
+				'formUids' => $formUids,
+				'firstForm' => $this->formRepository->findByUid($firstFormUid),
 				'piVars' => $this->piVars,
-				'pid' => GeneralUtility::_GP('id'),
+				'pid' => $this->id,
 				'token' => BackendUtility::getUrlToken('tceAction'),
 				'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
 			)
 		);
+	}
+
+	/**
+	 * Export Action for XLS Files
+	 *
+	 * @return void
+	 */
+	public function exportXlsAction() {
+		$this->view->assignMultiple(
+			array(
+				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
+				'fieldUids' => GeneralUtility::trimExplode(
+					',',
+					Div::conditionalVariable($this->piVars['export']['fields'], ''),
+					TRUE
+				)
+			)
+		);
+
+		$fileName = Div::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: inline; filename="' . $fileName . '"');
+		header('Pragma: no-cache');
+	}
+
+	/**
+	 * Export Action for CSV Files
+	 *
+	 * @return void
+	 */
+	public function exportCsvAction() {
+		$this->view->assignMultiple(
+			array(
+				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
+				'fieldUids' => GeneralUtility::trimExplode(
+					',',
+					Div::conditionalVariable($this->piVars['export']['fields'], ''),
+					TRUE
+				)
+			)
+		);
+
+		$fileName = Div::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
+		header('Content-Type: text/x-csv');
+		header('Content-Disposition: attachment; filename="' . $fileName . '"');
+		header('Pragma: no-cache');
 	}
 
 	/**
@@ -66,11 +121,13 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	public function reportingBeAction($subaction = NULL) {
-		if ($subaction === 'form') {
-			$this->forward('reportingFormBe');
-		}
-		if ($subaction === 'marketing') {
-			$this->forward('reportingMarketingBe');
+		switch ($subaction) {
+			case 'marketing':
+				$this->forward('reportingMarketingBe');
+				break;
+
+			default:
+				$this->forward('reportingFormBe');
 		}
 	}
 
@@ -80,8 +137,9 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	public function reportingFormBeAction() {
-		$mails = $this->mailRepository->findAllInPid(GeneralUtility::_GP('id'), $this->settings, $this->piVars);
-		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
+		$mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
+		// TODO remove firstMail
+		$firstMail = $this->mailRepository->findFirstInPid($this->id);
 		$groupedAnswers = Div::getGroupedMailAnswers($mails);
 
 		$this->view->assignMultiple(
@@ -90,7 +148,7 @@ class ModuleController extends AbstractController {
 				'mails' => $mails,
 				'firstMail' => $firstMail,
 				'piVars' => $this->piVars,
-				'pid' => GeneralUtility::_GP('id'),
+				'pid' => $this->id,
 				'token' => BackendUtility::getUrlToken('tceAction'),
 				'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
 			)
@@ -103,8 +161,9 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	public function reportingMarketingBeAction() {
-		$mails = $this->mailRepository->findAllInPid(GeneralUtility::_GP('id'), $this->settings, $this->piVars);
-		$firstMail = $this->mailRepository->findFirstInPid(GeneralUtility::_GP('id'));
+		$mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
+		// TODO remove firstMail
+		$firstMail = $this->mailRepository->findFirstInPid($this->id);
 		$groupedMarketingStuff = Div::getGroupedMarketingStuff($mails);
 
 		$this->view->assignMultiple(
@@ -113,58 +172,11 @@ class ModuleController extends AbstractController {
 				'mails' => $mails,
 				'firstMail' => $firstMail,
 				'piVars' => $this->piVars,
-				'pid' => GeneralUtility::_GP('id'),
+				'pid' => $this->id,
 				'token' => BackendUtility::getUrlToken('tceAction'),
 				'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
 			)
 		);
-	}
-
-	/**
-	 * Export Action
-	 *
-	 * @param array $export export settings
-	 * @return void
-	 */
-	public function exportBeAction(array $export = array()) {
-		if ($export['format'] === 'xls') {
-			$this->forward('exportXlsBe', NULL, NULL, array('export' => $export));
-		}
-		$this->forward('exportCsvBe', NULL, NULL, array('export' => $export));
-	}
-
-	/**
-	 * Export Action for XLS Files
-	 *
-	 * @param array $export export settings
-	 * @return void
-	 */
-	public function exportXlsBeAction(array $export = array()) {
-		$mails = $this->mailRepository->findByUidList($export['mails'], $export['sorting']);
-		$this->view->assign('mails', $mails);
-		$this->view->assign('fieldUids', GeneralUtility::trimExplode(',', $export['fields'], TRUE));
-
-		$fileName = ($this->settings['export']['filenameXls'] ? $this->settings['export']['filenameXls'] : 'export.xls');
-		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: inline; filename="' . $fileName . '"');
-		header('Pragma: no-cache');
-	}
-
-	/**
-	 * Export Action for CSV Files
-	 *
-	 * @param array $export export settings
-	 * @return void
-	 */
-	public function exportCsvBeAction(array $export = array()) {
-		$mails = $this->mailRepository->findByUidList($export['mails'], $export['sorting']);
-		$this->view->assign('mails', $mails);
-		$this->view->assign('fieldUids', GeneralUtility::trimExplode(',', $export['fields'], TRUE));
-
-		$fileName = ($this->settings['export']['filenameCsv'] ? $this->settings['export']['filenameCsv'] : 'export.csv');
-		header('Content-Type: text/x-csv');
-		header('Content-Disposition: attachment; filename="' . $fileName . '"');
-		header('Pragma: no-cache');
 	}
 
 	/**
@@ -181,10 +193,9 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	public function overviewBeAction() {
-		$pid = GeneralUtility::_GET('id');
-		$forms = $this->formRepository->findAllInPid($pid);
+		$forms = $this->formRepository->findAllInPid($this->id);
 		$this->view->assign('forms', $forms);
-		$this->view->assign('pid', $pid);
+		$this->view->assign('pid', $this->id);
 	}
 
 	/**
@@ -203,7 +214,7 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	public function checkBeAction($email = NULL) {
-		$this->view->assign('pid', GeneralUtility::_GP('id'));
+		$this->view->assign('pid', $this->id);
 
 		if ($email) {
 			if (GeneralUtility::validEmail($email)) {

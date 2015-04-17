@@ -56,11 +56,14 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	public function formAction() {
-		if (!isset($this->settings['main']['form']) || !$this->settings['main']['form']) {
+		if (empty($this->settings['main']['form'])) {
 			return;
 		}
 		$forms = $this->formRepository->findByUids($this->settings['main']['form']);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($forms, $this));
+		Div::saveFormStartInSession($forms, $this->settings);
+
+		$this->assignForAll();
 		$this->view->assignMultiple(
 			array(
 				'forms' => $forms,
@@ -68,11 +71,6 @@ class FormController extends AbstractController {
 				'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
 			)
 		);
-		$this->assignForAll();
-
-		if (method_exists($forms->getFirst(), 'getUid')) {
-			Div::saveFormStartInSession($forms->getFirst()->getUid());
-		}
 	}
 
 	/**
@@ -377,7 +375,7 @@ class FormController extends AbstractController {
 			)
 		);
 		$mail->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'));
-		$mail->setTime((time() - Div::getFormStartFromSession($mail->getForm()->getUid())));
+		$mail->setTime((time() - Div::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)));
 		$mail->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'));
 		$mail->setMarketingRefererDomain($marketingInfos['refererDomain']);
 		$mail->setMarketingReferer($marketingInfos['referer']);

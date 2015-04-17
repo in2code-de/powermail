@@ -109,7 +109,10 @@ class SpamShieldValidator extends AbstractValidator {
 		$this->honeypodCheck($settingsSpamShieldIndicator['honeypod']);
 		$this->linkCheck($mail, $settingsSpamShieldIndicator['link'], $settingsSpamShieldIndicator['linkLimit']);
 		$this->nameCheck($mail, $settingsSpamShieldIndicator['name']);
-		$this->sessionCheck($settingsSpamShieldIndicator['session'], Div::getFormStartFromSession($mail->getForm()->getUid()));
+		$this->sessionCheck(
+			$settingsSpamShieldIndicator['session'],
+			Div::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)
+		);
 		$this->uniqueCheck($mail, $settingsSpamShieldIndicator['unique']);
 		$this->blacklistStringCheck($mail, $settingsSpamShieldIndicator['blacklistString']);
 		$this->blacklistIpCheck($settingsSpamShieldIndicator['blacklistIp'], GeneralUtility::getIndpEnv('REMOTE_ADDR'));

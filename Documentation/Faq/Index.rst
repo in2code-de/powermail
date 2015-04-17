@@ -325,6 +325,29 @@ See following example to add a new fieldtype with Partial Newfield.html (see Doc
 
 	tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name
 
+.. _additionalAttributesInFieldPartials:
+
+I want to use additionalAttributes in a field partial, but it's already in use
+------------------------------------------------------------------------------
+
+All Field partials are original stored under EXT:powermail/Resources/Private/Partials/Form/*
+Most of them are already using the parameter additionalAttributes to set data-attributes for clientside validation, etc...
+In some case you need to set your own additionalAttributes - see following code examples.
+
+.. code-block:: text
+
+	<!-- Original textfield example -->
+	<f:form.textfield
+		...
+		additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field)}"
+		... />
+
+	<!-- Modified textfield example -->
+	<f:form.textfield
+		...
+		additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field, additionalAttributes:'{autocomplete:\'off\',data-something:\'true\'}')}"
+		... />
+
 .. _whitepageafterupgrade:
 
 I upgraded powermail and a white page comes up

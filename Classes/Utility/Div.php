@@ -197,27 +197,44 @@ class Div {
 	/**
 	 * Save current timestamp to session
 	 *
-	 * @param int $formUid Form uid
+	 * @param QueryResult $forms
+	 * @param array $settings
 	 * @return void
 	 */
-	public static function saveFormStartInSession($formUid) {
-		if (intval($formUid) === 0) {
-			return;
+	public static function saveFormStartInSession($forms, array $settings) {
+		$form = $forms->getFirst();
+		if ($form !== NULL && self::sessionCheckEnabled($settings)) {
+			$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermailFormstart' . $form->getUid(), time());
+			$GLOBALS['TSFE']->storeSessionData();
 		}
-
-		$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermailFormstart' . $formUid, time());
-		$GLOBALS['TSFE']->storeSessionData();
 	}
 
 	/**
 	 * Read FormStart
 	 *
 	 * @param integer $formUid Form UID
+	 * @param array $settings
 	 * @return integer Timestamp
 	 */
-	public static function getFormStartFromSession($formUid) {
-		$timestamp = $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
-		return $timestamp;
+	public static function getFormStartFromSession($formUid, array $settings) {
+		if (self::sessionCheckEnabled($settings)) {
+			return $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
+		}
+		return 0;
+	}
+
+	/**
+	 * Check if spamshield and sessioncheck is enabled
+	 *
+	 * @param array $settings
+	 * @return bool
+	 */
+	protected static function sessionCheckEnabled(array $settings) {
+		$settings = GeneralUtility::removeDotsFromTS($settings);
+		if (!empty($settings['spamshield']['_enable']) && !empty($settings['spamshield']['indicator']['session'])) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 
 	/**
@@ -1328,6 +1345,22 @@ class Div {
 	}
 
 	/**
+	 * Simple function that returns fallback variable
+	 * if main variable is empty to save unnecessary
+	 * long if statements
+	 *
+	 * @param mixed $variable
+	 * @param mixed $fallback
+	 * @return mixed
+	 */
+	public static function conditionalVariable($variable, $fallback) {
+		if (empty($variable)) {
+			return $fallback;
+		}
+		return $variable;
+	}
+
+	/**
 	 * Return configured captcha extension
 	 *
 	 * @param array $settings
@@ -1344,6 +1377,19 @@ class Div {
 			return $settings['captcha.']['use'];
 		}
 		return 'default';
+	}
+
+	/**
+	 * Add parameters to piVars from TypoScript
+	 *
+	 * @param array $pluginVariables
+	 * @param array $parameters
+	 * @return void
+	 */
+	public static function prepareFilterPluginVariables(&$pluginVariables, $parameters) {
+		if (!empty($parameters['filter'])) {
+			$pluginVariables = (array) $pluginVariables + (array) $parameters;
+		}
 	}
 
 	/**
@@ -1369,12 +1415,13 @@ class Div {
 	/**
 	 * Get powermail version from ext_emconf
 	 *
+	 * @param string $extensionKey
 	 * @return string
 	 */
-	public static function getVersion() {
-		$_EXTKEY = 'powermail';
-		require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
-		$version = $EM_CONF['powermail']['version'];
+	public static function getVersion($extensionKey = 'powermail') {
+		$_EXTKEY = $extensionKey;
+		require(ExtensionManagementUtility::extPath($extensionKey) . 'ext_emconf.php');
+		$version = $EM_CONF[$extensionKey]['version'];
 		if (VersionNumberUtility::convertVersionNumberToInteger($version) > 0) {
 			return $version;
 		}

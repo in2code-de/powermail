@@ -13,7 +13,7 @@
 	<f:comment>
 		Filter Area
 	</f:comment>
-	<f:render partial="Module/FilterBe" arguments="{_all}" />
+	<f:render partial="Module/Filter" arguments="{_all}" />
 
 
 
@@ -28,10 +28,10 @@
 
 				<f:if condition="{vh:Condition.IsCompatVersion(versionNumber:'7.0')}">
 					<f:then>
-						<f:render partial="Module/ListBe" arguments="{_all}" />
+						<f:render partial="Module/List" arguments="{_all}" />
 					</f:then>
 					<f:else>
-						<f:render partial="Module/ListBeOld" arguments="{_all}" />
+						<f:render partial="Module/ListOld" arguments="{_all}" />
 					</f:else>
 				</f:if>
 			</f:widget.paginate>

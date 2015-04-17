@@ -1,0 +1,144 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<div class="export_icons" xmlns:f="http://www.w3.org/1999/html">
+	<f:image src="{f:uri.resource(path: 'Image/icon_csv.gif')}" alt="CSV" class="export_icon export_icon_csv" />
+	<f:image src="{f:uri.resource(path: 'Image/icon_xls.gif')}" alt="XLS" class="export_icon export_icon_xls" />
+</div>
+
+<h4 class="extended_export_title powermail-close">
+	<span class="t3-icon t3-icon-actions t3-icon-actions-view t3-icon-move-down collapseIcon">&nbsp;</span>
+	<f:translate key="BackendListFilterExtendedExport" />
+</h4>
+
+
+<fieldset class="extended_export powermail-close">
+
+	<div class="extended_export_inner">
+
+		<f:comment>
+			Left column with selected fields for export
+		</f:comment>
+		<div class="extended_export_inner_left">
+			<label for="export_field_selection" class="export_field_selection_label">
+				<f:translate key="BackendListFilterExtendedExportLeftLabel" />
+			</label>
+			<ul class="extended_export_field connected" id="export_field_selection">
+				<f:for each="{firstForm.pages}" as="page">
+					<f:for each="{page.fields}" as="field">
+						<f:if condition="{field.basicFieldType}">
+							<li id="{field.uid}">
+								{field.title} <span class="info">(<f:translate key="FormField" />)</span>
+							</li>
+						</f:if>
+					</f:for>
+				</f:for>
+			</ul>
+		</div>
+
+		<f:comment>
+			Right column with pool of fields
+		</f:comment>
+		<div class="extended_export_inner_right">
+			<label for="export_field_selection_container" class="export_field_selection_container_label">
+				<f:translate key="BackendListFilterExtendedExportRightLabel" />
+			</label>
+			<ul class="extended_export_field_container connected" id="export_field_selection_container" style="min-height: 20px;">
+				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'crdate')}">
+					<li id="crdate">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
+					</li>
+				</f:if>
+				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'sender_name')}">
+					<li id="sender_name">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderName" />
+					</li>
+				</f:if>
+				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'sender_mail')}">
+					<li id="sender_mail">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderMail" />
+					</li>
+				</f:if>
+				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'receiver_mail')}">
+					<li id="receiver_mail">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.receiverMail" />
+					</li>
+				</f:if>
+				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'subject')}">
+					<li id="subject">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
+					</li>
+				</f:if>
+				<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'marketing_referer_domain')}">
+						<li id="marketing_referer_domain">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'marketing_referer')}">
+						<li id="marketing_referer">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'marketing_frontend_language')}">
+						<li id="marketing_frontend_language">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'marketing_browser_language')}">
+						<li id="marketing_browser_language">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'marketing_country')}">
+						<li id="marketing_country">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'marketing_mobile_device')}">
+						<li id="marketing_mobile_device">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'marketing_mobile_device')}">
+						<li id="marketing_page_funnel">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'user_agent')}">
+						<li id="user_agent">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.userAgent" />
+						</li>
+					</f:if>
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'time')}">
+						<li id="time">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.time" />
+						</li>
+					</f:if>
+				</f:if>
+				<f:if condition="{vh:Condition.IsIpInformationEnabledGlobally()}">
+					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'sender_ip')}">
+						<li id="sender_ip">
+							<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderIp" />
+						</li>
+					</f:if>
+				</f:if>
+				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'uid')}">
+					<li id="uid">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.uid" />
+					</li>
+				</f:if>
+				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mails',field:'feuser')}">
+					<li id="feuser">
+						<f:translate key="\In2code\Powermail\Domain\Model\Mail.feuser" />
+					</li>
+				</f:if>
+			</ul>
+		</div>
+	</div>
+
+	<f:form.hidden
+			name="export[fields]"
+			value="<f:for each=\"{firstForm.pages}\" as=\"page\"><f:for each=\"{page.fields}\" as=\"field\">{field.uid},</f:for></f:for>"
+			id="export_fields" />
+
+	</fieldset>

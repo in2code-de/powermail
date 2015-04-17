@@ -17,5 +17,6 @@
 			prependOptionLabel="{f:translate(key:'pleaseChoose')}"
 			class="powermail_field powermail_country {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
 			value="{vh:Misc.PrefillField(field:field)}"
+			additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field)}"
 			id="powermail_field_{field.marker}" />
 </div>

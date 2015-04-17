@@ -27,5 +27,6 @@ For Administrators
    Installation/Index
    BackendUserRights/Index
    PowermailFrontend/Index
+   SchedulerTasks/Index
    GoodToKnow/Index
    Upgrade/Index

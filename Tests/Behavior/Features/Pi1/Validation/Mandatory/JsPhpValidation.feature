@@ -46,6 +46,7 @@ Feature: JsPhpValidation
     Then I check "tx_powermail_pi1[field][validation][]"
     Then I select "rot" from "tx_powermail_pi1[field][marker]"
     Then I attach the file "test.txt" to "tx_powermail_pi1[field][file][]"
+    Then I select "Deutschland" from "tx_powermail_pi1[field][marker_02]"
     And I press "Submit"
 
     Then I should see "Sind diese Eingaben korrekt?"
@@ -58,6 +59,7 @@ Feature: JsPhpValidation
     Then I should see "blau"
     Then I should see "lila"
     Then I should see "rot"
+    Then I should see "DEU"
     And I press "Weiter"
 
     Then I should see "Danke, Ihre Eingaben:"
@@ -70,6 +72,7 @@ Feature: JsPhpValidation
     Then I should see "blau"
     Then I should see "lila"
     Then I should see "rot"
+    Then I should see "DEU"
 
   @javascript @Pi1ValidationJsPhpValidation1
   Scenario: Check if mandatory Validation works (on &L=1)
@@ -112,6 +115,7 @@ Feature: JsPhpValidation
     Then I check "tx_powermail_pi1[field][validation][]"
     Then I select "red" from "tx_powermail_pi1[field][marker]"
     Then I attach the file "test.txt" to "tx_powermail_pi1[field][file][]"
+    Then I select "Deutschland" from "tx_powermail_pi1[field][marker_02]"
     And I press "Submit EN"
 
     Then I should see "Are these values correct?"
@@ -124,6 +128,7 @@ Feature: JsPhpValidation
     Then I should see "blue"
     Then I should see "green"
     Then I should see "red"
+    Then I should see "DEU"
     And I press "Next"
 
     Then I should see "Thx, your values:"
@@ -136,3 +141,4 @@ Feature: JsPhpValidation
     Then I should see "blue"
     Then I should see "green"
     Then I should see "red"
+    Then I should see "DEU"
