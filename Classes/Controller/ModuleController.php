@@ -126,8 +126,11 @@ class ModuleController extends AbstractController {
 				$this->forward('reportingMarketingBe');
 				break;
 
+			case 'form':
+				$this->forward('reportingMarketingBe');
+				break;
+
 			default:
-				$this->forward('reportingFormBe');
 		}
 	}
 
