@@ -1383,12 +1383,12 @@ class Div {
 	 * Add parameters to piVars from TypoScript
 	 *
 	 * @param array $pluginVariables
-	 * @param string $parameters
+	 * @param array $parameters
 	 * @return void
 	 */
-	public static function preparePluginVariables(&$pluginVariables, $parameters) {
-		if (is_array($parameters)) {
-			$pluginVariables = array_merge($pluginVariables, $parameters);
+	public static function prepareFilterPluginVariables(&$pluginVariables, $parameters) {
+		if (!empty($parameters['filter'])) {
+			$pluginVariables = (array) $pluginVariables + (array) $parameters;
 		}
 	}
 

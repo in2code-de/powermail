@@ -238,12 +238,12 @@ class MailRepository extends Repository {
 		// FILTER: field
 		if (isset($piVars['filter'])) {
 			// fulltext
+			$filter = array();
 			if (!empty($piVars['filter']['_all'])) {
-				$and[] = $query->like('answers.value', '%' . $piVars['filter']['_all'] . '%');
+				$filter[] = $query->like('answers.value', '%' . $piVars['filter']['_all'] . '%');
 			}
 
 			// single field search
-			$filter = array();
 			foreach ((array) $piVars['filter'] as $field => $value) {
 				if (is_numeric($field) && !empty($value)) {
 					$filterAnd = array(
@@ -257,8 +257,7 @@ class MailRepository extends Repository {
 			if (count($filter) > 0) {
 				// switch between AND and OR
 				if (
-					!empty($settings['search']['logicalRelation']) &&
-					strtolower($settings['search']['logicalRelation']) === 'and'
+					!empty($settings['search']['logicalRelation']) && strtolower($settings['search']['logicalRelation']) === 'and'
 				) {
 					$and[] = $query->logicalAnd($filter);
 				} else {

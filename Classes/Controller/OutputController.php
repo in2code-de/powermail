@@ -48,7 +48,7 @@ class OutputController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		Div::preparePluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
+		Div::prepareFilterPluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
 		if ($this->settings['list']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
 		} else {
