@@ -165,7 +165,7 @@ class Export {
 	 */
 	protected function sendEmail() {
 		/** @var \TYPO3\CMS\Core\Mail\MailMessage $email */
-		$email = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
+		$email = $this->objectManager->get('TYPO3\CMS\Core\Mail\MailMessage');
 		$email->setTo($this->getReceiverEmails());
 		$email->setFrom($this->getSenderEmails());
 		$email->setSubject($this->getSubject());
