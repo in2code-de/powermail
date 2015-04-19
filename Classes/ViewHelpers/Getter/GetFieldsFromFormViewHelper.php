@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Getter;
 
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use In2code\Powermail\Domain\Model\Form;
 
@@ -25,7 +26,7 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper {
 		$fields = array();
 		foreach ($form->getPages() as $page) {
 			foreach ($page->getFields() as $field) {
-				$fieldProperty = $field->{'get' . ucfirst($property)}();
+				$fieldProperty = ObjectAccess::getProperty($field, $property);
 				if ($htmlSpecialChars) {
 					$fieldProperty = htmlspecialchars($fieldProperty);
 				}

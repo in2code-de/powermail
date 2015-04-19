@@ -1,31 +1,29 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Solution for {outer.{inner}} problem with variables in fluid
+ * Class VariableInVariableViewHelper
  *
- * @package TYPO3
- * @subpackage Fluid
+ * @package In2code\Powermail\ViewHelpers\Misc
  */
 class VariableInVariableViewHelper extends AbstractViewHelper {
 
 	/**
-	 * Solution for {outer.{inner}} problem with variables in fluid
+	 * Solution for {outer.{inner}} call in fluid
 	 *
-	 * @param object $obj
-	 * @param string $prop
-	 * @return string
+	 * @param object|array $obj object or array
+	 * @param string $prop property name
+	 * @return mixed
 	 */
 	public function render($obj, $prop) {
-		if (is_object($obj) && method_exists($obj, 'get' . GeneralUtility::underscoredToUpperCamelCase($prop))) {
-			return $obj->{'get' . GeneralUtility::underscoredToUpperCamelCase($prop)}();
-		} elseif (is_array($obj)) {
-			if (array_key_exists($prop, $obj)) {
-				return $obj[$prop];
-			}
+		if (is_array($obj) && array_key_exists($prop, $obj)) {
+			return $obj[$prop];
+		}
+		if (is_object($obj)) {
+			return ObjectAccess::getProperty($obj, $prop);
 		}
 		return NULL;
 	}
