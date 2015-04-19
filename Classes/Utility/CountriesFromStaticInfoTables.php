@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -43,26 +45,20 @@ class CountriesFromStaticInfoTables {
 	protected $countryRepository;
 
 	/**
-	 * Build an country array
+	 * Build array with countries
 	 *
-	 * @param \string $key
-	 * @param \string $value
-	 * @param \string $sortbyField
-	 * @param \string $sorting
-	 * @return \array
+	 * @param string $key
+	 * @param string $value
+	 * @param string $sortbyField
+	 * @param string $sorting
+	 * @return array
 	 */
 	public function getCountries($key = 'isoCodeA3', $value = 'officialNameLocal', $sortbyField = 'isoCodeA3', $sorting = 'asc') {
 		$countries = $this->countryRepository->findAllOrderedBy($sortbyField, $sorting);
 		$countriesArray = array();
 		foreach ($countries as $country) {
-			if (
-				method_exists($country, 'get' . ucfirst($key)) &&
-				method_exists($country, 'get' . ucfirst($value))
-			) {
-				$countriesArray[$country->{'get' . ucfirst($key)}()] = $country->{'get' . ucfirst($value)}();
-			} else {
-				$countriesArray[$country->getIsoCodeA3()] = $country->getOfficialNameLocal();
-			}
+			/** @var $country \SJBR\StaticInfoTables\Domain\Model\Country */
+			$countriesArray[ObjectAccess::getProperty($country, $key)] = ObjectAccess::getProperty($country, $value);
 		}
 		return $countriesArray;
 	}
