@@ -2,6 +2,8 @@
 namespace In2code\Powermail\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use In2code\Powermail\Utility\Div;
 
 /***************************************************************
  *  Copyright notice
@@ -198,7 +200,7 @@ class Mail extends AbstractEntity {
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		$this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->answers = new ObjectStorage();
 	}
 
 	/**
@@ -311,7 +313,7 @@ class Mail extends AbstractEntity {
 	 * @param \In2code\Powermail\Domain\Model\User $feuser
 	 * @return void
 	 */
-	public function setFeuser(\In2code\Powermail\Domain\Model\User $feuser) {
+	public function setFeuser(User $feuser) {
 		$this->feuser = $feuser;
 	}
 
@@ -406,7 +408,7 @@ class Mail extends AbstractEntity {
 	 * @param \In2code\Powermail\Domain\Model\Form $form
 	 * @return void
 	 */
-	public function setForm(\In2code\Powermail\Domain\Model\Form $form) {
+	public function setForm(Form $form) {
 		$this->form = $form;
 	}
 
@@ -425,7 +427,7 @@ class Mail extends AbstractEntity {
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 * @return void
 	 */
-	public function setAnswers(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $answers) {
+	public function setAnswers(ObjectStorage $answers) {
 		$this->answers = $answers;
 	}
 
@@ -435,7 +437,7 @@ class Mail extends AbstractEntity {
 	 * @param \In2code\Powermail\Domain\Model\Answer $answer
 	 * @return void
 	 */
-	public function addAnswer(\In2code\Powermail\Domain\Model\Answer $answer) {
+	public function addAnswer(Answer $answer) {
 		$this->answers->attach($answer);
 	}
 
@@ -445,14 +447,14 @@ class Mail extends AbstractEntity {
 	 * @param \In2code\Powermail\Domain\Model\Answer $answerToRemove
 	 * @return void
 	 */
-	public function removeAnswer(\In2code\Powermail\Domain\Model\Answer $answerToRemove) {
+	public function removeAnswer(Answer $answerToRemove) {
 		$this->answers->detach($answerToRemove);
 	}
 
 	/**
 	 * Returns the crdate
 	 *
-	 * @return DateTime $crdate
+	 * @return \DateTime $crdate
 	 */
 	public function getCrdate() {
 		return $this->crdate;
@@ -461,7 +463,7 @@ class Mail extends AbstractEntity {
 	/**
 	 * Sets the crdate
 	 *
-	 * @param DateTime $crdate
+	 * @param \DateTime $crdate
 	 * @return void
 	 */
 	public function setCrdate($crdate) {
@@ -562,10 +564,10 @@ class Mail extends AbstractEntity {
 	 * @return array
 	 */
 	public function getMarketingPageFunnel() {
-		if (\In2code\Powermail\Utility\Div::isJsonArray($this->marketingPageFunnel)) {
+		if (Div::isJsonArray($this->marketingPageFunnel)) {
 			return json_decode($this->marketingPageFunnel);
 		}
-		return (array)$this->marketingPageFunnel;
+		return (array) $this->marketingPageFunnel;
 	}
 
 	/**
@@ -579,6 +581,17 @@ class Mail extends AbstractEntity {
 			return $pageFunnel[count($pageFunnel) - 1];
 		}
 		return 0;
+	}
+
+	/**
+	 * Return marketing pagefunnel as commaseparated list
+	 *
+	 * @param string $glue
+	 * @return string
+	 */
+	public function getMarketingPageFunnelString($glue = ', ') {
+		$pageFunnel = $this->getMarketingPageFunnel();
+		return implode($glue, $pageFunnel);
 	}
 
 	/**

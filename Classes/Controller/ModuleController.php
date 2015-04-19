@@ -4,6 +4,7 @@ namespace In2code\Powermail\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\Reporting;
 
 /***************************************************************
  *  Copyright notice
@@ -141,9 +142,8 @@ class ModuleController extends AbstractController {
 	 */
 	public function reportingFormBeAction() {
 		$mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
-		// TODO remove firstMail
 		$firstMail = $this->mailRepository->findFirstInPid($this->id);
-		$groupedAnswers = Div::getGroupedMailAnswers($mails);
+		$groupedAnswers = Reporting::getGroupedAnswersFromMails($mails);
 
 		$this->view->assignMultiple(
 			array(
@@ -165,9 +165,8 @@ class ModuleController extends AbstractController {
 	 */
 	public function reportingMarketingBeAction() {
 		$mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
-		// TODO remove firstMail
 		$firstMail = $this->mailRepository->findFirstInPid($this->id);
-		$groupedMarketingStuff = Div::getGroupedMarketingStuff($mails);
+		$groupedMarketingStuff = Reporting::getGroupedMarketingPropertiesFromMails($mails);
 
 		$this->view->assignMultiple(
 			array(

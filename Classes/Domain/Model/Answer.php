@@ -153,11 +153,18 @@ class Answer extends AbstractEntity {
 	}
 
 	/**
-	 * @param int $valueType
-	 * @return void
+	 * Returns value and enforces a string
+	 * 		An array will be returned as commaseparated string
+	 *
+	 * @param string $glue
+	 * @return string
 	 */
-	public function setValueType($valueType) {
-		$this->valueType = intval($valueType);
+	public function getStringValue($glue = ', ') {
+		$value = $this->getValue();
+		if (is_array($value)) {
+			$value = implode($glue, $value);
+		}
+		return (string) $value;
 	}
 
 	/**
@@ -170,6 +177,14 @@ class Answer extends AbstractEntity {
 	 */
 	public function getRawValue() {
 		return $this->value;
+	}
+
+	/**
+	 * @param int $valueType
+	 * @return void
+	 */
+	public function setValueType($valueType) {
+		$this->valueType = intval($valueType);
 	}
 
 	/**
