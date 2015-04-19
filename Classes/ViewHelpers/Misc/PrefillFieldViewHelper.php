@@ -3,10 +3,10 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
 
 /**
  * Prefill a field with variables
@@ -36,7 +36,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	/**
 	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
-	protected $cObj;
+	protected $contentObjectRenderer;
 
 	/**
 	 * Prefill string for fields
@@ -121,8 +121,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 		// if prefill value (from typoscript)
 		elseif (isset($this->settings['prefill.'][$marker]) || isset($this->settings['prefill.'][$marker . '.'])) {
 			if (isset($this->settings['prefill.'][$marker . '.']) && is_array($this->settings['prefill.'][$marker . '.'])) {
-				$data = ObjectAccess::getGettableProperties($field);
-				$this->cObj->start($data);
+				$this->contentObjectRenderer->start(ObjectAccess::getGettableProperties($field));
 
 				if (isset($this->settings['prefill.'][$marker . '.']['0'])) {
 
@@ -135,7 +134,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 						if (stristr($key, '.')) {
 							continue;
 						}
-						$value[] = $this->cObj->cObjGetSingle(
+						$value[] = $this->contentObjectRenderer->cObjGetSingle(
 							$this->settings['prefill.'][$marker . '.'][$key],
 							$this->settings['prefill.'][$marker . '.'][$key . '.']
 						);
@@ -146,7 +145,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 					 * plugin.tx_powermail.settings.setup.prefill.marker = TEXT
 					 * plugin.tx_powermail.settings.setup.prefill.marker.value = red
 					 */
-					$value = $this->cObj->cObjGetSingle($this->settings['prefill.'][$marker], $this->settings['prefill.'][$marker . '.']);
+					$value = $this->contentObjectRenderer->cObjGetSingle(
+						$this->settings['prefill.'][$marker],
+						$this->settings['prefill.'][$marker . '.']
+					);
 				}
 			} else {
 
@@ -273,8 +275,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 		// if prefill value (from typoscript)
 		elseif (isset($this->settings['prefill.'][$marker]) || isset($this->settings['prefill.'][$marker . '.'])) {
 			if (isset($this->settings['prefill.'][$marker . '.']) && is_array($this->settings['prefill.'][$marker . '.'])) {
-				$data = ObjectAccess::getGettableProperties($field);
-				$this->cObj->start($data);
+				$this->contentObjectRenderer->start(ObjectAccess::getGettableProperties($field));
 
 				if (isset($this->settings['prefill.'][$marker . '.']['0'])) {
 
@@ -286,7 +287,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 						if (stristr($key, '.')) {
 							continue;
 						}
-						$prefill = $this->cObj->cObjGetSingle(
+						$prefill = $this->contentObjectRenderer->cObjGetSingle(
 							$this->settings['prefill.'][$marker . '.'][$key],
 							$this->settings['prefill.'][$marker . '.'][$key . '.']
 						);
@@ -300,7 +301,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 					 * plugin.tx_powermail.settings.setup.prefill.marker = TEXT
 					 * plugin.tx_powermail.settings.setup.prefill.marker.value = red
 					 */
-					$prefill = $this->cObj->cObjGetSingle($this->settings['prefill.'][$marker], $this->settings['prefill.'][$marker . '.']);
+					$prefill = $this->contentObjectRenderer->cObjGetSingle(
+						$this->settings['prefill.'][$marker],
+						$this->settings['prefill.'][$marker . '.']
+					);
 					if ($prefill === $options[$index]['value'] || $prefill === $options[$index]['label']) {
 						$selected = TRUE;
 					}
@@ -341,7 +345,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	 */
 	public function initialize() {
 		$this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
-		$this->cObj = $this->configurationManager->getContentObject();
+		$this->contentObjectRenderer = $this->objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
