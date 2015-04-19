@@ -137,7 +137,7 @@ class Export {
 	 * @param string $format can be 'xls' or 'csv'
 	 * @param array $additionalProperties add additional properties
 	 */
-	public function __construct(QueryResult $mails, $format = 'xls', $additionalProperties = array()) {
+	public function __construct(QueryResult $mails = NULL, $format = 'xls', $additionalProperties = array()) {
 		$this->setMails($mails);
 		$this->setFormat($format);
 		$this->setAdditionalProperties($additionalProperties);
@@ -237,16 +237,18 @@ class Export {
 	 * @param QueryResult $mails
 	 * @return array
 	 */
-	protected function getDefaultFieldListFromFirstMail(QueryResult $mails) {
+	protected function getDefaultFieldListFromFirstMail(QueryResult $mails = NULL) {
 		$fieldList = array();
-		/** @var Mail $mail */
-		$mail = $mails->getFirst();
-		if ($mail !== NULL) {
-			foreach ($mail->getForm()->getPages() as $page) {
-				/** @var Field $field */
-				foreach ($page->getFields() as $field) {
-					if ($field->isBasicFieldType()) {
-						$fieldList[] = $field->getUid();
+		if ($mails !== NULL) {
+			/** @var Mail $mail */
+			$mail = $mails->getFirst();
+			if ($mail !== NULL) {
+				foreach ($mail->getForm()->getPages() as $page) {
+					/** @var Field $field */
+					foreach ($page->getFields() as $field) {
+						if ($field->isBasicFieldType()) {
+							$fieldList[] = $field->getUid();
+						}
 					}
 				}
 			}
@@ -274,6 +276,13 @@ class Export {
 	 * @return string
 	 */
 	public function getFormat() {
+		$allowedFormats = array(
+			'xls',
+			'csv'
+		);
+		if (!in_array($this->format, $allowedFormats)) {
+			return 'xls';
+		}
 		return $this->format;
 	}
 
