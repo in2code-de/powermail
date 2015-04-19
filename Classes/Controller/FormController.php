@@ -200,7 +200,7 @@ class FormController extends AbstractController {
 	protected function sendReceiverMail(Mail $mail, $hash = NULL) {
 		$receiverString = $this->div->fluidParseString(
 			$this->settings['receiver']['email'],
-			$this->div->getVariablesWithMarkers($mail)
+			$this->div->getVariablesWithMarkersFromMail($mail)
 		);
 		$this->div->overwriteValueFromTypoScript($receiverString, $this->conf['receiver.']['overwrite.'], 'email');
 		$receivers = $this->div->getReceiverEmails(
@@ -308,10 +308,10 @@ class FormController extends AbstractController {
 		$this->view->assign('powermail_rte', $this->settings['thx']['body']);
 
 			// get variable array
-		$variablesWithMarkers = $this->div->getVariablesWithMarkers($mail);
+		$variablesWithMarkers = $this->div->getVariablesWithMarkersFromMail($mail);
 		$this->view->assign('variablesWithMarkers', $this->div->htmlspecialcharsOnArray($variablesWithMarkers));
 		$this->view->assignMultiple($variablesWithMarkers);
-		$this->view->assignMultiple($this->div->getLabelsAttachedToMarkers($mail));
+		$this->view->assignMultiple($this->div->getLabelsWithMarkersFromMail($mail));
 
 			// powermail_all
 		$content = $this->div->powermailAll($mail, 'web', $this->settings, $this->actionMethodName);
@@ -371,7 +371,7 @@ class FormController extends AbstractController {
 		$mail->setReceiverMail($this->settings['receiver']['email']);
 		$mail->setBody(
 			DebugUtility::viewArray(
-				$this->div->getVariablesWithLabels($mail)
+				$this->div->getVariablesWithMarkersFromMail($mail)
 			)
 		);
 		$mail->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'));

@@ -99,7 +99,7 @@ class SendMail {
 		$typoScriptService = $this->objectManager->get('TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
 		$cObj = $this->configurationManager->getContentObject();
-		$cObj->start($this->div->getVariablesWithMarkers($mail));
+		$cObj->start($this->div->getVariablesWithMarkersFromMail($mail));
 
 		// parsing variables with fluid engine to allow viewhelpers in flexform
 		$parse = array(
@@ -110,7 +110,7 @@ class SendMail {
 			'subject'
 		);
 		foreach ($parse as $value) {
-			$email[$value] = $this->div->fluidParseString($email[$value], $this->div->getVariablesWithMarkers($mail));
+			$email[$value] = $this->div->fluidParseString($email[$value], $this->div->getVariablesWithMarkersFromMail($mail));
 		}
 
 		// Debug Output
@@ -278,9 +278,9 @@ class SendMail {
 		$emailBodyObject->setPartialRootPaths($this->div->getTemplateFolders('partial'));
 
 		// variables
-		$variablesWithMarkers = $this->div->getVariablesWithMarkers($mail);
+		$variablesWithMarkers = $this->div->getVariablesWithMarkersFromMail($mail);
 		$emailBodyObject->assignMultiple($variablesWithMarkers);
-		$emailBodyObject->assignMultiple($this->div->getLabelsAttachedToMarkers($mail));
+		$emailBodyObject->assignMultiple($this->div->getLabelsWithMarkersFromMail($mail));
 		$emailBodyObject->assignMultiple(
 			array(
 				'variablesWithMarkers' => $this->div->htmlspecialcharsOnArray($variablesWithMarkers),

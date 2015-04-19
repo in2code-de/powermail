@@ -370,7 +370,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
 	 */
-	public function getVariablesWithMarkers(Mail $mail) {
+	public function getVariablesWithMarkersFromMail(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -392,7 +392,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
 	 */
-	public function getLabelsAttachedToMarkers(Mail $mail) {
+	public function getLabelsWithMarkersFromMail(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -401,49 +401,6 @@ class Div {
 			$variables['label_' . $answer->getField()->getMarker()] = $answer->getField()->getTitle();
 		}
 		return $variables;
-	}
-
-	/**
-	 * Generate a new array their labels and respect FE language
-	 *        Your Firstname: => value
-	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @return array new array
-	 */
-	public function getVariablesWithLabels(Mail $mail) {
-		$variables = array();
-		foreach ($mail->getAnswers() as $answer) {
-			if (!method_exists($answer->getField(), 'getUid')) {
-				continue;
-			}
-			$variables[] = array(
-				'label' => $answer->getField()->getTitle(),
-				'value' => $answer->getValue(),
-				'uid' => $answer->getField()->getUid()
-			);
-		}
-		return $variables;
-	}
-
-	/**
-	 * Return marker from given field uid
-	 *
-	 * @param integer $uid Field UID
-	 * @return string Marker name
-	 */
-	public function getMarkerFromField($uid) {
-		// get field
-		$field = $this->fieldRepository->findByUid($uid);
-
-		$marker = NULL;
-		if (method_exists($field, 'getMarker')) {
-			$marker = $field->getMarker();
-		}
-		if ($marker === NULL || empty($marker)) {
-			$marker = 'Error, could not get Marker';
-		}
-
-		return $marker;
 	}
 
 	/**
@@ -823,7 +780,7 @@ class Div {
 		}
 
 		$contentObject->start(
-			$this->getVariablesWithMarkers($mail)
+			$this->getVariablesWithMarkersFromMail($mail)
 		);
 		$parameters = $contentObject->cObjGetSingle(
 			$conf['marketing.']['sendPost.']['values'],
@@ -1199,7 +1156,7 @@ class Div {
 			return;
 		}
 		$contentObject = $this->configurationManager->getContentObject();
-		$startArray = $this->getVariablesWithMarkers($mail);
+		$startArray = $this->getVariablesWithMarkersFromMail($mail);
 
 		// one loop per table
 		foreach ((array) array_keys($conf['dbEntry.']) as $table) {

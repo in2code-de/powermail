@@ -3,8 +3,8 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use In2code\Powermail\Domain\Model\Mail;
 
 /**
  * Parses Variables for powermail
@@ -45,16 +45,20 @@ class VariablesViewHelper extends AbstractViewHelper {
 	 * Parses variables again
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail Variables and Labels array
-	 * @param array $variablesMarkers Variables and Markers array
 	 * @param string $type "web" or "mail"
 	 * @param string $function "createAction", "senderMail", "receiverMail"
+	 * @param array $variablesMarkers - deprecated parameter - will be removed
 	 * @return string Changed string
 	 */
-	public function render(Mail $mail, $variablesMarkers = array(), $type = 'web', $function = 'createAction') {
+	public function render(Mail $mail, $type = 'web', $function = 'createAction', $variablesMarkers = array()) {
+		// TODO remove variable completely in next minor version
+		unset($variablesMarkers);
+
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $parseObject */
 		$parseObject = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
-		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($variablesMarkers));
+		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($this->div->getVariablesWithMarkersFromMail($mail)));
+		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($this->div->getLabelsWithMarkersFromMail($mail)));
 
 		$powermailAll = $this->div->powermailAll($mail, $type, $this->settings, $function);
 		$parseObject->assign('powermail_all', $powermailAll);
