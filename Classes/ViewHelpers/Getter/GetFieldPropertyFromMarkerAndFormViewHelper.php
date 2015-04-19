@@ -30,6 +30,9 @@ class GetFieldPropertyFromMarkerAndFormViewHelper extends AbstractViewHelper {
 	 */
 	public function render($marker, Form $form, $property) {
 		$field = $this->fieldRepository->findByMarkerAndForm($marker, $form->getUid());
-		return ObjectAccess::getProperty($field, $property);
+		if ($field !== NULL) {
+			return ObjectAccess::getProperty($field, $property);
+		}
+		return '';
 	}
 }
