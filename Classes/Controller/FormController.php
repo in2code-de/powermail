@@ -344,47 +344,36 @@ class FormController extends AbstractController {
 	 */
 	protected function saveMail(Mail &$mail = NULL) {
 		$marketingInfos = Div::getMarketingInfos();
-		$mail->setPid(
-			Div::getStoragePage($this->settings['main']['pid'])
-		);
-		$mail->setSenderMail($this->div->getSenderMailFromArguments($mail));
-		$mail->setSenderName($this->div->getSenderNameFromArguments($mail));
-		$mail->setSubject($this->settings['receiver']['subject']);
-		$mail->setReceiverMail($this->settings['receiver']['email']);
-		$mail->setBody(
-			DebugUtility::viewArray(
-				$this->div->getVariablesWithMarkersFromMail($mail)
-			)
-		);
-		$mail->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'));
-		$mail->setTime((time() - Div::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)));
-		$mail->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'));
-		$mail->setMarketingRefererDomain($marketingInfos['refererDomain']);
-		$mail->setMarketingReferer($marketingInfos['referer']);
-		$mail->setMarketingCountry($marketingInfos['country']);
-		$mail->setMarketingMobileDevice($marketingInfos['mobileDevice']);
-		$mail->setMarketingFrontendLanguage($marketingInfos['frontendLanguage']);
-		$mail->setMarketingBrowserLanguage($marketingInfos['browserLanguage']);
-		$mail->setMarketingPageFunnel($marketingInfos['pageFunnel']);
+		$mail
+			->setPid(Div::getStoragePage($this->settings['main']['pid']))
+			->setSenderMail($this->div->getSenderMailFromArguments($mail))
+			->setSenderName($this->div->getSenderNameFromArguments($mail))
+			->setSubject($this->settings['receiver']['subject'])
+			->setReceiverMail($this->settings['receiver']['email'])
+			->setBody(DebugUtility::viewArray($this->div->getVariablesWithMarkersFromMail($mail)))
+			->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'))
+			->setTime((time() - Div::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)))
+			->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))
+			->setMarketingRefererDomain($marketingInfos['refererDomain'])
+			->setMarketingReferer($marketingInfos['referer'])
+			->setMarketingCountry($marketingInfos['country'])
+			->setMarketingMobileDevice($marketingInfos['mobileDevice'])
+			->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
+			->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
+			->setMarketingPageFunnel($marketingInfos['pageFunnel']);
 		if (intval($GLOBALS['TSFE']->fe_user->user['uid']) > 0) {
 			$mail->setFeuser(
-				$this->userRepository->findByUid(
-					Div::getPropertyFromLoggedInFeUser('uid')
-				)
+				$this->userRepository->findByUid(Div::getPropertyFromLoggedInFeUser('uid'))
 			);
 		}
 		if (empty($this->settings['global']['disableIpLog'])) {
-			$mail->setSenderIp(
-				GeneralUtility::getIndpEnv('REMOTE_ADDR')
-			);
+			$mail->setSenderIp(GeneralUtility::getIndpEnv('REMOTE_ADDR'));
 		}
 		if ($this->settings['main']['optin'] || $this->settings['db']['hidden']) {
 			$mail->setHidden(TRUE);
 		}
 		foreach ($mail->getAnswers() as $answer) {
-			$answer->setPid(
-				Div::getStoragePage($this->settings['main']['pid'])
-			);
+			$answer->setPid(Div::getStoragePage($this->settings['main']['pid']));
 		}
 		$this->mailRepository->add($mail);
 		$this->persistenceManager->persistAll();
