@@ -823,7 +823,7 @@ class Div {
 	 */
 	public static function checkOptinHash($hash, Mail $mail) {
 		$newHash = self::createHash($mail->getUid() . $mail->getPid() . $mail->getForm()->getUid());
-		if ($newHash === $hash && !empty($hash)) {
+		if (!empty($hash) && $newHash === $hash) {
 			return TRUE;
 		}
 		return FALSE;

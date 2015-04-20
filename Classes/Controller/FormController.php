@@ -34,7 +34,6 @@ use In2code\Powermail\Domain\Model\Mail;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * Controller for powermail forms
  *
@@ -100,29 +99,16 @@ class FormController extends AbstractController {
 	 */
 	public function createAction(Mail $mail, $hash = NULL) {
 		BasicFileFunctions::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
-
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 
 		if ($this->settings['debug']['variables']) {
-			GeneralUtility::devLog(
-				'Variables',
-				$this->extensionName,
-				0,
-				$_REQUEST
-			);
+			GeneralUtility::devLog('Variables', $this->extensionName, 0, $_REQUEST);
 		}
-
-			// Save Mail to DB
-		if ($this->settings['db']['enable'] && $hash === NULL) {
+		if ($this->mailPersist($hash)) {
 			$this->saveMail($mail);
 			$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', array($mail, $this));
 		}
-
-			// If no optin, send mail
-		if (
-			!$this->settings['main']['optin'] ||
-			($this->settings['main']['optin'] && Div::checkOptinHash($hash, $mail) && $hash !== NULL)
-		) {
+		if ($this->sendMailActive($mail, $hash)) {
 			$this->sendMailPreflight($mail, $hash);
 			$this->div->saveToAnyTable($mail, $this->conf);
 			$this->div->sendPost($mail, $this->conf);
@@ -130,8 +116,6 @@ class FormController extends AbstractController {
 			$this->sendConfirmationMail($mail);
 			$this->view->assign('optinActive', TRUE);
 		}
-
-			// update mail with parsed fields from TS (subject, etc...)
 		if ($this->settings['db']['enable']) {
 			$this->mailRepository->update($mail);
 			$this->persistenceManager->persistAll();
@@ -168,9 +152,7 @@ class FormController extends AbstractController {
 	 */
 	public function confirmationAction(Mail $mail) {
 		BasicFileFunctions::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
-
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $this));
-
 		$this->showThx($mail);
 	}
 
@@ -497,5 +479,40 @@ class FormController extends AbstractController {
 		if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $assignedFormsToContentElement)) {
 			$this->forward('form');
 		}
+	}
+
+	/**
+	 * Decide if the mail object should be persisted or not
+	 * 		persist if
+	 * 			- enabled with TypoScript OR
+	 * 			- optin is enabled OR
+	 * 			- optin hash is not set
+	 *
+	 * @param string $hash
+	 * @return bool
+	 */
+	protected function mailPersist($hash) {
+		return !empty($this->settings['db']['enable']) || !empty($this->settings['main']['optin']) && $hash === NULL;
+	}
+
+	/**
+	 * Check if mail should be send
+	 * 		send when
+	 * 			- optin is deaktivated OR
+	 * 				- optin is active AND
+	 * 				- hash is correct
+	 *
+	 * @param Mail $mail
+	 * @param string $hash
+	 * @return bool
+	 */
+	protected function sendMailActive(Mail $mail, $hash) {
+		if (
+			!$this->settings['main']['optin'] ||
+			($this->settings['main']['optin'] && Div::checkOptinHash($hash, $mail))
+		) {
+			return TRUE;
+		}
+		return FALSE;
 	}
 }
