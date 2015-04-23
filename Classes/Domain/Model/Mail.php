@@ -2,6 +2,8 @@
 namespace In2code\Powermail\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use In2code\Powermail\Utility\Div;
 
 /***************************************************************
  *  Copyright notice
@@ -198,7 +200,7 @@ class Mail extends AbstractEntity {
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		$this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->answers = new ObjectStorage();
 	}
 
 	/**
@@ -214,10 +216,11 @@ class Mail extends AbstractEntity {
 	 * Sets the senderName
 	 *
 	 * @param string $senderName
-	 * @return void
+	 * @return Mail
 	 */
 	public function setSenderName($senderName) {
 		$this->senderName = $senderName;
+		return $this;
 	}
 
 	/**
@@ -233,10 +236,11 @@ class Mail extends AbstractEntity {
 	 * Sets the senderMail
 	 *
 	 * @param string $senderMail
-	 * @return void
+	 * @return Mail
 	 */
 	public function setSenderMail($senderMail) {
 		$this->senderMail = $senderMail;
+		return $this;
 	}
 
 	/**
@@ -252,10 +256,11 @@ class Mail extends AbstractEntity {
 	 * Sets the subject
 	 *
 	 * @param string $subject
-	 * @return void
+	 * @return Mail
 	 */
 	public function setSubject($subject) {
 		$this->subject = $subject;
+		return $this;
 	}
 
 	/**
@@ -271,10 +276,11 @@ class Mail extends AbstractEntity {
 	 * Sets the receiverMail
 	 *
 	 * @param string $receiverMail
-	 * @return void
+	 * @return Mail
 	 */
 	public function setReceiverMail($receiverMail) {
 		$this->receiverMail = $receiverMail;
+		return $this;
 	}
 
 	/**
@@ -290,10 +296,11 @@ class Mail extends AbstractEntity {
 	 * Sets the body
 	 *
 	 * @param string $body
-	 * @return void
+	 * @return Mail
 	 */
 	public function setBody($body) {
 		$this->body = $body;
+		return $this;
 	}
 
 	/**
@@ -309,10 +316,11 @@ class Mail extends AbstractEntity {
 	 * Sets the feuser
 	 *
 	 * @param \In2code\Powermail\Domain\Model\User $feuser
-	 * @return void
+	 * @return Mail
 	 */
-	public function setFeuser(\In2code\Powermail\Domain\Model\User $feuser) {
+	public function setFeuser(User $feuser) {
 		$this->feuser = $feuser;
+		return $this;
 	}
 
 	/**
@@ -328,10 +336,11 @@ class Mail extends AbstractEntity {
 	 * Sets the spamFactor
 	 *
 	 * @param string $spamFactor
-	 * @return void
+	 * @return Mail
 	 */
 	public function setSpamFactor($spamFactor) {
 		$this->spamFactor = $spamFactor;
+		return $this;
 	}
 
 	/**
@@ -347,10 +356,11 @@ class Mail extends AbstractEntity {
 	 * Sets the time
 	 *
 	 * @param int $time
-	 * @return void
+	 * @return Mail
 	 */
 	public function setTime($time) {
 		$this->time = $time;
+		return $this;
 	}
 
 	/**
@@ -366,10 +376,11 @@ class Mail extends AbstractEntity {
 	 * Sets the senderIp
 	 *
 	 * @param string $senderIp
-	 * @return void
+	 * @return Mail
 	 */
 	public function setSenderIp($senderIp) {
 		$this->senderIp = $senderIp;
+		return $this;
 	}
 
 	/**
@@ -385,10 +396,11 @@ class Mail extends AbstractEntity {
 	 * Sets the userAgent
 	 *
 	 * @param string $userAgent
-	 * @return void
+	 * @return Mail
 	 */
 	public function setUserAgent($userAgent) {
 		$this->userAgent = $userAgent;
+		return $this;
 	}
 
 	/**
@@ -404,10 +416,11 @@ class Mail extends AbstractEntity {
 	 * Sets the form
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Form $form
-	 * @return void
+	 * @return Mail
 	 */
-	public function setForm(\In2code\Powermail\Domain\Model\Form $form) {
+	public function setForm(Form $form) {
 		$this->form = $form;
+		return $this;
 	}
 
 	/**
@@ -423,10 +436,11 @@ class Mail extends AbstractEntity {
 	 * Sets the answers
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-	 * @return void
+	 * @return Mail
 	 */
-	public function setAnswers(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $answers) {
+	public function setAnswers(ObjectStorage $answers) {
 		$this->answers = $answers;
+		return $this;
 	}
 
 	/**
@@ -435,7 +449,7 @@ class Mail extends AbstractEntity {
 	 * @param \In2code\Powermail\Domain\Model\Answer $answer
 	 * @return void
 	 */
-	public function addAnswer(\In2code\Powermail\Domain\Model\Answer $answer) {
+	public function addAnswer(Answer $answer) {
 		$this->answers->attach($answer);
 	}
 
@@ -445,14 +459,14 @@ class Mail extends AbstractEntity {
 	 * @param \In2code\Powermail\Domain\Model\Answer $answerToRemove
 	 * @return void
 	 */
-	public function removeAnswer(\In2code\Powermail\Domain\Model\Answer $answerToRemove) {
+	public function removeAnswer(Answer $answerToRemove) {
 		$this->answers->detach($answerToRemove);
 	}
 
 	/**
 	 * Returns the crdate
 	 *
-	 * @return DateTime $crdate
+	 * @return \DateTime $crdate
 	 */
 	public function getCrdate() {
 		return $this->crdate;
@@ -461,11 +475,12 @@ class Mail extends AbstractEntity {
 	/**
 	 * Sets the crdate
 	 *
-	 * @param DateTime $crdate
-	 * @return void
+	 * @param \DateTime $crdate
+	 * @return Mail
 	 */
 	public function setCrdate($crdate) {
 		$this->crdate = $crdate;
+		return $this;
 	}
 
 	/**
@@ -481,18 +496,20 @@ class Mail extends AbstractEntity {
 	 * Sets the hidden
 	 *
 	 * @param bool $hidden
-	 * @return void
+	 * @return Mail
 	 */
 	public function setHidden($hidden) {
 		$this->hidden = $hidden;
+		return $this;
 	}
 
 	/**
 	 * @param string $marketingBrowserLanguage
-	 * @return void
+	 * @return Mail
 	 */
 	public function setMarketingBrowserLanguage($marketingBrowserLanguage) {
 		$this->marketingBrowserLanguage = $marketingBrowserLanguage;
+		return $this;
 	}
 
 	/**
@@ -504,10 +521,11 @@ class Mail extends AbstractEntity {
 
 	/**
 	 * @param string $marketingCountry
-	 * @return void
+	 * @return Mail
 	 */
 	public function setMarketingCountry($marketingCountry) {
 		$this->marketingCountry = $marketingCountry;
+		return $this;
 	}
 
 	/**
@@ -519,10 +537,11 @@ class Mail extends AbstractEntity {
 
 	/**
 	 * @param int $marketingFrontendLanguage
-	 * @return void
+	 * @return Mail
 	 */
 	public function setMarketingFrontendLanguage($marketingFrontendLanguage) {
 		$this->marketingFrontendLanguage = $marketingFrontendLanguage;
+		return $this;
 	}
 
 	/**
@@ -534,10 +553,11 @@ class Mail extends AbstractEntity {
 
 	/**
 	 * @param boolean $marketingMobileDevice
-	 * @return void
+	 * @return Mail
 	 */
 	public function setMarketingMobileDevice($marketingMobileDevice) {
 		$this->marketingMobileDevice = $marketingMobileDevice;
+		return $this;
 	}
 
 	/**
@@ -549,23 +569,24 @@ class Mail extends AbstractEntity {
 
 	/**
 	 * @param array $marketingPageFunnel
-	 * @return void
+	 * @return Mail
 	 */
 	public function setMarketingPageFunnel($marketingPageFunnel) {
 		if (is_array($marketingPageFunnel)) {
 			$marketingPageFunnel = json_encode($marketingPageFunnel);
 		}
 		$this->marketingPageFunnel = $marketingPageFunnel;
+		return $this;
 	}
 
 	/**
 	 * @return array
 	 */
 	public function getMarketingPageFunnel() {
-		if (\In2code\Powermail\Utility\Div::isJsonArray($this->marketingPageFunnel)) {
+		if (Div::isJsonArray($this->marketingPageFunnel)) {
 			return json_decode($this->marketingPageFunnel);
 		}
-		return (array)$this->marketingPageFunnel;
+		return (array) $this->marketingPageFunnel;
 	}
 
 	/**
@@ -582,11 +603,23 @@ class Mail extends AbstractEntity {
 	}
 
 	/**
+	 * Return marketing pagefunnel as commaseparated list
+	 *
+	 * @param string $glue
+	 * @return string
+	 */
+	public function getMarketingPageFunnelString($glue = ', ') {
+		$pageFunnel = $this->getMarketingPageFunnel();
+		return implode($glue, $pageFunnel);
+	}
+
+	/**
 	 * @param string $marketingReferer
-	 * @return void
+	 * @return Mail
 	 */
 	public function setMarketingReferer($marketingReferer) {
 		$this->marketingReferer = $marketingReferer;
+		return $this;
 	}
 
 	/**
@@ -598,10 +631,11 @@ class Mail extends AbstractEntity {
 
 	/**
 	 * @param string $marketingRefererDomain
-	 * @return void
+	 * @return Mail
 	 */
 	public function setMarketingRefererDomain($marketingRefererDomain) {
 		$this->marketingRefererDomain = $marketingRefererDomain;
+		return $this;
 	}
 
 	/**
@@ -609,5 +643,14 @@ class Mail extends AbstractEntity {
 	 */
 	public function getMarketingRefererDomain() {
 		return $this->marketingRefererDomain;
+	}
+
+	/**
+	 * @param int $pid
+	 * @return Mail
+	 */
+	public function setPid($pid) {
+		parent::setPid($pid);
+		return $this;
 	}
 }

@@ -259,11 +259,11 @@ class DivTest extends UnitTestCase {
 	}
 
 	/**
-	 * Dataprovider getVariablesWithMarkersReturnsArray()
+	 * Dataprovider getVariablesWithMarkersFromMailReturnsArray()
 	 *
 	 * @return array
 	 */
-	public function getVariablesWithMarkersReturnsArrayDataProvider() {
+	public function getVariablesWithMarkersFromMailReturnsArrayDataProvider() {
 		return array(
 			array(
 				array(
@@ -320,15 +320,15 @@ class DivTest extends UnitTestCase {
 	}
 
 	/**
-	 * Test for getVariablesWithMarkers()
+	 * Test for getVariablesWithMarkersFromMail()
 	 *
 	 * @param array $values
 	 * @param string $expectedResult
 	 * @return void
-	 * @dataProvider getVariablesWithMarkersReturnsArrayDataProvider
+	 * @dataProvider getVariablesWithMarkersFromMailReturnsArrayDataProvider
 	 * @test
 	 */
-	public function getVariablesWithMarkersReturnsArray($values, $expectedResult) {
+	public function getVariablesWithMarkersFromMailReturnsArray($values, $expectedResult) {
 		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $markerValueMix) {
@@ -342,16 +342,16 @@ class DivTest extends UnitTestCase {
 			}
 		}
 
-		$result = $this->generalValidatorMock->_callRef('getVariablesWithMarkers', $mail);
+		$result = $this->generalValidatorMock->_callRef('getVariablesWithMarkersFromMail', $mail);
 		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
-	 * Dataprovider getLabelsAttachedToMarkersReturnsArray()
+	 * Dataprovider getLabelsWithMarkersFromMailReturnsArray()
 	 *
 	 * @return array
 	 */
-	public function getLabelsAttachedToMarkersReturnsArrayDataProvider() {
+	public function getLabelsWithMarkersFromMailReturnsArrayDataProvider() {
 		return array(
 			array(
 				array(
@@ -389,15 +389,15 @@ class DivTest extends UnitTestCase {
 	}
 
 	/**
-	 * Test for getLabelsAttachedToMarkers()
+	 * Test for getLabelsWithMarkersFromMail()
 	 *
 	 * @param array $values
 	 * @param string $expectedResult
 	 * @return void
-	 * @dataProvider getLabelsAttachedToMarkersReturnsArrayDataProvider
+	 * @dataProvider getLabelsWithMarkersFromMailReturnsArrayDataProvider
 	 * @test
 	 */
-	public function getLabelsAttachedToMarkersReturnsArray($values, $expectedResult) {
+	public function getLabelsWithMarkersFromMailReturnsArray($values, $expectedResult) {
 		$mail = new Mail;
 		if (is_array($values)) {
 			foreach ($values as $markerTitleMix) {
@@ -410,96 +410,7 @@ class DivTest extends UnitTestCase {
 			}
 		}
 
-		$result = $this->generalValidatorMock->_callRef('getLabelsAttachedToMarkers', $mail);
-		$this->assertSame($expectedResult, $result);
-	}
-
-	/**
-	 * Dataprovider getVariablesWithLabelsReturnsArray()
-	 *
-	 * @return array
-	 */
-	public function getVariablesWithLabelsReturnsArrayDataProvider() {
-		return array(
-			array(
-				array(
-					array(
-						'title',
-						'value',
-						123
-					),
-				),
-				array(
-					array(
-						'label' => 'title',
-						'value' => 'value',
-						'uid' => 123
-					)
-				),
-			),
-			array(
-				array(
-					array(
-						'First Name',
-						'Alex',
-						1
-					),
-					array(
-						'Last Name',
-						'Kellner',
-						2
-					),
-					array(
-						'Email address',
-						'alex@test.de',
-						3
-					),
-				),
-				array(
-					array(
-						'label' => 'First Name',
-						'value' => 'Alex',
-						'uid' => 1
-					),
-					array(
-						'label' => 'Last Name',
-						'value' => 'Kellner',
-						'uid' => 2
-					),
-					array(
-						'label' => 'Email address',
-						'value' => 'alex@test.de',
-						'uid' => 3
-					)
-				),
-			),
-		);
-	}
-
-	/**
-	 * Test for getVariablesWithLabels()
-	 *
-	 * @param array $values
-	 * @param string $expectedResult
-	 * @return void
-	 * @dataProvider getVariablesWithLabelsReturnsArrayDataProvider
-	 * @test
-	 */
-	public function getVariablesWithLabelsReturnsArray($values, $expectedResult) {
-		$mail = new Mail;
-		if (is_array($values)) {
-			foreach ($values as $titleValueUidMix) {
-				$answer = new Answer;
-				$field = new Field;
-				$field->setTitle($titleValueUidMix[0]);
-				$field->_setProperty('uid', $titleValueUidMix[2]);
-				$answer->setField($field);
-				$answer->setValue($titleValueUidMix[1]);
-				$mail->addAnswer($answer);
-			}
-		}
-
-		$result = $this->generalValidatorMock->_callRef('getVariablesWithLabels', $mail);
+		$result = $this->generalValidatorMock->_callRef('getLabelsWithMarkersFromMail', $mail);
 		$this->assertSame($expectedResult, $result);
 	}
 

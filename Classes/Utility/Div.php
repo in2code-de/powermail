@@ -370,7 +370,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
 	 */
-	public function getVariablesWithMarkers(Mail $mail) {
+	public function getVariablesWithMarkersFromMail(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -392,7 +392,7 @@ class Div {
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
 	 * @return array
 	 */
-	public function getLabelsAttachedToMarkers(Mail $mail) {
+	public function getLabelsWithMarkersFromMail(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -401,49 +401,6 @@ class Div {
 			$variables['label_' . $answer->getField()->getMarker()] = $answer->getField()->getTitle();
 		}
 		return $variables;
-	}
-
-	/**
-	 * Generate a new array their labels and respect FE language
-	 *        Your Firstname: => value
-	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @return array new array
-	 */
-	public function getVariablesWithLabels(Mail $mail) {
-		$variables = array();
-		foreach ($mail->getAnswers() as $answer) {
-			if (!method_exists($answer->getField(), 'getUid')) {
-				continue;
-			}
-			$variables[] = array(
-				'label' => $answer->getField()->getTitle(),
-				'value' => $answer->getValue(),
-				'uid' => $answer->getField()->getUid()
-			);
-		}
-		return $variables;
-	}
-
-	/**
-	 * Return marker from given field uid
-	 *
-	 * @param integer $uid Field UID
-	 * @return string Marker name
-	 */
-	public function getMarkerFromField($uid) {
-		// get field
-		$field = $this->fieldRepository->findByUid($uid);
-
-		$marker = NULL;
-		if (method_exists($field, 'getMarker')) {
-			$marker = $field->getMarker();
-		}
-		if ($marker === NULL || empty($marker)) {
-			$marker = 'Error, could not get Marker';
-		}
-
-		return $marker;
 	}
 
 	/**
@@ -675,135 +632,6 @@ class Div {
 	}
 
 	/**
-	 * Get grouped mail answers for reporting
-	 *
-	 * @param QueryResult $mails Mail array
-	 * @param int $max Max Labels
-	 * @param string $maxLabel Label for "Max Labels" - could be "all others"
-	 * @return array
-	 */
-	public static function getGroupedMailAnswers($mails, $max = 5, $maxLabel = 'All others') {
-		$arr = array();
-		/** @var Mail $mail */
-		foreach ($mails as $mail) {
-			foreach ($mail->getAnswers() as $answer) {
-				$value = $answer->getValue();
-				if (is_array($answer->getValue())) {
-					$value = implode(', ', $value);
-				}
-				if (method_exists($answer->getField(), 'getUid')) {
-					if (!isset($arr[$answer->getField()->getUid()][$value])) {
-						$arr[$answer->getField()->getUid()][$value] = 1;
-					} else {
-						$arr[$answer->getField()->getUid()][$value]++;
-					}
-				}
-			}
-		}
-
-		// sort desc
-		foreach ($arr as $key => $value) {
-			$value = NULL;
-
-			arsort($arr[$key]);
-		}
-
-		// if too much values
-		foreach ((array)$arr as $key => $array) {
-			$array = NULL;
-
-			if (count($arr[$key]) >= $max) {
-				$i = 0;
-				foreach ($arr[$key] as $value => $amount) {
-					$i++;
-					if ($i >= $max) {
-						unset($arr[$key][$value]);
-						if (!isset($arr[$key][$maxLabel])) {
-							$arr[$key][$maxLabel] = $amount;
-						} else {
-							$arr[$key][$maxLabel] += $amount;
-						}
-					} else {
-						$arr[$key][$value] = $amount;
-					}
-				}
-			}
-		}
-
-		return $arr;
-	}
-
-	/**
-	 * Get grouped marketing stuff for reporting
-	 *
-	 * @param QueryResult $mails Mails
-	 * @param int $max Max Labels
-	 * @param string $maxLabel Label for "Max Labels" - could be "all others"
-	 * @return array
-	 */
-	public static function getGroupedMarketingStuff($mails, $max = 10, $maxLabel = 'All others') {
-		$arr = array(
-			'marketingRefererDomain' => array(),
-			'marketingReferer' => array(),
-			'marketingCountry' => array(),
-			'marketingMobileDevice' => array(),
-			'marketingFrontendLanguage' => array(),
-			'marketingBrowserLanguage' => array(),
-			'marketingPageFunnel' => array(),
-		);
-		foreach ($mails as $mail) {
-			/** @var Mail $mail */
-			foreach ($arr as $key => $v) {
-				$v = NULL;
-
-				$value = $mail->{'get' . ucfirst($key)}();
-				if (is_array($value)) {
-					$value = implode(',', $value);
-				}
-				if (!$value) {
-					$value = '-';
-				}
-				if (!isset($arr[$key][$value])) {
-					$arr[$key][$value] = 1;
-				} else {
-					$arr[$key][$value]++;
-				}
-			}
-		}
-
-		// sort desc
-		foreach ($arr as $key => $value) {
-			$value = NULL;
-
-			arsort($arr[$key]);
-		}
-
-		// if too much values
-		foreach ($arr as $key => $array) {
-			$array = NULL;
-
-			if (count($arr[$key]) >= $max) {
-				$i = 0;
-				foreach ($arr[$key] as $value => $amount) {
-					$i++;
-					if ($i >= $max) {
-						unset($arr[$key][$value]);
-						if (!isset($arr[$key][$maxLabel])) {
-							$arr[$key][$maxLabel] = $amount;
-						} else {
-							$arr[$key][$maxLabel] += $amount;
-						}
-					} else {
-						$arr[$key][$value] = $amount;
-					}
-				}
-			}
-		}
-
-		return $arr;
-	}
-
-	/**
 	 * Powermail SendPost - Send values via curl to a third party software
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
@@ -823,7 +651,7 @@ class Div {
 		}
 
 		$contentObject->start(
-			$this->getVariablesWithMarkers($mail)
+			$this->getVariablesWithMarkersFromMail($mail)
 		);
 		$parameters = $contentObject->cObjGetSingle(
 			$conf['marketing.']['sendPost.']['values'],
@@ -995,7 +823,7 @@ class Div {
 	 */
 	public static function checkOptinHash($hash, Mail $mail) {
 		$newHash = self::createHash($mail->getUid() . $mail->getPid() . $mail->getForm()->getUid());
-		if ($newHash === $hash && !empty($hash)) {
+		if (!empty($hash) && $newHash === $hash) {
 			return TRUE;
 		}
 		return FALSE;
@@ -1199,7 +1027,7 @@ class Div {
 			return;
 		}
 		$contentObject = $this->configurationManager->getContentObject();
-		$startArray = $this->getVariablesWithMarkers($mail);
+		$startArray = $this->getVariablesWithMarkersFromMail($mail);
 
 		// one loop per table
 		foreach ((array) array_keys($conf['dbEntry.']) as $table) {
