@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 class T3VersionViewHelper extends AbstractViewHelper {
 
 	/**
-	 * Check if TYPO3 Version is correct
+	 * Check if TYPO3 Version is in depends
 	 *
 	 * @return bool
 	 */
@@ -25,9 +25,9 @@ class T3VersionViewHelper extends AbstractViewHelper {
 		require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
 		$versionString = $EM_CONF['powermail']['constraints']['depends']['typo3'];
 		$versions = explode('-', $versionString);
-		$powermailVersion = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-		$isAboveMinVersion = ($powermailVersion > VersionNumberUtility::convertVersionNumberToInteger($versions[0]));
-		$isBelowMaxVersion = ($powermailVersion < VersionNumberUtility::convertVersionNumberToInteger($versions[1]));
+		$typo3Version = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+		$isAboveMinVersion = ($typo3Version > VersionNumberUtility::convertVersionNumberToInteger($versions[0]));
+		$isBelowMaxVersion = ($typo3Version < VersionNumberUtility::convertVersionNumberToInteger($versions[1]));
 		if ($isAboveMinVersion && $isBelowMaxVersion) {
 			return TRUE;
 		}
