@@ -208,7 +208,7 @@
 				<target state="translated">Textfeld Mehrzeilig (Textarea)</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_fields.type.2">
-				<source>Selecfield</source>
+				<source>Selectfield</source>
 				<target state="translated">Auswahlfeld (Select)</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_fields.type.3">
