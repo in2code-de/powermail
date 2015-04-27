@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Domain\Model\Form;
 
 /***************************************************************
  *  Copyright notice
@@ -44,8 +45,9 @@ class FormRepository extends Repository {
 	 */
 	public function findByUids($uids) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+		$query->getQuerySettings()
+			->setRespectStoragePage(FALSE)
+			->setRespectSysLanguage(FALSE);
 
 		$query->matching(
 			$query->in('uid', GeneralUtility::intExplode(',', $uids, TRUE))
@@ -63,8 +65,9 @@ class FormRepository extends Repository {
 	 */
 	public function findByPages($uid) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+		$query->getQuerySettings()
+			->setRespectStoragePage(FALSE)
+			->setRespectSysLanguage(FALSE);
 
 		$query->matching(
 			$query->equals('pages.uid', $uid)
@@ -77,12 +80,14 @@ class FormRepository extends Repository {
 	/**
 	 * Returns form with captcha from given UID
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Form $form
+	 * @param Form $form
 	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
 	 */
-	public function hasCaptcha(\In2code\Powermail\Domain\Model\Form $form) {
+	public function hasCaptcha(Form $form) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()
+			->setRespectStoragePage(FALSE)
+			->setRespectSysLanguage(FALSE);
 		$and = array(
 			$query->equals('uid', $form->getUid()),
 			$query->equals('pages.fields.type', 'captcha')
@@ -96,10 +101,10 @@ class FormRepository extends Repository {
 	/**
 	 * Returns form with password from given UID
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Form $form
+	 * @param Form $form
 	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
 	 */
-	public function hasPassword(\In2code\Powermail\Domain\Model\Form $form) {
+	public function hasPassword(Form $form) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$and = array(
