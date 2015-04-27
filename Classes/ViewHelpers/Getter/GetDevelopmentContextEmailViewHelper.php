@@ -2,7 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use \In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\Div;
 
 /**
  * Class GetDevelopmentContextEmailViewHelper

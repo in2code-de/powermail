@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use In2code\Powermail\Utility\Div;
 
 /**
  * PowermailVersionViewHelper
@@ -18,6 +18,6 @@ class PowermailVersionViewHelper extends AbstractViewHelper {
 	 * @return string
 	 */
 	public function render() {
-		return Div::getVersion();
+		return ExtensionManagementUtility::getExtensionVersion('powermail');
 	}
 }

@@ -1241,22 +1241,6 @@ class Div {
 	}
 
 	/**
-	 * Get powermail version from ext_emconf
-	 *
-	 * @param string $extensionKey
-	 * @return string
-	 */
-	public static function getVersion($extensionKey = 'powermail') {
-		$_EXTKEY = $extensionKey;
-		require(ExtensionManagementUtility::extPath($extensionKey) . 'ext_emconf.php');
-		$version = $EM_CONF[$extensionKey]['version'];
-		if (VersionNumberUtility::convertVersionNumberToInteger($version) > 0) {
-			return $version;
-		}
-		return '0.0.0';
-	}
-
-	/**
 	 * Get development email (only if in dev context)
 	 *
 	 * @return false|string

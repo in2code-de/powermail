@@ -157,7 +157,7 @@
 				<source>Textfield with more Rows (Textarea)</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_fields.type.2">
-				<source>Selecfield</source>
+				<source>Selectfield</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_fields.type.3">
 				<source>Checkboxes</source>
