@@ -1,0 +1,22 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+<f:layout name="Mail" />
+
+	Render Powermail Spam notification mail to administration
+		{mail}									Mail object
+		{pid}									Current Page Uid
+		{calculatedMailSpamFactor}				Spam factor
+		{messages}								Spam messages
+		{ipAddress}								IP Address from sender (if not disabled)
+
+<f:section name="main">
+Possible spam in powermail form on page with PID {pid}
+Spamfactor of this mail: {calculatedMailSpamFactor}
+
+Failed Spamchecks:
+<f:for each="{messages}" as="message">{message}
+</f:for>
+Given Form variables:
+<f:for each="{mail.answers}" as="answer">{answer.field.title}: {answer.value}
+</f:for>
+<f:if condition="{ipAddress}">Senders IP addess: {ipAddress}</f:if>
+</f:section>
