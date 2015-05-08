@@ -10,12 +10,17 @@ Feature: AllFields
     Then I should see "Select"
     Then I should see "Check"
     Then I should see "Radio"
+    Then the sourcecode should contain '<option value="Default">Default</option>'
+    Then the sourcecode should contain '<option value="" selected="selected">Please choose a color</option>'
+    Then the sourcecode should contain '<option value="Red">Red</option>'
+    Then the sourcecode should contain '<option value="1">Yellow</option>'
+    Then the sourcecode should contain '<option value="black" selected="selected">Black Shoes</option>'
 
     When I fill in "tx_powermail_pi1[field][input]" with "This is an input"
     When I fill in "tx_powermail_pi1[field][marker]" with "This is a textarea"
-    When I select "Olli" from "tx_powermail_pi1[field][marker_01]"
+    When I select "Red" from "tx_powermail_pi1[field][marker_01]"
     And I press "Submit"
 
     Then I should see "This is an input"
     Then I should see "This is a textarea"
-    Then I should see "Olli"
+    Then I should see "Red"
