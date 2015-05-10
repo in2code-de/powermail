@@ -285,6 +285,12 @@ plugin.tx_powermail {
 				# Notification Email to Admin if spam recognized (empty disables email to admin)
 				email = {$plugin.tx_powermail.settings.spamshield.email}
 
+				# Subject for notification Email to Admin
+				emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
+
+				# Template for notification Email to Admin
+				emailTemplate = {$plugin.tx_powermail.settings.spamshield.emailTemplate}
+
 				indicator {
 					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					honeypod = 5

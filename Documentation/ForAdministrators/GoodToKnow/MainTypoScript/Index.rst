@@ -978,6 +978,12 @@ Setup
 					# Notification Email to Admin if spam recognized (empty disables email to admin)
 					email = {$plugin.tx_powermail.settings.spamshield.email}
 
+					# Subject for notification Email to Admin
+					emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
+
+					# Template for notification Email to Admin
+					emailTemplate = {$plugin.tx_powermail.settings.spamshield.emailTemplate}
+
 					indicator {
 						# if this check failed - add this indication value to indicator (0 disables this check completely)
 						honeypod = 5
@@ -1519,6 +1525,12 @@ Constants
 
 				# cat=powermail_spam//0920; type=text; label= Spamshield Notifymail: Admin can get an email if he/she wants to get informed if a mail failed. Let this field empty and no mail will be sent (e.g. admin@mail.com)
 				email =
+
+				# cat=powermail_spam//0930; type=text; label= Spamshield Notifymail Subject: Subject for notification Email to Admin
+				emailSubject = Spam in powermail form recognized
+
+				# cat=powermail_spam//0940; type=text; label= Spamshield Notifymail Template: Template for notification Email to Admin
+				emailTemplate = EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
 			}
 
 			captcha {

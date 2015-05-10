@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Validator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Utility\Div;
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * SpamShieldValidator
@@ -330,35 +331,40 @@ class SpamShieldValidator extends AbstractValidator {
 		if (!GeneralUtility::validEmail($this->settings['spamshield.']['email'])) {
 			return;
 		}
-
-		$subject = 'Spam in powermail form recognized';
-		$message = 'Possible spam in powermail form on page with PID ' . $this->typoScriptFrontendController->id;
-		$message .= "\n\n";
-		$message .= 'Spamfactor of this mail: ' . $this->getCalculatedMailSpamFactor(TRUE) . "\n";
-		$message .= "\n\n";
-		$message .= 'Failed Spamchecks:' . "\n";
-		$message .= Div::viewPlainArray($this->getMessages());
-		$message .= "\n\n";
-		$message .= 'Given Form variables:' . "\n";
-		foreach ($mail->getAnswers() as $answer) {
-			$message .= $answer->getField()->getTitle();
-			$message .= ': ';
-			$message .= $answer->getValue();
-			$message .= "\n";
-		}
-		if (empty($this->configurationArray['disableIpLog'])) {
-			$message .= "\n\n";
-			$message .= 'Senders IP address: ' . GeneralUtility::getIndpEnv('REMOTE_ADDR');
-		}
-		$header  = 'MIME-Version: 1.0' . "\r\n";
-		$header .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-		$header .= 'From: powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY') . "\r\n";
+		$variables = array(
+			'mail' => $mail,
+			'pid' => $this->typoScriptFrontendController->id,
+			'calculatedMailSpamFactor' => $this->getCalculatedMailSpamFactor(TRUE),
+			'messages' => $this->getMessages(),
+			'ipAddress' => (empty($this->configurationArray['disableIpLog']) ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '')
+		);
 		Div::sendPlainMail(
 			$this->settings['spamshield.']['email'],
 			'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'),
-			$subject,
-			$message
+			$this->settings['spamshield.']['emailSubject'],
+			$this->createSpamNotificationMailBody($this->settings['spamshield.']['emailTemplate'], $variables)
 		);
+	}
+
+	/**
+	 * Create bodytext for spamnotification mail
+	 *
+	 * @param string $path relative path to mail
+	 * @param array $multipleAssign
+	 * @return string
+	 */
+	protected function createSpamNotificationMailBody($path, $multipleAssign = array()) {
+		$rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
+		/** @var StandaloneView $standAloneView */
+		$standAloneView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
+		$standAloneView->getRequest()->setControllerExtensionName('Powermail');
+		$standAloneView->getRequest()->setPluginName('Pi1');
+		$standAloneView->setFormat('html');
+		$standAloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($path));
+		$standAloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
+		$standAloneView->setPartialRootPaths(array($rootPath . 'Partials'));
+		$standAloneView->assignMultiple($multipleAssign);
+		return $standAloneView->render();
 	}
 
 	/**
