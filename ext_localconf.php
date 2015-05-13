@@ -55,7 +55,7 @@ $TYPO3_CONF_VARS['EXTCONF']['cms']['db_layout']['addTables']['tx_powermail_domai
  * Hook to show PluginInfo
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info'][$_EXTKEY . '_pi1'][$_EXTKEY] =
-	'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/PluginInfo.php:In2code\Powermail\Utility\Hook\PluginInfo->getInfo';
+	'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/PluginInformation.php:In2code\Powermail\Utility\Hook\PluginInformation->build';
 
 /**
  * Hook for first fill of marker field in backend
