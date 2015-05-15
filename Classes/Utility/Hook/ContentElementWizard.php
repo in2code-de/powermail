@@ -1,7 +1,6 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /***************************************************************
@@ -28,13 +27,12 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 ***************************************************************/
 
 /**
- * Plugin 'Powermail' for the 'powermail' extension.
+ * Class ContentElementWizard allowes a new icon/link for powermail
+ * on adding new content elements
  *
- * @author 2010 powermail development team
- * @package TYPO3
- * @subpackage tx_powermail
+ * @package In2code\Powermail\Utility\Hook
  */
-class WizIcon {
+class ContentElementWizard {
 
 	/**
 	 * Path to locallang file (with : as postfix)
@@ -44,22 +42,37 @@ class WizIcon {
 	protected $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:';
 
 	/**
-	 * Processing the wizard items array
+	 * @var \TYPO3\CMS\Lang\LanguageService
+	 */
+	protected $languageService = NULL;
+
+	/**
+	 * Adding a new content element wizard item for powermail
 	 *
-	 * @param array $wizardItems
+	 * @param array $contentElementWizardItems
 	 * @return array
 	 */
-	public function proc($wizardItems = array()) {
-		$wizardItems['plugins_tx_powermail_pi1'] = array(
+	public function proc($contentElementWizardItems = array()) {
+		$this->initialize();
+		$contentElementWizardItems['plugins_tx_powermail_pi1'] = array(
 			'icon' => ExtensionManagementUtility::extRelPath('powermail') . 'Resources/Public/Icons/ce_wiz.gif',
-			'title' => $GLOBALS['LANG']->sL($this->locallangPath . 'pluginWizardTitle', TRUE),
-			'description' => $GLOBALS['LANG']->sL($this->locallangPath . 'pluginWizardDescription', TRUE),
+			'title' => $this->languageService->sL($this->locallangPath . 'pluginWizardTitle', TRUE),
+			'description' => $this->languageService->sL($this->locallangPath . 'pluginWizardDescription', TRUE),
 			'params' => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=powermail_pi1',
 			'tt_content_defValues' => array(
 				'CType' => 'list',
 			),
 		);
 
-		return $wizardItems;
+		return $contentElementWizardItems;
+	}
+
+	/**
+	 * Initialize
+	 *
+	 * @return void
+	 */
+	protected function initialize() {
+		$this->languageService = $GLOBALS['LANG'];
 	}
 }
