@@ -127,6 +127,77 @@ class FieldRepository extends Repository {
 	}
 
 	/**
+	 * Find all localized records with
+	 * 		tx_powermail_domain_model_fields.pages = "0"
+	 *
+	 * @return array
+	 */
+	public function findAllWrongLocalizedFields() {
+		$pages = array();
+		$select = 'uid,pid,title,l10n_parent,sys_language_uid';
+		$from = 'tx_powermail_domain_model_fields';
+		$where = '(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0';
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where);
+		if ($res) {
+			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+				$pages[] = $row;
+			}
+		}
+		return $pages;
+	}
+
+	/**
+	 * Fix wrong localized forms
+	 *
+	 * @return void
+	 */
+	public function fixWrongLocalizedFields() {
+		foreach ($this->findAllWrongLocalizedFields() as $field) {
+			$defaultFieldUid = $field['l10n_parent'];
+			$defaultPageUid = $this->getPageUidFromFieldUid($defaultFieldUid);
+			$localizedPageUid = $this->getLocalizedPageUidFromPageUid($defaultPageUid, $field['sys_language_uid']);
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+				'tx_powermail_domain_model_fields',
+				'uid = ' . (int) $field['uid'],
+				array('pages' => $localizedPageUid)
+			);
+		}
+	}
+
+	/**
+	 * Get parent page uid form given field uid
+	 *
+	 * @param int $fieldUid
+	 * @return array
+	 */
+	protected function getPageUidFromFieldUid($fieldUid) {
+		$query = $this->createQuery();
+		$sql = 'select pages';
+		$sql .= ' from tx_powermail_domain_model_fields';
+		$sql .= ' where uid = ' . (int) $fieldUid;
+		$sql .= ' and deleted = 0';
+		$sql .= ' limit 1';
+		$row = $query->statement($sql)->execute(TRUE);
+		return $row[0]['pages'];
+	}
+
+	/**
+	 * @param int $pageUid
+	 * @param int $sysLanguageUid
+	 * @return array
+	 */
+	protected function getLocalizedPageUidFromPageUid($pageUid, $sysLanguageUid) {
+		$query = $this->createQuery();
+		$sql = 'select uid';
+		$sql .= ' from tx_powermail_domain_model_pages';
+		$sql .= ' where l10n_parent = ' . (int) $pageUid;
+		$sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
+		$sql .= ' and deleted = 0';
+		$row = $query->statement($sql)->execute(TRUE);
+		return $row[0]['uid'];
+	}
+
+	/**
 	 * Return uid from given field marker and form (if no IRRE)
 	 *
 	 * @param \string $marker

@@ -30,6 +30,10 @@ class CheckFilledMarkersInLocalizedFieldsViewHelper extends AbstractViewHelper {
 		if (count($forms) > 0) {
 			return FALSE;
 		}
+		$forms = $this->fieldRepository->findAllWrongLocalizedFields();
+		if (count($forms) > 0) {
+			return FALSE;
+		}
 		return TRUE;
 	}
 }

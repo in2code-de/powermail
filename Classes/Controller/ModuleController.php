@@ -371,6 +371,7 @@ class ModuleController extends AbstractController {
 	 */
 	public function fixFilledMarkersInLocalizedFieldsAction() {
 		$this->fieldRepository->fixFilledMarkersInLocalizedFields();
+		$this->fieldRepository->fixWrongLocalizedFields();
 		$this->redirect('checkBe');
 	}
 
