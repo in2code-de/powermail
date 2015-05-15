@@ -45,10 +45,9 @@ class FieldSelectorUserFunc {
 	 * Cretae Array for Field Selector
 	 *
 	 * @param array $params
-	 * @param object $pObj Parent Object
 	 * @return void
 	 */
-	public function getFieldSelection(&$params, $pObj) {
+	public function getFieldSelection(&$params) {
 		$formUid = $this->getFormFromFlexform($params);
 		if (!$formUid) {
 			$params['items'] = array(
@@ -59,7 +58,6 @@ class FieldSelectorUserFunc {
 			);
 			return;
 		}
-
 		foreach ((array) Div::getFieldsFromFormWithSelectQuery($formUid) as $field) {
 			$params['items'][] = array(
 				$field['title'] . ' {' . $field['marker'] . '}',

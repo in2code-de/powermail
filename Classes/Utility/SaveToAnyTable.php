@@ -72,6 +72,11 @@ class SaveToAnyTable {
 	protected $devLog = FALSE;
 
 	/**
+	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	protected $databaseConnection = NULL;
+
+	/**
 	 * Executes the storage
 	 *
 	 * @return int uid of inserted record
@@ -98,8 +103,8 @@ class SaveToAnyTable {
 	 * @return \int uid of inserted record
 	 */
 	protected function insert() {
-		$GLOBALS['TYPO3_DB']->exec_INSERTquery($this->getTable(), $this->getProperties());
-		return $GLOBALS['TYPO3_DB']->sql_insert_id();
+		$this->databaseConnection->exec_INSERTquery($this->getTable(), $this->getProperties());
+		return $this->databaseConnection->sql_insert_id();
 	}
 
 	/**
@@ -109,13 +114,13 @@ class SaveToAnyTable {
 	 */
 	protected function update() {
 		// find existing record in database
-		$searchterm = $GLOBALS['TYPO3_DB']->fullQuoteStr(
+		$searchterm = $this->databaseConnection->fullQuoteStr(
 			$this->getProperty(
 				$this->getUniqueField()
 			),
 			$this->getTable()
 		);
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+		$res = $this->databaseConnection->exec_SELECTquery(
 			'uid',
 			$this->getTable(),
 			$this->getUniqueField() . ' = ' . $searchterm . ' and deleted = 0',
@@ -124,7 +129,7 @@ class SaveToAnyTable {
 			1
 		);
 		if ($res) {
-			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+			$row = $this->databaseConnection->sql_fetch_assoc($res);
 		}
 
 		// if there is no existing entry, insert new one
@@ -134,7 +139,7 @@ class SaveToAnyTable {
 
 		// update existing entry (only if mode is not "none")
 		if ($this->getMode() !== 'none') {
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+			$this->databaseConnection->exec_UPDATEquery(
 				$this->getTable(),
 				'uid = ' . intval($row['uid']),
 				$this->getProperties()
@@ -290,6 +295,14 @@ class SaveToAnyTable {
 			0,
 			$this->getProperties()
 		);
+	}
+
+	/**
+	 * @param $table
+	 */
+	public function __construct($table) {
+		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
+		$this->setTable($table);
 	}
 
 }

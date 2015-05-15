@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Utility\Div;
 
@@ -28,7 +29,6 @@ use In2code\Powermail\Utility\Div;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * Powermail Form Selector
  * 		Used in FlexForm
@@ -41,6 +41,11 @@ use In2code\Powermail\Utility\Div;
 class FormSelectorUserFunc {
 
 	/**
+	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	protected $databaseConnection = NULL;
+
+	/**
 	 * Create Array for Form Selection
 	 * 		Show all forms only from a pid and it's subpages:
 	 * 			tx_powermail.flexForm.formSelection = 123
@@ -49,11 +54,10 @@ class FormSelectorUserFunc {
 	 * 		If no TSConfig set, all forms will be shown
 	 *
 	 * @param array $params
-	 * @param object $pObj Parent Object
 	 * @return void
 	 */
-	public function getForms(&$params, $pObj) {
-		$typoScriptConfiguration = \TYPO3\CMS\Backend\Utility\BackendUtility::getPagesTSconfig(Div::getPidFromBackendPage());
+	public function getForms(&$params) {
+		$typoScriptConfiguration = BackendUtility::getPagesTSconfig(Div::getPidFromBackendPage());
 		$language = $params['row']['sys_language_uid'];
 		$startPid = 0;
 		if (!empty($typoScriptConfiguration['tx_powermail.']['flexForm.']['formSelection'])) {
@@ -76,6 +80,7 @@ class FormSelectorUserFunc {
 	 * @return array
 	 */
 	protected function getAllForms($startPid, $language) {
+		$this->initialize();
 		$select = 'tx_powermail_domain_model_forms.uid, tx_powermail_domain_model_forms.title';
 		$from = 'tx_powermail_domain_model_forms';
 		$where = '
@@ -84,7 +89,7 @@ class FormSelectorUserFunc {
 			(tx_powermail_domain_model_forms.sys_language_uid IN (-1,0) or
 			(
 				tx_powermail_domain_model_forms.l10n_parent = 0 and
-				tx_powermail_domain_model_forms.sys_language_uid = ' . intval($language) . '
+				tx_powermail_domain_model_forms.sys_language_uid = ' . (int) $language . '
 			)
 			)';
 		if (!empty($startPid)) {
@@ -93,11 +98,11 @@ class FormSelectorUserFunc {
 		$groupBy = '';
 		$orderBy = 'tx_powermail_domain_model_forms.title ASC';
 		$limit = 10000;
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+		$res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 
 		$array = array();
 		if ($res) {
-			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+			while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
 				$array[] = $row;
 			}
 		}
@@ -119,5 +124,14 @@ class FormSelectorUserFunc {
 		}
 		$list = $queryGenerator->getTreeList($startPid, 10, 0, 1);
 		return $list;
+	}
+
+	/**
+	 * Initialize
+	 *
+	 * @return void
+	 */
+	protected function initialize() {
+		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 	}
 }

@@ -2,7 +2,6 @@
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Utility\Div;
 
 /***************************************************************
  *  Copyright notice

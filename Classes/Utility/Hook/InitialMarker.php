@@ -1,7 +1,6 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Utility\Div;
 
 /***************************************************************
@@ -40,14 +39,13 @@ class InitialMarker extends AbstractMarker {
 	/**
 	 * Initially fill the marker field from title
 	 *
-	 * @param \string $status mode of change
-	 * @param \string $table the table which gets changed
-	 * @param \string $uid uid of the record
-	 * @param \array $fieldArray the updateArray
-	 * @param \array $pObj
+	 * @param string $status mode of change
+	 * @param string $table the table which gets changed
+	 * @param string $uid uid of the record
+	 * @param array $fieldArray the updateArray
 	 * @return void
 	 */
-	public function processDatamap_postProcessFieldArray($status, $table, $uid, &$fieldArray, $pObj) {
+	public function processDatamap_postProcessFieldArray($status, $table, $uid, &$fieldArray) {
 		if ($table != 'tx_powermail_domain_model_fields') {
 			return;
 		}

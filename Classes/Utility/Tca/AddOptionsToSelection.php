@@ -5,6 +5,8 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * Class AddOptionsToSelection allows to add individual options
+ *
+ * @package In2code\Powermail\Utility\Tca
  */
 class AddOptionsToSelection {
 
@@ -21,10 +23,9 @@ class AddOptionsToSelection {
 	 * 			tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name
 	 *
 	 * @param array $params
-	 * @param object $pObj
 	 * @return void
 	 */
-	public function addOptionsForType(&$params, $pObj) {
+	public function addOptionsForType(&$params) {
 		$this->addOptions($params, 'type');
 	}
 
@@ -34,10 +35,9 @@ class AddOptionsToSelection {
 	 * 			tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
 	 *
 	 * @param array $params
-	 * @param object $pObj
 	 * @return void
 	 */
-	public function addOptionsForValidation(&$params, $pObj) {
+	public function addOptionsForValidation(&$params) {
 		$this->addOptions($params, 'validation');
 	}
 
@@ -47,10 +47,9 @@ class AddOptionsToSelection {
 	 * 			tx_powermail.flexForm.feUserProperty.addFieldOptions.newfield = New fe_user
 	 *
 	 * @param array $params
-	 * @param object $pObj
 	 * @return void
 	 */
-	public function addOptionsForFeUserProperty(&$params, $pObj) {
+	public function addOptionsForFeUserProperty(&$params) {
 		$this->addOptions($params, 'feUserProperty');
 	}
 
