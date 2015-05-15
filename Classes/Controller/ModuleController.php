@@ -341,6 +341,25 @@ class ModuleController extends AbstractController {
 	 *
 	 * @return void
 	 */
+	public function initializeFixWrongLocalizedPagesAction() {
+		$this->checkAdminPermissions();
+	}
+
+	/**
+	 * Fix wrong localized pages
+	 *
+	 * @return void
+	 */
+	public function fixWrongLocalizedPagesAction() {
+		$this->pageRepository->fixWrongLocalizedPages();
+		$this->redirect('checkBe');
+	}
+
+	/**
+	 * Check Permissions
+	 *
+	 * @return void
+	 */
 	public function initializeFixFilledMarkersInLocalizedFieldsAction() {
 		$this->checkAdminPermissions();
 	}

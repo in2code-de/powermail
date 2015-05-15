@@ -1,0 +1,34 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:if condition="{vh:BeCheck.CheckWrongLocalizedPages()}">
+	<f:then>
+		<div class="typo3-message message-ok powermail-message">
+			<div class="header-container">
+				<div class="message-header">
+					<f:translate key="BackendCheckWrongLocalizedPagesTitle">Localized Pages</f:translate>
+				</div>
+			</div>
+			<div class="message-body">
+				<p>
+					<f:translate key="BackendCheckWrongLocalizedPagesCorrect">No failures found</f:translate>
+				</p>
+			</div>
+		</div>
+	</f:then>
+	<f:else>
+		<div class="typo3-message message-error powermail-message">
+			<div class="message-header">
+				<f:translate key="BackendCheckWrongLocalizedPagesTitle">Localized Pages</f:translate>
+			</div>
+			<div class="message-body">
+				<p>
+					<f:translate key="BackendCheckWrongLocalizedPagesFailed">Broken localized Pages found</f:translate>
+				</p>
+				<f:form action="fixWrongLocalizedPages">
+					<input type="submit" value="{f:translate(key:'BackendCheckTryToFix', default:'Solve problem')}" />
+					<p><strong><f:translate key="BackendCheckBackupBefore">Please backup before!</f:translate></strong></p>
+				</f:form>
+			</div>
+		</div>
+	</f:else>
+</f:if>

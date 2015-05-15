@@ -683,6 +683,18 @@
 				<source>There are localized forms with empty tx_powermail_domain_model_forms.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
 				<target state="translated">Es gibt lokalisierte Formulare mit leeren tx_powermail_domain_model_forms.pages Feldern, welche Probleme in der Frontend-Darstellung verursachen können</target>
 			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedPagesTitle">
+				<source>Localized Pages</source>
+				<target state="translated">Lokalisierte Seiten</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedPagesCorrect">
+				<source>No failures in pages found on this system</source>
+				<target state="translated">Keine Probleme auf diesem System gefunden</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedPagesFailed">
+				<source>There are localized pages with empty tx_powermail_domain_model_pages.forms fields which can lead to problems in managing localized pages</source>
+				<target state="translated">Es gibt lokalisierte Seiten mit leeren tx_powermail_domain_model_pages.forms Feldern, was Probleme bei der Bearbeitung verursachen kann</target>
+			</trans-unit>
 			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersTitle">
 				<source>Localized Fields</source>
 				<target state="translated">Lokalisierte Felder</target>

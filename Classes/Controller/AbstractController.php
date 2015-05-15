@@ -51,6 +51,14 @@ abstract class AbstractController extends ActionController {
 	protected $formRepository;
 
 	/**
+	 * pageRepository
+	 *
+	 * @var \In2code\Powermail\Domain\Repository\PageRepository
+	 * @inject
+	 */
+	protected $pageRepository;
+
+	/**
 	 * fieldRepository
 	 *
 	 * @var \In2code\Powermail\Domain\Repository\FieldRepository
