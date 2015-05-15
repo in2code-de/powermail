@@ -224,11 +224,32 @@ class PluginInformation {
 	 * @return string
 	 */
 	protected function getFormProperty($uid, $field = 'title') {
+		$uid = $this->getLocalizedFormUid($uid, $this->getSysLanguageUid());
 		$select = $field;
 		$from = 'tx_powermail_domain_model_forms';
-		$where = 'uid=' . intval($uid);
+		$where = 'uid=' . (int) $uid;
 		$row = $this->databaseConnection->exec_SELECTgetSingleRow($select, $from, $where);
 		return htmlspecialchars($row[$field]);
+	}
+
+	/**
+	 * Get form uid of a localized form
+	 *
+	 * @param int $uid
+	 * @param int $sysLanguageUid
+	 * @return int
+	 */
+	protected function getLocalizedFormUid($uid, $sysLanguageUid) {
+		if ($sysLanguageUid > 0) {
+			$select = 'uid';
+			$from = 'tx_powermail_domain_model_forms';
+			$where = 'sys_language_uid=' . (int) $sysLanguageUid . ' and l10n_parent=' . (int) $uid;
+			$row = $this->databaseConnection->exec_SELECTgetSingleRow($select, $from, $where);
+			if (!empty($row['uid'])) {
+				$uid = (int) $row['uid'];
+			}
+		}
+		return $uid;
 	}
 
 	/**
@@ -254,6 +275,18 @@ class PluginInformation {
 
 		$this->showTable = FALSE;
 		return FALSE;
+	}
+
+	/**
+	 * Get current sys_language_uid from page content
+	 *
+	 * @return int
+	 */
+	protected function getSysLanguageUid() {
+		if (!empty($this->params['row']['sys_language_uid']) && $this->params['row']['sys_language_uid'] > 0) {
+			return (int) $this->params['row']['sys_language_uid'];
+		}
+		return 0;
 	}
 
 	/**
