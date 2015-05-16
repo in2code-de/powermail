@@ -12,7 +12,7 @@ Render Powermail Mail to Receiver
 NOTE: See example section after main section
 
 <f:section name="main">
-	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}" type="mail" function="receiver">
+	<vh:Misc.Variables mail="{mail}" type="mail" function="receiver">
 		<f:format.html parseFuncTSPath="lib.parseFunc_powermail">{powermail_rte}</f:format.html>
 	</vh:Misc.Variables>
 
@@ -29,7 +29,7 @@ THIS IS ONLY AN EXAMPLE SECTION
 <f:section name="example">
 
 	1. Get values from RTE from Backend:
-	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}" type="mail" function="receiver">
+	<vh:Misc.Variables mail="{mail}" type="mail" function="receiver">
 		<f:format.html parseFuncTSPath="lib.parseFunc_powermail">{powermail_rte}</f:format.html>
 	</vh:Misc.Variables>
 

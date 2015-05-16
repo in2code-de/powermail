@@ -15,7 +15,7 @@ NOTE: See example section after main section
 	<div class="powermail_create" data-powermail-form="{mail.form.uid}">
 		<f:if condition="{optinActive}">
 			<f:else>
-				<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}">
+				<vh:Misc.Variables mail="{mail}">
 					<f:format.html parseFuncTSPath="lib.parseFunc_RTE">{powermail_rte}</f:format.html>
 				</vh:Misc.Variables>
 
@@ -40,7 +40,7 @@ THIS IS ONLY AN EXAMPLE SECTION
 	<f:flashMessages class="powermail_message powermail_message_{messageClass}" />
 
 	1. Get values from RTE from Backend:
-	<vh:Misc.Variables variablesMarkers="{variablesWithMarkers}" mail="{mail}">
+	<vh:Misc.Variables mail="{mail}">
 		<f:format.html parseFuncTSPath="lib.parseFunc_RTE">
 			{powermail_rte}
 		</f:format.html>
