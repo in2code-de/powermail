@@ -12,12 +12,12 @@
 	<td valign="top">
 		<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
 			<f:else>
-				<f:format.nl2br>{answer.value}</f:format.nl2br>
+				<vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}"><f:format.nl2br>{answer.value}</f:format.nl2br></vh:Misc.ManipulateValueWithTypoScript>
 			</f:else>
 			<f:then>
 				<f:for each="{answer.value}" as="subValue" iteration="index">
 					<f:if condition="{subValue}">
-						{subValue}<f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
+						<vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}">{subValue}</vh:Misc.ManipulateValueWithTypoScript><f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
 					</f:if>
 				</f:for>
 			</f:then>

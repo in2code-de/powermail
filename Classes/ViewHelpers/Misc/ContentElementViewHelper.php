@@ -2,7 +2,6 @@
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Shows Content Element
