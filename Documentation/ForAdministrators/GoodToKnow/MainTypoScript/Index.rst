@@ -692,603 +692,683 @@ Setup
 .. code-block:: text
 
 	##################
-	# Frontend Plugin
-	##################
-	plugin.tx_powermail {
-		view {
-			templateRootPath = {$plugin.tx_powermail.view.templateRootPath}
-			partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
-			layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
-		}
-		features {
-			rewrittenPropertyMapper = 1
-		}
-		settings {
-			setup {
-
-				main {
-					pid = {$plugin.tx_powermail.settings.main.pid}
-					form = {$plugin.tx_powermail.settings.main.form}
-					confirmation = {$plugin.tx_powermail.settings.main.confirmation}
-					optin = {$plugin.tx_powermail.settings.main.optin}
-					moresteps = {$plugin.tx_powermail.settings.main.moresteps}
-				}
-
-				validation {
-					# enable native HTML5 validation
-					native = {$plugin.tx_powermail.settings.validation.native}
-
-					# enable clientside validation
-					client = {$plugin.tx_powermail.settings.validation.client}
-
-					# enable serverside validation
-					server = {$plugin.tx_powermail.settings.validation.server}
-
-					unique {
-						# Enable unique check for {email}
-						#email = 1
-
-						# Enable a max limit of 3 times for the same entry for {event}
-						#event = 3
-					}
-
-					##########################################################
-					# CUSTOMVALIDATION EXAMPLE
-					#
-					# E.g. Validation was extended with Page TSconfig
-					# 		tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
-					#
-					# Register your Class and Method with TypoScript Setup
-					# 		plugin.tx_powermail.settings.setup.validation.customValidation.100 =
-					# 			In2code\Powermailextended\Domain\Validator\ZipValidator
-					#
-					# Add method to your class
-					# 		validate100($value, $validationConfiguration)
-					#
-					# Define your Errormessage with TypoScript Setup
-					# 		plugin.tx_powermail._LOCAL_LANG.default.validationerror_validation.100 = Error happens!
-					#
-					# ##########################################################
-					customValidation {
-	#					100 = \In2code\Powermailextended\Domain\Validator\ZipValidator
-					}
-				}
-
-				receiver {
-					enable = {$plugin.tx_powermail.settings.receiver.enable}
-
-					# Following settings are normally set via Flexform
-					email =
-					subject =
-					body =
-
-					# add file attachments from upload fields
-					attachment = {$plugin.tx_powermail.settings.receiver.attachment}
-
-					# html, plain, both
-					mailformat = {$plugin.tx_powermail.settings.receiver.mailformat}
-
-					default {
-						senderName = TEXT
-						senderName.value = {$plugin.tx_powermail.settings.receiver.default.senderName}
-
-						senderEmail = TEXT
-						senderEmail.value = {$plugin.tx_powermail.settings.receiver.default.senderEmail}
-					}
-
-					# Normally you do not need to overwrite a flexform setting, but this allows you to use cObject functions
-					overwrite {
-						email = TEXT
-						email.value = {$plugin.tx_powermail.settings.receiver.overwrite.email}
-
-						name = TEXT
-						name.value = {$plugin.tx_powermail.settings.receiver.overwrite.name}
-
-						senderName = TEXT
-						senderName.value = {$plugin.tx_powermail.settings.receiver.overwrite.senderName}
-
-						senderEmail = TEXT
-						senderEmail.value = {$plugin.tx_powermail.settings.receiver.overwrite.senderEmail}
-
-						subject = TEXT
-						subject.value = {$plugin.tx_powermail.settings.receiver.overwrite.subject}
-
-						# Add further CC Receivers (split them via comma)
-						cc = TEXT
-						cc.value = {$plugin.tx_powermail.settings.receiver.overwrite.cc}
-
-						# Add further BCC Receivers (split them via comma)
-						bcc = TEXT
-						bcc.value = {$plugin.tx_powermail.settings.receiver.overwrite.bcc}
-
-						# Add return path
-						returnPath = TEXT
-						returnPath.value = {$plugin.tx_powermail.settings.receiver.overwrite.returnPath}
-
-						# Reply address
-						replyToEmail = TEXT
-						replyToEmail.value = {$plugin.tx_powermail.settings.receiver.overwrite.replyToEmail}
-						replyToName = TEXT
-						replyToName.value = {$plugin.tx_powermail.settings.receiver.overwrite.replyToName}
-
-						# Set mail priority from 1 to 5
-						priority = {$plugin.tx_powermail.settings.receiver.overwrite.priority}
-					}
-
-					# Add additional attachments to the mail (separate each with comma)
-	#				addAttachment = TEXT
-	#				addAttachment.value = fileadmin/file.jpg
-	#				addAttachment.wrap = |,
-
-					# Mail Header "Sender:" see RFC 2822 - 3.6.2 Originator fields f.e. webserver@example.com, leave empty if you do not want to set a Sender-Header
-					senderHeader.email = TEXT
-					senderHeader.email.value = {$plugin.tx_powermail.settings.receiver.senderHeader.email}
-					# optional: f.e. Webserver
-					senderHeader.name = TEXT
-					senderHeader.name.value = {$plugin.tx_powermail.settings.receiver.senderHeader.name}
-				}
-
-				sender {
-					enable = {$plugin.tx_powermail.settings.sender.enable}
-
-					# Following settings are normally set via Flexform
-					name =
-					email =
-					subject =
-					body =
-
-					# add file attachments from upload fields
-					attachment = {$plugin.tx_powermail.settings.sender.attachment}
-
-					# html, plain, both
-					mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
-
-					# Normally you do not need to overwrite a flexform settings, but this allows you to use cObject functions
-					overwrite {
-						email = TEXT
-						email.value = {$plugin.tx_powermail.settings.sender.overwrite.email}
-
-						name = TEXT
-						name.value = {$plugin.tx_powermail.settings.sender.overwrite.name}
-
-						senderName = TEXT
-						senderName.value = {$plugin.tx_powermail.settings.sender.overwrite.senderName}
-
-						senderEmail = TEXT
-						senderEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.senderEmail}
-
-						subject = TEXT
-						subject.value = {$plugin.tx_powermail.settings.sender.overwrite.subject}
-
-						# Add further CC Receivers (split them via comma)
-						cc = TEXT
-						cc.value = {$plugin.tx_powermail.settings.sender.overwrite.cc}
-
-						# Add further BCC Receivers (split them via comma)
-						bcc = TEXT
-						bcc.value = {$plugin.tx_powermail.settings.sender.overwrite.bcc}
-
-						# Add return path
-						returnPath = TEXT
-						returnPath.value = {$plugin.tx_powermail.settings.sender.overwrite.returnPath}
-
-						# Reply address
-						replyToEmail = TEXT
-						replyToEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToEmail}
-						replyToName = TEXT
-						replyToName.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToName}
-
-						# Set mail priority from 1 to 5
-						priority = {$plugin.tx_powermail.settings.sender.overwrite.priority}
-					}
-
-					# Add additional attachments to the mail (separate each with comma)
-	#				addAttachment = TEXT
-	#				addAttachment.value = fileadmin/file.jpg
-	#				addAttachment.wrap = |,
-
-					# Mail Header "Sender:" see RFC 2822 - 3.6.2 Originator fields f.e. webserver@example.com, leave empty if you do not want to set a Sender-Header
-					senderHeader.email = TEXT
-					senderHeader.email.value = {$plugin.tx_powermail.settings.sender.senderHeader.email}
-					# optional: f.e. Webserver
-					senderHeader.name = TEXT
-					senderHeader.name.value = {$plugin.tx_powermail.settings.sender.senderHeader.name}
-				}
-
-				thx {
-					# Following settings are normally set via Flexform
-					body =
-					redirect =
-
-					overwrite {
-						# Overwrite redirect with TypoScript cObject
-						# 	Return a Number: Typolink to the pid
-						# 	Return a URL: Link to an intern or extern URL
-						# 	Return a File: Link to a file (within fileadmin folder)
-	#					redirect = COA
-	#					redirect {
-	#						10 = TEXT
-	#						10 {
-	#							typolink.parameter = 2
-	#							typolink.returnLast = url
-	#							typolink.additionalParams = &x=y
-	#						}
-	#					}
-					}
-				}
-
-				db {
-					# Enable mail storage
-					enable = {$plugin.tx_powermail.settings.db.enable}
-
-					# Add new mails with hidden=1
-					hidden = {$plugin.tx_powermail.settings.db.hidden}
-				}
-
-				optin {
-					subject = TEXT
-					subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:optin_subject
-
-					overwrite {
-	#					email = TEXT
-	#					email.value = alexander.kellner@in2code.de
-
-	#					name = TEXT
-	#					name.value = Receivers Name
-
-	#					senderName = TEXT
-	#					senderName.value = Sender Name
-
-	#					senderEmail = TEXT
-	#					senderEmail.value = sender@mail.com
-					}
-				}
-
-
-
-
-				# Captcha Settings
-				captcha {
-					# Select "default" (on board calculating captcha) or "captcha" (needs extension captcha)
-					use = default
-
-					default {
-						image = {$plugin.tx_powermail.settings.captcha.image}
-						font = {$plugin.tx_powermail.settings.captcha.font}
-						textColor = {$plugin.tx_powermail.settings.captcha.textColor}
-						textSize = {$plugin.tx_powermail.settings.captcha.textSize}
-						textAngle = {$plugin.tx_powermail.settings.captcha.textAngle}
-						distanceHor = {$plugin.tx_powermail.settings.captcha.distanceHor}
-						distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
-
-						# You can force a fix captcha - operator must be "+" (for testing only with calculating captcha)
-	#					forceValue = 1+1
-					}
-				}
-
-
-				# Spam Settings
-				spamshield {
-					# enable or disabe spam regocnition
-					_enable = {$plugin.tx_powermail.settings.spamshield.enable}
-
-					# Spam Factor Limit in %
-					factor = {$plugin.tx_powermail.settings.spamshield.factor}
-
-					# Notification Email to Admin if spam recognized (empty disables email to admin)
-					email = {$plugin.tx_powermail.settings.spamshield.email}
-
-					# Subject for notification Email to Admin
-					emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
-
-					# Template for notification Email to Admin
-					emailTemplate = {$plugin.tx_powermail.settings.spamshield.emailTemplate}
-
-					indicator {
-						# if this check failed - add this indication value to indicator (0 disables this check completely)
-						honeypod = 5
-
-						# if this check failed - add this indication value to indicator (0 disables this check completely)
-						link = 3
-						# Limit of links allowed
-						linkLimit = 2
-
-						# if this check failed - add this indication value to indicator (0 disables this check completely)
-						name = 3
-
-						# if this check failed - add this indication value to indicator (0 disables this check completely)
-						session = 5
-
-						# if this check failed - add this indication value to indicator (0 disables this check completely)
-						unique = 2
-
-						# if this check failed - add this indication value to indicator (0 disables this check completely)
-						blacklistString = 7
-						# blacklisted values (default values should be extended with your experience)
-						blacklistStringValues = viagra,sex,porn,p0rn
-
-						# if this check failed - add this indication value to indicator (0 disables this check completely)
-						blacklistIp = 7
-						# blacklisted values (default values should be extended with your experience)
-						blacklistIpValues = 123.132.125.123,123.132.125.124
-					}
-				}
-
-
-
-				# Misc Settings
-				misc {
-					# Show only values if they are filled (for all views and for mails)
-					showOnlyFilledValues = {$plugin.tx_powermail.settings.misc.showOnlyFilledValues}
-
-					# HTML Output without removeXSS
-					disableRemoveXss = {$plugin.tx_powermail.settings.misc.disableRemoveXss}
-
-					# Submit Powermail Forms with AJAX (browser will not reload complete page)
-					ajaxSubmit = {$plugin.tx_powermail.settings.misc.ajaxSubmit}
-
-					# File upload settings
-					file {
-						folder = {$plugin.tx_powermail.settings.misc.uploadFolder}
-						size = {$plugin.tx_powermail.settings.misc.uploadSize}
-						extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
-						randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
-					}
-
-					datepicker {
-						# Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
-						forceJavaScriptDatePicker = {$plugin.tx_powermail.settings.misc.forceJavaScriptDatePicker}
-					}
-				}
-
-
-
-				# Prefill fields with their marker - e.g. {firstname} (Fields available for prefill: input, textarea, select, select multi, radio, checkbox)
-				prefill {
-					# example: fill with string
-	#				firstname = Alex
-
-					# example: fill with TypoScript
-	#				email = TEXT
-	#				email.value = alex@in2code.de
-	#				email.wrap = <b>|</b>
-
-					# example: fill checkboxes or multiselect with more values
-	#				category.0 = TEXT
-	#				category.0.value = IT
-	#				category.1 = TEXT
-	#				category.1.value = Real Estate
-
-					# example: fill with value from Field Record
-						# available: uid, title, type, settings, css, feuserValue, mandatory, marker, pid, prefillValue, senderEmail, senderName, sorting, validation
-	#				comment = TEXT
-	#				comment.field = type
-				}
-
-
-
-				# Exclude values from {powermail_all} by markername or fieldtype
-				excludeFromPowermailAllMarker {
-					# On Confirmation Page (if activated)
-					confirmationPage {
-						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
-						excludeFromMarkerNames =
-
-						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
-						excludeFromFieldTypes =
-					}
-
-					# On Submitpage
-					submitPage {
-						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
-						excludeFromMarkerNames =
-
-						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
-						excludeFromFieldTypes =
-					}
-
-					# In Mail to receiver
-					receiverMail {
-						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
-						excludeFromMarkerNames =
-
-						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
-						excludeFromFieldTypes =
-					}
-
-					# In Mail to sender (if activated)
-					senderMail {
-						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
-						excludeFromMarkerNames =
-
-						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
-						excludeFromFieldTypes =
-					}
-
-					# In double-opt-in Mail to sender (if activated)
-					optinMail {
-						# add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
-						excludeFromMarkerNames =
-
-						# add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
-						excludeFromFieldTypes =
-					}
-				}
-
-
-
-				marketing {
-
-					# Use Google Adwords Conversion JavaScript on form submit
-					googleAdwords {
-						_enable = {$plugin.tx_powermail.settings.marketing.enable}
-						google_conversion_id = {$plugin.tx_powermail.settings.marketing.google_conversion_id}
-						google_conversion_label = {$plugin.tx_powermail.settings.marketing.google_conversion_label}
-						google_conversion_language = {$plugin.tx_powermail.settings.marketing.google_conversion_language}
-						google_conversion_format = 3
-					}
-
-					# Send Form values to a third party software (like a CRM - e.g. salesforce or eloqua)
-					sendPost {
-						# Activate sendPost (0/1)
-						_enable = TEXT
-						_enable.value = 0
-
-						# Target URL for POST values (like http://www.target.com/target.php)
-						targetUrl = http://eloqua.com/e/f.aspx
-
-						# build your post values like &param1=value1&param2=value2
-						values = COA
-						values {
-							10 = TEXT
-							10 {
-								# value from field {firstname}
-								field = vorname
-								wrap = &firstname=|
-							}
-
-							20 = TEXT
-							20 {
-								# value from field {e_mail}
-								field = e_mail
-								wrap = &email=|
-							}
-
-							30 = TEXT
-							30 {
-								# value from field {comment}
-								field = comment
-								wrap = &text=|
-							}
-						}
-
-						# activate debug - log all configuration from curl settings to devlog (use extension devlog to view this values)
-						debug = 0
-					}
-				}
-
-
-
-
-				# Save values to any table (example for tt_adress)
-				dbEntry {
-
-					#####################################################
-					### EXAMPLE for adding values to table tt_address ###
-					#####################################################
-
-					# Enable or disable db entry for table tt_address
-	#				tt_address._enable = TEXT
-	#				tt_address._enable.value = 1
-
-					# Write only if any field is not yet filled with current value (e.g. test if an email is already in database)
-						# default: always add new records (don't care about existing values)
-						# update: update record if there is an existing entry (e.g. if email is already there)
-						# none: no entry if field is filled (do nothing if record already exists)
-	#				tt_address._ifUnique.email = update
-
-					# Fill new record of table "tt_address" with field "email" with a static value => mail@mail.com
-	#				tt_address.email = TEXT
-	#				tt_address.email.value = mail@mail.com
-
-					# Fill new record of table "tt_address" with field "pid" with the current pid (e.g. 12)
-	#				tt_address.pid = TEXT
-	#				tt_address.pid.data = TSFE:id
-
-					# Fill new record of table "tt_address" with field "tstamp" with the current time as timestamp (like 123456789)
-	#				tt_address.tstamp = TEXT
-	#				tt_address.tstamp.data = date:U
-
-					# Fill new record of table "tt_address" with field "address" with the current formatted time (like "Date: 20.01.2013")
-	#				tt_address.address = TEXT
-	#				tt_address.address.data = date:U
-	#				tt_address.address.strftime = Date: %d.%m.%Y
-
-					# Fill new record of table "tt_address" with field "name" with the value from powermail {firstname}
-	#				tt_address.name = TEXT
-	#				tt_address.name.field = firstname
-
-					# Fill new record of table "tt_address" with field "last_name" with the value from powermail {lastname}
-	#				tt_address.last_name = TEXT
-	#				tt_address.last_name.field = lastname
-
-					# Fill new record of table "tt_address" with field "company" with the value from powermail {company}
-	#				tt_address.company = TEXT
-	#				tt_address.company.field = company
-
-
-
-					##############################################################
-					### EXAMPLE for adding values to table tt_address_group_mm ###
-					### Add relation to an existing address group with uid 123 ###
-					##############################################################
-
-					# Enable or disable db entry for table tt_address_group_mm
-	#				tt_address_group_mm._enable = TEXT
-	#				tt_address_group_mm._enable.value = 1
-
-					# Fill new record of table "tt_address_group_mm" with field "uid_local" with uid of tt_address record that was just created before with .field=uid_[tablename]
-	#				tt_address_group_mm.uid_local = TEXT
-	#				tt_address_group_mm.uid_local.field = uid_tt_address
-
-					# Fill new record of table "tt_address_group_mm" with field "uid_foreign" with uid 123
-	#				tt_address_group_mm.uid_foreign = TEXT
-	#				tt_address_group_mm.uid_foreign.value = 123
-				}
-
-
-
-
-				# Switch on or off Debug mode (use extension devlog to view this values)
-				debug {
-					# All views: Show Settings from TypoScript, Flexform and Extension Manager
-					settings = {$plugin.tx_powermail.settings.misc.debugSettings}
-
-					# Create view: Show submitted variables
-					variables = {$plugin.tx_powermail.settings.misc.debugVariables}
-
-					# Create view: Show complete mail settings
-					mail = {$plugin.tx_powermail.settings.misc.debugMail}
-
-					# Create view: Show saveToTable array
-					saveToTable = {$plugin.tx_powermail.settings.misc.debugSaveToTable}
-
-					# Create view: Show spamtest results
-					spamshield = {$plugin.tx_powermail.settings.misc.debugSpamshield}
-				}
-
-
-
-				# Don't touch this (this is just to let the extension know, that there is TypoScript included)
-				staticTemplate = 1
-			}
-		}
-	}
-
-
-
-	############################
-	# JavaScript and CSS section
-	############################
-
-	# add jQuery if it was turned on in the constants
-	[globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle}]
-	page.includeJSFooterlibs.powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
-	page.includeJSFooterlibs.powermailJQuery.external = 1
-	[end]
-
-	# add jQuery if it was turned on in the constants
-	[globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addAdditionalJavaScript}]
-	page {
-		# Inlude JavaScript files
-		includeJSFooter {
-			powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/jquery.datetimepicker.js
-			powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/parsley.min.js
-			powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/tabs.js
-			powermailForm = EXT:powermail/Resources/Public/JavaScripts/form.js
-		}
-	}
-	[end]
+    # Frontend Plugin
+    ##################
+    plugin.tx_powermail {
+        view {
+            templateRootPath = {$plugin.tx_powermail.view.templateRootPath}
+            partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
+            layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
+        }
+        features {
+            rewrittenPropertyMapper = 1
+        }
+        settings {
+            setup {
+
+                main {
+                    pid = {$plugin.tx_powermail.settings.main.pid}
+                    form = {$plugin.tx_powermail.settings.main.form}
+                    confirmation = {$plugin.tx_powermail.settings.main.confirmation}
+                    optin = {$plugin.tx_powermail.settings.main.optin}
+                    moresteps = {$plugin.tx_powermail.settings.main.moresteps}
+                }
+
+                validation {
+                    # enable native HTML5 validation
+                    native = {$plugin.tx_powermail.settings.validation.native}
+
+                    # enable clientside validation
+                    client = {$plugin.tx_powermail.settings.validation.client}
+
+                    # enable serverside validation
+                    server = {$plugin.tx_powermail.settings.validation.server}
+
+                    unique {
+                        # Enable unique check for {email}
+                        #email = 1
+
+                        # Enable a max limit of 3 times for the same entry for {event}
+                        #event = 3
+                    }
+
+                    ##########################################################
+                    # CUSTOMVALIDATION EXAMPLE
+                    #
+                    # E.g. Validation was extended with Page TSconfig
+                    # 		tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
+                    #
+                    # Register your Class and Method with TypoScript Setup
+                    # 		plugin.tx_powermail.settings.setup.validation.customValidation.100 =
+                    # 			\In2code\Powermailextended\Domain\Validator\ZipValidator
+                    #
+                    # Add method to your class
+                    # 		validate100($value, $validationConfiguration)
+                    #
+                    # Define your Errormessage with TypoScript Setup
+                    # 		plugin.tx_powermail._LOCAL_LANG.default.validationerror_validation.100 = Error happens!
+                    #
+                    # ##########################################################
+                    customValidation {
+    #					100 = \In2code\Powermailextended\Domain\Validator\ZipValidator
+                    }
+                }
+
+                receiver {
+                    enable = {$plugin.tx_powermail.settings.receiver.enable}
+
+                    # Following settings are normally set via Flexform
+                    email =
+                    subject =
+                    body =
+
+                    # add file attachments from upload fields
+                    attachment = {$plugin.tx_powermail.settings.receiver.attachment}
+
+                    # html, plain, both
+                    mailformat = {$plugin.tx_powermail.settings.receiver.mailformat}
+
+                    default {
+                        senderName = TEXT
+                        senderName.value = {$plugin.tx_powermail.settings.receiver.default.senderName}
+
+                        senderEmail = TEXT
+                        senderEmail.value = {$plugin.tx_powermail.settings.receiver.default.senderEmail}
+                    }
+
+                    # Normally you do not need to overwrite a flexform setting, but this allows you to use cObject functions
+                    overwrite {
+                        email = TEXT
+                        email.value = {$plugin.tx_powermail.settings.receiver.overwrite.email}
+
+                        name = TEXT
+                        name.value = {$plugin.tx_powermail.settings.receiver.overwrite.name}
+
+                        senderName = TEXT
+                        senderName.value = {$plugin.tx_powermail.settings.receiver.overwrite.senderName}
+
+                        senderEmail = TEXT
+                        senderEmail.value = {$plugin.tx_powermail.settings.receiver.overwrite.senderEmail}
+
+                        subject = TEXT
+                        subject.value = {$plugin.tx_powermail.settings.receiver.overwrite.subject}
+
+                        # Add further CC Receivers (split them via comma)
+                        cc = TEXT
+                        cc.value = {$plugin.tx_powermail.settings.receiver.overwrite.cc}
+
+                        # Add further BCC Receivers (split them via comma)
+                        bcc = TEXT
+                        bcc.value = {$plugin.tx_powermail.settings.receiver.overwrite.bcc}
+
+                        # Add return path
+                        returnPath = TEXT
+                        returnPath.value = {$plugin.tx_powermail.settings.receiver.overwrite.returnPath}
+
+                        # Reply address
+                        replyToEmail = TEXT
+                        replyToEmail.value = {$plugin.tx_powermail.settings.receiver.overwrite.replyToEmail}
+                        replyToName = TEXT
+                        replyToName.value = {$plugin.tx_powermail.settings.receiver.overwrite.replyToName}
+
+                        # Set mail priority from 1 to 5
+                        priority = {$plugin.tx_powermail.settings.receiver.overwrite.priority}
+                    }
+
+                    # Add additional attachments to the mail (separate each with comma)
+    #				addAttachment = TEXT
+    #				addAttachment.value = fileadmin/file.jpg
+    #				addAttachment.wrap = |,
+
+                    # Mail Header "Sender:" see RFC 2822 - 3.6.2 Originator fields f.e. webserver@example.com, leave empty if you do not want to set a Sender-Header
+                    senderHeader.email = TEXT
+                    senderHeader.email.value = {$plugin.tx_powermail.settings.receiver.senderHeader.email}
+                    # optional: f.e. Webserver
+                    senderHeader.name = TEXT
+                    senderHeader.name.value = {$plugin.tx_powermail.settings.receiver.senderHeader.name}
+                }
+
+                sender {
+                    enable = {$plugin.tx_powermail.settings.sender.enable}
+
+                    # Following settings are normally set via Flexform
+                    name =
+                    email =
+                    subject =
+                    body =
+
+                    # add file attachments from upload fields
+                    attachment = {$plugin.tx_powermail.settings.sender.attachment}
+
+                    # html, plain, both
+                    mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
+
+                    # Normally you do not need to overwrite a flexform settings, but this allows you to use cObject functions
+                    overwrite {
+                        email = TEXT
+                        email.value = {$plugin.tx_powermail.settings.sender.overwrite.email}
+
+                        name = TEXT
+                        name.value = {$plugin.tx_powermail.settings.sender.overwrite.name}
+
+                        senderName = TEXT
+                        senderName.value = {$plugin.tx_powermail.settings.sender.overwrite.senderName}
+
+                        senderEmail = TEXT
+                        senderEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.senderEmail}
+
+                        subject = TEXT
+                        subject.value = {$plugin.tx_powermail.settings.sender.overwrite.subject}
+
+                        # Add further CC Receivers (split them via comma)
+                        cc = TEXT
+                        cc.value = {$plugin.tx_powermail.settings.sender.overwrite.cc}
+
+                        # Add further BCC Receivers (split them via comma)
+                        bcc = TEXT
+                        bcc.value = {$plugin.tx_powermail.settings.sender.overwrite.bcc}
+
+                        # Add return path
+                        returnPath = TEXT
+                        returnPath.value = {$plugin.tx_powermail.settings.sender.overwrite.returnPath}
+
+                        # Reply address
+                        replyToEmail = TEXT
+                        replyToEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToEmail}
+                        replyToName = TEXT
+                        replyToName.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToName}
+
+                        # Set mail priority from 1 to 5
+                        priority = {$plugin.tx_powermail.settings.sender.overwrite.priority}
+                    }
+
+                    # Add additional attachments to the mail (separate each with comma)
+    #				addAttachment = TEXT
+    #				addAttachment.value = fileadmin/file.jpg
+    #				addAttachment.wrap = |,
+
+                    # Mail Header "Sender:" see RFC 2822 - 3.6.2 Originator fields f.e. webserver@example.com, leave empty if you do not want to set a Sender-Header
+                    senderHeader.email = TEXT
+                    senderHeader.email.value = {$plugin.tx_powermail.settings.sender.senderHeader.email}
+                    # optional: f.e. Webserver
+                    senderHeader.name = TEXT
+                    senderHeader.name.value = {$plugin.tx_powermail.settings.sender.senderHeader.name}
+                }
+
+                thx {
+                    # Following settings are normally set via Flexform
+                    body =
+                    redirect =
+
+                    overwrite {
+                        # Overwrite redirect with TypoScript cObject
+                        # 	Return a Number: Typolink to the pid
+                        # 	Return a URL: Link to an intern or extern URL
+                        # 	Return a File: Link to a file (within fileadmin folder)
+    #					redirect = COA
+    #					redirect {
+    #						10 = TEXT
+    #						10 {
+    #							typolink.parameter = 2
+    #							typolink.returnLast = url
+    #							typolink.additionalParams = &x=y
+    #						}
+    #					}
+                    }
+                }
+
+                db {
+                    # Enable mail storage
+                    enable = {$plugin.tx_powermail.settings.db.enable}
+
+                    # Add new mails with hidden=1
+                    hidden = {$plugin.tx_powermail.settings.db.hidden}
+                }
+
+                optin {
+                    subject = TEXT
+                    subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:optin_subject
+
+                    overwrite {
+    #					email = TEXT
+    #					email.value = alexander.kellner@in2code.de
+
+    #					name = TEXT
+    #					name.value = Receivers Name
+
+    #					senderName = TEXT
+    #					senderName.value = Sender Name
+
+    #					senderEmail = TEXT
+    #					senderEmail.value = sender@mail.com
+                    }
+                }
+
+
+
+
+                # Captcha Settings
+                captcha {
+                    # Select "default" (on board calculating captcha) or "captcha" (needs extension captcha)
+                    use = default
+
+                    default {
+                        image = {$plugin.tx_powermail.settings.captcha.image}
+                        font = {$plugin.tx_powermail.settings.captcha.font}
+                        textColor = {$plugin.tx_powermail.settings.captcha.textColor}
+                        textSize = {$plugin.tx_powermail.settings.captcha.textSize}
+                        textAngle = {$plugin.tx_powermail.settings.captcha.textAngle}
+                        distanceHor = {$plugin.tx_powermail.settings.captcha.distanceHor}
+                        distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
+
+                        # You can force a fix captcha - operator must be "+" (for testing only with calculating captcha)
+    #					forceValue = 1+1
+                    }
+                }
+
+
+                # Spam Settings
+                spamshield {
+                    # enable or disabe spam regocnition
+                    _enable = {$plugin.tx_powermail.settings.spamshield.enable}
+
+                    # Spam Factor Limit in %
+                    factor = {$plugin.tx_powermail.settings.spamshield.factor}
+
+                    # Notification Email to Admin if spam recognized (empty disables email to admin)
+                    email = {$plugin.tx_powermail.settings.spamshield.email}
+
+                    # Subject for notification Email to Admin
+                    emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
+
+                    # Template for notification Email to Admin
+                    emailTemplate = {$plugin.tx_powermail.settings.spamshield.emailTemplate}
+
+                    indicator {
+                        # if this check failed - add this indication value to indicator (0 disables this check completely)
+                        honeypod = 5
+
+                        # if this check failed - add this indication value to indicator (0 disables this check completely)
+                        link = 3
+                        # Limit of links allowed
+                        linkLimit = 2
+
+                        # if this check failed - add this indication value to indicator (0 disables this check completely)
+                        name = 3
+
+                        # if this check failed - add this indication value to indicator (0 disables this check completely)
+                        session = 5
+
+                        # if this check failed - add this indication value to indicator (0 disables this check completely)
+                        unique = 2
+
+                        # if this check failed - add this indication value to indicator (0 disables this check completely)
+                        blacklistString = 7
+                        # blacklisted values (default values should be extended with your experience)
+                        blacklistStringValues = viagra,sex,porn,p0rn
+
+                        # if this check failed - add this indication value to indicator (0 disables this check completely)
+                        blacklistIp = 7
+                        # blacklisted values (default values should be extended with your experience)
+                        blacklistIpValues = 123.132.125.123,123.132.125.124
+                    }
+                }
+
+
+
+                # Misc Settings
+                misc {
+                    # Show only values if they are filled (for all views and for mails)
+                    showOnlyFilledValues = {$plugin.tx_powermail.settings.misc.showOnlyFilledValues}
+
+                    # HTML Output without removeXSS
+                    disableRemoveXss = {$plugin.tx_powermail.settings.misc.disableRemoveXss}
+
+                    # Submit Powermail Forms with AJAX (browser will not reload complete page)
+                    ajaxSubmit = {$plugin.tx_powermail.settings.misc.ajaxSubmit}
+
+                    # File upload settings
+                    file {
+                        folder = {$plugin.tx_powermail.settings.misc.uploadFolder}
+                        size = {$plugin.tx_powermail.settings.misc.uploadSize}
+                        extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
+                        randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
+                    }
+
+                    datepicker {
+                        # Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
+                        forceJavaScriptDatePicker = {$plugin.tx_powermail.settings.misc.forceJavaScriptDatePicker}
+                    }
+                }
+
+
+
+                # Prefill fields with their marker - e.g. {firstname} (Fields available for prefill: input, textarea, select, select multi, radio, checkbox)
+                prefill {
+                    # example: fill with string
+    #				firstname = Alex
+
+                    # example: fill with TypoScript
+    #				email = TEXT
+    #				email.value = alex@in2code.de
+    #				email.wrap = <b>|</b>
+
+                    # example: fill checkboxes or multiselect with more values
+    #				category.0 = TEXT
+    #				category.0.value = IT
+    #				category.1 = TEXT
+    #				category.1.value = Real Estate
+
+                    # example: fill with value from Field Record
+                        # available: uid, title, type, settings, css, feuserValue, mandatory, marker, pid, prefillValue, senderEmail, senderName, sorting, validation
+    #				comment = TEXT
+    #				comment.field = type
+                }
+
+
+
+                # Exclude values from {powermail_all} by markername or fieldtype
+                excludeFromPowermailAllMarker {
+                    # On Confirmation Page (if activated)
+                    confirmationPage {
+                        # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+                        excludeFromMarkerNames =
+
+                        # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+                        excludeFromFieldTypes =
+                    }
+
+                    # On Submitpage
+                    submitPage {
+                        # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+                        excludeFromMarkerNames =
+
+                        # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+                        excludeFromFieldTypes =
+                    }
+
+                    # In Mail to receiver
+                    receiverMail {
+                        # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+                        excludeFromMarkerNames =
+
+                        # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+                        excludeFromFieldTypes =
+                    }
+
+                    # In Mail to sender (if activated)
+                    senderMail {
+                        # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+                        excludeFromMarkerNames =
+
+                        # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+                        excludeFromFieldTypes =
+                    }
+
+                    # In double-opt-in Mail to sender (if activated)
+                    optinMail {
+                        # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+                        excludeFromMarkerNames =
+
+                        # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+                        excludeFromFieldTypes =
+                    }
+                }
+
+
+
+                # Manipulate values from {powermail_all} by markername
+                manipulateVariablesInPowermailAllMarker {
+                    # On Confirmation Page (if activated)
+                    confirmationPage {
+                        # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+    #					markerName = CASE
+    #					markerName {
+    #						key.field = value
+    #
+    #						1 = TEXT
+    #						1.value = red
+    #
+    #						default = TEXT
+    #						default.value = blue
+    #					}
+                    }
+
+                    # On Submitpage
+                    submitPage {
+                        # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+    #					markerName = CASE
+    #					markerName {
+    #						key.field = value
+    #
+    #						1 = TEXT
+    #						1.value = red
+    #
+    #						default = TEXT
+    #						default.value = blue
+    #					}
+                    }
+
+                    # In Mail to receiver
+                    receiverMail {
+                        # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+    #					markerName = CASE
+    #					markerName {
+    #						key.field = value
+    #
+    #						1 = TEXT
+    #						1.value = red
+    #
+    #						default = TEXT
+    #						default.value = blue
+    #					}
+                    }
+
+                    # In Mail to sender (if activated)
+                    senderMail {
+                        # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+    #					markerName = CASE
+    #					markerName {
+    #						key.field = value
+    #
+    #						1 = TEXT
+    #						1.value = red
+    #
+    #						default = TEXT
+    #						default.value = blue
+    #					}
+                    }
+
+                    # In double-opt-in Mail to sender (if activated)
+                    optinMail {
+                        # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+    #					markerName = CASE
+    #					markerName {
+    #						key.field = value
+    #
+    #						1 = TEXT
+    #						1.value = red
+    #
+    #						default = TEXT
+    #						default.value = blue
+    #					}
+                    }
+                }
+
+
+
+                marketing {
+
+                    # Use Google Adwords Conversion JavaScript on form submit
+                    googleAdwords {
+                        _enable = {$plugin.tx_powermail.settings.marketing.enable}
+                        google_conversion_id = {$plugin.tx_powermail.settings.marketing.google_conversion_id}
+                        google_conversion_label = {$plugin.tx_powermail.settings.marketing.google_conversion_label}
+                        google_conversion_language = {$plugin.tx_powermail.settings.marketing.google_conversion_language}
+                        google_conversion_format = 3
+                    }
+
+                    # Send Form values to a third party software (like a CRM - e.g. salesforce or eloqua)
+                    sendPost {
+                        # Activate sendPost (0/1)
+                        _enable = TEXT
+                        _enable.value = 0
+
+                        # Target URL for POST values (like http://www.target.com/target.php)
+                        targetUrl = http://eloqua.com/e/f.aspx
+
+                        # build your post values like &param1=value1&param2=value2
+                        values = COA
+                        values {
+                            10 = TEXT
+                            10 {
+                                # value from field {firstname}
+                                field = vorname
+                                wrap = &firstname=|
+                            }
+
+                            20 = TEXT
+                            20 {
+                                # value from field {e_mail}
+                                field = e_mail
+                                wrap = &email=|
+                            }
+
+                            30 = TEXT
+                            30 {
+                                # value from field {comment}
+                                field = comment
+                                wrap = &text=|
+                            }
+                        }
+
+                        # activate debug - log all configuration from curl settings to devlog (use extension devlog to view this values)
+                        debug = 0
+                    }
+                }
+
+
+
+
+                # Save values to any table (example for tt_adress)
+                dbEntry {
+
+                    #####################################################
+                    ### EXAMPLE for adding values to table tt_address ###
+                    #####################################################
+
+                    # Enable or disable db entry for table tt_address
+    #				tt_address._enable = TEXT
+    #				tt_address._enable.value = 1
+
+                    # Write only if any field is not yet filled with current value (e.g. test if an email is already in database)
+                        # default: always add new records (don't care about existing values)
+                        # update: update record if there is an existing entry (e.g. if email is already there)
+                        # none: no entry if field is filled (do nothing if record already exists)
+    #				tt_address._ifUnique.email = update
+
+                    # Fill new record of table "tt_address" with field "email" with a static value => mail@mail.com
+    #				tt_address.email = TEXT
+    #				tt_address.email.value = mail@mail.com
+
+                    # Fill new record of table "tt_address" with field "pid" with the current pid (e.g. 12)
+    #				tt_address.pid = TEXT
+    #				tt_address.pid.data = TSFE:id
+
+                    # Fill new record of table "tt_address" with field "tstamp" with the current time as timestamp (like 123456789)
+    #				tt_address.tstamp = TEXT
+    #				tt_address.tstamp.data = date:U
+
+                    # Fill new record of table "tt_address" with field "address" with the current formatted time (like "Date: 20.01.2013")
+    #				tt_address.address = TEXT
+    #				tt_address.address.data = date:U
+    #				tt_address.address.strftime = Date: %d.%m.%Y
+
+                    # Fill new record of table "tt_address" with field "name" with the value from powermail {firstname}
+    #				tt_address.name = TEXT
+    #				tt_address.name.field = firstname
+
+                    # Fill new record of table "tt_address" with field "last_name" with the value from powermail {lastname}
+    #				tt_address.last_name = TEXT
+    #				tt_address.last_name.field = lastname
+
+                    # Fill new record of table "tt_address" with field "company" with the value from powermail {company}
+    #				tt_address.company = TEXT
+    #				tt_address.company.field = company
+
+
+
+                    ##############################################################
+                    ### EXAMPLE for adding values to table tt_address_group_mm ###
+                    ### Add relation to an existing address group with uid 123 ###
+                    ##############################################################
+
+                    # Enable or disable db entry for table tt_address_group_mm
+    #				tt_address_group_mm._enable = TEXT
+    #				tt_address_group_mm._enable.value = 1
+
+                    # Fill new record of table "tt_address_group_mm" with field "uid_local" with uid of tt_address record that was just created before with .field=uid_[tablename]
+    #				tt_address_group_mm.uid_local = TEXT
+    #				tt_address_group_mm.uid_local.field = uid_tt_address
+
+                    # Fill new record of table "tt_address_group_mm" with field "uid_foreign" with uid 123
+    #				tt_address_group_mm.uid_foreign = TEXT
+    #				tt_address_group_mm.uid_foreign.value = 123
+                }
+
+
+
+
+                # Switch on or off Debug mode (use extension devlog to view this values)
+                debug {
+                    # All views: Show Settings from TypoScript, Flexform and Extension Manager
+                    settings = {$plugin.tx_powermail.settings.misc.debugSettings}
+
+                    # Create view: Show submitted variables
+                    variables = {$plugin.tx_powermail.settings.misc.debugVariables}
+
+                    # Create view: Show complete mail settings
+                    mail = {$plugin.tx_powermail.settings.misc.debugMail}
+
+                    # Create view: Show saveToTable array
+                    saveToTable = {$plugin.tx_powermail.settings.misc.debugSaveToTable}
+
+                    # Create view: Show spamtest results
+                    spamshield = {$plugin.tx_powermail.settings.misc.debugSpamshield}
+                }
+
+
+
+                # Don't touch this (this is just to let the extension know, that there is TypoScript included)
+                staticTemplate = 1
+            }
+        }
+    }
+
+
+
+    ############################
+    # JavaScript and CSS section
+    ############################
+
+    # add jQuery if it was turned on in the constants
+    [globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle}]
+    page.includeJSFooterlibs.powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
+    page.includeJSFooterlibs.powermailJQuery.external = 1
+    [end]
+
+    # add jQuery if it was turned on in the constants
+    [globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addAdditionalJavaScript}]
+    page {
+        # Inlude JavaScript files
+        includeJSFooter {
+            powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/jquery.datetimepicker.js
+            powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/parsley.min.js
+            powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/tabs.js
+            powermailForm = EXT:powermail/Resources/Public/JavaScripts/form.js
+        }
+    }
+    [end]
 
 
 Constants
