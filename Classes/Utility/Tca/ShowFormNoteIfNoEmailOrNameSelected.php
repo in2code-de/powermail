@@ -16,51 +16,58 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 	protected $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:';
 
 	/**
+	 * @var \TYPO3\CMS\Lang\LanguageService
+	 */
+	protected $languageService = NULL;
+
+	/**
 	 * Show Note if no Email or Name selected
 	 *
-	 * @param array $pa Config Array
-	 * @param object $fobj Parent Object
+	 * @param array $params Config Array
 	 * @return string
 	 */
-	public function showNote($pa, $fobj) {
+	public function showNote($params) {
+		$this->initialize();
 		$content = '';
-		if (!isset($pa['row']['uid']) || !is_numeric($pa['row']['uid'])) {
+		if (!isset($params['row']['uid']) || !is_numeric($params['row']['uid'])) {
 			return $content;
 		}
 
-		if (!$this->senderEmailOrSenderNameSet($pa['row']['uid'])) {
-			if ($this->noteFieldDisabled($pa)) {
+		if (!$this->senderEmailOrSenderNameSet($params['row']['uid'])) {
+			if ($this->noteFieldDisabled($params)) {
 				$content .= '<p style="opacity: 0.3; margin: 0;">';
-				$content .= $this->getCheckboxHtml($pa);
+				$content .= $this->getCheckboxHtml($params);
 				$content .= '<label for="tx_powermail_domain_model_forms_note_checkbox" style="vertical-align: bottom;">';
-				$content .= $GLOBALS['LANG']->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.4', TRUE);
+				$content .= $this->languageService->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.4', TRUE);
 				$content .= '</label>';
 				$content .= '<p style="margin: 0 0 3px 0;">';
 			} else {
 				$content .= '<div style="background-color: #FCF8E3; border: 1px solid #FFB019; padding: 5px 10px; color: #FFB019;">';
 				$content .= '<p style="margin: 0 0 3px 0;">';
 				$content .= '<strong>';
-				$content .= $GLOBALS['LANG']->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.1', TRUE);
+				$content .= $this->languageService->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.1', TRUE);
 				$content .= '</strong>';
 				$content .= ' ';
-				$content .= $GLOBALS['LANG']->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.2', TRUE);
+				$content .= $this->languageService->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.2', TRUE);
 				$content .= '</p>';
 				$content .= '<p style="margin: 0;">';
-				$content .= $this->getCheckboxHtml($pa);
+				$content .= $this->getCheckboxHtml($params);
 				$content .= '<label for="tx_powermail_domain_model_forms_note_checkbox" style="vertical-align: bottom;">';
-				$content .= $GLOBALS['LANG']->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.3', TRUE);
+				$content .= $this->languageService->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.3', TRUE);
 				$content .= '</label>';
 				$content .= '</p>';
 				$content .= '</div>';
 			}
 		}
 
-		if (!$this->hasFormUniqueFieldMarkers($pa['row']['uid'])) {
+		if (!$this->hasFormUniqueFieldMarkers($params['row']['uid'])) {
 			$content .= '<div style="background:#F2DEDE; border:1px solid #A94442; padding: 5px 10px; color: #A94442; margin-top: 10px">';
 			$content .= '<p><strong>';
-			$content .= $GLOBALS['LANG']->sL($this->locallangPath . 'tx_powermail_domain_model_forms.error.1', TRUE);
+			$content .= $this->languageService->sL($this->locallangPath . 'tx_powermail_domain_model_forms.error.1', TRUE);
 			$content .= '</strong></p>';
-			$content .= '<p>' . $GLOBALS['LANG']->sL($this->locallangPath . 'tx_powermail_domain_model_forms.error.2', TRUE) . '</p>';
+			$content .= '<p>';
+			$content .= $this->languageService->sL($this->locallangPath . 'tx_powermail_domain_model_forms.error.2', TRUE);
+			$content .= '</p>';
 			$content .= '</div>';
 		}
 
@@ -134,5 +141,14 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 			return TRUE;
 		}
 		return FALSE;
+	}
+
+	/**
+	 * Initialize some variables
+	 *
+	 * @return void
+	 */
+	protected function initialize() {
+		$this->languageService = $GLOBALS['LANG'];
 	}
 }

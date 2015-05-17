@@ -37,23 +37,22 @@ class Marker {
 	/**
 	 * Create individual marker for powermail field
 	 *
-	 * @param array $pa Config Array
-	 * @param object $fobj Parent Object
+	 * @param array $params Config Array
 	 * @return string
 	 */
-	public function createMarker($pa, $fobj) {
+	public function createMarker($params) {
 		$content = '';
 
 		// if entry in db
-		if (isset($pa['row']['marker']) && !empty($pa['row']['marker'])) {
-			$marker = $pa['row']['marker'];
+		if (isset($params['row']['marker']) && !empty($params['row']['marker'])) {
+			$marker = $params['row']['marker'];
 		} else {
 			// no entry - take "marker"
 			$marker = 'marker';
 		}
 
 		// field just generated
-		if (stristr($pa['row']['uid'], 'NEW')) {
+		if (stristr($params['row']['uid'], 'NEW')) {
 			$content .= '<div style="background-color: #F4DA5C; padding: 5px 10px;">';
 			$content .= 'Please save before...';
 			$content .= '</div>';
@@ -62,7 +61,7 @@ class Marker {
 			$content .= '<div style="background-color: #ddd; padding: 5px 10px;" />';
 			$content .= '{' . strtolower($marker) . '}';
 			$content .= '</div>';
-			$content .= '<input type="hidden" name="data[tx_powermail_domain_model_fields][' . $pa['row']['uid'] . '][marker]"
+			$content .= '<input type="hidden" name="data[tx_powermail_domain_model_fields][' . $params['row']['uid'] . '][marker]"
 			value="' . strtolower($marker) . '" />';
 		}
 
@@ -72,11 +71,9 @@ class Marker {
 	/**
 	 * Workarround to only show a label and no field in TCA
 	 *
-	 * @param array $pa Config Array
-	 * @param object $fobj Parent Object
 	 * @return string empty
 	 */
-	public function doNothing($pa, $fobj) {
+	public function doNothing() {
 		return '';
 	}
 }

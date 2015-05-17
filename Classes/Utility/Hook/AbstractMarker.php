@@ -27,7 +27,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * Abstract Marker Class for Backend-Marker functions
  *
@@ -75,6 +74,11 @@ class AbstractMarker {
 		'powermail_rte',
 		'powermail_all'
 	);
+
+	/**
+	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	protected $databaseConnection = NULL;
 
 	/**
 	 * Clean Marker String ("My Field" => "my_field")
@@ -134,7 +138,7 @@ class AbstractMarker {
 	 * @return int
 	 */
 	protected function getFormUidFromRelatedPage($pageUid) {
-		$result = 0;
+		$formUid = 0;
 		$select = 'tx_powermail_domain_model_forms.uid';
 		$from = '
 			tx_powermail_domain_model_forms
@@ -145,12 +149,12 @@ class AbstractMarker {
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1;
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+		$res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 		if ($res) {
-			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-			$result = $row['uid'];
+			$row = $this->databaseConnection->sql_fetch_assoc($res);
+			$formUid = (int) $row['uid'];
 		}
-		return $result;
+		return $formUid;
 	}
 
 	/**
@@ -160,6 +164,7 @@ class AbstractMarker {
 	 * @return int $formUid
 	 */
 	protected function getFormUidFromFieldUid($fieldUid) {
+		$formUid = 0;
 		$select = 'tx_powermail_domain_model_forms.uid';
 		$from = '
 			tx_powermail_domain_model_forms
@@ -170,13 +175,12 @@ class AbstractMarker {
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1;
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+		$res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 		if ($res) {
-			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-			$result = $row['uid'];
+			$row = $this->databaseConnection->sql_fetch_assoc($res);
+			$formUid = (int) $row['uid'];
 		}
-
-		return $result;
+		return $formUid;
 	}
 
 	/**
@@ -197,9 +201,9 @@ class AbstractMarker {
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1000;
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+		$res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 		if ($res) {
-			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+			while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
 				$result['_' . $row['uid']] = $row['marker'];
 			}
 		}
@@ -253,7 +257,8 @@ class AbstractMarker {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->data = (array)GeneralUtility::_GP('data');
+		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
+		$this->data = (array) GeneralUtility::_GP('data');
 		$this->getMarkers();
 		$this->formUid = $this->getFormUid();
 		$this->existingMarkers = $this->getFieldMarkersFromForm();

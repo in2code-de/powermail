@@ -507,6 +507,15 @@
 			<trans-unit id="BackendCheckWrongLocalizedFormsFailed">
 				<source>There are localized forms with empty tx_powermail_domain_model_forms.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
 			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedPagesTitle">
+				<source>Localized Pages</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedPagesCorrect">
+				<source>No failures in pages found on this system</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckWrongLocalizedPagesFailed">
+				<source>There are localized pages with empty tx_powermail_domain_model_pages.forms fields which can lead to problems in managing localized pages</source>
+			</trans-unit>
 			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersTitle">
 				<source>Localized Fields</source>
 			</trans-unit>

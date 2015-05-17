@@ -74,4 +74,75 @@ class PageRepository extends Repository {
 		$result = $query->statement($sql)->execute(TRUE);
 		return $result;
 	}
+
+	/**
+	 * Find all localized records with
+	 * 		tx_powermail_domain_model_pages.forms = "0"
+	 *
+	 * @return array
+	 */
+	public function findAllWrongLocalizedPages() {
+		$pages = array();
+		$select = 'uid,pid,title,l10n_parent,sys_language_uid';
+		$from = 'tx_powermail_domain_model_pages';
+		$where = '(forms = "" or forms = 0) and sys_language_uid > 0 and deleted = 0';
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where);
+		if ($res) {
+			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+				$pages[] = $row;
+			}
+		}
+		return $pages;
+	}
+
+	/**
+	 * Fix wrong localized forms
+	 *
+	 * @return void
+	 */
+	public function fixWrongLocalizedPages() {
+		foreach ($this->findAllWrongLocalizedPages() as $page) {
+			$defaultPageUid = $page['l10n_parent'];
+			$defaultFormUid = $this->getFormUidFromPageUid($defaultPageUid);
+			$localizedFormUid = $this->getLocalizedFormUidFromFormUid($defaultFormUid, $page['sys_language_uid']);
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+				'tx_powermail_domain_model_pages',
+				'uid = ' . (int) $page['uid'],
+				array('forms' => $localizedFormUid)
+			);
+		}
+	}
+
+	/**
+	 * Get parent form uid form given page uid
+	 *
+	 * @param int $pageUid
+	 * @return array
+	 */
+	protected function getFormUidFromPageUid($pageUid) {
+		$query = $this->createQuery();
+		$sql = 'select forms';
+		$sql .= ' from tx_powermail_domain_model_pages';
+		$sql .= ' where uid = ' . (int) $pageUid;
+		$sql .= ' and deleted = 0';
+		$sql .= ' limit 1';
+		$row = $query->statement($sql)->execute(TRUE);
+		return $row[0]['forms'];
+	}
+
+	/**
+	 * @param int $formUid
+	 * @param int $sysLanguageUid
+	 * @return array
+	 */
+	protected function getLocalizedFormUidFromFormUid($formUid, $sysLanguageUid) {
+		$query = $this->createQuery();
+		$sql = 'select uid';
+		$sql .= ' from tx_powermail_domain_model_forms';
+		$sql .= ' where l10n_parent = ' . (int) $formUid;
+		$sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
+		$sql .= ' and deleted = 0';
+		$row = $query->statement($sql)->execute(TRUE);
+		return $row[0]['uid'];
+	}
 }

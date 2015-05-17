@@ -15,6 +15,7 @@ Good to know
    ChangingLabels/Index
    PrefillField/Index
    RemoveValuesFromPowermailAll/Index
+   ManipulateValuesFromPowermailAll/Index
    UniqueValues/Index
    AjaxSubmit/Index
    FilterFormSelection/Index

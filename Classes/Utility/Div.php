@@ -1019,7 +1019,7 @@ class Div {
 	 * Save values to any table in TYPO3 database
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @param \array $conf TypoScript Configuration
+	 * @param array $conf TypoScript Configuration
 	 * @return void
 	 */
 	public function saveToAnyTable($mail, $conf) {
@@ -1045,19 +1045,16 @@ class Div {
 				continue;
 			}
 
-			/* @var $storeObject \In2code\Powermail\Utility\SaveToAnyTable */
-			$storeObject = $this->objectManager->get('In2code\Powermail\Utility\SaveToAnyTable');
-			$storeObject->setTable($table);
-
-			// if unique was set
+			/* @var $saveToAnyTable \In2code\Powermail\Utility\SaveToAnyTable */
+			$saveToAnyTable = $this->objectManager->get('In2code\Powermail\Utility\SaveToAnyTable', $table);
 			if (!empty($conf['dbEntry.'][$table . '.']['_ifUnique.'])) {
 				$uniqueFields = array_keys($conf['dbEntry.'][$table . '.']['_ifUnique.']);
-				$storeObject->setMode($conf['dbEntry.'][$table . '.']['_ifUnique.'][$uniqueFields[0]]);
-				$storeObject->setUniqueField($uniqueFields[0]);
+				$saveToAnyTable->setMode($conf['dbEntry.'][$table . '.']['_ifUnique.'][$uniqueFields[0]]);
+				$saveToAnyTable->setUniqueField($uniqueFields[0]);
 			}
 
 			// one loop per field
-			foreach ((array)$conf['dbEntry.'][$table . '.'] as $field => $settingsInner) {
+			foreach ((array) $conf['dbEntry.'][$table . '.'] as $field => $settingsInner) {
 				$settingsInner = NULL;
 
 				// skip if key. or if it starts with _
@@ -1070,14 +1067,14 @@ class Div {
 					$conf['dbEntry.'][$table . '.'][$field],
 					$conf['dbEntry.'][$table . '.'][$field . '.']
 				);
-				$storeObject->addProperty($field, $value);
+				$saveToAnyTable->addProperty($field, $value);
 			}
 			if (!empty($conf['debug.']['saveToTable'])) {
-				$storeObject->setDevLog(TRUE);
+				$saveToAnyTable->setDevLog(TRUE);
 			}
-			$uid = $storeObject->execute();
+			$uid = $saveToAnyTable->execute();
 
-			// add this uid to startArray for using in TypoScript
+			// add this uid to startArray for later using in TypoScript
 			$startArray = array_merge(
 				$startArray,
 				array('uid_' . $table => $uid)
