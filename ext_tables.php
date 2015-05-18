@@ -86,9 +86,9 @@ if (TYPO3_MODE === 'BE') {
 	// show form note in FlexForm
 	require_once($extPath . 'Classes/Utility/Tca/ShowFormNoteEditForm.php');
 
-	// WizIcon for Pi1
-	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Utility\Hook\WizIcon'] =
-		$extPath . 'Classes/Utility/Hook/WizIcon.php';
+	// ContentElementWizard for Pi1
+	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Utility\Hook\ContentElementWizard'] =
+		$extPath . 'Classes/Utility/Hook/ContentElementWizard.php';
 }
 
 /**
