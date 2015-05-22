@@ -4,15 +4,10 @@ if (!defined('TYPO3_MODE')) {
 }
 
 /**
- * Get configuration from extension manager
- */
-$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-
-/**
  * Enable caching for show action in form controller
  */
 $uncachedFormActions = 'form';
-if ($confArr['enableCaching'] === '1') {
+if (\In2code\Powermail\Utility\Configuration::isEnableCachingActive()) {
 	$uncachedFormActions = '';
 }
 $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';
@@ -40,16 +35,6 @@ $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';
 		'Output' => 'list, edit, update, export, rss, delete'
 	)
 );
-
-/**
- * Show Forms in Page Module
- */
-/*
-$TYPO3_CONF_VARS['EXTCONF']['cms']['db_layout']['addTables']['tx_powermail_domain_model_forms'][0] = array(
-	'fList' => 'uid,title',
-	'icon' => TRUE,
-);
-*/
 
 /**
  * Hook to show PluginInfo

@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
+use In2code\Powermail\Utility\Configuration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Utility\Div;
 
@@ -76,7 +77,7 @@ class PluginInformation {
 	 */
 	public function build($params = array()) {
 		$this->initialize($params);
-		if (!$this->isPluginInformationEnabled()) {
+		if (Configuration::isDisablePluginInformationActive()) {
 			return '';
 		}
 		return $this->createOutputMarkup();
@@ -176,14 +177,6 @@ class PluginInformation {
 		$editFormLink .= ']=edit';
 		$editFormLink .= '&returnUrl=' . $this->getReturnUrl();
 		return $editFormLink;
-	}
-
-	/**
-	 * @return bool
-	 */
-	protected function isPluginInformationEnabled() {
-		$extensionConfiguration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-		return $extensionConfiguration['disablePluginInformation'] === '0';
 	}
 
 	/**

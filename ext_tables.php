@@ -4,11 +4,6 @@ if (!defined('TYPO3_MODE')) {
 }
 
 /**
- * Get configuration from extension manager
- */
-$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-
-/**
  * Include Plugins
  */
 	// Pi1
@@ -27,7 +22,11 @@ $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'
 /**
  * Include Backend Module
  */
-if (TYPO3_MODE === 'BE' && !$confArr['disableBackendModule'] && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
+if (
+	TYPO3_MODE === 'BE' &&
+	\In2code\Powermail\Utility\Configuration::isDisableBackendModuleActive() &&
+	!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
+) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
 		'In2code.' . $_EXTKEY,
 		'web',
@@ -106,7 +105,7 @@ if (TYPO3_MODE === 'BE') {
 	$_EXTKEY, 'Configuration/TypoScript/CssDemo',
 	'Add Demo CSS'
 );
-if (empty($confArr['disableMarketingInformation'])) {
+if (!\In2code\Powermail\Utility\Configuration::isDisableMarketingInformationActive()) {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
 		$_EXTKEY, 'Configuration/TypoScript/Marketing',
 		'Marketing Information'
@@ -153,7 +152,7 @@ if (empty($confArr['disableMarketingInformation'])) {
 /**
  * Garbage Collector
  */
-if (!empty($confArr['enableTableGarbageCollection'])) {
+if (\In2code\Powermail\Utility\Configuration::isEnableTableGarbageCollectionActive()) {
 	$tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
 	$table = 'tx_powermail_domain_model_mails';
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(

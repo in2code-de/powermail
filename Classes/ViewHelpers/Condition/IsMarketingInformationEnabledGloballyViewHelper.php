@@ -2,6 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Utility\Configuration;
 
 /**
  * Class IsMarketingInformationEnabledGloballyViewHelper
@@ -16,10 +17,6 @@ class IsMarketingInformationEnabledGloballyViewHelper extends AbstractViewHelper
 	 * @return bool
 	 */
 	public function render() {
-		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-		if (isset($confArr['disableMarketingInformation']) && $confArr['disableMarketingInformation'] === '1') {
-			return FALSE;
-		}
-		return TRUE;
+		return !Configuration::isDisableMarketingInformationActive();
 	}
 }

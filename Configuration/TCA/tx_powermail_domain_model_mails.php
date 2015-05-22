@@ -1,4 +1,6 @@
 <?php
+use In2code\Powermail\Utility\Configuration;
+
 $mailsTca = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_mails',
@@ -357,8 +359,7 @@ $mailsTca = array(
 	),
 );
 
-$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-if (isset($confArr['disableMarketingInformation']) && $confArr['disableMarketingInformation'] === '1') {
+if (Configuration::isDisableMarketingInformationActive()) {
 	foreach (array_keys($mailsTca['columns']) as $columnName) {
 		if (strpos($columnName, 'marketing_') === 0) {
 			unset($mailsTca['columns'][$columnName]);

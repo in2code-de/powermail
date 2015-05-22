@@ -9,6 +9,7 @@ use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use In2code\Powermail\Utility\BasicFileFunctions;
 use In2code\Powermail\Utility\Div;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\Configuration;
 
 /***************************************************************
  *  Copyright notice
@@ -366,7 +367,7 @@ class FormController extends AbstractController {
 				$this->userRepository->findByUid(Div::getPropertyFromLoggedInFeUser('uid'))
 			);
 		}
-		if (empty($this->settings['global']['disableIpLog'])) {
+		if (!Configuration::isDisableIpLogActive()) {
 			$mail->setSenderIp(GeneralUtility::getIndpEnv('REMOTE_ADDR'));
 		}
 		if ($this->settings['main']['optin'] || $this->settings['db']['hidden']) {
