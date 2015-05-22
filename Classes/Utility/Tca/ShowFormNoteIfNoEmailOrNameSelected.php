@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
+use In2code\Powermail\Utility\Configuration;
 use In2code\Powermail\Utility\Div;
 
 /**
@@ -29,7 +30,7 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 	public function showNote($params) {
 		$this->initialize();
 		$content = '';
-		if (!isset($params['row']['uid']) || !is_numeric($params['row']['uid'])) {
+		if (!$this->showNoteActive($params)) {
 			return $content;
 		}
 
@@ -75,30 +76,30 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 	}
 
 	/**
-	 * @param array $pa Config Array
+	 * @param array $params Config Array
 	 * @return string
 	 */
-	protected function getCheckboxHtml($pa) {
+	protected function getCheckboxHtml($params) {
 		$content = '';
 		$content .= '<input type="checkbox" id="tx_powermail_domain_model_forms_note_checkbox" name="dummy" ';
-		$content .= ((isset($pa['row']['note']) && $pa['row']['note'] === '1') ? 'checked="checked" ' : '');
+		$content .= ((isset($params['row']['note']) && $params['row']['note'] === '1') ? 'checked="checked" ' : '');
 		$content .= '
 			value="1" onclick="document.getElementById(\'tx_powermail_domain_model_forms_note\').value = ((this.checked) ? 1 : 0);" />
 		';
 		$content .= '<input type="hidden" id="tx_powermail_domain_model_forms_note" ';
-		$content .= 'name="data[tx_powermail_domain_model_forms][' . $pa['row']['uid'] . '][note]" ';
-		$content .= 'value="' . (!empty($pa['row']['note']) ? '1' : '0') . '" />';
+		$content .= 'name="data[tx_powermail_domain_model_forms][' . $params['row']['uid'] . '][note]" ';
+		$content .= 'value="' . (!empty($params['row']['note']) ? '1' : '0') . '" />';
 		return $content;
 	}
 
 	/**
 	 * Check if notefield was disabled
 	 *
-	 * @param array $pa Config Array
+	 * @param array $params Config Array
 	 * @return bool
 	 */
-	protected function noteFieldDisabled($pa) {
-		if (isset($pa['row']['note']) && $pa['row']['note'] === '1') {
+	protected function noteFieldDisabled($params) {
+		if (isset($params['row']['note']) && $params['row']['note'] === '1') {
 			return TRUE;
 		}
 		return FALSE;
@@ -141,6 +142,23 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 			return TRUE;
 		}
 		return FALSE;
+	}
+
+	/**
+	 * Check if showNote should be active or not
+	 *
+	 * @param array $params Config Array
+	 * @return bool
+	 */
+	protected function showNoteActive($params) {
+		if (
+			!isset($params['row']['uid']) ||
+			!is_numeric($params['row']['uid'])
+			|| Configuration::isReplaceIrreWithElementBrowserActive()
+		) {
+			return FALSE;
+		}
+		return TRUE;
 	}
 
 	/**
