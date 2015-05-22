@@ -209,7 +209,6 @@ if (Configuration::isReplaceIrreWithElementBrowserActive()) {
 			'type' => 'group',
 			'internal_type' => 'db',
 			'allowed' => 'tx_powermail_domain_model_pages',
-			'foreign_sortby' => 'sorting',
 			'foreign_table' => 'tx_powermail_domain_model_pages',
 			'minitems' => 1,
 			'maxitems' => 100
