@@ -2,7 +2,8 @@
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice
@@ -135,10 +136,10 @@ class BasicFileFunctions {
 	 *
 	 * @param string $destinationPath
 	 * @param string $allowedFileExtensions
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return bool
 	 */
-	public static function fileUpload($destinationPath, $allowedFileExtensions = '', \In2code\Powermail\Domain\Model\Mail $mail) {
+	public static function fileUpload($destinationPath, $allowedFileExtensions = '', Mail $mail) {
 		$result = FALSE;
 		if (isset($_FILES['tx_powermail_pi1']['tmp_name']['field']) && self::hasFormAnUploadField($mail->getForm())) {
 			foreach (array_keys($_FILES['tx_powermail_pi1']['tmp_name']['field']) as $marker) {
@@ -210,10 +211,10 @@ class BasicFileFunctions {
 	/**
 	 * Check if this form has an upload field
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Form $form
+	 * @param Form $form
 	 * @return bool
 	 */
-	public static function hasFormAnUploadField(\In2code\Powermail\Domain\Model\Form $form) {
+	public static function hasFormAnUploadField(Form $form) {
 		foreach ($form->getPages() as $page) {
 			foreach ($page->getFields() as $field) {
 				if ($field->getType() === 'file') {

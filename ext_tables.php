@@ -24,7 +24,7 @@ if (!defined('TYPO3_MODE')) {
  */
 if (
 	TYPO3_MODE === 'BE' &&
-	\In2code\Powermail\Utility\Configuration::isDisableBackendModuleActive() &&
+	!\In2code\Powermail\Utility\Configuration::isDisableBackendModuleActive() &&
 	!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
 ) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(

@@ -75,7 +75,25 @@ jQuery(document).ready(function($) {
 		});
 	}
 
-	// File Upload Delete
+	// Password Field Output
+	$('.powermail_all_type_password.powermail_all_value').html('********');
+
+	// Reset
+	if ($.fn.parsley) {
+		$('.powermail_reset').on('click', '', function(e) {
+			$('form[data-parsley-validate="data-parsley-validate"]').parsley().reset();
+		});
+	}
+
+	deleteAllFilesListener();
+});
+
+/**
+ * Add eventhandler for deleting all files button
+ *
+ * @returns {void}
+ */
+function deleteAllFilesListener() {
 	$('.powermail_fieldwrap_file_inner').find('.deleteAllFiles').each(function() {
 		// initially hide upload fields
 		disableUploadField($(this).closest('.powermail_fieldwrap_file_inner').find('input[type="file"]'));
@@ -92,17 +110,7 @@ jQuery(document).ready(function($) {
 	function enableUploadField(element) {
 		element.removeProp('disabled').removeClass('hide').prop('type', 'file');
 	}
-
-	// Password Field Output
-	$('.powermail_all_type_password.powermail_all_value').html('********');
-
-	// Reset
-	if ($.fn.parsley) {
-		$('.powermail_reset').on('click', '', function(e) {
-			$('form[data-parsley-validate="data-parsley-validate"]').parsley().reset();
-		});
-	}
-});
+}
 
 /**
  * Allow AJAX Submit for powermail
@@ -118,7 +126,9 @@ function ajaxFormSubmit() {
 		$.ajax({
 			type: 'POST',
 			url: $this.prop('action'),
-			data: $this.serialize(),
+			data: new FormData($this.get(0)),
+			contentType: false,
+			processData: false,
 			beforeSend: function() {
 				// add progressbar div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
 				var progressBar = $('<div />').addClass('powermail_progressbar').html(
@@ -132,6 +142,7 @@ function ajaxFormSubmit() {
 			complete: function() {
 				// remove progressbar
 				$('.powermail_fieldwrap_submit', $this).find('.powermail_progressbar').remove();
+				deleteAllFilesListener();
 			},
 			success: function(data) {
 				var html = $('*[data-powermail-form="' + formUid + '"]:first', data);
