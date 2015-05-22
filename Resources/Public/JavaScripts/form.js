@@ -40,9 +40,10 @@ jQuery(document).ready(function($) {
 				} else {
 					// get date in format Y-m-d H:i for html5 date fields
 					if ($(this).data('date-value')) {
-						$(this).val(
-							getDatetimeForDateFields($(this).data('date-value'), $(this).data('datepicker-format'), $this.prop('type'))
-						);
+						var prefillDate = getDatetimeForDateFields($(this).data('date-value'), $(this).data('datepicker-format'), $this.prop('type'));
+						if (prefillDate !== null) {
+							$(this).val(prefillDate);
+						}
 					}
 
 					// stop js datepicker
@@ -156,10 +157,14 @@ function ajaxFormSubmit() {
  * @param value
  * @param format
  * @param type
- * @returns {string}
+ * @returns {string|null}
  */
 function getDatetimeForDateFields(value, format, type) {
-	var date = new Date(Date.parseDate(value, format));
+	var formatDate = Date.parseDate(value, format);
+	if (formatDate === null) {
+		return null;
+	}
+	var date = new Date(formatDate);
 	var valueDate = date.getFullYear() + '-';
 	valueDate += ('0' + (date.getMonth() + 1)).slice(-2) + '-';
 	valueDate += ('0' + date.getDate()).slice(-2);
@@ -175,7 +180,7 @@ function getDatetimeForDateFields(value, format, type) {
 	if (type === 'time') {
 		return valueTime;
 	}
-	return 'error';
+	return null;
 }
 
 /**
