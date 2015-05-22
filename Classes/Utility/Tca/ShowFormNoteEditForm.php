@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
+use In2code\Powermail\Utility\Configuration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Utility\Div;
 
@@ -267,14 +268,14 @@ class ShowFormNoteEditForm {
 	 * @return array
 	 */
 	protected function getPagesFromForm($uid) {
+		if (Configuration::isReplaceIrreWithElementBrowserActive()) {
+			return $this->getPagesFromFormAlternative($uid);
+		}
 		$result = array();
 		$select = 'tx_powermail_domain_model_pages.title';
-		$from = '
-			tx_powermail_domain_model_forms
-			LEFT JOIN tx_powermail_domain_model_pages ON tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid
-		';
-		$where = 'tx_powermail_domain_model_forms.uid = ' . intval($uid) .
-			' and tx_powermail_domain_model_pages.deleted = 0';
+		$from = 'tx_powermail_domain_model_forms
+			LEFT JOIN tx_powermail_domain_model_pages ON tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid';
+		$where = 'tx_powermail_domain_model_forms.uid = ' . (int) $uid . ' and tx_powermail_domain_model_pages.deleted = 0';
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1000;
@@ -294,6 +295,9 @@ class ShowFormNoteEditForm {
 	 * @return array
 	 */
 	protected function getFieldsFromForm($uid) {
+		if (Configuration::isReplaceIrreWithElementBrowserActive()) {
+			return $this->getFieldsFromFormAlternative($uid);
+		}
 		$result = array();
 		$select = 'tx_powermail_domain_model_fields.title';
 		$from = '
@@ -301,7 +305,7 @@ class ShowFormNoteEditForm {
 			LEFT JOIN tx_powermail_domain_model_pages ON tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid
 			LEFT JOIN tx_powermail_domain_model_fields ON tx_powermail_domain_model_fields.pages = tx_powermail_domain_model_pages.uid
 		';
-		$where = 'tx_powermail_domain_model_forms.uid = ' . intval($uid) .
+		$where = 'tx_powermail_domain_model_forms.uid = ' . (int) $uid .
 			' and tx_powermail_domain_model_pages.deleted = 0
 			 and tx_powermail_domain_model_fields.deleted = 0';
 		$groupBy = '';
@@ -314,6 +318,68 @@ class ShowFormNoteEditForm {
 			}
 		}
 		return $result;
+	}
+
+	/**
+	 * Get array with related pages to a form
+	 * if replaceIrreWithElementBrowser is active
+	 *
+	 * @param int $uid
+	 * @return array
+	 */
+	protected function getPagesFromFormAlternative($uid) {
+		$select = 'f.pages';
+		$from = 'tx_powermail_domain_model_forms as f';
+		$where = 'f.uid = ' . (int) $uid;
+		$pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
+		$select = 'p.title';
+		$from = 'tx_powermail_domain_model_pages as p';
+		$where = 'p.uid in (' . $this->integerList($pageUids[0]['pages']) . ') and p.deleted = 0';
+		$pageTitles = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
+		$pageTitlesReduced = array();
+		foreach ($pageTitles as $titleRow) {
+			$pageTitlesReduced[] = $titleRow['title'];
+		}
+		return $pageTitlesReduced;
+	}
+
+	/**
+	 * Get array with related fields to a form
+	 * if replaceIrreWithElementBrowser is active
+	 *
+	 * @param int $uid
+	 * @return array
+	 */
+	protected function getFieldsFromFormAlternative($uid) {
+		$select = 'f.pages';
+		$from = 'tx_powermail_domain_model_forms as f';
+		$where = 'f.uid = ' . (int) $uid;
+		$pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
+		$select = 'p.uid';
+		$from = 'tx_powermail_domain_model_pages as p';
+		$where = 'p.uid in (' . $this->integerList($pageUids[0]['pages']) . ') and p.deleted = 0';
+		$pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
+		$fieldTitlesReduced = array();
+		foreach ($pageUids as $uidRow) {
+			$select = 'field.title';
+			$from = 'tx_powermail_domain_model_fields as field';
+			$where = 'field.pages = ' . (int) $uidRow['uid'];
+			$fieldTitles = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
+			foreach ($fieldTitles as $titleRow) {
+				$fieldTitlesReduced[] = $titleRow['title'];
+			}
+		}
+		return $fieldTitlesReduced;
+	}
+
+	/**
+	 * Forces an integer list
+	 *
+	 * @param string $list
+	 * @return string
+	 */
+	protected function integerList($list) {
+		return implode(',', GeneralUtility::intExplode(',', $list));
 	}
 
 	/**
