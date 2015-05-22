@@ -88,7 +88,7 @@ Main configuration for powermail for CMS wide settings.
  - :Field:
       ElementBrowser replaces IRRE
    :Description:
-      Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation.
+      Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation. Note: this is a beta-feature and not completely tested!
    :DefaultValue:
       0
 
