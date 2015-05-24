@@ -19,5 +19,5 @@ enableTableGarbageCollection = 0
 # cat=basic/enable/070; type=boolean; label= Enable Merge for l10n_mode: All fields with l10n_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages.
 l10n_mode_merge = 0
 
-# cat=basic/enable/080; type=boolean; label= ElementBrowser replaces IRRE: Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation.
+# cat=basic/enable/080; type=boolean; label= ElementBrowser replaces IRRE: Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation. Note: this is a beta-feature and not completely tested!
 replaceIrreWithElementBrowser = 0

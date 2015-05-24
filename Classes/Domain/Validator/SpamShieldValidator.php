@@ -2,9 +2,10 @@
 namespace In2code\Powermail\Domain\Validator;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
+use In2code\Powermail\Utility\Configuration;
 use In2code\Powermail\Utility\Div;
 use In2code\Powermail\Domain\Model\Mail;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * SpamShieldValidator
@@ -336,7 +337,7 @@ class SpamShieldValidator extends AbstractValidator {
 			'pid' => $this->typoScriptFrontendController->id,
 			'calculatedMailSpamFactor' => $this->getCalculatedMailSpamFactor(TRUE),
 			'messages' => $this->getMessages(),
-			'ipAddress' => (empty($this->configurationArray['disableIpLog']) ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '')
+			'ipAddress' => (!Configuration::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '')
 		);
 		Div::sendPlainMail(
 			$this->settings['spamshield.']['email'],

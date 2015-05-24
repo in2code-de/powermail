@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\Configuration;
 
 /**
  * Prefill a field with variables
@@ -331,11 +332,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	 * @return bool
 	 */
 	protected function isCachedForm() {
-		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-		if ($confArr['enableCaching'] === '1') {
-			return TRUE;
-		}
-		return FALSE;
+		return Configuration::isEnableCachingActive();
 	}
 
 	/**

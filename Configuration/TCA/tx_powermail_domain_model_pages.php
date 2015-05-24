@@ -1,4 +1,6 @@
 <?php
+use In2code\Powermail\Utility\Configuration;
+
 $pagesTca = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_pages',
@@ -207,14 +209,9 @@ $pagesTca = array(
 );
 
 /**
- * Different settings related to ext_conf_template.txt
- */
-$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-
-/**
  * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
  */
-if ($confArr['l10n_mode_merge']) {
+if (Configuration::isL10nModeMergeActive()) {
 	$pagesTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
 }
 

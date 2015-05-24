@@ -3,6 +3,8 @@ namespace In2code\Powermail\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use In2code\Powermail\Utility\Configuration;
 
 /***************************************************************
  *  Copyright notice
@@ -109,12 +111,11 @@ class Form extends AbstractEntity {
 	/**
 	 * Returns the pages
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+	 * @return ObjectStorage
 	 */
 	public function getPages() {
 		// if elementbrowser instead of IRRE (sorting workarround)
-		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-		if ($confArr['replaceIrreWithElementBrowser']) {
+		if (Configuration::isReplaceIrreWithElementBrowserActive()) {
 			$formSorting = GeneralUtility::trimExplode(',', $this->formRepository->getPagesValue($this->uid), TRUE);
 			$formSorting = array_flip($formSorting);
 			$pageArray = array();
@@ -134,8 +135,7 @@ class Form extends AbstractEntity {
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 * @return void
 	 */
-	public function setPages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $pages) {
+	public function setPages(ObjectStorage $pages) {
 		$this->pages = $pages;
 	}
-
 }

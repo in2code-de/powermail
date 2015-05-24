@@ -9,6 +9,7 @@ use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use In2code\Powermail\Utility\BasicFileFunctions;
 use In2code\Powermail\Utility\Div;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\Configuration;
 
 /***************************************************************
  *  Copyright notice
@@ -85,8 +86,8 @@ class FormController extends AbstractController {
 	/**
 	 * Action create entry
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @param \string $hash
+	 * @param Mail $mail
+	 * @param string $hash
 	 * @validate $mail In2code\Powermail\Domain\Validator\UploadValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
@@ -139,7 +140,7 @@ class FormController extends AbstractController {
 	/**
 	 * Show Confirmation message after submit (if view is activated)
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @validate $mail In2code\Powermail\Domain\Validator\UploadValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
 	 * @validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
@@ -159,8 +160,8 @@ class FormController extends AbstractController {
 	/**
 	 * Choose where to send Mails
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @param \string $hash
+	 * @param Mail $mail
+	 * @param string $hash
 	 * @return void
 	 */
 	protected function sendMailPreflight(Mail $mail, $hash = NULL) {
@@ -175,8 +176,8 @@ class FormController extends AbstractController {
 	/**
 	 * Mail Generation for Receiver
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @param \string $hash
+	 * @param Mail $mail
+	 * @param string $hash
 	 * @return void
 	 */
 	protected function sendReceiverMail(Mail $mail, $hash = NULL) {
@@ -225,7 +226,7 @@ class FormController extends AbstractController {
 	/**
 	 * Mail Generation for Sender
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	protected function sendSenderMail(Mail $mail) {
@@ -249,7 +250,7 @@ class FormController extends AbstractController {
 	/**
 	 * Send Optin Confirmation Mail to user
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	protected function sendConfirmationMail(Mail &$mail) {
@@ -277,7 +278,7 @@ class FormController extends AbstractController {
 	/**
 	 * Show THX message after submit
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	protected function showThx(Mail $mail) {
@@ -339,7 +340,7 @@ class FormController extends AbstractController {
 	/**
 	 * Save mail on submit
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	protected function saveMail(Mail &$mail = NULL) {
@@ -366,7 +367,7 @@ class FormController extends AbstractController {
 				$this->userRepository->findByUid(Div::getPropertyFromLoggedInFeUser('uid'))
 			);
 		}
-		if (empty($this->settings['global']['disableIpLog'])) {
+		if (!Configuration::isDisableIpLogActive()) {
 			$mail->setSenderIp(GeneralUtility::getIndpEnv('REMOTE_ADDR'));
 		}
 		if ($this->settings['main']['optin'] || $this->settings['db']['hidden']) {
@@ -382,7 +383,7 @@ class FormController extends AbstractController {
 	/**
 	 * Confirm Double Optin
 	 *
-	 * @param \int $mail
+	 * @param int $mail
 	 * @param string $hash Given Hash String
 	 * @return void
 	 */
@@ -404,10 +405,10 @@ class FormController extends AbstractController {
 	/**
 	 * Marketing Tracking Action
 	 *
-	 * @param \string $referer Referer
-	 * @param \int $language Frontend Language Uid
-	 * @param \int $pid Page Id
-	 * @param \int $mobileDevice Is mobile device?
+	 * @param string $referer Referer
+	 * @param int $language Frontend Language Uid
+	 * @param int $pid Page Id
+	 * @param int $mobileDevice Is mobile device?
 	 * @return void
 	 */
 	public function marketingAction($referer = NULL, $language = 0, $pid = 0, $mobileDevice = 0) {

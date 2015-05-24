@@ -1,4 +1,6 @@
 <?php
+use In2code\Powermail\Utility\Configuration;
+
 $formsTca = array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_forms',
@@ -196,14 +198,9 @@ $formsTca = array(
 );
 
 /**
- * Different settings related to ext_conf_template.txt
- */
-$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-
-/**
  * Replace IRRE relation with element browser for page selection
  */
-if ($confArr['replaceIrreWithElementBrowser']) {
+if (Configuration::isReplaceIrreWithElementBrowserActive()) {
 	$formsTca['columns']['pages'] = array(
 		'l10n_mode' => 'exclude',
 		'exclude' => 0,
@@ -212,7 +209,6 @@ if ($confArr['replaceIrreWithElementBrowser']) {
 			'type' => 'group',
 			'internal_type' => 'db',
 			'allowed' => 'tx_powermail_domain_model_pages',
-			'foreign_sortby' => 'sorting',
 			'foreign_table' => 'tx_powermail_domain_model_pages',
 			'minitems' => 1,
 			'maxitems' => 100
@@ -223,7 +219,7 @@ if ($confArr['replaceIrreWithElementBrowser']) {
 /**
  * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
  */
-if ($confArr['l10n_mode_merge']) {
+if (Configuration::isL10nModeMergeActive()) {
 	$formsTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
 }
 

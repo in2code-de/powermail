@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use In2code\Powermail\Utility\Configuration;
 
 /***************************************************************
  *  Copyright notice
@@ -207,8 +208,7 @@ class Page extends AbstractEntity {
 	 */
 	public function getForms() {
 		// if elementbrowser instead of IRRE (get related form)
-		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-		if ($confArr['replaceIrreWithElementBrowser']) {
+		if (Configuration::isReplaceIrreWithElementBrowserActive()) {
 			return $this->formRepository->findByPages($this->uid);
 		}
 		return $this->forms;
