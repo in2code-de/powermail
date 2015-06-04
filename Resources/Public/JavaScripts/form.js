@@ -94,14 +94,14 @@ jQuery(document).ready(function($) {
  * @returns {void}
  */
 function deleteAllFilesListener() {
-	$('.powermail_fieldwrap_file_inner').find('.deleteAllFiles').each(function() {
+	jQuery('.powermail_fieldwrap_file_inner').find('.deleteAllFiles').each(function() {
 		// initially hide upload fields
-		disableUploadField($(this).closest('.powermail_fieldwrap_file_inner').find('input[type="file"]'));
+		disableUploadField(jQuery(this).closest('.powermail_fieldwrap_file_inner').find('input[type="file"]'));
 	});
-	$('.deleteAllFiles').click(function() {
-		enableUploadField($(this).closest('.powermail_fieldwrap_file_inner').children('input[type="hidden"]'));
-		$(this).closest('ul').fadeOut(function() {
-			$(this).remove();
+	jQuery('.deleteAllFiles').click(function() {
+		enableUploadField(jQuery(this).closest('.powermail_fieldwrap_file_inner').children('input[type="hidden"]'));
+		jQuery(this).closest('ul').fadeOut(function() {
+			jQuery(this).remove();
 		});
 	});
 	function disableUploadField(element) {
@@ -119,11 +119,11 @@ function deleteAllFilesListener() {
  */
 function ajaxFormSubmit() {
 	// submit is called after parsley and html5 validation - so we don't have to check for errors
-	$(document).on('submit', 'form[data-powermail-ajax]', function (e) {
-		var $this = $(this);
+	jQuery(document).on('submit', 'form[data-powermail-ajax]', function (e) {
+		var $this = jQuery(this);
 		var formUid = $this.data('powermail-form');
 
-		$.ajax({
+		jQuery.ajax({
 			type: 'POST',
 			url: $this.prop('action'),
 			data: new FormData($this.get(0)),
@@ -131,28 +131,28 @@ function ajaxFormSubmit() {
 			processData: false,
 			beforeSend: function() {
 				// add progressbar div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
-				var progressBar = $('<div />').addClass('powermail_progressbar').html(
-					$('<div />').addClass('powermail_progress').html(
-						$('<div />').addClass('powermail_progess_inner')
+				var progressBar = jQuery('<div />').addClass('powermail_progressbar').html(
+					jQuery('<div />').addClass('powermail_progress').html(
+						jQuery('<div />').addClass('powermail_progess_inner')
 					)
 				);
-				$('.powermail_submit', $this).parent().append(progressBar);
-				$('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(progressBar);
+				jQuery('.powermail_submit', $this).parent().append(progressBar);
+				jQuery('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(progressBar);
 			},
 			complete: function() {
 				// remove progressbar
-				$('.powermail_fieldwrap_submit', $this).find('.powermail_progressbar').remove();
+				jQuery('.powermail_fieldwrap_submit', $this).find('.powermail_progressbar').remove();
 				deleteAllFilesListener();
 			},
 			success: function(data) {
-				var html = $('*[data-powermail-form="' + formUid + '"]:first', data);
-				$('*[data-powermail-form="' + formUid + '"]:first').closest('.tx-powermail').html(html);
+				var html = jQuery('*[data-powermail-form="' + formUid + '"]:first', data);
+				jQuery('*[data-powermail-form="' + formUid + '"]:first').closest('.tx-powermail').html(html);
 				// fire tabs and parsley again
-				if ($.fn.powermailTabs) {
-					$('.powermail_morestep').powermailTabs();
+				if (jQuery.fn.powermailTabs) {
+					jQuery('.powermail_morestep').powermailTabs();
 				}
-				if ($.fn.parsley) {
-					$('form[data-parsley-validate="data-parsley-validate"]').parsley();
+				if (jQuery.fn.parsley) {
+					jQuery('form[data-parsley-validate="data-parsley-validate"]').parsley();
 				}
 			}
 		});
