@@ -402,7 +402,7 @@
 			</trans-unit>
 			<trans-unit id="BackendSelectionConverterTitle">
 				<source>Form Converter</source>
-				<target state="translated">Formular-Konvertierer</target>
+				<target state="translated">Formular-Konverter</target>
 			</trans-unit>
 			<trans-unit id="BackendSelectionConverterTitle2">
 				<source>Converts all Powermail 1.x to 2.x Forms</source>
