@@ -482,7 +482,7 @@ class FormController extends AbstractController {
 	 * @return bool
 	 */
 	protected function mailPersist($hash) {
-		return !empty($this->settings['db']['enable']) || !empty($this->settings['main']['optin']) && $hash === NULL;
+		return !empty($this->settings['db']['enable']) && (!empty($this->settings['main']['optin']) && $hash === NULL);
 	}
 
 	/**

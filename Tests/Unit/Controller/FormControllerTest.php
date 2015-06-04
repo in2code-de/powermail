@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Tests\Controller;
 
-use \TYPO3\CMS\Core\Tests\UnitTestCase,
-	\TYPO3\CMS\Extbase\Mvc\Request,
-	\In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice
@@ -138,5 +138,87 @@ class FormControllerTest extends UnitTestCase {
 			return;
 		}
 		$this->assertFalse($forwardActive);
+	}
+
+	/**
+	 * Dataprovider mailPersistReturnBool()
+	 *
+	 * @return array
+	 */
+	public function mailPersistReturnBoolDataProvider() {
+		return array(
+			'store 0, optin 0, hash NULL' => array(
+				'0',
+				'0',
+				NULL,
+				FALSE
+			),
+			'store 0, optin 1, hash NULL' => array(
+				'0',
+				'1',
+				NULL,
+				FALSE
+			),
+			'store 0, optin 0, hash NOTNULL' => array(
+				'0',
+				'0',
+				'abc',
+				FALSE
+			),
+			'store 0, optin 1, hash NOTNULL' => array(
+				'0',
+				'1',
+				'abc',
+				FALSE
+			),
+			'store 1, optin 1, hash NOTNULL' => array(
+				'1',
+				'1',
+				'abc',
+				FALSE
+			),
+			'store 1, optin 1, hash NULL' => array(
+				'1',
+				'1',
+				NULL,
+				TRUE
+			),
+			'store 1, optin 0, hash NULL' => array(
+				'1',
+				'1',
+				NULL,
+				TRUE
+			),
+			'store 1, optin 0, hash NOTNULL' => array(
+				'1',
+				'1',
+				NULL,
+				TRUE
+			)
+		);
+	}
+
+	/**
+	 * Test for mailPersist()
+	 *
+	 * @param int $store
+	 * @param int $optin
+	 * @param NULL|string $hash
+	 * @param bool $expectedResult
+	 * @return void
+	 * @dataProvider mailPersistReturnBoolDataProvider
+	 * @test
+	 */
+	public function mailPersistReturnBool($store, $optin, $hash, $expectedResult) {
+		$settings = array(
+			'db' => array(
+				'enable' => $store
+			),
+			'main' => array(
+				'optin' => $optin
+			)
+		);
+		$this->generalValidatorMock->_set('settings', $settings);
+		$this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('mailPersist', $hash));
 	}
 }
