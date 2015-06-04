@@ -293,16 +293,6 @@ example Footer could be:
 	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Marketing.js?1400758352" type="text/javascript"></script>
 	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/powermail_frontend.js?1400758352" type="text/javascript"></script>
 
-
-.. _automaticexportviascheduler:
-
-I want to have automatic export files with the scheduler module – what's wrong?
--------------------------------------------------------------------------------
-
-Nothing. It is just not yet possible. In powermail 1.4 up to 1.7 it was possible
-to get automatic export files from a cli script or from the scheduler. This feature is
-not yet integrated in version 2.x.
-
 .. _marketinginformationnotworking:
 
 Marketing Information are not working – what's wrong?
