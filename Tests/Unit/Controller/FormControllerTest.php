@@ -153,17 +153,17 @@ class FormControllerTest extends UnitTestCase {
 				NULL,
 				FALSE
 			),
-			'store 0, optin 1, hash NULL' => array(
-				'0',
-				'1',
-				NULL,
-				FALSE
-			),
 			'store 0, optin 0, hash NOTNULL' => array(
 				'0',
 				'0',
 				'abc',
 				FALSE
+			),
+			'store 0, optin 1, hash NULL' => array(
+				'0',
+				'1',
+				NULL,
+				TRUE
 			),
 			'store 0, optin 1, hash NOTNULL' => array(
 				'0',
@@ -171,9 +171,15 @@ class FormControllerTest extends UnitTestCase {
 				'abc',
 				FALSE
 			),
-			'store 1, optin 1, hash NOTNULL' => array(
+			'store 1, optin 0, hash NULL' => array(
 				'1',
+				'0',
+				NULL,
+				TRUE
+			),
+			'store 1, optin 0, hash NOTNULL' => array(
 				'1',
+				'0',
 				'abc',
 				FALSE
 			),
@@ -183,17 +189,11 @@ class FormControllerTest extends UnitTestCase {
 				NULL,
 				TRUE
 			),
-			'store 1, optin 0, hash NULL' => array(
+			'store 1, optin 1, hash NOTNULL' => array(
 				'1',
 				'1',
-				NULL,
-				TRUE
-			),
-			'store 1, optin 0, hash NOTNULL' => array(
-				'1',
-				'1',
-				NULL,
-				TRUE
+				'abc',
+				FALSE
 			)
 		);
 	}

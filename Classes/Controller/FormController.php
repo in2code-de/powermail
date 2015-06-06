@@ -474,15 +474,14 @@ class FormController extends AbstractController {
 	/**
 	 * Decide if the mail object should be persisted or not
 	 * 		persist if
-	 * 			- enabled with TypoScript OR
-	 * 			- optin is enabled OR
-	 * 			- optin hash is not set
+	 * 			- enabled with TypoScript AND hash is not set OR
+	 * 			- optin is enabled AND hash is not set (even if disabled in TS)
 	 *
 	 * @param string $hash
 	 * @return bool
 	 */
 	protected function mailPersist($hash) {
-		return !empty($this->settings['db']['enable']) && (!empty($this->settings['main']['optin']) && $hash === NULL);
+		return (!empty($this->settings['db']['enable']) || !empty($this->settings['main']['optin'])) && $hash === NULL;
 	}
 
 	/**
