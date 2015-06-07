@@ -36,6 +36,8 @@ The Backend Module will start with the mail listing.
 
 |img-78|
 
+.. _manageMailsWithBackendModuleMailList:
+
 Mail List
 """""""""
 
@@ -196,6 +198,8 @@ Note: For editors only enabled fields are free to export.
    :Explanation:
       See Row before for an explanation.
 
+.. _manageMailsWithBackendModuleReporting:
+
 Reporting
 """""""""
 
@@ -225,6 +229,8 @@ Note: To activate the marketing information, please add the Powermail Marketing 
 
 |img-81c|
 
+.. _manageMailsWithBackendModuleTools:
+
 Tools
 """""
 
@@ -235,6 +241,8 @@ Tools Overview - Choose
 - Form Converter (Admin only)
 
 |img-81d|
+
+.. _manageMailsWithBackendModuleToolsOverview:
 
 Form Overview
 ~~~~~~~~~~~~~
@@ -294,6 +302,8 @@ This is a very helpful list with all powermail forms of your installation. This 
       Edit the form
    :Explanation:
       Same function as click on Form name.
+
+.. _manageMailsWithBackendModuleToolsFunctionCheck:
 
 Function Check
 ~~~~~~~~~~~~~~
@@ -384,6 +394,8 @@ Note: This view is for admins only.
       If you are not sure if powermail can send mails, enter your email-address and press "Send Mail Now"
    :Additional:
       This test is similar to the test in install tool. Sender name and email will be used from LocalConfiguration settings defaultMailFromAddress and defaultMailFromName
+
+.. _manageMailsWithBackendModuleToolsFormConverter:
 
 Form Converter
 ~~~~~~~~~~~~~~

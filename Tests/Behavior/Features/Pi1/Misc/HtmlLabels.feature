@@ -1,9 +1,6 @@
 # Features/Pi1/Misc/HtmlLabels.feature
 @Pi1 @Pi1Misc @Pi1MiscHtmlLabels
 Feature: HtmlLabels
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   Scenario: Check if Html-Labels are rendered correct with removeXSS()
     Given I am on "/index.php?id=61"

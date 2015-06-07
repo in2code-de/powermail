@@ -1,9 +1,6 @@
 # Features/Pi1/Validation/JsPhpValidation.feature
 @Pi1 @Pi1Validation @Pi1ValidationMandatory @Pi1ValidationMandatoryJsPhpValidation
 Feature: JsPhpValidation
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   @javascript
   Scenario: Check if mandatory Validation works (on &L=0)

@@ -171,7 +171,9 @@ class Export {
 		$email->setSubject($this->getSubject());
 		$email->setBody($this->createMailBody());
 		$email->setFormat('html');
-		$email->attach(\Swift_Attachment::fromPath($this->getAbsolutePathAndFileName()));
+		if ($this->isAddAttachment()) {
+			$email->attach(\Swift_Attachment::fromPath($this->getAbsolutePathAndFileName()));
+		}
 		$email->send();
 		return $email->isSent();
 	}

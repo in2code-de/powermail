@@ -1,9 +1,6 @@
 # Features/Pi1/Upload/MaxUpload.feature
 @Pi1 @Pi1Upload @Pi1UploadMaxUpload
 Feature: MaxUpload
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   @javascript
   Scenario: Check if Uploads in a Form work as expected

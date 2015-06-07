@@ -1,9 +1,6 @@
 # Features/Pi1/Validation/PasswordJsValidation.feature
 @Pi1 @Pi1Validation @Pi1ValidationPassword @Pi1ValidationPasswordJsValidation
 Feature: PasswordJsValidation
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   @javascript
   Scenario: Check if mandatory Validation works (on &L=0)

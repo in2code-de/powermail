@@ -1,9 +1,7 @@
 # Features/TYPO3/Start.feature
 @TYPO3 @TYPO3Start
 Feature: Search
-  In order to see a word definition
-  As a website user
-  I need to be able to search for a word
+  Basic test to see if TYPO3 instance is working
 
   Scenario: Searching for the homepage that does exist
     Given I am on "/index.php?id=2"

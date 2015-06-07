@@ -1,9 +1,6 @@
 # Features/Pi1/Validation/PasswordPhpValidation.feature
 @Pi1 @Pi1Validation @Pi1ValidationPassword @Pi1ValidationPasswordPhpValidation
 Feature: PasswordJsValidation
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   Scenario: Check if mandatory Validation works (on &L=0)
     Given I am on "/index.php?id=82"

@@ -105,11 +105,11 @@ class FormController extends AbstractController {
 		if ($this->settings['debug']['variables']) {
 			GeneralUtility::devLog('Variables', $this->extensionName, 0, $_REQUEST);
 		}
-		if ($this->mailPersist($hash)) {
+		if ($this->isMailPersistActive($hash)) {
 			$this->saveMail($mail);
 			$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', array($mail, $this));
 		}
-		if ($this->sendMailActive($mail, $hash)) {
+		if ($this->isSendMailActive($mail, $hash)) {
 			$this->sendMailPreflight($mail, $hash);
 			$this->div->saveToAnyTable($mail, $this->conf);
 			$this->div->sendPost($mail, $this->conf);
@@ -474,35 +474,27 @@ class FormController extends AbstractController {
 	/**
 	 * Decide if the mail object should be persisted or not
 	 * 		persist if
-	 * 			- enabled with TypoScript OR
-	 * 			- optin is enabled OR
-	 * 			- optin hash is not set
+	 * 			- enabled with TypoScript AND hash is not set OR
+	 * 			- optin is enabled AND hash is not set (even if disabled in TS)
 	 *
 	 * @param string $hash
 	 * @return bool
 	 */
-	protected function mailPersist($hash) {
-		return !empty($this->settings['db']['enable']) || !empty($this->settings['main']['optin']) && $hash === NULL;
+	protected function isMailPersistActive($hash) {
+		return (!empty($this->settings['db']['enable']) || !empty($this->settings['main']['optin'])) && $hash === NULL;
 	}
 
 	/**
 	 * Check if mail should be send
 	 * 		send when
 	 * 			- optin is deaktivated OR
-	 * 				- optin is active AND
-	 * 				- hash is correct
+	 * 			- optin is active AND hash is correct
 	 *
 	 * @param Mail $mail
 	 * @param string $hash
 	 * @return bool
 	 */
-	protected function sendMailActive(Mail $mail, $hash) {
-		if (
-			!$this->settings['main']['optin'] ||
-			($this->settings['main']['optin'] && Div::checkOptinHash($hash, $mail))
-		) {
-			return TRUE;
-		}
-		return FALSE;
+	protected function isSendMailActive(Mail $mail, $hash) {
+		return empty($this->settings['main']['optin']) || (!empty($this->settings['main']['optin']) && Div::checkOptinHash($hash, $mail));
 	}
 }

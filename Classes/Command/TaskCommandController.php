@@ -74,7 +74,7 @@ class TaskCommandController extends CommandController {
 	 * @param string $domain Domainname for linkgeneration
 	 * @param int $period Select mails that are not older than this seconds
 	 * @param boolean $attachment Add export file as attachment to mail
-	 * @param string $fieldList Define needed fields or let it empty for all
+	 * @param string $fieldList Define needed fields with a commasepareted uid list (empty = all default fields)
 	 * @param string $format Fileformat can be 'xls' or 'csv'
 	 * @param string $storageFolder path where to save export file
 	 * @return bool

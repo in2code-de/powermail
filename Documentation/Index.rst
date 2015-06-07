@@ -10,13 +10,13 @@ powermail
 .. only:: html
 
 	:Copyright:
-		2005 - 2014
+		2005 - 2015
 
 	:Classification:
 		powermail
 
 	:Version:
-		2.2
+		2.4
 
 	:Language:
 		en

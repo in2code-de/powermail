@@ -1,9 +1,6 @@
 # Features/Pi1/Default/AllFields.feature
 @Pi1 @Pi1Default @Pi1DefaultAllFields
 Feature: AllFields
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # L=0
   @javascript

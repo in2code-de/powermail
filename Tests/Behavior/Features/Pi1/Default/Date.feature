@@ -1,9 +1,6 @@
 # Features/Pi1/Default/Date.feature
 @Pi1 @Pi1Default @Pi1DefaultDate
 Feature: Date
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # Form is rendered?
   Scenario: Check if Date Form is rendered correctly

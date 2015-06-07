@@ -1,9 +1,6 @@
 # Features/Pi1/Validation/ExtendedPhpValidation.feature
 @Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscExtendedPhpValidation
 Feature: ExtendedPhpValidation
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # Check if extended Validators will work (PHP only)
   Scenario: Searching for a Form with extended Validators
