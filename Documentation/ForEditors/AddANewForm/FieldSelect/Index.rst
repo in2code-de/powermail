@@ -132,6 +132,11 @@ Explanation
       lib.options = TEXT
 
       lib.options.value = red[\\n]blue[\\n]pink
+
+
+      More examples:
+
+      :ref:`prefillOrPreselectASelectFieldTypoScript`
    :Tab:
      Extended
 

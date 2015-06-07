@@ -2,3 +2,15 @@
 .. :align: left
 .. :border: 0
 .. :name: prefillField
+
+.. |img-prefilltyposcript1|     image:: ../../../Images/prefillTypoScript1.png
+   :width: 500
+.. :align: left
+.. :border: 0
+.. :name: prefilltyposcript1
+
+.. |img-prefilltyposcript2|     image:: ../../../Images/prefillTypoScript2.png
+   :width: 500
+.. :align: left
+.. :border: 0
+.. :name: prefilltyposcript2

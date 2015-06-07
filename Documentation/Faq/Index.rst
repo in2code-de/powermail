@@ -6,19 +6,23 @@
 FAQ
 ===
 
+.. _caniuseoldforms:
+
+Can I use old forms from powermail 1.x in powermail 2.x?
+--------------------------------------------------------
+
+Yes. You can convert old forms (1.x) to version 2.x since powermail 2.1. Please use the related powermail backend module.
+
+see :ref:`manageMailsWithBackendModuleToolsFormConverter`
+
 .. _caniuseoldmails:
 
-Can I use old mails in powermail 2.x?
--------------------------------------
+Can I use old mails from powermail 1.x  in powermail 2.x?
+---------------------------------------------------------
 
 No. It's not possible to use old powermail mails with the new module. Old mails are stored in table tx_powermail_mails. This table is not accepted any more in version 2.0 or higher.
 
-.. _caniuseoldforms:
-
-Can I use old forms in powermail 2.x?
--------------------------------------
-
-Yes. You can convert old forms (1.x) to version 2.x in powermail 2.1. Please use the related powermail backend module.
+But there is an unsupported importer (found on github / not tested / no guaranty) - see https://github.com/pkerling/powermail-mail-migration
 
 
 .. _canisueanothercaptcha:
@@ -26,7 +30,7 @@ Yes. You can convert old forms (1.x) to version 2.x in powermail 2.1. Please use
 Can I use another Captcha Extension?
 ------------------------------------
 
-Yes. At the moment we support a build-in calculating captcha in the powermail core and the extension "captcha".
+Yes. At the moment we support a build-in calculating captcha in the powermail core and the extension **captcha**.
 
 
 .. _canisavetoothertables:
@@ -96,7 +100,7 @@ How to prevent Spam or to change the Spam-Prevention-Settings?
 
 Yes. Powermail in version 2 comes with a lot of spam-prevention-methods along.
 You can use the integrated spamshield (configuration via constants and typoscript)
-or captcha. See TypoScript Main Template for details.
+or captcha. See :ref:`spamprevention`
 
 
 
@@ -106,7 +110,7 @@ How can I set some advanced mail settings (like priority or returnPath, etc...)?
 --------------------------------------------------------------------------------
 
 You can change following settings for the mail to the receiver and to
-the sender completely via TypoScript. See TypoScript Main Template for
+the sender completely via TypoScript. See :ref:`mainTypoScript` for
 details.
 
 - email
@@ -343,7 +347,8 @@ In some case you need to set your own additionalAttributes - see following code 
 I upgraded powermail and a white page comes up
 ----------------------------------------------
 
-See explanation in part "For Administrators" and "Upgrade". If you make an upgrade, only deleting the cache files in typo3temp may not help. Please clean all caches in the install tool and try again.
+See explanation in part "For Administrators" and "Upgrade". If you make an upgrade, only deleting the cache files in typo3temp may not help.
+Please clean all caches in the install tool and try again.
 
 .. _ihaveaproblem:
 
