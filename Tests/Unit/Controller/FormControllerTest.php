@@ -141,11 +141,11 @@ class FormControllerTest extends UnitTestCase {
 	}
 
 	/**
-	 * Dataprovider mailPersistReturnBool()
+	 * Dataprovider isMailPersistActiveReturnBool()
 	 *
 	 * @return array
 	 */
-	public function mailPersistReturnBoolDataProvider() {
+	public function isMailPersistActiveReturnBoolDataProvider() {
 		return array(
 			'store 0, optin 0, hash NULL' => array(
 				'0',
@@ -199,17 +199,17 @@ class FormControllerTest extends UnitTestCase {
 	}
 
 	/**
-	 * Test for mailPersist()
+	 * Test for isMailPersistActive()
 	 *
 	 * @param int $store
 	 * @param int $optin
 	 * @param NULL|string $hash
 	 * @param bool $expectedResult
 	 * @return void
-	 * @dataProvider mailPersistReturnBoolDataProvider
+	 * @dataProvider isMailPersistActiveReturnBoolDataProvider
 	 * @test
 	 */
-	public function mailPersistReturnBool($store, $optin, $hash, $expectedResult) {
+	public function isMailPersistActiveReturnBool($store, $optin, $hash, $expectedResult) {
 		$settings = array(
 			'db' => array(
 				'enable' => $store
@@ -219,6 +219,6 @@ class FormControllerTest extends UnitTestCase {
 			)
 		);
 		$this->generalValidatorMock->_set('settings', $settings);
-		$this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('mailPersist', $hash));
+		$this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('isMailPersistActive', $hash));
 	}
 }
