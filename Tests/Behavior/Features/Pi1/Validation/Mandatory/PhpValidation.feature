@@ -1,9 +1,6 @@
 # Features/Pi1/Validation/PhpValidation.feature
 @Pi1 @Pi1Validation @Pi1ValidationMandatory @Pi1ValidationMandatoryPhpValidation
 Feature: PhpValidation
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # Form is rendered?
   Scenario: Searching for a ValidationForm

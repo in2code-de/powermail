@@ -1,9 +1,6 @@
 # Features/Pi1/Default/GetPrefill.feature
 @Pi1 @Pi1Prefill @Pi1PrefillGetPrefill
 Feature: GetPrefill
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # id=17 will be redirected to id=19 with some GET-Parameters
   Scenario: Check if Form can be prefilled with GET-Parameters

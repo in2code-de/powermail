@@ -1,9 +1,6 @@
 # Features/Pi1/Default/TypoScriptPrefill.feature
 @Pi1 @Pi1Prefill @Pi1PrefillTypoScriptPrefill
 Feature: TypoScriptPrefill
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   Scenario: Check if Form can be prefilled with TypoScript Configuration
     Given I am on "/index.php?id=16"

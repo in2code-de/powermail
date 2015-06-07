@@ -1,9 +1,6 @@
 # Features/Pi1/Default/ShortForm.feature
 @Pi1 @Pi1Default @Pi1DefaultShortForm
 Feature: ShortForm
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # L=0
   Scenario: Searching for a DefaultForm that does exist in german

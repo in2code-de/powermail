@@ -1,14 +1,11 @@
 # Features/Pi1/Default/ShortFormAndRedirect.feature
 @Pi1 @Pi1Default @Pi1DefaultShortFormAndRedirect
 Feature: ShortFormAndRedirect
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # German
   Scenario: Searching for a DefaultForm that does exist in german
     Given I am on "/index.php?id=51"
-    Then I should see "ShortFormAndRedirect"
+    Then I should see "ShortForm (Redirect)"
     Then I should see "Vorname"
     Then I should see "Nachname"
     Then I should see "E-Mail"
@@ -26,7 +23,7 @@ Feature: ShortFormAndRedirect
   # English
   Scenario: Searching for a DefaultForm that does exist in english
     Given I am on "/index.php?id=51&L=1"
-    Then I should see "ShortFormAndRedirect EN"
+    Then I should see "ShortForm (Redirect) EN"
     Then I should see "Firstname"
     Then I should see "Lastname"
     Then I should see "Email"

@@ -1,9 +1,6 @@
 # Features/Pi1/Default/Upload.feature
 @Pi1 @Pi1Default @Pi1DefaultUpload
 Feature: Upload
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   @javascript
   Scenario: Check if Uploads in a Form work as expected

@@ -1,9 +1,6 @@
 # Features/Pi1/Validation/NumberEmailValidation.feature
 @Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscNumberEmailValidation
 Feature: NumberEmailValidation
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # Test NumberEmailValidation Form with different values
   Scenario: Show NumberEmailValidation Form

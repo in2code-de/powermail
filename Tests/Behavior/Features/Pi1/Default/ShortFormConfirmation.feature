@@ -1,14 +1,11 @@
 # Features/Pi1/Default/ShortFormConfirmation.feature
 @Pi1 @Pi1Default @Pi1DefaultShortConfirmation
 Feature: ShortFormConfirmation
-  In order to see a word definition
-  As a website user
-  I need to be able to submit a form
 
   # German
   Scenario: Searching for a DefaultForm that does exist in german
     Given I am on "/index.php?id=72"
-    Then I should see "ShortFormConfirmation"
+    Then I should see "ShortForm (Confirmation)"
     Then I should see "Vorname"
     Then I should see "Nachname"
     Then I should see "E-Mail"
@@ -62,7 +59,7 @@ Feature: ShortFormConfirmation
   # English
   Scenario: Searching for a DefaultForm that does exist in english
     Given I am on "/index.php?id=72&L=1"
-    Then I should see "ShortFormConfirmation EN"
+    Then I should see "ShortForm (Confirmation) EN"
     Then I should see "Firstname"
     Then I should see "Lastname"
     Then I should see "Email"
