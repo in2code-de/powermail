@@ -144,7 +144,7 @@ class Export {
 		$this->setFieldList(
 			$this->getDefaultFieldListFromFirstMail($mails)
 		);
-		$this->createFileName();
+		$this->createRandomFileName();
 	}
 
 	/**
@@ -161,6 +161,8 @@ class Export {
 	}
 
 	/**
+	 * Send the export mail
+	 *
 	 * @return bool
 	 */
 	protected function sendEmail() {
@@ -179,6 +181,8 @@ class Export {
 	}
 
 	/**
+	 * Create bodytext for export mail
+	 *
 	 * @return string
 	 */
 	protected function createMailBody() {
@@ -205,6 +209,8 @@ class Export {
 	}
 
 	/**
+	 * Create export file content
+	 *
 	 * @return string
 	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidActionNameException
 	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException
@@ -236,6 +242,8 @@ class Export {
 	}
 
 	/**
+	 * Get a list with all default fields
+	 *
 	 * @param QueryResult $mails
 	 * @return array
 	 */
@@ -397,7 +405,7 @@ class Export {
 	 *
 	 * @return void
 	 */
-	protected function createFileName() {
+	protected function createRandomFileName() {
 		/**
 		 * Note:
 		 * \TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir
@@ -414,6 +422,19 @@ class Export {
 	 */
 	public function getFileName() {
 		return $this->fileName;
+	}
+
+	/**
+	 * Set a user defined filename
+	 *
+	 * @param string $fileName
+	 * @return Export
+	 */
+	public function setFileName($fileName = NULL) {
+		if ($fileName) {
+			$this->fileName = $fileName . '.' . $this->getFormat();
+		}
+		return $this;
 	}
 
 	/**
