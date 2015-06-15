@@ -25,4 +25,3 @@ Good to know
    SendingValuesToThirdPartySoftware/Index
    Debug/Index
    MainTypoScript/Index
-   GarbageCollector/Index

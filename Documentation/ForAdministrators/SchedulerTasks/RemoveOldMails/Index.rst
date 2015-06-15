@@ -6,7 +6,7 @@
 Remove old mails and answers
 ----------------------------
 
-If you activate this feature in Extension Manager Settings,
+If you activate this feature in **Extension Manager Settings**,
 you can use the scheduler backend module to remove old
 entries of mails and answers by a given number of days.
 

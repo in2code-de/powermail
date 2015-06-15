@@ -12,5 +12,6 @@ Scheduler Tasks
    :glob:
 
    GenerateExportMail/Index
-   CleanTypo3tempPowermailFolder/Index
+   RemoveOldMails/Index
    RemoveUnusedImages/Index
+   CleanTypo3tempPowermailFolder/Index
