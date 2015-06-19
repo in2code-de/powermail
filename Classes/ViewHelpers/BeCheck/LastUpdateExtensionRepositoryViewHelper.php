@@ -27,7 +27,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper {
 		if ($res) {
 			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 			if (!empty($row['last_update'])) {
-				return $row['last_update'];
+				return (int) $row['last_update'];
 			}
 		}
 		return 0;

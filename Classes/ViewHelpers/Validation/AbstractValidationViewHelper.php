@@ -56,8 +56,8 @@ class AbstractValidationViewHelper extends AbstractViewHelper {
 	 * @return int
 	 */
 	protected function getLanguageUid() {
-		return $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] ?
-			$GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] : 0;
+		return !empty($GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid']) ?
+			(int) $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] : 0;
 	}
 
 	/**
