@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Core\Tests\UnitTestCase,
-	\In2code\Powermail\Domain\Model\Form;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use In2code\Powermail\Domain\Model\Form;
 
 /***************************************************************
  *  Copyright notice
@@ -40,13 +40,13 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
 	 */
-	protected $abstractValidationViewHelperMock;
+	protected $enableParsleyAndAjaxViewHelperMock;
 
 	/**
 	 * @return void
 	 */
 	public function setUp() {
-		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+		$this->enableParsleyAndAjaxViewHelperMock = $this->getAccessibleMock(
 			'\In2code\Powermail\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelper',
 			array('dummy')
 		);
@@ -56,7 +56,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 	 * @return void
 	 */
 	public function tearDown() {
-		unset($this->generalValidatorMock);
+		unset($this->enableParsleyAndAjaxViewHelperMock);
 	}
 
 	/**
@@ -192,8 +192,8 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 		$form = new Form;
 		$form->_setProperty('uid', 123);
 
-		$this->abstractValidationViewHelperMock->_set('settings', $settings);
-		$result = $this->abstractValidationViewHelperMock->_callRef('render', $form, $additionalAttributes);
+		$this->enableParsleyAndAjaxViewHelperMock->_set('settings', $settings);
+		$result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render', $form, $additionalAttributes);
 		$this->assertSame($expectedResult, $result);
 	}
 }
