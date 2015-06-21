@@ -1,5 +1,5 @@
 # Features/Pi1/Default/Ajax.feature
-@Pi1 @Pi1Default @Pi1DefaultUploadAjax
+@Pi1 @Pi1Upload @Pi1DefaultUploadAjax
 Feature: AJAX Upload
 
   @javascript
