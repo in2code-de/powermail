@@ -3,6 +3,7 @@ namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
@@ -65,26 +66,39 @@ class BasicFileFunctions {
 	}
 
 	/**
-	 * Get Uniquename out of a relative path
+	 * Get unique/non-existing filename out of a relative path
+	 * 		func. replace \TYPO3\CMS\Core\Utility\File\BasicFileUtility::getUniqueName()
+	 * 		with endless limit for appending numbers
 	 *
 	 * @param string $filename
 	 * @param string $destinationPath Relative Path to destination
 	 * @param bool $addPath
 	 * @param bool $randomized
-	 * @return string
+	 * @return string new filename or filenameAndPath
 	 */
 	public static function getUniqueName($filename, $destinationPath, $addPath = TRUE, $randomized = FALSE) {
 		self::cleanFileName($filename);
 		self::getAndSetRandomizedFileName($filename, $randomized);
+		$absoluteDestinationPath = self::getAbsoluteFolder($destinationPath);
+		$fileInfo = GeneralUtility::split_fileref($filename);
+		$newFileName = $filename;
+		$newPathAndFileName = $absoluteDestinationPath . $fileInfo['file'];
 
-		/** @var \TYPO3\CMS\Core\Utility\File\BasicFileUtility $basicFileFunctions */
-		$basicFileFunctions = GeneralUtility::makeInstance('TYPO3\CMS\Core\Utility\File\BasicFileUtility');
-		$newFileName = $basicFileFunctions->getUniqueName(
-			$filename,
-			GeneralUtility::getFileAbsFileName($destinationPath)
-		);
-		if (!$addPath) {
-			$newFileName = basename($newFileName);
+		if (file_exists($newPathAndFileName)) {
+			$theTempFileBody = preg_replace('/_[0-9][0-9]$/', '', $fileInfo['filebody']);
+			$extension = $fileInfo['realFileext'] ? '.' . $fileInfo['realFileext'] : '';
+			for ($a = 1; TRUE; $a++) {
+				$appendix = '_' . sprintf('%02d', $a);
+				$newFileName = $theTempFileBody . $appendix . $extension;
+				$newPathAndFileName = $absoluteDestinationPath . $newFileName;
+				if (!file_exists($newPathAndFileName)) {
+					break;
+				}
+			}
+		}
+
+		if ($addPath) {
+			return $newPathAndFileName;
 		}
 		return $newFileName;
 	}
@@ -144,11 +158,13 @@ class BasicFileFunctions {
 		if (isset($_FILES['tx_powermail_pi1']['tmp_name']['field']) && self::hasFormAnUploadField($mail->getForm())) {
 			foreach (array_keys($_FILES['tx_powermail_pi1']['tmp_name']['field']) as $marker) {
 				foreach ($_FILES['tx_powermail_pi1']['tmp_name']['field'][$marker] as $key => $tmpName) {
-					$uniqueFileName = self::getUniqueName($_FILES['tx_powermail_pi1']['name']['field'][$marker][$key], $destinationPath);
-					if (!self::checkExtension($uniqueFileName, $allowedFileExtensions)) {
-						continue;
+					if (!empty($_FILES['tx_powermail_pi1']['name']['field'][$marker][$key])) {
+						$uniqueFileName = self::getUniqueName($_FILES['tx_powermail_pi1']['name']['field'][$marker][$key], $destinationPath);
+						if (!self::checkExtension($uniqueFileName, $allowedFileExtensions)) {
+							continue;
+						}
+						$result = GeneralUtility::upload_copy_move($tmpName, $uniqueFileName);
 					}
-					$result = GeneralUtility::upload_copy_move($tmpName, $uniqueFileName);
 				}
 			}
 		}
@@ -216,6 +232,7 @@ class BasicFileFunctions {
 	 */
 	public static function hasFormAnUploadField(Form $form) {
 		foreach ($form->getPages() as $page) {
+			/** @var Field $field */
 			foreach ($page->getFields() as $field) {
 				if ($field->getType() === 'file') {
 					return TRUE;
@@ -248,5 +265,19 @@ class BasicFileFunctions {
 			}
 		}
 		$filename = $newFilename;
+	}
+
+	/**
+	 * Return absolute path out of relative path
+	 * always with appending slash
+	 *
+	 * @param string $path relative path
+	 * @return string
+	 */
+	public static function getAbsoluteFolder($path) {
+		if (substr($path, -1, 1) !== '/') {
+			$path .= '/';
+		}
+		return GeneralUtility::getFileAbsFileName($path);
 	}
 }

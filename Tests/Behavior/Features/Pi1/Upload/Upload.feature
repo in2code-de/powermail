@@ -1,5 +1,5 @@
 # Features/Pi1/Default/Upload.feature
-@Pi1 @Pi1Default @Pi1DefaultUpload
+@Pi1 @Pi1Upload @Pi1DefaultUpload
 Feature: Upload
 
   @javascript

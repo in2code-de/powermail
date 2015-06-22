@@ -78,7 +78,9 @@ class AddOptionsToSelection {
 	 */
 	protected function addOptions() {
 		foreach ($this->getFieldOptionsFromTsConfig() as $value => $label) {
-			$this->addOption($value, $label);
+			if (substr($value, -1, 1) !== '.') {
+				$this->addOption($value, $label);
+			}
 		}
 	}
 

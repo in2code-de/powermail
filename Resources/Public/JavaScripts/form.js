@@ -118,46 +118,56 @@ function deleteAllFilesListener() {
  * @return void
  */
 function ajaxFormSubmit() {
+	var regularSubmitOnAjax = false;
+
 	// submit is called after parsley and html5 validation - so we don't have to check for errors
 	jQuery(document).on('submit', 'form[data-powermail-ajax]', function (e) {
 		var $this = jQuery(this);
 		var formUid = $this.data('powermail-form');
 
-		jQuery.ajax({
-			type: 'POST',
-			url: $this.prop('action'),
-			data: new FormData($this.get(0)),
-			contentType: false,
-			processData: false,
-			beforeSend: function() {
-				// add progressbar div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
-				var progressBar = jQuery('<div />').addClass('powermail_progressbar').html(
-					jQuery('<div />').addClass('powermail_progress').html(
-						jQuery('<div />').addClass('powermail_progess_inner')
-					)
-				);
-				jQuery('.powermail_submit', $this).parent().append(progressBar);
-				jQuery('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(progressBar);
-			},
-			complete: function() {
-				// remove progressbar
-				jQuery('.powermail_fieldwrap_submit', $this).find('.powermail_progressbar').remove();
-				deleteAllFilesListener();
-			},
-			success: function(data) {
-				var html = jQuery('*[data-powermail-form="' + formUid + '"]:first', data);
-				jQuery('*[data-powermail-form="' + formUid + '"]:first').closest('.tx-powermail').html(html);
-				// fire tabs and parsley again
-				if (jQuery.fn.powermailTabs) {
-					jQuery('.powermail_morestep').powermailTabs();
+		if (!regularSubmitOnAjax) {
+			jQuery.ajax({
+				type: 'POST',
+				url: $this.prop('action'),
+				data: new FormData($this.get(0)),
+				contentType: false,
+				processData: false,
+				beforeSend: function() {
+					// add progressbar div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
+					var progressBar = jQuery('<div />').addClass('powermail_progressbar').html(
+						jQuery('<div />').addClass('powermail_progress').html(
+							jQuery('<div />').addClass('powermail_progess_inner')
+						)
+					);
+					jQuery('.powermail_submit', $this).parent().append(progressBar);
+					jQuery('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(progressBar);
+				},
+				complete: function() {
+					// remove progressbar
+					jQuery('.powermail_fieldwrap_submit', $this).find('.powermail_progressbar').remove();
+					deleteAllFilesListener();
+				},
+				success: function(data) {
+					var html = jQuery('*[data-powermail-form="' + formUid + '"]:first', data);
+					if (html.length) {
+						jQuery('*[data-powermail-form="' + formUid + '"]:first').closest('.tx-powermail').html(html);
+						// fire tabs and parsley again
+						if (jQuery.fn.powermailTabs) {
+							jQuery('.powermail_morestep').powermailTabs();
+						}
+						if (jQuery.fn.parsley) {
+							jQuery('form[data-parsley-validate="data-parsley-validate"]').parsley();
+						}
+					} else {
+						// no form markup found, do a regular submit (e.g. on redirect)
+						regularSubmitOnAjax = true;
+						$this.submit();
+					}
 				}
-				if (jQuery.fn.parsley) {
-					jQuery('form[data-parsley-validate="data-parsley-validate"]').parsley();
-				}
-			}
-		});
+			});
 
-		e.preventDefault();
+			e.preventDefault();
+		}
 	});
 }
 

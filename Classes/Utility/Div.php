@@ -218,7 +218,7 @@ class Div {
 	 */
 	public static function getFormStartFromSession($formUid, array $settings) {
 		if (self::sessionCheckEnabled($settings)) {
-			return $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
+			return (int) $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
 		}
 		return 0;
 	}
@@ -247,7 +247,7 @@ class Div {
 		if (!$pid) {
 			$pid = $GLOBALS['TSFE']->id;
 		}
-		return $pid;
+		return (int) $pid;
 	}
 
 	/**
@@ -1101,7 +1101,7 @@ class Div {
 			}
 		}
 
-		return intval($pid);
+		return (int) $pid;
 	}
 
 	/**

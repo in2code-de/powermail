@@ -128,7 +128,7 @@ class AbstractMarker {
 			}
 		}
 
-		return $formUid;
+		return (int) $formUid;
 	}
 
 	/**
