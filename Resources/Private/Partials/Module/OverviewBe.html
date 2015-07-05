@@ -41,7 +41,7 @@
 							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_forms t3-icon-tx_powermail_domain_model_forms-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={form.uid}"> </span>
 						</td>
 						<td nowrap="nowrap">
-							<a title="Edit" onclick="window.location.href = 'alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[tx_powermail_domain_model_forms][{form.uid}]=edit'; return false;" href="#">
+							<a title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_forms',identifier:form.uid)}">
 								<span title="id={form.uid}">{form.title}</span>
 							</a>
 						</td>
@@ -71,8 +71,8 @@
 
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
-								<a class="btn" title="Edit" onclick="window.location.href = 'alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[tx_powermail_domain_model_forms][{form.uid}]=edit'; return false;" href="#">
-									<span class="t3-icon fa fa-desktop">&nbsp;</span>
+								<a class="btn" title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_forms',identifier:form.uid)}">
+									<span class="t3-icon fa fa-pencil">&nbsp;</span>
 								</a>
 							</div>
 						</td>

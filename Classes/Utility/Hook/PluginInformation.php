@@ -1,8 +1,9 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
-use In2code\Powermail\Utility\Configuration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Utility\BackendUtility;
+use In2code\Powermail\Utility\Configuration;
 use In2code\Powermail\Utility\Div;
 
 /***************************************************************
@@ -171,19 +172,10 @@ class PluginInformation {
 	 * @return string
 	 */
 	protected function buildEditFormLink() {
-		$editFormLink = Div::getSubFolderOfCurrentUrl();
-		$editFormLink .= 'typo3/alt_doc.php?edit[tx_powermail_domain_model_forms][';
-		$editFormLink .= $this->getFormProperty($this->getFieldFromFlexform('main', 'main.form'), 'uid');
-		$editFormLink .= ']=edit';
-		$editFormLink .= '&returnUrl=' . $this->getReturnUrl();
-		return $editFormLink;
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getReturnUrl() {
-		return rawurlencode(Div::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT'));
+		return BackendUtility::createEditUri(
+			'tx_powermail_domain_model_forms',
+			$this->getFormProperty($this->getFieldFromFlexform('main', 'main.form'), 'uid')
+		);
 	}
 
 	/**
