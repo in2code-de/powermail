@@ -116,7 +116,7 @@
 			<td nowrap="nowrap" class="">
 				<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-view openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
 
-				<a title="{f:translate(key: 'BackendListHelpEdit')}" onclick="window.location.href = 'alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[tx_powermail_domain_model_mails][{mail.uid}]=edit'; return false;" href="#">
+				<a title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_mails',identifier:mail.uid)}">
 					<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open">&nbsp;</span>
 				</a>
 

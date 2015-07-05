@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
+use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\Configuration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Utility\Div;
 
 /***************************************************************
  *  Copyright notice
@@ -168,13 +168,7 @@ class ShowFormNoteEditForm {
 	 * @return string
 	 */
 	protected function getEditFormLink($formUid) {
-		$returnUrl = rawurlencode(
-			Div::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT')
-		);
-		$editFormLink = Div::getSubFolderOfCurrentUrl();
-		$editFormLink .= 'typo3/alt_doc.php?edit[tx_powermail_domain_model_forms][' . $formUid . ']=edit';
-		$editFormLink .= '&returnUrl=' . $returnUrl;
-		return $editFormLink;
+		return BackendUtility::createEditUri('tx_powermail_domain_model_forms', $formUid);
 	}
 
 	/**

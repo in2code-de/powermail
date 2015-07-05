@@ -77,6 +77,7 @@ class TaskCommandController extends CommandController {
 	 * @param string $fieldList Define needed fields with a commasepareted uid list (empty = all default fields)
 	 * @param string $format Fileformat can be 'xls' or 'csv'
 	 * @param string $storageFolder path where to save export file
+	 * @param string $fileName Define a fix filename without extension (empty = random filename)
 	 * @return bool
 	 */
 	public function exportCommand(
@@ -89,7 +90,8 @@ class TaskCommandController extends CommandController {
 		$attachment = TRUE,
 		$fieldList = '',
 		$format = 'xls',
-		$storageFolder = 'typo3temp/tx_powermail/'
+		$storageFolder = 'typo3temp/tx_powermail/',
+		$fileName = NULL
 	) {
 		/** @var \In2code\Powermail\Utility\Export $export */
 		$export = $this->objectManager->get(
@@ -104,7 +106,8 @@ class TaskCommandController extends CommandController {
 			->setSubject($subject)
 			->setFieldList($fieldList)
 			->setAddAttachment($attachment)
-			->setStorageFolder($storageFolder);
+			->setStorageFolder($storageFolder)
+			->setFileName($fileName);
 		return $export->send();
 	}
 

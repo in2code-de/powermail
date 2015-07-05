@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -20,6 +21,6 @@ class IsDateTimeVariableInVariableViewHelper extends AbstractViewHelper {
 	 * @return bool
 	 */
 	public function render($obj, $prop) {
-		return is_a(ObjectAccess::getProperty($obj, $prop), '\DateTime');
+		return is_a(ObjectAccess::getProperty($obj, GeneralUtility::underscoredToLowerCamelCase($prop)), '\DateTime');
 	}
 }

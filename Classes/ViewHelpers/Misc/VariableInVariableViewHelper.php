@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -23,7 +24,7 @@ class VariableInVariableViewHelper extends AbstractViewHelper {
 			return $obj[$prop];
 		}
 		if (is_object($obj)) {
-			return ObjectAccess::getProperty($obj, $prop);
+			return ObjectAccess::getProperty($obj, GeneralUtility::underscoredToLowerCamelCase($prop));
 		}
 		return NULL;
 	}

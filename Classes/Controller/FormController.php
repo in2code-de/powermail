@@ -165,11 +165,11 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	protected function sendMailPreflight(Mail $mail, $hash = NULL) {
-		if ($this->settings['receiver']['enable']) {
-			$this->sendReceiverMail($mail, $hash);
-		}
 		if ($this->settings['sender']['enable'] && $this->div->getSenderMailFromArguments($mail)) {
 			$this->sendSenderMail($mail);
+		}
+		if ($this->settings['receiver']['enable']) {
+			$this->sendReceiverMail($mail, $hash);
 		}
 	}
 
