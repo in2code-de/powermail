@@ -79,7 +79,7 @@ Configuration
       fieldList
    :Description:
       Define the sorting of the fields that should be in the export file.
-      If this field is empty, all default fields are exported.
+      If this field is empty, all **default fields** are exported.
       A commaseparated list with field uids configures the export file. In addition you can use values like
       crdate, sender_name, sender_mail, receiver_mail, subject, marketing_referer_domain,
       marketing_referer, marketing_frontend_language, marketing_browser_language, marketing_country
@@ -100,6 +100,17 @@ Configuration
       Define where the export files should be stored.
    :Default:
       typo3temp/tx_powermail/
+
+ - :Property:
+      fileName
+   :Description:
+      You can define a fix filename for your export file without fileextension.
+      If you let this field empty, a randomized filename will be used.
+
+      **Privacy note:** Take care, that your export file is not available for all website-users,
+      especially if there are deserving protection datas in your export-files.
+   :Default:
+      [empty]
 
 Image example
 ^^^^^^^^^^^^^
