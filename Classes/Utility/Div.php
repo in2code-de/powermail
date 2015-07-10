@@ -496,11 +496,13 @@ class Div {
 	 * @param array $variables Variables
 	 * @return string Parsed string
 	 */
-	public function fluidParseString($string, $variables = array()) {
-		$parseObject = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
-		$parseObject->setTemplateSource($string);
-		$parseObject->assignMultiple($variables);
-		return $parseObject->render();
+	public static function fluidParseString($string, $variables = array()) {
+		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $standaloneView */
+		$standaloneView = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+			->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+		$standaloneView->setTemplateSource($string);
+		$standaloneView->assignMultiple($variables);
+		return $standaloneView->render();
 	}
 
 	/**
@@ -622,7 +624,7 @@ class Div {
 			$settings = GeneralUtility::trimExplode('|', $line, FALSE);
 			$value = (isset($settings[1]) ? $settings[1] : $settings[0]);
 			$options[] = array(
-				'label' => $settings[0],
+				'label' => self::fluidParseString($settings[0]),
 				'value' => $value,
 				'selected' => isset($settings[2]) ? 1 : 0
 			);

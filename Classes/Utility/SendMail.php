@@ -109,7 +109,7 @@ class SendMail {
 			'subject'
 		);
 		foreach ($parse as $value) {
-			$email[$value] = $this->div->fluidParseString($email[$value], $this->div->getVariablesWithMarkersFromMail($mail));
+			$email[$value] = div::fluidParseString($email[$value], $this->div->getVariablesWithMarkersFromMail($mail));
 		}
 
 		// Debug Output
