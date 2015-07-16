@@ -181,7 +181,7 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	protected function sendReceiverMail(Mail $mail, $hash = NULL) {
-		$receiverString = $this->div->fluidParseString(
+		$receiverString = div::fluidParseString(
 			$this->settings['receiver']['email'],
 			$this->div->getVariablesWithMarkersFromMail($mail)
 		);

@@ -151,7 +151,7 @@ This extension allows you to:
 - Extend powermail with a complete new field type (Just a small "Show Text" example)
 - Extend powermail with an own Php and JavaScript validator (ZIP validator - number has to start with 8)
 - Extend powermail with new field properties (readonly and prepend text from Textarea)
-- Extend powermail with an example SignalSlot (see ext_localconf.php and EXT:powermailextended\Classes\Controller\FormController.php)
+- Extend powermail with an example SignalSlot (see ext_localconf.php and EXT:powermailextended/Classes/Controller/FormController.php)
 
 JavaScript Validation by Hand
 """""""""""""""""""""""""""""

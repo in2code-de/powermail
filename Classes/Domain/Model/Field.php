@@ -47,7 +47,7 @@ class Field extends AbstractEntity {
 
 	/**
 	 * type
-	 * 		Powermail basic field types are:
+	 * 		Powermail field types are:
 	 * 		"input", "textarea", "select", "check", "radio"
 	 * 		"submit", "captcha", "reset", "text", "content"
 	 * 		"html", "password", "file", "hidden", "date",
@@ -211,7 +211,7 @@ class Field extends AbstractEntity {
 	 * @return string $title
 	 */
 	public function getTitle() {
-		return $this->title;
+		return div::fluidParseString($this->title);
 	}
 
 	/**

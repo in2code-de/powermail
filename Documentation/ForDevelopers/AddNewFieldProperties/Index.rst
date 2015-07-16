@@ -37,7 +37,7 @@ Extend powermail with an own extension
 You have to add one or more fields into tx_powermail_domain_model_fields, describe it with additional TCA, add new Models and change the HTML-Template as you want.
 You can add a new extension with an example key powermailextended.
 
-EXT:powermailextended\ext_tables.sql:
+EXT:powermailextended/ext_tables.sql:
 ::
 
    #
@@ -48,7 +48,7 @@ EXT:powermailextended\ext_tables.sql:
      tx_powermailextended_powermail_readonly tinyint(4) unsigned DEFAULT '0' NOT NULL
    );
 
-EXT:powermailextended\ext_tables.php:
+EXT:powermailextended/ext_tables.php:
 ::
 
    <?php
@@ -64,7 +64,6 @@ EXT:powermailextended\ext_tables.php:
    /**
     * extend powermail fields tx_powermail_domain_model_fields
     */
-   \TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tx_powermail_domain_model_fields');
    $tempColumns = array (
    	'tx_powermailextended_powermail_text' => array(
  		'exclude' => 1,
@@ -86,7 +85,7 @@ EXT:powermailextended\ext_tables.php:
    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
    	'tx_powermail_domain_model_fields',
    	$tempColumns,
-   	1
+   	TRUE
    );
    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
    	'tx_powermail_domain_model_fields',
@@ -95,7 +94,7 @@ EXT:powermailextended\ext_tables.php:
    	'after:own_marker_select'
    );
 
-EXT:powermailextended\Configuration\TypoScript\setup.txt:
+EXT:powermailextended/Configuration/TypoScript/setup.txt:
 ::
 
   # Add own Partials
@@ -157,7 +156,7 @@ EXT:powermailextended\Configuration\TypoScript\setup.txt:
   	}
   }
 
-EXT:powermailextended\Resources\Private\Partials\Form\Input.html:
+EXT:powermailextended/Resources/Private/Partials/Form/Input.html:
 ::
 
   {namespace vh=In2code\Powermail\ViewHelpers}
@@ -195,7 +194,7 @@ EXT:powermailextended\Resources\Private\Partials\Form\Input.html:
 
   </div>
 
-EXT:powermailextended\Classes\Domain\Model\Field.php:
+EXT:powermailextended/Classes/Domain/Model/Field.php:
 ::
 
   <?php
@@ -252,7 +251,7 @@ EXT:powermailextended\Classes\Domain\Model\Field.php:
   	}
   }
 
-EXT:powermailextended\Classes\Domain\Model\Page.php:
+EXT:powermailextended/Classes/Domain/Model/Page.php:
 ::
 
   <?php
@@ -287,7 +286,7 @@ EXT:powermailextended\Classes\Domain\Model\Page.php:
   	}
   }
 
-EXT:powermailextended\Classes\Domain\Model\Form.php:
+EXT:powermailextended/Classes/Domain/Model/Form.php:
 ::
 
   <?php
@@ -322,7 +321,7 @@ EXT:powermailextended\Classes\Domain\Model\Form.php:
   	}
   }
 
-EXT:powermailextended\Classes\Domain\Repository\FormRepository.php:
+EXT:powermailextended/Classes/Domain/Repository/FormRepository.php:
 ::
 
   <?php
@@ -335,6 +334,8 @@ EXT:powermailextended\Classes\Domain\Repository\FormRepository.php:
   class FormRepository extends \In2code\Powermail\Domain\Repository\FormRepository {}
 
 
+Last but not least don't forget to add your static TypoScript template to your powermail page, otherwise the partials will not be used.
+
 Example Code
 """"""""""""
 
@@ -344,4 +345,4 @@ This extension allows you to:
 - Extend powermail with a complete new field type (Just a small "Show Text" example)
 - Extend powermail with an own Php and JavaScript validator (ZIP validator - number has to start with 8)
 - Extend powermail with new field properties (readonly and prepend text from Textarea)
-- Extend powermail with an example SignalSlot (see ext_localconf.php and EXT:powermailextended\Classes\Controller\FormController.php)
+- Extend powermail with an example SignalSlot (see ext_localconf.php and EXT:powermailextended/Classes/Controller/FormController.php)
