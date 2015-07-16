@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.5.1
+   :Date:
+      2015-07-16
+   :Changes:
+      Bugfix #39218, #68044
+
+      Task #68236, #68237
+
+      See http://forge.typo3.org for Details
+
+ - :Version:
       2.5.0
    :Date:
       2015-07-05
