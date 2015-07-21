@@ -54,6 +54,8 @@ Property                                                    Data Type           
 :ref:`goodtoknow-enable`                                    0 = disable | 1 = enable                   no                      1
 factor_                                                     :ref:`t3tsref:data-type-integer`           no                      75
 email_                                                      :ref:`t3tsref:data-type-string`            no                      *empty*
+:ref:`goodtoknow-emailsubject`                              :ref:`t3tsref:data-type-string`            no                      Spam in powermail form recognized
+:ref:`goodtoknow-emailtemplate`                             :ref:`t3tsref:data-type-string`            no                      EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
 :ref:`goodtoknow-indicatorhoneypod`                         :ref:`t3tsref:data-type-integer`           no                      5
 :ref:`goodtoknow-indicatorlink`                             :ref:`t3tsref:data-type-integer`           no                      3
 :ref:`goodtoknow-indicatorlinklimit`                        :ref:`t3tsref:data-type-integer`           no                      2
@@ -98,12 +100,32 @@ email
 Notification Email to Admin if spam recognized
 
 
+.. _goodtoknow-emailsubject:
+
+emailSubject
+""""""""""""
+
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.emailSubject =` :ref:`t3tsref:data-type-string`
+
+Notification Email subject to Admin if spam recognized
+
+
+.. _goodtoknow-emailtemplate:
+
+emailTemplate
+"""""""""""""
+
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.emailTemplate =` :ref:`t3tsref:data-type-string`
+
+Path to mail template file
+
+
 .. _goodtoknow-indicatorhoneypod:
 
 indicator.honeypod
 """"""""""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.honeypod =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.honeypod =` :ref:`t3tsref:data-type-string`
 
 A Honeypod is an invisible (CSS) field which should not filled with
 any value. If it's even filled, it could be a machine.
@@ -118,7 +140,7 @@ disables this check completely)
 indicator.link
 """"""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.link =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.link =` :ref:`t3tsref:data-type-string`
 
 Checks the number of Links in the mail. The number of links is a good
 indication of a spammail.
@@ -132,7 +154,7 @@ disables this check completely)
 indicator.linkLimit
 """""""""""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.linkLimit =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.linkLimit =` :ref:`t3tsref:data-type-string`
 
 Limit of links allowed. If there are more links than allowed, the check fails.
 
@@ -142,7 +164,7 @@ Limit of links allowed. If there are more links than allowed, the check fails.
 indicator.name
 """"""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.name =` :ref:`t3tsref:data-type-integer`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.name =` :ref:`t3tsref:data-type-integer`
 
 Compares fields with marker “firstname” and “lastname” (or “vorname”
 and “nachname”). The value may not be the same.
@@ -155,7 +177,7 @@ disables this check completely)
 indicator.session
 """""""""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.session =` :ref:`t3tsref:data-type-integer`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.session =` :ref:`t3tsref:data-type-integer`
 
 If a user opens the form a timestamp is set in a browser-session. If
 the session is empty on submit, it could be a machine.
@@ -169,7 +191,7 @@ disables this check completely)
 indicator.unique
 """"""""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.unique =` :ref:`t3tsref:data-type-integer`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.unique =` :ref:`t3tsref:data-type-integer`
 
 Compares the values of all fields. If different fields have the same
 value, this could be spam.
@@ -183,7 +205,7 @@ disables this check completely)
 indicator.blacklistString
 """""""""""""""""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.blacklistString =` :ref:`t3tsref:data-type-integer`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.blacklistString =` :ref:`t3tsref:data-type-integer`
 
 Checks mails to not allowed string values.
 
@@ -196,7 +218,7 @@ disables this check completely)
 indicator.blacklistStringValues
 """""""""""""""""""""""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.blacklistStringValues =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.blacklistStringValues =` :ref:`t3tsref:data-type-string`
 
 Define the string that are not allowed.
 
@@ -209,7 +231,7 @@ Blacklisted values (default values should be extended with your experience)
 indicator.blacklistIp
 """""""""""""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.blacklistIp =` :ref:`t3tsref:data-type-integer`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.blacklistIp =` :ref:`t3tsref:data-type-integer`
 
 Checks if the sender is not in the IP-Blacklist.
 
@@ -223,7 +245,7 @@ disables this check completely)
 indicator.blacklistIpValues
 """""""""""""""""""""""""""
 
-:typoscript:`plugin.tx_powermail.settings.setup.indicator.blacklistIpValues =` :ref:`t3tsref:data-type-string`
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.blacklistIpValues =` :ref:`t3tsref:data-type-string`
 
 Define the IP-Addreses that are not allowed.
 
