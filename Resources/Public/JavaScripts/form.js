@@ -119,6 +119,7 @@ function deleteAllFilesListener() {
  */
 function ajaxFormSubmit() {
 	var regularSubmitOnAjax = false;
+	var redirectUri = getValueFromField($('#redirectUri'));
 
 	// submit is called after parsley and html5 validation - so we don't have to check for errors
 	jQuery(document).on('submit', 'form[data-powermail-ajax]', function (e) {
@@ -159,9 +160,13 @@ function ajaxFormSubmit() {
 							jQuery('form[data-parsley-validate="data-parsley-validate"]').parsley();
 						}
 					} else {
-						// no form markup found, do a regular submit (e.g. on redirect)
+						// no form markup found try to redirect via clientside
+						if (redirectUri) {
+							window.location = redirectUri;
+						} else {
+							$this.submit();
+						}
 						regularSubmitOnAjax = true;
-						$this.submit();
 					}
 				}
 			});
@@ -169,6 +174,20 @@ function ajaxFormSubmit() {
 			e.preventDefault();
 		}
 	});
+}
+
+/**
+ * Get value of field and check if element exists
+ *
+ * @param element
+ * @returns {string}
+ */
+function getValueFromField(element) {
+	var value = '';
+	if (element.length) {
+		value = element.val();
+	}
+	return value;
 }
 
 /**

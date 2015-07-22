@@ -8,4 +8,11 @@
 		This is the current pid for ajax calls (know TypoScript)
 	</f:comment>
 	<input type="hidden" id="powermailPid" value="{Pid}" />
+
+	<f:comment>
+		If there is a redirect target, it will be stored here for AJAX requests
+	</f:comment>
+	<f:if condition="{settings.misc.ajaxSubmit}">
+		<input type="hidden" id="redirectUri" value="{redirectUri}" />
+	</f:if>
 </div>

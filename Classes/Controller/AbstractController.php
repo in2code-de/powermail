@@ -270,14 +270,48 @@ abstract class AbstractController extends ActionController {
 	}
 
 	/**
+	 * Get redirec target URI
+	 *
+	 * @return string
+	 */
+	protected function getRedirectTargetUri() {
+		$target = NULL;
+
+		// redirect from flexform
+		if (!empty($this->settings['thx']['redirect'])) {
+			$target = $this->settings['thx']['redirect'];
+		}
+
+		// redirect from TypoScript cObject
+		$targetFromTypoScript = $this->cObj->cObjGetSingle(
+			$this->conf['thx.']['overwrite.']['redirect'],
+			$this->conf['thx.']['overwrite.']['redirect.']
+		);
+		if (!empty($targetFromTypoScript)) {
+			$target = $targetFromTypoScript;
+		}
+
+		// if redirect target
+		if ($target) {
+			$this->uriBuilder->setTargetPageUid($target);
+			return $this->uriBuilder->build();
+		}
+		return NULL;
+	}
+
+	/**
 	 * Assigns all values, which should be available in all views
 	 *
 	 * @return void
 	 */
 	protected function assignForAll() {
-		$frontendLanguageUid = $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'];
-		$this->view->assign('languageUid', ($frontendLanguageUid ? $frontendLanguageUid : 0));
-		$this->view->assign('Pid', $GLOBALS['TSFE']->id);
+		$this->view->assignMultiple(
+			array(
+				'languageUid' => (int) $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'],
+				'Pid' => (int) $GLOBALS['TSFE']->id,
+				'redirectUri' => $this->getRedirectTargetUri()
+			)
+		);
 	}
 
 	/**
