@@ -1,10 +1,10 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Validation;
 
-use \TYPO3\CMS\Core\Tests\UnitTestCase,
-	\In2code\Powermail\Domain\Model\Field,
-	\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext,
-	\TYPO3\CMS\Extbase\Mvc\Request;
+use In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
+use TYPO3\CMS\Extbase\Mvc\Request;
 
 /***************************************************************
  *  Copyright notice

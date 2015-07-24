@@ -1,10 +1,10 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Validator;
 
-use \TYPO3\CMS\Core\Tests\UnitTestCase,
-	\In2code\Powermail\Domain\Model\Field,
-	\In2code\Powermail\Domain\Model\Mail,
-	\In2code\Powermail\Domain\Model\Answer;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Model\Answer;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice

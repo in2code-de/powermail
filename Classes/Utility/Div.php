@@ -497,6 +497,9 @@ class Div {
 	 * @return string Parsed string
 	 */
 	public static function fluidParseString($string, $variables = array()) {
+		if (empty($string)) {
+			return '';
+		}
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $standaloneView */
 		$standaloneView = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
 			->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');

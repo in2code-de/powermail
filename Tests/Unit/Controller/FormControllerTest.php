@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Tests\Controller;
 
+use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice

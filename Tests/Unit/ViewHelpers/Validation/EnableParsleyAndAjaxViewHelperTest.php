@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Validation;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
 use In2code\Powermail\Domain\Model\Form;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice

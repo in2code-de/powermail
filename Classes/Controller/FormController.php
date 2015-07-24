@@ -307,33 +307,13 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	protected function redirectToTarget() {
+		$redirectTargetUri = $this->getRedirectTargetUri();
 		if (
-			$this->request->getControllerActionName() === 'confirmation' ||
-			(!empty($this->settings['main']['optin']) && empty($this->piVars['hash']))
+			!empty($redirectTargetUri) &&
+			$this->request->getControllerActionName() !== 'confirmation' &&
+			!(!empty($this->settings['main']['optin']) && empty($this->piVars['hash']))
 		) {
-			return;
-		}
-		$target = NULL;
-
-			// redirect from flexform
-		if (!empty($this->settings['thx']['redirect'])) {
-			$target = $this->settings['thx']['redirect'];
-		}
-
-			// redirect from TypoScript cObject
-		$targetFromTypoScript = $this->cObj->cObjGetSingle(
-			$this->conf['thx.']['overwrite.']['redirect'],
-			$this->conf['thx.']['overwrite.']['redirect.']
-		);
-		if (!empty($targetFromTypoScript)) {
-			$target = $targetFromTypoScript;
-		}
-
-			// if redirect target
-		if ($target) {
-			$this->uriBuilder->setTargetPageUid($target);
-			$link = $this->uriBuilder->build();
-			$this->redirectToUri($link);
+			$this->redirectToUri($redirectTargetUri);
 		}
 	}
 
@@ -362,7 +342,7 @@ class FormController extends AbstractController {
 			->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
 			->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
 			->setMarketingPageFunnel($marketingInfos['pageFunnel']);
-		if (intval($GLOBALS['TSFE']->fe_user->user['uid']) > 0) {
+		if ((int) $GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
 			$mail->setFeuser(
 				$this->userRepository->findByUid(Div::getPropertyFromLoggedInFeUser('uid'))
 			);

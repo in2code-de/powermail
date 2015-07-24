@@ -1,12 +1,12 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use \TYPO3\CMS\Core\Tests\UnitTestCase,
-	\In2code\Powermail\Utility\BasicFileFunctions,
-	\In2code\Powermail\Domain\Model\Field,
-	\In2code\Powermail\Domain\Model\Page,
-	\In2code\Powermail\Domain\Model\Form,
-	\TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use In2code\Powermail\Utility\BasicFileFunctions;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Page;
+use In2code\Powermail\Domain\Model\Form;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***************************************************************
  *  Copyright notice
