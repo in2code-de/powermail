@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use \TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice

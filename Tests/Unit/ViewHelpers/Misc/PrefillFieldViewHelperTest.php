@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Tests\ViewHelpers\Misc;
 
-use \TYPO3\CMS\Core\Tests\UnitTestCase,
-	\In2code\Powermail\Domain\Model\Field,
-	\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
  *  Copyright notice

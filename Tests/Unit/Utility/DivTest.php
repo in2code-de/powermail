@@ -1,11 +1,11 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use \TYPO3\CMS\Core\Tests\UnitTestCase,
-	\In2code\Powermail\Utility\Div,
-	\In2code\Powermail\Domain\Model\Answer,
-	\In2code\Powermail\Domain\Model\Field,
-	\In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Domain\Model\Answer;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
