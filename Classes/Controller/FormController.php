@@ -307,13 +307,14 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	protected function redirectToTarget() {
+		$redirectTargetUri = $this->getRedirectTargetUri();
 		if (
-			$this->request->getControllerActionName() === 'confirmation' ||
-			(!empty($this->settings['main']['optin']) && empty($this->piVars['hash']))
+			!empty($redirectTargetUri) &&
+			$this->request->getControllerActionName() !== 'confirmation' &&
+			!(!empty($this->settings['main']['optin']) && empty($this->piVars['hash']))
 		) {
-			return;
+			$this->redirectToUri($redirectTargetUri);
 		}
-		$this->redirectToUri($this->getRedirectTargetUri());
 	}
 
 	/**
