@@ -1,7 +1,9 @@
 jQuery(document).ready(function($) {
+	var $marketingInformation = $('#powermail_marketing_information');
 	var data = '';
-	data += 'tx_powermail_pi1[language]=' + $('#powermail_marketing_information').data('language');
-	data += '&tx_powermail_pi1[pid]=' + $('#powermail_marketing_information').data('pid');
+	data += 'tx_powermail_pi1[language]=' + $marketingInformation.data('language');
+	data += '&id=' + $marketingInformation.data('pid');
+	data += '&tx_powermail_pi1[pid]=' + $marketingInformation.data('pid');
 	data += '&tx_powermail_pi1[mobileDevice]=' + (isMobile() ? 1 : 0);
 	data += '&tx_powermail_pi1[referer]=' + encodeURIComponent(document.referrer);
 	jQuery.ajax({
@@ -22,12 +24,9 @@ function isMobile() {
 		iphone:ua.match(/(iPhone|iPod|iPad)/),
 		blackberry:ua.match(/BlackBerry/),
 		android:ua.match(/Android/)
-	}
+	};
 
-	if (checker.iphone || checker.blackberry || checker.android) {
-		return true;
-	}
-	return false;
+	return (checker.iphone || checker.blackberry || checker.android);
 }
 
 /**
