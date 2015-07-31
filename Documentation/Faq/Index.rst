@@ -367,6 +367,23 @@ I upgraded powermail and a white page comes up
 See explanation in part "For Administrators" and "Upgrade". If you make an upgrade, only deleting the cache files in typo3temp may not help.
 Please clean all caches in the install tool and try again.
 
+.. _therequestedviewwasnotfoundafterupgrade:
+
+I upgraded powermail and a message "Sorry, the requested view was not found" comes up
+-------------------------------------------------------------------------------------
+
+If you are upgrading from powermail 1.x to 2.x it may happen, that you are using outdated TypoScript like:
+
+.. code-block:: text
+
+	plugin.tx_powermail_pi1 {
+		format.datetime = %d-%m-%Y %H:%M
+		format.date = %d-%m-%Y
+	}
+
+This lines of TypoScript crashes the behaviour of AbstractController::resolveViewObjectName().
+Please remove it, clear caches (in Install Tool) and try again.
+
 .. _ihaveaproblem:
 
 I have a problem, what can I do?
