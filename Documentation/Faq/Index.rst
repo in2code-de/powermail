@@ -297,6 +297,23 @@ example Footer could be:
 	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Marketing.js?1400758352" type="text/javascript"></script>
 	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/powermail_frontend.js?1400758352" type="text/javascript"></script>
 
+.. _datetimepickernotworking:
+
+The datetimepicker is not working – what's wrong?
+-------------------------------------------------
+
+First of all, check if there are all JavaScript loaded correctly (see :ref:`javascriptvalidationdoesnotwork`).
+In addition the datetimepicker needs some CSS to get shown in frontend. You can try to add the demo.css in Static TypoScript Template section.
+
+If you want to get more information to the used datetimepicker (JavaScript, CSS, examples, etc...) see:
+
+* http://xdsoft.net/jqplugins/datetimepicker
+* https://github.com/xdan/datetimepicker
+
+*Note:* There is a check, if the browser supports fields like input[type="date"] (e.g. Chrome).
+Per default the datetimepicker is disabled in this case.
+If you want to enforce datetimepicker for all browsers, you can enable this via TypoScript Constants.
+
 .. _marketinginformationnotworking:
 
 Marketing Information are not working – what's wrong?
