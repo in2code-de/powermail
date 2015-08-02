@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Utility\Configuration;
 
 /**
@@ -144,17 +145,15 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	/**
 	 * Get value from existing answer for edit view
 	 *
-	 * @return null
+	 * @return string|array
 	 */
 	protected function getFromMail() {
-		$value = NULL;
+		$value = '';
 		if ($this->getMail() !== NULL && $this->getMail()->getAnswers()) {
 			foreach ($this->getMail()->getAnswers() as $answer) {
+				/** @var Answer $answer */
 				if ($answer->getField() === $this->getField()) {
-					$value = $answer->getValue();
-					if (is_array($value)) {
-						$value = $value[0];
-					}
+					return $answer->getValue();
 				}
 			}
 		}
