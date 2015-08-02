@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -211,7 +211,7 @@ class Field extends AbstractEntity {
 	 * @return string $title
 	 */
 	public function getTitle() {
-		return div::fluidParseString($this->title);
+		return DivUtility::fluidParseString($this->title);
 	}
 
 	/**
@@ -293,7 +293,7 @@ class Field extends AbstractEntity {
 	 * @return array
 	 */
 	public function getModifiedSettings() {
-		return Div::optionArray(
+		return DivUtility::optionArray(
 			$this->getSettings(),
 			$this->getCreateFromTyposcript()
 		);

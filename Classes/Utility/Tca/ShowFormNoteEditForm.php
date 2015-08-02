@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Utility\Tca;
 
 use In2code\Powermail\Utility\BackendUtility;
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -262,7 +262,7 @@ class ShowFormNoteEditForm {
 	 * @return array
 	 */
 	protected function getPagesFromForm($uid) {
-		if (Configuration::isReplaceIrreWithElementBrowserActive()) {
+		if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
 			return $this->getPagesFromFormAlternative($uid);
 		}
 		$result = array();
@@ -289,7 +289,7 @@ class ShowFormNoteEditForm {
 	 * @return array
 	 */
 	protected function getFieldsFromForm($uid) {
-		if (Configuration::isReplaceIrreWithElementBrowserActive()) {
+		if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
 			return $this->getFieldsFromFormAlternative($uid);
 		}
 		$result = array();

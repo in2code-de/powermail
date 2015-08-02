@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Utility;
+namespace In2code\Powermail\Tests\Domain\Service;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -28,16 +28,16 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  ***************************************************************/
 
 /**
- * CalculatingCaptcha Tests
+ * CalculatingCaptchaService Tests
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class CalculatingCaptchaTest extends UnitTestCase {
+class CalculatingCaptchaServiceTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Utility\CalculatingCaptcha
+	 * @var \In2code\Powermail\Domain\Service\CalculatingCaptchaService
 	 */
 	protected $generalValidatorMock;
 
@@ -46,7 +46,7 @@ class CalculatingCaptchaTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\CalculatingCaptcha',
+			'\In2code\Powermail\Domain\Service\CalculatingCaptchaService',
 			array('dummy')
 		);
 		$this->generalValidatorMock->_set(

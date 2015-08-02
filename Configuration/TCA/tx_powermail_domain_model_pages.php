@@ -1,5 +1,5 @@
 <?php
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 $pagesTca = array(
 	'ctrl' => array(
@@ -211,7 +211,7 @@ $pagesTca = array(
 /**
  * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
  */
-if (Configuration::isL10nModeMergeActive()) {
+if (ConfigurationUtility::isL10nModeMergeActive()) {
 	$pagesTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
 }
 

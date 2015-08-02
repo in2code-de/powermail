@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Utility;
+namespace In2code\Powermail\Domain\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -34,7 +34,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class SaveToAnyTable {
+class SaveToAnyTableService {
 
 	/**
 	 * Database Table to store

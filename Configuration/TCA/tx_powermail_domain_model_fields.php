@@ -1,5 +1,5 @@
 <?php
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 /**
  * Fieldtypes
@@ -932,7 +932,7 @@ $fieldsTca = array(
 /**
  * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
  */
-if (Configuration::isL10nModeMergeActive()) {
+if (ConfigurationUtility::isL10nModeMergeActive()) {
 	$fieldsTca['columns']['path']['l10n_mode'] = 'mergeIfNotBlank';
 	$fieldsTca['columns']['sender_email']['l10n_mode'] = 'mergeIfNotBlank';
 	$fieldsTca['columns']['sender_name']['l10n_mode'] = 'mergeIfNotBlank';

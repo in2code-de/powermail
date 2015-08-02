@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Utility;
+namespace In2code\Powermail\Domain\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -35,7 +35,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class FormConverter {
+class FormConverterService {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -623,7 +623,7 @@ class FormConverter {
 			function($matches) use ($form) {
 				$uid = $matches[1];
 				if ($form['sys_language_uid'] > 0) {
-					$uid = FormConverter::getDefaultUidFromOldLocalizedFieldUid($form, $uid);
+					$uid = FormConverterService::getDefaultUidFromOldLocalizedFieldUid($form, $uid);
 				}
 				return '{uid' . $uid . '}';
 			},

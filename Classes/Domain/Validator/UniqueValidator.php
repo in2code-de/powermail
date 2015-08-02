@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /**
  * UniqueValidator
@@ -42,7 +42,7 @@ class UniqueValidator extends AbstractValidator {
 							$marker,
 							$answer->getValue(),
 							$mail->getForm(),
-							Div::getStoragePage($this->settings['main']['pid'])
+							DivUtility::getStoragePage($this->settings['main']['pid'])
 						)->count()
 					) {
 						$this->setErrorAndMessage($answer->getField(), 'unique');

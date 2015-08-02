@@ -1,5 +1,5 @@
 <?php
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 $mailsTca = array(
 	'ctrl' => array(
@@ -359,7 +359,7 @@ $mailsTca = array(
 	),
 );
 
-if (Configuration::isDisableMarketingInformationActive()) {
+if (ConfigurationUtility::isDisableMarketingInformationActive()) {
 	foreach (array_keys($mailsTca['columns']) as $columnName) {
 		if (strpos($columnName, 'marketing_') === 0) {
 			unset($mailsTca['columns'][$columnName]);

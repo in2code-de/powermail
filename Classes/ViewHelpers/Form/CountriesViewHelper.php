@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Form;
 
+use In2code\Powermail\Domain\Service\CountriesFromStaticInfoTablesService;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -26,8 +27,11 @@ class CountriesViewHelper extends AbstractViewHelper {
 
 		// get countries from static_info_tables
 		if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
-			$countriesFromStaticInfoTables = $this->objectManager->get('In2code\Powermail\Utility\CountriesFromStaticInfoTables');
-			$countries = $countriesFromStaticInfoTables->getCountries($key, $value, $sortbyField, $sorting);
+			/** @var CountriesFromStaticInfoTablesService $countriesFromStaticInfoTablesService */
+			$countriesFromStaticInfoTablesService = $this->objectManager->get(
+				'In2code\Powermail\Domain\Service\CountriesFromStaticInfoTablesService'
+			);
+			$countries = $countriesFromStaticInfoTablesService->getCountries($key, $value, $sortbyField, $sorting);
 		}
 
 		return $countries;

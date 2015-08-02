@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 /**
  * Prefill a multi field
@@ -459,7 +459,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper {
 	 * @return bool
 	 */
 	protected function isCachedForm() {
-		return Configuration::isEnableCachingActive();
+		return ConfigurationUtility::isEnableCachingActive();
 	}
 
 	/**

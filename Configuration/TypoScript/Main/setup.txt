@@ -504,6 +504,19 @@ plugin.tx_powermail {
 
 
 
+			# save submitted values in session. "temporary" as long as the browser is open or "permanently" with a cookie)
+			saveSession {
+				firstname = TEXT
+				firstname.field = firstname
+				firstname._save = temporary
+
+				lastname = TEXT
+				lastname.field = firstname
+				lastname._save = temporary
+			}
+
+
+
 			marketing {
 
 				# Use Google Adwords Conversion JavaScript on form submit

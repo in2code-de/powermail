@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use In2code\Powermail\Utility\BasicFileFunctions;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Domain\Model\Form;
@@ -33,16 +33,16 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  ***************************************************************/
 
 /**
- * BasicFileFunctions Tests
+ * BasicFileUtility Tests
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class BasicFileFunctionsTest extends UnitTestCase {
+class BasicFileUtiltyTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Utility\BasicFileFunctions
+	 * @var \In2code\Powermail\Utility\BasicFileUtility
 	 */
 	protected $generalValidatorMock;
 
@@ -51,7 +51,7 @@ class BasicFileFunctionsTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\BasicFileFunctions',
+			'\In2code\Powermail\Utility\BasicFileUtility',
 			array('dummy')
 		);
 	}
@@ -125,7 +125,7 @@ class BasicFileFunctionsTest extends UnitTestCase {
 	 * @test
 	 */
 	public function cleanFileNameReturnBool($filename, $replace, $expectedFilename) {
-		BasicFileFunctions::cleanFileName($filename, $replace);
+		BasicFileUtility::cleanFileName($filename, $replace);
 		$this->assertSame($expectedFilename, $filename);
 	}
 
@@ -308,7 +308,7 @@ class BasicFileFunctionsTest extends UnitTestCase {
 	 * @test
 	 */
 	public function checkExtensionReturnBool($filename, $allowedFileExtensions, $expectedResult) {
-		$result = BasicFileFunctions::checkExtension($filename, $allowedFileExtensions);
+		$result = BasicFileUtility::checkExtension($filename, $allowedFileExtensions);
 		$this->assertSame($expectedResult, $result);
 	}
 
@@ -332,9 +332,9 @@ class BasicFileFunctionsTest extends UnitTestCase {
 		$pagesObjectStorage->attach($page);
 		$form = new Form;
 		$form->setPages($pagesObjectStorage);
-		$this->assertTrue(BasicFileFunctions::hasFormAnUploadField($form));
+		$this->assertTrue(BasicFileUtility::hasFormAnUploadField($form));
 
 		$field2->setType('textarea');
-		$this->assertFalse(BasicFileFunctions::hasFormAnUploadField($form));
+		$this->assertFalse(BasicFileUtility::hasFormAnUploadField($form));
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use In2code\Powermail\Utility\Reporting;
+use In2code\Powermail\Utility\ReportingUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
@@ -35,10 +35,10 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class ReportingTest extends UnitTestCase {
+class ReportingUtilityTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Utility\Reporting
+	 * @var \In2code\Powermail\Utility\ReportingUtility
 	 */
 	protected $generalValidatorMock;
 
@@ -47,7 +47,7 @@ class ReportingTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\Reporting',
+			'\In2code\Powermail\Utility\ReportingUtility',
 			array('dummy')
 		);
 	}
@@ -115,7 +115,7 @@ class ReportingTest extends UnitTestCase {
 	 * @test
 	 */
 	public function sortReportingArrayDescendingReturnsVoid($array, $expectedResult) {
-		Reporting::sortReportingArrayDescending($array);
+		ReportingUtility::sortReportingArrayDescending($array);
 		$this->assertSame($array, $expectedResult);
 	}
 
@@ -178,7 +178,7 @@ class ReportingTest extends UnitTestCase {
 	 * @test
 	 */
 	public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoid($array, $expectedResult) {
-		Reporting::cutArrayByKeyLimitAndAddTotalValues($array, 3, 'others');
+		ReportingUtility::cutArrayByKeyLimitAndAddTotalValues($array, 3, 'others');
 		$this->assertSame($array, $expectedResult);
 	}
 }

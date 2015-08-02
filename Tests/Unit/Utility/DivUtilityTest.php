@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
@@ -38,10 +38,10 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class DivTest extends UnitTestCase {
+class DivUtilityTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Utility\Div
+	 * @var \In2code\Powermail\Utility\DivUtility
 	 */
 	protected $generalValidatorMock;
 
@@ -50,7 +50,7 @@ class DivTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\Div',
+			'\In2code\Powermail\Utility\DivUtility',
 			array('dummy')
 		);
 		$objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
@@ -254,7 +254,7 @@ class DivTest extends UnitTestCase {
 	 * @test
 	 */
 	public function getStoragePageReturnsInt() {
-		$result = Div::getStoragePage(123);
+		$result = DivUtility::getStoragePage(123);
 		$this->assertSame(123, $result);
 	}
 
@@ -458,7 +458,7 @@ class DivTest extends UnitTestCase {
 	 * @test
 	 */
 	public function getDataTypeFromFieldTypeReturnsInt($value, $expectedResult) {
-		$result = Div::getDataTypeFromFieldType($value);
+		$result = DivUtility::getDataTypeFromFieldType($value);
 		$this->assertSame($expectedResult, $result);
 	}
 
@@ -547,7 +547,7 @@ class DivTest extends UnitTestCase {
 	 * @test
 	 */
 	public function optionArrayReturnsArray($value, $expectedResult) {
-		$result = Div::optionArray($value, '');
+		$result = DivUtility::optionArray($value, '');
 		$this->assertSame($expectedResult, $result);
 	}
 
@@ -637,7 +637,7 @@ class DivTest extends UnitTestCase {
 	public function isNotEmptyReturnsBool($value, $expectedResult) {
 		$this->assertSame(
 			$expectedResult,
-			Div::isNotEmpty($value)
+			DivUtility::isNotEmpty($value)
 		);
 	}
 
@@ -733,7 +733,7 @@ class DivTest extends UnitTestCase {
 	 * @test
 	 */
 	public function getSubFolderOfCurrentUrlReturnsString($leadingSlash, $trailingSlash, $host, $url, $expectedResult) {
-		$result = Div::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);
+		$result = DivUtility::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);
 		$this->assertSame($expectedResult, $result);
 	}
 
@@ -774,7 +774,7 @@ class DivTest extends UnitTestCase {
 	 */
 	public function createRandomStringAlwaysReturnsStringsOfGivenLength($length, $uppercase) {
 		for ($i = 0; $i < 100; $i++) {
-			$string = Div::createRandomString($length, $uppercase);
+			$string = DivUtility::createRandomString($length, $uppercase);
 
 			$regex = '~[a-z0-9]{' . $length . '}~';
 			if ($uppercase) {
@@ -827,7 +827,7 @@ class DivTest extends UnitTestCase {
 	public function isJsonArrayReturnsBool($value, $expectedResult) {
 		$this->assertSame(
 			$expectedResult,
-			Div::isJsonArray($value)
+			DivUtility::isJsonArray($value)
 		);
 	}
 
@@ -862,7 +862,7 @@ class DivTest extends UnitTestCase {
 		$GLOBALS['BE_USER']->user['admin'] = $value;
 		$this->assertSame(
 			$expectedResult,
-			Div::isBackendAdmin()
+			DivUtility::isBackendAdmin()
 		);
 	}
 
@@ -900,7 +900,7 @@ class DivTest extends UnitTestCase {
 	public function getDomainFromUriReturnsString($value, $expectedResult) {
 		$this->assertSame(
 			$expectedResult,
-			Div::getDomainFromUri($value)
+			DivUtility::getDomainFromUri($value)
 		);
 	}
 
@@ -946,7 +946,7 @@ class DivTest extends UnitTestCase {
 	public function getCountryFromIpReturnsString($ip, $expectedResult) {
 		$this->assertSame(
 			$expectedResult,
-			Div::getCountryFromIp($ip)
+			DivUtility::getCountryFromIp($ip)
 		);
 	}
 
@@ -1005,7 +1005,7 @@ class DivTest extends UnitTestCase {
 	public function getImageSourceFromTagReturnsString($html, $expectedResult) {
 		$this->assertSame(
 			implode('', $expectedResult),
-			Div::getImageSourceFromTag(implode('', $html))
+			DivUtility::getImageSourceFromTag(implode('', $html))
 		);
 	}
 
@@ -1057,7 +1057,7 @@ class DivTest extends UnitTestCase {
 	public function conditionalVariableReturnsMixed($variable, $fallback, $expectedResult) {
 		$this->assertSame(
 			$expectedResult,
-			Div::conditionalVariable($variable, $fallback)
+			DivUtility::conditionalVariable($variable, $fallback)
 		);
 	}
 }

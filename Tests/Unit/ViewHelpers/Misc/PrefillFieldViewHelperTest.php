@@ -199,7 +199,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase {
 						'marker' => 'pqr'
 					)
 				),
-				''
+				'def'
 			),
 			array(
 				array(
@@ -232,9 +232,9 @@ class PrefillFieldViewHelperTest extends UnitTestCase {
 		$this->abstractValidationViewHelperMock->_set('cObj', new ContentObjectRenderer());
 		$this->abstractValidationViewHelperMock->_set('piVars', $piVars);
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
-		$this->assertSame(
-			$expectedResult,
-			$this->abstractValidationViewHelperMock->_callRef('getDefaultValue', $field)
-		);
+		$this->abstractValidationViewHelperMock->_set('field', $field);
+		$this->abstractValidationViewHelperMock->_set('marker', $field->getMarker());
+		$this->abstractValidationViewHelperMock->_callRef('buildValue');
+		$this->assertSame($expectedResult, $this->abstractValidationViewHelperMock->_callRef('getValue'));
 	}
 }

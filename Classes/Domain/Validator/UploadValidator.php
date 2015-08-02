@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use In2code\Powermail\Utility\BasicFileFunctions;
+use In2code\Powermail\Utility\BasicFileUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -50,11 +50,11 @@ class UploadValidator extends AbstractValidator {
 				}
 
 				foreach ($answer->getValue() as $value) {
-					if (!BasicFileFunctions::checkExtension($value, $this->settings['misc.']['file.']['extension'])) {
+					if (!BasicFileUtility::checkExtension($value, $this->settings['misc.']['file.']['extension'])) {
 						$this->setErrorAndMessage($answer->getField(), 'upload_extension');
 						continue;
 					}
-					if (!BasicFileFunctions::checkFilesize($value, $this->settings)) {
+					if (!BasicFileUtility::checkFilesize($value, $this->settings)) {
 						$this->setErrorAndMessage($answer->getField(), 'upload_size');
 						continue;
 					}

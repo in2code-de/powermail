@@ -1,11 +1,12 @@
 <?php
-namespace In2code\Powermail\Utility;
+namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\DivUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Model\Field;
 
 /***************************************************************
  *  Copyright notice
@@ -38,7 +39,7 @@ use In2code\Powermail\Domain\Model\Field;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class Export {
+class ExportService {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
@@ -275,7 +276,7 @@ class Export {
 
 	/**
 	 * @param QueryResult $mails
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setMails($mails) {
 		$this->mails = $mails;
@@ -298,7 +299,7 @@ class Export {
 
 	/**
 	 * @param string $format
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setFormat($format) {
 		$this->format = $format;
@@ -314,7 +315,7 @@ class Export {
 
 	/**
 	 * @param string|array $fieldList
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setFieldList($fieldList) {
 		if (!empty($fieldList)) {
@@ -345,7 +346,7 @@ class Export {
 
 	/**
 	 * @param string|array $emails
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setReceiverEmails($emails) {
 		if (is_string($emails)) {
@@ -374,7 +375,7 @@ class Export {
 
 	/**
 	 * @param array $senderEmails
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setSenderEmails($senderEmails) {
 		if (is_string($senderEmails)) {
@@ -393,7 +394,7 @@ class Export {
 
 	/**
 	 * @param string $subject
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setSubject($subject) {
 		$this->subject = $subject;
@@ -411,7 +412,7 @@ class Export {
 		 * \TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir
 		 * allows only filenames which are max 59 characters long
 		 */
-		$fileName = Div::createRandomString(55);
+		$fileName = DivUtility::createRandomString(55);
 		$fileName .= '.';
 		$fileName .= $this->getFormat();
 		$this->fileName = $fileName;
@@ -428,7 +429,7 @@ class Export {
 	 * Set a user defined filename
 	 *
 	 * @param string $fileName
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setFileName($fileName = NULL) {
 		if ($fileName) {
@@ -464,7 +465,7 @@ class Export {
 
 	/**
 	 * @param array $additionalProperties
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setAdditionalProperties($additionalProperties) {
 		$this->additionalProperties = $additionalProperties;
@@ -489,7 +490,7 @@ class Export {
 
 	/**
 	 * @param boolean $addAttachment
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setAddAttachment($addAttachment) {
 		$this->addAttachment = $addAttachment;
@@ -505,7 +506,7 @@ class Export {
 
 	/**
 	 * @param string $storageFolder
-	 * @return Export
+	 * @return ExportService
 	 */
 	public function setStorageFolder($storageFolder) {
 		$this->storageFolder = $storageFolder;

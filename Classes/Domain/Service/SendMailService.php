@@ -1,9 +1,11 @@
 <?php
-namespace In2code\Powermail\Utility;
+namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
-use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice
@@ -36,7 +38,7 @@ use In2code\Powermail\Domain\Model\Mail;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class SendMail {
+class SendMailService {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -65,7 +67,7 @@ class SendMail {
 	protected $mailRepository;
 
 	/**
-	 * @var \In2code\Powermail\Utility\Div
+	 * @var \In2code\Powermail\Utility\DivUtility
 	 * @inject
 	 */
 	protected $div;
@@ -109,7 +111,7 @@ class SendMail {
 			'subject'
 		);
 		foreach ($parse as $value) {
-			$email[$value] = div::fluidParseString($email[$value], $this->div->getVariablesWithMarkersFromMail($mail));
+			$email[$value] = DivUtility::fluidParseString($email[$value], $this->div->getVariablesWithMarkersFromMail($mail));
 		}
 
 		// Debug Output
@@ -264,8 +266,8 @@ class SendMail {
 	 * @return bool
 	 */
 	protected function createEmailBody($email, Mail &$mail, $settings, $type) {
-		/** @var StandaloneViewMultiplePaths $emailBodyObject */
-		$emailBodyObject = $this->objectManager->get('In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
+		/** @var StandaloneViewMultiplePathsService $emailBodyObject */
+		$emailBodyObject = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\StandaloneViewMultiplePathsService');
 		$emailBodyObject->getRequest()->setControllerExtensionName('Powermail');
 		$emailBodyObject->getRequest()->setPluginName('Pi1');
 		$emailBodyObject->getRequest()->setControllerName('Form');
@@ -285,7 +287,7 @@ class SendMail {
 				'variablesWithMarkers' => $this->div->htmlspecialcharsOnArray($variablesWithMarkers),
 				'powermail_all' => $this->div->powermailAll($mail, 'mail', $settings, $type),
 				'powermail_rte' => $email['rteBody'],
-				'marketingInfos' => Div::getMarketingInfos(),
+				'marketingInfos' => SessionUtility::getMarketingInfos(),
 				'mail' => $mail,
 				'email' => $email,
 				'settings' => $settings

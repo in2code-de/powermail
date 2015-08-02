@@ -1,11 +1,12 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
@@ -48,7 +49,7 @@ class OutputController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		Div::prepareFilterPluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
+		DivUtility::prepareFilterPluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
 		if ($this->settings['list']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
 		} else {
@@ -61,7 +62,7 @@ class OutputController extends AbstractController {
 				'searchFields' => $searchFields,
 				'fields' => $this->fieldRepository->findByUids($fieldArray),
 				'piVars' => $this->piVars,
-				'abc' => Div::getAbcArray()
+				'abc' => DivUtility::getAbcArray()
 			)
 		);
 		$this->assignMultipleActions();
@@ -236,7 +237,7 @@ class OutputController extends AbstractController {
 	 * @return void
 	 */
 	public function initializeObject() {
-		Div::mergeTypoScript2FlexForm($this->settings, 'Pi2');
+		ConfigurationUtility::mergeTypoScript2FlexForm($this->settings, 'Pi2');
 	}
 
 	/**

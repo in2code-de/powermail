@@ -8,7 +8,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\Answer;
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 /**
  * Prefill a field
@@ -138,6 +138,9 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 		}
 		if (empty($value)) {
 			$value = $this->getFromTypoScriptRaw();
+		}
+		if (empty($value)) {
+			$value = $this->getFromSession();
 		}
 		$this->setValue($value);
 	}
@@ -299,6 +302,16 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	}
 
 	/**
+	 * Get value from session if defined in TypoScript
+	 *
+	 * @return string
+	 */
+	protected function getFromSession() {
+		$value = '';
+		return $value;
+	}
+
+	/**
 	 * @return string|array
 	 */
 	public function getValue() {
@@ -368,7 +381,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	 * @return bool
 	 */
 	protected function isCachedForm() {
-		return Configuration::isEnableCachingActive();
+		return ConfigurationUtility::isEnableCachingActive();
 	}
 
 	/**

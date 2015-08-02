@@ -3,7 +3,7 @@ namespace In2code\Powermail\Utility\Tca;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -57,7 +57,7 @@ class FormSelectorUserFunc {
 	 * @return void
 	 */
 	public function getForms(&$params) {
-		$typoScriptConfiguration = BackendUtility::getPagesTSconfig(Div::getPidFromBackendPage());
+		$typoScriptConfiguration = BackendUtility::getPagesTSconfig(DivUtility::getPidFromBackendPage());
 		$language = $params['row']['sys_language_uid'];
 		$startPid = 0;
 		if (!empty($typoScriptConfiguration['tx_powermail.']['flexForm.']['formSelection'])) {
@@ -120,7 +120,7 @@ class FormSelectorUserFunc {
 		/** @var \TYPO3\CMS\Core\Database\QueryGenerator $queryGenerator */
 		$queryGenerator = GeneralUtility::makeInstance('TYPO3\CMS\Core\Database\QueryGenerator');
 		if ($startPid === 'current') {
-			$startPid = Div::getPidFromBackendPage();
+			$startPid = DivUtility::getPidFromBackendPage();
 		}
 		$list = $queryGenerator->getTreeList($startPid, 10, 0, 1);
 		return $list;

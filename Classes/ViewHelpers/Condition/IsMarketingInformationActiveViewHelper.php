@@ -2,7 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 /**
  * Class IsMarketingInformationActiveViewHelper
@@ -22,7 +22,7 @@ class IsMarketingInformationActiveViewHelper extends AbstractViewHelper {
 		if (
 			!empty($marketingInformation) &&
 			!empty($settings['marketing']['information']) &&
-			!Configuration::isDisableMarketingInformationActive()
+			!ConfigurationUtility::isDisableMarketingInformationActive()
 		) {
 			return TRUE;
 		}

@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
@@ -72,7 +72,7 @@ class FieldRepository extends Repository {
 	 * @return \In2code\Powermail\Domain\Model\Field
 	 */
 	public function findByMarkerAndForm($marker, $formUid = 0) {
-		if (Configuration::isReplaceIrreWithElementBrowserActive()) {
+		if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
 			return $this->findByMarkerAndFormAlternative($marker, $formUid);
 		}
 

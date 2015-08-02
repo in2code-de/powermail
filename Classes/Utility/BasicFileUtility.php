@@ -37,7 +37,7 @@ use In2code\Powermail\Domain\Model\Mail;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class BasicFileFunctions {
+class BasicFileUtility {
 
 	/**
 	 * Return Unique Filename for File Upload
@@ -281,7 +281,7 @@ class BasicFileFunctions {
 		if (!$randomized) {
 			return;
 		}
-		$newFilename = Div::createRandomString(32, FALSE) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+		$newFilename = DivUtility::createRandomString(32, FALSE) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
 		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
 			foreach (array_keys($_FILES['tx_powermail_pi1']['name']['field']) as $marker) {
 				foreach ($_FILES['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {

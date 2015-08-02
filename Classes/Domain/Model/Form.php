@@ -4,7 +4,7 @@ namespace In2code\Powermail\Domain\Model;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -115,7 +115,7 @@ class Form extends AbstractEntity {
 	 */
 	public function getPages() {
 		// if elementbrowser instead of IRRE (sorting workarround)
-		if (Configuration::isReplaceIrreWithElementBrowserActive()) {
+		if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
 			$formSorting = GeneralUtility::trimExplode(',', $this->formRepository->getPagesValue($this->uid), TRUE);
 			$formSorting = array_flip($formSorting);
 			$pageArray = array();

@@ -3,8 +3,8 @@ namespace In2code\Powermail\Utility\Hook;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Utility\BackendUtility;
-use In2code\Powermail\Utility\Configuration;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -78,7 +78,7 @@ class PluginInformation {
 	 */
 	public function build($params = array()) {
 		$this->initialize($params);
-		if (Configuration::isDisablePluginInformationActive()) {
+		if (ConfigurationUtility::isDisablePluginInformationActive()) {
 			return '';
 		}
 		return $this->createOutputMarkup();
@@ -155,12 +155,12 @@ class PluginInformation {
 	 * @return void
 	 */
 	protected function getDevelopmentContextEmailMarkup(&$receiver) {
-		if (!Div::getDevelopmentContextEmail()) {
+		if (!DivUtility::getDevelopmentContextEmail()) {
 			return;
 		}
 		$originalReceiver = $receiver;
 		$receiver = '<span style="color: red;"><strong>';
-		$receiver .= Div::getDevelopmentContextEmail();
+		$receiver .= DivUtility::getDevelopmentContextEmail();
 		$receiver .= '</strong> &lt;Development context&gt;';
 		$receiver .= '</span><br />';
 		$receiver .= '<span style="color: #999;">' . $originalReceiver . '</span>';
@@ -196,7 +196,7 @@ class PluginInformation {
 	 * @return string
 	 */
 	protected function buildImageMarkup($resourcePathAndFilename, $alt = '0') {
-		$imagePathAndFilename = Div::getSubFolderOfCurrentUrl() . 'typo3conf/ext/powermail/Resources/Public/';
+		$imagePathAndFilename = DivUtility::getSubFolderOfCurrentUrl() . 'typo3conf/ext/powermail/Resources/Public/';
 		$imagePathAndFilename .= $resourcePathAndFilename;
 		return '<img src="' . $imagePathAndFilename . '" alt="' . $alt . '" />';
 	}

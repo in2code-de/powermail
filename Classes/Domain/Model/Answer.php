@@ -3,7 +3,7 @@ namespace In2code\Powermail\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\Field;
 
@@ -81,7 +81,7 @@ class Answer extends AbstractEntity {
 		$value = $this->value;
 
 			// if serialized, change to array
-		if (Div::isJsonArray($this->value)) {
+		if (DivUtility::isJsonArray($this->value)) {
 				// only if type multivalue or upload
 			if ($this->getValueType() === 1 || $this->getValueType() === 3) {
 				$value = json_decode($value, TRUE);
@@ -193,7 +193,7 @@ class Answer extends AbstractEntity {
 	public function getValueType() {
 		if ($this->valueType === NULL) {
 			if ($this->getField() !== NULL) {
-				$this->setValueType(Div::getDataTypeFromFieldType($this->getField()->getType()));
+				$this->setValueType(DivUtility::getDataTypeFromFieldType($this->getField()->getType()));
 			} else {
 				$this->setValue(0);
 			}

@@ -6,7 +6,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use In2code\Powermail\Domain\Model\Form;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -355,7 +355,7 @@ class MailRepository extends Repository {
 	 */
 	protected function getSorting($sortby, $order, $piVars = array()) {
 		$sorting = array(
-			$this->cleanStringForQuery(Div::conditionalVariable($sortby, 'crdate')) =>
+			$this->cleanStringForQuery(DivUtility::conditionalVariable($sortby, 'crdate')) =>
 				$this->getSortOrderByString($order)
 		);
 		if (!empty($piVars['sorting'])) {

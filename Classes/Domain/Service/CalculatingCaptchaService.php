@@ -1,6 +1,7 @@
 <?php
-namespace In2code\Powermail\Utility;
+namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Utility\DivUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -27,20 +28,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
- * CalculatingCaptcha
+ * CalculatingCaptchaService
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class CalculatingCaptcha {
+class CalculatingCaptchaService {
 
 	/**
 	 * TypoScript
 	 *
-	 * @var \array
+	 * @var array
 	 */
 	protected $configuration;
 
@@ -64,7 +64,7 @@ class CalculatingCaptcha {
 	/**
 	 * Path to captcha image
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $captchaImage = 'typo3temp/tx_powermail/CalculatingCaptcha.png';
 
@@ -123,7 +123,7 @@ class CalculatingCaptcha {
 	 * @return string Image URI
 	 */
 	protected function createImage($content, $addHash = TRUE) {
-		$startimage = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . Div::getSubFolderOfCurrentUrl();
+		$startimage = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . DivUtility::getSubFolderOfCurrentUrl();
 		$startimage .= $this->getFileName($this->configuration['captcha.']['default.']['image']);
 
 		if (!is_file($startimage)) {
@@ -134,7 +134,7 @@ class CalculatingCaptcha {
 		$config = array();
 		$config['color_rgb'] = sscanf($this->configuration['captcha.']['default.']['textColor'], '#%2x%2x%2x');
 		$config['color'] = ImageColorAllocate($img, $config['color_rgb'][0], $config['color_rgb'][1], $config['color_rgb'][2]);
-		$config['font'] = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . Div::getSubFolderOfCurrentUrl();
+		$config['font'] = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . DivUtility::getSubFolderOfCurrentUrl();
 		$config['font'] .= $this->getFileName($this->configuration['captcha.']['default.']['font']);
 		$config['fontsize'] = $this->configuration['captcha.']['default.']['textSize'];
 		$config['angle'] = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['textAngle'], TRUE);
@@ -157,7 +157,7 @@ class CalculatingCaptcha {
 		imagepng(
 			$img,
 			GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' .
-			Div::getSubFolderOfCurrentUrl() . $this->captchaImage
+			DivUtility::getSubFolderOfCurrentUrl() . $this->captchaImage
 		);
 		imagedestroy($img);
 
