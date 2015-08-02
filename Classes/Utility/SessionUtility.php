@@ -4,6 +4,8 @@ namespace In2code\Powermail\Utility;
 use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
@@ -42,6 +44,16 @@ class SessionUtility {
 	 * Extension Key
 	 */
 	public static $extKey = 'powermail';
+
+	/**
+	 * Session methods
+	 *
+	 * @var array
+	 */
+	protected static $methods = array(
+		'temporary' => 'ses',
+		'permanently' => 'user'
+	);
 
 	/**
 	 * Save current timestamp to session
@@ -146,10 +158,53 @@ class SessionUtility {
 	 * Save values to session for prefilling on upcoming form renderings
 	 *
 	 * @param Mail $mail
+	 * @param array $settings Settings array
 	 * @return void
 	 */
-	public static function saveSessionValuesAfterSubmit(Mail $mail) {
-		// todo
+	public static function saveSessionValuesForPrefill(Mail $mail, $settings) {
+		$valuesToSave = array();
+		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		/** @var TypoScriptService $typoScriptService */
+		$typoScriptService = $objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+		/** @var ContentObjectRenderer $contentObjectRenderer */
+		$contentObjectRenderer = $objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+		$configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
+		if (!empty($configuration['saveSession.']) && array_key_exists($configuration['saveSession.']['_method'], self::$methods)) {
+			$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
+			$contentObjectRenderer->start($variablesWithMarkers);
+			foreach (array_keys($variablesWithMarkers) as $marker) {
+				if (!empty($configuration['saveSession.'][$marker])) {
+					$value = $contentObjectRenderer->cObjGetSingle(
+						$configuration['saveSession.'][$marker],
+						$configuration['saveSession.'][$marker . '.']
+					);
+					$valuesToSave[$marker] = $value;
+				}
+			}
+		}
+		if (count($valuesToSave)) {
+			self::setSessionValue(
+				'pss',
+				$valuesToSave,
+				FALSE,
+				self::$methods[$configuration['saveSession.']['_method']],
+				'powermailSaveSession'
+			);
+		}
+	}
+
+	/**
+	 * Get session for prefilling forms
+	 *
+	 * @param array $configuration TypoScript configuration
+	 * @return array
+	 */
+	public static function getSessionValuesForPrefill($configuration) {
+		$values = array();
+		if (!empty($configuration['saveSession.']) && array_key_exists($configuration['saveSession.']['_method'], self::$methods)) {
+			$values = self::getSessionValue('pss', self::$methods[$configuration['saveSession.']['_method']], 'powermailSaveSession');
+		}
+		return $values;
 	}
 
 	/**
@@ -170,13 +225,17 @@ class SessionUtility {
 	 * Read a powermail session
 	 *
 	 * @param string $name session name
-	 * @param string $key "user" or "ses"
+	 * @param string $method "user" or "ses"
+	 * @param string $key name to save session
 	 * @return string Values from session
 	 */
-	protected static function getSessionValue($name = '', $key = 'ses') {
+	protected static function getSessionValue($name = '', $method = 'ses', $key = '') {
+		if (empty($key)) {
+			$key = self::$extKey;
+		}
 		/** @var TypoScriptFrontendController $typoScriptFrontendController */
 		$typoScriptFrontendController = $GLOBALS['TSFE'];
-		$powermailSession = $typoScriptFrontendController->fe_user->getKey($key, self::$extKey);
+		$powermailSession = $typoScriptFrontendController->fe_user->getKey($method, $key);
 		if (!empty($name) && isset($powermailSession[$name])) {
 			return $powermailSession[$name];
 		}
@@ -189,10 +248,14 @@ class SessionUtility {
 	 * @param string $name session name
 	 * @param array $values values to save
 	 * @param bool $overwrite Overwrite existing values
-	 * @param string $key "user" or "ses"
+	 * @param string $method "user" or "ses"
+	 * @param string $key name to save session
 	 * @return void
 	 */
-	protected static function setSessionValue($name, $values, $overwrite = FALSE, $key = 'ses') {
+	protected static function setSessionValue($name, $values, $overwrite = FALSE, $method = 'ses', $key = '') {
+		if (empty($key)) {
+			$key = self::$extKey;
+		}
 		if (!$overwrite) {
 			$oldValues = self::getSessionValue($name);
 			$values = array_merge((array) $oldValues, (array) $values);
@@ -203,7 +266,7 @@ class SessionUtility {
 
 		/** @var TypoScriptFrontendController $typoScriptFrontendController */
 		$typoScriptFrontendController = $GLOBALS['TSFE'];
-		$typoScriptFrontendController->fe_user->setKey($key, self::$extKey, $newValues);
+		$typoScriptFrontendController->fe_user->setKey($method, $key, $newValues);
 		$typoScriptFrontendController->storeSessionData();
 	}
 }

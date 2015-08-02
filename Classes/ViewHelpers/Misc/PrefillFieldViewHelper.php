@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -308,6 +309,14 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	 */
 	protected function getFromSession() {
 		$value = '';
+		$sessionValues = SessionUtility::getSessionValuesForPrefill($this->settings);
+		if (count($sessionValues)) {
+			foreach ($sessionValues as $marker => $valueInSession) {
+				if ($this->getMarker() === $marker) {
+					return $valueInSession;
+				}
+			}
+		}
 		return $value;
 	}
 

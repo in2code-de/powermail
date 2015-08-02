@@ -100,7 +100,7 @@ class SendMailService {
 		$typoScriptService = $this->objectManager->get('TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
 		$cObj = $this->configurationManager->getContentObject();
-		$cObj->start($this->div->getVariablesWithMarkersFromMail($mail));
+		$cObj->start(DivUtility::getVariablesWithMarkersFromMail($mail));
 
 		// parsing variables with fluid engine to allow viewhelpers in flexform
 		$parse = array(
@@ -111,7 +111,7 @@ class SendMailService {
 			'subject'
 		);
 		foreach ($parse as $value) {
-			$email[$value] = DivUtility::fluidParseString($email[$value], $this->div->getVariablesWithMarkersFromMail($mail));
+			$email[$value] = DivUtility::fluidParseString($email[$value], DivUtility::getVariablesWithMarkersFromMail($mail));
 		}
 
 		// Debug Output
@@ -279,12 +279,12 @@ class SendMailService {
 		$emailBodyObject->setPartialRootPaths($this->div->getTemplateFolders('partial'));
 
 		// variables
-		$variablesWithMarkers = $this->div->getVariablesWithMarkersFromMail($mail);
+		$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
 		$emailBodyObject->assignMultiple($variablesWithMarkers);
-		$emailBodyObject->assignMultiple($this->div->getLabelsWithMarkersFromMail($mail));
+		$emailBodyObject->assignMultiple(DivUtility::getLabelsWithMarkersFromMail($mail));
 		$emailBodyObject->assignMultiple(
 			array(
-				'variablesWithMarkers' => $this->div->htmlspecialcharsOnArray($variablesWithMarkers),
+				'variablesWithMarkers' => DivUtility::htmlspecialcharsOnArray($variablesWithMarkers),
 				'powermail_all' => $this->div->powermailAll($mail, 'mail', $settings, $type),
 				'powermail_rte' => $email['rteBody'],
 				'marketingInfos' => SessionUtility::getMarketingInfos(),

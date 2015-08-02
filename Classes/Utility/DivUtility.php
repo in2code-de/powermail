@@ -319,10 +319,10 @@ class DivUtility {
 	 * Generate a new array with markers and their values
 	 *        firstname => value
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return array
 	 */
-	public function getVariablesWithMarkersFromMail(Mail $mail) {
+	public static function getVariablesWithMarkersFromMail(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -341,10 +341,10 @@ class DivUtility {
 	 * Generate a new array with labels
 	 *        label_firstname => Firstname
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return array
 	 */
-	public function getLabelsWithMarkersFromMail(Mail $mail) {
+	public static function getLabelsWithMarkersFromMail(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -466,11 +466,11 @@ class DivUtility {
 	 * @param array $array Any array
 	 * @return array Cleaned array
 	 */
-	public function htmlspecialcharsOnArray($array) {
+	public static function htmlspecialcharsOnArray($array) {
 		$newArray = array();
-		foreach ((array)$array as $key => $value) {
+		foreach ((array) $array as $key => $value) {
 			if (is_array($value)) {
-				$newArray[htmlspecialchars($key)] = $this->htmlspecialcharsOnArray($value);
+				$newArray[htmlspecialchars($key)] = self::htmlspecialcharsOnArray($value);
 			} else {
 				$newArray[htmlspecialchars($key)] = htmlspecialchars($value);
 			}
@@ -608,7 +608,7 @@ class DivUtility {
 		}
 
 		$contentObject->start(
-			$this->getVariablesWithMarkersFromMail($mail)
+			self::getVariablesWithMarkersFromMail($mail)
 		);
 		$parameters = $contentObject->cObjGetSingle(
 			$conf['marketing.']['sendPost.']['values'],
@@ -881,7 +881,7 @@ class DivUtility {
 			return;
 		}
 		$contentObject = $this->configurationManager->getContentObject();
-		$startArray = $this->getVariablesWithMarkersFromMail($mail);
+		$startArray = self::getVariablesWithMarkersFromMail($mail);
 
 		// one loop per table
 		foreach ((array) array_keys($conf['dbEntry.']) as $table) {

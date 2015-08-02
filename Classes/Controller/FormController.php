@@ -102,7 +102,7 @@ class FormController extends AbstractController {
 	public function createAction(Mail $mail, $hash = NULL) {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		BasicFileUtility::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
-		SessionUtility::saveSessionValuesAfterSubmit($mail);
+		SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
 
 		if ($this->settings['debug']['variables']) {
 			GeneralUtility::devLog('Variables', $this->extensionName, 0, $_REQUEST);
@@ -185,7 +185,7 @@ class FormController extends AbstractController {
 	protected function sendReceiverMail(Mail $mail, $hash = NULL) {
 		$receiverString = DivUtility::fluidParseString(
 			$this->settings['receiver']['email'],
-			$this->div->getVariablesWithMarkersFromMail($mail)
+			DivUtility::getVariablesWithMarkersFromMail($mail)
 		);
 		$this->div->overwriteValueFromTypoScript($receiverString, $this->conf['receiver.']['overwrite.'], 'email');
 		$receivers = $this->div->getReceiverEmails(
@@ -293,10 +293,10 @@ class FormController extends AbstractController {
 		$this->view->assign('powermail_rte', $this->settings['thx']['body']);
 
 			// get variable array
-		$variablesWithMarkers = $this->div->getVariablesWithMarkersFromMail($mail);
-		$this->view->assign('variablesWithMarkers', $this->div->htmlspecialcharsOnArray($variablesWithMarkers));
+		$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
+		$this->view->assign('variablesWithMarkers', DivUtility::htmlspecialcharsOnArray($variablesWithMarkers));
 		$this->view->assignMultiple($variablesWithMarkers);
-		$this->view->assignMultiple($this->div->getLabelsWithMarkersFromMail($mail));
+		$this->view->assignMultiple(DivUtility::getLabelsWithMarkersFromMail($mail));
 
 			// powermail_all
 		$content = $this->div->powermailAll($mail, 'web', $this->settings, $this->actionMethodName);
@@ -333,7 +333,7 @@ class FormController extends AbstractController {
 			->setSenderName($this->div->getSenderNameFromArguments($mail))
 			->setSubject($this->settings['receiver']['subject'])
 			->setReceiverMail($this->settings['receiver']['email'])
-			->setBody(DebugUtility::viewArray($this->div->getVariablesWithMarkersFromMail($mail)))
+			->setBody(DebugUtility::viewArray(DivUtility::getVariablesWithMarkersFromMail($mail)))
 			->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'))
 			->setTime((time() - SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)))
 			->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))

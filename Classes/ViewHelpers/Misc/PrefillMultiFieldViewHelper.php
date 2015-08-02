@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -132,6 +133,9 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper {
 		}
 		if (!$selected) {
 			$selected = $this->getFromTypoScriptRaw();
+		}
+		if (empty($value)) {
+			$selected = $this->getFromSession();
 		}
 		$this->setSelected($selected);
 	}
@@ -318,6 +322,29 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper {
 				$this->settings['prefill.'][$this->getMarker()] === $this->options[$this->index]['label']
 			) {
 				$selected = TRUE;
+			}
+		}
+		return $selected;
+	}
+
+	/**
+	 * Get value from session if defined in TypoScript
+	 *
+	 * @return string
+	 */
+	protected function getFromSession() {
+		$selected = FALSE;
+		$sessionValues = SessionUtility::getSessionValuesForPrefill($this->settings);
+		if (count($sessionValues)) {
+			foreach ($sessionValues as $marker => $valueInSession) {
+				if ($this->getMarker() === $marker) {
+					if (
+						$valueInSession === $this->options[$this->index]['value'] ||
+						$valueInSession === $this->options[$this->index]['label']
+					) {
+						$selected = TRUE;
+					}
+				}
 			}
 		}
 		return $selected;
