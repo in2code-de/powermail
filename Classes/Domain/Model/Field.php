@@ -290,7 +290,7 @@ class Field extends AbstractEntity {
 	 * 			value => red
 	 * 			selected => 1
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function getModifiedSettings() {
 		return Div::optionArray(
