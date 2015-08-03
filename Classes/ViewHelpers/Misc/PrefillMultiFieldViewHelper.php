@@ -134,7 +134,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper {
 		if (!$selected) {
 			$selected = $this->getFromTypoScriptRaw();
 		}
-		if (empty($value)) {
+		if (!$selected) {
 			$selected = $this->getFromSession();
 		}
 		$this->setSelected($selected);
