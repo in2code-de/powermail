@@ -555,40 +555,6 @@ class DivUtility {
 	}
 
 	/**
-	 * Create an options array (Needed for fieldsettings: select, radio, check)
-	 *        option1 =>
-	 *            label => Red Shoes
-	 *            value => red
-	 *            selected => 1
-	 *
-	 * @param string $string Options from the Textarea
-	 * @param string $typoScriptObjectPath Path to TypoScript like lib.blabla
-	 * @return array Options Array
-	 */
-	public static function optionArray($string, $typoScriptObjectPath) {
-		if (empty($string)) {
-			$string = self::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
-		}
-		if (empty($string)) {
-			$string = 'Error, no options to show';
-		}
-		$options = array();
-		$string = str_replace('[\n]', "\n", $string);
-		$settingsField = GeneralUtility::trimExplode("\n", $string, TRUE);
-		foreach ($settingsField as $line) {
-			$settings = GeneralUtility::trimExplode('|', $line, FALSE);
-			$value = (isset($settings[1]) ? $settings[1] : $settings[0]);
-			$options[] = array(
-				'label' => self::fluidParseString($settings[0]),
-				'value' => $value,
-				'selected' => isset($settings[2]) ? 1 : 0
-			);
-		}
-
-		return $options;
-	}
-
-	/**
 	 * Powermail SendPost - Send values via curl to a third party software
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
