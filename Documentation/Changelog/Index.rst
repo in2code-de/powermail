@@ -18,6 +18,23 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.6.0
+   :Date:
+      2015-08-03
+   :Changes:
+      Bugfix #68696, #68647, #68587, #68583, #68576
+
+      Feature #68695
+
+      See http://forge.typo3.org for Details
+
+
+      Note: Changes in Partial-files:
+
+      * EXT:powermail/Resources/Private/Partials/Form/Check.html
+      * EXT:powermail/Resources/Private/Partials/Form/Radio.html
+
+ - :Version:
       2.5.2
    :Date:
       2015-07-24
