@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
-use In2code\Powermail\Utility\BasicFileFunctions;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Domain\Model\Form;
@@ -33,31 +33,41 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  ***************************************************************/
 
 /**
- * BasicFileFunctions Tests
+ * BasicFileUtility Tests
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class BasicFileFunctionsTest extends UnitTestCase {
+class BasicFileUtiltyTest extends UnitTestCase {
 
 	/**
-	 * @var string
+	 * @var \In2code\Powermail\Utility\BasicFileUtility
 	 */
-	protected $defaultFileExtensions =
-		'jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace,csv';
+	protected $generalValidatorMock;
 
 	/**
 	 * @return void
 	 */
 	public function setUp() {
+		$this->generalValidatorMock = $this->getAccessibleMock(
+			'\In2code\Powermail\Utility\BasicFileUtility',
+			array('dummy')
+		);
 	}
 
 	/**
 	 * @return void
 	 */
 	public function tearDown() {
+		unset($this->generalValidatorMock);
 	}
+
+	/**
+	 * @var string
+	 */
+	protected $defaultFileExtensions =
+		'jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace,csv';
 
 	/**
 	 * Data Provider for cleanFileNameReturnBool()
@@ -84,7 +94,7 @@ class BasicFileFunctionsTest extends UnitTestCase {
 			array(
 				'image_01.pdf',
 				'_',
-				'image_01.pdf'
+				'image_01_.pdf'
 			),
 			array(
 				'picture.PNG',
@@ -115,8 +125,112 @@ class BasicFileFunctionsTest extends UnitTestCase {
 	 * @test
 	 */
 	public function cleanFileNameReturnBool($filename, $replace, $expectedFilename) {
-		BasicFileFunctions::cleanFileName($filename, $replace);
+		BasicFileUtility::cleanFileName($filename, $replace);
 		$this->assertSame($expectedFilename, $filename);
+	}
+
+	/**
+	 * Data Provider for removeAppendingNumbersInStringReturnString()
+	 *
+	 * @return array
+	 */
+	public function removeAppendingNumbersInStringReturnStringDataProvider() {
+		return array(
+			array(
+				'test_01',
+				'test'
+			),
+			array(
+				'test_01_01',
+				'test_01'
+			),
+			array(
+				'test',
+				'test'
+			),
+			array(
+				'test_',
+				'test_'
+			),
+			array(
+				'01_82',
+				'01'
+			),
+			array(
+				'test_02_03_04',
+				'test_02_03'
+			),
+			array(
+				'test_123456',
+				'test'
+			),
+			array(
+				'test_651_98746854',
+				'test_651'
+			),
+		);
+	}
+
+	/**
+	 * removeAppendingNumbersInString Test
+	 *
+	 * @param string $string
+	 * @param string $expectedString
+	 * @dataProvider removeAppendingNumbersInStringReturnStringDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function removeAppendingNumbersInStringReturnString($string, $expectedString) {
+		$string = $this->generalValidatorMock->_call('removeAppendingNumbersInString', $string);
+		$this->assertSame($expectedString, $string);
+	}
+
+	/**
+	 * Data Provider for dontAllowAppendingNumbersInFileNameReturnString()
+	 *
+	 * @return array
+	 */
+	public function dontAllowAppendingNumbersInFileNameReturnStringDataProvider() {
+		return array(
+			array(
+				'test.jpg',
+				'test.jpg'
+			),
+			array(
+				'test_01.jpg',
+				'test_01_.jpg'
+			),
+			array(
+				'test_685468.jpg',
+				'test_685468_.jpg'
+			),
+			array(
+				'123.jpg',
+				'123.jpg'
+			),
+			array(
+				'abc_.jpg',
+				'abc_.jpg'
+			),
+			array(
+				'abc123.jpg',
+				'abc123.jpg'
+			),
+		);
+	}
+
+	/**
+	 * dontAllowAppendingNumbersInFileName Test
+	 *
+	 * @param string $string
+	 * @param string $expectedString
+	 * @dataProvider dontAllowAppendingNumbersInFileNameReturnStringDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function dontAllowAppendingNumbersInFileNameReturnString($string, $expectedString) {
+		$string = $this->generalValidatorMock->_call('dontAllowAppendingNumbersInFileName', $string);
+		$this->assertSame($expectedString, $string);
 	}
 
 	/**
@@ -194,7 +308,7 @@ class BasicFileFunctionsTest extends UnitTestCase {
 	 * @test
 	 */
 	public function checkExtensionReturnBool($filename, $allowedFileExtensions, $expectedResult) {
-		$result = BasicFileFunctions::checkExtension($filename, $allowedFileExtensions);
+		$result = BasicFileUtility::checkExtension($filename, $allowedFileExtensions);
 		$this->assertSame($expectedResult, $result);
 	}
 
@@ -218,9 +332,9 @@ class BasicFileFunctionsTest extends UnitTestCase {
 		$pagesObjectStorage->attach($page);
 		$form = new Form;
 		$form->setPages($pagesObjectStorage);
-		$this->assertTrue(BasicFileFunctions::hasFormAnUploadField($form));
+		$this->assertTrue(BasicFileUtility::hasFormAnUploadField($form));
 
 		$field2->setType('textarea');
-		$this->assertFalse(BasicFileFunctions::hasFormAnUploadField($form));
+		$this->assertFalse(BasicFileUtility::hasFormAnUploadField($form));
 	}
 }

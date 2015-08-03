@@ -59,7 +59,7 @@ class BackendUtility extends BackendUtilityCore {
 			}
 			$editLink = BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
 		} else {
-			$editLink = Div::getSubFolderOfCurrentUrl();
+			$editLink = DivUtility::getSubFolderOfCurrentUrl();
 			$editLink .= 'typo3/alt_doc.php?edit[' . $tableName . '][' . $identifier . ']=edit';
 			if ($addReturnUrl) {
 				$editLink .= '&returnUrl=' . self::getReturnUrl();
@@ -77,7 +77,7 @@ class BackendUtility extends BackendUtilityCore {
 		if (GeneralUtility::compat_version('7.2')) {
 			$uri = self::getModuleUrl(self::getModuleName(), self::getCurrentParameters());
 		} else {
-			$uri = rawurlencode(Div::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT'));
+			$uri = rawurlencode(DivUtility::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT'));
 		}
 		return $uri;
 	}

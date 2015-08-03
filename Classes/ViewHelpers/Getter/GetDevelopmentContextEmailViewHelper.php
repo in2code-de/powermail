@@ -2,7 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /**
  * Class GetDevelopmentContextEmailViewHelper
@@ -17,6 +17,6 @@ class GetDevelopmentContextEmailViewHelper extends AbstractViewHelper {
 	 * @return  false|string
 	 */
 	public function render() {
-		return Div::getDevelopmentContextEmail();
+		return DivUtility::getDevelopmentContextEmail();
 	}
 }

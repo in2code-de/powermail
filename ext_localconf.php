@@ -7,7 +7,7 @@ if (!defined('TYPO3_MODE')) {
  * Enable caching for show action in form controller
  */
 $uncachedFormActions = 'form';
-if (\In2code\Powermail\Utility\Configuration::isEnableCachingActive()) {
+if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableCachingActive()) {
 	$uncachedFormActions = '';
 }
 $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';

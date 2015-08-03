@@ -1,8 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -211,7 +212,7 @@ class Field extends AbstractEntity {
 	 * @return string $title
 	 */
 	public function getTitle() {
-		return div::fluidParseString($this->title);
+		return DivUtility::fluidParseString($this->title);
 	}
 
 	/**
@@ -290,10 +291,10 @@ class Field extends AbstractEntity {
 	 * 			value => red
 	 * 			selected => 1
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function getModifiedSettings() {
-		return Div::optionArray(
+		return $this->optionArray(
 			$this->getSettings(),
 			$this->getCreateFromTyposcript()
 		);
@@ -663,6 +664,40 @@ class Field extends AbstractEntity {
 	 */
 	public function getPages() {
 		return $this->pages;
+	}
+
+	/**
+	 * Create an options array (Needed for fieldsettings: select, radio, check)
+	 *        option1 =>
+	 *            label => Red Shoes
+	 *            value => red
+	 *            selected => 1
+	 *
+	 * @param string $string Options from the Textarea
+	 * @param string $typoScriptObjectPath Path to TypoScript like lib.blabla
+	 * @return array Options Array
+	 */
+	protected function optionArray($string, $typoScriptObjectPath) {
+		if (empty($string)) {
+			$string = DivUtility::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
+		}
+		if (empty($string)) {
+			$string = 'Error, no options to show';
+		}
+		$options = array();
+		$string = str_replace('[\n]', "\n", $string);
+		$settingsField = GeneralUtility::trimExplode("\n", $string, TRUE);
+		foreach ($settingsField as $line) {
+			$settings = GeneralUtility::trimExplode('|', $line, FALSE);
+			$value = (isset($settings[1]) ? $settings[1] : $settings[0]);
+			$options[] = array(
+				'label' => DivUtility::fluidParseString($settings[0]),
+				'value' => $value,
+				'selected' => isset($settings[2]) ? 1 : 0
+			);
+		}
+
+		return $options;
 	}
 
 }

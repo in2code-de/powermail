@@ -76,7 +76,7 @@ class SelectFieldViewHelper extends SelectViewHelper {
 	 */
 	protected function getOptionFromOriginalOptionsByValue($value) {
 		foreach ($this->originalOptions as $option) {
-			if ($value === $option['value'] || $value === $option['label']) {
+			if ((string) $value === $option['value'] || (string) $value === $option['label']) {
 				return $option;
 			}
 		}

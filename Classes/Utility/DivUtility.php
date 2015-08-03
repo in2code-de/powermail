@@ -1,14 +1,14 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use In2code\Powermail\Domain\Service;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Service\StandaloneViewMultiplePathsService;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice
@@ -41,12 +41,7 @@ use In2code\Powermail\Domain\Model\Mail;
  * @license http://www.gnu.org/licenses/lgpl.html
  *            GNU Lesser General Public License, version 3 or later
  */
-class Div {
-
-	/**
-	 * Extension Key
-	 */
-	public static $extKey = 'powermail';
+class DivUtility {
 
 	/**
 	 * @var \In2code\Powermail\Domain\Repository\FormRepository
@@ -195,49 +190,6 @@ class Div {
 	}
 
 	/**
-	 * Save current timestamp to session
-	 *
-	 * @param QueryResult $forms
-	 * @param array $settings
-	 * @return void
-	 */
-	public static function saveFormStartInSession($forms, array $settings) {
-		$form = $forms->getFirst();
-		if ($form !== NULL && self::sessionCheckEnabled($settings)) {
-			$GLOBALS['TSFE']->fe_user->setKey('ses', 'powermailFormstart' . $form->getUid(), time());
-			$GLOBALS['TSFE']->storeSessionData();
-		}
-	}
-
-	/**
-	 * Read FormStart
-	 *
-	 * @param integer $formUid Form UID
-	 * @param array $settings
-	 * @return integer Timestamp
-	 */
-	public static function getFormStartFromSession($formUid, array $settings) {
-		if (self::sessionCheckEnabled($settings)) {
-			return (int) $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
-		}
-		return 0;
-	}
-
-	/**
-	 * Check if spamshield and sessioncheck is enabled
-	 *
-	 * @param array $settings
-	 * @return bool
-	 */
-	protected static function sessionCheckEnabled(array $settings) {
-		$settings = GeneralUtility::removeDotsFromTS($settings);
-		if (!empty($settings['spamshield']['_enable']) && !empty($settings['spamshield']['indicator']['session'])) {
-			return TRUE;
-		}
-		return FALSE;
-	}
-
-	/**
 	 * Returns given number or the current PID
 	 *
 	 * @param integer $pid Storage PID or nothing
@@ -253,15 +205,15 @@ class Div {
 	/**
 	 * This functions renders the powermail_all Template (e.g. useage in Mails)
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @param string $section Choose a section (web or mail)
 	 * @param array $settings TypoScript Settings
 	 * @param string $type "createAction", "confirmationAction", "sender", "receiver"
 	 * @return string content parsed from powermailAll HTML Template
 	 */
 	public function powermailAll(Mail $mail, $section = 'web', $settings = array(), $type = NULL) {
-		/** @var \In2code\Powermail\Utility\StandaloneViewMultiplePaths $powermailAll */
-		$powermailAll = $this->objectManager->get('In2code\\Powermail\\Utility\\StandaloneViewMultiplePaths');
+		/** @var StandaloneViewMultiplePathsService $powermailAll */
+		$powermailAll = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\StandaloneViewMultiplePathsService');
 		$templatePathAndFilename = $this->getTemplatePath('Form/PowermailAll.html');
 		$powermailAll->setTemplatePathAndFilename($templatePathAndFilename);
 		$powermailAll->setLayoutRootPaths($this->getTemplateFolders('layout'));
@@ -367,10 +319,10 @@ class Div {
 	 * Generate a new array with markers and their values
 	 *        firstname => value
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return array
 	 */
-	public function getVariablesWithMarkersFromMail(Mail $mail) {
+	public static function getVariablesWithMarkersFromMail(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -389,10 +341,10 @@ class Div {
 	 * Generate a new array with labels
 	 *        label_firstname => Firstname
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return array
 	 */
-	public function getLabelsWithMarkersFromMail(Mail $mail) {
+	public static function getLabelsWithMarkersFromMail(Mail $mail) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -514,11 +466,11 @@ class Div {
 	 * @param array $array Any array
 	 * @return array Cleaned array
 	 */
-	public function htmlspecialcharsOnArray($array) {
+	public static function htmlspecialcharsOnArray($array) {
 		$newArray = array();
-		foreach ((array)$array as $key => $value) {
+		foreach ((array) $array as $key => $value) {
 			if (is_array($value)) {
-				$newArray[htmlspecialchars($key)] = $this->htmlspecialcharsOnArray($value);
+				$newArray[htmlspecialchars($key)] = self::htmlspecialcharsOnArray($value);
 			} else {
 				$newArray[htmlspecialchars($key)] = htmlspecialchars($value);
 			}
@@ -603,40 +555,6 @@ class Div {
 	}
 
 	/**
-	 * Create an options array (Needed for fieldsettings: select, radio, check)
-	 *        option1 =>
-	 *            label => Red Shoes
-	 *            value => red
-	 *            selected => 1
-	 *
-	 * @param string $string Options from the Textarea
-	 * @param string $typoScriptObjectPath Path to TypoScript like lib.blabla
-	 * @return array Options Array
-	 */
-	public static function optionArray($string, $typoScriptObjectPath) {
-		if (empty($string)) {
-			$string = self::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
-		}
-		if (empty($string)) {
-			$string = 'Error, no options to show';
-		}
-		$options = array();
-		$string = str_replace('[\n]', "\n", $string);
-		$settingsField = GeneralUtility::trimExplode("\n", $string, TRUE);
-		foreach ($settingsField as $line) {
-			$settings = GeneralUtility::trimExplode('|', $line, FALSE);
-			$value = (isset($settings[1]) ? $settings[1] : $settings[0]);
-			$options[] = array(
-				'label' => self::fluidParseString($settings[0]),
-				'value' => $value,
-				'selected' => isset($settings[2]) ? 1 : 0
-			);
-		}
-
-		return $options;
-	}
-
-	/**
 	 * Powermail SendPost - Send values via curl to a third party software
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
@@ -656,7 +574,7 @@ class Div {
 		}
 
 		$contentObject->start(
-			$this->getVariablesWithMarkersFromMail($mail)
+			self::getVariablesWithMarkersFromMail($mail)
 		);
 		$parameters = $contentObject->cObjGetSingle(
 			$conf['marketing.']['sendPost.']['values'],
@@ -874,72 +792,6 @@ class Div {
 	}
 
 	/**
-	 * Store Marketing Information in Session
-	 *        'refererDomain' => domain.org
-	 *        'referer' => http://domain.org/xyz/test.html
-	 *        'country' => Germany
-	 *        'mobileDevice' => 1
-	 *        'frontendLanguage' => 3
-	 *        'browserLanguage' => en-us
-	 *        'feUser' => userAbc
-	 *        'pageFunnel' => array(2, 5, 1)
-	 *
-	 * @param \string $referer Referer
-	 * @param \int $language Frontend Language Uid
-	 * @param \int $pid Page Id
-	 * @param \int $mobileDevice Is mobile device?
-	 * @return void
-	 */
-	public static function storeMarketingInformation($referer = NULL, $language = 0, $pid = 0, $mobileDevice = 0) {
-		$marketingInfo = self::getSessionValue('powermail_marketing');
-
-		// initially create array with marketing info
-		if (!is_array($marketingInfo)) {
-			$marketingInfo = array(
-				'refererDomain' => self::getDomainFromUri($referer),
-				'referer' => $referer,
-				'country' => self::getCountryFromIp(),
-				'mobileDevice' => $mobileDevice,
-				'frontendLanguage' => $language,
-				'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
-				'pageFunnel' => array($pid)
-			);
-		} else {
-			// add current pid to funnel
-			$marketingInfo['pageFunnel'][] = $pid;
-
-			// clean pagefunnel if has more than 256 entries
-			if (count($marketingInfo['pageFunnel']) > 256) {
-				$marketingInfo['pageFunnel'] = array($pid);
-			}
-		}
-
-		// store in session
-		self::setSessionValue('powermail_marketing', $marketingInfo, TRUE);
-	}
-
-	/**
-	 * Read MarketingInfos from Session
-	 *
-	 * @return array
-	 */
-	public static function getMarketingInfos() {
-		$marketingInfo = self::getSessionValue('powermail_marketing');
-		if (!is_array($marketingInfo)) {
-			$marketingInfo = array(
-				'refererDomain' => '',
-				'referer' => '',
-				'country' => '',
-				'mobileDevice' => 0,
-				'frontendLanguage' => 0,
-				'browserLanguage' => '',
-				'pageFunnel' => array()
-			);
-		}
-		return $marketingInfo;
-	}
-
-	/**
 	 * Get Property from currently logged in fe_user
 	 *
 	 * @param \string $propertyName
@@ -984,43 +836,6 @@ class Div {
 	}
 
 	/**
-	 * Set a powermail session (don't overwrite existing sessions)
-	 *
-	 * @param string $name A session name
-	 * @param array $values Values to save
-	 * @param \bool $overwrite Overwrite existing values
-	 * @return void
-	 */
-	public static function setSessionValue($name, $values, $overwrite = FALSE) {
-		if (!$overwrite) {
-			// read existing values
-			$oldValues = self::getSessionValue($name);
-			// merge old values with new
-			$values = array_merge((array)$oldValues, (array)$values);
-		}
-		$newValues = array(
-			$name => $values
-		);
-
-		$GLOBALS['TSFE']->fe_user->setKey('ses', self::$extKey, $newValues);
-		$GLOBALS['TSFE']->storeSessionData();
-	}
-
-	/**
-	 * Read a powermail session
-	 *
-	 * @param \string $name A session name
-	 * @return \string Values from session
-	 */
-	public static function getSessionValue($name = '') {
-		$powermailSession = $GLOBALS['TSFE']->fe_user->getKey('ses', self::$extKey);
-		if (!empty($name) && isset($powermailSession[$name])) {
-			return $powermailSession[$name];
-		}
-		return '';
-	}
-
-	/**
 	 * Save values to any table in TYPO3 database
 	 *
 	 * @param \In2code\Powermail\Domain\Model\Mail $mail
@@ -1032,7 +847,7 @@ class Div {
 			return;
 		}
 		$contentObject = $this->configurationManager->getContentObject();
-		$startArray = $this->getVariablesWithMarkersFromMail($mail);
+		$startArray = self::getVariablesWithMarkersFromMail($mail);
 
 		// one loop per table
 		foreach ((array) array_keys($conf['dbEntry.']) as $table) {
@@ -1050,12 +865,12 @@ class Div {
 				continue;
 			}
 
-			/* @var $saveToAnyTable \In2code\Powermail\Utility\SaveToAnyTable */
-			$saveToAnyTable = $this->objectManager->get('In2code\Powermail\Utility\SaveToAnyTable', $table);
+			/* @var $saveToAnyTable Service */
+			$saveToAnyTableService = $this->objectManager->get('In2code\Powermail\Domain\Service\SaveToAnyTableService', $table);
 			if (!empty($conf['dbEntry.'][$table . '.']['_ifUnique.'])) {
 				$uniqueFields = array_keys($conf['dbEntry.'][$table . '.']['_ifUnique.']);
-				$saveToAnyTable->setMode($conf['dbEntry.'][$table . '.']['_ifUnique.'][$uniqueFields[0]]);
-				$saveToAnyTable->setUniqueField($uniqueFields[0]);
+				$saveToAnyTableService->setMode($conf['dbEntry.'][$table . '.']['_ifUnique.'][$uniqueFields[0]]);
+				$saveToAnyTableService->setUniqueField($uniqueFields[0]);
 			}
 
 			// one loop per field
@@ -1072,12 +887,12 @@ class Div {
 					$conf['dbEntry.'][$table . '.'][$field],
 					$conf['dbEntry.'][$table . '.'][$field . '.']
 				);
-				$saveToAnyTable->addProperty($field, $value);
+				$saveToAnyTableService->addProperty($field, $value);
 			}
 			if (!empty($conf['debug.']['saveToTable'])) {
-				$saveToAnyTable->setDevLog(TRUE);
+				$saveToAnyTableService->setDevLog(TRUE);
 			}
-			$uid = $saveToAnyTable->execute();
+			$uid = $saveToAnyTableService->execute();
 
 			// add this uid to startArray for later using in TypoScript
 			$startArray = array_merge(
@@ -1295,86 +1110,5 @@ class Div {
 		}
 
 		return $array;
-	}
-
-	/**
-	 * Merges Flexform, TypoScript and Extension Manager Settings (up to 2 levels)
-	 *        Note: It's not possible to have the same field in TS and Flexform
-	 *        and if FF value is empty, we want the TypoScript value instead
-	 *
-	 * @param array $settings All settings
-	 * @param string $typoScriptLevel Startpoint
-	 * @return void
-	 */
-	public static function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup') {
-		// config
-		$temporarySettings = array();
-		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-
-		if (isset($settings[$typoScriptLevel]) && is_array($settings[$typoScriptLevel])) {
-			// copy typoscript part to conf part
-			$temporarySettings = $settings[$typoScriptLevel];
-		}
-
-		if (isset($settings['flexform']) && is_array($settings['flexform'])) {
-			// copy flexform part to conf part
-			$temporarySettings = array_merge((array)$temporarySettings, (array)$settings['flexform']);
-		}
-
-		// merge ts and ff (loop every flexform)
-		foreach ($temporarySettings as $key1 => $value1) {
-			// 1. level
-			if (!is_array($value1)) {
-				// only if this key exists in ff and ts
-				if (isset($settings[$typoScriptLevel][$key1]) && isset($settings['flexform'][$key1])) {
-					// only if ff is empty and ts not
-					if ($settings[$typoScriptLevel][$key1] && !$settings['flexform'][$key1]) {
-						// overwrite with typoscript settings
-						$temporarySettings[$key1] = $settings[$typoScriptLevel][$key1];
-					}
-				}
-			} else {
-				// 2. level
-				foreach ($value1 as $key2 => $value2) {
-					$value2 = NULL;
-
-					// only if this key exists in ff and ts
-					if (isset($settings[$typoScriptLevel][$key1][$key2]) && isset($settings['flexform'][$key1][$key2])) {
-						// only if ff is empty and ts not
-						if ($settings[$typoScriptLevel][$key1][$key2] && !$settings['flexform'][$key1][$key2]) {
-							// overwrite with typoscript settings
-							$temporarySettings[$key1][$key2] = $settings[$typoScriptLevel][$key1][$key2];
-						}
-					}
-				}
-			}
-		}
-
-		// merge ts and ff (loop every typoscript)
-		foreach ((array)$settings[$typoScriptLevel] as $key1 => $value1) {
-			// 1. level
-			if (!is_array($value1)) {
-				// only if this key exists in ts and not in ff
-				if (isset($settings[$typoScriptLevel][$key1]) && !isset($settings['flexform'][$key1])) {
-					// set value from ts
-					$temporarySettings[$key1] = $value1;
-				}
-			} else {
-				// 2. level
-				foreach ($value1 as $key2 => $value2) {
-					// only if this key exists in ts and not in ff
-					if (isset($settings[$typoScriptLevel][$key1][$key2]) && !isset($settings['flexform'][$key1][$key2])) {
-						// set value from ts
-						$temporarySettings[$key1][$key2] = $value2;
-					}
-				}
-			}
-		}
-
-		// add global config
-		$temporarySettings['global'] = $confArr;
-
-		$settings = $temporarySettings;
-		unset($temporarySettings);
 	}
 }

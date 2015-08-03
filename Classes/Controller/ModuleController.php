@@ -1,10 +1,11 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Domain\Service\FormConverterService;
+use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\ReportingUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use In2code\Powermail\Utility\Div;
-use In2code\Powermail\Utility\Reporting;
 
 /***************************************************************
  *  Copyright notice
@@ -55,7 +56,7 @@ class ModuleController extends AbstractController {
 	 */
 	public function listAction() {
 		$formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
-		$firstFormUid = Div::conditionalVariable($this->piVars['filter']['form'], key($formUids));
+		$firstFormUid = DivUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
 		$this->view->assignMultiple(
 			array(
 				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
@@ -80,13 +81,13 @@ class ModuleController extends AbstractController {
 				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
 				'fieldUids' => GeneralUtility::trimExplode(
 					',',
-					Div::conditionalVariable($this->piVars['export']['fields'], ''),
+					DivUtility::conditionalVariable($this->piVars['export']['fields'], ''),
 					TRUE
 				)
 			)
 		);
 
-		$fileName = Div::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
+		$fileName = DivUtility::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: inline; filename="' . $fileName . '"');
 		header('Pragma: no-cache');
@@ -103,13 +104,13 @@ class ModuleController extends AbstractController {
 				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
 				'fieldUids' => GeneralUtility::trimExplode(
 					',',
-					Div::conditionalVariable($this->piVars['export']['fields'], ''),
+					DivUtility::conditionalVariable($this->piVars['export']['fields'], ''),
 					TRUE
 				)
 			)
 		);
 
-		$fileName = Div::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
+		$fileName = DivUtility::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
 		header('Content-Type: text/x-csv');
 		header('Content-Disposition: attachment; filename="' . $fileName . '"');
 		header('Pragma: no-cache');
@@ -143,7 +144,7 @@ class ModuleController extends AbstractController {
 	public function reportingFormBeAction() {
 		$mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
 		$firstMail = $this->mailRepository->findFirstInPid($this->id);
-		$groupedAnswers = Reporting::getGroupedAnswersFromMails($mails);
+		$groupedAnswers = ReportingUtility::getGroupedAnswersFromMails($mails);
 
 		$this->view->assignMultiple(
 			array(
@@ -166,7 +167,7 @@ class ModuleController extends AbstractController {
 	public function reportingMarketingBeAction() {
 		$mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
 		$firstMail = $this->mailRepository->findFirstInPid($this->id);
-		$groupedMarketingStuff = Reporting::getGroupedMarketingPropertiesFromMails($mails);
+		$groupedMarketingStuff = ReportingUtility::getGroupedMarketingPropertiesFromMails($mails);
 
 		$this->view->assignMultiple(
 			array(
@@ -289,9 +290,9 @@ class ModuleController extends AbstractController {
 				$this->formRepository->findOldFieldsetsAndFieldsToTtContentRecord($form['uid']);
 			$formCounter++;
 		}
-		/** @var \In2code\Powermail\Utility\FormConverter $formConverter */
-		$formConverter = $this->objectManager->get('In2code\Powermail\Utility\FormConverter');
-		$result = $formConverter->createNewFromOldForms($oldFormsWithFieldsetsAndFields, $converter);
+		/** @var FormConverterService $formConverterService */
+		$formConverterService = $this->objectManager->get('In2code\Powermail\Domain\Service\FormConverterService');
+		$result = $formConverterService->createNewFromOldForms($oldFormsWithFieldsetsAndFields, $converter);
 		$this->view->assign('result', $result);
 		$this->view->assign('converter', $converter);
 	}
@@ -382,7 +383,7 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	protected function checkAdminPermissions() {
-		if (!Div::isBackendAdmin()) {
+		if (!DivUtility::isBackendAdmin()) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->forward('toolsBe');
 		}

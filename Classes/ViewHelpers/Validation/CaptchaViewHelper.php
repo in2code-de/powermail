@@ -4,7 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /**
  * Get Captcha
@@ -23,10 +23,10 @@ class CaptchaViewHelper extends AbstractViewHelper {
 	protected $persistenceManager;
 
 	/**
-	 * @var \In2code\Powermail\Utility\CalculatingCaptcha
+	 * @var \In2code\Powermail\Domain\Service\CalculatingCaptchaService
 	 * @inject
 	 */
-	protected $calculatingCaptchaEngine;
+	protected $calculatingCaptchaService;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -47,14 +47,14 @@ class CaptchaViewHelper extends AbstractViewHelper {
 	 * @return string image URL
 	 */
 	public function render() {
-		switch (Div::getCaptchaExtensionFromSettings($this->settings)) {
+		switch (DivUtility::getCaptchaExtensionFromSettings($this->settings)) {
 			case 'captcha':
 				$image = ExtensionManagementUtility::siteRelPath('captcha') . 'captcha/captcha.php';
 				break;
 
 			default:
-				$this->calculatingCaptchaEngine->setConfiguration($this->settings);
-				$image = $this->calculatingCaptchaEngine->render();
+				$this->calculatingCaptchaService->setConfiguration($this->settings);
+				$image = $this->calculatingCaptchaService->render();
 		}
 		return $image;
 	}

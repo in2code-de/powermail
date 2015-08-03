@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Utility;
+namespace In2code\Powermail\Tests\Domain\Service;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -28,16 +28,16 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  ***************************************************************/
 
 /**
- * Export Tests
+ * ExportService Tests
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class ExportTest extends UnitTestCase {
+class ExportServiceTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Utility\Export
+	 * @var \In2code\Powermail\Domain\Service\ExportService
 	 */
 	protected $generalValidatorMock;
 
@@ -46,7 +46,7 @@ class ExportTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\Export',
+			'\In2code\Powermail\Domain\Service\ExportService',
 			array('dummy')
 		);
 	}

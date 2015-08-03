@@ -2,7 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /**
  * View helper check if given value is empty (also empty arrays)
@@ -19,6 +19,6 @@ class IsNotEmptyViewHelper extends AbstractViewHelper {
 	 * @return boolean
 	 */
 	public function render($val) {
-		return Div::isNotEmpty($val);
+		return DivUtility::isNotEmpty($val);
 	}
 }

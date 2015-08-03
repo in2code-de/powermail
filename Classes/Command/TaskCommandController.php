@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Command;
 
-use In2code\Powermail\Utility\BasicFileFunctions;
+use In2code\Powermail\Utility\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
@@ -93,14 +93,14 @@ class TaskCommandController extends CommandController {
 		$storageFolder = 'typo3temp/tx_powermail/',
 		$fileName = NULL
 	) {
-		/** @var \In2code\Powermail\Utility\Export $export */
-		$export = $this->objectManager->get(
+		/** @var \In2code\Powermail\Utility\ExportService $exportService */
+		$exportService = $this->objectManager->get(
 			'In2code\Powermail\Utility\Export',
 			$this->mailRepository->findAllInPid($pageUid, array(), $this->getFilterVariables($period)),
 			$format,
 			array('domain' => $domain)
 		);
-		$export
+		$exportService
 			->setReceiverEmails($receiverEmails)
 			->setSenderEmails($senderEmail)
 			->setSubject($subject)
@@ -108,7 +108,7 @@ class TaskCommandController extends CommandController {
 			->setAddAttachment($attachment)
 			->setStorageFolder($storageFolder)
 			->setFileName($fileName);
-		return $export->send();
+		return $exportService->send();
 	}
 
 	/**
@@ -122,7 +122,7 @@ class TaskCommandController extends CommandController {
 	 */
 	public function cleanUnusedUploadsCommand($uploadPath = 'uploads/tx_powermail/') {
 		$usedUploads = $this->getUsedUploads();
-		$allUploads = BasicFileFunctions::getFilesFromRelativePath($uploadPath);
+		$allUploads = BasicFileUtility::getFilesFromRelativePath($uploadPath);
 		$removeCounter = 0;
 		foreach ($allUploads as $upload) {
 			if (!in_array($upload, $usedUploads)) {

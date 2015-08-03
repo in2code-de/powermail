@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
-use In2code\Powermail\Utility\Configuration;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DivUtility;
 
 /**
  * Class ShowFormNoteIfNoEmailOrNameSelected shows note if form errors
@@ -112,7 +112,7 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 	 * @return bool
 	 */
 	protected function senderEmailOrSenderNameSet($formUid) {
-		$fields = Div::getFieldsFromFormWithSelectQuery($formUid);
+		$fields = DivUtility::getFieldsFromFormWithSelectQuery($formUid);
 		foreach ($fields as $property) {
 			foreach ($property as $column => $value) {
 				if ($column === 'sender_email' && $value === '1') {
@@ -133,7 +133,7 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 	 * @return bool
 	 */
 	protected function hasFormUniqueFieldMarkers($formUid) {
-		$fields = Div::getFieldsFromFormWithSelectQuery($formUid);
+		$fields = DivUtility::getFieldsFromFormWithSelectQuery($formUid);
 		$markers = array();
 		foreach ($fields as $field) {
 			$markers[] = $field['marker'];
@@ -154,7 +154,7 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 		if (
 			!isset($params['row']['uid']) ||
 			!is_numeric($params['row']['uid'])
-			|| Configuration::isReplaceIrreWithElementBrowserActive()
+			|| ConfigurationUtility::isReplaceIrreWithElementBrowserActive()
 		) {
 			return FALSE;
 		}

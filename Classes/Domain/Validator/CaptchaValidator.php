@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Domain\Validator;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Domain\Model\Form;
 
 /**
@@ -15,11 +15,10 @@ use In2code\Powermail\Domain\Model\Form;
 class CaptchaValidator extends AbstractValidator {
 
 	/**
-	 * @var \In2code\Powermail\Utility\CalculatingCaptcha
-	 *
+	 * @var \In2code\Powermail\Domain\Service\CalculatingCaptchaService
 	 * @inject
 	 */
-	protected $calculatingCaptchaEngine;
+	protected $calculatingCaptchaService;
 
 	/**
 	 * Captcha Session clean (only if mail is out)
@@ -75,7 +74,7 @@ class CaptchaValidator extends AbstractValidator {
 	 * @return bool
 	 */
 	protected function validCodePreflight($value) {
-		switch (Div::getCaptchaExtensionFromSettings($this->settings)) {
+		switch (DivUtility::getCaptchaExtensionFromSettings($this->settings)) {
 			case 'captcha':
 				session_start();
 				$generatedCaptchaString = $_SESSION['tx_captcha_string'];
@@ -88,7 +87,7 @@ class CaptchaValidator extends AbstractValidator {
 				break;
 
 			default:
-				if ($this->calculatingCaptchaEngine->validCode($value, $this->getClearSession())) {
+				if ($this->calculatingCaptchaService->validCode($value, $this->getClearSession())) {
 					return TRUE;
 				}
 		}

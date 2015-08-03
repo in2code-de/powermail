@@ -1,22 +1,29 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Domain\Model\Answer;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 /**
- * Prefill a field with variables
+ * Prefill a field
  *
  * @package TYPO3
  * @subpackage Fluid
  * @version
  */
 class PrefillFieldViewHelper extends AbstractViewHelper {
+
+	/**
+	 * @var string|array
+	 */
+	protected $value = NULL;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -40,290 +47,341 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	protected $contentObjectRenderer;
 
 	/**
-	 * Prefill string for fields
+	 * Field
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail To prefill in Edit Action
-	 * @param \int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
-	 * @return string|array|bool Prefill field with this string
+	 * @var Field $field
 	 */
-	public function render(Field $field, Mail $mail = NULL, $cycle = 0) {
-		// don't prefill if cached form to prevent wrong cached values
-		if ($this->isCachedForm()) {
-			return '';
-		}
+	protected $field = NULL;
 
-		if ($cycle === 0) {
-			$value = $this->getDefaultValue($field, $mail);
-		} else {
-			$value = $this->getMultiValue($field, $mail, $cycle);
-		}
+	/**
+	 * Mail
+	 *
+	 * @var Mail $mail
+	 */
+	protected $mail = NULL;
 
-		return $value;
+	/**
+	 * Markername
+	 *
+	 * @var string
+	 */
+	protected $marker = '';
+
+	/**
+	 * Prefill fields from type
+	 * 		input
+	 * 		textarea
+	 * 		select
+	 * 		country
+	 * 		file
+	 * 		hidden
+	 * 		date
+	 * 		location
+	 *
+	 * @param Field $field
+	 * @param Mail $mail To prefill in Edit Action
+	 * @param int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
+	 * @param string $default Fallback value
+	 * @todo remove param $cycle
+	 * @return string|array Prefill field
+	 */
+	public function render(Field $field, Mail $mail = NULL, $cycle = 0, $default = '') {
+		$this
+			->setMarker($field->getMarker())
+			->setField($field)
+			->setMail($mail)
+			->setValue($default);
+
+		// stop prefilling for cached forms to prevent wrong values
+		if (!$this->isCachedForm()) {
+			if ($cycle === 0) {
+				$this->buildValue();
+			} else {
+				// TODO remove $cycle completely in next minor version
+				GeneralUtility::deprecationLog(
+					'Method \In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render() was called from a ' .
+					'template or a partial with attribute "cycle". This attribute will be removed in next ' .
+					'minor version of powermail. Further use can lead to exceptions. Please remove this attribute ' .
+					'from your template files.'
+				);
+			}
+		}
+		return $this->getValue();
 	}
 
 	/**
-	 * Get value for default fieldtypes (input, textarea, hidden, select)
+	 * Build value
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail To prefill in Edit Action
+	 * @return void
+	 */
+	protected function buildValue() {
+		$value = $this->getFromMail();
+		if (empty($value)) {
+			$value = $this->getFromMarker();
+		}
+		if (empty($value)) {
+			$value = $this->getFromRawMarker();
+		}
+		if (empty($value)) {
+			$value = $this->getFromFieldUid();
+		}
+		if (empty($value)) {
+			$value = $this->getFromOldPowermailFieldUid();
+		}
+		if (empty($value)) {
+			$value = $this->getFromFrontendUser();
+		}
+		if (empty($value)) {
+			$value = $this->getFromPrefillValue();
+		}
+		if (empty($value)) {
+			$value = $this->getFromTypoScriptContentObject();
+		}
+		if (empty($value)) {
+			$value = $this->getFromTypoScriptRaw();
+		}
+		if (empty($value)) {
+			$value = $this->getFromSession();
+		}
+		$this->setValue($value);
+	}
+
+	/**
+	 * Get value from existing answer for edit view
+	 *
 	 * @return string|array
 	 */
-	protected function getDefaultValue(Field $field, Mail $mail = NULL) {
+	protected function getFromMail() {
 		$value = '';
-		$marker = $field->getMarker();
-		$uid = $field->getUid();
-
-		// edit view
-		if ($mail !== NULL && $mail->getAnswers()) {
-			foreach ($mail->getAnswers() as $answer) {
-				if ($answer->getField() === $field) {
-					$value = $answer->getValue();
-					if (is_array($value)) {
-						$value = $value[0];
-					}
+		if ($this->getMail() !== NULL && $this->getMail()->getAnswers()) {
+			foreach ($this->getMail()->getAnswers() as $answer) {
+				/** @var Answer $answer */
+				if ($answer->getField() === $this->getField()) {
+					return $answer->getValue();
 				}
 			}
 		}
-
-		// if GET/POST with marker (&tx_powermail_pi1[field][marker]=value)
-		if (isset($this->piVars['field'][$marker])) {
-			$value = $this->piVars['field'][$marker];
-		}
-
-		// if GET/POST with marker (&tx_powermail_pi1[marker]=value)
-		elseif (isset($this->piVars[$marker])) {
-			$value = $this->piVars[$marker];
-		}
-
-		// if GET/POST with new uid (&tx_powermail_pi1[field][123]=value)
-		elseif (isset($this->piVars['field'][$uid])) {
-			$value = $this->piVars['field'][$uid];
-		}
-
-		// if GET/POST with old uid (&tx_powermail_pi1[uid123]=value)
-		elseif (isset($this->piVars['uid' . $uid])) {
-			$value = $this->piVars['uid' . $uid];
-		}
-
-		// if field should be filled with FE_User values
-		elseif ($field->getFeuserValue()) {
-			// if fe_user is logged in
-			if (intval($GLOBALS['TSFE']->fe_user->user['uid']) !== 0) {
-				$value = $GLOBALS['TSFE']->fe_user->user[$field->getFeuserValue()];
-			}
-		}
-
-		// if prefill value (from flexform)
-		elseif ($field->getPrefillValue()) {
-			$value = $field->getPrefillValue();
-		}
-
-		// if prefill value (from typoscript)
-		elseif (isset($this->settings['prefill.'][$marker]) || isset($this->settings['prefill.'][$marker . '.'])) {
-			if (isset($this->settings['prefill.'][$marker . '.']) && is_array($this->settings['prefill.'][$marker . '.'])) {
-				$this->contentObjectRenderer->start(ObjectAccess::getGettableProperties($field));
-
-				if (isset($this->settings['prefill.'][$marker . '.']['0'])) {
-
-					/**
-					 * plugin.tx_powermail.settings.setup.prefill.marker.0 = TEXT
-					 * plugin.tx_powermail.settings.setup.prefill.marker.0.value = red
-					 */
-					$value = array();
-					foreach (array_keys($this->settings['prefill.'][$marker . '.']) as $key) {
-						if (stristr($key, '.')) {
-							continue;
-						}
-						$value[] = $this->contentObjectRenderer->cObjGetSingle(
-							$this->settings['prefill.'][$marker . '.'][$key],
-							$this->settings['prefill.'][$marker . '.'][$key . '.']
-						);
-					}
-				} else {
-
-					/**
-					 * plugin.tx_powermail.settings.setup.prefill.marker = TEXT
-					 * plugin.tx_powermail.settings.setup.prefill.marker.value = red
-					 */
-					$value = $this->contentObjectRenderer->cObjGetSingle(
-						$this->settings['prefill.'][$marker],
-						$this->settings['prefill.'][$marker . '.']
-					);
-				}
-			} else {
-
-				/**
-				 * plugin.tx_powermail.settings.setup.prefill.marker = red
-				 */
-				$value = $this->settings['prefill.'][$marker];
-			}
-
-		}
-
 		return $value;
 	}
 
 	/**
-	 * Get value for multi fieldtypes (checkbox, radio)
+	 * Get value from GET/POST param &tx_powermail_pi1[field][marker]
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail To prefill in Edit Action
-	 * @param \int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
-	 * @return bool
+	 * @return string
 	 */
-	protected function getMultiValue(Field $field, Mail $mail = NULL, $cycle = 0) {
-		$marker = $field->getMarker();
-		$uid = $field->getUid();
-		$selected = FALSE;
-		$index = $cycle - 1;
-		$options = $field->getModifiedSettings();
-
-		// edit view
-		if ($mail !== NULL && $mail->getAnswers()) {
-			foreach ($mail->getAnswers() as $answer) {
-				if ($answer->getField() === $field) {
-					$values = $answer->getValue();
-					foreach ((array) $values as $value) {
-						if ($value === $options[$index]['value'] || $value === $options[$index]['label']) {
-							$selected = TRUE;
-						}
-					}
-				}
-			}
+	protected function getFromMarker() {
+		$value = '';
+		if (isset($this->piVars['field'][$this->getMarker()])) {
+			$value = $this->piVars['field'][$this->getMarker()];
 		}
+		return $value;
+	}
 
-		// if GET/POST with marker (&tx_powermail_pi1[field][marker][index]=value)
-		if (isset($this->piVars['field'][$marker]) && is_array($this->piVars['field'][$marker])) {
-			foreach (array_keys($this->piVars['field'][$marker]) as $key) {
-				if (
-					$this->piVars['field'][$marker][$key] === $options[$index]['value']
-					|| $this->piVars['field'][$marker][$key] === $options[$index]['label']
-				) {
-					$selected = TRUE;
-				}
-			}
+	/**
+	 * Get value from GET/POST param &tx_powermail_pi1[marker]
+	 *
+	 * @return string
+	 */
+	protected function getFromRawMarker() {
+		$value = '';
+		if (isset($this->piVars[$this->getMarker()])) {
+			$value = $this->piVars[$this->getMarker()];
 		}
+		return $value;
+	}
 
-		// if GET/POST with marker (&tx_powermail_pi1[field][marker]=value)
-		elseif (isset($this->piVars['field'][$marker])) {
-			if ($this->piVars['field'][$marker] === $options[$index]['value'] ||
-				$this->piVars['field'][$marker] === $options[$index]['label']) {
-				$selected = TRUE;
-			}
+	/**
+	 * Get value from GET/POST param &tx_powermail_pi1[field][123]
+	 *
+	 * @return string
+	 */
+	protected function getFromFieldUid() {
+		$value = '';
+		if (isset($this->piVars['field'][$this->getField()->getUid()])) {
+			$value = $this->piVars['field'][$this->getField()->getUid()];
 		}
+		return $value;
+	}
 
-		// if GET/POST with marker (&tx_powermail_pi1[marker][index]=value)
-		elseif (isset($this->piVars[$marker]) && is_array($this->piVars[$marker])) {
-			foreach (array_keys($this->piVars[$marker]) as $key) {
-				if (
-					$this->piVars[$marker][$key] === $options[$index]['value']
-					|| $this->piVars[$marker][$key] === $options[$index]['label']
-				) {
-					$selected = TRUE;
-				}
-			}
+	/**
+	 * Get value from GET/POST param &tx_powermail_pi1[uid123]
+	 *
+	 * @return string
+	 */
+	protected function getFromOldPowermailFieldUid() {
+		$value = '';
+		if (isset($this->piVars['uid' . $this->getField()->getUid()])) {
+			$value = $this->piVars['uid' . $this->getField()->getUid()];
 		}
+		return $value;
+	}
 
-		// if GET/POST with marker (&tx_powermail_pi1[marker]=value)
-		elseif (isset($this->piVars[$marker])) {
-			if ($this->piVars[$marker] === $options[$index]['value'] || $this->piVars[$marker] === $options[$index]['label']) {
-				$selected = TRUE;
-			}
-		}
-
-		// if GET/POST with new uid (&tx_powermail_pi1[field][123]=value)
-		elseif (isset($this->piVars['field'][$uid])) {
-			if (is_array($this->piVars['field'][$uid])) {
-				foreach ($this->piVars['field'][$uid] as $key => $value) {
-					$value = NULL;
-					if ($this->piVars['field'][$uid][$key] === $options[$index]['value'] ||
-						$this->piVars['field'][$uid][$key] === $options[$index]['label']) {
-						$selected = TRUE;
-					}
-				}
-			} else {
-				if (
-					$this->piVars['field'][$uid] === $options[$index]['value'] ||
-					$this->piVars['field'][$uid] === $options[$index]['label']
-				) {
-					$selected = TRUE;
-				}
-			}
-		}
-
-		// if GET/POST with old uid (&tx_powermail_pi1[uid123]=value)
-		elseif (isset($this->piVars['uid' . $uid])) {
-			if ($this->piVars['uid' . $uid] === $options[$index]['value'] || $this->piVars['uid' . $uid] === $options[$index]['label']) {
-				$selected = TRUE;
-			}
-		}
-
-		// if field should be filled with FE_User values
-		elseif ($field->getFeuserValue() && intval($GLOBALS['TSFE']->fe_user->user['uid']) !== 0) {
+	/**
+	 * Get value from current logged in Frontend User
+	 *
+	 * @return string
+	 */
+	protected function getFromFrontendUser() {
+		$value = '';
+		if ($this->getField()->getFeuserValue()) {
 			// if fe_user is logged in
-			if ($GLOBALS['TSFE']->fe_user->user[$field->getFeuserValue()] === $options[$index]['value'] ||
-				$GLOBALS['TSFE']->fe_user->user[$field->getFeuserValue()] === $options[$index]['label']) {
-				$selected = TRUE;
+			if (!empty($GLOBALS['TSFE']->fe_user->user['uid'])) {
+				$value = $GLOBALS['TSFE']->fe_user->user[$this->getField()->getFeuserValue()];
 			}
 		}
+		return $value;
+	}
 
-		// if prefill value (from flexform)
-		elseif ($options[$index]['selected']) {
-			$selected = TRUE;
+	/**
+	 * Get value from prefill value from field record
+	 *
+	 * @return string
+	 */
+	protected function getFromPrefillValue() {
+		$value = '';
+		if ($this->getField()->getPrefillValue()) {
+			$value = $this->getField()->getPrefillValue();
 		}
+		return $value;
+	}
 
-		// if prefill value (from typoscript)
-		elseif (isset($this->settings['prefill.'][$marker]) || isset($this->settings['prefill.'][$marker . '.'])) {
-			if (isset($this->settings['prefill.'][$marker . '.']) && is_array($this->settings['prefill.'][$marker . '.'])) {
-				$this->contentObjectRenderer->start(ObjectAccess::getGettableProperties($field));
+	/**
+	 * Get from raw TypoScript settings like
+	 * 		plugin.tx_powermail.settings.setup.prefill.marker = red
+	 *
+	 * @return string
+	 */
+	protected function getFromTypoScriptRaw() {
+		$value = '';
+		if (!empty($this->settings['prefill.'][$this->getMarker()])) {
+			$value = $this->settings['prefill.'][$this->getMarker()];
+		}
+		return $value;
+	}
 
-				if (isset($this->settings['prefill.'][$marker . '.']['0'])) {
-
-					/**
-					 * plugin.tx_powermail.settings.setup.prefill.marker.0 = TEXT
-					 * plugin.tx_powermail.settings.setup.prefill.marker.0.value = red
-					 */
-					foreach (array_keys($this->settings['prefill.'][$marker . '.']) as $key) {
-						if (stristr($key, '.')) {
-							continue;
-						}
-						$prefill = $this->contentObjectRenderer->cObjGetSingle(
-							$this->settings['prefill.'][$marker . '.'][$key],
-							$this->settings['prefill.'][$marker . '.'][$key . '.']
-						);
-						if ($prefill === $options[$index]['value'] || $prefill === $options[$index]['label']) {
-							$selected = TRUE;
-						}
+	/**
+	 * Get from TypoScript content object like
+	 *
+	 * 		# direct value
+	 * 		plugin.tx_powermail.settings.setup.prefill.marker = TEXT
+	 * 		plugin.tx_powermail.settings.setup.prefill.marker.value = red
+	 *
+	 * 		# multiple value
+	 * 		plugin.tx_powermail.settings.setup.prefill.marker.0 = TEXT
+	 * 		plugin.tx_powermail.settings.setup.prefill.marker.0.value = red
+	 *
+	 * @return array|string
+	 */
+	protected function getFromTypoScriptContentObject() {
+		$value = '';
+		if (
+			isset($this->settings['prefill.'][$this->getMarker() . '.']) &&
+			is_array($this->settings['prefill.'][$this->getMarker() . '.'])
+		) {
+			$this->contentObjectRenderer->start(ObjectAccess::getGettableProperties($this->getField()));
+			// Multivalue
+			if (isset($this->settings['prefill.'][$this->getMarker() . '.']['0'])) {
+				$value = array();
+				foreach (array_keys($this->settings['prefill.'][$this->getMarker() . '.']) as $key) {
+					if (stristr($key, '.')) {
+						continue;
 					}
-				} else {
-
-					/**
-					 * plugin.tx_powermail.settings.setup.prefill.marker = TEXT
-					 * plugin.tx_powermail.settings.setup.prefill.marker.value = red
-					 */
-					$prefill = $this->contentObjectRenderer->cObjGetSingle(
-						$this->settings['prefill.'][$marker],
-						$this->settings['prefill.'][$marker . '.']
+					$value[] = $this->contentObjectRenderer->cObjGetSingle(
+						$this->settings['prefill.'][$this->getMarker() . '.'][$key],
+						$this->settings['prefill.'][$this->getMarker() . '.'][$key . '.']
 					);
-					if ($prefill === $options[$index]['value'] || $prefill === $options[$index]['label']) {
-						$selected = TRUE;
-					}
 				}
 			} else {
+				// Single value
+				$value = $this->contentObjectRenderer->cObjGetSingle(
+					$this->settings['prefill.'][$this->getMarker()],
+					$this->settings['prefill.'][$this->getMarker() . '.']
+				);
+			}
+		}
+		return $value;
+	}
 
-				/**
-				 * plugin.tx_powermail.settings.setup.prefill.marker = red
-				 */
-				if ($this->settings['prefill.'][$marker] === $options[$index]['value'] ||
-					$this->settings['prefill.'][$marker] === $options[$index]['label']) {
-					$selected = TRUE;
+	/**
+	 * Get value from session if defined in TypoScript
+	 *
+	 * @return string
+	 */
+	protected function getFromSession() {
+		$value = '';
+		$sessionValues = SessionUtility::getSessionValuesForPrefill($this->settings);
+		if (count($sessionValues)) {
+			foreach ($sessionValues as $marker => $valueInSession) {
+				if ($this->getMarker() === $marker) {
+					return $valueInSession;
 				}
 			}
-
 		}
+		return $value;
+	}
 
-		return $selected;
+	/**
+	 * @return string|array
+	 */
+	public function getValue() {
+		return $this->value;
+	}
+
+	/**
+	 * @param string|array $value
+	 * @return PrefillFieldViewHelper
+	 */
+	public function setValue($value) {
+		$this->value = $value;
+		return $this;
+	}
+
+	/**
+	 * @return Field
+	 */
+	public function getField() {
+		return $this->field;
+	}
+
+	/**
+	 * @param Field $field
+	 * @return PrefillFieldViewHelper
+	 */
+	public function setField($field) {
+		$this->field = $field;
+		return $this;
+	}
+
+	/**
+	 * @return Mail
+	 */
+	public function getMail() {
+		return $this->mail;
+	}
+
+	/**
+	 * @param Mail $mail
+	 * @return PrefillFieldViewHelper
+	 */
+	public function setMail($mail) {
+		$this->mail = $mail;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getMarker() {
+		return $this->marker;
+	}
+
+	/**
+	 * @param string $marker
+	 * @return PrefillFieldViewHelper
+	 */
+	public function setMarker($marker) {
+		$this->marker = $marker;
+		return $this;
 	}
 
 	/**
@@ -332,7 +390,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	 * @return bool
 	 */
 	protected function isCachedForm() {
-		return Configuration::isEnableCachingActive();
+		return ConfigurationUtility::isEnableCachingActive();
 	}
 
 	/**

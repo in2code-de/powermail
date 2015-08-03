@@ -1,5 +1,5 @@
 <?php
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 $formsTca = array(
 	'ctrl' => array(
@@ -200,7 +200,7 @@ $formsTca = array(
 /**
  * Replace IRRE relation with element browser for page selection
  */
-if (Configuration::isReplaceIrreWithElementBrowserActive()) {
+if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
 	$formsTca['columns']['pages'] = array(
 		'l10n_mode' => 'exclude',
 		'exclude' => 0,
@@ -219,7 +219,7 @@ if (Configuration::isReplaceIrreWithElementBrowserActive()) {
 /**
  * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
  */
-if (Configuration::isL10nModeMergeActive()) {
+if (ConfigurationUtility::isL10nModeMergeActive()) {
 	$formsTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
 }
 

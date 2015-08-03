@@ -3,7 +3,7 @@ namespace In2code\Powermail\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -583,7 +583,7 @@ class Mail extends AbstractEntity {
 	 * @return array
 	 */
 	public function getMarketingPageFunnel() {
-		if (Div::isJsonArray($this->marketingPageFunnel)) {
+		if (DivUtility::isJsonArray($this->marketingPageFunnel)) {
 			return json_decode($this->marketingPageFunnel);
 		}
 		return (array) $this->marketingPageFunnel;

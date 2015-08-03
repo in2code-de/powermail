@@ -14,7 +14,7 @@ class IsAllowedToEditViewHelper extends AbstractViewHelper {
 	/**
 	 * Div Methods
 	 *
-	 * @var \In2code\Powermail\Utility\Div
+	 * @var \In2code\Powermail\Utility\DivUtility
 	 * @inject
 	 */
 	protected $div;

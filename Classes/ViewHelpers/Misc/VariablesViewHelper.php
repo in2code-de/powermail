@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use In2code\Powermail\Utility\DivUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -29,7 +30,7 @@ class VariablesViewHelper extends AbstractViewHelper {
 	/**
 	 * Div Methods
 	 *
-	 * @var \In2code\Powermail\Utility\Div
+	 * @var \In2code\Powermail\Utility\DivUtility
 	 * @inject
 	 */
 	protected $div;
@@ -65,8 +66,8 @@ class VariablesViewHelper extends AbstractViewHelper {
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $parseObject */
 		$parseObject = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
-		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($this->div->getVariablesWithMarkersFromMail($mail)));
-		$parseObject->assignMultiple($this->div->htmlspecialcharsOnArray($this->div->getLabelsWithMarkersFromMail($mail)));
+		$parseObject->assignMultiple(DivUtility::htmlspecialcharsOnArray(DivUtility::getVariablesWithMarkersFromMail($mail)));
+		$parseObject->assignMultiple(DivUtility::htmlspecialcharsOnArray(DivUtility::getLabelsWithMarkersFromMail($mail)));
 
 		$powermailAll = $this->div->powermailAll($mail, $type, $this->settings, $function);
 		$parseObject->assign('powermail_all', $powermailAll);

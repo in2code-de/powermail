@@ -26,13 +26,13 @@ namespace In2code\Powermail\Utility;
  ***************************************************************/
 
 /**
- * Configuration Utility class
+ * ConfigurationUtility class
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class Configuration {
+class ConfigurationUtility {
 
 	/**
 	 * Check if disableIpLog is active
@@ -121,5 +121,86 @@ class Configuration {
 	 */
 	public static function getExtensionConfiguration() {
 		return unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+	}
+
+	/**
+	 * Merges Flexform, TypoScript and Extension Manager Settings (up to 2 levels)
+	 *        Note: It's not possible to have the same field in TS and Flexform
+	 *        and if FF value is empty, we want the TypoScript value instead
+	 *
+	 * @param array $settings All settings
+	 * @param string $typoScriptLevel Startpoint
+	 * @return void
+	 */
+	public static function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup') {
+		// config
+		$temporarySettings = array();
+		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+
+		if (isset($settings[$typoScriptLevel]) && is_array($settings[$typoScriptLevel])) {
+			// copy typoscript part to conf part
+			$temporarySettings = $settings[$typoScriptLevel];
+		}
+
+		if (isset($settings['flexform']) && is_array($settings['flexform'])) {
+			// copy flexform part to conf part
+			$temporarySettings = array_merge((array)$temporarySettings, (array)$settings['flexform']);
+		}
+
+		// merge ts and ff (loop every flexform)
+		foreach ($temporarySettings as $key1 => $value1) {
+			// 1. level
+			if (!is_array($value1)) {
+				// only if this key exists in ff and ts
+				if (isset($settings[$typoScriptLevel][$key1]) && isset($settings['flexform'][$key1])) {
+					// only if ff is empty and ts not
+					if ($settings[$typoScriptLevel][$key1] && !$settings['flexform'][$key1]) {
+						// overwrite with typoscript settings
+						$temporarySettings[$key1] = $settings[$typoScriptLevel][$key1];
+					}
+				}
+			} else {
+				// 2. level
+				foreach ($value1 as $key2 => $value2) {
+					$value2 = NULL;
+
+					// only if this key exists in ff and ts
+					if (isset($settings[$typoScriptLevel][$key1][$key2]) && isset($settings['flexform'][$key1][$key2])) {
+						// only if ff is empty and ts not
+						if ($settings[$typoScriptLevel][$key1][$key2] && !$settings['flexform'][$key1][$key2]) {
+							// overwrite with typoscript settings
+							$temporarySettings[$key1][$key2] = $settings[$typoScriptLevel][$key1][$key2];
+						}
+					}
+				}
+			}
+		}
+
+		// merge ts and ff (loop every typoscript)
+		foreach ((array)$settings[$typoScriptLevel] as $key1 => $value1) {
+			// 1. level
+			if (!is_array($value1)) {
+				// only if this key exists in ts and not in ff
+				if (isset($settings[$typoScriptLevel][$key1]) && !isset($settings['flexform'][$key1])) {
+					// set value from ts
+					$temporarySettings[$key1] = $value1;
+				}
+			} else {
+				// 2. level
+				foreach ($value1 as $key2 => $value2) {
+					// only if this key exists in ts and not in ff
+					if (isset($settings[$typoScriptLevel][$key1][$key2]) && !isset($settings['flexform'][$key1][$key2])) {
+						// set value from ts
+						$temporarySettings[$key1][$key2] = $value2;
+					}
+				}
+			}
+		}
+
+		// add global config
+		$temporarySettings['global'] = $confArr;
+
+		$settings = $temporarySettings;
+		unset($temporarySettings);
 	}
 }

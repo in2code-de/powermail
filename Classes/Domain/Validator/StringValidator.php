@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Domain\Validator;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /**
  * StringValidator
@@ -20,7 +20,7 @@ class StringValidator extends AbstractValidator {
 	 * @return bool
 	 */
 	protected function validateMandatory($value) {
-		return Div::isNotEmpty($value);
+		return DivUtility::isNotEmpty($value);
 	}
 
 	/**
@@ -48,11 +48,17 @@ class StringValidator extends AbstractValidator {
 
 	/**
 	 * Test string if its a phone number
-	 * 		0 123 456 7890
-	 * 		0123 4567890
 	 * 		01234567890
-	 * 		+12 345 6789012
-	 * 			see StringValidatorTest for all possibility
+	 * 		0123 4567890
+	 * 		0123 456 789
+	 * 		(0123) 45678 - 90
+	 * 		0012 345 678 9012
+	 * 		0012 (0)345 / 67890 - 12
+	 * 		+123456789012
+	 * 		+12 345 678 9012
+	 * 		+12 3456 7890123
+	 * 		+49 (0) 123 3456789
+	 * 		+49 (0)123 / 34567 - 89
 	 *
 	 * @param \string $value
 	 * @return bool

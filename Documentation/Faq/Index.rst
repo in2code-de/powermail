@@ -297,6 +297,23 @@ example Footer could be:
 	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Marketing.js?1400758352" type="text/javascript"></script>
 	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/powermail_frontend.js?1400758352" type="text/javascript"></script>
 
+.. _datetimepickernotworking:
+
+The datetimepicker is not working – what's wrong?
+-------------------------------------------------
+
+First of all, check if there are all JavaScript loaded correctly (see :ref:`javascriptvalidationdoesnotwork`).
+In addition the datetimepicker needs some CSS to get shown in frontend. You can try to add the demo.css in Static TypoScript Template section.
+
+If you want to get more information to the used datetimepicker (JavaScript, CSS, examples, etc...) see:
+
+* http://xdsoft.net/jqplugins/datetimepicker
+* https://github.com/xdan/datetimepicker
+
+*Note:* There is a check, if the browser supports fields like input[type="date"] (e.g. Chrome).
+Per default the datetimepicker is disabled in this case.
+If you want to enforce datetimepicker for all browsers, you can enable this via TypoScript Constants.
+
 .. _marketinginformationnotworking:
 
 Marketing Information are not working – what's wrong?
@@ -349,6 +366,23 @@ I upgraded powermail and a white page comes up
 
 See explanation in part "For Administrators" and "Upgrade". If you make an upgrade, only deleting the cache files in typo3temp may not help.
 Please clean all caches in the install tool and try again.
+
+.. _therequestedviewwasnotfoundafterupgrade:
+
+I upgraded powermail and a message "Sorry, the requested view was not found" comes up
+-------------------------------------------------------------------------------------
+
+If you are upgrading from powermail 1.x to 2.x it may happen, that you are using outdated TypoScript like:
+
+.. code-block:: text
+
+	plugin.tx_powermail_pi1 {
+		format.datetime = %d-%m-%Y %H:%M
+		format.date = %d-%m-%Y
+	}
+
+This lines of TypoScript crashes the behaviour of AbstractController::resolveViewObjectName().
+Please remove it, clear caches (in Install Tool) and try again.
 
 .. _ihaveaproblem:
 

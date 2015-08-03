@@ -24,7 +24,7 @@ if (!defined('TYPO3_MODE')) {
  */
 if (
 	TYPO3_MODE === 'BE' &&
-	!\In2code\Powermail\Utility\Configuration::isDisableBackendModuleActive() &&
+	!\In2code\Powermail\Utility\ConfigurationUtility::isDisableBackendModuleActive() &&
 	!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
 ) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
@@ -54,14 +54,14 @@ $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi1';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
 	$pluginSignature,
-	'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexformPi1.xml'
+	'FILE:EXT:' . $_EXTKEY . '/ConfigurationUtility/FlexForms/FlexformPi1.xml'
 );
 	// Pi2
 $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi2';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
 	$pluginSignature,
-	'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexformPi2.xml'
+	'FILE:EXT:' . $_EXTKEY . '/ConfigurationUtility/FlexForms/FlexformPi2.xml'
 );
 
 /**
@@ -94,20 +94,20 @@ if (TYPO3_MODE === 'BE') {
  * Include TypoScript
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-	$_EXTKEY, 'Configuration/TypoScript/Main',
+	$_EXTKEY, 'ConfigurationUtility/TypoScript/Main',
 	'Main Template'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-	$_EXTKEY, 'Configuration/TypoScript/Powermail_Frontend',
+	$_EXTKEY, 'ConfigurationUtility/TypoScript/Powermail_Frontend',
 	'Powermail_Frontend'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-	$_EXTKEY, 'Configuration/TypoScript/CssDemo',
+	$_EXTKEY, 'ConfigurationUtility/TypoScript/CssDemo',
 	'Add Demo CSS'
 );
-if (!\In2code\Powermail\Utility\Configuration::isDisableMarketingInformationActive()) {
+if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableMarketingInformationActive()) {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-		$_EXTKEY, 'Configuration/TypoScript/Marketing',
+		$_EXTKEY, 'ConfigurationUtility/TypoScript/Marketing',
 		'Marketing Information'
 	);
 }
@@ -152,7 +152,7 @@ if (!\In2code\Powermail\Utility\Configuration::isDisableMarketingInformationActi
 /**
  * Garbage Collector
  */
-if (\In2code\Powermail\Utility\Configuration::isEnableTableGarbageCollectionActive()) {
+if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableTableGarbageCollectionActive()) {
 	$tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
 	$table = 'tx_powermail_domain_model_mails';
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(

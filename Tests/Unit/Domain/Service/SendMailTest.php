@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Utility;
+namespace In2code\Powermail\Tests\Domain\Service;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -34,10 +34,10 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class SendMailTest extends UnitTestCase {
+class SendMailServiceTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Utility\SendMail
+	 * @var \In2code\Powermail\Domain\Service\SendMailService
 	 */
 	protected $generalValidatorMock;
 
@@ -46,7 +46,7 @@ class SendMailTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\SendMail',
+			'\In2code\Powermail\Domain\Service\SendMailService',
 			array('dummy')
 		);
 	}

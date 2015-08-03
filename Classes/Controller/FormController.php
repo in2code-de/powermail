@@ -1,15 +1,16 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use In2code\Powermail\Utility\BasicFileFunctions;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -45,10 +46,10 @@ use In2code\Powermail\Utility\Configuration;
 class FormController extends AbstractController {
 
 	/**
-	 * @var \In2code\Powermail\Utility\SendMail
+	 * @var \In2code\Powermail\Domain\Service\SendMailService
 	 * @inject
 	 */
-	protected $sendMail;
+	protected $sendMailService;
 
 	/**
 	 * action show form for creating new mails
@@ -61,7 +62,7 @@ class FormController extends AbstractController {
 		}
 		$forms = $this->formRepository->findByUids($this->settings['main']['form']);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($forms, $this));
-		Div::saveFormStartInSession($forms, $this->settings);
+		SessionUtility::saveFormStartInSession($forms, $this->settings);
 
 		$this->assignForAll();
 		$this->view->assignMultiple(
@@ -99,8 +100,9 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	public function createAction(Mail $mail, $hash = NULL) {
-		BasicFileFunctions::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
+		BasicFileUtility::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
+		SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
 
 		if ($this->settings['debug']['variables']) {
 			GeneralUtility::devLog('Variables', $this->extensionName, 0, $_REQUEST);
@@ -152,7 +154,7 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	public function confirmationAction(Mail $mail) {
-		BasicFileFunctions::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
+		BasicFileUtility::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $this));
 		$this->showThx($mail);
 	}
@@ -181,9 +183,9 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	protected function sendReceiverMail(Mail $mail, $hash = NULL) {
-		$receiverString = div::fluidParseString(
+		$receiverString = DivUtility::fluidParseString(
 			$this->settings['receiver']['email'],
-			$this->div->getVariablesWithMarkersFromMail($mail)
+			DivUtility::getVariablesWithMarkersFromMail($mail)
 		);
 		$this->div->overwriteValueFromTypoScript($receiverString, $this->conf['receiver.']['overwrite.'], 'email');
 		$receivers = $this->div->getReceiverEmails(
@@ -210,7 +212,7 @@ class FormController extends AbstractController {
 			$this->div->overwriteValueFromTypoScript($email['receiverName'], $this->conf['receiver.']['overwrite.'], 'name');
 			$this->div->overwriteValueFromTypoScript($email['senderName'], $this->conf['receiver.']['overwrite.'], 'senderName');
 			$this->div->overwriteValueFromTypoScript($email['senderEmail'], $this->conf['receiver.']['overwrite.'], 'senderEmail');
-			$sent = $this->sendMail->sendTemplateEmail($email, $mail, $this->settings, 'receiver');
+			$sent = $this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'receiver');
 
 			if (!$sent) {
 				$this->addFlashMessage(
@@ -244,7 +246,7 @@ class FormController extends AbstractController {
 		$this->div->overwriteValueFromTypoScript($email['receiverName'], $this->conf['sender.']['overwrite.'], 'name');
 		$this->div->overwriteValueFromTypoScript($email['senderName'], $this->conf['sender.']['overwrite.'], 'senderName');
 		$this->div->overwriteValueFromTypoScript($email['senderEmail'], $this->conf['sender.']['overwrite.'], 'senderEmail');
-		$this->sendMail->sendTemplateEmail($email, $mail, $this->settings, 'sender');
+		$this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'sender');
 	}
 
 	/**
@@ -264,7 +266,7 @@ class FormController extends AbstractController {
 			'rteBody' => '',
 			'format' => $this->settings['sender']['mailformat'],
 			'variables' => array(
-				'hash' => Div::createOptinHash($mail),
+				'hash' => DivUtility::createOptinHash($mail),
 				'mail' => $mail
 			)
 		);
@@ -272,7 +274,7 @@ class FormController extends AbstractController {
 		$this->div->overwriteValueFromTypoScript($email['receiverEmail'], $this->conf['optin.']['overwrite.'], 'email');
 		$this->div->overwriteValueFromTypoScript($email['senderName'], $this->conf['optin.']['overwrite.'], 'senderName');
 		$this->div->overwriteValueFromTypoScript($email['senderEmail'], $this->conf['optin.']['overwrite.'], 'senderEmail');
-		$this->sendMail->sendTemplateEmail($email, $mail, $this->settings, 'optin');
+		$this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'optin');
 	}
 
 	/**
@@ -286,15 +288,15 @@ class FormController extends AbstractController {
 
 			// assign
 		$this->view->assign('mail', $mail);
-		$this->view->assign('marketingInfos', Div::getMarketingInfos());
+		$this->view->assign('marketingInfos', SessionUtility::getMarketingInfos());
 		$this->view->assign('messageClass', $this->messageClass);
 		$this->view->assign('powermail_rte', $this->settings['thx']['body']);
 
 			// get variable array
-		$variablesWithMarkers = $this->div->getVariablesWithMarkersFromMail($mail);
-		$this->view->assign('variablesWithMarkers', $this->div->htmlspecialcharsOnArray($variablesWithMarkers));
+		$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
+		$this->view->assign('variablesWithMarkers', DivUtility::htmlspecialcharsOnArray($variablesWithMarkers));
 		$this->view->assignMultiple($variablesWithMarkers);
-		$this->view->assignMultiple($this->div->getLabelsWithMarkersFromMail($mail));
+		$this->view->assignMultiple(DivUtility::getLabelsWithMarkersFromMail($mail));
 
 			// powermail_all
 		$content = $this->div->powermailAll($mail, 'web', $this->settings, $this->actionMethodName);
@@ -324,16 +326,16 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	protected function saveMail(Mail &$mail = NULL) {
-		$marketingInfos = Div::getMarketingInfos();
+		$marketingInfos = SessionUtility::getMarketingInfos();
 		$mail
-			->setPid(Div::getStoragePage($this->settings['main']['pid']))
+			->setPid(DivUtility::getStoragePage($this->settings['main']['pid']))
 			->setSenderMail($this->div->getSenderMailFromArguments($mail))
 			->setSenderName($this->div->getSenderNameFromArguments($mail))
 			->setSubject($this->settings['receiver']['subject'])
 			->setReceiverMail($this->settings['receiver']['email'])
-			->setBody(DebugUtility::viewArray($this->div->getVariablesWithMarkersFromMail($mail)))
+			->setBody(DebugUtility::viewArray(DivUtility::getVariablesWithMarkersFromMail($mail)))
 			->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'))
-			->setTime((time() - Div::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)))
+			->setTime((time() - SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)))
 			->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))
 			->setMarketingRefererDomain($marketingInfos['refererDomain'])
 			->setMarketingReferer($marketingInfos['referer'])
@@ -344,17 +346,17 @@ class FormController extends AbstractController {
 			->setMarketingPageFunnel($marketingInfos['pageFunnel']);
 		if ((int) $GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
 			$mail->setFeuser(
-				$this->userRepository->findByUid(Div::getPropertyFromLoggedInFeUser('uid'))
+				$this->userRepository->findByUid(DivUtility::getPropertyFromLoggedInFeUser('uid'))
 			);
 		}
-		if (!Configuration::isDisableIpLogActive()) {
+		if (!ConfigurationUtility::isDisableIpLogActive()) {
 			$mail->setSenderIp(GeneralUtility::getIndpEnv('REMOTE_ADDR'));
 		}
 		if ($this->settings['main']['optin'] || $this->settings['db']['hidden']) {
 			$mail->setHidden(TRUE);
 		}
 		foreach ($mail->getAnswers() as $answer) {
-			$answer->setPid(Div::getStoragePage($this->settings['main']['pid']));
+			$answer->setPid(DivUtility::getStoragePage($this->settings['main']['pid']));
 		}
 		$this->mailRepository->add($mail);
 		$this->persistenceManager->persistAll();
@@ -371,7 +373,7 @@ class FormController extends AbstractController {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		$mail = $this->mailRepository->findByUid($mail);
 
-		if ($mail !== NULL && Div::checkOptinHash($hash, $mail)) {
+		if ($mail !== NULL && DivUtility::checkOptinHash($hash, $mail)) {
 			if ($mail->getHidden()) {
 				$mail->setHidden(FALSE);
 				$this->mailRepository->update($mail);
@@ -392,7 +394,7 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	public function marketingAction($referer = NULL, $language = 0, $pid = 0, $mobileDevice = 0) {
-		Div::storeMarketingInformation($referer, $language, $pid, $mobileDevice);
+		SessionUtility::storeMarketingInformation($referer, $language, $pid, $mobileDevice);
 	}
 
 	/**
@@ -406,7 +408,7 @@ class FormController extends AbstractController {
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		$this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
-		Div::mergeTypoScript2FlexForm($this->settings);
+		ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
 
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
 
@@ -475,6 +477,6 @@ class FormController extends AbstractController {
 	 * @return bool
 	 */
 	protected function isSendMailActive(Mail $mail, $hash) {
-		return empty($this->settings['main']['optin']) || (!empty($this->settings['main']['optin']) && Div::checkOptinHash($hash, $mail));
+		return empty($this->settings['main']['optin']) || (!empty($this->settings['main']['optin']) && DivUtility::checkOptinHash($hash, $mail));
 	}
 }

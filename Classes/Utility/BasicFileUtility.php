@@ -37,7 +37,7 @@ use In2code\Powermail\Domain\Model\Mail;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class BasicFileFunctions {
+class BasicFileUtility {
 
 	/**
 	 * Return Unique Filename for File Upload
@@ -85,7 +85,7 @@ class BasicFileFunctions {
 		$newPathAndFileName = $absoluteDestinationPath . $fileInfo['file'];
 
 		if (file_exists($newPathAndFileName)) {
-			$theTempFileBody = preg_replace('/_[0-9][0-9]$/', '', $fileInfo['filebody']);
+			$theTempFileBody = self::removeAppendingNumbersInString($fileInfo['filebody']);
 			$extension = $fileInfo['realFileext'] ? '.' . $fileInfo['realFileext'] : '';
 			for ($a = 1; TRUE; $a++) {
 				$appendix = '_' . sprintf('%02d', $a);
@@ -113,7 +113,35 @@ class BasicFileFunctions {
 	 */
 	public static function cleanFileName(&$filename, $replace = '_') {
 		$filename = strtolower(trim($filename));
-		$filename = preg_replace('/[^a-z0-9-\.]/', $replace, $filename);
+		$filename = preg_replace('~[^a-z0-9-\.]~', $replace, $filename);
+		$filename = self::dontAllowAppendingNumbersInFileName($filename);
+	}
+
+	/**
+	 * Remove appending numbers in filename strings
+	 * 		image_01 => image
+	 * 		image_01_02 => image_01
+	 *
+	 * @param $string
+	 * @return mixed
+	 */
+	protected static function removeAppendingNumbersInString($string) {
+		return preg_replace('~_\d+$~', '', $string);
+	}
+
+	/**
+	 * Add _ to filenames that end with _[0-9][0-9]
+	 * 		image_12.jpg => image_12_.jpg
+	 *
+	 * @param string $filename
+	 * @return string
+	 */
+	protected static function dontAllowAppendingNumbersInFileName($filename) {
+		$fileParts = pathinfo($filename);
+		if ($fileParts['filename'] !== self::removeAppendingNumbersInString($fileParts['filename'])) {
+			$filename = $fileParts['filename'] . '_.' . $fileParts['extension'];
+		}
+		return $filename;
 	}
 
 	/**
@@ -253,7 +281,7 @@ class BasicFileFunctions {
 		if (!$randomized) {
 			return;
 		}
-		$newFilename = Div::createRandomString(32, FALSE) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+		$newFilename = DivUtility::createRandomString(32, FALSE) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
 		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
 			foreach (array_keys($_FILES['tx_powermail_pi1']['name']['field']) as $marker) {
 				foreach ($_FILES['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {

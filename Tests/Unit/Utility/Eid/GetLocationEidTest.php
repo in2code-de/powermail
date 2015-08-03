@@ -28,7 +28,7 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  ***************************************************************/
 
 /**
- * BasicFileFunctions Tests
+ * BasicFileUtility Tests
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html

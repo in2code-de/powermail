@@ -129,11 +129,17 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 
 			/**
 			 * PHONE (+html5)
-			 * 		0 123 456 7890
-			 * 		0123 4567890
 			 * 		01234567890
-			 * 		+12 345 6789012
+			 * 		0123 4567890
+			 * 		0123 456 789
+			 * 		(0123) 45678 - 90
+			 * 		0012 345 678 9012
+			 * 		0012 (0)345 / 67890 - 12
+			 * 		+123456789012
 			 * 		+12 345 678 9012
+			 * 		+12 3456 7890123
+			 * 		+49 (0) 123 3456789
+			 * 		+49 (0)123 / 34567 - 89
 			 *
 			 * html5 example:
 			 * 		<input type="text"
@@ -143,7 +149,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 			 * 			"/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
 			 */
 			case 3:
-				$pattern = '/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/';
+				$pattern = '^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$';
 				if ($this->isNativeValidationEnabled()) {
 					$additionalAttributes['pattern'] = $pattern;
 				} else {

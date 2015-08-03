@@ -3,8 +3,9 @@ namespace In2code\Powermail\Domain\Validator;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use In2code\Powermail\Utility\Configuration;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\SessionUtility;
+use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Domain\Model\Mail;
 
 /**
@@ -113,7 +114,7 @@ class SpamShieldValidator extends AbstractValidator {
 		$this->nameCheck($mail, $settingsSpamShieldIndicator['name']);
 		$this->sessionCheck(
 			$settingsSpamShieldIndicator['session'],
-			Div::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)
+			SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)
 		);
 		$this->uniqueCheck($mail, $settingsSpamShieldIndicator['unique']);
 		$this->blacklistStringCheck($mail, $settingsSpamShieldIndicator['blacklistString']);
@@ -337,9 +338,9 @@ class SpamShieldValidator extends AbstractValidator {
 			'pid' => $this->typoScriptFrontendController->id,
 			'calculatedMailSpamFactor' => $this->getCalculatedMailSpamFactor(TRUE),
 			'messages' => $this->getMessages(),
-			'ipAddress' => (!Configuration::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '')
+			'ipAddress' => (!ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '')
 		);
-		Div::sendPlainMail(
+		DivUtility::sendPlainMail(
 			$this->settings['spamshield.']['email'],
 			'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'),
 			$this->settings['spamshield.']['emailSubject'],

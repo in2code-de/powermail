@@ -2,7 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use In2code\Powermail\Utility\Configuration;
+use In2code\Powermail\Utility\ConfigurationUtility;
 
 /**
  * Class IsMarketingInformationEnabledGloballyViewHelper
@@ -17,6 +17,6 @@ class IsMarketingInformationEnabledGloballyViewHelper extends AbstractViewHelper
 	 * @return bool
 	 */
 	public function render() {
-		return !Configuration::isDisableMarketingInformationActive();
+		return !ConfigurationUtility::isDisableMarketingInformationActive();
 	}
 }

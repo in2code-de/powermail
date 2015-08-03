@@ -3,7 +3,7 @@ namespace In2code\Powermail\Utility\Tca;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use In2code\Powermail\Utility\Div;
+use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -58,7 +58,7 @@ class FieldSelectorUserFunc {
 			);
 			return;
 		}
-		foreach ((array) Div::getFieldsFromFormWithSelectQuery($formUid) as $field) {
+		foreach ((array) DivUtility::getFieldsFromFormWithSelectQuery($formUid) as $field) {
 			$params['items'][] = array(
 				$field['title'] . ' {' . $field['marker'] . '}',
 				$field['uid']

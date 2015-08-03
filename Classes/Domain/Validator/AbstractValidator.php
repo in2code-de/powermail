@@ -54,7 +54,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator {
 	protected $formRepository;
 
 	/**
-	 * @var \In2code\Powermail\Utility\Div
+	 * @var \In2code\Powermail\Utility\DivUtility
 	 *
 	 * @inject
 	 */
