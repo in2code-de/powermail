@@ -504,28 +504,16 @@ plugin.tx_powermail {
 
 
 
-			# save submitted values in session. Define each markername overall all forms
+			# Save submitted values in a session to prefill forms for further visits. Define each markername for all forms.
 			saveSession {
 				# Method "temporary" means as long as the browser is open and "permanently" means with a cookie. If method is empty, saveSession is deactivated.
-				_method = temporary
-
-				firstname = TEXT
-				firstname.field = firstname
-
-				lastname = TEXT
-				lastname.field = lastname
-
-				email = TEXT
-				email.value = dummy@mail.org
-
-				selectmulti = TEXT
-				selectmulti.field = selectmulti
-
-				marker_03 = TEXT
-				marker_03.field = marker_03
-
-				marker_04 = TEXT
-				marker_04.field = marker_04
+#				_method = temporary
+#
+#				firstname = TEXT
+#				firstname.field = firstname
+#
+#				lastname = TEXT
+#				lastname.field = lastname
 			}
 
 

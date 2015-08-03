@@ -17,6 +17,7 @@ Good to know
    RemoveValuesFromPowermailAll/Index
    ManipulateValuesFromPowermailAll/Index
    UniqueValues/Index
+   SaveSession/Index
    AjaxSubmit/Index
    FilterFormSelection/Index
    DevelopmentContext/Index
