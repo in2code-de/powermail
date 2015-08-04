@@ -54,14 +54,14 @@ $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi1';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
 	$pluginSignature,
-	'FILE:EXT:' . $_EXTKEY . '/ConfigurationUtility/FlexForms/FlexformPi1.xml'
+	'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexformPi1.xml'
 );
 	// Pi2
 $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi2';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
 	$pluginSignature,
-	'FILE:EXT:' . $_EXTKEY . '/ConfigurationUtility/FlexForms/FlexformPi2.xml'
+	'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexformPi2.xml'
 );
 
 /**
@@ -94,20 +94,20 @@ if (TYPO3_MODE === 'BE') {
  * Include TypoScript
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-	$_EXTKEY, 'ConfigurationUtility/TypoScript/Main',
+	$_EXTKEY, 'Configuration/TypoScript/Main',
 	'Main Template'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-	$_EXTKEY, 'ConfigurationUtility/TypoScript/Powermail_Frontend',
+	$_EXTKEY, 'Configuration/TypoScript/Powermail_Frontend',
 	'Powermail_Frontend'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-	$_EXTKEY, 'ConfigurationUtility/TypoScript/CssDemo',
+	$_EXTKEY, 'Configuration/TypoScript/CssDemo',
 	'Add Demo CSS'
 );
 if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableMarketingInformationActive()) {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-		$_EXTKEY, 'ConfigurationUtility/TypoScript/Marketing',
+		$_EXTKEY, 'Configuration/TypoScript/Marketing',
 		'Marketing Information'
 	);
 }
