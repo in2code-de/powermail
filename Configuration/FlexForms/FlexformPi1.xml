@@ -42,20 +42,10 @@
 											<pid>###CURRENT_PID###</pid>,
 											<setValue>set</setValue>
 										</params>
-										<script>wizard_add.php</script>
+										<module>
+											<name>wizard_add</name>
+										</module>
 									</add>
-									<!-- Edit don't work - see TYPO3 bug at http://forge.typo3.org/issues/34420 -->
-									<!--<edit>-->
-										<!--<type>script</type>-->
-										<!--<title>Edit Form</title>-->
-										<!--<module>-->
-											<!--<name>wizard_edit</name>-->
-										<!--</module>-->
-										<!--<popup_onlyOpenIfSelected>1</popup_onlyOpenIfSelected>-->
-										<!--<icon>edit2.gif</icon>-->
-										<!--<JSopenParams>height=350,width=580,status=0,menubar=0,scrollbars=1</JSopenParams>-->
-										<!--<script>wizard_edit.php</script>-->
-									<!--</edit>-->
 									<suggest>
 										<title>Add Form</title>
 										<type>suggest</type>
@@ -277,7 +267,12 @@
 										<type>popup</type>
 										<title>Link</title>
 										<icon>link_popup.gif</icon>
-										<script>browse_links.php?mode=wizard</script>
+										<module type="array">
+											<name>wizard_element_browser</name>
+											<urlParameters type="array">
+												<mode>wizard</mode>
+											</urlParameters>
+										</module>
 										<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
 									</link>
 								</wizards>

@@ -191,7 +191,9 @@ $mailsTca = array(
 						'type' => 'script',
 						'title' => 'RTE',
 						'icon' => 'wizard_rte2.gif',
-						'script' => 'wizard_rte.php',
+						'module' => array(
+							'name' => 'wizard_rte'
+						)
 					),
 				),
 			),
