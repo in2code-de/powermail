@@ -25,7 +25,7 @@ See following example:
 
 		# Save submitted values in a session to prefill forms for further visits. Define each markername for all forms.
 		saveSession {
-			# Method "temporary" means as long as the browser is open and "permanently" means with a cookie. If method is empty, saveSession is deactivated.
+			# Method "temporary" means as long as the browser is open. "permanently" could be used together with a frontend-user session. If method is empty, saveSession is deactivated.
 			_method = temporary
 
 			firstname = TEXT
