@@ -489,7 +489,7 @@ Constants Overview
  - :Constants:
       misc.uploadSize
    :Description:
-      Misc Upload Filesize: Define the maximum filesize of file uploads in bytes (10485760 default -> 10 MB, 10000000 -> 10 MiB)
+      Misc Upload Filesize: Define the maximum filesize of file uploads in bytes (10485760 Byte -> 10 MB)
    :Type:
       int+
    :Default:
@@ -1568,7 +1568,7 @@ Constants
 				# cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
 				uploadFolder = uploads/tx_powermail/
 
-				# cat=powermail_additional//0820; type=int+; label= Misc Upload Filesize: Define the maximum filesize of file uploads in bytes (10485760 default -> 10 MB, 10000000 -> 10 MiB)
+				# cat=powermail_additional//0820; type=int+; label= Misc Upload Filesize: Define the maximum filesize of file uploads in bytes (10485760 Byte -> 10 MB)
 				uploadSize = 10485760
 
 				# cat=powermail_additional//0830; type=text; label= Misc Upload Fileextensions: Define the allowed filetypes with their extensions for fileuploads and separate them with commas (e.g. jpg,jpeg,gif)
