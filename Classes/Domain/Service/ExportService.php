@@ -206,6 +206,9 @@ class ExportService {
 	 * @return bool if file operation could done successfully
 	 */
 	protected function createExportFile() {
+		if (!is_dir($this->getStorageFolder(TRUE))) {
+			GeneralUtility::mkdir($this->getStorageFolder(TRUE));
+		}
 		return GeneralUtility::writeFile($this->getAbsolutePathAndFileName(), $this->getFileContent(), TRUE);
 	}
 
@@ -498,10 +501,15 @@ class ExportService {
 	}
 
 	/**
+	 * @param bool $absolute
 	 * @return string
 	 */
-	public function getStorageFolder() {
-		return $this->storageFolder;
+	public function getStorageFolder($absolute = FALSE) {
+		$storageFolder = $this->storageFolder;
+		if ($absolute) {
+			$storageFolder = GeneralUtility::getFileAbsFileName($storageFolder);
+		}
+		return $storageFolder;
 	}
 
 	/**

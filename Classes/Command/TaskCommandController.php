@@ -93,9 +93,9 @@ class TaskCommandController extends CommandController {
 		$storageFolder = 'typo3temp/tx_powermail/',
 		$fileName = NULL
 	) {
-		/** @var \In2code\Powermail\Utility\ExportService $exportService */
+		/** @var \In2code\Powermail\Domain\Service\ExportService $exportService */
 		$exportService = $this->objectManager->get(
-			'In2code\Powermail\Utility\Export',
+			'In2code\Powermail\Domain\Service\ExportService',
 			$this->mailRepository->findAllInPid($pageUid, array(), $this->getFilterVariables($period)),
 			$format,
 			array('domain' => $domain)
