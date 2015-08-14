@@ -99,6 +99,7 @@ class SendMailService {
 		/** @var TypoScriptService $typoScriptService */
 		$typoScriptService = $this->objectManager->get('TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
+		$overwriteConfiguration = $conf[$type . '.']['overwrite.'];
 		$cObj = $this->configurationManager->getContentObject();
 		$cObj->start(DivUtility::getVariablesWithMarkersFromMail($mail));
 
@@ -137,7 +138,7 @@ class SendMailService {
 
 		/** @var \TYPO3\CMS\Core\Mail\MailMessage $message */
 		$message = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
-		$this->div->overwriteValueFromTypoScript($email['subject'], $conf[$type . '.']['overwrite.'], 'subject');
+		$this->div->overwriteValueFromTypoScript($email['subject'], $overwriteConfiguration, 'subject');
 		$message
 			->setTo(array($email['receiverEmail'] => $email['receiverName']))
 			->setFrom(array($email['senderEmail'] => $email['senderName']))
@@ -145,44 +146,41 @@ class SendMailService {
 			->setCharset($GLOBALS['TSFE']->metaCharset);
 
 		// add cc receivers
-		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.'])) {
+		if ($cObj->cObjGetSingle($overwriteConfiguration['cc'], $overwriteConfiguration['cc.'])) {
 			$ccArray = GeneralUtility::trimExplode(
 				',',
-				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'],
-					$conf[$type . '.']['overwrite.']['cc.']),
+				$cObj->cObjGetSingle($overwriteConfiguration['cc'],
+					$overwriteConfiguration['cc.']),
 				TRUE
 			);
 			$message->setCc($ccArray);
 		}
 
 		// add bcc receivers
-		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'], $conf[$type . '.']['overwrite.']['bcc.'])) {
+		if ($cObj->cObjGetSingle($overwriteConfiguration['bcc'], $overwriteConfiguration['bcc.'])) {
 			$bccArray = GeneralUtility::trimExplode(
 				',',
-				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'],
-					$conf[$type . '.']['overwrite.']['bcc.']),
+				$cObj->cObjGetSingle($overwriteConfiguration['bcc'],
+					$overwriteConfiguration['bcc.']),
 				TRUE
 			);
 			$message->setBcc($bccArray);
 		}
 
 		// add Return Path
-		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'], $conf[$type . '.']['overwrite.']['returnPath.'])) {
-			$message->setReturnPath(
-				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'],
-					$conf[$type . '.']['overwrite.']['returnPath.'])
-			);
+		if ($cObj->cObjGetSingle($overwriteConfiguration['returnPath'], $overwriteConfiguration['returnPath.'])) {
+			$message->setReturnPath($cObj->cObjGetSingle($overwriteConfiguration['returnPath'], $overwriteConfiguration['returnPath.']));
 		}
 
 		// add Reply Addresses
 		if (
-			$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToEmail'], $conf[$type . '.']['overwrite.']['replyToEmail.'])
+			$cObj->cObjGetSingle($overwriteConfiguration['replyToEmail'], $overwriteConfiguration['replyToEmail.'])
 			&&
-			$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToName'], $conf[$type . '.']['overwrite.']['replyToName.'])
+			$cObj->cObjGetSingle($overwriteConfiguration['replyToName'], $overwriteConfiguration['replyToName.'])
 		) {
 			$replyArray = array(
-				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToEmail'], $conf[$type . '.']['overwrite.']['replyToEmail.']) =>
-					$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToName'], $conf[$type . '.']['overwrite.']['replyToName.'])
+				$cObj->cObjGetSingle($overwriteConfiguration['replyToEmail'], $overwriteConfiguration['replyToEmail.']) =>
+					$cObj->cObjGetSingle($overwriteConfiguration['replyToName'], $overwriteConfiguration['replyToName.'])
 			);
 			$message->setReplyTo($replyArray);
 		}
