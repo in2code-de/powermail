@@ -112,7 +112,7 @@ plugin.tx_powermail {
 					returnPath = TEXT
 					returnPath.value = {$plugin.tx_powermail.settings.receiver.overwrite.returnPath}
 
-					# Reply address
+					# Reply address (both required)
 					replyToEmail = TEXT
 					replyToEmail.value = {$plugin.tx_powermail.settings.receiver.overwrite.replyToEmail}
 					replyToName = TEXT
@@ -179,7 +179,7 @@ plugin.tx_powermail {
 					returnPath = TEXT
 					returnPath.value = {$plugin.tx_powermail.settings.sender.overwrite.returnPath}
 
-					# Reply address
+					# Reply address (both required)
 					replyToEmail = TEXT
 					replyToEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToEmail}
 					replyToName = TEXT
