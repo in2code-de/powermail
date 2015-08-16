@@ -86,7 +86,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'required' => 'required',
-					'data-parsley-required-message' => 'This field must be filled!',
+					'data-parsley-required-message' => 'validationerror_mandatory',
 					'data-parsley-trigger' => 'change'
 				)
 			),
@@ -108,7 +108,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'data-parsley-required' => 'true',
-					'data-parsley-required-message' => 'This field must be filled!',
+					'data-parsley-required-message' => 'validationerror_mandatory',
 					'data-parsley-trigger' => 'change'
 				)
 			),
@@ -130,7 +130,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'required' => 'required',
-					'data-parsley-required-message' => 'One of these fields must be filled!',
+					'data-parsley-required-message' => 'validationerror_mandatory_multi',
 					'data-parsley-errors-container' => '.powermail_field_error_container_uid',
 					'data-parsley-class-handler' => '.powermail_fieldwrap_ div:first'
 				)
@@ -153,7 +153,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'data-parsley-required' => 'true',
-					'data-parsley-required-message' => 'One of these fields must be filled!',
+					'data-parsley-required-message' => 'validationerror_mandatory_multi',
 					'data-parsley-errors-container' => '.powermail_field_error_container_uid',
 					'data-parsley-class-handler' => '.powermail_fieldwrap_ div:first'
 				)
@@ -176,7 +176,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'required' => 'required',
-					'data-parsley-required-message' => 'One of these fields must be filled!',
+					'data-parsley-required-message' => 'validationerror_mandatory_multi',
 					'data-parsley-errors-container' => '.powermail_field_error_container_uid',
 					'data-parsley-class-handler' => '.powermail_fieldwrap_ div:first'
 				)
@@ -243,7 +243,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'data-test' => 'in2code.de',
-					'data-parsley-error-message' => 'This is not a valid email address!'
+					'data-parsley-error-message' => 'validationerror_validation.1'
 				)
 			),
 			'textWithClientvalidationEmailAndAdditionalAttributes' => array(
@@ -267,7 +267,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				array(
 					'data-email' => 'service@in2code.de',
 					'data-parsley-type' => 'email',
-					'data-parsley-error-message' => 'This is not a valid email address!'
+					'data-parsley-error-message' => 'validationerror_validation.1'
 				)
 			),
 			'textWithNativevalidationAndClientvalidationRange' => array(
@@ -290,7 +290,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				array(
 					'min' => 1,
 					'max' => 10,
-					'data-parsley-error-message' => 'Number to high or to low!'
+					'data-parsley-error-message' => 'validationerror_validation.8'
 				)
 			),
 			'textWithClientvalidationRange' => array(
@@ -313,7 +313,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				array(
 					'data-parsley-min' => 1,
 					'data-parsley-max' => 10,
-					'data-parsley-error-message' => 'Number to high or to low!'
+					'data-parsley-error-message' => 'validationerror_validation.8'
 				)
 			),
 			'textWithClientvalidationRangeNoMin' => array(
@@ -336,7 +336,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				array(
 					'data-parsley-min' => 1,
 					'data-parsley-max' => 99,
-					'data-parsley-error-message' => 'Number to high or to low!'
+					'data-parsley-error-message' => 'validationerror_validation.8'
 				)
 			),
 			'textWithNativevalidationAndClientvalidationPattern' => array(
@@ -358,7 +358,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'pattern' => 'abcdefg',
-					'data-parsley-error-message' => 'Error in validation!'
+					'data-parsley-error-message' => 'validationerror_validation.10'
 				)
 			),
 			'textWithClientvalidationPattern' => array(
@@ -380,7 +380,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'data-parsley-pattern' => 'abcdefg',
-					'data-parsley-error-message' => 'Error in validation!'
+					'data-parsley-error-message' => 'validationerror_validation.10'
 				)
 			),
 		);

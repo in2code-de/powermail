@@ -287,7 +287,7 @@ class SpamShieldValidatorTest extends UnitTestCase {
 			$field->setMarker($fieldName);
 			$answer = new Answer();
 			$answer->setField($field);
-			$answer->setValue($value);
+			$answer->_setProperty('value', $value);
 			$answer->setValueType(132);
 			$mail->addAnswer($answer);
 		}

@@ -92,13 +92,13 @@ class AnswerTest extends UnitTestCase {
 			),
 			'date 1' => array(
 				strtotime('2010-01-31'),
-				'2010-01-31',
+				'2010-01-31 00:00',
 				2,
 				'date'
 			),
 			'date 2' => array(
 				strtotime('1975-10-13'),
-				'1975-10-13',
+				'1975-10-13 00:00',
 				2,
 				'date'
 			),
@@ -116,13 +116,13 @@ class AnswerTest extends UnitTestCase {
 			),
 			'time 1' => array(
 				strtotime('14:00'),
-				'14:00',
+				'2015-08-16 14:00',
 				2,
 				'time'
 			),
 			'time 2' => array(
 				strtotime('22:23'),
-				'22:23',
+				'2015-08-16 22:23',
 				2,
 				'time'
 			),
@@ -142,6 +142,12 @@ class AnswerTest extends UnitTestCase {
 	 */
 	public function getValueReturnMixed($value, $expectedResult, $valueType = 0, $datepickerSettings = NULL) {
 		if ($datepickerSettings) {
+			$formats = array(
+				'date' => 'Y-m-d',
+				'datetime' => 'Y-m-d H:i',
+				'time' => 'H:i'
+			);
+			$this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
 			$field = new Field;
 			if ($datepickerSettings) {
 				$field->setDatepickerSettings($datepickerSettings);
@@ -254,12 +260,20 @@ class AnswerTest extends UnitTestCase {
 	 * @test
 	 */
 	public function setValueReturnVoid($value, $expectedResult, $fieldType = NULL, $datepickerSettings = NULL) {
+		$this->generalValidatorMock->_setProperty('valueType', 0);
 		if ($fieldType || $datepickerSettings) {
 			$field = new Field;
 			if ($fieldType) {
 				$field->setType($fieldType);
 			}
 			if ($datepickerSettings) {
+				$formats = array(
+					'date' => 'Y-m-d',
+					'datetime' => 'Y-m-d H:i',
+					'time' => 'H:i'
+				);
+				$this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
+				$this->generalValidatorMock->_setProperty('valueType', 2);
 				$field->setDatepickerSettings($datepickerSettings);
 			}
 			$this->generalValidatorMock->_callRef('setField', $field);

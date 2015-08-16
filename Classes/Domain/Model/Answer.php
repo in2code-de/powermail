@@ -2,11 +2,9 @@
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\ArrayUtility;
-use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\DivUtility;
-use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /***************************************************************
  *  Copyright notice
@@ -92,10 +90,7 @@ class Answer extends AbstractEntity {
 			// if type date
 		if ($this->getValueType() === 2 && is_numeric($value) && $this->getField() !== NULL) {
 			$value = date(
-				LocalizationUtility::translate(
-					'datepicker_format_' . $this->getField()->getDatepickerSettings(),
-					'powermail'
-				),
+				LocalizationUtility::translate('datepicker_format_' . $this->getField()->getDatepickerSettings()),
 				$value
 			);
 		}
@@ -128,10 +123,11 @@ class Answer extends AbstractEntity {
 			$this->getValueType() === 2 &&
 			!is_numeric($value)
 		) {
-			$format = LocalizationUtility::translate(
-				'datepicker_format_' . $this->getField()->getDatepickerSettings(),
-				'powermail'
-			);
+			if (empty($this->translateFormat)) {
+				$format = LocalizationUtility::translate('datepicker_format_' . $this->getField()->getDatepickerSettings());
+			} else {
+				$format = $this->translateFormat;
+			}
 			$date = \DateTime::createFromFormat($format, $value);
 			if ($date) {
 				if ($this->getField()->getDatepickerSettings() === 'date') {
@@ -205,7 +201,7 @@ class Answer extends AbstractEntity {
 	/**
 	 * Returns the mail
 	 *
-	 * @return \In2code\Powermail\Domain\Model\Mail $mail
+	 * @return Mail $mail
 	 */
 	public function getMail() {
 		return $this->mail;
@@ -214,7 +210,7 @@ class Answer extends AbstractEntity {
 	/**
 	 * Sets the mail
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	public function setMail(Mail $mail) {
@@ -224,7 +220,7 @@ class Answer extends AbstractEntity {
 	/**
 	 * Returns the field
 	 *
-	 * @return \In2code\Powermail\Domain\Model\Field $field
+	 * @return Field $field
 	 */
 	public function getField() {
 		return $this->field;
@@ -233,7 +229,7 @@ class Answer extends AbstractEntity {
 	/**
 	 * Sets the field
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param Field $field
 	 * @return void
 	 */
 	public function setField(Field $field) {

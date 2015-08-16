@@ -1,16 +1,16 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\DivUtility;
-use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Utility\ConfigurationUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -216,7 +216,7 @@ class FormController extends AbstractController {
 
 			if (!$sent) {
 				$this->addFlashMessage(
-					LocalizationUtility::translate('error_mail_not_created', 'powermail'),
+					LocalizationUtility::translate('error_mail_not_created'),
 					'',
 					AbstractMessage::ERROR
 				);
@@ -433,7 +433,7 @@ class FormController extends AbstractController {
 		if (!isset($this->settings['staticTemplate'])) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->addFlashMessage(
-				LocalizationUtility::translate('error_no_typoscript', 'powermail'),
+				LocalizationUtility::translate('error_no_typoscript'),
 				'',
 				AbstractMessage::ERROR
 			);

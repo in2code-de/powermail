@@ -102,9 +102,19 @@ class CalculatingCaptchaService {
 	protected $fontPathAndFilename = '';
 
 	/**
-	 * Initialize
+	 * Turn off exceptions for testing
+	 *
+	 * @var bool
 	 */
-	public function __construct() {
+	protected $test = FALSE;
+
+	/**
+	 * Initialize
+	 *
+	 * @param bool $test
+	 */
+	public function __construct($test = FALSE) {
+		$this->test = $test;
 		$this->configuration = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_powermail.']['settings.']['setup.'];
 		$this->typoScriptFrontendController = $GLOBALS['TSFE'];
 		$this
@@ -372,7 +382,7 @@ class CalculatingCaptchaService {
 	 */
 	public function setBackgroundImage($backgroundImage) {
 		$this->backgroundImage = $backgroundImage;
-		if (!is_file($this->getBackgroundImage(TRUE))) {
+		if (!$this->test && !is_file($this->getBackgroundImage(TRUE))) {
 			throw new \Exception('No captcha background image found - please check your TypoScript configuration');
 		}
 		return $this;
@@ -393,7 +403,7 @@ class CalculatingCaptchaService {
 	 */
 	public function setFontPathAndFilename($fontPathAndFilename) {
 		$this->fontPathAndFilename = $fontPathAndFilename;
-		if (!is_file($this->getFontPathAndFilename(TRUE))) {
+		if (!$this->test && !is_file($this->getFontPathAndFilename(TRUE))) {
 			throw new \Exception('No captcha truetype font found - please check your TypoScript configuration');
 		}
 		return $this;

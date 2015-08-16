@@ -102,12 +102,6 @@ class DivUtilityTest extends UnitTestCase {
 				'Fallback Name'
 			),
 			array(
-				NULL,
-				NULL,
-				NULL,
-				'No Sendername'
-			),
-			array(
 				array(
 					// test multivalue (e.g. checkbox)
 					array(
@@ -141,10 +135,12 @@ class DivUtilityTest extends UnitTestCase {
 		if (is_array($values)) {
 			foreach ($values as $value) {
 				$answer = new Answer;
+				$answer->_setProperty('translateFormat', 'Y-m-d');
+				$answer->_setProperty('valueType', (is_array($values) ? 2 : 0));
 				$field = new Field;
 				$field->setType('input');
 				$field->setSenderName(TRUE);
-				$answer->setValue($value);
+				$answer->_setProperty('value', $value);
 				$answer->setValueType((is_array($value) ? 1 : 0));
 				$answer->setField($field);
 				$mail->addAnswer($answer);
@@ -234,10 +230,11 @@ class DivUtilityTest extends UnitTestCase {
 		if (is_array($values)) {
 			foreach ($values as $value) {
 				$answer = new Answer;
+				$answer->_setProperty('valueType', (is_array($values) ? 2 : 0));
+				$answer->_setProperty('value', $value);
 				$field = new Field;
 				$field->setType('input');
 				$field->setSenderEmail(TRUE);
-				$answer->setValue($value);
 				$answer->setField($field);
 				$mail->addAnswer($answer);
 			}
@@ -411,54 +408,6 @@ class DivUtilityTest extends UnitTestCase {
 		}
 
 		$result = $this->generalValidatorMock->_callRef('getLabelsWithMarkersFromMail', $mail);
-		$this->assertSame($expectedResult, $result);
-	}
-
-	/**
-	 * Dataprovider getDataTypeFromFieldTypeReturnsInt()
-	 *
-	 * @return array
-	 */
-	public function getDataTypeFromFieldTypeReturnsIntDataProvider() {
-		return array(
-			array(
-				'captcha',
-				0
-			),
-			array(
-				'check',
-				1
-			),
-			array(
-				'date',
-				2
-			),
-			array(
-				'file',
-				3
-			),
-			array(
-				'select',
-				1
-			),
-			array(
-				'input',
-				0
-			)
-		);
-	}
-
-	/**
-	 * Test for getDataTypeFromFieldType()
-	 *
-	 * @param \string $value
-	 * @param \int $expectedResult
-	 * @return void
-	 * @dataProvider getDataTypeFromFieldTypeReturnsIntDataProvider
-	 * @test
-	 */
-	public function getDataTypeFromFieldTypeReturnsInt($value, $expectedResult) {
-		$result = DivUtility::getDataTypeFromFieldType($value);
 		$this->assertSame($expectedResult, $result);
 	}
 
@@ -694,52 +643,6 @@ class DivUtilityTest extends UnitTestCase {
 
 			$this->assertSame(1, preg_match($regex, $string));
 		}
-	}
-
-	/**
-	 * Data Provider for isJsonArrayReturnsBool()
-	 *
-	 * @return array
-	 */
-	public function isJsonArrayReturnsBoolDataProvider() {
-		return array(
-			array(
-				json_encode(array('a')),
-				TRUE
-			),
-			array(
-				json_encode('a,b:c'),
-				FALSE
-			),
-			array(
-				json_encode(array('object' => 'a')),
-				TRUE
-			),
-			array(
-				json_encode(array(array('title' => 'test2'), array('title' => 'test2'))),
-				TRUE
-			),
-			array(
-				'a,b:c',
-				FALSE
-			),
-		);
-	}
-
-	/**
-	 * isJsonArray Test
-	 *
-	 * @param string $value
-	 * @param bool $expectedResult
-	 * @dataProvider isJsonArrayReturnsBoolDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function isJsonArrayReturnsBool($value, $expectedResult) {
-		$this->assertSame(
-			$expectedResult,
-			DivUtility::isJsonArray($value)
-		);
 	}
 
 	/**

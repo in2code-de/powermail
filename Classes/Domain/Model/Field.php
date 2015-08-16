@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use In2code\Powermail\Utility\DivUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -675,9 +675,10 @@ class Field extends AbstractEntity {
 	 *
 	 * @param string $string Options from the Textarea
 	 * @param string $typoScriptObjectPath Path to TypoScript like lib.blabla
+	 * @param bool $parse
 	 * @return array Options Array
 	 */
-	protected function optionArray($string, $typoScriptObjectPath) {
+	protected function optionArray($string, $typoScriptObjectPath, $parse = TRUE) {
 		if (empty($string)) {
 			$string = DivUtility::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
 		}
@@ -690,8 +691,9 @@ class Field extends AbstractEntity {
 		foreach ($settingsField as $line) {
 			$settings = GeneralUtility::trimExplode('|', $line, FALSE);
 			$value = (isset($settings[1]) ? $settings[1] : $settings[0]);
+			$label = ($parse ? DivUtility::fluidParseString($settings[0]) : $settings[0]);
 			$options[] = array(
-				'label' => DivUtility::fluidParseString($settings[0]),
+				'label' => $label,
 				'value' => $value,
 				'selected' => isset($settings[2]) ? 1 : 0
 			);

@@ -1,11 +1,11 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Domain\Model\Field;
 
 /**
  * Abstract Validation ViewHelper
@@ -77,10 +77,7 @@ class AbstractValidationViewHelper extends AbstractViewHelper {
 				}
 			}
 			if ($this->isClientValidationEnabled()) {
-				$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
-					'validationerror_mandatory',
-					$this->extensionName
-				);
+				$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate('validationerror_mandatory');
 				$additionalAttributes['data-parsley-trigger'] = 'change';
 			}
 		}

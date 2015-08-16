@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\LocalizationUtility;
 
 /**
  * Returns Data-Attributes for JS and Native Validation
@@ -57,7 +57,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 	 * @return string
 	 */
 	protected function getFormat(Field $field = NULL) {
-		return LocalizationUtility::translate('datepicker_format_' . $this->getDatepickerSettings($field), $this->extensionName);
+		return LocalizationUtility::translate('datepicker_format_' . $this->getDatepickerSettings($field));
 	}
 
 	/**
@@ -77,7 +77,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 		);
 		$dayArray = array();
 		foreach ($days as $day) {
-			$dayArray[] = LocalizationUtility::translate('datepicker_day_' . $day, $this->extensionName);
+			$dayArray[] = LocalizationUtility::translate('datepicker_day_' . $day);
 		}
 		return implode(',', $dayArray);
 	}
@@ -104,7 +104,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 		);
 		$monthArray = array();
 		foreach ($months as $month) {
-			$monthArray[] = LocalizationUtility::translate('datepicker_month_' . $month, $this->extensionName);
+			$monthArray[] = LocalizationUtility::translate('datepicker_month_' . $month);
 		}
 		return implode(',', $monthArray);
 	}

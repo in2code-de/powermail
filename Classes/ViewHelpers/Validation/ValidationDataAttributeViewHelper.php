@@ -1,9 +1,9 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Returns Data-Attributes for JS and Native Validation
@@ -60,15 +60,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 					}
 				}
 				if ($this->isClientValidationEnabled()) {
-					$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
-						'validationerror_mandatory',
-						$this->extensionName
-					);
-					// overwrite error message
-					$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
-						'validationerror_mandatory_multi',
-						$this->extensionName
-					);
+					$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate('validationerror_mandatory_multi');
 					if ($field->getType() === 'check' && $iteration['total'] > 1) {
 						$additionalAttributes['data-parsley-required'] = 'true';
 					}
@@ -308,10 +300,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 
 			// set errormessage if javascript validation active
 		if ($field->getValidation() && $this->isClientValidationEnabled()) {
-			$additionalAttributes['data-parsley-error-message'] = LocalizationUtility::translate(
-				'validationerror_validation.' . $field->getValidation(),
-				$this->extensionName
-			);
+			$additionalAttributes['data-parsley-error-message'] = LocalizationUtility::translate('validationerror_validation.' . $field->getValidation());
 		}
 	}
 }

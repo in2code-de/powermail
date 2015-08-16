@@ -1,15 +1,13 @@
 <?php
-namespace In2code\Powermail\Tests\Domain\Validator;
+namespace In2code\Powermail\Tests\Utility;
 
-use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Domain\Model\Answer;
+use In2code\Powermail\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
+ *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
  *
  *  All rights reserved
  *
@@ -31,16 +29,16 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  ***************************************************************/
 
 /**
- * InputValidator Tests
+ * Array Tests
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class InputValidatorTest extends UnitTestCase {
+class ArrayUtilityTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Domain\Validator\InputValidator
+	 * @var \In2code\Powermail\Utility\ArrayUtility
 	 */
 	protected $generalValidatorMock;
 
@@ -49,7 +47,7 @@ class InputValidatorTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Domain\Validator\InputValidator',
+			'\In2code\Powermail\Utility\ArrayUtility',
 			array('dummy')
 		);
 	}
@@ -62,54 +60,48 @@ class InputValidatorTest extends UnitTestCase {
 	}
 
 	/**
-	 * Dataprovider getAnswerFromFieldReturnsString()
+	 * Data Provider for isJsonArrayReturnsBool()
 	 *
 	 * @return array
 	 */
-	public function getAnswerFromFieldReturnsStringDataProvider() {
+	public function isJsonArrayReturnsBoolDataProvider() {
 		return array(
 			array(
-				array(
-					123 => 'value abc',
-					124 => 'value def',
-					125 => 'value ghi'
-				),
-				'value ghi'
+				json_encode(array('a')),
+				TRUE
 			),
 			array(
-				array(
-					1 => 'firstname',
-					3 => 'lastname',
-					9 => 'email@email.org'
-				),
-				'email@email.org'
+				json_encode('a,b:c'),
+				FALSE
+			),
+			array(
+				json_encode(array('object' => 'a')),
+				TRUE
+			),
+			array(
+				json_encode(array(array('title' => 'test2'), array('title' => 'test2'))),
+				TRUE
+			),
+			array(
+				'a,b:c',
+				FALSE
 			),
 		);
 	}
 
 	/**
-	 * Test for getAnswerFromField()
+	 * isJsonArray Test
 	 *
-	 * @param array $fieldAnswerMix
-	 * @param string $expectedResult
+	 * @param string $value
+	 * @param bool $expectedResult
+	 * @dataProvider isJsonArrayReturnsBoolDataProvider
 	 * @return void
-	 * @dataProvider getAnswerFromFieldReturnsStringDataProvider
 	 * @test
 	 */
-	public function getAnswerFromFieldReturnsString($fieldAnswerMix, $expectedResult) {
-		$mail = new Mail();
-		foreach ($fieldAnswerMix as $fieldUid => $answerValue) {
-			$answer = new Answer();
-			$answer->setValue($answerValue);
-			$field = new Field();
-			$field->_setProperty('uid', $fieldUid);
-			$answer->setField($field);
-			$mail->addAnswer($answer);
-		}
-
+	public function isJsonArrayReturnsBool($value, $expectedResult) {
 		$this->assertSame(
 			$expectedResult,
-			$this->generalValidatorMock->_callRef('getAnswerFromField', $field, $mail)
+			ArrayUtility::isJsonArray($value)
 		);
 	}
 }

@@ -7,7 +7,6 @@ use In2code\Powermail\Domain\Service\StandaloneViewMultiplePathsService;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /***************************************************************
@@ -148,7 +147,7 @@ class DivUtility {
 		}
 
 		if (!trim($name)) {
-			$name = LocalizationUtility::translate('error_no_sender_name', 'powermail');
+			$name = LocalizationUtility::translate('error_no_sender_name');
 		}
 		return trim($name);
 	}
@@ -182,7 +181,7 @@ class DivUtility {
 		}
 
 		if (empty($email)) {
-			$email = LocalizationUtility::translate('error_no_sender_email', 'powermail');
+			$email = LocalizationUtility::translate('error_no_sender_email');
 			$email .= '@';
 			$email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
 		}
@@ -449,8 +448,8 @@ class DivUtility {
 	 * @return string Parsed string
 	 */
 	public static function fluidParseString($string, $variables = array()) {
-		if (empty($string)) {
-			return '';
+		if (empty($string) || empty($GLOBALS['TYPO3_DB'])) {
+			return $string;
 		}
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $standaloneView */
 		$standaloneView = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')

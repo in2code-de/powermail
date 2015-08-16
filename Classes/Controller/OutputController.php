@@ -1,12 +1,12 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DivUtility;
-use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 
@@ -114,7 +114,7 @@ class OutputController extends AbstractController {
 		if (!$this->div->isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->addFlashmessage(
-				LocalizationUtility::translate('PowermailFrontendEditFailed', 'powermail'),
+				LocalizationUtility::translate('PowermailFrontendEditFailed'),
 				'',
 				AbstractMessage::ERROR
 			);
@@ -132,7 +132,7 @@ class OutputController extends AbstractController {
 	 */
 	public function updateAction(Mail $mail) {
 		$this->mailRepository->update($mail);
-		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful', 'powermail'));
+		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
 		$this->redirect('edit', NULL, NULL, array('mail' => $mail));
 	}
 
@@ -146,7 +146,7 @@ class OutputController extends AbstractController {
 		if (!$this->div->isAllowedToEdit($this->settings, $arguments['mail'])) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->addFlashmessage(
-				LocalizationUtility::translate('PowermailFrontendDeleteFailed', 'powermail'),
+				LocalizationUtility::translate('PowermailFrontendDeleteFailed'),
 				'',
 				AbstractMessage::ERROR
 			);
@@ -163,7 +163,7 @@ class OutputController extends AbstractController {
 	public function deleteAction(Mail $mail) {
 		$this->assignMultipleActions();
 		$this->mailRepository->remove($mail);
-		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendDeleteSuccessful', 'powermail'));
+		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendDeleteSuccessful'));
 	}
 
 	/**
@@ -273,7 +273,7 @@ class OutputController extends AbstractController {
 		if (!isset($this->settings['staticTemplate'])) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->addFlashMessage(
-				LocalizationUtility::translate('error_no_typoscript_pi2', 'powermail'),
+				LocalizationUtility::translate('error_no_typoscript_pi2'),
 				'',
 				AbstractMessage::ERROR
 			);

@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use TYPO3\CMS\Extbase\Utility\ArrayUtility as ArrayUtilityExtbase;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
 
 /***************************************************************
  *  Copyright notice
@@ -33,31 +33,23 @@ use TYPO3\CMS\Extbase\Utility\ArrayUtility as ArrayUtilityExtbase;
  *
  * @package In2code\In2publish\Utility
  */
-class ArrayUtility extends ArrayUtilityExtbase {
+class LocalizationUtility extends LocalizationUtilityExtbase {
 
 	/**
-	 * Returns array with alphabetical letters
+	 * Own translate function (could also be used with unit tests)
 	 *
-	 * @return array
+	 * @param string $key
+	 * @param string $extensionName
+	 * @param null $arguments
+	 * @return string
 	 */
-	public static function getAbcArray() {
-		$arr = array();
-		for ($a = A; $a != AA; $a++) {
-			$arr[] = $a;
+	public static function translate($key, $extensionName = 'powermail', $arguments = NULL) {
+		if (empty($GLOBALS['TYPO3_DB'])) {
+			if (stristr($key, 'datepicker_format')) {
+				return 'Y-m-d H:i';
+			}
+			return $key;
 		}
-		return $arr;
-	}
-
-	/**
-	 * Check if String is JSON Array
-	 *
-	 * @param string $string
-	 * @return bool
-	 */
-	public static function isJsonArray($string) {
-		if (!is_string($string)) {
-			return FALSE;
-		}
-		return is_array(json_decode($string, TRUE));
+		return parent::translate($key, $extensionName, $arguments);
 	}
 }
