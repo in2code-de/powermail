@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use In2code\Powermail\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\DivUtility;
@@ -81,7 +82,7 @@ class Answer extends AbstractEntity {
 		$value = $this->value;
 
 			// if serialized, change to array
-		if (DivUtility::isJsonArray($this->value)) {
+		if (ArrayUtility::isJsonArray($this->value)) {
 				// only if type multivalue or upload
 			if ($this->getValueType() === 1 || $this->getValueType() === 3) {
 				$value = json_decode($value, TRUE);

@@ -208,6 +208,24 @@ class SessionUtility {
 	}
 
 	/**
+	 * @param string $result
+	 * @param int $fieldUid
+	 * @return void
+	 */
+	public static function setCaptchaSession($result, $fieldUid) {
+		self::setSessionValue('captcha', array($fieldUid => $result), FALSE, 'ses', 'powermail_captcha');
+	}
+
+	/**
+	 * @param int $fieldUid
+	 * @return int
+	 */
+	public static function getCaptchaSession($fieldUid) {
+		$sessionArray = self::getSessionValue('captcha', 'ses', 'powermail_captcha');
+		return (int) $sessionArray[$fieldUid];
+	}
+
+	/**
 	 * Check if spamshield and sessioncheck is enabled
 	 *
 	 * @param array $settings
@@ -257,8 +275,10 @@ class SessionUtility {
 			$key = self::$extKey;
 		}
 		if (!$overwrite) {
-			$oldValues = self::getSessionValue($name);
-			$values = array_merge((array) $oldValues, (array) $values);
+			$oldValues = self::getSessionValue($name, $method, $key);
+			if (!empty($oldValues)) {
+				$values = ArrayUtility::arrayMergeRecursiveOverrule((array) $oldValues, (array) $values);
+			}
 		}
 		$newValues = array(
 			$name => $values

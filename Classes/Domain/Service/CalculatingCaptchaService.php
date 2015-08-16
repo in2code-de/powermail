@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -62,29 +64,69 @@ class CalculatingCaptchaService {
 	);
 
 	/**
-	 * Path to captcha image
+	 * Prefix for captcha image filename
+	 * [prefix][fieldUid].png
 	 *
 	 * @var string
 	 */
-	protected $captchaImage = 'typo3temp/tx_powermail/CalculatingCaptcha.png';
+	protected $imageFilenamePrefix = 'Captcha%d.png';
+
+	/**
+	 * Path for captcha images
+	 *
+	 * @var string
+	 */
+	protected $imagePath = 'typo3temp/tx_powermail/';
+
+	/**
+	 * Relative path and filename of captcha image
+	 *
+	 * @var string
+	 */
+	protected $pathAndFilename = '';
+
+	/**
+	 * Background image path and filename
+	 * 		e.g. EXT:ext/filename.png
+	 *
+	 * @var string
+	 */
+	protected $backgroundImage = '';
+
+	/**
+	 * Font path and filename
+	 * 		e.g. EXT:ext/font.ttf
+	 *
+	 * @var string
+	 */
+	protected $fontPathAndFilename = '';
+
+	/**
+	 * Initialize
+	 */
+	public function __construct() {
+		$this->configuration = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_powermail.']['settings.']['setup.'];
+		$this->typoScriptFrontendController = $GLOBALS['TSFE'];
+		$this
+			->setBackgroundImage($this->configuration['captcha.']['default.']['image'])
+			->setFontPathAndFilename($this->configuration['captcha.']['default.']['font']);
+	}
 
 	/**
 	 * Render Link to Captcha Image
 	 *
+	 * @param Field $field
 	 * @return string
+	 * @throws \Exception
 	 */
-	public function render() {
-		$captchaValue = $this->getStringForCaptcha();
-		if (
-			!is_dir(dirname($this->getCaptchaImage())) &&
-			!GeneralUtility::mkdir(
-				GeneralUtility::getFileAbsFileName(dirname($this->getCaptchaImage()))
-			)
-		) {
-			return 'Error: Folder ' . dirname($this->getCaptchaImage()) . '/ don\'t exists';
+	public function render(Field $field) {
+		$this->setPathAndFilename($field);
+		if (!is_dir($this->getImagePath(TRUE)) && !GeneralUtility::mkdir($this->getImagePath(TRUE))) {
+			throw new \Exception('Folder ' . $this->getImagePath() . '/ does not exists');
 		}
-		$this->setCaptchaSession($captchaValue[0]);
-		return $this->createImage($captchaValue[1]);
+		$captchaValue = $this->getStringAndResultForCaptcha();
+		SessionUtility::setCaptchaSession($captchaValue['result'], $field->getUid());
+		return $this->createImage($captchaValue['string']);
 	}
 
 	/**
@@ -94,25 +136,14 @@ class CalculatingCaptchaService {
 	 * @param bool $clearSession
 	 * @return boolean
 	 */
-	public function validCode($code, $clearSession = TRUE) {
-		if ((int) $code === $this->getCaptchaSession() && !empty($code)) {
+	public function validCode($code, $field, $clearSession = TRUE) {
+		if ((int) $code === SessionUtility::getCaptchaSession($field->getUid()) && !empty($code)) {
 			if ($clearSession) {
-				$this->setCaptchaSession('');
+				SessionUtility::setCaptchaSession('', $field->getUid());
 			}
 			return TRUE;
 		}
 		return FALSE;
-	}
-
-	/**
-	 * @param string $string
-	 * @return string
-	 */
-	protected function getFilename($string) {
-		$string = str_replace('EXT:', 'typo3conf/ext/', $string);
-		/** @var \TYPO3\CMS\Core\TypoScript\TemplateService $templateService */
-		$templateService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TemplateService');
-		return $templateService->getFileName($string);
 	}
 
 	/**
@@ -123,61 +154,73 @@ class CalculatingCaptchaService {
 	 * @return string Image URI
 	 */
 	protected function createImage($content, $addHash = TRUE) {
-		$startimage = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . DivUtility::getSubFolderOfCurrentUrl();
-		$startimage .= $this->getFileName($this->configuration['captcha.']['default.']['image']);
-
-		if (!is_file($startimage)) {
-			return 'Error: No Image found on ' . $startimage;
-		}
-
-		$img = ImageCreateFromPNG($startimage);
-		$config = array();
-		$config['color_rgb'] = sscanf($this->configuration['captcha.']['default.']['textColor'], '#%2x%2x%2x');
-		$config['color'] = ImageColorAllocate($img, $config['color_rgb'][0], $config['color_rgb'][1], $config['color_rgb'][2]);
-		$config['font'] = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' . DivUtility::getSubFolderOfCurrentUrl();
-		$config['font'] .= $this->getFileName($this->configuration['captcha.']['default.']['font']);
-		$config['fontsize'] = $this->configuration['captcha.']['default.']['textSize'];
-		$config['angle'] = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['textAngle'], TRUE);
-		$config['fontangle'] = mt_rand($config['angle'][0], $config['angle'][1]);
-		$config['distance_hor'] = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['distanceHor'], TRUE);
-		$config['fontdistance_hor'] = mt_rand($config['distance_hor'][0], $config['distance_hor'][1]);
-		$config['distance_vert'] = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['distanceVer'], TRUE);
-		$config['fontdistance_vert'] = mt_rand($config['distance_vert'][0], $config['distance_vert'][1]);
-
+		$imageResource = ImageCreateFromPNG($this->getBackgroundImage(TRUE));
 		imagettftext(
-			$img,
-			$config['fontsize'],
-			$config['fontangle'],
-			$config['fontdistance_hor'],
-			$config['fontdistance_vert'],
-			$config['color'],
-			$config['font'],
+			$imageResource,
+			$this->configuration['captcha.']['default.']['textSize'],
+			$this->getFontAngleForCaptcha(),
+			$this->getHorizontalDistanceForCaptcha(),
+			$this->getVerticalDistanceForCaptcha(),
+			$this->getColorForCaptcha($imageResource),
+			$this->getFontPathAndFilename(TRUE),
 			$content
 		);
-		imagepng(
-			$img,
-			GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT') . '/' .
-			DivUtility::getSubFolderOfCurrentUrl() . $this->captchaImage
-		);
-		imagedestroy($img);
+		imagepng($imageResource, $this->getPathAndFilename(TRUE));
+		imagedestroy($imageResource);
+		return $this->getPathAndFilename(FALSE, $addHash);
+	}
 
-		$imageUri = $this->getCaptchaImage();
-		if ($addHash) {
-			$imageUri .= '?hash=' . time();
-		}
-		return $imageUri;
+	/**
+	 * Get color from configuration
+	 *
+	 * @param resource $imageResource
+	 * @return int color identifier
+	 */
+	protected function getColorForCaptcha($imageResource) {
+		$colorRgb = sscanf($this->configuration['captcha.']['default.']['textColor'], '#%2x%2x%2x');
+		return ImageColorAllocate($imageResource, $colorRgb[0], $colorRgb[1], $colorRgb[2]);
+	}
+
+	/**
+	 * Get random font angle from configuration
+	 *
+	 * @return int
+	 */
+	protected function getFontAngleForCaptcha() {
+		$angles = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['textAngle'], TRUE);
+		return mt_rand($angles[0], $angles[1]);
+	}
+
+	/**
+	 * Get random horizontal distance from configuration
+	 *
+	 * @return int
+	 */
+	protected function getHorizontalDistanceForCaptcha() {
+		$distances = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['distanceHor'], TRUE);
+		return mt_rand($distances[0], $distances[1]);
+	}
+
+	/**
+	 * Get random vertical distance from configuration
+	 *
+	 * @return int
+	 */
+	protected function getVerticalDistanceForCaptcha() {
+		$distances = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['distanceVer'], TRUE);
+		return mt_rand($distances[0], $distances[1]);
 	}
 
 	/**
 	 * Create Random String for Captcha Image
 	 *
 	 * @param int $maxNumber
-	 * @param int $maxOperatorNumber choose which operators are allowd
+	 * @param int $maxOperatorNumber choose which operators are allowed
 	 * @return array
-	 * 		0 => 3
-	 * 		1 => '1+2'
+	 * 		'result' => 3
+	 * 		'string' => '1+2'
 	 */
-	protected function getStringForCaptcha($maxNumber = 15, $maxOperatorNumber = 1) {
+	protected function getStringAndResultForCaptcha($maxNumber = 15, $maxOperatorNumber = 1) {
 		$result = $number1 = $number2 = 0;
 		$operator = $this->operators[mt_rand(0, $maxOperatorNumber)];
 		for ($i = 0; $i < 100; $i++) {
@@ -198,7 +241,10 @@ class CalculatingCaptchaService {
 			$result = $this->mathematicOperation($number1, $number2, $operator);
 		}
 
-		return array($result, $number1 . ' ' . $operator . ' ' . $number2);
+		return array(
+			'result' => $result,
+			'string' => $number1 . ' ' . $operator . ' ' . $number2
+		);
 	}
 
 	/**
@@ -228,27 +274,28 @@ class CalculatingCaptchaService {
 	}
 
 	/**
-	 * @param string $result
-	 * @return void
+	 * @param string $string
+	 * @param bool $absolute
+	 * @return string
 	 */
-	protected function setCaptchaSession($result) {
-		$this->typoScriptFrontendController->fe_user->setKey('ses', 'powermail_captcha_value', $result);
-		$this->typoScriptFrontendController->storeSessionData();
-	}
-
-	/**
-	 * @return int
-	 */
-	protected function getCaptchaSession() {
-		return (int) $this->typoScriptFrontendController->fe_user->sesData['powermail_captcha_value'];
+	protected function getFilename($string, $absolute = FALSE) {
+		$string = str_replace('EXT:', 'typo3conf/ext/', $string);
+		/** @var \TYPO3\CMS\Core\TypoScript\TemplateService $templateService */
+		$templateService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TemplateService');
+		$fileName = $templateService->getFileName($string);
+		if ($absolute) {
+			$fileName = GeneralUtility::getFileAbsFileName($fileName);
+		}
+		return $fileName;
 	}
 
 	/**
 	 * @param array $configuration
-	 * @return void
+	 * @return CalculatingCaptchaService
 	 */
 	public function setConfiguration($configuration) {
 		$this->configuration = $configuration;
+		return $this;
 	}
 
 	/**
@@ -259,24 +306,96 @@ class CalculatingCaptchaService {
 	}
 
 	/**
-	 * @param string $captchaImage
-	 * @return void
-	 */
-	public function setCaptchaImage($captchaImage) {
-		$this->captchaImage = $captchaImage;
-	}
-
-	/**
+	 * @param bool $absolute
 	 * @return string
 	 */
-	public function getCaptchaImage() {
-		return $this->captchaImage;
+	public function getImagePath($absolute = FALSE) {
+		$imagePath = $this->imagePath;
+		if ($absolute) {
+			$imagePath = GeneralUtility::getFileAbsFileName($imagePath);
+		}
+		return $imagePath;
 	}
 
 	/**
-	 * Init
+	 * @param string $imagePath
+	 * @return CalculatingCaptchaService
 	 */
-	public function __construct() {
-		$this->typoScriptFrontendController = $GLOBALS['TSFE'];
+	public function setImagePath($imagePath) {
+		$this->imagePath = $imagePath;
+		return $this;
+	}
+
+	/**
+	 * Create relative filename for captcha image
+	 *
+	 * @param Field $field
+	 * @return CalculatingCaptchaService
+	 */
+	public function setPathAndFilename(Field $field) {
+		$this->pathAndFilename = $this->imagePath . sprintf($this->imageFilenamePrefix, $field->getUid());
+		return $this;
+	}
+
+	/**
+	 * Get path and filename
+	 *
+	 * @param bool $absolute
+	 * @param bool $addHash
+	 * @return string
+	 */
+	public function getPathAndFilename($absolute = FALSE, $addHash = FALSE) {
+		$pathAndFilename = $this->pathAndFilename;
+		if ($absolute) {
+			$pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
+		}
+		if ($addHash) {
+			$pathAndFilename .= '?hash=' . DivUtility::createRandomString(8);
+		}
+		return $pathAndFilename;
+	}
+
+	/**
+	 * @param bool $absolute
+	 * @return string
+	 */
+	public function getBackgroundImage($absolute = FALSE) {
+		return $this->getFilename($this->backgroundImage, $absolute);
+	}
+
+	/**
+	 * Get background image path and filename
+	 *
+	 * @param string $backgroundImage e.g. EXT:ext/filename.png
+	 * @return CalculatingCaptchaService
+	 * @throws \Exception
+	 */
+	public function setBackgroundImage($backgroundImage) {
+		$this->backgroundImage = $backgroundImage;
+		if (!is_file($this->getBackgroundImage(TRUE))) {
+			throw new \Exception('No captcha background image found - please check your TypoScript configuration');
+		}
+		return $this;
+	}
+
+	/**
+	 * @param bool $absolute
+	 * @return string
+	 */
+	public function getFontPathAndFilename($absolute = FALSE) {
+		return $this->getFilename($this->fontPathAndFilename, $absolute);
+	}
+
+	/**
+	 * @param string $fontPathAndFilename
+	 * @return CalculatingCaptchaService
+	 * @throws \Exception
+	 */
+	public function setFontPathAndFilename($fontPathAndFilename) {
+		$this->fontPathAndFilename = $fontPathAndFilename;
+		if (!is_file($this->getFontPathAndFilename(TRUE))) {
+			throw new \Exception('No captcha truetype font found - please check your TypoScript configuration');
+		}
+		return $this;
 	}
 }

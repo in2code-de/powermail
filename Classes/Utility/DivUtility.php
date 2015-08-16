@@ -605,29 +605,6 @@ class DivUtility {
 	}
 
 	/**
-	 * Returns array with alphabetical letters
-	 *
-	 * @return array
-	 */
-	public static function getAbcArray() {
-		$arr = array();
-		for ($a = A; $a != AA; $a++) {
-			$arr[] = $a;
-		}
-		return $arr;
-	}
-
-	/**
-	 * Check if String is JSON Array
-	 *
-	 * @param string $string
-	 * @return bool
-	 */
-	public static function isJsonArray($string) {
-		return is_array(json_decode($string, TRUE));
-	}
-
-	/**
 	 * Check if String/Array is filled
 	 *
 	 * @param mixed $value
@@ -778,20 +755,6 @@ class DivUtility {
 	}
 
 	/**
-	 * Plain String output for given array
-	 *
-	 * @param array $array
-	 * @return string
-	 */
-	public static function viewPlainArray($array) {
-		$string = '';
-		foreach ((array)$array as $key => $value) {
-			$string .= $key . ': ' . $value . "\n";
-		}
-		return $string;
-	}
-
-	/**
 	 * Get Property from currently logged in fe_user
 	 *
 	 * @param \string $propertyName
@@ -905,7 +868,7 @@ class DivUtility {
 	/**
 	 * Read pid from current URL
 	 *        URL example:
-	 *        http://powermailt361.in2code.de/typo3/alt_doc.php?&
+	 *        http://powermail.localhost.de/typo3/alt_doc.php?&
 	 *        returnUrl=%2Ftypo3%2Fsysext%2Fcms%2Flayout%2Fdb_layout.php%3Fid%3D17%23
 	 *        element-tt_content-14&edit[tt_content][14]=edit
 	 *

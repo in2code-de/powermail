@@ -115,7 +115,7 @@ function deleteAllFilesListener() {
 /**
  * Allow AJAX Submit for powermail
  *
- * @return void
+ * @returns {void}
  */
 function ajaxFormSubmit() {
 	var regularSubmitOnAjax = false;
@@ -159,6 +159,7 @@ function ajaxFormSubmit() {
 						if (jQuery.fn.parsley) {
 							jQuery('form[data-parsley-validate="data-parsley-validate"]').parsley();
 						}
+						reloadCaptchaImages();
 					} else {
 						// no form markup found try to redirect via clientside
 						if (redirectUri) {
@@ -177,9 +178,47 @@ function ajaxFormSubmit() {
 }
 
 /**
+ * Reload captcha images
+ *
+ * @returns {void}
+ */
+function reloadCaptchaImages() {
+	$('img.powermail_captchaimage').each(function() {
+		var source = getUriWithoutGetParam($(this).prop('src'));
+		$(this).prop('src', source + '?hash=' + getRandomString(5));
+	});
+}
+
+/**
+ * Get uri without get params
+ *
+ * @param {string} uri
+ * @returns {string}
+ */
+function getUriWithoutGetParam(uri) {
+	var parts = uri.split('?');
+	return parts[0];
+}
+
+/**
+ * Get random string
+ *
+ * @param {int} length
+ * @returns {string}
+ */
+function getRandomString(length) {
+	var text = '';
+	var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	for (var i=0; i < length; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+	return text;
+}
+
+/**
  * Get value of field and check if element exists
  *
- * @param element
+ * @param {object} element
  * @returns {string}
  */
 function getValueFromField(element) {
@@ -194,9 +233,9 @@ function getValueFromField(element) {
  * Convert date format for html5 date fields
  *      31.08.2014 => 2014-08-31
  *
- * @param value
- * @param format
- * @param type
+ * @param {string} value
+ * @param {string} format
+ * @param {string} type
  * @returns {string|null}
  */
 function getDatetimeForDateFields(value, format, type) {
@@ -226,7 +265,7 @@ function getDatetimeForDateFields(value, format, type) {
 /**
  * Getting the Location by the browser and write to inputform as address
  *
- * @return void
+ * @return {void}
  */
 function getLocationAndWrite() {
 	if (navigator.geolocation) { // Read location from Browser
@@ -257,7 +296,7 @@ function getLocationAndWrite() {
 /**
  * Return BaseUrl as prefix
  *
- * @return	string	Base Url
+ * @return {string} Base Url
  */
 function getBaseUrl() {
 	var baseurl;

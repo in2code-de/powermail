@@ -1,13 +1,14 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use In2code\Powermail\Utility\DivUtility;
-use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice
@@ -62,7 +63,7 @@ class OutputController extends AbstractController {
 				'searchFields' => $searchFields,
 				'fields' => $this->fieldRepository->findByUids($fieldArray),
 				'piVars' => $this->piVars,
-				'abc' => DivUtility::getAbcArray()
+				'abc' => ArrayUtility::getAbcArray()
 			)
 		);
 		$this->assignMultipleActions();
