@@ -460,25 +460,6 @@ class DivUtility {
 	}
 
 	/**
-	 * Use htmlspecialchars on array (key and value) (any depth - recursive call)
-	 *
-	 * @param array $array Any array
-	 * @return array Cleaned array
-	 */
-	public static function htmlspecialcharsOnArray($array) {
-		$newArray = array();
-		foreach ((array) $array as $key => $value) {
-			if (is_array($value)) {
-				$newArray[htmlspecialchars($key)] = self::htmlspecialcharsOnArray($value);
-			} else {
-				$newArray[htmlspecialchars($key)] = htmlspecialchars($value);
-			}
-		}
-		unset($array);
-		return $newArray;
-	}
-
-	/**
 	 * Get all receiver emails in an array
 	 *
 	 * @param string $receiverString String with some emails

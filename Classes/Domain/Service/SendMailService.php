@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -282,7 +283,7 @@ class SendMailService {
 		$emailBodyObject->assignMultiple(DivUtility::getLabelsWithMarkersFromMail($mail));
 		$emailBodyObject->assignMultiple(
 			array(
-				'variablesWithMarkers' => DivUtility::htmlspecialcharsOnArray($variablesWithMarkers),
+				'variablesWithMarkers' => ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers),
 				'powermail_all' => $this->div->powermailAll($mail, 'mail', $settings, $type),
 				'powermail_rte' => $email['rteBody'],
 				'marketingInfos' => SessionUtility::getMarketingInfos(),

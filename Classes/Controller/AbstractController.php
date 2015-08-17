@@ -186,6 +186,7 @@ abstract class AbstractController extends ActionController {
 	 * @return void
 	 */
 	protected function reformatParamsForAction() {
+		BasicFileUtility::rewriteFilesArrayToPreventDuplicatFilenames();
 		$arguments = $this->request->getArguments();
 		if (!isset($arguments['field'])) {
 			return;

@@ -60,4 +60,23 @@ class ArrayUtility extends ArrayUtilityExtbase {
 		}
 		return is_array(json_decode($string, TRUE));
 	}
+
+	/**
+	 * Use htmlspecialchars on array (key and value) (any depth - recursive call)
+	 *
+	 * @param array $array Any array
+	 * @return array Cleaned array
+	 */
+	public static function htmlspecialcharsOnArray($array) {
+		$newArray = array();
+		foreach ((array) $array as $key => $value) {
+			if (is_array($value)) {
+				$newArray[htmlspecialchars($key)] = self::htmlspecialcharsOnArray($value);
+			} else {
+				$newArray[htmlspecialchars($key)] = htmlspecialchars($value);
+			}
+		}
+		unset($array);
+		return $newArray;
+	}
 }

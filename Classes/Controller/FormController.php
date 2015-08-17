@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DivUtility;
@@ -294,7 +295,7 @@ class FormController extends AbstractController {
 
 			// get variable array
 		$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
-		$this->view->assign('variablesWithMarkers', DivUtility::htmlspecialcharsOnArray($variablesWithMarkers));
+		$this->view->assign('variablesWithMarkers', ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers));
 		$this->view->assignMultiple($variablesWithMarkers);
 		$this->view->assignMultiple(DivUtility::getLabelsWithMarkersFromMail($mail));
 
