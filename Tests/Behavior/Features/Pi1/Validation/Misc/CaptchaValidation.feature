@@ -136,7 +136,6 @@ Feature: CaptchaValidation
 
     Then I should see "alex@in2code.de"
     Then I should see "1"
-    Then I should see "7"
 
   # Two forms with one captcha per form with AJAX
   @javascript @Pi1ValidationMiscCaptchaValidation2FormsAjax
