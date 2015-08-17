@@ -36,12 +36,21 @@
 									<f:for each="{page.fields}" as="field">
 										<f:for each="{selectedFields}" as="selectedField">
 											<f:if condition="{selectedField} == {field}">
-												<f:if condition="{vh:Condition.Or(array: '{0: \'input\', 1: \'check\', 2: \'radio\', 3: \'select\', 4: \'textarea\'}', string:field.type)}">
-													<f:render partial="Form/{vh:String.Upper(string:field.type)}" arguments="{_all}" />
+
+												<f:comment>
+													Note:
+														At the moment only basic fields are supported for editing
+														All other fields will be passed through hidden fields
+												</f:comment>
+												<f:if condition="{field.basicFieldType}">
+													<f:then>
+														<f:render partial="Form/{vh:String.Upper(string:field.type)}" arguments="{_all}" />
+													</f:then>
+													<f:else>
+														<f:render partial="Output/EditHidden" arguments="{_all}" />
+													</f:else>
 												</f:if>
-												<f:if condition="{vh:Condition.Or(array: '{0: \'country\', 1: \'date\', 2: \'file\', 3: \'hidden\', 4: \'location\', 5: \'password\'}', string:field.type)}">
-													<f:render partial="Form/Hidden" arguments="{_all}" />
-												</f:if>
+
 											</f:if>
 										</f:for>
 									</f:for>
