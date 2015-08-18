@@ -2,8 +2,8 @@
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\ArrayUtility;
-use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /***************************************************************
@@ -190,7 +190,10 @@ class Answer extends AbstractEntity {
 	public function getValueType() {
 		if ($this->valueType === NULL) {
 			if ($this->getField() !== NULL) {
-				$this->setValueType(DivUtility::getDataTypeFromFieldType($this->getField()->getType()));
+				/** @var Field $field */
+				$field = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+					->get('In2code\\Powermail\\Domain\\Model\\Field');
+				$this->setValueType($field->getDataTypeFromFieldType($this->getField()->getType()));
 			} else {
 				$this->setValue(0);
 			}

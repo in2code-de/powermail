@@ -2,7 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -49,7 +49,7 @@ class CaptchaViewHelper extends AbstractViewHelper {
 	 * @return string image URL
 	 */
 	public function render(Field $field) {
-		switch (DivUtility::getCaptchaExtensionFromSettings($this->settings)) {
+		switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
 			case 'captcha':
 				$image = ExtensionManagementUtility::siteRelPath('captcha') . 'captcha/captcha.php';
 				break;

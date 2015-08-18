@@ -1,12 +1,16 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\LocalizationUtility;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
-use In2code\Powermail\Domain\Model\Form;
-use In2code\Powermail\Utility\DivUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -54,7 +58,7 @@ class MailRepository extends Repository {
 	 * @param int $pid
 	 * @param array $settings TypoScript Config Array
 	 * @param array $piVars Plugin Variables
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
+	 * @return QueryResult
 	 */
 	public function findAllInPid($pid = 0, $settings = array(), $piVars = array()) {
 		$query = $this->createQuery();
@@ -136,7 +140,7 @@ class MailRepository extends Repository {
 	 * Find first mail in given PID
 	 *
 	 * @param int $pid
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
+	 * @return QueryResult
 	 */
 	public function findFirstInPid($pid = 0) {
 		$query = $this->createQuery();
@@ -156,7 +160,7 @@ class MailRepository extends Repository {
 	 * Find mails by given UID (also hidden and don't care about starting page)
 	 *
 	 * @param int $uid
-	 * @return \In2code\Powermail\Domain\Model\Mail
+	 * @return Mail
 	 */
 	public function findByUid($uid) {
 		$query = $this->createQuery();
@@ -177,9 +181,9 @@ class MailRepository extends Repository {
 	/**
 	 * @param string $marker
 	 * @param string $value
-	 * @param \In2code\Powermail\Domain\Model\Form $form
+	 * @param Form $form
 	 * @param int $pageUid
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 * @return QueryResultInterface
 	 */
 	public function findByMarkerValueForm($marker, $value, $form, $pageUid) {
 		$query = $this->createQuery();
@@ -195,9 +199,9 @@ class MailRepository extends Repository {
 	/**
 	 * Query for Pi2
 	 *
-	 * @param \array $settings TypoScript Settings
-	 * @param \array $piVars Plugin Variables
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
+	 * @param array $settings TypoScript Settings
+	 * @param array $piVars Plugin Variables
+	 * @return QueryResult
 	 */
 	public function findListBySettings($settings, $piVars) {
 		$query = $this->createQuery();
@@ -309,7 +313,7 @@ class MailRepository extends Repository {
 	 *
 	 * @param string $uidList Commaseparated UID List of mails
 	 * @param array $sorting array('field' => 'asc')
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
+	 * @return QueryResult
 	 */
 	public function findByUidList($uidList, $sorting = array()) {
 		$query = $this->createQuery();
@@ -330,15 +334,114 @@ class MailRepository extends Repository {
 	}
 
 	/**
-	 * General settings
+	 * Generate a new array with labels
+	 *        label_firstname => Firstname
 	 *
-	 * @return void
+	 * @param Mail $mail
+	 * @return array
 	 */
-	public function initializeObject() {
-		/** @var Typo3QuerySettings $querySettings */
-		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$querySettings->setRespectStoragePage(FALSE);
-		$this->setDefaultQuerySettings($querySettings);
+	public function getLabelsWithMarkersFromMail(Mail $mail) {
+		$variables = array();
+		foreach ($mail->getAnswers() as $answer) {
+			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
+				continue;
+			}
+			$variables['label_' . $answer->getField()->getMarker()] = $answer->getField()->getTitle();
+		}
+		return $variables;
+	}
+
+	/**
+	 * Generate a new array with markers and their values
+	 *        firstname => value
+	 *
+	 * @param Mail $mail
+	 * @return array
+	 */
+	public function getVariablesWithMarkersFromMail(Mail $mail) {
+		$variables = array();
+		foreach ($mail->getAnswers() as $answer) {
+			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
+				continue;
+			}
+			$value = $answer->getValue();
+			if (is_array($value)) {
+				$value = implode(', ', $value);
+			}
+			$variables[$answer->getField()->getMarker()] = $value;
+		}
+		return $variables;
+	}
+
+	/**
+	 * Returns senderemail from a couple of arguments
+	 *
+	 * @param Mail $mail
+	 * @param string $default
+	 * @return string Sender Email
+	 */
+	public function getSenderMailFromArguments(Mail $mail, $default = NULL) {
+		$email = '';
+		foreach ($mail->getAnswers() as $answer) {
+			if (
+				method_exists($answer->getField(), 'getUid') &&
+				$answer->getField()->getSenderEmail() &&
+				GeneralUtility::validEmail($answer->getValue())
+			) {
+				$email = $answer->getValue();
+				break;
+			}
+		}
+
+		if (empty($email) && $default) {
+			$email = $default;
+		}
+
+		if (empty($email) && GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'])) {
+			$email = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'];
+		}
+
+		if (empty($email)) {
+			$email = LocalizationUtility::translate('error_no_sender_email');
+			$email .= '@';
+			$email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
+		}
+		return $email;
+	}
+
+	/**
+	 * Returns sendername from a couple of arguments
+	 *
+	 * @param Mail $mail Given Params
+	 * @param string $default
+	 * @param string $glue
+	 * @return string Sender Name
+	 */
+	public function getSenderNameFromArguments(Mail $mail, $default = NULL, $glue = ' ') {
+		$name = '';
+		foreach ($mail->getAnswers() as $answer) {
+			if (method_exists($answer->getField(), 'getUid') && $answer->getField()->getSenderName()) {
+				if (!is_array($answer->getValue())) {
+					$value = $answer->getValue();
+				} else {
+					$value = implode($glue, $answer->getValue());
+				}
+				$name .= $value . $glue;
+			}
+		}
+
+		if (!trim($name) && $default) {
+			$name = $default;
+		}
+
+		if (empty($name) && !empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])) {
+			$name = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'];
+		}
+
+		if (!trim($name)) {
+			$name = LocalizationUtility::translate('error_no_sender_name');
+		}
+		return trim($name);
 	}
 
 	/**
@@ -355,7 +458,7 @@ class MailRepository extends Repository {
 	 */
 	protected function getSorting($sortby, $order, $piVars = array()) {
 		$sorting = array(
-			$this->cleanStringForQuery(DivUtility::conditionalVariable($sortby, 'crdate')) =>
+			$this->cleanStringForQuery(StringUtility::conditionalVariable($sortby, 'crdate')) =>
 				$this->getSortOrderByString($order)
 		);
 		if (!empty($piVars['sorting'])) {
@@ -391,5 +494,17 @@ class MailRepository extends Repository {
 	 */
 	protected function cleanStringForQuery($string) {
 		return preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+	}
+
+	/**
+	 * General settings
+	 *
+	 * @return void
+	 */
+	public function initializeObject() {
+		/** @var Typo3QuerySettings $querySettings */
+		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+		$querySettings->setRespectStoragePage(FALSE);
+		$this->setDefaultQuerySettings($querySettings);
 	}
 }

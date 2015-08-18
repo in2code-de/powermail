@@ -5,9 +5,14 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
+use In2code\Powermail\Utility\OptinUtility;
+use In2code\Powermail\Utility\SaveToAnyTableUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use In2code\Powermail\Utility\StringUtility;
+use In2code\Powermail\Utility\TemplateUtility;
+use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -114,8 +119,9 @@ class FormController extends AbstractController {
 		}
 		if ($this->isSendMailActive($mail, $hash)) {
 			$this->sendMailPreflight($mail, $hash);
-			$this->div->saveToAnyTable($mail, $this->conf);
-			$this->div->sendPost($mail, $this->conf);
+			SaveToAnyTableUtility::preflight($mail, $this->conf);
+			$sendParametersService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SendParametersService');
+			$sendParametersService->sendFromConfiguration($mail, $this->conf);
 		} else {
 			$this->sendConfirmationMail($mail);
 			$this->view->assign('optinActive', TRUE);
@@ -168,7 +174,7 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	protected function sendMailPreflight(Mail $mail, $hash = NULL) {
-		if ($this->settings['sender']['enable'] && $this->div->getSenderMailFromArguments($mail)) {
+		if ($this->settings['sender']['enable'] && $this->mailRepository->getSenderMailFromArguments($mail)) {
 			$this->sendSenderMail($mail);
 		}
 		if ($this->settings['receiver']['enable']) {
@@ -184,25 +190,22 @@ class FormController extends AbstractController {
 	 * @return void
 	 */
 	protected function sendReceiverMail(Mail $mail, $hash = NULL) {
-		$receiverString = DivUtility::fluidParseString(
+		$receiverString = TemplateUtility::fluidParseString(
 			$this->settings['receiver']['email'],
-			DivUtility::getVariablesWithMarkersFromMail($mail)
+			$this->mailRepository->getVariablesWithMarkersFromMail($mail)
 		);
-		$this->div->overwriteValueFromTypoScript($receiverString, $this->conf['receiver.']['overwrite.'], 'email');
-		$receivers = $this->div->getReceiverEmails(
-			$receiverString,
-			$this->settings['receiver']['fe_group']
-		);
+		TypoScriptUtility::overwriteValueFromTypoScript($receiverString, $this->conf['receiver.']['overwrite.'], 'email');
+		$receivers = StringUtility::getReceiverEmails($receiverString, $this->settings['receiver']['fe_group']);
 		$mail->setReceiverMail(implode("\n", $receivers));
-		$this->div->overwriteValueFromTypoScript($defaultSenderEmail, $this->conf['receiver.']['default.'], 'senderEmail');
-		$this->div->overwriteValueFromTypoScript($defaultSenderName, $this->conf['receiver.']['default.'], 'senderName');
+		TypoScriptUtility::overwriteValueFromTypoScript($defaultSenderEmail, $this->conf['receiver.']['default.'], 'senderEmail');
+		TypoScriptUtility::overwriteValueFromTypoScript($defaultSenderName, $this->conf['receiver.']['default.'], 'senderName');
 		foreach ($receivers as $receiver) {
 			$email = array(
 				'template' => 'Mail/ReceiverMail',
 				'receiverEmail' => $receiver,
 				'receiverName' => $this->settings['receiver']['name'] ? $this->settings['receiver']['name'] : 'Powermail',
-				'senderEmail' => $this->div->getSenderMailFromArguments($mail, $defaultSenderEmail),
-				'senderName' => $this->div->getSenderNameFromArguments($mail, $defaultSenderName),
+				'senderEmail' => $this->mailRepository->getSenderMailFromArguments($mail, $defaultSenderEmail),
+				'senderName' => $this->mailRepository->getSenderNameFromArguments($mail, $defaultSenderName),
 				'subject' => $this->settings['receiver']['subject'],
 				'rteBody' => $this->settings['receiver']['body'],
 				'format' => $this->settings['receiver']['mailformat'],
@@ -210,9 +213,9 @@ class FormController extends AbstractController {
 					'hash' => $hash
 				)
 			);
-			$this->div->overwriteValueFromTypoScript($email['receiverName'], $this->conf['receiver.']['overwrite.'], 'name');
-			$this->div->overwriteValueFromTypoScript($email['senderName'], $this->conf['receiver.']['overwrite.'], 'senderName');
-			$this->div->overwriteValueFromTypoScript($email['senderEmail'], $this->conf['receiver.']['overwrite.'], 'senderEmail');
+			TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->conf['receiver.']['overwrite.'], 'name');
+			TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['receiver.']['overwrite.'], 'senderName');
+			TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['receiver.']['overwrite.'], 'senderEmail');
 			$sent = $this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'receiver');
 
 			if (!$sent) {
@@ -235,18 +238,18 @@ class FormController extends AbstractController {
 	protected function sendSenderMail(Mail $mail) {
 		$email = array(
 			'template' => 'Mail/SenderMail',
-			'receiverName' => $this->div->getSenderNameFromArguments($mail, 'Powermail'),
-			'receiverEmail' => $this->div->getSenderMailFromArguments($mail),
+			'receiverName' => $this->mailRepository->getSenderNameFromArguments($mail, 'Powermail'),
+			'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
 			'senderName' => $this->settings['sender']['name'],
 			'senderEmail' => $this->settings['sender']['email'],
 			'subject' => $this->settings['sender']['subject'],
 			'rteBody' => $this->settings['sender']['body'],
 			'format' => $this->settings['sender']['mailformat']
 		);
-		$this->div->overwriteValueFromTypoScript($email['receiverEmail'], $this->conf['sender.']['overwrite.'], 'email');
-		$this->div->overwriteValueFromTypoScript($email['receiverName'], $this->conf['sender.']['overwrite.'], 'name');
-		$this->div->overwriteValueFromTypoScript($email['senderName'], $this->conf['sender.']['overwrite.'], 'senderName');
-		$this->div->overwriteValueFromTypoScript($email['senderEmail'], $this->conf['sender.']['overwrite.'], 'senderEmail');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['receiverEmail'], $this->conf['sender.']['overwrite.'], 'email');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->conf['sender.']['overwrite.'], 'name');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['sender.']['overwrite.'], 'senderName');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['sender.']['overwrite.'], 'senderEmail');
 		$this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'sender');
 	}
 
@@ -259,22 +262,23 @@ class FormController extends AbstractController {
 	protected function sendConfirmationMail(Mail &$mail) {
 		$email = array(
 			'template' => 'Mail/OptinMail',
-			'receiverName' => $this->div->getSenderNameFromArguments($mail) ? $this->div->getSenderNameFromArguments($mail) : 'Powermail',
-			'receiverEmail' => $this->div->getSenderMailFromArguments($mail),
+			'receiverName' => $this->mailRepository->getSenderNameFromArguments($mail) ?
+				$this->mailRepository->getSenderNameFromArguments($mail) : 'Powermail',
+			'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
 			'senderName' => $this->settings['sender']['name'],
 			'senderEmail' => $this->settings['sender']['email'],
 			'subject' => $this->cObj->cObjGetSingle($this->conf['optin.']['subject'], $this->conf['optin.']['subject.']),
 			'rteBody' => '',
 			'format' => $this->settings['sender']['mailformat'],
 			'variables' => array(
-				'hash' => DivUtility::createOptinHash($mail),
+				'hash' => OptinUtility::createOptinHash($mail),
 				'mail' => $mail
 			)
 		);
-		$this->div->overwriteValueFromTypoScript($email['receiverName'], $this->conf['optin.']['overwrite.'], 'name');
-		$this->div->overwriteValueFromTypoScript($email['receiverEmail'], $this->conf['optin.']['overwrite.'], 'email');
-		$this->div->overwriteValueFromTypoScript($email['senderName'], $this->conf['optin.']['overwrite.'], 'senderName');
-		$this->div->overwriteValueFromTypoScript($email['senderEmail'], $this->conf['optin.']['overwrite.'], 'senderEmail');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->conf['optin.']['overwrite.'], 'name');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['receiverEmail'], $this->conf['optin.']['overwrite.'], 'email');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['optin.']['overwrite.'], 'senderName');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['optin.']['overwrite.'], 'senderEmail');
 		$this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'optin');
 	}
 
@@ -287,21 +291,20 @@ class FormController extends AbstractController {
 	protected function showThx(Mail $mail) {
 		$this->redirectToTarget();
 
-			// assign
+		// assign
 		$this->view->assign('mail', $mail);
 		$this->view->assign('marketingInfos', SessionUtility::getMarketingInfos());
 		$this->view->assign('messageClass', $this->messageClass);
 		$this->view->assign('powermail_rte', $this->settings['thx']['body']);
 
-			// get variable array
-		$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
+		// get variable array
+		$variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($mail);
 		$this->view->assign('variablesWithMarkers', ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers));
 		$this->view->assignMultiple($variablesWithMarkers);
-		$this->view->assignMultiple(DivUtility::getLabelsWithMarkersFromMail($mail));
+		$this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
 
-			// powermail_all
-		$content = $this->div->powermailAll($mail, 'web', $this->settings, $this->actionMethodName);
-		$this->view->assign('powermail_all', $content);
+		// powermail_all
+		$this->view->assign('powermail_all', TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName));
 	}
 
 	/**
@@ -329,12 +332,12 @@ class FormController extends AbstractController {
 	protected function saveMail(Mail &$mail = NULL) {
 		$marketingInfos = SessionUtility::getMarketingInfos();
 		$mail
-			->setPid(DivUtility::getStoragePage($this->settings['main']['pid']))
-			->setSenderMail($this->div->getSenderMailFromArguments($mail))
-			->setSenderName($this->div->getSenderNameFromArguments($mail))
+			->setPid(FrontendUtility::getStoragePage($this->settings['main']['pid']))
+			->setSenderMail($this->mailRepository->getSenderMailFromArguments($mail))
+			->setSenderName($this->mailRepository->getSenderNameFromArguments($mail))
 			->setSubject($this->settings['receiver']['subject'])
 			->setReceiverMail($this->settings['receiver']['email'])
-			->setBody(DebugUtility::viewArray(DivUtility::getVariablesWithMarkersFromMail($mail)))
+			->setBody(DebugUtility::viewArray($this->mailRepository->getVariablesWithMarkersFromMail($mail)))
 			->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'))
 			->setTime((time() - SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)))
 			->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))
@@ -347,7 +350,7 @@ class FormController extends AbstractController {
 			->setMarketingPageFunnel($marketingInfos['pageFunnel']);
 		if ((int) $GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
 			$mail->setFeuser(
-				$this->userRepository->findByUid(DivUtility::getPropertyFromLoggedInFeUser('uid'))
+				$this->userRepository->findByUid(FrontendUtility::getPropertyFromLoggedInFeUser('uid'))
 			);
 		}
 		if (!ConfigurationUtility::isDisableIpLogActive()) {
@@ -357,7 +360,7 @@ class FormController extends AbstractController {
 			$mail->setHidden(TRUE);
 		}
 		foreach ($mail->getAnswers() as $answer) {
-			$answer->setPid(DivUtility::getStoragePage($this->settings['main']['pid']));
+			$answer->setPid(FrontendUtility::getStoragePage($this->settings['main']['pid']));
 		}
 		$this->mailRepository->add($mail);
 		$this->persistenceManager->persistAll();
@@ -374,7 +377,7 @@ class FormController extends AbstractController {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		$mail = $this->mailRepository->findByUid($mail);
 
-		if ($mail !== NULL && DivUtility::checkOptinHash($hash, $mail)) {
+		if ($mail !== NULL && OptinUtility::checkOptinHash($hash, $mail)) {
 			if ($mail->getHidden()) {
 				$mail->setHidden(FALSE);
 				$this->mailRepository->update($mail);
@@ -478,6 +481,7 @@ class FormController extends AbstractController {
 	 * @return bool
 	 */
 	protected function isSendMailActive(Mail $mail, $hash) {
-		return empty($this->settings['main']['optin']) || (!empty($this->settings['main']['optin']) && DivUtility::checkOptinHash($hash, $mail));
+		return empty($this->settings['main']['optin']) || (!empty($this->settings['main']['optin'])
+			&& OptinUtility::checkOptinHash($hash, $mail));
 	}
 }

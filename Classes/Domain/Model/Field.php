@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\BackendUtility;
+use In2code\Powermail\Utility\TemplateUtility;
+use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
@@ -212,7 +214,7 @@ class Field extends AbstractEntity {
 	 * @return string $title
 	 */
 	public function getTitle() {
-		return DivUtility::fluidParseString($this->title);
+		return TemplateUtility::fluidParseString($this->title);
 	}
 
 	/**
@@ -680,7 +682,7 @@ class Field extends AbstractEntity {
 	 */
 	protected function optionArray($string, $typoScriptObjectPath, $parse = TRUE) {
 		if (empty($string)) {
-			$string = DivUtility::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
+			$string = TypoScriptUtility::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
 		}
 		if (empty($string)) {
 			$string = 'Error, no options to show';
@@ -691,7 +693,7 @@ class Field extends AbstractEntity {
 		foreach ($settingsField as $line) {
 			$settings = GeneralUtility::trimExplode('|', $line, FALSE);
 			$value = (isset($settings[1]) ? $settings[1] : $settings[0]);
-			$label = ($parse ? DivUtility::fluidParseString($settings[0]) : $settings[0]);
+			$label = ($parse ? TemplateUtility::fluidParseString($settings[0]) : $settings[0]);
 			$options[] = array(
 				'label' => $label,
 				'value' => $value,
@@ -700,6 +702,45 @@ class Field extends AbstractEntity {
 		}
 
 		return $options;
+	}
+
+	/**
+	 * Return expected value type from fieldtype
+	 *
+	 * @param string $fieldType
+	 * @return int
+	 */
+	public function getDataTypeFromFieldType($fieldType) {
+		$types = array(
+			'captcha' => 0,
+			'check' => 1,
+			'content' => 0,
+			'date' => 2,
+			'file' => 3,
+			'hidden' => 0,
+			'html' => 0,
+			'input' => 0,
+			'location' => 0,
+			'password' => 0,
+			'radio' => 0,
+			'reset' => 0,
+			'select' => 1,
+			'submit' => 0,
+			'text' => 0,
+			'textarea' => 0,
+			'typoscript' => 0
+		);
+
+		// extend dataType with TSConfig
+		$typoScriptConfiguration = BackendUtility::getPagesTSconfig($GLOBALS['TSFE']->id);
+		$extensionConfiguration = $typoScriptConfiguration['tx_powermail.']['flexForm.'];
+		if (!empty($extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
+			$types[$fieldType] = (int) $extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
+		}
+		if (array_key_exists($fieldType, $types)) {
+			return $types[$fieldType];
+		}
+		return 0;
 	}
 
 }

@@ -2,10 +2,10 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Service\FormConverterService;
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\ReportingUtility;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -56,7 +56,7 @@ class ModuleController extends AbstractController {
 	 */
 	public function listAction() {
 		$formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
-		$firstFormUid = DivUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
+		$firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
 		$this->view->assignMultiple(
 			array(
 				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
@@ -81,13 +81,13 @@ class ModuleController extends AbstractController {
 				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
 				'fieldUids' => GeneralUtility::trimExplode(
 					',',
-					DivUtility::conditionalVariable($this->piVars['export']['fields'], ''),
+					StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
 					TRUE
 				)
 			)
 		);
 
-		$fileName = DivUtility::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
+		$fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: inline; filename="' . $fileName . '"');
 		header('Pragma: no-cache');
@@ -104,13 +104,13 @@ class ModuleController extends AbstractController {
 				'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
 				'fieldUids' => GeneralUtility::trimExplode(
 					',',
-					DivUtility::conditionalVariable($this->piVars['export']['fields'], ''),
+					StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
 					TRUE
 				)
 			)
 		);
 
-		$fileName = DivUtility::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
+		$fileName = StringUtility::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
 		header('Content-Type: text/x-csv');
 		header('Content-Disposition: attachment; filename="' . $fileName . '"');
 		header('Pragma: no-cache');
@@ -383,7 +383,7 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	protected function checkAdminPermissions() {
-		if (!DivUtility::isBackendAdmin()) {
+		if (!BackendUtility::isBackendAdmin()) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->forward('toolsBe');
 		}

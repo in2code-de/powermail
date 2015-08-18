@@ -111,9 +111,9 @@ class SessionUtility {
 		// initially create array with marketing info
 		if (!is_array($marketingInfo)) {
 			$marketingInfo = array(
-				'refererDomain' => DivUtility::getDomainFromUri($referer),
+				'refererDomain' => FrontendUtility::getDomainFromUri($referer),
 				'referer' => $referer,
-				'country' => DivUtility::getCountryFromIp(),
+				'country' => FrontendUtility::getCountryFromIp(),
 				'mobileDevice' => $mobileDevice,
 				'frontendLanguage' => $language,
 				'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
@@ -170,7 +170,8 @@ class SessionUtility {
 		$contentObjectRenderer = $objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
 		if (!empty($configuration['saveSession.']) && array_key_exists($configuration['saveSession.']['_method'], self::$methods)) {
-			$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
+			$mailRepository = $objectManager->get('In2code\\Powermail\\Domain\\Repository\\MailRepository');
+			$variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($mail);
 			$contentObjectRenderer->start($variablesWithMarkers);
 			foreach (array_keys($variablesWithMarkers) as $marker) {
 				if (!empty($configuration['saveSession.'][$marker])) {

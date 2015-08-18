@@ -64,7 +64,6 @@ class StringValidatorTest extends UnitTestCase {
 	 * @return array
 	 */
 	public function validateMandatoryForStringOrArrayReturnsBoolDataProvider() {
-		// see test \In2code\Powermail\Tests\Utility\DivTest::isNotEmptyReturnsBool()
 		return array(
 			'string "in2code.de"' => array(
 				'in2code.de',

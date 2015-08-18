@@ -116,13 +116,13 @@ class AnswerTest extends UnitTestCase {
 			),
 			'time 1' => array(
 				strtotime('14:00'),
-				'2015-08-16 14:00',
+				date('Y-m-d') . ' 14:00',
 				2,
 				'time'
 			),
 			'time 2' => array(
 				strtotime('22:23'),
-				'2015-08-16 22:23',
+				date('Y-m-d') . ' 22:23',
 				2,
 				'time'
 			),

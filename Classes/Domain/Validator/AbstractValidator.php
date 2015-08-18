@@ -54,13 +54,6 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator {
 	protected $formRepository;
 
 	/**
-	 * @var \In2code\Powermail\Utility\DivUtility
-	 *
-	 * @inject
-	 */
-	protected $div;
-
-	/**
 	 * SignalSlot Dispatcher
 	 *
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher

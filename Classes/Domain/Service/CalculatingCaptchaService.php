@@ -2,8 +2,8 @@
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -360,7 +360,7 @@ class CalculatingCaptchaService {
 			$pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
 		}
 		if ($addHash) {
-			$pathAndFilename .= '?hash=' . DivUtility::createRandomString(8);
+			$pathAndFilename .= '?hash=' . StringUtility::getRandomString(8);
 		}
 		return $pathAndFilename;
 	}

@@ -4,7 +4,6 @@ namespace In2code\Powermail\ViewHelpers\BeCheck;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use In2code\Powermail\Utility\DivUtility;
 
 /**
  * PowermailVersionNoteViewHelper

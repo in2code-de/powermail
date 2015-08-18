@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Page;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Domain\Model\Form;
@@ -351,5 +353,86 @@ class FormRepository extends Repository {
 			return TRUE;
 		}
 		return FALSE;
+	}
+
+	/**
+	 * Get Fieldlist from Form UID
+	 *
+	 * @param int $formUid Form UID
+	 * @return array
+	 */
+	public function getFieldsFromFormWithSelectQuery($formUid) {
+		$select = '
+			tx_powermail_domain_model_fields.uid,
+			tx_powermail_domain_model_fields.title,
+			tx_powermail_domain_model_fields.sender_email,
+			tx_powermail_domain_model_fields.sender_name
+		';
+		$select .= ', tx_powermail_domain_model_fields.marker';
+		$from = '
+			tx_powermail_domain_model_fields
+			left join tx_powermail_domain_model_pages on tx_powermail_domain_model_fields.pages = tx_powermail_domain_model_pages.uid
+			left join tx_powermail_domain_model_forms on tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid
+		';
+		$where = '
+			tx_powermail_domain_model_fields.deleted = 0 and
+			tx_powermail_domain_model_fields.hidden = 0 and
+			tx_powermail_domain_model_fields.type != "submit" and
+			tx_powermail_domain_model_fields.sys_language_uid IN (-1,0) and
+			tx_powermail_domain_model_forms.uid = ' . intval($formUid);
+		$groupBy = '';
+		$orderBy = 'tx_powermail_domain_model_fields.sorting ASC';
+		$limit = 10000;
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+
+		$array = array();
+		if ($res) {
+			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+				$array[] = $row;
+			}
+		}
+
+		return $array;
+	}
+
+	/**
+	 * Get Field Uid List from given Form Uid
+	 *
+	 * @param integer $formUid Form Uid
+	 * @return array
+	 */
+	public function getFieldsFromForm($formUid) {
+		$allowedFieldTypes = array(
+			'input',
+			'textarea',
+			'select',
+			'check',
+			'radio',
+			'password',
+			'file',
+			'hidden',
+			'date',
+			'location',
+			'typoscript'
+		);
+
+		$fields = array();
+		$form = $this->findByUid($formUid);
+		if (!method_exists($form, 'getPages')) {
+			return array();
+		}
+		/** @var Page $page */
+		foreach ($form->getPages() as $page) {
+			/** @var Field $field */
+			foreach ($page->getFields() as $field) {
+				// skip type submit
+				if (!in_array($field->getType(), $allowedFieldTypes)) {
+					continue;
+				}
+				$fields[] = $field->getUid();
+			}
+		}
+
+		return $fields;
 	}
 }

@@ -5,7 +5,7 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -79,7 +79,7 @@ class CaptchaValidator extends AbstractValidator {
 	 * @return bool
 	 */
 	protected function validCodePreflight($value, $field) {
-		switch (DivUtility::getCaptchaExtensionFromSettings($this->settings)) {
+		switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
 			case 'captcha':
 				session_start();
 				$generatedCaptchaString = $_SESSION['tx_captcha_string'];

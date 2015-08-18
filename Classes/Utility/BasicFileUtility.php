@@ -275,7 +275,7 @@ class BasicFileUtility {
 		if (!$randomized) {
 			return;
 		}
-		$newFilename = DivUtility::createRandomString(32, FALSE) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+		$newFilename = StringUtility::getRandomString(32, FALSE) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
 		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
 			foreach (array_keys($_FILES['tx_powermail_pi1']['name']['field']) as $marker) {
 				foreach ($_FILES['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {
@@ -352,6 +352,6 @@ class BasicFileUtility {
 	 */
 	protected static function randomizeFileName($filename) {
 		$fileInfo = pathinfo($filename);
-		return DivUtility::createRandomString(8) . '.' . $fileInfo['extension'];
+		return StringUtility::getRandomString(8) . '.' . $fileInfo['extension'];
 	}
 }

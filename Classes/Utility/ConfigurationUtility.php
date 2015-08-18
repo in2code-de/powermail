@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -121,6 +123,21 @@ class ConfigurationUtility {
 	 */
 	public static function getExtensionConfiguration() {
 		return unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+	}
+
+	/**
+	 * Get development email (only if in dev context)
+	 *
+	 * @return false|string
+	 */
+	public static function getDevelopmentContextEmail() {
+		if (
+			GeneralUtility::getApplicationContext()->isDevelopment() &&
+			GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'])
+		) {
+			return $GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'];
+		}
+		return FALSE;
 	}
 
 	/**

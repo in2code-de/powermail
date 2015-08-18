@@ -4,7 +4,6 @@ namespace In2code\Powermail\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Domain\Model\Mail;
 
@@ -105,14 +104,6 @@ abstract class AbstractController extends ActionController {
 	 * @inject
 	 */
 	protected $persistenceManager;
-
-	/**
-	 * Instance for Misc Functions
-	 *
-	 * @var \In2code\Powermail\Utility\DivUtility
-	 * @inject
-	 */
-	protected $div;
 
 	/**
 	 * Content Object
@@ -220,7 +211,7 @@ abstract class AbstractController extends ActionController {
 			if (substr($marker, 0, 2) === '__') {
 				continue;
 			}
-			$fieldUid = $this->div->getFieldUidFromMarker($marker, $arguments['mail']['form']);
+			$fieldUid = $this->fieldRepository->getFieldUidFromMarker($marker, $arguments['mail']['form']);
 				// Skip fields without Uid (secondary password, upload)
 			if ($fieldUid === 0) {
 				continue;
@@ -232,8 +223,9 @@ abstract class AbstractController extends ActionController {
 			$propertyMappingConfiguration->allowCreationForSubProperty('answers.' . $i);
 			$propertyMappingConfiguration->allowModificationForSubProperty('answers.' . $i);
 
-			$valueType = DivUtility::getDataTypeFromFieldType(
-				$this->div->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
+			$field = $this->objectManager->get('In2code\\Powermail\\Domain\\Model\\Field');
+			$valueType = $field->getDataTypeFromFieldType(
+				$this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
 			);
 			if ($valueType === 3 && is_array($value)) {
 				$value = BasicFileUtility::getUniqueNamesForFileUploads($value, $this->settings, FALSE);

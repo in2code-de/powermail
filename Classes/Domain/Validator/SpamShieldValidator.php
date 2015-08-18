@@ -1,11 +1,11 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
+use In2code\Powermail\Utility\MailUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\DivUtility;
 use In2code\Powermail\Domain\Model\Mail;
 
 /**
@@ -340,7 +340,7 @@ class SpamShieldValidator extends AbstractValidator {
 			'messages' => $this->getMessages(),
 			'ipAddress' => (!ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '')
 		);
-		DivUtility::sendPlainMail(
+		MailUtility::sendPlainMail(
 			$this->settings['spamshield.']['email'],
 			'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'),
 			$this->settings['spamshield.']['emailSubject'],

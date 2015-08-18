@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
@@ -48,8 +50,8 @@ class FieldRepository extends Repository {
 	 * Find all records from given uids and
 	 * respect the sorting
 	 *
-	 * @param \array $uids
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 * @param array $uids
+	 * @return QueryResultInterface
 	 */
 	public function findByUids($uids) {
 		$result = array();
@@ -67,9 +69,9 @@ class FieldRepository extends Repository {
 	/**
 	 * Return uid from given field marker and form
 	 *
-	 * @param \string $marker
-	 * @param \int $formUid
-	 * @return \In2code\Powermail\Domain\Model\Field
+	 * @param string $marker
+	 * @param int $formUid
+	 * @return Field
 	 */
 	public function findByMarkerAndForm($marker, $formUid = 0) {
 		if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
@@ -200,9 +202,9 @@ class FieldRepository extends Repository {
 	/**
 	 * Return uid from given field marker and form (if no IRRE)
 	 *
-	 * @param \string $marker
-	 * @param \int $formUid
-	 * @return \In2code\Powermail\Domain\Model\Field
+	 * @param string $marker
+	 * @param int $formUid
+	 * @return Field
 	 */
 	protected function findByMarkerAndFormAlternative($marker, $formUid = 0) {
 		// get pages from form
@@ -227,5 +229,35 @@ class FieldRepository extends Repository {
 			->setLimit(1)
 			->execute()
 			->getFirst();
+	}
+
+	/**
+	 * Return type from given field marker and form
+	 *
+	 * @param string $marker Field marker
+	 * @param integer $formUid Form UID
+	 * @return string Field Type
+	 */
+	public function getFieldTypeFromMarker($marker, $formUid = 0) {
+		$field = $this->findByMarkerAndForm($marker, $formUid);
+		if (method_exists($field, 'getType')) {
+			return $field->getType();
+		}
+		return '';
+	}
+
+	/**
+	 * Return uid from given field marker and form
+	 *
+	 * @param string $marker Field marker
+	 * @param integer $formUid Form UID
+	 * @return int Field UID
+	 */
+	public function getFieldUidFromMarker($marker, $formUid = 0) {
+		$field = $this->findByMarkerAndForm($marker, $formUid);
+		if (method_exists($field, 'getUid')) {
+			return $field->getUid();
+		}
+		return 0;
 	}
 }
