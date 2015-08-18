@@ -2,7 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
 
 /**
  * Returns Data-Attributes for JS and Native Validation
@@ -26,10 +26,7 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
 
 		if ($this->isClientValidationEnabled()) {
 			$additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
-			$additionalAttributes['data-parsley-equalto-message'] = LocalizationUtility::translate(
-				'validationerror_password',
-				$this->extensionName
-			);
+			$additionalAttributes['data-parsley-equalto-message'] = LocalizationUtility::translate('validationerror_password');
 		}
 
 		return $additionalAttributes;

@@ -210,7 +210,7 @@ Constants Overview
  - :Constants:
       receiver.overwrite.replyToEmail
    :Description:
-      Receiver Mail Reply Mail: Reply Email address for mail to receiver (e.g. reply@mail.com)
+      Receiver Mail Reply Mail: Reply Email address for mail to receiver (e.g. reply@mail.com) (Note: replyToName is also required for this feature)
    :Type:
       text
    :Default:
@@ -219,7 +219,7 @@ Constants Overview
  - :Constants:
       receiver.overwrite.replyToName
    :Description:
-      Receiver Mail Reply Name: Reply Name for mail to receiver (e.g. Mr. Reply)
+      Receiver Mail Reply Name: Reply Name for mail to receiver (e.g. Mr. Reply) (Note: replyToEmail is also required for this feature)
    :Type:
       text
    :Default:
@@ -352,7 +352,7 @@ Constants Overview
 
 
  - :Constants:
-      sender.overwrite.replyToEmail
+      sender.overwrite.replyToEmail (Note: replyToName is also required for this feature)
    :Description:
       Sender Mail Reply Mail: Reply Email address for mail to sender (e.g. reply@mail.com)
    :Type:
@@ -361,7 +361,7 @@ Constants Overview
 
 
  - :Constants:
-      sender.overwrite.replyToName
+      sender.overwrite.replyToName (Note: replyToEmail is also required for this feature)
    :Description:
       Sender Mail Reply Name: Reply Name for mail to sender (e.g. Mr. Reply)
    :Type:
@@ -805,7 +805,7 @@ Setup
                         returnPath = TEXT
                         returnPath.value = {$plugin.tx_powermail.settings.receiver.overwrite.returnPath}
 
-                        # Reply address
+                        # Reply address (both required)
                         replyToEmail = TEXT
                         replyToEmail.value = {$plugin.tx_powermail.settings.receiver.overwrite.replyToEmail}
                         replyToName = TEXT
@@ -872,7 +872,7 @@ Setup
                         returnPath = TEXT
                         returnPath.value = {$plugin.tx_powermail.settings.sender.overwrite.returnPath}
 
-                        # Reply address
+                        # Reply address (both required)
                         replyToEmail = TEXT
                         replyToEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToEmail}
                         replyToName = TEXT
@@ -1462,10 +1462,10 @@ Constants
 					# cat=powermail_additional//0264; type=text; label= Receiver Mail Return Path: Return Path for emails to receiver (e.g. return@mail.com)
 					returnPath =
 
-					# cat=powermail_additional//0266; type=text; label= Receiver Mail Reply Mail: Reply Email address for mail to receiver (e.g. reply@mail.com)
+					# cat=powermail_additional//0266; type=text; label= Receiver Mail Reply Mail: Reply Email address for mail to receiver (e.g. reply@mail.com) (replyToName is also required)
 					replyToEmail =
 
-					# cat=powermail_additional//0268; type=text; label= Receiver Mail Reply Name: Reply Name for mail to receiver (e.g. Mr. Reply)
+					# cat=powermail_additional//0268; type=text; label= Receiver Mail Reply Name: Reply Name for mail to receiver (e.g. Mr. Reply) (replyToEmail is also required)
 					replyToName =
 
 					# cat=powermail_additional//0270; type=options[1,2,3,4,5]; label= Receiver Mail Priority: Set mail priority for mail to receiver (e.g. 3)

@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\LocalizationUtility;
 
 /**
  * Returns Data-Attributes for JS and Native Validation
@@ -35,10 +35,7 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper {
 		if ($this->isClientValidationEnabled()) {
 			$dataArray['data-parsley-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
 			$dataArray['data-parsley-class-handler'] = '.powermail_fieldwrap_' . $field->getUid() . ' > div';
-			$dataArray['data-parsley-required-message'] = LocalizationUtility::translate(
-				'validationerror_mandatory',
-				$this->extensionName
-			);
+			$dataArray['data-parsley-required-message'] = LocalizationUtility::translate('validationerror_mandatory');
 		}
 
 		return $dataArray;

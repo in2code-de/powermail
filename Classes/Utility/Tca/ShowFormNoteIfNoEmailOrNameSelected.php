@@ -1,8 +1,9 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
+use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\DivUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class ShowFormNoteIfNoEmailOrNameSelected shows note if form errors
@@ -112,7 +113,10 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 	 * @return bool
 	 */
 	protected function senderEmailOrSenderNameSet($formUid) {
-		$fields = DivUtility::getFieldsFromFormWithSelectQuery($formUid);
+		/** @var FormRepository $formRepository */
+		$formRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+			->get('In2code\\Powermail\\Domain\\Repository\\FormRepository');
+		$fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
 		foreach ($fields as $property) {
 			foreach ($property as $column => $value) {
 				if ($column === 'sender_email' && $value === '1') {
@@ -133,7 +137,10 @@ class ShowFormNoteIfNoEmailOrNameSelected {
 	 * @return bool
 	 */
 	protected function hasFormUniqueFieldMarkers($formUid) {
-		$fields = DivUtility::getFieldsFromFormWithSelectQuery($formUid);
+		/** @var FormRepository $formRepository */
+		$formRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+			->get('In2code\\Powermail\\Domain\\Repository\\FormRepository');
+		$fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
 		$markers = array();
 		foreach ($fields as $field) {
 			$markers[] = $field['marker'];

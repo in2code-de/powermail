@@ -111,9 +111,9 @@ class SessionUtility {
 		// initially create array with marketing info
 		if (!is_array($marketingInfo)) {
 			$marketingInfo = array(
-				'refererDomain' => DivUtility::getDomainFromUri($referer),
+				'refererDomain' => FrontendUtility::getDomainFromUri($referer),
 				'referer' => $referer,
-				'country' => DivUtility::getCountryFromIp(),
+				'country' => FrontendUtility::getCountryFromIp(),
 				'mobileDevice' => $mobileDevice,
 				'frontendLanguage' => $language,
 				'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
@@ -170,7 +170,8 @@ class SessionUtility {
 		$contentObjectRenderer = $objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
 		$configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
 		if (!empty($configuration['saveSession.']) && array_key_exists($configuration['saveSession.']['_method'], self::$methods)) {
-			$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
+			$mailRepository = $objectManager->get('In2code\\Powermail\\Domain\\Repository\\MailRepository');
+			$variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($mail);
 			$contentObjectRenderer->start($variablesWithMarkers);
 			foreach (array_keys($variablesWithMarkers) as $marker) {
 				if (!empty($configuration['saveSession.'][$marker])) {
@@ -205,6 +206,24 @@ class SessionUtility {
 			$values = self::getSessionValue('pss', self::$methods[$configuration['saveSession.']['_method']], 'powermailSaveSession');
 		}
 		return $values;
+	}
+
+	/**
+	 * @param string $result
+	 * @param int $fieldUid
+	 * @return void
+	 */
+	public static function setCaptchaSession($result, $fieldUid) {
+		self::setSessionValue('captcha', array($fieldUid => $result), FALSE, 'ses', 'powermail_captcha');
+	}
+
+	/**
+	 * @param int $fieldUid
+	 * @return int
+	 */
+	public static function getCaptchaSession($fieldUid) {
+		$sessionArray = self::getSessionValue('captcha', 'ses', 'powermail_captcha');
+		return (int) $sessionArray[$fieldUid];
 	}
 
 	/**
@@ -257,8 +276,10 @@ class SessionUtility {
 			$key = self::$extKey;
 		}
 		if (!$overwrite) {
-			$oldValues = self::getSessionValue($name);
-			$values = array_merge((array) $oldValues, (array) $values);
+			$oldValues = self::getSessionValue($name, $method, $key);
+			if (!empty($oldValues)) {
+				$values = ArrayUtility::arrayMergeRecursiveOverrule((array) $oldValues, (array) $values);
+			}
 		}
 		$newValues = array(
 			$name => $values

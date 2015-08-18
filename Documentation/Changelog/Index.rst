@@ -18,6 +18,22 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.7.0
+   :Date:
+      2015-08-18
+   :Changes:
+      Bugfix #69016, #69029, #69066, #69127
+
+      See http://forge.typo3.org for Details
+
+
+  Note: Changed Template/Partial-files:
+
+  * New Partial: EXT:powermail/Resources/Private/Partials/Output/EditHidden.html
+  * Changed Partial: EXT:powermail/Resources/Private/Partials/Form/Captcha.html
+  * Changed Template: EXT:powermail/Resources/Private/Templates/Output/Edit.html
+
+ - :Version:
       2.6.3
    :Date:
       2015-08-12

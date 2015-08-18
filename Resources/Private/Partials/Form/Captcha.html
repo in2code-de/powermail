@@ -12,7 +12,7 @@
 				value=""
 				class="powermail_field powermail_captcha {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
 				additionalAttributes="{vh:Validation.CaptchaDataAttribute(field:field)}" />
-		<img src="{vh:Validation.Captcha()}" alt="captcha" class="powermail_captchaimage" id="powermail_captchaimage" />
+		<img src="{vh:Validation.Captcha(field:field)}" alt="captcha" class="powermail_captchaimage" id="powermail_captchaimage" />
 
 		<f:if condition="{settings.validation.client}">
 			<div class="powermail_field_error_container powermail_field_error_container_{field.marker}"></div>

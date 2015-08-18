@@ -66,4 +66,32 @@ class UserRepository extends Repository {
 		);
 		return $query->execute()->getFirst();
 	}
+
+	/**
+	 * Return usergroups uid of a given fe_user
+	 *
+	 * @param string $uid FE_user UID
+	 * @return array Usergroups
+	 */
+	public function getUserGroupsFromUser($uid) {
+		$groups = array();
+		$select = 'fe_groups.uid';
+		$from = 'fe_users, fe_groups, sys_refindex';
+		$where = 'sys_refindex.tablename = "fe_users"';
+		$where .= ' AND sys_refindex.ref_table = "fe_groups"';
+		$where .= ' AND fe_users.uid = sys_refindex.recuid AND fe_groups.uid = sys_refindex.ref_uid';
+		$where .= ' AND fe_users.uid = ' . intval($uid);
+		$groupBy = '';
+		$orderBy = '';
+		$limit = 1000;
+		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+		if ($res) {
+			// One loop for every entry
+			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+				$groups[] = $row['uid'];
+			}
+		}
+
+		return $groups;
+	}
 }

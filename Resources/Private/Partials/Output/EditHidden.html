@@ -1,0 +1,24 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:alias map="{value:'{vh:Misc.PrefillField(field:field, mail:mail)}'}">
+	<f:if condition="{vh:Condition.IsArray(val:value)}">
+		<f:then>
+			<f:for each="{value}" as="singleValue" iteration="i">
+				<f:form.hidden
+						id="powermail_field_{field.marker}_{i.index}"
+						property="{field.marker}."
+						value="{singleValue}"
+						class="powermail_field powermail_hidden {field.css}" />
+			</f:for>
+		</f:then>
+		<f:else>
+			<f:if condition="{value}">
+				<f:form.hidden
+						id="powermail_field_{field.marker}"
+						property="{field.marker}"
+						value="{value}"
+						class="powermail_field powermail_hidden {field.css}" />
+			</f:if>
+		</f:else>
+	</f:if>
+</f:alias>

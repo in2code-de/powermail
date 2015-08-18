@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Service;
 
+use In2code\Powermail\Domain\Model\Field;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -47,7 +49,8 @@ class CalculatingCaptchaServiceTest extends UnitTestCase {
 	public function setUp() {
 		$this->generalValidatorMock = $this->getAccessibleMock(
 			'\In2code\Powermail\Domain\Service\CalculatingCaptchaService',
-			array('dummy')
+			array('dummy'),
+			array(TRUE)
 		);
 		$this->generalValidatorMock->_set(
 			'configuration',
@@ -70,92 +73,283 @@ class CalculatingCaptchaServiceTest extends UnitTestCase {
 	}
 
 	/**
-	 * Data Provider for createImageReturnString()
+	 * Data Provider for getColorForCaptchaReturnInt()
 	 *
 	 * @return array
 	 */
-	public function createImageReturnStringDataProvider() {
+	public function getColorForCaptchaReturnIntDataProvider() {
 		return array(
 			array(
-				'1+3',
-				'typo3temp/tx_powermail/CalculatingCaptcha.png'
+				'#444444',
+				4473924
 			),
 			array(
-				'5 + 1',
-				'typo3temp/tx_powermail/CalculatingCaptcha.png'
+				'#af584c',
+				11491404
 			)
 		);
 	}
 
 	/**
-	 * cleanFileNameReturnBool Test
+	 * getColorForCaptcha Test
 	 *
-	 * @param string $content
+	 * @param string $hexColorString
 	 * @param string $expectedResult
-	 * @dataProvider createImageReturnStringDataProvider
+	 * @dataProvider getColorForCaptchaReturnIntDataProvider
 	 * @return void
 	 * @test
 	 */
-	public function createImageReturnString($content, $expectedResult) {
-		$result = $this->generalValidatorMock->_call('createImage', $content, FALSE);
+	public function getColorForCaptchaReturnInt($hexColorString, $expectedResult) {
+		$imageResource = ImageCreateFromPNG(
+			GeneralUtility::getFileAbsFileName('typo3conf/ext/powermail/Resources/Private/Image/captcha_bg.png')
+		);
+		$this->generalValidatorMock->_set(
+			'configuration',
+			array(
+				'captcha.' => array(
+					'default.' => array(
+						'textColor' => $hexColorString
+					)
+				)
+			)
+		);
+
+		$result = $this->generalValidatorMock->_call('getColorForCaptcha', $imageResource);
 		$this->assertSame($expectedResult, $result);
 	}
 
 	/**
-	 * Data Provider for getStringForCaptchaReturnsArray()
+	 * Data Provider for getFontAngleForCaptchaReturnInt()
 	 *
 	 * @return array
 	 */
-	public function getStringForCaptchaReturnsArrayDataProvider() {
+	public function getFontAngleForCaptchaReturnIntDataProvider() {
+		return array(
+			array(
+				'-5,5',
+				array(
+					-5,
+					5
+				)
+			),
+			array(
+				'0,20',
+				array(
+					0,
+					20
+				)
+			),
+			array(
+				'-100,99',
+				array(
+					-100,
+					99
+				)
+			)
+		);
+	}
+
+	/**
+	 * getFontAngleForCaptcha Test
+	 *
+	 * @param string $hexColorString
+	 * @param array $expectedResult
+	 * @dataProvider getFontAngleForCaptchaReturnIntDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function getFontAngleForCaptchaReturnInt($hexColorString, $expectedResult) {
+		$this->generalValidatorMock->_set(
+			'configuration',
+			array(
+				'captcha.' => array(
+					'default.' => array(
+						'textAngle' => $hexColorString
+					)
+				)
+			)
+		);
+
+		for ($i = 0; $i < 20; $i++) {
+			$result = $this->generalValidatorMock->_call('getFontAngleForCaptcha');
+			$this->assertLessThanOrEqual($expectedResult[1], $result);
+			$this->assertGreaterThanOrEqual($expectedResult[0], $result);
+		}
+	}
+
+	/**
+	 * Data Provider for getHorizontalDistanceForCaptchaReturnInt()
+	 *
+	 * @return array
+	 */
+	public function getHorizontalDistanceForCaptchaReturnIntDataProvider() {
+		return array(
+			array(
+				'-5,5',
+				array(
+					-5,
+					5
+				)
+			),
+			array(
+				'0,20',
+				array(
+					0,
+					20
+				)
+			),
+			array(
+				'-100,99',
+				array(
+					-100,
+					99
+				)
+			)
+		);
+	}
+
+	/**
+	 * getHorizontalDistanceForCaptcha Test
+	 *
+	 * @param string $hexColorString
+	 * @param array $expectedResult
+	 * @dataProvider getHorizontalDistanceForCaptchaReturnIntDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function getHorizontalDistanceForCaptchaReturnInt($hexColorString, $expectedResult) {
+		$this->generalValidatorMock->_set(
+			'configuration',
+			array(
+				'captcha.' => array(
+					'default.' => array(
+						'distanceHor' => $hexColorString
+					)
+				)
+			)
+		);
+
+		for ($i = 0; $i < 20; $i++) {
+			$result = $this->generalValidatorMock->_call('getHorizontalDistanceForCaptcha');
+			$this->assertLessThanOrEqual($expectedResult[1], $result);
+			$this->assertGreaterThanOrEqual($expectedResult[0], $result);
+		}
+	}
+
+	/**
+	 * Data Provider for getVerticalDistanceForCaptchaReturnInt()
+	 *
+	 * @return array
+	 */
+	public function getVerticalDistanceForCaptchaReturnIntDataProvider() {
+		return array(
+			array(
+				'-5,5',
+				array(
+					-5,
+					5
+				)
+			),
+			array(
+				'0,20',
+				array(
+					0,
+					20
+				)
+			),
+			array(
+				'-100,99',
+				array(
+					-100,
+					99
+				)
+			)
+		);
+	}
+
+	/**
+	 * getVerticalDistanceForCaptcha Test
+	 *
+	 * @param string $hexColorString
+	 * @param array $expectedResult
+	 * @dataProvider getVerticalDistanceForCaptchaReturnIntDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function getVerticalDistanceForCaptchaReturnInt($hexColorString, $expectedResult) {
+		$this->generalValidatorMock->_set(
+			'configuration',
+			array(
+				'captcha.' => array(
+					'default.' => array(
+						'distanceVer' => $hexColorString
+					)
+				)
+			)
+		);
+
+		for ($i = 0; $i < 20; $i++) {
+			$result = $this->generalValidatorMock->_call('getVerticalDistanceForCaptcha');
+			$this->assertLessThanOrEqual($expectedResult[1], $result);
+			$this->assertGreaterThanOrEqual($expectedResult[0], $result);
+		}
+	}
+
+	/**
+	 * Data Provider for getStringAndResultForCaptchaReturnsArray()
+	 *
+	 * @return array
+	 */
+	public function getStringAndResultForCaptchaReturnsArrayDataProvider() {
 		return array(
 			array(
 				'1+3',
 				array(
-					4,
-					'1 + 3'
+					'result' => 4,
+					'string' => '1 + 3'
 				)
 			),
 			array(
 				'88 + 11',
 				array(
-					99,
-					'88 + 11'
+					'result' => 99,
+					'string' => '88 + 11'
 				)
 			),
 			array(
 				'12 - 8',
 				array(
-					4,
-					'12 - 8'
+					'result' => 4,
+					'string' => '12 - 8'
 				)
 			),
 			array(
 				'6:3',
 				array(
-					2,
-					'6 : 3'
+					'result' => 2,
+					'string' => '6 : 3'
 				)
 			),
 			array(
 				'33x3',
 				array(
-					99,
-					'33 x 3'
+					'result' => 99,
+					'string' => '33 x 3'
 				)
 			),
 		);
 	}
 
 	/**
-	 * getStringForCaptcha Test
+	 * getStringAndResultForCaptcha Test
 	 *
 	 * @param string $forceValue
 	 * @param string $expectedResult
-	 * @dataProvider getStringForCaptchaReturnsArrayDataProvider
+	 * @dataProvider getStringAndResultForCaptchaReturnsArrayDataProvider
 	 * @return void
 	 * @test
 	 */
-	public function getStringForCaptchaReturnsArray($forceValue, $expectedResult) {
+	public function getStringAndResultForCaptchaReturnsArray($forceValue, $expectedResult) {
 		$this->generalValidatorMock->_set(
 			'configuration',
 			array(
@@ -166,7 +360,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase {
 				)
 			)
 		);
-		$result = $this->generalValidatorMock->_call('getStringForCaptcha');
+		$result = $this->generalValidatorMock->_call('getStringAndResultForCaptcha');
 		$this->assertSame($expectedResult, $result);
 	}
 
@@ -218,5 +412,39 @@ class CalculatingCaptchaServiceTest extends UnitTestCase {
 	public function mathematicOperationReturnsInt($number1, $number2, $operator, $expectedResult) {
 		$result = $this->generalValidatorMock->_call('mathematicOperation', $number1, $number2, $operator);
 		$this->assertSame($expectedResult, $result);
+	}
+
+	/**
+	 * getImagePath Test
+	 *
+	 * @test
+	 */
+	public function getImagePathReturnString() {
+		$result = $this->generalValidatorMock->_call('getImagePath');
+		$this->assertSame('typo3temp/tx_powermail/', $result);
+
+		$this->generalValidatorMock->_set('imagePath', 'typo3temp/');
+		$result = $this->generalValidatorMock->_call('getImagePath');
+		$this->assertSame('typo3temp/', $result);
+
+		$this->generalValidatorMock->_set('imagePath', 'typo3temp/');
+		$result = $this->generalValidatorMock->_call('getImagePath', TRUE);
+		$this->assertSame('/', $result[0]);
+		$this->assertNotEquals('typo3temp/', $result);
+		$this->assertContains('typo3temp/', $result);
+	}
+
+	/**
+	 * setPathAndFilename Test
+	 *
+	 * @test
+	 */
+	public function setPathAndFilenameReturnVoid() {
+		$field = new Field();
+		$field->_setProperty('uid', 123);
+		$this->generalValidatorMock->_set('imagePath', 'typo3temp/');
+		$this->generalValidatorMock->_set('imageFilenamePrefix', 'abc%ddef.png');
+		$this->generalValidatorMock->_call('setPathAndFilename', $field);
+		$this->assertSame('typo3temp/abc123def.png', $this->generalValidatorMock->_get('pathAndFilename'));
 	}
 }

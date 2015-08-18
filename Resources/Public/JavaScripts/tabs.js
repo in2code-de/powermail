@@ -72,11 +72,11 @@ jQuery(document).ready(function($) {
 	/**
 	 * Show Tab
 	 *
-	 * @param tab
-	 * @param form
-	 * @param options
-	 * @param clickedIndex
-	 * @return void
+	 * @param {object} tab
+	 * @param {object} form
+	 * @param {array} options
+	 * @param {int} clickedIndex
+	 * @return {void}
 	 */
 	function showTab(tab, form, options, clickedIndex) {
 		$('.powermail_tabmenu li', form).removeClass('act');
@@ -88,9 +88,9 @@ jQuery(document).ready(function($) {
 	/**
 	 * Hide all fieldsets
 	 *
-	 * @param element
-	 * @param options
-	 * @return void
+	 * @param {object} element
+	 * @param {array} options
+	 * @return {void}
 	 */
 	function hideAllFieldsets(element, options) {
 		element.children(options.container).hide();
@@ -99,9 +99,9 @@ jQuery(document).ready(function($) {
 	/**
 	 * Generate Button Navigation
 	 *
-	 * @param object element
-	 * @param array options
-	 * @return void
+	 * @param {object} element
+	 * @param {array} options
+	 * @return {void}
 	 */
 	function generateButtonNavigation(element, options) {
 		if (!options.navigation) {
@@ -127,9 +127,9 @@ jQuery(document).ready(function($) {
 	/**
 	 * Create next button
 	 *
-	 * @param object element
-	 * @param array options
-	 * @return object
+	 * @param {object} element
+	 * @param {array} options
+	 * @return {object}
 	 */
 	function createPreviousButton(element, options) {
 		return $('<a />')
@@ -145,9 +145,9 @@ jQuery(document).ready(function($) {
 	/**
 	 * Create next button
 	 *
-	 * @param object element
-	 * @param array options
-	 * @return object
+	 * @param {object} element
+	 * @param {array} options
+	 * @return {object}
 	 */
 	function createNextButton(element, options) {
 		return $('<a />')
@@ -163,12 +163,12 @@ jQuery(document).ready(function($) {
 	/**
 	 * Show next Tab
 	 *
-	 * @param object element
-	 * @param array options
-	 * @return void
+	 * @param {object} element
+	 * @param {array} options
+	 * @return {void}
 	 */
 	function showNextTab(element, options) {
-		var currentActiveTab = element.find('#powermail_tabmenu > li').index($('.act'));
+		var currentActiveTab = element.find('#powermail_tabmenu > li').index($('#powermail_tabmenu .act'));
 		element.find('#powermail_tabmenu > li.act').removeClass('act').next().addClass('act');
 		hideAllFieldsets(element, options);
 		element.find('.powermail_fieldset').slice(currentActiveTab + 1, currentActiveTab + 2).show();
@@ -177,12 +177,12 @@ jQuery(document).ready(function($) {
 	/**
 	 * Show previous Tab
 	 *
-	 * @param object element
-	 * @param array options
-	 * @return void
+	 * @param {object} element
+	 * @param {array} options
+	 * @return {void}
 	 */
 	function showPreviousTab(element, options) {
-		var currentActiveTab = element.find('#powermail_tabmenu > li').index($('.act'));
+		var currentActiveTab = element.find('#powermail_tabmenu > li').index($('#powermail_tabmenu .act'));
 		element.find('#powermail_tabmenu > li.act').removeClass('act').prev().addClass('act');
 		hideAllFieldsets(element, options);
 		element.find('.powermail_fieldset').slice(currentActiveTab - 1, currentActiveTab).show();
@@ -191,9 +191,9 @@ jQuery(document).ready(function($) {
 	/**
 	 * Generate Tabs
 	 *
-	 * @param object element
-	 * @param array options
-	 * @return void
+	 * @param {object} element
+	 * @param {array} options
+	 * @return {void}
 	 */
 	function generateTabNavigation(element, options) {
 		if (!options.tabs) {

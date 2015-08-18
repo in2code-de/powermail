@@ -1,11 +1,12 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\ArrayUtility;
+use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use In2code\Powermail\Domain\Model\Mail;
 
 /**
  * Parses Variables for powermail
@@ -28,12 +29,12 @@ class VariablesViewHelper extends AbstractViewHelper {
 	protected $objectManager;
 
 	/**
-	 * Div Methods
+	 * mailRepository
 	 *
-	 * @var \In2code\Powermail\Utility\DivUtility
+	 * @var \In2code\Powermail\Domain\Repository\MailRepository
 	 * @inject
 	 */
-	protected $div;
+	protected $mailRepository;
 
 	/**
 	 * Configuration
@@ -66,12 +67,11 @@ class VariablesViewHelper extends AbstractViewHelper {
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $parseObject */
 		$parseObject = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
 		$parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
-		$parseObject->assignMultiple(DivUtility::htmlspecialcharsOnArray(DivUtility::getVariablesWithMarkersFromMail($mail)));
-		$parseObject->assignMultiple(DivUtility::htmlspecialcharsOnArray(DivUtility::getLabelsWithMarkersFromMail($mail)));
-
-		$powermailAll = $this->div->powermailAll($mail, $type, $this->settings, $function);
-		$parseObject->assign('powermail_all', $powermailAll);
-
+		$parseObject->assignMultiple(ArrayUtility::htmlspecialcharsOnArray(
+			$this->mailRepository->getVariablesWithMarkersFromMail($mail))
+		);
+		$parseObject->assignMultiple(ArrayUtility::htmlspecialcharsOnArray($this->mailRepository->getLabelsWithMarkersFromMail($mail)));
+		$parseObject->assign('powermail_all', TemplateUtility::powermailAll($mail, $type, $this->settings, $function));
 		return html_entity_decode($parseObject->render(), ENT_QUOTES, 'UTF-8');
 	}
 

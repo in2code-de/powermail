@@ -37,6 +37,18 @@ use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 class BackendUtility extends BackendUtilityCore {
 
 	/**
+	 * Check if
+	 *
+	 * @return bool
+	 */
+	public static function isBackendAdmin() {
+		if (isset($GLOBALS['BE_USER']->user)) {
+			return $GLOBALS['BE_USER']->user['admin'] === 1;
+		}
+		return FALSE;
+	}
+
+	/**
 	 * Create an URI to edit any record
 	 *
 	 * @param string $tableName
@@ -59,7 +71,7 @@ class BackendUtility extends BackendUtilityCore {
 			}
 			$editLink = BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
 		} else {
-			$editLink = DivUtility::getSubFolderOfCurrentUrl();
+			$editLink = FrontendUtility::getSubFolderOfCurrentUrl();
 			$editLink .= 'typo3/alt_doc.php?edit[' . $tableName . '][' . $identifier . ']=edit';
 			if ($addReturnUrl) {
 				$editLink .= '&returnUrl=' . self::getReturnUrl();
@@ -77,7 +89,7 @@ class BackendUtility extends BackendUtilityCore {
 		if (GeneralUtility::compat_version('7.2')) {
 			$uri = self::getModuleUrl(self::getModuleName(), self::getCurrentParameters());
 		} else {
-			$uri = rawurlencode(DivUtility::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT'));
+			$uri = rawurlencode(FrontendUtility::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT'));
 		}
 		return $uri;
 	}
@@ -109,5 +121,26 @@ class BackendUtility extends BackendUtilityCore {
 			$parameters[$key] = $value;
 		}
 		return $parameters;
+	}
+
+	/**
+	 * Read pid from current URL
+	 *        URL example:
+	 *        http://powermail.localhost.de/typo3/alt_doc.php?&
+	 *        returnUrl=%2Ftypo3%2Fsysext%2Fcms%2Flayout%2Fdb_layout.php%3Fid%3D17%23
+	 *        element-tt_content-14&edit[tt_content][14]=edit
+	 *
+	 * @return int
+	 */
+	public static function getPidFromBackendPage() {
+		$pid = 0;
+		$backUrl = str_replace('?', '&', GeneralUtility::_GP('returnUrl'));
+		$urlParts = GeneralUtility::trimExplode('&', $backUrl, TRUE);
+		foreach ($urlParts as $part) {
+			if (stristr($part, 'id=')) {
+				$pid = str_replace('id=', '', $part);
+			}
+		}
+		return (int) $pid;
 	}
 }

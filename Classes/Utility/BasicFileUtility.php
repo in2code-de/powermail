@@ -40,6 +40,25 @@ use In2code\Powermail\Domain\Model\Mail;
 class BasicFileUtility {
 
 	/**
+	 * Initially rewrite $_FILES array if there are files with same filename
+	 *
+	 * @return void
+	 */
+	public static function rewriteFilesArrayToPreventDuplicatFilenames() {
+		$names = array();
+		if (!empty($_FILES['tx_powermail_pi1']['name']['field'])) {
+			foreach ((array) $_FILES['tx_powermail_pi1']['name']['field'] as $marker => $values) {
+				foreach ((array) $values as $key => $value) {
+					if (in_array($value, $names)) {
+						$_FILES['tx_powermail_pi1']['name']['field'][$marker][$key] = self::randomizeFileName($value);
+					}
+					$names[] = $value;
+				}
+			}
+		}
+	}
+
+	/**
 	 * Return Unique Filename for File Upload
 	 *
 	 * @param array $files
@@ -58,6 +77,7 @@ class BasicFileUtility {
 		$newFileNames = array();
 		foreach ((array) $files as $file) {
 			if (!empty($file['name'])) {
+				$file['name'] = self::getFilenameFromFilesArrayByTempName($file);
 				$newFileName = self::getUniqueName($file['name'], $destinationPath, $addPath, $randomizedFileName);
 				$newFileNames[] = $newFileName;
 			}
@@ -101,32 +121,6 @@ class BasicFileUtility {
 			return $newPathAndFileName;
 		}
 		return $newFileName;
-	}
-
-	/**
-	 * Only allowed a-z, A-Z, 0-9, -, .
-	 * Others will be replaced
-	 *
-	 * @param string &$filename
-	 * @param string $replace
-	 * @return void
-	 */
-	public static function cleanFileName(&$filename, $replace = '_') {
-		$filename = strtolower(trim($filename));
-		$filename = preg_replace('~[^a-z0-9-\.]~', $replace, $filename);
-		$filename = self::dontAllowAppendingNumbersInFileName($filename);
-	}
-
-	/**
-	 * Remove appending numbers in filename strings
-	 * 		image_01 => image
-	 * 		image_01_02 => image_01
-	 *
-	 * @param $string
-	 * @return mixed
-	 */
-	protected static function removeAppendingNumbersInString($string) {
-		return preg_replace('~_\d+$~', '', $string);
 	}
 
 	/**
@@ -281,7 +275,7 @@ class BasicFileUtility {
 		if (!$randomized) {
 			return;
 		}
-		$newFilename = DivUtility::createRandomString(32, FALSE) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+		$newFilename = StringUtility::getRandomString(32, FALSE) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
 		if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
 			foreach (array_keys($_FILES['tx_powermail_pi1']['name']['field']) as $marker) {
 				foreach ($_FILES['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {
@@ -307,5 +301,57 @@ class BasicFileUtility {
 			$path .= '/';
 		}
 		return GeneralUtility::getFileAbsFileName($path);
+	}
+
+	/**
+	 * Get filename from $_FILES array from tmp name
+	 *
+	 * @param array $file
+	 * @return string
+	 */
+	protected static function getFilenameFromFilesArrayByTempName($file) {
+		foreach ((array) $_FILES['tx_powermail_pi1']['tmp_name']['field'] as $marker => $values) {
+			foreach ((array) $values as $key => $value) {
+				if ($value === $file['tmp_name']) {
+					return $_FILES['tx_powermail_pi1']['name']['field'][$marker][$key];
+				}
+			}
+		}
+		return (string) $file['name'];
+	}
+
+	/**
+	 * Only allowed a-z, A-Z, 0-9, -, .
+	 * Others will be replaced
+	 *
+	 * @param string &$filename
+	 * @param string $replace
+	 * @return void
+	 */
+	public static function cleanFileName(&$filename, $replace = '_') {
+		$filename = strtolower(trim($filename));
+		$filename = preg_replace('~[^a-z0-9-\.]~', $replace, $filename);
+		$filename = self::dontAllowAppendingNumbersInFileName($filename);
+	}
+
+	/**
+	 * Remove appending numbers in filename strings
+	 * 		image_01 => image
+	 * 		image_01_02 => image_01
+	 *
+	 * @param $string
+	 * @return mixed
+	 */
+	protected static function removeAppendingNumbersInString($string) {
+		return preg_replace('~_\d+$~', '', $string);
+	}
+
+	/**
+	 * @param string $filename
+	 * @return string
+	 */
+	protected static function randomizeFileName($filename) {
+		$fileInfo = pathinfo($filename);
+		return StringUtility::getRandomString(8) . '.' . $fileInfo['extension'];
 	}
 }

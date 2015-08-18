@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -12,14 +13,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 class IsAllowedToEditViewHelper extends AbstractViewHelper {
 
 	/**
-	 * Div Methods
-	 *
-	 * @var \In2code\Powermail\Utility\DivUtility
-	 * @inject
-	 */
-	protected $div;
-
-	/**
 	 * Check if logged in User is allowed to edit
 	 *
 	 * @param array $settings TypoScript and FlexForm Settings
@@ -27,7 +20,7 @@ class IsAllowedToEditViewHelper extends AbstractViewHelper {
 	 * @return bool
 	 */
 	public function render($settings = array(), $mail) {
-		return $this->div->isAllowedToEdit($settings, $mail);
+		return FrontendUtility::isAllowedToEdit($settings, $mail);
 	}
 
 }

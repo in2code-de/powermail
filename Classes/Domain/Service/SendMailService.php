@@ -1,11 +1,16 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use In2code\Powermail\Utility\TemplateUtility;
+use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /***************************************************************
  *  Copyright notice
@@ -67,12 +72,6 @@ class SendMailService {
 	protected $mailRepository;
 
 	/**
-	 * @var \In2code\Powermail\Utility\DivUtility
-	 * @inject
-	 */
-	protected $div;
-
-	/**
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
 	 * @inject
 	 */
@@ -90,7 +89,7 @@ class SendMailService {
 	 * 		$email['template'] = 'PathToTemplate/';
 	 * 		$email['rteBody'] = 'This is the <b>content</b> of the RTE';
 	 * 		$email['format'] = 'both'; // or plain or html
-	 * @param \In2code\Powermail\Domain\Model\Mail &$mail
+	 * @param Mail &$mail
 	 * @param array $settings TypoScript Settings
 	 * @param string $type Email to "sender" or "receiver"
 	 * @return bool Mail successfully sent
@@ -99,8 +98,9 @@ class SendMailService {
 		/** @var TypoScriptService $typoScriptService */
 		$typoScriptService = $this->objectManager->get('TYPO3\CMS\Extbase\Service\TypoScriptService');
 		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
+		$overwriteConfiguration = $conf[$type . '.']['overwrite.'];
 		$cObj = $this->configurationManager->getContentObject();
-		$cObj->start(DivUtility::getVariablesWithMarkersFromMail($mail));
+		$cObj->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
 
 		// parsing variables with fluid engine to allow viewhelpers in flexform
 		$parse = array(
@@ -111,7 +111,8 @@ class SendMailService {
 			'subject'
 		);
 		foreach ($parse as $value) {
-			$email[$value] = DivUtility::fluidParseString($email[$value], DivUtility::getVariablesWithMarkersFromMail($mail));
+			$email[$value] =
+				TemplateUtility::fluidParseString($email[$value], $this->mailRepository->getVariablesWithMarkersFromMail($mail));
 		}
 
 		// Debug Output
@@ -135,9 +136,9 @@ class SendMailService {
 			return TRUE;
 		}
 
-		/** @var \TYPO3\CMS\Core\Mail\MailMessage $message */
-		$message = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
-		$this->div->overwriteValueFromTypoScript($email['subject'], $conf[$type . '.']['overwrite.'], 'subject');
+		/** @var MailMessage $message */
+		$message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $overwriteConfiguration, 'subject');
 		$message
 			->setTo(array($email['receiverEmail'] => $email['receiverName']))
 			->setFrom(array($email['senderEmail'] => $email['senderName']))
@@ -145,44 +146,41 @@ class SendMailService {
 			->setCharset($GLOBALS['TSFE']->metaCharset);
 
 		// add cc receivers
-		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'], $conf[$type . '.']['overwrite.']['cc.'])) {
+		if ($cObj->cObjGetSingle($overwriteConfiguration['cc'], $overwriteConfiguration['cc.'])) {
 			$ccArray = GeneralUtility::trimExplode(
 				',',
-				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['cc'],
-					$conf[$type . '.']['overwrite.']['cc.']),
+				$cObj->cObjGetSingle($overwriteConfiguration['cc'],
+					$overwriteConfiguration['cc.']),
 				TRUE
 			);
 			$message->setCc($ccArray);
 		}
 
 		// add bcc receivers
-		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'], $conf[$type . '.']['overwrite.']['bcc.'])) {
+		if ($cObj->cObjGetSingle($overwriteConfiguration['bcc'], $overwriteConfiguration['bcc.'])) {
 			$bccArray = GeneralUtility::trimExplode(
 				',',
-				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['bcc'],
-					$conf[$type . '.']['overwrite.']['bcc.']),
+				$cObj->cObjGetSingle($overwriteConfiguration['bcc'],
+					$overwriteConfiguration['bcc.']),
 				TRUE
 			);
 			$message->setBcc($bccArray);
 		}
 
 		// add Return Path
-		if ($cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'], $conf[$type . '.']['overwrite.']['returnPath.'])) {
-			$message->setReturnPath(
-				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['returnPath'],
-					$conf[$type . '.']['overwrite.']['returnPath.'])
-			);
+		if ($cObj->cObjGetSingle($overwriteConfiguration['returnPath'], $overwriteConfiguration['returnPath.'])) {
+			$message->setReturnPath($cObj->cObjGetSingle($overwriteConfiguration['returnPath'], $overwriteConfiguration['returnPath.']));
 		}
 
 		// add Reply Addresses
 		if (
-			$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToEmail'], $conf[$type . '.']['overwrite.']['replyToEmail.'])
+			$cObj->cObjGetSingle($overwriteConfiguration['replyToEmail'], $overwriteConfiguration['replyToEmail.'])
 			&&
-			$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToName'], $conf[$type . '.']['overwrite.']['replyToName.'])
+			$cObj->cObjGetSingle($overwriteConfiguration['replyToName'], $overwriteConfiguration['replyToName.'])
 		) {
 			$replyArray = array(
-				$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToEmail'], $conf[$type . '.']['overwrite.']['replyToEmail.']) =>
-					$cObj->cObjGetSingle($conf[$type . '.']['overwrite.']['replyToName'], $conf[$type . '.']['overwrite.']['replyToName.'])
+				$cObj->cObjGetSingle($overwriteConfiguration['replyToEmail'], $overwriteConfiguration['replyToEmail.']) =>
+					$cObj->cObjGetSingle($overwriteConfiguration['replyToName'], $overwriteConfiguration['replyToName.'])
 			);
 			$message->setReplyTo($replyArray);
 		}
@@ -194,7 +192,7 @@ class SendMailService {
 
 		// add attachments from upload fields
 		if ($settings[$type]['attachment']) {
-			/** @var \In2code\Powermail\Domain\Model\Answer $answer */
+			/** @var Answer $answer */
 			foreach ($mail->getAnswers() as $answer) {
 				$values = $answer->getValue();
 				if ($answer->getValueType() === 3 && is_array($values) && !empty($values)) {
@@ -260,32 +258,32 @@ class SendMailService {
 	 * Create Email Body
 	 *
 	 * @param array $email Array with all needed mail information
-	 * @param \In2code\Powermail\Domain\Model\Mail &$mail
+	 * @param Mail &$mail
 	 * @param array $settings TypoScript Settings
 	 * @param string $type Mail type
 	 * @return bool
 	 */
 	protected function createEmailBody($email, Mail &$mail, $settings, $type) {
-		/** @var StandaloneViewMultiplePathsService $emailBodyObject */
-		$emailBodyObject = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\StandaloneViewMultiplePathsService');
-		$emailBodyObject->getRequest()->setControllerExtensionName('Powermail');
-		$emailBodyObject->getRequest()->setPluginName('Pi1');
-		$emailBodyObject->getRequest()->setControllerName('Form');
-		$emailBodyObject->setFormat('html');
-		$emailBodyObject->setTemplatePathAndFilename(
-			$this->div->getTemplatePath($email['template'] . '.html')
+		/** @var StandaloneView $standaloneView */
+		$standaloneView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+		$standaloneView->getRequest()->setControllerExtensionName('Powermail');
+		$standaloneView->getRequest()->setPluginName('Pi1');
+		$standaloneView->getRequest()->setControllerName('Form');
+		$standaloneView->setFormat('html');
+		$standaloneView->setTemplatePathAndFilename(
+			TemplateUtility::getTemplatePath($email['template'] . '.html')
 		);
-		$emailBodyObject->setLayoutRootPaths($this->div->getTemplateFolders('layout'));
-		$emailBodyObject->setPartialRootPaths($this->div->getTemplateFolders('partial'));
+		$standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
+		$standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
 
 		// variables
-		$variablesWithMarkers = DivUtility::getVariablesWithMarkersFromMail($mail);
-		$emailBodyObject->assignMultiple($variablesWithMarkers);
-		$emailBodyObject->assignMultiple(DivUtility::getLabelsWithMarkersFromMail($mail));
-		$emailBodyObject->assignMultiple(
+		$variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($mail);
+		$standaloneView->assignMultiple($variablesWithMarkers);
+		$standaloneView->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
+		$standaloneView->assignMultiple(
 			array(
-				'variablesWithMarkers' => DivUtility::htmlspecialcharsOnArray($variablesWithMarkers),
-				'powermail_all' => $this->div->powermailAll($mail, 'mail', $settings, $type),
+				'variablesWithMarkers' => ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers),
+				'powermail_all' => TemplateUtility::powermailAll($mail, 'mail', $settings, $type),
 				'powermail_rte' => $email['rteBody'],
 				'marketingInfos' => SessionUtility::getMarketingInfos(),
 				'mail' => $mail,
@@ -294,16 +292,16 @@ class SendMailService {
 			)
 		);
 		if (!empty($email['variables'])) {
-			$emailBodyObject->assignMultiple($email['variables']);
+			$standaloneView->assignMultiple($email['variables']);
 		}
 
 		$this->signalSlotDispatcher->dispatch(
 			__CLASS__,
 			__FUNCTION__ . 'BeforeRender',
-			array($emailBodyObject, $email, $mail, $settings)
+			array($standaloneView, $email, $mail, $settings)
 		);
 
-		$body = $emailBodyObject->render();
+		$body = $standaloneView->render();
 		$mail->setBody($body);
 		return $body;
 	}

@@ -1,13 +1,14 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use In2code\Powermail\Utility\DivUtility;
-use In2code\Powermail\Domain\Model\Mail;
 
 /***************************************************************
  *  Copyright notice
@@ -49,11 +50,11 @@ class OutputController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		DivUtility::prepareFilterPluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
+		$this->prepareFilterPluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
 		if ($this->settings['list']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
 		} else {
-			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
+			$fieldArray = $this->formRepository->getFieldsFromForm($this->settings['main']['form']);
 		}
 		$searchFields = $this->fieldRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['search']['fields'], TRUE));
 		$this->view->assignMultiple(
@@ -62,7 +63,7 @@ class OutputController extends AbstractController {
 				'searchFields' => $searchFields,
 				'fields' => $this->fieldRepository->findByUids($fieldArray),
 				'piVars' => $this->piVars,
-				'abc' => DivUtility::getAbcArray()
+				'abc' => ArrayUtility::getAbcArray()
 			)
 		);
 		$this->assignMultipleActions();
@@ -78,7 +79,7 @@ class OutputController extends AbstractController {
 		if ($this->settings['single']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['single']['fields'], TRUE);
 		} else {
-			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
+			$fieldArray = $this->formRepository->getFieldsFromForm($this->settings['main']['form']);
 		}
 		$this->view->assign('fields', $this->fieldRepository->findByUids($fieldArray));
 		$this->view->assign('mail', $mail);
@@ -95,7 +96,7 @@ class OutputController extends AbstractController {
 		if ($this->settings['edit']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['edit']['fields'], TRUE);
 		} else {
-			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
+			$fieldArray = $this->formRepository->getFieldsFromForm($this->settings['main']['form']);
 		}
 		$fields = $this->fieldRepository->findByUids($fieldArray);
 		$this->view->assign('selectedFields', $fields);
@@ -110,10 +111,10 @@ class OutputController extends AbstractController {
 	 */
 	public function initializeUpdateAction() {
 		$arguments = $this->request->getArguments();
-		if (!$this->div->isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
+		if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->addFlashmessage(
-				LocalizationUtility::translate('PowermailFrontendEditFailed', 'powermail'),
+				LocalizationUtility::translate('PowermailFrontendEditFailed'),
 				'',
 				AbstractMessage::ERROR
 			);
@@ -131,7 +132,7 @@ class OutputController extends AbstractController {
 	 */
 	public function updateAction(Mail $mail) {
 		$this->mailRepository->update($mail);
-		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful', 'powermail'));
+		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
 		$this->redirect('edit', NULL, NULL, array('mail' => $mail));
 	}
 
@@ -142,10 +143,10 @@ class OutputController extends AbstractController {
 	 */
 	public function initializeDeleteAction() {
 		$arguments = $this->request->getArguments();
-		if (!$this->div->isAllowedToEdit($this->settings, $arguments['mail'])) {
+		if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['mail'])) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->addFlashmessage(
-				LocalizationUtility::translate('PowermailFrontendDeleteFailed', 'powermail'),
+				LocalizationUtility::translate('PowermailFrontendDeleteFailed'),
 				'',
 				AbstractMessage::ERROR
 			);
@@ -162,7 +163,7 @@ class OutputController extends AbstractController {
 	public function deleteAction(Mail $mail) {
 		$this->assignMultipleActions();
 		$this->mailRepository->remove($mail);
-		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendDeleteSuccessful', 'powermail'));
+		$this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendDeleteSuccessful'));
 	}
 
 	/**
@@ -182,7 +183,7 @@ class OutputController extends AbstractController {
 		if ($this->settings['list']['fields']) {
 			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
 		} else {
-			$fieldArray = $this->div->getFieldsFromForm($this->settings['main']['form']);
+			$fieldArray = $this->formRepository->getFieldsFromForm($this->settings['main']['form']);
 		}
 		$fields = $this->fieldRepository->findByUids($fieldArray);
 
@@ -272,10 +273,23 @@ class OutputController extends AbstractController {
 		if (!isset($this->settings['staticTemplate'])) {
 			$this->controllerContext = $this->buildControllerContext();
 			$this->addFlashMessage(
-				LocalizationUtility::translate('error_no_typoscript_pi2', 'powermail'),
+				LocalizationUtility::translate('error_no_typoscript_pi2'),
 				'',
 				AbstractMessage::ERROR
 			);
+		}
+	}
+
+	/**
+	 * Add parameters to piVars from TypoScript
+	 *
+	 * @param array $pluginVariables
+	 * @param array $parameters
+	 * @return void
+	 */
+	protected function prepareFilterPluginVariables(&$pluginVariables, $parameters) {
+		if (!empty($parameters['filter'])) {
+			$pluginVariables = (array) $pluginVariables + (array) $parameters;
 		}
 	}
 }

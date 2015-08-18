@@ -1,9 +1,12 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Domain\Model\Answer;
+use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * CaptchaValidator
@@ -37,7 +40,7 @@ class CaptchaValidator extends AbstractValidator {
 	/**
 	 * Validation of given Params
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return bool
 	 */
 	public function isValid($mail) {
@@ -46,12 +49,13 @@ class CaptchaValidator extends AbstractValidator {
 		}
 
 		foreach ($mail->getAnswers() as $answer) {
+			/** @var Answer $answer */
 			if ($answer->getField()->getType() !== 'captcha') {
 				continue;
 			}
 
 			$this->setCaptchaArgumentFound(TRUE);
-			if (!$this->validCodePreflight($answer->getValue())) {
+			if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
 				$this->setErrorAndMessage($answer->getField(), 'captcha');
 			}
 
@@ -71,10 +75,11 @@ class CaptchaValidator extends AbstractValidator {
 	 * Check if given string is correct
 	 *
 	 * @param string $value
+	 * @param Field $field
 	 * @return bool
 	 */
-	protected function validCodePreflight($value) {
-		switch (DivUtility::getCaptchaExtensionFromSettings($this->settings)) {
+	protected function validCodePreflight($value, $field) {
+		switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
 			case 'captcha':
 				session_start();
 				$generatedCaptchaString = $_SESSION['tx_captcha_string'];
@@ -87,7 +92,7 @@ class CaptchaValidator extends AbstractValidator {
 				break;
 
 			default:
-				if ($this->calculatingCaptchaService->validCode($value, $this->getClearSession())) {
+				if ($this->calculatingCaptchaService->validCode($value, $field, $this->getClearSession())) {
 					return TRUE;
 				}
 		}

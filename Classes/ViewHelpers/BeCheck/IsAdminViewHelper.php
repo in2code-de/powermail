@@ -2,7 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\BackendUtility;
 
 /**
  * Is Backend Admin?
@@ -18,6 +18,6 @@ class IsAdminViewHelper extends AbstractViewHelper {
 	 * @return bool
 	 */
 	public function render() {
-		return DivUtility::isBackendAdmin();
+		return BackendUtility::isBackendAdmin();
 	}
 }

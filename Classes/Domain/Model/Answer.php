@@ -1,11 +1,10 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use In2code\Powermail\Utility\ArrayUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use In2code\Powermail\Utility\DivUtility;
-use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Model\Field;
 
 /***************************************************************
  *  Copyright notice
@@ -81,7 +80,7 @@ class Answer extends AbstractEntity {
 		$value = $this->value;
 
 			// if serialized, change to array
-		if (DivUtility::isJsonArray($this->value)) {
+		if (ArrayUtility::isJsonArray($this->value)) {
 				// only if type multivalue or upload
 			if ($this->getValueType() === 1 || $this->getValueType() === 3) {
 				$value = json_decode($value, TRUE);
@@ -91,10 +90,7 @@ class Answer extends AbstractEntity {
 			// if type date
 		if ($this->getValueType() === 2 && is_numeric($value) && $this->getField() !== NULL) {
 			$value = date(
-				LocalizationUtility::translate(
-					'datepicker_format_' . $this->getField()->getDatepickerSettings(),
-					'powermail'
-				),
+				LocalizationUtility::translate('datepicker_format_' . $this->getField()->getDatepickerSettings()),
 				$value
 			);
 		}
@@ -127,10 +123,11 @@ class Answer extends AbstractEntity {
 			$this->getValueType() === 2 &&
 			!is_numeric($value)
 		) {
-			$format = LocalizationUtility::translate(
-				'datepicker_format_' . $this->getField()->getDatepickerSettings(),
-				'powermail'
-			);
+			if (empty($this->translateFormat)) {
+				$format = LocalizationUtility::translate('datepicker_format_' . $this->getField()->getDatepickerSettings());
+			} else {
+				$format = $this->translateFormat;
+			}
 			$date = \DateTime::createFromFormat($format, $value);
 			if ($date) {
 				if ($this->getField()->getDatepickerSettings() === 'date') {
@@ -193,7 +190,10 @@ class Answer extends AbstractEntity {
 	public function getValueType() {
 		if ($this->valueType === NULL) {
 			if ($this->getField() !== NULL) {
-				$this->setValueType(DivUtility::getDataTypeFromFieldType($this->getField()->getType()));
+				/** @var Field $field */
+				$field = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+					->get('In2code\\Powermail\\Domain\\Model\\Field');
+				$this->setValueType($field->getDataTypeFromFieldType($this->getField()->getType()));
 			} else {
 				$this->setValue(0);
 			}
@@ -204,7 +204,7 @@ class Answer extends AbstractEntity {
 	/**
 	 * Returns the mail
 	 *
-	 * @return \In2code\Powermail\Domain\Model\Mail $mail
+	 * @return Mail $mail
 	 */
 	public function getMail() {
 		return $this->mail;
@@ -213,7 +213,7 @@ class Answer extends AbstractEntity {
 	/**
 	 * Sets the mail
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	public function setMail(Mail $mail) {
@@ -223,7 +223,7 @@ class Answer extends AbstractEntity {
 	/**
 	 * Returns the field
 	 *
-	 * @return \In2code\Powermail\Domain\Model\Field $field
+	 * @return Field $field
 	 */
 	public function getField() {
 		return $this->field;
@@ -232,7 +232,7 @@ class Answer extends AbstractEntity {
 	/**
 	 * Sets the field
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param Field $field
 	 * @return void
 	 */
 	public function setField(Field $field) {

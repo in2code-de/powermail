@@ -163,7 +163,7 @@ class FieldTest extends UnitTestCase {
 	 * @test
 	 */
 	public function optionArrayReturnsArray($value, $expectedResult) {
-		$result = $this->generalValidatorMock->_call('optionArray', $value, '');
+		$result = $this->generalValidatorMock->_call('optionArray', $value, '', FALSE);
 		$this->assertSame($expectedResult, $result);
 	}
 }

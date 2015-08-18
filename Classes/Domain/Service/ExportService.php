@@ -3,7 +3,7 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Utility\DivUtility;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -415,7 +415,7 @@ class ExportService {
 		 * \TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir
 		 * allows only filenames which are max 59 characters long
 		 */
-		$fileName = DivUtility::createRandomString(55);
+		$fileName = StringUtility::getRandomString(55);
 		$fileName .= '.';
 		$fileName .= $this->getFormat();
 		$this->fileName = $fileName;

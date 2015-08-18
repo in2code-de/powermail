@@ -37,7 +37,7 @@ use TYPO3\CMS\Extbase\Mvc\Request;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class PasswordDataAttributeViewHelperTest extends UnitTestCase {
+class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -82,7 +82,7 @@ class PasswordDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'data-parsley-equalto' => '#powermail_field_uid',
-					'data-parsley-equalto-message' => 'Both Password-Fields are not equal!'
+					'data-parsley-equalto-message' => 'validationerror_password'
 				)
 			),
 			'passwordWithNativevalidation' => array(
@@ -113,7 +113,7 @@ class PasswordDataAttributeViewHelperTest extends UnitTestCase {
 				),
 				array(
 					'data-parsley-equalto' => '#powermail_field_uid',
-					'data-parsley-equalto-message' => 'Both Password-Fields are not equal!'
+					'data-parsley-equalto-message' => 'validationerror_password'
 				)
 			),
 			'passwordWithoutValidation' => array(
@@ -151,6 +151,7 @@ class PasswordDataAttributeViewHelperTest extends UnitTestCase {
 			$field->_setProperty($propertyName, $propertyValue);
 		}
 
+		$this->abstractValidationViewHelperMock->_set('test', TRUE);
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
 		$this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
 

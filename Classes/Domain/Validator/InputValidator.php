@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
 
 /**
  * InputValidator
@@ -23,7 +25,7 @@ class InputValidator extends StringValidator {
 	/**
 	 * Validation of given Params
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return bool
 	 */
 	public function isValid($mail) {
@@ -48,12 +50,13 @@ class InputValidator extends StringValidator {
 	/**
 	 * Get Answer from given field out of Mail object
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @return \string Answer value
+	 * @param Field $field
+	 * @param Mail $mail
+	 * @return string Answer value
 	 */
-	protected function getAnswerFromField($field, $mail) {
+	protected function getAnswerFromField(Field $field, Mail $mail) {
 		foreach ($mail->getAnswers() as $answer) {
+			/** @var Answer $answer */
 			if ($answer->getField() === $field) {
 				return $answer->getValue();
 			}
@@ -64,9 +67,8 @@ class InputValidator extends StringValidator {
 	/**
 	 * Validate a single field
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \mixed $value
-	 * @param $field
+	 * @param Field $field
+	 * @param mixed $value
 	 * @return void
 	 */
 	protected function isValidField(Field $field, $value) {

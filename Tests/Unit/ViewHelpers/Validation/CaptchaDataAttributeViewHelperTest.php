@@ -86,7 +86,7 @@ class CaptchaDataAttributeViewHelperTest extends UnitTestCase {
 					'required' => 'required',
 					'data-parsley-errors-container' => '.powermail_field_error_container_uid',
 					'data-parsley-class-handler' => '.powermail_fieldwrap_ > div',
-					'data-parsley-required-message' => 'This field must be filled!'
+					'data-parsley-required-message' => 'validationerror_mandatory'
 				)
 			),
 			'captchaWithNativevalidation' => array(
@@ -125,7 +125,7 @@ class CaptchaDataAttributeViewHelperTest extends UnitTestCase {
 					'data-parsley-required' => 'true',
 					'data-parsley-errors-container' => '.powermail_field_error_container_uid',
 					'data-parsley-class-handler' => '.powermail_fieldwrap_ > div',
-					'data-parsley-required-message' => 'This field must be filled!'
+					'data-parsley-required-message' => 'validationerror_mandatory'
 				)
 			),
 			'captchaWithoutValidation' => array(
@@ -167,6 +167,7 @@ class CaptchaDataAttributeViewHelperTest extends UnitTestCase {
 
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
 		$this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
+		$this->abstractValidationViewHelperMock->_set('requiredMessage', 'This field must be filled!');
 
 		$controllerContext = new ControllerContext;
 		$request = new Request;
