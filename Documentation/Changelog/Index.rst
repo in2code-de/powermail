@@ -18,6 +18,13 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.7.1
+   :Date:
+      2015-08-18
+   :Changes:
+      Fix: Changelog in manual could not be parsed from TER
+
+ - :Version:
       2.7.0
    :Date:
       2015-08-18
