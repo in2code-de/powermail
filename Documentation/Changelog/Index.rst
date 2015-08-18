@@ -26,12 +26,11 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
 
       See http://forge.typo3.org for Details
 
+      Note: Changed Template/Partial-files:
 
-  Note: Changed Template/Partial-files:
-
-  * New Partial: EXT:powermail/Resources/Private/Partials/Output/EditHidden.html
-  * Changed Partial: EXT:powermail/Resources/Private/Partials/Form/Captcha.html
-  * Changed Template: EXT:powermail/Resources/Private/Templates/Output/Edit.html
+      * New Partial: EXT:powermail/Resources/Private/Partials/Output/EditHidden.html
+      * Changed Partial: EXT:powermail/Resources/Private/Partials/Form/Captcha.html
+      * Changed Template: EXT:powermail/Resources/Private/Templates/Output/Edit.html
 
  - :Version:
       2.6.3
