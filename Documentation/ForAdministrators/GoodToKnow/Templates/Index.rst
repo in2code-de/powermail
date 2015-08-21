@@ -9,25 +9,10 @@ Using your own templates
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 Powermail brings a lot of templates, layouts and partials to your
-system. You can change the path the folder with all template via
-TypoScript setup:
-
-.. code-block:: text
-
-	plugin.tx_powermail.view {
-		templateRootPath = fileadmin/templates/powermailTemplates/
-		partialRootPath = fileadmin/templates/powermailPartials/
-		layoutRootPath = fileadmin/templates/powermailLayouts/
-	}
-
-Take care that all files and folders from the original path (e.g.
-typo3conf/ext/powermail/Resources/Private/Templates) are copied to the
-new location!
-
-
-Since **TYPO3 6.2** it's possible to overwrite single files.
+system. You can add additional paths via TypoScript setup.
 If you want to overwrite just one file (e.g. Resources/Private/Templates/Form/Form.html)
-you can copy this file to a fileadmin folder (20) and set a fallback folder (10) for the non-existing files.
+you can copy this single file to a fileadmin folder (see "20" below) and set a
+fallback folder (see "10" below) for the non-existing files:
 
 .. code-block:: text
 
@@ -39,6 +24,19 @@ you can copy this file to a fileadmin folder (20) and set a fallback folder (10)
 				20 = fileadmin/templates/powermail/Resources/Private/Templates/
 			}
 		}
+	}
+
+
+In older TYPO3 versions **TYPO3 7.3 and lower** it's possible to overwrite all files.
+Take care that all files and folders from the original path
+(e.g. typo3conf/ext/powermail/Resources/Private/Templates) are copied to the new location!
+
+.. code-block:: text
+
+	plugin.tx_powermail.view {
+		templateRootPath = fileadmin/templates/powermailTemplates/
+		partialRootPath = fileadmin/templates/powermailPartials/
+		layoutRootPath = fileadmin/templates/powermailLayouts/
 	}
 
 
