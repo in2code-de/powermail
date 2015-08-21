@@ -78,6 +78,7 @@ class TaskCommandController extends CommandController {
 	 * @param string $format Fileformat can be 'xls' or 'csv'
 	 * @param string $storageFolder path where to save export file
 	 * @param string $fileName Define a fix filename without extension (empty = random filename)
+	 * @param string $emailTemplate path and filename of email template
 	 * @return bool
 	 */
 	public function exportCommand(
@@ -91,7 +92,8 @@ class TaskCommandController extends CommandController {
 		$fieldList = '',
 		$format = 'xls',
 		$storageFolder = 'typo3temp/tx_powermail/',
-		$fileName = NULL
+		$fileName = NULL,
+		$emailTemplate = 'EXT:powermail/Resources/Private/Templates/Module/ExportTaskMail.html'
 	) {
 		/** @var \In2code\Powermail\Domain\Service\ExportService $exportService */
 		$exportService = $this->objectManager->get(
@@ -107,7 +109,8 @@ class TaskCommandController extends CommandController {
 			->setFieldList($fieldList)
 			->setAddAttachment($attachment)
 			->setStorageFolder($storageFolder)
-			->setFileName($fileName);
+			->setFileName($fileName)
+			->setEmailTemplate($emailTemplate);
 		return $exportService->send();
 	}
 
