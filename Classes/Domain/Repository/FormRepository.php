@@ -165,7 +165,7 @@ class FormRepository extends Repository {
 
 		if ($pid > 0) {
 			/** @var \TYPO3\CMS\Core\Database\QueryGenerator $queryGenerator */
-			$queryGenerator = GeneralUtility::makeInstance('TYPO3\CMS\Core\Database\QueryGenerator');
+			$queryGenerator = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Database\\QueryGenerator');
 			$pidList = $queryGenerator->getTreeList($pid, 20, 0, 1);
 			$query->matching(
 				$query->in('pid', GeneralUtility::trimExplode(',', $pidList, TRUE))

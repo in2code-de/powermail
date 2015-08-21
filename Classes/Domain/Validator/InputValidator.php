@@ -44,7 +44,7 @@ class InputValidator extends StringValidator {
 			}
 		}
 
-		return $this->getIsValid();
+		return $this->isValidState();
 	}
 
 	/**

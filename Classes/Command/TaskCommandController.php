@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Command;
 
+use In2code\Powermail\Domain\Service\ExportService;
 use In2code\Powermail\Utility\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
@@ -39,16 +40,12 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 class TaskCommandController extends CommandController {
 
 	/**
-	 * mailRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\MailRepository
 	 * @inject
 	 */
 	protected $mailRepository;
 
 	/**
-	 * answerRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\AnswerRepository
 	 * @inject
 	 */
@@ -95,9 +92,9 @@ class TaskCommandController extends CommandController {
 		$fileName = NULL,
 		$emailTemplate = 'EXT:powermail/Resources/Private/Templates/Module/ExportTaskMail.html'
 	) {
-		/** @var \In2code\Powermail\Domain\Service\ExportService $exportService */
+		/** @var ExportService $exportService */
 		$exportService = $this->objectManager->get(
-			'In2code\Powermail\Domain\Service\ExportService',
+			'In2code\\Powermail\\Domain\\Service\\ExportService',
 			$this->mailRepository->findAllInPid($pageUid, array(), $this->getFilterVariables($period)),
 			$format,
 			array('domain' => $domain)

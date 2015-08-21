@@ -1,12 +1,14 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MailUtility;
+use In2code\Powermail\Utility\SessionUtility;
+use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use In2code\Powermail\Utility\SessionUtility;
-use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * SpamShieldValidator
@@ -53,7 +55,7 @@ class SpamShieldValidator extends AbstractValidator {
 	protected $messages = array();
 
 	/**
-	 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+	 * @var TypoScriptFrontendController
 	 */
 	protected $typoScriptFrontendController;
 
@@ -80,12 +82,12 @@ class SpamShieldValidator extends AbstractValidator {
 	 * Spam-Validation of given Params
 	 * 		see powermail/doc/SpamDetection for formula
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return bool
 	 */
 	public function isValid($mail) {
 		if (empty($this->settings['spamshield.']['_enable'])) {
-			return $this->getIsValid();
+			return $this->isValidState();
 		}
 		$this->runSpamPreventationMethods($mail);
 		$this->calculateMailSpamFactor();
@@ -94,17 +96,16 @@ class SpamShieldValidator extends AbstractValidator {
 
 		if ($this->isSpamToleranceLimitReached()) {
 			$this->addError('spam_details', $this->getCalculatedMailSpamFactor(TRUE));
-			$this->setIsValid(FALSE);
-			$this->sendSpamNotificationMail($mail, $this->getCalculatedMailSpamFactor());
+			$this->setValidState(FALSE);
+			$this->sendSpamNotificationMail($mail);
 		}
-
-		return $this->getIsValid();
+		return $this->isValidState();
 	}
 
 	/**
 	 * Start different checks to increase spam indicator
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	protected function runSpamPreventationMethods($mail) {
@@ -141,7 +142,7 @@ class SpamShieldValidator extends AbstractValidator {
 	/**
 	 * Link Check: Counts numbers of links in message
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @param float $indication Indication if check fails
 	 * @param integer $limit Limit of allowed links in mail
 	 * @return void
@@ -171,7 +172,7 @@ class SpamShieldValidator extends AbstractValidator {
 	/**
 	 * Name Check: Compares first- and lastname (shouldn't be the same)
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @param float $indication Indication if check fails
 	 * @return void
 	 */
@@ -233,7 +234,7 @@ class SpamShieldValidator extends AbstractValidator {
 	/**
 	 * Unique Check: Checks if values in given params are different
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @param float $indication Indication if check fails
 	 * @return void
 	 */
@@ -265,7 +266,7 @@ class SpamShieldValidator extends AbstractValidator {
 	/**
 	 * Blacklist String Check: Check if a blacklisted word is in given values
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @param float $indication Indication if check fails
 	 * @return void
 	 */
@@ -326,10 +327,10 @@ class SpamShieldValidator extends AbstractValidator {
 	/**
 	 * Send spam notification mail to admin
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
-	protected function sendSpamNotificationMail($mail) {
+	protected function sendSpamNotificationMail(Mail $mail) {
 		if (!GeneralUtility::validEmail($this->settings['spamshield.']['email'])) {
 			return;
 		}
@@ -357,16 +358,12 @@ class SpamShieldValidator extends AbstractValidator {
 	 */
 	protected function createSpamNotificationMailBody($path, $multipleAssign = array()) {
 		$rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
-		/** @var StandaloneView $standAloneView */
-		$standAloneView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
-		$standAloneView->getRequest()->setControllerExtensionName('Powermail');
-		$standAloneView->getRequest()->setPluginName('Pi1');
-		$standAloneView->setFormat('html');
-		$standAloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($path));
-		$standAloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
-		$standAloneView->setPartialRootPaths(array($rootPath . 'Partials'));
-		$standAloneView->assignMultiple($multipleAssign);
-		return $standAloneView->render();
+		$standaloneView = TemplateUtility::getDefaultStandAloneView();
+		$standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($path));
+		$standaloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
+		$standaloneView->setPartialRootPaths(array($rootPath . 'Partials'));
+		$standaloneView->assignMultiple($multipleAssign);
+		return $standaloneView->render();
 	}
 
 	/**

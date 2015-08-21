@@ -130,6 +130,24 @@ class TemplateUtility {
 	}
 
 	/**
+	 * Get standaloneview with default properties
+	 *
+	 * @param string $controllerExtensionName
+	 * @param string $pluginName
+	 * @param string $format
+	 * @return StandaloneView
+	 */
+	public static function getDefaultStandAloneView($controllerExtensionName = 'Powermail', $pluginName = 'Pi1', $format = 'html') {
+		/** @var StandaloneView $standaloneView */
+		$standaloneView = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+			->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+		$standaloneView->getRequest()->setControllerExtensionName($controllerExtensionName);
+		$standaloneView->getRequest()->setPluginName($pluginName);
+		$standaloneView->setFormat($format);
+		return $standaloneView;
+	}
+
+	/**
 	 * This functions renders the powermail_all Template (e.g. useage in Mails)
 	 *
 	 * @param Mail $mail

@@ -72,7 +72,7 @@ class OutputController extends AbstractController {
 	/**
 	 * Show single mail
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	public function showAction(Mail $mail) {
@@ -89,7 +89,7 @@ class OutputController extends AbstractController {
 	/**
 	 * Edit mail
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	public function editAction(Mail $mail = NULL) {
@@ -126,7 +126,7 @@ class OutputController extends AbstractController {
 	/**
 	 * Update mail
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
 	 * @return void
 	 */
@@ -157,7 +157,7 @@ class OutputController extends AbstractController {
 	/**
 	 * Delete mail
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return void
 	 */
 	public function deleteAction(Mail $mail) {

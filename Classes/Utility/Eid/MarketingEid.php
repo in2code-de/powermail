@@ -101,5 +101,5 @@ class MarketingEid {
 	}
 }
 
-$eid = GeneralUtility::makeInstance('In2code\Powermail\Utility\Eid\MarketingEid', $GLOBALS['TYPO3_CONF_VARS']);
+$eid = GeneralUtility::makeInstance('In2code\\Powermail\\Utility\\Eid\\MarketingEid', $GLOBALS['TYPO3_CONF_VARS']);
 echo $eid->run();

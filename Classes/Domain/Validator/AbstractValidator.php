@@ -1,9 +1,10 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
 
 /***************************************************************
  *  Copyright notice
@@ -40,63 +41,65 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 *
 	 * @inject
 	 */
 	protected $objectManager;
 
 	/**
-	 * formRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\FormRepository
 	 * @inject
 	 */
 	protected $formRepository;
 
 	/**
-	 * SignalSlot Dispatcher
-	 *
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
 	 * @inject
 	 */
 	protected $signalSlotDispatcher;
 
 	/**
+	 * @var string
+	 */
+	protected $pluginVariablesPrefix = 'tx_powermail_pi1';
+
+	/**
 	 * Return variable
 	 *
 	 * @var bool
 	 */
-	protected $isValid = TRUE;
+	protected $validState = TRUE;
 
 	/**
 	 * TypoScript Setup for powermail Pi1
+	 *
+	 * @var array
 	 */
 	protected $settings;
 
 	/**
-	 * @param boolean $isValid
+	 * @param boolean $validState
 	 * @return void
 	 */
-	public function setIsValid($isValid) {
-		$this->isValid = $isValid;
+	public function setValidState($validState) {
+		$this->validState = $validState;
 	}
 
 	/**
 	 * @return boolean
 	 */
-	public function getIsValid() {
-		return $this->isValid;
+	public function isValidState() {
+		return $this->validState;
 	}
 
 	/**
 	 * Set Error
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param Field $field
 	 * @param string $label
 	 * @return void
 	 */
 	public function setErrorAndMessage(Field $field, $label) {
-		$this->setIsValid(FALSE);
+		$this->setValidState(FALSE);
 		$this->addError($label, $field->getMarker());
 	}
 
@@ -118,6 +121,16 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator {
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+	}
+
+	/**
+	 * Constructs the validator and sets validation options
+	 *
+	 * @param array $options Options for the validator
+	 * @throws InvalidValidationOptionsException
+	 */
+	public function __construct(array $options = array()) {
+		parent::__construct($options);
 	}
 
 }

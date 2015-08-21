@@ -232,7 +232,7 @@ class ModuleController extends AbstractController {
 				if (!empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])) {
 					$senderName = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'];
 				}
-				$message = GeneralUtility::makeInstance('TYPO3\CMS\Core\Mail\MailMessage');
+				$message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 				$message
 					->setTo(array($email => 'Receiver'))
 					->setFrom(array($senderEmail => $senderName))
@@ -291,7 +291,7 @@ class ModuleController extends AbstractController {
 			$formCounter++;
 		}
 		/** @var FormConverterService $formConverterService */
-		$formConverterService = $this->objectManager->get('In2code\Powermail\Domain\Service\FormConverterService');
+		$formConverterService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\FormConverterService');
 		$result = $formConverterService->createNewFromOldForms($oldFormsWithFieldsetsAndFields, $converter);
 		$this->view->assign('result', $result);
 		$this->view->assign('converter', $converter);

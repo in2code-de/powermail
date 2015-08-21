@@ -85,5 +85,5 @@ class GetLocationEid {
 	}
 }
 
-$eid = GeneralUtility::makeInstance('In2code\Powermail\Utility\Eid\GetLocationEid');
+$eid = GeneralUtility::makeInstance('In2code\\Powermail\\Utility\\Eid\\GetLocationEid');
 echo $eid->main();

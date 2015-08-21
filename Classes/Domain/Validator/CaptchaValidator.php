@@ -31,11 +31,11 @@ class CaptchaValidator extends AbstractValidator {
 	protected $clearSession = TRUE;
 
 	/**
-	 * Captcha arguments found
+	 * Any Captcha arguments found?
 	 *
 	 * @var bool
 	 */
-	protected $captchaArgumentFound = FALSE;
+	protected $captchaArgument = FALSE;
 
 	/**
 	 * Validation of given Params
@@ -54,7 +54,7 @@ class CaptchaValidator extends AbstractValidator {
 				continue;
 			}
 
-			$this->setCaptchaArgumentFound(TRUE);
+			$this->setCaptchaArgument(TRUE);
 			if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
 				$this->setErrorAndMessage($answer->getField(), 'captcha');
 			}
@@ -62,12 +62,12 @@ class CaptchaValidator extends AbstractValidator {
 		}
 
 		// if no captcha arguments given (maybe deleted from DOM)
-		if (!$this->getCaptchaArgumentFound()) {
+		if (!$this->hasCaptchaArgument()) {
 			$this->addError('captcha', 0);
-			$this->setIsValid(FALSE);
+			$this->setValidState(FALSE);
 		}
 
-		return $this->getIsValid();
+		return $this->isValidState();
 
 	}
 
@@ -83,7 +83,7 @@ class CaptchaValidator extends AbstractValidator {
 			case 'captcha':
 				session_start();
 				$generatedCaptchaString = $_SESSION['tx_captcha_string'];
-				if ($this->getClearSession()) {
+				if ($this->isClearSession()) {
 					$_SESSION['tx_captcha_string'] = '';
 				}
 				if (!empty($value) && $generatedCaptchaString === $value) {
@@ -92,7 +92,7 @@ class CaptchaValidator extends AbstractValidator {
 				break;
 
 			default:
-				if ($this->calculatingCaptchaService->validCode($value, $field, $this->getClearSession())) {
+				if ($this->calculatingCaptchaService->validCode($value, $field, $this->isClearSession())) {
 					return TRUE;
 				}
 		}
@@ -114,7 +114,7 @@ class CaptchaValidator extends AbstractValidator {
 	/**
 	 * @return boolean
 	 */
-	public function getClearSession() {
+	public function isClearSession() {
 		return $this->clearSession;
 	}
 
@@ -129,16 +129,16 @@ class CaptchaValidator extends AbstractValidator {
 	/**
 	 * @return boolean
 	 */
-	public function getCaptchaArgumentFound() {
-		return $this->captchaArgumentFound;
+	public function hasCaptchaArgument() {
+		return $this->captchaArgument;
 	}
 
 	/**
-	 * @param boolean $captchaArgumentFound
+	 * @param boolean $captchaArgument
 	 * @return void
 	 */
-	public function setCaptchaArgumentFound($captchaArgumentFound) {
-		$this->captchaArgumentFound = $captchaArgumentFound;
+	public function setCaptchaArgument($captchaArgument) {
+		$this->captchaArgument = $captchaArgument;
 	}
 
 	/**

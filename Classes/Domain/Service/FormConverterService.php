@@ -1,8 +1,12 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
  *  Copyright notice
@@ -38,7 +42,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 class FormConverterService {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @var ConfigurationManagerInterface
 	 * @inject
 	 */
 	protected $configurationManager;
@@ -356,16 +360,13 @@ class FormConverterService {
 	 */
 	protected function createFlexForm($form, $formUid) {
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
 		);
 		$templatePathAndFilename = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
 		$templatePathAndFilename .= 'Module/ConverterFlexForm.xml';
-		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $view */
-		$view = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
-		$view->getRequest()->setControllerExtensionName('Powermail');
-		$view->getRequest()->setPluginName('Pi1');
-		$view->getRequest()->setControllerName('Module');
-		$view->setTemplatePathAndFilename($templatePathAndFilename);
+		$standaloneView = TemplateUtility::getDefaultStandAloneView();
+		$standaloneView->getRequest()->setControllerName('Module');
+		$standaloneView->setTemplatePathAndFilename($templatePathAndFilename);
 
 		// manipulate variables
 		$form['tx_powermail_thanks'] = $this->rewriteVariables($form['tx_powermail_thanks'], $form, TRUE);
@@ -377,7 +378,7 @@ class FormConverterService {
 		if ($form['sys_language_uid'] > 0) {
 			$formUid = $this->localizationRelations['form'][$form['l18n_parent']];
 		}
-		$view->assignMultiple(
+		$standaloneView->assignMultiple(
 			array(
 				'formUid' => $formUid,
 				'form' => $form,
@@ -385,7 +386,7 @@ class FormConverterService {
 			)
 		);
 
-		return $view->render();
+		return $standaloneView->render();
 	}
 
 	/**
@@ -632,7 +633,7 @@ class FormConverterService {
 		if ($rte && !empty($this->configuration['parseFunc'])) {
 			$this->initialiazeTsfe();
 			$typoScriptSetup = $this->configurationManager->getConfiguration(
-				\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+				ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 			);
 			$parseFunc = $typoScriptSetup['lib.'][$this->configuration['parseFunc']];
 			$contentObject = $this->configurationManager->getContentObject();
@@ -648,16 +649,16 @@ class FormConverterService {
 	 */
 	protected function initialiazeTsfe() {
 		if (!is_object($GLOBALS['TT'])) {
-			$GLOBALS['TT'] = new \TYPO3\CMS\Core\TimeTracker\TimeTracker;
+			$GLOBALS['TT'] = new TimeTracker;
 			$GLOBALS['TT']->start();
 		}
 		if (!is_object($GLOBALS['TSFE'])) {
 			$id = (GeneralUtility::_GP('id') ? GeneralUtility::_GP('id') : 1);
-			$GLOBALS['TSFE'] = new \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController(
+			$GLOBALS['TSFE'] = new TypoScriptFrontendController(
 				$GLOBALS['TYPO3_CONF_VARS'], $id, 0, 0, 0, 0, 0, 0
 			);
-			$GLOBALS['TSFE']->tmpl = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\ExtendedTemplateService');
-			$GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
+			$GLOBALS['TSFE']->tmpl = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TypoScript\\ExtendedTemplateService');
+			$GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
 			$GLOBALS['TSFE']->tmpl->tt_track = 0;
 			$GLOBALS['TSFE']->tmpl->init();
 			$rootLine = $GLOBALS['TSFE']->sys_page->getRootLine($id);

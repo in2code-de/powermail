@@ -196,16 +196,12 @@ class ExportService {
 	 * @return string
 	 */
 	protected function createMailBody() {
-		/** @var StandaloneView $standAloneView */
-		$standAloneView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-		$standAloneView->getRequest()->setControllerExtensionName('Powermail');
-		$standAloneView->getRequest()->setPluginName('Pi1');
-		$standAloneView->setFormat('html');
-		$standAloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->getEmailTemplate()));
-		$standAloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
-		$standAloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
-		$standAloneView->assign('export', $this);
-		return $standAloneView->render();
+		$standaloneView = TemplateUtility::getDefaultStandAloneView();
+		$standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->getEmailTemplate()));
+		$standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
+		$standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
+		$standaloneView->assign('export', $this);
+		return $standaloneView->render();
 	}
 
 	/**
@@ -228,22 +224,18 @@ class ExportService {
 	 * @throws InvalidControllerNameException
 	 */
 	protected function getFileContent() {
-		/** @var StandaloneView $standAloneView */
-		$standAloneView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-		$standAloneView->getRequest()->setControllerExtensionName('Powermail');
-		$standAloneView->getRequest()->setPluginName('Pi1');
-		$standAloneView->setFormat('html');
 		$rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
-		$standAloneView->setTemplatePathAndFilename($rootPath . $this->getRelativeTemplatePathAndFileName());
-		$standAloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
-		$standAloneView->setPartialRootPaths(array($rootPath . 'Partials'));
-		$standAloneView->assignMultiple(
+		$standaloneView = TemplateUtility::getDefaultStandAloneView();
+		$standaloneView->setTemplatePathAndFilename($rootPath . $this->getRelativeTemplatePathAndFileName());
+		$standaloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
+		$standaloneView->setPartialRootPaths(array($rootPath . 'Partials'));
+		$standaloneView->assignMultiple(
 			array(
 				'mails' => $this->getMails(),
 				'fieldUids' => $this->getFieldList()
 			)
 		);
-		return $standAloneView->render();
+		return $standaloneView->render();
 	}
 
 	/**

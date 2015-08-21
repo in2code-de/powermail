@@ -1,23 +1,24 @@
 <?php
 namespace In2code\Powermail\Domain\Validator;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * PasswordValidator
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * 			GNU Lesser General Public License, version 3 or later
  */
 class PasswordValidator extends AbstractValidator {
 
 	/**
 	 * Validation of given Params
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
+	 * @param Mail $mail
 	 * @return bool
 	 */
 	public function isValid($mail) {
@@ -35,17 +36,17 @@ class PasswordValidator extends AbstractValidator {
 
 		}
 
-		return $this->getIsValid();
+		return $this->isValidState();
 	}
 
 	/**
 	 * Get mirror value from POST params
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param Field $field
 	 * @return string
 	 */
 	protected function getMirroredValueOfPasswordField(Field $field) {
-		$piVars = GeneralUtility::_GP('tx_powermail_pi1');
+		$piVars = GeneralUtility::_GP($this->pluginVariablesPrefix);
 		$mirroredValue = $piVars['field'][$field->getMarker() . '_mirror'];
 		return $mirroredValue;
 	}
@@ -53,7 +54,7 @@ class PasswordValidator extends AbstractValidator {
 	/**
 	 * Checks if given form has a password field
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Form $form
+	 * @param Form $form
 	 * @return boolean
 	 */
 	protected function formHasPassword(Form $form) {
@@ -67,8 +68,8 @@ class PasswordValidator extends AbstractValidator {
 	 * @return bool
 	 */
 	protected function ignoreValidationIfConfirmation() {
-		$piVars = GeneralUtility::_GP('tx_powermail_pi1');
-		$piVarsGet = GeneralUtility::_GET('tx_powermail_pi1');
+		$piVars = GeneralUtility::_GP($this->pluginVariablesPrefix);
+		$piVarsGet = GeneralUtility::_GET($this->pluginVariablesPrefix);
 		if ($piVars['__referrer']['@action'] === 'confirmation' && $piVarsGet['action'] === 'create') {
 			return TRUE;
 		}

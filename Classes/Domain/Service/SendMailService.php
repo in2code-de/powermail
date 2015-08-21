@@ -95,34 +95,13 @@ class SendMailService {
 	 * @return bool Mail successfully sent
 	 */
 	public function sendTemplateEmail(array $email, Mail &$mail, $settings, $type = 'receiver') {
-		/** @var TypoScriptService $typoScriptService */
-		$typoScriptService = $this->objectManager->get('TYPO3\CMS\Extbase\Service\TypoScriptService');
-		$conf = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
+		$conf = $this->getConfigurationFromSettings($settings);
 		$overwriteConfiguration = $conf[$type . '.']['overwrite.'];
 		$cObj = $this->configurationManager->getContentObject();
 		$cObj->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
-
-		// parsing variables with fluid engine to allow viewhelpers in flexform
-		$parse = array(
-			'receiverName',
-			'receiverEmail',
-			'senderName',
-			'senderEmail',
-			'subject'
-		);
-		foreach ($parse as $value) {
-			$email[$value] =
-				TemplateUtility::fluidParseString($email[$value], $this->mailRepository->getVariablesWithMarkersFromMail($mail));
-		}
-
-		// Debug Output
+		$this->parseVariables($email, $mail);
 		if ($settings['debug']['mail']) {
-			GeneralUtility::devLog(
-				'Mail properties',
-				'powermail',
-				0,
-				$email
-			);
+			GeneralUtility::devLog('Mail properties', 'powermail', 0, $email);
 		}
 
 		// stop mail process if receiver or sender email is not valid
@@ -264,12 +243,8 @@ class SendMailService {
 	 * @return bool
 	 */
 	protected function createEmailBody($email, Mail &$mail, $settings, $type) {
-		/** @var StandaloneView $standaloneView */
-		$standaloneView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-		$standaloneView->getRequest()->setControllerExtensionName('Powermail');
-		$standaloneView->getRequest()->setPluginName('Pi1');
+		$standaloneView = TemplateUtility::getDefaultStandAloneView();
 		$standaloneView->getRequest()->setControllerName('Form');
-		$standaloneView->setFormat('html');
 		$standaloneView->setTemplatePathAndFilename(
 			TemplateUtility::getTemplatePath($email['template'] . '.html')
 		);
@@ -362,5 +337,35 @@ class SendMailService {
 		$content = str_replace($array, "\n", $content);
 
 		return $content;
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getConfigurationFromSettings(array $settings) {
+		/** @var TypoScriptService $typoScriptService */
+		$typoScriptService = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+		return $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
+	}
+
+	/**
+	 * Parsing variables with fluid engine to allow viewhelpers in flexform
+	 *
+	 * @param array $email
+	 * @param Mail $mail
+	 * @return void
+	 */
+	protected function parseVariables(array &$email, Mail &$mail) {
+		$parse = array(
+			'receiverName',
+			'receiverEmail',
+			'senderName',
+			'senderEmail',
+			'subject'
+		);
+		foreach ($parse as $value) {
+			$email[$value] =
+				TemplateUtility::fluidParseString($email[$value], $this->mailRepository->getVariablesWithMarkersFromMail($mail));
+		}
 	}
 }
