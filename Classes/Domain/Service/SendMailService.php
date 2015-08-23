@@ -10,7 +10,6 @@ use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /***************************************************************
  *  Copyright notice
@@ -78,6 +77,36 @@ class SendMailService {
 	protected $signalSlotDispatcher;
 
 	/**
+	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+	 */
+	protected $contentObject;
+
+	/**
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * @var array
+	 */
+	protected $configuration;
+
+	/**
+	 * @var array
+	 */
+	protected $overwriteConfiguration;
+
+	/**
+	 * @var Mail
+	 */
+	protected $mail;
+
+	/**
+	 * @var string
+	 */
+	protected $type = 'receiver';
+
+	/**
 	 * This is the main-function for sending Mails
 	 *
 	 * @param array $email Array with all needed mail information
@@ -94,106 +123,182 @@ class SendMailService {
 	 * @param string $type Email to "sender" or "receiver"
 	 * @return bool Mail successfully sent
 	 */
-	public function sendTemplateEmail(array $email, Mail &$mail, $settings, $type = 'receiver') {
-		$conf = $this->getConfigurationFromSettings($settings);
-		$overwriteConfiguration = $conf[$type . '.']['overwrite.'];
-		$cObj = $this->configurationManager->getContentObject();
-		$cObj->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
+	public function sendEmailPreflight(array $email, Mail &$mail, $settings, $type = 'receiver') {
+		$this->mail = &$mail;
+		$this->settings = $settings;
+		$this->configuration = $this->getConfigurationFromSettings($settings);
+		$this->overwriteConfiguration = $this->configuration[$type . '.']['overwrite.'];
+		$this->contentObject = $this->configurationManager->getContentObject();
+		$this->contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
+		$this->type = $type;
 		$this->parseVariables($email, $mail);
 		if ($settings['debug']['mail']) {
 			GeneralUtility::devLog('Mail properties', 'powermail', 0, $email);
 		}
-
-		// stop mail process if receiver or sender email is not valid
 		if (!GeneralUtility::validEmail($email['receiverEmail']) || !GeneralUtility::validEmail($email['senderEmail'])) {
 			return FALSE;
 		}
-
-		// stop mail process if subject is empty
 		if (empty($email['subject'])) {
 			// don't want an error flashmessage
 			return TRUE;
 		}
+		return $this->sendTemplateEmail($email);
+	}
 
+	/**
+	 * Send the mail
+	 *
+	 * @param array $email Array with all needed mail information
+	 * @return bool Mail successfully sent
+	 */
+	protected function sendTemplateEmail(array $email) {
 		/** @var MailMessage $message */
 		$message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-		TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $overwriteConfiguration, 'subject');
+		TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfiguration, 'subject');
 		$message
 			->setTo(array($email['receiverEmail'] => $email['receiverName']))
 			->setFrom(array($email['senderEmail'] => $email['senderName']))
 			->setSubject($email['subject'])
-			->setCharset($GLOBALS['TSFE']->metaCharset);
+			->setCharset($this->getFrontendCharset());
+		$this->addCc($message);
+		$this->addBcc($message);
+		$this->addReturnPath($message);
+		$this->addReplyAddresses($message);
+		$this->addPriority($message);
+		$this->addAttachmentsFromUploads($message);
+		$this->addAttachmentsFromTypoScript($message);
+		$this->addHtmlBody($message, $email);
+		$this->addPlainBody($message, $email);
 
-		// add cc receivers
-		if ($cObj->cObjGetSingle($overwriteConfiguration['cc'], $overwriteConfiguration['cc.'])) {
-			$ccArray = GeneralUtility::trimExplode(
-				',',
-				$cObj->cObjGetSingle($overwriteConfiguration['cc'],
-					$overwriteConfiguration['cc.']),
-				TRUE
+		$this->signalSlotDispatcher->dispatch(
+			__CLASS__,
+			__FUNCTION__ . 'BeforeSend',
+			array($message, $email, $this->mail, $this->settings, $this->type)
+		);
+
+		$message->send();
+		$this->updateMail($email);
+		return $message->isSent();
+	}
+
+	/**
+	 * Add CC receivers
+	 *
+	 * @param MailMessage $message
+	 * @return void
+	 */
+	protected function addCc(MailMessage &$message) {
+		$ccValue = $this->contentObject->cObjGetSingle($this->overwriteConfiguration['cc'], $this->overwriteConfiguration['cc.']);
+		if (!empty($ccValue)) {
+			$message->setCc(GeneralUtility::trimExplode(',', $ccValue, TRUE));
+		}
+	}
+
+	/**
+	 * Add BCC receivers
+	 *
+	 * @param MailMessage $message
+	 * @return void
+	 */
+	protected function addBcc(MailMessage &$message) {
+		$bccValue = $this->contentObject->cObjGetSingle($this->overwriteConfiguration['bcc'], $this->overwriteConfiguration['bcc.']);
+		if (!empty($bccValue)) {
+			$message->setBcc(GeneralUtility::trimExplode(',', $bccValue, TRUE));
+		}
+	}
+
+	/**
+	 * Add return path
+	 *
+	 * @param MailMessage $message
+	 * @return void
+	 */
+	protected function addReturnPath(MailMessage &$message) {
+		$returnPathValue = $this->contentObject->cObjGetSingle(
+			$this->overwriteConfiguration['returnPath'],
+			$this->overwriteConfiguration['returnPath.']
+		);
+		if (!empty($returnPathValue)) {
+			$message->setReturnPath($returnPathValue);
+		}
+	}
+
+	/**
+	 * Add reply addresses if replyToEmail and replyToName isset
+	 *
+	 * @param MailMessage $message
+	 * @return void
+	 */
+	protected function addReplyAddresses(MailMessage &$message) {
+		$replyToEmail = $this->contentObject->cObjGetSingle(
+			$this->overwriteConfiguration['replyToEmail'],
+			$this->overwriteConfiguration['replyToEmail.']
+		);
+		$replyToName = $this->contentObject->cObjGetSingle(
+			$this->overwriteConfiguration['replyToName'],
+			$this->overwriteConfiguration['replyToName.']
+		);
+		if (!empty($replyToEmail) && !empty($replyToName)) {
+			$message->setReplyTo(
+				array(
+					$replyToEmail => $replyToName
+				)
 			);
-			$message->setCc($ccArray);
 		}
+	}
 
-		// add bcc receivers
-		if ($cObj->cObjGetSingle($overwriteConfiguration['bcc'], $overwriteConfiguration['bcc.'])) {
-			$bccArray = GeneralUtility::trimExplode(
-				',',
-				$cObj->cObjGetSingle($overwriteConfiguration['bcc'],
-					$overwriteConfiguration['bcc.']),
-				TRUE
-			);
-			$message->setBcc($bccArray);
+	/**
+	 * Add mail priority
+	 *
+	 * @param MailMessage $message
+	 * @return void
+	 */
+	protected function addPriority(MailMessage &$message) {
+		$priorityValue = (int) $this->settings[$this->type]['overwrite']['priority'];
+		if ($priorityValue > 0) {
+			$message->setPriority($priorityValue);
 		}
+	}
 
-		// add Return Path
-		if ($cObj->cObjGetSingle($overwriteConfiguration['returnPath'], $overwriteConfiguration['returnPath.'])) {
-			$message->setReturnPath($cObj->cObjGetSingle($overwriteConfiguration['returnPath'], $overwriteConfiguration['returnPath.']));
+	/**
+	 * Add attachments from upload fields
+	 *
+	 * @param MailMessage $message
+	 * @return void
+	 */
+	protected function addAttachmentsFromUploads(MailMessage &$message) {
+		if (empty($this->settings[$this->type]['attachment'])) {
+			return;
 		}
-
-		// add Reply Addresses
-		if (
-			$cObj->cObjGetSingle($overwriteConfiguration['replyToEmail'], $overwriteConfiguration['replyToEmail.'])
-			&&
-			$cObj->cObjGetSingle($overwriteConfiguration['replyToName'], $overwriteConfiguration['replyToName.'])
-		) {
-			$replyArray = array(
-				$cObj->cObjGetSingle($overwriteConfiguration['replyToEmail'], $overwriteConfiguration['replyToEmail.']) =>
-					$cObj->cObjGetSingle($overwriteConfiguration['replyToName'], $overwriteConfiguration['replyToName.'])
-			);
-			$message->setReplyTo($replyArray);
-		}
-
-		// add priority
-		if ($settings[$type]['overwrite']['priority']) {
-			$message->setPriority(intval($settings[$type]['overwrite']['priority']));
-		}
-
-		// add attachments from upload fields
-		if ($settings[$type]['attachment']) {
-			/** @var Answer $answer */
-			foreach ($mail->getAnswers() as $answer) {
-				$values = $answer->getValue();
-				if ($answer->getValueType() === 3 && is_array($values) && !empty($values)) {
-					foreach ($values as $value) {
-						$file = $settings['misc']['file']['folder'] . $value;
-						if (file_exists(GeneralUtility::getFileAbsFileName($file))) {
-							$message->attach(\Swift_Attachment::fromPath($file));
-						} else {
-							GeneralUtility::devLog('Error: File to attach does not exist', 'powermail', 2, $file);
-						}
+		/** @var Answer $answer */
+		foreach ($this->mail->getAnswers() as $answer) {
+			$values = $answer->getValue();
+			if ($answer->getValueType() === 3 && is_array($values) && !empty($values)) {
+				foreach ($values as $value) {
+					$file = $this->settings['misc']['file']['folder'] . $value;
+					if (file_exists(GeneralUtility::getFileAbsFileName($file))) {
+						$message->attach(\Swift_Attachment::fromPath($file));
+					} else {
+						GeneralUtility::devLog('Error: File to attach does not exist', 'powermail', 2, $file);
 					}
 				}
 			}
 		}
+	}
 
-		// add attachments from TypoScript
-		if ($cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.'])) {
-			$files = GeneralUtility::trimExplode(
-				',',
-				$cObj->cObjGetSingle($conf[$type . '.']['addAttachment'], $conf[$type . '.']['addAttachment.']),
-				TRUE
-			);
+	/**
+	 * Add attachments from TypoScript definition
+	 *
+	 * @param MailMessage $message
+	 * @return void
+	 */
+	protected function addAttachmentsFromTypoScript(MailMessage &$message) {
+		$filesValue = $this->contentObject->cObjGetSingle(
+			$this->configuration[$this->type . '.']['addAttachment'],
+			$this->configuration[$this->type . '.']['addAttachment.']
+		);
+		if (!empty($filesValue)) {
+			$files = GeneralUtility::trimExplode(',', $filesValue, TRUE);
 			foreach ($files as $file) {
 				if (file_exists(GeneralUtility::getFileAbsFileName($file))) {
 					$message->attach(\Swift_Attachment::fromPath($file));
@@ -202,47 +307,41 @@ class SendMailService {
 				}
 			}
 		}
-		if ($email['format'] != 'plain') {
-			$message->setBody(
-				$this->createEmailBody($email, $mail, $settings, $type),
-				'text/html'
-			);
+	}
+
+	/**
+	 * Add mail body html
+	 *
+	 * @param MailMessage $message
+	 * @param array $email
+	 * @return void
+	 */
+	protected function addHtmlBody(MailMessage &$message, array $email) {
+		if ($email['format'] !== 'plain') {
+			$message->setBody($this->createEmailBody($email), 'text/html');
 		}
-		if ($email['format'] != 'html') {
-			$message->addPart(
-				$this->makePlain($this->createEmailBody($email, $mail, $settings, $type)),
-				'text/plain'
-			);
+	}
+
+	/**
+	 * Add mail body plain
+	 *
+	 * @param MailMessage $message
+	 * @param array $email
+	 * @return void
+	 */
+	protected function addPlainBody(MailMessage &$message, array $email) {
+		if ($email['format'] !== 'html') {
+			$message->addPart($this->makePlain($this->createEmailBody($email)), 'text/plain');
 		}
-
-		$this->signalSlotDispatcher->dispatch(
-			__CLASS__,
-			__FUNCTION__ . 'BeforeSend',
-			array($message, $email, $mail, $settings, $type)
-		);
-
-		$message->send();
-
-		// update mail (with parsed fields)
-		if ($type === 'receiver' && $email['variables']['hash'] === NULL) {
-			$mail->setSenderMail($email['senderEmail']);
-			$mail->setSenderName($email['senderName']);
-			$mail->setSubject($email['subject']);
-		}
-
-		return $message->isSent();
 	}
 
 	/**
 	 * Create Email Body
 	 *
 	 * @param array $email Array with all needed mail information
-	 * @param Mail &$mail
-	 * @param array $settings TypoScript Settings
-	 * @param string $type Mail type
 	 * @return bool
 	 */
-	protected function createEmailBody($email, Mail &$mail, $settings, $type) {
+	protected function createEmailBody($email) {
 		$standaloneView = TemplateUtility::getDefaultStandAloneView();
 		$standaloneView->getRequest()->setControllerName('Form');
 		$standaloneView->setTemplatePathAndFilename(
@@ -252,18 +351,18 @@ class SendMailService {
 		$standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
 
 		// variables
-		$variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($mail);
+		$variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($this->mail);
 		$standaloneView->assignMultiple($variablesWithMarkers);
-		$standaloneView->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
+		$standaloneView->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($this->mail));
 		$standaloneView->assignMultiple(
 			array(
 				'variablesWithMarkers' => ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers),
-				'powermail_all' => TemplateUtility::powermailAll($mail, 'mail', $settings, $type),
+				'powermail_all' => TemplateUtility::powermailAll($this->mail, 'mail', $this->settings, $this->type),
 				'powermail_rte' => $email['rteBody'],
 				'marketingInfos' => SessionUtility::getMarketingInfos(),
-				'mail' => $mail,
+				'mail' => $this->mail,
 				'email' => $email,
-				'settings' => $settings
+				'settings' => $this->settings
 			)
 		);
 		if (!empty($email['variables'])) {
@@ -273,11 +372,11 @@ class SendMailService {
 		$this->signalSlotDispatcher->dispatch(
 			__CLASS__,
 			__FUNCTION__ . 'BeforeRender',
-			array($standaloneView, $email, $mail, $settings)
+			array($standaloneView, $email, $this->mail, $this->settings)
 		);
 
 		$body = $standaloneView->render();
-		$mail->setBody($body);
+		$this->mail->setBody($body);
 		return $body;
 	}
 
@@ -289,7 +388,7 @@ class SendMailService {
 	 * @return string $content
 	 */
 	protected function makePlain($content) {
-		$rewriteTagsWithLineBreaks = array (
+		$tags2LineBreaks = array (
 			'</p>',
 			'</tr>',
 			'<ul>',
@@ -310,7 +409,7 @@ class SendMailService {
 		// 1. remove linebreaks, tabs
 		$content = trim(str_replace(array("\n", "\r", "\t"), '', $content));
 		// 2. add linebreaks on some parts (</p> => </p><br />)
-		$content = str_replace($rewriteTagsWithLineBreaks, '</p><br />', $content);
+		$content = str_replace($tags2LineBreaks, '</p><br />', $content);
 		// 3. insert space for table cells
 		$content = str_replace(array('</td>', '</th>'), '</td> ', $content);
 		// 4. remove all tags (<b>bla</b><br /> => bla<br />)
@@ -340,6 +439,20 @@ class SendMailService {
 	}
 
 	/**
+	 * Update mail record with parsed fields
+	 *
+	 * @param array $email
+	 */
+	protected function updateMail(array $email) {
+		if ($this->type === 'receiver' && $email['variables']['hash'] === NULL) {
+			$this->mail->setSenderMail($email['senderEmail']);
+			$this->mail->setSenderName($email['senderName']);
+			$this->mail->setSubject($email['subject']);
+		}
+	}
+
+	/**
+	 * @param array $settings
 	 * @return array
 	 */
 	protected function getConfigurationFromSettings(array $settings) {
@@ -367,5 +480,12 @@ class SendMailService {
 			$email[$value] =
 				TemplateUtility::fluidParseString($email[$value], $this->mailRepository->getVariablesWithMarkersFromMail($mail));
 		}
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getFrontendCharset() {
+		return $GLOBALS['TSFE']->metaCharset;
 	}
 }

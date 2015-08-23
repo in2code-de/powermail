@@ -216,7 +216,7 @@ class FormController extends AbstractController {
 			TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->conf['receiver.']['overwrite.'], 'name');
 			TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['receiver.']['overwrite.'], 'senderName');
 			TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['receiver.']['overwrite.'], 'senderEmail');
-			$sent = $this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'receiver');
+			$sent = $this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'receiver');
 
 			if (!$sent) {
 				$this->addFlashMessage(
@@ -250,7 +250,7 @@ class FormController extends AbstractController {
 		TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->conf['sender.']['overwrite.'], 'name');
 		TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['sender.']['overwrite.'], 'senderName');
 		TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['sender.']['overwrite.'], 'senderEmail');
-		$this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'sender');
+		$this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'sender');
 	}
 
 	/**
@@ -279,7 +279,7 @@ class FormController extends AbstractController {
 		TypoScriptUtility::overwriteValueFromTypoScript($email['receiverEmail'], $this->conf['optin.']['overwrite.'], 'email');
 		TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['optin.']['overwrite.'], 'senderName');
 		TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['optin.']['overwrite.'], 'senderEmail');
-		$this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'optin');
+		$this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'optin');
 	}
 
 	/**
