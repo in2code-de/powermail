@@ -102,12 +102,23 @@ class FrontendUtility {
 	}
 
 	/**
+	 * Is a frontend user logged in
+	 *
+	 * @return bool
+	 */
+	public static function isLoggedInFrontendUser() {
+		/** @var TypoScriptFrontendController $typoScriptFrontendController */
+		$typoScriptFrontendController = $GLOBALS['TSFE'];
+		return !empty($typoScriptFrontendController->fe_user->user['uid']);
+	}
+
+	/**
 	 * Get Property from currently logged in fe_user
 	 *
 	 * @param string $propertyName
 	 * @return string
 	 */
-	public static function getPropertyFromLoggedInFeUser($propertyName = 'uid') {
+	public static function getPropertyFromLoggedInFrontendUser($propertyName = 'uid') {
 		/** @var TypoScriptFrontendController $typoScriptFrontendController */
 		$typoScriptFrontendController = $GLOBALS['TSFE'];
 		if (!empty($typoScriptFrontendController->fe_user->user[$propertyName])) {

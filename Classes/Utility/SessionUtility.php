@@ -241,6 +241,15 @@ class SessionUtility {
 	}
 
 	/**
+	 * Get spam factor from session
+	 *
+	 * @return string
+	 */
+	public static function getSpamFactorFromSession() {
+		return $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor');
+	}
+
+	/**
 	 * Read a powermail session
 	 *
 	 * @param string $name session name
