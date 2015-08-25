@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Command;
 
+use In2code\Powermail\Domain\Service\ExportService;
 use In2code\Powermail\Utility\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
@@ -39,16 +40,12 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 class TaskCommandController extends CommandController {
 
 	/**
-	 * mailRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\MailRepository
 	 * @inject
 	 */
 	protected $mailRepository;
 
 	/**
-	 * answerRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\AnswerRepository
 	 * @inject
 	 */
@@ -78,6 +75,7 @@ class TaskCommandController extends CommandController {
 	 * @param string $format Fileformat can be 'xls' or 'csv'
 	 * @param string $storageFolder path where to save export file
 	 * @param string $fileName Define a fix filename without extension (empty = random filename)
+	 * @param string $emailTemplate path and filename of email template
 	 * @return bool
 	 */
 	public function exportCommand(
@@ -91,11 +89,12 @@ class TaskCommandController extends CommandController {
 		$fieldList = '',
 		$format = 'xls',
 		$storageFolder = 'typo3temp/tx_powermail/',
-		$fileName = NULL
+		$fileName = NULL,
+		$emailTemplate = 'EXT:powermail/Resources/Private/Templates/Module/ExportTaskMail.html'
 	) {
-		/** @var \In2code\Powermail\Domain\Service\ExportService $exportService */
+		/** @var ExportService $exportService */
 		$exportService = $this->objectManager->get(
-			'In2code\Powermail\Domain\Service\ExportService',
+			'In2code\\Powermail\\Domain\\Service\\ExportService',
 			$this->mailRepository->findAllInPid($pageUid, array(), $this->getFilterVariables($period)),
 			$format,
 			array('domain' => $domain)
@@ -107,7 +106,8 @@ class TaskCommandController extends CommandController {
 			->setFieldList($fieldList)
 			->setAddAttachment($attachment)
 			->setStorageFolder($storageFolder)
-			->setFileName($fileName);
+			->setFileName($fileName)
+			->setEmailTemplate($emailTemplate);
 		return $exportService->send();
 	}
 

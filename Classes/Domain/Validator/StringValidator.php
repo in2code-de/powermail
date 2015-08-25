@@ -16,7 +16,7 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Mandatory Check
 	 *
-	 * @param \mixed $value
+	 * @param mixed $value
 	 * @return bool
 	 */
 	protected function validateMandatory($value) {
@@ -26,7 +26,7 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test string if valid email
 	 *
-	 * @param \string $value
+	 * @param string $value
 	 * @return bool
 	 */
 	protected function validateEmail($value) {
@@ -36,7 +36,7 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test string if its an URL
 	 *
-	 * @param \string $value
+	 * @param string $value
 	 * @return bool
 	 */
 	protected function validateUrl($value) {
@@ -60,7 +60,7 @@ class StringValidator extends AbstractValidator {
 	 * 		+49 (0) 123 3456789
 	 * 		+49 (0)123 / 34567 - 89
 	 *
-	 * @param \string $value
+	 * @param string $value
 	 * @return bool
 	 */
 	protected function validatePhone($value) {
@@ -74,7 +74,7 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test string if there are only numbers
 	 *
-	 * @param \string $value
+	 * @param string $value
 	 * @return bool
 	 */
 	protected function validateNumbersOnly($value) {
@@ -87,7 +87,7 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test string if there are only letters
 	 *
-	 * @param \string $value
+	 * @param string $value
 	 * @return bool
 	 */
 	protected function validateLettersOnly($value) {
@@ -100,8 +100,8 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test if number is greater than configuration
 	 *
-	 * @param \string $value
-	 * @param \string $configuration e.g. "4"
+	 * @param string $value
+	 * @param string $configuration e.g. "4"
 	 * @return bool
 	 */
 	protected function validateMinNumber($value, $configuration) {
@@ -114,8 +114,8 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test if number is less than configuration
 	 *
-	 * @param \string $value
-	 * @param \string $configuration e.g. "4"
+	 * @param string $value
+	 * @param string $configuration e.g. "4"
 	 * @return bool
 	 */
 	protected function validateMaxNumber($value, $configuration) {
@@ -128,8 +128,8 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test if number is in range
 	 *
-	 * @param \string $value
-	 * @param \string $configuration e.g. "1,6" or "6"
+	 * @param string $value
+	 * @param string $configuration e.g. "1,6" or "6"
 	 * @return bool
 	 */
 	protected function validateRange($value, $configuration) {
@@ -150,8 +150,8 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test if stringlength is in range
 	 *
-	 * @param \string $value
-	 * @param \string $configuration e.g. "1,6" or "6"
+	 * @param string $value
+	 * @param string $configuration e.g. "1,6" or "6"
 	 * @return bool
 	 */
 	protected function validateLength($value, $configuration) {
@@ -172,8 +172,8 @@ class StringValidator extends AbstractValidator {
 	/**
 	 * Test if value is ok with RegEx
 	 *
-	 * @param \string $value
-	 * @param \string $configuration e.g. "https?://.+"
+	 * @param string $value
+	 * @param string $configuration e.g. "https?://.+"
 	 * @return bool
 	 */
 	protected function validatePattern($value, $configuration) {
@@ -184,9 +184,7 @@ class StringValidator extends AbstractValidator {
 	}
 
 	/**
-	 * Must be there because of the interface
-	 *
-	 * @param \string $value
+	 * @param string $value
 	 * @return void
 	 */
 	public function isValid($value) {

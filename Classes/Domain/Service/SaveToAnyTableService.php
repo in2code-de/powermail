@@ -263,7 +263,7 @@ class SaveToAnyTableService {
 	/**
 	 * @return boolean
 	 */
-	public function getDevLog() {
+	public function isDevLog() {
 		return $this->devLog;
 	}
 
@@ -283,7 +283,7 @@ class SaveToAnyTableService {
 	 * @return void
 	 */
 	protected function writeToDevLog() {
-		if (!$this->getDevLog()) {
+		if (!$this->isDevLog()) {
 			return;
 		}
 		$subject = 'SaveToAnyTable (Table: ' . $this->getTable();
@@ -298,7 +298,7 @@ class SaveToAnyTableService {
 	}
 
 	/**
-	 * @param $table
+	 * @param string $table
 	 */
 	public function __construct($table) {
 		$this->databaseConnection = $GLOBALS['TYPO3_DB'];

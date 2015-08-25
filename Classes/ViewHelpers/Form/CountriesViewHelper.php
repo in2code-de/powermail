@@ -29,7 +29,7 @@ class CountriesViewHelper extends AbstractViewHelper {
 		if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
 			/** @var CountriesFromStaticInfoTablesService $countriesFromStaticInfoTablesService */
 			$countriesFromStaticInfoTablesService = $this->objectManager->get(
-				'In2code\Powermail\Domain\Service\CountriesFromStaticInfoTablesService'
+				'In2code\\Powermail\\Domain\\Service\\CountriesFromStaticInfoTablesService'
 			);
 			$countries = $countriesFromStaticInfoTablesService->getCountries($key, $value, $sortbyField, $sorting);
 		}

@@ -29,7 +29,7 @@ class SessionViewHelper extends AbstractViewHelper {
 		// settings
 		$userObj = EidUtility::initFeUser();
 		$GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-			'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+			'TYPO3\\CMS\\Frontend\Controller\\TypoScriptFrontendController',
 			$GLOBALS['TYPO3_CONF_VARS'],
 			GeneralUtility::_GET('id'),
 			0,

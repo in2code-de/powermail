@@ -62,6 +62,6 @@ class UploadValidator extends AbstractValidator {
 			}
 		}
 
-		return $this->getIsValid();
+		return $this->isValidState();
 	}
 }

@@ -5,6 +5,7 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
  *  Copyright notice
@@ -45,11 +46,6 @@ class CalculatingCaptchaService {
 	 * @var array
 	 */
 	protected $configuration;
-
-	/**
-	 * @var \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
-	 */
-	protected $typoScriptFrontendController;
 
 	/**
 	 * Operators
@@ -115,8 +111,7 @@ class CalculatingCaptchaService {
 	 */
 	public function __construct($test = FALSE) {
 		$this->test = $test;
-		$this->configuration = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_powermail.']['settings.']['setup.'];
-		$this->typoScriptFrontendController = $GLOBALS['TSFE'];
+		$this->setConfiguration();
 		$this
 			->setBackgroundImage($this->configuration['captcha.']['default.']['image'])
 			->setFontPathAndFilename($this->configuration['captcha.']['default.']['font']);
@@ -143,6 +138,7 @@ class CalculatingCaptchaService {
 	 * Check if given code is correct
 	 *
 	 * @param string $code String to compare
+	 * @param Field $field String to compare
 	 * @param bool $clearSession
 	 * @return boolean
 	 */
@@ -291,7 +287,7 @@ class CalculatingCaptchaService {
 	protected function getFilename($string, $absolute = FALSE) {
 		$string = str_replace('EXT:', 'typo3conf/ext/', $string);
 		/** @var \TYPO3\CMS\Core\TypoScript\TemplateService $templateService */
-		$templateService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TemplateService');
+		$templateService = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TypoScript\\TemplateService');
 		$fileName = $templateService->getFileName($string);
 		if ($absolute) {
 			$fileName = GeneralUtility::getFileAbsFileName($fileName);
@@ -300,11 +296,12 @@ class CalculatingCaptchaService {
 	}
 
 	/**
-	 * @param array $configuration
 	 * @return CalculatingCaptchaService
 	 */
-	public function setConfiguration($configuration) {
-		$this->configuration = $configuration;
+	public function setConfiguration() {
+		/** @var TypoScriptFrontendController $typoScriptFrontendController */
+		$typoScriptFrontendController = $GLOBALS['TSFE'];
+		$this->configuration = $typoScriptFrontendController->tmpl->setup['plugin.']['tx_powermail.']['settings.']['setup.'];
 		return $this;
 	}
 

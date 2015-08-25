@@ -29,8 +29,6 @@ class VariablesViewHelper extends AbstractViewHelper {
 	protected $objectManager;
 
 	/**
-	 * mailRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\MailRepository
 	 * @inject
 	 */
@@ -65,7 +63,7 @@ class VariablesViewHelper extends AbstractViewHelper {
 		}
 
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $parseObject */
-		$parseObject = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
+		$parseObject = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 		$parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
 		$parseObject->assignMultiple(ArrayUtility::htmlspecialcharsOnArray(
 			$this->mailRepository->getVariablesWithMarkersFromMail($mail))

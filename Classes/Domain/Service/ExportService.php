@@ -4,7 +4,11 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\StringUtility;
+use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidActionNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -132,6 +136,11 @@ class ExportService {
 	protected $storageFolder = 'typo3temp/tx_powermail/';
 
 	/**
+	 * @var string
+	 */
+	protected $emailTemplate = 'Module/ExportTaskMail.html';
+
+	/**
 	 * Constructor
 	 *
 	 * @param QueryResult $mails Given mails for export
@@ -167,8 +176,8 @@ class ExportService {
 	 * @return bool
 	 */
 	protected function sendEmail() {
-		/** @var \TYPO3\CMS\Core\Mail\MailMessage $email */
-		$email = $this->objectManager->get('TYPO3\CMS\Core\Mail\MailMessage');
+		/** @var MailMessage $email */
+		$email = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 		$email->setTo($this->getReceiverEmails());
 		$email->setFrom($this->getSenderEmails());
 		$email->setSubject($this->getSubject());
@@ -187,17 +196,12 @@ class ExportService {
 	 * @return string
 	 */
 	protected function createMailBody() {
-		$rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
-		/** @var StandaloneView $standAloneView */
-		$standAloneView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
-		$standAloneView->getRequest()->setControllerExtensionName('Powermail');
-		$standAloneView->getRequest()->setPluginName('Pi1');
-		$standAloneView->setFormat('html');
-		$standAloneView->setTemplatePathAndFilename($rootPath . 'Templates/Module/ExportTaskMail.html');
-		$standAloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
-		$standAloneView->setPartialRootPaths(array($rootPath . 'Partials'));
-		$standAloneView->assign('export', $this);
-		return $standAloneView->render();
+		$standaloneView = TemplateUtility::getDefaultStandAloneView();
+		$standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->getEmailTemplate()));
+		$standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
+		$standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
+		$standaloneView->assign('export', $this);
+		return $standaloneView->render();
 	}
 
 	/**
@@ -216,26 +220,22 @@ class ExportService {
 	 * Create export file content
 	 *
 	 * @return string
-	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidActionNameException
-	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException
+	 * @throws InvalidActionNameException
+	 * @throws InvalidControllerNameException
 	 */
 	protected function getFileContent() {
-		/** @var StandaloneView $standAloneView */
-		$standAloneView = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
-		$standAloneView->getRequest()->setControllerExtensionName('Powermail');
-		$standAloneView->getRequest()->setPluginName('Pi1');
-		$standAloneView->setFormat('html');
 		$rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
-		$standAloneView->setTemplatePathAndFilename($rootPath . $this->getRelativeTemplatePathAndFileName());
-		$standAloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
-		$standAloneView->setPartialRootPaths(array($rootPath . 'Partials'));
-		$standAloneView->assignMultiple(
+		$standaloneView = TemplateUtility::getDefaultStandAloneView();
+		$standaloneView->setTemplatePathAndFilename($rootPath . $this->getRelativeTemplatePathAndFileName());
+		$standaloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
+		$standaloneView->setPartialRootPaths(array($rootPath . 'Partials'));
+		$standaloneView->assignMultiple(
 			array(
 				'mails' => $this->getMails(),
 				'fieldUids' => $this->getFieldList()
 			)
 		);
-		return $standAloneView->render();
+		return $standaloneView->render();
 	}
 
 	/**
@@ -412,8 +412,8 @@ class ExportService {
 	protected function createRandomFileName() {
 		/**
 		 * Note:
-		 * \TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir
-		 * allows only filenames which are max 59 characters long
+		 * 		GeneralUtility::writeFileToTypo3tempDir()
+		 * 		allows only filenames which are max 59 characters long
 		 */
 		$fileName = StringUtility::getRandomString(55);
 		$fileName .= '.';
@@ -518,6 +518,24 @@ class ExportService {
 	 */
 	public function setStorageFolder($storageFolder) {
 		$this->storageFolder = $storageFolder;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getEmailTemplate() {
+		return $this->emailTemplate;
+	}
+
+	/**
+	 * @param string $emailTemplate
+	 * @return ExportService
+	 */
+	public function setEmailTemplate($emailTemplate) {
+		if (!empty($emailTemplate)) {
+			$this->emailTemplate = $emailTemplate;
+		}
 		return $this;
 	}
 }

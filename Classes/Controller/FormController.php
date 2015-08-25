@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Service\SendParametersService;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -111,7 +112,7 @@ class FormController extends AbstractController {
 		SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
 
 		if ($this->settings['debug']['variables']) {
-			GeneralUtility::devLog('Variables', $this->extensionName, 0, $_REQUEST);
+			GeneralUtility::devLog('Variables', $this->extensionName, 0, GeneralUtility::_POST());
 		}
 		if ($this->isMailPersistActive($hash)) {
 			$this->saveMail($mail);
@@ -120,8 +121,9 @@ class FormController extends AbstractController {
 		if ($this->isSendMailActive($mail, $hash)) {
 			$this->sendMailPreflight($mail, $hash);
 			SaveToAnyTableUtility::preflight($mail, $this->conf);
-			$sendParametersService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SendParametersService');
-			$sendParametersService->sendFromConfiguration($mail, $this->conf);
+			/** @var SendParametersService $sendParametersService */
+			$sendParameters = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SendParametersService');
+			$sendParameters->sendFromConfiguration($mail, $this->conf);
 		} else {
 			$this->sendConfirmationMail($mail);
 			$this->view->assign('optinActive', TRUE);
@@ -216,7 +218,7 @@ class FormController extends AbstractController {
 			TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->conf['receiver.']['overwrite.'], 'name');
 			TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['receiver.']['overwrite.'], 'senderName');
 			TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['receiver.']['overwrite.'], 'senderEmail');
-			$sent = $this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'receiver');
+			$sent = $this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'receiver');
 
 			if (!$sent) {
 				$this->addFlashMessage(
@@ -250,7 +252,7 @@ class FormController extends AbstractController {
 		TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->conf['sender.']['overwrite.'], 'name');
 		TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['sender.']['overwrite.'], 'senderName');
 		TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['sender.']['overwrite.'], 'senderEmail');
-		$this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'sender');
+		$this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'sender');
 	}
 
 	/**
@@ -279,7 +281,7 @@ class FormController extends AbstractController {
 		TypoScriptUtility::overwriteValueFromTypoScript($email['receiverEmail'], $this->conf['optin.']['overwrite.'], 'email');
 		TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->conf['optin.']['overwrite.'], 'senderName');
 		TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->conf['optin.']['overwrite.'], 'senderEmail');
-		$this->sendMailService->sendTemplateEmail($email, $mail, $this->settings, 'optin');
+		$this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'optin');
 	}
 
 	/**
@@ -338,7 +340,7 @@ class FormController extends AbstractController {
 			->setSubject($this->settings['receiver']['subject'])
 			->setReceiverMail($this->settings['receiver']['email'])
 			->setBody(DebugUtility::viewArray($this->mailRepository->getVariablesWithMarkersFromMail($mail)))
-			->setSpamFactor($GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor'))
+			->setSpamFactor(SessionUtility::getSpamFactorFromSession())
 			->setTime((time() - SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)))
 			->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))
 			->setMarketingRefererDomain($marketingInfos['refererDomain'])
@@ -348,9 +350,9 @@ class FormController extends AbstractController {
 			->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
 			->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
 			->setMarketingPageFunnel($marketingInfos['pageFunnel']);
-		if ((int) $GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
+		if (FrontendUtility::isLoggedInFrontendUser()) {
 			$mail->setFeuser(
-				$this->userRepository->findByUid(FrontendUtility::getPropertyFromLoggedInFeUser('uid'))
+				$this->userRepository->findByUid(FrontendUtility::getPropertyFromLoggedInFrontendUser('uid'))
 			);
 		}
 		if (!ConfigurationUtility::isDisableIpLogActive()) {
@@ -451,8 +453,8 @@ class FormController extends AbstractController {
 	 */
 	protected function forwardIfFormParamsDoNotMatch() {
 		$arguments = $this->request->getArguments();
-		$assignedFormsToContentElement = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-		if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $assignedFormsToContentElement)) {
+		$formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
+		if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $formsToContent)) {
 			$this->forward('form');
 		}
 	}

@@ -192,7 +192,7 @@ ext_localconf.php
     <?php
     // enable SignalSlot
     /** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
-    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
+    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\Dispatcher');
     $signalSlotDispatcher->connect(
         'In2code\Powermail\Utility\SendMail',
         'sendTemplateEmailBeforeSend',

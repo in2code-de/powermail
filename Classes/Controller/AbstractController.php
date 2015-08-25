@@ -42,72 +42,54 @@ use In2code\Powermail\Domain\Model\Mail;
 abstract class AbstractController extends ActionController {
 
 	/**
-	 * formRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\FormRepository
 	 * @inject
 	 */
 	protected $formRepository;
 
 	/**
-	 * pageRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\PageRepository
 	 * @inject
 	 */
 	protected $pageRepository;
 
 	/**
-	 * fieldRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\FieldRepository
 	 * @inject
 	 */
 	protected $fieldRepository;
 
 	/**
-	 * mailRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\MailRepository
 	 * @inject
 	 */
 	protected $mailRepository;
 
 	/**
-	 * answerRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\AnswerRepository
 	 * @inject
 	 */
 	protected $answerRepository;
 
 	/**
-	 * userRepository
-	 *
 	 * @var \In2code\Powermail\Domain\Repository\UserRepository
 	 * @inject
 	 */
 	protected $userRepository;
 
 	/**
-	 * SignalSlot Dispatcher
-	 *
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
 	 * @inject
 	 */
 	protected $signalSlotDispatcher;
 
 	/**
-	 * PersistenceManager
-	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
 	 * @inject
 	 */
 	protected $persistenceManager;
 
 	/**
-	 * Content Object
-	 *
 	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	protected $cObj;
@@ -157,15 +139,15 @@ abstract class AbstractController extends ActionController {
 	 */
 	public function validateAjaxAction(Mail $mail) {
 		$pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
-
-			// get value
 		$value = array_shift($pluginVariables['field']);
-
-		$inputValidator = $this->objectManager->get('In2code\Powermail\Domain\Validator\InputValidator');
+		$inputValidator = $this->objectManager->get('In2code\\Powermail\\Domain\\Validator\\InputValidator');
 		$isValid = $inputValidator->isValid($mail, $value);
-
-		$this->view->assign('isValid', $isValid);
-		$this->view->assign('errors', $inputValidator->getErrors());
+		$this->view->assignMultiple(
+			array(
+				'isValid' => $isValid,
+				'errors', $inputValidator->getErrors()
+			)
+		);
 		if (!$isValid) {
 			header('HTTP/1.0 404 Not Found');
 		}
