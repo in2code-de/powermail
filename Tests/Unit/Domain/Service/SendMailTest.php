@@ -1,7 +1,11 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Service;
 
+use TYPO3\CMS\Core\Configuration\ConfigurationManager;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
  *  Copyright notice
@@ -56,6 +60,256 @@ class SendMailServiceTest extends UnitTestCase {
 	 */
 	public function tearDown() {
 		unset($this->generalValidatorMock);
+	}
+
+	/**
+	 * Data Provider for addCcReturnMailMessage()
+	 *
+	 * @return array
+	 */
+	public function addCcReturnMailMessageDataProvider() {
+		return array(
+			'1 cc' => array(
+				array(
+					'cc' => 'TEXT',
+					'cc.' => array(
+						'value' => 'rec@domain.org'
+					),
+				),
+				array(
+					'rec@domain.org' => ''
+				)
+			),
+			'3 cc' => array(
+				array(
+					'cc' => 'TEXT',
+					'cc.' => array(
+						'value' => 'rec1@domain.org,rec2@domain.org,rec3@domain.org,'
+					),
+				),
+				array(
+					'rec1@domain.org' => '',
+					'rec2@domain.org' => '',
+					'rec3@domain.org' => ''
+				)
+			),
+			'0 cc' => array(
+				array(
+					'cc' => 'TEXT'
+				),
+				NULL
+			),
+		);
+	}
+
+	/**
+	 * addCc Test
+	 *
+	 * @param array $overwriteConfiguration
+	 * @param array|null $expectedResult
+	 * @dataProvider addCcReturnMailMessageDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function addCcReturnMailMessage(array $overwriteConfiguration, $expectedResult) {
+		$this->initializeTsfe();
+		$message = new MailMessage();
+		$this->generalValidatorMock->_set('overwriteConfiguration', $overwriteConfiguration);
+		$this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
+		$message = $this->generalValidatorMock->_call('addCc', $message);
+		$this->assertEquals($expectedResult, $message->getCc());
+	}
+
+	/**
+	 * Data Provider for addBccReturnMailMessage()
+	 *
+	 * @return array
+	 */
+	public function addBccReturnMailMessageDataProvider() {
+		return array(
+			'1 bcc' => array(
+				array(
+					'bcc' => 'TEXT',
+					'bcc.' => array(
+						'value' => 'rec@domain.org'
+					),
+				),
+				array(
+					'rec@domain.org' => ''
+				)
+			),
+			'3 bcc' => array(
+				array(
+					'bcc' => 'TEXT',
+					'bcc.' => array(
+						'value' => 'rec1@domain.org,rec2@domain.org,rec3@domain.org,'
+					),
+				),
+				array(
+					'rec1@domain.org' => '',
+					'rec2@domain.org' => '',
+					'rec3@domain.org' => ''
+				)
+			),
+			'0 bcc' => array(
+				array(
+					'bcc' => 'TEXT'
+				),
+				NULL
+			),
+		);
+	}
+
+	/**
+	 * addBcc Test
+	 *
+	 * @param array $overwriteConfiguration
+	 * @param array|null $expectedResult
+	 * @dataProvider addBccReturnMailMessageDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function addBccReturnMailMessage(array $overwriteConfiguration, $expectedResult) {
+		$this->initializeTsfe();
+		$message = new MailMessage();
+		$this->generalValidatorMock->_set('overwriteConfiguration', $overwriteConfiguration);
+		$this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
+		$message = $this->generalValidatorMock->_call('addBcc', $message);
+		$this->assertEquals($expectedResult, $message->getBcc());
+	}
+
+	/**
+	 * Data Provider for addReturnPathReturnMailMessage()
+	 *
+	 * @return array
+	 */
+	public function addReturnPathReturnMailMessageDataProvider() {
+		return array(
+			'returnpath set' => array(
+				array(
+					'returnPath' => 'TEXT',
+					'returnPath.' => array(
+						'value' => 'rec@domain.org'
+					),
+				),
+				'rec@domain.org'
+			),
+			'returnpath empty' => array(
+				array(
+					'returnPath' => 'TEXT'
+				),
+				NULL
+			),
+		);
+	}
+
+	/**
+	 * addReturnPath Test
+	 *
+	 * @param array $overwriteConfiguration
+	 * @param string|null $expectedResult
+	 * @dataProvider addReturnPathReturnMailMessageDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function addReturnPathReturnMailMessage(array $overwriteConfiguration, $expectedResult) {
+		$this->initializeTsfe();
+		$message = new MailMessage();
+		$this->generalValidatorMock->_set('overwriteConfiguration', $overwriteConfiguration);
+		$this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
+		$message = $this->generalValidatorMock->_call('addReturnPath', $message);
+		$this->assertEquals($expectedResult, $message->getReturnPath());
+	}
+
+	/**
+	 * Data Provider for addReplyAddressesReturnMailMessage()
+	 *
+	 * @return array
+	 */
+	public function addReplyAddressesReturnMailMessageDataProvider() {
+		return array(
+			'reply set' => array(
+				array(
+					'replyToEmail' => 'TEXT',
+					'replyToEmail.' => array(
+						'value' => 'rec@domain.org'
+					),
+					'replyToName' => 'TEXT',
+					'replyToName.' => array(
+						'value' => 'receiver'
+					),
+				),
+				array(
+					'rec@domain.org' => 'receiver'
+				)
+			),
+			'reply empty' => array(
+				array(
+					'replyToEmail' => 'TEXT',
+					'replyToName' => 'TEXT'
+				),
+				NULL
+			),
+		);
+	}
+
+	/**
+	 * addReplyAddresses Test
+	 *
+	 * @param array $overwriteConfiguration
+	 * @param array|null $expectedResult
+	 * @dataProvider addReplyAddressesReturnMailMessageDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function addReplyAddressesReturnMailMessage(array $overwriteConfiguration, $expectedResult) {
+		$this->initializeTsfe();
+		$message = new MailMessage();
+		$this->generalValidatorMock->_set('overwriteConfiguration', $overwriteConfiguration);
+		$this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
+		$message = $this->generalValidatorMock->_call('addReplyAddresses', $message);
+		$this->assertEquals($expectedResult, $message->getReplyTo());
+	}
+
+	/**
+	 * Data Provider for addPriorityReturnMailMessage()
+	 *
+	 * @return array
+	 */
+	public function addPriorityReturnMailMessageDataProvider() {
+		return array(
+			'priority set' => array(
+				array(
+					'priority' => '2'
+				),
+				2
+			),
+			'reply empty' => array(
+				array(
+					'priority' => NULL
+				),
+				3
+			),
+		);
+	}
+
+	/**
+	 * addPriority Test
+	 *
+	 * @param array $overwriteConfiguration
+	 * @param array|null $expectedResult
+	 * @dataProvider addPriorityReturnMailMessageDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function addPriorityReturnMailMessage(array $overwriteConfiguration, $expectedResult) {
+		$this->initializeTsfe();
+		$message = new MailMessage();
+		$this->generalValidatorMock->_set('type', 'receiver');
+		$this->generalValidatorMock->_set('settings', array('receiver' => array('overwrite' => $overwriteConfiguration)));
+		$this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
+		$message = $this->generalValidatorMock->_call('addPriority', $message);
+		$this->assertEquals($expectedResult, $message->getPriority());
 	}
 
 	/**
@@ -136,5 +390,17 @@ class SendMailServiceTest extends UnitTestCase {
 	public function makePlainReturnString($content, $expectedResult) {
 		$result = $this->generalValidatorMock->_call('makePlain', $content);
 		$this->assertSame($expectedResult, $result);
+	}
+
+	/**
+	 * Initialize TSFE object
+	 *
+	 * @return void
+	 */
+	protected function initializeTsfe() {
+		$configurationManager = new ConfigurationManager();
+		$GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
+		$GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
+		$GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, TRUE);
 	}
 }

@@ -160,15 +160,15 @@ class SendMailService {
 			->setFrom(array($email['senderEmail'] => $email['senderName']))
 			->setSubject($email['subject'])
 			->setCharset($this->getFrontendCharset());
-		$this->addCc($message);
-		$this->addBcc($message);
-		$this->addReturnPath($message);
-		$this->addReplyAddresses($message);
-		$this->addPriority($message);
-		$this->addAttachmentsFromUploads($message);
-		$this->addAttachmentsFromTypoScript($message);
-		$this->addHtmlBody($message, $email);
-		$this->addPlainBody($message, $email);
+		$message = $this->addCc($message);
+		$message = $this->addBcc($message);
+		$message = $this->addReturnPath($message);
+		$message = $this->addReplyAddresses($message);
+		$message = $this->addPriority($message);
+		$message = $this->addAttachmentsFromUploads($message);
+		$message = $this->addAttachmentsFromTypoScript($message);
+		$message = $this->addHtmlBody($message, $email);
+		$message = $this->addPlainBody($message, $email);
 
 		$this->signalSlotDispatcher->dispatch(
 			__CLASS__,
@@ -185,35 +185,37 @@ class SendMailService {
 	 * Add CC receivers
 	 *
 	 * @param MailMessage $message
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addCc(MailMessage &$message) {
+	protected function addCc(MailMessage $message) {
 		$ccValue = $this->contentObject->cObjGetSingle($this->overwriteConfiguration['cc'], $this->overwriteConfiguration['cc.']);
 		if (!empty($ccValue)) {
 			$message->setCc(GeneralUtility::trimExplode(',', $ccValue, TRUE));
 		}
+		return $message;
 	}
 
 	/**
 	 * Add BCC receivers
 	 *
 	 * @param MailMessage $message
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addBcc(MailMessage &$message) {
+	protected function addBcc(MailMessage $message) {
 		$bccValue = $this->contentObject->cObjGetSingle($this->overwriteConfiguration['bcc'], $this->overwriteConfiguration['bcc.']);
 		if (!empty($bccValue)) {
 			$message->setBcc(GeneralUtility::trimExplode(',', $bccValue, TRUE));
 		}
+		return $message;
 	}
 
 	/**
 	 * Add return path
 	 *
 	 * @param MailMessage $message
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addReturnPath(MailMessage &$message) {
+	protected function addReturnPath(MailMessage $message) {
 		$returnPathValue = $this->contentObject->cObjGetSingle(
 			$this->overwriteConfiguration['returnPath'],
 			$this->overwriteConfiguration['returnPath.']
@@ -221,15 +223,16 @@ class SendMailService {
 		if (!empty($returnPathValue)) {
 			$message->setReturnPath($returnPathValue);
 		}
+		return $message;
 	}
 
 	/**
 	 * Add reply addresses if replyToEmail and replyToName isset
 	 *
 	 * @param MailMessage $message
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addReplyAddresses(MailMessage &$message) {
+	protected function addReplyAddresses(MailMessage $message) {
 		$replyToEmail = $this->contentObject->cObjGetSingle(
 			$this->overwriteConfiguration['replyToEmail'],
 			$this->overwriteConfiguration['replyToEmail.']
@@ -245,30 +248,32 @@ class SendMailService {
 				)
 			);
 		}
+		return $message;
 	}
 
 	/**
 	 * Add mail priority
 	 *
 	 * @param MailMessage $message
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addPriority(MailMessage &$message) {
+	protected function addPriority(MailMessage $message) {
 		$priorityValue = (int) $this->settings[$this->type]['overwrite']['priority'];
 		if ($priorityValue > 0) {
 			$message->setPriority($priorityValue);
 		}
+		return $message;
 	}
 
 	/**
 	 * Add attachments from upload fields
 	 *
 	 * @param MailMessage $message
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addAttachmentsFromUploads(MailMessage &$message) {
+	protected function addAttachmentsFromUploads(MailMessage $message) {
 		if (empty($this->settings[$this->type]['attachment'])) {
-			return;
+			return $message;
 		}
 		/** @var Answer $answer */
 		foreach ($this->mail->getAnswers() as $answer) {
@@ -284,15 +289,16 @@ class SendMailService {
 				}
 			}
 		}
+		return $message;
 	}
 
 	/**
 	 * Add attachments from TypoScript definition
 	 *
 	 * @param MailMessage $message
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addAttachmentsFromTypoScript(MailMessage &$message) {
+	protected function addAttachmentsFromTypoScript(MailMessage $message) {
 		$filesValue = $this->contentObject->cObjGetSingle(
 			$this->configuration[$this->type . '.']['addAttachment'],
 			$this->configuration[$this->type . '.']['addAttachment.']
@@ -307,6 +313,7 @@ class SendMailService {
 				}
 			}
 		}
+		return $message;
 	}
 
 	/**
@@ -314,12 +321,13 @@ class SendMailService {
 	 *
 	 * @param MailMessage $message
 	 * @param array $email
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addHtmlBody(MailMessage &$message, array $email) {
+	protected function addHtmlBody(MailMessage $message, array $email) {
 		if ($email['format'] !== 'plain') {
 			$message->setBody($this->createEmailBody($email), 'text/html');
 		}
+		return $message;
 	}
 
 	/**
@@ -327,12 +335,13 @@ class SendMailService {
 	 *
 	 * @param MailMessage $message
 	 * @param array $email
-	 * @return void
+	 * @return MailMessage
 	 */
-	protected function addPlainBody(MailMessage &$message, array $email) {
+	protected function addPlainBody(MailMessage $message, array $email) {
 		if ($email['format'] !== 'html') {
 			$message->addPart($this->makePlain($this->createEmailBody($email)), 'text/plain');
 		}
+		return $message;
 	}
 
 	/**
