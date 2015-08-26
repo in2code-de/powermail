@@ -74,6 +74,25 @@ class DateConverter {
 	protected $date = NULL;
 
 	/**
+	 * UserFunc method to convert a datestring from one format into another
+	 *
+	 * Example:
+	 * # Convert 2015-12-31 into 1451516400
+	 * lib.test = USER
+	 * lib.test {
+	 * 		userFunc = \In2code\Powermail\Utility\UserFunc\DateConverter->convert
+	 * 		includeLibs = EXT:powermail/Classes/Utility/UserFunc/DateConverter.php
+	 *
+	 * 		input = TEXT
+	 * 		input.value = 2015-12-31
+	 *
+	 * 		inputFormat = TEXT
+	 * 		inputFormat.value = Y-m-d
+	 *
+	 * 		outputFormat = TEXT
+	 * 		outputFormat.value = U
+	 * }
+	 *
 	 * @param string $content normally empty in userFuncs
 	 * @param array $configuration TypoScript configuration from userFunc
 	 * @return string

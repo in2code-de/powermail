@@ -92,3 +92,4 @@ Example Use-Case:
 			outputFormat = TEXT
 			outputFormat.value = U
 		}
+	}
