@@ -135,7 +135,7 @@ class FormController extends AbstractController {
 
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($mail, $hash, $this));
 		$this->assignForAll();
-		$this->showThx($mail);
+		$this->prepareOutput($mail);
 	}
 
 	/**
@@ -165,7 +165,7 @@ class FormController extends AbstractController {
 	public function confirmationAction(Mail $mail) {
 		BasicFileUtility::fileUpload($this->settings['misc']['file']['folder'], $this->settings['misc']['file']['extension'], $mail);
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $this));
-		$this->showThx($mail);
+		$this->prepareOutput($mail);
 	}
 
 	/**
@@ -285,12 +285,12 @@ class FormController extends AbstractController {
 	}
 
 	/**
-	 * Show THX message after submit
+	 * Prepare output
 	 *
 	 * @param Mail $mail
 	 * @return void
 	 */
-	protected function showThx(Mail $mail) {
+	protected function prepareOutput(Mail $mail) {
 		$this->redirectToTarget();
 
 		// assign
