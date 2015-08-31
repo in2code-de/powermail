@@ -65,6 +65,13 @@ class SaveToAnyTableService {
 	protected $uniqueField = 'uid';
 
 	/**
+	 * Additional where clause
+	 *
+	 * @var string
+	 */
+	protected $additionalWhereClause;
+
+	/**
 	 * Switch on devLog
 	 *
 	 * @var bool
@@ -100,7 +107,7 @@ class SaveToAnyTableService {
 	/**
 	 * Insert new record
 	 *
-	 * @return \int uid of inserted record
+	 * @return int uid of inserted record
 	 */
 	protected function insert() {
 		$this->databaseConnection->exec_INSERTquery($this->getTable(), $this->getProperties());
@@ -110,7 +117,7 @@ class SaveToAnyTableService {
 	/**
 	 * Update existing record
 	 *
-	 * @return \int uid of updated record
+	 * @return int uid of updated record
 	 */
 	protected function update() {
 		// find existing record in database
@@ -123,7 +130,7 @@ class SaveToAnyTableService {
 		$res = $this->databaseConnection->exec_SELECTquery(
 			'uid',
 			$this->getTable(),
-			$this->getUniqueField() . ' = ' . $searchterm . ' and deleted = 0',
+			$this->getUniqueField() . ' = ' . $searchterm . ' and deleted = 0 ' . $this->additionalWhereClause,
 			'',
 			'',
 			1
@@ -141,7 +148,7 @@ class SaveToAnyTableService {
 		if ($this->getMode() !== 'none') {
 			$this->databaseConnection->exec_UPDATEquery(
 				$this->getTable(),
-				'uid = ' . intval($row['uid']),
+				'uid = ' . (int) $row['uid'],
 				$this->getProperties()
 			);
 		}
@@ -182,7 +189,7 @@ class SaveToAnyTableService {
 	 * Get one property value
 	 *
 	 * @param $propertyName
-	 * @return \string
+	 * @return string
 	 */
 	public function getProperty($propertyName) {
 		$property = '';
@@ -268,6 +275,20 @@ class SaveToAnyTableService {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getAdditionalWhereClause() {
+		return $this->additionalWhereClause;
+	}
+
+	/**
+	 * @param string $additionalWhereClause
+	 */
+	public function setAdditionalWhereClause($additionalWhereClause) {
+		$this->additionalWhereClause = $additionalWhereClause;
+	}
+
+	/**
 	 * Remove not allowed signs
 	 *
 	 * @param $string
@@ -289,12 +310,7 @@ class SaveToAnyTableService {
 		$subject = 'SaveToAnyTable (Table: ' . $this->getTable();
 		$subject .= ', Mode: ' . $this->getMode();
 		$subject .=  ', UniqueField: ' . $this->getUniqueField() . ')';
-		GeneralUtility::devLog(
-			$subject,
-			'powermail',
-			0,
-			$this->getProperties()
-		);
+		GeneralUtility::devLog($subject, 'powermail', 0, $this->getProperties());
 	}
 
 	/**

@@ -588,6 +588,9 @@ plugin.tx_powermail {
 					# none: no entry if field is filled (do nothing if record already exists)
 #				tt_address._ifUnique.email = update
 
+				# optional: add additional where clause (only in mode "update") for search if a record still exists
+#				tt_address._ifUniqueWhereClause = AND pid = 123
+
 				# Fill new record of table "tt_address" with field "email" with a static value => mail@mail.com
 #				tt_address.email = TEXT
 #				tt_address.email.value = mail@mail.com

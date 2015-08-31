@@ -74,6 +74,9 @@ class SaveToAnyTableUtility {
 				$uniqueFields = array_keys($dbEntryConfiguration['_ifUnique.']);
 				$saveToAnyTableService->setMode($dbEntryConfiguration['_ifUnique.'][$uniqueFields[0]]);
 				$saveToAnyTableService->setUniqueField($uniqueFields[0]);
+				if (!empty($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause'])) {
+					$saveToAnyTableService->setAdditionalWhereClause($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause']);
+				}
 			}
 
 			// one loop per field
