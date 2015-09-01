@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\BackendUtility;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -732,7 +733,7 @@ class Field extends AbstractEntity {
 		);
 
 		// extend dataType with TSConfig
-		$typoScriptConfiguration = BackendUtility::getPagesTSconfig($GLOBALS['TSFE']->id);
+		$typoScriptConfiguration = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
 		$extensionConfiguration = $typoScriptConfiguration['tx_powermail.']['flexForm.'];
 		if (!empty($extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
 			$types[$fieldType] = (int) $extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];

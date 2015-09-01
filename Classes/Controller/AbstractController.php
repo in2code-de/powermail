@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -282,8 +283,8 @@ abstract class AbstractController extends ActionController {
 	protected function assignForAll() {
 		$this->view->assignMultiple(
 			array(
-				'languageUid' => (int) $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'],
-				'Pid' => (int) $GLOBALS['TSFE']->id,
+				'languageUid' => FrontendUtility::getSysLanguageUid(),
+				'Pid' => FrontendUtility::getCurrentPageIdentifier(),
 				'redirectUri' => $this->getRedirectTargetUri()
 			)
 		);
