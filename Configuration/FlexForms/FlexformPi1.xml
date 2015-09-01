@@ -20,7 +20,6 @@
 								</items>
 								<maxitems>100</maxitems>
 								<size>1</size>
-								<!--<autoSizeMax>10</autoSizeMax>-->
 								<minitems>1</minitems>
 								<maxitems>1</maxitems>
 								<foreign_table>tx_powermail_domain_model_forms</foreign_table>
@@ -39,7 +38,7 @@
 										<icon>add.gif</icon>
 										<params>
 											<table>tx_powermail_domain_model_forms</table>
-											<pid>###CURRENT_PID###</pid>,
+											<pid>###CURRENT_PID###</pid>
 											<setValue>set</setValue>
 										</params>
 										<module>

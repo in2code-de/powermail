@@ -47,9 +47,27 @@ class FrontendUtility {
 	 */
 	public static function getStoragePage($pid = 0) {
 		if (!$pid) {
-			$pid = $GLOBALS['TSFE']->id;
+			$pid = self::getCurrentPageIdentifier();
 		}
 		return (int) $pid;
+	}
+
+	/**
+	 * Get current page identifier
+	 *
+	 * @return int
+	 */
+	public static function getCurrentPageIdentifier() {
+		return (int) $GLOBALS['TSFE']->id;
+	}
+
+	/**
+	 * Get configured frontend language
+	 *
+	 * @return int
+	 */
+	public static function getSysLanguageUid() {
+		return (int) $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'];
 	}
 
 	/**

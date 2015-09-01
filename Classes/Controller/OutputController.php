@@ -248,13 +248,13 @@ class OutputController extends AbstractController {
 	 */
 	protected function assignMultipleActions() {
 		if (empty($this->settings['single']['pid'])) {
-			$this->settings['single']['pid'] = $GLOBALS['TSFE']->id;
+			$this->settings['single']['pid'] = FrontendUtility::getCurrentPageIdentifier();
 		}
 		if (empty($this->settings['list']['pid'])) {
-			$this->settings['list']['pid'] = $GLOBALS['TSFE']->id;
+			$this->settings['list']['pid'] = FrontendUtility::getCurrentPageIdentifier();
 		}
 		if (empty($this->settings['edit']['pid'])) {
-			$this->settings['edit']['pid'] = $GLOBALS['TSFE']->id;
+			$this->settings['edit']['pid'] = FrontendUtility::getCurrentPageIdentifier();
 		}
 		$this->view->assign('singlePid', $this->settings['single']['pid']);
 		$this->view->assign('listPid', $this->settings['list']['pid']);

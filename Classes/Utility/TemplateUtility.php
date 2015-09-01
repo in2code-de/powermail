@@ -75,7 +75,6 @@ class TemplateUtility {
 		);
 		if (!empty($extbaseFrameworkConfiguration['view'][$part . 'RootPaths'])) {
 			$templatePaths = $extbaseFrameworkConfiguration['view'][$part . 'RootPaths'];
-			krsort($templatePaths);
 			$templatePaths = array_values($templatePaths);
 		}
 		if ($returnAllPaths || empty($templatePaths)) {

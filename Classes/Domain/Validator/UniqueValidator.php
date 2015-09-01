@@ -42,7 +42,7 @@ class UniqueValidator extends AbstractValidator {
 							$marker,
 							$answer->getValue(),
 							$mail->getForm(),
-							FrontendUtility::getStoragePage($this->settings['main']['pid'])
+							FrontendUtility::getStoragePage($this->settings['main.']['pid'])
 						)->count()
 					) {
 						$this->setErrorAndMessage($answer->getField(), 'unique');

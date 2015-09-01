@@ -2,6 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -56,8 +57,7 @@ class AbstractValidationViewHelper extends AbstractViewHelper {
 	 * @return int
 	 */
 	protected function getLanguageUid() {
-		return !empty($GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid']) ?
-			(int) $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] : 0;
+		return FrontendUtility::getSysLanguageUid();
 	}
 
 	/**
