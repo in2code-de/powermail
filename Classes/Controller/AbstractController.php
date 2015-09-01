@@ -1,12 +1,13 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
 
 /***************************************************************
  *  Copyright notice
@@ -206,8 +207,9 @@ abstract class AbstractController extends ActionController {
 			$propertyMappingConfiguration->allowCreationForSubProperty('answers.' . $i);
 			$propertyMappingConfiguration->allowModificationForSubProperty('answers.' . $i);
 
+			/** @var Field $field */
 			$field = $this->objectManager->get('In2code\\Powermail\\Domain\\Model\\Field');
-			$valueType = $field->getDataTypeFromFieldType(
+			$valueType = $field->dataTypeFromFieldType(
 				$this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
 			);
 			if ($valueType === 3 && is_array($value)) {

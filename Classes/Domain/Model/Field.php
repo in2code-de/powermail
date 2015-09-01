@@ -711,7 +711,7 @@ class Field extends AbstractEntity {
 	 * @param string $fieldType
 	 * @return int
 	 */
-	public function getDataTypeFromFieldType($fieldType) {
+	public function dataTypeFromFieldType($fieldType) {
 		$types = array(
 			'captcha' => 0,
 			'check' => 1,
