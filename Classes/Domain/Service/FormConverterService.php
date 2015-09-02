@@ -42,7 +42,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class FormConverterService {
 
 	/**
-	 * @var ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
 	 * @inject
 	 */
 	protected $configurationManager;
