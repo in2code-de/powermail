@@ -725,23 +725,39 @@ class Field extends AbstractEntity {
 			'password' => 0,
 			'radio' => 0,
 			'reset' => 0,
-			'select' => 1,
+			'select' => 0,
 			'submit' => 0,
 			'text' => 0,
 			'textarea' => 0,
 			'typoscript' => 0
 		);
 
-		// extend dataType with TSConfig
-		$typoScriptConfiguration = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
-		$extensionConfiguration = $typoScriptConfiguration['tx_powermail.']['flexForm.'];
-		if (!empty($extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
-			$types[$fieldType] = (int) $extensionConfiguration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
+		// change select fieldtype to array if multiple checked
+		if ($fieldType === 'select' && $this->getMultiselect()) {
+			$types['select'] = 1;
 		}
+		$types = $this->extendTypeArrayWithTypoScriptTypes($fieldType, $types);
+
 		if (array_key_exists($fieldType, $types)) {
 			return $types[$fieldType];
 		}
 		return 0;
+	}
+
+	/**
+	 * Extend dataType with TSConfig
+	 *
+	 * @param string $fieldType
+	 * @param array $types
+	 * @return array
+	 */
+	protected function extendTypeArrayWithTypoScriptTypes($fieldType, array $types) {
+		$typoScript = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
+		$configuration = $typoScript['tx_powermail.']['flexForm.'];
+		if (!empty($configuration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
+			$types[$fieldType] = (int) $configuration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
+		}
+		return $types;
 	}
 
 }

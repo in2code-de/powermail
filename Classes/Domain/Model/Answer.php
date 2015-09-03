@@ -190,10 +190,8 @@ class Answer extends AbstractEntity {
 	public function getValueType() {
 		if ($this->valueType === NULL) {
 			if ($this->getField() !== NULL) {
-				/** @var Field $field */
-				$field = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-					->get('In2code\\Powermail\\Domain\\Model\\Field');
-				$this->setValueType($field->dataTypeFromFieldType($this->getField()->getType()));
+				$field = $this->getField();
+				$this->setValueType($field->dataTypeFromFieldType($field->getType()));
 			} else {
 				$this->setValue(0);
 			}
