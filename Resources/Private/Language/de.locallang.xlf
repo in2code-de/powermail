@@ -136,6 +136,10 @@
 				<source>The given Link is not correct</source>
 				<target state="translated">Der eingegebene Link ist ungültig</target>
 			</trans-unit>
+			<trans-unit id="optin_mail_confirm_done">
+				<source>The mail was already confirmed</source>
+				<target state="translated">Die Nachricht wurde bereits bestätigt</target>
+			</trans-unit>
 			<trans-unit id="error_mail_not_created">
 				<source>Error, Mail could not sent correctly!</source>
 				<target state="translated">Fehler, die Nachricht konnte leider nicht korrekt versendet werden!</target>
