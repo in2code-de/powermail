@@ -208,7 +208,7 @@ abstract class AbstractController extends ActionController {
 			$propertyMappingConfiguration->allowModificationForSubProperty('answers.' . $i);
 
 			/** @var Field $field */
-			$field = $this->objectManager->get('In2code\\Powermail\\Domain\\Model\\Field');
+			$field = $this->fieldRepository->findByUid($fieldUid);
 			$valueType = $field->dataTypeFromFieldType(
 				$this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
 			);

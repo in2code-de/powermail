@@ -378,6 +378,7 @@ class FormController extends AbstractController {
 	public function optinConfirmAction($mail, $hash) {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		$mail = $this->mailRepository->findByUid($mail);
+		$labelKey = 'failed';
 
 		if ($mail !== NULL && OptinUtility::checkOptinHash($hash, $mail)) {
 			if ($mail->getHidden()) {
@@ -387,7 +388,9 @@ class FormController extends AbstractController {
 
 				$this->forward('create', NULL, NULL, array('mail' => $mail, 'hash' => $hash));
 			}
+			$labelKey = 'done';
 		}
+		$this->view->assign('labelKey', $labelKey);
 	}
 
 	/**

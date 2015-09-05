@@ -12,12 +12,12 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 class IsArrayViewHelper extends AbstractViewHelper {
 
 	/**
-	 * View helper check if given value is array or not
+	 * is_array()
 	 *
-	 * @param mixed $val String or Array
+	 * @param string|array $val
 	 * @return bool
 	 */
-	public function render($val = '') {
+	public function render($val = NULL) {
 		return is_array($val);
 	}
 }

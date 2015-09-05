@@ -102,6 +102,9 @@
 			<trans-unit id="optin_mail_confirm_failed">
 				<source>The given Link is not correct</source>
 			</trans-unit>
+			<trans-unit id="optin_mail_confirm_done">
+				<source>The mail was already confirmed</source>
+			</trans-unit>
 			<trans-unit id="error_mail_not_created">
 				<source>Error, Mail could not sent correctly!</source>
 			</trans-unit>

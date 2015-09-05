@@ -37,7 +37,7 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 class FieldTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Domain\Model\Field
+	 * @var \In2code\Powermail\Tests\Fixtures\FieldFixture
 	 */
 	protected $generalValidatorMock;
 
@@ -45,8 +45,9 @@ class FieldTest extends UnitTestCase {
 	 * @return void
 	 */
 	public function setUp() {
+		require_once(dirname(dirname(dirname(__FILE__))) . '/Fixtures/FieldFixture.php');
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Domain\Model\Field',
+			'\In2code\Powermail\Tests\Fixtures\FieldFixture',
 			array('dummy')
 		);
 	}
@@ -164,6 +165,63 @@ class FieldTest extends UnitTestCase {
 	 */
 	public function optionArrayReturnsArray($value, $expectedResult) {
 		$result = $this->generalValidatorMock->_call('optionArray', $value, '', FALSE);
+		$this->assertSame($expectedResult, $result);
+	}
+
+	/**
+	 * Dataprovider dataTypeFromFieldTypeReturnsString()
+	 *
+	 * @return array
+	 */
+	public function dataTypeFromFieldTypeReturnsStringDataProvider() {
+		return array(
+			array(
+				'captcha',
+				0
+			),
+			array(
+				'check',
+				1
+			),
+			array(
+				'file',
+				3
+			),
+			array(
+				'input',
+				0
+			),
+			array(
+				'textarea',
+				0
+			),
+			array(
+				'select',
+				0
+			),
+			array(
+				'select',
+				1,
+				TRUE
+			),
+		);
+	}
+
+	/**
+	 * Test for dataTypeFromFieldType()
+	 *
+	 * @param string $fieldType
+	 * @param array $expectedResult
+	 * @param bool $multiple
+	 * @return void
+	 * @dataProvider dataTypeFromFieldTypeReturnsStringDataProvider
+	 * @test
+	 */
+	public function dataTypeFromFieldTypeReturnsString($fieldType, $expectedResult, $multiple = FALSE) {
+		if ($multiple) {
+			$this->generalValidatorMock->_set('multiselect', $multiple);
+		}
+		$result = $this->generalValidatorMock->_call('dataTypeFromFieldType', $fieldType);
 		$this->assertSame($expectedResult, $result);
 	}
 }
