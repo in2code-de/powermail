@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -224,10 +225,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	protected function getFromFrontendUser() {
 		$value = '';
 		if ($this->getField()->getFeuserValue()) {
-			// if fe_user is logged in
-			if (!empty($GLOBALS['TSFE']->fe_user->user['uid'])) {
-				$value = $GLOBALS['TSFE']->fe_user->user[$this->getField()->getFeuserValue()];
-			}
+			$value = FrontendUtility::getPropertyFromLoggedInFrontendUser($this->getField()->getFeuserValue());
 		}
 		return $value;
 	}
@@ -241,20 +239,6 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 		$value = '';
 		if ($this->getField()->getPrefillValue()) {
 			$value = $this->getField()->getPrefillValue();
-		}
-		return $value;
-	}
-
-	/**
-	 * Get from raw TypoScript settings like
-	 * 		plugin.tx_powermail.settings.setup.prefill.marker = red
-	 *
-	 * @return string
-	 */
-	protected function getFromTypoScriptRaw() {
-		$value = '';
-		if (!empty($this->settings['prefill.'][$this->getMarker()])) {
-			$value = $this->settings['prefill.'][$this->getMarker()];
 		}
 		return $value;
 	}
@@ -298,6 +282,20 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 					$this->settings['prefill.'][$this->getMarker() . '.']
 				);
 			}
+		}
+		return $value;
+	}
+
+	/**
+	 * Get from raw TypoScript settings like
+	 * 		plugin.tx_powermail.settings.setup.prefill.marker = red
+	 *
+	 * @return string
+	 */
+	protected function getFromTypoScriptRaw() {
+		$value = '';
+		if (!empty($this->settings['prefill.'][$this->getMarker()])) {
+			$value = $this->settings['prefill.'][$this->getMarker()];
 		}
 		return $value;
 	}
