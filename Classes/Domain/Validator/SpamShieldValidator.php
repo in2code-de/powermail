@@ -281,7 +281,7 @@ class SpamShieldValidator extends AbstractValidator {
 				continue;
 			}
 			foreach ((array) $blacklist as $blackword) {
-				if (stristr($answer->getValue(), $blackword)) {
+				if ($this->findStringInString($answer->getValue(), $blackword)) {
 					$this->increaseSpamIndicator($indication);
 					$this->addMessage(__FUNCTION__ . ' failed');
 					return;
@@ -501,6 +501,23 @@ class SpamShieldValidator extends AbstractValidator {
 			0,
 			$this->getMessages()
 		);
+	}
+
+	/**
+	 * Find string in string but only if it's alone
+	 * Search for "sex":
+	 * 		"Sex" => TRUE
+	 * 		"test sex test" => TRUE
+	 * 		"Staatsexamen" => FALSE
+	 * 		"_sex_bla" => TRUE
+	 * 		"tst sex.seems.to.be.nice" => TRUE
+	 *
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return bool
+	 */
+	protected function findStringInString($haystack, $needle) {
+		return preg_match('/(?:\A|[\s\b_-]|\.)' . $needle . '(?:$|[\s\b_-]|\.)/i', $haystack) === 1;
 	}
 
 	/**
