@@ -2,8 +2,10 @@
 namespace In2code\Powermail\Tests\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
  *  Copyright notice
@@ -236,5 +238,127 @@ class PrefillFieldViewHelperTest extends UnitTestCase {
 		$this->abstractValidationViewHelperMock->_set('marker', $field->getMarker());
 		$this->abstractValidationViewHelperMock->_callRef('buildValue');
 		$this->assertSame($expectedResult, $this->abstractValidationViewHelperMock->_callRef('getValue'));
+	}
+
+	/**
+	 * Dataprovider for getDefaultValueReturnsString()
+	 *
+	 * @return array
+	 */
+	public function getFromTypoScriptContentObjectReturnsStringDataProvider() {
+		return array(
+			array(
+				array(
+					'prefill.' => array(
+						'marker' => 'TEXT',
+						'marker.' => array(
+							'value' => 'y',
+							'wrap' => 'x|z'
+						)
+					)
+				),
+				'marker',
+				'xyz'
+			),
+			array(
+				array(
+					'prefill.' => array(
+						'email' => 'TEXT',
+						'email.' => array(
+							'data' => 'date:U'
+						)
+					)
+				),
+				'email',
+				(string) time()
+			),
+		);
+	}
+
+	/**
+	 * Test for getFromTypoScriptContentObject()
+	 *
+	 * @param array $settings
+	 * @param string $marker
+	 * @param string $expectedResult
+	 * @dataProvider getFromTypoScriptContentObjectReturnsStringDataProvider
+	 * @test
+	 */
+	public function getFromTypoScriptContentObjectReturnsString(array $settings, $marker, $expectedResult) {
+		$this->initializeTsfe();
+		$this->abstractValidationViewHelperMock->_set('settings', $settings);
+		$field = new Field();
+		$field->setMarker($marker);
+		$this->abstractValidationViewHelperMock->_set('field', $field);
+		$this->abstractValidationViewHelperMock->_set('marker', $marker);
+		$this->abstractValidationViewHelperMock->_set('contentObjectRenderer', new ContentObjectRenderer());
+		$this->assertSame($expectedResult, $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptContentObject'));
+	}
+
+	/**
+	 * Dataprovider for getFromTypoScriptRawReturnsString()
+	 *
+	 * @return array
+	 */
+	public function getFromTypoScriptRawReturnsStringDataProvider() {
+		return array(
+			array(
+				array(
+					'prefill.' => array(
+						'email' => 'abcdef'
+					)
+				),
+				'email',
+				'abcdef'
+			),
+			array(
+				array(
+					'prefill.' => array(
+						'email' => 'TEXT',
+						'email.' => array(
+							'value' => 'xyz'
+						)
+					)
+				),
+				'email',
+				''
+			),
+			array(
+				array(
+					'prefill.' => array(
+						'marker' => 'TEXT'
+					)
+				),
+				'marker',
+				'TEXT'
+			),
+		);
+	}
+
+	/**
+	 * Test for getFromTypoScriptRaw()
+	 *
+	 * @param array $settings
+	 * @param string $marker
+	 * @param string $expectedResult
+	 * @dataProvider getFromTypoScriptRawReturnsStringDataProvider
+	 * @test
+	 */
+	public function getFromTypoScriptRawReturnsString(array $settings, $marker, $expectedResult) {
+		$this->abstractValidationViewHelperMock->_set('settings', $settings);
+		$this->abstractValidationViewHelperMock->_set('marker', $marker);
+		$this->assertSame($expectedResult, $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptRaw'));
+	}
+
+	/**
+	 * Initialize TSFE object
+	 *
+	 * @return void
+	 */
+	protected function initializeTsfe() {
+		$configurationManager = new ConfigurationManager();
+		$GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
+		$GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
+		$GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, TRUE);
 	}
 }

@@ -294,7 +294,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	 */
 	protected function getFromTypoScriptRaw() {
 		$value = '';
-		if (!empty($this->settings['prefill.'][$this->getMarker()])) {
+		if (!empty($this->settings['prefill.'][$this->getMarker()]) && empty($this->settings['prefill.'][$this->getMarker() . '.'])) {
 			$value = $this->settings['prefill.'][$this->getMarker()];
 		}
 		return $value;
