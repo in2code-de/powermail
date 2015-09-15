@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ArrayUtility;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
@@ -159,7 +160,7 @@ class SendMailService {
 			->setTo(array($email['receiverEmail'] => $email['receiverName']))
 			->setFrom(array($email['senderEmail'] => $email['senderName']))
 			->setSubject($email['subject'])
-			->setCharset($this->getFrontendCharset());
+			->setCharset(FrontendUtility::getCharset());
 		$message = $this->addCc($message);
 		$message = $this->addBcc($message);
 		$message = $this->addReturnPath($message);
@@ -489,12 +490,5 @@ class SendMailService {
 			$email[$value] =
 				TemplateUtility::fluidParseString($email[$value], $this->mailRepository->getVariablesWithMarkersFromMail($mail));
 		}
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getFrontendCharset() {
-		return $GLOBALS['TSFE']->metaCharset;
 	}
 }

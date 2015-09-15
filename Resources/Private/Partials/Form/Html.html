@@ -7,12 +7,14 @@
 	</f:comment>
 
 <div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_html powermail_fieldwrap_{field.uid} {field.css}">
-	<f:if condition="{settings.misc.disableRemoveXss}">
-		<f:then>
-			<f:format.raw>{field.text}</f:format.raw>
-		</f:then>
-		<f:else>
-			<vh:string.RawAndRemoveXss>{field.text}</vh:string.RawAndRemoveXss>
-		</f:else>
-	</f:if>
+	<span id="powermail_field_{field.marker}">
+		<f:if condition="{settings.misc.disableRemoveXss}">
+			<f:then>
+				<f:format.raw>{field.text}</f:format.raw>
+			</f:then>
+			<f:else>
+				<vh:string.RawAndRemoveXss>{field.text}</vh:string.RawAndRemoveXss>
+			</f:else>
+		</f:if>
+	</span>
 </div>

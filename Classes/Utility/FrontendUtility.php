@@ -58,7 +58,7 @@ class FrontendUtility {
 	 * @return int
 	 */
 	public static function getCurrentPageIdentifier() {
-		return (int) $GLOBALS['TSFE']->id;
+		return (int) self::getTyposcriptFrontendController()->id;
 	}
 
 	/**
@@ -67,7 +67,16 @@ class FrontendUtility {
 	 * @return int
 	 */
 	public static function getSysLanguageUid() {
-		return (int) $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'];
+		return (int) self::getTyposcriptFrontendController()->tmpl->setup['config.']['sys_language_uid'];
+	}
+
+	/**
+	 * Get charset for frontend rendering
+	 *
+	 * @return string
+	 */
+	public static function getCharset() {
+		return self::getTyposcriptFrontendController()->metaCharset;
 	}
 
 	/**
@@ -84,11 +93,11 @@ class FrontendUtility {
 				->get('In2code\\Powermail\\Domain\\Repository\\MailRepository');
 			$mail = $mailRepository->findByUid(intval($mail));
 		}
-		if (!$GLOBALS['TSFE']->fe_user->user['uid'] || $mail === NULL) {
+		if (!self::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === NULL) {
 			return FALSE;
 		}
 
-		$usergroups = GeneralUtility::trimExplode(',', $GLOBALS['TSFE']->fe_user->user['usergroup'], TRUE);
+		$usergroups = GeneralUtility::trimExplode(',', self::getTyposcriptFrontendController()->fe_user->user['usergroup'], TRUE);
 		$usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'], TRUE);
 		$usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'], TRUE);
 
@@ -107,7 +116,7 @@ class FrontendUtility {
 		}
 
 		// 1. check user
-		if (in_array($GLOBALS['TSFE']->fe_user->user['uid'], $usersSettings)) {
+		if (in_array(self::getTyposcriptFrontendController()->fe_user->user['uid'], $usersSettings)) {
 			return TRUE;
 		}
 
@@ -125,9 +134,7 @@ class FrontendUtility {
 	 * @return bool
 	 */
 	public static function isLoggedInFrontendUser() {
-		/** @var TypoScriptFrontendController $typoScriptFrontendController */
-		$typoScriptFrontendController = $GLOBALS['TSFE'];
-		return !empty($typoScriptFrontendController->fe_user->user['uid']);
+		return !empty(self::getTyposcriptFrontendController()->fe_user->user['uid']);
 	}
 
 	/**
@@ -137,10 +144,9 @@ class FrontendUtility {
 	 * @return string
 	 */
 	public static function getPropertyFromLoggedInFrontendUser($propertyName = 'uid') {
-		/** @var TypoScriptFrontendController $typoScriptFrontendController */
-		$typoScriptFrontendController = $GLOBALS['TSFE'];
-		if (!empty($typoScriptFrontendController->fe_user->user[$propertyName])) {
-			return $typoScriptFrontendController->fe_user->user[$propertyName];
+		$tsfe = self::getTyposcriptFrontendController();
+		if (!empty($tsfe->fe_user->user[$propertyName])) {
+			return $tsfe->fe_user->user[$propertyName];
 		}
 		return '';
 	}
@@ -159,14 +165,14 @@ class FrontendUtility {
 	/**
 	 * Get Country Name out of an IP address
 	 *
-	 * @param string $ip
+	 * @param string $ipAddress
 	 * @return string Countryname
 	 */
-	public static function getCountryFromIp($ip = NULL) {
-		if ($ip === NULL) {
-			$ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
+	public static function getCountryFromIp($ipAddress = NULL) {
+		if ($ipAddress === NULL) {
+			$ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 		}
-		$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ip);
+		$json = GeneralUtility::getUrl('http://www.telize.com/geoip/' . $ipAddress);
 		if ($json) {
 			$geoInfo = json_decode($json);
 			if (!empty($geoInfo->country)) {
@@ -208,5 +214,12 @@ class FrontendUtility {
 			$subfolder = '/' . $subfolder;
 		}
 		return $subfolder;
+	}
+
+	/**
+	 * @return TypoScriptFrontendController
+	 */
+	protected static function getTyposcriptFrontendController() {
+		return $GLOBALS['TSFE'];
 	}
 }

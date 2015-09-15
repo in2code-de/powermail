@@ -460,6 +460,15 @@ class SpamShieldValidatorTest extends UnitTestCase {
 				'viagra   ,  v!agra  , v1agra',
 				7
 			),
+			'indication of 1, not blacklisted values' => array(
+				7,
+				array(
+					'Staatsexamen',
+					'all is fine',
+				),
+				'sex',
+				0
+			),
 		);
 	}
 
@@ -666,6 +675,58 @@ class SpamShieldValidatorTest extends UnitTestCase {
 		$this->assertSame(
 			$expectedResult,
 			$this->generalValidatorMock->_callRef('isSpamToleranceLimitReached')
+		);
+	}
+
+	/**
+	 * Dataprovider findStringInStringReturnsBool()
+	 *
+	 * @return array
+	 */
+	public function findStringInStringReturnsBoolDataProvider() {
+		return array(
+			array(
+				'Sex',
+				'sex',
+				TRUE
+			),
+			array(
+				'bar sex foo',
+				'sex',
+				TRUE
+			),
+			array(
+				'Staatsexamen',
+				'sex',
+				FALSE
+			),
+			array(
+				'_sex_foo',
+				'sex',
+				TRUE
+			),
+			array(
+				'foo.sex.bar.foo',
+				'sex',
+				TRUE
+			),
+		);
+	}
+
+	/**
+	 * Test for findStringInString()
+	 *
+	 * @param string $haystack
+	 * @param string $needle
+	 * @param bool $expectedResult
+	 * @return void
+	 * @dataProvider findStringInStringReturnsBoolDataProvider
+	 * @test
+	 */
+	public function findStringInStringReturnsBool($haystack, $needle, $expectedResult) {
+		$this->assertSame(
+			$expectedResult,
+			$this->generalValidatorMock->_callRef('findStringInString', $haystack, $needle)
 		);
 	}
 }
