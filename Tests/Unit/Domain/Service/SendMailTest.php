@@ -375,6 +375,10 @@ class SendMailServiceTest extends UnitTestCase {
 				'a<ul><li>b</li><li>c</li></ul>d',
 				"a\nb\nc\nd"
 			),
+			array(
+				'<head><title>x</title></head>a<ul><li>b</li><li>c</li></ul>d',
+				"xa\nb\nc\nd"
+			),
 		);
 	}
 
