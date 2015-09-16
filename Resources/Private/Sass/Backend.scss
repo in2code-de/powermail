@@ -53,6 +53,9 @@ input.powermail_email_input {
 /**
  * List View
  */
+.table-powermail td {
+	white-space: normal !important;
+}
 .powermail_listbe_details_container {
 	margin-bottom: 15px;
 }
@@ -96,7 +99,10 @@ input.powermail_email_input {
 .hideMail,
 .unhideMail,
 .deleteMail,
-.openPowermailDetails {
+.openPowermailDetails,
+.addPowermailSelection,
+.powermailSelectionDelete,
+.powermailSelectionHide {
 	cursor: pointer;
 }
 
@@ -502,6 +508,10 @@ table.powermail_reporting_form_fields_table th.powermail-close {
 tr.powermail_listbe_overview:hover a {
 	text-decoration: none;
 }
+tr.selectLine > td {
+  background-color: $greySoft2 !important;
+}
+
 a.overviewShowAll {
 	display: inline-block;
 	padding: 5px 20px;
@@ -510,6 +520,11 @@ a.overviewShowAll {
 	&:hover {
 		background: $greySoft1;
 	}
+}
+.selectedLineMessage {
+  display: none;
+  float: right;
+  margin: 0 13px 30px 0;
 }
 
 /**

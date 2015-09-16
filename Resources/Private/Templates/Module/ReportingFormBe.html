@@ -13,7 +13,9 @@
 	<div class="powermail_reporting_form">
 		<div class="powermail_module_search">
 			<div class="powermail_module_search_inner">
-				<f:render partial="Module/Search" arguments="{piVars: piVars, mails: mails, firstMail: firstMail, action : 'reportingFormBe'}" />
+				<f:alias map="{forwardToAction: 'reportingFormBe'}">
+					<f:render partial="Module/Filter" arguments="{_all}" />
+				</f:alias>
 			</div>
 		</div>
 

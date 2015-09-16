@@ -12,7 +12,9 @@
 	<div class="powermail_reporting_marketing">
 		<div class="powermail_module_search">
 			<div class="powermail_module_search_inner">
-				<f:render partial="Module/Search" arguments="{piVars: piVars, mails: mails, firstMail: firstMail, action : 'reportingMarketingBe'}" />
+				<f:alias map="{forwardToAction: 'reportingMarketingBe'}">
+					<f:render partial="Module/Filter" arguments="{_all}" />
+				</f:alias>
 			</div>
 		</div>
 		
