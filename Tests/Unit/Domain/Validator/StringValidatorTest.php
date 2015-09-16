@@ -87,8 +87,8 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateMandatory()
 	 *
-	 * @param \string $value
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateMandatoryForStringOrArrayReturnsBoolDataProvider
 	 * @test
@@ -143,8 +143,8 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateEmail()
 	 *
-	 * @param \string $value
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateEmailReturnsBoolDataProvider
 	 * @test
@@ -195,8 +195,8 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateUrl()
 	 *
-	 * @param \string $value
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateUrlReturnsBoolDataProvider
 	 * @test
@@ -295,8 +295,8 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validatePhone()
 	 *
-	 * @param \string $value
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validatePhoneReturnsBoolDataProvider
 	 * @test
@@ -343,8 +343,8 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateNumbersOnly()
 	 *
-	 * @param \string $value
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateNumbersOnlyReturnsBoolDataProvider
 	 * @test
@@ -403,8 +403,8 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateLettersOnly()
 	 *
-	 * @param \string $value
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateLettersOnlyReturnsBoolDataProvider
 	 * @test
@@ -472,9 +472,9 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateMinNumber()
 	 *
-	 * @param \string $value
-	 * @param \string $configuration
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param string $configuration
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateMinNumberReturnsBoolDataProvider
 	 * @test
@@ -542,9 +542,9 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateMaxNumber()
 	 *
-	 * @param \string $value
-	 * @param \string $configuration
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param string $configuration
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateMaxNumberReturnsBoolDataProvider
 	 * @test
@@ -607,9 +607,9 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateRange()
 	 *
-	 * @param \string $value
-	 * @param \string $configuration
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param string $configuration
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateRangeReturnsBoolDataProvider
 	 * @test
@@ -672,9 +672,9 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validateLength()
 	 *
-	 * @param \string $value
-	 * @param \string $configuration
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param string $configuration
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateLengthReturnsBoolDataProvider
 	 * @test
@@ -732,9 +732,9 @@ class StringValidatorTest extends UnitTestCase {
 	/**
 	 * Test for validatePattern()
 	 *
-	 * @param \string $value
-	 * @param \string $configuration
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param string $configuration
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validatePatternReturnsBoolDataProvider
 	 * @test

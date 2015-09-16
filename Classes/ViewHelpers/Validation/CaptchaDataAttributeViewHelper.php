@@ -16,10 +16,10 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper {
 	/**
 	 * Returns Data Attribute Array for JS validation with parsley.js
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \array $additionalAttributes To add further attributes
-	 * @param \mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
-	 * @return \array for data attributes
+	 * @param Field $field
+	 * @param array $additionalAttributes To add further attributes
+	 * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
+	 * @return array for data attributes
 	 */
 	public function render(Field $field, $additionalAttributes = array(), $iteration = NULL) {
 		if ($field->getType() !== 'captcha') {

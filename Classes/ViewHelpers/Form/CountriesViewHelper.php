@@ -16,10 +16,10 @@ class CountriesViewHelper extends AbstractViewHelper {
 	/**
 	 * Get array with countries
 	 *
-	 * @param \string $key
-	 * @param \string $value
-	 * @param \string $sortbyField
-	 * @param \string $sorting
+	 * @param string $key
+	 * @param string $value
+	 * @param string $sortbyField
+	 * @param string $sorting
 	 * @return array
 	 */
 	public function render($key = 'isoCodeA3', $value = 'officialNameLocal', $sortbyField = 'isoCodeA3', $sorting = 'asc') {
@@ -40,7 +40,7 @@ class CountriesViewHelper extends AbstractViewHelper {
 	/**
 	 * Build an country array
 	 *
-	 * @return \array
+	 * @return array
 	 */
 	protected function getCountries() {
 		$countries = array(

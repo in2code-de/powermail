@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -14,9 +15,9 @@ class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper {
 	/**
 	 * Check if there is a mail with a starting letter
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $mails
-	 * @param \string $letter Starting Letter to search for
-	 * @param \int $answerField Field Uid
+	 * @param QueryResult $mails
+	 * @param string $letter Starting Letter to search for
+	 * @param int $answerField Field Uid
 	 * @return bool
 	 */
 	public function render($mails, $letter, $answerField) {

@@ -117,8 +117,8 @@ class UploadValidatorTest extends UnitTestCase {
 	/**
 	 * Test for isValid()
 	 *
-	 * @param \string $value
-	 * @param \bool $expectedResult
+	 * @param string $value
+	 * @param bool $expectedResult
 	 * @return void
 	 * @dataProvider validateIsValidReturnsBoolDataProvider
 	 * @test

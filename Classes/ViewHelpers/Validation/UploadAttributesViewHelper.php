@@ -27,8 +27,8 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Array for multiple upload
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \array $additionalAttributes To add further attributes
+	 * @param Field $field
+	 * @param array $additionalAttributes To add further attributes
 	 * @return array
 	 */
 	public function render(Field $field, $additionalAttributes = array()) {

@@ -41,35 +41,35 @@ class Mail extends AbstractEntity {
 	/**
 	 * senderName
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $senderName = '';
 
 	/**
 	 * senderMail
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $senderMail = '';
 
 	/**
 	 * subject
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $subject = '';
 
 	/**
 	 * receiverMail
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $receiverMail = '';
 
 	/**
 	 * body
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $body = '';
 
@@ -83,21 +83,21 @@ class Mail extends AbstractEntity {
 	/**
 	 * senderIp
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $senderIp = '';
 
 	/**
 	 * userAgent
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $userAgent = '';
 
 	/**
 	 * spamFactor
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $spamFactor = '';
 
@@ -134,56 +134,56 @@ class Mail extends AbstractEntity {
 	/**
 	 * hidden
 	 *
-	 * @var \bool
+	 * @var bool
 	 */
 	protected $hidden = FALSE;
 
 	/**
 	 * marketingRefererDomain
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $marketingRefererDomain = '';
 
 	/**
 	 * marketingReferer
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $marketingReferer = '';
 
 	/**
 	 * marketingCountry
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $marketingCountry = '';
 
 	/**
 	 * marketingMobileDevice
 	 *
-	 * @var \bool
+	 * @var bool
 	 */
 	protected $marketingMobileDevice = FALSE;
 
 	/**
 	 * marketingFrontendLanguage
 	 *
-	 * @var \int
+	 * @var int
 	 */
 	protected $marketingFrontendLanguage = 0;
 
 	/**
 	 * marketingBrowserLanguage
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $marketingBrowserLanguage = '';
 
 	/**
 	 * marketingPageFunnel
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $marketingPageFunnel = '';
 

@@ -15,9 +15,9 @@ class OrViewHelper extends AbstractViewHelper {
 	/**
 	 * OR viewhelper for if widget in fluid
 	 *
-	 * @param \array $array Array with strings
-	 * @param \string $string String to compare
-	 * @return \boolean
+	 * @param array $array Array with strings
+	 * @param string $string String to compare
+	 * @return boolean
 	 */
 	public function render($array, $string = NULL) {
 		foreach ((array) $array as $value) {

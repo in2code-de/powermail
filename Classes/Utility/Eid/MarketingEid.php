@@ -39,21 +39,21 @@ class MarketingEid {
 	/**
 	 * configuration
 	 *
-	 * @var \array
+	 * @var array
 	 */
 	protected $configuration;
 
 	/**
 	 * bootstrap
 	 *
-	 * @var \array
+	 * @var array
 	 */
 	protected $bootstrap;
 
 	/**
 	 * Generates the output
 	 *
-	 * @return \string		rendered action
+	 * @return string rendered action
 	 */
 	public function run() {
 		return $this->bootstrap->run('', $this->configuration);
@@ -62,7 +62,7 @@ class MarketingEid {
 	/**
 	 * Initialize Extbase
 	 *
-	 * @param \array $TYPO3_CONF_VARS The global array. Will be set internally
+	 * @param array $TYPO3_CONF_VARS The global array. Will be set internally
 	 */
 	public function __construct($TYPO3_CONF_VARS) {
 		$this->configuration = array(
