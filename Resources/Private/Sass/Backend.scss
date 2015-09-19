@@ -101,6 +101,7 @@ input.powermail_email_input {
 .deleteMail,
 .openPowermailDetails,
 .addPowermailSelection,
+.addPowermailSelectionAll,
 .powermailSelectionDelete,
 .powermailSelectionHide {
 	cursor: pointer;
@@ -165,6 +166,13 @@ a.sorting_asc {
 	background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
 }
 
+
+/**
+ * List View
+ */
+.addPowermailSelectionAll {
+	float: right;
+}
 
 /**
  * List View: Search

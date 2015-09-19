@@ -26,6 +26,7 @@ function PowermailBackend($) {
 		that.addPageBrowseParamsListener();
 		that.addSortingParamsListener();
 		that.addSelectLineListener();
+		that.addSelectAllLinesListener();
 		that.addDeleteLinesListener();
 		that.addToggleLinesVisibilityListener();
 		that.addExtendedSearchListener();
@@ -162,6 +163,20 @@ function PowermailBackend($) {
 	this.addSelectLineListener = function() {
 		$('.addPowermailSelection').click(function() {
 			that.selectOrDeselectLine($(this));
+			that.calculateAndWriteNumbersOfSelections();
+		});
+	};
+
+	/**
+	 * De/select all lines
+	 *
+	 * @returns {void}
+	 */
+	this.addSelectAllLinesListener = function() {
+		$('.addPowermailSelectionAll').click(function() {
+			$('.addPowermailSelection').each(function() {
+				that.selectOrDeselectLine($(this));
+			});
 			that.calculateAndWriteNumbersOfSelections();
 		});
 	};
