@@ -101,7 +101,4 @@ page {
 		powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
 		powermailJQuery.external = 1
 	}
-	includeJSFooter {
-		powermail_frontend = EXT:powermail/Resources/Public/JavaScripts/powermail_frontend.js
-	}
 }

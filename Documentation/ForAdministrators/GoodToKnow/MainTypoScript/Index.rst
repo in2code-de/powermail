@@ -1365,10 +1365,10 @@ Setup
     page {
         # Inlude JavaScript files
         includeJSFooter {
-            powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/jquery.datetimepicker.js
-            powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/parsley.min.js
-            powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/tabs.js
-            powermailForm = EXT:powermail/Resources/Public/JavaScripts/form.js
+            powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/Libraries/jquery.datetimepicker.js
+            powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/Libraries/parsley.min.js
+            powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/Powermail/Tabs.js
+            powermailForm = EXT:powermail/Resources/Public/JavaScripts/Powermail/Form.js
         }
     }
     [end]
