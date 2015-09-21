@@ -691,18 +691,39 @@ Setup
 
 .. code-block:: text
 
-	##################
+    ##################
     # Frontend Plugin
     ##################
     plugin.tx_powermail {
         view {
-            templateRootPath = {$plugin.tx_powermail.view.templateRootPath}
-            partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
-            layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
+            templateRootPaths {
+                0 = EXT:powermail/Resources/Private/Templates/
+                1 = {$plugin.tx_powermail.view.templateRootPath}
+            }
+            partialRootPaths {
+                0 = EXT:powermail/Resources/Private/Partials/
+                1 = {$plugin.tx_powermail.view.partialRootPath}
+            }
+            layoutRootPaths {
+                0 = EXT:powermail/Resources/Private/Layouts/
+                1 = {$plugin.tx_powermail.view.layoutRootPath}
+            }
         }
         features {
             rewrittenPropertyMapper = 1
         }
+
+        # Modify localization of labels
+    #	_LOCAL_LANG {
+    #		default {
+    #			confirmation_message = Are these values correct?
+    #		}
+    #		de {
+    #			confirmation_message = Sind diese Eingaben korrekt?
+    #		}
+    #	}
+
+        # Main settings
         settings {
             setup {
 
@@ -754,6 +775,7 @@ Setup
                     }
                 }
 
+                # All settings for mail to receiver
                 receiver {
                     enable = {$plugin.tx_powermail.settings.receiver.enable}
 
@@ -828,6 +850,7 @@ Setup
                     senderHeader.name.value = {$plugin.tx_powermail.settings.receiver.senderHeader.name}
                 }
 
+                # All settings for mail to user
                 sender {
                     enable = {$plugin.tx_powermail.settings.sender.enable}
 
@@ -1193,6 +1216,20 @@ Setup
     #						default.value = blue
     #					}
                     }
+                }
+
+
+
+                # Save submitted values in a session to prefill forms for further visits. Define each markername for all forms.
+                saveSession {
+                    # Method "temporary" means as long as the browser is open. "permanently" could be used together with a frontend-user session. If method is empty, saveSession is deactivated.
+    #				_method = temporary
+    #
+    #				firstname = TEXT
+    #				firstname.field = firstname
+    #
+    #				lastname = TEXT
+    #				lastname.field = lastname
                 }
 
 

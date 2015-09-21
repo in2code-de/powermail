@@ -97,64 +97,52 @@ EXT:powermailextended/ext_tables.php:
 EXT:powermailextended/Configuration/TypoScript/setup.txt:
 ::
 
-  # Add own Partials
-  plugin.tx_powermail {
-  	view {
-		templateRootPath >
-		templateRootPaths {
-			10 = EXT:powermail/Resources/Private/Templates/
-		}
-		partialRootPath >
+	# Add own Partials
+	plugin.tx_powermail.view {
 		partialRootPaths {
-			10 = EXT:powermail/Resources/Private/Partials/
-			20 = EXT:powermailextended/Resources/Private/Partials/
+			1 = EXT:powermailextended/Resources/Private/Partials/
 		}
-		layoutRootPath >
-		layoutRootPaths {
-			10 = EXT:powermail/Resources/Private/Layouts/
-		}
-  	}
-  }
-  # Add new Field Properties
-  config.tx_extbase{
-  	persistence{
-		classes{
-			In2code\Powermail\Domain\Model\Form {
-				subclasses {
-					0 = In2code\Powermailextended\Domain\Model\Form
+	}
+	# Add new Field Properties
+	config.tx_extbase{
+		persistence{
+			classes{
+				In2code\Powermail\Domain\Model\Form {
+					subclasses {
+						0 = In2code\Powermailextended\Domain\Model\Form
+					}
 				}
-			}
-			In2code\Powermail\Domain\Model\Page {
-				subclasses {
-					0 = In2code\Powermailextended\Domain\Model\Page
+				In2code\Powermail\Domain\Model\Page {
+					subclasses {
+						0 = In2code\Powermailextended\Domain\Model\Page
+					}
 				}
-			}
-			In2code\Powermail\Domain\Model\Field {
-				subclasses {
-					0 = In2code\Powermailextended\Domain\Model\Field
+				In2code\Powermail\Domain\Model\Field {
+					subclasses {
+						0 = In2code\Powermailextended\Domain\Model\Field
+					}
 				}
-			}
-			In2code\Powermailextended\Domain\Model\Form {
-				mapping {
-					tableName = tx_powermail_domain_model_forms
+				In2code\Powermailextended\Domain\Model\Form {
+					mapping {
+						tableName = tx_powermail_domain_model_forms
+					}
 				}
-			}
-			In2code\Powermailextended\Domain\Model\Page {
-				mapping {
-					tableName = tx_powermail_domain_model_pages
+				In2code\Powermailextended\Domain\Model\Page {
+					mapping {
+						tableName = tx_powermail_domain_model_pages
+					}
 				}
-			}
-			In2code\Powermailextended\Domain\Model\Field {
-				mapping {
-					tableName = tx_powermail_domain_model_fields
+				In2code\Powermailextended\Domain\Model\Field {
+					mapping {
+						tableName = tx_powermail_domain_model_fields
+					}
 				}
 			}
 		}
-  	}
-  	objects {
-		In2code\Powermail\Domain\Repository\FormRepository.className = In2code\Powermailextended\Domain\Repository\FormRepository
-  	}
-  }
+		objects {
+			In2code\Powermail\Domain\Repository\FormRepository.className = In2code\Powermailextended\Domain\Repository\FormRepository
+		}
+	}
 
 EXT:powermailextended/Resources/Private/Partials/Form/Input.html:
 ::
