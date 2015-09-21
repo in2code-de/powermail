@@ -83,7 +83,7 @@
 
 					<f:comment>Basic mail information</f:comment>
 					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
-						<td nowrap="nowrap" class="col-icon">
+						<td nowrap="nowrap" class="col-icon nowrap">
 							<span class="t3-icon fa fa-caret-right openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}"></span>
 							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}"> </span>
 						</td>

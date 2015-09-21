@@ -91,8 +91,8 @@
 
 	<f:for each="{mailsPage}" as="mail">
 		<tr class="db_list_normal firstcol powermail_listbe_overview">
-			<td nowrap="nowrap" class="col-icon">
-				<span class="t3-icon t3-icon-actions t3-icon-irre-collapsed openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">{f:translate(key: 'BackendListHelpDetails')}</span>
+			<td nowrap="nowrap" class="col-icon nowrap">
+				<span class="t3-icon t3-icon-actions t3-icon-irre-collapsed openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}"></span>
 				<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}">&nbsp;</span>
 			</td>
 			<td nowrap="nowrap" class="col-title">
