@@ -420,6 +420,10 @@
 				<source>Attention: Please backup your database before converting. This step is irreversible, even if it was not successful.</source>
 				<target state="translated">Achtung: Wir empfehlen dringend, ein Backup vor der Konvertierung zu erstellen. Eine fehlgeschlagene Konvertierung kann in der Regel nicht rückgängig gemacht werden.</target>
 			</trans-unit>
+			<trans-unit id="BackendListMultiselectLabel">
+				<source>record(s) selected:</source>
+				<target state="translated">Mail(s) ausgewählt:</target>
+			</trans-unit>
 			<trans-unit id="BackendConverterFormSave">
 				<source>Save new forms on page with PID</source>
 				<target state="translated">Neue Formulare auf Seite mit PID speichern</target>

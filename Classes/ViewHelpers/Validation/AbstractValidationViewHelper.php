@@ -63,8 +63,8 @@ class AbstractValidationViewHelper extends AbstractViewHelper {
 	/**
 	 * Set mandatory attributes
 	 *
-	 * @param \array &$additionalAttributes
-	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param array &$additionalAttributes
+	 * @param Field $field
 	 * @return void
 	 */
 	protected function addMandatoryAttributes(&$additionalAttributes, Field $field = NULL) {

@@ -3,13 +3,34 @@
 ##################
 plugin.tx_powermail {
 	view {
-		templateRootPath = {$plugin.tx_powermail.view.templateRootPath}
-		partialRootPath = {$plugin.tx_powermail.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_powermail.view.layoutRootPath}
+		templateRootPaths {
+			0 = EXT:powermail/Resources/Private/Templates/
+			1 = {$plugin.tx_powermail.view.templateRootPath}
+		}
+		partialRootPaths {
+			0 = EXT:powermail/Resources/Private/Partials/
+			1 = {$plugin.tx_powermail.view.partialRootPath}
+		}
+		layoutRootPaths {
+			0 = EXT:powermail/Resources/Private/Layouts/
+			1 = {$plugin.tx_powermail.view.layoutRootPath}
+		}
 	}
 	features {
 		rewrittenPropertyMapper = 1
 	}
+
+	# Modify localization of labels
+#	_LOCAL_LANG {
+#		default {
+#			confirmation_message = Are these values correct?
+#		}
+#		de {
+#			confirmation_message = Sind diese Eingaben korrekt?
+#		}
+#	}
+
+	# Main settings
 	settings {
 		setup {
 
@@ -61,6 +82,7 @@ plugin.tx_powermail {
 				}
 			}
 
+			# All settings for mail to receiver
 			receiver {
 				enable = {$plugin.tx_powermail.settings.receiver.enable}
 
@@ -135,6 +157,7 @@ plugin.tx_powermail {
 				senderHeader.name.value = {$plugin.tx_powermail.settings.receiver.senderHeader.name}
 			}
 
+			# All settings for mail to user
 			sender {
 				enable = {$plugin.tx_powermail.settings.sender.enable}
 
@@ -686,10 +709,10 @@ page.includeJSFooterlibs.powermailJQuery.external = 1
 page {
 	# Inlude JavaScript files
 	includeJSFooter {
-		powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/jquery.datetimepicker.js
-		powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/parsley.min.js
-		powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/tabs.js
-		powermailForm = EXT:powermail/Resources/Public/JavaScripts/form.js
+		powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/Libraries/jquery.datetimepicker.js
+		powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/Libraries/parsley.min.js
+		powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/Powermail/Tabs.js
+		powermailForm = EXT:powermail/Resources/Public/JavaScripts/Powermail/Form.js
 	}
 }
 [end]

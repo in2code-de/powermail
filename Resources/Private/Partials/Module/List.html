@@ -6,7 +6,7 @@
 		(<f:count subject="{mails}" />)
 	</div>
 	<div class="table-fit">
-		<table class="table table-hover">
+		<table class="table table-hover table-powermail">
 			<thead>
 				<tr>
 					<th nowrap="nowrap" class="col-icon"></th>
@@ -71,7 +71,11 @@
 							</f:else>
 						</f:if>
 					</th>
-					<th nowrap="nowrap" class="col-control">&nbsp;</th>
+					<th nowrap="nowrap" class="col-control">
+						<span class="btn">
+							<span class="t3-icon fa fa-plus addPowermailSelectionAll" title="add all">&nbsp;</span>
+						</span>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,7 +83,8 @@
 
 					<f:comment>Basic mail information</f:comment>
 					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
-						<td nowrap="nowrap" class="col-icon">
+						<td nowrap="nowrap" class="col-icon nowrap">
+							<span class="t3-icon fa fa-caret-right openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}"></span>
 							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}"> </span>
 						</td>
 						<td nowrap="nowrap">
@@ -121,12 +126,16 @@
 								<span class="btn">
 									<f:if condition="{mail.hidden}">
 										<f:then>
-											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off hideMail">&nbsp;</span>
+											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off hideMail visibilityButton">&nbsp;</span>
 										</f:then>
 										<f:else>
-											<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on unhideMail">&nbsp;</span>
+											<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on unhideMail visibilityButton">&nbsp;</span>
 										</f:else>
 									</f:if>
+								</span>
+
+								<span class="btn">
+									<span class="t3-icon fa fa-plus addPowermailSelection" title="add">&nbsp;</span>
 								</span>
 
 								<input type="hidden" class="container_uid" name="container_uid" value="{mail.uid}" />

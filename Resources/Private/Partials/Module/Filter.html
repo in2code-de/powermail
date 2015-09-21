@@ -3,12 +3,14 @@
 	<div class="powermail_module_search_inner">
 		<f:form action="dispatch" name="filter" id="powermail_module_search">
 			<f:render partial="Module/Search" arguments="{_all}" />
-			<f:render partial="Module/Export" arguments="{_all}" />
+			<f:if condition="{forwardToAction} == 'list'">
+				<f:render partial="Module/Export" arguments="{_all}" />
+			</f:if>
 
 			<f:comment>
-				Action for dispatcher
+				Forward to this action in dispatchAction
 			</f:comment>
-			<f:form.hidden name="forwardToAction" value="list" id="forwardToAction" />
+			<f:form.hidden name="forwardToAction" value="{forwardToAction}" id="forwardToAction" />
 
 			<f:comment>
 				Keep Sorting on filter or export

@@ -17,10 +17,10 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Returns Data Attribute Array for JS validation with parsley.js
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \array $additionalAttributes To add further attributes
-	 * @param \mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
-	 * @return \array for data attributes
+	 * @param Field $field
+	 * @param array $additionalAttributes To add further attributes
+	 * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
+	 * @return array for data attributes
 	 */
 	public function render(Field $field, $additionalAttributes = array(), $iteration = NULL) {
 		switch ($field->getType()) {
@@ -39,9 +39,9 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Set different mandatory attributes for checkboxes and radiobuttons
 	 *
-	 * @param \array &$additionalAttributes
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \mixed $iteration
+	 * @param array &$additionalAttributes
+	 * @param Field $field
+	 * @param mixed $iteration
 	 * @return void
 	 */
 	protected function addMandatoryAttributesForMultipleFields(&$additionalAttributes, $field, $iteration) {
@@ -84,8 +84,8 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Set different validation attributes
 	 *
-	 * @param \array &$additionalAttributes
-	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param array &$additionalAttributes
+	 * @param Field $field
 	 * @return void
 	 */
 	protected function addValidationAttributes(&$additionalAttributes, $field) {
@@ -300,7 +300,8 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 
 			// set errormessage if javascript validation active
 		if ($field->getValidation() && $this->isClientValidationEnabled()) {
-			$additionalAttributes['data-parsley-error-message'] = LocalizationUtility::translate('validationerror_validation.' . $field->getValidation());
+			$additionalAttributes['data-parsley-error-message'] =
+				LocalizationUtility::translate('validationerror_validation.' . $field->getValidation());
 		}
 	}
 }

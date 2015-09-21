@@ -54,8 +54,8 @@ class OptinUtility {
 	/**
 	 * Create Hash for Optin Mail
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @return \string
+	 * @param Mail $mail
+	 * @return string
 	 */
 	public static function createOptinHash(Mail $mail) {
 		return self::createHash($mail->getUid() . $mail->getPid() . $mail->getForm()->getUid());

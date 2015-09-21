@@ -84,12 +84,15 @@
 				</f:else>
 			</f:if>
 		</td>
-		<td nowrap="nowrap" class="col-icon"></td>
+		<td nowrap="nowrap" class="col-icon">
+			<span class="t3-icon t3-icon-actions t3-icon-view-table-expand addPowermailSelectionAll" title="add all">&nbsp;</span>
+		</td>
 	</tr>
 
 	<f:for each="{mailsPage}" as="mail">
 		<tr class="db_list_normal firstcol powermail_listbe_overview">
-			<td nowrap="nowrap" class="col-icon">
+			<td nowrap="nowrap" class="col-icon nowrap">
+				<span class="t3-icon t3-icon-actions t3-icon-irre-collapsed openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}"></span>
 				<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}">&nbsp;</span>
 			</td>
 			<td nowrap="nowrap" class="col-title">
@@ -124,12 +127,14 @@
 
 				<f:if condition="{mail.hidden}">
 					<f:then>
-						<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-unhide hideMail">&nbsp;</span>
+						<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-unhide hideMail visibilityButton">&nbsp;</span>
 					</f:then>
 					<f:else>
-						<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-hide unhideMail">&nbsp;</span>
+						<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-hide unhideMail visibilityButton">&nbsp;</span>
 					</f:else>
 				</f:if>
+
+				<span class="t3-icon t3-icon-actions t3-icon-view-table-expand addPowermailSelection" title="add">&nbsp;</span>
 
 				<input type="hidden" class="container_uid" name="container_uid" value="{mail.uid}" />
 				<input type="hidden" class="container_formtoken" name="container_formtoken" value="{token}" />

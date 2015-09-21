@@ -13,7 +13,9 @@
 	<f:comment>
 		Filter Area
 	</f:comment>
-	<f:render partial="Module/Filter" arguments="{_all}" />
+	<f:alias map="{forwardToAction: 'list'}">
+		<f:render partial="Module/Filter" arguments="{_all}" />
+	</f:alias>
 
 
 
@@ -29,9 +31,11 @@
 				<f:if condition="{vh:Condition.IsCompatVersion(versionNumber:'7.0')}">
 					<f:then>
 						<f:render partial="Module/List" arguments="{_all}" />
+						<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
 					</f:then>
 					<f:else>
 						<f:render partial="Module/ListOld" arguments="{_all}" />
+						<f:render partial="Module/SelectedLineMessageOld" arguments="{_all}" />
 					</f:else>
 				</f:if>
 			</f:widget.paginate>

@@ -16,10 +16,10 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Returns Data Attribute Array Datepicker settings (FE + BE)
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @param \array $additionalAttributes To add further attributes
-	 * @param \string $value of this field
-	 * @return \array for data attributes
+	 * @param Field $field
+	 * @param array $additionalAttributes To add further attributes
+	 * @param string $value of this field
+	 * @return array for data attributes
 	 */
 	public function render(Field $field = NULL, $additionalAttributes = array(), $value = '') {
 		$additionalAttributes['data-datepicker-force'] =
@@ -40,7 +40,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Get Datepicker Settings
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param Field $field
 	 * @return string
 	 */
 	protected function getDatepickerSettings(Field $field = NULL) {
@@ -53,7 +53,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper {
 	/**
 	 * Get timeformat out of datepicker type
 	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
+	 * @param Field $field
 	 * @return string
 	 */
 	protected function getFormat(Field $field = NULL) {

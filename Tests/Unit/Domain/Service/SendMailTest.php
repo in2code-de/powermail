@@ -379,6 +379,14 @@ class SendMailServiceTest extends UnitTestCase {
 				'<head><title>x</title></head>a<ul><li>b</li><li>c</li></ul>d',
 				"xa\nb\nc\nd"
 			),
+			array(
+				'Please click <a href="http://www.google.com">this</a> link',
+				'Please click this [http://www.google.com] link'
+			),
+			array(
+				'Please click <a class="a b href" href="http://www.google.com" id="text" target="_blank">this</a> link',
+				'Please click this [http://www.google.com] link'
+			),
 		);
 	}
 

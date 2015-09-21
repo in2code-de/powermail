@@ -290,12 +290,11 @@ example Footer could be:
 .. code-block:: html
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
-	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/jquery.datetimepicker.js?1400758352" type="text/javascript"></script>
-	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/parsley.min.js?1400758352" type="text/javascript"></script>
-	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/tabs.js?1400758352" type="text/javascript"></script>
-	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/form.js?1400758352" type="text/javascript"></script>
-	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Marketing.js?1400758352" type="text/javascript"></script>
-	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/powermail_frontend.js?1400758352" type="text/javascript"></script>
+	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Libraries/jquery.datetimepicker.js?1400758352" type="text/javascript"></script>
+	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Libraries/parsley.min.js?1400758352" type="text/javascript"></script>
+	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Powermail/Tabs.js?1400758352" type="text/javascript"></script>
+	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Powermail/Form.js?1400758352" type="text/javascript"></script>
+	<script src="typo3conf/ext/powermail/Resources/Public/JavaScripts/Powermail/Marketing.js?1400758352" type="text/javascript"></script>
 
 .. _datetimepickernotworking:
 

@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use In2code\Powermail\Domain\Model\User;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
@@ -55,8 +56,8 @@ class UserRepository extends Repository {
 	/**
 	 * Find by Uid but don't respect storage page
 	 *
-	 * @param \int $uid
-	 * @return \In2code\Powermail\Domain\Model\User
+	 * @param int $uid
+	 * @return User
 	 */
 	public function findByUid($uid) {
 		$query = $this->createQuery();

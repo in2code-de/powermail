@@ -315,6 +315,9 @@
 			<trans-unit id="BackendSelectionConverterTitle4">
 				<source>Attention: Please backup your database before converting. This step is irreversible.</source>
 			</trans-unit>
+			<trans-unit id="BackendListMultiselectLabel">
+				<source>record(s) selected:</source>
+			</trans-unit>
 			<trans-unit id="BackendConverterFormSave">
 				<source>Save new forms on page with PID</source>
 			</trans-unit>
