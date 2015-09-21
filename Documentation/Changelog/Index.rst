@@ -18,6 +18,18 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.11.0
+   :Date:
+      2015-10-15
+   :Changes:
+
+      * Task _`#69992`: https://forge.typo3.org/issues/69992 Using of templateRootPaths (+ Partial + Layout) per default
+      * Task _`#69873`: https://forge.typo3.org/issues/69873 Update parsley.js to 2.1.3
+      * Feature _`#69870`: https://forge.typo3.org/issues/69870 Backend List: Select lines and delete, hide, unhide
+      * Bugfix _`#69950`: https://forge.typo3.org/issues/69950 $ instead of jQuery in form.js
+      * Bugfix _`#69911`: https://forge.typo3.org/issues/69911 $ Links in Plaintext Mails are broken
+
+ - :Version:
       2.10.1
    :Date:
       2015-10-15
