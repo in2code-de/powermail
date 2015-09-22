@@ -35,7 +35,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 /**
  * Class TemplateUtility
  *
- * @package In2code\In2publish\Utility
+ * @package In2code\Powermail\Utility
  */
 class TemplateUtility {
 
