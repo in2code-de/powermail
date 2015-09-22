@@ -53,7 +53,7 @@ function PowermailForm($) {
 	 * @return {void}
 	 */
 	this.getLocationAndWrite = function() {
-		if (navigator.geolocation) {
+		if ($('.powermail_fieldwrap_location input').length && navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
