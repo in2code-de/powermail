@@ -416,17 +416,19 @@ class SendMailService {
 			'</dt>'
 		);
 
-		// 1. remove linebreaks, tabs
+		// 1. remove complete head element
+		$content = preg_replace('/<head>(.*?)<\/head>/i', '', $content);
+		// 2. remove linebreaks, tabs
 		$content = trim(str_replace(array("\n", "\r", "\t"), '', $content));
-		// 2. add linebreaks on some parts (</p> => </p><br />)
+		// 3. add linebreaks on some parts (</p> => </p><br />)
 		$content = str_replace($tags2LineBreaks, '</p><br />', $content);
-		// 3. insert space for table cells
+		// 4. insert space for table cells
 		$content = str_replace(array('</td>', '</th>'), '</td> ', $content);
-		// 4. replace links <a href="xyz">LINK</a> -> LINK [xyz]
+		// 5. replace links <a href="xyz">LINK</a> -> LINK [xyz]
 		$content = preg_replace('/<a\s+(?:[^>]*?\s+)?href=\"([^\"]*)\".*>(.*)<\/a>/u', '$2 [$1]', $content);
-		// 5. remove all tags (<b>bla</b><br /> => bla<br />)
+		// 6. remove all tags (<b>bla</b><br /> => bla<br />)
 		$content = strip_tags($content, '<br><address>');
-		// 6. <br /> to \n
+		// 7. <br /> to \n
 		$content = $this->br2nl($content);
 
 		return trim($content);
