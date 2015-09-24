@@ -371,13 +371,14 @@ class FormController extends AbstractController {
 	/**
 	 * Confirm Double Optin
 	 *
-	 * @param int $mail
+	 * @param int $mail mail uid
 	 * @param string $hash Given Hash String
 	 * @return void
 	 */
 	public function optinConfirmAction($mail, $hash) {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
 		$mail = $this->mailRepository->findByUid($mail);
+		$this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
 		$labelKey = 'failed';
 
 		if ($mail !== NULL && OptinUtility::checkOptinHash($hash, $mail)) {
@@ -450,7 +451,8 @@ class FormController extends AbstractController {
 	}
 
 	/**
-	 * Forward to form action if wrong form in plugin variables given
+	 * Forward to formAction if wrong form in plugin variables given
+	 * 		used for createAction() and confirmationAction()
 	 *
 	 * @return void
 	 */
@@ -458,6 +460,20 @@ class FormController extends AbstractController {
 		$arguments = $this->request->getArguments();
 		$formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
 		if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $formsToContent)) {
+			$this->forward('form');
+		}
+	}
+
+	/**
+	 * Forward to formAction if wrong form in plugin variables given
+	 * 		used in optinConfirmAction()
+	 *
+	 * @param Mail $mail
+	 * @return void
+	 */
+	protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail) {
+		$formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
+		if ($mail === NULL || !in_array($mail->getForm()->getUid(), $formsToContent)) {
 			$this->forward('form');
 		}
 	}
