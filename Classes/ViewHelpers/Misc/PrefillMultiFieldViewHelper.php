@@ -335,7 +335,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper {
 	protected function getFromSession() {
 		$selected = FALSE;
 		$sessionValues = SessionUtility::getSessionValuesForPrefill($this->settings);
-		if (count($sessionValues)) {
+		if (!empty($sessionValues) && count($sessionValues)) {
 			foreach ($sessionValues as $marker => $valueInSession) {
 				if ($this->getMarker() === $marker) {
 					if (
