@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Field;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
@@ -70,11 +71,14 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator {
 	protected $validState = TRUE;
 
 	/**
-	 * TypoScript Setup for powermail Pi1
-	 *
 	 * @var array
 	 */
 	protected $settings;
+
+	/**
+	 * @var array
+	 */
+	protected $flexForm;
 
 	/**
 	 * @param boolean $validState
@@ -113,6 +117,8 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator {
 	}
 
 	/**
+	 * Get TypoScript and FlexForm
+	 *
 	 * @param ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
@@ -121,6 +127,10 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator {
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
 		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+
+		$flexFormXml = $configurationManager->getContentObject()->data['pi_flexform'];
+		$flexForm = GeneralUtility::xml2array($flexFormXml, 'data');
+		$this->flexForm = $flexForm[0];
 	}
 
 	/**

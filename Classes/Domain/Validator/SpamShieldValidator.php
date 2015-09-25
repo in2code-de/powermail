@@ -3,11 +3,11 @@ namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -336,7 +336,7 @@ class SpamShieldValidator extends AbstractValidator {
 		}
 		$variables = array(
 			'mail' => $mail,
-			'pid' => $this->typoScriptFrontendController->id,
+			'pid' => FrontendUtility::getCurrentPageIdentifier(),
 			'calculatedMailSpamFactor' => $this->getCalculatedMailSpamFactor(TRUE),
 			'messages' => $this->getMessages(),
 			'ipAddress' => (!ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '')

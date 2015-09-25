@@ -31,6 +31,8 @@ function PowermailForm($) {
 
 	/**
 	 * Add tabs listener
+	 *
+	 * @returns {void}
 	 */
 	this.addTabsListener = function() {
 		if ($.fn.powermailTabs) {
@@ -40,6 +42,8 @@ function PowermailForm($) {
 
 	/**
 	 * Add Ajax form submit listener
+	 *
+	 * @returns {void}
 	 */
 	this.addAjaxFormSubmitListener = function() {
 		if ($('form[data-powermail-ajax]').length) {

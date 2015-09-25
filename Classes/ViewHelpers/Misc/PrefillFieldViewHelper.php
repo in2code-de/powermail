@@ -308,7 +308,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper {
 	protected function getFromSession() {
 		$value = '';
 		$sessionValues = SessionUtility::getSessionValuesForPrefill($this->settings);
-		if (count($sessionValues)) {
+		if (!empty($sessionValues) && count($sessionValues)) {
 			foreach ($sessionValues as $marker => $valueInSession) {
 				if ($this->getMarker() === $marker) {
 					return $valueInSession;

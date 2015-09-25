@@ -31,20 +31,20 @@ class UniqueValidator extends AbstractValidator {
 			return $this->isValidState();
 		}
 		foreach ($this->settings['validation.']['unique.'] as $marker => $amount) {
-			if (intval($amount) === 0) {
+			if ((int) $amount === 0) {
 				continue;
 			}
 			foreach ($mail->getAnswers() as $answer) {
 				/** @var Answer $answer */
 				if ($answer->getField()->getMarker() === $marker) {
-					if (
-						$amount <= $this->mailRepository->findByMarkerValueForm(
-							$marker,
-							$answer->getValue(),
-							$mail->getForm(),
-							FrontendUtility::getStoragePage($this->settings['main.']['pid'])
-						)->count()
-					) {
+					$numberOfMails = $this->mailRepository->findByMarkerValueForm(
+						$marker,
+						$answer->getValue(),
+						$mail->getForm(),
+						FrontendUtility::getStoragePage($this->getStoragePid())
+					)->count();
+
+					if ($amount <= $numberOfMails) {
 						$this->setErrorAndMessage($answer->getField(), 'unique');
 					}
 				}
@@ -52,5 +52,21 @@ class UniqueValidator extends AbstractValidator {
 		}
 
 		return $this->isValidState();
+	}
+
+	/**
+	 * Get storage pid from FlexForm, TypoScript or current page
+	 *
+	 * @return int
+	 */
+	protected function getStoragePid() {
+		$pid = (int) $this->settings['main.']['pid'];
+		if (!empty($this->flexForm['main']['lDEF']['settings.flexform.main.pid']['vDEF'])) {
+			$pid = (int) $this->flexForm['main']['lDEF']['settings.flexform.main.pid']['vDEF'];
+		}
+		if ($pid === 0) {
+			$pid = (int) FrontendUtility::getCurrentPageIdentifier();
+		}
+		return $pid;
 	}
 }

@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.11.2
+   :Date:
+      2015-10-22
+   :Changes:
+
+      * Bugfix _`#70075`: https://forge.typo3.org/issues/70075 saveSession Error
+      * Bugfix _`#70048`: https://forge.typo3.org/issues/70048 Unique validator doesn't respect plugin settings
+      * Bugfix _`#69998`: https://forge.typo3.org/issues/69998 Multiple Double Opt-In on the same page
+      * Bugfix _`#69806`: https://forge.typo3.org/issues/69806 Remove head tag from HTML mail template
+
+ - :Version:
       2.11.1
    :Date:
       2015-10-22
