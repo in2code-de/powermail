@@ -129,22 +129,22 @@ forge.typo3.org if you need a new signal.
       Change Settings from Flexform or TypoScript before Action is called
 
  - :Class:
-      In2code\\Powermail\\Utility\\SendMail
+      In2code\\Powermail\\Domain\\Service\\SendMailService
    :Name:
       sendTemplateEmailBeforeSend
    :File:
-      SendMail.php
+      SendMailService.php
    :Method:
       sendTemplateEmail()
    :Description:
       Change the emails before sending
 
  - :Class:
-      In2code\\Powermail\\Utility\\SendMail
+      In2code\\Powermail\\Domain\\Service\\SendMailService
    :Name:
       createEmailBodyBeforeRender
    :File:
-      SendMail.php
+      SendMailService.php
    :Method:
       createEmailBody()
    :Description:
@@ -171,12 +171,12 @@ ext_emconf.php
         'title' => 'powermailextended',
         'description' => 'Sample Extension to extend powermail 2.1',
         'category' => 'plugin',
-        'version' => '2.1.0',
+        'version' => '2.11.0',
         // ...
         'constraints' => array(
             'depends' => array(
-                'typo3' => '6.2.0-6.2.99',
-                'powermail' => '2.1.0-2.1.99',
+                'typo3' => '6.2.0-7.99.99',
+                'powermail' => '2.11.0-2.99.99',
             ),
             'conflicts' => array(),
             'suggests' => array(),
@@ -190,42 +190,52 @@ ext_localconf.php
 ::
 
     <?php
-    // enable SignalSlot
     /** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
-    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\Dispatcher');
+    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+        ->get('TYPO3\\CMS\\Extbase\\SignalSlot\Dispatcher');
     $signalSlotDispatcher->connect(
-        'In2code\Powermail\Utility\SendMail',
+        'In2code\Powermail\Domain\Service\SendMailService',
         'sendTemplateEmailBeforeSend',
-        'In2code\Powermailextended\Utility\SendMail',
+        'In2code\Powermailextended\Domain\Service\SendMailService',
         'manipulateMail',
         FALSE
     );
 
 
-Classes/Utility/SendMail.php
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Classes/Domain/Service/SendMailService.php
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
     <?php
-    namespace In2code\Powermailextended\Utility;
+    namespace In2code\Powermailextended\Domain\Service;
+
+    use In2code\Powermail\Domain\Model\Mail;
+    use TYPO3\CMS\Core\Mail\MailMessage;
 
     /**
-     * SendMail
+     * SendMailService
      *
      * @package powermailextend
      */
-    class SendMail {
+    class SendMailService {
 
         /**
-         * @param \TYPO3\CMS\Core\Mail\MailMessage $message
+         * Manipulate message object short before powermail send the mail
+         *
+         * @param MailMessage $message
          * @param array $email
-         * @param \In2code\Powermail\Domain\Model\Mail $mail
+         * @param Mail $mail
          * @param array $settings
          * @param string $type Email to "sender" or "receiver"
          */
         public function manipulateMail($message, $email, $mail, $settings, $type) {
-            $message->setTo(array('anotheremail@domain.org' => 'receiverName'));
+            // overwrite the receiver
+            $message->setTo(
+                array(
+                    'anotheremail@domain.org' => 'receiverName'
+                )
+            );
         }
     }
 
