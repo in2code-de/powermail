@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -357,9 +358,10 @@ class MailRepository extends Repository {
 	 *        firstname => value
 	 *
 	 * @param Mail $mail
+	 * @param bool $htmlSpecialChars
 	 * @return array
 	 */
-	public function getVariablesWithMarkersFromMail(Mail $mail) {
+	public function getVariablesWithMarkersFromMail(Mail $mail, $htmlSpecialChars = FALSE) {
 		$variables = array();
 		foreach ($mail->getAnswers() as $answer) {
 			if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
@@ -370,6 +372,9 @@ class MailRepository extends Repository {
 				$value = implode(', ', $value);
 			}
 			$variables[$answer->getField()->getMarker()] = $value;
+		}
+		if ($htmlSpecialChars) {
+			$variables = ArrayUtility::htmlspecialcharsOnArray($variables);
 		}
 		return $variables;
 	}

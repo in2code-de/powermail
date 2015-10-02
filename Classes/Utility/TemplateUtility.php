@@ -105,7 +105,7 @@ class TemplateUtility {
 	 */
 	public static function getTemplatePath($relativePathAndFilename, $part = 'template') {
 		$matches = self::getTemplatePaths($relativePathAndFilename, $part);
-		return !empty($matches) ? $matches[0] : '';
+		return !empty($matches) ? end($matches) : '';
 	}
 
 	/**

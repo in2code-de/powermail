@@ -292,20 +292,18 @@ class FormController extends AbstractController {
 	protected function prepareOutput(Mail $mail) {
 		$this->redirectToTarget();
 
-		// assign
-		$this->view->assign('mail', $mail);
-		$this->view->assign('marketingInfos', SessionUtility::getMarketingInfos());
-		$this->view->assign('messageClass', $this->messageClass);
-		$this->view->assign('powermail_rte', $this->settings['thx']['body']);
-
-		// get variable array
-		$variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($mail);
-		$this->view->assign('variablesWithMarkers', ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers));
-		$this->view->assignMultiple($variablesWithMarkers);
+		$this->view->assignMultiple(
+			array(
+				'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, TRUE),
+				'mail' => $mail,
+				'marketingInfos' => SessionUtility::getMarketingInfos(),
+				'messageClass' => $this->messageClass,
+				'powermail_rte' => $this->settings['thx']['body'],
+				'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
+			)
+		);
+		$this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, TRUE));
 		$this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
-
-		// powermail_all
-		$this->view->assign('powermail_all', TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName));
 	}
 
 	/**
