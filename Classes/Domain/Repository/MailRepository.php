@@ -11,6 +11,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
  *  Copyright notice
@@ -413,7 +414,7 @@ class MailRepository extends Repository {
 	 * Returns sendername from a couple of arguments
 	 *
 	 * @param Mail $mail Given Params
-	 * @param string $default
+	 * @param string|array $default String as default or cObject array
 	 * @param string $glue
 	 * @return string Sender Name
 	 */
@@ -431,7 +432,14 @@ class MailRepository extends Repository {
 		}
 
 		if (!trim($name) && $default) {
-			$name = $default;
+			if (!is_array($default)) {
+				$name = $default;
+			} else {
+				/** @var ContentObjectRenderer $contentObject */
+				$contentObject = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+					->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+				$name = $contentObject->cObjGetSingle($default[0][$default[1]], $default[0][$default[1] . '.']);
+			}
 		}
 
 		if (empty($name) && !empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])) {

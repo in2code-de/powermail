@@ -205,7 +205,7 @@ class FormController extends AbstractController {
 			$email = array(
 				'template' => 'Mail/ReceiverMail',
 				'receiverEmail' => $receiver,
-				'receiverName' => $this->settings['receiver']['name'] ? $this->settings['receiver']['name'] : 'Powermail',
+				'receiverName' => !empty($this->settings['receiver']['name']) ? $this->settings['receiver']['name'] : 'Powermail',
 				'senderEmail' => $this->mailRepository->getSenderMailFromArguments($mail, $defaultSenderEmail),
 				'senderName' => $this->mailRepository->getSenderNameFromArguments($mail, $defaultSenderName),
 				'subject' => $this->settings['receiver']['subject'],
@@ -221,11 +221,7 @@ class FormController extends AbstractController {
 			$sent = $this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'receiver');
 
 			if (!$sent) {
-				$this->addFlashMessage(
-					LocalizationUtility::translate('error_mail_not_created'),
-					'',
-					AbstractMessage::ERROR
-				);
+				$this->addFlashMessage(LocalizationUtility::translate('error_mail_not_created'), '', AbstractMessage::ERROR);
 				$this->messageClass = 'error';
 			}
 		}
@@ -240,7 +236,9 @@ class FormController extends AbstractController {
 	protected function sendSenderMail(Mail $mail) {
 		$email = array(
 			'template' => 'Mail/SenderMail',
-			'receiverName' => $this->mailRepository->getSenderNameFromArguments($mail, 'Powermail'),
+			'receiverName' => $this->mailRepository->getSenderNameFromArguments(
+				$mail, array($this->conf['sender.']['default.'], 'senderName')
+			),
 			'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
 			'senderName' => $this->settings['sender']['name'],
 			'senderEmail' => $this->settings['sender']['email'],
@@ -264,8 +262,9 @@ class FormController extends AbstractController {
 	protected function sendConfirmationMail(Mail &$mail) {
 		$email = array(
 			'template' => 'Mail/OptinMail',
-			'receiverName' => $this->mailRepository->getSenderNameFromArguments($mail) ?
-				$this->mailRepository->getSenderNameFromArguments($mail) : 'Powermail',
+			'receiverName' => $this->mailRepository->getSenderNameFromArguments(
+				$mail, array($this->conf['sender.']['default.'], 'senderName')
+			),
 			'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
 			'senderName' => $this->settings['sender']['name'],
 			'senderEmail' => $this->settings['sender']['email'],
