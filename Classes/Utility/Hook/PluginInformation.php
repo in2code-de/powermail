@@ -242,7 +242,7 @@ class PluginInformation {
 	 *
 	 * @param string $sheet name of the sheet
 	 * @param string $key name of the key
-	 * @return string value if found
+	 * @return string|FALSE value if found
 	 */
 	protected function getFieldFromFlexform($sheet, $key) {
 		$key = 'settings.flexform.' . $key;

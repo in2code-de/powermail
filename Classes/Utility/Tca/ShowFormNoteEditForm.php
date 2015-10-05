@@ -188,10 +188,18 @@ class ShowFormNoteEditForm {
 	 */
 	protected function getRelatedForm() {
 		$formUid = 0;
-		$flexForm = GeneralUtility::xml2array($this->params['row']['pi_flexform']);
-		if (is_array($flexForm) && isset($flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
-			$formUid = (int) $flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+
+		if (is_array($this->params['row']['pi_flexform'])) {
+			// TYPO3 7.5 and newer delivers an array
+			$formUid = (int) $this->params['row']['pi_flexform']['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'][0];
+		} else {
+			// TYPO3 7.4 or older delivers a string
+			$flexForm = GeneralUtility::xml2array($this->params['row']['pi_flexform']);
+			if (is_array($flexForm) && isset($flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
+				$formUid = (int) $flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+			}
 		}
+
 		$formUid = $this->getLocalizedFormUid($formUid, $this->params['row']['sys_language_uid']);
 		return $formUid;
 	}
@@ -224,7 +232,7 @@ class ShowFormNoteEditForm {
 	protected function getFormPropertyFromUid($uid, $property) {
 		$select = '*';
 		$from = 'tx_powermail_domain_model_forms';
-		$where = 'uid = ' . intval($uid);
+		$where = 'uid = ' . (int) $uid;
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1;
@@ -243,7 +251,7 @@ class ShowFormNoteEditForm {
 	protected function getPageNameFromUid($uid) {
 		$select = 'title';
 		$from = 'pages';
-		$where = 'uid = ' . intval($uid);
+		$where = 'uid = ' . (int) $uid;
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1;
