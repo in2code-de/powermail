@@ -18,9 +18,20 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.12.0
+   :Date:
+      2015-10-05
+   :Changes:
+
+      * Task _`#66996`: https://forge.typo3.org/issues/66996 Remove variable $variablesMarkers from \In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper::render()
+      * Feature _`#70291`: https://forge.typo3.org/issues/70291 Do not use 'Powermail' as default mail name for "Sender"
+      * Bugfix _`#70237`: https://forge.typo3.org/issues/70237 Wrong order for templateRootPaths
+      * Bugfix _`#70215`: https://forge.typo3.org/issues/70215 Signal/Slots not working from 2.6.0 and above
+
+ - :Version:
       2.11.2
    :Date:
-      2015-10-22
+      2015-09-22
    :Changes:
 
       * Bugfix _`#70075`: https://forge.typo3.org/issues/70075 saveSession Error
@@ -31,7 +42,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
  - :Version:
       2.11.1
    :Date:
-      2015-10-22
+      2015-09-22
    :Changes:
 
       * Bugfix _`#70022`: https://forge.typo3.org/issues/70022 User gets ask about his location - even without location field in powermail 2.11.0
@@ -39,7 +50,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
  - :Version:
       2.11.0
    :Date:
-      2015-10-21
+      2015-09-21
    :Changes:
 
       * Task _`#69992`: https://forge.typo3.org/issues/69992 Using of templateRootPaths (+ Partial + Layout) per default
@@ -51,7 +62,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
  - :Version:
       2.10.1
    :Date:
-      2015-10-15
+      2015-09-15
    :Changes:
 
       * Task _`#69582`: https://forge.typo3.org/issues/69582
