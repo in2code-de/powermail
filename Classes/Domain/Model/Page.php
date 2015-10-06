@@ -63,6 +63,7 @@ class Page extends AbstractEntity {
 	 * Powermail Forms
 	 *
 	 * @var \In2code\Powermail\Domain\Model\Form
+	 * @lazy
 	 */
 	protected $forms = NULL;
 

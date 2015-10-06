@@ -206,6 +206,7 @@ class Field extends AbstractEntity {
 	 * pages
 	 *
 	 * @var \In2code\Powermail\Domain\Model\Page
+	 * @lazy
 	 */
 	protected $pages = NULL;
 
