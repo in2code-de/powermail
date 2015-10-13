@@ -156,4 +156,15 @@ class StringUtility {
 		}
 		return $variable;
 	}
+
+	/**
+	 * Check if string ends with another string
+	 *
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return string
+	 */
+	public static function endsWith($haystack, $needle) {
+		return stristr($haystack, $needle) && strlen($haystack) - strlen($needle) === strpos($haystack, $needle);
+	}
 }
