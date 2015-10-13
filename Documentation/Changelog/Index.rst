@@ -18,6 +18,18 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.12.1
+   :Date:
+      2015-10-13
+   :Changes:
+
+      * Bugfix _`#70496`: https://forge.typo3.org/issues/70496 Make upload folder handling more robust
+      * Bugfix _`#70491`: https://forge.typo3.org/issues/70491 plugin.tx_powermail.settings.setup.sender.email does not replace errorinemail@tryagain.com anymore [regression bug]
+      * Bugfix _`#70446`: https://forge.typo3.org/issues/70446 Captcha-fields should be marked as required
+      * Bugfix _`#70388`: https://forge.typo3.org/issues/70388 Maximum function nesting level reached
+      * Bugfix _`#69976`: https://forge.typo3.org/issues/70388 Powermail crash after upgrading
+
+ - :Version:
       2.12.0
    :Date:
       2015-10-05
