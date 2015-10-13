@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
@@ -58,6 +59,7 @@ class FieldRepository extends Repository {
 		foreach ($uids as $uid) {
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(FALSE);
+			$query->getQuerySettings()->setRespectSysLanguage(FALSE);
 			$field = $query->matching($query->equals('uid', $uid))->execute()->getFirst();
 			if ($field !== NULL) {
 				$result[] = $field;
@@ -121,7 +123,7 @@ class FieldRepository extends Repository {
 	 * @return void
 	 */
 	public function fixFilledMarkersInLocalizedFields() {
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+		$this->getDatabaseConnection()->exec_UPDATEquery(
 			'tx_powermail_domain_model_fields',
 			'sys_language_uid > 0 and deleted = 0 and marker != ""',
 			array('marker' => '')
@@ -139,9 +141,9 @@ class FieldRepository extends Repository {
 		$select = 'uid,pid,title,l10n_parent,sys_language_uid';
 		$from = 'tx_powermail_domain_model_fields';
 		$where = '(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0';
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where);
+		$res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where);
 		if ($res) {
-			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+			while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
 				$pages[] = $row;
 			}
 		}
@@ -158,7 +160,7 @@ class FieldRepository extends Repository {
 			$defaultFieldUid = $field['l10n_parent'];
 			$defaultPageUid = $this->getPageUidFromFieldUid($defaultFieldUid);
 			$localizedPageUid = $this->getLocalizedPageUidFromPageUid($defaultPageUid, $field['sys_language_uid']);
-			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+			$this->getDatabaseConnection()->exec_UPDATEquery(
 				'tx_powermail_domain_model_fields',
 				'uid = ' . (int) $field['uid'],
 				array('pages' => $localizedPageUid)
@@ -170,7 +172,7 @@ class FieldRepository extends Repository {
 	 * Get parent page uid form given field uid
 	 *
 	 * @param int $fieldUid
-	 * @return array
+	 * @return int
 	 */
 	protected function getPageUidFromFieldUid($fieldUid) {
 		$query = $this->createQuery();
@@ -259,5 +261,12 @@ class FieldRepository extends Repository {
 			return $field->getUid();
 		}
 		return 0;
+	}
+
+	/**
+	 * @return DatabaseConnection
+	 */
+	protected function getDatabaseConnection() {
+		return $GLOBALS['TYPO3_DB'];
 	}
 }
