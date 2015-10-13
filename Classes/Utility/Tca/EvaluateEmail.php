@@ -43,7 +43,7 @@ class EvaluateEmail {
 	 */
 	public function returnFieldJS() {
 		$content = '
-			if (validEmail(value)) {
+			if (value === "" || validEmail(value)) {
 				return value;
 			} else {
 				return "errorinemail@tryagain.com"

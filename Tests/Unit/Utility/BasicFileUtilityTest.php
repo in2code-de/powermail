@@ -303,6 +303,7 @@ class BasicFileUtiltyTest extends UnitTestCase {
 	 *
 	 * @param string $filename
 	 * @param string $allowedFileExtensions
+	 * @param string $expectedResult
 	 * @dataProvider checkExtensionReturnBoolDataProvider
 	 * @return void
 	 * @test
@@ -336,5 +337,48 @@ class BasicFileUtiltyTest extends UnitTestCase {
 
 		$field2->setType('textarea');
 		$this->assertFalse(BasicFileUtility::hasFormAnUploadField($form));
+	}
+
+	/**
+	 * Data Provider for addTrailingSlashReturnString()
+	 *
+	 * @return array
+	 */
+	public function addTrailingSlashReturnStringDataProvider() {
+		return array(
+			array(
+				'folder1/folder2',
+				'folder1/folder2/'
+			),
+			array(
+				'folder1/folder2/',
+				'folder1/folder2/'
+			),
+			array(
+				'folder1',
+				'folder1/'
+			),
+			array(
+				'folder1///',
+				'folder1/'
+			),
+			array(
+				'/fo/ld/er1//',
+				'/fo/ld/er1/'
+			),
+		);
+	}
+
+	/**
+	 * addTrailingSlash Test
+	 *
+	 * @param string $string
+	 * @param string $expectedResult
+	 * @dataProvider addTrailingSlashReturnStringDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function addTrailingSlashReturnString($string, $expectedResult) {
+		$this->assertSame($expectedResult, BasicFileUtility::addTrailingSlash($string));
 	}
 }

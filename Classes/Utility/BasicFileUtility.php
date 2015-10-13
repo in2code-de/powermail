@@ -335,6 +335,18 @@ class BasicFileUtility {
 	}
 
 	/**
+	 * Add a trailing slash to a string (e.g. path)
+	 * 		folder1/folder2 => folder1/folder2/
+	 * 		folder1/folder2/ => folder1/folder2/
+	 *
+	 * @param string $string
+	 * @return string
+	 */
+	public static function addTrailingSlash($string) {
+		return rtrim($string, '/') . '/';
+	}
+
+	/**
 	 * Remove appending numbers in filename strings
 	 * 		image_01 => image
 	 * 		image_01_02 => image_01
