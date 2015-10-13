@@ -675,7 +675,7 @@ plugin.tx_powermail {
 			finishers {
 #				1 {
 					# Classname that should be called with method *Finisher()
-#					class = \Vendor\Ext\Finisher\DoSomethingFinisher
+#					class = Vendor\Ext\Finisher\DoSomethingFinisher
 
 					# optional: Add configuration for your PHP
 #					config {
