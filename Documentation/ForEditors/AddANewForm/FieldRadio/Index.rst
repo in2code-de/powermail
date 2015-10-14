@@ -17,8 +17,8 @@
 
 .. _radio:
 
-Radiobuttons
-~~~~~~~~~~~~
+Radio Buttons
+~~~~~~~~~~~~~
 
 What does it do?
 ''''''''''''''''
@@ -214,31 +214,31 @@ Option examples for radio buttons
  - :Example:
       Red
    :HTML:
-      <label>Red</label><input value=”Red” />
+      <label>Red</label><input type="radio" value=”Red” />
 
  - :Example:
       Yellow \| 1
    :HTML:
-      <label>Yellow</label><input value=”1” />
+      <label>Yellow</label><input type="radio" value=”1” />
 
  - :Example:
       Blue \|
    :HTML:
-      <label>Blue</label><input value=”” />
+      <label>Blue</label><input type="radio" value=”” />
 
  - :Example:
       Black Shoes \| black \| \*
    :HTML:
-      <label>Black Shoes</label><input value=”black” checked=”checked” />
+      <label>Black Shoes</label><input type="radio" value=”black” checked=”checked” />
 
  - :Example:
       White \| \| \*
    :HTML:
-      <label>White</label><input value=”” checked=”checked” />
+      <label>White</label><input type="radio" value=”” checked=”checked” />
 
  - :Example:
       | Red Shoes \| red \| \*
       | Yellow Shoes \| yellow \| \*
    :HTML:
-      | <label>Red Shoes</label><input value=”red” checked=”checked” />
-      | <label>Yellow Shoes</label><input value=”yellow” checked=”checked” />
+      | <label>Red Shoes</label><input type="radio" value=”red” checked=”checked” />
+      | <label>Yellow Shoes</label><input type="radio" value=”yellow” checked=”checked” />
