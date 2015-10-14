@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @subpackage Fluid
  * @version
  */
-class AbstractValidationViewHelper extends AbstractViewHelper {
+abstract class AbstractValidationViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface

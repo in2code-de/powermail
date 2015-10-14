@@ -226,4 +226,53 @@ class StringUtilityTest extends UnitTestCase {
 			StringUtility::conditionalVariable($variable, $fallback)
 		);
 	}
+
+	/**
+	 * Data Provider for endsWithReturnsString()
+	 *
+	 * @return array
+	 */
+	public function endsWithReturnsStringDataProvider() {
+		return array(
+			array(
+				'xFinisher',
+				'Finisher',
+				TRUE
+			),
+			array(
+				'inisher',
+				'Finisher',
+				FALSE
+			),
+			array(
+				'abc',
+				'c',
+				TRUE
+			),
+			array(
+				'abc',
+				'bc',
+				TRUE
+			),
+			array(
+				'abc',
+				'abc',
+				TRUE
+			),
+		);
+	}
+
+	/**
+	 * endsWith Test
+	 *
+	 * @param string $haystack
+	 * @param string $needle
+	 * @param bool $expectedResult
+	 * @dataProvider endsWithReturnsStringDataProvider
+	 * @return void
+	 * @test
+	 */
+	public function endsWithReturnsString($haystack, $needle, $expectedResult) {
+		$this->assertSame($expectedResult, StringUtility::endsWith($haystack, $needle));
+	}
 }

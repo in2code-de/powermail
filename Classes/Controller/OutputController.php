@@ -51,11 +51,7 @@ class OutputController extends AbstractController {
 	 */
 	public function listAction() {
 		$this->prepareFilterPluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
-		if ($this->settings['list']['fields']) {
-			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
-		} else {
-			$fieldArray = $this->formRepository->getFieldsFromForm($this->settings['main']['form']);
-		}
+		$fieldArray = $this->getFieldList($this->settings['list']['fields']);
 		$searchFields = $this->fieldRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['search']['fields'], TRUE));
 		$this->view->assignMultiple(
 			array(
@@ -76,11 +72,7 @@ class OutputController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(Mail $mail) {
-		if ($this->settings['single']['fields']) {
-			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['single']['fields'], TRUE);
-		} else {
-			$fieldArray = $this->formRepository->getFieldsFromForm($this->settings['main']['form']);
-		}
+		$fieldArray = $this->getFieldList($this->settings['single']['fields']);
 		$this->view->assign('fields', $this->fieldRepository->findByUids($fieldArray));
 		$this->view->assign('mail', $mail);
 		$this->assignMultipleActions();
@@ -93,11 +85,7 @@ class OutputController extends AbstractController {
 	 * @return void
 	 */
 	public function editAction(Mail $mail = NULL) {
-		if ($this->settings['edit']['fields']) {
-			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['edit']['fields'], TRUE);
-		} else {
-			$fieldArray = $this->formRepository->getFieldsFromForm($this->settings['main']['form']);
-		}
+		$fieldArray = $this->getFieldList($this->settings['edit']['fields']);
 		$fields = $this->fieldRepository->findByUids($fieldArray);
 		$this->view->assign('selectedFields', $fields);
 		$this->view->assign('mail', $mail);
@@ -239,6 +227,21 @@ class OutputController extends AbstractController {
 	 */
 	public function initializeObject() {
 		ConfigurationUtility::mergeTypoScript2FlexForm($this->settings, 'Pi2');
+	}
+
+	/**
+	 * Get fieldlist from list or from database
+	 *
+	 * @param string $list
+	 * @return array
+	 */
+	protected function getFieldList($list = '') {
+		if (!empty($list)) {
+			$fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], TRUE);
+		} else {
+			$fieldArray = $this->formRepository->getFieldsFromForm($this->settings['main']['form']);
+		}
+		return (array) $fieldArray;
 	}
 
 	/**

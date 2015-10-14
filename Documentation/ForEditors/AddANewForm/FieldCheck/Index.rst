@@ -215,31 +215,31 @@ Option examples for checkbox
  - :Example:
       Red
    :HTML:
-      <label>Red</label><input value=”Red” />
+      <label>Red</label><input type="checkbox" value=”Red” />
 
  - :Example:
       Yellow \| 1
    :HTML:
-      <label>Yellow</label><input value=”1” />
+      <label>Yellow</label><input type="checkbox" value=”1” />
 
  - :Example:
       Blue \|
    :HTML:
-      <label>Blue</label><input value=”” />
+      <label>Blue</label><input type="checkbox" value=”” />
 
  - :Example:
       Black Shoes \| black \| \*
    :HTML:
-      <label>Black Shoes</label><input value=”black” checked=”checked” />
+      <label>Black Shoes</label><input type="checkbox" value=”black” checked=”checked” />
 
  - :Example:
       White \| \| \*
    :HTML:
-      <label>White</label><input value=”” checked=”checked” />
+      <label>White</label><input type="checkbox" value=”” checked=”checked” />
 
  - :Example:
       | Red Shoes \| red \| \*
       | Yellow Shoes \| yellow \| \*
    :HTML:
-      | <label>Red Shoes</label><input value=”red” checked=”checked” />
-      | <label>Yellow Shoes</label><input value=”yellow” checked=”checked” />
+      | <label>Red Shoes</label><input type="checkbox" value=”red” checked=”checked” />
+      | <label>Yellow Shoes</label><input type="checkbox" value=”yellow” checked=”checked” />

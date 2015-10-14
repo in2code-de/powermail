@@ -671,6 +671,28 @@ plugin.tx_powermail {
 
 
 
+			# Add own finisher classes that will be called after submit (e.g. if you want to do something with form values by your own: Save into tables, call an API, etc...)
+			finishers {
+#				1 {
+					# Classname that should be called with method *Finisher()
+#					class = Vendor\Ext\Finisher\DoSomethingFinisher
+
+					# optional: Add configuration for your PHP
+#					config {
+#						foo = bar
+
+#						fooCObject = TEXT
+#						fooCObject.value = do something with this text
+#					}
+
+					# optional: If file will not be loaded from autoloader, add path and it will be called with require_once
+#					require = fileadmin/powermail/finisher/DoSomethingFinisher.php
+#				}
+			}
+
+
+
+
 			# Switch on or off Debug mode (use extension devlog to view this values)
 			debug {
 				# All views: Show Settings from TypoScript, Flexform and Extension Manager

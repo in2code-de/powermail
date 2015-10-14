@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Service\FinisherService;
 use In2code\Powermail\Domain\Service\SendParametersService;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
@@ -291,7 +292,6 @@ class FormController extends AbstractController {
 	 */
 	protected function prepareOutput(Mail $mail) {
 		$this->redirectToTarget();
-
 		$this->view->assignMultiple(
 			array(
 				'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, TRUE),
@@ -304,6 +304,7 @@ class FormController extends AbstractController {
 		);
 		$this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, TRUE));
 		$this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
+		$this->callFinishers($mail);
 	}
 
 	/**
@@ -501,5 +502,24 @@ class FormController extends AbstractController {
 	protected function isSendMailActive(Mail $mail, $hash) {
 		return empty($this->settings['main']['optin']) || (!empty($this->settings['main']['optin'])
 			&& OptinUtility::checkOptinHash($hash, $mail));
+	}
+
+	/**
+	 * Call finisher classes after submit
+	 *
+	 * @param Mail $mail
+	 * @return void
+	 */
+	protected function callFinishers(Mail $mail) {
+		if (is_array($this->settings['finishers'])) {
+			foreach ($this->settings['finishers'] as $finisherSettings) {
+				/** @var FinisherService $finisherService */
+				$finisherService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\FinisherService', $mail, $this->settings);
+				$finisherService->setClass($finisherSettings['class']);
+				$finisherService->setRequirePath((string) $finisherSettings['require']);
+				$finisherService->setConfiguration((array) $finisherSettings['config']);
+				$finisherService->start();
+			}
+		}
 	}
 }

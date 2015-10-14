@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.13.0
+   :Date:
+      2015-10-14
+   :Changes:
+
+      * Feature _`#70655`: https://forge.typo3.org/issues/70655 Add finisher implementation to powermail
+      * Bugfix _`#70604`: https://forge.typo3.org/issues/70656 powermail frontend and multilanguage
+      * Bugfix _`#70656`: https://forge.typo3.org/issues/70656 Error in documentation (For editors / radio buttons)
+      * Bugfix _`#70656`: https://forge.typo3.org/issues/70656 Error in documentation (For editors / checkboxes)
+
+ - :Version:
       2.12.1
    :Date:
       2015-10-13
