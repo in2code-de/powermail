@@ -72,7 +72,6 @@ class FormController extends AbstractController {
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($forms, $this));
 		SessionUtility::saveFormStartInSession($forms, $this->settings);
 
-		$this->assignForAll();
 		$this->view->assignMultiple(
 			array(
 				'forms' => $forms,
@@ -135,7 +134,6 @@ class FormController extends AbstractController {
 		}
 
 		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($mail, $hash, $this));
-		$this->assignForAll();
 		$this->prepareOutput($mail);
 	}
 

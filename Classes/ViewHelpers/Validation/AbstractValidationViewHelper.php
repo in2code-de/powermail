@@ -2,11 +2,11 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Abstract Validation ViewHelper
@@ -22,6 +22,11 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper {
 	 * @inject
 	 */
 	protected $configurationManager;
+
+	/**
+	 * @var ContentObjectRenderer
+	 */
+	protected $contentObject;
 
 	/**
 	 * Configuration
@@ -52,12 +57,13 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper {
 	}
 
 	/**
-	 * Get Current FE language
+	 * Get FlexForm array from contentObject
 	 *
-	 * @return int
+	 * @return array|NULL
 	 */
-	protected function getLanguageUid() {
-		return FrontendUtility::getSysLanguageUid();
+	protected function getFlexFormArray() {
+		$flexForm = GeneralUtility::xml2array($this->contentObject->data['pi_flexform'], 'data');
+		return !empty($flexForm[0]) ? $flexForm[0] : NULL;
 	}
 
 	/**
@@ -90,16 +96,15 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper {
 	 */
 	public function initialize() {
 		$this->extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
+		$this->contentObject = $this->configurationManager->getContentObject();
 		if ($this->arguments['extensionName'] !== NULL) {
 			$this->extensionName = $this->arguments['extensionName'];
 		}
 		$typoScriptSetup = $this->configurationManager->getConfiguration(
-			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+			ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
 		);
-		if (!empty($typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'])) {
-			$this->settings = GeneralUtility::removeDotsFromTS(
-				$typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.']
-			);
+		if (!empty($typoScriptSetup['setup'])) {
+			$this->settings = $typoScriptSetup['setup'];
 		}
 	}
 }
