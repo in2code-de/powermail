@@ -230,10 +230,10 @@ abstract class AbstractController extends ActionController {
 
 				// edit form: add answer id
 			if (!empty($arguments['field']['__identity'])) {
-				$newArguments['mail']['answers'][$i]['__identity'] = $this->answerRepository->findByFieldAndMail(
-					$fieldUid,
-					$arguments['field']['__identity']
-				)->getUid();
+				$answer = $this->answerRepository->findByFieldAndMail($fieldUid, $arguments['field']['__identity']);
+				if ($answer !== NULL) {
+					$newArguments['mail']['answers'][$i]['__identity'] = $answer->getUid();
+				}
 			}
 			$i++;
 		}
