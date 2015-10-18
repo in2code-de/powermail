@@ -46,7 +46,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php'][
  * Hook for first fill of marker field in backend
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
-	'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/InitialMarker.php:In2code\Powermail\Utility\Hook\InitialMarker';
+	'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/CreateMarker.php:In2code\Powermail\Utility\Hook\CreateMarker';
 
 /**
  * JavaScript evaluation of TCA fields

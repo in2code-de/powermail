@@ -256,7 +256,7 @@ class SpamShieldValidator extends AbstractValidator {
 			}
 		}
 
-		if (count($arr) != count(array_unique($arr))) {
+		if (count($arr) !== count(array_unique($arr))) {
 			$this->increaseSpamIndicator($indication);
 			$this->addMessage(__FUNCTION__ . ' failed');
 			return;
