@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Fixtures;
+namespace In2code\Powermail\Tests\Fixtures\Domain\Model;
 
 use In2code\Powermail\Domain\Model\Field;
 

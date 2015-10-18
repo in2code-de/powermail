@@ -92,7 +92,7 @@ class GetLocationEidTest extends UnitTestCase {
 					'route' => 'Baker Street',
 					'locality' => 'London',
 					'country' => 'United Kingdom',
-					'postal_code' => 'W1U 6WG'
+					'postal_code' => 'W1U 6TJ'
 				)
 			),
 		);
