@@ -50,6 +50,10 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper {
 	 */
 	protected function getDottedListOfExtensions($extensionList) {
 		$extensions = GeneralUtility::trimExplode(',', $extensionList, TRUE);
-		return '.' . implode(',.', $extensions);
+		$dottedList = implode(',.', $extensions);
+		if (!empty($dottedList)) {
+			$dottedList = '.' . $dottedList;
+		}
+		return $dottedList;
 	}
 }

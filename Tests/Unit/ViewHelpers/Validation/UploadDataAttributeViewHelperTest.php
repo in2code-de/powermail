@@ -31,13 +31,13 @@ use TYPO3\CMS\Extbase\Mvc\Request;
  ***************************************************************/
 
 /**
- * CaptchaDataAttributeViewHelper Test
+ * UploadDataAttributeViewHelper Test
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase {
+class UploadDataAttributeViewHelperTest extends UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -49,7 +49,7 @@ class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Validation\PasswordValidationDataAttributeViewHelper',
+			'\In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper',
 			array('dummy')
 		);
 	}
@@ -62,73 +62,72 @@ class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase {
 	}
 
 	/**
-	 * Dataprovider for render()
+	 * Dataprovider for renderReturnsArray()
 	 *
 	 * @return array
 	 */
 	public function renderReturnsArrayDataProvider() {
 		return array(
-			'passwordWithNativevalidationAndClientvalidation' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '1'
-					)
-				),
+			array(
 				array(),
 				array(),
-				array(
-					'index' => 0
-				),
-				array(
-					'data-parsley-equalto' => '#powermail_field_uid',
-					'data-parsley-equalto-message' => 'validationerror_password'
-				)
-			),
-			'passwordWithNativevalidation' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '0'
-					)
-				),
 				array(),
-				array(),
-				array(
-					'index' => 0
-				),
 				array()
 			),
-			'passwordWithClientvalidation' => array(
-				array(
-					'validation' => array(
-						'native' => '0',
-						'client' => '1'
-					)
-				),
-				array(),
+			array(
 				array(),
 				array(
-					'index' => 0
+					'marker' => 'firstname'
 				),
 				array(
-					'data-parsley-equalto' => '#powermail_field_uid',
-					'data-parsley-equalto-message' => 'validationerror_password'
+					'data-additional' => 'abc'
+				),
+				array(
+					'data-additional' => 'abc'
 				)
 			),
-			'passwordWithoutValidation' => array(
+			array(
 				array(
-					'validation' => array(
-						'native' => '0',
-						'client' => '0'
+					'misc' => array(
+						'file' => array(
+							'extension' => 'jpg,gif'
+						)
 					)
 				),
-				array(),
-				array(),
 				array(
-					'index' => 0
+					'marker' => 'firstname'
 				),
-				array()
+				array(
+					'data-additional' => 'true'
+				),
+				array(
+					'data-additional' => 'true',
+					'accept' => '.jpg,.gif'
+				)
+			),
+			array(
+				array(
+					'misc' => array(
+						'file' => array(
+							'extension' => 'jpg,gif',
+							'size' => '123456'
+						)
+					)
+				),
+				array(
+					'marker' => 'firstname',
+					'multiselect' => TRUE
+				),
+				array(
+					'data-additional' => 'true'
+				),
+				array(
+					'data-additional' => 'true',
+					'multiple' => 'multiple',
+					'accept' => '.jpg,.gif',
+					'data-parsley-powermailfilesize' => '123456,firstname',
+					'data-parsley-powermailfilesize-message' => 'validationerror_upload_size'
+				)
 			),
 		);
 	}
@@ -139,29 +138,58 @@ class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase {
 	 * @param array $settings
 	 * @param array $fieldProperties
 	 * @param array $additionalAttributes
-	 * @param mixed $iteration
 	 * @param array $expectedResult
 	 * @return void
 	 * @dataProvider renderReturnsArrayDataProvider
 	 * @test
 	 */
-	public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $iteration, $expectedResult) {
+	public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $expectedResult) {
 		$field = new Field();
 		foreach ($fieldProperties as $propertyName => $propertyValue) {
 			$field->_setProperty($propertyName, $propertyValue);
 		}
-
-		$this->abstractValidationViewHelperMock->_set('test', TRUE);
 		$this->abstractValidationViewHelperMock->_set('settings', $settings);
-		$this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
+		$result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes);
+		$this->assertSame($expectedResult, $result);
+	}
 
-		$controllerContext = new ControllerContext;
-		$request = new Request;
-		$request->setControllerExtensionName('powermail');
-		$controllerContext->setRequest($request);
-		$this->abstractValidationViewHelperMock->_set('controllerContext', $controllerContext);
+	/**
+	 * Dataprovider for getDottedListOfExtensions()
+	 *
+	 * @return array
+	 */
+	public function getDottedListOfExtensionsReturnsStringDataProvider() {
+		return array(
+			array(
+				'jpg,gif,jpeg',
+				'.jpg,.gif,.jpeg'
+			),
+			array(
+				'',
+				''
+			),
+			array(
+				'php',
+				'.php'
+			),
+			array(
+				'jpg,gif,jpeg,doc,docx,xls,xlsx',
+				'.jpg,.gif,.jpeg,.doc,.docx,.xls,.xlsx'
+			),
+		);
+	}
 
-		$result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes, $iteration);
+	/**
+	 * Test for getDottedListOfExtensions()
+	 *
+	 * @param string $string
+	 * @param string $expectedResult
+	 * @return void
+	 * @dataProvider getDottedListOfExtensionsReturnsStringDataProvider
+	 * @test
+	 */
+	public function getDottedListOfExtensionsReturnsString($string, $expectedResult) {
+		$result = $this->abstractValidationViewHelperMock->_callRef('getDottedListOfExtensions', $string);
 		$this->assertSame($expectedResult, $result);
 	}
 
