@@ -10,6 +10,29 @@ Maybe you need to upgrade powermail to this version. Following instructions shou
 Note: Please do not modify any extension files to ensure easy upgrading.
 
 
+Any Upgrade
+^^^^^^^^^^^
+
+Description
+"""""""""""
+
+Do you have **problems after a powermail upgrade**?
+
+Follow this steps
+"""""""""""""""""
+
+Please follow this steps before you create a bug entry on forge:
+
+* Clean all caches in Install Tool
+* Remove all files and folder in typo3temp/
+* Try to use the default TypoScript (comment out your TypoScript)
+* Try to use default Templates (and Partials and Layouts)
+* Reload Frontend
+* Reload Backend
+* Check again
+* Still problems? Please report to forge.typo3.org
+
+
 Bugfix Upgrade
 ^^^^^^^^^^^^^^
 
@@ -25,11 +48,11 @@ No breaking changes in database or HTML-Template-Files.
 
 An upgrade should be very easy. Follow the steps:
 
-- Upgrade powermail with Extension Manager (or manually)
-- Clean all caches in Install Tool (just removing all files in typo3temp/* may not help you!)
-- Reload Frontend
-- Reload Backend
-- Done
+* Upgrade powermail with Extension Manager (or manually)
+* Clean all caches in Install Tool (just removing all files in typo3temp/* may not help you!)
+* Reload Frontend
+* Reload Backend
+* Done
 
 
 Minor Upgrade
@@ -47,13 +70,13 @@ Breaking changes in HTML-Templates. You have to upgrade your own HTML-Templates 
 
 Follow the steps:
 
-- Upgrade powermail with Extension Manager (or manually)
-- Use original HTML-Files (Templates, Partials, Layouts) for testing
-- Clean all caches in Install Tool (just removing all files in typo3temp/* may not help you!)
-- Reload Frontend
-- Reload Backend
-- Update Backend User Rights for the new powermail version
-- Done
+* Upgrade powermail with Extension Manager (or manually)
+* Use original HTML-Files (Templates, Partials, Layouts) for testing
+* Clean all caches in Install Tool (just removing all files in typo3temp/* may not help you!)
+* Reload Frontend
+* Reload Backend
+* Update Backend User Rights for the new powermail version
+* Done
 
 
 Major Upgrade
@@ -71,12 +94,12 @@ Many breaking changes in database and all Template Files.
 
 Follow the steps:
 
-- Upgrade powermail with Extension Manager (or manually)
-- Clean all caches in Install Tool (just removing all files in typo3temp/* may not help you!)
-- Do not make a "compare database" with the remove-function. Old powermail tables are still need for a form-converting
-- Use original HTML-Files (Templates, Partials, Layouts) for testing
-- Reload Frontend
-- Reload Backend
-- Use the Converter-Tool in Powermail Backend Module to convert old forms to new ones
-- Update Backend User Rights for the new powermail version
-- Done
+* Upgrade powermail with Extension Manager (or manually)
+* Clean all caches in Install Tool (just removing all files in typo3temp/* may not help you!)
+* Do not make a "compare database" with the remove-function. Old powermail tables are still need for a form-converting
+* Use original HTML-Files (Templates, Partials, Layouts) for testing
+* Reload Frontend
+* Reload Backend
+* Use the Converter-Tool in Powermail Backend Module to convert old forms to new ones
+* Update Backend User Rights for the new powermail version
+* Done

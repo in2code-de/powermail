@@ -168,11 +168,14 @@ function PowermailForm($) {
 	 */
 	this.ajaxFormSubmit = function() {
 		var regularSubmitOnAjax = false;
-		var redirectUri = that.getValueFromField($('#redirectUri'));
+		var redirectUri;
 
 		// submit is called after parsley and html5 validation - so we don't have to check for errors
-		$(document).on('submit', 'form[data-powermail-ajax]', function (e) {
+		$(document).on('submit', 'form[data-powermail-ajax]', function(e) {
 			var $this = $(this);
+			if ($this.data('powermail-ajax-uri')) {
+				redirectUri = $this.data('powermail-ajax-uri');
+			}
 			var formUid = $this.data('powermail-form');
 
 			if (!regularSubmitOnAjax) {
@@ -183,14 +186,8 @@ function PowermailForm($) {
 					contentType: false,
 					processData: false,
 					beforeSend: function() {
-						// add progressbar div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
-						var progressBar = $('<div />').addClass('powermail_progressbar').html(
-							$('<div />').addClass('powermail_progress').html(
-								$('<div />').addClass('powermail_progess_inner')
-							)
-						);
-						$('.powermail_submit', $this).parent().append(progressBar);
-						$('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(progressBar);
+						$('.powermail_submit', $this).parent().append(that.getProgressbar());
+						$('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(that.getProgressbar());
 					},
 					complete: function() {
 						// remove progressbar
@@ -210,10 +207,11 @@ function PowermailForm($) {
 							}
 							that.reloadCaptchaImages();
 						} else {
-							// no form markup found try to redirect via clientside
+							// no form markup found try to redirect via javascript
 							if (redirectUri) {
 								window.location = redirectUri;
 							} else {
+								// fallback if no location found (but will effect 2x submit)
 								$this.submit();
 							}
 							regularSubmitOnAjax = true;
@@ -277,20 +275,6 @@ function PowermailForm($) {
 	};
 
 	/**
-	 * Get value of field and check if element exists
-	 *
-	 * @param {jQuery} $element
-	 * @returns {string}
-	 */
-	this.getValueFromField = function($element) {
-		var value = '';
-		if ($element.length) {
-			value = $element.val();
-		}
-		return value;
-	};
-
-	/**
 	 * Get uri without get params
 	 *
 	 * @param {string} uri
@@ -350,6 +334,20 @@ function PowermailForm($) {
 	};
 
 	/**
+	 * Get markup for progressbar
+	 * 		div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
+	 *
+	 * @returns {jQuery}
+	 */
+	this.getProgressbar = function() {
+		return $('<div />').addClass('powermail_progressbar').html(
+			$('<div />').addClass('powermail_progress').html(
+				$('<div />').addClass('powermail_progess_inner')
+			)
+		);
+	};
+
+	/**
 	 * Return BaseUrl as prefix
 	 *
 	 * @return {string} Base Url
@@ -370,6 +368,7 @@ function PowermailForm($) {
 }
 
 jQuery(document).ready(function($) {
+	'use strict';
 	var PowermailForm = new window.PowermailForm($);
 	PowermailForm.initialize();
 });

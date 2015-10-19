@@ -3,6 +3,7 @@ namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Service\FormConverterService;
 use In2code\Powermail\Utility\BackendUtility;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -312,9 +313,7 @@ class ModuleController extends AbstractController {
 	 * @return void
 	 */
 	public function fixUploadFolderAction() {
-		GeneralUtility::mkdir(
-			GeneralUtility::getFileAbsFileName('uploads/tx_powermail/')
-		);
+		BasicFileUtility::createFolderIfNotExists(GeneralUtility::getFileAbsFileName('uploads/tx_powermail/'));
 		$this->redirect('checkBe');
 	}
 

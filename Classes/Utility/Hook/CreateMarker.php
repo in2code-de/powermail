@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -28,13 +29,18 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  ***************************************************************/
 
 /**
- * Abstract Marker Class for Backend-Marker functions
+ * Class to autofill field marker with value from title e.g. {firstname}
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractMarker {
+class CreateMarker {
+
+	/**
+	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	protected $databaseConnection = NULL;
 
 	/**
 	 * Array with all GET/POST params to save
@@ -76,18 +82,108 @@ abstract class AbstractMarker {
 	);
 
 	/**
-	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+	 * Default marker name for empty titles
+	 *
+	 * @var string
 	 */
-	protected $databaseConnection = NULL;
+	protected $defaultMarkerName = 'marker';
 
 	/**
-	 * Clean Marker String ("My Field" => "my_field")
+	 * Initially fill the marker field from title
+	 *
+	 * @param string $status mode of change
+	 * @param string $table the table which gets changed
+	 * @param string $uid uid of the record
+	 * @param array $fieldArray the updateArray
+	 * @return void
+	 */
+	public function processDatamap_postProcessFieldArray($status, $table, $uid, &$fieldArray) {
+		if ($table !== 'tx_powermail_domain_model_fields') {
+			return;
+		}
+		$markers = array_merge((array) $this->existingMarkers, (array) $this->marker);
+		$this->makeUniqueValueInArray($markers);
+
+			// set marker for new field
+		if (isset($this->data['tx_powermail_domain_model_fields'][$uid]['marker']) || stristr($uid, 'NEW')) {
+			if (isset($fieldArray['marker']) && empty($fieldArray['marker'])) {
+				$fieldArray['marker'] = 'marker_' . StringUtility::getRandomString(8, FALSE);
+			}
+			if (!empty($markers['_' . $uid])) {
+				$fieldArray['marker'] = $markers['_' . $uid];
+			}
+		}
+
+			// revise marker if related to a new page and not allowed
+		if (!empty($markers['_' . $uid]) && $markers['_' . $uid] !== $this->marker['_' . $uid]) {
+			$fieldArray['marker'] = $markers['_' . $uid];
+		}
+
+			// marker should be empty on localized fields
+		if (!empty($fieldArray['sys_language_uid']) && $fieldArray['sys_language_uid'] > 0) {
+			unset($fieldArray['marker']);
+		}
+	}
+
+	/**
+	 * Make Array with unique values
+	 *
+	 * @param array $array
+	 * @return void
+	 */
+	protected function makeUniqueValueInArray(&$array) {
+		$newArray = array();
+		foreach ((array) $array as $key => $value) {
+			if (!in_array($value, $newArray) && !in_array($value, $this->restrictedMarkerNames)) {
+				$newArray[$key] = $value;
+			} else {
+				for ($i = 1; $i < 100; $i++) {
+					// remove appendix "_xx"
+					$value = preg_replace('/_[0-9][0-9]$/', '', $value);
+					$value .= '_' . str_pad($i, 2, '0', STR_PAD_LEFT);
+					if (!in_array($value, $newArray)) {
+						$newArray[$key] = $value;
+						break;
+					}
+				}
+			}
+		}
+		$array = $newArray;
+		unset($newArray);
+	}
+
+	/**
+	 * Get marker values
+	 *
+	 * @return void
+	 */
+	protected function setMarkers() {
+		$this->marker = array();
+		foreach ((array) $this->data['tx_powermail_domain_model_fields'] as $fieldUid => $fieldValues) {
+			if (!empty($fieldValues['title'])) {
+				if (isset($fieldValues['marker'])) {
+					$marker = $fieldValues['marker'];
+				} else {
+					$marker = $this->cleanString($fieldValues['title'], $this->defaultMarkerName);
+				}
+				$this->marker['_' . $fieldUid] = $marker;
+			}
+		}
+	}
+
+	/**
+	 * Clean Marker String
+	 * 		"My Field ?1$2§3" => "myfield123"
 	 *
 	 * @param string $string Any String
+	 * @param string $defaultValue
 	 * @return string
 	 */
-	protected function cleanString($string) {
+	protected function cleanString($string, $defaultValue) {
 		$string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+		if (empty($string)) {
+			$string = $defaultValue;
+		}
 		$string = str_replace(array('-'), '_', $string);
 		$string = strtolower($string);
 		return $string;
@@ -101,14 +197,14 @@ abstract class AbstractMarker {
 	protected function getFormUid() {
 		$formUid = 0;
 
-			// if form is given in GET params (open form and pages and fields via IRRE)
+		// if form is given in GET params (open form and pages and fields via IRRE)
 		if (isset($this->data['tx_powermail_domain_model_forms'])) {
 			foreach (array_keys((array) $this->data['tx_powermail_domain_model_forms']) as $uid) {
 				$formUid = $uid;
 			}
 		}
 
-			// if pages open (fields via IRRE)
+		// if pages open (fields via IRRE)
 		if ($formUid === 0) {
 			foreach (array_keys((array) $this->data['tx_powermail_domain_model_pages']) as $uid) {
 				if (!empty($this->data['tx_powermail_domain_model_pages'][$uid]['forms'])) {
@@ -117,7 +213,7 @@ abstract class AbstractMarker {
 			}
 		}
 
-			// if field is directly opened (no IRRE OR opened pages with their IRRE fields
+		// if field is directly opened (no IRRE OR opened pages with their IRRE fields
 		if ($formUid === 0) {
 			foreach (array_keys((array) $this->data['tx_powermail_domain_model_fields']) as $uid) {
 				if (!empty($this->data['tx_powermail_domain_model_fields'][$uid]['pages'])) {
@@ -145,7 +241,7 @@ abstract class AbstractMarker {
 			LEFT JOIN tx_powermail_domain_model_pages ON tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid
 			LEFT JOIN tx_powermail_domain_model_fields ON tx_powermail_domain_model_fields.pages = tx_powermail_domain_model_pages.uid
 		';
-		$where = 'tx_powermail_domain_model_pages.uid = ' . intval($pageUid);
+		$where = 'tx_powermail_domain_model_pages.uid = ' . (int) $pageUid;
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1;
@@ -171,7 +267,7 @@ abstract class AbstractMarker {
 			LEFT JOIN tx_powermail_domain_model_pages ON tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid
 			LEFT JOIN tx_powermail_domain_model_fields ON tx_powermail_domain_model_fields.pages = tx_powermail_domain_model_pages.uid
 		';
-		$where = 'tx_powermail_domain_model_fields.uid = ' . intval($fieldUid);
+		$where = 'tx_powermail_domain_model_fields.uid = ' . (int) $fieldUid;
 		$groupBy = '';
 		$orderBy = '';
 		$limit = 1;
@@ -196,7 +292,7 @@ abstract class AbstractMarker {
 			LEFT JOIN tx_powermail_domain_model_pages ON tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid
 			LEFT JOIN tx_powermail_domain_model_fields ON tx_powermail_domain_model_fields.pages = tx_powermail_domain_model_pages.uid
 		';
-		$where = 'tx_powermail_domain_model_forms.uid = ' . intval($this->formUid) .
+		$where = 'tx_powermail_domain_model_forms.uid = ' . (int) $this->formUid .
 			' and tx_powermail_domain_model_fields.deleted = 0';
 		$groupBy = '';
 		$orderBy = '';
@@ -212,55 +308,17 @@ abstract class AbstractMarker {
 	}
 
 	/**
-	 * Make Array with unique values
-	 *
-	 * @param array $array
-	 * @return void
-	 */
-	protected function makeUniqueValueInArray(&$array) {
-		$newArray = array();
-		foreach ((array) $array as $key => $value) {
-			if (!in_array($value, $newArray) && !in_array($value, $this->restrictedMarkerNames)) {
-				$newArray[$key] = $value;
-			} else {
-				for ($i = 1; $i < 100; $i++) {
-						// remove appendix "_xx"
-					$value = preg_replace('/_[0-9][0-9]$/', '', $value);
-					$value .= '_' . str_pad($i, 2, '0', STR_PAD_LEFT);
-					if (!in_array($value, $newArray)) {
-						$newArray[$key] = $value;
-						break;
-					}
-				}
-			}
-		}
-		$array = $newArray;
-		unset($newArray);
-	}
-
-	/**
-	 * Get marker values
-	 *
-	 * @return void
-	 */
-	protected function getMarkers() {
-		$this->marker = array();
-		foreach ((array) $this->data['tx_powermail_domain_model_fields'] as $fieldUid => $fieldValues) {
-			if (!empty($fieldValues['title'])) {
-				$this->marker['_' . $fieldUid] =
-					(isset($fieldValues['marker']) ? $fieldValues['marker'] : $this->cleanString($fieldValues['title']));
-			}
-		}
-	}
-
-	/**
 	 * Constructor
+	 *
+	 * @param bool $test
 	 */
-	public function __construct() {
-		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
-		$this->data = (array) GeneralUtility::_GP('data');
-		$this->getMarkers();
-		$this->formUid = $this->getFormUid();
-		$this->existingMarkers = $this->getFieldMarkersFromForm();
+	public function __construct($test = FALSE) {
+		if (!$test) {
+			$this->databaseConnection = $GLOBALS['TYPO3_DB'];
+			$this->data = (array) GeneralUtility::_GP('data');
+			$this->setMarkers();
+			$this->formUid = $this->getFormUid();
+			$this->existingMarkers = $this->getFieldMarkersFromForm();
+		}
 	}
 }

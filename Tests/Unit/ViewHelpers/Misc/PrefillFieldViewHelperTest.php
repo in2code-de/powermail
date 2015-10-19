@@ -265,12 +265,13 @@ class PrefillFieldViewHelperTest extends UnitTestCase {
 					'prefill.' => array(
 						'email' => 'TEXT',
 						'email.' => array(
-							'data' => 'date:U'
+							'data' => 'date:U',
+							'strftime' => '%d.%m.%Y %H:%M'
 						)
 					)
 				),
 				'email',
-				(string) time()
+				(string) strftime('%d.%m.%Y %H:%M')
 			),
 		);
 	}

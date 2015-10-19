@@ -347,6 +347,47 @@ class BasicFileUtility {
 	}
 
 	/**
+	 * Get path from path and filename
+	 *
+	 * @param string $pathAndFilename
+	 * @return string
+	 */
+	public static function getPathFromPathAndFilename($pathAndFilename) {
+		$pathInfo = pathinfo($pathAndFilename);
+		return $pathInfo['dirname'];
+	}
+
+	/**
+	 * Create folder
+	 *
+	 * @param $path
+	 * @return void
+	 * @throws \Exception
+	 */
+	public static function createFolderIfNotExists($path) {
+		if (!is_dir($path) && !GeneralUtility::mkdir($path)) {
+			throw new \Exception('Folder ' . $path . '/ does not exists');
+		}
+	}
+
+	/**
+	 * Prepend content to the beginning of a file
+	 *
+	 * @param string $pathAndFile
+	 * @param string $content
+	 * @return void
+	 */
+	public static function prependContentToFile($pathAndFile, $content) {
+		$absolutePathAndFile = GeneralUtility::getFileAbsFileName($pathAndFile);
+		$lines = array();
+		if (is_file($absolutePathAndFile)) {
+			$lines = file($absolutePathAndFile);
+		}
+		array_unshift($lines, $content);
+		GeneralUtility::writeFile($absolutePathAndFile, implode('', $lines));
+	}
+
+	/**
 	 * Remove appending numbers in filename strings
 	 * 		image_01 => image
 	 * 		image_01_02 => image_01

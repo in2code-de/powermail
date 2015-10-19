@@ -319,6 +319,12 @@ plugin.tx_powermail {
 				# Template for notification Email to Admin
 				emailTemplate = {$plugin.tx_powermail.settings.spamshield.emailTemplate}
 
+				# Path to logfile
+				logfileLocation = {$plugin.tx_powermail.settings.spamshield.logfileLocation}
+
+				# Template for logging entry
+				logTemplate = {$plugin.tx_powermail.settings.spamshield.logTemplate}
+
 				indicator {
 					# if this check failed - add this indication value to indicator (0 disables this check completely)
 					honeypod = 5

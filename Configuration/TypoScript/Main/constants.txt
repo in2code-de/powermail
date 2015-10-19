@@ -238,6 +238,12 @@ plugin.tx_powermail {
 
 			# cat=powermail_spam//0940; type=text; label= Spamshield Notifymail Template: Template for notification Email to Admin
 			emailTemplate = EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+
+			# cat=powermail_spam//0950; type=text; label= Spamshield Log Template Location: Path of log file, ie. typo3temp/logs/powermail_spam.log, if empty, logging is deactivated
+			logfileLocation =
+
+			# cat=powermail_spam//0960; type=text; label= Spamshield Log Template: Template for entries written to log file
+			logTemplate = EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
 		}
 
 		captcha {

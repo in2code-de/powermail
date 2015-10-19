@@ -46,8 +46,10 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 	 * @return void
 	 */
 	public function setUp() {
+		require_once(dirname(dirname(dirname(__FILE__))) .
+			'/Fixtures/ViewHelpers/Validation/EnableParsleyAndAjaxViewHelperFixture.php');
 		$this->enableParsleyAndAjaxViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelper',
+			'\In2code\Powermail\Tests\Fixtures\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelperFixture',
 			array('dummy')
 		);
 	}
@@ -82,6 +84,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 					'data-validate' => 'html5',
 					'data-powermail-ajax' => 'true',
 					'data-powermail-form' => 123,
+					'data-powermail-ajax-uri' => 'index.php?id=123'
 				)
 			),
 			'clientAndAjaxAndNoAdditionalAttributes' => array(
@@ -99,6 +102,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 					'data-parsley-validate' => 'data-parsley-validate',
 					'data-powermail-ajax' => 'true',
 					'data-powermail-form' => 123,
+					'data-powermail-ajax-uri' => 'index.php?id=123'
 				)
 			),
 			'nativeAndAjaxAndNoAdditionalAttributes' => array(
@@ -116,6 +120,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 					'data-validate' => 'html5',
 					'data-powermail-ajax' => 'true',
 					'data-powermail-form' => 123,
+					'data-powermail-ajax-uri' => 'index.php?id=123'
 				)
 			),
 			'AjaxAndNoAdditionalAttributes' => array(
@@ -132,6 +137,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 				array(
 					'data-powermail-ajax' => 'true',
 					'data-powermail-form' => 123,
+					'data-powermail-ajax-uri' => 'index.php?id=123'
 				)
 			),
 			'nativeAndClientAndNoAdditionalAttributes' => array(
@@ -172,7 +178,8 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
 					'data-parsley-validate' => 'data-parsley-validate',
 					'data-validate' => 'html5',
 					'data-powermail-ajax' => 'true',
-					'data-powermail-form' => 123
+					'data-powermail-form' => 123,
+					'data-powermail-ajax-uri' => 'index.php?id=123'
 				)
 			),
 		);

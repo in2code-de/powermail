@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\MailUtility;
@@ -98,6 +99,7 @@ class SpamShieldValidator extends AbstractValidator {
 			$this->addError('spam_details', $this->getCalculatedMailSpamFactor(TRUE));
 			$this->setValidState(FALSE);
 			$this->sendSpamNotificationMail($mail);
+			$this->logSpamNotification($mail);
 		}
 		return $this->isValidState();
 	}
@@ -256,7 +258,7 @@ class SpamShieldValidator extends AbstractValidator {
 			}
 		}
 
-		if (count($arr) != count(array_unique($arr))) {
+		if (count($arr) !== count(array_unique($arr))) {
 			$this->increaseSpamIndicator($indication);
 			$this->addMessage(__FUNCTION__ . ' failed');
 			return;
@@ -334,29 +336,47 @@ class SpamShieldValidator extends AbstractValidator {
 		if (!GeneralUtility::validEmail($this->settings['spamshield.']['email'])) {
 			return;
 		}
-		$variables = array(
-			'mail' => $mail,
-			'pid' => FrontendUtility::getCurrentPageIdentifier(),
-			'calculatedMailSpamFactor' => $this->getCalculatedMailSpamFactor(TRUE),
-			'messages' => $this->getMessages(),
-			'ipAddress' => (!ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '')
-		);
 		MailUtility::sendPlainMail(
 			$this->settings['spamshield.']['email'],
 			'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'),
 			$this->settings['spamshield.']['emailSubject'],
-			$this->createSpamNotificationMailBody($this->settings['spamshield.']['emailTemplate'], $variables)
+			$this->createSpamNotificationMessage(
+				$this->settings['spamshield.']['emailTemplate'],
+				$this->getVariablesForSpamNotification($mail)
+			)
 		);
 	}
 
 	/**
-	 * Create bodytext for spamnotification mail
+	 * Log Spam Notification
+	 *
+	 * @param Mail $mail
+	 * @return void
+	 */
+	protected function logSpamNotification(Mail $mail) {
+		if (empty($this->settings['spamshield.']['logfileLocation'])) {
+			return;
+		}
+		BasicFileUtility::createFolderIfNotExists(
+			BasicFileUtility::getPathFromPathAndFilename($this->settings['spamshield.']['logfileLocation'])
+		);
+		$logMessage = $this->createSpamNotificationMessage(
+			$this->settings['spamshield.']['logTemplate'],
+			$this->getVariablesForSpamNotification($mail)
+		);
+		BasicFileUtility::prependContentToFile($this->settings['spamshield.']['logfileLocation'], $logMessage);
+	}
+
+	/**
+	 * Create message for spam logging
+	 * 		- bodytext for spamnotification mail OR
+	 * 		- log entry
 	 *
 	 * @param string $path relative path to mail
 	 * @param array $multipleAssign
 	 * @return string
 	 */
-	protected function createSpamNotificationMailBody($path, $multipleAssign = array()) {
+	protected function createSpamNotificationMessage($path, $multipleAssign = array()) {
 		$rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
 		$standaloneView = TemplateUtility::getDefaultStandAloneView();
 		$standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($path));
@@ -364,6 +384,23 @@ class SpamShieldValidator extends AbstractValidator {
 		$standaloneView->setPartialRootPaths(array($rootPath . 'Partials'));
 		$standaloneView->assignMultiple($multipleAssign);
 		return $standaloneView->render();
+	}
+
+	/**
+	 * Prepare variables for assignment in spam notifications
+	 *
+	 * @param Mail $mail
+	 * @return array
+	 */
+	protected function getVariablesForSpamNotification(Mail $mail) {
+		return array(
+			'mail' => $mail,
+			'pid' => FrontendUtility::getCurrentPageIdentifier(),
+			'calculatedMailSpamFactor' => $this->getCalculatedMailSpamFactor(TRUE),
+			'messages' => $this->getMessages(),
+			'ipAddress' => (!ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : ''),
+			'time' => new \DateTime()
+		);
 	}
 
 	/**

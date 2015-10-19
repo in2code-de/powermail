@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
@@ -210,9 +211,7 @@ class ExportService {
 	 * @return bool if file operation could done successfully
 	 */
 	protected function createExportFile() {
-		if (!is_dir($this->getStorageFolder(TRUE))) {
-			GeneralUtility::mkdir($this->getStorageFolder(TRUE));
-		}
+		BasicFileUtility::createFolderIfNotExists($this->getStorageFolder(TRUE));
 		return GeneralUtility::writeFile($this->getAbsolutePathAndFileName(), $this->getFileContent(), TRUE);
 	}
 

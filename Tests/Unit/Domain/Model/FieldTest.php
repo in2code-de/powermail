@@ -37,7 +37,7 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 class FieldTest extends UnitTestCase {
 
 	/**
-	 * @var \In2code\Powermail\Tests\Fixtures\FieldFixture
+	 * @var \In2code\Powermail\Tests\Fixtures\Domain\Model\FieldFixture
 	 */
 	protected $generalValidatorMock;
 
@@ -45,9 +45,9 @@ class FieldTest extends UnitTestCase {
 	 * @return void
 	 */
 	public function setUp() {
-		require_once(dirname(dirname(dirname(__FILE__))) . '/Fixtures/FieldFixture.php');
+		require_once(dirname(dirname(dirname(__FILE__))) . '/Fixtures/Domain/Model/FieldFixture.php');
 		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Tests\Fixtures\FieldFixture',
+			'\In2code\Powermail\Tests\Fixtures\Domain\Model\FieldFixture',
 			array('dummy')
 		);
 	}

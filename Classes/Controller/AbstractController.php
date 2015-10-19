@@ -230,10 +230,10 @@ abstract class AbstractController extends ActionController {
 
 				// edit form: add answer id
 			if (!empty($arguments['field']['__identity'])) {
-				$newArguments['mail']['answers'][$i]['__identity'] = $this->answerRepository->findByFieldAndMail(
-					$fieldUid,
-					$arguments['field']['__identity']
-				)->getUid();
+				$answer = $this->answerRepository->findByFieldAndMail($fieldUid, $arguments['field']['__identity']);
+				if ($answer !== NULL) {
+					$newArguments['mail']['answers'][$i]['__identity'] = $answer->getUid();
+				}
 			}
 			$i++;
 		}
@@ -248,7 +248,7 @@ abstract class AbstractController extends ActionController {
 	}
 
 	/**
-	 * Get redirec target URI
+	 * Get redirect target URI
 	 *
 	 * @return string
 	 */
@@ -275,21 +275,6 @@ abstract class AbstractController extends ActionController {
 			return $this->uriBuilder->build();
 		}
 		return NULL;
-	}
-
-	/**
-	 * Assigns all values, which should be available in all views
-	 *
-	 * @return void
-	 */
-	protected function assignForAll() {
-		$this->view->assignMultiple(
-			array(
-				'languageUid' => FrontendUtility::getSysLanguageUid(),
-				'Pid' => FrontendUtility::getCurrentPageIdentifier(),
-				'redirectUri' => $this->getRedirectTargetUri()
-			)
-		);
 	}
 
 	/**

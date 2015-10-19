@@ -56,6 +56,8 @@ factor_                                                     :ref:`t3tsref:data-t
 email_                                                      :ref:`t3tsref:data-type-string`            no                      *empty*
 :ref:`goodtoknow-emailsubject`                              :ref:`t3tsref:data-type-string`            no                      Spam in powermail form recognized
 :ref:`goodtoknow-emailtemplate`                             :ref:`t3tsref:data-type-string`            no                      EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+:ref:`goodtoknow-logfilelocation`                           :ref:`t3tsref:data-type-string`            no                      *empty*
+:ref:`goodtoknow-logtemplate`                               :ref:`t3tsref:data-type-string`            no                      EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
 :ref:`goodtoknow-indicatorhoneypod`                         :ref:`t3tsref:data-type-integer`           no                      5
 :ref:`goodtoknow-indicatorlink`                             :ref:`t3tsref:data-type-integer`           no                      3
 :ref:`goodtoknow-indicatorlinklimit`                        :ref:`t3tsref:data-type-integer`           no                      2
@@ -118,6 +120,26 @@ emailTemplate
 :typoscript:`plugin.tx_powermail.settings.setup.spamshield.emailTemplate =` :ref:`t3tsref:data-type-string`
 
 Path to mail template file
+
+
+.. _goodtoknow-logfilelocation:
+
+logfileLocation
+"""""""""""""""
+
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.logfileLocation =` :ref:`t3tsref:data-type-string`
+
+Path of log file, ie. typo3temp/logs/powermail_spam.log, if empty, logging is deactivated
+
+
+.. _goodtoknow-logtemplate:
+
+logTemplate
+"""""""""""
+
+:typoscript:`plugin.tx_powermail.settings.setup.spamshield.logTemplate =` :ref:`t3tsref:data-type-string`
+
+Spamshield Log Template: Template for entries written to log file
 
 
 .. _goodtoknow-indicatorhoneypod:
@@ -263,6 +285,9 @@ Comprehensive Example
 				_enable = 1
 				factor = 75
 				email = administrator@domain.org
+				emailTemplate = EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+				logfileLocation = typo3temp/logs/powermail_spam.log
+				logTemplate = EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
 
 				indicator {
 					honeypod = 5
@@ -285,9 +310,11 @@ Comprehensive Example
 Debug and finetune the Spamsettings
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Its usefull to activate a adminmail (for an initial time period e.g.)
-if a mail failed (see TypoScript Settings before). In the mail, you
+It is useful to activate a notify mail to the admin
+(for an initial time period e.g.) if a submit failed
+(see TypoScript above how to enable). In the mail, you
 see which checks failed and the overall Spam Factor.
+This is an example of the mail content:
 
 ::
 
@@ -310,6 +337,33 @@ see which checks failed and the overall Spam Factor.
    See link on http://freeporn.de or http://freeporn.com
 
    Senders IP address: 155.233.10.8
+
+As an alternative, you can enable a logfile
+(see TypoScript above how to enable),
+where all spam is logged. This is an example content of the logfile:
+
+::
+
+
+	----------------------------------------------------
+
+	2015-10-19 12:03:39
+
+	PID: 184
+	Spamfactor of this mail: 92%
+	Failed Spamchecks:
+	- linkCheck failed
+	- uniqueCheck failed
+	- blacklistStringCheck failed
+
+	Given Form variables:
+	- Name: Viagra
+	- E-Mail: Viagra
+	- Text: http://www.test.de
+	http://www.test.de
+	http://www.test.de
+
+	Senders IP addess: 127.0.0.1
 
 You can also enable the Spamshield Debug to see the Methods
 which are failed above the form. Enable with TypoScript setup (Use extension devlog to see this settings):

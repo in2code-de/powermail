@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -126,9 +127,7 @@ class CalculatingCaptchaService {
 	 */
 	public function render(Field $field) {
 		$this->setPathAndFilename($field);
-		if (!is_dir($this->getImagePath(TRUE)) && !GeneralUtility::mkdir($this->getImagePath(TRUE))) {
-			throw new \Exception('Folder ' . $this->getImagePath() . '/ does not exists');
-		}
+		BasicFileUtility::createFolderIfNotExists($this->getImagePath(TRUE));
 		$captchaValue = $this->getStringAndResultForCaptcha();
 		SessionUtility::setCaptchaSession($captchaValue['result'], $field->getUid());
 		return $this->createImage($captchaValue['string']);

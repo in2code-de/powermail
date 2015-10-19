@@ -1,0 +1,14 @@
+
+----------------------------------------------------
+
+<f:format.date format="Y-m-d H:i:s">{time}</f:format.date>
+
+PID: {pid}
+Spamfactor of this mail: {calculatedMailSpamFactor}
+Failed Spamchecks:
+<f:for each="{messages}" as="message">- {message}
+</f:for>
+Given Form variables:
+<f:for each="{mail.answers}" as="answer">- {answer.field.title}: {answer.value}
+</f:for>
+<f:if condition="{ipAddress}">Senders IP addess: {ipAddress}</f:if>
