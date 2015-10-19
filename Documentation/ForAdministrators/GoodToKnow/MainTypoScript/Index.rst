@@ -602,6 +602,32 @@ Constants Overview
       text
    :Default:
 
+ - :Constants:
+      spamshield.emailTemplate
+   :Description:
+      Spamshield Notifymail Template: Template for notification Email to Admin
+   :Type:
+      text
+   :Default:
+      EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+
+ - :Constants:
+      spamshield.logfileLocation
+   :Description:
+      Spamshield Log Template Location: Path of log file, ie. typo3temp/logs/powermail_spam.log, if empty, logging is deactivated
+   :Type:
+      text
+   :Default:
+
+ - :Constants:
+      spamshield.logTemplate
+   :Description:
+      Spamshield Log Template: Template for entries written to log file
+   :Type:
+      text
+   :Default:
+      EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
+
 
  - :Constants:
       captcha.image
@@ -1020,6 +1046,12 @@ Setup
 
                     # Template for notification Email to Admin
                     emailTemplate = {$plugin.tx_powermail.settings.spamshield.emailTemplate}
+
+                    # Template for logging entry
+                    logTemplate = {$plugin.tx_powermail.settings.spamshield.logTemplate}
+
+                    # Path to logfile
+                    logfileLocation = {$plugin.tx_powermail.settings.spamshield.logfileLocation}
 
                     indicator {
                         # if this check failed - add this indication value to indicator (0 disables this check completely)
@@ -1692,6 +1724,12 @@ Constants
 
 				# cat=powermail_spam//0940; type=text; label= Spamshield Notifymail Template: Template for notification Email to Admin
 				emailTemplate = EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+
+				# cat=powermail_spam//0950; type=text; label= Spamshield Log Template Location: Path of log file, ie. typo3temp/logs/powermail_spam.log, if empty, logging is deactivated
+				logfileLocation =
+
+				# cat=powermail_spam//0960; type=text; label= Spamshield Log Template: Template for entries written to log file
+				logTemplate = EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
 			}
 
 			captcha {
