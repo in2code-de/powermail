@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.14.0
+   :Date:
+      2015-10-19
+   :Changes:
+
+      * Feature _`#70827`: https://forge.typo3.org/issues/70827 Write spam notifications to log file
+      * Bugfix _`#70820`: https://forge.typo3.org/issues/70820 Fields without markers should be prevented
+      * Bugfix _`#70768`: https://forge.typo3.org/issues/70768 Ajax submit: wrong redirection if multiple forms on one page
+      * Bugfix _`#70096`: https://forge.typo3.org/issues/70096 Call to a member function getUid() on a non-object in powermail/Classes/Controller/AbstractController.php on line 236
+
+ - :Version:
       2.13.0
    :Date:
       2015-10-14
