@@ -2,6 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -29,6 +30,12 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper {
 			$additionalAttributes['accept'] = $this->getDottedListOfExtensions(
 				$this->settings['misc']['file']['extension']
 			);
+		}
+		if (!empty($this->settings['misc']['file']['size'])) {
+			$additionalAttributes['data-parsley-powermailfilesize'] =
+				(int) $this->settings['misc']['file']['size'] . ',' . $field->getMarker();
+			$additionalAttributes['data-parsley-powermailfilesize-message'] =
+				LocalizationUtility::translate('validationerror_upload_size');
 		}
 		return $additionalAttributes;
 	}

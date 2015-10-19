@@ -27,6 +27,7 @@ function PowermailForm($) {
 		that.hidePasswords();
 		that.addResetListener();
 		that.deleteAllFilesListener();
+		that.uploadSizeValidatorListener();
 	};
 
 	/**
@@ -154,6 +155,31 @@ function PowermailForm($) {
 			$('.powermail_reset').on('click', '', function() {
 				$('form[data-parsley-validate="data-parsley-validate"]').parsley().reset();
 			});
+		}
+	};
+
+	/**
+	 * Filesize check for upload fields
+	 *
+	 * @returns {void}
+	 */
+	this.uploadSizeValidatorListener = function() {
+		if (window.ParsleyValidator) {
+			window.ParsleyValidator
+				.addValidator('powermailfilesize', function(value, requirement) {
+					if (requirement.indexOf(',') !== -1) {
+						var requirements = requirement.split(',');
+						var maxUploadSize = parseInt(requirements[0]);
+						var $this = $('*[name="tx_powermail_pi1[field][' + requirements[1] + '][]"]');
+						if ($this.length) {
+							if (that.getMaxFileSize($this) > maxUploadSize) {
+								return false;
+							}
+						}
+					}
+					return true;
+				}, 32)
+				.addMessage('en', 'powermailfilesize', 'Error');
 		}
 	};
 
@@ -345,6 +371,24 @@ function PowermailForm($) {
 				$('<div />').addClass('powermail_progess_inner')
 			)
 		);
+	};
+
+	/**
+	 * Get maximum filesize of files in multiple upload field
+	 *
+	 * @param {jQuery} $field
+	 * @returns {int}
+	 */
+	this.getMaxFileSize = function($field) {
+		var field = $field.get(0);
+		var size = 0;
+		for (var i = 0; i < field.files.length; i++) {
+			var file = field.files[i];
+			if (file.size > size) {
+				size = file.size;
+			}
+		}
+		return parseInt(size);
 	};
 
 	/**
