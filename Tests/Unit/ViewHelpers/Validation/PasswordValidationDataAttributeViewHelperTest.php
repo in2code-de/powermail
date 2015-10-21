@@ -35,134 +35,144 @@ use TYPO3\CMS\Extbase\Mvc\Request;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase {
+class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $abstractValidationViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $abstractValidationViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Validation\PasswordValidationDataAttributeViewHelper',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\ViewHelpers\Validation\PasswordValidationDataAttributeViewHelper',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider for render()
-	 *
-	 * @return array
-	 */
-	public function renderReturnsArrayDataProvider() {
-		return array(
-			'passwordWithNativevalidationAndClientvalidation' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '1'
-					)
-				),
-				array(),
-				array(),
-				array(
-					'index' => 0
-				),
-				array(
-					'data-parsley-equalto' => '#powermail_field_uid',
-					'data-parsley-equalto-message' => 'validationerror_password'
-				)
-			),
-			'passwordWithNativevalidation' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '0'
-					)
-				),
-				array(),
-				array(),
-				array(
-					'index' => 0
-				),
-				array()
-			),
-			'passwordWithClientvalidation' => array(
-				array(
-					'validation' => array(
-						'native' => '0',
-						'client' => '1'
-					)
-				),
-				array(),
-				array(),
-				array(
-					'index' => 0
-				),
-				array(
-					'data-parsley-equalto' => '#powermail_field_uid',
-					'data-parsley-equalto-message' => 'validationerror_password'
-				)
-			),
-			'passwordWithoutValidation' => array(
-				array(
-					'validation' => array(
-						'native' => '0',
-						'client' => '0'
-					)
-				),
-				array(),
-				array(),
-				array(
-					'index' => 0
-				),
-				array()
-			),
-		);
-	}
+    /**
+     * Dataprovider for render()
+     *
+     * @return array
+     */
+    public function renderReturnsArrayDataProvider()
+    {
+        return array(
+            'passwordWithNativevalidationAndClientvalidation' => array(
+                array(
+                    'validation' => array(
+                        'native' => '1',
+                        'client' => '1'
+                    )
+                ),
+                array(),
+                array(),
+                array(
+                    'index' => 0
+                ),
+                array(
+                    'data-parsley-equalto' => '#powermail_field_uid',
+                    'data-parsley-equalto-message' => 'validationerror_password'
+                )
+            ),
+            'passwordWithNativevalidation' => array(
+                array(
+                    'validation' => array(
+                        'native' => '1',
+                        'client' => '0'
+                    )
+                ),
+                array(),
+                array(),
+                array(
+                    'index' => 0
+                ),
+                array()
+            ),
+            'passwordWithClientvalidation' => array(
+                array(
+                    'validation' => array(
+                        'native' => '0',
+                        'client' => '1'
+                    )
+                ),
+                array(),
+                array(),
+                array(
+                    'index' => 0
+                ),
+                array(
+                    'data-parsley-equalto' => '#powermail_field_uid',
+                    'data-parsley-equalto-message' => 'validationerror_password'
+                )
+            ),
+            'passwordWithoutValidation' => array(
+                array(
+                    'validation' => array(
+                        'native' => '0',
+                        'client' => '0'
+                    )
+                ),
+                array(),
+                array(),
+                array(
+                    'index' => 0
+                ),
+                array()
+            ),
+        );
+    }
 
-	/**
-	 * Test for render()
-	 *
-	 * @param array $settings
-	 * @param array $fieldProperties
-	 * @param array $additionalAttributes
-	 * @param mixed $iteration
-	 * @param array $expectedResult
-	 * @return void
-	 * @dataProvider renderReturnsArrayDataProvider
-	 * @test
-	 */
-	public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $iteration, $expectedResult) {
-		$field = new Field();
-		foreach ($fieldProperties as $propertyName => $propertyValue) {
-			$field->_setProperty($propertyName, $propertyValue);
-		}
+    /**
+     * Test for render()
+     *
+     * @param array $settings
+     * @param array $fieldProperties
+     * @param array $additionalAttributes
+     * @param mixed $iteration
+     * @param array $expectedResult
+     * @return void
+     * @dataProvider renderReturnsArrayDataProvider
+     * @test
+     */
+    public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $iteration, $expectedResult)
+    {
+        $field = new Field();
+        foreach ($fieldProperties as $propertyName => $propertyValue) {
+            $field->_setProperty($propertyName, $propertyValue);
+        }
 
-		$this->abstractValidationViewHelperMock->_set('test', TRUE);
-		$this->abstractValidationViewHelperMock->_set('settings', $settings);
-		$this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
+        $this->abstractValidationViewHelperMock->_set('test', true);
+        $this->abstractValidationViewHelperMock->_set('settings', $settings);
+        $this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
 
-		$controllerContext = new ControllerContext;
-		$request = new Request;
-		$request->setControllerExtensionName('powermail');
-		$controllerContext->setRequest($request);
-		$this->abstractValidationViewHelperMock->_set('controllerContext', $controllerContext);
+        $controllerContext = new ControllerContext;
+        $request = new Request;
+        $request->setControllerExtensionName('powermail');
+        $controllerContext->setRequest($request);
+        $this->abstractValidationViewHelperMock->_set('controllerContext', $controllerContext);
 
-		$result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes, $iteration);
-		$this->assertSame($expectedResult, $result);
-	}
+        $result = $this->abstractValidationViewHelperMock->_callRef(
+            'render',
+            $field,
+            $additionalAttributes,
+            $iteration
+        );
+        $this->assertSame($expectedResult, $result);
+    }
 
 }

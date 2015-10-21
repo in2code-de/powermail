@@ -9,14 +9,16 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * @package In2code\Powermail\ViewHelpers\Getter
  */
-class GetDevelopmentContextEmailViewHelper extends AbstractViewHelper {
+class GetDevelopmentContextEmailViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Get developmentcontext email
-	 *
-	 * @return  false|string
-	 */
-	public function render() {
-		return ConfigurationUtility::getDevelopmentContextEmail();
-	}
+    /**
+     * Get developmentcontext email
+     *
+     * @return  false|string
+     */
+    public function render()
+    {
+        return ConfigurationUtility::getDevelopmentContextEmail();
+    }
 }

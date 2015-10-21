@@ -10,14 +10,16 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @subpackage Fluid
  * @version
  */
-class EncodeViewHelper extends AbstractViewHelper {
+class EncodeViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Returns encoded string
-	 *
-	 * @return string
-	 */
-	public function render() {
-		return htmlspecialchars($this->renderChildren());
-	}
+    /**
+     * Returns encoded string
+     *
+     * @return string
+     */
+    public function render()
+    {
+        return htmlspecialchars($this->renderChildren());
+    }
 }

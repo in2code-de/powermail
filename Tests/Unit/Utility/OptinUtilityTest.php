@@ -35,26 +35,28 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class OptinUtilityTest extends UnitTestCase {
+class OptinUtilityTest extends UnitTestCase
+{
 
-	/**
-	 * Test for createHash()
-	 *
-	 * @return void
-	 * @test
-	 */
-	public function createHashReturnsString() {
-		$form = new Form();
-		$form->_setProperty('uid', 123);
-		$mail = new Mail();
-		$mail->_setProperty('uid', 123);
-		$mail->_setProperty('pid', 124);
-		$mail->setForm($form);
+    /**
+     * Test for createHash()
+     *
+     * @return void
+     * @test
+     */
+    public function createHashReturnsString()
+    {
+        $form = new Form();
+        $form->_setProperty('uid', 123);
+        $mail = new Mail();
+        $mail->_setProperty('uid', 123);
+        $mail->_setProperty('pid', 124);
+        $mail->setForm($form);
 
-		$result = OptinUtility::createOptinHash($mail);
-		$this->assertEquals('abf068777a', $result);
-		$this->assertTrue(strlen($result) === 10);
-	}
+        $result = OptinUtility::createOptinHash($mail);
+        $this->assertEquals('abf068777a', $result);
+        $this->assertTrue(strlen($result) === 10);
+    }
 }

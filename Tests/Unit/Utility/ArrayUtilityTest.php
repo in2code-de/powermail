@@ -33,75 +33,77 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class ArrayUtilityTest extends UnitTestCase {
+class ArrayUtilityTest extends UnitTestCase
+{
 
-	/**
-	 * @var \In2code\Powermail\Utility\ArrayUtility
-	 */
-	protected $generalValidatorMock;
+    /**
+     * @var \In2code\Powermail\Utility\ArrayUtility
+     */
+    protected $generalValidatorMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\ArrayUtility',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->generalValidatorMock = $this->getAccessibleMock(
+            '\In2code\Powermail\Utility\ArrayUtility',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Data Provider for isJsonArrayReturnsBool()
-	 *
-	 * @return array
-	 */
-	public function isJsonArrayReturnsBoolDataProvider() {
-		return array(
-			array(
-				json_encode(array('a')),
-				TRUE
-			),
-			array(
-				json_encode('a,b:c'),
-				FALSE
-			),
-			array(
-				json_encode(array('object' => 'a')),
-				TRUE
-			),
-			array(
-				json_encode(array(array('title' => 'test2'), array('title' => 'test2'))),
-				TRUE
-			),
-			array(
-				'a,b:c',
-				FALSE
-			),
-		);
-	}
+    /**
+     * Data Provider for isJsonArrayReturnsBool()
+     *
+     * @return array
+     */
+    public function isJsonArrayReturnsBoolDataProvider()
+    {
+        return array(
+            array(
+                json_encode(array('a')),
+                true
+            ),
+            array(
+                json_encode('a,b:c'),
+                false
+            ),
+            array(
+                json_encode(array('object' => 'a')),
+                true
+            ),
+            array(
+                json_encode(array(array('title' => 'test2'), array('title' => 'test2'))),
+                true
+            ),
+            array(
+                'a,b:c',
+                false
+            ),
+        );
+    }
 
-	/**
-	 * isJsonArray Test
-	 *
-	 * @param string $value
-	 * @param bool $expectedResult
-	 * @dataProvider isJsonArrayReturnsBoolDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function isJsonArrayReturnsBool($value, $expectedResult) {
-		$this->assertSame(
-			$expectedResult,
-			ArrayUtility::isJsonArray($value)
-		);
-	}
+    /**
+     * isJsonArray Test
+     *
+     * @param string $value
+     * @param bool $expectedResult
+     * @dataProvider isJsonArrayReturnsBoolDataProvider
+     * @return void
+     * @test
+     */
+    public function isJsonArrayReturnsBool($value, $expectedResult)
+    {
+        $this->assertSame($expectedResult, ArrayUtility::isJsonArray($value));
+    }
 }

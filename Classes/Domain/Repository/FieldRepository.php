@@ -35,238 +35,244 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class FieldRepository extends Repository {
+class FieldRepository extends Repository
+{
 
-	/**
-	 * formRepository
-	 *
-	 * @var \In2code\Powermail\Domain\Repository\FormRepository
-	 * @inject
-	 */
-	protected $formRepository;
+    /**
+     * formRepository
+     *
+     * @var \In2code\Powermail\Domain\Repository\FormRepository
+     * @inject
+     */
+    protected $formRepository;
 
-	/**
-	 * Find all records from given uids and
-	 * respect the sorting
-	 *
-	 * @param array $uids
-	 * @return QueryResultInterface
-	 */
-	public function findByUids($uids) {
-		$result = array();
-		foreach ($uids as $uid) {
-			$query = $this->createQuery();
-			$query->getQuerySettings()->setRespectStoragePage(FALSE);
-			$query->getQuerySettings()->setRespectSysLanguage(FALSE);
-			$field = $query->matching($query->equals('uid', $uid))->execute()->getFirst();
-			if ($field !== NULL) {
-				$result[] = $field;
-			}
-		}
-		return $result;
-	}
+    /**
+     * Find all records from given uids and
+     * respect the sorting
+     *
+     * @param array $uids
+     * @return QueryResultInterface
+     */
+    public function findByUids($uids)
+    {
+        $result = array();
+        foreach ($uids as $uid) {
+            $query = $this->createQuery();
+            $query->getQuerySettings()->setRespectStoragePage(false);
+            $query->getQuerySettings()->setRespectSysLanguage(false);
+            $field = $query->matching($query->equals('uid', $uid))->execute()->getFirst();
+            if ($field !== null) {
+                $result[] = $field;
+            }
+        }
+        return $result;
+    }
 
-	/**
-	 * Return uid from given field marker and form
-	 *
-	 * @param string $marker
-	 * @param int $formUid
-	 * @return Field
-	 */
-	public function findByMarkerAndForm($marker, $formUid = 0) {
-		if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
-			return $this->findByMarkerAndFormAlternative($marker, $formUid);
-		}
+    /**
+     * Return uid from given field marker and form
+     *
+     * @param string $marker
+     * @param int $formUid
+     * @return Field
+     */
+    public function findByMarkerAndForm($marker, $formUid = 0)
+    {
+        if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
+            return $this->findByMarkerAndFormAlternative($marker, $formUid);
+        }
 
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
-		$query->matching(
-			$query->logicalAnd(
-				array(
-					$query->equals('marker', $marker),
-					$query->equals('pages.forms.uid', $formUid)
-				)
-			)
-		);
-		$query->setLimit(1);
-		$result = $query->execute()->getFirst();
-		return $result;
-	}
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
+        $query->matching($query->logicalAnd(array(
+                $query->equals('marker', $marker),
+                $query->equals('pages.forms.uid', $formUid)
+            )));
+        $query->setLimit(1);
+        $result = $query->execute()->getFirst();
+        return $result;
+    }
 
-	/**
-	 * Find all localized records with
-	 * 		tx_powermail_domain_model_fields.marker != ""
-	 *
-	 * @return mixed
-	 */
-	public function findAllFieldsWithFilledMarkerrsInLocalizedFields() {
-		$query = $this->createQuery();
+    /**
+     * Find all localized records with
+     *        tx_powermail_domain_model_fields.marker != ""
+     *
+     * @return mixed
+     */
+    public function findAllFieldsWithFilledMarkerrsInLocalizedFields()
+    {
+        $query = $this->createQuery();
 
-		$sql = 'select uid,pid,title,marker,sys_language_uid';
-		$sql .= ' from tx_powermail_domain_model_fields';
-		$sql .= ' where marker != ""';
-		$sql .= ' and sys_language_uid > 0';
-		$sql .= ' and deleted = 0';
-		$sql .= ' limit 1';
+        $sql = 'select uid,pid,title,marker,sys_language_uid';
+        $sql .= ' from tx_powermail_domain_model_fields';
+        $sql .= ' where marker != ""';
+        $sql .= ' and sys_language_uid > 0';
+        $sql .= ' and deleted = 0';
+        $sql .= ' limit 1';
 
-		$result = $query->statement($sql)->execute(TRUE);
+        $result = $query->statement($sql)->execute(true);
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Fix wrong localized fields with markers
-	 *
-	 * @return void
-	 */
-	public function fixFilledMarkersInLocalizedFields() {
-		$this->getDatabaseConnection()->exec_UPDATEquery(
-			'tx_powermail_domain_model_fields',
-			'sys_language_uid > 0 and deleted = 0 and marker != ""',
-			array('marker' => '')
-		);
-	}
+    /**
+     * Fix wrong localized fields with markers
+     *
+     * @return void
+     */
+    public function fixFilledMarkersInLocalizedFields()
+    {
+        $this->getDatabaseConnection()->exec_UPDATEquery(
+            'tx_powermail_domain_model_fields',
+            'sys_language_uid > 0 and deleted = 0 and marker != ""',
+            array('marker' => '')
+        );
+    }
 
-	/**
-	 * Find all localized records with
-	 * 		tx_powermail_domain_model_fields.pages = "0"
-	 *
-	 * @return array
-	 */
-	public function findAllWrongLocalizedFields() {
-		$pages = array();
-		$select = 'uid,pid,title,l10n_parent,sys_language_uid';
-		$from = 'tx_powermail_domain_model_fields';
-		$where = '(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0';
-		$res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where);
-		if ($res) {
-			while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
-				$pages[] = $row;
-			}
-		}
-		return $pages;
-	}
+    /**
+     * Find all localized records with
+     *        tx_powermail_domain_model_fields.pages = "0"
+     *
+     * @return array
+     */
+    public function findAllWrongLocalizedFields()
+    {
+        $pages = array();
+        $select = 'uid,pid,title,l10n_parent,sys_language_uid';
+        $from = 'tx_powermail_domain_model_fields';
+        $where = '(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0';
+        $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where);
+        if ($res) {
+            while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
+                $pages[] = $row;
+            }
+        }
+        return $pages;
+    }
 
-	/**
-	 * Fix wrong localized forms
-	 *
-	 * @return void
-	 */
-	public function fixWrongLocalizedFields() {
-		foreach ($this->findAllWrongLocalizedFields() as $field) {
-			$defaultFieldUid = $field['l10n_parent'];
-			$defaultPageUid = $this->getPageUidFromFieldUid($defaultFieldUid);
-			$localizedPageUid = $this->getLocalizedPageUidFromPageUid($defaultPageUid, $field['sys_language_uid']);
-			$this->getDatabaseConnection()->exec_UPDATEquery(
-				'tx_powermail_domain_model_fields',
-				'uid = ' . (int) $field['uid'],
-				array('pages' => $localizedPageUid)
-			);
-		}
-	}
+    /**
+     * Fix wrong localized forms
+     *
+     * @return void
+     */
+    public function fixWrongLocalizedFields()
+    {
+        foreach ($this->findAllWrongLocalizedFields() as $field) {
+            $defaultFieldUid = $field['l10n_parent'];
+            $defaultPageUid = $this->getPageUidFromFieldUid($defaultFieldUid);
+            $localizedPageUid = $this->getLocalizedPageUidFromPageUid($defaultPageUid, $field['sys_language_uid']);
+            $this->getDatabaseConnection()->exec_UPDATEquery(
+                'tx_powermail_domain_model_fields',
+                'uid = ' . (int) $field['uid'],
+                array('pages' => $localizedPageUid)
+            );
+        }
+    }
 
-	/**
-	 * Get parent page uid form given field uid
-	 *
-	 * @param int $fieldUid
-	 * @return int
-	 */
-	protected function getPageUidFromFieldUid($fieldUid) {
-		$query = $this->createQuery();
-		$sql = 'select pages';
-		$sql .= ' from tx_powermail_domain_model_fields';
-		$sql .= ' where uid = ' . (int) $fieldUid;
-		$sql .= ' and deleted = 0';
-		$sql .= ' limit 1';
-		$row = $query->statement($sql)->execute(TRUE);
-		return $row[0]['pages'];
-	}
+    /**
+     * Get parent page uid form given field uid
+     *
+     * @param int $fieldUid
+     * @return int
+     */
+    protected function getPageUidFromFieldUid($fieldUid)
+    {
+        $query = $this->createQuery();
+        $sql = 'select pages';
+        $sql .= ' from tx_powermail_domain_model_fields';
+        $sql .= ' where uid = ' . (int) $fieldUid;
+        $sql .= ' and deleted = 0';
+        $sql .= ' limit 1';
+        $row = $query->statement($sql)->execute(true);
+        return $row[0]['pages'];
+    }
 
-	/**
-	 * @param int $pageUid
-	 * @param int $sysLanguageUid
-	 * @return array
-	 */
-	protected function getLocalizedPageUidFromPageUid($pageUid, $sysLanguageUid) {
-		$query = $this->createQuery();
-		$sql = 'select uid';
-		$sql .= ' from tx_powermail_domain_model_pages';
-		$sql .= ' where l10n_parent = ' . (int) $pageUid;
-		$sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
-		$sql .= ' and deleted = 0';
-		$row = $query->statement($sql)->execute(TRUE);
-		return $row[0]['uid'];
-	}
+    /**
+     * @param int $pageUid
+     * @param int $sysLanguageUid
+     * @return array
+     */
+    protected function getLocalizedPageUidFromPageUid($pageUid, $sysLanguageUid)
+    {
+        $query = $this->createQuery();
+        $sql = 'select uid';
+        $sql .= ' from tx_powermail_domain_model_pages';
+        $sql .= ' where l10n_parent = ' . (int) $pageUid;
+        $sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
+        $sql .= ' and deleted = 0';
+        $row = $query->statement($sql)->execute(true);
+        return $row[0]['uid'];
+    }
 
-	/**
-	 * Return uid from given field marker and form (if no IRRE)
-	 *
-	 * @param string $marker
-	 * @param int $formUid
-	 * @return Field
-	 */
-	protected function findByMarkerAndFormAlternative($marker, $formUid = 0) {
-		// get pages from form
-		$form = $this->formRepository->findByUid($formUid);
-		$pageUids = array();
-		foreach ($form->getPages() as $page) {
-			$pageUids[] = $page->getUid();
-		}
+    /**
+     * Return uid from given field marker and form (if no IRRE)
+     *
+     * @param string $marker
+     * @param int $formUid
+     * @return Field
+     */
+    protected function findByMarkerAndFormAlternative($marker, $formUid = 0)
+    {
+        // get pages from form
+        $form = $this->formRepository->findByUid($formUid);
+        $pageUids = array();
+        foreach ($form->getPages() as $page) {
+            $pageUids[] = $page->getUid();
+        }
 
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
-		$query->matching(
-			$query->logicalAnd(
-				array(
-					$query->equals('marker', $marker),
-					$query->in('pages', $pageUids)
-				)
-			)
-		);
-		return $query
-			->setLimit(1)
-			->execute()
-			->getFirst();
-	}
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
+        $query->matching(
+            $query->logicalAnd(
+                array(
+                    $query->equals('marker', $marker),
+                    $query->in('pages', $pageUids)
+                )
+            )
+        );
+        return $query->setLimit(1)->execute()->getFirst();
+    }
 
-	/**
-	 * Return type from given field marker and form
-	 *
-	 * @param string $marker Field marker
-	 * @param integer $formUid Form UID
-	 * @return string Field Type
-	 */
-	public function getFieldTypeFromMarker($marker, $formUid = 0) {
-		$field = $this->findByMarkerAndForm($marker, $formUid);
-		if (method_exists($field, 'getType')) {
-			return $field->getType();
-		}
-		return '';
-	}
+    /**
+     * Return type from given field marker and form
+     *
+     * @param string $marker Field marker
+     * @param integer $formUid Form UID
+     * @return string Field Type
+     */
+    public function getFieldTypeFromMarker($marker, $formUid = 0)
+    {
+        $field = $this->findByMarkerAndForm($marker, $formUid);
+        if (method_exists($field, 'getType')) {
+            return $field->getType();
+        }
+        return '';
+    }
 
-	/**
-	 * Return uid from given field marker and form
-	 *
-	 * @param string $marker Field marker
-	 * @param integer $formUid Form UID
-	 * @return int Field UID
-	 */
-	public function getFieldUidFromMarker($marker, $formUid = 0) {
-		$field = $this->findByMarkerAndForm($marker, $formUid);
-		if (method_exists($field, 'getUid')) {
-			return $field->getUid();
-		}
-		return 0;
-	}
+    /**
+     * Return uid from given field marker and form
+     *
+     * @param string $marker Field marker
+     * @param integer $formUid Form UID
+     * @return int Field UID
+     */
+    public function getFieldUidFromMarker($marker, $formUid = 0)
+    {
+        $field = $this->findByMarkerAndForm($marker, $formUid);
+        if (method_exists($field, 'getUid')) {
+            return $field->getUid();
+        }
+        return 0;
+    }
 
-	/**
-	 * @return DatabaseConnection
-	 */
-	protected function getDatabaseConnection() {
-		return $GLOBALS['TYPO3_DB'];
-	}
+    /**
+     * @return DatabaseConnection
+     */
+    protected function getDatabaseConnection()
+    {
+        return $GLOBALS['TYPO3_DB'];
+    }
 }

@@ -33,50 +33,54 @@ use TYPO3\CMS\Extbase\Utility\ArrayUtility as ArrayUtilityExtbase;
  *
  * @package In2code\In2publish\Utility
  */
-class ArrayUtility extends ArrayUtilityExtbase {
+class ArrayUtility extends ArrayUtilityExtbase
+{
 
-	/**
-	 * Returns array with alphabetical letters
-	 *
-	 * @return array
-	 */
-	public static function getAbcArray() {
-		$arr = array();
-		for ($a = A; $a != AA; $a++) {
-			$arr[] = $a;
-		}
-		return $arr;
-	}
+    /**
+     * Returns array with alphabetical letters
+     *
+     * @return array
+     */
+    public static function getAbcArray()
+    {
+        $arr = array();
+        for ($a = A; $a != AA; $a++) {
+            $arr[] = $a;
+        }
+        return $arr;
+    }
 
-	/**
-	 * Check if String is JSON Array
-	 *
-	 * @param string $string
-	 * @return bool
-	 */
-	public static function isJsonArray($string) {
-		if (!is_string($string)) {
-			return FALSE;
-		}
-		return is_array(json_decode($string, TRUE));
-	}
+    /**
+     * Check if String is JSON Array
+     *
+     * @param string $string
+     * @return bool
+     */
+    public static function isJsonArray($string)
+    {
+        if (!is_string($string)) {
+            return false;
+        }
+        return is_array(json_decode($string, true));
+    }
 
-	/**
-	 * Use htmlspecialchars on array (key and value) (any depth - recursive call)
-	 *
-	 * @param array $array Any array
-	 * @return array Cleaned array
-	 */
-	public static function htmlspecialcharsOnArray($array) {
-		$newArray = array();
-		foreach ((array) $array as $key => $value) {
-			if (is_array($value)) {
-				$newArray[htmlspecialchars($key)] = self::htmlspecialcharsOnArray($value);
-			} else {
-				$newArray[htmlspecialchars($key)] = htmlspecialchars($value);
-			}
-		}
-		unset($array);
-		return $newArray;
-	}
+    /**
+     * Use htmlspecialchars on array (key and value) (any depth - recursive call)
+     *
+     * @param array $array Any array
+     * @return array Cleaned array
+     */
+    public static function htmlspecialcharsOnArray($array)
+    {
+        $newArray = array();
+        foreach ((array) $array as $key => $value) {
+            if (is_array($value)) {
+                $newArray[htmlspecialchars($key)] = self::htmlspecialcharsOnArray($value);
+            } else {
+                $newArray[htmlspecialchars($key)] = htmlspecialchars($value);
+            }
+        }
+        unset($array);
+        return $newArray;
+    }
 }

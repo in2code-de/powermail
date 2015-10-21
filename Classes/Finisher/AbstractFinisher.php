@@ -31,87 +31,96 @@ use In2code\Powermail\Domain\Model\Mail;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractFinisher implements FinisherInterface {
+abstract class AbstractFinisher implements FinisherInterface
+{
 
-	/**
-	 * @var Mail
-	 */
-	protected $mail;
+    /**
+     * @var Mail
+     */
+    protected $mail;
 
-	/**
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * @var array
+     */
+    protected $settings;
 
-	/**
-	 * @var array
-	 */
-	protected $configuration;
+    /**
+     * @var array
+     */
+    protected $configuration;
 
-	/**
-	 * @return Mail
-	 */
-	public function getMail() {
-		return $this->mail;
-	}
+    /**
+     * @return Mail
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
 
-	/**
-	 * @param Mail $mail
-	 * @return AbstractFinisher
-	 */
-	public function setMail($mail) {
-		$this->mail = $mail;
-		return $this;
-	}
+    /**
+     * @param Mail $mail
+     * @return AbstractFinisher
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+        return $this;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getSettings() {
-		return $this->settings;
-	}
+    /**
+     * @return array
+     */
+    public function getSettings()
+    {
+        return $this->settings;
+    }
 
-	/**
-	 * @param array $settings
-	 * @return AbstractFinisher
-	 */
-	public function setSettings($settings) {
-		$this->settings = $settings;
-		return $this;
-	}
+    /**
+     * @param array $settings
+     * @return AbstractFinisher
+     */
+    public function setSettings($settings)
+    {
+        $this->settings = $settings;
+        return $this;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getConfiguration() {
-		return $this->configuration;
-	}
+    /**
+     * @return array
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
 
-	/**
-	 * @param array $configuration
-	 * @return AbstractFinisher
-	 */
-	public function setConfiguration($configuration) {
-		$this->configuration = $configuration;
-		return $this;
-	}
+    /**
+     * @param array $configuration
+     * @return AbstractFinisher
+     */
+    public function setConfiguration($configuration)
+    {
+        $this->configuration = $configuration;
+        return $this;
+    }
 
-	/**
-	 * @return void
-	 */
-	public function initializeFinisher() {
-	}
+    /**
+     * @return void
+     */
+    public function initializeFinisher()
+    {
+    }
 
-	/**
-	 * @param Mail $mail
-	 * @param array $configuration
-	 * @param array $settings
-	 */
-	public function __construct(Mail $mail, array $configuration, array $settings) {
-		$this->setMail($mail);
-		$this->setConfiguration($configuration);
-		$this->setSettings($settings);
-	}
+    /**
+     * @param Mail $mail
+     * @param array $configuration
+     * @param array $settings
+     */
+    public function __construct(Mail $mail, array $configuration, array $settings)
+    {
+        $this->setMail($mail);
+        $this->setConfiguration($configuration);
+        $this->setSettings($settings);
+    }
 }

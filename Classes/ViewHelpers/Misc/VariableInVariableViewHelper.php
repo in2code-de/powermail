@@ -10,22 +10,24 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * @package In2code\Powermail\ViewHelpers\Misc
  */
-class VariableInVariableViewHelper extends AbstractViewHelper {
+class VariableInVariableViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Solution for {outer.{inner}} call in fluid
-	 *
-	 * @param object|array $obj object or array
-	 * @param string $prop property name
-	 * @return mixed
-	 */
-	public function render($obj, $prop) {
-		if (is_array($obj) && array_key_exists($prop, $obj)) {
-			return $obj[$prop];
-		}
-		if (is_object($obj)) {
-			return ObjectAccess::getProperty($obj, GeneralUtility::underscoredToLowerCamelCase($prop));
-		}
-		return NULL;
-	}
+    /**
+     * Solution for {outer.{inner}} call in fluid
+     *
+     * @param object|array $obj object or array
+     * @param string $prop property name
+     * @return mixed
+     */
+    public function render($obj, $prop)
+    {
+        if (is_array($obj) && array_key_exists($prop, $obj)) {
+            return $obj[$prop];
+        }
+        if (is_object($obj)) {
+            return ObjectAccess::getProperty($obj, GeneralUtility::underscoredToLowerCamelCase($prop));
+        }
+        return null;
+    }
 }

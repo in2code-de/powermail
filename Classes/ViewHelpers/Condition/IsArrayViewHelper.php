@@ -9,15 +9,17 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsArrayViewHelper extends AbstractViewHelper {
+class IsArrayViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * is_array()
-	 *
-	 * @param string|array $val
-	 * @return bool
-	 */
-	public function render($val = NULL) {
-		return is_array($val);
-	}
+    /**
+     * is_array()
+     *
+     * @param string|array $val
+     * @return bool
+     */
+    public function render($val = null)
+    {
+        return is_array($val);
+    }
 }

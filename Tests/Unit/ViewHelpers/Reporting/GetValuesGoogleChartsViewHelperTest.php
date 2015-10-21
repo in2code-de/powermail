@@ -30,95 +30,100 @@ namespace In2code\Powermail\Tests\ViewHelpers\Reporting;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class GetValuesGoogleChartsViewHelperTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class GetValuesGoogleChartsViewHelperTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $abstractValidationViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $abstractValidationViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Reporting\GetValuesGoogleChartsViewHelper',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\ViewHelpers\Reporting\GetValuesGoogleChartsViewHelper',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider for renderReturnsString()
-	 *
-	 * @return array
-	 */
-	public function renderReturnsStringDataProvider() {
-		return array(
-			array(
-				array(
-					'test' => array(
-						'label1' => '10',
-						'label2' => '70',
-						'label3' => '20',
-					)
-				),
-				'test',
-				',',
-				FALSE,
-				'10,70,20'
-			),
-			array(
-				array(
-					'a' => array(
-						'label1' => '12',
-						'label2' => '70',
-						'label3' => '18',
-					)
-				),
-				'a',
-				',',
-				TRUE,
-				'12%2C70%2C18'
-			),
-			array(
-				array(
-					'a' => array(
-						'label1' => '"1|2"',
-						'label2' => '70|',
-						'label3' => '|18',
-					)
-				),
-				'a',
-				'|',
-				FALSE,
-				'12|70|18'
-			),
-		);
-	}
+    /**
+     * Dataprovider for renderReturnsString()
+     *
+     * @return array
+     */
+    public function renderReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                array(
+                    'test' => array(
+                        'label1' => '10',
+                        'label2' => '70',
+                        'label3' => '20',
+                    )
+                ),
+                'test',
+                ',',
+                false,
+                '10,70,20'
+            ),
+            array(
+                array(
+                    'a' => array(
+                        'label1' => '12',
+                        'label2' => '70',
+                        'label3' => '18',
+                    )
+                ),
+                'a',
+                ',',
+                true,
+                '12%2C70%2C18'
+            ),
+            array(
+                array(
+                    'a' => array(
+                        'label1' => '"1|2"',
+                        'label2' => '70|',
+                        'label3' => '|18',
+                    )
+                ),
+                'a',
+                '|',
+                false,
+                '12|70|18'
+            ),
+        );
+    }
 
-	/**
-	 * Test for render()
-	 *
-	 * @param array $answers Array with answeres
-	 * @param string $field Fieldname (key of answers array)
-	 * @param string $glue
-	 * @param bool $urlEncode
-	 * @param string $expectedResult
-	 * @return void
-	 * @dataProvider renderReturnsStringDataProvider
-	 * @test
-	 */
-	public function renderReturnsString($answers, $field, $glue, $urlEncode, $expectedResult) {
-		$result = $this->abstractValidationViewHelperMock->_callRef('render', $answers, $field, $glue, $urlEncode);
-		$this->assertSame($expectedResult, $result);
-	}
+    /**
+     * Test for render()
+     *
+     * @param array $answers Array with answeres
+     * @param string $field Fieldname (key of answers array)
+     * @param string $glue
+     * @param bool $urlEncode
+     * @param string $expectedResult
+     * @return void
+     * @dataProvider renderReturnsStringDataProvider
+     * @test
+     */
+    public function renderReturnsString($answers, $field, $glue, $urlEncode, $expectedResult)
+    {
+        $result = $this->abstractValidationViewHelperMock->_callRef('render', $answers, $field, $glue, $urlEncode);
+        $this->assertSame($expectedResult, $result);
+    }
 }

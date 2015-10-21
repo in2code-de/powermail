@@ -32,34 +32,40 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class CountriesFromStaticInfoTablesService {
+class CountriesFromStaticInfoTablesService
+{
 
-	/**
-	 * countryRepository
-	 *
-	 * @var \SJBR\StaticInfoTables\Domain\Repository\CountryRepository
-	 * @inject
-	 */
-	protected $countryRepository;
+    /**
+     * countryRepository
+     *
+     * @var \SJBR\StaticInfoTables\Domain\Repository\CountryRepository
+     * @inject
+     */
+    protected $countryRepository;
 
-	/**
-	 * Build array with countries
-	 *
-	 * @param string $key
-	 * @param string $value
-	 * @param string $sortbyField
-	 * @param string $sorting
-	 * @return array
-	 */
-	public function getCountries($key = 'isoCodeA3', $value = 'officialNameLocal', $sortbyField = 'isoCodeA3', $sorting = 'asc') {
-		$countries = $this->countryRepository->findAllOrderedBy($sortbyField, $sorting);
-		$countriesArray = array();
-		foreach ($countries as $country) {
-			/** @var $country \SJBR\StaticInfoTables\Domain\Model\Country */
-			$countriesArray[ObjectAccess::getProperty($country, $key)] = ObjectAccess::getProperty($country, $value);
-		}
-		return $countriesArray;
-	}
+    /**
+     * Build array with countries
+     *
+     * @param string $key
+     * @param string $value
+     * @param string $sortbyField
+     * @param string $sorting
+     * @return array
+     */
+    public function getCountries(
+        $key = 'isoCodeA3',
+        $value = 'officialNameLocal',
+        $sortbyField = 'isoCodeA3',
+        $sorting = 'asc'
+    ) {
+        $countries = $this->countryRepository->findAllOrderedBy($sortbyField, $sorting);
+        $countriesArray = array();
+        foreach ($countries as $country) {
+            /** @var $country \SJBR\StaticInfoTables\Domain\Model\Country */
+            $countriesArray[ObjectAccess::getProperty($country, $key)] = ObjectAccess::getProperty($country, $value);
+        }
+        return $countriesArray;
+    }
 }

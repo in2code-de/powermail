@@ -33,42 +33,42 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class BackendUtilityTest extends UnitTestCase {
+class BackendUtilityTest extends UnitTestCase
+{
 
-	/**
-	 * Data Provider for isBackendAdminReturnsBool()
-	 *
-	 * @return array
-	 */
-	public function isBackendAdminReturnsBoolDataProvider() {
-		return array(
-			array(
-				1,
-				TRUE
-			),
-			array(
-				0,
-				FALSE
-			),
-		);
-	}
+    /**
+     * Data Provider for isBackendAdminReturnsBool()
+     *
+     * @return array
+     */
+    public function isBackendAdminReturnsBoolDataProvider()
+    {
+        return array(
+            array(
+                1,
+                true
+            ),
+            array(
+                0,
+                false
+            ),
+        );
+    }
 
-	/**
-	 * isBackendAdmin Test
-	 *
-	 * @param string $value
-	 * @param bool $expectedResult
-	 * @dataProvider isBackendAdminReturnsBoolDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function isBackendAdminReturnsBool($value, $expectedResult) {
-		$GLOBALS['BE_USER']->user['admin'] = $value;
-		$this->assertSame(
-			$expectedResult,
-			BackendUtility::isBackendAdmin()
-		);
-	}
+    /**
+     * isBackendAdmin Test
+     *
+     * @param string $value
+     * @param bool $expectedResult
+     * @dataProvider isBackendAdminReturnsBoolDataProvider
+     * @return void
+     * @test
+     */
+    public function isBackendAdminReturnsBool($value, $expectedResult)
+    {
+        $GLOBALS['BE_USER']->user['admin'] = $value;
+        $this->assertSame($expectedResult, BackendUtility::isBackendAdmin());
+    }
 }

@@ -11,68 +11,73 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class PasswordValidator extends AbstractValidator {
+class PasswordValidator extends AbstractValidator
+{
 
-	/**
-	 * Validation of given Params
-	 *
-	 * @param Mail $mail
-	 * @return bool
-	 */
-	public function isValid($mail) {
-		if (!$this->formHasPassword($mail->getForm()) || $this->ignoreValidationIfConfirmation()) {
-			return TRUE;
-		}
+    /**
+     * Validation of given Params
+     *
+     * @param Mail $mail
+     * @return bool
+     */
+    public function isValid($mail)
+    {
+        if (!$this->formHasPassword($mail->getForm()) || $this->ignoreValidationIfConfirmation()) {
+            return true;
+        }
 
-		foreach ($mail->getAnswers() as $answer) {
-			if ($answer->getField()->getType() !== 'password') {
-				continue;
-			}
-			if ($answer->getValue() !== $this->getMirroredValueOfPasswordField($answer->getField())) {
-				$this->setErrorAndMessage($answer->getField(), 'password');
-			}
+        foreach ($mail->getAnswers() as $answer) {
+            if ($answer->getField()->getType() !== 'password') {
+                continue;
+            }
+            if ($answer->getValue() !== $this->getMirroredValueOfPasswordField($answer->getField())) {
+                $this->setErrorAndMessage($answer->getField(), 'password');
+            }
 
-		}
+        }
 
-		return $this->isValidState();
-	}
+        return $this->isValidState();
+    }
 
-	/**
-	 * Get mirror value from POST params
-	 *
-	 * @param Field $field
-	 * @return string
-	 */
-	protected function getMirroredValueOfPasswordField(Field $field) {
-		$piVars = GeneralUtility::_GP($this->pluginVariablesPrefix);
-		$mirroredValue = $piVars['field'][$field->getMarker() . '_mirror'];
-		return $mirroredValue;
-	}
+    /**
+     * Get mirror value from POST params
+     *
+     * @param Field $field
+     * @return string
+     */
+    protected function getMirroredValueOfPasswordField(Field $field)
+    {
+        $piVars = GeneralUtility::_GP($this->pluginVariablesPrefix);
+        $mirroredValue = $piVars['field'][$field->getMarker() . '_mirror'];
+        return $mirroredValue;
+    }
 
-	/**
-	 * Checks if given form has a password field
-	 *
-	 * @param Form $form
-	 * @return boolean
-	 */
-	protected function formHasPassword(Form $form) {
-		$form = $this->formRepository->hasPassword($form);
-		return count($form) ? TRUE : FALSE;
-	}
+    /**
+     * Checks if given form has a password field
+     *
+     * @param Form $form
+     * @return boolean
+     */
+    protected function formHasPassword(Form $form)
+    {
+        $form = $this->formRepository->hasPassword($form);
+        return count($form) ? true : false;
+    }
 
-	/**
-	 * Stop validation if confirmation step is active on create
-	 *
-	 * @return bool
-	 */
-	protected function ignoreValidationIfConfirmation() {
-		$piVars = GeneralUtility::_GP($this->pluginVariablesPrefix);
-		$piVarsGet = GeneralUtility::_GET($this->pluginVariablesPrefix);
-		if ($piVars['__referrer']['@action'] === 'confirmation' && $piVarsGet['action'] === 'create') {
-			return TRUE;
-		}
-		return FALSE;
-	}
+    /**
+     * Stop validation if confirmation step is active on create
+     *
+     * @return bool
+     */
+    protected function ignoreValidationIfConfirmation()
+    {
+        $piVars = GeneralUtility::_GP($this->pluginVariablesPrefix);
+        $piVarsGet = GeneralUtility::_GET($this->pluginVariablesPrefix);
+        if ($piVars['__referrer']['@action'] === 'confirmation' && $piVarsGet['action'] === 'create') {
+            return true;
+        }
+        return false;
+    }
 }

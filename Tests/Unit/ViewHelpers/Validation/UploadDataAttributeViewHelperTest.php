@@ -35,162 +35,196 @@ use TYPO3\CMS\Extbase\Mvc\Request;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class UploadDataAttributeViewHelperTest extends UnitTestCase {
+class UploadDataAttributeViewHelperTest extends UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $abstractValidationViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $abstractValidationViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider for renderReturnsArray()
-	 *
-	 * @return array
-	 */
-	public function renderReturnsArrayDataProvider() {
-		return array(
-			array(
-				array(),
-				array(),
-				array(),
-				array()
-			),
-			array(
-				array(),
-				array(
-					'marker' => 'firstname'
-				),
-				array(
-					'data-additional' => 'abc'
-				),
-				array(
-					'data-additional' => 'abc'
-				)
-			),
-			array(
-				array(
-					'misc' => array(
-						'file' => array(
-							'extension' => 'jpg,gif'
-						)
-					)
-				),
-				array(
-					'marker' => 'firstname'
-				),
-				array(
-					'data-additional' => 'true'
-				),
-				array(
-					'data-additional' => 'true',
-					'accept' => '.jpg,.gif'
-				)
-			),
-			array(
-				array(
-					'misc' => array(
-						'file' => array(
-							'extension' => 'jpg,gif',
-							'size' => '123456'
-						)
-					)
-				),
-				array(
-					'marker' => 'firstname',
-					'multiselect' => TRUE
-				),
-				array(
-					'data-additional' => 'true'
-				),
-				array(
-					'data-additional' => 'true',
-					'multiple' => 'multiple',
-					'accept' => '.jpg,.gif',
-					'data-parsley-powermailfilesize' => '123456,firstname',
-					'data-parsley-powermailfilesize-message' => 'validationerror_upload_size'
-				)
-			),
-		);
-	}
+    /**
+     * Dataprovider for renderReturnsArray()
+     *
+     * @return array
+     */
+    public function renderReturnsArrayDataProvider()
+    {
+        return array(
+            array(
+                array(),
+                array(),
+                array(),
+                array()
+            ),
+            array(
+                array(),
+                array(
+                    'marker' => 'firstname'
+                ),
+                array(
+                    'data-additional' => 'abc'
+                ),
+                array(
+                    'data-additional' => 'abc'
+                )
+            ),
+            array(
+                array(
+                    'misc' => array(
+                        'file' => array(
+                            'extension' => 'jpg,gif'
+                        )
+                    )
+                ),
+                array(
+                    'marker' => 'firstname'
+                ),
+                array(
+                    'data-additional' => 'true'
+                ),
+                array(
+                    'data-additional' => 'true',
+                    'accept' => '.jpg,.gif'
+                )
+            ),
+            array(
+                array(
+                    'misc' => array(
+                        'file' => array(
+                            'extension' => 'jpg,gif',
+                            'size' => '123456'
+                        )
+                    )
+                ),
+                array(
+                    'marker' => 'firstname',
+                    'multiselect' => true
+                ),
+                array(
+                    'data-additional' => 'true'
+                ),
+                array(
+                    'data-additional' => 'true',
+                    'multiple' => 'multiple',
+                    'accept' => '.jpg,.gif'
+                )
+            ),
+            array(
+                array(
+                    'misc' => array(
+                        'file' => array(
+                            'extension' => 'jpg,gif',
+                            'size' => '123456'
+                        )
+                    ),
+                    'validation' => array(
+                        'client' => '1'
+                    )
+                ),
+                array(
+                    'marker' => 'firstname',
+                    'multiselect' => true
+                ),
+                array(
+                    'data-additional' => 'true'
+                ),
+                array(
+                    'data-additional' => 'true',
+                    'multiple' => 'multiple',
+                    'accept' => '.jpg,.gif',
+                    'data-parsley-powermailfilesize' => '123456,firstname',
+                    'data-parsley-powermailfilesize-message' => 'validationerror_upload_size',
+                    'data-parsley-powermailfileextensions' => 'firstname',
+                    'data-parsley-powermailfileextensions-message' => 'validationerror_upload_extension'
+                )
+            ),
+        );
+    }
 
-	/**
-	 * Test for render()
-	 *
-	 * @param array $settings
-	 * @param array $fieldProperties
-	 * @param array $additionalAttributes
-	 * @param array $expectedResult
-	 * @return void
-	 * @dataProvider renderReturnsArrayDataProvider
-	 * @test
-	 */
-	public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $expectedResult) {
-		$field = new Field();
-		foreach ($fieldProperties as $propertyName => $propertyValue) {
-			$field->_setProperty($propertyName, $propertyValue);
-		}
-		$this->abstractValidationViewHelperMock->_set('settings', $settings);
-		$result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes);
-		$this->assertSame($expectedResult, $result);
-	}
+    /**
+     * Test for render()
+     *
+     * @param array $settings
+     * @param array $fieldProperties
+     * @param array $additionalAttributes
+     * @param array $expectedResult
+     * @return void
+     * @dataProvider renderReturnsArrayDataProvider
+     * @test
+     */
+    public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $expectedResult)
+    {
+        $field = new Field();
+        foreach ($fieldProperties as $propertyName => $propertyValue) {
+            $field->_setProperty($propertyName, $propertyValue);
+        }
+        $this->abstractValidationViewHelperMock->_set('settings', $settings);
+        $result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes);
+        $this->assertSame($expectedResult, $result);
+    }
 
-	/**
-	 * Dataprovider for getDottedListOfExtensions()
-	 *
-	 * @return array
-	 */
-	public function getDottedListOfExtensionsReturnsStringDataProvider() {
-		return array(
-			array(
-				'jpg,gif,jpeg',
-				'.jpg,.gif,.jpeg'
-			),
-			array(
-				'',
-				''
-			),
-			array(
-				'php',
-				'.php'
-			),
-			array(
-				'jpg,gif,jpeg,doc,docx,xls,xlsx',
-				'.jpg,.gif,.jpeg,.doc,.docx,.xls,.xlsx'
-			),
-		);
-	}
+    /**
+     * Dataprovider for getDottedListOfExtensions()
+     *
+     * @return array
+     */
+    public function getDottedListOfExtensionsReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                'jpg,gif,jpeg',
+                '.jpg,.gif,.jpeg'
+            ),
+            array(
+                '',
+                ''
+            ),
+            array(
+                'php',
+                '.php'
+            ),
+            array(
+                'jpg,gif,jpeg,doc,docx,xls,xlsx',
+                '.jpg,.gif,.jpeg,.doc,.docx,.xls,.xlsx'
+            ),
+        );
+    }
 
-	/**
-	 * Test for getDottedListOfExtensions()
-	 *
-	 * @param string $string
-	 * @param string $expectedResult
-	 * @return void
-	 * @dataProvider getDottedListOfExtensionsReturnsStringDataProvider
-	 * @test
-	 */
-	public function getDottedListOfExtensionsReturnsString($string, $expectedResult) {
-		$result = $this->abstractValidationViewHelperMock->_callRef('getDottedListOfExtensions', $string);
-		$this->assertSame($expectedResult, $result);
-	}
+    /**
+     * Test for getDottedListOfExtensions()
+     *
+     * @param string $string
+     * @param string $expectedResult
+     * @return void
+     * @dataProvider getDottedListOfExtensionsReturnsStringDataProvider
+     * @test
+     */
+    public function getDottedListOfExtensionsReturnsString($string, $expectedResult)
+    {
+        $result = $this->abstractValidationViewHelperMock->_callRef('getDottedListOfExtensions', $string);
+        $this->assertSame($expectedResult, $result);
+    }
 
 }

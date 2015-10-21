@@ -8,20 +8,21 @@ use In2code\Powermail\Domain\Model\Mail;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class CustomValidator extends StringValidator {
+class CustomValidator extends StringValidator
+{
 
-	/**
-	 * Custom validation of given Params
-	 *
-	 * @param Mail $mail
-	 * @return bool
-	 */
-	public function isValid($mail) {
-		$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, array($mail, $this));
-
-		return $this->isValidState();
-	}
+    /**
+     * Custom validation of given Params
+     *
+     * @param Mail $mail
+     * @return bool
+     */
+    public function isValid($mail)
+    {
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, array($mail, $this));
+        return $this->isValidState();
+    }
 
 }

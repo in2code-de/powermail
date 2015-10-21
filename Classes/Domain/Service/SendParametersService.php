@@ -33,57 +33,62 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class SendParametersService {
+class SendParametersService
+{
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-	 * @inject
-	 */
-	protected $configurationManager;
+    /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @inject
+     */
+    protected $configurationManager;
 
-	/**
-	 * mailRepository
-	 *
-	 * @var \In2code\Powermail\Domain\Repository\MailRepository
-	 * @inject
-	 */
-	protected $mailRepository;
+    /**
+     * mailRepository
+     *
+     * @var \In2code\Powermail\Domain\Repository\MailRepository
+     * @inject
+     */
+    protected $mailRepository;
 
-	/**
-	 * Powermail SendPost - Send values via curl to a third party software
-	 *
-	 * @param Mail $mail
-	 * @param array $configuration TypoScript Configuration
-	 * @return void
-	 */
-	public function sendFromConfiguration(Mail $mail, $configuration) {
-		$contentObject = $this->configurationManager->getContentObject();
-		$sendPostConfiguration = $configuration['marketing.']['sendPost.'];
+    /**
+     * Powermail SendPost - Send values via curl to a third party software
+     *
+     * @param Mail $mail
+     * @param array $configuration TypoScript Configuration
+     * @return void
+     */
+    public function sendFromConfiguration(Mail $mail, $configuration)
+    {
+        $contentObject = $this->configurationManager->getContentObject();
+        $spConfiguration = $configuration['marketing.']['sendPost.'];
 
-		// switch of if disabled
-		$enable = $contentObject->cObjGetSingle($sendPostConfiguration['_enable'], $sendPostConfiguration['_enable.']);
-		if (!$enable) {
-			return;
-		}
+        // switch of if disabled
+        $enable = $contentObject->cObjGetSingle($spConfiguration['_enable'], $spConfiguration['_enable.']);
+        if (!$enable) {
+            return;
+        }
 
-		$contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
-		$parameters = $contentObject->cObjGetSingle($sendPostConfiguration['values'], $sendPostConfiguration['values.']);
-		$curlSettings = array(
-			'url' => $sendPostConfiguration['targetUrl'],
-			'params' => $parameters
-		);
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $curlSettings['url']);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $curlSettings['params']);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_exec($ch);
-		curl_close($ch);
+        $contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
+        $parameters = $contentObject->cObjGetSingle(
+            $spConfiguration['values'],
+            $spConfiguration['values.']
+        );
+        $curlSettings = array(
+            'url' => $spConfiguration['targetUrl'],
+            'params' => $parameters
+        );
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $curlSettings['url']);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $curlSettings['params']);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($curl);
+        curl_close($curl);
 
-		if ($sendPostConfiguration['debug']) {
-			GeneralUtility::devLog('SendPost Values', 'powermail', 0, $curlSettings);
-		}
-	}
+        if ($spConfiguration['debug']) {
+            GeneralUtility::devLog('SendPost Values', 'powermail', 0, $curlSettings);
+        }
+    }
 }

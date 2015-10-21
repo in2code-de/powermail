@@ -32,293 +32,312 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class SaveToAnyTableService {
+class SaveToAnyTableService
+{
 
-	/**
-	 * Database Table to store
-	 *
-	 * @var string
-	 */
-	protected $table = '';
+    /**
+     * Database Table to store
+     *
+     * @var string
+     */
+    protected $table = '';
 
-	/**
-	 * Array with fieldname=>value
-	 *
-	 * @var array
-	 */
-	protected $properties = array();
+    /**
+     * Array with fieldname=>value
+     *
+     * @var array
+     */
+    protected $properties = array();
 
-	/**
-	 * Mode "insert", "update"
-	 *
-	 * @var string
-	 */
-	protected $mode = 'insert';
+    /**
+     * Mode "insert", "update"
+     *
+     * @var string
+     */
+    protected $mode = 'insert';
 
-	/**
-	 * Unique field important for update
-	 *
-	 * @var string
-	 */
-	protected $uniqueField = 'uid';
+    /**
+     * Unique field important for update
+     *
+     * @var string
+     */
+    protected $uniqueField = 'uid';
 
-	/**
-	 * Additional where clause
-	 *
-	 * @var string
-	 */
-	protected $additionalWhereClause;
+    /**
+     * Additional where clause
+     *
+     * @var string
+     */
+    protected $additionalWhereClause;
 
-	/**
-	 * Switch on devLog
-	 *
-	 * @var bool
-	 */
-	protected $devLog = FALSE;
+    /**
+     * Switch on devLog
+     *
+     * @var bool
+     */
+    protected $devLog = false;
 
-	/**
-	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-	 */
-	protected $databaseConnection = NULL;
+    /**
+     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected $databaseConnection = null;
 
-	/**
-	 * Executes the storage
-	 *
-	 * @return int uid of inserted record
-	 */
-	public function execute() {
-		switch ($this->getMode()) {
-			case 'update':
-				// case with "update" or "none"
-			case 'none':
-				$uid = $this->update();
-				break;
+    /**
+     * Executes the storage
+     *
+     * @return int uid of inserted record
+     */
+    public function execute()
+    {
+        switch ($this->getMode()) {
+            case 'update':
+                // case with "update" or "none"
+            case 'none':
+                $uid = $this->update();
+                break;
 
-			case 'insert':
-			default:
-				$uid = $this->insert();
-		}
-		$this->writeToDevLog();
-		return $uid;
-	}
+            case 'insert':
+            default:
+                $uid = $this->insert();
+        }
+        $this->writeToDevLog();
+        return $uid;
+    }
 
-	/**
-	 * Insert new record
-	 *
-	 * @return int uid of inserted record
-	 */
-	protected function insert() {
-		$this->databaseConnection->exec_INSERTquery($this->getTable(), $this->getProperties());
-		return $this->databaseConnection->sql_insert_id();
-	}
+    /**
+     * Insert new record
+     *
+     * @return int uid of inserted record
+     */
+    protected function insert()
+    {
+        $this->databaseConnection->exec_INSERTquery($this->getTable(), $this->getProperties());
+        return $this->databaseConnection->sql_insert_id();
+    }
 
-	/**
-	 * Update existing record
-	 *
-	 * @return int uid of updated record
-	 */
-	protected function update() {
-		// find existing record in database
-		$searchterm = $this->databaseConnection->fullQuoteStr(
-			$this->getProperty(
-				$this->getUniqueField()
-			),
-			$this->getTable()
-		);
-		$res = $this->databaseConnection->exec_SELECTquery(
-			'uid',
-			$this->getTable(),
-			$this->getUniqueField() . ' = ' . $searchterm . ' and deleted = 0 ' . $this->additionalWhereClause,
-			'',
-			'',
-			1
-		);
-		if ($res) {
-			$row = $this->databaseConnection->sql_fetch_assoc($res);
-		}
+    /**
+     * Update existing record
+     *
+     * @return int uid of updated record
+     */
+    protected function update()
+    {
+        // find existing record in database
+        $searchterm = $this->databaseConnection->fullQuoteStr(
+            $this->getProperty($this->getUniqueField()),
+            $this->getTable()
+        );
+        $res = $this->databaseConnection->exec_SELECTquery(
+            'uid',
+            $this->getTable(),
+            $this->getUniqueField() . ' = ' . $searchterm . ' and deleted = 0 ' . $this->additionalWhereClause,
+            '',
+            '',
+            1
+        );
+        if ($res) {
+            $row = $this->databaseConnection->sql_fetch_assoc($res);
+        }
 
-		// if there is no existing entry, insert new one
-		if (empty($row['uid'])) {
-			return $this->insert();
-		}
+        // if there is no existing entry, insert new one
+        if (empty($row['uid'])) {
+            return $this->insert();
+        }
 
-		// update existing entry (only if mode is not "none")
-		if ($this->getMode() !== 'none') {
-			$this->databaseConnection->exec_UPDATEquery(
-				$this->getTable(),
-				'uid = ' . (int) $row['uid'],
-				$this->getProperties()
-			);
-		}
+        // update existing entry (only if mode is not "none")
+        if ($this->getMode() !== 'none') {
+            $this->databaseConnection->exec_UPDATEquery(
+                $this->getTable(),
+                'uid = ' . (int) $row['uid'],
+                $this->getProperties()
+            );
+        }
 
-		return $row['uid'];
-	}
+        return $row['uid'];
+    }
 
-	/**
-	 * Set TableName
-	 *
-	 * @param string $table
-	 * @return void
-	 */
-	public function setTable($table) {
-		$this->removeNotAllowedSigns($table);
-		$this->table = $table;
-	}
+    /**
+     * Set TableName
+     *
+     * @param string $table
+     * @return void
+     */
+    public function setTable($table)
+    {
+        $this->removeNotAllowedSigns($table);
+        $this->table = $table;
+    }
 
-	/**
-	 * Get TableName
-	 *
-	 * @return string
-	 */
-	public function getTable() {
-		return $this->table;
-	}
+    /**
+     * Get TableName
+     *
+     * @return string
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
 
-	/**
-	 * Read properties
-	 *
-	 * @return array
-	 */
-	public function getProperties() {
-		return $this->properties;
-	}
+    /**
+     * Read properties
+     *
+     * @return array
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
 
-	/**
-	 * Get one property value
-	 *
-	 * @param $propertyName
-	 * @return string
-	 */
-	public function getProperty($propertyName) {
-		$property = '';
-		$properties = $this->getProperties();
-		if (array_key_exists($propertyName, $properties)) {
-			$property = $properties[$propertyName];
-		}
-		return $property;
-	}
+    /**
+     * Get one property value
+     *
+     * @param $propertyName
+     * @return string
+     */
+    public function getProperty($propertyName)
+    {
+        $property = '';
+        $properties = $this->getProperties();
+        if (array_key_exists($propertyName, $properties)) {
+            $property = $properties[$propertyName];
+        }
+        return $property;
+    }
 
-	/**
-	 * Add property/value pair to array
-	 *
-	 * @param $propertyName
-	 * @param $value
-	 * @return void
-	 */
-	public function addProperty($propertyName, $value) {
-		$this->removeNotAllowedSigns($propertyName);
-		$this->properties[$propertyName] = $value;
-	}
+    /**
+     * Add property/value pair to array
+     *
+     * @param $propertyName
+     * @param $value
+     * @return void
+     */
+    public function addProperty($propertyName, $value)
+    {
+        $this->removeNotAllowedSigns($propertyName);
+        $this->properties[$propertyName] = $value;
+    }
 
-	/**
-	 * Remove property/value pair form array by its key
-	 *
-	 * @param $propertyName
-	 * @return void
-	 */
-	public function removeProperty($propertyName) {
-		unset($this->properties[$propertyName]);
-	}
+    /**
+     * Remove property/value pair form array by its key
+     *
+     * @param $propertyName
+     * @return void
+     */
+    public function removeProperty($propertyName)
+    {
+        unset($this->properties[$propertyName]);
+    }
 
-	/**
-	 * @param string $mode
-	 * @return void
-	 */
-	public function setMode($mode) {
-		$possibleModes = array(
-			'insert',
-			'update',
-			'none'
-		);
-		if (in_array($mode, $possibleModes)) {
-			$this->mode = $mode;
-		}
-	}
+    /**
+     * @param string $mode
+     * @return void
+     */
+    public function setMode($mode)
+    {
+        $possibleModes = array(
+            'insert',
+            'update',
+            'none'
+        );
+        if (in_array($mode, $possibleModes)) {
+            $this->mode = $mode;
+        }
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getMode() {
-		return $this->mode;
-	}
+    /**
+     * @return string
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
 
-	/**
-	 * @param string $uniqueField
-	 * @return void
-	 */
-	public function setUniqueField($uniqueField) {
-		$this->uniqueField = $uniqueField;
-	}
+    /**
+     * @param string $uniqueField
+     * @return void
+     */
+    public function setUniqueField($uniqueField)
+    {
+        $this->uniqueField = $uniqueField;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getUniqueField() {
-		return $this->uniqueField;
-	}
+    /**
+     * @return string
+     */
+    public function getUniqueField()
+    {
+        return $this->uniqueField;
+    }
 
-	/**
-	 * @param boolean $devLog
-	 * @return void
-	 */
-	public function setDevLog($devLog) {
-		$this->devLog = $devLog;
-	}
+    /**
+     * @param boolean $devLog
+     * @return void
+     */
+    public function setDevLog($devLog)
+    {
+        $this->devLog = $devLog;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isDevLog() {
-		return $this->devLog;
-	}
+    /**
+     * @return boolean
+     */
+    public function isDevLog()
+    {
+        return $this->devLog;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getAdditionalWhereClause() {
-		return $this->additionalWhereClause;
-	}
+    /**
+     * @return string
+     */
+    public function getAdditionalWhereClause()
+    {
+        return $this->additionalWhereClause;
+    }
 
-	/**
-	 * @param string $additionalWhereClause
-	 */
-	public function setAdditionalWhereClause($additionalWhereClause) {
-		$this->additionalWhereClause = $additionalWhereClause;
-	}
+    /**
+     * @param string $additionalWhereClause
+     */
+    public function setAdditionalWhereClause($additionalWhereClause)
+    {
+        $this->additionalWhereClause = $additionalWhereClause;
+    }
 
-	/**
-	 * Remove not allowed signs
-	 *
-	 * @param $string
-	 * @return void
-	 */
-	protected function removeNotAllowedSigns(&$string) {
-		$string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
-	}
+    /**
+     * Remove not allowed signs
+     *
+     * @param $string
+     * @return void
+     */
+    protected function removeNotAllowedSigns(&$string)
+    {
+        $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+    }
 
-	/**
-	 * Write settings to devlog
-	 *
-	 * @return void
-	 */
-	protected function writeToDevLog() {
-		if (!$this->isDevLog()) {
-			return;
-		}
-		$subject = 'SaveToAnyTable (Table: ' . $this->getTable();
-		$subject .= ', Mode: ' . $this->getMode();
-		$subject .=  ', UniqueField: ' . $this->getUniqueField() . ')';
-		GeneralUtility::devLog($subject, 'powermail', 0, $this->getProperties());
-	}
+    /**
+     * Write settings to devlog
+     *
+     * @return void
+     */
+    protected function writeToDevLog()
+    {
+        if (!$this->isDevLog()) {
+            return;
+        }
+        $subject = 'SaveToAnyTable (Table: ' . $this->getTable();
+        $subject .= ', Mode: ' . $this->getMode();
+        $subject .= ', UniqueField: ' . $this->getUniqueField() . ')';
+        GeneralUtility::devLog($subject, 'powermail', 0, $this->getProperties());
+    }
 
-	/**
-	 * @param string $table
-	 */
-	public function __construct($table) {
-		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
-		$this->setTable($table);
-	}
+    /**
+     * @param string $table
+     */
+    public function __construct($table)
+    {
+        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        $this->setTable($table);
+    }
 
 }

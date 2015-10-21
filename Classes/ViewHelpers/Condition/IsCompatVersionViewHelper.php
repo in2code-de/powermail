@@ -10,17 +10,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package TYPO3
  * @subpackage Powermail
  */
-class IsCompatVersionViewHelper extends AbstractViewHelper {
+class IsCompatVersionViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Check if current TYPO3 version is greater or equal than
-	 * 		given version
-	 *
-	 * @param string $versionNumber Minimum branch number required format x.y
-	 * @return bool
-	 */
-	public function render($versionNumber) {
-		return GeneralUtility::compat_version($versionNumber);
-	}
+    /**
+     * Check if current TYPO3 version is greater or equal than
+     *        given version
+     *
+     * @param string $versionNumber Minimum branch number required format x.y
+     * @return bool
+     */
+    public function render($versionNumber)
+    {
+        return GeneralUtility::compat_version($versionNumber);
+    }
 
 }

@@ -10,30 +10,31 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @subpackage Fluid
  * @version
  */
-class GetFieldMarkerFromUidViewHelper extends AbstractViewHelper {
+class GetFieldMarkerFromUidViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * fieldRepository
-	 *
-	 * @var \In2code\Powermail\Domain\Repository\FieldRepository
-	 * @inject
-	 */
-	protected $fieldRepository;
+    /**
+     * fieldRepository
+     *
+     * @var \In2code\Powermail\Domain\Repository\FieldRepository
+     * @inject
+     */
+    protected $fieldRepository;
 
-	/**
-	 * Read Label of a field from given UID
-	 *
-	 * @param int $uid
-	 * @return string Label
-	 */
-	public function render($uid) {
-		$result = '';
-		$field = $this->fieldRepository->findByUid($uid);
-		if (method_exists($field, 'getMarker')) {
-			$result = $field->getMarker();
-		}
+    /**
+     * Read Label of a field from given UID
+     *
+     * @param int $uid
+     * @return string Label
+     */
+    public function render($uid)
+    {
+        $result = '';
+        $field = $this->fieldRepository->findByUid($uid);
+        if (method_exists($field, 'getMarker')) {
+            $result = $field->getMarker();
+        }
 
-		return $result;
-	}
-
+        return $result;
+    }
 }

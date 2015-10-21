@@ -11,24 +11,27 @@ use In2code\Powermail\Utility\LocalizationUtility;
  * @subpackage Fluid
  * @version
  */
-class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeViewHelper {
+class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeViewHelper
+{
 
-	/**
-	 * Returns Data Attribute Array for JS validation with parsley.js
-	 *
-	 * @param Field $field
-	 * @param array $additionalAttributes To add further attributes
-	 * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
-	 * @return array for data attributes
-	 */
-	public function render(Field $field, $additionalAttributes = array(), $iteration = NULL) {
-		$additionalAttributes = parent::render($field, $additionalAttributes, $iteration);
+    /**
+     * Returns Data Attribute Array for JS validation with parsley.js
+     *
+     * @param Field $field
+     * @param array $additionalAttributes To add further attributes
+     * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
+     * @return array for data attributes
+     */
+    public function render(Field $field, $additionalAttributes = array(), $iteration = null)
+    {
+        $additionalAttributes = parent::render($field, $additionalAttributes, $iteration);
 
-		if ($this->isClientValidationEnabled()) {
-			$additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
-			$additionalAttributes['data-parsley-equalto-message'] = LocalizationUtility::translate('validationerror_password');
-		}
+        if ($this->isClientValidationEnabled()) {
+            $additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
+            $additionalAttributes['data-parsley-equalto-message'] =
+                LocalizationUtility::translate('validationerror_password');
+        }
 
-		return $additionalAttributes;
-	}
+        return $additionalAttributes;
+    }
 }

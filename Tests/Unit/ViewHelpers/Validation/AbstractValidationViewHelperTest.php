@@ -32,115 +32,121 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class AbstractValidationViewHelperTest extends UnitTestCase {
+class AbstractValidationViewHelperTest extends UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $abstractValidationViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $abstractValidationViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Validation\AbstractValidationViewHelper',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\ViewHelpers\Validation\AbstractValidationViewHelper',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider for
-	 * 		isNativeValidationEnabledReturnsBool()
-	 * 		isClientValidationEnabledReturnsBool()
-	 *
-	 * @return array
-	 */
-	public function isValidationEnabledReturnsBoolDataProvider() {
-		return array(
-			'nativeAndClientActivated' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '1'
-					)
-				),
-				TRUE,
-				TRUE
-			),
-			'nativeOnlyActivated' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '0'
-					)
-				),
-				TRUE,
-				FALSE
-			),
-			'clientOnlyActivated' => array(
-				array(
-					'validation' => array(
-						'native' => '0',
-						'client' => '1'
-					)
-				),
-				FALSE,
-				TRUE
-			),
-			'nothingActivated' => array(
-				array(
-					'validation' => array(
-						'native' => '0',
-						'client' => '0'
-					)
-				),
-				FALSE,
-				FALSE
-			),
-		);
-	}
+    /**
+     * Dataprovider for
+     *        isNativeValidationEnabledReturnsBool()
+     *        isClientValidationEnabledReturnsBool()
+     *
+     * @return array
+     */
+    public function isValidationEnabledReturnsBoolDataProvider()
+    {
+        return array(
+            'nativeAndClientActivated' => array(
+                array(
+                    'validation' => array(
+                        'native' => '1',
+                        'client' => '1'
+                    )
+                ),
+                true,
+                true
+            ),
+            'nativeOnlyActivated' => array(
+                array(
+                    'validation' => array(
+                        'native' => '1',
+                        'client' => '0'
+                    )
+                ),
+                true,
+                false
+            ),
+            'clientOnlyActivated' => array(
+                array(
+                    'validation' => array(
+                        'native' => '0',
+                        'client' => '1'
+                    )
+                ),
+                false,
+                true
+            ),
+            'nothingActivated' => array(
+                array(
+                    'validation' => array(
+                        'native' => '0',
+                        'client' => '0'
+                    )
+                ),
+                false,
+                false
+            ),
+        );
+    }
 
-	/**
-	 * Test for isNativeValidationEnabled()
-	 *
-	 * @param array $settings
-	 * @param bool $expectedNativeResult
-	 * @param bool $expectedClientResult
-	 * @return void
-	 * @dataProvider isValidationEnabledReturnsBoolDataProvider
-	 * @test
-	 */
-	public function isNativeValidationEnabledReturnsBool($settings, $expectedNativeResult, $expectedClientResult) {
-		unset($expectedClientResult);
-		$this->abstractValidationViewHelperMock->_set('settings', $settings);
-		$result = $this->abstractValidationViewHelperMock->_callRef('isNativeValidationEnabled');
-		$this->assertSame($expectedNativeResult, $result);
-	}
+    /**
+     * Test for isNativeValidationEnabled()
+     *
+     * @param array $settings
+     * @param bool $expectedNativeResult
+     * @param bool $expectedClientResult
+     * @return void
+     * @dataProvider isValidationEnabledReturnsBoolDataProvider
+     * @test
+     */
+    public function isNativeValidationEnabledReturnsBool($settings, $expectedNativeResult, $expectedClientResult)
+    {
+        unset($expectedClientResult);
+        $this->abstractValidationViewHelperMock->_set('settings', $settings);
+        $result = $this->abstractValidationViewHelperMock->_callRef('isNativeValidationEnabled');
+        $this->assertSame($expectedNativeResult, $result);
+    }
 
-	/**
-	 * Test for isClientValidationEnabled()
-	 *
-	 * @param array $settings
-	 * @param bool $expectedNativeResult
-	 * @param bool $expectedClientResult
-	 * @return void
-	 * @dataProvider isValidationEnabledReturnsBoolDataProvider
-	 * @test
-	 */
-	public function isClientValidationEnabledReturnsBool($settings, $expectedNativeResult, $expectedClientResult) {
-		unset($expectedNativeResult);
-		$this->abstractValidationViewHelperMock->_set('settings', $settings);
-		$result = $this->abstractValidationViewHelperMock->_callRef('isClientValidationEnabled');
-		$this->assertSame($expectedClientResult, $result);
-	}
+    /**
+     * Test for isClientValidationEnabled()
+     *
+     * @param array $settings
+     * @param bool $expectedNativeResult
+     * @param bool $expectedClientResult
+     * @return void
+     * @dataProvider isValidationEnabledReturnsBoolDataProvider
+     * @test
+     */
+    public function isClientValidationEnabledReturnsBool($settings, $expectedNativeResult, $expectedClientResult)
+    {
+        unset($expectedNativeResult);
+        $this->abstractValidationViewHelperMock->_set('settings', $settings);
+        $result = $this->abstractValidationViewHelperMock->_callRef('isClientValidationEnabled');
+        $this->assertSame($expectedClientResult, $result);
+    }
 }

@@ -30,69 +30,77 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Powermail Field Selector for Pi2 (powermail_frontend)
- * 		Used in FlexForm
+ * Used in FlexForm
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class FieldSelectorUserFunc {
+class FieldSelectorUserFunc
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-	 */
-	protected $databaseConnection = NULL;
+    /**
+     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected $databaseConnection = null;
 
-	/**
-	 * Cretae Array for Field Selector
-	 *
-	 * @param array $params
-	 * @return void
-	 */
-	public function getFieldSelection(&$params) {
-		$this->initialize();
-		/** @var FormRepository $formRepository */
-		$formRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-			->get('In2code\\Powermail\\Domain\\Repository\\FormRepository');
-		$formUid = $this->getFormUidFromTtContentUid((int) $params['row']['uid']);
-		if (!$formUid) {
-			$params['items'] = array(
-				array(
-					'Please select a form (Main Settings)',
-					''
-				)
-			);
-			return;
-		}
-		foreach ((array) $formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
-			$params['items'][] = array(
-				$field['title'] . ' {' . $field['marker'] . '}',
-				$field['uid']
-			);
-		}
-	}
+    /**
+     * Cretae Array for Field Selector
+     *
+     * @param array $params
+     * @return void
+     */
+    public function getFieldSelection(&$params)
+    {
+        $this->initialize();
+        /** @var FormRepository $formRepository */
+        $formRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+            ->get('In2code\\Powermail\\Domain\\Repository\\FormRepository');
+        $formUid = $this->getFormUidFromTtContentUid((int) $params['row']['uid']);
+        if (!$formUid) {
+            $params['items'] = array(
+                array(
+                    'Please select a form (Main Settings)',
+                    ''
+                )
+            );
+            return;
+        }
+        foreach ((array) $formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
+            $params['items'][] = array(
+                $field['title'] . ' {' . $field['marker'] . '}',
+                $field['uid']
+            );
+        }
+    }
 
-	/**
-	 * Return Form Uid from content element
-	 *
-	 * @param int $ttContentUid
-	 * @return int
-	 */
-	protected function getFormUidFromTtContentUid($ttContentUid) {
-		$row = $this->databaseConnection->exec_SELECTgetSingleRow('pi_flexform', 'tt_content', 'uid=' . (int) $ttContentUid);
-		$flexform = GeneralUtility::xml2array($row['pi_flexform']);
-		if (is_array($flexform) && isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
-			return (int) $flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
-		}
-		return 0;
-	}
+    /**
+     * Return Form Uid from content element
+     *
+     * @param int $ttContentUid
+     * @return int
+     */
+    protected function getFormUidFromTtContentUid($ttContentUid)
+    {
+        $row = $this->databaseConnection->exec_SELECTgetSingleRow(
+            'pi_flexform',
+            'tt_content',
+            'uid=' . (int) $ttContentUid
+        );
+        $flexform = GeneralUtility::xml2array($row['pi_flexform']);
+        if (is_array($flexform) && isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
+            return (int) $flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+        }
+        return 0;
+    }
 
-	/**
-	 * Initialize
-	 *
-	 * @return void
-	 */
-	protected function initialize() {
-		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
-	}
+    /**
+     * Initialize
+     *
+     * @return void
+     */
+    protected function initialize()
+    {
+        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+    }
 }

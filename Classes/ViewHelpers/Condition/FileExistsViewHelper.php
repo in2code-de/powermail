@@ -10,15 +10,17 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package TYPO3
  * @subpackage Fluid
  */
-class FileExistsViewHelper extends AbstractViewHelper {
+class FileExistsViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Check if file exists
-	 *
-	 * @param string $file Filename and Folder (relative)
-	 * @return bool
-	 */
-	public function render($file = '') {
-		return file_exists(GeneralUtility::getFileAbsFileName($file));
-	}
+    /**
+     * Check if file exists
+     *
+     * @param string $file Filename and Folder (relative)
+     * @return bool
+     */
+    public function render($file = '')
+    {
+        return file_exists(GeneralUtility::getFileAbsFileName($file));
+    }
 }

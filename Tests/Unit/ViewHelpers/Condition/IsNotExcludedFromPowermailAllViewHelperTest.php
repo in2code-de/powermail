@@ -32,156 +32,161 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase {
+class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $isNotExcludedFromPowermailAllViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $isNotExcludedFromPowermailAllViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->isNotExcludedFromPowermailAllViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Condition\IsNotExcludedFromPowermailAllViewHelper',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->isNotExcludedFromPowermailAllViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\ViewHelpers\Condition\IsNotExcludedFromPowermailAllViewHelper',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->isNotExcludedFromPowermailAllViewHelperMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->isNotExcludedFromPowermailAllViewHelperMock);
+    }
 
-	/**
-	 * Dataprovider for getExcludedValuesReturnArray()
-	 *
-	 * @return array
-	 */
-	public function getExcludedValuesReturnArrayDataProvider() {
-		return array(
-			array(
-				'createAction',
-				array(
-					'excludeFromPowermailAllMarker' => array(
-						'submitPage' => array(
-							'excludeFromFieldTypes' => 'hidden, captcha, input'
-						)
-					)
-				),
-				'excludeFromFieldTypes',
-				array(
-					'hidden',
-					'captcha',
-					'input'
-				)
-			),
-			array(
-				'confirmationAction',
-				array(
-					'excludeFromPowermailAllMarker' => array(
-						'confirmationPage' => array(
-							'excludeFromFieldTypes' => 'hidden, input'
-						)
-					)
-				),
-				'excludeFromFieldTypes',
-				array(
-					'hidden',
-					'input'
-				)
-			),
-			array(
-				'sender',
-				array(
-					'excludeFromPowermailAllMarker' => array(
-						'senderMail' => array(
-							'excludeFromMarkerNames' => 'abc, daafsd',
-							'excludeFromFieldTypes' => 'hidden, captcha'
-						)
-					)
-				),
-				'excludeFromFieldTypes',
-				array(
-					'hidden',
-					'captcha'
-				)
-			),
-			array(
-				'receiver',
-				array(
-					'excludeFromPowermailAllMarker' => array(
-						'receiverMail' => array(
-							'excludeFromMarkerNames' => 'email, firstname',
-							'excludeFromFieldTypes' => 'hidden, input'
-						)
-					)
-				),
-				'excludeFromMarkerNames',
-				array(
-					'email',
-					'firstname'
-				)
-			),
-			array(
-				'optin',
-				array(
-					'excludeFromPowermailAllMarker' => array(
-						'optinMail' => array(
-							'excludeFromMarkerNames' => 'email, firstname',
-							'excludeFromFieldTypes' => 'hidden, input'
-						)
-					)
-				),
-				'excludeFromMarkerNames',
-				array(
-					'email',
-					'firstname'
-				)
-			),
-			array(
-				'optin',
-				array(
-					'excludeFromPowermailAllMarker' => array(
-						'optinMail' => array(
-							'excludeFromMarkerNames' => 'email, firstname',
-							'excludeFromFieldTypes' => 'hidden, input'
-						)
-					)
-				),
-				'excludeFromFieldTypes',
-				array(
-					'hidden',
-					'input'
-				)
-			),
-		);
-	}
+    /**
+     * Dataprovider for getExcludedValuesReturnArray()
+     *
+     * @return array
+     */
+    public function getExcludedValuesReturnArrayDataProvider()
+    {
+        return array(
+            array(
+                'createAction',
+                array(
+                    'excludeFromPowermailAllMarker' => array(
+                        'submitPage' => array(
+                            'excludeFromFieldTypes' => 'hidden, captcha, input'
+                        )
+                    )
+                ),
+                'excludeFromFieldTypes',
+                array(
+                    'hidden',
+                    'captcha',
+                    'input'
+                )
+            ),
+            array(
+                'confirmationAction',
+                array(
+                    'excludeFromPowermailAllMarker' => array(
+                        'confirmationPage' => array(
+                            'excludeFromFieldTypes' => 'hidden, input'
+                        )
+                    )
+                ),
+                'excludeFromFieldTypes',
+                array(
+                    'hidden',
+                    'input'
+                )
+            ),
+            array(
+                'sender',
+                array(
+                    'excludeFromPowermailAllMarker' => array(
+                        'senderMail' => array(
+                            'excludeFromMarkerNames' => 'abc, daafsd',
+                            'excludeFromFieldTypes' => 'hidden, captcha'
+                        )
+                    )
+                ),
+                'excludeFromFieldTypes',
+                array(
+                    'hidden',
+                    'captcha'
+                )
+            ),
+            array(
+                'receiver',
+                array(
+                    'excludeFromPowermailAllMarker' => array(
+                        'receiverMail' => array(
+                            'excludeFromMarkerNames' => 'email, firstname',
+                            'excludeFromFieldTypes' => 'hidden, input'
+                        )
+                    )
+                ),
+                'excludeFromMarkerNames',
+                array(
+                    'email',
+                    'firstname'
+                )
+            ),
+            array(
+                'optin',
+                array(
+                    'excludeFromPowermailAllMarker' => array(
+                        'optinMail' => array(
+                            'excludeFromMarkerNames' => 'email, firstname',
+                            'excludeFromFieldTypes' => 'hidden, input'
+                        )
+                    )
+                ),
+                'excludeFromMarkerNames',
+                array(
+                    'email',
+                    'firstname'
+                )
+            ),
+            array(
+                'optin',
+                array(
+                    'excludeFromPowermailAllMarker' => array(
+                        'optinMail' => array(
+                            'excludeFromMarkerNames' => 'email, firstname',
+                            'excludeFromFieldTypes' => 'hidden, input'
+                        )
+                    )
+                ),
+                'excludeFromFieldTypes',
+                array(
+                    'hidden',
+                    'input'
+                )
+            ),
+        );
+    }
 
-	/**
-	 * Test for render()
-	 *
-	 * @param string $type
-	 * @param array $settings
-	 * @param string $configurationType
-	 * @param array $expectedResult
-	 * @return void
-	 * @dataProvider getExcludedValuesReturnArrayDataProvider
-	 * @test
-	 */
-	public function getExcludedValuesReturnArray($type, $settings, $configurationType, $expectedResult) {
-		$result = $this->isNotExcludedFromPowermailAllViewHelperMock->_callRef(
-			'getExcludedValues',
-			$type,
-			$settings,
-			$configurationType
-		);
-		$this->assertSame($expectedResult, $result);
-	}
+    /**
+     * Test for render()
+     *
+     * @param string $type
+     * @param array $settings
+     * @param string $configurationType
+     * @param array $expectedResult
+     * @return void
+     * @dataProvider getExcludedValuesReturnArrayDataProvider
+     * @test
+     */
+    public function getExcludedValuesReturnArray($type, $settings, $configurationType, $expectedResult)
+    {
+        $result = $this->isNotExcludedFromPowermailAllViewHelperMock->_callRef(
+            'getExcludedValues',
+            $type,
+            $settings,
+            $configurationType
+        );
+        $this->assertSame($expectedResult, $result);
+    }
 
 }

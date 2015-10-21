@@ -34,186 +34,208 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class FinisherService {
+class FinisherService
+{
 
-	/**
-	 * Classname
-	 *
-	 * @var string
-	 */
-	protected $class = '';
+    /**
+     * Classname
+     *
+     * @var string
+     */
+    protected $class = '';
 
-	/**
-	 * Path that should be required
-	 *
-	 * @var null|string
-	 */
-	protected $requirePath = NULL;
+    /**
+     * Path that should be required
+     *
+     * @var null|string
+     */
+    protected $requirePath = null;
 
-	/**
-	 * Finisher Configuration
-	 *
-	 * @var array
-	 */
-	protected $configuration = array();
+    /**
+     * Finisher Configuration
+     *
+     * @var array
+     */
+    protected $configuration = array();
 
-	/**
-	 * @var Mail
-	 */
-	protected $mail;
+    /**
+     * @var Mail
+     */
+    protected $mail;
 
-	/**
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * @var array
+     */
+    protected $settings;
 
-	/**
-	 * @var string
-	 */
-	protected $finisherInterface = 'In2code\Powermail\Finisher\FinisherInterface';
+    /**
+     * @var string
+     */
+    protected $finisherInterface = 'In2code\Powermail\Finisher\FinisherInterface';
 
-	/**
-	 * @return string
-	 */
-	public function getClass() {
-		return $this->class;
-	}
+    /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
 
-	/**
-	 * @param string $class
-	 * @return FinisherService
-	 */
-	public function setClass($class) {
-		$this->class = $class;
-		return $this;
-	}
+    /**
+     * @param string $class
+     * @return FinisherService
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+        return $this;
+    }
 
-	/**
-	 * @return null|string
-	 */
-	public function getRequirePath() {
-		return $this->requirePath;
-	}
+    /**
+     * @return null|string
+     */
+    public function getRequirePath()
+    {
+        return $this->requirePath;
+    }
 
-	/**
-	 * Set require path and do a require_once
-	 *
-	 * @param null|string $requirePath
-	 * @return FinisherService
-	 */
-	public function setRequirePath($requirePath) {
-		$this->requirePath = $requirePath;
-		if ($this->getRequirePath() && file_exists($this->getRequirePath())) {
-			require_once($this->getRequirePath());
-		}
-		return $this;
-	}
+    /**
+     * Set require path and do a require_once
+     *
+     * @param null|string $requirePath
+     * @return FinisherService
+     */
+    public function setRequirePath($requirePath)
+    {
+        $this->requirePath = $requirePath;
+        if ($this->getRequirePath() && file_exists($this->getRequirePath())) {
+            require_once($this->getRequirePath());
+        }
+        return $this;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getConfiguration() {
-		return $this->configuration;
-	}
+    /**
+     * @return array
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
 
-	/**
-	 * @param array $configuration
-	 * @return FinisherService
-	 */
-	public function setConfiguration($configuration) {
-		$this->configuration = $configuration;
-		return $this;
-	}
+    /**
+     * @param array $configuration
+     * @return FinisherService
+     */
+    public function setConfiguration($configuration)
+    {
+        $this->configuration = $configuration;
+        return $this;
+    }
 
-	/**
-	 * @return Mail
-	 */
-	public function getMail() {
-		return $this->mail;
-	}
+    /**
+     * @return Mail
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
 
-	/**
-	 * @param Mail $mail
-	 * @return FinisherService
-	 */
-	public function setMail($mail) {
-		$this->mail = $mail;
-		return $this;
-	}
+    /**
+     * @param Mail $mail
+     * @return FinisherService
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+        return $this;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getSettings() {
-		return $this->settings;
-	}
+    /**
+     * @return array
+     */
+    public function getSettings()
+    {
+        return $this->settings;
+    }
 
-	/**
-	 * @param array $settings
-	 * @return FinisherService
-	 */
-	public function setSettings($settings) {
-		$this->settings = $settings;
-		return $this;
-	}
+    /**
+     * @param array $settings
+     * @return FinisherService
+     */
+    public function setSettings($settings)
+    {
+        $this->settings = $settings;
+        return $this;
+    }
 
-	/**
-	 * Start implementation
-	 *
-	 * @throws \Exception
-	 * @return void
-	 */
-	public function start() {
-		if (!class_exists($this->getClass())) {
-			throw new \Exception('Class ' . $this->getClass() . ' does not exists - check if file was loaded with autoloader');
-		}
-		if (is_subclass_of($this->getClass(), $this->finisherInterface)) {
-			/** @var AbstractFinisher $finisher */
-			$finisher = GeneralUtility::makeInstance($this->getClass(), $this->getMail(), $this->getConfiguration(), $this->getSettings());
-			$finisher->initializeFinisher();
-			$this->callFinisherMethods($finisher);
-		} else {
-			throw new \Exception('Finisher does not implement ' . $this->finisherInterface);
-		}
-	}
+    /**
+     * Start implementation
+     *
+     * @throws \Exception
+     * @return void
+     */
+    public function start()
+    {
+        if (!class_exists($this->getClass())) {
+            throw new \Exception(
+                'Class ' . $this->getClass() . ' does not exists - check if file was loaded with autoloader'
+            );
+        }
+        if (is_subclass_of($this->getClass(), $this->finisherInterface)) {
+            /** @var AbstractFinisher $finisher */
+            $finisher = GeneralUtility::makeInstance(
+                $this->getClass(),
+                $this->getMail(),
+                $this->getConfiguration(),
+                $this->getSettings()
+            );
+            $finisher->initializeFinisher();
+            $this->callFinisherMethods($finisher);
+        } else {
+            throw new \Exception('Finisher does not implement ' . $this->finisherInterface);
+        }
+    }
 
-	/**
-	 * Call methods in finisher class
-	 *
-	 * @param AbstractFinisher $finisher
-	 * @return void
-	 */
-	protected function callFinisherMethods(AbstractFinisher $finisher) {
-		foreach (get_class_methods($finisher) as $method) {
-			if (!StringUtility::endsWith($method, 'Finisher') || strpos($method, 'initialize') === 0) {
-				continue;
-			}
-			$this->callInitializeFinisherMethod($finisher, $method);
-			$finisher->{$method}();
-		}
-	}
+    /**
+     * Call methods in finisher class
+     *
+     * @param AbstractFinisher $finisher
+     * @return void
+     */
+    protected function callFinisherMethods(AbstractFinisher $finisher)
+    {
+        foreach (get_class_methods($finisher) as $method) {
+            if (!StringUtility::endsWith($method, 'Finisher') || strpos($method, 'initialize') === 0) {
+                continue;
+            }
+            $this->callInitializeFinisherMethod($finisher, $method);
+            $finisher->{$method}();
+        }
+    }
 
-	/**
-	 * Call initializeFinisherMethods like "initializeSaveFinisher()"
-	 *
-	 * @param AbstractFinisher $finisher
-	 * @param string $finisherMethod
-	 * @return void
-	 */
-	protected function callInitializeFinisherMethod(AbstractFinisher $finisher, $finisherMethod) {
-		if (method_exists($finisher, 'initialize' . ucFirst($finisherMethod))) {
-			$finisher->{'initialize' . ucFirst($finisherMethod)}();
-		}
-	}
+    /**
+     * Call initializeFinisherMethods like "initializeSaveFinisher()"
+     *
+     * @param AbstractFinisher $finisher
+     * @param string $finisherMethod
+     * @return void
+     */
+    protected function callInitializeFinisherMethod(AbstractFinisher $finisher, $finisherMethod)
+    {
+        if (method_exists($finisher, 'initialize' . ucFirst($finisherMethod))) {
+            $finisher->{'initialize' . ucFirst($finisherMethod)}();
+        }
+    }
 
-	/**
-	 * @param Mail $mail
-	 * @param array $settings
-	 */
-	public function __construct(Mail $mail, array $settings) {
-		$this->setMail($mail);
-		$this->setSettings($settings);
-	}
+    /**
+     * @param Mail $mail
+     * @param array $settings
+     */
+    public function __construct(Mail $mail, array $settings)
+    {
+        $this->setMail($mail);
+        $this->setSettings($settings);
+    }
 }

@@ -35,65 +35,69 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
  *
  * @package In2code\In2publish\Utility
  */
-class TypoScriptUtility {
+class TypoScriptUtility
+{
 
-	/**
-	 * Overwrite a string if a TypoScript cObject is available
-	 *
-	 * @param string $string Value to overwrite
-	 * @param array $conf TypoScript Configuration Array
-	 * @param string $key Key for TypoScript Configuration
-	 * @return void
-	 */
-	public static function overwriteValueFromTypoScript(&$string = NULL, $conf, $key) {
-		/** @var ConfigurationManager $configurationManager */
-		$configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-			->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-		$contentObject = $configurationManager->getContentObject();
-		if ($contentObject->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
-			$string = $contentObject->cObjGetSingle($conf[$key], $conf[$key . '.']);
-		}
-	}
+    /**
+     * Overwrite a string if a TypoScript cObject is available
+     *
+     * @param string $string Value to overwrite
+     * @param array $conf TypoScript Configuration Array
+     * @param string $key Key for TypoScript Configuration
+     * @return void
+     */
+    public static function overwriteValueFromTypoScript(&$string = null, $conf, $key)
+    {
+        /** @var ConfigurationManager $configurationManager */
+        $configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+            ->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+        $contentObject = $configurationManager->getContentObject();
+        if ($contentObject->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
+            $string = $contentObject->cObjGetSingle($conf[$key], $conf[$key . '.']);
+        }
+    }
 
-	/**
-	 * Parse TypoScript from path like lib.blabla
-	 *
-	 * @param $typoScriptObjectPath
-	 * @return string
-	 */
-	public static function parseTypoScriptFromTypoScriptPath($typoScriptObjectPath) {
-		if (empty($typoScriptObjectPath)) {
-			return '';
-		}
-		$setup = $GLOBALS['TSFE']->tmpl->setup;
-		/** @var ConfigurationManager $configurationManager */
-		$configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-			->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-		$contentObject = $configurationManager->getContentObject();
-		$pathSegments = GeneralUtility::trimExplode('.', $typoScriptObjectPath);
-		$lastSegment = array_pop($pathSegments);
-		foreach ($pathSegments as $segment) {
-			$setup = $setup[$segment . '.'];
-		}
-		return $contentObject->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
-	}
+    /**
+     * Parse TypoScript from path like lib.blabla
+     *
+     * @param $typoScriptObjectPath
+     * @return string
+     */
+    public static function parseTypoScriptFromTypoScriptPath($typoScriptObjectPath)
+    {
+        if (empty($typoScriptObjectPath)) {
+            return '';
+        }
+        $setup = $GLOBALS['TSFE']->tmpl->setup;
+        /** @var ConfigurationManager $configurationManager */
+        $configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+            ->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+        $contentObject = $configurationManager->getContentObject();
+        $pathSegments = GeneralUtility::trimExplode('.', $typoScriptObjectPath);
+        $lastSegment = array_pop($pathSegments);
+        foreach ($pathSegments as $segment) {
+            $setup = $setup[$segment . '.'];
+        }
+        return $contentObject->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
+    }
 
-	/**
-	 * Return configured captcha extension
-	 *
-	 * @param array $settings
-	 * @return string
-	 */
-	public static function getCaptchaExtensionFromSettings($settings) {
-		$allowedExtensions = array(
-			'captcha'
-		);
-		if (
-			in_array($settings['captcha.']['use'], $allowedExtensions) &&
-			ExtensionManagementUtility::isLoaded($settings['captcha.']['use'])
-		) {
-			return $settings['captcha.']['use'];
-		}
-		return 'default';
-	}
+    /**
+     * Return configured captcha extension
+     *
+     * @param array $settings
+     * @return string
+     */
+    public static function getCaptchaExtensionFromSettings($settings)
+    {
+        $allowedExtensions = array(
+            'captcha'
+        );
+        if (
+            in_array($settings['captcha.']['use'], $allowedExtensions) &&
+            ExtensionManagementUtility::isLoaded($settings['captcha.']['use'])
+        ) {
+            return $settings['captcha.']['use'];
+        }
+        return 'default';
+    }
 }

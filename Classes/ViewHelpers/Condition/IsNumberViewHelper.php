@@ -9,15 +9,17 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsNumberViewHelper extends AbstractViewHelper {
+class IsNumberViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * View helper check if given value is number or not
-	 *
-	 * @param mixed $val
-	 * @return bool
-	 */
-	public function render($val = NULL) {
-		return is_numeric($val);
-	}
+    /**
+     * View helper check if given value is number or not
+     *
+     * @param mixed $val
+     * @return bool
+     */
+    public function render($val = null)
+    {
+        return is_numeric($val);
+    }
 }

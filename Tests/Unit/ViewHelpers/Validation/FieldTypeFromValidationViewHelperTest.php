@@ -33,126 +33,128 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class FieldTypeFromValidationViewHelperTest extends UnitTestCase {
+class FieldTypeFromValidationViewHelperTest extends UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $abstractValidationViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $abstractValidationViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Validation\FieldTypeFromValidationViewHelper',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\ViewHelpers\Validation\FieldTypeFromValidationViewHelper',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider for render()
-	 *
-	 * @return array
-	 */
-	public function renderReturnsStringDataProvider() {
-		return array(
-			'defaultWithHtml5' => array(
-				0,
-				'text',
-				TRUE
-			),
-			'defaultWithoutHtml5' => array(
-				0,
-				'text',
-				FALSE
-			),
-			'emailValidationWithoutHtml5' => array(
-				1,
-				'text',
-				FALSE
-			),
-			'emailValidationWithHtml5' => array(
-				1,
-				'email',
-				TRUE
-			),
-			'urlValidationWithoutHtml5' => array(
-				2,
-				'text',
-				FALSE
-			),
-			'urlValidationWithHtml5' => array(
-				2,
-				'url',
-				TRUE
-			),
-			'telValidationWithoutHtml5' => array(
-				3,
-				'text',
-				FALSE
-			),
-			'telValidationWithHtml5' => array(
-				3,
-				'tel',
-				TRUE
-			),
-			'numberValidationWithoutHtml5' => array(
-				4,
-				'text',
-				FALSE
-			),
-			'numberValidationWithHtml5' => array(
-				4,
-				'number',
-				TRUE
-			),
-			'rangeValidationWithoutHtml5' => array(
-				8,
-				'text',
-				FALSE
-			),
-			'rangeValidationWithHtml5' => array(
-				8,
-				'range',
-				TRUE
-			),
-		);
-	}
+    /**
+     * Dataprovider for render()
+     *
+     * @return array
+     */
+    public function renderReturnsStringDataProvider()
+    {
+        return array(
+            'defaultWithHtml5' => array(
+                0,
+                'text',
+                true
+            ),
+            'defaultWithoutHtml5' => array(
+                0,
+                'text',
+                false
+            ),
+            'emailValidationWithoutHtml5' => array(
+                1,
+                'text',
+                false
+            ),
+            'emailValidationWithHtml5' => array(
+                1,
+                'email',
+                true
+            ),
+            'urlValidationWithoutHtml5' => array(
+                2,
+                'text',
+                false
+            ),
+            'urlValidationWithHtml5' => array(
+                2,
+                'url',
+                true
+            ),
+            'telValidationWithoutHtml5' => array(
+                3,
+                'text',
+                false
+            ),
+            'telValidationWithHtml5' => array(
+                3,
+                'tel',
+                true
+            ),
+            'numberValidationWithoutHtml5' => array(
+                4,
+                'text',
+                false
+            ),
+            'numberValidationWithHtml5' => array(
+                4,
+                'number',
+                true
+            ),
+            'rangeValidationWithoutHtml5' => array(
+                8,
+                'text',
+                false
+            ),
+            'rangeValidationWithHtml5' => array(
+                8,
+                'range',
+                true
+            ),
+        );
+    }
 
-	/**
-	 * Test for render()
-	 *
-	 * @param string $validation
-	 * @param string $expectedResult
-	 * @param bool $nativeValidationEnabled
-	 * @return void
-	 * @dataProvider renderReturnsStringDataProvider
-	 * @test
-	 */
-	public function renderReturnsString($validation, $expectedResult, $nativeValidationEnabled) {
-		$this->abstractValidationViewHelperMock->_set(
-			'settings',
-			array(
-				'validation' => array(
-					'native' => ($nativeValidationEnabled ? '1' : '0')
-				)
-			)
-		);
-		$field = new Field;
-		$field->setValidation($validation);
+    /**
+     * Test for render()
+     *
+     * @param string $validation
+     * @param string $expectedResult
+     * @param bool $nativeValidationEnabled
+     * @return void
+     * @dataProvider renderReturnsStringDataProvider
+     * @test
+     */
+    public function renderReturnsString($validation, $expectedResult, $nativeValidationEnabled)
+    {
+        $this->abstractValidationViewHelperMock->_set('settings', array(
+                'validation' => array(
+                    'native' => ($nativeValidationEnabled ? '1' : '0')
+                )
+            ));
+        $field = new Field;
+        $field->setValidation($validation);
 
-		$result = $this->abstractValidationViewHelperMock->_callRef('render', $field);
-		$this->assertSame($expectedResult, $result);
-	}
+        $result = $this->abstractValidationViewHelperMock->_callRef('render', $field);
+        $this->assertSame($expectedResult, $result);
+    }
 
 }

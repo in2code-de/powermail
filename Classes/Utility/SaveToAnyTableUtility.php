@@ -35,63 +35,76 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class SaveToAnyTableUtility {
+class SaveToAnyTableUtility
+{
 
-	/**
-	 * Preflight to save values to any table in TYPO3 database
-	 *
-	 * @param Mail $mail
-	 * @param array $conf TypoScript Configuration
-	 * @return void
-	 */
-	public static function preflight($mail, $conf) {
-		if (empty($conf['dbEntry.'])) {
-			return;
-		}
-		/** @var ObjectManager $objectManager */
-		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		/** @var ConfigurationManager $configurationManager */
-		$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-		$contentObject = $configurationManager->getContentObject();
-		$mailRepository = $objectManager->get('In2code\\Powermail\\Domain\\Repository\\MailRepository');
-		$startArray = $mailRepository->getVariablesWithMarkersFromMail($mail);
+    /**
+     * Preflight to save values to any table in TYPO3 database
+     *
+     * @param Mail $mail
+     * @param array $conf TypoScript Configuration
+     * @return void
+     */
+    public static function preflight($mail, $conf)
+    {
+        if (empty($conf['dbEntry.'])) {
+            return;
+        }
+        /** @var ObjectManager $objectManager */
+        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        /** @var ConfigurationManager $configurationManager */
+        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+        $contentObject = $configurationManager->getContentObject();
+        $mailRepository = $objectManager->get('In2code\\Powermail\\Domain\\Repository\\MailRepository');
+        $startArray = $mailRepository->getVariablesWithMarkersFromMail($mail);
 
-		// one loop per table
-		foreach ((array) array_keys($conf['dbEntry.']) as $table) {
-			$contentObject->start($startArray);
-			$table = substr($table, 0, -1);
-			$dbEntryConfiguration = $conf['dbEntry.'][$table . '.'];
-			$enable = $contentObject->cObjGetSingle($dbEntryConfiguration['_enable'], $conf['dbEntry.'][$table . '.']['_enable.']);
-			if (!$enable) {
-				continue;
-			}
+        // one loop per table
+        foreach ((array) array_keys($conf['dbEntry.']) as $table) {
+            $contentObject->start($startArray);
+            $table = substr($table, 0, -1);
+            $dbEntryConfiguration = $conf['dbEntry.'][$table . '.'];
+            $enable = $contentObject->cObjGetSingle(
+                $dbEntryConfiguration['_enable'],
+                $conf['dbEntry.'][$table . '.']['_enable.']
+            );
+            if (!$enable) {
+                continue;
+            }
 
-			/* @var $saveToAnyTable SaveToAnyTableService */
-			$saveToAnyTableService = $objectManager->get('In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService', $table);
-			if (!empty($dbEntryConfiguration['_ifUnique.'])) {
-				$uniqueFields = array_keys($dbEntryConfiguration['_ifUnique.']);
-				$saveToAnyTableService->setMode($dbEntryConfiguration['_ifUnique.'][$uniqueFields[0]]);
-				$saveToAnyTableService->setUniqueField($uniqueFields[0]);
-				if (!empty($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause'])) {
-					$saveToAnyTableService->setAdditionalWhereClause($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause']);
-				}
-			}
+            /* @var $saveToAnyTable SaveToAnyTableService */
+            $saveToAnyTableService = $objectManager->get(
+                'In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService',
+                $table
+            );
+            if (!empty($dbEntryConfiguration['_ifUnique.'])) {
+                $uniqueFields = array_keys($dbEntryConfiguration['_ifUnique.']);
+                $saveToAnyTableService->setMode($dbEntryConfiguration['_ifUnique.'][$uniqueFields[0]]);
+                $saveToAnyTableService->setUniqueField($uniqueFields[0]);
+                if (!empty($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause'])) {
+                    $saveToAnyTableService->setAdditionalWhereClause(
+                        $conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause']
+                    );
+                }
+            }
 
-			// one loop per field
-			foreach ((array) array_keys($conf['dbEntry.'][$table . '.']) as $field) {
-				if (stristr($field, '.') || $field[0] === '_') {
-					continue;
-				}
-				$value = $contentObject->cObjGetSingle($dbEntryConfiguration[$field], $dbEntryConfiguration[$field . '.']);
-				$saveToAnyTableService->addProperty($field, $value);
-			}
-			if (!empty($conf['debug.']['saveToTable'])) {
-				$saveToAnyTableService->setDevLog(TRUE);
-			}
-			$uid = $saveToAnyTableService->execute();
-			$startArray = array_merge($startArray, array('uid_' . $table => $uid));
-		}
-	}
+            // one loop per field
+            foreach ((array) array_keys($conf['dbEntry.'][$table . '.']) as $field) {
+                if (stristr($field, '.') || $field[0] === '_') {
+                    continue;
+                }
+                $value = $contentObject->cObjGetSingle(
+                    $dbEntryConfiguration[$field],
+                    $dbEntryConfiguration[$field . '.']
+                );
+                $saveToAnyTableService->addProperty($field, $value);
+            }
+            if (!empty($conf['debug.']['saveToTable'])) {
+                $saveToAnyTableService->setDevLog(true);
+            }
+            $uid = $saveToAnyTableService->execute();
+            $startArray = array_merge($startArray, array('uid_' . $table => $uid));
+        }
+    }
 }

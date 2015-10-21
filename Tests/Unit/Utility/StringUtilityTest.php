@@ -33,246 +33,249 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class StringUtilityTest extends UnitTestCase {
+class StringUtilityTest extends UnitTestCase
+{
 
-	/**
-	 * Dataprovider isNotEmptyReturnsBool()
-	 *
-	 * @return array
-	 */
-	public function isNotEmptyReturnsBoolDataProvider() {
-		return array(
-			'string "in2code.de"' => array(
-				'in2code.de',
-				TRUE
-			),
-			'string "a"' => array(
-				'a',
-				TRUE
-			),
-			'string empty' => array(
-				'',
-				FALSE
-			),
-			'string "0"' => array(
-				'0',
-				TRUE
-			),
-			'int 0' => array(
-				0,
-				TRUE
-			),
-			'int 1' => array(
-				1,
-				TRUE
-			),
-			'float 0.0' => array(
-				0.0,
-				TRUE
-			),
-			'float 1.0' => array(
-				1.0,
-				TRUE
-			),
-			'null' => array(
-				NULL,
-				FALSE
-			),
-			'bool false' => array(
-				FALSE,
-				FALSE
-			),
-			'bool true' => array(
-				TRUE,
-				FALSE
-			),
-			'array: string empty' => array(
-				array(''),
-				FALSE
-			),
-			'array: int 0' => array(
-				array(0),
-				TRUE
-			),
-			'array: int 1' => array(
-				array(1),
-				TRUE
-			),
-			'array: "abc" => "def"' => array(
-				array('abc' => 'def'),
-				TRUE
-			),
-			'array: empty' => array(
-				array(),
-				FALSE
-			),
-		);
-	}
+    /**
+     * Dataprovider isNotEmptyReturnsBool()
+     *
+     * @return array
+     */
+    public function isNotEmptyReturnsBoolDataProvider()
+    {
+        return array(
+            'string "in2code.de"' => array(
+                'in2code.de',
+                true
+            ),
+            'string "a"' => array(
+                'a',
+                true
+            ),
+            'string empty' => array(
+                '',
+                false
+            ),
+            'string "0"' => array(
+                '0',
+                true
+            ),
+            'int 0' => array(
+                0,
+                true
+            ),
+            'int 1' => array(
+                1,
+                true
+            ),
+            'float 0.0' => array(
+                0.0,
+                true
+            ),
+            'float 1.0' => array(
+                1.0,
+                true
+            ),
+            'null' => array(
+                null,
+                false
+            ),
+            'bool false' => array(
+                false,
+                false
+            ),
+            'bool true' => array(
+                true,
+                false
+            ),
+            'array: string empty' => array(
+                array(''),
+                false
+            ),
+            'array: int 0' => array(
+                array(0),
+                true
+            ),
+            'array: int 1' => array(
+                array(1),
+                true
+            ),
+            'array: "abc" => "def"' => array(
+                array('abc' => 'def'),
+                true
+            ),
+            'array: empty' => array(
+                array(),
+                false
+            ),
+        );
+    }
 
-	/**
-	 * Test for isNotEmpty()
-	 *
-	 * @param string $value
-	 * @param array $expectedResult
-	 * @return void
-	 * @dataProvider isNotEmptyReturnsBoolDataProvider
-	 * @test
-	 */
-	public function isNotEmptyReturnsBool($value, $expectedResult) {
-		$this->assertSame(
-			$expectedResult,
-			StringUtility::isNotEmpty($value)
-		);
-	}
+    /**
+     * Test for isNotEmpty()
+     *
+     * @param string $value
+     * @param array $expectedResult
+     * @return void
+     * @dataProvider isNotEmptyReturnsBoolDataProvider
+     * @test
+     */
+    public function isNotEmptyReturnsBool($value, $expectedResult)
+    {
+        $this->assertSame($expectedResult, StringUtility::isNotEmpty($value));
+    }
 
-	/**
-	 * Data Provider for getRandomStringAlwaysReturnsStringsOfGivenLength
-	 *
-	 * @return array
-	 */
-	public function getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider() {
-		return array(
-			'default params' => array(
-				32,
-				TRUE,
-			),
-			'default length lowercase' => array(
-				32,
-				FALSE,
-			),
-			'60 length' => array(
-				60,
-				TRUE,
-			),
-			'60 length lowercase' => array(
-				60,
-				FALSE,
-			),
-		);
-	}
+    /**
+     * Data Provider for getRandomStringAlwaysReturnsStringsOfGivenLength
+     *
+     * @return array
+     */
+    public function getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider()
+    {
+        return array(
+            'default params' => array(
+                32,
+                true,
+            ),
+            'default length lowercase' => array(
+                32,
+                false,
+            ),
+            '60 length' => array(
+                60,
+                true,
+            ),
+            '60 length lowercase' => array(
+                60,
+                false,
+            ),
+        );
+    }
 
-	/**
-	 * getRandomStringAlwaysReturnsStringsOfGivenLength Test
-	 *
-	 * @param int $length
-	 * @param bool $uppercase
-	 * @dataProvider getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function getRandomStringAlwaysReturnsStringsOfGivenLength($length, $uppercase) {
-		for ($i = 0; $i < 100; $i++) {
-			$string = StringUtility::getRandomString($length, $uppercase);
+    /**
+     * getRandomStringAlwaysReturnsStringsOfGivenLength Test
+     *
+     * @param int $length
+     * @param bool $uppercase
+     * @dataProvider getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider
+     * @return void
+     * @test
+     */
+    public function getRandomStringAlwaysReturnsStringsOfGivenLength($length, $uppercase)
+    {
+        for ($i = 0; $i < 100; $i++) {
+            $string = StringUtility::getRandomString($length, $uppercase);
 
-			$regex = '~[a-z0-9]{' . $length . '}~';
-			if ($uppercase) {
-				$regex = '~[a-zA-Z0-9]{' . $length . '}~';
-			}
+            $regex = '~[a-z0-9]{' . $length . '}~';
+            if ($uppercase) {
+                $regex = '~[a-zA-Z0-9]{' . $length . '}~';
+            }
 
-			$this->assertSame(1, preg_match($regex, $string));
-		}
-	}
+            $this->assertSame(1, preg_match($regex, $string));
+        }
+    }
 
-	/**
-	 * Data Provider for conditionalVariableReturnsMixed()
-	 *
-	 * @return array
-	 */
-	public function conditionalVariableReturnsMixedDataProvider() {
-		return array(
-			array(
-				'string',
-				'fallbackstring',
-				'string'
-			),
-			array(
-				array('abc'),
-				array('def'),
-				array('abc')
-			),
-			array(
-				'',
-				'fallback',
-				'fallback'
-			),
-			array(
-				NULL,
-				TRUE,
-				TRUE
-			),
-			array(
-				123,
-				234,
-				123
-			)
-		);
-	}
+    /**
+     * Data Provider for conditionalVariableReturnsMixed()
+     *
+     * @return array
+     */
+    public function conditionalVariableReturnsMixedDataProvider()
+    {
+        return array(
+            array(
+                'string',
+                'fallbackstring',
+                'string'
+            ),
+            array(
+                array('abc'),
+                array('def'),
+                array('abc')
+            ),
+            array(
+                '',
+                'fallback',
+                'fallback'
+            ),
+            array(
+                null,
+                true,
+                true
+            ),
+            array(
+                123,
+                234,
+                123
+            )
+        );
+    }
 
-	/**
-	 * conditionalVariable Test
-	 *
-	 * @param mixed $variable
-	 * @param mixed $fallback
-	 * @param mixed $expectedResult
-	 * @dataProvider conditionalVariableReturnsMixedDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function conditionalVariableReturnsMixed($variable, $fallback, $expectedResult) {
-		$this->assertSame(
-			$expectedResult,
-			StringUtility::conditionalVariable($variable, $fallback)
-		);
-	}
+    /**
+     * conditionalVariable Test
+     *
+     * @param mixed $variable
+     * @param mixed $fallback
+     * @param mixed $expectedResult
+     * @dataProvider conditionalVariableReturnsMixedDataProvider
+     * @return void
+     * @test
+     */
+    public function conditionalVariableReturnsMixed($variable, $fallback, $expectedResult)
+    {
+        $this->assertSame($expectedResult, StringUtility::conditionalVariable($variable, $fallback));
+    }
 
-	/**
-	 * Data Provider for endsWithReturnsString()
-	 *
-	 * @return array
-	 */
-	public function endsWithReturnsStringDataProvider() {
-		return array(
-			array(
-				'xFinisher',
-				'Finisher',
-				TRUE
-			),
-			array(
-				'inisher',
-				'Finisher',
-				FALSE
-			),
-			array(
-				'abc',
-				'c',
-				TRUE
-			),
-			array(
-				'abc',
-				'bc',
-				TRUE
-			),
-			array(
-				'abc',
-				'abc',
-				TRUE
-			),
-		);
-	}
+    /**
+     * Data Provider for endsWithReturnsString()
+     *
+     * @return array
+     */
+    public function endsWithReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                'xFinisher',
+                'Finisher',
+                true
+            ),
+            array(
+                'inisher',
+                'Finisher',
+                false
+            ),
+            array(
+                'abc',
+                'c',
+                true
+            ),
+            array(
+                'abc',
+                'bc',
+                true
+            ),
+            array(
+                'abc',
+                'abc',
+                true
+            ),
+        );
+    }
 
-	/**
-	 * endsWith Test
-	 *
-	 * @param string $haystack
-	 * @param string $needle
-	 * @param bool $expectedResult
-	 * @dataProvider endsWithReturnsStringDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function endsWithReturnsString($haystack, $needle, $expectedResult) {
-		$this->assertSame($expectedResult, StringUtility::endsWith($haystack, $needle));
-	}
+    /**
+     * endsWith Test
+     *
+     * @param string $haystack
+     * @param string $needle
+     * @param bool $expectedResult
+     * @dataProvider endsWithReturnsStringDataProvider
+     * @return void
+     * @test
+     */
+    public function endsWithReturnsString($haystack, $needle, $expectedResult)
+    {
+        $this->assertSame($expectedResult, StringUtility::endsWith($haystack, $needle));
+    }
 }

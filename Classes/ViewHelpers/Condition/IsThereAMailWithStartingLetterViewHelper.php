@@ -10,30 +10,32 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package TYPO3
  * @subpackage Fluid
  */
-class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper {
+class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Check if there is a mail with a starting letter
-	 *
-	 * @param QueryResult $mails
-	 * @param string $letter Starting Letter to search for
-	 * @param int $answerField Field Uid
-	 * @return bool
-	 */
-	public function render($mails, $letter, $answerField) {
-		foreach ($mails as $mail) {
-			foreach ($mail->getAnswers() as $answer) {
-				if (
-					method_exists($answer->getField(), 'getUid') &&
-					$answer->getField()->getUid() === intval($answerField)
-				) {
-					$value = $answer->getValue();
-					if (strtolower($value[0]) === strtolower($letter)) {
-						return TRUE;
-					}
-				}
-			}
-		}
-		return FALSE;
-	}
+    /**
+     * Check if there is a mail with a starting letter
+     *
+     * @param QueryResult $mails
+     * @param string $letter Starting Letter to search for
+     * @param int $answerField Field Uid
+     * @return bool
+     */
+    public function render($mails, $letter, $answerField)
+    {
+        foreach ($mails as $mail) {
+            foreach ($mail->getAnswers() as $answer) {
+                if (
+                    method_exists($answer->getField(), 'getUid') &&
+                    $answer->getField()->getUid() === (int) $answerField
+                ) {
+                    $value = $answer->getValue();
+                    if (strtolower($value[0]) === strtolower($letter)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
