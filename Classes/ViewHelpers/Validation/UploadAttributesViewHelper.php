@@ -31,11 +31,18 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper {
 				$this->settings['misc']['file']['extension']
 			);
 		}
-		if (!empty($this->settings['misc']['file']['size'])) {
-			$additionalAttributes['data-parsley-powermailfilesize'] =
-				(int) $this->settings['misc']['file']['size'] . ',' . $field->getMarker();
-			$additionalAttributes['data-parsley-powermailfilesize-message'] =
-				LocalizationUtility::translate('validationerror_upload_size');
+		if ($this->isClientValidationEnabled()) {
+			if (!empty($this->settings['misc']['file']['size'])) {
+				$additionalAttributes['data-parsley-powermailfilesize'] =
+					(int) $this->settings['misc']['file']['size'] . ',' . $field->getMarker();
+				$additionalAttributes['data-parsley-powermailfilesize-message'] =
+					LocalizationUtility::translate('validationerror_upload_size');
+			}
+			if (!empty($this->settings['misc']['file']['extension'])) {
+				$additionalAttributes['data-parsley-powermailfileextensions'] = $field->getMarker();
+				$additionalAttributes['data-parsley-powermailfileextensions-message'] =
+					LocalizationUtility::translate('validationerror_upload_extension');
+			}
 		}
 		return $additionalAttributes;
 	}

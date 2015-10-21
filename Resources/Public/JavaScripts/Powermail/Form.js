@@ -27,7 +27,7 @@ function PowermailForm($) {
 		that.hidePasswords();
 		that.addResetListener();
 		that.deleteAllFilesListener();
-		that.uploadSizeValidatorListener();
+		that.uploadValidationListener();
 	};
 
 	/**
@@ -159,27 +159,14 @@ function PowermailForm($) {
 	};
 
 	/**
-	 * Filesize check for upload fields
+	 * Add validation for upload fields
 	 *
 	 * @returns {void}
 	 */
-	this.uploadSizeValidatorListener = function() {
+	this.uploadValidationListener = function() {
 		if (window.ParsleyValidator) {
-			window.ParsleyValidator
-				.addValidator('powermailfilesize', function(value, requirement) {
-					if (requirement.indexOf(',') !== -1) {
-						var requirements = requirement.split(',');
-						var maxUploadSize = parseInt(requirements[0]);
-						var $this = $('*[name="tx_powermail_pi1[field][' + requirements[1] + '][]"]');
-						if ($this.length) {
-							if (that.getMaxFileSize($this) > maxUploadSize) {
-								return false;
-							}
-						}
-					}
-					return true;
-				}, 32)
-				.addMessage('en', 'powermailfilesize', 'Error');
+			that.uploadSizeValidatorListener();
+			that.uploadExtensionValidatorListener();
 		}
 	};
 
@@ -389,6 +376,74 @@ function PowermailForm($) {
 			}
 		}
 		return parseInt(size);
+	};
+
+	/**
+	 * Filesize check for upload fields
+	 *
+	 * @returns {void}
+	 */
+	this.uploadSizeValidatorListener = function() {
+		window.ParsleyValidator
+			.addValidator('powermailfilesize', function(value, requirement) {
+				if (requirement.indexOf(',') !== -1) {
+					var requirements = requirement.split(',');
+					var maxUploadSize = parseInt(requirements[0]);
+					var $this = $('*[name="tx_powermail_pi1[field][' + requirements[1] + '][]"]');
+					if ($this.length) {
+						if (that.getMaxFileSize($this) > maxUploadSize) {
+							return false;
+						}
+					}
+				}
+
+				// pass test if problems
+				return true;
+			}, 32)
+			.addMessage('en', 'powermailfilesize', 'Error');
+	};
+
+	/**
+	 * File extension check for upload fields
+	 *
+	 * @returns {void}
+	 */
+	this.uploadExtensionValidatorListener = function() {
+		window.ParsleyValidator
+			.addValidator('powermailfileextensions', function(value, requirement) {
+				var $this = $('*[name="tx_powermail_pi1[field][' + requirement + '][]"]');
+				if ($this.length) {
+					return that.isFileExtensionInList(that.getExtensionFromFileName(value), $this.prop('accept'));
+				}
+
+				// pass test if problems
+				return true;
+			}, 32)
+			.addMessage('en', 'powermailfileextensions', 'Error');
+	};
+
+	/**
+	 * Check if fileextension is allowed in dotted list
+	 * 		"jpg" in ".jpg,.jpeg" => true
+	 * 		"jpg" in ".gif,.png" => false
+	 *
+	 * @param {string} extension
+	 * @param {string} list
+	 * @returns {boolean}
+	 */
+	this.isFileExtensionInList = function(extension, list) {
+		return list.indexOf('.' + extension) !== -1;
+	};
+
+	/**
+	 * Get extension from filename
+	 * 		image.jpg => jpg
+	 *
+	 * @param {string} fileName
+	 * @returns {string}
+	 */
+	this.getExtensionFromFileName = function(fileName) {
+		return fileName.split('.').pop();
 	};
 
 	/**
