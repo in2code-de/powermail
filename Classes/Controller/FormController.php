@@ -73,11 +73,13 @@ class FormController extends AbstractController
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($forms, $this));
         SessionUtility::saveFormStartInSession($forms, $this->settings);
 
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple(
+            array(
                 'forms' => $forms,
                 'messageClass' => $this->messageClass,
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
-            ));
+            )
+        );
     }
 
     /**
