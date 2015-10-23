@@ -31,52 +31,51 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class AnswerRepository extends Repository {
+class AnswerRepository extends Repository
+{
 
-	/**
-	 * Find single Answer by field uid and mail uid
-	 *
-	 * @param int $fieldUid
-	 * @param int $mailUid
-	 * @return \In2code\Powermail\Domain\Model\Answer
-	 */
-	public function findByFieldAndMail($fieldUid, $mailUid) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    /**
+     * Find single Answer by field uid and mail uid
+     *
+     * @param int $fieldUid
+     * @param int $mailUid
+     * @return \In2code\Powermail\Domain\Model\Answer
+     */
+    public function findByFieldAndMail($fieldUid, $mailUid)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
 
-		$and = array(
-			$query->equals('mail', $mailUid),
-			$query->equals('field', $fieldUid)
-		);
+        $and = array(
+            $query->equals('mail', $mailUid),
+            $query->equals('field', $fieldUid)
+        );
 
-		$constraint = $query->logicalAnd($and);
-		$query->matching($constraint);
-		$query->setLimit(1);
-		return $query->execute()->getFirst();
-	}
+        $constraint = $query->logicalAnd($and);
+        $query->matching($constraint);
+        $query->setLimit(1);
+        return $query->execute()->getFirst();
+    }
 
-	/**
-	 * Find any answer with uploaded file
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findByAnyUpload() {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+    /**
+     * Find any answer with uploaded file
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByAnyUpload()
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
 
-		// get all uploaded answers which are not empty
-		$query->matching(
-			$query->logicalAnd(
-				array(
-					$query->equals('valueType', 3),
-					$query->logicalNot($query->equals('value', ''))
-				)
-			)
-		);
+        // get all uploaded answers which are not empty
+        $query->matching($query->logicalAnd(array(
+                $query->equals('valueType', 3),
+                $query->logicalNot($query->equals('value', ''))
+            )));
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 }

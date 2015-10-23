@@ -11,7 +11,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidActionNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /***************************************************************
  *  Copyright notice
@@ -42,499 +41,532 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class ExportService {
+class ExportService
+{
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager = NULL;
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @inject
+     */
+    protected $objectManager = null;
 
-	/**
-	 * Contains mails for export
-	 *
-	 * @var null|QueryResult
-	 */
-	protected $mails = NULL;
+    /**
+     * Contains mails for export
+     *
+     * @var null|QueryResult
+     */
+    protected $mails = null;
 
-	/**
-	 * Receiver email addresses
-	 *
-	 * @var array
-	 */
-	protected $receiverEmails = array();
+    /**
+     * Receiver email addresses
+     *
+     * @var array
+     */
+    protected $receiverEmails = array();
 
-	/**
-	 * Sender email addresses
-	 *
-	 * @var array
-	 */
-	protected $senderEmails = array(
-		'powermail@domain.org'
-	);
+    /**
+     * Sender email addresses
+     *
+     * @var array
+     */
+    protected $senderEmails = array(
+        'powermail@domain.org'
+    );
 
-	/**
-	 * Mail subject
-	 *
-	 * @var string
-	 */
-	protected $subject = '';
+    /**
+     * Mail subject
+     *
+     * @var string
+     */
+    protected $subject = '';
 
-	/**
-	 * Export format can be 'xls' or 'csv'
-	 *
-	 * @var string
-	 */
-	protected $format = 'xls';
+    /**
+     * Export format can be 'xls' or 'csv'
+     *
+     * @var string
+     */
+    protected $format = 'xls';
 
-	/**
-	 * Fields to export
-	 * 	Can be empty for all fields
-	 * 	can contain:
-	 * 		field uids
-	 * 		"crdate"
-	 * 		"sender_name"
-	 * 		"sender_mail"
-	 * 		"receiver_mail"
-	 * 		"subject"
-	 * 		"marketing_referer_domain"
-	 * 		"marketing_referer"
-	 * 		"marketing_frontend_language"
-	 * 		"marketing_browser_language"
-	 * 		"marketing_country"
-	 * 		"marketing_mobile_device"
-	 * 		"marketing_page_funnel"
-	 * 		"user_agent"
-	 * 		"time"
-	 * 		"sender_ip"
-	 * 		"uid"
-	 * 		"feuser"
-	 *
-	 * @var array
-	 */
-	protected $fieldList = array();
+    /**
+     * Fields to export
+     *    Can be empty for all fields
+     *    can contain:
+     *        field uids
+     *        "crdate"
+     *        "sender_name"
+     *        "sender_mail"
+     *        "receiver_mail"
+     *        "subject"
+     *        "marketing_referer_domain"
+     *        "marketing_referer"
+     *        "marketing_frontend_language"
+     *        "marketing_browser_language"
+     *        "marketing_country"
+     *        "marketing_mobile_device"
+     *        "marketing_page_funnel"
+     *        "user_agent"
+     *        "time"
+     *        "sender_ip"
+     *        "uid"
+     *        "feuser"
+     *
+     * @var array
+     */
+    protected $fieldList = array();
 
-	/**
-	 * @var string
-	 */
-	protected $fileName = '';
+    /**
+     * @var string
+     */
+    protected $fileName = '';
 
-	/**
-	 * @var array
-	 */
-	protected $additionalProperties = array();
+    /**
+     * @var array
+     */
+    protected $additionalProperties = array();
 
-	/**
-	 * @var bool
-	 */
-	protected $addAttachment = TRUE;
+    /**
+     * @var bool
+     */
+    protected $addAttachment = true;
 
-	/**
-	 * @var string
-	 */
-	protected $storageFolder = 'typo3temp/tx_powermail/';
+    /**
+     * @var string
+     */
+    protected $storageFolder = 'typo3temp/tx_powermail/';
 
-	/**
-	 * @var string
-	 */
-	protected $emailTemplate = 'Module/ExportTaskMail.html';
+    /**
+     * @var string
+     */
+    protected $emailTemplate = 'Module/ExportTaskMail.html';
 
-	/**
-	 * Constructor
-	 *
-	 * @param QueryResult $mails Given mails for export
-	 * @param string $format can be 'xls' or 'csv'
-	 * @param array $additionalProperties add additional properties
-	 */
-	public function __construct(QueryResult $mails = NULL, $format = 'xls', $additionalProperties = array()) {
-		$this->setMails($mails);
-		$this->setFormat($format);
-		$this->setAdditionalProperties($additionalProperties);
-		$this->setFieldList(
-			$this->getDefaultFieldListFromFirstMail($mails)
-		);
-		$this->createRandomFileName();
-	}
+    /**
+     * Constructor
+     *
+     * @param QueryResult $mails Given mails for export
+     * @param string $format can be 'xls' or 'csv'
+     * @param array $additionalProperties add additional properties
+     */
+    public function __construct(QueryResult $mails = null, $format = 'xls', $additionalProperties = array())
+    {
+        $this->setMails($mails);
+        $this->setFormat($format);
+        $this->setAdditionalProperties($additionalProperties);
+        $this->setFieldList($this->getDefaultFieldListFromFirstMail($mails));
+        $this->createRandomFileName();
+    }
 
-	/**
-	 * send mail
-	 *
-	 * @return mixed mail send status
-	 */
-	public function send() {
-		$result = $this->createExportFile();
-		if (!$result) {
-			return 'File could not be generated';
-		}
-		return $this->sendEmail();
-	}
+    /**
+     * send mail
+     *
+     * @return mixed mail send status
+     */
+    public function send()
+    {
+        $result = $this->createExportFile();
+        if (!$result) {
+            return 'File could not be generated';
+        }
+        return $this->sendEmail();
+    }
 
-	/**
-	 * Send the export mail
-	 *
-	 * @return bool
-	 */
-	protected function sendEmail() {
-		/** @var MailMessage $email */
-		$email = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-		$email->setTo($this->getReceiverEmails());
-		$email->setFrom($this->getSenderEmails());
-		$email->setSubject($this->getSubject());
-		$email->setBody($this->createMailBody());
-		$email->setFormat('html');
-		if ($this->isAddAttachment()) {
-			$email->attach(\Swift_Attachment::fromPath($this->getAbsolutePathAndFileName()));
-		}
-		$email->send();
-		return $email->isSent();
-	}
+    /**
+     * Send the export mail
+     *
+     * @return bool
+     */
+    protected function sendEmail()
+    {
+        /** @var MailMessage $email */
+        $email = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $email->setTo($this->getReceiverEmails());
+        $email->setFrom($this->getSenderEmails());
+        $email->setSubject($this->getSubject());
+        $email->setBody($this->createMailBody());
+        $email->setFormat('html');
+        if ($this->isAddAttachment()) {
+            $email->attach(\Swift_Attachment::fromPath($this->getAbsolutePathAndFileName()));
+        }
+        $email->send();
+        return $email->isSent();
+    }
 
-	/**
-	 * Create bodytext for export mail
-	 *
-	 * @return string
-	 */
-	protected function createMailBody() {
-		$standaloneView = TemplateUtility::getDefaultStandAloneView();
-		$standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->getEmailTemplate()));
-		$standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
-		$standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
-		$standaloneView->assign('export', $this);
-		return $standaloneView->render();
-	}
+    /**
+     * Create bodytext for export mail
+     *
+     * @return string
+     */
+    protected function createMailBody()
+    {
+        $standaloneView = TemplateUtility::getDefaultStandAloneView();
+        $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->getEmailTemplate()));
+        $standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
+        $standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
+        $standaloneView->assign('export', $this);
+        return $standaloneView->render();
+    }
 
-	/**
-	 * Create an export file
-	 *
-	 * @return bool if file operation could done successfully
-	 */
-	protected function createExportFile() {
-		BasicFileUtility::createFolderIfNotExists($this->getStorageFolder(TRUE));
-		return GeneralUtility::writeFile($this->getAbsolutePathAndFileName(), $this->getFileContent(), TRUE);
-	}
+    /**
+     * Create an export file
+     *
+     * @return bool if file operation could done successfully
+     */
+    protected function createExportFile()
+    {
+        BasicFileUtility::createFolderIfNotExists($this->getStorageFolder(true));
+        return GeneralUtility::writeFile($this->getAbsolutePathAndFileName(), $this->getFileContent(), true);
+    }
 
-	/**
-	 * Create export file content
-	 *
-	 * @return string
-	 * @throws InvalidActionNameException
-	 * @throws InvalidControllerNameException
-	 */
-	protected function getFileContent() {
-		$rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
-		$standaloneView = TemplateUtility::getDefaultStandAloneView();
-		$standaloneView->setTemplatePathAndFilename($rootPath . $this->getRelativeTemplatePathAndFileName());
-		$standaloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
-		$standaloneView->setPartialRootPaths(array($rootPath . 'Partials'));
-		$standaloneView->assignMultiple(
-			array(
-				'mails' => $this->getMails(),
-				'fieldUids' => $this->getFieldList()
-			)
-		);
-		return $standaloneView->render();
-	}
+    /**
+     * Create export file content
+     *
+     * @return string
+     * @throws InvalidActionNameException
+     * @throws InvalidControllerNameException
+     */
+    protected function getFileContent()
+    {
+        $rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
+        $standaloneView = TemplateUtility::getDefaultStandAloneView();
+        $standaloneView->setTemplatePathAndFilename($rootPath . $this->getRelativeTemplatePathAndFileName());
+        $standaloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
+        $standaloneView->setPartialRootPaths(array($rootPath . 'Partials'));
+        $standaloneView->assignMultiple(
+            array(
+                'mails' => $this->getMails(),
+                'fieldUids' => $this->getFieldList()
+            )
+        );
+        return $standaloneView->render();
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function getRelativeTemplatePathAndFileName() {
-		return 'Templates/Module/Export' . ucfirst($this->getFormat()) . '.html';
-	}
+    /**
+     * @return string
+     */
+    protected function getRelativeTemplatePathAndFileName()
+    {
+        return 'Templates/Module/Export' . ucfirst($this->getFormat()) . '.html';
+    }
 
-	/**
-	 * Get a list with all default fields
-	 *
-	 * @param QueryResult $mails
-	 * @return array
-	 */
-	protected function getDefaultFieldListFromFirstMail(QueryResult $mails = NULL) {
-		$fieldList = array();
-		if ($mails !== NULL) {
-			/** @var Mail $mail */
-			$mail = $mails->getFirst();
-			if ($mail !== NULL) {
-				foreach ($mail->getForm()->getPages() as $page) {
-					/** @var Field $field */
-					foreach ($page->getFields() as $field) {
-						if ($field->isBasicFieldType()) {
-							$fieldList[] = $field->getUid();
-						}
-					}
-				}
-			}
-		}
-		return $fieldList;
-	}
+    /**
+     * Get a list with all default fields
+     *
+     * @param QueryResult $mails
+     * @return array
+     */
+    protected function getDefaultFieldListFromFirstMail(QueryResult $mails = null)
+    {
+        $fieldList = array();
+        if ($mails !== null) {
+            /** @var Mail $mail */
+            $mail = $mails->getFirst();
+            if ($mail !== null) {
+                foreach ($mail->getForm()->getPages() as $page) {
+                    /** @var Field $field */
+                    foreach ($page->getFields() as $field) {
+                        if ($field->isBasicFieldType()) {
+                            $fieldList[] = $field->getUid();
+                        }
+                    }
+                }
+            }
+        }
+        return $fieldList;
+    }
 
-	/**
-	 * @return QueryResult
-	 */
-	public function getMails() {
-		return $this->mails;
-	}
+    /**
+     * @return QueryResult
+     */
+    public function getMails()
+    {
+        return $this->mails;
+    }
 
-	/**
-	 * @param QueryResult $mails
-	 * @return ExportService
-	 */
-	public function setMails($mails) {
-		$this->mails = $mails;
-		return $this;
-	}
+    /**
+     * @param QueryResult $mails
+     * @return ExportService
+     */
+    public function setMails($mails)
+    {
+        $this->mails = $mails;
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getFormat() {
-		$allowedFormats = array(
-			'xls',
-			'csv'
-		);
-		if (!in_array($this->format, $allowedFormats)) {
-			return 'xls';
-		}
-		return $this->format;
-	}
+    /**
+     * @return string
+     */
+    public function getFormat()
+    {
+        $allowedFormats = array(
+            'xls',
+            'csv'
+        );
+        if (!in_array($this->format, $allowedFormats)) {
+            return 'xls';
+        }
+        return $this->format;
+    }
 
-	/**
-	 * @param string $format
-	 * @return ExportService
-	 */
-	public function setFormat($format) {
-		$this->format = $format;
-		return $this;
-	}
+    /**
+     * @param string $format
+     * @return ExportService
+     */
+    public function setFormat($format)
+    {
+        $this->format = $format;
+        return $this;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getFieldList() {
-		return $this->fieldList;
-	}
+    /**
+     * @return array
+     */
+    public function getFieldList()
+    {
+        return $this->fieldList;
+    }
 
-	/**
-	 * @param string|array $fieldList
-	 * @return ExportService
-	 */
-	public function setFieldList($fieldList) {
-		if (!empty($fieldList)) {
-			if (is_string($fieldList)) {
-				$fieldList = GeneralUtility::trimExplode(',', $fieldList, TRUE);
-			}
-			$this->fieldList = $fieldList;
-		}
-		return $this;
-	}
+    /**
+     * @param string|array $fieldList
+     * @return ExportService
+     */
+    public function setFieldList($fieldList)
+    {
+        if (!empty($fieldList)) {
+            if (is_string($fieldList)) {
+                $fieldList = GeneralUtility::trimExplode(',', $fieldList, true);
+            }
+            $this->fieldList = $fieldList;
+        }
+        return $this;
+    }
 
-	/**
-	 * Get an array prepared for mail function
-	 * 		array(
-	 * 			'mail1@mail.org' => '',
-	 * 			'mail2@mail.org' => ''
-	 * 		)
-	 *
-	 * @return array
-	 */
-	public function getReceiverEmails() {
-		$mailArray = array();
-		foreach ($this->receiverEmails as $email) {
-			$mailArray[$email] = '';
-		}
-		return $mailArray;
-	}
+    /**
+     * Get an array prepared for mail function
+     *        array(
+     *            'mail1@mail.org' => '',
+     *            'mail2@mail.org' => ''
+     *        )
+     *
+     * @return array
+     */
+    public function getReceiverEmails()
+    {
+        $mailArray = array();
+        foreach ($this->receiverEmails as $email) {
+            $mailArray[$email] = '';
+        }
+        return $mailArray;
+    }
 
-	/**
-	 * @param string|array $emails
-	 * @return ExportService
-	 */
-	public function setReceiverEmails($emails) {
-		if (is_string($emails)) {
-			$emails = GeneralUtility::trimExplode(',', $emails, TRUE);
-		}
-		$this->receiverEmails = $emails;
-		return $this;
-	}
+    /**
+     * @param string|array $emails
+     * @return ExportService
+     */
+    public function setReceiverEmails($emails)
+    {
+        if (is_string($emails)) {
+            $emails = GeneralUtility::trimExplode(',', $emails, true);
+        }
+        $this->receiverEmails = $emails;
+        return $this;
+    }
 
-	/**
-	 * Get an array prepared for mail function
-	 * 		array(
-	 * 			'mail1@mail.org' => 'Sender',
-	 * 			'mail2@mail.org' => 'Sender'
-	 * 		)
-	 *
-	 * @return array
-	 */
-	public function getSenderEmails() {
-		$mailArray = array();
-		foreach ($this->senderEmails as $email) {
-			$mailArray[$email] = 'Sender';
-		}
-		return $mailArray;
-	}
+    /**
+     * Get an array prepared for mail function
+     *        array(
+     *            'mail1@mail.org' => 'Sender',
+     *            'mail2@mail.org' => 'Sender'
+     *        )
+     *
+     * @return array
+     */
+    public function getSenderEmails()
+    {
+        $mailArray = array();
+        foreach ($this->senderEmails as $email) {
+            $mailArray[$email] = 'Sender';
+        }
+        return $mailArray;
+    }
 
-	/**
-	 * @param array $senderEmails
-	 * @return ExportService
-	 */
-	public function setSenderEmails($senderEmails) {
-		if (is_string($senderEmails)) {
-			$senderEmails = GeneralUtility::trimExplode(',', $senderEmails, TRUE);
-		}
-		$this->senderEmails = $senderEmails;
-		return $this;
-	}
+    /**
+     * @param array $senderEmails
+     * @return ExportService
+     */
+    public function setSenderEmails($senderEmails)
+    {
+        if (is_string($senderEmails)) {
+            $senderEmails = GeneralUtility::trimExplode(',', $senderEmails, true);
+        }
+        $this->senderEmails = $senderEmails;
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getSubject() {
-		return $this->subject;
-	}
+    /**
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
 
-	/**
-	 * @param string $subject
-	 * @return ExportService
-	 */
-	public function setSubject($subject) {
-		$this->subject = $subject;
-		return $this;
-	}
+    /**
+     * @param string $subject
+     * @return ExportService
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
 
-	/**
-	 * Create a random filename
-	 *
-	 * @return void
-	 */
-	protected function createRandomFileName() {
-		/**
-		 * Note:
-		 * 		GeneralUtility::writeFileToTypo3tempDir()
-		 * 		allows only filenames which are max 59 characters long
-		 */
-		$fileName = StringUtility::getRandomString(55);
-		$fileName .= '.';
-		$fileName .= $this->getFormat();
-		$this->fileName = $fileName;
-	}
+    /**
+     * Create a random filename
+     *
+     * @return void
+     */
+    protected function createRandomFileName()
+    {
+        /**
+         * Note:
+         *        GeneralUtility::writeFileToTypo3tempDir()
+         *        allows only filenames which are max 59 characters long
+         */
+        $fileName = StringUtility::getRandomString(55);
+        $fileName .= '.';
+        $fileName .= $this->getFormat();
+        $this->fileName = $fileName;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getFileName() {
-		return $this->fileName;
-	}
+    /**
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
 
-	/**
-	 * Set a user defined filename
-	 *
-	 * @param string $fileName
-	 * @return ExportService
-	 */
-	public function setFileName($fileName = NULL) {
-		if ($fileName) {
-			$this->fileName = $fileName . '.' . $this->getFormat();
-		}
-		return $this;
-	}
+    /**
+     * Set a user defined filename
+     *
+     * @param string $fileName
+     * @return ExportService
+     */
+    public function setFileName($fileName = null)
+    {
+        if ($fileName) {
+            $this->fileName = $fileName . '.' . $this->getFormat();
+        }
+        return $this;
+    }
 
-	/**
-	 * Get relative path and filename
-	 *
-	 * @return string
-	 */
-	public function getRelativePathAndFileName() {
-		return $this->getStorageFolder() . $this->getFileName();
-	}
+    /**
+     * Get relative path and filename
+     *
+     * @return string
+     */
+    public function getRelativePathAndFileName()
+    {
+        return $this->getStorageFolder() . $this->getFileName();
+    }
 
-	/**
-	 * Get absolute path and filename
-	 *
-	 * @return string
-	 */
-	public function getAbsolutePathAndFileName() {
-		return GeneralUtility::getFileAbsFileName($this->getRelativePathAndFileName());
-	}
+    /**
+     * Get absolute path and filename
+     *
+     * @return string
+     */
+    public function getAbsolutePathAndFileName()
+    {
+        return GeneralUtility::getFileAbsFileName($this->getRelativePathAndFileName());
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getAdditionalProperties() {
-		return $this->additionalProperties;
-	}
+    /**
+     * @return array
+     */
+    public function getAdditionalProperties()
+    {
+        return $this->additionalProperties;
+    }
 
-	/**
-	 * @param array $additionalProperties
-	 * @return ExportService
-	 */
-	public function setAdditionalProperties($additionalProperties) {
-		$this->additionalProperties = $additionalProperties;
-		return $this;
-	}
+    /**
+     * @param array $additionalProperties
+     * @return ExportService
+     */
+    public function setAdditionalProperties($additionalProperties)
+    {
+        $this->additionalProperties = $additionalProperties;
+        return $this;
+    }
 
-	/**
-	 * @param string $additionalProperty
-	 * @param string $propertyName
-	 * @return void
-	 */
-	public function addAdditionalProperty($additionalProperty, $propertyName) {
-		$this->additionalProperties[$propertyName] = $additionalProperty;
-	}
+    /**
+     * @param string $additionalProperty
+     * @param string $propertyName
+     * @return void
+     */
+    public function addAdditionalProperty($additionalProperty, $propertyName)
+    {
+        $this->additionalProperties[$propertyName] = $additionalProperty;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isAddAttachment() {
-		return $this->addAttachment;
-	}
+    /**
+     * @return boolean
+     */
+    public function isAddAttachment()
+    {
+        return $this->addAttachment;
+    }
 
-	/**
-	 * @param boolean $addAttachment
-	 * @return ExportService
-	 */
-	public function setAddAttachment($addAttachment) {
-		$this->addAttachment = $addAttachment;
-		return $this;
-	}
+    /**
+     * @param boolean $addAttachment
+     * @return ExportService
+     */
+    public function setAddAttachment($addAttachment)
+    {
+        $this->addAttachment = $addAttachment;
+        return $this;
+    }
 
-	/**
-	 * @param bool $absolute
-	 * @return string
-	 */
-	public function getStorageFolder($absolute = FALSE) {
-		$storageFolder = $this->storageFolder;
-		if ($absolute) {
-			$storageFolder = GeneralUtility::getFileAbsFileName($storageFolder);
-		}
-		return $storageFolder;
-	}
+    /**
+     * @param bool $absolute
+     * @return string
+     */
+    public function getStorageFolder($absolute = false)
+    {
+        $storageFolder = $this->storageFolder;
+        if ($absolute) {
+            $storageFolder = GeneralUtility::getFileAbsFileName($storageFolder);
+        }
+        return $storageFolder;
+    }
 
-	/**
-	 * @param string $storageFolder
-	 * @return ExportService
-	 */
-	public function setStorageFolder($storageFolder) {
-		$this->storageFolder = $storageFolder;
-		return $this;
-	}
+    /**
+     * @param string $storageFolder
+     * @return ExportService
+     */
+    public function setStorageFolder($storageFolder)
+    {
+        $this->storageFolder = $storageFolder;
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEmailTemplate() {
-		return $this->emailTemplate;
-	}
+    /**
+     * @return string
+     */
+    public function getEmailTemplate()
+    {
+        return $this->emailTemplate;
+    }
 
-	/**
-	 * @param string $emailTemplate
-	 * @return ExportService
-	 */
-	public function setEmailTemplate($emailTemplate) {
-		if (!empty($emailTemplate)) {
-			$this->emailTemplate = $emailTemplate;
-		}
-		return $this;
-	}
+    /**
+     * @param string $emailTemplate
+     * @return ExportService
+     */
+    public function setEmailTemplate($emailTemplate)
+    {
+        if (!empty($emailTemplate)) {
+            $this->emailTemplate = $emailTemplate;
+        }
+        return $this;
+    }
 }

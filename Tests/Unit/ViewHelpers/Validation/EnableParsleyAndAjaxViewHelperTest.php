@@ -33,174 +33,181 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase {
+class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $enableParsleyAndAjaxViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $enableParsleyAndAjaxViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		require_once(dirname(dirname(dirname(__FILE__))) .
-			'/Fixtures/ViewHelpers/Validation/EnableParsleyAndAjaxViewHelperFixture.php');
-		$this->enableParsleyAndAjaxViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Tests\Fixtures\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelperFixture',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        require_once(
+            dirname(dirname(dirname(__FILE__))) .
+            '/Fixtures/ViewHelpers/Validation/EnableParsleyAndAjaxViewHelperFixture.php'
+        );
+        $this->enableParsleyAndAjaxViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\Tests\Fixtures\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelperFixture',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->enableParsleyAndAjaxViewHelperMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->enableParsleyAndAjaxViewHelperMock);
+    }
 
-	/**
-	 * Dataprovider for render()
-	 *
-	 * @return array
-	 */
-	public function renderReturnsArrayDataProvider() {
-		return array(
-			'nativeAndClientAndAjaxAndNoAdditionalAttributes' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '1'
-					),
-					'misc' => array(
-						'ajaxSubmit' => '1'
-					)
-				),
-				array(),
-				array(
-					'data-parsley-validate' => 'data-parsley-validate',
-					'data-validate' => 'html5',
-					'data-powermail-ajax' => 'true',
-					'data-powermail-form' => 123,
-					'data-powermail-ajax-uri' => 'index.php?id=123'
-				)
-			),
-			'clientAndAjaxAndNoAdditionalAttributes' => array(
-				array(
-					'validation' => array(
-						'native' => '0',
-						'client' => '1'
-					),
-					'misc' => array(
-						'ajaxSubmit' => '1'
-					)
-				),
-				array(),
-				array(
-					'data-parsley-validate' => 'data-parsley-validate',
-					'data-powermail-ajax' => 'true',
-					'data-powermail-form' => 123,
-					'data-powermail-ajax-uri' => 'index.php?id=123'
-				)
-			),
-			'nativeAndAjaxAndNoAdditionalAttributes' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '0'
-					),
-					'misc' => array(
-						'ajaxSubmit' => '1'
-					)
-				),
-				array(),
-				array(
-					'data-validate' => 'html5',
-					'data-powermail-ajax' => 'true',
-					'data-powermail-form' => 123,
-					'data-powermail-ajax-uri' => 'index.php?id=123'
-				)
-			),
-			'AjaxAndNoAdditionalAttributes' => array(
-				array(
-					'validation' => array(
-						'native' => '0',
-						'client' => '0'
-					),
-					'misc' => array(
-						'ajaxSubmit' => '1'
-					)
-				),
-				array(),
-				array(
-					'data-powermail-ajax' => 'true',
-					'data-powermail-form' => 123,
-					'data-powermail-ajax-uri' => 'index.php?id=123'
-				)
-			),
-			'nativeAndClientAndNoAdditionalAttributes' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '1'
-					),
-					'misc' => array(
-						'ajaxSubmit' => '0'
-					)
-				),
-				array(),
-				array(
-					'data-parsley-validate' => 'data-parsley-validate',
-					'data-validate' => 'html5'
-				)
-			),
-			'nativeAndClientAndAjaxAndAdditionalAttributes' => array(
-				array(
-					'validation' => array(
-						'native' => '1',
-						'client' => '1'
-					),
-					'misc' => array(
-						'ajaxSubmit' => '1'
-					)
-				),
-				array(
-					'www' => 'in2code.de',
-					'email' => 'service@in2code.de',
-					'data-uid' => 234
-				),
-				array(
-					'www' => 'in2code.de',
-					'email' => 'service@in2code.de',
-					'data-uid' => 234,
-					'data-parsley-validate' => 'data-parsley-validate',
-					'data-validate' => 'html5',
-					'data-powermail-ajax' => 'true',
-					'data-powermail-form' => 123,
-					'data-powermail-ajax-uri' => 'index.php?id=123'
-				)
-			),
-		);
-	}
+    /**
+     * Dataprovider for render()
+     *
+     * @return array
+     */
+    public function renderReturnsArrayDataProvider()
+    {
+        return array(
+            'nativeAndClientAndAjaxAndNoAdditionalAttributes' => array(
+                array(
+                    'validation' => array(
+                        'native' => '1',
+                        'client' => '1'
+                    ),
+                    'misc' => array(
+                        'ajaxSubmit' => '1'
+                    )
+                ),
+                array(),
+                array(
+                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-validate' => 'html5',
+                    'data-powermail-ajax' => 'true',
+                    'data-powermail-form' => 123,
+                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                )
+            ),
+            'clientAndAjaxAndNoAdditionalAttributes' => array(
+                array(
+                    'validation' => array(
+                        'native' => '0',
+                        'client' => '1'
+                    ),
+                    'misc' => array(
+                        'ajaxSubmit' => '1'
+                    )
+                ),
+                array(),
+                array(
+                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-ajax' => 'true',
+                    'data-powermail-form' => 123,
+                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                )
+            ),
+            'nativeAndAjaxAndNoAdditionalAttributes' => array(
+                array(
+                    'validation' => array(
+                        'native' => '1',
+                        'client' => '0'
+                    ),
+                    'misc' => array(
+                        'ajaxSubmit' => '1'
+                    )
+                ),
+                array(),
+                array(
+                    'data-validate' => 'html5',
+                    'data-powermail-ajax' => 'true',
+                    'data-powermail-form' => 123,
+                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                )
+            ),
+            'AjaxAndNoAdditionalAttributes' => array(
+                array(
+                    'validation' => array(
+                        'native' => '0',
+                        'client' => '0'
+                    ),
+                    'misc' => array(
+                        'ajaxSubmit' => '1'
+                    )
+                ),
+                array(),
+                array(
+                    'data-powermail-ajax' => 'true',
+                    'data-powermail-form' => 123,
+                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                )
+            ),
+            'nativeAndClientAndNoAdditionalAttributes' => array(
+                array(
+                    'validation' => array(
+                        'native' => '1',
+                        'client' => '1'
+                    ),
+                    'misc' => array(
+                        'ajaxSubmit' => '0'
+                    )
+                ),
+                array(),
+                array(
+                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-validate' => 'html5'
+                )
+            ),
+            'nativeAndClientAndAjaxAndAdditionalAttributes' => array(
+                array(
+                    'validation' => array(
+                        'native' => '1',
+                        'client' => '1'
+                    ),
+                    'misc' => array(
+                        'ajaxSubmit' => '1'
+                    )
+                ),
+                array(
+                    'www' => 'in2code.de',
+                    'email' => 'service@in2code.de',
+                    'data-uid' => 234
+                ),
+                array(
+                    'www' => 'in2code.de',
+                    'email' => 'service@in2code.de',
+                    'data-uid' => 234,
+                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-validate' => 'html5',
+                    'data-powermail-ajax' => 'true',
+                    'data-powermail-form' => 123,
+                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                )
+            ),
+        );
+    }
 
-	/**
-	 * Test for render()
-	 *
-	 * @param array $settings
-	 * @param array $additionalAttributes
-	 * @param array $expectedResult
-	 * @return void
-	 * @dataProvider renderReturnsArrayDataProvider
-	 * @test
-	 */
-	public function renderReturnsArray($settings, $additionalAttributes, $expectedResult) {
-		$form = new Form;
-		$form->_setProperty('uid', 123);
+    /**
+     * Test for render()
+     *
+     * @param array $settings
+     * @param array $additionalAttributes
+     * @param array $expectedResult
+     * @return void
+     * @dataProvider renderReturnsArrayDataProvider
+     * @test
+     */
+    public function renderReturnsArray($settings, $additionalAttributes, $expectedResult)
+    {
+        $form = new Form;
+        $form->_setProperty('uid', 123);
 
-		$this->enableParsleyAndAjaxViewHelperMock->_set('settings', $settings);
-		$result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render', $form, $additionalAttributes);
-		$this->assertSame($expectedResult, $result);
-	}
+        $this->enableParsleyAndAjaxViewHelperMock->_set('settings', $settings);
+        $result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render', $form, $additionalAttributes);
+        $this->assertSame($expectedResult, $result);
+    }
 }

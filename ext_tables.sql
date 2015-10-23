@@ -243,6 +243,11 @@ CREATE TABLE tx_powermail_domain_model_answers (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
+	KEY mail (mail),
+	KEY deleted (deleted),
+	KEY hidden (hidden),
+	KEY starttime (starttime),
+	KEY endtime (endtime)
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
 );

@@ -36,111 +36,118 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractV
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-abstract class AbstractValidator extends ExtbaseAbstractValidator {
+abstract class AbstractValidator extends ExtbaseAbstractValidator
+{
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager;
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @inject
+     */
+    protected $objectManager;
 
-	/**
-	 * @var \In2code\Powermail\Domain\Repository\FormRepository
-	 * @inject
-	 */
-	protected $formRepository;
+    /**
+     * @var \In2code\Powermail\Domain\Repository\FormRepository
+     * @inject
+     */
+    protected $formRepository;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-	 * @inject
-	 */
-	protected $signalSlotDispatcher;
+    /**
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @inject
+     */
+    protected $signalSlotDispatcher;
 
-	/**
-	 * @var string
-	 */
-	protected $pluginVariablesPrefix = 'tx_powermail_pi1';
+    /**
+     * @var string
+     */
+    protected $pluginVariablesPrefix = 'tx_powermail_pi1';
 
-	/**
-	 * Return variable
-	 *
-	 * @var bool
-	 */
-	protected $validState = TRUE;
+    /**
+     * Return variable
+     *
+     * @var bool
+     */
+    protected $validState = true;
 
-	/**
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * @var array
+     */
+    protected $settings;
 
-	/**
-	 * @var array
-	 */
-	protected $flexForm;
+    /**
+     * @var array
+     */
+    protected $flexForm;
 
-	/**
-	 * @param boolean $validState
-	 * @return void
-	 */
-	public function setValidState($validState) {
-		$this->validState = $validState;
-	}
+    /**
+     * @param boolean $validState
+     * @return void
+     */
+    public function setValidState($validState)
+    {
+        $this->validState = $validState;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isValidState() {
-		return $this->validState;
-	}
+    /**
+     * @return boolean
+     */
+    public function isValidState()
+    {
+        return $this->validState;
+    }
 
-	/**
-	 * Set Error
-	 *
-	 * @param Field $field
-	 * @param string $label
-	 * @return void
-	 */
-	public function setErrorAndMessage(Field $field, $label) {
-		$this->setValidState(FALSE);
-		$this->addError($label, $field->getMarker());
-	}
+    /**
+     * Set Error
+     *
+     * @param Field $field
+     * @param string $label
+     * @return void
+     */
+    public function setErrorAndMessage(Field $field, $label)
+    {
+        $this->setValidState(false);
+        $this->addError($label, $field->getMarker());
+    }
 
-	/**
-	 * Check if javascript validation is activated
-	 *
-	 * @return bool
-	 */
-	public function isServerValidationEnabled() {
-		return $this->settings['validation.']['server'] === '1';
-	}
+    /**
+     * Check if javascript validation is activated
+     *
+     * @return bool
+     */
+    public function isServerValidationEnabled()
+    {
+        return $this->settings['validation.']['server'] === '1';
+    }
 
-	/**
-	 * Get TypoScript and FlexForm
-	 *
-	 * @param ConfigurationManagerInterface $configurationManager
-	 * @return void
-	 */
-	public function injectTypoScript(ConfigurationManagerInterface $configurationManager) {
-		$typoScriptSetup = $configurationManager->getConfiguration(
-			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-		);
-		$this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+    /**
+     * Get TypoScript and FlexForm
+     *
+     * @param ConfigurationManagerInterface $configurationManager
+     * @return void
+     */
+    public function injectTypoScript(ConfigurationManagerInterface $configurationManager)
+    {
+        $typoScriptSetup = $configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+        $this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
 
-		$flexFormXml = $configurationManager->getContentObject()->data['pi_flexform'];
-		$flexForm = GeneralUtility::xml2array($flexFormXml, 'data');
-		$this->flexForm = $flexForm[0];
-	}
+        $flexFormXml = $configurationManager->getContentObject()->data['pi_flexform'];
+        $flexForm = GeneralUtility::xml2array($flexFormXml, 'data');
+        $this->flexForm = $flexForm[0];
+    }
 
-	/**
-	 * Constructs the validator and sets validation options
-	 *
-	 * @param array $options Options for the validator
-	 * @throws InvalidValidationOptionsException
-	 */
-	public function __construct(array $options = array()) {
-		parent::__construct($options);
-	}
+    /**
+     * Constructs the validator and sets validation options
+     *
+     * @param array $options Options for the validator
+     * @throws InvalidValidationOptionsException
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+    }
 
 }

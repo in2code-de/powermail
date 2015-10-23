@@ -33,152 +33,159 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class ReportingUtilityTest extends UnitTestCase {
+class ReportingUtilityTest extends UnitTestCase
+{
 
-	/**
-	 * @var \In2code\Powermail\Utility\ReportingUtility
-	 */
-	protected $generalValidatorMock;
+    /**
+     * @var \In2code\Powermail\Utility\ReportingUtility
+     */
+    protected $generalValidatorMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\ReportingUtility',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->generalValidatorMock = $this->getAccessibleMock(
+            '\In2code\Powermail\Utility\ReportingUtility',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Data Provider for sortReportingArrayDescendingReturnsVoid()
-	 *
-	 * @return array
-	 */
-	public function sortReportingArrayDescendingReturnsVoidDataProvider() {
-		return array(
-			array(
-				array(
-					array(
-						'blue' => 5,
-						'black' => 1,
-						'red' => 2,
-						'yellow' => 9
-					)
-				),
-				array(
-					array(
-						'yellow' => 9,
-						'blue' => 5,
-						'red' => 2,
-						'black' => 1
-					)
-				)
-			),
-			array(
-				array(
-					array(
-						'a' => 5,
-						'' => 11,
-						'23' => 2,
-						'x ' => 9
-					)
-				),
-				array(
-					array(
-						'' => 11,
-						'x ' => 9,
-						'a' => 5,
-						'23' => 2
-					)
-				)
-			),
-		);
-	}
+    /**
+     * Data Provider for sortReportingArrayDescendingReturnsVoid()
+     *
+     * @return array
+     */
+    public function sortReportingArrayDescendingReturnsVoidDataProvider()
+    {
+        return array(
+            array(
+                array(
+                    array(
+                        'blue' => 5,
+                        'black' => 1,
+                        'red' => 2,
+                        'yellow' => 9
+                    )
+                ),
+                array(
+                    array(
+                        'yellow' => 9,
+                        'blue' => 5,
+                        'red' => 2,
+                        'black' => 1
+                    )
+                )
+            ),
+            array(
+                array(
+                    array(
+                        'a' => 5,
+                        '' => 11,
+                        '23' => 2,
+                        'x ' => 9
+                    )
+                ),
+                array(
+                    array(
+                        '' => 11,
+                        'x ' => 9,
+                        'a' => 5,
+                        '23' => 2
+                    )
+                )
+            ),
+        );
+    }
 
-	/**
-	 * getRelativeTemplatePathAndFileName Test
-	 *
-	 * @param array $array
-	 * @param array $expectedResult
-	 * @dataProvider sortReportingArrayDescendingReturnsVoidDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function sortReportingArrayDescendingReturnsVoid($array, $expectedResult) {
-		ReportingUtility::sortReportingArrayDescending($array);
-		$this->assertSame($array, $expectedResult);
-	}
+    /**
+     * getRelativeTemplatePathAndFileName Test
+     *
+     * @param array $array
+     * @param array $expectedResult
+     * @dataProvider sortReportingArrayDescendingReturnsVoidDataProvider
+     * @return void
+     * @test
+     */
+    public function sortReportingArrayDescendingReturnsVoid($array, $expectedResult)
+    {
+        ReportingUtility::sortReportingArrayDescending($array);
+        $this->assertSame($array, $expectedResult);
+    }
 
-	/**
-	 * Data Provider for cutArrayByKeyLimitAndAddTotalValuesReturnsVoid()
-	 *
-	 * @return array
-	 */
-	public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider() {
-		return array(
-			array(
-				array(
-					array(
-						'blue' => 5,
-						'black' => 1,
-						'red' => 2,
-						'yellow' => 9
-					)
-				),
-				array(
-					array(
-						'blue' => 5,
-						'black' => 1,
-						'others' => 11,
-					)
-				)
-			),
-			array(
-				array(
-					array(
-						'blue' => 2,
-						'black' => 3,
-						'red' => 4,
-						'yellow' => 5,
-						'brown' => 6,
-						'pink' => 7,
-						'orange' => 8,
-						'violet' => 9,
-						'green' => 3
-					)
-				),
-				array(
-					array(
-						'blue' => 2,
-						'black' => 3,
-						'others' => 42,
-					)
-				)
-			),
-		);
-	}
+    /**
+     * Data Provider for cutArrayByKeyLimitAndAddTotalValuesReturnsVoid()
+     *
+     * @return array
+     */
+    public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider()
+    {
+        return array(
+            array(
+                array(
+                    array(
+                        'blue' => 5,
+                        'black' => 1,
+                        'red' => 2,
+                        'yellow' => 9
+                    )
+                ),
+                array(
+                    array(
+                        'blue' => 5,
+                        'black' => 1,
+                        'others' => 11,
+                    )
+                )
+            ),
+            array(
+                array(
+                    array(
+                        'blue' => 2,
+                        'black' => 3,
+                        'red' => 4,
+                        'yellow' => 5,
+                        'brown' => 6,
+                        'pink' => 7,
+                        'orange' => 8,
+                        'violet' => 9,
+                        'green' => 3
+                    )
+                ),
+                array(
+                    array(
+                        'blue' => 2,
+                        'black' => 3,
+                        'others' => 42,
+                    )
+                )
+            ),
+        );
+    }
 
-	/**
-	 * getRelativeTemplatePathAndFileName Test
-	 *
-	 * @param array $array
-	 * @param array $expectedResult
-	 * @dataProvider cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoid($array, $expectedResult) {
-		ReportingUtility::cutArrayByKeyLimitAndAddTotalValues($array, 3, 'others');
-		$this->assertSame($array, $expectedResult);
-	}
+    /**
+     * getRelativeTemplatePathAndFileName Test
+     *
+     * @param array $array
+     * @param array $expectedResult
+     * @dataProvider cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider
+     * @return void
+     * @test
+     */
+    public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoid($array, $expectedResult)
+    {
+        ReportingUtility::cutArrayByKeyLimitAndAddTotalValues($array, 3, 'others');
+        $this->assertSame($array, $expectedResult);
+    }
 }

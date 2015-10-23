@@ -1,8 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
-use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***************************************************************
  *  Copyright notice
@@ -33,186 +34,199 @@ use In2code\Powermail\Utility\ConfigurationUtility;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class Page extends AbstractEntity {
+class Page extends AbstractEntity
+{
 
-	/**
-	 * title
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $title = '';
+    /**
+     * title
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $title = '';
 
-	/**
-	 * css
-	 *
-	 * @var string
-	 */
-	protected $css = '';
+    /**
+     * css
+     *
+     * @var string
+     */
+    protected $css = '';
 
-	/**
-	 * Powermail Fields
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Field>
-	 */
-	protected $fields = NULL;
+    /**
+     * Powermail Fields
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Field>
+     */
+    protected $fields = null;
 
-	/**
-	 * Powermail Forms
-	 *
-	 * @var \In2code\Powermail\Domain\Model\Form
-	 * @lazy
-	 */
-	protected $forms = NULL;
+    /**
+     * Powermail Forms
+     *
+     * @var \In2code\Powermail\Domain\Model\Form
+     * @lazy
+     */
+    protected $forms = null;
 
-	/**
-	 * sorting
-	 *
-	 * @var integer
-	 */
-	protected $sorting = 0;
+    /**
+     * sorting
+     *
+     * @var integer
+     */
+    protected $sorting = 0;
 
-	/**
-	 * formRepository
-	 *
-	 * @var \In2code\Powermail\Domain\Repository\FormRepository
-	 *
-	 * @inject
-	 */
-	protected $formRepository;
+    /**
+     * formRepository
+     *
+     * @var \In2code\Powermail\Domain\Repository\FormRepository
+     * @inject
+     */
+    protected $formRepository;
 
-	/**
-	 * __construct
-	 */
-	public function __construct() {
-		//Do not remove the next line: It would break the functionality
-		$this->initStorageObjects();
-	}
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+        $this->initStorageObjects();
+    }
 
-	/**
-	 * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-	 *
-	 * @return void
-	 */
-	protected function initStorageObjects() {
-		$this->fields = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}
+    /**
+     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->fields = new ObjectStorage();
+    }
 
-	/**
-	 * Returns the title
-	 *
-	 * @return string $title
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
+    /**
+     * Returns the title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	/**
-	 * Sets the title
-	 *
-	 * @param string $title
-	 * @return void
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
+    /**
+     * Sets the title
+     *
+     * @param string $title
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
-	/**
-	 * Returns the css
-	 *
-	 * @return string $css
-	 */
-	public function getCss() {
-		return $this->css;
-	}
+    /**
+     * Returns the css
+     *
+     * @return string $css
+     */
+    public function getCss()
+    {
+        return $this->css;
+    }
 
-	/**
-	 * Sets the css
-	 *
-	 * @param string $css
-	 * @return void
-	 */
-	public function setCss($css) {
-		$this->css = $css;
-	}
+    /**
+     * Sets the css
+     *
+     * @param string $css
+     * @return void
+     */
+    public function setCss($css)
+    {
+        $this->css = $css;
+    }
 
-	/**
-	 * Adds a Fields
-	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $field
-	 * @return void
-	 */
-	public function addField(\In2code\Powermail\Domain\Model\Field $field) {
-		$this->fields->attach($field);
-	}
+    /**
+     * Adds a Fields
+     *
+     * @param Field $field
+     * @return void
+     */
+    public function addField(Field $field)
+    {
+        $this->fields->attach($field);
+    }
 
-	/**
-	 * Removes a Fields
-	 *
-	 * @param \In2code\Powermail\Domain\Model\Field $fieldToRemove
-	 * @return void
-	 */
-	public function removeField(\In2code\Powermail\Domain\Model\Field $fieldToRemove) {
-		$this->fields->detach($fieldToRemove);
-	}
+    /**
+     * Removes a Fields
+     *
+     * @param Field $fieldToRemove
+     * @return void
+     */
+    public function removeField(Field $fieldToRemove)
+    {
+        $this->fields->detach($fieldToRemove);
+    }
 
-	/**
-	 * Returns the fields
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-	 */
-	public function getFields() {
-		return $this->fields;
-	}
+    /**
+     * Returns the fields
+     *
+     * @return ObjectStorage
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
 
-	/**
-	 * Sets the fields
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-	 * @return void
-	 */
-	public function setFields(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $fields) {
-		$this->fields = $fields;
-	}
+    /**
+     * Sets the fields
+     *
+     * @var ObjectStorage
+     * @return void
+     */
+    public function setFields(ObjectStorage $fields)
+    {
+        $this->fields = $fields;
+    }
 
-	/**
-	 * Returns the sorting
-	 *
-	 * @return integer $sorting
-	 */
-	public function getSorting() {
-		return $this->sorting;
-	}
+    /**
+     * Returns the sorting
+     *
+     * @return integer $sorting
+     */
+    public function getSorting()
+    {
+        return $this->sorting;
+    }
 
-	/**
-	 * Sets the sorting
-	 *
-	 * @param integer $sorting
-	 * @return void
-	 */
-	public function setSorting($sorting) {
-		$this->sorting = $sorting;
-	}
+    /**
+     * Sets the sorting
+     *
+     * @param integer $sorting
+     * @return void
+     */
+    public function setSorting($sorting)
+    {
+        $this->sorting = $sorting;
+    }
 
-	/**
-	 * @param \In2code\Powermail\Domain\Model\Form $forms
-	 * @return void
-	 */
-	public function setForms($forms) {
-		$this->forms = $forms;
-	}
+    /**
+     * @param Form $forms
+     * @return void
+     */
+    public function setForms($forms)
+    {
+        $this->forms = $forms;
+    }
 
-	/**
-	 * @return \In2code\Powermail\Domain\Model\Form
-	 */
-	public function getForms() {
-		// if elementbrowser instead of IRRE (get related form)
-		if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
-			return $this->formRepository->findByPages($this->uid);
-		}
-		return $this->forms;
-	}
+    /**
+     * @return Form
+     */
+    public function getForms()
+    {
+        // if elementbrowser instead of IRRE (get related form)
+        if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
+            return $this->formRepository->findByPages($this->uid);
+        }
+        return $this->forms;
+    }
 
 }

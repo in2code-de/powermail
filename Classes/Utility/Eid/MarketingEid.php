@@ -2,6 +2,8 @@
 namespace In2code\Powermail\Utility\Eid;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Core\Bootstrap;
+use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -34,71 +36,75 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package TYPO3
  * @subpackage MarketingEid
  */
-class MarketingEid {
+class MarketingEid
+{
 
-	/**
-	 * configuration
-	 *
-	 * @var array
-	 */
-	protected $configuration;
+    /**
+     * configuration
+     *
+     * @var array
+     */
+    protected $configuration;
 
-	/**
-	 * bootstrap
-	 *
-	 * @var array
-	 */
-	protected $bootstrap;
+    /**
+     * bootstrap
+     *
+     * @var array
+     */
+    protected $bootstrap;
 
-	/**
-	 * Generates the output
-	 *
-	 * @return string rendered action
-	 */
-	public function run() {
-		return $this->bootstrap->run('', $this->configuration);
-	}
+    /**
+     * Generates the output
+     *
+     * @return string rendered action
+     */
+    public function run()
+    {
+        return $this->bootstrap->run('', $this->configuration);
+    }
 
-	/**
-	 * Initialize Extbase
-	 *
-	 * @param array $TYPO3_CONF_VARS The global array. Will be set internally
-	 */
-	public function __construct($TYPO3_CONF_VARS) {
-		$this->configuration = array(
-			'pluginName' => 'Pi1',
-			'vendorName' => 'In2code',
-			'extensionName' => 'Powermail',
-			'controller' => 'Form',
-			'action' => 'marketing',
-			'mvc' => array(
-				'requestHandlers' => array(
-					'TYPO3\CMS\Extbase\Mvc\Web\FrontendRequestHandler' => 'TYPO3\CMS\Extbase\Mvc\Web\FrontendRequestHandler'
-				)
-			),
-			'settings' => array()
-		);
-		$_POST['tx_powermail_pi1']['action'] = 'marketing';
-		$_POST['tx_powermail_pi1']['controller'] = 'Form';
+    /**
+     * Initialize Extbase
+     *
+     * @param array $TYPO3_CONF_VARS The global array. Will be set internally
+     */
+    public function __construct($TYPO3_CONF_VARS)
+    {
+        $this->configuration = array(
+            'pluginName' => 'Pi1',
+            'vendorName' => 'In2code',
+            'extensionName' => 'Powermail',
+            'controller' => 'Form',
+            'action' => 'marketing',
+            'mvc' => array(
+                'requestHandlers' => array(
+                    'TYPO3\CMS\Extbase\Mvc\Web\FrontendRequestHandler' =>
+                        'TYPO3\CMS\Extbase\Mvc\Web\FrontendRequestHandler'
+                )
+            ),
+            'settings' => array()
+        );
+        $_POST['tx_powermail_pi1']['action'] = 'marketing';
+        $_POST['tx_powermail_pi1']['controller'] = 'Form';
 
-		$this->bootstrap = new \TYPO3\CMS\Extbase\Core\Bootstrap();
+        $this->bootstrap = new Bootstrap();
 
-		$userObj = \TYPO3\CMS\Frontend\Utility\EidUtility::initFeUser();
-		$pid = (GeneralUtility::_GET('id') ? GeneralUtility::_GET('id') : 1);
-		$GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-			'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
-			$TYPO3_CONF_VARS,
-			$pid,
-			0,
-			TRUE
-		);
-		$GLOBALS['TSFE']->connectToDB();
-		$GLOBALS['TSFE']->fe_user = $userObj;
-		$GLOBALS['TSFE']->id = $pid;
-		$GLOBALS['TSFE']->determineId();
-		$GLOBALS['TSFE']->initTemplate();
-		$GLOBALS['TSFE']->getConfigArray();
-	}
+        $userObj = EidUtility::initFeUser();
+        $pid = (GeneralUtility::_GET('id') ? GeneralUtility::_GET('id') : 1);
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+            'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+            $TYPO3_CONF_VARS,
+            $pid,
+            0,
+            true
+        );
+        $GLOBALS['TSFE']->connectToDB();
+        $GLOBALS['TSFE']->fe_user = $userObj;
+        $GLOBALS['TSFE']->id = $pid;
+        $GLOBALS['TSFE']->determineId();
+        $GLOBALS['TSFE']->initTemplate();
+        $GLOBALS['TSFE']->getConfigArray();
+    }
 }
 
 $eid = GeneralUtility::makeInstance('In2code\\Powermail\\Utility\\Eid\\MarketingEid', $GLOBALS['TYPO3_CONF_VARS']);

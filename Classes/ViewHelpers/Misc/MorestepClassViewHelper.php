@@ -10,19 +10,21 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @subpackage Fluid
  * @version
  */
-class MorestepClassViewHelper extends AbstractViewHelper {
+class MorestepClassViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Returns CSS class for morestep
-	 *
-	 * @param boolean $activate Current field
-	 * @param string $class Any string for class
-	 * @return string Class
-	 */
-	public function render($activate, $class) {
-		if ($activate) {
-			return $class;
-		}
-		return '';
-	}
+    /**
+     * Returns CSS class for morestep
+     *
+     * @param boolean $activate Current field
+     * @param string $class Any string for class
+     * @return string Class
+     */
+    public function render($activate, $class)
+    {
+        if ($activate) {
+            return $class;
+        }
+        return '';
+    }
 }

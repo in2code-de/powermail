@@ -238,7 +238,7 @@
 			</trans-unit>
 			<trans-unit id="validationerror_upload_size">
 				<source>The file, that you want to upload is too large!</source>
-				<target state="translated">Die hochgeladene Datei ist zu groß!</target>
+				<target state="translated">Die ausgewählte Datei ist zu groß!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_upload_error">
 				<source>Upload failed, please check permissons on the server!</source>

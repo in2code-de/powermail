@@ -32,140 +32,147 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class CreateMarkerTest extends UnitTestCase {
+class CreateMarkerTest extends UnitTestCase
+{
 
-	/**
-	 * @var \In2code\Powermail\Utility\Hook\CreateMarker
-	 */
-	protected $createMarkerMock;
+    /**
+     * @var \In2code\Powermail\Utility\Hook\CreateMarker
+     */
+    protected $createMarkerMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->createMarkerMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Utility\Hook\CreateMarker',
-			array('dummy'),
-			array(TRUE)
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->createMarkerMock = $this->getAccessibleMock(
+            '\In2code\Powermail\Utility\Hook\CreateMarker',
+            array('dummy'),
+            array(true)
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->createMarkerMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->createMarkerMock);
+    }
 
-	/**
-	 * Dataprovider cleanStringReturnsString()
-	 *
-	 * @return array
-	 */
-	public function cleanStringReturnsStringDataProvider() {
-		return array(
-			array(
-				'test',
-				'default',
-				'test',
-			),
-			array(
-				'This is A Test',
-				'default',
-				'thisisatest',
-			),
-			array(
-				'$T h%ißs_-',
-				'default',
-				'this__',
-			),
-			array(
-				'$ %ß#',
-				'default',
-				'default',
-			),
-		);
-	}
+    /**
+     * Dataprovider cleanStringReturnsString()
+     *
+     * @return array
+     */
+    public function cleanStringReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                'test',
+                'default',
+                'test',
+            ),
+            array(
+                'This is A Test',
+                'default',
+                'thisisatest',
+            ),
+            array(
+                '$T h%ißs_-',
+                'default',
+                'this__',
+            ),
+            array(
+                '$ %ß#',
+                'default',
+                'default',
+            ),
+        );
+    }
 
-	/**
-	 * Test for cleanString()
-	 *
-	 * @param string $string
-	 * @param string $defaultValue
-	 * @param string $expectedResult
-	 * @return void
-	 * @dataProvider cleanStringReturnsStringDataProvider
-	 * @test
-	 */
-	public function cleanStringReturnsString($string, $defaultValue, $expectedResult) {
-		$this->assertSame($expectedResult, $this->createMarkerMock->_callRef('cleanString', $string, $defaultValue));
-	}
+    /**
+     * Test for cleanString()
+     *
+     * @param string $string
+     * @param string $defaultValue
+     * @param string $expectedResult
+     * @return void
+     * @dataProvider cleanStringReturnsStringDataProvider
+     * @test
+     */
+    public function cleanStringReturnsString($string, $defaultValue, $expectedResult)
+    {
+        $this->assertSame($expectedResult, $this->createMarkerMock->_callRef('cleanString', $string, $defaultValue));
+    }
 
-	/**
-	 * Dataprovider makeUniqueValueInArrayReturnsVoid()
-	 *
-	 * @return array
-	 */
-	public function makeUniqueValueInArrayReturnsVoidDataProvider() {
-		return array(
-			array(
-				array(
-					'abc'
-				),
-				array(
-					'abc'
-				)
-			),
-			array(
-				array(
-					'abc',
-					'abc'
-				),
-				array(
-					'abc',
-					'abc_01'
-				)
-			),
-			array(
-				array(
-					'abc',
-					'abc_01',
-					'abc_02',
-				),
-				array(
-					'abc',
-					'abc_01',
-					'abc_02',
-				)
-			),
-			array(
-				array(
-					'abc_01',
-					'abc_01',
-					'xxx',
-				),
-				array(
-					'abc_01',
-					'abc_02',
-					'xxx',
-				)
-			),
-		);
-	}
+    /**
+     * Dataprovider makeUniqueValueInArrayReturnsVoid()
+     *
+     * @return array
+     */
+    public function makeUniqueValueInArrayReturnsVoidDataProvider()
+    {
+        return array(
+            array(
+                array(
+                    'abc'
+                ),
+                array(
+                    'abc'
+                )
+            ),
+            array(
+                array(
+                    'abc',
+                    'abc'
+                ),
+                array(
+                    'abc',
+                    'abc_01'
+                )
+            ),
+            array(
+                array(
+                    'abc',
+                    'abc_01',
+                    'abc_02',
+                ),
+                array(
+                    'abc',
+                    'abc_01',
+                    'abc_02',
+                )
+            ),
+            array(
+                array(
+                    'abc_01',
+                    'abc_01',
+                    'xxx',
+                ),
+                array(
+                    'abc_01',
+                    'abc_02',
+                    'xxx',
+                )
+            ),
+        );
+    }
 
-	/**
-	 * Test for makeUniqueValueInArray()
-	 *
-	 * @param array $array
-	 * @param array $expectedResult
-	 * @return void
-	 * @dataProvider makeUniqueValueInArrayReturnsVoidDataProvider
-	 * @test
-	 */
-	public function makeUniqueValueInArrayReturnsVoid($array, $expectedResult) {
-		$this->createMarkerMock->_callRef('makeUniqueValueInArray', $array);
-		$this->assertSame($expectedResult, $array);
-	}
+    /**
+     * Test for makeUniqueValueInArray()
+     *
+     * @param array $array
+     * @param array $expectedResult
+     * @return void
+     * @dataProvider makeUniqueValueInArrayReturnsVoidDataProvider
+     * @test
+     */
+    public function makeUniqueValueInArrayReturnsVoid($array, $expectedResult)
+    {
+        $this->createMarkerMock->_callRef('makeUniqueValueInArray', $array);
+        $this->assertSame($expectedResult, $array);
+    }
 }

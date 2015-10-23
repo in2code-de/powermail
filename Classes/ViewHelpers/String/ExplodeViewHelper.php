@@ -10,17 +10,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package TYPO3
  * @subpackage Fluid
  */
-class ExplodeViewHelper extends AbstractViewHelper {
+class ExplodeViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * View helper to explode a list
-	 *
-	 * @param string $string Any list (e.g. "a,b,c,d")
-	 * @param string $separator Separator sign (e.g. ",")
-	 * @param bool $trim should be trimmed?
-	 * @return array
-	 */
-	public function render($string = '', $separator = ',', $trim = TRUE) {
-		return GeneralUtility::trimExplode($separator, $string, $trim);
-	}
+    /**
+     * View helper to explode a list
+     *
+     * @param string $string Any list (e.g. "a,b,c,d")
+     * @param string $separator Separator sign (e.g. ",")
+     * @param bool $trim should be trimmed?
+     * @return array
+     */
+    public function render($string = '', $separator = ',', $trim = true)
+    {
+        return GeneralUtility::trimExplode($separator, $string, $trim);
+    }
 }

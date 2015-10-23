@@ -36,110 +36,112 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class UploadValidatorTest extends UnitTestCase {
+class UploadValidatorTest extends UnitTestCase
+{
 
-	/**
-	 * @var \In2code\Powermail\Domain\Validator\UploadValidator
-	 */
-	protected $generalValidatorMock;
+    /**
+     * @var \In2code\Powermail\Domain\Validator\UploadValidator
+     */
+    protected $generalValidatorMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
 
-		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Domain\Validator\UploadValidator',
-			array('setErrorAndMessage')
-		);
-		$settings = array(
-			'misc.' => array(
-				'file.' => array(
-					'extension' =>
-						'jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace,csv'
-				)
-			)
-		);
-		$this->generalValidatorMock->_set('settings', $settings);
-	}
+        $this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Domain\Validator\UploadValidator',
+            array('setErrorAndMessage'));
+        $settings = array(
+            'misc.' => array(
+                'file.' => array(
+                    'extension' => 'jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace,csv'
+                )
+            )
+        );
+        $this->generalValidatorMock->_set('settings', $settings);
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider validateIsValidReturnsBool()
-	 *
-	 * @return array
-	 */
-	public function validateIsValidReturnsBoolDataProvider() {
-		return array(
-			array(
-				'test.jpg',
-				TRUE
-			),
-			array(
-				'test.jpg.php',
-				FALSE
-			),
-			array(
-				'test.php.123',
-				FALSE
-			),
-			array(
-				'test.png',
-				TRUE
-			),
-			array(
-				'fileadmin/folder/this.is.a.pdf',
-				TRUE
-			),
-			array(
-				'fileadmin/folder/this.is.a.htaccess',
-				FALSE
-			),
-			array(
-				'.htaccess',
-				FALSE
-			),
-			array(
-				'test.123',
-				FALSE
-			),
-		);
-	}
+    /**
+     * Dataprovider validateIsValidReturnsBool()
+     *
+     * @return array
+     */
+    public function validateIsValidReturnsBoolDataProvider()
+    {
+        return array(
+            array(
+                'test.jpg',
+                true
+            ),
+            array(
+                'test.jpg.php',
+                false
+            ),
+            array(
+                'test.php.123',
+                false
+            ),
+            array(
+                'test.png',
+                true
+            ),
+            array(
+                'fileadmin/folder/this.is.a.pdf',
+                true
+            ),
+            array(
+                'fileadmin/folder/this.is.a.htaccess',
+                false
+            ),
+            array(
+                '.htaccess',
+                false
+            ),
+            array(
+                'test.123',
+                false
+            ),
+        );
+    }
 
-	/**
-	 * Test for isValid()
-	 *
-	 * @param string $value
-	 * @param bool $expectedResult
-	 * @return void
-	 * @dataProvider validateIsValidReturnsBoolDataProvider
-	 * @test
-	 */
-	public function validateIsValidReturnsBool($value, $expectedResult) {
-		$mail = new Mail;
-		$field = new Field;
-		$field->setType(1);
-		$answer1 = new Answer;
-		$answer1->setValueType(3);
-		$answer1->setValue($value);
-		$answer1->setField($field);
-		$objectStorage = new ObjectStorage;
-		$objectStorage->attach($answer1);
-		$mail->setAnswers($objectStorage);
+    /**
+     * Test for isValid()
+     *
+     * @param string $value
+     * @param bool $expectedResult
+     * @return void
+     * @dataProvider validateIsValidReturnsBoolDataProvider
+     * @test
+     */
+    public function validateIsValidReturnsBool($value, $expectedResult)
+    {
+        $mail = new Mail;
+        $field = new Field;
+        $field->setType(1);
+        $answer1 = new Answer;
+        $answer1->setValueType(3);
+        $answer1->setValue($value);
+        $answer1->setField($field);
+        $objectStorage = new ObjectStorage;
+        $objectStorage->attach($answer1);
+        $mail->setAnswers($objectStorage);
 
-		if ($expectedResult === FALSE) {
-			$this->generalValidatorMock->expects($this->once())->method('setErrorAndMessage');
-		} else {
-			$this->generalValidatorMock->expects($this->never())->method('setErrorAndMessage');
-		}
-		$this->generalValidatorMock->_callRef('isValid', $mail);
-	}
+        if ($expectedResult === false) {
+            $this->generalValidatorMock->expects($this->once())->method('setErrorAndMessage');
+        } else {
+            $this->generalValidatorMock->expects($this->never())->method('setErrorAndMessage');
+        }
+        $this->generalValidatorMock->_callRef('isValid', $mail);
+    }
 }

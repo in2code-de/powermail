@@ -9,14 +9,16 @@ use In2code\Powermail\Utility\ConfigurationUtility;
  *
  * @package In2code\Powermail\ViewHelpers\Condition
  */
-class IsIpInformationEnabledGloballyViewHelper extends AbstractViewHelper {
+class IsIpInformationEnabledGloballyViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Check if IP information should be shown
-	 *
-	 * @return bool
-	 */
-	public function render() {
-		return !ConfigurationUtility::isDisableIpLogActive();
-	}
+    /**
+     * Check if IP information should be shown
+     *
+     * @return bool
+     */
+    public function render()
+    {
+        return !ConfigurationUtility::isDisableIpLogActive();
+    }
 }

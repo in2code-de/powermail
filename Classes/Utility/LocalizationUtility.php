@@ -33,23 +33,25 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
  *
  * @package In2code\In2publish\Utility
  */
-class LocalizationUtility extends LocalizationUtilityExtbase {
+class LocalizationUtility extends LocalizationUtilityExtbase
+{
 
-	/**
-	 * Own translate function (could also be used with unit tests)
-	 *
-	 * @param string $key
-	 * @param string $extensionName
-	 * @param null $arguments
-	 * @return string
-	 */
-	public static function translate($key, $extensionName = 'powermail', $arguments = NULL) {
-		if (empty($GLOBALS['TYPO3_DB'])) {
-			if (stristr($key, 'datepicker_format')) {
-				return 'Y-m-d H:i';
-			}
-			return $key;
-		}
-		return parent::translate($key, $extensionName, $arguments);
-	}
+    /**
+     * Own translate function (could also be used with unit tests)
+     *
+     * @param string $key
+     * @param string $extensionName
+     * @param null $arguments
+     * @return string
+     */
+    public static function translate($key, $extensionName = 'powermail', $arguments = null)
+    {
+        if (empty($GLOBALS['TYPO3_DB'])) {
+            if (stristr($key, 'datepicker_format')) {
+                return 'Y-m-d H:i';
+            }
+            return $key;
+        }
+        return parent::translate($key, $extensionName, $arguments);
+    }
 }

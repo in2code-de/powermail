@@ -32,113 +32,120 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class ExportServiceTest extends UnitTestCase {
+class ExportServiceTest extends UnitTestCase
+{
 
-	/**
-	 * @var \In2code\Powermail\Domain\Service\ExportService
-	 */
-	protected $generalValidatorMock;
+    /**
+     * @var \In2code\Powermail\Domain\Service\ExportService
+     */
+    protected $generalValidatorMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Domain\Service\ExportService',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->generalValidatorMock = $this->getAccessibleMock(
+            '\In2code\Powermail\Domain\Service\ExportService',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Data Provider for getRelativeTemplatePathAndFileNameReturnsString()
-	 *
-	 * @return array
-	 */
-	public function getRelativeTemplatePathAndFileNameReturnsStringDataProvider() {
-		return array(
-			array(
-				'csv',
-				'Templates/Module/ExportCsv.html'
-			),
-			array(
-				'xls',
-				'Templates/Module/ExportXls.html'
-			),
-			array(
-				'bullshit',
-				'Templates/Module/ExportXls.html'
-			),
-			array(
-				NULL,
-				'Templates/Module/ExportXls.html'
-			),
-		);
-	}
+    /**
+     * Data Provider for getRelativeTemplatePathAndFileNameReturnsString()
+     *
+     * @return array
+     */
+    public function getRelativeTemplatePathAndFileNameReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                'csv',
+                'Templates/Module/ExportCsv.html'
+            ),
+            array(
+                'xls',
+                'Templates/Module/ExportXls.html'
+            ),
+            array(
+                'bullshit',
+                'Templates/Module/ExportXls.html'
+            ),
+            array(
+                null,
+                'Templates/Module/ExportXls.html'
+            ),
+        );
+    }
 
-	/**
-	 * getRelativeTemplatePathAndFileName Test
-	 *
-	 * @param string $format
-	 * @param string $expectedResult
-	 * @dataProvider getRelativeTemplatePathAndFileNameReturnsStringDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function getRelativeTemplatePathAndFileNameReturnsString($format, $expectedResult) {
-		$this->generalValidatorMock->setFormat($format);
-		$this->assertSame($this->generalValidatorMock->_call('getRelativeTemplatePathAndFileName'), $expectedResult);
-	}
+    /**
+     * getRelativeTemplatePathAndFileName Test
+     *
+     * @param string $format
+     * @param string $expectedResult
+     * @dataProvider getRelativeTemplatePathAndFileNameReturnsStringDataProvider
+     * @return void
+     * @test
+     */
+    public function getRelativeTemplatePathAndFileNameReturnsString($format, $expectedResult)
+    {
+        $this->generalValidatorMock->setFormat($format);
+        $this->assertSame($this->generalValidatorMock->_call('getRelativeTemplatePathAndFileName'), $expectedResult);
+    }
 
-	/**
-	 * Data Provider for getFormatReturnsString()
-	 *
-	 * @return array
-	 */
-	public function getFormatReturnsStringDataProvider() {
-		return array(
-			array(
-				'csv',
-				'csv'
-			),
-			array(
-				'xls',
-				'xls'
-			),
-			array(
-				NULL,
-				'xls'
-			),
-			array(
-				'XLS',
-				'xls'
-			),
-			array(
-				'CSV',
-				'xls'
-			),
-		);
-	}
+    /**
+     * Data Provider for getFormatReturnsString()
+     *
+     * @return array
+     */
+    public function getFormatReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                'csv',
+                'csv'
+            ),
+            array(
+                'xls',
+                'xls'
+            ),
+            array(
+                null,
+                'xls'
+            ),
+            array(
+                'XLS',
+                'xls'
+            ),
+            array(
+                'CSV',
+                'xls'
+            ),
+        );
+    }
 
-	/**
-	 * getFormat Test
-	 *
-	 * @param string $format
-	 * @param string $expectedResult
-	 * @dataProvider getFormatReturnsStringDataProvider
-	 * @return void
-	 * @test
-	 */
-	public function getFormatReturnsString($format, $expectedResult) {
-		$this->generalValidatorMock->setFormat($format);
-		$this->assertSame($this->generalValidatorMock->_call('getFormat'), $expectedResult);
-	}
+    /**
+     * getFormat Test
+     *
+     * @param string $format
+     * @param string $expectedResult
+     * @dataProvider getFormatReturnsStringDataProvider
+     * @return void
+     * @test
+     */
+    public function getFormatReturnsString($format, $expectedResult)
+    {
+        $this->generalValidatorMock->setFormat($format);
+        $this->assertSame($this->generalValidatorMock->_call('getFormat'), $expectedResult);
+    }
 }

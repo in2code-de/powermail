@@ -10,17 +10,17 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @subpackage Fluid
  * @version
  */
-class UpperViewHelper extends AbstractViewHelper {
+class UpperViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Use PHP Function ucfirst()
-	 *
-	 * @param string $string Any string
-	 * @return string Changed string
-	 */
-	public function render($string) {
-		$string = ucfirst($string);
-
-		return $string;
-	}
+    /**
+     * Use PHP Function ucfirst()
+     *
+     * @param string $string Any string
+     * @return string Changed string
+     */
+    public function render($string)
+    {
+        return ucfirst($string);
+    }
 }

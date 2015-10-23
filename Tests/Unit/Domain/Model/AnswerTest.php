@@ -33,253 +33,258 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class AnswerTest extends UnitTestCase {
+class AnswerTest extends UnitTestCase
+{
 
-	/**
-	 * @var \In2code\Powermail\Domain\Model\Answer
-	 */
-	protected $generalValidatorMock;
+    /**
+     * @var \In2code\Powermail\Domain\Model\Answer
+     */
+    protected $generalValidatorMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->generalValidatorMock = $this->getAccessibleMock(
-			'\In2code\Powermail\Domain\Model\Answer',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->generalValidatorMock = $this->getAccessibleMock(
+            '\In2code\Powermail\Domain\Model\Answer',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider getValueReturnVoid()
-	 *
-	 * @return array
-	 */
-	public function getValueReturnVoidDataProvider() {
-		return array(
-			'string 1' => array(
-				'abc def',
-				'abc def',
-				0,
-				NULL
-			),
-			'string 2' => array(
-				'<\'"test"',
-				'<\'"test"',
-				0,
-				NULL
-			),
-			'array 1' => array(
-				json_encode(array('a')),
-				array('a'),
-				1,
-				NULL
-			),
-			'array 2' => array(
-				json_encode(array(1, 2, 3)),
-				array(1, 2, 3),
-				3,
-				NULL
-			),
-			'date 1' => array(
-				strtotime('2010-01-31'),
-				'2010-01-31 00:00',
-				2,
-				'date'
-			),
-			'date 2' => array(
-				strtotime('1975-10-13'),
-				'1975-10-13 00:00',
-				2,
-				'date'
-			),
-			'datetime 1' => array(
-				strtotime('1975-10-13 14:00'),
-				'1975-10-13 14:00',
-				2,
-				'datetime'
-			),
-			'datetime 2' => array(
-				strtotime('2020-01-30 22:23'),
-				'2020-01-30 22:23',
-				2,
-				'datetime'
-			),
-			'time 1' => array(
-				strtotime('14:00'),
-				date('Y-m-d') . ' 14:00',
-				2,
-				'time'
-			),
-			'time 2' => array(
-				strtotime('22:23'),
-				date('Y-m-d') . ' 22:23',
-				2,
-				'time'
-			),
-		);
-	}
+    /**
+     * Dataprovider getValueReturnVoid()
+     *
+     * @return array
+     */
+    public function getValueReturnVoidDataProvider()
+    {
+        return array(
+            'string 1' => array(
+                'abc def',
+                'abc def',
+                0,
+                null
+            ),
+            'string 2' => array(
+                '<\'"test"',
+                '<\'"test"',
+                0,
+                null
+            ),
+            'array 1' => array(
+                json_encode(array('a')),
+                array('a'),
+                1,
+                null
+            ),
+            'array 2' => array(
+                json_encode(array(1, 2, 3)),
+                array(1, 2, 3),
+                3,
+                null
+            ),
+            'date 1' => array(
+                strtotime('2010-01-31'),
+                '2010-01-31 00:00',
+                2,
+                'date'
+            ),
+            'date 2' => array(
+                strtotime('1975-10-13'),
+                '1975-10-13 00:00',
+                2,
+                'date'
+            ),
+            'datetime 1' => array(
+                strtotime('1975-10-13 14:00'),
+                '1975-10-13 14:00',
+                2,
+                'datetime'
+            ),
+            'datetime 2' => array(
+                strtotime('2020-01-30 22:23'),
+                '2020-01-30 22:23',
+                2,
+                'datetime'
+            ),
+            'time 1' => array(
+                strtotime('14:00'),
+                date('Y-m-d') . ' 14:00',
+                2,
+                'time'
+            ),
+            'time 2' => array(
+                strtotime('22:23'),
+                date('Y-m-d') . ' 22:23',
+                2,
+                'time'
+            ),
+        );
+    }
 
-	/**
-	 * Test for getValue()
-	 *
-	 * @param mixed $value
-	 * @param mixed $expectedResult
-	 * @param int $valueType
-	 * @param string $datepickerSettings
-	 * @return void
-	 * @dataProvider getValueReturnVoidDataProvider
-	 * @test
-	 */
-	public function getValueReturnMixed($value, $expectedResult, $valueType = 0, $datepickerSettings = NULL) {
-		if ($datepickerSettings) {
-			$formats = array(
-				'date' => 'Y-m-d',
-				'datetime' => 'Y-m-d H:i',
-				'time' => 'H:i'
-			);
-			$this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
-			$field = new Field;
-			if ($datepickerSettings) {
-				$field->setDatepickerSettings($datepickerSettings);
-			}
-			$this->generalValidatorMock->_callRef('setField', $field);
-		}
-		if ($valueType > 0) {
-			$this->generalValidatorMock->_callRef('setValueType', $valueType);
-		}
+    /**
+     * Test for getValue()
+     *
+     * @param mixed $value
+     * @param mixed $expectedResult
+     * @param int $valueType
+     * @param string $datepickerSettings
+     * @return void
+     * @dataProvider getValueReturnVoidDataProvider
+     * @test
+     */
+    public function getValueReturnMixed($value, $expectedResult, $valueType = 0, $datepickerSettings = null)
+    {
+        if ($datepickerSettings) {
+            $formats = array(
+                'date' => 'Y-m-d',
+                'datetime' => 'Y-m-d H:i',
+                'time' => 'H:i'
+            );
+            $this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
+            $field = new Field;
+            if ($datepickerSettings) {
+                $field->setDatepickerSettings($datepickerSettings);
+            }
+            $this->generalValidatorMock->_callRef('setField', $field);
+        }
+        if ($valueType > 0) {
+            $this->generalValidatorMock->_callRef('setValueType', $valueType);
+        }
 
-		$this->generalValidatorMock->_setProperty('value', $value);
-		$this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('getValue', $value));
-	}
+        $this->generalValidatorMock->_setProperty('value', $value);
+        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('getValue', $value));
+    }
 
-	/**
-	 * Test for getRawValue()
-	 *
-	 * @param mixed $value
-	 * @return void
-	 * @dataProvider getValueReturnVoidDataProvider
-	 * @test
-	 */
-	public function getRawValueReturnString($value) {
-		$this->generalValidatorMock->_setProperty('value', $value);
-		$this->assertSame(
-			$value,
-			$this->generalValidatorMock->_callRef('getRawValue')
-		);
-	}
+    /**
+     * Test for getRawValue()
+     *
+     * @param mixed $value
+     * @return void
+     * @dataProvider getValueReturnVoidDataProvider
+     * @test
+     */
+    public function getRawValueReturnString($value)
+    {
+        $this->generalValidatorMock->_setProperty('value', $value);
+        $this->assertSame($value, $this->generalValidatorMock->_callRef('getRawValue'));
+    }
 
-	/**
-	 * Dataprovider setValueReturnVoid()
-	 *
-	 * @return array
-	 */
-	public function setValueReturnVoidDataProvider() {
-		return array(
-			'string 1' => array(
-				'abc def',
-				'abc def',
-				'input',
-				NULL
-			),
-			'string 2' => array(
-				'<\'"test"',
-				'<\'"test"',
-				'input',
-				NULL
-			),
-			'array 1' => array(
-				array('a'),
-				json_encode(array('a')),
-				'check',
-				NULL
-			),
-			'array 2' => array(
-				array(1, 2 ,3),
-				json_encode(array(1, 2, 3)),
-				'check',
-				NULL
-			),
-			'date 1' => array(
-				'2010-01-31',
-				strtotime('2010-01-31'),
-				'date',
-				'date'
-			),
-			'date 2' => array(
-				'1975-10-13',
-				strtotime('1975-10-13'),
-				'date',
-				'date'
-			),
-			'datetime 1' => array(
-				'1975-10-13 14:00',
-				strtotime('1975-10-13 14:00'),
-				'date',
-				'datetime'
-			),
-			'datetime 2' => array(
-				'2020-01-30 22:23',
-				strtotime('2020-01-30 22:23'),
-				'date',
-				'datetime'
-			),
-			'time 1' => array(
-				'14:00',
-				strtotime('14:00'),
-				'date',
-				'time'
-			),
-			'time 2' => array(
-				'22:23',
-				strtotime('22:23'),
-				'date',
-				'time'
-			),
-		);
-	}
+    /**
+     * Dataprovider setValueReturnVoid()
+     *
+     * @return array
+     */
+    public function setValueReturnVoidDataProvider()
+    {
+        return array(
+            'string 1' => array(
+                'abc def',
+                'abc def',
+                'input',
+                null
+            ),
+            'string 2' => array(
+                '<\'"test"',
+                '<\'"test"',
+                'input',
+                null
+            ),
+            'array 1' => array(
+                array('a'),
+                json_encode(array('a')),
+                'check',
+                null
+            ),
+            'array 2' => array(
+                array(1, 2, 3),
+                json_encode(array(1, 2, 3)),
+                'check',
+                null
+            ),
+            'date 1' => array(
+                '2010-01-31',
+                strtotime('2010-01-31'),
+                'date',
+                'date'
+            ),
+            'date 2' => array(
+                '1975-10-13',
+                strtotime('1975-10-13'),
+                'date',
+                'date'
+            ),
+            'datetime 1' => array(
+                '1975-10-13 14:00',
+                strtotime('1975-10-13 14:00'),
+                'date',
+                'datetime'
+            ),
+            'datetime 2' => array(
+                '2020-01-30 22:23',
+                strtotime('2020-01-30 22:23'),
+                'date',
+                'datetime'
+            ),
+            'time 1' => array(
+                '14:00',
+                strtotime('14:00'),
+                'date',
+                'time'
+            ),
+            'time 2' => array(
+                '22:23',
+                strtotime('22:23'),
+                'date',
+                'time'
+            ),
+        );
+    }
 
-	/**
-	 * Test for setValue()
-	 *
-	 * @param mixed $value
-	 * @param mixed $expectedResult
-	 * @param string $fieldType
-	 * @param string $datepickerSettings
-	 * @return void
-	 * @dataProvider setValueReturnVoidDataProvider
-	 * @test
-	 */
-	public function setValueReturnVoid($value, $expectedResult, $fieldType = NULL, $datepickerSettings = NULL) {
-		$this->generalValidatorMock->_setProperty('valueType', 0);
-		if ($fieldType || $datepickerSettings) {
-			$field = new Field;
-			if ($fieldType) {
-				$field->setType($fieldType);
-			}
-			if ($datepickerSettings) {
-				$formats = array(
-					'date' => 'Y-m-d',
-					'datetime' => 'Y-m-d H:i',
-					'time' => 'H:i'
-				);
-				$this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
-				$this->generalValidatorMock->_setProperty('valueType', 2);
-				$field->setDatepickerSettings($datepickerSettings);
-			}
-			$this->generalValidatorMock->_callRef('setField', $field);
-		}
+    /**
+     * Test for setValue()
+     *
+     * @param mixed $value
+     * @param mixed $expectedResult
+     * @param string $fieldType
+     * @param string $datepickerSettings
+     * @return void
+     * @dataProvider setValueReturnVoidDataProvider
+     * @test
+     */
+    public function setValueReturnVoid($value, $expectedResult, $fieldType = null, $datepickerSettings = null)
+    {
+        $this->generalValidatorMock->_setProperty('valueType', 0);
+        if ($fieldType || $datepickerSettings) {
+            $field = new Field;
+            if ($fieldType) {
+                $field->setType($fieldType);
+            }
+            if ($datepickerSettings) {
+                $formats = array(
+                    'date' => 'Y-m-d',
+                    'datetime' => 'Y-m-d H:i',
+                    'time' => 'H:i'
+                );
+                $this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
+                $this->generalValidatorMock->_setProperty('valueType', 2);
+                $field->setDatepickerSettings($datepickerSettings);
+            }
+            $this->generalValidatorMock->_callRef('setField', $field);
+        }
 
-		$this->generalValidatorMock->_callRef('setValue', $value);
-		$this->assertSame($expectedResult, $this->generalValidatorMock->_getProperty('value'));
-	}
+        $this->generalValidatorMock->_callRef('setValue', $value);
+        $this->assertSame($expectedResult, $this->generalValidatorMock->_getProperty('value'));
+    }
 }

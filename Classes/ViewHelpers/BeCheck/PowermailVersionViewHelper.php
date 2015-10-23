@@ -10,14 +10,16 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package TYPO3
  * @subpackage Fluid
  */
-class PowermailVersionViewHelper extends AbstractViewHelper {
+class PowermailVersionViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Return powermail version
-	 *
-	 * @return string
-	 */
-	public function render() {
-		return ExtensionManagementUtility::getExtensionVersion('powermail');
-	}
+    /**
+     * Return powermail version
+     *
+     * @return string
+     */
+    public function render()
+    {
+        return ExtensionManagementUtility::getExtensionVersion('powermail');
+    }
 }

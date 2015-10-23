@@ -32,112 +32,116 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class PowermailVersionNoteViewHelperTest extends UnitTestCase {
+class PowermailVersionNoteViewHelperTest extends UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $abstractValidationViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $abstractValidationViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\BeCheck\PowermailVersionNoteViewHelper',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\ViewHelpers\BeCheck\PowermailVersionNoteViewHelper',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider for renderReturnsInt()
-	 *
-	 * @return array
-	 */
-	public function renderReturnsIntDataProvider() {
-		return array(
-			array(
-				FALSE,
-				FALSE,
-				FALSE,
-				FALSE,
-				0
-			),
-			array(
-				TRUE,
-				TRUE,
-				TRUE,
-				FALSE,
-				3
-			),
-			array(
-				FALSE,
-				TRUE,
-				TRUE,
-				TRUE,
-				0
-			),
-			array(
-				TRUE,
-				FALSE,
-				TRUE,
-				FALSE,
-				1
-			),
-			array(
-				TRUE,
-				TRUE,
-				TRUE,
-				TRUE,
-				2
-			),
-			array(
-				TRUE,
-				FALSE,
-				TRUE,
-				TRUE,
-				2
-			),
-		);
-	}
+    /**
+     * Dataprovider for renderReturnsInt()
+     *
+     * @return array
+     */
+    public function renderReturnsIntDataProvider()
+    {
+        return array(
+            array(
+                false,
+                false,
+                false,
+                false,
+                0
+            ),
+            array(
+                true,
+                true,
+                true,
+                false,
+                3
+            ),
+            array(
+                false,
+                true,
+                true,
+                true,
+                0
+            ),
+            array(
+                true,
+                false,
+                true,
+                false,
+                1
+            ),
+            array(
+                true,
+                true,
+                true,
+                true,
+                2
+            ),
+            array(
+                true,
+                false,
+                true,
+                true,
+                2
+            ),
+        );
+    }
 
-	/**
-	 * Test for render()
-	 *
-	 * @param bool $extensionTableExists
-	 * @param bool $isNewerVersionAvailable
-	 * @param bool $currentVersionInExtensionTableExists
-	 * @param bool $isCurrentVersionUnsecure
-	 * @param int $expectedResult
-	 * @return void
-	 * @dataProvider renderReturnsIntDataProvider
-	 * @test
-	 */
-	public function renderReturnsInt(
-		$extensionTableExists,
-		$isNewerVersionAvailable,
-		$currentVersionInExtensionTableExists,
-		$isCurrentVersionUnsecure,
-		$expectedResult
-	) {
-		$this->abstractValidationViewHelperMock->_set('checkFromDatabase', FALSE);
-		$this->abstractValidationViewHelperMock->_callRef('setExtensionTableExists', $extensionTableExists);
-		$this->abstractValidationViewHelperMock->_callRef('setIsNewerVersionAvailable', $isNewerVersionAvailable);
-		$this->abstractValidationViewHelperMock->_callRef(
-			'setCurrentVersionInExtensionTableExists',
-			$currentVersionInExtensionTableExists
-		);
-		$this->abstractValidationViewHelperMock->_callRef('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
-		$result = $this->abstractValidationViewHelperMock->_callRef('render');
-		$this->assertSame($expectedResult, $result);
-	}
+    /**
+     * Test for render()
+     *
+     * @param bool $extensionTableExists
+     * @param bool $isNewerVersionAvailable
+     * @param bool $currentVersionInExtensionTableExists
+     * @param bool $isCurrentVersionUnsecure
+     * @param int $expectedResult
+     * @return void
+     * @dataProvider renderReturnsIntDataProvider
+     * @test
+     */
+    public function renderReturnsInt(
+        $extensionTableExists,
+        $isNewerVersionAvailable,
+        $currentVersionInExtensionTableExists,
+        $isCurrentVersionUnsecure,
+        $expectedResult
+    ) {
+        $this->abstractValidationViewHelperMock->_set('checkFromDatabase', false);
+        $this->abstractValidationViewHelperMock->_callRef('setExtensionTableExists', $extensionTableExists);
+        $this->abstractValidationViewHelperMock->_callRef('setIsNewerVersionAvailable', $isNewerVersionAvailable);
+        $this->abstractValidationViewHelperMock->_callRef(
+            'setCurrentVersionInExtensionTableExists',
+            $currentVersionInExtensionTableExists
+        );
+        $this->abstractValidationViewHelperMock->_callRef('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
+        $result = $this->abstractValidationViewHelperMock->_callRef('render');
+        $this->assertSame($expectedResult, $result);
+    }
 }

@@ -30,26 +30,29 @@ use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class AdvancedSelectViewHelper extends SelectViewHelper {
+class AdvancedSelectViewHelper extends SelectViewHelper
+{
 
-	/**
-	 * Initialize
-	 *
-	 * @return void
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerArgument('defaultOption', 'string', 'value to prepend', FALSE);
-	}
+    /**
+     * Initialize
+     *
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('defaultOption', 'string', 'value to prepend', false);
+    }
 
-	/**
-	 * Options
-	 *
-	 * @return array
-	 */
-	protected function getOptions() {
-		return array('' => $this->arguments['defaultOption']) + parent::getOptions();
-	}
+    /**
+     * Options
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array('' => $this->arguments['defaultOption']) + parent::getOptions();
+    }
 }

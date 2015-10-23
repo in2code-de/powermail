@@ -32,17 +32,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class EvaluateEmail {
+class EvaluateEmail
+{
 
-	/**
-	 * Adds new JavaScript function for evaluation of the TCA fields in backend
-	 *
-	 * @return 	string		JavaScript
-	 */
-	public function returnFieldJS() {
-		$content = '
+    /**
+     * Adds new JavaScript function for evaluation of the TCA fields in backend
+     *
+     * @return    string        JavaScript
+     */
+    public function returnFieldJS()
+    {
+        $content = '
 			if (value === "" || validEmail(value)) {
 				return value;
 			} else {
@@ -72,25 +74,26 @@ class EvaluateEmail {
 			}
 		';
 
-		return $content;
-	}
+        return $content;
+    }
 
-	/**
-	 * Server valuation
-	 *
-	 * @param string $value The field value to be evaluated.
-	 * @param string $isIn The "isIn" value of the field configuration from TCA
-	 * @param bool $set defining if the value is written to the database or not.
-	 * @return string
-	 */
-	public function evaluateFieldValue($value, $isIn, &$set) {
-		if (GeneralUtility::validEmail($value)) {
-			$set = 1;
-		} else {
-			$set = 0;
-			$value = 'errorinemail@tryagain.com';
-		}
-		return $value;
-	}
+    /**
+     * Server valuation
+     *
+     * @param string $value The field value to be evaluated.
+     * @param string $isIn The "isIn" value of the field configuration from TCA
+     * @param bool $set defining if the value is written to the database or not.
+     * @return string
+     */
+    public function evaluateFieldValue($value, $isIn, &$set)
+    {
+        if (GeneralUtility::validEmail($value)) {
+            $set = 1;
+        } else {
+            $set = 0;
+            $value = 'errorinemail@tryagain.com';
+        }
+        return $value;
+    }
 
 }

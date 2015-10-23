@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Domain\Model\Form;
@@ -35,180 +36,174 @@ use In2code\Powermail\Domain\Model\Form;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class FormRepository extends Repository {
+class FormRepository extends Repository
+{
 
-	/**
-	 * Find Form objects by its given uids
-	 *
-	 * @param string $uids commaseparated list of uids
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
-	 */
-	public function findByUids($uids) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()
-			->setRespectStoragePage(FALSE)
-			->setRespectSysLanguage(FALSE);
+    /**
+     * Find Form objects by its given uids
+     *
+     * @param string $uids commaseparated list of uids
+     * @return QueryResult
+     */
+    public function findByUids($uids)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
 
-		$query->matching(
-			$query->in('uid', GeneralUtility::intExplode(',', $uids, TRUE))
-		);
+        $query->matching($query->in('uid', GeneralUtility::intExplode(',', $uids, true)));
 
-		$result = $query->execute();
-		return $result;
-	}
+        $result = $query->execute();
+        return $result;
+    }
 
-	/**
-	 * Find Form by given Page Uid
-	 *
-	 * @param int $uid page uid
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
-	 */
-	public function findByPages($uid) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()
-			->setRespectStoragePage(FALSE)
-			->setRespectSysLanguage(FALSE);
+    /**
+     * Find Form by given Page Uid
+     *
+     * @param int $uid page uid
+     * @return QueryResult
+     */
+    public function findByPages($uid)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
 
-		$query->matching(
-			$query->equals('pages.uid', $uid)
-		);
+        $query->matching($query->equals('pages.uid', $uid));
 
-		$result = $query->execute()->getFirst();
-		return $result;
-	}
+        $result = $query->execute()->getFirst();
+        return $result;
+    }
 
-	/**
-	 * Returns form with captcha from given UID
-	 *
-	 * @param Form $form
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
-	 */
-	public function hasCaptcha(Form $form) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()
-			->setRespectStoragePage(FALSE)
-			->setRespectSysLanguage(FALSE);
-		$and = array(
-			$query->equals('uid', $form->getUid()),
-			$query->equals('pages.fields.type', 'captcha')
-		);
-		$query->matching(
-			$query->logicalAnd($and)
-		);
-		return $query->execute();
-	}
+    /**
+     * Returns form with captcha from given UID
+     *
+     * @param Form $form
+     * @return QueryResult
+     */
+    public function hasCaptcha(Form $form)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
+        $and = array(
+            $query->equals('uid', $form->getUid()),
+            $query->equals('pages.fields.type', 'captcha')
+        );
+        $query->matching($query->logicalAnd($and));
+        return $query->execute();
+    }
 
-	/**
-	 * Returns form with password from given UID
-	 *
-	 * @param Form $form
-	 * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
-	 */
-	public function hasPassword(Form $form) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$and = array(
-			$query->equals('uid', $form->getUid()),
-			$query->equals('pages.fields.type', 'password')
-		);
-		$query->matching(
-			$query->logicalAnd($and)
-		);
-		return $query->execute();
-	}
+    /**
+     * Returns form with password from given UID
+     *
+     * @param Form $form
+     * @return QueryResult
+     */
+    public function hasPassword(Form $form)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $and = array(
+            $query->equals('uid', $form->getUid()),
+            $query->equals('pages.fields.type', 'password')
+        );
+        $query->matching($query->logicalAnd($and));
+        return $query->execute();
+    }
 
-	/**
-	 * This function is a workarround to get the field value of
-	 * "pages" in the table "forms"
-	 * (only relevant if IRRE was replaced by Element Browser)
-	 *
-	 * @param int $uid Form UID
-	 * @return string
-	 */
-	public function getPagesValue($uid) {
-		$query = $this->createQuery();
+    /**
+     * This function is a workarround to get the field value of
+     * "pages" in the table "forms"
+     * (only relevant if IRRE was replaced by Element Browser)
+     *
+     * @param int $uid Form UID
+     * @return string
+     */
+    public function getPagesValue($uid)
+    {
+        $query = $this->createQuery();
 
-		// create sql statement
-		$sql = 'select pages';
-		$sql .= ' from tx_powermail_domain_model_forms';
-		$sql .= ' where uid = ' . intval($uid);
-		$sql .= ' limit 1';
+        // create sql statement
+        $sql = 'select pages';
+        $sql .= ' from tx_powermail_domain_model_forms';
+        $sql .= ' where uid = ' . (int) $uid;
+        $sql .= ' limit 1';
 
-		$result = $query->statement($sql)->execute(TRUE);
+        $result = $query->statement($sql)->execute(true);
 
-		return $result[0]['pages'];
-	}
+        return $result[0]['pages'];
+    }
 
-	/**
-	 * Find all and don't respect Storage
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findAll() {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    /**
+     * Find all and don't respect Storage
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findAll()
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
-	/**
-	 * Find all within a Page and its subpages
-	 *
-	 * @param int $pid
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findAllInPid($pid) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    /**
+     * Find all within a Page and its subpages
+     *
+     * @param int $pid
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findAllInPid($pid)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
 
-		if ($pid > 0) {
-			/** @var \TYPO3\CMS\Core\Database\QueryGenerator $queryGenerator */
-			$queryGenerator = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Database\\QueryGenerator');
-			$pidList = $queryGenerator->getTreeList($pid, 20, 0, 1);
-			$query->matching(
-				$query->in('pid', GeneralUtility::trimExplode(',', $pidList, TRUE))
-			);
-		}
+        if ($pid > 0) {
+            /** @var \TYPO3\CMS\Core\Database\QueryGenerator $queryGenerator */
+            $queryGenerator = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Database\\QueryGenerator');
+            $pidList = $queryGenerator->getTreeList($pid, 20, 0, 1);
+            $query->matching($query->in('pid', GeneralUtility::trimExplode(',', $pidList, true)));
+        }
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
-	/**
-	 * Find all old powermail forms in database
-	 *
-	 * @return mixed
-	 */
-	public function findAllOldForms() {
-		if (!$this->oldPowermailTablesExists()) {
-			return array();
-		}
-		$query = $this->createQuery();
+    /**
+     * Find all old powermail forms in database
+     *
+     * @return mixed
+     */
+    public function findAllOldForms()
+    {
+        if (!$this->oldPowermailTablesExists()) {
+            return array();
+        }
+        $query = $this->createQuery();
 
-		$sql = 'select c.*';
-		$sql .= ' from tx_powermail_fields f
+        $sql = 'select c.*';
+        $sql .= ' from tx_powermail_fields f
 			left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid
 			left join tt_content c ON c.uid = fs.tt_content
 		';
-		$sql .= ' where c.deleted = 0';
-		$sql .= ' group by c.uid';
-		$sql .= ' order by c.sys_language_uid, c.uid';
-		$sql .= ' limit 10000';
+        $sql .= ' where c.deleted = 0';
+        $sql .= ' group by c.uid';
+        $sql .= ' order by c.sys_language_uid, c.uid';
+        $sql .= ' limit 10000';
 
-		$result = $query->statement($sql)->execute(TRUE);
+        $result = $query->statement($sql)->execute(true);
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * @param int $uid tt_content uid
-	 * @return array
-	 */
-	public function findOldFieldsetsAndFieldsToTtContentRecord($uid) {
-		$query = $this->createQuery();
+    /**
+     * @param int $uid tt_content uid
+     * @return array
+     */
+    public function findOldFieldsetsAndFieldsToTtContentRecord($uid)
+    {
+        $query = $this->createQuery();
 
-		$sql = 'select
+        $sql = 'select
 			fs.uid,
 			fs.pid,
 			fs.sys_language_uid,
@@ -218,35 +213,36 @@ class FormRepository extends Repository {
 			fs.title,
 			fs.class
 		';
-		$sql .= ' from tx_powermail_fieldsets fs
+        $sql .= ' from tx_powermail_fieldsets fs
 			left join tt_content c ON c.uid = fs.tt_content
 		';
-		$sql .= ' where c.deleted = 0 and fs.deleted = 0 and c.uid = ' . intval($uid);
-		$sql .= ' group by fs.uid';
-		$sql .= ' order by fs.sys_language_uid, fs.uid';
-		$sql .= ' limit 10000';
+        $sql .= ' where c.deleted = 0 and fs.deleted = 0 and c.uid = ' . (int) $uid;
+        $sql .= ' group by fs.uid';
+        $sql .= ' order by fs.sys_language_uid, fs.uid';
+        $sql .= ' limit 10000';
 
-		$fieldsets = $query->statement($sql)->execute(TRUE);
+        $fieldsets = $query->statement($sql)->execute(true);
 
-		$result = array();
-		$counter = 0;
-		foreach ($fieldsets as $fieldset) {
-			$result[$counter] = $fieldset;
-			$result[$counter]['_fields'] = $this->findOldFieldsToFieldset($fieldset['uid']);
-			$counter++;
-		}
+        $result = array();
+        $counter = 0;
+        foreach ($fieldsets as $fieldset) {
+            $result[$counter] = $fieldset;
+            $result[$counter]['_fields'] = $this->findOldFieldsToFieldset($fieldset['uid']);
+            $counter++;
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * @param int $uid Fieldset
-	 * @return array
-	 */
-	protected function findOldFieldsToFieldset($uid) {
-		$query = $this->createQuery();
+    /**
+     * @param int $uid Fieldset
+     * @return array
+     */
+    protected function findOldFieldsToFieldset($uid)
+    {
+        $query = $this->createQuery();
 
-		$sql = 'select
+        $sql = 'select
 			f.uid,
 			f.pid,
 			f.sys_language_uid,
@@ -263,176 +259,175 @@ class FormRepository extends Repository {
 			f.description,
 			f.class
 		';
-		$sql .= ' from tx_powermail_fields f
+        $sql .= ' from tx_powermail_fields f
 			left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid
 			left join tt_content c ON c.uid = fs.tt_content
 		';
-		$sql .= ' where c.deleted = 0 and fs.deleted = 0 and f.deleted = 0 and fs.uid = ' . intval($uid);
-		$sql .= ' group by f.uid';
-		$sql .= ' order by f.sys_language_uid, f.uid';
-		$sql .= ' limit 10000';
+        $sql .= ' where c.deleted = 0 and fs.deleted = 0 and f.deleted = 0 and fs.uid = ' . (int) $uid;
+        $sql .= ' group by f.uid';
+        $sql .= ' order by f.sys_language_uid, f.uid';
+        $sql .= ' limit 10000';
 
-		$fields = $query->statement($sql)->execute(TRUE);
+        $fields = $query->statement($sql)->execute(true);
 
-		foreach ($fields as $key => $field) {
-			$subValues = GeneralUtility::xml2array($field['flexform']);
-			$fields[$key]['size'] = $this->getFlexFormValue($subValues, 'size');
-			$fields[$key]['maxlength'] = $this->getFlexFormValue($subValues, 'maxlength');
-			$fields[$key]['readonly'] = $this->getFlexFormValue($subValues, 'readonly');
-			$fields[$key]['mandatory'] = $this->getFlexFormValue($subValues, 'mandatory');
-			$fields[$key]['value'] = $this->getFlexFormValue($subValues, 'value');
-			$fields[$key]['placeholder'] = $this->getFlexFormValue($subValues, 'placeholder');
-			$fields[$key]['validate'] = $this->getFlexFormValue($subValues, 'validate');
-			$fields[$key]['pattern'] = $this->getFlexFormValue($subValues, 'pattern');
-			$fields[$key]['inputtype'] = $this->getFlexFormValue($subValues, 'inputtype');
-			$fields[$key]['options'] = $this->getFlexFormValue($subValues, 'options');
-			$fields[$key]['path'] = $this->getFlexFormValue($subValues, 'typoscriptobject');
-			$fields[$key]['multiple'] = $this->getFlexFormValue($subValues, 'multiple');
-			unset($fields[$key]['flexform']);
-		}
+        foreach ($fields as $key => $field) {
+            $subValues = GeneralUtility::xml2array($field['flexform']);
+            $fields[$key]['size'] = $this->getFlexFormValue($subValues, 'size');
+            $fields[$key]['maxlength'] = $this->getFlexFormValue($subValues, 'maxlength');
+            $fields[$key]['readonly'] = $this->getFlexFormValue($subValues, 'readonly');
+            $fields[$key]['mandatory'] = $this->getFlexFormValue($subValues, 'mandatory');
+            $fields[$key]['value'] = $this->getFlexFormValue($subValues, 'value');
+            $fields[$key]['placeholder'] = $this->getFlexFormValue($subValues, 'placeholder');
+            $fields[$key]['validate'] = $this->getFlexFormValue($subValues, 'validate');
+            $fields[$key]['pattern'] = $this->getFlexFormValue($subValues, 'pattern');
+            $fields[$key]['inputtype'] = $this->getFlexFormValue($subValues, 'inputtype');
+            $fields[$key]['options'] = $this->getFlexFormValue($subValues, 'options');
+            $fields[$key]['path'] = $this->getFlexFormValue($subValues, 'typoscriptobject');
+            $fields[$key]['multiple'] = $this->getFlexFormValue($subValues, 'multiple');
+            unset($fields[$key]['flexform']);
+        }
 
-		return $fields;
-	}
+        return $fields;
+    }
 
-	/**
-	 * Find all localized records with
-	 * 		tx_powermail_domain_model_forms.pages = ""
-	 *
-	 * @return mixed
-	 */
-	public function findAllWrongLocalizedForms() {
-		$query = $this->createQuery();
+    /**
+     * Find all localized records with
+     *        tx_powermail_domain_model_forms.pages = ""
+     *
+     * @return mixed
+     */
+    public function findAllWrongLocalizedForms()
+    {
+        $query = $this->createQuery();
 
-		$sql = 'select uid,pid,title';
-		$sql .= ' from tx_powermail_domain_model_forms';
-		$sql .= ' where pages = ""';
-		$sql .= ' and sys_language_uid > 0';
-		$sql .= ' and deleted = 0';
-		$sql .= ' limit 1';
+        $sql = 'select uid,pid,title';
+        $sql .= ' from tx_powermail_domain_model_forms';
+        $sql .= ' where pages = ""';
+        $sql .= ' and sys_language_uid > 0';
+        $sql .= ' and deleted = 0';
+        $sql .= ' limit 1';
 
-		$result = $query->statement($sql)->execute(TRUE);
+        $result = $query->statement($sql)->execute(true);
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Fix wrong localized forms
-	 *
-	 * @return void
-	 */
-	public function fixWrongLocalizedForms() {
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-			'tx_powermail_domain_model_forms',
-			'sys_language_uid > 0 and deleted = 0 and pages = ""',
-			array('pages' => 0)
-		);
-	}
+    /**
+     * Fix wrong localized forms
+     *
+     * @return void
+     */
+    public function fixWrongLocalizedForms()
+    {
+        $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+            'tx_powermail_domain_model_forms',
+            'sys_language_uid > 0 and deleted = 0 and pages = ""',
+            array('pages' => 0)
+        );
+    }
 
-	/**
-	 * @param $xmlArray
-	 * @param $key
-	 * @return string
-	 */
-	protected function getFlexFormValue($xmlArray, $key) {
-		if (is_array($xmlArray) && isset($xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'])) {
-			if (!empty($xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'])) {
-				return $xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'];
-			}
-		}
-		return '';
-	}
+    /**
+     * @param $xmlArray
+     * @param $key
+     * @return string
+     */
+    protected function getFlexFormValue($xmlArray, $key)
+    {
+        if (is_array($xmlArray) && isset($xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'])) {
+            if (!empty($xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'])) {
+                return $xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'];
+            }
+        }
+        return '';
+    }
 
-	/**
-	 * Check if old powermail tables existing
-	 *
-	 * @return bool
-	 */
-	protected function oldPowermailTablesExists() {
-		$allTables = $GLOBALS['TYPO3_DB']->admin_get_tables();
-		if (array_key_exists('tx_powermail_fields', $allTables) && array_key_exists('tx_powermail_fieldsets', $allTables)) {
-			return TRUE;
-		}
-		return FALSE;
-	}
+    /**
+     * Check if old powermail tables existing
+     *
+     * @return bool
+     */
+    protected function oldPowermailTablesExists()
+    {
+        $allTables = $GLOBALS['TYPO3_DB']->admin_get_tables();
+        if (
+            array_key_exists('tx_powermail_fields', $allTables) &&
+            array_key_exists('tx_powermail_fieldsets', $allTables)
+        ) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * Get Fieldlist from Form UID
-	 *
-	 * @param int $formUid Form UID
-	 * @return array
-	 */
-	public function getFieldsFromFormWithSelectQuery($formUid) {
-		$select = '
-			tx_powermail_domain_model_fields.uid,
-			tx_powermail_domain_model_fields.title,
-			tx_powermail_domain_model_fields.sender_email,
-			tx_powermail_domain_model_fields.sender_name
+    /**
+     * Get Fieldlist from Form UID
+     *
+     * @param int $formUid Form UID
+     * @return array
+     */
+    public function getFieldsFromFormWithSelectQuery($formUid)
+    {
+        $select = 'f.uid, f.title, f.sender_email, f.sender_name, f.marker';
+        $from = '
+			tx_powermail_domain_model_fields f
+			left join tx_powermail_domain_model_pages p on tx_powermail_domain_model_fields.pages = p.uid
+			left join tx_powermail_domain_model_forms fo on p.forms = fo.uid
 		';
-		$select .= ', tx_powermail_domain_model_fields.marker';
-		$from = '
-			tx_powermail_domain_model_fields
-			left join tx_powermail_domain_model_pages on tx_powermail_domain_model_fields.pages = tx_powermail_domain_model_pages.uid
-			left join tx_powermail_domain_model_forms on tx_powermail_domain_model_pages.forms = tx_powermail_domain_model_forms.uid
-		';
-		$where = '
-			tx_powermail_domain_model_fields.deleted = 0 and
-			tx_powermail_domain_model_fields.hidden = 0 and
-			tx_powermail_domain_model_fields.type != "submit" and
-			tx_powermail_domain_model_fields.sys_language_uid IN (-1,0) and
-			tx_powermail_domain_model_forms.uid = ' . intval($formUid);
-		$groupBy = '';
-		$orderBy = 'tx_powermail_domain_model_fields.sorting ASC';
-		$limit = 10000;
-		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" ' .
+            'and f.sys_language_uid IN (-1,0) and fo.uid = ' . (int) $formUid;
+        $groupBy = '';
+        $orderBy = 'tx_powermail_domain_model_fields.sorting ASC';
+        $limit = 10000;
+        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 
-		$array = array();
-		if ($res) {
-			while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
-				$array[] = $row;
-			}
-		}
+        $array = array();
+        if ($res) {
+            while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+                $array[] = $row;
+            }
+        }
 
-		return $array;
-	}
+        return $array;
+    }
 
-	/**
-	 * Get Field Uid List from given Form Uid
-	 *
-	 * @param integer $formUid Form Uid
-	 * @return array
-	 */
-	public function getFieldsFromForm($formUid) {
-		$allowedFieldTypes = array(
-			'input',
-			'textarea',
-			'select',
-			'check',
-			'radio',
-			'password',
-			'file',
-			'hidden',
-			'date',
-			'location',
-			'typoscript'
-		);
+    /**
+     * Get Field Uid List from given Form Uid
+     *
+     * @param integer $formUid Form Uid
+     * @return array
+     */
+    public function getFieldsFromForm($formUid)
+    {
+        $allowedFieldTypes = array(
+            'input',
+            'textarea',
+            'select',
+            'check',
+            'radio',
+            'password',
+            'file',
+            'hidden',
+            'date',
+            'location',
+            'typoscript'
+        );
 
-		$fields = array();
-		$form = $this->findByUid($formUid);
-		if (!method_exists($form, 'getPages')) {
-			return array();
-		}
-		/** @var Page $page */
-		foreach ($form->getPages() as $page) {
-			/** @var Field $field */
-			foreach ($page->getFields() as $field) {
-				// skip type submit
-				if (!in_array($field->getType(), $allowedFieldTypes)) {
-					continue;
-				}
-				$fields[] = $field->getUid();
-			}
-		}
+        $fields = array();
+        $form = $this->findByUid($formUid);
+        if (!method_exists($form, 'getPages')) {
+            return array();
+        }
+        /** @var Page $page */
+        foreach ($form->getPages() as $page) {
+            /** @var Field $field */
+            foreach ($page->getFields() as $field) {
+                // skip type submit
+                if (!in_array($field->getType(), $allowedFieldTypes)) {
+                    continue;
+                }
+                $fields[] = $field->getUid();
+            }
+        }
 
-		return $fields;
-	}
+        return $fields;
+    }
 }

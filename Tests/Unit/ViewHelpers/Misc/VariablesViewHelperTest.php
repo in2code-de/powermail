@@ -32,89 +32,94 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class VariablesViewHelperTest extends UnitTestCase {
+class VariablesViewHelperTest extends UnitTestCase
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $abstractValidationViewHelperMock;
+    /**
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     */
+    protected $abstractValidationViewHelperMock;
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
-		$this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-			'\In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper',
-			array('dummy')
-		);
-	}
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+            '\In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper',
+            array('dummy')
+        );
+    }
 
-	/**
-	 * @return void
-	 */
-	public function tearDown() {
-		unset($this->generalValidatorMock);
-	}
+    /**
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->generalValidatorMock);
+    }
 
-	/**
-	 * Dataprovider for removePowermailAllParagraphTagWrapReturnsString()
-	 *
-	 * @return array
-	 */
-	public function removePowermailAllParagraphTagWrapReturnsStringDataProvider() {
-		return array(
-			array(
-				'<p class="abc">xyz</p><p>{powermail_all}</p><p class="abc">xyz</p>',
-				'<p class="abc">xyz</p>{powermail_all}<p class="abc">xyz</p>'
-			),
-			array(
-				'<p>{powermail_all}</p>',
-				'{powermail_all}'
-			),
-			array(
-				'<b>{powermail_all}</b>',
-				'<b>{powermail_all}</b>'
-			),
-			array(
-				'<p> {powermail_all} </p>',
-				'{powermail_all}'
-			),
-			array(
-				'{powermail_all}',
-				'{powermail_all}'
-			),
-			array(
-				'<p class="abc">xyz</p><p>{powermail_all}</p>',
-				'<p class="abc">xyz</p>{powermail_all}'
-			),
-			array(
-				'<p>{powermail_all}</p><p class="abc">xyz</p>',
-				'{powermail_all}<p class="abc">xyz</p>'
-			),
-			array(
-				'<table><tr><td>{powermail_all}</td></tr></table>',
-				'<table><tr><td>{powermail_all}</td></tr></table>'
-			),
-			array(
-				'<table><tr><td><p>	{powermail_all} </p></td></tr></table>',
-				'<table><tr><td>{powermail_all}</td></tr></table>'
-			),
-		);
-	}
+    /**
+     * Dataprovider for removePowermailAllParagraphTagWrapReturnsString()
+     *
+     * @return array
+     */
+    public function removePowermailAllParagraphTagWrapReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                '<p class="abc">xyz</p><p>{powermail_all}</p><p class="abc">xyz</p>',
+                '<p class="abc">xyz</p>{powermail_all}<p class="abc">xyz</p>'
+            ),
+            array(
+                '<p>{powermail_all}</p>',
+                '{powermail_all}'
+            ),
+            array(
+                '<b>{powermail_all}</b>',
+                '<b>{powermail_all}</b>'
+            ),
+            array(
+                '<p> {powermail_all} </p>',
+                '{powermail_all}'
+            ),
+            array(
+                '{powermail_all}',
+                '{powermail_all}'
+            ),
+            array(
+                '<p class="abc">xyz</p><p>{powermail_all}</p>',
+                '<p class="abc">xyz</p>{powermail_all}'
+            ),
+            array(
+                '<p>{powermail_all}</p><p class="abc">xyz</p>',
+                '{powermail_all}<p class="abc">xyz</p>'
+            ),
+            array(
+                '<table><tr><td>{powermail_all}</td></tr></table>',
+                '<table><tr><td>{powermail_all}</td></tr></table>'
+            ),
+            array(
+                '<table><tr><td><p>	{powermail_all} </p></td></tr></table>',
+                '<table><tr><td>{powermail_all}</td></tr></table>'
+            ),
+        );
+    }
 
-	/**
-	 * Test for removePowermailAllParagraphTagWrap()
-	 *
-	 * @param string $content
-	 * @param string $expectedResult
-	 * @return void
-	 * @dataProvider removePowermailAllParagraphTagWrapReturnsStringDataProvider
-	 * @test
-	 */
-	public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult) {
-		$result = $this->abstractValidationViewHelperMock->_callRef('removePowermailAllParagraphTagWrap', $content);
-		$this->assertSame($expectedResult, $result);
-	}
+    /**
+     * Test for removePowermailAllParagraphTagWrap()
+     *
+     * @param string $content
+     * @param string $expectedResult
+     * @return void
+     * @dataProvider removePowermailAllParagraphTagWrapReturnsStringDataProvider
+     * @test
+     */
+    public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult)
+    {
+        $result = $this->abstractValidationViewHelperMock->_callRef('removePowermailAllParagraphTagWrap', $content);
+        $this->assertSame($expectedResult, $result);
+    }
 }

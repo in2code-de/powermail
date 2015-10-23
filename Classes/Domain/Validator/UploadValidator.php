@@ -32,36 +32,38 @@ use In2code\Powermail\Utility\BasicFileUtility;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class UploadValidator extends AbstractValidator {
+class UploadValidator extends AbstractValidator
+{
 
-	/**
-	 * Validation of given Mail Params
-	 *
-	 * @param \In2code\Powermail\Domain\Model\Mail $mail
-	 * @return bool
-	 */
-	public function isValid($mail) {
-		foreach ($mail->getAnswers() as $answer) {
-			if ($answer->getValueType() === 3) {
-				if (!is_array($answer->getValue())) {
-					continue;
-				}
+    /**
+     * Validation of given Mail Params
+     *
+     * @param \In2code\Powermail\Domain\Model\Mail $mail
+     * @return bool
+     */
+    public function isValid($mail)
+    {
+        foreach ($mail->getAnswers() as $answer) {
+            if ($answer->getValueType() === 3) {
+                if (!is_array($answer->getValue())) {
+                    continue;
+                }
 
-				foreach ($answer->getValue() as $value) {
-					if (!BasicFileUtility::checkExtension($value, $this->settings['misc.']['file.']['extension'])) {
-						$this->setErrorAndMessage($answer->getField(), 'upload_extension');
-						continue;
-					}
-					if (!BasicFileUtility::checkFilesize($value, $this->settings)) {
-						$this->setErrorAndMessage($answer->getField(), 'upload_size');
-						continue;
-					}
-				}
-			}
-		}
+                foreach ($answer->getValue() as $value) {
+                    if (!BasicFileUtility::checkExtension($value, $this->settings['misc.']['file.']['extension'])) {
+                        $this->setErrorAndMessage($answer->getField(), 'upload_extension');
+                        continue;
+                    }
+                    if (!BasicFileUtility::checkFilesize($value, $this->settings)) {
+                        $this->setErrorAndMessage($answer->getField(), 'upload_size');
+                        continue;
+                    }
+                }
+            }
+        }
 
-		return $this->isValidState();
-	}
+        return $this->isValidState();
+    }
 }

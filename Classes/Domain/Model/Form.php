@@ -1,10 +1,10 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use In2code\Powermail\Utility\ConfigurationUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -35,107 +35,114 @@ use In2code\Powermail\Utility\ConfigurationUtility;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class Form extends AbstractEntity {
+class Form extends AbstractEntity
+{
 
-	/**
-	 * title
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $title = '';
+    /**
+     * title
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $title = '';
 
-	/**
-	 * css
-	 *
-	 * @var string
-	 */
-	protected $css = '';
+    /**
+     * css
+     *
+     * @var string
+     */
+    protected $css = '';
 
-	/**
-	 * pages
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Page>
-	 */
-	protected $pages;
+    /**
+     * pages
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Page>
+     */
+    protected $pages;
 
-	/**
-	 * formRepository
-	 *
-	 * @var \In2code\Powermail\Domain\Repository\FormRepository
-	 *
-	 * @inject
-	 */
-	protected $formRepository;
+    /**
+     * formRepository
+     *
+     * @var \In2code\Powermail\Domain\Repository\FormRepository
+     *
+     * @inject
+     */
+    protected $formRepository;
 
-	/**
-	 * Returns the title
-	 *
-	 * @return string $title
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
+    /**
+     * Returns the title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	/**
-	 * Sets the title
-	 *
-	 * @param string $title
-	 * @return void
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
+    /**
+     * Sets the title
+     *
+     * @param string $title
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
-	/**
-	 * Returns the css
-	 *
-	 * @return string $css
-	 */
-	public function getCss() {
-		return $this->css;
-	}
+    /**
+     * Returns the css
+     *
+     * @return string $css
+     */
+    public function getCss()
+    {
+        return $this->css;
+    }
 
-	/**
-	 * Sets the css
-	 *
-	 * @param string $css
-	 * @return void
-	 */
-	public function setCss($css) {
-		$this->css = $css;
-	}
+    /**
+     * Sets the css
+     *
+     * @param string $css
+     * @return void
+     */
+    public function setCss($css)
+    {
+        $this->css = $css;
+    }
 
-	/**
-	 * Returns the pages
-	 *
-	 * @return ObjectStorage
-	 */
-	public function getPages() {
-		// if elementbrowser instead of IRRE (sorting workarround)
-		if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
-			$formSorting = GeneralUtility::trimExplode(',', $this->formRepository->getPagesValue($this->uid), TRUE);
-			$formSorting = array_flip($formSorting);
-			$pageArray = array();
-			foreach ($this->pages as $page) {
-				$pageArray[$formSorting[$page->getUid()]] = $page;
-			}
-			ksort($pageArray);
-			return $pageArray;
-		}
+    /**
+     * Returns the pages
+     *
+     * @return ObjectStorage
+     */
+    public function getPages()
+    {
+        // if elementbrowser instead of IRRE (sorting workarround)
+        if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
+            $formSorting = GeneralUtility::trimExplode(',', $this->formRepository->getPagesValue($this->uid), true);
+            $formSorting = array_flip($formSorting);
+            $pageArray = array();
+            foreach ($this->pages as $page) {
+                $pageArray[$formSorting[$page->getUid()]] = $page;
+            }
+            ksort($pageArray);
+            return $pageArray;
+        }
 
-		return $this->pages;
-	}
+        return $this->pages;
+    }
 
-	/**
-	 * Sets the pages
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-	 * @return void
-	 */
-	public function setPages(ObjectStorage $pages) {
-		$this->pages = $pages;
-	}
+    /**
+     * Sets the pages
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return void
+     */
+    public function setPages(ObjectStorage $pages)
+    {
+        $this->pages = $pages;
+    }
 }

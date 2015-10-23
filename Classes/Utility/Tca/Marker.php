@@ -30,50 +30,53 @@ namespace In2code\Powermail\Utility\Tca;
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
- * 			GNU Lesser General Public License, version 3 or later
+ *          GNU Lesser General Public License, version 3 or later
  */
-class Marker {
+class Marker
+{
 
-	/**
-	 * Create individual marker for powermail field
-	 *
-	 * @param array $params Config Array
-	 * @return string
-	 */
-	public function createMarker($params) {
-		$content = '';
+    /**
+     * Create individual marker for powermail field
+     *
+     * @param array $params Config Array
+     * @return string
+     */
+    public function createMarker($params)
+    {
+        $content = '';
 
-		// if entry in db
-		if (isset($params['row']['marker']) && !empty($params['row']['marker'])) {
-			$marker = $params['row']['marker'];
-		} else {
-			// no entry - take "marker"
-			$marker = 'marker';
-		}
+        // if entry in db
+        if (isset($params['row']['marker']) && !empty($params['row']['marker'])) {
+            $marker = $params['row']['marker'];
+        } else {
+            // no entry - take "marker"
+            $marker = 'marker';
+        }
 
-		// field just generated
-		if (stristr($params['row']['uid'], 'NEW')) {
-			$content .= '<div style="background-color: #F4DA5C; padding: 5px 10px;">';
-			$content .= 'Please save before...';
-			$content .= '</div>';
-			// was saved before
-		} else {
-			$content .= '<div style="background-color: #ddd; padding: 5px 10px;" />';
-			$content .= '{' . strtolower($marker) . '}';
-			$content .= '</div>';
-			$content .= '<input type="hidden" name="data[tx_powermail_domain_model_fields][' . $params['row']['uid'] . '][marker]"
-			value="' . strtolower($marker) . '" />';
-		}
+        // field just generated
+        if (stristr($params['row']['uid'], 'NEW')) {
+            $content .= '<div style="background-color: #F4DA5C; padding: 5px 10px;">';
+            $content .= 'Please save before...';
+            $content .= '</div>';
+            // was saved before
+        } else {
+            $content .= '<div style="background-color: #ddd; padding: 5px 10px;" />';
+            $content .= '{' . strtolower($marker) . '}';
+            $content .= '</div>';
+            $content .= '<input type="hidden" name="data[tx_powermail_domain_model_fields][' .
+                $params['row']['uid'] . '][marker]" value="' . strtolower($marker) . '" />';
+        }
 
-		return $content;
-	}
+        return $content;
+    }
 
-	/**
-	 * Workarround to only show a label and no field in TCA
-	 *
-	 * @return string empty
-	 */
-	public function doNothing() {
-		return '';
-	}
+    /**
+     * Workarround to only show a label and no field in TCA
+     *
+     * @return string empty
+     */
+    public function doNothing()
+    {
+        return '';
+    }
 }
