@@ -126,38 +126,6 @@ abstract class AbstractController extends ActionController
     protected $id = 0;
 
     /**
-     * Reformat Array
-     *
-     * @return void
-     */
-    public function initializeValidateAjaxAction()
-    {
-        $this->reformatParamsForAction();
-    }
-
-    /**
-     * Validate field
-     *
-     * @param \In2code\Powermail\Domain\Model\Mail $mail
-     * @return void
-     */
-    public function validateAjaxAction(Mail $mail)
-    {
-        $pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
-        $value = array_shift($pluginVariables['field']);
-        $inputValidator = $this->objectManager->get('In2code\\Powermail\\Domain\\Validator\\InputValidator');
-        $isValid = $inputValidator->isValid($mail, $value);
-        $this->view->assignMultiple(array(
-                'isValid' => $isValid,
-                'errors',
-                $inputValidator->getErrors()
-            ));
-        if (!$isValid) {
-            header('HTTP/1.0 404 Not Found');
-        }
-    }
-
-    /**
      * Reformat array for createAction
      *
      * @return void
