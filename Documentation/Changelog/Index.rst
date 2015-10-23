@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.15.0
+   :Date:
+      2015-10-23
+   :Changes:
+
+      * Feature _`#70891`: https://forge.typo3.org/issues/70891 Upload Fields: Clientside validation for file extensions
+      * Feature _`#70836`: https://forge.typo3.org/issues/70836 tx_powermail_domain_model_answers: missing keys?
+      * Feature _`#70756`: https://forge.typo3.org/issues/70756 	Filesize validation via JavaScript
+
+ - :Version:
       2.14.0
    :Date:
       2015-10-19
