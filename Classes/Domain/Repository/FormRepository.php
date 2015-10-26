@@ -2,11 +2,13 @@
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\QueryGenerator;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\Repository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use In2code\Powermail\Domain\Model\Form;
 
 /***************************************************************
  *  Copyright notice
@@ -159,7 +161,7 @@ class FormRepository extends Repository
         $query->getQuerySettings()->setRespectStoragePage(false);
 
         if ($pid > 0) {
-            /** @var \TYPO3\CMS\Core\Database\QueryGenerator $queryGenerator */
+            /** @var QueryGenerator $queryGenerator */
             $queryGenerator = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Database\\QueryGenerator');
             $pidList = $queryGenerator->getTreeList($pid, 20, 0, 1);
             $query->matching($query->in('pid', GeneralUtility::trimExplode(',', $pidList, true)));
@@ -181,10 +183,9 @@ class FormRepository extends Repository
         $query = $this->createQuery();
 
         $sql = 'select c.*';
-        $sql .= ' from tx_powermail_fields f
-			left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid
-			left join tt_content c ON c.uid = fs.tt_content
-		';
+        $sql .= ' from tx_powermail_fields f ' .
+            'left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid ' .
+            'left join tt_content c ON c.uid = fs.tt_content';
         $sql .= ' where c.deleted = 0';
         $sql .= ' group by c.uid';
         $sql .= ' order by c.sys_language_uid, c.uid';
@@ -203,19 +204,9 @@ class FormRepository extends Repository
     {
         $query = $this->createQuery();
 
-        $sql = 'select
-			fs.uid,
-			fs.pid,
-			fs.sys_language_uid,
-			fs.l18n_parent,
-			fs.sorting,
-			fs.hidden,
-			fs.title,
-			fs.class
-		';
-        $sql .= ' from tx_powermail_fieldsets fs
-			left join tt_content c ON c.uid = fs.tt_content
-		';
+        $sql = 'select fs.uid, fs.pid, fs.sys_language_uid, fs.l18n_parent, fs.sorting, fs.hidden, fs.title, fs.class';
+        $sql .= ' from tx_powermail_fieldsets fs ' .
+            'left join tt_content c ON c.uid = fs.tt_content';
         $sql .= ' where c.deleted = 0 and fs.deleted = 0 and c.uid = ' . (int) $uid;
         $sql .= ' group by fs.uid';
         $sql .= ' order by fs.sys_language_uid, fs.uid';
@@ -242,27 +233,12 @@ class FormRepository extends Repository
     {
         $query = $this->createQuery();
 
-        $sql = 'select
-			f.uid,
-			f.pid,
-			f.sys_language_uid,
-			f.l18n_parent,
-			f.sorting,
-			f.hidden,
-			f.fe_group,
-			f.fieldset,
-			f.title,
-			f.formtype,
-			f.flexform,
-			f.fe_field,
-			f.name,
-			f.description,
-			f.class
-		';
-        $sql .= ' from tx_powermail_fields f
-			left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid
-			left join tt_content c ON c.uid = fs.tt_content
-		';
+        $sql = 'select f.uid, f.pid, f.sys_language_uid, f.l18n_parent, f.sorting, f.hidden, ' .
+            'f.fe_group, f.fieldset, f.title, f.formtype, f.flexform, f.fe_field, f.name, ' .
+            'f.description, f.class';
+        $sql .= ' from tx_powermail_fields f ' .
+            'left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid ' .
+            'left join tt_content c ON c.uid = fs.tt_content';
         $sql .= ' where c.deleted = 0 and fs.deleted = 0 and f.deleted = 0 and fs.uid = ' . (int) $uid;
         $sql .= ' group by f.uid';
         $sql .= ' order by f.sys_language_uid, f.uid';
@@ -319,7 +295,7 @@ class FormRepository extends Repository
      */
     public function fixWrongLocalizedForms()
     {
-        $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+        $this->getDatabaseConnection()->exec_UPDATEquery(
             'tx_powermail_domain_model_forms',
             'sys_language_uid > 0 and deleted = 0 and pages = ""',
             array('pages' => 0)
@@ -348,7 +324,7 @@ class FormRepository extends Repository
      */
     protected function oldPowermailTablesExists()
     {
-        $allTables = $GLOBALS['TYPO3_DB']->admin_get_tables();
+        $allTables = $this->getDatabaseConnection()->admin_get_tables();
         if (
             array_key_exists('tx_powermail_fields', $allTables) &&
             array_key_exists('tx_powermail_fieldsets', $allTables)
@@ -367,21 +343,19 @@ class FormRepository extends Repository
     public function getFieldsFromFormWithSelectQuery($formUid)
     {
         $select = 'f.uid, f.title, f.sender_email, f.sender_name, f.marker';
-        $from = '
-			tx_powermail_domain_model_fields f
-			left join tx_powermail_domain_model_pages p on tx_powermail_domain_model_fields.pages = p.uid
-			left join tx_powermail_domain_model_forms fo on p.forms = fo.uid
-		';
+        $from = 'tx_powermail_domain_model_fields f ' .
+            'left join tx_powermail_domain_model_pages p on f.pages = p.uid ' .
+            'left join tx_powermail_domain_model_forms fo on p.forms = fo.uid';
         $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" ' .
             'and f.sys_language_uid IN (-1,0) and fo.uid = ' . (int) $formUid;
         $groupBy = '';
-        $orderBy = 'tx_powermail_domain_model_fields.sorting ASC';
+        $orderBy = 'f.sorting ASC';
         $limit = 10000;
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 
         $array = array();
         if ($res) {
-            while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+            while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
                 $array[] = $row;
             }
         }
@@ -429,5 +403,13 @@ class FormRepository extends Repository
         }
 
         return $fields;
+    }
+
+    /**
+     * @return DatabaseConnection
+     */
+    protected function getDatabaseConnection()
+    {
+        return $GLOBALS['TYPO3_DB'];
     }
 }
