@@ -94,7 +94,7 @@
 				<source>Please confirm your Email</source>
 			</trans-unit>
 			<trans-unit id="optin_mail_entries">
-				<source>Theese are your given entries:</source>
+				<source>These are your given entries:</source>
 			</trans-unit>
 			<trans-unit id="optin_mail_link">
 				<source>Please confirm with a click:</source>

@@ -125,7 +125,7 @@
 				<target state="translated">Bitte bestätigen Sie Ihre E-Mail</target>
 			</trans-unit>
 			<trans-unit id="optin_mail_entries">
-				<source>Theese are your given entries:</source>
+				<source>These are your given entries:</source>
 				<target state="translated">Ihre Eingaben:</target>
 			</trans-unit>
 			<trans-unit id="optin_mail_link">
