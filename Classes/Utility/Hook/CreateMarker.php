@@ -243,11 +243,9 @@ class CreateMarker
     {
         $formUid = 0;
         $select = 'fo.uid';
-        $from = '
-			tx_powermail_domain_model_forms fo
-			LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid
-			LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid
-		';
+        $from = 'tx_powermail_domain_model_forms fo ' .
+            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
+            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
         $where = 'p.uid = ' . (int) $pageUid;
         $groupBy = '';
         $orderBy = '';
@@ -270,11 +268,9 @@ class CreateMarker
     {
         $formUid = 0;
         $select = 'fo.uid';
-        $from = '
-			tx_powermail_domain_model_forms fo
-			LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid
-			LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid
-		';
+        $from = 'tx_powermail_domain_model_forms fo ' .
+            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
+            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
         $where = 'f.uid = ' . (int) $fieldUid;
         $groupBy = '';
         $orderBy = '';
@@ -296,11 +292,9 @@ class CreateMarker
     {
         $result = array();
         $select = 'f.marker, f.uid';
-        $from = '
-			tx_powermail_domain_model_forms fo
-			LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid
-			LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid
-		';
+        $from = 'tx_powermail_domain_model_forms fo ' .
+            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
+            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
         $where = 'fo.uid = ' . (int) $this->formUid . ' and f.deleted = 0';
         $groupBy = '';
         $orderBy = '';

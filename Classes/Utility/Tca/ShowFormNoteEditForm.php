@@ -290,7 +290,7 @@ class ShowFormNoteEditForm
             return $this->getPagesFromFormAlternative($uid);
         }
         $result = array();
-        $select = 'tx_powermail_domain_model_pages.title';
+        $select = 'p.title';
         $from = 'tx_powermail_domain_model_forms fo LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid';
         $where = 'fo.uid = ' . (int) $uid . ' and p.deleted = 0';
         $groupBy = '';
@@ -318,11 +318,9 @@ class ShowFormNoteEditForm
         }
         $result = array();
         $select = 'f.title';
-        $from = '
-			tx_powermail_domain_model_forms fo
-			LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid
-			LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid
-		';
+        $from = 'tx_powermail_domain_model_forms fo ' .
+            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
+            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
         $where = 'fo.uid = ' . (int) $uid . ' and p.deleted = 0 and f.deleted = 0';
         $groupBy = '';
         $orderBy = '';

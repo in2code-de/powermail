@@ -18,6 +18,14 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.15.2
+   :Date:
+      2015-10-27
+   :Changes:
+
+      * Bugfix _`#71072`: https://forge.typo3.org/issues/71072 Unknown column 'tx_powermail_domain_model_pages.title' in 'field list'
+
+ - :Version:
       2.15.1
    :Date:
       2015-10-27
