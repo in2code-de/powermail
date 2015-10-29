@@ -32,7 +32,7 @@ $formsTca = array(
         '1' => array(
             'showitem' => 'title, pages, note,
 				--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-				css, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+				css, --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 				l10n_parent, l10n_diffsource, hidden;;1, starttime, endtime'
         ),
     ),

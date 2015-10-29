@@ -15,7 +15,7 @@ $typeDefault = 'pages, title, type,
 	--palette--;Layout;43,
 	description,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -31,7 +31,7 @@ $typeSettings = 'pages, title, type, settings,
 	--palette--;Layout;43,
 	description,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -46,7 +46,7 @@ $typeSettingsMultiple = 'pages, title, type, settings,
 	--palette--;Layout;41,
 	description,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -58,7 +58,7 @@ $typeSmall = 'pages, title, type,
 	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
 	--palette--;Layout;43,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -71,7 +71,7 @@ $typeSmallDescription = 'pages, title, type,
 	--palette--;Layout;43,
 	description,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -82,7 +82,7 @@ $typeSmallPrefill = 'pages, title, type,
 	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;31,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -96,7 +96,7 @@ $typeSmallPrefillDescription = 'pages, title, type,
 	--palette--;Layout;43,
 	description,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -109,7 +109,7 @@ $typeSmallMandatory = 'pages, title, type,
 	--palette--;Layout;43,
 	description,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -121,7 +121,7 @@ $typeText = 'pages, title, type, text,
 	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
 	--palette--;Layout;43,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -132,7 +132,7 @@ $typeContent = 'pages, title, type, content_element,
 	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
 	--palette--;Layout;43,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -145,7 +145,7 @@ $typeFile = 'pages, title, type,
 	--palette--;Layout;41,
 	description,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -158,7 +158,7 @@ $typeDate = 'pages, title, type,
 	--palette--;Layout;42,
 	description,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
@@ -169,7 +169,7 @@ $typeTypoScript = 'pages, title, type, path,
 	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
 	--palette--;Layout;43,
 	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
+	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, sys_language_uid;;;;1-1-1,
 	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 $fieldsTca = array(

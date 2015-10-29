@@ -3,6 +3,9 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-02T12:00:00Z" product-name="powermail">
 		<header/>
 		<body>
+			<trans-unit id="tabs.access">
+				<source>Access</source>
+			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_mails">
 				<source>Mails</source>
 			</trans-unit>
