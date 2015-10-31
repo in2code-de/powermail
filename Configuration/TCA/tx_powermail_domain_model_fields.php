@@ -910,6 +910,11 @@ $fieldsTca = array(
                             'tx_powermail_domain_model_fields.css.3',
                         'layout3'
                     ),
+                    array(
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                            'tx_powermail_domain_model_fields.css.4',
+                        'nolabel'
+                    ),
                 ),
                 'size' => 1,
                 'maxitems' => 1,

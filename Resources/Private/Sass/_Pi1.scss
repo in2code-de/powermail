@@ -1,316 +1,349 @@
 .tx-powermail {
 
-	.powermail_fieldset {
-		clear: left;
-		border: 1px solid $greySoft2;
-		padding: 10px;
-		margin: 0 0 20px 0;
-		background: $greySoft1;
+  .powermail_fieldset {
+    clear: left;
+    border: 1px solid $greySoft2;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background: $greySoft1;
 
-		.powermail_legend {
-			color: $greySoft2;
-			float: right;
-			margin: 3px 0 10px 0;
-			font-size: 200%;
-			white-space: normal;
-		}
+    .powermail_legend {
+      color: $greySoft2;
+      float: right;
+      margin: 3px 0 10px 0;
+      font-size: 200%;
+      white-space: normal;
+    }
 
-		.powermail_label {
-			display: block;
-			width: $widthLabel;
-			float: left;
-			clear: left;
-			font-weight: bold;
+    .powermail_label {
+      display: block;
+      width: $widthLabel;
+      float: left;
+      clear: left;
+      font-weight: bold;
 
-			&[title] {
-				cursor: help;
+      &[title] {
+        cursor: help;
 
-				&:after {
-					content: 'i';
-					display: inline-block;
-					@include border-radius(100px);
-					height: 16px;
-					width: 16px;
-					background-color: $greySoft3;
-					margin: 0 0 0 2px;
-					font-size: 14px;
-					line-height: 16px;
-					text-align: center;
-					color: white;
-					font-family: arial;
-					font-weight: bold;
-				}
+        &:after {
+          content: 'i';
+          display: inline-block;
+          @include border-radius(100px);
+          height: 16px;
+          width: 16px;
+          background-color: $greySoft3;
+          margin: 0 0 0 2px;
+          font-size: 14px;
+          line-height: 16px;
+          text-align: center;
+          color: white;
+          font-family: arial;
+          font-weight: bold;
+        }
 
-				&[title=""] {
-					cursor: inherit;
-					&:after {
-						display: none;
-					}
-				}
-			}
-		}
+        &[title=""] {
+          cursor: inherit;
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
 
-		.powermail_fieldwrap {
-			margin: 0 0 0.5em 0;
-			clear: both;
-			overflow: hidden;
-		}
+    .powermail_fieldwrap {
+      margin: 0 0 0.5em 0;
+      clear: both;
+      overflow: hidden;
+    }
 
-		/* Powermail Fields */
-		.powermail_field {
-			width: $widthField;
-			padding: 5px;
-			margin: 0;
-			border: 1px solid $greySoft2;
-			color: #444;
-			float: right;
-			font-size: inherit;
+    /* Powermail Fields */
+    .powermail_field {
+      width: $widthField;
+      padding: 5px;
+      margin: 0;
+      border: 1px solid $greySoft2;
+      color: #444;
+      float: right;
+      font-size: inherit;
 
-			&.powermail_submit,
-			&.powermail_reset {
-				margin: 5px 0 0 0;
-				padding: 5px 20px;
-				color: white;
-				font-weight: bold;
-				cursor: pointer;
-				background-color: $blue1;
-				border: 1px solid $greySoft1;
-			}
-			&.powermail_reset {
-				background-color: $orange3;
-			}
-			&.powermail_captcha {
-				width: 100%;
-			}
-		}
+      &.powermail_submit,
+      &.powermail_reset {
+        margin: 5px 0 0 0;
+        padding: 5px 20px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: $blue1;
+        border: 1px solid $greySoft1;
+      }
+      &.powermail_reset {
+        background-color: $orange3;
+      }
+      &.powermail_captcha {
+        width: 100%;
+      }
+    }
 
-		.powermail_captchaimage {
-			width: 100%;
-			margin-top: 10px;
-		}
+    .powermail_captchaimage {
+      width: 100%;
+      margin-top: 10px;
+    }
 
-		.powermail_fieldwrap_radio,
-		.powermail_fieldwrap_check {
-			legend {
-				padding: 0;
-			}
-			fieldset {
-				border: 0;
-				padding: 0;
-				margin: 0;
-			}
-		}
+    .powermail_fieldwrap_radio,
+    .powermail_fieldwrap_check {
+      legend {
+        padding: 0;
+      }
+      fieldset {
+        border: 0;
+        padding: 0;
+        margin: 0;
+      }
+    }
 
-		.powermail_radio_outer,
-		.powermail_captcha_outer,
-		.powermail_check_outer,
-		.powermail_fieldwrap_text,
-		.powermail_fieldwrap_file_inner ul:not(.parsley-errors-list) {
-			background-color: white;
-			border: 1px solid $greySoft2;
-			float: right;
-			padding: 3px;
-			width: $widthField;
-			list-style: none;
-			margin: 0;
-			> li {
-				margin: 5px;
-				.deleteAllFiles {
-					color: $greySoft2;
-					cursor: pointer;
-					&:hover {
-						text-decoration: underline;
-					}
-				}
-			}
-		}
+    .powermail_radio_outer,
+    .powermail_captcha_outer,
+    .powermail_check_outer,
+    .powermail_fieldwrap_text,
+    .powermail_fieldwrap_file_inner ul:not(.parsley-errors-list) {
+      background-color: white;
+      border: 1px solid $greySoft2;
+      float: right;
+      padding: 3px;
+      width: $widthField;
+      list-style: none;
+      margin: 0;
+      > li {
+        margin: 5px;
+        .deleteAllFiles {
+          color: $greySoft2;
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
 
-		/**
-		 * JS Form Validation
-		 */
-		.parsley-errors-list {
-			display: none;
-			margin: 5px 0 20px 0;
-			padding: 0;
-			list-style-type: none;
-			background-color: $red1;
-			border: 1px solid $red2;
-			width: $widthField;
-			float: right;
-			clear: left;
-			&.filled {
-				display: block;
-			}
+    /**
+     * JS Form Validation
+     */
+    .parsley-errors-list {
+      display: none;
+      margin: 5px 0 20px 0;
+      padding: 0;
+      list-style-type: none;
+      background-color: $red1;
+      border: 1px solid $red2;
+      width: $widthField;
+      float: right;
+      clear: left;
+      &.filled {
+        display: block;
+      }
 
-			> li {
-				color: $red3;
-				padding: 5px 10px;
-			}
-		}
-		.powermail_field_error,
-		.parsley-error,
-		.powermail_form .parsley-error:focus,
-		div.error {
-			background-color: $red2;
-			border: 1px solid $red3;
-			color: $red3;
-		}
-		.powermail_field_error_container {
-			.parsley-errors-list {
-				width: 100%;
-				margin-bottom: 0;
-				background-color: $red2;
-				border: none;
-				> li {
-					padding-left: 5px;
-				}
-			}
-		}
-	}
+      > li {
+        color: $red3;
+        padding: 5px 10px;
+      }
+    }
+    .powermail_field_error,
+    .parsley-error,
+    .powermail_form .parsley-error:focus,
+    div.error {
+      background-color: $red2;
+      border: 1px solid $red3;
+      color: $red3;
+    }
+    .powermail_field_error_container {
+      .parsley-errors-list {
+        width: 100%;
+        margin-bottom: 0;
+        background-color: $red2;
+        border: none;
+        > li {
+          padding-left: 5px;
+        }
+      }
+    }
+  }
 
-	.powermail_create,
-	.powermail_confirmation {
-		border: 1px solid $greySoft2;
-		padding: 10px;
-		margin: 0 0 20px 0;
-		background: $greySoft1;
-		overflow: hidden;
-		.powermail_confirmation_submit,
-		.powermail_confirmation_form {
-			margin: 20px 0 0 0;
-			padding: 5px 20px;
-			color: white;
-			font-weight: bold;
-			cursor: pointer;
-			float: right;
-			background-color: $blue1;
-			border: 1px solid $greySoft1;
-		}
-		.powermail_confirmation_form {
-			float: left;
-			clear: left;
-			background-color: $greySoft2;
-		}
-	}
+  .powermail_create,
+  .powermail_confirmation {
+    border: 1px solid $greySoft2;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background: $greySoft1;
+    overflow: hidden;
+    .powermail_confirmation_submit,
+    .powermail_confirmation_form {
+      margin: 20px 0 0 0;
+      padding: 5px 20px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      float: right;
+      background-color: $blue1;
+      border: 1px solid $greySoft1;
+    }
+    .powermail_confirmation_form {
+      float: left;
+      clear: left;
+      background-color: $greySoft2;
+    }
+  }
 
+  /* Progress Bar for AJAX Submit */
+  .powermail_progressbar {
+    width: $widthField;
+    height: 5px;
+    float: right;
+    border: 1px solid #EEEEEE;
+    clear: both;
+    &.disable {
+      display: none;
+    }
+    > .powermail_progress {
+      background: $blue1;
+      width: 0%;
+      max-width: 100%;
+      -webkit-animation: progress 5s 1 forwards;
+      -moz-animation: progress 5s 1 forwards;
+      -ms-animation: progress 5s 1 forwards;
+      animation: progress 5s 1 forwards;
+      > .powermail_progess_inner {
+        height: 5px;
+        width: 100%;
+        overflow: hidden;
+        background: url("/typo3conf/ext/powermail/Resources/Public/Image/icon_loading.gif") repeat-x;
+        -moz-opacity: 0.25;
+        -khtml-opacity: 0.25;
+        opacity: 0.25;
+        -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=25);
+        filter: alpha(opacity=25);
+      }
+    }
+  }
+  .powermail_confirmation {
+    .powermail_progressbar {
+      width: 100%;
+    }
+  }
 
-	/* Progress Bar for AJAX Submit */
-	.powermail_progressbar {
-		width: $widthField;
-		height: 5px;
-		float: right;
-		border: 1px solid #EEEEEE;
-		clear: both;
-		&.disable {
-			display: none;
-		}
-		> .powermail_progress {
-			background: $blue1;
-			width: 0%;
-			max-width: 100%;
-			-webkit-animation: progress 5s 1 forwards;
-			-moz-animation: progress 5s 1 forwards;
-			-ms-animation: progress 5s 1 forwards;
-			animation: progress 5s 1 forwards;
-			> .powermail_progess_inner {
-				height: 5px;
-				width: 100%;
-				overflow: hidden;
-				background: url("/typo3conf/ext/powermail/Resources/Public/Image/icon_loading.gif") repeat-x;
-				-moz-opacity: 0.25;
-				-khtml-opacity: 0.25;
-				opacity: 0.25;
-				-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
-				filter: progid:DXImageTransform.Microsoft.Alpha(opacity=25);
-				filter: alpha(opacity=25);
-			}
-		}
-	}
-	.powermail_confirmation {
-		.powermail_progressbar {
-			width: 100%;
-		}
-	}
+  .powermail_all {
+    > dt {
+      width: $widthLabel;
+      float: left;
+      clear: left;
+      font-weight: bold;
+    }
+    > dd {
+      width: $widthField;
+      float: left;
+      margin: 0;
+    }
+  }
 
-	.powermail_all {
-		> dt {
-			width: $widthLabel;
-			float: left;
-			clear: left;
-			font-weight: bold;
-		}
-		> dd {
-			width: $widthField;
-			float: left;
-			margin: 0;
-		}
-	}
+  /**
+   * Serverside Validation
+   */
+  @import "Message";
 
-	/**
-	 * Serverside Validation
-	 */
-	@import "Message";
+  /**
+   * Morstep
+   */
+  .powermail_tabmenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
-	/**
-	 * Morstep
-	 */
-	.powermail_tabmenu {
-		list-style: none;
-		margin: 0;
-		padding: 0;
+    > li {
+      display: inline-block;
+      padding: 5px 10px;
+      cursor: pointer;
+      background: $greySoft1;
+      border-top: 1px solid $greySoft2;
+      border-left: 1px solid $greySoft2;
+      border-right: 1px solid $greySoft2;
+      color: $greySoft3;
+      &.act {
+        color: $grey1;
+      }
+      &.parsley-error {
+        background-color: $red2;
+      }
+    }
+  }
+  .powermail_fieldset {
+    .powermail_tab_navigation {
+      margin-top: 2em;
 
-		> li {
-			display: inline-block;
-			padding: 5px 10px;
-			cursor: pointer;
-			background: $greySoft1;
-			border-top: 1px solid $greySoft2;
-			border-left: 1px solid $greySoft2;
-			border-right: 1px solid $greySoft2;
-			color: $greySoft3;
-			&.act {
-				color: $grey1;
-			}
-			&.parsley-error {
-				background-color: $red2;
-			}
-		}
-	}
-	.powermail_fieldset {
-		.powermail_tab_navigation {
-			margin-top: 2em;
+      .powermail_tab_navigation_next,
+      .powermail_tab_navigation_previous {
+        background-color: $greySoft3;
+        display: inline-block;
+        padding: 5px 30px;
+        text-decoration: none;
+        color: white;
+        border: 1px solid $greySoft2;
+        font-weight: bold;
+      }
+      .powermail_tab_navigation_next {
+        background-color: $blue1;
+        float: right;
+      }
+    }
+  }
 
-			.powermail_tab_navigation_next,
-			.powermail_tab_navigation_previous {
-				background-color: $greySoft3;
-				display: inline-block;
-				padding: 5px 30px;
-				text-decoration: none;
-				color: white;
-				border: 1px solid $greySoft2;
-				font-weight: bold;
-			}
-			.powermail_tab_navigation_next {
-				background-color: $blue1;
-				float: right;
-			}
-		}
-	}
+  // No label
+  .powermail_form.nolabel {
+    > h3 {
+      display: none;
+    }
+  }
+
+  .powermail_fieldset.nolabel {
+    > legend {
+      display: none;
+    }
+  }
+
+  .powermail_fieldwrap.nolabel {
+    > label {
+      display: none;
+    }
+  }
 }
 
 @-webkit-keyframes progress {
-	from { }
-	to { width: 100% }
+  from {
+  }
+  to {
+    width: 100%
+  }
 }
+
 @-moz-keyframes progress {
-	from { }
-	to { width: 100% }
+  from {
+  }
+  to {
+    width: 100%
+  }
 }
+
 @-ms-keyframes progress {
-	from { }
-	to { width: 100% }
+  from {
+  }
+  to {
+    width: 100%
+  }
 }
+
 @keyframes progress {
-	from { }
-	to { width: 100% }
+  from {
+  }
+  to {
+    width: 100%
+  }
 }

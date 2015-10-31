@@ -143,6 +143,10 @@
 				<source>Layout3</source>
 				<target state="translated">Layout3</target>
 			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_forms.css.4">
+				<source>Hide label</source>
+				<target state="translated">Überschrift verbergen</target>
+			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_forms.pages">
 				<source>Pages</source>
 				<target state="translated">Seiten</target>
@@ -170,6 +174,10 @@
 			<trans-unit id="tx_powermail_domain_model_pages.css.3">
 				<source>Layout3</source>
 				<target state="translated">Layout3</target>
+			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_pages.css.4">
+				<source>Hide label</source>
+				<target state="translated">Überschrift verbergen</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_pages.fields">
 				<source>Fields</source>
@@ -362,6 +370,10 @@
 			<trans-unit id="tx_powermail_domain_model_fields.css.3">
 				<source>Layout 3</source>
 				<target state="translated">Layout 3</target>
+			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_fields.css.4">
+				<source>Hide label</source>
+				<target state="translated">Überschrift verbergen</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_fields.multiselect">
 				<source>Multiselect</source>
