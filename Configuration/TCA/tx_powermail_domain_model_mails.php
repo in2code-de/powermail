@@ -35,15 +35,18 @@ $mailsTca = array(
     ),
     'types' => array(
         '1' => array(
-            'showitem' => 'crdate, receiver_mail,
-				--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_mails.palette1;1,
-				subject, body;;;richtext[],
-				--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-				form, answers, feuser, spam_factor, time, sender_ip, user_agent,
-				--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet2,
-				marketing_referer_domain, marketing_referer, marketing_country, marketing_mobile_device,
-				marketing_frontend_language, marketing_browser_language, marketing_page_funnel,
-				--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, hidden;;1, starttime, endtime'
+            'showitem' => 'crdate, receiver_mail, ' .
+                '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                    'tx_powermail_domain_model_mails.palette1;1, ' .
+                'subject, body;;;richtext[], ' .
+                '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                    'tx_powermail_domain_model_fields.sheet1, ' .
+                'form, answers, feuser, spam_factor, time, sender_ip, user_agent, ' .
+                '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                    'tx_powermail_domain_model_fields.sheet2, ' .
+                'marketing_referer_domain, marketing_referer, marketing_country, marketing_mobile_device, ' .
+                'marketing_frontend_language, marketing_browser_language, marketing_page_funnel, ' .
+                '--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, hidden;;1, starttime, endtime'
         ),
     ),
     'palettes' => array(
