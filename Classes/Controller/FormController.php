@@ -141,7 +141,7 @@ class FormController extends AbstractController
         }
 
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($mail, $hash, $this));
-        $this->prepareOutput($mail);
+        $this->prepareOutput($mail, $hash);
     }
 
     /**
@@ -375,22 +375,25 @@ class FormController extends AbstractController
      * Prepare output
      *
      * @param Mail $mail
+     * @param string $hash
      * @return void
      */
-    protected function prepareOutput(Mail $mail)
+    protected function prepareOutput(Mail $mail, $hash = null)
     {
         $this->redirectToTarget();
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple(
+            array(
                 'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, true),
                 'mail' => $mail,
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'messageClass' => $this->messageClass,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
-            ));
+            )
+        );
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));
         $this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
-        $this->callFinishers($mail);
+        $this->callFinishers($mail, $hash);
     }
 
     /**
@@ -594,9 +597,10 @@ class FormController extends AbstractController
      * Call finisher classes after submit
      *
      * @param Mail $mail
+     * @param string $hash
      * @return void
      */
-    protected function callFinishers(Mail $mail)
+    protected function callFinishers(Mail $mail, $hash = null)
     {
         if (is_array($this->settings['finishers'])) {
             foreach ($this->settings['finishers'] as $finisherSettings) {
@@ -609,6 +613,7 @@ class FormController extends AbstractController
                 $finisherService->setClass($finisherSettings['class']);
                 $finisherService->setRequirePath((string) $finisherSettings['require']);
                 $finisherService->setConfiguration((array) $finisherSettings['config']);
+                $finisherService->setFormSubmitted($this->isSendMailActive($mail, $hash));
                 $finisherService->start();
             }
         }

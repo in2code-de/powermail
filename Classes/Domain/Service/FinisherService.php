@@ -71,6 +71,13 @@ class FinisherService
     protected $settings;
 
     /**
+     * Was form already submitted
+     *
+     * @var bool
+     */
+    protected $formSubmitted = false;
+
+    /**
      * @var string
      */
     protected $finisherInterface = 'In2code\Powermail\Finisher\FinisherInterface';
@@ -167,6 +174,24 @@ class FinisherService
     public function setSettings($settings)
     {
         $this->settings = $settings;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isFormSubmitted()
+    {
+        return $this->formSubmitted;
+    }
+
+    /**
+     * @param boolean $formSubmitted
+     * @return FinisherService
+     */
+    public function setFormSubmitted($formSubmitted)
+    {
+        $this->formSubmitted = $formSubmitted;
         return $this;
     }
 

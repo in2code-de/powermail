@@ -42,14 +42,25 @@ abstract class AbstractFinisher implements FinisherInterface
     protected $mail;
 
     /**
+     * Extension settings
+     *
      * @var array
      */
     protected $settings;
 
     /**
+     * Finisher service configuration
+     *
      * @var array
      */
     protected $configuration;
+
+    /**
+     * Was form finally submitted?
+     *
+     * @var bool
+     */
+    protected $formSubmitted = false;
 
     /**
      * @return Mail
@@ -106,6 +117,24 @@ abstract class AbstractFinisher implements FinisherInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isFormSubmitted()
+    {
+        return $this->formSubmitted;
+    }
+
+    /**
+     * @param boolean $formSubmitted
+     * @return AbstractFinisher
+     */
+    public function setFormSubmitted($formSubmitted)
+    {
+        $this->formSubmitted = $formSubmitted;
+        return $this;
+    }
+
+    /**
      * @return void
      */
     public function initializeFinisher()
@@ -116,11 +145,13 @@ abstract class AbstractFinisher implements FinisherInterface
      * @param Mail $mail
      * @param array $configuration
      * @param array $settings
+     * @param bool $formSubmitted
      */
-    public function __construct(Mail $mail, array $configuration, array $settings)
+    public function __construct(Mail $mail, array $configuration, array $settings, $formSubmitted)
     {
         $this->setMail($mail);
         $this->setConfiguration($configuration);
         $this->setSettings($settings);
+        $this->setFormSubmitted($formSubmitted);
     }
 }
