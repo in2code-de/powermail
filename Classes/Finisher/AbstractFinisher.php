@@ -63,6 +63,13 @@ abstract class AbstractFinisher implements FinisherInterface
     protected $formSubmitted = false;
 
     /**
+     * Controller actionName - usually "createAction" or "confirmationAction"
+     *
+     * @var null
+     */
+    protected $actionMethodName = null;
+
+    /**
      * @return Mail
      */
     public function getMail()
@@ -135,6 +142,24 @@ abstract class AbstractFinisher implements FinisherInterface
     }
 
     /**
+     * @return null
+     */
+    public function getActionMethodName()
+    {
+        return $this->actionMethodName;
+    }
+
+    /**
+     * @param null $actionMethodName
+     * @return AbstractFinisher
+     */
+    public function setActionMethodName($actionMethodName)
+    {
+        $this->actionMethodName = $actionMethodName;
+        return $this;
+    }
+
+    /**
      * @return void
      */
     public function initializeFinisher()
@@ -146,12 +171,14 @@ abstract class AbstractFinisher implements FinisherInterface
      * @param array $configuration
      * @param array $settings
      * @param bool $formSubmitted
+     * @param string $actionMethodName
      */
-    public function __construct(Mail $mail, array $configuration, array $settings, $formSubmitted)
+    public function __construct(Mail $mail, array $configuration, array $settings, $formSubmitted, $actionMethodName)
     {
         $this->setMail($mail);
         $this->setConfiguration($configuration);
         $this->setSettings($settings);
         $this->setFormSubmitted($formSubmitted);
+        $this->setActionMethodName($actionMethodName);
     }
 }

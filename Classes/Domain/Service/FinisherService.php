@@ -4,7 +4,6 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Finisher\AbstractFinisher;
 use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -78,9 +77,22 @@ class FinisherService
     protected $formSubmitted = false;
 
     /**
+     * Controller actionName - usually "createAction" or "confirmationAction"
+     *
+     * @var null
+     */
+    protected $actionMethodName = null;
+
+    /**
      * @var string
      */
     protected $finisherInterface = 'In2code\Powermail\Finisher\FinisherInterface';
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @inject
+     */
+    protected $objectManager = null;
 
     /**
      * @return string
@@ -196,6 +208,24 @@ class FinisherService
     }
 
     /**
+     * @return null
+     */
+    public function getActionMethodName()
+    {
+        return $this->actionMethodName;
+    }
+
+    /**
+     * @param null $actionMethodName
+     * @return FinisherService
+     */
+    public function setActionMethodName($actionMethodName)
+    {
+        $this->actionMethodName = $actionMethodName;
+        return $this;
+    }
+
+    /**
      * Start implementation
      *
      * @throws \Exception
@@ -210,11 +240,13 @@ class FinisherService
         }
         if (is_subclass_of($this->getClass(), $this->finisherInterface)) {
             /** @var AbstractFinisher $finisher */
-            $finisher = GeneralUtility::makeInstance(
+            $finisher = $this->objectManager->get(
                 $this->getClass(),
                 $this->getMail(),
                 $this->getConfiguration(),
-                $this->getSettings()
+                $this->getSettings(),
+                $this->isFormSubmitted(),
+                $this->getActionMethodName()
             );
             $finisher->initializeFinisher();
             $this->callFinisherMethods($finisher);

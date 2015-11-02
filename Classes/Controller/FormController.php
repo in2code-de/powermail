@@ -2,8 +2,6 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Service\FinisherService;
-use In2code\Powermail\Domain\Service\SendParametersService;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -58,6 +56,12 @@ class FormController extends AbstractController
      * @inject
      */
     protected $sendMailService;
+
+    /**
+     * @var \In2code\Powermail\Finisher\FinisherRunner
+     * @inject
+     */
+    protected $finisherRunner;
 
     /**
      * action show form for creating new mails
@@ -128,9 +132,6 @@ class FormController extends AbstractController
         if ($this->isSendMailActive($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
             SaveToAnyTableUtility::preflight($mail, $this->conf);
-            /** @var SendParametersService $sendParametersService */
-            $sendParameters = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SendParametersService');
-            $sendParameters->sendFromConfiguration($mail, $this->conf);
         } else {
             $this->sendConfirmationMail($mail);
             $this->view->assign('optinActive', true);
@@ -393,7 +394,8 @@ class FormController extends AbstractController
         );
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));
         $this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
-        $this->callFinishers($mail, $hash);
+
+        $this->finisherRunner->callFinishers($mail, $this->isSendMailActive($mail, $hash), $this->actionMethodName);
     }
 
     /**
@@ -591,31 +593,5 @@ class FormController extends AbstractController
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
-    }
-
-    /**
-     * Call finisher classes after submit
-     *
-     * @param Mail $mail
-     * @param string $hash
-     * @return void
-     */
-    protected function callFinishers(Mail $mail, $hash = null)
-    {
-        if (is_array($this->settings['finishers'])) {
-            foreach ($this->settings['finishers'] as $finisherSettings) {
-                /** @var FinisherService $finisherService */
-                $finisherService = $this->objectManager->get(
-                    'In2code\\Powermail\\Domain\\Service\\FinisherService',
-                    $mail,
-                    $this->settings
-                );
-                $finisherService->setClass($finisherSettings['class']);
-                $finisherService->setRequirePath((string) $finisherSettings['require']);
-                $finisherService->setConfiguration((array) $finisherSettings['config']);
-                $finisherService->setFormSubmitted($this->isSendMailActive($mail, $hash));
-                $finisherService->start();
-            }
-        }
     }
 }

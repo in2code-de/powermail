@@ -42,6 +42,28 @@ interface FinisherInterface
     public function setSettings($settings);
 
     /**
+     * @return boolean
+     */
+    public function isFormSubmitted();
+
+    /**
+     * @param boolean $formSubmitted
+     * @return AbstractFinisher
+     */
+    public function setFormSubmitted($formSubmitted);
+
+    /**
+     * @return null
+     */
+    public function getActionMethodName();
+
+    /**
+     * @param null $actionMethodName
+     * @return AbstractFinisher
+     */
+    public function setActionMethodName($actionMethodName);
+
+    /**
      * @return void
      */
     public function initializeFinisher();
