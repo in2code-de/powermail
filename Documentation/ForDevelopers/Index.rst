@@ -27,7 +27,7 @@ For Developers
    DatabaseModel/Index
    AddNewFields/Index
    AddNewFieldProperties/Index
-   AddFinisherClasses/Index
    WriteOwnValidators/Index
+   AddFinisherClasses/Index
    SignalSlots/Index
    UserfuncsWithCobject/Index

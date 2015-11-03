@@ -7,170 +7,216 @@ use In2code\Powermail\Utility\ConfigurationUtility;
  *        input
  *        textarea
  */
-$typeDefault = 'pages, title, type,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.palette1;1,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;2,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;32,
-	--palette--;Layout;43,
-	description,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeDefault = 'pages, title, type, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.palette1;1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.validation_title;2, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.prefill_title;32, ' .
+    '--palette--;Layout;43, ' .
+    'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tabs.access, sys_language_uid;;;;1-1-1, ' .
+    'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        radio
  *        check
  */
-$typeSettings = 'pages, title, type, settings,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.palette1;1,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;33,
-	--palette--;Layout;43,
-	description,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeSettings = 'pages, title, type, settings, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.palette1;1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.validation_title;21, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.prefill_title;33, ' .
+    '--palette--;Layout;43, ' .
+    'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tabs.access, sys_language_uid;;;;1-1-1, ' .
+    'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        select
  */
-$typeSettingsMultiple = 'pages, title, type, settings,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.palette1;1,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;33,
-	--palette--;Layout;41,
-	description,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeSettingsMultiple = 'pages, title, type, settings, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.palette1;1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.validation_title;21, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    'tx_powermail_domain_model_fields.prefill_title;33, ' .
+    '--palette--;Layout;41, ' .
+    'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tabs.access, sys_language_uid;;;;1-1-1, ' .
+    'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        submit
  *        reset
  */
-$typeSmall = 'pages, title, type,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;Layout;43,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeSmall = 'pages, title, type, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;Layout;43, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+    'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        captcha
  *        location
  */
-$typeSmallDescription = 'pages, title, type,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;Layout;43,
-	description,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeSmallDescription = 'pages, title, type, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;Layout;43, ' .
+    'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+        'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        hidden
  */
-$typeSmallPrefill = 'pages, title, type,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;31,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeSmallPrefill = 'pages, title, type, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.prefill_title;31, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+    'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        country
  */
-$typeSmallPrefillDescription = 'pages, title, type,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.prefill_title;31,
-	--palette--;Layout;43,
-	description,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeSmallPrefillDescription = 'pages, title, type, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.validation_title;21, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.prefill_title;31, ' .
+    '--palette--;Layout;43, ' .
+    'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+    'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        password
  */
-$typeSmallMandatory = 'pages, title, type,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
-	--palette--;Layout;43,
-	description,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeSmallMandatory = 'pages, title, type, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.validation_title;21, ' .
+    '--palette--;Layout;43, ' .
+    'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+    'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        text
  *        html
  */
-$typeText = 'pages, title, type, text,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;Layout;43,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeText = 'pages, title, type, text, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;Layout;43, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+    'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        content_element
  */
-$typeContent = 'pages, title, type, content_element,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;Layout;43,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeContent = 'pages, title, type, content_element, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;Layout;43, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+    'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        file
  */
-$typeFile = 'pages, title, type,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
-	--palette--;Layout;41,
-	description,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeFile = 'pages, title, type, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.validation_title;21, ' .
+    '--palette--;Layout;41, ' .
+    'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tabs.access, sys_language_uid;;;;1-1-1, ' .
+    'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        date
  */
-$typeDate = 'pages, title, type,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.validation_title;21,
-	--palette--;Layout;42,
-	description,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeDate = 'pages, title, type, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.validation_title;21, ' .
+    '--palette--;Layout;42, ' .
+    'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tabs.access, sys_language_uid;;;;1-1-1, ' .
+    'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 /**
  * Fieldtypes
  *        typoscript
  */
-$typeTypoScript = 'pages, title, type, path,
-	--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-	--palette--;Layout;43,
-	--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.marker_title;5,
-	--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, sys_language_uid;;;;1-1-1,
-	l10n_parent, l10n_diffsource, hidden, starttime, endtime';
+$typeTypoScript = 'pages, title, type, path, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--palette--;Layout;43, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+        'tx_powermail_domain_model_fields.marker_title;5, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+    'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 $fieldsTca = array(
     'ctrl' => array(
@@ -864,6 +910,11 @@ $fieldsTca = array(
                             'tx_powermail_domain_model_fields.css.3',
                         'layout3'
                     ),
+                    array(
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                            'tx_powermail_domain_model_fields.css.4',
+                        'nolabel'
+                    ),
                 ),
                 'size' => 1,
                 'maxitems' => 1,
@@ -963,8 +1014,8 @@ $fieldsTca = array(
                     array('', 0),
                 ),
                 'foreign_table' => 'tx_powermail_domain_model_pages',
-                'foreign_table_where' => 'AND tx_powermail_domain_model_pages.pid=###CURRENT_PID###
-					AND tx_powermail_domain_model_pages.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
+                'foreign_table_where' => 'AND tx_powermail_domain_model_pages.pid=###CURRENT_PID### ' .
+                    'AND tx_powermail_domain_model_pages.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
             ),
         ),
         'sorting' => array(

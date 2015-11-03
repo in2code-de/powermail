@@ -31,10 +31,10 @@ $pagesTca = array(
     ),
     'types' => array(
         '1' => array(
-            'showitem' => 'title, fields,
-				--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.sheet1,
-				css, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, forms,sys_language_uid;;;;1-1-1,
-				l10n_parent, l10n_diffsource, hidden;;1, starttime, endtime'
+            'showitem' => 'title, fields, --div--;LLL:EXT:powermail/Resources/Private/Language/' .
+                'locallang_db.xlf:tx_powermail_domain_model_fields.sheet1, css, --div--;LLL:EXT:' .
+                'powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, forms, ' .
+                'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, starttime, endtime'
         ),
     ),
     'palettes' => array(
@@ -157,6 +157,11 @@ $pagesTca = array(
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                             'tx_powermail_domain_model_pages.css.3',
                         'layout3'
+                    ),
+                    array(
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                            'tx_powermail_domain_model_pages.css.4',
+                        'nolabel'
                     ),
                 ),
                 'size' => 1,

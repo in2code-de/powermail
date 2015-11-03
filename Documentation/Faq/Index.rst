@@ -383,6 +383,30 @@ If you are upgrading from powermail 1.x to 2.x it may happen, that you are using
 This lines of TypoScript crashes the behaviour of AbstractController::resolveViewObjectName().
 Please remove it, clear caches (in Install Tool) and try again.
 
+.. _powermailwithnews:
+
+I want to use powermail on a news-detail-page, but the error **Reason: No news entry found.** comes up
+------------------------------------------------------------------------------------------------------
+
+If you want to send a newstitle or something with powermail on a newsdetailpage, a form submit leads
+to a pagereload. But per default, powermail does not send the params &tx_news_pi1[news] again which
+leads to an error from the extension news.
+
+This is easy to handle, just add addQueryString="1" to the powermail form and powermail will keep all
+params after submit
+
+.. code-block:: text
+
+	<f:form
+		action="{action}"
+		name="field"
+		enctype="multipart/form-data"
+		addQueryString="1"
+		...
+
+* f:form in Form Template (original located at EXT:powermail/Resources/Private/Templates/Form/Form.html)
+* f:form in Confirmation Template (only if confirmation is activated - original located at EXT:powermail/Resources/Private/Templates/Form/Confirmation.html)
+
 .. _ihaveaproblem:
 
 I have a problem, what can I do?

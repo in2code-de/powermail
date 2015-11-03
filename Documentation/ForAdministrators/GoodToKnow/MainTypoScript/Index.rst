@@ -1047,11 +1047,11 @@ Setup
                     # Template for notification Email to Admin
                     emailTemplate = {$plugin.tx_powermail.settings.spamshield.emailTemplate}
 
-                    # Template for logging entry
-                    logTemplate = {$plugin.tx_powermail.settings.spamshield.logTemplate}
-
                     # Path to logfile
                     logfileLocation = {$plugin.tx_powermail.settings.spamshield.logfileLocation}
+
+                    # Template for logging entry
+                    logTemplate = {$plugin.tx_powermail.settings.spamshield.logTemplate}
 
                     indicator {
                         # if this check failed - add this indication value to indicator (0 disables this check completely)
@@ -1405,6 +1405,28 @@ Setup
 
 
 
+                # Add own validator classes that will be called before create action (if you want to validate user input with own PHP classes)
+                validators {
+    #				1 {
+                        # Classname that should be called with method *Validator()
+    #					class = Vendor\Ext\Domain\Model\DoSomethingValidator
+
+                        # optional: Add configuration for your PHP
+    #					config {
+    #						foo = bar
+
+    #						fooCObject = TEXT
+    #						fooCObject.value = do something with this text
+    #					}
+
+                        # optional: If file will not be loaded from autoloader, add path and it will be called with require_once
+    #					require = fileadmin/powermail/validator/DoSomethingValidator.php
+    #				}
+                }
+
+
+
+
                 # Add own finisher classes that will be called after submit (e.g. if you want to do something with form values by your own: Save into tables, call an API, etc...)
                 finishers {
     #				1 {
@@ -1477,6 +1499,7 @@ Setup
         }
     }
     [end]
+
 
 
 Constants

@@ -2,8 +2,6 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Service\FinisherService;
-use In2code\Powermail\Domain\Service\SendParametersService;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -60,6 +58,12 @@ class FormController extends AbstractController
     protected $sendMailService;
 
     /**
+     * @var \In2code\Powermail\Finisher\FinisherRunner
+     * @inject
+     */
+    protected $finisherRunner;
+
+    /**
      * action show form for creating new mails
      *
      * @return void
@@ -104,6 +108,7 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
      * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
      * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @required $mail
      * @return void
@@ -128,9 +133,6 @@ class FormController extends AbstractController
         if ($this->isSendMailActive($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
             SaveToAnyTableUtility::preflight($mail, $this->conf);
-            /** @var SendParametersService $sendParametersService */
-            $sendParameters = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SendParametersService');
-            $sendParameters->sendFromConfiguration($mail, $this->conf);
         } else {
             $this->sendConfirmationMail($mail);
             $this->view->assign('optinActive', true);
@@ -141,7 +143,7 @@ class FormController extends AbstractController
         }
 
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($mail, $hash, $this));
-        $this->prepareOutput($mail);
+        $this->prepareOutput($mail, $hash);
     }
 
     /**
@@ -165,6 +167,7 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
      * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
      * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @required $mail
      * @return void
@@ -375,22 +378,26 @@ class FormController extends AbstractController
      * Prepare output
      *
      * @param Mail $mail
+     * @param string $hash
      * @return void
      */
-    protected function prepareOutput(Mail $mail)
+    protected function prepareOutput(Mail $mail, $hash = null)
     {
         $this->redirectToTarget();
-        $this->view->assignMultiple(array(
+        $this->view->assignMultiple(
+            array(
                 'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, true),
                 'mail' => $mail,
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'messageClass' => $this->messageClass,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
-            ));
+            )
+        );
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));
         $this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
-        $this->callFinishers($mail);
+
+        $this->finisherRunner->callFinishers($mail, $this->isSendMailActive($mail, $hash), $this->actionMethodName);
     }
 
     /**
@@ -588,29 +595,5 @@ class FormController extends AbstractController
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
-    }
-
-    /**
-     * Call finisher classes after submit
-     *
-     * @param Mail $mail
-     * @return void
-     */
-    protected function callFinishers(Mail $mail)
-    {
-        if (is_array($this->settings['finishers'])) {
-            foreach ($this->settings['finishers'] as $finisherSettings) {
-                /** @var FinisherService $finisherService */
-                $finisherService = $this->objectManager->get(
-                    'In2code\\Powermail\\Domain\\Service\\FinisherService',
-                    $mail,
-                    $this->settings
-                );
-                $finisherService->setClass($finisherSettings['class']);
-                $finisherService->setRequirePath((string) $finisherSettings['require']);
-                $finisherService->setConfiguration((array) $finisherSettings['config']);
-                $finisherService->start();
-            }
-        }
     }
 }

@@ -1,0 +1,9 @@
+.. |img-validation1|     image:: ../../../Images/validation1.jpg
+.. :align: left
+.. :border: 0
+.. :name: validation1
+
+.. |img-validation2|     image:: ../../../Images/validation2.jpg
+.. :align: left
+.. :border: 0
+.. :name: validation2

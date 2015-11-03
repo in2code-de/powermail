@@ -55,14 +55,14 @@ class Marker
 
         // field just generated
         if (stristr($params['row']['uid'], 'NEW')) {
-            $content .= '<div style="background-color: #F4DA5C; padding: 5px 10px;">';
+            $content .= '<span style="background-color: #F4DA5C; padding: 5px 10px; display: block;">';
             $content .= 'Please save before...';
-            $content .= '</div>';
+            $content .= '</span>';
             // was saved before
         } else {
-            $content .= '<div style="background-color: #ddd; padding: 5px 10px;" />';
+            $content .= '<span style="background-color: #ddd; padding: 5px 10px; display: block;">';
             $content .= '{' . strtolower($marker) . '}';
-            $content .= '</div>';
+            $content .= '</span>';
             $content .= '<input type="hidden" name="data[tx_powermail_domain_model_fields][' .
                 $params['row']['uid'] . '][marker]" value="' . strtolower($marker) . '" />';
         }
