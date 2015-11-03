@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.16.0
+   :Date:
+      2015-11-03
+   :Changes:
+
+      * Feature _`#71254`: https://forge.typo3.org/issues/71254 Validators-Implementation simplification
+      * Feature _`#71184`: https://forge.typo3.org/issues/71184 Hiding Form/Page-Title in FE
+      * Bugfix _`#71098`: https://forge.typo3.org/issues/71098 New tab cannot be selected in TYPO3 7.4 or newer
+
+ - :Version:
       2.15.2
    :Date:
       2015-10-27
