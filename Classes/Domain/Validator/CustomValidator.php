@@ -24,5 +24,4 @@ class CustomValidator extends StringValidator
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, array($mail, $this));
         return $this->isValidState();
     }
-
 }

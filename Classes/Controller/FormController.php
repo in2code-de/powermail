@@ -108,6 +108,7 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
      * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
      * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @required $mail
      * @return void
@@ -166,6 +167,7 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
      * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
      * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @required $mail
      * @return void

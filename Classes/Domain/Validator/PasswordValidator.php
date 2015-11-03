@@ -49,7 +49,7 @@ class PasswordValidator extends AbstractValidator
      */
     protected function getMirroredValueOfPasswordField(Field $field)
     {
-        $piVars = GeneralUtility::_GP($this->pluginVariablesPrefix);
+        $piVars = GeneralUtility::_GP($this->variablesPrefix);
         $mirroredValue = $piVars['field'][$field->getMarker() . '_mirror'];
         return $mirroredValue;
     }
@@ -73,8 +73,8 @@ class PasswordValidator extends AbstractValidator
      */
     protected function ignoreValidationIfConfirmation()
     {
-        $piVars = GeneralUtility::_GP($this->pluginVariablesPrefix);
-        $piVarsGet = GeneralUtility::_GET($this->pluginVariablesPrefix);
+        $piVars = GeneralUtility::_GP($this->variablesPrefix);
+        $piVarsGet = GeneralUtility::_GET($this->variablesPrefix);
         if ($piVars['__referrer']['@action'] === 'confirmation' && $piVarsGet['action'] === 'create') {
             return true;
         }

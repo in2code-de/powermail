@@ -699,6 +699,28 @@ plugin.tx_powermail {
 
 
 
+			# Add own validator classes that will be called before create action (if you want to validate user input with own PHP classes)
+			validators {
+#				1 {
+					# Classname that should be called with method *Validator()
+#					class = Vendor\Ext\Domain\Model\DoSomethingValidator
+
+					# optional: Add configuration for your PHP
+#					config {
+#						foo = bar
+
+#						fooCObject = TEXT
+#						fooCObject.value = do something with this text
+#					}
+
+					# optional: If file will not be loaded from autoloader, add path and it will be called with require_once
+#					require = fileadmin/powermail/validator/DoSomethingValidator.php
+#				}
+			}
+
+
+
+
 			# Switch on or off Debug mode (use extension devlog to view this values)
 			debug {
 				# All views: Show Settings from TypoScript, Flexform and Extension Manager
