@@ -92,6 +92,7 @@ because it's stored in fileadmin or elsewhere)
 
 
 Add your php-file again and extend your class with the AbstractFinisher from powermail:
+
 ::
 
    <?php

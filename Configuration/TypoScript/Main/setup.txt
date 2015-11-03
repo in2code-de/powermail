@@ -677,28 +677,6 @@ plugin.tx_powermail {
 
 
 
-			# Add own finisher classes that will be called after submit (e.g. if you want to do something with form values by your own: Save into tables, call an API, etc...)
-			finishers {
-#				1 {
-					# Classname that should be called with method *Finisher()
-#					class = Vendor\Ext\Finisher\DoSomethingFinisher
-
-					# optional: Add configuration for your PHP
-#					config {
-#						foo = bar
-
-#						fooCObject = TEXT
-#						fooCObject.value = do something with this text
-#					}
-
-					# optional: If file will not be loaded from autoloader, add path and it will be called with require_once
-#					require = fileadmin/powermail/finisher/DoSomethingFinisher.php
-#				}
-			}
-
-
-
-
 			# Add own validator classes that will be called before create action (if you want to validate user input with own PHP classes)
 			validators {
 #				1 {
@@ -715,6 +693,28 @@ plugin.tx_powermail {
 
 					# optional: If file will not be loaded from autoloader, add path and it will be called with require_once
 #					require = fileadmin/powermail/validator/DoSomethingValidator.php
+#				}
+			}
+
+
+
+
+			# Add own finisher classes that will be called after submit (e.g. if you want to do something with form values by your own: Save into tables, call an API, etc...)
+			finishers {
+#				1 {
+					# Classname that should be called with method *Finisher()
+#					class = Vendor\Ext\Finisher\DoSomethingFinisher
+
+					# optional: Add configuration for your PHP
+#					config {
+#						foo = bar
+
+#						fooCObject = TEXT
+#						fooCObject.value = do something with this text
+#					}
+
+					# optional: If file will not be loaded from autoloader, add path and it will be called with require_once
+#					require = fileadmin/powermail/finisher/DoSomethingFinisher.php
 #				}
 			}
 

@@ -1,0 +1,4 @@
+.. |img-foreign-validator|     image:: ../../../Images/foreign_validator.png
+.. :align: left
+.. :border: 0
+.. :name: ForeignValidator
