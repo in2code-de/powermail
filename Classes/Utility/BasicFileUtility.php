@@ -177,11 +177,11 @@ class BasicFileUtility
      * File Upload
      *
      * @param string $destinationPath
-     * @param string $allowedFileExtensions
      * @param Mail $mail
+     * @param string $allowedFileExtensions
      * @return bool
      */
-    public static function fileUpload($destinationPath, $allowedFileExtensions = '', Mail $mail)
+    public static function fileUpload($destinationPath, Mail $mail, $allowedFileExtensions = '')
     {
         $result = false;
         if (isset($_FILES['tx_powermail_pi1']['tmp_name']['field']) && self::hasFormAnUploadField($mail->getForm())) {
