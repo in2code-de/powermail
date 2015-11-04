@@ -42,12 +42,13 @@ jQuery(document).ready(function($) {
 		generateTabNavigation($this, options);
 		generateButtonNavigation($this, options);
 
-		if ($.fn.parsley && $('form[data-parsley-validate="data-parsley-validate"]').length && $('.powermail_morestep').length) {
-			$('form[data-parsley-validate="data-parsley-validate"]').parsley().subscribe('parsley:field:validated', function() {
+		var form = $('form.powermail_morestep[data-parsley-validate="data-parsley-validate"]');
+		if ($.fn.parsley && form.length && $('.powermail_morestep').length) {
+			form.parsley().subscribe('parsley:field:validated', function() {
 				$('#powermail_tabmenu > li').removeClass('parsley-error');
 
 				// if error occurs
-				if (!$('form[data-parsley-validate="data-parsley-validate"]').parsley().isValid()) {
+				if (!form.parsley().isValid()) {
 
 					// for each field with an error
 					$('.parsley-error').each(function() {
