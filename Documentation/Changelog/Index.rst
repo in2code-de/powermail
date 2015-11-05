@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.16.1
+   :Date:
+      2015-11-05
+   :Changes:
+
+      * Bugfix _`#71338`: https://forge.typo3.org/issues/71338 Fatal error: Can't use method return value in write context in ...ForeignValidator.php on line 62 with PHP < 5.5
+      * Bugfix _`#71308`: https://forge.typo3.org/issues/71308 $(...).parsley(...).subscribe is not a function - Two forms on one page
+
+ - :Version:
       2.16.0
    :Date:
       2015-11-03
