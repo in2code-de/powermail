@@ -37,7 +37,9 @@ function PowermailForm($) {
 	 */
 	this.addTabsListener = function() {
 		if ($.fn.powermailTabs) {
-			$('.powermail_morestep').powermailTabs();
+			$('.powermail_morestep').each(function() {
+				$(this).powermailTabs();
+			});
 		}
 	};
 

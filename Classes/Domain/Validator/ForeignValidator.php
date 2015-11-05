@@ -59,9 +59,10 @@ class ForeignValidator extends AbstractValidator
      */
     protected function addErrors(Result $result)
     {
-        if (!empty($result->getErrors())) {
+        $errors = $result->getErrors();
+        if (!empty($errors)) {
             /** @var Error $error */
-            foreach ($result->getErrors() as $error) {
+            foreach ($errors as $error) {
                 $this->addError($error->getMessage(), $error->getCode());
             }
             $this->setValidState(false);

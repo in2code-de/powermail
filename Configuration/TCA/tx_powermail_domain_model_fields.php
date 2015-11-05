@@ -246,10 +246,10 @@ $fieldsTca = array(
             'Resources/Public/Icons/tx_powermail_domain_model_fields.gif'
     ),
     'interface' => array(
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, type, settings,
-			path, content_element, text, prefill_value, placeholder, create_from_typoscript, mandatory,
-			validation, validation_configuration, css, description, multiselect, datepicker_settings,
-			feuser_value, sender_email, sender_name, own_marker_select, auto_marker, marker',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, type, settings, ' .
+            'path, content_element, text, prefill_value, placeholder, create_from_typoscript, mandatory, ' .
+            'validation, validation_configuration, css, description, multiselect, datepicker_settings, ' .
+            'feuser_value, sender_email, sender_name, own_marker_select, auto_marker, marker',
     ),
     'palettes' => array(
         '1' => array('showitem' => 'sender_email, sender_name', '', 'canNotCollapse' => 1),

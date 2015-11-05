@@ -118,8 +118,8 @@ class FormController extends AbstractController
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
         BasicFileUtility::fileUpload(
             $this->settings['misc']['file']['folder'],
-            $this->settings['misc']['file']['extension'],
-            $mail
+            $mail,
+            $this->settings['misc']['file']['extension']
         );
         SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
 
@@ -176,8 +176,8 @@ class FormController extends AbstractController
     {
         BasicFileUtility::fileUpload(
             $this->settings['misc']['file']['folder'],
-            $this->settings['misc']['file']['extension'],
-            $mail
+            $mail,
+            $this->settings['misc']['file']['extension']
         );
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $this));
         $this->prepareOutput($mail);
