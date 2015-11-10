@@ -19,17 +19,24 @@ if (
     !\In2code\Powermail\Utility\ConfigurationUtility::isDisableBackendModuleActive() &&
     !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
 ) {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule('In2code.' . $_EXTKEY, 'web', 'm1', '', array(
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+        'In2code.' . $_EXTKEY,
+        'web',
+        'm1',
+        '',
+        array(
             'Module' => 'dispatch, list, exportXls, exportCsv, reportingBe, toolsBe, overviewBe, ' .
                 'checkBe, converterBe, converterUpdateBe, reportingFormBe, reportingMarketingBe, ' .
                 'fixUploadFolder, fixWrongLocalizedForms, fixFilledMarkersInLocalizedFields, ' .
                 'fixWrongLocalizedPages, fixFilledMarkersInLocalizedPages'
-        ), array(
+        ),
+        array(
             'access' => 'user,group',
             'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.' .
                 (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'gif'),
             'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
-        ));
+        )
+    );
 }
 
 /**

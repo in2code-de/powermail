@@ -15,16 +15,26 @@ $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';
 /**
  * Include Frontend Plugins for Powermail
  */
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('In2code.' . $_EXTKEY, 'Pi1', array(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'In2code.' . $_EXTKEY,
+    'Pi1',
+    array(
         'Form' => 'form, create, confirmation, optinConfirm, marketing'
-    ), array(
+    ),
+    array(
         'Form' => $uncachedFormActions
-    ));
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('In2code.' . $_EXTKEY, 'Pi2', array(
+    )
+);
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'In2code.' . $_EXTKEY,
+    'Pi2',
+    array(
         'Output' => 'list, show, edit, update, export, rss, delete'
-    ), array(
+    ),
+    array(
         'Output' => 'list, edit, update, export, rss, delete'
-    ));
+    )
+);
 
 /**
  * Hook to show PluginInfo
