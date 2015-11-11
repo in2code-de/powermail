@@ -227,11 +227,12 @@ class ExportService
      */
     protected function getFileContent()
     {
-        $rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->setTemplatePathAndFilename($rootPath . $this->getRelativeTemplatePathAndFileName());
-        $standaloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
-        $standaloneView->setPartialRootPaths(array($rootPath . 'Partials'));
+        $standaloneView->setTemplatePathAndFilename(
+            TemplateUtility::getTemplatePath($this->getRelativeTemplatePathAndFileName())
+        );
+        $standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
+        $standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
         $standaloneView->assignMultiple(
             array(
                 'mails' => $this->getMails(),
@@ -246,7 +247,7 @@ class ExportService
      */
     protected function getRelativeTemplatePathAndFileName()
     {
-        return 'Templates/Module/Export' . ucfirst($this->getFormat()) . '.html';
+        return 'Module/Export' . ucfirst($this->getFormat()) . '.html';
     }
 
     /**
