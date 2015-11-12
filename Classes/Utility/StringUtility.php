@@ -86,11 +86,15 @@ class StringUtility
     protected static function getEmailsFromString($string)
     {
         $array = array();
-        $string = str_replace(array(
-            "\n",
-            '|',
-            ','
-        ), ';', $string);
+        $string = str_replace(
+            array(
+                PHP_EOL,
+                '|',
+                ','
+            ),
+            ';',
+            $string
+        );
         $arr = GeneralUtility::trimExplode(';', $string, true);
         foreach ($arr as $email) {
             $array[] = $email;

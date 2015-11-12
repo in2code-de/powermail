@@ -219,7 +219,7 @@ class FormController extends AbstractController
             'email'
         );
         $receivers = StringUtility::getReceiverEmails($receiverString, $this->settings['receiver']['fe_group']);
-        $mail->setReceiverMail(implode("\n", $receivers));
+        $mail->setReceiverMail(implode(PHP_EOL, $receivers));
         TypoScriptUtility::overwriteValueFromTypoScript(
             $defaultSenderEmail,
             $this->conf['receiver.']['default.'],
