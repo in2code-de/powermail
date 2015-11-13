@@ -1,4 +1,6 @@
 <?php
+use In2code\Powermail\Utility\ConfigurationUtility;
+
 $answersTca = array(
     'ctrl' => array(
         'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_answers',
@@ -20,8 +22,7 @@ $answersTca = array(
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ),
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('powermail') .
-            'Resources/Public/Icons/tx_powermail_domain_model_answers.gif'
+        'iconfile' => ConfigurationUtility::getIconPath('tx_powermail_domain_model_answers.gif')
     ),
     'interface' => array(
         'showRecordFieldList' =>

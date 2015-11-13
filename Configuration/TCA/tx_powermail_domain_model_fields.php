@@ -242,8 +242,7 @@ $fieldsTca = array(
             'endtime' => 'endtime',
         ),
         'requestUpdate' => 'validation,own_marker_select',
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('powermail') .
-            'Resources/Public/Icons/tx_powermail_domain_model_fields.gif'
+        'iconfile' => ConfigurationUtility::getIconPath('tx_powermail_domain_model_fields.gif')
     ),
     'interface' => array(
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, type, settings, ' .

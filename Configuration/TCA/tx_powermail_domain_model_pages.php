@@ -23,8 +23,7 @@ $pagesTca = array(
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ),
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('powermail') .
-            'Resources/Public/Icons/tx_powermail_domain_model_pages.gif'
+        'iconfile' => ConfigurationUtility::getIconPath('tx_powermail_domain_model_pages.gif')
     ),
     'interface' => array(
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, css, fields',

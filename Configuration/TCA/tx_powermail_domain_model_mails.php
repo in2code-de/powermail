@@ -22,8 +22,7 @@ $mailsTca = array(
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ),
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('powermail') .
-            'Resources/Public/Icons/tx_powermail_domain_model_mails.gif',
+        'iconfile' => ConfigurationUtility::getIconPath('tx_powermail_domain_model_mails.gif'),
         'searchFields' => 'sender_mail, sender_name, subject, body'
     ),
     'interface' => array(

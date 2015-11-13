@@ -22,8 +22,7 @@ $formsTca = array(
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ),
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('powermail') .
-            'Resources/Public/Icons/tx_powermail_domain_model_forms.gif'
+        'iconfile' => ConfigurationUtility::getIconPath('tx_powermail_domain_model_forms.gif')
     ),
     'interface' => array(
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, css, pages, note',

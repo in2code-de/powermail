@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -149,6 +150,22 @@ class ConfigurationUtility
             return $GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'];
         }
         return false;
+    }
+
+    /**
+     * Get path to an icon for TCA configuration
+     *
+     * @param string $fileName
+     * @return string
+     */
+    public static function getIconPath($fileName)
+    {
+        $prefix = 'EXT:powermail/';
+        if (!GeneralUtility::compat_version('7.6')) {
+            $prefix = ExtensionManagementUtility::extRelPath('powermail');
+        }
+        $iconPath = $prefix . 'Resources/Public/Icons/' . $fileName;
+        return $iconPath;
     }
 
     /**
