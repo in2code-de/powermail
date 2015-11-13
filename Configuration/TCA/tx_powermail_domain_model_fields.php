@@ -252,22 +252,48 @@ $fieldsTca = array(
             'feuser_value, sender_email, sender_name, own_marker_select, auto_marker, marker',
     ),
     'palettes' => array(
-        '1' => array('showitem' => 'sender_email, sender_name', '', 'canNotCollapse' => 1),
-        '2' => array('showitem' => 'mandatory, validation, validation_configuration', '', 'canNotCollapse' => 1),
-        '21' => array('showitem' => 'mandatory', '', 'canNotCollapse' => 1),
-        '3' => array(
-            'showitem' => 'prefill_value, placeholder, feuser_value, create_from_typoscript',
-            '',
+        '1' => array(
+            'showitem' => 'sender_email, sender_name',
             'canNotCollapse' => 1
         ),
-        '31' => array('showitem' => 'prefill_value, feuser_value', '', 'canNotCollapse' => 1),
-        '32' => array('showitem' => 'prefill_value, placeholder, feuser_value', '', 'canNotCollapse' => 1),
-        '33' => array('showitem' => 'feuser_value, create_from_typoscript', '', 'canNotCollapse' => 1),
-        '4' => array('showitem' => 'css, multiselect, datepicker_settings'),
-        '41' => array('showitem' => 'css, multiselect'),
-        '42' => array('showitem' => 'css, datepicker_settings'),
-        '43' => array('showitem' => 'css'),
-        '5' => array('showitem' => 'auto_marker, marker, own_marker_select', '', 'canNotCollapse' => 1),
+        '2' => array(
+            'showitem' => 'mandatory, validation, validation_configuration',
+            'canNotCollapse' => 1
+        ),
+        '21' => array(
+            'showitem' => 'mandatory',
+            'canNotCollapse' => 1
+        ),
+        '3' => array(
+            'showitem' => 'prefill_value, placeholder, feuser_value, create_from_typoscript',
+            'canNotCollapse' => 1
+        ),
+        '31' => array(
+            'showitem' => 'prefill_value, feuser_value',
+            'canNotCollapse' => 1
+        ),
+        '32' => array(
+            'showitem' => 'prefill_value, placeholder, feuser_value',
+            'canNotCollapse' => 1),
+        '33' => array(
+            'showitem' => 'feuser_value, create_from_typoscript',
+            'canNotCollapse' => 1),
+        '4' => array(
+            'showitem' => 'css, multiselect, datepicker_settings'
+        ),
+        '41' => array(
+            'showitem' => 'css, multiselect'
+        ),
+        '42' => array(
+            'showitem' => 'css, datepicker_settings'
+        ),
+        '43' => array(
+            'showitem' => 'css'
+        ),
+        '5' => array(
+            'showitem' => 'auto_marker, marker, own_marker_select',
+            'canNotCollapse' => 1
+        ),
         'canNotCollapse' => '1'
     ),
     'types' => array(

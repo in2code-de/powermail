@@ -37,9 +37,6 @@ $pagesTca = array(
                 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, starttime, endtime'
         ),
     ),
-    'palettes' => array(
-        '1' => array(),
-    ),
     'columns' => array(
         'sys_language_uid' => array(
             'exclude' => 1,

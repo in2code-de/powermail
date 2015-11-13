@@ -30,9 +30,6 @@ $answersTca = array(
     'types' => array(
         '1' => array('showitem' => 'value, value_type, field, mail'),
     ),
-    'palettes' => array(
-        '1' => array(),
-    ),
     'columns' => array(
         'sys_language_uid' => array(
             'exclude' => 1,
