@@ -155,16 +155,20 @@ class BackendUtility extends BackendUtilityCore
     }
 
     /**
-     * Generates a token and returns a parameter for the URL
+     * Returns the URL to a given module
+     *      mainly used for visibility settings or deleting
+     *      a record via AJAX
      *
-     * @param string $formName Context of the token
-     * @param string $tokenName The name of the token GET variable
-     * @throws \InvalidArgumentException
-     * @return string A URL GET variable including ampersand
+     * @param string $moduleName Name of the module
+     * @return string Calculated URL
      */
-    public static function getUrlToken($formName = 'securityToken', $tokenName = 'formToken')
+    public static function getModuleUrl($moduleName)
     {
-        $formProtection = FormProtectionFactory::get();
-        return '&' . $tokenName . '=' . $formProtection->generateToken($formName);
+        if (GeneralUtility::compat_version('7.6')) {
+            $uri = parent::getModuleUrl($moduleName);
+        } else {
+            $uri = 'tce_db.php?' . parent::getUrlToken('tceAction');
+        }
+        return $uri;
     }
 }
