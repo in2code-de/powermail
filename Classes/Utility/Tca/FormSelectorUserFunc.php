@@ -69,8 +69,8 @@ class FormSelectorUserFunc
         $params['items'] = array();
         foreach ($this->getAllForms($startPid, $language) as $form) {
             $params['items'][] = array(
-                $form['title'],
-                $form['uid']
+                htmlspecialchars($form['title']),
+                (int) $form['uid']
             );
         }
     }
@@ -87,10 +87,9 @@ class FormSelectorUserFunc
         $this->initialize();
         $select = 'fo.uid, fo.title';
         $from = 'tx_powermail_domain_model_forms fo';
-        $where = 'fo.deleted = 0 and fo.hidden = 0 and
-			(fo.sys_language_uid IN (-1,0) or
-                (fo.l10n_parent = 0 and fo.sys_language_uid = ' . (int) $language . ')
-			)';
+        $where = 'fo.deleted = 0 and fo.hidden = 0 and ' .
+            '(fo.sys_language_uid IN (-1,0) or ' .
+            '(fo.l10n_parent = 0 and fo.sys_language_uid = ' . (int) $language . '))';
         if (!empty($startPid)) {
             $where .= ' and fo.pid in (' . $this->getPidListFromStartingPoint($startPid) . ')';
         }

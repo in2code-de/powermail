@@ -15,6 +15,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.switchableControllerActions</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.switchableControllerActions.0</numIndex>
@@ -84,6 +85,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.list.fields</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 
 								</items>
@@ -102,6 +104,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.list.export</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.list.export.0</numIndex>
@@ -188,6 +191,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.single.fields</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 
 								</items>
@@ -245,6 +249,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.fields</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.fields.all</numIndex>
@@ -262,30 +267,12 @@
 							</config>
 						</TCEforms>
 					</settings.flexform.search.fields>
-					<!--<settings.flexform.search.operator>-->
-						<!--<TCEforms>-->
-							<!--<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.operator</label>-->
-							<!--<config>-->
-								<!--<type>select</type>-->
-								<!--<items type="array">-->
-									<!--<numIndex index="0" type="array">-->
-										<!--<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.operator.0</numIndex>-->
-										<!--<numIndex index="1">OR</numIndex>-->
-									<!--</numIndex>-->
-									<!--<numIndex index="1" type="array">-->
-										<!--<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.operator.1</numIndex>-->
-										<!--<numIndex index="1">AND</numIndex>-->
-									<!--</numIndex>-->
-								<!--</items>-->
-								<!--<default>OR</default>-->
-							<!--</config>-->
-						<!--</TCEforms>-->
-					<!--</settings.flexform.search.operator>-->
 					<settings.flexform.search.abc>
 						<TCEforms>
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.abc</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.abc.off</numIndex>
@@ -294,7 +281,6 @@
 								</items>
 								<maxitems>1</maxitems>
 								<size>1</size>
-								<!--<minitems>1</minitems>-->
 								<itemsProcFunc>In2code\Powermail\Utility\Tca\FieldSelectorUserFunc->getFieldSelection</itemsProcFunc>
 							</config>
 						</TCEforms>
@@ -314,6 +300,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.fields</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 
 								</items>
@@ -332,6 +319,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.feuser</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.feuser.owner</numIndex>
@@ -355,6 +343,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.fegroup</label>
 							<config>
 								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.feuser.owner</numIndex>
