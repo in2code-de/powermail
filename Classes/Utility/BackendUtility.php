@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 
@@ -151,5 +152,19 @@ class BackendUtility extends BackendUtilityCore
             }
         }
         return (int) $pid;
+    }
+
+    /**
+     * Generates a token and returns a parameter for the URL
+     *
+     * @param string $formName Context of the token
+     * @param string $tokenName The name of the token GET variable
+     * @throws \InvalidArgumentException
+     * @return string A URL GET variable including ampersand
+     */
+    public static function getUrlToken($formName = 'securityToken', $tokenName = 'formToken')
+    {
+        $formProtection = FormProtectionFactory::get();
+        return '&' . $tokenName . '=' . $formProtection->generateToken($formName);
     }
 }
