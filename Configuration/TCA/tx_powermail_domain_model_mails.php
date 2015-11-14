@@ -1,5 +1,22 @@
 <?php
 use In2code\Powermail\Utility\ConfigurationUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+$typeDefault = 'crdate, receiver_mail, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    'tx_powermail_domain_model_mails.palette1;1, ' .
+    'subject, body, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    'tx_powermail_domain_model_fields.sheet1, ' .
+    'form, answers, feuser, spam_factor, time, sender_ip, user_agent, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    'tx_powermail_domain_model_fields.sheet2, ' .
+    'marketing_referer_domain, marketing_referer, marketing_country, marketing_mobile_device, ' .
+    'marketing_frontend_language, marketing_browser_language, marketing_page_funnel, ' .
+    '--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, hidden, starttime, endtime';
+if (!GeneralUtility::compat_version('7.6')) {
+    $typeDefault = str_replace('body', 'body;;;richtext[]', $typeDefault);
+}
 
 $mailsTca = array(
     'ctrl' => array(
@@ -34,18 +51,12 @@ $mailsTca = array(
     ),
     'types' => array(
         '1' => array(
-            'showitem' => 'crdate, receiver_mail, ' .
-                '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                    'tx_powermail_domain_model_mails.palette1;1, ' .
-                'subject, body;;;richtext[], ' .
-                '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                    'tx_powermail_domain_model_fields.sheet1, ' .
-                'form, answers, feuser, spam_factor, time, sender_ip, user_agent, ' .
-                '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                    'tx_powermail_domain_model_fields.sheet2, ' .
-                'marketing_referer_domain, marketing_referer, marketing_country, marketing_mobile_device, ' .
-                'marketing_frontend_language, marketing_browser_language, marketing_page_funnel, ' .
-                '--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, hidden;;1, starttime, endtime'
+            'showitem' => $typeDefault,
+            'columnsOverrides' => array(
+                'body' => array(
+                    'defaultExtras' => 'richtext[]'
+                )
+            )
         ),
     ),
     'palettes' => array(
@@ -58,6 +69,7 @@ $mailsTca = array(
             'config' => array(
                 'type' => 'select',
                 'foreign_table' => 'sys_language',
+                'renderType' => 'selectSingle',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'items' => array(
                     array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
@@ -71,6 +83,7 @@ $mailsTca = array(
             'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => array(
                     array('', 0),
                 ),
@@ -211,6 +224,7 @@ $mailsTca = array(
                 'x_powermail_domain_model_mails.form',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_powermail_domain_model_forms',
                 'foreign_table_where' => 'AND tx_powermail_domain_model_forms.deleted = 0 AND ' .
                     'tx_powermail_domain_model_forms.hidden = 0 order by tx_powermail_domain_model_forms.title',

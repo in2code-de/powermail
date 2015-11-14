@@ -33,7 +33,7 @@ $pagesTca = array(
             'showitem' => 'title, fields, --div--;LLL:EXT:powermail/Resources/Private/Language/' .
                 'locallang_db.xlf:tx_powermail_domain_model_fields.sheet1, css, --div--;LLL:EXT:' .
                 'powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, forms, ' .
-                'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, starttime, endtime'
+                'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime'
         ),
     ),
     'columns' => array(
@@ -42,6 +42,7 @@ $pagesTca = array(
             'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'items' => array(
@@ -56,6 +57,7 @@ $pagesTca = array(
             'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => array(
                     array('', 0),
                 ),
@@ -134,6 +136,7 @@ $pagesTca = array(
                 'tx_powermail_domain_model_pages.css',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => array(
                     array(
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
@@ -198,6 +201,7 @@ $pagesTca = array(
                 'tx_powermail_domain_model_pages.forms',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => array(
                     array('', 0),
                 ),
