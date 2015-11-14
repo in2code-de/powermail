@@ -36,7 +36,7 @@
 									<add>
 										<type>script</type>
 										<title>Add Form</title>
-										<icon>EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif</icon>
+										<icon>add.gif</icon>
 										<params>
 											<table>tx_powermail_domain_model_forms</table>
 											<pid>###CURRENT_PID###</pid>
@@ -267,9 +267,9 @@
 									<link type="array">
 										<type>popup</type>
 										<title>Link</title>
-										<icon>EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif</icon>
+										<icon>link_popup.gif</icon>
 										<module type="array">
-											<name>wizard_link</name>
+											<name>wizard_element_browser</name>
 											<urlParameters type="array">
 												<mode>wizard</mode>
 											</urlParameters>

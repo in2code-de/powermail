@@ -43,11 +43,15 @@ if (
  * Include Flexform
  */
 // Pi1
+$fileName = 'FlexformPi1.xml';
+if (!\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.6')) {
+    $fileName = 'FlexformPi1Old.xml';
+}
 $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi1';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
     $pluginSignature,
-    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexformPi1.xml'
+    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $fileName
 );
 // Pi2
 $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi2';
