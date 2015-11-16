@@ -4,6 +4,7 @@ namespace In2code\Powermail\Tests\ViewHelpers\Misc;
 use In2code\Powermail\Domain\Model\Field;
 use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -373,6 +374,10 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $configurationManager = new ConfigurationManager();
         $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = array(
+            'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject'
+        );
+        $GLOBALS['TT'] = new TimeTracker();
         $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
     }
 }
