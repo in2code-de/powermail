@@ -19,6 +19,7 @@ class IsCompatVersionViewHelper extends AbstractViewHelper
      *
      * @param string $versionNumber Minimum branch number required format x.y
      * @return bool
+     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     public function render($versionNumber)
     {

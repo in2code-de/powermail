@@ -26,11 +26,11 @@ class ContentElementViewHelper extends AbstractViewHelper
      */
     public function render($uid)
     {
-        $conf = array(
+        $configuration = array(
             'tables' => 'tt_content',
             'source' => (int) $uid,
             'dontCheckPid' => 1
         );
-        return $this->contentObject->RECORDS($conf);
+        return $this->contentObject->cObjGetSingle('RECORDS', $configuration);
     }
 }

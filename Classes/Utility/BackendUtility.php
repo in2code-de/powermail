@@ -58,6 +58,7 @@ class BackendUtility extends BackendUtilityCore
      * @param int $identifier
      * @param bool $addReturnUrl
      * @return string
+     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     public static function createEditUri($tableName, $identifier, $addReturnUrl = true)
     {
@@ -88,6 +89,7 @@ class BackendUtility extends BackendUtilityCore
      * Get return URL from current request
      *
      * @return string
+     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     protected static function getReturnUrl()
     {
@@ -161,6 +163,7 @@ class BackendUtility extends BackendUtilityCore
      *
      * @param string $moduleName Name of the module
      * @return string Calculated URL
+     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     public static function getModuleUrl($moduleName)
     {

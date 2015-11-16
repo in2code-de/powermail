@@ -130,4 +130,19 @@ class SelectFieldViewHelper extends SelectViewHelper
         }
         return false;
     }
+
+    /**
+     * Get value conditional to TYPO3 version
+     *
+     * @return mixed
+     * @todo remove condition for TYPO3 6.2 in upcoming major version
+     */
+    public function getValue()
+    {
+        if (method_exists($this, 'getValueAttribute')) {
+            return parent::getValueAttribute();
+        } else {
+            return parent::getValue();
+        }
+    }
 }

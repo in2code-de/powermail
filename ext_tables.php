@@ -18,6 +18,7 @@ $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] =
 
 /**
  * Include Backend Module
+ * @todo remove condition for TYPO3 6.2 in upcoming major version
  */
 if (
     TYPO3_MODE === 'BE' &&
@@ -46,6 +47,7 @@ if (
 
 /**
  * Include Flexform
+ * @todo remove condition for TYPO3 6.2 in upcoming major version
  */
 // Pi1
 $fileName = 'FlexformPi1.xml';
