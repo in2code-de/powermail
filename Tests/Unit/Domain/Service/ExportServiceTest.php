@@ -71,19 +71,19 @@ class ExportServiceTest extends UnitTestCase
         return array(
             array(
                 'csv',
-                'Templates/Module/ExportCsv.html'
+                'Module/ExportCsv.html'
             ),
             array(
                 'xls',
-                'Templates/Module/ExportXls.html'
+                'Module/ExportXls.html'
             ),
             array(
                 'bullshit',
-                'Templates/Module/ExportXls.html'
+                'Module/ExportXls.html'
             ),
             array(
                 null,
-                'Templates/Module/ExportXls.html'
+                'Module/ExportXls.html'
             ),
         );
     }

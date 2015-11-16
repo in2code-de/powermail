@@ -112,6 +112,13 @@ Configuration
    :Default:
       [empty]
 
+ - :Property:
+      emailTemplate
+   :Description:
+      Path and filename to the email template
+   :Default:
+      EXT:powermail/Resources/Private/Templates/Module/ExportTaskMail.html
+
 Image example
 ^^^^^^^^^^^^^
 
@@ -124,4 +131,15 @@ You can call a scheduler task directly from the console (if the backend user _cl
 
 .. code-block:: text
 
-	typo3/cli_dispatch.phpsh extbase task:export --receiver-emails="receiver1@domain.org" --pageUid=140 --period=86400
+	typo3/cli_dispatch.phpsh extbase task:export --receiver-emails="receiver1@domain.org" --page-uid=140 --period=86400
+
+Note
+^^^^
+
+If you need your own HTML-Template for XLS- or CSV-generating, you can define the templateRootPath in your **root TypoScript**
+
+.. code-block:: text
+
+	module.tx_powermail.view.templateRootPaths.1 = fileadmin/yourPath/Templates/
+
+After that, you can copy the ExportXls.html and/or ExportCsv.html to fileadmin/yourPath/Templates/Module/ExportXls.html and modify it.

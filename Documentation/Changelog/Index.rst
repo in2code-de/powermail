@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.17.0
+   :Date:
+      2015-11-16
+   :Changes:
+
+      * Bugfix _`#71556`: https://forge.typo3.org/issues/71556 remove jQuery's removeProp() function from powermail
+      * Task _`#71483`: https://forge.typo3.org/issues/71483 Resolve warnings in deprecation log of TYPO3 7.6
+      * Feature _`#71373`: https://forge.typo3.org/issues/71373 Possibility to configure export template by export command controller
+
+ - :Version:
       2.16.1
    :Date:
       2015-11-05

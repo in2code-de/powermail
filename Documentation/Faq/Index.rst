@@ -236,6 +236,19 @@ If you add a powermail plugin, you will see some options in FlexForm. If you wan
 	}
 
 
+.. _howtoremovefieldtypes:
+
+How to remove field types?
+--------------------------
+
+If you want to completely remove fieldtypes (e.g. if you do not need a captcha field or so),
+you can do this with a simple line of Page TSConfig:
+
+.. code-block:: text
+
+	TCEFORM.tx_powermail_domain_model_fields.type.removeItems = captcha,location,typoscript
+
+
 
 .. _howtoprefillfields:
 

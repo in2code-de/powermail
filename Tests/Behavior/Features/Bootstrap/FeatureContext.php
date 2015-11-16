@@ -34,7 +34,7 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext
      */
     public function theSourcecodeShouldContain($html)
     {
-        $html = str_replace('\n', "\n", $html);
+        $html = str_replace('\n', PHP_EOL, $html);
         $this->assertSession()->responseContains($this->fixStepArgument($html));
     }
 

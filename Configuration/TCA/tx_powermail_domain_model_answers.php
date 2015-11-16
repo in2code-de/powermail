@@ -1,4 +1,6 @@
 <?php
+use In2code\Powermail\Utility\ConfigurationUtility;
+
 $answersTca = array(
     'ctrl' => array(
         'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_answers',
@@ -20,8 +22,7 @@ $answersTca = array(
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ),
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('powermail') .
-            'Resources/Public/Icons/tx_powermail_domain_model_answers.gif'
+        'iconfile' => ConfigurationUtility::getIconPath('tx_powermail_domain_model_answers.gif')
     ),
     'interface' => array(
         'showRecordFieldList' =>
@@ -30,15 +31,13 @@ $answersTca = array(
     'types' => array(
         '1' => array('showitem' => 'value, value_type, field, mail'),
     ),
-    'palettes' => array(
-        '1' => array(),
-    ),
     'columns' => array(
         'sys_language_uid' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'items' => array(
@@ -53,6 +52,7 @@ $answersTca = array(
             'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => array(
                     array('', 0),
                 ),
@@ -129,6 +129,7 @@ $answersTca = array(
                 'tx_powermail_domain_model_answers.value_type',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => array(
                     /**
                      * Text

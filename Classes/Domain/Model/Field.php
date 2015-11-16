@@ -737,8 +737,8 @@ class Field extends AbstractEntity
             $string = 'Error, no options to show';
         }
         $options = array();
-        $string = str_replace('[\n]', "\n", $string);
-        $settingsField = GeneralUtility::trimExplode("\n", $string, true);
+        $string = str_replace('[\n]', PHP_EOL, $string);
+        $settingsField = GeneralUtility::trimExplode(PHP_EOL, $string, true);
         foreach ($settingsField as $line) {
             $settings = GeneralUtility::trimExplode('|', $line, false);
             $value = (isset($settings[1]) ? $settings[1] : $settings[0]);

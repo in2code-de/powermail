@@ -23,8 +23,8 @@ class TrimViewHelper extends AbstractViewHelper
         $string = trim($this->renderChildren());
         $string = preg_replace('/\\s\\s+/', ' ', $string);
         $string = str_replace(array('"; "', '" ; "', '" ;"'), '";"', $string);
-        $string = str_replace(array('<br />', '<br>', '<br/>'), "\n", $string);
-        $string = str_replace(array(" \n ", "\n ", " \n"), "\n", $string);
+        $string = str_replace(array('<br />', '<br>', '<br/>'), PHP_EOL, $string);
+        $string = str_replace(array(" \n ", "\n ", " \n"), PHP_EOL, $string);
 
         return $string;
     }

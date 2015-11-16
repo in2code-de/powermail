@@ -52,9 +52,9 @@ lib.parseFunc_powermail.tags.link.typolink.forceAbsoluteUrl = 1
 #################
 module.tx_powermail {
 	view {
-		templateRootPath = EXT:powermail/Resources/Private/Templates/
-		partialRootPath = EXT:powermail/Resources/Private/Partials/
-		layoutRootPath = EXT:powermail/Resources/Private/Layouts/
+		templateRootPaths.0 = EXT:powermail/Resources/Private/Templates/
+		partialRootPaths.0 = EXT:powermail/Resources/Private/Partials/
+		layoutRootPaths.0 = EXT:powermail/Resources/Private/Layouts/
 		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:powermail/Resources/Private/Templates/
 	}
 	settings {

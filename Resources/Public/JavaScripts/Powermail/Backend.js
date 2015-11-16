@@ -71,11 +71,11 @@ function PowermailBackend($) {
 	this.addVisibilityChangeListener = function() {
 		$(document).on('click', '.unhideMail, .hideMail', function () {
 			var $this = $(this);
-			var formToken = $this.closest('td').find('.container_formtoken').val();
+			var moduleUri = $this.closest('td').find('.container_module_uri').val();
 			var uid = $this.closest('td').find('.container_uid').val();
 			var table = $this.closest('td').find('.container_table').val();
 			var hidden = that.visibilityToggleLine($this.closest('tr'));
-			that.sendVisibilityRequest(table, uid, formToken, hidden);
+			that.sendVisibilityRequest(table, uid, hidden, moduleUri);
 		});
 	};
 
@@ -87,13 +87,13 @@ function PowermailBackend($) {
 	this.addDeleteMailListener = function() {
 		$(document).on('click', '.deleteMail', function () {
 			var $this = $(this);
-			var formToken = $this.closest('td').find('.container_formtoken').val();
+			var moduleUri = $this.closest('td').find('.container_module_uri').val();
 			var uid = $this.closest('td').find('.container_uid').val();
 			var table = $this.closest('td').find('.container_table').val();
 			var confirmationMessage = $this.closest('td').find('.container_label_delete_confirmation').val();
 			if (confirm(confirmationMessage)) {
 				that.removeLine($this.closest('tr'));
-				that.sendDeleteRequest(table, uid, formToken);
+				that.sendDeleteRequest(table, uid, moduleUri);
 			}
 		});
 	};
@@ -496,13 +496,12 @@ function PowermailBackend($) {
 	 *
 	 * @param {string} table
 	 * @param {string} uid
-	 * @param {string} formToken
 	 * @param {int} hidden
+	 * @param {string} moduleUri
 	 * @returns {void}
 	 */
-	this.sendVisibilityRequest = function(table, uid, formToken, hidden) {
-		var url = 'tce_db.php?&data[' + table + '][' + uid + '][hidden]=' + hidden;
-		url += '&redirect=' + T3_THIS_LOCATION + '&vC=b601970a97' + formToken + '&prErr=1&uPT=1';
+	this.sendVisibilityRequest = function(table, uid, hidden, moduleUri) {
+		var url = moduleUri + '&data[' + table + '][' + uid + '][hidden]=' + hidden + '&redirect=' + T3_THIS_LOCATION;
 		$.ajax({
 			url: url
 		});
@@ -513,12 +512,11 @@ function PowermailBackend($) {
 	 *
 	 * @param {string} table
 	 * @param {string} uid
-	 * @param {string} formToken
+	 * @param {string} moduleUri
 	 * @returns {void}
 	 */
-	this.sendDeleteRequest = function(table, uid, formToken) {
-		var url = 'tce_db.php?&cmd[' + table + '][' + uid + '][delete]=1';
-		url += '&redirect=' + T3_THIS_LOCATION + '&vC=3c76f1d3bb&prErr=1&uPT=1' + formToken;
+	this.sendDeleteRequest = function(table, uid, moduleUri) {
+		var url = moduleUri + '&cmd[' + table + '][' + uid + '][delete]=1&redirect=' + T3_THIS_LOCATION;
 		$.ajax({
 			url: url
 		});
@@ -585,10 +583,10 @@ function PowermailBackend($) {
 		$('.selectLine').each(function() {
 			var $this = $(this);
 			var $td = $this.children(':last');
-			var formToken = $td.find('.container_formtoken').val();
+			var moduleUri = $td.find('.container_module_uri').val();
 			var uid = $td.find('.container_uid').val();
 			var table = $td.find('.container_table').val();
-			that.sendDeleteRequest(table, uid, formToken);
+			that.sendDeleteRequest(table, uid, moduleUri);
 			that.removeLine($this);
 			that.deselectLine($this);
 		});
@@ -615,10 +613,10 @@ function PowermailBackend($) {
 		$('.selectLine').each(function() {
 			var $this = $(this);
 			var $td = $this.children(':last');
-			var formToken = $td.find('.container_formtoken').val();
+			var moduleUri = $td.find('.container_module_uri').val();
 			var uid = $td.find('.container_uid').val();
 			var table = $td.find('.container_table').val();
-			that.sendVisibilityRequest(table, uid, formToken, that.visibilityToggleLine($this));
+			that.sendVisibilityRequest(table, uid, that.visibilityToggleLine($this), moduleUri);
 			that.deselectLine($this);
 		});
 		that.calculateAndWriteNumbersOfSelections();

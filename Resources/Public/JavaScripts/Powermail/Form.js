@@ -274,7 +274,7 @@ function PowermailForm($) {
 	 * @returns {void}
 	 */
 	this.enableUploadField = function($element) {
-		$element.removeProp('disabled').removeClass('hide').prop('type', 'file');
+		$element.prop('disabled', false).removeClass('hide').prop('type', 'file');
 	};
 
 	/**

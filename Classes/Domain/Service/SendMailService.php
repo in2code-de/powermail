@@ -469,7 +469,7 @@ class SendMailService
             '<br/>',
             '<br />'
         );
-        $content = str_replace($array, "\n", $content);
+        $content = str_replace($array, PHP_EOL, $content);
 
         return $content;
     }

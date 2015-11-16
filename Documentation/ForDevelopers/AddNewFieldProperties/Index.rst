@@ -84,8 +84,7 @@ EXT:powermailextended/ext_tables.php:
    );
    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
    	'tx_powermail_domain_model_fields',
-   	$tempColumns,
-   	TRUE
+   	$tempColumns
    );
    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
    	'tx_powermail_domain_model_fields',

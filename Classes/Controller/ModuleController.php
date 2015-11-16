@@ -69,7 +69,7 @@ class ModuleController extends AbstractController
                 'firstForm' => $this->formRepository->findByUid($firstFormUid),
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'token' => BackendUtility::getUrlToken('tceAction'),
+                'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             )
         );
@@ -162,7 +162,7 @@ class ModuleController extends AbstractController
                 'firstMail' => $firstMail,
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'token' => BackendUtility::getUrlToken('tceAction'),
+                'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             )
         );
@@ -186,7 +186,7 @@ class ModuleController extends AbstractController
                 'firstMail' => $firstMail,
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'token' => BackendUtility::getUrlToken('tceAction'),
+                'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             )
         );

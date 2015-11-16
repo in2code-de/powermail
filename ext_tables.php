@@ -12,6 +12,11 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin($_EXTKEY, 'Pi2', 'Powermail_Frontend');
 
 /**
+ * Disable non needed fields in tt_content
+ */
+$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] = 'select_key,pages,recursive';
+
+/**
  * Include Backend Module
  */
 if (
@@ -19,29 +24,41 @@ if (
     !\In2code\Powermail\Utility\ConfigurationUtility::isDisableBackendModuleActive() &&
     !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
 ) {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule('In2code.' . $_EXTKEY, 'web', 'm1', '', array(
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+        'In2code.' . $_EXTKEY,
+        'web',
+        'm1',
+        '',
+        array(
             'Module' => 'dispatch, list, exportXls, exportCsv, reportingBe, toolsBe, overviewBe, ' .
                 'checkBe, converterBe, converterUpdateBe, reportingFormBe, reportingMarketingBe, ' .
                 'fixUploadFolder, fixWrongLocalizedForms, fixFilledMarkersInLocalizedFields, ' .
                 'fixWrongLocalizedPages, fixFilledMarkersInLocalizedPages'
-        ), array(
+        ),
+        array(
             'access' => 'user,group',
             'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.' .
                 (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'gif'),
             'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
-        ));
+        )
+    );
 }
 
 /**
  * Include Flexform
  */
 // Pi1
+$fileName = 'FlexformPi1.xml';
+if (!\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.6')) {
+    $fileName = 'FlexformPi1Old.xml';
+}
 $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi1';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
     $pluginSignature,
-    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexformPi1.xml'
+    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $fileName
 );
+
 // Pi2
 $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi2';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
@@ -51,30 +68,11 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 );
 
 /**
- * Include UserFuncs
+ * ContentElementWizard for Pi1
  */
-if (TYPO3_MODE === 'BE') {
-    $extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
-
-    // form selection
-    require_once($extPath . 'Classes/Utility/Tca/FormSelectorUserFunc.php');
-
-    // show powermail fields in Pi2 (powermail_frontend)
-    require_once($extPath . 'Classes/Utility/Tca/FieldSelectorUserFunc.php');
-
-    // marker field in Pi1
-    require_once($extPath . 'Classes/Utility/Tca/Marker.php');
-
-    // add options to TCA select fields with itemsProcFunc
-    require_once($extPath . 'Classes/Utility/Tca/AddOptionsToSelection.php');
-
-    // show form note in FlexForm
-    require_once($extPath . 'Classes/Utility/Tca/ShowFormNoteEditForm.php');
-
-    // ContentElementWizard for Pi1
-    $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Utility\Hook\ContentElementWizard'] =
-        $extPath . 'Classes/Utility/Hook/ContentElementWizard.php';
-}
+$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Utility\Hook\ContentElementWizard'] =
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
+    'Classes/Utility/Hook/ContentElementWizard.php';
 
 /**
  * Include TypoScript

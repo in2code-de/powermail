@@ -186,7 +186,7 @@ class FrontendUtility
         if ($ipAddress === null) {
             $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
         }
-        $json = GeneralUtility::getUrl('https://www.telize.com/geoip/' . $ipAddress);
+        $json = GeneralUtility::getUrl('http://ip-api.com/json/' . $ipAddress);
         if ($json) {
             $geoInfo = json_decode($json);
             if (!empty($geoInfo->country)) {

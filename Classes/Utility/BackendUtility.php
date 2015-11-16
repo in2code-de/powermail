@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 
@@ -151,5 +152,23 @@ class BackendUtility extends BackendUtilityCore
             }
         }
         return (int) $pid;
+    }
+
+    /**
+     * Returns the URL to a given module
+     *      mainly used for visibility settings or deleting
+     *      a record via AJAX
+     *
+     * @param string $moduleName Name of the module
+     * @return string Calculated URL
+     */
+    public static function getModuleUrl($moduleName)
+    {
+        if (GeneralUtility::compat_version('7.6')) {
+            $uri = parent::getModuleUrl($moduleName);
+        } else {
+            $uri = 'tce_db.php?' . parent::getUrlToken('tceAction');
+        }
+        return $uri;
     }
 }
