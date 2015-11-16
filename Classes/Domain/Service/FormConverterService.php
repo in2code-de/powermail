@@ -1,7 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -107,7 +109,7 @@ class FormConverterService
         if (!empty($this->configuration['dryrun'])) {
             $this->setDryrun(true);
         }
-        if (!$this->getDryrun()) {
+        if (!$this->isDryrun()) {
             GeneralUtility::devLog('Old Forms to convert', 'powermail', 0, $oldFormsWithFieldsetsAndFields);
         }
 
@@ -140,11 +142,11 @@ class FormConverterService
      */
     protected function updateTvMapping($pid, $uidOld, $uidNew)
     {
-        if (!ExtensionManagementUtility::isLoaded('templavoila') || $this->getDryrun()) {
+        if (!ExtensionManagementUtility::isLoaded('templavoila') || $this->isDryrun()) {
             return;
         }
         if ($uidOld > 1 && $uidNew > 1) {
-            $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+            $res = $this->getDatabaseConnection()->exec_SELECTquery(
                 'tx_templavoila_flex',
                 'pages',
                 'uid = ' . (int) $pid,
@@ -152,7 +154,7 @@ class FormConverterService
                 '',
                 1
             );
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+            $row = $this->getDatabaseConnection()->sql_fetch_assoc($res);
 
             $flex = preg_replace_callback('~>(\S*)<~', function ($matches) use ($uidOld, $uidNew) {
                 $uids = explode(',', $matches[1]);
@@ -164,7 +166,7 @@ class FormConverterService
                 return '>' . implode(',', $uids) . '<';
             }, $row['tx_templavoila_flex']);
 
-            $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+            $this->getDatabaseConnection()->exec_UPDATEquery(
                 'pages',
                 'uid = ' . (int) $pid,
                 array(
@@ -206,9 +208,9 @@ class FormConverterService
         if ($form['sys_language_uid'] > 0 && !empty($this->localizationRelations['content'][$form['l18n_parent']])) {
             $ttContentProperties['l18n_parent'] = $this->localizationRelations['content'][$form['l18n_parent']];
         }
-        if (!$this->getDryrun()) {
-            $GLOBALS['TYPO3_DB']->exec_INSERTquery('tt_content', $ttContentProperties);
-            $ttContentUid = $GLOBALS['TYPO3_DB']->sql_insert_id();
+        if (!$this->isDryrun()) {
+            $this->getDatabaseConnection()->exec_INSERTquery('tt_content', $ttContentProperties);
+            $ttContentUid = $this->getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['content'][$form['uid']] = $ttContentUid;
             return $ttContentUid;
         }
@@ -230,7 +232,7 @@ class FormConverterService
                 ($this->configuration['save'] === '[samePage]' ? $form['pid'] : (int) $this->configuration['save']),
             'title' => $form['tx_powermail_title'],
             'pages' => $form['tx_powermail_fieldsets'],
-            'cruser_id' => $GLOBALS['BE_USER']->user['uid'],
+            'cruser_id' => BackendUtility::getPropertyFromBackendUser(),
             'hidden' => $form['hidden'],
             'crdate' => time(),
             'tstamp' => time()
@@ -239,9 +241,9 @@ class FormConverterService
             $formProperties['sys_language_uid'] = $form['sys_language_uid'];
             $formProperties['l10n_parent'] = $this->localizationRelations['form'][$form['l18n_parent']];
         }
-        if (!$this->getDryrun()) {
-            $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_domain_model_forms', $formProperties);
-            $formProperties['uid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
+        if (!$this->isDryrun()) {
+            $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_forms', $formProperties);
+            $formProperties['uid'] = $this->getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['form'][$form['uid']] = $formProperties['uid'];
         }
         $this->result[$formCounter] = $formProperties;
@@ -274,7 +276,7 @@ class FormConverterService
             'forms' => $formUid,
             'title' => $page['title'],
             'css' => $this->getValueIfDefaultLanguage($page, 'class'),
-            'cruser_id' => $GLOBALS['BE_USER']->user['uid'],
+            'cruser_id' => BackendUtility::getPropertyFromBackendUser(),
             'hidden' => $page['hidden'],
             'tstamp' => time(),
             'crdate' => time(),
@@ -284,9 +286,9 @@ class FormConverterService
             $pageProperties['sys_language_uid'] = $page['sys_language_uid'];
             $pageProperties['l10n_parent'] = $this->localizationRelations['page'][$page['l18n_parent']];
         }
-        if (!$this->getDryrun()) {
-            $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_domain_model_pages', $pageProperties);
-            $pageProperties['uid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
+        if (!$this->isDryrun()) {
+            $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_pages', $pageProperties);
+            $pageProperties['uid'] = $this->getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['page'][$page['uid']] = $pageProperties['uid'];
         }
         $this->result[$formCounter]['_pages'][$pageCounter] = $pageProperties;
@@ -323,7 +325,7 @@ class FormConverterService
             'title' => $field['title'],
             'type' => $this->rewriteFormType($field),
             'css' => $this->rewriteStyles($field),
-            'cruser_id' => $GLOBALS['BE_USER']->user['uid'],
+            'cruser_id' => BackendUtility::getPropertyFromBackendUser(),
             'hidden' => $field['hidden'],
             'sorting' => $field['sorting'],
             'marker' => $this->getMarker($field),
@@ -349,9 +351,9 @@ class FormConverterService
             $fieldProperties['sys_language_uid'] = $field['sys_language_uid'];
             $fieldProperties['l10n_parent'] = $this->localizationRelations['field'][$field['l18n_parent']];
         }
-        if (!$this->getDryrun()) {
-            $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_powermail_domain_model_fields', $fieldProperties);
-            $fieldProperties['uid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
+        if (!$this->isDryrun()) {
+            $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_fields', $fieldProperties);
+            $fieldProperties['uid'] = $this->getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['field'][$field['uid']] = $fieldProperties['uid'];
         }
         $this->result[$formCounter]['_pages'][$pageCounter]['_fields'][$fieldCounter] = $fieldProperties;
@@ -366,18 +368,6 @@ class FormConverterService
      */
     protected function createFlexForm($form, $formUid)
     {
-        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-        );
-        $templatePathAndFilename = GeneralUtility::getFileAbsFileName(
-            $extbaseFrameworkConfiguration['view']['templateRootPath']
-        );
-        $templatePathAndFilename .= 'Module/ConverterFlexForm.xml';
-        $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->getRequest()->setControllerName('Module');
-        $standaloneView->setTemplatePathAndFilename($templatePathAndFilename);
-
-        // manipulate variables
         $form['tx_powermail_thanks'] = $this->rewriteVariables($form['tx_powermail_thanks'], $form, true);
         $form['tx_powermail_mailsender'] = $this->rewriteVariables($form['tx_powermail_mailsender'], $form, true);
         $form['tx_powermail_mailreceiver'] = $this->rewriteVariables($form['tx_powermail_mailreceiver'], $form, true);
@@ -387,11 +377,19 @@ class FormConverterService
         if ($form['sys_language_uid'] > 0) {
             $formUid = $this->localizationRelations['form'][$form['l18n_parent']];
         }
-        $standaloneView->assignMultiple(array(
+
+        $standaloneView = TemplateUtility::getDefaultStandAloneView();
+        $standaloneView->getRequest()->setControllerName('Module');
+        $standaloneView->setTemplatePathAndFilename(TemplateUtility::getTemplatePath('Module/ConverterFlexForm.xml'));
+        $standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
+        $standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
+        $standaloneView->assignMultiple(
+            array(
                 'formUid' => $formUid,
                 'form' => $form,
                 'configuration' => $this->configuration
-            ));
+            )
+        );
 
         return $standaloneView->render();
     }
@@ -404,7 +402,7 @@ class FormConverterService
      */
     protected function deleteOldRecords($oldFormsWithFieldsetsAndFields)
     {
-        if ($this->getDryrun() || !$this->deleteOldForms) {
+        if ($this->isDryrun() || !$this->deleteOldForms) {
             return;
         }
         foreach ($oldFormsWithFieldsetsAndFields as $ttContent) {
@@ -412,15 +410,19 @@ class FormConverterService
             if ($ttContent['hidden'] === '1' && $this->configuration['hidden'] === '1') {
                 continue;
             }
-            $GLOBALS['TYPO3_DB']->exec_UPDATEquery('tt_content', 'uid = ' . $ttContent['uid'], array('deleted' => 1));
+            $this->getDatabaseConnection()->exec_UPDATEquery(
+                'tt_content',
+                'uid = ' . $ttContent['uid'],
+                array('deleted' => 1)
+            );
             foreach ($ttContent['_fieldsets'] as $fieldset) {
-                $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+                $this->getDatabaseConnection()->exec_UPDATEquery(
                     'tx_powermail_fieldsets',
                     'uid = ' . $fieldset['uid'],
                     array('deleted' => 1)
                 );
                 foreach ($fieldset['_fields'] as $field) {
-                    $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+                    $this->getDatabaseConnection()->exec_UPDATEquery(
                         'tx_powermail_fields',
                         'uid = ' . $field['uid'],
                         array('deleted' => 1)
@@ -674,15 +676,15 @@ class FormConverterService
             $GLOBALS['TT']->start();
         }
         if (!is_object($GLOBALS['TSFE'])) {
-            $id = (GeneralUtility::_GP('id') ? GeneralUtility::_GP('id') : 1);
-            $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], $id, 0, 0, 0, 0, 0, 0);
+            $pid = (GeneralUtility::_GP('id') ? GeneralUtility::_GP('id') : 1);
+            $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], $pid, 0, 0, 0, 0, 0, 0);
             $GLOBALS['TSFE']->tmpl = GeneralUtility::makeInstance(
                 'TYPO3\\CMS\\Core\\TypoScript\\ExtendedTemplateService'
             );
             $GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
             $GLOBALS['TSFE']->tmpl->tt_track = 0;
             $GLOBALS['TSFE']->tmpl->init();
-            $rootLine = $GLOBALS['TSFE']->sys_page->getRootLine($id);
+            $rootLine = $GLOBALS['TSFE']->sys_page->getRootLine($pid);
             $GLOBALS['TSFE']->tmpl->runThroughTemplates($rootLine);
             $GLOBALS['TSFE']->tmpl->generateConfig();
             $GLOBALS['TSFE']->tmpl->loaded = 1;
@@ -761,8 +763,16 @@ class FormConverterService
     /**
      * @return boolean
      */
-    public function getDryrun()
+    public function isDryrun()
     {
         return $this->dryrun;
+    }
+
+    /**
+     * @return DatabaseConnection
+     */
+    protected function getDatabaseConnection()
+    {
+        return $GLOBALS['TYPO3_DB'];
     }
 }

@@ -39,7 +39,7 @@ class BackendUtility extends BackendUtilityCore
 {
 
     /**
-     * Check if
+     * Check if backend user is admin
      *
      * @return bool
      */
@@ -49,6 +49,20 @@ class BackendUtility extends BackendUtilityCore
             return $GLOBALS['BE_USER']->user['admin'] === 1;
         }
         return false;
+    }
+
+    /**
+     * Get property from backend user
+     *
+     * @param string $property
+     * @return string
+     */
+    public static function getPropertyFromBackendUser($property = 'uid')
+    {
+        if (!empty($GLOBALS['BE_USER']->user[$property])) {
+            return $GLOBALS['BE_USER']->user[$property];
+        }
+        return '';
     }
 
     /**
