@@ -15,7 +15,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.main.form</label>
 							<config>
 								<type>select</type>
-								<renderType>selectMultipleSideBySide</renderType>
+								<renderType>selectSingle</renderType>
 								<items type="array">
 
 								</items>
@@ -30,9 +30,6 @@
 									order by tx_powermail_domain_model_forms.title</foreign_table_where>
 								<requestUpdate>1</requestUpdate>
 								<wizards>
-									<_PADDING>16</_PADDING>
-									<_VERTICAL>0</_VERTICAL>
-									<_HORIZONTAL>15</_HORIZONTAL>
 									<add>
 										<type>script</type>
 										<title>Add Form</title>
@@ -145,7 +142,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.fe_group</label>
 							<config>
 								<type>select</type>
-								<renderType>selectMultipleSideBySide</renderType>
+								<renderType>selectSingle</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose</numIndex>
@@ -180,7 +177,7 @@
 								<type>text</type>
 								<default>{powermail_all}</default>
 							</config>
-							<defaultExtras>richtext[cut|copy|paste|formatblock|bold|italic|underline|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image|line|chMode]:rte_transform[mode=ts_css]</defaultExtras>
+							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>
 					</settings.flexform.receiver.body>
 				</el>
@@ -231,7 +228,7 @@
 								<type>text</type>
 								<default>{powermail_all}</default>
 							</config>
-							<defaultExtras>richtext[cut|copy|paste|formatblock|bold|italic|underline|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image|line|chMode]:rte_transform[mode=ts_css]</defaultExtras>
+							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>
 					</settings.flexform.sender.body>
 				</el>

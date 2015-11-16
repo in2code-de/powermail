@@ -12,6 +12,11 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin($_EXTKEY, 'Pi2', 'Powermail_Frontend');
 
 /**
+ * Disable non needed fields in tt_content
+ */
+$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] = 'select_key,pages,recursive';
+
+/**
  * Include Backend Module
  */
 if (
@@ -53,6 +58,7 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
     $pluginSignature,
     'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $fileName
 );
+
 // Pi2
 $pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi2';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
@@ -62,30 +68,11 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 );
 
 /**
- * Include UserFuncs
+ * ContentElementWizard for Pi1
  */
-if (TYPO3_MODE === 'BE') {
-    $extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
-
-    // form selection
-    require_once($extPath . 'Classes/Utility/Tca/FormSelectorUserFunc.php');
-
-    // show powermail fields in Pi2 (powermail_frontend)
-    require_once($extPath . 'Classes/Utility/Tca/FieldSelectorUserFunc.php');
-
-    // marker field in Pi1
-    require_once($extPath . 'Classes/Utility/Tca/Marker.php');
-
-    // add options to TCA select fields with itemsProcFunc
-    require_once($extPath . 'Classes/Utility/Tca/AddOptionsToSelection.php');
-
-    // show form note in FlexForm
-    require_once($extPath . 'Classes/Utility/Tca/ShowFormNoteEditForm.php');
-
-    // ContentElementWizard for Pi1
-    $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Utility\Hook\ContentElementWizard'] =
-        $extPath . 'Classes/Utility/Hook/ContentElementWizard.php';
-}
+$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Utility\Hook\ContentElementWizard'] =
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
+    'Classes/Utility/Hook/ContentElementWizard.php';
 
 /**
  * Include TypoScript

@@ -15,7 +15,6 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.main.form</label>
 							<config>
 								<type>select</type>
-								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 
 								</items>
@@ -145,7 +144,6 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.fe_group</label>
 							<config>
 								<type>select</type>
-								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose</numIndex>

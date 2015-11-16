@@ -15,7 +15,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.switchableControllerActions</label>
 							<config>
 								<type>select</type>
-								<renderType>selectMultipleSideBySide</renderType>
+								<renderType>selectSingle</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.switchableControllerActions.0</numIndex>
@@ -272,7 +272,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.abc</label>
 							<config>
 								<type>select</type>
-								<renderType>selectMultipleSideBySide</renderType>
+								<renderType>selectSingle</renderType>
 								<items type="array">
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.abc.off</numIndex>
