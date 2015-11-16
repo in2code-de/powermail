@@ -64,7 +64,7 @@ function PowermailForm($) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
-				var url = that.getBaseUrl + '/index.php' + '?eID=' + 'powermailEidGetLocation';
+				var url = that.getBaseUrl() + '/index.php' + '?eID=' + 'powermailEidGetLocation';
 				jQuery.ajax({
 					url: url,
 					data: 'lat=' + lat + '&lng=' + lng,
