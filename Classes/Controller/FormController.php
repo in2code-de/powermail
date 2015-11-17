@@ -383,7 +383,6 @@ class FormController extends AbstractController
      */
     protected function prepareOutput(Mail $mail, $hash = null)
     {
-        $this->redirectToTarget();
         $this->view->assignMultiple(
             array(
                 'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, true),
@@ -397,23 +396,13 @@ class FormController extends AbstractController
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));
         $this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
 
-        $this->finisherRunner->callFinishers($mail, $this->isSendMailActive($mail, $hash), $this->actionMethodName);
-    }
-
-    /**
-     * Redirect on thx action
-     *
-     * @return void
-     */
-    protected function redirectToTarget()
-    {
-        $redirectTargetUri = $this->getRedirectTargetUri();
-        if (
-            !empty($redirectTargetUri) && $this->request->getControllerActionName() !== 'confirmation'
-            && !(!empty($this->settings['main']['optin']) && empty($this->piVars['hash']))
-        ) {
-            $this->redirectToUri($redirectTargetUri);
-        }
+        $this->finisherRunner->callFinishers(
+            $mail,
+            $this->isSendMailActive($mail, $hash),
+            $this->actionMethodName,
+            $this->settings,
+            $this->cObj
+        );
     }
 
     /**

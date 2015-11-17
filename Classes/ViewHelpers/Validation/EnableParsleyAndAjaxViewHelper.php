@@ -2,6 +2,8 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Service\RedirectUriService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Adds additional attributes for parsley or AJAX submit
@@ -12,6 +14,13 @@ use In2code\Powermail\Domain\Model\Form;
  */
 class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
 {
+
+    /**
+     * Could be disabled for testing
+     *
+     * @var bool
+     */
+    protected $addRedirectUri = true;
 
     /**
      * Returns Data Attribute Array to enable parsley
@@ -33,42 +42,21 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
         if ($this->settings['misc']['ajaxSubmit'] === '1') {
             $additionalAttributes['data-powermail-ajax'] = 'true';
             $additionalAttributes['data-powermail-form'] = $form->getUid();
-            if ($this->getRedirectUri()) {
-                $additionalAttributes['data-powermail-ajax-uri'] = $this->getRedirectUri();
+
+            if ($this->addRedirectUri) {
+                /** @var RedirectUriService $redirectService */
+                $redirectService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
+                    ->get(
+                        'In2code\\Powermail\\Domain\\Service\\RedirectUriService',
+                        $this->contentObject
+                    );
+                $redirectUri = $redirectService->getRedirectUri();
+                if ($redirectUri) {
+                    $additionalAttributes['data-powermail-ajax-uri'] = $redirectUri;
+                }
             }
         }
 
         return $additionalAttributes;
-    }
-
-    /**
-     * Get redirect URI from FlexForm or TypoScript
-     *
-     * @return NULL|string
-     */
-    protected function getRedirectUri()
-    {
-        $uriBuilder = $this->controllerContext->getUriBuilder();
-        $target = null;
-
-        // target from flexform
-        $flexFormArray = $this->getFlexFormArray();
-        if (!empty($flexFormArray['thx']['lDEF']['settings.flexform.thx.redirect']['vDEF'])) {
-            $target = $flexFormArray['thx']['lDEF']['settings.flexform.thx.redirect']['vDEF'];
-        }
-
-        // target from TypoScript overwrite
-        if (!empty($this->settings['thx']['overwrite']['redirect'])) {
-            $target = $this->contentObject->cObjGetSingle(
-                $this->settings['thx']['overwrite']['redirect']['_typoScriptNodeValue'],
-                $this->settings['thx']['overwrite']['redirect']
-            );
-        }
-
-        if ($target) {
-            $uriBuilder->setTargetPageUid($target);
-            $target = $uriBuilder->build();
-        }
-        return $target;
     }
 }

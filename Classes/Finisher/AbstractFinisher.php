@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
  *  Copyright notice
@@ -68,6 +69,11 @@ abstract class AbstractFinisher implements FinisherInterface
      * @var null
      */
     protected $actionMethodName = null;
+
+    /**
+     * @var ContentObjectRenderer
+     */
+    protected $contentObject;
 
     /**
      * @return Mail
@@ -171,14 +177,22 @@ abstract class AbstractFinisher implements FinisherInterface
      * @param array $configuration
      * @param array $settings
      * @param bool $formSubmitted
+     * @param ContentObjectRenderer $contentObject
      * @param string $actionMethodName
      */
-    public function __construct(Mail $mail, array $configuration, array $settings, $formSubmitted, $actionMethodName)
-    {
+    public function __construct(
+        Mail $mail,
+        array $configuration,
+        array $settings,
+        $formSubmitted,
+        $actionMethodName,
+        ContentObjectRenderer $contentObject
+    ) {
         $this->setMail($mail);
         $this->setConfiguration($configuration);
         $this->setSettings($settings);
         $this->setFormSubmitted($formSubmitted);
         $this->setActionMethodName($actionMethodName);
+        $this->contentObject = $contentObject;
     }
 }

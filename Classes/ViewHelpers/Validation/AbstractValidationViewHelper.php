@@ -62,7 +62,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     /**
      * Get FlexForm array from contentObject
      *
-     * @return array|NULL
+     * @return array|null
      */
     protected function getFlexFormArray()
     {
