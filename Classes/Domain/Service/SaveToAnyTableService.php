@@ -91,6 +91,7 @@ class SaveToAnyTableService
      */
     public function execute()
     {
+        $this->checkProperties();
         switch ($this->getMode()) {
             case 'update':
                 // case with "update" or "none"
@@ -156,6 +157,19 @@ class SaveToAnyTableService
         }
 
         return $row['uid'];
+    }
+
+    /**
+     * Check if there are properties
+     *
+     * @throws \Exception
+     * @return void
+     */
+    protected function checkProperties()
+    {
+        if (empty($this->getProperties())) {
+            throw new \Exception('No properties to insert/update given');
+        }
     }
 
     /**
@@ -322,13 +336,12 @@ class SaveToAnyTableService
      */
     protected function writeToDevLog()
     {
-        if (!$this->isDevLog()) {
-            return;
+        if ($this->isDevLog()) {
+            $subject = 'SaveToAnyTable (Table: ' . $this->getTable();
+            $subject .= ', Mode: ' . $this->getMode();
+            $subject .= ', UniqueField: ' . $this->getUniqueField() . ')';
+            GeneralUtility::devLog($subject, 'powermail', 0, $this->getProperties());
         }
-        $subject = 'SaveToAnyTable (Table: ' . $this->getTable();
-        $subject .= ', Mode: ' . $this->getMode();
-        $subject .= ', UniqueField: ' . $this->getUniqueField() . ')';
-        GeneralUtility::devLog($subject, 'powermail', 0, $this->getProperties());
     }
 
     /**

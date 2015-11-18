@@ -130,6 +130,8 @@ abstract class AbstractFinisher implements FinisherInterface
     }
 
     /**
+     * Form is not marked as submitted in case of optin usage
+     *
      * @return boolean
      */
     public function isFormSubmitted()

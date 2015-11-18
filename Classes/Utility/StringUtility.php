@@ -169,6 +169,18 @@ class StringUtility
     }
 
     /**
+     * Check if string starts with another string
+     *
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    public static function startsWith($haystack, $needle)
+    {
+        return stristr($haystack, $needle) && strrpos($haystack, $needle, -strlen($haystack)) !== false;
+    }
+
+    /**
      * Check if string ends with another string
      *
      * @param string $haystack
@@ -178,5 +190,19 @@ class StringUtility
     public static function endsWith($haystack, $needle)
     {
         return stristr($haystack, $needle) && strlen($haystack) - strlen($needle) === strpos($haystack, $needle);
+    }
+
+    /**
+     * Remove last . of a string
+     *
+     * @param $string
+     * @return string
+     */
+    public static function removeLastDot($string)
+    {
+        if (substr($string, -1) === '.') {
+            $string = substr($string, 0, -1);
+        }
+        return $string;
     }
 }

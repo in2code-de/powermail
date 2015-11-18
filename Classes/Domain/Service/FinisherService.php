@@ -30,7 +30,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  ***************************************************************/
 
 /**
- * Load individual finisher classes
+ * Load individual single finisher class
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html

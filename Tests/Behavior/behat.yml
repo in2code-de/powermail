@@ -4,7 +4,7 @@ default:
       bootstrap: %behat.paths.features%/Bootstrap
     extensions:
         Behat\MinkExtension\Extension:
-            base_url: http://powermail76.localhost.de
+            base_url: http://powermail.localhost.de
             files_path: /var/www/html/powermailShared/fileadmin/user_upload
             goutte: ~
             selenium2: ~

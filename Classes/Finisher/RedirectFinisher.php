@@ -50,7 +50,7 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
     protected $arguments = array();
 
     /**
-     * Send values via curl to a third party software
+     * Redirect user after form submit
      *
      * @return void
      */
@@ -72,8 +72,7 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
      */
     protected function isRedirectEnabled()
     {
-        return $this->getActionMethodName() !== 'confirmationAction'
-            && !(!empty($this->settings['main']['optin']) && empty($this->arguments['hash']));
+        return !(!empty($this->settings['main']['optin']) && empty($this->arguments['hash']));
     }
 
     /**

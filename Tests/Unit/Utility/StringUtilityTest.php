@@ -278,4 +278,100 @@ class StringUtilityTest extends UnitTestCase
     {
         $this->assertSame($expectedResult, StringUtility::endsWith($haystack, $needle));
     }
+
+    /**
+     * Data Provider for startsWithReturnsString()
+     *
+     * @return array
+     */
+    public function startsWithReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                'Finisherx',
+                'Finisher',
+                true
+            ),
+            array(
+                'inisher',
+                'Finisher',
+                false
+            ),
+            array(
+                'abc',
+                'a',
+                true
+            ),
+            array(
+                'abc',
+                'ab',
+                true
+            ),
+            array(
+                'abc',
+                'abc',
+                true
+            ),
+        );
+    }
+
+    /**
+     * startsWith Test
+     *
+     * @param string $haystack
+     * @param string $needle
+     * @param bool $expectedResult
+     * @dataProvider startsWithReturnsStringDataProvider
+     * @return void
+     * @test
+     */
+    public function startsWithReturnsString($haystack, $needle, $expectedResult)
+    {
+        $this->assertSame($expectedResult, StringUtility::startsWith($haystack, $needle));
+    }
+
+    /**
+     * Data Provider for removeLastDotReturnsString()
+     *
+     * @return array
+     */
+    public function removeLastDotReturnsStringDataProvider()
+    {
+        return array(
+            array(
+                'abc',
+                'abc'
+            ),
+            array(
+                'abc.',
+                'abc'
+            ),
+            array(
+                '.abc.',
+                '.abc'
+            ),
+            array(
+                '.a.b.c.',
+                '.a.b.c'
+            ),
+            array(
+                'abc..',
+                'abc.'
+            ),
+        );
+    }
+
+    /**
+     * removeLastDot Test
+     *
+     * @param string $string
+     * @param string $expectedResult
+     * @dataProvider removeLastDotReturnsStringDataProvider
+     * @return void
+     * @test
+     */
+    public function removeLastDotReturnsString($string, $expectedResult)
+    {
+        $this->assertSame($expectedResult, StringUtility::removeLastDot($string));
+    }
 }

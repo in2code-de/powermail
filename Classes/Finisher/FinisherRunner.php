@@ -3,9 +3,6 @@ namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\FinisherService;
-use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
@@ -32,7 +29,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  ***************************************************************/
 
 /**
- * Call all finishers
+ * Get all finishers classes and call finisher service for each of them
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
@@ -64,6 +61,17 @@ class FinisherRunner
      * @var array
      */
     protected $settings = array();
+
+    /**
+     * Own finisher classnames - ordering will be respected
+     *
+     * @var array
+     */
+    protected $ownFinisherClasses = array(
+        'SaveToAnyTableFinisher',
+        'SendParametersFinisher',
+        'RedirectFinisher'
+    );
 
     /**
      * Call finisher classes after submit
@@ -149,17 +157,9 @@ class FinisherRunner
      *
      * @return array
      */
-    protected function getOwnFinisherClasses()
+    public function getOwnFinisherClasses()
     {
-        $classNames = array();
-        foreach (GeneralUtility::getFilesInDir(__DIR__) as $fileName) {
-            $className = basename($fileName, '.php');
-            if (StringUtility::endsWith($className, 'Finisher') && $className !== 'AbstractFinisher') {
-                $classNames[] = $className;
-            }
-        }
-        return $classNames;
-
+        return $this->ownFinisherClasses;
     }
 
     /**
