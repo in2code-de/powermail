@@ -41,7 +41,7 @@ class CaptchaValidator extends AbstractValidator
      */
     public function isValid($mail)
     {
-        if (!$this->formHasCaptcha($mail->getForm())) {
+        if ($this->formHasCaptcha($mail->getForm())) {
             foreach ($mail->getAnswers() as $answer) {
                 /** @var Answer $answer */
                 if ($answer->getField()->getType() !== 'captcha') {
