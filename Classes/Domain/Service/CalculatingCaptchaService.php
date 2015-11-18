@@ -6,7 +6,8 @@ use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -41,6 +42,12 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 class CalculatingCaptchaService
 {
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @inject
+     */
+    protected $configurationManager;
 
     /**
      * TypoScript
@@ -115,25 +122,28 @@ class CalculatingCaptchaService
     {
         $this->test = $test;
         $this->setConfiguration();
-        $this
-            ->setBackgroundImage($this->configuration['captcha.']['default.']['image'])
-            ->setFontPathAndFilename($this->configuration['captcha.']['default.']['font']);
     }
 
     /**
      * Render Link to Captcha Image
      *
      * @param Field $field
-     * @return string
+     * @return string|null
      * @throws \Exception
      */
     public function render(Field $field)
     {
-        $this->setPathAndFilename($field);
-        BasicFileUtility::createFolderIfNotExists($this->getImagePath(true));
-        $captchaValue = $this->getStringAndResultForCaptcha();
-        SessionUtility::setCaptchaSession($captchaValue['result'], $field->getUid());
-        return $this->createImage($captchaValue['string']);
+        if ($this->configurationExists()) {
+            $this
+                ->setBackgroundImage($this->configuration['captcha.']['default.']['image'])
+                ->setFontPathAndFilename($this->configuration['captcha.']['default.']['font'])
+                ->setPathAndFilename($field);
+            BasicFileUtility::createFolderIfNotExists($this->getImagePath(true));
+            $captchaValue = $this->getStringAndResultForCaptcha();
+            SessionUtility::setCaptchaSession($captchaValue['result'], $field->getUid());
+            return $this->createImage($captchaValue['string']);
+        }
+        return null;
     }
 
     /**
@@ -323,10 +333,19 @@ class CalculatingCaptchaService
      */
     public function setConfiguration()
     {
-        /** @var TypoScriptFrontendController $typoScriptFrontendController */
-        $typoScriptFrontendController = $GLOBALS['TSFE'];
-        $this->configuration =
-            $typoScriptFrontendController->tmpl->setup['plugin.']['tx_powermail.']['settings.']['setup.'];
+        if (!$this->test) {
+            /** @var ObjectManagerInterface $objectManager */
+            $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+            /** @var ConfigurationManagerInterface $configurationManager */
+            $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+            $typoScriptSetup = $configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+            );
+            $typoScriptService = $objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+            $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
+                (array) $typoScriptSetup['setup']
+            );
+        }
         return $this;
     }
 
@@ -438,5 +457,13 @@ class CalculatingCaptchaService
             throw new \Exception('No captcha truetype font found - please check your TypoScript configuration');
         }
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function configurationExists()
+    {
+        return !empty($this->configuration['captcha.']['default.']);
     }
 }

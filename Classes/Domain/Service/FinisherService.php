@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Finisher\AbstractFinisher;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
  *  Copyright notice
@@ -29,7 +30,7 @@ use In2code\Powermail\Utility\StringUtility;
  ***************************************************************/
 
 /**
- * Load individual finisher classes
+ * Load individual single finisher class
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
@@ -37,6 +38,11 @@ use In2code\Powermail\Utility\StringUtility;
  */
 class FinisherService
 {
+
+    /**
+     * @var ContentObjectRenderer
+     */
+    protected $contentObject;
 
     /**
      * Classname
@@ -246,7 +252,8 @@ class FinisherService
                 $this->getConfiguration(),
                 $this->getSettings(),
                 $this->isFormSubmitted(),
-                $this->getActionMethodName()
+                $this->getActionMethodName(),
+                $this->contentObject
             );
             $finisher->initializeFinisher();
             $this->callFinisherMethods($finisher);
@@ -289,10 +296,12 @@ class FinisherService
     /**
      * @param Mail $mail
      * @param array $settings
+     * @param ContentObjectRenderer $contentObject
      */
-    public function __construct(Mail $mail, array $settings)
+    public function __construct(Mail $mail, array $settings, ContentObjectRenderer $contentObject)
     {
         $this->setMail($mail);
         $this->setSettings($settings);
+        $this->contentObject = $contentObject;
     }
 }

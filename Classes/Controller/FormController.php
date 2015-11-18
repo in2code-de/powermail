@@ -132,7 +132,6 @@ class FormController extends AbstractController
         }
         if ($this->isSendMailActive($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
-            SaveToAnyTableUtility::preflight($mail, $this->conf);
         } else {
             $this->sendConfirmationMail($mail);
             $this->view->assign('optinActive', true);
@@ -143,7 +142,15 @@ class FormController extends AbstractController
         }
 
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($mail, $hash, $this));
-        $this->prepareOutput($mail, $hash);
+        $this->prepareOutput($mail);
+
+        $this->finisherRunner->callFinishers(
+            $mail,
+            $this->isSendMailActive($mail, $hash),
+            $this->actionMethodName,
+            $this->settings,
+            $this->cObj
+        );
     }
 
     /**
@@ -378,12 +385,10 @@ class FormController extends AbstractController
      * Prepare output
      *
      * @param Mail $mail
-     * @param string $hash
      * @return void
      */
-    protected function prepareOutput(Mail $mail, $hash = null)
+    protected function prepareOutput(Mail $mail)
     {
-        $this->redirectToTarget();
         $this->view->assignMultiple(
             array(
                 'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, true),
@@ -396,24 +401,6 @@ class FormController extends AbstractController
         );
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));
         $this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
-
-        $this->finisherRunner->callFinishers($mail, $this->isSendMailActive($mail, $hash), $this->actionMethodName);
-    }
-
-    /**
-     * Redirect on thx action
-     *
-     * @return void
-     */
-    protected function redirectToTarget()
-    {
-        $redirectTargetUri = $this->getRedirectTargetUri();
-        if (
-            !empty($redirectTargetUri) && $this->request->getControllerActionName() !== 'confirmation'
-            && !(!empty($this->settings['main']['optin']) && empty($this->piVars['hash']))
-        ) {
-            $this->redirectToUri($redirectTargetUri);
-        }
     }
 
     /**

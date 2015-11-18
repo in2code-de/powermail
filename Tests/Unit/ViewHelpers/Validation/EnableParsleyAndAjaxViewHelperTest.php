@@ -89,8 +89,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                     'data-parsley-validate' => 'data-parsley-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123,
-                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                    'data-powermail-form' => 123
                 )
             ),
             'clientAndAjaxAndNoAdditionalAttributes' => array(
@@ -107,8 +106,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 array(
                     'data-parsley-validate' => 'data-parsley-validate',
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123,
-                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                    'data-powermail-form' => 123
                 )
             ),
             'nativeAndAjaxAndNoAdditionalAttributes' => array(
@@ -125,8 +123,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 array(
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123,
-                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                    'data-powermail-form' => 123
                 )
             ),
             'AjaxAndNoAdditionalAttributes' => array(
@@ -142,8 +139,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 array(),
                 array(
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123,
-                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                    'data-powermail-form' => 123
                 )
             ),
             'nativeAndClientAndNoAdditionalAttributes' => array(
@@ -184,8 +180,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                     'data-parsley-validate' => 'data-parsley-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123,
-                    'data-powermail-ajax-uri' => 'index.php?id=123'
+                    'data-powermail-form' => 123
                 )
             ),
         );
@@ -206,6 +201,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
         $form = new Form;
         $form->_setProperty('uid', 123);
 
+        $this->enableParsleyAndAjaxViewHelperMock->_set('addRedirectUri', false);
         $this->enableParsleyAndAjaxViewHelperMock->_set('settings', $settings);
         $result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render', $form, $additionalAttributes);
         $this->assertSame($expectedResult, $result);

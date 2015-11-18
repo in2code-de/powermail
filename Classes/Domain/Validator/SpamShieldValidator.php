@@ -399,11 +399,10 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function createSpamNotificationMessage($path, $multipleAssign = array())
     {
-        $rootPath = GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/');
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($path));
-        $standaloneView->setLayoutRootPaths(array($rootPath . 'Layouts'));
-        $standaloneView->setPartialRootPaths(array($rootPath . 'Partials'));
+        $standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
+        $standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
         $standaloneView->assignMultiple($multipleAssign);
         return $standaloneView->render();
     }

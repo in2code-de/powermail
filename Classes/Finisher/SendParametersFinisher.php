@@ -140,8 +140,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     /**
      * Check if sendPost is activated
      *      - if it's enabled via TypoScript
-     *      - if form was submitted
-     *      - if actionMethodName == "createAction"
+     *      - if form was final submitted (without optin)
      *
      * @return bool
      */
@@ -150,7 +149,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
         return $this->contentObject->cObjGetSingle(
             $this->configuration['_enable'],
             $this->configuration['_enable.']
-        ) === '1' && $this->isFormSubmitted() && $this->getActionMethodName() === 'createAction';
+        ) === '1' && $this->isFormSubmitted();
     }
 
     /**

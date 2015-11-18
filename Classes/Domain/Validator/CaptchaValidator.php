@@ -5,6 +5,7 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -17,12 +18,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class CaptchaValidator extends AbstractValidator
 {
-
-    /**
-     * @var \In2code\Powermail\Domain\Service\CalculatingCaptchaService
-     * @inject
-     */
-    protected $calculatingCaptchaService;
 
     /**
      * Captcha Session clean (only if mail is out)
@@ -46,31 +41,28 @@ class CaptchaValidator extends AbstractValidator
      */
     public function isValid($mail)
     {
-        if (!$this->formHasCaptcha($mail->getForm())) {
-            return true;
-        }
+        if ($this->formHasCaptcha($mail->getForm())) {
+            foreach ($mail->getAnswers() as $answer) {
+                /** @var Answer $answer */
+                if ($answer->getField()->getType() !== 'captcha') {
+                    continue;
+                }
 
-        foreach ($mail->getAnswers() as $answer) {
-            /** @var Answer $answer */
-            if ($answer->getField()->getType() !== 'captcha') {
-                continue;
+                $this->setCaptchaArgument(true);
+                if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
+                    $this->setErrorAndMessage($answer->getField(), 'captcha');
+                }
+
             }
 
-            $this->setCaptchaArgument(true);
-            if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
-                $this->setErrorAndMessage($answer->getField(), 'captcha');
+            // if no captcha arguments given (maybe deleted from DOM)
+            if (!$this->hasCaptchaArgument()) {
+                $this->addError('captcha', 0);
+                $this->setValidState(false);
             }
-
-        }
-
-        // if no captcha arguments given (maybe deleted from DOM)
-        if (!$this->hasCaptchaArgument()) {
-            $this->addError('captcha', 0);
-            $this->setValidState(false);
         }
 
         return $this->isValidState();
-
     }
 
     /**
@@ -95,7 +87,10 @@ class CaptchaValidator extends AbstractValidator
                 break;
 
             default:
-                if ($this->calculatingCaptchaService->validCode($value, $field, $this->isClearSession())) {
+                /** @var CalculatingCaptchaService $captchaService */
+                $captchaService =
+                    $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\CalculatingCaptchaService');
+                if ($captchaService->validCode($value, $field, $this->isClearSession())) {
                     return true;
                 }
         }

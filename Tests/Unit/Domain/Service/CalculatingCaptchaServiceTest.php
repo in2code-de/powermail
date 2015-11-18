@@ -54,14 +54,17 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
             array('dummy'),
             array(true)
         );
-        $this->generalValidatorMock->_set('configuration', array(
+        $this->generalValidatorMock->_set(
+            'configuration',
+            array(
                 'captcha.' => array(
                     'default.' => array(
                         'image' => 'EXT:powermail/Resources/Private/Image/captcha_bg.png',
                         'font' => 'EXT:powermail/Resources/Private/Fonts/ARCADE.TTF'
                     )
                 )
-            ));
+            )
+        );
     }
 
     /**
@@ -105,13 +108,16 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $imageResource = ImageCreateFromPNG(
             GeneralUtility::getFileAbsFileName('typo3conf/ext/powermail/Resources/Private/Image/captcha_bg.png')
         );
-        $this->generalValidatorMock->_set('configuration', array(
+        $this->generalValidatorMock->_set(
+            'configuration',
+            array(
                 'captcha.' => array(
                     'default.' => array(
                         'textColor' => $hexColorString
                     )
                 )
-            ));
+            )
+        );
 
         $result = $this->generalValidatorMock->_call('getColorForCaptcha', $imageResource);
         $this->assertSame($expectedResult, $result);
@@ -160,13 +166,16 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getFontAngleForCaptchaReturnInt($hexColorString, $expectedResult)
     {
-        $this->generalValidatorMock->_set('configuration', array(
+        $this->generalValidatorMock->_set(
+            'configuration',
+            array(
                 'captcha.' => array(
                     'default.' => array(
                         'textAngle' => $hexColorString
                     )
                 )
-            ));
+            )
+        );
 
         for ($i = 0; $i < 20; $i++) {
             $result = $this->generalValidatorMock->_call('getFontAngleForCaptcha');
@@ -218,13 +227,16 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getHorizontalDistanceForCaptchaReturnInt($hexColorString, $expectedResult)
     {
-        $this->generalValidatorMock->_set('configuration', array(
+        $this->generalValidatorMock->_set(
+            'configuration',
+            array(
                 'captcha.' => array(
                     'default.' => array(
                         'distanceHor' => $hexColorString
                     )
                 )
-            ));
+            )
+        );
 
         for ($i = 0; $i < 20; $i++) {
             $result = $this->generalValidatorMock->_call('getHorizontalDistanceForCaptcha');
@@ -276,13 +288,16 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getVerticalDistanceForCaptchaReturnInt($hexColorString, $expectedResult)
     {
-        $this->generalValidatorMock->_set('configuration', array(
+        $this->generalValidatorMock->_set(
+            'configuration',
+            array(
                 'captcha.' => array(
                     'default.' => array(
                         'distanceVer' => $hexColorString
                     )
                 )
-            ));
+            )
+        );
 
         for ($i = 0; $i < 20; $i++) {
             $result = $this->generalValidatorMock->_call('getVerticalDistanceForCaptcha');
@@ -348,13 +363,16 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getStringAndResultForCaptchaReturnsArray($forceValue, $expectedResult)
     {
-        $this->generalValidatorMock->_set('configuration', array(
+        $this->generalValidatorMock->_set(
+            'configuration',
+            array(
                 'captcha.' => array(
                     'default.' => array(
                         'forceValue' => $forceValue
                     )
                 )
-            ));
+            )
+        );
         $result = $this->generalValidatorMock->_call('getStringAndResultForCaptcha');
         $this->assertSame($expectedResult, $result);
     }

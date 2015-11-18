@@ -157,6 +157,7 @@ class ConfigurationUtility
      *
      * @param string $fileName
      * @return string
+     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     public static function getIconPath($fileName)
     {

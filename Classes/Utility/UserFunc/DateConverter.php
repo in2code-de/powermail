@@ -70,7 +70,7 @@ class DateConverter
     protected $outputFormat = 'd.m.Y';
 
     /**
-     * @var NULL|\DateTime
+     * @var \DateTime|null
      */
     protected $date = null;
 

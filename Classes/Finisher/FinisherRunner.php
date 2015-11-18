@@ -3,9 +3,7 @@ namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\FinisherService;
-use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
  *  Copyright notice
@@ -31,7 +29,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  ***************************************************************/
 
 /**
- * Call all finishers
+ * Get all finishers classes and call finisher service for each of them
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
@@ -44,13 +42,18 @@ class FinisherRunner
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
      * @inject
      */
-    protected $objectManager = null;
+    protected $objectManager;
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      * @inject
      */
     protected $configurationManager;
+
+    /**
+     * @var ContentObjectRenderer
+     */
+    protected $contentObject;
 
     /**
      * TypoScript settings
@@ -60,16 +63,34 @@ class FinisherRunner
     protected $settings = array();
 
     /**
+     * Own finisher classnames - ordering will be respected
+     *
+     * @var array
+     */
+    protected $ownFinisherClasses = array(
+        'SaveToAnyTableFinisher',
+        'SendParametersFinisher',
+        'RedirectFinisher'
+    );
+
+    /**
      * Call finisher classes after submit
      *
      * @param Mail $mail
      * @param bool $formSubmitted
      * @param string $actionMethodName
+     * @param array $settings
+     * @param ContentObjectRenderer $contentObject
      * @return void
      */
-    public function callFinishers(Mail $mail, $formSubmitted = false, $actionMethodName = null)
-    {
-        $this->initialize();
+    public function callFinishers(
+        Mail $mail,
+        $formSubmitted,
+        $actionMethodName,
+        $settings,
+        ContentObjectRenderer $contentObject
+    ) {
+        $this->initialize($settings, $contentObject);
         $this->callLocalFinishers($mail, $formSubmitted, $actionMethodName);
         $this->callForeignFinishers($mail, $formSubmitted, $actionMethodName);
     }
@@ -90,7 +111,8 @@ class FinisherRunner
             $finisherService = $this->objectManager->get(
                 'In2code\\Powermail\\Domain\\Service\\FinisherService',
                 $mail,
-                $this->settings
+                $this->settings,
+                $this->contentObject
             );
             $finisherService->setClass(__NAMESPACE__ . '\\' . $className);
             $finisherService->setRequirePath(null);
@@ -117,7 +139,8 @@ class FinisherRunner
                 $finisherService = $this->objectManager->get(
                     'In2code\\Powermail\\Domain\\Service\\FinisherService',
                     $mail,
-                    $this->settings
+                    $this->settings,
+                    $this->contentObject
                 );
                 $finisherService->setClass($finisherSettings['class']);
                 $finisherService->setRequirePath((string) $finisherSettings['require']);
@@ -134,27 +157,21 @@ class FinisherRunner
      *
      * @return array
      */
-    protected function getOwnFinisherClasses()
+    public function getOwnFinisherClasses()
     {
-        $classNames = array();
-        foreach (GeneralUtility::getFilesInDir(__DIR__) as $fileName) {
-            $className = basename($fileName, '.php');
-            if (StringUtility::endsWith($className, 'Finisher') && $className !== 'AbstractFinisher') {
-                $classNames[] = $className;
-            }
-        }
-        return $classNames;
-
+        return $this->ownFinisherClasses;
     }
 
     /**
-     * Construct
+     * Initialize
+     *
+     * @param array $settings
+     * @param ContentObjectRenderer $contentObject
+     * @return void
      */
-    public function initialize()
+    public function initialize(array $settings, ContentObjectRenderer $contentObject)
     {
-        $typoScriptSetup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-        );
-        $this->settings = $typoScriptSetup['setup'];
+        $this->settings = $settings;
+        $this->contentObject = $contentObject;
     }
 }

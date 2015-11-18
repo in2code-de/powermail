@@ -209,7 +209,7 @@ class FormControllerTest extends UnitTestCase
      *
      * @param int $store
      * @param int $optin
-     * @param NULL|string $hash
+     * @param string|null $hash
      * @param bool $expectedResult
      * @return void
      * @dataProvider isMailPersistActiveReturnBoolDataProvider

@@ -222,37 +222,6 @@ abstract class AbstractController extends ActionController
     }
 
     /**
-     * Get redirect target URI
-     *
-     * @return string
-     */
-    protected function getRedirectTargetUri()
-    {
-        $target = null;
-
-        // redirect from flexform
-        if (!empty($this->settings['thx']['redirect'])) {
-            $target = $this->settings['thx']['redirect'];
-        }
-
-        // redirect from TypoScript cObject
-        $targetFromTypoScript = $this->cObj->cObjGetSingle(
-            $this->conf['thx.']['overwrite.']['redirect'],
-            $this->conf['thx.']['overwrite.']['redirect.']
-        );
-        if (!empty($targetFromTypoScript)) {
-            $target = $targetFromTypoScript;
-        }
-
-        // if redirect target
-        if ($target) {
-            $this->uriBuilder->setTargetPageUid($target);
-            return $this->uriBuilder->build();
-        }
-        return null;
-    }
-
-    /**
      * Object initialization
      *
      * @return void
