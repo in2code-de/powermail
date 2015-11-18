@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.17.1
+   :Date:
+      2015-11-18
+   :Changes:
+
+      * Bugfix _`#71646`: https://forge.typo3.org/issues/71646 CaptchaValidator make a fatal error
+      * Bugfix _`#71613`: https://forge.typo3.org/issues/71613 Template could not be found at "Module/ConverterFlexForm.xml"
+      * Bugfix _`#71605`: https://forge.typo3.org/issues/71605 Location fields are not filled in TYPO3 7.6
+      * Bugfix _`#71604`: https://forge.typo3.org/issues/71604 Resolve warnings in deprecation log of TYPO3 7.6
+
+ - :Version:
       2.17.0
    :Date:
       2015-11-16
