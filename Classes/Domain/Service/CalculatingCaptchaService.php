@@ -333,17 +333,19 @@ class CalculatingCaptchaService
      */
     public function setConfiguration()
     {
-        /** @var ObjectManagerInterface $objectManager */
-        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        /** @var ConfigurationManagerInterface $configurationManager */
-        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-        $typoScriptSetup = $configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-        );
-        $typoScriptService = $objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
-        $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
-            (array) $typoScriptSetup['setup']
-        );
+        if (!$this->test) {
+            /** @var ObjectManagerInterface $objectManager */
+            $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+            /** @var ConfigurationManagerInterface $configurationManager */
+            $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+            $typoScriptSetup = $configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+            );
+            $typoScriptService = $objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+            $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
+                (array) $typoScriptSetup['setup']
+            );
+        }
         return $this;
     }
 
