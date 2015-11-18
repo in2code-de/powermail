@@ -2,6 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -23,12 +24,6 @@ class CaptchaViewHelper extends AbstractViewHelper
      * @inject
      */
     protected $persistenceManager;
-
-    /**
-     * @var \In2code\Powermail\Domain\Service\CalculatingCaptchaService
-     * @inject
-     */
-    protected $calculatingCaptchaService;
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -57,7 +52,10 @@ class CaptchaViewHelper extends AbstractViewHelper
                 break;
 
             default:
-                $image = $this->calculatingCaptchaService->render($field);
+                /** @var CalculatingCaptchaService $captchaService */
+                $captchaService =
+                    $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\CalculatingCaptchaService');
+                $image = $captchaService->render($field);
         }
         return $image;
     }
