@@ -176,13 +176,14 @@ class BackendUtility extends BackendUtilityCore
      *      a record via AJAX
      *
      * @param string $moduleName Name of the module
+     * @param array $urlParameters URL parameters that should be added as key value pairs
      * @return string Calculated URL
      * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
-    public static function getModuleUrl($moduleName)
+    public static function getModuleUrl($moduleName, $urlParameters = array())
     {
-        if (GeneralUtility::compat_version('7.6')) {
-            $uri = parent::getModuleUrl($moduleName);
+        if (GeneralUtility::compat_version('7.2')) {
+            $uri = parent::getModuleUrl($moduleName, $urlParameters);
         } else {
             $uri = 'tce_db.php?' . parent::getUrlToken('tceAction');
         }
