@@ -487,6 +487,15 @@ Constants Overview
       0
 
  - :Constants:
+      misc.addQueryString
+   :Description:
+      Enable AddQueryString: Keep GET-params in form Action (e.g. to use powermail on a tx_news detail page)
+   :Type:
+      bool
+   :Default:
+      0
+
+ - :Constants:
       misc.uploadFolder
    :Description:
       Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
@@ -1096,6 +1105,9 @@ Setup
                     # Submit Powermail Forms with AJAX (browser will not reload complete page)
                     ajaxSubmit = {$plugin.tx_powermail.settings.misc.ajaxSubmit}
 
+                    # Keep third-party GET/POST variables on submit with addQueryString="1" in form
+                    addQueryString = {$plugin.tx_powermail.settings.misc.addQueryString}
+
                     # File upload settings
                     file {
                         folder = {$plugin.tx_powermail.settings.misc.uploadFolder}
@@ -1700,6 +1712,9 @@ Constants
 
 				# cat=powermail_additional//0808; type=boolean; label= AJAX Submit Form: Submit Powermail Forms with AJAX (browser will not reload complete page)
 				ajaxSubmit = 0
+
+				# cat=powermail_additional//0809; type=boolean; label= Enable AddQueryString: Keep GET-params in form Action (e.g. to use powermail on a tx_news detail page)
+				addQueryString = 0
 
 				# cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
 				uploadFolder = uploads/tx_powermail/

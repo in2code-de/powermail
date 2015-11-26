@@ -17,7 +17,8 @@ Render Powermail Form
 						name="field"
 						enctype="multipart/form-data"
 						additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:form)}"
-						class="powermail_form powermail_form_{form.uid} {form.css} {vh:Misc.MorestepClass(activate:settings.main.moresteps, class:'powermail_morestep')}">
+						addQueryString="{settings.misc.addQueryString}"
+						class="powermail_form powermail_form_{form.uid} {form.css} {vh:Misc.MorestepClass(activate:settings.main.moresteps)}">
 
 					<h3>{form.title}</h3>
 					<f:render partial="Misc/FormError" arguments="{_all}" />

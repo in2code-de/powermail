@@ -405,20 +405,11 @@ If you want to send a newstitle or something with powermail on a newsdetailpage,
 to a pagereload. But per default, powermail does not send the params &tx_news_pi1[news] again which
 leads to an error from the extension news.
 
-This is easy to handle, just add addQueryString="1" to the powermail form and powermail will keep all
-params after submit
+This is easy to handle, just add this line of TypoScript to your **Constants**:
 
 .. code-block:: text
 
-	<f:form
-		action="{action}"
-		name="field"
-		enctype="multipart/form-data"
-		addQueryString="1"
-		...
-
-* f:form in Form Template (original located at EXT:powermail/Resources/Private/Templates/Form/Form.html)
-* f:form in Confirmation Template (only if confirmation is activated - original located at EXT:powermail/Resources/Private/Templates/Form/Confirmation.html)
+	plugin.tx_powermail.settings.misc.addQueryString = 1
 
 .. _ihaveaproblem:
 
