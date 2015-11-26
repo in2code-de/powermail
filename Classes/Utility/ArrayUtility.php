@@ -31,7 +31,7 @@ use TYPO3\CMS\Extbase\Utility\ArrayUtility as ArrayUtilityExtbase;
 /**
  * Class ArrayUtility
  *
- * @package In2code\In2publish\Utility
+ * @package In2code\Powermail\Utility
  */
 class ArrayUtility extends ArrayUtilityExtbase
 {
@@ -43,11 +43,7 @@ class ArrayUtility extends ArrayUtilityExtbase
      */
     public static function getAbcArray()
     {
-        $arr = array();
-        for ($a = A; $a != AA; $a++) {
-            $arr[] = $a;
-        }
-        return $arr;
+        return range('A', 'Z');
     }
 
     /**

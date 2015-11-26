@@ -3,7 +3,6 @@ namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
 /***************************************************************
  *  Copyright notice
@@ -33,9 +32,9 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 /**
  * Class TypoScriptUtility
  *
- * @package In2code\In2publish\Utility
+ * @package In2code\Powermail\Utility
  */
-class TypoScriptUtility
+class TypoScriptUtility extends AbstractUtility
 {
 
     /**
@@ -46,14 +45,10 @@ class TypoScriptUtility
      * @param string $key Key for TypoScript Configuration
      * @return void
      */
-    public static function overwriteValueFromTypoScript(&$string = null, $conf, $key)
+    public static function overwriteValueFromTypoScript(&$string = null, $conf = array(), $key = '')
     {
-        /** @var ConfigurationManager $configurationManager */
-        $configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-            ->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-        $contentObject = $configurationManager->getContentObject();
-        if ($contentObject->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
-            $string = $contentObject->cObjGetSingle($conf[$key], $conf[$key . '.']);
+        if (self::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
+            $string = self::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
         }
     }
 
@@ -68,17 +63,13 @@ class TypoScriptUtility
         if (empty($typoScriptObjectPath)) {
             return '';
         }
-        $setup = $GLOBALS['TSFE']->tmpl->setup;
-        /** @var ConfigurationManager $configurationManager */
-        $configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-            ->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-        $contentObject = $configurationManager->getContentObject();
+        $setup = self::getTyposcriptFrontendController()->tmpl->setup;
         $pathSegments = GeneralUtility::trimExplode('.', $typoScriptObjectPath);
         $lastSegment = array_pop($pathSegments);
         foreach ($pathSegments as $segment) {
             $setup = $setup[$segment . '.'];
         }
-        return $contentObject->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
+        return self::getContentObject()->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
     }
 
     /**

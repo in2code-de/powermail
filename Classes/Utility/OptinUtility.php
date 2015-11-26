@@ -32,9 +32,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Class OptinUtility
  *
- * @package In2code\In2publish\Utility
+ * @package In2code\Powermail\Utility
  */
-class OptinUtility
+class OptinUtility extends AbstractUtility
 {
 
     /**
@@ -72,9 +72,8 @@ class OptinUtility
      */
     protected static function createHash($string)
     {
-        if (!empty($GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'])) {
-            $string .= $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'];
-        }
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
+        $string .= self::getEncryptionKey();
         return GeneralUtility::shortMD5($string);
     }
 }

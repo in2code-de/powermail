@@ -63,6 +63,47 @@ class ArrayUtilityTest extends UnitTestCase
     }
 
     /**
+     * getAbcArray Test
+     *
+     * @return void
+     * @test
+     */
+    public function getAbcArrayReturnsArray()
+    {
+        $this->assertSame(
+            array(
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F',
+                'G',
+                'H',
+                'I',
+                'J',
+                'K',
+                'L',
+                'M',
+                'N',
+                'O',
+                'P',
+                'Q',
+                'R',
+                'S',
+                'T',
+                'U',
+                'V',
+                'W',
+                'X',
+                'Y',
+                'Z'
+            ),
+            ArrayUtility::getAbcArray()
+        );
+    }
+
+    /**
      * Data Provider for isJsonArrayReturnsBool()
      *
      * @return array
@@ -105,5 +146,52 @@ class ArrayUtilityTest extends UnitTestCase
     public function isJsonArrayReturnsBool($value, $expectedResult)
     {
         $this->assertSame($expectedResult, ArrayUtility::isJsonArray($value));
+    }
+
+    /**
+     * Data Provider for htmlspecialcharsOnArrayReturnsArray()
+     *
+     * @return array
+     */
+    public function htmlspecialcharsOnArrayReturnsArrayDataProvider()
+    {
+        return array(
+            array(
+                array(
+                    '<te&st>'
+                ),
+                array(
+                    '&lt;te&amp;st&gt;'
+                )
+            ),
+            array(
+                array(
+                    '<test>',
+                    array(
+                        '<test>' => '<test>'
+                    )
+                ),
+                array(
+                    '&lt;test&gt;',
+                    array(
+                        '&lt;test&gt;' => '&lt;test&gt;'
+                    )
+                )
+            ),
+        );
+    }
+
+    /**
+     * htmlspecialcharsOnArray Test
+     *
+     * @param array $array
+     * @param array $expectedResult
+     * @dataProvider htmlspecialcharsOnArrayReturnsArrayDataProvider
+     * @return void
+     * @test
+     */
+    public function htmlspecialcharsOnArrayReturnsArray($array, $expectedResult)
+    {
+        $this->assertSame($expectedResult, ArrayUtility::htmlspecialcharsOnArray($array));
     }
 }

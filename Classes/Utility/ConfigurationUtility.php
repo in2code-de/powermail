@@ -35,7 +35,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class ConfigurationUtility
+class ConfigurationUtility extends AbstractUtility
 {
 
     /**
@@ -45,8 +45,8 @@ class ConfigurationUtility
      */
     public static function isDisableIpLogActive()
     {
-        $extensionConfiguration = self::getExtensionConfiguration();
-        return $extensionConfiguration['disableIpLog'] === '1';
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['disableIpLog'] === '1';
     }
 
     /**
@@ -56,8 +56,8 @@ class ConfigurationUtility
      */
     public static function isDisableMarketingInformationActive()
     {
-        $extensionConfiguration = self::getExtensionConfiguration();
-        return $extensionConfiguration['disableMarketingInformation'] === '1';
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['disableMarketingInformation'] === '1';
     }
 
     /**
@@ -67,8 +67,8 @@ class ConfigurationUtility
      */
     public static function isDisableBackendModuleActive()
     {
-        $extensionConfiguration = self::getExtensionConfiguration();
-        return $extensionConfiguration['disableBackendModule'] === '1';
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['disableBackendModule'] === '1';
     }
 
     /**
@@ -78,8 +78,8 @@ class ConfigurationUtility
      */
     public static function isDisablePluginInformationActive()
     {
-        $extensionConfiguration = self::getExtensionConfiguration();
-        return $extensionConfiguration['disablePluginInformation'] === '1';
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['disablePluginInformation'] === '1';
     }
 
     /**
@@ -89,8 +89,8 @@ class ConfigurationUtility
      */
     public static function isEnableCachingActive()
     {
-        $extensionConfiguration = self::getExtensionConfiguration();
-        return $extensionConfiguration['enableCaching'] === '1';
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['enableCaching'] === '1';
     }
 
     /**
@@ -100,8 +100,8 @@ class ConfigurationUtility
      */
     public static function isEnableTableGarbageCollectionActive()
     {
-        $extensionConfiguration = self::getExtensionConfiguration();
-        return $extensionConfiguration['enableTableGarbageCollection'] === '1';
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['enableTableGarbageCollection'] === '1';
     }
 
     /**
@@ -111,8 +111,8 @@ class ConfigurationUtility
      */
     public static function isReplaceIrreWithElementBrowserActive()
     {
-        $extensionConfiguration = self::getExtensionConfiguration();
-        return $extensionConfiguration['replaceIrreWithElementBrowser'] === '1';
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['replaceIrreWithElementBrowser'] === '1';
     }
 
     /**
@@ -122,18 +122,8 @@ class ConfigurationUtility
      */
     public static function isL10nModeMergeActive()
     {
-        $extensionConfiguration = self::getExtensionConfiguration();
-        return $extensionConfiguration['l10n_mode_merge'] === '1';
-    }
-
-    /**
-     * Get extension configuration from LocalConfiguration.php
-     *
-     * @return array
-     */
-    public static function getExtensionConfiguration()
-    {
-        return unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['l10n_mode_merge'] === '1';
     }
 
     /**
@@ -143,11 +133,12 @@ class ConfigurationUtility
      */
     public static function getDevelopmentContextEmail()
     {
+        $configVariables = self::getTypo3ConfigurationVariables();
         if (
             GeneralUtility::getApplicationContext()->isDevelopment() &&
-            GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'])
+            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])
         ) {
-            return $GLOBALS['TYPO3_CONF_VARS']['EXT']['powermailDevelopContextEmail'];
+            return $configVariables['EXT']['powermailDevelopContextEmail'];
         }
         return false;
     }
@@ -182,7 +173,6 @@ class ConfigurationUtility
     {
         // config
         $temporarySettings = array();
-        $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
 
         if (isset($settings[$typoScriptLevel]) && is_array($settings[$typoScriptLevel])) {
             // copy typoscript part to conf part
@@ -251,7 +241,7 @@ class ConfigurationUtility
         }
 
         // add global config
-        $temporarySettings['global'] = $confArr;
+        $temporarySettings['global'] = self::getExtensionConfiguration();
 
         $settings = $temporarySettings;
         unset($temporarySettings);
