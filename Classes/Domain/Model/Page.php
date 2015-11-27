@@ -228,5 +228,4 @@ class Page extends AbstractEntity
         }
         return $this->forms;
     }
-
 }

@@ -79,7 +79,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     protected function addMandatoryAttributes(&$additionalAttributes, Field $field = null)
     {
-        if ($field !== null && $field->getMandatory()) {
+        if ($field !== null && $field->isMandatory()) {
             if ($this->isNativeValidationEnabled()) {
                 $additionalAttributes['required'] = 'required';
             } else {

@@ -146,6 +146,8 @@ class TemplateUtility extends AbstractUtility
         $standaloneView->getRequest()->setControllerExtensionName($extensionName);
         $standaloneView->getRequest()->setPluginName($pluginName);
         $standaloneView->setFormat($format);
+        $standaloneView->setLayoutRootPaths(self::getTemplateFolders('layout'));
+        $standaloneView->setPartialRootPaths(self::getTemplateFolders('partial'));
         return $standaloneView;
     }
 
@@ -160,17 +162,16 @@ class TemplateUtility extends AbstractUtility
      */
     public static function powermailAll(Mail $mail, $section = 'web', $settings = array(), $type = null)
     {
-        /** @var StandaloneView $standaloneView */
-        $standaloneView = self::getObjectManager()->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $standaloneView = self::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(self::getTemplatePath('Form/PowermailAll.html'));
-        $standaloneView->setLayoutRootPaths(self::getTemplateFolders('layout'));
-        $standaloneView->setPartialRootPaths(self::getTemplateFolders('partial'));
-        $standaloneView->assignMultiple(array(
+        $standaloneView->assignMultiple(
+            array(
                 'mail' => $mail,
                 'section' => $section,
                 'settings' => $settings,
                 'type' => $type
-            ));
+            )
+        );
         return $standaloneView->render();
     }
 

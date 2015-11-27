@@ -110,17 +110,17 @@ class SendMailServiceTest extends UnitTestCase
     /**
      * addCc Test
      *
-     * @param array $overwriteConfiguration
+     * @param array $overwriteConfig
      * @param array|null $expectedResult
      * @dataProvider addCcReturnMailMessageDataProvider
      * @return void
      * @test
      */
-    public function addCcReturnMailMessage(array $overwriteConfiguration, $expectedResult)
+    public function addCcReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
         $this->initializeTsfe();
         $message = new MailMessage();
-        $this->generalValidatorMock->_set('overwriteConfiguration', $overwriteConfiguration);
+        $this->generalValidatorMock->_set('overwriteConfig', $overwriteConfig);
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addCc', $message);
         $this->assertEquals($expectedResult, $message->getCc());
@@ -170,17 +170,17 @@ class SendMailServiceTest extends UnitTestCase
     /**
      * addBcc Test
      *
-     * @param array $overwriteConfiguration
+     * @param array $overwriteConfig
      * @param array|null $expectedResult
      * @dataProvider addBccReturnMailMessageDataProvider
      * @return void
      * @test
      */
-    public function addBccReturnMailMessage(array $overwriteConfiguration, $expectedResult)
+    public function addBccReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
         $this->initializeTsfe();
         $message = new MailMessage();
-        $this->generalValidatorMock->_set('overwriteConfiguration', $overwriteConfiguration);
+        $this->generalValidatorMock->_set('overwriteConfig', $overwriteConfig);
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addBcc', $message);
         $this->assertEquals($expectedResult, $message->getBcc());
@@ -215,17 +215,17 @@ class SendMailServiceTest extends UnitTestCase
     /**
      * addReturnPath Test
      *
-     * @param array $overwriteConfiguration
+     * @param array $overwriteConfig
      * @param string|null $expectedResult
      * @dataProvider addReturnPathReturnMailMessageDataProvider
      * @return void
      * @test
      */
-    public function addReturnPathReturnMailMessage(array $overwriteConfiguration, $expectedResult)
+    public function addReturnPathReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
         $this->initializeTsfe();
         $message = new MailMessage();
-        $this->generalValidatorMock->_set('overwriteConfiguration', $overwriteConfiguration);
+        $this->generalValidatorMock->_set('overwriteConfig', $overwriteConfig);
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addReturnPath', $message);
         $this->assertEquals($expectedResult, $message->getReturnPath());
@@ -267,17 +267,17 @@ class SendMailServiceTest extends UnitTestCase
     /**
      * addReplyAddresses Test
      *
-     * @param array $overwriteConfiguration
+     * @param array $overwriteConfig
      * @param array|null $expectedResult
      * @dataProvider addReplyAddressesReturnMailMessageDataProvider
      * @return void
      * @test
      */
-    public function addReplyAddressesReturnMailMessage(array $overwriteConfiguration, $expectedResult)
+    public function addReplyAddressesReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
         $this->initializeTsfe();
         $message = new MailMessage();
-        $this->generalValidatorMock->_set('overwriteConfiguration', $overwriteConfiguration);
+        $this->generalValidatorMock->_set('overwriteConfig', $overwriteConfig);
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addReplyAddresses', $message);
         $this->assertEquals($expectedResult, $message->getReplyTo());
@@ -309,13 +309,13 @@ class SendMailServiceTest extends UnitTestCase
     /**
      * addPriority Test
      *
-     * @param array $overwriteConfiguration
+     * @param array $overwriteConfig
      * @param array|null $expectedResult
      * @dataProvider addPriorityReturnMailMessageDataProvider
      * @return void
      * @test
      */
-    public function addPriorityReturnMailMessage(array $overwriteConfiguration, $expectedResult)
+    public function addPriorityReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
         $this->initializeTsfe();
         $message = new MailMessage();
@@ -324,7 +324,7 @@ class SendMailServiceTest extends UnitTestCase
             'settings',
             array(
                 'receiver' => array(
-                    'overwrite' => $overwriteConfiguration
+                    'overwrite' => $overwriteConfig
                 )
             )
         );

@@ -97,7 +97,7 @@ class SendMailService
     /**
      * @var array
      */
-    protected $overwriteConfiguration;
+    protected $overwriteConfig;
 
     /**
      * @var Mail
@@ -131,7 +131,7 @@ class SendMailService
         $this->mail = &$mail;
         $this->settings = $settings;
         $this->configuration = $this->getConfigurationFromSettings($settings);
-        $this->overwriteConfiguration = $this->configuration[$type . '.']['overwrite.'];
+        $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
         $this->contentObject = $this->configurationManager->getContentObject();
         $this->contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
         $this->type = $type;
@@ -162,7 +162,7 @@ class SendMailService
     {
         /** @var MailMessage $message */
         $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-        TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfiguration, 'subject');
+        TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfig, 'subject');
         $message
             ->setTo(array($email['receiverEmail'] => $email['receiverName']))
             ->setFrom(array($email['senderEmail'] => $email['senderName']))
@@ -198,8 +198,8 @@ class SendMailService
     protected function addCc(MailMessage $message)
     {
         $ccValue = $this->contentObject->cObjGetSingle(
-            $this->overwriteConfiguration['cc'],
-            $this->overwriteConfiguration['cc.']
+            $this->overwriteConfig['cc'],
+            $this->overwriteConfig['cc.']
         );
         if (!empty($ccValue)) {
             $message->setCc(GeneralUtility::trimExplode(',', $ccValue, true));
@@ -216,8 +216,8 @@ class SendMailService
     protected function addBcc(MailMessage $message)
     {
         $bccValue = $this->contentObject->cObjGetSingle(
-            $this->overwriteConfiguration['bcc'],
-            $this->overwriteConfiguration['bcc.']
+            $this->overwriteConfig['bcc'],
+            $this->overwriteConfig['bcc.']
         );
         if (!empty($bccValue)) {
             $message->setBcc(GeneralUtility::trimExplode(',', $bccValue, true));
@@ -234,8 +234,8 @@ class SendMailService
     protected function addReturnPath(MailMessage $message)
     {
         $returnPathValue = $this->contentObject->cObjGetSingle(
-            $this->overwriteConfiguration['returnPath'],
-            $this->overwriteConfiguration['returnPath.']
+            $this->overwriteConfig['returnPath'],
+            $this->overwriteConfig['returnPath.']
         );
         if (!empty($returnPathValue)) {
             $message->setReturnPath($returnPathValue);
@@ -252,12 +252,12 @@ class SendMailService
     protected function addReplyAddresses(MailMessage $message)
     {
         $replyToEmail = $this->contentObject->cObjGetSingle(
-            $this->overwriteConfiguration['replyToEmail'],
-            $this->overwriteConfiguration['replyToEmail.']
+            $this->overwriteConfig['replyToEmail'],
+            $this->overwriteConfig['replyToEmail.']
         );
         $replyToName = $this->contentObject->cObjGetSingle(
-            $this->overwriteConfiguration['replyToName'],
-            $this->overwriteConfiguration['replyToName.']
+            $this->overwriteConfig['replyToName'],
+            $this->overwriteConfig['replyToName.']
         );
         if (!empty($replyToEmail) && !empty($replyToName)) {
             $message->setReplyTo(array(
@@ -379,8 +379,6 @@ class SendMailService
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->getRequest()->setControllerName('Form');
         $standaloneView->setTemplatePathAndFilename(TemplateUtility::getTemplatePath($email['template'] . '.html'));
-        $standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
-        $standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
 
         // variables
         $variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($this->mail);

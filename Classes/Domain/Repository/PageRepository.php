@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
-use TYPO3\CMS\Extbase\Persistence\Repository;
+use In2code\Powermail\Domain\Model\Form;
 
 /***************************************************************
  *  Copyright notice
@@ -33,7 +33,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class PageRepository extends Repository
+class PageRepository extends AbstractRepository
 {
 
     /**
@@ -59,7 +59,7 @@ class PageRepository extends Repository
     /**
      * Get all pages with tt_content with a Powermail Plugin
      *
-     * @param \In2code\Powermail\Domain\Model\Form $form
+     * @param Form $form
      * @return array
      */
     public function getPagesWithContentRelatedToForm($form)
@@ -90,9 +90,9 @@ class PageRepository extends Repository
         $select = 'uid,pid,title,l10n_parent,sys_language_uid';
         $from = 'tx_powermail_domain_model_pages';
         $where = '(forms = "" or forms = 0) and sys_language_uid > 0 and deleted = 0';
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where);
+        $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where);
         if ($res) {
-            while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+            while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
                 $pages[] = $row;
             }
         }
@@ -110,7 +110,7 @@ class PageRepository extends Repository
             $defaultPageUid = $page['l10n_parent'];
             $defaultFormUid = $this->getFormUidFromPageUid($defaultPageUid);
             $localizedFormUid = $this->getLocalizedFormUidFromFormUid($defaultFormUid, $page['sys_language_uid']);
-            $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+            $this->getDatabaseConnection()->exec_UPDATEquery(
                 'tx_powermail_domain_model_pages',
                 'uid = ' . (int) $page['uid'],
                 array('forms' => $localizedFormUid)
@@ -139,7 +139,7 @@ class PageRepository extends Repository
     /**
      * @param int $formUid
      * @param int $sysLanguageUid
-     * @return array
+     * @return int
      */
     protected function getLocalizedFormUidFromFormUid($formUid, $sysLanguageUid)
     {
@@ -150,6 +150,6 @@ class PageRepository extends Repository
         $sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
         $sql .= ' and deleted = 0';
         $row = $query->statement($sql)->execute(true);
-        return $row[0]['uid'];
+        return (int) $row[0]['uid'];
     }
 }

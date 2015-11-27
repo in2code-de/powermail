@@ -1,7 +1,8 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
-use TYPO3\CMS\Extbase\Persistence\Repository;
+use In2code\Powermail\Domain\Model\Answer;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -33,7 +34,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class AnswerRepository extends Repository
+class AnswerRepository extends AbstractRepository
 {
 
     /**
@@ -41,7 +42,7 @@ class AnswerRepository extends Repository
      *
      * @param int $fieldUid
      * @param int $mailUid
-     * @return \In2code\Powermail\Domain\Model\Answer
+     * @return Answer
      */
     public function findByFieldAndMail($fieldUid, $mailUid)
     {
@@ -60,9 +61,9 @@ class AnswerRepository extends Repository
     }
 
     /**
-     * Find any answer with uploaded file
+     * Find answers with uploaded file
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface
      */
     public function findByAnyUpload()
     {
@@ -71,10 +72,14 @@ class AnswerRepository extends Repository
         $query->getQuerySettings()->setIgnoreEnableFields(true);
 
         // get all uploaded answers which are not empty
-        $query->matching($query->logicalAnd(array(
-                $query->equals('valueType', 3),
-                $query->logicalNot($query->equals('value', ''))
-            )));
+        $query->matching(
+            $query->logicalAnd(
+                array(
+                    $query->equals('valueType', 3),
+                    $query->logicalNot($query->equals('value', ''))
+                )
+            )
+        );
 
         return $query->execute();
     }

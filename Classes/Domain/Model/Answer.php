@@ -88,16 +88,14 @@ class Answer extends AbstractEntity
             }
         }
 
-        // if type date
-        if ($this->getValueType() === 2 && is_numeric($value) && $this->getField() !== null) {
+        if ($this->isTypeDateForTimestamp($value)) {
             $value = date(
                 LocalizationUtility::translate('datepicker_format_' . $this->getField()->getDatepickerSettings()),
                 $value
             );
         }
 
-        // if multitext or upload force array
-        if (($this->getValueType() === 1 || $this->getValueType() === 3) && !is_array($value)) {
+        if ($this->isTypeMultiple($value)) {
             $value = (empty($value) ? array() : array(strval($value)));
         }
 
@@ -119,12 +117,7 @@ class Answer extends AbstractEntity
         }
 
         // if date, get timestamp (datepicker)
-        if (
-            !empty($value) &&
-            method_exists($this->getField(), 'getType') &&
-            $this->getValueType() === 2
-            && !is_numeric($value)
-        ) {
+        if ($this->isTypeDateForDate($value)) {
             if (empty($this->translateFormat)) {
                 $format = LocalizationUtility::translate(
                     'datepicker_format_' . $this->getField()->getDatepickerSettings()
@@ -249,4 +242,33 @@ class Answer extends AbstractEntity
         $this->field = $field;
     }
 
+    /**
+     * @param string $value
+     * @return bool
+     */
+    protected function isTypeDateForTimestamp($value)
+    {
+        return $this->getValueType() === 2 && is_numeric($value) && $this->getField() !== null;
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     */
+    protected function isTypeDateForDate($value)
+    {
+        return !empty($value) && method_exists($this->getField(), 'getType')
+            && $this->getValueType() === 2 && !is_numeric($value);
+    }
+
+    /**
+     * If multitext or upload force array
+     *
+     * @param string $value
+     * @return bool
+     */
+    protected function isTypeMultiple($value)
+    {
+        return ($this->getValueType() === 1 || $this->getValueType() === 3) && !is_array($value);
+    }
 }

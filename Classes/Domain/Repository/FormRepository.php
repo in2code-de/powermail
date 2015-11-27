@@ -4,11 +4,9 @@ namespace In2code\Powermail\Domain\Repository;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -40,7 +38,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class FormRepository extends Repository
+class FormRepository extends AbstractRepository
 {
 
     /**
@@ -139,13 +137,12 @@ class FormRepository extends Repository
     /**
      * Find all and don't respect Storage
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResult
      */
     public function findAll()
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
-
         return $query->execute();
     }
 
@@ -153,7 +150,7 @@ class FormRepository extends Repository
      * Find all within a Page and its subpages
      *
      * @param int $pid
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResult
      */
     public function findAllInPid($pid)
     {
@@ -403,13 +400,5 @@ class FormRepository extends Repository
         }
 
         return $fields;
-    }
-
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
     }
 }

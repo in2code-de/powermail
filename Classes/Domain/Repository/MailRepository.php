@@ -1,15 +1,17 @@
 <?php
 namespace In2code\Powermail\Domain\Repository;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ArrayUtility;
+use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -44,7 +46,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class MailRepository extends Repository
+class MailRepository extends AbstractRepository
 {
 
     /**
@@ -226,7 +228,7 @@ class MailRepository extends Repository
 
         // FILTER: showownonly
         if ($settings['list']['showownonly']) {
-            $and[] = $query->equals('feuser', $GLOBALS['TSFE']->fe_user->user['uid']);
+            $and[] = $query->equals('feuser', FrontendUtility::getPropertyFromLoggedInFrontendUser());
         }
 
         // FILTER: abc
@@ -343,10 +345,9 @@ class MailRepository extends Repository
     {
         $variables = array();
         foreach ($mail->getAnswers() as $answer) {
-            if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
-                continue;
+            if (method_exists($answer, 'getField') && method_exists($answer->getField(), 'getMarker')) {
+                $variables['label_' . $answer->getField()->getMarker()] = $answer->getField()->getTitle();
             }
-            $variables['label_' . $answer->getField()->getMarker()] = $answer->getField()->getTitle();
         }
         return $variables;
     }
@@ -391,7 +392,7 @@ class MailRepository extends Repository
         foreach ($mail->getAnswers() as $answer) {
             if (
                 method_exists($answer->getField(), 'getUid') &&
-                $answer->getField()->getSenderEmail() &&
+                $answer->getField()->isSenderEmail() &&
                 GeneralUtility::validEmail($answer->getValue())
             ) {
                 $email = $answer->getValue();
@@ -405,9 +406,9 @@ class MailRepository extends Repository
 
         if (
             empty($email) &&
-            GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'])
+            GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())
         ) {
-            $email = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'];
+            $email = ConfigurationUtility::getDefaultMailFromAddress();
         }
 
         if (empty($email)) {
@@ -430,7 +431,8 @@ class MailRepository extends Repository
     {
         $name = '';
         foreach ($mail->getAnswers() as $answer) {
-            if (method_exists($answer->getField(), 'getUid') && $answer->getField()->getSenderName()) {
+            /** @var Answer $answer */
+            if (method_exists($answer->getField(), 'getUid') && $answer->getField()->isSenderName()) {
                 if (!is_array($answer->getValue())) {
                     $value = $answer->getValue();
                 } else {
@@ -451,8 +453,8 @@ class MailRepository extends Repository
             }
         }
 
-        if (empty($name) && !empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])) {
-            $name = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'];
+        if (empty($name) && !empty(ConfigurationUtility::getDefaultMailFromName())) {
+            $name = ConfigurationUtility::getDefaultMailFromName();
         }
 
         if (!trim($name)) {

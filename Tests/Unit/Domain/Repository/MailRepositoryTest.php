@@ -208,8 +208,8 @@ class MailRepositoryTest extends UnitTestCase
                 $field = new Field;
                 $field->setMarker($markerValueMix[0]);
                 $answer->setValue($markerValueMix[1]);
-                $answer->setField($field);
                 $answer->setValueType((is_array($markerValueMix[1]) ? 1 : 0));
+                $answer->setField($field);
                 $mail->addAnswer($answer);
             }
         }
@@ -303,8 +303,8 @@ class MailRepositoryTest extends UnitTestCase
         if (is_array($values)) {
             foreach ($values as $value) {
                 $answer = new Answer;
-                $answer->_setProperty('valueType', (is_array($values) ? 2 : 0));
                 $answer->_setProperty('value', $value);
+                $answer->_setProperty('valueType', (is_array($values) ? 2 : 0));
                 $field = new Field;
                 $field->setType('input');
                 $field->setSenderEmail(true);
