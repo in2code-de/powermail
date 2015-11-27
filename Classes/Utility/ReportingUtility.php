@@ -1,10 +1,10 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /***************************************************************
  *  Copyright notice
@@ -42,7 +42,7 @@ class ReportingUtility
     /**
      * @var array
      */
-    protected static $groupedMarketingProperties = array(
+    protected static $groupedProperties = array(
         'marketingRefererDomain' => array(),
         'marketingReferer' => array(),
         'marketingCountry' => array(),
@@ -93,24 +93,24 @@ class ReportingUtility
      */
     public static function getGroupedMarketingPropertiesFromMails($mails, $limit = 10, $limitLabel = 'All others')
     {
-        $groupedMarketingProperties = self::$groupedMarketingProperties;
+        $groupedProperties = self::$groupedProperties;
         foreach ($mails as $mail) {
             /** @var Mail $mail */
-            foreach (array_keys($groupedMarketingProperties) as $key) {
+            foreach (array_keys($groupedProperties) as $key) {
                 $value = ObjectAccess::getProperty($mail, $key);
                 if (!$value) {
                     $value = '-';
                 }
-                if (!isset($groupedMarketingProperties[$key][$value])) {
-                    $groupedMarketingProperties[$key][$value] = 1;
+                if (!isset($groupedProperties[$key][$value])) {
+                    $groupedProperties[$key][$value] = 1;
                 } else {
-                    $groupedMarketingProperties[$key][$value]++;
+                    $groupedProperties[$key][$value]++;
                 }
             }
         }
-        self::sortReportingArrayDescending($groupedMarketingProperties);
-        self::cutArrayByKeyLimitAndAddTotalValues($groupedMarketingProperties, $limit, $limitLabel);
-        return $groupedMarketingProperties;
+        self::sortReportingArrayDescending($groupedProperties);
+        self::cutArrayByKeyLimitAndAddTotalValues($groupedProperties, $limit, $limitLabel);
+        return $groupedProperties;
     }
 
     /**

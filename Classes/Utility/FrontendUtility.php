@@ -5,7 +5,6 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
  *  Copyright notice
@@ -35,9 +34,9 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 /**
  * Class FrontendUtility
  *
- * @package In2code\In2publish\Utility
+ * @package In2code\Powermail\Utility
  */
-class FrontendUtility
+class FrontendUtility extends AbstractUtility
 {
 
     /**
@@ -233,13 +232,5 @@ class FrontendUtility
             $subfolder = '/' . $subfolder;
         }
         return $subfolder;
-    }
-
-    /**
-     * @return TypoScriptFrontendController
-     */
-    protected static function getTyposcriptFrontendController()
-    {
-        return $GLOBALS['TSFE'];
     }
 }

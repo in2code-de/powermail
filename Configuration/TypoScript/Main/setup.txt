@@ -368,6 +368,9 @@ plugin.tx_powermail {
 				# Submit Powermail Forms with AJAX (browser will not reload complete page)
 				ajaxSubmit = {$plugin.tx_powermail.settings.misc.ajaxSubmit}
 
+				# Keep third-party GET/POST variables on submit with addQueryString="1" in form
+				addQueryString = {$plugin.tx_powermail.settings.misc.addQueryString}
+
 				# File upload settings
 				file {
 					folder = {$plugin.tx_powermail.settings.misc.uploadFolder}

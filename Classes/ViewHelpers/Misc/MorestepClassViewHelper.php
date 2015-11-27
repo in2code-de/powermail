@@ -20,9 +20,9 @@ class MorestepClassViewHelper extends AbstractViewHelper
      * @param string $class Any string for class
      * @return string Class
      */
-    public function render($activate, $class)
+    public function render($activate, $class = 'powermail_morestep')
     {
-        if ($activate) {
+        if (!empty($activate)) {
             return $class;
         }
         return '';

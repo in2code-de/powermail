@@ -4,9 +4,6 @@ namespace In2code\Powermail\Utility;
 use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
  *  Copyright notice
@@ -38,7 +35,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class SessionUtility
+class SessionUtility extends AbstractUtility
 {
 
     /**
@@ -67,10 +64,12 @@ class SessionUtility
     {
         $form = $forms->getFirst();
         if ($form !== null && self::sessionCheckEnabled($settings)) {
-            /** @var TypoScriptFrontendController $typoScriptFrontendController */
-            $typoScriptFrontendController = $GLOBALS['TSFE'];
-            $typoScriptFrontendController->fe_user->setKey('ses', 'powermailFormstart' . $form->getUid(), time());
-            $typoScriptFrontendController->storeSessionData();
+            self::getTyposcriptFrontendController()->fe_user->setKey(
+                'ses',
+                'powermailFormstart' . $form->getUid(),
+                time()
+            );
+            self::getTyposcriptFrontendController()->storeSessionData();
         }
     }
 
@@ -84,9 +83,10 @@ class SessionUtility
     public static function getFormStartFromSession($formUid, array $settings)
     {
         if (self::sessionCheckEnabled($settings)) {
-            /** @var TypoScriptFrontendController $typoScriptFrontendController */
-            $typoScriptFrontendController = $GLOBALS['TSFE'];
-            return (int) $typoScriptFrontendController->fe_user->getKey('ses', 'powermailFormstart' . $formUid);
+            return (int) self::getTyposcriptFrontendController()->fe_user->getKey(
+                'ses',
+                'powermailFormstart' . $formUid
+            );
         }
         return 0;
     }
@@ -169,22 +169,19 @@ class SessionUtility
     public static function saveSessionValuesForPrefill(Mail $mail, $settings)
     {
         $valuesToSave = array();
-        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        /** @var TypoScriptService $typoScriptService */
-        $typoScriptService = $objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
-        /** @var ContentObjectRenderer $contentObjectRenderer */
-        $contentObjectRenderer = $objectManager->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+        $typoScriptService = self::getObjectManager()->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+        $contentObject = self::getContentObject();
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
         if (
             !empty($configuration['saveSession.']) &&
             array_key_exists($configuration['saveSession.']['_method'], self::$methods)
         ) {
-            $mailRepository = $objectManager->get('In2code\\Powermail\\Domain\\Repository\\MailRepository');
+            $mailRepository = self::getObjectManager()->get('In2code\\Powermail\\Domain\\Repository\\MailRepository');
             $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($mail);
-            $contentObjectRenderer->start($variablesWithMarkers);
+            $contentObject->start($variablesWithMarkers);
             foreach (array_keys($variablesWithMarkers) as $marker) {
                 if (!empty($configuration['saveSession.'][$marker])) {
-                    $value = $contentObjectRenderer->cObjGetSingle(
+                    $value = $contentObject->cObjGetSingle(
                         $configuration['saveSession.'][$marker],
                         $configuration['saveSession.'][$marker . '.']
                     );
@@ -267,7 +264,7 @@ class SessionUtility
      */
     public static function getSpamFactorFromSession()
     {
-        return $GLOBALS['TSFE']->fe_user->getKey('ses', 'powermail_spamfactor');
+        return self::getTyposcriptFrontendController()->fe_user->getKey('ses', 'powermail_spamfactor');
     }
 
     /**
@@ -283,9 +280,7 @@ class SessionUtility
         if (empty($key)) {
             $key = self::$extKey;
         }
-        /** @var TypoScriptFrontendController $typoScriptFrontendController */
-        $typoScriptFrontendController = $GLOBALS['TSFE'];
-        $powermailSession = $typoScriptFrontendController->fe_user->getKey($method, $key);
+        $powermailSession = self::getTyposcriptFrontendController()->fe_user->getKey($method, $key);
         if (!empty($name) && isset($powermailSession[$name])) {
             return $powermailSession[$name];
         }
@@ -316,10 +311,7 @@ class SessionUtility
         $newValues = array(
             $name => $values
         );
-
-        /** @var TypoScriptFrontendController $typoScriptFrontendController */
-        $typoScriptFrontendController = $GLOBALS['TSFE'];
-        $typoScriptFrontendController->fe_user->setKey($method, $key, $newValues);
-        $typoScriptFrontendController->storeSessionData();
+        self::getTyposcriptFrontendController()->fe_user->setKey($method, $key, $newValues);
+        self::getTyposcriptFrontendController()->storeSessionData();
     }
 }

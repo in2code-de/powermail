@@ -23,10 +23,9 @@ Show Confirmation Page
 				action="form"
 				name="field"
 				enctype="multipart/form-data"
+				addQueryString="{settings.misc.addQueryString}"
 				additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form: mail.form)}">
-
 			<f:render section="HiddenFields" arguments="{_all}" />
-
 			<f:form.submit value="{f:translate(key: 'confirmation_prev')}" class="powermail_confirmation_form" />
 		</f:form>
 
@@ -38,10 +37,9 @@ Show Confirmation Page
 				action="create"
 				name="field"
 				enctype="multipart/form-data"
+				addQueryString="{settings.misc.addQueryString}"
 				additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form: mail.form)}">
-
 			<f:render section="HiddenFields" arguments="{_all}" />
-
 			<f:form.submit value="{f:translate(key: 'confirmation_next')}" class="powermail_confirmation_submit" />
 		</f:form>
 	</div>

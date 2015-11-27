@@ -1,10 +1,10 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -37,7 +37,7 @@ use In2code\Powermail\Domain\Model\Mail;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class BasicFileUtility
+class BasicFileUtility extends AbstractUtility
 {
 
     /**
@@ -48,8 +48,9 @@ class BasicFileUtility
     public static function rewriteFilesArrayToPreventDuplicatFilenames()
     {
         $names = array();
-        if (!empty($_FILES['tx_powermail_pi1']['name']['field'])) {
-            foreach ((array) $_FILES['tx_powermail_pi1']['name']['field'] as $marker => $values) {
+        $files = self::getFilesArray();
+        if (!empty($files['tx_powermail_pi1']['name']['field'])) {
+            foreach ((array) $files['tx_powermail_pi1']['name']['field'] as $marker => $values) {
                 foreach ((array) $values as $key => $value) {
                     if (in_array($value, $names)) {
                         $_FILES['tx_powermail_pi1']['name']['field'][$marker][$key] = self::randomizeFileName($value);
@@ -103,10 +104,10 @@ class BasicFileUtility
     {
         self::cleanFileName($filename);
         self::getAndSetRandomizedFileName($filename, $randomized);
-        $absoluteDestinationPath = self::getAbsoluteFolder($destinationPath);
+        $absoluteDestination = self::getAbsoluteFolder($destinationPath);
         $fileInfo = GeneralUtility::split_fileref($filename);
         $newFileName = $filename;
-        $newPathAndFileName = $absoluteDestinationPath . $fileInfo['file'];
+        $newPathAndFileName = $absoluteDestination . $fileInfo['file'];
 
         if (file_exists($newPathAndFileName)) {
             $theTempFileBody = self::removeAppendingNumbersInString($fileInfo['filebody']);
@@ -114,7 +115,7 @@ class BasicFileUtility
             for ($a = 1; true; $a++) {
                 $appendix = '_' . sprintf('%02d', $a);
                 $newFileName = $theTempFileBody . $appendix . $extension;
-                $newPathAndFileName = $absoluteDestinationPath . $newFileName;
+                $newPathAndFileName = $absoluteDestination . $newFileName;
                 if (!file_exists($newPathAndFileName)) {
                     break;
                 }
@@ -156,16 +157,17 @@ class BasicFileUtility
     public static function getFileUploadValuesOutOfUniqueName($destinationPath)
     {
         $fileArray = array();
-        if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
-            foreach (array_keys($_FILES['tx_powermail_pi1']['name']['field']) as $marker) {
-                foreach ($_FILES['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {
+        $files = self::getFilesArray();
+        if (isset($files['tx_powermail_pi1']['name']['field'])) {
+            foreach (array_keys($files['tx_powermail_pi1']['name']['field']) as $marker) {
+                foreach ($files['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {
                     // switch from original to unique
                     $fileArray[self::getUniqueName($originalFileName, $destinationPath, false)] = array(
-                        'name' => $_FILES['tx_powermail_pi1']['name']['field'][$marker][$key],
-                        'type' => $_FILES['tx_powermail_pi1']['name']['type'][$marker][$key],
-                        'tmp_name' => $_FILES['tx_powermail_pi1']['tmp_name']['field'][$marker][$key],
-                        'error' => $_FILES['tx_powermail_pi1']['error']['field'][$marker][$key],
-                        'size' => $_FILES['tx_powermail_pi1']['size']['field'][$marker][$key]
+                        'name' => $files['tx_powermail_pi1']['name']['field'][$marker][$key],
+                        'type' => $files['tx_powermail_pi1']['name']['type'][$marker][$key],
+                        'tmp_name' => $files['tx_powermail_pi1']['tmp_name']['field'][$marker][$key],
+                        'error' => $files['tx_powermail_pi1']['error']['field'][$marker][$key],
+                        'size' => $files['tx_powermail_pi1']['size']['field'][$marker][$key]
                     );
                 }
             }
@@ -178,21 +180,22 @@ class BasicFileUtility
      *
      * @param string $destinationPath
      * @param Mail $mail
-     * @param string $allowedFileExtensions
+     * @param string $fileExtensions allowed file extensions
      * @return bool
      */
-    public static function fileUpload($destinationPath, Mail $mail, $allowedFileExtensions = '')
+    public static function fileUpload($destinationPath, Mail $mail, $fileExtensions = '')
     {
         $result = false;
-        if (isset($_FILES['tx_powermail_pi1']['tmp_name']['field']) && self::hasFormAnUploadField($mail->getForm())) {
-            foreach (array_keys($_FILES['tx_powermail_pi1']['tmp_name']['field']) as $marker) {
-                foreach ($_FILES['tx_powermail_pi1']['tmp_name']['field'][$marker] as $key => $tmpName) {
-                    if (!empty($_FILES['tx_powermail_pi1']['name']['field'][$marker][$key])) {
+        $files = self::getFilesArray();
+        if (isset($files['tx_powermail_pi1']['tmp_name']['field']) && self::hasFormAnUploadField($mail->getForm())) {
+            foreach (array_keys($files['tx_powermail_pi1']['tmp_name']['field']) as $marker) {
+                foreach ($files['tx_powermail_pi1']['tmp_name']['field'][$marker] as $key => $tmpName) {
+                    if (!empty($files['tx_powermail_pi1']['name']['field'][$marker][$key])) {
                         $uniqueFileName = self::getUniqueName(
-                            $_FILES['tx_powermail_pi1']['name']['field'][$marker][$key],
+                            $files['tx_powermail_pi1']['name']['field'][$marker][$key],
                             $destinationPath
                         );
-                        if (!self::checkExtension($uniqueFileName, $allowedFileExtensions)) {
+                        if (!self::checkExtension($uniqueFileName, $fileExtensions)) {
                             continue;
                         }
                         $result = GeneralUtility::upload_copy_move($tmpName, $uniqueFileName);
@@ -207,16 +210,16 @@ class BasicFileUtility
      * Is file-extension allowed for uploading?
      *
      * @param string $filename Filename like (upload_03.txt)
-     * @param string $allowedFileExtensions
+     * @param string $fileExtensions allowed file extensions
      * @return bool
      */
-    public static function checkExtension($filename, $allowedFileExtensions = '')
+    public static function checkExtension($filename, $fileExtensions = '')
     {
         $fileInfo = pathinfo($filename);
         if (
             !empty($fileInfo['extension']) &&
-            !empty($allowedFileExtensions) &&
-            GeneralUtility::inList($allowedFileExtensions, $fileInfo['extension']) &&
+            !empty($fileExtensions) &&
+            GeneralUtility::inList($fileExtensions, $fileInfo['extension']) &&
             GeneralUtility::verifyFilenameAgainstDenyPattern($filename) &&
             GeneralUtility::validPathStr($filename)
         ) {
@@ -288,10 +291,11 @@ class BasicFileUtility
         if (!$randomized) {
             return;
         }
+        $files = self::getFilesArray();
         $newFilename = StringUtility::getRandomString(32, false) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
-        if (isset($_FILES['tx_powermail_pi1']['name']['field'])) {
-            foreach (array_keys($_FILES['tx_powermail_pi1']['name']['field']) as $marker) {
-                foreach ($_FILES['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {
+        if (isset($files['tx_powermail_pi1']['name']['field'])) {
+            foreach (array_keys($files['tx_powermail_pi1']['name']['field']) as $marker) {
+                foreach ($files['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {
                     self::cleanFileName($originalFileName);
                     if ($originalFileName === $filename) {
                         $_FILES['tx_powermail_pi1']['name']['field'][$marker][$key] = $newFilename;
@@ -325,10 +329,11 @@ class BasicFileUtility
      */
     protected static function getFilenameFromFilesArrayByTempName($file)
     {
-        foreach ((array) $_FILES['tx_powermail_pi1']['tmp_name']['field'] as $marker => $values) {
+        $files = self::getFilesArray();
+        foreach ((array) $files['tx_powermail_pi1']['tmp_name']['field'] as $marker => $values) {
             foreach ((array) $values as $key => $value) {
                 if ($value === $file['tmp_name']) {
-                    return $_FILES['tx_powermail_pi1']['name']['field'][$marker][$key];
+                    return $files['tx_powermail_pi1']['name']['field'][$marker][$key];
                 }
             }
         }

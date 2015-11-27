@@ -192,6 +192,9 @@ plugin.tx_powermail {
 			# cat=powermail_additional//0808; type=boolean; label= AJAX Submit Form: Submit Powermail Forms with AJAX (browser will not reload complete page)
 			ajaxSubmit = 0
 
+			# cat=powermail_additional//0809; type=boolean; label= Enable AddQueryString: Keep GET-params in form Action (e.g. to use powermail on a tx_news detail page)
+			addQueryString = 0
+
 			# cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
 			uploadFolder = uploads/tx_powermail/
 

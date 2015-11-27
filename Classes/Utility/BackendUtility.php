@@ -1,7 +1,6 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 
@@ -35,7 +34,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class BackendUtility extends BackendUtilityCore
+class BackendUtility extends AbstractUtility
 {
 
     /**
@@ -45,8 +44,8 @@ class BackendUtility extends BackendUtilityCore
      */
     public static function isBackendAdmin()
     {
-        if (isset($GLOBALS['BE_USER']->user)) {
-            return $GLOBALS['BE_USER']->user['admin'] === 1;
+        if (isset(self::getBackendUserAuthentication()->user)) {
+            return self::getBackendUserAuthentication()->user['admin'] === 1;
         }
         return false;
     }
@@ -59,8 +58,8 @@ class BackendUtility extends BackendUtilityCore
      */
     public static function getPropertyFromBackendUser($property = 'uid')
     {
-        if (!empty($GLOBALS['BE_USER']->user[$property])) {
-            return $GLOBALS['BE_USER']->user[$property];
+        if (!empty(self::getBackendUserAuthentication()->user[$property])) {
+            return self::getBackendUserAuthentication()->user[$property];
         }
         return '';
     }
@@ -130,16 +129,20 @@ class BackendUtility extends BackendUtilityCore
     /**
      * Get all GET/POST params without module name and token
      *
+     * @param array $getParameters
      * @return array
      */
-    protected static function getCurrentParameters()
+    public static function getCurrentParameters($getParameters = array())
     {
+        if (empty($getParameters)) {
+            $getParameters = GeneralUtility::_GET();
+        }
         $parameters = array();
         $ignoreKeys = array(
             'M',
             'moduleToken'
         );
-        foreach ((array) GeneralUtility::_GET() as $key => $value) {
+        foreach ($getParameters as $key => $value) {
             if (in_array($key, $ignoreKeys)) {
                 continue;
             }
@@ -149,25 +152,23 @@ class BackendUtility extends BackendUtilityCore
     }
 
     /**
-     * Read pid from current URL
+     * Read pid from returnUrl
      *        URL example:
      *        http://powermail.localhost.de/typo3/alt_doc.php?&
      *        returnUrl=%2Ftypo3%2Fsysext%2Fcms%2Flayout%2Fdb_layout.php%3Fid%3D17%23
      *        element-tt_content-14&edit[tt_content][14]=edit
      *
+     * @param string $returnUrl normally used for testing
      * @return int
      */
-    public static function getPidFromBackendPage()
+    public static function getPidFromBackendPage($returnUrl = '')
     {
-        $pid = 0;
-        $backUrl = str_replace('?', '&', GeneralUtility::_GP('returnUrl'));
-        $urlParts = GeneralUtility::trimExplode('&', $backUrl, true);
-        foreach ($urlParts as $part) {
-            if (stristr($part, 'id=')) {
-                $pid = str_replace('id=', '', $part);
-            }
+        if (empty($returnUrl)) {
+            $returnUrl = GeneralUtility::_GP('returnUrl');
         }
-        return (int) $pid;
+        $urlParts = parse_url($returnUrl);
+        parse_str($urlParts['query'], $queryParts);
+        return (int) $queryParts['id'];
     }
 
     /**
@@ -176,16 +177,31 @@ class BackendUtility extends BackendUtilityCore
      *      a record via AJAX
      *
      * @param string $moduleName Name of the module
+     * @param array $urlParameters URL parameters that should be added as key value pairs
      * @return string Calculated URL
      * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
-    public static function getModuleUrl($moduleName)
+    public static function getModuleUrl($moduleName, $urlParameters = array())
     {
-        if (GeneralUtility::compat_version('7.6')) {
-            $uri = parent::getModuleUrl($moduleName);
+        if (GeneralUtility::compat_version('7.2')) {
+            $uri = BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
         } else {
-            $uri = 'tce_db.php?' . parent::getUrlToken('tceAction');
+            $uri = 'tce_db.php?' . BackendUtilityCore::getUrlToken('tceAction');
         }
         return $uri;
+    }
+
+    /**
+     * Returns the Page TSconfig for page with id, $id
+     *
+     * @param int $pid
+     * @param array $rootLine
+     * @param bool $returnPartArray
+     * @return array Page TSconfig
+     * @see \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser
+     */
+    public static function getPagesTSconfig($pid, $rootLine = null, $returnPartArray = false)
+    {
+        BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
     }
 }

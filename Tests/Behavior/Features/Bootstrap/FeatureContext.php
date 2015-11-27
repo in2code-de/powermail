@@ -1,11 +1,10 @@
 <?php
-
-use Behat\Behat\Context\ClosuredContextInterface, Behat\Behat\Context\TranslatedContextInterface, Behat\Behat\Context\BehatContext, Behat\Behat\Exception\PendingException, Behat\Behat\Context\Step\Given, Behat\Behat\Context\Step\Then, Behat\Behat\Context\Step\When, Behat\Gherkin\Node\PyStringNode, Behat\Gherkin\Node\TableNode;
+use Behat\MinkExtension\Context\MinkContext;
 
 /**
  * Class FeatureContext
  */
-class FeatureContext extends \Behat\MinkExtension\Context\MinkContext
+class FeatureContext extends MinkContext
 {
 
     /**

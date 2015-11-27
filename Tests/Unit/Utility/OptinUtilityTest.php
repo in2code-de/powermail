@@ -56,7 +56,7 @@ class OptinUtilityTest extends UnitTestCase
         $mail->setForm($form);
 
         $result = OptinUtility::createOptinHash($mail);
-        $this->assertEquals('abf068777a', $result);
+        $this->assertEquals('cf06c6db71', $result);
         $this->assertTrue(strlen($result) === 10);
     }
 }

@@ -31,7 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Class MailUtility
  *
- * @package In2code\In2publish\Utility
+ * @package In2code\Powermail\Utility
  */
 class MailUtility
 {
