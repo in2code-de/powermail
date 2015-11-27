@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.18.0
+   :Date:
+      2015-11-27
+   :Changes:
+
+      * Feature _`#71830`: https://forge.typo3.org/issues/71830 Make addQueryString configurable via TypoScript Setup/Constants
+      * Bugfix _`#71794`: https://forge.typo3.org/issues/71794 Edit form directly in flexform not work when it is closed
+
+ - :Version:
       2.17.1
    :Date:
       2015-11-18
