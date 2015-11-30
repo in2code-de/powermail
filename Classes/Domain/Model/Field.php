@@ -516,7 +516,7 @@ class Field extends AbstractEntity
     /**
      * @return boolean
      */
-    public function getMultiselect()
+    public function isMultiselect()
     {
         return $this->multiselect;
     }
@@ -526,7 +526,7 @@ class Field extends AbstractEntity
      */
     public function getMultiselectForField()
     {
-        $value = $this->getMultiselect();
+        $value = $this->isMultiselect();
         if ($value) {
             $value = 'multiple';
         } else {
@@ -596,7 +596,7 @@ class Field extends AbstractEntity
      *
      * @return bool $senderEmail
      */
-    public function getSenderEmail()
+    public function isSenderEmail()
     {
         return $this->senderEmail;
     }
@@ -617,7 +617,7 @@ class Field extends AbstractEntity
      *
      * @return bool $senderName
      */
-    public function getSenderName()
+    public function isSenderName()
     {
         return $this->senderName;
     }
@@ -638,7 +638,7 @@ class Field extends AbstractEntity
      *
      * @return boolean $mandatory
      */
-    public function getMandatory()
+    public function isMandatory()
     {
         return $this->mandatory;
     }
@@ -736,6 +736,16 @@ class Field extends AbstractEntity
         if (empty($string)) {
             $string = 'Error, no options to show';
         }
+        return $this->buildOptions($string, $parse);
+    }
+
+    /**
+     * @param string $string Options from the Textarea
+     * @param $parse
+     * @return array
+     */
+    protected function buildOptions($string, $parse)
+    {
         $options = array();
         $string = str_replace('[\n]', PHP_EOL, $string);
         $settingsField = GeneralUtility::trimExplode(PHP_EOL, $string, true);
@@ -749,7 +759,6 @@ class Field extends AbstractEntity
                 'selected' => isset($settings[2]) ? 1 : 0
             );
         }
-
         return $options;
     }
 
@@ -782,7 +791,7 @@ class Field extends AbstractEntity
         );
 
         // change select fieldtype to array if multiple checked
-        if ($fieldType === 'select' && $this->getMultiselect()) {
+        if ($fieldType === 'select' && $this->isMultiselect()) {
             $types['select'] = 1;
         }
         $types = $this->extendTypeArrayWithTypoScriptTypes($fieldType, $types);
@@ -809,5 +818,4 @@ class Field extends AbstractEntity
         }
         return $types;
     }
-
 }

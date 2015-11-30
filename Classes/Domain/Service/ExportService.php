@@ -201,8 +201,6 @@ class ExportService
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->getEmailTemplate()));
-        $standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
-        $standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
         $standaloneView->assign('export', $this);
         return $standaloneView->render();
     }
@@ -231,8 +229,6 @@ class ExportService
         $standaloneView->setTemplatePathAndFilename(
             TemplateUtility::getTemplatePath($this->getRelativeTemplatePathAndFileName())
         );
-        $standaloneView->setLayoutRootPaths(TemplateUtility::getTemplateFolders('layout'));
-        $standaloneView->setPartialRootPaths(TemplateUtility::getTemplateFolders('partial'));
         $standaloneView->assignMultiple(
             array(
                 'mails' => $this->getMails(),

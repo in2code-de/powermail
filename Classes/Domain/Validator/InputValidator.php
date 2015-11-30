@@ -74,7 +74,7 @@ class InputValidator extends StringValidator
     protected function isValidField(Field $field, $value)
     {
         // Mandatory Check
-        if ($field->getMandatory()) {
+        if ($field->isMandatory()) {
             if (!$this->validateMandatory($value)) {
                 $this->setErrorAndMessage($field, 'mandatory');
             }

@@ -144,6 +144,34 @@ class ConfigurationUtility extends AbstractUtility
     }
 
     /**
+     * Get default mail from install tool settings
+     *
+     * @return string
+     */
+    public static function getDefaultMailFromAddress()
+    {
+        $configVariables = self::getTypo3ConfigurationVariables();
+        if (!empty($configVariables['MAIL']['defaultMailFromAddress'])) {
+            return $configVariables['MAIL']['defaultMailFromAddress'];
+        }
+        return '';
+    }
+
+    /**
+     * Get default mail-name from install tool settings
+     *
+     * @return string
+     */
+    public static function getDefaultMailFromName()
+    {
+        $configVariables = self::getTypo3ConfigurationVariables();
+        if (!empty($configVariables['MAIL']['defaultMailFromName'])) {
+            return $configVariables['MAIL']['defaultMailFromName'];
+        }
+        return '';
+    }
+
+    /**
      * Get path to an icon for TCA configuration
      *
      * @param string $fileName
@@ -161,9 +189,8 @@ class ConfigurationUtility extends AbstractUtility
     }
 
     /**
-     * Merges Flexform, TypoScript and Extension Manager Settings (up to 2 levels)
-     *        Note: It's not possible to have the same field in TS and Flexform
-     *        and if FF value is empty, we want the TypoScript value instead
+     * Merges Flexform, TypoScript and Extension Manager Settings
+     * Note: If FF value is empty, we want the TypoScript value instead
      *
      * @param array $settings All settings
      * @param string $typoScriptLevel Startpoint
@@ -171,79 +198,11 @@ class ConfigurationUtility extends AbstractUtility
      */
     public static function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup')
     {
-        // config
-        $temporarySettings = array();
-
-        if (isset($settings[$typoScriptLevel]) && is_array($settings[$typoScriptLevel])) {
-            // copy typoscript part to conf part
-            $temporarySettings = $settings[$typoScriptLevel];
-        }
-
-        if (isset($settings['flexform']) && is_array($settings['flexform'])) {
-            // copy flexform part to conf part
-            $temporarySettings = array_merge((array) $temporarySettings, (array) $settings['flexform']);
-        }
-
-        // merge ts and ff (loop every flexform)
-        foreach ($temporarySettings as $key1 => $value1) {
-            // 1. level
-            if (!is_array($value1)) {
-                // only if this key exists in ff and ts
-                if (isset($settings[$typoScriptLevel][$key1]) && isset($settings['flexform'][$key1])) {
-                    // only if ff is empty and ts not
-                    if ($settings[$typoScriptLevel][$key1] && !$settings['flexform'][$key1]) {
-                        // overwrite with typoscript settings
-                        $temporarySettings[$key1] = $settings[$typoScriptLevel][$key1];
-                    }
-                }
-            } else {
-                // 2. level
-                foreach ($value1 as $key2 => $value2) {
-                    $value2 = null;
-
-                    // only if this key exists in ff and ts
-                    if (
-                        isset($settings[$typoScriptLevel][$key1][$key2]) &&
-                        isset($settings['flexform'][$key1][$key2])
-                    ) {
-                        // only if ff is empty and ts not
-                        if ($settings[$typoScriptLevel][$key1][$key2] && !$settings['flexform'][$key1][$key2]) {
-                            // overwrite with typoscript settings
-                            $temporarySettings[$key1][$key2] = $settings[$typoScriptLevel][$key1][$key2];
-                        }
-                    }
-                }
-            }
-        }
-
-        // merge ts and ff (loop every typoscript)
-        foreach ((array) $settings[$typoScriptLevel] as $key1 => $value1) {
-            // 1. level
-            if (!is_array($value1)) {
-                // only if this key exists in ts and not in ff
-                if (isset($settings[$typoScriptLevel][$key1]) && !isset($settings['flexform'][$key1])) {
-                    // set value from ts
-                    $temporarySettings[$key1] = $value1;
-                }
-            } else {
-                // 2. level
-                foreach ($value1 as $key2 => $value2) {
-                    // only if this key exists in ts and not in ff
-                    if (
-                        isset($settings[$typoScriptLevel][$key1][$key2]) &&
-                        !isset($settings['flexform'][$key1][$key2])
-                    ) {
-                        // set value from ts
-                        $temporarySettings[$key1][$key2] = $value2;
-                    }
-                }
-            }
-        }
-
-        // add global config
-        $temporarySettings['global'] = self::getExtensionConfiguration();
-
-        $settings = $temporarySettings;
-        unset($temporarySettings);
+        $settings = ArrayUtility::arrayMergeRecursiveOverrule(
+            (array) $settings[$typoScriptLevel],
+            (array) $settings['flexform'],
+            false,
+            false
+        );
     }
 }

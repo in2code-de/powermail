@@ -3,9 +3,7 @@ namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -37,16 +35,8 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class FieldRepository extends Repository
+class FieldRepository extends AbstractRepository
 {
-
-    /**
-     * formRepository
-     *
-     * @var \In2code\Powermail\Domain\Repository\FormRepository
-     * @inject
-     */
-    protected $formRepository;
 
     /**
      * Find all records from given uids and
@@ -86,10 +76,14 @@ class FieldRepository extends Repository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->getQuerySettings()->setRespectSysLanguage(false);
-        $query->matching($query->logicalAnd(array(
-                $query->equals('marker', $marker),
-                $query->equals('pages.forms.uid', $formUid)
-            )));
+        $query->matching(
+            $query->logicalAnd(
+                array(
+                    $query->equals('marker', $marker),
+                    $query->equals('pages.forms.uid', $formUid)
+                )
+            )
+        );
         $query->setLimit(1);
         $result = $query->execute()->getFirst();
         return $result;
@@ -186,13 +180,13 @@ class FieldRepository extends Repository
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
         $row = $query->statement($sql)->execute(true);
-        return $row[0]['pages'];
+        return (int) $row[0]['pages'];
     }
 
     /**
      * @param int $pageUid
      * @param int $sysLanguageUid
-     * @return array
+     * @return int
      */
     protected function getLocalizedPageUidFromPageUid($pageUid, $sysLanguageUid)
     {
@@ -203,7 +197,7 @@ class FieldRepository extends Repository
         $sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
         $sql .= ' and deleted = 0';
         $row = $query->statement($sql)->execute(true);
-        return $row[0]['uid'];
+        return (int) $row[0]['uid'];
     }
 
     /**
@@ -266,13 +260,5 @@ class FieldRepository extends Repository
             return $field->getUid();
         }
         return 0;
-    }
-
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
     }
 }

@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\User;
-use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 /***************************************************************
  *  Copyright notice
@@ -34,22 +34,20 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * @license http://www.gnu.org/licenses/lgpl.html
  *          GNU Lesser General Public License, version 3 or later
  */
-class UserRepository extends Repository
+class UserRepository extends AbstractRepository
 {
 
     /**
      * Find FE_Users by their group
      *
      * @param int $uid fe_groups UID
-     * @return \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
+     * @return QueryResult
      */
     public function findByUsergroup($uid)
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
-
         $query->matching($query->contains('usergroup', $uid));
-
         return $query->execute();
     }
 
@@ -85,10 +83,9 @@ class UserRepository extends Repository
         $groupBy = '';
         $orderBy = '';
         $limit = 1000;
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
         if ($res) {
-            // One loop for every entry
-            while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
+            while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
                 $groups[] = $row['uid'];
             }
         }

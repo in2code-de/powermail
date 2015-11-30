@@ -202,6 +202,6 @@ class BackendUtility extends AbstractUtility
      */
     public static function getPagesTSconfig($pid, $rootLine = null, $returnPartArray = false)
     {
-        BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
+        return BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
     }
 }

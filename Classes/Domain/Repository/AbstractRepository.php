@@ -1,14 +1,13 @@
 <?php
-namespace In2code\Powermail\Utility;
+namespace In2code\Powermail\Domain\Repository;
 
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 in2code.de
- *  Alex Kellner <alexander.kellner@in2code.de>
- *
+ *  (c) 2012 in2code GmbH <info@in2code.de>, in2code.de
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,31 +28,26 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
  ***************************************************************/
 
 /**
- * Class ArrayUtility
+ * AbstractRepository
  *
- * @package In2code\Powermail\Utility
+ * @package powermail
+ * @license http://www.gnu.org/licenses/lgpl.html
+ *          GNU Lesser General Public License, version 3 or later
  */
-class LocalizationUtility extends AbstractUtility
+abstract class AbstractRepository extends Repository
 {
 
     /**
-     * Translate function with predefined extensionName
-     * Could also be used together with unit tests
-     *
-     * @param string $key
-     * @param string $extensionName
-     * @param null $arguments
-     * @return string
+     * @var \In2code\Powermail\Domain\Repository\FormRepository
+     * @inject
      */
-    public static function translate($key, $extensionName = 'powermail', $arguments = null)
+    protected $formRepository;
+
+    /**
+     * @return DatabaseConnection
+     */
+    protected function getDatabaseConnection()
     {
-        $databaseConnection = self::getDatabaseConnection();
-        if (empty($databaseConnection)) {
-            if (stristr($key, 'datepicker_format')) {
-                return 'Y-m-d H:i';
-            }
-            return $key;
-        }
-        return LocalizationUtilityExtbase::translate($key, $extensionName, $arguments);
+        return $GLOBALS['TYPO3_DB'];
     }
 }

@@ -159,9 +159,7 @@ class AnswerTest extends UnitTestCase
             }
             $this->generalValidatorMock->_callRef('setField', $field);
         }
-        if ($valueType > 0) {
-            $this->generalValidatorMock->_callRef('setValueType', $valueType);
-        }
+        $this->generalValidatorMock->_callRef('setValueType', $valueType);
 
         $this->generalValidatorMock->_setProperty('value', $value);
         $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('getValue', $value));

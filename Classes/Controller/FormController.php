@@ -70,9 +70,6 @@ class FormController extends AbstractController
      */
     public function formAction()
     {
-        if (empty($this->settings['main']['form'])) {
-            return;
-        }
         $forms = $this->formRepository->findByUids($this->settings['main']['form']);
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($forms, $this));
         SessionUtility::saveFormStartInSession($forms, $this->settings);
@@ -95,6 +92,9 @@ class FormController extends AbstractController
     {
         $this->reformatParamsForAction();
         $this->forwardIfFormParamsDoNotMatch();
+        if ($this->settings['debug']['variables']) {
+            GeneralUtility::devLog('Variables', $this->extensionName, 0, GeneralUtility::_POST());
+        }
     }
 
     /**
@@ -122,10 +122,6 @@ class FormController extends AbstractController
             $this->settings['misc']['file']['extension']
         );
         SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
-
-        if ($this->settings['debug']['variables']) {
-            GeneralUtility::devLog('Variables', $this->extensionName, 0, GeneralUtility::_POST());
-        }
         if ($this->isMailPersistActive($hash)) {
             $this->saveMail($mail);
             $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', array($mail, $this));

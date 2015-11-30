@@ -49,7 +49,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
     protected function addMandatoryAttributesForMultipleFields(&$additionalAttributes, $field, $iteration)
     {
         if ($iteration['index'] === 0) {
-            if ($field->getMandatory()) {
+            if ($field->isMandatory()) {
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['required'] = 'required';
 
@@ -83,7 +83,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
 
         // add multiple attribute to bundle checkboxes for parsley
         if (
-            $field->getMandatory() &&
+            $field->isMandatory() &&
             $this->isClientValidationEnabled() &&
             $field->getType() === 'check' &&
             $iteration['total'] > 1

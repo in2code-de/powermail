@@ -219,8 +219,8 @@ class SpamShieldValidatorTest extends UnitTestCase
     {
         $mail = new Mail();
         $answer = new Answer();
-        $answer->setValue($text);
         $answer->setValueType(0);
+        $answer->setValue($text);
         $mail->addAnswer($answer);
 
         $this->generalValidatorMock->_callRef('linkCheck', $mail, $spamIndicator, $allowedLinks);
@@ -413,8 +413,8 @@ class SpamShieldValidatorTest extends UnitTestCase
         $mail = new Mail();
         foreach ($answerProperties as $value) {
             $answer = new Answer();
-            $answer->setValue($value);
             $answer->setValueType(123);
+            $answer->setValue($value);
             $mail->addAnswer($answer);
         }
 
@@ -493,8 +493,8 @@ class SpamShieldValidatorTest extends UnitTestCase
         $mail = new Mail();
         foreach ($answerProperties as $value) {
             $answer = new Answer();
-            $answer->setValue($value);
             $answer->setValueType(123);
+            $answer->setValue($value);
             $mail->addAnswer($answer);
         }
         $this->generalValidatorMock->_set('settings', array(
