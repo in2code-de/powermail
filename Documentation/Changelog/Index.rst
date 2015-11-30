@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.18.1
+   :Date:
+      2015-11-30
+   :Changes:
+
+      * Task _`#71976`: https://forge.typo3.org/issues/71976 Add PHP 5.5 to the minimum requirements of powermail
+      * Bugfix _`#71987`: https://forge.typo3.org/issues/71971 tx_powermail.flexForm.formSelection seems to be broken in 2.18.0
+      * Bugfix _`#71971`: https://forge.typo3.org/issues/71971 Fatal PHP Error in LocalizationUtility in PHP 5.3
+
+ - :Version:
       2.18.0
    :Date:
       2015-11-27
