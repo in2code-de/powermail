@@ -47,7 +47,8 @@ class LocalizationUtility extends AbstractUtility
      */
     public static function translate($key, $extensionName = 'powermail', $arguments = null)
     {
-        if (empty(self::getDatabaseConnection())) {
+        $databaseConnection = self::getDatabaseConnection();
+        if (empty($databaseConnection)) {
             if (stristr($key, 'datepicker_format')) {
                 return 'Y-m-d H:i';
             }
