@@ -2,6 +2,8 @@
 namespace In2code\Powermail\Utility\Tca;
 
 use In2code\Powermail\Utility\BackendUtility;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -29,8 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  ***************************************************************/
 
 /**
- * Powermail Form Selector
- * Used in FlexForm
+ * Powermail Form Selector - used in FlexForm
  *
  * @package powermail
  * @license http://www.gnu.org/licenses/lgpl.html
@@ -41,16 +42,19 @@ class FormSelectorUserFunc
 {
 
     /**
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     * @var DatabaseConnection
      */
     protected $databaseConnection = null;
 
     /**
      * Create Array for Form Selection
+     *
      *        Show all forms only from a pid and it's subpages:
      *            tx_powermail.flexForm.formSelection = 123
+     *
      *        Show all forms only from this pid and it's subpages:
      *            tx_powermail.flexForm.formSelection = current
+     *
      *        If no TSConfig set, all forms will be shown
      *
      * @param array $params
@@ -58,16 +62,8 @@ class FormSelectorUserFunc
      */
     public function getForms(&$params)
     {
-        $tsConfiguration = BackendUtility::getPagesTSconfig(
-            BackendUtility::getPidFromBackendPage()
-        );
-        $language = $params['row']['sys_language_uid'];
-        $startPid = 0;
-        if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['formSelection'])) {
-            $startPid = $tsConfiguration['tx_powermail.']['flexForm.']['formSelection'];
-        }
         $params['items'] = array();
-        foreach ($this->getAllForms($startPid, $language) as $form) {
+        foreach ($this->getAllForms($this->getStartPid(), $params['row']['sys_language_uid']) as $form) {
             $params['items'][] = array(
                 htmlspecialchars($form['title']),
                 (int) $form['uid']
@@ -76,9 +72,28 @@ class FormSelectorUserFunc
     }
 
     /**
+     * Get starting page uid
+     *      current pid or given pid from Page TSConfig
+     *
+     * @return int
+     */
+    protected function getStartPid()
+    {
+        $tsConfiguration = BackendUtility::getPagesTSconfig(BackendUtility::getPidFromBackendPage());
+        $startPid = 0;
+        if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['formSelection'])) {
+            $startPid = $tsConfiguration['tx_powermail.']['flexForm.']['formSelection'];
+            if ($startPid === 'current') {
+                $startPid = BackendUtility::getPidFromBackendPage();
+            }
+        }
+        return (int) $startPid;
+    }
+
+    /**
      * Get Forms from Database
      *
-     * @param int|string $startPid Integer or "current"
+     * @param int $startPid
      * @param int $language
      * @return array
      */
@@ -111,16 +126,13 @@ class FormSelectorUserFunc
     /**
      * Get commaseparated list of PID under a starting Page
      *
-     * @param int|string $startPid Integer or "current"
+     * @param int $startPid
      * @return string
      */
     protected function getPidListFromStartingPoint($startPid = 0)
     {
-        /** @var \TYPO3\CMS\Core\Database\QueryGenerator $queryGenerator */
+        /** @var QueryGenerator $queryGenerator */
         $queryGenerator = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Database\\QueryGenerator');
-        if ($startPid === 'current') {
-            $startPid = BackendUtility::getPidFromBackendPage();
-        }
         $list = $queryGenerator->getTreeList($startPid, 10, 0, 1);
         return $list;
     }
