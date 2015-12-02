@@ -72,7 +72,6 @@ class OptinUtility extends AbstractUtility
      */
     protected static function createHash($string)
     {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
         $string .= self::getEncryptionKey();
         return GeneralUtility::shortMD5($string);
     }

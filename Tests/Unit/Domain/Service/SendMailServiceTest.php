@@ -54,7 +54,7 @@ class SendMailServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Domain\Service\SendMailService',
-            array('dummy')
+            array('addSender')
         );
     }
 
@@ -331,6 +331,84 @@ class SendMailServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addPriority', $message);
         $this->assertEquals($expectedResult, $message->getPriority());
+    }
+
+    /**
+     * Data Provider for addSenderHeaderReturnMailMessage()
+     *
+     * @return array
+     */
+    public function addSenderHeaderReturnMailMessageDataProvider()
+    {
+        return array(
+            'null 1' => array(
+                array(),
+                null
+            ),
+            'null 2' => array(
+                array(
+                    'email' => 'TEXT',
+                    'email.' => array(
+                        'value' => 'test@test'
+                    )
+                ),
+                null
+            ),
+            'email, no name' => array(
+                array(
+                    'email' => 'TEXT',
+                    'email.' => array(
+                        'value' => 'test@test.org'
+                    )
+                ),
+                array(
+                    'test@test.org' => ''
+                )
+            ),
+            'email and name' => array(
+                array(
+                    'email' => 'TEXT',
+                    'email.' => array(
+                        'value' => 'test@test.org'
+                    ),
+                    'name' => 'TEXT',
+                    'name.' => array(
+                        'value' => 'name'
+                    )
+                ),
+                array(
+                    'test@test.org' => 'name'
+                )
+            )
+        );
+    }
+
+    /**
+     * addSenderHeader Test
+     *
+     * @param array $config
+     * @param array|null $expectedResult
+     * @dataProvider addSenderHeaderReturnMailMessageDataProvider
+     * @return void
+     * @test
+     */
+    public function addSenderHeaderReturnMailMessage($config, $expectedResult)
+    {
+        $this->initializeTsfe();
+        $message = new MailMessage();
+        $this->generalValidatorMock->_set('type', 'receiver');
+        $this->generalValidatorMock->_set(
+            'configuration',
+            array(
+                'receiver.' => array(
+                    'senderHeader.' => $config
+                )
+            )
+        );
+        $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
+        $message = $this->generalValidatorMock->_call('addSenderHeader', $message);
+        $this->assertEquals($expectedResult, $message->getSender());
+
     }
 
     /**

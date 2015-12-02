@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.18.2
+   :Date:
+      2015-12-02
+   :Changes:
+
+      * Bugfix _`#71999`: https://forge.typo3.org/issues/71999 Reintroduce possibility to add mail-header Sender according to RFC2822 - 3.6.2
+      * Bugfix _`#72021`: https://forge.typo3.org/issues/72021 Setting encryptionKey in OptinUtility::createHash - Links does not work because of wrong cHash
+
+ - :Version:
       2.18.1
    :Date:
       2015-11-30

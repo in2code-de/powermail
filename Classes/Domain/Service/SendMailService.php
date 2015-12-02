@@ -12,6 +12,7 @@ use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
  *  Copyright notice
@@ -80,7 +81,7 @@ class SendMailService
     protected $signalSlotDispatcher;
 
     /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @var ContentObjectRenderer
      */
     protected $contentObject;
 
@@ -177,6 +178,7 @@ class SendMailService
         $message = $this->addAttachmentsFromTypoScript($message);
         $message = $this->addHtmlBody($message, $email);
         $message = $this->addPlainBody($message, $email);
+        $message = $this->addSenderHeader($message);
 
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
@@ -197,10 +199,7 @@ class SendMailService
      */
     protected function addCc(MailMessage $message)
     {
-        $ccValue = $this->contentObject->cObjGetSingle(
-            $this->overwriteConfig['cc'],
-            $this->overwriteConfig['cc.']
-        );
+        $ccValue = $this->contentObject->cObjGetSingle($this->overwriteConfig['cc'], $this->overwriteConfig['cc.']);
         if (!empty($ccValue)) {
             $message->setCc(GeneralUtility::trimExplode(',', $ccValue, true));
         }
@@ -215,10 +214,7 @@ class SendMailService
      */
     protected function addBcc(MailMessage $message)
     {
-        $bccValue = $this->contentObject->cObjGetSingle(
-            $this->overwriteConfig['bcc'],
-            $this->overwriteConfig['bcc.']
-        );
+        $bccValue = $this->contentObject->cObjGetSingle($this->overwriteConfig['bcc'], $this->overwriteConfig['bcc.']);
         if (!empty($bccValue)) {
             $message->setBcc(GeneralUtility::trimExplode(',', $bccValue, true));
         }
@@ -260,9 +256,11 @@ class SendMailService
             $this->overwriteConfig['replyToName.']
         );
         if (!empty($replyToEmail) && !empty($replyToName)) {
-            $message->setReplyTo(array(
+            $message->setReplyTo(
+                array(
                     $replyToEmail => $replyToName
-                ));
+                )
+            );
         }
         return $message;
     }
@@ -369,6 +367,26 @@ class SendMailService
     }
 
     /**
+     * Set Sender Header according to RFC 2822 - 3.6.2 Originator fields
+     *
+     * @param MailMessage $message
+     * @return MailMessage
+     */
+    protected function addSenderHeader(MailMessage $message)
+    {
+        $senderHeaderConfig = $this->configuration[$this->type . '.']['senderHeader.'];
+        $email = $this->contentObject->cObjGetSingle($senderHeaderConfig['email'], $senderHeaderConfig['email.']);
+        $name = $this->contentObject->cObjGetSingle($senderHeaderConfig['name'], $senderHeaderConfig['name.']);
+        if (GeneralUtility::validEmail($email)) {
+            if (empty($name)) {
+                $name = null;
+            }
+            $message->setSender($email, $name);
+        }
+        return $message;
+    }
+
+    /**
      * Create Email Body
      *
      * @param array $email Array with all needed mail information
@@ -384,7 +402,8 @@ class SendMailService
         $variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($this->mail);
         $standaloneView->assignMultiple($variablesWithMarkers);
         $standaloneView->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($this->mail));
-        $standaloneView->assignMultiple(array(
+        $standaloneView->assignMultiple(
+            array(
                 'variablesWithMarkers' => ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers),
                 'powermail_all' => TemplateUtility::powermailAll($this->mail, 'mail', $this->settings, $this->type),
                 'powermail_rte' => $email['rteBody'],
@@ -392,7 +411,8 @@ class SendMailService
                 'mail' => $this->mail,
                 'email' => $email,
                 'settings' => $this->settings
-            ));
+            )
+        );
         if (!empty($email['variables'])) {
             $standaloneView->assignMultiple($email['variables']);
         }
