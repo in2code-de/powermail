@@ -48,6 +48,7 @@ class OptinUtilityTest extends UnitTestCase
      */
     public function createHashReturnsString()
     {
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
         $form = new Form();
         $form->_setProperty('uid', 123);
         $mail = new Mail();
