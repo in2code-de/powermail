@@ -702,8 +702,14 @@ plugin.tx_powermail {
 
 
 
-			# Add own finisher classes that will be called after submit (e.g. if you want to do something with form values by your own: Save into tables, call an API, etc...)
+			# Finisher classes that will be called after submit
 			finishers {
+				# Powermail finishers
+				10.class = In2code\Powermail\Finisher\SaveToAnyTableFinisher
+				20.class = In2code\Powermail\Finisher\SendParametersFinisher
+				30.class = In2code\Powermail\Finisher\RedirectFinisher
+
+				# Add your own finishers classes (e.g. if you want to do something with form values by your own: Save into tables, call an API, make your own redirect etc...)
 #				1 {
 					# Classname that should be called with method *Finisher()
 #					class = Vendor\Ext\Finisher\DoSomethingFinisher
