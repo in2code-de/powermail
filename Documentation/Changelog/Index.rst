@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.19.0
+   :Date:
+      2015-12-08
+   :Changes:
+
+      * Feature _`#69808`: https://forge.typo3.org/issues/69808 UID of tx_powermail_domain_model_mails for dbEntry
+      * Task _`#72090`: https://forge.typo3.org/issues/72090 Move hardcoded implementation of local finisher classes to TypoScript
+      * Bugfix _`#72061`: https://forge.typo3.org/issues/72061 Formular Konverter produces mysql Error / TYPO3 7.6 / Powermail 2.18.2
+
+ - :Version:
       2.18.2
    :Date:
       2015-12-02
