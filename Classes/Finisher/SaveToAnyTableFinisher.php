@@ -66,7 +66,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     /**
      * @var array
      */
-    protected $dataArray = array();
+    protected $dataArray = [];
 
     /**
      * Preperation function for every table
@@ -76,7 +76,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     public function savePreflightFinisher()
     {
         if ($this->isSaveToAnyTableActivated()) {
-            $this->addArrayToDataArray($this->mailRepository->getVariablesWithMarkersFromMail($this->mail));
             foreach ((array) array_keys($this->configuration) as $tableKey) {
                 $table = StringUtility::removeLastDot($tableKey);
                 $this->contentObject->start($this->getDataArray());
@@ -107,8 +106,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         if (!empty($this->settings['debug']['saveToTable'])) {
             $saveService->setDevLog(true);
         }
-        $uid = $saveService->execute();
-        $this->addArrayToDataArray(array('uid_' . $table => $uid));
+        $this->addArrayToDataArray(['uid_' . $table => (int) $saveService->execute()]);
     }
 
     /**
@@ -207,7 +205,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param array $dataArray
      * @return SaveToAnyTableFinisher
      */
-    public function setDataArray($dataArray)
+    public function setDataArray(array $dataArray)
     {
         $this->dataArray = $dataArray;
         return $this;
@@ -221,6 +219,10 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         $configuration = $this->typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         if (!empty($configuration['dbEntry.'])) {
             $this->configuration = $configuration['dbEntry.'];
+        }
+        if ($this->isSaveToAnyTableActivated()) {
+            $this->addArrayToDataArray(['uid' => $this->mail->getUid()]);
+            $this->addArrayToDataArray($this->mailRepository->getVariablesWithMarkersFromMail($this->mail));
         }
     }
 }

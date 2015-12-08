@@ -6,20 +6,17 @@ Saving Values to Third Party Table
 ----------------------------------
 
 Powermail is able to save the values from a submitted form into a
-third-party-table (like tt\_news, tt\_address, tt_content, fe_users,
-etc...).
+third-party-table (like news, tt_news, tt_address, tt_content, fe_users,
+pages, or something else...).
 
-This feature and its TypoScript settings are nearly the same as you
-may know from powermail < 2.0
-
-Example for tt\_address:
+Example for table tt_address:
 
 .. code-block:: text
 
 	plugin.tx_powermail.settings.setup {
 		# Save values to any table (example for tt_adress)
 		dbEntry {
-			#####################################################
+				#####################################################
 				### EXAMPLE for adding values to table tt_address ###
 				#####################################################
 
@@ -64,6 +61,10 @@ Example for tt\_address:
 				# Fill new record of table "tt_address" with field "company" with the value from powermail {company}
 				tt_address.company = TEXT
 				tt_address.company.field = company
+
+				# Fill new record of table "tt_address" with field "position" with the uid of the mail record
+				tt_address.position = TEXT
+				tt_address.position.field = uid
 
 
 

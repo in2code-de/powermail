@@ -1394,6 +1394,10 @@ Setup
     #				tt_address.company = TEXT
     #				tt_address.company.field = company
 
+                    # Fill new record of table "tt_address" with field "position" with the uid of the mail record
+    #				tt_address.position = TEXT
+    #				tt_address.position.field = uid
+
 
 
                     ##############################################################
