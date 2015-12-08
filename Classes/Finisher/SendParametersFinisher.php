@@ -118,10 +118,10 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function getCurlSettings()
     {
-        return array(
+        return [
             'url' => $this->configuration['targetUrl'],
             'params' => $this->getValues()
-        );
+        ];
     }
 
     /**
@@ -131,10 +131,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function getValues()
     {
-        return $this->contentObject->cObjGetSingle(
-            $this->configuration['values'],
-            $this->configuration['values.']
-        );
+        return $this->contentObject->cObjGetSingle($this->configuration['values'], $this->configuration['values.']);
     }
 
     /**

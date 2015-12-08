@@ -61,7 +61,7 @@ class CountriesFromStaticInfoTablesService
         $sorting = 'asc'
     ) {
         $countries = $this->countryRepository->findAllOrderedBy($sortbyField, $sorting);
-        $countriesArray = array();
+        $countriesArray = [];
         foreach ($countries as $country) {
             /** @var $country \SJBR\StaticInfoTables\Domain\Model\Country */
             $countriesArray[ObjectAccess::getProperty($country, $key)] = ObjectAccess::getProperty($country, $value);

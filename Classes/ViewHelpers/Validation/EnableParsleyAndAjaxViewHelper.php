@@ -29,7 +29,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
      * @param array $additionalAttributes To add further attributes
      * @return array for data attributes
      */
-    public function render(Form $form, $additionalAttributes = array())
+    public function render(Form $form, $additionalAttributes = [])
     {
         if ($this->isClientValidationEnabled()) {
             $additionalAttributes['data-parsley-validate'] = 'data-parsley-validate';

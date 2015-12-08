@@ -51,7 +51,7 @@ class StringUtility
             $array = array_merge($array, self::getEmailsFromFeGroup($feGroup));
         }
         if (ConfigurationUtility::getDevelopmentContextEmail()) {
-            $array = array(ConfigurationUtility::getDevelopmentContextEmail());
+            $array = [ConfigurationUtility::getDevelopmentContextEmail()];
         }
         return $array;
     }
@@ -68,7 +68,7 @@ class StringUtility
         $userRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
             ->get('In2code\\Powermail\\Domain\\Repository\\UserRepository');
         $users = $userRepository->findByUsergroup($uid);
-        $array = array();
+        $array = [];
         foreach ($users as $user) {
             if (GeneralUtility::validEmail($user->getEmail())) {
                 $array[] = $user->getEmail();
@@ -85,13 +85,13 @@ class StringUtility
      */
     protected static function getEmailsFromString($string)
     {
-        $array = array();
+        $array = [];
         $string = str_replace(
-            array(
+            [
                 PHP_EOL,
                 '|',
                 ','
-            ),
+            ],
             ';',
             $string
         );

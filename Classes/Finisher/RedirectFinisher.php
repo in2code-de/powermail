@@ -47,7 +47,7 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
     /**
      * @var array
      */
-    protected $arguments = array();
+    protected $arguments = [];
 
     /**
      * Redirect user after form submit

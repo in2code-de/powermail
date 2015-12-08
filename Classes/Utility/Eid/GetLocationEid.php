@@ -73,7 +73,7 @@ class GetLocationEid
      */
     protected function getAddressFromGeo($lat, $lng)
     {
-        $result = array();
+        $result = [];
         $json = GeneralUtility::getUrl(
             'https://maps.googleapis.com/maps/api/geocode/json' .
             '?sensor=false&language=' . $this->language . '&latlng=' . urlencode($lat . ',' . $lng)

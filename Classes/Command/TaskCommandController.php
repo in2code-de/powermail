@@ -169,7 +169,7 @@ class TaskCommandController extends CommandController
     protected function getUsedUploads()
     {
         $answers = $this->answerRepository->findByAnyUpload();
-        $usedUploads = array();
+        $usedUploads = [];
         foreach ($answers as $answer) {
             foreach ((array) $answer->getValue() as $singleUpload) {
                 $usedUploads[] = $singleUpload;
@@ -186,14 +186,14 @@ class TaskCommandController extends CommandController
      */
     protected function getFilterVariables($period)
     {
-        $variables = array('filter' => array());
+        $variables = ['filter' => []];
         if ($period > 0) {
-            $variables = array(
-                'filter' => array(
+            $variables = [
+                'filter' => [
                     'start' => strftime('%Y-%m-%d', (time() - $period)),
                     'stop' => 'now'
-                )
-            );
+                ]
+            ];
         }
         return $variables;
     }

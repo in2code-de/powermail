@@ -25,7 +25,7 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
      */
     public function render(Form $form, $property = 'title', $htmlSpecialChars = true)
     {
-        $fields = array();
+        $fields = [];
         foreach ($form->getPages() as $page) {
             foreach ($page->getFields() as $field) {
                 $fieldProperty = ObjectAccess::getProperty($field, $property);

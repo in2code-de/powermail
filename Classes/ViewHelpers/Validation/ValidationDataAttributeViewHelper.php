@@ -23,7 +23,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
      * @return array for data attributes
      */
-    public function render(Field $field, $additionalAttributes = array(), $iteration = null)
+    public function render(Field $field, $additionalAttributes = [], $iteration = null)
     {
         switch ($field->getType()) {
             case 'check':

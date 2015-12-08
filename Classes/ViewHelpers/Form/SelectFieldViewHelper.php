@@ -15,7 +15,7 @@ class SelectFieldViewHelper extends SelectViewHelper
     /**
      * @var array
      */
-    protected $originalOptions = array();
+    protected $originalOptions = [];
 
     /**
      * Render the tag.
@@ -51,7 +51,7 @@ class SelectFieldViewHelper extends SelectViewHelper
      */
     protected function setOptions()
     {
-        $optionArray = array();
+        $optionArray = [];
         foreach ($this->arguments['options'] as $option) {
             $optionArray[$option['value']] = $option['label'];
         }
@@ -85,7 +85,7 @@ class SelectFieldViewHelper extends SelectViewHelper
                 return $option;
             }
         }
-        return array();
+        return [];
     }
 
     /**

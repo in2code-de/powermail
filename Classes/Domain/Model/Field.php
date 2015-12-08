@@ -262,13 +262,13 @@ class Field extends AbstractEntity
      */
     public function isBasicFieldType()
     {
-        $basicFieldTypes = array(
+        $basicFieldTypes = [
             'input',
             'textarea',
             'select',
             'check',
             'radio'
-        );
+        ];
         if (in_array($this->getType(), $basicFieldTypes)) {
             return true;
         }
@@ -746,18 +746,18 @@ class Field extends AbstractEntity
      */
     protected function buildOptions($string, $parse)
     {
-        $options = array();
+        $options = [];
         $string = str_replace('[\n]', PHP_EOL, $string);
         $settingsField = GeneralUtility::trimExplode(PHP_EOL, $string, true);
         foreach ($settingsField as $line) {
             $settings = GeneralUtility::trimExplode('|', $line, false);
             $value = (isset($settings[1]) ? $settings[1] : $settings[0]);
             $label = ($parse ? TemplateUtility::fluidParseString($settings[0]) : $settings[0]);
-            $options[] = array(
+            $options[] = [
                 'label' => $label,
                 'value' => $value,
                 'selected' => isset($settings[2]) ? 1 : 0
-            );
+            ];
         }
         return $options;
     }
@@ -770,7 +770,7 @@ class Field extends AbstractEntity
      */
     public function dataTypeFromFieldType($fieldType)
     {
-        $types = array(
+        $types = [
             'captcha' => 0,
             'check' => 1,
             'content' => 0,
@@ -788,7 +788,7 @@ class Field extends AbstractEntity
             'text' => 0,
             'textarea' => 0,
             'typoscript' => 0
-        );
+        ];
 
         // change select fieldtype to array if multiple checked
         if ($fieldType === 'select' && $this->isMultiselect()) {

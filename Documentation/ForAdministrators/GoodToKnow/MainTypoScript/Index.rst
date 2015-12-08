@@ -805,7 +805,7 @@ Setup
                     #
                     # Register your Class and Method with TypoScript Setup
                     # 		plugin.tx_powermail.settings.setup.validation.customValidation.100 =
-                    # 			\In2code\Powermailextended\Domain\Validator\ZipValidator
+                    # 			In2code\Powermailextended\Domain\Validator\ZipValidator
                     #
                     # Add method to your class
                     # 		validate100($value, $validationConfiguration)
@@ -815,7 +815,7 @@ Setup
                     #
                     # ##########################################################
                     customValidation {
-    #					100 = \In2code\Powermailextended\Domain\Validator\ZipValidator
+    #					100 = In2code\Powermailextended\Domain\Validator\ZipValidator
                     }
                 }
 
@@ -1394,6 +1394,10 @@ Setup
     #				tt_address.company = TEXT
     #				tt_address.company.field = company
 
+                    # Fill new record of table "tt_address" with field "position" with the uid of the mail record
+    #				tt_address.position = TEXT
+    #				tt_address.position.field = uid
+
 
 
                     ##############################################################
@@ -1439,8 +1443,15 @@ Setup
 
 
 
-                # Add own finisher classes that will be called after submit (e.g. if you want to do something with form values by your own: Save into tables, call an API, etc...)
+                # Finisher classes that will be called after submit
                 finishers {
+                    # Powermail finishers
+                    10.class = In2code\Powermail\Finisher\SaveToAnyTableFinisher
+                    20.class = In2code\Powermail\Finisher\SendParametersFinisher
+                    100.class = In2code\Powermail\Finisher\RedirectFinisher
+
+
+                    # Add your own finishers classes (e.g. if you want to do something with form values by your own: Save into tables, call an API, make your own redirect etc...)
     #				1 {
                         # Classname that should be called with method *Finisher()
     #					class = Vendor\Ext\Finisher\DoSomethingFinisher

@@ -57,15 +57,13 @@ class OutputController extends AbstractController
         $searchFields = $this->fieldRepository->findByUids(
             GeneralUtility::trimExplode(',', $this->settings['search']['fields'], true)
         );
-        $this->view->assignMultiple(
-            array(
+        $this->view->assignMultiple([
                 'mails' => $this->mailRepository->findListBySettings($this->settings, $this->piVars),
                 'searchFields' => $searchFields,
                 'fields' => $this->fieldRepository->findByUids($fieldArray),
                 'piVars' => $this->piVars,
                 'abc' => ArrayUtility::getAbcArray()
-            )
-        );
+            ]);
         $this->assignMultipleActions();
     }
 
@@ -129,7 +127,7 @@ class OutputController extends AbstractController
     {
         $this->mailRepository->update($mail);
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
-        $this->redirect('edit', null, null, array('mail' => $mail));
+        $this->redirect('edit', null, null, ['mail' => $mail]);
     }
 
     /**
@@ -171,7 +169,7 @@ class OutputController extends AbstractController
      * @dontvalidate $export
      * @return void
      */
-    public function exportAction($export = array())
+    public function exportAction($export = [])
     {
         if (!$this->settings['list']['export']) {
             return;
@@ -187,9 +185,9 @@ class OutputController extends AbstractController
         $fields = $this->fieldRepository->findByUids($fieldArray);
 
         if ($export['format'] === 'xls') {
-            $this->forward('exportXls', null, null, array('mails' => $mails, 'fields' => $fields));
+            $this->forward('exportXls', null, null, ['mails' => $mails, 'fields' => $fields]);
         }
-        $this->forward('exportCsv', null, null, array('mails' => $mails, 'fields' => $fields));
+        $this->forward('exportCsv', null, null, ['mails' => $mails, 'fields' => $fields]);
     }
 
     /**
@@ -201,7 +199,7 @@ class OutputController extends AbstractController
      * @dontvalidate $fields
      * @return    void
      */
-    public function exportXlsAction(QueryResult $mails = null, $fields = array())
+    public function exportXlsAction(QueryResult $mails = null, $fields = [])
     {
         $this->view->assign('mails', $mails);
         $this->view->assign('fields', $fields);
@@ -216,7 +214,7 @@ class OutputController extends AbstractController
      * @dontvalidate $fields
      * @return void
      */
-    public function exportCsvAction(QueryResult $mails = null, $fields = array())
+    public function exportCsvAction(QueryResult $mails = null, $fields = [])
     {
         $this->view->assign('mails', $mails);
         $this->view->assign('fields', $fields);

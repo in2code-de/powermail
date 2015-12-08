@@ -165,8 +165,8 @@ class SendMailService
         $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
         TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfig, 'subject');
         $message
-            ->setTo(array($email['receiverEmail'] => $email['receiverName']))
-            ->setFrom(array($email['senderEmail'] => $email['senderName']))
+            ->setTo([$email['receiverEmail'] => $email['receiverName']])
+            ->setFrom([$email['senderEmail'] => $email['senderName']])
             ->setSubject($email['subject'])
             ->setCharset(FrontendUtility::getCharset());
         $message = $this->addCc($message);
@@ -183,7 +183,7 @@ class SendMailService
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             __FUNCTION__ . 'BeforeSend',
-            array($message, $email, $this->mail, $this->settings, $this->type)
+            [$message, $email, $this->mail, $this->settings, $this->type]
         );
 
         $message->send();
@@ -257,9 +257,9 @@ class SendMailService
         );
         if (!empty($replyToEmail) && !empty($replyToName)) {
             $message->setReplyTo(
-                array(
+                [
                     $replyToEmail => $replyToName
-                )
+                ]
             );
         }
         return $message;
@@ -402,8 +402,7 @@ class SendMailService
         $variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($this->mail);
         $standaloneView->assignMultiple($variablesWithMarkers);
         $standaloneView->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($this->mail));
-        $standaloneView->assignMultiple(
-            array(
+        $standaloneView->assignMultiple([
                 'variablesWithMarkers' => ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers),
                 'powermail_all' => TemplateUtility::powermailAll($this->mail, 'mail', $this->settings, $this->type),
                 'powermail_rte' => $email['rteBody'],
@@ -411,8 +410,7 @@ class SendMailService
                 'mail' => $this->mail,
                 'email' => $email,
                 'settings' => $this->settings
-            )
-        );
+            ]);
         if (!empty($email['variables'])) {
             $standaloneView->assignMultiple($email['variables']);
         }
@@ -420,7 +418,7 @@ class SendMailService
         $this->signalSlotDispatcher->dispatch(
             __CLASS__,
             __FUNCTION__ . 'BeforeRender',
-            array($standaloneView, $email, $this->mail, $this->settings)
+            [$standaloneView, $email, $this->mail, $this->settings]
         );
 
         $body = $standaloneView->render();
@@ -437,7 +435,7 @@ class SendMailService
      */
     protected function makePlain($content)
     {
-        $tags2LineBreaks = array(
+        $tags2LineBreaks = [
             '</p>',
             '</tr>',
             '<ul>',
@@ -453,16 +451,16 @@ class SendMailService
             '</fieldset>',
             '</dd>',
             '</dt>'
-        );
+        ];
 
         // 1. remove complete head element
         $content = preg_replace('/<head>(.*?)<\/head>/i', '', $content);
         // 2. remove linebreaks, tabs
-        $content = trim(str_replace(array("\n", "\r", "\t"), '', $content));
+        $content = trim(str_replace(["\n", "\r", "\t"], '', $content));
         // 3. add linebreaks on some parts (</p> => </p><br />)
         $content = str_replace($tags2LineBreaks, '</p><br />', $content);
         // 4. insert space for table cells
-        $content = str_replace(array('</td>', '</th>'), '</td> ', $content);
+        $content = str_replace(['</td>', '</th>'], '</td> ', $content);
         // 5. replace links <a href="xyz">LINK</a> -> LINK [xyz]
         $content = preg_replace('/<a\s+(?:[^>]*?\s+)?href=\"([^\"]*)\".*>(.*)<\/a>/u', '$2 [$1]', $content);
         // 6. remove all tags (<b>bla</b><br /> => bla<br />)
@@ -481,12 +479,12 @@ class SendMailService
      */
     protected function br2nl($content)
     {
-        $array = array(
+        $array = [
             '<br >',
             '<br>',
             '<br/>',
             '<br />'
-        );
+        ];
         $content = str_replace($array, PHP_EOL, $content);
 
         return $content;
@@ -526,13 +524,13 @@ class SendMailService
      */
     protected function parseVariables(array &$email, Mail &$mail)
     {
-        $parse = array(
+        $parse = [
             'receiverName',
             'receiverEmail',
             'senderName',
             'senderEmail',
             'subject'
-        );
+        ];
         foreach ($parse as $value) {
             $email[$value] = TemplateUtility::fluidParseString(
                 $email[$value],

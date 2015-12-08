@@ -49,8 +49,8 @@ class MailUtility
     {
         /** @var \TYPO3\CMS\Core\Mail\MailMessage $message */
         $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-        $message->setTo(array($receiverEmail => ''));
-        $message->setFrom(array($senderEmail => 'Sender'));
+        $message->setTo([$receiverEmail => '']);
+        $message->setFrom([$senderEmail => 'Sender']);
         $message->setSubject($subject);
         $message->setBody($body);
         $message->send();

@@ -51,29 +51,6 @@ class FinisherRunner
     protected $configurationManager;
 
     /**
-     * @var ContentObjectRenderer
-     */
-    protected $contentObject;
-
-    /**
-     * TypoScript settings
-     *
-     * @var array
-     */
-    protected $settings = array();
-
-    /**
-     * Own finisher classnames - ordering will be respected
-     *
-     * @var array
-     */
-    protected $ownFinisherClasses = array(
-        'SaveToAnyTableFinisher',
-        'SendParametersFinisher',
-        'RedirectFinisher'
-    );
-
-    /**
      * Call finisher classes after submit
      *
      * @param Mail $mail
@@ -90,33 +67,17 @@ class FinisherRunner
         $settings,
         ContentObjectRenderer $contentObject
     ) {
-        $this->initialize($settings, $contentObject);
-        $this->callLocalFinishers($mail, $formSubmitted, $actionMethodName);
-        $this->callForeignFinishers($mail, $formSubmitted, $actionMethodName);
-    }
-
-    /**
-     * Call own finisher classes after submit
-     *
-     * @param Mail $mail
-     * @param bool $formSubmitted
-     * @param string $actionMethodName
-     * @return void
-     */
-    protected function callLocalFinishers(Mail $mail, $formSubmitted = false, $actionMethodName = null)
-    {
-        $ownClasses = $this->getOwnFinisherClasses();
-        foreach ($ownClasses as $className) {
+        foreach ($this->getFinisherClasses($settings) as $finisherSettings) {
             /** @var FinisherService $finisherService */
             $finisherService = $this->objectManager->get(
                 'In2code\\Powermail\\Domain\\Service\\FinisherService',
                 $mail,
-                $this->settings,
-                $this->contentObject
+                $settings,
+                $contentObject
             );
-            $finisherService->setClass(__NAMESPACE__ . '\\' . $className);
-            $finisherService->setRequirePath(null);
-            $finisherService->setConfiguration(array());
+            $finisherService->setClass($finisherSettings['class']);
+            $finisherService->setRequirePath((string) $finisherSettings['require']);
+            $finisherService->setConfiguration((array) $finisherSettings['config']);
             $finisherService->setFormSubmitted($formSubmitted);
             $finisherService->setActionMethodName($actionMethodName);
             $finisherService->start();
@@ -124,54 +85,15 @@ class FinisherRunner
     }
 
     /**
-     * Call foreign finisher classes after submit
-     *
-     * @param Mail $mail
-     * @param bool $formSubmitted
-     * @param string $actionMethodName
-     * @return void
-     */
-    protected function callForeignFinishers(Mail $mail, $formSubmitted = false, $actionMethodName = null)
-    {
-        if (is_array($this->settings['finishers'])) {
-            foreach ($this->settings['finishers'] as $finisherSettings) {
-                /** @var FinisherService $finisherService */
-                $finisherService = $this->objectManager->get(
-                    'In2code\\Powermail\\Domain\\Service\\FinisherService',
-                    $mail,
-                    $this->settings,
-                    $this->contentObject
-                );
-                $finisherService->setClass($finisherSettings['class']);
-                $finisherService->setRequirePath((string) $finisherSettings['require']);
-                $finisherService->setConfiguration((array) $finisherSettings['config']);
-                $finisherService->setFormSubmitted($formSubmitted);
-                $finisherService->setActionMethodName($actionMethodName);
-                $finisherService->start();
-            }
-        }
-    }
-
-    /**
-     * Get all finisher classes in same directory
-     *
-     * @return array
-     */
-    public function getOwnFinisherClasses()
-    {
-        return $this->ownFinisherClasses;
-    }
-
-    /**
-     * Initialize
+     * Get all finisher classes from typoscript and sort them
      *
      * @param array $settings
-     * @param ContentObjectRenderer $contentObject
-     * @return void
+     * @return array
      */
-    public function initialize(array $settings, ContentObjectRenderer $contentObject)
+    protected function getFinisherClasses($settings)
     {
-        $this->settings = $settings;
-        $this->contentObject = $contentObject;
+        $finishers = (array) $settings['finishers'];
+        ksort($finishers);
+        return $finishers;
     }
 }

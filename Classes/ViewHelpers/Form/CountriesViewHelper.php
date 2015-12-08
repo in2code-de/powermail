@@ -50,7 +50,7 @@ class CountriesViewHelper extends AbstractViewHelper
      */
     protected function getCountries()
     {
-        $countries = array(
+        $countries = [
             'AND' => 'Andorra',
             'ARE' => 'الإمارات العربيّة المتّحدة',
             'AFG' => 'افغانستان',
@@ -302,7 +302,7 @@ class CountriesViewHelper extends AbstractViewHelper
             'CUW' => 'Curaçao',
             'SXM' => 'Sint Maarten',
             'SSD' => 'South Sudan',
-        );
+        ];
         return $countries;
     }
 }

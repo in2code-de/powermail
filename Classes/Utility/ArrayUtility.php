@@ -68,7 +68,7 @@ class ArrayUtility extends ArrayUtilityExtbase
      */
     public static function htmlspecialcharsOnArray($array)
     {
-        $newArray = array();
+        $newArray = [];
         foreach ((array) $array as $key => $value) {
             if (is_array($value)) {
                 $newArray[htmlspecialchars($key)] = self::htmlspecialcharsOnArray($value);

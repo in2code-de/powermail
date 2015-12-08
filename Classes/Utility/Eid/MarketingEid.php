@@ -70,20 +70,20 @@ class MarketingEid
      */
     public function __construct($TYPO3_CONF_VARS)
     {
-        $this->configuration = array(
+        $this->configuration = [
             'pluginName' => 'Pi1',
             'vendorName' => 'In2code',
             'extensionName' => 'Powermail',
             'controller' => 'Form',
             'action' => 'marketing',
-            'mvc' => array(
-                'requestHandlers' => array(
+            'mvc' => [
+                'requestHandlers' => [
                     'TYPO3\CMS\Extbase\Mvc\Web\FrontendRequestHandler' =>
                         'TYPO3\CMS\Extbase\Mvc\Web\FrontendRequestHandler'
-                )
-            ),
-            'settings' => array()
-        );
+                ]
+            ],
+            'settings' => []
+        ];
         $_POST['tx_powermail_pi1']['action'] = 'marketing';
         $_POST['tx_powermail_pi1']['controller'] = 'Form';
 

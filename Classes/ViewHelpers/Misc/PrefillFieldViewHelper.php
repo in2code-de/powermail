@@ -272,7 +272,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
             $this->contentObjectRenderer->start(ObjectAccess::getGettableProperties($this->getField()));
             // Multivalue
             if (isset($this->settings['prefill.'][$this->getMarker() . '.']['0'])) {
-                $value = array();
+                $value = [];
                 foreach (array_keys($this->settings['prefill.'][$this->getMarker() . '.']) as $key) {
                     if (stristr($key, '.')) {
                         continue;

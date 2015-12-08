@@ -41,8 +41,6 @@ Add a php-file and extend your class with the AbstractValidator from powermail:
 
    /**
     * Class DoSomethingValidator
-    *
-    * @package Vendor\Ext\Finisher
     */
    class DoSomethingValidator extends AbstractValidator {
 

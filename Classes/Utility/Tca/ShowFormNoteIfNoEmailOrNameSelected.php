@@ -60,10 +60,8 @@ class ShowFormNoteIfNoEmailOrNameSelected
                 );
                 $content .= '</strong>';
                 $content .= ' ';
-                $content .= $this->languageService->sL(
-                    $this->locallangPath . 'tx_powermail_domain_model_forms.note.2',
-                    true
-                );
+                $content .= $this->languageService->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.2',
+                    true);
                 $content .= '</p>';
                 $content .= '<p style="margin: 0;">';
                 $content .= $this->getCheckboxHtml($params);
@@ -168,7 +166,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
         $formRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
             ->get('In2code\\Powermail\\Domain\\Repository\\FormRepository');
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
-        $markers = array();
+        $markers = [];
         foreach ($fields as $field) {
             $markers[] = $field['marker'];
         }

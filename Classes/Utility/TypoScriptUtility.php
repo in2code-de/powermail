@@ -45,7 +45,7 @@ class TypoScriptUtility extends AbstractUtility
      * @param string $key Key for TypoScript Configuration
      * @return void
      */
-    public static function overwriteValueFromTypoScript(&$string = null, $conf = array(), $key = '')
+    public static function overwriteValueFromTypoScript(&$string = null, $conf = [], $key = '')
     {
         if (self::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
             $string = self::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
@@ -80,9 +80,9 @@ class TypoScriptUtility extends AbstractUtility
      */
     public static function getCaptchaExtensionFromSettings($settings)
     {
-        $allowedExtensions = array(
+        $allowedExtensions = [
             'captcha'
-        );
+        ];
         if (
             in_array($settings['captcha.']['use'], $allowedExtensions) &&
             ExtensionManagementUtility::isLoaded($settings['captcha.']['use'])

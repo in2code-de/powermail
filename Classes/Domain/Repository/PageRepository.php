@@ -86,7 +86,7 @@ class PageRepository extends AbstractRepository
      */
     public function findAllWrongLocalizedPages()
     {
-        $pages = array();
+        $pages = [];
         $select = 'uid,pid,title,l10n_parent,sys_language_uid';
         $from = 'tx_powermail_domain_model_pages';
         $where = '(forms = "" or forms = 0) and sys_language_uid > 0 and deleted = 0';
@@ -113,7 +113,7 @@ class PageRepository extends AbstractRepository
             $this->getDatabaseConnection()->exec_UPDATEquery(
                 'tx_powermail_domain_model_pages',
                 'uid = ' . (int) $page['uid'],
-                array('forms' => $localizedFormUid)
+                ['forms' => $localizedFormUid]
             );
         }
     }

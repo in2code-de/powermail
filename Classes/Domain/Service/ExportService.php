@@ -64,16 +64,16 @@ class ExportService
      *
      * @var array
      */
-    protected $receiverEmails = array();
+    protected $receiverEmails = [];
 
     /**
      * Sender email addresses
      *
      * @var array
      */
-    protected $senderEmails = array(
+    protected $senderEmails = [
         'powermail@domain.org'
-    );
+    ];
 
     /**
      * Mail subject
@@ -114,7 +114,7 @@ class ExportService
      *
      * @var array
      */
-    protected $fieldList = array();
+    protected $fieldList = [];
 
     /**
      * @var string
@@ -124,7 +124,7 @@ class ExportService
     /**
      * @var array
      */
-    protected $additionalProperties = array();
+    protected $additionalProperties = [];
 
     /**
      * @var bool
@@ -148,7 +148,7 @@ class ExportService
      * @param string $format can be 'xls' or 'csv'
      * @param array $additionalProperties add additional properties
      */
-    public function __construct(QueryResult $mails = null, $format = 'xls', $additionalProperties = array())
+    public function __construct(QueryResult $mails = null, $format = 'xls', $additionalProperties = [])
     {
         $this->setMails($mails);
         $this->setFormat($format);
@@ -230,10 +230,10 @@ class ExportService
             TemplateUtility::getTemplatePath($this->getRelativeTemplatePathAndFileName())
         );
         $standaloneView->assignMultiple(
-            array(
+            [
                 'mails' => $this->getMails(),
                 'fieldUids' => $this->getFieldList()
-            )
+            ]
         );
         return $standaloneView->render();
     }
@@ -254,7 +254,7 @@ class ExportService
      */
     protected function getDefaultFieldListFromFirstMail(QueryResult $mails = null)
     {
-        $fieldList = array();
+        $fieldList = [];
         if ($mails !== null) {
             /** @var Mail $mail */
             $mail = $mails->getFirst();
@@ -295,10 +295,10 @@ class ExportService
      */
     public function getFormat()
     {
-        $allowedFormats = array(
+        $allowedFormats = [
             'xls',
             'csv'
-        );
+        ];
         if (!in_array($this->format, $allowedFormats)) {
             return 'xls';
         }
@@ -349,7 +349,7 @@ class ExportService
      */
     public function getReceiverEmails()
     {
-        $mailArray = array();
+        $mailArray = [];
         foreach ($this->receiverEmails as $email) {
             $mailArray[$email] = '';
         }
@@ -380,7 +380,7 @@ class ExportService
      */
     public function getSenderEmails()
     {
-        $mailArray = array();
+        $mailArray = [];
         foreach ($this->senderEmails as $email) {
             $mailArray[$email] = 'Sender';
         }

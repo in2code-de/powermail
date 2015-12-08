@@ -22,7 +22,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param string $value of this field
      * @return array for data attributes
      */
-    public function render(Field $field = null, $additionalAttributes = array(), $value = '')
+    public function render(Field $field = null, $additionalAttributes = [], $value = '')
     {
         $additionalAttributes['data-datepicker-force'] =
             $this->settings['misc']['datepicker']['forceJavaScriptDatePicker'];
@@ -71,7 +71,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
      */
     protected function getDayNames()
     {
-        $days = array(
+        $days = [
             'so',
             'mo',
             'tu',
@@ -79,8 +79,8 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
             'th',
             'fr',
             'sa',
-        );
-        $dayArray = array();
+        ];
+        $dayArray = [];
         foreach ($days as $day) {
             $dayArray[] = LocalizationUtility::translate('datepicker_day_' . $day);
         }
@@ -94,7 +94,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
      */
     protected function getMonthNames()
     {
-        $months = array(
+        $months = [
             'jan',
             'feb',
             'mar',
@@ -107,8 +107,8 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
             'oct',
             'nov',
             'dec',
-        );
-        $monthArray = array();
+        ];
+        $monthArray = [];
         foreach ($months as $month) {
             $monthArray[] = LocalizationUtility::translate('datepicker_month_' . $month);
         }

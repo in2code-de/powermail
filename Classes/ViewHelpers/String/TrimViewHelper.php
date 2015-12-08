@@ -22,9 +22,9 @@ class TrimViewHelper extends AbstractViewHelper
         // todo preg_match_all('/("[^"]+")/', $string, $result);
         $string = trim($this->renderChildren());
         $string = preg_replace('/\\s\\s+/', ' ', $string);
-        $string = str_replace(array('"; "', '" ; "', '" ;"'), '";"', $string);
-        $string = str_replace(array('<br />', '<br>', '<br/>'), PHP_EOL, $string);
-        $string = str_replace(array(" \n ", "\n ", " \n"), PHP_EOL, $string);
+        $string = str_replace(['"; "', '" ; "', '" ;"'], '";"', $string);
+        $string = str_replace(['<br />', '<br>', '<br/>'], PHP_EOL, $string);
+        $string = str_replace([" \n ", "\n ", " \n"], PHP_EOL, $string);
 
         return $string;
     }

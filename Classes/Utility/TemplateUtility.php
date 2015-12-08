@@ -67,7 +67,7 @@ class TemplateUtility extends AbstractUtility
      */
     public static function getTemplateFolders($part = 'template', $returnAllPaths = false)
     {
-        $templatePaths = array();
+        $templatePaths = [];
         $extbaseConfig = self::getConfigurationManager()->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
@@ -85,7 +85,7 @@ class TemplateUtility extends AbstractUtility
             $templatePaths[] = 'EXT:powermail/Resources/Private/' . ucfirst($part) . 's/';
         }
         $templatePaths = array_unique($templatePaths);
-        $absolutePaths = array();
+        $absolutePaths = [];
         foreach ($templatePaths as $templatePath) {
             $absolutePaths[] = GeneralUtility::getFileAbsFileName($templatePath);
         }
@@ -118,7 +118,7 @@ class TemplateUtility extends AbstractUtility
      */
     public static function getTemplatePaths($pathAndFilename, $part = 'template')
     {
-        $matches = array();
+        $matches = [];
         $absolutePaths = self::getTemplateFolders($part, true);
         foreach ($absolutePaths as $absolutePath) {
             if (file_exists($absolutePath . $pathAndFilename)) {
@@ -160,18 +160,16 @@ class TemplateUtility extends AbstractUtility
      * @param string $type "createAction", "confirmationAction", "sender", "receiver"
      * @return string content parsed from powermailAll HTML Template
      */
-    public static function powermailAll(Mail $mail, $section = 'web', $settings = array(), $type = null)
+    public static function powermailAll(Mail $mail, $section = 'web', $settings = [], $type = null)
     {
         $standaloneView = self::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(self::getTemplatePath('Form/PowermailAll.html'));
-        $standaloneView->assignMultiple(
-            array(
+        $standaloneView->assignMultiple([
                 'mail' => $mail,
                 'section' => $section,
                 'settings' => $settings,
                 'type' => $type
-            )
-        );
+            ]);
         return $standaloneView->render();
     }
 
@@ -182,7 +180,7 @@ class TemplateUtility extends AbstractUtility
      * @param array $variables Variables
      * @return string Parsed string
      */
-    public static function fluidParseString($string, $variables = array())
+    public static function fluidParseString($string, $variables = [])
     {
         if (empty($string) || empty(self::getDatabaseConnection())) {
             return $string;

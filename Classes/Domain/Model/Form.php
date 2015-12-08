@@ -124,7 +124,7 @@ class Form extends AbstractEntity
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
             $formSorting = GeneralUtility::trimExplode(',', $this->formRepository->getPagesValue($this->uid), true);
             $formSorting = array_flip($formSorting);
-            $pageArray = array();
+            $pageArray = [];
             foreach ($this->pages as $page) {
                 $pageArray[$formSorting[$page->getUid()]] = $page;
             }

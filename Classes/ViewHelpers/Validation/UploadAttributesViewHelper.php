@@ -22,7 +22,7 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
      * @param array $additionalAttributes To add further attributes
      * @return array
      */
-    public function render(Field $field, $additionalAttributes = array())
+    public function render(Field $field, $additionalAttributes = [])
     {
         $this->addMandatoryAttributes($additionalAttributes, $field);
         if ($field->getMultiselectForField()) {

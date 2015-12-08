@@ -76,11 +76,11 @@ class CreateMarker
      *
      * @var array
      */
-    protected $restrictedMarkerNames = array(
+    protected $restrictedMarkerNames = [
         'mail',
         'powermail_rte',
         'powermail_all'
-    );
+    ];
 
     /**
      * Default marker name for empty titles
@@ -135,7 +135,7 @@ class CreateMarker
      */
     protected function makeUniqueValueInArray(&$array)
     {
-        $newArray = array();
+        $newArray = [];
         foreach ((array) $array as $key => $value) {
             if (!in_array($value, $newArray) && !in_array($value, $this->restrictedMarkerNames)) {
                 $newArray[$key] = $value;
@@ -162,7 +162,7 @@ class CreateMarker
      */
     protected function setMarkers()
     {
-        $this->marker = array();
+        $this->marker = [];
         foreach ((array) $this->data['tx_powermail_domain_model_fields'] as $fieldUid => $fieldValues) {
             if (!empty($fieldValues['title'])) {
                 if (isset($fieldValues['marker'])) {
@@ -189,7 +189,7 @@ class CreateMarker
         if (empty($string)) {
             $string = $defaultValue;
         }
-        $string = str_replace(array('-'), '_', $string);
+        $string = str_replace(['-'], '_', $string);
         $string = strtolower($string);
         return $string;
     }
@@ -290,7 +290,7 @@ class CreateMarker
      */
     protected function getFieldMarkersFromForm()
     {
-        $result = array();
+        $result = [];
         $select = 'f.marker, f.uid';
         $from = 'tx_powermail_domain_model_forms fo ' .
             'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .

@@ -49,10 +49,10 @@ class AnswerRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
-        $and = array(
+        $and = [
             $query->equals('mail', $mailUid),
             $query->equals('field', $fieldUid)
-        );
+        ];
 
         $constraint = $query->logicalAnd($and);
         $query->matching($constraint);
@@ -74,10 +74,10 @@ class AnswerRepository extends AbstractRepository
         // get all uploaded answers which are not empty
         $query->matching(
             $query->logicalAnd(
-                array(
+                [
                     $query->equals('valueType', 3),
                     $query->logicalNot($query->equals('value', ''))
-                )
+                ]
             )
         );
 

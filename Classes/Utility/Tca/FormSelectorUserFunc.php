@@ -62,12 +62,12 @@ class FormSelectorUserFunc
      */
     public function getForms(&$params)
     {
-        $params['items'] = array();
+        $params['items'] = [];
         foreach ($this->getAllForms($this->getStartPid(), $params['row']['sys_language_uid']) as $form) {
-            $params['items'][] = array(
+            $params['items'][] = [
                 htmlspecialchars($form['title']),
                 (int) $form['uid']
-            );
+            ];
         }
     }
 
@@ -113,7 +113,7 @@ class FormSelectorUserFunc
         $limit = 10000;
         $res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 
-        $array = array();
+        $array = [];
         if ($res) {
             while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
                 $array[] = $row;

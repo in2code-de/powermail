@@ -73,7 +73,7 @@ class UserRepository extends AbstractRepository
      */
     public function getUserGroupsFromUser($uid)
     {
-        $groups = array();
+        $groups = [];
         $select = 'fe_groups.uid';
         $from = 'fe_users, fe_groups, sys_refindex';
         $where = 'sys_refindex.tablename = "fe_users"';

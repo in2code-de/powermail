@@ -47,7 +47,7 @@ class BasicFileUtility extends AbstractUtility
      */
     public static function rewriteFilesArrayToPreventDuplicatFilenames()
     {
-        $names = array();
+        $names = [];
         $files = self::getFilesArray();
         if (!empty($files['tx_powermail_pi1']['name']['field'])) {
             foreach ((array) $files['tx_powermail_pi1']['name']['field'] as $marker => $values) {
@@ -78,7 +78,7 @@ class BasicFileUtility extends AbstractUtility
 
         $destinationPath = $settings['misc']['file']['folder'];
         $randomizedFileName = $settings['misc']['file']['randomizeFileName'];
-        $newFileNames = array();
+        $newFileNames = [];
         foreach ((array) $files as $file) {
             if (!empty($file['name'])) {
                 $file['name'] = self::getFilenameFromFilesArrayByTempName($file);
@@ -156,19 +156,19 @@ class BasicFileUtility extends AbstractUtility
      */
     public static function getFileUploadValuesOutOfUniqueName($destinationPath)
     {
-        $fileArray = array();
+        $fileArray = [];
         $files = self::getFilesArray();
         if (isset($files['tx_powermail_pi1']['name']['field'])) {
             foreach (array_keys($files['tx_powermail_pi1']['name']['field']) as $marker) {
                 foreach ($files['tx_powermail_pi1']['name']['field'][$marker] as $key => $originalFileName) {
                     // switch from original to unique
-                    $fileArray[self::getUniqueName($originalFileName, $destinationPath, false)] = array(
+                    $fileArray[self::getUniqueName($originalFileName, $destinationPath, false)] = [
                         'name' => $files['tx_powermail_pi1']['name']['field'][$marker][$key],
                         'type' => $files['tx_powermail_pi1']['name']['type'][$marker][$key],
                         'tmp_name' => $files['tx_powermail_pi1']['tmp_name']['field'][$marker][$key],
                         'error' => $files['tx_powermail_pi1']['error']['field'][$marker][$key],
                         'size' => $files['tx_powermail_pi1']['size']['field'][$marker][$key]
-                    );
+                    ];
                 }
             }
         }
@@ -252,7 +252,7 @@ class BasicFileUtility extends AbstractUtility
      */
     public static function getFilesFromRelativePath($path)
     {
-        $array = array();
+        $array = [];
         $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName($path));
         foreach ($files as $file) {
             $array[] = $file;
@@ -404,7 +404,7 @@ class BasicFileUtility extends AbstractUtility
     public static function prependContentToFile($pathAndFile, $content)
     {
         $absolutePathAndFile = GeneralUtility::getFileAbsFileName($pathAndFile);
-        $lines = array();
+        $lines = [];
         if (is_file($absolutePathAndFile)) {
             $lines = file($absolutePathAndFile);
         }

@@ -85,10 +85,10 @@ class FormRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
-        $and = array(
+        $and = [
             $query->equals('uid', $form->getUid()),
             $query->equals('pages.fields.type', 'captcha')
-        );
+        ];
         $query->matching($query->logicalAnd($and));
         return $query->execute();
     }
@@ -103,10 +103,10 @@ class FormRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
-        $and = array(
+        $and = [
             $query->equals('uid', $form->getUid()),
             $query->equals('pages.fields.type', 'password')
-        );
+        ];
         $query->matching($query->logicalAnd($and));
         return $query->execute();
     }
@@ -175,7 +175,7 @@ class FormRepository extends AbstractRepository
     public function findAllOldForms()
     {
         if (!$this->oldPowermailTablesExists()) {
-            return array();
+            return [];
         }
         $query = $this->createQuery();
 
@@ -202,8 +202,7 @@ class FormRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $sql = 'select fs.uid, fs.pid, fs.sys_language_uid, fs.l18n_parent, fs.sorting, fs.hidden, fs.title, fs.class';
-        $sql .= ' from tx_powermail_fieldsets fs ' .
-            'left join tt_content c ON c.uid = fs.tt_content';
+        $sql .= ' from tx_powermail_fieldsets fs ' . 'left join tt_content c ON c.uid = fs.tt_content';
         $sql .= ' where c.deleted = 0 and fs.deleted = 0 and c.uid = ' . (int) $uid;
         $sql .= ' group by fs.uid';
         $sql .= ' order by fs.sys_language_uid, fs.uid';
@@ -211,7 +210,7 @@ class FormRepository extends AbstractRepository
 
         $fieldsets = $query->statement($sql)->execute(true);
 
-        $result = array();
+        $result = [];
         $counter = 0;
         foreach ($fieldsets as $fieldset) {
             $result[$counter] = $fieldset;
@@ -295,7 +294,7 @@ class FormRepository extends AbstractRepository
         $this->getDatabaseConnection()->exec_UPDATEquery(
             'tx_powermail_domain_model_forms',
             'sys_language_uid > 0 and deleted = 0 and pages = ""',
-            array('pages' => 0)
+            ['pages' => 0]
         );
     }
 
@@ -350,7 +349,7 @@ class FormRepository extends AbstractRepository
         $limit = 10000;
         $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
 
-        $array = array();
+        $array = [];
         if ($res) {
             while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
                 $array[] = $row;
@@ -368,7 +367,7 @@ class FormRepository extends AbstractRepository
      */
     public function getFieldsFromForm($formUid)
     {
-        $allowedFieldTypes = array(
+        $allowedFieldTypes = [
             'input',
             'textarea',
             'select',
@@ -380,12 +379,12 @@ class FormRepository extends AbstractRepository
             'date',
             'location',
             'typoscript'
-        );
+        ];
 
-        $fields = array();
+        $fields = [];
         $form = $this->findByUid($formUid);
         if (!method_exists($form, 'getPages')) {
-            return array();
+            return [];
         }
         /** @var Page $page */
         foreach ($form->getPages() as $page) {

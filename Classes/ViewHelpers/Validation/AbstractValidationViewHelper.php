@@ -32,7 +32,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     /**
      * Configuration
      */
-    protected $settings = array();
+    protected $settings = [];
 
     /**
      * @var string

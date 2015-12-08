@@ -18,10 +18,10 @@ class InputValidator extends StringValidator
     /**
      * @var array
      */
-    protected $validationFieldTypes = array(
+    protected $validationFieldTypes = [
         'input',
         'textarea'
-    );
+    ];
 
     /**
      * Validation of given Params

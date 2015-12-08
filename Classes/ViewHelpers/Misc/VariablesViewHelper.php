@@ -40,7 +40,7 @@ class VariablesViewHelper extends AbstractViewHelper
      *
      * @var array
      */
-    protected $settings = array();
+    protected $settings = [];
 
     /**
      * Parses variables again

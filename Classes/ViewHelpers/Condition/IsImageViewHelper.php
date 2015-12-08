@@ -17,13 +17,13 @@ class IsImageViewHelper extends AbstractViewHelper
      *
      * @var array
      */
-    protected $imageExtensions = array(
+    protected $imageExtensions = [
         'jpg',
         'jpeg',
         'bmp',
         'gif',
         'png'
-    );
+    ];
 
     /**
      * Check if Path or File is an image

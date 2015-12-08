@@ -85,7 +85,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     /**
      * @var array
      */
-    protected $configuration = array();
+    protected $configuration = [];
 
     /**
      * Set Error
@@ -187,7 +187,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      * @param array $options Options for the validator
      * @throws InvalidValidationOptionsException
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
     }

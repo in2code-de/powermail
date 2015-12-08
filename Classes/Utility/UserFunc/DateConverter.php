@@ -46,7 +46,7 @@ class DateConverter
      *
      * @var array
      */
-    protected $configuration = array();
+    protected $configuration = [];
 
     /**
      * Value to convert
@@ -98,7 +98,7 @@ class DateConverter
      * @param array $configuration TypoScript configuration from userFunc
      * @return string
      */
-    public function convert($content = '', $configuration = array())
+    public function convert($content = '', $configuration = [])
     {
         $this->initialize($configuration);
         $this->createDateFromFormat();
