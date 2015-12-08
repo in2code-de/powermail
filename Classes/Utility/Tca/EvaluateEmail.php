@@ -95,5 +95,4 @@ class EvaluateEmail
         }
         return $value;
     }
-
 }

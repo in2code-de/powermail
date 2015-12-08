@@ -61,12 +61,12 @@ class CalculatingCaptchaService
      *
      * @var array
      */
-    protected $operators = array(
+    protected $operators = [
         '+',
         '-',
         'x',
         ':'
-    );
+    ];
 
     /**
      * Prefix for captcha image filename
@@ -278,10 +278,10 @@ class CalculatingCaptchaService
             $result = $this->mathematicOperation($number1, $number2, $operator);
         }
 
-        return array(
+        return [
             'result' => $result,
             'string' => $number1 . ' ' . $operator . ' ' . $number2
-        );
+        ];
     }
 
     /**

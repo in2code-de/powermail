@@ -16,7 +16,7 @@ class AddOptionsToSelection
      *
      * @var array
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * Type of option: "type", "validation", "feUserProperty"
@@ -96,7 +96,7 @@ class AddOptionsToSelection
      */
     protected function getFieldOptionsFromTsConfig()
     {
-        $fieldOptions = array();
+        $fieldOptions = [];
         $tsConfiguration = BackendUtility::getPagesTSconfig($this->params['row']['pid']);
         $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'];
 
@@ -118,10 +118,10 @@ class AddOptionsToSelection
      */
     protected function addOption($value, $label = null)
     {
-        $this->params['items'][] = array(
+        $this->params['items'][] = [
             $this->getLabel($label, $value),
             $value
-        );
+        ];
     }
 
     /**

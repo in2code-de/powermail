@@ -77,13 +77,13 @@ class BackendUtility extends AbstractUtility
     {
         // use new link generation in backend for TYPO3 7.2 or newer
         if (GeneralUtility::compat_version('7.2')) {
-            $uriParameters = array(
-                'edit' => array(
-                    $tableName => array(
+            $uriParameters = [
+                'edit' => [
+                    $tableName => [
                         $identifier => 'edit'
-                    )
-                )
-            );
+                    ]
+                ]
+            ];
             if ($addReturnUrl) {
                 $uriParameters['returnUrl'] = self::getReturnUrl();
             }
@@ -132,16 +132,16 @@ class BackendUtility extends AbstractUtility
      * @param array $getParameters
      * @return array
      */
-    public static function getCurrentParameters($getParameters = array())
+    public static function getCurrentParameters($getParameters = [])
     {
         if (empty($getParameters)) {
             $getParameters = GeneralUtility::_GET();
         }
-        $parameters = array();
-        $ignoreKeys = array(
+        $parameters = [];
+        $ignoreKeys = [
             'M',
             'moduleToken'
-        );
+        ];
         foreach ($getParameters as $key => $value) {
             if (in_array($key, $ignoreKeys)) {
                 continue;
@@ -181,7 +181,7 @@ class BackendUtility extends AbstractUtility
      * @return string Calculated URL
      * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
-    public static function getModuleUrl($moduleName, $urlParameters = array())
+    public static function getModuleUrl($moduleName, $urlParameters = [])
     {
         if (GeneralUtility::compat_version('7.2')) {
             $uri = BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);

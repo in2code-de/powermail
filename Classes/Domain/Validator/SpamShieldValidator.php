@@ -54,7 +54,7 @@ class SpamShieldValidator extends AbstractValidator
      *
      * @var array
      */
-    protected $messages = array();
+    protected $messages = [];
 
     /**
      * @var TypoScriptFrontendController
@@ -188,19 +188,19 @@ class SpamShieldValidator extends AbstractValidator
         if (!$indication) {
             return;
         }
-        $keysFirstName = array(
+        $keysFirstName = [
             'first_name',
             'firstname',
             'vorname'
-        );
-        $keysLastName = array(
+        ];
+        $keysLastName = [
             'last_name',
             'lastname',
             'sur_name',
             'surname',
             'nachname',
             'name'
-        );
+        ];
 
         foreach ($mail->getAnswers() as $answer) {
             if (is_array($answer->getValue())) {
@@ -253,7 +253,7 @@ class SpamShieldValidator extends AbstractValidator
             return;
         }
 
-        $arr = array();
+        $arr = [];
         foreach ($mail->getAnswers() as $answer) {
 
             // don't want values in second level (from checkboxes e.g.)
@@ -397,7 +397,7 @@ class SpamShieldValidator extends AbstractValidator
      * @param array $multipleAssign
      * @return string
      */
-    protected function createSpamNotificationMessage($path, $multipleAssign = array())
+    protected function createSpamNotificationMessage($path, $multipleAssign = [])
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($path));
@@ -413,7 +413,7 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function getVariablesForSpamNotification(Mail $mail)
     {
-        return array(
+        return [
             'mail' => $mail,
             'pid' => FrontendUtility::getCurrentPageIdentifier(),
             'calculatedMailSpamFactor' => $this->getCalculatedMailSpamFactor(true),
@@ -421,7 +421,7 @@ class SpamShieldValidator extends AbstractValidator
             'ipAddress' =>
                 (!ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : ''),
             'time' => new \DateTime()
-        );
+        ];
     }
 
     /**

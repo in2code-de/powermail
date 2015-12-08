@@ -49,7 +49,7 @@ class SaveToAnyTableService
      *
      * @var array
      */
-    protected $properties = array();
+    protected $properties = [];
 
     /**
      * Mode "insert", "update"
@@ -250,11 +250,11 @@ class SaveToAnyTableService
      */
     public function setMode($mode)
     {
-        $possibleModes = array(
+        $possibleModes = [
             'insert',
             'update',
             'none'
-        );
+        ];
         if (in_array($mode, $possibleModes)) {
             $this->mode = $mode;
         }
@@ -352,5 +352,4 @@ class SaveToAnyTableService
         $this->databaseConnection = $GLOBALS['TYPO3_DB'];
         $this->setTable($table);
     }
-
 }

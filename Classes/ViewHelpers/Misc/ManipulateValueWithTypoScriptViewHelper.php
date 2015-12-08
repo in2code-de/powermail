@@ -16,13 +16,13 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
     /**
      * @var array
      */
-    protected $typeToTsType = array(
+    protected $typeToTsType = [
         'createAction' => 'submitPage',
         'confirmationAction' => 'confirmationPage',
         'sender' => 'senderMail',
         'receiver' => 'receiverMail',
         'optin' => 'optinMail'
-    );
+    ];
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -53,9 +53,7 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
     {
         $value = $this->renderChildren();
         if ($answer->getField()) {
-            if (
-                !empty($this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()])
-            ) {
+            if (!empty($this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()])) {
                 $this->contentObjectRenderer->start($answer->_getProperties());
                 $value = $this->contentObjectRenderer->cObjGetSingle(
                     $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()],

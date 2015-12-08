@@ -48,10 +48,10 @@ class SessionUtility extends AbstractUtility
      *
      * @var array
      */
-    protected static $methods = array(
+    protected static $methods = [
         'temporary' => 'ses',
         'permanently' => 'user'
-    );
+    ];
 
     /**
      * Save current timestamp to session
@@ -114,22 +114,22 @@ class SessionUtility extends AbstractUtility
 
         // initially create array with marketing info
         if (!is_array($marketingInfo)) {
-            $marketingInfo = array(
+            $marketingInfo = [
                 'refererDomain' => FrontendUtility::getDomainFromUri($referer),
                 'referer' => $referer,
                 'country' => FrontendUtility::getCountryFromIp(),
                 'mobileDevice' => $mobileDevice,
                 'frontendLanguage' => $language,
                 'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
-                'pageFunnel' => array($pid)
-            );
+                'pageFunnel' => [$pid]
+            ];
         } else {
             // add current pid to funnel
             $marketingInfo['pageFunnel'][] = $pid;
 
             // clean pagefunnel if has more than 256 entries
             if (count($marketingInfo['pageFunnel']) > 256) {
-                $marketingInfo['pageFunnel'] = array($pid);
+                $marketingInfo['pageFunnel'] = [$pid];
             }
         }
 
@@ -146,15 +146,15 @@ class SessionUtility extends AbstractUtility
     {
         $marketingInfo = self::getSessionValue('powermail_marketing');
         if (!is_array($marketingInfo)) {
-            $marketingInfo = array(
+            $marketingInfo = [
                 'refererDomain' => '',
                 'referer' => '',
                 'country' => '',
                 'mobileDevice' => 0,
                 'frontendLanguage' => 0,
                 'browserLanguage' => '',
-                'pageFunnel' => array()
-            );
+                'pageFunnel' => []
+            ];
         }
         return $marketingInfo;
     }
@@ -168,7 +168,7 @@ class SessionUtility extends AbstractUtility
      */
     public static function saveSessionValuesForPrefill(Mail $mail, $settings)
     {
-        $valuesToSave = array();
+        $valuesToSave = [];
         $typoScriptService = self::getObjectManager()->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
         $contentObject = self::getContentObject();
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
@@ -208,7 +208,7 @@ class SessionUtility extends AbstractUtility
      */
     public static function getSessionValuesForPrefill($configuration)
     {
-        $values = array();
+        $values = [];
         if (
             !empty($configuration['saveSession.']) &&
             array_key_exists($configuration['saveSession.']['_method'], self::$methods)
@@ -229,7 +229,7 @@ class SessionUtility extends AbstractUtility
      */
     public static function setCaptchaSession($result, $fieldUid)
     {
-        self::setSessionValue('captcha', array($fieldUid => $result), false, 'ses', 'powermail_captcha');
+        self::setSessionValue('captcha', [$fieldUid => $result], false, 'ses', 'powermail_captcha');
     }
 
     /**
@@ -308,9 +308,9 @@ class SessionUtility extends AbstractUtility
                 $values = ArrayUtility::arrayMergeRecursiveOverrule((array) $oldValues, (array) $values);
             }
         }
-        $newValues = array(
+        $newValues = [
             $name => $values
-        );
+        ];
         self::getTyposcriptFrontendController()->fe_user->setKey($method, $key, $newValues);
         self::getTyposcriptFrontendController()->storeSessionData();
     }

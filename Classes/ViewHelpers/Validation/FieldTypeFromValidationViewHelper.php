@@ -17,13 +17,13 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
      *
      * @var array
      */
-    protected $html5InputTypes = array(
+    protected $html5InputTypes = [
         1 => 'email',
         2 => 'url',
         3 => 'tel',
         4 => 'number',
         8 => 'range'
-    );
+    ];
 
     /**
      * Parses variables again

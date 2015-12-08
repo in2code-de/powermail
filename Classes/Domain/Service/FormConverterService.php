@@ -61,7 +61,7 @@ class FormConverterService
      *
      * @var array
      */
-    protected $configuration = array();
+    protected $configuration = [];
 
     /**
      * Dryrun for testing
@@ -82,19 +82,19 @@ class FormConverterService
      *
      * @var array
      */
-    protected $result = array();
+    protected $result = [];
 
     /**
      * Old to New array for localization
      *
      * @var array
      */
-    protected $localizationRelations = array(
-        'content' => array(),
-        'form' => array(),
-        'page' => array(),
-        'field' => array()
-    );
+    protected $localizationRelations = [
+        'content' => [],
+        'form' => [],
+        'page' => [],
+        'field' => []
+    ];
 
     /**
      * Create new forms from old ones
@@ -169,9 +169,9 @@ class FormConverterService
             $this->getDatabaseConnection()->exec_UPDATEquery(
                 'pages',
                 'uid = ' . (int) $pid,
-                array(
+                [
                     'tx_templavoila_flex' => $flex
-                )
+                ]
             );
         }
     }
@@ -185,7 +185,7 @@ class FormConverterService
      */
     protected function createTtContentRecord($form, $formUid)
     {
-        $ignoreFields = array(
+        $ignoreFields = [
             'uid',
             'tstamp',
             'cruser_id',
@@ -193,8 +193,8 @@ class FormConverterService
             '_fieldsets',
             'l18n_parent',
             'l18n_diffsource'
-        );
-        $ttContentProperties = array();
+        ];
+        $ttContentProperties = [];
         foreach ($form as $tableColumn => $tableValue) {
             if (!in_array($tableColumn, $ignoreFields)) {
                 $ttContentProperties[$tableColumn] = $tableValue;
@@ -226,7 +226,7 @@ class FormConverterService
      */
     protected function createFormRecord($form, $formCounter)
     {
-        $formProperties = array(
+        $formProperties = [
             'uid' => 0,
             'pid' =>
                 ($this->configuration['save'] === '[samePage]' ? $form['pid'] : (int) $this->configuration['save']),
@@ -236,7 +236,7 @@ class FormConverterService
             'hidden' => $form['hidden'],
             'crdate' => time(),
             'tstamp' => time()
-        );
+        ];
         if ($form['sys_language_uid'] > 0) {
             $formProperties['sys_language_uid'] = $form['sys_language_uid'];
             $formProperties['l10n_parent'] = (int) $this->localizationRelations['form'][$form['l18n_parent']];
@@ -269,7 +269,7 @@ class FormConverterService
      */
     protected function createPageRecord($form, $page, $formUid, $formCounter, $pageCounter)
     {
-        $pageProperties = array(
+        $pageProperties = [
             'uid' => 0,
             'pid' =>
                 ($this->configuration['save'] === '[samePage]' ? $form['pid'] : (int) $this->configuration['save']),
@@ -281,7 +281,7 @@ class FormConverterService
             'tstamp' => time(),
             'crdate' => time(),
             'sorting' => $page['sorting']
-        );
+        ];
         if ($page['sys_language_uid'] > 0) {
             $pageProperties['sys_language_uid'] = $page['sys_language_uid'];
             $pageProperties['l10n_parent'] = (int) $this->localizationRelations['page'][$page['l18n_parent']];
@@ -317,7 +317,7 @@ class FormConverterService
      */
     protected function createFieldRecord($form, $pageUid, $field, $formCounter, $pageCounter, $fieldCounter)
     {
-        $fieldProperties = array(
+        $fieldProperties = [
             'uid' => 0,
             'pid' =>
                 ($this->configuration['save'] === '[samePage]' ? $form['pid'] : (int) $this->configuration['save']),
@@ -346,7 +346,7 @@ class FormConverterService
             'sender_name' => $this->isSenderName($form, $field),
             'tstamp' => time(),
             'crdate' => time()
-        );
+        ];
         if ($field['sys_language_uid'] > 0) {
             $fieldProperties['sys_language_uid'] = $field['sys_language_uid'];
             $fieldProperties['l10n_parent'] = (int) $this->localizationRelations['field'][$field['l18n_parent']];
@@ -381,13 +381,11 @@ class FormConverterService
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->getRequest()->setControllerName('Module');
         $standaloneView->setTemplatePathAndFilename(TemplateUtility::getTemplatePath('Module/ConverterFlexForm.xml'));
-        $standaloneView->assignMultiple(
-            array(
+        $standaloneView->assignMultiple([
                 'formUid' => $formUid,
                 'form' => $form,
                 'configuration' => $this->configuration
-            )
-        );
+            ]);
 
         return $standaloneView->render();
     }
@@ -411,19 +409,19 @@ class FormConverterService
             $this->getDatabaseConnection()->exec_UPDATEquery(
                 'tt_content',
                 'uid = ' . $ttContent['uid'],
-                array('deleted' => 1)
+                ['deleted' => 1]
             );
             foreach ($ttContent['_fieldsets'] as $fieldset) {
                 $this->getDatabaseConnection()->exec_UPDATEquery(
                     'tx_powermail_fieldsets',
                     'uid = ' . $fieldset['uid'],
-                    array('deleted' => 1)
+                    ['deleted' => 1]
                 );
                 foreach ($fieldset['_fields'] as $field) {
                     $this->getDatabaseConnection()->exec_UPDATEquery(
                         'tx_powermail_fields',
                         'uid = ' . $field['uid'],
-                        array('deleted' => 1)
+                        ['deleted' => 1]
                     );
                 }
             }
@@ -504,7 +502,7 @@ class FormConverterService
             return 'date';
         }
 
-        $formTypes = array(
+        $formTypes = [
             'text' => 'input',
             'textarea' => 'textarea',
             'select' => 'select',
@@ -525,7 +523,7 @@ class FormConverterService
             'submitgraphic' => 'submit',
             'countryselect' => 'country',
             'typoscript' => 'typoscript'
-        );
+        ];
         if (array_key_exists($field['formtype'], $formTypes)) {
             return $formTypes[$field['formtype']];
         }
@@ -545,10 +543,10 @@ class FormConverterService
             return '';
         }
 
-        $styleTypes = array(
+        $styleTypes = [
             'style2' => 'layout2',
             'style3' => 'layout3'
-        );
+        ];
         if (array_key_exists($field['class'], $styleTypes)) {
             return $styleTypes[$field['class']];
         }
@@ -567,7 +565,7 @@ class FormConverterService
             return '';
         }
 
-        $newStrings = array(
+        $newStrings = [
             'validate-email' => '1',
             'validate-url' => '2',
             'validate-number' => '4',
@@ -577,17 +575,17 @@ class FormConverterService
             'validate-pattern' => '10',
             'validate-alpha-w-umlaut' => '5',
             'validate-alphanum-w-umlaut' => ''
-        );
+        ];
         if (array_key_exists($field['validate'], $newStrings)) {
             return $newStrings[$field['validate']];
         }
 
-        $newStrings = array(
+        $newStrings = [
             'color' => '',
             'range' => '8',
             'tel' => '3',
             'time' => ''
-        );
+        ];
         if (array_key_exists($field['inputtype'], $newStrings)) {
             return $newStrings[$field['inputtype']];
         }

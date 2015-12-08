@@ -4,6 +4,7 @@ namespace In2code\Powermail\Controller;
 use In2code\Powermail\Domain\Service\FormConverterService;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
@@ -62,8 +63,7 @@ class ModuleController extends AbstractController
     {
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
-        $this->view->assignMultiple(
-            array(
+        $this->view->assignMultiple([
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                 'formUids' => $formUids,
                 'firstForm' => $this->formRepository->findByUid($firstFormUid),
@@ -71,8 +71,7 @@ class ModuleController extends AbstractController
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
-            )
-        );
+            ]);
     }
 
     /**
@@ -83,14 +82,14 @@ class ModuleController extends AbstractController
     public function exportXlsAction()
     {
         $this->view->assignMultiple(
-            array(
+            [
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                 'fieldUids' => GeneralUtility::trimExplode(
                     ',',
                     StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
                     true
                 )
-            )
+            ]
         );
 
         $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
@@ -107,14 +106,14 @@ class ModuleController extends AbstractController
     public function exportCsvAction()
     {
         $this->view->assignMultiple(
-            array(
+            [
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                 'fieldUids' => GeneralUtility::trimExplode(
                     ',',
                     StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
                     true
                 )
-            )
+            ]
         );
 
         $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
@@ -155,8 +154,7 @@ class ModuleController extends AbstractController
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
         $groupedAnswers = ReportingUtility::getGroupedAnswersFromMails($mails);
 
-        $this->view->assignMultiple(
-            array(
+        $this->view->assignMultiple([
                 'groupedAnswers' => $groupedAnswers,
                 'mails' => $mails,
                 'firstMail' => $firstMail,
@@ -164,8 +162,7 @@ class ModuleController extends AbstractController
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
-            )
-        );
+            ]);
     }
 
     /**
@@ -177,18 +174,18 @@ class ModuleController extends AbstractController
     {
         $mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
-        $groupedMarketingStuff = ReportingUtility::getGroupedMarketingPropertiesFromMails($mails);
+        $groupedMarketing = ReportingUtility::getGroupedMarketingPropertiesFromMails($mails);
 
         $this->view->assignMultiple(
-            array(
-                'groupedMarketingStuff' => $groupedMarketingStuff,
+            [
+                'groupedMarketingStuff' => $groupedMarketing,
                 'mails' => $mails,
                 'firstMail' => $firstMail,
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
-            )
+            ]
         );
     }
 
@@ -236,21 +233,22 @@ class ModuleController extends AbstractController
         if ($email) {
             if (GeneralUtility::validEmail($email)) {
                 $body = 'New <b>Test Email</b> from User ';
-                $body .= $GLOBALS['BE_USER']->user['username'] . ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
+                $body .= BackendUtility::getPropertyFromBackendUser('username') .
+                $body .= ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
 
                 $senderEmail = 'powermail@domain.net';
-                if (GeneralUtility::validEmail($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'])) {
-                    $senderEmail = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'];
+                if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
+                    $senderEmail = ConfigurationUtility::getDefaultMailFromAddress();
                 }
                 $senderName = 'powermail';
-                if (!empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])) {
-                    $senderName = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'];
+                if (!empty(ConfigurationUtility::getDefaultMailFromName())) {
+                    $senderName = ConfigurationUtility::getDefaultMailFromName();
                 }
                 /** @var MailMessage $message */
                 $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
                 $message
-                    ->setTo(array($email => 'Receiver'))
-                    ->setFrom(array($senderEmail => $senderName))
+                    ->setTo([$email => 'Receiver'])
+                    ->setFrom([$senderEmail => $senderName])
                     ->setSubject('New Powermail Test Email')
                     ->setBody($body, 'text/html')
                     ->send();
@@ -302,16 +300,16 @@ class ModuleController extends AbstractController
     {
         $oldForms = $this->formRepository->findAllOldForms();
         $formCounter = 0;
-        $oldFormsWithFieldsetsAndFields = array();
+        $oldFormsPagesFields = [];
         foreach ($oldForms as $form) {
-            $oldFormsWithFieldsetsAndFields[$formCounter] = $form;
-            $oldFormsWithFieldsetsAndFields[$formCounter]['_fieldsets'] =
+            $oldFormsPagesFields[$formCounter] = $form;
+            $oldFormsPagesFields[$formCounter]['_fieldsets'] =
                 $this->formRepository->findOldFieldsetsAndFieldsToTtContentRecord($form['uid']);
             $formCounter++;
         }
         /** @var FormConverterService $formConverterService */
         $formConverterService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\FormConverterService');
-        $result = $formConverterService->createNewFromOldForms($oldFormsWithFieldsetsAndFields, $converter);
+        $result = $formConverterService->createNewFromOldForms($oldFormsPagesFields, $converter);
         $this->view->assign('result', $result);
         $this->view->assign('converter', $converter);
     }

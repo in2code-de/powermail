@@ -77,7 +77,7 @@ class PluginInformation
      * @param array $params
      * @return string
      */
-    public function build($params = array())
+    public function build($params = [])
     {
         $this->initialize($params);
         if (ConfigurationUtility::isDisablePluginInformationActive()) {
@@ -120,7 +120,7 @@ class PluginInformation
      */
     protected function getLabelsAndValues()
     {
-        $array = array(
+        $array = [
             $this->getLocalizedLabel('receiverEmail') => $this->getReceiverEmail(),
             $this->getLocalizedLabel('receiverName') => $this->getFieldFromFlexform('receiver', 'receiver.name'),
             $this->getLocalizedLabel('subject') => $this->getFieldFromFlexform('receiver', 'receiver.subject'),
@@ -129,7 +129,7 @@ class PluginInformation
                 . $this->getFormProperty($this->getFieldFromFlexform('main', 'main.form')) . '</a>',
             $this->getLocalizedLabel('confirmationPage') => $this->buildImageMarkup('Image/icon-check.png', '1'),
             $this->getLocalizedLabel('optin') => $this->buildImageMarkup('Image/icon-check.png', '1'),
-        );
+        ];
         if (!$this->getFieldFromFlexform('main', 'main.confirmation')) {
             $array[$this->getLocalizedLabel('confirmationPage')] =
                 $this->buildImageMarkup('Image/icon-notchecked.png', '0');

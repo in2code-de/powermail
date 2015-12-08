@@ -17,13 +17,13 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
     /**
      * @var array
      */
-    protected $typeToTypoScriptType = array(
+    protected $typeToTypoScriptType = [
         'createAction' => 'submitPage',
         'confirmationAction' => 'confirmationPage',
         'sender' => 'senderMail',
         'receiver' => 'receiverMail',
         'optin' => 'optinMail'
-    );
+    ];
 
     /**
      * View helper check if value should be returned or not
@@ -33,7 +33,7 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
      * @param array $settings
      * @return bool
      */
-    public function render(Answer $answer, $type, $settings = array())
+    public function render(Answer $answer, $type, $settings = [])
     {
         // excludeFromFieldTypes
         if (
@@ -83,6 +83,6 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
                 true
             );
         }
-        return array();
+        return [];
     }
 }

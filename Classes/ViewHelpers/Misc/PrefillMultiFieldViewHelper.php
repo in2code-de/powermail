@@ -70,7 +70,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * @var int

@@ -97,10 +97,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     protected function saveSpecifiedTablePreflight($table, array $tableConfiguration)
     {
         /* @var $saveService SaveToAnyTableService */
-        $saveService = $this->objectManager->get(
-            'In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService',
-            $table
-        );
+        $saveService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService', $table);
         $this->setModeInSaveService($saveService, $table, $tableConfiguration);
         $this->setPropertiesInSaveService($saveService, $tableConfiguration);
         if (!empty($this->settings['debug']['saveToTable'])) {
@@ -142,9 +139,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
             $saveService->setMode($tableConfiguration['_ifUnique.'][$uniqueFields[0]]);
             $saveService->setUniqueField($uniqueFields[0]);
             if (!empty($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause'])) {
-                $saveService->setAdditionalWhereClause(
-                    $conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause']
-                );
+                $saveService->setAdditionalWhereClause($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause']);
             }
         }
     }

@@ -96,7 +96,7 @@ class Answer extends AbstractEntity
         }
 
         if ($this->isTypeMultiple($value)) {
-            $value = (empty($value) ? array() : array(strval($value)));
+            $value = (empty($value) ? [] : [strval($value)]);
         }
 
         return $value;

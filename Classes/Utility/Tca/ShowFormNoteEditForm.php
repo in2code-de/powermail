@@ -198,9 +198,8 @@ class ShowFormNoteEditForm
 
         if (is_array($this->params['row']['pi_flexform'])) {
             // TYPO3 7.5 and newer delivers an array
-            $formUid =
-                (int) $this->params['row']['pi_flexform']['data']['main']['lDEF']
-                    ['settings.flexform.main.form']['vDEF'][0];
+            $formUid = (int) $this->params['row']['pi_flexform']['data']['main']['lDEF']
+            ['settings.flexform.main.form']['vDEF'][0];
         } else {
             // TYPO3 7.4 or older delivers a string
             $flexForm = GeneralUtility::xml2array($this->params['row']['pi_flexform']);
@@ -289,7 +288,7 @@ class ShowFormNoteEditForm
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
             return $this->getPagesFromFormAlternative($uid);
         }
-        $result = array();
+        $result = [];
         $select = 'p.title';
         $from = 'tx_powermail_domain_model_forms fo LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid';
         $where = 'fo.uid = ' . (int) $uid . ' and p.deleted = 0';
@@ -316,7 +315,7 @@ class ShowFormNoteEditForm
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
             return $this->getFieldsFromFormAlternative($uid);
         }
-        $result = array();
+        $result = [];
         $select = 'f.title';
         $from = 'tx_powermail_domain_model_forms fo ' .
             'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
@@ -351,7 +350,7 @@ class ShowFormNoteEditForm
         $from = 'tx_powermail_domain_model_pages as p';
         $where = 'p.uid in (' . $this->integerList($pageUids[0]['pages']) . ') and p.deleted = 0';
         $pageTitles = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
-        $pageTitlesReduced = array();
+        $pageTitlesReduced = [];
         foreach ($pageTitles as $titleRow) {
             $pageTitlesReduced[] = $titleRow['title'];
         }
@@ -375,7 +374,7 @@ class ShowFormNoteEditForm
         $from = 'tx_powermail_domain_model_pages as p';
         $where = 'p.uid in (' . $this->integerList($pageUids[0]['pages']) . ') and p.deleted = 0';
         $pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
-        $fieldTitlesReduced = array();
+        $fieldTitlesReduced = [];
         foreach ($pageUids as $uidRow) {
             $select = 'field.title';
             $from = 'tx_powermail_domain_model_fields as field';

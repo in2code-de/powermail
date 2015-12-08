@@ -47,7 +47,7 @@ class FieldRepository extends AbstractRepository
      */
     public function findByUids($uids)
     {
-        $result = array();
+        $result = [];
         foreach ($uids as $uid) {
             $query = $this->createQuery();
             $query->getQuerySettings()->setRespectStoragePage(false);
@@ -78,10 +78,10 @@ class FieldRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectSysLanguage(false);
         $query->matching(
             $query->logicalAnd(
-                array(
+                [
                     $query->equals('marker', $marker),
                     $query->equals('pages.forms.uid', $formUid)
-                )
+                ]
             )
         );
         $query->setLimit(1);
@@ -121,7 +121,7 @@ class FieldRepository extends AbstractRepository
         $this->getDatabaseConnection()->exec_UPDATEquery(
             'tx_powermail_domain_model_fields',
             'sys_language_uid > 0 and deleted = 0 and marker != ""',
-            array('marker' => '')
+            ['marker' => '']
         );
     }
 
@@ -133,7 +133,7 @@ class FieldRepository extends AbstractRepository
      */
     public function findAllWrongLocalizedFields()
     {
-        $pages = array();
+        $pages = [];
         $select = 'uid,pid,title,l10n_parent,sys_language_uid';
         $from = 'tx_powermail_domain_model_fields';
         $where = '(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0';
@@ -160,7 +160,7 @@ class FieldRepository extends AbstractRepository
             $this->getDatabaseConnection()->exec_UPDATEquery(
                 'tx_powermail_domain_model_fields',
                 'uid = ' . (int) $field['uid'],
-                array('pages' => $localizedPageUid)
+                ['pages' => $localizedPageUid]
             );
         }
     }
@@ -211,7 +211,7 @@ class FieldRepository extends AbstractRepository
     {
         // get pages from form
         $form = $this->formRepository->findByUid($formUid);
-        $pageUids = array();
+        $pageUids = [];
         foreach ($form->getPages() as $page) {
             $pageUids[] = $page->getUid();
         }
@@ -221,10 +221,10 @@ class FieldRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectSysLanguage(false);
         $query->matching(
             $query->logicalAnd(
-                array(
+                [
                     $query->equals('marker', $marker),
                     $query->in('pages', $pageUids)
-                )
+                ]
             )
         );
         return $query->setLimit(1)->execute()->getFirst();

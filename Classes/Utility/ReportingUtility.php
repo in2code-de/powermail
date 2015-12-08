@@ -42,15 +42,15 @@ class ReportingUtility
     /**
      * @var array
      */
-    protected static $groupedProperties = array(
-        'marketingRefererDomain' => array(),
-        'marketingReferer' => array(),
-        'marketingCountry' => array(),
-        'marketingMobileDevice' => array(),
-        'marketingFrontendLanguage' => array(),
-        'marketingBrowserLanguage' => array(),
-        'marketingPageFunnelString' => array(),
-    );
+    protected static $groupedProperties = [
+        'marketingRefererDomain' => [],
+        'marketingReferer' => [],
+        'marketingCountry' => [],
+        'marketingMobileDevice' => [],
+        'marketingFrontendLanguage' => [],
+        'marketingBrowserLanguage' => [],
+        'marketingPageFunnelString' => [],
+    ];
 
     /**
      * Get grouped mail answers for reporting
@@ -62,7 +62,7 @@ class ReportingUtility
      */
     public static function getGroupedAnswersFromMails($mails, $limit = 5, $limitLabel = 'All others')
     {
-        $groupedAnswers = array();
+        $groupedAnswers = [];
         foreach ($mails as $mail) {
             /** @var Mail $mail */
             foreach ($mail->getAnswers() as $answer) {

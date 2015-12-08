@@ -71,16 +71,14 @@ class FormController extends AbstractController
     public function formAction()
     {
         $forms = $this->formRepository->findByUids($this->settings['main']['form']);
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($forms, $this));
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$forms, $this]);
         SessionUtility::saveFormStartInSession($forms, $this->settings);
 
-        $this->view->assignMultiple(
-            array(
+        $this->view->assignMultiple([
                 'forms' => $forms,
                 'messageClass' => $this->messageClass,
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
-            )
-        );
+            ]);
     }
 
     /**
@@ -115,7 +113,7 @@ class FormController extends AbstractController
      */
     public function createAction(Mail $mail, $hash = null)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         BasicFileUtility::fileUpload(
             $this->settings['misc']['file']['folder'],
             $mail,
@@ -124,7 +122,7 @@ class FormController extends AbstractController
         SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
         if ($this->isMailPersistActive($hash)) {
             $this->saveMail($mail);
-            $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', array($mail, $this));
+            $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
         }
         if ($this->isSendMailActive($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
@@ -137,7 +135,7 @@ class FormController extends AbstractController
             $this->persistenceManager->persistAll();
         }
 
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', array($mail, $hash, $this));
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', [$mail, $hash, $this]);
         $this->prepareOutput($mail);
 
         $this->finisherRunner->callFinishers(
@@ -182,7 +180,7 @@ class FormController extends AbstractController
             $mail,
             $this->settings['misc']['file']['extension']
         );
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $this));
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
         $this->prepareOutput($mail);
     }
 
@@ -234,7 +232,7 @@ class FormController extends AbstractController
             'senderName'
         );
         foreach ($receivers as $receiver) {
-            $email = array(
+            $email = [
                 'template' => 'Mail/ReceiverMail',
                 'receiverEmail' => $receiver,
                 'receiverName' => !empty($this->settings['receiver']['name']) ?
@@ -244,10 +242,10 @@ class FormController extends AbstractController
                 'subject' => $this->settings['receiver']['subject'],
                 'rteBody' => $this->settings['receiver']['body'],
                 'format' => $this->settings['receiver']['mailformat'],
-                'variables' => array(
+                'variables' => [
                     'hash' => $hash
-                )
-            );
+                ]
+            ];
             TypoScriptUtility::overwriteValueFromTypoScript(
                 $email['receiverName'],
                 $this->conf['receiver.']['overwrite.'],
@@ -284,22 +282,19 @@ class FormController extends AbstractController
      */
     protected function sendSenderMail(Mail $mail)
     {
-        $email = array(
+        $email = [
             'template' => 'Mail/SenderMail',
-            'receiverName' => $this->mailRepository->getSenderNameFromArguments(
-                $mail,
-                array(
+            'receiverName' => $this->mailRepository->getSenderNameFromArguments($mail, [
                     $this->conf['sender.']['default.'],
                     'senderName'
-                )
-            ),
+                ]),
             'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
             'senderName' => $this->settings['sender']['name'],
             'senderEmail' => $this->settings['sender']['email'],
             'subject' => $this->settings['sender']['subject'],
             'rteBody' => $this->settings['sender']['body'],
             'format' => $this->settings['sender']['mailformat']
-        );
+        ];
         TypoScriptUtility::overwriteValueFromTypoScript(
             $email['receiverEmail'],
             $this->conf['sender.']['overwrite.'],
@@ -331,15 +326,12 @@ class FormController extends AbstractController
      */
     protected function sendConfirmationMail(Mail &$mail)
     {
-        $email = array(
+        $email = [
             'template' => 'Mail/OptinMail',
-            'receiverName' => $this->mailRepository->getSenderNameFromArguments(
-                $mail,
-                array(
+            'receiverName' => $this->mailRepository->getSenderNameFromArguments($mail, [
                     $this->conf['sender.']['default.'],
                     'senderName'
-                )
-            ),
+                ]),
             'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
             'senderName' => $this->settings['sender']['name'],
             'senderEmail' => $this->settings['sender']['email'],
@@ -349,11 +341,11 @@ class FormController extends AbstractController
             ),
             'rteBody' => '',
             'format' => $this->settings['sender']['mailformat'],
-            'variables' => array(
+            'variables' => [
                 'hash' => OptinUtility::createOptinHash($mail),
                 'mail' => $mail
-            )
-        );
+            ]
+        ];
         TypoScriptUtility::overwriteValueFromTypoScript(
             $email['receiverName'],
             $this->conf['optin.']['overwrite.'],
@@ -385,16 +377,14 @@ class FormController extends AbstractController
      */
     protected function prepareOutput(Mail $mail)
     {
-        $this->view->assignMultiple(
-            array(
+        $this->view->assignMultiple([
                 'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, true),
                 'mail' => $mail,
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'messageClass' => $this->messageClass,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
-            )
-        );
+            ]);
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));
         $this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
     }
@@ -452,7 +442,7 @@ class FormController extends AbstractController
      */
     public function optinConfirmAction($mail, $hash)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', array($mail, $hash, $this));
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
         $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
         $labelKey = 'failed';
@@ -463,7 +453,7 @@ class FormController extends AbstractController
                 $this->mailRepository->update($mail);
                 $this->persistenceManager->persistAll();
 
-                $this->forward('create', null, null, array('mail' => $mail, 'hash' => $hash));
+                $this->forward('create', null, null, ['mail' => $mail, 'hash' => $hash]);
             }
             $labelKey = 'done';
         }
@@ -498,7 +488,7 @@ class FormController extends AbstractController
         $this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
         ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
 
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', array($this));
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this]);
 
         if ($this->settings['debug']['settings']) {
             GeneralUtility::devLog('Settings', $this->extensionName, 0, $this->settings);

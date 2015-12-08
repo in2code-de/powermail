@@ -50,23 +50,23 @@ class ContentElementWizard
     /**
      * Adding a new content element wizard item for powermail
      *
-     * @param array $contentElementWizardItems
+     * @param array $ceWizardItems
      * @return array
      */
-    public function proc($contentElementWizardItems = array())
+    public function proc($ceWizardItems = [])
     {
         $this->initialize();
-        $contentElementWizardItems['plugins_tx_powermail_pi1'] = array(
+        $ceWizardItems['plugins_tx_powermail_pi1'] = [
             'icon' => ExtensionManagementUtility::extRelPath('powermail') . 'Resources/Public/Icons/ce_wiz.gif',
             'title' => $this->languageService->sL($this->locallangPath . 'pluginWizardTitle', true),
             'description' => $this->languageService->sL($this->locallangPath . 'pluginWizardDescription', true),
             'params' => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=powermail_pi1',
-            'tt_content_defValues' => array(
+            'tt_content_defValues' => [
                 'CType' => 'list',
-            ),
-        );
+            ],
+        ];
 
-        return $contentElementWizardItems;
+        return $ceWizardItems;
     }
 
     /**

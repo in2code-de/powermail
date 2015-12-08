@@ -71,14 +71,11 @@ class SendParametersService
         }
 
         $contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
-        $parameters = $contentObject->cObjGetSingle(
-            $spConfiguration['values'],
-            $spConfiguration['values.']
-        );
-        $curlSettings = array(
+        $parameters = $contentObject->cObjGetSingle($spConfiguration['values'], $spConfiguration['values.']);
+        $curlSettings = [
             'url' => $spConfiguration['targetUrl'],
             'params' => $parameters
-        );
+        ];
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $curlSettings['url']);
         curl_setopt($curl, CURLOPT_POST, 1);

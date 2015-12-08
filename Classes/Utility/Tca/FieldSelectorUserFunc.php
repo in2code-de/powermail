@@ -58,19 +58,19 @@ class FieldSelectorUserFunc
             ->get('In2code\\Powermail\\Domain\\Repository\\FormRepository');
         $formUid = $this->getFormUidFromTtContentUid((int) $params['row']['uid']);
         if (!$formUid) {
-            $params['items'] = array(
-                array(
+            $params['items'] = [
+                [
                     'Please select a form (Main Settings)',
                     ''
-                )
-            );
+                ]
+            ];
             return;
         }
         foreach ((array) $formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
-            $params['items'][] = array(
+            $params['items'][] = [
                 $field['title'] . ' {' . $field['marker'] . '}',
                 $field['uid']
-            );
+            ];
         }
     }
 

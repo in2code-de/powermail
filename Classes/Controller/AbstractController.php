@@ -137,9 +137,9 @@ abstract class AbstractController extends ActionController
         if (!isset($arguments['field'])) {
             return;
         }
-        $newArguments = array(
+        $newArguments = [
             'mail' => $arguments['mail']
-        );
+        ];
 
         // allow subvalues in new property mapper
         $mailMvcArgument = $this->arguments->getArgument('mail');
@@ -154,10 +154,10 @@ abstract class AbstractController extends ActionController
         // allow creation of new objects (for validation)
         $propertyMappingConfiguration->setTypeConverterOptions(
             'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\PersistentObjectConverter',
-            array(
+            [
                 PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED => true,
                 PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED => true
-            )
+            ]
         );
 
         $i = 0;
@@ -181,10 +181,7 @@ abstract class AbstractController extends ActionController
             /** @var Field $field */
             $field = $this->fieldRepository->findByUid($fieldUid);
             $valueType = $field->dataTypeFromFieldType(
-                $this->fieldRepository->getFieldTypeFromMarker(
-                    $marker,
-                    $arguments['mail']['form']
-                )
+                $this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
             );
             if ($valueType === 3 && is_array($value)) {
                 $value = BasicFileUtility::getUniqueNamesForFileUploads($value, $this->settings, false);
@@ -196,11 +193,11 @@ abstract class AbstractController extends ActionController
                     $value = json_encode($value);
                 }
             }
-            $newArguments['mail']['answers'][$i] = array(
+            $newArguments['mail']['answers'][$i] = [
                 'field' => strval($fieldUid),
                 'value' => $value,
                 'valueType' => $valueType
-            );
+            ];
 
             // edit form: add answer id
             if (!empty($arguments['field']['__identity'])) {

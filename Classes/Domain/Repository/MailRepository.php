@@ -65,16 +65,16 @@ class MailRepository extends AbstractRepository
      * @param array $piVars Plugin Variables
      * @return QueryResult
      */
-    public function findAllInPid($pid = 0, $settings = array(), $piVars = array())
+    public function findAllInPid($pid = 0, $settings = [], $piVars = [])
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
 
         // initial filter
-        $and = array(
+        $and = [
             $query->equals('deleted', 0),
             $query->equals('pid', $pid)
-        );
+        ];
 
         // filter
         if (isset($piVars['filter'])) {
@@ -84,14 +84,14 @@ class MailRepository extends AbstractRepository
                 if (!is_array($value)) {
                     // Fulltext Search
                     if ($field === 'all' && !empty($value)) {
-                        $or = array(
+                        $or = [
                             $query->like('sender_name', '%' . $value . '%'),
                             $query->like('sender_mail', '%' . $value . '%'),
                             $query->like('subject', '%' . $value . '%'),
                             $query->like('receiver_mail', '%' . $value . '%'),
                             $query->like('sender_ip', '%' . $value . '%'),
                             $query->like('answers.value', '%' . $value . '%')
-                        );
+                        ];
                         $and[] = $query->logicalOr($or);
                     } elseif ($field === 'form' && !empty($value)) {
                         // Form filter
@@ -142,12 +142,12 @@ class MailRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
-        $and = array(
+        $and = [
             $query->equals('deleted', 0),
             $query->equals('pid', $pid)
-        );
+        ];
         $query->matching($query->logicalAnd($and));
-        $query->setOrderings(array('crdate' => QueryInterface::ORDER_DESCENDING));
+        $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
         $query->setLimit(1);
         $mails = $query->execute();
         return $mails->getFirst();
@@ -165,10 +165,10 @@ class MailRepository extends AbstractRepository
         $query->getQuerySettings()->setIgnoreEnableFields(true);
         $query->getQuerySettings()->setLanguageMode(null);
 
-        $and = array(
+        $and = [
             $query->equals('uid', $uid),
             $query->equals('deleted', 0)
-        );
+        ];
         $query->matching($query->logicalAnd($and));
 
         return $query->execute()->getFirst();
@@ -184,11 +184,11 @@ class MailRepository extends AbstractRepository
     public function findByMarkerValueForm($marker, $value, $form, $pageUid)
     {
         $query = $this->createQuery();
-        $and = array(
+        $and = [
             $query->equals('answers.field', $this->fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
             $query->equals('answers.value', $value),
             $query->equals('pid', $pageUid)
-        );
+        ];
         $query->matching($query->logicalAnd($and));
         return $query->execute();
     }
@@ -207,9 +207,9 @@ class MailRepository extends AbstractRepository
         /**
          * FILTER start
          */
-        $and = array(
+        $and = [
             $query->greaterThan('uid', 0)
-        );
+        ];
 
         // FILTER: form
         if ((int) $settings['main']['form'] > 0) {
@@ -240,7 +240,7 @@ class MailRepository extends AbstractRepository
         // FILTER: field
         if (isset($piVars['filter'])) {
             // fulltext
-            $filter = array();
+            $filter = [];
             if (!empty($piVars['filter']['_all'])) {
                 $filter[] = $query->like('answers.value', '%' . $piVars['filter']['_all'] . '%');
             }
@@ -248,10 +248,10 @@ class MailRepository extends AbstractRepository
             // single field search
             foreach ((array) $piVars['filter'] as $field => $value) {
                 if (is_numeric($field) && !empty($value)) {
-                    $filterAnd = array(
+                    $filterAnd = [
                         $query->equals('answers.field', $field),
                         $query->like('answers.value', '%' . $value . '%')
-                    );
+                    ];
                     $filter[] = $query->logicalAnd($filterAnd);
                 }
             }
@@ -275,7 +275,7 @@ class MailRepository extends AbstractRepository
         $query->matching($constraint);
 
         // sorting
-        $query->setOrderings(array('crdate' => QueryInterface::ORDER_DESCENDING));
+        $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
 
         // set limit
         if ((int) $settings['list']['limit'] > 0) {
@@ -295,7 +295,7 @@ class MailRepository extends AbstractRepository
     public function findGroupedFormUidsToGivenPageUid($pageUid = 0)
     {
         $queryResult = $this->findAllInPid($pageUid);
-        $forms = array();
+        $forms = [];
         foreach ($queryResult as $mail) {
             /** @var Form $form */
             $form = $mail->getForm();
@@ -315,14 +315,14 @@ class MailRepository extends AbstractRepository
      * @param array $sorting array('field' => 'asc')
      * @return QueryResult
      */
-    public function findByUidList($uidList, $sorting = array())
+    public function findByUidList($uidList, $sorting = [])
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
-        $and = array(
+        $and = [
             $query->equals('deleted', 0),
             $query->in('uid', GeneralUtility::trimExplode(',', $uidList, true))
-        );
+        ];
         $query->matching($query->logicalAnd($and));
         $query->setOrderings($this->getSorting('crdate', 'desc'));
         foreach ((array) $sorting as $field => $order) {
@@ -343,7 +343,7 @@ class MailRepository extends AbstractRepository
      */
     public function getLabelsWithMarkersFromMail(Mail $mail)
     {
-        $variables = array();
+        $variables = [];
         foreach ($mail->getAnswers() as $answer) {
             if (method_exists($answer, 'getField') && method_exists($answer->getField(), 'getMarker')) {
                 $variables['label_' . $answer->getField()->getMarker()] = $answer->getField()->getTitle();
@@ -362,7 +362,7 @@ class MailRepository extends AbstractRepository
      */
     public function getVariablesWithMarkersFromMail(Mail $mail, $htmlSpecialChars = false)
     {
-        $variables = array();
+        $variables = [];
         foreach ($mail->getAnswers() as $answer) {
             if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
                 continue;
@@ -404,10 +404,7 @@ class MailRepository extends AbstractRepository
             $email = $default;
         }
 
-        if (
-            empty($email) &&
-            GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())
-        ) {
+        if (empty($email) && GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
             $email = ConfigurationUtility::getDefaultMailFromAddress();
         }
 
@@ -475,15 +472,14 @@ class MailRepository extends AbstractRepository
      * @param array $piVars
      * @return array
      */
-    protected function getSorting($sortby, $order, $piVars = array())
+    protected function getSorting($sortby, $order, $piVars = [])
     {
-        $sorting = array(
-            $this->cleanStringForQuery(
-                StringUtility::conditionalVariable($sortby, 'crdate')
-            ) => $this->getSortOrderByString($order)
-        );
+        $sorting = [
+            $this->cleanStringForQuery(StringUtility::conditionalVariable($sortby, 'crdate')) =>
+                $this->getSortOrderByString($order)
+        ];
         if (!empty($piVars['sorting'])) {
-            $sorting = array();
+            $sorting = [];
             foreach ((array) array_reverse($piVars['sorting']) as $property => $sortOrderName) {
                 $sorting[$this->cleanStringForQuery($property)] = $this->getSortOrderByString($sortOrderName);
             }

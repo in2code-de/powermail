@@ -63,7 +63,7 @@ class FinisherService
      *
      * @var array
      */
-    protected $configuration = array();
+    protected $configuration = [];
 
     /**
      * @var Mail
