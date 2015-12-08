@@ -206,7 +206,7 @@ class FormConverterService
         $ttContentProperties['tstamp'] = time();
         $ttContentProperties['pi_flexform'] = $this->createFlexForm($form, $formUid);
         if ($form['sys_language_uid'] > 0 && !empty($this->localizationRelations['content'][$form['l18n_parent']])) {
-            $ttContentProperties['l18n_parent'] = $this->localizationRelations['content'][$form['l18n_parent']];
+            $ttContentProperties['l18n_parent'] = (int) $this->localizationRelations['content'][$form['l18n_parent']];
         }
         if (!$this->isDryrun()) {
             $this->getDatabaseConnection()->exec_INSERTquery('tt_content', $ttContentProperties);
@@ -239,7 +239,7 @@ class FormConverterService
         );
         if ($form['sys_language_uid'] > 0) {
             $formProperties['sys_language_uid'] = $form['sys_language_uid'];
-            $formProperties['l10n_parent'] = $this->localizationRelations['form'][$form['l18n_parent']];
+            $formProperties['l10n_parent'] = (int) $this->localizationRelations['form'][$form['l18n_parent']];
         }
         if (!$this->isDryrun()) {
             $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_forms', $formProperties);
@@ -284,7 +284,7 @@ class FormConverterService
         );
         if ($page['sys_language_uid'] > 0) {
             $pageProperties['sys_language_uid'] = $page['sys_language_uid'];
-            $pageProperties['l10n_parent'] = $this->localizationRelations['page'][$page['l18n_parent']];
+            $pageProperties['l10n_parent'] = (int) $this->localizationRelations['page'][$page['l18n_parent']];
         }
         if (!$this->isDryrun()) {
             $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_pages', $pageProperties);
@@ -349,7 +349,7 @@ class FormConverterService
         );
         if ($field['sys_language_uid'] > 0) {
             $fieldProperties['sys_language_uid'] = $field['sys_language_uid'];
-            $fieldProperties['l10n_parent'] = $this->localizationRelations['field'][$field['l18n_parent']];
+            $fieldProperties['l10n_parent'] = (int) $this->localizationRelations['field'][$field['l18n_parent']];
         }
         if (!$this->isDryrun()) {
             $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_fields', $fieldProperties);
@@ -375,7 +375,7 @@ class FormConverterService
         $form['tx_powermail_subject_r'] = $this->rewriteVariables($form['tx_powermail_subject_r'], $form);
         $form['tx_powermail_subject_s'] = $this->rewriteVariables($form['tx_powermail_subject_s'], $form);
         if ($form['sys_language_uid'] > 0) {
-            $formUid = $this->localizationRelations['form'][$form['l18n_parent']];
+            $formUid = (int) $this->localizationRelations['form'][$form['l18n_parent']];
         }
 
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
@@ -713,7 +713,7 @@ class FormConverterService
         foreach ($form['_fieldsets'] as $fieldset) {
             foreach ($fieldset['_fields'] as $field) {
                 if ($oldUid === $field['uid']) {
-                    return $field['l18n_parent'];
+                    return (int) $field['l18n_parent'];
                 }
             }
         }
