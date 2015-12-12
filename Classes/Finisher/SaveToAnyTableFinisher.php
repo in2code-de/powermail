@@ -3,6 +3,7 @@ namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Service\SaveToAnyTableService;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -75,13 +76,17 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     public function savePreflightFinisher()
     {
-        if ($this->isSaveToAnyTableActivated()) {
-            foreach ((array) array_keys($this->configuration) as $tableKey) {
-                $table = StringUtility::removeLastDot($tableKey);
+        if ($this->isConfigurationAvailable()) {
+            foreach (array_keys($this->configuration) as $key) {
                 $this->contentObject->start($this->getDataArray());
-                $tableConfiguration = $this->configuration[$tableKey];
+                $tableConfiguration = $this->configuration[$key];
+                $numberKey = StringUtility::removeLastDot($key);
                 if ($this->isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration)) {
-                    $this->saveSpecifiedTablePreflight($table, $tableConfiguration);
+                    if (!$this->isDeprecatedConfiguration($numberKey)) {
+                        $this->saveSpecifiedTablePreflight($numberKey, $tableConfiguration);
+                    } else {
+                        $this->saveSpecifiedTableDeprecatedPreflight($numberKey, $tableConfiguration);
+                    }
                 }
             }
         }
@@ -90,19 +95,44 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     /**
      * Preperation function for a single table
      *
-     * @param string $table
+     * @param int $numberKey
      * @param array $tableConfiguration
      * @return void
      */
-    protected function saveSpecifiedTablePreflight($table, array $tableConfiguration)
+    protected function saveSpecifiedTablePreflight($numberKey, array $tableConfiguration)
     {
         /* @var $saveService SaveToAnyTableService */
-        $saveService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService', $table);
-        $this->setModeInSaveService($saveService, $table, $tableConfiguration);
+        $saveService = $this->objectManager->get(
+            'In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService',
+            $this->getTableName($tableConfiguration)
+        );
+        $this->setModeInSaveService($saveService, $tableConfiguration);
         $this->setPropertiesInSaveService($saveService, $tableConfiguration);
-        if (!empty($this->settings['debug']['saveToTable'])) {
-            $saveService->setDevLog(true);
-        }
+        $saveService->setDevLog(!empty($this->settings['debug']['saveToTable']));
+        $this->addArrayToDataArray(['uid_' . $numberKey => (int) $saveService->execute()]);
+    }
+
+    /**
+     * Preperation function for a single table (from old configuration)
+     *
+     * @param string $table
+     * @param array $tableConfiguration
+     * @return void
+     * @deprecated Should be removed in one of the next minor versions of powermail
+     * TODO: remove complete function
+     */
+    protected function saveSpecifiedTableDeprecatedPreflight($table, array $tableConfiguration)
+    {
+        GeneralUtility::deprecationLog(
+            'Tableconfiguration in plugin.tx_powermail.settings.setup.dbEntry must have ' .
+            'numbers as keys. Table name as key is deprecated. See manual for a newer TypoScript example.'
+        );
+
+        /* @var $saveService SaveToAnyTableService */
+        $saveService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService', $table);
+        $this->setModeInSaveService($saveService, $tableConfiguration);
+        $this->setPropertiesInSaveService($saveService, $tableConfiguration);
+        $saveService->setDevLog(!empty($this->settings['debug']['saveToTable']));
         $this->addArrayToDataArray(['uid_' . $table => (int) $saveService->execute()]);
     }
 
@@ -128,20 +158,32 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * Set mode and uniqueField in saveToAnyTableService
      *
      * @param SaveToAnyTableService $saveService
-     * @param string $table
      * @param array $tableConfiguration
      * @return void
      */
-    protected function setModeInSaveService(SaveToAnyTableService $saveService, $table, array $tableConfiguration)
+    protected function setModeInSaveService(SaveToAnyTableService $saveService, array $tableConfiguration)
     {
         if (!empty($tableConfiguration['_ifUnique.'])) {
             $uniqueFields = array_keys($tableConfiguration['_ifUnique.']);
             $saveService->setMode($tableConfiguration['_ifUnique.'][$uniqueFields[0]]);
             $saveService->setUniqueField($uniqueFields[0]);
-            if (!empty($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause'])) {
-                $saveService->setAdditionalWhereClause($conf['dbEntry.'][$table . '.']['_ifUniqueWhereClause']);
+            if (!empty($tableConfiguration['_ifUniqueWhereClause'])) {
+                $saveService->setAdditionalWhereClause($tableConfiguration['_ifUniqueWhereClause']);
             }
         }
+    }
+
+    /**
+     * Read configuration from TypoScript
+     *      _table = TEXT
+     *      _table.value = tableName
+     *
+     * @param array $tableConfiguration
+     * @return string
+     */
+    protected function getTableName(array $tableConfiguration)
+    {
+        return $this->contentObject->cObjGetSingle($tableConfiguration['_table'], $tableConfiguration['_table.']);
     }
 
     /**
@@ -159,9 +201,9 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      *
      * @return bool
      */
-    protected function isSaveToAnyTableActivated()
+    protected function isConfigurationAvailable()
     {
-        return !empty($this->configuration);
+        return !empty($this->configuration) && is_array($this->configuration);
     }
 
     /**
@@ -173,6 +215,17 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     protected function isSkippedKey($key)
     {
         return StringUtility::startsWith($key, '_') || StringUtility::endsWith($key, '.');
+    }
+
+    /**
+     * Check if the tableconfiguration is deprecated
+     *
+     * @param string $key
+     * @return bool
+     */
+    protected function isDeprecatedConfiguration($key)
+    {
+        return !is_numeric($key);
     }
 
     /**
@@ -215,7 +268,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         if (!empty($configuration['dbEntry.'])) {
             $this->configuration = $configuration['dbEntry.'];
         }
-        if ($this->isSaveToAnyTableActivated()) {
+        if ($this->isConfigurationAvailable()) {
             $this->addArrayToDataArray(['uid' => $this->mail->getUid()]);
             $this->addArrayToDataArray($this->mailRepository->getVariablesWithMarkersFromMail($this->mail));
         }

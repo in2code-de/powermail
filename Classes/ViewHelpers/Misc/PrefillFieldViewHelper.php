@@ -101,7 +101,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
                     'Method \In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render() ' .
                     'was called from a template or a partial with attribute "cycle". This' .
                     ' attribute will be removed in next minor version of powermail. Further' .
-                    ' use can lead to exceptions. Please remove this attribute ' . 'from your template files.'
+                    ' use can lead to exceptions. Please remove this attribute from your template files.'
                 );
             }
         }
