@@ -408,45 +408,6 @@ class SendMailServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addSenderHeader', $message);
         $this->assertEquals($expectedResult, $message->getSender());
-
-    }
-
-    /**
-     * Data Provider for br2nlReturnString()
-     *
-     * @return array
-     */
-    public function br2nlReturnStringDataProvider()
-    {
-        return array(
-            array(
-                'a<br>b',
-                "a\nb"
-            ),
-            array(
-                'a<br><br /><br/>b',
-                "a\n\n\nb"
-            ),
-            array(
-                'a\nbr[br]b',
-                'a\nbr[br]b'
-            ),
-        );
-    }
-
-    /**
-     * cleanFileNameReturnBool Test
-     *
-     * @param string $content
-     * @param string $expectedResult
-     * @dataProvider br2nlReturnStringDataProvider
-     * @return void
-     * @test
-     */
-    public function br2nlReturnString($content, $expectedResult)
-    {
-        $result = $this->generalValidatorMock->_call('br2nl', $content);
-        $this->assertSame($expectedResult, $result);
     }
 
     /**

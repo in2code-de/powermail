@@ -205,4 +205,21 @@ class StringUtility
         }
         return $string;
     }
+
+    /**
+     * Function br2nl is the opposite of nl2br
+     *
+     * @param string $content
+     * @return string
+     */
+    public static function br2nl($content)
+    {
+        $array = [
+            '<br >',
+            '<br>',
+            '<br/>',
+            '<br />'
+        ];
+        return str_replace($array, PHP_EOL, $content);
+    }
 }

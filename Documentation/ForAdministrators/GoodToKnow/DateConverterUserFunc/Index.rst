@@ -60,10 +60,14 @@ Example Use-Case:
 .. code-block:: text
 
 	# Convert 2015-12-31 into 1451516400
-	plugin.tx_powermail.settings.setup.dbEntry.tt_content {
+	plugin.tx_powermail.settings.setup.dbEntry.1 {
 		# enable db entry
 		_enable = TEXT
 		_enable.value = 1
+
+		# set table name
+		_table = TEXT
+		_table.value = tt_content
 
 		# Fill with static value
 		pid = TEXT

@@ -30,6 +30,10 @@ If you want to add further fields, you can do this with a little bit of Page TSC
 
    tx_powermail.flexForm.type.addFieldOptions.new = New Field
 
+   # The label could also be written with LLL: to localize the label
+   # Example to grab a value from locallang.xml or locallang.xlf
+   #tx_powermail.flexForm.type.addFieldOptions.new = LLL:EXT:ext/Resources/Private/Language/locallang.xlf:label
+
    # Tell powermail that the new fieldtype will transmit anything else then a string (0:string, 1:array, 2:date, 3:file)
    # Example for dataType array
    #tx_powermail.flexForm.type.addFieldOptions.new.dataType = 1
@@ -52,12 +56,9 @@ Example Content:
 Let's take TypoScript Setup to tell powermail, where to find the new partial:
 ::
 
-   plugin.tx_powermail.view {
-      partialRootPath >
-      partialRootPaths {
-         10 = EXT:powermail/Resources/Private/Partials/
-         20 = fileadmin/powermail/Partials/
-      }
+   plugin.tx_powermail.view.templateRootPaths {
+      0 = EXT:powermail/Resources/Private/Templates/
+      1 = fileadmin/powermail/Partials/
    }
 
 Example Code

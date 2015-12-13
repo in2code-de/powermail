@@ -85,6 +85,15 @@ class SaveToAnyTableService
     protected $databaseConnection = null;
 
     /**
+     * @param string $table
+     */
+    public function __construct($table)
+    {
+        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        $this->setTable($table);
+    }
+
+    /**
      * Executes the storage
      *
      * @return int uid of inserted record
@@ -177,9 +186,13 @@ class SaveToAnyTableService
      *
      * @param string $table
      * @return void
+     * @throws \Exception
      */
     public function setTable($table)
     {
+        if (empty($table)) {
+            throw new \Exception('No tablename given');
+        }
         $this->removeNotAllowedSigns($table);
         $this->table = $table;
     }
@@ -342,14 +355,5 @@ class SaveToAnyTableService
             $subject .= ', UniqueField: ' . $this->getUniqueField() . ')';
             GeneralUtility::devLog($subject, 'powermail', 0, $this->getProperties());
         }
-    }
-
-    /**
-     * @param string $table
-     */
-    public function __construct($table)
-    {
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
-        $this->setTable($table);
     }
 }

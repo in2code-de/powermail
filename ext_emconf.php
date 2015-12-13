@@ -10,14 +10,14 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'powermail',
     'description' => 'Powermail is a well-known, editor-friendly, powerful
         and easy to use mailform extension with a lots of features
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
     'shy' => 0,
-    'version' => '2.19.0',
+    'version' => '2.20.0',
     'dependencies' => 'cms,extbase,fluid',
     'conflicts' => '',
     'priority' => '',
@@ -34,15 +34,15 @@ $EM_CONF[$_EXTKEY] = array(
     'author_company' => 'in2code.de',
     'CGLcompliance' => '',
     'CGLcompliance_note' => '',
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             'typo3' => '6.2.7-7.99.99',
             'extbase' => '6.2.0-7.99.99',
             'fluid' => '6.2.0-7.99.99',
             'php' => '5.5.0-0.0.0'
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
     '_md5_values_when_last_written' => '',
-);
+];

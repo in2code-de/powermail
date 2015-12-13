@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.20.0
+   :Date:
+      2015-12-13
+   :Changes:
+
+      * Feature _`#72184`: https://forge.typo3.org/issues/72184 dbEntry feature with multiple records into same table
+      * Bugfix _`#72138`: https://forge.typo3.org/issues/72138 Default Language for new forms is "all" instead of "default" in TYPO3 7.6
+
+ - :Version:
       2.19.0
    :Date:
       2015-12-08
