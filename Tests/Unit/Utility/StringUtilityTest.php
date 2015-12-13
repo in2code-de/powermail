@@ -374,4 +374,41 @@ class StringUtilityTest extends UnitTestCase
     {
         $this->assertSame($expectedResult, StringUtility::removeLastDot($string));
     }
+
+    /**
+     * Data Provider for br2nlReturnString()
+     *
+     * @return array
+     */
+    public function br2nlReturnStringDataProvider()
+    {
+        return array(
+            array(
+                'a<br>b',
+                "a\nb"
+            ),
+            array(
+                'a<br><br /><br/>b',
+                "a\n\n\nb"
+            ),
+            array(
+                'a\nbr[br]b',
+                'a\nbr[br]b'
+            ),
+        );
+    }
+
+    /**
+     * cleanFileNameReturnBool Test
+     *
+     * @param string $content
+     * @param string $expectedResult
+     * @dataProvider br2nlReturnStringDataProvider
+     * @return void
+     * @test
+     */
+    public function br2nlReturnString($content, $expectedResult)
+    {
+        $this->assertSame($expectedResult, StringUtility::br2nl($content));
+    }
 }

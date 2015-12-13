@@ -7,6 +7,7 @@ use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
@@ -466,28 +467,9 @@ class SendMailService
         // 6. remove all tags (<b>bla</b><br /> => bla<br />)
         $content = strip_tags($content, '<br><address>');
         // 7. <br /> to \n
-        $content = $this->br2nl($content);
+        $content = StringUtility::br2nl($content);
 
         return trim($content);
-    }
-
-    /**
-     * Function br2nl is the opposite of nl2br
-     *
-     * @param string $content Anystring
-     * @return string $content Manipulated string
-     */
-    protected function br2nl($content)
-    {
-        $array = [
-            '<br >',
-            '<br>',
-            '<br/>',
-            '<br />'
-        ];
-        $content = str_replace($array, PHP_EOL, $content);
-
-        return $content;
     }
 
     /**
