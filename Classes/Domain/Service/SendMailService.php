@@ -403,7 +403,8 @@ class SendMailService
         $variablesWithMarkers = $this->mailRepository->getVariablesWithMarkersFromMail($this->mail);
         $standaloneView->assignMultiple($variablesWithMarkers);
         $standaloneView->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($this->mail));
-        $standaloneView->assignMultiple([
+        $standaloneView->assignMultiple(
+            [
                 'variablesWithMarkers' => ArrayUtility::htmlspecialcharsOnArray($variablesWithMarkers),
                 'powermail_all' => TemplateUtility::powermailAll($this->mail, 'mail', $this->settings, $this->type),
                 'powermail_rte' => $email['rteBody'],
@@ -411,7 +412,8 @@ class SendMailService
                 'mail' => $this->mail,
                 'email' => $email,
                 'settings' => $this->settings
-            ]);
+            ]
+        );
         if (!empty($email['variables'])) {
             $standaloneView->assignMultiple($email['variables']);
         }
