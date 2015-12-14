@@ -49,8 +49,8 @@ class CreateMarkerTest extends UnitTestCase
     {
         $this->createMarkerMock = $this->getAccessibleMock(
             '\In2code\Powermail\Utility\Hook\CreateMarker',
-            array('dummy'),
-            array(true)
+            ['dummy'],
+            [true]
         );
     }
 
@@ -69,28 +69,28 @@ class CreateMarkerTest extends UnitTestCase
      */
     public function cleanStringReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'test',
                 'default',
                 'test',
-            ),
-            array(
+            ],
+            [
                 'This is A Test',
                 'default',
                 'thisisatest',
-            ),
-            array(
+            ],
+            [
                 '$T h%ißs_-',
                 'default',
                 'this__',
-            ),
-            array(
+            ],
+            [
                 '$ %ß#',
                 'default',
                 'default',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -115,50 +115,50 @@ class CreateMarkerTest extends UnitTestCase
      */
     public function makeUniqueValueInArrayReturnsVoidDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'abc'
-                ),
-                array(
+                ],
+                [
                     'abc'
-                )
-            ),
-            array(
-                array(
+                ]
+            ],
+            [
+                [
                     'abc',
                     'abc'
-                ),
-                array(
+                ],
+                [
                     'abc',
                     'abc_01'
-                )
-            ),
-            array(
-                array(
+                ]
+            ],
+            [
+                [
                     'abc',
                     'abc_01',
                     'abc_02',
-                ),
-                array(
+                ],
+                [
                     'abc',
                     'abc_01',
                     'abc_02',
-                )
-            ),
-            array(
-                array(
+                ]
+            ],
+            [
+                [
                     'abc_01',
                     'abc_01',
                     'xxx',
-                ),
-                array(
+                ],
+                [
                     'abc_01',
                     'abc_02',
                     'xxx',
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**

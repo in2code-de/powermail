@@ -54,7 +54,7 @@ class SendMailServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Domain\Service\SendMailService',
-            array('addSender')
+            ['addSender']
         );
     }
 
@@ -73,38 +73,38 @@ class SendMailServiceTest extends UnitTestCase
      */
     public function addCcReturnMailMessageDataProvider()
     {
-        return array(
-            '1 cc' => array(
-                array(
+        return [
+            '1 cc' => [
+                [
                     'cc' => 'TEXT',
-                    'cc.' => array(
+                    'cc.' => [
                         'value' => 'rec@domain.org'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'rec@domain.org' => ''
-                )
-            ),
-            '3 cc' => array(
-                array(
+                ]
+            ],
+            '3 cc' => [
+                [
                     'cc' => 'TEXT',
-                    'cc.' => array(
+                    'cc.' => [
                         'value' => 'rec1@domain.org,rec2@domain.org,rec3@domain.org,'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'rec1@domain.org' => '',
                     'rec2@domain.org' => '',
                     'rec3@domain.org' => ''
-                )
-            ),
-            '0 cc' => array(
-                array(
+                ]
+            ],
+            '0 cc' => [
+                [
                     'cc' => 'TEXT'
-                ),
+                ],
                 null
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -133,38 +133,38 @@ class SendMailServiceTest extends UnitTestCase
      */
     public function addBccReturnMailMessageDataProvider()
     {
-        return array(
-            '1 bcc' => array(
-                array(
+        return [
+            '1 bcc' => [
+                [
                     'bcc' => 'TEXT',
-                    'bcc.' => array(
+                    'bcc.' => [
                         'value' => 'rec@domain.org'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'rec@domain.org' => ''
-                )
-            ),
-            '3 bcc' => array(
-                array(
+                ]
+            ],
+            '3 bcc' => [
+                [
                     'bcc' => 'TEXT',
-                    'bcc.' => array(
+                    'bcc.' => [
                         'value' => 'rec1@domain.org,rec2@domain.org,rec3@domain.org,'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'rec1@domain.org' => '',
                     'rec2@domain.org' => '',
                     'rec3@domain.org' => ''
-                )
-            ),
-            '0 bcc' => array(
-                array(
+                ]
+            ],
+            '0 bcc' => [
+                [
                     'bcc' => 'TEXT'
-                ),
+                ],
                 null
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -193,23 +193,23 @@ class SendMailServiceTest extends UnitTestCase
      */
     public function addReturnPathReturnMailMessageDataProvider()
     {
-        return array(
-            'returnpath set' => array(
-                array(
+        return [
+            'returnpath set' => [
+                [
                     'returnPath' => 'TEXT',
-                    'returnPath.' => array(
+                    'returnPath.' => [
                         'value' => 'rec@domain.org'
-                    ),
-                ),
+                    ],
+                ],
                 'rec@domain.org'
-            ),
-            'returnpath empty' => array(
-                array(
+            ],
+            'returnpath empty' => [
+                [
                     'returnPath' => 'TEXT'
-                ),
+                ],
                 null
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -238,30 +238,30 @@ class SendMailServiceTest extends UnitTestCase
      */
     public function addReplyAddressesReturnMailMessageDataProvider()
     {
-        return array(
-            'reply set' => array(
-                array(
+        return [
+            'reply set' => [
+                [
                     'replyToEmail' => 'TEXT',
-                    'replyToEmail.' => array(
+                    'replyToEmail.' => [
                         'value' => 'rec@domain.org'
-                    ),
+                    ],
                     'replyToName' => 'TEXT',
-                    'replyToName.' => array(
+                    'replyToName.' => [
                         'value' => 'receiver'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'rec@domain.org' => 'receiver'
-                )
-            ),
-            'reply empty' => array(
-                array(
+                ]
+            ],
+            'reply empty' => [
+                [
                     'replyToEmail' => 'TEXT',
                     'replyToName' => 'TEXT'
-                ),
+                ],
                 null
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -290,20 +290,20 @@ class SendMailServiceTest extends UnitTestCase
      */
     public function addPriorityReturnMailMessageDataProvider()
     {
-        return array(
-            'priority set' => array(
-                array(
+        return [
+            'priority set' => [
+                [
                     'priority' => '2'
-                ),
+                ],
                 2
-            ),
-            'reply empty' => array(
-                array(
+            ],
+            'reply empty' => [
+                [
                     'priority' => null
-                ),
+                ],
                 3
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -322,11 +322,11 @@ class SendMailServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set('type', 'receiver');
         $this->generalValidatorMock->_set(
             'settings',
-            array(
-                'receiver' => array(
+            [
+                'receiver' => [
                     'overwrite' => $overwriteConfig
-                )
-            )
+                ]
+            ]
         );
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addPriority', $message);
@@ -340,47 +340,47 @@ class SendMailServiceTest extends UnitTestCase
      */
     public function addSenderHeaderReturnMailMessageDataProvider()
     {
-        return array(
-            'null 1' => array(
-                array(),
+        return [
+            'null 1' => [
+                [],
                 null
-            ),
-            'null 2' => array(
-                array(
+            ],
+            'null 2' => [
+                [
                     'email' => 'TEXT',
-                    'email.' => array(
+                    'email.' => [
                         'value' => 'test@test'
-                    )
-                ),
+                    ]
+                ],
                 null
-            ),
-            'email, no name' => array(
-                array(
+            ],
+            'email, no name' => [
+                [
                     'email' => 'TEXT',
-                    'email.' => array(
+                    'email.' => [
                         'value' => 'test@test.org'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'test@test.org' => ''
-                )
-            ),
-            'email and name' => array(
-                array(
+                ]
+            ],
+            'email and name' => [
+                [
                     'email' => 'TEXT',
-                    'email.' => array(
+                    'email.' => [
                         'value' => 'test@test.org'
-                    ),
+                    ],
                     'name' => 'TEXT',
-                    'name.' => array(
+                    'name.' => [
                         'value' => 'name'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'test@test.org' => 'name'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -399,11 +399,11 @@ class SendMailServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set('type', 'receiver');
         $this->generalValidatorMock->_set(
             'configuration',
-            array(
-                'receiver.' => array(
+            [
+                'receiver.' => [
                     'senderHeader.' => $config
-                )
-            )
+                ]
+            ]
         );
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addSenderHeader', $message);
@@ -417,40 +417,40 @@ class SendMailServiceTest extends UnitTestCase
      */
     public function makePlainReturnStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'a<br>b',
                 "a\nb"
-            ),
-            array(
+            ],
+            [
                 '<p>test</p><p>test</p>',
                 "test\ntest"
-            ),
-            array(
+            ],
+            [
                 "<table>\n\t\n<tr><th>a</th><th>b</th></tr><td>\nc</td><td>d</td></table>",
                 "a b \nc d"
-            ),
-            array(
+            ],
+            [
                 '<h1>t</h1><p>p</p><br>x',
                 "t\np\n\nx"
-            ),
-            array(
+            ],
+            [
                 'a<ul><li>b</li><li>c</li></ul>d',
                 "a\nb\nc\nd"
-            ),
-            array(
+            ],
+            [
                 '<head><title>x</title></head>a<ul><li>b</li><li>c</li></ul>d',
                 "a\nb\nc\nd"
-            ),
-            array(
+            ],
+            [
                 'Please click <a href="http://www.google.com">this</a> link',
                 'Please click this [http://www.google.com] link'
-            ),
-            array(
+            ],
+            [
                 'Please click <a class="a b href" href="http://www.google.com" id="text" target="_blank">this</a> link',
                 'Please click this [http://www.google.com] link'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -478,9 +478,9 @@ class SendMailServiceTest extends UnitTestCase
         $configurationManager = new ConfigurationManager();
         $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = array(
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
             'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject'
-        );
+        ];
         $GLOBALS['TT'] = new TimeTracker();
         $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
     }

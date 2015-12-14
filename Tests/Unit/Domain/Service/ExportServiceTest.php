@@ -49,7 +49,7 @@ class ExportServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Domain\Service\ExportService',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -68,24 +68,24 @@ class ExportServiceTest extends UnitTestCase
      */
     public function getRelativeTemplatePathAndFileNameReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'csv',
                 'Module/ExportCsv.html'
-            ),
-            array(
+            ],
+            [
                 'xls',
                 'Module/ExportXls.html'
-            ),
-            array(
+            ],
+            [
                 'bullshit',
                 'Module/ExportXls.html'
-            ),
-            array(
+            ],
+            [
                 null,
                 'Module/ExportXls.html'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -110,28 +110,28 @@ class ExportServiceTest extends UnitTestCase
      */
     public function getFormatReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'csv',
                 'csv'
-            ),
-            array(
+            ],
+            [
                 'xls',
                 'xls'
-            ),
-            array(
+            ],
+            [
                 null,
                 'xls'
-            ),
-            array(
+            ],
+            [
                 'XLS',
                 'xls'
-            ),
-            array(
+            ],
+            [
                 'CSV',
                 'xls'
-            ),
-        );
+            ],
+        ];
     }
 
     /**

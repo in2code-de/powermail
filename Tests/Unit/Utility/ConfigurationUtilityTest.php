@@ -45,149 +45,149 @@ class ConfigurationUtilityTest extends UnitTestCase
      */
     public function mergeTypoScript2FlexFormReturnsVoidDataProvider()
     {
-        return array(
-            'empty' => array(
-                array(),
+        return [
+            'empty' => [
+                [],
                 '',
-                array()
-            ),
-            'simple' => array(
-                array(
-                    'setup' => array(
+                []
+            ],
+            'simple' => [
+                [
+                    'setup' => [
                         'abc' => 'def'
-                    ),
-                    'flexform' => array(
+                    ],
+                    'flexform' => [
                         'ghi' => 'jkl'
-                    )
-                ),
+                    ]
+                ],
                 'setup',
-                array(
+                [
                     'abc' => 'def',
                     'ghi' => 'jkl',
-                )
-            ),
-            'override settings with flexform - level 1' => array(
-                array(
-                    'setup' => array(
-                        'main' => array(
+                ]
+            ],
+            'override settings with flexform - level 1' => [
+                [
+                    'setup' => [
+                        'main' => [
                             'pid' => '124'
-                        )
-                    ),
-                    'flexform' => array(
-                        'main' => array(
+                        ]
+                    ],
+                    'flexform' => [
+                        'main' => [
                             'pid' => '123'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'setup',
-                array(
-                    'main' => array(
+                [
+                    'main' => [
                         'pid' => '123'
-                    )
-                )
-            ),
-            'override flexform only if not empty' => array(
-                array(
-                    'setup' => array(
+                    ]
+                ]
+            ],
+            'override flexform only if not empty' => [
+                [
+                    'setup' => [
                         'prop1' => 'val1',
                         'prop2' => 'val2'
-                    ),
-                    'flexform' => array(
+                    ],
+                    'flexform' => [
                         'prop1' => '',
                         'prop2' => 'val3'
-                    )
-                ),
+                    ]
+                ],
                 'setup',
-                array(
+                [
                     'prop1' => 'val1',
                     'prop2' => 'val3'
-                )
-            ),
-            'override flexform only if not empty - level 2' => array(
-                array(
-                    'setup' => array(
-                        'prop1' => array(
+                ]
+            ],
+            'override flexform only if not empty - level 2' => [
+                [
+                    'setup' => [
+                        'prop1' => [
                             'prop11' => 'val1',
                             'prop12' => 'val2'
-                        ),
-                    ),
-                    'flexform' => array(
-                        'prop1' => array(
+                        ],
+                    ],
+                    'flexform' => [
+                        'prop1' => [
                             'prop11' => '',
                             'prop12' => 'val3'
-                        ),
-                    )
-                ),
+                        ],
+                    ]
+                ],
                 'setup',
-                array(
-                    'prop1' => array(
+                [
+                    'prop1' => [
                         'prop11' => 'val1',
                         'prop12' => 'val3'
-                    ),
-                )
-            ),
-            'complex' => array(
-                array(
-                    'setup' => array(
-                        'receiver' => array(
+                    ],
+                ]
+            ],
+            'complex' => [
+                [
+                    'setup' => [
+                        'receiver' => [
                             'mailformat' => 'html',
-                            'default' => array(
+                            'default' => [
                                 'senderName' => 'TEXT',
-                                'senderName.' => array(
+                                'senderName.' => [
                                     'value' => 'abc'
-                                ),
-                            )
-                        ),
-                        'captcha' => array(
-                            'default' => array(
+                                ],
+                            ]
+                        ],
+                        'captcha' => [
+                            'default' => [
                                 'image' => 'abc.jpg'
-                            )
-                        )
-                    ),
-                    'flexform' => array(
-                        'receiver' => array(
+                            ]
+                        ]
+                    ],
+                    'flexform' => [
+                        'receiver' => [
                             'mailformat' => ''
-                        ),
-                        'captcha' => array(
-                            'default' => array(
+                        ],
+                        'captcha' => [
+                            'default' => [
                                 'image' => 'def.jpg'
-                            )
-                        )
-                    )
-                ),
+                            ]
+                        ]
+                    ]
+                ],
                 'setup',
-                array(
-                    'receiver' => array(
+                [
+                    'receiver' => [
                         'mailformat' => 'html',
-                        'default' => array(
+                        'default' => [
                             'senderName' => 'TEXT',
-                            'senderName.' => array(
+                            'senderName.' => [
                                 'value' => 'abc'
-                            ),
-                        )
-                    ),
-                    'captcha' => array(
-                        'default' => array(
+                            ],
+                        ]
+                    ],
+                    'captcha' => [
+                        'default' => [
                             'image' => 'def.jpg'
-                        )
-                    )
-                )
-            ),
-            'Pi2' => array(
-                array(
-                    'setup' => array(
+                        ]
+                    ]
+                ]
+            ],
+            'Pi2' => [
+                [
+                    'setup' => [
                         'prop' => 'props'
-                    ),
-                    'Pi2' => array(
+                    ],
+                    'Pi2' => [
                         'prop' => 'propp'
-                    )
-                ),
+                    ]
+                ],
                 'Pi2',
-                array(
+                [
                     'prop' => 'propp'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**

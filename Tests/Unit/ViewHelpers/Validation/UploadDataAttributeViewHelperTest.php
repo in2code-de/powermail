@@ -52,7 +52,7 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -71,86 +71,86 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArrayDataProvider()
     {
-        return array(
-            array(
-                array(),
-                array(),
-                array(),
-                array()
-            ),
-            array(
-                array(),
-                array(
+        return [
+            [
+                [],
+                [],
+                [],
+                []
+            ],
+            [
+                [],
+                [
                     'marker' => 'firstname'
-                ),
-                array(
+                ],
+                [
                     'data-additional' => 'abc'
-                ),
-                array(
+                ],
+                [
                     'data-additional' => 'abc'
-                )
-            ),
-            array(
-                array(
-                    'misc' => array(
-                        'file' => array(
+                ]
+            ],
+            [
+                [
+                    'misc' => [
+                        'file' => [
                             'extension' => 'jpg,gif'
-                        )
-                    )
-                ),
-                array(
+                        ]
+                    ]
+                ],
+                [
                     'marker' => 'firstname'
-                ),
-                array(
+                ],
+                [
                     'data-additional' => 'true'
-                ),
-                array(
+                ],
+                [
                     'data-additional' => 'true',
                     'accept' => '.jpg,.gif'
-                )
-            ),
-            array(
-                array(
-                    'misc' => array(
-                        'file' => array(
+                ]
+            ],
+            [
+                [
+                    'misc' => [
+                        'file' => [
                             'extension' => 'jpg,gif',
                             'size' => '123456'
-                        )
-                    )
-                ),
-                array(
+                        ]
+                    ]
+                ],
+                [
                     'marker' => 'firstname',
                     'multiselect' => true
-                ),
-                array(
+                ],
+                [
                     'data-additional' => 'true'
-                ),
-                array(
+                ],
+                [
                     'data-additional' => 'true',
                     'multiple' => 'multiple',
                     'accept' => '.jpg,.gif'
-                )
-            ),
-            array(
-                array(
-                    'misc' => array(
-                        'file' => array(
+                ]
+            ],
+            [
+                [
+                    'misc' => [
+                        'file' => [
                             'extension' => 'jpg,gif',
                             'size' => '123456'
-                        )
-                    ),
-                    'validation' => array(
+                        ]
+                    ],
+                    'validation' => [
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'marker' => 'firstname',
                     'multiselect' => true
-                ),
-                array(
+                ],
+                [
                     'data-additional' => 'true'
-                ),
-                array(
+                ],
+                [
                     'data-additional' => 'true',
                     'multiple' => 'multiple',
                     'accept' => '.jpg,.gif',
@@ -158,9 +158,9 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
                     'data-parsley-powermailfilesize-message' => 'validationerror_upload_size',
                     'data-parsley-powermailfileextensions' => 'firstname',
                     'data-parsley-powermailfileextensions-message' => 'validationerror_upload_extension'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**
@@ -192,24 +192,24 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
      */
     public function getDottedListOfExtensionsReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'jpg,gif,jpeg',
                 '.jpg,.gif,.jpeg'
-            ),
-            array(
+            ],
+            [
                 '',
                 ''
-            ),
-            array(
+            ],
+            [
                 'php',
                 '.php'
-            ),
-            array(
+            ],
+            [
                 'jpg,gif,jpeg,doc,docx,xls,xlsx',
                 '.jpg,.gif,.jpeg,.doc,.docx,.xls,.xlsx'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -226,5 +226,4 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
         $result = $this->abstractValidationViewHelperMock->_callRef('getDottedListOfExtensions', $string);
         $this->assertSame($expectedResult, $result);
     }
-
 }

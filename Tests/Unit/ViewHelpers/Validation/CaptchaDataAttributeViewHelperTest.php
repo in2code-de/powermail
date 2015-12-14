@@ -52,7 +52,7 @@ class CaptchaDataAttributeViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Validation\CaptchaDataAttributeViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -71,84 +71,84 @@ class CaptchaDataAttributeViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArrayDataProvider()
     {
-        return array(
-            'captchaWithNativevalidationAndClientvalidation' => array(
-                array(
-                    'validation' => array(
+        return [
+            'captchaWithNativevalidationAndClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'captcha'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'required' => 'required',
                     'data-parsley-errors-container' => '.powermail_field_error_container_uid',
                     'data-parsley-class-handler' => '.powermail_fieldwrap_ > div',
                     'data-parsley-required-message' => 'validationerror_mandatory'
-                )
-            ),
-            'captchaWithNativevalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'captchaWithNativevalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '0'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'captcha'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'required' => 'required'
-                )
-            ),
-            'captchaWithClientvalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'captchaWithClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'captcha'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'data-parsley-required' => 'true',
                     'data-parsley-errors-container' => '.powermail_field_error_container_uid',
                     'data-parsley-class-handler' => '.powermail_fieldwrap_ > div',
                     'data-parsley-required-message' => 'validationerror_mandatory'
-                )
-            ),
-            'captchaWithoutValidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'captchaWithoutValidation' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '0'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'captcha'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array()
-            ),
-        );
+                ],
+                []
+            ],
+        ];
     }
 
     /**

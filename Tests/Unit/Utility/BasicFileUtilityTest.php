@@ -54,7 +54,7 @@ class BasicFileUtiltyTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Utility\BasicFileUtility',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -79,43 +79,43 @@ class BasicFileUtiltyTest extends UnitTestCase
      */
     public function cleanFileNameReturnBoolDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'test.jpg',
                 '_',
                 'test.jpg'
-            ),
-            array(
+            ],
+            [
                 'image.png.pdf',
                 '_',
                 'image.png.pdf'
-            ),
-            array(
+            ],
+            [
                 'image-01.pdf',
                 '_',
                 'image-01.pdf'
-            ),
-            array(
+            ],
+            [
                 'image_01.pdf',
                 '_',
                 'image_01_.pdf'
-            ),
-            array(
+            ],
+            [
                 'picture.PNG',
                 '_',
                 'picture.png'
-            ),
-            array(
+            ],
+            [
                 'super Fälnäm+.abc.jpg',
                 '_',
                 'super_f__ln__m_.abc.jpg'
-            ),
-            array(
+            ],
+            [
                 'ßUPER HIT.BMP',
                 '-',
                 '--uper-hit.bmp'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -141,40 +141,40 @@ class BasicFileUtiltyTest extends UnitTestCase
      */
     public function removeAppendingNumbersInStringReturnStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'test_01',
                 'test'
-            ),
-            array(
+            ],
+            [
                 'test_01_01',
                 'test_01'
-            ),
-            array(
+            ],
+            [
                 'test',
                 'test'
-            ),
-            array(
+            ],
+            [
                 'test_',
                 'test_'
-            ),
-            array(
+            ],
+            [
                 '01_82',
                 '01'
-            ),
-            array(
+            ],
+            [
                 'test_02_03_04',
                 'test_02_03'
-            ),
-            array(
+            ],
+            [
                 'test_123456',
                 'test'
-            ),
-            array(
+            ],
+            [
                 'test_651_98746854',
                 'test_651'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -199,32 +199,32 @@ class BasicFileUtiltyTest extends UnitTestCase
      */
     public function dontAllowAppendingNumbersInFileNameReturnStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'test.jpg',
                 'test.jpg'
-            ),
-            array(
+            ],
+            [
                 'test_01.jpg',
                 'test_01_.jpg'
-            ),
-            array(
+            ],
+            [
                 'test_685468.jpg',
                 'test_685468_.jpg'
-            ),
-            array(
+            ],
+            [
                 '123.jpg',
                 '123.jpg'
-            ),
-            array(
+            ],
+            [
                 'abc_.jpg',
                 'abc_.jpg'
-            ),
-            array(
+            ],
+            [
                 'abc123.jpg',
                 'abc123.jpg'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -249,63 +249,63 @@ class BasicFileUtiltyTest extends UnitTestCase
      */
     public function checkExtensionReturnBoolDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'test.jpg',
                 $this->defaultFileExtensions,
                 true
-            ),
-            array(
+            ],
+            [
                 'test_02.txt',
                 $this->defaultFileExtensions,
                 true
-            ),
-            array(
+            ],
+            [
                 'test.php.jpg',
                 $this->defaultFileExtensions,
                 false
-            ),
-            array(
+            ],
+            [
                 'test.jpg.php',
                 $this->defaultFileExtensions,
                 false
-            ),
-            array(
+            ],
+            [
                 'test.jpg',
                 'jpeg,png,wav',
                 false
-            ),
-            array(
+            ],
+            [
                 '../test.jpg',
                 $this->defaultFileExtensions,
                 false
-            ),
-            array(
+            ],
+            [
                 'folder/../test.jpg',
                 $this->defaultFileExtensions,
                 false
-            ),
-            array(
+            ],
+            [
                 'test.jpg',
                 '',
                 false
-            ),
-            array(
+            ],
+            [
                 '.htaccess',
                 '',
                 false
-            ),
-            array(
+            ],
+            [
                 '.htaccess',
                 $this->defaultFileExtensions,
                 false
-            ),
-            array(
+            ],
+            [
                 '.htaccess',
                 $this->defaultFileExtensions,
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -358,28 +358,28 @@ class BasicFileUtiltyTest extends UnitTestCase
      */
     public function addTrailingSlashReturnStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'folder1/folder2',
                 'folder1/folder2/'
-            ),
-            array(
+            ],
+            [
                 'folder1/folder2/',
                 'folder1/folder2/'
-            ),
-            array(
+            ],
+            [
                 'folder1',
                 'folder1/'
-            ),
-            array(
+            ],
+            [
                 'folder1///',
                 'folder1/'
-            ),
-            array(
+            ],
+            [
                 '/fo/ld/er1//',
                 '/fo/ld/er1/'
-            ),
-        );
+            ],
+        ];
     }
 
     /**

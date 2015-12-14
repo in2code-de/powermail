@@ -52,7 +52,7 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Validation\ValidationDataAttributeViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -71,323 +71,323 @@ class ValidationDataAttributeViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArrayDataProvider()
     {
-        return array(
-            'textWithNativevalidationAndClientvalidation' => array(
-                array(
-                    'validation' => array(
+        return [
+            'textWithNativevalidationAndClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'mandatory' => '1'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0,
                     'total' => 1
-                ),
-                array(
+                ],
+                [
                     'required' => 'required',
                     'data-parsley-required-message' => 'validationerror_mandatory',
                     'data-parsley-trigger' => 'change'
-                )
-            ),
-            'textWithClientvalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'textWithClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'mandatory' => '1'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0,
                     'total' => 1
-                ),
-                array(
+                ],
+                [
                     'data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'validationerror_mandatory',
                     'data-parsley-trigger' => 'change'
-                )
-            ),
-            'radioWithNativevalidationAndClientvalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'radioWithNativevalidationAndClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'radio',
                     'mandatory' => '1'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0,
                     'total' => 1
-                ),
-                array(
+                ],
+                [
                     'required' => 'required',
                     'data-parsley-required-message' => 'validationerror_mandatory_multi',
                     'data-parsley-errors-container' => '.powermail_field_error_container_uid',
                     'data-parsley-class-handler' => '.powermail_fieldwrap_ div:first'
-                )
-            ),
-            'radioWithClientvalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'radioWithClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'radio',
                     'mandatory' => '1'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0,
                     'total' => 1
-                ),
-                array(
+                ],
+                [
                     'data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'validationerror_mandatory_multi',
                     'data-parsley-errors-container' => '.powermail_field_error_container_uid',
                     'data-parsley-class-handler' => '.powermail_fieldwrap_ div:first'
-                )
-            ),
-            'checkWithNativevalidationAndClientvalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'checkWithNativevalidationAndClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'check',
                     'mandatory' => '1'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0,
                     'total' => 1
-                ),
-                array(
+                ],
+                [
                     'required' => 'required',
                     'data-parsley-required-message' => 'validationerror_mandatory_multi',
                     'data-parsley-errors-container' => '.powermail_field_error_container_uid',
                     'data-parsley-class-handler' => '.powermail_fieldwrap_ div:first'
-                )
-            ),
-            'checkWithNativevalidationAndClientvalidationCheck2' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'checkWithNativevalidationAndClientvalidationCheck2' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'check',
                     'mandatory' => '1',
                     'marker' => 'checkbox'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 1,
                     'total' => 2
-                ),
-                array(
+                ],
+                [
                     'data-parsley-multiple' => 'checkbox'
-                )
-            ),
-            'checkWithClientvalidationCheck2' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'checkWithClientvalidationCheck2' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'check',
                     'mandatory' => '1',
                     'marker' => 'checkbox'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 1,
                     'total' => 2
-                ),
-                array(
+                ],
+                [
                     'data-parsley-multiple' => 'checkbox'
-                )
-            ),
-            'textWithNativevalidationAndClientvalidationEmailAndAdditionalAttributes' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'textWithNativevalidationAndClientvalidationEmailAndAdditionalAttributes' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'marker' => 'text',
                     'validation' => 1
-                ),
-                array(
+                ],
+                [
                     'data-test' => 'in2code.de'
-                ),
-                array(
+                ],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'data-test' => 'in2code.de',
                     'data-parsley-error-message' => 'validationerror_validation.1'
-                )
-            ),
-            'textWithClientvalidationEmailAndAdditionalAttributes' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'textWithClientvalidationEmailAndAdditionalAttributes' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'marker' => 'text',
                     'validation' => 1
-                ),
-                array(
+                ],
+                [
                     'data-email' => 'service@in2code.de'
-                ),
-                array(
+                ],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'data-email' => 'service@in2code.de',
                     'data-parsley-type' => 'email',
                     'data-parsley-error-message' => 'validationerror_validation.1'
-                )
-            ),
-            'textWithNativevalidationAndClientvalidationRange' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'textWithNativevalidationAndClientvalidationRange' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'marker' => 'text',
                     'validation' => 8,
                     'validationConfiguration' => '1,10'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'min' => 1,
                     'max' => 10,
                     'data-parsley-error-message' => 'validationerror_validation.8'
-                )
-            ),
-            'textWithClientvalidationRange' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'textWithClientvalidationRange' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'marker' => 'text',
                     'validation' => 8,
                     'validationConfiguration' => '1,10'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'data-parsley-min' => 1,
                     'data-parsley-max' => 10,
                     'data-parsley-error-message' => 'validationerror_validation.8'
-                )
-            ),
-            'textWithClientvalidationRangeNoMin' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'textWithClientvalidationRangeNoMin' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'marker' => 'text',
                     'validation' => 8,
                     'validationConfiguration' => '99'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'data-parsley-min' => 1,
                     'data-parsley-max' => 99,
                     'data-parsley-error-message' => 'validationerror_validation.8'
-                )
-            ),
-            'textWithNativevalidationAndClientvalidationPattern' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'textWithNativevalidationAndClientvalidationPattern' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'marker' => 'text',
                     'validation' => 10,
                     'validationConfiguration' => 'abcdefg'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'pattern' => 'abcdefg',
                     'data-parsley-error-message' => 'validationerror_validation.10'
-                )
-            ),
-            'textWithClientvalidationPattern' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'textWithClientvalidationPattern' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'type' => 'input',
                     'marker' => 'text',
                     'validation' => 10,
                     'validationConfiguration' => 'abcdefg'
-                ),
-                array(),
-                array(
+                ],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'data-parsley-pattern' => 'abcdefg',
                     'data-parsley-error-message' => 'validationerror_validation.10'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**

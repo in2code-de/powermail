@@ -51,7 +51,7 @@ class FormControllerTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Controller\FormController',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -70,54 +70,54 @@ class FormControllerTest extends UnitTestCase
      */
     public function forwardIfFormParamsDoNotMatchReturnsVoidDataProvider()
     {
-        return array(
-            'not allowed form given, forward' => array(
-                array(
-                    'mail' => array(
+        return [
+            'not allowed form given, forward' => [
+                [
+                    'mail' => [
                         'form' => '1'
-                    )
-                ),
-                array(
-                    'main' => array(
+                    ]
+                ],
+                [
+                    'main' => [
                         'form' => '2,3'
-                    )
-                ),
+                    ]
+                ],
                 true
-            ),
-            'allowed form given, do not forward' => array(
-                array(
-                    'mail' => array(
+            ],
+            'allowed form given, do not forward' => [
+                [
+                    'mail' => [
                         'form' => '1'
-                    )
-                ),
-                array(
-                    'main' => array(
+                    ]
+                ],
+                [
+                    'main' => [
                         'form' => '1,2,3'
-                    )
-                ),
+                    ]
+                ],
                 false
-            ),
-            'mail object given, do not forward' => array(
-                array(
+            ],
+            'mail object given, do not forward' => [
+                [
                     'mail' => new Mail()
-                ),
-                array(
-                    'main' => array(
+                ],
+                [
+                    'main' => [
                         'form' => '2,3'
-                    )
-                ),
+                    ]
+                ],
                 false
-            ),
-            'nothing given, do not forward' => array(
-                array(),
-                array(
-                    'main' => array(
+            ],
+            'nothing given, do not forward' => [
+                [],
+                [
+                    'main' => [
                         'form' => '2,3'
-                    )
-                ),
+                    ]
+                ],
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -152,56 +152,56 @@ class FormControllerTest extends UnitTestCase
      */
     public function isMailPersistActiveReturnBoolDataProvider()
     {
-        return array(
-            'store 0, optin 0, hash NULL' => array(
+        return [
+            'store 0, optin 0, hash NULL' => [
                 '0',
                 '0',
                 null,
                 false
-            ),
-            'store 0, optin 0, hash NOTNULL' => array(
+            ],
+            'store 0, optin 0, hash NOTNULL' => [
                 '0',
                 '0',
                 'abc',
                 false
-            ),
-            'store 0, optin 1, hash NULL' => array(
+            ],
+            'store 0, optin 1, hash NULL' => [
                 '0',
-                '1',
-                null,
-                true
-            ),
-            'store 0, optin 1, hash NOTNULL' => array(
-                '0',
-                '1',
-                'abc',
-                false
-            ),
-            'store 1, optin 0, hash NULL' => array(
-                '1',
-                '0',
-                null,
-                true
-            ),
-            'store 1, optin 0, hash NOTNULL' => array(
-                '1',
-                '0',
-                'abc',
-                false
-            ),
-            'store 1, optin 1, hash NULL' => array(
-                '1',
                 '1',
                 null,
                 true
-            ),
-            'store 1, optin 1, hash NOTNULL' => array(
+            ],
+            'store 0, optin 1, hash NOTNULL' => [
+                '0',
+                '1',
+                'abc',
+                false
+            ],
+            'store 1, optin 0, hash NULL' => [
+                '1',
+                '0',
+                null,
+                true
+            ],
+            'store 1, optin 0, hash NOTNULL' => [
+                '1',
+                '0',
+                'abc',
+                false
+            ],
+            'store 1, optin 1, hash NULL' => [
+                '1',
+                '1',
+                null,
+                true
+            ],
+            'store 1, optin 1, hash NOTNULL' => [
                 '1',
                 '1',
                 'abc',
                 false
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -217,14 +217,14 @@ class FormControllerTest extends UnitTestCase
      */
     public function isMailPersistActiveReturnBool($store, $optin, $hash, $expectedResult)
     {
-        $settings = array(
-            'db' => array(
+        $settings = [
+            'db' => [
                 'enable' => $store
-            ),
-            'main' => array(
+            ],
+            'main' => [
                 'optin' => $optin
-            )
-        );
+            ]
+        ];
         $this->generalValidatorMock->_set('settings', $settings);
         $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('isMailPersistActive', $hash));
     }

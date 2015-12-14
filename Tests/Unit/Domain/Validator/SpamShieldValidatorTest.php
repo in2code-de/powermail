@@ -52,7 +52,7 @@ class SpamShieldValidatorTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Domain\Validator\SpamShieldValidator',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -71,40 +71,40 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function calculateMailSpamFactorReturnsVoidDataProvider()
     {
-        return array(
-            'indication of 0' => array(
+        return [
+            'indication of 0' => [
                 0,
                 0.000
-            ),
-            'indication of 1' => array(
+            ],
+            'indication of 1' => [
                 1,
                 0.000
-            ),
-            'indication of 2' => array(
+            ],
+            'indication of 2' => [
                 2,
                 0.5
-            ),
-            'indication of 5' => array(
+            ],
+            'indication of 5' => [
                 5,
                 0.8
-            ),
-            'indication of 8' => array(
+            ],
+            'indication of 8' => [
                 8,
                 0.8750
-            ),
-            'indication of 12' => array(
+            ],
+            'indication of 12' => [
                 12,
                 0.9167
-            ),
-            'indication of 50' => array(
+            ],
+            'indication of 50' => [
                 50,
                 0.9800
-            ),
-            'indication of 50050' => array(
+            ],
+            'indication of 50050' => [
                 50050,
                 1.000
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -133,23 +133,23 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function honeypodCheckReturnsVoidDataProvider()
     {
-        return array(
-            'indication of 1, pot filled' => array(
+        return [
+            'indication of 1, pot filled' => [
                 1,
                 'abc',
                 1
-            ),
-            'indication of 3, pot filled' => array(
+            ],
+            'indication of 3, pot filled' => [
                 3,
                 '@test',
                 3
-            ),
-            'indication of 2, pot empty' => array(
+            ],
+            'indication of 2, pot empty' => [
                 2,
                 '',
                 0
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -164,7 +164,7 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function honeypodCheckReturnsVoid($spamIndicator, $pot, $expectedOverallSpamIndicator)
     {
-        $this->generalValidatorMock->_set('piVars', array('field' => array('__hp' => $pot)));
+        $this->generalValidatorMock->_set('piVars', ['field' => ['__hp' => $pot]]);
         $this->generalValidatorMock->_callRef('honeypodCheck', $spamIndicator);
         $this->assertSame($expectedOverallSpamIndicator, $this->generalValidatorMock->_callRef('getSpamIndicator'));
     }
@@ -176,32 +176,32 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function linkCheckReturnsVoidDataProvider()
     {
-        return array(
-            'indication of 1, links allowed 1, 2 links given' => array(
+        return [
+            'indication of 1, links allowed 1, 2 links given' => [
                 1,
                 1,
                 'xx <a href="http://www.test.de">http://www.test.de</a> xx',
                 1
-            ),
-            'indication of 7, links allowed 3, 2 links given' => array(
+            ],
+            'indication of 7, links allowed 3, 2 links given' => [
                 7,
                 3,
                 'xx <a href="ftp://www.test.de">https://www.test.de</a> xx',
                 0
-            ),
-            'indication of 7, links allowed 0, 1 link given' => array(
+            ],
+            'indication of 7, links allowed 0, 1 link given' => [
                 7,
                 0,
                 'xx <a href="#">https://www.test.de</a> xx',
                 7
-            ),
-            'indication of 2, links allowed 2, 3 link given' => array(
+            ],
+            'indication of 2, links allowed 2, 3 link given' => [
                 2,
                 2,
                 'xx [url=http://www.xyz.org]http://www.xyz.org[/url] http://www.xyz.org xx',
                 2
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -234,44 +234,44 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function nameCheckReturnsVoidDataProvider()
     {
-        return array(
-            'indication of 0, same first- and lastname' => array(
+        return [
+            'indication of 0, same first- and lastname' => [
                 0,
-                array(
+                [
                     'firstname' => 'abcdef',
                     'lastname' => 'abcdef',
                     'xyz' => '123',
-                ),
+                ],
                 0
-            ),
-            'indication of 3, same first- and lastname' => array(
+            ],
+            'indication of 3, same first- and lastname' => [
                 3,
-                array(
+                [
                     'firstname' => 'abcdef',
                     'lastname' => 'abcdef',
                     'xyz' => '123',
-                ),
+                ],
                 3
-            ),
-            'indication of 7, different values' => array(
+            ],
+            'indication of 7, different values' => [
                 7,
-                array(
+                [
                     'firstnamex' => 'abcdef',
                     'lastname' => 'abcdef',
                     'xyz' => '123',
-                ),
+                ],
                 0
-            ),
-            'indication of 7, same first- and lastname' => array(
+            ],
+            'indication of 7, same first- and lastname' => [
                 7,
-                array(
+                [
                     'first_name' => 'viagra',
                     'surname' => 'viagra',
                     'xyz' => '123',
-                ),
+                ],
                 7
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -308,33 +308,33 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function sessionCheckReturnsVoidDataProvider()
     {
-        return array(
-            'indication of 0, time given' => array(
+        return [
+            'indication of 0, time given' => [
                 0,
                 1234,
                 0
-            ),
-            'indication of 3, time given' => array(
+            ],
+            'indication of 3, time given' => [
                 3,
                 1234,
                 0
-            ),
-            'indication of 3, no time given' => array(
+            ],
+            'indication of 3, no time given' => [
                 3,
                 '',
                 3
-            ),
-            'indication of 4, no time given' => array(
+            ],
+            'indication of 4, no time given' => [
                 4,
                 0,
                 4
-            ),
-            'indication of 5, no time given' => array(
+            ],
+            'indication of 5, no time given' => [
                 5,
                 null,
                 5
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -360,42 +360,42 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function uniqueCheckReturnsVoidDataProvider()
     {
-        return array(
-            'indication of 0, duplicated values' => array(
+        return [
+            'indication of 0, duplicated values' => [
                 0,
-                array(
+                [
                     'abcdef',
                     'abcdef',
                     '123',
                     '123',
-                ),
+                ],
                 0
-            ),
-            'indication of 5, duplicated values' => array(
+            ],
+            'indication of 5, duplicated values' => [
                 5,
-                array(
+                [
                     'abcdef',
                     'abcdef',
                     '123',
                     '123',
-                ),
+                ],
                 5
-            ),
-            'indication of 6, duplicated values' => array(
+            ],
+            'indication of 6, duplicated values' => [
                 5,
-                array(
+                [
                     'alexander',
                     'kellner',
                     'alexander.kellner@test.org',
                     'This is an example text',
-                    array(
+                    [
                         'abc',
                         'def'
-                    )
-                ),
+                    ]
+                ],
                 0
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -429,48 +429,48 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function blacklistStringCheckReturnsVoidDataProvider()
     {
-        return array(
-            'indication of 0, blacklisted values' => array(
+        return [
+            'indication of 0, blacklisted values' => [
                 0,
-                array(
+                [
                     'abcdef',
                     'abcdef',
                     '123',
                     '123',
-                ),
+                ],
                 'abcdef,123,xyz',
                 0
-            ),
-            'indication of 3, blacklisted values' => array(
+            ],
+            'indication of 3, blacklisted values' => [
                 3,
-                array(
+                [
                     'abcdef',
                     'abcdef',
                     '123',
                     '123',
-                ),
+                ],
                 'abcdef,123,xyz',
                 3
-            ),
-            'indication of 7, blacklisted values' => array(
+            ],
+            'indication of 7, blacklisted values' => [
                 7,
-                array(
+                [
                     'buy cheap v!agra now',
                     'all is fine',
-                ),
+                ],
                 'viagra   ,  v!agra  , v1agra',
                 7
-            ),
-            'indication of 1, not blacklisted values' => array(
+            ],
+            'indication of 1, not blacklisted values' => [
                 7,
-                array(
+                [
                     'Staatsexamen',
                     'all is fine',
-                ),
+                ],
                 'sex',
                 0
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -497,13 +497,16 @@ class SpamShieldValidatorTest extends UnitTestCase
             $answer->setValue($value);
             $mail->addAnswer($answer);
         }
-        $this->generalValidatorMock->_set('settings', array(
-                'spamshield.' => array(
-                    'indicator.' => array(
+        $this->generalValidatorMock->_set(
+            'settings',
+            [
+                'spamshield.' => [
+                    'indicator.' => [
                         'blacklistStringValues' => $blacklist
-                    )
-                )
-            ));
+                    ]
+                ]
+            ]
+        );
         $this->generalValidatorMock->_callRef('blacklistStringCheck', $mail, $spamIndicator);
         $this->assertSame($expectedOverallSpamIndicator, $this->generalValidatorMock->_callRef('getSpamIndicator'));
     }
@@ -515,38 +518,38 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function blacklistIpCheckReturnsVoidDataProvider()
     {
-        return array(
-            'indication of 0, blacklisted ip' => array(
+        return [
+            'indication of 0, blacklisted ip' => [
                 0,
                 '123.123.123.123',
                 '123.123.123.123',
                 0
-            ),
-            'indication of 3, blacklisted ip' => array(
+            ],
+            'indication of 3, blacklisted ip' => [
                 3,
                 '123.123.123.123',
                 '123.123.123.123',
                 3
-            ),
-            'indication of 4, blacklisted ip' => array(
+            ],
+            'indication of 4, blacklisted ip' => [
                 4,
                 ',23.123.123.12,',
                 '23.123.123.12',
                 4
-            ),
-            'indication of 5, blacklisted ip' => array(
+            ],
+            'indication of 5, blacklisted ip' => [
                 4,
                 '192.168.0.2 , 		23.166.12.12 , 250.182.0.3',
                 '23.166.12.12',
                 4
-            ),
-            'indication of 6, no blacklisted ip' => array(
+            ],
+            'indication of 6, no blacklisted ip' => [
                 4,
                 '192.168.0.2 , 		23.166.12.12 , 250.182.0.3',
                 '23.166.12.1',
                 0
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -562,13 +565,16 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function blacklistIpCheckReturnsVoid($spamIndicator, $blacklist, $userIp, $expectedOverallSpamIndicator)
     {
-        $this->generalValidatorMock->_set('settings', array(
-                'spamshield.' => array(
-                    'indicator.' => array(
+        $this->generalValidatorMock->_set(
+            'settings',
+            [
+                'spamshield.' => [
+                    'indicator.' => [
                         'blacklistIpValues' => $blacklist
-                    )
-                )
-            ));
+                    ]
+                ]
+            ]
+        );
         $this->generalValidatorMock->_callRef('blacklistIpCheck', $spamIndicator, $userIp);
         $this->assertSame($expectedOverallSpamIndicator, $this->generalValidatorMock->_callRef('getSpamIndicator'));
     }
@@ -580,24 +586,24 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function formatSpamFactorReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 0.23,
                 '23%',
-            ),
-            array(
+            ],
+            [
                 0.0,
                 '0%',
-            ),
-            array(
+            ],
+            [
                 1.0,
                 '100%',
-            ),
-            array(
+            ],
+            [
                 0.999999999,
                 '100%',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -621,38 +627,38 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function isSpamToleranceLimitReachedReturnsBoolDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 0.8,
                 0.9,
                 false
-            ),
-            array(
+            ],
+            [
                 0.5312,
                 0.54,
                 false
-            ),
-            array(
+            ],
+            [
                 0.9,
                 0.8,
                 true
-            ),
-            array(
+            ],
+            [
                 0.0,
                 0.0,
                 true
-            ),
-            array(
+            ],
+            [
                 0.01,
                 0.0,
                 true
-            ),
-            array(
+            ],
+            [
                 1.0,
                 1.0,
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -679,33 +685,33 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function findStringInStringReturnsBoolDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'Sex',
                 'sex',
                 true
-            ),
-            array(
+            ],
+            [
                 'bar sex foo',
                 'sex',
                 true
-            ),
-            array(
+            ],
+            [
                 'Staatsexamen',
                 'sex',
                 false
-            ),
-            array(
+            ],
+            [
                 '_sex_foo',
                 'sex',
                 true
-            ),
-            array(
+            ],
+            [
                 'foo.sex.bar.foo',
                 'sex',
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**

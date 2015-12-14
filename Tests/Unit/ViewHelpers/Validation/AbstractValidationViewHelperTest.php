@@ -49,7 +49,7 @@ class AbstractValidationViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Validation\AbstractValidationViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -70,48 +70,48 @@ class AbstractValidationViewHelperTest extends UnitTestCase
      */
     public function isValidationEnabledReturnsBoolDataProvider()
     {
-        return array(
-            'nativeAndClientActivated' => array(
-                array(
-                    'validation' => array(
+        return [
+            'nativeAndClientActivated' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
+                    ]
+                ],
                 true,
                 true
-            ),
-            'nativeOnlyActivated' => array(
-                array(
-                    'validation' => array(
+            ],
+            'nativeOnlyActivated' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '0'
-                    )
-                ),
+                    ]
+                ],
                 true,
                 false
-            ),
-            'clientOnlyActivated' => array(
-                array(
-                    'validation' => array(
+            ],
+            'clientOnlyActivated' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
+                    ]
+                ],
                 false,
                 true
-            ),
-            'nothingActivated' => array(
-                array(
-                    'validation' => array(
+            ],
+            'nothingActivated' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '0'
-                    )
-                ),
+                    ]
+                ],
                 false,
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**

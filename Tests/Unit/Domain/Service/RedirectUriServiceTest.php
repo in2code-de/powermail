@@ -55,8 +55,8 @@ class RedirectUriServiceTest extends UnitTestCase
         require_once(dirname(dirname(dirname(__FILE__))) . '/Fixtures/Domain/Service/RedirectUriServiceFixture.php');
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Tests\Fixtures\Domain\Service\RedirectUriServiceFixture',
-            array('dummy'),
-            array(new ContentObjectRenderer())
+            ['dummy'],
+            [new ContentObjectRenderer()]
         );
     }
 
@@ -75,36 +75,36 @@ class RedirectUriServiceTest extends UnitTestCase
      */
     public function getTargetFromFlexFormReturnStringDataProvider()
     {
-        return array(
-            '234' => array(
-                array(
-                    'thx' => array(
-                        'lDEF' => array(
-                            'settings.flexform.thx.redirect' => array(
+        return [
+            '234' => [
+                [
+                    'thx' => [
+                        'lDEF' => [
+                            'settings.flexform.thx.redirect' => [
                                 'vDEF' => '234'
-                            )
-                        )
-                    )
-                ),
+                            ]
+                        ]
+                    ]
+                ],
                 '234'
-            ),
-            'test.jpg' => array(
-                array(
-                    'thx' => array(
-                        'lDEF' => array(
-                            'settings.flexform.thx.redirect' => array(
+            ],
+            'test.jpg' => [
+                [
+                    'thx' => [
+                        'lDEF' => [
+                            'settings.flexform.thx.redirect' => [
                                 'vDEF' => 'fileadmin/test.jpg'
-                            )
-                        )
-                    )
-                ),
+                            ]
+                        ]
+                    ]
+                ],
                 'fileadmin/test.jpg'
-            ),
-            'empty' => array(
-                array(),
+            ],
+            'empty' => [
+                [],
                 null
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -129,34 +129,34 @@ class RedirectUriServiceTest extends UnitTestCase
      */
     public function getTargetFromTypoScriptReturnStringDataProvider()
     {
-        return array(
-            '123' => array(
-                array(
+        return [
+            '123' => [
+                [
                     'redirect' => 'TEXT',
-                    'redirect.' => array(
+                    'redirect.' => [
                         'value' => '123'
-                    )
-                ),
+                    ]
+                ],
                 '123'
-            ),
-            'file.pdf' => array(
-                array(
+            ],
+            'file.pdf' => [
+                [
                     'redirect' => 'COA',
-                    'redirect.' => array(
+                    'redirect.' => [
                         '10' => 'TEXT',
-                        '10.' => array(
+                        '10.' => [
                             'wrap' => 'fileadmin/|',
                             'value' => 'file.pdf'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'fileadmin/file.pdf'
-            ),
-            'empty' => array(
-                array(),
+            ],
+            'empty' => [
+                [],
                 null
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -184,10 +184,10 @@ class RedirectUriServiceTest extends UnitTestCase
         $configurationManager = new ConfigurationManager();
         $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = array(
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
             'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject',
             'COA' => 'TYPO3\CMS\Frontend\ContentObject\ContentObjectArrayContentObject'
-        );
+        ];
         $GLOBALS['TT'] = new TimeTracker();
         $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
     }

@@ -48,13 +48,11 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
      */
     public function setUp()
     {
-        require_once(
-            dirname(dirname(dirname(__FILE__))) .
-            '/Fixtures/ViewHelpers/Validation/EnableParsleyAndAjaxViewHelperFixture.php'
-        );
+        require_once(dirname(dirname(dirname(__FILE__))) .
+            '/Fixtures/ViewHelpers/Validation/EnableParsleyAndAjaxViewHelperFixture.php');
         $this->enableParsleyAndAjaxViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\Tests\Fixtures\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelperFixture',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -73,107 +71,107 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArrayDataProvider()
     {
-        return array(
-            'nativeAndClientAndAjaxAndNoAdditionalAttributes' => array(
-                array(
-                    'validation' => array(
+        return [
+            'nativeAndClientAndAjaxAndNoAdditionalAttributes' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    ),
-                    'misc' => array(
+                    ],
+                    'misc' => [
                         'ajaxSubmit' => '1'
-                    )
-                ),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [
                     'data-parsley-validate' => 'data-parsley-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
-                )
-            ),
-            'clientAndAjaxAndNoAdditionalAttributes' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'clientAndAjaxAndNoAdditionalAttributes' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    ),
-                    'misc' => array(
+                    ],
+                    'misc' => [
                         'ajaxSubmit' => '1'
-                    )
-                ),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [
                     'data-parsley-validate' => 'data-parsley-validate',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
-                )
-            ),
-            'nativeAndAjaxAndNoAdditionalAttributes' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'nativeAndAjaxAndNoAdditionalAttributes' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '0'
-                    ),
-                    'misc' => array(
+                    ],
+                    'misc' => [
                         'ajaxSubmit' => '1'
-                    )
-                ),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
-                )
-            ),
-            'AjaxAndNoAdditionalAttributes' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'AjaxAndNoAdditionalAttributes' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '0'
-                    ),
-                    'misc' => array(
+                    ],
+                    'misc' => [
                         'ajaxSubmit' => '1'
-                    )
-                ),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
-                )
-            ),
-            'nativeAndClientAndNoAdditionalAttributes' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'nativeAndClientAndNoAdditionalAttributes' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    ),
-                    'misc' => array(
+                    ],
+                    'misc' => [
                         'ajaxSubmit' => '0'
-                    )
-                ),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [
                     'data-parsley-validate' => 'data-parsley-validate',
                     'data-validate' => 'html5'
-                )
-            ),
-            'nativeAndClientAndAjaxAndAdditionalAttributes' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'nativeAndClientAndAjaxAndAdditionalAttributes' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    ),
-                    'misc' => array(
+                    ],
+                    'misc' => [
                         'ajaxSubmit' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'www' => 'in2code.de',
                     'email' => 'service@in2code.de',
                     'data-uid' => 234
-                ),
-                array(
+                ],
+                [
                     'www' => 'in2code.de',
                     'email' => 'service@in2code.de',
                     'data-uid' => 234,
@@ -181,9 +179,9 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**

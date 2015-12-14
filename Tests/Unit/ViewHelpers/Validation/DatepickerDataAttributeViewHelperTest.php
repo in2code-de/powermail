@@ -52,7 +52,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -71,22 +71,22 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArrayDataProvider()
     {
-        return array(
-            'datepickerWithNativevalidationAndClientvalidationAndAdditionalAttributesAndMandatory' => array(
-                array(
-                    'validation' => array(
+        return [
+            'datepickerWithNativevalidationAndClientvalidationAndAdditionalAttributesAndMandatory' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'mandatory' => 1
-                ),
-                array(
+                ],
+                [
                     'data-company' => 'in2code'
-                ),
+                ],
                 'anyvalue',
-                array(
+                [
                     'data-company' => 'in2code',
                     'data-datepicker-force' => null,
                     'data-datepicker-settings' => 'date',
@@ -101,19 +101,19 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'required' => 'required',
                     'data-parsley-required-message' => 'validationerror_mandatory',
                     'data-parsley-trigger' => 'change'
-                )
-            ),
-            'datepickerWithNativevalidationAndClientvalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'datepickerWithNativevalidationAndClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(),
-                array(),
+                    ]
+                ],
+                [],
+                [],
                 'anyvalue',
-                array(
+                [
                     'data-datepicker-force' => null,
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
@@ -124,19 +124,19 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
                     'data-date-value' => 'anyvalue',
-                )
-            ),
-            'datepickerWithNativevalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'datepickerWithNativevalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '0'
-                    )
-                ),
-                array(),
-                array(),
+                    ]
+                ],
+                [],
+                [],
                 '',
-                array(
+                [
                     'data-datepicker-force' => null,
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
@@ -146,19 +146,19 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
-                )
-            ),
-            'datepickerWithClientvalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'datepickerWithClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(),
-                array(),
+                    ]
+                ],
+                [],
+                [],
                 '',
-                array(
+                [
                     'data-datepicker-force' => null,
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
@@ -168,19 +168,19 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
-                )
-            ),
-            'datepickerWithoutValidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'datepickerWithoutValidation' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '0'
-                    )
-                ),
-                array(),
-                array(),
+                    ]
+                ],
+                [],
+                [],
                 '',
-                array(
+                [
                     'data-datepicker-force' => null,
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
@@ -190,9 +190,9 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**

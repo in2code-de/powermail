@@ -48,13 +48,10 @@ class TrimViewHelperTest extends UnitTestCase
      */
     public function setUp()
     {
-        require_once(
-            dirname(dirname(dirname(__FILE__))) .
-            '/Fixtures/ViewHelpers/String/TrimViewHelperFixture.php'
-        );
+        require_once(dirname(dirname(dirname(__FILE__))) . '/Fixtures/ViewHelpers/String/TrimViewHelperFixture.php');
         $this->trimViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\Tests\Fixtures\ViewHelpers\String\TrimViewHelperFixture',
-            array('dummy')
+            ['dummy']
         );
     }
 

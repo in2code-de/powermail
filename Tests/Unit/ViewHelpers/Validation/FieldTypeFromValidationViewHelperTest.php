@@ -50,7 +50,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Validation\FieldTypeFromValidationViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -69,68 +69,68 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
      */
     public function renderReturnsStringDataProvider()
     {
-        return array(
-            'defaultWithHtml5' => array(
+        return [
+            'defaultWithHtml5' => [
                 0,
                 'text',
                 true
-            ),
-            'defaultWithoutHtml5' => array(
+            ],
+            'defaultWithoutHtml5' => [
                 0,
                 'text',
                 false
-            ),
-            'emailValidationWithoutHtml5' => array(
+            ],
+            'emailValidationWithoutHtml5' => [
                 1,
                 'text',
                 false
-            ),
-            'emailValidationWithHtml5' => array(
+            ],
+            'emailValidationWithHtml5' => [
                 1,
                 'email',
                 true
-            ),
-            'urlValidationWithoutHtml5' => array(
+            ],
+            'urlValidationWithoutHtml5' => [
                 2,
                 'text',
                 false
-            ),
-            'urlValidationWithHtml5' => array(
+            ],
+            'urlValidationWithHtml5' => [
                 2,
                 'url',
                 true
-            ),
-            'telValidationWithoutHtml5' => array(
+            ],
+            'telValidationWithoutHtml5' => [
                 3,
                 'text',
                 false
-            ),
-            'telValidationWithHtml5' => array(
+            ],
+            'telValidationWithHtml5' => [
                 3,
                 'tel',
                 true
-            ),
-            'numberValidationWithoutHtml5' => array(
+            ],
+            'numberValidationWithoutHtml5' => [
                 4,
                 'text',
                 false
-            ),
-            'numberValidationWithHtml5' => array(
+            ],
+            'numberValidationWithHtml5' => [
                 4,
                 'number',
                 true
-            ),
-            'rangeValidationWithoutHtml5' => array(
+            ],
+            'rangeValidationWithoutHtml5' => [
                 8,
                 'text',
                 false
-            ),
-            'rangeValidationWithHtml5' => array(
+            ],
+            'rangeValidationWithHtml5' => [
                 8,
                 'range',
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -145,11 +145,14 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
      */
     public function renderReturnsString($validation, $expectedResult, $nativeValidationEnabled)
     {
-        $this->abstractValidationViewHelperMock->_set('settings', array(
-                'validation' => array(
+        $this->abstractValidationViewHelperMock->_set(
+            'settings',
+            [
+                'validation' => [
                     'native' => ($nativeValidationEnabled ? '1' : '0')
-                )
-            ));
+                ]
+            ]
+        );
         $field = new Field;
         $field->setValidation($validation);
 

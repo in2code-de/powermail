@@ -74,11 +74,13 @@ class FormController extends AbstractController
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$forms, $this]);
         SessionUtility::saveFormStartInSession($forms, $this->settings);
 
-        $this->view->assignMultiple([
+        $this->view->assignMultiple(
+            [
                 'forms' => $forms,
                 'messageClass' => $this->messageClass,
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
-            ]);
+            ]
+        );
     }
 
     /**
@@ -377,14 +379,16 @@ class FormController extends AbstractController
      */
     protected function prepareOutput(Mail $mail)
     {
-        $this->view->assignMultiple([
+        $this->view->assignMultiple(
+            [
                 'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, true),
                 'mail' => $mail,
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'messageClass' => $this->messageClass,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
-            ]);
+            ]
+        );
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));
         $this->view->assignMultiple($this->mailRepository->getLabelsWithMarkersFromMail($mail));
     }
