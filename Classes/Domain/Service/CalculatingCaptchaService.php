@@ -156,7 +156,7 @@ class CalculatingCaptchaService
      */
     public function validCode($code, $field, $clearSession = true)
     {
-        if ((int) $code === SessionUtility::getCaptchaSession($field->getUid()) && !empty($code)) {
+        if ((int) $code === SessionUtility::getCaptchaSession($field->getUid()) && !empty($code) && (int) $code > 0) {
             if ($clearSession) {
                 SessionUtility::setCaptchaSession('', $field->getUid());
             }

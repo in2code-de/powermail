@@ -45,6 +45,7 @@ $pagesTca = array(
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
+                'default' => 0,
                 'items' => array(
                     array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
                     array('LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0)
