@@ -46,16 +46,16 @@
 					</f:for>
 				</f:then>
 				<f:else>
-					<f:if condition="{vh:Condition.IsDateTimeVariableInVariable(obj: '{mail}', prop: '{fieldUid}')}">
+					<f:if condition="{vh:Condition.IsDateTimeVariableInVariable(obj:mail, prop:fieldUid)}">
 						<f:then>
-							<f:if condition="{0 : fieldUid} == {0 : 'crdate'}">
+							<f:if condition="{0: fieldUid} == {0: 'crdate'}">
 								<f:then>
 									"<vh:String.RemoveQuote><f:format.date format="d.m.Y H:i:s"><vh:Misc.VariableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date>
 									<f:translate key="Clock" /></vh:String.RemoveQuote>";
 								</f:then>
 								<f:else>
 
-									<f:if condition="{0 : fieldUid} == {0 : 'time'}">
+									<f:if condition="{0: fieldUid} == {0: 'time'}">
 										<f:then>
 											"<vh:String.RemoveQuote><f:format.date format="%M:%S"><vh:Misc.VariableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date></vh:String.RemoveQuote>";
 										</f:then>
@@ -67,7 +67,7 @@
 							</f:if>
 						</f:then>
 						<f:else>
-							<f:if condition="{0 : fieldUid} == {0 : 'marketing_page_funnel'}">
+							<f:if condition="{0: fieldUid} == {0: 'marketing_page_funnel'}">
 								<f:then>
 									<f:if condition="{vh:Condition.IsArray(val: '{vh:Misc.VariableInVariable(obj: \'{mail}\', prop: \'{fieldUid}\')}')}">
 										"<f:for each="{vh:Misc.VariableInVariable(obj: '{mail}', prop: '{fieldUid}')}" as="pid" iteration="pageIndex"><vh:Getter.GetPageNameFromUid uid="{pid}" /><f:if condition="{pageIndex.isLast}"><f:else> > </f:else></f:if></f:for>"
