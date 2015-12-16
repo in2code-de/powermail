@@ -52,7 +52,7 @@ class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Validation\PasswordValidationDataAttributeViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -71,70 +71,70 @@ class PasswordValidationDataAttributeViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArrayDataProvider()
     {
-        return array(
-            'passwordWithNativevalidationAndClientvalidation' => array(
-                array(
-                    'validation' => array(
+        return [
+            'passwordWithNativevalidationAndClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '1'
-                    )
-                ),
-                array(),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'data-parsley-equalto' => '#powermail_field_uid',
                     'data-parsley-equalto-message' => 'validationerror_password'
-                )
-            ),
-            'passwordWithNativevalidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'passwordWithNativevalidation' => [
+                [
+                    'validation' => [
                         'native' => '1',
                         'client' => '0'
-                    )
-                ),
-                array(),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [],
+                [
                     'index' => 0
-                ),
-                array()
-            ),
-            'passwordWithClientvalidation' => array(
-                array(
-                    'validation' => array(
+                ],
+                []
+            ],
+            'passwordWithClientvalidation' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '1'
-                    )
-                ),
-                array(),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [],
+                [
                     'index' => 0
-                ),
-                array(
+                ],
+                [
                     'data-parsley-equalto' => '#powermail_field_uid',
                     'data-parsley-equalto-message' => 'validationerror_password'
-                )
-            ),
-            'passwordWithoutValidation' => array(
-                array(
-                    'validation' => array(
+                ]
+            ],
+            'passwordWithoutValidation' => [
+                [
+                    'validation' => [
                         'native' => '0',
                         'client' => '0'
-                    )
-                ),
-                array(),
-                array(),
-                array(
+                    ]
+                ],
+                [],
+                [],
+                [
                     'index' => 0
-                ),
-                array()
-            ),
-        );
+                ],
+                []
+            ],
+        ];
     }
 
     /**

@@ -53,8 +53,8 @@ class MailRepositoryTest extends UnitTestCase
         $objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Domain\Repository\MailRepository',
-            array('dummy'),
-            array($objectManager)
+            ['dummy'],
+            [$objectManager]
         );
     }
 
@@ -65,40 +65,40 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function getLabelsWithMarkersFromMailReturnsArrayDataProvider()
     {
-        return array(
-            array(
-                array(
-                    array(
+        return [
+            [
+                [
+                    [
                         'marker',
                         'title'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'label_marker' => 'title'
-                ),
-            ),
-            array(
-                array(
-                    array(
+                ],
+            ],
+            [
+                [
+                    [
                         'firstname',
                         'Firstname'
-                    ),
-                    array(
+                    ],
+                    [
                         'lastname',
                         'Lastname'
-                    ),
-                    array(
+                    ],
+                    [
                         'email',
                         'Email Address'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'label_firstname' => 'Firstname',
                     'label_lastname' => 'Lastname',
                     'label_email' => 'Email Address'
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -135,59 +135,59 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function getVariablesWithMarkersFromMailReturnsArrayDataProvider()
     {
-        return array(
-            array(
-                array(
-                    array(
+        return [
+            [
+                [
+                    [
                         'marker',
                         'value'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'marker' => 'value'
-                ),
-            ),
-            array(
-                array(
-                    array(
+                ],
+            ],
+            [
+                [
+                    [
                         'firstname',
                         'Alex'
-                    ),
-                    array(
+                    ],
+                    [
                         'lastname',
                         'Kellner'
-                    ),
-                    array(
+                    ],
+                    [
                         'email',
                         'alex@in2code.de'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'firstname' => 'Alex',
                     'lastname' => 'Kellner',
                     'email' => 'alex@in2code.de'
-                ),
-            ),
-            array(
-                array(
-                    array(
+                ],
+            ],
+            [
+                [
+                    [
                         'checkbox',
-                        array(
+                        [
                             'red',
                             'blue'
-                        )
-                    ),
-                    array(
+                        ]
+                    ],
+                    [
                         'firstname',
                         'Alex'
-                    ),
-                ),
-                array(
+                    ],
+                ],
+                [
                     'checkbox' => 'red, blue',
                     'firstname' => 'Alex'
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -225,60 +225,60 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function getSenderMailFromArgumentsReturnsStringDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'no email',
                     'abc@def.gh'
-                ),
+                ],
                 null,
                 null,
                 'abc@def.gh'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'alexander.kellner@in2code.de',
                     'abc@def.gh'
-                ),
+                ],
                 null,
                 null,
                 'alexander.kellner@in2code.de'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'no email'
-                ),
+                ],
                 'test1@email.org',
                 'test2@email.org',
                 'test1@email.org'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'no email'
-                ),
+                ],
                 'test1@email.org',
                 null,
                 'test1@email.org'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'no email'
-                ),
+                ],
                 null,
                 'test2@email.org',
                 'test2@email.org'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'abc',
                     'def',
                     'ghi'
-                ),
+                ],
                 'test1@email.org',
                 'test2@email.org',
                 'test1@email.org'
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -324,52 +324,52 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function getSenderNameFromArgumentsReturnsStringDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'Alex',
                     'Kellner'
-                ),
+                ],
                 null,
                 null,
                 'Alex Kellner'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'Prof. Dr.',
                     'Müller'
-                ),
+                ],
                 'abc',
                 'def',
                 'Prof. Dr. Müller'
-            ),
-            array(
+            ],
+            [
                 null,
                 null,
                 'Fallback Name',
                 'Fallback Name'
-            ),
-            array(
+            ],
+            [
                 null,
                 'Fallback Name',
                 null,
                 'Fallback Name'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     // test multivalue (e.g. checkbox)
-                    array(
+                    [
                         'Prof.',
                         'Dr.'
-                    ),
+                    ],
                     'Max',
                     'Muster'
-                ),
+                ],
                 'xyz',
                 'abc',
                 'Prof. Dr. Max Muster'
-            ),
-        );
+            ],
+        ];
     }
 
     /**

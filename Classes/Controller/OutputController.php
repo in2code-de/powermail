@@ -57,13 +57,15 @@ class OutputController extends AbstractController
         $searchFields = $this->fieldRepository->findByUids(
             GeneralUtility::trimExplode(',', $this->settings['search']['fields'], true)
         );
-        $this->view->assignMultiple([
+        $this->view->assignMultiple(
+            [
                 'mails' => $this->mailRepository->findListBySettings($this->settings, $this->piVars),
                 'searchFields' => $searchFields,
                 'fields' => $this->fieldRepository->findByUids($fieldArray),
                 'piVars' => $this->piVars,
                 'abc' => ArrayUtility::getAbcArray()
-            ]);
+            ]
+        );
         $this->assignMultipleActions();
     }
 

@@ -164,12 +164,14 @@ class TemplateUtility extends AbstractUtility
     {
         $standaloneView = self::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(self::getTemplatePath('Form/PowermailAll.html'));
-        $standaloneView->assignMultiple([
+        $standaloneView->assignMultiple(
+            [
                 'mail' => $mail,
                 'section' => $section,
                 'settings' => $settings,
                 'type' => $type
-            ]);
+            ]
+        );
         return $standaloneView->render();
     }
 

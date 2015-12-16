@@ -49,7 +49,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\BeCheck\PowermailVersionNoteViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -68,50 +68,50 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
      */
     public function renderReturnsIntDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 false,
                 false,
                 false,
                 false,
                 0
-            ),
-            array(
+            ],
+            [
                 true,
                 true,
                 true,
                 false,
                 3
-            ),
-            array(
+            ],
+            [
                 false,
                 true,
                 true,
                 true,
                 0
-            ),
-            array(
+            ],
+            [
                 true,
                 false,
                 true,
                 false,
                 1
-            ),
-            array(
+            ],
+            [
                 true,
                 true,
                 true,
                 true,
                 2
-            ),
-            array(
+            ],
+            [
                 true,
                 false,
                 true,
                 true,
                 2
-            ),
-        );
+            ],
+        ];
     }
 
     /**

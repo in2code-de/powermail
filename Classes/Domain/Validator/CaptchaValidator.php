@@ -44,15 +44,12 @@ class CaptchaValidator extends AbstractValidator
         if ($this->formHasCaptcha($mail->getForm())) {
             foreach ($mail->getAnswers() as $answer) {
                 /** @var Answer $answer */
-                if ($answer->getField()->getType() !== 'captcha') {
-                    continue;
+                if ($answer->getField()->getType() === 'captcha') {
+                    $this->setCaptchaArgument(true);
+                    if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
+                        $this->setErrorAndMessage($answer->getField(), 'captcha');
+                    }
                 }
-
-                $this->setCaptchaArgument(true);
-                if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
-                    $this->setErrorAndMessage($answer->getField(), 'captcha');
-                }
-
             }
 
             // if no captcha arguments given (maybe deleted from DOM)
@@ -88,8 +85,9 @@ class CaptchaValidator extends AbstractValidator
 
             default:
                 /** @var CalculatingCaptchaService $captchaService */
-                $captchaService =
-                    $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\CalculatingCaptchaService');
+                $captchaService = $this->objectManager->get(
+                    'In2code\\Powermail\\Domain\\Service\\CalculatingCaptchaService'
+                );
                 if ($captchaService->validCode($value, $field, $this->isClearSession())) {
                     return true;
                 }

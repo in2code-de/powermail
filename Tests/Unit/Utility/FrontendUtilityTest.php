@@ -57,20 +57,20 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getDomainFromUriReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'http://subdomain.domain.org/folder/file.html',
                 'subdomain.domain.org'
-            ),
-            array(
+            ],
+            [
                 'ftp://domain.org',
                 'domain.org'
-            ),
-            array(
+            ],
+            [
                 'https://www.domain.co.uk/',
                 'www.domain.co.uk'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -94,28 +94,28 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getCountryFromIpReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '217.72.208.133',
                 'Germany'
-            ),
-            array(
+            ],
+            [
                 '27.121.255.4',
                 'Japan'
-            ),
-            array(
+            ],
+            [
                 '5.226.31.255',
                 'Spain'
-            ),
-            array(
+            ],
+            [
                 '66.85.131.18',
                 'United States'
-            ),
-            array(
+            ],
+            [
                 '182.118.23.7',
                 'China'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -139,64 +139,64 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getSubFolderOfCurrentUrlReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 true,
                 true,
                 'http://www.in2code.de',
                 'http://www.in2code.de/',
                 '/'
-            ),
-            array(
+            ],
+            [
                 false,
                 true,
                 'http://www.in2code.de',
                 'http://www.in2code.de/',
                 '/'
-            ),
-            array(
+            ],
+            [
                 true,
                 false,
                 'http://www.in2code.de',
                 'http://www.in2code.de/',
                 '/'
-            ),
-            array(
+            ],
+            [
                 false,
                 false,
                 'http://www.in2code.de',
                 'http://www.in2code.de/',
                 ''
-            ),
-            array(
+            ],
+            [
                 true,
                 true,
                 'http://www.in2code.de',
                 'http://www.in2code.de/subfolder/',
                 '/subfolder/'
-            ),
-            array(
+            ],
+            [
                 false,
                 true,
                 'http://www.in2code.de',
                 'http://www.in2code.de/subfolder/',
                 'subfolder/'
-            ),
-            array(
+            ],
+            [
                 true,
                 false,
                 'http://www.in2code.de',
                 'http://www.in2code.de/subfolder/',
                 '/subfolder'
-            ),
-            array(
+            ],
+            [
                 false,
                 false,
                 'http://www.in2code.de',
                 'http://www.in2code.de/subfolder/',
                 'subfolder'
-            ),
-        );
+            ],
+        ];
     }
 
     /**

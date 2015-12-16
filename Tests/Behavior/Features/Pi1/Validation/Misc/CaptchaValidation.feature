@@ -12,6 +12,11 @@ Feature: CaptchaValidation
     Then I should see an "#powermail_captchaimage" element
     Then the sourcecode should contain '<img src="typo3temp/tx_powermail/Captcha'
 
+    When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
+    And I press "Submit"
+
+    Then I should see "Falscher Captcha Code eingetragen, bitte erneut versuchen!"
+
     When I fill in "tx_powermail_pi1[field][captcha]" with "4"
     And I press "Submit"
 
@@ -30,6 +35,11 @@ Feature: CaptchaValidation
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
     Then the sourcecode should contain '<img src="typo3temp/tx_powermail/Captcha'
+
+    When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
+    And I press "Submit"
+
+    Then I should see "Wrong captcha code entered - please try again!"
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "4"
     And I press "Submit"
@@ -52,6 +62,11 @@ Feature: CaptchaValidation
     Then I should see an "#powermail_captchaimage" element
     Then the sourcecode should contain '<img src="typo3temp/tx_powermail/Captcha'
 
+    When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
+    And I press "Submit"
+
+    Then I should see "Falscher Captcha Code eingetragen, bitte erneut versuchen!"
+
     When I fill in "tx_powermail_pi1[field][captcha]" with "4"
     And I press "Submit"
 
@@ -70,6 +85,11 @@ Feature: CaptchaValidation
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
     Then the sourcecode should contain '<img src="typo3temp/tx_powermail/Captcha'
+
+    When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
+    And I press "Submit"
+
+    Then I should see "Wrong captcha code entered - please try again!"
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "4"
     And I press "Submit"
@@ -93,6 +113,12 @@ Feature: CaptchaValidation
     Then I should see an "#powermail_field_captcha2" element
     Then the sourcecode should contain '<img src="typo3temp/tx_powermail/Captcha1951.png'
     Then the sourcecode should contain '<img src="typo3temp/tx_powermail/Captcha1952.png'
+
+    When I fill in "tx_powermail_pi1[field][captcha1]" with "anystring"
+    When I fill in "tx_powermail_pi1[field][captcha2]" with "7"
+    And I press "Submit"
+
+    Then I should see "Falscher Captcha Code eingetragen"
 
     When I fill in "tx_powermail_pi1[field][captcha1]" with "3"
     When I fill in "tx_powermail_pi1[field][captcha2]" with "6"

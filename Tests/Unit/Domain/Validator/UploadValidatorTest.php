@@ -52,15 +52,18 @@ class UploadValidatorTest extends UnitTestCase
     public function setUp()
     {
 
-        $this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Domain\Validator\UploadValidator',
-            array('setErrorAndMessage'));
-        $settings = array(
-            'misc.' => array(
-                'file.' => array(
-                    'extension' => 'jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace,csv'
-                )
-            )
+        $this->generalValidatorMock = $this->getAccessibleMock(
+            '\In2code\Powermail\Domain\Validator\UploadValidator',
+            ['setErrorAndMessage']
         );
+        $settings = [
+            'misc.' => [
+                'file.' => [
+                    'extension' =>
+                        'jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,flv,mpg,mpeg,avi,mp3,zip,rar,ace,csv'
+                ]
+            ]
+        ];
         $this->generalValidatorMock->_set('settings', $settings);
     }
 
@@ -79,40 +82,40 @@ class UploadValidatorTest extends UnitTestCase
      */
     public function validateIsValidReturnsBoolDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'test.jpg',
                 true
-            ),
-            array(
+            ],
+            [
                 'test.jpg.php',
                 false
-            ),
-            array(
+            ],
+            [
                 'test.php.123',
                 false
-            ),
-            array(
+            ],
+            [
                 'test.png',
                 true
-            ),
-            array(
+            ],
+            [
                 'fileadmin/folder/this.is.a.pdf',
                 true
-            ),
-            array(
+            ],
+            [
                 'fileadmin/folder/this.is.a.htaccess',
                 false
-            ),
-            array(
+            ],
+            [
                 '.htaccess',
                 false
-            ),
-            array(
+            ],
+            [
                 'test.123',
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**

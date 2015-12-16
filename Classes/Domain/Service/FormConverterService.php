@@ -381,11 +381,13 @@ class FormConverterService
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->getRequest()->setControllerName('Module');
         $standaloneView->setTemplatePathAndFilename(TemplateUtility::getTemplatePath('Module/ConverterFlexForm.xml'));
-        $standaloneView->assignMultiple([
+        $standaloneView->assignMultiple(
+            [
                 'formUid' => $formUid,
                 'form' => $form,
                 'configuration' => $this->configuration
-            ]);
+            ]
+        );
 
         return $standaloneView->render();
     }

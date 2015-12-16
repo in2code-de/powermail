@@ -49,7 +49,7 @@ class GetLocationEidTest extends UnitTestCase
     {
         $this->getLocationEidMock = $this->getAccessibleMock(
             '\In2code\Powermail\Utility\Eid\GetLocationEid',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -68,38 +68,38 @@ class GetLocationEidTest extends UnitTestCase
      */
     public function getAddressFromGeoReturnsArrayDataProvider()
     {
-        return array(
-            'in2code GmbH, Rosenheim, Germany' => array(
+        return [
+            'in2code GmbH, Rosenheim, Germany' => [
                 47.84787,
                 12.113768,
-                array(
+                [
                     'route' => 'Kunstmühlstraße',
                     'locality' => 'Rosenheim',
                     'country' => 'Germany',
                     'postal_code' => '83026'
-                )
-            ),
-            'Eisweiherweg, Forsting, Germany' => array(
+                ]
+            ],
+            'Eisweiherweg, Forsting, Germany' => [
                 48.0796126,
                 12.0898908,
-                array(
+                [
                     'route' => 'Eisweiherweg',
                     'locality' => 'Pfaffing',
                     'country' => 'Germany',
                     'postal_code' => '83539'
-                )
-            ),
-            'Baker Street, London, UK' => array(
+                ]
+            ],
+            'Baker Street, London, UK' => [
                 51.5205573,
                 -0.1566651,
-                array(
+                [
                     'route' => 'Baker Street',
                     'locality' => 'London',
                     'country' => 'United Kingdom',
                     'postal_code' => 'W1U 6TJ'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**

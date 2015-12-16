@@ -47,8 +47,10 @@ class StringValidatorTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Domain\Validator\StringValidator',
-            array('dummy'));
+        $this->generalValidatorMock = $this->getAccessibleMock(
+            '\In2code\Powermail\Domain\Validator\StringValidator',
+            ['dummy']
+        );
     }
 
     /**
@@ -66,24 +68,24 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateMandatoryForStringOrArrayReturnsBoolDataProvider()
     {
-        return array(
-            'string "in2code.de"' => array(
+        return [
+            'string "in2code.de"' => [
                 'in2code.de',
                 true
-            ),
-            'string "a"' => array(
+            ],
+            'string "a"' => [
                 'a',
                 true
-            ),
-            'string empty' => array(
+            ],
+            'string empty' => [
                 '',
                 false
-            ),
-            'string "0"' => array(
+            ],
+            'string "0"' => [
                 '0',
                 true
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -108,40 +110,40 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateEmailReturnsBoolDataProvider()
     {
-        return array(
-            'email' => array(
+        return [
+            'email' => [
                 'alexander.kellner@in2code.de',
                 true
-            ),
-            'email2' => array(
+            ],
+            'email2' => [
                 'www.alexander.kellner@in2code.de',
                 true
-            ),
-            'email3' => array(
+            ],
+            'email3' => [
                 'alex@subdomain1.subdomain2.in2code.de',
                 true
-            ),
-            'email4' => array(
+            ],
+            'email4' => [
                 'www.alexander.kellner@subdomain1.subdomain2.in2code.de',
                 true
-            ),
-            'email5' => array(
+            ],
+            'email5' => [
                 'alex@lalala.',
                 false
-            ),
-            'email6' => array(
+            ],
+            'email6' => [
                 'alex@lalala',
                 false
-            ),
-            'email7' => array(
+            ],
+            'email7' => [
                 'alex.lalala.de',
                 false
-            ),
-            'email8' => array(
+            ],
+            'email8' => [
                 'alex',
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -166,36 +168,36 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateUrlReturnsBoolDataProvider()
     {
-        return array(
-            'url1' => array(
+        return [
+            'url1' => [
                 'http://www.test.de',
                 true
-            ),
-            'url2' => array(
+            ],
+            'url2' => [
                 'www.test.de',
                 false
-            ),
-            'url3' => array(
+            ],
+            'url3' => [
                 'test.de',
                 false
-            ),
-            'url4' => array(
+            ],
+            'url4' => [
                 'https://www.test.de',
                 true
-            ),
-            'url5' => array(
+            ],
+            'url5' => [
                 'https://www.test.de',
                 true
-            ),
-            'url6' => array(
+            ],
+            'url6' => [
                 'ftp://www.test.de',
                 true
-            ),
-            'url7' => array(
+            ],
+            'url7' => [
                 'test',
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -220,84 +222,84 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validatePhoneReturnsBoolDataProvider()
     {
-        return array(
-            'phone1' => array(
+        return [
+            'phone1' => [
                 '01234567890',
                 true
-            ),
-            'phone2' => array(
+            ],
+            'phone2' => [
                 '0123 4567890',
                 true
-            ),
-            'phone3' => array(
+            ],
+            'phone3' => [
                 '0123 456 789',
                 true
-            ),
-            'phone4' => array(
+            ],
+            'phone4' => [
                 '(0123) 45678 - 90',
                 true
-            ),
-            'phone5' => array(
+            ],
+            'phone5' => [
                 '0012 345 678 9012',
                 true
-            ),
-            'phone6' => array(
+            ],
+            'phone6' => [
                 '0012 (0)345 / 67890 - 12',
                 true
-            ),
-            'phone7' => array(
+            ],
+            'phone7' => [
                 '+123456789012',
                 true
-            ),
-            'phone8' => array(
+            ],
+            'phone8' => [
                 '+12 345 678 9012',
                 true
-            ),
-            'phone9' => array(
+            ],
+            'phone9' => [
                 '+12 3456 7890123',
                 true
-            ),
-            'phone10' => array(
+            ],
+            'phone10' => [
                 '+49 (0) 123 3456789',
                 true
-            ),
-            'phone11' => array(
+            ],
+            'phone11' => [
                 '+49 (0)123 / 34567 - 89',
                 true
-            ),
-            'phone12' => array(
+            ],
+            'phone12' => [
                 'a123546',
                 false
-            ),
-            'phone13' => array(
+            ],
+            'phone13' => [
                 '12(3)45',
                 false
-            ),
-            'phone14' => array(
+            ],
+            'phone14' => [
                 'ab cd ef',
                 false
-            ),
-            'phone15' => array(
+            ],
+            'phone15' => [
                 '0 123 456 7890',
                 false
-            ),
-            'phone16' => array(
+            ],
+            'phone16' => [
                 '+49 (0) 36 43/58 xx xx',
                 false
-            ),
-            'phone17' => array(
+            ],
+            'phone17' => [
                 '+3a',
                 false
-            ),
-            'phone18' => array(
+            ],
+            'phone18' => [
                 '0',
                 false
-            ),
-            'phone19' => array(
+            ],
+            'phone19' => [
                 0,
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -322,32 +324,32 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateNumbersOnlyReturnsBoolDataProvider()
     {
-        return array(
-            'number1' => array(
+        return [
+            'number1' => [
                 '123453',
                 true
-            ),
-            'number2' => array(
+            ],
+            'number2' => [
                 'abc',
                 false
-            ),
-            'number3' => array(
+            ],
+            'number3' => [
                 '123a',
                 false
-            ),
-            'number4' => array(
+            ],
+            'number4' => [
                 'a1234',
                 false
-            ),
-            'number5' => array(
+            ],
+            'number5' => [
                 '1234 5678',
                 false
-            ),
-            'number6' => array(
+            ],
+            'number6' => [
                 123453,
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -372,44 +374,44 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateLettersOnlyReturnsBoolDataProvider()
     {
-        return array(
-            'letter1' => array(
+        return [
+            'letter1' => [
                 '123453',
                 false
-            ),
-            'letter2' => array(
+            ],
+            'letter2' => [
                 12345,
                 false
-            ),
-            'letter3' => array(
+            ],
+            'letter3' => [
                 'abcdef',
                 true
-            ),
-            'letter4' => array(
+            ],
+            'letter4' => [
                 'abc def',
                 false
-            ),
-            'letter5' => array(
+            ],
+            'letter5' => [
                 '1abcdef',
                 false
-            ),
-            'letter6' => array(
+            ],
+            'letter6' => [
                 'abcdef1',
                 false
-            ),
-            'letter7' => array(
+            ],
+            'letter7' => [
                 'abcdefäöüßÄ',
                 false
-            ),
-            'letter8' => array(
+            ],
+            'letter8' => [
                 'abd+d',
                 false
-            ),
-            'letter9' => array(
+            ],
+            'letter9' => [
                 'abd.d',
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -434,53 +436,53 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateMinNumberReturnsBoolDataProvider()
     {
-        return array(
-            'minimum1' => array(
+        return [
+            'minimum1' => [
                 '8',
                 '1',
                 true
-            ),
-            'minimum2' => array(
+            ],
+            'minimum2' => [
                 '1',
                 '8',
                 false
-            ),
-            'minimum3' => array(
+            ],
+            'minimum3' => [
                 '4582',
                 '4581',
                 true
-            ),
-            'minimum4' => array(
+            ],
+            'minimum4' => [
                 '0',
                 '0',
                 true
-            ),
-            'minimum5' => array(
+            ],
+            'minimum5' => [
                 '-1',
                 '1',
                 false
-            ),
-            'minimum6' => array(
+            ],
+            'minimum6' => [
                 '6.5',
                 '6',
                 true
-            ),
-            'minimum7' => array(
+            ],
+            'minimum7' => [
                 5,
                 4,
                 true
-            ),
-            'minimum8' => array(
+            ],
+            'minimum8' => [
                 4,
                 5,
                 false
-            ),
-            'minimum9' => array(
+            ],
+            'minimum9' => [
                 5,
                 5,
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -506,53 +508,53 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateMaxNumberReturnsBoolDataProvider()
     {
-        return array(
-            'maximum1' => array(
+        return [
+            'maximum1' => [
                 '8',
                 '1',
                 false
-            ),
-            'maximum2' => array(
+            ],
+            'maximum2' => [
                 '1',
                 '8',
                 true
-            ),
-            'maximum3' => array(
+            ],
+            'maximum3' => [
                 '4582',
                 '4581',
                 false
-            ),
-            'maximum4' => array(
+            ],
+            'maximum4' => [
                 '0',
                 '0',
                 true
-            ),
-            'maximum5' => array(
+            ],
+            'maximum5' => [
                 '-1',
                 '1',
                 true
-            ),
-            'maximum6' => array(
+            ],
+            'maximum6' => [
                 '6.5',
                 '6',
                 false
-            ),
-            'maximum7' => array(
+            ],
+            'maximum7' => [
                 5,
                 4,
                 false
-            ),
-            'maximum8' => array(
+            ],
+            'maximum8' => [
                 4,
                 5,
                 true
-            ),
-            'maximum9' => array(
+            ],
+            'maximum9' => [
                 5,
                 5,
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -578,48 +580,48 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateRangeReturnsBoolDataProvider()
     {
-        return array(
-            'range1' => array(
+        return [
+            'range1' => [
                 '8',
                 '1,10',
                 true
-            ),
-            'range2' => array(
+            ],
+            'range2' => [
                 '507',
                 '506,508',
                 true
-            ),
-            'range3' => array(
+            ],
+            'range3' => [
                 '0',
                 '0,0',
                 true
-            ),
-            'range4' => array(
+            ],
+            'range4' => [
                 '5',
                 '10',
                 true
-            ),
-            'range5' => array(
+            ],
+            'range5' => [
                 '15',
                 '10',
                 false
-            ),
-            'range6' => array(
+            ],
+            'range6' => [
                 88,
                 5,
                 false
-            ),
-            'range7' => array(
+            ],
+            'range7' => [
                 5,
                 '5,6',
                 true
-            ),
-            'range8' => array(
+            ],
+            'range8' => [
                 6,
                 '5,6',
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -645,48 +647,48 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validateLengthReturnsBoolDataProvider()
     {
-        return array(
-            'length1' => array(
+        return [
+            'length1' => [
                 'abc',
                 '1,10',
                 true
-            ),
-            'length2' => array(
+            ],
+            'length2' => [
                 'abcdefghijklmnopq',
                 '1,10',
                 false
-            ),
-            'length3' => array(
+            ],
+            'length3' => [
                 '',
                 '1,10',
                 false
-            ),
-            'length4' => array(
+            ],
+            'length4' => [
                 12345,
                 '1,10',
                 true
-            ),
-            'length5' => array(
+            ],
+            'length5' => [
                 12345,
                 '10',
                 true
-            ),
-            'length6' => array(
+            ],
+            'length6' => [
                 '12345',
                 '10',
                 true
-            ),
-            'length7' => array(
+            ],
+            'length7' => [
                 '12345',
                 '1',
                 false
-            ),
-            'length8' => array(
+            ],
+            'length8' => [
                 '12345',
                 '1',
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -712,43 +714,43 @@ class StringValidatorTest extends UnitTestCase
      */
     public function validatePatternReturnsBoolDataProvider()
     {
-        return array(
-            'pattern1' => array(
+        return [
+            'pattern1' => [
                 'https://www.test.de',
                 'https?://.+',
                 true
-            ),
-            'pattern2' => array(
+            ],
+            'pattern2' => [
                 'http://www.test.de/test/lalal.html',
                 'https?://.+',
                 true
-            ),
-            'pattern3' => array(
+            ],
+            'pattern3' => [
                 'email@email.org',
                 'https?://.+',
                 false
-            ),
-            'pattern4' => array(
+            ],
+            'pattern4' => [
                 'abcd',
                 'https?://.+',
                 false
-            ),
-            'pattern5' => array(
+            ],
+            'pattern5' => [
                 1345,
                 'https?://.+',
                 false
-            ),
-            'pattern6' => array(
+            ],
+            'pattern6' => [
                 12345,
                 '[0-9]{5}',
                 true
-            ),
-            'pattern7' => array(
+            ],
+            'pattern7' => [
                 1234,
                 '[0-9]{5}',
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**

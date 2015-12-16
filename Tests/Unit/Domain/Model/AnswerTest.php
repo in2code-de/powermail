@@ -48,10 +48,7 @@ class AnswerTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Domain\Model\Answer',
-            array('dummy')
-        );
+        $this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Domain\Model\Answer', ['dummy']);
     }
 
     /**
@@ -69,68 +66,68 @@ class AnswerTest extends UnitTestCase
      */
     public function getValueReturnVoidDataProvider()
     {
-        return array(
-            'string 1' => array(
+        return [
+            'string 1' => [
                 'abc def',
                 'abc def',
                 0,
                 null
-            ),
-            'string 2' => array(
+            ],
+            'string 2' => [
                 '<\'"test"',
                 '<\'"test"',
                 0,
                 null
-            ),
-            'array 1' => array(
-                json_encode(array('a')),
-                array('a'),
+            ],
+            'array 1' => [
+                json_encode(['a']),
+                ['a'],
                 1,
                 null
-            ),
-            'array 2' => array(
-                json_encode(array(1, 2, 3)),
-                array(1, 2, 3),
+            ],
+            'array 2' => [
+                json_encode([1, 2, 3]),
+                [1, 2, 3],
                 3,
                 null
-            ),
-            'date 1' => array(
+            ],
+            'date 1' => [
                 strtotime('2010-01-31'),
                 '2010-01-31 00:00',
                 2,
                 'date'
-            ),
-            'date 2' => array(
+            ],
+            'date 2' => [
                 strtotime('1975-10-13'),
                 '1975-10-13 00:00',
                 2,
                 'date'
-            ),
-            'datetime 1' => array(
+            ],
+            'datetime 1' => [
                 strtotime('1975-10-13 14:00'),
                 '1975-10-13 14:00',
                 2,
                 'datetime'
-            ),
-            'datetime 2' => array(
+            ],
+            'datetime 2' => [
                 strtotime('2020-01-30 22:23'),
                 '2020-01-30 22:23',
                 2,
                 'datetime'
-            ),
-            'time 1' => array(
+            ],
+            'time 1' => [
                 strtotime('14:00'),
                 date('Y-m-d') . ' 14:00',
                 2,
                 'time'
-            ),
-            'time 2' => array(
+            ],
+            'time 2' => [
                 strtotime('22:23'),
                 date('Y-m-d') . ' 22:23',
                 2,
                 'time'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -147,11 +144,11 @@ class AnswerTest extends UnitTestCase
     public function getValueReturnMixed($value, $expectedResult, $valueType = 0, $datepickerSettings = null)
     {
         if ($datepickerSettings) {
-            $formats = array(
+            $formats = [
                 'date' => 'Y-m-d',
                 'datetime' => 'Y-m-d H:i',
                 'time' => 'H:i'
-            );
+            ];
             $this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
             $field = new Field;
             if ($datepickerSettings) {
@@ -186,68 +183,68 @@ class AnswerTest extends UnitTestCase
      */
     public function setValueReturnVoidDataProvider()
     {
-        return array(
-            'string 1' => array(
+        return [
+            'string 1' => [
                 'abc def',
                 'abc def',
                 'input',
                 null
-            ),
-            'string 2' => array(
+            ],
+            'string 2' => [
                 '<\'"test"',
                 '<\'"test"',
                 'input',
                 null
-            ),
-            'array 1' => array(
-                array('a'),
-                json_encode(array('a')),
+            ],
+            'array 1' => [
+                ['a'],
+                json_encode(['a']),
                 'check',
                 null
-            ),
-            'array 2' => array(
-                array(1, 2, 3),
-                json_encode(array(1, 2, 3)),
+            ],
+            'array 2' => [
+                [1, 2, 3],
+                json_encode([1, 2, 3]),
                 'check',
                 null
-            ),
-            'date 1' => array(
+            ],
+            'date 1' => [
                 '2010-01-31',
                 strtotime('2010-01-31'),
                 'date',
                 'date'
-            ),
-            'date 2' => array(
+            ],
+            'date 2' => [
                 '1975-10-13',
                 strtotime('1975-10-13'),
                 'date',
                 'date'
-            ),
-            'datetime 1' => array(
+            ],
+            'datetime 1' => [
                 '1975-10-13 14:00',
                 strtotime('1975-10-13 14:00'),
                 'date',
                 'datetime'
-            ),
-            'datetime 2' => array(
+            ],
+            'datetime 2' => [
                 '2020-01-30 22:23',
                 strtotime('2020-01-30 22:23'),
                 'date',
                 'datetime'
-            ),
-            'time 1' => array(
+            ],
+            'time 1' => [
                 '14:00',
                 strtotime('14:00'),
                 'date',
                 'time'
-            ),
-            'time 2' => array(
+            ],
+            'time 2' => [
                 '22:23',
                 strtotime('22:23'),
                 'date',
                 'time'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -270,11 +267,11 @@ class AnswerTest extends UnitTestCase
                 $field->setType($fieldType);
             }
             if ($datepickerSettings) {
-                $formats = array(
+                $formats = [
                     'date' => 'Y-m-d',
                     'datetime' => 'Y-m-d H:i',
                     'time' => 'H:i'
-                );
+                ];
                 $this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
                 $this->generalValidatorMock->_setProperty('valueType', 2);
                 $field->setDatepickerSettings($datepickerSettings);

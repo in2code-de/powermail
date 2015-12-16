@@ -49,7 +49,7 @@ class VariablesViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -68,44 +68,44 @@ class VariablesViewHelperTest extends UnitTestCase
      */
     public function removePowermailAllParagraphTagWrapReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '<p class="abc">xyz</p><p>{powermail_all}</p><p class="abc">xyz</p>',
                 '<p class="abc">xyz</p>{powermail_all}<p class="abc">xyz</p>'
-            ),
-            array(
+            ],
+            [
                 '<p>{powermail_all}</p>',
                 '{powermail_all}'
-            ),
-            array(
+            ],
+            [
                 '<b>{powermail_all}</b>',
                 '<b>{powermail_all}</b>'
-            ),
-            array(
+            ],
+            [
                 '<p> {powermail_all} </p>',
                 '{powermail_all}'
-            ),
-            array(
+            ],
+            [
                 '{powermail_all}',
                 '{powermail_all}'
-            ),
-            array(
+            ],
+            [
                 '<p class="abc">xyz</p><p>{powermail_all}</p>',
                 '<p class="abc">xyz</p>{powermail_all}'
-            ),
-            array(
+            ],
+            [
                 '<p>{powermail_all}</p><p class="abc">xyz</p>',
                 '{powermail_all}<p class="abc">xyz</p>'
-            ),
-            array(
+            ],
+            [
                 '<table><tr><td>{powermail_all}</td></tr></table>',
                 '<table><tr><td>{powermail_all}</td></tr></table>'
-            ),
-            array(
+            ],
+            [
                 '<table><tr><td><p>	{powermail_all} </p></td></tr></table>',
                 '<table><tr><td>{powermail_all}</td></tr></table>'
-            ),
-        );
+            ],
+        ];
     }
 
     /**

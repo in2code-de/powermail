@@ -63,7 +63,8 @@ class ModuleController extends AbstractController
     {
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
-        $this->view->assignMultiple([
+        $this->view->assignMultiple(
+            [
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                 'formUids' => $formUids,
                 'firstForm' => $this->formRepository->findByUid($firstFormUid),
@@ -71,7 +72,8 @@ class ModuleController extends AbstractController
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
-            ]);
+            ]
+        );
     }
 
     /**
@@ -154,7 +156,8 @@ class ModuleController extends AbstractController
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
         $groupedAnswers = ReportingUtility::getGroupedAnswersFromMails($mails);
 
-        $this->view->assignMultiple([
+        $this->view->assignMultiple(
+            [
                 'groupedAnswers' => $groupedAnswers,
                 'mails' => $mails,
                 'firstMail' => $firstMail,
@@ -162,7 +165,8 @@ class ModuleController extends AbstractController
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
-            ]);
+            ]
+        );
     }
 
     /**

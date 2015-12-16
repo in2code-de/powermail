@@ -49,7 +49,7 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
     {
         $this->isNotExcludedFromPowermailAllViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Condition\IsNotExcludedFromPowermailAllViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -68,103 +68,103 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
      */
     public function getExcludedValuesReturnArrayDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'createAction',
-                array(
-                    'excludeFromPowermailAllMarker' => array(
-                        'submitPage' => array(
+                [
+                    'excludeFromPowermailAllMarker' => [
+                        'submitPage' => [
                             'excludeFromFieldTypes' => 'hidden, captcha, input'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'excludeFromFieldTypes',
-                array(
+                [
                     'hidden',
                     'captcha',
                     'input'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'confirmationAction',
-                array(
-                    'excludeFromPowermailAllMarker' => array(
-                        'confirmationPage' => array(
+                [
+                    'excludeFromPowermailAllMarker' => [
+                        'confirmationPage' => [
                             'excludeFromFieldTypes' => 'hidden, input'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'excludeFromFieldTypes',
-                array(
+                [
                     'hidden',
                     'input'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'sender',
-                array(
-                    'excludeFromPowermailAllMarker' => array(
-                        'senderMail' => array(
+                [
+                    'excludeFromPowermailAllMarker' => [
+                        'senderMail' => [
                             'excludeFromMarkerNames' => 'abc, daafsd',
                             'excludeFromFieldTypes' => 'hidden, captcha'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'excludeFromFieldTypes',
-                array(
+                [
                     'hidden',
                     'captcha'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'receiver',
-                array(
-                    'excludeFromPowermailAllMarker' => array(
-                        'receiverMail' => array(
+                [
+                    'excludeFromPowermailAllMarker' => [
+                        'receiverMail' => [
                             'excludeFromMarkerNames' => 'email, firstname',
                             'excludeFromFieldTypes' => 'hidden, input'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'excludeFromMarkerNames',
-                array(
+                [
                     'email',
                     'firstname'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'optin',
-                array(
-                    'excludeFromPowermailAllMarker' => array(
-                        'optinMail' => array(
+                [
+                    'excludeFromPowermailAllMarker' => [
+                        'optinMail' => [
                             'excludeFromMarkerNames' => 'email, firstname',
                             'excludeFromFieldTypes' => 'hidden, input'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'excludeFromMarkerNames',
-                array(
+                [
                     'email',
                     'firstname'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'optin',
-                array(
-                    'excludeFromPowermailAllMarker' => array(
-                        'optinMail' => array(
+                [
+                    'excludeFromPowermailAllMarker' => [
+                        'optinMail' => [
                             'excludeFromMarkerNames' => 'email, firstname',
                             'excludeFromFieldTypes' => 'hidden, input'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'excludeFromFieldTypes',
-                array(
+                [
                     'hidden',
                     'input'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**

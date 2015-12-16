@@ -50,7 +50,7 @@ class FieldTest extends UnitTestCase
         require_once(dirname(dirname(dirname(__FILE__))) . '/Fixtures/Domain/Model/FieldFixture.php');
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Tests\Fixtures\Domain\Model\FieldFixture',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -69,93 +69,93 @@ class FieldTest extends UnitTestCase
      */
     public function optionArrayReturnsArrayDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'abc',
-                array(
-                    array(
+                [
+                    [
                         'label' => 'abc',
                         'value' => 'abc',
                         'selected' => 0
-                    ),
-                )
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 "red\nblue\nyellow",
-                array(
-                    array(
+                [
+                    [
                         'label' => 'red',
                         'value' => 'red',
                         'selected' => 0
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'blue',
                         'value' => 'blue',
                         'selected' => 0
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'yellow',
                         'value' => 'yellow',
                         'selected' => 0
-                    ),
-                )
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 "please choose...|\nred\nblue|blue|*",
-                array(
-                    array(
+                [
+                    [
                         'label' => 'please choose...',
                         'value' => '',
                         'selected' => 0
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'red',
                         'value' => 'red',
                         'selected' => 0
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'blue',
                         'value' => 'blue',
                         'selected' => 1
-                    ),
-                )
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 "||*\nred|red shoes",
-                array(
-                    array(
+                [
+                    [
                         'label' => '',
                         'value' => '',
                         'selected' => 1
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'red',
                         'value' => 'red shoes',
                         'selected' => 0
-                    ),
-                )
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 "Red Shoes | 1 \nBlack Shoes | 2 | *\nBlue Shoes | ",
-                array(
-                    array(
+                [
+                    [
                         'label' => 'Red Shoes',
                         'value' => '1',
                         'selected' => 0
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'Black Shoes',
                         'value' => '2',
                         'selected' => 1
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'Blue Shoes',
                         'value' => '',
                         'selected' => 0
-                    ),
-                )
-            ),
-        );
+                    ],
+                ]
+            ],
+        ];
     }
 
     /**
@@ -180,37 +180,37 @@ class FieldTest extends UnitTestCase
      */
     public function dataTypeFromFieldTypeReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'captcha',
                 0
-            ),
-            array(
+            ],
+            [
                 'check',
                 1
-            ),
-            array(
+            ],
+            [
                 'file',
                 3
-            ),
-            array(
+            ],
+            [
                 'input',
                 0
-            ),
-            array(
+            ],
+            [
                 'textarea',
                 0
-            ),
-            array(
+            ],
+            [
                 'select',
                 0
-            ),
-            array(
+            ],
+            [
                 'select',
                 1,
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**

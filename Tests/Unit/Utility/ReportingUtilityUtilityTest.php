@@ -50,7 +50,7 @@ class ReportingUtilityTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Utility\ReportingUtility',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -69,44 +69,44 @@ class ReportingUtilityTest extends UnitTestCase
      */
     public function sortReportingArrayDescendingReturnsVoidDataProvider()
     {
-        return array(
-            array(
-                array(
-                    array(
+        return [
+            [
+                [
+                    [
                         'blue' => 5,
                         'black' => 1,
                         'red' => 2,
                         'yellow' => 9
-                    )
-                ),
-                array(
-                    array(
+                    ]
+                ],
+                [
+                    [
                         'yellow' => 9,
                         'blue' => 5,
                         'red' => 2,
                         'black' => 1
-                    )
-                )
-            ),
-            array(
-                array(
-                    array(
+                    ]
+                ]
+            ],
+            [
+                [
+                    [
                         'a' => 5,
                         '' => 11,
                         '23' => 2,
                         'x ' => 9
-                    )
-                ),
-                array(
-                    array(
+                    ]
+                ],
+                [
+                    [
                         '' => 11,
                         'x ' => 9,
                         'a' => 5,
                         '23' => 2
-                    )
-                )
-            ),
-        );
+                    ]
+                ]
+            ],
+        ];
     }
 
     /**
@@ -131,27 +131,27 @@ class ReportingUtilityTest extends UnitTestCase
      */
     public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider()
     {
-        return array(
-            array(
-                array(
-                    array(
+        return [
+            [
+                [
+                    [
                         'blue' => 5,
                         'black' => 1,
                         'red' => 2,
                         'yellow' => 9
-                    )
-                ),
-                array(
-                    array(
+                    ]
+                ],
+                [
+                    [
                         'blue' => 5,
                         'black' => 1,
                         'others' => 11,
-                    )
-                )
-            ),
-            array(
-                array(
-                    array(
+                    ]
+                ]
+            ],
+            [
+                [
+                    [
                         'blue' => 2,
                         'black' => 3,
                         'red' => 4,
@@ -161,17 +161,17 @@ class ReportingUtilityTest extends UnitTestCase
                         'orange' => 8,
                         'violet' => 9,
                         'green' => 3
-                    )
-                ),
-                array(
-                    array(
+                    ]
+                ],
+                [
+                    [
                         'blue' => 2,
                         'black' => 3,
                         'others' => 42,
-                    )
-                )
-            ),
-        );
+                    ]
+                ]
+            ],
+        ];
     }
 
     /**

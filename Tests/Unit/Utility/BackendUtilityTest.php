@@ -45,16 +45,16 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function isBackendAdminReturnsBoolDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 1,
                 true
-            ),
-            array(
+            ],
+            [
                 0,
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -79,16 +79,16 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function getPropertyFromBackendUserReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'admin',
                 '1',
-            ),
-            array(
+            ],
+            [
                 'warningMax',
                 3
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -113,20 +113,20 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function getCurrentParametersReturnsArrayDataProvider()
     {
-        return array(
-            array(
-                array('a' => 'b', 'c' => 'd', 'e' => 'f'),
-                array('a' => 'b', 'c' => 'd', 'e' => 'f')
-            ),
-            array(
-                array('a' => 'b', 'c' => 'd', 'M' => 'f'),
-                array('a' => 'b', 'c' => 'd')
-            ),
-            array(
-                array('a' => 'b', 'moduleToken' => 'd', 'M' => 'f'),
-                array('a' => 'b')
-            ),
-        );
+        return [
+            [
+                ['a' => 'b', 'c' => 'd', 'e' => 'f'],
+                ['a' => 'b', 'c' => 'd', 'e' => 'f']
+            ],
+            [
+                ['a' => 'b', 'c' => 'd', 'M' => 'f'],
+                ['a' => 'b', 'c' => 'd']
+            ],
+            [
+                ['a' => 'b', 'moduleToken' => 'd', 'M' => 'f'],
+                ['a' => 'b']
+            ],
+        ];
     }
 
     /**
@@ -150,30 +150,29 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function getPidFromBackendPageReturnsIntDataProvider()
     {
-        return array(
-            'TYPO3 6.2 returnUrl' => array(
-                '/typo3/sysext/cms/layout/db_layout.php?' .
-                'id=17#element-tt_content-14&edit[tt_content][14]=edit',
+        return [
+            'TYPO3 6.2 returnUrl' => [
+                '/typo3/sysext/cms/layout/db_layout.php?' . 'id=17#element-tt_content-14&edit[tt_content][14]=edit',
                 17
-            ),
-            'TYPO3 6.2 returnUrl II' => array(
+            ],
+            'TYPO3 6.2 returnUrl II' => [
                 '/typo3/sysext/cms/layout/db_layout.php?id=15#element-tt_content-34',
                 15
-            ),
-            'TYPO3 7.6 returnUrl' => array(
+            ],
+            'TYPO3 7.6 returnUrl' => [
                 '/typo3/index.php?M=web_layout&moduleToken=' .
-                'afcd9cc86e6cd393edac6a60c33f38f2c2b48721&id=15#element-tt_content-34',
+                    'afcd9cc86e6cd393edac6a60c33f38f2c2b48721&id=15#element-tt_content-34',
                 15
-            ),
-            'Any example' => array(
+            ],
+            'Any example' => [
                 '&returnUrl=abc.html?id=1243&abc=123',
                 1243
-            ),
-            'Any example II' => array(
+            ],
+            'Any example II' => [
                 '&returnUrl=abc.html?abc=1243&xyz=abc',
                 0
-            ),
-        );
+            ],
+        ];
     }
 
     /**

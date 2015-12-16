@@ -2,8 +2,13 @@
 namespace In2code\Powermail\Tests\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\SessionUtility;
+use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
  *  Copyright notice
@@ -51,19 +56,19 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             '\In2code\Powermail\Domain\Service\CalculatingCaptchaService',
-            array('dummy'),
-            array(true)
+            ['dummy'],
+            [true]
         );
         $this->generalValidatorMock->_set(
             'configuration',
-            array(
-                'captcha.' => array(
-                    'default.' => array(
+            [
+                'captcha.' => [
+                    'default.' => [
                         'image' => 'EXT:powermail/Resources/Private/Image/captcha_bg.png',
                         'font' => 'EXT:powermail/Resources/Private/Fonts/ARCADE.TTF'
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         );
     }
 
@@ -76,22 +81,106 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
+     * Data Provider for validCodeReturnsBool)
+     *
+     * @return array
+     */
+    public function validCodeReturnsBoolDataProvider()
+    {
+        return [
+            [
+                '123',
+                '123',
+                true
+            ],
+            [
+                '1234',
+                '123',
+                false
+            ],
+            [
+                '0',
+                '0',
+                false
+            ],
+            [
+                '',
+                '',
+                false
+            ],
+            [
+                'test',
+                'test',
+                false
+            ],
+            [
+                'a123',
+                'a123',
+                false
+            ],
+            [
+                'a123',
+                '',
+                false
+            ],
+            [
+                '123a',
+                '',
+                false
+            ],
+            [
+                '',
+                null,
+                false
+            ],
+            [
+                null,
+                null,
+                false
+            ],
+            [
+                false,
+                false,
+                false
+            ]
+        ];
+    }
+
+    /**
+     * setPathAndFilename Test
+     *
+     * @param string $code Given from input field (should be a string)
+     * @param string $codeInSession (string or empty)
+     * @param bool $expectedResult
+     * @dataProvider validCodeReturnsBoolDataProvider
+     * @test
+     */
+    public function validCodeReturnsBool($code, $codeInSession, $expectedResult)
+    {
+        $this->initializeTsfe();
+        $field = new Field();
+        $field->_setProperty('uid', 123);
+        SessionUtility::setCaptchaSession($codeInSession, 123);
+        $this->assertSame($expectedResult, $this->generalValidatorMock->_call('validCode', $code, $field, false));
+    }
+
+    /**
      * Data Provider for getColorForCaptchaReturnInt()
      *
      * @return array
      */
     public function getColorForCaptchaReturnIntDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '#444444',
                 4473924
-            ),
-            array(
+            ],
+            [
                 '#af584c',
                 11491404
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -110,13 +199,13 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         );
         $this->generalValidatorMock->_set(
             'configuration',
-            array(
-                'captcha.' => array(
-                    'default.' => array(
+            [
+                'captcha.' => [
+                    'default.' => [
                         'textColor' => $hexColorString
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         );
 
         $result = $this->generalValidatorMock->_call('getColorForCaptcha', $imageResource);
@@ -130,29 +219,29 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getFontAngleForCaptchaReturnIntDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '-5,5',
-                array(
+                [
                     -5,
                     5
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '0,20',
-                array(
+                [
                     0,
                     20
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '-100,99',
-                array(
+                [
                     -100,
                     99
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -168,13 +257,13 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock->_set(
             'configuration',
-            array(
-                'captcha.' => array(
-                    'default.' => array(
+            [
+                'captcha.' => [
+                    'default.' => [
                         'textAngle' => $hexColorString
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         );
 
         for ($i = 0; $i < 20; $i++) {
@@ -191,29 +280,29 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getHorizontalDistanceForCaptchaReturnIntDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '-5,5',
-                array(
+                [
                     -5,
                     5
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '0,20',
-                array(
+                [
                     0,
                     20
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '-100,99',
-                array(
+                [
                     -100,
                     99
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -229,13 +318,13 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock->_set(
             'configuration',
-            array(
-                'captcha.' => array(
-                    'default.' => array(
+            [
+                'captcha.' => [
+                    'default.' => [
                         'distanceHor' => $hexColorString
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         );
 
         for ($i = 0; $i < 20; $i++) {
@@ -252,29 +341,29 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getVerticalDistanceForCaptchaReturnIntDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '-5,5',
-                array(
+                [
                     -5,
                     5
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '0,20',
-                array(
+                [
                     0,
                     20
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '-100,99',
-                array(
+                [
                     -100,
                     99
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -290,13 +379,13 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock->_set(
             'configuration',
-            array(
-                'captcha.' => array(
-                    'default.' => array(
+            [
+                'captcha.' => [
+                    'default.' => [
                         'distanceVer' => $hexColorString
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         );
 
         for ($i = 0; $i < 20; $i++) {
@@ -313,43 +402,43 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getStringAndResultForCaptchaReturnsArrayDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 '1+3',
-                array(
+                [
                     'result' => 4,
                     'string' => '1 + 3'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '88 + 11',
-                array(
+                [
                     'result' => 99,
                     'string' => '88 + 11'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '12 - 8',
-                array(
+                [
                     'result' => 4,
                     'string' => '12 - 8'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '6:3',
-                array(
+                [
                     'result' => 2,
                     'string' => '6 : 3'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 '33x3',
-                array(
+                [
                     'result' => 99,
                     'string' => '33 x 3'
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     /**
@@ -365,13 +454,13 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock->_set(
             'configuration',
-            array(
-                'captcha.' => array(
-                    'default.' => array(
+            [
+                'captcha.' => [
+                    'default.' => [
                         'forceValue' => $forceValue
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         );
         $result = $this->generalValidatorMock->_call('getStringAndResultForCaptcha');
         $this->assertSame($expectedResult, $result);
@@ -384,32 +473,32 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function mathematicOperationReturnsIntDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 1,
                 3,
                 '+',
                 4
-            ),
-            array(
+            ],
+            [
                 7,
                 2,
                 '-',
                 5
-            ),
-            array(
+            ],
+            [
                 6,
                 3,
                 ':',
                 2
-            ),
-            array(
+            ],
+            [
                 11,
                 3,
                 'x',
                 33
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -463,5 +552,24 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set('imageFilenamePrefix', 'abc%ddef.png');
         $this->generalValidatorMock->_call('setPathAndFilename', $field);
         $this->assertSame('typo3temp/abc123def.png', $this->generalValidatorMock->_get('pathAndFilename'));
+    }
+
+    /**
+     * Initialize TSFE object
+     *
+     * @return void
+     */
+    protected function initializeTsfe()
+    {
+        $configurationManager = new ConfigurationManager();
+        $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
+            'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject',
+            'COA' => 'TYPO3\CMS\Frontend\ContentObject\ContentObjectArrayContentObject'
+        ];
+        $GLOBALS['TT'] = new TimeTracker();
+        $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
+        $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
     }
 }

@@ -45,72 +45,72 @@ class StringUtilityTest extends UnitTestCase
      */
     public function isNotEmptyReturnsBoolDataProvider()
     {
-        return array(
-            'string "in2code.de"' => array(
+        return [
+            'string "in2code.de"' => [
                 'in2code.de',
                 true
-            ),
-            'string "a"' => array(
+            ],
+            'string "a"' => [
                 'a',
                 true
-            ),
-            'string empty' => array(
+            ],
+            'string empty' => [
                 '',
                 false
-            ),
-            'string "0"' => array(
+            ],
+            'string "0"' => [
                 '0',
                 true
-            ),
-            'int 0' => array(
+            ],
+            'int 0' => [
                 0,
                 true
-            ),
-            'int 1' => array(
+            ],
+            'int 1' => [
                 1,
                 true
-            ),
-            'float 0.0' => array(
+            ],
+            'float 0.0' => [
                 0.0,
                 true
-            ),
-            'float 1.0' => array(
+            ],
+            'float 1.0' => [
                 1.0,
                 true
-            ),
-            'null' => array(
+            ],
+            'null' => [
                 null,
                 false
-            ),
-            'bool false' => array(
+            ],
+            'bool false' => [
                 false,
                 false
-            ),
-            'bool true' => array(
+            ],
+            'bool true' => [
                 true,
                 false
-            ),
-            'array: string empty' => array(
-                array(''),
+            ],
+            'array: string empty' => [
+                [''],
                 false
-            ),
-            'array: int 0' => array(
-                array(0),
+            ],
+            'array: int 0' => [
+                [0],
                 true
-            ),
-            'array: int 1' => array(
-                array(1),
+            ],
+            'array: int 1' => [
+                [1],
                 true
-            ),
-            'array: "abc" => "def"' => array(
-                array('abc' => 'def'),
+            ],
+            'array: "abc" => "def"' => [
+                ['abc' => 'def'],
                 true
-            ),
-            'array: empty' => array(
-                array(),
+            ],
+            'array: empty' => [
+                [],
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -134,24 +134,24 @@ class StringUtilityTest extends UnitTestCase
      */
     public function getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider()
     {
-        return array(
-            'default params' => array(
+        return [
+            'default params' => [
                 32,
                 true,
-            ),
-            'default length lowercase' => array(
+            ],
+            'default length lowercase' => [
                 32,
                 false,
-            ),
-            '60 length' => array(
+            ],
+            '60 length' => [
                 60,
                 true,
-            ),
-            '60 length lowercase' => array(
+            ],
+            '60 length lowercase' => [
                 60,
                 false,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -184,33 +184,33 @@ class StringUtilityTest extends UnitTestCase
      */
     public function conditionalVariableReturnsMixedDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'string',
                 'fallbackstring',
                 'string'
-            ),
-            array(
-                array('abc'),
-                array('def'),
-                array('abc')
-            ),
-            array(
+            ],
+            [
+                ['abc'],
+                ['def'],
+                ['abc']
+            ],
+            [
                 '',
                 'fallback',
                 'fallback'
-            ),
-            array(
+            ],
+            [
                 null,
                 true,
                 true
-            ),
-            array(
+            ],
+            [
                 123,
                 234,
                 123
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -235,33 +235,33 @@ class StringUtilityTest extends UnitTestCase
      */
     public function endsWithReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'xFinisher',
                 'Finisher',
                 true
-            ),
-            array(
+            ],
+            [
                 'inisher',
                 'Finisher',
                 false
-            ),
-            array(
+            ],
+            [
                 'abc',
                 'c',
                 true
-            ),
-            array(
+            ],
+            [
                 'abc',
                 'bc',
                 true
-            ),
-            array(
+            ],
+            [
                 'abc',
                 'abc',
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -286,33 +286,33 @@ class StringUtilityTest extends UnitTestCase
      */
     public function startsWithReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'Finisherx',
                 'Finisher',
                 true
-            ),
-            array(
+            ],
+            [
                 'inisher',
                 'Finisher',
                 false
-            ),
-            array(
+            ],
+            [
                 'abc',
                 'a',
                 true
-            ),
-            array(
+            ],
+            [
                 'abc',
                 'ab',
                 true
-            ),
-            array(
+            ],
+            [
                 'abc',
                 'abc',
                 true
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -337,28 +337,28 @@ class StringUtilityTest extends UnitTestCase
      */
     public function removeLastDotReturnsStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'abc',
                 'abc'
-            ),
-            array(
+            ],
+            [
                 'abc.',
                 'abc'
-            ),
-            array(
+            ],
+            [
                 '.abc.',
                 '.abc'
-            ),
-            array(
+            ],
+            [
                 '.a.b.c.',
                 '.a.b.c'
-            ),
-            array(
+            ],
+            [
                 'abc..',
                 'abc.'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -382,20 +382,20 @@ class StringUtilityTest extends UnitTestCase
      */
     public function br2nlReturnStringDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'a<br>b',
                 "a\nb"
-            ),
-            array(
+            ],
+            [
                 'a<br><br /><br/>b',
                 "a\n\n\nb"
-            ),
-            array(
+            ],
+            [
                 'a\nbr[br]b',
                 'a\nbr[br]b'
-            ),
-        );
+            ],
+        ];
     }
 
     /**

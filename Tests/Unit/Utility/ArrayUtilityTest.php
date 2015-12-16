@@ -48,10 +48,7 @@ class ArrayUtilityTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Utility\ArrayUtility',
-            array('dummy')
-        );
+        $this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Utility\ArrayUtility', ['dummy']);
     }
 
     /**
@@ -71,7 +68,7 @@ class ArrayUtilityTest extends UnitTestCase
     public function getAbcArrayReturnsArray()
     {
         $this->assertSame(
-            array(
+            [
                 'A',
                 'B',
                 'C',
@@ -98,7 +95,7 @@ class ArrayUtilityTest extends UnitTestCase
                 'X',
                 'Y',
                 'Z'
-            ),
+            ],
             ArrayUtility::getAbcArray()
         );
     }
@@ -110,28 +107,28 @@ class ArrayUtilityTest extends UnitTestCase
      */
     public function isJsonArrayReturnsBoolDataProvider()
     {
-        return array(
-            array(
-                json_encode(array('a')),
+        return [
+            [
+                json_encode(['a']),
                 true
-            ),
-            array(
+            ],
+            [
                 json_encode('a,b:c'),
                 false
-            ),
-            array(
-                json_encode(array('object' => 'a')),
+            ],
+            [
+                json_encode(['object' => 'a']),
                 true
-            ),
-            array(
-                json_encode(array(array('title' => 'test2'), array('title' => 'test2'))),
+            ],
+            [
+                json_encode([['title' => 'test2'], ['title' => 'test2']]),
                 true
-            ),
-            array(
+            ],
+            [
                 'a,b:c',
                 false
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -155,30 +152,30 @@ class ArrayUtilityTest extends UnitTestCase
      */
     public function htmlspecialcharsOnArrayReturnsArrayDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     '<te&st>'
-                ),
-                array(
+                ],
+                [
                     '&lt;te&amp;st&gt;'
-                )
-            ),
-            array(
-                array(
+                ]
+            ],
+            [
+                [
                     '<test>',
-                    array(
+                    [
                         '<test>' => '<test>'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     '&lt;test&gt;',
-                    array(
+                    [
                         '&lt;test&gt;' => '&lt;test&gt;'
-                    )
-                )
-            ),
-        );
+                    ]
+                ]
+            ],
+        ];
     }
 
     /**

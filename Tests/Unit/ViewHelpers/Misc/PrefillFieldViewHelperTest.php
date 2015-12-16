@@ -54,7 +54,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             '\In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper',
-            array('dummy')
+            ['dummy']
         );
     }
 
@@ -73,151 +73,151 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      */
     public function getDefaultValueReturnsStringDataProvider()
     {
-        return array(
-            array(
-                array(
+        return [
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker',
                     'prefillValue' => 'mno'
-                ),
-                array(
-                    'field' => array(
+                ],
+                [
+                    'field' => [
                         'marker' => 'abc',
                         '123' => 'ghi'
-                    ),
+                    ],
                     'marker' => 'def',
                     'uid123' => 'jkl'
-                ),
-                array(
-                    'prefill.' => array(
+                ],
+                [
+                    'prefill.' => [
                         'marker' => 'pqr'
-                    )
-                ),
+                    ]
+                ],
                 'abc'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker',
                     'prefillValue' => 'mno'
-                ),
-                array(
-                    'field' => array(
+                ],
+                [
+                    'field' => [
                         '123' => 'ghi'
-                    ),
+                    ],
                     'marker' => 'def',
                     'uid123' => 'jkl'
-                ),
-                array(
-                    'prefill.' => array(
+                ],
+                [
+                    'prefill.' => [
                         'marker' => 'pqr'
-                    )
-                ),
+                    ]
+                ],
                 'def'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker',
                     'prefillValue' => 'mno'
-                ),
-                array(
-                    'field' => array(
+                ],
+                [
+                    'field' => [
                         '123' => 'ghi'
-                    ),
+                    ],
                     'uid123' => 'jkl'
-                ),
-                array(
-                    'prefill.' => array(
+                ],
+                [
+                    'prefill.' => [
                         'marker' => 'pqr'
-                    )
-                ),
+                    ]
+                ],
                 'ghi'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker',
                     'prefillValue' => 'mno'
-                ),
-                array(
+                ],
+                [
                     'uid123' => 'jkl'
-                ),
-                array(
-                    'prefill.' => array(
+                ],
+                [
+                    'prefill.' => [
                         'marker' => 'pqr'
-                    )
-                ),
+                    ]
+                ],
                 'jkl'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker',
                     'prefillValue' => 'mno'
-                ),
-                array(),
-                array(
-                    'prefill.' => array(
+                ],
+                [],
+                [
+                    'prefill.' => [
                         'marker' => 'pqr'
-                    )
-                ),
+                    ]
+                ],
                 'mno'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker',
                     'prefillValue' => 'mno'
-                ),
-                array(),
-                array(),
+                ],
+                [],
+                [],
                 'mno'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker'
-                ),
-                array(),
-                array(
-                    'prefill.' => array(
+                ],
+                [],
+                [
+                    'prefill.' => [
                         'marker' => 'pqr'
-                    )
-                ),
+                    ]
+                ],
                 'pqr'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker',
                     'prefillValue' => 'mno'
-                ),
-                array(
-                    'field' => array(
+                ],
+                [
+                    'field' => [
                         'marker' => '',
                         '123' => 'ghi'
-                    ),
+                    ],
                     'marker' => 'def',
                     'uid123' => 'jkl'
-                ),
-                array(
-                    'prefill.' => array(
+                ],
+                [
+                    'prefill.' => [
                         'marker' => 'pqr'
-                    )
-                ),
+                    ]
+                ],
                 'def'
-            ),
-            array(
-                array(
+            ],
+            [
+                [
                     'uid' => 123,
                     'marker' => 'marker',
-                ),
-                array(),
-                array(),
+                ],
+                [],
+                [],
                 ''
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -253,34 +253,34 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      */
     public function getFromTypoScriptContentObjectReturnsStringDataProvider()
     {
-        return array(
-            array(
-                array(
-                    'prefill.' => array(
+        return [
+            [
+                [
+                    'prefill.' => [
                         'marker' => 'TEXT',
-                        'marker.' => array(
+                        'marker.' => [
                             'value' => 'y',
                             'wrap' => 'x|z'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'marker',
                 'xyz'
-            ),
-            array(
-                array(
-                    'prefill.' => array(
+            ],
+            [
+                [
+                    'prefill.' => [
                         'email' => 'TEXT',
-                        'email.' => array(
+                        'email.' => [
                             'data' => 'date:U',
                             'strftime' => '%d.%m.%Y %H:%M'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'email',
                 (string) strftime('%d.%m.%Y %H:%M')
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -314,38 +314,38 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      */
     public function getFromTypoScriptRawReturnsStringDataProvider()
     {
-        return array(
-            array(
-                array(
-                    'prefill.' => array(
+        return [
+            [
+                [
+                    'prefill.' => [
                         'email' => 'abcdef'
-                    )
-                ),
+                    ]
+                ],
                 'email',
                 'abcdef'
-            ),
-            array(
-                array(
-                    'prefill.' => array(
+            ],
+            [
+                [
+                    'prefill.' => [
                         'email' => 'TEXT',
-                        'email.' => array(
+                        'email.' => [
                             'value' => 'xyz'
-                        )
-                    )
-                ),
+                        ]
+                    ]
+                ],
                 'email',
                 ''
-            ),
-            array(
-                array(
-                    'prefill.' => array(
+            ],
+            [
+                [
+                    'prefill.' => [
                         'marker' => 'TEXT'
-                    )
-                ),
+                    ]
+                ],
                 'marker',
                 'TEXT'
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -374,9 +374,9 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $configurationManager = new ConfigurationManager();
         $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = array(
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
             'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject'
-        );
+        ];
         $GLOBALS['TT'] = new TimeTracker();
         $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
     }

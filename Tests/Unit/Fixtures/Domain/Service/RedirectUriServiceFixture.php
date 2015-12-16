@@ -13,12 +13,12 @@ class RedirectUriServiceFixture extends RedirectUriService
     /**
      * @var array
      */
-    protected $typoScriptFixture = array();
+    protected $typoScriptFixture = [];
 
     /**
      * @var array
      */
-    protected $flexFormFixture = array();
+    protected $flexFormFixture = [];
 
     /**
      * Get typoscript
