@@ -18,6 +18,14 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.20.1
+   :Date:
+      2015-12-16
+   :Changes:
+
+      * Bugfix _`#71299`: https://forge.typo3.org/issues/71299 Captcha does not work
+
+ - :Version:
       2.20.0
    :Date:
       2015-12-13
@@ -61,6 +69,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       2015-11-27
    :Changes:
 
+      * This version needs PHP 5.5
       * Feature _`#71830`: https://forge.typo3.org/issues/71830 Make addQueryString configurable via TypoScript Setup/Constants
       * Bugfix _`#71794`: https://forge.typo3.org/issues/71794 Edit form directly in flexform not work when it is closed
 
