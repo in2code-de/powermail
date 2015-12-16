@@ -5,9 +5,9 @@ use In2code\Powermail\Domain\Service\FormConverterService;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -234,32 +234,21 @@ class ModuleController extends AbstractController
     {
         $this->view->assign('pid', $this->id);
 
-        if ($email) {
-            if (GeneralUtility::validEmail($email)) {
-                $body = 'New <b>Test Email</b> from User ';
-                $body .= BackendUtility::getPropertyFromBackendUser('username') .
-                $body .= ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
+        if (GeneralUtility::validEmail($email)) {
+            $body = 'New <b>Test Email</b> from User ' . BackendUtility::getPropertyFromBackendUser('username') .
+                ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
 
-                $senderEmail = 'powermail@domain.net';
-                if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
-                    $senderEmail = ConfigurationUtility::getDefaultMailFromAddress();
-                }
-                $senderName = 'powermail';
-                if (!empty(ConfigurationUtility::getDefaultMailFromName())) {
-                    $senderName = ConfigurationUtility::getDefaultMailFromName();
-                }
-                /** @var MailMessage $message */
-                $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-                $message
-                    ->setTo([$email => 'Receiver'])
-                    ->setFrom([$senderEmail => $senderName])
-                    ->setSubject('New Powermail Test Email')
-                    ->setBody($body, 'text/html')
-                    ->send();
-
-                $this->view->assign('issent', $message->isSent());
-                $this->view->assign('email', $email);
+            $senderEmail = 'powermail@domain.net';
+            if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
+                $senderEmail = ConfigurationUtility::getDefaultMailFromAddress();
             }
+
+            $this->view->assignMultiple(
+                [
+                    'issent' => MailUtility::sendPlainMail($email, $senderEmail, 'New Powermail Test Email', $body),
+                    'email' => $email
+                ]
+            );
         }
     }
 
