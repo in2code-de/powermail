@@ -72,10 +72,10 @@ class FormController extends AbstractController
         $forms = $this->formRepository->findByUids($this->settings['main']['form']);
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$forms, $this]);
         SessionUtility::saveFormStartInSession($forms, $this->settings);
-
         $this->view->assignMultiple(
             [
                 'forms' => $forms,
+                'ttContentData' => $this->contentObject->data,
                 'messageClass' => $this->messageClass,
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
             ]
@@ -144,7 +144,7 @@ class FormController extends AbstractController
             $this->isSendMailActive($mail, $hash),
             $this->actionMethodName,
             $this->settings,
-            $this->cObj
+            $this->contentObject
         );
     }
 
@@ -336,7 +336,7 @@ class FormController extends AbstractController
             'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
             'senderName' => $this->settings['sender']['name'],
             'senderEmail' => $this->settings['sender']['email'],
-            'subject' => $this->cObj->cObjGetSingle(
+            'subject' => $this->contentObject->cObjGetSingle(
                 $this->conf['optin.']['subject'],
                 $this->conf['optin.']['subject.']
             ),
@@ -384,6 +384,7 @@ class FormController extends AbstractController
                 'mail' => $mail,
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'messageClass' => $this->messageClass,
+                'ttContentData' => $this->contentObject->data,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
             ]
@@ -484,7 +485,7 @@ class FormController extends AbstractController
      */
     public function initializeObject()
     {
-        $this->cObj = $this->configurationManager->getContentObject();
+        $this->contentObject = $this->configurationManager->getContentObject();
         $typoScriptSetup = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
