@@ -131,16 +131,14 @@ class BackendContainerViewHelper extends ContainerViewHelper
      *
      * @param array $includeCssFiles List of custom CSS file to be loaded
      * @param array $includeJsFiles List of custom JavaScript file to be loaded
-     * @param bool $enableClickMenu If TRUE, loads clickmenu.js required by BE context menus. Defaults to TRUE
-     * @param bool $loadExtJs specifies whether to load ExtJS library. Defaults to FALSE
-     * @param bool $loadExtJsTheme whether to load ExtJS "grey" theme. Defaults to FALSE
-     * @param bool $enableExtJsDebug if TRUE, debug version of ExtJS is loaded. Use this for development only
-     * @param bool $loadJQuery whether to load jQuery library. Defaults to FALSE
+     * @param boolean $enableClickMenu If TRUE, loads clickmenu.js required by BE context menus. Defaults to TRUE
+     * @param boolean $loadExtJs specifies whether to load ExtJS library. Defaults to FALSE
+     * @param boolean $loadExtJsTheme whether to load ExtJS "grey" theme. Defaults to FALSE
+     * @param boolean $enableExtJsDebug if TRUE, debug version of ExtJS is loaded. Use this for development only
+     * @param boolean $loadJQuery whether to load jQuery library. Defaults to FALSE
      * @param string $jQueryNamespace Store the jQuery object in a specific namespace
      * @param string $pageTitle title tag of the module. Not required by default, as BE modules are shown in a frame
      * @return string
-     * @see \TYPO3\CMS\Backend\Template\DocumentTemplate
-     * @see \TYPO3\CMS\Core\Page\PageRenderer
      */
     public function render(
         $includeCssFiles = null,
@@ -155,11 +153,11 @@ class BackendContainerViewHelper extends ContainerViewHelper
     ) {
         $this->includeCssFiles = $includeCssFiles;
         $this->includeJsFiles = $includeJsFiles;
-        $this->enableClickMenu = filter_var($enableClickMenu, FILTER_VALIDATE_BOOLEAN);
-        $this->loadExtJs = filter_var($loadExtJs, FILTER_VALIDATE_BOOLEAN);
-        $this->loadExtJsTheme = filter_var($loadExtJsTheme, FILTER_VALIDATE_BOOLEAN);
-        $this->enableExtJsDebug = filter_var($enableExtJsDebug, FILTER_VALIDATE_BOOLEAN);
-        $this->loadJQuery = filter_var($loadJQuery, FILTER_VALIDATE_BOOLEAN);
+        $this->enableClickMenu = $enableClickMenu;
+        $this->loadExtJs = $loadExtJs;
+        $this->loadExtJsTheme = $loadExtJsTheme;
+        $this->enableExtJsDebug = $enableExtJsDebug;
+        $this->loadJQuery = $loadJQuery;
         $this->jQueryNamespace = $jQueryNamespace;
         $this->pageTitle = $pageTitle;
 
@@ -228,7 +226,7 @@ class BackendContainerViewHelper extends ContainerViewHelper
     protected function getFunctionArgumentNames($class, $method)
     {
         $function = new \ReflectionMethod($class, $method);
-        $result = array();
+        $result = [];
         foreach ($function->getParameters() as $param) {
             $result[] = $param->name;
         }
