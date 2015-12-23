@@ -95,7 +95,7 @@ abstract class AbstractController extends ActionController
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
      */
-    protected $cObj;
+    protected $contentObject;
 
     /**
      * TypoScript configuration

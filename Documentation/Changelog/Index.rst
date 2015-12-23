@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.20.2
+   :Date:
+      2015-12-23
+   :Changes:
+
+      * Bugfix _`#72349`: https://forge.typo3.org/issues/72349 CSV export hidden field with field-uids contains fields without answer
+      * Bugfix _`#72348`: https://forge.typo3.org/issues/72348 Leading spaces in CSV export
+      * Bugfix _`#72297`: https://forge.typo3.org/issues/72297 Make tt_content.* values available in Templates
+      * Bugfix _`#72282`: https://forge.typo3.org/issues/72282 Export module broken in Typo3 7.6.1
+
+ - :Version:
       2.20.1
    :Date:
       2015-12-16

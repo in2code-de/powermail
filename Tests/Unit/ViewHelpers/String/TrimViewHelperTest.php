@@ -93,11 +93,19 @@ class TrimViewHelperTest extends UnitTestCase
             ],
             [
                 '<br/><br><br />',
-                PHP_EOL . PHP_EOL . PHP_EOL,
+                '',
             ],
             [
                 " \n " . ',' . "\n " . ',' . " \n",
                 ', ,',
+            ],
+            [
+                ' "name" ;"firstname" ;  "email"; <br>    <br>    <br> <br> ' . "\t\t\n\n" .
+                    ' "name";"firstname";"email"; <br />' .
+                    '   "name";"email";   ',
+                '"name";"firstname";"email";' . PHP_EOL .
+                    '"name";"firstname";"email";' . PHP_EOL .
+                    '"name";"email";',
             ],
         ];
     }

@@ -1,5 +1,5 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<f:be.container
+<vh:Condition.BackendContainer
 		includeCssFiles="{0: '{f:uri.resource(path:\'Css/Backend.css\')}'}"
 		includeJsFiles="{0: '{f:uri.resource(path:\'JavaScripts/Libraries/jquery-ui-1.10.4.custom.min.js\')}',
 			1: '{f:uri.resource(path:\'JavaScripts/Libraries/jquery.datetimepicker.js\')}',
@@ -10,7 +10,9 @@
 		loadExtJs="false"
 		loadExtJsTheme="false"
 		enableExtJsDebug="false"
-		loadJQuery="true">
+		loadJQuery="true"
+		jQueryNamespace="defaultNoConflict"
+		pageTitle="powermail">
 
 	<div class="overlay"></div>
 
@@ -49,4 +51,4 @@
 			</div>
 		</div>
 	</div>
-</f:be.container>
+</vh:Condition.BackendContainer>
