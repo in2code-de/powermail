@@ -163,7 +163,7 @@ class SendMailService
     protected function sendTemplateEmail(array $email)
     {
         /** @var MailMessage $message */
-        $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $message = GeneralUtility::makeInstance(MailMessage::class);
         TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfig, 'subject');
         $message
             ->setTo([$email['receiverEmail'] => $email['receiverName']])
@@ -495,7 +495,7 @@ class SendMailService
     protected function getConfigurationFromSettings(array $settings)
     {
         /** @var TypoScriptService $typoScriptService */
-        $typoScriptService = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+        $typoScriptService = $this->objectManager->get(TypoScriptService::class);
         return $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
     }
 

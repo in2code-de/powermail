@@ -3,6 +3,7 @@ namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\UserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
  *  Copyright notice
@@ -65,8 +66,7 @@ class StringUtility
     protected static function getEmailsFromFeGroup($uid)
     {
         /** @var UserRepository $userRepository */
-        $userRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-            ->get('In2code\\Powermail\\Domain\\Repository\\UserRepository');
+        $userRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(UserRepository::class);
         $users = $userRepository->findByUsergroup($uid);
         $array = [];
         foreach ($users as $user) {

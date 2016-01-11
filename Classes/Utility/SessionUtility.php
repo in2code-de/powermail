@@ -2,8 +2,10 @@
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\MailRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /***************************************************************
  *  Copyright notice
@@ -169,14 +171,14 @@ class SessionUtility extends AbstractUtility
     public static function saveSessionValuesForPrefill(Mail $mail, $settings)
     {
         $valuesToSave = [];
-        $typoScriptService = self::getObjectManager()->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+        $typoScriptService = self::getObjectManager()->get(TypoScriptService::class);
         $contentObject = self::getContentObject();
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
         if (
             !empty($configuration['saveSession.']) &&
             array_key_exists($configuration['saveSession.']['_method'], self::$methods)
         ) {
-            $mailRepository = self::getObjectManager()->get('In2code\\Powermail\\Domain\\Repository\\MailRepository');
+            $mailRepository = self::getObjectManager()->get(MailRepository::class);
             $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($mail);
             $contentObject->start($variablesWithMarkers);
             foreach (array_keys($variablesWithMarkers) as $marker) {

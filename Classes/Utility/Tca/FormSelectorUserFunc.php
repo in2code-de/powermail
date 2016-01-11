@@ -132,7 +132,7 @@ class FormSelectorUserFunc
     protected function getPidListFromStartingPoint($startPid = 0)
     {
         /** @var QueryGenerator $queryGenerator */
-        $queryGenerator = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Database\\QueryGenerator');
+        $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
         $list = $queryGenerator->getTreeList($startPid, 10, 0, 1);
         return $list;
     }

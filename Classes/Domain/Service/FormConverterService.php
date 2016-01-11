@@ -5,10 +5,12 @@ use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /***************************************************************
  *  Copyright notice
@@ -676,10 +678,8 @@ class FormConverterService
         if (!is_object($GLOBALS['TSFE'])) {
             $pid = (GeneralUtility::_GP('id') ? GeneralUtility::_GP('id') : 1);
             $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], $pid, 0, 0, 0, 0, 0, 0);
-            $GLOBALS['TSFE']->tmpl = GeneralUtility::makeInstance(
-                'TYPO3\\CMS\\Core\\TypoScript\\ExtendedTemplateService'
-            );
-            $GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
+            $GLOBALS['TSFE']->tmpl = GeneralUtility::makeInstance(ExtendedTemplateService::class);
+            $GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance(PageRepository::class);
             $GLOBALS['TSFE']->tmpl->tt_track = 0;
             $GLOBALS['TSFE']->tmpl->init();
             $rootLine = $GLOBALS['TSFE']->sys_page->getRootLine($pid);

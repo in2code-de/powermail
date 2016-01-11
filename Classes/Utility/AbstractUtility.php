@@ -5,7 +5,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -126,10 +126,10 @@ abstract class AbstractUtility
     }
 
     /**
-     * @return ObjectManagerInterface
+     * @return ObjectManager
      */
     protected static function getObjectManager()
     {
-        return GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        return GeneralUtility::makeInstance(ObjectManager::class);
     }
 }

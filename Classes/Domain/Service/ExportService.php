@@ -179,7 +179,7 @@ class ExportService
     protected function sendEmail()
     {
         /** @var MailMessage $email */
-        $email = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $email = $this->objectManager->get(MailMessage::class);
         $email->setTo($this->getReceiverEmails());
         $email->setFrom($this->getSenderEmails());
         $email->setSubject($this->getSubject());

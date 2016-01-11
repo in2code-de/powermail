@@ -10,6 +10,7 @@ use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -444,8 +445,7 @@ class MailRepository extends AbstractRepository
                 $name = $default;
             } else {
                 /** @var ContentObjectRenderer $contentObject */
-                $contentObject = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')
-                    ->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+                $contentObject = GeneralUtility::makeInstance(ObjectManager::class)->get(ContentObjectRenderer::class);
                 $name = $contentObject->cObjGetSingle($default[0][$default[1]], $default[0][$default[1] . '.']);
             }
         }
@@ -523,7 +523,7 @@ class MailRepository extends AbstractRepository
     public function initializeObject()
     {
         /** @var Typo3QuerySettings $querySettings */
-        $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }

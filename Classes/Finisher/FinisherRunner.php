@@ -69,12 +69,7 @@ class FinisherRunner
     ) {
         foreach ($this->getFinisherClasses($settings) as $finisherSettings) {
             /** @var FinisherService $finisherService */
-            $finisherService = $this->objectManager->get(
-                'In2code\\Powermail\\Domain\\Service\\FinisherService',
-                $mail,
-                $settings,
-                $contentObject
-            );
+            $finisherService = $this->objectManager->get(FinisherService::class, $mail, $settings, $contentObject);
             $finisherService->setClass($finisherSettings['class']);
             $finisherService->setRequirePath((string) $finisherSettings['require']);
             $finisherService->setConfiguration((array) $finisherSettings['config']);

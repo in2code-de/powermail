@@ -5,9 +5,12 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /***************************************************************
  *  Copyright notice
@@ -319,8 +322,8 @@ class CalculatingCaptchaService
     protected function getFilename($string, $absolute = false)
     {
         $string = str_replace('EXT:', 'typo3conf/ext/', $string);
-        /** @var \TYPO3\CMS\Core\TypoScript\TemplateService $templateService */
-        $templateService = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TypoScript\\TemplateService');
+        /** @var TemplateService $templateService */
+        $templateService = GeneralUtility::makeInstance(TemplateService::class);
         $fileName = $templateService->getFileName($string);
         if ($absolute) {
             $fileName = GeneralUtility::getFileAbsFileName($fileName);
@@ -334,14 +337,14 @@ class CalculatingCaptchaService
     public function setConfiguration()
     {
         if (!$this->test) {
-            /** @var ObjectManagerInterface $objectManager */
-            $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-            /** @var ConfigurationManagerInterface $configurationManager */
-            $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+            /** @var ObjectManager $objectManager */
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+            /** @var ConfigurationManager $configurationManager */
+            $configurationManager = $objectManager->get(ConfigurationManager::class);
             $typoScriptSetup = $configurationManager->getConfiguration(
                 ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
             );
-            $typoScriptService = $objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+            $typoScriptService = $objectManager->get(TypoScriptService::class);
             $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
                 (array) $typoScriptSetup['setup']
             );
