@@ -450,6 +450,13 @@ class SendMailServiceTest extends UnitTestCase
                 'Please click <a class="a b href" href="http://www.google.com" id="text" target="_blank">this</a> link',
                 'Please click this [http://www.google.com] link'
             ],
+            [
+                'Please click <a class="a b href" href="http://www.google.com" id="text" target="_blank">this</a> ' .
+                    'or <a rel="lightbox" href="https://www.in2code.de" data-foo="bar">this</a> ' .
+                    'or <a href="http://www.test.de">this</a> link',
+                'Please click this [http://www.google.com] or this [https://www.in2code.de] or ' .
+                    'this [http://www.test.de] link'
+            ],
         ];
     }
 
