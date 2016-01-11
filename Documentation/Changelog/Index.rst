@@ -20,7 +20,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
  - :Version:
       2.20.3
    :Date:
-      2015-01-11
+      2016-01-11
    :Changes:
 
       * Bugfix _`#72618`: https://forge.typo3.org/issues/72618 Plaintext Mails with two or more links
