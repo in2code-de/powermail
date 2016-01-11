@@ -38,6 +38,8 @@ Add a php-file and extend your class with the AbstractValidator from powermail:
    namespace Vendor\Ext\Domain\Model;
 
    use In2code\Powermail\Domain\Validator\AbstractValidator;
+   use TYPO3\CMS\Extbase\Error\Error;
+   use TYPO3\CMS\Extbase\Error\Result;
 
    /**
     * Class DoSomethingValidator
