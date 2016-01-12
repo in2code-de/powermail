@@ -7,6 +7,7 @@ use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Parses Variables for powermail
@@ -45,15 +46,15 @@ class VariablesViewHelper extends AbstractViewHelper
     /**
      * Parses variables again
      *
-     * @param \In2code\Powermail\Domain\Model\Mail $mail Variables and Labels array
+     * @param Mail $mail Variables and Labels array
      * @param string $type "web" or "mail"
      * @param string $function "createAction", "senderMail", "receiverMail"
      * @return string Changed string
      */
     public function render(Mail $mail, $type = 'web', $function = 'createAction')
     {
-        /** @var \TYPO3\CMS\Fluid\View\StandaloneView $parseObject */
-        $parseObject = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        /** @var StandaloneView $parseObject */
+        $parseObject = $this->objectManager->get(StandaloneView::class);
         $parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
         $parseObject->assignMultiple(
             ArrayUtility::htmlspecialcharsOnArray($this->mailRepository->getVariablesWithMarkersFromMail($mail))

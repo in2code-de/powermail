@@ -3,6 +3,7 @@ namespace In2code\Powermail\ViewHelpers\BeCheck;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /**
@@ -31,7 +32,7 @@ class SessionViewHelper extends AbstractViewHelper
         // settings
         $userObj = EidUtility::initFeUser();
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Frontend\Controller\\TypoScriptFrontendController',
+            TypoScriptFrontendController::class,
             $GLOBALS['TYPO3_CONF_VARS'],
             GeneralUtility::_GET('id'),
             0,

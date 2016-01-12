@@ -103,7 +103,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     {
         /* @var $saveService SaveToAnyTableService */
         $saveService = $this->objectManager->get(
-            'In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService',
+            SaveToAnyTableService::class,
             $this->getTableName($tableConfiguration)
         );
         $this->setModeInSaveService($saveService, $tableConfiguration);
@@ -129,7 +129,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         );
 
         /* @var $saveService SaveToAnyTableService */
-        $saveService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\SaveToAnyTableService', $table);
+        $saveService = $this->objectManager->get(SaveToAnyTableService::class, $table);
         $this->setModeInSaveService($saveService, $tableConfiguration);
         $this->setPropertiesInSaveService($saveService, $tableConfiguration);
         $saveService->setDevLog(!empty($this->settings['debug']['saveToTable']));

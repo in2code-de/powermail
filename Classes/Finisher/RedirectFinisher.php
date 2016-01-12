@@ -57,10 +57,7 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
     public function redirectToUriFinisher()
     {
         /** @var RedirectUriService $redirectService */
-        $redirectService = $this->objectManager->get(
-            'In2code\\Powermail\\Domain\\Service\\RedirectUriService',
-            $this->contentObject
-        );
+        $redirectService = $this->objectManager->get(RedirectUriService::class, $this->contentObject);
         $uri = $redirectService->getRedirectUri();
         if (!empty($uri) && $this->isRedirectEnabled()) {
             HttpUtility::redirect($uri);

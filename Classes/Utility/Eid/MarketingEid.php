@@ -3,6 +3,7 @@ namespace In2code\Powermail\Utility\Eid;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Core\Bootstrap;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /***************************************************************
@@ -92,7 +93,7 @@ class MarketingEid
         $userObj = EidUtility::initFeUser();
         $pid = (GeneralUtility::_GET('id') ? GeneralUtility::_GET('id') : 1);
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-            'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+            TypoScriptFrontendController::class,
             $TYPO3_CONF_VARS,
             $pid,
             0,
@@ -107,5 +108,5 @@ class MarketingEid
     }
 }
 
-$eid = GeneralUtility::makeInstance('In2code\\Powermail\\Utility\\Eid\\MarketingEid', $GLOBALS['TYPO3_CONF_VARS']);
+$eid = GeneralUtility::makeInstance(MarketingEid::class, $GLOBALS['TYPO3_CONF_VARS']);
 echo $eid->run();

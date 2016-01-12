@@ -142,7 +142,7 @@ class TemplateUtility extends AbstractUtility
         $format = 'html'
     ) {
         /** @var StandaloneView $standaloneView */
-        $standaloneView = self::getObjectManager()->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $standaloneView = self::getObjectManager()->get(StandaloneView::class);
         $standaloneView->getRequest()->setControllerExtensionName($extensionName);
         $standaloneView->getRequest()->setPluginName($pluginName);
         $standaloneView->setFormat($format);
@@ -187,8 +187,8 @@ class TemplateUtility extends AbstractUtility
         if (empty($string) || empty(self::getDatabaseConnection())) {
             return $string;
         }
-        /** @var \TYPO3\CMS\Fluid\View\StandaloneView $standaloneView */
-        $standaloneView = self::getObjectManager()->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        /** @var StandaloneView $standaloneView */
+        $standaloneView = self::getObjectManager()->get(StandaloneView::class);
         $standaloneView->setTemplateSource($string);
         $standaloneView->assignMultiple($variables);
         return $standaloneView->render();

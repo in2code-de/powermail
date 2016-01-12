@@ -85,9 +85,7 @@ class CaptchaValidator extends AbstractValidator
 
             default:
                 /** @var CalculatingCaptchaService $captchaService */
-                $captchaService = $this->objectManager->get(
-                    'In2code\\Powermail\\Domain\\Service\\CalculatingCaptchaService'
-                );
+                $captchaService = $this->objectManager->get(CalculatingCaptchaService::class);
                 if ($captchaService->validCode($value, $field, $this->isClearSession())) {
                     return true;
                 }

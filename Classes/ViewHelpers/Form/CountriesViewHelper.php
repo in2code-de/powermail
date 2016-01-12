@@ -33,11 +33,9 @@ class CountriesViewHelper extends AbstractViewHelper
 
         // get countries from static_info_tables
         if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            /** @var CountriesFromStaticInfoTablesService $countriesFromStaticInfoTablesService */
-            $countriesFromStaticInfoTablesService = $this->objectManager->get(
-                'In2code\\Powermail\\Domain\\Service\\CountriesFromStaticInfoTablesService'
-            );
-            $countries = $countriesFromStaticInfoTablesService->getCountries($key, $value, $sortbyField, $sorting);
+            /** @var CountriesFromStaticInfoTablesService $countriesService */
+            $countriesService = $this->objectManager->get(CountriesFromStaticInfoTablesService::class);
+            $countries = $countriesService->getCountries($key, $value, $sortbyField, $sorting);
         }
 
         return $countries;

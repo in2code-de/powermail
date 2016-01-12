@@ -159,7 +159,7 @@ class FormRepository extends AbstractRepository
 
         if ($pid > 0) {
             /** @var QueryGenerator $queryGenerator */
-            $queryGenerator = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Database\\QueryGenerator');
+            $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
             $pidList = $queryGenerator->getTreeList($pid, 20, 0, 1);
             $query->matching($query->in('pid', GeneralUtility::trimExplode(',', $pidList, true)));
         }

@@ -11,6 +11,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Prefill a field
@@ -420,9 +421,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     public function initialize()
     {
         $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
-        $this->contentObjectRenderer = $this->objectManager->get(
-            'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'
-        );
+        $this->contentObjectRenderer = $this->objectManager->get(ContentObjectRenderer::class);
         $typoScriptSetup = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );

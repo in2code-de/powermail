@@ -95,14 +95,10 @@ class TaskCommandController extends CommandController
     ) {
         /** @var ExportService $exportService */
         $exportService = $this->objectManager->get(
-            'In2code\\Powermail\\Domain\\Service\\ExportService',
-            $this->mailRepository->findAllInPid(
-                $pageUid,
-                array(),
-                $this->getFilterVariables($period)
-            ),
+            ExportService::class,
+            $this->mailRepository->findAllInPid($pageUid, [], $this->getFilterVariables($period)),
             $format,
-            array('domain' => $domain)
+            ['domain' => $domain]
         );
         $exportService
             ->setReceiverEmails($receiverEmails)

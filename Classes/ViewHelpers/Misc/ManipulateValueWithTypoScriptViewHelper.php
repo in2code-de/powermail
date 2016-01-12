@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 use In2code\Powermail\Domain\Model\Answer;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class ManipulateValueWithTypoScriptViewHelper for {powermail_all} variable
@@ -71,9 +72,7 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
      */
     public function initialize()
     {
-        $this->contentObjectRenderer = $this->objectManager->get(
-            'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'
-        );
+        $this->contentObjectRenderer = $this->objectManager->get(ContentObjectRenderer::class);
         $typoScriptSetup = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );

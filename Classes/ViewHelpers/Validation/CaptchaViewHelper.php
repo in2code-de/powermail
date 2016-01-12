@@ -53,8 +53,7 @@ class CaptchaViewHelper extends AbstractViewHelper
 
             default:
                 /** @var CalculatingCaptchaService $captchaService */
-                $captchaService =
-                    $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\CalculatingCaptchaService');
+                $captchaService = $this->objectManager->get(CalculatingCaptchaService::class);
                 $image = $captchaService->render($field);
         }
         return $image;
