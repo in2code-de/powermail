@@ -5,6 +5,7 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -195,10 +196,10 @@ class BasicFileUtility extends AbstractUtility
                             $files['tx_powermail_pi1']['name']['field'][$marker][$key],
                             $destinationPath
                         );
-                        if (!self::checkExtension($uniqueFileName, $fileExtensions)) {
-                            continue;
+                        if (self::checkExtension($uniqueFileName, $fileExtensions) &&
+                            self::checkFolder($uniqueFileName)) {
+                            $result = GeneralUtility::upload_copy_move($tmpName, $uniqueFileName);
                         }
-                        $result = GeneralUtility::upload_copy_move($tmpName, $uniqueFileName);
                     }
                 }
             }
@@ -390,7 +391,7 @@ class BasicFileUtility extends AbstractUtility
     public static function createFolderIfNotExists($path)
     {
         if (!is_dir($path) && !GeneralUtility::mkdir($path)) {
-            throw new \Exception('Folder ' . $path . '/ does not exists');
+            throw new \Exception('Folder ' . self::getRelativeFolder($path) . ' does not exists');
         }
     }
 
@@ -410,6 +411,33 @@ class BasicFileUtility extends AbstractUtility
         }
         array_unshift($lines, $content);
         GeneralUtility::writeFile($absolutePathAndFile, implode('', $lines));
+    }
+
+    /**
+     * Get relative path from absolute path, but don't touch if it's already a relative path
+     *
+     * @param string $path
+     * @return string
+     */
+    public static function getRelativeFolder($path)
+    {
+        if (PathUtility::isAbsolutePath($path)) {
+            $path = PathUtility::getRelativePathTo($path);
+        }
+        return $path;
+    }
+
+    /**
+     * Check if folder exists
+     *
+     * @param string $folderAndFilename
+     * @return true
+     */
+    protected static function checkFolder($folderAndFilename)
+    {
+        $folder = self::getPathFromPathAndFilename($folderAndFilename);
+        self::createFolderIfNotExists($folder);
+        return true;
     }
 
     /**
