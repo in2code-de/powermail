@@ -269,10 +269,7 @@ class Field extends AbstractEntity
             'check',
             'radio'
         ];
-        if (in_array($this->getType(), $basicFieldTypes)) {
-            return true;
-        }
-        return false;
+        return in_array($this->getType(), $basicFieldTypes);
     }
 
     /**
