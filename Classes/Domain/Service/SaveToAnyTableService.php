@@ -142,7 +142,7 @@ class SaveToAnyTableService
         $res = $this->databaseConnection->exec_SELECTquery(
             'uid',
             $this->getTable(),
-            $this->getUniqueField() . ' = ' . $searchterm . ' and deleted = 0 ' . $this->additionalWhereClause,
+            $this->getUniqueField() . ' = ' . $searchterm . ' and deleted = 0 ' . $this->getAdditionalWhereClause(),
             '',
             '',
             1

@@ -137,6 +137,8 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     }
 
     /**
+     * Set all properties for a table configuration
+     *
      * @param SaveToAnyTableService $saveService
      * @param array $tableConfiguration
      * @return void
@@ -167,9 +169,40 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
             $uniqueFields = array_keys($tableConfiguration['_ifUnique.']);
             $saveService->setMode($tableConfiguration['_ifUnique.'][$uniqueFields[0]]);
             $saveService->setUniqueField($uniqueFields[0]);
-            if (!empty($tableConfiguration['_ifUniqueWhereClause'])) {
-                $saveService->setAdditionalWhereClause($tableConfiguration['_ifUniqueWhereClause']);
-            }
+            $this->addAdditionalWhereClause($saveService, $tableConfiguration);
+        }
+    }
+
+    /**
+     * add additional Where clause from configuration
+     *
+     *      _ifUniqueWhereClause = TEXT
+     *      _ifUniqueWhereClause.value = AND pid = 123
+     *
+     *      or
+     *
+     *      _ifUniqueWhereClause = AND pid = 123
+     *
+     * @param SaveToAnyTableService $saveService
+     * @param array $tableConfiguration
+     * @return void
+     */
+    protected function addAdditionalWhereClause(SaveToAnyTableService $saveService, array $tableConfiguration)
+    {
+        $whereClause = '';
+        if (!empty($tableConfiguration['_ifUniqueWhereClause'])
+            && empty($tableConfiguration['_ifUniqueWhereClause.'])) {
+            $whereClause = $tableConfiguration['_ifUniqueWhereClause'];
+        }
+        if (!empty($tableConfiguration['_ifUniqueWhereClause'])
+            && !empty($tableConfiguration['_ifUniqueWhereClause.'])) {
+            $whereClause = $this->contentObject->cObjGetSingle(
+                $tableConfiguration['_ifUniqueWhereClause'],
+                $tableConfiguration['_ifUniqueWhereClause.']
+            );
+        }
+        if (!empty($whereClause)) {
+            $saveService->setAdditionalWhereClause($whereClause);
         }
     }
 
