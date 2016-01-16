@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.21.0
+   :Date:
+      2016-01-16
+   :Changes:
+
+      * Feature _`#72722`: https://forge.typo3.org/issues/72722 turn _ifUniqueWhereClause into a typoscript content object
+      * Bugfix _`#72656`: https://forge.typo3.org/issues/72656 set uploadfolder to true/create upload folder if it's missing
+
+ - :Version:
       2.20.3
    :Date:
       2016-01-11

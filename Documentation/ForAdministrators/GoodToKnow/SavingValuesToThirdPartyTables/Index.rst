@@ -36,7 +36,7 @@ Example for table tt_address:
 					# none: no entry if field is filled (do nothing if record already exists)
 	#			_ifUnique.email = update
 
-				# optional: add additional where clause (only in mode "update") for search if a record still exists
+				# optional: add additional where clause (only in mode "update") for search if a record still exists. You could use a plain string (see example below) or a cObject if needed
 	#			_ifUniqueWhereClause = AND pid = 123
 
 				# Fill tt_address.email with a static value => mail@mail.com
