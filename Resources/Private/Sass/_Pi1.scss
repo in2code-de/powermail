@@ -28,7 +28,7 @@
         &:after {
           content: 'i';
           display: inline-block;
-          @include border-radius(100px);
+          border-radius: 100px;
           height: 16px;
           width: 16px;
           background-color: $greySoft3;
