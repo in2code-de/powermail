@@ -10,7 +10,10 @@ var debug = getArg('--debug');
 // SCSS zu css
 gulp.task('css', function() {
 	var config = {};
-	if (!debug) {
+	if (debug) {
+		config.sourceMap = 'inline';
+		config.sourceMapEmbed = true;
+	} else {
 		config.outputStyle = 'compressed';
 	}
 	return gulp.src('Sass/*.scss')
