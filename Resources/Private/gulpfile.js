@@ -6,6 +6,7 @@ var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var plumber = require('gulp-plumber');
 var debug = getArg('--debug');
+var rename = require('gulp-rename');
 
 // SCSS zu css
 gulp.task('css', function() {
@@ -26,6 +27,9 @@ gulp.task('js', function() {
 	gulp.src('JavaScripts/**/*.js')
 			.pipe(plumber())
 			.pipe(uglify())
+			.pipe(rename({
+				suffix: '.min'
+			}))
 			.pipe(gulp.dest('../Public/JavaScripts'));
 });
 
