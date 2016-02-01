@@ -1529,10 +1529,10 @@ Setup
     page {
         # Inlude JavaScript files
         includeJSFooter {
-            powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/Libraries/jquery.datetimepicker.js
+            powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/Libraries/jquery.datetimepicker.min.js
             powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/Libraries/parsley.min.js
-            powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/Powermail/Tabs.js
-            powermailForm = EXT:powermail/Resources/Public/JavaScripts/Powermail/Form.js
+            powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/Powermail/Tabs.min.js
+            powermailForm = EXT:powermail/Resources/Public/JavaScripts/Powermail/Form.min.js
         }
     }
     [end]
