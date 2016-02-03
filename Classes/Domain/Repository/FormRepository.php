@@ -362,42 +362,24 @@ class FormRepository extends AbstractRepository
     /**
      * Get Field Uid List from given Form Uid
      *
-     * @param integer $formUid Form Uid
-     * @return array
+     * @param integer $formUid
+     * @return array e.g. array(123, 234, 567)
      */
-    public function getFieldsFromForm($formUid)
+    public function getFieldUidsFromForm($formUid)
     {
-        $allowedFieldTypes = [
-            'input',
-            'textarea',
-            'select',
-            'check',
-            'radio',
-            'password',
-            'file',
-            'hidden',
-            'date',
-            'location',
-            'typoscript'
-        ];
-
         $fields = [];
         $form = $this->findByUid($formUid);
-        if (!method_exists($form, 'getPages')) {
-            return [];
-        }
-        /** @var Page $page */
-        foreach ($form->getPages() as $page) {
-            /** @var Field $field */
-            foreach ($page->getFields() as $field) {
-                // skip type submit
-                if (!in_array($field->getType(), $allowedFieldTypes)) {
-                    continue;
+        if ($form !== null) {
+            /** @var Page $page */
+            foreach ($form->getPages() as $page) {
+                /** @var Field $field */
+                foreach ($page->getFields() as $field) {
+                    if ($field->isAdvancedFieldType()) {
+                        $fields[] = $field->getUid();
+                    }
                 }
-                $fields[] = $field->getUid();
             }
         }
-
         return $fields;
     }
 }

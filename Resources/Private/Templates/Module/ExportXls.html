@@ -16,12 +16,12 @@
 					<tr>
 						<f:for each="{fieldUids}" as="fieldUid">
 							<th>
-								<f:if condition="{vh:Condition.IsNumber(val: '{fieldUid}')}">
+								<f:if condition="{vh:Condition.IsNumber(val:fieldUid)}">
 									<f:then>
 										<vh:Getter.GetFieldLabelFromUid uid="{fieldUid}" />
 									</f:then>
 									<f:else>
-										<f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:String.UnderscoredToLowerCamelCase(val: '{fieldUid}')}" />
+										<f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:String.UnderscoredToLowerCamelCase(val:fieldUid)}" />
 									</f:else>
 								</f:if>
 							</th>
@@ -54,7 +54,7 @@
 								<f:else>
 									<f:if condition="{vh:Condition.IsDateTimeVariableInVariable(obj:mail, prop:fieldUid)}">
 										<f:then>
-											<f:if condition="{0 : fieldUid} == {0 : 'crdate'}">
+											<f:if condition="{0:fieldUid} == {0:'crdate'}">
 												<f:then>
 													<f:format.date format="d.m.Y H:i:s"><vh:Misc.VariableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date>
 													<f:translate key="Clock" />
@@ -74,8 +74,8 @@
 										<f:else>
 											<f:if condition="{0 : fieldUid} == {0 : 'marketing_page_funnel'}">
 												<f:then>
-													<f:if condition="{vh:Condition.IsArray(val: '{vh:Misc.VariableInVariable(obj: \'{mail}\', prop: \'{fieldUid}\')}')}">
-														<f:for each="{vh:Misc.VariableInVariable(obj: '{mail}', prop: '{fieldUid}')}" as="pid" iteration="pageIndex">
+													<f:if condition="{vh:Condition.IsArray(val: '{vh:Misc.VariableInVariable(obj:mail, prop:fieldUid)}')}">
+														<f:for each="{vh:Misc.VariableInVariable(obj:mail, prop:fieldUid)}" as="pid" iteration="pageIndex">
 															<vh:Getter.GetPageNameFromUid uid="{pid}" /><f:if condition="{pageIndex.isLast}"><f:else> &gt; </f:else></f:if>
 														</f:for>
 													</f:if>

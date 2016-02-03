@@ -9,7 +9,7 @@
 			type="{field.datepickerSettingsOptimized}"
 			id="powermail_field_{field.marker}"
 			property="{field.marker}"
-			value="{vh:Misc.PrefillField(field:field)}"
+			value="{vh:Misc.PrefillField(field:field, mail:mail)}"
 			additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field, value:'{vh:Misc.PrefillField(field:field)}')}"
 			class="powermail_field powermail_date {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}" />
 </div>
