@@ -591,6 +591,22 @@
 				<source>Receivers Name</source>
 				<target state="translated">Name des Empfängers</target>
 			</trans-unit>
+			<trans-unit id="flexform.receiver.type">
+				<source>Receiver type</source>
+				<target state="translated">Empfängertyp</target>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.type.0">
+				<source>Email addresses</source>
+				<target state="translated">E-Mail-Adressen</target>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.type.1">
+				<source>Frontend user group</source>
+				<target state="translated">Frontend Benutzergruppe</target>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.type.2">
+				<source>Predefined receivers</source>
+				<target state="translated">Vordefinierte Empfänger</target>
+			</trans-unit>
 			<trans-unit id="flexform.receiver.email">
 				<source>Receivers Email</source>
 				<target state="translated">E-Mail Adresse des Empfängers</target>
@@ -598,6 +614,14 @@
 			<trans-unit id="flexform.receiver.fe_group">
 				<source>Send Email to Frontend User Group</source>
 				<target state="translated">E-Mail an Empfänger einer Frontend-Benutzer-Gruppe versenden</target>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.predefinedemail">
+				<source>Predefined receivers</source>
+				<target state="translated">Vordefinierte Empfänger</target>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.predefinedemail.1">
+				<source>Example receivers</source>
+				<target state="translated">Beispielempfänger 1</target>
 			</trans-unit>
 			<trans-unit id="flexform.receiver.subject">
 				<source>Subject for Email to Receiver (Empty subject disables mail)</source>

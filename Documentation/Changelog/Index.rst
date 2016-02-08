@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.22.0
+   :Date:
+      2016-02-09
+   :Changes:
+
+      * Feature _`#73184`: https://forge.typo3.org/issues/73184 Predefined Receiverlists
+      * Feature _`#72925`: https://forge.typo3.org/issues/72925 Include JavaScripts as minified versions
+      * Feature _`#67349`: https://forge.typo3.org/issues/67349 Export fields in BE missing
+
+ - :Version:
       2.21.0
    :Date:
       2016-01-16

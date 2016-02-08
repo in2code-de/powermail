@@ -11,9 +11,10 @@
 				property="{field.marker}"
 				additionalAttributes="{vh:Validation.UploadAttributes(field:field)}"
 				class="powermail_field powermail_file {vh:Validation.ErrorClass(field:field, class: 'powermail_field_error')}" />
-		<f:if condition="{vh:Misc.PrefillField(field:field)}">
+
+		<f:if condition="{vh:Misc.PrefillField(field:field, mail:mail)}">
 			<ul>
-				<f:for each="{vh:Misc.PrefillField(field:field)}" as="file">
+				<f:for each="{vh:Misc.PrefillField(field:field, mail:mail)}" as="file">
 					<li>
 						<span class="fileName">{file}</span>
 						<f:form.hidden property="{field.marker}." value="{file}" />

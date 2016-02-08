@@ -444,11 +444,29 @@
 			<trans-unit id="flexform.receiver.name">
 				<source>Receivers Name</source>
 			</trans-unit>
+			<trans-unit id="flexform.receiver.type">
+				<source>Receiver type</source>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.type.0">
+				<source>Email addresses</source>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.type.1">
+				<source>Frontend user group</source>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.type.2">
+				<source>Predefined receivers</source>
+			</trans-unit>
 			<trans-unit id="flexform.receiver.email">
 				<source>Receivers Email</source>
 			</trans-unit>
 			<trans-unit id="flexform.receiver.fe_group">
 				<source>Send Email to Frontend User Group</source>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.predefinedemail">
+				<source>Predefined receivers</source>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.predefinedemail.1">
+				<source>Example receivers 1</source>
 			</trans-unit>
 			<trans-unit id="flexform.receiver.subject">
 				<source>Subject for Email to Receiver (Empty subject disables mail)</source>

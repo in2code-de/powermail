@@ -1,17 +1,17 @@
 .tx-powermail {
-	width: $widthPowermail;
-	color: $grey1;
+  width: $widthPowermail;
+  color: $grey1;
 
-	.clear {
-		clear: both;
-	}
+  .clear {
+    clear: both;
+  }
 
-	* {
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-		&.hide {
-			display: none;
-		}
-	}
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    &.hide {
+      display: none;
+    }
+  }
 }

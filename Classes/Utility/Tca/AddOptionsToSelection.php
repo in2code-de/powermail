@@ -31,7 +31,7 @@ class AddOptionsToSelection
     protected $languageService = null;
 
     /**
-     * Add options to FlexForm Selection - Options can be defined in TSConfig
+     * Add options to TCA Selection - Options can be defined in TSConfig
      *        Use page tsconfig in this way:
      *            tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name
      *            tx_powermail.flexForm.type.addFieldOptions.newfield =
@@ -46,7 +46,7 @@ class AddOptionsToSelection
     }
 
     /**
-     * Add options to FlexForm Selection - Options can be defined in TSConfig
+     * Add options to TCA Selection - Options can be defined in TSConfig
      *        Use page tsconfig in this way:
      *            tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
      *            tx_powermail.flexForm.validation.addFieldOptions.100 =
@@ -61,7 +61,7 @@ class AddOptionsToSelection
     }
 
     /**
-     * Add options to FlexForm Selection - Options can be defined in TSConfig
+     * Add options to TCA Selection - Options can be defined in TSConfig
      *        Use page tsconfig in this way:
      *            tx_powermail.flexForm.feUserProperty.addFieldOptions.newfield = New fe_user
      *            tx_powermail.flexForm.feUserProperty.addFieldOptions.newfield =
@@ -72,6 +72,21 @@ class AddOptionsToSelection
     public function addOptionsForFeUserProperty(&$params)
     {
         $this->initialize('feUserProperty', $params);
+        $this->addOptions();
+    }
+
+    /**
+     * Add options to FlexForm Selection - Options can be defined in TSConfig
+     *        Use page tsconfig in this way:
+     *            tx_powermail.flexForm.predefinedReceivers.addFieldOptions.receivers1 = receivers #1
+     *            tx_powermail.flexForm.predefinedReceivers.addFieldOptions.receivers1 =
+     *                LLL:fileadmin/locallang.xlf:key
+     *
+     * @return void
+     */
+    public function addOptionsForPredefinedReceivers(&$params)
+    {
+        $this->initialize('predefinedReceivers', $params);
         $this->addOptions();
     }
 
@@ -97,7 +112,7 @@ class AddOptionsToSelection
     protected function getFieldOptionsFromTsConfig()
     {
         $fieldOptions = [];
-        $tsConfiguration = BackendUtility::getPagesTSconfig($this->params['row']['pid']);
+        $tsConfiguration = BackendUtility::getPagesTSconfig($this->getPageIdentifier());
         $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'];
 
         if (!empty($eConfiguration[$this->getType() . '.']['addFieldOptions.'])) {
@@ -142,6 +157,23 @@ class AddOptionsToSelection
             $label = $fallback;
         }
         return $label;
+    }
+
+    /**
+     * Get current PID (starting from TCA or FlexForm)
+     *
+     * @return int
+     */
+    protected function getPageIdentifier()
+    {
+        $pageIdentifier = 0;
+        if (!empty($this->params['row']['pid'])) {
+            $pageIdentifier = (int) $this->params['row']['pid'];
+        }
+        if (!empty($this->params['flexParentDatabaseRow']['pid'])) {
+            $pageIdentifier = (int) $this->params['flexParentDatabaseRow']['pid'];
+        }
+        return $pageIdentifier;
     }
 
     /**
