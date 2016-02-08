@@ -148,6 +148,12 @@ class PluginInformation
     protected function getReceiverEmail()
     {
         $receiver = $this->getFieldFromFlexform('receiver', 'receiver.email');
+        if ((int) $this->getFieldFromFlexform('receiver', 'receiver.type') === 1) {
+            $receiver = 'Frontenduser Group ' . $this->getFieldFromFlexform('receiver', 'receiver.fe_group');
+        }
+        if ((int) $this->getFieldFromFlexform('receiver', 'receiver.type') === 2) {
+            $receiver = 'Predefined "' . $this->getFieldFromFlexform('receiver', 'receiver.predefinedemail') . '"';
+        }
         $this->getDevelopmentContextEmailMarkup($receiver);
         return $receiver;
     }
@@ -203,15 +209,15 @@ class PluginInformation
     /**
      * Build image html tag
      *
-     * @param string $resourcePathAndFilename like "Image/icon.png"
+     * @param string $pathAndFilename like "Image/icon.png"
      * @param string $alt
      * @return string
      */
-    protected function buildImageMarkup($resourcePathAndFilename, $alt = '0')
+    protected function buildImageMarkup($pathAndFilename, $alt = '0')
     {
         $imagePathAndFilename = FrontendUtility::getSubFolderOfCurrentUrl() .
             'typo3conf/ext/powermail/Resources/Public/';
-        $imagePathAndFilename .= $resourcePathAndFilename;
+        $imagePathAndFilename .= $pathAndFilename;
         return '<img src="' . $imagePathAndFilename . '" alt="' . $alt . '" />';
     }
 
@@ -272,7 +278,7 @@ class PluginInformation
             is_array($flexform['data'][$sheet]['lDEF'][$key]) &&
             isset($flexform['data'][$sheet]['lDEF'][$key]['vDEF'])
         ) {
-            return $flexform['data'][$sheet]['lDEF'][$key]['vDEF'];
+            return htmlspecialchars($flexform['data'][$sheet]['lDEF'][$key]['vDEF']);
         }
 
         $this->showTable = false;
