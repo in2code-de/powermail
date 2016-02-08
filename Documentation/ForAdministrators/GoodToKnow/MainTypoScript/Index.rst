@@ -842,6 +842,32 @@ Setup
                         senderEmail.value = {$plugin.tx_powermail.settings.receiver.default.senderEmail}
                     }
 
+                    # Predefine some receivers - selection in backend could be done via page TSConfig:
+                    #		tx_powermail.flexForm.predefinedReceivers.addFieldOptions.receivers1 = receiver list #1
+                    #			or with a locallang variable:
+                    #		tx_powermail.flexForm.predefinedReceivers.addFieldOptions.receivers1 = LLL:fileadmin/locallang.xlf:key
+                    predefinedReceiver {
+                        # example for hard coded receivers
+    #					receivers1 {
+    #						email = TEXT
+    #						email.value = email1@domain.org, email2@domain.org
+    #					}
+
+                        # example for dynamic receiver - depending on value in field {receiver}
+    #					receivers2 {
+    #						email = CASE
+    #						email {
+    #							key.data = GP:tx_powermail_pi1|field|receiver
+
+    #							1 = TEXT
+    #							1.value = email1@domain.org
+
+    #							2 = TEXT
+    #							2.value = email2@domain.org
+    #						}
+    #					}
+                    }
+
                     # Normally you do not need to overwrite a flexform setting, but this allows you to use cObject functions
                     overwrite {
                         email = TEXT
@@ -1463,7 +1489,6 @@ Setup
                     10.class = In2code\Powermail\Finisher\SaveToAnyTableFinisher
                     20.class = In2code\Powermail\Finisher\SendParametersFinisher
                     100.class = In2code\Powermail\Finisher\RedirectFinisher
-
 
                     # Add your own finishers classes (e.g. if you want to do something with form values by your own: Save into tables, call an API, make your own redirect etc...)
     #				1 {

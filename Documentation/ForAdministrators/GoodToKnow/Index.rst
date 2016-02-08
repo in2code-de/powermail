@@ -14,6 +14,7 @@ Good to know
    Templates/Index
    ChangingLabels/Index
    PrefillField/Index
+   DynamicReceiver/Index
    RemoveValuesFromPowermailAll/Index
    ManipulateValuesFromPowermailAll/Index
    UniqueValues/Index
