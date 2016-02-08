@@ -25,7 +25,7 @@
 			<ul class="extended_export_field connected" id="export_field_selection">
 				<f:for each="{firstForm.pages}" as="page">
 					<f:for each="{page.fields}" as="field">
-						<f:if condition="{field.basicFieldType}">
+						<f:if condition="{field.advancedFieldType}">
 							<li id="{field.uid}">
 								{field.title} <span class="info">(<f:translate key="FormField" />)</span>
 							</li>
@@ -138,7 +138,7 @@
 
 	<f:form.hidden
 			name="export[fields]"
-			value="<f:for each=\"{firstForm.pages}\" as=\"page\"><f:for each=\"{page.fields}\" as=\"field\"><f:if condition=\"{field.basicFieldType}\">{field.uid},</f:if></f:for></f:for>"
+			value="<f:for each=\"{firstForm.pages}\" as=\"page\"><f:for each=\"{page.fields}\" as=\"field\"><f:if condition=\"{field.advancedFieldType}\">{field.uid},</f:if></f:for></f:for>"
 			id="export_fields" />
 
 	</fieldset>

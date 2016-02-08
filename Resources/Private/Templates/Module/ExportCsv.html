@@ -7,22 +7,26 @@
 
 <f:section name="main"><vh:String.Utf8ToUtf16><vh:string.Trim>
 
-	<f:for each="{mails}" as="mail" iteration="index">
-		<f:if condition="{index.isFirst}">
-			<f:for each="{fieldUids}" as="fieldUid">
-				<f:if condition="{vh:Condition.IsNumber(val:fieldUid)}">
-					<f:then>
-						"<vh:String.RemoveQuote><vh:Getter.GetFieldLabelFromUid uid="{fieldUid}" /></vh:String.RemoveQuote>";
-					</f:then>
-					<f:else>
-						"<vh:String.RemoveQuote><f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:String.UnderscoredToLowerCamelCase(val:fieldUid)}" /></vh:String.RemoveQuote>";
-					</f:else>
-				</f:if>
-			</f:for>
-			<br />
+	<f:comment>
+		Headline
+	</f:comment>
+	<f:for each="{fieldUids}" as="fieldUid">
+		<f:if condition="{vh:Condition.IsNumber(val:fieldUid)}">
+			<f:then>
+				"<vh:String.RemoveQuote><vh:Getter.GetFieldLabelFromUid uid="{fieldUid}" /></vh:String.RemoveQuote>";
+			</f:then>
+			<f:else>
+				"<vh:String.RemoveQuote><f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:String.UnderscoredToLowerCamelCase(val:fieldUid)}" /></vh:String.RemoveQuote>";
+			</f:else>
 		</f:if>
+	</f:for>
+	<br />
 
 
+	<f:comment>
+		Content line
+	</f:comment>
+	<f:for each="{mails}" as="mail" iteration="index">
 		<f:for each="{fieldUids}" as="fieldUid">
 			<f:if condition="{vh:Condition.IsNumber(val:fieldUid)}">
 				<f:then>

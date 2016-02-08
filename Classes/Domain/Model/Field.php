@@ -273,6 +273,25 @@ class Field extends AbstractEntity
     }
 
     /**
+     * Check if this field is of an advanced field type (includes also basic field types)
+     * basicly used for export and frontend editing
+     *
+     * @return bool
+     */
+    public function isAdvancedFieldType()
+    {
+        $advancedFieldTypes = [
+            'hidden',
+            'file',
+            'location',
+            'date',
+            'country',
+            'password'
+        ];
+        return $this->isBasicFieldType() || in_array($this->getType(), $advancedFieldTypes);
+    }
+
+    /**
      * Returns the settings
      *
      * @return string $settings

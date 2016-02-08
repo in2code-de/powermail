@@ -36,13 +36,7 @@
 									<f:for each="{page.fields}" as="field">
 										<f:for each="{selectedFields}" as="selectedField">
 											<f:if condition="{selectedField} == {field}">
-
-												<f:comment>
-													Note:
-														At the moment only basic fields are supported for editing
-														All other fields will be passed through hidden fields
-												</f:comment>
-												<f:if condition="{field.basicFieldType}">
+												<f:if condition="{field.advancedFieldType}">
 													<f:then>
 														<f:render partial="Form/{vh:String.Upper(string:field.type)}" arguments="{_all}" />
 													</f:then>
@@ -50,7 +44,6 @@
 														<f:render partial="Output/EditHidden" arguments="{_all}" />
 													</f:else>
 												</f:if>
-
 											</f:if>
 										</f:for>
 									</f:for>
