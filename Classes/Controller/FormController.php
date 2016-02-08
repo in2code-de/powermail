@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Service\ReceiverEmailService;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -211,17 +212,10 @@ class FormController extends AbstractController
      */
     protected function sendReceiverMail(Mail $mail, $hash = null)
     {
-        $receiverString = TemplateUtility::fluidParseString(
-            $this->settings['receiver']['email'],
-            $this->mailRepository->getVariablesWithMarkersFromMail($mail)
-        );
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $receiverString,
-            $this->conf['receiver.']['overwrite.'],
-            'email'
-        );
-        $receivers = StringUtility::getReceiverEmails($receiverString, $this->settings['receiver']['fe_group']);
-        $mail->setReceiverMail(implode(PHP_EOL, $receivers));
+        /** @var ReceiverEmailService $receiverService */
+        $receiverService = $this->objectManager->get(ReceiverEmailService::class, $mail, $this->settings);
+        $receiverService->setReceiverEmails();
+        $mail->setReceiverMail($receiverService->getReceiverEmailsString());
         TypoScriptUtility::overwriteValueFromTypoScript(
             $defaultSenderEmail,
             $this->conf['receiver.']['default.'],
@@ -232,7 +226,7 @@ class FormController extends AbstractController
             $this->conf['receiver.']['default.'],
             'senderName'
         );
-        foreach ($receivers as $receiver) {
+        foreach ($receiverService->getReceiverEmails() as $receiver) {
             $email = [
                 'template' => 'Mail/ReceiverMail',
                 'receiverEmail' => $receiver,
@@ -285,10 +279,13 @@ class FormController extends AbstractController
     {
         $email = [
             'template' => 'Mail/SenderMail',
-            'receiverName' => $this->mailRepository->getSenderNameFromArguments($mail, [
+            'receiverName' => $this->mailRepository->getSenderNameFromArguments(
+                $mail,
+                [
                     $this->conf['sender.']['default.'],
                     'senderName'
-                ]),
+                ]
+            ),
             'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
             'senderName' => $this->settings['sender']['name'],
             'senderEmail' => $this->settings['sender']['email'],
