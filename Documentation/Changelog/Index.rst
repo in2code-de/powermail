@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.22.1
+   :Date:
+      2016-02-10
+   :Changes:
+
+      * Bugfix _`#73212`: https://forge.typo3.org/issues/73212 PluginInformation table is not shown als long as a receiver type is not chosen in FlexForm
+      * Bugfix _`#73196`: https://forge.typo3.org/issues/73196 redirect with double sign in not working since version 2.17.1
+      * Bugfix _`#73192`: https://forge.typo3.org/issues/73192 Length check of strings with linebreak
+
+ - :Version:
       2.22.0
    :Date:
       2016-02-09
