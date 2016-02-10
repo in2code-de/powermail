@@ -411,4 +411,45 @@ class StringUtilityTest extends UnitTestCase
     {
         $this->assertSame($expectedResult, StringUtility::br2nl($content));
     }
+
+    /**
+     * Data Provider for getStringLengthReturnInt()
+     *
+     * @return array
+     */
+    public function getStringLengthReturnIntDataProvider()
+    {
+        return [
+            [
+                'abc',
+                3
+            ],
+            [
+                'äbc',
+                3
+            ],
+            [
+                "a\nb",
+                3
+            ],
+            [
+                "a\r\nb",
+                3
+            ],
+        ];
+    }
+
+    /**
+     * getStringLength Test
+     *
+     * @param string $string
+     * @param int $expectedResult
+     * @dataProvider getStringLengthReturnIntDataProvider
+     * @return void
+     * @test
+     */
+    public function getStringLengthReturnInt($string, $expectedResult)
+    {
+        $this->assertSame($expectedResult, StringUtility::getStringLength($string));
+    }
 }

@@ -154,4 +154,17 @@ class StringUtility
         ];
         return str_replace($array, PHP_EOL, $content);
     }
+
+    /**
+     * Count length of a string and respect umlauts and breaks as just one character
+     *
+     * @param string $string
+     * @return int
+     */
+    public static function getStringLength($string)
+    {
+        $string = str_replace("\r\n", ' ', $string);
+        $length = mb_strlen($string, 'utf-8');
+        return $length;
+    }
 }

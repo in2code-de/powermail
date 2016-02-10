@@ -48,13 +48,6 @@ class PluginInformation
     public $params;
 
     /**
-     * should the information be shown or not
-     *
-     * @var bool
-     */
-    public $showTable = true;
-
-    /**
      * Path to locallang file
      *
      * @var string
@@ -77,7 +70,7 @@ class PluginInformation
      * @param array $params
      * @return string
      */
-    public function build($params = [])
+    public function build(array $params = [])
     {
         $this->initialize($params);
         if (ConfigurationUtility::isDisablePluginInformationActive()) {
@@ -106,11 +99,7 @@ class PluginInformation
             $content .= '</tr>';
             $count++;
         }
-        if ($this->showTable) {
-            return
-                '<table class="typo3-dblist" style="width: 100%; border: 1px solid #d7d7d7;">' . $content . '</table>';
-        }
-        return '';
+        return '<table class="typo3-dblist" style="width: 100%; border: 1px solid #d7d7d7;">' . $content . '</table>';
     }
 
     /**
@@ -280,8 +269,6 @@ class PluginInformation
         ) {
             return htmlspecialchars($flexform['data'][$sheet]['lDEF'][$key]['vDEF']);
         }
-
-        $this->showTable = false;
         return false;
     }
 
@@ -304,7 +291,7 @@ class PluginInformation
      * @param array $params
      * @return void
      */
-    protected function initialize($params)
+    protected function initialize(array $params)
     {
         $this->params = $params;
         $this->languageService = $GLOBALS['LANG'];
