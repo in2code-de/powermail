@@ -107,3 +107,80 @@ Feature: Html5JsPhpValidation
     And I press "Submit"
     Then I should see "Dieses Feld muss ausgefüllt werden!"
     Then I should not see "Keine gültige Telefonnummer!"
+
+
+  @javascript @Pi1ValidationInputHtml5JsPhpValidationLength
+  Scenario: Check if length validation are working correct
+    Given I am on "/index.php?id=87"
+    Then I should see "Length 10"
+    Then I should see "Length 10 (Textarea)"
+
+    ####
+    # Length Input
+    ####
+    Then I fill in "tx_powermail_pi1[field][limit10]" with "12345678910"
+    And I press "Submit"
+    Then I should see "Zu viele Zeichen!"
+
+    Then I fill in "tx_powermail_pi1[field][limit10]" with "äbcdefghijk"
+    And I press "Submit"
+    Then I should see "Zu viele Zeichen!"
+
+    Then I fill in "tx_powermail_pi1[field][limit10]" with "1234567891"
+    And I press "Submit"
+    Then I should not see "Zu viele Zeichen!"
+
+    Then I fill in "tx_powermail_pi1[field][limit10]" with "äbcdefghij"
+    And I press "Submit"
+    Then I should not see "Zu viele Zeichen!"
+
+    ####
+    # Length Textarea
+    ####
+    Then I fill in "tx_powermail_pi1[field][limit10textarea]" with "12345678910"
+    And I press "Submit"
+    Then I should see "Zu viele Zeichen!"
+
+    Then I fill in "tx_powermail_pi1[field][limit10textarea]" with "äbcdefghijk"
+    And I press "Submit"
+    Then I should see "Zu viele Zeichen!"
+
+    Then I fill in "tx_powermail_pi1[field][limit10textarea]" with "1234567891"
+    And I press "Submit"
+    Then I should not see "Zu viele Zeichen!"
+
+    Then I fill in "tx_powermail_pi1[field][limit10textarea]" with "äbcdefghij"
+    And I press "Submit"
+    Then I should not see "Zu viele Zeichen!"
+
+    When I fill in "tx_powermail_pi1[field][limit10textarea]" with:
+        """
+        12345678
+        91
+        """
+    And I press "Submit"
+    Then I should see "Zu viele Zeichen!"
+
+    When I fill in "tx_powermail_pi1[field][limit10textarea]" with:
+        """
+        12345678
+        9
+        """
+    And I press "Submit"
+    Then I should not see "Zu viele Zeichen!"
+
+    When I fill in "tx_powermail_pi1[field][limit10textarea]" with:
+        """
+        12äß5678
+        91
+        """
+    And I press "Submit"
+    Then I should see "Zu viele Zeichen!"
+
+    When I fill in "tx_powermail_pi1[field][limit10textarea]" with:
+        """
+        12äß5678
+        9
+        """
+    And I press "Submit"
+    Then I should not see "Zu viele Zeichen!"

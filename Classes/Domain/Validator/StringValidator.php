@@ -44,10 +44,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validateUrl($value)
     {
-        if (filter_var($value, FILTER_VALIDATE_URL) !== false) {
-            return true;
-        };
-        return false;
+        return filter_var($value, FILTER_VALIDATE_URL) !== false;
     }
 
     /**
@@ -70,10 +67,7 @@ class StringValidator extends AbstractValidator
     protected function validatePhone($value)
     {
         preg_match('/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/', $value, $result);
-        if (!empty($result[0]) && $result[0] === $value) {
-            return true;
-        }
-        return false;
+        return !empty($result[0]) && $result[0] === $value;
     }
 
     /**
@@ -84,10 +78,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validateNumbersOnly($value)
     {
-        if (strval((int) $value) === strval($value)) {
-            return true;
-        };
-        return false;
+        return strval((int) $value) === strval($value);
     }
 
     /**
@@ -98,10 +89,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validateLettersOnly($value)
     {
-        if (preg_replace('/[^a-zA-Z]/', '', $value) === $value) {
-            return true;
-        }
-        return false;
+        return preg_replace('/[^a-zA-Z]/', '', $value) === $value;
     }
 
     /**
@@ -113,10 +101,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validateMinNumber($value, $configuration)
     {
-        if ($value >= $configuration) {
-            return true;
-        }
-        return false;
+        return $value >= $configuration;
     }
 
     /**
@@ -128,10 +113,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validateMaxNumber($value, $configuration)
     {
-        if (floatval($value) <= floatval($configuration)) {
-            return true;
-        }
-        return false;
+        return floatval($value) <= floatval($configuration);
     }
 
     /**
@@ -151,10 +133,7 @@ class StringValidator extends AbstractValidator
             $values[1] = $values[0];
             $values[0] = 1;
         }
-        if ($value >= $values[0] && $value <= $values[1]) {
-            return true;
-        }
-        return false;
+        return $value >= $values[0] && $value <= $values[1];
     }
 
     /**
@@ -174,10 +153,8 @@ class StringValidator extends AbstractValidator
             $values[1] = $values[0];
             $values[0] = 1;
         }
-        if (strlen($value) >= $values[0] && strlen($value) <= $values[1]) {
-            return true;
-        }
-        return false;
+        return StringUtility::getStringLength($value) >= $values[0]
+            && StringUtility::getStringLength($value) <= $values[1];
     }
 
     /**
@@ -189,10 +166,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validatePattern($value, $configuration)
     {
-        if (preg_match('~' . $configuration . '~', $value) === 1) {
-            return true;
-        }
-        return false;
+        return preg_match('~' . $configuration . '~', $value) === 1;
     }
 
     /**
