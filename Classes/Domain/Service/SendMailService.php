@@ -13,7 +13,6 @@ use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
  *  Copyright notice
@@ -68,8 +67,6 @@ class SendMailService
     protected $persistenceManager;
 
     /**
-     * mailRepository
-     *
      * @var \In2code\Powermail\Domain\Repository\MailRepository
      * @inject
      */
@@ -82,7 +79,8 @@ class SendMailService
     protected $signalSlotDispatcher;
 
     /**
-     * @var ContentObjectRenderer
+     * @var TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @inject
      */
     protected $contentObject;
 
@@ -134,7 +132,6 @@ class SendMailService
         $this->settings = $settings;
         $this->configuration = $this->getConfigurationFromSettings($settings);
         $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
-        $this->contentObject = $this->configurationManager->getContentObject();
         $this->contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
         $this->type = $type;
         $this->parseVariables($email, $mail);
