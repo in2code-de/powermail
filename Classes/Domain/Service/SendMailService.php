@@ -79,7 +79,7 @@ class SendMailService
     protected $signalSlotDispatcher;
 
     /**
-     * @var TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
      * @inject
      */
     protected $contentObject;
