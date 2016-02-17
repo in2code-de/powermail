@@ -166,7 +166,7 @@ function PowermailForm($) {
 	 * @private
 	 */
 	var uploadValidationListener = function() {
-		if (window.ParsleyValidator) {
+		if (window.Parsley) {
 			uploadSizeValidatorListener();
 			uploadExtensionValidatorListener();
 		}
@@ -397,7 +397,7 @@ function PowermailForm($) {
 	 * @private
 	 */
 	var uploadSizeValidatorListener = function() {
-		window.ParsleyValidator
+		window.Parsley
 			.addValidator('powermailfilesize', function(value, requirement) {
 				if (requirement.indexOf(',') !== -1) {
 					var requirements = requirement.split(',');
@@ -423,7 +423,7 @@ function PowermailForm($) {
 	 * @private
 	 */
 	var uploadExtensionValidatorListener = function() {
-		window.ParsleyValidator
+		window.Parsley
 			.addValidator('powermailfileextensions', function(value, requirement) {
 				var $this = $('*[name="tx_powermail_pi1[field][' + requirement + '][]"]');
 				if ($this.length) {
