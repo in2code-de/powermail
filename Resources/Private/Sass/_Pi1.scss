@@ -313,6 +313,9 @@
     > label {
       display: none;
     }
+    > fieldset > legend {
+      display: none;
+    }
   }
 }
 
