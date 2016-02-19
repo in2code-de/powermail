@@ -8,3 +8,5 @@ Feature: NoLabel
     Then I should not see "Label Form"
     Then I should not see "Label Page"
     Then I should not see "Label Input"
+    Then I should not see "Label Check"
+    Then I should not see "Label Radio"

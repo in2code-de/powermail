@@ -134,15 +134,16 @@ class SelectFieldViewHelper extends SelectViewHelper
     /**
      * Get value conditional to TYPO3 version
      *
+     * @param bool $convertObjects should also be removed - see todo below
      * @return mixed
      * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
-    public function getValue()
+    public function getValue($convertObjects = true)
     {
         if (method_exists($this, 'getValueAttribute')) {
             return parent::getValueAttribute();
         } else {
-            return parent::getValue();
+            return parent::getValue($convertObjects);
         }
     }
 }

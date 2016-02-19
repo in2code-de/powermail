@@ -8,34 +8,28 @@ function PowermailForm($) {
 	'use strict';
 
 	/**
-	 * This class
-	 *
-	 * @type {PowermailForm}
-	 */
-	var that = this;
-
-	/**
 	 * Initialize
 	 *
 	 * @returns {void}
 	 */
 	this.initialize = function() {
-		that.addTabsListener();
-		that.addAjaxFormSubmitListener();
-		that.getLocationAndWrite();
-		that.addDatePicker();
-		that.hidePasswords();
-		that.addResetListener();
-		that.deleteAllFilesListener();
-		that.uploadValidationListener();
+		addTabsListener();
+		addAjaxFormSubmitListener();
+		getLocationAndWrite();
+		addDatePicker();
+		hidePasswords();
+		addResetListener();
+		deleteAllFilesListener();
+		uploadValidationListener();
 	};
 
 	/**
 	 * Add tabs listener
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addTabsListener = function() {
+	var addTabsListener = function() {
 		if ($.fn.powermailTabs) {
 			$('.powermail_morestep').each(function() {
 				$(this).powermailTabs();
@@ -47,10 +41,11 @@ function PowermailForm($) {
 	 * Add Ajax form submit listener
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addAjaxFormSubmitListener = function() {
+	var addAjaxFormSubmitListener = function() {
 		if ($('form[data-powermail-ajax]').length) {
-			that.ajaxFormSubmit();
+			ajaxFormSubmit();
 		}
 	};
 
@@ -58,13 +53,14 @@ function PowermailForm($) {
 	 * Getting the Location by the browser and write to inputform as address
 	 *
 	 * @return {void}
+	 * @private
 	 */
-	this.getLocationAndWrite = function() {
+	var getLocationAndWrite = function() {
 		if ($('.powermail_fieldwrap_location input').length && navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
-				var url = that.getBaseUrl() + '/index.php' + '?eID=' + 'powermailEidGetLocation';
+				var url = getBaseUrl() + '/index.php' + '?eID=' + 'powermailEidGetLocation';
 				jQuery.ajax({
 					url: url,
 					data: 'lat=' + lat + '&lng=' + lng,
@@ -89,8 +85,9 @@ function PowermailForm($) {
 	 * Add datepicker to date fields
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addDatePicker = function() {
+	var addDatePicker = function() {
 		if ($.fn.datetimepicker) {
 			$('.powermail_date').each(function() {
 				var $this = $(this);
@@ -102,7 +99,7 @@ function PowermailForm($) {
 					} else {
 						// get date in format Y-m-d H:i for html5 date fields
 						if ($(this).data('date-value')) {
-							var prefillDate = that.getDatetimeForDateFields($(this).data('date-value'), $(this).data('datepicker-format'), $this.prop('type'));
+							var prefillDate = getDatetimeForDateFields($(this).data('date-value'), $(this).data('datepicker-format'), $this.prop('type'));
 							if (prefillDate !== null) {
 								$(this).val(prefillDate);
 							}
@@ -142,8 +139,9 @@ function PowermailForm($) {
 	 * Simply change value of password fields
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.hidePasswords = function() {
+	var hidePasswords = function() {
 		$('.powermail_all_type_password.powermail_all_value').html('********');
 	};
 
@@ -151,8 +149,9 @@ function PowermailForm($) {
 	 * Add validation reseter on click on reset button
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addResetListener = function() {
+	var addResetListener = function() {
 		if ($.fn.parsley) {
 			$('.powermail_reset').on('click', '', function() {
 				$('form[data-parsley-validate="data-parsley-validate"]').parsley().reset();
@@ -164,11 +163,12 @@ function PowermailForm($) {
 	 * Add validation for upload fields
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.uploadValidationListener = function() {
-		if (window.ParsleyValidator) {
-			that.uploadSizeValidatorListener();
-			that.uploadExtensionValidatorListener();
+	var uploadValidationListener = function() {
+		if (window.Parsley) {
+			uploadSizeValidatorListener();
+			uploadExtensionValidatorListener();
 		}
 	};
 
@@ -180,8 +180,9 @@ function PowermailForm($) {
 	 * Allow AJAX Submit for powermail
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.ajaxFormSubmit = function() {
+	var ajaxFormSubmit = function() {
 		var regularSubmitOnAjax = false;
 		var redirectUri;
 
@@ -201,13 +202,13 @@ function PowermailForm($) {
 					contentType: false,
 					processData: false,
 					beforeSend: function() {
-						$('.powermail_submit', $this).parent().append(that.getProgressbar());
-						$('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(that.getProgressbar());
+						$('.powermail_submit', $this).parent().append(getProgressbar());
+						$('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(getProgressbar());
 					},
 					complete: function() {
 						// remove progressbar
 						$('.powermail_fieldwrap_submit', $this).find('.powermail_progressbar').remove();
-						that.deleteAllFilesListener();
+						deleteAllFilesListener();
 					},
 					success: function(data) {
 						var html = $('*[data-powermail-form="' + formUid + '"]:first', data);
@@ -220,7 +221,7 @@ function PowermailForm($) {
 							if ($.fn.parsley) {
 								$('form[data-parsley-validate="data-parsley-validate"]').parsley();
 							}
-							that.reloadCaptchaImages();
+							reloadCaptchaImages();
 						} else {
 							// no form markup found try to redirect via javascript
 							if (redirectUri) {
@@ -243,14 +244,15 @@ function PowermailForm($) {
 	 * Add eventhandler for deleting all files button
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.deleteAllFilesListener = function() {
+	var deleteAllFilesListener = function() {
 		$('.powermail_fieldwrap_file_inner').find('.deleteAllFiles').each(function() {
 			// initially hide upload fields
-			that.disableUploadField($(this).closest('.powermail_fieldwrap_file_inner').find('input[type="file"]'));
+			disableUploadField($(this).closest('.powermail_fieldwrap_file_inner').find('input[type="file"]'));
 		});
 		$('.deleteAllFiles').click(function() {
-			that.enableUploadField($(this).closest('.powermail_fieldwrap_file_inner').children('input[type="hidden"]'));
+			enableUploadField($(this).closest('.powermail_fieldwrap_file_inner').children('input[type="hidden"]'));
 			$(this).closest('ul').fadeOut(function() {
 				$(this).remove();
 			});
@@ -262,8 +264,9 @@ function PowermailForm($) {
 	 *
 	 * @param {jQuery} $element
 	 * @returns {void}
+	 * @private
 	 */
-	this.disableUploadField = function($element) {
+	var disableUploadField = function($element) {
 		$element.prop('disabled', 'disabled').addClass('hide').prop('type', 'hidden');
 	};
 
@@ -272,8 +275,9 @@ function PowermailForm($) {
 	 *
 	 * @param {jQuery} $element
 	 * @returns {void}
+	 * @private
 	 */
-	this.enableUploadField = function($element) {
+	var enableUploadField = function($element) {
 		$element.prop('disabled', false).removeClass('hide').prop('type', 'file');
 	};
 
@@ -281,11 +285,12 @@ function PowermailForm($) {
 	 * Reload captcha images
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.reloadCaptchaImages = function() {
+	var reloadCaptchaImages = function() {
 		$('img.powermail_captchaimage').each(function() {
-			var source = that.getUriWithoutGetParam($(this).prop('src'));
-			$(this).prop('src', source + '?hash=' + that.getRandomString(5));
+			var source = getUriWithoutGetParam($(this).prop('src'));
+			$(this).prop('src', source + '?hash=' + getRandomString(5));
 		});
 	};
 
@@ -294,8 +299,9 @@ function PowermailForm($) {
 	 *
 	 * @param {string} uri
 	 * @returns {string}
+	 * @private
 	 */
-	this.getUriWithoutGetParam = function(uri) {
+	var getUriWithoutGetParam = function(uri) {
 		var parts = uri.split('?');
 		return parts[0];
 	};
@@ -305,8 +311,9 @@ function PowermailForm($) {
 	 *
 	 * @param {int} length
 	 * @returns {string}
+	 * @private
 	 */
-	this.getRandomString = function(length) {
+	var getRandomString = function(length) {
 		var text = '';
 		var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		for (var i=0; i < length; i++) {
@@ -323,8 +330,9 @@ function PowermailForm($) {
 	 * @param {string} format
 	 * @param {string} type
 	 * @returns {string|null}
+	 * @private
 	 */
-	this.getDatetimeForDateFields = function(value, format, type) {
+	var getDatetimeForDateFields = function(value, format, type) {
 		var formatDate = Date.parseDate(value, format);
 		if (formatDate === null) {
 			return null;
@@ -353,8 +361,9 @@ function PowermailForm($) {
 	 * 		div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
 	 *
 	 * @returns {jQuery}
+	 * @private
 	 */
-	this.getProgressbar = function() {
+	var getProgressbar = function() {
 		return $('<div />').addClass('powermail_progressbar').html(
 			$('<div />').addClass('powermail_progress').html(
 				$('<div />').addClass('powermail_progess_inner')
@@ -367,8 +376,9 @@ function PowermailForm($) {
 	 *
 	 * @param {jQuery} $field
 	 * @returns {int}
+	 * @private
 	 */
-	this.getMaxFileSize = function($field) {
+	var getMaxFileSize = function($field) {
 		var field = $field.get(0);
 		var size = 0;
 		for (var i = 0; i < field.files.length; i++) {
@@ -384,16 +394,17 @@ function PowermailForm($) {
 	 * Filesize check for upload fields
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.uploadSizeValidatorListener = function() {
-		window.ParsleyValidator
+	var uploadSizeValidatorListener = function() {
+		window.Parsley
 			.addValidator('powermailfilesize', function(value, requirement) {
 				if (requirement.indexOf(',') !== -1) {
 					var requirements = requirement.split(',');
 					var maxUploadSize = parseInt(requirements[0]);
 					var $this = $('*[name="tx_powermail_pi1[field][' + requirements[1] + '][]"]');
 					if ($this.length) {
-						if (that.getMaxFileSize($this) > maxUploadSize) {
+						if (getMaxFileSize($this) > maxUploadSize) {
 							return false;
 						}
 					}
@@ -409,13 +420,14 @@ function PowermailForm($) {
 	 * File extension check for upload fields
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.uploadExtensionValidatorListener = function() {
-		window.ParsleyValidator
+	var uploadExtensionValidatorListener = function() {
+		window.Parsley
 			.addValidator('powermailfileextensions', function(value, requirement) {
 				var $this = $('*[name="tx_powermail_pi1[field][' + requirement + '][]"]');
 				if ($this.length) {
-					return that.isFileExtensionInList(that.getExtensionFromFileName(value), $this.prop('accept'));
+					return isFileExtensionInList(getExtensionFromFileName(value), $this.prop('accept'));
 				}
 
 				// pass test if problems
@@ -432,8 +444,9 @@ function PowermailForm($) {
 	 * @param {string} extension
 	 * @param {string} list
 	 * @returns {boolean}
+	 * @private
 	 */
-	this.isFileExtensionInList = function(extension, list) {
+	var isFileExtensionInList = function(extension, list) {
 		return list.indexOf('.' + extension) !== -1;
 	};
 
@@ -443,8 +456,9 @@ function PowermailForm($) {
 	 *
 	 * @param {string} fileName
 	 * @returns {string}
+	 * @private
 	 */
-	this.getExtensionFromFileName = function(fileName) {
+	var getExtensionFromFileName = function(fileName) {
 		return fileName.split('.').pop();
 	};
 
@@ -452,8 +466,9 @@ function PowermailForm($) {
 	 * Return BaseUrl as prefix
 	 *
 	 * @return {string} Base Url
+	 * @private
 	 */
-	this.getBaseUrl = function() {
+	var getBaseUrl = function() {
 		var baseurl;
 		if ($('base').length > 0) {
 			baseurl = jQuery('base').prop('href');

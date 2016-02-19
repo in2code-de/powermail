@@ -18,6 +18,18 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.23.0
+   :Date:
+      2016-02-19
+   :Changes:
+
+      * Feature _`#73524`: https://forge.typo3.org/issues/73524 Required argument "mail" is not set ...
+      * Feature _`#73228`: https://forge.typo3.org/issues/73228 Don't collapse Pages and Fields in IRRE
+      * Bugfix _`#73537`: https://forge.typo3.org/issues/73537 SelectFieldViewHelper throws PHP Warning in frontend
+      * Bugfix _`#73522`: https://forge.typo3.org/issues/73522 ParsleyValidator deprecated message
+      * Bugfix _`#73469`: https://forge.typo3.org/issues/73469 Missing demo CSS for nolabel layout in check and radio fields
+
+ - :Version:
       2.22.1
    :Date:
       2016-02-10

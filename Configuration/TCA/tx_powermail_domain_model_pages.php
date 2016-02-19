@@ -180,7 +180,6 @@ $pagesTca = [
                 'foreign_sortby' => 'sorting',
                 'maxitems' => 1000,
                 'appearance' => [
-                    'collapseAll' => 1,
                     'expandSingle' => 1,
                     'useSortable' => 1,
                     'newRecordLinkAddTitle' => 1,

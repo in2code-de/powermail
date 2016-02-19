@@ -92,9 +92,8 @@ class FormController extends AbstractController
     {
         $this->reformatParamsForAction();
         $this->forwardIfFormParamsDoNotMatch();
-        if ($this->settings['debug']['variables']) {
-            GeneralUtility::devLog('Variables', $this->extensionName, 0, GeneralUtility::_POST());
-        }
+        $this->forwardIfMailParamEmpty();
+        $this->debugVariables();
     }
 
     /**
@@ -158,6 +157,8 @@ class FormController extends AbstractController
     {
         $this->reformatParamsForAction();
         $this->forwardIfFormParamsDoNotMatch();
+        $this->forwardIfMailParamEmpty();
+        $this->debugVariables();
     }
 
     /**
@@ -527,6 +528,20 @@ class FormController extends AbstractController
     }
 
     /**
+     * Forward to formAction if no mail param given
+     *
+     * @return void
+     */
+    protected function forwardIfMailParamEmpty()
+    {
+        $arguments = $this->request->getArguments();
+        if (empty($arguments['mail'])) {
+            GeneralUtility::devLog('Redirect (mail empty)', $this->extensionName, 2, $arguments);
+            $this->forward('form');
+        }
+    }
+
+    /**
      * Forward to formAction if wrong form in plugin variables given
      *        used in optinConfirmAction()
      *
@@ -537,6 +552,7 @@ class FormController extends AbstractController
     {
         $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
         if ($mail === null || !in_array($mail->getForm()->getUid(), $formsToContent)) {
+            GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array) $mail]);
             $this->forward('form');
         }
     }
@@ -569,5 +585,15 @@ class FormController extends AbstractController
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
+    }
+
+    /**
+     * @return void
+     */
+    protected function debugVariables()
+    {
+        if (!empty($this->settings['debug']['variables'])) {
+            GeneralUtility::devLog('Variables', $this->extensionName, 0, GeneralUtility::_POST());
+        }
     }
 }

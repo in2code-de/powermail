@@ -8,41 +8,35 @@ function PowermailBackend($) {
 	'use strict';
 
 	/**
-	 * This class
-	 *
-	 * @type {PowermailBackend}
-	 */
-	var that = this;
-
-	/**
 	 * Initialize
 	 *
 	 * @returns {void}
 	 */
 	this.initialize = function() {
-		that.addDetailOpenListener();
-		that.addVisibilityChangeListener();
-		that.addDeleteMailListener();
-		that.addPageBrowseParamsListener();
-		that.addSortingParamsListener();
-		that.addSelectLineListener();
-		that.addSelectAllLinesListener();
-		that.addDeleteLinesListener();
-		that.addToggleLinesVisibilityListener();
-		that.addExtendedSearchListener();
-		that.addDatePickerListener();
-		that.addExportListener();
-		that.addConverterDetailsOpenListener();
-		that.hidePasswords();
-		that.reportingView();
+		addDetailOpenListener();
+		addVisibilityChangeListener();
+		addDeleteMailListener();
+		addPageBrowseParamsListener();
+		addSortingParamsListener();
+		addSelectLineListener();
+		addSelectAllLinesListener();
+		addDeleteLinesListener();
+		addToggleLinesVisibilityListener();
+		addExtendedSearchListener();
+		addDatePickerListener();
+		addExportListener();
+		addConverterDetailsOpenListener();
+		hidePasswords();
+		reportingView();
 	};
 
 	/**
 	 * Add listener for opening details in listview
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addDetailOpenListener = function() {
+	var addDetailOpenListener = function() {
 		$('.powermail_listbe_details_container').hide();
 		$('.openPowermailDetails').click(function() {
 			var $this = $(this);
@@ -67,15 +61,16 @@ function PowermailBackend($) {
 	 * Hide/Unhide single mail
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addVisibilityChangeListener = function() {
+	var addVisibilityChangeListener = function() {
 		$(document).on('click', '.unhideMail, .hideMail', function () {
 			var $this = $(this);
 			var moduleUri = $this.closest('td').find('.container_module_uri').val();
 			var uid = $this.closest('td').find('.container_uid').val();
 			var table = $this.closest('td').find('.container_table').val();
-			var hidden = that.visibilityToggleLine($this.closest('tr'));
-			that.sendVisibilityRequest(table, uid, hidden, moduleUri);
+			var hidden = visibilityToggleLine($this.closest('tr'));
+			sendVisibilityRequest(table, uid, hidden, moduleUri);
 		});
 	};
 
@@ -83,8 +78,9 @@ function PowermailBackend($) {
 	 * Delete single mail
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addDeleteMailListener = function() {
+	var addDeleteMailListener = function() {
 		$(document).on('click', '.deleteMail', function () {
 			var $this = $(this);
 			var moduleUri = $this.closest('td').find('.container_module_uri').val();
@@ -92,8 +88,8 @@ function PowermailBackend($) {
 			var table = $this.closest('td').find('.container_table').val();
 			var confirmationMessage = $this.closest('td').find('.container_label_delete_confirmation').val();
 			if (confirm(confirmationMessage)) {
-				that.removeLine($this.closest('tr'));
-				that.sendDeleteRequest(table, uid, moduleUri);
+				removeLine($this.closest('tr'));
+				sendDeleteRequest(table, uid, moduleUri);
 			}
 		});
 	};
@@ -102,8 +98,9 @@ function PowermailBackend($) {
 	 * pagebrowser (add hiddenfield with pagebrowser variables to search form and submit)
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addPageBrowseParamsListener = function() {
+	var addPageBrowseParamsListener = function() {
 		$('.f3-widget-paginator a').click(function(e) {
 			var href = $(this).prop('href');
 			var hrefParts = href.split('&');
@@ -127,8 +124,9 @@ function PowermailBackend($) {
 	 * sorting (add hiddenfield with sorting variables to search form and submit)
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addSortingParamsListener = function() {
+	var addSortingParamsListener = function() {
 		$('a.sorting').click(function(e) {
 			e.preventDefault();
 			var href = $(this).prop('href');
@@ -159,11 +157,12 @@ function PowermailBackend($) {
 	 * Select a line
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addSelectLineListener = function() {
+	var addSelectLineListener = function() {
 		$('.addPowermailSelection').click(function() {
-			that.selectOrDeselectLine($(this));
-			that.calculateAndWriteNumbersOfSelections();
+			selectOrDeselectLine($(this));
+			calculateAndWriteNumbersOfSelections();
 		});
 	};
 
@@ -171,13 +170,14 @@ function PowermailBackend($) {
 	 * De/select all lines
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addSelectAllLinesListener = function() {
+	var addSelectAllLinesListener = function() {
 		$('.addPowermailSelectionAll').click(function() {
 			$('.addPowermailSelection').each(function() {
-				that.selectOrDeselectLine($(this));
+				selectOrDeselectLine($(this));
 			});
-			that.calculateAndWriteNumbersOfSelections();
+			calculateAndWriteNumbersOfSelections();
 		});
 	};
 
@@ -185,19 +185,23 @@ function PowermailBackend($) {
 	 * Delete all selected lines
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addDeleteLinesListener = function() {
+	var addDeleteLinesListener = function() {
 		$('.powermailSelectionDelete').click(function() {
-			that.deleteSelectedLines();
+			deleteSelectedLines();
 		});
 	};
 
 	/**
 	 * Change visibility of selected lines (hide/unhide)
+	 *
+	 * @returns {void}
+	 * @private
 	 */
-	this.addToggleLinesVisibilityListener = function() {
+	var addToggleLinesVisibilityListener = function() {
 		$('.powermailSelectionHide').click(function() {
-			that.toggleVisibilityOfLines($);
+			toggleVisibilityOfLines($);
 		});
 	};
 
@@ -205,8 +209,9 @@ function PowermailBackend($) {
 	 * Open extended search
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addExtendedSearchListener = function() {
+	var addExtendedSearchListener = function() {
 		$('.extended_search_title').click(function() {
 			var $this = $(this);
 			if ($this.hasClass('powermail-close')) {
@@ -263,8 +268,9 @@ function PowermailBackend($) {
 	 * Add datepicker to date fields
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addDatePickerListener = function() {
+	var addDatePickerListener = function() {
 		$('.powermail_date').each(function() {
 			var $this = $(this);
 			var datepickerStatus = true;
@@ -295,8 +301,9 @@ function PowermailBackend($) {
 	 * Add export functions
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addExportListener = function() {
+	var addExportListener = function() {
 		// On export
 		$('.export_icon_xls, .export_icon_csv').click(function() {
 			if ($(this).hasClass('export_icon_csv')) {
@@ -353,8 +360,9 @@ function PowermailBackend($) {
 	 * Open details in converter view
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.addConverterDetailsOpenListener = function() {
+	var addConverterDetailsOpenListener = function() {
 		$('.openHiddenTable').click(function() {
 			var tr = $(this).closest('tr');
 			tr.find('.dots').toggle();
@@ -366,8 +374,9 @@ function PowermailBackend($) {
 	 * Simply change value of password fields
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.hidePasswords = function() {
+	var hidePasswords = function() {
 		$('.powermail_listbe_details_dd.powermail_listbe_details_type_password').html('********');
 	};
 
@@ -375,8 +384,9 @@ function PowermailBackend($) {
 	 * Format reporting view with flot.js
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.reportingView = function() {
+	var reportingView = function() {
 		var $table = $('.powermail_reporting_form_fields_table');
 		$table.find('tr:even').addClass('even');
 		$table.find('tr:first').removeClass('even');
@@ -396,9 +406,9 @@ function PowermailBackend($) {
 		$('*[data-flot-active="1"]').each(function() {
 			var $this = $(this);
 			var data = [];
-			var values = that.split($this.data('flot-data-values'), ',');
-			var labels = that.split($this.data('flot-data-labels'), ',');
-			var colors = that.split($this.data('flot-data-colors'), ',');
+			var values = split($this.data('flot-data-values'), ',');
+			var labels = split($this.data('flot-data-labels'), ',');
+			var colors = split($this.data('flot-data-colors'), ',');
 			for (var i = 0; i < values.length; i++) {
 				var dataPackage = {
 					data: values[i],
@@ -418,7 +428,7 @@ function PowermailBackend($) {
 						label: {
 							show: true,
 							radius: 1,
-							formatter: that.labelFormatter,
+							formatter: labelFormatter,
 							background: {
 								opacity: 0.8
 							}
@@ -460,8 +470,9 @@ function PowermailBackend($) {
 	 *
 	 * @param {jQuery} $tr
 	 * @returns {int} should be hidden?
+	 * @private
 	 */
-	this.visibilityToggleLine = function($tr) {
+	var visibilityToggleLine = function($tr) {
 		var $visibilityButton = $tr.find('.visibilityButton');
 		var hidden = 1;
 		if ($visibilityButton.hasClass('unhideMail')) {
@@ -499,8 +510,9 @@ function PowermailBackend($) {
 	 * @param {int} hidden
 	 * @param {string} moduleUri
 	 * @returns {void}
+	 * @private
 	 */
-	this.sendVisibilityRequest = function(table, uid, hidden, moduleUri) {
+	var sendVisibilityRequest = function(table, uid, hidden, moduleUri) {
 		var url = moduleUri + '&data[' + table + '][' + uid + '][hidden]=' + hidden + '&redirect=' + T3_THIS_LOCATION;
 		$.ajax({
 			url: url
@@ -514,8 +526,9 @@ function PowermailBackend($) {
 	 * @param {string} uid
 	 * @param {string} moduleUri
 	 * @returns {void}
+	 * @private
 	 */
-	this.sendDeleteRequest = function(table, uid, moduleUri) {
+	var sendDeleteRequest = function(table, uid, moduleUri) {
 		var url = moduleUri + '&cmd[' + table + '][' + uid + '][delete]=1&redirect=' + T3_THIS_LOCATION;
 		$.ajax({
 			url: url
@@ -527,8 +540,9 @@ function PowermailBackend($) {
 	 *
 	 * @param {jQuery} $tr
 	 * @returns {void}
+	 * @private
 	 */
-	this.removeLine = function($tr) {
+	var removeLine = function($tr) {
 		$tr.fadeOut('slow', function() {
 			$tr.next().remove();
 			$tr.remove();
@@ -540,8 +554,9 @@ function PowermailBackend($) {
 	 *
 	 * @param {jQuery} $icon
 	 * @returns {void}
+	 * @private
 	 */
-	this.selectOrDeselectLine = function($icon) {
+	var selectOrDeselectLine = function($icon) {
 		if ($icon.hasClass('fa')) {
 			// TYPO3 7.x
 			$icon
@@ -563,8 +578,9 @@ function PowermailBackend($) {
 	 * Calculate number of selected lines and write
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.calculateAndWriteNumbersOfSelections = function() {
+	var calculateAndWriteNumbersOfSelections = function() {
 		var number = $('.selectLine').length;
 		$('.selectedLineMessage_numbers').html(number);
 		if (number > 0) {
@@ -578,19 +594,20 @@ function PowermailBackend($) {
 	 * Delete all selected lines
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.deleteSelectedLines = function() {
+	var deleteSelectedLines = function() {
 		$('.selectLine').each(function() {
 			var $this = $(this);
 			var $td = $this.children(':last');
 			var moduleUri = $td.find('.container_module_uri').val();
 			var uid = $td.find('.container_uid').val();
 			var table = $td.find('.container_table').val();
-			that.sendDeleteRequest(table, uid, moduleUri);
-			that.removeLine($this);
-			that.deselectLine($this);
+			sendDeleteRequest(table, uid, moduleUri);
+			removeLine($this);
+			deselectLine($this);
 		});
-		that.calculateAndWriteNumbersOfSelections();
+		calculateAndWriteNumbersOfSelections();
 	};
 
 	/**
@@ -598,28 +615,30 @@ function PowermailBackend($) {
 	 *
 	 * @param {jQuery} $line
 	 * @returns {void}
+	 * @private
 	 */
-	this.deselectLine = function($line) {
+	var deselectLine = function($line) {
 		var $icon = $line.find('.addPowermailSelection');
-		that.selectOrDeselectLine($icon);
+		selectOrDeselectLine($icon);
 	};
 
 	/**
 	 * Hide/Unhide all selected lines
 	 *
 	 * @returns {void}
+	 * @private
 	 */
-	this.toggleVisibilityOfLines = function() {
+	var toggleVisibilityOfLines = function() {
 		$('.selectLine').each(function() {
 			var $this = $(this);
 			var $td = $this.children(':last');
 			var moduleUri = $td.find('.container_module_uri').val();
 			var uid = $td.find('.container_uid').val();
 			var table = $td.find('.container_table').val();
-			that.sendVisibilityRequest(table, uid, that.visibilityToggleLine($this), moduleUri);
-			that.deselectLine($this);
+			sendVisibilityRequest(table, uid, visibilityToggleLine($this), moduleUri);
+			deselectLine($this);
 		});
-		that.calculateAndWriteNumbersOfSelections();
+		calculateAndWriteNumbersOfSelections();
 	};
 
 	/**
@@ -628,8 +647,9 @@ function PowermailBackend($) {
 	 * @param value
 	 * @param separator
 	 * @returns {Array}
+	 * @private
 	 */
-	this.split = function(value, separator) {
+	var split = function(value, separator) {
 		if (value.toString().indexOf(separator) !== -1) {
 			var values = value.split(separator);
 		} else {
@@ -644,8 +664,9 @@ function PowermailBackend($) {
 	 * @param {string} label
 	 * @param {object} series
 	 * @returns {string}
+	 * @private
 	 */
-	this.labelFormatter = function(label, series) {
+	var labelFormatter = function(label, series) {
 		return '<div class="flotLabel">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
 	};
 
