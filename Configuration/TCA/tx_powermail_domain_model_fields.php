@@ -995,6 +995,7 @@ $fieldsTca = [
             ],
         ],
         'auto_marker' => [
+            // show marker in Backend record {markername}
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -1006,8 +1007,8 @@ $fieldsTca = [
             'displayCond' => 'FIELD:own_marker_select:REQ:false'
         ],
         'marker' => [
+            // field that stores the marker
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 'tx_powermail_domain_model_fields.own_marker',
             'config' => [
@@ -1018,6 +1019,7 @@ $fieldsTca = [
             'displayCond' => 'FIELD:own_marker_select:REQ:true'
         ],
         'own_marker_select' => [
+            // checkbox to edit a marker
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
