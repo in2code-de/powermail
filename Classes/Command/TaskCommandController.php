@@ -55,12 +55,6 @@ class TaskCommandController extends CommandController
     protected $answerRepository;
 
     /**
-     * @var \In2code\Powermail\Domain\Repository\FieldRepository
-     * @inject
-     */
-    protected $fieldRepository;
-
-    /**
      * delete Files which are older than this seconds
      *
      * @var int
