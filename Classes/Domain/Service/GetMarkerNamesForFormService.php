@@ -122,7 +122,7 @@ class GetMarkerNamesForFormService
             } else {
                 for ($i = 1; $i < $this->iterations; $i++) {
                     $marker = $this->removeAppendix($marker);
-                    $marker .= '_' . str_pad($i, 2, '0', STR_PAD_LEFT);
+                    $marker = $this->addAppendix($marker, $i);
                     if (!in_array($marker, $markerArray)) {
                         $markerArray[$field->getUid()] = $marker;
                         break;
@@ -158,6 +158,19 @@ class GetMarkerNamesForFormService
     protected function removeAppendix($string)
     {
         return $string = preg_replace('/_[0-9][0-9]$/', '', $string);
+    }
+
+    /**
+     * add appendix "_xx"
+     *
+     * @param string $string
+     * @param int $iteration
+     * @return string
+     */
+    protected function addAppendix($string, $iteration)
+    {
+        $string .= '_' . str_pad($iteration, 2, '0', STR_PAD_LEFT);
+        return $string;
     }
 
     /**
