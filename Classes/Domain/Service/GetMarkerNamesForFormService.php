@@ -61,7 +61,7 @@ class GetMarkerNamesForFormService
     /**
      * @var int
      */
-    protected $iterations = 999;
+    protected $iterations = 99;
 
     /**
      * @param int $formUid
@@ -157,7 +157,12 @@ class GetMarkerNamesForFormService
      */
     protected function removeAppendix($string)
     {
-        return $string = preg_replace('/_[0-9][0-9]$/', '', $string);
+        $part = '[0-9]';
+        $pattern = '';
+        for ($i = 0; $i < strlen($this->iterations); $i++) {
+            $pattern .= $part;
+        }
+        return $string = preg_replace('/_' . $pattern . '$/', '', $string);
     }
 
     /**
@@ -169,7 +174,7 @@ class GetMarkerNamesForFormService
      */
     protected function addAppendix($string, $iteration)
     {
-        $string .= '_' . str_pad($iteration, 2, '0', STR_PAD_LEFT);
+        $string .= '_' . str_pad($iteration, strlen($this->iterations), '0', STR_PAD_LEFT);
         return $string;
     }
 
