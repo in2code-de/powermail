@@ -2,7 +2,9 @@
 namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Service\ExportService;
+use In2code\Powermail\Domain\Service\GetMarkerNamesForFormService;
 use In2code\Powermail\Utility\BasicFileUtility;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
@@ -51,6 +53,12 @@ class TaskCommandController extends CommandController
      * @inject
      */
     protected $answerRepository;
+
+    /**
+     * @var \In2code\Powermail\Domain\Repository\FieldRepository
+     * @inject
+     */
+    protected $fieldRepository;
 
     /**
      * delete Files which are older than this seconds
@@ -158,6 +166,26 @@ class TaskCommandController extends CommandController
     }
 
     /**
+     * Reset all markers in fields within a given form
+     *
+     * @param int $formUid
+     * @return void
+     */
+    public function resetMarkerNamesInFormCommand($formUid = 0)
+    {
+        /** @var GetMarkerNamesForFormService $markerService */
+        $markerService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\GetMarkerNamesForFormService');
+        $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid);
+        foreach ($markers as $uid => $marker) {
+            $this->getDatabaseConnection()->exec_UPDATEquery(
+                'tx_powermail_domain_model_fields',
+                'uid = ' . (int) $uid,
+                array('marker' => $marker)
+            );
+        }
+    }
+
+    /**
      * Get used uploads
      *
      * @return array
@@ -192,5 +220,13 @@ class TaskCommandController extends CommandController
             ];
         }
         return $variables;
+    }
+
+    /**
+     * @return DatabaseConnection
+     */
+    protected static function getDatabaseConnection()
+    {
+        return $GLOBALS['TYPO3_DB'];
     }
 }
