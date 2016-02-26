@@ -198,7 +198,7 @@ class GetMarkerNamesForFormService
     protected function cleanString($string)
     {
         $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
-        $string = str_replace(['-'], '_', $string);
+        $string = str_replace('-', '_', $string);
         $string = strtolower($string);
         return $string;
     }

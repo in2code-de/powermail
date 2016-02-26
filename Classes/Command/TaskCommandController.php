@@ -162,7 +162,11 @@ class TaskCommandController extends CommandController
     /**
      * Reset all markers in fields within a given form
      *
-     * @param int $formUid
+     *      Reset all marker names in fields
+     *      Note: Only non-hidden and non-deleted fields
+     *      in non-hidden and non-deleted pages will be respected
+     *
+     * @param int $formUid Add the form uid
      * @return void
      */
     public function resetMarkerNamesInFormCommand($formUid = 0)
