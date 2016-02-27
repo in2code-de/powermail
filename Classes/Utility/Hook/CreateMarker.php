@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -317,7 +318,7 @@ class CreateMarker
     public function __construct($test = false)
     {
         if (!$test) {
-            $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+            $this->databaseConnection = ObjectUtility::getDatabaseConnection();
             $this->data = (array) GeneralUtility::_GP('data');
             $this->setMarkers();
             $this->formUid = $this->getFormUid();

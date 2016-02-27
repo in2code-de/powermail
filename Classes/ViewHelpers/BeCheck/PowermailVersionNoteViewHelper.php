@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
@@ -117,9 +118,9 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $select = 'review_state';
         $from = 'tx_extensionmanager_domain_model_extension';
         $where = 'extension_key = "powermail" and version = "' . $this->getVersion() . '"';
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, '', '', 1);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             if ($row['review_state'] === '0') {
                 return false;
             }
@@ -135,9 +136,9 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $select = 'version';
         $from = 'tx_extensionmanager_domain_model_extension';
         $where = 'extension_key = "powermail"';
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, '', 'version DESC', 1);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', 'version DESC', 1);
         if ($res) {
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             if (!empty($row['version'])) {
                 $newestVersion = VersionNumberUtility::convertVersionNumberToInteger($row['version']);
                 $currentVersion = VersionNumberUtility::convertVersionNumberToInteger($this->getVersion());
@@ -154,7 +155,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      */
     protected function getExtensionTableExistsFromDatabase()
     {
-        $allTables = $GLOBALS['TYPO3_DB']->admin_get_tables();
+        $allTables = ObjectUtility::getDatabaseConnection()->admin_get_tables();
         if (array_key_exists('tx_extensionmanager_domain_model_extension', $allTables)) {
             return true;
         }
@@ -169,9 +170,9 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $select = 'uid';
         $from = 'tx_extensionmanager_domain_model_extension';
         $where = 'extension_key = "powermail" and version = "' . $this->getVersion() . '"';
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, '', '', 1);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             if (!empty($row['uid'])) {
                 return true;
             }

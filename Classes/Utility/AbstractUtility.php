@@ -79,7 +79,7 @@ abstract class AbstractUtility
      *
      * @return array
      */
-    public static function getExtensionConfiguration()
+    protected static function getExtensionConfiguration()
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         return unserialize($configVariables['EXT']['extConf']['powermail']);
@@ -90,7 +90,7 @@ abstract class AbstractUtility
      *
      * @return array
      */
-    public static function getTypo3ConfigurationVariables()
+    protected static function getTypo3ConfigurationVariables()
     {
         return $GLOBALS['TYPO3_CONF_VARS'];
     }

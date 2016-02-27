@@ -30,10 +30,10 @@ use In2code\Powermail\Domain\Model\Page;
  ***************************************************************/
 
 /**
- * Class GetMarkerNamesForFormService
+ * Class GetNewMarkerNamesForFormService
  * @package In2code\Powermail\Domain\Service
  */
-class GetMarkerNamesForFormService
+class GetNewMarkerNamesForFormService
 {
 
     /**
@@ -47,11 +47,11 @@ class GetMarkerNamesForFormService
      *
      * @var array
      */
-    protected $restrictedMarkers = array(
+    protected $restrictedMarkers = [
         'mail',
         'powermail_rte',
         'powermail_all'
-    );
+    ];
 
     /**
      * @var string
@@ -65,13 +65,14 @@ class GetMarkerNamesForFormService
 
     /**
      * @param int $formUid
+     * @param bool $forceReset
      * @return array
      */
-    public function getMarkersForFieldsDependingOnForm($formUid)
+    public function getMarkersForFieldsDependingOnForm($formUid, $forceReset)
     {
         /** @var Form $form */
         $form = $this->formRepository->findByUid($formUid);
-        return $this->makeUniqueValueInArray($this->getFieldsToForm($form));
+        return $this->makeUniqueValueInArray($this->getFieldsToForm($form), $forceReset);
     }
 
     /**
@@ -82,7 +83,7 @@ class GetMarkerNamesForFormService
      */
     protected function getFieldsToForm(Form $form)
     {
-        $fields = array();
+        $fields = [];
         foreach ($form->getPages() as $page) {
             /** @var Page $page */
             foreach ($page->getFields() as $field) {
@@ -109,14 +110,15 @@ class GetMarkerNamesForFormService
      *  ]
      *
      * @param array $fieldArray
+     * @param bool $forceReset
      * @return array
      */
-    protected function makeUniqueValueInArray(array $fieldArray)
+    protected function makeUniqueValueInArray(array $fieldArray, $forceReset)
     {
-        $markerArray = array();
+        $markerArray = [];
         /** @var Field $field */
         foreach ($fieldArray as $field) {
-            $marker = $this->fallbackMarkerIfEmpty($field);
+            $marker = $this->fallbackMarkerIfEmpty($field, $forceReset);
             if ($this->isMarkerAllowed($marker, $markerArray)) {
                 $markerArray[$field->getUid()] = $marker;
             } else {
@@ -135,12 +137,13 @@ class GetMarkerNamesForFormService
 
     /**
      * @param Field $field
+     * @param bool $forceReset
      * @return string
      */
-    protected function fallbackMarkerIfEmpty(Field $field)
+    protected function fallbackMarkerIfEmpty(Field $field, $forceReset)
     {
         $marker = $field->getMarkerOriginal();
-        if (empty($marker)) {
+        if (empty($marker) || $forceReset) {
             $marker = $this->cleanString($field->getTitle());
         }
         if (empty($marker)) {

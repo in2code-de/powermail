@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -25,9 +26,9 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
         $select = 'last_update';
         $from = 'tx_extensionmanager_domain_model_repository';
         $where = 1;
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, '', '', 1);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             if (!empty($row['last_update'])) {
                 return (int) $row['last_update'];
             }
@@ -40,7 +41,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
      */
     protected function extensionTableExists()
     {
-        $allTables = $GLOBALS['TYPO3_DB']->admin_get_tables();
+        $allTables = ObjectUtility::getDatabaseConnection()->admin_get_tables();
         if (array_key_exists('tx_extensionmanager_domain_model_repository', $allTables)) {
             return true;
         }

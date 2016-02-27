@@ -2,9 +2,9 @@
 namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Service\ExportService;
-use In2code\Powermail\Domain\Service\GetMarkerNamesForFormService;
+use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\BasicFileUtility;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
@@ -162,23 +162,25 @@ class TaskCommandController extends CommandController
     /**
      * Reset all markers in fields within a given form
      *
-     *      Reset all marker names in fields
+     *      Reset all marker names in fields if there are broken
+     *      Fields without or duplicated markernames.
      *      Note: Only non-hidden and non-deleted fields
-     *      in non-hidden and non-deleted pages will be respected
+     *      in non-hidden and non-deleted pages will be respected.
      *
      * @param int $formUid Add the form uid
+     * @param boolean $forceReset Force to reset markers even if they are already filled
      * @return void
      */
-    public function resetMarkerNamesInFormCommand($formUid = 0)
+    public function resetMarkerNamesInFormCommand($formUid = 0, $forceReset = false)
     {
-        /** @var GetMarkerNamesForFormService $markerService */
-        $markerService = $this->objectManager->get('In2code\\Powermail\\Domain\\Service\\GetMarkerNamesForFormService');
-        $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid);
+        /** @var GetNewMarkerNamesForFormService $markerService */
+        $markerService = $this->objectManager->get(GetNewMarkerNamesForFormService::class);
+        $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid, $forceReset);
         foreach ($markers as $uid => $marker) {
-            $this->getDatabaseConnection()->exec_UPDATEquery(
+            ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
                 'tx_powermail_domain_model_fields',
                 'uid = ' . (int) $uid,
-                array('marker' => $marker)
+                ['marker' => $marker]
             );
         }
     }
@@ -218,13 +220,5 @@ class TaskCommandController extends CommandController
             ];
         }
         return $variables;
-    }
-
-    /**
-     * @return DatabaseConnection
-     */
-    protected static function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
     }
 }
