@@ -64,15 +64,33 @@ class GetNewMarkerNamesForFormService
     protected $iterations = 99;
 
     /**
+     * Get array with formUids and fieldUids and their new marker names
+     *
+     *  [
+     *      123 =>
+     *          [
+     *              12 => 'newmarkername',
+     *              13 => 'newmarkername_01',
+     *          ]
+     *  ]
+     *
      * @param int $formUid
      * @param bool $forceReset
      * @return array
      */
     public function getMarkersForFieldsDependingOnForm($formUid, $forceReset)
     {
+        if ($formUid === 0) {
+            $forms = $this->formRepository->findAll();
+        } else {
+            $forms = [$this->formRepository->findByUid($formUid)];
+        }
+        $markers = [];
         /** @var Form $form */
-        $form = $this->formRepository->findByUid($formUid);
-        return $this->makeUniqueValueInArray($this->getFieldsToForm($form), $forceReset);
+        foreach ($forms as $form) {
+            $markers[$form->getUid()] = $this->makeUniqueValueInArray($this->getFieldsToForm($form), $forceReset);
+        }
+        return $markers;
     }
 
     /**

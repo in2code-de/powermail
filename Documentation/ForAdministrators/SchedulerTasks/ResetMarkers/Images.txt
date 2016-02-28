@@ -1,0 +1,9 @@
+.. |img-scheduler-resetmarkers|     image:: ../../../Images/scheduler_resetmarkers.png
+.. :align: left
+.. :border: 0
+.. :name: scheduler_resetmarkers
+
+.. |img-form-duplicated-markers.png|     image:: ../../../Images/form_duplicated_markers.png
+.. :align: left
+.. :border: 0
+.. :name: form_duplicated_markers.png

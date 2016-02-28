@@ -176,22 +176,26 @@ class TaskCommandController extends CommandController
      *      Fields without or duplicated markernames.
      *      Note: Only non-hidden and non-deleted fields
      *      in non-hidden and non-deleted pages will be respected.
+     *      Attention: If you add "0" as form Uid, all fields in all
+     *      forms will be resetted!
      *
-     * @param int $formUid Add the form uid
+     * @param int $formUid Add the form uid, 0 resets markers of all forms
      * @param boolean $forceReset Force to reset markers even if they are already filled
      * @return void
      */
-    public function resetMarkerNamesInFormCommand($formUid = 0, $forceReset = false)
+    public function resetMarkerNamesInFormCommand($formUid, $forceReset)
     {
         /** @var GetNewMarkerNamesForFormService $markerService */
         $markerService = $this->objectManager->get(GetNewMarkerNamesForFormService::class);
         $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid, $forceReset);
-        foreach ($markers as $uid => $marker) {
-            ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
-                'tx_powermail_domain_model_fields',
-                'uid = ' . (int) $uid,
-                ['marker' => $marker]
-            );
+        foreach ($markers as $formMarkers) {
+            foreach ($formMarkers as $uid => $marker) {
+                ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
+                    'tx_powermail_domain_model_fields',
+                    'uid = ' . (int) $uid,
+                    ['marker' => $marker]
+                );
+            }
         }
     }
 
