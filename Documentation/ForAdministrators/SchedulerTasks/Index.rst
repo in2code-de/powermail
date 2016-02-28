@@ -15,3 +15,4 @@ Scheduler Tasks
    RemoveOldMails/Index
    RemoveUnusedImages/Index
    CleanTypo3tempPowermailFolder/Index
+   CleanUploadsPowermailFolder/Index

@@ -142,6 +142,19 @@ class TaskCommandController extends CommandController
     }
 
     /**
+     * Remove all uploaded files in uploads/tx_powermail/
+     *
+     *        This task will clean up all (!) files which
+     *        are located in uploads/tx_powermail/
+     *
+     * @return void
+     */
+    public function cleanUploadsFilesCommand()
+    {
+        $this->removeFilesFromRelativeDirectory('uploads/tx_powermail/');
+    }
+
+    /**
      * Remove all export files in typo3temp/tx_powermail/
      *
      *        This task will clean up all (!) files which
@@ -153,10 +166,7 @@ class TaskCommandController extends CommandController
      */
     public function cleanExportFilesCommand()
     {
-        $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName('typo3temp/tx_powermail/'), '', true);
-        foreach ($files as $file) {
-            unlink($file);
-        }
+        $this->removeFilesFromRelativeDirectory('typo3temp/tx_powermail/');
     }
 
     /**
@@ -182,6 +192,20 @@ class TaskCommandController extends CommandController
                 'uid = ' . (int) $uid,
                 ['marker' => $marker]
             );
+        }
+    }
+
+    /**
+     * Remove all files from a directory
+     *
+     * @param string $directory relative directory
+     * @return void
+     */
+    protected function removeFilesFromRelativeDirectory($directory)
+    {
+        $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName($directory), '', true);
+        foreach ($files as $file) {
+            unlink($file);
         }
     }
 
