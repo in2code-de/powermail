@@ -2,7 +2,9 @@
 namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Service\ExportService;
+use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
@@ -154,6 +156,32 @@ class TaskCommandController extends CommandController
         $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName('typo3temp/tx_powermail/'), '', true);
         foreach ($files as $file) {
             unlink($file);
+        }
+    }
+
+    /**
+     * Reset all markers in fields within a given form
+     *
+     *      Reset all marker names in fields if there are broken
+     *      Fields without or duplicated markernames.
+     *      Note: Only non-hidden and non-deleted fields
+     *      in non-hidden and non-deleted pages will be respected.
+     *
+     * @param int $formUid Add the form uid
+     * @param boolean $forceReset Force to reset markers even if they are already filled
+     * @return void
+     */
+    public function resetMarkerNamesInFormCommand($formUid = 0, $forceReset = false)
+    {
+        /** @var GetNewMarkerNamesForFormService $markerService */
+        $markerService = $this->objectManager->get(GetNewMarkerNamesForFormService::class);
+        $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid, $forceReset);
+        foreach ($markers as $uid => $marker) {
+            ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
+                'tx_powermail_domain_model_fields',
+                'uid = ' . (int) $uid,
+                ['marker' => $marker]
+            );
         }
     }
 

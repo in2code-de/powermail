@@ -684,6 +684,16 @@ class Field extends AbstractEntity
     }
 
     /**
+     * Returns the marker, even if empty
+     *
+     * @return string $marker
+     */
+    public function getMarkerOriginal()
+    {
+        return $this->marker;
+    }
+
+    /**
      * Sets the marker
      *
      * @param string $marker

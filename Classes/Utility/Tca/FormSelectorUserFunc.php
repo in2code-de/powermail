@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Utility\Tca;
 
 use In2code\Powermail\Utility\BackendUtility;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -40,11 +40,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class FormSelectorUserFunc
 {
-
-    /**
-     * @var DatabaseConnection
-     */
-    protected $databaseConnection = null;
 
     /**
      * Create Array for Form Selection
@@ -99,7 +94,6 @@ class FormSelectorUserFunc
      */
     protected function getAllForms($startPid, $language)
     {
-        $this->initialize();
         $select = 'fo.uid, fo.title';
         $from = 'tx_powermail_domain_model_forms fo';
         $where = 'fo.deleted = 0 and fo.hidden = 0 and ' .
@@ -111,11 +105,18 @@ class FormSelectorUserFunc
         $groupBy = '';
         $orderBy = 'fo.title ASC';
         $limit = 10000;
-        $res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery(
+            $select,
+            $from,
+            $where,
+            $groupBy,
+            $orderBy,
+            $limit
+        );
 
         $array = [];
         if ($res) {
-            while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
+            while (($row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res))) {
                 $array[] = $row;
             }
         }
@@ -135,15 +136,5 @@ class FormSelectorUserFunc
         $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
         $list = $queryGenerator->getTreeList($startPid, 10, 0, 1);
         return $list;
-    }
-
-    /**
-     * Initialize
-     *
-     * @return void
-     */
-    protected function initialize()
-    {
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
     }
 }

@@ -3,6 +3,7 @@ namespace In2code\Powermail\Utility\Tca;
 
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -408,6 +409,6 @@ class ShowFormNoteEditForm
     {
         $this->params = $params;
         $this->languageService = $GLOBALS['LANG'];
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        $this->databaseConnection = ObjectUtility::getDatabaseConnection();
     }
 }

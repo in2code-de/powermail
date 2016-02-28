@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -89,7 +90,7 @@ class SaveToAnyTableService
      */
     public function __construct($table)
     {
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        $this->databaseConnection = ObjectUtility::getDatabaseConnection();
         $this->setTable($table);
     }
 
