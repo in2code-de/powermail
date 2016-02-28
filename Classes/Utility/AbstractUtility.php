@@ -114,7 +114,7 @@ abstract class AbstractUtility
      */
     protected static function getContentObject()
     {
-        return self::getObjectManager()->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+        return self::getObjectManager()->get(ContentObjectRenderer::class);
     }
 
     /**
@@ -122,7 +122,7 @@ abstract class AbstractUtility
      */
     protected static function getConfigurationManager()
     {
-        return self::getObjectManager()->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+        return self::getObjectManager()->get(ConfigurationManager::class);
     }
 
     /**

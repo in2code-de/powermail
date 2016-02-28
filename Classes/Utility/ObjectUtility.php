@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /***************************************************************
@@ -50,5 +51,13 @@ class ObjectUtility extends AbstractUtility
     public static function getDatabaseConnection()
     {
         return parent::getDatabaseConnection();
+    }
+
+    /**
+     * @return ObjectManager
+     */
+    public static function getObjectManager()
+    {
+        return parent::getObjectManager();
     }
 }

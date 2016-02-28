@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
+use In2code\Powermail\Utility\StringUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -37,6 +38,11 @@ class GetNewMarkerNamesForFormService
 {
 
     /**
+     * @var string
+     */
+    protected static $defaultMarker = 'marker';
+
+    /**
      * @var \In2code\Powermail\Domain\Repository\FormRepository
      * @inject
      */
@@ -52,11 +58,6 @@ class GetNewMarkerNamesForFormService
         'powermail_rte',
         'powermail_all'
     ];
-
-    /**
-     * @var string
-     */
-    protected $defaultMarker = 'marker';
 
     /**
      * @var int
@@ -94,6 +95,48 @@ class GetNewMarkerNamesForFormService
     }
 
     /**
+     * create marker array with unique values
+     *
+     *  [
+     *      Field [123]
+     *      Field [234]
+     *  ]
+     *
+     *      =>
+     *
+     *  [
+     *      123 => 'markername1',
+     *      234 => 'markername2'
+     *  ]
+     *
+     * @param array $fieldArray
+     * @param bool $forceReset
+     * @return array
+     */
+    public function makeUniqueValueInArray(array $fieldArray, $forceReset = false)
+    {
+        $markerArray = [];
+        /** @var Field $field */
+        foreach ($fieldArray as $field) {
+            $marker = $this->fallbackMarkerIfEmpty($field, $forceReset);
+            $uid = $this->getUid($field);
+            if ($this->isMarkerAllowed($marker, $markerArray)) {
+                $markerArray[$uid] = $marker;
+            } else {
+                for ($i = 1; $i < $this->iterations; $i++) {
+                    $marker = $this->removeAppendix($marker);
+                    $marker = $this->addAppendix($marker, $i);
+                    if (!in_array($marker, $markerArray)) {
+                        $markerArray[$uid] = $marker;
+                        break;
+                    }
+                }
+            }
+        }
+        return $markerArray;
+    }
+
+    /**
      * Get all fields to a form
      *
      * @param Form $form
@@ -113,44 +156,24 @@ class GetNewMarkerNamesForFormService
     }
 
     /**
-     * create marker array with unique values
+     * Get uid from field
      *
-     *  [
-     *      Field [123]
-     *      Field [234]
-     *  ]
+     * because new fields that are just generated in TYPO3 backend get unique string names like
+     * "new123abc" before they are persisted in database. It could be that, they are temporary
+     * stored in field description. In this case the uid is always empty
      *
-     *      =>
-     *
-     *  [
-     *      123 => 'markername1',
-     *      234 => 'markername2'
-     *  ]
-     *
-     * @param array $fieldArray
-     * @param bool $forceReset
-     * @return array
+     * @param Field $field
+     * @return int|string
      */
-    protected function makeUniqueValueInArray(array $fieldArray, $forceReset)
+    protected function getUid(Field $field)
     {
-        $markerArray = [];
-        /** @var Field $field */
-        foreach ($fieldArray as $field) {
-            $marker = $this->fallbackMarkerIfEmpty($field, $forceReset);
-            if ($this->isMarkerAllowed($marker, $markerArray)) {
-                $markerArray[$field->getUid()] = $marker;
-            } else {
-                for ($i = 1; $i < $this->iterations; $i++) {
-                    $marker = $this->removeAppendix($marker);
-                    $marker = $this->addAppendix($marker, $i);
-                    if (!in_array($marker, $markerArray)) {
-                        $markerArray[$field->getUid()] = $marker;
-                        break;
-                    }
-                }
-            }
+        $uid = 0;
+        if ($field->getUid()) {
+            $uid = $field->getUid();
+        } elseif ($field->getDescription()) {
+            $uid = $field->getDescription();
         }
-        return $markerArray;
+        return $uid;
     }
 
     /**
@@ -165,7 +188,7 @@ class GetNewMarkerNamesForFormService
             $marker = $this->cleanString($field->getTitle());
         }
         if (empty($marker)) {
-            $marker = $this->defaultMarker;
+            $marker = self::$defaultMarker;
         }
         return $marker;
     }
@@ -222,5 +245,13 @@ class GetNewMarkerNamesForFormService
         $string = str_replace('-', '_', $string);
         $string = strtolower($string);
         return $string;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getRandomMarkerName()
+    {
+        return self::$defaultMarker . '_' . StringUtility::getRandomString(8, false);
     }
 }
