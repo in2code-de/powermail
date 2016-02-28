@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -100,7 +101,7 @@ class FieldRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $sql = 'select uid,pid,title,marker,sys_language_uid';
-        $sql .= ' from tx_powermail_domain_model_fields';
+        $sql .= ' from ' . Field::TABLE_NAME;
         $sql .= ' where marker != ""';
         $sql .= ' and sys_language_uid > 0';
         $sql .= ' and deleted = 0';
@@ -119,7 +120,7 @@ class FieldRepository extends AbstractRepository
     public function fixFilledMarkersInLocalizedFields()
     {
         $this->getDatabaseConnection()->exec_UPDATEquery(
-            'tx_powermail_domain_model_fields',
+            Field::TABLE_NAME,
             'sys_language_uid > 0 and deleted = 0 and marker != ""',
             ['marker' => '']
         );
@@ -135,7 +136,7 @@ class FieldRepository extends AbstractRepository
     {
         $pages = [];
         $select = 'uid,pid,title,l10n_parent,sys_language_uid';
-        $from = 'tx_powermail_domain_model_fields';
+        $from = Field::TABLE_NAME;
         $where = '(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0';
         $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where);
         if ($res) {
@@ -158,7 +159,7 @@ class FieldRepository extends AbstractRepository
             $defaultPageUid = $this->getPageUidFromFieldUid($defaultFieldUid);
             $localizedPageUid = $this->getLocalizedPageUidFromPageUid($defaultPageUid, $field['sys_language_uid']);
             $this->getDatabaseConnection()->exec_UPDATEquery(
-                'tx_powermail_domain_model_fields',
+                Field::TABLE_NAME,
                 'uid = ' . (int) $field['uid'],
                 ['pages' => $localizedPageUid]
             );
@@ -175,7 +176,7 @@ class FieldRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $sql = 'select pages';
-        $sql .= ' from tx_powermail_domain_model_fields';
+        $sql .= ' from ' . Field::TABLE_NAME;
         $sql .= ' where uid = ' . (int) $fieldUid;
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
@@ -192,7 +193,7 @@ class FieldRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $sql = 'select uid';
-        $sql .= ' from tx_powermail_domain_model_pages';
+        $sql .= ' from ' . Page::TABLE_NAME;
         $sql .= ' where l10n_parent = ' . (int) $pageUid;
         $sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
         $sql .= ' and deleted = 0';

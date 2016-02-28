@@ -13,6 +13,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
 {
 
+    const TABLE_NAME = 'tx_extensionmanager_domain_model_repository';
+
     /**
      * Return timestamp from last updated TER
      *
@@ -24,7 +26,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
             return 0;
         }
         $select = 'last_update';
-        $from = 'tx_extensionmanager_domain_model_repository';
+        $from = self::TABLE_NAME;
         $where = 1;
         $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
@@ -42,7 +44,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
     protected function extensionTableExists()
     {
         $allTables = ObjectUtility::getDatabaseConnection()->admin_get_tables();
-        if (array_key_exists('tx_extensionmanager_domain_model_repository', $allTables)) {
+        if (array_key_exists(self::TABLE_NAME, $allTables)) {
             return true;
         }
         return false;

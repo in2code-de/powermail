@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
+use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
@@ -95,7 +96,7 @@ class FormSelectorUserFunc
     protected function getAllForms($startPid, $language)
     {
         $select = 'fo.uid, fo.title';
-        $from = 'tx_powermail_domain_model_forms fo';
+        $from = Form::TABLE_NAME . ' fo';
         $where = 'fo.deleted = 0 and fo.hidden = 0 and ' .
             '(fo.sys_language_uid IN (-1,0) or ' .
             '(fo.l10n_parent = 0 and fo.sys_language_uid = ' . (int) $language . '))';

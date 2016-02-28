@@ -1,6 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
@@ -244,7 +247,7 @@ class FormConverterService
             $formProperties['l10n_parent'] = (int) $this->localizationRelations['form'][$form['l18n_parent']];
         }
         if (!$this->isDryrun()) {
-            ObjectUtility::getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_forms', $formProperties);
+            ObjectUtility::getDatabaseConnection()->exec_INSERTquery(Form::TABLE_NAME, $formProperties);
             $formProperties['uid'] = ObjectUtility::getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['form'][$form['uid']] = $formProperties['uid'];
         }
@@ -289,7 +292,7 @@ class FormConverterService
             $pageProperties['l10n_parent'] = (int) $this->localizationRelations['page'][$page['l18n_parent']];
         }
         if (!$this->isDryrun()) {
-            ObjectUtility::getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_pages', $pageProperties);
+            ObjectUtility::getDatabaseConnection()->exec_INSERTquery(Page::TABLE_NAME, $pageProperties);
             $pageProperties['uid'] = ObjectUtility::getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['page'][$page['uid']] = $pageProperties['uid'];
         }
@@ -354,7 +357,7 @@ class FormConverterService
             $fieldProperties['l10n_parent'] = (int) $this->localizationRelations['field'][$field['l18n_parent']];
         }
         if (!$this->isDryrun()) {
-            ObjectUtility::getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_fields', $fieldProperties);
+            ObjectUtility::getDatabaseConnection()->exec_INSERTquery(Field::TABLE_NAME, $fieldProperties);
             $fieldProperties['uid'] = ObjectUtility::getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['field'][$field['uid']] = $fieldProperties['uid'];
         }

@@ -24,6 +24,7 @@ namespace In2code\Powermail\Utility\Tca;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use In2code\Powermail\Domain\Model\Field;
 
 /**
  * Class to extend Pi1 field marker e.g. {firstname}
@@ -63,7 +64,7 @@ class Marker
             $content .= '<span style="background-color: #ddd; padding: 5px 10px; display: block;">';
             $content .= '{' . strtolower($marker) . '}';
             $content .= '</span>';
-            $content .= '<input type="hidden" name="data[tx_powermail_domain_model_fields][' .
+            $content .= '<input type="hidden" name="data[' . Field::TABLE_NAME . '][' .
                 $params['row']['uid'] . '][marker]" value="' . strtolower($marker) . '" />';
         }
 

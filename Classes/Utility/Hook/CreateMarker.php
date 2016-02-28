@@ -1,6 +1,9 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -77,10 +80,22 @@ class CreateMarker
      *
      * @var array
      */
-    protected $restrictedMarkerNames = [
+    protected $restrictedMarkers = [
         'mail',
         'powermail_rte',
-        'powermail_all'
+        'powermail_all',
+        'ttContentData'
+    ];
+
+    /**
+     * React if one of this tables is in game
+     *
+     * @var array
+     */
+    protected $tableNames = [
+        Form::TABLE_NAME,
+        Page::TABLE_NAME,
+        Field::TABLE_NAME
     ];
 
     /**
@@ -89,6 +104,22 @@ class CreateMarker
      * @var string
      */
     protected $defaultMarkerName = 'marker';
+
+    /**
+     * Constructor
+     *
+     * @param bool $test
+     */
+    public function __construct($test = false)
+    {
+        if (!$test) {
+            $this->databaseConnection = ObjectUtility::getDatabaseConnection();
+            $this->data = (array) GeneralUtility::_GP('data');
+            $this->setMarkers();
+            $this->formUid = $this->getFormUid();
+            $this->existingMarkers = $this->getFieldMarkersFromForm();
+        }
+    }
 
     /**
      * Initially fill the marker field from title
@@ -101,30 +132,31 @@ class CreateMarker
      */
     public function processDatamap_postProcessFieldArray($status, $table, $uid, &$fieldArray)
     {
-        if ($table !== 'tx_powermail_domain_model_fields') {
-            return;
-        }
-        $markers = array_merge((array) $this->existingMarkers, (array) $this->marker);
-        $this->makeUniqueValueInArray($markers);
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($table, 'in2code: ' . __CLASS__ . ':' . __LINE__);
+        if ($table === Field::TABLE_NAME) {
+            \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->existingMarkers, 'in2code: ' . __CLASS__ . ':' . __LINE__);
+            $markers = array_merge((array) $this->existingMarkers, (array) $this->marker);
+            $this->makeUniqueValueInArray($markers);
 
-        // set marker for new field
-        if (isset($this->data['tx_powermail_domain_model_fields'][$uid]['marker']) || stristr($uid, 'NEW')) {
-            if (isset($fieldArray['marker']) && empty($fieldArray['marker'])) {
-                $fieldArray['marker'] = 'marker_' . StringUtility::getRandomString(8, false);
+            // set marker for new field
+            if (isset($this->data[Field::TABLE_NAME][$uid]['marker']) || stristr($uid, 'NEW')) {
+                if (isset($fieldArray['marker']) && empty($fieldArray['marker'])) {
+                    $fieldArray['marker'] = 'marker_' . StringUtility::getRandomString(8, false);
+                }
+                if (!empty($markers['_' . $uid])) {
+                    $fieldArray['marker'] = $markers['_' . $uid];
+                }
             }
-            if (!empty($markers['_' . $uid])) {
+
+            // revise marker if related to a new page and not allowed
+            if (!empty($markers['_' . $uid]) && $markers['_' . $uid] !== $this->marker['_' . $uid]) {
                 $fieldArray['marker'] = $markers['_' . $uid];
             }
-        }
 
-        // revise marker if related to a new page and not allowed
-        if (!empty($markers['_' . $uid]) && $markers['_' . $uid] !== $this->marker['_' . $uid]) {
-            $fieldArray['marker'] = $markers['_' . $uid];
-        }
-
-        // marker should be empty on localized fields
-        if (!empty($fieldArray['sys_language_uid']) && $fieldArray['sys_language_uid'] > 0) {
-            unset($fieldArray['marker']);
+            // marker should be empty on localized fields
+            if (!empty($fieldArray['sys_language_uid']) && $fieldArray['sys_language_uid'] > 0) {
+                unset($fieldArray['marker']);
+            }
         }
     }
 
@@ -138,7 +170,7 @@ class CreateMarker
     {
         $newArray = [];
         foreach ((array) $array as $key => $value) {
-            if (!in_array($value, $newArray) && !in_array($value, $this->restrictedMarkerNames)) {
+            if (!in_array($value, $newArray) && !in_array($value, $this->restrictedMarkers)) {
                 $newArray[$key] = $value;
             } else {
                 for ($i = 1; $i < 100; $i++) {
@@ -164,7 +196,7 @@ class CreateMarker
     protected function setMarkers()
     {
         $this->marker = [];
-        foreach ((array) $this->data['tx_powermail_domain_model_fields'] as $fieldUid => $fieldValues) {
+        foreach ((array) $this->data[Field::TABLE_NAME] as $fieldUid => $fieldValues) {
             if (!empty($fieldValues['title'])) {
                 if (isset($fieldValues['marker'])) {
                     $marker = $fieldValues['marker'];
@@ -205,27 +237,27 @@ class CreateMarker
         $formUid = 0;
 
         // if form is given in GET params (open form and pages and fields via IRRE)
-        if (isset($this->data['tx_powermail_domain_model_forms'])) {
-            foreach (array_keys((array) $this->data['tx_powermail_domain_model_forms']) as $uid) {
+        if (isset($this->data[Form::TABLE_NAME])) {
+            foreach (array_keys((array) $this->data[Form::TABLE_NAME]) as $uid) {
                 $formUid = $uid;
             }
         }
 
         // if pages open (fields via IRRE)
         if ($formUid === 0) {
-            foreach (array_keys((array) $this->data['tx_powermail_domain_model_pages']) as $uid) {
-                if (!empty($this->data['tx_powermail_domain_model_pages'][$uid]['forms'])) {
-                    $formUid = $this->data['tx_powermail_domain_model_pages'][$uid]['forms'];
+            foreach (array_keys((array) $this->data[Page::TABLE_NAME]) as $uid) {
+                if (!empty($this->data[Page::TABLE_NAME][$uid]['forms'])) {
+                    $formUid = $this->data[Page::TABLE_NAME][$uid]['forms'];
                 }
             }
         }
 
         // if field is directly opened (no IRRE OR opened pages with their IRRE fields
         if ($formUid === 0) {
-            foreach (array_keys((array) $this->data['tx_powermail_domain_model_fields']) as $uid) {
-                if (!empty($this->data['tx_powermail_domain_model_fields'][$uid]['pages'])) {
+            foreach (array_keys((array) $this->data[Field::TABLE_NAME]) as $uid) {
+                if (!empty($this->data[Field::TABLE_NAME][$uid]['pages'])) {
                     $formUid = $this->getFormUidFromRelatedPage(
-                        $this->data['tx_powermail_domain_model_fields'][$uid]['pages']
+                        $this->data[Field::TABLE_NAME][$uid]['pages']
                     );
                 }
             }
@@ -244,9 +276,9 @@ class CreateMarker
     {
         $formUid = 0;
         $select = 'fo.uid';
-        $from = 'tx_powermail_domain_model_forms fo ' .
-            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
-            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
+        $from = Form::TABLE_NAME . ' fo ' .
+            'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
+            'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
         $where = 'p.uid = ' . (int) $pageUid;
         $groupBy = '';
         $orderBy = '';
@@ -269,9 +301,9 @@ class CreateMarker
     {
         $formUid = 0;
         $select = 'fo.uid';
-        $from = 'tx_powermail_domain_model_forms fo ' .
-            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
-            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
+        $from = Form::TABLE_NAME . ' fo ' .
+            'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
+            'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
         $where = 'f.uid = ' . (int) $fieldUid;
         $groupBy = '';
         $orderBy = '';
@@ -293,9 +325,9 @@ class CreateMarker
     {
         $result = [];
         $select = 'f.marker, f.uid';
-        $from = 'tx_powermail_domain_model_forms fo ' .
-            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
-            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
+        $from = Form::TABLE_NAME . ' fo ' .
+            'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
+            'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
         $where = 'fo.uid = ' . (int) $this->formUid . ' and f.deleted = 0';
         $groupBy = '';
         $orderBy = '';
@@ -308,21 +340,5 @@ class CreateMarker
         }
 
         return $result;
-    }
-
-    /**
-     * Constructor
-     *
-     * @param bool $test
-     */
-    public function __construct($test = false)
-    {
-        if (!$test) {
-            $this->databaseConnection = ObjectUtility::getDatabaseConnection();
-            $this->data = (array) GeneralUtility::_GP('data');
-            $this->setMarkers();
-            $this->formUid = $this->getFormUid();
-            $this->existingMarkers = $this->getFieldMarkersFromForm();
-        }
     }
 }

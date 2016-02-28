@@ -14,6 +14,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  */
 class PowermailVersionNoteViewHelper extends AbstractViewHelper
 {
+    const TABLE_NAME = 'tx_extensionmanager_domain_model_extension';
 
     /**
      * Status of powermail version
@@ -116,7 +117,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     protected function getIsCurrentVersionUnsecureFromDatabase()
     {
         $select = 'review_state';
-        $from = 'tx_extensionmanager_domain_model_extension';
+        $from = self::TABLE_NAME;
         $where = 'extension_key = "powermail" and version = "' . $this->getVersion() . '"';
         $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
@@ -134,7 +135,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     protected function getIsNewerVersionAvailableFromDatabase()
     {
         $select = 'version';
-        $from = 'tx_extensionmanager_domain_model_extension';
+        $from = self::TABLE_NAME;
         $where = 'extension_key = "powermail"';
         $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', 'version DESC', 1);
         if ($res) {
@@ -156,7 +157,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     protected function getExtensionTableExistsFromDatabase()
     {
         $allTables = ObjectUtility::getDatabaseConnection()->admin_get_tables();
-        if (array_key_exists('tx_extensionmanager_domain_model_extension', $allTables)) {
+        if (array_key_exists(self::TABLE_NAME, $allTables)) {
             return true;
         }
         return false;
@@ -168,7 +169,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     protected function getCurrentVersionInExtensionTableExistsFromDatabase()
     {
         $select = 'uid';
-        $from = 'tx_extensionmanager_domain_model_extension';
+        $from = self::TABLE_NAME;
         $where = 'extension_key = "powermail" and version = "' . $this->getVersion() . '"';
         $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {

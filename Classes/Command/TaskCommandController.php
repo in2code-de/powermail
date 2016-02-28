@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Command;
 
+use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\ExportService;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\BasicFileUtility;
@@ -191,7 +192,7 @@ class TaskCommandController extends CommandController
         foreach ($markers as $formMarkers) {
             foreach ($formMarkers as $uid => $marker) {
                 ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
-                    'tx_powermail_domain_model_fields',
+                    Field::TABLE_NAME,
                     'uid = ' . (int) $uid,
                     ['marker' => $marker]
                 );

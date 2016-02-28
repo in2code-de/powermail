@@ -1,4 +1,6 @@
 <?php
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
 
 /**
@@ -8,18 +10,16 @@ use In2code\Powermail\Utility\ConfigurationUtility;
  *        textarea
  */
 $typeDefault = 'pages, title, type, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.palette1;1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.palette1;1, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+        Field::TABLE_NAME . '.validation_title;2, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.validation_title;2, ' .
-    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.prefill_title;32, ' .
+        Field::TABLE_NAME . '.prefill_title;32, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         'tabs.access, sys_language_uid, ' .
     'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
@@ -30,18 +30,16 @@ $typeDefault = 'pages, title, type, ' .
  *        check
  */
 $typeSettings = 'pages, title, type, settings, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.palette1;1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.palette1;1, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+        Field::TABLE_NAME . '.validation_title;21, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.validation_title;21, ' .
-    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.prefill_title;33, ' .
+        Field::TABLE_NAME . '.prefill_title;33, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         'tabs.access, sys_language_uid, ' .
     'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
@@ -51,18 +49,16 @@ $typeSettings = 'pages, title, type, settings, ' .
  *        select
  */
 $typeSettingsMultiple = 'pages, title, type, settings, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.palette1;1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.palette1;1, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+        Field::TABLE_NAME . '.validation_title;21, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.validation_title;21, ' .
-    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-    'tx_powermail_domain_model_fields.prefill_title;33, ' .
+        Field::TABLE_NAME . '.prefill_title;33, ' .
     '--palette--;Layout;41, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         'tabs.access, sys_language_uid, ' .
     'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
@@ -73,11 +69,10 @@ $typeSettingsMultiple = 'pages, title, type, settings, ' .
  *        reset
  */
 $typeSmall = 'pages, title, type, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
@@ -87,12 +82,11 @@ $typeSmall = 'pages, title, type, ' .
  *        location
  */
 $typeSmallDescription = 'pages, title, type, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
         'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
@@ -101,12 +95,11 @@ $typeSmallDescription = 'pages, title, type, ' .
  *        hidden
  */
 $typeSmallPrefill = 'pages, title, type, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.prefill_title;31, ' .
+        Field::TABLE_NAME . '.prefill_title;31, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
@@ -115,16 +108,15 @@ $typeSmallPrefill = 'pages, title, type, ' .
  *        country
  */
 $typeSmallPrefillDescription = 'pages, title, type, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.validation_title;21, ' .
+        Field::TABLE_NAME . '.validation_title;21, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.prefill_title;31, ' .
+        Field::TABLE_NAME . '.prefill_title;31, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
@@ -133,14 +125,13 @@ $typeSmallPrefillDescription = 'pages, title, type, ' .
  *        password
  */
 $typeSmallMandatory = 'pages, title, type, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.validation_title;21, ' .
+        Field::TABLE_NAME . '.validation_title;21, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
@@ -150,11 +141,10 @@ $typeSmallMandatory = 'pages, title, type, ' .
  *        html
  */
 $typeText = 'pages, title, type, text, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
@@ -163,11 +153,10 @@ $typeText = 'pages, title, type, text, ' .
  *        content_element
  */
 $typeContent = 'pages, title, type, content_element, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
@@ -176,14 +165,13 @@ $typeContent = 'pages, title, type, content_element, ' .
  *        file
  */
 $typeFile = 'pages, title, type, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.validation_title;21, ' .
+        Field::TABLE_NAME . '.validation_title;21, ' .
     '--palette--;Layout;41, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         'tabs.access, sys_language_uid, ' .
     'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
@@ -193,14 +181,13 @@ $typeFile = 'pages, title, type, ' .
  *        date
  */
 $typeDate = 'pages, title, type, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.validation_title;21, ' .
+        Field::TABLE_NAME . '.validation_title;21, ' .
     '--palette--;Layout;42, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         'tabs.access, sys_language_uid, ' .
     'l10n_parent, l10n_diffsource, hidden, starttime, endtime';
@@ -210,17 +197,16 @@ $typeDate = 'pages, title, type, ' .
  *        typoscript
  */
 $typeTypoScript = 'pages, title, type, path, ' .
-    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.sheet1, ' .
+    '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-        'tx_powermail_domain_model_fields.marker_title;5, ' .
+        Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
 
 $fieldsTca = [
     'ctrl' => [
-        'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields',
+        'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME,
         'label' => 'title',
         'type' => 'type',
         'tstamp' => 'tstamp',
@@ -242,7 +228,7 @@ $fieldsTca = [
             'endtime' => 'endtime',
         ],
         'requestUpdate' => 'validation,own_marker_select',
-        'iconfile' => ConfigurationUtility::getIconPath('tx_powermail_domain_model_fields.gif')
+        'iconfile' => ConfigurationUtility::getIconPath(Field::TABLE_NAME . '.gif')
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, type, settings, ' .
@@ -382,9 +368,9 @@ $fieldsTca = [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_powermail_domain_model_fields',
-                'foreign_table_where' => 'AND tx_powermail_domain_model_fields.pid=###CURRENT_PID### AND' .
-                    ' tx_powermail_domain_model_fields.sys_language_uid IN (-1,0)',
+                'foreign_table' => Field::TABLE_NAME,
+                'foreign_table_where' => 'AND ' . Field::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
+                    Field::TABLE_NAME . '.sys_language_uid IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -443,7 +429,7 @@ $fieldsTca = [
         'title' => [
             'exclude' => 0,
             'label' =>
-                'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.title',
+                'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -454,114 +440,114 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 0,
             'label' =>
-                'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_fields.type',
+                'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.spacer1',
+                        Field::TABLE_NAME . '.type.spacer1',
                         '--div--'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.0',
+                        Field::TABLE_NAME . '.type.0',
                         'input'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.1',
+                        Field::TABLE_NAME . '.type.1',
                         'textarea'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.2',
+                        Field::TABLE_NAME . '.type.2',
                         'select'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.3',
+                        Field::TABLE_NAME . '.type.3',
                         'check'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.4',
+                        Field::TABLE_NAME . '.type.4',
                         'radio'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.5',
+                        Field::TABLE_NAME . '.type.5',
                         'submit'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.spacer2',
+                        Field::TABLE_NAME . '.type.spacer2',
                         '--div--'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.6',
+                        Field::TABLE_NAME . '.type.6',
                         'captcha'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.7',
+                        Field::TABLE_NAME . '.type.7',
                         'reset'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.8',
+                        Field::TABLE_NAME . '.type.8',
                         'text'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.9',
+                        Field::TABLE_NAME . '.type.9',
                         'content'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.10',
+                        Field::TABLE_NAME . '.type.10',
                         'html'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.11',
+                        Field::TABLE_NAME . '.type.11',
                         'password'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.12',
+                        Field::TABLE_NAME . '.type.12',
                         'file'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.13',
+                        Field::TABLE_NAME . '.type.13',
                         'hidden'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.14',
+                        Field::TABLE_NAME . '.type.14',
                         'date'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.17',
+                        Field::TABLE_NAME . '.type.17',
                         'country'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.15',
+                        Field::TABLE_NAME . '.type.15',
                         'location'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.16',
+                        Field::TABLE_NAME . '.type.16',
                         'typoscript'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.spacer3',
+                        Field::TABLE_NAME . '.type.spacer3',
                         '--div--'
                     ],
                 ],
@@ -574,7 +560,7 @@ $fieldsTca = [
         'settings' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.settings',
+                Field::TABLE_NAME . '.settings',
             'config' => [
                 'type' => 'text',
                 'cols' => '32',
@@ -584,8 +570,7 @@ $fieldsTca = [
         'path' => [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.path',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.path',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -595,7 +580,7 @@ $fieldsTca = [
         'content_element' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.content_element',
+                Field::TABLE_NAME . '.content_element',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -607,8 +592,7 @@ $fieldsTca = [
         ],
         'text' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.text',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.text',
             'config' => [
                 'type' => 'text',
                 'cols' => '32',
@@ -619,7 +603,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.sender_email',
+                Field::TABLE_NAME . '.sender_email',
             'config' => [
                 'type' => 'check'
             ],
@@ -628,7 +612,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.sender_name',
+                Field::TABLE_NAME . '.sender_name',
             'config' => [
                 'type' => 'check'
             ],
@@ -637,7 +621,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.mandatory',
+                Field::TABLE_NAME . '.mandatory',
             'config' => [
                 'type' => 'check'
             ],
@@ -646,7 +630,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.validation',
+                Field::TABLE_NAME . '.validation',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -660,7 +644,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.spacer1',
+                        Field::TABLE_NAME . '.type.spacer1',
                         '--div--'
                     ],
                     /**
@@ -671,7 +655,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.1',
+                        Field::TABLE_NAME . '.validation.1',
                         1
                     ],
                     /**
@@ -682,7 +666,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.2',
+                        Field::TABLE_NAME . '.validation.2',
                         2
                     ],
                     /**
@@ -695,7 +679,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.3',
+                        Field::TABLE_NAME . '.validation.3',
                         3
                     ],
                     /**
@@ -706,7 +690,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.4',
+                        Field::TABLE_NAME . '.validation.4',
                         4
                     ],
                     /**
@@ -717,7 +701,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.5',
+                        Field::TABLE_NAME . '.validation.5',
                         5
                     ],
                     /**
@@ -725,7 +709,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.spacer2',
+                        Field::TABLE_NAME . '.type.spacer2',
                         '--div--'
                     ],
                     /**
@@ -737,7 +721,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.6',
+                        Field::TABLE_NAME . '.validation.6',
                         6
                     ],
                     /**
@@ -749,7 +733,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.7',
+                        Field::TABLE_NAME . '.validation.7',
                         7
                     ],
                     /**
@@ -762,7 +746,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.8',
+                        Field::TABLE_NAME . '.validation.8',
                         8
                     ],
                     /**
@@ -774,7 +758,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.9',
+                        Field::TABLE_NAME . '.validation.9',
                         9
                     ],
                     /**
@@ -787,7 +771,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.validation.10',
+                        Field::TABLE_NAME . '.validation.10',
                         10
                     ],
                     /**
@@ -795,7 +779,7 @@ $fieldsTca = [
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.type.spacer3',
+                        Field::TABLE_NAME . '.type.spacer3',
                         '--div--'
                     ],
                 ],
@@ -809,7 +793,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.validationConfiguration',
+                Field::TABLE_NAME . '.validationConfiguration',
             'config' => [
                 'type' => 'input',
                 'size' => 30
@@ -819,7 +803,7 @@ $fieldsTca = [
         'prefill_value' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.prefill_value',
+                Field::TABLE_NAME . '.prefill_value',
             'config' => [
                 'type' => 'text',
                 'cols' => '26',
@@ -829,7 +813,7 @@ $fieldsTca = [
         'placeholder' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.placeholder',
+                Field::TABLE_NAME . '.placeholder',
             'config' => [
                 'type' => 'text',
                 'cols' => '26',
@@ -840,7 +824,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.feuser_value',
+                Field::TABLE_NAME . '.feuser_value',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -851,52 +835,52 @@ $fieldsTca = [
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.name',
+                        Field::TABLE_NAME . '.feuser_value.name',
                         'name'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.address',
+                        Field::TABLE_NAME . '.feuser_value.address',
                         'address'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.phone',
+                        Field::TABLE_NAME . '.feuser_value.phone',
                         'telephone'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.fax',
+                        Field::TABLE_NAME . '.feuser_value.fax',
                         'fax'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.email',
+                        Field::TABLE_NAME . '.feuser_value.email',
                         'email'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.zip',
+                        Field::TABLE_NAME . '.feuser_value.zip',
                         'zip'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.city',
+                        Field::TABLE_NAME . '.feuser_value.city',
                         'city'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.country',
+                        Field::TABLE_NAME . '.feuser_value.country',
                         'country'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.www',
+                        Field::TABLE_NAME . '.feuser_value.www',
                         'www'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.feuser_value.company',
+                        Field::TABLE_NAME . '.feuser_value.company',
                         'company'
                     ],
                 ],
@@ -909,7 +893,7 @@ $fieldsTca = [
         'create_from_typoscript' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.create_from_typoscript',
+                Field::TABLE_NAME . '.create_from_typoscript',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -919,8 +903,7 @@ $fieldsTca = [
         'css' => [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.css',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -930,23 +913,19 @@ $fieldsTca = [
                         ''
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.css.1',
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.1',
                         'layout1'
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.css.2',
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.2',
                         'layout2'
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.css.3',
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.3',
                         'layout3'
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.css.4',
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.4',
                         'nolabel'
                     ],
                 ],
@@ -959,7 +938,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.multiselect',
+                Field::TABLE_NAME . '.multiselect',
             'config' => [
                 'type' => 'check'
             ],
@@ -968,24 +947,24 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.datepicker_settings',
+                Field::TABLE_NAME . '.datepicker_settings',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.datepicker_settings.1',
+                        Field::TABLE_NAME . '.datepicker_settings.1',
                         'date'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.datepicker_settings.2',
+                        Field::TABLE_NAME . '.datepicker_settings.2',
                         'datetime'
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_fields.datepicker_settings.3',
+                        Field::TABLE_NAME . '.datepicker_settings.3',
                         'time'
                     ],
                 ],
@@ -999,7 +978,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.auto_marker',
+                Field::TABLE_NAME . '.auto_marker',
             'config' => [
                 'type' => 'user',
                 'userFunc' => 'In2code\Powermail\Utility\Tca\Marker->createMarker'
@@ -1010,7 +989,7 @@ $fieldsTca = [
             // field that stores the marker
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.own_marker',
+                Field::TABLE_NAME . '.own_marker',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -1023,7 +1002,7 @@ $fieldsTca = [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.own_marker_select',
+                Field::TABLE_NAME . '.own_marker_select',
             'config' => [
                 'type' => 'check',
                 'default' => 0
@@ -1032,7 +1011,7 @@ $fieldsTca = [
         'description' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.description',
+                Field::TABLE_NAME . '.description',
             'config' => [
                 'type' => 'text',
                 'cols' => '26',
@@ -1044,16 +1023,16 @@ $fieldsTca = [
             'l10n_mode' => 'noCopy',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_fields.pages',
+                Field::TABLE_NAME . '.pages',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_powermail_domain_model_pages',
-                'foreign_table_where' => 'AND tx_powermail_domain_model_pages.pid=###CURRENT_PID### ' .
-                    'AND tx_powermail_domain_model_pages.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
+                'foreign_table' => Page::TABLE_NAME,
+                'foreign_table_where' => 'AND ' . Page::TABLE_NAME . '.pid=###CURRENT_PID### ' .
+                    'AND ' . Page::TABLE_NAME . '.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
             ],
         ],
         'sorting' => [

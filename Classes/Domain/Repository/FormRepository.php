@@ -125,7 +125,7 @@ class FormRepository extends AbstractRepository
 
         // create sql statement
         $sql = 'select pages';
-        $sql .= ' from tx_powermail_domain_model_forms';
+        $sql .= ' from ' . Form::TABLE_NAME;
         $sql .= ' where uid = ' . (int) $uid;
         $sql .= ' limit 1';
 
@@ -273,7 +273,7 @@ class FormRepository extends AbstractRepository
         $query = $this->createQuery();
 
         $sql = 'select uid,pid,title';
-        $sql .= ' from tx_powermail_domain_model_forms';
+        $sql .= ' from ' . Form::TABLE_NAME;
         $sql .= ' where pages = ""';
         $sql .= ' and sys_language_uid > 0';
         $sql .= ' and deleted = 0';
@@ -292,7 +292,7 @@ class FormRepository extends AbstractRepository
     public function fixWrongLocalizedForms()
     {
         $this->getDatabaseConnection()->exec_UPDATEquery(
-            'tx_powermail_domain_model_forms',
+            Form::TABLE_NAME,
             'sys_language_uid > 0 and deleted = 0 and pages = ""',
             ['pages' => 0]
         );
@@ -339,9 +339,9 @@ class FormRepository extends AbstractRepository
     public function getFieldsFromFormWithSelectQuery($formUid)
     {
         $select = 'f.uid, f.title, f.sender_email, f.sender_name, f.marker';
-        $from = 'tx_powermail_domain_model_fields f ' .
-            'left join tx_powermail_domain_model_pages p on f.pages = p.uid ' .
-            'left join tx_powermail_domain_model_forms fo on p.forms = fo.uid';
+        $from = Field::TABLE_NAME . ' f ' .
+            'left join ' . Page::TABLE_NAME . ' p on f.pages = p.uid ' .
+            'left join ' . Form::TABLE_NAME . ' fo on p.forms = fo.uid';
         $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" ' .
             'and f.sys_language_uid IN (-1,0) and fo.uid = ' . (int) $formUid;
         $groupBy = '';
