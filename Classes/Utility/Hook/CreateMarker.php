@@ -137,6 +137,10 @@ class CreateMarker
                 $this->renameMarker($markers);
                 $this->cleanMarkersInLocalizedFields();
             }
+
+            if ($table === Form::TABLE_NAME || $table === Page::TABLE_NAME) {
+                $this->checkAndRenameMarkers($markers);
+            }
         }
     }
 
@@ -173,11 +177,37 @@ class CreateMarker
 
     /**
      * Marker should be empty on localized fields
+     *
+     * @return void
      */
     protected function cleanMarkersInLocalizedFields()
     {
         if (!empty($fieldArray['sys_language_uid']) && $fieldArray['sys_language_uid'] > 0) {
             unset($this->properties['marker']);
+        }
+    }
+
+    /**
+     * Check if related fields to a form or a page should have a different marker name
+     *
+     * @param array $markers
+     * @return void
+     */
+    protected function checkAndRenameMarkers(array $markers)
+    {
+        foreach ($markers as $uid => $marker) {
+            $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
+                'marker',
+                Field::TABLE_NAME,
+                'uid=' . (int) $uid
+            );
+            if ($row['marker'] !== $marker) {
+                ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
+                    Field::TABLE_NAME,
+                    'uid=' . (int) $uid,
+                    ['marker' => $marker]
+                );
+            }
         }
     }
 

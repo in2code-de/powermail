@@ -67,7 +67,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
             }
         }
 
-        if (!$this->hasFormUniqueFieldMarkers($params['row']['uid'])) {
+        if (!$this->hasFormUniqueAndFilledFieldMarkers($params['row']['uid'])) {
             $content .= '<div style="background:#F2DEDE; border:1px solid #A94442;' .
                 ' padding: 5px 10px; color: #A94442; margin-top: 10px">';
             $content .= '<p><strong>';
@@ -138,24 +138,27 @@ class ShowFormNoteIfNoEmailOrNameSelected
     }
 
     /**
-     * Check if form has unique field markers
+     * Check if form has unique and filled field markers
      *
      * @param $formUid
      * @return bool
      */
-    protected function hasFormUniqueFieldMarkers($formUid)
+    protected function hasFormUniqueAndFilledFieldMarkers($formUid)
     {
         /** @var FormRepository $formRepository */
         $formRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
         $markers = [];
         foreach ($fields as $field) {
+            if (empty($field['marker'])) {
+                return false;
+            }
             $markers[] = $field['marker'];
         }
-        if (array_unique($markers) === $markers) {
-            return true;
+        if (array_unique($markers) !== $markers) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
