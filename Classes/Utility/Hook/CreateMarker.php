@@ -137,10 +137,7 @@ class CreateMarker
                 $this->renameMarker($markers);
                 $this->cleanMarkersInLocalizedFields();
             }
-
-            if ($table === Form::TABLE_NAME || $table === Page::TABLE_NAME) {
-                $this->checkAndRenameMarkers($markers);
-            }
+            $this->checkAndRenameMarkers($markers);
         }
     }
 
@@ -188,7 +185,7 @@ class CreateMarker
     }
 
     /**
-     * Check if related fields to a form or a page should have a different marker name
+     * Check if persisted fields should have a different marker name and rename it if it's necessary
      *
      * @param array $markers
      * @return void
