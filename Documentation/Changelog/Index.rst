@@ -18,6 +18,18 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.24.0
+   :Date:
+      2016-02-29
+   :Changes:
+
+      * Feature _`#73725`: https://forge.typo3.org/issues/73725 Remove files in uploads/tx_powermail/ folder
+      * Feature _`#73696`: https://forge.typo3.org/issues/73696 Add commandController to reset markers of a given form
+      * Bugfix _`#73693`: https://forge.typo3.org/issues/73693 Markernames could be deleted on copying forms if editor hasn't the right to see markers
+      * Bugfix _`#73676`: https://forge.typo3.org/issues/73693 powermail SelectFieldViewHelper throws an Exception in php 7.0.3
+      * Bugfix _`#73651`: https://forge.typo3.org/issues/73651 Marker names don't get refactored if fieldset was copied
+
+ - :Version:
       2.23.0
    :Date:
       2016-02-19
