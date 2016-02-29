@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
+use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -42,12 +43,8 @@ class ShowFormNoteIfNoEmailOrNameSelected
             if ($this->noteFieldDisabled($params)) {
                 $content .= '<p style="opacity: 0.3; margin: 0;">';
                 $content .= $this->getCheckboxHtml($params);
-                $content .= '<label for="tx_powermail_domain_model_forms_note_checkbox"' .
-                    ' style="vertical-align: bottom;">';
-                $content .= $this->languageService->sL(
-                    $this->locallangPath . 'tx_powermail_domain_model_forms.note.4',
-                    true
-                );
+                $content .= '<label for="' . Form::TABLE_NAME . '_note_checkbox" style="vertical-align: bottom;">';
+                $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.note.4', true);
                 $content .= '</label>';
                 $content .= '<p style="margin: 0 0 3px 0;">';
             } else {
@@ -55,43 +52,29 @@ class ShowFormNoteIfNoEmailOrNameSelected
                     ' padding: 5px 10px; color: #FFB019;">';
                 $content .= '<p style="margin: 0 0 3px 0;">';
                 $content .= '<strong>';
-                $content .= $this->languageService->sL(
-                    $this->locallangPath . 'tx_powermail_domain_model_forms.note.1',
-                    true
-                );
+                $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.note.1', true);
                 $content .= '</strong>';
                 $content .= ' ';
-                $content .= $this->languageService->sL($this->locallangPath . 'tx_powermail_domain_model_forms.note.2',
-                    true);
+                $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.note.2', true);
                 $content .= '</p>';
                 $content .= '<p style="margin: 0;">';
                 $content .= $this->getCheckboxHtml($params);
-                $content .= '<label for="tx_powermail_domain_model_forms_note_checkbox"' .
-                    ' style="vertical-align: bottom;">';
-                $content .= $this->languageService->sL(
-                    $this->locallangPath . 'tx_powermail_domain_model_forms.note.3',
-                    true
-                );
+                $content .= '<label for="' . Form::TABLE_NAME . '_note_checkbox" style="vertical-align: bottom;">';
+                $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.note.3', true);
                 $content .= '</label>';
                 $content .= '</p>';
                 $content .= '</div>';
             }
         }
 
-        if (!$this->hasFormUniqueFieldMarkers($params['row']['uid'])) {
+        if (!$this->hasFormUniqueAndFilledFieldMarkers($params['row']['uid'])) {
             $content .= '<div style="background:#F2DEDE; border:1px solid #A94442;' .
                 ' padding: 5px 10px; color: #A94442; margin-top: 10px">';
             $content .= '<p><strong>';
-            $content .= $this->languageService->sL(
-                $this->locallangPath . 'tx_powermail_domain_model_forms.error.1',
-                true
-            );
+            $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.error.1', true);
             $content .= '</strong></p>';
             $content .= '<p>';
-            $content .= $this->languageService->sL(
-                $this->locallangPath . 'tx_powermail_domain_model_forms.error.2',
-                true
-            );
+            $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.error.2', true);
             $content .= '</p>';
             $content .= '</div>';
         }
@@ -106,12 +89,12 @@ class ShowFormNoteIfNoEmailOrNameSelected
     protected function getCheckboxHtml($params)
     {
         $content = '';
-        $content .= '<input type="checkbox" id="tx_powermail_domain_model_forms_note_checkbox" name="dummy" ';
+        $content .= '<input type="checkbox" id="' . Form::TABLE_NAME . '_note_checkbox" name="dummy" ';
         $content .= ((isset($params['row']['note']) && $params['row']['note'] === '1') ? 'checked="checked" ' : '');
         $content .= 'value="1" onclick="document.getElementById' .
-            '(\'tx_powermail_domain_model_forms_note\').value = ((this.checked) ? 1 : 0);" />';
-        $content .= '<input type="hidden" id="tx_powermail_domain_model_forms_note" ';
-        $content .= 'name="data[tx_powermail_domain_model_forms][' . $params['row']['uid'] . '][note]" ';
+            '(\'' . Form::TABLE_NAME . '_note\').value = ((this.checked) ? 1 : 0);" />';
+        $content .= '<input type="hidden" id="' . Form::TABLE_NAME . 's_note" ';
+        $content .= 'name="data[' . Form::TABLE_NAME . '][' . $params['row']['uid'] . '][note]" ';
         $content .= 'value="' . (!empty($params['row']['note']) ? '1' : '0') . '" />';
         return $content;
     }
@@ -155,24 +138,27 @@ class ShowFormNoteIfNoEmailOrNameSelected
     }
 
     /**
-     * Check if form has unique field markers
+     * Check if form has unique and filled field markers
      *
      * @param $formUid
      * @return bool
      */
-    protected function hasFormUniqueFieldMarkers($formUid)
+    protected function hasFormUniqueAndFilledFieldMarkers($formUid)
     {
         /** @var FormRepository $formRepository */
         $formRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
         $markers = [];
         foreach ($fields as $field) {
+            if (empty($field['marker'])) {
+                return false;
+            }
             $markers[] = $field['marker'];
         }
-        if (array_unique($markers) === $markers) {
-            return true;
+        if (array_unique($markers) !== $markers) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**

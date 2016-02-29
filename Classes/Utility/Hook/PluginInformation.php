@@ -1,9 +1,11 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
+use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -176,7 +178,7 @@ class PluginInformation
     protected function buildEditFormLink()
     {
         return BackendUtility::createEditUri(
-            'tx_powermail_domain_model_forms',
+            Form::TABLE_NAME,
             $this->getFormProperty(
                 $this->getFieldFromFlexform('main', 'main.form'),
                 'uid'
@@ -221,7 +223,7 @@ class PluginInformation
     {
         $uid = $this->getLocalizedFormUid($uid, $this->getSysLanguageUid());
         $select = $field;
-        $from = 'tx_powermail_domain_model_forms';
+        $from = Form::TABLE_NAME;
         $where = 'uid=' . (int) $uid;
         $row = $this->databaseConnection->exec_SELECTgetSingleRow($select, $from, $where);
         return htmlspecialchars($row[$field]);
@@ -238,7 +240,7 @@ class PluginInformation
     {
         if ($sysLanguageUid > 0) {
             $select = 'uid';
-            $from = 'tx_powermail_domain_model_forms';
+            $from = Form::TABLE_NAME;
             $where = 'sys_language_uid=' . (int) $sysLanguageUid . ' and l10n_parent=' . (int) $uid;
             $row = $this->databaseConnection->exec_SELECTgetSingleRow($select, $from, $where);
             if (!empty($row['uid'])) {
@@ -295,6 +297,6 @@ class PluginInformation
     {
         $this->params = $params;
         $this->languageService = $GLOBALS['LANG'];
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        $this->databaseConnection = ObjectUtility::getDatabaseConnection();
     }
 }

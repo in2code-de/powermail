@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Page;
 
 /***************************************************************
  *  Copyright notice
@@ -88,7 +89,7 @@ class PageRepository extends AbstractRepository
     {
         $pages = [];
         $select = 'uid,pid,title,l10n_parent,sys_language_uid';
-        $from = 'tx_powermail_domain_model_pages';
+        $from = Page::TABLE_NAME;
         $where = '(forms = "" or forms = 0) and sys_language_uid > 0 and deleted = 0';
         $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where);
         if ($res) {
@@ -111,7 +112,7 @@ class PageRepository extends AbstractRepository
             $defaultFormUid = $this->getFormUidFromPageUid($defaultPageUid);
             $localizedFormUid = $this->getLocalizedFormUidFromFormUid($defaultFormUid, $page['sys_language_uid']);
             $this->getDatabaseConnection()->exec_UPDATEquery(
-                'tx_powermail_domain_model_pages',
+                Page::TABLE_NAME,
                 'uid = ' . (int) $page['uid'],
                 ['forms' => $localizedFormUid]
             );
@@ -128,7 +129,7 @@ class PageRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $sql = 'select forms';
-        $sql .= ' from tx_powermail_domain_model_pages';
+        $sql .= ' from ' . Page::TABLE_NAME;
         $sql .= ' where uid = ' . (int) $pageUid;
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
@@ -145,7 +146,7 @@ class PageRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $sql = 'select uid';
-        $sql .= ' from tx_powermail_domain_model_forms';
+        $sql .= ' from ' . Form::TABLE_NAME;
         $sql .= ' where l10n_parent = ' . (int) $formUid;
         $sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
         $sql .= ' and deleted = 0';

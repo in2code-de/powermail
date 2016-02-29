@@ -63,9 +63,10 @@ class SelectFieldViewHelper extends SelectViewHelper
      *
      * @param string $value value attribute of the option tag (will be escaped)
      * @param string $label content of the option tag (will be escaped)
+     * @param bool $isSelected specifies wether or not to add selected attribute
      * @return string the rendered option tag
      */
-    protected function renderOptionTag($value, $label)
+    protected function renderOptionTag($value, $label, $isSelected = false)
     {
         return parent::renderOptionTag(
             $value,

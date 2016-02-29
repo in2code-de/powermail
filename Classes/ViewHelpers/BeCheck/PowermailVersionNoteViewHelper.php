@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\BeCheck;
 
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
@@ -13,6 +14,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  */
 class PowermailVersionNoteViewHelper extends AbstractViewHelper
 {
+    const TABLE_NAME = 'tx_extensionmanager_domain_model_extension';
 
     /**
      * Status of powermail version
@@ -115,11 +117,11 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     protected function getIsCurrentVersionUnsecureFromDatabase()
     {
         $select = 'review_state';
-        $from = 'tx_extensionmanager_domain_model_extension';
+        $from = self::TABLE_NAME;
         $where = 'extension_key = "powermail" and version = "' . $this->getVersion() . '"';
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, '', '', 1);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             if ($row['review_state'] === '0') {
                 return false;
             }
@@ -133,11 +135,11 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     protected function getIsNewerVersionAvailableFromDatabase()
     {
         $select = 'version';
-        $from = 'tx_extensionmanager_domain_model_extension';
+        $from = self::TABLE_NAME;
         $where = 'extension_key = "powermail"';
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, '', 'version DESC', 1);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', 'version DESC', 1);
         if ($res) {
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             if (!empty($row['version'])) {
                 $newestVersion = VersionNumberUtility::convertVersionNumberToInteger($row['version']);
                 $currentVersion = VersionNumberUtility::convertVersionNumberToInteger($this->getVersion());
@@ -154,8 +156,8 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      */
     protected function getExtensionTableExistsFromDatabase()
     {
-        $allTables = $GLOBALS['TYPO3_DB']->admin_get_tables();
-        if (array_key_exists('tx_extensionmanager_domain_model_extension', $allTables)) {
+        $allTables = ObjectUtility::getDatabaseConnection()->admin_get_tables();
+        if (array_key_exists(self::TABLE_NAME, $allTables)) {
             return true;
         }
         return false;
@@ -167,11 +169,11 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     protected function getCurrentVersionInExtensionTableExistsFromDatabase()
     {
         $select = 'uid';
-        $from = 'tx_extensionmanager_domain_model_extension';
+        $from = self::TABLE_NAME;
         $where = 'extension_key = "powermail" and version = "' . $this->getVersion() . '"';
-        $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $from, $where, '', '', 1);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
-            $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             if (!empty($row['uid'])) {
                 return true;
             }

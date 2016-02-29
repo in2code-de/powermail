@@ -1,0 +1,4 @@
+.. |img-scheduler-cleanuploadsfiles|     image:: ../../../Images/scheduler_cleanuploadsfiles.png
+.. :align: left
+.. :border: 0
+.. :name: scheduler_cleanuploadsfiles

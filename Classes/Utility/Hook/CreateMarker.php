@@ -1,13 +1,18 @@
 <?php
 namespace In2code\Powermail\Utility\Hook;
 
-use In2code\Powermail\Utility\StringUtility;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Page;
+use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
+ *  (c) 2016 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
  *
  *  All rights reserved
  *
@@ -39,159 +44,251 @@ class CreateMarker
 {
 
     /**
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     * @var null|ObjectManager
      */
-    protected $databaseConnection = null;
+    protected $objectManager = null;
 
     /**
-     * Array with all GET/POST params to save
+     * @var array
+     */
+    protected $data = [];
+
+    /**
+     * @var string
+     */
+    protected $status = '';
+
+    /**
+     * @var string
+     */
+    protected $table = '';
+
+    /**
+     * @var int|string
+     */
+    protected $uid = '';
+
+    /**
+     * @var array
+     */
+    protected $properties = [];
+
+    /**
+     * React if one of this tables is in game
      *
      * @var array
      */
-    protected $data;
-
-    /**
-     * Marker Array
-     *
-     * @var array
-     */
-    protected $marker;
-
-    /**
-     * Form Uid
-     *
-     * @var int
-     */
-    protected $formUid;
-
-    /**
-     * Existing Markers from Database to current form
-     *
-     * @var array
-     */
-    protected $existingMarkers;
-
-    /**
-     * Restricted Marker Names
-     *
-     * @var array
-     */
-    protected $restrictedMarkerNames = [
-        'mail',
-        'powermail_rte',
-        'powermail_all'
+    protected $allowedTableNames = [
+        Form::TABLE_NAME,
+        Page::TABLE_NAME,
+        Field::TABLE_NAME
     ];
 
     /**
-     * Default marker name for empty titles
+     * Contains all (new and existing fields) with name and markers
      *
-     * @var string
+     * [
+     *      12 => Field,
+     *      13 => Field
+     * ]
+     *
+     * @var array
      */
-    protected $defaultMarkerName = 'marker';
+    protected $fieldArray = [];
 
     /**
-     * Initially fill the marker field from title
+     * @param string $status mode of change
+     * @param string $table the table that gets changed
+     * @param string $uid identifier of the record
+     * @param array $properties the properties that can be manipulated before storing
+     * @return void
+     */
+    public function initialize($status, $table, $uid, &$properties)
+    {
+        $this->status = $status;
+        $this->table = $table;
+        $this->uid = $uid;
+        $this->properties = &$properties;
+        $this->objectManager = ObjectUtility::getObjectManager();
+        $this->data = (array) GeneralUtility::_GP('data');
+        $this->addExistingFields();
+        $this->addNewFields();
+    }
+
+    /**
+     * Fill the marker field initially from title and check if they are unique in a form
      *
      * @param string $status mode of change
-     * @param string $table the table which gets changed
-     * @param string $uid uid of the record
-     * @param array $fieldArray the updateArray
+     * @param string $table the table that gets changed
+     * @param string $uid identifier of the record
+     * @param array $properties the properties that can be manipulated before storing
      * @return void
      */
-    public function processDatamap_postProcessFieldArray($status, $table, $uid, &$fieldArray)
+    public function processDatamap_postProcessFieldArray($status, $table, $uid, &$properties)
     {
-        if ($table !== 'tx_powermail_domain_model_fields') {
-            return;
-        }
-        $markers = array_merge((array) $this->existingMarkers, (array) $this->marker);
-        $this->makeUniqueValueInArray($markers);
+        if ($this->shouldProcess($table)) {
+            $this->initialize($status, $table, $uid, $properties);
+            /** @var GetNewMarkerNamesForFormService $markerService */
+            $markerService = $this->objectManager->get(GetNewMarkerNamesForFormService::class);
+            $markers = $markerService->makeUniqueValueInArray($this->fieldArray);
 
-        // set marker for new field
-        if (isset($this->data['tx_powermail_domain_model_fields'][$uid]['marker']) || stristr($uid, 'NEW')) {
-            if (isset($fieldArray['marker']) && empty($fieldArray['marker'])) {
-                $fieldArray['marker'] = 'marker_' . StringUtility::getRandomString(8, false);
+            if ($this->table === Field::TABLE_NAME) {
+                $this->setMarkerForFields($markers);
+                $this->renameMarker($markers);
+                $this->cleanMarkersInLocalizedFields();
             }
-            if (!empty($markers['_' . $uid])) {
-                $fieldArray['marker'] = $markers['_' . $uid];
+            $this->checkAndRenameMarkers($markers);
+        }
+    }
+
+    /**
+     * Initially set marker names in fields
+     *
+     * @param array $markers
+     * @return void
+     */
+    protected function setMarkerForFields(array $markers)
+    {
+        if ($this->shouldProcessField()) {
+            if (isset($this->properties['marker']) && empty($this->properties['marker'])) {
+                $this->setMarkerProperty(GetNewMarkerNamesForFormService::getRandomMarkerName());
+            }
+            if (!empty($markers[$this->uid])) {
+                $this->setMarkerProperty($markers[$this->uid]);
             }
         }
+    }
 
-        // revise marker if related to a new page and not allowed
-        if (!empty($markers['_' . $uid]) && $markers['_' . $uid] !== $this->marker['_' . $uid]) {
-            $fieldArray['marker'] = $markers['_' . $uid];
+    /**
+     * Rename marker name if it's empty or duplicated
+     *
+     * @param array $markers
+     * @return void
+     */
+    protected function renameMarker(array $markers)
+    {
+        if ($this->shouldRenameMarker($markers)) {
+            $this->setMarkerProperty($markers[$this->uid]);
         }
+    }
 
-        // marker should be empty on localized fields
+    /**
+     * Marker should be empty on localized fields
+     *
+     * @return void
+     */
+    protected function cleanMarkersInLocalizedFields()
+    {
         if (!empty($fieldArray['sys_language_uid']) && $fieldArray['sys_language_uid'] > 0) {
-            unset($fieldArray['marker']);
+            unset($this->properties['marker']);
         }
     }
 
     /**
-     * Make Array with unique values
+     * Check if persisted fields should have a different marker name and rename it if it's necessary
      *
-     * @param array $array
+     * @param array $markers
      * @return void
      */
-    protected function makeUniqueValueInArray(&$array)
+    protected function checkAndRenameMarkers(array $markers)
     {
-        $newArray = [];
-        foreach ((array) $array as $key => $value) {
-            if (!in_array($value, $newArray) && !in_array($value, $this->restrictedMarkerNames)) {
-                $newArray[$key] = $value;
-            } else {
-                for ($i = 1; $i < 100; $i++) {
-                    // remove appendix "_xx"
-                    $value = preg_replace('/_[0-9][0-9]$/', '', $value);
-                    $value .= '_' . str_pad($i, 2, '0', STR_PAD_LEFT);
-                    if (!in_array($value, $newArray)) {
-                        $newArray[$key] = $value;
-                        break;
-                    }
-                }
-            }
-        }
-        $array = $newArray;
-        unset($newArray);
-    }
-
-    /**
-     * Get marker values
-     *
-     * @return void
-     */
-    protected function setMarkers()
-    {
-        $this->marker = [];
-        foreach ((array) $this->data['tx_powermail_domain_model_fields'] as $fieldUid => $fieldValues) {
-            if (!empty($fieldValues['title'])) {
-                if (isset($fieldValues['marker'])) {
-                    $marker = $fieldValues['marker'];
-                } else {
-                    $marker = $this->cleanString($fieldValues['title'], $this->defaultMarkerName);
-                }
-                $this->marker['_' . $fieldUid] = $marker;
+        foreach ($markers as $uid => $marker) {
+            $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
+                'marker',
+                Field::TABLE_NAME,
+                'uid=' . (int) $uid
+            );
+            if ($row['marker'] !== $marker) {
+                ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
+                    Field::TABLE_NAME,
+                    'uid=' . (int) $uid,
+                    ['marker' => $marker]
+                );
             }
         }
     }
 
     /**
-     * Clean Marker String
-     *        "My Field ?1$2§3" => "myfield123"
+     * Set new property
      *
-     * @param string $string Any String
-     * @param string $defaultValue
-     * @return string
+     * @param $marker
+     * @return void
      */
-    protected function cleanString($string, $defaultValue)
+    protected function setMarkerProperty($marker)
     {
-        $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
-        if (empty($string)) {
-            $string = $defaultValue;
+        $this->properties['marker'] = $marker;
+    }
+
+    /**
+     * Add existing fields from database to field array
+     *
+     * @return void
+     */
+    protected function addExistingFields()
+    {
+        $fieldProperties = $this->getFieldProperties();
+        foreach ($fieldProperties as $properties) {
+            $this->addField($this->makeFieldFromProperties($properties));
         }
-        $string = str_replace(['-'], '_', $string);
-        $string = strtolower($string);
-        return $string;
+    }
+
+    /**
+     * Add new fields to field array
+     *
+     * @return void
+     */
+    protected function addNewFields()
+    {
+        foreach ((array) $this->data[Field::TABLE_NAME] as $fieldUid => $properties) {
+            $this->addField($this->makeFieldFromProperties($properties, $fieldUid));
+        }
+    }
+
+    /**
+     * Create Field from properties and uid
+     *
+     * Property "description" is used for the field uid
+     * because the value could be an integer or a string
+     * if it's new - like "new12abc"
+     *
+     * @param array $properties
+     * @param int $uid
+     * @return Field
+     */
+    protected function makeFieldFromProperties(array $properties, $uid = null)
+    {
+        /** @var Field $field */
+        $field = $this->objectManager->get(Field::class);
+        foreach ($properties as $key => $value) {
+            if ($field->_hasProperty($key)) {
+                $field->_setProperty($key, $value);
+            }
+        }
+        $field->setDescription((int) $properties['uid'] > 0 ? (int) $properties['uid'] : $uid);
+        return $field;
+    }
+
+    /**
+     * Get array with markers from a complete form
+     *
+     * @return array
+     */
+    protected function getFieldProperties()
+    {
+        $result = [];
+        $select = 'f.*';
+        $from = Form::TABLE_NAME . ' fo ' .
+            'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
+            'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
+        $where = 'fo.uid = ' . $this->getFormUid() . ' and f.deleted = 0';
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1000);
+        if ($res) {
+            while (($row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res))) {
+                $result[$row['uid']] = $row;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -204,33 +301,31 @@ class CreateMarker
         $formUid = 0;
 
         // if form is given in GET params (open form and pages and fields via IRRE)
-        if (isset($this->data['tx_powermail_domain_model_forms'])) {
-            foreach (array_keys((array) $this->data['tx_powermail_domain_model_forms']) as $uid) {
-                $formUid = $uid;
+        if (isset($this->data[Form::TABLE_NAME])) {
+            foreach (array_keys((array) $this->data[Form::TABLE_NAME]) as $uid) {
+                $formUid = (int) $uid;
             }
         }
 
         // if pages open (fields via IRRE)
         if ($formUid === 0) {
-            foreach (array_keys((array) $this->data['tx_powermail_domain_model_pages']) as $uid) {
-                if (!empty($this->data['tx_powermail_domain_model_pages'][$uid]['forms'])) {
-                    $formUid = $this->data['tx_powermail_domain_model_pages'][$uid]['forms'];
+            foreach (array_keys((array) $this->data[Page::TABLE_NAME]) as $uid) {
+                if (!empty($this->data[Page::TABLE_NAME][$uid]['forms'])) {
+                    $formUid = (int) $this->data[Page::TABLE_NAME][$uid]['forms'];
                 }
             }
         }
 
         // if field is directly opened (no IRRE OR opened pages with their IRRE fields
         if ($formUid === 0) {
-            foreach (array_keys((array) $this->data['tx_powermail_domain_model_fields']) as $uid) {
-                if (!empty($this->data['tx_powermail_domain_model_fields'][$uid]['pages'])) {
-                    $formUid = $this->getFormUidFromRelatedPage(
-                        $this->data['tx_powermail_domain_model_fields'][$uid]['pages']
-                    );
+            foreach (array_keys((array) $this->data[Field::TABLE_NAME]) as $uid) {
+                if (!empty($this->data[Field::TABLE_NAME][$uid]['pages'])) {
+                    $formUid = $this->getFormUidFromRelatedPage($this->data[Field::TABLE_NAME][$uid]['pages']);
                 }
             }
         }
 
-        return (int) $formUid;
+        return $formUid;
     }
 
     /**
@@ -243,85 +338,57 @@ class CreateMarker
     {
         $formUid = 0;
         $select = 'fo.uid';
-        $from = 'tx_powermail_domain_model_forms fo ' .
-            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
-            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
+        $from = Form::TABLE_NAME . ' fo ' .
+            'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
+            'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
         $where = 'p.uid = ' . (int) $pageUid;
-        $groupBy = '';
-        $orderBy = '';
-        $limit = 1;
-        $res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
+        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
-            $row = $this->databaseConnection->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             $formUid = (int) $row['uid'];
         }
         return $formUid;
     }
 
     /**
-     * Get form uid from any of its field
+     * Add field to array (and may overwrite existing field from array)
      *
-     * @param int $fieldUid
-     * @return int $formUid
+     * @param Field $field
      */
-    protected function getFormUidFromFieldUid($fieldUid)
+    protected function addField(Field $field)
     {
-        $formUid = 0;
-        $select = 'fo.uid';
-        $from = 'tx_powermail_domain_model_forms fo ' .
-            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
-            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
-        $where = 'f.uid = ' . (int) $fieldUid;
-        $groupBy = '';
-        $orderBy = '';
-        $limit = 1;
-        $res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-        if ($res) {
-            $row = $this->databaseConnection->sql_fetch_assoc($res);
-            $formUid = (int) $row['uid'];
+        if ($field->getDescription() && $field->getTitle()) {
+            $this->fieldArray[$field->getDescription()] = $field;
         }
-        return $formUid;
     }
 
     /**
-     * Get array with markers from a complete form
+     * Check if hook should do magic or not
      *
-     * @return array
+     * @param string $table
+     * @return bool
      */
-    protected function getFieldMarkersFromForm()
+    protected function shouldProcess($table)
     {
-        $result = [];
-        $select = 'f.marker, f.uid';
-        $from = 'tx_powermail_domain_model_forms fo ' .
-            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
-            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
-        $where = 'fo.uid = ' . (int) $this->formUid . ' and f.deleted = 0';
-        $groupBy = '';
-        $orderBy = '';
-        $limit = 1000;
-        $res = $this->databaseConnection->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-        if ($res) {
-            while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
-                $result['_' . $row['uid']] = $row['marker'];
-            }
-        }
-
-        return $result;
+        return in_array($table, $this->allowedTableNames);
     }
 
     /**
-     * Constructor
+     * Check if a field should be manipulated
      *
-     * @param bool $test
+     * @return bool
      */
-    public function __construct($test = false)
+    protected function shouldProcessField()
     {
-        if (!$test) {
-            $this->databaseConnection = $GLOBALS['TYPO3_DB'];
-            $this->data = (array) GeneralUtility::_GP('data');
-            $this->setMarkers();
-            $this->formUid = $this->getFormUid();
-            $this->existingMarkers = $this->getFieldMarkersFromForm();
-        }
+        return isset($this->data[Field::TABLE_NAME][$this->uid]['marker']) || stristr($this->uid, 'NEW');
+    }
+
+    /**
+     * @param array $markers
+     * @return bool
+     */
+    protected function shouldRenameMarker(array $markers)
+    {
+        return !empty($markers[$this->uid]) && $markers[$this->uid] !== $this->properties['marker'];
     }
 }

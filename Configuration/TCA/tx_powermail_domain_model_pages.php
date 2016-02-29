@@ -1,9 +1,12 @@
 <?php
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
 
 $pagesTca = [
     'ctrl' => [
-        'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tx_powermail_domain_model_pages',
+        'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME,
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -23,7 +26,7 @@ $pagesTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'iconfile' => ConfigurationUtility::getIconPath('tx_powermail_domain_model_pages.gif')
+        'iconfile' => ConfigurationUtility::getIconPath(Page::TABLE_NAME . '.gif')
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, css, fields',
@@ -31,7 +34,7 @@ $pagesTca = [
     'types' => [
         '1' => [
             'showitem' => 'title, fields, --div--;LLL:EXT:powermail/Resources/Private/Language/' .
-                'locallang_db.xlf:tx_powermail_domain_model_fields.sheet1, css, --div--;LLL:EXT:' .
+                'locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, css, --div--;LLL:EXT:' .
                 'powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, forms, ' .
                 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime'
         ],
@@ -62,9 +65,9 @@ $pagesTca = [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_powermail_domain_model_pages',
-                'foreign_table_where' => 'AND tx_powermail_domain_model_pages.pid=###CURRENT_PID### AND ' .
-                    'tx_powermail_domain_model_pages.sys_language_uid IN (-1,0)',
+                'foreign_table' => Page::TABLE_NAME,
+                'foreign_table_where' => 'and ' . Page::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
+                    Page::TABLE_NAME . '.sys_language_uid IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -122,8 +125,7 @@ $pagesTca = [
         ],
         'title' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_pages.title',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -133,8 +135,7 @@ $pagesTca = [
         'css' => [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_pages.css',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -144,23 +145,19 @@ $pagesTca = [
                         ''
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_pages.css.1',
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.1',
                         'layout1'
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_pages.css.2',
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.2',
                         'layout2'
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_pages.css.3',
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.3',
                         'layout3'
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                        'tx_powermail_domain_model_pages.css.4',
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.4',
                         'nolabel'
                     ],
                 ],
@@ -171,11 +168,10 @@ $pagesTca = [
         ],
         'fields' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_pages.fields',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.fields',
             'config' => [
                 'type' => 'inline',
-                'foreign_table' => 'tx_powermail_domain_model_fields',
+                'foreign_table' => Field::TABLE_NAME,
                 'foreign_field' => 'pages',
                 'foreign_sortby' => 'sorting',
                 'maxitems' => 1000,
@@ -197,17 +193,16 @@ $pagesTca = [
         ],
         'forms' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                'tx_powermail_domain_model_pages.forms',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.forms',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_powermail_domain_model_forms',
-                'foreign_table_where' => 'AND tx_powermail_domain_model_forms.pid=###CURRENT_PID### ' .
-                    'AND tx_powermail_domain_model_forms.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
+                'foreign_table' => Form::TABLE_NAME,
+                'foreign_table_where' => 'and ' . Form::TABLE_NAME . '.pid=###CURRENT_PID### ' .
+                    'and ' . Form::TABLE_NAME . '.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
             ],
         ],
         'sorting' => [

@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Utility\Tca;
 
 use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -41,11 +42,6 @@ class FieldSelectorUserFunc
 {
 
     /**
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected $databaseConnection = null;
-
-    /**
      * Cretae Array for Field Selector
      *
      * @param array $params
@@ -53,7 +49,6 @@ class FieldSelectorUserFunc
      */
     public function getFieldSelection(&$params)
     {
-        $this->initialize();
         /** @var FormRepository $formRepository */
         $formRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(FormRepository::class);
         $formUid = $this->getFormUidFromTtContentUid((int) $params['row']['uid']);
@@ -82,7 +77,7 @@ class FieldSelectorUserFunc
      */
     protected function getFormUidFromTtContentUid($ttContentUid)
     {
-        $row = $this->databaseConnection->exec_SELECTgetSingleRow(
+        $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
             'pi_flexform',
             'tt_content',
             'uid=' . (int) $ttContentUid
@@ -92,15 +87,5 @@ class FieldSelectorUserFunc
             return (int) $flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
         }
         return 0;
-    }
-
-    /**
-     * Initialize
-     *
-     * @return void
-     */
-    protected function initialize()
-    {
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
     }
 }

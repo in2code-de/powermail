@@ -79,7 +79,7 @@ abstract class AbstractUtility
      *
      * @return array
      */
-    public static function getExtensionConfiguration()
+    protected static function getExtensionConfiguration()
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         return unserialize($configVariables['EXT']['extConf']['powermail']);
@@ -90,7 +90,7 @@ abstract class AbstractUtility
      *
      * @return array
      */
-    public static function getTypo3ConfigurationVariables()
+    protected static function getTypo3ConfigurationVariables()
     {
         return $GLOBALS['TYPO3_CONF_VARS'];
     }
@@ -114,7 +114,7 @@ abstract class AbstractUtility
      */
     protected static function getContentObject()
     {
-        return self::getObjectManager()->get('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+        return self::getObjectManager()->get(ContentObjectRenderer::class);
     }
 
     /**
@@ -122,7 +122,7 @@ abstract class AbstractUtility
      */
     protected static function getConfigurationManager()
     {
-        return self::getObjectManager()->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+        return self::getObjectManager()->get(ConfigurationManager::class);
     }
 
     /**

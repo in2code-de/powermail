@@ -42,6 +42,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Field extends AbstractEntity
 {
 
+    const TABLE_NAME = 'tx_powermail_domain_model_fields';
+
     /**
      * title
      *
@@ -680,6 +682,16 @@ class Field extends AbstractEntity
         if (empty($this->marker)) {
             return 'uid' . $this->getUid();
         }
+        return $this->marker;
+    }
+
+    /**
+     * Returns the marker, even if empty
+     *
+     * @return string $marker
+     */
+    public function getMarkerOriginal()
+    {
         return $this->marker;
     }
 

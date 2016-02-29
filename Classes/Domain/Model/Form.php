@@ -40,6 +40,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Form extends AbstractEntity
 {
 
+    const TABLE_NAME = 'tx_powermail_domain_model_forms';
+
     /**
      * title
      *

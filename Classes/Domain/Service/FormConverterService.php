@@ -1,9 +1,12 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\BackendUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -148,7 +151,7 @@ class FormConverterService
             return;
         }
         if ($uidOld > 1 && $uidNew > 1) {
-            $res = $this->getDatabaseConnection()->exec_SELECTquery(
+            $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery(
                 'tx_templavoila_flex',
                 'pages',
                 'uid = ' . (int) $pid,
@@ -156,7 +159,7 @@ class FormConverterService
                 '',
                 1
             );
-            $row = $this->getDatabaseConnection()->sql_fetch_assoc($res);
+            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
 
             $flex = preg_replace_callback('~>(\S*)<~', function ($matches) use ($uidOld, $uidNew) {
                 $uids = explode(',', $matches[1]);
@@ -168,7 +171,7 @@ class FormConverterService
                 return '>' . implode(',', $uids) . '<';
             }, $row['tx_templavoila_flex']);
 
-            $this->getDatabaseConnection()->exec_UPDATEquery(
+            ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
                 'pages',
                 'uid = ' . (int) $pid,
                 [
@@ -211,8 +214,8 @@ class FormConverterService
             $ttContentProperties['l18n_parent'] = (int) $this->localizationRelations['content'][$form['l18n_parent']];
         }
         if (!$this->isDryrun()) {
-            $this->getDatabaseConnection()->exec_INSERTquery('tt_content', $ttContentProperties);
-            $ttContentUid = $this->getDatabaseConnection()->sql_insert_id();
+            ObjectUtility::getDatabaseConnection()->exec_INSERTquery('tt_content', $ttContentProperties);
+            $ttContentUid = ObjectUtility::getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['content'][$form['uid']] = $ttContentUid;
             return $ttContentUid;
         }
@@ -244,8 +247,8 @@ class FormConverterService
             $formProperties['l10n_parent'] = (int) $this->localizationRelations['form'][$form['l18n_parent']];
         }
         if (!$this->isDryrun()) {
-            $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_forms', $formProperties);
-            $formProperties['uid'] = $this->getDatabaseConnection()->sql_insert_id();
+            ObjectUtility::getDatabaseConnection()->exec_INSERTquery(Form::TABLE_NAME, $formProperties);
+            $formProperties['uid'] = ObjectUtility::getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['form'][$form['uid']] = $formProperties['uid'];
         }
         $this->result[$formCounter] = $formProperties;
@@ -289,8 +292,8 @@ class FormConverterService
             $pageProperties['l10n_parent'] = (int) $this->localizationRelations['page'][$page['l18n_parent']];
         }
         if (!$this->isDryrun()) {
-            $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_pages', $pageProperties);
-            $pageProperties['uid'] = $this->getDatabaseConnection()->sql_insert_id();
+            ObjectUtility::getDatabaseConnection()->exec_INSERTquery(Page::TABLE_NAME, $pageProperties);
+            $pageProperties['uid'] = ObjectUtility::getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['page'][$page['uid']] = $pageProperties['uid'];
         }
         $this->result[$formCounter]['_pages'][$pageCounter] = $pageProperties;
@@ -354,8 +357,8 @@ class FormConverterService
             $fieldProperties['l10n_parent'] = (int) $this->localizationRelations['field'][$field['l18n_parent']];
         }
         if (!$this->isDryrun()) {
-            $this->getDatabaseConnection()->exec_INSERTquery('tx_powermail_domain_model_fields', $fieldProperties);
-            $fieldProperties['uid'] = $this->getDatabaseConnection()->sql_insert_id();
+            ObjectUtility::getDatabaseConnection()->exec_INSERTquery(Field::TABLE_NAME, $fieldProperties);
+            $fieldProperties['uid'] = ObjectUtility::getDatabaseConnection()->sql_insert_id();
             $this->localizationRelations['field'][$field['uid']] = $fieldProperties['uid'];
         }
         $this->result[$formCounter]['_pages'][$pageCounter]['_fields'][$fieldCounter] = $fieldProperties;
@@ -410,19 +413,19 @@ class FormConverterService
             if ($ttContent['hidden'] === '1' && $this->configuration['hidden'] === '1') {
                 continue;
             }
-            $this->getDatabaseConnection()->exec_UPDATEquery(
+            ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
                 'tt_content',
                 'uid = ' . $ttContent['uid'],
                 ['deleted' => 1]
             );
             foreach ($ttContent['_fieldsets'] as $fieldset) {
-                $this->getDatabaseConnection()->exec_UPDATEquery(
+                ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
                     'tx_powermail_fieldsets',
                     'uid = ' . $fieldset['uid'],
                     ['deleted' => 1]
                 );
                 foreach ($fieldset['_fields'] as $field) {
-                    $this->getDatabaseConnection()->exec_UPDATEquery(
+                    ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
                         'tx_powermail_fields',
                         'uid = ' . $field['uid'],
                         ['deleted' => 1]
@@ -764,13 +767,5 @@ class FormConverterService
     public function isDryrun()
     {
         return $this->dryrun;
-    }
-
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
     }
 }

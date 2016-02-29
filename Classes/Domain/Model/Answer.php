@@ -39,6 +39,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Answer extends AbstractEntity
 {
 
+    const TABLE_NAME = 'tx_powermail_domain_model_answers';
+
     /**
      * value
      *

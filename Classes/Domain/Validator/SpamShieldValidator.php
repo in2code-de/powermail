@@ -6,6 +6,7 @@ use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\MailUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -602,7 +603,7 @@ class SpamShieldValidator extends AbstractValidator
     {
         $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
         $this->referrer = $this->piVars['__referrer']['@action'];
-        $this->typoScriptFrontendController = $GLOBALS['TSFE'];
+        $this->typoScriptFrontendController = ObjectUtility::getTyposcriptFrontendController();
         $this->configurationArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
         $this->setSpamFactorLimit($this->settings['spamshield.']['factor'] / 100);
     }

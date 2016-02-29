@@ -1,8 +1,11 @@
 <?php
 namespace In2code\Powermail\Command;
 
+use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\ExportService;
+use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
@@ -140,6 +143,19 @@ class TaskCommandController extends CommandController
     }
 
     /**
+     * Remove all uploaded files in uploads/tx_powermail/
+     *
+     *        This task will clean up all (!) files which
+     *        are located in uploads/tx_powermail/
+     *
+     * @return void
+     */
+    public function cleanUploadsFilesCommand()
+    {
+        $this->removeFilesFromRelativeDirectory('uploads/tx_powermail/');
+    }
+
+    /**
      * Remove all export files in typo3temp/tx_powermail/
      *
      *        This task will clean up all (!) files which
@@ -151,7 +167,48 @@ class TaskCommandController extends CommandController
      */
     public function cleanExportFilesCommand()
     {
-        $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName('typo3temp/tx_powermail/'), '', true);
+        $this->removeFilesFromRelativeDirectory('typo3temp/tx_powermail/');
+    }
+
+    /**
+     * Reset all markers in fields within a given form
+     *
+     *      Reset all marker names in fields if there are broken
+     *      Fields without or duplicated markernames.
+     *      Note: Only non-hidden and non-deleted fields
+     *      in non-hidden and non-deleted pages will be respected.
+     *      Attention: If you add "0" as form Uid, all fields in all
+     *      forms will be resetted!
+     *
+     * @param int $formUid Add the form uid, 0 resets markers of all forms
+     * @param boolean $forceReset Force to reset markers even if they are already filled
+     * @return void
+     */
+    public function resetMarkerNamesInFormCommand($formUid, $forceReset)
+    {
+        /** @var GetNewMarkerNamesForFormService $markerService */
+        $markerService = $this->objectManager->get(GetNewMarkerNamesForFormService::class);
+        $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid, $forceReset);
+        foreach ($markers as $formMarkers) {
+            foreach ($formMarkers as $uid => $marker) {
+                ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
+                    Field::TABLE_NAME,
+                    'uid = ' . (int) $uid,
+                    ['marker' => $marker]
+                );
+            }
+        }
+    }
+
+    /**
+     * Remove all files from a directory
+     *
+     * @param string $directory relative directory
+     * @return void
+     */
+    protected function removeFilesFromRelativeDirectory($directory)
+    {
+        $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName($directory), '', true);
         foreach ($files as $file) {
             unlink($file);
         }

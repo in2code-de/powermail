@@ -1,8 +1,12 @@
 <?php
 namespace In2code\Powermail\Utility\Tca;
 
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -173,7 +177,7 @@ class ShowFormNoteEditForm
      */
     protected function getEditFormLink($formUid)
     {
-        return BackendUtility::createEditUri('tx_powermail_domain_model_forms', $formUid);
+        return BackendUtility::createEditUri(Form::TABLE_NAME, $formUid);
     }
 
     /**
@@ -226,7 +230,7 @@ class ShowFormNoteEditForm
     {
         if ($sysLanguageUid > 0) {
             $select = 'uid';
-            $from = 'tx_powermail_domain_model_forms';
+            $from = Form::TABLE_NAME;
             $where = 'sys_language_uid=' . (int) $sysLanguageUid . ' and l10n_parent=' . (int) $uid;
             $row = $this->databaseConnection->exec_SELECTgetSingleRow($select, $from, $where);
             if (!empty($row['uid'])) {
@@ -244,7 +248,7 @@ class ShowFormNoteEditForm
     protected function getFormPropertyFromUid($uid, $property)
     {
         $select = '*';
-        $from = 'tx_powermail_domain_model_forms';
+        $from = Form::TABLE_NAME;
         $where = 'uid = ' . (int) $uid;
         $groupBy = '';
         $orderBy = '';
@@ -290,7 +294,7 @@ class ShowFormNoteEditForm
         }
         $result = [];
         $select = 'p.title';
-        $from = 'tx_powermail_domain_model_forms fo LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid';
+        $from = Form::TABLE_NAME . ' fo LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid';
         $where = 'fo.uid = ' . (int) $uid . ' and p.deleted = 0';
         $groupBy = '';
         $orderBy = '';
@@ -317,9 +321,9 @@ class ShowFormNoteEditForm
         }
         $result = [];
         $select = 'f.title';
-        $from = 'tx_powermail_domain_model_forms fo ' .
-            'LEFT JOIN tx_powermail_domain_model_pages p ON p.forms = fo.uid ' .
-            'LEFT JOIN tx_powermail_domain_model_fields f ON f.pages = p.uid';
+        $from = Form::TABLE_NAME . ' fo ' .
+            'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
+            'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
         $where = 'fo.uid = ' . (int) $uid . ' and p.deleted = 0 and f.deleted = 0';
         $groupBy = '';
         $orderBy = '';
@@ -343,11 +347,11 @@ class ShowFormNoteEditForm
     protected function getPagesFromFormAlternative($uid)
     {
         $select = 'f.pages';
-        $from = 'tx_powermail_domain_model_forms as f';
+        $from = Form::TABLE_NAME . ' as f';
         $where = 'f.uid = ' . (int) $uid;
         $pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
         $select = 'p.title';
-        $from = 'tx_powermail_domain_model_pages as p';
+        $from = Page::TABLE_NAME . ' as p';
         $where = 'p.uid in (' . $this->integerList($pageUids[0]['pages']) . ') and p.deleted = 0';
         $pageTitles = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
         $pageTitlesReduced = [];
@@ -367,17 +371,17 @@ class ShowFormNoteEditForm
     protected function getFieldsFromFormAlternative($uid)
     {
         $select = 'f.pages';
-        $from = 'tx_powermail_domain_model_forms as f';
+        $from = Form::TABLE_NAME . ' as f';
         $where = 'f.uid = ' . (int) $uid;
         $pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
         $select = 'p.uid';
-        $from = 'tx_powermail_domain_model_pages as p';
+        $from = Page::TABLE_NAME . ' as p';
         $where = 'p.uid in (' . $this->integerList($pageUids[0]['pages']) . ') and p.deleted = 0';
         $pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
         $fieldTitlesReduced = [];
         foreach ($pageUids as $uidRow) {
             $select = 'field.title';
-            $from = 'tx_powermail_domain_model_fields as field';
+            $from = Field::TABLE_NAME . ' as field';
             $where = 'field.pages = ' . (int) $uidRow['uid'];
             $fieldTitles = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
             foreach ($fieldTitles as $titleRow) {
@@ -408,6 +412,6 @@ class ShowFormNoteEditForm
     {
         $this->params = $params;
         $this->languageService = $GLOBALS['LANG'];
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        $this->databaseConnection = ObjectUtility::getDatabaseConnection();
     }
 }
