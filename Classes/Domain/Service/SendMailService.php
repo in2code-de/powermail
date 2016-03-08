@@ -7,7 +7,6 @@ use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\SessionUtility;
-use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
@@ -83,6 +82,12 @@ class SendMailService
      * @inject
      */
     protected $contentObject;
+
+    /**
+     * @var \In2code\Powermail\Domain\Service\PlaintextService
+     * @inject
+     */
+    protected $plaintextService;
 
     /**
      * @var array
@@ -359,7 +364,7 @@ class SendMailService
     protected function addPlainBody(MailMessage $message, array $email)
     {
         if ($email['format'] !== 'html') {
-            $message->addPart($this->makePlain($this->createEmailBody($email)), 'text/plain');
+            $message->addPart($this->plaintextService->makePlain($this->createEmailBody($email)), 'text/plain');
         }
         return $message;
     }
@@ -424,51 +429,6 @@ class SendMailService
         $body = $standaloneView->render();
         $this->mail->setBody($body);
         return $body;
-    }
-
-    /**
-     * Function makePlain() removes html tags and add linebreaks
-     *        Easy generate a plain email bodytext from a html bodytext
-     *
-     * @param string $content HTML Mail bodytext
-     * @return string $content
-     */
-    protected function makePlain($content)
-    {
-        $tags2LineBreaks = [
-            '</p>',
-            '</tr>',
-            '<ul>',
-            '</li>',
-            '</h1>',
-            '</h2>',
-            '</h3>',
-            '</h4>',
-            '</h5>',
-            '</h6>',
-            '</div>',
-            '</legend>',
-            '</fieldset>',
-            '</dd>',
-            '</dt>'
-        ];
-
-        // 1. remove complete head element
-        $content = preg_replace('/<head>(.*?)<\/head>/i', '', $content);
-        // 2. remove linebreaks, tabs
-        $content = trim(str_replace(["\n", "\r", "\t"], '', $content));
-        // 3. add linebreaks on some parts (</p> => </p><br />)
-        $content = str_replace($tags2LineBreaks, '</p><br />', $content);
-        // 4. insert space for table cells
-        $content = str_replace(['</td>', '</th>'], '</td> ', $content);
-        // 5. replace links <a href="xyz">LINK</a> -> LINK [xyz]
-        $content = preg_replace('/<a[^>]+href\s*=\s*["\']([^"\']+)["\'][^>]*>(.*?)<\/a>/misu', '$2 [$1]', $content);
-        // 6. remove all tags (<b>bla</b><br /> => bla<br />)
-        $content = strip_tags($content, '<br><address>');
-        // 7. <br /> to \n
-        $content = StringUtility::br2nl($content);
-
-        return trim($content);
     }
 
     /**
