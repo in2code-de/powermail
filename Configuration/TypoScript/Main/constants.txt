@@ -118,7 +118,7 @@ plugin.tx_powermail {
 			}
 
 			overwrite {
-				# cat=powermail_additional//0450; type=text; label= Sender overwrite Email: Commaseparated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)
+				# cat=powermail_additional//0450; type=text; label= Sender overwrite Email: Comma-separated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)
 				email =
 
 				# cat=powermail_additional//0452; type=text; label= Sender overwrite Name: Receiver Name overwrites flexform settings (e.g. Receiver Name)
@@ -133,10 +133,10 @@ plugin.tx_powermail {
 				# cat=powermail_additional//0458; type=text; label= Sender overwrite Mail Subject: Subject for mail to sender overwrites flexform settings (e.g. Thx for your mail)
 				subject =
 
-				# cat=powermail_additional//0460; type=text; label= Sender CC Email Addresses: Commaseparated list of cc mail receivers (e.g. rec2@mail.com, rec3@mail.com)
+				# cat=powermail_additional//0460; type=text; label= Sender CC Email Addresses: Comma-separated list of cc mail receivers (e.g. rec2@mail.com, rec3@mail.com)
 				cc =
 
-				# cat=powermail_additional//0462; type=text; label= Sender BCC Email Addresses: Commaseparated list of bcc mail receivers (e.g. rec2@mail.com, rec3@mail.com)
+				# cat=powermail_additional//0462; type=text; label= Sender BCC Email Addresses: Comma-separated list of bcc mail receivers (e.g. rec2@mail.com, rec3@mail.com)
 				bcc =
 
 				# cat=powermail_additional//0464; type=text; label= Sender Mail Return Path: Return Path for emails to sender (e.g. return@mail.com)
