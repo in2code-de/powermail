@@ -16,7 +16,7 @@ powermail
 		powermail
 
 	:Version:
-		2.24
+		2.25
 
 	:Language:
 		en

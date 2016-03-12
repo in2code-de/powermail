@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.25.0
+   :Date:
+      2016-03-12
+   :Changes:
+
+      * Feature _`#74538`: https://forge.typo3.org/issues/74538 Add new FlexForm fields through TSConfig configuration
+      * Feature _`#74504`: https://forge.typo3.org/issues/74504 optinConfirm plaintext: opt in link does not work
+      * Feature _`#73807`: https://forge.typo3.org/issues/73807 Detailview Choose Fields to show
+
+ - :Version:
       2.24.0
    :Date:
       2016-02-29
