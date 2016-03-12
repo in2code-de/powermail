@@ -33,11 +33,9 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  ***************************************************************/
 
 /**
- * SendMail Tests
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class SendMailServiceTest
+ * @package In2code\Powermail\Tests\Domain\Service
+ * @coversDefaultClass \In2code\Powermail\Domain\Service\SendMailService
  */
 class SendMailServiceTest extends UnitTestCase
 {
@@ -115,6 +113,7 @@ class SendMailServiceTest extends UnitTestCase
      * @dataProvider addCcReturnMailMessageDataProvider
      * @return void
      * @test
+     * @covers ::addCc
      */
     public function addCcReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
@@ -175,6 +174,7 @@ class SendMailServiceTest extends UnitTestCase
      * @dataProvider addBccReturnMailMessageDataProvider
      * @return void
      * @test
+     * @covers ::addBcc
      */
     public function addBccReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
@@ -220,6 +220,7 @@ class SendMailServiceTest extends UnitTestCase
      * @dataProvider addReturnPathReturnMailMessageDataProvider
      * @return void
      * @test
+     * @covers ::addReturnPath
      */
     public function addReturnPathReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
@@ -272,6 +273,7 @@ class SendMailServiceTest extends UnitTestCase
      * @dataProvider addReplyAddressesReturnMailMessageDataProvider
      * @return void
      * @test
+     * @covers ::addReplyAddresses
      */
     public function addReplyAddressesReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
@@ -314,6 +316,7 @@ class SendMailServiceTest extends UnitTestCase
      * @dataProvider addPriorityReturnMailMessageDataProvider
      * @return void
      * @test
+     * @covers ::addPriority
      */
     public function addPriorityReturnMailMessage(array $overwriteConfig, $expectedResult)
     {
@@ -391,6 +394,7 @@ class SendMailServiceTest extends UnitTestCase
      * @dataProvider addSenderHeaderReturnMailMessageDataProvider
      * @return void
      * @test
+     * @covers ::addSenderHeader
      */
     public function addSenderHeaderReturnMailMessage($config, $expectedResult)
     {
@@ -408,71 +412,6 @@ class SendMailServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set('contentObject', new ContentObjectRenderer());
         $message = $this->generalValidatorMock->_call('addSenderHeader', $message);
         $this->assertEquals($expectedResult, $message->getSender());
-    }
-
-    /**
-     * Data Provider for makePlainReturnString()
-     *
-     * @return array
-     */
-    public function makePlainReturnStringDataProvider()
-    {
-        return [
-            [
-                'a<br>b',
-                "a\nb"
-            ],
-            [
-                '<p>test</p><p>test</p>',
-                "test\ntest"
-            ],
-            [
-                "<table>\n\t\n<tr><th>a</th><th>b</th></tr><td>\nc</td><td>d</td></table>",
-                "a b \nc d"
-            ],
-            [
-                '<h1>t</h1><p>p</p><br>x',
-                "t\np\n\nx"
-            ],
-            [
-                'a<ul><li>b</li><li>c</li></ul>d',
-                "a\nb\nc\nd"
-            ],
-            [
-                '<head><title>x</title></head>a<ul><li>b</li><li>c</li></ul>d',
-                "a\nb\nc\nd"
-            ],
-            [
-                'Please click <a href="http://www.google.com">this</a> link',
-                'Please click this [http://www.google.com] link'
-            ],
-            [
-                'Please click <a class="a b href" href="http://www.google.com" id="text" target="_blank">this</a> link',
-                'Please click this [http://www.google.com] link'
-            ],
-            [
-                'Please click <a class="a b href" href="http://www.google.com" id="text" target="_blank">this</a> ' .
-                    'or <a rel="lightbox" href="https://www.in2code.de" data-foo="bar">this</a> ' .
-                    'or <a href="http://www.test.de">this</a> link',
-                'Please click this [http://www.google.com] or this [https://www.in2code.de] or ' .
-                    'this [http://www.test.de] link'
-            ],
-        ];
-    }
-
-    /**
-     * cleanFileNameReturnBool Test
-     *
-     * @param string $content
-     * @param string $expectedResult
-     * @dataProvider makePlainReturnStringDataProvider
-     * @return void
-     * @test
-     */
-    public function makePlainReturnString($content, $expectedResult)
-    {
-        $result = $this->generalValidatorMock->_call('makePlain', $content);
-        $this->assertSame($expectedResult, $result);
     }
 
     /**

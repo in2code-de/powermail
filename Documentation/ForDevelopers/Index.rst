@@ -27,6 +27,7 @@ For Developers
    DatabaseModel/Index
    AddNewFields/Index
    AddNewFieldProperties/Index
+   AddNewFlexFormProperties/Index
    WriteOwnValidators/Index
    AddFinisherClasses/Index
    SignalSlots/Index

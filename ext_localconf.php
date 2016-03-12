@@ -45,10 +45,17 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']
             'In2code\Powermail\Utility\Hook\PluginInformation->build';
 
 /**
- * Hook for first fill of marker field in backend
+ * Hook for initially filling the marker field in backend
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
         'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/CreateMarker.php:In2code\Powermail\Utility\Hook\CreateMarker';
+
+/**
+ * Hook to extend the FlexForm
+ */
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass'][] =
+    'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/FlexFormManipulationHook.php:' .
+        'In2code\Powermail\Utility\Hook\FlexFormManipulationHook';
 
 /**
  * JavaScript evaluation of TCA fields

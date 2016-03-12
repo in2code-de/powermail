@@ -260,7 +260,7 @@ class OutputController extends AbstractController
     protected function getFieldList($list = '')
     {
         if (!empty($list)) {
-            $fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], true);
+            $fieldArray = GeneralUtility::trimExplode(',', $list, true);
         } else {
             $fieldArray = $this->formRepository->getFieldUidsFromForm($this->settings['main']['form']);
         }

@@ -16,9 +16,6 @@ plugin.tx_powermail {
 			1 = {$plugin.tx_powermail.view.layoutRootPath}
 		}
 	}
-	features {
-		rewrittenPropertyMapper = 1
-	}
 
 	# Modify localization of labels
 #	_LOCAL_LANG {

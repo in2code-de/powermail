@@ -1,0 +1,4 @@
+.. |img-newflexformproperties|     image:: ../../Images/newFlexFormProperties.png
+.. :align: left
+.. :border: 0
+.. :name: newFlexFormProperties
