@@ -2,9 +2,7 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
