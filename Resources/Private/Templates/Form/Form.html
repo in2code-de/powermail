@@ -2,40 +2,38 @@
 <f:layout name="Default" />
 
 Render Powermail Form
-{forms} 			All Forms with their Pages and their Fields
+{form} 			All Forms with their Pages and their Fields
 {ttContentData}		All values from content element with plugin
 
 
 <f:section name="main">
 	<f:flashMessages class="powermail_message powermail_message_error" />
 
-	<f:if condition="{forms}">
+	<f:if condition="{form}">
 		<f:then>
-			<f:for each="{forms}" as="form">
-				<f:form
-						action="{action}"
-						name="field"
-						enctype="multipart/form-data"
-						additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:form)}"
-						addQueryString="{settings.misc.addQueryString}"
-						class="powermail_form powermail_form_{form.uid} {form.css} {vh:Misc.MorestepClass(activate:settings.main.moresteps)}">
+			<f:form
+					action="{action}"
+					name="field"
+					enctype="multipart/form-data"
+					additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:form)}"
+					addQueryString="{settings.misc.addQueryString}"
+					class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:Misc.MorestepClass(activate:settings.main.moresteps)}">
 
-					<h3>{form.title}</h3>
-					<f:render partial="Misc/FormError" arguments="{_all}" />
+				<h3>{form.title}</h3>
+				<f:render partial="Misc/FormError" arguments="{_all}" />
 
-					<f:for each="{form.pages}" as="page">
-						<fieldset class="powermail_fieldset powermail_fieldset_{page.uid} {page.css}">
-							<legend class="powermail_legend">{page.title}</legend>
-							<f:for each="{page.fields}" as="field">
-								<f:render partial="Form/{vh:String.Upper(string:field.type)}" arguments="{field:field}" />
-							</f:for>
-						</fieldset>
-					</f:for>
+				<f:for each="{form.pages}" as="page">
+					<fieldset class="powermail_fieldset powermail_fieldset_{page.uid} {page.css}">
+						<legend class="powermail_legend">{page.title}</legend>
+						<f:for each="{page.fields}" as="field">
+							<f:render partial="Form/{vh:String.Upper(string:field.type)}" arguments="{field:field}" />
+						</f:for>
+					</fieldset>
+				</f:for>
 
-					<f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid" />
-					<f:render partial="Misc/HoneyPod" arguments="{form:form}" />
-				</f:form>
-			</f:for>
+				<f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid" />
+				<f:render partial="Misc/HoneyPod" arguments="{form:form}" />
+			</f:form>
 		</f:then>
 		<f:else>
 			<f:translate key="error_no_form" />

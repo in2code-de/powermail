@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -58,13 +59,12 @@ class SessionUtility extends AbstractUtility
     /**
      * Save current timestamp to session
      *
-     * @param QueryResultInterface $forms
+     * @param Form $form
      * @param array $settings
      * @return void
      */
-    public static function saveFormStartInSession($forms, array $settings)
+    public static function saveFormStartInSession(array $settings, Form $form = null)
     {
-        $form = $forms->getFirst();
         if ($form !== null && self::sessionCheckEnabled($settings)) {
             self::getTyposcriptFrontendController()->fe_user->setKey(
                 'ses',

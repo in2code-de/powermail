@@ -69,12 +69,12 @@ class FormController extends AbstractController
      */
     public function formAction()
     {
-        $forms = $this->formRepository->findByUids($this->settings['main']['form']);
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$forms, $this]);
-        SessionUtility::saveFormStartInSession($forms, $this->settings);
+        $form = $this->formRepository->findByUid($this->settings['main']['form']);
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$form, $this]);
+        SessionUtility::saveFormStartInSession($this->settings, $form);
         $this->view->assignMultiple(
             [
-                'forms' => $forms,
+                'form' => $form,
                 'ttContentData' => $this->contentObject->data,
                 'messageClass' => $this->messageClass,
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
