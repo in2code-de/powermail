@@ -181,7 +181,7 @@ plugin.tx_powermail {
 			# cat=powermail_additional//0730; type=text; label= Google Conversion Language: Add your google conversion language (see www.google.com/adwords for details)
 			google_conversion_language = en
 		}
-		
+
 		misc {
 			# cat=powermail_additional//0800; type=boolean; label= Show only filled values: If the user submits a form, even not filled values are viewable. If you only want to show labels with filled values, use this setting
 			showOnlyFilledValues = 1
@@ -283,5 +283,49 @@ plugin.tx_powermail {
 			powermailJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js
 		}
 
+		styles {
+			framework {
+				# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from maxcdn.bootstrapcdn.com
+				addBootstrapFromCdn = 0
+
+				# cat=powermail_styles//0000; type=boolean; label= Define bath and version of bootstrap.min.css from maxcdn.bootstrapcdn.com
+				bootstrapCdnUri = https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
+
+
+				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"
+				formClasses = form-horizontal
+
+				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
+				fieldAndLabelWrappingClasses = form-group
+
+				# cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
+				fieldWrappingClasses = col-sm-10
+
+				# cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "col-md-2 col-md-3"
+				labelClasses = control-label col-sm-2
+
+				# cat=powermail_styles//0140; type=text; label= Framework classname(s) for fields e.g. "form-control"
+				fieldClasses = form-control
+
+				# cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
+				offsetClasses = col-sm-offset-2
+
+
+				# cat=powermail_styles//0130; type=text; label= Classes for column width and/or additional classes (HTML, typoscipt, text, etc. form elements) (col-md-10 col-sm-offset-2 col-sm-9 col-sm-offset-3)
+				nonFieldClasses = col-sm-12
+
+				# cat=powermail_styles//0140; type=text; label= Classes for column width and/or additional classes (col-md-3 col-sm-4)
+				fieldCaptchaClasses = col-sm-4
+
+				# cat=powermail_styles//0150; type=text; label= Classes for column width and/or additional classes (col-md-9 col-sm-8)
+				fieldCaptchaProblemClasses = col-sm-8
+
+				# cat=powermail_styles//0160; type=boolean; label= Classes for column width and/or additional classes (col-md-9 col-sm-8)
+				radioInline = 0
+
+				# cat=powermail_styles//0170; type=boolean; label= Classes for column width and/or additional classes (col-md-9 col-sm-8)
+				checkboxInline = 0
+			}
+		}
 	}
 }

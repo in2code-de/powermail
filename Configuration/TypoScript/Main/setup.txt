@@ -803,6 +803,34 @@ plugin.tx_powermail {
 # JavaScript and CSS section
 ############################
 
+# CSS classes for frameworks (like bootstrap)
+plugin.tx_powermail {
+	settings.setup {
+		styles {
+			framework {
+				formClasses = {$plugin.tx_powermail.settings.styles.framework.formClasses}
+				fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses}
+				fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses}
+				labelClasses = {$plugin.tx_powermail.settings.styles.framework.labelClasses}
+				fieldClasses = {$plugin.tx_powermail.settings.styles.framework.fieldClasses}
+				offsetClasses = {$plugin.tx_powermail.settings.styles.framework.offsetClasses}
+
+				nonFieldClasses = {$plugin.tx_powermail.settings.styles.framework.nonFieldClasses}
+				fieldCaptchaClasses = {$plugin.tx_powermail.settings.styles.framework.fieldCaptchaClasses}
+				fieldCaptchaProblemClasses = {$plugin.tx_powermail.settings.styles.framework.fieldCaptchaProblemClasses}
+				radioInline = {$plugin.tx_powermail.settings.styles.framework.radioInline}
+				checkboxInline = {$plugin.tx_powermail.settings.styles.framework.checkboxInline}
+			}
+		}
+	}
+}
+
+# add bootstrap.min.css from maxcdn.bootstrapcdn.com
+[globalVar = LIT:0 < {$plugin.tx_powermail.settings.styles.framework.addBootstrapFromCdn}]
+page.includeCSS.addBootstrapFromCdn = {$plugin.tx_powermail.settings.styles.framework.bootstrapCdnUri}
+page.includeCSS.addBootstrapFromCdn.external = 1
+[end]
+
 # add jQuery if it was turned on in the constants
 [globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle}]
 page.includeJSFooterlibs.powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}

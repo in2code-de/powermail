@@ -1,7 +1,7 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
-<div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_check powermail_fieldwrap_{field.uid} {field.css}">
-	<fieldset>
+<div class="powermail_fieldwrap powermail_fieldwrap_check powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
+	<fieldset class="{settings.styles.framework.offsetClasses}">
 		<legend class="powermail_label powermail_check_legend" title="{field.description}">
 			<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
 		</legend>
