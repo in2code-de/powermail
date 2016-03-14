@@ -85,7 +85,7 @@
 					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
 						<td nowrap="nowrap" class="col-icon nowrap">
 							<span class="t3-icon fa fa-caret-right openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}"></span>
-							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}"> </span>
+							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mail t3-icon-tx_powermail_domain_model_mail-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}"> </span>
 						</td>
 						<td nowrap="nowrap">
 							<f:format.date format="{f:translate(key:'datepicker_format_date')}">{mail.crdate}</f:format.date>
@@ -115,7 +115,7 @@
 									<span class="t3-icon fa fa-desktop openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
 								</span>
 
-								<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_mails',identifier:mail.uid)}">
+								<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_mail',identifier:mail.uid)}">
 									<span class="t3-icon fa fa-pencil">&nbsp;</span>
 								</a>
 
@@ -140,7 +140,7 @@
 
 								<input type="hidden" class="container_uid" name="container_uid" value="{mail.uid}" />
 								<input type="hidden" class="container_module_uri" name="container_module_uri" value="{moduleUri}" />
-								<input type="hidden" class="container_table" name="container_table" value="tx_powermail_domain_model_mails" />
+								<input type="hidden" class="container_table" name="container_table" value="tx_powermail_domain_model_mail" />
 								<input type="hidden" class="container_label_delete_confirmation" name="container_label_delete_confirmation" value="{f:translate(key:'BackendListMailDeleteConfirmation')}" />
 							</div>
 						</td>

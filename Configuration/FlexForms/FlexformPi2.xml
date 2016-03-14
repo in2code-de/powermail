@@ -41,7 +41,7 @@
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
-								<allowed>tx_powermail_domain_model_forms</allowed>
+								<allowed>tx_powermail_domain_model_form</allowed>
 								<size>1</size>
 								<minitems>1</minitems>
 								<maxitems>1</maxitems>

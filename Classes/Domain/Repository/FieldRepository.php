@@ -92,7 +92,7 @@ class FieldRepository extends AbstractRepository
 
     /**
      * Find all localized records with
-     *        tx_powermail_domain_model_fields.marker != ""
+     *        tx_powermail_domain_model_field.marker != ""
      *
      * @return mixed
      */
@@ -128,7 +128,7 @@ class FieldRepository extends AbstractRepository
 
     /**
      * Find all localized records with
-     *        tx_powermail_domain_model_fields.pages = "0"
+     *        tx_powermail_domain_model_field.pages = "0"
      *
      * @return array
      */

@@ -400,7 +400,7 @@ Note: This view is for admins only.
 Form Converter
 ~~~~~~~~~~~~~~
 
-Old records (from Tables tx_powermail_fieldsets, tx_powermail_fields and tt_content) will be flagged with deleted=1. New Records will be generated (Tables tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields, tt_content).
+Old records (from Tables tx_powermail_fieldsets, tx_powermail_fields and tt_content) will be flagged with deleted=1. New Records will be generated (Tables tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field, tt_content).
 
 Note: This view is for admins only.
 

@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Utility\Hook;
+namespace In2code\Powermail\Hook;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 

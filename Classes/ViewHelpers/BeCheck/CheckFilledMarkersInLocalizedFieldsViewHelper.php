@@ -22,7 +22,7 @@ class CheckFilledMarkersInLocalizedFieldsViewHelper extends AbstractViewHelper
 
     /**
      * Check if there are localized records with
-     *        tx_powermail_domain_model_fields.markers != ""
+     *        tx_powermail_domain_model_field.markers != ""
      *
      * @return bool
      */

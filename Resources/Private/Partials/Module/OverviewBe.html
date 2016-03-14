@@ -38,10 +38,10 @@
 					<f:comment>Basic form information</f:comment>
 					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
 						<td nowrap="nowrap" class="col-icon">
-							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_forms t3-icon-tx_powermail_domain_model_forms-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={form.uid}"> </span>
+							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_form t3-icon-tx_powermail_domain_model_form-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={form.uid}"> </span>
 						</td>
 						<td nowrap="nowrap">
-							<a title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_forms',identifier:form.uid)}">
+							<a title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
 								<span title="id={form.uid}">{form.title}</span>
 							</a>
 						</td>
@@ -71,7 +71,7 @@
 
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
-								<a class="btn" title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_forms',identifier:form.uid)}">
+								<a class="btn" title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
 									<span class="t3-icon fa fa-pencil">&nbsp;</span>
 								</a>
 							</div>

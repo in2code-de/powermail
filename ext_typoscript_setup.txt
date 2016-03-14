@@ -11,31 +11,6 @@ config.tx_extbase {
 					tableName = fe_groups
 				}
 			}
-			In2code\Powermail\Domain\Model\Form {
-				mapping {
-					tableName = tx_powermail_domain_model_forms
-				}
-			}
-			In2code\Powermail\Domain\Model\Page {
-				mapping {
-					tableName = tx_powermail_domain_model_pages
-				}
-			}
-			In2code\Powermail\Domain\Model\Field {
-				mapping {
-					tableName = tx_powermail_domain_model_fields
-				}
-			}
-			In2code\Powermail\Domain\Model\Mail {
-				mapping {
-					tableName = tx_powermail_domain_model_mails
-				}
-			}
-			In2code\Powermail\Domain\Model\Answer {
-				mapping {
-					tableName = tx_powermail_domain_model_answers
-				}
-			}
 		}
 	}
 }

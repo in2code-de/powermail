@@ -264,7 +264,7 @@ class FormRepository extends AbstractRepository
 
     /**
      * Find all localized records with
-     *        tx_powermail_domain_model_forms.pages = ""
+     *        tx_powermail_domain_model_form.pages = ""
      *
      * @return mixed
      */

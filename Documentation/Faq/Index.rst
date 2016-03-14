@@ -145,7 +145,7 @@ Changing values via page tsconfig
 .. code-block:: text
 
 	TCEFORM {
-		tx_powermail_domain_model_forms {
+		tx_powermail_domain_model_form {
 			css {
 				removeItems = layout1, layout2, layout3
 				addItems {
@@ -154,8 +154,8 @@ Changing values via page tsconfig
 				}
 			}
 		}
-		tx_powermail_domain_model_pages < .tx_powermail_domain_model_forms
-		tx_powermail_domain_model_fields < .tx_powermail_domain_model_forms
+		tx_powermail_domain_model_page < .tx_powermail_domain_model_form
+		tx_powermail_domain_model_field < .tx_powermail_domain_model_form
 	}
 
 
@@ -192,13 +192,13 @@ Another way is to hide fields for editors (and administrators) via Page TSConfig
 .. code-block:: text
 
 	TCEFORM {
-		tx_powermail_domain_model_forms {
+		tx_powermail_domain_model_form {
 			css.disabled = 1
 		}
-		tx_powermail_domain_model_pages {
+		tx_powermail_domain_model_page {
 			css.disabled = 1
 		}
-		tx_powermail_domain_model_fields {
+		tx_powermail_domain_model_field {
 			css.disabled = 1
 			feuser_value.disabled = 1
 			placeholder.disabled = 1
@@ -246,7 +246,7 @@ you can do this with a simple line of Page TSConfig:
 
 .. code-block:: text
 
-	TCEFORM.tx_powermail_domain_model_fields.type.removeItems = captcha,location,typoscript
+	TCEFORM.tx_powermail_domain_model_field.type.removeItems = captcha,location,typoscript
 
 
 

@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Utility\Hook;
+namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -31,7 +31,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  * Class FlexFormManipulationHook
- * @package In2code\Powermail\Utility\Hook
+ * @package In2code\Powermail\Hook
  */
 class FlexFormManipulationHook
 {

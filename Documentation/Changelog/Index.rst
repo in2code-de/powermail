@@ -122,7 +122,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       2015-12-08
    :Changes:
 
-      * Feature _`#69808`: https://forge.typo3.org/issues/69808 UID of tx_powermail_domain_model_mails for dbEntry
+      * Feature _`#69808`: https://forge.typo3.org/issues/69808 UID of tx_powermail_domain_model_mail for dbEntry
       * Task _`#72090`: https://forge.typo3.org/issues/72090 Move hardcoded implementation of local finisher classes to TypoScript
       * Bugfix _`#72061`: https://forge.typo3.org/issues/72061 Formular Konverter produces mysql Error / TYPO3 7.6 / Powermail 2.18.2
 
@@ -201,7 +201,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       2015-10-27
    :Changes:
 
-      * Bugfix _`#71072`: https://forge.typo3.org/issues/71072 Unknown column 'tx_powermail_domain_model_pages.title' in 'field list'
+      * Bugfix _`#71072`: https://forge.typo3.org/issues/71072 Unknown column 'tx_powermail_domain_model_page.title' in 'field list'
 
  - :Version:
       2.15.1
@@ -210,7 +210,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
    :Changes:
 
       * Bugfix _`#71018`: https://forge.typo3.org/issues/71018 Misspelled translation optin_mail_entries for en
-      * Bugfix _`#71037`: https://forge.typo3.org/issues/71037 Unknown column 'tx_powermail_domain_model_fields.sorting' in 'order clause'
+      * Bugfix _`#71037`: https://forge.typo3.org/issues/71037 Unknown column 'tx_powermail_domain_model_field.sorting' in 'order clause'
       * Task _`#71063`: https://forge.typo3.org/issues/71063 Replace http:// calls with https://
 
  - :Version:
@@ -220,7 +220,7 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
    :Changes:
 
       * Feature _`#70891`: https://forge.typo3.org/issues/70891 Upload Fields: Clientside validation for file extensions
-      * Feature _`#70836`: https://forge.typo3.org/issues/70836 tx_powermail_domain_model_answers: missing keys?
+      * Feature _`#70836`: https://forge.typo3.org/issues/70836 tx_powermail_domain_model_answer: missing keys?
       * Feature _`#70756`: https://forge.typo3.org/issues/70756 Filesize validation via JavaScript
 
  - :Version:

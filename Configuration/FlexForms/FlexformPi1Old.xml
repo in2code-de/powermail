@@ -22,11 +22,11 @@
 								<size>1</size>
 								<minitems>1</minitems>
 								<maxitems>1</maxitems>
-								<foreign_table>tx_powermail_domain_model_forms</foreign_table>
-								<foreign_table_where>AND tx_powermail_domain_model_forms.deleted = 0
-									AND tx_powermail_domain_model_forms.hidden = 0
-									AND tx_powermail_domain_model_forms.sys_language_uid IN (-1,0)
-									order by tx_powermail_domain_model_forms.title</foreign_table_where>
+								<foreign_table>tx_powermail_domain_model_form</foreign_table>
+								<foreign_table_where>AND tx_powermail_domain_model_form.deleted = 0
+									AND tx_powermail_domain_model_form.hidden = 0
+									AND tx_powermail_domain_model_form.sys_language_uid IN (-1,0)
+									order by tx_powermail_domain_model_form.title</foreign_table_where>
 								<wizards>
 									<_PADDING>16</_PADDING>
 									<_VERTICAL>0</_VERTICAL>
@@ -36,7 +36,7 @@
 										<title>Add Form</title>
 										<icon>add.gif</icon>
 										<params>
-											<table>tx_powermail_domain_model_forms</table>
+											<table>tx_powermail_domain_model_form</table>
 											<pid>###CURRENT_PID###</pid>
 											<setValue>set</setValue>
 										</params>

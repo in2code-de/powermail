@@ -72,9 +72,8 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 /**
  * ContentElementWizard for Pi1
  */
-$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Utility\Hook\ContentElementWizard'] =
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
-    'Classes/Utility/Hook/ContentElementWizard.php';
+$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Hook\ContentElementWizard'] =
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/Hook/ContentElementWizard.php';
 
 /**
  * Include TypoScript
@@ -106,50 +105,60 @@ if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableMarketingInformat
  * Table Configuration
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_forms',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_forms.xlf'
+    \In2code\Powermail\Domain\Model\Form::TABLE_NAME,
+    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_form.xlf'
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_forms');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
+    \In2code\Powermail\Domain\Model\Form::TABLE_NAME
+);
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_pages',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_pages.xlf'
+    \In2code\Powermail\Domain\Model\Page::TABLE_NAME,
+    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_page.xlf'
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_pages');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
+    \In2code\Powermail\Domain\Model\Page::TABLE_NAME
+);
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_fields',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_fields.xlf'
+    \In2code\Powermail\Domain\Model\Field::TABLE_NAME,
+    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_field.xlf'
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_fields');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
+    \In2code\Powermail\Domain\Model\Field::TABLE_NAME
+);
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_mails',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_mails.xlf'
+    \In2code\Powermail\Domain\Model\Mail::TABLE_NAME,
+    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_mail.xlf'
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_mails');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
+    \In2code\Powermail\Domain\Model\Mail::TABLE_NAME
+);
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_answers',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_answers.xlf'
+    \In2code\Powermail\Domain\Model\Answer::TABLE_NAME,
+    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_answer.xlf'
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_answers');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
+    \In2code\Powermail\Domain\Model\Answer::TABLE_NAME
+);
 
 /**
  * Garbage Collector
  */
 if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableTableGarbageCollectionActive()) {
     $tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
-    $table = 'tx_powermail_domain_model_mails';
+    $table = \In2code\Powermail\Domain\Model\Mail::TABLE_NAME;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(
         'dateField' => 'tstamp',
         'expirePeriod' => 30
     );
-    $table = 'tx_powermail_domain_model_answers';
+    $table = \In2code\Powermail\Domain\Model\Answer::TABLE_NAME;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(
         'dateField' => 'tstamp',
         'expirePeriod' => 30

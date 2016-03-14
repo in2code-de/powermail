@@ -484,7 +484,7 @@ function PowermailBackend($) {
 				.addClass('hideMail')
 				.addClass('fa-toggle-off');
 			$tr
-				.find('.t3-icon-tcarecords-tx_powermail_domain_model_mails')
+				.find('.t3-icon-tcarecords-tx_powermail_domain_model_mail')
 				.addClass('transparent');
 		} else {
 			$visibilityButton
@@ -495,7 +495,7 @@ function PowermailBackend($) {
 				.addClass('unhideMail')
 				.addClass('fa-toggle-on');
 			$tr
-				.find('.t3-icon-tcarecords-tx_powermail_domain_model_mails')
+				.find('.t3-icon-tcarecords-tx_powermail_domain_model_mail')
 				.removeClass('transparent');
 			hidden = 0;
 		}

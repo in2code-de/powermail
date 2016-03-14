@@ -39,7 +39,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Mail extends AbstractEntity
 {
 
-    const TABLE_NAME = 'tx_powermail_domain_model_mails';
+    const TABLE_NAME = 'tx_powermail_domain_model_mail';
 
     /**
      * senderName
