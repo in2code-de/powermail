@@ -1,0 +1,12 @@
+Roadmap for 3.0:
+- TYPO3 7.6
+- table name correction
+-- sql
+-- converter script
+- bootstrap
+-- Markup
+-- CSS update
+- PluginInformation refactoring
+- Remove outdated parts of code (PHP, Templates)
+- DataProcessor
+- Upload Refactoring
