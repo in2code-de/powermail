@@ -1,17 +1,18 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
-<div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_captcha powermail_fieldwrap_{field.uid} {field.css}">
-	<label for="powermail_field_{field.marker}" class="powermail_label" title="{field.description}">
+<div class="powermail_fieldwrap powermail_fieldwrap_captcha powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
+	<label for="powermail_field_{field.marker}" class="{settings.styles.framework.labelClasses}" title="{field.description}">
 		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><span class="mandatory">*</span>
 	</label>
 
-	<div class="powermail_captcha_outer {vh:Validation.ErrorClass(field: '{field}', class: 'powermail_field_error')}">
+	<div class="{settings.styles.framework.fieldWrappingClasses} {vh:Validation.ErrorClass(field: '{field}', class: 'powermail_field_error')}">
 		<f:form.textfield
 				id="powermail_field_{field.marker}"
 				property="{field.marker}"
 				value=""
-				class="powermail_field powermail_captcha {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
+				class="powermail_captcha {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
 				additionalAttributes="{vh:Validation.CaptchaDataAttribute(field:field)}" />
+
 		<img src="{vh:Validation.Captcha(field:field)}" alt="captcha" class="powermail_captchaimage" id="powermail_captchaimage" />
 
 		<f:if condition="{settings.validation.client}">

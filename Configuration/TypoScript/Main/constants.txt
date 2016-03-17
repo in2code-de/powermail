@@ -1,5 +1,6 @@
 plugin.tx_powermail {
 
+
 	view {
 		# cat=powermail_main/file; type=string; label= Path to template root (FE)
 		templateRootPath = EXT:powermail/Resources/Private/Templates/
@@ -12,6 +13,7 @@ plugin.tx_powermail {
 	}
 
 	settings {
+
 
 		main {
 			# cat=powermail_additional//0010; type=int+; label= Storage PID: Save mails in a defined Page (normally set via Flexform)
@@ -282,50 +284,41 @@ plugin.tx_powermail {
 			# cat=powermail_additional//1020; type=text; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
 			powermailJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js
 		}
+	}
+}
 
+# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
+#[globalVar = LIT:0 < {$plugin.tx_powermail.settings.styles.framework.important}]
+#[else]
+plugin.tx_powermail {
+	settings {
 		styles {
 			framework {
-				# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from maxcdn.bootstrapcdn.com
-				addBootstrapFromCdn = 0
-
-				# cat=powermail_styles//0000; type=boolean; label= Define bath and version of bootstrap.min.css from maxcdn.bootstrapcdn.com
-				bootstrapCdnUri = https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
-
-
 				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"
-				formClasses = form-horizontal
+				formClasses =
 
 				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
-				fieldAndLabelWrappingClasses = form-group
+				fieldAndLabelWrappingClasses =
 
 				# cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
-				fieldWrappingClasses = col-sm-10
+				fieldWrappingClasses = powermail_field
 
 				# cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "col-md-2 col-md-3"
-				labelClasses = control-label col-sm-2
+				labelClasses = powermail_label
 
 				# cat=powermail_styles//0140; type=text; label= Framework classname(s) for fields e.g. "form-control"
-				fieldClasses = form-control
+				fieldClasses =
 
 				# cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
-				offsetClasses = col-sm-offset-2
+				offsetClasses =
 
+				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
+				radioClasses = radio
 
-				# cat=powermail_styles//0130; type=text; label= Classes for column width and/or additional classes (HTML, typoscipt, text, etc. form elements) (col-md-10 col-sm-offset-2 col-sm-9 col-sm-offset-3)
-				nonFieldClasses = col-sm-12
-
-				# cat=powermail_styles//0140; type=text; label= Classes for column width and/or additional classes (col-md-3 col-sm-4)
-				fieldCaptchaClasses = col-sm-4
-
-				# cat=powermail_styles//0150; type=text; label= Classes for column width and/or additional classes (col-md-9 col-sm-8)
-				fieldCaptchaProblemClasses = col-sm-8
-
-				# cat=powermail_styles//0160; type=boolean; label= Classes for column width and/or additional classes (col-md-9 col-sm-8)
-				radioInline = 0
-
-				# cat=powermail_styles//0170; type=boolean; label= Classes for column width and/or additional classes (col-md-9 col-sm-8)
-				checkboxInline = 0
+				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
+				checkClasses = checkbox
 			}
 		}
 	}
 }
+#[end]

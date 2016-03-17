@@ -6,6 +6,12 @@ Roadmap for 3.0:
 - bootstrap
 -- Markup
 -- CSS update
+--- show uploaded values
+--- nolabels
+--- errors
+--- morestep
+--- JS: Location?
+--- JS: Date?
 - PluginInformation refactoring
 - Remove outdated parts of code (PHP, Templates)
 - DataProcessor

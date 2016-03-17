@@ -6,8 +6,8 @@
 			plugin.tx_powermail.settings.setup.misc.disableRemoveXss = 1
 	</f:comment>
 
-<div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_html powermail_fieldwrap_{field.uid} {field.css}">
-	<span id="powermail_field_{field.marker}">
+<div class="powermail_fieldwrap powermail_fieldwrap_html powermail_fieldwrap_{field.uid} {field.marker} {settings.styles.framework.fieldAndLabelWrappingClasses}">
+	<div class="{settings.styles.framework.fieldWrappingClasses} {settings.styles.framework.offsetClasses}">
 		<f:if condition="{settings.misc.disableRemoveXss}">
 			<f:then>
 				<f:format.raw>{field.text}</f:format.raw>
@@ -16,5 +16,5 @@
 				<vh:string.RawAndRemoveXss>{field.text}</vh:string.RawAndRemoveXss>
 			</f:else>
 		</f:if>
-	</span>
+	</div>
 </div>

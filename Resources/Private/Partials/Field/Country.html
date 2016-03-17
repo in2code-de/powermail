@@ -1,0 +1,24 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+		<f:comment>
+			{vh:Form.Countries()} will try to get the country list from the extension static_info_tables (and _de, _fr etc...)
+			If static_info_tables is not installed, a static list of countries and the ISO3 code will be shown in frontent
+			If you want to change sorting, Value or Label, please install static_info_tables
+		</f:comment>
+
+<div class="powermail_fieldwrap powermail_fieldwrap_country powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
+	<label for="powermail_field_{field.marker}" class="{settings.styles.framework.labelClasses}" title="{field.description}">
+		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+	</label>
+
+	<div class="{settings.styles.framework.fieldWrappingClasses}">
+		<f:form.select
+				property="{field.marker}"
+				options="{vh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc')}"
+				prependOptionLabel="{f:translate(key:'pleaseChoose')}"
+				class="powermail_field {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
+				value="{vh:Misc.PrefillField(field:field)}"
+				additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field)}"
+				id="powermail_field_{field.marker}" />
+	</div>
+</div>

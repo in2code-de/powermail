@@ -90,8 +90,8 @@ $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Ho
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     $_EXTKEY,
-    'Configuration/TypoScript/CssDemo',
-    'Add Demo CSS'
+    'Configuration/TypoScript/BootstrapClassesAndLayout',
+    'Add classes and demo CSS based on bootstrap'
 );
 if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableMarketingInformationActive()) {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(

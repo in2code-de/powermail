@@ -38,7 +38,7 @@
 											<f:if condition="{selectedField} == {field}">
 												<f:if condition="{field.advancedFieldType}">
 													<f:then>
-														<f:render partial="Form/{vh:String.Upper(string:field.type)}" arguments="{_all}" />
+														<f:render partial="Field/{vh:String.Upper(string:field.type)}" arguments="{_all}" />
 													</f:then>
 													<f:else>
 														<f:render partial="Output/EditHidden" arguments="{_all}" />

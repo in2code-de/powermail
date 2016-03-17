@@ -11,29 +11,31 @@ Render Powermail Form
 
 	<f:if condition="{form}">
 		<f:then>
-			<f:form
-					action="{action}"
-					name="field"
-					enctype="multipart/form-data"
-					additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:form)}"
-					addQueryString="{settings.misc.addQueryString}"
-					class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:Misc.MorestepClass(activate:settings.main.moresteps)}">
+			<div class="container-fluid">
+				<f:form
+						action="{action}"
+						name="field"
+						enctype="multipart/form-data"
+						additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:form)}"
+						addQueryString="{settings.misc.addQueryString}"
+						class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:Misc.MorestepClass(activate:settings.main.moresteps)}">
 
-				<h3>{form.title}</h3>
-				<f:render partial="Misc/FormError" arguments="{_all}" />
+					<h3>{form.title}</h3>
+					<f:render partial="Misc/FormError" arguments="{_all}" />
 
-				<f:for each="{form.pages}" as="page">
-					<fieldset class="powermail_fieldset powermail_fieldset_{page.uid} {page.css}">
-						<legend class="powermail_legend">{page.title}</legend>
-						<f:for each="{page.fields}" as="field">
-							<f:render partial="Form/{vh:String.Upper(string:field.type)}" arguments="{field:field}" />
-						</f:for>
-					</fieldset>
-				</f:for>
+					<f:for each="{form.pages}" as="page">
+						<fieldset class="powermail_fieldset powermail_fieldset_{page.uid} {page.css}">
+							<legend class="powermail_legend">{page.title}</legend>
+							<f:for each="{page.fields}" as="field">
+								<f:render partial="Field/{vh:String.Upper(string:field.type)}" arguments="{field:field}" />
+							</f:for>
+						</fieldset>
+					</f:for>
 
-				<f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid" />
-				<f:render partial="Misc/HoneyPod" arguments="{form:form}" />
-			</f:form>
+					<f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid" />
+					<f:render partial="Misc/HoneyPod" arguments="{form:form}" />
+				</f:form>
+			</div>
 		</f:then>
 		<f:else>
 			<f:translate key="error_no_form" />
