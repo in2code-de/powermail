@@ -28,16 +28,9 @@
 						insertAbove: '{f:if(condition:\'{mails -> f:count()} > {perPage}\',then:1,else:0)}',
 						insertBelow: '{f:if(condition:\'{mails -> f:count()} > {perPage}\',then:1,else:0)}'}">
 
-				<f:if condition="{vh:Condition.IsCompatVersion(versionNumber:'7.0')}">
-					<f:then>
-						<f:render partial="Module/List" arguments="{_all}" />
-						<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
-					</f:then>
-					<f:else>
-						<f:render partial="Module/ListOld" arguments="{_all}" />
-						<f:render partial="Module/SelectedLineMessageOld" arguments="{_all}" />
-					</f:else>
-				</f:if>
+				<f:render partial="Module/List" arguments="{_all}" />
+				<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
+
 			</f:widget.paginate>
 		</f:then>
 		<f:else>

@@ -71,49 +71,30 @@ class BackendUtility extends AbstractUtility
      * @param int $identifier
      * @param bool $addReturnUrl
      * @return string
-     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     public static function createEditUri($tableName, $identifier, $addReturnUrl = true)
     {
-        // use new link generation in backend for TYPO3 7.2 or newer
-        if (GeneralUtility::compat_version('7.2')) {
-            $uriParameters = [
-                'edit' => [
-                    $tableName => [
-                        $identifier => 'edit'
-                    ]
+        $uriParameters = [
+            'edit' => [
+                $tableName => [
+                    $identifier => 'edit'
                 ]
-            ];
-            if ($addReturnUrl) {
-                $uriParameters['returnUrl'] = self::getReturnUrl();
-            }
-            $editLink = BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
-        } else {
-            $editLink = FrontendUtility::getSubFolderOfCurrentUrl();
-            $editLink .= 'typo3/alt_doc.php?edit[' . $tableName . '][' . $identifier . ']=edit';
-            if ($addReturnUrl) {
-                $editLink .= '&returnUrl=' . self::getReturnUrl();
-            }
+            ]
+        ];
+        if ($addReturnUrl) {
+            $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return $editLink;
+        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
     }
 
     /**
      * Get return URL from current request
      *
      * @return string
-     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     protected static function getReturnUrl()
     {
-        if (GeneralUtility::compat_version('7.2')) {
-            $uri = self::getModuleUrl(self::getModuleName(), self::getCurrentParameters());
-        } else {
-            $uri = rawurlencode(
-                FrontendUtility::getSubFolderOfCurrentUrl() . GeneralUtility::getIndpEnv('TYPO3_SITE_SCRIPT')
-            );
-        }
-        return $uri;
+        return self::getModuleUrl(self::getModuleName(), self::getCurrentParameters());
     }
 
     /**
@@ -179,16 +160,10 @@ class BackendUtility extends AbstractUtility
      * @param string $moduleName Name of the module
      * @param array $urlParameters URL parameters that should be added as key value pairs
      * @return string Calculated URL
-     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     public static function getModuleUrl($moduleName, $urlParameters = [])
     {
-        if (GeneralUtility::compat_version('7.2')) {
-            $uri = BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
-        } else {
-            $uri = 'tce_db.php?' . BackendUtilityCore::getUrlToken('tceAction');
-        }
-        return $uri;
+        return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
     }
 
     /**

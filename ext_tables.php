@@ -7,18 +7,17 @@ if (!defined('TYPO3_MODE')) {
  * Include Plugins
  */
 // Pi1
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin($_EXTKEY, 'Pi1', 'Powermail');
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('powermail', 'Pi1', 'Powermail');
 // Pi2
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin($_EXTKEY, 'Pi2', 'Powermail_Frontend');
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('powermail', 'Pi2', 'Powermail_Frontend');
 
 /**
  * Disable non needed fields in tt_content
  */
-$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] = 'select_key,pages,recursive';
+$TCA['tt_content']['types']['list']['subtypes_excludelist']['powermail_pi1'] = 'select_key,pages,recursive';
 
 /**
  * Include Backend Module
- * @todo remove condition for TYPO3 6.2 in upcoming major version
  */
 if (
     TYPO3_MODE === 'BE' &&
@@ -26,7 +25,7 @@ if (
     !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
 ) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'In2code.' . $_EXTKEY,
+        'In2code.powermail',
         'web',
         'm1',
         '',
@@ -38,64 +37,56 @@ if (
         ),
         array(
             'access' => 'user,group',
-            'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.' .
-                (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'gif'),
-            'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
+            'icon' => 'EXT:powermail/ext_icon.svg',
+            'labels' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf',
         )
     );
 }
 
 /**
  * Include Flexform
- * @todo remove condition for TYPO3 6.2 in upcoming major version
  */
 // Pi1
-$fileName = 'FlexformPi1.xml';
-if (!\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.6')) {
-    $fileName = 'FlexformPi1Old.xml';
-}
-$pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi1';
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$TCA['tt_content']['types']['list']['subtypes_addlist']['powermail_pi1'] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $fileName
+    'powermail_pi1',
+    'FILE:EXT:powermail/Configuration/FlexForms/FlexformPi1.xml'
 );
 
 // Pi2
-$pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi2';
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$TCA['tt_content']['types']['list']['subtypes_addlist']['powermail_pi2'] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexformPi2.xml'
+    'powermail_pi2',
+    'FILE:EXT:powermail/Configuration/FlexForms/FlexformPi2.xml'
 );
 
 /**
  * ContentElementWizard for Pi1
  */
 $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Hook\ContentElementWizard'] =
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/Hook/ContentElementWizard.php';
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') . 'Classes/Hook/ContentElementWizard.php';
 
 /**
  * Include TypoScript
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
+    'powermail',
     'Configuration/TypoScript/Main',
     'Main Template'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
+    'powermail',
     'Configuration/TypoScript/Powermail_Frontend',
     'Powermail_Frontend'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
+    'powermail',
     'Configuration/TypoScript/BootstrapClassesAndLayout',
-    'Add classes and demo CSS based on bootstrap'
+    'Add classes and CSS based on bootstrap'
 );
 if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableMarketingInformationActive()) {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $_EXTKEY,
+        'powermail',
         'Configuration/TypoScript/Marketing',
         'Marketing Information'
     );

@@ -176,16 +176,10 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @param string $fileName
      * @return string
-     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     public static function getIconPath($fileName)
     {
-        $prefix = 'EXT:powermail/';
-        if (!GeneralUtility::compat_version('7.6')) {
-            $prefix = ExtensionManagementUtility::extRelPath('powermail');
-        }
-        $iconPath = $prefix . 'Resources/Public/Icons/' . $fileName;
-        return $iconPath;
+        return 'EXT:powermail/Resources/Public/Icons/' . $fileName;
     }
 
     /**

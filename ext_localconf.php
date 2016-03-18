@@ -16,44 +16,44 @@ $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';
  * Include Frontend Plugins for Powermail
  */
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'In2code.' . $_EXTKEY,
+    'In2code.powermail',
     'Pi1',
-    array(
+    [
         'Form' => 'form, create, confirmation, optinConfirm, marketing'
-    ),
-    array(
+    ],
+    [
         'Form' => $uncachedFormActions
-    )
+    ]
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'In2code.' . $_EXTKEY,
+    'In2code.powermail',
     'Pi2',
-    array(
+    [
         'Output' => 'list, show, edit, update, export, rss, delete'
-    ),
-    array(
+    ],
+    [
         'Output' => 'list, edit, update, export, rss, delete'
-    )
+    ]
 );
 
 /**
  * Hook to show PluginInfo
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']
-    ['cms/layout/class.tx_cms_layout.php']['list_type_Info'][$_EXTKEY . '_pi1'][$_EXTKEY] =
-        'EXT:' . $_EXTKEY . '/Classes/Hook/PluginInformation.php:In2code\Powermail\Hook\PluginInformation->build';
+    ['cms/layout/class.tx_cms_layout.php']['list_type_Info']['powermail_pi1']['powermail'] =
+        'EXT:powermail/Classes/Hook/PluginInformation.php:In2code\Powermail\Hook\PluginInformation->build';
 
 /**
  * Hook for initially filling the marker field in backend
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
-        'EXT:' . $_EXTKEY . '/Classes/Hook/CreateMarker.php:In2code\Powermail\Hook\CreateMarker';
+        'EXT:powermail/Classes/Hook/CreateMarker.php:In2code\Powermail\Hook\CreateMarker';
 
 /**
  * Hook to extend the FlexForm
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass'][] =
-    'EXT:' . $_EXTKEY . '/Classes/Hook/FlexFormManipulationHook.php:' .
+    'EXT:powermail/Classes/Hook/FlexFormManipulationHook.php:' .
         'In2code\Powermail\Hook\FlexFormManipulationHook';
 
 /**

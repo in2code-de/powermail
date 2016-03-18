@@ -83,28 +83,16 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *
      * @param Field $field
      * @param Mail $mail To prefill in Edit Action
-     * @param int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
      * @param string $default Fallback value
-     * @todo remove param $cycle
      * @return string|array Prefill field
      */
-    public function render(Field $field, Mail $mail = null, $cycle = 0, $default = '')
+    public function render(Field $field, Mail $mail = null, $default = '')
     {
         $this->setMarker($field->getMarker())->setField($field)->setMail($mail)->setValue($default);
 
         // stop prefilling for cached forms to prevent wrong values
         if (!$this->isCachedForm()) {
-            if ($cycle === 0) {
-                $this->buildValue();
-            } else {
-                // TODO remove $cycle completely in next minor version
-                GeneralUtility::deprecationLog(
-                    'Method \In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render() ' .
-                    'was called from a template or a partial with attribute "cycle". This' .
-                    ' attribute will be removed in next minor version of powermail. Further' .
-                    ' use can lead to exceptions. Please remove this attribute from your template files.'
-                );
-            }
+            $this->buildValue();
         }
         return $this->getValue();
     }

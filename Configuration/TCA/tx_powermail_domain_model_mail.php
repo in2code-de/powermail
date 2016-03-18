@@ -15,12 +15,6 @@ $typeDefault = 'crdate, receiver_mail, ' .
     'marketing_referer_domain, marketing_referer, marketing_country, marketing_mobile_device, ' .
     'marketing_frontend_language, marketing_browser_language, marketing_page_funnel, ' .
     '--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, hidden, starttime, endtime';
-$rteIconPath = 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif';
-if (!GeneralUtility::compat_version('7.6')) {
-    // todo remove condition for TYPO3 6.2 in upcoming major version
-    $typeDefault = str_replace('body', 'body;;;richtext[]', $typeDefault);
-    $rteIconPath = 'wizard_rte2.gif';
-}
 
 $mailsTca = [
     'ctrl' => [
@@ -211,7 +205,7 @@ $mailsTca = [
                         'RTEonly' => 1,
                         'type' => 'script',
                         'title' => 'RTE',
-                        'icon' => $rteIconPath,
+                        'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif',
                         'module' => [
                             'name' => 'wizard_rte'
                         ]

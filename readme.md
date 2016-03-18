@@ -1,18 +1,18 @@
 Roadmap for 3.0:
-- TYPO3 7.6
-- table name correction
--- sql
--- converter script
+- ok TYPO3 7.6
+- ok table name correction
+- - ok sql
+- - ok converter script
 - bootstrap
--- Markup
--- CSS update
---- show uploaded values
---- nolabels
---- errors
---- morestep
---- JS: Location?
---- JS: Date?
+- - ok Markup
+- - CSS update
+- - - show uploaded values
+- - - nolabels
+- - - errors
+- - - morestep
+- - - JS: Location?
+- - - JS: Date?
 - PluginInformation refactoring
-- Remove outdated parts of code (PHP, Templates)
+- ok Remove outdated parts of code (PHP, Templates)
 - DataProcessor
 - Upload Refactoring
