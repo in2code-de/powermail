@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Utility\Eid;
+namespace In2code\Powermail\Tests\Eid;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -38,7 +38,7 @@ class GetLocationEidTest extends UnitTestCase
 {
 
     /**
-     * @var \In2code\Powermail\Utility\Eid\GetLocationEid
+     * @var \In2code\Powermail\Eid\GetLocationEid
      */
     protected $getLocationEidMock;
 
@@ -48,7 +48,7 @@ class GetLocationEidTest extends UnitTestCase
     public function setUp()
     {
         $this->getLocationEidMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Utility\Eid\GetLocationEid',
+            '\In2code\Powermail\Eid\GetLocationEid',
             ['dummy']
         );
     }

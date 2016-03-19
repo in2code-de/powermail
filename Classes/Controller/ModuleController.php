@@ -1,7 +1,6 @@
 <?php
 namespace In2code\Powermail\Controller;
 
-use In2code\Powermail\Domain\Service\FormConverterService;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -260,51 +259,6 @@ class ModuleController extends AbstractController
     public function initializeConverterBeAction()
     {
         $this->checkAdminPermissions();
-    }
-
-    /**
-     * Convert all old forms preflight
-     *
-     * @return void
-     */
-    public function converterBeAction()
-    {
-        $oldForms = $this->formRepository->findAllOldForms();
-        $this->view->assign('oldForms', $oldForms);
-    }
-
-    /**
-     * Check Permissions
-     *
-     * @return void
-     */
-    public function initializeConverterUpdateBeAction()
-    {
-        $this->checkAdminPermissions();
-    }
-
-    /**
-     * Convert all old forms
-     *
-     * @param array $converter
-     * @return void
-     */
-    public function converterUpdateBeAction($converter)
-    {
-        $oldForms = $this->formRepository->findAllOldForms();
-        $formCounter = 0;
-        $oldFormsPagesFields = [];
-        foreach ($oldForms as $form) {
-            $oldFormsPagesFields[$formCounter] = $form;
-            $oldFormsPagesFields[$formCounter]['_fieldsets'] =
-                $this->formRepository->findOldFieldsetsAndFieldsToTtContentRecord($form['uid']);
-            $formCounter++;
-        }
-        /** @var FormConverterService $formConverterService */
-        $formConverterService = $this->objectManager->get(FormConverterService::class);
-        $result = $formConverterService->createNewFromOldForms($oldFormsPagesFields, $converter);
-        $this->view->assign('result', $result);
-        $this->view->assign('converter', $converter);
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
-namespace In2code\Powermail\Utility\Tca;
+namespace In2code\Powermail\Tca;
+
+use In2code\Powermail\Domain\Model\Field;
 
 /***************************************************************
  *  Copyright notice
@@ -24,7 +26,6 @@ namespace In2code\Powermail\Utility\Tca;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use In2code\Powermail\Domain\Model\Field;
 
 /**
  * Class to extend Pi1 field marker e.g. {firstname}

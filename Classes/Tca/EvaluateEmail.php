@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Utility\Tca;
+namespace In2code\Powermail\Tca;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

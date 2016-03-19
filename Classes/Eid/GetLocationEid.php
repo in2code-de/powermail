@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Utility\Eid;
+namespace In2code\Powermail\Eid;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

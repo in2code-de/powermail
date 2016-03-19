@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Utility\Tca;
+namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
@@ -38,7 +38,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * more information in the FlexForm of an opened powermail
  * content element
  *
- * @package In2code\Powermail\Utility\Tca
+ * @package In2code\Powermail\Tca
  */
 class ShowFormNoteEditForm
 {

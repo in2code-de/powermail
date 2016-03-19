@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\ViewHelpers\BeCheck;
+namespace In2code\Powermail\Tests\ViewHelpers\Be;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -48,7 +48,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     public function setUp()
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
-            '\In2code\Powermail\ViewHelpers\BeCheck\PowermailVersionNoteViewHelper',
+            '\In2code\Powermail\ViewHelpers\Be\PowermailVersionNoteViewHelper',
             ['dummy']
         );
     }

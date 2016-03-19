@@ -1,12 +1,12 @@
 <?php
-namespace In2code\Powermail\Utility\Tca;
+namespace In2code\Powermail\Tca;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * Class AddOptionsToSelection allows to add individual options
  *
- * @package In2code\Powermail\Utility\Tca
+ * @package In2code\Powermail\Tca
  */
 class AddOptionsToSelection
 {

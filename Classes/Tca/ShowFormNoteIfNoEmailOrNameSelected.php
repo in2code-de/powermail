@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Utility\Tca;
+namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FormRepository;

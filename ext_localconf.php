@@ -60,20 +60,20 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFl
 /**
  * JavaScript evaluation of TCA fields
  */
-$TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Utility\Tca\EvaluateEmail'] =
-    'EXT:powermail/Classes/Utility/Tca/EvaluateEmail.php';
+$TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =
+    'EXT:powermail/Classes/Tca/EvaluateEmail.php';
 
 /**
  * eID to get location from geo coordinates
  */
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] =
-    'EXT:powermail/Classes/Utility/Eid/GetLocationEid.php';
+    'EXT:powermail/Classes/Eid/GetLocationEid.php';
 
 /**
  * eID to store marketing information
  */
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidMarketing'] =
-    'EXT:powermail/Classes/Utility/Eid/MarketingEid.php';
+    'EXT:powermail/Classes/Eid/MarketingEid.php';
 
 /**
  * CommandController for powermail tasks

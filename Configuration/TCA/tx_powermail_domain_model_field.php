@@ -554,7 +554,7 @@ $fieldsTca = [
                 'size' => 1,
                 'maxitems' => 1,
                 'eval' => 'required',
-                'itemsProcFunc' => 'In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForType',
+                'itemsProcFunc' => 'In2code\Powermail\Tca\AddOptionsToSelection->addOptionsForType',
             ],
         ],
         'settings' => [
@@ -786,7 +786,7 @@ $fieldsTca = [
                 'size' => 1,
                 'maxitems' => 1,
                 'eval' => '',
-                'itemsProcFunc' => 'In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForValidation',
+                'itemsProcFunc' => 'In2code\Powermail\Tca\AddOptionsToSelection->addOptionsForValidation',
             ],
         ],
         'validation_configuration' => [
@@ -887,7 +887,7 @@ $fieldsTca = [
                 'size' => 1,
                 'maxitems' => 1,
                 'eval' => '',
-                'itemsProcFunc' => 'In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForFeUserProperty',
+                'itemsProcFunc' => 'In2code\Powermail\Tca\AddOptionsToSelection->addOptionsForFeUserProperty',
             ],
         ],
         'create_from_typoscript' => [
@@ -981,7 +981,7 @@ $fieldsTca = [
                 Field::TABLE_NAME . '.auto_marker',
             'config' => [
                 'type' => 'user',
-                'userFunc' => 'In2code\Powermail\Utility\Tca\Marker->createMarker'
+                'userFunc' => 'In2code\Powermail\Tca\Marker->createMarker'
             ],
             'displayCond' => 'FIELD:own_marker_select:REQ:false'
         ],

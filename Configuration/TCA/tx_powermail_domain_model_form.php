@@ -136,7 +136,7 @@ $formsTca = [
             'l10n_mode' => 'exclude',
             'config' => [
                 'type' => 'user',
-                'userFunc' => 'In2code\Powermail\Utility\Tca\ShowFormNoteIfNoEmailOrNameSelected->showNote'
+                'userFunc' => 'In2code\Powermail\Tca\ShowFormNoteIfNoEmailOrNameSelected->showNote'
             ],
         ],
         'css' => [

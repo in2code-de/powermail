@@ -22,8 +22,8 @@ Example Use-Case:
 	# Convert 31.12.2015 to 2015-12-31
 	lib.test = USER
 	lib.test {
-		userFunc = \In2code\Powermail\Utility\UserFunc\DateConverter->convert
-		includeLibs = EXT:powermail/Classes/Utility/UserFunc/DateConverter.php
+		userFunc = \In2code\Powermail\UserFunc\DateConverter->convert
+		includeLibs = EXT:powermail/Classes/UserFunc/DateConverter.php
 
 		input = TEXT
 		input.value = 31.12.2015
@@ -42,8 +42,8 @@ Example Use-Case:
 	# Convert 2015-12-31 into 1451516400
 	lib.test = USER
 	lib.test {
-		userFunc = \In2code\Powermail\Utility\UserFunc\DateConverter->convert
-		includeLibs = EXT:powermail/Classes/Utility/UserFunc/DateConverter.php
+		userFunc = \In2code\Powermail\UserFunc\DateConverter->convert
+		includeLibs = EXT:powermail/Classes/UserFunc/DateConverter.php
 
 		input = TEXT
 		input.value = 2015-12-31
@@ -84,8 +84,8 @@ Example Use-Case:
 		# Fill header from powermail field with marker {date} from Y-m-d to a unix timestamp
 		starttime = USER
 		starttime {
-			userFunc = \In2code\Powermail\Utility\UserFunc\DateConverter->convert
-			includeLibs = EXT:powermail/Classes/Utility/UserFunc/DateConverter.php
+			userFunc = \In2code\Powermail\UserFunc\DateConverter->convert
+			includeLibs = EXT:powermail/Classes/UserFunc/DateConverter.php
 
 			input = TEXT
 			input.data = GP:tx_powermail_pi1|field|date
