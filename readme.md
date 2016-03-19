@@ -10,9 +10,11 @@ Roadmap for 3.0:
 - - - nolabels
 - - - errors
 - - - morestep
+- - - Pi2
 - - - JS: Location?
 - - - JS: Date?
 - PluginInformation refactoring
 - ok Remove outdated parts of code (PHP, Templates)
+- Replace outdated icons in backend
 - DataProcessor
 - Upload Refactoring

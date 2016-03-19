@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\ViewHelpers\BeCheck;
+namespace In2code\Powermail\ViewHelpers\Be;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;

@@ -616,28 +616,25 @@
 				<source>Page with Plugin for edit view (Empty: Same page)</source>
 			</trans-unit>
 			<trans-unit id="pluginInfo.receiverEmail">
-				<source>Receivers Email Address</source>
+				<source>Receiver email address</source>
 			</trans-unit>
 			<trans-unit id="pluginInfo.receiverName">
-				<source>Receivers Name</source>
+				<source>Receiver name</source>
 			</trans-unit>
 			<trans-unit id="pluginInfo.subject">
-				<source>Mail Subject</source>
-			</trans-unit>
-			<trans-unit id="pluginInfo.subject">
-				<source>Mail Subject</source>
+				<source>Mail subject</source>
 			</trans-unit>
 			<trans-unit id="pluginInfo.form">
-				<source>Form Title</source>
+				<source>Form title</source>
 			</trans-unit>
 			<trans-unit id="pluginInfo.savePid">
 				<source>Storage Location for Mails</source>
 			</trans-unit>
 			<trans-unit id="pluginInfo.confirmationPage">
-				<source>Confirmation Page activated?</source>
+				<source>Confirmation page activated</source>
 			</trans-unit>
 			<trans-unit id="pluginInfo.optin">
-				<source>Double Opt-In active?</source>
+				<source>Double-opt-in activated</source>
 			</trans-unit>
 		</body>
 	</file>

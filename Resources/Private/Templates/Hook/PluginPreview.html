@@ -1,0 +1,203 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<p>
+	<h2>
+		<vh:Be.GetIcon identifier="extension-powermail-main" size="default" />
+		<a href="{vh:Be.EditLink(table:'tt_content',identifier:row.uid)}">
+			<f:if condition="{row.header}">
+				<f:then>{row.header}</f:then>
+				<f:else><f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:BackendPluginInformationNoHeader">[no header]</f:translate></f:else>
+			</f:if>
+			<vh:Be.GetIcon />
+		</a>
+	</h2>
+</p>
+
+
+<f:if condition="{pluginName} == 'Pi1'">
+	<f:then>
+		<f:render section="Pi1" arguments="{_all}" />
+	</f:then>
+	<f:else>
+		<f:render section="Pi2" arguments="{_all}" />
+	</f:else>
+</f:if>
+
+
+
+
+<f:comment>
+	Information for Plugin 1
+</f:comment>
+<f:section name="Pi1">
+	<h3><f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:BackendPluginInformationTitleMailForm">Mailform configuration</f:translate></h3>
+
+	<table>
+		<f:if condition="{form}">
+			<tr>
+				<td style="padding: 2px 10px 2px 5px">
+					<strong>
+						<f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pluginInfo.form">form</f:translate>
+					</strong>
+				</td>
+				<td>
+					<a href="{vh:Be.EditLink(table:'form',identifier:flexFormData.settings.flexform.main.form)}">
+						{form}
+						<vh:Be.GetIcon />
+					</a>
+				</td>
+			</tr>
+		</f:if>
+
+		<f:if condition="{receiverEmail}">
+			<tr>
+				<td style="padding: 2px 10px 2px 5px">
+					<strong>
+						<f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pluginInfo.receiverEmail">Email Receiver</f:translate>
+					</strong>
+				</td>
+				<td>
+					<f:if condition="{receiverEmailDevelopmentContext}">
+						<f:then>
+							<span style="color: red;">
+								<strong>{receiverEmailDevelopmentContext}</strong>
+								&lt;Development context&gt;
+							</span>
+							<span style="color: #999;">({receiverEmail})</span>
+						</f:then>
+						<f:else>
+							{receiverEmail}
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
+		</f:if>
+
+		<f:if condition="{flexFormData.settings.flexform.receiver.name}">
+			<tr>
+				<td style="padding: 2px 10px 2px 5px">
+					<strong>
+						<f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pluginInfo.receiverName">receiverName</f:translate>
+					</strong>
+				</td>
+				<td>
+					{flexFormData.settings.flexform.receiver.name}
+				</td>
+			</tr>
+		</f:if>
+
+		<f:if condition="{flexFormData.settings.flexform.receiver.subject}">
+			<tr>
+				<td style="padding: 2px 10px 2px 5px">
+					<strong>
+						<f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pluginInfo.subject">subject</f:translate>
+					</strong>
+				</td>
+				<td>
+					{flexFormData.settings.flexform.receiver.subject}
+				</td>
+			</tr>
+		</f:if>
+
+		<tr>
+			<td style="padding: 2px 10px 2px 5px">
+				<strong>
+					<f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pluginInfo.confirmationPage">confirmationPage</f:translate>
+				</strong>
+			</td>
+			<td>
+				<f:if condition="{flexFormData.settings.flexform.main.confirmation}">
+					<f:then>
+						<vh:Be.GetIcon identifier="status-status-permission-granted" />
+					</f:then>
+					<f:else>
+						<vh:Be.GetIcon identifier="status-status-permission-denied" />
+					</f:else>
+				</f:if>
+			</td>
+		</tr>
+
+		<tr>
+			<td style="padding: 2px 10px 2px 5px">
+				<strong>
+					<f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pluginInfo.optin">optin</f:translate>
+				</strong>
+			</td>
+			<td>
+				<f:if condition="{flexFormData.settings.flexform.main.optin}">
+					<f:then>
+						<vh:Be.GetIcon identifier="status-status-permission-granted" />
+					</f:then>
+					<f:else>
+						<vh:Be.GetIcon identifier="status-status-permission-denied" />
+					</f:else>
+				</f:if>
+			</td>
+		</tr>
+	</table>
+
+	<f:if condition="{enableMailPreview}">
+		<f:if condition="{mails}">
+			<h3><f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:BackendPluginInformationTitleLastMails">Last mails</f:translate></h3>
+
+			<table>
+				<f:for each="{mails}" as="mail" iteration="index">
+					<tr>
+						<td style="padding: 2px 10px 2px 5px">
+							<strong>
+								<f:format.date format="{f:translate(key:'datepicker_format_datetime',extensionName:'powermail')}">{mail.crdate}</f:format.date>
+							</strong>
+						</td>
+						<td style="padding: 2px 10px 2px 5px">
+							{mail.senderName}
+						</td>
+						<td style="padding: 2px 10px 2px 5px">
+							&lt;{mail.senderMail}&gt;
+						</td>
+						<td style="padding: 2px 10px 2px 5px">
+							<a href="{vh:Be.EditLink(table:'mail',identifier:mail.uid)}">
+								{mail.subject}
+								<vh:Be.GetIcon />
+							</a>
+						</td>
+					</tr>
+					<f:if condition="{index.isLast}">
+						<tr>
+							<td colspan="4" style="padding: 2px 10px 2px 5px">
+								<f:link.action
+										action="list"
+										controller="Module"
+										extensionName="Powermail"
+										additionalParams="{M:'web_PowermailM1',id:mail.pid}"
+										pluginName="web_powermailm1">
+									Mehr... <vh:Be.GetIcon identifier="actions-search" />
+								</f:link.action>
+							</td>
+						</tr>
+					</f:if>
+				</f:for>
+			</table>
+		</f:if>
+	</f:if>
+</f:section>
+
+
+
+
+<f:comment>
+	Information for Plugin 2
+</f:comment>
+<f:section name="Pi2">
+	<h3><f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:BackendPluginInformationTitlePi2">Show and manage mails in Frontend</f:translate></h3>
+	<f:if condition="{form}">
+		<p>
+			<strong>
+				<f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pluginInfo.form">form</f:translate>:
+			</strong>
+			<a href="{vh:Be.EditLink(table:'form',identifier:flexFormData.settings.flexform.main.form)}">
+				{form}
+				<vh:Be.GetIcon />
+			</a>
+		</p>
+	</f:if>
+</f:section>

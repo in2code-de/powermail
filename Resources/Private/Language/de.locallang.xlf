@@ -756,7 +756,7 @@
 				<target state="translated">Formulare</target>
 			</trans-unit>
 			<trans-unit id="BackendOverviewCol1">
-				<source>Form Title</source>
+				<source>Form title</source>
 				<target state="translated">Formulartitel</target>
 			</trans-unit>
 			<trans-unit id="BackendOverviewCol2">
@@ -974,6 +974,22 @@
 			<trans-unit id="BackendReportingNoValues">
 				<source>No Values to Show</source>
 				<target state="translated">Keine Daten zum Anzeigen vorhanden</target>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationNoHeader">
+				<source>[no header]</source>
+				<target state="translated">[keine Überschrift]</target>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitleMailForm">
+				<source>Mailform configuration</source>
+				<target state="translated">Formular Konfiguration</target>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitleLastMails">
+				<source>Last mails</source>
+				<target state="translated">Neueste Mails</target>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitlePi2">
+				<source>Show and manage mails in Frontend</source>
+				<target state="translated">Zeige und verwalte Mails im Frontend</target>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendNoMails">
 				<source>No Mails found.</source>

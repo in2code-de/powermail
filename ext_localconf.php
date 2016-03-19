@@ -37,11 +37,12 @@ $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';
 );
 
 /**
- * Hook to show PluginInfo
+ * Hook to show PluginInformation under a tt_content element in page module of type powermail
  */
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']
-    ['cms/layout/class.tx_cms_layout.php']['list_type_Info']['powermail_pi1']['powermail'] =
-        'EXT:powermail/Classes/Hook/PluginInformation.php:In2code\Powermail\Hook\PluginInformation->build';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem']['powermail'] =
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') .
+        'Classes/Hook/PluginPreview.php:In2code\Powermail\Hooks\PluginPreview';
+
 
 /**
  * Hook for initially filling the marker field in backend

@@ -83,6 +83,17 @@ class ConfigurationUtility extends AbstractUtility
     }
 
     /**
+     * Check if disablePluginInformationMailPreview is active
+     *
+     * @return bool
+     */
+    public static function isDisablePluginInformationMailPreviewActive()
+    {
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['disablePluginInformationMailPreview'] === '1';
+    }
+
+    /**
      * Check if enableCaching is active
      *
      * @return bool

@@ -726,6 +726,18 @@
 			<trans-unit id="BackendReportingNoValues">
 				<source>No Values to Show</source>
 			</trans-unit>
+			<trans-unit id="BackendPluginInformationNoHeader">
+				<source>[no header]</source>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitleMailForm">
+				<source>Mailform configuration</source>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitleLastMails">
+				<source>Last mails</source>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitlePi2">
+				<source>Show and manage mails in Frontend</source>
+			</trans-unit>
 			<trans-unit id="PowermailFrontendNoMails">
 				<source>No Mails found.</source>
 			</trans-unit>

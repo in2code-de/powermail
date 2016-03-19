@@ -336,6 +336,22 @@ class MailRepository extends AbstractRepository
     }
 
     /**
+     * Find the latest three mails by given form uid
+     *
+     * @param int $formUid
+     * @param int $limit
+     * @return QueryResult
+     */
+    public function findLatestByForm($formUid, $limit = 3)
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('form', $formUid));
+        $query->setOrderings($this->getSorting('crdate', 'desc'));
+        $query->setLimit($limit);
+        return $query->execute();
+    }
+
+    /**
      * Generate a new array with labels
      *        label_firstname => Firstname
      *

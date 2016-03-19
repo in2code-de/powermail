@@ -820,19 +820,19 @@
 				<target state="translated">Seite mit Änderungsansicht (Leer: Gleiche Seite)</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.receiverEmail">
-				<source>Receivers Email Address</source>
-				<target state="translated">Empfänger E-Mail</target>
+				<source>Receiver email address</source>
+				<target state="translated">Empfänger E-Mail-Adresse</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.receiverName">
-				<source>Receivers Name</source>
+				<source>Receiver name</source>
 				<target state="translated">Empfänger Name</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.subject">
-				<source>Mail Subject</source>
+				<source>Mail subject</source>
 				<target state="translated">Betreff</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.form">
-				<source>Form Title</source>
+				<source>Form title</source>
 				<target state="translated">Formular Bezeichnung</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.savePid">
@@ -840,12 +840,12 @@
 				<target state="translated">Speicherort der E-Mails</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.confirmationPage">
-				<source>Confirmation Page activated?</source>
-				<target state="translated">Bestätigungsseite aktiv?</target>
+				<source>Confirmation page activated</source>
+				<target state="translated">Bestätigungsseite aktiviert</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.optin">
-				<source>Double Opt-In active?</source>
-				<target state="translated">Double Opt-In aktiv?</target>
+				<source>Double-opt-in activated</source>
+				<target state="translated">Double-Opt-In aktiviert</target>
 			</trans-unit>
 		</body>
 	</file>
