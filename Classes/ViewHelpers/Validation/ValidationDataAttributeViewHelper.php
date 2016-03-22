@@ -23,7 +23,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
      * @return array for data attributes
      */
-    public function render(Field $field, $additionalAttributes = [], $iteration = null)
+    public function render(Field $field, array $additionalAttributes = [], $iteration = null)
     {
         switch ($field->getType()) {
             case 'check':
@@ -46,7 +46,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param mixed $iteration
      * @return void
      */
-    protected function addMandatoryAttributesForMultipleFields(&$additionalAttributes, $field, $iteration)
+    protected function addMandatoryAttributesForMultipleFields(array &$additionalAttributes, Field $field, $iteration)
     {
         if ($iteration['index'] === 0) {
             if ($field->isMandatory()) {
@@ -72,12 +72,8 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             }
 
             if ($this->isClientValidationEnabled()) {
-                // define where to show errors
-                $additionalAttributes['data-parsley-errors-container'] =
-                    '.powermail_field_error_container_' . $field->getMarker();
-                // define where to set the error class
-                $additionalAttributes['data-parsley-class-handler'] =
-                    '.powermail_fieldwrap_' . $field->getUid() . ' div:first';
+                $additionalAttributes = $this->addErrorContainer($additionalAttributes, $field);
+                $additionalAttributes = $this->addClassHandler($additionalAttributes, $field);
             }
         }
 
@@ -99,7 +95,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param Field $field
      * @return void
      */
-    protected function addValidationAttributes(&$additionalAttributes, $field)
+    protected function addValidationAttributes(array &$additionalAttributes, Field $field)
     {
         if ($field->getType() !== 'input' && $field->getType() !== 'textarea') {
             return;

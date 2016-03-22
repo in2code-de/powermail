@@ -13,5 +13,11 @@
 				additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field)}"
 				multiple="{field.multiselectForField}"
 				value="{vh:Misc.PrefillField(field:field, mail:mail)}" />
+
+		<f:if condition="{field.multiselect}">
+			<f:if condition="{settings.validation.client}">
+				<div class="powermail_field_error_container powermail_field_error_container_{field.marker}"></div>
+			</f:if>
+		</f:if>
 	</div>
 </div>

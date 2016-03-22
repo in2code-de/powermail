@@ -13,8 +13,10 @@ Roadmap for 3.0:
 - - - Pi2
 - - - JS: Location?
 - - - JS: Date?
-- PluginInformation refactoring
+- ok Update of parsley.js to 2.3.5
+- ok PluginInformation refactoring
 - ok Remove outdated parts of code (PHP, Templates)
-- Replace outdated icons in backend
 - DataProcessor
 - Upload Refactoring
+- ok Remove form converter
+- Some code cleanup

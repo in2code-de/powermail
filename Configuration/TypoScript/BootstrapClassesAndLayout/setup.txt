@@ -1,4 +1,4 @@
-#page.includeCSS.powermailCssDemo = {$plugin.tx_powermail.settings.CssDemo}
+page.includeCSS.BasicCss = {$plugin.tx_powermail.settings.BasicCss}
 
 # add bootstrap.min.css from maxcdn.bootstrapcdn.com
 [globalVar = LIT:0 < {$plugin.tx_powermail.settings.styles.bootstrap.addBootstrapFromCdn}]
