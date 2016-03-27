@@ -129,27 +129,31 @@ class BackendContainerViewHelper extends ContainerViewHelper
      * Number of parameters and their sorting depends on
      * TYPO3 version
      *
+     * @param string $pageTitle title tag of the module. Not required by default, as BE modules are shown in a frame
+     * @param bool $enableClickMenu If TRUE, loads clickmenu.js required by BE context menus. Defaults to TRUE
+     * @param bool $loadExtJs specifies whether to load ExtJS library. Defaults to FALSE
+     * @param bool $loadExtJsTheme whether to load ExtJS "grey" theme. Defaults to FALSE
+     * @param bool $enableExtJsDebug if TRUE, debug version of ExtJS is loaded. Use this for development only
+     * @param bool $loadJQuery whether to load jQuery library. Defaults to FALSE
      * @param array $includeCssFiles List of custom CSS file to be loaded
      * @param array $includeJsFiles List of custom JavaScript file to be loaded
-     * @param boolean $enableClickMenu If TRUE, loads clickmenu.js required by BE context menus. Defaults to TRUE
-     * @param boolean $loadExtJs specifies whether to load ExtJS library. Defaults to FALSE
-     * @param boolean $loadExtJsTheme whether to load ExtJS "grey" theme. Defaults to FALSE
-     * @param boolean $enableExtJsDebug if TRUE, debug version of ExtJS is loaded. Use this for development only
-     * @param boolean $loadJQuery whether to load jQuery library. Defaults to FALSE
+     * @param array $addJsInlineLabels Custom labels to add to JavaScript inline labels
+     * @param array $includeRequireJsModules List of RequireJS modules to be loaded
      * @param string $jQueryNamespace Store the jQuery object in a specific namespace
-     * @param string $pageTitle title tag of the module. Not required by default, as BE modules are shown in a frame
      * @return string
      */
     public function render(
-        $includeCssFiles = null,
-        $includeJsFiles = null,
-        $enableClickMenu = false,
+        $pageTitle = '',
+        $enableClickMenu = true,
         $loadExtJs = false,
-        $loadExtJsTheme = false,
+        $loadExtJsTheme = true,
         $enableExtJsDebug = false,
         $loadJQuery = false,
-        $jQueryNamespace = null,
-        $pageTitle = ''
+        $includeCssFiles = null,
+        $includeJsFiles = null,
+        $addJsInlineLabels = null,
+        $includeRequireJsModules = null,
+        $jQueryNamespace = null
     ) {
         $this->includeCssFiles = $includeCssFiles;
         $this->includeJsFiles = $includeJsFiles;
