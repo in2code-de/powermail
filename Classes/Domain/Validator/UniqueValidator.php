@@ -64,8 +64,8 @@ class UniqueValidator extends AbstractValidator
     protected function getStoragePid()
     {
         $pid = (int) $this->settings['main.']['pid'];
-        if (!empty($this->flexForm['main']['lDEF']['settings.flexform.main.pid']['vDEF'])) {
-            $pid = (int) $this->flexForm['main']['lDEF']['settings.flexform.main.pid']['vDEF'];
+        if (!empty($this->flexForm['settings']['flexform']['main']['pid'])) {
+            $pid = (int) $this->flexForm['settings']['flexform']['main']['pid'];
         }
         if ($pid === 0) {
             $pid = (int) FrontendUtility::getCurrentPageIdentifier();

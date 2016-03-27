@@ -1,8 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Service\FlexFormService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
@@ -97,8 +98,8 @@ class RedirectUriService
     {
         $target = null;
         $flexFormArray = $this->getFlexFormArray();
-        if (!empty($flexFormArray['thx']['lDEF']['settings.flexform.thx.redirect']['vDEF'])) {
-            $target = $flexFormArray['thx']['lDEF']['settings.flexform.thx.redirect']['vDEF'];
+        if (!empty($flexFormArray['settings']['flexform']['thx']['redirect'])) {
+            $target = $flexFormArray['settings']['flexform']['thx']['redirect'];
         }
         return $target;
     }
@@ -128,8 +129,9 @@ class RedirectUriService
      */
     protected function getFlexFormArray()
     {
-        $flexForm = GeneralUtility::xml2array($this->contentObject->data['pi_flexform'], 'data');
-        return !empty($flexForm[0]) ? $flexForm[0] : null;
+        /** @var FlexFormService $flexFormService */
+        $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);
+        return $flexFormService->convertFlexFormContentToArray($this->contentObject->data['pi_flexform']);
     }
 
     /**

@@ -18,6 +18,18 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.25.1
+   :Date:
+      2016-03-26
+   :Changes:
+
+      * Feature _`#75279`: https://forge.typo3.org/issues/75279 Hide message "Do not show this note again for this form"
+      * Feature _`#75250`: https://forge.typo3.org/issues/75250 Powermail 2.25 with PHP 7
+      * Feature _`#75227`: https://forge.typo3.org/issues/75227 Mail Listings: Reduce to one form combined with export does not refresh list
+      * Feature _`#75222`: https://forge.typo3.org/issues/75222 Layout field is not shown on form open in backend
+      * Feature _`#75221`: https://forge.typo3.org/issues/75221 Flexform redirect after submit - does not work anymore with PHP 7 (changed return value of substr)
+
+ - :Version:
       2.25.0
    :Date:
       2016-03-12

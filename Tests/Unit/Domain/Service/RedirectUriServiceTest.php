@@ -78,10 +78,10 @@ class RedirectUriServiceTest extends UnitTestCase
         return [
             '234' => [
                 [
-                    'thx' => [
-                        'lDEF' => [
-                            'settings.flexform.thx.redirect' => [
-                                'vDEF' => '234'
+                    'settings' => [
+                        'flexform' => [
+                            'thx' => [
+                                'redirect' => '234'
                             ]
                         ]
                     ]
@@ -90,10 +90,10 @@ class RedirectUriServiceTest extends UnitTestCase
             ],
             'test.jpg' => [
                 [
-                    'thx' => [
-                        'lDEF' => [
-                            'settings.flexform.thx.redirect' => [
-                                'vDEF' => 'fileadmin/test.jpg'
+                    'settings' => [
+                        'flexform' => [
+                            'thx' => [
+                                'redirect' => 'fileadmin/test.jpg'
                             ]
                         ]
                     ]
