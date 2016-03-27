@@ -315,6 +315,11 @@ function PowermailBackend($) {
 			$(this).closest('form').submit();
 		});
 
+		// Reset on submit
+		$('.searchall_submit').click(function() {
+			$('#forwardToAction').val('list');
+		});
+
 		// Toogle Extended Export
 		$('.extended_export_title').click(function() {
 			var $this = $(this);
