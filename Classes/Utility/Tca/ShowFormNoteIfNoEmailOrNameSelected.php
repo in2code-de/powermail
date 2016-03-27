@@ -93,7 +93,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
         $content .= ((isset($params['row']['note']) && $params['row']['note'] === '1') ? 'checked="checked" ' : '');
         $content .= 'value="1" onclick="document.getElementById' .
             '(\'' . Form::TABLE_NAME . '_note\').value = ((this.checked) ? 1 : 0);" />';
-        $content .= '<input type="hidden" id="' . Form::TABLE_NAME . 's_note" ';
+        $content .= '<input type="hidden" id="' . Form::TABLE_NAME . '_note" ';
         $content .= 'name="data[' . Form::TABLE_NAME . '][' . $params['row']['uid'] . '][note]" ';
         $content .= 'value="' . (!empty($params['row']['note']) ? '1' : '0') . '" />';
         return $content;
