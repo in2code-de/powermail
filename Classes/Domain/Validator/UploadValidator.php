@@ -52,7 +52,7 @@ class UploadValidator extends AbstractValidator
                 }
 
                 foreach ($answer->getValue() as $value) {
-                    if (!BasicFileUtility::checkExtension($value, $this->settings['misc.']['file.']['extension'])) {
+                    if (!BasicFileUtility::checkExtension($value, $this->settings['misc']['file']['extension'])) {
                         $this->setErrorAndMessage($answer->getField(), 'upload_extension');
                         continue;
                     }

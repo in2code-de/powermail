@@ -29,10 +29,10 @@ class UniqueValidator extends AbstractValidator
      */
     public function isValid($mail)
     {
-        if (empty($this->settings['validation.']['unique.'])) {
+        if (empty($this->settings['validation']['unique'])) {
             return $this->isValidState();
         }
-        foreach ($this->settings['validation.']['unique.'] as $marker => $amount) {
+        foreach ($this->settings['validation']['unique'] as $marker => $amount) {
             if ((int) $amount === 0) {
                 continue;
             }
@@ -63,7 +63,7 @@ class UniqueValidator extends AbstractValidator
      */
     protected function getStoragePid()
     {
-        $pid = (int) $this->settings['main.']['pid'];
+        $pid = (int) $this->settings['main']['pid'];
         if (!empty($this->flexForm['settings']['flexform']['main']['pid'])) {
             $pid = (int) $this->flexForm['settings']['flexform']['main']['pid'];
         }

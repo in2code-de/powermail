@@ -84,10 +84,10 @@ class TypoScriptUtility extends AbstractUtility
             'captcha'
         ];
         if (
-            in_array($settings['captcha.']['use'], $allowedExtensions) &&
-            ExtensionManagementUtility::isLoaded($settings['captcha.']['use'])
+            in_array($settings['captcha']['use'], $allowedExtensions) &&
+            ExtensionManagementUtility::isLoaded($settings['captcha']['use'])
         ) {
-            return $settings['captcha.']['use'];
+            return $settings['captcha']['use'];
         }
         return 'default';
     }

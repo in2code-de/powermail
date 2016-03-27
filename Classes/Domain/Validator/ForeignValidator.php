@@ -29,7 +29,7 @@ class ForeignValidator extends AbstractValidator
      */
     public function isValid($mail)
     {
-        foreach ($this->settings['validators.'] as $validatorConf) {
+        foreach ($this->settings['validators'] as $validatorConf) {
             $this->loadFile($validatorConf['require']);
             if (!class_exists($validatorConf['class'])) {
                 throw new \Exception(

@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Service\FlexFormService;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
 
@@ -108,7 +109,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      */
     public function isServerValidationEnabled()
     {
-        return $this->settings['validation.']['server'] === '1';
+        return $this->settings['validation']['server'] === '1';
     }
 
     /**
@@ -122,7 +123,11 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
         $typoScriptSetup = $configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
-        $this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+        /** @var TypoScriptService $typoScriptService */
+        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $this->settings = $typoScriptService->convertTypoScriptArrayToPlainArray(
+            $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.']
+        );
 
         /** @var FlexFormService $flexFormService */
         $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);

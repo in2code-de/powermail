@@ -172,9 +172,9 @@ class InputValidator extends StringValidator
                 default:
                     if ($field->getValidation()) {
                         $validation = $field->getValidation();
-                        if (!empty($this->settings['validation.']['customValidation.'][$validation])) {
+                        if (!empty($this->settings['validation']['customValidation'][$validation])) {
                             $extendedValidator = $this->objectManager->get(
-                                $this->settings['validation.']['customValidation.'][$validation]
+                                $this->settings['validation']['customValidation'][$validation]
                             );
                             if (method_exists($extendedValidator, 'validate' . ucfirst($validation))) {
                                 if (!$extendedValidator->{'validate' . ucfirst($validation)}($value,
