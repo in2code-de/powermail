@@ -5,9 +5,9 @@
 		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
 	</label>
 
-	<div class="{settings.styles.framework.fieldWrappingClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}">
+	<div class="{settings.styles.framework.fieldWrappingClasses}">
 		<f:for each="{field.modifiedSettings}" as="setting" iteration="index">
-			<div class="{settings.styles.framework.radioClasses}">
+			<div class="{settings.styles.framework.radioClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}">
 				<label>
 					<f:form.radio
 							property="{field.marker}"
