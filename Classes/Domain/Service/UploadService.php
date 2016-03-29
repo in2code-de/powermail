@@ -64,20 +64,29 @@ class UploadService implements SingletonInterface
     public function preflight(array $settings)
     {
         $this->settings = $settings;
-        $this->fillFiles();
+        $this->fillFilesFromFilesArray();
         $this->makeUniqueFilenames();
     }
 
     /**
      * Upload all files to upload folder
      *
-     * @return void
+     * @return bool true if files where uploaded correctly
      */
     public function uploadAllFiles()
     {
+        $result = false;
         foreach ($this->getFiles() as $file) {
-            \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($file, 'in2code: ' . __CLASS__ . ':' . __LINE__);die('hard');
+            if ($this->checkExtension($file, $this->getAllowedExtensions())) {
+                if (GeneralUtility::upload_copy_move($file->getTemporaryName(), $file->getNewPathAndFilename())) {
+                    $file->setUploaded(true);
+                    $result = true;
+                } else {
+                    return false;
+                }
+            }
         }
+        return $result;
     }
 
     /**
@@ -116,11 +125,35 @@ class UploadService implements SingletonInterface
     }
 
     /**
+     * Get all new filenames by given marker (to show filenames on confirmation page again, etc...)
+     * If empty, use values from arguments
+     *
+     * @param string $marker
+     * @return array
+     */
+    public function getNewFileNamesByMarker($marker)
+    {
+        $newFileNames = [];
+        foreach ($this->getFiles() as $file) {
+            if ($file->getMarker() === $marker) {
+                $newFileNames[] = $file->getNewName();
+            }
+        }
+        if (empty($newFileNames)) {
+            $arguments = GeneralUtility::_GP('tx_powermail_pi1');
+            if (!empty($arguments['field'][$marker])) {
+                $newFileNames = $arguments['field'][$marker];
+            }
+        }
+        return $newFileNames;
+    }
+
+    /**
      * Prepares files from $_FILES array to $this->files
      *
      * @return void
      */
-    protected function fillFiles()
+    protected function fillFilesFromFilesArray()
     {
         $filesArray = ObjectUtility::getFilesArray();
         foreach ((array)$filesArray['tx_powermail_pi1']['name']['field'] as $marker => $files) {
@@ -147,25 +180,46 @@ class UploadService implements SingletonInterface
     }
 
     /**
-     * Create new filenames if needed
+     * Check if given filenames are unique and does not exist in target folder
+     * Rename filenames if needed
      *
      * @return void
      */
     protected function makeUniqueFilenames()
     {
         foreach ($this->getFiles() as $file) {
-            if ($this->shouldBeRandomizedFilename($file)) {
+            $fileName = $file->getNewName();
+            if ($this->isRandomizeFileNameConfigured()) {
                 $fileName = $this->randomizeFileName($file->getNewName());
                 $file->setNewName($fileName);
-            } else {
-                $fileName = $file->getNewName();
             }
-            if ($this->fileExistsInUploadFolder($file)) {
-                $fileName = $this->randomizeFileName($file->getNewName());
+            for ($i = 1; $this->isNotUniqueFilename($file); $i++) {
+                $fileName = $this->makeNewFilenameWithAppendix($file->getNewName(), $i);
                 $file->setNewName($fileName);
             }
             $this->fileNames[] = $fileName;
         }
+    }
+
+    /**
+     * Create a new filename with an appendix up to _99 than randomize
+     *
+     *  image.png => image_01.png
+     *
+     * @param string $filename
+     * @param int $iteration
+     * @return string
+     */
+    protected function makeNewFilenameWithAppendix($filename, $iteration)
+    {
+        if ($iteration >= 100) {
+            return $this->randomizeFileName($filename);
+        }
+        $fileInfo = GeneralUtility::split_fileref($filename);
+        $filebody = $this->removeAppendingNumbersInString($fileInfo['filebody']);
+        $appendix = '_' . sprintf('%02d', $iteration);
+        $filename = $filebody . $appendix . '.' . $fileInfo['fileext'];
+        return $filename;
     }
 
     /**
@@ -184,7 +238,7 @@ class UploadService implements SingletonInterface
     protected function randomizeFileName($filename)
     {
         $fileInfo = pathinfo($filename);
-        return StringUtility::getRandomString(8) . '.' . $fileInfo['extension'];
+        return StringUtility::getRandomString(32, false) . '.' . $fileInfo['extension'];
     }
 
     /**
@@ -230,15 +284,36 @@ class UploadService implements SingletonInterface
     }
 
     /**
-     * If filenames should be randomized generally
-     * or if this filename was used before
-     * or if there is a file with this name in the upload folder
+     * @return string
+     */
+    protected function getAllowedExtensions()
+    {
+        return $this->settings['misc']['file']['extension'];
+    }
+
+    /**
+     * Remove appending numbers in filename strings
+     *        image_01 => image
+     *        image_01_02 => image_01
+     *
+     * @param $string
+     * @return mixed
+     */
+    protected function removeAppendingNumbersInString($string)
+    {
+        return preg_replace('~_\d+$~', '', $string);
+    }
+
+    /**
+     * Check if this filename is not unique - could happen if
+     * - This filename was used before
+     * - Or if there is a file with this name in the target upload folder
      *
      * @param File $file
      * @return bool
      */
-    protected function shouldBeRandomizedFilename(File $file)
+    protected function isNotUniqueFilename(File $file)
     {
-        return $this->isRandomizeFileNameConfigured() || in_array($file->getNewName(), $this->fileNames);
+        return in_array($file->getNewName(), $this->fileNames) || $this->fileExistsInUploadFolder($file);
     }
 }

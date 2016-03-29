@@ -137,7 +137,6 @@ abstract class AbstractController extends ActionController
     protected function reformatParamsForAction()
     {
         $this->uploadService->preflight($this->settings);
-//        BasicFileUtility::rewriteFilesArrayToPreventDuplicatFilenames();
         $arguments = $this->request->getArguments();
         if (!isset($arguments['field'])) {
             return;
@@ -148,24 +147,24 @@ abstract class AbstractController extends ActionController
 
         // allow subvalues in new property mapper
         $mailMvcArgument = $this->arguments->getArgument('mail');
-        $propertyMappingConfiguration = $mailMvcArgument->getPropertyMappingConfiguration();
-        $propertyMappingConfiguration->allowProperties('answers');
-        $propertyMappingConfiguration->allowCreationForSubProperty('answers');
-        $propertyMappingConfiguration->allowModificationForSubProperty('answers');
-        $propertyMappingConfiguration->allowProperties('form');
-        $propertyMappingConfiguration->allowCreationForSubProperty('form');
-        $propertyMappingConfiguration->allowModificationForSubProperty('form');
+        $propertyMapping = $mailMvcArgument->getPropertyMappingConfiguration();
+        $propertyMapping->allowProperties('answers');
+        $propertyMapping->allowCreationForSubProperty('answers');
+        $propertyMapping->allowModificationForSubProperty('answers');
+        $propertyMapping->allowProperties('form');
+        $propertyMapping->allowCreationForSubProperty('form');
+        $propertyMapping->allowModificationForSubProperty('form');
 
         // allow creation of new objects (for validation)
-        $propertyMappingConfiguration->setTypeConverterOptions(
-            'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\PersistentObjectConverter',
+        $propertyMapping->setTypeConverterOptions(
+            PersistentObjectConverter::class,
             [
                 PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED => true,
                 PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED => true
             ]
         );
 
-        $i = 0;
+        $iteration = 0;
         foreach ((array) $arguments['field'] as $marker => $value) {
             // ignore internal fields (honeypod)
             if (substr($marker, 0, 2) === '__') {
@@ -178,10 +177,10 @@ abstract class AbstractController extends ActionController
             }
 
             // allow subvalues in new property mapper
-            $propertyMappingConfiguration->forProperty('answers')->allowProperties($i);
-            $propertyMappingConfiguration->forProperty('answers.' . $i)->allowAllProperties();
-            $propertyMappingConfiguration->allowCreationForSubProperty('answers.' . $i);
-            $propertyMappingConfiguration->allowModificationForSubProperty('answers.' . $i);
+            $propertyMapping->forProperty('answers')->allowProperties($iteration);
+            $propertyMapping->forProperty('answers.' . $iteration)->allowAllProperties();
+            $propertyMapping->allowCreationForSubProperty('answers.' . $iteration);
+            $propertyMapping->allowModificationForSubProperty('answers.' . $iteration);
 
             /** @var Field $field */
             $field = $this->fieldRepository->findByUid($fieldUid);
@@ -189,7 +188,7 @@ abstract class AbstractController extends ActionController
                 $this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
             );
             if ($valueType === 3 && is_array($value)) {
-//                $value = BasicFileUtility::getUniqueNamesForFileUploads($value, $this->settings, false);
+                $value = $this->uploadService->getNewFileNamesByMarker($marker);
             }
             if (is_array($value)) {
                 if (empty($value)) {
@@ -198,7 +197,7 @@ abstract class AbstractController extends ActionController
                     $value = json_encode($value);
                 }
             }
-            $newArguments['mail']['answers'][$i] = [
+            $newArguments['mail']['answers'][$iteration] = [
                 'field' => strval($fieldUid),
                 'value' => $value,
                 'valueType' => $valueType
@@ -208,10 +207,10 @@ abstract class AbstractController extends ActionController
             if (!empty($arguments['field']['__identity'])) {
                 $answer = $this->answerRepository->findByFieldAndMail($fieldUid, $arguments['field']['__identity']);
                 if ($answer !== null) {
-                    $newArguments['mail']['answers'][$i]['__identity'] = $answer->getUid();
+                    $newArguments['mail']['answers'][$iteration]['__identity'] = $answer->getUid();
                 }
             }
-            $i++;
+            $iteration++;
         }
 
         // edit form: add mail id

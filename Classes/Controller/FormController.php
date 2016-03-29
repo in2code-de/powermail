@@ -115,11 +115,6 @@ class FormController extends AbstractController
     {
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $this->uploadService->uploadAllFiles();
-//        BasicFileUtility::fileUpload(
-//            $this->settings['misc']['file']['folder'],
-//            $mail,
-//            $this->settings['misc']['file']['extension']
-//        );
         SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
         if ($this->isMailPersistActive($hash)) {
             $this->saveMail($mail);
@@ -179,11 +174,6 @@ class FormController extends AbstractController
     public function confirmationAction(Mail $mail)
     {
         $this->uploadService->uploadAllFiles();
-//        BasicFileUtility::fileUpload(
-//            $this->settings['misc']['file']['folder'],
-//            $mail,
-//            $this->settings['misc']['file']['extension']
-//        );
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
         $this->prepareOutput($mail);
     }
