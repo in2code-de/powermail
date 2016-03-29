@@ -4,6 +4,7 @@ namespace In2code\Powermail\Utility;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
@@ -245,18 +246,22 @@ class SessionUtility extends AbstractUtility
     }
 
     /**
-     * Check if spamshield and sessioncheck is enabled
+     * Check if spamshield is turned on generally
+     * and if ther is a sessioncheck agains spamshield enabled
      *
      * @param array $settings
      * @return bool
      */
     protected static function sessionCheckEnabled(array $settings)
     {
-        $settings = GeneralUtility::removeDotsFromTS($settings);
-        if (!empty($settings['spamshield']['_enable']) && !empty($settings['spamshield']['indicator']['session'])) {
-            return true;
+        $sessionActivated = false;
+        foreach ((array)$settings['spamshield']['methods'] as $method) {
+            if ($method['class'] === HoneyPodMethod::class && $method['_enable'] === '1') {
+                $sessionActivated = true;
+                break;
+            }
         }
-        return false;
+        return !empty($settings['spamshield']['_enable']) && $sessionActivated;
     }
 
     /**

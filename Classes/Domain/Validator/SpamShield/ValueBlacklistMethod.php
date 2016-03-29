@@ -19,24 +19,21 @@ class ValueBlacklistMethod extends AbstractMethod
     /**
      * Blacklist String Check: Check if a blacklisted word is in given values
      *
-     * @param int $indication Indication if check fails
-     * @return int
+     * @return bool true if spam recognized
      */
-    public function spamCheck($indication = 3)
+    public function spamCheck()
     {
-        if ($indication) {
-            foreach ($this->mail->getAnswers() as $answer) {
-                if (is_array($answer->getValue())) {
-                    continue;
-                }
-                foreach ($this->getValues() as $blackword) {
-                    if ($this->findStringInString($answer->getValue(), $blackword)) {
-                        return $indication;
-                    }
+        foreach ($this->mail->getAnswers() as $answer) {
+            if (is_array($answer->getValue())) {
+                continue;
+            }
+            foreach ($this->getValues() as $blackword) {
+                if ($this->findStringInString($answer->getValue(), $blackword)) {
+                    return true;
                 }
             }
         }
-        return 0;
+        return false;
     }
 
     /**

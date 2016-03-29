@@ -13,21 +13,15 @@ class SessionMethod extends AbstractMethod
     /**
      * Session Check: Checks if session was started correct on form delivery
      *
-     * @param int $indication Indication if check fails
-     * @return int
+     * @return bool true if spam recognized
      */
-    public function spamCheck($indication = 3)
+    public function spamCheck()
     {
-        if ($indication) {
-            $timeFromSession = SessionUtility::getFormStartFromSession(
-                $this->mail->getForm()->getUid(),
-                $this->settings
-            );
-            $referrer = $this->arguments['__referrer']['@action'];
-            if ($referrer !== 'optinConfirm' && empty($timeFromSession)) {
-                return $indication;
-            }
-        }
-        return 0;
+        $timeFromSession = SessionUtility::getFormStartFromSession(
+            $this->mail->getForm()->getUid(),
+            $this->settings
+        );
+        $referrer = $this->arguments['__referrer']['@action'];
+        return $referrer !== 'optinConfirm' && empty($timeFromSession);
     }
 }

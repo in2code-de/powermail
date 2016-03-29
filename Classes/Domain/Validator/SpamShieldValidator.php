@@ -123,9 +123,8 @@ class SpamShieldValidator extends AbstractValidator
                 );
                 $methodInstance->initialize();
                 $methodInstance->initializeSpamCheck();
-                $result = $methodInstance->spamCheck($method['indication']);
-                if ($result > 0) {
-                    $this->increaseSpamIndicator($result);
+                if ((int)$method['indication'] > 0 && $methodInstance->spamCheck()) {
+                    $this->increaseSpamIndicator((int)$method['indication']);
                     $this->addMessage($method['name'] . ' failed');
                 }
             } else {

@@ -11,22 +11,16 @@ class UniqueMethod extends AbstractMethod
     /**
      * Unique Check: Checks if values in given params are different
      *
-     * @param int $indication Indication if check fails
-     * @return int
+     * @return bool true if spam recognized
      */
-    public function spamCheck($indication = 3)
+    public function spamCheck()
     {
-        if ($indication) {
-            $answers = [];
-            foreach ($this->mail->getAnswers() as $answer) {
-                if (!is_array($answer->getValue()) && $answer->getValue()) {
-                    $answers[] = $answer->getValue();
-                }
-            }
-            if (count($answers) !== count(array_unique($answers))) {
-                return $indication;
+        $answers = [];
+        foreach ($this->mail->getAnswers() as $answer) {
+            if (!is_array($answer->getValue()) && $answer->getValue()) {
+                $answers[] = $answer->getValue();
             }
         }
-        return 0;
+        return count($answers) !== count(array_unique($answers));
     }
 }

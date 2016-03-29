@@ -11,14 +11,10 @@ class HoneyPodMethod extends AbstractMethod
     /**
      * Honeypod Check: Spam recognized if Honeypod field is filled
      *
-     * @param int $indication Indication if check fails
-     * @return int
+     * @return bool true if spam recognized
      */
-    public function spamCheck($indication = 3)
+    public function spamCheck()
     {
-        if ($indication && !empty($this->arguments['field']['__hp'])) {
-            return $indication;
-        }
-        return 0;
+        return !empty($this->arguments['field']['__hp']);
     }
 }

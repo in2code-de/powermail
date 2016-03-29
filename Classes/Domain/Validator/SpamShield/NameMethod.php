@@ -11,43 +11,35 @@ class NameMethod extends AbstractMethod
     /**
      * Name Check: Compares first- and lastname (shouldn't be the same)
      *
-     * @param int $indication Indication if check fails
-     * @return int
+     * @return bool true if spam recognized
      */
-    public function spamCheck($indication = 3)
+    public function spamCheck()
     {
-        if ($indication) {
-            $firstname = $lastname = '';
-            $keysFirstName = [
-                'first_name',
-                'firstname',
-                'vorname'
-            ];
-            $keysLastName = [
-                'last_name',
-                'lastname',
-                'sur_name',
-                'surname',
-                'nachname',
-                'name'
-            ];
-
-            foreach ($this->mail->getAnswers() as $answer) {
-                if (is_array($answer->getValue())) {
-                    continue;
-                }
-                if (in_array($answer->getField()->getMarker(), $keysFirstName)) {
-                    $firstname = $answer->getValue();
-                }
-                if (in_array($answer->getField()->getMarker(), $keysLastName)) {
-                    $lastname = $answer->getValue();
-                }
+        $firstname = $lastname = '';
+        $keysFirstName = [
+            'first_name',
+            'firstname',
+            'vorname'
+        ];
+        $keysLastName = [
+            'last_name',
+            'lastname',
+            'sur_name',
+            'surname',
+            'nachname',
+            'name'
+        ];
+        foreach ($this->mail->getAnswers() as $answer) {
+            if (is_array($answer->getValue())) {
+                continue;
             }
-
-            if (!empty($firstname) && $firstname === $lastname) {
-                return $indication;
+            if (in_array($answer->getField()->getMarker(), $keysFirstName)) {
+                $firstname = $answer->getValue();
+            }
+            if (in_array($answer->getField()->getMarker(), $keysLastName)) {
+                $lastname = $answer->getValue();
             }
         }
-        return 0;
+        return !empty($firstname) && $firstname === $lastname;
     }
 }

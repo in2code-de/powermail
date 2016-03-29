@@ -59,13 +59,12 @@ abstract class AbstractMethod implements MethodInterface
     }
 
     /**
-     * Example spamcheck
+     * Example spamcheck, return true if spam recocnized
      *
-     * @param int $float
-     * @return int
+     * @return bool
      */
-    public function spamCheck($float = 0)
+    public function spamCheck()
     {
-        return $float;
+        return false;
     }
 }

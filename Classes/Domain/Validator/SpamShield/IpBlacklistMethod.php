@@ -19,17 +19,11 @@ class IpBlacklistMethod extends AbstractMethod
     /**
      * Blacklist IP-Address Check: Check if Senders IP is blacklisted
      *
-     * @param int $indication Indication if check fails
-     * @return int
+     * @return bool true if spam recognized
      */
-    public function spamCheck($indication = 3)
+    public function spamCheck()
     {
-        if ($indication) {
-            if (in_array(GeneralUtility::getIndpEnv('REMOTE_ADDR'), $this->getValues())) {
-                return $indication;
-            }
-        }
-        return 0;
+        return in_array(GeneralUtility::getIndpEnv('REMOTE_ADDR'), $this->getValues());
     }
 
     /**

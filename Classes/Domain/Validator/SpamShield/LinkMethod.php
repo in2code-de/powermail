@@ -11,27 +11,20 @@ class LinkMethod extends AbstractMethod
     /**
      * Link Check: Counts numbers of links in message
      *
-     * @param int $indication Indication if check fails
-     * @return int
+     * @return bool true if spam recognized
      */
-    public function spamCheck($indication = 3)
+    public function spamCheck()
     {
-        if ($indication) {
-            $linkAmount = 0;
-            foreach ($this->mail->getAnswers() as $answer) {
-                if (is_array($answer->getValue())) {
-                    continue;
-                }
-                preg_match_all('@http://|https://|ftp://@', $answer->getValue(), $result);
-                if (isset($result[0])) {
-                    $linkAmount += count($result[0]);
-                }
+        $linkAmount = 0;
+        foreach ($this->mail->getAnswers() as $answer) {
+            if (is_array($answer->getValue())) {
+                continue;
             }
-
-            if ($linkAmount > $this->configuration['linkLimit']) {
-                return $indication;
+            preg_match_all('@http://|https://|ftp://@', $answer->getValue(), $result);
+            if (isset($result[0])) {
+                $linkAmount += count($result[0]);
             }
         }
-        return 0;
+        return $linkAmount > (int)$this->configuration['linkLimit'];
     }
 }

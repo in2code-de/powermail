@@ -28,8 +28,7 @@ interface MethodInterface
     public function initializeSpamCheck();
 
     /**
-     * @param int $int
-     * @return int
+     * @return bool
      */
-    public function spamCheck($int);
+    public function spamCheck();
 }
