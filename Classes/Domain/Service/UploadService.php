@@ -139,9 +139,13 @@ class UploadService implements SingletonInterface
                 $newFileNames[] = $file->getNewName();
             }
         }
+
+        /**
+         * Special case, if filename given instead of upload (after confirmation page e.g.)
+         */
         if (empty($newFileNames)) {
             $arguments = GeneralUtility::_GP('tx_powermail_pi1');
-            if (!empty($arguments['field'][$marker])) {
+            if (!empty($arguments['field'][$marker][0])) {
                 $newFileNames = $arguments['field'][$marker];
             }
         }
@@ -205,6 +209,7 @@ class UploadService implements SingletonInterface
      * Create a new filename with an appendix up to _99 than randomize
      *
      *  image.png => image_01.png
+     *  image_01.png => image_02.png
      *
      * @param string $filename
      * @param int $iteration
