@@ -69,4 +69,12 @@ class ObjectUtility extends AbstractUtility
     {
         return parent::getContentObject();
     }
+
+    /**
+     * @return array
+     */
+    public static function getFilesArray()
+    {
+        return parent::getFilesArray();
+    }
 }

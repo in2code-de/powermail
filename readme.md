@@ -19,5 +19,5 @@ Roadmap for 3.0:
 - DataProcessor
 - Upload Refactoring
 - ok Remove form converter
-- Spamshield refactoring with own spam prevention methods
+- ok Spamshield refactoring with own spam prevention methods
 - Some code cleanup

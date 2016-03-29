@@ -167,4 +167,19 @@ class StringUtility
         $length = mb_strlen($string, 'utf-8');
         return $length;
     }
+
+    /**
+     * Only allowed a-z, A-Z, 0-9, -, .
+     * Others will be replaced
+     *
+     * @param string $filename
+     * @param string $replace
+     * @return string
+     */
+    public static function cleanFileName($filename, $replace = '_')
+    {
+        $filename = strtolower(trim($filename));
+        $filename = preg_replace('~[^a-z0-9-\.]~', $replace, $filename);
+        return $filename;
+    }
 }

@@ -91,6 +91,12 @@ abstract class AbstractController extends ActionController
     protected $persistenceManager;
 
     /**
+     * @var \In2code\Powermail\Domain\Service\UploadService
+     * @inject
+     */
+    protected $uploadService;
+
+    /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
      */
     protected $contentObject;
@@ -130,7 +136,8 @@ abstract class AbstractController extends ActionController
      */
     protected function reformatParamsForAction()
     {
-        BasicFileUtility::rewriteFilesArrayToPreventDuplicatFilenames();
+        $this->uploadService->preflight($this->settings);
+//        BasicFileUtility::rewriteFilesArrayToPreventDuplicatFilenames();
         $arguments = $this->request->getArguments();
         if (!isset($arguments['field'])) {
             return;
@@ -182,7 +189,7 @@ abstract class AbstractController extends ActionController
                 $this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
             );
             if ($valueType === 3 && is_array($value)) {
-                $value = BasicFileUtility::getUniqueNamesForFileUploads($value, $this->settings, false);
+//                $value = BasicFileUtility::getUniqueNamesForFileUploads($value, $this->settings, false);
             }
             if (is_array($value)) {
                 if (empty($value)) {

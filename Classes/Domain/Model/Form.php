@@ -147,4 +147,22 @@ class Form extends AbstractEntity
     {
         $this->pages = $pages;
     }
+
+    /**
+     * Check if this form has an upload field
+     *
+     * @return bool
+     */
+    public function hasUploadField()
+    {
+        foreach ($this->getPages() as $page) {
+            /** @var Field $field */
+            foreach ($page->getFields() as $field) {
+                if ($field->getType() === 'file') {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
