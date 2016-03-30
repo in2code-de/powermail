@@ -183,6 +183,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
      * Initialize some variables
      *
      * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function initialize()
     {

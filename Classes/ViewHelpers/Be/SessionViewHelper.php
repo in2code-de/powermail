@@ -26,6 +26,7 @@ class SessionViewHelper extends AbstractViewHelper
      * Check FE Session
      *
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function render()
     {

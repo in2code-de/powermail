@@ -407,6 +407,7 @@ class ShowFormNoteEditForm
      *
      * @param array $params
      * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function initialize($params)
     {

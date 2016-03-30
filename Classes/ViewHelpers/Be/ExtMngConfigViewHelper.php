@@ -16,6 +16,7 @@ class ExtMngConfigViewHelper extends AbstractViewHelper
      * Check if Extension Manager Settings are available
      *
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function render()
     {

@@ -295,6 +295,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * Get value from current logged in Frontend User
      *
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function getFromFrontendUser()
     {

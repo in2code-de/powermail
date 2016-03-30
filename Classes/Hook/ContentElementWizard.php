@@ -73,6 +73,7 @@ class ContentElementWizard
      * Initialize
      *
      * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function initialize()
     {

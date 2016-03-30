@@ -68,6 +68,7 @@ class MarketingEid
      * Initialize Extbase
      *
      * @param array $TYPO3_CONF_VARS The global array. Will be set internally
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function __construct($TYPO3_CONF_VARS)
     {

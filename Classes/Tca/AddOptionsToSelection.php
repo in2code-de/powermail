@@ -200,6 +200,7 @@ class AddOptionsToSelection
      * @param string $type "type", "validation", "feUserProperty"
      * @param array $params
      * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function initialize($type, &$params)
     {

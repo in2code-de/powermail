@@ -44,6 +44,7 @@ abstract class AbstractUtility
 
     /**
      * @return BackendUserAuthentication
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected static function getBackendUserAuthentication()
     {
@@ -52,6 +53,7 @@ abstract class AbstractUtility
 
     /**
      * @return TypoScriptFrontendController
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected static function getTyposcriptFrontendController()
     {
@@ -60,6 +62,7 @@ abstract class AbstractUtility
 
     /**
      * @return DatabaseConnection
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected static function getDatabaseConnection()
     {
@@ -68,6 +71,7 @@ abstract class AbstractUtility
 
     /**
      * @return array
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected static function getFilesArray()
     {
@@ -89,6 +93,7 @@ abstract class AbstractUtility
      * Get extension configuration from LocalConfiguration.php
      *
      * @return array
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected static function getTypo3ConfigurationVariables()
     {
@@ -100,6 +105,7 @@ abstract class AbstractUtility
      *
      * @return string
      * @throws \Exception
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected static function getEncryptionKey()
     {
