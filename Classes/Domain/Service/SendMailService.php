@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
@@ -291,23 +292,12 @@ class SendMailService
      */
     protected function addAttachmentsFromUploads(MailMessage $message)
     {
-        if (empty($this->settings[$this->type]['attachment']) || empty($this->settings['misc']['file']['folder'])) {
-            return $message;
-        }
-
-        /** @var Answer $answer */
-        foreach ($this->mail->getAnswers() as $answer) {
-            $values = $answer->getValue();
-            if ($answer->getValueType() === 3 && is_array($values) && !empty($values)) {
-                foreach ($values as $value) {
-                    $file = GeneralUtility::getFileAbsFileName(
-                        BasicFileUtility::addTrailingSlash($this->settings['misc']['file']['folder']) . $value
-                    );
-                    if (file_exists($file)) {
-                        $message->attach(\Swift_Attachment::fromPath($file));
-                    } else {
-                        GeneralUtility::devLog('Error: File to attach does not exist', 'powermail', 2, $file);
-                    }
+        if (!empty($this->settings[$this->type]['attachment']) && !empty($this->settings['misc']['file']['folder'])) {
+            /** @var UploadService $uploadService */
+            $uploadService = ObjectUtility::getObjectManager()->get(UploadService::class);
+            foreach ($uploadService->getFiles() as $file) {
+                if ($file->isUploaded() && $file->isValid() && $file->isFileExisting()) {
+                    $message->attach(\Swift_Attachment::fromPath($file->getNewPathAndFilename(true)));
                 }
             }
         }

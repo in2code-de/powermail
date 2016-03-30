@@ -7,7 +7,7 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from maxcdn.bootstrapcdn.com
 				addBootstrapFromCdn = 0
 
-				# cat=powermail_styles//0000; type=boolean; label= Define bath and version of bootstrap.min.css from maxcdn.bootstrapcdn.com
+				# cat=powermail_styles//0010; type=boolean; label= Define bath and version of bootstrap.min.css from maxcdn.bootstrapcdn.com
 				bootstrapCdnUri = https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
 
 

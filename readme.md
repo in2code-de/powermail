@@ -17,7 +17,7 @@ Roadmap for 3.0:
 - ok PluginInformation refactoring
 - ok Remove outdated parts of code (PHP, Templates)
 - DataProcessor
-- Upload Refactoring
+- ok Upload Refactoring
 - ok Remove form converter
 - ok Spamshield refactoring with own spam prevention methods
 - Some code cleanup

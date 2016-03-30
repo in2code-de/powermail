@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\File;
+use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -65,6 +66,7 @@ class UploadService implements SingletonInterface
     {
         $this->settings = $settings;
         $this->fillFilesFromFilesArray();
+        $this->fillFilesFromHiddenFields();
         $this->makeUniqueFilenames();
     }
 
@@ -77,12 +79,14 @@ class UploadService implements SingletonInterface
     {
         $result = false;
         foreach ($this->getFiles() as $file) {
-            if ($this->checkExtension($file, $this->getAllowedExtensions())) {
-                if (GeneralUtility::upload_copy_move($file->getTemporaryName(), $file->getNewPathAndFilename())) {
-                    $file->setUploaded(true);
-                    $result = true;
-                } else {
-                    return false;
+            if (!$file->isUploaded() && $file->isValid()) {
+                if ($this->checkExtension($file, $this->getAllowedExtensions())) {
+                    if (GeneralUtility::upload_copy_move($file->getTemporaryName(), $file->getNewPathAndFilename())) {
+                        $file->setUploaded(true);
+                        $result = true;
+                    } else {
+                        return false;
+                    }
                 }
             }
         }
@@ -139,21 +143,12 @@ class UploadService implements SingletonInterface
                 $newFileNames[] = $file->getNewName();
             }
         }
-
-        /**
-         * Special case, if filename given instead of upload (after confirmation page e.g.)
-         */
-        if (empty($newFileNames)) {
-            $arguments = GeneralUtility::_GP('tx_powermail_pi1');
-            if (!empty($arguments['field'][$marker][0])) {
-                $newFileNames = $arguments['field'][$marker];
-            }
-        }
         return $newFileNames;
     }
 
     /**
      * Prepares files from $_FILES array to $this->files
+     * This will be used by the first submit (before confirmation page will be submitted)
      *
      * @return void
      */
@@ -184,6 +179,42 @@ class UploadService implements SingletonInterface
     }
 
     /**
+     * Fill files from hidden field values to $this->files
+     * This will happen, if a confirmation page is in use and file values are no more stored in $_FILES
+     *
+     * @return void
+     */
+    protected function fillFilesFromHiddenFields()
+    {
+        if ($this->getFiles() === []) {
+            $arguments = $this->getArguments();
+            /** @var FieldRepository $fieldRepository */
+            $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+            foreach ((array)$arguments['field'] as $marker => $values) {
+                $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
+                if ($field !== null && $field->getType() === 'file' && !empty($values)) {
+                    foreach ((array)$values as $value) {
+                        /** @var File $file */
+                        $file = ObjectUtility::getObjectManager()->get(
+                            File::class,
+                            $marker,
+                            $value,
+                            null,
+                            null,
+                            null,
+                            $this->getUploadFolder(),
+                            true
+                        );
+                        if ($file->validFile()) {
+                            $this->addFile($file);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Check if given filenames are unique and does not exist in target folder
      * Rename filenames if needed
      *
@@ -192,16 +223,18 @@ class UploadService implements SingletonInterface
     protected function makeUniqueFilenames()
     {
         foreach ($this->getFiles() as $file) {
-            $fileName = $file->getNewName();
-            if ($this->isRandomizeFileNameConfigured()) {
-                $fileName = $this->randomizeFileName($file->getNewName());
-                $file->setNewName($fileName);
+            if (!$file->isUploaded()) {
+                $fileName = $file->getNewName();
+                if ($this->isRandomizeFileNameConfigured()) {
+                    $fileName = $this->randomizeFileName($file->getNewName());
+                    $file->setNewName($fileName);
+                }
+                for ($i = 1; $this->isNotUniqueFilename($file); $i++) {
+                    $fileName = $this->makeNewFilenameWithAppendix($file->getNewName(), $i);
+                    $file->setNewName($fileName);
+                }
+                $this->fileNames[] = $fileName;
             }
-            for ($i = 1; $this->isNotUniqueFilename($file); $i++) {
-                $fileName = $this->makeNewFilenameWithAppendix($file->getNewName(), $i);
-                $file->setNewName($fileName);
-            }
-            $this->fileNames[] = $fileName;
         }
     }
 
@@ -294,6 +327,14 @@ class UploadService implements SingletonInterface
     protected function getAllowedExtensions()
     {
         return $this->settings['misc']['file']['extension'];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return (array)GeneralUtility::_GP('tx_powermail_pi1');
     }
 
     /**

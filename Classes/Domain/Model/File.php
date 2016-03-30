@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -57,9 +58,9 @@ class File
     /**
      * Temporary uploaded name
      *
-     * @var string
+     * @var string|null
      */
-    protected $temporaryName = '';
+    protected $temporaryName = null;
 
     /**
      * New, cleaned and unique filename
@@ -124,18 +125,26 @@ class File
      * @param string $type
      * @param string $temporaryName
      * @param string $uploadFolder
+     * @param bool $uploaded
      */
-    public function __construct($marker, $originalName, $size, $type, $temporaryName, $uploadFolder)
+    public function __construct($marker, $originalName, $size, $type, $temporaryName, $uploadFolder, $uploaded = false)
     {
         $arguments = GeneralUtility::_GP('tx_powermail_pi1');
 
         $this->setMarker($marker);
         $this->setOriginalName($originalName);
-        $this->setSize($size);
-        $this->setType($type);
         $this->setTemporaryName($temporaryName);
         $this->newName = StringUtility::cleanFileName($originalName);
         $this->uploadFolder = $uploadFolder;
+        if ($size === null) {
+            $size = filesize($this->getNewPathAndFilename(true));
+        }
+        $this->setSize($size);
+        if ($type === null) {
+            $type = mime_content_type($this->getNewPathAndFilename(true));
+        }
+        $this->setType($type);
+        $this->setUploaded($uploaded);
 
         /** @var FieldRepository $fieldRepository */
         $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
@@ -270,6 +279,24 @@ class File
     }
 
     /**
+     * @return string
+     */
+    public function getUploadFolder()
+    {
+        return $this->uploadFolder;
+    }
+
+    /**
+     * @param string $uploadFolder
+     * @return File
+     */
+    public function setUploadFolder($uploadFolder)
+    {
+        $this->uploadFolder = BasicFileUtility::addTrailingSlash($uploadFolder);
+        return $this;
+    }
+
+    /**
      * @return boolean
      */
     public function isUploaded()
@@ -332,12 +359,22 @@ class File
     }
 
     /**
+     * Check if file is existing on the server
+     *
+     * @return bool
+     */
+    public function isFileExisting()
+    {
+        return $this->isUploaded() && file_exists($this->getNewPathAndFilename(true));
+    }
+
+    /**
      * @param bool $absolute
      * @return string
      */
     public function getNewPathAndFilename($absolute = false)
     {
-        $pathAndFilename = $this->uploadFolder . $this->getNewName();
+        $pathAndFilename = $this->getUploadFolder() . $this->getNewName();
         if ($absolute) {
             $pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
         }
