@@ -1,130 +1,6 @@
 .tx-powermail {
   .powermail_fieldset {
 
-  //  clear: left;
-  //  border: 1px solid $greySoft2;
-  //  padding: 10px;
-  //  margin: 0 0 20px 0;
-  //  background: $greySoft1;
-  //
-  //  .powermail_legend {
-  //    color: $greySoft2;
-  //    float: right;
-  //    margin: 3px 0 10px 0;
-  //    font-size: 200%;
-  //    white-space: normal;
-  //  }
-  //
-  //  .powermail_label {
-  //    display: block;
-  //    width: $widthLabel;
-  //    float: left;
-  //    clear: left;
-  //    font-weight: bold;
-  //
-  //    &[title] {
-  //      cursor: help;
-  //
-  //      &:after {
-  //        content: 'i';
-  //        display: inline-block;
-  //        border-radius: 100px;
-  //        height: 16px;
-  //        width: 16px;
-  //        background-color: $greySoft3;
-  //        margin: 0 0 0 2px;
-  //        font-size: 14px;
-  //        line-height: 16px;
-  //        text-align: center;
-  //        color: white;
-  //        font-family: arial;
-  //        font-weight: bold;
-  //      }
-  //
-  //      &[title=""] {
-  //        cursor: inherit;
-  //        &:after {
-  //          display: none;
-  //        }
-  //      }
-  //    }
-  //  }
-  //
-  //  .powermail_fieldwrap {
-  //    margin: 0 0 0.5em 0;
-  //    clear: both;
-  //    overflow: hidden;
-  //  }
-  //
-  //  /* Powermail Fields */
-  //  .powermail_field {
-  //    width: $widthField;
-  //    padding: 5px;
-  //    margin: 0;
-  //    border: 1px solid $greySoft2;
-  //    color: #444;
-  //    float: right;
-  //    font-size: inherit;
-  //
-  //    &.powermail_submit,
-  //    &.powermail_reset {
-  //      margin: 5px 0 0 0;
-  //      padding: 5px 20px;
-  //      color: white;
-  //      font-weight: bold;
-  //      cursor: pointer;
-  //      background-color: $blue1;
-  //      border: 1px solid $greySoft1;
-  //    }
-  //    &.powermail_reset {
-  //      background-color: $orange3;
-  //    }
-  //    &.powermail_captcha {
-  //      width: 100%;
-  //    }
-  //  }
-  //
-  //  .powermail_captchaimage {
-  //    width: 100%;
-  //    margin-top: 10px;
-  //  }
-  //
-  //  .powermail_fieldwrap_radio,
-  //  .powermail_fieldwrap_check {
-  //    legend {
-  //      padding: 0;
-  //    }
-  //    fieldset {
-  //      border: 0;
-  //      padding: 0;
-  //      margin: 0;
-  //    }
-  //  }
-  //
-  //  .powermail_radio_outer,
-  //  .powermail_captcha_outer,
-  //  .powermail_check_outer,
-  //  .powermail_fieldwrap_text,
-  //  .powermail_fieldwrap_file_inner ul:not(.parsley-errors-list) {
-  //    background-color: white;
-  //    border: 1px solid $greySoft2;
-  //    float: right;
-  //    padding: 3px;
-  //    width: $widthField;
-  //    list-style: none;
-  //    margin: 0;
-  //    > li {
-  //      margin: 5px;
-  //      .deleteAllFiles {
-  //        color: $greySoft2;
-  //        cursor: pointer;
-  //        &:hover {
-  //          text-decoration: underline;
-  //        }
-  //      }
-  //    }
-  //  }
-
     /**
      * JS Form Validation
      */
@@ -168,31 +44,6 @@
     }
   }
 
-  .powermail_create,
-  .powermail_confirmation {
-    border: 1px solid $greySoft2;
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: $greySoft1;
-    overflow: hidden;
-    .powermail_confirmation_submit,
-    .powermail_confirmation_form {
-      margin: 20px 0 0 0;
-      padding: 5px 20px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      float: right;
-      background-color: $blue1;
-      border: 1px solid $greySoft1;
-    }
-    .powermail_confirmation_form {
-      float: left;
-      clear: left;
-      background-color: $greySoft2;
-    }
-  }
-
   /* Progress Bar for AJAX Submit */
   .powermail_progressbar {
     width: $widthField;
@@ -228,20 +79,6 @@
   .powermail_confirmation {
     .powermail_progressbar {
       width: 100%;
-    }
-  }
-
-  .powermail_all {
-    > dt {
-      width: $widthLabel;
-      float: left;
-      clear: left;
-      font-weight: bold;
-    }
-    > dd {
-      width: $widthField;
-      float: left;
-      margin: 0;
     }
   }
 
