@@ -149,7 +149,7 @@ class BackendUtility extends AbstractUtility
         }
         $urlParts = parse_url($returnUrl);
         parse_str($urlParts['query'], $queryParts);
-        return (int) $queryParts['id'];
+        return (int)$queryParts['id'];
     }
 
     /**

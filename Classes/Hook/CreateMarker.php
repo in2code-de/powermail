@@ -110,7 +110,7 @@ class CreateMarker
         $this->uid = $uid;
         $this->properties = &$properties;
         $this->objectManager = ObjectUtility::getObjectManager();
-        $this->data = (array) GeneralUtility::_GP('data');
+        $this->data = (array)GeneralUtility::_GP('data');
         $this->addExistingFields();
         $this->addNewFields();
     }
@@ -196,12 +196,12 @@ class CreateMarker
             $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
                 'marker',
                 Field::TABLE_NAME,
-                'uid=' . (int) $uid
+                'uid=' . (int)$uid
             );
             if ($row['marker'] !== $marker) {
                 ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
                     Field::TABLE_NAME,
-                    'uid=' . (int) $uid,
+                    'uid=' . (int)$uid,
                     ['marker' => $marker]
                 );
             }
@@ -239,7 +239,7 @@ class CreateMarker
      */
     protected function addNewFields()
     {
-        foreach ((array) $this->data[Field::TABLE_NAME] as $fieldUid => $properties) {
+        foreach ((array)$this->data[Field::TABLE_NAME] as $fieldUid => $properties) {
             $this->addField($this->makeFieldFromProperties($properties, $fieldUid));
         }
     }
@@ -264,7 +264,7 @@ class CreateMarker
                 $field->_setProperty($key, $value);
             }
         }
-        $field->setDescription((int) $properties['uid'] > 0 ? (int) $properties['uid'] : $uid);
+        $field->setDescription((int)$properties['uid'] > 0 ? (int)$properties['uid'] : $uid);
         return $field;
     }
 
@@ -302,23 +302,23 @@ class CreateMarker
 
         // if form is given in GET params (open form and pages and fields via IRRE)
         if (isset($this->data[Form::TABLE_NAME])) {
-            foreach (array_keys((array) $this->data[Form::TABLE_NAME]) as $uid) {
-                $formUid = (int) $uid;
+            foreach (array_keys((array)$this->data[Form::TABLE_NAME]) as $uid) {
+                $formUid = (int)$uid;
             }
         }
 
         // if pages open (fields via IRRE)
         if ($formUid === 0) {
-            foreach (array_keys((array) $this->data[Page::TABLE_NAME]) as $uid) {
+            foreach (array_keys((array)$this->data[Page::TABLE_NAME]) as $uid) {
                 if (!empty($this->data[Page::TABLE_NAME][$uid]['forms'])) {
-                    $formUid = (int) $this->data[Page::TABLE_NAME][$uid]['forms'];
+                    $formUid = (int)$this->data[Page::TABLE_NAME][$uid]['forms'];
                 }
             }
         }
 
         // if field is directly opened (no IRRE OR opened pages with their IRRE fields
         if ($formUid === 0) {
-            foreach (array_keys((array) $this->data[Field::TABLE_NAME]) as $uid) {
+            foreach (array_keys((array)$this->data[Field::TABLE_NAME]) as $uid) {
                 if (!empty($this->data[Field::TABLE_NAME][$uid]['pages'])) {
                     $formUid = $this->getFormUidFromRelatedPage($this->data[Field::TABLE_NAME][$uid]['pages']);
                 }
@@ -341,11 +341,11 @@ class CreateMarker
         $from = Form::TABLE_NAME . ' fo ' .
             'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
             'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
-        $where = 'p.uid = ' . (int) $pageUid;
+        $where = 'p.uid = ' . (int)$pageUid;
         $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
         if ($res) {
             $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
-            $formUid = (int) $row['uid'];
+            $formUid = (int)$row['uid'];
         }
         return $formUid;
     }

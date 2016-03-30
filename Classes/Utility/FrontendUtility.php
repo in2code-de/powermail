@@ -51,7 +51,7 @@ class FrontendUtility extends AbstractUtility
         if (!$pid) {
             $pid = self::getCurrentPageIdentifier();
         }
-        return (int) $pid;
+        return (int)$pid;
     }
 
     /**
@@ -61,7 +61,7 @@ class FrontendUtility extends AbstractUtility
      */
     public static function getCurrentPageIdentifier()
     {
-        return (int) self::getTyposcriptFrontendController()->id;
+        return (int)self::getTyposcriptFrontendController()->id;
     }
 
     /**
@@ -71,7 +71,7 @@ class FrontendUtility extends AbstractUtility
      */
     public static function getSysLanguageUid()
     {
-        return (int) self::getTyposcriptFrontendController()->tmpl->setup['config.']['sys_language_uid'];
+        return (int)self::getTyposcriptFrontendController()->tmpl->setup['config.']['sys_language_uid'];
     }
 
     /**
@@ -96,7 +96,7 @@ class FrontendUtility extends AbstractUtility
         if (!is_a($mail, Mail::class)) {
             /** @var MailRepository $mailRepository */
             $mailRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(MailRepository::class);
-            $mail = $mailRepository->findByUid((int) $mail);
+            $mail = $mailRepository->findByUid((int)$mail);
         }
         if (!self::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === null) {
             return false;
@@ -120,7 +120,7 @@ class FrontendUtility extends AbstractUtility
             /** @var UserRepository $userRepository */
             $userRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(UserRepository::class);
             $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser());
-            $usergroupsSettings = array_merge((array) $usergroupsSettings, (array) $usergroupsFromOwner);
+            $usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
         }
 
         // 1. check user

@@ -558,7 +558,7 @@ class FormController extends AbstractController
     {
         $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
         if ($mail === null || !in_array($mail->getForm()->getUid(), $formsToContent)) {
-            GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array) $mail]);
+            GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array)$mail]);
             $this->forward('form');
         }
     }

@@ -136,7 +136,7 @@ class DataProcessorRunner
      */
     protected function getDataProcessorClasses($settings)
     {
-        $dataProcessors = (array) $settings['dataProcessors'];
+        $dataProcessors = (array)$settings['dataProcessors'];
         ksort($dataProcessors);
         return $dataProcessors;
     }

@@ -126,7 +126,7 @@ class FormRepository extends AbstractRepository
         // create sql statement
         $sql = 'select pages';
         $sql .= ' from ' . Form::TABLE_NAME;
-        $sql .= ' where uid = ' . (int) $uid;
+        $sql .= ' where uid = ' . (int)$uid;
         $sql .= ' limit 1';
 
         $result = $query->statement($sql)->execute(true);
@@ -232,7 +232,7 @@ class FormRepository extends AbstractRepository
             'left join ' . Page::TABLE_NAME . ' p on f.pages = p.uid ' .
             'left join ' . Form::TABLE_NAME . ' fo on p.forms = fo.uid';
         $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" ' .
-            'and f.sys_language_uid IN (-1,0) and fo.uid = ' . (int) $formUid;
+            'and f.sys_language_uid IN (-1,0) and fo.uid = ' . (int)$formUid;
         $groupBy = '';
         $orderBy = 'f.sorting ASC';
         $limit = 10000;

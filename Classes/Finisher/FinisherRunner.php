@@ -137,7 +137,7 @@ class FinisherRunner
      */
     protected function getFinisherClasses($settings)
     {
-        $finishers = (array) $settings['finishers'];
+        $finishers = (array)$settings['finishers'];
         ksort($finishers);
         return $finishers;
     }

@@ -32,7 +32,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
         if ($res) {
             $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
             if (!empty($row['last_update'])) {
-                return (int) $row['last_update'];
+                return (int)$row['last_update'];
             }
         }
         return 0;

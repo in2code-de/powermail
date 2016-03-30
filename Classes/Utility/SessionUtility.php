@@ -86,7 +86,7 @@ class SessionUtility extends AbstractUtility
     public static function getFormStartFromSession($formUid, array $settings)
     {
         if (self::sessionCheckEnabled($settings)) {
-            return (int) self::getTyposcriptFrontendController()->fe_user->getKey(
+            return (int)self::getTyposcriptFrontendController()->fe_user->getKey(
                 'ses',
                 'powermailFormstart' . $formUid
             );
@@ -242,7 +242,7 @@ class SessionUtility extends AbstractUtility
     public static function getCaptchaSession($fieldUid)
     {
         $sessionArray = self::getSessionValue('captcha', 'ses', 'powermail_captcha');
-        return (int) $sessionArray[$fieldUid];
+        return (int)$sessionArray[$fieldUid];
     }
 
     /**
@@ -312,7 +312,7 @@ class SessionUtility extends AbstractUtility
         if (!$overwrite) {
             $oldValues = self::getSessionValue($name, $method, $key);
             if (!empty($oldValues)) {
-                $values = ArrayUtility::arrayMergeRecursiveOverrule((array) $oldValues, (array) $values);
+                $values = ArrayUtility::arrayMergeRecursiveOverrule((array)$oldValues, (array)$values);
             }
         }
         $newValues = [

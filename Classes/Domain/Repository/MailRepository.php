@@ -79,7 +79,7 @@ class MailRepository extends AbstractRepository
 
         // filter
         if (isset($piVars['filter'])) {
-            foreach ((array) $piVars['filter'] as $field => $value) {
+            foreach ((array)$piVars['filter'] as $field => $value) {
 
                 // Standard Fields
                 if (!is_array($value)) {
@@ -114,7 +114,7 @@ class MailRepository extends AbstractRepository
 
                 // Answer Fields
                 if (is_array($value)) {
-                    foreach ((array) $value as $answerField => $answerValue) {
+                    foreach ((array)$value as $answerField => $answerValue) {
                         if (empty($answerValue) || $answerField === 'crdate') {
                             continue;
                         }
@@ -213,17 +213,17 @@ class MailRepository extends AbstractRepository
         ];
 
         // FILTER: form
-        if ((int) $settings['main']['form'] > 0) {
+        if ((int)$settings['main']['form'] > 0) {
             $and[] = $query->equals('form', $settings['main']['form']);
         }
 
         // FILTER: pid
-        if ((int) $settings['main']['pid'] > 0) {
+        if ((int)$settings['main']['pid'] > 0) {
             $and[] = $query->equals('pid', $settings['main']['pid']);
         }
 
         // FILTER: delta
-        if ((int) $settings['list']['delta'] > 0) {
+        if ((int)$settings['list']['delta'] > 0) {
             $and[] = $query->greaterThan('crdate', (time() - $settings['list']['delta']));
         }
 
@@ -247,7 +247,7 @@ class MailRepository extends AbstractRepository
             }
 
             // single field search
-            foreach ((array) $piVars['filter'] as $field => $value) {
+            foreach ((array)$piVars['filter'] as $field => $value) {
                 if (is_numeric($field) && !empty($value)) {
                     $filterAnd = [
                         $query->equals('answers.field', $field),
@@ -279,8 +279,8 @@ class MailRepository extends AbstractRepository
         $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
 
         // set limit
-        if ((int) $settings['list']['limit'] > 0) {
-            $query->setLimit((int) $settings['list']['limit']);
+        if ((int)$settings['list']['limit'] > 0) {
+            $query->setLimit((int)$settings['list']['limit']);
         }
 
         $mails = $query->execute();
@@ -301,7 +301,7 @@ class MailRepository extends AbstractRepository
             /** @var Form $form */
             $form = $mail->getForm();
             if ($form !== null) {
-                if ((int) $form->getUid() > 0 && !in_array($form->getUid(), $forms)) {
+                if ((int)$form->getUid() > 0 && !in_array($form->getUid(), $forms)) {
                     $forms[$form->getUid()] = $form->getTitle();
                 }
             }
@@ -326,7 +326,7 @@ class MailRepository extends AbstractRepository
         ];
         $query->matching($query->logicalAnd($and));
         $query->setOrderings($this->getSorting('crdate', 'desc'));
-        foreach ((array) $sorting as $field => $order) {
+        foreach ((array)$sorting as $field => $order) {
             if (empty($order)) {
                 continue;
             }
@@ -496,7 +496,7 @@ class MailRepository extends AbstractRepository
         ];
         if (!empty($piVars['sorting'])) {
             $sorting = [];
-            foreach ((array) array_reverse($piVars['sorting']) as $property => $sortOrderName) {
+            foreach ((array)array_reverse($piVars['sorting']) as $property => $sortOrderName) {
                 $sorting[$this->cleanStringForQuery($property)] = $this->getSortOrderByString($sortOrderName);
             }
         }

@@ -126,7 +126,7 @@ class ShowFormNoteEditForm
 						</td>
 						<td nowrap="nowrap" class="col-title" style="padding: 5px;">
 							<a title="id=' . $this->getFormPropertyFromUid($formUid, 'pid') . '"
-								onclick="top.loadEditId(' . (int) $this->getFormPropertyFromUid($formUid, 'pid') . '
+								onclick="top.loadEditId(' . (int)$this->getFormPropertyFromUid($formUid, 'pid') . '
 								,&quot;&amp;SET[language]=0&quot;); return false;" href="#">
 								' . htmlspecialchars($this->getPageNameFromUid($this->getFormPropertyFromUid($formUid, 'pid'))) . '
 							</a>
@@ -202,7 +202,7 @@ class ShowFormNoteEditForm
 
         if (is_array($this->params['row']['pi_flexform'])) {
             // TYPO3 7.5 and newer delivers an array
-            $formUid = (int) $this->params['row']['pi_flexform']['data']['main']['lDEF']
+            $formUid = (int)$this->params['row']['pi_flexform']['data']['main']['lDEF']
             ['settings.flexform.main.form']['vDEF'][0];
         } else {
             // TYPO3 7.4 or older delivers a string
@@ -211,7 +211,7 @@ class ShowFormNoteEditForm
                 is_array($flexForm) &&
                 isset($flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])
             ) {
-                $formUid = (int) $flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+                $formUid = (int)$flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
             }
         }
 
@@ -231,10 +231,10 @@ class ShowFormNoteEditForm
         if ($sysLanguageUid > 0) {
             $select = 'uid';
             $from = Form::TABLE_NAME;
-            $where = 'sys_language_uid=' . (int) $sysLanguageUid . ' and l10n_parent=' . (int) $uid;
+            $where = 'sys_language_uid=' . (int)$sysLanguageUid . ' and l10n_parent=' . (int)$uid;
             $row = $this->databaseConnection->exec_SELECTgetSingleRow($select, $from, $where);
             if (!empty($row['uid'])) {
-                $uid = (int) $row['uid'];
+                $uid = (int)$row['uid'];
             }
         }
         return $uid;
@@ -249,7 +249,7 @@ class ShowFormNoteEditForm
     {
         $select = '*';
         $from = Form::TABLE_NAME;
-        $where = 'uid = ' . (int) $uid;
+        $where = 'uid = ' . (int)$uid;
         $groupBy = '';
         $orderBy = '';
         $limit = 1;
@@ -269,7 +269,7 @@ class ShowFormNoteEditForm
     {
         $select = 'title';
         $from = 'pages';
-        $where = 'uid = ' . (int) $uid;
+        $where = 'uid = ' . (int)$uid;
         $groupBy = '';
         $orderBy = '';
         $limit = 1;
@@ -295,7 +295,7 @@ class ShowFormNoteEditForm
         $result = [];
         $select = 'p.title';
         $from = Form::TABLE_NAME . ' fo LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid';
-        $where = 'fo.uid = ' . (int) $uid . ' and p.deleted = 0';
+        $where = 'fo.uid = ' . (int)$uid . ' and p.deleted = 0';
         $groupBy = '';
         $orderBy = '';
         $limit = 1000;
@@ -324,7 +324,7 @@ class ShowFormNoteEditForm
         $from = Form::TABLE_NAME . ' fo ' .
             'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
             'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
-        $where = 'fo.uid = ' . (int) $uid . ' and p.deleted = 0 and f.deleted = 0';
+        $where = 'fo.uid = ' . (int)$uid . ' and p.deleted = 0 and f.deleted = 0';
         $groupBy = '';
         $orderBy = '';
         $limit = 1000;
@@ -348,7 +348,7 @@ class ShowFormNoteEditForm
     {
         $select = 'f.pages';
         $from = Form::TABLE_NAME . ' as f';
-        $where = 'f.uid = ' . (int) $uid;
+        $where = 'f.uid = ' . (int)$uid;
         $pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
         $select = 'p.title';
         $from = Page::TABLE_NAME . ' as p';
@@ -372,7 +372,7 @@ class ShowFormNoteEditForm
     {
         $select = 'f.pages';
         $from = Form::TABLE_NAME . ' as f';
-        $where = 'f.uid = ' . (int) $uid;
+        $where = 'f.uid = ' . (int)$uid;
         $pageUids = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
         $select = 'p.uid';
         $from = Page::TABLE_NAME . ' as p';
@@ -382,7 +382,7 @@ class ShowFormNoteEditForm
         foreach ($pageUids as $uidRow) {
             $select = 'field.title';
             $from = Field::TABLE_NAME . ' as field';
-            $where = 'field.pages = ' . (int) $uidRow['uid'];
+            $where = 'field.pages = ' . (int)$uidRow['uid'];
             $fieldTitles = $this->databaseConnection->exec_SELECTgetRows($select, $from, $where);
             foreach ($fieldTitles as $titleRow) {
                 $fieldTitlesReduced[] = $titleRow['title'];

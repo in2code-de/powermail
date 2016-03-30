@@ -157,7 +157,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
             foreach ($this->getMail()->getAnswers() as $answer) {
                 if ($answer->getField() === $this->getField()) {
                     $values = $answer->getValue();
-                    foreach ((array) $values as $value) {
+                    foreach ((array)$values as $value) {
                         if (
                             $value === $this->options[$this->index]['value'] ||
                             $value === $this->options[$this->index]['label']

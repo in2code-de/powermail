@@ -132,7 +132,7 @@ Add your php-file again and extend your class with the AbstractValidator from po
         public function validate($mail)
         {
             $result = new Result();
-            if ((int) $this->configuration['form'] === $mail->getForm()->getUid()) {
+            if ((int)$this->configuration['form'] === $mail->getForm()->getUid()) {
                 foreach ($mail->getAnswers() as $answer) {
                     if ($answer->getField()->getMarker() === $this->fieldMarker && !$this->isAllowedValue($answer->getValue())) {
                         $result->addError(new Error('Firstname must be "Alexander"', $this->fieldMarker));

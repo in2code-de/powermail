@@ -19,7 +19,7 @@ class AddOptionsToSelection
     protected $params = [];
 
     /**
-     * Type of option: "type", "validation", "feUserProperty"
+     * Type of option: "type", "validation", "feUserProperty", "predefinedReceivers"
      *
      * @var string
      */
@@ -37,6 +37,7 @@ class AddOptionsToSelection
      *            tx_powermail.flexForm.type.addFieldOptions.newfield =
      *                LLL:fileadmin/locallang.xlf:key
      *
+     * @param array $params
      * @return void
      */
     public function addOptionsForType(&$params)
@@ -52,6 +53,7 @@ class AddOptionsToSelection
      *            tx_powermail.flexForm.validation.addFieldOptions.100 =
      *                LLL:fileadmin/locallang.xlf:key
      *
+     * @param array $params
      * @return void
      */
     public function addOptionsForValidation(&$params)
@@ -67,6 +69,7 @@ class AddOptionsToSelection
      *            tx_powermail.flexForm.feUserProperty.addFieldOptions.newfield =
      *                LLL:fileadmin/locallang.xlf:key
      *
+     * @param array $params
      * @return void
      */
     public function addOptionsForFeUserProperty(&$params)
@@ -82,6 +85,7 @@ class AddOptionsToSelection
      *            tx_powermail.flexForm.predefinedReceivers.addFieldOptions.receivers1 =
      *                LLL:fileadmin/locallang.xlf:key
      *
+     * @param array $params
      * @return void
      */
     public function addOptionsForPredefinedReceivers(&$params)
@@ -168,10 +172,10 @@ class AddOptionsToSelection
     {
         $pageIdentifier = 0;
         if (!empty($this->params['row']['pid'])) {
-            $pageIdentifier = (int) $this->params['row']['pid'];
+            $pageIdentifier = (int)$this->params['row']['pid'];
         }
         if (!empty($this->params['flexParentDatabaseRow']['pid'])) {
-            $pageIdentifier = (int) $this->params['flexParentDatabaseRow']['pid'];
+            $pageIdentifier = (int)$this->params['flexParentDatabaseRow']['pid'];
         }
         return $pageIdentifier;
     }

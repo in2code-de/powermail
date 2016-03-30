@@ -62,7 +62,7 @@ class FormSelectorUserFunc
         foreach ($this->getAllForms($this->getStartPid(), $params['row']['sys_language_uid']) as $form) {
             $params['items'][] = [
                 htmlspecialchars($form['title']),
-                (int) $form['uid']
+                (int)$form['uid']
             ];
         }
     }
@@ -83,7 +83,7 @@ class FormSelectorUserFunc
                 $startPid = BackendUtility::getPidFromBackendPage();
             }
         }
-        return (int) $startPid;
+        return (int)$startPid;
     }
 
     /**
@@ -99,7 +99,7 @@ class FormSelectorUserFunc
         $from = Form::TABLE_NAME . ' fo';
         $where = 'fo.deleted = 0 and fo.hidden = 0 and ' .
             '(fo.sys_language_uid IN (-1,0) or ' .
-            '(fo.l10n_parent = 0 and fo.sys_language_uid = ' . (int) $language . '))';
+            '(fo.l10n_parent = 0 and fo.sys_language_uid = ' . (int)$language . '))';
         if (!empty($startPid)) {
             $where .= ' and fo.pid in (' . $this->getPidListFromStartingPoint($startPid) . ')';
         }

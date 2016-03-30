@@ -79,7 +79,7 @@ class UserRepository extends AbstractRepository
         $where = 'sys_refindex.tablename = "fe_users"';
         $where .= ' AND sys_refindex.ref_table = "fe_groups"';
         $where .= ' AND fe_users.uid = sys_refindex.recuid AND fe_groups.uid = sys_refindex.ref_uid';
-        $where .= ' AND fe_users.uid = ' . (int) $uid;
+        $where .= ' AND fe_users.uid = ' . (int)$uid;
         $groupBy = '';
         $orderBy = '';
         $limit = 1000;

@@ -51,7 +51,7 @@ class FieldSelectorUserFunc
     {
         /** @var FormRepository $formRepository */
         $formRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(FormRepository::class);
-        $formUid = $this->getFormUidFromTtContentUid((int) $params['row']['uid']);
+        $formUid = $this->getFormUidFromTtContentUid((int)$params['row']['uid']);
         if (!$formUid) {
             $params['items'] = [
                 [
@@ -61,7 +61,7 @@ class FieldSelectorUserFunc
             ];
             return;
         }
-        foreach ((array) $formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
+        foreach ((array)$formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
             $params['items'][] = [
                 $field['title'] . ' {' . $field['marker'] . '}',
                 $field['uid']
@@ -80,11 +80,11 @@ class FieldSelectorUserFunc
         $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
             'pi_flexform',
             'tt_content',
-            'uid=' . (int) $ttContentUid
+            'uid=' . (int)$ttContentUid
         );
         $flexform = GeneralUtility::xml2array($row['pi_flexform']);
         if (is_array($flexform) && isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
-            return (int) $flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+            return (int)$flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
         }
         return 0;
     }

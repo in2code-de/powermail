@@ -165,7 +165,7 @@ abstract class AbstractController extends ActionController
         );
 
         $iteration = 0;
-        foreach ((array) $arguments['field'] as $marker => $value) {
+        foreach ((array)$arguments['field'] as $marker => $value) {
             // ignore internal fields (honeypod)
             if (substr($marker, 0, 2) === '__') {
                 continue;

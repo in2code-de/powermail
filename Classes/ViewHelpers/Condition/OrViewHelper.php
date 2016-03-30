@@ -22,7 +22,7 @@ class OrViewHelper extends AbstractViewHelper
      */
     public function render($array, $string = null)
     {
-        foreach ((array) $array as $value) {
+        foreach ((array)$array as $value) {
             if (!$string && $value) {
                 return true;
             }

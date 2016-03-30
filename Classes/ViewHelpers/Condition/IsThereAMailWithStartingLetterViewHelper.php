@@ -27,7 +27,7 @@ class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper
             foreach ($mail->getAnswers() as $answer) {
                 if (
                     method_exists($answer->getField(), 'getUid') &&
-                    $answer->getField()->getUid() === (int) $answerField
+                    $answer->getField()->getUid() === (int)$answerField
                 ) {
                     $value = $answer->getValue();
                     if (strtolower($value[0]) === strtolower($letter)) {

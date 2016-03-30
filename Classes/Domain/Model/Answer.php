@@ -183,7 +183,7 @@ class Answer extends AbstractEntity
      */
     public function setValueType($valueType)
     {
-        $this->valueType = (int) $valueType;
+        $this->valueType = (int)$valueType;
     }
 
     /**

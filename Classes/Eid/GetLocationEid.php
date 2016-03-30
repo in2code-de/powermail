@@ -80,7 +80,7 @@ class GetLocationEid
         );
         $jsonDecoded = json_decode($json, true);
         if (!empty($jsonDecoded['results'])) {
-            foreach ((array) $jsonDecoded['results'][0]['address_components'] as $values) {
+            foreach ((array)$jsonDecoded['results'][0]['address_components'] as $values) {
                 $result[$values['types'][0]] = $values['long_name'];
             }
         }

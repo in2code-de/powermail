@@ -27,7 +27,7 @@ class ErrorClassViewHelper extends AbstractViewHelper
         $errors = $validationResults->getFlattenedErrors();
         foreach ($errors as $error) {
             /** @var \TYPO3\CMS\Extbase\Error\Error $singleError */
-            foreach ((array) $error as $singleError) {
+            foreach ((array)$error as $singleError) {
                 if ($field->getMarker() === $singleError->getCode()) {
                     return $class;
                 }

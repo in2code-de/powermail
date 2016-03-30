@@ -130,12 +130,12 @@ class ReceiverEmailService
         $emailArray = $this->getEmailsFromFlexForm();
 
         // get mails from fe_group
-        if ((int) $this->settings['receiver']['type'] === 1 && !empty($this->settings['receiver']['fe_group'])) {
+        if ((int)$this->settings['receiver']['type'] === 1 && !empty($this->settings['receiver']['fe_group'])) {
             $emailArray = $this->getEmailsFromFeGroup($this->settings['receiver']['fe_group']);
         }
 
         // get mails from predefined emailconfiguration
-        if ((int) $this->settings['receiver']['type'] === 2 && !empty($this->settings['receiver']['predefinedemail'])) {
+        if ((int)$this->settings['receiver']['type'] === 2 && !empty($this->settings['receiver']['predefinedemail'])) {
             $emailArray = $this->getEmailsFromPredefinedEmail($this->settings['receiver']['predefinedemail']);
         }
 

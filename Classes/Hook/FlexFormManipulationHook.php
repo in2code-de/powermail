@@ -94,7 +94,7 @@ class FlexFormManipulationHook
      */
     protected function getFieldConfiguration()
     {
-        $tsConfiguration = BackendUtility::getPagesTSconfig((int) $this->row['pid']);
+        $tsConfiguration = BackendUtility::getPagesTSconfig((int)$this->row['pid']);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['addField.'])) {
             $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.']['addField.'];
             /** @var TypoScriptService $tsService */

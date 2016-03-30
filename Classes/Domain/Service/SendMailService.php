@@ -277,7 +277,7 @@ class SendMailService
      */
     protected function addPriority(MailMessage $message)
     {
-        $priorityValue = (int) $this->settings[$this->type]['overwrite']['priority'];
+        $priorityValue = (int)$this->settings[$this->type]['overwrite']['priority'];
         if ($priorityValue > 0) {
             $message->setPriority($priorityValue);
         }

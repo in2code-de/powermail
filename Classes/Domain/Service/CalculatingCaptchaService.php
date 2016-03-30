@@ -159,7 +159,7 @@ class CalculatingCaptchaService
      */
     public function validCode($code, $field, $clearSession = true)
     {
-        if ((int) $code > 0 && (int) $code === SessionUtility::getCaptchaSession($field->getUid())) {
+        if ((int)$code > 0 && (int)$code === SessionUtility::getCaptchaSession($field->getUid())) {
             if ($clearSession) {
                 SessionUtility::setCaptchaSession('', $field->getUid());
             }
@@ -346,7 +346,7 @@ class CalculatingCaptchaService
             );
             $typoScriptService = $objectManager->get(TypoScriptService::class);
             $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
-                (array) $typoScriptSetup['setup']
+                (array)$typoScriptSetup['setup']
             );
         }
         return $this;
