@@ -21,7 +21,7 @@
 								object="{mail}"
 								enctype="multipart/form-data"
 								additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:mail.form)}"
-								class="powermail_form powermail_form_{mail.form.uid}">
+								class="powermail_form powermail_form_{mail.form.uid} {form.css} {settings.styles.framework.formClasses}">
 
 							<fieldset class="powermail_fieldset">
 
@@ -49,8 +49,18 @@
 									</f:for>
 								</f:for>
 
-								<f:form.hidden name="mail[form]" value="{mail.form.uid}" class="powermail_form_uid" />
-								<f:form.submit value="{f:translate(key: 'PowermailFrontendEditSubmit')}" class="powermail_field powermail_submit" />
+								<f:form.hidden
+										name="mail[form]"
+										value="{mail.form.uid}"
+										class="powermail_form_uid" />
+
+								<div class="{settings.styles.framework.fieldAndLabelWrappingClasses}">
+									<div class="{settings.styles.framework.fieldWrappingClasses} {settings.styles.framework.offsetClasses}">
+										<f:form.submit
+												value="{f:translate(key:'PowermailFrontendEditSubmit')}"
+												class="powermail_field powermail_submit btn btn-primary" />
+									</div>
+								</div>
 
 							</fieldset>
 						</f:form>

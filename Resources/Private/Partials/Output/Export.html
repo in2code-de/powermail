@@ -1,43 +1,63 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
 <f:if condition="{settings.list.export}">
+	<div class="form-group btn-group pull-right" role="group">
+		<f:if condition="{vh:Condition.IsStringInString(haystack:settings.list.export, needle:'xls')}">
+			<f:form
+					action="export"
+					name="export"
+					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
+					additionalParams="{type:31311}">
 
-		<div class="powermail_frontend_export">
-			<div class="powermail_frontend_export_inner">
+				<f:form.submit
+						value="XLS"
+						class="btn btn-primary" />
 
-				<f:if condition="{vh:Condition.IsStringInString(haystack: '{settings.list.export}', needle: 'xls')}">
-					<div class="powermail_frontend_export_icon">
-						<f:form action="export" name="export" additionalParams="{type: 31311}">
-							<f:form.submit value="XLS" class="export_icon export_icon_xls" />
+				<f:form.hidden
+						name="export[fields]"
+						value="{vh:String.ImplodeField(objects:mails)}"
+						id="export_mails" />
+				<f:form.hidden
+						name="export[format]"
+						value="xls"
+						id="export_format" />
+			</f:form>
+		</f:if>
 
-							<f:form.hidden name="export[fields]" value="{vh:String.ImplodeField(objects: '{mails}')}" id="export_mails" />
-							<f:form.hidden name="export[format]" value="xls" id="export_format" />
-						</f:form>
-					</div>
-				</f:if>
+		<f:if condition="{vh:Condition.IsStringInString(haystack:settings.list.export, needle:'csv')}">
+			<f:form
+					action="export"
+					name="export"
+					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
+					additionalParams="{type:31312}">
 
-				<f:if condition="{vh:Condition.IsStringInString(haystack: '{settings.list.export}', needle: 'csv')}">
-					<div class="powermail_frontend_export_icon">
-						<f:form action="export" name="export" additionalParams="{type: 31312}">
-							<f:form.submit value="CSV" class="export_icon export_icon_csv" />
+				<f:form.submit
+						value="CSV"
+						class="btn btn-primary" />
 
-							<f:form.hidden name="export[fields]" value="{vh:String.ImplodeField(objects: '{mails}')}" id="export_mails" />
-							<f:form.hidden name="export[format]" value="csv" id="export_format" />
-						</f:form>
-					</div>
-				</f:if>
+				<f:form.hidden
+						name="export[fields]"
+						value="{vh:String.ImplodeField(objects:mails)}"
+						id="export_mails" />
+				<f:form.hidden
+						name="export[format]"
+						value="csv"
+						id="export_format" />
+			</f:form>
+		</f:if>
 
 
-				<f:if condition="{vh:Condition.IsStringInString(haystack: '{settings.list.export}', needle: 'rss')}">
-					<div class="powermail_frontend_export_icon">
-						<f:link.action action="rss" additionalParams="{type: 31319}">
-							<f:image src="{f:uri.resource(path: 'Image/icon_rss.gif')}" alt="RSS" class="export_icon export_icon_rss" />
-						</f:link.action>
-					</div>
-				</f:if>
+		<f:if condition="{vh:Condition.IsStringInString(haystack:settings.list.export, needle:'rss')}">
+			<f:form
+					action="rss"
+					name="export"
+					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
+					additionalParams="{type:31319}">
 
-				<div class="clear"></div>
-			</div>
-		</div>
-
+				<f:form.submit
+						value="RSS"
+						class="btn btn-primary" />
+			</f:form>
+		</f:if>
+	</div>
 </f:if>

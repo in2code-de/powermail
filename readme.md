@@ -8,15 +8,15 @@ Roadmap for 3.0:
 - - CSS update
 - - - show uploaded values
 - - - nolabels
-- - - errors
+- - - ok errors
 - - - morestep
-- - - Pi2
-- - - JS: Location?
-- - - JS: Date?
+- - - ok Pi2
+- - - ok JS: Location?
+- - - ok JS: Date?
 - ok Update of parsley.js to 2.3.5
 - ok PluginInformation refactoring
 - ok Remove outdated parts of code (PHP, Templates)
-- DataProcessor
+- ok DataProcessor
 - ok Upload Refactoring
 - ok Remove form converter
 - ok Spamshield refactoring with own spam prevention methods

@@ -102,3 +102,42 @@ page {
 		powermailJQuery.external = 1
 	}
 }
+
+
+# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
+plugin.tx_powermail {
+	settings.Pi2 {
+		styles {
+			framework {
+				formClasses = {$plugin.tx_powermail.settings.styles.framework.formClasses}
+				fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses}
+				fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses}
+				labelClasses = {$plugin.tx_powermail.settings.styles.framework.labelClasses}
+				fieldClasses = {$plugin.tx_powermail.settings.styles.framework.fieldClasses}
+				offsetClasses = {$plugin.tx_powermail.settings.styles.framework.offsetClasses}
+				radioClasses = {$plugin.tx_powermail.settings.styles.framework.radioClasses}
+				checkClasses = {$plugin.tx_powermail.settings.styles.framework.checkClasses}
+			}
+		}
+	}
+}
+
+# Overwrite classes if bootrap classes given
+[globalVar = LIT:0 < {$plugin.tx_powermail.settings.styles.bootstrap.important}]
+	plugin.tx_powermail {
+		settings.Pi2 {
+			styles {
+				framework {
+					formClasses = {$plugin.tx_powermail.settings.styles.bootstrap.formClasses}
+					fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldAndLabelWrappingClasses}
+					fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldWrappingClasses}
+					labelClasses = {$plugin.tx_powermail.settings.styles.bootstrap.labelClasses}
+					fieldClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldClasses}
+					offsetClasses = {$plugin.tx_powermail.settings.styles.bootstrap.offsetClasses}
+					radioClasses = {$plugin.tx_powermail.settings.styles.bootstrap.radioClasses}
+					checkClasses = {$plugin.tx_powermail.settings.styles.bootstrap.checkClasses}
+				}
+			}
+		}
+	}
+[end]
