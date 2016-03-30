@@ -374,6 +374,7 @@ class FormController extends AbstractController
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'messageClass' => $this->messageClass,
                 'ttContentData' => $this->contentObject->data,
+                'uploadService' => $this->uploadService,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
             ]

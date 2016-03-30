@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\File;
 use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -40,7 +41,13 @@ class UploadService implements SingletonInterface
 {
 
     /**
-     * Contains all fileuploads
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @inject
+     */
+    protected $signalSlotDispatcher;
+
+    /**
+     * Contains all files from upload
      *
      * @var File[]
      */
@@ -68,6 +75,7 @@ class UploadService implements SingletonInterface
         $this->fillFilesFromFilesArray();
         $this->fillFilesFromHiddenFields();
         $this->makeUniqueFilenames();
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, [$this]);
     }
 
     /**
@@ -81,6 +89,7 @@ class UploadService implements SingletonInterface
         foreach ($this->getFiles() as $file) {
             if (!$file->isUploaded() && $file->isValid()) {
                 if ($this->checkExtension($file, $this->getAllowedExtensions())) {
+                    BasicFileUtility::createFolderIfNotExists($file->getUploadFolder());
                     if (GeneralUtility::upload_copy_move($file->getTemporaryName(), $file->getNewPathAndFilename())) {
                         $file->setUploaded(true);
                         $result = true;
@@ -91,6 +100,24 @@ class UploadService implements SingletonInterface
             }
         }
         return $result;
+    }
+
+    /**
+     * Get all new filenames by given marker (to show filenames on confirmation page again, etc...)
+     * If empty, use values from arguments
+     *
+     * @param string $marker
+     * @return array
+     */
+    public function getNewFileNamesByMarker($marker)
+    {
+        $newFileNames = [];
+        foreach ($this->getFiles() as $file) {
+            if ($file->getMarker() === $marker) {
+                $newFileNames[] = $file->getNewName();
+            }
+        }
+        return $newFileNames;
     }
 
     /**
@@ -129,24 +156,6 @@ class UploadService implements SingletonInterface
     }
 
     /**
-     * Get all new filenames by given marker (to show filenames on confirmation page again, etc...)
-     * If empty, use values from arguments
-     *
-     * @param string $marker
-     * @return array
-     */
-    public function getNewFileNamesByMarker($marker)
-    {
-        $newFileNames = [];
-        foreach ($this->getFiles() as $file) {
-            if ($file->getMarker() === $marker) {
-                $newFileNames[] = $file->getNewName();
-            }
-        }
-        return $newFileNames;
-    }
-
-    /**
      * Prepares files from $_FILES array to $this->files
      * This will be used by the first submit (before confirmation page will be submitted)
      *
@@ -155,24 +164,26 @@ class UploadService implements SingletonInterface
     protected function fillFilesFromFilesArray()
     {
         $filesArray = ObjectUtility::getFilesArray();
-        foreach ((array)$filesArray['tx_powermail_pi1']['name']['field'] as $marker => $files) {
-            foreach ((array)$files as $key => $originalName) {
-                $size = $filesArray['tx_powermail_pi1']['size']['field'][$marker][$key];
-                $type = $filesArray['tx_powermail_pi1']['type']['field'][$marker][$key];
-                $temporaryName = $filesArray['tx_powermail_pi1']['tmp_name']['field'][$marker][$key];
+        if (!empty($filesArray)) {
+            foreach ((array)$filesArray['tx_powermail_pi1']['name']['field'] as $marker => $files) {
+                foreach ((array)$files as $key => $originalName) {
+                    $size = $filesArray['tx_powermail_pi1']['size']['field'][$marker][$key];
+                    $type = $filesArray['tx_powermail_pi1']['type']['field'][$marker][$key];
+                    $temporaryName = $filesArray['tx_powermail_pi1']['tmp_name']['field'][$marker][$key];
 
-                /** @var File $file */
-                $file = ObjectUtility::getObjectManager()->get(
-                    File::class,
-                    $marker,
-                    $originalName,
-                    $size,
-                    $type,
-                    $temporaryName,
-                    $this->getUploadFolder()
-                );
-                if ($file->validFile()) {
-                    $this->addFile($file);
+                    /** @var File $file */
+                    $file = ObjectUtility::getObjectManager()->get(
+                        File::class,
+                        $marker,
+                        $originalName,
+                        $size,
+                        $type,
+                        $temporaryName,
+                        $this->getUploadFolder()
+                    );
+                    if ($file->validFile()) {
+                        $this->addFile($file);
+                    }
                 }
             }
         }
@@ -284,6 +295,7 @@ class UploadService implements SingletonInterface
      */
     public function getFiles()
     {
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, [$this]);
         return $this->files;
     }
 
