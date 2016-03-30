@@ -82,11 +82,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
                 $tableConfiguration = $this->configuration[$key];
                 $numberKey = StringUtility::removeLastDot($key);
                 if ($this->isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration)) {
-                    if (!$this->isDeprecatedConfiguration($numberKey)) {
-                        $this->saveSpecifiedTablePreflight($numberKey, $tableConfiguration);
-                    } else {
-                        $this->saveSpecifiedTableDeprecatedPreflight($numberKey, $tableConfiguration);
-                    }
+                    $this->saveSpecifiedTablePreflight($numberKey, $tableConfiguration);
                 }
             }
         }
@@ -110,30 +106,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         $this->setPropertiesInSaveService($saveService, $tableConfiguration);
         $saveService->setDevLog(!empty($this->settings['debug']['saveToTable']));
         $this->addArrayToDataArray(['uid_' . $numberKey => (int) $saveService->execute()]);
-    }
-
-    /**
-     * Preperation function for a single table (from old configuration)
-     *
-     * @param string $table
-     * @param array $tableConfiguration
-     * @return void
-     * @deprecated Should be removed in one of the next minor versions of powermail
-     * TODO: remove complete function
-     */
-    protected function saveSpecifiedTableDeprecatedPreflight($table, array $tableConfiguration)
-    {
-        GeneralUtility::deprecationLog(
-            'Tableconfiguration in plugin.tx_powermail.settings.setup.dbEntry must have ' .
-            'numbers as keys. Table name as key is deprecated. See manual for a newer TypoScript example.'
-        );
-
-        /* @var $saveService SaveToAnyTableService */
-        $saveService = $this->objectManager->get(SaveToAnyTableService::class, $table);
-        $this->setModeInSaveService($saveService, $tableConfiguration);
-        $this->setPropertiesInSaveService($saveService, $tableConfiguration);
-        $saveService->setDevLog(!empty($this->settings['debug']['saveToTable']));
-        $this->addArrayToDataArray(['uid_' . $table => (int) $saveService->execute()]);
     }
 
     /**
@@ -248,17 +220,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     protected function isSkippedKey($key)
     {
         return StringUtility::startsWith($key, '_') || StringUtility::endsWith($key, '.');
-    }
-
-    /**
-     * Check if the tableconfiguration is deprecated
-     *
-     * @param string $key
-     * @return bool
-     */
-    protected function isDeprecatedConfiguration($key)
-    {
-        return !is_numeric($key);
     }
 
     /**
