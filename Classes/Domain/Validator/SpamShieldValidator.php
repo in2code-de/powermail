@@ -93,7 +93,7 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function runAllSpamMethods(Mail $mail)
     {
-        foreach ((array)$this->settings['spamshield']['methods'] as $method) {
+        foreach ($this->getSpamShieldMethodClasses() as $method) {
             $this->runSingleSpamMethod($mail, $method);
         }
     }
@@ -378,6 +378,18 @@ class SpamShieldValidator extends AbstractValidator
             0,
             $this->getMessages()
         );
+    }
+
+    /**
+     * Get all spamshield method classes from typoscript and sort them
+     *
+     * @return array
+     */
+    protected function getSpamShieldMethodClasses()
+    {
+        $methods = (array)$this->settings['spamshield']['methods'];
+        ksort($methods);
+        return $methods;
     }
 
     /**

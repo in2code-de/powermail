@@ -20,7 +20,7 @@ interface DataProcessorInterface
     /**
      * Set mail
      *
-     * @params Mail $mail
+     * @param Mail $mail
      * @return AbstractDataProcessor
      */
     public function setMail($mail);
@@ -35,7 +35,7 @@ interface DataProcessorInterface
     /**
      * Set settings
      *
-     * @params array $settings
+     * @param array $settings
      * @return AbstractDataProcessor
      */
     public function setSettings($settings);

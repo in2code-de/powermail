@@ -72,11 +72,12 @@ class DataProcessorRunner
             $this->requireFile($dpSettings);
             if (!class_exists($class)) {
                 throw new \Exception(
-                    'Class ' . $class . ' does not exists - check if file was loaded correctly'
+                    'Data processor class ' . $class . ' does not exists - check if file was loaded correctly'
                 );
             }
             if (is_subclass_of($class, $this->interface)) {
                 /** @var AbstractDataProcessor $dataProcessor */
+                /** @noinspection PhpMethodParametersCountMismatchInspection */
                 $dataProcessor = $this->objectManager->get(
                     $dpSettings['class'],
                     $mail,
@@ -107,7 +108,7 @@ class DataProcessorRunner
                 StringUtility::endsWith($method, 'DataProcessor') &&
                 !StringUtility::startsWith($method, 'initialize')
             ) {
-                $this->callInitializeFinisherMethod($dataProcessor, $method);
+                $this->callInitializeDataProcessorMethod($dataProcessor, $method);
                 $dataProcessor->{$method}();
             }
         }
@@ -120,7 +121,7 @@ class DataProcessorRunner
      * @param string $finisherMethod
      * @return void
      */
-    protected function callInitializeFinisherMethod(AbstractDataProcessor $dataProcessor, $finisherMethod)
+    protected function callInitializeDataProcessorMethod(AbstractDataProcessor $dataProcessor, $finisherMethod)
     {
         if (method_exists($dataProcessor, 'initialize' . ucFirst($finisherMethod))) {
             $dataProcessor->{'initialize' . ucFirst($finisherMethod)}();
@@ -147,6 +148,7 @@ class DataProcessorRunner
     {
         if (!empty($dpSettings['require'])) {
             if (file_exists($dpSettings['require'])) {
+                /** @noinspection PhpIncludeInspection */
                 require_once($dpSettings['require']);
             }
         }
