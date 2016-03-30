@@ -8,7 +8,7 @@
 <vh:string.RawAndRemoveXss>
 	<tr>
 		<td class="powermail_all_label powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
-			{answer.field.title}
+			<strong>{answer.field.title}</strong>
 		</td>
 		<td class="powermail_all_value powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
 			<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
