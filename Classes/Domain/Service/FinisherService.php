@@ -241,7 +241,7 @@ class FinisherService
     {
         if (!class_exists($this->getClass())) {
             throw new \Exception(
-                'Class ' . $this->getClass() . ' does not exists - check if file was loaded with autoloader'
+                'Class ' . $this->getClass() . ' does not exists - check if file was loaded correctly'
             );
         }
         if (is_subclass_of($this->getClass(), $this->finisherInterface)) {

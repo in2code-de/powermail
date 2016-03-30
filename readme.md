@@ -20,4 +20,4 @@ Roadmap for 3.0:
 - ok Upload Refactoring
 - ok Remove form converter
 - ok Spamshield refactoring with own spam prevention methods
-- Some code cleanup
+- ok Some code cleanup

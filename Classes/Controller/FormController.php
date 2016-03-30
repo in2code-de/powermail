@@ -3,7 +3,6 @@ namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ReceiverEmailService;
-use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
@@ -63,6 +62,12 @@ class FormController extends AbstractController
     protected $finisherRunner;
 
     /**
+     * @var \In2code\Powermail\DataProcessor\DataProcessorRunner
+     * @inject
+     */
+    protected $dataProcessorRunner;
+
+    /**
      * action show form for creating new mails
      *
      * @return void
@@ -114,8 +119,12 @@ class FormController extends AbstractController
     public function createAction(Mail $mail, $hash = null)
     {
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
-        $this->uploadService->uploadAllFiles();
-        SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
+        $this->dataProcessorRunner->callDataProcessors(
+            $mail,
+            $this->actionMethodName,
+            $this->settings,
+            $this->contentObject
+        );
         if ($this->isMailPersistActive($hash)) {
             $this->saveMail($mail);
             $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
@@ -173,8 +182,13 @@ class FormController extends AbstractController
      */
     public function confirmationAction(Mail $mail)
     {
-        $this->uploadService->uploadAllFiles();
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
+        $this->dataProcessorRunner->callDataProcessors(
+            $mail,
+            $this->actionMethodName,
+            $this->settings,
+            $this->contentObject
+        );
         $this->prepareOutput($mail);
     }
 
