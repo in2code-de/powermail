@@ -1,0 +1,13 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+	elements {
+		powermail {
+			iconIdentifier = extension-powermail-main
+			title = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:pluginWizardTitle
+			description = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:pluginWizardDescription
+			tt_content_defValues {
+				CType = list
+				list_type = powermail_pi1
+			}
+		}
+	}
+}

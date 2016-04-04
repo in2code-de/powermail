@@ -35,7 +35,7 @@ if (
         ),
         array(
             'access' => 'user,group',
-            'icon' => 'EXT:powermail/Resources/Public/Icon/powermail.svg',
+            'icon' => 'EXT:powermail/Resources/Public/Icons/powermail.svg',
             'labels' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf',
         )
     );
@@ -61,8 +61,9 @@ $TCA['tt_content']['types']['list']['subtypes_addlist']['powermail_pi2'] = 'pi_f
 /**
  * ContentElementWizard for Pi1
  */
-$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Hook\ContentElementWizard'] =
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') . 'Classes/Hook/ContentElementWizard.php';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript">'
+);
 
 /**
  * Include TypoScript
@@ -136,6 +137,9 @@ $iconRegistry->registerIcon(
 );
 
 /**
- * Search with TYPO3 backend search with "#powermail:senderemail"
+ * Search with TYPO3 backend search
+ *      search for an email: "#mail:senderemail"
+ *      search for a form: "#form:contactform"
  */
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['powermail'] = 'tx_powermail_domain_model_mail';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['mail'] = 'tx_powermail_domain_model_mail';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['form'] = 'tx_powermail_domain_model_form';
