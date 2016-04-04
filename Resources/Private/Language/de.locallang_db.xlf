@@ -847,6 +847,10 @@
 				<source>Double-opt-in activated</source>
 				<target state="translated">Double-Opt-In aktiviert</target>
 			</trans-unit>
+			<trans-unit id="pluginInfo.more">
+				<source>More ...</source>
+				<target state="translated">Mehr ...</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

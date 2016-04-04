@@ -636,6 +636,9 @@
 			<trans-unit id="pluginInfo.optin">
 				<source>Double-opt-in activated</source>
 			</trans-unit>
+			<trans-unit id="pluginInfo.more">
+				<source>More ...</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
