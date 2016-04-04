@@ -16,6 +16,16 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @var bool
+     */
+    protected $escapeChildren = false;
+
+    /**
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
+    /**
      * Get all fields from form
      *
      * @param Form $form

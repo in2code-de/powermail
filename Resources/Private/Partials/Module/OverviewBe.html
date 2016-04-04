@@ -36,7 +36,7 @@
 				<f:for each="{forms}" as="form" iteration="iteration">
 
 					<f:comment>Basic form information</f:comment>
-					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
+					<tr class="{f:if(condition:iteration.isFirst,then:' firstcol')}{f:if(condition:iteration.isLast,then:' lastcol')}">
 						<td nowrap="nowrap" class="col-icon">
 							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_form t3-icon-tx_powermail_domain_model_form-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={form.uid}"> </span>
 						</td>

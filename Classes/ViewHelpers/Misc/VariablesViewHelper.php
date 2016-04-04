@@ -54,7 +54,7 @@ class VariablesViewHelper extends AbstractViewHelper
     protected $settings = [];
 
     /**
-     * Parses variables again
+     * Enable variables within variable {powermail_rte} - so string will be parsed again
      *
      * @param Mail $mail Variables and Labels array
      * @param string $type "web" or "mail"
