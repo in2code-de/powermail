@@ -19,6 +19,16 @@ class VariablesViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @var bool
+     */
+    protected $escapeChildren = false;
+
+    /**
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
+    /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      * @inject
      */

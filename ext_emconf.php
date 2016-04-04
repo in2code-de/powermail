@@ -36,10 +36,10 @@ $EM_CONF[$_EXTKEY] = [
     'CGLcompliance_note' => '',
     'constraints' => [
         'depends' => [
-            'typo3' => '7.6.1-7.99.99',
-            'extbase' => '6.2.0-7.99.99',
-            'fluid' => '6.2.0-7.99.99',
-            'php' => '5.5.0-0.0.0'
+            'typo3' => '7.6.1-8.99.99',
+            'extbase' => '6.2.0-8.99.99',
+            'fluid' => '6.2.0-8.99.99',
+            'php' => '7.0.0-0.0.0'
         ],
         'conflicts' => [],
         'suggests' => [],
