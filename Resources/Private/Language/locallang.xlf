@@ -675,6 +675,9 @@
 			<trans-unit id="BackendListFilterHidden">
 				<source>Deactivated Mails</source>
 			</trans-unit>
+			<trans-unit id="BackendListFilterDefaultFields">
+				<source>Default Fields</source>
+			</trans-unit>
 			<trans-unit id="BackendListFilterAddField">
 				<source>Additional Fields</source>
 			</trans-unit>

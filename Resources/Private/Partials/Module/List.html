@@ -82,10 +82,23 @@
 				<f:for each="{mailsPage}" as="mail" iteration="iteration">
 
 					<f:comment>Basic mail information</f:comment>
-					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
+					<tr class="{f:if(condition:iteration.isFirst,then:' firstcol')}{f:if(condition:iteration.isLast,then:' lastcol')}">
+
 						<td nowrap="nowrap" class="col-icon nowrap">
-							<span class="t3-icon fa fa-caret-right openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}"></span>
-							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mail t3-icon-tx_powermail_domain_model_mail-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}"> </span>
+							<span class="openPowermailDetails">
+								<vh:Be.GetIcon identifier="actions-pagetree-collapse" />
+							</span>
+							<span class="t3js-icon icon icon-size-small icon-state-default icon-tcarecords-tx_powermail_domain_model_mail-default" data-identifier="tcarecords-tx_powermail_domain_model_mail-default">
+								<span class="icon-markup">
+									<vh:Be.GetIcon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
+								</span>
+							</span>
+
+							<f:comment>
+								<span class="t3-icon fa fa-caret-right openPowermailDetails" title="{f:translate(key:'BackendListHelpDetails')}"></span>
+								<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mail t3-icon-tx_powermail_domain_model_mail-default{f:if(condition:mail.hidden,then:' transparent')}" title="id={mail.uid}"> </span>
+							</f:comment>
+
 						</td>
 						<td nowrap="nowrap">
 							<f:format.date format="{f:translate(key:'datepicker_format_date')}">{mail.crdate}</f:format.date>

@@ -206,61 +206,17 @@ function PowermailBackend($) {
 	};
 
 	/**
-	 * Open extended search
+	 * Show Extended Search from the Beginning
 	 *
 	 * @returns {void}
 	 * @private
 	 */
 	var addExtendedSearchListener = function() {
-		$('.extended_search_title').click(function() {
-			var $this = $(this);
-			if ($this.hasClass('powermail-close')) {
-				$this
-					.removeClass('powermail-close')
-					.addClass('powermail-open')
-					.children('span')
-					.removeClass('t3-icon-move-down')
-					.addClass('t3-icon-move-up');
-				$('fieldset.extended_search').slideDown('', function() {
-					$(this)
-						.children('.powermail_module_search_field_container1')
-						.children('div.powermail_module_search_field')
-						.fadeTo('slow', 1);
-				});
-			} else {
-				$this
-					.removeClass('powermail-open')
-					.addClass('powermail-close')
-					.children('span')
-					.removeClass('t3-icon-move-up')
-					.addClass('t3-icon-move-down');
-				$('fieldset.extended_search')
-					.children('.powermail_module_search_field_container1')
-					.children('div.powermail_module_search_field')
-					.fadeTo('slow', 0, function() {
-						$(this).parent().parent().slideUp();
-					});
-			}
-		});
-
-		// Show Extended Search from the Beginning
-		$('fieldset.extended_search input, fieldset.extended_search select').each(function() {
-			if ($(this).val() != '') {
-				$('.extended_search_title').removeClass('powermail-close').addClass('powermail-open');
-				$('.extended_search').removeClass('powermail-close').addClass('powermail-open');
+		$('#extended_search input, #extended_search select').not('*[type="submit"]').each(function() {
+			if ($(this).val() !== '') {
+				$('#extended_search').addClass('in');
 				return;
 			}
-		});
-		$('.powermail_module_search_field_container2 input, .powermail_module_search_field_container2 select').each(function() {
-			if ($(this).val() != '') {
-				$(this).parent().parent().removeClass('powermail-close').addClass('powermail-open');
-				return;
-			}
-		});
-
-		// Add new field
-		$('.searchAddField span, .searchAddField label').click(function() {
-			$('fieldset.extended_search .powermail-close').slideToggle();
 		});
 	};
 
@@ -316,7 +272,7 @@ function PowermailBackend($) {
 		});
 
 		// Reset on submit
-		$('.searchall_submit').click(function() {
+		$('*[data-action="searchall_submit"]').click(function() {
 			$('#forwardToAction').val('list');
 		});
 

@@ -907,6 +907,10 @@
 				<source>Deactivated Mails</source>
 				<target state="translated">Deaktivierte E-Mails</target>
 			</trans-unit>
+			<trans-unit id="BackendListFilterDefaultFields">
+				<source>Default Fields</source>
+				<target state="translated">Standard Felder</target>
+			</trans-unit>
 			<trans-unit id="BackendListFilterAddField">
 				<source>Additional Fields</source>
 				<target state="translated">Weitere Felder</target>
