@@ -17,7 +17,7 @@ See TypoScript Settings example:
 .. code-block:: text
 
 	plugin.tx_powermail.settings.setup {
-		Marketing {
+		marketing {
 			# Send Form values to CRM like salesforce or eloqua
 			sendPost {
 				# Activate sendPost (0/1)
