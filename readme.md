@@ -6,7 +6,7 @@ Roadmap for 3.0:
 - bootstrap
 - - ok Markup
 - - CSS update
-- - - show uploaded values
+- - - ok show uploaded values
 - - - nolabels
 - - - ok errors
 - - - morestep

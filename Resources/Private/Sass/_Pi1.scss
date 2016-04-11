@@ -1,4 +1,5 @@
 .tx-powermail {
+
   .powermail_fieldset {
 
     /**
@@ -76,6 +77,29 @@
       }
     }
   }
+
+  /* List uploaded files */
+  ul.powermail_fieldwrap_file_list {
+    background-color: white;
+    border: 1px solid $greySoft2;
+    float: right;
+    padding: 3px;
+    width: 100%;
+    list-style: none;
+    border-radius: 4px;
+    margin: 0;
+    > li {
+      margin: 5px;
+      .deleteAllFiles {
+        color: $greySoft2;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
   .powermail_confirmation {
     .powermail_progressbar {
       width: 100%;
