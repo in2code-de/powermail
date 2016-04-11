@@ -7,12 +7,13 @@ Roadmap for 3.0:
 - - ok Markup
 - - CSS update
 - - - ok show uploaded values
-- - - nolabels
+- - - ok nolabels
 - - - ok errors
-- - - morestep
+- - - ok morestep
 - - - ok Pi2
 - - - ok JS: Location?
 - - - ok JS: Date?
+- - - AJAX
 - ok Update of parsley.js to 2.3.5
 - ok PluginInformation refactoring
 - ok Remove outdated parts of code (PHP, Templates)
