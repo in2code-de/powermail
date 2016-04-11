@@ -177,16 +177,17 @@ class UploadService implements SingletonInterface
     }
 
     /**
-     * Fill files from hidden field values to $this->files
-     * This will happen, if a confirmation page is in use and file values are no more stored in $_FILES
+     * Fill files from hidden field values to $this->files only if same marker from $_FILES is empty
+     * This will happen, if a confirmation page is in use and file values are no more stored in $_FILES per default
      *
      * @return void
      */
     protected function fillFilesFromHiddenFields()
     {
-        if ($this->getFiles() === []) {
-            $arguments = $this->getArguments();
-            foreach ((array)$arguments['field'] as $marker => $values) {
+        $arguments = $this->getArguments();
+        foreach ((array)$arguments['field'] as $marker => $values) {
+            $fileNames = $this->getNewFileNamesByMarker($marker);
+            if (empty($fileNames)) {
                 foreach ((array)$values as $value) {
                     /** @var FileFactory $fileFactory */
                     $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
