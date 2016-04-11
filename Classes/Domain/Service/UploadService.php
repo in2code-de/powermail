@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
+use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\File;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\BasicFileUtility;
@@ -163,25 +164,15 @@ class UploadService implements SingletonInterface
      */
     protected function fillFilesFromFilesArray()
     {
-        $filesArray = ObjectUtility::getFilesArray();
-        if (!empty($filesArray)) {
-            foreach ((array)$filesArray['tx_powermail_pi1']['name']['field'] as $marker => $files) {
-                foreach ((array)$files as $key => $originalName) {
-                    $size = $filesArray['tx_powermail_pi1']['size']['field'][$marker][$key];
-                    $type = $filesArray['tx_powermail_pi1']['type']['field'][$marker][$key];
-                    $temporaryName = $filesArray['tx_powermail_pi1']['tmp_name']['field'][$marker][$key];
-
-                    /** @var File $file */
-                    $file = ObjectUtility::getObjectManager()->get(
-                        File::class,
-                        $marker,
-                        $originalName,
-                        $size,
-                        $type,
-                        $temporaryName,
-                        $this->getUploadFolder()
-                    );
-                    if ($file->validFile()) {
+        $filesArrayPowermail = ObjectUtility::getFilesArray();
+        if (!empty($filesArrayPowermail)) {
+            $filesArray = (array)$filesArrayPowermail['tx_powermail_pi1'];
+            foreach ((array)$filesArray['name']['field'] as $marker => $files) {
+                foreach ((array)array_keys($files) as $key) {
+                    /** @var FileFactory $fileFactory */
+                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $file = $fileFactory->getInstanceFromFilesArray($filesArray, $marker, $key);
+                    if ($file !== null) {
                         $this->addFile($file);
                     }
                 }
@@ -199,26 +190,13 @@ class UploadService implements SingletonInterface
     {
         if ($this->getFiles() === []) {
             $arguments = $this->getArguments();
-            /** @var FieldRepository $fieldRepository */
-            $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
             foreach ((array)$arguments['field'] as $marker => $values) {
-                $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
-                if ($field !== null && $field->getType() === 'file' && !empty($values)) {
-                    foreach ((array)$values as $value) {
-                        /** @var File $file */
-                        $file = ObjectUtility::getObjectManager()->get(
-                            File::class,
-                            $marker,
-                            $value,
-                            null,
-                            null,
-                            null,
-                            $this->getUploadFolder(),
-                            true
-                        );
-                        if ($file->validFile()) {
-                            $this->addFile($file);
-                        }
+                foreach ((array)$values as $value) {
+                    /** @var FileFactory $fileFactory */
+                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $file = $fileFactory->getInstanceFromUploadArguments($marker, $value, $arguments);
+                    if ($file !== null) {
+                        $this->addFile($file);
                     }
                 }
             }
@@ -238,11 +216,11 @@ class UploadService implements SingletonInterface
                 $fileName = $file->getNewName();
                 if ($this->isRandomizeFileNameConfigured()) {
                     $fileName = $this->randomizeFileName($file->getNewName());
-                    $file->setNewName($fileName);
+                    $file->renameName($fileName);
                 }
                 for ($i = 1; $this->isNotUniqueFilename($file); $i++) {
                     $fileName = $this->makeNewFilenameWithAppendix($file->getNewName(), $i);
-                    $file->setNewName($fileName);
+                    $file->renameName($fileName);
                 }
                 $this->fileNames[] = $fileName;
             }
@@ -323,14 +301,6 @@ class UploadService implements SingletonInterface
     protected function isRandomizeFileNameConfigured()
     {
         return $this->settings['misc']['file']['randomizeFileName'] === '1';
-    }
-
-    /**
-     * @return string
-     */
-    protected function getUploadFolder()
-    {
-        return $this->settings['misc']['file']['folder'];
     }
 
     /**

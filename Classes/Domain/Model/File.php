@@ -121,34 +121,13 @@ class File
     /**
      * @param string $marker
      * @param string $originalName
-     * @param int $size
-     * @param string $type
      * @param string $temporaryName
-     * @param string $uploadFolder
-     * @param bool $uploaded
      */
-    public function __construct($marker, $originalName, $size, $type, $temporaryName, $uploadFolder, $uploaded = false)
+    public function __construct($marker, $originalName, $temporaryName)
     {
-        $arguments = GeneralUtility::_GP('tx_powermail_pi1');
-
-        $this->setMarker($marker);
-        $this->setOriginalName($originalName);
-        $this->setTemporaryName($temporaryName);
-        $this->newName = StringUtility::cleanFileName($originalName);
-        $this->uploadFolder = $uploadFolder;
-        if ($size === null) {
-            $size = filesize($this->getNewPathAndFilename(true));
-        }
-        $this->setSize($size);
-        if ($type === null) {
-            $type = mime_content_type($this->getNewPathAndFilename(true));
-        }
-        $this->setType($type);
-        $this->setUploaded($uploaded);
-
-        /** @var FieldRepository $fieldRepository */
-        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
-        $this->setField($fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']));
+        $this->marker = $marker;
+        $this->originalName = $originalName;
+        $this->temporaryName = $temporaryName;
     }
 
     /**
@@ -218,6 +197,18 @@ class File
      * @return File
      */
     public function setNewName($newName)
+    {
+        $this->newName = $newName;
+        return $this;
+    }
+
+    /**
+     * Set a new name and set renamed to true
+     *
+     * @param string $newName
+     * @return File
+     */
+    public function renameName($newName)
     {
         $this->newName = $newName;
         $this->setRenamed(true);
