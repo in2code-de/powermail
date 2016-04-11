@@ -62,6 +62,11 @@ class BackendContainerViewHelper extends ContainerViewHelper
     protected $pageTitle = '';
 
     /**
+     * @var null
+     */
+    protected $includeRequireJsModules = null;
+
+    /**
      * Default value for unneeded or deprecated property
      *
      * @var bool
@@ -155,15 +160,17 @@ class BackendContainerViewHelper extends ContainerViewHelper
         $includeRequireJsModules = null,
         $jQueryNamespace = null
     ) {
+        $this->pageTitle = $pageTitle;
+        $this->enableClickMenu = filter_var($enableClickMenu, FILTER_VALIDATE_BOOLEAN);
+        $this->loadExtJs = filter_var($loadExtJs, FILTER_VALIDATE_BOOLEAN);
+        $this->loadExtJsTheme = filter_var($loadExtJsTheme, FILTER_VALIDATE_BOOLEAN);
+        $this->enableExtJsDebug = filter_var($enableExtJsDebug, FILTER_VALIDATE_BOOLEAN);
+        $this->loadJQuery = filter_var($loadJQuery, FILTER_VALIDATE_BOOLEAN);
         $this->includeCssFiles = $includeCssFiles;
         $this->includeJsFiles = $includeJsFiles;
-        $this->enableClickMenu = $enableClickMenu;
-        $this->loadExtJs = $loadExtJs;
-        $this->loadExtJsTheme = $loadExtJsTheme;
-        $this->enableExtJsDebug = $enableExtJsDebug;
-        $this->loadJQuery = $loadJQuery;
+        $this->addJsInlineLabels = $addJsInlineLabels;
+        $this->includeRequireJsModules = $includeRequireJsModules;
         $this->jQueryNamespace = $jQueryNamespace;
-        $this->pageTitle = $pageTitle;
 
         return parent::render(
             $this->getArgumentForKey(0),
