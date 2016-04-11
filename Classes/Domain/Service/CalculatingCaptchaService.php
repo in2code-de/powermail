@@ -136,6 +136,7 @@ class CalculatingCaptchaService
      */
     public function render(Field $field)
     {
+        $this->testGdExtension();
         if ($this->configurationExists()) {
             $this
                 ->setBackgroundImage($this->configuration['captcha.']['default.']['image'])
@@ -468,5 +469,17 @@ class CalculatingCaptchaService
     protected function configurationExists()
     {
         return !empty($this->configuration['captcha.']['default.']);
+    }
+
+    /**
+     * Check if gdlib is loaded on this server
+     *
+     * @throws \Exception
+     */
+    protected function testGdExtension()
+    {
+        if (!extension_loaded('gd')) {
+            throw new \Exception('PHP extension gd not loaded.');
+        }
     }
 }
