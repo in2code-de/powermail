@@ -57,12 +57,6 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     protected $formRepository;
 
     /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
-     */
-    protected $signalSlotDispatcher;
-
-    /**
      * @var string
      */
     protected $variablesPrefix = 'tx_powermail_pi1';

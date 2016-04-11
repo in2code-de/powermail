@@ -75,7 +75,7 @@ class FormController extends AbstractController
     public function formAction()
     {
         $form = $this->formRepository->findByUid($this->settings['main']['form']);
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$form, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$form, $this]);
         SessionUtility::saveFormStartInSession($this->settings, $form);
         $this->view->assignMultiple(
             [
@@ -118,7 +118,7 @@ class FormController extends AbstractController
      */
     public function createAction(Mail $mail, $hash = null)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $this->dataProcessorRunner->callDataProcessors(
             $mail,
             $this->actionMethodName,
@@ -127,7 +127,7 @@ class FormController extends AbstractController
         );
         if ($this->isMailPersistActive($hash)) {
             $this->saveMail($mail);
-            $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
+            $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
         }
         if ($this->isSendMailActive($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
@@ -140,7 +140,7 @@ class FormController extends AbstractController
             $this->persistenceManager->persistAll();
         }
 
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', [$mail, $hash, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', [$mail, $hash, $this]);
         $this->prepareOutput($mail);
 
         $this->finisherRunner->callFinishers(
@@ -182,7 +182,7 @@ class FormController extends AbstractController
      */
     public function confirmationAction(Mail $mail)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
         $this->dataProcessorRunner->callDataProcessors(
             $mail,
             $this->actionMethodName,
@@ -450,7 +450,7 @@ class FormController extends AbstractController
      */
     public function optinConfirmAction($mail, $hash)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
         $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
         $labelKey = 'failed';
@@ -495,12 +495,10 @@ class FormController extends AbstractController
         );
         $this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
         ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
-
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this]);
-
         if ($this->settings['debug']['settings']) {
             GeneralUtility::devLog('Settings', $this->extensionName, 0, $this->settings);
         }
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this]);
     }
 
     /**

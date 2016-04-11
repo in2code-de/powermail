@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
@@ -41,6 +42,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  */
 class ReceiverEmailService
 {
+    use SignalTrait;
 
     /**
      * @var \In2code\Powermail\Domain\Repository\MailRepository
@@ -59,12 +61,6 @@ class ReceiverEmailService
      * @inject
      */
     protected $objectManager;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
-     */
-    protected $signalSlotDispatcher;
 
     /**
      * @var Mail|null
@@ -149,10 +145,7 @@ class ReceiverEmailService
         if (ConfigurationUtility::getDevelopmentContextEmail()) {
             $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
         }
-
-        // overwrite with a signal if needed
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, [&$emailArray, $this]);
-
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [&$emailArray, $this]);
         $this->receiverEmails = $emailArray;
     }
 

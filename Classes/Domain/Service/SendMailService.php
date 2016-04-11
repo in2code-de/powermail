@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -47,6 +48,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  */
 class SendMailService
 {
+    use SignalTrait;
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -71,12 +73,6 @@ class SendMailService
      * @inject
      */
     protected $mailRepository;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
-     */
-    protected $signalSlotDispatcher;
 
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -184,11 +180,7 @@ class SendMailService
         $message = $this->addPlainBody($message, $email);
         $message = $this->addSenderHeader($message);
 
-        $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
-            __FUNCTION__ . 'BeforeSend',
-            [$message, $email, $this->mail, $this->settings, $this->type]
-        );
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeSend', [$message, $email, $this]);
 
         $message->send();
         $this->updateMail($email);
@@ -409,13 +401,7 @@ class SendMailService
         if (!empty($email['variables'])) {
             $standaloneView->assignMultiple($email['variables']);
         }
-
-        $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
-            __FUNCTION__ . 'BeforeRender',
-            [$standaloneView, $email, $this->mail, $this->settings]
-        );
-
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRender', [$standaloneView, $email, $this]);
         $body = $standaloneView->render();
         $this->mail->setBody($body);
         return $body;

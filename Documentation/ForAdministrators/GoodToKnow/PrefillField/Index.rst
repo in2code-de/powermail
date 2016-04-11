@@ -46,6 +46,8 @@ listen to the following methods and parameters (in this ordering):
 		email = mail@domain.org
 	}
 
+9. Fill with your own PHP with a Signal. Look at In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render()
+
 |img-prefill|
 
 .. _prefillOrPreselectASelectFieldTypoScript:

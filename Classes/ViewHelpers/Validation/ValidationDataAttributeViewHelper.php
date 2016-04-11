@@ -2,6 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -14,6 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
 {
+    use SignalTrait;
 
     /**
      * Returns Data Attribute Array for JS validation with parsley.js
@@ -35,6 +37,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 $this->addMandatoryAttributes($additionalAttributes, $field);
         }
         $this->addValidationAttributes($additionalAttributes, $field);
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [$additionalAttributes, $field, $iteration, $this]);
         return $additionalAttributes;
     }
 

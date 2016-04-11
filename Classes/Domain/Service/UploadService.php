@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\File;
 use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
@@ -40,12 +41,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class UploadService implements SingletonInterface
 {
-
-    /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
-     */
-    protected $signalSlotDispatcher;
+    use SignalTrait;
 
     /**
      * Contains all files from upload
@@ -76,7 +72,7 @@ class UploadService implements SingletonInterface
         $this->fillFilesFromFilesArray();
         $this->fillFilesFromHiddenFields();
         $this->makeUniqueFilenames();
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, [$this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [$this]);
     }
 
     /**
@@ -273,7 +269,7 @@ class UploadService implements SingletonInterface
      */
     public function getFiles()
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, [$this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [$this]);
         return $this->files;
     }
 

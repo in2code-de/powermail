@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -41,6 +42,7 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
  */
 abstract class AbstractController extends ActionController
 {
+    use SignalTrait;
 
     /**
      * @var \In2code\Powermail\Domain\Repository\FormRepository
@@ -77,12 +79,6 @@ abstract class AbstractController extends ActionController
      * @inject
      */
     protected $userRepository;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
-     */
-    protected $signalSlotDispatcher;
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
