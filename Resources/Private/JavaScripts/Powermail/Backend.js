@@ -37,16 +37,15 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addDetailOpenListener = function() {
-		$('.powermail_listbe_details_container').hide();
-		$('.openPowermailDetails').click(function() {
+		// $('*[data-action="powermailDetailsContainer"]').hide();
+		$('*[data-action="openPowermailDetails"]').click(function() {
 			var $this = $(this);
-			var $arrow = $this.closest('tr').children(':first').children(':first');
-			if ($arrow.hasClass('fa')) {
-				// TYPO3 7.x
-				$arrow.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
+			$this.closest('tr').find('.icon:first').toggle();
+			var $iconLast = $this.closest('tr').find('.openPowermailDetailsIcons .icon:last');
+			if ($iconLast.is(':visible')) {
+				$iconLast.css('display', 'none');
 			} else {
-				// TYPO3 6.2
-				$arrow.toggleClass('t3-icon-irre-collapsed').toggleClass('t3-icon-irre-expanded');
+				$iconLast.css('display', 'inline-block');
 			}
 			$this
 				.closest('tr')

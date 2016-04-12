@@ -85,20 +85,15 @@
 					<tr class="{f:if(condition:iteration.isFirst,then:' firstcol')}{f:if(condition:iteration.isLast,then:' lastcol')}">
 
 						<td nowrap="nowrap" class="col-icon nowrap">
-							<span class="openPowermailDetails">
+							<span class="openPowermailDetailsIcons" data-action="openPowermailDetails">
 								<vh:Be.GetIcon identifier="actions-pagetree-collapse" />
+								<vh:Be.GetIcon identifier="actions-pagetree-expand" />
 							</span>
 							<span class="t3js-icon icon icon-size-small icon-state-default icon-tcarecords-tx_powermail_domain_model_mail-default" data-identifier="tcarecords-tx_powermail_domain_model_mail-default">
 								<span class="icon-markup">
 									<vh:Be.GetIcon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
 								</span>
 							</span>
-
-							<f:comment>
-								<span class="t3-icon fa fa-caret-right openPowermailDetails" title="{f:translate(key:'BackendListHelpDetails')}"></span>
-								<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mail t3-icon-tx_powermail_domain_model_mail-default{f:if(condition:mail.hidden,then:' transparent')}" title="id={mail.uid}"> </span>
-							</f:comment>
-
 						</td>
 						<td nowrap="nowrap">
 							<f:format.date format="{f:translate(key:'datepicker_format_date')}">{mail.crdate}</f:format.date>
@@ -125,7 +120,7 @@
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
 								<span class="btn">
-									<span class="t3-icon fa fa-desktop openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
+									<span class="t3-icon fa fa-desktop" data-action="openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
 								</span>
 
 								<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_mail',identifier:mail.uid)}">
@@ -160,7 +155,7 @@
 					</tr>
 
 					<f:comment>More mail details</f:comment>
-					<tr class="db_list_normal powermail_listbe_details powermail_listbe_details_closed">
+					<tr class="db_list_normal powermail_listbe_details powermail_listbe_details_closed" data-action="powermailDetailsContainer">
 						<td colspan="7">
 							<div class="powermail_listbe_details_container">
 								<f:for each="{mail.answers}" as="answer">
