@@ -89,9 +89,12 @@
 								<vh:Be.GetIcon identifier="actions-pagetree-collapse" />
 								<vh:Be.GetIcon identifier="actions-pagetree-expand" />
 							</span>
-							<span class="t3js-icon icon icon-size-small icon-state-default icon-tcarecords-tx_powermail_domain_model_mail-default" data-identifier="tcarecords-tx_powermail_domain_model_mail-default">
-								<span class="icon-markup">
+							<span class="powermailRecordIcon">
+								<span{f:if(condition:mail.hidden,then:' class="hide"')}>
 									<vh:Be.GetIcon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
+								</span>
+								<span{f:if(condition:mail.hidden,else:' class="hide"')}>
+									<vh:Be.GetIcon identifier="tcarecords-tx_powermail_domain_model_mail-default" overlay="overlay-hidden" />
 								</span>
 							</span>
 						</td>
@@ -128,16 +131,16 @@
 								</a>
 
 								<span class="btn">
-									<span class="t3-icon fa fa-trash deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
+									<span class="t3-icon fa fa-trash" data-action="deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
 								</span>
 
 								<span class="btn">
 									<f:if condition="{mail.hidden}">
 										<f:then>
-											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off hideMail visibilityButton">&nbsp;</span>
+											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off unhideMail visibilityButton">&nbsp;</span>
 										</f:then>
 										<f:else>
-											<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on unhideMail visibilityButton">&nbsp;</span>
+											<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on hideMail visibilityButton">&nbsp;</span>
 										</f:else>
 									</f:if>
 								</span>

@@ -80,7 +80,7 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addDeleteMailListener = function() {
-		$(document).on('click', '.deleteMail', function () {
+		$(document).on('click', '*[data-action="deleteMail"]', function () {
 			var $this = $(this);
 			var moduleUri = $this.closest('td').find('.container_module_uri').val();
 			var uid = $this.closest('td').find('.container_uid').val();
@@ -435,30 +435,24 @@ function PowermailBackend($) {
 	 */
 	var visibilityToggleLine = function($tr) {
 		var $visibilityButton = $tr.find('.visibilityButton');
-		var hidden = 1;
+		var hidden = 0;
 		if ($visibilityButton.hasClass('unhideMail')) {
 			$visibilityButton
-				.removeClass('t3-icon-edit-hide')
 				.removeClass('unhideMail')
-				.removeClass('fa-toggle-on')
-				.addClass('t3-icon-edit-unhide')
+				.removeClass('fa-toggle-off')
 				.addClass('hideMail')
-				.addClass('fa-toggle-off');
-			$tr
-				.find('.t3-icon-tcarecords-tx_powermail_domain_model_mail')
-				.addClass('transparent');
+				.addClass('fa-toggle-on');
+			$tr.find('.powermailRecordIcon').children(':first').removeClass('hide');
+			$tr.find('.powermailRecordIcon').children(':last').addClass('hide');
 		} else {
 			$visibilityButton
-				.removeClass('t3-icon-edit-unhide')
 				.removeClass('hideMail')
-				.removeClass('fa-toggle-off')
-				.addClass('t3-icon-edit-hide')
+				.removeClass('fa-toggle-on')
 				.addClass('unhideMail')
-				.addClass('fa-toggle-on');
-			$tr
-				.find('.t3-icon-tcarecords-tx_powermail_domain_model_mail')
-				.removeClass('transparent');
-			hidden = 0;
+				.addClass('fa-toggle-off');
+			$tr.find('.powermailRecordIcon').children().last().removeClass('hide');
+			$tr.find('.powermailRecordIcon').children().first().addClass('hide');
+			hidden = 1;
 		}
 		return hidden;
 	};
