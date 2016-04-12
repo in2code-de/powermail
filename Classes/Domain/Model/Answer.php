@@ -42,8 +42,6 @@ class Answer extends AbstractEntity
     const TABLE_NAME = 'tx_powermail_domain_model_answer';
 
     /**
-     * value
-     *
      * @var string
      */
     protected $value = '';
@@ -60,22 +58,16 @@ class Answer extends AbstractEntity
     protected $valueType = null;
 
     /**
-     * mail
-     *
      * @var \In2code\Powermail\Domain\Model\Mail
      */
     protected $mail = null;
 
     /**
-     * field
-     *
      * @var \In2code\Powermail\Domain\Model\Field
      */
     protected $field = null;
 
     /**
-     * Returns the value
-     *
      * @return mixed $value
      */
     public function getValue()
@@ -109,43 +101,14 @@ class Answer extends AbstractEntity
      *
      * @param mixed $value
      * @dontvalidate $value
-     * @return void
+     * @return Answer
      */
     public function setValue($value)
     {
-        // if array, encode to string
-        if (is_array($value)) {
-            $value = json_encode($value);
-        }
-
-        // if date, get timestamp (datepicker)
-        if ($this->isTypeDateForDate($value)) {
-            if (empty($this->translateFormat)) {
-                $format = LocalizationUtility::translate(
-                    'datepicker_format_' . $this->getField()->getDatepickerSettings()
-                );
-            } else {
-                $format = $this->translateFormat;
-            }
-            $date = \DateTime::createFromFormat($format, $value);
-            if ($date) {
-                if ($this->getField()->getDatepickerSettings() === 'date') {
-                    $date->setTime(0, 0, 0);
-                }
-                $value = $date->getTimestamp();
-            } else {
-                // fallback html5 date field - always Y-m-d H:i
-                $date = new \DateTime($value);
-                if ($date) {
-                    if ($this->getField()->getDatepickerSettings() === 'date') {
-                        $date->setTime(0, 0, 0);
-                    }
-                    $value = $date->getTimestamp();
-                }
-            }
-        }
-
+        $value = $this->convertToJson($value);
+        $value = $this->convertToTimestamp($value);
         $this->value = $value;
+        return $this;
     }
 
     /**
@@ -179,11 +142,12 @@ class Answer extends AbstractEntity
 
     /**
      * @param int $valueType
-     * @return void
+     * @return Answer
      */
     public function setValueType($valueType)
     {
         $this->valueType = (int)$valueType;
+        return $this;
     }
 
     /**
@@ -216,11 +180,12 @@ class Answer extends AbstractEntity
      * Sets the mail
      *
      * @param Mail $mail
-     * @return void
+     * @return Answer
      */
     public function setMail(Mail $mail)
     {
         $this->mail = $mail;
+        return $this;
     }
 
     /**
@@ -237,11 +202,12 @@ class Answer extends AbstractEntity
      * Sets the field
      *
      * @param Field $field
-     * @return void
+     * @return Answer
      */
     public function setField(Field $field)
     {
         $this->field = $field;
+        return $this;
     }
 
     /**
@@ -272,5 +238,60 @@ class Answer extends AbstractEntity
     protected function isTypeMultiple($value)
     {
         return ($this->getValueType() === 1 || $this->getValueType() === 3) && !is_array($value);
+    }
+
+    /**
+     * If array, encode to JSON string
+     *
+     * @param string|array $value
+     * @return string
+     */
+    protected function convertToJson($value)
+    {
+        if (is_array($value)) {
+            $value = json_encode($value);
+        }
+        return $value;
+    }
+
+    /**
+     * Convert string to timestamp for date fields (datepicker)
+     *
+     * @param $value
+     * @return int|string
+     */
+    protected function convertToTimestamp($value)
+    {
+        if ($this->isTypeDateForDate($value)) {
+            if (empty($this->translateFormat)) {
+                $format = LocalizationUtility::translate(
+                    'datepicker_format_' . $this->getField()->getDatepickerSettings()
+                );
+            } else {
+                $format = $this->translateFormat;
+            }
+            $date = \DateTime::createFromFormat($format, $value);
+            if ($date) {
+                if ($this->getField()->getDatepickerSettings() === 'date') {
+                    $date->setTime(0, 0, 0);
+                }
+                $value = $date->getTimestamp();
+            } else {
+                try {
+                    // fallback html5 date field - always Y-m-d H:i
+                    $date = new \DateTime($value);
+                } catch (\Exception $e) {
+                    // clean value if string could not be converted
+                    $value = '';
+                }
+                if ($date) {
+                    if ($this->getField()->getDatepickerSettings() === 'date') {
+                        $date->setTime(0, 0, 0);
+                    }
+                    $value = $date->getTimestamp();
+                }
+            }
+        }
+        return $value;
     }
 }
