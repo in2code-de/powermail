@@ -36,23 +36,33 @@
 				<label for="searchStart">
 					<f:translate key="BackendListFilterStart" />
 				</label>
-				<f:form.textfield
-						property="start"
-						id="searchStart"
-						class="form-control powermail_date"
-						additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field)}"
-						value="{piVars.filter.start}" />
+				<div class="input-group">
+					<f:form.textfield
+							property="start"
+							id="searchStart"
+							class="form-control"
+							additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field,additionalAttributes:'{data-datepicker:\'true\'}')}"
+							value="{piVars.filter.start}" />
+					<span class="input-group-addon pointer" data-datepicker-opener="true">
+						<vh:Be.GetIcon identifier="actions-edit-pick-date" />
+					</span>
+				</div>
 			</div>
 			<div class="form-group col-md-6">
 				<label for="searchEnd">
 					<f:translate key="BackendListFilterEnd" />
 				</label>
-				<f:form.textfield
-						property="stop"
-						id="searchEnd"
-						class="form-control powermail_date"
-						additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field)}"
-						value="{piVars.filter.stop}" />
+				<div class="input-group">
+					<f:form.textfield
+							property="stop"
+							id="searchEnd"
+							class="form-control"
+							additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field,additionalAttributes:'{data-datepicker:\'true\'}')}"
+							value="{piVars.filter.stop}" />
+					<span class="input-group-addon pointer" data-datepicker-opener="true">
+						<vh:Be.GetIcon identifier="actions-edit-pick-date" />
+					</span>
+				</div>
 			</div>
 		</div>
 		<div class="row">

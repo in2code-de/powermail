@@ -226,7 +226,7 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addDatePickerListener = function() {
-		$('.powermail_date').each(function() {
+		$('input[data-datepicker="true"]').each(function() {
 			var $this = $(this);
 			var datepickerStatus = true;
 			var timepickerStatus = true;
@@ -235,20 +235,21 @@ function PowermailBackend($) {
 			} else if ($this.data('datepicker-settings') === 'time') {
 				datepickerStatus = false;
 			}
-
-			// create datepicker
 			$this.datetimepicker({
 				format: $this.data('datepicker-format'),
 				timepicker: timepickerStatus,
 				datepicker: datepickerStatus,
 				lang: 'en',
-				i18n:{
-					en:{
+				i18n: {
+					en: {
 						months: $this.data('datepicker-months').split(','),
 						dayOfWeek: $this.data('datepicker-days').split(',')
 					}
 				}
 			});
+		});
+		$('*[data-datepicker-opener="true"]').click(function() {
+			$(this).prev().datetimepicker('show');
 		});
 	};
 
