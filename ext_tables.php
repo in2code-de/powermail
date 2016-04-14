@@ -112,18 +112,13 @@ foreach ($tables as $table) {
 /**
  * Garbage Collector
  */
-if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableTableGarbageCollectionActive()) {
-    $tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
-    $tables = [
-        \In2code\Powermail\Domain\Model\Mail::TABLE_NAME,
-        \In2code\Powermail\Domain\Model\Answer::TABLE_NAME
+$tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
+$tables = [\In2code\Powermail\Domain\Model\Mail::TABLE_NAME, \In2code\Powermail\Domain\Model\Answer::TABLE_NAME];
+foreach ($tables as $table) {
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = [
+        'dateField' => 'tstamp',
+        'expirePeriod' => 30
     ];
-    foreach ($tables as $table) {
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = [
-            'dateField' => 'tstamp',
-            'expirePeriod' => 30
-        ];
-    }
 }
 
 /**

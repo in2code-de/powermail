@@ -105,17 +105,6 @@ class ConfigurationUtility extends AbstractUtility
     }
 
     /**
-     * Check if enableTableGarbageCollection is active
-     *
-     * @return bool
-     */
-    public static function isEnableTableGarbageCollectionActive()
-    {
-        $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['enableTableGarbageCollection'] === '1';
-    }
-
-    /**
      * Check if replaceIrreWithElementBrowser is active
      *
      * @return bool

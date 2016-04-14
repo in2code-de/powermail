@@ -16,9 +16,6 @@ disablePluginInformationMailPreview = 0
 # cat=basic/enable/050; type=boolean; label= Enable Form caching: With this setting, you can enable the caching of the form view, what speeds up sites with powermail forms in the frontend. On the other hand there is no more form prefilling - even with confirmation pages and previous-buttons. Enable this only if you know, what your are doing.
 enableCaching = 0
 
-# cat=basic/enable/060; type=boolean; label= Enable table garbage collection: If this is enabled the mail and answer tables can be cleaned up by the TYPO3 table garbage collector scheduler task. Records that are older than 30 days will be removed.
-enableTableGarbageCollection = 0
-
 # cat=basic/enable/070; type=boolean; label= Enable Merge for l10n_mode: All fields with l10n_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages.
 l10n_mode_merge = 0
 
