@@ -21,15 +21,25 @@
 		<div id="typo3-docheader">
 			<div class="typo3-docheader-functions">
 				<div class="left powermail-backend-select">
-					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionList')}" controller="Module" action="list" />
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionReporting')}" controller="Module" action="reportingBe" />
-						<f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionReportingForm')}" controller="Module" action="reportingFormBe" />
-						<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}"><f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionReportingMarketing')}" controller="Module" action="reportingMarketingBe" /></f:if>
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionTools')}" controller="Module" action="toolsBe" />
-						<f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionOverview')}" controller="Module" action="overviewBe" />
-						<f:if condition="{vh:Be.IsAdmin()}"><f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionCheck')}" controller="Module" action="checkBe" /></f:if>
-					</f:be.menus.actionMenu>
+					<f:link.action action="list" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'list')}">
+						<f:translate key="BackendSelectionList">Mail list</f:translate>
+					</f:link.action>
+					<f:link.action action="overviewBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'overviewBe')}">
+						<f:translate key="BackendSelectionOverview">Form overview</f:translate>
+					</f:link.action>
+					<f:link.action action="reportingFormBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'reportingFormBe')}">
+						<f:translate key="BackendSelectionReportingForm">Answer reporting</f:translate>
+					</f:link.action>
+					<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
+						<f:link.action action="reportingMarketingBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'reportingMarketingBe')}">
+							<f:translate key="BackendSelectionReportingMarketing">Marketing analysis</f:translate>
+						</f:link.action>
+					</f:if>
+					<f:if condition="{vh:Be.IsAdmin()}">
+						<f:link.action action="checkBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'checkBe')}">
+							<f:translate key="BackendSelectionCheck">Function check</f:translate>
+						</f:link.action>
+					</f:if>
 				</div>
 				<div class="right">
 					<f:be.pagePath />
