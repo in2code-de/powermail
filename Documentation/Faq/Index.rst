@@ -208,7 +208,7 @@ Another way is to hide fields for editors (and administrators) via Page TSConfig
 Hiding fields from FlexForm
 '''''''''''''''''''''''''''
 
-If you add a powermail plugin, you will see some options in FlexForm. If you want to hide some of theese fields (for editors and administrators), you can also do it via Page TSConfig:
+If you add a powermail plugin, you will see some options in FlexForm. If you want to hide some of these fields (for editors and administrators), you can also do it via Page TSConfig:
 
 .. code-block:: text
 

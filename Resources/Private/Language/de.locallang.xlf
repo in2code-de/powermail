@@ -988,8 +988,8 @@
 				<target state="translated">Formular Konfiguration</target>
 			</trans-unit>
 			<trans-unit id="BackendPluginInformationTitleLastMails">
-				<source>Last mails</source>
-				<target state="translated">Neueste Mails</target>
+				<source>Last mails from this form</source>
+				<target state="translated">Neueste Mails dieses Formulares</target>
 			</trans-unit>
 			<trans-unit id="BackendPluginInformationTitlePi2">
 				<source>Show and manage mails in Frontend</source>

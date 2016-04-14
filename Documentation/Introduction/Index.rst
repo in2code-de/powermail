@@ -42,7 +42,8 @@ Some basic points:
 
 - For Developers: Powermail is a very flexible extension, which also
   could be extended by your code or extension (hooks, signalslots,
-  TypoScript cObjects and userFuncs, debugoutput, etc...).
+  own Finishers, own DataProcessors, own Spam-Prevention-Methods,
+  own Validators, TypoScript cObjects and userFuncs, debugoutput, etc...).
 
 Cut a long story short: With powermail editors are able to create complex
 mailforms without knowledge of html, php or javascript and that's the main difference
@@ -51,17 +52,58 @@ between powermail and the most other form extensions
 
 .. _whats-new:
 
-What's new in powermail 2.1 or 2.2?
------------------------------------
+What's new in powermail 3?
+--------------------------
 
-Powermail 2.1 uses the same data-structure that was created with powermail 2.0 (see below).
-But there was another code-refactoring especially for TYPO3 6.2 LTS and upcoming versions.
+- General update for TYPO3 7.6 and 8.x
+- Table name correction from plural to singular (..mails => ..mail, ..fields => ..field)
+
+  - Updated ext_tables.sql
+  - Converter script to convert old tablenames to new tablenames
+
+    - Automaticly on extension installation
+    - Start manually from extension manager
+
+- Add bootstrap
+
+  - Frontend
+
+    - Add static template to add bootstrap classes to forms and fields
+    - Add constant to load bootstrap.css from powermail folder
+    - Update Layouts, Templates, Partials (Pi1 and Pi2)
+
+  - Backend
+
+    - Update modules with new markup
+
+- Backend
+
+  - PluginInformation refactoring
+  - Remove old form converter (converted 1.x to 2.x forms)
+  - Remove unneeded overview actions
+  - Enable table garbage collector scheduler tasks per default
+
+- General
+
+  - Add DataProcessors to change mail object before it's persisted or used in mails
+  - Own spamshield methods could be registered via TypoScript now
+  - Refactoring of upload function
+  - Add signals to ValidationDataAttributeViewHelper, PrefillFieldViewHelper and PrefillMultiFieldViewHelper
+  - Remove outdated parts of code (PHP, Templates)
+  - Some code cleanup
+  - Manual update
+
+What's new in powermail 2?
+--------------------------
+
+Powermail 2 (with Extbase/Fluid) was a complete new refactored version of powermail 1 (pibase)
 
 University Package
 ^^^^^^^^^^^^^^^^^^
 
 Powermail 2.1 was mainly supported from a consortium of german universities and colleges.
-We want to thank them for their trust in powermail and the further development. See **UP** for features which are part of the University Package.
+We want to thank them for their trust in powermail and the further development.
+See **UP** for features which are part of the University Package.
 
 - h-da Hochschule Darmstadt – University of Applied Sciences
 - Leibniz Universität Hannover
@@ -128,76 +170,16 @@ Facts
 
 **UP** = Part of the University Package (see sponsors note)
 
-What's new in powermail 2.0?
-----------------------------
-
-Powermail >= 2.0 is a complete rebuild of the old powermail. Main
-focus was to keep flexibility and all the features and to create even
-more. The rebuild was done with Extbase and Fluid.
-
-See videos to 2.0 on youtube
-
-- Powermail 2.0 Introduction: `http://youtu.be/tuhMiwEvhIs <http://youtu.be/tuhMiwEvhIs>`_
-
-- Powermail 2.0 Hidden Secrets: `http://youtu.be/XAkenuTmxZ0 <http://youtu.be/XAkenuTmxZ0>`_
-
-- Powermail integrated  **the most interesting extensions** into the core:
-
-  - powermail\_frontend: Show stored Mails again in the frontend (build a fast guestbook, etc...)
-  - wt\_spamshield: Integrated spam-prevention-methods from wt\_spamshield
-  - wt\_calculating\_captcha: Integrated a captcha extension to powermail
-  - powermail\_optin: Double-Opt-In for powermail
-  - powermail\_sendpost: Send values to a third-party-software like a CRM (salesforce, etc...)
-
-- Forms can be used  **more than only one** time now
-
-- **Localization improved** (no more different Field markers)
-
-- **Database model changed** – tt\_content will not longer extended with
-  powermail fields
-
-- **Marketing Session** – See the most important information about your
-  user now
-
-- **Adwords Implementation** – Adwords Conversion Tracking could be
-  enabled by adding the code to the constants
-
-- **CC, BCC, Reply, ReturnPath, Priority** now available
-
-- **Send values to a third-party-software** like a CRM (like salesforce,
-  etc...) or a Marketing-Automation-Tool (like eloqua, etc...)
-
-- **Spam Factor** for Mails
-
-- **Spam Prevention Methods** – same methods from wt\_spamshield
-
-- **Calculating Captcha** included
-
-- **Change Design of the backend module**
-
-- **Double-Opt-In** for forms
-
-- **powermail\_frontend** to show mails in frontend (Pi2) with export
-  possibilities (XLS, CSV, RSS)
-
-- **Plugin Info** in Web view of backend
-
-- **Backend Module Reports** (Fields and Marketing)
-
-- **Backend Module Check**
-
-- **E-Mails to FE Groups**
-
-- **Form Caching**
-
-
 .. _compatibility:
 
-Compatible TYPO3 versions
--------------------------
+Compatible TYPO3 and PHP versions
+---------------------------------
 
-We will rollout a powermail version that will support TYPO3 6.2LTS until next LTS version. That will increase professionality of this extension.
-See in list, what's the plan with older branches:
+Short story: We will **support powermail 2 as long as TYPO3 6.2LTS will be supported** with bugfixes and security updates.
+
+But **new features and further development will be only included into powermail 3**.
+
+Small note: 2.18 is the last powermail version which support PHP 5.3
 
 .. t3-field-list-table::
  :header-rows: 1
@@ -206,13 +188,17 @@ See in list, what's the plan with older branches:
       Powermail Version
    :TYPO3Version:
       TYPO3 Versions
+   :PHPVersion:
+      PHP Version
    :Support:
       Support
 
  - :PowermailVersion:
-      2.2.x
+      3.x
    :TYPO3Version:
-      6.2 LTS, 7.0, 7.1
+      7.6 LTS - 8.x
+   :PHPVersion:
+      5.5 - 7.x
    :Support:
       This version will be provided with
 
@@ -221,37 +207,57 @@ See in list, what's the plan with older branches:
       - Security Updates
 
  - :PowermailVersion:
-      2.1.x
+      2.25.x
    :TYPO3Version:
-      6.2 LTS and newer
+      6.2 LTS - 7.6 LTS
+   :PHPVersion:
+      5.5 - 7.x
    :Support:
-      This version will be provided with
+      This version will be still provided with
 
       - Bugfixes
       - Security Updates
 
  - :PowermailVersion:
+      2.19 - 2.24
+   :TYPO3Version:
+      6.2 LTS - 7.6 LTS
+   :PHPVersion:
+      5.5 - 7.x
+   :Support:
+      This version will no longer be supported in any way
+
+ - :PowermailVersion:
+      2.1 - 2.18
+   :TYPO3Version:
+      6.2 LTS - 7.6 LTS
+   :PHPVersion:
+      5.3 - 5.5
+   :Support:
+      This version will no longer be supported in any way
+
+ - :PowermailVersion:
       2.0.x
    :TYPO3Version:
       4.6, 4.7, 6.1, 6.2 LTS
+   :PHPVersion:
+      5.0 - 5.3
    :Support:
-      This version will be provided with
-
-      - Security Updates
+      This version will no longer be supported in any way
 
  - :PowermailVersion:
-      1.6.x
+      1.x
    :TYPO3Version:
       4.4, 4.5, 4.6, 4.7
+   :PHPVersion:
+      < 5.3
    :Support:
-      This version will be provided with
-
-      - Security Updates
+      This version will no longer be supported in any way
 
 .. _screenshots:
 
-Screenshots
------------
+Example Screenshots
+-------------------
 
 
 Frontend: Show a form with different field types

@@ -736,7 +736,7 @@
 				<source>Mailform configuration</source>
 			</trans-unit>
 			<trans-unit id="BackendPluginInformationTitleLastMails">
-				<source>Last mails</source>
+				<source>Last mails from this form</source>
 			</trans-unit>
 			<trans-unit id="BackendPluginInformationTitlePi2">
 				<source>Show and manage mails in Frontend</source>

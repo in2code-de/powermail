@@ -1,17 +1,11 @@
-.. |img-country|     image:: ../../../Images/manual_html_country.png
-   :width: 505
+.. |example_field_country|      image:: ../../../Images/example_field_country.png
 .. :align: left
-.. :border: 0
-.. :name: img-country
+.. :name: example_field_country
 
-.. |img-country2|     image:: ../../../Images/manual_html_country2.png
-   :width: 505
+.. |record_field_country_tab1|      image:: ../../../Images/record_field_country_tab1.png
 .. :align: left
-.. :border: 0
-.. :name: img-country2
+.. :name: record_field_country_tab1
 
-.. |img-country3|     image:: ../../../Images/manual_html_country3.png
-   :width: 505
+.. |record_field_country_tab2|      image:: ../../../Images/record_field_country_tab2.png
 .. :align: left
-.. :border: 0
-.. :name: img-country3
+.. :name: record_field_country_tab2

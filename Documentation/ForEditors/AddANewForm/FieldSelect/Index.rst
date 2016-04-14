@@ -31,14 +31,20 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-33|
+Default:
+
+|example_field_select|
+
+Multiple:
+
+|example_field_select_multi|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-34|
+|record_field_select_tab1|
 
-|img-35|
+|record_field_select_tab2|
 
 Explanation
 '''''''''''

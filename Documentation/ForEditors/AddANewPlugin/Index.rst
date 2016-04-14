@@ -33,7 +33,7 @@ Choose a page where you want to show a powermail form in the Frontend
 and go to the page module. Click on the New Button to add a new
 content element to this page and choose “powermail”.
 
-|img-72|
+|plugin1|
 
 Plugin Settings
 ^^^^^^^^^^^^^^^
@@ -42,7 +42,7 @@ You will find the plugin settings within the tab “Plugin”. In this
 area you see another four tabs (Main Settings, Receiver, Sender,
 Submit Page).
 
-|img-72b|
+|plugin2|
 
 Main Settings
 """""""""""""
@@ -50,7 +50,7 @@ Main Settings
 Example Configuration
 ~~~~~~~~~~~~~~~~~~~~~
 
-|img-73|
+|plugin_tab1|
 
 Explanation
 ~~~~~~~~~~~
@@ -91,7 +91,7 @@ Explanation
    :Description:
       Enable a confirmation page.
    :Explanation:
-      This enables a confirmation page (Are theese values correct?) to the
+      This enables a confirmation page (Are these values correct?) to the
       frontend.
    :Tab:
       Main Settings
@@ -134,7 +134,7 @@ Receiver
 Example Configuration
 '''''''''''''''''''''
 
-|img-74|
+|plugin_tab2|
 
 Explanation
 '''''''''''
@@ -216,7 +216,7 @@ Sender
 Example Configuration
 '''''''''''''''''''''
 
-|img-75|
+|plugin_tab3|
 
 Explanation
 '''''''''''
@@ -284,7 +284,7 @@ Submit Page
 Example Configuration
 '''''''''''''''''''''
 
-|img-76|
+|plugin_tab4|
 
 Explanation
 '''''''''''
@@ -323,3 +323,88 @@ Explanation
       (internal page, external URL, document, mail address), even if there are values in the field "Text on submit page"
    :Tab:
       Submit Page
+
+
+Powermail content element in page module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When you save your plugin and go back to the page module, you will see the content element with some additional
+information. If you do not want to see this information, you can turn it off in the Extension Manager.
+
+Example Image
+'''''''''''''
+
+|pluginInformation|
+
+Explanation
+'''''''''''
+
+.. t3-field-list-table::
+ :header-rows: 1
+
+ - :Part:
+      Part
+   :Description:
+      Description
+   :Link:
+      Link
+
+ - :Part:
+      Title of content element
+   :Description:
+      You will see the title of the content element
+   :Link:
+      If you click on the title or the edit icon aside, the content element will be opened for editing
+
+ - :Part:
+      Form title
+   :Description:
+      Title of the chosen form
+   :Link:
+      If you click on the form title or the edit icon aside, the form record will be opened for editing
+
+ - :Part:
+      Receiver email address
+   :Description:
+      This part shows the configured receiver email address. If TYPO3 runs in development context, and there is an
+      email set for development context, you will see this in red letters.
+   :Link:
+      \-
+
+ - :Part:
+      Receiver name
+   :Description:
+      This part shows the configured receiver name.
+   :Link:
+      \-
+
+ - :Part:
+      Mail subject
+   :Description:
+      This part shows the configured mail subject.
+   :Link:
+      \-
+
+ - :Part:
+      Confirmation page activated
+   :Description:
+      This part shows if a confirmation page was activated.
+   :Link:
+      \-
+
+ - :Part:
+      Double-opt-in activated
+   :Description:
+      This part shows if a double-opt-in page was activated.
+   :Link:
+      \-
+
+ - :Part:
+      Last mails
+   :Description:
+      This part shows the last three mails that where submitted to the same form (If the form is used on different
+      pages, you will also see mails from different pages). Note: This part can be deactivated in the Extension
+      Manager
+   :Link:
+      If you click on a mail subject or the icon aside, the mail record will be opened to edit.
+      If you click on more or the search icon aside, the powermail backend module will be opened.

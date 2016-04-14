@@ -27,14 +27,14 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-45|
+|example_field_captcha|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-46|
+|record_field_captcha_tab1|
 
-|img-47|
+|record_field_captcha_tab2|
 
 Explanation
 '''''''''''

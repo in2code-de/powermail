@@ -6,7 +6,7 @@ and easy to use mailform extension with a lots of features
 
 # Whats new in Version 3.0
 
-- General update for TYPO3 7.6
+- General update for TYPO3 7.6 and 8.x
 - Table name correction from plural to singular (..mails => ..mail, ..fields => ..field)
   - Updated ext_tables.sql
   - Converter script to convert old tablenames to new tablenames
@@ -23,6 +23,7 @@ and easy to use mailform extension with a lots of features
   - PluginInformation refactoring
   - Remove old form converter (converted 1.x to 2.x forms)
   - Remove unneeded overview actions
+  - Enable table garbage collector scheduler tasks per default
 - General
   - Add DataProcessors to change mail object before it's persisted or used in mails
   - Own spamshield methods could be registered via TypoScript now

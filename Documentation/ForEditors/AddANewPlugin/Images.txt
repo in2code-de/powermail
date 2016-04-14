@@ -1,36 +1,27 @@
-.. |img-72|     image:: ../../Images/manual_html_38cd0997.png
-   :width: 588
+.. |plugin1|      image:: ../../Images/plugin1.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik77
+.. :name: plugin1
 
-.. |img-72b|     image:: ../../Images/manual_html_38cd0997b.png
-   :width: 588
+.. |plugin2|      image:: ../../Images/plugin2.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik77b
+.. :name: plugin2
 
-.. |img-73|     image:: ../../Images/manual_html_6cfc6f3b.png
-   :width: 593
+.. |plugin_tab1|      image:: ../../Images/plugin_tab1.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik78
+.. :name: plugin_tab1
 
-.. |img-74|     image:: ../../Images/manual_html_m6161843c.png
-   :width: 594
+.. |plugin_tab2|      image:: ../../Images/plugin_tab2.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik79
+.. :name: plugin_tab2
 
-.. |img-75|     image:: ../../Images/manual_html_441745a6.png
-   :width: 591
+.. |plugin_tab3|      image:: ../../Images/plugin_tab3.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik80
+.. :name: plugin_tab3
 
-.. |img-76|     image:: ../../Images/manual_html_6817cf3a.png
-   :width: 594
+.. |plugin_tab4|      image:: ../../Images/plugin_tab4.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik81
+.. :name: plugin_tab4
 
+.. |pluginInformation|      image:: ../../Images/pluginInformation.png
+.. :align: left
+.. :name: pluginInformation

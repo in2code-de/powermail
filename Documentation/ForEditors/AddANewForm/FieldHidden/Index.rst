@@ -35,9 +35,9 @@ Because it is "hidden", there is no visible frontend output :)
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-63|
+|record_field_hidden_tab1|
 
-|img-64|
+|record_field_hidden_tab2|
 
 Explanation
 '''''''''''

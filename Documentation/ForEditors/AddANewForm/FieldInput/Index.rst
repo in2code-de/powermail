@@ -30,14 +30,14 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-29|
+|example_field_input|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-12|
+|record_field_input_tab1|
 
-|img-13|
+|record_field_input_tab2|
 
 Explanation
 '''''''''''

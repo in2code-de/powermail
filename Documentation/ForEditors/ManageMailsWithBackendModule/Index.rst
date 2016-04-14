@@ -30,31 +30,31 @@ First step
 
 Open the Mail Backend Module and choose a page with mails in the foldertree. You will see all stored mails.
 
-|img-77|
+|backend_module_menu|
 
 The Backend Module will start with the mail listing.
 
-|img-78|
+|backend_module_menu2|
 
 .. _manageMailsWithBackendModuleMailList:
 
 Mail List
 """""""""
 
-If the page contains mails, all mails will be listet. The view is
-splitted into two parts (Search Area and List Area).
+If the page contains mails, all mails will be listet. The area over the mail list is
+splitted into two parts (Search part and Export part).
 
-|img-79|
+|backend_module_list|
 
 Search Area
 ~~~~~~~~~~~
 
 Search Area is useful to filter the mails (of the List Area) and to
 manage the Export.
-- Click on **Extended Search** opens some more fields which can be used for filtering
-- Clock on **Extended Export Settings** allows you to set the export columns
 
-|img-80|
+If you click on **Extended Search** some more fields which can be used for filtering will be shown.
+
+|backend_module_filter|
 
 .. t3-field-list-table::
  :header-rows: 1
@@ -127,8 +127,8 @@ manage the Export.
  - :Field:
       Additional Fields
    :Description:
-      Clicking on the green Plus Symbol opens a list of all fields (e.g.
-      firstname, lastname, email, etc...) from the form.
+      One or more fields - depending on the form - are listed (e.g.
+      firstname, lastname, email, etc...).
    :Explanation:
       All fields are related to each other with OR.
 
@@ -139,7 +139,7 @@ Export Area gives you the possibility to export your mails in XLS or
 CSV format.
 Note: For editors only enabled fields are free to export.
 
-|img-81|
+|backend_module_export|
 
 .. t3-field-list-table::
  :header-rows: 1
@@ -152,9 +152,9 @@ Note: For editors only enabled fields are free to export.
       Explanation
 
  - :Field:
-      XLS Icon
+      XLS Button
    :Description:
-      If you want to export the current list in XLS-Format, click the icon.
+      If you want to export the current list in XLS-Format, click the button.
 
       XLS-Files can be opened with Microsoft Excel or Open Office (e.g.).
    :Explanation:
@@ -165,9 +165,9 @@ Note: For editors only enabled fields are free to export.
       columns.
 
  - :Field:
-      CSV Icon
+      CSV Button
    :Description:
-      If you want to export the current list in CSV-Format, click the icon.
+      If you want to export the current list in CSV-Format, click the button.
 
       CSV-Files can be opened with Microsoft Excel or Open Office (e.g.).
    :Explanation:
@@ -181,7 +181,7 @@ Note: For editors only enabled fields are free to export.
       Columns in Export File
    :Description:
       This area shows the columns and the ordering of the rows in the
-      export-file.Play around with drag and drop.
+      export-file. You can play around with drag and drop.
    :Explanation:
       Change sorting: Drag and drop a line up or down
 
@@ -198,58 +198,16 @@ Note: For editors only enabled fields are free to export.
    :Explanation:
       See Row before for an explanation.
 
-.. _manageMailsWithBackendModuleReporting:
-
-Reporting
-"""""""""
-
-Reporting Overview - Choose
-
-- Reporting Form or
-- Reporting Marketing
-
-|img-81a|
-
-Reporting (Form)
-~~~~~~~~~~~~~~~~
-
-This view helps you to get a small overview over form values.
-Filter Mails in the same way as the listing with the filter area.
-Below the Filter Area you will see some small diagrams (one diagram for each field in the form on this page).
-
-|img-81b|
-
-Reporting (Marketing)
-~~~~~~~~~~~~~~~~~~~~~
-
-This view helps you to get a small overview over the most important information about your visitors.
-Filter Mails in the same way as the listing with the filter area.
-Below the Filter Area you will see some small diagrams (Referer Domain, Referer URI, Visitors Country, Visitor uses a Mobile Device, Website Language, Browser Language, Page Funnel).
-Note: To activate the marketing information, please add the Powermail Marketing Static Template to your Root page.
-
-|img-81c|
-
-.. _manageMailsWithBackendModuleTools:
-
-Tools
-"""""
-
-Tools Overview - Choose
-
-- Form Overview or
-- Function Check or
-- Form Converter (Admin only)
-
-|img-81d|
 
 .. _manageMailsWithBackendModuleToolsOverview:
 
 Form Overview
-~~~~~~~~~~~~~
+"""""""""""""
 
-|img-81e|
+This is a very helpful list with all powermail forms of your installation.
+This table helps you to manage your forms, even in large installations.
 
-This is a very helpful list with all powermail forms of your installation. This table helps you to manage your forms, even in large installations.
+|backend_module_formoverview|
 
 .. t3-field-list-table::
  :header-rows: 1
@@ -303,6 +261,28 @@ This is a very helpful list with all powermail forms of your installation. This 
    :Explanation:
       Same function as click on Form name.
 
+
+.. _manageMailsWithBackendModuleReporting:
+
+Reporting (Form)
+""""""""""""""""
+
+This view helps you to get a small overview over form values.
+Filter Mails in the same way as the listing with the filter area.
+Below the Filter Area you will see some small diagrams (one diagram for each field in the form on this page).
+
+|backend_module_reportingform|
+
+Reporting (Marketing)
+"""""""""""""""""""""
+
+This view helps you to get a small overview over the most important information about your visitors.
+Filter Mails in the same way as the listing with the filter area.
+Below the Filter Area you will see some small diagrams (Referer Domain, Referer URI, Visitors Country, Visitor uses a Mobile Device, Website Language, Browser Language, Page Funnel).
+Note: To activate the marketing information, please add the Powermail Marketing Static Template to your Root page.
+
+|backend_module_reportingmarketing|
+
 .. _manageMailsWithBackendModuleToolsFunctionCheck:
 
 Function Check
@@ -313,7 +293,7 @@ Beside some basic checks there is a mail function. This function basicly works l
 
 Note: This view is for admins only.
 
-|img-81f|
+|backend_module_functioncheck|
 
 .. t3-field-list-table::
  :header-rows: 1
@@ -394,75 +374,3 @@ Note: This view is for admins only.
       If you are not sure if powermail can send mails, enter your email-address and press "Send Mail Now"
    :Additional:
       This test is similar to the test in install tool. Sender name and email will be used from LocalConfiguration settings defaultMailFromAddress and defaultMailFromName
-
-.. _manageMailsWithBackendModuleToolsFormConverter:
-
-Form Converter
-~~~~~~~~~~~~~~
-
-Old records (from Tables tx_powermail_fieldsets, tx_powermail_fields and tt_content) will be flagged with deleted=1. New Records will be generated (Tables tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field, tt_content).
-
-Note: This view is for admins only.
-
-**Attention:** Please backup your database before converting. This step is irreversible!
-
-|img-81g|
-
-.. t3-field-list-table::
- :header-rows: 1
-
- - :Field:
-      Field
-   :Description:
-      Description
-   :Explanation:
-      Explanation
-
- - :Field:
-      PID
-   :Description:
-      Save new forms on page with PID
-   :Explanation:
-      Choose a PID to store the converted forms in. Use "[samePage]" to keep the pid.
-
- - :Field:
-      Receiver Name
-   :Description:
-      Default Receiver Name
-   :Explanation:
-      Powermail needs a name for the receiver name. Just add a static value.
-
- - :Field:
-      Sender Name
-   :Description:
-      Default Sender Name for Confirmation Mail
-   :Explanation:
-      Add a static value for the sender name of the confirmation mails.
-
- - :Field:
-      Sender Email
-   :Description:
-      Default Sender Email for Confirmation Mail
-   :Explanation:
-      Add a static value for the sender email of the confirmation mails.
-
- - :Field:
-      RTE ParseFunc
-   :Description:
-      RTE ParseFunc Path in TypoScript (without prefix lib.)
-   :Explanation:
-      RTE fields will be converted with the ParseFunc Function of TYPO3. If you have trouble with form converting, you can also clean this value completely.
-
- - :Field:
-      Hidden Forms
-   :Description:
-      Ignore Old Hidden Forms
-   :Explanation:
-      Check this if only old, non-hidden forms should be converted.
-
- - :Field:
-      Test Run
-   :Description:
-      Do only a Test Run (no records will be generated or deleted)
-   :Explanation:
-      Do a testrun before and see if the result is as expected.

@@ -1,16 +1,11 @@
-.. |img-51|     image:: ../../../Images/manual_html_m2c869f5d.png
+.. |example_field_label|      image:: ../../../Images/example_field_label.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik51
+.. :name: example_field_label
 
-.. |img-52|     image:: ../../../Images/manual_html_m24f2b60.png
-   :width: 511
+.. |record_field_text_tab1|      image:: ../../../Images/record_field_text_tab1.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik52
+.. :name: record_field_reset_tab1
 
-.. |img-53|     image:: ../../../Images/manual_html_m61ff27c3.png
-   :width: 509
+.. |record_field_text_tab2|      image:: ../../../Images/record_field_text_tab2.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik53
+.. :name: record_field_text_tab2
