@@ -203,7 +203,8 @@ function PowermailForm($) {
 					processData: false,
 					beforeSend: function() {
 						$('.powermail_submit', $this).parent().append(getProgressbar());
-						$('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(getProgressbar());
+						$('*[data-powermail-form-ajax="confirmation"], *[data-powermail-form-ajax="submit"]', $this)
+							.closest('.powermail_confirmation').append(getProgressbar());
 					},
 					complete: function() {
 						// remove progressbar

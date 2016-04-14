@@ -32,6 +32,7 @@ Show Confirmation Page
 				<f:render section="HiddenFields" arguments="{_all}" />
 				<f:form.submit
 						value="{f:translate(key: 'confirmation_prev')}"
+						additionalAttributes="{data-powermail-form-ajax:'confirmation'}"
 						class="btn btn-danger" />
 			</f:form>
 
@@ -49,6 +50,7 @@ Show Confirmation Page
 				<f:render section="HiddenFields" arguments="{_all}" />
 				<f:form.submit
 						value="{f:translate(key: 'confirmation_next')}"
+						additionalAttributes="{data-powermail-form-ajax:'submit'}"
 						class="btn btn-primary" />
 			</f:form>
 		</div>

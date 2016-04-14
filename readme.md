@@ -33,6 +33,11 @@ and easy to use mailform extension with a lots of features
   - Manual update
 
 
+### Example form with bootstrap classes:
+
 ![Example form](https://box.everhelper.me/attachment/445407/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-KmKJsSfGKDz6bnVO/screen.png "Example Form")
+
+
+### Backend module mail list:
 
 ![Backend Module](https://box.everhelper.me/attachment/445409/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-HFuHtr8E9DoGfJE6/screen.png "Backend Module")
