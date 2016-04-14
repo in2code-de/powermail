@@ -202,16 +202,21 @@ class ModuleController extends AbstractController
     public function checkBeAction($email = null)
     {
         $this->view->assign('pid', $this->id);
+        $this->sendTestEmail($email);
+    }
 
-        if (GeneralUtility::validEmail($email)) {
-            $body = 'New <b>Test Email</b> from User ' . BackendUtility::getPropertyFromBackendUser('username') .
-                ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
-
-            $senderEmail = 'powermail@domain.net';
-            if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
-                $senderEmail = ConfigurationUtility::getDefaultMailFromAddress();
-            }
-
+    /**
+     * Send plain test mail with swiftmailer
+     *
+     * @param null $email
+     * @return void
+     */
+    protected function sendTestEmail($email = null)
+    {
+        if ($email !== null && GeneralUtility::validEmail($email)) {
+            $body = 'New Test Email from User ' . BackendUtility::getPropertyFromBackendUser('username');
+            $body .= ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
+            $senderEmail = ConfigurationUtility::getDefaultMailFromAddress('powermail@domain.net');
             $this->view->assignMultiple(
                 [
                     'issent' => MailUtility::sendPlainMail($email, $senderEmail, 'New Powermail Test Email', $body),

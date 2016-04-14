@@ -157,13 +157,17 @@ class ConfigurationUtility extends AbstractUtility
     /**
      * Get default mail from install tool settings
      *
+     * @param string $fallback
      * @return string
      */
-    public static function getDefaultMailFromAddress()
+    public static function getDefaultMailFromAddress($fallback = null)
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (!empty($configVariables['MAIL']['defaultMailFromAddress'])) {
             return $configVariables['MAIL']['defaultMailFromAddress'];
+        }
+        if ($fallback !== null) {
+            return $fallback;
         }
         return '';
     }

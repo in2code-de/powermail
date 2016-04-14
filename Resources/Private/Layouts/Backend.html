@@ -15,50 +15,48 @@
 		jQueryNamespace="defaultNoConflict"
 		pageTitle="powermail">
 
-	<div class="overlay"></div>
-
-	<div class="typo3-fullDoc">
-		<div id="typo3-docheader">
+	<div class="module">
+		<div class="module-docheader">
 			<div class="typo3-docheader-functions">
-				<div class="left powermail-backend-select">
-					<f:link.action action="list" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'list')}">
-						<f:translate key="BackendSelectionList">Mail list</f:translate>
-					</f:link.action>
-					<f:link.action action="overviewBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'overviewBe')}">
-						<f:translate key="BackendSelectionOverview">Form overview</f:translate>
-					</f:link.action>
-					<f:link.action action="reportingFormBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'reportingFormBe')}">
-						<f:translate key="BackendSelectionReportingForm">Answer reporting</f:translate>
-					</f:link.action>
-					<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
-						<f:link.action action="reportingMarketingBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'reportingMarketingBe')}">
-							<f:translate key="BackendSelectionReportingMarketing">Marketing analysis</f:translate>
+				<div class="module-docheader-bar module-docheader-bar-navigation">
+					<div class="module-docheader-bar-column-left">
+						<f:link.action action="list" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'list')}">
+							<f:translate key="BackendSelectionList">Mail list</f:translate>
 						</f:link.action>
-					</f:if>
-					<f:if condition="{vh:Be.IsAdmin()}">
-						<f:link.action action="checkBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'checkBe')}">
-							<f:translate key="BackendSelectionCheck">Function check</f:translate>
+						<f:link.action action="overviewBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'overviewBe')}">
+							<f:translate key="BackendSelectionOverview">Form overview</f:translate>
 						</f:link.action>
-					</f:if>
-				</div>
-				<div class="right">
-					<f:be.pagePath />
+						<f:link.action action="reportingFormBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'reportingFormBe')}">
+							<f:translate key="BackendSelectionReportingForm">Answer reporting</f:translate>
+						</f:link.action>
+						<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
+							<f:link.action action="reportingMarketingBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'reportingMarketingBe')}">
+								<f:translate key="BackendSelectionReportingMarketing">Marketing analysis</f:translate>
+							</f:link.action>
+						</f:if>
+						<f:if condition="{vh:Be.IsAdmin()}">
+							<f:link.action action="checkBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'checkBe')}">
+								<f:translate key="BackendSelectionCheck">Function check</f:translate>
+							</f:link.action>
+						</f:if>
+					</div>
+					<div class="module-docheader-bar-column-right">
+						<f:be.pagePath />
+					</div>
 				</div>
 			</div>
-			<div class="typo3-docheader-buttons">
-				<div class="left">
+			<div class="module-docheader-bar module-docheader-bar-buttons">
+				<div class="module-docheader-bar-column-left">
 					&nbsp;
 				</div>
-				<div class="right">
+				<div class="module-docheader-bar-column-right">
 					<f:be.buttons.shortcut />
 				</div>
 			</div>
 		</div>
-		<div id="typo3-docbody">
-			<div id="typo3-inner-docbody" class="powermail-backend">
-				<f:flashMessages />
-				<f:render section="content" />
-			</div>
+		<div class="module-body powermail-backend">
+			<f:flashMessages />
+			<f:render section="content" />
 		</div>
 	</div>
 </f:Be.Container>

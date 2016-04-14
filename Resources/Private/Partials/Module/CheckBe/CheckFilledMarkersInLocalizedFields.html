@@ -25,9 +25,13 @@
 					<f:translate key="BackendCheckLocalizedFieldsWithFilledMarkersFailed">Failures found</f:translate>
 				</p>
 				<f:form action="fixFilledMarkersInLocalizedFields">
-					<input type="submit" value="{f:translate(key:'BackendCheckTryToFix', default:'Solve problem')}" />
-					<p><strong><f:translate key="BackendCheckBackupBefore">Please backup before!</f:translate></strong></p>
+					<f:form.submit
+							class="btn btn-default"
+							value="{f:translate(key:'BackendCheckTryToFix', default:'Solve problem')}" />
 				</f:form>
+				<p>
+					<strong><f:translate key="BackendCheckBackupBefore">Please backup before!</f:translate></strong>
+				</p>
 			</div>
 		</div>
 	</f:else>
