@@ -124,27 +124,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Reporting
-     *
-     * @param string $subaction could be 'form' or 'marketing'
-     * @return void
-     */
-    public function reportingBeAction($subaction = null)
-    {
-        switch ($subaction) {
-            case 'marketing':
-                $this->forward('reportingMarketingBe');
-                break;
-
-            case 'form':
-                $this->forward('reportingMarketingBe');
-                break;
-
-            default:
-        }
-    }
-
-    /**
      * Reporting Form
      *
      * @return void
@@ -190,15 +169,6 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             ]
         );
-    }
-
-    /**
-     * Tools overview
-     *
-     * @return void
-     */
-    public function toolsBeAction()
-    {
     }
 
     /**

@@ -9,7 +9,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package TYPO3
  * @subpackage Fluid
  */
-class GetValuesGoogleChartsViewHelper extends AbstractViewHelper
+class GetLabelsForChartsViewHelper extends AbstractViewHelper
 {
 
     /**
@@ -18,29 +18,34 @@ class GetValuesGoogleChartsViewHelper extends AbstractViewHelper
     protected $notAllowedSign = '"';
 
     /**
-     * View helper check if given value is array or not
+     * Get labels string for charts JavaScript like "label1|label2|label3"
      *
      * @param array $answers Grouped Answers
      * @param string $fieldUidOrKey
      * @param string $separator
+     * @param int $crop Crop each label after X signs
+     * @param string $append append after crop
      * @param bool $urlEncode
-     * @return string "label1|label2|label3"
+     * @return string
      */
-    public function render($answers, $fieldUidOrKey, $separator = ',', $urlEncode = true)
+    public function render($answers, $fieldUidOrKey, $separator = '|', $crop = 15, $append = '...', $urlEncode = true)
     {
         $string = '';
         if (empty($answers[$fieldUidOrKey]) || !is_array($answers[$fieldUidOrKey])) {
             return $string;
         }
 
-        foreach ($answers[$fieldUidOrKey] as $amount) {
-            $amount = str_replace([$this->notAllowedSign, $separator], '', $amount);
-            $amount = htmlspecialchars($amount);
-            $string .= $amount;
+        foreach (array_keys($answers[$fieldUidOrKey]) as $value) {
+            $value = str_replace([$this->notAllowedSign, $separator], '', $value);
+            $value = htmlspecialchars($value);
+            if (strlen($value) > $crop) {
+                $value = substr($value, 0, $crop) . $append;
+            }
+            $string .= $value;
             $string .= $separator;
         }
+        $string = rtrim($string, $separator);
 
-        $string = substr($string, 0, -1);
         if ($urlEncode) {
             $string = urlencode($string);
         }
