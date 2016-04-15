@@ -16,7 +16,7 @@ Note: This is irreversible - Please take care of a backup
 Image example
 ^^^^^^^^^^^^^
 
-|img-schedulertask|
+|scheduler_cleanunusedfiles|
 
 Console example
 ^^^^^^^^^^^^^^^

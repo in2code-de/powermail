@@ -13,7 +13,7 @@ Introduction
 If you want to add new fields to the FlexForm in the plugin, you can simply use a bit of Page TSConfig to do this.
 Of course you can access values in new fields with <f:debug>{settings}</f:debug> if the fieldname starts with "settings".
 
-|img-newflexformproperties|
+|developer_new_flexformfield|
 
 Example TSConfig
 """"""""""""""""

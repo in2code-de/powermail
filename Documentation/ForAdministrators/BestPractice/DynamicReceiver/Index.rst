@@ -10,7 +10,7 @@ In some case it could be useful, that the email receiver should be chosen by a s
 E.g. if the visitor selects "receiver A" in a dropdown, powermail should use
 receivera@domain.org and in all other cases receiverb@domain.org
 
-|img-dynamicreceiver1|
+|bestpractice_predefinedreceivers1|
 
 Activate Predefined Receiver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -21,7 +21,7 @@ You can add a new option to the predefined receiver with a bit of page TSConfig
 
 	tx_powermail.flexForm.predefinedReceivers.addFieldOptions.receivers1 = receivers #1
 
-|img-dynamicreceiver2|
+|bestpractice_predefinedreceivers2|
 
 
 Conditional receiver via TypoScript

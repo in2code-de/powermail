@@ -27,9 +27,9 @@ Following example shows two new fields in a new tab "Powermailextended".
 The first is a textarea. If there is text stored, this should be outputted before the Input field is rendered.
 The second is a checkbox. If this checkbox was checked from an editor, the input field should use the html-attribute readonly="readonly".
 
-|img-newfieldproperties|
+|developer_new_fieldproperties1|
 
-|img-newfieldproperties2|
+|developer_new_fieldproperties2|
 
 Extend powermail with an own extension
 """"""""""""""""""""""""""""""""""""""
@@ -143,7 +143,7 @@ EXT:powermailextended/Configuration/TypoScript/setup.txt:
 		}
 	}
 
-EXT:powermailextended/Resources/Private/Partials/Form/Input.html:
+EXT:powermailextended/Resources/Private/Partials/Form/Field/Input.html:
 ::
 
   {namespace vh=In2code\Powermail\ViewHelpers}

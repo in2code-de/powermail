@@ -10,16 +10,19 @@ Introduction
 A backend user without administration rights is not able to manage all fields in a powermail form by default.
 Maybe the Plugin looks like:
 
-|missingrights|
+|userrights_plugin_failure|
 
 Solution
 ^^^^^^^^
 
 The user is not able to see the powermail fields. The problem is simple to solve.
-The admin should have a look into "Allowed excludefields" within tab "Access list" in the user or usergroup record. See section "Page Content".
+The admin should have a look into "Page Content: Plugin" and after that into
+"Page Content Plugin Options powermail_pi1" in the user or usergroup record.
 
-|beuserrights|
+|userrights_plugin|
+
+|userrights_flexform|
 
 After having all access rights, the plugin will look like:
 
-|fullaccessrights|
+|plugin_tab1|

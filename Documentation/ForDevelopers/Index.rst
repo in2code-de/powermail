@@ -24,7 +24,6 @@ For Developers
    :titlesonly:
    :glob:
 
-   DatabaseModel/Index
    AddNewFields/Index
    AddNewFieldProperties/Index
    AddNewFlexFormProperties/Index
@@ -32,3 +31,4 @@ For Developers
    AddFinisherClasses/Index
    SignalSlots/Index
    UserfuncsWithCobject/Index
+   DatabaseModel/Index

@@ -18,4 +18,4 @@
 Database Model
 ^^^^^^^^^^^^^^
 
-|img-90|
+|developer_database_model|

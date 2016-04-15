@@ -58,3 +58,9 @@ See TypoScript Settings example:
 		}
 	}
 
+
+Own implementation
+------------------
+
+If this configuration doesn't help you because you need an individual solution to send values to a third-party-sofware
+or an API, please have a look into the "Finisher" part under "for Developers"

@@ -10,70 +10,6 @@ which could help you to fix problems or a misconfiguration.
 
 You need an additional extension to show the debug output (e.g. "devlog").
 
-Reference
-^^^^^^^^^
-
-.. container::ts-properties
-
-=========================================================== ========================================== ===============================
-Property                                                    Affected Views                              Default
-=========================================================== ========================================== ===============================
-:ref:`goodtoknow-debugsettings`                             All                                        0
-:ref:`goodtoknow-debugvariables`                            Create View                                0
-:ref:`goodtoknow-debugmail`                                 Create View                                0
-:ref:`goodtoknow-debugsavetotable`                          Create View                                0
-:ref:`goodtoknow-debugspamshield`                           Create View                                0
-=========================================================== ========================================== ===============================
-
-
-.. _goodtoknow-debugsettings:
-
-debug.settings
-""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.debug.settings =` 0 = disabled | 1 = enabled
-
-Show Settings from TypoScript, Flexform and Extension Manager
-
-
-.. _goodtoknow-debugvariables:
-
-debug.variables
-"""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.debug.variables =` 0 = disabled | 1 = enabled
-
-Show submitted variables
-
-
-.. _goodtoknow-debugmail:
-
-debug.mail
-""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.debug.mail =` 0 = disabled | 1 = enabled
-
-Show mail arrays
-
-.. _goodtoknow-debugsavetotable:
-
-debug.saveToTable
-"""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.debug.saveToTable =` 0 = disabled | 1 = enabled
-
-Show saveToTable array
-
-.. _goodtoknow-debugspamshield:
-
-debug.spamshield
-""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.debug.spamshield =` 0 = disabled | 1 = enabled
-
-Show spamtest results
-
-
 Comprehensive Example
 """""""""""""""""""""
 
@@ -88,3 +24,64 @@ Comprehensive Example
 			spamshield = 0
 		}
 	}
+
+
+Configuration
+^^^^^^^^^^^^^
+
+.. t3-field-list-table::
+ :header-rows: 1
+
+ - :TyposcriptPath:
+      Relative Typoscript path
+   :Description:
+      Description
+   :Type:
+      Type
+   :Default:
+      Default value
+
+ - :TyposcriptPath:
+      debug.settings
+   :Description:
+      Show Settings from TypoScript, Flexform and Extension Manager
+   :Type:
+      0/1
+   :Default:
+      0
+
+ - :TyposcriptPath:
+      debug.variables
+   :Description:
+      Show submitted variables
+   :Type:
+      0/1
+   :Default:
+      0
+
+ - :TyposcriptPath:
+      debug.mail
+   :Description:
+      Show mail arrays
+   :Type:
+      0/1
+   :Default:
+      0
+
+ - :TyposcriptPath:
+      debug.saveToTable
+   :Description:
+      Show saveToTable array
+   :Type:
+      0/1
+   :Default:
+      0
+
+ - :TyposcriptPath:
+      debug.spamshield
+   :Description:
+      Show spamtest results
+   :Type:
+      0/1
+   :Default:
+      0

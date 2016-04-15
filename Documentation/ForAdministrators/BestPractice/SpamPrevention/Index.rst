@@ -11,9 +11,10 @@ Spam Prevention
 Introduction
 ^^^^^^^^^^^^
 
-|img-87|
+|bestpractice_spamshield1|
 
-We ported some spamcheck from wt\_spamshield in the core of powermail:
+Spamshield is a method to protect your mailforms from spam without the usage of a captcha field.
+After a submit, different spammethods must be passed:
 
 - Honeypod
 - Linkcheck
@@ -33,249 +34,17 @@ message.
 How is a Spam-Number related to the Spam-Factor?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-|img-88|
+|bestpractice_spamshield2|
 
 In this example leads a Spam-Indication from 4 to a 75% chance of spam
 in the mail(3: 66%, 12: 92%, etc...)
 
 
-Configure and enable your Spam Settings with TypoScript
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Reference
-"""""""""
-
-
-.. container::ts-properties
-
-=========================================================== ========================================== ======================= ===============================
-Property                                                    Data Type                                  :ref:`t3tsref:stdwrap`  Default
-=========================================================== ========================================== ======================= ===============================
-:ref:`goodtoknow-enable`                                    0 = disable | 1 = enable                   no                      1
-factor_                                                     :ref:`t3tsref:data-type-integer`           no                      75
-email_                                                      :ref:`t3tsref:data-type-string`            no                      *empty*
-:ref:`goodtoknow-emailsubject`                              :ref:`t3tsref:data-type-string`            no                      Spam in powermail form recognized
-:ref:`goodtoknow-emailtemplate`                             :ref:`t3tsref:data-type-string`            no                      EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
-:ref:`goodtoknow-logfilelocation`                           :ref:`t3tsref:data-type-string`            no                      *empty*
-:ref:`goodtoknow-logtemplate`                               :ref:`t3tsref:data-type-string`            no                      EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
-:ref:`goodtoknow-indicatorhoneypod`                         :ref:`t3tsref:data-type-integer`           no                      5
-:ref:`goodtoknow-indicatorlink`                             :ref:`t3tsref:data-type-integer`           no                      3
-:ref:`goodtoknow-indicatorlinklimit`                        :ref:`t3tsref:data-type-integer`           no                      2
-:ref:`goodtoknow-indicatorname`                             :ref:`t3tsref:data-type-integer`           no                      3
-:ref:`goodtoknow-indicatorsession`                          :ref:`t3tsref:data-type-integer`           no                      5
-:ref:`goodtoknow-indicatorunique`                           :ref:`t3tsref:data-type-integer`           no                      2
-:ref:`goodtoknow-indicatorblackliststring`                  :ref:`t3tsref:data-type-integer`           no                      7
-:ref:`goodtoknow-indicatorblackliststringvalues`            :ref:`t3tsref:data-type-string`            no                      viagra,sex,porn,p0rn
-:ref:`goodtoknow-indicatorblacklistip`                      :ref:`t3tsref:data-type-integer`           no                      7
-:ref:`goodtoknow-indicatorblacklistipvalues`                :ref:`t3tsref:data-type-string`            no                      123.132.125.123,123.132.125.124
-
-=========================================================== ========================================== ======================= ===============================
-
-.. _goodtoknow-enable:
-
-\_enable
-""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield._enable =` 0 (disable) | 1 (enable)
-
-Enable or disable the spamshield of powermail completely
-
-
-
-.. _goodtoknow-factor:
-
-factor
-""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.factor =` :ref:`t3tsref:data-type-integer`
-
-Spam Factor Limit in %
-
-
-.. _goodtoknow-email:
-
-email
-"""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.email =` :ref:`t3tsref:data-type-string`
-
-Notification Email to Admin if spam recognized
-
-
-.. _goodtoknow-emailsubject:
-
-emailSubject
-""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.emailSubject =` :ref:`t3tsref:data-type-string`
-
-Notification Email subject to Admin if spam recognized
-
-
-.. _goodtoknow-emailtemplate:
-
-emailTemplate
-"""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.emailTemplate =` :ref:`t3tsref:data-type-string`
-
-Path to mail template file
-
-
-.. _goodtoknow-logfilelocation:
-
-logfileLocation
-"""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.logfileLocation =` :ref:`t3tsref:data-type-string`
-
-Path of log file, ie. typo3temp/logs/powermail_spam.log, if empty, logging is deactivated
-
-
-.. _goodtoknow-logtemplate:
-
-logTemplate
-"""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.logTemplate =` :ref:`t3tsref:data-type-string`
-
-Spamshield Log Template: Template for entries written to log file
-
-
-.. _goodtoknow-indicatorhoneypod:
-
-indicator.honeypod
-""""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.honeypod =` :ref:`t3tsref:data-type-string`
-
-A Honeypod is an invisible (CSS) field which should not filled with
-any value. If it's even filled, it could be a machine.
-
-If this check failed - add this indication value to indicator (0
-disables this check completely)
-
-
-
-.. _goodtoknow-indicatorlink:
-
-indicator.link
-""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.link =` :ref:`t3tsref:data-type-string`
-
-Checks the number of Links in the mail. The number of links is a good
-indication of a spammail.
-
-If this check failed - add this indication value to indicator (0
-disables this check completely)
-
-
-.. _goodtoknow-indicatorlinklimit:
-
-indicator.linkLimit
-"""""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.linkLimit =` :ref:`t3tsref:data-type-string`
-
-Limit of links allowed. If there are more links than allowed, the check fails.
-
-
-.. _goodtoknow-indicatorname:
-
-indicator.name
-""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.name =` :ref:`t3tsref:data-type-integer`
-
-Compares fields with marker “firstname” and “lastname” (or “vorname”
-and “nachname”). The value may not be the same.
-
-if this check failes - add this indication value to indicator (0
-disables this check completely)
-
-.. _goodtoknow-indicatorsession:
-
-indicator.session
-"""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.session =` :ref:`t3tsref:data-type-integer`
-
-If a user opens the form a timestamp is set in a browser-session. If
-the session is empty on submit, it could be a machine.
-
-if this check failes - add this indication value to indicator (0
-disables this check completely)
-
-
-.. _goodtoknow-indicatorunique:
-
-indicator.unique
-""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.unique =` :ref:`t3tsref:data-type-integer`
-
-Compares the values of all fields. If different fields have the same
-value, this could be spam.
-
-If this check failes - add this indication value to indicator (0
-disables this check completely)
-
-
-.. _goodtoknow-indicatorblackliststring:
-
-indicator.blacklistString
-"""""""""""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.blacklistString =` :ref:`t3tsref:data-type-integer`
-
-Checks mails to not allowed string values.
-
-If this check failes - add this indication value to indicator (0
-disables this check completely)
-
-
-.. _goodtoknow-indicatorblackliststringvalues:
-
-indicator.blacklistStringValues
-"""""""""""""""""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.blacklistStringValues =` :ref:`t3tsref:data-type-string`
-
-Define the string that are not allowed.
-
-Blacklisted values (default values should be extended with your experience)
-
-
-
-.. _goodtoknow-indicatorblacklistip:
-
-indicator.blacklistIp
-"""""""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.blacklistIp =` :ref:`t3tsref:data-type-integer`
-
-Checks if the sender is not in the IP-Blacklist.
-
-If this check failes - add this indication value to indicator (0
-disables this check completely)
-
-
-
-.. _goodtoknow-indicatorblacklistipvalues:
-
-indicator.blacklistIpValues
-"""""""""""""""""""""""""""
-
-:typoscript:`plugin.tx_powermail.settings.setup.spamshield.indicator.blacklistIpValues =` :ref:`t3tsref:data-type-string`
-
-Define the IP-Addreses that are not allowed.
-
-Blacklisted values (default values should be extended with your
-experience)
+Configuration via TypoScript
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Comprehensive Example
-^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
 
 .. code-block:: text
 
@@ -285,25 +54,273 @@ Comprehensive Example
 				_enable = 1
 				factor = 75
 				email = administrator@domain.org
+				emailSubject = Spam in powermail form recognized
 				emailTemplate = EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
 				logfileLocation = typo3temp/logs/powermail_spam.log
 				logTemplate = EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
 
-				indicator {
-					honeypod = 5
-					link = 3
-					linkLimit = 2
-					name = 3
-					session = 5
-					unique = 2
-					blacklistString = 7
-					blacklistStringValues = viagra,sex,porn,p0rn
-					blacklistIp = 7
-					blacklistIpValues = 123.132.125.123
+				methods {
+					# Honeypot check
+					1 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Honey Pot
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 5
+
+						# method configuration
+						configuration {
+						}
+					}
+
+					# Link check
+					2 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Link check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\LinkMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 3
+
+						# method configuration
+						configuration {
+							# number of allowed links
+							linkLimit = 2
+						}
+					}
+
+					# Name check
+					3 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Name check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\NameMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 3
+
+						# method configuration
+						configuration {
+						}
+					}
+
+					# Session check
+					4 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Session check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\SessionMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 5
+
+						# method configuration
+						configuration {
+						}
+					}
+
+					# Unique check
+					5 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Unique check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\UniqueMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 2
+
+						# method configuration
+						configuration {
+						}
+					}
+
+					# Value blacklist check
+					6 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Value blacklist check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\ValueBlacklistMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 7
+
+						# method configuration
+						configuration {
+							# Blacklisted values (could also get read from a file - simply with FLUIDTEMPLATE)
+							values = TEXT
+							values.value = viagra,sex,porn,p0rn
+						}
+					}
+
+					# IP blacklist check
+					7 {
+						_enable = 1
+
+						# Spamcheck name
+						name = IP blacklist check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\IpBlacklistMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 7
+
+						# method configuration
+						configuration {
+							# Blacklisted values (could also get read from a file - simply with FLUIDTEMPLATE)
+							values = TEXT
+							values.value = 123.132.125.123,123.132.125.124
+						}
+					}
 				}
 			}
 		}
 	}
+
+
+Explanation
+"""""""""""
+
+.. t3-field-list-table::
+ :header-rows: 1
+
+ - :TyposcriptPath:
+      Relative Typoscript path
+   :Description:
+      Description
+   :Type:
+      Allowed values
+   :Default:
+      Default value
+
+ - :TyposcriptPath:
+      spamshield._enable
+   :Description:
+      Turn spamshield generally off or on
+   :Type:
+      0/1
+   :Default:
+      1
+
+ - :TyposcriptPath:
+      spamshield.factor
+   :Description:
+      Define the tolerance limit when a mail should be rejected generally
+   :Type:
+      0 - 100
+   :Default:
+      75
+
+ - :TyposcriptPath:
+      spamshield.email
+   :Description:
+      Email address for notifactions if spam was recognized. Empty value turns of email-notification.
+   :Type:
+      string
+   :Default:
+      \-
+
+ - :TyposcriptPath:
+      spamshield.emailSubject
+   :Description:
+      Subject for spam-notification-email
+   :Type:
+      string
+   :Default:
+      Spam in powermail form recognized
+
+ - :TyposcriptPath:
+      spamshield.emailTemplate
+   :Description:
+      HTML-Template for spam-notification-email
+   :Type:
+      string
+   :Default:
+      EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+
+ - :TyposcriptPath:
+      spamshield.logfileLocation
+   :Description:
+      Location where to save a spam-notification logfile. Empty value turns of logfile.
+   :Type:
+      string
+   :Default:
+      \-
+
+ - :TyposcriptPath:
+      spamshield.logTemplate
+   :Description:
+      HTML-Template for spam-notification logfile
+   :Type:
+      string
+   :Default:
+      EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
+
+ - :TyposcriptPath:
+      spamshield.methods.[number]._enable
+   :Description:
+      Turn this spamshield method on or off
+   :Type:
+      0/1
+   :Default:
+      1
+
+ - :TyposcriptPath:
+      spamshield.methods.[number].name
+   :Description:
+      Name for logfile, email-notification and frontend-output (if this check fails)
+   :Type:
+      string
+   :Default:
+      \-
+
+ - :TyposcriptPath:
+      spamshield.methods.[number].class
+   :Description:
+      PHP classname (without leading slash) for this check
+   :Type:
+      string
+   :Default:
+      \-
+
+ - :TyposcriptPath:
+      spamshield.methods.[number].indication
+   :Description:
+      If this check failes - add this indication value to indicator (0 also disables this check)
+   :Type:
+      int
+   :Default:
+      \-
+
+ - :TyposcriptPath:
+      spamshield.methods.[number].configuration
+   :Description:
+      Individual configuration for this check
+   :Type:
+      array
+   :Default:
+      \-
 
 
 
@@ -373,7 +390,12 @@ which are failed above the form. Enable with TypoScript setup (Use extension dev
 	plugin.tx_powermail.settings.setup.debug.spamshield = 1
 
 
-|img-89|
+
+
+Register own spamcheck methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Of course you can register own spamshield methods. See manual part "for developers" for examples.
 
 
 Captcha

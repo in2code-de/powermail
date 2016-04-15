@@ -57,12 +57,12 @@ Images
 Backend Module Function Check
 '''''''''''''''''''''''''''''
 
-|img-devContext1|
+|bestpractice_developmentcontext1|
 
-|img-devContext2|
+|bestpractice_developmentcontext2|
 
 
 Plugin Information with note
 ''''''''''''''''''''''''''''
 
-|img-devContext3|
+|pluginInformation|

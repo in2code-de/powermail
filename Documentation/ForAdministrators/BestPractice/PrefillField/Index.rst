@@ -6,6 +6,7 @@
 Prefill or preselect a field
 ----------------------------
 
+
 .. _prefillOrPreselectAFieldStandard:
 
 The standard way
@@ -48,7 +49,11 @@ listen to the following methods and parameters (in this ordering):
 
 9. Fill with your own PHP with a Signal. Look at In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render()
 
-|img-prefill|
+
+Example markup
+^^^^^^^^^^^^^^
+
+|prefill_frontend_output|
 
 .. _prefillOrPreselectASelectFieldTypoScript:
 
@@ -59,9 +64,9 @@ You can dynamicly generate a select field in powermail with some lines of TypoSc
 To use this feature, you have to leave the field "Options" empty and you should fill the field
 "Create from TypoScript" with a TypoScriptObjectPath. See the following example:
 
-|img-prefilltyposcript1|
+|prefill_select_typoscript1|
 
-|img-prefilltyposcript2|
+|prefill_select_typoscript2|
 
 
 Example 1

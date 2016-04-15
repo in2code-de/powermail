@@ -1,9 +1,7 @@
-.. |img-typeselection|     image:: ../../Images/typeselection.jpg
+.. |developer_new_fields1|      image:: ../../Images/developer_new_fields1.png
 .. :align: left
-.. :border: 0
-.. :name: typeselection
+.. :name: developer_new_fields1
 
-.. |img-typeselection2|     image:: ../../Images/typeselection2.jpg
+.. |developer_new_fields2|      image:: ../../Images/developer_new_fields2.png
 .. :align: left
-.. :border: 0
-.. :name: typeselection2
+.. :name: developer_new_fields2

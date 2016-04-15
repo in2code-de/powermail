@@ -1,4 +1,3 @@
-.. |img-ajaxsubmit|     image:: ../../../Images/ajaxsubmit.jpg
+.. |bestpractice_ajax|     image:: ../../../Images/bestpractice_ajax.png
 .. :align: left
-.. :border: 0
-.. :name: Ajaxsubmit
+.. :name: bestpractice_ajax

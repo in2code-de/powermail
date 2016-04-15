@@ -1,4 +1,4 @@
-.. |img-schedulertask|     image:: ../../../Images/schedulertask.png
+.. |scheduler_cleanunusedfiles|      image:: ../../../Images/scheduler_cleanunusedfiles.png
+   :width: 800
 .. :align: left
-.. :border: 0
-.. :name: schedulertask
+.. :name: scheduler_cleanunusedfiles

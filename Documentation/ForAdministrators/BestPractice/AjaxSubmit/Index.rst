@@ -13,5 +13,5 @@ If you want to use submit via AJAX, you can enable this in TypoScript Setup (jQu
 
 	plugin.tx_powermail.settings.setup.misc.ajaxSubmit = 1
 
-|img-ajaxsubmit|
+|bestpractice_ajax|
 

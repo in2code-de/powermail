@@ -5,7 +5,9 @@
 Overwrite Labels and Validation messages
 ----------------------------------------
 
-You can overwrite any label in powermail via TypoScript Setup. Have a look into locallang.xlf for getting the relevant keys.
+You can overwrite any label in powermail via TypoScript Setup.
+Have a look into locallang.xlf (EXT:powermail/Resources/Private/Language/locallang.xlf) for getting the relevant keys,
+that you want to overwrite (e.g. validationerror_mandatory).
 
 .. code-block:: text
 

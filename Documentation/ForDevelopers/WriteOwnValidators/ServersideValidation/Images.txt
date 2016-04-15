@@ -1,4 +1,3 @@
-.. |img-foreign-validator|     image:: ../../../Images/foreign_validator.png
+.. |developer_new_validation2|      image:: ../../../Images/developer_new_validation2.png
 .. :align: left
-.. :border: 0
-.. :name: ForeignValidator
+.. :name: developer_new_validation2

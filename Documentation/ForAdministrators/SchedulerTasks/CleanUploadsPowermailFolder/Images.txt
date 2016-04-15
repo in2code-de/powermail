@@ -1,4 +1,4 @@
-.. |img-scheduler-cleanuploadsfiles|     image:: ../../../Images/scheduler_cleanuploadsfiles.png
+.. |scheduler_cleanupload|      image:: ../../../Images/scheduler_cleanupload.png
+   :width: 800
 .. :align: left
-.. :border: 0
-.. :name: scheduler_cleanuploadsfiles
+.. :name: scheduler_cleanupload

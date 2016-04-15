@@ -8,7 +8,7 @@ Filter Form Selection
 
 On large TYPO3 installations it is hard to keep an overview about all forms (see Backend Module "Form Overview"). Your editors may see forms from other trees, that are not relevant at the form chooser in the powermail plugin.
 
-|img-formselection|
+|bestpractice_filterformselection1|
 
 You can filter this to the current page or to a tree. Just use Page TSConfig for a filter.
 
@@ -20,7 +20,5 @@ You can filter this to the current page or to a tree. Just use Page TSConfig for
 	# Show Forms from page 46 (and all subpages)
 	tx_powermail.flexForm.formSelection = 46
 
-|img-formselectionpagetsconfig|
-
-|img-formselectionfiltered|
+|bestpractice_filterformselection2|
 

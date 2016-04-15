@@ -154,7 +154,7 @@ Add your php-file again and extend your class with the AbstractValidator from po
         }
     }
 
-|img-foreign-validator|
+|developer_new_validation2|
 
 2. Use a slot with CustomValidator
 """"""""""""""""""""""""""""""""""

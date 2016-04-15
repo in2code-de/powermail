@@ -1,16 +1,11 @@
-.. |img-prefill|     image:: ../../../Images/prefillField.png
+.. |prefill_frontend_output|     image:: ../../../Images/prefill_frontend_output.png
 .. :align: left
-.. :border: 0
-.. :name: prefillField
+.. :name: prefill_frontend_output
 
-.. |img-prefilltyposcript1|     image:: ../../../Images/prefillTypoScript1.png
-   :width: 500
+.. |prefill_select_typoscript1|     image:: ../../../Images/prefill_select_typoscript1.png
 .. :align: left
-.. :border: 0
-.. :name: prefilltyposcript1
+.. :name: prefill_select_typoscript1
 
-.. |img-prefilltyposcript2|     image:: ../../../Images/prefillTypoScript2.png
-   :width: 500
+.. |prefill_select_typoscript2|     image:: ../../../Images/prefill_select_typoscript2.png
 .. :align: left
-.. :border: 0
-.. :name: prefilltyposcript2
+.. :name: prefill_select_typoscript2

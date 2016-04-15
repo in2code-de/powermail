@@ -43,12 +43,12 @@ You can enable or disable or combine some of the validation via TypoScript
 
 Parsley.js allows us to have a robust solution for JavaScript and Native HTML5 Validation
 
-|img-serversidevalidation|
+|developer_new_validation2|
 
 Serverside Validation Example
 
 
-|img-clientsidevalidation|
+|developer_new_validation1|
 
 Clientside Validation Example
 

@@ -284,14 +284,8 @@ plugin.tx_powermail {
 			# cat=powermail_additional//1020; type=text; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
 			powermailJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js
 		}
-	}
-}
 
-# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
-#[globalVar = LIT:0 < {$plugin.tx_powermail.settings.styles.framework.important}]
-#[else]
-plugin.tx_powermail {
-	settings {
+		# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
 		styles {
 			framework {
 				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"
@@ -321,4 +315,3 @@ plugin.tx_powermail {
 		}
 	}
 }
-#[end]
