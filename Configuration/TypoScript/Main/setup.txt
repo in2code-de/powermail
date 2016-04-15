@@ -348,33 +348,140 @@ plugin.tx_powermail {
 				# Template for logging entry
 				logTemplate = {$plugin.tx_powermail.settings.spamshield.logTemplate}
 
-				indicator {
-					# if this check failed - add this indication value to indicator (0 disables this check completely)
-					honeypod = 5
+				methods {
+					# Honeypot check
+					1 {
+						_enable = 1
 
-					# if this check failed - add this indication value to indicator (0 disables this check completely)
-					link = 3
-					# Limit of links allowed
-					linkLimit = 2
+						# Spamcheck name
+						name = Honey Pot
 
-					# if this check failed - add this indication value to indicator (0 disables this check completely)
-					name = 3
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod
 
-					# if this check failed - add this indication value to indicator (0 disables this check completely)
-					session = 5
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 5
 
-					# if this check failed - add this indication value to indicator (0 disables this check completely)
-					unique = 2
+						# method configuration
+						configuration {
+						}
+					}
 
-					# if this check failed - add this indication value to indicator (0 disables this check completely)
-					blacklistString = 7
-					# blacklisted values (default values should be extended with your experience)
-					blacklistStringValues = viagra,sex,porn,p0rn
+					# Link check
+					2 {
+						_enable = 1
 
-					# if this check failed - add this indication value to indicator (0 disables this check completely)
-					blacklistIp = 7
-					# blacklisted values (default values should be extended with your experience)
-					blacklistIpValues = 123.132.125.123,123.132.125.124
+						# Spamcheck name
+						name = Link check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\LinkMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 3
+
+						# method configuration
+						configuration {
+							# number of allowed links
+							linkLimit = 2
+						}
+					}
+
+					# Name check
+					3 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Name check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\NameMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 3
+
+						# method configuration
+						configuration {
+						}
+					}
+
+					# Session check
+					4 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Session check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\SessionMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 5
+
+						# method configuration
+						configuration {
+						}
+					}
+
+					# Unique check
+					5 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Unique check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\UniqueMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 2
+
+						# method configuration
+						configuration {
+						}
+					}
+
+					# Value blacklist check
+					6 {
+						_enable = 1
+
+						# Spamcheck name
+						name = Value blacklist check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\ValueBlacklistMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 7
+
+						# method configuration
+						configuration {
+							# Blacklisted values (could also get read from a file - simply with FLUIDTEMPLATE)
+							values = TEXT
+							values.value = viagra,sex,porn,p0rn
+						}
+					}
+
+					# IP blacklist check
+					7 {
+						_enable = 1
+
+						# Spamcheck name
+						name = IP blacklist check
+
+						# Class
+						class = In2code\Powermail\Domain\Validator\SpamShield\IpBlacklistMethod
+
+						# if this check failes - add this indication value to indicator (0 disables this check completely)
+						indication = 7
+
+						# method configuration
+						configuration {
+							# Blacklisted values (could also get read from a file - simply with FLUIDTEMPLATE)
+							values = TEXT
+							values.value = 123.132.125.123,123.132.125.124
+						}
+					}
 				}
 			}
 
@@ -743,6 +850,33 @@ plugin.tx_powermail {
 
 
 
+			# dataProcessor classes that will be called before the mail object will be persisted and used in mails
+			dataProcessors {
+				# Powermail data processors
+				10.class = In2code\Powermail\DataProcessor\UploadDataProcessor
+				20.class = In2code\Powermail\DataProcessor\SessionDataProcessor
+
+				# Add your own data processor classes (e.g. if you want to do something with form values by your own before they are used in powermail to persist or in mails)
+#				1 {
+					# Classname that should be called with method *Finisher()
+#					class = Vendor\Ext\Finisher\DoSomethingFinisher
+
+					# optional: Add configuration for your PHP
+#					config {
+#						foo = bar
+
+#						fooCObject = TEXT
+#						fooCObject.value = do something with this text
+#					}
+
+					# optional: If file will not be loaded from autoloader, add path and it will be called with require_once
+#					require = fileadmin/powermail/finisher/DoSomethingFinisher.php
+#				}
+			}
+
+
+
+
 			# Finisher classes that will be called after submit
 			finishers {
 				# Powermail finishers
@@ -802,6 +936,44 @@ plugin.tx_powermail {
 ############################
 # JavaScript and CSS section
 ############################
+
+# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
+plugin.tx_powermail {
+	settings.setup {
+		styles {
+			framework {
+				formClasses = {$plugin.tx_powermail.settings.styles.framework.formClasses}
+				fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses}
+				fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses}
+				labelClasses = {$plugin.tx_powermail.settings.styles.framework.labelClasses}
+				fieldClasses = {$plugin.tx_powermail.settings.styles.framework.fieldClasses}
+				offsetClasses = {$plugin.tx_powermail.settings.styles.framework.offsetClasses}
+				radioClasses = {$plugin.tx_powermail.settings.styles.framework.radioClasses}
+				checkClasses = {$plugin.tx_powermail.settings.styles.framework.checkClasses}
+			}
+		}
+	}
+}
+
+# Overwrite classes if bootrap classes given
+[globalVar = LIT:0 < {$plugin.tx_powermail.settings.styles.bootstrap.important}]
+plugin.tx_powermail {
+	settings.setup {
+		styles {
+			framework {
+				formClasses = {$plugin.tx_powermail.settings.styles.bootstrap.formClasses}
+				fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldAndLabelWrappingClasses}
+				fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldWrappingClasses}
+				labelClasses = {$plugin.tx_powermail.settings.styles.bootstrap.labelClasses}
+				fieldClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldClasses}
+				offsetClasses = {$plugin.tx_powermail.settings.styles.bootstrap.offsetClasses}
+				radioClasses = {$plugin.tx_powermail.settings.styles.bootstrap.radioClasses}
+				checkClasses = {$plugin.tx_powermail.settings.styles.bootstrap.checkClasses}
+			}
+		}
+	}
+}
+[end]
 
 # add jQuery if it was turned on in the constants
 [globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle}]

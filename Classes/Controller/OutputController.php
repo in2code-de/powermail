@@ -264,7 +264,7 @@ class OutputController extends AbstractController
         } else {
             $fieldArray = $this->formRepository->getFieldUidsFromForm($this->settings['main']['form']);
         }
-        return (array) $fieldArray;
+        return (array)$fieldArray;
     }
 
     /**
@@ -318,7 +318,7 @@ class OutputController extends AbstractController
     protected function prepareFilterPluginVariables(&$pluginVariables, $parameters)
     {
         if (!empty($parameters['filter'])) {
-            $pluginVariables = (array) $pluginVariables + (array) $parameters;
+            $pluginVariables = (array)$pluginVariables + (array)$parameters;
         }
     }
 }

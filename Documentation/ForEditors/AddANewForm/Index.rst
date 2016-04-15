@@ -8,10 +8,10 @@ Add a new Form
 Introduction
 ^^^^^^^^^^^^
 
-Powermail forms are the main records which contains pages and fields.
+A powermail forms is the main record which contains multiple pages and fields.
 So if you create and store a form, you can use this on one or more pages.
 A form that is included in a plugin/pagecontent (see :ref:`addANewPlugin`) will be shown
-in frontend and can be used as mailform from your website visitors.
+in frontend and can be used by website visitors.
 
 First step
 ^^^^^^^^^^
@@ -19,13 +19,13 @@ First step
 Choose a page (could also be a folder) where to store the new form-record and change to the list view.
 Click on the New Button to add a new record to this page and choose “Forms”.
 
-|img-9|
+|powermail_records|
 
 
 Form Settings
 ^^^^^^^^^^^^^
 
-|img-10|
+|record_form_detail1|
 
 .. t3-field-list-table::
  :header-rows: 1
@@ -106,7 +106,7 @@ Form Settings
 Page Settings
 ^^^^^^^^^^^^^
 
-|img-11|
+|record_page_detail1|
 
 .. t3-field-list-table::
  :header-rows: 1
@@ -141,7 +141,7 @@ Page Settings
  - :Field:
       Note
    :Description:
-      Just a small Note.
+      Just a small Note (in some cases).
    :Explanation:
       This note shows you if there is no Sendermail or Sendername marked in the fields. Without this information powermail will set default values for the Sendername and Senderemail. If you are aware of this and you don't want to see this information in future (for this form), you can disable this note.
    :Tab:
@@ -204,9 +204,9 @@ General
 Backend Configuration Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-|img-12|
+|record_field_input_tab1|
 
-|img-13|
+|record_field_input_tab2|
 
 Explanation
 ~~~~~~~~~~~
@@ -405,7 +405,7 @@ Field Types
    :Category:
       Standard
    :Example:
-      |img-14|
+      |example_field_input|
    :Ref:
       :ref:`input`
 
@@ -418,7 +418,7 @@ Field Types
    :Category:
       Standard
    :Example:
-      |img-15|
+      |example_field_textarea|
    :Ref:
       :ref:`textarea`
 
@@ -431,7 +431,7 @@ Field Types
    :Category:
       Standard
    :Example:
-      |img-16|
+      |example_field_select|
    :Ref:
       :ref:`select`
 
@@ -444,7 +444,7 @@ Field Types
    :Category:
       Standard
    :Example:
-      |img-17|
+      |example_field_checkbox|
    :Ref:
       :ref:`check`
 
@@ -457,7 +457,7 @@ Field Types
    :Category:
       Standard
    :Example:
-      |img-18|
+      |example_field_radio|
    :Ref:
       :ref:`radio`
 
@@ -470,7 +470,7 @@ Field Types
    :Category:
       Standard
    :Example:
-      |img-19|
+      |example_field_submit|
    :Ref:
       :ref:`submit`
 
@@ -483,7 +483,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-20|
+      |example_field_captcha|
    :Ref:
       :ref:`captcha`
 
@@ -496,7 +496,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-21|
+      |example_field_reset|
    :Ref:
       :ref:`reset`
 
@@ -509,7 +509,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-22|
+      |example_field_label|
    :Ref:
       :ref:`text`
 
@@ -522,7 +522,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-23|
+      |example_field_content|
    :Ref:
       :ref:`contentElement`
 
@@ -535,7 +535,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-24|
+      |example_field_html|
    :Ref:
       :ref:`html`
 
@@ -548,7 +548,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-25|
+      |example_field_password|
    :Ref:
       :ref:`password`
 
@@ -561,7 +561,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-26|
+      |example_field_file|
    :Ref:
       :ref:`file`
 
@@ -574,7 +574,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      -
+      \-
    :Ref:
       :ref:`hidden`
 
@@ -587,7 +587,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-27|
+      |example_field_date|
    :Ref:
       :ref:`date`
 
@@ -600,7 +600,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-27b|
+      |example_field_country|
    :Ref:
       :ref:`country`
 
@@ -614,7 +614,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-28|
+      |example_field_location|
    :Ref:
       :ref:`location`
 
@@ -627,7 +627,7 @@ Field Types
    :Category:
       Extended
    :Example:
-      |img-24|
+      |example_field_typoscript|
    :Ref:
       :ref:`typoscript`
 

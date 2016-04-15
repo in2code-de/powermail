@@ -1,7 +1,7 @@
 .. include:: Includes.txt
 .. include:: Images.txt
 
-|img-3|
+|powermail_icon|
 
 =========
 powermail
@@ -16,7 +16,7 @@ powermail
 		powermail
 
 	:Version:
-		2.25
+		3.0
 
 	:Language:
 		en

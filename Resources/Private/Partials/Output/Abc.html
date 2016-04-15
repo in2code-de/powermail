@@ -1,21 +1,22 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
-<div class="powermail_frontend_abc">
-	<div class="powermail_frontend_abc_inner">
+<div class="form-group clearfix">
+	<div class="pull-right">
+		<ul class="pagination">
+			<f:for each="{abc}" as="letter">
+				<f:if condition="{vh:Condition.IsThereAMailWithStartingLetter(mails:mails, letter:letter, answerField:settings.search.abc)}">
+					<f:then>
+						<li><f:link.action action="list" arguments="{filter:{abc:letter}}">{letter}</f:link.action></li>
+					</f:then>
+					<f:else>
+						<li class="disabled"><a href="#">{letter}</a></li>
+					</f:else>
+				</f:if>
+			</f:for>
 
-		<f:for each="{abc}" as="letter">
-			<f:if condition="{vh:Condition.IsThereAMailWithStartingLetter(mails:mails, letter:letter, answerField: settings.search.abc)}">
-				<f:then>
-					<span class="abc"><f:link.action action="list" arguments="{filter:{abc:letter}}">{letter}</f:link.action></span>
-				</f:then>
-				<f:else>
-					<span class="abc">{letter}</span>
-				</f:else>
+			<f:if condition="{piVars.filter.abc}">
+				<li><f:link.page><f:translate key="ClearFilter" /></f:link.page></li>
 			</f:if>
-		</f:for>
-
-		<f:if condition="{piVars.filter.abc}">
-			<span class="clearfilter"><f:link.page><f:translate key="ClearFilter" /></f:link.page></span>
-		</f:if>
+		</ul>
 	</div>
 </div>

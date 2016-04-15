@@ -22,9 +22,9 @@ Note: If you open a form and see following notice, the marker names are broken:
 Image example
 ^^^^^^^^^^^^^
 
-|img-form-duplicated-markers.png|
+|scheduler_resetmarkers2|
 
-|img-scheduler-resetmarkers|
+|scheduler_resetmarkers1|
 
 Console example
 ^^^^^^^^^^^^^^^

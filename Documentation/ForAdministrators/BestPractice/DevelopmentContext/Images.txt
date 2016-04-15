@@ -1,0 +1,11 @@
+.. |bestpractice_developmentcontext1|     image:: ../../../Images/bestpractice_developmentcontext1.png
+.. :align: left
+.. :name: bestpractice_developmentcontext1
+
+.. |bestpractice_developmentcontext2|     image:: ../../../Images/bestpractice_developmentcontext2.png
+.. :align: left
+.. :name: bestpractice_developmentcontext2
+
+.. |pluginInformation|     image:: ../../../Images/pluginInformation.png
+.. :align: left
+.. :name: pluginInformation

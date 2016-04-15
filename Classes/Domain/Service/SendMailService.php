@@ -3,9 +3,11 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
@@ -46,6 +48,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  */
 class SendMailService
 {
+    use SignalTrait;
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -70,12 +73,6 @@ class SendMailService
      * @inject
      */
     protected $mailRepository;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
-     */
-    protected $signalSlotDispatcher;
 
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -183,11 +180,7 @@ class SendMailService
         $message = $this->addPlainBody($message, $email);
         $message = $this->addSenderHeader($message);
 
-        $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
-            __FUNCTION__ . 'BeforeSend',
-            [$message, $email, $this->mail, $this->settings, $this->type]
-        );
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeSend', [$message, $email, $this]);
 
         $message->send();
         $this->updateMail($email);
@@ -276,7 +269,7 @@ class SendMailService
      */
     protected function addPriority(MailMessage $message)
     {
-        $priorityValue = (int) $this->settings[$this->type]['overwrite']['priority'];
+        $priorityValue = (int)$this->settings[$this->type]['overwrite']['priority'];
         if ($priorityValue > 0) {
             $message->setPriority($priorityValue);
         }
@@ -291,23 +284,12 @@ class SendMailService
      */
     protected function addAttachmentsFromUploads(MailMessage $message)
     {
-        if (empty($this->settings[$this->type]['attachment']) || empty($this->settings['misc']['file']['folder'])) {
-            return $message;
-        }
-
-        /** @var Answer $answer */
-        foreach ($this->mail->getAnswers() as $answer) {
-            $values = $answer->getValue();
-            if ($answer->getValueType() === 3 && is_array($values) && !empty($values)) {
-                foreach ($values as $value) {
-                    $file = GeneralUtility::getFileAbsFileName(
-                        BasicFileUtility::addTrailingSlash($this->settings['misc']['file']['folder']) . $value
-                    );
-                    if (file_exists($file)) {
-                        $message->attach(\Swift_Attachment::fromPath($file));
-                    } else {
-                        GeneralUtility::devLog('Error: File to attach does not exist', 'powermail', 2, $file);
-                    }
+        if (!empty($this->settings[$this->type]['attachment']) && !empty($this->settings['misc']['file']['folder'])) {
+            /** @var UploadService $uploadService */
+            $uploadService = ObjectUtility::getObjectManager()->get(UploadService::class);
+            foreach ($uploadService->getFiles() as $file) {
+                if ($file->isUploaded() && $file->isValid() && $file->isFileExisting()) {
+                    $message->attach(\Swift_Attachment::fromPath($file->getNewPathAndFilename(true)));
                 }
             }
         }
@@ -419,13 +401,7 @@ class SendMailService
         if (!empty($email['variables'])) {
             $standaloneView->assignMultiple($email['variables']);
         }
-
-        $this->signalSlotDispatcher->dispatch(
-            __CLASS__,
-            __FUNCTION__ . 'BeforeRender',
-            [$standaloneView, $email, $this->mail, $this->settings]
-        );
-
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRender', [$standaloneView, $email, $this]);
         $body = $standaloneView->render();
         $this->mail->setBody($body);
         return $body;

@@ -22,18 +22,18 @@
 								<size>1</size>
 								<minitems>1</minitems>
 								<maxitems>1</maxitems>
-								<foreign_table>tx_powermail_domain_model_forms</foreign_table>
-								<foreign_table_where>AND tx_powermail_domain_model_forms.deleted = 0
-									AND tx_powermail_domain_model_forms.hidden = 0
-									AND tx_powermail_domain_model_forms.sys_language_uid IN (-1,0)
-									order by tx_powermail_domain_model_forms.title</foreign_table_where>
+								<foreign_table>tx_powermail_domain_model_form</foreign_table>
+								<foreign_table_where>AND tx_powermail_domain_model_form.deleted = 0
+									AND tx_powermail_domain_model_form.hidden = 0
+									AND tx_powermail_domain_model_form.sys_language_uid IN (-1,0)
+									order by tx_powermail_domain_model_form.title</foreign_table_where>
 								<wizards>
 									<add>
 										<type>script</type>
 										<title>Add Form</title>
 										<icon>EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif</icon>
 										<params>
-											<table>tx_powermail_domain_model_forms</table>
+											<table>tx_powermail_domain_model_form</table>
 											<pid>###CURRENT_PID###</pid>
 											<setValue>set</setValue>
 										</params>
@@ -46,7 +46,7 @@
 										<type>suggest</type>
 									</suggest>
 								</wizards>
-								<itemsProcFunc>In2code\Powermail\Utility\Tca\FormSelectorUserFunc->getForms</itemsProcFunc>
+								<itemsProcFunc>In2code\Powermail\Tca\FormSelectorUserFunc->getForms</itemsProcFunc>
 							</config>
 						</TCEforms>
 					</settings.flexform.main.form>
@@ -54,7 +54,7 @@
 						<TCEforms>
 							<config>
 								<type>user</type>
-								<userFunc>In2code\Powermail\Utility\Tca\ShowFormNoteEditForm->showNote</userFunc>
+								<userFunc>In2code\Powermail\Tca\ShowFormNoteEditForm->showNote</userFunc>
 							</config>
 						</TCEforms>
 					</settings.flexform.main.formnote>
@@ -208,7 +208,7 @@
 								<size>1</size>
 								<minitems>1</minitems>
 								<maxitems>1</maxitems>
-								<itemsProcFunc>In2code\Powermail\Utility\Tca\AddOptionsToSelection->addOptionsForPredefinedReceivers</itemsProcFunc>
+								<itemsProcFunc>In2code\Powermail\Tca\AddOptionsToSelection->addOptionsForPredefinedReceivers</itemsProcFunc>
 							</config>
 						</TCEforms>
 					</settings.flexform.receiver.predefinedemail>
@@ -259,7 +259,7 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.sender.email</label>
 							<config>
 								<type>input</type>
-								<eval>trim,In2code\Powermail\Utility\Tca\EvaluateEmail</eval>
+								<eval>trim,In2code\Powermail\Tca\EvaluateEmail</eval>
 							</config>
 						</TCEforms>
 					</settings.flexform.sender.email>

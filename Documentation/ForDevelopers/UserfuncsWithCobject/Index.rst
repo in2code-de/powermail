@@ -64,14 +64,14 @@ With pure TypoScript
 Example Call in Flexform Settings
 '''''''''''''''''''''''''''''''''
 
-|img-91|
+|developer_cobject|
 
 Example call in TypoScript
 ''''''''''''''''''''''''''
 
 ::
 
-   # TypoScript Setup Example
+   # TypoScript Setup Example for ViewHelper {f:cObject(typoscriptObjectPath:'lib.test')}
    lib.test = TEXT
    lib.test.value = newReceiver@mail.com
 
@@ -83,14 +83,14 @@ With a userFunc on TypoScript depending on a field value
 Example Call in Flexform Settings
 '''''''''''''''''''''''''''''''''
 
-|img-91|
+|developer_cobject|
 
 Example call in TypoScript
 ''''''''''''''''''''''''''
 
 ::
 
-   # TypoScript Setup Example
+   # TypoScript Setup Example for ViewHelper {f:cObject(typoscriptObjectPath:'lib.test')}
    includeLibs.manipulatePowermailReceiver = fileadmin/manipulateReceiver.php
    lib.test = USER
    lib.test.userFunc = user_manipulatePowermailReceiver->getEmail

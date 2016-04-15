@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Signal\SignalTrait;
 
 /**
  * CustomValidator
@@ -12,6 +13,7 @@ use In2code\Powermail\Domain\Model\Mail;
  */
 class CustomValidator extends StringValidator
 {
+    use SignalTrait;
 
     /**
      * Custom validation of given Params
@@ -21,7 +23,7 @@ class CustomValidator extends StringValidator
      */
     public function isValid($mail)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__, [$mail, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [$mail, $this]);
         return $this->isValidState();
     }
 }

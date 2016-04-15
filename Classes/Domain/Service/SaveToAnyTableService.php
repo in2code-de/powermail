@@ -161,7 +161,7 @@ class SaveToAnyTableService
         if ($this->getMode() !== 'none') {
             $this->databaseConnection->exec_UPDATEquery(
                 $this->getTable(),
-                'uid = ' . (int) $row['uid'],
+                'uid = ' . (int)$row['uid'],
                 $this->getProperties()
             );
         }

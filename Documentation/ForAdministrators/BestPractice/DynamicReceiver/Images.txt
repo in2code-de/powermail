@@ -1,0 +1,7 @@
+.. |bestpractice_predefinedreceivers1|     image:: ../../../Images/bestpractice_predefinedreceivers1.png
+.. :align: left
+.. :name: bestpractice_predefinedreceivers1
+
+.. |bestpractice_predefinedreceivers2|     image:: ../../../Images/bestpractice_predefinedreceivers2.png
+.. :align: left
+.. :name: bestpractice_predefinedreceivers2

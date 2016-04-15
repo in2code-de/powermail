@@ -1,7 +1,6 @@
 <?php
 namespace In2code\Powermail\Controller;
 
-use In2code\Powermail\Domain\Service\FormConverterService;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -125,27 +124,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Reporting
-     *
-     * @param string $subaction could be 'form' or 'marketing'
-     * @return void
-     */
-    public function reportingBeAction($subaction = null)
-    {
-        switch ($subaction) {
-            case 'marketing':
-                $this->forward('reportingMarketingBe');
-                break;
-
-            case 'form':
-                $this->forward('reportingMarketingBe');
-                break;
-
-            default:
-        }
-    }
-
-    /**
      * Reporting Form
      *
      * @return void
@@ -194,15 +172,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Tools overview
-     *
-     * @return void
-     */
-    public function toolsBeAction()
-    {
-    }
-
-    /**
      * Form Overview
      *
      * @return void
@@ -233,16 +202,21 @@ class ModuleController extends AbstractController
     public function checkBeAction($email = null)
     {
         $this->view->assign('pid', $this->id);
+        $this->sendTestEmail($email);
+    }
 
-        if (GeneralUtility::validEmail($email)) {
-            $body = 'New <b>Test Email</b> from User ' . BackendUtility::getPropertyFromBackendUser('username') .
-                ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
-
-            $senderEmail = 'powermail@domain.net';
-            if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
-                $senderEmail = ConfigurationUtility::getDefaultMailFromAddress();
-            }
-
+    /**
+     * Send plain test mail with swiftmailer
+     *
+     * @param null $email
+     * @return void
+     */
+    protected function sendTestEmail($email = null)
+    {
+        if ($email !== null && GeneralUtility::validEmail($email)) {
+            $body = 'New Test Email from User ' . BackendUtility::getPropertyFromBackendUser('username');
+            $body .= ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
+            $senderEmail = ConfigurationUtility::getDefaultMailFromAddress('powermail@domain.net');
             $this->view->assignMultiple(
                 [
                     'issent' => MailUtility::sendPlainMail($email, $senderEmail, 'New Powermail Test Email', $body),
@@ -260,51 +234,6 @@ class ModuleController extends AbstractController
     public function initializeConverterBeAction()
     {
         $this->checkAdminPermissions();
-    }
-
-    /**
-     * Convert all old forms preflight
-     *
-     * @return void
-     */
-    public function converterBeAction()
-    {
-        $oldForms = $this->formRepository->findAllOldForms();
-        $this->view->assign('oldForms', $oldForms);
-    }
-
-    /**
-     * Check Permissions
-     *
-     * @return void
-     */
-    public function initializeConverterUpdateBeAction()
-    {
-        $this->checkAdminPermissions();
-    }
-
-    /**
-     * Convert all old forms
-     *
-     * @param array $converter
-     * @return void
-     */
-    public function converterUpdateBeAction($converter)
-    {
-        $oldForms = $this->formRepository->findAllOldForms();
-        $formCounter = 0;
-        $oldFormsPagesFields = [];
-        foreach ($oldForms as $form) {
-            $oldFormsPagesFields[$formCounter] = $form;
-            $oldFormsPagesFields[$formCounter]['_fieldsets'] =
-                $this->formRepository->findOldFieldsetsAndFieldsToTtContentRecord($form['uid']);
-            $formCounter++;
-        }
-        /** @var FormConverterService $formConverterService */
-        $formConverterService = $this->objectManager->get(FormConverterService::class);
-        $result = $formConverterService->createNewFromOldForms($oldFormsPagesFields, $converter);
-        $this->view->assign('result', $result);
-        $this->view->assign('converter', $converter);
     }
 
     /**

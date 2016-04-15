@@ -31,14 +31,14 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-36|
+|example_field_checkbox|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-37|
+|record_field_check_tab1|
 
-|img-38|
+|record_field_check_tab2|
 
 Explanation
 '''''''''''

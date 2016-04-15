@@ -8,8 +8,6 @@
 
 	<h1><f:translate key="BackendReportingFormTitle" /></h1>
 
-	<f:flashMessages class="powermail_message" />
-
 	<div class="powermail_reporting_form">
 		<div class="powermail_module_search">
 			<div class="powermail_module_search_inner">
@@ -23,19 +21,18 @@
 			<f:then>
 				<h3><f:translate key="BackendReportingFormSubtitle1" /> <f:count subject="{mails}" /> <f:translate key="Emails" />:</h3>
 
-				<div class="powermail_reporting_form_fields">
-					<div class="powermail_reporting_form_fields_inner">
 
-						<f:for each="{firstMail.answers}" as="answer">
-
+				<div class="row">
+					<f:for each="{firstMail.answers}" as="answer">
+						<div class="col-md-6">
 							<div class="powermail_reporting_form_fields_item">
 								<h4>{answer.field.title}</h4>
 
 								<div class="flotContainer"
 									 data-flot-active="1"
 									 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-									 data-flot-data-values="{vh:Reporting.GetValuesGoogleCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator: ',', urlEncode:0)}"
-									 data-flot-data-labels="{vh:Reporting.GetLabelsGoogleCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator:',', urlEncode:0)}"></div>
+									 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator: ',', urlEncode:0)}"
+									 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator:',', urlEncode:0)}"></div>
 
 								<div class="powermail_reporting_form_fields_table_absolute">
 									<table class="powermail_reporting_form_fields_table">
@@ -52,10 +49,8 @@
 									</table>
 								</div>
 							</div>
-
-						</f:for>
-						<div class="clear"></div>
-					</div>
+						</div>
+					</f:for>
 				</div>
 			</f:then>
 			<f:else>

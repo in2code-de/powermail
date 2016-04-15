@@ -28,7 +28,7 @@ class ContentElementViewHelper extends AbstractViewHelper
     {
         $configuration = [
             'tables' => 'tt_content',
-            'source' => (int) $uid,
+            'source' => (int)$uid,
             'dontCheckPid' => 1
         ];
         return $this->contentObject->cObjGetSingle('RECORDS', $configuration);

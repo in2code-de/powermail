@@ -1,0 +1,7 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+<fieldset class="powermail_fieldset powermail_fieldset_{page.uid} {page.css}">
+	<legend class="powermail_legend">{page.title}</legend>
+	<f:for each="{page.fields}" as="field">
+		<f:render partial="Form/Field/{vh:String.Upper(string:field.type)}" arguments="{field:field}" />
+	</f:for>
+</fieldset>

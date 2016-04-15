@@ -1,4 +1,3 @@
-.. |img-newflexformproperties|     image:: ../../Images/newFlexFormProperties.png
+.. |developer_new_flexformfield|      image:: ../../Images/developer_new_flexformfield.png
 .. :align: left
-.. :border: 0
-.. :name: newFlexFormProperties
+.. :name: developer_new_flexformfield

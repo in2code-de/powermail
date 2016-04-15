@@ -310,7 +310,7 @@
 				<source>Converts all Powermail 1.x to 2.x Forms</source>
 			</trans-unit>
 			<trans-unit id="BackendSelectionConverterTitle3">
-				<source>Old records (from Tables tx_powermail_fieldsets, tx_powermail_fields and tt_content) will be flagged with deleted=1. New Records will be generated (Tables tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields, tt_content)</source>
+				<source>Old records (from Tables tx_powermail_fieldsets, tx_powermail_fields and tt_content) will be flagged with deleted=1. New Records will be generated (Tables tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field, tt_content)</source>
 			</trans-unit>
 			<trans-unit id="BackendSelectionConverterTitle4">
 				<source>Attention: Please backup your database before converting. This step is irreversible.</source>
@@ -511,7 +511,7 @@
 				<source>No failures in forms found on this system</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckWrongLocalizedFormsFailed">
-				<source>There are localized forms with empty tx_powermail_domain_model_forms.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
+				<source>There are localized forms with empty tx_powermail_domain_model_form.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckWrongLocalizedPagesTitle">
 				<source>Localized Pages</source>
@@ -520,7 +520,7 @@
 				<source>No failures in pages found on this system</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckWrongLocalizedPagesFailed">
-				<source>There are localized pages with empty tx_powermail_domain_model_pages.forms fields which can lead to problems in managing localized pages</source>
+				<source>There are localized pages with empty tx_powermail_domain_model_page.forms fields which can lead to problems in managing localized pages</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersTitle">
 				<source>Localized Fields</source>
@@ -675,6 +675,9 @@
 			<trans-unit id="BackendListFilterHidden">
 				<source>Deactivated Mails</source>
 			</trans-unit>
+			<trans-unit id="BackendListFilterDefaultFields">
+				<source>Default Fields</source>
+			</trans-unit>
 			<trans-unit id="BackendListFilterAddField">
 				<source>Additional Fields</source>
 			</trans-unit>
@@ -726,6 +729,18 @@
 			<trans-unit id="BackendReportingNoValues">
 				<source>No Values to Show</source>
 			</trans-unit>
+			<trans-unit id="BackendPluginInformationNoHeader">
+				<source>[no header]</source>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitleMailForm">
+				<source>Mailform configuration</source>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitleLastMails">
+				<source>Last mails from this form</source>
+			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitlePi2">
+				<source>Show and manage mails in Frontend</source>
+			</trans-unit>
 			<trans-unit id="PowermailFrontendNoMails">
 				<source>No Mails found.</source>
 			</trans-unit>
@@ -767,6 +782,15 @@
 			</trans-unit>
 			<trans-unit id="PowermailFrontendDeleteSuccessful">
 				<source>Record successfully removed</source>
+			</trans-unit>
+			<trans-unit id="ExtensionManagerConvertingScriptSuccess">
+				<source>All tables successfully converted</source>
+			</trans-unit>
+			<trans-unit id="ExtensionManagerConvertingScriptStopAlreadyExist">
+				<source>Failure! Tables could not be converted because there is already one or more new tables (tx_powermail_domain_model_mail, tx_powermail_domain_model_answer, tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field) and they are not empty</source>
+			</trans-unit>
+			<trans-unit id="ExtensionManagerConvertingScriptStopNoTablesFound">
+				<source>Failure! Tables could not be converted because there is one or more old tables missing (tx_powermail_domain_model_mails, tx_powermail_domain_model_answers, tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields)</source>
 			</trans-unit>
 			<trans-unit id="Back">
 				<source>Back</source>

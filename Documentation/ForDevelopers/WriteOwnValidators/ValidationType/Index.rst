@@ -11,7 +11,7 @@ Add new Option
 
 Per default, all standard validators are available for a field
 
-|img-validation1|
+|developer_new_validationtype1|
 
 If you want to add a new validation, use Page TSConfig for this. In this case, we want to validate for a ZIP-Code which is greater than 79999 (for bavarian ZIP within Germany):
 ::
@@ -20,7 +20,7 @@ If you want to add a new validation, use Page TSConfig for this. In this case, w
 
 This leads to a new validation option for the editors:
 
-|img-validation2|
+|developer_new_validationtype2|
 
 Add new JavaScript Validation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

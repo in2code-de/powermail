@@ -203,7 +203,8 @@ function PowermailForm($) {
 					processData: false,
 					beforeSend: function() {
 						$('.powermail_submit', $this).parent().append(getProgressbar());
-						$('.powermail_confirmation_submit, .powermail_confirmation_form', $this).closest('.powermail_confirmation').append(getProgressbar());
+						$('*[data-powermail-form-ajax="confirmation"], *[data-powermail-form-ajax="submit"]', $this)
+							.closest('.powermail_confirmation').append(getProgressbar());
 					},
 					complete: function() {
 						// remove progressbar
@@ -247,12 +248,12 @@ function PowermailForm($) {
 	 * @private
 	 */
 	var deleteAllFilesListener = function() {
-		$('.powermail_fieldwrap_file_inner').find('.deleteAllFiles').each(function() {
+		$('.powermail_fieldwrap_file').find('.deleteAllFiles').each(function() {
 			// initially hide upload fields
-			disableUploadField($(this).closest('.powermail_fieldwrap_file_inner').find('input[type="file"]'));
+			disableUploadField($(this).closest('.powermail_fieldwrap_file').find('input[type="file"]'));
 		});
 		$('.deleteAllFiles').click(function() {
-			enableUploadField($(this).closest('.powermail_fieldwrap_file_inner').children('input[type="hidden"]'));
+			enableUploadField($(this).closest('.powermail_fieldwrap_file').find('input[type="hidden"]'));
 			$(this).closest('ul').fadeOut(function() {
 				$(this).remove();
 			});

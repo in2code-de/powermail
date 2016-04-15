@@ -45,6 +45,7 @@ abstract class AbstractRepository extends Repository
 
     /**
      * @return DatabaseConnection
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function getDatabaseConnection()
     {

@@ -33,8 +33,9 @@ jQuery(document).ready(function($) {
 			navigation: true,
 			openTabOnError: true,
 			tabIndex: true,
-			tabMenuClassName: 'powermail_tabmenu',
-			tabMenuActiveClassName: 'act'
+			tabMenuClassName: 'btn-group',
+			tabMenuItemActiveClassName: 'btn-primary',
+			tabMenuItemErrorClassName: 'btn-danger'
 		}, options);
 
 		showOnlyFirstFieldset($form, options);
@@ -69,7 +70,7 @@ jQuery(document).ready(function($) {
 		}
 
 		// generate menu
-		var $tabMenu = $('<ul />', {
+		var $tabMenu = $('<div />', {
 			'class': options.tabMenuClassName
 		}).insertBefore(
 			$form.children(options.container).filter(':first')
@@ -78,10 +79,13 @@ jQuery(document).ready(function($) {
 		// all containers
 		$form.children(options.container).each(function(i, $fieldset) {
 			//tab_menu
-			var li = $('<li/>')
+			//<button type="button" class="btn btn-default">Left</button>
+			var li = $('<button/>')
 				.html($(this).children(options.header).html())
-				.addClass((i==0) ? options.tabMenuActiveClassName : '')
+				.addClass((i==0) ? options.tabMenuItemActiveClassName : '')
 				.addClass('item' + i)
+				.addClass('btn btn-default')
+				.prop('type', 'button')
 				.on('click keypress', {
 					container: $form.children(options.container),
 					fieldset: $($fieldset)
@@ -151,7 +155,9 @@ jQuery(document).ready(function($) {
 		if (options.openTabOnError) {
 			$.listen('parsley:field:error', function() {
 				setTimeout(function() {
-					$form.find('.' + options.tabMenuClassName + ' > .parsley-error:first').click();
+					$form
+						.find('.' + options.tabMenuClassName + ' > .' + options.tabMenuItemErrorClassName + ':first')
+						.click();
 				}, 50);
 			});
 		}
@@ -172,8 +178,8 @@ jQuery(document).ready(function($) {
 	 */
 	function showTab($form, options, $listItem, clickedIndex) {
 		$activeTab = getActiveTabMenuListItem($form, options);
-		$activeTab.removeClass(options.tabMenuActiveClassName);
-		$listItem.addClass(options.tabMenuActiveClassName);
+		$activeTab.removeClass(options.tabMenuItemActiveClassName);
+		$listItem.addClass(options.tabMenuItemActiveClassName);
 		hideAllFieldsets($form, options);
 		$('.powermail_fieldset', $form).slice(clickedIndex, clickedIndex + 1).show();
 	}
@@ -199,7 +205,7 @@ jQuery(document).ready(function($) {
 	function createPreviousButton($form, options) {
 		return $('<a />')
 			.prop('href', '#')
-			.addClass('powermail_tab_navigation_previous')
+			.addClass('btn btn-warning')
 			.html('<')
 			.click(function(e) {
 				e.preventDefault();
@@ -217,7 +223,7 @@ jQuery(document).ready(function($) {
 	function createNextButton($form, options) {
 		return $('<a />')
 			.prop('href', '#')
-			.addClass('powermail_tab_navigation_next')
+			.addClass('btn btn-primary pull-right')
 			.html('>')
 			.click(function(e) {
 				e.preventDefault();
@@ -235,7 +241,7 @@ jQuery(document).ready(function($) {
 	function showNextTab($form, options) {
 		var currentActiveTabIndex = getIndexOfCurrentActiveTab($form, options);
 		$activeTab = getActiveTabMenuListItem($form, options);
-		$activeTab.removeClass(options.tabMenuActiveClassName).next().addClass(options.tabMenuActiveClassName);
+		$activeTab.removeClass(options.tabMenuItemActiveClassName).next().addClass(options.tabMenuItemActiveClassName);
 		showFieldsetByIndex($form, options, currentActiveTabIndex + 1);
 	}
 
@@ -249,7 +255,7 @@ jQuery(document).ready(function($) {
 	function showPreviousTab($form, options) {
 		var currentActiveTabIndex = getIndexOfCurrentActiveTab($form, options);
 		$activeTab = getActiveTabMenuListItem($form, options);
-		$activeTab.removeClass(options.tabMenuActiveClassName).prev().addClass(options.tabMenuActiveClassName);
+		$activeTab.removeClass(options.tabMenuItemActiveClassName).prev().addClass(options.tabMenuItemActiveClassName);
 		showFieldsetByIndex($form, options, currentActiveTabIndex - 1);
 	}
 
@@ -287,7 +293,7 @@ jQuery(document).ready(function($) {
 	 * @returns {jQuery}
 	 */
 	function getCurrentTabMenuListItems($form, options) {
-		return $form.find('.' + options.tabMenuClassName + ' > li');
+		return $form.find('.' + options.tabMenuClassName).children();
 	}
 
 	/**
@@ -299,7 +305,7 @@ jQuery(document).ready(function($) {
 	 */
 	function getActiveTabMenuListItem($form, options) {
 		var $listItems = getCurrentTabMenuListItems($form, options);
-		return $listItems.filter('.' + options.tabMenuActiveClassName);
+		return $listItems.filter('.' + options.tabMenuItemActiveClassName);
 	}
 
 	/**
@@ -311,7 +317,7 @@ jQuery(document).ready(function($) {
 	 */
 	function removeErrorClassFromTabs($form, options) {
 		var $tabMenuListItems = getCurrentTabMenuListItems($form, options);
-		$tabMenuListItems.removeClass('parsley-error');
+		$tabMenuListItems.removeClass(options.tabMenuItemErrorClassName);
 	}
 
 	/**
@@ -328,7 +334,7 @@ jQuery(document).ready(function($) {
 				var errorIndex = $form.find('.powermail_fieldset').index($(this).closest('.powermail_fieldset'));
 				var $tabMenuListItems = getCurrentTabMenuListItems($form, options);
 				var $tabWithError = $tabMenuListItems.slice(errorIndex, errorIndex + 1);
-				$tabWithError.addClass('parsley-error');
+				$tabWithError.addClass(options.tabMenuItemErrorClassName);
 			});
 		}
 	}

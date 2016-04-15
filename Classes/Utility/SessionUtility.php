@@ -1,8 +1,10 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
@@ -58,13 +60,12 @@ class SessionUtility extends AbstractUtility
     /**
      * Save current timestamp to session
      *
-     * @param QueryResultInterface $forms
+     * @param Form $form
      * @param array $settings
      * @return void
      */
-    public static function saveFormStartInSession($forms, array $settings)
+    public static function saveFormStartInSession(array $settings, Form $form = null)
     {
-        $form = $forms->getFirst();
         if ($form !== null && self::sessionCheckEnabled($settings)) {
             self::getTyposcriptFrontendController()->fe_user->setKey(
                 'ses',
@@ -85,7 +86,7 @@ class SessionUtility extends AbstractUtility
     public static function getFormStartFromSession($formUid, array $settings)
     {
         if (self::sessionCheckEnabled($settings)) {
-            return (int) self::getTyposcriptFrontendController()->fe_user->getKey(
+            return (int)self::getTyposcriptFrontendController()->fe_user->getKey(
                 'ses',
                 'powermailFormstart' . $formUid
             );
@@ -241,22 +242,26 @@ class SessionUtility extends AbstractUtility
     public static function getCaptchaSession($fieldUid)
     {
         $sessionArray = self::getSessionValue('captcha', 'ses', 'powermail_captcha');
-        return (int) $sessionArray[$fieldUid];
+        return (int)$sessionArray[$fieldUid];
     }
 
     /**
-     * Check if spamshield and sessioncheck is enabled
+     * Check if spamshield is turned on generally
+     * and if ther is a sessioncheck agains spamshield enabled
      *
      * @param array $settings
      * @return bool
      */
     protected static function sessionCheckEnabled(array $settings)
     {
-        $settings = GeneralUtility::removeDotsFromTS($settings);
-        if (!empty($settings['spamshield']['_enable']) && !empty($settings['spamshield']['indicator']['session'])) {
-            return true;
+        $sessionActivated = false;
+        foreach ((array)$settings['spamshield']['methods'] as $method) {
+            if ($method['class'] === HoneyPodMethod::class && $method['_enable'] === '1') {
+                $sessionActivated = true;
+                break;
+            }
         }
-        return false;
+        return !empty($settings['spamshield']['_enable']) && $sessionActivated;
     }
 
     /**
@@ -307,7 +312,7 @@ class SessionUtility extends AbstractUtility
         if (!$overwrite) {
             $oldValues = self::getSessionValue($name, $method, $key);
             if (!empty($oldValues)) {
-                $values = ArrayUtility::arrayMergeRecursiveOverrule((array) $oldValues, (array) $values);
+                $values = ArrayUtility::arrayMergeRecursiveOverrule((array)$oldValues, (array)$values);
             }
         }
         $newValues = [

@@ -1,7 +1,3 @@
-.. |img-90|     image:: ../../Images/manual_html_56f7f042.jpg
-   :height: 518
-   :width: 587
+.. |developer_database_model|      image:: ../../Images/developer_database_model.jpg
 .. :align: left
-.. :border: 0
-.. :name: Grafik95
-
+.. :name: developer_database_model

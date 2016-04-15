@@ -1,0 +1,7 @@
+.. |bestpractice_spamshield1|     image:: ../../../Images/bestpractice_spamshield1.png
+.. :align: left
+.. :name: bestpractice_spamshield1
+
+.. |bestpractice_spamshield2|     image:: ../../../Images/bestpractice_spamshield2.jpg
+.. :align: left
+.. :name: bestpractice_spamshield2

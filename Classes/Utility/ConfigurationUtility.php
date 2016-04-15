@@ -83,6 +83,17 @@ class ConfigurationUtility extends AbstractUtility
     }
 
     /**
+     * Check if disablePluginInformationMailPreview is active
+     *
+     * @return bool
+     */
+    public static function isDisablePluginInformationMailPreviewActive()
+    {
+        $extensionConfig = self::getExtensionConfiguration();
+        return $extensionConfig['disablePluginInformationMailPreview'] === '1';
+    }
+
+    /**
      * Check if enableCaching is active
      *
      * @return bool
@@ -91,17 +102,6 @@ class ConfigurationUtility extends AbstractUtility
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['enableCaching'] === '1';
-    }
-
-    /**
-     * Check if enableTableGarbageCollection is active
-     *
-     * @return bool
-     */
-    public static function isEnableTableGarbageCollectionActive()
-    {
-        $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['enableTableGarbageCollection'] === '1';
     }
 
     /**
@@ -146,13 +146,17 @@ class ConfigurationUtility extends AbstractUtility
     /**
      * Get default mail from install tool settings
      *
+     * @param string $fallback
      * @return string
      */
-    public static function getDefaultMailFromAddress()
+    public static function getDefaultMailFromAddress($fallback = null)
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (!empty($configVariables['MAIL']['defaultMailFromAddress'])) {
             return $configVariables['MAIL']['defaultMailFromAddress'];
+        }
+        if ($fallback !== null) {
+            return $fallback;
         }
         return '';
     }
@@ -176,16 +180,10 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @param string $fileName
      * @return string
-     * @todo remove condition for TYPO3 6.2 in upcoming major version
      */
     public static function getIconPath($fileName)
     {
-        $prefix = 'EXT:powermail/';
-        if (!GeneralUtility::compat_version('7.6')) {
-            $prefix = ExtensionManagementUtility::extRelPath('powermail');
-        }
-        $iconPath = $prefix . 'Resources/Public/Icons/' . $fileName;
-        return $iconPath;
+        return 'EXT:powermail/Resources/Public/Icons/' . $fileName;
     }
 
     /**
@@ -199,8 +197,8 @@ class ConfigurationUtility extends AbstractUtility
     public static function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup')
     {
         $settings = ArrayUtility::arrayMergeRecursiveOverrule(
-            (array) $settings[$typoScriptLevel],
-            (array) $settings['flexform'],
+            (array)$settings[$typoScriptLevel],
+            (array)$settings['flexform'],
             false,
             false
         );

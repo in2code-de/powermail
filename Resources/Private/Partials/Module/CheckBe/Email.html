@@ -30,17 +30,31 @@
 		</f:else>
 	</f:if>
 </f:if>
+
 <div class="typo3-message message-notice powermail-message">
-	<div class="message-header powermail-padding-bottom">
-		<f:translate key="BackendEmailFormTitle" />
-	</div>
 	<div class="message-body powermail-padding-bottom powermail_email">
-		<f:form action="checkBe" controller="Module">
-			<label for="powermail_email">
-				<f:translate key="BackendEmailFormReceiver" />
-			</label>
-			<f:form.textfield name="email" value="" id="powermail_email" class="powermail_email_input" />
-			<f:form.submit value="Send Mail Now" class="powermail_email_submit" />
+		<f:form
+				class="form-horizontal"
+				action="checkBe">
+			<div class="form-group">
+				<label for="powermail_email" class="col-sm-2 control-label">
+					<f:translate key="BackendEmailFormReceiver" />
+				</label>
+				<div class="col-sm-10">
+					<f:form.textfield
+							name="email"
+							placeholder="your@email.org"
+							value=""
+							id="powermail_email"
+							class="form-control" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-10 col-sm-offset-2">
+					<f:form.submit value="Send Mail Now" class="btn btn-primary" />
+				</div>
+			</div>
 		</f:form>
 	</div>
 </div>

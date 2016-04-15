@@ -21,7 +21,7 @@ interface FinisherInterface
     /**
      * Set mail
      *
-     * @params Mail $mail
+     * @param Mail $mail
      * @return AbstractFinisher
      */
     public function setMail($mail);
@@ -36,7 +36,7 @@ interface FinisherInterface
     /**
      * Set settings
      *
-     * @params array $settings
+     * @param array $settings
      * @return AbstractFinisher
      */
     public function setSettings($settings);

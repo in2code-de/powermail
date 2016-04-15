@@ -39,7 +39,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Page extends AbstractEntity
 {
 
-    const TABLE_NAME = 'tx_powermail_domain_model_pages';
+    const TABLE_NAME = 'tx_powermail_domain_model_page';
 
     /**
      * title

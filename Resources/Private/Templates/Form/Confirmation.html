@@ -7,42 +7,53 @@ Show Confirmation Page
 {marker1}, {firstname}, etc..	Outputs a field
 {mail}							Complete Mail Object
 {ttContentData}					All values from content element with plugin
+{uploadService}					All values from uploaded files
 
 
 <f:section name="main">
 	<div class="powermail_confirmation" data-powermail-form="{mail.form.uid}">
-		<h4><f:translate key="confirmation_message" /></h4>
+		<h1><f:translate key="confirmation_message" /></h1>
 
 		<vh:string.RawAndRemoveXss>
 			{powermail_all}
 		</vh:string.RawAndRemoveXss>
 
-		<f:comment>
-			Link: Back to form
-		</f:comment>
-		<f:form
-				action="form"
-				name="field"
-				enctype="multipart/form-data"
-				addQueryString="{settings.misc.addQueryString}"
-				additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form: mail.form)}">
-			<f:render section="HiddenFields" arguments="{_all}" />
-			<f:form.submit value="{f:translate(key: 'confirmation_prev')}" class="powermail_confirmation_form" />
-		</f:form>
+		<div class="btn-group" role="group">
+			<f:comment>
+				Link: Back to form
+			</f:comment>
+			<f:form
+					action="form"
+					name="field"
+					enctype="multipart/form-data"
+					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
+ 					addQueryString="{settings.misc.addQueryString}"
+					additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form: mail.form)}">
+				<f:render section="HiddenFields" arguments="{_all}" />
+				<f:form.submit
+						value="{f:translate(key: 'confirmation_prev')}"
+						additionalAttributes="{data-powermail-form-ajax:'confirmation'}"
+						class="btn btn-danger" />
+			</f:form>
 
 
-		<f:comment>
-			Link: Submit form
-		</f:comment>
-		<f:form
-				action="create"
-				name="field"
-				enctype="multipart/form-data"
-				addQueryString="{settings.misc.addQueryString}"
-				additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form: mail.form)}">
-			<f:render section="HiddenFields" arguments="{_all}" />
-			<f:form.submit value="{f:translate(key: 'confirmation_next')}" class="powermail_confirmation_submit" />
-		</f:form>
+			<f:comment>
+				Link: Submit form
+			</f:comment>
+			<f:form
+					action="create"
+					name="field"
+					enctype="multipart/form-data"
+					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
+					addQueryString="{settings.misc.addQueryString}"
+					additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form: mail.form)}">
+				<f:render section="HiddenFields" arguments="{_all}" />
+				<f:form.submit
+						value="{f:translate(key: 'confirmation_next')}"
+						additionalAttributes="{data-powermail-form-ajax:'submit'}"
+						class="btn btn-primary" />
+			</f:form>
+		</div>
 	</div>
 </f:section>
 

@@ -1,16 +1,11 @@
-.. |img-42|     image:: ../../../Images/manual_html_m198a2f48.png
+.. |example_field_submit|      image:: ../../../Images/example_field_submit.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik44
+.. :name: example_field_submit
 
-.. |img-43|     image:: ../../../Images/manual_html_752d3b4a.png
-   :width: 517
+.. |record_field_submit_tab1|      image:: ../../../Images/record_field_submit_tab1.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik21
+.. :name: record_field_submit_tab1
 
-.. |img-44|     image:: ../../../Images/manual_html_m2ccc0be1.png
-   :width: 515
+.. |record_field_submit_tab2|      image:: ../../../Images/record_field_submit_tab2.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik22
+.. :name: record_field_submit_tab2

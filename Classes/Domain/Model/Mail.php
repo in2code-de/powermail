@@ -39,7 +39,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Mail extends AbstractEntity
 {
 
-    const TABLE_NAME = 'tx_powermail_domain_model_mails';
+    const TABLE_NAME = 'tx_powermail_domain_model_mail';
 
     /**
      * senderName
@@ -631,7 +631,7 @@ class Mail extends AbstractEntity
         if (ArrayUtility::isJsonArray($this->marketingPageFunnel)) {
             return json_decode($this->marketingPageFunnel);
         }
-        return (array) $this->marketingPageFunnel;
+        return (array)$this->marketingPageFunnel;
     }
 
     /**

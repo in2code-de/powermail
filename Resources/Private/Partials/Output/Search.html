@@ -1,46 +1,49 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
 <f:if condition="{settings.search.fields}">
-	<f:form action="list" name="filter" id="powermail_frontend_search">
-		<div class="powermail_frontend_filter">
-
-			<f:comment>Fulltext Search</f:comment>
-			<f:for each="{vh:String.Explode(string: '{settings.search.fields}')}" as="fieldUid">
-				<f:if condition="{0 : fieldUid} == {0 : '_all'}">
-					<f:then>
-						<div class="powermail_frontend_search_container">
-							<label for="powermail_frontend_search_all">
-								<f:translate key="PowermailFrontendFilterAll">All</f:translate>
-							</label>
+	<f:form action="list" name="filter" class="form-horizontal">
+		<f:comment>Fulltext Search</f:comment>
+		<f:for each="{vh:String.Explode(string: '{settings.search.fields}')}" as="fieldUid">
+			<f:if condition="{0 : fieldUid} == {0 : '_all'}">
+				<f:then>
+					<div class="form-group">
+						<label for="powermail_frontend_search_all" class="control-label col-sm-2">
+							<f:translate key="PowermailFrontendFilterAll">All</f:translate>
+						</label>
+						<div class="col-sm-10">
 							<f:form.textfield
 									property="{fieldUid}"
 									id="powermail_frontend_search_all"
-									class="powermail_frontend_search powermail_frontend_search_all"
+									class="powermail_frontend_search powermail_frontend_search_all form-control"
 									value="{piVars.filter._all}" />
 						</div>
-					</f:then>
-				</f:if>
-			</f:for>
+					</div>
+				</f:then>
+			</f:if>
+		</f:for>
 
-			<f:comment>Selected Fields</f:comment>
-			<f:for each="{searchFields}" as="searchField">
-				<div class="powermail_frontend_search_container">
-					<label for="powermail_frontend_search_{searchField.marker}">
-						{searchField.title}
-					</label>
+		<f:comment>Selected Fields</f:comment>
+		<f:for each="{searchFields}" as="searchField">
+			<div class="form-group">
+				<label for="powermail_frontend_search_{searchField.marker}" class="control-label col-sm-2">
+					{searchField.title}
+				</label>
+				<div class="col-sm-10">
 					<f:form.textfield
 							property="{searchField.uid}"
 							id="powermail_frontend_search_{searchField.marker}"
-							class="powermail_frontend_search powermail_frontend_search_{searchField.marker}"
+							class="powermail_frontend_search powermail_frontend_search_{searchField.marker} form-control"
 							value="{vh:Misc.VariableInVariable(obj:piVars.filter, prop:searchField.uid)}" />
 				</div>
-			</f:for>
-
-			<div class="powermail_frontend_search_container">
-				<f:form.submit value="{f:translate(key:'PowermailFrontendFilterSubmit')}" class="powermail_frontend_search_submit" />
 			</div>
+		</f:for>
 
-			<div class="clear"></div>
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-2">
+				<f:form.submit
+						value="{f:translate(key:'PowermailFrontendFilterSubmit')}"
+						class="btn btn-primary" />
+			</div>
 		</div>
 	</f:form>
 </f:if>

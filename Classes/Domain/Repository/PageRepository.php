@@ -49,7 +49,7 @@ class PageRepository extends AbstractRepository
 
         $sql = 'select title';
         $sql .= ' from pages';
-        $sql .= ' where uid = ' . (int) $uid;
+        $sql .= ' where uid = ' . (int)$uid;
         $sql .= ' limit 1';
 
         $result = $query->statement($sql)->execute(true);
@@ -81,7 +81,7 @@ class PageRepository extends AbstractRepository
 
     /**
      * Find all localized records with
-     *        tx_powermail_domain_model_pages.forms = "0"
+     *        tx_powermail_domain_model_page.forms = "0"
      *
      * @return array
      */
@@ -113,7 +113,7 @@ class PageRepository extends AbstractRepository
             $localizedFormUid = $this->getLocalizedFormUidFromFormUid($defaultFormUid, $page['sys_language_uid']);
             $this->getDatabaseConnection()->exec_UPDATEquery(
                 Page::TABLE_NAME,
-                'uid = ' . (int) $page['uid'],
+                'uid = ' . (int)$page['uid'],
                 ['forms' => $localizedFormUid]
             );
         }
@@ -130,11 +130,11 @@ class PageRepository extends AbstractRepository
         $query = $this->createQuery();
         $sql = 'select forms';
         $sql .= ' from ' . Page::TABLE_NAME;
-        $sql .= ' where uid = ' . (int) $pageUid;
+        $sql .= ' where uid = ' . (int)$pageUid;
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
         $row = $query->statement($sql)->execute(true);
-        return (int) $row[0]['forms'];
+        return (int)$row[0]['forms'];
     }
 
     /**
@@ -147,10 +147,10 @@ class PageRepository extends AbstractRepository
         $query = $this->createQuery();
         $sql = 'select uid';
         $sql .= ' from ' . Form::TABLE_NAME;
-        $sql .= ' where l10n_parent = ' . (int) $formUid;
-        $sql .= ' and sys_language_uid = ' . (int) $sysLanguageUid;
+        $sql .= ' where l10n_parent = ' . (int)$formUid;
+        $sql .= ' and sys_language_uid = ' . (int)$sysLanguageUid;
         $sql .= ' and deleted = 0';
         $row = $query->statement($sql)->execute(true);
-        return (int) $row[0]['uid'];
+        return (int)$row[0]['uid'];
     }
 }

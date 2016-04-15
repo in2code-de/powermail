@@ -1,5 +1,0 @@
-plugin.tx_powermail {
-	settings {
-		CssDemo = EXT:powermail/Resources/Public/Css/CssDemo.css
-	}
-}

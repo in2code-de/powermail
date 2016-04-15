@@ -1,0 +1,7 @@
+.. |bestpractice_filterformselection1|     image:: ../../../Images/bestpractice_filterformselection1.png
+.. :align: left
+.. :name: bestpractice_filterformselection1
+
+.. |bestpractice_filterformselection2|     image:: ../../../Images/bestpractice_filterformselection2.png
+.. :align: left
+.. :name: bestpractice_filterformselection2

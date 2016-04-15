@@ -1,0 +1,19 @@
+<div class="form-group">
+	<f:form.button
+			class="btn btn-default"
+			type="button"
+			additionalAttributes="{data-toggle:'collapse',data-target:'#extended_search',aria-expanded:'false'}">
+		<f:translate key="BackendListFilterExtendedSearch">extended search</f:translate>
+	</f:form.button>
+	<f:if condition="{piVars.filter}">
+		<f:link.action
+				action="{forwardToAction}"
+				class="btn btn-warning">
+			<f:translate key="BackendListFilterClean">delete filters</f:translate>
+		</f:link.action>
+	</f:if>
+	<f:form.submit
+			value="{f:translate(key: 'BackendListFilterFulltextSearchSubmit')}"
+			additionalAttributes="{data-action:'searchall_submit'}"
+			class="btn btn-primary" />
+</div>

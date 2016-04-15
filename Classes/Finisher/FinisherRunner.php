@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Service\FinisherService;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
@@ -29,11 +29,8 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  ***************************************************************/
 
 /**
- * Get all finishers classes and call finisher service for each of them
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class FinisherRunner
+ * @package In2code\Powermail\Finisher
  */
 class FinisherRunner
 {
@@ -51,6 +48,11 @@ class FinisherRunner
     protected $configurationManager;
 
     /**
+     * @var string
+     */
+    protected $interface = 'In2code\Powermail\Finisher\FinisherInterface';
+
+    /**
      * Call finisher classes after submit
      *
      * @param Mail $mail
@@ -59,6 +61,7 @@ class FinisherRunner
      * @param array $settings
      * @param ContentObjectRenderer $contentObject
      * @return void
+     * @throws \Exception
      */
     public function callFinishers(
         Mail $mail,
@@ -68,14 +71,61 @@ class FinisherRunner
         ContentObjectRenderer $contentObject
     ) {
         foreach ($this->getFinisherClasses($settings) as $finisherSettings) {
-            /** @var FinisherService $finisherService */
-            $finisherService = $this->objectManager->get(FinisherService::class, $mail, $settings, $contentObject);
-            $finisherService->setClass($finisherSettings['class']);
-            $finisherService->setRequirePath((string) $finisherSettings['require']);
-            $finisherService->setConfiguration((array) $finisherSettings['config']);
-            $finisherService->setFormSubmitted($formSubmitted);
-            $finisherService->setActionMethodName($actionMethodName);
-            $finisherService->start();
+            $class = $finisherSettings['class'];
+            $this->requireFile($finisherSettings);
+            if (!class_exists($class)) {
+                throw new \Exception(
+                    'Finisher class ' . $class . ' does not exists - check if file was loaded correctly'
+                );
+            }
+            if (is_subclass_of($class, $this->interface)) {
+                /** @var AbstractFinisher $finisher */
+                /** @noinspection PhpMethodParametersCountMismatchInspection */
+                $finisher = $this->objectManager->get(
+                    $class,
+                    $mail,
+                    (array)$finisherSettings['config'],
+                    $settings,
+                    $formSubmitted,
+                    $actionMethodName,
+                    $contentObject
+                );
+                $finisher->initializeFinisher();
+                $this->callFinisherMethods($finisher);
+            } else {
+                throw new \Exception('Finisher does not implement ' . $this->interface);
+            }
+        }
+    }
+
+    /**
+     * Call methods in finisher class
+     *      *Finisher()
+     *
+     * @param AbstractFinisher $finisher
+     * @return void
+     */
+    protected function callFinisherMethods(AbstractFinisher $finisher)
+    {
+        foreach (get_class_methods($finisher) as $method) {
+            if (StringUtility::endsWith($method, 'Finisher') && !StringUtility::startsWith($method, 'initialize')) {
+                $this->callInitializeFinisherMethod($finisher, $method);
+                $finisher->{$method}();
+            }
+        }
+    }
+
+    /**
+     * Call initializeFinisherMethods like "initializeUploadFinisher()"
+     *
+     * @param AbstractFinisher $finisher
+     * @param string $finisherMethod
+     * @return void
+     */
+    protected function callInitializeFinisherMethod(AbstractFinisher $finisher, $finisherMethod)
+    {
+        if (method_exists($finisher, 'initialize' . ucFirst($finisherMethod))) {
+            $finisher->{'initialize' . ucFirst($finisherMethod)}();
         }
     }
 
@@ -87,8 +137,21 @@ class FinisherRunner
      */
     protected function getFinisherClasses($settings)
     {
-        $finishers = (array) $settings['finishers'];
+        $finishers = (array)$settings['finishers'];
         ksort($finishers);
         return $finishers;
+    }
+
+    /**
+     * @param array $finisherSettings
+     */
+    protected function requireFile(array $finisherSettings)
+    {
+        if (!empty($finisherSettings['require'])) {
+            if (file_exists($finisherSettings['require'])) {
+                /** @noinspection PhpIncludeInspection */
+                require_once($finisherSettings['require']);
+            }
+        }
     }
 }

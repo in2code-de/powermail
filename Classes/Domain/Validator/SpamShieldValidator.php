@@ -2,15 +2,14 @@
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Validator\SpamShield\AbstractMethod;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * SpamShieldValidator
@@ -41,7 +40,7 @@ class SpamShieldValidator extends AbstractValidator
      *
      * @var float
      */
-    protected $calculatedMailSpamFactor = 0.0;
+    protected $calculatedSpamFactor = 0.0;
 
     /**
      * Referrer action
@@ -58,28 +57,9 @@ class SpamShieldValidator extends AbstractValidator
     protected $messages = [];
 
     /**
-     * @var TypoScriptFrontendController
+     * @var string
      */
-    protected $typoScriptFrontendController;
-
-    /**
-     * TypoScript Settings
-     *
-     * @var array
-     */
-    protected $settings;
-
-    /**
-     * Plugin arguments
-     *
-     * @var array
-     */
-    protected $piVars;
-
-    /**
-     * @var array
-     */
-    protected $configurationArray;
+    protected $methodInterface = '\In2code\Powermail\Domain\Validator\SpamShield\MethodInterface';
 
     /**
      * Spam-Validation of given Params
@@ -90,244 +70,67 @@ class SpamShieldValidator extends AbstractValidator
      */
     public function isValid($mail)
     {
-        if (empty($this->settings['spamshield.']['_enable'])) {
-            return $this->isValidState();
-        }
-        $this->runSpamPreventationMethods($mail);
-        $this->calculateMailSpamFactor();
-        $this->saveSpamFactorInSession();
-        $this->saveSpamPropertiesInDevelopmentLog();
-
-        if ($this->isSpamToleranceLimitReached()) {
-            $this->addError('spam_details', $this->getCalculatedMailSpamFactor(true));
-            $this->setValidState(false);
-            $this->sendSpamNotificationMail($mail);
-            $this->logSpamNotification($mail);
+        if (!empty($this->settings['spamshield']['_enable'])) {
+            $this->runAllSpamMethods($mail);
+            $this->calculateMailSpamFactor();
+            $this->saveSpamFactorInSession();
+            $this->saveSpamPropertiesInDevelopmentLog();
+            if ($this->isSpamToleranceLimitReached()) {
+                $this->addError('spam_details', $this->getCalculatedSpamFactor(true));
+                $this->setValidState(false);
+                $this->sendSpamNotificationMail($mail);
+                $this->logSpamNotification($mail);
+            }
         }
         return $this->isValidState();
     }
 
     /**
-     * Start different checks to increase spam indicator
+     * Run through all spam prevention methods
      *
      * @param Mail $mail
      * @return void
      */
-    protected function runSpamPreventationMethods($mail)
+    protected function runAllSpamMethods(Mail $mail)
     {
-        $settingsSpamShieldIndicator = $this->settings['spamshield.']['indicator.'];
-        $this->honeypodCheck($settingsSpamShieldIndicator['honeypod']);
-        $this->linkCheck($mail, $settingsSpamShieldIndicator['link'], $settingsSpamShieldIndicator['linkLimit']);
-        $this->nameCheck($mail, $settingsSpamShieldIndicator['name']);
-        $this->sessionCheck(
-            $settingsSpamShieldIndicator['session'],
-            SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)
-        );
-        $this->uniqueCheck($mail, $settingsSpamShieldIndicator['unique']);
-        $this->blacklistStringCheck($mail, $settingsSpamShieldIndicator['blacklistString']);
-        $this->blacklistIpCheck($settingsSpamShieldIndicator['blacklistIp'], GeneralUtility::getIndpEnv('REMOTE_ADDR'));
-    }
-
-    /**
-     * Honeypod Check: Spam recognized if Honeypod field is filled
-     *
-     * @param float $indication Indication if check fails
-     * @return void
-     */
-    protected function honeypodCheck($indication = 1.0)
-    {
-        if (!$indication) {
-            return;
-        }
-
-        if (!empty($this->piVars['field']['__hp'])) {
-            $this->increaseSpamIndicator($indication);
-            $this->addMessage(__FUNCTION__ . ' failed');
+        foreach ($this->getSpamShieldMethodClasses() as $method) {
+            $this->runSingleSpamMethod($mail, $method);
         }
     }
 
     /**
-     * Link Check: Counts numbers of links in message
+     * Run a single spam prevention method
      *
      * @param Mail $mail
-     * @param float $indication Indication if check fails
-     * @param integer $limit Limit of allowed links in mail
-     * @return void
+     * @param array $method
+     * @throws \Exception
      */
-    protected function linkCheck(Mail $mail, $indication = 1.0, $limit = 2)
+    protected function runSingleSpamMethod(Mail $mail, array $method = [])
     {
-        if (!$indication) {
-            return;
-        }
-
-        $linkAmount = 0;
-        foreach ($mail->getAnswers() as $answer) {
-            if (is_array($answer->getValue())) {
-                continue;
+        if (!empty($method['_enable'])) {
+            if (!class_exists($method['class'])) {
+                throw new \Exception(
+                    'Class ' . $method['class'] . ' does not exists - check if file was loaded with autoloader'
+                );
             }
-            preg_match_all('@http://|https://|ftp://@', $answer->getValue(), $result);
-            if (isset($result[0])) {
-                $linkAmount += count($result[0]);
-            }
-        }
-
-        if ($linkAmount > $limit) {
-            $this->increaseSpamIndicator($indication);
-            $this->addMessage(__FUNCTION__ . ' failed');
-        }
-    }
-
-    /**
-     * Name Check: Compares first- and lastname (shouldn't be the same)
-     *
-     * @param Mail $mail
-     * @param float $indication Indication if check fails
-     * @return void
-     */
-    protected function nameCheck(Mail $mail, $indication = 1.0)
-    {
-        if (!$indication) {
-            return;
-        }
-        $keysFirstName = [
-            'first_name',
-            'firstname',
-            'vorname'
-        ];
-        $keysLastName = [
-            'last_name',
-            'lastname',
-            'sur_name',
-            'surname',
-            'nachname',
-            'name'
-        ];
-
-        foreach ($mail->getAnswers() as $answer) {
-            if (is_array($answer->getValue())) {
-                continue;
-            }
-            if (in_array($answer->getField()->getMarker(), $keysFirstName)) {
-                $firstname = $answer->getValue();
-            }
-            if (in_array($answer->getField()->getMarker(), $keysLastName)) {
-                $lastname = $answer->getValue();
-            }
-        }
-
-        if (!empty($firstname) && !empty($lastname) && $firstname === $lastname) {
-            $this->increaseSpamIndicator($indication);
-            $this->addMessage(__FUNCTION__ . ' failed');
-            return;
-        }
-    }
-
-    /**
-     * Session Check: Checks if session was started correct on form delivery
-     *
-     * @param float $indication Indication if check fails
-     * @param int $timeFromSession
-     * @return void
-     */
-    protected function sessionCheck($indication = 1.0, $timeFromSession = 0)
-    {
-        if (!$indication || $this->referrer === 'optinConfirm') {
-            return;
-        }
-
-        if (empty($timeFromSession)) {
-            $this->increaseSpamIndicator($indication);
-            $this->addMessage(__FUNCTION__ . ' failed');
-        }
-    }
-
-    /**
-     * Unique Check: Checks if values in given params are different
-     *
-     * @param Mail $mail
-     * @param float $indication Indication if check fails
-     * @return void
-     */
-    protected function uniqueCheck(Mail $mail, $indication = 1.0)
-    {
-        if (!$indication) {
-            return;
-        }
-
-        $arr = [];
-        foreach ($mail->getAnswers() as $answer) {
-
-            // don't want values in second level (from checkboxes e.g.)
-            if (is_array($answer->getValue())) {
-                continue;
-            }
-
-            if ($answer->getValue()) {
-                $arr[] = $answer->getValue();
-            }
-        }
-
-        if (count($arr) !== count(array_unique($arr))) {
-            $this->increaseSpamIndicator($indication);
-            $this->addMessage(__FUNCTION__ . ' failed');
-            return;
-        }
-    }
-
-    /**
-     * Blacklist String Check: Check if a blacklisted word is in given values
-     *
-     * @param Mail $mail
-     * @param float $indication Indication if check fails
-     * @return void
-     */
-    protected function blacklistStringCheck(Mail $mail, $indication = 1.0)
-    {
-        if (!$indication) {
-            return;
-        }
-        $blacklist = GeneralUtility::trimExplode(
-            ',',
-            $this->settings['spamshield.']['indicator.']['blacklistStringValues'],
-            true
-        );
-
-        foreach ($mail->getAnswers() as $answer) {
-            if (is_array($answer->getValue())) {
-                continue;
-            }
-            foreach ((array) $blacklist as $blackword) {
-                if ($this->findStringInString($answer->getValue(), $blackword)) {
-                    $this->increaseSpamIndicator($indication);
-                    $this->addMessage(__FUNCTION__ . ' failed');
-                    return;
+            if (is_subclass_of($method['class'], $this->methodInterface)) {
+                /** @var AbstractMethod $methodInstance */
+                $methodInstance = ObjectUtility::getObjectManager()->get(
+                    $method['class'],
+                    $mail,
+                    $this->settings,
+                    $method['configuration']
+                );
+                $methodInstance->initialize();
+                $methodInstance->initializeSpamCheck();
+                if ((int)$method['indication'] > 0 && $methodInstance->spamCheck()) {
+                    $this->increaseSpamIndicator((int)$method['indication']);
+                    $this->addMessage($method['name'] . ' failed');
                 }
+            } else {
+                throw new \Exception('Spam method does not implement ' . $this->methodInterface);
             }
-        }
-    }
 
-    /**
-     * Blacklist IP-Address Check: Check if Senders IP is blacklisted
-     *
-     * @param float $indication Indication if check fails
-     * @param string $userIpAddress Visitors IP address
-     * @return void
-     */
-    protected function blacklistIpCheck($indication = 1.0, $userIpAddress = '')
-    {
-        if (!$indication) {
-            return;
-        }
-        $blacklist = GeneralUtility::trimExplode(
-            ',',
-            $this->settings['spamshield.']['indicator.']['blacklistIpValues'],
-            true
-        );
-
-        if (in_array($userIpAddress, $blacklist)) {
-            $this->increaseSpamIndicator($indication);
-            $this->addMessage(__FUNCTION__ . ' failed');
-            return;
         }
     }
 
@@ -339,11 +142,11 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function calculateMailSpamFactor()
     {
-        $calculatedMailSpamFactor = 0;
+        $calculatedSpamFactor = 0;
         if ($this->getSpamIndicator() > 0) {
-            $calculatedMailSpamFactor = -1 / $this->getSpamIndicator() + 1;
+            $calculatedSpamFactor = -1 / $this->getSpamIndicator() + 1;
         }
-        $this->setCalculatedMailSpamFactor($calculatedMailSpamFactor);
+        $this->setCalculatedSpamFactor($calculatedSpamFactor);
     }
 
     /**
@@ -354,15 +157,15 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function sendSpamNotificationMail(Mail $mail)
     {
-        if (!GeneralUtility::validEmail($this->settings['spamshield.']['email'])) {
+        if (!GeneralUtility::validEmail($this->settings['spamshield']['email'])) {
             return;
         }
         MailUtility::sendPlainMail(
-            $this->settings['spamshield.']['email'],
+            $this->settings['spamshield']['email'],
             'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'),
-            $this->settings['spamshield.']['emailSubject'],
+            $this->settings['spamshield']['emailSubject'],
             $this->createSpamNotificationMessage(
-                $this->settings['spamshield.']['emailTemplate'],
+                $this->settings['spamshield']['emailTemplate'],
                 $this->getVariablesForSpamNotification($mail)
             )
         );
@@ -376,17 +179,17 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function logSpamNotification(Mail $mail)
     {
-        if (empty($this->settings['spamshield.']['logfileLocation'])) {
+        if (empty($this->settings['spamshield']['logfileLocation'])) {
             return;
         }
         BasicFileUtility::createFolderIfNotExists(
-            BasicFileUtility::getPathFromPathAndFilename($this->settings['spamshield.']['logfileLocation'])
+            BasicFileUtility::getPathFromPathAndFilename($this->settings['spamshield']['logfileLocation'])
         );
         $logMessage = $this->createSpamNotificationMessage(
-            $this->settings['spamshield.']['logTemplate'],
+            $this->settings['spamshield']['logTemplate'],
             $this->getVariablesForSpamNotification($mail)
         );
-        BasicFileUtility::prependContentToFile($this->settings['spamshield.']['logfileLocation'], $logMessage);
+        BasicFileUtility::prependContentToFile($this->settings['spamshield']['logfileLocation'], $logMessage);
     }
 
     /**
@@ -417,7 +220,7 @@ class SpamShieldValidator extends AbstractValidator
         return [
             'mail' => $mail,
             'pid' => FrontendUtility::getCurrentPageIdentifier(),
-            'calculatedMailSpamFactor' => $this->getCalculatedMailSpamFactor(true),
+            'calculatedMailSpamFactor' => $this->getCalculatedSpamFactor(true),
             'messages' => $this->getMessages(),
             'ipAddress' =>
                 (!ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : ''),
@@ -485,13 +288,13 @@ class SpamShieldValidator extends AbstractValidator
      * @param bool $readableOutput
      * @return float
      */
-    public function getCalculatedMailSpamFactor($readableOutput = false)
+    public function getCalculatedSpamFactor($readableOutput = false)
     {
-        $calculatedMailSpamFactor = $this->calculatedMailSpamFactor;
+        $calculatedSpamFactor = $this->calculatedSpamFactor;
         if ($readableOutput) {
-            $calculatedMailSpamFactor = $this->formatSpamFactor($calculatedMailSpamFactor);
+            $calculatedSpamFactor = $this->formatSpamFactor($calculatedSpamFactor);
         }
-        return $calculatedMailSpamFactor;
+        return $calculatedSpamFactor;
     }
 
     /**
@@ -501,16 +304,16 @@ class SpamShieldValidator extends AbstractValidator
      */
     public function isSpamToleranceLimitReached()
     {
-        return $this->getCalculatedMailSpamFactor() >= $this->getSpamFactorLimit();
+        return $this->getCalculatedSpamFactor() >= $this->getSpamFactorLimit();
     }
 
     /**
-     * @param float $calculatedMailSpamFactor
+     * @param float $calculatedSpamFactor
      * @return void
      */
-    public function setCalculatedMailSpamFactor($calculatedMailSpamFactor)
+    public function setCalculatedSpamFactor($calculatedSpamFactor)
     {
-        $this->calculatedMailSpamFactor = $calculatedMailSpamFactor;
+        $this->calculatedSpamFactor = $calculatedSpamFactor;
     }
 
     /**
@@ -550,12 +353,13 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function saveSpamFactorInSession()
     {
-        $this->typoScriptFrontendController->fe_user->setKey(
+        $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController();
+        $typoScriptFrontend->fe_user->setKey(
             'ses',
             'powermail_spamfactor',
-            $this->getCalculatedMailSpamFactor(true)
+            $this->getCalculatedSpamFactor(true)
         );
-        $this->typoScriptFrontendController->storeSessionData();
+        $typoScriptFrontend->storeSessionData();
     }
 
     /**
@@ -565,11 +369,11 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function saveSpamPropertiesInDevelopmentLog()
     {
-        if (empty($this->settings['debug.']['spamshield'])) {
+        if (empty($this->settings['debug']['spamshield'])) {
             return;
         }
         GeneralUtility::devLog(
-            'Spamshield (Spamfactor ' . $this->getCalculatedMailSpamFactor(true) . ')',
+            'Spamshield (Spamfactor ' . $this->getCalculatedSpamFactor(true) . ')',
             'powermail',
             0,
             $this->getMessages()
@@ -577,21 +381,15 @@ class SpamShieldValidator extends AbstractValidator
     }
 
     /**
-     * Find string in string but only if it's alone
-     * Search for "sex":
-     *        "Sex" => TRUE
-     *        "test sex test" => TRUE
-     *        "Staatsexamen" => FALSE
-     *        "_sex_bla" => TRUE
-     *        "tst sex.seems.to.be.nice" => TRUE
+     * Get all spamshield method classes from typoscript and sort them
      *
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
+     * @return array
      */
-    protected function findStringInString($haystack, $needle)
+    protected function getSpamShieldMethodClasses()
     {
-        return preg_match('/(?:\A|[\s\b_-]|\.)' . $needle . '(?:$|[\s\b_-]|\.)/i', $haystack) === 1;
+        $methods = (array)$this->settings['spamshield']['methods'];
+        ksort($methods);
+        return $methods;
     }
 
     /**
@@ -601,10 +399,6 @@ class SpamShieldValidator extends AbstractValidator
      */
     public function initializeObject()
     {
-        $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
-        $this->referrer = $this->piVars['__referrer']['@action'];
-        $this->typoScriptFrontendController = ObjectUtility::getTyposcriptFrontendController();
-        $this->configurationArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-        $this->setSpamFactorLimit($this->settings['spamshield.']['factor'] / 100);
+        $this->setSpamFactorLimit($this->settings['spamshield']['factor'] / 100);
     }
 }

@@ -32,10 +32,10 @@ forge.typo3.org if you need a new signal.
       Signal Class Name
    :Name:
       Signal Name
-   :File:
-      Located in File
    :Method:
       Located in Method
+   :Arguments:
+      Passed arguments
    :Description:
       Description
 
@@ -43,10 +43,10 @@ forge.typo3.org if you need a new signal.
       In2code\\Powermail\\Domain\\Validator\\CustomValidator
    :Name:
       isValid
-   :File:
-      CustomValidator.php
    :Method:
       isValid()
+   :Arguments:
+      $mail, $this
    :Description:
       Add your own serverside Validation
 
@@ -54,65 +54,65 @@ forge.typo3.org if you need a new signal.
       In2code\\Powermail\\Controller\\FormController
    :Name:
       formActionBeforeRenderView
-   :File:
-      FormController.php
    :Method:
       formAction()
+   :Arguments:
+      $form, $this
    :Description:
       Slot is called before the form is rendered
 
  - :Class:
       In2code\\Powermail\\Controller\\FormController
    :Name:
+      createActionBeforeRenderView
+   :Method:
+      createAction()
+   :Arguments:
+      $mail, $hash, $this
+   :Description:
+      Slot is called before the mail and answers are persisted and before the emails are sent
+
+ - :Class:
+      In2code\\Powermail\\Controller\\FormController
+   :Name:
+      createActionAfterMailDbSaved
+   :Method:
+      createAction()
+   :Arguments:
+      $mail, $this
+   :Description:
+      Slot ist called directly after the mail was persisted
+
+ - :Class:
+      In2code\\Powermail\\Controller\\FormController
+   :Name:
+      createActionAfterSubmitView
+   :Method:
+      createAction()
+   :Arguments:
+      $mail, $hash, $this
+   :Description:
+      Slot is called after the create message was rendered
+
+ - :Class:
+      In2code\\Powermail\\Controller\\FormController
+   :Name:
       confirmationActionBeforeRenderView
-   :File:
-      FormController.php
    :Method:
       confirmationAction()
+   :Arguments:
+      $mail, $this
    :Description:
       Slot is called before the confirmation view is rendered
 
  - :Class:
       In2code\\Powermail\\Controller\\FormController
    :Name:
-      createActionBeforeRenderView
-   :File:
-      FormController.php
-   :Method:
-      createAction()
-   :Description:
-      Slot is called before the answered are stored and the mails are sent
-
- - :Class:
-      In2code\\Powermail\\Controller\\FormController
-   :Name:
-      createActionAfterMailDbSaved
-   :File:
-      FormController.php
-   :Method:
-      createAction()
-   :Description:
-      Slot ist called directly after the mail was stored in the db
-
- - :Class:
-      In2code\\Powermail\\Controller\\FormController
-   :Name:
-      createActionAfterSubmitView
-   :File:
-      FormController.php
-   :Method:
-      createAction()
-   :Description:
-      Slot is called after the thx message was rendered
-
- - :Class:
-      In2code\\Powermail\\Controller\\FormController
-   :Name:
       optinConfirmActionBeforeRenderView
-   :File:
-      FormController.php
    :Method:
       optinConfirmAction()
+   :Arguments:
+      $mail, $hash, $this
    :Description:
       Slot is called before the optin confirmation view is rendered (only if
       Double-Opt-In is in use)
@@ -121,34 +121,100 @@ forge.typo3.org if you need a new signal.
       In2code\\Powermail\\Controller\\FormController
    :Name:
       initializeObjectSettings
-   :File:
-      FormController.php
    :Method:
       initializeObject()
+   :Arguments:
+      $this
    :Description:
       Change Settings from Flexform or TypoScript before Action is called
+
+ - :Class:
+      In2code\\Powermail\\ViewHelpers\\Misc\\PrefillFieldViewHelper
+   :Name:
+      render
+   :Method:
+      render()
+   :Arguments:
+      $field, $mail, $default, $this
+   :Description:
+      Prefill fields by your own magic
+
+ - :Class:
+      In2code\\Powermail\\ViewHelpers\\Misc\\PrefillMultiFieldViewHelper
+   :Name:
+      render
+   :Method:
+      render()
+   :Arguments:
+      $field, $mail, $cycle, $default, $this
+   :Description:
+      Prefill multiple fields by your own magic
+
+ - :Class:
+      In2code\\Powermail\\Domain\\Service\\ReceiverEmailService
+   :Name:
+      setReceiverEmails
+   :Method:
+      setReceiverEmails()
+   :Arguments:
+      &$emailArray, $this
+   :Description:
+      Manipulate receiver emails short before the mails will be send
 
  - :Class:
       In2code\\Powermail\\Domain\\Service\\SendMailService
    :Name:
       sendTemplateEmailBeforeSend
-   :File:
-      SendMailService.php
    :Method:
       sendTemplateEmail()
+   :Arguments:
+      $message, $email, $this
    :Description:
-      Change the emails before sending
+      Change the message object before sending
 
  - :Class:
       In2code\\Powermail\\Domain\\Service\\SendMailService
    :Name:
       createEmailBodyBeforeRender
-   :File:
-      SendMailService.php
    :Method:
       createEmailBody()
+   :Arguments:
+      $standaloneView, $email, $this
    :Description:
-      Change the body of the mails
+      Manipulate standaloneView-object before the mail object will be rendered
+
+ - :Class:
+      In2code\\Powermail\\Domain\\Service\\UploadService
+   :Name:
+      preflight
+   :Method:
+      preflight()
+   :Arguments:
+      $this
+   :Description:
+      Change files from upload-fields before they will be validated, stored and send
+
+ - :Class:
+      In2code\\Powermail\\Domain\\Service\\UploadService
+   :Name:
+      getFiles
+   :Method:
+      getFiles()
+   :Arguments:
+      $this
+   :Description:
+      Change files array from upload-fields whenever files will be read
+
+ - :Class:
+      In2code\\Powermail\\ViewHelpers\\Validation\\ValidationDataAttributeViewHelper
+   :Name:
+      render
+   :Method:
+      render()
+   :Arguments:
+      $additionalAttributes, $field, $iteration, $this
+   :Description:
+      Useful if you want to hook into additionalAttributes and set your own attributes to fields
 
 Example
 """""""
@@ -169,14 +235,14 @@ ext_emconf.php
     <?php
     $EM_CONF[$_EXTKEY] = array (
         'title' => 'powermailextended',
-        'description' => 'Sample Extension to extend powermail 2.1',
+        'description' => 'Sample Extension to extend powermail',
         'category' => 'plugin',
-        'version' => '2.11.0',
+        'version' => '1.0.0',
         // ...
         'constraints' => array(
             'depends' => array(
-                'typo3' => '6.2.0-7.99.99',
-                'powermail' => '2.11.0-2.99.99',
+                'typo3' => '7.6.1-8.99.99',
+                'powermail' => '3.0.0-3.99.99',
             ),
             'conflicts' => array(),
             'suggests' => array(),
@@ -209,7 +275,7 @@ Classes/Domain/Service/SendMailService.php
     <?php
     namespace In2code\Powermailextended\Domain\Service;
 
-    use In2code\Powermail\Domain\Model\Mail;
+    use In2code\Powermail\Domain\Service\SendMailService as SendMailServicePowermail;
     use TYPO3\CMS\Core\Mail\MailMessage;
 
     /**
@@ -224,11 +290,9 @@ Classes/Domain/Service/SendMailService.php
          *
          * @param MailMessage $message
          * @param array $email
-         * @param Mail $mail
-         * @param array $settings
-         * @param string $type Email to "sender" or "receiver"
+         * @param SendMailServicePowermail $originalService
          */
-        public function manipulateMail($message, $email, $mail, $settings, $type) {
+        public function manipulateMail($message, $email, SendMailServicePowermail $originalService) {
             // overwrite the receiver
             $message->setTo(
                 array(

@@ -16,7 +16,7 @@
 				<f:translate key="BackendOverviewTitle3">(and its subpages)</f:translate>
 			</p>
 			<p>
-				<f:link.action action="overviewBe" additionalParams="{id:0}" class="overviewShowAll">
+				<f:link.action action="overviewBe" additionalParams="{id:0}" class="btn btn-primary">
 					<f:translate key="BackendOverviewTitle4">Show All</f:translate>
 				</f:link.action>
 			</p>
@@ -26,19 +26,10 @@
 		</f:else>
 	</f:if>
 
-	<f:flashMessages class="powermail_message" />
-
 	<div class="powermail_overview">
 		<f:if condition="{forms}">
 			<f:then>
-				<f:if condition="{vh:Condition.IsCompatVersion(versionNumber:'7.0')}">
-					<f:then>
-						<f:render partial="Module/OverviewBe" arguments="{_all}" />
-					</f:then>
-					<f:else>
-						<f:render partial="Module/OverviewBeOld" arguments="{_all}" />
-					</f:else>
-				</f:if>
+				<f:render partial="Module/OverviewBe" arguments="{_all}" />
 			</f:then>
 			<f:else>
 				<f:translate key="BackendOverviewNoForms">No Forms to show</f:translate>

@@ -28,14 +28,14 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-42|
+|example_field_submit|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-43|
+|record_field_submit_tab1|
 
-|img-44|
+|record_field_submit_tab2|
 
 Explanation
 '''''''''''

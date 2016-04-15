@@ -39,7 +39,7 @@ Bugfix Upgrade
 Example
 """""""
 
-Upgrade from Powermail 2.1.x to 2.1.y or upgrade from 2.2.x to 2.2.y
+Upgrade from Powermail 3.0.x to 3.0.y
 
 Details
 """""""
@@ -61,7 +61,7 @@ Minor Upgrade
 Example
 """""""
 
-Upgrade from Powermail 2.0.x to 2.1.y
+Upgrade from Powermail 3.0.x to 3.0.y
 
 Details
 """""""
@@ -82,13 +82,34 @@ Follow the steps:
 Major Upgrade
 ^^^^^^^^^^^^^
 
-Example
-"""""""
+Example 1
+"""""""""
 
-Upgrade from Powermail 1.6.x to 2.1.y
+Upgrade from Powermail 2.x to 3.x
 
-Details
-"""""""
+Details 1
+"""""""""
+
+Many breaking changes in database and all Template Files.
+
+Follow the steps:
+
+* Upgrade powermail with Extension Manager, manually or with composer
+* Open the update script in the Extension Manager, to convert old table names to new table names
+* Clean all caches in Install Tool (just removing all files in typo3temp/* may not help you!)
+* Use original HTML-Files (Templates, Partials, Layouts) for testing
+* Reload Frontend
+* Reload Backend
+* Update Backend User Rights for the new powermail version
+* Done
+
+Example 2
+"""""""""
+
+Upgrade from Powermail 1.x to 2.x
+
+Details 2
+"""""""""
 
 Many breaking changes in database and all Template Files.
 

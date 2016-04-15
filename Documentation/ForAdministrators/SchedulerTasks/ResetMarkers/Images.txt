@@ -1,9 +1,9 @@
-.. |img-scheduler-resetmarkers|     image:: ../../../Images/scheduler_resetmarkers.png
+.. |scheduler_resetmarkers1|      image:: ../../../Images/scheduler_resetmarkers1.png
+   :width: 800
 .. :align: left
-.. :border: 0
-.. :name: scheduler_resetmarkers
+.. :name: scheduler_resetmarkers1
 
-.. |img-form-duplicated-markers.png|     image:: ../../../Images/form_duplicated_markers.png
+.. |scheduler_resetmarkers2|      image:: ../../../Images/scheduler_resetmarkers2.png
+   :width: 800
 .. :align: left
-.. :border: 0
-.. :name: form_duplicated_markers.png
+.. :name: scheduler_resetmarkers2

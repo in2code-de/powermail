@@ -8,21 +8,31 @@ FAQ
 
 .. _caniuseoldforms:
 
-Can I use old forms from powermail 1.x in powermail 2.x?
+Can I use old forms from powermail 2.x in powermail 3.x?
 --------------------------------------------------------
 
-Yes. You can convert old forms (1.x) to version 2.x since powermail 2.1. Please use the related powermail backend module.
-
-see :ref:`manageMailsWithBackendModuleToolsFormConverter`
+Yes. But old tables must be converted (..forms => ..form, ..fields => ..field, etc...).
+You can simply open the converter script in the Extension Manager.
+Note: New tables must be empty or non-existing.
 
 .. _caniuseoldmails:
 
-Can I use old mails from powermail 1.x  in powermail 2.x?
+Can I use old mails from powermail 2.x  in powermail 3.x?
 ---------------------------------------------------------
 
-No. It's not possible to use old powermail mails with the new module. Old mails are stored in table tx_powermail_mails. This table is not accepted any more in version 2.0 or higher.
+Yes. But old tables must be converted (..mails => ..mail, ..answers => ..answer, etc...).
+You can simply open the converter script in the Extension Manager.
+Note: New tables must be empty or non-existing.
 
-But there is an unsupported importer (found on github / not tested / no guaranty) - see https://github.com/pkerling/powermail-mail-migration
+
+.. _howcaniusebootstrapcss:
+
+How can I use bootstrap CSS for powermail forms?
+------------------------------------------------
+
+You have to add the related static template and a bootstrap.css
+
+See :ref:`addBootstrapClassesAndCssToPowermail`
 
 
 .. _canisueanothercaptcha:
@@ -40,7 +50,7 @@ Can I save values to tt_address, fe_users, tt_news, etc...?
 
 Yes. It's very easy to save values to a third-party-table – see manual part
 
-For Administrators / Good to know / Saving Values to Third Party Table :ref:`savingvaluestothirdpartytables`
+For Administrators / Best Practice / Saving Values to Third Party Table :ref:`savingvaluestothirdpartytables`
 
 
 .. _caniwritemyownvalidator:
@@ -98,9 +108,9 @@ Short example:
 How to prevent Spam or to change the Spam-Prevention-Settings?
 --------------------------------------------------------------
 
-Yes. Powermail in version 2 comes with a lot of spam-prevention-methods along.
-You can use the integrated spamshield (configuration via constants and typoscript)
-or captcha. See :ref:`spamprevention`
+Yes. Powermail in version 2 and higher comes with a lot of spam-prevention-methods along.
+You can use the integrated spamshield (configuration via constants and typoscript), write your
+own spam prevention methods or simply use a captcha. See :ref:`spamprevention`
 
 
 
@@ -145,17 +155,18 @@ Changing values via page tsconfig
 .. code-block:: text
 
 	TCEFORM {
-		tx_powermail_domain_model_forms {
+		tx_powermail_domain_model_form {
 			css {
 				removeItems = layout1, layout2, layout3
 				addItems {
-					blue = Blue Form
-					green = Green Form
+					formgrey = Form grey
+					form2cols = Form with 2 columns
+					default = Default Form
 				}
 			}
 		}
-		tx_powermail_domain_model_pages < .tx_powermail_domain_model_forms
-		tx_powermail_domain_model_fields < .tx_powermail_domain_model_forms
+		tx_powermail_domain_model_page < .tx_powermail_domain_model_form
+		tx_powermail_domain_model_field < .tx_powermail_domain_model_form
 	}
 
 
@@ -167,14 +178,15 @@ This configuration produces this output:
 .. code-block:: html
 
 	<select>
-		<option value=”blue”>Blue Form</option>
-		<option value=”green”>Green Form</option>
+		<option value=”formgrey”>Form grey</option>
+		<option value=”form2cols”>Form with 2 columns</option>
+		<option value=”default”>Default Form</option>
 	</select>
 
-And adds the class “blue” or “green” to all forms, pages and fields in
+And adds the class “formgrey”, "form2cols" or “default” to all forms, pages and fields in
 the Frontend.
 
-|img-93|
+|faq_style|
 
 
 .. _howtohidefieldsforeditors:
@@ -192,13 +204,13 @@ Another way is to hide fields for editors (and administrators) via Page TSConfig
 .. code-block:: text
 
 	TCEFORM {
-		tx_powermail_domain_model_forms {
+		tx_powermail_domain_model_form {
 			css.disabled = 1
 		}
-		tx_powermail_domain_model_pages {
+		tx_powermail_domain_model_page {
 			css.disabled = 1
 		}
-		tx_powermail_domain_model_fields {
+		tx_powermail_domain_model_field {
 			css.disabled = 1
 			feuser_value.disabled = 1
 			placeholder.disabled = 1
@@ -208,7 +220,8 @@ Another way is to hide fields for editors (and administrators) via Page TSConfig
 Hiding fields from FlexForm
 '''''''''''''''''''''''''''
 
-If you add a powermail plugin, you will see some options in FlexForm. If you want to hide some of theese fields (for editors and administrators), you can also do it via Page TSConfig:
+If you add a powermail plugin, you will see some options in FlexForm. If you want to hide some of these
+fields (for editors and administrators), you can also do it via Page TSConfig:
 
 .. code-block:: text
 
@@ -241,12 +254,12 @@ If you add a powermail plugin, you will see some options in FlexForm. If you wan
 How to remove field types?
 --------------------------
 
-If you want to completely remove fieldtypes (e.g. if you do not need a captcha field or so),
+If you want to completely remove fieldtypes (e.g. if you do not need a captcha field or other types),
 you can do this with a simple line of Page TSConfig:
 
 .. code-block:: text
 
-	TCEFORM.tx_powermail_domain_model_fields.type.removeItems = captcha,location,typoscript
+	TCEFORM.tx_powermail_domain_model_field.type.removeItems = captcha,location,typoscript
 
 
 
@@ -265,7 +278,7 @@ preselect a select, radio or checkbox.
 How can I include jQuery?
 -------------------------
 
-In powermail 2.0 and smaller, jQuery was included automaticly. Since 2.1, you have to enable this feature via Constants:
+You have to enable this feature via Constants:
 
 .. code-block:: text
 
@@ -279,19 +292,17 @@ In powermail 2.0 and smaller, jQuery was included automaticly. Since 2.1, you ha
 
 .. _howcaniuset3jquery:
 
-How can I use t3jquery?
------------------------
+Can I use t3jquery?
+-------------------
 
-No, this is natively not possible. You can manually disable the including of the
-libraries from google (see line above) and force to use jQuery from t3jquery (see
-manual of that extension)
+No.
 
 .. _javascriptvalidationdoesnotwork:
 
 JavaScript validation does not work – what's wrong?
 ---------------------------------------------------
 
-At the moment we do not use t3jquery. Powermail loads jQuery (if you activated it with TypoScript) from googleapis.com.
+Powermail loads jQuery (if you activated it with TypoScript) from googleapis.com.
 You can change that behaviour with constants or typoscript.
 
 It's importand to have the correct ordering of the JavaScript files.
@@ -339,10 +350,10 @@ domain?
 I want to add a new Field Type to powermail – how can I do this
 ---------------------------------------------------------------
 
-Yes, you can add a new Fieldtype (in record
-tx\_powermail\_domain\_model\_fields) with some Page TSConfig.
+Yes, you can add a new Fieldtype (in record tx_powermail_domain_model_field) with some Page TSConfig.
 
-See following example to add a new fieldtype with Partial Newfield.html (see Documentation/ForDevelopers/NewField for an advanced example)
+See following example to add a new fieldtype with Partial Newfield.html
+(also see Documentation/ForDevelopers/NewField for an advanced example)
 
 .. code-block:: text
 
@@ -353,7 +364,7 @@ See following example to add a new fieldtype with Partial Newfield.html (see Doc
 I want to use additionalAttributes in a field partial, but it's already in use
 ------------------------------------------------------------------------------
 
-All Field partials are original stored under EXT:powermail/Resources/Private/Partials/Form/*
+All Field partials are original stored under EXT:powermail/Resources/Private/Partials/Form/Field/*
 Most of them are already using the parameter additionalAttributes to set data-attributes for clientside validation, etc...
 In some case you need to set your own additionalAttributes - see following code examples.
 
@@ -376,25 +387,9 @@ In some case you need to set your own additionalAttributes - see following code 
 I upgraded powermail and a white page comes up
 ----------------------------------------------
 
-See explanation in part "For Administrators" and "Upgrade". If you make an upgrade, only deleting the cache files in typo3temp may not help.
+See explanation in part "For Administrators" and "Upgrade". If you make an upgrade, only deleting the cache
+files in typo3temp may not help.
 Please clean all caches in the install tool and try again.
-
-.. _therequestedviewwasnotfoundafterupgrade:
-
-I upgraded powermail and a message "Sorry, the requested view was not found" comes up
--------------------------------------------------------------------------------------
-
-If you are upgrading from powermail 1.x to 2.x it may happen, that you are using outdated TypoScript like:
-
-.. code-block:: text
-
-	plugin.tx_powermail_pi1 {
-		format.datetime = %d-%m-%Y %H:%M
-		format.date = %d-%m-%Y
-	}
-
-This lines of TypoScript crashes the behaviour of AbstractController::resolveViewObjectName().
-Please remove it, clear caches (in Install Tool) and try again.
 
 .. _powermailwithnews:
 
@@ -418,9 +413,8 @@ I have a problem, what can I do?
 
 - Did you read the manual?
 - Turning on the Debug Output in Powermail (via TypoScript) can help you to find a solution (please use extension devlog to look into the debug arrays)
-- Try to get free help from a TYPO3 Forum like (typo3.org, typo3.net or typo3forum.net)
+- Try to get free help from the slack channel https://typo3.slack.com/messages/ext-powermail/
+- Try to get free help from a TYPO3 Forum like (forum.typo3.org, typo3.net or typo3forum.net)
 - Do you need payed support? Please write to http://www.in2code.de
 - Did you find a bug? Report it to http://forge.typo3.org/projects/extension-powermail/issues
 - Did you miss a feature? Feel free to write it down also to forge http://forge.typo3.org/projects/extension-powermail/issues
-
-

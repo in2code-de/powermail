@@ -1,7 +1,3 @@
-.. |img-91|     image:: ../../Images/manual_html_5658a541.png
-   :height: 176
-   :width: 416
+.. |developer_cobject|      image:: ../../Images/developer_cobject.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik96
-
+.. :name: developer_cobject

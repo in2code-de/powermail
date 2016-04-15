@@ -1,4 +1,4 @@
-.. |img-schedulertask-clean|     image:: ../../../Images/schedulertask-clean.png
+.. |scheduler_cleanexportfiles|      image:: ../../../Images/scheduler_cleanexportfiles.png
+   :width: 800
 .. :align: left
-.. :border: 0
-.. :name: schedulertask
+.. :name: scheduler_cleanexportfiles
