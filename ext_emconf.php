@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = [
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
     'shy' => 0,
-    'version' => '2.25.2',
+    'version' => '3.0.0',
     'dependencies' => 'cms,extbase,fluid',
     'conflicts' => '',
     'priority' => '',
@@ -36,9 +36,9 @@ $EM_CONF[$_EXTKEY] = [
     'CGLcompliance_note' => '',
     'constraints' => [
         'depends' => [
-            'typo3' => '6.2.7-7.99.99',
-            'extbase' => '6.2.0-7.99.99',
-            'fluid' => '6.2.0-7.99.99',
+            'typo3' => '7.6.1-8.99.99',
+            'extbase' => '7.6.1-8.99.99',
+            'fluid' => '7.6.1-8.99.99',
             'php' => '5.5.0-0.0.0'
         ],
         'conflicts' => [],

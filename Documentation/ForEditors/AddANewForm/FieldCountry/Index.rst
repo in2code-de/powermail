@@ -29,14 +29,14 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-country|
+|example_field_country|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-country2|
+|record_field_country_tab1|
 
-|img-country3|
+|record_field_country_tab2|
 
 Explanation
 '''''''''''

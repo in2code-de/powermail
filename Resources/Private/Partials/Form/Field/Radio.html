@@ -1,0 +1,28 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<div class="powermail_fieldwrap powermail_fieldwrap_type_radio powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
+	<label class="{settings.styles.framework.labelClasses}" title="{field.description}">
+		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+	</label>
+
+	<div class="{settings.styles.framework.fieldWrappingClasses}">
+		<f:for each="{field.modifiedSettings}" as="setting" iteration="index">
+			<div class="{settings.styles.framework.radioClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}">
+				<label>
+					<f:form.radio
+							property="{field.marker}"
+							value="{setting.value}"
+							checked="{vh:Misc.PrefillMultiField(field:field, mail:mail, cycle:index.cycle)}"
+							id="powermail_field_{field.marker}_{index.cycle}"
+							additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field, iteration:index)}"
+							class="powermail_radio" />
+					<vh:string.RawAndRemoveXss>{setting.label}</vh:string.RawAndRemoveXss>
+				</label>
+			</div>
+		</f:for>
+
+		<f:if condition="{settings.validation.client}">
+			<div class="powermail_field_error_container powermail_field_error_container_{field.marker}"></div>
+		</f:if>
+	</div>
+</div>

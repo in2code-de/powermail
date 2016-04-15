@@ -82,10 +82,21 @@
 				<f:for each="{mailsPage}" as="mail" iteration="iteration">
 
 					<f:comment>Basic mail information</f:comment>
-					<tr class="{f:if(condition:'{iteration.isFirst}',then:' firstcol')}{f:if(condition:'{iteration.isLast}',then:' lastcol')}">
+					<tr class="{f:if(condition:iteration.isFirst,then:' firstcol')}{f:if(condition:iteration.isLast,then:' lastcol')}">
+
 						<td nowrap="nowrap" class="col-icon nowrap">
-							<span class="t3-icon fa fa-caret-right openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}"></span>
-							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_mails t3-icon-tx_powermail_domain_model_mails-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={mail.uid}"> </span>
+							<span class="openPowermailDetailsIcons" data-action="openPowermailDetails">
+								<vh:Be.GetIcon identifier="actions-pagetree-collapse" />
+								<vh:Be.GetIcon identifier="actions-pagetree-expand" />
+							</span>
+							<span class="powermailRecordIcon">
+								<span{f:if(condition:mail.hidden,then:' class="hide"')}>
+									<vh:Be.GetIcon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
+								</span>
+								<span{f:if(condition:mail.hidden,else:' class="hide"')}>
+									<vh:Be.GetIcon identifier="tcarecords-tx_powermail_domain_model_mail-default" overlay="overlay-hidden" />
+								</span>
+							</span>
 						</td>
 						<td nowrap="nowrap">
 							<f:format.date format="{f:translate(key:'datepicker_format_date')}">{mail.crdate}</f:format.date>
@@ -112,24 +123,24 @@
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
 								<span class="btn">
-									<span class="t3-icon fa fa-desktop openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
+									<span class="t3-icon fa fa-desktop" data-action="openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
 								</span>
 
-								<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_mails',identifier:mail.uid)}">
+								<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_mail',identifier:mail.uid)}">
 									<span class="t3-icon fa fa-pencil">&nbsp;</span>
 								</a>
 
 								<span class="btn">
-									<span class="t3-icon fa fa-trash deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
+									<span class="t3-icon fa fa-trash" data-action="deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
 								</span>
 
 								<span class="btn">
 									<f:if condition="{mail.hidden}">
 										<f:then>
-											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off hideMail visibilityButton">&nbsp;</span>
+											<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off unhideMail visibilityButton">&nbsp;</span>
 										</f:then>
 										<f:else>
-											<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on unhideMail visibilityButton">&nbsp;</span>
+											<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on hideMail visibilityButton">&nbsp;</span>
 										</f:else>
 									</f:if>
 								</span>
@@ -140,14 +151,14 @@
 
 								<input type="hidden" class="container_uid" name="container_uid" value="{mail.uid}" />
 								<input type="hidden" class="container_module_uri" name="container_module_uri" value="{moduleUri}" />
-								<input type="hidden" class="container_table" name="container_table" value="tx_powermail_domain_model_mails" />
+								<input type="hidden" class="container_table" name="container_table" value="tx_powermail_domain_model_mail" />
 								<input type="hidden" class="container_label_delete_confirmation" name="container_label_delete_confirmation" value="{f:translate(key:'BackendListMailDeleteConfirmation')}" />
 							</div>
 						</td>
 					</tr>
 
 					<f:comment>More mail details</f:comment>
-					<tr class="db_list_normal powermail_listbe_details powermail_listbe_details_closed">
+					<tr class="db_list_normal powermail_listbe_details powermail_listbe_details_closed" data-action="powermailDetailsContainer">
 						<td colspan="7">
 							<div class="powermail_listbe_details_container">
 								<f:for each="{mail.answers}" as="answer">

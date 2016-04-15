@@ -27,23 +27,23 @@ Following example shows two new fields in a new tab "Powermailextended".
 The first is a textarea. If there is text stored, this should be outputted before the Input field is rendered.
 The second is a checkbox. If this checkbox was checked from an editor, the input field should use the html-attribute readonly="readonly".
 
-|img-newfieldproperties|
+|developer_new_fieldproperties1|
 
-|img-newfieldproperties2|
+|developer_new_fieldproperties2|
 
 Extend powermail with an own extension
 """"""""""""""""""""""""""""""""""""""
 
-You have to add one or more fields into tx_powermail_domain_model_fields, describe it with additional TCA, add new Models and change the HTML-Template as you want.
+You have to add one or more fields into tx_powermail_domain_model_field, describe it with additional TCA, add new Models and change the HTML-Template as you want.
 You can add a new extension with an example key powermailextended.
 
 EXT:powermailextended/ext_tables.sql:
 ::
 
    #
-   # Table structure for table 'tx_powermail_domain_model_fields'
+   # Table structure for table 'tx_powermail_domain_model_field'
    #
-   CREATE TABLE tx_powermail_domain_model_fields (
+   CREATE TABLE tx_powermail_domain_model_field (
      tx_powermailextended_powermail_text varchar(255) DEFAULT '' NOT NULL,
      tx_powermailextended_powermail_readonly tinyint(4) unsigned DEFAULT '0' NOT NULL
    );
@@ -62,7 +62,7 @@ EXT:powermailextended/ext_tables.php:
    );
 
    /**
-    * extend powermail fields tx_powermail_domain_model_fields
+    * extend powermail fields tx_powermail_domain_model_field
     */
    $tempColumns = array (
    	'tx_powermailextended_powermail_text' => array(
@@ -83,11 +83,11 @@ EXT:powermailextended/ext_tables.php:
    	),
    );
    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
-   	'tx_powermail_domain_model_fields',
+   	'tx_powermail_domain_model_field',
    	$tempColumns
    );
    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-   	'tx_powermail_domain_model_fields',
+   	'tx_powermail_domain_model_field',
    	'--div--;Powermailextended, tx_powermailextended_powermail_text, tx_powermailextended_powermail_readonly',
    	'',
    	'after:own_marker_select'
@@ -123,17 +123,17 @@ EXT:powermailextended/Configuration/TypoScript/setup.txt:
 				}
 				In2code\Powermailextended\Domain\Model\Form {
 					mapping {
-						tableName = tx_powermail_domain_model_forms
+						tableName = tx_powermail_domain_model_form
 					}
 				}
 				In2code\Powermailextended\Domain\Model\Page {
 					mapping {
-						tableName = tx_powermail_domain_model_pages
+						tableName = tx_powermail_domain_model_page
 					}
 				}
 				In2code\Powermailextended\Domain\Model\Field {
 					mapping {
-						tableName = tx_powermail_domain_model_fields
+						tableName = tx_powermail_domain_model_field
 					}
 				}
 			}
@@ -143,7 +143,7 @@ EXT:powermailextended/Configuration/TypoScript/setup.txt:
 		}
 	}
 
-EXT:powermailextended/Resources/Private/Partials/Form/Input.html:
+EXT:powermailextended/Resources/Private/Partials/Form/Field/Input.html:
 ::
 
   {namespace vh=In2code\Powermail\ViewHelpers}

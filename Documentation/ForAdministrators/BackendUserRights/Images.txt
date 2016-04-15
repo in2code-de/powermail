@@ -1,14 +1,15 @@
-.. |missingrights|     image:: ../../Images/missingrights.png
+.. |userrights_plugin_failure|      image:: ../../Images/userrights_plugin_failure.png
 .. :align: left
-.. :border: 0
-.. :name: MissingRights
+.. :name: userrights_plugin_failure
 
-.. |beuserrights|     image:: ../../Images/beuserrights.png
+.. |userrights_flexform|      image:: ../../Images/userrights_flexform.png
 .. :align: left
-.. :border: 0
-.. :name: BackendUserRights
+.. :name: userrights_flexform
 
-.. |fullaccessrights|     image:: ../../Images/fullaccessrights.png
+.. |userrights_plugin|      image:: ../../Images/userrights_plugin.png
 .. :align: left
-.. :border: 0
-.. :name: FullAccessRights
+.. :name: userrights_plugin
+
+.. |plugin_tab1|      image:: ../../Images/plugin_tab1.png
+.. :align: left
+.. :name: plugin_tab1

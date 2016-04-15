@@ -122,12 +122,13 @@ Configuration
 Image example
 ^^^^^^^^^^^^^
 
-|img-schedulertask-export|
+|scheduler_export1|
 
 Console example
 ^^^^^^^^^^^^^^^
 
-You can call a scheduler task directly from the console (if the backend user _cli_lowlevel exists) - see this example (called from webroot):
+You can call a scheduler task directly from the console (if the backend user _cli_lowlevel exists) -
+see this example (called from webroot):
 
 .. code-block:: text
 
@@ -136,10 +137,12 @@ You can call a scheduler task directly from the console (if the backend user _cl
 Note
 ^^^^
 
-If you need your own HTML-Template for XLS- or CSV-generating, you can define the templateRootPath in your **root TypoScript**
+If you need your own HTML-Template for XLS- or CSV-generating, you can define the templateRootPath in
+your **root TypoScript**
 
 .. code-block:: text
 
 	module.tx_powermail.view.templateRootPaths.1 = fileadmin/yourPath/Templates/
 
-After that, you can copy the ExportXls.html and/or ExportCsv.html to fileadmin/yourPath/Templates/Module/ExportXls.html and modify it.
+After that, you can copy the ExportXls.html and/or ExportCsv.html to fileadmin/yourPath/Templates/Module/ExportXls.html
+and modify it.

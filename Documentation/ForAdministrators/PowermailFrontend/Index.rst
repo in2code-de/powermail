@@ -14,12 +14,12 @@ a small guestbook or database listing. In addition some export methods
 are included (XLS, CSV, RSS) or logged in FE\_Users can change the
 values again.
 
-|img-85|
+|frontend_pi2|
 
 Plugin Settings
 """""""""""""""
 
-|img-86|
+|plugin_pi2_tab1|
 
 .. t3-field-list-table::
  :header-rows: 1

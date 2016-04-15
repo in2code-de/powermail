@@ -24,11 +24,13 @@ For Developers
    :titlesonly:
    :glob:
 
-   DatabaseModel/Index
    AddNewFields/Index
    AddNewFieldProperties/Index
    AddNewFlexFormProperties/Index
    WriteOwnValidators/Index
    AddFinisherClasses/Index
+   AddDataProcessors/Index
+   AddSpamshieldMethods/Index
    SignalSlots/Index
    UserfuncsWithCobject/Index
+   DatabaseModel/Index

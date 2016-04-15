@@ -1,0 +1,11 @@
+.. |prefill_frontend_output|     image:: ../../../Images/prefill_frontend_output.png
+.. :align: left
+.. :name: prefill_frontend_output
+
+.. |prefill_select_typoscript1|     image:: ../../../Images/prefill_select_typoscript1.png
+.. :align: left
+.. :name: prefill_select_typoscript1
+
+.. |prefill_select_typoscript2|     image:: ../../../Images/prefill_select_typoscript2.png
+.. :align: left
+.. :name: prefill_select_typoscript2

@@ -1,13 +1,7 @@
-.. |img-63|     image:: ../../../Images/manual_html_mb7cd5c0.png
-   :height: 140
-   :width: 508
+.. |record_field_hidden_tab1|      image:: ../../../Images/record_field_hidden_tab1.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik67
+.. :name: record_field_hidden_tab1
 
-.. |img-64|     image:: ../../../Images/manual_html_6bac3e9.png
-   :height: 142
-   :width: 504
+.. |record_field_hidden_tab2|      image:: ../../../Images/record_field_hidden_tab2.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik66
+.. :name: record_field_hidden_tab2

@@ -136,6 +136,7 @@ class CalculatingCaptchaService
      */
     public function render(Field $field)
     {
+        $this->testGdExtension();
         if ($this->configurationExists()) {
             $this
                 ->setBackgroundImage($this->configuration['captcha.']['default.']['image'])
@@ -159,7 +160,7 @@ class CalculatingCaptchaService
      */
     public function validCode($code, $field, $clearSession = true)
     {
-        if ((int) $code > 0 && (int) $code === SessionUtility::getCaptchaSession($field->getUid())) {
+        if ((int)$code > 0 && (int)$code === SessionUtility::getCaptchaSession($field->getUid())) {
             if ($clearSession) {
                 SessionUtility::setCaptchaSession('', $field->getUid());
             }
@@ -346,7 +347,7 @@ class CalculatingCaptchaService
             );
             $typoScriptService = $objectManager->get(TypoScriptService::class);
             $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
-                (array) $typoScriptSetup['setup']
+                (array)$typoScriptSetup['setup']
             );
         }
         return $this;
@@ -468,5 +469,17 @@ class CalculatingCaptchaService
     protected function configurationExists()
     {
         return !empty($this->configuration['captcha.']['default.']);
+    }
+
+    /**
+     * Check if gdlib is loaded on this server
+     *
+     * @throws \Exception
+     */
+    protected function testGdExtension()
+    {
+        if (!extension_loaded('gd')) {
+            throw new \Exception('PHP extension gd not loaded.');
+        }
     }
 }

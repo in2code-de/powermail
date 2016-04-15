@@ -1,5 +1,6 @@
 plugin.tx_powermail {
 
+
 	view {
 		# cat=powermail_main/file; type=string; label= Path to template root (FE)
 		templateRootPath = EXT:powermail/Resources/Private/Templates/
@@ -12,6 +13,7 @@ plugin.tx_powermail {
 	}
 
 	settings {
+
 
 		main {
 			# cat=powermail_additional//0010; type=int+; label= Storage PID: Save mails in a defined Page (normally set via Flexform)
@@ -181,7 +183,7 @@ plugin.tx_powermail {
 			# cat=powermail_additional//0730; type=text; label= Google Conversion Language: Add your google conversion language (see www.google.com/adwords for details)
 			google_conversion_language = en
 		}
-		
+
 		misc {
 			# cat=powermail_additional//0800; type=boolean; label= Show only filled values: If the user submits a form, even not filled values are viewable. If you only want to show labels with filled values, use this setting
 			showOnlyFilledValues = 1
@@ -283,5 +285,33 @@ plugin.tx_powermail {
 			powermailJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js
 		}
 
+		# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
+		styles {
+			framework {
+				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"
+				formClasses =
+
+				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
+				fieldAndLabelWrappingClasses =
+
+				# cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
+				fieldWrappingClasses = powermail_field
+
+				# cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "col-md-2 col-md-3"
+				labelClasses = powermail_label
+
+				# cat=powermail_styles//0140; type=text; label= Framework classname(s) for fields e.g. "form-control"
+				fieldClasses =
+
+				# cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
+				offsetClasses =
+
+				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
+				radioClasses = radio
+
+				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
+				checkClasses = checkbox
+			}
+		}
 	}
 }

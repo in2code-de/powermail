@@ -39,7 +39,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Answer extends AbstractEntity
 {
 
-    const TABLE_NAME = 'tx_powermail_domain_model_answers';
+    const TABLE_NAME = 'tx_powermail_domain_model_answer';
 
     /**
      * @var string
@@ -146,7 +146,7 @@ class Answer extends AbstractEntity
      */
     public function setValueType($valueType)
     {
-        $this->valueType = (int) $valueType;
+        $this->valueType = (int)$valueType;
         return $this;
     }
 

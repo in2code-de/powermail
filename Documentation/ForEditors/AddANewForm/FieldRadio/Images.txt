@@ -1,17 +1,11 @@
-.. |img-39|     image:: ../../../Images/manual_html_m30559fc5.png
-   :width: 516
+.. |example_field_radio|      image:: ../../../Images/example_field_radio.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik43
+.. :name: example_field_radio
 
-.. |img-40|     image:: ../../../Images/manual_html_ma474bb5.png
-   :width: 512
+.. |record_field_radio_tab1|      image:: ../../../Images/record_field_radio_tab1.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik19
+.. :name: record_field_radio_tab1
 
-.. |img-41|     image:: ../../../Images/manual_html_265616b6.png
-   :width: 509
+.. |record_field_radio_tab2|      image:: ../../../Images/record_field_radio_tab2.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik20
+.. :name: record_field_radio_tab2

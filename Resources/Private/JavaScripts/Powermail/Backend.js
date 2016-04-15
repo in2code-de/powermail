@@ -37,16 +37,15 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addDetailOpenListener = function() {
-		$('.powermail_listbe_details_container').hide();
-		$('.openPowermailDetails').click(function() {
+		// $('*[data-action="powermailDetailsContainer"]').hide();
+		$('*[data-action="openPowermailDetails"]').click(function() {
 			var $this = $(this);
-			var $arrow = $this.closest('tr').children(':first').children(':first');
-			if ($arrow.hasClass('fa')) {
-				// TYPO3 7.x
-				$arrow.toggleClass('fa-caret-right').toggleClass('fa-caret-down');
+			$this.closest('tr').find('.icon:first').toggle();
+			var $iconLast = $this.closest('tr').find('.openPowermailDetailsIcons .icon:last');
+			if ($iconLast.is(':visible')) {
+				$iconLast.css('display', 'none');
 			} else {
-				// TYPO3 6.2
-				$arrow.toggleClass('t3-icon-irre-collapsed').toggleClass('t3-icon-irre-expanded');
+				$iconLast.css('display', 'inline-block');
 			}
 			$this
 				.closest('tr')
@@ -81,7 +80,7 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addDeleteMailListener = function() {
-		$(document).on('click', '.deleteMail', function () {
+		$(document).on('click', '*[data-action="deleteMail"]', function () {
 			var $this = $(this);
 			var moduleUri = $this.closest('td').find('.container_module_uri').val();
 			var uid = $this.closest('td').find('.container_uid').val();
@@ -206,61 +205,17 @@ function PowermailBackend($) {
 	};
 
 	/**
-	 * Open extended search
+	 * Show Extended Search from the Beginning
 	 *
 	 * @returns {void}
 	 * @private
 	 */
 	var addExtendedSearchListener = function() {
-		$('.extended_search_title').click(function() {
-			var $this = $(this);
-			if ($this.hasClass('powermail-close')) {
-				$this
-					.removeClass('powermail-close')
-					.addClass('powermail-open')
-					.children('span')
-					.removeClass('t3-icon-move-down')
-					.addClass('t3-icon-move-up');
-				$('fieldset.extended_search').slideDown('', function() {
-					$(this)
-						.children('.powermail_module_search_field_container1')
-						.children('div.powermail_module_search_field')
-						.fadeTo('slow', 1);
-				});
-			} else {
-				$this
-					.removeClass('powermail-open')
-					.addClass('powermail-close')
-					.children('span')
-					.removeClass('t3-icon-move-up')
-					.addClass('t3-icon-move-down');
-				$('fieldset.extended_search')
-					.children('.powermail_module_search_field_container1')
-					.children('div.powermail_module_search_field')
-					.fadeTo('slow', 0, function() {
-						$(this).parent().parent().slideUp();
-					});
-			}
-		});
-
-		// Show Extended Search from the Beginning
-		$('fieldset.extended_search input, fieldset.extended_search select').each(function() {
-			if ($(this).val() != '') {
-				$('.extended_search_title').removeClass('powermail-close').addClass('powermail-open');
-				$('.extended_search').removeClass('powermail-close').addClass('powermail-open');
+		$('#extended_search input, #extended_search select').not('*[type="submit"]').each(function() {
+			if ($(this).val() !== '') {
+				$('#extended_search').addClass('in');
 				return;
 			}
-		});
-		$('.powermail_module_search_field_container2 input, .powermail_module_search_field_container2 select').each(function() {
-			if ($(this).val() != '') {
-				$(this).parent().parent().removeClass('powermail-close').addClass('powermail-open');
-				return;
-			}
-		});
-
-		// Add new field
-		$('.searchAddField span, .searchAddField label').click(function() {
-			$('fieldset.extended_search .powermail-close').slideToggle();
 		});
 	};
 
@@ -271,7 +226,7 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addDatePickerListener = function() {
-		$('.powermail_date').each(function() {
+		$('input[data-datepicker="true"]').each(function() {
 			var $this = $(this);
 			var datepickerStatus = true;
 			var timepickerStatus = true;
@@ -280,20 +235,21 @@ function PowermailBackend($) {
 			} else if ($this.data('datepicker-settings') === 'time') {
 				datepickerStatus = false;
 			}
-
-			// create datepicker
 			$this.datetimepicker({
 				format: $this.data('datepicker-format'),
 				timepicker: timepickerStatus,
 				datepicker: datepickerStatus,
 				lang: 'en',
-				i18n:{
-					en:{
+				i18n: {
+					en: {
 						months: $this.data('datepicker-months').split(','),
 						dayOfWeek: $this.data('datepicker-days').split(',')
 					}
 				}
 			});
+		});
+		$('*[data-datepicker-opener="true"]').click(function() {
+			$(this).prev().datetimepicker('show');
 		});
 	};
 
@@ -316,7 +272,7 @@ function PowermailBackend($) {
 		});
 
 		// Reset on submit
-		$('.searchall_submit').click(function() {
+		$('*[data-action="searchall_submit"]').click(function() {
 			$('#forwardToAction').val('list');
 		});
 
@@ -479,30 +435,24 @@ function PowermailBackend($) {
 	 */
 	var visibilityToggleLine = function($tr) {
 		var $visibilityButton = $tr.find('.visibilityButton');
-		var hidden = 1;
+		var hidden = 0;
 		if ($visibilityButton.hasClass('unhideMail')) {
 			$visibilityButton
-				.removeClass('t3-icon-edit-hide')
 				.removeClass('unhideMail')
-				.removeClass('fa-toggle-on')
-				.addClass('t3-icon-edit-unhide')
+				.removeClass('fa-toggle-off')
 				.addClass('hideMail')
-				.addClass('fa-toggle-off');
-			$tr
-				.find('.t3-icon-tcarecords-tx_powermail_domain_model_mails')
-				.addClass('transparent');
+				.addClass('fa-toggle-on');
+			$tr.find('.powermailRecordIcon').children(':first').removeClass('hide');
+			$tr.find('.powermailRecordIcon').children(':last').addClass('hide');
 		} else {
 			$visibilityButton
-				.removeClass('t3-icon-edit-unhide')
 				.removeClass('hideMail')
-				.removeClass('fa-toggle-off')
-				.addClass('t3-icon-edit-hide')
+				.removeClass('fa-toggle-on')
 				.addClass('unhideMail')
-				.addClass('fa-toggle-on');
-			$tr
-				.find('.t3-icon-tcarecords-tx_powermail_domain_model_mails')
-				.removeClass('transparent');
-			hidden = 0;
+				.addClass('fa-toggle-off');
+			$tr.find('.powermailRecordIcon').children().last().removeClass('hide');
+			$tr.find('.powermailRecordIcon').children().first().addClass('hide');
+			hidden = 1;
 		}
 		return hidden;
 	};

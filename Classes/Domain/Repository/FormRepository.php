@@ -126,7 +126,7 @@ class FormRepository extends AbstractRepository
         // create sql statement
         $sql = 'select pages';
         $sql .= ' from ' . Form::TABLE_NAME;
-        $sql .= ' where uid = ' . (int) $uid;
+        $sql .= ' where uid = ' . (int)$uid;
         $sql .= ' limit 1';
 
         $result = $query->statement($sql)->execute(true);
@@ -167,104 +167,10 @@ class FormRepository extends AbstractRepository
         return $query->execute();
     }
 
-    /**
-     * Find all old powermail forms in database
-     *
-     * @return mixed
-     */
-    public function findAllOldForms()
-    {
-        if (!$this->oldPowermailTablesExists()) {
-            return [];
-        }
-        $query = $this->createQuery();
-
-        $sql = 'select c.*';
-        $sql .= ' from tx_powermail_fields f ' .
-            'left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid ' .
-            'left join tt_content c ON c.uid = fs.tt_content';
-        $sql .= ' where c.deleted = 0';
-        $sql .= ' group by c.uid';
-        $sql .= ' order by c.sys_language_uid, c.uid';
-        $sql .= ' limit 10000';
-
-        $result = $query->statement($sql)->execute(true);
-
-        return $result;
-    }
-
-    /**
-     * @param int $uid tt_content uid
-     * @return array
-     */
-    public function findOldFieldsetsAndFieldsToTtContentRecord($uid)
-    {
-        $query = $this->createQuery();
-
-        $sql = 'select fs.uid, fs.pid, fs.sys_language_uid, fs.l18n_parent, fs.sorting, fs.hidden, fs.title, fs.class';
-        $sql .= ' from tx_powermail_fieldsets fs ' . 'left join tt_content c ON c.uid = fs.tt_content';
-        $sql .= ' where c.deleted = 0 and fs.deleted = 0 and c.uid = ' . (int) $uid;
-        $sql .= ' group by fs.uid';
-        $sql .= ' order by fs.sys_language_uid, fs.uid';
-        $sql .= ' limit 10000';
-
-        $fieldsets = $query->statement($sql)->execute(true);
-
-        $result = [];
-        $counter = 0;
-        foreach ($fieldsets as $fieldset) {
-            $result[$counter] = $fieldset;
-            $result[$counter]['_fields'] = $this->findOldFieldsToFieldset($fieldset['uid']);
-            $counter++;
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param int $uid Fieldset
-     * @return array
-     */
-    protected function findOldFieldsToFieldset($uid)
-    {
-        $query = $this->createQuery();
-
-        $sql = 'select f.uid, f.pid, f.sys_language_uid, f.l18n_parent, f.sorting, f.hidden, ' .
-            'f.fe_group, f.fieldset, f.title, f.formtype, f.flexform, f.fe_field, f.name, ' .
-            'f.description, f.class';
-        $sql .= ' from tx_powermail_fields f ' .
-            'left join tx_powermail_fieldsets fs ON f.fieldset = fs.uid ' .
-            'left join tt_content c ON c.uid = fs.tt_content';
-        $sql .= ' where c.deleted = 0 and fs.deleted = 0 and f.deleted = 0 and fs.uid = ' . (int) $uid;
-        $sql .= ' group by f.uid';
-        $sql .= ' order by f.sys_language_uid, f.uid';
-        $sql .= ' limit 10000';
-
-        $fields = $query->statement($sql)->execute(true);
-
-        foreach ($fields as $key => $field) {
-            $subValues = GeneralUtility::xml2array($field['flexform']);
-            $fields[$key]['size'] = $this->getFlexFormValue($subValues, 'size');
-            $fields[$key]['maxlength'] = $this->getFlexFormValue($subValues, 'maxlength');
-            $fields[$key]['readonly'] = $this->getFlexFormValue($subValues, 'readonly');
-            $fields[$key]['mandatory'] = $this->getFlexFormValue($subValues, 'mandatory');
-            $fields[$key]['value'] = $this->getFlexFormValue($subValues, 'value');
-            $fields[$key]['placeholder'] = $this->getFlexFormValue($subValues, 'placeholder');
-            $fields[$key]['validate'] = $this->getFlexFormValue($subValues, 'validate');
-            $fields[$key]['pattern'] = $this->getFlexFormValue($subValues, 'pattern');
-            $fields[$key]['inputtype'] = $this->getFlexFormValue($subValues, 'inputtype');
-            $fields[$key]['options'] = $this->getFlexFormValue($subValues, 'options');
-            $fields[$key]['path'] = $this->getFlexFormValue($subValues, 'typoscriptobject');
-            $fields[$key]['multiple'] = $this->getFlexFormValue($subValues, 'multiple');
-            unset($fields[$key]['flexform']);
-        }
-
-        return $fields;
-    }
 
     /**
      * Find all localized records with
-     *        tx_powermail_domain_model_forms.pages = ""
+     *        tx_powermail_domain_model_form.pages = ""
      *
      * @return mixed
      */
@@ -314,23 +220,6 @@ class FormRepository extends AbstractRepository
     }
 
     /**
-     * Check if old powermail tables existing
-     *
-     * @return bool
-     */
-    protected function oldPowermailTablesExists()
-    {
-        $allTables = $this->getDatabaseConnection()->admin_get_tables();
-        if (
-            array_key_exists('tx_powermail_fields', $allTables) &&
-            array_key_exists('tx_powermail_fieldsets', $allTables)
-        ) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Get Fieldlist from Form UID
      *
      * @param int $formUid Form UID
@@ -343,7 +232,7 @@ class FormRepository extends AbstractRepository
             'left join ' . Page::TABLE_NAME . ' p on f.pages = p.uid ' .
             'left join ' . Form::TABLE_NAME . ' fo on p.forms = fo.uid';
         $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" ' .
-            'and f.sys_language_uid IN (-1,0) and fo.uid = ' . (int) $formUid;
+            'and f.sys_language_uid IN (-1,0) and fo.uid = ' . (int)$formUid;
         $groupBy = '';
         $orderBy = 'f.sorting ASC';
         $limit = 10000;

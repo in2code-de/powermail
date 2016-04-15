@@ -1,6 +1,3 @@
-.. |img-93|     image:: ../Images/manual_html_m4678c8d7.png
-   :height: 89
-   :width: 278
+.. |faq_style|      image:: ../Images/faq_style.png
 .. :align: left
-.. :border:
-.. :name: Grafik 93
+.. :name: faq_style

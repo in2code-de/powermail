@@ -1,0 +1,3 @@
+.. |bestpractice_ajax|     image:: ../../../Images/bestpractice_ajax.png
+.. :align: left
+.. :name: bestpractice_ajax

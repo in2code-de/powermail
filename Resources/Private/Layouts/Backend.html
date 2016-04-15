@@ -1,11 +1,12 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<vh:Condition.BackendContainer
+<f:Be.Container
 		includeCssFiles="{0: '{f:uri.resource(path:\'Css/Backend.css\')}'}"
 		includeJsFiles="{0: '{f:uri.resource(path:\'JavaScripts/Libraries/jquery-ui.min.js\')}',
 			1: '{f:uri.resource(path:\'JavaScripts/Libraries/jquery.datetimepicker.min.js\')}',
 			2: '{f:uri.resource(path:\'JavaScripts/Libraries/jquery.flot.min.js\')}',
 			3: '{f:uri.resource(path:\'JavaScripts/Libraries/jquery.flot.pie.min.js\')}',
-			4: '{f:uri.resource(path:\'JavaScripts/Powermail/Backend.min.js\')}'}"
+			4: '{f:uri.resource(path:\'JavaScripts/Libraries/bootstrap.min.js\')}',
+			5: '{f:uri.resource(path:\'JavaScripts/Powermail/Backend.min.js\')}'}"
 		enableClickMenu="false"
 		loadExtJs="false"
 		loadExtJsTheme="false"
@@ -14,41 +15,48 @@
 		jQueryNamespace="defaultNoConflict"
 		pageTitle="powermail">
 
-	<div class="overlay"></div>
-
-	<div class="typo3-fullDoc">
-		<div id="typo3-docheader">
+	<div class="module">
+		<div class="module-docheader">
 			<div class="typo3-docheader-functions">
-				<div class="left powermail-backend-select">
-					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionList')}" controller="Module" action="list" />
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionReporting')}" controller="Module" action="reportingBe" />
-						<f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionReportingForm')}" controller="Module" action="reportingFormBe" />
-						<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}"><f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionReportingMarketing')}" controller="Module" action="reportingMarketingBe" /></f:if>
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'BackendSelectionTools')}" controller="Module" action="toolsBe" />
-						<f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionOverview')}" controller="Module" action="overviewBe" />
-						<f:if condition="{vh:BeCheck.IsAdmin()}"><f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionCheck')}" controller="Module" action="checkBe" /></f:if>
-						<f:if condition="{vh:BeCheck.IsAdmin()}"><f:be.menus.actionMenuItem label="- {f:translate(key: 'BackendSelectionConverterTitle')}" controller="Module" action="converterBe" /></f:if>
-					</f:be.menus.actionMenu>
-				</div>
-				<div class="right">
-					<f:be.pagePath />
+				<div class="module-docheader-bar module-docheader-bar-navigation">
+					<div class="module-docheader-bar-column-left">
+						<f:link.action action="list" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'list')}">
+							<f:translate key="BackendSelectionList">Mail list</f:translate>
+						</f:link.action>
+						<f:link.action action="overviewBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'overviewBe')}">
+							<f:translate key="BackendSelectionOverview">Form overview</f:translate>
+						</f:link.action>
+						<f:link.action action="reportingFormBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'reportingFormBe')}">
+							<f:translate key="BackendSelectionReportingForm">Answer reporting</f:translate>
+						</f:link.action>
+						<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
+							<f:link.action action="reportingMarketingBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'reportingMarketingBe')}">
+								<f:translate key="BackendSelectionReportingMarketing">Marketing analysis</f:translate>
+							</f:link.action>
+						</f:if>
+						<f:if condition="{vh:Be.IsAdmin()}">
+							<f:link.action action="checkBe" class="btn btn-xs{vh:Be.GetClassNameOnAction(actionName:'checkBe')}">
+								<f:translate key="BackendSelectionCheck">Function check</f:translate>
+							</f:link.action>
+						</f:if>
+					</div>
+					<div class="module-docheader-bar-column-right">
+						<f:be.pagePath />
+					</div>
 				</div>
 			</div>
-			<div class="typo3-docheader-buttons">
-				<div class="left">
+			<div class="module-docheader-bar module-docheader-bar-buttons">
+				<div class="module-docheader-bar-column-left">
 					&nbsp;
 				</div>
-				<div class="right">
+				<div class="module-docheader-bar-column-right">
 					<f:be.buttons.shortcut />
 				</div>
 			</div>
 		</div>
-		<div id="typo3-docbody">
-			<div id="typo3-inner-docbody" class="powermail-backend{f:if(condition:'{vh:Condition.IsCompatVersion(versionNumber:\'7.0\')}',else:' powermail-backend-lessthanseven')}">
-				<f:flashMessages renderMode="div" />
-				<f:render section="content" />
-			</div>
+		<div class="module-body powermail-backend">
+			<f:flashMessages />
+			<f:render section="content" />
 		</div>
 	</div>
-</vh:Condition.BackendContainer>
+</f:Be.Container>

@@ -1,9 +1,0 @@
-.. |img-dynamicreceiver1|     image:: ../../../Images/dynamicreceiver1.png
-.. :align: left
-.. :border: 0
-.. :name: dynamicreceiver1
-
-.. |img-dynamicreceiver2|     image:: ../../../Images/dynamicreceiver2.png
-.. :align: left
-.. :border: 0
-.. :name: dynamicreceiver2

@@ -7,531 +7,531 @@
 				<source>Access</source>
 				<target state="translated">Zugriff</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails">
+			<trans-unit id="tx_powermail_domain_model_mail">
 				<source>Mails</source>
 				<target state="translated">Mails</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.palette1">
+			<trans-unit id="tx_powermail_domain_model_mail.palette1">
 				<source>Sender</source>
 				<target state="translated">Sender</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.sender_mail">
+			<trans-unit id="tx_powermail_domain_model_mail.sender_mail">
 				<source>Senders Email</source>
 				<target state="translated">Absender E-Mail</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.sender_name">
+			<trans-unit id="tx_powermail_domain_model_mail.sender_name">
 				<source>Senders Name</source>
 				<target state="translated">Absender Name</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.subject">
+			<trans-unit id="tx_powermail_domain_model_mail.subject">
 				<source>Mail Subject</source>
 				<target state="translated">E-Mail Betreffzeile</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.body">
+			<trans-unit id="tx_powermail_domain_model_mail.body">
 				<source>Email Body</source>
 				<target state="translated">E-Mail</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.receiver_mail">
+			<trans-unit id="tx_powermail_domain_model_mail.receiver_mail">
 				<source>Receivers Mail</source>
 				<target state="translated">Empfänger E-Mail</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.form">
+			<trans-unit id="tx_powermail_domain_model_mail.form">
 				<source>Related Form</source>
 				<target state="translated">Formular</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.answers">
+			<trans-unit id="tx_powermail_domain_model_mail.answers">
 				<source>Answers</source>
 				<target state="translated">Antworten</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.feuser">
+			<trans-unit id="tx_powermail_domain_model_mail.feuser">
 				<source>FE_User</source>
 				<target state="translated">Frontent-Benutzer</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.spam_factor">
+			<trans-unit id="tx_powermail_domain_model_mail.spam_factor">
 				<source>Spam Factor</source>
 				<target state="translated">Spam Faktor</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.time">
+			<trans-unit id="tx_powermail_domain_model_mail.time">
 				<source>Time for submitting form (in seconds)</source>
 				<target state="translated">Zeit zum Ausfüllen des Formulares (in Sekunden)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.sender_ip">
+			<trans-unit id="tx_powermail_domain_model_mail.sender_ip">
 				<source>Senders IP address</source>
 				<target state="translated">IP-Adresse des Absenders</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.user_agent">
+			<trans-unit id="tx_powermail_domain_model_mail.user_agent">
 				<source>Senders User Agent</source>
 				<target state="translated">User Agent des Absenders</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.crdate">
+			<trans-unit id="tx_powermail_domain_model_mail.crdate">
 				<source>Creation Date</source>
 				<target state="translated">Erstellungsdatum</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.marketing_referer_domain">
+			<trans-unit id="tx_powermail_domain_model_mail.marketing_referer_domain">
 				<source>Referer Domain</source>
 				<target state="translated">Referer Domain</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.marketing_referer">
+			<trans-unit id="tx_powermail_domain_model_mail.marketing_referer">
 				<source>Referer URI</source>
 				<target state="translated">Referer URL</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.marketing_country">
+			<trans-unit id="tx_powermail_domain_model_mail.marketing_country">
 				<source>Visitors Country</source>
 				<target state="translated">Land des Besuchers</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.marketing_mobile_device">
+			<trans-unit id="tx_powermail_domain_model_mail.marketing_mobile_device">
 				<source>Visitor uses a Mobile Device</source>
 				<target state="translated">Besucher benutzt ein mobiles Endgerät</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.marketing_frontend_language">
+			<trans-unit id="tx_powermail_domain_model_mail.marketing_frontend_language">
 				<source>Website Language</source>
 				<target state="translated">Webseitensprache</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.marketing_browser_language">
+			<trans-unit id="tx_powermail_domain_model_mail.marketing_browser_language">
 				<source>Browser Language</source>
 				<target state="translated">Browser Sprache</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_mails.marketing_page_funnel">
+			<trans-unit id="tx_powermail_domain_model_mail.marketing_page_funnel">
 				<source>Page Funnel which leads to this mail</source>
 				<target state="translated">Diese Seitenaufrufe führten zu diese Mail (pagefunnel)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms">
+			<trans-unit id="tx_powermail_domain_model_form">
 				<source>Forms</source>
 				<target state="translated">Formulare</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.title">
+			<trans-unit id="tx_powermail_domain_model_form.title">
 				<source>Title</source>
 				<target state="translated">Bezeichnung</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.note.1">
+			<trans-unit id="tx_powermail_domain_model_form.note.1">
 				<source>Note:</source>
 				<target state="translated">Hinweis:</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.note.2">
+			<trans-unit id="tx_powermail_domain_model_form.note.2">
 				<source>There are no fields marked as sender-email or sender-name</source>
 				<target state="translated">In diesem Formular wurden keine Felder als Absender-E-Mail oder Absender-Name markiert</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.note.3">
+			<trans-unit id="tx_powermail_domain_model_form.note.3">
 				<source>Do not show this note again for this form</source>
 				<target state="translated">Hinweis für dieses Formular ausblenden</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.note.4">
+			<trans-unit id="tx_powermail_domain_model_form.note.4">
 				<source>Note hidden</source>
 				<target state="translated">Hinweis ausgeblendet</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.error.1">
+			<trans-unit id="tx_powermail_domain_model_form.error.1">
 				<source>Error: Non-Unique or empty marker names in the fields of this form detected</source>
 				<target state="translated">Fehler: Felder mit gleichen oder leeren Marker-Namen innerhalb dieses Formulares erkannt</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.error.2">
+			<trans-unit id="tx_powermail_domain_model_form.error.2">
 				<source>This should not happen in powermail. The problem should be solved if you save the form again. If not, please check marker names of all fields to this form and fix it manually.</source>
 				<target state="translated">Dies sollte in powermail nicht auftreten. Bitte Formular erneut speicher. Falls das Probelm weiterhint besteht, bitte alle Marker-Namen von Hand überprüfen und korrigieren.</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.css">
+			<trans-unit id="tx_powermail_domain_model_form.css">
 				<source>Layout</source>
 				<target state="translated">Layout</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.css.1">
+			<trans-unit id="tx_powermail_domain_model_form.css.1">
 				<source>Layout1</source>
 				<target state="translated">Layout1</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.css.2">
+			<trans-unit id="tx_powermail_domain_model_form.css.2">
 				<source>Layout2</source>
 				<target state="translated">Layout2</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.css.3">
+			<trans-unit id="tx_powermail_domain_model_form.css.3">
 				<source>Layout3</source>
 				<target state="translated">Layout3</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.css.4">
+			<trans-unit id="tx_powermail_domain_model_form.css.4">
 				<source>Hide label</source>
 				<target state="translated">Überschrift verbergen</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_forms.pages">
+			<trans-unit id="tx_powermail_domain_model_form.pages">
 				<source>Pages</source>
 				<target state="translated">Seiten</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages">
+			<trans-unit id="tx_powermail_domain_model_page">
 				<source>Pages</source>
 				<target state="translated">Seiten</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages.title">
+			<trans-unit id="tx_powermail_domain_model_page.title">
 				<source>Title</source>
 				<target state="translated">Bezeichnung</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages.css">
+			<trans-unit id="tx_powermail_domain_model_page.css">
 				<source>Layout</source>
 				<target state="translated">Layout</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages.css.1">
+			<trans-unit id="tx_powermail_domain_model_page.css.1">
 				<source>Layout1</source>
 				<target state="translated">Layout1</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages.css.2">
+			<trans-unit id="tx_powermail_domain_model_page.css.2">
 				<source>Layout2</source>
 				<target state="translated">Layout2</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages.css.3">
+			<trans-unit id="tx_powermail_domain_model_page.css.3">
 				<source>Layout3</source>
 				<target state="translated">Layout3</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages.css.4">
+			<trans-unit id="tx_powermail_domain_model_page.css.4">
 				<source>Hide label</source>
 				<target state="translated">Überschrift verbergen</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages.fields">
+			<trans-unit id="tx_powermail_domain_model_page.fields">
 				<source>Fields</source>
 				<target state="translated">Felder</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_pages.forms">
+			<trans-unit id="tx_powermail_domain_model_page.forms">
 				<source>Related Form</source>
 				<target state="translated">Verknüpftes Formular</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields">
+			<trans-unit id="tx_powermail_domain_model_field">
 				<source>Fields</source>
 				<target state="translated">Felder</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.title">
+			<trans-unit id="tx_powermail_domain_model_field.title">
 				<source>Title</source>
 				<target state="translated">Bezeichnung</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type">
+			<trans-unit id="tx_powermail_domain_model_field.type">
 				<source>Type</source>
 				<target state="translated">Typ</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.spacer1">
+			<trans-unit id="tx_powermail_domain_model_field.type.spacer1">
 				<source>Standard</source>
 				<target state="translated">Standard</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.spacer2">
+			<trans-unit id="tx_powermail_domain_model_field.type.spacer2">
 				<source>Extra</source>
 				<target state="translated">Erweitert</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.spacer3">
+			<trans-unit id="tx_powermail_domain_model_field.type.spacer3">
 				<source>Extensions</source>
 				<target state="translated">Extensions</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.0">
+			<trans-unit id="tx_powermail_domain_model_field.type.0">
 				<source>Textfield (Input)</source>
 				<target state="translated">Textfeld (Input)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.1">
+			<trans-unit id="tx_powermail_domain_model_field.type.1">
 				<source>Textfield with more Rows (Textarea)</source>
 				<target state="translated">Textfeld Mehrzeilig (Textarea)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.2">
+			<trans-unit id="tx_powermail_domain_model_field.type.2">
 				<source>Selectfield</source>
 				<target state="translated">Auswahlfeld (Select)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.3">
+			<trans-unit id="tx_powermail_domain_model_field.type.3">
 				<source>Checkboxes</source>
 				<target state="translated">Mehrfachauswahl (Check)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.4">
+			<trans-unit id="tx_powermail_domain_model_field.type.4">
 				<source>Radiobuttons</source>
 				<target state="translated">Einfachauswahl (Radio)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.5">
+			<trans-unit id="tx_powermail_domain_model_field.type.5">
 				<source>Submit</source>
 				<target state="translated">Abschicken Feld (Submit)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.6">
+			<trans-unit id="tx_powermail_domain_model_field.type.6">
 				<source>Captcha Field</source>
 				<target state="translated">Captcha</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.7">
+			<trans-unit id="tx_powermail_domain_model_field.type.7">
 				<source>Reset</source>
 				<target state="translated">Reset</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.8">
+			<trans-unit id="tx_powermail_domain_model_field.type.8">
 				<source>Show some Text</source>
 				<target state="translated">Zeige Text</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.9">
+			<trans-unit id="tx_powermail_domain_model_field.type.9">
 				<source>Content Element</source>
 				<target state="translated">Seiteninhalt</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.10">
+			<trans-unit id="tx_powermail_domain_model_field.type.10">
 				<source>Show HTML</source>
 				<target state="translated">HTML</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.11">
+			<trans-unit id="tx_powermail_domain_model_field.type.11">
 				<source>Password Field</source>
 				<target state="translated">Passwort Feld</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.12">
+			<trans-unit id="tx_powermail_domain_model_field.type.12">
 				<source>File Upload</source>
 				<target state="translated">Datei Upload</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.13">
+			<trans-unit id="tx_powermail_domain_model_field.type.13">
 				<source>Hidden Field</source>
 				<target state="translated">Verstecktes Feld</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.14">
+			<trans-unit id="tx_powermail_domain_model_field.type.14">
 				<source>Date</source>
 				<target state="translated">Datum</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.15">
+			<trans-unit id="tx_powermail_domain_model_field.type.15">
 				<source>Location</source>
 				<target state="translated">Location</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.16">
+			<trans-unit id="tx_powermail_domain_model_field.type.16">
 				<source>TypoScript</source>
 				<target state="translated">TypoScript</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.type.17">
+			<trans-unit id="tx_powermail_domain_model_field.type.17">
 				<source>Country Selection</source>
 				<target state="translated">Länderauswahl</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.settings">
+			<trans-unit id="tx_powermail_domain_model_field.settings">
 				<source>Options</source>
 				<target state="translated">Optionen</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.path">
+			<trans-unit id="tx_powermail_domain_model_field.path">
 				<source>TypoScript Path (e.g. lib.test)</source>
 				<target state="translated">TypoScript Pfad (z.B. lib.test)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.content_element">
+			<trans-unit id="tx_powermail_domain_model_field.content_element">
 				<source>Select Content Element</source>
 				<target state="translated">Inhalt auswählen</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.text">
+			<trans-unit id="tx_powermail_domain_model_field.text">
 				<source>Add some text</source>
 				<target state="translated">Text für Ausgabe im Formular</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation_title">
+			<trans-unit id="tx_powermail_domain_model_field.validation_title">
 				<source>Validation</source>
 				<target state="translated">Feldüberprüfung</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.mandatory">
+			<trans-unit id="tx_powermail_domain_model_field.mandatory">
 				<source>Mandatory Field</source>
 				<target state="translated">Pflichtfeld</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation">
+			<trans-unit id="tx_powermail_domain_model_field.validation">
 				<source>Validation</source>
 				<target state="translated">Überprüfung</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.1">
+			<trans-unit id="tx_powermail_domain_model_field.validation.1">
 				<source>Email</source>
 				<target state="translated">E-Mail</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.2">
+			<trans-unit id="tx_powermail_domain_model_field.validation.2">
 				<source>URL</source>
 				<target state="translated">Internetadresse</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.3">
+			<trans-unit id="tx_powermail_domain_model_field.validation.3">
 				<source>Phone</source>
 				<target state="translated">Telefonnummer</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.4">
+			<trans-unit id="tx_powermail_domain_model_field.validation.4">
 				<source>Numbers Only</source>
 				<target state="translated">Nur Zahlen</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.5">
+			<trans-unit id="tx_powermail_domain_model_field.validation.5">
 				<source>Letters Only</source>
 				<target state="translated">Nur Buchstaben</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.6">
+			<trans-unit id="tx_powermail_domain_model_field.validation.6">
 				<source>Min Number</source>
 				<target state="translated">Zahl mit Minimum</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.7">
+			<trans-unit id="tx_powermail_domain_model_field.validation.7">
 				<source>Max Number</source>
 				<target state="translated">Zahl mit Maximum</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.8">
+			<trans-unit id="tx_powermail_domain_model_field.validation.8">
 				<source>Range</source>
 				<target state="translated">Zahl mit Minimum und Maximum</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.9">
+			<trans-unit id="tx_powermail_domain_model_field.validation.9">
 				<source>Length</source>
 				<target state="translated">Eingabelänge</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validation.10">
+			<trans-unit id="tx_powermail_domain_model_field.validation.10">
 				<source>Pattern (RegEx)</source>
 				<target state="translated">Regulärer Ausdruck</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.validationConfiguration">
+			<trans-unit id="tx_powermail_domain_model_field.validationConfiguration">
 				<source>Validation Configuration</source>
 				<target state="translated">Konfiguration der Überprüfung</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.css">
+			<trans-unit id="tx_powermail_domain_model_field.css">
 				<source>Layout</source>
 				<target state="translated">Layout</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.css.1">
+			<trans-unit id="tx_powermail_domain_model_field.css.1">
 				<source>Layout 1</source>
 				<target state="translated">Layout 1</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.css.2">
+			<trans-unit id="tx_powermail_domain_model_field.css.2">
 				<source>Layout 2</source>
 				<target state="translated">Layout 2</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.css.3">
+			<trans-unit id="tx_powermail_domain_model_field.css.3">
 				<source>Layout 3</source>
 				<target state="translated">Layout 3</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.css.4">
+			<trans-unit id="tx_powermail_domain_model_field.css.4">
 				<source>Hide label</source>
 				<target state="translated">Überschrift verbergen</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.multiselect">
+			<trans-unit id="tx_powermail_domain_model_field.multiselect">
 				<source>Multiselect</source>
 				<target state="translated">Mehrfachauswahl</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.datepicker_settings">
+			<trans-unit id="tx_powermail_domain_model_field.datepicker_settings">
 				<source>Datepicker Mode</source>
 				<target state="translated">Datepicker Modus</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.datepicker_settings.1">
+			<trans-unit id="tx_powermail_domain_model_field.datepicker_settings.1">
 				<source>Date</source>
 				<target state="translated">Datum</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.datepicker_settings.2">
+			<trans-unit id="tx_powermail_domain_model_field.datepicker_settings.2">
 				<source>Date and Time</source>
 				<target state="translated">Datum und Uhrzeit</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.datepicker_settings.3">
+			<trans-unit id="tx_powermail_domain_model_field.datepicker_settings.3">
 				<source>Time</source>
 				<target state="translated">Uhrzeit</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.prefill_title">
+			<trans-unit id="tx_powermail_domain_model_field.prefill_title">
 				<source>Prefill Field</source>
 				<target state="translated">Feld vorbefüllen</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.prefill_value">
+			<trans-unit id="tx_powermail_domain_model_field.prefill_value">
 				<source>With Value</source>
 				<target state="translated">Mit Wert</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.placeholder">
+			<trans-unit id="tx_powermail_domain_model_field.placeholder">
 				<source>Placeholder</source>
 				<target state="translated">Platzhalter</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.create_from_typoscript">
+			<trans-unit id="tx_powermail_domain_model_field.create_from_typoscript">
 				<source>Create from TypoScript (e.g. lib.fieldvalues)</source>
 				<target state="translated">Über TypoScript erstellen (z.B. lib.fieldvalues)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value">
 				<source>Value from logged in Frontent User</source>
 				<target state="translated">Aus Frontend-Benutzer-Datenbank</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.name">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.name">
 				<source>Name</source>
 				<target state="translated">Name</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.address">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.address">
 				<source>Address</source>
 				<target state="translated">Adresse</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.phone">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.phone">
 				<source>Phone</source>
 				<target state="translated">Telefon</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.fax">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.fax">
 				<source>Fax</source>
 				<target state="translated">Fax</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.email">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.email">
 				<source>Email</source>
 				<target state="translated">E-Mail</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.zip">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.zip">
 				<source>ZIP</source>
 				<target state="translated">PLZ</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.city">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.city">
 				<source>City</source>
 				<target state="translated">Stadt</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.country">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.country">
 				<source>Country</source>
 				<target state="translated">Land</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.www">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.www">
 				<source>Website</source>
 				<target state="translated">Webseite</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.feuser_value.company">
+			<trans-unit id="tx_powermail_domain_model_field.feuser_value.company">
 				<source>Company</source>
 				<target state="translated">Firma</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.sender_email">
+			<trans-unit id="tx_powermail_domain_model_field.sender_email">
 				<source>This field contains the Email of the sender</source>
 				<target state="translated">Dieses Feld beinhaltet die E-Mail des Absenders</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.sender_name">
+			<trans-unit id="tx_powermail_domain_model_field.sender_name">
 				<source>This field contains the Name of the sender</source>
 				<target state="translated">Dieses Feld beinhaltet den Namen des Absenders</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.marker_title">
+			<trans-unit id="tx_powermail_domain_model_field.marker_title">
 				<source>Variables</source>
 				<target state="translated">Variablen</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.description">
+			<trans-unit id="tx_powermail_domain_model_field.description">
 				<source>Description</source>
 				<target state="translated">Beschreibung</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.own_marker">
+			<trans-unit id="tx_powermail_domain_model_field.own_marker">
 				<source>Enter your own Variable Name</source>
 				<target state="translated">Variablenname (ohne umschließende {})</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.auto_marker">
+			<trans-unit id="tx_powermail_domain_model_field.auto_marker">
 				<source>Individual Fieldname to use as Variable (automaticly wrapped with {})</source>
 				<target state="translated">Variablenname für dieses Feld</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.own_marker_select">
+			<trans-unit id="tx_powermail_domain_model_field.own_marker_select">
 				<source>Add my own Variable Name</source>
 				<target state="translated">Eigenen Variablennamen vergeben</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.pages">
+			<trans-unit id="tx_powermail_domain_model_field.pages">
 				<source>Related Page</source>
 				<target state="translated">Verknüpfte Seite</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.sheet1">
+			<trans-unit id="tx_powermail_domain_model_field.sheet1">
 				<source>Extended</source>
 				<target state="translated">Erweitert</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.sheet2">
+			<trans-unit id="tx_powermail_domain_model_field.sheet2">
 				<source>Marketing</source>
 				<target state="translated">Marketing</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_fields.palette1">
+			<trans-unit id="tx_powermail_domain_model_field.palette1">
 				<source>Email or Name</source>
 				<target state="translated">E-Mail oder Name</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers">
+			<trans-unit id="tx_powermail_domain_model_answer">
 				<source>Answers</source>
 				<target state="translated">Antworten</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers.value">
+			<trans-unit id="tx_powermail_domain_model_answer.value">
 				<source>The transferred value</source>
 				<target state="translated">Der übermittelte Text</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers.value_type">
+			<trans-unit id="tx_powermail_domain_model_answer.value_type">
 				<source>Data Type</source>
 				<target state="translated">Datentyp</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers.value_type.0">
+			<trans-unit id="tx_powermail_domain_model_answer.value_type.0">
 				<source>Text</source>
 				<target state="translated">Text</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers.value_type.1">
+			<trans-unit id="tx_powermail_domain_model_answer.value_type.1">
 				<source>Multi Text (Array)</source>
 				<target state="translated">Mehrfacher Text (Array)</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers.value_type.2">
+			<trans-unit id="tx_powermail_domain_model_answer.value_type.2">
 				<source>Date</source>
 				<target state="translated">Datum</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers.value_type.3">
+			<trans-unit id="tx_powermail_domain_model_answer.value_type.3">
 				<source>Upload</source>
 				<target state="translated">Upload</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers.mail">
+			<trans-unit id="tx_powermail_domain_model_answer.mail">
 				<source>Mail</source>
 				<target state="translated">Mail</target>
 			</trans-unit>
-			<trans-unit id="tx_powermail_domain_model_answers.field">
+			<trans-unit id="tx_powermail_domain_model_answer.field">
 				<source>Field</source>
 				<target state="translated">Feld</target>
 			</trans-unit>
@@ -820,19 +820,19 @@
 				<target state="translated">Seite mit Änderungsansicht (Leer: Gleiche Seite)</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.receiverEmail">
-				<source>Receivers Email Address</source>
-				<target state="translated">Empfänger E-Mail</target>
+				<source>Receiver email address</source>
+				<target state="translated">Empfänger E-Mail-Adresse</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.receiverName">
-				<source>Receivers Name</source>
+				<source>Receiver name</source>
 				<target state="translated">Empfänger Name</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.subject">
-				<source>Mail Subject</source>
+				<source>Mail subject</source>
 				<target state="translated">Betreff</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.form">
-				<source>Form Title</source>
+				<source>Form title</source>
 				<target state="translated">Formular Bezeichnung</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.savePid">
@@ -840,12 +840,16 @@
 				<target state="translated">Speicherort der E-Mails</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.confirmationPage">
-				<source>Confirmation Page activated?</source>
-				<target state="translated">Bestätigungsseite aktiv?</target>
+				<source>Confirmation page activated</source>
+				<target state="translated">Bestätigungsseite aktiviert</target>
 			</trans-unit>
 			<trans-unit id="pluginInfo.optin">
-				<source>Double Opt-In active?</source>
-				<target state="translated">Double Opt-In aktiv?</target>
+				<source>Double-opt-in activated</source>
+				<target state="translated">Double-Opt-In aktiviert</target>
+			</trans-unit>
+			<trans-unit id="pluginInfo.more">
+				<source>More ...</source>
+				<target state="translated">Mehr ...</target>
 			</trans-unit>
 		</body>
 	</file>

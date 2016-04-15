@@ -2,6 +2,7 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -14,6 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
 {
+    use SignalTrait;
 
     /**
      * Returns Data Attribute Array for JS validation with parsley.js
@@ -23,7 +25,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
      * @return array for data attributes
      */
-    public function render(Field $field, $additionalAttributes = [], $iteration = null)
+    public function render(Field $field, array $additionalAttributes = [], $iteration = null)
     {
         switch ($field->getType()) {
             case 'check':
@@ -35,6 +37,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 $this->addMandatoryAttributes($additionalAttributes, $field);
         }
         $this->addValidationAttributes($additionalAttributes, $field);
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [$additionalAttributes, $field, $iteration, $this]);
         return $additionalAttributes;
     }
 
@@ -46,7 +49,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param mixed $iteration
      * @return void
      */
-    protected function addMandatoryAttributesForMultipleFields(&$additionalAttributes, $field, $iteration)
+    protected function addMandatoryAttributesForMultipleFields(array &$additionalAttributes, Field $field, $iteration)
     {
         if ($iteration['index'] === 0) {
             if ($field->isMandatory()) {
@@ -72,12 +75,8 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             }
 
             if ($this->isClientValidationEnabled()) {
-                // define where to show errors
-                $additionalAttributes['data-parsley-errors-container'] =
-                    '.powermail_field_error_container_' . $field->getMarker();
-                // define where to set the error class
-                $additionalAttributes['data-parsley-class-handler'] =
-                    '.powermail_fieldwrap_' . $field->getUid() . ' div:first';
+                $additionalAttributes = $this->addErrorContainer($additionalAttributes, $field);
+                $additionalAttributes = $this->addClassHandler($additionalAttributes, $field);
             }
         }
 
@@ -99,7 +98,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param Field $field
      * @return void
      */
-    protected function addValidationAttributes(&$additionalAttributes, $field)
+    protected function addValidationAttributes(array &$additionalAttributes, Field $field)
     {
         if ($field->getType() !== 'input' && $field->getType() !== 'textarea') {
             return;
@@ -235,7 +234,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              */
             case 8:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
-                if ((int) $values[0] <= 0) {
+                if ((int)$values[0] <= 0) {
                     break;
                 }
                 if (!isset($values[1])) {
@@ -243,12 +242,12 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                     $values[0] = 1;
                 }
                 if ($this->isNativeValidationEnabled()) {
-                    $additionalAttributes['min'] = (int) $values[0];
-                    $additionalAttributes['max'] = (int) $values[1];
+                    $additionalAttributes['min'] = (int)$values[0];
+                    $additionalAttributes['max'] = (int)$values[1];
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-parsley-min'] = (int) $values[0];
-                        $additionalAttributes['data-parsley-max'] = (int) $values[1];
+                        $additionalAttributes['data-parsley-min'] = (int)$values[0];
+                        $additionalAttributes['data-parsley-max'] = (int)$values[1];
                     }
                 }
                 break;
@@ -262,11 +261,11 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              */
             case 9:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
-                if ((int) $values[0] <= 0) {
+                if ((int)$values[0] <= 0) {
                     break;
                 }
                 if (!isset($values[1])) {
-                    $values[1] = (int) $values[0];
+                    $values[1] = (int)$values[0];
                     $values[0] = 1;
                 }
                 if ($this->isClientValidationEnabled()) {

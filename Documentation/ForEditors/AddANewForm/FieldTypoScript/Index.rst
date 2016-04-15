@@ -28,14 +28,14 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-70|
+|example_field_typoscript|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-71|
+|record_field_typoscript_tab1|
 
-|img-71b|
+|record_field_typoscript_tab2|
 
 Explanation
 '''''''''''

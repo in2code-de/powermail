@@ -34,6 +34,7 @@ class IsBackendUserAllowedToViewFieldViewHelper extends AbstractViewHelper
      * Initialize
      *
      * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function initialize()
     {

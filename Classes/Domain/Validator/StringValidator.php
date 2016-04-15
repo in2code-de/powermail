@@ -78,7 +78,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validateNumbersOnly($value)
     {
-        return strval((int) $value) === strval($value);
+        return strval((int)$value) === strval($value);
     }
 
     /**
@@ -126,7 +126,7 @@ class StringValidator extends AbstractValidator
     protected function validateRange($value, $configuration)
     {
         $values = GeneralUtility::trimExplode(',', $configuration, true);
-        if ((int) $values[0] <= 0) {
+        if ((int)$values[0] <= 0) {
             return true;
         }
         if (!isset($values[1])) {
@@ -146,7 +146,7 @@ class StringValidator extends AbstractValidator
     protected function validateLength($value, $configuration)
     {
         $values = GeneralUtility::trimExplode(',', $configuration, true);
-        if ((int) $values[0] <= 0) {
+        if ((int)$values[0] <= 0) {
             return true;
         }
         if (!isset($values[1])) {

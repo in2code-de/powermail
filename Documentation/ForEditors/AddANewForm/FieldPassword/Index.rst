@@ -28,14 +28,14 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-25|
+|example_field_password|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-60|
+|record_field_password_tab1|
 
-|img-59|
+|record_field_password_tab2|
 
 Explanation
 '''''''''''

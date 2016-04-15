@@ -300,7 +300,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $field->setMarker($marker);
         $this->abstractValidationViewHelperMock->_set('field', $field);
         $this->abstractValidationViewHelperMock->_set('marker', $marker);
-        $this->abstractValidationViewHelperMock->_set('contentObjectRenderer', new ContentObjectRenderer());
+        $this->abstractValidationViewHelperMock->_set('contentObject', new ContentObjectRenderer());
         $this->assertSame(
             $expectedResult,
             $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptContentObject')

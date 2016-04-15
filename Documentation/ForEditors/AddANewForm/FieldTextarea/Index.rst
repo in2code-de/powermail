@@ -31,14 +31,14 @@ What does it do?
 Frontend Output Example
 '''''''''''''''''''''''
 
-|img-30|
+|example_field_textarea|
 
 Backend Configuration Example
 '''''''''''''''''''''''''''''
 
-|img-31|
+|record_field_textarea_tab1|
 
-|img-32|
+|record_field_textarea_tab2|
 
 
 Explanation

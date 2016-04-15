@@ -1,15 +1,11 @@
-.. |img-57|     image:: ../../../Images/manual_html_368ecd06.png
+.. |example_field_html|      image:: ../../../Images/example_field_html.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik59
+.. :name: example_field_html
 
-.. |img-58|     image:: ../../../Images/manual_html_m4066a4db.png
-   :width: 507
+.. |record_field_html_tab1|      image:: ../../../Images/record_field_html_tab1.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik57
+.. :name: record_field_html_tab1
 
-.. |img-59|     image:: ../../../Images/manual_html_m1954c3a8.png
+.. |record_field_html_tab2|      image:: ../../../Images/record_field_html_tab2.png
 .. :align: left
-.. :border: 0
-.. :name: Grafik58
+.. :name: record_field_html_tab2

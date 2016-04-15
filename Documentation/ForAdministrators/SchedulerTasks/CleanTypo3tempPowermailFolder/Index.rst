@@ -9,17 +9,19 @@ Clean typo3temp/tx_powermail/ folder
 Introduction
 ^^^^^^^^^^^^
 
-If you want to clean the typo3temp/tx_powermail/ folder to remove generated export files (see :ref:`generateExportMail`), you can use this scheduler task.
+If you want to clean the typo3temp/tx_powermail/ folder to remove generated export files
+(see :ref:`generateExportMail`), you can use this scheduler task.
 
 Image example
 ^^^^^^^^^^^^^
 
-|img-schedulertask-clean|
+|scheduler_cleanexportfiles|
 
 Console example
 ^^^^^^^^^^^^^^^
 
-You can call a scheduler task directly from the console (if the backend user _cli_lowlevel exists) - see this example (called from webroot):
+You can call a scheduler task directly from the console (if the backend user _cli_lowlevel exists) -
+see this example (called from webroot):
 
 .. code-block:: text
 

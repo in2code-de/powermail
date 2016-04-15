@@ -19,6 +19,16 @@ class VariablesViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @var bool
+     */
+    protected $escapeChildren = false;
+
+    /**
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
+    /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      * @inject
      */
@@ -44,7 +54,7 @@ class VariablesViewHelper extends AbstractViewHelper
     protected $settings = [];
 
     /**
-     * Parses variables again
+     * Enable variables within variable {powermail_rte} - so string will be parsed again
      *
      * @param Mail $mail Variables and Labels array
      * @param string $type "web" or "mail"

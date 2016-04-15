@@ -42,7 +42,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Field extends AbstractEntity
 {
 
-    const TABLE_NAME = 'tx_powermail_domain_model_fields';
+    const TABLE_NAME = 'tx_powermail_domain_model_field';
 
     /**
      * title
@@ -842,7 +842,7 @@ class Field extends AbstractEntity
         $typoScript = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
         $configuration = $typoScript['tx_powermail.']['flexForm.'];
         if (!empty($configuration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
-            $types[$fieldType] = (int) $configuration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
+            $types[$fieldType] = (int)$configuration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
         }
         return $types;
     }

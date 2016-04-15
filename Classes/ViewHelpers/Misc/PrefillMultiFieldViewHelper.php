@@ -3,6 +3,7 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -20,6 +21,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class PrefillMultiFieldViewHelper extends AbstractViewHelper
 {
+    use SignalTrait;
 
     /**
      * @var bool
@@ -103,6 +105,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
         if (!$this->isCachedForm()) {
             $this->buildSelectedValue();
         }
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [$field, $mail, $cycle, $default, $this]);
         return $this->getSelected();
     }
 
@@ -157,7 +160,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
             foreach ($this->getMail()->getAnswers() as $answer) {
                 if ($answer->getField() === $this->getField()) {
                     $values = $answer->getValue();
-                    foreach ((array) $values as $value) {
+                    foreach ((array)$values as $value) {
                         if (
                             $value === $this->options[$this->index]['value'] ||
                             $value === $this->options[$this->index]['label']
@@ -295,6 +298,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * Get value from current logged in Frontend User
      *
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function getFromFrontendUser()
     {

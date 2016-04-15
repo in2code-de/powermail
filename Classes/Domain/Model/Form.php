@@ -40,7 +40,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Form extends AbstractEntity
 {
 
-    const TABLE_NAME = 'tx_powermail_domain_model_forms';
+    const TABLE_NAME = 'tx_powermail_domain_model_form';
 
     /**
      * title
@@ -146,5 +146,23 @@ class Form extends AbstractEntity
     public function setPages(ObjectStorage $pages)
     {
         $this->pages = $pages;
+    }
+
+    /**
+     * Check if this form has an upload field
+     *
+     * @return bool
+     */
+    public function hasUploadField()
+    {
+        foreach ($this->getPages() as $page) {
+            /** @var Field $field */
+            foreach ($page->getFields() as $field) {
+                if ($field->getType() === 'file') {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

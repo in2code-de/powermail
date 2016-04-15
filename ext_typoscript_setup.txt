@@ -11,31 +11,6 @@ config.tx_extbase {
 					tableName = fe_groups
 				}
 			}
-			In2code\Powermail\Domain\Model\Form {
-				mapping {
-					tableName = tx_powermail_domain_model_forms
-				}
-			}
-			In2code\Powermail\Domain\Model\Page {
-				mapping {
-					tableName = tx_powermail_domain_model_pages
-				}
-			}
-			In2code\Powermail\Domain\Model\Field {
-				mapping {
-					tableName = tx_powermail_domain_model_fields
-				}
-			}
-			In2code\Powermail\Domain\Model\Mail {
-				mapping {
-					tableName = tx_powermail_domain_model_mails
-				}
-			}
-			In2code\Powermail\Domain\Model\Answer {
-				mapping {
-					tableName = tx_powermail_domain_model_answers
-				}
-			}
 		}
 	}
 }
@@ -56,6 +31,11 @@ module.tx_powermail {
 		partialRootPaths.0 = EXT:powermail/Resources/Private/Partials/
 		layoutRootPaths.0 = EXT:powermail/Resources/Private/Layouts/
 		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:powermail/Resources/Private/Templates/
+
+		# Preperation for TYPO3 8.x - seems not to work in TYPO3 8.0 - see https://forge.typo3.org/issues/73207 for details
+		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPaths {
+			10 = EXT:powermail/Resources/Private/Templates/
+		}
 	}
 	settings {
 		# crdate, sender_name, sender_email, subject, receiver_mail, feuser, time

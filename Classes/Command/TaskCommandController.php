@@ -193,7 +193,7 @@ class TaskCommandController extends CommandController
             foreach ($formMarkers as $uid => $marker) {
                 ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
                     Field::TABLE_NAME,
-                    'uid = ' . (int) $uid,
+                    'uid = ' . (int)$uid,
                     ['marker' => $marker]
                 );
             }
@@ -224,7 +224,7 @@ class TaskCommandController extends CommandController
         $answers = $this->answerRepository->findByAnyUpload();
         $usedUploads = [];
         foreach ($answers as $answer) {
-            foreach ((array) $answer->getValue() as $singleUpload) {
+            foreach ((array)$answer->getValue() as $singleUpload) {
                 $usedUploads[] = $singleUpload;
             }
         }

@@ -3,7 +3,6 @@ namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ReceiverEmailService;
-use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
@@ -63,18 +62,24 @@ class FormController extends AbstractController
     protected $finisherRunner;
 
     /**
+     * @var \In2code\Powermail\DataProcessor\DataProcessorRunner
+     * @inject
+     */
+    protected $dataProcessorRunner;
+
+    /**
      * action show form for creating new mails
      *
      * @return void
      */
     public function formAction()
     {
-        $forms = $this->formRepository->findByUids($this->settings['main']['form']);
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$forms, $this]);
-        SessionUtility::saveFormStartInSession($forms, $this->settings);
+        $form = $this->formRepository->findByUid($this->settings['main']['form']);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$form, $this]);
+        SessionUtility::saveFormStartInSession($this->settings, $form);
         $this->view->assignMultiple(
             [
-                'forms' => $forms,
+                'form' => $form,
                 'ttContentData' => $this->contentObject->data,
                 'messageClass' => $this->messageClass,
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
@@ -113,16 +118,16 @@ class FormController extends AbstractController
      */
     public function createAction(Mail $mail, $hash = null)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
-        BasicFileUtility::fileUpload(
-            $this->settings['misc']['file']['folder'],
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
+        $this->dataProcessorRunner->callDataProcessors(
             $mail,
-            $this->settings['misc']['file']['extension']
+            $this->actionMethodName,
+            $this->settings,
+            $this->contentObject
         );
-        SessionUtility::saveSessionValuesForPrefill($mail, $this->settings);
         if ($this->isMailPersistActive($hash)) {
             $this->saveMail($mail);
-            $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
+            $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
         }
         if ($this->isSendMailActive($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
@@ -135,7 +140,7 @@ class FormController extends AbstractController
             $this->persistenceManager->persistAll();
         }
 
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', [$mail, $hash, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', [$mail, $hash, $this]);
         $this->prepareOutput($mail);
 
         $this->finisherRunner->callFinishers(
@@ -177,12 +182,13 @@ class FormController extends AbstractController
      */
     public function confirmationAction(Mail $mail)
     {
-        BasicFileUtility::fileUpload(
-            $this->settings['misc']['file']['folder'],
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
+        $this->dataProcessorRunner->callDataProcessors(
             $mail,
-            $this->settings['misc']['file']['extension']
+            $this->actionMethodName,
+            $this->settings,
+            $this->contentObject
         );
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
         $this->prepareOutput($mail);
     }
 
@@ -382,6 +388,7 @@ class FormController extends AbstractController
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'messageClass' => $this->messageClass,
                 'ttContentData' => $this->contentObject->data,
+                'uploadService' => $this->uploadService,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
             ]
@@ -396,7 +403,7 @@ class FormController extends AbstractController
      * @param Mail $mail
      * @return void
      */
-    protected function saveMail(Mail &$mail = null)
+    protected function saveMail(Mail $mail)
     {
         $marketingInfos = SessionUtility::getMarketingInfos();
         $mail
@@ -443,7 +450,7 @@ class FormController extends AbstractController
      */
     public function optinConfirmAction($mail, $hash)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
         $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
         $labelKey = 'failed';
@@ -488,12 +495,10 @@ class FormController extends AbstractController
         );
         $this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
         ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
-
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this]);
-
         if ($this->settings['debug']['settings']) {
             GeneralUtility::devLog('Settings', $this->extensionName, 0, $this->settings);
         }
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this]);
     }
 
     /**
@@ -551,7 +556,7 @@ class FormController extends AbstractController
     {
         $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
         if ($mail === null || !in_array($mail->getForm()->getUid(), $formsToContent)) {
-            GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array) $mail]);
+            GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array)$mail]);
             $this->forward('form');
         }
     }

@@ -16,67 +16,78 @@ $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';
  * Include Frontend Plugins for Powermail
  */
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'In2code.' . $_EXTKEY,
+    'In2code.powermail',
     'Pi1',
-    array(
+    [
         'Form' => 'form, create, confirmation, optinConfirm, marketing'
-    ),
-    array(
+    ],
+    [
         'Form' => $uncachedFormActions
-    )
+    ]
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'In2code.' . $_EXTKEY,
+    'In2code.powermail',
     'Pi2',
-    array(
+    [
         'Output' => 'list, show, edit, update, export, rss, delete'
-    ),
-    array(
+    ],
+    [
         'Output' => 'list, edit, update, export, rss, delete'
-    )
+    ]
 );
 
 /**
- * Hook to show PluginInfo
+ * Hook to show PluginInformation under a tt_content element in page module of type powermail
  */
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']
-    ['cms/layout/class.tx_cms_layout.php']['list_type_Info'][$_EXTKEY . '_pi1'][$_EXTKEY] =
-        'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/PluginInformation.php:' .
-            'In2code\Powermail\Utility\Hook\PluginInformation->build';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem']['powermail'] =
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') .
+        'Classes/Hook/PluginPreview.php:In2code\Powermail\Hooks\PluginPreview';
+
 
 /**
  * Hook for initially filling the marker field in backend
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
-        'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/CreateMarker.php:In2code\Powermail\Utility\Hook\CreateMarker';
+        'EXT:powermail/Classes/Hook/CreateMarker.php:In2code\Powermail\Hook\CreateMarker';
 
 /**
  * Hook to extend the FlexForm
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass'][] =
-    'EXT:' . $_EXTKEY . '/Classes/Utility/Hook/FlexFormManipulationHook.php:' .
-        'In2code\Powermail\Utility\Hook\FlexFormManipulationHook';
+    'EXT:powermail/Classes/Hook/FlexFormManipulationHook.php:' .
+        'In2code\Powermail\Hook\FlexFormManipulationHook';
 
 /**
  * JavaScript evaluation of TCA fields
  */
-$TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Utility\Tca\EvaluateEmail'] =
-    'EXT:powermail/Classes/Utility/Tca/EvaluateEmail.php';
+$TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =
+    'EXT:powermail/Classes/Tca/EvaluateEmail.php';
 
 /**
  * eID to get location from geo coordinates
  */
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] =
-    'EXT:powermail/Classes/Utility/Eid/GetLocationEid.php';
+    'EXT:powermail/Classes/Eid/GetLocationEid.php';
 
 /**
  * eID to store marketing information
  */
 $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidMarketing'] =
-    'EXT:powermail/Classes/Utility/Eid/MarketingEid.php';
+    'EXT:powermail/Classes/Eid/MarketingEid.php';
 
 /**
  * CommandController for powermail tasks
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] =
     'In2code\\Powermail\\Command\\TaskCommandController';
+
+/**
+ * SignalSlot to convert old tablenames to new tablenames automaticly after installing
+ */
+$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
+$dispatcher->connect(
+    'TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility',
+    'afterExtensionInstall',
+    'In2code\\Powermail\\Slot\\ConvertTableNames',
+    'convert'
+);

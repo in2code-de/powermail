@@ -1,7 +1,7 @@
 #
-# Table structure for table 'tx_powermail_domain_model_forms'
+# Table structure for table 'tx_powermail_domain_model_form'
 #
-CREATE TABLE tx_powermail_domain_model_forms (
+CREATE TABLE tx_powermail_domain_model_form (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
@@ -43,9 +43,9 @@ CREATE TABLE tx_powermail_domain_model_forms (
 );
 
 #
-# Table structure for table 'tx_powermail_domain_model_pages'
+# Table structure for table 'tx_powermail_domain_model_page'
 #
-CREATE TABLE tx_powermail_domain_model_pages (
+CREATE TABLE tx_powermail_domain_model_page (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
@@ -86,9 +86,9 @@ CREATE TABLE tx_powermail_domain_model_pages (
 );
 
 #
-# Table structure for table 'tx_powermail_domain_model_fields'
+# Table structure for table 'tx_powermail_domain_model_field'
 #
-CREATE TABLE tx_powermail_domain_model_fields (
+CREATE TABLE tx_powermail_domain_model_field (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
@@ -150,9 +150,9 @@ CREATE TABLE tx_powermail_domain_model_fields (
 );
 
 #
-# Table structure for table 'tx_powermail_domain_model_mails'
+# Table structure for table 'tx_powermail_domain_model_mail'
 #
-CREATE TABLE tx_powermail_domain_model_mails (
+CREATE TABLE tx_powermail_domain_model_mail (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
@@ -206,9 +206,9 @@ CREATE TABLE tx_powermail_domain_model_mails (
 );
 
 #
-# Table structure for table 'tx_powermail_domain_model_answers'
+# Table structure for table 'tx_powermail_domain_model_answer'
 #
-CREATE TABLE tx_powermail_domain_model_answers (
+CREATE TABLE tx_powermail_domain_model_answer (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 

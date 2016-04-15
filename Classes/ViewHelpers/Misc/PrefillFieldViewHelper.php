@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\SessionUtility;
@@ -22,17 +23,23 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class PrefillFieldViewHelper extends AbstractViewHelper
 {
-
-    /**
-     * @var string|array
-     */
-    protected $value = null;
+    use SignalTrait;
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      * @inject
      */
     protected $configurationManager;
+
+    /**
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected $contentObject;
+
+    /**
+     * @var string|array
+     */
+    protected $value = null;
 
     /**
      * @var array
@@ -43,11 +50,6 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * @var array
      */
     protected $piVars;
-
-    /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     */
-    protected $contentObjectRenderer;
 
     /**
      * Field
@@ -83,29 +85,18 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *
      * @param Field $field
      * @param Mail $mail To prefill in Edit Action
-     * @param int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
      * @param string $default Fallback value
-     * @todo remove param $cycle
      * @return string|array Prefill field
      */
-    public function render(Field $field, Mail $mail = null, $cycle = 0, $default = '')
+    public function render(Field $field, Mail $mail = null, $default = '')
     {
         $this->setMarker($field->getMarker())->setField($field)->setMail($mail)->setValue($default);
 
         // stop prefilling for cached forms to prevent wrong values
         if (!$this->isCachedForm()) {
-            if ($cycle === 0) {
-                $this->buildValue();
-            } else {
-                // TODO remove $cycle completely in next minor version
-                GeneralUtility::deprecationLog(
-                    'Method \In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render() ' .
-                    'was called from a template or a partial with attribute "cycle". This' .
-                    ' attribute will be removed in next minor version of powermail. Further' .
-                    ' use can lead to exceptions. Please remove this attribute from your template files.'
-                );
-            }
+            $this->buildValue();
         }
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [$field, $mail, $default, $this]);
         return $this->getValue();
     }
 
@@ -270,7 +261,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
             isset($this->settings['prefill.'][$this->getMarker() . '.']) &&
             is_array($this->settings['prefill.'][$this->getMarker() . '.'])
         ) {
-            $this->contentObjectRenderer->start(ObjectAccess::getGettableProperties($this->getField()));
+            $this->contentObject->start(ObjectAccess::getGettableProperties($this->getField()));
             // Multivalue
             if (isset($this->settings['prefill.'][$this->getMarker() . '.']['0'])) {
                 $value = [];
@@ -278,14 +269,14 @@ class PrefillFieldViewHelper extends AbstractViewHelper
                     if (stristr($key, '.')) {
                         continue;
                     }
-                    $value[] = $this->contentObjectRenderer->cObjGetSingle(
+                    $value[] = $this->contentObject->cObjGetSingle(
                         $this->settings['prefill.'][$this->getMarker() . '.'][$key],
                         $this->settings['prefill.'][$this->getMarker() . '.'][$key . '.']
                     );
                 }
             } else {
                 // Single value
-                $value = $this->contentObjectRenderer->cObjGetSingle(
+                $value = $this->contentObject->cObjGetSingle(
                     $this->settings['prefill.'][$this->getMarker()],
                     $this->settings['prefill.'][$this->getMarker() . '.']
                 );
@@ -421,7 +412,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     public function initialize()
     {
         $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
-        $this->contentObjectRenderer = $this->objectManager->get(ContentObjectRenderer::class);
+        $this->contentObject = $this->objectManager->get(ContentObjectRenderer::class);
         $typoScriptSetup = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );

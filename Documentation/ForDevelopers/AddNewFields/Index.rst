@@ -23,7 +23,7 @@ Keep it simple
 
 Per default, there are a lot of Field-Types available in Powermail.
 
-|img-typeselection|
+|developer_new_fields1|
 
 If you want to add further fields, you can do this with a little bit of Page TSConfig.
 ::
@@ -40,7 +40,7 @@ If you want to add further fields, you can do this with a little bit of Page TSC
 
 With this TSConfig a new Option is available:
 
-|img-typeselection2|
+|developer_new_fields2|
 
 If an editor chose the new field, powermail searches by default for a Partial with Name New.html (Default Path is powermail/Resources/Private/Partials/Form/New.html).
 

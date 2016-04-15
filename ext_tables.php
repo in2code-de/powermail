@@ -6,19 +6,16 @@ if (!defined('TYPO3_MODE')) {
 /**
  * Include Plugins
  */
-// Pi1
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin($_EXTKEY, 'Pi1', 'Powermail');
-// Pi2
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin($_EXTKEY, 'Pi2', 'Powermail_Frontend');
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('powermail', 'Pi1', 'Powermail');
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('powermail', 'Pi2', 'Powermail_Frontend');
 
 /**
  * Disable non needed fields in tt_content
  */
-$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] = 'select_key,pages,recursive';
+$TCA['tt_content']['types']['list']['subtypes_excludelist']['powermail_pi1'] = 'select_key,pages,recursive';
 
 /**
  * Include Backend Module
- * @todo remove condition for TYPO3 6.2 in upcoming major version
  */
 if (
     TYPO3_MODE === 'BE' &&
@@ -26,7 +23,7 @@ if (
     !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
 ) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'In2code.' . $_EXTKEY,
+        'In2code.powermail',
         'web',
         'm1',
         '',
@@ -38,65 +35,57 @@ if (
         ),
         array(
             'access' => 'user,group',
-            'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.' .
-                (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'gif'),
-            'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
+            'icon' => 'EXT:powermail/Resources/Public/Icons/powermail.svg',
+            'labels' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf',
         )
     );
 }
 
 /**
  * Include Flexform
- * @todo remove condition for TYPO3 6.2 in upcoming major version
  */
 // Pi1
-$fileName = 'FlexformPi1.xml';
-if (!\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.6')) {
-    $fileName = 'FlexformPi1Old.xml';
-}
-$pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi1';
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$TCA['tt_content']['types']['list']['subtypes_addlist']['powermail_pi1'] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $fileName
+    'powermail_pi1',
+    'FILE:EXT:powermail/Configuration/FlexForms/FlexformPi1.xml'
 );
 
 // Pi2
-$pluginSignature = str_replace('_', '', $_EXTKEY) . '_pi2';
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+$TCA['tt_content']['types']['list']['subtypes_addlist']['powermail_pi2'] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $pluginSignature,
-    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexformPi2.xml'
+    'powermail_pi2',
+    'FILE:EXT:powermail/Configuration/FlexForms/FlexformPi2.xml'
 );
 
 /**
  * ContentElementWizard for Pi1
  */
-$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['In2code\Powermail\Utility\Hook\ContentElementWizard'] =
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) .
-    'Classes/Utility/Hook/ContentElementWizard.php';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript">'
+);
 
 /**
  * Include TypoScript
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
+    'powermail',
     'Configuration/TypoScript/Main',
     'Main Template'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
+    'powermail',
     'Configuration/TypoScript/Powermail_Frontend',
     'Powermail_Frontend'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
-    'Configuration/TypoScript/CssDemo',
-    'Add Demo CSS'
+    'powermail',
+    'Configuration/TypoScript/BootstrapClassesAndLayout',
+    'Add classes and CSS based on bootstrap'
 );
 if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableMarketingInformationActive()) {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-        $_EXTKEY,
+        'powermail',
         'Configuration/TypoScript/Marketing',
         'Marketing Information'
     );
@@ -105,53 +94,47 @@ if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableMarketingInformat
 /**
  * Table Configuration
  */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_forms',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_forms.xlf'
-);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_forms');
-
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_pages',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_pages.xlf'
-);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_pages');
-
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_fields',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_fields.xlf'
-);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_fields');
-
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_mails',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_mails.xlf'
-);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_mails');
-
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_powermail_domain_model_answers',
-    'EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_answers.xlf'
-);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_powermail_domain_model_answers');
+$tables = [
+    \In2code\Powermail\Domain\Model\Form::TABLE_NAME,
+    \In2code\Powermail\Domain\Model\Page::TABLE_NAME,
+    \In2code\Powermail\Domain\Model\Field::TABLE_NAME,
+    \In2code\Powermail\Domain\Model\Mail::TABLE_NAME,
+    \In2code\Powermail\Domain\Model\Answer::TABLE_NAME
+];
+foreach ($tables as $table) {
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
+        $table,
+        'EXT:powermail/Resources/Private/Language/locallang_csh_' . $table . '.xlf'
+    );
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages($table);
+}
 
 /**
  * Garbage Collector
  */
-if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableTableGarbageCollectionActive()) {
-    $tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
-    $table = 'tx_powermail_domain_model_mails';
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(
+$tgct = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
+$tables = [\In2code\Powermail\Domain\Model\Mail::TABLE_NAME, \In2code\Powermail\Domain\Model\Answer::TABLE_NAME];
+foreach ($tables as $table) {
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = [
         'dateField' => 'tstamp',
         'expirePeriod' => 30
-    );
-    $table = 'tx_powermail_domain_model_answers';
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][$tgct]['options']['tables'][$table] = array(
-        'dateField' => 'tstamp',
-        'expirePeriod' => 30
-    );
+    ];
 }
+
+/**
+ * Register icons
+ */
+$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+$iconRegistry->registerIcon(
+    'extension-powermail-main',
+    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+    ['source' => 'EXT:powermail/Resources/Public/Icons/powermail.svg']
+);
+
+/**
+ * Search with TYPO3 backend search
+ *      search for an email: "#mail:senderemail"
+ *      search for a form: "#form:contactform"
+ */
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['mail'] = 'tx_powermail_domain_model_mail';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['form'] = 'tx_powermail_domain_model_form';

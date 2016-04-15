@@ -1,11 +1,7 @@
-.. |img-serversidevalidation|     image:: ../../Images/serversidevalidation.png
-   :width: 587
+.. |developer_new_validation1|      image:: ../../Images/developer_new_validation1.png
 .. :align: left
-.. :border: 0
-.. :name: serversidevalidation
+.. :name: developer_new_validation1
 
-.. |img-clientsidevalidation|     image:: ../../Images/clientsidevalidation.png
-   :width: 587
+.. |developer_new_validation2|      image:: ../../Images/developer_new_validation2.png
 .. :align: left
-.. :border: 0
-.. :name: clientsidevalidation
+.. :name: developer_new_validation2

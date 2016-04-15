@@ -97,7 +97,7 @@ class SelectFieldViewHelper extends SelectViewHelper
      */
     protected function isSelectedAlternative($option)
     {
-        if (is_array($this->getValue())) {
+        if (is_array($this->getValueAttribute())) {
             return $this->isSelectedAlternativeForArray($option);
         }
         return $this->isSelectedAlternativeForString($option);
@@ -110,8 +110,9 @@ class SelectFieldViewHelper extends SelectViewHelper
     protected function isSelectedAlternativeForString($option)
     {
         if (
-            ($option['selected'] && !$this->getValue()) ||
-            ($this->getValue() && ($option['value'] === $this->getValue() || $option['label'] === $this->getValue()))
+            ($option['selected'] && !$this->getValueAttribute()) ||
+            ($this->getValueAttribute() &&
+                ($option['value'] === $this->getValueAttribute() || $option['label'] === $this->getValueAttribute()))
         ) {
             return true;
         }
@@ -124,27 +125,11 @@ class SelectFieldViewHelper extends SelectViewHelper
      */
     protected function isSelectedAlternativeForArray($option)
     {
-        foreach ($this->getValue() as $singleValue) {
+        foreach ($this->getValueAttribute() as $singleValue) {
             if (!empty($singleValue) && ($option['value'] === $singleValue || $option['label'] === $singleValue)) {
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * Get value conditional to TYPO3 version
-     *
-     * @param bool $convertObjects should also be removed - see todo below
-     * @return mixed
-     * @todo remove condition for TYPO3 6.2 in upcoming major version
-     */
-    public function getValue($convertObjects = true)
-    {
-        if (method_exists($this, 'getValueAttribute')) {
-            return parent::getValueAttribute();
-        } else {
-            return parent::getValue($convertObjects);
-        }
     }
 }

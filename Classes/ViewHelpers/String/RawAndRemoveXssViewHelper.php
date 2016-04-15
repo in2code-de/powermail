@@ -14,12 +14,25 @@ class RawAndRemoveXssViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Disable the escaping because otherwise the child nodes would be escaped before
-     * can decode the text's entities.
+     * Disable escaping for TYPO3 7.6
      *
      * @var boolean
      */
     protected $escapingInterceptorEnabled = false;
+
+    /**
+     * Disable escaping for TYPO3 8.x
+     *
+     * @var bool
+     */
+    protected $escapeChildren = false;
+
+    /**
+     * Disable escaping for TYPO3 8.x
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
 
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
