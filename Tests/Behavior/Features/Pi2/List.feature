@@ -23,8 +23,9 @@ Feature: List
     Then I should see "Das ist ein Test"
     Then I should see "Sandra"
     Then I should see "Silke"
-    Then the sourcecode should contain '<span class="abc">Z</span>'
-    Then the sourcecode should contain 'powermail_frontend_export_icon'
+    Then the sourcecode should contain '<li class="disabled">'
+    Then the sourcecode should contain '<a href="#">Z</a>'
+    Then the sourcecode should contain '<input class="btn btn-primary" type="submit" value="XLS" />'
 
   @Pi2ListFilterEmpty
   Scenario: Check empty Filter over List View
