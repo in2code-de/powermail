@@ -29,6 +29,8 @@ For Developers
    AddNewFlexFormProperties/Index
    WriteOwnValidators/Index
    AddFinisherClasses/Index
+   AddDataProcessors/Index
+   AddSpamshieldMethods/Index
    SignalSlots/Index
    UserfuncsWithCobject/Index
    DatabaseModel/Index

@@ -4,11 +4,11 @@ plugin.tx_powermail {
 
 		styles {
 			bootstrap {
-				# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from maxcdn.bootstrapcdn.com
-				addBootstrapFromCdn = 0
+				# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from powermail
+				addBootstrap = 0
 
-				# cat=powermail_styles//0010; type=boolean; label= Define bath and version of bootstrap.min.css from maxcdn.bootstrapcdn.com
-				bootstrapCdnUri = https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
+				# cat=powermail_styles//0010; type=boolean; label= Define path Bootsrap.css
+				bootstrapPath = EXT:powermail/Resources/Public/Css/Bootstrap.css
 
 
 				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"

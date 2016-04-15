@@ -9,8 +9,11 @@ Add Finishers Classes
 Introduction
 """"""""""""
 
-Let's say you want to easily add some own php functions,
-that should be called after a user submits a form.
+Let's say you want easily add some own php functions that
+should should be called after a user submits a form or
+if you want to override original Finishers from powermail,
+a Finisher is the best choice.
+
 Maybe you want to handle the user input with:
 
 * Send it to an API
@@ -47,7 +50,8 @@ Add a php-file and extend your class with the AbstractFinisher from powermail:
     *
     * @package Vendor\Ext\Finisher
     */
-   class DoSomethingFinisher extends AbstractFinisher {
+   class DoSomethingFinisher extends AbstractFinisher
+   {
 
        /**
         * MyFinisher
@@ -106,7 +110,8 @@ Add your php-file again and extend your class with the AbstractFinisher from pow
     *
     * @package Vendor\Ext\Finisher
     */
-   class DoSomethingFinisher extends AbstractFinisher {
+   class DoSomethingFinisher extends AbstractFinisher
+   {
 
        /**
         * @var Mail

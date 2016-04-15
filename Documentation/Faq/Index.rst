@@ -25,6 +25,16 @@ You can simply open the converter script in the Extension Manager.
 Note: New tables must be empty or non-existing.
 
 
+.. _howcaniusebootstrapcss:
+
+How can I use bootstrap CSS for powermail forms?
+------------------------------------------------
+
+You have to add the related static template and a bootstrap.css
+
+See :ref:`addBootstrapClassesAndCssToPowermail`
+
+
 .. _canisueanothercaptcha:
 
 Can I use another Captcha Extension?

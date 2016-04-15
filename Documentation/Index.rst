@@ -1,7 +1,7 @@
 .. include:: Includes.txt
 .. include:: Images.txt
 
-|img-3|
+|powermail_icon|
 
 =========
 powermail

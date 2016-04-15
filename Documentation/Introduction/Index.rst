@@ -62,7 +62,7 @@ What's new in powermail 3?
   - Converter script to convert old tablenames to new tablenames
 
     - Automaticly on extension installation
-    - Start manually from extension manager
+    - Start manually from extension manager **Click the Configure Icon**
 
 - Add bootstrap
 
@@ -279,7 +279,7 @@ Example Multistep Form with clientside validation
 Frontend: powermail_frontend integration shows mails in frontend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-|pi2|
+|frontend_pi2|
 
 Listing of stored mails with the possibility to see a Detail view or to re-edit the entries for a defined Frontend Usergroup
 Define your ABC- and Searchterm Filter

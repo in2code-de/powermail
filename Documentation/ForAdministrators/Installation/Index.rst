@@ -134,3 +134,67 @@ Add powermail static templates for full functions
       If you want to see some marketing information about your visitors, you have to add this
       Template to your root Template. An AJAX function (needs jQuery) sends basic information to a
       powermail script (Visitors Country, Page Funnel, etc...).
+
+.. _addBootstrapClassesAndCssToPowermail:
+
+Add Bootstrap classes and CSS to powermail
+""""""""""""""""""""""""""""""""""""""""""
+
+First of all you should add the static template **Add classes and CSS based on bootstrap (powermail)**
+Now, forms and fields should get default bootstrap css classes in Frontend. In addition you have to add
+bootstrap.css by your own or with following constants:
+
+::
+
+	plugin.tx_powermail.settings.styles.bootstrap.addBootstrap = 1
+
+
+You can change the default classes with the constants editor.
+The full TypoScript constants of the static template:
+
+::
+
+	plugin.tx_powermail {
+		settings {
+			BasicCss = EXT:powermail/Resources/Public/Css/Basic.css
+
+			styles {
+				bootstrap {
+					# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from powermail
+					addBootstrap = 0
+
+					# cat=powermail_styles//0010; type=boolean; label= Define path Bootsrap.css
+					bootstrapPath = EXT:powermail/Resources/Public/Css/Bootstrap.css
+
+
+					# cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"
+					formClasses = form-horizontal
+
+					# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
+					fieldAndLabelWrappingClasses = form-group
+
+					# cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
+					fieldWrappingClasses = col-sm-10
+
+					# cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "col-md-2 col-md-3"
+					labelClasses = control-label col-sm-2
+
+					# cat=powermail_styles//0140; type=text; label= Framework classname(s) for fields e.g. "form-control"
+					fieldClasses = form-control
+
+					# cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
+					offsetClasses = col-sm-offset-2
+
+					# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
+					radioClasses = radio
+
+					# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
+					checkClasses = checkbox
+
+
+					# if this constant is set, constants {$plugin.tx_powermail.settings.styles.bootstrap.*} overrides {$plugin.tx_powermail.settings.styles.framework.*}
+					important = 1
+				}
+			}
+		}
+	}

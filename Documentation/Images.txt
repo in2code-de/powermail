@@ -1,0 +1,3 @@
+.. |powermail_icon|      image:: Images/powermail_icon.png
+.. :align: left
+.. :name: powermail_icon
