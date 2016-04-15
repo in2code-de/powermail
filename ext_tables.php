@@ -124,12 +124,12 @@ foreach ($tables as $table) {
 /**
  * Register icons
  */
-//$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-//$iconRegistry->registerIcon(
-//    'extension-powermail-main',
-//    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-//    ['source' => 'EXT:powermail/Resources/Public/Icons/powermail.svg']
-//);
+$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+$iconRegistry->registerIcon(
+    'extension-powermail-main',
+    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+    ['source' => 'EXT:powermail/Resources/Public/Icons/powermail.svg']
+);
 
 /**
  * Search with TYPO3 backend search
