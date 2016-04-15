@@ -198,24 +198,9 @@ class ShowFormNoteEditForm
      */
     protected function getRelatedForm()
     {
-        $formUid = 0;
-
-        if (is_array($this->params['row']['pi_flexform'])) {
-            // TYPO3 7.5 and newer delivers an array
-            $formUid = (int)$this->params['row']['pi_flexform']['data']['main']['lDEF']
-            ['settings.flexform.main.form']['vDEF'][0];
-        } else {
-            // TYPO3 7.4 or older delivers a string
-            $flexForm = GeneralUtility::xml2array($this->params['row']['pi_flexform']);
-            if (
-                is_array($flexForm) &&
-                isset($flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])
-            ) {
-                $formUid = (int)$flexForm['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
-            }
-        }
-
-        $formUid = $this->getLocalizedFormUid($formUid, $this->params['row']['sys_language_uid']);
+        $flexFormArray = (array)$this->params['row']['pi_flexform']['data']['main']['lDEF'];
+        $formUid = (int)$flexFormArray['settings.flexform.main.form']['vDEF'][0];
+        $formUid = $this->getLocalizedFormUid($formUid, (int)$this->params['row']['sys_language_uid'][0]);
         return $formUid;
     }
 

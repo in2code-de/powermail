@@ -105,6 +105,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
             [
                 'row' => $this->row,
                 'flexFormData' => $this->flexFormData,
+                'formUid' => $this->getLocalizedFormUid($this->getFormUid(), $this->getSysLanguageUid()),
                 'receiverEmail' => $this->getReceiverEmail(),
                 'receiverEmailDevelopmentContext' => ConfigurationUtility::getDevelopmentContextEmail(),
                 'mails' => $this->getLatestMails(),
@@ -186,6 +187,16 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
             }
         }
         return $uid;
+    }
+
+    /**
+     * Get form uid
+     *
+     * @return int
+     */
+    protected function getFormUid()
+    {
+        return (int)$this->flexFormData['settings']['flexform']['main']['form'];
     }
 
     /**
