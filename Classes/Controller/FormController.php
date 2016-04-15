@@ -403,7 +403,7 @@ class FormController extends AbstractController
      * @param Mail $mail
      * @return void
      */
-    protected function saveMail(Mail &$mail = null)
+    protected function saveMail(Mail $mail)
     {
         $marketingInfos = SessionUtility::getMarketingInfos();
         $mail
