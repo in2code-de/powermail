@@ -89,7 +89,7 @@ class ShowFormNoteEditForm
             return $this->getInformationErrorMarkup();
         }
         $content = '
-			<table cellspacing="0" cellpadding="0" border="0" class="typo3-dblist" style="border: 1px solid #d7d7d7;">
+			<table cellspacing="0" cellpadding="0" class="typo3-dblist" style="border: 1px solid #d7d7d7; width: 100%;">
 				<tbody>
 					<tr class="t3-row-header">
 						<td nowrap="nowrap" style="padding: 5px; color: white">
@@ -119,29 +119,29 @@ class ShowFormNoteEditForm
 						</td>
 					</tr>
 					<tr class="db_list_normal">
-						<td nowrap="nowrap" class="col-title" style="padding: 5px;">
+						<td nowrap="nowrap" style="padding: 5px;">
 							<a title="Edit" href="' . $this->getEditFormLink($formUid) . '">
 								' . htmlspecialchars($this->getFormPropertyFromUid($formUid, 'title')) . '
 							</a>
 						</td>
-						<td nowrap="nowrap" class="col-title" style="padding: 5px;">
+						<td nowrap="nowrap" style="padding: 5px;">
 							<a title="id=' . $this->getFormPropertyFromUid($formUid, 'pid') . '"
 								onclick="top.loadEditId(' . (int)$this->getFormPropertyFromUid($formUid, 'pid') . '
 								,&quot;&amp;SET[language]=0&quot;); return false;" href="#">
 								' . htmlspecialchars($this->getPageNameFromUid($this->getFormPropertyFromUid($formUid, 'pid'))) . '
 							</a>
 						</td>
-						<td nowrap="nowrap" class="col-title" style="padding: 5px;">
+						<td nowrap="nowrap" style="padding: 5px;">
 							<span title="' . htmlspecialchars(implode(', ', $this->getPagesFromForm($formUid))) . '">
 								' . count($this->getPagesFromForm($formUid)) . '
 							</span>
 						</td>
-						<td nowrap="nowrap" class="col-title" style="padding: 5px;">
+						<td nowrap="nowrap" style="padding: 5px;">
 							<span title="' . htmlspecialchars(implode(', ', $this->getFieldsFromForm($formUid))) . '">
 								' . count($this->getFieldsFromForm($formUid)) . '
 							</span>
 						</td>
-						<td nowrap="nowrap" class="col-icon" style="padding: 5px;">
+						<td nowrap="nowrap" style="padding: 5px;">
 							<a title="Edit" href="' . $this->getEditFormLink($formUid) . '">
 								<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-open"
 									title="Edit Form">
