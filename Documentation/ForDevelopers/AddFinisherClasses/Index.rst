@@ -10,7 +10,7 @@ Introduction
 """"""""""""
 
 Let's say you want easily add some own php functions that
-should should be called after a user submits a form or
+should be called after a user submits a form or
 if you want to override original Finishers from powermail,
 a Finisher is the best choice.
 

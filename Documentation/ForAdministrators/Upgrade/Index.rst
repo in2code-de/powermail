@@ -61,12 +61,13 @@ Minor Upgrade
 Example
 """""""
 
-Upgrade from Powermail 3.0.x to 3.0.y
+Upgrade from Powermail 3.x.a to 3.y.b
 
 Details
 """""""
 
-Breaking changes in HTML-Templates. You have to upgrade your own HTML-Templates (and Partials and Layouts) by your own. There are some new Fields in Database, but the existing will work.
+Breaking changes in HTML-Templates. You have to upgrade your own HTML-Templates (and Partials and Layouts) by your own.
+Probably there are changes in the Database, but the existing will work.
 
 Follow the steps:
 
