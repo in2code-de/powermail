@@ -78,6 +78,9 @@
 			<trans-unit id="mail_created">
 				<source>Mail successfully sent!</source>
 			</trans-unit>
+			<trans-unit id="mail_created_failure">
+				<source>Failure, mail could not be sent!</source>
+			</trans-unit>
 			<trans-unit id="confirmation_message">
 				<source>Are these values correct?</source>
 			</trans-unit>

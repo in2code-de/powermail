@@ -104,6 +104,10 @@
 				<source>Mail successfully sent!</source>
 				<target state="translated">Mail wurde erfolgreich versandt!</target>
 			</trans-unit>
+			<trans-unit id="mail_created_failure">
+				<source>Failure, mail could not be sent!</source>
+				<target state="translated">Fehler, E-Mail konnte nicht versandt werden!</target>
+			</trans-unit>
 			<trans-unit id="confirmation_message">
 				<source>Are these values correct?</source>
 				<target state="translated">Sind diese Eingaben korrekt?</target>
