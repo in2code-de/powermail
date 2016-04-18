@@ -193,19 +193,22 @@ class FormController extends AbstractController
     }
 
     /**
-     * Choose where to send Mails
-     *
      * @param Mail $mail
      * @param string $hash
      * @return void
      */
     protected function sendMailPreflight(Mail $mail, $hash = null)
     {
-        if ($this->settings['sender']['enable'] && $this->mailRepository->getSenderMailFromArguments($mail)) {
-            $this->sendSenderMail($mail);
-        }
-        if ($this->settings['receiver']['enable']) {
-            $this->sendReceiverMail($mail, $hash);
+        try {
+            if ($this->settings['sender']['enable'] && $this->mailRepository->getSenderMailFromArguments($mail)) {
+                $this->sendSenderMail($mail);
+            }
+            if ($this->settings['receiver']['enable']) {
+                $this->sendReceiverMail($mail, $hash);
+            }
+        } catch (\Exception $exception) {
+            GeneralUtility::sysLog($exception->getMessage(), 'powermail', GeneralUtility::SYSLOG_SEVERITY_WARNING);
+            $this->addFlashMessage(LocalizationUtility::translate('mail_created_failure'), '', AbstractMessage::ERROR);
         }
     }
 

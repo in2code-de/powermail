@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.0.1
+   :Date:
+      2016-04-18
+   :Changes:
+
+      * Bugfix _`#75726`: https://forge.typo3.org/issues/75726 Version dependencies of 3.0.0 cannot be fulfilled
+      * Bugfix _`#75611`: https://forge.typo3.org/issues/75611 Handle Swift exceptions
+
+ - :Version:
       3.0.0
    :Date:
       2016-04-17
