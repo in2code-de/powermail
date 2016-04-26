@@ -1,10 +1,10 @@
 # Features/Pi1/Validation/CaptchaValidation.feature
-@Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscCaptchaValidation
+@Pi1 @Pi1Validation @Pi1ValidationMisc @Pi1ValidationMiscCaptcha @Pi1ValidationMiscCaptchaCalculatingCaptcha
 Feature: CaptchaValidation
   Validation for powermail forms with a calculating captcha.
 
   # language_mode is default
-  @Pi1ValidationMiscCaptchaValidationL0
+  @Pi1ValidationMiscCaptchaCalculatingCaptchaL0
   Scenario: Searching for a Form with a captcha
     Given I am on "/index.php?id=70"
     Then I should see "Email"
@@ -28,7 +28,7 @@ Feature: CaptchaValidation
     Then I should see "alex@in2code.de"
     Then I should see "3"
 
-  @Pi1ValidationMiscCaptchaValidationL1
+  @Pi1ValidationMiscCaptchaCalculatingCaptchaL1
   Scenario: Searching for a Form with a captcha
     Given I am on "/index.php?id=70&L=1"
     Then I should see "Email"
@@ -54,7 +54,7 @@ Feature: CaptchaValidation
 
 
   # language_mode is strict
-  @Pi1ValidationMiscCaptchaValidationStrictL0
+  @Pi1ValidationMiscCaptchaCalculatingCaptchaStrictL0
   Scenario: Searching for a Form with a captcha
     Given I am on "/index.php?id=155"
     Then I should see "Email"
@@ -78,7 +78,7 @@ Feature: CaptchaValidation
     Then I should see "alex@in2code.de"
     Then I should see "3"
 
-  @Pi1ValidationMiscCaptchaValidationStrictL1
+  @Pi1ValidationMiscCaptchaCalculatingCaptchaStrictL1
   Scenario: Searching for a Form with a captcha
     Given I am on "/index.php?id=155&L=1"
     Then I should see "Email"
@@ -103,7 +103,7 @@ Feature: CaptchaValidation
     Then I should see "3"
 
   # Two captchas in one form
-  @Pi1ValidationMiscCaptchaValidationCalculatingCaptcha2
+  @Pi1ValidationMiscCaptchaCalculatingCaptchaCalculatingCaptcha2
   Scenario: Test if two captchas work in one form
     Given I am on "/index.php?id=166"
     Then I should see "Email"
@@ -140,7 +140,7 @@ Feature: CaptchaValidation
     Then I should see "7"
 
   # Two forms with one captcha per form
-  @Pi1ValidationMiscCaptchaValidation2Forms
+  @Pi1ValidationMiscCaptchaCalculatingCaptcha2Forms
   Scenario: Test if two forms with captcha are working
     Given I am on "/index.php?id=164"
     Then I should see "Email"
@@ -164,7 +164,7 @@ Feature: CaptchaValidation
     Then I should see "1"
 
   # Two forms with one captcha per form with AJAX
-  @javascript @Pi1ValidationMiscCaptchaValidation2FormsAjax
+  @javascript @Pi1ValidationMiscCaptchaCalculatingCaptcha2FormsAjax
   Scenario: Test if two forms with captcha are working together with AJAX
     Given I am on "/index.php?id=167"
     Then I should see "Email"
