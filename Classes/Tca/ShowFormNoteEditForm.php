@@ -216,7 +216,7 @@ class ShowFormNoteEditForm
         if ($sysLanguageUid > 0) {
             $select = 'uid';
             $from = Form::TABLE_NAME;
-            $where = 'sys_language_uid=' . (int)$sysLanguageUid . ' and l10n_parent=' . (int)$uid;
+            $where = 'sys_language_uid=' . (int)$sysLanguageUid . ' and l10n_parent=' . (int)$uid . ' and deleted = 0';
             $row = $this->databaseConnection->exec_SELECTgetSingleRow($select, $from, $where);
             if (!empty($row['uid'])) {
                 $uid = (int)$row['uid'];
