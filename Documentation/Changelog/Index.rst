@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.0.2
+   :Date:
+      2016-04-28
+   :Changes:
+
+      * Bugfix _`#75938`: https://forge.typo3.org/issues/75938 Localization of flexform edit link to form ignores deleted flag
+      * Bugfix _`#75918`: https://forge.typo3.org/issues/75918 JavaScript mandatory valdiation is broken for captcha in powermail 3
+
+ - :Version:
       3.0.1
    :Date:
       2016-04-18
