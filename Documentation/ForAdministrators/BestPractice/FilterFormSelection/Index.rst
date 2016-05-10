@@ -13,7 +13,7 @@ You can use Page TSConfig to filter the list to relevant forms.
 
 Note: We don't want to implement the element browser because we think it is easier for editors to choose a form from
 a select instead of opening a popup, clicks as long a s the relevant page is open and select a form. In short: We think
-the current solution is mor editor friendly.
+the current solution is more editor friendly.
 
 |bestpractice_filterformselection1|
 
