@@ -42,23 +42,6 @@ class FormRepository extends AbstractRepository
 {
 
     /**
-     * Find Form objects by its given uids
-     *
-     * @param string $uids commaseparated list of uids
-     * @return QueryResult
-     */
-    public function findByUids($uids)
-    {
-        $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
-
-        $query->matching($query->in('uid', GeneralUtility::intExplode(',', $uids, true)));
-
-        $result = $query->execute();
-        return $result;
-    }
-
-    /**
      * Find Form by given Page Uid
      *
      * @param int $uid page uid
@@ -202,21 +185,6 @@ class FormRepository extends AbstractRepository
             'sys_language_uid > 0 and deleted = 0 and pages = ""',
             ['pages' => 0]
         );
-    }
-
-    /**
-     * @param $xmlArray
-     * @param $key
-     * @return string
-     */
-    protected function getFlexFormValue($xmlArray, $key)
-    {
-        if (is_array($xmlArray) && isset($xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'])) {
-            if (!empty($xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'])) {
-                return $xmlArray['data']['sDEF']['lDEF'][$key]['vDEF'];
-            }
-        }
-        return '';
     }
 
     /**
