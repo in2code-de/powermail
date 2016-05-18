@@ -45,13 +45,13 @@ class FormSelectorUserFunc
     /**
      * Create Array for Form Selection
      *
-     *        Show all forms only from a pid and it's subpages:
-     *            tx_powermail.flexForm.formSelection = 123
+     *      Show all forms only from a pid and it's subpages:
+     *          tx_powermail.flexForm.formSelection = 123
      *
-     *        Show all forms only from this pid and it's subpages:
-     *            tx_powermail.flexForm.formSelection = current
+     *      Show all forms only from this pid and it's subpages:
+     *          tx_powermail.flexForm.formSelection = current
      *
-     *        If no TSConfig set, all forms will be shown
+     *      Commaseparated values are allowed. If no TSConfig set, all forms will be shown
      *
      * @param array $params
      * @return void
@@ -59,31 +59,39 @@ class FormSelectorUserFunc
     public function getForms(&$params)
     {
         $params['items'] = [];
-        foreach ($this->getAllForms($this->getStartPid(), $params['row']['sys_language_uid']) as $form) {
-            $params['items'][] = [
-                htmlspecialchars($form['title']),
-                (int)$form['uid']
-            ];
+        foreach ($this->getStartPids() as $startPid) {
+            foreach ($this->getAllForms($startPid, $params['row']['sys_language_uid']) as $form) {
+                $params['items'][] = [
+                    htmlspecialchars($form['title']),
+                    (int)$form['uid']
+                ];
+            }
         }
     }
 
     /**
-     * Get starting page uid
+     * Get starting page uids
      *      current pid or given pid from Page TSConfig
      *
-     * @return int
+     * @return array
      */
-    protected function getStartPid()
+    protected function getStartPids()
     {
         $tsConfiguration = BackendUtility::getPagesTSconfig(BackendUtility::getPidFromBackendPage());
-        $startPid = 0;
+        $startPids = [];
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['formSelection'])) {
-            $startPid = $tsConfiguration['tx_powermail.']['flexForm.']['formSelection'];
-            if ($startPid === 'current') {
-                $startPid = BackendUtility::getPidFromBackendPage();
+            $startPidList =
+                GeneralUtility::trimExplode(',', $tsConfiguration['tx_powermail.']['flexForm.']['formSelection'], true);
+            foreach ($startPidList as $startPid) {
+                if ($startPid === 'current') {
+                    $startPid = BackendUtility::getPidFromBackendPage();
+                }
+                array_push($startPids, (int)$startPid);
             }
+        } else {
+            $startPids = [0];
         }
-        return (int)$startPid;
+        return $startPids;
     }
 
     /**

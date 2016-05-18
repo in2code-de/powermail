@@ -60,7 +60,7 @@ Add a php-file and extend your class with the AbstractDataProcessor from powerma
         * @return void
         */
        public function doSomethingElseDataProcessor() {
-           // ...
+           // do some magic ...
        }
    }
 
@@ -154,15 +154,16 @@ Add your php-file again and extend your class with the AbstractDataProcessor fro
            // get value from configuration
            $foo = $this->configuration['foo'];
 
-           foreach ($this->mail->getAnswers() as $answer) {
-               if ($answer->getField()->getMarker() === 'markerName') {
-                   if ($answer->getValue() === 'foo') {
-                       // redirect or do something else
-                   }
-               }
-           }
+           // get subject from mail
+           $subject = $this->getMail()->getSubject();
 
-           // ...
+           // get a value by markername
+           $value = $mail->getAnswersByFieldMarker()['markerName']->getValue();
+
+           // get a value by field uid
+           $value = $mail->getAnswersByFieldUid()[123]->getValue();
+
+           // do some more magic ...
        }
    }
 
