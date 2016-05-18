@@ -59,7 +59,7 @@ Add a php-file and extend your class with the AbstractFinisher from powermail:
         * @return void
         */
        public function myFinisher() {
-           // ...
+           // do some magic ...
        }
    }
 
@@ -153,10 +153,16 @@ Add your php-file again and extend your class with the AbstractFinisher from pow
            // get value from configuration
            $foo = $this->configuration['foo'];
 
-           // get subject
+           // get subject from mail
            $subject = $this->getMail()->getSubject();
 
-           // ...
+           // get a value by markername
+           $value = $mail->getAnswersByFieldMarker()['markerName']->getValue();
+
+           // get a value by field uid
+           $value = $mail->getAnswersByFieldUid()[123]->getValue();
+
+           // do some more magic ...
        }
    }
 
