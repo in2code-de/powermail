@@ -191,6 +191,16 @@ class Mail extends AbstractEntity
     protected $marketingPageFunnel = '';
 
     /**
+     * @var array
+     */
+    protected $answersByFieldMarker = null;
+
+    /**
+     * @var array
+     */
+    protected $answersByFieldUid = null;
+
+    /**
      * __construct
      */
     public function __construct()
@@ -704,5 +714,45 @@ class Mail extends AbstractEntity
     {
         parent::setPid($pid);
         return $this;
+    }
+
+    /**
+     * Returns answers as an array with uid of related field as key.
+     *
+     * To get value of answer for field with marker "myMarker" use
+     * $mail->getAnswersByFieldMarker()['myMarker']->getValue()
+     * {mail.answersByFieldMarker.myMarker.value}
+     *
+     * @return array
+     */
+    public function getAnswersByFieldMarker()
+    {
+        if (is_null($this->answersByFieldMarker)) {
+            $answersArray = $this->getAnswers()->toArray();
+            $this->answersByFieldMarker = array_combine(array_map(function (Answer $answer) {
+                return $answer->getField()->getMarker();
+            }, $answersArray), $answersArray);
+        }
+        return $this->answersByFieldMarker;
+    }
+
+    /**
+     * Returns answers as an array with uid of related field as key.
+     *
+     * To get value of answer for field with uid 42 use
+     * $mail->getAnswersByFieldUid()[42]->getValue()
+     * {mail.answersByFieldUid.42.value}
+     *
+     * @return array
+     */
+    public function getAnswersByFieldUid()
+    {
+        if (is_null($this->answersByFieldUid)) {
+            $answersArray = $this->getAnswers()->toArray();
+            $this->answersByFieldUid = array_combine(array_map(function (Answer $answer) {
+                return $answer->getField()->getUid();
+            }, $answersArray), $answersArray);
+        }
+        return $this->answersByFieldUid;
     }
 }
