@@ -4,7 +4,7 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-# Whats new in Version 3.0
+# Whats new in Version 3
 
 - General update for TYPO3 7.6 and 8.x
 - Table name correction from plural to singular (..mails => ..mail, ..fields => ..field)

@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.1.0
+   :Date:
+      2016-05-18
+   :Changes:
+
+      * Feature _`#76221`: https://forge.typo3.org/issues/76221 Add convinience methods to Mail model to avoid repeated iteration over answers
+      * Feature _`#76114`: https://forge.typo3.org/issues/76114 Allow multiple pids for tx_powermail.flexForm.formSelection
+
+ - :Version:
       3.0.2
    :Date:
       2016-04-28
