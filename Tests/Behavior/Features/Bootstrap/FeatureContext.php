@@ -1,5 +1,5 @@
 <?php
-use Behat\MinkExtension\Context\MinkContext;
+//use Behat\MinkExtension\Context\MinkContext;
 
 /**
  * Class FeatureContext
