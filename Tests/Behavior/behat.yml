@@ -1,10 +1,15 @@
 default:
-    paths:
-      features: Features
-      bootstrap: %behat.paths.features%/Bootstrap
-    extensions:
-        Behat\MinkExtension\Extension:
-            base_url: http://powermail.localhost.de
-            files_path: /var/www/html/powermailShared/fileadmin/user_upload
-            goutte: ~
-            selenium2: ~
+  autoload:
+    '': %paths.base%/Features/Bootstrap
+  suites:
+    default:
+      paths:
+        features: %paths.base%/Features
+        bootstrap: %paths.base%/Features/Bootstrap
+      contexts: [FeatureContext]
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://powermail.localhost.de
+      files_path: /var/www/html/powermailShared/fileadmin/user_upload
+      goutte: ~
+      selenium2: ~
