@@ -555,7 +555,7 @@ class FormController extends AbstractController
      * @param Mail $mail
      * @return void
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail)
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null)
     {
         $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
         if ($mail === null || !in_array($mail->getForm()->getUid(), $formsToContent)) {
