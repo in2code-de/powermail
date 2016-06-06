@@ -12,3 +12,6 @@ Given Form variables:
 <f:for each="{mail.answers}" as="answer">- {answer.field.title}: {answer.value}
 </f:for>
 <f:if condition="{ipAddress}">Senders IP addess: {ipAddress}</f:if>
+
+Complete request array:
+<f:format.raw>{requestPlain}</f:format.raw>
