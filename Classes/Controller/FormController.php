@@ -555,12 +555,14 @@ class FormController extends AbstractController
      * @param Mail $mail
      * @return void
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail)
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null)
     {
-        $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-        if ($mail === null || !in_array($mail->getForm()->getUid(), $formsToContent)) {
-            GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array)$mail]);
-            $this->forward('form');
+        if ($mail !== null) {
+            $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
+            if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
+                GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array)$mail]);
+                $this->forward('form');
+            }
         }
     }
 

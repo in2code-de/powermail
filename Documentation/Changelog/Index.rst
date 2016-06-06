@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.1.1
+   :Date:
+      2016-06-06
+   :Changes:
+
+      * Bugfix _`#76473`: https://forge.typo3.org/issues/76443 PHP error
+      * Bugfix _`#76443`: https://forge.typo3.org/issues/76443 Check if mail was deleted in optinConfirm action
+      * Bugfix _`#76431`: https://forge.typo3.org/issues/76431 Upload validator in JavaScript is case sensitive
+
+ - :Version:
       3.1.0
    :Date:
       2016-05-18

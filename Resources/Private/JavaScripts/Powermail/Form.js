@@ -452,15 +452,16 @@ function PowermailForm($) {
 	};
 
 	/**
-	 * Get extension from filename
+	 * Get extension from filename in lowercase
 	 * 		image.jpg => jpg
+	 * 		image.JPG => jpg
 	 *
 	 * @param {string} fileName
 	 * @returns {string}
 	 * @private
 	 */
 	var getExtensionFromFileName = function(fileName) {
-		return fileName.split('.').pop();
+		return fileName.split('.').pop().toLowerCase();
 	};
 
 	/**

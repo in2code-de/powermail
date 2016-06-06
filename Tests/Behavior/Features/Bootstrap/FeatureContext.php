@@ -74,6 +74,7 @@ class FeatureContext extends MinkContext
      * Fills in form field with specified id|name|label|value.
      *
      * @When /^(?:|I )fill in "(?P<field>(?:[^"]|\\")*)" with a random value$/
+     * @param string $field
      * @return void
      */
     public function fillWithRandomValue($field)
@@ -88,6 +89,7 @@ class FeatureContext extends MinkContext
      * Fills in form field with specified id|name|label|value.
      *
      * @When /^(?:|I )fill in "(?P<field>(?:[^"]|\\")*)" with a random email$/
+     * @param string $field
      * @return void
      */
     public function fillWithRandomEmail($field)
