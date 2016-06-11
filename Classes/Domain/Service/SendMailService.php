@@ -1,11 +1,9 @@
 <?php
 namespace In2code\Powermail\Domain\Service;
 
-use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
-use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
@@ -40,11 +38,8 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  ***************************************************************/
 
 /**
- * Main Send Mail Class
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class SendMailService
+ * @package In2code\Powermail\Domain\Service
  */
 class SendMailService
 {
@@ -55,12 +50,6 @@ class SendMailService
      * @inject
      */
     protected $configurationManager;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @inject
-     */
-    protected $objectManager;
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -119,6 +108,8 @@ class SendMailService
      *        $email['receiverEmail'] = 'receiver@mail.com';
      *        $email['senderName'] = 'Name';
      *        $email['senderEmail'] = 'sender@mail.com';
+     *        $email['replyToName'] = 'Name';
+     *        $email['replyToEmail'] = 'sender@mail.com';
      *        $email['subject'] = 'Subject line';
      *        $email['template'] = 'PathToTemplate/';
      *        $email['rteBody'] = 'This is the <b>content</b> of the RTE';
@@ -128,15 +119,10 @@ class SendMailService
      * @param string $type Email to "sender" or "receiver"
      * @return bool Mail successfully sent
      */
-    public function sendEmailPreflight(array $email, Mail &$mail, $settings, $type = 'receiver')
+    public function sendMail(array $email, Mail &$mail, array $settings, $type = 'receiver')
     {
-        $this->mail = &$mail;
-        $this->settings = $settings;
-        $this->configuration = $this->getConfigurationFromSettings($settings);
-        $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
-        $this->contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
-        $this->type = $type;
-        $this->parseVariables($email, $mail);
+        $this->initialize($mail, $settings, $type);
+        $this->parseAndOverwriteVariables($email, $mail);
         if ($settings['debug']['mail']) {
             GeneralUtility::devLog('Mail properties', 'powermail', 0, $email);
         }
@@ -150,23 +136,23 @@ class SendMailService
             // don't want an error flashmessage
             return true;
         }
-        return $this->sendTemplateEmail($email);
+        return $this->prepareAndSend($email);
     }
 
     /**
-     * Send the mail
+     * Prepare mail and send it
      *
      * @param array $email Array with all needed mail information
      * @return bool Mail successfully sent
      */
-    protected function sendTemplateEmail(array $email)
+    protected function prepareAndSend(array $email)
     {
         /** @var MailMessage $message */
         $message = GeneralUtility::makeInstance(MailMessage::class);
-        TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfig, 'subject');
         $message
             ->setTo([$email['receiverEmail'] => $email['receiverName']])
             ->setFrom([$email['senderEmail'] => $email['senderName']])
+            ->setReplyTo([$email['replyToEmail'] => $email['replyToName']])
             ->setSubject($email['subject'])
             ->setCharset(FrontendUtility::getCharset());
         $message = $this->addCc($message);
@@ -428,7 +414,7 @@ class SendMailService
     protected function getConfigurationFromSettings(array $settings)
     {
         /** @var TypoScriptService $typoScriptService */
-        $typoScriptService = $this->objectManager->get(TypoScriptService::class);
+        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
         return $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
     }
 
@@ -439,8 +425,16 @@ class SendMailService
      * @param Mail $mail
      * @return void
      */
-    protected function parseVariables(array &$email, Mail &$mail)
+    protected function parseAndOverwriteVariables(array &$email, Mail $mail)
     {
+        TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfig, 'subject');
+        TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->overwriteConfig, 'senderName');
+        TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->overwriteConfig, 'senderEmail');
+        TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->overwriteConfig, 'name');
+        if ($this->type !== 'receiver') {
+            // overwrite with TypoScript already done in ReceiverEmailService
+            TypoScriptUtility::overwriteValueFromTypoScript($email['receiverEmail'], $this->overwriteConfig, 'email');
+        }
         $parse = [
             'receiverName',
             'receiverEmail',
@@ -454,5 +448,20 @@ class SendMailService
                 $this->mailRepository->getVariablesWithMarkersFromMail($mail)
             );
         }
+    }
+
+    /**
+     * @param Mail $mail
+     * @param array $settings
+     * @param string $type
+     */
+    protected function initialize(Mail &$mail, array $settings, $type)
+    {
+        $this->mail = &$mail;
+        $this->settings = $settings;
+        $this->configuration = $this->getConfigurationFromSettings($settings);
+        $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
+        $this->contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
+        $this->type = $type;
     }
 }

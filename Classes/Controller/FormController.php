@@ -3,6 +3,7 @@ namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ReceiverEmailService;
+use In2code\Powermail\Domain\Service\SenderEmailService;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
@@ -223,49 +224,24 @@ class FormController extends AbstractController
     {
         /** @var ReceiverEmailService $receiverService */
         $receiverService = $this->objectManager->get(ReceiverEmailService::class, $mail, $this->settings);
-        $receiverService->setReceiverEmails();
         $mail->setReceiverMail($receiverService->getReceiverEmailsString());
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $defaultSenderEmail,
-            $this->conf['receiver.']['default.'],
-            'senderEmail'
-        );
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $defaultSenderName,
-            $this->conf['receiver.']['default.'],
-            'senderName'
-        );
+        /** @var SenderEmailService $senderService */
+        $senderService = $this->objectManager->get(SenderEmailService::class, $mail, $this->settings);
         foreach ($receiverService->getReceiverEmails() as $receiver) {
             $email = [
                 'template' => 'Mail/ReceiverMail',
                 'receiverEmail' => $receiver,
-                'receiverName' => !empty($this->settings['receiver']['name']) ?
-                    $this->settings['receiver']['name'] : 'Powermail',
-                'senderEmail' => $this->mailRepository->getSenderMailFromArguments($mail, $defaultSenderEmail),
-                'senderName' => $this->mailRepository->getSenderNameFromArguments($mail, $defaultSenderName),
+                'receiverName' => $receiverService->getReceiverName(),
+                'senderEmail' => $senderService->getSenderEmail(),
+                'senderName' => $senderService->getSenderName(),
+                'replyToEmail' => $senderService->getSenderEmail(),
+                'replyToName' => $senderService->getSenderName(),
                 'subject' => $this->settings['receiver']['subject'],
                 'rteBody' => $this->settings['receiver']['body'],
                 'format' => $this->settings['receiver']['mailformat'],
-                'variables' => [
-                    'hash' => $hash
-                ]
+                'variables' => ['hash' => $hash]
             ];
-            TypoScriptUtility::overwriteValueFromTypoScript(
-                $email['receiverName'],
-                $this->conf['receiver.']['overwrite.'],
-                'name'
-            );
-            TypoScriptUtility::overwriteValueFromTypoScript(
-                $email['senderName'],
-                $this->conf['receiver.']['overwrite.'],
-                'senderName'
-            );
-            TypoScriptUtility::overwriteValueFromTypoScript(
-                $email['senderEmail'],
-                $this->conf['receiver.']['overwrite.'],
-                'senderEmail'
-            );
-            $sent = $this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'receiver');
+            $sent = $this->sendMailService->sendMail($email, $mail, $this->settings, 'receiver');
 
             if (!$sent) {
                 $this->addFlashMessage(
@@ -288,41 +264,20 @@ class FormController extends AbstractController
     {
         $email = [
             'template' => 'Mail/SenderMail',
+            'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
             'receiverName' => $this->mailRepository->getSenderNameFromArguments(
                 $mail,
-                [
-                    $this->conf['sender.']['default.'],
-                    'senderName'
-                ]
+                [$this->conf['sender.']['default.'], 'senderName']
             ),
-            'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
-            'senderName' => $this->settings['sender']['name'],
             'senderEmail' => $this->settings['sender']['email'],
+            'senderName' => $this->settings['sender']['name'],
+            'replyToEmail' => $this->settings['sender']['email'],
+            'replyToName' => $this->settings['sender']['name'],
             'subject' => $this->settings['sender']['subject'],
             'rteBody' => $this->settings['sender']['body'],
             'format' => $this->settings['sender']['mailformat']
         ];
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $email['receiverEmail'],
-            $this->conf['sender.']['overwrite.'],
-            'email'
-        );
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $email['receiverName'],
-            $this->conf['sender.']['overwrite.'],
-            'name'
-        );
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $email['senderName'],
-            $this->conf['sender.']['overwrite.'],
-            'senderName'
-        );
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $email['senderEmail'],
-            $this->conf['sender.']['overwrite.'],
-            'senderEmail'
-        );
-        $this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'sender');
+        $this->sendMailService->sendMail($email, $mail, $this->settings, 'sender');
     }
 
     /**
@@ -353,27 +308,7 @@ class FormController extends AbstractController
                 'mail' => $mail
             ]
         ];
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $email['receiverName'],
-            $this->conf['optin.']['overwrite.'],
-            'name'
-        );
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $email['receiverEmail'],
-            $this->conf['optin.']['overwrite.'],
-            'email'
-        );
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $email['senderName'],
-            $this->conf['optin.']['overwrite.'],
-            'senderName'
-        );
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $email['senderEmail'],
-            $this->conf['optin.']['overwrite.'],
-            'senderEmail'
-        );
-        $this->sendMailService->sendEmailPreflight($email, $mail, $this->settings, 'optin');
+        $this->sendMailService->sendMail($email, $mail, $this->settings, 'optin');
     }
 
     /**

@@ -184,6 +184,28 @@ forge.typo3.org if you need a new signal.
       Manipulate standaloneView-object before the mail object will be rendered
 
  - :Class:
+      In2code\\Powermail\\Domain\\Service\\SenderEmailService
+   :Name:
+      getSenderEmail
+   :Method:
+      getSenderEmail()
+   :Arguments:
+      $senderEmail, $this
+   :Description:
+      Manipulate given sender email
+
+ - :Class:
+      In2code\\Powermail\\Domain\\Service\\SenderEmailService
+   :Name:
+      getSenderName
+   :Method:
+      getSenderName()
+   :Arguments:
+      $senderName, $this
+   :Description:
+      Manipulate given sender name
+
+ - :Class:
       In2code\\Powermail\\Domain\\Service\\UploadService
    :Name:
       preflight
