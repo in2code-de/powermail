@@ -80,7 +80,7 @@ class ReceiverEmailService
         $this->mail = $mail;
         $this->settings = $settings;
         /** @var TypoScriptService $typoScriptService */
-        $typoScriptService = ObjectUtility::getContentObject()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(ObjectManager::class)->get(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         $this->setReceiverEmails();
     }

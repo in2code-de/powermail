@@ -22,7 +22,7 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
      * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
      * @return array for data attributes
      */
-    public function render(Field $field, array $additionalAttributes = [], $iteration = null)
+    public function render(Field $field, $additionalAttributes = [], $iteration = null)
     {
         if ($field->getType() !== 'captcha') {
             return $additionalAttributes;

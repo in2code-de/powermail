@@ -142,7 +142,7 @@ class FormSelectorUserFunc
     protected function getPidListFromStartingPoint($startPid = 0)
     {
         /** @var QueryGenerator $queryGenerator */
-        $queryGenerator = ObjectUtility::getContentObject()->get(QueryGenerator::class);
+        $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
         $list = $queryGenerator->getTreeList($startPid, 10, 0, 1);
         return $list;
     }

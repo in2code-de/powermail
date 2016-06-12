@@ -3,7 +3,6 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -325,7 +324,7 @@ class CalculatingCaptchaService
     {
         $string = str_replace('EXT:', 'typo3conf/ext/', $string);
         /** @var TemplateService $templateService */
-        $templateService = ObjectUtility::getContentObject()->get(TemplateService::class);
+        $templateService = GeneralUtility::makeInstance(TemplateService::class);
         $fileName = $templateService->getFileName($string);
         if ($absolute) {
             $fileName = GeneralUtility::getFileAbsFileName($fileName);
@@ -340,7 +339,7 @@ class CalculatingCaptchaService
     {
         if (!$this->test) {
             /** @var ObjectManager $objectManager */
-            $objectManager = ObjectUtility::getContentObject()->get(ObjectManager::class);
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             /** @var ConfigurationManager $configurationManager */
             $configurationManager = $objectManager->get(ConfigurationManager::class);
             $typoScriptSetup = $configurationManager->getConfiguration(

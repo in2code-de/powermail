@@ -8,7 +8,6 @@ use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -462,7 +461,7 @@ class MailRepository extends AbstractRepository
                 $name = $default;
             } else {
                 /** @var ContentObjectRenderer $contentObject */
-                $contentObject = ObjectUtility::getContentObject()->get(ContentObjectRenderer::class);
+                $contentObject = GeneralUtility::makeInstance(ObjectManager::class)->get(ContentObjectRenderer::class);
                 $name = $contentObject->cObjGetSingle($default[0][$default[1]], $default[0][$default[1] . '.']);
             }
         }

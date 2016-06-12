@@ -4,7 +4,6 @@ namespace In2code\Powermail\Domain\Repository;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
@@ -143,7 +142,7 @@ class FormRepository extends AbstractRepository
 
         if ($pid > 0) {
             /** @var QueryGenerator $queryGenerator */
-            $queryGenerator = ObjectUtility::getContentObject()->get(QueryGenerator::class);
+            $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
             $pidList = $queryGenerator->getTreeList($pid, 20, 0, 1);
             $query->matching($query->in('pid', GeneralUtility::trimExplode(',', $pidList, true)));
         }
