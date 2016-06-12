@@ -4,6 +4,7 @@ namespace In2code\Powermail\Tca;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -122,7 +123,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
     protected function senderEmailOrSenderNameSet($formUid)
     {
         /** @var FormRepository $formRepository */
-        $formRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(FormRepository::class);
+        $formRepository = ObjectUtility::getContentObject()->get(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
         foreach ($fields as $property) {
             foreach ($property as $column => $value) {
@@ -146,7 +147,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
     protected function hasFormUniqueAndFilledFieldMarkers($formUid)
     {
         /** @var FormRepository $formRepository */
-        $formRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(FormRepository::class);
+        $formRepository = ObjectUtility::getContentObject()->get(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
         $markers = [];
         foreach ($fields as $field) {

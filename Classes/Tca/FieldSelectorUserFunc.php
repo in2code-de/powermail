@@ -50,7 +50,7 @@ class FieldSelectorUserFunc
     public function getFieldSelection(&$params)
     {
         /** @var FormRepository $formRepository */
-        $formRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(FormRepository::class);
+        $formRepository = ObjectUtility::getContentObject()->get(FormRepository::class);
         $formUid = $this->getFormUidFromTtContentUid((int)$params['row']['uid']);
         if (!$formUid) {
             $params['items'] = [
