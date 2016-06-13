@@ -35,10 +35,41 @@ You have to add the related static template and a bootstrap.css
 See :ref:`addBootstrapClassesAndCssToPowermail`
 
 
+.. _howtosolvespf:
+
+How to solve SPF defiance?
+--------------------------
+
+More and more email providers turn on SPF for their mailboxes
+(see https://en.wikipedia.org/wiki/Sender_Policy_Framework for details).
+Web forms should not send mails with the visitors email address as sender email address but with a server email address.
+Nevertheless powermail uses automatic reply email address from the sender.
+
+To set a sender email address for the main email (to receiver), you could use this TypoScript:
+
+::
+
+	plugin.tx_powermail.settings.setup.receiver.overwrite.senderEmail = TEXT
+	plugin.tx_powermail.settings.setup.receiver.overwrite.senderEmail.value = server@domain.org
+	plugin.tx_powermail.settings.setup.receiver.overwrite.senderName = TEXT
+	plugin.tx_powermail.settings.setup.receiver.overwrite.senderName.value = Server from domain.org
+
+To set a sender email address for the confirmation email (to sender), you could use this TypoScript:
+
+::
+
+	plugin.tx_powermail.settings.setup.sender.overwrite.senderEmail = TEXT
+	plugin.tx_powermail.settings.setup.sender.overwrite.senderEmail.value = server@domain.org
+	plugin.tx_powermail.settings.setup.sender.overwrite.senderName = TEXT
+	plugin.tx_powermail.settings.setup.sender.overwrite.senderName.value = Server from domain.org
+
+Please ask your server administrator for a valid email address.
+
+
 .. _canisueanothercaptcha:
 
-Can I use another Captcha Extension?
-------------------------------------
+Can I use another Captcha Extension than the integrated calculating captcha?
+----------------------------------------------------------------------------
 
 Yes. At the moment we support a build-in calculating captcha in the powermail core and the extension **captcha**.
 
