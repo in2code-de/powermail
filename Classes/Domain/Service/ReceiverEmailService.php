@@ -2,12 +2,14 @@
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Domain\Repository\UserRepository;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /***************************************************************
@@ -45,24 +47,6 @@ class ReceiverEmailService
     use SignalTrait;
 
     /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
-     * @inject
-     */
-    protected $mailRepository;
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\UserRepository
-     * @inject
-     */
-    protected $userRepository;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @inject
-     */
-    protected $objectManager;
-
-    /**
      * @var Mail|null
      */
     protected $mail = null;
@@ -95,8 +79,9 @@ class ReceiverEmailService
         $this->mail = $mail;
         $this->settings = $settings;
         /** @var TypoScriptService $typoScriptService */
-        $typoScriptService = GeneralUtility::makeInstance(ObjectManager::class)->get(TypoScriptService::class);
+        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
+        $this->setReceiverEmails();
     }
 
     /**
@@ -116,11 +101,25 @@ class ReceiverEmailService
     }
 
     /**
+     * Get receiver name with fallback
+     *
+     * @return string
+     */
+    public function getReceiverName()
+    {
+        $receiverName = 'Powermail';
+        if (!empty($this->settings['receiver']['name'])) {
+            $receiverName = $this->settings['receiver']['name'];
+        }
+        return $receiverName;
+    }
+
+    /**
      * Set receiver mails
      *
      * @return void
      */
-    public function setReceiverEmails()
+    protected function setReceiverEmails()
     {
         // get mails from FlexForm
         $emailArray = $this->getEmailsFromFlexForm();
@@ -156,9 +155,11 @@ class ReceiverEmailService
      */
     protected function getEmailsFromFlexForm()
     {
+        /** @var MailRepository $mailRepository */
+        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         $emailString = TemplateUtility::fluidParseString(
             $this->settings['receiver']['email'],
-            $this->mailRepository->getVariablesWithMarkersFromMail($this->mail)
+            $mailRepository->getVariablesWithMarkersFromMail($this->mail)
         );
         return $this->parseEmailsFromString($emailString);
     }
@@ -171,7 +172,9 @@ class ReceiverEmailService
      */
     protected function getEmailsFromFeGroup($uid)
     {
-        $users = $this->userRepository->findByUsergroup($uid);
+        /** @var UserRepository $userRepository */
+        $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
+        $users = $userRepository->findByUsergroup($uid);
         $array = [];
         foreach ($users as $user) {
             if (GeneralUtility::validEmail($user->getEmail())) {

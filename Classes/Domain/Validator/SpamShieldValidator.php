@@ -157,18 +157,17 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function sendSpamNotificationMail(Mail $mail)
     {
-        if (!GeneralUtility::validEmail($this->settings['spamshield']['email'])) {
-            return;
+        if (GeneralUtility::validEmail($this->settings['spamshield']['email'])) {
+            MailUtility::sendPlainMail(
+                $this->settings['spamshield']['email'],
+                'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'),
+                $this->settings['spamshield']['emailSubject'],
+                $this->createSpamNotificationMessage(
+                    $this->settings['spamshield']['emailTemplate'],
+                    $this->getVariablesForSpamNotification($mail)
+                )
+            );
         }
-        MailUtility::sendPlainMail(
-            $this->settings['spamshield']['email'],
-            'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'),
-            $this->settings['spamshield']['emailSubject'],
-            $this->createSpamNotificationMessage(
-                $this->settings['spamshield']['emailTemplate'],
-                $this->getVariablesForSpamNotification($mail)
-            )
-        );
     }
 
     /**
@@ -179,17 +178,16 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function logSpamNotification(Mail $mail)
     {
-        if (empty($this->settings['spamshield']['logfileLocation'])) {
-            return;
+        if (!empty($this->settings['spamshield']['logfileLocation'])) {
+            BasicFileUtility::createFolderIfNotExists(
+                BasicFileUtility::getPathFromPathAndFilename($this->settings['spamshield']['logfileLocation'])
+            );
+            $logMessage = $this->createSpamNotificationMessage(
+                $this->settings['spamshield']['logTemplate'],
+                $this->getVariablesForSpamNotification($mail)
+            );
+            BasicFileUtility::prependContentToFile($this->settings['spamshield']['logfileLocation'], $logMessage);
         }
-        BasicFileUtility::createFolderIfNotExists(
-            BasicFileUtility::getPathFromPathAndFilename($this->settings['spamshield']['logfileLocation'])
-        );
-        $logMessage = $this->createSpamNotificationMessage(
-            $this->settings['spamshield']['logTemplate'],
-            $this->getVariablesForSpamNotification($mail)
-        );
-        BasicFileUtility::prependContentToFile($this->settings['spamshield']['logfileLocation'], $logMessage);
     }
 
     /**
@@ -214,6 +212,7 @@ class SpamShieldValidator extends AbstractValidator
      *
      * @param Mail $mail
      * @return array
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function getVariablesForSpamNotification(Mail $mail)
     {
@@ -222,9 +221,10 @@ class SpamShieldValidator extends AbstractValidator
             'pid' => FrontendUtility::getCurrentPageIdentifier(),
             'calculatedMailSpamFactor' => $this->getCalculatedSpamFactor(true),
             'messages' => $this->getMessages(),
-            'ipAddress' =>
-                (!ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : ''),
-            'time' => new \DateTime()
+            'ipAddress' => $this->getIpAddress(),
+            'time' => new \DateTime(),
+            'request' => $_REQUEST,
+            'requestPlain' => print_r($_REQUEST, true)
         ];
     }
 
@@ -354,11 +354,7 @@ class SpamShieldValidator extends AbstractValidator
     protected function saveSpamFactorInSession()
     {
         $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController();
-        $typoScriptFrontend->fe_user->setKey(
-            'ses',
-            'powermail_spamfactor',
-            $this->getCalculatedSpamFactor(true)
-        );
+        $typoScriptFrontend->fe_user->setKey('ses', 'powermail_spamfactor', $this->getCalculatedSpamFactor(true));
         $typoScriptFrontend->storeSessionData();
     }
 
@@ -369,15 +365,14 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function saveSpamPropertiesInDevelopmentLog()
     {
-        if (empty($this->settings['debug']['spamshield'])) {
-            return;
+        if (!empty($this->settings['debug']['spamshield'])) {
+            GeneralUtility::devLog(
+                'Spamshield (Spamfactor ' . $this->getCalculatedSpamFactor(true) . ')',
+                'powermail',
+                0,
+                $this->getMessages()
+            );
         }
-        GeneralUtility::devLog(
-            'Spamshield (Spamfactor ' . $this->getCalculatedSpamFactor(true) . ')',
-            'powermail',
-            0,
-            $this->getMessages()
-        );
     }
 
     /**
@@ -400,5 +395,13 @@ class SpamShieldValidator extends AbstractValidator
     public function initializeObject()
     {
         $this->setSpamFactorLimit($this->settings['spamshield']['factor'] / 100);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getIpAddress()
+    {
+        return !ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '';
     }
 }

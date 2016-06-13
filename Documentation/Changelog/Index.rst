@@ -18,6 +18,18 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.2.0
+   :Date:
+      2016-06-13
+   :Changes:
+
+      * Feature _`#76587`: https://forge.typo3.org/issues/76587 Automaticly set reply-to email address
+      * Bugfix _`#76589`: https://forge.typo3.org/issues/76589 Declaration of CaptchaDataAttributeViewHelper should be compatible ...
+      * Bugfix _`#76586`: https://forge.typo3.org/issues/76586 Field classes are not consistent
+      * Task added a composer.json file
+      * Task add complete request array to spamshield log
+
+ - :Version:
       3.1.1
    :Date:
       2016-06-06
