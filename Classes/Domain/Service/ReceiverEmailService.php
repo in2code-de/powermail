@@ -10,7 +10,6 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /***************************************************************
@@ -80,7 +79,7 @@ class ReceiverEmailService
         $this->mail = $mail;
         $this->settings = $settings;
         /** @var TypoScriptService $typoScriptService */
-        $typoScriptService = GeneralUtility::makeInstance(ObjectManager::class)->get(TypoScriptService::class);
+        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         $this->setReceiverEmails();
     }

@@ -3,13 +3,13 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /***************************************************************
@@ -324,7 +324,7 @@ class CalculatingCaptchaService
     {
         $string = str_replace('EXT:', 'typo3conf/ext/', $string);
         /** @var TemplateService $templateService */
-        $templateService = GeneralUtility::makeInstance(TemplateService::class);
+        $templateService = ObjectUtility::getObjectManager()->get(TemplateService::class);
         $fileName = $templateService->getFileName($string);
         if ($absolute) {
             $fileName = GeneralUtility::getFileAbsFileName($fileName);
@@ -338,14 +338,12 @@ class CalculatingCaptchaService
     public function setConfiguration()
     {
         if (!$this->test) {
-            /** @var ObjectManager $objectManager */
-            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
             /** @var ConfigurationManager $configurationManager */
-            $configurationManager = $objectManager->get(ConfigurationManager::class);
+            $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManager::class);
             $typoScriptSetup = $configurationManager->getConfiguration(
                 ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
             );
-            $typoScriptService = $objectManager->get(TypoScriptService::class);
+            $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
             $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
                 (array)$typoScriptSetup['setup']
             );

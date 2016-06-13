@@ -148,7 +148,7 @@ class SendMailService
     protected function prepareAndSend(array $email)
     {
         /** @var MailMessage $message */
-        $message = GeneralUtility::makeInstance(MailMessage::class);
+        $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
         $message
             ->setTo([$email['receiverEmail'] => $email['receiverName']])
             ->setFrom([$email['senderEmail'] => $email['senderName']])

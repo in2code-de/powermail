@@ -5,7 +5,6 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
  *  Copyright notice
@@ -95,7 +94,7 @@ class FrontendUtility extends AbstractUtility
     {
         if (!is_a($mail, Mail::class)) {
             /** @var MailRepository $mailRepository */
-            $mailRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(MailRepository::class);
+            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$mail);
         }
         if (!self::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === null) {
@@ -118,7 +117,7 @@ class FrontendUtility extends AbstractUtility
         // add owner groups to allowed groups (if "_owner")
         if (is_numeric(array_search('_owner', $usergroupsSettings))) {
             /** @var UserRepository $userRepository */
-            $userRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(UserRepository::class);
+            $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
             $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser());
             $usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
         }

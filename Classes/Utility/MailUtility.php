@@ -2,7 +2,6 @@
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -49,7 +48,7 @@ class MailUtility
     public static function sendPlainMail($receiverEmail, $senderEmail, $subject, $body)
     {
         /** @var MailMessage $message */
-        $message = GeneralUtility::makeInstance(MailMessage::class);
+        $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
         $message->setTo([$receiverEmail => '']);
         $message->setFrom([$senderEmail => 'Sender']);
         $message->setSubject($subject);

@@ -4,7 +4,6 @@ namespace In2code\Powermail\Tca;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
  *  Copyright notice
@@ -50,7 +49,7 @@ class FieldSelectorUserFunc
     public function getFieldSelection(&$params)
     {
         /** @var FormRepository $formRepository */
-        $formRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(FormRepository::class);
+        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         $formUid = $this->getFormUidFromTtContentUid((int)$params['row']['uid']);
         if (!$formUid) {
             $params['items'] = [
