@@ -46,10 +46,8 @@ Add a php-file and extend your class with the AbstractMethod from powermail:
 
    /**
     * Class DoSomethingDataProcessor
-    *
-    * @package Vendor\Ext\DataProcessor
     */
-   class DoSomethingDataProcessor extends AbstractDataProcessor
+   class DoSomethingDataProcessor extends AbstractMethod
    {
 
         /**
@@ -95,7 +93,7 @@ in TypoScript
 
 
 
-Add your php-file again and extend your class with the AbstractDataProcessor from powermail:
+Add your php-file again and extend your class with the AbstractMethod from powermail:
 
 ::
 
@@ -105,9 +103,7 @@ Add your php-file again and extend your class with the AbstractDataProcessor fro
    use In2code\Powermail\Domain\Validator\SpamShield\AbstractMethod;
 
    /**
-    * Class DoSomethingDataProcessor
-    *
-    * @package Vendor\Ext\DataProcessor
+    * Class SpamPreventionMethod
     */
    class SpamPreventionMethod extends AbstractMethod
    {
