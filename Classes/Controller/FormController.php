@@ -290,13 +290,15 @@ class FormController extends AbstractController
     {
         $email = [
             'template' => 'Mail/OptinMail',
+            'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
             'receiverName' => $this->mailRepository->getSenderNameFromArguments(
                 $mail,
                 [$this->conf['sender.']['default.'], 'senderName']
             ),
-            'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
-            'senderName' => $this->settings['sender']['name'],
             'senderEmail' => $this->settings['sender']['email'],
+            'senderName' => $this->settings['sender']['name'],
+            'replyToEmail' => $this->settings['sender']['email'],
+            'replyToName' => $this->settings['sender']['name'],
             'subject' => $this->contentObject->cObjGetSingle(
                 $this->conf['optin.']['subject'],
                 $this->conf['optin.']['subject.']
