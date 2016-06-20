@@ -144,7 +144,9 @@ class ReceiverEmailService
         if (ConfigurationUtility::getDevelopmentContextEmail()) {
             $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
         }
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$emailArray, $this]);
+
+        $signalArguments = [&$emailArray, $this];
+        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         $this->receiverEmails = $emailArray;
     }
 

@@ -166,9 +166,9 @@ forge.typo3.org if you need a new signal.
    :Name:
       sendTemplateEmailBeforeSend
    :Method:
-      sendTemplateEmail()
+      prepareAndSend()
    :Arguments:
-      $message, $email, $this
+      $message, &$email, $this
    :Description:
       Change the message object before sending
 

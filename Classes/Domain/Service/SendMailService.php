@@ -166,7 +166,8 @@ class SendMailService
         $message = $this->addPlainBody($message, $email);
         $message = $this->addSenderHeader($message);
 
-        $this->signalDispatch(__CLASS__, 'sendTemplateEmailBeforeSend', [$message, $email, $this]);
+        $signalArguments = [$message, &$email, $this];
+        $this->signalDispatch(__CLASS__, 'sendTemplateEmailBeforeSend', $signalArguments);
 
         $message->send();
         $this->updateMail($email);
