@@ -37,7 +37,8 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 $this->addMandatoryAttributes($additionalAttributes, $field);
         }
         $this->addValidationAttributes($additionalAttributes, $field);
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$additionalAttributes, $field, $iteration, $this]);
+        $signalArguments = [&$additionalAttributes, $field, $iteration, $this];
+        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $additionalAttributes;
     }
 

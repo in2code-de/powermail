@@ -190,7 +190,7 @@ forge.typo3.org if you need a new signal.
    :Method:
       getSenderEmail()
    :Arguments:
-      $senderEmail, $this
+      &$senderEmail, $this
    :Description:
       Manipulate given sender email
 
@@ -201,7 +201,7 @@ forge.typo3.org if you need a new signal.
    :Method:
       getSenderName()
    :Arguments:
-      $senderName, $this
+      &$senderName, $this
    :Description:
       Manipulate given sender name
 
@@ -234,7 +234,7 @@ forge.typo3.org if you need a new signal.
    :Method:
       render()
    :Arguments:
-      $additionalAttributes, $field, $iteration, $this
+      &$additionalAttributes, $field, $iteration, $this
    :Description:
       Useful if you want to hook into additionalAttributes and set your own attributes to fields
 
