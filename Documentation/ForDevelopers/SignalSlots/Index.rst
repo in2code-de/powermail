@@ -314,13 +314,12 @@ Classes/Domain/Service/SendMailService.php
          * @param array $email
          * @param SendMailServicePowermail $originalService
          */
-        public function manipulateMail($message, $email, SendMailServicePowermail $originalService) {
-            // overwrite the receiver
-            $message->setTo(
-                array(
-                    'anotheremail@domain.org' => 'receiverName'
-                )
-            );
+        public function manipulateMail($message, &$email, SendMailServicePowermail $originalService) {
+            // overwrite the receiver in the email array to have it saved correctly!
+            $email['receiverName'] = 'John Mega';
+            $email['receiverEmail'] = 'john@mega.com';
+
+            $message->setTo([$email['receiverEmail'] => $email['receiverName']]);
         }
     }
 
