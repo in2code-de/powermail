@@ -279,7 +279,9 @@ ext_localconf.php
 
     <?php
     /** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
-    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\Dispatcher');
+    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+        \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+    );
     $signalSlotDispatcher->connect(
         'In2code\Powermail\Domain\Service\SendMailService',
         'sendTemplateEmailBeforeSend',
@@ -305,7 +307,8 @@ Classes/Domain/Service/SendMailService.php
      *
      * @package powermailextend
      */
-    class SendMailService {
+    class SendMailService
+    {
 
         /**
          * Manipulate message object short before powermail send the mail
@@ -314,8 +317,9 @@ Classes/Domain/Service/SendMailService.php
          * @param array $email
          * @param SendMailServicePowermail $originalService
          */
-        public function manipulateMail($message, &$email, SendMailServicePowermail $originalService) {
-            // overwrite the receiver in the email array to have it saved correctly!
+        public function manipulateMail($message, &$email, SendMailServicePowermail $originalService)
+        {
+            // overwrite the receiver in the email array to have it saved correctly
             $email['receiverName'] = 'John Mega';
             $email['receiverEmail'] = 'john@mega.com';
 

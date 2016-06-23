@@ -184,129 +184,140 @@ EXT:powermailextended/Resources/Private/Partials/Form/Field/Input.html:
 EXT:powermailextended/Classes/Domain/Model/Field.php:
 ::
 
-  <?php
-  namespace In2code\Powermailextended\Domain\Model;
+	<?php
+	namespace In2code\Powermailextended\Domain\Model;
 
-  /**
-   * Class Field
-   * @package In2code\Powermailextended\Domain\Model
-   */
-  class Field extends \In2code\Powermail\Domain\Model\Field {
+	/**
+	* Class Field
+	* @package In2code\Powermailextended\Domain\Model
+	*/
+	class Field extends \In2code\Powermail\Domain\Model\Field
+	{
 
-  	/**
-	 * New property text
-	 *
-	 * @var string $txPowermailextendedPowermailText
-	 */
-  	protected $txPowermailextendedPowermailText;
+		/**
+		 * New property text
+		 *
+		 * @var string $txPowermailextendedPowermailText
+		 */
+		protected $txPowermailextendedPowermailText;
 
-  	/**
-	 * New property readonly
-	 *
-	 * @var string $txPowermailextendedPowermailReadonly
-	 */
-  	protected $txPowermailextendedPowermailReadonly;
+		/**
+		 * New property readonly
+		 *
+		 * @var string $txPowermailextendedPowermailReadonly
+		 */
+		protected $txPowermailextendedPowermailReadonly;
 
-  	/**
-	 * @param string $txPowermailextendedPowermailReadonly
-	 * @return void
-	 */
-  	public function setTxPowermailextendedPowermailReadonly($txPowermailextendedPowermailReadonly) {
-  		$this->txPowermailextendedPowermailReadonly = $txPowermailextendedPowermailReadonly;
-  	}
+		/**
+		 * @param string $txPowermailextendedPowermailReadonly
+		 * @return void
+		 */
+		public function setTxPowermailextendedPowermailReadonly($txPowermailextendedPowermailReadonly)
+		{
+			$this->txPowermailextendedPowermailReadonly = $txPowermailextendedPowermailReadonly;
+		}
 
-  	/**
-	 * @return string
-	 */
-  	public function getTxPowermailextendedPowermailReadonly() {
-		return $this->txPowermailextendedPowermailReadonly;
-  	}
+		/**
+		 * @return string
+		 */
+		public function getTxPowermailextendedPowermailReadonly()
+		{
+			return $this->txPowermailextendedPowermailReadonly;
+		}
 
-  	/**
-	 * @param string $txPowermailextendedPowermailText
-	 * @return void
-	 */
-  	public function setTxPowermailextendedPowermailText($txPowermailextendedPowermailText) {
-		$this->txPowermailextendedPowermailText = $txPowermailextendedPowermailText;
-  	}
+		/**
+		 * @param string $txPowermailextendedPowermailText
+		 * @return void
+		 */
+		public function setTxPowermailextendedPowermailText($txPowermailextendedPowermailText)
+		{
+			$this->txPowermailextendedPowermailText = $txPowermailextendedPowermailText;
+		}
 
-  	/**
-  	 * @return string
-	 */
-  	public function getTxPowermailextendedPowermailText() {
-		return $this->txPowermailextendedPowermailText;
-  	}
-  }
+		/**
+		 * @return string
+		 */
+		public function getTxPowermailextendedPowermailText()
+		{
+			return $this->txPowermailextendedPowermailText;
+		}
+	}
 
 EXT:powermailextended/Classes/Domain/Model/Page.php:
 ::
 
-  <?php
-  namespace In2code\Powermailextended\Domain\Model;
+	<?php
+	namespace In2code\Powermailextended\Domain\Model;
 
-  /**
-   * Class Page
-   * @package In2code\Powermailextended\Domain\Model
-   */
-  class Page extends \In2code\Powermail\Domain\Model\Page {
+	/**
+	* Class Page
+	* @package In2code\Powermailextended\Domain\Model
+	*/
+	class Page extends \In2code\Powermail\Domain\Model\Page
+	{
 
-  	/**
-	 * Powermail Fields
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermailextended\Domain\Model\Field>
-	 */
-  	protected $fields = NULL;
+		/**
+		 * Powermail Fields
+		 *
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermailextended\Domain\Model\Field>
+		 */
+		protected $fields = NULL;
 
-  	/**
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $fields
-	 * @return void
-	 */
-  	public function setFields($fields) {
-		$this->fields = $fields;
-  	}
+		/**
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $fields
+		 * @return void
+		 */
+		public function setFields($fields)
+		{
+			$this->fields = $fields;
+		}
 
-  	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-	 */
-  	public function getFields() {
-		return $this->fields;
-  	}
-  }
+		/**
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+		 */
+		public function getFields()
+		{
+			return $this->fields;
+		}
+	}
 
 EXT:powermailextended/Classes/Domain/Model/Form.php:
 ::
 
-  <?php
-  namespace In2code\Powermailextended\Domain\Model;
+	<?php
+	namespace In2code\Powermailextended\Domain\Model;
 
-  /**
-   * Class Form
-   * @package In2code\Powermailextended\Domain\Model
-   */
-  class Form extends \In2code\Powermail\Domain\Model\Form {
+	/**
+	* Class Form
+	* @package In2code\Powermailextended\Domain\Model
+	*/
+	class Form extends \In2code\Powermail\Domain\Model\Form
+	{
 
-  	/**
-	 * pages
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermailextended\Domain\Model\Page>
-	 */
-  	protected $pages;
+		/**
+		 * pages
+		 *
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermailextended\Domain\Model\Page>
+		 */
+		protected $pages;
 
-  	/**
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $pages
-	 * @return void
-	 */
-  	public function setPages($pages) {
-		$this->pages = $pages;
-  	}
+		/**
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $pages
+		 * @return void
+		 */
+		public function setPages($pages)
+		{
+			$this->pages = $pages;
+		}
 
-  	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-	 */
-  	public function getPages() {
-		return $this->pages;
-  	}
-  }
+		/**
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+		 */
+		public function getPages()
+		{
+			return $this->pages;
+		}
+	}
 
 EXT:powermailextended/Classes/Domain/Repository/FormRepository.php:
 ::
@@ -318,7 +329,9 @@ EXT:powermailextended/Classes/Domain/Repository/FormRepository.php:
    * Class FormRepository
    * @package In2code\Powermailextended\Domain\Repository
    */
-  class FormRepository extends \In2code\Powermail\Domain\Repository\FormRepository {}
+  class FormRepository extends \In2code\Powermail\Domain\Repository\FormRepositor
+  {
+  }
 
 
 Last but not least don't forget to add your static TypoScript template to your powermail page, otherwise the partials will not be used.
