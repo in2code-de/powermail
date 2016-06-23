@@ -465,4 +465,20 @@ class SendMailService
         $this->contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
         $this->type = $type;
     }
+
+    /**
+     * @return Mail $this->mail
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @return string $this->type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 }
