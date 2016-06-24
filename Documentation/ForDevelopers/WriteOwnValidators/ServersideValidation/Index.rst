@@ -236,7 +236,7 @@ Example file:
 Example Code
 """"""""""""
 
-Look at EXT:powermail/Resources/Private/Software/powermailextended.zip for an example extension.
+Look at https://github.com/einpraegsam/powermailextended for an example extension.
 This extension allows you to:
 
 - Extend powermail with a complete new field type (Just a small "Show Text" example)
