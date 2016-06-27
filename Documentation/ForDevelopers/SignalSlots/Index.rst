@@ -166,9 +166,9 @@ forge.typo3.org if you need a new signal.
    :Name:
       sendTemplateEmailBeforeSend
    :Method:
-      sendTemplateEmail()
+      prepareAndSend()
    :Arguments:
-      $message, $email, $this
+      $message, &$email, $this
    :Description:
       Change the message object before sending
 
@@ -190,7 +190,7 @@ forge.typo3.org if you need a new signal.
    :Method:
       getSenderEmail()
    :Arguments:
-      $senderEmail, $this
+      &$senderEmail, $this
    :Description:
       Manipulate given sender email
 
@@ -201,7 +201,7 @@ forge.typo3.org if you need a new signal.
    :Method:
       getSenderName()
    :Arguments:
-      $senderName, $this
+      &$senderName, $this
    :Description:
       Manipulate given sender name
 
@@ -234,7 +234,7 @@ forge.typo3.org if you need a new signal.
    :Method:
       render()
    :Arguments:
-      $additionalAttributes, $field, $iteration, $this
+      &$additionalAttributes, $field, $iteration, $this
    :Description:
       Useful if you want to hook into additionalAttributes and set your own attributes to fields
 
@@ -279,7 +279,9 @@ ext_localconf.php
 
     <?php
     /** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
-    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\Dispatcher');
+    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+        \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+    );
     $signalSlotDispatcher->connect(
         'In2code\Powermail\Domain\Service\SendMailService',
         'sendTemplateEmailBeforeSend',
@@ -305,7 +307,8 @@ Classes/Domain/Service/SendMailService.php
      *
      * @package powermailextend
      */
-    class SendMailService {
+    class SendMailService
+    {
 
         /**
          * Manipulate message object short before powermail send the mail
@@ -314,13 +317,13 @@ Classes/Domain/Service/SendMailService.php
          * @param array $email
          * @param SendMailServicePowermail $originalService
          */
-        public function manipulateMail($message, $email, SendMailServicePowermail $originalService) {
-            // overwrite the receiver
-            $message->setTo(
-                array(
-                    'anotheremail@domain.org' => 'receiverName'
-                )
-            );
+        public function manipulateMail($message, &$email, SendMailServicePowermail $originalService)
+        {
+            // overwrite the receiver in the email array to have it saved correctly
+            $email['receiverName'] = 'John Mega';
+            $email['receiverEmail'] = 'john@mega.com';
+
+            $message->setTo([$email['receiverEmail'] => $email['receiverName']]);
         }
     }
 
@@ -328,7 +331,7 @@ Classes/Domain/Service/SendMailService.php
 Example Code
 """"""""""""
 
-Look at EXT:powermail/Resources/Private/Software/powermailextended.zip for an example extension.
+Look at https://github.com/einpraegsam/powermailextended for an example extension.
 This extension allows you to:
 
 - Extend powermail with a complete new field type (Just a small "Show Text" example)

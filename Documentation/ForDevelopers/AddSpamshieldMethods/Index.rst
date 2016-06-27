@@ -56,8 +56,9 @@ Add a php-file and extend your class with the AbstractMethod from powermail:
          * @return bool true if spam recognized
          */
         public function spamCheck()
+        {
            // ...
-       }
+        }
    }
 
 Extended example
@@ -133,7 +134,8 @@ Add your php-file again and extend your class with the AbstractMethod from power
         *
         * @return void
         */
-       public function initialize() {
+       public function initialize()
+       {
        }
 
        /**
@@ -141,7 +143,8 @@ Add your php-file again and extend your class with the AbstractMethod from power
         *
         * @return void
         */
-       public function initializeSpamCheck() {
+       public function initializeSpamCheck()
+       {
        }
 
        /**
@@ -149,7 +152,8 @@ Add your php-file again and extend your class with the AbstractMethod from power
         *
         * @return void true if spam recognized
         */
-       public function spamCheck() {
+       public function spamCheck()
+       {
            // get value from configuration
            $foo = $this->configuration['myConfiguration'];
 

@@ -59,7 +59,8 @@ Add a php-file and extend your class with the AbstractDataProcessor from powerma
         *
         * @return void
         */
-       public function doSomethingElseDataProcessor() {
+       public function doSomethingElseDataProcessor()
+       {
            // do some magic ...
        }
    }
@@ -134,7 +135,8 @@ Add your php-file again and extend your class with the AbstractDataProcessor fro
         *
         * @return void
         */
-       public function initializeDataProcessor() {
+       public function initializeDataProcessor()
+       {
        }
 
        /**
@@ -142,7 +144,8 @@ Add your php-file again and extend your class with the AbstractDataProcessor fro
         *
         * @return void
         */
-       public function initializeMyDataProcessor() {
+       public function initializeMyDataProcessor()
+       {
        }
 
        /**
@@ -150,7 +153,8 @@ Add your php-file again and extend your class with the AbstractDataProcessor fro
         *
         * @return void
         */
-       public function doSomethingElseDataProcessor() {
+       public function doSomethingElseDataProcessor()
+       {
            // get value from configuration
            $foo = $this->configuration['foo'];
 

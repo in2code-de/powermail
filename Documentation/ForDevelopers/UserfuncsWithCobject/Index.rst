@@ -101,9 +101,11 @@ Example PHP Script
 ::
 
    <?php
-   class user_manipulatePowermailReceiver {
+   class user_manipulatePowermailReceiver
+   {
 
-           public function getEmail($content = '', $conf = array()) {
+           public function getEmail($content = '', $conf = array())
+           {
                    $variables = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_powermail_pi1');
                    $email = 'email1@domain.org';
 
@@ -113,7 +115,6 @@ Example PHP Script
                    return $email;
            }
    }
-   ?>
 
 
 Extend FlexForm values

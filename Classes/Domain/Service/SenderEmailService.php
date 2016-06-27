@@ -91,7 +91,8 @@ class SenderEmailService
             'senderEmail'
         );
         $senderEmail = $this->mailRepository->getSenderMailFromArguments($this->mail, $defaultSenderEmail);
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$senderEmail, $this]);
+        $signalArguments = [&$senderEmail, $this];
+        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $senderEmail;
     }
 
@@ -108,7 +109,8 @@ class SenderEmailService
             'senderName'
         );
         $senderName = $this->mailRepository->getSenderNameFromArguments($this->mail, $defaultSenderName);
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$senderName, $this]);
+        $signalArguments = [&$senderName, $this];
+        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $senderName;
     }
 }

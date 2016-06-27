@@ -67,34 +67,36 @@ In this case we choose a further Extension "powermailextended" and add a new fil
 The content:
 ::
 
-   <?php
-   namespace In2code\Powermailextended\Domain\Validator;
+	<?php
+	namespace In2code\Powermailextended\Domain\Validator;
 
-   /**
-    * ZipValidator
-    */
-   class ZipValidator {
+	/**
+	* ZipValidator
+	*/
+	class ZipValidator
+	{
 
-   	/**
-   	 * Check if given number is higher than in configuration
-   	 *
-   	 * @param string $value
-   	 * @param string $validationConfiguration
-   	 * @return bool
-   	 */
-   	public function validate100($value, $validationConfiguration) {
-   		if (is_numeric($value) && $value >= $validationConfiguration) {
-   			return TRUE;
-   		}
-   		return FALSE;
-   	}
-   }
+		/**
+		 * Check if given number is higher than in configuration
+		 *
+		 * @param string $value
+		 * @param string $validationConfiguration
+		 * @return bool
+		 */
+		public function validate100($value, $validationConfiguration)
+		{
+			if (is_numeric($value) && $value >= $validationConfiguration) {
+				return TRUE;
+			}
+			return FALSE;
+		}
+	}
 
 
 Example Code
 """"""""""""
 
-Look at EXT:powermail/Resources/Private/Software/powermailextended.zip for an example extension.
+Look at https://github.com/einpraegsam/powermailextended for an example extension.
 This extension allows you to:
 
 - Extend powermail with a complete new field type (Just a small "Show Text" example)

@@ -174,7 +174,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
             );
         }
         if (!empty($whereClause)) {
-            $saveService->setAdditionalWhereClause($whereClause);
+            $saveService->setAdditionalWhere($whereClause);
         }
     }
 

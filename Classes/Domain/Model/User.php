@@ -27,11 +27,8 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
  ***************************************************************/
 
 /**
- * UserModel
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class User
+ * @package In2code\Powermail\Domain\Model
  */
 class User extends FrontendUser
 {

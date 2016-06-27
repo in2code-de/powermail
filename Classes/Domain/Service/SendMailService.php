@@ -166,7 +166,8 @@ class SendMailService
         $message = $this->addPlainBody($message, $email);
         $message = $this->addSenderHeader($message);
 
-        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeSend', [$message, $email, $this]);
+        $signalArguments = [$message, &$email, $this];
+        $this->signalDispatch(__CLASS__, 'sendTemplateEmailBeforeSend', $signalArguments);
 
         $message->send();
         $this->updateMail($email);
@@ -463,5 +464,21 @@ class SendMailService
         $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
         $this->contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($mail));
         $this->type = $type;
+    }
+
+    /**
+     * @return Mail $this->mail
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @return string $this->type
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

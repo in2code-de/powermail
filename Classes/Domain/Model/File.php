@@ -1,10 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
-use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
-use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************

@@ -58,7 +58,8 @@ Add a php-file and extend your class with the AbstractFinisher from powermail:
         *
         * @return void
         */
-       public function myFinisher() {
+       public function myFinisher()
+       {
            // do some magic ...
        }
    }
@@ -133,7 +134,8 @@ Add your php-file again and extend your class with the AbstractFinisher from pow
         *
         * @return void
         */
-       public function initializeFinisher() {
+       public function initializeFinisher()
+       {
        }
 
        /**
@@ -141,7 +143,8 @@ Add your php-file again and extend your class with the AbstractFinisher from pow
         *
         * @return void
         */
-       public function initializeMyFinisher() {
+       public function initializeMyFinisher()
+       {
        }
 
        /**
@@ -149,7 +152,8 @@ Add your php-file again and extend your class with the AbstractFinisher from pow
         *
         * @return void
         */
-       public function myFinisher() {
+       public function myFinisher()
+       {
            // get value from configuration
            $foo = $this->configuration['foo'];
 

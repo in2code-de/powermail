@@ -18,6 +18,18 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.3.0
+   :Date:
+      2016-06-27
+   :Changes:
+
+      * Feature _`#76801`: https://forge.typo3.org/issues/76801 Make fields available in fluid using the marker value, NOT the internal storage id
+      * Feature _`#76686`: https://forge.typo3.org/issues/76686 Make array properties changeable with signalslots with references and revert #76473
+      * Bugfix _`#76765`: https://forge.typo3.org/issues/76765 Sender-Email could not be validated if not trimmed string
+      * Bugfix _`#76703`: https://forge.typo3.org/issues/76703 dbEntry functionality together with update doesn't work
+      * Bugfix _`#76681`: https://forge.typo3.org/issues/76681 Signal Slot sendTemplateEmailBeforeSend changed to prepareAndSend
+
+ - :Version:
       3.2.0
    :Date:
       2016-06-13

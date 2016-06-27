@@ -31,7 +31,8 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  ***************************************************************/
 
 /**
- * Class TranslationTrait
+ * Class SignalTrait
+ * @package In2code\Powermail\Signal
  */
 trait SignalTrait
 {

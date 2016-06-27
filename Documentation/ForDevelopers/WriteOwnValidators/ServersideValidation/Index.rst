@@ -44,7 +44,8 @@ Add a php-file and extend your class with the AbstractValidator from powermail:
    /**
     * Class DoSomethingValidator
     */
-   class DoSomethingValidator extends AbstractValidator {
+   class DoSomethingValidator extends AbstractValidator
+   {
 
        /**
         * validate
@@ -52,7 +53,8 @@ Add a php-file and extend your class with the AbstractValidator from powermail:
         * @param Mail $mail
         * @return Result
         */
-       public function validate($mail) {
+       public function validate($mail)
+       {
            // throw error
            $result = new Result();
            $result->addError(new Error('Error', 'markername');
@@ -121,7 +123,7 @@ Add your php-file again and extend your class with the AbstractValidator from po
          *
          * @var array
          */
-        protected $configuration = array();
+        protected $configuration = [];
 
         /**
          * Check if value in Firstname-Field is allowed
@@ -204,7 +206,9 @@ Example ext_localconf.php:
 
 ::
 
-   $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+   $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+       \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+   );
    $signalSlotDispatcher->connect(
         'In2code\Powermail\Domain\Validator\CustomValidator',
         'isValid',
@@ -217,8 +221,10 @@ Example file:
 
 ::
 
-   class \Vendor\Extkey\Domain\Validator\CustomValidator {
-           public function addInformation($params, $obj) {
+   class \Vendor\Extkey\Domain\Validator\CustomValidator
+   {
+           public function addInformation($params, $obj)
+           {
                    // $field failed - set error
                    $obj->setErrorAndMessage($field, 'error message');
            }
@@ -230,7 +236,7 @@ Example file:
 Example Code
 """"""""""""
 
-Look at EXT:powermail/Resources/Private/Software/powermailextended.zip for an example extension.
+Look at https://github.com/einpraegsam/powermailextended for an example extension.
 This extension allows you to:
 
 - Extend powermail with a complete new field type (Just a small "Show Text" example)

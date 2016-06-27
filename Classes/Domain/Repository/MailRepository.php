@@ -408,27 +408,16 @@ class MailRepository extends AbstractRepository
         $email = '';
         foreach ($mail->getAnswers() as $answer) {
             if (
-                method_exists($answer->getField(), 'getUid') &&
+                $answer->getField() !== null &&
                 $answer->getField()->isSenderEmail() &&
-                GeneralUtility::validEmail($answer->getValue())
+                GeneralUtility::validEmail(trim($answer->getValue()))
             ) {
-                $email = $answer->getValue();
+                $email = trim($answer->getValue());
                 break;
             }
         }
-
-        if (empty($email) && $default) {
-            $email = $default;
-        }
-
-        if (empty($email) && GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
-            $email = ConfigurationUtility::getDefaultMailFromAddress();
-        }
-
         if (empty($email)) {
-            $email = LocalizationUtility::translate('error_no_sender_email');
-            $email .= '@';
-            $email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
+            $email = $this->getSenderMailFromDefault($default);
         }
         return $email;
     }
@@ -542,5 +531,24 @@ class MailRepository extends AbstractRepository
         $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
+    }
+
+    /**
+     * Get sender default email address
+     *
+     * @param string $default
+     * @return string
+     */
+    protected function getSenderMailFromDefault($default)
+    {
+        $email = LocalizationUtility::translate('error_no_sender_email') . '@';
+        $email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
+        if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
+            $email = ConfigurationUtility::getDefaultMailFromAddress();
+        }
+        if (!empty($default)) {
+            $email = $default;
+        }
+        return $email;
     }
 }

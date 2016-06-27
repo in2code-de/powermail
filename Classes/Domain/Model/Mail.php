@@ -30,11 +30,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  ***************************************************************/
 
 /**
- * Mail Model
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class Mail
+ * @package In2code\Powermail\Domain\Model
  */
 class Mail extends AbstractEntity
 {
@@ -42,150 +39,108 @@ class Mail extends AbstractEntity
     const TABLE_NAME = 'tx_powermail_domain_model_mail';
 
     /**
-     * senderName
-     *
      * @var string
      */
     protected $senderName = '';
 
     /**
-     * senderMail
-     *
      * @var string
      */
     protected $senderMail = '';
 
     /**
-     * subject
-     *
      * @var string
      */
     protected $subject = '';
 
     /**
-     * receiverMail
-     *
      * @var string
      */
     protected $receiverMail = '';
 
     /**
-     * body
-     *
      * @var string
      */
     protected $body = '';
 
     /**
-     * feuser
-     *
      * @var \In2code\Powermail\Domain\Model\User
      */
     protected $feuser = null;
 
     /**
-     * senderIp
-     *
      * @var string
      */
     protected $senderIp = '';
 
     /**
-     * userAgent
-     *
      * @var string
      */
     protected $userAgent = '';
 
     /**
-     * spamFactor
-     *
      * @var string
      */
     protected $spamFactor = '';
 
     /**
-     * time
-     *
      * @var int
      */
     protected $time = null;
 
     /**
-     * form
-     *
      * @var \In2code\Powermail\Domain\Model\Form
      * @lazy
      */
     protected $form = null;
 
     /**
-     * Powermail Answers
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Answer>
      * @lazy
      */
     protected $answers = null;
 
     /**
-     * crdate
-     *
      * @var \DateTime
      */
     protected $crdate = null;
 
     /**
-     * hidden
-     *
      * @var bool
      */
     protected $hidden = false;
 
     /**
-     * marketingRefererDomain
-     *
      * @var string
      */
     protected $marketingRefererDomain = '';
 
     /**
-     * marketingReferer
-     *
      * @var string
      */
     protected $marketingReferer = '';
 
     /**
-     * marketingCountry
-     *
      * @var string
      */
     protected $marketingCountry = '';
 
     /**
-     * marketingMobileDevice
-     *
      * @var bool
      */
     protected $marketingMobileDevice = false;
 
     /**
-     * marketingFrontendLanguage
-     *
      * @var int
      */
     protected $marketingFrontendLanguage = 0;
 
     /**
-     * marketingBrowserLanguage
-     *
      * @var string
      */
     protected $marketingBrowserLanguage = '';
 
     /**
-     * marketingPageFunnel
-     *
      * @var string
      */
     protected $marketingPageFunnel = '';

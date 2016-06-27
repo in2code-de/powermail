@@ -9,6 +9,9 @@ Powermail is able to save the values from a submitted form into a
 third-party-table (like news, tt_news, tt_address, tt_content, fe_users,
 pages, or something else...).
 
+Note: If you want to use _ifUnique functionality (see below for a description),
+your table must have a field "uid"
+
 Example for table tt_address:
 
 .. code-block:: text

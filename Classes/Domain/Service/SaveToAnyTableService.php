@@ -67,11 +67,18 @@ class SaveToAnyTableService
     protected $uniqueField = 'uid';
 
     /**
+     * Unique identifier field
+     *
+     * @var string
+     */
+    protected $uniqueIdentifier = 'uid';
+
+    /**
      * Additional where clause
      *
      * @var string
      */
-    protected $additionalWhereClause;
+    protected $additionalWhere;
 
     /**
      * Switch on devLog
@@ -104,8 +111,8 @@ class SaveToAnyTableService
         $this->checkProperties();
         switch ($this->getMode()) {
             case 'update':
-                // case with "update" or "none"
             case 'none':
+                $this->checkIfIdentifierFieldExists();
                 $uid = $this->update();
                 break;
 
@@ -135,25 +142,9 @@ class SaveToAnyTableService
      */
     protected function update()
     {
-        // find existing record in database
-        $searchterm = $this->databaseConnection->fullQuoteStr(
-            $this->getProperty($this->getUniqueField()),
-            $this->getTable()
-        );
-        $res = $this->databaseConnection->exec_SELECTquery(
-            'uid',
-            $this->getTable(),
-            $this->getUniqueField() . ' = ' . $searchterm . ' and deleted = 0 ' . $this->getAdditionalWhereClause(),
-            '',
-            '',
-            1
-        );
-        if ($res) {
-            $row = $this->databaseConnection->sql_fetch_assoc($res);
-        }
-
-        // if there is no existing entry, insert new one
-        if (empty($row['uid'])) {
+        $row = $this->getExistingEntry();
+        if (empty($row[$this->getUniqueIdentifier()])) {
+            // if there is no existing entry, insert new one
             return $this->insert();
         }
 
@@ -161,12 +152,12 @@ class SaveToAnyTableService
         if ($this->getMode() !== 'none') {
             $this->databaseConnection->exec_UPDATEquery(
                 $this->getTable(),
-                'uid = ' . (int)$row['uid'],
+                $this->getUniqueIdentifier() . ' = ' . (int)$row[$this->getUniqueIdentifier()],
                 $this->getProperties()
             );
         }
 
-        return $row['uid'];
+        return $row[$this->getUniqueIdentifier()];
     }
 
     /**
@@ -300,6 +291,24 @@ class SaveToAnyTableService
     }
 
     /**
+     * @return string
+     */
+    public function getUniqueIdentifier()
+    {
+        return $this->uniqueIdentifier;
+    }
+
+    /**
+     * @param string $uniqueIdentifier
+     * @return SaveToAnyTableService
+     */
+    public function setUniqueIdentifier($uniqueIdentifier)
+    {
+        $this->uniqueIdentifier = $uniqueIdentifier;
+        return $this;
+    }
+
+    /**
      * @param boolean $devLog
      * @return void
      */
@@ -319,17 +328,17 @@ class SaveToAnyTableService
     /**
      * @return string
      */
-    public function getAdditionalWhereClause()
+    public function getAdditionalWhere()
     {
-        return $this->additionalWhereClause;
+        return $this->additionalWhere;
     }
 
     /**
-     * @param string $additionalWhereClause
+     * @param string $additionalWhere
      */
-    public function setAdditionalWhereClause($additionalWhereClause)
+    public function setAdditionalWhere($additionalWhere)
     {
-        $this->additionalWhereClause = $additionalWhereClause;
+        $this->additionalWhere = ' ' . $additionalWhere;
     }
 
     /**
@@ -356,5 +365,60 @@ class SaveToAnyTableService
             $subject .= ', UniqueField: ' . $this->getUniqueField() . ')';
             GeneralUtility::devLog($subject, 'powermail', 0, $this->getProperties());
         }
+    }
+
+    /**
+     * Find existing record in database
+     *
+     * @return array|FALSE|NULL
+     */
+    protected function getExistingEntry()
+    {
+        $searchterm = $this->databaseConnection->fullQuoteStr(
+            $this->getProperty($this->getUniqueField()),
+            $this->getTable()
+        );
+        $where = $this->getUniqueField() . ' = ' . $searchterm;
+        $where .= $this->getDeletedWhereClause();
+        $where .= $this->getAdditionalWhere();
+        $row = $this->databaseConnection->exec_SELECTgetSingleRow($this->getUniqueIdentifier(), $this->getTable(), $where);
+        return $row;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDeletedWhereClause()
+    {
+        $where = '';
+        if ($this->isFieldExisting('deleted')) {
+            $where .= ' and deleted = 0';
+        }
+        return $where;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function checkIfIdentifierFieldExists()
+    {
+        if (!$this->isFieldExisting($this->getUniqueIdentifier())) {
+            throw new \Exception(
+                'Field ' . $this->getUniqueIdentifier() . ' in table ' . $this->getTable() . ' does not exist,' .
+                ' but it\'s needed for _ifUnique functionality'
+            );
+        }
+    }
+
+    /**
+     * Check if field exists in table
+     *
+     * @param string $field
+     * @return bool
+     */
+    protected function isFieldExisting($field)
+    {
+        $fields = $this->databaseConnection->admin_get_fields($this->getTable());
+        return array_key_exists($field, $fields);
     }
 }
