@@ -111,7 +111,7 @@ class FileFactory
     ) {
         /** @var File $file */
         $file = ObjectUtility::getObjectManager()->get(File::class, $marker, $originalName, $temporaryName);
-        $file->setNewName(StringUtility::cleanFileName($originalName));
+        $file->setNewName(StringUtility::cleanString($originalName));
         $file->setUploadFolder($this->getUploadFolder());
         if ($size === null) {
             $size = filesize($file->getNewPathAndFilename(true));

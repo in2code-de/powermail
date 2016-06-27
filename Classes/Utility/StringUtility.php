@@ -169,17 +169,18 @@ class StringUtility
     }
 
     /**
-     * Only allowed a-z, A-Z, 0-9, -, .
-     * Others will be replaced
+     * Clean strings like filenames
+     *      Only allowed characters are a-z, A-Z, 0-9, -, . others will be substituted
+     *      In addition string will be changed to lowercase
      *
-     * @param string $filename
+     * @param string $string
      * @param string $replace
      * @return string
      */
-    public static function cleanFileName($filename, $replace = '_')
+    public static function cleanString($string, $replace = '_')
     {
-        $filename = strtolower(trim($filename));
-        $filename = preg_replace('~[^a-z0-9-\.]~', $replace, $filename);
-        return $filename;
+        $string = strtolower(trim($string));
+        $string = preg_replace('~[^a-z0-9-\.]~', $replace, $string);
+        return $string;
     }
 }

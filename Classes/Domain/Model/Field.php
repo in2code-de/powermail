@@ -33,11 +33,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  ***************************************************************/
 
 /**
- * Field Model
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class Field
+ * @package In2code\Powermail\Domain\Model
  */
 class Field extends AbstractEntity
 {
@@ -45,8 +42,6 @@ class Field extends AbstractEntity
     const TABLE_NAME = 'tx_powermail_domain_model_field';
 
     /**
-     * title
-     *
      * @var string
      * @validate NotEmpty
      */
@@ -66,148 +61,106 @@ class Field extends AbstractEntity
     protected $type = '';
 
     /**
-     * settings
-     *
      * @var string
      */
     protected $settings = '';
 
     /**
-     * $modifiedSettings
-     *
      * @var string
      */
     protected $modifiedSettings = '';
 
     /**
-     * path
-     *
      * @var string
      */
     protected $path = '';
 
     /**
-     * contentElement
-     *
      * @var string
      */
     protected $contentElement = '';
 
     /**
-     * text
-     *
      * @var string
      */
     protected $text = '';
 
     /**
-     * prefillValue
-     *
      * @var string
      */
     protected $prefillValue = '';
 
     /**
-     * placeholder
-     *
      * @var string
      */
     protected $placeholder = '';
 
     /**
-     * $createFromTyposcript
-     *
      * @var string
      */
     protected $createFromTyposcript = '';
 
     /**
-     * validation
-     *
      * @var integer
      */
     protected $validation = 0;
 
     /**
-     * validationConfiguration
-     *
      * @var string
      */
     protected $validationConfiguration = '';
 
     /**
-     * css
-     *
      * @var string
      */
     protected $css = '';
 
     /**
-     * description
-     *
      * @var string
      */
     protected $description = '';
 
     /**
-     * multiselect
-     *
      * @var bool
      */
     protected $multiselect = false;
 
     /**
-     * datepicker settings
-     *
      * @var string
      */
     protected $datepickerSettings = '';
 
     /**
-     * feuserValue
-     *
      * @var string
      */
     protected $feuserValue = '';
 
     /**
-     * senderName
-     *
      * @var bool
      */
     protected $senderName = false;
 
     /**
-     * senderEmail
-     *
      * @var bool
      */
     protected $senderEmail = false;
 
     /**
-     * mandatory
-     *
      * @var boolean
      */
     protected $mandatory = false;
 
     /**
-     * marker
-     *
      * @var string
      */
     protected $marker = '';
 
     /**
-     * sorting
-     *
      * @var integer
      */
     protected $sorting = 0;
 
     /**
-     * pages
-     *
      * @var \In2code\Powermail\Domain\Model\Page
      * @lazy
      */

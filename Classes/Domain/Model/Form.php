@@ -1,7 +1,10 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -31,11 +34,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  ***************************************************************/
 
 /**
- * FormModel
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class Form
+ * @package In2code\Powermail\Domain\Model
  */
 class Form extends AbstractEntity
 {
@@ -43,35 +43,34 @@ class Form extends AbstractEntity
     const TABLE_NAME = 'tx_powermail_domain_model_form';
 
     /**
-     * title
-     *
      * @var string
      * @validate NotEmpty
      */
     protected $title = '';
 
     /**
-     * css
-     *
      * @var string
      */
     protected $css = '';
 
     /**
-     * pages
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Page>
      */
     protected $pages;
 
     /**
-     * formRepository
+     * Container for pages with title as key
      *
-     * @var \In2code\Powermail\Domain\Repository\FormRepository
-     *
-     * @inject
+     * @var array
      */
-    protected $formRepository;
+    protected $pagesByTitle = [];
+
+    /**
+     * Container for pages with uid as key
+     *
+     * @var array
+     */
+    protected $pagesByUid = [];
 
     /**
      * Returns the title
@@ -124,7 +123,8 @@ class Form extends AbstractEntity
     {
         // if elementbrowser instead of IRRE (sorting workarround)
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
-            $formSorting = GeneralUtility::trimExplode(',', $this->formRepository->getPagesValue($this->uid), true);
+            $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+            $formSorting = GeneralUtility::trimExplode(',', $formRepository->getPagesValue($this->uid), true);
             $formSorting = array_flip($formSorting);
             $pageArray = [];
             foreach ($this->pages as $page) {
@@ -164,5 +164,45 @@ class Form extends AbstractEntity
             }
         }
         return false;
+    }
+
+    /**
+     * Return pages as an array with title as key.
+     *
+     *      Example to get a page object by title use:
+     *          PHP: $form->getPagesByTitle()['page1'];
+     *          FLUID: {form.pagesByTitle.page1}
+     *
+     * @return array
+     */
+    public function getPagesByTitle()
+    {
+        if (empty($this->pagesByTitle)) {
+            $pagesArray = $this->getPages()->toArray();
+            $this->pagesByTitle = array_combine(array_map(function (Page $page) {
+                return StringUtility::cleanString($page->getTitle());
+            }, $pagesArray), $pagesArray);
+        }
+        return $this->pagesByTitle;
+    }
+
+    /**
+     * Return pages as an array with uid as key.
+     *
+     *      Example to get a page object by uid use:
+     *          PHP: $form->getPagesByUid()[123];
+     *          FLUID: {form.pagesByUid.123}
+     *
+     * @return array
+     */
+    public function getPagesByUid()
+    {
+        if (empty($this->pagesByUid)) {
+            $pagesArray = $this->getPages()->toArray();
+            $this->pagesByUid = array_combine(array_map(function (Page $page) {
+                return $page->getUid();
+            }, $pagesArray), $pagesArray);
+        }
+        return $this->pagesByUid;
     }
 }

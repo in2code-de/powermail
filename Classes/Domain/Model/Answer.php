@@ -30,11 +30,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  ***************************************************************/
 
 /**
- * Answer Model
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class Answer
+ * @package In2code\Powermail\Domain\Model
  */
 class Answer extends AbstractEntity
 {

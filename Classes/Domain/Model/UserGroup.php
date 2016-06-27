@@ -27,11 +27,8 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
  ***************************************************************/
 
 /**
- * FE_Group Model
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class UserGroup
+ * @package In2code\Powermail\Domain\Model
  */
 class UserGroup extends FrontendUserGroup
 {
