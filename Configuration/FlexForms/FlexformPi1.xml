@@ -302,7 +302,7 @@
 								<type>text</type>
 								<default>{powermail_all}</default>
 							</config>
-							<defaultExtras>richtext[cut|copy|paste|formatblock|bold|italic|underline|left|center|right|orderedlist|unorderedlist|outdent|indent|link|image|line|chMode]:rte_transform[mode=ts_css]</defaultExtras>
+							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>
 					</settings.flexform.thx.body>
 					<settings.flexform.thx.redirect>
