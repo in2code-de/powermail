@@ -150,7 +150,7 @@ class ReceiverEmailService
 
         // get mail from development context
         if (ConfigurationUtility::getDevelopmentContextEmail()) {
-//            $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
+            $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
         }
 
         $signalArguments = [&$emailArray, $this];
