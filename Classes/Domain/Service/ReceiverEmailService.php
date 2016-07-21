@@ -9,6 +9,9 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Beuser\Domain\Model\Demand;
+use TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository;
+use TYPO3\CMS\Beuser\Domain\Repository\BackendUserGroupRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
@@ -134,6 +137,11 @@ class ReceiverEmailService
             $emailArray = $this->getEmailsFromPredefinedEmail($this->settings['receiver']['predefinedemail']);
         }
 
+        // get mails from be_group
+        if ((int)$this->settings['receiver']['type'] === 3 && !empty($this->settings['receiver']['be_group'])) {
+            $emailArray = $this->getEmailsFromBeGroup($this->settings['receiver']['be_group']);
+        }
+
         // get mails from overwrite typoscript settings
         $overwriteReceivers = $this->overWriteEmailsWithTypoScript();
         if (!empty($overwriteReceivers)) {
@@ -142,7 +150,7 @@ class ReceiverEmailService
 
         // get mail from development context
         if (ConfigurationUtility::getDevelopmentContextEmail()) {
-            $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
+//            $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
         }
 
         $signalArguments = [&$emailArray, $this];
@@ -178,6 +186,35 @@ class ReceiverEmailService
         $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
         $users = $userRepository->findByUsergroup($uid);
         $array = [];
+        foreach ($users as $user) {
+            if (GeneralUtility::validEmail($user->getEmail())) {
+                $array[] = $user->getEmail();
+            }
+        }
+        return $array;
+    }
+
+
+    /**
+     * Read emails from backend users within a group
+     *
+     * @param int $uid be_groups Uid
+     * @return array Array with emails
+     */
+    protected function getEmailsFromBeGroup($uid)
+    {
+
+        /** @var BackendUserRepository */
+        $backendUserRepository = ObjectUtility::getObjectManager()->get(BackendUserRepository::class);
+
+        /** @var BackendUserGroupRepository */
+        $backendUserGroupRepository = ObjectUtility::getObjectManager()->get(BackendUserGroupRepository::class);
+
+        $userGroup = $backendUserGroupRepository->findByUid($uid);
+        $demand = new Demand();
+        $demand->setBackendUserGroup($userGroup);
+        $array = [];
+        $users = $backendUserRepository->findDemanded($demand);
         foreach ($users as $user) {
             if (GeneralUtility::validEmail($user->getEmail())) {
                 $array[] = $user->getEmail();

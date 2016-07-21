@@ -456,6 +456,9 @@
 			<trans-unit id="flexform.receiver.type.2">
 				<source>Predefined receivers</source>
 			</trans-unit>
+			<trans-unit id="flexform.receiver.type.3">
+				<source>Backend user group</source>
+			</trans-unit>
 			<trans-unit id="flexform.receiver.email">
 				<source>Receivers Email</source>
 			</trans-unit>
@@ -464,6 +467,9 @@
 			</trans-unit>
 			<trans-unit id="flexform.receiver.predefinedemail">
 				<source>Predefined receivers</source>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.be_group">
+				<source>Send Email to Backend User Group</source>
 			</trans-unit>
 			<trans-unit id="flexform.receiver.predefinedemail.1">
 				<source>Example receivers 1</source>
