@@ -13,3 +13,4 @@ Thumbs.db
 node_modules/
 .sass-cache/
 npm-debug.log
+dynamicReturnTypeMeta.json
