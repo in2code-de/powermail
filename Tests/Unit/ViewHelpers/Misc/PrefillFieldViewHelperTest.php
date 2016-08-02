@@ -301,9 +301,10 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('field', $field);
         $this->abstractValidationViewHelperMock->_set('marker', $marker);
         $this->abstractValidationViewHelperMock->_set('contentObject', new ContentObjectRenderer());
+        $value = '';
         $this->assertSame(
             $expectedResult,
-            $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptContentObject')
+            $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptContentObject', $value)
         );
     }
 
@@ -361,7 +362,11 @@ class PrefillFieldViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
         $this->abstractValidationViewHelperMock->_set('marker', $marker);
-        $this->assertSame($expectedResult, $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptRaw'));
+        $value = '';
+        $this->assertSame(
+            $expectedResult,
+            $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptRaw', $value)
+        );
     }
 
     /**
