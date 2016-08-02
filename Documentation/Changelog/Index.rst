@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.4.0
+   :Date:
+      2016-08-02
+   :Changes:
+
+      * Feature _`#77168`: https://forge.typo3.org/issues/77168 Add be_group to mail receiver
+      * Bugfix _`#77154`: https://forge.typo3.org/issues/77154 Missing comma in ext_tables.sql
+      * Bugfix _`#76820`: https://forge.typo3.org/issues/76820 RTE config is incorrect in FlexformPi1.xml
+
+ - :Version:
       3.3.0
    :Date:
       2016-06-27

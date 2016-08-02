@@ -9,6 +9,10 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Beuser\Domain\Model\BackendUserGroup;
+use TYPO3\CMS\Beuser\Domain\Model\Demand;
+use TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository;
+use TYPO3\CMS\Beuser\Domain\Repository\BackendUserGroupRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
@@ -78,7 +82,6 @@ class ReceiverEmailService
     {
         $this->mail = $mail;
         $this->settings = $settings;
-        /** @var TypoScriptService $typoScriptService */
         $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         $this->setReceiverEmails();
@@ -121,29 +124,12 @@ class ReceiverEmailService
      */
     protected function setReceiverEmails()
     {
-        // get mails from FlexForm
         $emailArray = $this->getEmailsFromFlexForm();
-
-        // get mails from fe_group
-        if ((int)$this->settings['receiver']['type'] === 1 && !empty($this->settings['receiver']['fe_group'])) {
-            $emailArray = $this->getEmailsFromFeGroup($this->settings['receiver']['fe_group']);
-        }
-
-        // get mails from predefined emailconfiguration
-        if ((int)$this->settings['receiver']['type'] === 2 && !empty($this->settings['receiver']['predefinedemail'])) {
-            $emailArray = $this->getEmailsFromPredefinedEmail($this->settings['receiver']['predefinedemail']);
-        }
-
-        // get mails from overwrite typoscript settings
-        $overwriteReceivers = $this->overWriteEmailsWithTypoScript();
-        if (!empty($overwriteReceivers)) {
-            $emailArray = $overwriteReceivers;
-        }
-
-        // get mail from development context
-        if (ConfigurationUtility::getDevelopmentContextEmail()) {
-            $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
-        }
+        $emailArray = $this->getEmailsFromFeGroup($emailArray, $this->settings['receiver']['fe_group']);
+        $emailArray = $this->getEmailsFromBeGroup($emailArray, $this->settings['receiver']['be_group']);
+        $emailArray = $this->getEmailsFromPredefinedEmail($emailArray, $this->settings['receiver']['predefinedemail']);
+        $emailArray = $this->overWriteEmailsWithTypoScript($emailArray);
+        $emailArray = $this->getEmailFromDevelopmentContext($emailArray);
 
         $signalArguments = [&$emailArray, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
@@ -157,7 +143,6 @@ class ReceiverEmailService
      */
     protected function getEmailsFromFlexForm()
     {
-        /** @var MailRepository $mailRepository */
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         $emailString = TemplateUtility::fluidParseString(
             $this->settings['receiver']['email'],
@@ -169,21 +154,50 @@ class ReceiverEmailService
     /**
      * Read emails from frontend users within a group
      *
-     * @param int $uid fe_groups Uid
+     * @param array $emailArray
+     * @param int $uid fe_groups.uid
      * @return array Array with emails
      */
-    protected function getEmailsFromFeGroup($uid)
+    protected function getEmailsFromFeGroup(array $emailArray, $uid)
     {
-        /** @var UserRepository $userRepository */
-        $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
-        $users = $userRepository->findByUsergroup($uid);
-        $array = [];
-        foreach ($users as $user) {
-            if (GeneralUtility::validEmail($user->getEmail())) {
-                $array[] = $user->getEmail();
+        if ((int)$this->settings['receiver']['type'] === 1 && !empty($uid)) {
+            $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
+            $users = $userRepository->findByUsergroup($uid);
+            $emailArray = [];
+            foreach ($users as $user) {
+                if (GeneralUtility::validEmail($user->getEmail())) {
+                    $emailArray[] = $user->getEmail();
+                }
             }
         }
-        return $array;
+        return $emailArray;
+    }
+
+    /**
+     * Read emails from backend users within a group
+     *
+     * @param array $emailArray
+     * @param int $uid be_groups.uid
+     * @return array
+     */
+    protected function getEmailsFromBeGroup(array $emailArray, $uid)
+    {
+        if ((int)$this->settings['receiver']['type'] === 3 && !empty($uid)) {
+            $beUserRepository = ObjectUtility::getObjectManager()->get(BackendUserRepository::class);
+            $beGroupRepository = ObjectUtility::getObjectManager()->get(BackendUserGroupRepository::class);
+            /** @var BackendUserGroup $userGroup */
+            $userGroup = $beGroupRepository->findByUid($uid);
+            $demand = ObjectUtility::getObjectManager()->get(Demand::class);
+            $demand->setBackendUserGroup($userGroup);
+            $users = $beUserRepository->findDemanded($demand);
+            $emailArray = [];
+            foreach ($users as $user) {
+                if (GeneralUtility::validEmail($user->getEmail())) {
+                    $emailArray[] = $user->getEmail();
+                }
+            }
+        }
+        return $emailArray;
     }
 
     /**
@@ -194,26 +208,31 @@ class ReceiverEmailService
      *          1.email.value = email1@domain.org, email2@domain.org
      *      }
      *
+     * @param array $emailArray
      * @param string $predefinedString
      * @return array
      */
-    protected function getEmailsFromPredefinedEmail($predefinedString)
+    protected function getEmailsFromPredefinedEmail(array $emailArray, $predefinedString)
     {
-        $receiverString = '';
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $receiverString,
-            $this->configuration['receiver.']['predefinedReceiver.'][$predefinedString . '.'],
-            'email'
-        );
-        return $this->parseEmailsFromString($receiverString);
+        if ((int)$this->settings['receiver']['type'] === 2 && !empty($predefinedString)) {
+            $receiverString = '';
+            TypoScriptUtility::overwriteValueFromTypoScript(
+                $receiverString,
+                $this->configuration['receiver.']['predefinedReceiver.'][$predefinedString . '.'],
+                'email'
+            );
+            $emailArray = $this->parseEmailsFromString($receiverString);
+        }
+        return $emailArray;
     }
 
     /**
      * Get email string from TypoScript overwrite
      *
+     * @param array $emailArray
      * @return array
      */
-    protected function overWriteEmailsWithTypoScript()
+    protected function overWriteEmailsWithTypoScript(array $emailArray)
     {
         $receiverString = '';
         TypoScriptUtility::overwriteValueFromTypoScript(
@@ -221,7 +240,25 @@ class ReceiverEmailService
             $this->configuration['receiver.']['overwrite.'],
             'email'
         );
-        return $this->parseEmailsFromString($receiverString);
+        $overwriteReceivers = $this->parseEmailsFromString($receiverString);
+        if (!empty($overwriteReceivers)) {
+            $emailArray = $overwriteReceivers;
+        }
+        return $emailArray;
+    }
+
+    /**
+     * Get email from development context
+     *
+     * @param array $emailArray
+     * @return array
+     */
+    protected function getEmailFromDevelopmentContext(array $emailArray)
+    {
+        if (ConfigurationUtility::getDevelopmentContextEmail()) {
+            $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
+        }
+        return $emailArray;
     }
 
     /**

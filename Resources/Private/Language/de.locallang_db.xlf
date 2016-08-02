@@ -607,17 +607,25 @@
 				<source>Predefined receivers</source>
 				<target state="translated">Vordefinierte Empfänger</target>
 			</trans-unit>
+			<trans-unit id="flexform.receiver.type.3">
+				<source>Backend user group</source>
+				<target state="translated">Backend Benutzergruppe</target>
+			</trans-unit>
 			<trans-unit id="flexform.receiver.email">
 				<source>Receivers Email</source>
 				<target state="translated">E-Mail Adresse des Empfängers</target>
 			</trans-unit>
 			<trans-unit id="flexform.receiver.fe_group">
 				<source>Send Email to Frontend User Group</source>
-				<target state="translated">E-Mail an Empfänger einer Frontend-Benutzer-Gruppe versenden</target>
+				<target state="translated">E-Mail an Empfänger einer Frontend-Benutzergruppe versenden</target>
 			</trans-unit>
 			<trans-unit id="flexform.receiver.predefinedemail">
 				<source>Predefined receivers</source>
 				<target state="translated">Vordefinierte Empfänger</target>
+			</trans-unit>
+			<trans-unit id="flexform.receiver.be_group">
+				<source>Send Email to Frontend User Group</source>
+				<target state="translated">E-Mail an Empfänger einer Backend-Benutzergruppe versenden</target>
 			</trans-unit>
 			<trans-unit id="flexform.receiver.predefinedemail.1">
 				<source>Example receivers</source>
