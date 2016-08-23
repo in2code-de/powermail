@@ -91,28 +91,28 @@ class ShowFormNoteEditForm
         $content = '
 			<table cellspacing="0" cellpadding="0" class="typo3-dblist" style="border: 1px solid #d7d7d7; width: 100%;">
 				<tbody>
-					<tr class="t3-row-header">
-						<td nowrap="nowrap" style="padding: 5px; color: white">
+					<tr class="t3-row-header" style="background-color: #EDEDED;">
+						<td nowrap="nowrap" style="padding: 5px; color: #212424">
 							<span class="c-table">
 								' . $this->getLabel('formnote.formname') . '
 							</span>
 						</td>
-						<td nowrap="nowrap" style="padding: 5px; color: white">
+						<td nowrap="nowrap" style="padding: 5px; color: #212424">
 							<span class="c-table">
 								' . $this->getLabel('formnote.storedinpage') . '
 							</span>
 						</td>
-						<td nowrap="nowrap" style="padding: 5px; color: white">
+						<td nowrap="nowrap" style="padding: 5px; color: #212424">
 							<span class="c-table">
 								' . $this->getLabel('formnote.pages') . '
 							</span>
 						</td>
-						<td nowrap="nowrap" style="padding: 5px; color: white">
+						<td nowrap="nowrap" style="padding: 5px; color: #212424">
 							<span class="c-table">
 								' . $this->getLabel('formnote.fields') . '
 							</span>
 						</td>
-						<td nowrap="nowrap" style="padding: 5px; color: white">
+						<td nowrap="nowrap" style="padding: 5px; color: #212424">
 							<span class="c-table">
 								&nbsp;
 							</span>
