@@ -25,6 +25,7 @@ namespace In2code\Powermail\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class StringUtility
@@ -182,5 +183,16 @@ class StringUtility
         $string = strtolower(trim($string));
         $string = preg_replace('~[^a-z0-9-\.]~', $replace, $string);
         return $string;
+    }
+
+    /**
+     * Forces an integer list
+     *
+     * @param string $list
+     * @return string
+     */
+    public static function integerList($list)
+    {
+        return implode(',', GeneralUtility::intExplode(',', $list));
     }
 }

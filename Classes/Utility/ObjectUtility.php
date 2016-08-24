@@ -5,6 +5,7 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Lang\LanguageService;
 
 /***************************************************************
  *  Copyright notice
@@ -76,5 +77,13 @@ class ObjectUtility extends AbstractUtility
     public static function getFilesArray()
     {
         return parent::getFilesArray();
+    }
+
+    /**
+     * @return LanguageService
+     */
+    public static function getLanguageService()
+    {
+        return parent::getLanguageService();
     }
 }

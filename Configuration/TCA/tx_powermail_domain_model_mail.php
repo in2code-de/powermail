@@ -4,7 +4,6 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $typeDefault = 'crdate, receiver_mail, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.palette1;1, ' .
@@ -14,7 +13,7 @@ $typeDefault = 'crdate, receiver_mail, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet2, ' .
     'marketing_referer_domain, marketing_referer, marketing_country, marketing_mobile_device, ' .
     'marketing_frontend_language, marketing_browser_language, marketing_page_funnel, ' .
-    '--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, hidden, starttime, endtime';
+    '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime';
 
 $mailsTca = [
     'ctrl' => [
