@@ -8,6 +8,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Lang\LanguageService;
 
 /***************************************************************
  *  Copyright notice
@@ -137,5 +138,14 @@ abstract class AbstractUtility
     protected static function getObjectManager()
     {
         return GeneralUtility::makeInstance(ObjectManager::class);
+    }
+
+    /**
+     * @return LanguageService
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    protected static function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
     }
 }
