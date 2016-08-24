@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.5.0
+   :Date:
+      2016-08-24
+   :Changes:
+
+      * Task Updating composer.json
+      * Task Refactoring of ShowFormNoteEditForm Function
+      * Bugfix _`#77610`: https://forge.typo3.org/issues/77610 Rendering of plugin in backend in TYPO3 8.2
+
+ - :Version:
       3.4.0
    :Date:
       2016-08-02
