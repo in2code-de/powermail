@@ -1,4 +1,5 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
+{namespace core=TYPO3\CMS\Core\ViewHelpers}
 
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -86,15 +87,15 @@
 
 						<td nowrap="nowrap" class="col-icon nowrap">
 							<span class="openPowermailDetailsIcons" data-action="openPowermailDetails">
-								<vh:Be.GetIcon identifier="actions-pagetree-collapse" />
-								<vh:Be.GetIcon identifier="actions-pagetree-expand" />
+								<core:Icon identifier="actions-pagetree-collapse" />
+								<core:Icon identifier="actions-pagetree-expand" />
 							</span>
 							<span class="powermailRecordIcon">
 								<span{f:if(condition:mail.hidden,then:' class="hide"')}>
-									<vh:Be.GetIcon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
+									<core:Icon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
 								</span>
 								<span{f:if(condition:mail.hidden,else:' class="hide"')}>
-									<vh:Be.GetIcon identifier="tcarecords-tx_powermail_domain_model_mail-default" overlay="overlay-hidden" />
+									<core:Icon identifier="tcarecords-tx_powermail_domain_model_mail-default" overlay="overlay-hidden" />
 								</span>
 							</span>
 						</td>
