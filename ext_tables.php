@@ -14,7 +14,7 @@ call_user_func(function () {
     /**
      * Disable not needed fields in tt_content
      */
-    $TCA['tt_content']['types']['list']['subtypes_excludelist']['powermail_pi1'] = 'select_key,pages,recursive';
+    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['powermail_pi1'] = 'select_key,pages,recursive';
 
     /**
      * Include Backend Module
@@ -47,14 +47,14 @@ call_user_func(function () {
      * Include Flexform
      */
     // Pi1
-    $TCA['tt_content']['types']['list']['subtypes_addlist']['powermail_pi1'] = 'pi_flexform';
+    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['powermail_pi1'] = 'pi_flexform';
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
         'powermail_pi1',
         'FILE:EXT:powermail/Configuration/FlexForms/FlexformPi1.xml'
     );
 
     // Pi2
-    $TCA['tt_content']['types']['list']['subtypes_addlist']['powermail_pi2'] = 'pi_flexform';
+    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['powermail_pi2'] = 'pi_flexform';
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
         'powermail_pi2',
         'FILE:EXT:powermail/Configuration/FlexForms/FlexformPi2.xml'
