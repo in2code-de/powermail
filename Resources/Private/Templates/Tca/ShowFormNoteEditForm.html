@@ -44,11 +44,11 @@
 						<f:count>{relatedFields}</f:count>
 					</span>
 				</td>
-				<td>
-					<a title="Edit" href="{uriEditForm}">
+				<td style="width: 2%; white-space: nowrap;">
+					<a title="{labels.edit}" href="{uriEditForm}">
 						<core:Icon identifier="actions-open" />
 					</a>
-					<a title="Edit" href="{uriNewForm}">
+					<a title="{labels.new}" href="{uriNewForm}">
 						<core:Icon identifier="actions-add" />
 					</a>
 				</td>
@@ -60,5 +60,14 @@
 
 
 <f:section name="error">
-	<div style="padding-bottom: 5px;">{labels.noform}</div>
+	<table class="table">
+		<tr>
+			<td>{labels.noform}</td>
+			<td style="width: 2%">
+				<a title="{labels.new}" href="{uriNewForm}">
+					<core:Icon identifier="actions-add" />
+				</a>
+			</td>
+		</tr>
+	</table>
 </f:section>

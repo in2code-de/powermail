@@ -111,6 +111,8 @@ class ShowFormNoteEditForm
             'pages' => $this->getLabel('formnote.pages'),
             'fields' => $this->getLabel('formnote.fields'),
             'noform' => $this->getLabel('formnote.noform'),
+            'new' => $this->getLabel('formnote.new'),
+            'edit' => $this->getLabel('formnote.edit')
         ];
         return $labels;
     }
