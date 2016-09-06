@@ -167,7 +167,24 @@ class ShowFormNoteEditForm
      */
     protected function getNewFormLink()
     {
-        return BackendUtility::createNewUri(Form::TABLE_NAME, $this->params['row']['pid']);
+        return BackendUtility::createNewUri(Form::TABLE_NAME, $this->getPageIdentifierForNewForms());
+    }
+
+    /**
+     * Add possibility to set the pid for new forms with page TSConfig:
+     *      tx_powermail.flexForm.newFormPid = 123
+     * If empty, the current pid will be taken
+     *
+     * @return int
+     */
+    protected function getPageIdentifierForNewForms()
+    {
+        $pageIdentifier = (int)$this->params['row']['pid'];
+        $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
+        if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'])) {
+            $pageIdentifier = (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];
+        }
+        return $pageIdentifier;
     }
 
     /**
