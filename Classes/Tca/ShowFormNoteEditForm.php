@@ -179,7 +179,7 @@ class ShowFormNoteEditForm
             $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
                 '*',
                 Form::TABLE_NAME,
-                'uid=' . (int)$this->getRelatedFormUid()
+                'uid=' . (int)$this->getRelatedFormUid() . ' and deleted = 0'
             );
             if (!empty($row)) {
                 $this->formProperties = $row;
