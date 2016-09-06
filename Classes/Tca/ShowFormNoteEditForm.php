@@ -91,6 +91,7 @@ class ShowFormNoteEditForm
                 'formProperties' => $this->getFormProperties(),
                 'labels' => $this->getLabels(),
                 'uriEditForm' => $this->getEditFormLink(),
+                'uriNewForm' => $this->getNewFormLink(),
                 'storagePageProperties' => $this->getStoragePageProperties(),
                 'relatedPages' => $this->getRelatedPages(),
                 'relatedFields' => $this->getRelatedFields(),
@@ -110,6 +111,8 @@ class ShowFormNoteEditForm
             'pages' => $this->getLabel('formnote.pages'),
             'fields' => $this->getLabel('formnote.fields'),
             'noform' => $this->getLabel('formnote.noform'),
+            'new' => $this->getLabel('formnote.new'),
+            'edit' => $this->getLabel('formnote.edit')
         ];
         return $labels;
     }
@@ -158,6 +161,33 @@ class ShowFormNoteEditForm
     }
 
     /**
+     * Build URI for new link
+     *
+     * @return string
+     */
+    protected function getNewFormLink()
+    {
+        return BackendUtility::createNewUri(Form::TABLE_NAME, $this->getPageIdentifierForNewForms());
+    }
+
+    /**
+     * Add possibility to set the pid for new forms with page TSConfig:
+     *      tx_powermail.flexForm.newFormPid = 123
+     * If empty, the current pid will be taken
+     *
+     * @return int
+     */
+    protected function getPageIdentifierForNewForms()
+    {
+        $pageIdentifier = (int)$this->params['row']['pid'];
+        $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
+        if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'])) {
+            $pageIdentifier = (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];
+        }
+        return $pageIdentifier;
+    }
+
+    /**
      * @return array
      */
     protected function getFormProperties()
@@ -166,7 +196,7 @@ class ShowFormNoteEditForm
             $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
                 '*',
                 Form::TABLE_NAME,
-                'uid=' . (int)$this->getRelatedFormUid()
+                'uid=' . (int)$this->getRelatedFormUid() . ' and deleted = 0'
             );
             if (!empty($row)) {
                 $this->formProperties = $row;

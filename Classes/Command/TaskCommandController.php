@@ -60,7 +60,7 @@ class TaskCommandController extends CommandController
      *
      * @var int
      */
-    protected $delta = 3600;
+    protected $period = 3600;
 
     /**
      * Export of mails as email attachment
@@ -132,7 +132,7 @@ class TaskCommandController extends CommandController
         foreach ($allUploads as $upload) {
             if (!in_array($upload, $usedUploads)) {
                 $absoluteFilePath = GeneralUtility::getFileAbsFileName($uploadPath . $upload);
-                if (filemtime($absoluteFilePath) < (time() - $this->delta)) {
+                if (filemtime($absoluteFilePath) < (time() - $this->period)) {
                     unlink($absoluteFilePath);
                     $removeCounter++;
                 }
@@ -148,11 +148,12 @@ class TaskCommandController extends CommandController
      *        This task will clean up all (!) files which
      *        are located in uploads/tx_powermail/
      *
+     * @param int $period Define how old the files could be (in seconds) that should be deleted (0 = delete all)
      * @return void
      */
-    public function cleanUploadsFilesCommand()
+    public function cleanUploadsFilesCommand($period = 0)
     {
-        $this->removeFilesFromRelativeDirectory('uploads/tx_powermail/');
+        $this->removeFilesFromRelativeDirectory('uploads/tx_powermail/', $period);
     }
 
     /**
@@ -163,11 +164,12 @@ class TaskCommandController extends CommandController
      *        e.g.: old captcha images and old export files
      *        (from export task - if stored in typo3temp folder)
      *
+     * @param int $period Define how old the files could be (in seconds) that should be deleted (0 = delete all)
      * @return void
      */
-    public function cleanExportFilesCommand()
+    public function cleanExportFilesCommand($period = 0)
     {
-        $this->removeFilesFromRelativeDirectory('typo3temp/tx_powermail/');
+        $this->removeFilesFromRelativeDirectory('typo3temp/tx_powermail/', $period);
     }
 
     /**
@@ -204,14 +206,20 @@ class TaskCommandController extends CommandController
      * Remove all files from a directory
      *
      * @param string $directory relative directory
+     * @param int $period Define how old the files could be (in seconds) that should be deleted (0 = delete all)
      * @return void
      */
-    protected function removeFilesFromRelativeDirectory($directory)
+    protected function removeFilesFromRelativeDirectory($directory, $period = 0)
     {
         $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName($directory), '', true);
+        $counter = 0;
         foreach ($files as $file) {
-            unlink($file);
+            if ($period === 0 || ($period > 0 && (time() - filemtime($file) > $period))) {
+                $counter++;
+                unlink($file);
+            }
         }
+        $this->outputLine($counter . ' files removed from your system');
     }
 
     /**

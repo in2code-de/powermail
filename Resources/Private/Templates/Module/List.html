@@ -19,7 +19,7 @@
 
 	<f:if condition="{mails}">
 		<f:then>
-			<f:widget.paginate
+			<f:be.widget.paginate
 					objects="{mails}"
 					as="mailsPage"
 					configuration="{itemsPerPage: '{perPage}',
@@ -29,7 +29,7 @@
 				<f:render partial="Module/List" arguments="{_all}" />
 				<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
 
-			</f:widget.paginate>
+			</f:be.widget.paginate>
 		</f:then>
 		<f:else>
 			<h3><f:translate key="BackendListNoMails" /></h3>

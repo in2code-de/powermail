@@ -88,6 +88,29 @@ class BackendUtility extends AbstractUtility
     }
 
     /**
+     * Create an URI to add a new record
+     *
+     * @param string $tableName
+     * @param int $pageIdentifier where to save the new record
+     * @param bool $addReturnUrl
+     * @return string
+     */
+    public static function createNewUri($tableName, $pageIdentifier, $addReturnUrl = true)
+    {
+        $uriParameters = [
+            'edit' => [
+                $tableName => [
+                    $pageIdentifier => 'new'
+                ]
+            ]
+        ];
+        if ($addReturnUrl) {
+            $uriParameters['returnUrl'] = self::getReturnUrl();
+        }
+        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+    }
+
+    /**
      * Get return URL from current request
      *
      * @return string

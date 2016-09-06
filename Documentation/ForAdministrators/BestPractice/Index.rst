@@ -21,6 +21,7 @@ Best Practice
    SaveSession/Index
    AjaxSubmit/Index
    FilterFormSelection/Index
+   SetPidForNewForms/Index
    DevelopmentContext/Index
    SpamPrevention/Index
    SavingValuesToThirdPartyTables/Index

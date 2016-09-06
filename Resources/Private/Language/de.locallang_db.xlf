@@ -551,6 +551,14 @@
 				<source>Please select a form</source>
 				<target state="translated">Bitte Formular wählen</target>
 			</trans-unit>
+			<trans-unit id="flexform.main.formnote.new">
+				<source>Add a new form</source>
+				<target state="translated">Neues Formular hinzufügen</target>
+			</trans-unit>
+			<trans-unit id="flexform.main.formnote.edit">
+				<source>Manage the current form</source>
+				<target state="translated">Aktuelles Formular verwalten</target>
+			</trans-unit>
 			<trans-unit id="flexform.main.formnote.formname">
 				<source>Form Name</source>
 				<target state="translated">Formular Name</target>
