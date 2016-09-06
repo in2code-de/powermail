@@ -91,6 +91,7 @@ class ShowFormNoteEditForm
                 'formProperties' => $this->getFormProperties(),
                 'labels' => $this->getLabels(),
                 'uriEditForm' => $this->getEditFormLink(),
+                'uriNewForm' => $this->getNewFormLink(),
                 'storagePageProperties' => $this->getStoragePageProperties(),
                 'relatedPages' => $this->getRelatedPages(),
                 'relatedFields' => $this->getRelatedFields(),
@@ -155,6 +156,16 @@ class ShowFormNoteEditForm
     protected function getEditFormLink()
     {
         return BackendUtility::createEditUri(Form::TABLE_NAME, $this->getFormProperties()['uid']);
+    }
+
+    /**
+     * Build URI for new link
+     *
+     * @return string
+     */
+    protected function getNewFormLink()
+    {
+        return BackendUtility::createNewUri(Form::TABLE_NAME, $this->params['row']['pid']);
     }
 
     /**
