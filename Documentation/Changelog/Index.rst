@@ -18,6 +18,19 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.6.0
+   :Date:
+      2016-09-06
+   :Changes:
+
+      * Feature _`#77625`: https://forge.typo3.org/issues/77625 Add time period option to cleanUploadsFiles task
+      * Feature _`#77846`: https://forge.typo3.org/issues/77846 f:be.widget.paginate instead of f:widget.paginate for backend module
+      * Feature Add new-link for form preview in plugin, remove ugly add wizard
+      * Feature Define now where to store new forms if editors add forms with Page TSConfig
+      * Bugfix _`#77868`: https://forge.typo3.org/issues/77868 TYPO3 8.3: Prevent exception by adding new plugins
+      * Task Small code refactoring for ext_tables.php and ext_localconf.php
+
+ - :Version:
       3.5.0
    :Date:
       2016-08-24
