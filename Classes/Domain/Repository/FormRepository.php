@@ -8,6 +8,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -33,11 +34,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
  ***************************************************************/
 
 /**
- * FormRepository
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class FormRepository
  */
 class FormRepository extends AbstractRepository
 {
@@ -142,11 +139,11 @@ class FormRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false);
 
         if ($pid > 0) {
-            /** @var QueryGenerator $queryGenerator */
             $queryGenerator = ObjectUtility::getObjectManager()->get(QueryGenerator::class);
-            $pidList = $queryGenerator->getTreeList($pid, 20, 0, 1);
-            $query->matching($query->in('pid', GeneralUtility::trimExplode(',', $pidList, true)));
+            $pids = GeneralUtility::trimExplode(',', $queryGenerator->getTreeList($pid, 20, 0, 1), true);
+            $query->matching($query->in('pid', $pids));
         }
+        $query->setOrderings(['title' => QueryInterface::ORDER_ASCENDING]);
 
         return $query->execute();
     }
