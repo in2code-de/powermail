@@ -29,7 +29,16 @@
 	<div class="powermail_overview">
 		<f:if condition="{forms}">
 			<f:then>
-				<f:render partial="Module/OverviewBe" arguments="{_all}" />
+				<f:be.widget.paginate
+						objects="{forms}"
+						as="formsPage"
+						configuration="{itemsPerPage: 25,
+						insertAbove: '{f:if(condition:\'{forms -> f:count()} > 25\',then:1,else:0)}',
+						insertBelow: '{f:if(condition:\'{forms -> f:count()} > 25\',then:1,else:0)}'}">
+
+					<f:render partial="Module/OverviewBe" arguments="{_all}" />
+
+				</f:be.widget.paginate>
 			</f:then>
 			<f:else>
 				<f:translate key="BackendOverviewNoForms">No Forms to show</f:translate>

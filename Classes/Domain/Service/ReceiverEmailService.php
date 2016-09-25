@@ -114,6 +114,9 @@ class ReceiverEmailService
         if (!empty($this->settings['receiver']['name'])) {
             $receiverName = $this->settings['receiver']['name'];
         }
+
+        $signalArguments = [&$receiverName, $this];
+        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $receiverName;
     }
 

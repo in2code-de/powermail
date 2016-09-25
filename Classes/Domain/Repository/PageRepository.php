@@ -58,6 +58,20 @@ class PageRepository extends AbstractRepository
     }
 
     /**
+     * Get properties from table "pages"
+     *
+     * @param int $uid
+     * @return array
+     */
+    public function getPropertiesFromUid($uid)
+    {
+        $query = $this->createQuery();
+        $sql = 'select * from pages where uid = ' . (int)$uid . ' limit 1';
+        $result = $query->statement($sql)->execute(true);
+        return $result[0];
+    }
+
+    /**
      * Get all pages with tt_content with a Powermail Plugin
      *
      * @param Form $form

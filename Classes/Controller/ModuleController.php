@@ -178,7 +178,7 @@ class ModuleController extends AbstractController
      */
     public function overviewBeAction()
     {
-        $forms = $this->formRepository->findAllInPid($this->id);
+        $forms = $this->formRepository->findAllInPidAndRootline($this->id);
         $this->view->assign('forms', $forms);
         $this->view->assign('pid', $this->id);
     }

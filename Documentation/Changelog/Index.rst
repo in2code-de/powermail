@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.7.0
+   :Date:
+      2016-09-25
+   :Changes:
+
+      * Feature Overview Backend Module: Use backend pagebrowser
+      * Feature Overview Backend Module: Sort forms by title
+      * Feature Add another signal to manipulate receivers name
+      * Bugfix _`#78027`: https://forge.typo3.org/issues/78027 Don't list forms in overview backend module if a user hasn't access to the page
+
+ - :Version:
       3.6.0
    :Date:
       2016-09-06

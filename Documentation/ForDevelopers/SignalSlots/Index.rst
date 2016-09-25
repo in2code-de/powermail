@@ -162,6 +162,17 @@ forge.typo3.org if you need a new signal.
       Manipulate receiver emails short before the mails will be send
 
  - :Class:
+      In2code\\Powermail\\Domain\\Service\\ReceiverEmailService
+   :Name:
+      getReceiverName
+   :Method:
+      getReceiverName()
+   :Arguments:
+      &$receiverName, $this
+   :Description:
+      Manipulate receiver name when getting it
+
+ - :Class:
       In2code\\Powermail\\Domain\\Service\\SendMailService
    :Name:
       sendTemplateEmailBeforeSend
