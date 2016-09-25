@@ -129,12 +129,12 @@ class FormRepository extends AbstractRepository
     }
 
     /**
-     * Find all within a Page and its subpages
+     * Find all within a Page and all subpages
      *
      * @param int $pid
      * @return QueryResult
      */
-    public function findAllInPid($pid)
+    public function findAllInPidAndRootline($pid)
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
