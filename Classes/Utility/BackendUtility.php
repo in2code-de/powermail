@@ -1,38 +1,12 @@
 <?php
 namespace In2code\Powermail\Utility;
 
+use In2code\Powermail\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * Backend utility functions
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class BackendUtility
  */
 class BackendUtility extends AbstractUtility
 {
@@ -201,5 +175,28 @@ class BackendUtility extends AbstractUtility
     public static function getPagesTSconfig($pid, $rootLine = null, $returnPartArray = false)
     {
         return BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
+    }
+
+    /**
+     * Filter a pid array with only the pages that are allowed to be viewed from the backend user.
+     * If the backend user is an admin, show all of course - so ignore this filter.
+     *
+     * @param array $pids
+     * @return array
+     */
+    public static function filterPagesForAccess(array $pids)
+    {
+        if (!self::isBackendAdmin()) {
+            $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+            $newPids = [];
+            foreach ($pids as $pid) {
+                $properties = $pageRepository->getPropertiesFromUid($pid);
+                if (self::getBackendUserAuthentication()->doesUserHaveAccess($properties, 1)) {
+                    $newPids[] = $pid;
+                }
+            }
+            $pids = $newPids;
+        }
+        return $pids;
     }
 }
