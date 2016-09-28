@@ -29,11 +29,25 @@
 					{searchField.title}
 				</label>
 				<div class="col-sm-10">
-					<f:form.textfield
-							property="{searchField.uid}"
-							id="powermail_frontend_search_{searchField.marker}"
-							class="powermail_frontend_search powermail_frontend_search_{searchField.marker} form-control"
-							value="{vh:Misc.VariableInVariable(obj:piVars.filter, prop:searchField.uid)}" />
+                <f:if condition="{searchField.type} != 'check'">
+                    <f:form.textfield
+                                property="{searchField.uid}"
+                                id="powermail_frontend_search_{searchField.marker}"
+                                class="powermail_frontend_search powermail_frontend_search_{searchField.marker} form-control"
+                                value="{vh:Misc.VariableInVariable(obj:piVars.filter, prop:searchField.uid)}" />
+                </f:if>
+                <f:if condition="{searchField.type} == 'check'">
+                    <f:for each="{vh:Form.Checkbox(obj:piVars.filter, prop:searchField.uid,field:searchField)}" as="setting" iteration="index">
+                        <f:form.checkbox
+                                    property="{searchField.uid}."
+                                    value="{setting.value}"
+                                    checked="{setting.selected}"
+                                    id="powermail_field_{searchField.marker}_{index.cycle}"
+                                    class="powermail_frontend_search powermail_frontend_search_{searchField.marker}" />
+                        <vh:string.RawAndRemoveXss>{setting.label}</vh:string.RawAndRemoveXss>
+                    </f:for>
+                </f:if>
+
 				</div>
 			</div>
 		</f:for>
