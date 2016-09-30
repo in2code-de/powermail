@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 
@@ -36,6 +37,14 @@ class BackendUtility extends AbstractUtility
             return self::getBackendUserAuthentication()->user[$property];
         }
         return '';
+    }
+
+    /**
+     * @return BackendUserAuthentication
+     */
+    public static function getBackendUserAuthentication()
+    {
+        return parent::getBackendUserAuthentication();
     }
 
     /**
