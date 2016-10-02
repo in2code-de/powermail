@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Repository;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -49,6 +50,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class MailRepository extends AbstractRepository
 {
+    use SignalTrait;
 
     /**
      * fieldRepository
@@ -393,6 +395,9 @@ class MailRepository extends AbstractRepository
         if ($htmlSpecialChars) {
             $variables = ArrayUtility::htmlspecialcharsOnArray($variables);
         }
+
+        $signalArguments = [&$variables, $this];
+        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $variables;
     }
 
