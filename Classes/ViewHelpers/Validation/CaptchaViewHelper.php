@@ -5,6 +5,7 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -42,7 +43,11 @@ class CaptchaViewHelper extends AbstractViewHelper
     {
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
             case 'captcha':
+                $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
                 $image = ExtensionManagementUtility::siteRelPath('captcha') . 'captcha/captcha.php';
+                if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
+                    $image = '/index.php?eID=captcha';
+                }
                 break;
 
             default:
