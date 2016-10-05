@@ -46,7 +46,7 @@ class CaptchaViewHelper extends AbstractViewHelper
                 $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
                 $image = ExtensionManagementUtility::siteRelPath('captcha') . 'captcha/captcha.php';
                 if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
-                    $image = '/index.php?eID=captcha';
+                    $image = '/index.php?eID=captcha&ts=' . time();
                 }
                 break;
 
