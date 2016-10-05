@@ -3,7 +3,9 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -16,14 +18,6 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  */
 class CaptchaViewHelper extends AbstractViewHelper
 {
-
-    /**
-     * PersistenceManager
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @inject
-     */
-    protected $persistenceManager;
 
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
@@ -52,7 +46,6 @@ class CaptchaViewHelper extends AbstractViewHelper
                 break;
 
             default:
-                /** @var CalculatingCaptchaService $captchaService */
                 $captchaService = $this->objectManager->get(CalculatingCaptchaService::class);
                 $image = $captchaService->render($field);
         }
@@ -60,8 +53,6 @@ class CaptchaViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Init
-     *
      * @return void
      */
     public function initialize()
@@ -69,6 +60,8 @@ class CaptchaViewHelper extends AbstractViewHelper
         $typoScriptSetup = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
-        $this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptSetup);
+        $this->settings = $configuration['plugin']['tx_powermail']['settings']['setup'];
     }
 }
