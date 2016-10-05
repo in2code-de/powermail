@@ -10,11 +10,7 @@ use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * CaptchaValidator
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class CaptchaValidator
  */
 class CaptchaValidator extends AbstractValidator
 {
@@ -73,25 +69,39 @@ class CaptchaValidator extends AbstractValidator
     {
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
             case 'captcha':
-                session_start();
-                $generatedCaptchaString = $_SESSION['tx_captcha_string'];
-                if ($this->isClearSession()) {
-                    $_SESSION['tx_captcha_string'] = '';
-                }
-                if (!empty($value) && $generatedCaptchaString === $value) {
-                    return true;
-                }
+                $result = $this->validateCaptcha($value);
                 break;
 
             default:
-                /** @var CalculatingCaptchaService $captchaService */
-                $captchaService = $this->objectManager->get(CalculatingCaptchaService::class);
-                if ($captchaService->validCode($value, $field, $this->isClearSession())) {
-                    return true;
-                }
+                $result = $this->validatePowermailCaptcha($value, $field);
         }
+        return $result;
+    }
 
-        return false;
+    /**
+     * @param string $value
+     * @param Field $field
+     * @return bool
+     */
+    protected function validatePowermailCaptcha($value, Field $field)
+    {
+        $captchaService = $this->objectManager->get(CalculatingCaptchaService::class);
+        return $captchaService->validCode($value, $field, $this->isClearSession());
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    protected function validateCaptcha($value)
+    {
+        session_start();
+        $captchaString = $_SESSION['tx_captcha_string'];
+        if ($this->isClearSession()) {
+            $_SESSION['tx_captcha_string'] = '';
+        }
+        return !empty($value) && $captchaString === $value;
     }
 
     /**
@@ -141,12 +151,15 @@ class CaptchaValidator extends AbstractValidator
     }
 
     /**
-     * Constructor
+     * CaptchaValidator constructor.
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(array $options = [])
     {
-        $pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
+        parent::__construct($options);
+
         // clear captcha only on create action
+        $pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
         $this->setClearSession(($pluginVariables['action'] === 'create' ? true : false));
     }
 }
