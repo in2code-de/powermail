@@ -7,7 +7,10 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use ThinkopenAt\Captcha\Utility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Class CaptchaValidator
@@ -69,7 +72,7 @@ class CaptchaValidator extends AbstractValidator
     {
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
             case 'captcha':
-                $result = $this->validateCaptcha($value);
+                $result = $this->validateCaptcha($value, $field);
                 break;
 
             default:
@@ -91,10 +94,25 @@ class CaptchaValidator extends AbstractValidator
 
     /**
      * @param string $value
+     * @param Field $field
+     * @return bool
+     */
+    protected function validateCaptcha($value, Field $field)
+    {
+        $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
+        if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
+            return Utility::checkCaptcha($value, $field->getUid());
+        } else {
+            return $this->validateCaptchaOld($value);
+        }
+    }
+
+    /**
+     * @param string $value
      * @return bool
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected function validateCaptcha($value)
+    protected function validateCaptchaOld($value)
     {
         session_start();
         $captchaString = $_SESSION['tx_captcha_string'];
