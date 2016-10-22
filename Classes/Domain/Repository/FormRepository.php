@@ -131,7 +131,7 @@ class FormRepository extends AbstractRepository
     /**
      * Find all within a Page and all subpages
      *
-     * @param int $pid
+     * @param int $pid start page identifier
      * @return QueryResult
      */
     public function findAllInPidAndRootline($pid)
@@ -144,6 +144,13 @@ class FormRepository extends AbstractRepository
             $pids = GeneralUtility::trimExplode(',', $queryGenerator->getTreeList($pid, 20, 0, 1), true);
             $pids = BackendUtility::filterPagesForAccess($pids);
             $query->matching($query->in('pid', $pids));
+        } else {
+            if (!BackendUtility::isBackendAdmin()) {
+                $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+                $pids = $pageRepository->getAllPages();
+                $pids = BackendUtility::filterPagesForAccess($pids);
+                $query->matching($query->in('pid', $pids));
+            }
         }
         $query->setOrderings(['title' => QueryInterface::ORDER_ASCENDING]);
 

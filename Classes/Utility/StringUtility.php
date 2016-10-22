@@ -195,4 +195,17 @@ class StringUtility
     {
         return implode(',', GeneralUtility::intExplode(',', $list));
     }
+
+    /**
+     * Get src from image tag
+     *      <img src="abc" class="" /> => abc
+     * 
+     * @param string $tag
+     * @return string
+     */
+    public static function getSrcFromImageTag($tag)
+    {
+        preg_match('/.*src="(.*)".*/U', $tag, $matches);
+        return $matches[1];
+    }
 }

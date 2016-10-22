@@ -18,6 +18,19 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.8.0
+   :Date:
+      2016-10-22
+   :Changes:
+
+      * Feature Add another signal to manipulate variables
+      * Feature _`#78092`: https://forge.typo3.org/issues/78092 Respect access for form selection in plugin for editors
+      * Feature _`#78147`: https://forge.typo3.org/issues/78147 Support captcha in version 2 or higher
+      * Bugfix _`#78146`: https://forge.typo3.org/issues/78146 Using EXT:captcha does not work correctly
+      * Bugfix _`#78255`: https://forge.typo3.org/issues/78255 Respect access for form listing for editors in backend module
+      * Bugfix _`#78356`: https://forge.typo3.org/issues/78356 Fatal error: Call to a member function setTSlogMessage() on null
+
+ - :Version:
       3.7.0
    :Date:
       2016-09-25

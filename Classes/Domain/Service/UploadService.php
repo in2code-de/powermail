@@ -3,7 +3,6 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\File;
-use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ObjectUtility;

@@ -249,6 +249,17 @@ forge.typo3.org if you need a new signal.
    :Description:
       Useful if you want to hook into additionalAttributes and set your own attributes to fields
 
+ - :Class:
+      In2code\\Powermail\\Domain\\Repository\\MailRepository
+   :Name:
+      getVariablesWithMarkersFromMail
+   :Method:
+      getVariablesWithMarkersFromMail()
+   :Arguments:
+      &$variables, $this
+   :Description:
+      If you want to register your own markers use this signal
+
 Example
 """""""
 

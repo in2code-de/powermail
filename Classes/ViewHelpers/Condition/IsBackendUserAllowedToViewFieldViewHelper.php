@@ -1,22 +1,14 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use In2code\Powermail\Utility\BackendUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class IsBackendUserAllowedToViewFieldViewHelper
- *
- * @package In2code\Powermail\ViewHelpers\Condition
  */
 class IsBackendUserAllowedToViewFieldViewHelper extends AbstractViewHelper
 {
-
-    /**
-     * Backend User Object
-     *
-     * \TYPO3\CMS\Core\Authentication\BackendUserAuthentication
-     */
-    protected $backendUserAuthentication = null;
 
     /**
      * Check if Backend User is allowed to see this field
@@ -27,18 +19,6 @@ class IsBackendUserAllowedToViewFieldViewHelper extends AbstractViewHelper
      */
     public function render($table, $field)
     {
-        return $this->backendUserAuthentication->check('non_exclude_fields', $table . ':' . $field);
+        return BackendUtility::getBackendUserAuthentication()->check('non_exclude_fields', $table . ':' . $field);
     }
-
-    /**
-     * Initialize
-     *
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    public function initialize()
-    {
-        $this->backendUserAuthentication = $GLOBALS['BE_USER'];
-    }
-
 }
