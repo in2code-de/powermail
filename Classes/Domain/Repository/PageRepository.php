@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
+use In2code\Powermail\Utility\ObjectUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -131,6 +132,21 @@ class PageRepository extends AbstractRepository
                 ['forms' => $localizedFormUid]
             );
         }
+    }
+
+    /**
+     * Get all not deleted pages
+     *
+     * @return int[]
+     */
+    public function getAllPages()
+    {
+        $rows = ObjectUtility::getDatabaseConnection()->exec_SELECTgetRows('uid', 'pages', 'deleted = 0');
+        $pids = [];
+        foreach ($rows as $row) {
+            $pids[] = (int)$row['uid'];
+        }
+        return $pids;
     }
 
     /**
