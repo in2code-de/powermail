@@ -23,15 +23,43 @@ class SessionViewHelper extends AbstractViewHelper
     public $sessionKey = 'powermail_be_check_test';
 
     /**
-     * Check FE Session
+     * Check if FE Sessions work in this instance
      *
      * @return bool
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function render()
     {
-        // settings
-        $userObj = EidUtility::initFeUser();
+        $this->initializeTsfe();
+        return $this->checkSession();
+    }
+
+    /**
+     * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    protected function checkSession()
+    {
+        $value = $this->getRandomValue();
+        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->sessionKey, $value);
+        $GLOBALS['TSFE']->storeSessionData();
+        return $GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionKey) === $value;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getRandomValue()
+    {
+        return md5(time());
+    }
+
+    /**
+     * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    protected function initializeTsfe()
+    {
+        $feUserAuthentication = EidUtility::initFeUser();
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
             $GLOBALS['TYPO3_CONF_VARS'],
@@ -39,18 +67,6 @@ class SessionViewHelper extends AbstractViewHelper
             0,
             true
         );
-        $GLOBALS['TSFE']->fe_user = $userObj;
-
-        // random value for session storing
-        $value = md5(time());
-
-        // store in session
-        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->sessionKey, $value);
-        $GLOBALS['TSFE']->storeSessionData();
-
-        if ($GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionKey) === $value) {
-            return true;
-        }
-        return false;
+        $GLOBALS['TSFE']->fe_user = $feUserAuthentication;
     }
 }
