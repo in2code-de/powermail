@@ -62,7 +62,7 @@ class SessionViewHelper extends AbstractViewHelper
         $feUserAuthentication = EidUtility::initFeUser();
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
-            $GLOBALS['TYPO3_CONF_VARS'],
+            ['FE' => ['disableNoCacheParameter' => 0]] + $GLOBALS['TYPO3_CONF_VARS'],
             GeneralUtility::_GET('id'),
             0,
             true
