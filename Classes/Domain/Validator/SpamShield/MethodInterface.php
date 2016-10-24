@@ -13,9 +13,10 @@ interface MethodInterface
     /**
      * @param Mail $mail
      * @param array $settings
+     * @param array $flexForm
      * @param array $configuration
      */
-    public function __construct(Mail $mail, array $settings, array $configuration = []);
+    public function __construct(Mail $mail, array $settings, array $flexForm, array $configuration = []);
 
     /**
      * @return void
