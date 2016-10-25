@@ -751,31 +751,34 @@ class Field extends AbstractEntity
      */
     public function dataTypeFromFieldType($fieldType)
     {
-        $types = [
-            'captcha' => 0,
-            'check' => 1,
-            'content' => 0,
-            'date' => 2,
-            'file' => 3,
-            'hidden' => 0,
-            'html' => 0,
-            'input' => 0,
-            'location' => 0,
-            'password' => 0,
-            'radio' => 0,
-            'reset' => 0,
-            'select' => 0,
-            'submit' => 0,
-            'text' => 0,
-            'textarea' => 0,
-            'typoscript' => 0
-        ];
+        static $types = null;
+        if (is_null($types)) {
+            $types = [
+                'captcha' => 0,
+                'check' => 1,
+                'content' => 0,
+                'date' => 2,
+                'file' => 3,
+                'hidden' => 0,
+                'html' => 0,
+                'input' => 0,
+                'location' => 0,
+                'password' => 0,
+                'radio' => 0,
+                'reset' => 0,
+                'select' => 0,
+                'submit' => 0,
+                'text' => 0,
+                'textarea' => 0,
+                'typoscript' => 0
+            ];
+            $types = $this->extendTypeArrayWithTypoScriptTypes($types);
+        }
 
         // change select fieldtype to array if multiple checked
         if ($fieldType === 'select' && $this->isMultiselect()) {
             $types['select'] = 1;
         }
-        $types = $this->extendTypeArrayWithTypoScriptTypes($fieldType, $types);
 
         if (array_key_exists($fieldType, $types)) {
             return $types[$fieldType];
@@ -786,16 +789,18 @@ class Field extends AbstractEntity
     /**
      * Extend dataType with TSConfig
      *
-     * @param string $fieldType
      * @param array $types
      * @return array
      */
-    protected function extendTypeArrayWithTypoScriptTypes($fieldType, array $types)
+    protected function extendTypeArrayWithTypoScriptTypes(array $types)
     {
         $typoScript = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
         $configuration = $typoScript['tx_powermail.']['flexForm.'];
-        if (!empty($configuration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'])) {
-            $types[$fieldType] = (int)$configuration['type.']['addFieldOptions.'][$fieldType . '.']['dataType'];
+        foreach ($configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
+            if (!empty($fieldType['dataType'])) {
+                $fieldTypeName = substr($fieldTypeName, 0, -2);
+                $types[$fieldTypeName] = (int) $fieldType['dataType'];
+            }
         }
         return $types;
     }
