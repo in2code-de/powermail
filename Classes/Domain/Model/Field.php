@@ -776,8 +776,8 @@ class Field extends AbstractEntity
         }
 
         // change select fieldtype to array if multiple checked
-        if ($fieldType === 'select' && $this->isMultiselect()) {
-            $types['select'] = 1;
+        if ($fieldType === 'select') {
+            $types['select'] = $this->isMultiselect() ? 1 : 0;
         }
 
         if (array_key_exists($fieldType, $types)) {
@@ -798,7 +798,7 @@ class Field extends AbstractEntity
         $configuration = $typoScript['tx_powermail.']['flexForm.'];
         foreach ($configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
             if (!empty($fieldType['dataType'])) {
-                $fieldTypeName = substr($fieldTypeName, 0, -2);
+                $fieldTypeName = substr($fieldTypeName, 0, -1);
                 $types[$fieldTypeName] = (int) $fieldType['dataType'];
             }
         }
