@@ -84,7 +84,7 @@ class FileFactory
         /** @var FieldRepository $fieldRepository */
         $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
         $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
-        if ($field !== null && $field->getType() === 'file' && !empty($value)) {
+        if ($field !== null && $field->dataTypeFromFieldType($field->getType()) === 3 && !empty($value)) {
             return $this->makeFileInstance($marker, $value, null, null, null, true);
         }
         return null;
