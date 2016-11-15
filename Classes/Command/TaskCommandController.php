@@ -251,7 +251,7 @@ class TaskCommandController extends CommandController
         if ($period > 0) {
             $variables = [
                 'filter' => [
-                    'start' => strftime('%Y-%m-%d', (time() - $period)),
+                    'start' => strftime('%Y-%m-%d %H:%M:%S', (time() - $period)),
                     'stop' => 'now'
                 ]
             ];
