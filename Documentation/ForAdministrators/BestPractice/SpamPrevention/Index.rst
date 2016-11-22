@@ -53,9 +53,13 @@ Comprehensive Example
 			spamshield {
 				_enable = 1
 				factor = 75
+				
+				indicator.honeypod = 1
+				
 				email = administrator@domain.org
 				emailSubject = Spam in powermail form recognized
 				emailTemplate = EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+				
 				logfileLocation = typo3temp/logs/powermail_spam.log
 				logTemplate = EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html
 
