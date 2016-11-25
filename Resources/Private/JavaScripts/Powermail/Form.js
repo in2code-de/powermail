@@ -56,7 +56,8 @@ function PowermailForm($) {
 	 * @private
 	 */
 	var getLocationAndWrite = function() {
-		if ($('.powermail_fieldwrap_location input').length && navigator.geolocation) {
+		if ($('*[data-powermail-location="prefill"]').length && navigator.geolocation) {
+			var $this = $(this);
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
@@ -65,15 +66,9 @@ function PowermailForm($) {
 					url: url,
 					data: 'lat=' + lat + '&lng=' + lng,
 					cache: false,
-					beforeSend: function() {
-						$('body').css('cursor', 'wait');
-					},
-					complete: function() {
-						$('body').css('cursor', 'default');
-					},
 					success: function(data) {
 						if (data) {
-							$('.powermail_fieldwrap_location input').val(data);
+							$('*[data-powermail-location="prefill"]').val(data);
 						}
 					}
 				});
