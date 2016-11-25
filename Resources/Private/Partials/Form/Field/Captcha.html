@@ -5,7 +5,7 @@
 		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><span class="mandatory">*</span>
 	</label>
 
-	<div class="{settings.styles.framework.fieldWrappingClasses} {vh:Validation.ErrorClass(field: '{field}', class: 'powermail_field_error')}">
+	<div class="{settings.styles.framework.fieldWrappingClasses} {vh:Validation.ErrorClass(field:field, class: 'powermail_field_error')}">
 		<f:form.textfield
 				id="powermail_field_{field.marker}"
 				property="{field.marker}"
