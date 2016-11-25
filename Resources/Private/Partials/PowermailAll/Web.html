@@ -11,7 +11,7 @@
 			<strong>{answer.field.title}</strong>
 		</td>
 		<td class="powermail_all_value powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
-			<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+			<f:if condition="{vh:Condition.IsArray(val:answer.value)}">
 				<f:else>
 					<vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}"><f:format.nl2br>{answer.value}</f:format.nl2br></vh:Misc.ManipulateValueWithTypoScript>
 				</f:else>
