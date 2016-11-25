@@ -796,7 +796,7 @@ class Field extends AbstractEntity
     {
         $typoScript = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
         $configuration = $typoScript['tx_powermail.']['flexForm.'];
-        foreach ($configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
+        foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
             if (!empty($fieldType['dataType'])) {
                 $fieldTypeName = substr($fieldTypeName, 0, -1);
                 $types[$fieldTypeName] = (int) $fieldType['dataType'];
