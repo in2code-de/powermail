@@ -52,6 +52,7 @@ class ValueBlacklistMethodTest extends UnitTestCase
             ['dummy'],
             [
                 new Mail(),
+                [],
                 []
             ]
         );

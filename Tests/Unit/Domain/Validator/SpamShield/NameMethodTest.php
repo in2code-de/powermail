@@ -52,6 +52,7 @@ class NameMethodTest extends UnitTestCase
             ['dummy'],
             [
                 new Mail(),
+                [],
                 []
             ]
         );

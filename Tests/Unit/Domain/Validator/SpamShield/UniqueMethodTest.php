@@ -52,6 +52,7 @@ class UniqueMethodTest extends UnitTestCase
             ['dummy'],
             [
                 new Mail(),
+                [],
                 []
             ]
         );

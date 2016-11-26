@@ -214,6 +214,7 @@ class MailRepositoryTest extends UnitTestCase
             }
         }
 
+        $this->generalValidatorMock->_callRef('disableSignals');
         $result = $this->generalValidatorMock->_callRef('getVariablesWithMarkersFromMail', $mail);
         $this->assertSame($expectedResult, $result);
     }

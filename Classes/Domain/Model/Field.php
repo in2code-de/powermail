@@ -799,7 +799,7 @@ class Field extends AbstractEntity
         foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
             if (!empty($fieldType['dataType'])) {
                 $fieldTypeName = substr($fieldTypeName, 0, -1);
-                $types[$fieldTypeName] = (int) $fieldType['dataType'];
+                $types[$fieldTypeName] = (int)$fieldType['dataType'];
             }
         }
         return $types;

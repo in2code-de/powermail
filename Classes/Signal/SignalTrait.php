@@ -36,6 +36,10 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 trait SignalTrait
 {
+    /**
+     * @var bool
+     */
+    protected $signalEnabled = true;
 
     /**
      * Instance a new signalSlotDispatcher and offer a signal
@@ -48,8 +52,28 @@ trait SignalTrait
      */
     protected function signalDispatch($signalClassName, $signalName, array $arguments)
     {
-        /** @var Dispatcher $signalSlotDispatcher */
-        $signalSlotDispatcher = ObjectUtility::getObjectManager()->get(Dispatcher::class);
-        $signalSlotDispatcher->dispatch($signalClassName, $signalName, $arguments);
+        if ($this->isSignalEnabled()) {
+            /** @var Dispatcher $signalSlotDispatcher */
+            $signalSlotDispatcher = ObjectUtility::getObjectManager()->get(Dispatcher::class);
+            $signalSlotDispatcher->dispatch($signalClassName, $signalName, $arguments);
+        }
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function isSignalEnabled()
+    {
+        return $this->signalEnabled;
+    }
+
+    /**
+     * Signal can be disabled for testing
+     *
+     * @return void
+     */
+    protected function disableSignals()
+    {
+        $this->signalEnabled = false;
     }
 }
