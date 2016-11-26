@@ -95,6 +95,8 @@ powermail_frontend_rss {
 # JavaScript and CSS section
 ############################
 
+# add jQuery if it was turned on in the constants
+[globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle}]
 page {
 	# Inlude JavaScript files
 	includeJSFooterlibs {
@@ -102,6 +104,7 @@ page {
 		powermailJQuery.external = 1
 	}
 }
+[end]
 
 
 # CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)

@@ -178,7 +178,7 @@ class CalculatingCaptchaService
      */
     protected function createImage($content, $addHash = true)
     {
-        $imageResource = ImageCreateFromPNG($this->getBackgroundImage(true));
+        $imageResource = imagecreatefrompng($this->getBackgroundImage(true));
         imagettftext(
             $imageResource,
             $this->configuration['captcha.']['default.']['textSize'],
@@ -203,7 +203,7 @@ class CalculatingCaptchaService
     protected function getColorForCaptcha($imageResource)
     {
         $colorRgb = sscanf($this->configuration['captcha.']['default.']['textColor'], '#%2x%2x%2x');
-        return ImageColorAllocate($imageResource, $colorRgb[0], $colorRgb[1], $colorRgb[2]);
+        return imagecolorallocate($imageResource, $colorRgb[0], $colorRgb[1], $colorRgb[2]);
     }
 
     /**

@@ -158,7 +158,7 @@ class Form extends AbstractEntity
         foreach ($this->getPages() as $page) {
             /** @var Field $field */
             foreach ($page->getFields() as $field) {
-                if ($field->getType() === 'file') {
+                if ($field->dataTypeFromFieldType($field->getType()) === 3) {
                     return true;
                 }
             }

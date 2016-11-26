@@ -32,14 +32,21 @@ abstract class AbstractMethod implements MethodInterface
     protected $settings = [];
 
     /**
+     * @var array
+     */
+    protected $flexForm = [];
+
+    /**
      * @param Mail $mail
      * @param array $settings
+     * @param array $flexForm
      * @param array $configuration
      */
-    public function __construct(Mail $mail, array $settings, array $configuration = [])
+    public function __construct(Mail $mail, array $settings, array $flexForm, array $configuration = [])
     {
         $this->mail = $mail;
         $this->settings = $settings;
+        $this->flexForm = $flexForm;
         $this->configuration = $configuration;
         $this->arguments = GeneralUtility::_GP('tx_powermail_pi1');
     }

@@ -13,6 +13,11 @@ class ContentElementViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
+    /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
      * @inject
      */

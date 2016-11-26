@@ -58,6 +58,12 @@ call_user_func(function () {
         'EXT:powermail/Classes/Hook/FlexFormManipulationHook.php:In2code\Powermail\Hook\FlexFormManipulationHook';
 
     /**
+     * Hook to extend the FlexForm since core version 8.5
+     */
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class]['flexParsing']['powermail'] =
+        In2code\Powermail\Hook\FlexFormManipulationHook::class;
+
+    /**
      * JavaScript evaluation of TCA fields
      */
     $TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =

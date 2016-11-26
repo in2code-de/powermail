@@ -51,6 +51,7 @@ class LinkMethodTest extends UnitTestCase
             ['dummy'],
             [
                 new Mail(),
+                [],
                 []
             ]
         );

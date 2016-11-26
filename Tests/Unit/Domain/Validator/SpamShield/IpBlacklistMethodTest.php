@@ -52,6 +52,7 @@ class IpBlacklistMethodTest extends UnitTestCase
             ['dummy'],
             [
                 new Mail(),
+                [],
                 []
             ]
         );

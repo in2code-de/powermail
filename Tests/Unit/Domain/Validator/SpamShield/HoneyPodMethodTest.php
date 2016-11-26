@@ -50,6 +50,7 @@ class HoneyPodMethodTest extends UnitTestCase
             ['dummy'],
             [
                 new Mail(),
+                [],
                 []
             ]
         );

@@ -247,6 +247,8 @@ Another way is to hide fields for editors (and administrators) via Page TSConfig
 			placeholder.disabled = 1
 		}
 	}
+	
+You may also restrict this and other settings to non-admin users with a TypoScript condition (see https://docs.typo3.org/typo3cms/TSconfigReference/Conditions/Index.html).
 
 Hiding fields from FlexForm
 '''''''''''''''''''''''''''

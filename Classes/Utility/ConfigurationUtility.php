@@ -187,6 +187,26 @@ class ConfigurationUtility extends AbstractUtility
     }
 
     /**
+     * Check if a given validation is turned on generally
+     * and if there is a given spamshield method enabled
+     *
+     * @param array $settings
+     * @param string $className
+     * @return bool
+     */
+    public static function isValidationEnabled(array $settings, $className)
+    {
+        $validationActivated = false;
+        foreach ((array)$settings['spamshield']['methods'] as $method) {
+            if ($method['class'] === $className && $method['_enable'] === '1') {
+                $validationActivated = true;
+                break;
+            }
+        }
+        return !empty($settings['spamshield']['_enable']) && $validationActivated;
+    }
+
+    /**
      * Merges Flexform, TypoScript and Extension Manager Settings
      * Note: If FF value is empty, we want the TypoScript value instead
      *

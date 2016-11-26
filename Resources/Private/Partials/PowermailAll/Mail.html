@@ -10,9 +10,9 @@
 		<b><vh:string.RawAndRemoveXss>{answer.field.title}</vh:string.RawAndRemoveXss></b>
 	</td>
 	<td valign="top">
-		<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+		<f:if condition="{vh:Condition.IsArray(val:answer.value)}">
 			<f:else>
-				<vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}"><f:format.nl2br>{answer.value}</f:format.nl2br></vh:Misc.ManipulateValueWithTypoScript>
+				<f:format.nl2br><vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}">{answer.value}</vh:Misc.ManipulateValueWithTypoScript></f:format.nl2br>
 			</f:else>
 			<f:then>
 				<f:for each="{answer.value}" as="subValue" iteration="index">
