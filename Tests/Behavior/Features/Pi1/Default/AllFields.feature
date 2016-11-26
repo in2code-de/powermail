@@ -15,7 +15,7 @@ Feature: AllFields
     Then I should see "Radio"
     Then I should see "country"
     Then I should see "Das ist der Text"
-    Then I should see "Willkommen zum powermail Testparcour"
+    Then I should see "Content Element (Sally Dalmatiner)"
     Then the sourcecode should contain '<b>Fett</b> Mager'
     Then I should see "Password"
     Then I should see "Bitte erneut eintragen"
