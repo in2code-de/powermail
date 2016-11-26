@@ -27,6 +27,10 @@ See TypoScript Settings example:
 				# Target URL for POST values (like http://www.target.com/target.php)
 				targetUrl = http://eloqua.com/e/f.aspx
 
+				# Basic Auth Protection - leave empty if Target is not protected
+				username =
+				password =
+
 				# build your post values like &param1=value1&param2=value2
 				values = COA
 				values {
