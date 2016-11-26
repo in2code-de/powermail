@@ -26,7 +26,7 @@ Small example
 
 Just define which classes should be used. Every method like \*Finisher() will be called - e.g. myFinisher():
 
-::
+.. code-block:: typoscript
 
    plugin.tx_powermail.settings.setup {
        finishers {
@@ -38,7 +38,8 @@ Just define which classes should be used. Every method like \*Finisher() will be
 
 
 Add a php-file and extend your class with the AbstractFinisher from powermail:
-::
+
+.. code-block:: php
 
    <?php
    namespace Vendor\Ext\Finisher;
@@ -72,7 +73,7 @@ in TypoScript and with the possibility to load the file
 (useful if file could not be loaded from autoloader
 because it's stored in fileadmin or elsewhere)
 
-::
+.. code-block:: typoscript
 
    plugin.tx_powermail.settings.setup {
        finishers {
@@ -98,7 +99,7 @@ because it's stored in fileadmin or elsewhere)
 
 Add your php-file again and extend your class with the AbstractFinisher from powermail:
 
-::
+.. code-block:: php
 
    <?php
    namespace Vendor\Ext\Finisher;
@@ -161,10 +162,10 @@ Add your php-file again and extend your class with the AbstractFinisher from pow
            $subject = $this->getMail()->getSubject();
 
            // get a value by markername
-           $value = $mail->getAnswersByFieldMarker()['markerName']->getValue();
+           $value = $this->getMail()->getAnswersByFieldMarker()['markerName']->getValue();
 
            // get a value by field uid
-           $value = $mail->getAnswersByFieldUid()[123]->getValue();
+           $value = $this->getMail()->getAnswersByFieldUid()[123]->getValue();
 
            // do some more magic ...
        }
@@ -173,8 +174,8 @@ Add your php-file again and extend your class with the AbstractFinisher from pow
 Some notices
 """"""""""""
 
-* All methods which are ending with "finisher" will be called - e.g. saveFinisher()
-* The method initializeFinisher() will always be called at first
-* Every finisher method could have its own initialize method, which will be called before. Like initializeMyFinisher() before myFinisher()
-* Classes in extensions (if namespace and filename fits) will be automaticly included from TYPO3 autoloader. If you place a single file in fileadmin, use "require" in TypoScript
-* Per default 10, 20 and 30 is already in use from powermail itself (SaveToAnyTableFinisher, SendParametersFinisher, RedirectFinisher) since version 2.19.0
+* All methods which are ending with "finisher" will be called - e.g. ``saveFinisher()``.
+* The method ``initializeFinisher()`` will always be called at first.
+* Every finisher method could have its own initialize method, which will be called before. Like ``initializeMyFinisher()`` before ``myFinisher()``.
+* Classes in extensions (if namespace and filename fits) will be automatically included from TYPO3 autoloader. If you place a single file in fileadmin, use "require" in TypoScript.
+* Per default 10, 20 and 30 is already in use from powermail itself (``SaveToAnyTableFinisher``, ``SendParametersFinisher``, ``RedirectFinisher``) since version 2.19.0.
