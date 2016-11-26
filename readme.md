@@ -33,6 +33,10 @@ and easy to use mailform extension with a lots of features
   - Some code cleanup
   - Manual update
 
+# Official documentation
+
+see https://docs.typo3.org/typo3cms/extensions/powermail/ for the complete documentation
+
 
 ### Example form with bootstrap classes:
 
