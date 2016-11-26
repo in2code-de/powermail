@@ -45,6 +45,6 @@ class IsHonepodEnabledViewHelper extends AbstractViewHelper
         );
         $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
         $configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptSetup);
-        $this->settings = $configuration['plugin']['tx_powermail']['settings']['setup'];
+        $this->settings = (array)$configuration['plugin']['tx_powermail']['settings']['setup'];
     }
 }
