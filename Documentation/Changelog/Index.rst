@@ -18,6 +18,25 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.9.0
+   :Date:
+      2016-11-26
+   :Changes:
+
+      * Task Code update for further TYPO3 versions
+      * Task Some documentation updates
+      * Task Add some more behaviour tests
+      * Task Make FlexForm values available in Spamshield classes
+      * Feature Include JQuery not automatically if Pi2 is in use
+      * Bugfix Field type Content Element: Output is not escaped in TYPO3 8 any more
+      * Bugfix _`#78805`: https://forge.typo3.org/issues/78805 Field of type Content Element: Output is escaped in T3 8.x
+      * Bugfix _`#78804`: https://forge.typo3.org/issues/78804 Powermail Location fields are not prefilled any more
+      * Bugfix _`#78698`: https://forge.typo3.org/issues/78698 CSV-Export only exports full days
+      * Bugfix _`#78690`: https://forge.typo3.org/issues/78690 Honeypod is not activated
+      * Bugfix _`#78409`: https://forge.typo3.org/issues/78409 Adding a new field of type file is not possible
+      * Bugfix _`#78214`: https://forge.typo3.org/issues/78214 Missing breaks in textarea output
+
+ - :Version:
       3.8.0
    :Date:
       2016-10-22

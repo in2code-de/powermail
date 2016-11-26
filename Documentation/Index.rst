@@ -16,7 +16,7 @@ powermail
 		powermail
 
 	:Version:
-		3.8
+		3.9
 
 	:Language:
 		en
