@@ -92,12 +92,9 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $curlSettings['params']);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            /* Set username and password for basic auth - if any*/
             if (!empty($curlSettings['username']) && !empty($curlSettings['password'])) {
-                $username = $curlSettings['username'];
-                $password = $curlSettings['password'];
                 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-                curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
+                curl_setopt($curl, CURLOPT_USERPWD, $curlSettings['username'] . ':' . $curlSettings['password']);
             }
             curl_exec($curl);
             curl_close($curl);
