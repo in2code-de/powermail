@@ -13,7 +13,7 @@ The standard way
 ^^^^^^^^^^^^^^^^
 
 Prefilling (input, textarea, hidden) or preselecting (select, check, radio)
-of fields will be done by the prefillFieldsViewHelper. It
+of fields will be done by the PrefillFieldViewHelper. It
 listen to the following methods and parameters (in this ordering):
 
 1. GET/POST param like **&tx\_powermail\_pi1[field][marker]=value**
