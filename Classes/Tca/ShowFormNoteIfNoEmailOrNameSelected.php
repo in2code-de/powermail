@@ -5,12 +5,22 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class ShowFormNoteIfNoEmailOrNameSelected shows note if form errors
+ * Class ShowFormNoteIfNoEmailOrNameSelected shows one or two warnings in backend below a form if
+ *      - a form has now chosen sender-name or sender-email
+ *      - a form contains two fields with the same markername
  */
 class ShowFormNoteIfNoEmailOrNameSelected
 {
+
+    /**
+     * @var string
+     */
+    protected $templatePathAndFile =
+        'EXT:powermail/Resources/Private/Templates/Tca/ShowFormNoteIfNoEmailOrNameSelected.html';
 
     /**
      * Path to locallang file (with : as postfix)
@@ -20,82 +30,36 @@ class ShowFormNoteIfNoEmailOrNameSelected
     protected $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:';
 
     /**
-     * @var \TYPO3\CMS\Lang\LanguageService
-     */
-    protected $languageService = null;
-
-    /**
-     * Show Note if no Email or Name selected
-     *
-     * @param array $params Config Array
+     * @param array $params
      * @return string
      */
-    public function showNote($params)
+    public function showNote(array $params)
     {
-        $this->initialize();
-        $content = '';
-        if (!$this->showNoteActive($params)) {
-            return $content;
+        if ($this->isShowNote($params)) {
+            $standaloneView = TemplateUtility::getDefaultStandAloneView();
+            $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
+            $standaloneView->assignMultiple(
+                [
+                    'mutedNote' => $this->isNoteMuted($params),
+                    'form' => $params['row'],
+                    'labels' => $this->getLabels(),
+                    'markerWarning' => !$this->hasFormUniqueAndFilledFieldMarkers((int)$params['row']['uid'])
+                ]
+            );
+            return $standaloneView->render();
         }
-
-        if (!$this->senderEmailOrSenderNameSet($params['row']['uid'])) {
-            if ($this->noteFieldDisabled($params)) {
-                $content .= '<p style="opacity: 0.3; margin: 0;">';
-                $content .= $this->getCheckboxHtml($params);
-                $content .= '<label for="' . Form::TABLE_NAME . '_note_checkbox" style="vertical-align: bottom;">';
-                $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.note.4', true);
-                $content .= '</label>';
-                $content .= '<p style="margin: 0 0 3px 0;">';
-            } else {
-                $content .= '<div style="background-color: #FCF8E3; border: 1px solid #FFB019;' .
-                    ' padding: 5px 10px; color: #FFB019;">';
-                $content .= '<p style="margin: 0 0 3px 0;">';
-                $content .= '<strong>';
-                $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.note.1', true);
-                $content .= '</strong>';
-                $content .= ' ';
-                $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.note.2', true);
-                $content .= '</p>';
-                $content .= '<p style="margin: 0;">';
-                $content .= $this->getCheckboxHtml($params);
-                $content .= '<label for="' . Form::TABLE_NAME . '_note_checkbox" style="vertical-align: bottom;">';
-                $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.note.3', true);
-                $content .= '</label>';
-                $content .= '</p>';
-                $content .= '</div>';
-            }
-        }
-
-        if (!$this->hasFormUniqueAndFilledFieldMarkers($params['row']['uid'])) {
-            $content .= '<div style="background:#F2DEDE; border:1px solid #A94442;' .
-                ' padding: 5px 10px; color: #A94442; margin-top: 10px">';
-            $content .= '<p><strong>';
-            $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.error.1', true);
-            $content .= '</strong></p>';
-            $content .= '<p>';
-            $content .= $this->languageService->sL($this->locallangPath . Form::TABLE_NAME . '.error.2', true);
-            $content .= '</p>';
-            $content .= '</div>';
-        }
-
-        return $content;
+        return '';
     }
 
     /**
-     * @param array $params Config Array
-     * @return string
+     * Show note
+     *
+     * @param array $params
+     * @return bool
      */
-    protected function getCheckboxHtml($params)
+    protected function isShowNote(array $params)
     {
-        $content = '';
-        $content .= '<input type="checkbox" id="' . Form::TABLE_NAME . '_note_checkbox" name="dummy" ';
-        $content .= ((isset($params['row']['note']) && $params['row']['note'] === '1') ? 'checked="checked" ' : '');
-        $content .= 'value="1" onclick="document.getElementById' .
-            '(\'' . Form::TABLE_NAME . '_note\').value = ((this.checked) ? 1 : 0);" />';
-        $content .= '<input type="hidden" id="' . Form::TABLE_NAME . '_note" ';
-        $content .= 'name="data[' . Form::TABLE_NAME . '][' . $params['row']['uid'] . '][note]" ';
-        $content .= 'value="' . (!empty($params['row']['note']) ? '1' : '0') . '" />';
-        return $content;
+        return $this->canBeRendered($params) && !$this->senderEmailOrSenderNameSet((int)$params['row']['uid']);
     }
 
     /**
@@ -104,25 +68,35 @@ class ShowFormNoteIfNoEmailOrNameSelected
      * @param array $params Config Array
      * @return bool
      */
-    protected function noteFieldDisabled($params)
+    protected function isNoteMuted($params)
     {
-        if (isset($params['row']['note']) && $params['row']['note'] === '1') {
-            return true;
-        }
-        return false;
+        return isset($params['row']['note']) && $params['row']['note'] === '1';
+    }
+
+    /**
+     * Check if showNote can be rendered:
+     *      - Do we have a form uid (form is stored) AND
+     *      - Is ReplaceIrre Feature disabled
+     *
+     * @param array $params Config Array
+     * @return bool
+     */
+    protected function canBeRendered(array $params)
+    {
+        return !empty($params['row']['uid']) && is_numeric($params['row']['uid']) &&
+            !ConfigurationUtility::isReplaceIrreWithElementBrowserActive();
     }
 
     /**
      * Check if sender_email or sender_name was set
      *
-     * @param $formUid
+     * @param int $formIdentifier
      * @return bool
      */
-    protected function senderEmailOrSenderNameSet($formUid)
+    protected function senderEmailOrSenderNameSet($formIdentifier)
     {
-        /** @var FormRepository $formRepository */
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
-        $fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
+        $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
         foreach ($fields as $property) {
             foreach ($property as $column => $value) {
                 if ($column === 'sender_email' && $value === '1') {
@@ -137,16 +111,43 @@ class ShowFormNoteIfNoEmailOrNameSelected
     }
 
     /**
+     * @return array
+     */
+    protected function getLabels()
+    {
+        $labels = [
+            'note1' => $this->getLabel('note.1'),
+            'note2' => $this->getLabel('note.2'),
+            'note3' => $this->getLabel('note.3'),
+            'note4' => $this->getLabel('note.4'),
+            'error1' => $this->getLabel('error.1'),
+            'error2' => $this->getLabel('error.2')
+        ];
+        return $labels;
+    }
+
+    /**
+     * Get localized label
+     *
+     * @param string $key
+     * @return string
+     */
+    protected function getLabel($key)
+    {
+        $languageService = ObjectUtility::getLanguageService();
+        return $languageService->sL($this->locallangPath . Form::TABLE_NAME . '.' . $key, true);
+    }
+
+    /**
      * Check if form has unique and filled field markers
      *
-     * @param $formUid
+     * @param int $formIdentifier
      * @return bool
      */
-    protected function hasFormUniqueAndFilledFieldMarkers($formUid)
+    protected function hasFormUniqueAndFilledFieldMarkers($formIdentifier)
     {
-        /** @var FormRepository $formRepository */
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
-        $fields = $formRepository->getFieldsFromFormWithSelectQuery($formUid);
+        $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
         $markers = [];
         foreach ($fields as $field) {
             if (empty($field['marker'])) {
@@ -154,38 +155,6 @@ class ShowFormNoteIfNoEmailOrNameSelected
             }
             $markers[] = $field['marker'];
         }
-        if (array_unique($markers) !== $markers) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Check if showNote should be active or not
-     *
-     * @param array $params Config Array
-     * @return bool
-     */
-    protected function showNoteActive($params)
-    {
-        if (
-            !isset($params['row']['uid']) ||
-            !is_numeric($params['row']['uid']) ||
-            ConfigurationUtility::isReplaceIrreWithElementBrowserActive()
-        ) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Initialize some variables
-     *
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected function initialize()
-    {
-        $this->languageService = $GLOBALS['LANG'];
+        return array_unique($markers) === $markers;
     }
 }
