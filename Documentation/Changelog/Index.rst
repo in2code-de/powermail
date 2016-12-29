@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.10.0
+   :Date:
+      2016-12-29
+   :Changes:
+
+      * Task Code cleanup - remove last HTML in PHP file for a TCA helper function to show notes below a form
+      * Task Code cleanup - update userFunc comment
+      * Task Documentation cleanup
+      * Feature SendPost Finisher now with authentication feature
+
+ - :Version:
       3.9.0
    :Date:
       2016-11-26
