@@ -1,0 +1,60 @@
+{namespace core=TYPO3\CMS\Core\ViewHelpers}
+
+<f:if condition="{mutedNote}">
+	<f:then>
+		<f:render section="mutedNote" arguments="{_all}" />
+	</f:then>
+	<f:else>
+		<f:render section="note" arguments="{_all}" />
+	</f:else>
+</f:if>
+<f:if condition="{markerWarning}">
+	<f:render section="markerWarning" arguments="{_all}" />
+</f:if>
+
+
+
+<f:section name="note">
+	<div class="alert alert-warning">
+		<p>
+			<strong>{labels.note1}</strong>
+			{labels.note2}
+		</p>
+		<div class="checkbox">
+			<f:alias map="{label:labels.note3}">
+				<f:render section="field" arguments="{_all}" />
+			</f:alias>
+		</div>
+	</div>
+</f:section>
+
+
+
+<f:section name="mutedNote">
+	<div class="alert alert-muted" style="opacity: 0.3;">
+		<div class="checkbox">
+			<f:alias map="{label:labels.note4}">
+				<f:render section="field" arguments="{_all}" />
+			</f:alias>
+		</div>
+	</div>
+</f:section>
+
+
+
+<f:section name="markerWarning">
+	<div class="alert alert-danger">
+		<strong>{labels.error1}</strong><br />
+		{labels.error2}
+	</div>
+</f:section>
+
+
+
+<f:section name="field">
+	<label>
+		<input type="checkbox" name="dummy" id="tx_powermail_domain_model_form_note_checkbox" value="1" onclick="document.getElementById('tx_powermail_domain_model_form_note').value = ((this.checked) ? 1 : 0);"{f:if(condition:form.note,then:' checked="checked"')} />
+		{label}
+	</label>
+	<input type="hidden" name="data[tx_powermail_domain_model_form][{form.uid}][note]" id="tx_powermail_domain_model_form_note" value="{form.note}" />
+</f:section>
