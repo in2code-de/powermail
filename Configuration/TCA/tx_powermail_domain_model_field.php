@@ -564,7 +564,8 @@ $fieldsTca = [
             'config' => [
                 'type' => 'text',
                 'cols' => '32',
-                'rows' => '5'
+                'rows' => '5',
+                'default' => ''
             ],
         ],
         'path' => [
@@ -596,7 +597,8 @@ $fieldsTca = [
             'config' => [
                 'type' => 'text',
                 'cols' => '32',
-                'rows' => '5'
+                'rows' => '5',
+                'default' => ''
             ],
         ],
         'sender_email' => [
@@ -637,7 +639,7 @@ $fieldsTca = [
                 'items' => [
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
-                        ''
+                        0
                     ],
                     /**
                      * Spacer
@@ -785,7 +787,7 @@ $fieldsTca = [
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => '',
+                'default' => 0,
                 'itemsProcFunc' => 'In2code\Powermail\Tca\AddOptionsToSelection->addOptionsForValidation',
             ],
         ],
@@ -807,7 +809,8 @@ $fieldsTca = [
             'config' => [
                 'type' => 'text',
                 'cols' => '26',
-                'rows' => '2'
+                'rows' => '2',
+                'default' => ''
             ],
         ],
         'placeholder' => [
@@ -817,7 +820,8 @@ $fieldsTca = [
             'config' => [
                 'type' => 'text',
                 'cols' => '26',
-                'rows' => '2'
+                'rows' => '2',
+                'default' => ''
             ],
         ],
         'feuser_value' => [
@@ -897,7 +901,8 @@ $fieldsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ],
         ],
         'css' => [
@@ -1033,6 +1038,7 @@ $fieldsTca = [
                 'foreign_table' => Page::TABLE_NAME,
                 'foreign_table_where' => 'AND ' . Page::TABLE_NAME . '.pid=###CURRENT_PID### ' .
                     'AND ' . Page::TABLE_NAME . '.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
+                'default' => 0
             ],
         ],
         'sorting' => [

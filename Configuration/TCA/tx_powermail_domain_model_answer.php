@@ -43,10 +43,11 @@ $answersTca = [
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
+                'default' => 0,
                 'items' => [
                     ['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
                     ['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
-                ],
+                ]
             ],
         ],
         'l10n_parent' => [
@@ -177,7 +178,8 @@ $answersTca = [
                 'allowed' => Field::TABLE_NAME,
                 'size' => 1,
                 'maxitems' => 1,
-                'multiple' => 0
+                'multiple' => 0,
+                'default' => 0
             ],
         ],
         'mail' => [
@@ -189,7 +191,8 @@ $answersTca = [
                 'allowed' => Mail::TABLE_NAME,
                 'size' => 1,
                 'maxitems' => 1,
-                'multiple' => 0
+                'multiple' => 0,
+                'default' => 0
             ],
         ],
     ],
