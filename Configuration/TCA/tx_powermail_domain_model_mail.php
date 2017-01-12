@@ -68,10 +68,11 @@ $mailsTca = [
                 'foreign_table' => 'sys_language',
                 'renderType' => 'selectSingle',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
+                'default' => 0,
                 'items' => [
                     ['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
                     ['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
-                ],
+                ]
             ],
         ],
         'l10n_parent' => [
@@ -249,7 +250,8 @@ $mailsTca = [
                 'allowed' => 'fe_users',
                 'size' => 1,
                 'minitems' => 0,
-                'maxitems' => 1
+                'maxitems' => 1,
+                'default' => 0
             ]
         ],
         'spam_factor' => [
@@ -284,7 +286,8 @@ $mailsTca = [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => ''
             ],
         ],
         'user_agent' => [
@@ -295,7 +298,8 @@ $mailsTca = [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => ''
             ],
         ],
         'marketing_referer_domain' => [
@@ -305,7 +309,8 @@ $mailsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => ''
             ],
         ],
         'marketing_referer' => [
@@ -316,7 +321,8 @@ $mailsTca = [
                 'type' => 'text',
                 'cols' => '30',
                 'rows' => '5',
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => ''
             ],
         ],
         'marketing_country' => [
@@ -326,7 +332,8 @@ $mailsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => ''
             ],
         ],
         'marketing_mobile_device' => [
@@ -335,7 +342,8 @@ $mailsTca = [
                 Mail::TABLE_NAME . '.marketing_mobile_device',
             'config' => [
                 'type' => 'check',
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => 0
             ],
         ],
         'marketing_frontend_language' => [
@@ -346,7 +354,8 @@ $mailsTca = [
                 'type' => 'input',
                 'size' => 2,
                 'eval' => 'int',
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => 0
             ],
         ],
         'marketing_browser_language' => [
@@ -356,7 +365,8 @@ $mailsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => ''
             ],
         ],
         'marketing_page_funnel' => [
@@ -367,7 +377,8 @@ $mailsTca = [
                 'type' => 'text',
                 'cols' => '30',
                 'rows' => '5',
-                'readOnly' => 1
+                'readOnly' => 1,
+                'default' => ''
             ],
         ],
         'uid' => [

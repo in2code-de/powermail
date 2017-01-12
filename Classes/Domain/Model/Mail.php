@@ -649,7 +649,11 @@ class Mail extends AbstractEntity
      */
     public function setMarketingRefererDomain($marketingRefererDomain)
     {
-        $this->marketingRefererDomain = $marketingRefererDomain;
+        $value = '';
+        if (!empty($marketingRefererDomain)) {
+            $value = $marketingRefererDomain;
+        }
+        $this->marketingRefererDomain = $value;
         return $this;
     }
 

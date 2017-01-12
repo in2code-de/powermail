@@ -18,6 +18,14 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.10.1
+   :Date:
+      2017-01-12
+   :Changes:
+
+      * Bugfix _`#79217`: https://forge.typo3.org/issues/79217 MySQL strict mode errors
+
+ - :Version:
       3.10.0
    :Date:
       2016-12-29

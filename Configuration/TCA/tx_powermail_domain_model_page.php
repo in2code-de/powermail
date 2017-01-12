@@ -203,6 +203,7 @@ $pagesTca = [
                 'foreign_table' => Form::TABLE_NAME,
                 'foreign_table_where' => 'and ' . Form::TABLE_NAME . '.pid=###CURRENT_PID### ' .
                     'and ' . Form::TABLE_NAME . '.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
+                'default' => 0
             ],
         ],
         'sorting' => [
