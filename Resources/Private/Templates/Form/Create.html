@@ -14,7 +14,10 @@ NOTE: See example section after main section
 
 
 <f:section name="main">
-	<f:flashMessages class="powermail_message powermail_message_error" />
+	<f:alias map="{flashMessageClass:'powermail_message_error'}">
+		<f:render partial="FlashMessages/{vh:Misc.GetFlashMessagesPartialName()}" arguments="{_all}" />
+	</f:alias>
+
 
 	<div class="powermail_create" data-powermail-form="{mail.form.uid}">
 		<f:if condition="{optinActive}">
@@ -41,7 +44,10 @@ NOTE: See example section after main section
 THIS IS ONLY AN EXAMPLE SECTION
 
 <f:section name="example">
-	<f:flashMessages class="powermail_message powermail_message_{messageClass}" />
+	<f:alias map="{flashMessageClass:'powermail_message_error'}">
+		<f:render partial="FlashMessages/{vh:Misc.GetFlashMessagesPartialName()}" arguments="{_all}" />
+	</f:alias>
+
 
 	1. Get values from RTE from Backend:
 	<vh:Misc.Variables mail="{mail}">
