@@ -3,7 +3,9 @@
 Render Delete Message
 
 <f:section name="main">
-	<f:flashMessages class="powermail_message powermail_message_ok" />
+	<f:alias map="{flashMessageClass:'powermail_message_ok'}">
+		<f:render partial="FlashMessages/{vh:Misc.GetFlashMessagesPartialName()}" arguments="{_all}" />
+	</f:alias>
 
 	<div class="powermail_frontend">
 		<f:link.action action="list" pageUid="{listPid}" class="powermail_frontend_back">

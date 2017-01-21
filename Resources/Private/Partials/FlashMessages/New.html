@@ -1,0 +1,10 @@
+<f:comment>
+    Flashmessages for TYPO3 8.6 and newer
+</f:comment>
+<f:flashMessages as="flashMessages">
+    <ul class="powermail_message {flashMessageClass}">
+        <f:for each="{flashMessages}" as="flashMessage">
+            <li>{flashMessage.message}</li>
+        </f:for>
+    </ul>
+</f:flashMessages>
