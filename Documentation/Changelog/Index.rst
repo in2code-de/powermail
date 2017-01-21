@@ -26,6 +26,14 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       * Bugfix _`#79217`: https://forge.typo3.org/issues/79217 MySQL strict mode errors
 
  - :Version:
+      3.11.0
+   :Date:
+      2017-01-21
+   :Changes:
+
+      * Task Support new FlashMessages ViewHelper for TYPO3 8.6
+
+ - :Version:
       3.10.0
    :Date:
       2016-12-29
