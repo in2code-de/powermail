@@ -55,7 +55,10 @@
 			</div>
 		</div>
 		<div class="module-body powermail-backend">
-			<f:flashMessages />
+			<f:alias map="{flashMessageClass:''}">
+				<f:render partial="FlashMessages/{vh:Misc.GetFlashMessagesPartialName()}" arguments="{_all}" />
+			</f:alias>
+
 			<f:render section="content" />
 		</div>
 	</div>
