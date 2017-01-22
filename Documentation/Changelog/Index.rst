@@ -18,12 +18,12 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
-      3.10.1
+      3.11.1
    :Date:
-      2017-01-12
+      2017-01-22
    :Changes:
 
-      * Bugfix _`#79217`: https://forge.typo3.org/issues/79217 MySQL strict mode errors
+      * Bugfix _`#79408`: https://forge.typo3.org/issues/79408 "FM old powermail_message_error" message on top of form
 
  - :Version:
       3.11.0
@@ -32,6 +32,14 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
    :Changes:
 
       * Task Support new FlashMessages ViewHelper for TYPO3 8.6
+
+ - :Version:
+      3.10.1
+   :Date:
+      2017-01-12
+   :Changes:
+
+      * Bugfix _`#79217`: https://forge.typo3.org/issues/79217 MySQL strict mode errors
 
  - :Version:
       3.10.0
