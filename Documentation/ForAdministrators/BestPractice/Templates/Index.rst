@@ -66,7 +66,7 @@ backend) and subtables like {firstname}, {label_firstname}, {mail.subject} or
 	{powermail_all}
 
 See the hints in the template files or do a debug output with the
-debug viewhelper
+debug ViewHelper
 
 .. code-block:: text
 
@@ -94,7 +94,7 @@ Using TypoScript in Templates or RTE fields
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Do you need some dynamic values from TypoScript in your Template or
-RTE? Use a cObject viehelper:
+RTE? Use a cObject ViewHelper:
 
 
 .. code-block:: text
