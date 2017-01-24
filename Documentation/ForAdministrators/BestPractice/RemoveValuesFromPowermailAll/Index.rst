@@ -9,20 +9,20 @@ If you don't want to show secondary values like captcha result or the value of y
 
 You can separate between:
 
-- Marker names AND
-- Field types
+- Marker Names AND
+- Field Types
 
-on differnt views:
+on different views:
 
 - Confirmation Page
 - Submit Page
 - Mail to Sender
 - Mail to Receiver
-- Optin Mail to Sender
+- Opt-in Mail to Sender
 
 See following TypoScript Setup example, how to avoid values from {adminonly} and {referrer}
-and all fields of type hidden and captcha on all webviews and the mail to the user.
-In other words - those fieldvalues should only be seen by the admin in the mail to the receiver:
+and all fields of type hidden and captcha on all webviews and in the mail to the user.
+In other words - those field values should only be seen by the admin in the mail to the receiver:
 
 .. code-block:: text
 
