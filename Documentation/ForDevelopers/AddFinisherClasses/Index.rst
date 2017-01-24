@@ -3,7 +3,7 @@
 .. _addFinishers:
 
 
-Add Finishers Classes
+Add Finisher Classes
 ^^^^^^^^^^^^^^^^^^^^^
 
 Introduction
