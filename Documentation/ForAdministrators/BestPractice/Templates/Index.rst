@@ -34,7 +34,7 @@ you can copy this single file to a fileadmin folder or else where (see values wi
 	}
 
 
-Because constants are used for .1 in setup per default, you can also use **TypoScript Constants** like:
+Because constants are used for .1 in setup by default, you can also use **TypoScript Constants** like:
 
 .. code-block:: text
 
