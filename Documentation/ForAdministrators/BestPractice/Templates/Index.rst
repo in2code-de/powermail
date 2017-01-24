@@ -12,7 +12,7 @@ Powermail brings a lot of templates, layouts and partials to your
 system. You can add additional paths via **TypoScript Setup**.
 If you want to overwrite single files (e.g. Resources/Private/Templates/Form/Form.html)
 you can copy this single file to a fileadmin folder or else where (see values with "1" below).
-"0" is defined as fallback folder per default for the non-existing files in your defined folder:
+"0" is defined as fallback folder by default for the non-existing files in your defined folder:
 
 .. code-block:: text
 
