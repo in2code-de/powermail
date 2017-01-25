@@ -113,7 +113,9 @@ class DateConverter
     protected function createDateFromFormat()
     {
         $date = \DateTime::createFromFormat($this->getInputFormat(), $this->getInput());
-        $this->setDate($date);
+        if ($date !== false) {
+            $this->setDate($date);
+        }
     }
 
     /**
