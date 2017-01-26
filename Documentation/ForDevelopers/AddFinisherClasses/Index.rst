@@ -3,7 +3,7 @@
 .. _addFinishers:
 
 
-Add Finishers Classes
+Add Finisher Classes
 ^^^^^^^^^^^^^^^^^^^^^
 
 Introduction
@@ -11,7 +11,7 @@ Introduction
 
 Let's say you want easily add some own php functions that
 should be called after a user submits a form or
-if you want to override origin<al Finishers from powermail,
+if you want to override original Finishers from powermail,
 a Finisher is the best choice.
 
 Maybe you want to handle the user input with:
