@@ -12,7 +12,7 @@ Powermail brings a lot of templates, layouts and partials to your
 system. You can add additional paths via **TypoScript Setup**.
 If you want to overwrite single files (e.g. Resources/Private/Templates/Form/Form.html)
 you can copy this single file to a fileadmin folder or else where (see values with "1" below).
-"0" is defined as fallback folder per default for the non-existing files in your defined folder:
+"0" is defined as fallback folder by default for the non-existing files in your defined folder:
 
 .. code-block:: text
 
@@ -34,7 +34,7 @@ you can copy this single file to a fileadmin folder or else where (see values wi
 	}
 
 
-Because constants are used for .1 in setup per default, you can also use **TypoScript Constants** like:
+Because constants are used for .1 in setup by default, you can also use **TypoScript Constants** like:
 
 .. code-block:: text
 
@@ -66,7 +66,7 @@ backend) and subtables like {firstname}, {label_firstname}, {mail.subject} or
 	{powermail_all}
 
 See the hints in the template files or do a debug output with the
-debug viewhelper
+debug ViewHelper
 
 .. code-block:: text
 
@@ -94,7 +94,7 @@ Using TypoScript in Templates or RTE fields
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Do you need some dynamic values from TypoScript in your Template or
-RTE? Use a cObject viehelper:
+RTE? Use a cObject ViewHelper:
 
 
 .. code-block:: text
