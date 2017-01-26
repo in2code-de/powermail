@@ -24,7 +24,7 @@ Follow this steps
 Please follow this steps before you create a bug entry on forge:
 
 * Clean all caches in Install Tool
-* Remove all files and folder in typo3temp/
+* Remove all files and folders in typo3temp/
 * Try to use the default TypoScript (comment out your TypoScript)
 * Try to use default Templates (and Partials and Layouts)
 * Reload Frontend
