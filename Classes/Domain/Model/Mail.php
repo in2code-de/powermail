@@ -714,4 +714,29 @@ class Mail extends AbstractEntity
         }
         return $this->answersByFieldUid;
     }
+    
+    /**
+     * Returns answers as an array with marker field as key.
+     *
+     * To get all values of the answer for all fields use
+     * $mail->getFieldMarkerAnswersArray()
+     *
+     * @return array
+     */
+    public function getFieldMarkerAnswersArray()
+    {
+        // get all the answers
+        $answersArray = $this->getAnswers()->toArray();
+
+        $answersMapped = array_map(function (Answer $answer) {
+                return array($answer->getField()->getMarker() => $answer->getValue());
+            }, $answersArray);
+
+        $result = array();
+        foreach ($answersMapped as $answerRecord) {
+            $result = array_merge($result, $answerRecord);
+        }
+
+        return $result;
+    }    
 }
