@@ -180,6 +180,14 @@ class ShowFormNoteEditForm
     protected function getPageIdentifierForNewForms()
     {
         $pageIdentifier = (int)$this->params['row']['pid'];
+        if ($pageIdentifier < 0) {
+    		$parentRec = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
+            	'tt_content',
+            	abs($pageIdentifier),
+            	'pid'
+    		);
+    		$pageIdentifier = $parentRec['pid'];
+		}
         $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'])) {
             $pageIdentifier = (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];
