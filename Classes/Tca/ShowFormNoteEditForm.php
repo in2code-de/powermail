@@ -179,31 +179,12 @@ class ShowFormNoteEditForm
      */
     protected function getPageIdentifierForNewForms()
     {
-        $pageIdentifier = $this->getPageIdentifierFromExistingContentElements((int) $this->params['row']['pid']);
+        $pageIdentifier = (int)$this->params['row']['pid'];
         $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'])) {
             $pageIdentifier = (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];
         }
         return $pageIdentifier;
-    }
-	
-    /**
-     * Get the page identifier for creation of new form if 
-     * there is already another content element in colPos 
-     * of new form plugin
-     *
-     * @return int
-     */
-    protected function getPageIdentifierFromExistingContentElements($pageIdentifier) {	    
-        if ($pageIdentifier < 0) {
-    	    $parentRec = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
-                'tt_content',
-            	abs($pageIdentifier),
-            	'pid'
-	        );
-            $pageIdentifier = $parentRec['pid'];
-		}
-	    return $pageIdentifier;
     }
 
     /**
