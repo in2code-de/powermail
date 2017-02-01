@@ -197,13 +197,10 @@ function PowermailForm($) {
 					contentType: false,
 					processData: false,
 					beforeSend: function() {
-						$('.powermail_submit', $this).parent().append(getProgressbar());
-						$('*[data-powermail-form-ajax="confirmation"], *[data-powermail-form-ajax="submit"]', $this)
-							.closest('.powermail_confirmation').append(getProgressbar());
+						addProgressbar($this);
 					},
 					complete: function() {
-						// remove progressbar
-						$('.powermail_fieldwrap_submit', $this).find('.powermail_progressbar').remove();
+						removeProgressbar($this);
 						deleteAllFilesListener();
 					},
 					success: function(data) {
@@ -230,10 +227,32 @@ function PowermailForm($) {
 						}
 					}
 				});
-
 				e.preventDefault();
 			}
 		});
+	};
+
+	/**
+	 * @param {jQuery} $this
+	 * @returns {void}
+	 * @private
+	 */
+	var addProgressbar = function($this) {
+		removeProgressbar($this);
+		if ($('.powermail_submit', $this).length) {
+			$('.powermail_submit', $this).parent().append(getProgressbar());
+		} else {
+			$this.closest('.tx-powermail').append(getProgressbar());
+		}
+	};
+
+	/**
+	 * @param {jQuery} $this
+	 * @returns {void}
+	 * @private
+	 */
+	var removeProgressbar = function($this) {
+		$this.closest('.tx-powermail').find('.powermail_progressbar').remove();
 	};
 
 	/**
