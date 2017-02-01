@@ -4,7 +4,7 @@
 
 ---
 conf.py:
-  copyright: 2016
+  copyright: 2017
   project: Powermail
   version: 3
   release: 3.11

@@ -18,6 +18,17 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.11.2
+   :Date:
+      2017-02-01
+   :Changes:
+
+      * Bugfix: https://github.com/einpraegsam/powermail/pull/27 Prevent fatal error in DateConverter UserFunc
+      * Bugfix: https://github.com/einpraegsam/powermail/pull/33 Bug in add new form wizard in plugin
+      * Bugfix _`#79587`: https://forge.typo3.org/issues/79587 AJAX: Push submit multiple times, more then one progress bar is shown
+      * Task: Some documentation fixes
+
+ - :Version:
       3.11.1
    :Date:
       2017-01-22
