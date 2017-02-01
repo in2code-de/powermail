@@ -3,15 +3,15 @@
 .. _addFinishers:
 
 
-Add Finishers Classes
-^^^^^^^^^^^^^^^^^^^^^
+Add Finisher Classes
+^^^^^^^^^^^^^^^^^^^^
 
 Introduction
 """"""""""""
 
 Let's say you want easily add some own php functions that
 should be called after a user submits a form or
-if you want to override origin<al Finishers from powermail,
+if you want to override original Finishers from powermail,
 a Finisher is the best choice.
 
 Maybe you want to handle the user input with:
@@ -37,7 +37,7 @@ Just define which classes should be used. Every method like \*Finisher() will be
    }
 
 
-Add a php-file and extend your class with the AbstractFinisher from powermail:
+Add a php-file :file:`DoSomethingFinisher.php` and extend your class with the AbstractFinisher from powermail:
 
 .. code-block:: php
 
@@ -97,7 +97,7 @@ because it's stored in fileadmin or elsewhere)
 
 
 
-Add your php-file again and extend your class with the AbstractFinisher from powermail:
+Add your php-file :file:`DoSomethingFinisher.php` again and extend your class with the abstract class AbstractFinisher from powermail:
 
 .. code-block:: php
 

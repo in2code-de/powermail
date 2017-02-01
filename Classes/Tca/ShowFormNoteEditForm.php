@@ -179,10 +179,30 @@ class ShowFormNoteEditForm
      */
     protected function getPageIdentifierForNewForms()
     {
-        $pageIdentifier = (int)$this->params['row']['pid'];
+        $pageIdentifier = $this->getPageIdentifierFromExistingContentElements((int)$this->params['row']['pid']);
         $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'])) {
             $pageIdentifier = (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];
+        }
+        return $pageIdentifier;
+    }
+
+    /**
+     * If there is already an existing content element in the same column, $params[row][pid] is filled with
+     * (tt_content.uid * -1). This information helps to find the correct pageIdentifier.
+     *
+     * @param int $pageIdentifier
+     * @return int
+     */
+    protected function getPageIdentifierFromExistingContentElements($pageIdentifier)
+    {
+        if ($pageIdentifier < 0) {
+            $parentRec = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
+                'tt_content',
+                abs($pageIdentifier),
+                'pid'
+            );
+            $pageIdentifier = (int)$parentRec['pid'];
         }
         return $pageIdentifier;
     }
@@ -220,7 +240,7 @@ class ShowFormNoteEditForm
 
     /**
      * pages.* form page where current form is stored
-     * 
+     *
      * @return array|FALSE|NULL
      */
     protected function getStoragePageProperties()

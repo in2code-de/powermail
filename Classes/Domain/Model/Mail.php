@@ -676,7 +676,7 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * Returns answers as an array with uid of related field as key.
+     * Returns answers as an array with field marker of related field as key.
      *
      * To get value of answer for field with marker "myMarker" use
      * $mail->getAnswersByFieldMarker()['myMarker']->getValue()

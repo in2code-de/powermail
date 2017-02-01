@@ -56,8 +56,8 @@ Example Content:
 Let's take TypoScript Setup to tell powermail, where to find the new partial:
 ::
 
-   plugin.tx_powermail.view.templateRootPaths {
-      0 = EXT:powermail/Resources/Private/Templates/
+   plugin.tx_powermail.view.partialRootPaths {
+      0 = EXT:powermail/Resources/Private/Partials/
       1 = fileadmin/powermail/Partials/
    }
 
