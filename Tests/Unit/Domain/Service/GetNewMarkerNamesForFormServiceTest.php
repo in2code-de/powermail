@@ -54,9 +54,14 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
                 'thisisatest',
             ],
             [
-                '$T h%ißs_-',
+                '$T h%is_-',
                 'default',
                 'this__',
+            ],
+            [
+                'ęąśółżźćäöüśćó',
+                'default',
+                'easolzzcaeoeuesco',
             ]
         ];
     }
