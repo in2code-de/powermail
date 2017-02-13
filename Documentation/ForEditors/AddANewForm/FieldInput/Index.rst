@@ -296,6 +296,8 @@ Administrator can enable or disable the validation in general with TypoScript (s
         68465135135135185
    :Note:
       input with type="number" is used if HTML5-Validation is turned on.
+      
+      Leading zeros are removed, so this validation type cannot be used to validate German ZIP codes. Use the `pattern` type instead.
 
  - :Type:
       Letters only
