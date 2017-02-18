@@ -77,18 +77,20 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     ) {
         if (!ConfigurationUtility::isDisablePluginInformationActive()) {
             $this->initialize($row);
-            switch ($this->row['list_type']) {
-                case 'powermail_pi1':
-                    $drawItem = false;
-                    $headerContent = '';
-                    $itemContent = $this->getPluginInformation('Pi1');
-                    break;
-                case 'powermail_pi2':
-                    $drawItem = false;
-                    $headerContent = '';
-                    $itemContent = $this->getPluginInformation('Pi2');
-                    break;
-                default:
+            if ($this->row['CType'] === 'list') {
+                switch ($this->row['list_type']) {
+                    case 'powermail_pi1':
+                        $drawItem = false;
+                        $headerContent = '';
+                        $itemContent = $this->getPluginInformation('Pi1');
+                        break;
+                    case 'powermail_pi2':
+                        $drawItem = false;
+                        $headerContent = '';
+                        $itemContent = $this->getPluginInformation('Pi2');
+                        break;
+                    default:
+                }
             }
         }
     }

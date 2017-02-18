@@ -172,7 +172,7 @@
 				<source>Number to high or to low!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.9">
-				<source>Too many signs given!</source>
+				<source>Your input is not valid (too many or too less signs)</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.10">
 				<source>Error in validation!</source>

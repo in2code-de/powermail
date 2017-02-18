@@ -5,6 +5,8 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Charset\CharsetConverter;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -241,6 +243,8 @@ class GetNewMarkerNamesForFormService
      */
     protected function cleanString($string)
     {
+        $csConverter = GeneralUtility::makeInstance(CharsetConverter::class);
+        $string = $csConverter->specCharsToASCII('utf-8', $string);
         $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
         $string = str_replace('-', '_', $string);
         $string = strtolower($string);

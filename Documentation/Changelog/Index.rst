@@ -18,6 +18,19 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.12.0
+   :Date:
+      2017-02-19
+   :Changes:
+
+      * Feature _`#79036`: https://forge.typo3.org/issues/79036 Better marker generation
+      * Bugfix _`#79708`: https://forge.typo3.org/issues/79708 Upload problem with more forms on the same page
+      * Bugfix _`#79656`: https://forge.typo3.org/issues/79656 Don't show plugin information if wrong CType
+      * Task: Implementation of jQuery 1.11.3 if activated via constants (instead of 1.11.0)
+      * Task: Locallang fix for error message of type length validation
+      * Task: Some documentation fixes
+
+ - :Version:
       3.11.2
    :Date:
       2017-02-01
