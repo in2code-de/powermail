@@ -95,9 +95,9 @@ class FormController extends AbstractController
      */
     public function initializeCreateAction()
     {
-        $this->reformatParamsForAction();
         $this->forwardIfFormParamsDoNotMatch();
         $this->forwardIfMailParamEmpty();
+        $this->reformatParamsForAction();
         $this->debugVariables();
     }
 
@@ -160,9 +160,9 @@ class FormController extends AbstractController
      */
     public function initializeConfirmationAction()
     {
-        $this->reformatParamsForAction();
         $this->forwardIfFormParamsDoNotMatch();
         $this->forwardIfMailParamEmpty();
+        $this->reformatParamsForAction();
         $this->debugVariables();
     }
 
