@@ -282,7 +282,7 @@ plugin.tx_powermail {
 			addAdditionalJavaScript = 1
 
 			# cat=powermail_additional//1020; type=text; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
-			powermailJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js
+			powermailJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 		}
 
 		# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
