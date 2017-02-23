@@ -396,7 +396,7 @@ class MailRepository extends AbstractRepository
             $variables = ArrayUtility::htmlspecialcharsOnArray($variables);
         }
 
-        $signalArguments = [&$variables, $this, $mail];
+        $signalArguments = [&$variables, $mail, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $variables;
     }
