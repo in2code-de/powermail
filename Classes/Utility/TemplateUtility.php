@@ -69,7 +69,8 @@ class TemplateUtility extends AbstractUtility
     {
         $templatePaths = [];
         $extbaseConfig = self::getConfigurationManager()->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            'powermail'
         );
         if (!empty($extbaseConfig['view'][$part . 'RootPaths'])) {
             $templatePaths = $extbaseConfig['view'][$part . 'RootPaths'];
