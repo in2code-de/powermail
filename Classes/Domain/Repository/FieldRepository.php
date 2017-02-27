@@ -4,7 +4,9 @@ namespace In2code\Powermail\Domain\Repository;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extensionmanager\Utility\DatabaseUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -44,7 +46,7 @@ class FieldRepository extends AbstractRepository
      * respect the sorting
      *
      * @param array $uids
-     * @return QueryResultInterface
+     * @return array
      */
     public function findByUids($uids)
     {
@@ -261,5 +263,23 @@ class FieldRepository extends AbstractRepository
             return $field->getUid();
         }
         return 0;
+    }
+
+    /**
+     * @param int $uid
+     * @return string
+     */
+    public function getMarkerFromUid($uid)
+    {
+        $marker = '';
+        $row = (array)ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
+            'marker',
+            Field::TABLE_NAME,
+            'uid=' . (int)$uid
+        );
+        if (!empty($row['marker'])) {
+            $marker = $row['marker'];
+        }
+        return $marker;
     }
 }
