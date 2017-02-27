@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -179,8 +180,8 @@ class CreateMarker
      */
     protected function cleanMarkersInLocalizedFields()
     {
-        if (!empty($fieldArray['sys_language_uid']) && $fieldArray['sys_language_uid'] > 0) {
-            unset($this->properties['marker']);
+        if (!empty($this->properties['sys_language_uid']) && $this->properties['sys_language_uid'] > 0) {
+            $this->properties['marker'] = '';
         }
     }
 
@@ -260,9 +261,10 @@ class CreateMarker
         /** @var Field $field */
         $field = $this->objectManager->get(Field::class);
         foreach ($properties as $key => $value) {
-            if ($field->_hasProperty($key)) {
-                $field->_setProperty($key, $value);
-            }
+            $field->_setProperty($key, GeneralUtility::underscoredToLowerCamelCase($value));
+        }
+        if (!empty($properties['sys_language_uid'])) {
+            $field->_setProperty('_languageUid', $properties['sys_language_uid']);
         }
         $field->setDescription((int)$properties['uid'] > 0 ? (int)$properties['uid'] : $uid);
         return $field;

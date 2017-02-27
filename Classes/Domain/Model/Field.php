@@ -787,6 +787,14 @@ class Field extends AbstractEntity
     }
 
     /**
+     * @return bool
+     */
+    public function isLocalized()
+    {
+        return $this->_getProperty('_languageUid') > 0;
+    }
+
+    /**
      * Extend dataType with TSConfig
      *
      * @param array $types

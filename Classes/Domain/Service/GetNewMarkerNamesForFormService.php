@@ -122,15 +122,19 @@ class GetNewMarkerNamesForFormService
         foreach ($fieldArray as $field) {
             $marker = $this->fallbackMarkerIfEmpty($field, $forceReset);
             $uid = $this->getUid($field);
-            if ($this->isMarkerAllowed($marker, $markerArray)) {
-                $markerArray[$uid] = $marker;
+            if ($field->isLocalized()) {
+                $markerArray[$uid] = '';
             } else {
-                for ($i = 1; $i < $this->iterations; $i++) {
-                    $marker = $this->removeAppendix($marker);
-                    $marker = $this->addAppendix($marker, $i);
-                    if (!in_array($marker, $markerArray)) {
-                        $markerArray[$uid] = $marker;
-                        break;
+                if ($this->isMarkerAllowed($marker, $markerArray)) {
+                    $markerArray[$uid] = $marker;
+                } else {
+                    for ($i = 1; $i < $this->iterations; $i++) {
+                        $marker = $this->removeAppendix($marker);
+                        $marker = $this->addAppendix($marker, $i);
+                        if (!in_array($marker, $markerArray)) {
+                            $markerArray[$uid] = $marker;
+                            break;
+                        }
                     }
                 }
             }
