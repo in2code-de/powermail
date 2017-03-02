@@ -256,7 +256,7 @@ forge.typo3.org if you need a new signal.
    :Method:
       getVariablesWithMarkersFromMail()
    :Arguments:
-      &$variables, $this
+      &$variables, $mail, $this
    :Description:
       If you want to register your own markers use this signal
 

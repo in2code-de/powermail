@@ -1,8 +1,10 @@
 <?php
 namespace In2code\Powermail\Domain\Model;
 
+use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -632,10 +634,15 @@ class Field extends AbstractEntity
      */
     public function getMarker()
     {
-        if (empty($this->marker)) {
-            return 'uid' . $this->getUid();
+        $marker = $this->marker;
+        if ($this->isLocalized()) {
+            $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+            $marker = $fieldRepository->getMarkerFromUid($this->getUid());
         }
-        return $this->marker;
+        if (empty($marker)) {
+            $marker = 'uid' . $this->getUid();
+        }
+        return $marker;
     }
 
     /**
@@ -784,6 +791,14 @@ class Field extends AbstractEntity
             return $types[$fieldType];
         }
         return 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLocalized()
+    {
+        return $this->_getProperty('_languageUid') > 0;
     }
 
     /**
