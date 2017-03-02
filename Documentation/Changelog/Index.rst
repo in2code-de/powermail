@@ -18,6 +18,21 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.13.0
+   :Date:
+      2017-03-02
+   :Changes:
+
+      * Feature: Add .gitattributes file
+      * Feature: Passing variable $mail to signal getVariablesWithMarkersFromMail
+      * Task: Always render default marker name in frontend even in localized forms for TYPO3 8.6 and newer
+      * Task: Remove l10n_mode=noCopy for TYPO3 8.6 and newer
+      * Bugfix: More support of MySQL strict mode
+      * Bugfix: Update bootstrap.js to version 3.3.7 to work with jQuery 3 in backend in TYPO3 8.6
+      * Bugfix: Don't fill marker field in localized records
+      * Bugfix: Missing TypoScript in mail standaloneview
+
+ - :Version:
       3.12.0
    :Date:
       2017-02-19
