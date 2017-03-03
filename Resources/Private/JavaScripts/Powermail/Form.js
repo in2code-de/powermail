@@ -218,7 +218,12 @@ function PowermailForm($) {
 						} else {
 							// no form markup found try to redirect via javascript
 							if (redirectUri) {
-								window.location = redirectUri;
+								// Check if internal or external redirect
+								if(redirectUri.indexOf('http')  !== -1) {
+									window.location = redirectUri;
+								} else {
+									window.location.pathname = redirectUri;
+								}
 							} else {
 								// fallback if no location found (but will effect 2x submit)
 								$this.submit();
