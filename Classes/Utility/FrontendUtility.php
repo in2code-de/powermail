@@ -74,6 +74,18 @@ class FrontendUtility extends AbstractUtility
     }
 
     /**
+     * @return string
+     */
+    public static function getPluginName()
+    {
+        $pluginName = 'tx_powermail_pi1';
+        if (!empty(GeneralUtility::_GPmerged('tx_powermail_pi2'))) {
+            $pluginName = 'tx_powermail_pi2';
+        }
+        return $pluginName;
+    }
+
+    /**
      * Get charset for frontend rendering
      *
      * @return string

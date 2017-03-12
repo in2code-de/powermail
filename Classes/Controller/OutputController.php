@@ -134,6 +134,7 @@ class OutputController extends AbstractController
      */
     public function updateAction(Mail $mail)
     {
+        $this->uploadService->uploadAllFiles();
         $this->mailRepository->update($mail);
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
         $this->redirect('edit', null, null, ['mail' => $mail]);
