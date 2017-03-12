@@ -218,12 +218,7 @@ function PowermailForm($) {
 						} else {
 							// no form markup found try to redirect via javascript
 							if (redirectUri) {
-								// Check if internal or external redirect
-								if(redirectUri.indexOf('http')  !== -1) {
-									window.location = redirectUri;
-								} else {
-									window.location.pathname = redirectUri;
-								}
+								redirectToUri(redirectUri);
 							} else {
 								// fallback if no location found (but will effect 2x submit)
 								$this.submit();
@@ -484,6 +479,20 @@ function PowermailForm($) {
 	};
 
 	/**
+	 * Redirect to an external or internal target
+	 *
+	 * @param {string} redirectUri
+	 * @private
+	 */
+	var redirectToUri = function(redirectUri) {
+		if (redirectUri.indexOf('http') !== -1) {
+			window.location = redirectUri;
+		} else {
+			window.location.pathname = redirectUri;
+		}
+	};
+
+	/**
 	 * Return BaseUrl as prefix
 	 *
 	 * @return {string} Base Url
@@ -501,7 +510,7 @@ function PowermailForm($) {
 			}
 		}
 		return baseurl;
-	}
+	};
 }
 
 jQuery(document).ready(function($) {
