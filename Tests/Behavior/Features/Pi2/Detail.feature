@@ -10,7 +10,7 @@ Feature: Detail
     When I select "Sandra" from "tx_powermail_pi1[field][marker]"
     When I select "Alex" from "tx_powermail_pi1[field][selectmulti][]"
     When I additionally select "Olli" from "tx_powermail_pi1[field][selectmulti][]"
-    When I check "tx_powermail_pi1[field][marker_01][]"
+    When I check "tx_powermail_pi1[field][check][]"
     When I select "Silke" from "tx_powermail_pi1[field][radio]"
     And I press "Submit"
     And I press "Weiter"
