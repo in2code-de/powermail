@@ -954,6 +954,7 @@ plugin.tx_powermail {
 				offsetClasses = {$plugin.tx_powermail.settings.styles.framework.offsetClasses}
 				radioClasses = {$plugin.tx_powermail.settings.styles.framework.radioClasses}
 				checkClasses = {$plugin.tx_powermail.settings.styles.framework.checkClasses}
+				submitClasses = {$plugin.tx_powermail.settings.styles.framework.submitClasses}
 			}
 		}
 	}
@@ -973,6 +974,7 @@ plugin.tx_powermail {
 				offsetClasses = {$plugin.tx_powermail.settings.styles.bootstrap.offsetClasses}
 				radioClasses = {$plugin.tx_powermail.settings.styles.bootstrap.radioClasses}
 				checkClasses = {$plugin.tx_powermail.settings.styles.bootstrap.checkClasses}
+				submitClasses = {$plugin.tx_powermail.settings.styles.bootstrap.submitClasses}
 			}
 		}
 	}

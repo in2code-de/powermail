@@ -35,6 +35,8 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
 				checkClasses = checkbox
 
+        # cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for submit button e.g. "button"
+				submitClasses = btn btn-primary
 
 				# if this constant is set, constants {$plugin.tx_powermail.settings.styles.bootstrap.*} overrides {$plugin.tx_powermail.settings.styles.framework.*}
 				important = 1
@@ -42,4 +44,3 @@ plugin.tx_powermail {
 		}
 	}
 }
-
