@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.14.0
+   :Date:
+      2017-03-13
+   :Changes:
+
+      * Task: Finally allow upload fields in Pi2
+      * Bugfix: Make localized forms without parent selectable in backend
+      * Bugfix: AjaxFormSubmit in IE was possibly broken
+
+ - :Version:
       3.13.0
    :Date:
       2017-03-02
