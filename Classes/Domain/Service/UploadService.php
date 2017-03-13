@@ -5,6 +5,7 @@ use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\File;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -36,7 +37,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class UploadService
- * @package In2code\Powermail\Domain\Service
  */
 class UploadService implements SingletonInterface
 {
@@ -162,7 +162,7 @@ class UploadService implements SingletonInterface
     {
         $filesArrayPowermail = ObjectUtility::getFilesArray();
         if (!empty($filesArrayPowermail)) {
-            $filesArray = (array)$filesArrayPowermail['tx_powermail_pi1'];
+            $filesArray = (array)$filesArrayPowermail[FrontendUtility::getPluginName()];
             foreach ((array)$filesArray['name']['field'] as $marker => $files) {
                 foreach ((array)array_keys($files) as $key) {
                     /** @var FileFactory $fileFactory */
@@ -313,7 +313,7 @@ class UploadService implements SingletonInterface
      */
     protected function getArguments()
     {
-        return (array)GeneralUtility::_GP('tx_powermail_pi1');
+        return (array)GeneralUtility::_GP(FrontendUtility::getPluginName());
     }
 
     /**

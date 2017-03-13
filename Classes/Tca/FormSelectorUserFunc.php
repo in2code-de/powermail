@@ -82,7 +82,7 @@ class FormSelectorUserFunc
     {
         $params['items'] = [];
         foreach ($this->getStartPids() as $startPid) {
-            foreach ($this->getAllForms($startPid, $params['row']['sys_language_uid']) as $form) {
+            foreach ($this->getAllForms($startPid, $params['flexParentDatabaseRow']['sys_language_uid']) as $form) {
                 if ($this->hasUserAccessToPage((int)$form['pid'])) {
                     $params['items'][] = [
                         htmlspecialchars($form['title']),

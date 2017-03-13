@@ -28,7 +28,12 @@ plugin.tx_powermail {
 			}
 
 			misc {
-				file.folder = uploads/tx_powermail/
+				file {
+					folder = uploads/tx_powermail/
+					size = {$plugin.tx_powermail.settings.misc.uploadSize}
+					extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
+					randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
+				}
 			}
 
 			# Don't touch this (this is just to let the extension know, that there is TypoScript included)
