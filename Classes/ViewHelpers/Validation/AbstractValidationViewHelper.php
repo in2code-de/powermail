@@ -116,8 +116,10 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     protected function addClassHandler(array &$additionalAttributes, Field $field)
     {
-        $additionalAttributes['data-parsley-class-handler'] =
-            '.powermail_fieldwrap_' . $field->getMarker() . ' div:first > div';
+        if ($field->getType() !== 'radio') {
+            $additionalAttributes['data-parsley-class-handler'] =
+                '.powermail_fieldwrap_' . $field->getMarker() . ' div:first > div';
+        }
         return $additionalAttributes;
     }
 
