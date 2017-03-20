@@ -32,9 +32,14 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
 				radioClasses = radio
 
-				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
+				# cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
 				checkClasses = checkbox
 
+				# cat=powermail_styles//0180; type=text; label= Framework classname(s) for the submit button e.g. "btn btn-primary"
+				submitClasses = btn btn-primary
+
+				# cat=powermail_styles//0190; type=text; label= Framework classname(s) for "create" message after submit
+				createClasses = powermail_create
 
 				# if this constant is set, constants {$plugin.tx_powermail.settings.styles.bootstrap.*} overrides {$plugin.tx_powermail.settings.styles.framework.*}
 				important = 1
@@ -42,4 +47,3 @@ plugin.tx_powermail {
 		}
 	}
 }
-

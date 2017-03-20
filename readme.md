@@ -4,7 +4,39 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-# Whats new in Version 3
+## Quick installation
+
+Please look at the manual for a big documentation at https://docs.typo3.org/typo3cms/extensions/powermail
+
+Quick guide:
+- Just install this extension - e.g. `composer require in2code/powermail` or download it or install it with the classic way (Extension Manager)
+- Clear caches
+- Add a new form (with one or more pages and with some fields to a page or a folder)
+- Add a new pagecontent with type "powermail" and choose the former saved form
+- That's it
+
+## Changelog
+
+Please look at https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/Index.html
+
+## Supported version (for latest powermail)
+
+| Software    | Versions   |
+| ----------- | ---------- |
+| TYPO3       | 7.6 - 8.7  |
+| PHP         | 5.5 - 7.1  |
+
+## Example form with bootstrap classes:
+
+![Example form](https://box.everhelper.me/attachment/445407/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-KmKJsSfGKDz6bnVO/screen.png "Example Form")
+
+
+## Backend module mail list:
+
+![Backend Module](https://box.everhelper.me/attachment/445409/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-HFuHtr8E9DoGfJE6/screen.png "Backend Module")
+
+
+## Whats the difference between version 3 and 2
 
 - General update for TYPO3 7.6 and 8.x
 - Table name correction from plural to singular (..mails => ..mail, ..fields => ..field)
@@ -32,17 +64,3 @@ and easy to use mailform extension with a lots of features
   - Remove outdated parts of code (PHP, Templates)
   - Some code cleanup
   - Manual update
-
-# Official documentation
-
-see https://docs.typo3.org/typo3cms/extensions/powermail/ for the complete documentation
-
-
-### Example form with bootstrap classes:
-
-![Example form](https://box.everhelper.me/attachment/445407/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-KmKJsSfGKDz6bnVO/screen.png "Example Form")
-
-
-### Backend module mail list:
-
-![Backend Module](https://box.everhelper.me/attachment/445409/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-HFuHtr8E9DoGfJE6/screen.png "Backend Module")

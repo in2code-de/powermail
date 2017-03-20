@@ -83,7 +83,7 @@ class GetLocationEidTest extends UnitTestCase
                 48.0796126,
                 12.0898908,
                 [
-                    'route' => 'Eisweiherweg',
+                    'route' => 'Sudhausweg',
                     'locality' => 'Pfaffing',
                     'country' => 'Germany',
                     'postal_code' => '83539'

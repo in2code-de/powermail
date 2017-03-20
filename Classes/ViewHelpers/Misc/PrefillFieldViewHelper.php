@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -385,7 +386,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      */
     protected function isCachedForm()
     {
-        return ConfigurationUtility::isEnableCachingActive();
+        return ConfigurationUtility::isEnableCachingActive()
+            && ObjectUtility::getTyposcriptFrontendController()->no_cache !== true;
     }
 
     /**
