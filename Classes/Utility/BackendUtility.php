@@ -208,4 +208,12 @@ class BackendUtility extends AbstractUtility
         }
         return $pids;
     }
+
+    /**
+     * @return bool
+     */
+    public static function isBackendContext()
+    {
+        return TYPO3_MODE === 'BE';
+    }
 }

@@ -185,7 +185,7 @@ class TemplateUtility extends AbstractUtility
      */
     public static function fluidParseString($string, $variables = [])
     {
-        if (empty($string) || empty(self::getDatabaseConnection())) {
+        if (empty($string) || empty(self::getDatabaseConnection()) || BackendUtility::isBackendContext()) {
             return $string;
         }
         /** @var StandaloneView $standaloneView */
