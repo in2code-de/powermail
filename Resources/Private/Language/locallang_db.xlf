@@ -6,6 +6,25 @@
 			<trans-unit id="tabs.access">
 				<source>Access</source>
 			</trans-unit>
+			<trans-unit id="LGL.language">
+				<source>Language:</source>
+			</trans-unit>
+			<trans-unit id="LGL.l18n_parent">
+				<source>Transl.Orig:</source>
+			</trans-unit>
+			<trans-unit id="LGL.versionLabel">
+				<source>Versioning Label:</source>
+			</trans-unit>
+			<trans-unit id="LGL.hidden">
+				<source>Hide:</source>
+			</trans-unit>
+			<trans-unit id="LGL.starttime">
+				<source>Start:</source>
+			</trans-unit>
+			<trans-unit id="LGL.endtime">
+				<source>Stop:</source>
+			</trans-unit>
+
 			<trans-unit id="tx_powermail_domain_model_mail">
 				<source>Mails</source>
 			</trans-unit>
