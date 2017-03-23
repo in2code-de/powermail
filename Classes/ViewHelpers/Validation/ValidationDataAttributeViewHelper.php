@@ -68,28 +68,19 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 if ($this->isClientValidationEnabled()) {
                     $additionalAttributes['data-parsley-required-message'] =
-                        LocalizationUtility::translate('validationerror_mandatory_multi');
-                    if ($field->getType() === 'check' && $iteration['total'] > 1) {
-                        $additionalAttributes['data-parsley-required'] = 'true';
+                        LocalizationUtility::translate('validationerror_mandatory');
+                    if ($iteration['total'] > 1) {
+                        $additionalAttributes['data-parsley-required-message'] =
+                            LocalizationUtility::translate('validationerror_mandatory_multi');
+                        if ($field->getType() === 'check') {
+                            $additionalAttributes['data-parsley-required'] = 'true';
+                        }
                     }
                 }
             }
-
-            if ($this->isClientValidationEnabled()) {
-                $additionalAttributes = $this->addErrorContainer($additionalAttributes, $field);
-                $additionalAttributes = $this->addClassHandler($additionalAttributes, $field);
-            }
+            $additionalAttributes = $this->addErrorContainerAndClassHandlerAttributes($additionalAttributes, $field);
         }
-
-        // add multiple attribute to bundle checkboxes for parsley
-        if (
-            $field->isMandatory() &&
-            $this->isClientValidationEnabled() &&
-            $field->getType() === 'check' &&
-            $iteration['total'] > 1
-        ) {
-            $additionalAttributes['data-parsley-multiple'] = $field->getMarker();
-        }
+        $additionalAttributes = $this->addMultipleDataAttributeForCheckboxes($additionalAttributes, $field, $iteration);
     }
 
     /**
@@ -315,5 +306,39 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             $additionalAttributes['data-parsley-error-message'] =
                 LocalizationUtility::translate('validationerror_validation.' . $field->getValidation());
         }
+    }
+
+    /**
+     * Add multiple attribute to bundle checkboxes for parsley
+     *
+     * @param array $additionalAttributes
+     * @param Field $field
+     * @param mixed $iteration
+     * @return array
+     */
+    protected function addMultipleDataAttributeForCheckboxes(array $additionalAttributes, Field $field, $iteration)
+    {
+        if ($field->isMandatory() &&
+            $this->isClientValidationEnabled() &&
+            $field->getType() === 'check' &&
+            $iteration['total'] > 1
+        ) {
+            $additionalAttributes['data-parsley-multiple'] = $field->getMarker();
+        }
+        return $additionalAttributes;
+    }
+
+    /**
+     * @param array $additionalAttributes
+     * @param Field $field
+     * @return array
+     */
+    protected function addErrorContainerAndClassHandlerAttributes(array $additionalAttributes, Field $field)
+    {
+        if ($this->isClientValidationEnabled()) {
+            $additionalAttributes = $this->addErrorContainer($additionalAttributes, $field);
+            $additionalAttributes = $this->addClassHandler($additionalAttributes, $field);
+        }
+        return $additionalAttributes;
     }
 }
