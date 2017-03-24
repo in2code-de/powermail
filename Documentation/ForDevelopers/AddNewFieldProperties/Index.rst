@@ -329,7 +329,7 @@ EXT:powermailextended/Classes/Domain/Repository/FormRepository.php:
    * Class FormRepository
    * @package In2code\Powermailextended\Domain\Repository
    */
-  class FormRepository extends \In2code\Powermail\Domain\Repository\FormRepositor
+  class FormRepository extends \In2code\Powermail\Domain\Repository\FormRepository
   {
   }
 
