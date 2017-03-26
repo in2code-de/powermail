@@ -104,13 +104,34 @@ class BackendUtility extends AbstractUtility
     }
 
     /**
-     * Get module name
+     * Get module name or route as fallback
      *
      * @return string
      */
     protected static function getModuleName()
     {
-        return (string) GeneralUtility::_GET('M');
+        $moduleName = 'web_layout';
+        if (GeneralUtility::_GET('M') !== null) {
+            $moduleName = (string)GeneralUtility::_GET('M');
+        }
+        if (GeneralUtility::_GET('route') !== null) {
+            $route = (string)GeneralUtility::_GET('route');
+            $moduleName = self::changeRouteToModuleName($route);
+        }
+        return $moduleName;
+    }
+
+    /**
+     * Change a backend route to a module name
+     *  "/edit/record" => "edit_record"
+     *
+     * @param string $route
+     * @return string
+     */
+    protected static function changeRouteToModuleName($route)
+    {
+        $route = ltrim($route, '/');
+        return str_replace('/', '_', $route);
     }
 
     /**
