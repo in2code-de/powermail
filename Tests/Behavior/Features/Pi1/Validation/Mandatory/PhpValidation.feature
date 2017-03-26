@@ -35,7 +35,7 @@ Feature: PhpValidation
     Then I check "tx_powermail_pi1[field][validation][]"
     Then I select "pink" from "tx_powermail_pi1[field][marker]"
     When I attach the file "test.txt" to "tx_powermail_pi1[field][file][]"
-    Then I select "Deutschland" from "tx_powermail_pi1[field][marker_02]"
+    Then I select "Deutschland" from "tx_powermail_pi1[field][marker02]"
     And I press "Submit"
 
     Then I should see "Sind diese Eingaben korrekt?"

@@ -105,6 +105,10 @@ class ValueBlacklistMethodTest extends UnitTestCase
             [
                 'tst sex.seems.to.be.nice',
                 true
+            ],
+            [
+                'email@sex.org',
+                true
             ]
         ];
     }
@@ -121,6 +125,9 @@ class ValueBlacklistMethodTest extends UnitTestCase
     public function findStringInStringReturnsString($string, $expectedResult)
     {
         $needle = 'sex';
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('findStringInString', $string, $needle));
+        $this->assertSame(
+            $expectedResult,
+            $this->generalValidatorMock->_callRef('findStringInString', $string, $needle)
+        );
     }
 }

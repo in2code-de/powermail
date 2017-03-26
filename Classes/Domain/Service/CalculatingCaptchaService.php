@@ -37,11 +37,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  ***************************************************************/
 
 /**
- * CalculatingCaptchaService
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class CalculatingCaptchaService
  */
 class CalculatingCaptchaService
 {
@@ -175,6 +171,7 @@ class CalculatingCaptchaService
      * @param string $content
      * @param bool $addHash
      * @return string Image URI
+     * @throws \Exception
      */
     protected function createImage($content, $addHash = true)
     {
@@ -189,7 +186,9 @@ class CalculatingCaptchaService
             $this->getFontPathAndFilename(true),
             $content
         );
-        imagepng($imageResource, $this->getPathAndFilename(true));
+        if (imagepng($imageResource, $this->getPathAndFilename(true)) === false) {
+            throw new \Exception('Captcha image could not be generated under ' . $this->getPathAndFilename());
+        }
         imagedestroy($imageResource);
         return $this->getPathAndFilename(false, $addHash);
     }

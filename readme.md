@@ -26,6 +26,12 @@ Please look at https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/In
 | TYPO3       | 7.6 - 8.7  |
 | PHP         | 5.5 - 7.1  |
 
+## Need some extension possibilities for powermail?
+- Automatically convert emails to a link to a powermail form with **email2powermail** (see https://github.com/einpraegsam/email2powermail)
+- Google recaptcha with **powermailrecaptcha** (see https://github.com/einpraegsam/powermailrecaptcha)
+- Google invisible recaptcha with **invisiblerecaptcha** (see https://github.com/einpraegsam/invisiblerecaptcha)
+- **powermailextended** is just an example extension how to extend powermail with new fields or use signals (see https://github.com/einpraegsam/powermailextended)
+
 ## Example form with bootstrap classes:
 
 ![Example form](https://box.everhelper.me/attachment/445407/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-KmKJsSfGKDz6bnVO/screen.png "Example Form")
