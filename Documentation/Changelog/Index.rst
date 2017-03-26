@@ -18,6 +18,19 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.16.0
+   :Date:
+      2017-03-26
+   :Changes:
+
+      * Feature: Show error messages instead of a broken captcha on server misconfiguration
+      * Task: Add own language labels for generic fields to support TYPO3 7.6 and 8.7
+      * Bugfix: Make backlink in backend work again when opening a form from the plugin
+      * Bugfix: Fix small typo in documentation
+      * Bugfix: Blacklist-Spam-Method should also check email addresses
+      * Bugfix: Change validation message if only one checkbox is in use
+
+ - :Version:
       3.15.0
    :Date:
       2017-03-20
