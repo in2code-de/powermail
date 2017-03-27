@@ -2,6 +2,8 @@
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
+use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
+use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
@@ -115,23 +117,15 @@ class BackendUtility extends AbstractUtility
             $moduleName = (string)GeneralUtility::_GET('M');
         }
         if (GeneralUtility::_GET('route') !== null) {
-            $route = (string)GeneralUtility::_GET('route');
-            $moduleName = self::changeRouteToModuleName($route);
+            $routePath = (string)GeneralUtility::_GET('route');
+            $router = GeneralUtility::makeInstance(Router::class);
+            try {
+                $route = $router->match($routePath);
+                $moduleName = $route->getOption('_identifier');
+            } catch (ResourceNotFoundException $exception) {
+            }
         }
         return $moduleName;
-    }
-
-    /**
-     * Change a backend route to a module name
-     *  "/edit/record" => "edit_record"
-     *
-     * @param string $route
-     * @return string
-     */
-    protected static function changeRouteToModuleName($route)
-    {
-        $route = ltrim($route, '/');
-        return str_replace('/', '_', $route);
     }
 
     /**
@@ -148,7 +142,9 @@ class BackendUtility extends AbstractUtility
         $parameters = [];
         $ignoreKeys = [
             'M',
-            'moduleToken'
+            'moduleToken',
+            'route',
+            'token'
         ];
         foreach ($getParameters as $key => $value) {
             if (in_array($key, $ignoreKeys)) {
