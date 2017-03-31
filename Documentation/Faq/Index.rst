@@ -439,6 +439,28 @@ This is easy to handle, just add this line of TypoScript to your **Constants**:
 
 	plugin.tx_powermail.settings.misc.addQueryString = 1
 
+.. _powermailconditions:
+
+I want to include CSS or JavaScript only if there is a powermail plugin on this page
+------------------------------------------------------------------------------------
+
+The recommended way is to include your JavaScript via require.js or with a simple jQuery.getScript().
+An alternative to include JS or CSS could be via a simple condition in TypoScrip **Setup**:
+
+.. code-block:: text
+
+	[In2code\Powermail\Condition\IsPluginOnCurrentPageCondition]
+	// do something but only if Plugin1 of powermail is on the same page
+	[end]
+
+The condition can be used for every plugin and every extension. Example for a defined tt_contentlist_type:
+
+.. code-block:: text
+
+	[In2code\Powermail\Condition\IsPluginOnCurrentPageCondition = powermail_pi1, = powermail_pi2]
+	// do something but only if Pi1 or Pi2 of powermail is on the same page
+	[end]
+
 .. _ihaveaproblem:
 
 I have a problem, what can I do?
