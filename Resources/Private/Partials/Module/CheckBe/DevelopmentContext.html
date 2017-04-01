@@ -3,7 +3,7 @@
 <f:if condition="{vh:Condition.IsDevelopmentContext()}">
 	<f:if condition="{vh:Getter.GetDevelopmentContextEmail()}">
 		<f:then>
-			<div class="typo3-message message-information powermail-message">
+			<div class="alert alert-info">
 				<div class="header-container">
 					<div class="message-header">
 						<f:translate key="BackendCheckDevelopmentContextTitle">Development Context</f:translate>
@@ -17,7 +17,7 @@
 			</div>
 		</f:then>
 		<f:else>
-			<div class="typo3-message message-information powermail-message">
+			<div class="alert alert-warning">
 				<div class="message-header">
 					<f:translate key="BackendCheckDevelopmentContextTitle">Development Context</f:translate>
 				</div>
