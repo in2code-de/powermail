@@ -1,4 +1,5 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
+{namespace core=TYPO3\CMS\Core\ViewHelpers}
 
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -37,8 +38,8 @@
 
 					<f:comment>Basic form information</f:comment>
 					<tr class="{f:if(condition:iteration.isFirst,then:' firstcol')}{f:if(condition:iteration.isLast,then:' lastcol')}">
-						<td nowrap="nowrap" class="col-icon">
-							<span class="t3-icon t3-icon-tcarecords t3-icon-tcarecords-tx_powermail_domain_model_form t3-icon-tx_powermail_domain_model_form-default{f:if(condition:'{mail.hidden}',then:' transparent')}" title="id={form.uid}"> </span>
+						<td nowrap="nowrap" class="col-icon" title="id={form.uid}">
+							<core:Icon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
 						</td>
 						<td nowrap="nowrap">
 							<a title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
