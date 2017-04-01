@@ -7,7 +7,7 @@ conf.py:
   copyright: 2017
   project: Powermail
   version: 3
-  release: 3.16
+  release: 3.17
   latex_elements:
     papersize: a4paper
     pointsize: 10pt
