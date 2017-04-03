@@ -340,7 +340,8 @@ class CalculatingCaptchaService
             /** @var ConfigurationManager $configurationManager */
             $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManager::class);
             $typoScriptSetup = $configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+                'powermail'
             );
             $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
             $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
