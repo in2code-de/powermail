@@ -4,6 +4,8 @@ namespace In2code\Powermail\Tests\Domain\Model;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
@@ -32,10 +34,6 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
  * MailRepository Tests
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
  */
 class MailRepositoryTest extends UnitTestCase
 {
@@ -50,12 +48,8 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function setUp()
     {
-        $objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
-        $this->generalValidatorMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Domain\Repository\MailRepository',
-            ['dummy'],
-            [$objectManager]
-        );
+        $objectManager = ObjectUtility::getObjectManager();
+        $this->generalValidatorMock = $this->getAccessibleMock(MailRepository::class, ['dummy'], [$objectManager]);
     }
 
     /**
