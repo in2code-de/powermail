@@ -23,7 +23,7 @@ Show HTML
 What does it do?
 ''''''''''''''''
 
-- **General:** If you want to show some html-text in the form, use this field. Per default the text is parsed through a removeXSS-Function. If you are aware of possible security problems from your editors, the admin can disable removeXSS via TypoScript. This text is not submitted.
+- **General:** If you want to show some html-text in the form, use this field. Per default the text is parsed through a htmlspecialchars() function. If you are aware of possible security problems from your editors, the admin can enable HTML via TypoScript. This text is not submitted.
 
 Frontend Output Example
 '''''''''''''''''''''''
