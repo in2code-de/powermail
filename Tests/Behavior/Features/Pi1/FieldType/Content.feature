@@ -4,4 +4,4 @@ Feature: Content
 
   Scenario: Check if field type "content" is rendered correctly
     Given I am on "/index.php?id=10"
-    Then the sourcecode should contain '<h1 class="csc-firstHeader">Content Element (Sally Dalmatiner)</h1>'
+    Then the sourcecode should contain '<div class="ce-bodytext"><p>Der Dalmatiner ist ein mittelgroßer bis großer,'

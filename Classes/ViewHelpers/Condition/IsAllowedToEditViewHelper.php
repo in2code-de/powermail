@@ -21,7 +21,7 @@ class IsAllowedToEditViewHelper extends AbstractViewHelper
      * @param array $settings TypoScript and FlexForm Settings
      * @return bool
      */
-    public function render($mail, $settings = array())
+    public function render(Mail $mail, $settings = array())
     {
         return FrontendUtility::isAllowedToEdit($settings, $mail);
     }

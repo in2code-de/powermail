@@ -14,9 +14,7 @@ Show Confirmation Page
 	<div class="powermail_confirmation" data-powermail-form="{mail.form.uid}">
 		<h1><f:translate key="confirmation_message" /></h1>
 
-		<vh:string.RawAndRemoveXss>
-			{powermail_all}
-		</vh:string.RawAndRemoveXss>
+		<f:format.raw>{powermail_all}</f:format.raw>
 
 		<div class="btn-group" role="group">
 			<f:comment>

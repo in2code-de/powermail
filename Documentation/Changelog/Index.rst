@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.18.0
+   :Date:
+      2017-04-23
+   :Changes:
+
+      * Task: Make extension fit for new TYPO3 8.7 LTS testparcours
+      * Task: Don't use GeneralUtility::removeXSS by default
+      * Bugfix: Captcha image resource fix
+
+ - :Version:
       3.17.0
    :Date:
       2017-04-01

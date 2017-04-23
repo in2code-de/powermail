@@ -17,7 +17,7 @@ Feature: Basic
     Then I follow "All Fields"
     And I wait "6" seconds
 
-    And I swith to iframe "content"
+    And I swith to iframe "typo3-contentIframe"
     Then I should see an "#powermail_module_search" element
     Then I should see "Mail Listings"
     Then I should see "Fulltext Search"

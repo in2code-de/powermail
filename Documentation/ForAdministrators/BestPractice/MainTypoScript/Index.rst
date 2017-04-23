@@ -460,6 +460,24 @@ Constants Overview
       en
 
  - :Constants:
+      misc.htmlForHtmlFields
+   :Description:
+      Allow html in html fields: Per default output of fields of type HTML is parsed through a htmlspecialchars() function to avoid Cross-Site-Scripting for security reasons. If you are aware of possible XSS-problems, caused by editors, you can enable it and your original HTML is shown in the Frontend.
+   :Type:
+      bool
+   :Default:
+      0
+
+ - :Constants:
+      misc.htmlForLabels
+   :Description:
+      Allow html in field labels: Per default labels are generated with htmlspecialchars() to prevent xss. This also disables links in labels. If you aware of possible XSS-problems, caused by editors, you can enable it.
+   :Type:
+      bool
+   :Default:
+      0
+
+ - :Constants:
       misc.showOnlyFilledValues
    :Description:
       Show only filled values: If the user submits a form, even not filled values are viewable. If you only want to show labels with filled values, use this setting
@@ -467,15 +485,6 @@ Constants Overview
       bool
    :Default:
       1
-
- - :Constants:
-      misc.disableRemoveXss
-   :Description:
-      HTML without RemoveXSS: Per default HTML-Output is parsed through a RemoveXSS-Function to avoid Cross-Site-Scripting for security reasons. If you are aware of possible XSS-Problems, caused by editors, you can disable removeXSS and your original HTML is shown in the Frontend.
-   :Type:
-      bool
-   :Default:
-      0
 
  - :Constants:
       misc.ajaxSubmit
@@ -1297,11 +1306,14 @@ Setup
 
 				# Misc Settings
 				misc {
+					# HTML Output for type HMTL fields
+					htmlForHtmlFields = {$plugin.tx_powermail.settings.misc.htmlForHtmlFields}
+
+					# HTML for labels
+					htmlForLabels = {$plugin.tx_powermail.settings.misc.htmlForLabels}
+
 					# Show only values if they are filled (for all views and for mails)
 					showOnlyFilledValues = {$plugin.tx_powermail.settings.misc.showOnlyFilledValues}
-
-					# HTML Output without removeXSS
-					disableRemoveXss = {$plugin.tx_powermail.settings.misc.disableRemoveXss}
 
 					# Submit Powermail Forms with AJAX (browser will not reload complete page)
 					ajaxSubmit = {$plugin.tx_powermail.settings.misc.ajaxSubmit}
@@ -1993,16 +2005,19 @@ Constants
 			}
 
 			misc {
-				# cat=powermail_additional//0800; type=boolean; label= Show only filled values: If the user submits a form, even not filled values are viewable. If you only want to show labels with filled values, use this setting
+				# cat=powermail_additional//0800; type=boolean; label= Allow html in html fields: Per default output of fields of type HTML is parsed through a htmlspecialchars() function to avoid Cross-Site-Scripting for security reasons. If you are aware of possible XSS-problems, caused by editors, you can enable it and your original HTML is shown in the Frontend.
+				htmlForHtmlFields = 0
+
+				# cat=powermail_additional//0802; type=boolean; label= Allow html in field labels: Per default labels are generated with htmlspecialchars() to prevent xss. This also disables links in labels. If you aware of possible XSS-problems, caused by editors, you can enable it.
+				htmlForLabels = 0
+
+				# cat=powermail_additional//0803; type=boolean; label= Show only filled values: If the user submits a form, even not filled values are viewable. If you only want to show labels with filled values, use this setting
 				showOnlyFilledValues = 1
 
-				# cat=powermail_additional//0805; type=boolean; label= HTML without RemoveXSS: Per default HTML-Output is parsed through a RemoveXSS-Function to avoid Cross-Site-Scripting for security reasons. If you are aware of possible XSS-Problems, caused by editors, you can disable removeXSS and your original HTML is shown in the Frontend.
-				disableRemoveXss = 0
-
-				# cat=powermail_additional//0808; type=boolean; label= AJAX Submit Form: Submit Powermail Forms with AJAX (browser will not reload complete page)
+				# cat=powermail_additional//0805; type=boolean; label= AJAX Submit Form: Submit Powermail Forms with AJAX (browser will not reload complete page)
 				ajaxSubmit = 0
 
-				# cat=powermail_additional//0809; type=boolean; label= Enable AddQueryString: Keep GET-params in form Action (e.g. to use powermail on a tx_news detail page)
+				# cat=powermail_additional//0808; type=boolean; label= Enable AddQueryString: Keep GET-params in form Action (e.g. to use powermail on a tx_news detail page)
 				addQueryString = 0
 
 				# cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
