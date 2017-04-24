@@ -23,15 +23,31 @@ class GetFileWithPathViewHelper extends AbstractViewHelper
     /**
      * Get Upload Path
      *
-     * @param string $fileName like picture.jpg
-     * @param string $path like fileadmin/powermail/uploads/
+     * @param string $fileName
+     *            like picture.jpg
+     * @param string $path
+     *            like fileadmin/powermail/uploads/
      * @return string
      */
     public function render($fileName, $path)
     {
-        if (file_exists(GeneralUtility::getFileAbsFileName($path . $fileName))) {
-            return $path . $fileName;
+        // using FAL although plain path/file to trigger all hooks and signals
+        $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
+        $defaultStorage = $resourceFactory->getDefaultStorage();
+        $defaultStorageBasePath = $defaultStorage->getConfiguration()['basePath'];
+        // check if file is in default storage
+        if (strpos($path,$defaultStorageBasePath) === 0 )
+        {
+            $subPath =  substr($path, strlen($defaultStorageBasePath));
+            $folder = $defaultStorage->getFolder($subPath);
+            $file = $defaultStorage->getFileInFolder($fileName, $folder);
+            return($file->getPublicUrl());    
+        } else {
+            // fallback from defaultStorage       
+            if (file_exists(GeneralUtility::getFileAbsFileName($path . $fileName))) {
+                return $path . $fileName;
+            }
+            return $this->uploadPathFallback . $fileName;
         }
-        return $this->uploadPathFallback . $fileName;
     }
 }
