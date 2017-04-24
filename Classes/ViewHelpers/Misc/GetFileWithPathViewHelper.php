@@ -23,10 +23,8 @@ class GetFileWithPathViewHelper extends AbstractViewHelper
     /**
      * Get Upload Path
      *
-     * @param string $fileName
-     *            like picture.jpg
-     * @param string $path
-     *            like fileadmin/powermail/uploads/
+     * @param string $fileName like picture.jpg
+     * @param string $path like fileadmin/powermail/uploads/
      * @return string
      */
     public function render($fileName, $path)
