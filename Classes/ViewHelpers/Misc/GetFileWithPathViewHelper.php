@@ -29,23 +29,22 @@ class GetFileWithPathViewHelper extends AbstractViewHelper
      */
     public function render($fileName, $path)
     {
-        // using FAL although plain path/file to trigger all hooks and signals
-        $resourceFactory = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance();
-        $defaultStorage = $resourceFactory->getDefaultStorage();
-        $defaultStorageBasePath = $defaultStorage->getConfiguration()['basePath'];
-        // check if file is in default storage
-        if (strpos($path,$defaultStorageBasePath) === 0 )
-        {
-            $subPath =  substr($path, strlen($defaultStorageBasePath));
-            $folder = $defaultStorage->getFolder($subPath);
-            $file = $defaultStorage->getFileInFolder($fileName, $folder);
-            return($file->getPublicUrl());    
-        } else {
-            // fallback from defaultStorage       
-            if (file_exists(GeneralUtility::getFileAbsFileName($path . $fileName))) {
-                return $path . $fileName;
+        // using FAL although plain path/file is supplied to trigger all hooks and signals
+        $storageRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\StorageRepository::class);
+        $allStorages = $storageRepository->findAll();
+        foreach ($allStorages as $thisStorage) {
+            $thisStorageBasePath = $thisStorage->getConfiguration()['basePath'];
+            if (strpos($path, $thisStorageBasePath) === 0) {
+                $subPath = substr($path, strlen($thisStorageBasePath));
+                $folder = $thisStorage->getFolder($subPath);
+                $file = $thisStorage->getFileInFolder($fileName, $folder);
+                return ($file->getPublicUrl());
             }
-            return $this->uploadPathFallback . $fileName;
+        }      
+        // fallback from FAL storages
+        if (file_exists(GeneralUtility::getFileAbsFileName($path . $fileName))) {
+            return $path . $fileName;
         }
+        return $this->uploadPathFallback . $fileName;
     }
 }
