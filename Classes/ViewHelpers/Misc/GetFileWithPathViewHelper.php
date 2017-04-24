@@ -36,9 +36,11 @@ class GetFileWithPathViewHelper extends AbstractViewHelper
             $thisStorageBasePath = $thisStorage->getConfiguration()['basePath'];
             if (strpos($path, $thisStorageBasePath) === 0) {
                 $subPath = substr($path, strlen($thisStorageBasePath));
-                $folder = $thisStorage->getFolder($subPath);
-                $file = $thisStorage->getFileInFolder($fileName, $folder);
-                return ($file->getPublicUrl());
+                if ($thisStorage->hasFolder($subPath)) {
+                    $folder = $thisStorage->getFolder($subPath);
+                    $file = $thisStorage->getFileInFolder($fileName, $folder);
+                    return ($file->getPublicUrl());
+                }
             }
         }      
         // fallback from FAL storages
