@@ -14,14 +14,16 @@
 <f:section name="main">
 	<f:translate key="optin_mail_link" /><br>
 
-	<f:link.action action="optinConfirm" absolute="1" arguments="{hash: hash, mail: mail}">
-		<f:uri.action action="optinConfirm" absolute="1" arguments="{hash: hash, mail: mail}" />
-	</f:link.action>
+	<f:format.htmlentitiesDecode>
+		<f:link.action action="optinConfirm" absolute="1" arguments="{hash: hash, mail: mail}">
+			<f:uri.action action="optinConfirm" absolute="1" arguments="{hash: hash, mail: mail}" />
+		</f:link.action>
+	</f:format.htmlentitiesDecode>
 
 	<br><br><hr>
 	<f:translate key="optin_mail_entries" /><br>
 
-	<vh:string.RawAndRemoveXss>
+	<f:format.raw>
 		{powermail_all}
-	</vh:string.RawAndRemoveXss>
+	</f:format.raw>
 </f:section>
