@@ -29,6 +29,21 @@ class GetFileWithPathViewHelper extends AbstractViewHelper
      */
     public function render($fileName, $path)
     {
+        // using FAL although plain path/file is supplied to trigger all hooks and signals
+        $storageRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\StorageRepository::class);
+        $allStorages = $storageRepository->findAll();
+        foreach ($allStorages as $thisStorage) {
+            $thisStorageBasePath = $thisStorage->getConfiguration()['basePath'];
+            if (strpos($path, $thisStorageBasePath) === 0) {
+                $subPath = substr($path, strlen($thisStorageBasePath));
+                if ($thisStorage->hasFolder($subPath)) {
+                    $folder = $thisStorage->getFolder($subPath);
+                    $file = $thisStorage->getFileInFolder($fileName, $folder);
+                    return ($file->getPublicUrl());
+                }
+            }
+        }      
+        // fallback from FAL storages
         if (file_exists(GeneralUtility::getFileAbsFileName($path . $fileName))) {
             return $path . $fileName;
         }
