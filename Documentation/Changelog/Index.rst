@@ -18,6 +18,16 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.18.1
+   :Date:
+      2017-05-03
+   :Changes:
+
+      * Bugfix: Prevent empty p-tags in CK-Editor in T3 8.7
+      * Bugfix: Show powermail all in optin mails again
+      * Bugfix: Fix links in optin mails
+
+ - :Version:
       3.18.0
    :Date:
       2017-04-23
