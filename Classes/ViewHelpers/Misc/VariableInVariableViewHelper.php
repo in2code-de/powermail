@@ -7,8 +7,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class VariableInVariableViewHelper
- *
- * @package In2code\Powermail\ViewHelpers\Misc
  */
 class VariableInVariableViewHelper extends AbstractViewHelper
 {
@@ -16,7 +14,7 @@ class VariableInVariableViewHelper extends AbstractViewHelper
     /**
      * Solution for {outer.{inner}} call in fluid
      *
-     * @param object|array $obj object or array
+     * @param mixed $obj object or array
      * @param string $prop property name
      * @return mixed
      */
