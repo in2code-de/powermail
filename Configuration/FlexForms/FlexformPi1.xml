@@ -244,6 +244,7 @@
 								<default>{powermail_all}</default>
 								<enableRichtext>1</enableRichtext>
 							</config>
+							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>
 					</settings.flexform.receiver.body>
 				</el>
@@ -295,6 +296,7 @@
 								<default>{powermail_all}</default>
 								<enableRichtext>1</enableRichtext>
 							</config>
+							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>
 					</settings.flexform.sender.body>
 				</el>
@@ -316,6 +318,7 @@
 								<default>{powermail_all}</default>
 								<enableRichtext>1</enableRichtext>
 							</config>
+							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>
 					</settings.flexform.thx.body>
 					<settings.flexform.thx.redirect>

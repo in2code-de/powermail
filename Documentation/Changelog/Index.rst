@@ -18,6 +18,15 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.18.2
+   :Date:
+      2017-05-10
+   :Changes:
+
+      * Bugfix: Make RTE work again under TYPO3 7.6
+      * Bugfix: Fix requirements for TYPO3 in composer.json
+
+ - :Version:
       3.18.1
    :Date:
       2017-05-03
