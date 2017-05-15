@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
+use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
@@ -431,6 +432,18 @@ class SendMailService
         TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfig, 'subject');
         TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->overwriteConfig, 'senderName');
         TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->overwriteConfig, 'senderEmail');
+        if ($email['senderName'] == '') {
+            $email['senderName'] = ConfigurationUtility::getDefaultMailFromName();
+        }
+        if ($email['senderEmail'] == '') {
+            $email['senderEmail'] = ConfigurationUtility::getDefaultMailFromAddress();
+        }
+        if ($email['replyToName'] == '') {
+            $email['replyToName'] = ConfigurationUtility::getDefaultMailFromName();
+        }
+        if ($email['replyToEmail'] == '') {
+            $email['replyToEmail'] = ConfigurationUtility::getDefaultMailFromAddress();
+        }
         TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->overwriteConfig, 'name');
         if ($this->type !== 'receiver') {
             // overwrite with TypoScript already done in ReceiverEmailService
