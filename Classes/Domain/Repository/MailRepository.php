@@ -251,11 +251,24 @@ class MailRepository extends AbstractRepository
             // single field search
             foreach ((array)$piVars['filter'] as $field => $value) {
                 if (is_numeric($field) && !empty($value)) {
-                    $filterAnd = [
-                        $query->equals('answers.field', $field),
-                        $query->like('answers.value', '%' . $value . '%')
-                    ];
-                    $filter[] = $query->logicalAnd($filterAnd);
+                    if (is_array(($value))) {
+                        $checkboxesConstraint = [];
+                        foreach ($value as $item) {
+                            $filterAnd = [
+                                $query->equals('answers.field', $field),
+                                $query->like('answers.value', '%"' . $item . '"%')
+                            ];
+                            $checkboxesConstraint[] = $query->logicalAnd($filterAnd);
+                        }
+                        $filter[] = $query->logicalOr($checkboxesConstraint);
+                    } else {
+                        $filterAnd = [
+                            $query->equals('answers.field', $field),
+                            $query->like('answers.value', '%' . $value . '%')
+                        ];
+                        $filter[] = $query->logicalAnd($filterAnd);
+
+                    }
                 }
             }
 
