@@ -12,22 +12,24 @@
 Section for Web view
 
 <f:section name="web">
-	<table class="table table-striped table-hover table-responsive">
-		<f:for each="{mail.answers}" as="answer">
-			<f:if condition="{vh:Condition.isNotExcludedFromPowermailAll(answer:answer, type:type, settings:settings)}">
-				<f:if condition="{settings.misc.showOnlyFilledValues}">
-					<f:then>
-						<f:if condition="{vh:Condition.IsNotEmpty(val:'{answer.value}')}">
+	<div class="table-responsive">
+		<table class="table table-striped table-hover">
+			<f:for each="{mail.answers}" as="answer">
+				<f:if condition="{vh:Condition.isNotExcludedFromPowermailAll(answer:answer, type:type, settings:settings)}">
+					<f:if condition="{settings.misc.showOnlyFilledValues}">
+						<f:then>
+							<f:if condition="{vh:Condition.IsNotEmpty(val:'{answer.value}')}">
+								<f:render partial="PowermailAll/Web" arguments="{_all}" />
+							</f:if>
+						</f:then>
+						<f:else>
 							<f:render partial="PowermailAll/Web" arguments="{_all}" />
-						</f:if>
-					</f:then>
-					<f:else>
-						<f:render partial="PowermailAll/Web" arguments="{_all}" />
-					</f:else>
+						</f:else>
+					</f:if>
 				</f:if>
-			</f:if>
-		</f:for>
-	</table>
+			</f:for>
+		</table>
+	</div>
 </f:section>
 
 
