@@ -707,18 +707,6 @@
 				<source>There are localized pages with empty tx_powermail_domain_model_page.forms fields which can lead to problems in managing localized pages</source>
 				<target state="translated">Es gibt lokalisierte Seiten mit leeren tx_powermail_domain_model_page.forms Feldern, was Probleme bei der Bearbeitung verursachen kann</target>
 			</trans-unit>
-			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersTitle">
-				<source>Localized Fields</source>
-				<target state="translated">Lokalisierte Felder</target>
-			</trans-unit>
-			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersCorrect">
-				<source>No failures in fields found on this system</source>
-				<target state="translated">Keine Probleme in lokalisierten Felder gefunden</target>
-			</trans-unit>
-			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersFailed">
-				<source>Found some localized fields with filled markers. Markers should be empty in localized records.</source>
-				<target state="translated">Es gibt lokalisierte Felder mit gefüllten tx_powermail_domain_model_form.marker Feldern, welche Probleme in der Frontend-Darstellung verursachen können</target>
-			</trans-unit>
 			<trans-unit id="BackendCheckBackupBefore">
 				<source>Note: Please backup all powermail tables before you choose this option!</source>
 				<target state="translated">Hinweis: Bitte unbedingt alle powermail Tabellen zuvor sichern!</target>

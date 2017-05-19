@@ -525,15 +525,6 @@
 			<trans-unit id="BackendCheckWrongLocalizedPagesFailed">
 				<source>There are localized pages with empty tx_powermail_domain_model_page.forms fields which can lead to problems in managing localized pages</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersTitle">
-				<source>Localized Fields</source>
-			</trans-unit>
-			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersCorrect">
-				<source>No failures in fields found on this system</source>
-			</trans-unit>
-			<trans-unit id="BackendCheckLocalizedFieldsWithFilledMarkersFailed">
-				<source>Found some localized fields with filled markers. Markers should be empty in localized records.</source>
-			</trans-unit>
 			<trans-unit id="BackendCheckBackupBefore">
 				<source>Note: Please backup all powermail tables before you choose this option!</source>
 			</trans-unit>
