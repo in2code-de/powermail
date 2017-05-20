@@ -23,8 +23,7 @@ $mailsTca = [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -48,12 +47,7 @@ $mailsTca = [
     ],
     'types' => [
         '1' => [
-            'showitem' => $typeDefault,
-            'columnsOverrides' => [
-                'body' => [
-                    'defaultExtras' => 'richtext[]'
-                ]
-            ]
+            'showitem' => $typeDefault
         ],
     ],
     'palettes' => [
@@ -112,13 +106,13 @@ $mailsTca = [
         ],
         'starttime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
+            'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
-                'size' => 13,
-                'max' => 20,
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
+                'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -128,13 +122,13 @@ $mailsTca = [
         ],
         'endtime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
+            'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
-                'size' => 13,
-                'max' => 20,
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
+                'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -147,8 +141,9 @@ $mailsTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.crdate',
             'config' => [
                 'type' => 'input',
-                'size' => 30,
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
+                'size' => 30,
                 'readOnly' => 1
             ],
         ],
@@ -198,6 +193,15 @@ $mailsTca = [
                 'type' => 'text',
                 'cols' => '30',
                 'rows' => '5',
+                'enableRichtext' => true,
+                'fieldControl' => [
+                    'fullScreenRichtext' => [
+                        'disabled' => '',
+                        'options' => [
+                            'title' => 'RTE'
+                        ]
+                    ]
+                ],
                 'wizards' => [
                     '_PADDING' => 2,
                     'RTE' => [
@@ -205,7 +209,7 @@ $mailsTca = [
                         'RTEonly' => 1,
                         'type' => 'script',
                         'title' => 'RTE',
-                        'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif',
+                        'icon' => 'actions-wizard-rte',
                         'module' => [
                             'name' => 'wizard_rte'
                         ]
@@ -270,9 +274,9 @@ $mailsTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.time',
             'config' => [
                 'type' => 'input',
-                'size' => 13,
-                'max' => 20,
+                'renderType' => 'inputDateTime',
                 'eval' => 'timesec',
+                'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
                 'readOnly' => 1
@@ -397,6 +401,15 @@ if (ConfigurationUtility::isDisableMarketingInformationActive()) {
             unset($mailsTca['columns'][$columnName]);
         }
     }
+}
+
+// Todo: Can be removed with 7.6 support drop
+if (ConfigurationUtility::isOlderThan8Lts()) {
+    $mailsTca['types']['1']['columnsOverrides'] = [
+        'body' => [
+            'defaultExtras' => 'richtext[]'
+        ]
+    ];
 }
 
 return $mailsTca;

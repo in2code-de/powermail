@@ -27,11 +27,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  ***************************************************************/
 
 /**
- * DateConverter
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class DateConverter
  */
 class DateConverter
 {
@@ -102,7 +98,10 @@ class DateConverter
     {
         $this->initialize($configuration);
         $this->createDateFromFormat();
-        return $this->getDate()->format($this->getOutputFormat());
+        if ($this->getDate() !== null) {
+            return $this->getDate()->format($this->getOutputFormat());
+        }
+        return '';
     }
 
     /**

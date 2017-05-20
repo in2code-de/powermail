@@ -213,8 +213,7 @@ $fieldsTca = [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -227,7 +226,6 @@ $fieldsTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'requestUpdate' => 'validation,own_marker_select',
         'iconfile' => ConfigurationUtility::getIconPath(Field::TABLE_NAME . '.gif')
     ],
     'interface' => [
@@ -400,9 +398,9 @@ $fieldsTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
-                'size' => 13,
-                'max' => 20,
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
+                'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -416,9 +414,9 @@ $fieldsTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
-                'size' => 13,
-                'max' => 20,
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
+                'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -588,7 +586,8 @@ $fieldsTca = [
                 'allowed' => 'tt_content',
                 'size' => 1,
                 'maxitems' => 1,
-                'minitems' => 0
+                'minitems' => 0,
+                'default' => 0
             ],
         ],
         'text' => [
@@ -631,6 +630,7 @@ $fieldsTca = [
         'validation' => [
             'l10n_mode' => 'exclude',
             'exclude' => 1,
+            'onChange' => 'reload',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.validation',
             'config' => [
@@ -1006,6 +1006,7 @@ $fieldsTca = [
             // checkbox to edit a marker
             'l10n_mode' => 'exclude',
             'exclude' => 1,
+            'onChange' => 'reload',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.own_marker_select',
             'config' => [
@@ -1063,6 +1064,11 @@ if (ConfigurationUtility::isL10nModeMergeActive()) {
     $fieldsTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
     $fieldsTca['columns']['own_marker_select']['l10n_mode'] = 'mergeIfNotBlank';
     $fieldsTca['columns']['pages']['l10n_mode'] = 'mergeIfNotBlank';
+}
+
+// Todo: Can be removed with 7.6 support drop
+if (ConfigurationUtility::isOlderThan8Lts()) {
+    $fieldsTca['ctrl']['requestUpdate'] = 'validation,own_marker_select';
 }
 
 return $fieldsTca;

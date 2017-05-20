@@ -18,6 +18,21 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.19.0
+   :Date:
+      2017-05-21
+   :Changes:
+
+      * Task: Update TCA for TYPO3 8.7
+      * Task: Remove not needed backend check for filled markers in localized field tables
+      * Task: Some performance improvements in some ViewHelpers
+      * Task: Change uploadable file extension list in default constants
+      * Task: Small documentation update
+      * Bugfix: Prevent sql error on field localization if sql is in strict mode
+      * Bugfix: DateConverter UserFunc should return an empty string on errors
+      * Bugfix: Prevent small error in T3 log if VariableInVarialbeViewHelper is called in PHP7
+
+ - :Version:
       3.18.2
    :Date:
       2017-05-10
@@ -43,7 +58,8 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
    :Changes:
 
       * Task: Make extension fit for new TYPO3 8.7 LTS testparcours
-      * Task: Don't use GeneralUtility::removeXSS by default
+      * !!!Task: Encode html field output by default. Disable via TypoScript constants: `plugin.tx_powermail.settings.misc.htmlForHtmlFields=1`
+      * !!!Task: Encode field labels by default. Disable via TypoScript constants: `plugin.tx_powermail.settings.misc.htmlForLabels=1`
       * Bugfix: Captcha image resource fix
 
  - :Version:

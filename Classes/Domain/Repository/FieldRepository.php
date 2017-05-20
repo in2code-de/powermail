@@ -115,20 +115,6 @@ class FieldRepository extends AbstractRepository
     }
 
     /**
-     * Fix wrong localized fields with markers
-     *
-     * @return void
-     */
-    public function fixFilledMarkersInLocalizedFields()
-    {
-        $this->getDatabaseConnection()->exec_UPDATEquery(
-            Field::TABLE_NAME,
-            'sys_language_uid > 0 and deleted = 0 and marker != ""',
-            ['marker' => '']
-        );
-    }
-
-    /**
      * Find all localized records with
      *        tx_powermail_domain_model_field.pages = "0"
      *
@@ -147,25 +133,6 @@ class FieldRepository extends AbstractRepository
             }
         }
         return $pages;
-    }
-
-    /**
-     * Fix wrong localized forms
-     *
-     * @return void
-     */
-    public function fixWrongLocalizedFields()
-    {
-        foreach ($this->findAllWrongLocalizedFields() as $field) {
-            $defaultFieldUid = $field['l10n_parent'];
-            $defaultPageUid = $this->getPageUidFromFieldUid($defaultFieldUid);
-            $localizedPageUid = $this->getLocalizedPageUidFromPageUid($defaultPageUid, $field['sys_language_uid']);
-            $this->getDatabaseConnection()->exec_UPDATEquery(
-                Field::TABLE_NAME,
-                'uid = ' . (int)$field['uid'],
-                ['pages' => $localizedPageUid]
-            );
-        }
     }
 
     /**

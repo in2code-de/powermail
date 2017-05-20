@@ -12,8 +12,7 @@ $pagesTca = [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -97,9 +96,9 @@ $pagesTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
-                'size' => 13,
-                'max' => 20,
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
+                'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -113,9 +112,9 @@ $pagesTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
-                'size' => 13,
-                'max' => 20,
+                'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
+                'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -186,8 +185,7 @@ $pagesTca = [
                     'showRemovedLocalizationRecords' => 1,
                 ],
                 'behaviour' => [
-                    'localizeChildrenAtParentLocalization' => 1,
-                    'localizationMode' => 'select',
+                    'localizeChildrenAtParentLocalization' => 1
                 ],
             ],
         ],

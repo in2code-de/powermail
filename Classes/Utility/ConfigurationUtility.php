@@ -1,8 +1,8 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -29,11 +29,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  ***************************************************************/
 
 /**
- * ConfigurationUtility class
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class ConfigurationUtility
  */
 class ConfigurationUtility extends AbstractUtility
 {
@@ -134,10 +130,8 @@ class ConfigurationUtility extends AbstractUtility
     public static function getDevelopmentContextEmail()
     {
         $configVariables = self::getTypo3ConfigurationVariables();
-        if (
-            GeneralUtility::getApplicationContext()->isDevelopment() &&
-            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])
-        ) {
+        if (GeneralUtility::getApplicationContext()->isDevelopment() &&
+            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])) {
             return $configVariables['EXT']['powermailDevelopContextEmail'];
         }
         return false;
@@ -204,6 +198,16 @@ class ConfigurationUtility extends AbstractUtility
             }
         }
         return !empty($settings['spamshield']['_enable']) && $validationActivated;
+    }
+
+    /**
+     * Check if TYPO3 smaller then 8.7 is running
+     *
+     * @return bool
+     */
+    public static function isOlderThan8Lts()
+    {
+        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000;
     }
 
     /**

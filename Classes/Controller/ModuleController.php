@@ -300,28 +300,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Check Permissions
-     *
-     * @return void
-     */
-    public function initializeFixFilledMarkersInLocalizedFieldsAction()
-    {
-        $this->checkAdminPermissions();
-    }
-
-    /**
-     * Fix wrong localized markers in fields
-     *
-     * @return void
-     */
-    public function fixFilledMarkersInLocalizedFieldsAction()
-    {
-        $this->fieldRepository->fixFilledMarkersInLocalizedFields();
-        $this->fieldRepository->fixWrongLocalizedFields();
-        $this->redirect('checkBe');
-    }
-
-    /**
      * Check if admin is logged in
      *        If not, forward to tools overview
      *
