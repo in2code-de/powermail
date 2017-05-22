@@ -301,11 +301,8 @@ class MailRepository extends AbstractRepository
         $query     = $this->createQuery();
         $tableName = $query->getSource()->getSelectorName();
 
-        $sql = 'SELECT MIN(uid) uid,form FROM ' . $tableName . ' WHERE pid = ? AND deleted = 0 GROUP BY form';
-        $prepareStatement = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\PreparedStatement::class, $sql, $tableName);
-
-        $prepareStatement->bindValues([$pageUid]);
-        $query->statement($prepareStatement);
+        $sql = 'SELECT MIN(uid) uid,form FROM ' . $tableName . ' WHERE pid = ' . intval($pageUid) . ' AND deleted = 0 GROUP BY form';
+        $query->statement($sql);
         $queryResult = $query->execute();
         $forms = [];
         foreach ($queryResult as $mail) {
