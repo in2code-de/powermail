@@ -19,95 +19,97 @@ Render Powermail_Frontend List View
 
 		<f:if condition="{mails}">
 			<f:then>
-				<table class="table table-striped table-hover table-responsive">
-					<f:for each="{mails}" as="mail" iteration="index">
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+						<f:for each="{mails}" as="mail" iteration="index">
 
-						<f:if condition="{index.isFirst}">
-							<tr>
-								<th>
-									(<f:count subject="{mails}" />)
-								</th>
-								<f:for each="{fields}" as="field">
-									<th class="powermail_sorting">
-										{field.title}
+							<f:if condition="{index.isFirst}">
+								<tr>
+									<th>
+										(<f:count subject="{mails}" />)
 									</th>
-								</f:for>
-								<th></th>
-							</tr>
-						</f:if>
-
-						<tr>
-							<td><span title="{mail.uid}">{index.cycle}.</span></td>
-							<f:for each="{fields}" as="field">
-								<td>
-									<f:for each="{mail.answers}" as="answer">
-										<f:if condition="{answer.field} == {field}">
-
-											<f:comment>Data Type String</f:comment>
-											<f:if condition="{answer.valueType} == 0">
-												<f:format.nl2br>{answer.value}</f:format.nl2br>
-											</f:if>
-
-											<f:comment>Data Type Array</f:comment>
-											<f:if condition="{answer.valueType} == 1">
-												<vh:String.ImplodeField objects="{answer.value}" separator=", " />
-											</f:if>
-
-											<f:comment>Data Type Date (already parsed Timestamp by Model)</f:comment>
-											<f:if condition="{answer.valueType} == 2">
-												{answer.value}
-											</f:if>
-
-											<f:comment>Data Type Fileupload</f:comment>
-											<f:if condition="{answer.valueType} == 3">
-												<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
-													<f:link.page pageUid="{settings.misc.file.folder}{subValue}" target="_blank">
-														<f:if condition="{vh:Condition.IsImage(path:subValue)}">
-															<f:then>
-																<f:if condition="{vh:Condition.FileExists(file:'{settings.misc.file.folder}{subValue}')}">
-																	<f:then>
-																		<f:image src="{settings.misc.file.folder}{subValue}" alt="{subValue}" width="200" maxHeight="200" />
-																	</f:then>
-																	<f:else>
-																		File does not exist
-																	</f:else>
-																</f:if>
-															</f:then>
-															<f:else>
-																{subValue}
-															</f:else>
-														</f:if>
-													</f:link.page>
-													<br />
-												</f:for>
-											</f:if>
-										</f:if>
+									<f:for each="{fields}" as="field">
+										<th class="powermail_sorting">
+											{field.title}
+										</th>
 									</f:for>
+									<th></th>
+								</tr>
+							</f:if>
+
+							<tr>
+								<td><span title="{mail.uid}">{index.cycle}.</span></td>
+								<f:for each="{fields}" as="field">
+									<td>
+										<f:for each="{mail.answers}" as="answer">
+											<f:if condition="{answer.field} == {field}">
+
+												<f:comment>Data Type String</f:comment>
+												<f:if condition="{answer.valueType} == 0">
+													<f:format.nl2br>{answer.value}</f:format.nl2br>
+												</f:if>
+
+												<f:comment>Data Type Array</f:comment>
+												<f:if condition="{answer.valueType} == 1">
+													<vh:String.ImplodeField objects="{answer.value}" separator=", " />
+												</f:if>
+
+												<f:comment>Data Type Date (already parsed Timestamp by Model)</f:comment>
+												<f:if condition="{answer.valueType} == 2">
+													{answer.value}
+												</f:if>
+
+												<f:comment>Data Type Fileupload</f:comment>
+												<f:if condition="{answer.valueType} == 3">
+													<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
+														<f:link.page pageUid="{settings.misc.file.folder}{subValue}" target="_blank">
+															<f:if condition="{vh:Condition.IsImage(path:subValue)}">
+																<f:then>
+																	<f:if condition="{vh:Condition.FileExists(file:'{settings.misc.file.folder}{subValue}')}">
+																		<f:then>
+																			<f:image src="{settings.misc.file.folder}{subValue}" alt="{subValue}" width="200" maxHeight="200" />
+																		</f:then>
+																		<f:else>
+																			File does not exist
+																		</f:else>
+																	</f:if>
+																</f:then>
+																<f:else>
+																	{subValue}
+																</f:else>
+															</f:if>
+														</f:link.page>
+														<br />
+													</f:for>
+												</f:if>
+											</f:if>
+										</f:for>
+									</td>
+								</f:for>
+								<td>
+									<f:if condition="{settings.single.activateLink}">
+										<f:link.action action="show" pageUid="{singlePid}" arguments="{mail:mail}">
+											<f:translate key="PowermailFrontendDetailView">Details</f:translate>
+										</f:link.action>
+									</f:if>
+
+									<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
+										<f:link.action action="edit" pageUid="{editPid}" arguments="{mail:mail}">
+											<f:translate key="PowermailFrontendEditView">Edit</f:translate>
+										</f:link.action>
+									</f:if>
+
+									<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
+										<f:link.action action="delete" pageUid="{editPid}" arguments="{mail:mail}">
+											<f:translate key="PowermailFrontendDeleteView">Delete</f:translate>
+										</f:link.action>
+									</f:if>
 								</td>
-							</f:for>
-							<td>
-								<f:if condition="{settings.single.activateLink}">
-									<f:link.action action="show" pageUid="{singlePid}" arguments="{mail:mail}">
-										<f:translate key="PowermailFrontendDetailView">Details</f:translate>
-									</f:link.action>
-								</f:if>
+							</tr>
 
-								<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
-									<f:link.action action="edit" pageUid="{editPid}" arguments="{mail:mail}">
-										<f:translate key="PowermailFrontendEditView">Edit</f:translate>
-									</f:link.action>
-								</f:if>
-
-								<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
-									<f:link.action action="delete" pageUid="{editPid}" arguments="{mail:mail}">
-										<f:translate key="PowermailFrontendDeleteView">Delete</f:translate>
-									</f:link.action>
-								</f:if>
-							</td>
-						</tr>
-
-					</f:for>
-				</table>
+						</f:for>
+					</table>
+				</div>
 			</f:then>
 			<f:else>
 				<p>
