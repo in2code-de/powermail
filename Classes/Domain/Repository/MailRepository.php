@@ -297,7 +297,13 @@ class MailRepository extends AbstractRepository
      */
     public function findGroupedFormUidsToGivenPageUid($pageUid = 0)
     {
-        $queryResult = $this->findAllInPid($pageUid);
+        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Query $query */
+        $query     = $this->createQuery();
+        $tableName = $query->getSource()->getSelectorName();
+
+        $sql = 'SELECT MIN(uid) uid,form FROM ' . $tableName . ' WHERE pid = ' . intval($pageUid) . ' AND deleted = 0 GROUP BY form';
+        $query->statement($sql);
+        $queryResult = $query->execute();
         $forms = [];
         foreach ($queryResult as $mail) {
             /** @var Form $form */
