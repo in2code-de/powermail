@@ -1,6 +1,6 @@
 <?php
 if (!defined('TYPO3_MODE')) {
-    die ('Access denied.');
+    die('Access denied.');
 }
 
 call_user_func(function () {
@@ -14,13 +14,13 @@ call_user_func(function () {
     /**
      * Disable not needed fields in tt_content
      */
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['powermail_pi1'] = 'select_key,pages,recursive';
+    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['powermail_pi1'] =
+        'select_key,pages,recursive';
 
     /**
      * Include Backend Module
      */
-    if (
-        TYPO3_MODE === 'BE' &&
+    if (TYPO3_MODE === 'BE' &&
         !\In2code\Powermail\Utility\ConfigurationUtility::isDisableBackendModuleActive() &&
         !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
     ) {
@@ -140,5 +140,4 @@ call_user_func(function () {
      */
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['mail'] = 'tx_powermail_domain_model_mail';
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['livesearch']['form'] = 'tx_powermail_domain_model_form';
-
 });
