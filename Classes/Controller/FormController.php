@@ -2,8 +2,8 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Service\ReceiverEmailService;
-use In2code\Powermail\Domain\Service\SenderEmailService;
+use In2code\Powermail\Domain\Service\ReceiverMailReceiverPropertiesService;
+use In2code\Powermail\Domain\Service\ReceiverMailSenderPropertiesService;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
@@ -222,11 +222,11 @@ class FormController extends AbstractController
      */
     protected function sendReceiverMail(Mail $mail, $hash = null)
     {
-        /** @var ReceiverEmailService $receiverService */
-        $receiverService = $this->objectManager->get(ReceiverEmailService::class, $mail, $this->settings);
+        /** @var ReceiverMailReceiverPropertiesService $receiverService */
+        $receiverService = $this->objectManager->get(ReceiverMailReceiverPropertiesService::class, $mail, $this->settings);
         $mail->setReceiverMail($receiverService->getReceiverEmailsString());
-        /** @var SenderEmailService $senderService */
-        $senderService = $this->objectManager->get(SenderEmailService::class, $mail, $this->settings);
+        /** @var ReceiverMailSenderPropertiesService $senderService */
+        $senderService = $this->objectManager->get(ReceiverMailSenderPropertiesService::class, $mail, $this->settings);
         foreach ($receiverService->getReceiverEmails() as $receiver) {
             $email = [
                 'template' => 'Mail/ReceiverMail',

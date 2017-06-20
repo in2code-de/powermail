@@ -46,7 +46,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  *
  * @package In2code\Powermail\Domain\Service
  */
-class ReceiverEmailService
+class ReceiverMailReceiverPropertiesService
 {
     use SignalTrait;
 
