@@ -8,7 +8,7 @@
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
 		<f:for each="{field.modifiedSettings}" as="setting" iteration="index">
 			<div class="{settings.styles.framework.checkClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}">
-				<label>
+				<label for="powermail_field_{field.marker}_{index.cycle}">
 					<f:form.checkbox
 							property="{field.marker}."
 							value="{setting.value}"
