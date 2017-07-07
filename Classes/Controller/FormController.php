@@ -2,8 +2,9 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Service\ReceiverEmailService;
-use In2code\Powermail\Domain\Service\SenderEmailService;
+use In2code\Powermail\Domain\Service\ReceiverMailReceiverPropertiesService;
+use In2code\Powermail\Domain\Service\ReceiverMailSenderPropertiesService;
+use In2code\Powermail\Domain\Service\SenderMailPropertiesService;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
@@ -222,11 +223,11 @@ class FormController extends AbstractController
      */
     protected function sendReceiverMail(Mail $mail, $hash = null)
     {
-        /** @var ReceiverEmailService $receiverService */
-        $receiverService = $this->objectManager->get(ReceiverEmailService::class, $mail, $this->settings);
+        /** @var ReceiverMailReceiverPropertiesService $receiverService */
+        $receiverService = $this->objectManager->get(ReceiverMailReceiverPropertiesService::class, $mail, $this->settings);
         $mail->setReceiverMail($receiverService->getReceiverEmailsString());
-        /** @var SenderEmailService $senderService */
-        $senderService = $this->objectManager->get(SenderEmailService::class, $mail, $this->settings);
+        /** @var ReceiverMailSenderPropertiesService $senderService */
+        $senderService = $this->objectManager->get(ReceiverMailSenderPropertiesService::class, $mail, $this->settings);
         foreach ($receiverService->getReceiverEmails() as $receiver) {
             $email = [
                 'template' => 'Mail/ReceiverMail',
@@ -262,6 +263,8 @@ class FormController extends AbstractController
      */
     protected function sendSenderMail(Mail $mail)
     {
+        /** @var SenderMailPropertiesService $senderService */
+        $senderService = $this->objectManager->get(SenderMailPropertiesService::class, $this->settings);
         $email = [
             'template' => 'Mail/SenderMail',
             'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
@@ -269,10 +272,10 @@ class FormController extends AbstractController
                 $mail,
                 [$this->conf['sender.']['default.'], 'senderName']
             ),
-            'senderEmail' => $this->settings['sender']['email'],
-            'senderName' => $this->settings['sender']['name'],
-            'replyToEmail' => $this->settings['sender']['email'],
-            'replyToName' => $this->settings['sender']['name'],
+            'senderEmail' => $senderService->getSenderEmail(),
+            'senderName' => $senderService->getSenderName(),
+            'replyToEmail' => $senderService->getSenderEmail(),
+            'replyToName' => $senderService->getSenderName(),
             'subject' => $this->settings['sender']['subject'],
             'rteBody' => $this->settings['sender']['body'],
             'format' => $this->settings['sender']['mailformat']

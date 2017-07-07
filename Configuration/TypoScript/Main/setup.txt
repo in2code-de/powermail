@@ -197,6 +197,9 @@ plugin.tx_powermail {
 				mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
 
 				default {
+					senderEmail = TEXT
+					senderEmail.value = {$plugin.tx_powermail.settings.sender.default.senderEmail}
+
 					senderName = TEXT
 					senderName.value = {$plugin.tx_powermail.settings.sender.default.senderName}
 				}

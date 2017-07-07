@@ -12,6 +12,7 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -42,11 +43,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  ***************************************************************/
 
 /**
- * MailRepository
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class MailRepository
  */
 class MailRepository extends AbstractRepository
 {
@@ -82,7 +79,6 @@ class MailRepository extends AbstractRepository
         // filter
         if (isset($piVars['filter'])) {
             foreach ((array)$piVars['filter'] as $field => $value) {
-
                 // Standard Fields
                 if (!is_array($value)) {
                     // Fulltext Search
@@ -261,10 +257,8 @@ class MailRepository extends AbstractRepository
 
             if (count($filter) > 0) {
                 // switch between AND and OR
-                if (
-                    !empty($settings['search']['logicalRelation']) &&
-                    strtolower($settings['search']['logicalRelation']) === 'and'
-                ) {
+                if (!empty($settings['search']['logicalRelation']) &&
+                    strtolower($settings['search']['logicalRelation']) === 'and') {
                     $and[] = $query->logicalAnd($filter);
                 } else {
                     $and[] = $query->logicalOr($filter);
@@ -297,7 +291,14 @@ class MailRepository extends AbstractRepository
      */
     public function findGroupedFormUidsToGivenPageUid($pageUid = 0)
     {
-        $queryResult = $this->findAllInPid($pageUid);
+        /** @var Query $query */
+        $query = $this->createQuery();
+        $tableName = $query->getSource()->getSelectorName();
+        $sql = 'SELECT MIN(uid) uid, form FROM ' . $tableName . ' WHERE pid = ' . (int)$pageUid . ' AND deleted = 0 ' .
+            'GROUP BY form';
+        $query->statement($sql);
+        $queryResult = $query->execute();
+
         $forms = [];
         foreach ($queryResult as $mail) {
             /** @var Form $form */
@@ -412,8 +413,7 @@ class MailRepository extends AbstractRepository
     {
         $email = '';
         foreach ($mail->getAnswers() as $answer) {
-            if (
-                $answer->getField() !== null &&
+            if ($answer->getField() !== null &&
                 $answer->getField()->isSenderEmail() &&
                 GeneralUtility::validEmail(trim($answer->getValue()))
             ) {

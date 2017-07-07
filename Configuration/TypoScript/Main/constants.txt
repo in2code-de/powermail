@@ -115,8 +115,11 @@ plugin.tx_powermail {
 			mailformat = both
 
 			default {
-				# cat=powermail_additional//0430; type=text; label= Default Sender Name: Sendername if no sender name given
-				senderName = Powermail
+				# cat=powermail_additional//0430; type=text; label= Sender Mail - Default Sender Name: Sendername if no sender name given
+				senderName =
+
+				# cat=powermail_additional//0432; type=text; label= Sender Mail - Default Sender Email: Sender email address if no sender email given
+				senderEmail =
 			}
 
 			overwrite {

@@ -410,6 +410,10 @@ if (ConfigurationUtility::isOlderThan8Lts()) {
             'defaultExtras' => 'richtext[]'
         ]
     ];
+    unset($mailsTca['columns']['starttime']['config']['renderType']);
+    unset($mailsTca['columns']['endtime']['config']['renderType']);
+    unset($mailsTca['columns']['crdate']['config']['renderType']);
+    unset($mailsTca['columns']['time']['config']['renderType']);
 }
 
 return $mailsTca;

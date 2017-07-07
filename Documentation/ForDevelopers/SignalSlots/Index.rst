@@ -151,7 +151,7 @@ forge.typo3.org if you need a new signal.
       Prefill multiple fields by your own magic
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\ReceiverEmailService
+      In2code\\Powermail\\Domain\\Service\\ReceiverMailReceiverPropertiesService
    :Name:
       setReceiverEmails
    :Method:
@@ -162,7 +162,7 @@ forge.typo3.org if you need a new signal.
       Manipulate receiver emails short before the mails will be send
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\ReceiverEmailService
+      In2code\\Powermail\\Domain\\Service\\ReceiverMailReceiverPropertiesService
    :Name:
       getReceiverName
    :Method:
@@ -195,7 +195,7 @@ forge.typo3.org if you need a new signal.
       Manipulate standaloneView-object before the mail object will be rendered
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\SenderEmailService
+      In2code\\Powermail\\Domain\\Service\\ReceiverMailSenderPropertiesService
    :Name:
       getSenderEmail
    :Method:
@@ -206,7 +206,7 @@ forge.typo3.org if you need a new signal.
       Manipulate given sender email
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\SenderEmailService
+      In2code\\Powermail\\Domain\\Service\\ReceiverMailSenderPropertiesService
    :Name:
       getSenderName
    :Method:

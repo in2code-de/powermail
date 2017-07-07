@@ -228,4 +228,10 @@ if (ConfigurationUtility::isL10nModeMergeActive()) {
     $formsTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
 }
 
+// Todo: Can be removed with 7.6 support drop
+if (ConfigurationUtility::isOlderThan8Lts()) {
+    unset($formsTca['columns']['starttime']['config']['renderType']);
+    unset($formsTca['columns']['endtime']['config']['renderType']);
+}
+
 return $formsTca;

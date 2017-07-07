@@ -220,4 +220,10 @@ if (ConfigurationUtility::isL10nModeMergeActive()) {
     $pagesTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
 }
 
+// Todo: Can be removed with 7.6 support drop
+if (ConfigurationUtility::isOlderThan8Lts()) {
+    unset($pagesTca['columns']['starttime']['config']['renderType']);
+    unset($pagesTca['columns']['endtime']['config']['renderType']);
+}
+
 return $pagesTca;

@@ -1,6 +1,6 @@
 <?php
 if (!defined('TYPO3_MODE')) {
-    die ('Access denied.');
+    die('Access denied.');
 }
 
 call_user_func(function () {
@@ -41,7 +41,8 @@ call_user_func(function () {
     /**
      * Hook to show PluginInformation under a tt_content element in page module of type powermail
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem']['powermail'] =
+    $cmsLayout = 'cms/layout/class.tx_cms_layout.php';
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$cmsLayout]['tt_content_drawItem']['powermail'] =
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') .
         'Classes/Hook/PluginPreview.php:In2code\Powermail\Hooks\PluginPreview';
 
@@ -60,7 +61,8 @@ call_user_func(function () {
     /**
      * Hook to extend the FlexForm since core version 8.5
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class]['flexParsing']['powermail'] =
+    $ffTools = \TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$ffTools]['flexParsing']['powermail'] =
         In2code\Powermail\Hook\FlexFormManipulationHook::class;
 
     /**

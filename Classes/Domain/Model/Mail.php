@@ -65,6 +65,7 @@ class Mail extends AbstractEntity
 
     /**
      * @var \In2code\Powermail\Domain\Model\User
+     * @lazy
      */
     protected $feuser = null;
 

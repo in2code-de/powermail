@@ -128,8 +128,7 @@ class UploadService implements SingletonInterface
         $filename = $file->getOriginalName();
         $fileInfo = pathinfo($filename);
         $extension = strtolower($fileInfo['extension']);
-        if (
-            !empty($extension) &&
+        if (!empty($extension) &&
             !empty($fileExtensions) &&
             GeneralUtility::inList($fileExtensions, $extension) &&
             GeneralUtility::verifyFilenameAgainstDenyPattern($filename) &&
