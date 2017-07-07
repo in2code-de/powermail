@@ -31,14 +31,18 @@ class GetFileWithPathViewHelper extends AbstractViewHelper
         $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
         $allStorages = $storageRepository->findAll();
         foreach ($allStorages as $thisStorage) {
-            $thisStorageBasePath = $thisStorage->getConfiguration()['basePath'];
-            if (strpos($path, $thisStorageBasePath) === 0) {
-                $subPath = substr($path, strlen($thisStorageBasePath));
-                if ($thisStorage->hasFolder($subPath)) {
-                    $folder = $thisStorage->getFolder($subPath);
-                    $file = $thisStorage->getFileInFolder($fileName, $folder);
-                    return $file->getPublicUrl();
+            try {
+                $thisStorageBasePath = $thisStorage->getConfiguration()['basePath'];
+                if (strpos($path, $thisStorageBasePath) === 0) {
+                    $subPath = substr($path, strlen($thisStorageBasePath));
+                    if ($thisStorage->hasFolder($subPath)) {
+                        $folder = $thisStorage->getFolder($subPath);
+                        $file = $thisStorage->getFileInFolder($fileName, $folder);
+                        return $file->getPublicUrl();
+                    }
                 }
+            } catch (\Exception $e) {
+                // Catch all exceptions from core
             }
         }
         // fallback from FAL storages
