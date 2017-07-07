@@ -433,7 +433,7 @@ class SendMailService
         TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->overwriteConfig, 'senderEmail');
         TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->overwriteConfig, 'name');
         if ($this->type !== 'receiver') {
-            // overwrite with TypoScript already done in ReceiverEmailService
+            // overwrite with TypoScript already done in ReceiverMailReceiverPropertiesService
             TypoScriptUtility::overwriteValueFromTypoScript($email['receiverEmail'], $this->overwriteConfig, 'email');
         }
         $parse = [

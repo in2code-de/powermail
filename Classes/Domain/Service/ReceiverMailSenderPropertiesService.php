@@ -32,11 +32,11 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  ***************************************************************/
 
 /**
- * Class SenderEmailService to get email array for sender attributes
+ * Class ReceiverMailSenderPropertiesService to get email array for sender attributes
  *
  * @package In2code\Powermail\Domain\Service
  */
-class SenderEmailService
+class ReceiverMailSenderPropertiesService
 {
     use SignalTrait;
 
@@ -80,7 +80,7 @@ class SenderEmailService
 
     /**
      * Get sender email from configuration in fields and params. If empty, take default from TypoScript
-     * 
+     *
      * @return string
      */
     public function getSenderEmail()
@@ -91,7 +91,7 @@ class SenderEmailService
             'senderEmail'
         );
         $senderEmail = $this->mailRepository->getSenderMailFromArguments($this->mail, $defaultSenderEmail);
-        
+
         $signalArguments = [&$senderEmail, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $senderEmail;
@@ -99,7 +99,7 @@ class SenderEmailService
 
     /**
      * Get sender name from configuration in fields and params. If empty, take default from TypoScript
-     * 
+     *
      * @return string
      */
     public function getSenderName()
@@ -110,7 +110,7 @@ class SenderEmailService
             'senderName'
         );
         $senderName = $this->mailRepository->getSenderNameFromArguments($this->mail, $defaultSenderName);
-        
+
         $signalArguments = [&$senderName, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $senderName;
