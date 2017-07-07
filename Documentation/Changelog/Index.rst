@@ -18,6 +18,21 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      3.20.0
+   :Date:
+      2017-07-07
+   :Changes:
+
+      * Feature: Use default TYPO3 settings when sender name/email is empty
+      * Task: Some small performance updates for backend modules
+      * Task: Some small code cleanups
+      * Task: Update parsley.js from 2.2.0 to 2.7.2
+      * Task: Prevent autofill from chrome for honeypot fields
+      * Bugfix: Fix CSV export in T3 8.7
+      * Bugfix: Fix Datefields in T3 7.6
+      * Bugfix: Prevent exceptions in backend module for uploads
+
+ - :Version:
       3.19.0
    :Date:
       2017-05-21
