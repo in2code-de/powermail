@@ -5,7 +5,6 @@ use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /***************************************************************
@@ -34,8 +33,6 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
 /**
  * Class SenderMailPropertiesService to get email array for sender attributes
  * for sender emails
- *
- * @package In2code\Powermail\Domain\Service
  */
 class SenderMailPropertiesService
 {
