@@ -1069,6 +1069,8 @@ if (ConfigurationUtility::isL10nModeMergeActive()) {
 // Todo: Can be removed with 7.6 support drop
 if (ConfigurationUtility::isOlderThan8Lts()) {
     $fieldsTca['ctrl']['requestUpdate'] = 'validation,own_marker_select';
+    unset($fieldsTca['columns']['starttime']['config']['renderType']);
+    unset($fieldsTca['columns']['endtime']['config']['renderType']);
 }
 
 return $fieldsTca;
