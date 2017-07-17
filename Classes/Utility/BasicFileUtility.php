@@ -1,9 +1,6 @@
 <?php
 namespace In2code\Powermail\Utility;
 
-use In2code\Powermail\Domain\Model\Form;
-use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 
@@ -32,11 +29,7 @@ use TYPO3\CMS\Core\Utility\PathUtility;
  ***************************************************************/
 
 /**
- * Basic File Functions
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class BasicFileUtility
  */
 class BasicFileUtility extends AbstractUtility
 {
