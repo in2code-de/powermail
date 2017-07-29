@@ -309,6 +309,7 @@ class MailRepository extends AbstractRepository
                 }
             }
         }
+        $this->persistenceManager->clearState();
         return $forms;
     }
 
