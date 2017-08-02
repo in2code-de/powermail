@@ -3,7 +3,10 @@
 #####################################
 
 # Enable marketing information in mail to administrator
-plugin.tx_powermail.settings.setup.marketing.information = 1
+plugin.tx_powermail {
+	settings.setup.marketing.information = 1
+	features.requireCHashArgumentForActionArguments = 0
+}
 
 # storing misc user informations in session via JavaScript (last page, google keyword, page funnel)
 page.3131 = COA
