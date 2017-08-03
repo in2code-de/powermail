@@ -4,7 +4,7 @@
 Changelog
 =========
 
-All changes are documented on `http://forge.typo3.org/projects/extension-powermail <http://forge.typo3.org/projects/extension-powermail>`_
+All changes are documented on https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/
 
 
 .. t3-field-list-table::

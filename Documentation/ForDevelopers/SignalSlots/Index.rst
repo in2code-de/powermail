@@ -23,7 +23,7 @@ Overview
 
 Powermail offers a lot of SignalSlots (Extbase pendant to Hooks) to
 extend the functions from your extension. Please report to
-forge.typo3.org if you need a new signal.
+`GitHub <https://github.com/einpraegsam/powermail/issues>`_ if you need a new signal.
 
 .. t3-field-list-table::
  :header-rows: 1

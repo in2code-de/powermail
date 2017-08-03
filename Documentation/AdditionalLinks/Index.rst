@@ -9,7 +9,7 @@ You can use one of the following links, to get more informations about
 this plugin:
 
 All information about powermail developing, the developers behind powermail, time tracks and so on:
-http://forge.typo3.org/projects/show/extension-powermail/
+https://github.com/einpraegsam/powermail
 
 powermail is powered by http://www.in2code.de/
 
