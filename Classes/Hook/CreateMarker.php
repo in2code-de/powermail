@@ -194,10 +194,10 @@ class CreateMarker
     protected function checkAndRenameMarkers(array $markers)
     {
         foreach ($markers as $uid => $marker) {
-            $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
-                'marker',
+            $row = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
                 Field::TABLE_NAME,
-                'uid=' . (int)$uid
+                (int)$uid,
+                'marker'
             );
             if ($row['marker'] !== $marker) {
                 ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
