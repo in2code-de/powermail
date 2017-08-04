@@ -65,7 +65,11 @@ class RedirectUriService
     public function getRedirectUri()
     {
         $uri = null;
-        $target = $this->getTarget();
+        if(!is_null($settings) && !empty($settings['thx']['redirect'])){
+            $target = $settings['thx']['redirect'];
+        } else {
+            $target = $this->getTarget();
+        }
         if ($target !== null) {
             $this->uriBuilder->setTargetPageUid($target);
             $uri = $this->uriBuilder->build();
