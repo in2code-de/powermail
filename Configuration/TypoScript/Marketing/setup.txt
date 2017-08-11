@@ -25,7 +25,7 @@ page.3131 {
 	20 = TEXT
 	20 {
 		noTrimWrap = | data-language="|"|
-		data = GP:L
+		data = TSFE:sys_language_uid
 		intval = 1
 	}
 }
