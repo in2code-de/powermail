@@ -4,7 +4,7 @@
 Changelog
 =========
 
-All changes are documented on `http://forge.typo3.org/projects/extension-powermail <http://forge.typo3.org/projects/extension-powermail>`_
+All changes are documented on https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/
 
 
 .. t3-field-list-table::
@@ -16,6 +16,20 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Date
    :Changes:
       Release Description
+
+ - :Version:
+      3.21.0
+   :Date:
+      2017-08-11
+   :Changes:
+
+      * Task: Use BackendUtility::getRecord() instead of exec_SELCT...
+      * Task: Some documentation updates
+      * Task: Enable marketing tracking with cHash check in TYPO3
+      * Task: Add documentation how to prevent duplicate emails in webforms
+      * Bugfix: Use TSFE:sys_language_uid instead of GP:L for marketing infos
+      * Bugfix: Fix empty mails in backend module
+      * Bugfix: Fix typo in Partial for hidden fields
 
  - :Version:
       3.20.0

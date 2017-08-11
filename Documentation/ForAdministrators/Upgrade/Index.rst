@@ -21,7 +21,7 @@ Do you have **problems after a powermail upgrade**?
 Follow this steps
 """""""""""""""""
 
-Please follow this steps before you create a bug entry on forge:
+Please follow this steps before you create a bug entry on GitHub:
 
 * Clean all caches in Install Tool
 * Remove all files and folders in typo3temp/
@@ -30,7 +30,7 @@ Please follow this steps before you create a bug entry on forge:
 * Reload Frontend
 * Reload Backend
 * Check again
-* Still problems? Please report to forge.typo3.org
+* Still problems? Please report to `GitHub <https://github.com/einpraegsam/powermail/issues>`_
 
 
 Bugfix Upgrade

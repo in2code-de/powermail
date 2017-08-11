@@ -163,10 +163,13 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     protected function getFormTitleByUid($uid)
     {
         $uid = $this->getLocalizedFormUid($uid, $this->getSysLanguageUid());
-        $select = 'title';
-        $from = Form::TABLE_NAME;
-        $where = 'uid=' . (int)$uid;
-        $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow($select, $from, $where);
+        $row = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
+            Form::TABLE_NAME,
+            $uid,
+            'title',
+            '',
+            false
+        );
         return $row['title'];
     }
 
@@ -180,12 +183,13 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     protected function getLocalizedFormUid($uid, $sysLanguageUid)
     {
         if ($sysLanguageUid > 0) {
-            $select = 'uid';
-            $from = Form::TABLE_NAME;
-            $where = 'sys_language_uid=' . (int)$sysLanguageUid . ' and l10n_parent=' . (int)$uid;
-            $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow($select, $from, $where);
-            if (!empty($row['uid'])) {
-                $uid = (int)$row['uid'];
+            $row = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecordLocalization(
+                Form::TABLE_NAME,
+                (int)$uid,
+                (int)$sysLanguageUid
+            );
+            if ($row && !empty($row[0]['uid'])) {
+                $uid = (int)$row[0]['uid'];
             }
         }
         return $uid;

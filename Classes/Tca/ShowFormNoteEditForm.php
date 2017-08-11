@@ -127,10 +127,11 @@ class ShowFormNoteEditForm
     protected function getLocalizedFormUid($uid, $sysLanguageUid)
     {
         if ($sysLanguageUid > 0) {
-            $select = 'uid';
-            $from = Form::TABLE_NAME;
-            $where = 'sys_language_uid=' . (int)$sysLanguageUid . ' and l10n_parent=' . (int)$uid . ' and deleted = 0';
-            $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow($select, $from, $where);
+            $row = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecordLocalization(
+                Form::TABLE_NAME,
+                (int)$uid,
+                (int)$sysLanguageUid
+            );
             if (!empty($row['uid'])) {
                 $uid = (int)$row['uid'];
             }
@@ -213,10 +214,9 @@ class ShowFormNoteEditForm
     protected function getFormProperties()
     {
         if (empty($this->formProperties)) {
-            $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
-                '*',
+            $row = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
                 Form::TABLE_NAME,
-                'uid=' . (int)$this->getRelatedFormUid() . ' and deleted = 0'
+                (int)$this->getRelatedFormUid()
             );
             if (!empty($row)) {
                 $this->formProperties = $row;
@@ -246,10 +246,12 @@ class ShowFormNoteEditForm
     protected function getStoragePageProperties()
     {
         $properties = [];
-        $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
+        $row = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
+            'pages', 
+            (int)$this->getFormProperties()['pid'],
             '*',
-            'pages',
-            'uid=' . (int)$this->getFormProperties()['pid']
+            '',
+            false
         );
         if (!empty($row)) {
             $properties = $row;

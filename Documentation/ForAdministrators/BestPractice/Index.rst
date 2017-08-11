@@ -24,6 +24,7 @@ Best Practice
    SetPidForNewForms/Index
    DevelopmentContext/Index
    SpamPrevention/Index
+   PreventDuplicates/Index
    SavingValuesToThirdPartyTables/Index
    SendingValuesToThirdPartySoftware/Index
    Debug/Index
