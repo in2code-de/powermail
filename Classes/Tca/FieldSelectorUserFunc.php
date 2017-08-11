@@ -76,10 +76,12 @@ class FieldSelectorUserFunc
      */
     protected function getFormUidFromTtContentUid($ttContentUid)
     {
-        $row = ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
-            'pi_flexform',
+        $row = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
             'tt_content',
-            'uid=' . (int)$ttContentUid
+            (int)$ttContentUid,
+            'pi_flexform',
+            '',
+            false
         );
         $flexform = GeneralUtility::xml2array($row['pi_flexform']);
         if (is_array($flexform) && isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
