@@ -470,6 +470,6 @@ I have a problem, what can I do?
 - Turning on the Debug Output in Powermail (via TypoScript) can help you to find a solution (please use extension devlog to look into the debug arrays)
 - Try to get free help from the slack channel https://typo3.slack.com/messages/ext-powermail/
 - Try to get free help from a TYPO3 Forum like (forum.typo3.org, typo3.net or typo3forum.net)
-- Do you need payed support? Please write to http://www.in2code.de
-- Did you find a bug? Report it to http://forge.typo3.org/projects/extension-powermail/issues
-- Did you miss a feature? Feel free to write it down also to forge http://forge.typo3.org/projects/extension-powermail/issues
+- Do you need paid support? Please write to http://www.in2code.de
+- Did you find a bug? Report it to https://github.com/einpraegsam/powermail/issues
+- Did you miss a feature? Feel free to write it down on https://github.com/einpraegsam/powermail/issues

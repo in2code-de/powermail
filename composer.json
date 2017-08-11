@@ -2,7 +2,7 @@
   "name": "in2code/powermail",
   "description": "Powermail is a well-known, editor-friendly, powerful and easy to use mailform extension with a lots of features",
   "keywords": ["typo3", "form", "mailform", "spamprevention"],
-  "homepage": "https://forge.typo3.org/projects/extension-powermail",
+  "homepage": "https://github.com/einpraegsam/powermail",
   "authors": [
     {
       "name": "Alex Kellner",
