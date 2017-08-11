@@ -261,7 +261,7 @@ class CreateMarker
         /** @var Field $field */
         $field = $this->objectManager->get(Field::class);
         foreach ($properties as $key => $value) {
-            $field->_setProperty($key, GeneralUtility::underscoredToLowerCamelCase($value));
+            $field->_setProperty(GeneralUtility::underscoredToLowerCamelCase($key), $value);
         }
         if (!empty($properties['sys_language_uid'])) {
             $field->_setProperty('_languageUid', $properties['sys_language_uid']);
