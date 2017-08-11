@@ -18,6 +18,14 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      3.21.1
+   :Date:
+      2017-08-11
+   :Changes:
+
+      * Bugfix: Allow markernames with underscore again. Fixes a bug from february with wrong markernames like marker0101010 or markerAbCd
+
+ - :Version:
       3.21.0
    :Date:
       2017-08-11
