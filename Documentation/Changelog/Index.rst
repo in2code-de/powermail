@@ -18,6 +18,20 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      3.21.0
+   :Date:
+      2017-08-11
+   :Changes:
+
+      * Task: Use BackendUtility::getRecord() instead of exec_SELCT...
+      * Task: Some documentation updates
+      * Task: Enable marketing tracking with cHash check in TYPO3
+      * Task: Add documentation how to prevent duplicate emails in webforms
+      * Bugfix: Use TSFE:sys_language_uid instead of GP:L for marketing infos
+      * Bugfix: Fix empty mails in backend module
+      * Bugfix: Fix typo in Partial for hidden fields
+
+ - :Version:
       3.20.0
    :Date:
       2017-07-07
