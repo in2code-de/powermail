@@ -284,7 +284,7 @@ plugin.tx_powermail {
 			# cat=powermail_main//1000; type=boolean; label= Include jQuery From Google: Add jQuery JavaScript (will be loaded from ajax.googleapis.com)
 			addJQueryFromGoogle = 0
 
-			# cat=powermail_additional//1010; type=boolean; label= Include additional JavaScrpt: Add additional JavaScript and CSS Files (form validation, datepicker, etc...)
+			# cat=powermail_additional//1010; type=boolean; label= Include additional JavaScript: Add additional JavaScript and CSS Files (form validation, datepicker, etc...)
 			addAdditionalJavaScript = 1
 
 			# cat=powermail_additional//1020; type=text; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
