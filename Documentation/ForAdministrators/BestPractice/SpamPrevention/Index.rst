@@ -242,6 +242,15 @@ Explanation
       \-
 
  - :TyposcriptPath:
+      spamshield.senderEmail
+   :Description:
+      Outgoing email address for spam notifactions. If left empty powermail@[your-domain] will be used. Not needed in most cases.
+   :Type:
+      string
+   :Default:
+      \-
+
+ - :TyposcriptPath:
       spamshield.emailSubject
    :Description:
       Subject for spam-notification-email
