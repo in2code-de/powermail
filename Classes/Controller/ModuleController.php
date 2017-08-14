@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Domain\Model\Answer;
+use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -62,6 +64,7 @@ class ModuleController extends AbstractController
     {
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
+        $beUser = BackendUtility::getBackendUserAuthentication();
         $this->view->assignMultiple(
             [
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
@@ -70,7 +73,9 @@ class ModuleController extends AbstractController
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
-                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
+                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
+                'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
+                    && $beUser->check('tables_modify', Mail::TABLE_NAME),
             ]
         );
     }
