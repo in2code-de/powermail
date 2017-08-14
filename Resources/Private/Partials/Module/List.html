@@ -130,14 +130,23 @@
 								</span>
 
 								<f:if condition="{writeAccess}">
+									<f:comment>
+										Edit
+									</f:comment>
 									<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_mail',identifier:mail.uid)}">
 										<span class="t3-icon fa fa-pencil">&nbsp;</span>
 									</a>
 
+									<f:comment>
+										Delete
+									</f:comment>
 									<span class="btn">
 										<span class="t3-icon fa fa-trash" data-action="deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
 									</span>
 
+									<f:comment>
+										Hide/Show
+									</f:comment>
 									<span class="btn">
 										<f:if condition="{mail.hidden}">
 											<f:then>
@@ -149,6 +158,9 @@
 										</f:if>
 									</span>
 
+									<f:comment>
+										Select
+									</f:comment>
 									<span class="btn">
 										<span class="t3-icon fa fa-plus addPowermailSelection" title="add">&nbsp;</span>
 									</span>
