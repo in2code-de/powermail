@@ -58,7 +58,7 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
     {
         /** @var RedirectUriService $redirectService */
         $redirectService = $this->objectManager->get(RedirectUriService::class, $this->contentObject);
-        $uri = $redirectService->getRedirectUri();
+        $uri = $redirectService->getRedirectUri($this->settings);
         if (!empty($uri) && $this->isRedirectEnabled()) {
             HttpUtility::redirect($uri);
         }
