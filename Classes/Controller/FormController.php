@@ -363,7 +363,7 @@ class FormController extends AbstractController
             ->setMarketingReferer($marketingInfos['referer'])
             ->setMarketingCountry($marketingInfos['country'])
             ->setMarketingMobileDevice($marketingInfos['mobileDevice'])
-            ->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
+            ->setMarketingFrontendLanguage($GLOBALS['TSFE']->sys_language_uid)
             ->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
             ->setMarketingPageFunnel($marketingInfos['pageFunnel']);
         if (FrontendUtility::isLoggedInFrontendUser()) {

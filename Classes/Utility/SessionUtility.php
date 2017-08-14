@@ -126,6 +126,9 @@ class SessionUtility extends AbstractUtility
                 'pageFunnel' => [$pid]
             ];
         } else {
+            // update frontend language
+            $marketingInfo['frontendLanguage'] = $language;
+
             // add current pid to funnel
             $marketingInfo['pageFunnel'][] = $pid;
 
