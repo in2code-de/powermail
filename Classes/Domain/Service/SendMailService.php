@@ -481,4 +481,28 @@ class SendMailService
     {
         return $this->type;
     }
+
+    /**
+     * @return array $this->settings
+     */
+    public function getSettings()
+    {
+        return $this->settings;
+    }
+
+    /**
+     * @return array $this->configuration
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
+
+    /**
+     * @return array $this->overwriteConfig
+     */
+    public function getOverwriteConfig()
+    {
+        return $this->overwriteConfig;
+    }
 }
