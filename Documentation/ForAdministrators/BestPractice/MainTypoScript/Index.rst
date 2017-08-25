@@ -12,7 +12,7 @@ Constants Overview
  :header-rows: 1
 
  - :Constants:
-      Constants (should be prefixed with plugin.tx_powermail.settings.)
+      Constants (should be prefixed with plugin.tx_powermail.settings.setup.)
    :Description:
       Description
    :Type:

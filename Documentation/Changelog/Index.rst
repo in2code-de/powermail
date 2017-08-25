@@ -95,8 +95,8 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
    :Changes:
 
       * Task: Make extension fit for new TYPO3 8.7 LTS testparcours
-      * !!!Task: Encode html field output by default. Disable via TypoScript constants: `plugin.tx_powermail.settings.misc.htmlForHtmlFields=1`
-      * !!!Task: Encode field labels by default. Disable via TypoScript constants: `plugin.tx_powermail.settings.misc.htmlForLabels=1`
+      * !!!Task: Encode html field output by default. Disable via TypoScript constants: `plugin.tx_powermail.settings.setup.misc.htmlForHtmlFields=1`
+      * !!!Task: Encode field labels by default. Disable via TypoScript constants: `plugin.tx_powermail.settings.setup.misc.htmlForLabels=1`
       * Bugfix: Captcha image resource fix
 
  - :Version:
