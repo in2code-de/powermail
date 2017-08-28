@@ -82,12 +82,30 @@ class MailRepository extends AbstractRepository
                 }
             }
         }
-
-        // create constraint
         $constraint = $query->logicalAnd($and);
         $query->matching($constraint);
-
         $query->setOrderings($this->getSorting($settings['sortby'], $settings['order'], $piVars));
+        $mails = $query->execute();
+        $mails = $this->makeUniqueQuery($mails, $query);
+        return $mails;
+    }
+
+    /**
+     * Workarround for "group by uid"
+     *
+     * @param QueryResultInterface $result
+     * @param QueryInterface $query
+     * @return array|QueryResultInterface
+     */
+    protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query)
+    {
+        $items = [];
+        foreach ($result as $resultItem) {
+            if (!in_array($resultItem->getUid(), $items)) {
+                $items[] = $resultItem->getUid();
+            }
+        }
+        $query->matching($query->in('uid', $items));
         return $query->execute();
     }
 
