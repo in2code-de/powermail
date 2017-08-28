@@ -131,16 +131,17 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addSortingParamsListener = function() {
-		$('a.sorting').click(function(e) {
-			e.preventDefault();
+		$('a.sorting').click(function(event) {
+			event.preventDefault();
 			var href = $(this).prop('href');
 			var hrefParts = href.split('&');
-			for (i = 0; i < hrefParts.length; i++) {
+			var params = '';
+			for (var i = 0; i < hrefParts.length; i++) {
 				if (hrefParts[i].indexOf('sorting') !== -1) {
-					var params = hrefParts[i];
+					params = hrefParts[i];
 				}
 			}
-			if (params != undefined) {
+			if (params !== '') {
 				var paramsParts = params.split('=');
 				paramsParts[0] = paramsParts[0].replace('%40', '@');
 
@@ -151,8 +152,9 @@ function PowermailBackend($) {
 				}
 				// add new hidden field
 				var html = '<input type="hidden" name="' + paramsParts[0] + '" value="' + paramsParts[1] + '" />';
-				$('.hiddenvalues').append(decodeURI(html));
-				$('#powermail_module_search').submit();
+				var $filterForm = $('#powermail_module_search');
+				$filterForm.append(decodeURI(html));
+				$filterForm.submit();
 			}
 		});
 	};
