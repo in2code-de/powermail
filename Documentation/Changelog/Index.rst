@@ -18,6 +18,20 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      3.22.0
+   :Date:
+      2017-08-28
+   :Changes:
+
+      * Feature: Add getters for some properties in SendMailService class
+      * Bugfix: Backend module list: Make sorting work again
+      * Bugfix: Backend module list: Don't show duplicates on search
+      * Bugfix: Backend module list: Keep filter params on page change
+      * Bugfix: Fix typo in constants comment
+      * Bugfix: Set same wrapping classname in password mirror field
+      * Task: Update .htaccess file in Private folder for newer Apache versions
+
+ - :Version:
       3.21.1
    :Date:
       2017-08-11
