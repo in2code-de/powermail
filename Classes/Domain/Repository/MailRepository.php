@@ -99,14 +99,17 @@ class MailRepository extends AbstractRepository
      */
     protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query)
     {
-        $items = [];
-        foreach ($result as $resultItem) {
-            if (!in_array($resultItem->getUid(), $items)) {
-                $items[] = $resultItem->getUid();
+        if ($result->count() > 0) {
+            $items = [];
+            foreach ($result as $resultItem) {
+                if (!in_array($resultItem->getUid(), $items)) {
+                    $items[] = $resultItem->getUid();
+                }
             }
+            $query->matching($query->in('uid', $items));
+            return $query->execute();
         }
-        $query->matching($query->in('uid', $items));
-        return $query->execute();
+        return $result;
     }
 
     /**
