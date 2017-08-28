@@ -15,12 +15,6 @@ config.tx_extbase {
 	}
 }
 
-# ParseFunc Configuration for using FAL links in receiver and sender mail
-lib.parseFunc_powermail < lib.parseFunc_RTE
-lib.parseFunc_powermail.tags.link.typolink.forceAbsoluteUrl = 1
-
-
-
 
 #################
 # Backend Module

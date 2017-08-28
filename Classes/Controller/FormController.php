@@ -1,52 +1,23 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ReceiverMailReceiverPropertiesService;
 use In2code\Powermail\Domain\Service\ReceiverMailSenderPropertiesService;
 use In2code\Powermail\Domain\Service\SenderMailPropertiesService;
+use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\OptinUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
-use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2012 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * Controller for powermail forms
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class FormController
  */
 class FormController extends AbstractController
 {
@@ -56,12 +27,6 @@ class FormController extends AbstractController
      * @inject
      */
     protected $sendMailService;
-
-    /**
-     * @var \In2code\Powermail\Finisher\FinisherRunner
-     * @inject
-     */
-    protected $finisherRunner;
 
     /**
      * @var \In2code\Powermail\DataProcessor\DataProcessorRunner
@@ -145,7 +110,8 @@ class FormController extends AbstractController
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterSubmitView', [$mail, $hash, $this]);
         $this->prepareOutput($mail);
 
-        $this->finisherRunner->callFinishers(
+        $finisherRunner = $this->objectManager->get(FinisherRunner::class);
+        $finisherRunner->callFinishers(
             $mail,
             $this->isSendMailActive($mail, $hash),
             $this->actionMethodName,
@@ -223,10 +189,14 @@ class FormController extends AbstractController
      */
     protected function sendReceiverMail(Mail $mail, $hash = null)
     {
-        /** @var ReceiverMailReceiverPropertiesService $receiverService */
-        $receiverService = $this->objectManager->get(ReceiverMailReceiverPropertiesService::class, $mail, $this->settings);
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        $receiverService = $this->objectManager->get(
+            ReceiverMailReceiverPropertiesService::class,
+            $mail,
+            $this->settings
+        );
         $mail->setReceiverMail($receiverService->getReceiverEmailsString());
-        /** @var ReceiverMailSenderPropertiesService $senderService */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $senderService = $this->objectManager->get(ReceiverMailSenderPropertiesService::class, $mail, $this->settings);
         foreach ($receiverService->getReceiverEmails() as $receiver) {
             $email = [
@@ -263,7 +233,7 @@ class FormController extends AbstractController
      */
     protected function sendSenderMail(Mail $mail)
     {
-        /** @var SenderMailPropertiesService $senderService */
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $senderService = $this->objectManager->get(SenderMailPropertiesService::class, $this->settings);
         $email = [
             'template' => 'Mail/SenderMail',
@@ -289,7 +259,7 @@ class FormController extends AbstractController
      * @param Mail $mail
      * @return void
      */
-    protected function sendConfirmationMail(Mail &$mail)
+    protected function sendConfirmationMail(Mail $mail)
     {
         $email = [
             'template' => 'Mail/OptinMail',
@@ -348,38 +318,8 @@ class FormController extends AbstractController
      */
     protected function saveMail(Mail $mail)
     {
-        $marketingInfos = SessionUtility::getMarketingInfos();
-        $mail
-            ->setPid(FrontendUtility::getStoragePage($this->settings['main']['pid']))
-            ->setSenderMail($this->mailRepository->getSenderMailFromArguments($mail))
-            ->setSenderName($this->mailRepository->getSenderNameFromArguments($mail))
-            ->setSubject($this->settings['receiver']['subject'])
-            ->setReceiverMail($this->settings['receiver']['email'])
-            ->setBody(DebugUtility::viewArray($this->mailRepository->getVariablesWithMarkersFromMail($mail)))
-            ->setSpamFactor(SessionUtility::getSpamFactorFromSession())
-            ->setTime((time() - SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $this->settings)))
-            ->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))
-            ->setMarketingRefererDomain($marketingInfos['refererDomain'])
-            ->setMarketingReferer($marketingInfos['referer'])
-            ->setMarketingCountry($marketingInfos['country'])
-            ->setMarketingMobileDevice($marketingInfos['mobileDevice'])
-            ->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
-            ->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
-            ->setMarketingPageFunnel($marketingInfos['pageFunnel']);
-        if (FrontendUtility::isLoggedInFrontendUser()) {
-            $mail->setFeuser(
-                $this->userRepository->findByUid(FrontendUtility::getPropertyFromLoggedInFrontendUser('uid'))
-            );
-        }
-        if (!ConfigurationUtility::isDisableIpLogActive()) {
-            $mail->setSenderIp(GeneralUtility::getIndpEnv('REMOTE_ADDR'));
-        }
-        if ($this->settings['main']['optin'] || $this->settings['db']['hidden']) {
-            $mail->setHidden(true);
-        }
-        foreach ($mail->getAnswers() as $answer) {
-            $answer->setPid(FrontendUtility::getStoragePage($this->settings['main']['pid']));
-        }
+        $mailFactory = $this->objectManager->get(MailFactory::class);
+        $mailFactory->prepareMailForPersistence($mail, $this->settings);
         $this->mailRepository->add($mail);
         $this->persistenceManager->persistAll();
     }

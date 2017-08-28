@@ -13,34 +13,10 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2012 in2code GmbH <info@in2code.de>
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
 
 /**
  * Class MailRepository
@@ -50,20 +26,12 @@ class MailRepository extends AbstractRepository
     use SignalTrait;
 
     /**
-     * fieldRepository
-     *
-     * @var \In2code\Powermail\Domain\Repository\FieldRepository
-     * @inject
-     */
-    protected $fieldRepository;
-
-    /**
      * Find all mails in given PID (BE List)
      *
      * @param int $pid
      * @param array $settings TypoScript Config Array
      * @param array $piVars Plugin Variables
-     * @return QueryResult
+     * @return QueryResultInterface
      */
     public function findAllInPid($pid = 0, $settings = [], $piVars = [])
     {
@@ -79,9 +47,7 @@ class MailRepository extends AbstractRepository
         // filter
         if (isset($piVars['filter'])) {
             foreach ((array)$piVars['filter'] as $field => $value) {
-                // Standard Fields
                 if (!is_array($value)) {
-                    // Fulltext Search
                     if ($field === 'all' && !empty($value)) {
                         $or = [
                             $query->like('sender_name', '%' . $value . '%'),
@@ -93,19 +59,14 @@ class MailRepository extends AbstractRepository
                         ];
                         $and[] = $query->logicalOr($or);
                     } elseif ($field === 'form' && !empty($value)) {
-                        // Form filter
                         $and[] = $query->equals('form', $value);
                     } elseif ($field === 'start' && !empty($value)) {
-                        // Time Filter Start
                         $and[] = $query->greaterThan('crdate', strtotime($value));
                     } elseif ($field === 'stop' && !empty($value)) {
-                        // Time Filter Stop
                         $and[] = $query->lessThan('crdate', strtotime($value));
                     } elseif ($field === 'hidden' && !empty($value)) {
-                        // Hidden Filter
                         $and[] = $query->equals($field, ($value - 1));
                     } elseif (!empty($value)) {
-                        // Other Fields
                         $and[] = $query->like($field, '%' . $value . '%');
                     }
                 }
@@ -113,29 +74,49 @@ class MailRepository extends AbstractRepository
                 // Answer Fields
                 if (is_array($value)) {
                     foreach ((array)$value as $answerField => $answerValue) {
-                        if (empty($answerValue) || $answerField === 'crdate') {
-                            continue;
+                        if (!empty($answerValue) && $answerField === 'crdate') {
+                            $and[] = $query->equals('answers.field', $answerField);
+                            $and[] = $query->like('answers.value', '%' . $answerValue . '%');
                         }
-                        $and[] = $query->equals('answers.field', $answerField);
-                        $and[] = $query->like('answers.value', '%' . $answerValue . '%');
                     }
                 }
             }
         }
-
-        // create constraint
         $constraint = $query->logicalAnd($and);
         $query->matching($constraint);
-
         $query->setOrderings($this->getSorting($settings['sortby'], $settings['order'], $piVars));
-        return $query->execute();
+        $mails = $query->execute();
+        $mails = $this->makeUniqueQuery($mails, $query);
+        return $mails;
+    }
+
+    /**
+     * Workarround for "group by uid"
+     *
+     * @param QueryResultInterface $result
+     * @param QueryInterface $query
+     * @return array|QueryResultInterface
+     */
+    protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query)
+    {
+        if ($result->count() > 0) {
+            $items = [];
+            foreach ($result as $resultItem) {
+                if (!in_array($resultItem->getUid(), $items)) {
+                    $items[] = $resultItem->getUid();
+                }
+            }
+            $query->matching($query->in('uid', $items));
+            return $query->execute();
+        }
+        return $result;
     }
 
     /**
      * Find first mail in given PID
      *
      * @param int $pid
-     * @return QueryResult
+     * @return Mail
      */
     public function findFirstInPid($pid = 0)
     {
@@ -149,7 +130,9 @@ class MailRepository extends AbstractRepository
         $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
         $query->setLimit(1);
         $mails = $query->execute();
-        return $mails->getFirst();
+        $mail = $mails->getFirst();
+        /** @var Mail $mail */
+        return $mail;
     }
 
     /**
@@ -170,7 +153,9 @@ class MailRepository extends AbstractRepository
         ];
         $query->matching($query->logicalAnd($and));
 
-        return $query->execute()->getFirst();
+        $mail = $query->execute()->getFirst();
+        /** @var Mail $mail */
+        return $mail;
     }
 
     /**
@@ -183,8 +168,9 @@ class MailRepository extends AbstractRepository
     public function findByMarkerValueForm($marker, $value, $form, $pageUid)
     {
         $query = $this->createQuery();
+        $fieldRepository = $this->objectManager->get(FieldRepository::class);
         $and = [
-            $query->equals('answers.field', $this->fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
+            $query->equals('answers.field', $fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
             $query->equals('answers.value', $value),
             $query->equals('pid', $pageUid)
         ];
@@ -197,7 +183,7 @@ class MailRepository extends AbstractRepository
      *
      * @param array $settings TypoScript Settings
      * @param array $piVars Plugin Variables
-     * @return QueryResult
+     * @return QueryResultInterface
      */
     public function findListBySettings($settings, $piVars)
     {
@@ -294,8 +280,8 @@ class MailRepository extends AbstractRepository
         /** @var Query $query */
         $query = $this->createQuery();
         $tableName = $query->getSource()->getSelectorName();
-        $sql = 'SELECT MIN(uid) uid, form FROM ' . $tableName . ' WHERE pid = ' . (int)$pageUid . ' AND deleted = 0 ' .
-            'GROUP BY form';
+        $sql = 'SELECT MIN(uid) uid, form FROM ' . $tableName
+            . ' WHERE pid = ' . (int)$pageUid . ' AND deleted = 0 GROUP BY form';
         $query->statement($sql);
         $queryResult = $query->execute();
 
@@ -318,7 +304,7 @@ class MailRepository extends AbstractRepository
      *
      * @param string $uidList Commaseparated UID List of mails
      * @param array $sorting array('field' => 'asc')
-     * @return QueryResult
+     * @return QueryResultInterface
      */
     public function findByUidList($uidList, $sorting = [])
     {
@@ -344,7 +330,7 @@ class MailRepository extends AbstractRepository
      *
      * @param int $formUid
      * @param int $limit
-     * @return QueryResult
+     * @return QueryResultInterface
      */
     public function findLatestByForm($formUid, $limit = 3)
     {

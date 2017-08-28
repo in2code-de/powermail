@@ -339,6 +339,9 @@ plugin.tx_powermail {
 				# Notification Email to Admin if spam recognized (empty disables email to admin)
 				email = {$plugin.tx_powermail.settings.spamshield.email}
 
+				# Email address sending out spam mail. Set this if your mail transport limits allowed sender addresses
+				senderEmail =
+
 				# Subject for notification Email to Admin
 				emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
 
@@ -941,6 +944,9 @@ plugin.tx_powermail {
 	}
 }
 
+# ParseFunc Configuration for using FAL links in receiver and sender mail
+lib.parseFunc_powermail < lib.parseFunc_RTE
+lib.parseFunc_powermail.tags.link.typolink.forceAbsoluteUrl = 1
 
 
 ############################

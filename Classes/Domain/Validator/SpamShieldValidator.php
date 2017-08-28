@@ -12,11 +12,7 @@ use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * SpamShieldValidator
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class SpamShieldValidator
  */
 class SpamShieldValidator extends AbstractValidator
 {
@@ -159,9 +155,11 @@ class SpamShieldValidator extends AbstractValidator
     protected function sendSpamNotificationMail(Mail $mail)
     {
         if (GeneralUtility::validEmail($this->settings['spamshield']['email'])) {
+            $senderEmail = $this->settings['spamshield']['senderEmail'] ?:
+                    'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY');
             MailUtility::sendPlainMail(
                 $this->settings['spamshield']['email'],
-                'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'),
+                $senderEmail,
                 $this->settings['spamshield']['emailSubject'],
                 $this->createSpamNotificationMessage(
                     $this->settings['spamshield']['emailTemplate'],
