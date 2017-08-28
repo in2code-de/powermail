@@ -100,22 +100,27 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addPageBrowseParamsListener = function() {
-		$('.f3-widget-paginator a').click(function(e) {
+		$('.pagination a').click(function(event) {
+			event.preventDefault();
+
 			var href = $(this).prop('href');
 			var hrefParts = href.split('&');
-			for (i = 0; i < hrefParts.length; i++) {
+			var params = '';
+			for (var i = 0; i < hrefParts.length; i++) {
 				if (hrefParts[i].indexOf('widget') !== -1) {
-					var params = hrefParts[i];
+					params = hrefParts[i];
 				}
 			}
-			if (params != undefined) {
+
+			if (params !== '') {
 				var paramsParts = params.split('=');
 				paramsParts[0] = paramsParts[0].replace('%40', '@');
 				var html = '<input type="hidden" name="' + paramsParts[0] + '" value="' + paramsParts[1] + '" />';
-				$('.hiddenvalues').append(decodeURI(html));
-				$('#powermail_module_search').submit();
+				var $filterForm = $('#powermail_module_search');
+				$filterForm.append(decodeURI(html));
+				$filterForm.submit();
 			}
-			e.preventDefault();
+			return false;
 		});
 	};
 
@@ -226,31 +231,33 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addDatePickerListener = function() {
-		$('input[data-datepicker="true"]').each(function() {
-			var $this = $(this);
-			var datepickerStatus = true;
-			var timepickerStatus = true;
-			if ($this.data('datepicker-settings') === 'date') {
-				timepickerStatus = false;
-			} else if ($this.data('datepicker-settings') === 'time') {
-				datepickerStatus = false;
-			}
-			$this.datetimepicker({
-				format: $this.data('datepicker-format'),
-				timepicker: timepickerStatus,
-				datepicker: datepickerStatus,
-				lang: 'en',
-				i18n: {
-					en: {
-						months: $this.data('datepicker-months').split(','),
-						dayOfWeek: $this.data('datepicker-days').split(',')
-					}
+		if ($.fn.datetimepicker) {
+			$('input[data-datepicker="true"]').each(function () {
+				var $this = $(this);
+				var datepickerStatus = true;
+				var timepickerStatus = true;
+				if ($this.data('datepicker-settings') === 'date') {
+					timepickerStatus = false;
+				} else if ($this.data('datepicker-settings') === 'time') {
+					datepickerStatus = false;
 				}
+				$this.datetimepicker({
+					format: $this.data('datepicker-format'),
+					timepicker: timepickerStatus,
+					datepicker: datepickerStatus,
+					lang: 'en',
+					i18n: {
+						en: {
+							months: $this.data('datepicker-months').split(','),
+							dayOfWeek: $this.data('datepicker-days').split(',')
+						}
+					}
+				});
 			});
-		});
-		$('*[data-datepicker-opener="true"]').click(function() {
-			$(this).prev().datetimepicker('show');
-		});
+			$('*[data-datepicker-opener="true"]').click(function () {
+				$(this).prev().datetimepicker('show');
+			});
+		}
 	};
 
 	/**
