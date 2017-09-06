@@ -18,6 +18,14 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      3.22.1
+   :Date:
+      2017-09-06
+   :Changes:
+
+      * No code changes to 3.22.0 - new version due to TER security incident. See https://typo3.org/teams/security/security-bulletins/psa/typo3-psa-2017-001/
+
+ - :Version:
       3.22.0
    :Date:
       2017-08-28
