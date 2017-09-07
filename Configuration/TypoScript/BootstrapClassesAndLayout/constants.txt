@@ -15,7 +15,7 @@ plugin.tx_powermail {
 				formClasses = form-horizontal
 
 				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
-				fieldAndLabelWrappingClasses = form-group
+				fieldAndLabelWrappingClasses = form-group col-md-6
 
 				# cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
 				fieldWrappingClasses = col-sm-10
