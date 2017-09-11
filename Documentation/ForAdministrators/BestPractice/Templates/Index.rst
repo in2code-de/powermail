@@ -102,7 +102,7 @@ RTE? Use a cObject ViewHelper:
 	{f:cObject(typoscriptObjectPath:'lib.test')}
 
 Using ViewHelpers in Templates of RTE fields
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Instead of TypoScript it is also possible to use an own ViewHelper in the templates.
 To avoid escaping the tag of the ViewHelper, the inline notation should be used.
