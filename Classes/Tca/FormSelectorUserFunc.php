@@ -85,7 +85,7 @@ class FormSelectorUserFunc
             foreach ($this->getAllForms($startPid, $params['flexParentDatabaseRow']['sys_language_uid']) as $form) {
                 if ($this->hasUserAccessToPage((int)$form['pid'])) {
                     $params['items'][] = [
-                        htmlspecialchars($form['title']),
+                        \TYPO3\CMS\Backend\Utility\BackendUtility::getRecordTitle(Form::TABLE_NAME, $form),
                         (int)$form['uid']
                     ];
                 }
@@ -129,7 +129,7 @@ class FormSelectorUserFunc
      */
     protected function getAllForms($startPid, $language)
     {
-        $select = 'uid, title, pid';
+        $select = '*';
         $from = Form::TABLE_NAME;
         $where = 'deleted=0 and hidden=0 and ' .
             '(sys_language_uid IN (-1,0) or ' .
