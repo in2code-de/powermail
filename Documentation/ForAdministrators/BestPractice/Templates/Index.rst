@@ -101,3 +101,48 @@ RTE? Use a cObject ViewHelper:
 
 	{f:cObject(typoscriptObjectPath:'lib.test')}
 
+Using ViewHelpers in Templates of RTE fields
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Instead of TypoScript it is also possible to use an own ViewHelper in the templates.
+To avoid escaping the tag of the ViewHelper, the inline notation should be used.
+
+
+.. code-block:: text
+
+	{namespace example=Vendor\Extension\ViewHelpers} {example:data(data:aSpecialField)}
+
+
+.. code-block:: php
+
+   <?php
+
+   namespace Vendor\Extension\ViewHelpers;
+
+   use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+   class DataViewHelper extends AbstractViewHelper
+   {
+       /** @var bool */
+       protected $escapeOutput = false;
+
+       /**
+        * Initialize all arguments
+        */
+       public function initializeArguments()
+       {
+           $this->registerArgument('data', 'object', 'A variable');
+       }
+
+       /**
+        * @return string
+        */
+       public function render()
+       {
+           if ($this->hasArgument('data')) {
+               return '';
+           }
+           return 'Do something with ' . $this->arguments['data'];
+       }
+   }
+
