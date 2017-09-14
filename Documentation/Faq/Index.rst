@@ -66,6 +66,16 @@ To set a sender email address for the confirmation email (to sender), you could 
 Please ask your server administrator for a valid email address.
 
 
+.. _mailcouldnotbesent:
+
+Failure, mail could not be sent! What does this mean?
+-----------------------------------------------------
+
+If a mail could not be sent this message is coming up. In addition GeneralUtility::sysLog() is called with the
+exception message. To see this message, please use $GLOBALS['TYPO3_CONF_VARS']['SYS']['systemLog'] or look into
+the install tool how to store logs on your system.
+
+
 .. _canisueanothercaptcha:
 
 Can I use another Captcha Extension than the integrated calculating captcha?
