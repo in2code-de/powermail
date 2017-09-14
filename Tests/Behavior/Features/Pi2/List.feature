@@ -11,7 +11,7 @@ Feature: List
     When I select "Alex" from "tx_powermail_pi1[field][selectmulti][]"
     When I additionally select "Olli" from "tx_powermail_pi1[field][selectmulti][]"
     When I check "tx_powermail_pi1[field][check][]"
-    When I select "Silke" from "tx_powermail_pi1[field][radio]"
+    When I select "Olli" from "tx_powermail_pi1[field][radio]"
     And I press "Submit"
     And I press "Weiter"
     Then I should see "Andy Kräuter"
@@ -22,7 +22,7 @@ Feature: List
     Then I should see "Andy Kräuter"
     Then I should see "Das ist ein Test"
     Then I should see "Sandra"
-    Then I should see "Silke"
+    Then I should see "Olli"
     Then the sourcecode should contain '<li class="disabled">'
     Then the sourcecode should contain '<a href="#">Z</a>'
     Then the sourcecode should contain '<input class="btn btn-primary" type="submit" value="XLS" />'
@@ -44,4 +44,4 @@ Feature: List
     Then I should not see "Bitte passen Sie Ihre Filtereinstellungen an"
     Then I should see "Andy Kräuter"
     Then I should see "Das ist ein Test"
-    Then I should see "Silke"
+    Then I should see "Olli"
