@@ -228,7 +228,7 @@ class ExportService
                 foreach ($mail->getForm()->getPages() as $page) {
                     /** @var Field $field */
                     foreach ($page->getFields() as $field) {
-                        if ($field->isBasicFieldType()) {
+                        if ($field->isAdvancedFieldType()) {
                             $fieldList[] = $field->getUid();
                         }
                     }
