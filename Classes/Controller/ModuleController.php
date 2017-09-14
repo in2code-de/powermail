@@ -3,6 +3,7 @@ namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -272,7 +273,8 @@ class ModuleController extends AbstractController
      */
     public function fixWrongLocalizedPagesAction()
     {
-        $this->pageRepository->fixWrongLocalizedPages();
+        $pageRepository = $this->objectManager->get(PageRepository::class);
+        $pageRepository->fixWrongLocalizedPages();
         $this->redirect('checkBe');
     }
 

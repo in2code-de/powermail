@@ -1,8 +1,9 @@
 <?php
-namespace In2code\Powermail\Domain\Service;
+namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\FrontendUtility;

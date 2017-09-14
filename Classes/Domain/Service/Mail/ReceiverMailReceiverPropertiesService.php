@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Domain\Service;
+namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
@@ -43,8 +43,6 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  * Class ReceiverService to get email array for receivers
  * which depends if they are given by FlexForm, TypoScript, Fe_group or
  * development context
- *
- * @package In2code\Powermail\Domain\Service
  */
 class ReceiverMailReceiverPropertiesService
 {

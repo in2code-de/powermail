@@ -1,8 +1,8 @@
 <?php
-namespace In2code\Powermail\Domain\Service;
+namespace In2code\Powermail\Domain\Service\Mail;
 
-use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
@@ -10,7 +10,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2016 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
+ *  (c) 2017 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -31,24 +31,12 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
  ***************************************************************/
 
 /**
- * Class ReceiverMailSenderPropertiesService to get email array for sender attributes
- *
- * @package In2code\Powermail\Domain\Service
+ * Class SenderMailPropertiesService to get email array for sender attributes
+ * for sender emails
  */
-class ReceiverMailSenderPropertiesService
+class SenderMailPropertiesService
 {
     use SignalTrait;
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
-     * @inject
-     */
-    protected $mailRepository;
-
-    /**
-     * @var Mail|null
-     */
-    protected $mail = null;
 
     /**
      * TypoScript settings as plain array
@@ -65,12 +53,10 @@ class ReceiverMailSenderPropertiesService
     protected $configuration = [];
 
     /**
-     * @param Mail $mail
      * @param array $settings
      */
-    public function __construct(Mail $mail, array $settings)
+    public function __construct(array $settings)
     {
-        $this->mail = $mail;
         $this->settings = $settings;
         /** @var TypoScriptService $typoScriptService */
         $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
@@ -78,18 +64,22 @@ class ReceiverMailSenderPropertiesService
     }
 
     /**
-     * Get sender email from configuration in fields and params. If empty, take default from TypoScript
+     * Get sender email from form settings. If empty, take default from TypoScript or TYPO3 configuration
      *
      * @return string
      */
     public function getSenderEmail()
     {
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $defaultSenderEmail,
-            $this->configuration['receiver.']['default.'],
-            'senderEmail'
-        );
-        $senderEmail = $this->mailRepository->getSenderMailFromArguments($this->mail, $defaultSenderEmail);
+        if ($this->settings['sender']['email'] !== '') {
+            $senderEmail = $this->settings['sender']['email'];
+        } else {
+            $senderEmail = ConfigurationUtility::getDefaultMailFromAddress();
+            TypoScriptUtility::overwriteValueFromTypoScript(
+                $senderEmail,
+                $this->configuration['sender.']['default.'],
+                'senderEmail'
+            );
+        }
 
         $signalArguments = [&$senderEmail, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
@@ -97,18 +87,22 @@ class ReceiverMailSenderPropertiesService
     }
 
     /**
-     * Get sender name from configuration in fields and params. If empty, take default from TypoScript
+     * Get sender name from form settings. If empty, take default from TypoScript or TYPO3 configuration.
      *
      * @return string
      */
     public function getSenderName()
     {
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $defaultSenderName,
-            $this->configuration['receiver.']['default.'],
-            'senderName'
-        );
-        $senderName = $this->mailRepository->getSenderNameFromArguments($this->mail, $defaultSenderName);
+        if ($this->settings['sender']['name'] !== '') {
+            $senderName = $this->settings['sender']['name'];
+        } else {
+            $senderName = ConfigurationUtility::getDefaultMailFromName();
+            TypoScriptUtility::overwriteValueFromTypoScript(
+                $senderName,
+                $this->configuration['sender.']['default.'],
+                'senderName'
+            );
+        }
 
         $signalArguments = [&$senderName, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);

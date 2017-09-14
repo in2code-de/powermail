@@ -2,8 +2,8 @@
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Repository\AnswerRepository;
 use In2code\Powermail\Signal\SignalTrait;
-use In2code\Powermail\Utility\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
@@ -51,12 +51,6 @@ abstract class AbstractController extends ActionController
     protected $formRepository;
 
     /**
-     * @var \In2code\Powermail\Domain\Repository\PageRepository
-     * @inject
-     */
-    protected $pageRepository;
-
-    /**
      * @var \In2code\Powermail\Domain\Repository\FieldRepository
      * @inject
      */
@@ -67,18 +61,6 @@ abstract class AbstractController extends ActionController
      * @inject
      */
     protected $mailRepository;
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\AnswerRepository
-     * @inject
-     */
-    protected $answerRepository;
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\UserRepository
-     * @inject
-     */
-    protected $userRepository;
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -201,7 +183,8 @@ abstract class AbstractController extends ActionController
 
             // edit form: add answer id
             if (!empty($arguments['field']['__identity'])) {
-                $answer = $this->answerRepository->findByFieldAndMail($fieldUid, $arguments['field']['__identity']);
+                $answerRepository = $this->objectManager->get(AnswerRepository::class);
+                $answer = $answerRepository->findByFieldAndMail($fieldUid, $arguments['field']['__identity']);
                 if ($answer !== null) {
                     $newArguments['mail']['answers'][$iteration]['__identity'] = $answer->getUid();
                 }
