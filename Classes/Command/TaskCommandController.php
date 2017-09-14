@@ -59,6 +59,7 @@ class TaskCommandController extends CommandController
         $emailTemplate = 'EXT:powermail/Resources/Private/Templates/Module/ExportTaskMail.html'
     ) {
         $mailRepository = $this->objectManager->get(MailRepository::class);
+        /** @var ExportService $exportService */
         $exportService = $this->objectManager->get(
             ExportService::class,
             $mailRepository->findAllInPid($pageUid, [], $this->getFilterVariables($period)),
