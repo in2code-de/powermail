@@ -90,7 +90,7 @@ class FormController extends AbstractController
             $this->saveMail($mail);
             $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
         }
-        if ($this->isSendMailActive($mail, $hash)) {
+        if ($this->isNoOptin($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
         } else {
             /** @noinspection PhpMethodParametersCountMismatchInspection */
@@ -113,7 +113,7 @@ class FormController extends AbstractController
         $finisherRunner = $this->objectManager->get(FinisherRunner::class);
         $finisherRunner->callFinishers(
             $mail,
-            $this->isSendMailActive($mail, $hash),
+            $this->isNoOptin($mail, $hash),
             $this->actionMethodName,
             $this->settings,
             $this->contentObject
@@ -380,7 +380,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return bool
      */
-    protected function isSendMailActive(Mail $mail, $hash)
+    protected function isNoOptin(Mail $mail, $hash)
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
