@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Repository\AnswerRepository;
 use In2code\Powermail\Signal\SignalTrait;
@@ -165,7 +166,7 @@ abstract class AbstractController extends ActionController
             $valueType = $field->dataTypeFromFieldType(
                 $this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
             );
-            if ($valueType === 3 && is_array($value)) {
+            if ($valueType === Answer::VALUE_TYPE_UPLOAD && is_array($value)) {
                 $value = $this->uploadService->getNewFileNamesByMarker($marker);
             }
             if (is_array($value)) {

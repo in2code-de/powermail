@@ -2,7 +2,9 @@
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Factory\FileFactory;
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -70,6 +72,7 @@ class UploadService implements SingletonInterface
         $this->settings = $settings;
         $this->fillFilesFromFilesArray();
         $this->fillFilesFromHiddenFields();
+        $this->fillFilesFromExistingMail();
         $this->makeUniqueFilenames();
         $this->signalDispatch(__CLASS__, __FUNCTION__, [$this]);
     }
@@ -193,6 +196,42 @@ class UploadService implements SingletonInterface
                     $file = $fileFactory->getInstanceFromUploadArguments($marker, $value, $arguments);
                     if ($file !== null) {
                         $this->addFile($file);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Fill files from existing mail object. Mail was saved some times before but is hidden (normal functionality if
+     * optin is activated in powermail). So try to search for uploaded files from given values in answers.
+     *
+     * @return void
+     */
+    protected function fillFilesFromExistingMail()
+    {
+        $arguments = $this->getArguments();
+        if ($this->isOptinConfirmWithExistingMail($arguments)) {
+            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mail = $mailRepository->findByUid((int)$arguments['mail']);
+            if ($mail !== null) {
+                $answers = $mail->getAnswersByValueType(Answer::VALUE_TYPE_UPLOAD);
+                foreach ($answers as $answer) {
+                    /** @var FileFactory $fileFactory */
+                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $value = $answer->getValue();
+                    if (is_array($value)) {
+                        foreach ($value as $valueItem) {
+                            $file = $fileFactory->getInstanceFromExistingAnswerValue($valueItem, $answer);
+                            if ($file !== null) {
+                                $this->addFile($file);
+                            }
+                        }
+                    } else {
+                        $file = $fileFactory->getInstanceFromExistingAnswerValue($value, $answer);
+                        if ($file !== null) {
+                            $this->addFile($file);
+                        }
                     }
                 }
             }
@@ -339,5 +378,14 @@ class UploadService implements SingletonInterface
     protected function isNotUniqueFilename(File $file)
     {
         return in_array($file->getNewName(), $this->fileNames) || $this->fileExistsInUploadFolder($file);
+    }
+
+    /**
+     * @param $arguments
+     * @return bool
+     */
+    protected function isOptinConfirmWithExistingMail($arguments)
+    {
+        return !empty($arguments['hash']) && $arguments['action'] === 'optinConfirm' && $arguments['mail'] > 0;
     }
 }

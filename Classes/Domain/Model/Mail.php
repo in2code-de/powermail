@@ -715,4 +715,21 @@ class Mail extends AbstractEntity
         }
         return $this->answersByFieldUid;
     }
+
+    /**
+     * @param int $type
+     * @return Answer[]
+     */
+    public function getAnswersByValueType($type)
+    {
+        $answers = [];
+        $answersArray = $this->getAnswers()->toArray();
+        foreach ($answersArray as $answer) {
+            /** @var Answer $answer */
+            if ($answer->getValueType() === $type) {
+                $answers[] = $answer;
+            }
+        }
+        return $answers;
+    }
 }

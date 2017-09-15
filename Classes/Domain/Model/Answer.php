@@ -37,6 +37,10 @@ class Answer extends AbstractEntity
 {
 
     const TABLE_NAME = 'tx_powermail_domain_model_answer';
+    const VALUE_TYPE_TEXT = 0;
+    const VALUE_TYPE_ARRAY = 1;
+    const VALUE_TYPE_DATE = 2;
+    const VALUE_TYPE_UPLOAD = 3;
 
     /**
      * @var string
@@ -74,7 +78,7 @@ class Answer extends AbstractEntity
         // if serialized, change to array
         if (ArrayUtility::isJsonArray($this->value)) {
             // only if type multivalue or upload
-            if ($this->getValueType() === 1 || $this->getValueType() === 3) {
+            if ($this->getValueType() === self::VALUE_TYPE_ARRAY || $this->getValueType() === self::VALUE_TYPE_UPLOAD) {
                 $value = json_decode($value, true);
             }
         }
@@ -213,7 +217,7 @@ class Answer extends AbstractEntity
      */
     protected function isTypeDateForTimestamp($value)
     {
-        return $this->getValueType() === 2 && is_numeric($value) && $this->getField() !== null;
+        return $this->getValueType() === self::VALUE_TYPE_DATE && is_numeric($value) && $this->getField() !== null;
     }
 
     /**
@@ -223,7 +227,7 @@ class Answer extends AbstractEntity
     protected function isTypeDateForDate($value)
     {
         return !empty($value) && method_exists($this->getField(), 'getType')
-            && $this->getValueType() === 2 && !is_numeric($value);
+            && $this->getValueType() === self::VALUE_TYPE_DATE && !is_numeric($value);
     }
 
     /**
@@ -234,7 +238,8 @@ class Answer extends AbstractEntity
      */
     protected function isTypeMultiple($value)
     {
-        return ($this->getValueType() === 1 || $this->getValueType() === 3) && !is_array($value);
+        return ($this->getValueType() === self::VALUE_TYPE_ARRAY || $this->getValueType() === self::VALUE_TYPE_UPLOAD)
+            && !is_array($value);
     }
 
     /**
