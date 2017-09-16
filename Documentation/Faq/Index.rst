@@ -38,10 +38,11 @@ See :ref:`addBootstrapClassesAndCssToPowermail`
 
 .. _howcaniuserows:
 
-How can I use rows in powermail?
---------------------------------
+How can I use responsive columns in powermail?
+----------------------------------------------
 
-Since powermail 4.0 it's possible to use wrapping containers for (e.g.) every 2 fields to get a markup like:
+Since powermail 4.0 it's possible to use wrapping containers for (e.g.) every 2/3/4 fields to get a markup like
+you already may know from bootstrap:
 
 ::
 
