@@ -10,8 +10,14 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0010; type=boolean; label= Define path Bootsrap.css
 				bootstrapPath = EXT:powermail/Resources/Public/Css/Bootstrap.css
 
+				# cat=powermail_styles//0020; type=int+; label= Number of columns
+				numberOfColumns = 2
 
-				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"
+
+				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for row containers
+				rowClasses = row
+
+				# cat=powermail_styles//0105; type=text; label= Framework classname(s) for form "form-horizontal"
 				formClasses = form-horizontal
 
 				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"

@@ -20,7 +20,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('rows', 'int', 'number of rows', true);
+        $this->registerArgument('columns', 'int', 'number of columns - 0 disables function', true);
         $this->registerArgument('iteration', 'array', 'Field iteration array', true);
         $this->registerArgument('tagName', 'string', 'Tag to render');
         $this->registerArgument('class', 'string', 'CSS class');
@@ -51,9 +51,13 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
         RenderingContextInterface $renderingContext
     ) {
         $content = '';
-        $content .= self::getBeginningTag($arguments);
-        $content .= $renderChildrenClosure();
-        $content .= self::getEndingTag($arguments);
+        if ((int)$arguments['columns'] > 0) {
+            $content .= self::getBeginningTag($arguments);
+            $content .= $renderChildrenClosure();
+            $content .= self::getEndingTag($arguments);
+        } else {
+            $content .= $renderChildrenClosure();
+        }
         return $content;
     }
 
@@ -121,7 +125,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
     protected static function shouldAddBeginningTag(array $arguments)
     {
         return $arguments['iteration']['isFirst'] === true
-            || !(($arguments['iteration']['cycle'] - 1) % $arguments['rows']);
+            || !(($arguments['iteration']['cycle'] - 1) % $arguments['columns']);
     }
 
     /**
@@ -131,6 +135,6 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
     protected static function shouldAddEndingTag(array $arguments)
     {
         return $arguments['iteration']['isLast'] === true
-            || !($arguments['iteration']['cycle'] % $arguments['rows']);
+            || !($arguments['iteration']['cycle'] % $arguments['columns']);
     }
 }
