@@ -3,6 +3,7 @@ namespace In2code\Powermail\Domain\Factory;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
+use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
@@ -75,7 +76,9 @@ class FileFactory
      */
     public function getInstanceFromExistingAnswerValue($fileName, Answer $answer)
     {
-        return $this->makeFileInstance($answer->getField()->getMarker(), $fileName, null, null, null, true);
+        $form = $answer->getField()->getPages()->getForms();
+        $marker = $answer->getField()->getMarker();
+        return $this->makeFileInstance($marker, $fileName, null, null, null, true, $form);
     }
 
     /**
@@ -87,6 +90,7 @@ class FileFactory
      * @param string $type
      * @param string $temporaryName
      * @param bool $uploaded
+     * @param Form $form
      * @return File
      */
     protected function makeFileInstance(
@@ -95,7 +99,8 @@ class FileFactory
         $size = null,
         $type = null,
         $temporaryName = null,
-        $uploaded = false
+        $uploaded = false,
+        Form $form = null
     ) {
         /** @var File $file */
         $file = ObjectUtility::getObjectManager()->get(File::class, $marker, $originalName, $temporaryName);
@@ -113,7 +118,7 @@ class FileFactory
 
         /* @var FieldRepository $fieldRepository */
         $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
-        $file->setField($fieldRepository->findByMarkerAndForm($marker, $this->getFormUid()));
+        $file->setField($fieldRepository->findByMarkerAndForm($marker, $this->getFormUid($form)));
         return $file;
     }
 
@@ -126,12 +131,17 @@ class FileFactory
     }
 
     /**
+     * @param Form|null $form
      * @return int
      */
-    protected function getFormUid()
+    protected function getFormUid(Form $form = null)
     {
-        $arguments = $this->getArguments();
-        return (int)$arguments['mail']['form'];
+        if ($form === null) {
+            $arguments = $this->getArguments();
+            return (int)$arguments['mail']['form'];
+        } else {
+            return $form->getUid();
+        }
     }
 
     /**
