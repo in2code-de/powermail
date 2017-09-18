@@ -18,6 +18,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      4.0.1
+   :Date:
+      2017-09-18
+   :Changes:
+
+      * Bugfix: Fatal error for TYPO3 7.6 and powermail 4.0.0 - https://github.com/einpraegsam/powermail/issues/174
+      * Bugfix: Fix illegal string offset - https://github.com/einpraegsam/powermail/issues/169
+
+ - :Version:
       4.0.0
    :Date:
       2017-09-18
