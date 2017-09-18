@@ -738,6 +738,24 @@ Constants Overview
       //ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js
 
  - :Constants:
+      styles.framework.numberOfColumns
+   :Description:
+      Number of columns for responsive frontend columns. 0 disables this function completely.
+   :Type:
+      int+
+   :Default:
+      0
+
+ - :Constants:
+      styles.framework.rowClasses
+   :Description:
+      Framework classname(s) for containers to build rows
+   :Type:
+      text
+   :Default:
+      row
+
+ - :Constants:
       styles.framework.formClasses
    :Description:
       Framework classname(s) for form "form-horizontal"
@@ -815,7 +833,7 @@ Setup
 
 .. code-block:: text
 
-	##################
+    ##################
     # Frontend Plugin
     ##################
     plugin.tx_powermail {
@@ -1014,6 +1032,9 @@ Setup
                     mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
 
                     default {
+                        senderEmail = TEXT
+                        senderEmail.value = {$plugin.tx_powermail.settings.sender.default.senderEmail}
+
                         senderName = TEXT
                         senderName.value = {$plugin.tx_powermail.settings.sender.default.senderName}
                     }
@@ -1152,6 +1173,9 @@ Setup
 
                     # Notification Email to Admin if spam recognized (empty disables email to admin)
                     email = {$plugin.tx_powermail.settings.spamshield.email}
+
+                    # Email address sending out spam mail. Set this if your mail transport limits allowed sender addresses
+                    senderEmail =
 
                     # Subject for notification Email to Admin
                     emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
@@ -1755,6 +1779,9 @@ Setup
         }
     }
 
+    # ParseFunc Configuration for using FAL links in receiver and sender mail
+    lib.parseFunc_powermail < lib.parseFunc_RTE
+    lib.parseFunc_powermail.tags.link.typolink.forceAbsoluteUrl = 1
 
 
     ############################
@@ -1765,7 +1792,10 @@ Setup
     plugin.tx_powermail {
         settings.setup {
             styles {
+                numberOfColumns = {$plugin.tx_powermail.settings.styles.framework.numberOfColumns}
+
                 framework {
+                    rowClasses = {$plugin.tx_powermail.settings.styles.framework.rowClasses}
                     formClasses = {$plugin.tx_powermail.settings.styles.framework.formClasses}
                     fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses}
                     fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses}
@@ -1786,7 +1816,10 @@ Setup
     plugin.tx_powermail {
         settings.setup {
             styles {
+                numberOfColumns = {$plugin.tx_powermail.settings.styles.bootstrap.numberOfColumns}
+
                 framework {
+                    rowClasses = {$plugin.tx_powermail.settings.styles.bootstrap.rowClasses}
                     formClasses = {$plugin.tx_powermail.settings.styles.bootstrap.formClasses}
                     fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldAndLabelWrappingClasses}
                     fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldWrappingClasses}
@@ -1825,12 +1858,13 @@ Setup
 
 
 
+
 Constants
 ^^^^^^^^^
 
 .. code-block:: text
 
-	plugin.tx_powermail {
+    plugin.tx_powermail {
 
 
         view {
@@ -1947,8 +1981,11 @@ Constants
                 mailformat = both
 
                 default {
-                    # cat=powermail_additional//0430; type=text; label= Default Sender Name: Sendername if no sender name given
-                    senderName = Powermail
+                    # cat=powermail_additional//0430; type=text; label= Sender Mail - Default Sender Name: Sendername if no sender name given
+                    senderName =
+
+                    # cat=powermail_additional//0432; type=text; label= Sender Mail - Default Sender Email: Sender email address if no sender email given
+                    senderEmail =
                 }
 
                 overwrite {
@@ -2113,7 +2150,7 @@ Constants
                 # cat=powermail_main//1000; type=boolean; label= Include jQuery From Google: Add jQuery JavaScript (will be loaded from ajax.googleapis.com)
                 addJQueryFromGoogle = 0
 
-                # cat=powermail_additional//1010; type=boolean; label= Include additional JavaScrpt: Add additional JavaScript and CSS Files (form validation, datepicker, etc...)
+                # cat=powermail_additional//1010; type=boolean; label= Include additional JavaScript: Add additional JavaScript and CSS Files (form validation, datepicker, etc...)
                 addAdditionalJavaScript = 1
 
                 # cat=powermail_additional//1020; type=text; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
@@ -2123,7 +2160,13 @@ Constants
             # CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
             styles {
                 framework {
-                    # cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"
+                    # cat=powermail_styles//0020; type=int+; label= Number of columns
+                    numberOfColumns = 0
+
+                    # cat=powermail_styles//0100; type=text; label= Framework classname(s) for containers to build rows
+                    rowClasses = row
+
+                    # cat=powermail_styles//0105; type=text; label= Framework classname(s) for form "form-horizontal"
                     formClasses =
 
                     # cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
@@ -2156,3 +2199,4 @@ Constants
             }
         }
     }
+
