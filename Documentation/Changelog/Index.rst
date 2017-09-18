@@ -18,6 +18,21 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      4.0.0
+   :Date:
+      2017-09-18
+   :Changes:
+
+      * Feature: Add a viewhelper for building responsive columns in forms (e.g. via bootstrap)
+      * Feature: Make attachments also work on double opt-in mails
+      * Task: Update documentation: Adding JavaScript validators with parsley in a modern way
+      * Task: Update documentation: How to use own ViewHelpers in RTE fields in FlexForm
+      * Task: Update documentation: How to debug mail failures
+      * Task: Code cleanup and refactoring
+      * Bugfix: Use advanced field types for command controller exports
+      * Bugfix: Don't try to load glyphicons in Backend.css
+
+ - :Version:
       3.22.1
    :Date:
       2017-09-06

@@ -42,6 +42,12 @@ Please look at https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/In
 ![Backend Module](https://box.everhelper.me/attachment/445409/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-HFuHtr8E9DoGfJE6/screen.png "Backend Module")
 
 
+## Whats the difference between version 4 and 3
+
+- A small refactoring of the mail related service classes
+- Add a possibility to create columns in a form for e.g. bootstrap
+- TYPO3 7.6 is still supported in this major version
+
 ## Whats the difference between version 3 and 2
 
 - General update for TYPO3 7.6 and 8.x
