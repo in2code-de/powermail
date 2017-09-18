@@ -30,10 +30,10 @@ Feature: ShortForm
 
   Scenario: Fill out DefaultForm (english) and submit
     Given I am on "/index.php?id=15&L=1"
-    When I fill in "tx_powermail_pi1[field][firstname]" with "Silke"
+    When I fill in "tx_powermail_pi1[field][firstname]" with "Alexandra"
     When I fill in "tx_powermail_pi1[field][lastname]" with "Kellner"
-    When I fill in "tx_powermail_pi1[field][email]" with "silke@in2code.de"
+    When I fill in "tx_powermail_pi1[field][email]" with "alexandra@in2code.de"
     And I press "Submit"
-    Then I should see "Silke"
+    Then I should see "Alexandra"
     Then I should see "Kellner"
-    Then I should see "silke@in2code.de"
+    Then I should see "alexandra@in2code.de"

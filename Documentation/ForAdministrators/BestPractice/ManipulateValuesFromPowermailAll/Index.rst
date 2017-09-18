@@ -141,7 +141,7 @@ TypoScript setup:
 		1 = TEXT
 		1.value = Alex
 		2 = TEXT
-		2.value = Silke
+		2.value = Andreas
 		3 = TEXT
 		3.value = Tim
 	}

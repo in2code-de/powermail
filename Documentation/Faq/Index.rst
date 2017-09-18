@@ -15,6 +15,7 @@ Yes. But old tables must be converted (..forms => ..form, ..fields => ..field, e
 You can simply open the converter script in the Extension Manager.
 Note: New tables must be empty or non-existing.
 
+
 .. _caniuseoldmails:
 
 Can I use old mails from powermail 2.x  in powermail 3.x?
@@ -33,6 +34,73 @@ How can I use bootstrap CSS for powermail forms?
 You have to add the related static template and a bootstrap.css
 
 See :ref:`addBootstrapClassesAndCssToPowermail`
+
+
+.. _howcaniuserows:
+
+How can I use responsive columns in powermail?
+----------------------------------------------
+
+Since powermail 4.0 it's possible to use wrapping containers for (e.g.) every 2/3/4 fields to get a markup like
+you already may know from bootstrap:
+
+::
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label>Firstname</label>
+            <input type="text" ... />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Lastname</label>
+            <input type="text" ... />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label>Email</label>
+            <input type="text" ... />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Phone</label>
+            <input type="text" ... />
+        </div>
+    </div>
+
+Have a look into static TypoScript template BootstrapClassesAndLayout for some bootstrap classes examples.
+Example TypoScript configuration:
+
+::
+
+    plugin.tx_powermail.settings.setup {
+        styles {
+            numberOfColumns = 2
+            framework {
+                rowClasses = row
+                fieldAndLabelWrappingClasses = form-group col-md-6
+            }
+        }
+    }
+
+How does the magic work? There is a viewhelper in Page.html partial, that adds containers after x fields:
+
+::
+
+    <vh:misc.createRowTags
+        columns="{settings.styles.numberOfColumns}"
+        class="{settings.styles.framework.rowClasses}"
+        iteration="{iteration}"
+        additionalAttributes="{data-foo:'bar'}
+        tagName="div">
+
+        <f:render partial="Field ..." />
+    </vh:misc.createRowTags>
+
+columns:              Number of columns - 0 disables creation of new containers completely
+class:                Class name(s) for the new tag
+iteration:            The iteration array from a foreach viewhelper
+additionalAttributes: Any additional attributes for the new tags (must be type of array)
+tagName:              Tagname for the new containers ("div" if not given)
 
 
 .. _howtosolvespf:
@@ -64,6 +132,16 @@ To set a sender email address for the confirmation email (to sender), you could 
 	plugin.tx_powermail.settings.setup.sender.overwrite.senderName.value = Server from domain.org
 
 Please ask your server administrator for a valid email address.
+
+
+.. _mailcouldnotbesent:
+
+Failure, mail could not be sent! What does this mean?
+-----------------------------------------------------
+
+If a mail could not be sent this message is coming up. In addition GeneralUtility::sysLog() is called with the
+exception message. To see this message, please use $GLOBALS['TYPO3_CONF_VARS']['SYS']['systemLog'] or look into
+the install tool how to store logs on your system.
 
 
 .. _canisueanothercaptcha:

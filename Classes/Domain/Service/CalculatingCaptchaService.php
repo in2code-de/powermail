@@ -43,12 +43,6 @@ class CalculatingCaptchaService
 {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
-
-    /**
      * TypoScript
      *
      * @var array

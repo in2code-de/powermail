@@ -957,7 +957,10 @@ lib.parseFunc_powermail.tags.link.typolink.forceAbsoluteUrl = 1
 plugin.tx_powermail {
 	settings.setup {
 		styles {
+			numberOfColumns = {$plugin.tx_powermail.settings.styles.framework.numberOfColumns}
+
 			framework {
+				rowClasses = {$plugin.tx_powermail.settings.styles.framework.rowClasses}
 				formClasses = {$plugin.tx_powermail.settings.styles.framework.formClasses}
 				fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses}
 				fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses}
@@ -978,7 +981,10 @@ plugin.tx_powermail {
 plugin.tx_powermail {
 	settings.setup {
 		styles {
+			numberOfColumns = {$plugin.tx_powermail.settings.styles.bootstrap.numberOfColumns}
+
 			framework {
+				rowClasses = {$plugin.tx_powermail.settings.styles.bootstrap.rowClasses}
 				formClasses = {$plugin.tx_powermail.settings.styles.bootstrap.formClasses}
 				fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldAndLabelWrappingClasses}
 				fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldWrappingClasses}

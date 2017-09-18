@@ -1,11 +1,12 @@
 <?php
 namespace In2code\Powermail\Controller;
 
+use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Domain\Service\ReceiverMailReceiverPropertiesService;
-use In2code\Powermail\Domain\Service\ReceiverMailSenderPropertiesService;
-use In2code\Powermail\Domain\Service\SenderMailPropertiesService;
+use In2code\Powermail\Domain\Service\Mail\SendOptinConfirmationMailPreflight;
+use In2code\Powermail\Domain\Service\Mail\SendReceiverMailPreflight;
+use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
 use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
@@ -23,14 +24,7 @@ class FormController extends AbstractController
 {
 
     /**
-     * @var \In2code\Powermail\Domain\Service\SendMailService
-     * @inject
-     */
-    protected $sendMailService;
-
-    /**
      * @var \In2code\Powermail\DataProcessor\DataProcessorRunner
-     * @inject
      */
     protected $dataProcessorRunner;
 
@@ -96,13 +90,19 @@ class FormController extends AbstractController
             $this->saveMail($mail);
             $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
         }
-        if ($this->isSendMailActive($mail, $hash)) {
+        if ($this->isNoOptin($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
         } else {
-            $this->sendConfirmationMail($mail);
+            /** @noinspection PhpMethodParametersCountMismatchInspection */
+            $mailPreflight = $this->objectManager->get(
+                SendOptinConfirmationMailPreflight::class,
+                $this->settings,
+                $this->conf
+            );
+            $mailPreflight->sendOptinConfirmationMail($mail);
             $this->view->assign('optinActive', true);
         }
-        if ($this->settings['db']['enable']) {
+        if ($this->isPersistActive()) {
             $this->mailRepository->update($mail);
             $this->persistenceManager->persistAll();
         }
@@ -113,7 +113,7 @@ class FormController extends AbstractController
         $finisherRunner = $this->objectManager->get(FinisherRunner::class);
         $finisherRunner->callFinishers(
             $mail,
-            $this->isSendMailActive($mail, $hash),
+            $this->isNoOptin($mail, $hash),
             $this->actionMethodName,
             $this->settings,
             $this->contentObject
@@ -168,122 +168,32 @@ class FormController extends AbstractController
     protected function sendMailPreflight(Mail $mail, $hash = null)
     {
         try {
-            if ($this->settings['sender']['enable'] && $this->mailRepository->getSenderMailFromArguments($mail)) {
-                $this->sendSenderMail($mail);
+            if ($this->isSenderMailEnabled() && $this->mailRepository->getSenderMailFromArguments($mail)) {
+                /** @noinspection PhpMethodParametersCountMismatchInspection */
+                $mailPreflight = $this->objectManager->get(
+                    SendSenderMailPreflight::class,
+                    $this->settings,
+                    $this->conf
+                );
+                $mailPreflight->sendSenderMail($mail);
             }
-            if ($this->settings['receiver']['enable']) {
-                $this->sendReceiverMail($mail, $hash);
+            if ($this->isReceiverMailEnabled()) {
+                /** @noinspection PhpMethodParametersCountMismatchInspection */
+                $mailPreflight = $this->objectManager->get(SendReceiverMailPreflight::class, $this->settings);
+                $isSent = $mailPreflight->sendReceiverMail($mail, $hash);
+                if ($isSent === false) {
+                    $this->addFlashMessage(
+                        LocalizationUtility::translate('error_mail_not_created'),
+                        '',
+                        AbstractMessage::ERROR
+                    );
+                    $this->messageClass = 'error';
+                }
             }
         } catch (\Exception $exception) {
             GeneralUtility::sysLog($exception->getMessage(), 'powermail', GeneralUtility::SYSLOG_SEVERITY_WARNING);
             $this->addFlashMessage(LocalizationUtility::translate('mail_created_failure'), '', AbstractMessage::ERROR);
         }
-    }
-
-    /**
-     * Mail Generation for Receiver
-     *
-     * @param Mail $mail
-     * @param string $hash
-     * @return void
-     */
-    protected function sendReceiverMail(Mail $mail, $hash = null)
-    {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $receiverService = $this->objectManager->get(
-            ReceiverMailReceiverPropertiesService::class,
-            $mail,
-            $this->settings
-        );
-        $mail->setReceiverMail($receiverService->getReceiverEmailsString());
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $senderService = $this->objectManager->get(ReceiverMailSenderPropertiesService::class, $mail, $this->settings);
-        foreach ($receiverService->getReceiverEmails() as $receiver) {
-            $email = [
-                'template' => 'Mail/ReceiverMail',
-                'receiverEmail' => $receiver,
-                'receiverName' => $receiverService->getReceiverName(),
-                'senderEmail' => $senderService->getSenderEmail(),
-                'senderName' => $senderService->getSenderName(),
-                'replyToEmail' => $senderService->getSenderEmail(),
-                'replyToName' => $senderService->getSenderName(),
-                'subject' => $this->settings['receiver']['subject'],
-                'rteBody' => $this->settings['receiver']['body'],
-                'format' => $this->settings['receiver']['mailformat'],
-                'variables' => ['hash' => $hash]
-            ];
-            $sent = $this->sendMailService->sendMail($email, $mail, $this->settings, 'receiver');
-
-            if (!$sent) {
-                $this->addFlashMessage(
-                    LocalizationUtility::translate('error_mail_not_created'),
-                    '',
-                    AbstractMessage::ERROR
-                );
-                $this->messageClass = 'error';
-            }
-        }
-    }
-
-    /**
-     * Mail Generation for Sender
-     *
-     * @param Mail $mail
-     * @return void
-     */
-    protected function sendSenderMail(Mail $mail)
-    {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $senderService = $this->objectManager->get(SenderMailPropertiesService::class, $this->settings);
-        $email = [
-            'template' => 'Mail/SenderMail',
-            'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
-            'receiverName' => $this->mailRepository->getSenderNameFromArguments(
-                $mail,
-                [$this->conf['sender.']['default.'], 'senderName']
-            ),
-            'senderEmail' => $senderService->getSenderEmail(),
-            'senderName' => $senderService->getSenderName(),
-            'replyToEmail' => $senderService->getSenderEmail(),
-            'replyToName' => $senderService->getSenderName(),
-            'subject' => $this->settings['sender']['subject'],
-            'rteBody' => $this->settings['sender']['body'],
-            'format' => $this->settings['sender']['mailformat']
-        ];
-        $this->sendMailService->sendMail($email, $mail, $this->settings, 'sender');
-    }
-
-    /**
-     * Send Optin Confirmation Mail to user
-     *
-     * @param Mail $mail
-     * @return void
-     */
-    protected function sendConfirmationMail(Mail $mail)
-    {
-        $email = [
-            'template' => 'Mail/OptinMail',
-            'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
-            'receiverName' => $this->mailRepository->getSenderNameFromArguments(
-                $mail,
-                [$this->conf['sender.']['default.'], 'senderName']
-            ),
-            'senderEmail' => $this->settings['sender']['email'],
-            'senderName' => $this->settings['sender']['name'],
-            'replyToEmail' => $this->settings['sender']['email'],
-            'replyToName' => $this->settings['sender']['name'],
-            'subject' => $this->contentObject->cObjGetSingle(
-                $this->conf['optin.']['subject'],
-                $this->conf['optin.']['subject.']
-            ),
-            'rteBody' => '',
-            'format' => $this->settings['sender']['mailformat'],
-            'variables' => [
-                'hash' => OptinUtility::createOptinHash($mail),
-                'mail' => $mail
-            ]
-        ];
-        $this->sendMailService->sendMail($email, $mail, $this->settings, 'optin');
     }
 
     /**
@@ -457,7 +367,7 @@ class FormController extends AbstractController
      */
     protected function isMailPersistActive($hash)
     {
-        return (!empty($this->settings['db']['enable']) || !empty($this->settings['main']['optin'])) && $hash === null;
+        return ($this->isPersistActive() || !empty($this->settings['main']['optin'])) && $hash === null;
     }
 
     /**
@@ -470,7 +380,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return bool
      */
-    protected function isSendMailActive(Mail $mail, $hash)
+    protected function isNoOptin(Mail $mail, $hash)
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
@@ -484,5 +394,38 @@ class FormController extends AbstractController
         if (!empty($this->settings['debug']['variables'])) {
             GeneralUtility::devLog('Variables', $this->extensionName, 0, GeneralUtility::_POST());
         }
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isPersistActive()
+    {
+        return $this->settings['db']['enable'] === '1';
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isSenderMailEnabled()
+    {
+        return $this->settings['sender']['enable'] === '1';
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isReceiverMailEnabled()
+    {
+        return $this->settings['receiver']['enable'] === '1';
+    }
+
+    /**
+     * @param DataProcessorRunner $dataProcessorRunner
+     * @return void
+     */
+    public function injectDataProcessorRunner(DataProcessorRunner $dataProcessorRunner)
+    {
+        $this->dataProcessorRunner = $dataProcessorRunner;
     }
 }

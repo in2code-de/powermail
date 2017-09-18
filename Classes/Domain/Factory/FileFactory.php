@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Domain\Factory;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\ObjectUtility;
@@ -63,6 +64,18 @@ class FileFactory
             return $this->makeFileInstance($marker, $value, null, null, null, true);
         }
         return null;
+    }
+
+    /**
+     * Get instance of File from existing answer
+     *
+     * @param string $fileName
+     * @param Answer $answer
+     * @return File|null
+     */
+    public function getInstanceFromExistingAnswerValue($fileName, Answer $answer)
+    {
+        return $this->makeFileInstance($answer->getField()->getMarker(), $fileName, null, null, null, true);
     }
 
     /**

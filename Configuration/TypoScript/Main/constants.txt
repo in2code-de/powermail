@@ -294,7 +294,13 @@ plugin.tx_powermail {
 		# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
 		styles {
 			framework {
-				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for form "form-horizontal"
+				# cat=powermail_styles//0020; type=int+; label= Number of columns
+				numberOfColumns = 0
+
+				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for containers to build rows
+				rowClasses = row
+
+				# cat=powermail_styles//0105; type=text; label= Framework classname(s) for form "form-horizontal"
 				formClasses =
 
 				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"

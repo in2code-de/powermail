@@ -2,6 +2,8 @@
 namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Repository\AnswerRepository;
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ExportService;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\BasicFileUtility;
@@ -9,51 +11,11 @@ use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * Controller for powermail tasks
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class TaskCommandController
  */
 class TaskCommandController extends CommandController
 {
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
-     * @inject
-     */
-    protected $mailRepository;
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\AnswerRepository
-     * @inject
-     */
-    protected $answerRepository;
 
     /**
      * delete Files which are older than this seconds
@@ -63,7 +25,7 @@ class TaskCommandController extends CommandController
     protected $period = 3600;
 
     /**
-     * Export of mails as email attachment
+     * Powermail: Export of mails as email attachment
      *
      *        This task can send a mail export with an attachment
      *        (XLS or CSV) to a receiver or a group of receivers
@@ -96,10 +58,11 @@ class TaskCommandController extends CommandController
         $fileName = null,
         $emailTemplate = 'EXT:powermail/Resources/Private/Templates/Module/ExportTaskMail.html'
     ) {
+        $mailRepository = $this->objectManager->get(MailRepository::class);
         /** @var ExportService $exportService */
         $exportService = $this->objectManager->get(
             ExportService::class,
-            $this->mailRepository->findAllInPid($pageUid, [], $this->getFilterVariables($period)),
+            $mailRepository->findAllInPid($pageUid, [], $this->getFilterVariables($period)),
             $format,
             ['domain' => $domain]
         );
@@ -116,7 +79,7 @@ class TaskCommandController extends CommandController
     }
 
     /**
-     * Remove unused uploaded Files with a scheduler task
+     * Powermail: Remove unused uploaded Files with a scheduler task
      *
      *        This task can clean up unused uploaded files
      *        with powermail from your server
@@ -143,7 +106,7 @@ class TaskCommandController extends CommandController
     }
 
     /**
-     * Remove all uploaded files in uploads/tx_powermail/
+     * Powermail: Remove all uploaded files in uploads/tx_powermail/
      *
      *        This task will clean up all (!) files which
      *        are located in uploads/tx_powermail/
@@ -157,7 +120,7 @@ class TaskCommandController extends CommandController
     }
 
     /**
-     * Remove all export files in typo3temp/tx_powermail/
+     * Powermail: Remove all export files in typo3temp/tx_powermail/
      *
      *        This task will clean up all (!) files which
      *        are located in typo3temp/tx_powermail/
@@ -173,7 +136,7 @@ class TaskCommandController extends CommandController
     }
 
     /**
-     * Reset all markers in fields within a given form
+     * Powermail: Reset all markers in fields within a given form
      *
      *      Reset all marker names in fields if there are broken
      *      Fields without or duplicated markernames.
@@ -188,7 +151,6 @@ class TaskCommandController extends CommandController
      */
     public function resetMarkerNamesInFormCommand($formUid, $forceReset)
     {
-        /** @var GetNewMarkerNamesForFormService $markerService */
         $markerService = $this->objectManager->get(GetNewMarkerNamesForFormService::class);
         $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid, $forceReset);
         foreach ($markers as $formMarkers) {
@@ -203,8 +165,6 @@ class TaskCommandController extends CommandController
     }
 
     /**
-     * Remove all files from a directory
-     *
      * @param string $directory relative directory
      * @param int $period Define how old the files could be (in seconds) that should be deleted (0 = delete all)
      * @return void
@@ -223,13 +183,12 @@ class TaskCommandController extends CommandController
     }
 
     /**
-     * Get used uploads
-     *
      * @return array
      */
     protected function getUsedUploads()
     {
-        $answers = $this->answerRepository->findByAnyUpload();
+        $answerRepository = $this->objectManager->get(AnswerRepository::class);
+        $answers = $answerRepository->findByAnyUpload();
         $usedUploads = [];
         foreach ($answers as $answer) {
             foreach ((array)$answer->getValue() as $singleUpload) {

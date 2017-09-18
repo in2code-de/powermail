@@ -75,7 +75,7 @@ class AnswerRepository extends AbstractRepository
         $query->matching(
             $query->logicalAnd(
                 [
-                    $query->equals('valueType', 3),
+                    $query->equals('valueType', Answer::VALUE_TYPE_UPLOAD),
                     $query->logicalNot($query->equals('value', ''))
                 ]
             )
