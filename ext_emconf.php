@@ -39,7 +39,9 @@ $EM_CONF[$_EXTKEY] = [
             'typo3' => '7.6.1-8.99.99',
             'php' => '5.5.0-7.99.99'
         ],
-        'conflicts' => [],
+        'conflicts' => [
+            'compatibility6' => '7.6.0-7.6.99'
+        ],
         'suggests' => [],
     ],
     '_md5_values_when_last_written' => '',
