@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Validator;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Service\FlexFormService;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
@@ -144,6 +145,22 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     }
 
     /**
+     * Validation should be in mostly workflows only on first action. This is createAction. But if confirmation is
+     * turned on, validation should work in most cases on the confirmationAction.
+     *
+     * @return bool
+     */
+    public function isFirstActionForValidation()
+    {
+        $arguments = GeneralUtility::_GPmerged($this->variablesPrefix);
+        if ($this->isConfirmationActivated()) {
+            return $arguments['action'] === 'confirmation';
+        } else {
+            return $arguments['action'] === 'create';
+        }
+    }
+
+    /**
      * Constructs the validator and sets validation options
      *
      * @param array $options Options for the validator
@@ -152,5 +169,13 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     public function __construct(array $options = [])
     {
         parent::__construct($options);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConfirmationActivated()
+    {
+        return $this->flexForm['settings']['flexform']['main']['confirmation'] === '1';
     }
 }
