@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Validator;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\ObjectUtility;
 
 /**
  * InputValidator
@@ -173,7 +174,7 @@ class InputValidator extends StringValidator
                     if ($field->getValidation()) {
                         $validation = $field->getValidation();
                         if (!empty($this->settings['validation']['customValidation'][$validation])) {
-                            $extendedValidator = $this->objectManager->get(
+                            $extendedValidator = ObjectUtility::getObjectManager()->get(
                                 $this->settings['validation']['customValidation'][$validation]
                             );
                             if (method_exists($extendedValidator, 'validate' . ucfirst($validation))) {
