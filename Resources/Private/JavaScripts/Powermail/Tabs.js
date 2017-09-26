@@ -152,7 +152,7 @@ jQuery(document).ready(function($) {
 	 * @return {void}
 	 */
 	function openTabWithError($form, options) {
-		if (options.openTabOnError) {
+		if (options.openTabOnError && $.fn.parsley) {
 			$.listen('parsley:field:error', function() {
 				setTimeout(function() {
 					$form
