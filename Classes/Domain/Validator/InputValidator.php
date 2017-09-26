@@ -58,7 +58,7 @@ class InputValidator extends StringValidator
     {
         foreach ($mail->getAnswers() as $answer) {
             /** @var Answer $answer */
-            if ($answer->getField() === $field) {
+            if ($answer->getField()->getUid() === $field->getUid()) {
                 return $answer->getValue();
             }
         }
