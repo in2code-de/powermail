@@ -17,10 +17,16 @@ Feature: AllFields
     Then the sourcecode should contain '<option value="black" selected="selected">Black Shoes</option>'
 
     When I fill in "tx_powermail_pi1[field][input]" with "This is an input"
-    When I fill in "tx_powermail_pi1[field][marker]" with "This is a textarea"
+    When I fill in "tx_powermail_pi1[field][marker]" with:
+      """
+      This
+      is
+      a
+      textarea
+      """
     When I select "Red" from "tx_powermail_pi1[field][marker_01]"
     And I press "Submit"
 
     Then I should see "This is an input"
-    Then I should see "This is a textarea"
+    Then the sourcecode should contain 'This<br />\nis<br />\na<br />\ntextarea'
     Then I should see "Red"
