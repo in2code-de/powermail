@@ -4,6 +4,8 @@ namespace In2code\Powermail\Domain\Validator;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -62,7 +64,8 @@ class PasswordValidator extends AbstractValidator
      */
     protected function formHasPassword(Form $form)
     {
-        $form = $this->formRepository->hasPassword($form);
+        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $form = $formRepository->hasPassword($form);
         return count($form) ? true : false;
     }
 

@@ -21,10 +21,10 @@ Please look at https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/In
 
 ## Supported version (for latest powermail)
 
-| Software    | Versions   |
-| ----------- | ---------- |
-| TYPO3       | 7.6 - 8.7  |
-| PHP         | 5.5 - 7.1  |
+| Software    | Versions   | Note                                                             |
+| ----------- | ---------- | ---------------------------------------------------------------- |
+| TYPO3       | 7.6 - 8.7  | TYPO3 7.6 is only supported without extension **compatibility6** |
+| PHP         | 5.5 - 7.1  |                                                                  |
 
 ## Need some extension possibilities for powermail?
 - Automatically convert emails to a link to a powermail form with **email2powermail** (see https://github.com/einpraegsam/email2powermail)

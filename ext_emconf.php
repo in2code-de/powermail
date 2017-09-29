@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = [
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
     'shy' => 0,
-    'version' => '4.0.1',
+    'version' => '4.0.2',
     'dependencies' => 'cms,extbase,fluid',
     'conflicts' => '',
     'priority' => '',
@@ -39,7 +39,9 @@ $EM_CONF[$_EXTKEY] = [
             'typo3' => '7.6.1-8.99.99',
             'php' => '5.5.0-7.99.99'
         ],
-        'conflicts' => [],
+        'conflicts' => [
+            'compatibility6' => '7.6.0-7.6.99'
+        ],
         'suggests' => [],
     ],
     '_md5_values_when_last_written' => '',

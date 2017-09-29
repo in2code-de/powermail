@@ -18,6 +18,20 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      4.0.2
+   :Date:
+      2017-09-29
+   :Changes:
+
+      * Bugfix: Values are not escapted any more by usage of {powermailAll} together with format.nl2br
+      * Bugfix: Prevent JS error if parsley is not included
+      * Feature: Add a public function in AbstractValidator to decide when there should be a validation and when not
+      * Task: Compare only field uids in input validation to allow extending a field model with an own model
+      * Task: Some small code refactoring
+      * Task: Add a behaviour test for multiline-input in a textarea
+      * Task: Add a note in manual for a conflict with extension compatibility6
+
+ - :Version:
       4.0.1
    :Date:
       2017-09-18

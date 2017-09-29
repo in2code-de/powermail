@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Error\Result;
 
@@ -38,7 +39,7 @@ class ForeignValidator extends AbstractValidator
             }
             if (is_subclass_of($validatorConf['class'], $this->validatorInterface)) {
                 /** @var AbstractValidator $validator */
-                $validator = $this->objectManager->get($validatorConf['class']);
+                $validator = ObjectUtility::getObjectManager()->get($validatorConf['class']);
                 $validator->setConfiguration((array)$validatorConf['config']);
                 $validator->initialize();
                 /** @var Result $result */
