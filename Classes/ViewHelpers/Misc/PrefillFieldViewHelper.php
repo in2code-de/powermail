@@ -34,7 +34,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @var array
      */
-    protected $settings;
+    protected $configuration;
 
     /**
      * @var array
@@ -229,27 +229,27 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     protected function getFromTypoScriptContentObject($value)
     {
         if (empty($value) &&
-            isset($this->settings['prefill.'][$this->getMarker() . '.']) &&
-            is_array($this->settings['prefill.'][$this->getMarker() . '.'])
+            isset($this->configuration['prefill.'][$this->getMarker() . '.']) &&
+            is_array($this->configuration['prefill.'][$this->getMarker() . '.'])
         ) {
             $this->contentObject->start(ObjectAccess::getGettableProperties($this->getField()));
             // Multivalue
-            if (isset($this->settings['prefill.'][$this->getMarker() . '.']['0'])) {
+            if (isset($this->configuration['prefill.'][$this->getMarker() . '.']['0'])) {
                 $value = [];
-                foreach (array_keys($this->settings['prefill.'][$this->getMarker() . '.']) as $key) {
+                foreach (array_keys($this->configuration['prefill.'][$this->getMarker() . '.']) as $key) {
                     if (stristr($key, '.')) {
                         continue;
                     }
                     $value[] = $this->contentObject->cObjGetSingle(
-                        $this->settings['prefill.'][$this->getMarker() . '.'][$key],
-                        $this->settings['prefill.'][$this->getMarker() . '.'][$key . '.']
+                        $this->configuration['prefill.'][$this->getMarker() . '.'][$key],
+                        $this->configuration['prefill.'][$this->getMarker() . '.'][$key . '.']
                     );
                 }
             } else {
                 // Single value
                 $value = $this->contentObject->cObjGetSingle(
-                    $this->settings['prefill.'][$this->getMarker()],
-                    $this->settings['prefill.'][$this->getMarker() . '.']
+                    $this->configuration['prefill.'][$this->getMarker()],
+                    $this->configuration['prefill.'][$this->getMarker() . '.']
                 );
             }
         }
@@ -266,10 +266,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     protected function getFromTypoScriptRaw($value)
     {
         if (empty($value) &&
-            !empty($this->settings['prefill.'][$this->getMarker()]) &&
-            empty($this->settings['prefill.'][$this->getMarker() . '.'])
+            !empty($this->configuration['prefill.'][$this->getMarker()]) &&
+            empty($this->configuration['prefill.'][$this->getMarker() . '.'])
         ) {
-            $value = $this->settings['prefill.'][$this->getMarker()];
+            $value = $this->configuration['prefill.'][$this->getMarker()];
         }
         return $value;
     }
@@ -283,7 +283,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     protected function getFromSession($value)
     {
         if (empty($value)) {
-            $sessionValues = SessionUtility::getSessionValuesForPrefill($this->settings);
+            $sessionValues = SessionUtility::getSessionValuesForPrefill($this->configuration);
             if (!empty($sessionValues) && count($sessionValues)) {
                 foreach ($sessionValues as $marker => $valueInSession) {
                     if ($this->getMarker() === $marker) {
@@ -386,6 +386,6 @@ class PrefillFieldViewHelper extends AbstractViewHelper
         $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
         $this->contentObject = $this->objectManager->get(ContentObjectRenderer::class);
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
-        $this->settings = $configurationService->getTypoScriptConfiguration();
+        $this->configuration = $configurationService->getTypoScriptConfiguration();
     }
 }
