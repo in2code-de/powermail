@@ -141,11 +141,10 @@ class RedirectUriService
      */
     protected function getOverwriteTypoScript()
     {
-        $typoScript = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-        );
-        if (!empty($typoScript['plugin.']['tx_powermail.']['settings.']['setup.']['thx.']['overwrite.'])) {
-            return $typoScript['plugin.']['tx_powermail.']['settings.']['setup.']['thx.']['overwrite.'];
+        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configuration = $configurationService->getTypoScriptConfiguration();
+        if (!empty($configuration['thx.']['overwrite.'])) {
+            return $configuration['thx.']['overwrite.'];
         }
         return null;
     }
