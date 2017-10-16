@@ -4,6 +4,7 @@ namespace In2code\Powermail\Controller;
 use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Domain\Service\Mail\SendOptinConfirmationMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendReceiverMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
@@ -14,7 +15,6 @@ use In2code\Powermail\Utility\OptinUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 
 /**
@@ -283,10 +283,8 @@ class FormController extends AbstractController
     public function initializeObject()
     {
         $this->contentObject = $this->configurationManager->getContentObject();
-        $typoScriptSetup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-        );
-        $this->conf = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+        $configurationService = $this->objectManager->get(ConfigurationService::class);
+        $this->conf = $configurationService->getTypoScriptConfiguration();
         ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
         if ($this->settings['debug']['settings']) {
             GeneralUtility::devLog('Settings', $this->extensionName, 0, $this->settings);
