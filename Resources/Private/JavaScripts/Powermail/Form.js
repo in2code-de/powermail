@@ -184,6 +184,7 @@ function PowermailForm($) {
 		// submit is called after parsley and html5 validation - so we don't have to check for errors
 		$(document).on('submit', 'form[data-powermail-ajax]', function(e) {
 			var $this = $(this);
+			var $txPowermail = $this.closest('.tx-powermail');
 			if ($this.data('powermail-ajax-uri')) {
 				redirectUri = $this.data('powermail-ajax-uri');
 			}
@@ -202,6 +203,7 @@ function PowermailForm($) {
 					complete: function() {
 						removeProgressbar($this);
 						deleteAllFilesListener();
+                        fireAjaxCompleteEvent($txPowermail);
 					},
 					success: function(data) {
 						var html = $('*[data-powermail-form="' + formUid + '"]:first', data);
@@ -253,6 +255,21 @@ function PowermailForm($) {
 	 */
 	var removeProgressbar = function($this) {
 		$this.closest('.tx-powermail').find('.powermail_progressbar').remove();
+	};
+
+    /**
+	 * Fire event when ajax submission is complete.
+	 * Note: this event fires on the .tx-powermail element, since its inner html is replaced
+	 *
+	 * example usage:
+	 * $('.tx-powermail').on('submitted.powermail.form', function(){
+	 * 		console.log('ajax form was submitted');
+	 * })
+     * @param $txPowermail
+     */
+	var fireAjaxCompleteEvent = function($txPowermail) {
+        var submittedEvent = $.Event('submitted.powermail.form');
+        $txPowermail.trigger(submittedEvent);
 	};
 
 	/**
