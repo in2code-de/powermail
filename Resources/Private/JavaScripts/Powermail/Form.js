@@ -257,7 +257,7 @@ function PowermailForm($) {
 		$this.closest('.tx-powermail').find('.powermail_progressbar').remove();
 	};
 
-    /**
+	/**
 	 * Fire event when ajax submission is complete.
 	 * Note: this event fires on the .tx-powermail element, since its inner html is replaced
 	 *
@@ -265,11 +265,11 @@ function PowermailForm($) {
 	 * $('.tx-powermail').on('submitted.powermail.form', function(){
 	 * 		console.log('ajax form was submitted');
 	 * })
-     * @param $txPowermail
-     */
+	 * @param $txPowermail
+	 */
 	var fireAjaxCompleteEvent = function($txPowermail) {
-        var submittedEvent = $.Event('submitted.powermail.form');
-        $txPowermail.trigger(submittedEvent);
+		var submittedEvent = $.Event('submitted.powermail.form');
+		$txPowermail.trigger(submittedEvent);
 	};
 
 	/**
