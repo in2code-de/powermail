@@ -3,21 +3,17 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
+use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
- * Get Captcha
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class CaptchaViewHelper
  */
 class CaptchaViewHelper extends AbstractTagBasedViewHelper
 {
@@ -26,12 +22,6 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
      * @var null|string
      */
     protected $error = null;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
 
     /**
      * Constructor
@@ -116,11 +106,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
      */
     public function getSettings()
     {
-        $typoScriptSetup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-        );
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
-        $configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptSetup);
-        return (array)$configuration['plugin']['tx_powermail']['settings']['setup'];
+        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        return $configurationService->getTypoScriptSettings();
     }
 }
