@@ -203,7 +203,7 @@ function PowermailForm($) {
 					complete: function() {
 						removeProgressbar($this);
 						deleteAllFilesListener();
-                        fireAjaxCompleteEvent($txPowermail);
+ 						fireAjaxCompleteEvent($txPowermail);
 					},
 					success: function(data) {
 						var html = $('*[data-powermail-form="' + formUid + '"]:first', data);
