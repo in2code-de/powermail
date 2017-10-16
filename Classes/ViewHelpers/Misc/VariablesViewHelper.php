@@ -2,18 +2,16 @@
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ArrayUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Parses Variables for powermail
- *
- * @package TYPO3
- * @subpackage Fluid
  */
 class VariablesViewHelper extends AbstractViewHelper
 {
@@ -27,24 +25,6 @@ class VariablesViewHelper extends AbstractViewHelper
      * @var bool
      */
     protected $escapeOutput = false;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @inject
-     */
-    protected $objectManager;
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
-     * @inject
-     */
-    protected $mailRepository;
 
     /**
      * Configuration
@@ -63,14 +43,14 @@ class VariablesViewHelper extends AbstractViewHelper
      */
     public function render(Mail $mail, $type = 'web', $function = 'createAction')
     {
-        /** @var StandaloneView $parseObject */
-        $parseObject = $this->objectManager->get(StandaloneView::class);
+        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $parseObject = ObjectUtility::getObjectManager()->get(StandaloneView::class);
         $parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
         $parseObject->assignMultiple(
-            ArrayUtility::htmlspecialcharsOnArray($this->mailRepository->getVariablesWithMarkersFromMail($mail))
+            ArrayUtility::htmlspecialcharsOnArray($mailRepository->getVariablesWithMarkersFromMail($mail))
         );
         $parseObject->assignMultiple(
-            ArrayUtility::htmlspecialcharsOnArray($this->mailRepository->getLabelsWithMarkersFromMail($mail))
+            ArrayUtility::htmlspecialcharsOnArray($mailRepository->getLabelsWithMarkersFromMail($mail))
         );
         $parseObject->assign('powermail_all', TemplateUtility::powermailAll($mail, $type, $this->settings, $function));
         return html_entity_decode($parseObject->render(), ENT_QUOTES, 'UTF-8');
@@ -109,13 +89,7 @@ class VariablesViewHelper extends AbstractViewHelper
      */
     public function initialize()
     {
-        $typoScriptSetup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-        );
-        if (!empty($typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'])) {
-            $this->settings = GeneralUtility::removeDotsFromTS(
-                $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.']
-            );
-        }
+        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $this->settings = $configurationService->getTypoScriptSettings();
     }
 }
