@@ -3,33 +3,23 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * Prefill a field
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class PrefillFieldViewHelper
  */
 class PrefillFieldViewHelper extends AbstractViewHelper
 {
     use SignalTrait;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
 
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -238,8 +228,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      */
     protected function getFromTypoScriptContentObject($value)
     {
-        if (
-            empty($value) &&
+        if (empty($value) &&
             isset($this->settings['prefill.'][$this->getMarker() . '.']) &&
             is_array($this->settings['prefill.'][$this->getMarker() . '.'])
         ) {
@@ -276,8 +265,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      */
     protected function getFromTypoScriptRaw($value)
     {
-        if (
-            empty($value) &&
+        if (empty($value) &&
             !empty($this->settings['prefill.'][$this->getMarker()]) &&
             empty($this->settings['prefill.'][$this->getMarker() . '.'])
         ) {
@@ -397,9 +385,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     {
         $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
         $this->contentObject = $this->objectManager->get(ContentObjectRenderer::class);
-        $typoScriptSetup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-        );
-        $this->settings = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']['setup.'];
+        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $this->settings = $configurationService->getTypoScriptSettings();
     }
 }
