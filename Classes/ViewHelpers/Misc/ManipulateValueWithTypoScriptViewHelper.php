@@ -2,14 +2,13 @@
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Answer;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use In2code\Powermail\Domain\Service\ConfigurationService;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class ManipulateValueWithTypoScriptViewHelper for {powermail_all} variable
- *
- * @package In2code\Powermail\ViewHelpers\Misc
  */
 class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
 {
@@ -24,12 +23,6 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
         'receiver' => 'receiverMail',
         'optin' => 'optinMail'
     ];
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
 
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -66,17 +59,13 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Initialize
-     *
      * @return void
      */
     public function initialize()
     {
         $this->contentObjectRenderer = $this->objectManager->get(ContentObjectRenderer::class);
-        $typoScriptSetup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-        );
-        $this->typoScriptContext = $typoScriptSetup['plugin.']['tx_powermail.']['settings.']
-            ['setup.']['manipulateVariablesInPowermailAllMarker.'];
+        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configuration = $configurationService->getTypoScriptConfiguration();
+        $this->typoScriptContext = $configuration['manipulateVariablesInPowermailAllMarker.'];
     }
 }
