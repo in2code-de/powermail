@@ -2,18 +2,14 @@
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\LocalizationUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Abstract Validation ViewHelper
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
  */
 abstract class AbstractValidationViewHelper extends AbstractViewHelper
 {
@@ -131,11 +127,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
         if ($this->arguments['extensionName'] !== null) {
             $this->extensionName = $this->arguments['extensionName'];
         }
-        $typoScriptSetup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-        );
-        if (!empty($typoScriptSetup['setup'])) {
-            $this->settings = $typoScriptSetup['setup'];
-        }
+        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $this->settings = $configurationService->getTypoScriptSettings();
     }
 }

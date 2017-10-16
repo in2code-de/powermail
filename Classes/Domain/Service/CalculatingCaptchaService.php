@@ -331,16 +331,8 @@ class CalculatingCaptchaService
     public function setConfiguration()
     {
         if (!$this->test) {
-            /** @var ConfigurationManager $configurationManager */
-            $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManager::class);
-            $typoScriptSetup = $configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-                'powermail'
-            );
-            $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
-            $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray(
-                (array)$typoScriptSetup['setup']
-            );
+            $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+            $this->configuration = $configurationService->getTypoScriptConfiguration();
         }
         return $this;
     }

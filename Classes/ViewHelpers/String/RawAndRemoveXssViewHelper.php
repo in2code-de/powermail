@@ -1,10 +1,9 @@
 <?php
 namespace In2code\Powermail\ViewHelpers\String;
 
+use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -37,12 +36,6 @@ class RawAndRemoveXssViewHelper extends AbstractViewHelper
     protected $escapeOutput = false;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
-
-    /**
      * ViewHelper combines Raw and RemoveXss Methods
      *
      * @return string
@@ -63,20 +56,8 @@ class RawAndRemoveXssViewHelper extends AbstractViewHelper
      */
     protected function isHtmlEnabled()
     {
-        $settings = $this->getSettings();
+        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $settings = $configurationService->getTypoScriptSettings();
         return $settings['misc']['htmlForLabels'] === '1';
-    }
-
-    /**
-     * @return array
-     */
-    protected function getSettings()
-    {
-        $typoScriptSetup = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
-        );
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
-        $configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptSetup);
-        return (array)$configuration['plugin']['tx_powermail']['settings']['setup'];
     }
 }

@@ -129,14 +129,14 @@ FLUID (RTE or HTML-Template):
 
 	Thank you for your feedback
 
-	Your mail will be send to {receiver -> f:cObject(typoscriptObjectPath:'lib.rec')}
+	Your mail will be send to {receiver -> f:cObject(typoscriptObjectPath:'lib.receiver')}
 
 TypoScript setup:
 
 .. code-block:: text
 
-	lib.rec = CASE
-	lib.rec {
+	lib.receiver = CASE
+	lib.receiver {
 		key.field = 0
 		1 = TEXT
 		1.value = Alex

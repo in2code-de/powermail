@@ -91,9 +91,10 @@ Example call in TypoScript
 ::
 
    # TypoScript Setup Example for ViewHelper {f:cObject(typoscriptObjectPath:'lib.test')}
-   includeLibs.manipulatePowermailReceiver = fileadmin/manipulateReceiver.php
+   # Note: includeLibs does not work in TYPO3 8 any more. UserFuncs must be added in an own extension to use composer autoload.
+   includeLibs.manipulatePowermailReceiver = typo3conf/ext/myext/Classes/ManipulateReceiver.php
    lib.test = USER
-   lib.test.userFunc = user_manipulatePowermailReceiver->getEmail
+   lib.test.userFunc = Vendor\Myext\ManipulateReceiver->getEmail
 
 Example PHP Script
 ''''''''''''''''''
@@ -101,7 +102,9 @@ Example PHP Script
 ::
 
    <?php
-   class user_manipulatePowermailReceiver
+   namespace Vendor\Myext;
+
+   class ManipulateReceiver
    {
 
            public function getEmail($content = '', $conf = array())
