@@ -386,6 +386,6 @@ class PrefillFieldViewHelper extends AbstractViewHelper
         $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
         $this->contentObject = $this->objectManager->get(ContentObjectRenderer::class);
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
-        $this->settings = $configurationService->getTypoScriptSettings();
+        $this->settings = $configurationService->getTypoScriptConfiguration();
     }
 }
