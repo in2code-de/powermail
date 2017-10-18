@@ -218,7 +218,7 @@
 			</trans-unit>
 			<trans-unit id="validationerror_validation.6">
 				<source>Please increase number!</source>
-				<target state="translated">Bitte höhrere Zahl eintragen!</target>
+				<target state="translated">Bitte höhere Zahl eintragen!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.7">
 				<source>Please decrease number!</source>
