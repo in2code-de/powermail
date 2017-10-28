@@ -17,6 +17,14 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
    :Changes:
       Release Description
 
+- :Version:
+          4.1.1-SNAPSHOT
+       :Date:
+          2017-10-16
+       :Changes:
+
+          * Feature: Add ajax submission complete event `#162 <https://github.com/einpraegsam/powermail/issues/182>`_
+
  - :Version:
       4.1.0
    :Date:
