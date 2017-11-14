@@ -249,4 +249,22 @@ class FieldRepository extends AbstractRepository
         }
         return $marker;
     }
+
+    /**
+     * @param int $uid
+     * @return string
+     */
+    public function getTypeFromUid($uid)
+    {
+        $type = '';
+        $row = (array)ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
+            'type',
+            Field::TABLE_NAME,
+            'uid=' . (int)$uid
+        );
+        if (!empty($row['type'])) {
+            $type = $row['type'];
+        }
+        return $type;
+    }
 }

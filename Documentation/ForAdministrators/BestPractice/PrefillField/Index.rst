@@ -60,7 +60,7 @@ Example markup
 Generating select options out of TypoScript
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can dynamicly generate a select field in powermail with some lines of TypoScript.
+You can dynamicly generate a select (or radio-buttons or checkboxes) field in powermail with some lines of TypoScript.
 To use this feature, you have to leave the field "Options" empty and you should fill the field
 "Create from TypoScript" with a TypoScriptObjectPath. See the following example:
 

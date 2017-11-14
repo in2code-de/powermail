@@ -17,6 +17,28 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
    :Changes:
       Release Description
 
+- :Version:
+          4.1.1-SNAPSHOT
+       :Date:
+          2017-10-16
+       :Changes:
+
+          * Feature: Add ajax submission complete event `#162 <https://github.com/einpraegsam/powermail/issues/182>`_
+
+ - :Version:
+      4.2.0
+   :Date:
+      2017-11-14
+   :Changes:
+
+      * Feature: Register your own JS tasks on AJAX complete now in fireAjaxCompleteEvent()
+      * Bugfix: Avoid exception in plugin preview together with oldschool extension plugins
+      * Bugfix: Backend Module list: Fix search in additional fields
+      * Bugfix: Fix typo in german frontend and backend labels
+      * Task: Never return an empty type for localized fields (even if there is something wrong in database)
+      * Task: Documentation update
+      * Task: Small code cleanup
+
  - :Version:
       4.1.0
    :Date:
