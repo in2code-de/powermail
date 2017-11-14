@@ -37,53 +37,8 @@ class MailRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
-
-        // initial filter
-        $and = [
-            $query->equals('deleted', 0),
-            $query->equals('pid', $pid)
-        ];
-
-        // filter
-        if (isset($piVars['filter'])) {
-            foreach ((array)$piVars['filter'] as $field => $value) {
-                if (!is_array($value)) {
-                    if ($field === 'all' && !empty($value)) {
-                        $or = [
-                            $query->like('sender_name', '%' . $value . '%'),
-                            $query->like('sender_mail', '%' . $value . '%'),
-                            $query->like('subject', '%' . $value . '%'),
-                            $query->like('receiver_mail', '%' . $value . '%'),
-                            $query->like('sender_ip', '%' . $value . '%'),
-                            $query->like('answers.value', '%' . $value . '%')
-                        ];
-                        $and[] = $query->logicalOr($or);
-                    } elseif ($field === 'form' && !empty($value)) {
-                        $and[] = $query->equals('form', $value);
-                    } elseif ($field === 'start' && !empty($value)) {
-                        $and[] = $query->greaterThan('crdate', strtotime($value));
-                    } elseif ($field === 'stop' && !empty($value)) {
-                        $and[] = $query->lessThan('crdate', strtotime($value));
-                    } elseif ($field === 'hidden' && !empty($value)) {
-                        $and[] = $query->equals($field, ($value - 1));
-                    } elseif (!empty($value)) {
-                        $and[] = $query->like($field, '%' . $value . '%');
-                    }
-                }
-
-                // Answer Fields
-                if (is_array($value)) {
-                    foreach ((array)$value as $answerField => $answerValue) {
-                        if (!empty($answerValue) && $answerField !== 'crdate') {
-                            $and[] = $query->equals('answers.field', $answerField);
-                            $and[] = $query->like('answers.value', '%' . $answerValue . '%');
-                        }
-                    }
-                }
-            }
-        }
-        $constraint = $query->logicalAnd($and);
-        $query->matching($constraint);
+        $and = $this->getConstraintsForFindAllInPid($piVars, $query, $pid);
+        $query->matching($query->logicalAnd($and));
         $query->setOrderings($this->getSorting($settings['sortby'], $settings['order'], $piVars));
         $mails = $query->execute();
         $mails = $this->makeUniqueQuery($mails, $query);
@@ -542,5 +497,57 @@ class MailRepository extends AbstractRepository
             $email = $default;
         }
         return $email;
+    }
+
+    /**
+     * @param array $piVars
+     * @param QueryInterface $query
+     * @param int $pid
+     * @return array
+     */
+    protected function getConstraintsForFindAllInPid(array $piVars, QueryInterface $query, $pid)
+    {
+        $and = [
+            $query->equals('deleted', 0),
+            $query->equals('pid', $pid)
+        ];
+        if (isset($piVars['filter'])) {
+            foreach ((array)$piVars['filter'] as $field => $value) {
+                if (!is_array($value)) {
+                    if ($field === 'all' && !empty($value)) {
+                        $or = [
+                            $query->like('sender_name', '%' . $value . '%'),
+                            $query->like('sender_mail', '%' . $value . '%'),
+                            $query->like('subject', '%' . $value . '%'),
+                            $query->like('receiver_mail', '%' . $value . '%'),
+                            $query->like('sender_ip', '%' . $value . '%'),
+                            $query->like('answers.value', '%' . $value . '%')
+                        ];
+                        $and[] = $query->logicalOr($or);
+                    } elseif ($field === 'form' && !empty($value)) {
+                        $and[] = $query->equals('form', $value);
+                    } elseif ($field === 'start' && !empty($value)) {
+                        $and[] = $query->greaterThan('crdate', strtotime($value));
+                    } elseif ($field === 'stop' && !empty($value)) {
+                        $and[] = $query->lessThan('crdate', strtotime($value));
+                    } elseif ($field === 'hidden' && !empty($value)) {
+                        $and[] = $query->equals($field, ($value - 1));
+                    } elseif (!empty($value)) {
+                        $and[] = $query->like($field, '%' . $value . '%');
+                    }
+                }
+
+                // Answer Fields
+                if (is_array($value)) {
+                    foreach ((array)$value as $answerField => $answerValue) {
+                        if (!empty($answerValue) && $answerField !== 'crdate') {
+                            $and[] = $query->equals('answers.field', $answerField);
+                            $and[] = $query->like('answers.value', '%' . $answerValue . '%');
+                        }
+                    }
+                }
+            }
+        }
+        return $and;
     }
 }
