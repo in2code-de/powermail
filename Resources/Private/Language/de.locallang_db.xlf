@@ -118,7 +118,7 @@
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_mail.marketing_page_funnel">
 				<source>Page Funnel which leads to this mail</source>
-				<target state="translated">Diese Seitenaufrufe führten zu diese Mail (pagefunnel)</target>
+				<target state="translated">Diese Seitenaufrufe führten zu dieser Mail (pagefunnel)</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_form">
 				<source>Forms</source>

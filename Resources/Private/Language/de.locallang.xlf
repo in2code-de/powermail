@@ -94,7 +94,7 @@
 			</trans-unit>
 			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel">
 				<source>Page Funnel</source>
-				<target state="translated">Diese Seitenaufrufe führten zu diese Mail (pagefunnel)</target>
+				<target state="translated">Diese Seitenaufrufe führten zu dieser Mail (pagefunnel)</target>
 			</trans-unit>
 			<trans-unit id="note_html">
 				<source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
