@@ -74,7 +74,7 @@ class MailRepository extends AbstractRepository
                 // Answer Fields
                 if (is_array($value)) {
                     foreach ((array)$value as $answerField => $answerValue) {
-                        if (!empty($answerValue) && $answerField === 'crdate') {
+                        if (!empty($answerValue) && $answerField !== 'crdate') {
                             $and[] = $query->equals('answers.field', $answerField);
                             $and[] = $query->like('answers.value', '%' . $answerValue . '%');
                         }
