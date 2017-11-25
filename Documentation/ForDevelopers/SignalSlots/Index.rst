@@ -162,7 +162,7 @@ extend the functions from your extension. Please report to
       Manipulate receiver emails short before the mails will be send
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\ReceiverMailReceiverPropertiesService
+      In2code\\Powermail\\Domain\\Service\\Mail\\ReceiverMailReceiverPropertiesService
    :Name:
       getReceiverName
    :Method:
@@ -173,7 +173,7 @@ extend the functions from your extension. Please report to
       Manipulate receiver name when getting it
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\SendMailService
+      In2code\\Powermail\\Domain\\Service\\Mail\\SendMailService
    :Name:
       sendTemplateEmailBeforeSend
    :Method:
@@ -184,7 +184,7 @@ extend the functions from your extension. Please report to
       Change the message object before sending
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\SendMailService
+         In2code\\Powermail\\Domain\\Service\\Mail\\SendMailService
    :Name:
       createEmailBodyBeforeRender
    :Method:
@@ -195,7 +195,29 @@ extend the functions from your extension. Please report to
       Manipulate standaloneView-object before the mail object will be rendered
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\ReceiverMailSenderPropertiesService
+      In2code\\Powermail\\Domain\\Service\\Mail\\ReceiverMailReceiverPropertiesService
+   :Name:
+      setReceiverEmails
+   :Method:
+      setReceiverEmails()
+   :Arguments:
+      &$emailArray, $this
+   :Description:
+      Manipulate given receiver email addresses
+
+ - :Class:
+      In2code\\Powermail\\Domain\\Service\\Mail\\ReceiverMailReceiverPropertiesService
+   :Name:
+      getReceiverName
+   :Method:
+      getReceiverName()
+   :Arguments:
+      &$receiverName, $this
+   :Description:
+      Manipulate given receiver name
+
+ - :Class:
+      In2code\\Powermail\\Domain\\Service\\Mail\\ReceiverMailSenderPropertiesService
    :Name:
       getSenderEmail
    :Method:
@@ -203,10 +225,10 @@ extend the functions from your extension. Please report to
    :Arguments:
       &$senderEmail, $this
    :Description:
-      Manipulate given sender email
+      Manipulate given sender email addresses
 
  - :Class:
-      In2code\\Powermail\\Domain\\Service\\ReceiverMailSenderPropertiesService
+      In2code\\Powermail\\Domain\\Service\\Mail\\ReceiverMailSenderPropertiesService
    :Name:
       getSenderName
    :Method:
