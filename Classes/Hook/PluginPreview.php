@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Hooks;
+namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\MailRepository;

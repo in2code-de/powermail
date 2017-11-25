@@ -44,7 +44,7 @@ call_user_func(function () {
     $cmsLayout = 'cms/layout/class.tx_cms_layout.php';
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$cmsLayout]['tt_content_drawItem']['powermail'] =
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') .
-        'Classes/Hook/PluginPreview.php:In2code\Powermail\Hooks\PluginPreview';
+        'Classes/Hook/PluginPreview.php:In2code\Powermail\Hook\PluginPreview';
 
     /**
      * Hook for initially filling the marker field in backend

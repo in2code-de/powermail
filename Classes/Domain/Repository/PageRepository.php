@@ -48,7 +48,7 @@ class PageRepository extends AbstractRepository
     {
         $query = $this->createQuery();
 
-        $sql = 'select title';
+        $sql = 'select uid,title';
         $sql .= ' from pages';
         $sql .= ' where uid = ' . (int)$uid;
         $sql .= ' limit 1';
