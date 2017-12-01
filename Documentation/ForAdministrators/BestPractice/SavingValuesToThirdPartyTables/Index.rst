@@ -117,17 +117,17 @@ to you
 .. code-block:: text
 
     # Enabe function only if a special marker is given
-    plugin.tx_powermail.settings.setup.dbEntry.1_enable = TEXT
-    plugin.tx_powermail.settings.setup.dbEntry.1_enable.value = 1
-    plugin.tx_powermail.settings.setup.dbEntry.1_enable.if.isTrue.data = GP:tx_powermail_pi1|field|anymarkername
+    plugin.tx_powermail.settings.setup.dbEntry.1._enable = TEXT
+    plugin.tx_powermail.settings.setup.dbEntry.1._enable.value = 1
+    plugin.tx_powermail.settings.setup.dbEntry.1._enable.if.isTrue.data = GP:tx_powermail_pi1|field|anymarkername
 
 .. code-block:: text
 
     # Enabe function only if the form is located on a defined PID (e.g. 123 in this case)
-    plugin.tx_powermail.settings.setup.dbEntry.1_enable = TEXT
-    plugin.tx_powermail.settings.setup.dbEntry.1_enable.value = 1
-    plugin.tx_powermail.settings.setup.dbEntry.1_enable.if.value = 123
-    plugin.tx_powermail.settings.setup.dbEntry.1_enable.if.equals.data = TSFE:id
+    plugin.tx_powermail.settings.setup.dbEntry.1._enable = TEXT
+    plugin.tx_powermail.settings.setup.dbEntry.1._enable.value = 1
+    plugin.tx_powermail.settings.setup.dbEntry.1._enable.if.value = 123
+    plugin.tx_powermail.settings.setup.dbEntry.1._enable.if.equals.data = TSFE:id
 
 Another possibility would be to use a TypoScript condition to enable some lines of TypoScript only if a condition is
 true (e.g. on a defined page or if a GET/POST param is set, etc...). Please look at the original TYPO3 TypoScript
