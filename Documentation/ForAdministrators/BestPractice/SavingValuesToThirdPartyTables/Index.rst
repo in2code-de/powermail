@@ -5,6 +5,9 @@
 Saving Values to Third Party Table
 ----------------------------------
 
+Introduction
+""""""""""""
+
 Powermail is able to save the values from a submitted form into a
 third-party-table (like news, tt_news, tt_address, tt_content, fe_users,
 pages, or something else...).
@@ -104,3 +107,28 @@ Example for table tt_address:
 			}
 		}
 	}
+
+Best pracitce
+"""""""""""""
+
+If you want to enable the function not for every form but for some special cases, the whole world of TypoScript is open
+to you
+
+.. code-block:: text
+
+    # Enabe function only if a special marker is given
+    plugin.tx_powermail.settings.setup.dbEntry.1_enable = TEXT
+    plugin.tx_powermail.settings.setup.dbEntry.1_enable.value = 1
+    plugin.tx_powermail.settings.setup.dbEntry.1_enable.if.isTrue.data = GP:tx_powermail_pi1|field|anymarkername
+
+.. code-block:: text
+
+    # Enabe function only if the form is located on a defined PID (e.g. 123 in this case)
+    plugin.tx_powermail.settings.setup.dbEntry.1_enable = TEXT
+    plugin.tx_powermail.settings.setup.dbEntry.1_enable.value = 1
+    plugin.tx_powermail.settings.setup.dbEntry.1_enable.if.value = 123
+    plugin.tx_powermail.settings.setup.dbEntry.1_enable.if.equals.data = TSFE:id
+
+Another possibility would be to use a TypoScript condition to enable some lines of TypoScript only if a condition is
+true (e.g. on a defined page or if a GET/POST param is set, etc...). Please look at the original TYPO3 TypoScript
+reference from some condition examples.
