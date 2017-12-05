@@ -17,13 +17,14 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
    :Changes:
       Release Description
 
-- :Version:
-          4.1.1-SNAPSHOT
-       :Date:
-          2017-10-16
-       :Changes:
+ - :Version:
+      4.3.1
+   :Date:
+      2017-12-05
+   :Changes:
 
-          * Feature: Add ajax submission complete event `#162 <https://github.com/einpraegsam/powermail/issues/182>`_
+      * Bugfix: FlexForm receiver.type should be an exclude field to disable this field for editors if wanted
+      * Task: Small documentation update
 
  - :Version:
       4.3.0
@@ -41,7 +42,7 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       2017-11-14
    :Changes:
 
-      * Feature: Register your own JS tasks on AJAX complete now in fireAjaxCompleteEvent()
+      * Feature: Register your own JS tasks on AJAX complete now in fireAjaxCompleteEvent()  `#182 <https://github.com/einpraegsam/powermail/issues/182>`_
       * Bugfix: Avoid exception in plugin preview together with oldschool extension plugins
       * Bugfix: Backend Module list: Fix search in additional fields
       * Bugfix: Fix typo in german frontend and backend labels

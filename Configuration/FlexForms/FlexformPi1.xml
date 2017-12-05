@@ -99,6 +99,7 @@
 				<el>
 					<settings.flexform.receiver.type>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.type</label>
 							<onChange>reload</onChange>
 							<config>
