@@ -18,6 +18,14 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      4.3.2
+   :Date:
+      2017-12-05
+   :Changes:
+
+      * Bugfix: Revert FlexForm receiver.type commit from 4.3.1 because TYPO3 throws an exception when the field is not available for displayCond
+
+ - :Version:
       4.3.1
    :Date:
       2017-12-05
