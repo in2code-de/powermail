@@ -15,7 +15,16 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
    :Date:
       Release Date
    :Changes:
-      Release Description   
+      Release Description
+
+ - :Version:
+      4.3.1
+   :Date:
+      2017-12-05
+   :Changes:
+
+      * Bugfix: FlexForm receiver.type should be an exclude field to disable this field for editors if wanted
+      * Task: Small documentation update
 
  - :Version:
       4.3.0
