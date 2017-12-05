@@ -17,24 +17,26 @@
 
 
 
-	<f:if condition="{mails}">
-		<f:then>
-			<f:be.widget.paginate
-					objects="{mails}"
-					as="mailsPage"
-					configuration="{itemsPerPage: '{perPage}',
-						insertAbove: '{f:if(condition:\'{mails -> f:count()} > {perPage}\',then:1,else:0)}',
-						insertBelow: '{f:if(condition:\'{mails -> f:count()} > {perPage}\',then:1,else:0)}'}">
+	<div class="powermail_list">
+		<f:if condition="{mails}">
+			<f:then>
+				<f:be.widget.paginate
+						objects="{mails}"
+						as="mailsPage"
+						configuration="{itemsPerPage: '{perPage}',
+							insertAbove: '{f:if(condition:\'{mails -> f:count()} > {perPage}\',then:1,else:0)}',
+							insertBelow: '{f:if(condition:\'{mails -> f:count()} > {perPage}\',then:1,else:0)}'}">
 
-				<f:render partial="Module/List" arguments="{_all}" />
-				<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
+					<f:render partial="Module/List" arguments="{_all}" />
+					<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
 
-			</f:be.widget.paginate>
-		</f:then>
-		<f:else>
-			<h3><f:translate key="BackendListNoMails" /></h3>
-			<p><f:translate key="BackendListNoMailsSub" /></p>
-		</f:else>
-	</f:if>
+				</f:be.widget.paginate>
+			</f:then>
+			<f:else>
+				<h3><f:translate key="BackendListNoMails" /></h3>
+				<p><f:translate key="BackendListNoMailsSub" /></p>
+			</f:else>
+		</f:if>
+	</div>
 
 </f:section>
