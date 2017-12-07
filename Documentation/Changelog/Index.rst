@@ -18,6 +18,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      4.3.3
+   :Date:
+      2017-12-07
+   :Changes:
+
+      * Bugfix: Fix prefilling of a datefield in chrome with enforceDatepicker
+      * Bugfix: Fix pagebrowser in backend module overviewBeAction()
+
+ - :Version:
       4.3.2
    :Date:
       2017-12-05

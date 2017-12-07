@@ -91,6 +91,7 @@ function PowermailForm($) {
 					if ($this.data('datepicker-force')) {
 						// rewrite input type
 						$this.prop('type', 'text');
+						$this.val($(this).data('date-value'));
 					} else {
 						// get date in format Y-m-d H:i for html5 date fields
 						if ($(this).data('date-value')) {

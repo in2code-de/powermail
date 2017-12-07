@@ -100,7 +100,7 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var addPageBrowseParamsListener = function() {
-		$('.pagination a').click(function(event) {
+		$('.powermail_list .pagination a').click(function(event) {
 			event.preventDefault();
 
 			var href = $(this).prop('href');
