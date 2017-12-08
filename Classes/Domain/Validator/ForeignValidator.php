@@ -8,10 +8,6 @@ use TYPO3\CMS\Extbase\Error\Result;
 
 /**
  * ForeignValidator
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
  */
 class ForeignValidator extends AbstractValidator
 {
@@ -30,7 +26,7 @@ class ForeignValidator extends AbstractValidator
      */
     public function isValid($mail)
     {
-        foreach ($this->settings['validators'] as $validatorConf) {
+        foreach ((array)$this->settings['validators'] as $validatorConf) {
             $this->loadFile($validatorConf['require']);
             if (!class_exists($validatorConf['class'])) {
                 throw new \Exception(
