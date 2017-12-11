@@ -123,6 +123,7 @@ class BackendUtility extends AbstractUtility
                 $route = $router->match($routePath);
                 $moduleName = $route->getOption('_identifier');
             } catch (ResourceNotFoundException $exception) {
+                // ignore it
             }
         }
         return $moduleName;

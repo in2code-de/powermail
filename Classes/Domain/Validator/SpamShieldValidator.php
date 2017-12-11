@@ -105,7 +105,7 @@ class SpamShieldValidator extends AbstractValidator
     {
         if (!empty($method['_enable'])) {
             if (!class_exists($method['class'])) {
-                throw new \Exception(
+                throw new \UnexpectedValueException(
                     'Class ' . $method['class'] . ' does not exists - check if file was loaded with autoloader'
                 );
             }
@@ -125,7 +125,7 @@ class SpamShieldValidator extends AbstractValidator
                     $this->addMessage($method['name'] . ' failed');
                 }
             } else {
-                throw new \Exception('Spam method does not implement ' . $this->methodInterface);
+                throw new \UnexpectedValueException('Spam method does not implement ' . $this->methodInterface);
             }
 
         }
