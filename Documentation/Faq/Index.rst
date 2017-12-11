@@ -493,6 +493,32 @@ In some case you need to set your own additionalAttributes - see following code 
 		additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field, additionalAttributes:'{autocomplete:\'off\',data-something:\'true\'}')}"
 		... />
 
+.. _howtouseajax:
+
+How can I use ajax in powermail?
+--------------------------------
+
+Simply turn ajax via TypoScript constants on:
+
+.. code-block:: text
+
+    plugin.tx_powermail.settings.misc.ajaxSubmit = 1
+
+.. _howtoaddacallbackfunctiononajaxsubmit:
+
+How can I add a callback function on ajax submit?
+-------------------------------------------------
+
+See this example JavaScript how to add an own callback function in JavaScript when an ajaxsubmit is done
+(e.g. to close a lightbox or something else).
+
+.. code-block:: text
+
+    // Note: this event fires on the .tx-powermail element, since its inner html is replaced
+    $('.tx-powermail').on('submitted.powermail.form', function(){
+        console.log('ajax form was submitted');
+    })
+
 .. _whitepageafterupgrade:
 
 I upgraded powermail and a white page comes up
