@@ -18,6 +18,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      4.3.4
+   :Date:
+      2017-12-11
+   :Changes:
+
+      * Task: Small optic cleanup in backend module action selector
+      * Task: Small code cleanup
+
+ - :Version:
       4.3.3
    :Date:
       2017-12-07
