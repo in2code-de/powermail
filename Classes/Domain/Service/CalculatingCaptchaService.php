@@ -8,33 +8,7 @@ use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
-
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2012 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
 
 /**
  * Class CalculatingCaptchaService
@@ -181,7 +155,7 @@ class CalculatingCaptchaService
             $content
         );
         if (imagepng($imageResource, $this->getPathAndFilename(true)) === false) {
-            throw new \Exception('Captcha image could not be generated under ' . $this->getPathAndFilename());
+            throw new \RuntimeException('Captcha image could not be generated under ' . $this->getPathAndFilename());
         }
         imagedestroy($imageResource);
         return $this->getPathAndFilename(false, $addHash);
@@ -419,7 +393,9 @@ class CalculatingCaptchaService
     {
         $this->backgroundImage = $backgroundImage;
         if (!$this->test && !is_file($this->getBackgroundImage(true))) {
-            throw new \Exception('No captcha background image found - please check your TypoScript configuration');
+            throw new \RuntimeException(
+                'No captcha background image found - please check your TypoScript configuration'
+            );
         }
         return $this;
     }
@@ -442,7 +418,9 @@ class CalculatingCaptchaService
     {
         $this->fontPathAndFilename = $fontPathAndFilename;
         if (!$this->test && !is_file($this->getFontPathAndFilename(true))) {
-            throw new \Exception('No captcha truetype font found - please check your TypoScript configuration');
+            throw new \RuntimeException(
+                'No captcha truetype font found - please check your TypoScript configuration'
+            );
         }
         return $this;
     }
@@ -463,7 +441,7 @@ class CalculatingCaptchaService
     protected function testGdExtension()
     {
         if (!extension_loaded('gd')) {
-            throw new \Exception('PHP extension gd not loaded.');
+            throw new \RuntimeException('PHP extension gd not loaded.');
         }
     }
 }

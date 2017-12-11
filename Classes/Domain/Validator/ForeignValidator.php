@@ -29,7 +29,7 @@ class ForeignValidator extends AbstractValidator
         foreach ((array)$this->settings['validators'] as $validatorConf) {
             $this->loadFile($validatorConf['require']);
             if (!class_exists($validatorConf['class'])) {
-                throw new \Exception(
+                throw new \UnexpectedValueException(
                     'Class ' . $validatorConf['class'] . ' does not exists - check if file was loaded with autoloader'
                 );
             }
@@ -41,7 +41,7 @@ class ForeignValidator extends AbstractValidator
                 /** @var Result $result */
                 $this->addErrors($validator->validate($mail));
             } else {
-                throw new \Exception('Validator does not implement ' . $this->validatorInterface);
+                throw new \UnexpectedValueException('Validator does not implement ' . $this->validatorInterface);
             }
         }
 

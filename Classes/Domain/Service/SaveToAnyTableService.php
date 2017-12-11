@@ -4,36 +4,10 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
  * This class allows you to save values to any table in TYPO3 database
  *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class SaveToAnyTableService
  */
 class SaveToAnyTableService
 {
@@ -169,7 +143,7 @@ class SaveToAnyTableService
     protected function checkProperties()
     {
         if (empty($this->getProperties())) {
-            throw new \Exception('No properties to insert/update given');
+            throw new \UnexpectedValueException('No properties to insert/update given');
         }
     }
 
@@ -183,7 +157,7 @@ class SaveToAnyTableService
     public function setTable($table)
     {
         if (empty($table)) {
-            throw new \Exception('No tablename given');
+            throw new \UnexpectedValueException('No tablename given');
         }
         $this->removeNotAllowedSigns($table);
         $this->table = $table;
@@ -381,7 +355,11 @@ class SaveToAnyTableService
         $where = $this->getUniqueField() . ' = ' . $searchterm;
         $where .= $this->getDeletedWhereClause();
         $where .= $this->getAdditionalWhere();
-        $row = $this->databaseConnection->exec_SELECTgetSingleRow($this->getUniqueIdentifier(), $this->getTable(), $where);
+        $row = $this->databaseConnection->exec_SELECTgetSingleRow(
+            $this->getUniqueIdentifier(),
+            $this->getTable(),
+            $where
+        );
         return $row;
     }
 
@@ -403,7 +381,7 @@ class SaveToAnyTableService
     protected function checkIfIdentifierFieldExists()
     {
         if (!$this->isFieldExisting($this->getUniqueIdentifier())) {
-            throw new \Exception(
+            throw new \RuntimeException(
                 'Field ' . $this->getUniqueIdentifier() . ' in table ' . $this->getTable() . ' does not exist,' .
                 ' but it\'s needed for _ifUnique functionality'
             );
