@@ -7,7 +7,7 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from powermail
 				addBootstrap = 0
 
-				# cat=powermail_styles//0010; type=boolean; label= Define path Bootsrap.css
+				# cat=powermail_styles//0010; type=text; label= Define path Bootsrap.css
 				bootstrapPath = EXT:powermail/Resources/Public/Css/Bootstrap.css
 
 				# cat=powermail_styles//0020; type=int+; label= Number of columns
