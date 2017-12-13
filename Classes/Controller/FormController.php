@@ -191,7 +191,7 @@ class FormController extends AbstractController
                 }
             }
         } catch (\Exception $exception) {
-            GeneralUtility::sysLog($exception->getMessage(), 'powermail', GeneralUtility::SYSLOG_SEVERITY_WARNING);
+            GeneralUtility::sysLog($exception->getMessage(), 'powermail', GeneralUtility::SYSLOG_SEVERITY_ERROR);
             $this->addFlashMessage(LocalizationUtility::translate('mail_created_failure'), '', AbstractMessage::ERROR);
         }
     }
