@@ -6,6 +6,9 @@
 FAQ
 ===
 
+.. contents:: Table of Contents
+   :depth: 1
+
 .. _caniuseoldforms:
 
 Can I use old forms from powermail 2.x in powermail 3.x?
