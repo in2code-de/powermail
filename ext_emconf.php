@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = [
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
     'shy' => 0,
-    'version' => '4.3.4',
+    'version' => '4.3.5',
     'dependencies' => 'cms,extbase,fluid',
     'conflicts' => '',
     'priority' => '',

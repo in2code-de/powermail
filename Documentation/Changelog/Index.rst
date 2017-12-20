@@ -18,6 +18,18 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      4.3.5
+   :Date:
+      2017-12-20
+   :Changes:
+
+      * Bugfix: Mails are not stored 3 times any more on each ajaxsubmit (with redirect configuration)
+      * Bugfix: Type in constants for bootstrapPath was wrong (affected in contstant editor)
+      * Task: Log mail sending errors as errors and not was warning
+      * Task: Describe in documentation how to register a callback function on an ajax submit
+      * Task: Small change in documentation
+
+ - :Version:
       4.3.4
    :Date:
       2017-12-11
