@@ -15,6 +15,12 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @inject
+     */
+    protected $configurationManager;
+
+    /**
      * @var ContentObjectRenderer
      */
     protected $contentObject;
@@ -117,7 +123,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     public function initialize()
     {
         $this->extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
-        $this->contentObject = ObjectUtility::getContentObject();
+        $this->contentObject = $this->configurationManager->getContentObject();
         if ($this->arguments['extensionName'] !== null) {
             $this->extensionName = $this->arguments['extensionName'];
         }
