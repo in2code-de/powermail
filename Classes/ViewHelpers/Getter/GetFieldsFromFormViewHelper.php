@@ -61,6 +61,8 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
             return $field->isTypeOf($field::FIELD_TYPE_BASIC);
         } elseif ($fieldType === $field::FIELD_TYPE_ADVANCED) {
             return $field->isTypeOf($field::FIELD_TYPE_ADVANCED);
+        } elseif ($fieldType === $field::FIELD_TYPE_EXTPORTABLE) {
+            return $field->isTypeOf($field::FIELD_TYPE_EXTPORTABLE);
         }
         return false;
     }
