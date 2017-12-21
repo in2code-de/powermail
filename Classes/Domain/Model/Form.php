@@ -117,7 +117,7 @@ class Form extends AbstractEntity
     /**
      * Returns the pages
      *
-     * @return ObjectStorage
+     * @return ObjectStorage|array
      */
     public function getPages()
     {
