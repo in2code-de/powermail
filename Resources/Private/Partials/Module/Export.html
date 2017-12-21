@@ -134,6 +134,6 @@
 
 <f:form.hidden
 		name="export[fields]"
-		value="<f:for each=\"{firstForm.pages}\" as=\"page\"><f:for each=\"{page.fields}\" as=\"field\"><f:if condition=\"{field.advancedFieldType}\">{field.uid},</f:if></f:for></f:for>"
+		value="{vh:string.implodeField(objects:'{vh:getter.getFieldsFromForm(form:firstForm,property:\'uid\',fieldType:\'advanced\')}')}"
 		id="export_fields" />
 

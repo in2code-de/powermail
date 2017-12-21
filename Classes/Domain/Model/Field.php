@@ -16,6 +16,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Field extends AbstractEntity
 {
     const TABLE_NAME = 'tx_powermail_domain_model_field';
+    const FIELD_TYPE_BASIC = 'basic';
+    const FIELD_TYPE_ADVANCED = 'advanced';
 
     /**
      * @var string
@@ -231,6 +233,21 @@ class Field extends AbstractEntity
             'password'
         ];
         return $this->isBasicFieldType() || in_array($this->getType(), $advancedFieldTypes);
+    }
+
+    /**
+     * @param string $type
+     * @return bool
+     */
+    public function isTypeOf($type)
+    {
+        if ($type === self::FIELD_TYPE_BASIC) {
+            return $this->isBasicFieldType();
+        }
+        if ($type === self::FIELD_TYPE_ADVANCED) {
+            return $this->isAdvancedFieldType();
+        }
+        return false;
     }
 
     /**
