@@ -471,7 +471,9 @@ See following example to add a new fieldtype with Partial Newfield.html
 
 .. code-block:: text
 
-	tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name
+    tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name
+    tx_powermail.flexForm.type.addFieldOptions.new.dataType = 0
+    tx_powermail.flexForm.type.addFieldOptions.new.export = 1
 
 .. _additionalAttributesInFieldPartials:
 

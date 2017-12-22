@@ -38,6 +38,10 @@ If you want to add further fields, you can do this with a little bit of Page TSC
    # Example for dataType array
    #tx_powermail.flexForm.type.addFieldOptions.new.dataType = 1
 
+   # The new field is not just a "show some text" field. It's a field where the user can send values and powermail stores the values?
+   # You can tell powermail that this new field should be exportable in backend module and via CommandController
+   #tx_powermail.flexForm.type.addFieldOptions.new.export = 1
+
 With this TSConfig a new Option is available:
 
 |developer_new_fields2|
