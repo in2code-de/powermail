@@ -225,13 +225,8 @@ class ExportService
             /** @var Mail $mail */
             $mail = $mails->getFirst();
             if ($mail !== null) {
-                foreach ($mail->getForm()->getPages() as $page) {
-                    /** @var Field $field */
-                    foreach ($page->getFields() as $field) {
-                        if ($field->isAdvancedFieldType()) {
-                            $fieldList[] = $field->getUid();
-                        }
-                    }
+                foreach ($mail->getForm()->getFields(Field::FIELD_TYPE_EXTPORTABLE) as $field) {
+                    $fieldList[] = $field->getUid();
                 }
             }
         }

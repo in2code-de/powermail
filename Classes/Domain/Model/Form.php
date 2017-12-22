@@ -205,4 +205,42 @@ class Form extends AbstractEntity
         }
         return $this->pagesByUid;
     }
+
+    /**
+     * Get all fields to the current form
+     *
+     * @param string $fieldType "" => allFieldtypes OR $field::FIELD_TYPE_* => Field of this type
+     * @return Field[]
+     */
+    public function getFields($fieldType = '')
+    {
+        $fields = [];
+        foreach ($this->getPages() as $page) {
+            foreach ($page->getFields() as $field) {
+                if ($this->isCorrectFieldType($field, $fieldType)) {
+                    $fields[] = $field;
+                }
+            }
+        }
+        return $fields;
+    }
+
+    /**
+     * @param Field $field
+     * @param $fieldType
+     * @return bool
+     */
+    protected function isCorrectFieldType(Field $field, $fieldType)
+    {
+        if ($fieldType === '') {
+            return true;
+        } elseif ($fieldType === $field::FIELD_TYPE_BASIC) {
+            return $field->isTypeOf($field::FIELD_TYPE_BASIC);
+        } elseif ($fieldType === $field::FIELD_TYPE_ADVANCED) {
+            return $field->isTypeOf($field::FIELD_TYPE_ADVANCED);
+        } elseif ($fieldType === $field::FIELD_TYPE_EXTPORTABLE) {
+            return $field->isTypeOf($field::FIELD_TYPE_EXTPORTABLE);
+        }
+        return false;
+    }
 }
