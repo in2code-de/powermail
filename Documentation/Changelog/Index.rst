@@ -18,6 +18,17 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      4.4.0
+   :Date:
+      2017-12-22
+   :Changes:
+
+      * Feature: Backend module: Allow exporting of new fields
+      * Feature: CommandController: Allow exporting of new fields
+      * Task: Bring testing framework via composer
+      * Task: Small code refactoring
+
+ - :Version:
       4.3.5
    :Date:
       2017-12-20

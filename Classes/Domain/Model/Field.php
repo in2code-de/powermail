@@ -16,6 +16,9 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Field extends AbstractEntity
 {
     const TABLE_NAME = 'tx_powermail_domain_model_field';
+    const FIELD_TYPE_BASIC = 'basic';
+    const FIELD_TYPE_ADVANCED = 'advanced';
+    const FIELD_TYPE_EXTPORTABLE = 'exportable';
 
     /**
      * @var string
@@ -231,6 +234,34 @@ class Field extends AbstractEntity
             'password'
         ];
         return $this->isBasicFieldType() || in_array($this->getType(), $advancedFieldTypes);
+    }
+
+    /**
+     * Check if this field is exportable
+     *
+     * @return bool
+     */
+    public function isExportableFieldType()
+    {
+        return $this->isAdvancedFieldType() || in_array($this->getType(), $this->getExportableTypesFromTypoScript());
+    }
+
+    /**
+     * @param string $type
+     * @return bool
+     */
+    public function isTypeOf($type)
+    {
+        if ($type === self::FIELD_TYPE_BASIC) {
+            return $this->isBasicFieldType();
+        }
+        if ($type === self::FIELD_TYPE_ADVANCED) {
+            return $this->isAdvancedFieldType();
+        }
+        if ($type === self::FIELD_TYPE_EXTPORTABLE) {
+            return $this->isExportableFieldType();
+        }
+        return false;
     }
 
     /**
@@ -746,23 +777,23 @@ class Field extends AbstractEntity
         static $types = null;
         if (is_null($types)) {
             $types = [
-                'captcha' => 0,
-                'check' => 1,
-                'content' => 0,
-                'date' => 2,
-                'file' => 3,
-                'hidden' => 0,
-                'html' => 0,
-                'input' => 0,
-                'location' => 0,
-                'password' => 0,
-                'radio' => 0,
-                'reset' => 0,
-                'select' => 0,
-                'submit' => 0,
-                'text' => 0,
-                'textarea' => 0,
-                'typoscript' => 0
+                'captcha' => Answer::VALUE_TYPE_TEXT,
+                'check' => Answer::VALUE_TYPE_ARRAY,
+                'content' => Answer::VALUE_TYPE_TEXT,
+                'date' => Answer::VALUE_TYPE_DATE,
+                'file' => Answer::VALUE_TYPE_UPLOAD,
+                'hidden' => Answer::VALUE_TYPE_TEXT,
+                'html' => Answer::VALUE_TYPE_TEXT,
+                'input' => Answer::VALUE_TYPE_TEXT,
+                'location' => Answer::VALUE_TYPE_TEXT,
+                'password' => Answer::VALUE_TYPE_TEXT,
+                'radio' => Answer::VALUE_TYPE_TEXT,
+                'reset' => Answer::VALUE_TYPE_TEXT,
+                'select' => Answer::VALUE_TYPE_TEXT,
+                'submit' => Answer::VALUE_TYPE_TEXT,
+                'text' => Answer::VALUE_TYPE_TEXT,
+                'textarea' => Answer::VALUE_TYPE_TEXT,
+                'typoscript' => Answer::VALUE_TYPE_TEXT
             ];
             $types = $this->extendTypeArrayWithTypoScriptTypes($types);
         }
@@ -789,6 +820,10 @@ class Field extends AbstractEntity
     /**
      * Extend dataType with TSConfig
      *
+     *      Example Page TSConfig:
+     *          tx_powermail.flexForm.type.addFieldOptions.new = New Field
+     *          tx_powermail.flexForm.type.addFieldOptions.new.dataType = 0
+     *
      * @param array $types
      * @return array
      */
@@ -800,6 +835,31 @@ class Field extends AbstractEntity
             if (!empty($fieldType['dataType'])) {
                 $fieldTypeName = substr($fieldTypeName, 0, -1);
                 $types[$fieldTypeName] = (int)$fieldType['dataType'];
+            }
+        }
+        return $types;
+    }
+
+    /**
+     * Extend exportable field type with types from TSConfig
+     *
+     *      Example Page TSConfig:
+     *          tx_powermail.flexForm.type.addFieldOptions.new = New Field
+     *          tx_powermail.flexForm.type.addFieldOptions.new.export = 1
+     *
+     * @return array ['new', 'myownfield']
+     */
+    protected function getExportableTypesFromTypoScript()
+    {
+        $types = [];
+        $typoScript = BackendUtility::getPagesTSconfig($this->getPid());
+        $configuration = $typoScript['tx_powermail.']['flexForm.'];
+        foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
+            if (!empty($fieldType['export'])) {
+                if ($fieldType['export'] === '1') {
+                    $fieldTypeName = rtrim($fieldTypeName, '.');
+                    $types[] = $fieldTypeName;
+                }
             }
         }
         return $types;

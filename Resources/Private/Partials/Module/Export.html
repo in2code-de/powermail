@@ -24,7 +24,7 @@
 			<ul class="extended_export_field connected list-group" id="export_field_selection">
 				<f:for each="{firstForm.pages}" as="page">
 					<f:for each="{page.fields}" as="field">
-						<f:if condition="{field.advancedFieldType}">
+						<f:if condition="{field.exportableFieldType}">
 							<li id="{field.uid}" class="list-group-item list-group-item-info pointer">
 								{field.title} <span class="info">(<f:translate key="FormField" />)</span>
 							</li>
@@ -132,8 +132,10 @@
 	</div>
 </div>
 
-<f:form.hidden
-		name="export[fields]"
-		value="<f:for each=\"{firstForm.pages}\" as=\"page\"><f:for each=\"{page.fields}\" as=\"field\"><f:if condition=\"{field.advancedFieldType}\">{field.uid},</f:if></f:for></f:for>"
-		id="export_fields" />
+<f:if condition="{firstForm}">
+	<f:form.hidden
+			name="export[fields]"
+			value="{vh:string.implodeField(objects:'{vh:getter.getFieldsFromForm(form:firstForm,property:\'uid\',fieldType:\'exportable\')}')}"
+			id="export_fields" />
+</f:if>
 

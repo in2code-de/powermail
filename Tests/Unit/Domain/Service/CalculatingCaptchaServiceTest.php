@@ -2,6 +2,7 @@
 namespace In2code\Powermail\Tests\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
@@ -10,36 +11,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * CalculatingCaptchaService Tests
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class CalculatingCaptchaServiceTest
+ * @coversDefaultClass \In2code\Powermail\Domain\Service\CalculatingCaptchaService
  */
 class CalculatingCaptchaServiceTest extends UnitTestCase
 {
@@ -55,7 +29,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     public function setUp()
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Domain\Service\CalculatingCaptchaService',
+            CalculatingCaptchaService::class,
             ['dummy'],
             [true]
         );
@@ -81,7 +55,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * Data Provider for validCodeReturnsBool)
+     * Data Provider for validCodeReturnsBool
      *
      * @return array
      */
@@ -147,13 +121,12 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * setPathAndFilename Test
-     *
      * @param string $code Given from input field (should be a string)
      * @param string $codeInSession (string or empty)
      * @param bool $expectedResult
      * @dataProvider validCodeReturnsBoolDataProvider
      * @test
+     * @covers ::validCode
      */
     public function validCodeReturnsBool($code, $codeInSession, $expectedResult)
     {
@@ -184,13 +157,12 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * getColorForCaptcha Test
-     *
      * @param string $hexColorString
      * @param string $expectedResult
      * @dataProvider getColorForCaptchaReturnIntDataProvider
      * @return void
      * @test
+     * @covers ::getColorForCaptcha
      */
     public function getColorForCaptchaReturnInt($hexColorString, $expectedResult)
     {
@@ -200,11 +172,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set(
             'configuration',
             [
-                'captcha.' => [
-                    'default.' => [
-                        'textColor' => $hexColorString
-                    ]
-                ]
+                'textColor' => $hexColorString
             ]
         );
 
@@ -245,13 +213,12 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * getFontAngleForCaptcha Test
-     *
      * @param string $hexColorString
      * @param array $expectedResult
      * @dataProvider getFontAngleForCaptchaReturnIntDataProvider
      * @return void
      * @test
+     * @covers ::getFontAngleForCaptcha
      */
     public function getFontAngleForCaptchaReturnInt($hexColorString, $expectedResult)
     {
@@ -306,13 +273,12 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * getHorizontalDistanceForCaptcha Test
-     *
      * @param string $hexColorString
      * @param array $expectedResult
      * @dataProvider getHorizontalDistanceForCaptchaReturnIntDataProvider
      * @return void
      * @test
+     * @covers ::getHorizontalDistanceForCaptcha
      */
     public function getHorizontalDistanceForCaptchaReturnInt($hexColorString, $expectedResult)
     {
@@ -367,13 +333,12 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * getVerticalDistanceForCaptcha Test
-     *
      * @param string $hexColorString
      * @param array $expectedResult
      * @dataProvider getVerticalDistanceForCaptchaReturnIntDataProvider
      * @return void
      * @test
+     * @covers ::getVerticalDistanceForCaptcha
      */
     public function getVerticalDistanceForCaptchaReturnInt($hexColorString, $expectedResult)
     {
@@ -442,24 +407,19 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * getStringAndResultForCaptcha Test
-     *
      * @param string $forceValue
      * @param string $expectedResult
      * @dataProvider getStringAndResultForCaptchaReturnsArrayDataProvider
      * @return void
      * @test
+     * @covers ::getStringAndResultForCaptcha
      */
     public function getStringAndResultForCaptchaReturnsArray($forceValue, $expectedResult)
     {
         $this->generalValidatorMock->_set(
             'configuration',
             [
-                'captcha.' => [
-                    'default.' => [
-                        'forceValue' => $forceValue
-                    ]
-                ]
+                'forceValue' => $forceValue
             ]
         );
         $result = $this->generalValidatorMock->_call('getStringAndResultForCaptcha');
@@ -467,61 +427,9 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * Data Provider for mathematicOperationReturnsInt()
-     *
-     * @return array
-     */
-    public function mathematicOperationReturnsIntDataProvider()
-    {
-        return [
-            [
-                1,
-                3,
-                '+',
-                4
-            ],
-            [
-                7,
-                2,
-                '-',
-                5
-            ],
-            [
-                6,
-                3,
-                ':',
-                2
-            ],
-            [
-                11,
-                3,
-                'x',
-                33
-            ],
-        ];
-    }
-
-    /**
-     * getStringForCaptcha Test
-     *
-     * @param int $number1
-     * @param int $number2
-     * @param string $operator
-     * @param string $expectedResult
-     * @dataProvider mathematicOperationReturnsIntDataProvider
      * @return void
      * @test
-     */
-    public function mathematicOperationReturnsInt($number1, $number2, $operator, $expectedResult)
-    {
-        $result = $this->generalValidatorMock->_call('mathematicOperation', $number1, $number2, $operator);
-        $this->assertSame($expectedResult, $result);
-    }
-
-    /**
-     * getImagePath Test
-     *
-     * @test
+     * @covers ::getImagePath
      */
     public function getImagePathReturnString()
     {
@@ -540,9 +448,9 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * setPathAndFilename Test
-     *
+     * @return void
      * @test
+     * @covers ::setPathAndFilename
      */
     public function setPathAndFilenameReturnVoid()
     {
@@ -561,6 +469,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     protected function initializeTsfe()
     {
+        $_SERVER['REMOTE_ADDR'] = '';
         $configurationManager = new ConfigurationManager();
         $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';

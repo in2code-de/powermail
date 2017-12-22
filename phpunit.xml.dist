@@ -1,0 +1,41 @@
+<phpunit
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/5.4/phpunit.xsd"
+		backupGlobals="true"
+		backupStaticAttributes="false"
+		cacheTokens="false"
+		colors="true"
+		bootstrap=".Build/vendor/nimut/testing-framework/src/TestingFramework/Bootstrap/UnitTestsBootstrap.php"
+		convertErrorsToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningsToExceptions="true"
+		forceCoversAnnotation="true"
+		processIsolation="false"
+		stopOnError="false"
+		stopOnFailure="false"
+		stopOnIncomplete="false"
+		stopOnSkipped="false"
+		stopOnRisky="false"
+		timeoutForSmallTests="1"
+		timeoutForMediumTests="10"
+		timeoutForLargeTests="60"
+		verbose="false">
+	<php>
+		<ini name="error_reporting" value="E_ERROR"/>
+		<ini name="intl.default_locale" value="en"/>
+		<ini name="intl.error_level" value="0"/>
+		<ini name="memory_limit" value="-1"/>
+	</php>
+
+	<testsuites>
+		<testsuite name="powermail Core Test Suite">
+			<directory>Tests/Unit/</directory>
+		</testsuite>
+	</testsuites>
+
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="false" processUncoveredFilesFromWhitelist="false">
+			<directory suffix=".php">Classes/</directory>
+		</whitelist>
+	</filter>
+</phpunit>

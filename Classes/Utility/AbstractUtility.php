@@ -110,10 +110,11 @@ abstract class AbstractUtility
      */
     protected static function getEncryptionKey()
     {
-        if (empty($GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'])) {
-            throw new \RuntimeException('No encryption key found in this TYPO3 installation');
+        $confVars = self::getTypo3ConfigurationVariables();
+        if (empty($confVars['SYS']['encryptionKey'])) {
+            throw new \DomainException('No encryption key found in this TYPO3 installation');
         }
-        return $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'];
+        return $confVars['SYS']['encryptionKey'];
     }
 
     /**

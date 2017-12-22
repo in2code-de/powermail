@@ -3,6 +3,8 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\MathematicUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
@@ -17,7 +19,7 @@ class CalculatingCaptchaService
 {
 
     /**
-     * TypoScript
+     * TypoScript with captcha configuration
      *
      * @var array
      */
@@ -100,11 +102,11 @@ class CalculatingCaptchaService
      */
     public function render(Field $field)
     {
-        $this->testGdExtension();
+        ConfigurationUtility::testGdExtension();
         if ($this->configurationExists()) {
             $this
-                ->setBackgroundImage($this->configuration['captcha.']['default.']['image'])
-                ->setFontPathAndFilename($this->configuration['captcha.']['default.']['font'])
+                ->setBackgroundImage($this->configuration['image'])
+                ->setFontPathAndFilename($this->configuration['font'])
                 ->setPathAndFilename($field);
             BasicFileUtility::createFolderIfNotExists($this->getImagePath(true));
             $captchaValue = $this->getStringAndResultForCaptcha();
@@ -146,7 +148,7 @@ class CalculatingCaptchaService
         $imageResource = imagecreatefrompng($this->getBackgroundImage(true));
         imagettftext(
             $imageResource,
-            $this->configuration['captcha.']['default.']['textSize'],
+            $this->configuration['textSize'],
             $this->getFontAngleForCaptcha(),
             $this->getHorizontalDistanceForCaptcha(),
             $this->getVerticalDistanceForCaptcha(),
@@ -155,7 +157,7 @@ class CalculatingCaptchaService
             $content
         );
         if (imagepng($imageResource, $this->getPathAndFilename(true)) === false) {
-            throw new \RuntimeException('Captcha image could not be generated under ' . $this->getPathAndFilename());
+            throw new \DomainException('Captcha image could not be generated under ' . $this->getPathAndFilename());
         }
         imagedestroy($imageResource);
         return $this->getPathAndFilename(false, $addHash);
@@ -169,7 +171,7 @@ class CalculatingCaptchaService
      */
     protected function getColorForCaptcha($imageResource)
     {
-        $colorRgb = sscanf($this->configuration['captcha.']['default.']['textColor'], '#%2x%2x%2x');
+        $colorRgb = sscanf($this->configuration['textColor'], '#%2x%2x%2x');
         return imagecolorallocate($imageResource, $colorRgb[0], $colorRgb[1], $colorRgb[2]);
     }
 
@@ -180,7 +182,7 @@ class CalculatingCaptchaService
      */
     protected function getFontAngleForCaptcha()
     {
-        $angles = GeneralUtility::trimExplode(',', $this->configuration['captcha.']['default.']['textAngle'], true);
+        $angles = GeneralUtility::trimExplode(',', $this->configuration['textAngle'], true);
         return mt_rand($angles[0], $angles[1]);
     }
 
@@ -191,11 +193,7 @@ class CalculatingCaptchaService
      */
     protected function getHorizontalDistanceForCaptcha()
     {
-        $distances = GeneralUtility::trimExplode(
-            ',',
-            $this->configuration['captcha.']['default.']['distanceHor'],
-            true
-        );
+        $distances = GeneralUtility::trimExplode(',', $this->configuration['distanceHor'], true);
         return mt_rand($distances[0], $distances[1]);
     }
 
@@ -206,11 +204,7 @@ class CalculatingCaptchaService
      */
     protected function getVerticalDistanceForCaptcha()
     {
-        $distances = GeneralUtility::trimExplode(
-            ',',
-            $this->configuration['captcha.']['default.']['distanceVer'],
-            true
-        );
+        $distances = GeneralUtility::trimExplode(',', $this->configuration['distanceVer'], true);
         return mt_rand($distances[0], $distances[1]);
     }
 
@@ -230,56 +224,29 @@ class CalculatingCaptchaService
         for ($i = 0; $i < 100; $i++) {
             $number1 = mt_rand(0, $maxNumber);
             $number2 = mt_rand(0, $maxNumber);
-            $result = $this->mathematicOperation($number1, $number2, $operator);
+            $result = MathematicUtility::mathematicOperation($number1, $number2, $operator);
             if ($result > 0) {
                 break;
             }
         }
 
         // Force values for testing
-        if (!empty($this->configuration['captcha.']['default.']['forceValue'])) {
+        if (!empty($this->configuration['forceValue'])) {
             preg_match_all(
                 '~(\d+)\s*([+|\-|:|x])\s*(\d+)~',
-                $this->configuration['captcha.']['default.']['forceValue'],
+                $this->configuration['forceValue'],
                 $matches
             );
             $number1 = $matches[1][0];
             $number2 = $matches[3][0];
             $operator = $matches[2][0];
-            $result = $this->mathematicOperation($number1, $number2, $operator);
+            $result = MathematicUtility::mathematicOperation($number1, $number2, $operator);
         }
 
         return [
             'result' => $result,
             'string' => $number1 . ' ' . $operator . ' ' . $number2
         ];
-    }
-
-    /**
-     * Mathematic operation
-     *
-     * @param int $number1
-     * @param int $number2
-     * @param string $operator +|-|x|:
-     * @return int
-     */
-    protected function mathematicOperation($number1, $number2, $operator = '+')
-    {
-        switch ($operator) {
-            case '-':
-                $result = $number1 - $number2;
-                break;
-            case 'x':
-                $result = $number1 * $number2;
-                break;
-            case ':':
-                $result = $number1 / $number2;
-                break;
-            case '+':
-            default:
-                $result = $number1 + $number2;
-        }
-        return $result;
     }
 
     /**
@@ -306,17 +273,10 @@ class CalculatingCaptchaService
     {
         if (!$this->test) {
             $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
-            $this->configuration = $configurationService->getTypoScriptConfiguration();
+            $allConfiguration = $configurationService->getTypoScriptConfiguration();
+            $this->configuration = $allConfiguration['captcha.']['default.'];
         }
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getConfiguration()
-    {
-        return $this->configuration;
     }
 
     /**
@@ -325,11 +285,11 @@ class CalculatingCaptchaService
      */
     public function getImagePath($absolute = false)
     {
-        $imagePath = $this->imagePath;
+        $currentImagePath = $this->imagePath;
         if ($absolute) {
-            $imagePath = GeneralUtility::getFileAbsFileName($imagePath);
+            $currentImagePath = GeneralUtility::getFileAbsFileName($currentImagePath);
         }
-        return $imagePath;
+        return $currentImagePath;
     }
 
     /**
@@ -363,14 +323,14 @@ class CalculatingCaptchaService
      */
     public function getPathAndFilename($absolute = false, $addHash = false)
     {
-        $pathAndFilename = $this->pathAndFilename;
+        $pathFilename = $this->pathAndFilename;
         if ($absolute) {
-            $pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
+            $pathFilename = GeneralUtility::getFileAbsFileName($pathFilename);
         }
         if ($addHash) {
-            $pathAndFilename .= '?hash=' . StringUtility::getRandomString(8);
+            $pathFilename .= '?hash=' . StringUtility::getRandomString(8);
         }
-        return $pathAndFilename;
+        return $pathFilename;
     }
 
     /**
@@ -393,7 +353,7 @@ class CalculatingCaptchaService
     {
         $this->backgroundImage = $backgroundImage;
         if (!$this->test && !is_file($this->getBackgroundImage(true))) {
-            throw new \RuntimeException(
+            throw new \InvalidArgumentException(
                 'No captcha background image found - please check your TypoScript configuration'
             );
         }
@@ -418,7 +378,7 @@ class CalculatingCaptchaService
     {
         $this->fontPathAndFilename = $fontPathAndFilename;
         if (!$this->test && !is_file($this->getFontPathAndFilename(true))) {
-            throw new \RuntimeException(
+            throw new \InvalidArgumentException(
                 'No captcha truetype font found - please check your TypoScript configuration'
             );
         }
@@ -430,18 +390,6 @@ class CalculatingCaptchaService
      */
     protected function configurationExists()
     {
-        return !empty($this->configuration['captcha.']['default.']);
-    }
-
-    /**
-     * Check if gdlib is loaded on this server
-     *
-     * @throws \Exception
-     */
-    protected function testGdExtension()
-    {
-        if (!extension_loaded('gd')) {
-            throw new \RuntimeException('PHP extension gd not loaded.');
-        }
+        return !empty($this->configuration);
     }
 }

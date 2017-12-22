@@ -1,39 +1,13 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Model;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * Answer Tests
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class AnswerTest
+ * @coversDefaultClass \In2code\Powermail\Domain\Model\Answer
  */
 class AnswerTest extends UnitTestCase
 {
@@ -48,7 +22,7 @@ class AnswerTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->generalValidatorMock = $this->getAccessibleMock('\In2code\Powermail\Domain\Model\Answer', ['dummy']);
+        $this->generalValidatorMock = $this->getAccessibleMock(Answer::class, ['dummy']);
     }
 
     /**
@@ -131,8 +105,6 @@ class AnswerTest extends UnitTestCase
     }
 
     /**
-     * Test for getValue()
-     *
      * @param mixed $value
      * @param mixed $expectedResult
      * @param int $valueType
@@ -140,6 +112,7 @@ class AnswerTest extends UnitTestCase
      * @return void
      * @dataProvider getValueReturnVoidDataProvider
      * @test
+     * @covers ::getValue
      */
     public function getValueReturnMixed($value, $expectedResult, $valueType = 0, $datepickerSettings = null)
     {
@@ -163,12 +136,11 @@ class AnswerTest extends UnitTestCase
     }
 
     /**
-     * Test for getRawValue()
-     *
      * @param mixed $value
      * @return void
      * @dataProvider getValueReturnVoidDataProvider
      * @test
+     * @covers ::getRawValue
      */
     public function getRawValueReturnString($value)
     {
@@ -248,8 +220,6 @@ class AnswerTest extends UnitTestCase
     }
 
     /**
-     * Test for setValue()
-     *
      * @param mixed $value
      * @param mixed $expectedResult
      * @param string $fieldType
@@ -257,6 +227,7 @@ class AnswerTest extends UnitTestCase
      * @return void
      * @dataProvider setValueReturnVoidDataProvider
      * @test
+     * @covers ::setValue()
      */
     public function setValueReturnVoid($value, $expectedResult, $fieldType = null, $datepickerSettings = null)
     {

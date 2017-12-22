@@ -133,7 +133,9 @@ powermail
 ::
 
    # Powermail will search for the Partial Newfield.html
-   tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name |img-92|
+   tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name
+   tx_powermail.flexForm.type.addFieldOptions.new.dataType = 0
+   tx_powermail.flexForm.type.addFieldOptions.new.export = 1
 
 
 

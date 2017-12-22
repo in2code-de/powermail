@@ -4,33 +4,9 @@ namespace In2code\Powermail\Tests\Domain\Service\Mail;
 use In2code\Powermail\Domain\Service\Mail\PlaintextService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2016 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
 
 /**
  * Class PlaintextServiceTest
- * @package In2code\Powermail\Tests\Domain\Service
  * @coversDefaultClass \In2code\Powermail\Domain\Service\Mail\PlaintextService
  */
 class PlaintextServiceTest extends UnitTestCase
@@ -112,8 +88,6 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * makePlain Test
-     *
      * @param string $content
      * @param string $expectedResult
      * @dataProvider makePlainReturnStringDataProvider
@@ -128,8 +102,6 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * removeHeadElement Test
-     *
      * @return void
      * @test
      * @covers ::removeHeadElement
@@ -143,8 +115,6 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * removeLinebreaksAndTabs Test
-     *
      * @return void
      * @test
      * @covers ::removeLinebreaksAndTabs
@@ -158,8 +128,6 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * addLineBreaks Test
-     *
      * @return void
      * @test
      * @covers ::addLineBreaks
@@ -173,8 +141,6 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * addSpaceToTableCells Test
-     *
      * @return void
      * @test
      * @covers ::addSpaceToTableCells
@@ -188,8 +154,6 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * removeTags Test
-     *
      * @return void
      * @test
      * @covers ::removeTags
@@ -203,8 +167,6 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * extractLinkForPlainTextContent Test
-     *
      * @return void
      * @test
      * @covers ::extractLinkForPlainTextContent
