@@ -1,38 +1,12 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Service;
 
+use In2code\Powermail\Domain\Service\ExportService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * ExportService Tests
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class ExportServiceTest
+ * @coversDefaultClass \In2code\Powermail\Domain\Service\ExportService
  */
 class ExportServiceTest extends UnitTestCase
 {
@@ -48,7 +22,7 @@ class ExportServiceTest extends UnitTestCase
     public function setUp()
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Domain\Service\ExportService',
+            ExportService::class,
             ['dummy']
         );
     }
@@ -89,13 +63,12 @@ class ExportServiceTest extends UnitTestCase
     }
 
     /**
-     * getRelativeTemplatePathAndFileName Test
-     *
      * @param string $format
      * @param string $expectedResult
      * @dataProvider getRelativeTemplatePathAndFileNameReturnsStringDataProvider
      * @return void
      * @test
+     * @covers ::getRelativeTemplatePathAndFileName
      */
     public function getRelativeTemplatePathAndFileNameReturnsString($format, $expectedResult)
     {
@@ -135,13 +108,12 @@ class ExportServiceTest extends UnitTestCase
     }
 
     /**
-     * getFormat Test
-     *
      * @param string $format
      * @param string $expectedResult
      * @dataProvider getFormatReturnsStringDataProvider
      * @return void
      * @test
+     * @covers ::getFormat
      */
     public function getFormatReturnsString($format, $expectedResult)
     {

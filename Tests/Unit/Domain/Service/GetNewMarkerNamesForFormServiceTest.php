@@ -2,11 +2,12 @@
 namespace In2code\Powermail\Tests\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
  * Class GetNewMarkerNamesForFormServiceTest
- * @package In2code\Powermail\Tests\Domain\Service
+ * @coversDefaultClass \In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService
  */
 class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
 {
@@ -22,7 +23,7 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     public function setUp()
     {
         $this->createMarkerMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService',
+            GetNewMarkerNamesForFormService::class,
             ['dummy']
         );
     }
@@ -67,14 +68,13 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     }
 
     /**
-     * Test for cleanString()
-     *
      * @param string $string
      * @param string $defaultValue
      * @param string $expectedResult
      * @return void
      * @dataProvider cleanStringReturnsStringDataProvider
      * @test
+     * @covers ::cleanString
      */
     public function cleanStringReturnsString($string, $defaultValue, $expectedResult)
     {
@@ -213,13 +213,12 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     }
 
     /**
-     * Test for makeUniqueValueInArray()
-     *
      * @param array $propertiesFields
      * @param array $expectedResult
      * @return void
      * @dataProvider makeUniqueValueInArrayReturnsVoidDataProvider
      * @test
+     * @covers ::makeUniqueValueInArray
      */
     public function makeUniqueValueInArrayReturnsVoid($propertiesFields, $expectedResult, $forceReset)
     {
@@ -232,7 +231,8 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
             $fieldArray[$field->getUid()] = $field;
         }
         $this->assertSame(
-            $expectedResult, $this->createMarkerMock->_callRef('makeUniqueValueInArray', $fieldArray, $forceReset)
+            $expectedResult,
+            $this->createMarkerMock->_callRef('makeUniqueValueInArray', $fieldArray, $forceReset)
         );
     }
 }

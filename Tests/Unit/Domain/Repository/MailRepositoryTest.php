@@ -8,35 +8,17 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * MailRepository Tests
+ * Class MailRepositoryTest
+ * @coversDefaultClass \In2code\Powermail\Domain\Repository\MailRepository
  */
 class MailRepositoryTest extends UnitTestCase
 {
+
+    /**
+     * @var array
+     */
+    protected $testFilesToDelete = [];
 
     /**
      * @var \In2code\Powermail\Domain\Repository\MailRepository
@@ -96,13 +78,12 @@ class MailRepositoryTest extends UnitTestCase
     }
 
     /**
-     * Test for getLabelsWithMarkersFromMail()
-     *
      * @param array $values
      * @param string $expectedResult
      * @return void
      * @dataProvider getLabelsWithMarkersFromMailReturnsArrayDataProvider
      * @test
+     * @covers ::getLabelsWithMarkersFromMail
      */
     public function getLabelsWithMarkersFromMailReturnsArray($values, $expectedResult)
     {
@@ -185,13 +166,12 @@ class MailRepositoryTest extends UnitTestCase
     }
 
     /**
-     * Test for getVariablesWithMarkersFromMail()
-     *
      * @param array $values
      * @param string $expectedResult
      * @return void
      * @dataProvider getVariablesWithMarkersFromMailReturnsArrayDataProvider
      * @test
+     * @covers ::getVariablesWithMarkersFromMail
      */
     public function getVariablesWithMarkersFromMailReturnsArray($values, $expectedResult)
     {
@@ -277,8 +257,6 @@ class MailRepositoryTest extends UnitTestCase
     }
 
     /**
-     * Test for getSenderMailFromArguments()
-     *
      * @param array $values
      * @param string $fallback
      * @param string $defaultMailFromAddress
@@ -286,6 +264,7 @@ class MailRepositoryTest extends UnitTestCase
      * @return void
      * @dataProvider getSenderMailFromArgumentsReturnsStringDataProvider
      * @test
+     * @covers ::getSenderMailFromArguments
      */
     public function getSenderMailFromArgumentsReturnsString(
         $values,
@@ -368,8 +347,6 @@ class MailRepositoryTest extends UnitTestCase
     }
 
     /**
-     * Test for getSenderNameFromArguments()
-     *
      * @param array $values
      * @param string $fallback
      * @param string $defaultMailFromAddress
@@ -377,6 +354,7 @@ class MailRepositoryTest extends UnitTestCase
      * @return void
      * @dataProvider getSenderNameFromArgumentsReturnsStringDataProvider
      * @test
+     * @covers ::getSenderMailFromArguments
      */
     public function getSenderNameFromArgumentsReturnsString(
         $values,
@@ -403,5 +381,17 @@ class MailRepositoryTest extends UnitTestCase
 
         $result = $this->generalValidatorMock->_callRef('getSenderNameFromArguments', $mail, $fallback);
         $this->assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @return void
+     * @test
+     * @covers ::cleanStringForQuery
+     */
+    public function cleanStringForQueryReturnsString()
+    {
+        $str = '1a2b3+üßT$st';
+        $result = $this->generalValidatorMock->_call('cleanStringForQuery', $str);
+        $this->assertSame('1a2b3Tst', $result);
     }
 }

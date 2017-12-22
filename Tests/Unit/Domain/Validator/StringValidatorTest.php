@@ -1,38 +1,12 @@
 <?php
 namespace In2code\Powermail\Tests\Domain\Validator;
 
+use In2code\Powermail\Domain\Validator\StringValidator;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * StringValidator Tests
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class StringValidatorTest
+ * @coversDefaultClass \In2code\Powermail\Domain\Validator\StringValidator
  */
 class StringValidatorTest extends UnitTestCase
 {
@@ -48,7 +22,7 @@ class StringValidatorTest extends UnitTestCase
     public function setUp()
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Domain\Validator\StringValidator',
+            StringValidator::class,
             ['dummy']
         );
     }
@@ -89,13 +63,12 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateMandatory()
-     *
      * @param string $value
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateMandatoryForStringOrArrayReturnsBoolDataProvider
      * @test
+     * @covers ::validateMandatory
      */
     public function validateMandatoryForStringOrArrayReturnsBool($value, $expectedResult)
     {
@@ -147,13 +120,12 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateEmail()
-     *
      * @param string $value
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateEmailReturnsBoolDataProvider
      * @test
+     * @covers ::validateEmail
      */
     public function validateEmailReturnsBool($value, $expectedResult)
     {
@@ -201,13 +173,12 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateUrl()
-     *
      * @param string $value
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateUrlReturnsBoolDataProvider
      * @test
+     * @covers ::validateUrl
      */
     public function validateUrlReturnsBool($value, $expectedResult)
     {
@@ -303,13 +274,12 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validatePhone()
-     *
      * @param string $value
      * @param bool $expectedResult
      * @return void
      * @dataProvider validatePhoneReturnsBoolDataProvider
      * @test
+     * @covers ::validatePhone
      */
     public function validatePhoneReturnsBool($value, $expectedResult)
     {
@@ -353,13 +323,12 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateNumbersOnly()
-     *
      * @param string $value
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateNumbersOnlyReturnsBoolDataProvider
      * @test
+     * @covers ::validateNumbersOnly
      */
     public function validateNumbersOnlyReturnsBool($value, $expectedResult)
     {
@@ -415,13 +384,12 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateLettersOnly()
-     *
      * @param string $value
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateLettersOnlyReturnsBoolDataProvider
      * @test
+     * @covers ::validateLettersOnly
      */
     public function validateLettersOnlyReturnsBool($value, $expectedResult)
     {
@@ -486,14 +454,13 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateMinNumber()
-     *
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateMinNumberReturnsBoolDataProvider
      * @test
+     * @covers ::validateMinNumber
      */
     public function validateMinNumberReturnsBool($value, $configuration, $expectedResult)
     {
@@ -558,14 +525,13 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateMaxNumber()
-     *
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateMaxNumberReturnsBoolDataProvider
      * @test
+     * @covers ::validateMaxNumber
      */
     public function validateMaxNumberReturnsBool($value, $configuration, $expectedResult)
     {
@@ -625,14 +591,13 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateRange()
-     *
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateRangeReturnsBoolDataProvider
      * @test
+     * @covers ::validateRange
      */
     public function validateRangeReturnsBool($value, $configuration, $expectedResult)
     {
@@ -692,14 +657,13 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validateLength()
-     *
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
      * @return void
      * @dataProvider validateLengthReturnsBoolDataProvider
      * @test
+     * @covers ::validateLength
      */
     public function validateLengthReturnsBool($value, $configuration, $expectedResult)
     {
@@ -754,14 +718,13 @@ class StringValidatorTest extends UnitTestCase
     }
 
     /**
-     * Test for validatePattern()
-     *
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
      * @return void
      * @dataProvider validatePatternReturnsBoolDataProvider
      * @test
+     * @covers ::validatePattern
      */
     public function validatePatternReturnsBool($value, $configuration, $expectedResult)
     {

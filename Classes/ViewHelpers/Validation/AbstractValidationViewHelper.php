@@ -42,7 +42,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     protected function isNativeValidationEnabled()
     {
-        return $this->settings['validation']['native'] === '1';
+        return !empty($this->settings['validation']['native']) && $this->settings['validation']['native'] === '1';
     }
 
     /**
@@ -52,7 +52,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     protected function isClientValidationEnabled()
     {
-        return $this->settings['validation']['client'] === '1';
+        return !empty($this->settings['validation']['client']) && $this->settings['validation']['client'] === '1';
     }
 
     /**
