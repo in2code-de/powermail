@@ -155,7 +155,7 @@ class CalculatingCaptchaService
             $content
         );
         if (imagepng($imageResource, $this->getPathAndFilename(true)) === false) {
-            throw new \RuntimeException('Captcha image could not be generated under ' . $this->getPathAndFilename());
+            throw new \DomainException('Captcha image could not be generated under ' . $this->getPathAndFilename());
         }
         imagedestroy($imageResource);
         return $this->getPathAndFilename(false, $addHash);
@@ -393,7 +393,7 @@ class CalculatingCaptchaService
     {
         $this->backgroundImage = $backgroundImage;
         if (!$this->test && !is_file($this->getBackgroundImage(true))) {
-            throw new \RuntimeException(
+            throw new \InvalidArgumentException(
                 'No captcha background image found - please check your TypoScript configuration'
             );
         }
@@ -418,7 +418,7 @@ class CalculatingCaptchaService
     {
         $this->fontPathAndFilename = $fontPathAndFilename;
         if (!$this->test && !is_file($this->getFontPathAndFilename(true))) {
-            throw new \RuntimeException(
+            throw new \InvalidArgumentException(
                 'No captcha truetype font found - please check your TypoScript configuration'
             );
         }
@@ -441,7 +441,7 @@ class CalculatingCaptchaService
     protected function testGdExtension()
     {
         if (!extension_loaded('gd')) {
-            throw new \RuntimeException('PHP extension gd not loaded.');
+            throw new \InvalidArgumentException('PHP extension gd not loaded.');
         }
     }
 }

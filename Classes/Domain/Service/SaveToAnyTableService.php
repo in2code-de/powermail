@@ -381,7 +381,7 @@ class SaveToAnyTableService
     protected function checkIfIdentifierFieldExists()
     {
         if (!$this->isFieldExisting($this->getUniqueIdentifier())) {
-            throw new \RuntimeException(
+            throw new \InvalidArgumentException(
                 'Field ' . $this->getUniqueIdentifier() . ' in table ' . $this->getTable() . ' does not exist,' .
                 ' but it\'s needed for _ifUnique functionality'
             );
