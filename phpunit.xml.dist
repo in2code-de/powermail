@@ -5,7 +5,7 @@
 		backupStaticAttributes="false"
 		cacheTokens="false"
 		colors="true"
-		bootstrap=".Build/vendor/nimut/testing-framework/src/TestingFramework/Bootstrap/UnitTestsBootstrap.php"
+		bootstrap="Tests/Unit/bootstrap.php"
 		convertErrorsToExceptions="true"
 		convertNoticesToExceptions="true"
 		convertWarningsToExceptions="true"
