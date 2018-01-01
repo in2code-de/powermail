@@ -121,6 +121,18 @@ class BasicFileUtiltyTest extends UnitTestCase
     /**
      * @return void
      * @test
+     * @covers ::createFolderIfNotExists
+     */
+    public function createFolderIfNotExistsReturnsVoidException()
+    {
+        $testpath = TestingHelper::getWebRoot() . 'ß/\T$#*9t';
+        $this->expectExceptionCode(1514817474234);
+        BasicFileUtility::createFolderIfNotExists($testpath);
+    }
+
+    /**
+     * @return void
+     * @test
      * @covers ::prependContentToFile
      */
     public function prependContentToFileReturnsVoid()
