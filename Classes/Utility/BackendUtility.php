@@ -173,7 +173,10 @@ class BackendUtility extends AbstractUtility
         }
         $urlParts = parse_url($returnUrl);
         parse_str($urlParts['query'], $queryParts);
-        return (int)$queryParts['id'];
+        if (array_key_exists('id', $queryParts)) {
+            return (int)$queryParts['id'];
+        }
+        return 0;
     }
 
     /**
@@ -215,6 +218,7 @@ class BackendUtility extends AbstractUtility
     {
         if (!self::isBackendAdmin()) {
             $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+            // @codeCoverageIgnoreStart
             $newPids = [];
             foreach ($pids as $pid) {
                 $properties = $pageRepository->getPropertiesFromUid($pid);
@@ -223,6 +227,7 @@ class BackendUtility extends AbstractUtility
                 }
             }
             $pids = $newPids;
+            // @codeCoverageIgnoreEnd
         }
         return $pids;
     }
