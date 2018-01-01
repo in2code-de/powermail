@@ -21,6 +21,9 @@ class TestingHelper
         if (!defined('PATH_thisScript')) {
             define('PATH_thisScript', self::getWebRoot() . 'typo3');
         }
+        if (!defined('TYPO3_version')) {
+            define('TYPO3_version', '8007000');
+        }
         $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] = '';
     }
 

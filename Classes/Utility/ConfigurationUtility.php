@@ -102,6 +102,7 @@ class ConfigurationUtility extends AbstractUtility
      * Get development email (only if in dev context)
      *
      * @return false|string
+     * @codeCoverageIgnore
      */
     public static function getDevelopmentContextEmail()
     {
@@ -180,11 +181,12 @@ class ConfigurationUtility extends AbstractUtility
      * Check if gdlib is loaded on this server
      *
      * @throws \Exception
+     * @codeCoverageIgnore
      */
     public static function testGdExtension()
     {
         if (!extension_loaded('gd')) {
-            throw new \InvalidArgumentException('PHP extension gd not loaded.');
+            throw new \InvalidArgumentException('PHP extension gd not loaded.', 1514819369374);
         }
     }
 
