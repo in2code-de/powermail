@@ -100,6 +100,10 @@ class ArrayUtilityTest extends UnitTestCase
                 'a,b:c',
                 false
             ],
+            [
+                [],
+                false
+            ]
         ];
     }
 
