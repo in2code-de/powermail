@@ -324,7 +324,7 @@ class BackendUtilityTest extends UnitTestCase
         $this->assertSame([1, 2], BackendUtility::filterPagesForAccess([1, 2]));
 
         $GLOBALS['BE_USER']->user['admin'] = 0;
-        $this->expectExceptionCode(1203699034);
+        $this->expectExceptionCode(1459422492);
         BackendUtility::filterPagesForAccess([1, 2]);
     }
 

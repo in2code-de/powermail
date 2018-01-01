@@ -101,6 +101,7 @@ class FrontendUtility extends AbstractUtility
      * @param array $settings $settings TypoScript and Flexform Settings
      * @param int|Mail $mail
      * @return bool
+     * @codeCoverageIgnore
      */
     public static function isAllowedToEdit($settings, $mail)
     {
@@ -193,16 +194,19 @@ class FrontendUtility extends AbstractUtility
     public static function getCountryFromIp($ipAddress = null)
     {
         if ($ipAddress === null) {
+            // @codeCoverageIgnoreStart
             $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
+            // @codeCoverageIgnoreEnd
         }
+        $country = '';
         $json = GeneralUtility::getUrl('http://ip-api.com/json/' . $ipAddress);
         if ($json) {
             $geoInfo = json_decode($json);
             if (!empty($geoInfo->country)) {
-                return $geoInfo->country;
+                $country = $geoInfo->country;
             }
         }
-        return '';
+        return $country;
     }
 
     /**
