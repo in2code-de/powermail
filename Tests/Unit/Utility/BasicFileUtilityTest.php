@@ -14,28 +14,11 @@ class BasicFileUtiltyTest extends UnitTestCase
 {
 
     /**
-     * @var \In2code\Powermail\Utility\BasicFileUtility
-     */
-    protected $generalValidatorMock;
-
-    /**
      * @return void
      */
     public function setUp()
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(
-            BasicFileUtility::class,
-            ['dummy']
-        );
         TestingHelper::setDefaultConstants();
-    }
-
-    /**
-     * @return void
-     */
-    public function tearDown()
-    {
-        unset($this->generalValidatorMock);
     }
 
     /**

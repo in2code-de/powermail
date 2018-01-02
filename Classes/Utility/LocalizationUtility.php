@@ -54,6 +54,7 @@ class LocalizationUtility extends AbstractUtility
             }
             return $key;
         }
+        // @codeCoverageIgnoreStart
         return LocalizationUtilityExtbase::translate($key, $extensionName, $arguments);
     }
 }

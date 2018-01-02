@@ -49,6 +49,7 @@ class ObjectUtility extends AbstractUtility
 
     /**
      * @return DatabaseConnection
+     * @codeCoverageIgnore
      */
     public static function getDatabaseConnection()
     {

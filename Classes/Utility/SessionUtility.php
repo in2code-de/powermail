@@ -10,6 +10,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  * Class SessionUtility
+ * @codeCoverageIgnore
  */
 class SessionUtility extends AbstractUtility
 {

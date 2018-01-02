@@ -52,6 +52,7 @@ class BackendUtilityTest extends UnitTestCase
      * @test
      * @covers ::isBackendAdmin
      * @covers ::getBackendUserAuthentication
+     * @covers \In2code\Powermail\Utility\AbstractUtility::getBackendUserAuthentication
      */
     public function isBackendAdminReturnsBool($value, $expectedResult)
     {
@@ -95,6 +96,7 @@ class BackendUtilityTest extends UnitTestCase
      * @test
      * @covers ::getPropertyFromBackendUser
      * @covers ::getBackendUserAuthentication
+     * @covers \In2code\Powermail\Utility\AbstractUtility::getBackendUserAuthentication
      */
     public function getPropertyFromBackendUserReturnsString($property, $value)
     {
@@ -309,12 +311,12 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function getPagesTSconfigReturnsString()
     {
-        $this->expectExceptionCode(1459422492);
-        BackendUtility::getPagesTSconfig(1);
+        $this->assertEmpty(BackendUtility::getPagesTSconfig(1));
     }
 
     /**
      * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::filterPagesForAccess
      */

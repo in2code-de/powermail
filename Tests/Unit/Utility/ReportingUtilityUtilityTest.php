@@ -1,6 +1,9 @@
 <?php
 namespace In2code\Powermail\Tests\Utility;
 
+use In2code\Powermail\Domain\Model\Answer;
+use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ReportingUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -12,27 +15,72 @@ class ReportingUtilityTest extends UnitTestCase
 {
 
     /**
-     * @var \In2code\Powermail\Utility\ReportingUtility
-     */
-    protected $generalValidatorMock;
-
-    /**
      * @return void
+     * @test
+     * @covers ::getGroupedAnswersFromMails
      */
-    public function setUp()
+    public function getGroupedAnswersFromMailsReturnsArray()
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(
-            ReportingUtility::class,
-            ['dummy']
-        );
+        $result = ReportingUtility::getGroupedAnswersFromMails($this->getDummyMails());
+        $expected = [
+            123 => [
+                'abc' => 4
+            ]
+        ];
+        $this->assertSame($expected, $result);
     }
 
     /**
      * @return void
+     * @test
+     * @covers ::getGroupedMarketingPropertiesFromMails
      */
-    public function tearDown()
+    public function getGroupedMarketingPropertiesFromMailsReturnsArray()
     {
-        unset($this->generalValidatorMock);
+        $result = ReportingUtility::getGroupedMarketingPropertiesFromMails($this->getDummyMails());
+        $expected = [
+            'marketingRefererDomain' => [
+                '-' => 4
+            ],
+            'marketingReferer' => [
+                '-' => 4
+            ],
+            'marketingCountry' => [
+                '-' => 4
+            ],
+            'marketingMobileDevice' => [
+                '-' => 4
+            ],
+            'marketingFrontendLanguage' => [
+                '-' => 4
+            ],
+            'marketingBrowserLanguage' => [
+                '-' => 4
+            ],
+            'marketingPageFunnelString' => [
+                '-' => 4
+            ],
+        ];
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * @return Mail[]
+     */
+    protected function getDummyMails()
+    {
+        $mails = [];
+        for ($i = 0; $i < 4; $i++) {
+            $field = new Field();
+            $field->_setProperty('uid', 123);
+            $answer = new Answer();
+            $answer->setField($field);
+            $answer->setValue('abc');
+            $mail = new Mail();
+            $mail->addAnswer($answer);
+            $mails[] = $mail;
+        }
+        return $mails;
     }
 
     /**
