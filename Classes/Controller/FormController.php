@@ -225,6 +225,7 @@ class FormController extends AbstractController
      *
      * @param Mail $mail
      * @return void
+     * @codeCoverageIgnore
      */
     protected function saveMail(Mail $mail)
     {
@@ -269,6 +270,7 @@ class FormController extends AbstractController
      * @param int $pid Page Id
      * @param int $mobileDevice Is mobile device?
      * @return void
+     * @codeCoverageIgnore
      */
     public function marketingAction($referer = null, $language = 0, $pid = 0, $mobileDevice = 0)
     {
@@ -279,6 +281,7 @@ class FormController extends AbstractController
      * Initializes this object
      *
      * @return void
+     * @codeCoverageIgnore
      */
     public function initializeObject()
     {
@@ -296,11 +299,13 @@ class FormController extends AbstractController
      * Initialize Action
      *
      * @return void
+     * @codeCoverageIgnore
      */
     public function initializeAction()
     {
         parent::initializeAction();
 
+        // @codeCoverageIgnoreStart
         if (!isset($this->settings['staticTemplate'])) {
             $this->controllerContext = $this->buildControllerContext();
             $this->addFlashMessage(LocalizationUtility::translate('error_no_typoscript'), '', AbstractMessage::ERROR);
@@ -386,6 +391,7 @@ class FormController extends AbstractController
 
     /**
      * @return void
+     * @codeCoverageIgnore
      */
     protected function debugVariables()
     {

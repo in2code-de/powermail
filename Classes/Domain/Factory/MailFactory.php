@@ -21,6 +21,7 @@ class MailFactory
      * @param Mail $mail
      * @param array $settings
      * @return void
+     * @codeCoverageIgnore
      */
     public function prepareMailForPersistence(Mail $mail, array $settings)
     {
