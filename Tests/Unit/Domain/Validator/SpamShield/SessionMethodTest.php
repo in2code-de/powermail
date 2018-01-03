@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Domain\Validator\Spamshield;
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;

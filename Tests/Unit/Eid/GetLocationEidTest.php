@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Eid;
+namespace In2code\Powermail\Unit\Tests\Eid;
 
 use In2code\Powermail\Eid\GetLocationEid;
 use TYPO3\CMS\Core\Tests\UnitTestCase;

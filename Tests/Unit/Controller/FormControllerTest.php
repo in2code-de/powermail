@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Controller;
+namespace In2code\Powermail\Tests\Unit\Controller;
 
 use In2code\Powermail\Controller\FormController;
 use In2code\Powermail\Domain\Model\Mail;

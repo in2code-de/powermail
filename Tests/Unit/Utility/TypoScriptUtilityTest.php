@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Utility;
+namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;

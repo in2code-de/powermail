@@ -1,6 +1,7 @@
 <?php
-namespace In2code\Powermail\Tests\Domain\Service;
+namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
+use In2code\Powermail\Tests\Unit\Fixtures\Domain\Service\RedirectUriServiceFixture;
 use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
@@ -15,7 +16,7 @@ class RedirectUriServiceTest extends UnitTestCase
 {
 
     /**
-     * @var \In2code\Powermail\Tests\Fixtures\Domain\Service\RedirectUriServiceFixture
+     * @var RedirectUriServiceFixture
      */
     protected $generalValidatorMock;
 
@@ -25,9 +26,8 @@ class RedirectUriServiceTest extends UnitTestCase
     public function setUp()
     {
         $this->initializeTsfe();
-        require_once(dirname(dirname(dirname(__FILE__))) . '/Fixtures/Domain/Service/RedirectUriServiceFixture.php');
         $this->generalValidatorMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Tests\Fixtures\Domain\Service\RedirectUriServiceFixture',
+            RedirectUriServiceFixture::class,
             ['dummy'],
             [new ContentObjectRenderer()]
         );

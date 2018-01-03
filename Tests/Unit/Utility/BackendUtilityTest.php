@@ -1,7 +1,7 @@
 <?php
-namespace In2code\Powermail\Tests\Utility;
+namespace In2code\Powermail\Tests\Unit\Utility;
 
-use In2code\Powermail\Unit\Tests\Fixtures\Utility\BackendUtilityFixture;
+use In2code\Powermail\Tests\Unit\Fixtures\Utility\BackendUtilityFixture;
 use In2code\Powermail\Utility\BackendUtility;
 use TYPO3\CMS\Backend\Routing\Route;
 use TYPO3\CMS\Backend\Routing\Router;
@@ -190,7 +190,6 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function getModuleNameReturnsString(array $getParams, $value)
     {
-        require_once(dirname(dirname(__FILE__)) . '/Fixtures/Utility/BackendUtilityFixture.php');
         if (!empty($getParams['route'])) {
             $router = GeneralUtility::makeInstance(Router::class);
             $router->addRoute($getParams['route'], new Route($getParams['routePath'], ['some', 'options']));

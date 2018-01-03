@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Domain\Validator;
+namespace In2code\Powermail\Tests\Unit\Domain\Validator;
 
 use In2code\Powermail\Domain\Validator\StringValidator;
 use TYPO3\CMS\Core\Tests\UnitTestCase;

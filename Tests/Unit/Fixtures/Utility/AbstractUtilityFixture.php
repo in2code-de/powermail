@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Unit\Tests\Fixtures\Utility;
+namespace In2code\Powermail\Tests\Unit\Fixtures\Utility;
 
 use In2code\Powermail\Utility\AbstractUtility;
 

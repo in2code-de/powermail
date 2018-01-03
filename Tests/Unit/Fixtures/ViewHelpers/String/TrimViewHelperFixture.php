@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Fixtures\ViewHelpers\String;
+namespace In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\String;
 
 use In2code\Powermail\ViewHelpers\String\TrimViewHelper;
 
