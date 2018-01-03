@@ -40,6 +40,7 @@ class IsPluginOnCurrentPageCondition extends AbstractCondition
     /**
      * @param $conditionParameter
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function conditionFits($conditionParameter)
     {
