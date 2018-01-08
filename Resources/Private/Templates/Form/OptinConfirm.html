@@ -8,7 +8,7 @@ Render Powermail Confirm Failed Page
 
 	<div class="powermail_create">
 		<f:alias map="{flashMessageClass:'powermail_message_error'}">
-			<f:render partial="FlashMessages/{vh:Misc.GetFlashMessagesPartialName()}" arguments="{_all}" />
+			<f:render partial="Misc/FlashMessages" arguments="{_all}" />
 		</f:alias>
 
 		<f:translate key="optin_mail_confirm_{labelKey}">The given Link is not correct</f:translate>
