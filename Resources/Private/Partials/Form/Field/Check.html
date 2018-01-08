@@ -2,7 +2,7 @@
 
 <div class="powermail_fieldwrap powermail_fieldwrap_type_check powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
 	<label class="{settings.styles.framework.labelClasses}" title="{field.description}">
-		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+		<vh:string.escapeLabels>{field.title}</vh:string.escapeLabels><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
 	</label>
 
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
@@ -16,7 +16,7 @@
 							id="powermail_field_{field.marker}_{index.cycle}"
 							additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field, iteration:index)}"
 							class="powermail_checkbox powermail_checkbox_{field.uid}" />
-					<vh:string.RawAndRemoveXss>{setting.label}</vh:string.RawAndRemoveXss>
+					<vh:string.escapeLabels>{setting.label}</vh:string.escapeLabels>
 				</label>
 			</div>
 		</f:for>

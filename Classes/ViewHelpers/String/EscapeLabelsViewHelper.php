@@ -3,49 +3,34 @@ namespace In2code\Powermail\ViewHelpers\String;
 
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * ViewHelper combines Raw and RemoveXss Methods
- *
- * @Todo: Should be renamed in a useful way in upcoming major version
+ * Class EscapeLabelsViewHelper
  */
-class RawAndRemoveXssViewHelper extends AbstractViewHelper
+class EscapeLabelsViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Disable escaping for TYPO3 7.6
-     *
-     * @var boolean
-     */
-    protected $escapingInterceptorEnabled = false;
-
-    /**
-     * Disable escaping for TYPO3 8.x
-     *
      * @var bool
      */
     protected $escapeChildren = false;
 
     /**
-     * Disable escaping for TYPO3 8.x
-     *
      * @var bool
      */
     protected $escapeOutput = false;
 
     /**
-     * ViewHelper combines Raw and RemoveXss Methods
+     * Decide if a string should be escaped or not depending on
+     *      settings.misc.htmlForLabels=1
      *
      * @return string
      */
     public function render()
     {
         $string = $this->renderChildren();
-        if ($this->isHtmlEnabled()) {
-            $string = GeneralUtility::removeXSS($string);
-        } else {
+        if ($this->isHtmlEnabled() === false) {
             $string = htmlspecialchars($string);
         }
         return $string;
