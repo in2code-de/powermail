@@ -156,11 +156,12 @@ class TaskCommandController extends CommandController
         $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid, $forceReset);
         foreach ($markers as $formMarkers) {
             foreach ($formMarkers as $uid => $marker) {
-                ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
-                    Field::TABLE_NAME,
-                    'uid = ' . (int)$uid,
-                    ['marker' => $marker]
-                );
+                $queryBuilder = ObjectUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+                $queryBuilder
+                    ->update(Field::TABLE_NAME)
+                    ->where($queryBuilder->expr()->eq('uid', (int)$uid))
+                    ->set('marker', $marker)
+                    ->execute();
             }
         }
     }

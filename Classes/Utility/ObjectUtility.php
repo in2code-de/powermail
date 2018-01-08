@@ -2,7 +2,10 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -55,6 +58,15 @@ class ObjectUtility extends AbstractUtility
     public static function getDatabaseConnection()
     {
         return parent::getDatabaseConnection();
+    }
+
+    /**
+     * @param string $tableName
+     * @return QueryBuilder
+     */
+    public static function getQueryBuilderForTable(string $tableName): QueryBuilder
+    {
+        return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
     }
 
     /**

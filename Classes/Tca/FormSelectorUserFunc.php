@@ -6,32 +6,9 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
 
 /**
  * Class FormSelectorUserFunc
@@ -82,11 +59,12 @@ class FormSelectorUserFunc
     public function getForms(array &$params)
     {
         $params['items'] = [];
+        $language = (int)$params['flexParentDatabaseRow']['sys_language_uid'];
         foreach ($this->getStartPids() as $startPid) {
-            foreach ($this->getAllForms($startPid, $params['flexParentDatabaseRow']['sys_language_uid']) as $form) {
+            foreach ($this->getAllForms((int)$startPid, $language) as $form) {
                 if ($this->hasUserAccessToPage((int)$form['pid'])) {
                     $params['items'][] = [
-                        \TYPO3\CMS\Backend\Utility\BackendUtility::getRecordTitle(Form::TABLE_NAME, $form),
+                        BackendUtilityCore::getRecordTitle(Form::TABLE_NAME, $form),
                         (int)$form['uid']
                     ];
                 }
@@ -128,29 +106,31 @@ class FormSelectorUserFunc
      * @param int $language
      * @return array
      */
-    protected function getAllForms($startPid, $language)
+    protected function getAllForms(int $startPid, int $language): array
     {
-        $select = '*';
-        $from = Form::TABLE_NAME;
-        $where = 'deleted=0 and hidden=0 and ' .
-            '(sys_language_uid IN (-1,0) or ' .
-            '(l10n_parent = 0 and sys_language_uid = ' . (int)$language . '))';
+        $queryBuilder = ObjectUtility::getQueryBuilderForTable(Form::TABLE_NAME);
+        $result = $queryBuilder
+            ->select('*')
+            ->from(Form::TABLE_NAME)
+            ->where($this->getWhereStatement($startPid, $language))
+            ->orderBy('title')
+            ->setMaxResults(10000)
+            ->execute();
+        return $result->fetchAll();
+    }
+
+    /**
+     * @param int $startPid
+     * @param int $language
+     * @return string
+     */
+    protected function getWhereStatement(int $startPid, int $language): string
+    {
+        $where = 'sys_language_uid IN (-1,0) or (l10n_parent = 0 and sys_language_uid = ' . (int)$language . ')';
         if (!empty($startPid)) {
             $where .= ' and pid in (' . $this->getPidListFromStartingPoint($startPid) . ')';
         }
-        $groupBy = '';
-        $orderBy = 'title ASC';
-        $limit = 10000;
-        $array = ObjectUtility::getDatabaseConnection()->exec_SELECTgetRows(
-            $select,
-            $from,
-            $where,
-            $groupBy,
-            $orderBy,
-            $limit
-        );
-
-        return $array;
+        return $where;
     }
 
     /**
