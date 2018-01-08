@@ -2,8 +2,8 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Class ConfigurationUtility
@@ -207,5 +207,15 @@ class ConfigurationUtility extends AbstractUtility
             false,
             false
         );
+    }
+
+    /**
+     * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @codeCoverageIgnore
+     */
+    public static function isDatabaseConnectionAvailable(): bool
+    {
+        return !empty($GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']);
     }
 }
