@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;

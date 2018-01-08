@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;

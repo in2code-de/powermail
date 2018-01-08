@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
