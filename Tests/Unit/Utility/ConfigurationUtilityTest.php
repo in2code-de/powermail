@@ -225,17 +225,6 @@ class ConfigurationUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
-     * @test
-     * @covers ::isOlderThan8Lts
-     */
-    public function isOlderThan8LtsReturnsBool()
-    {
-        TestingHelper::setDefaultConstants();
-        $this->assertFalse(ConfigurationUtility::isOlderThan8Lts());
-    }
-
-    /**
      * Data Provider for mergeTypoScript2FlexFormReturnsVoid()
      *
      * @return array

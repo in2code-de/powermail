@@ -192,16 +192,6 @@ class ConfigurationUtility extends AbstractUtility
     }
 
     /**
-     * Check if TYPO3 smaller then 8.7 is running
-     *
-     * @return bool
-     */
-    public static function isOlderThan8Lts()
-    {
-        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000;
-    }
-
-    /**
      * Merges Flexform, TypoScript and Extension Manager Settings
      * Note: If FF value is empty, we want the TypoScript value instead
      *
