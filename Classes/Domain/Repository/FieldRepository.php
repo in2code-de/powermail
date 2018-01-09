@@ -237,16 +237,14 @@ class FieldRepository extends AbstractRepository
      * @param int $uid
      * @return string
      */
-    public function getMarkerFromUid($uid)
+    public function getMarkerFromUid(int $uid): string
     {
         $marker = '';
-        $row = (array)ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
-            'marker',
-            Field::TABLE_NAME,
-            'uid=' . (int)$uid
-        );
-        if (!empty($row['marker'])) {
-            $marker = $row['marker'];
+        $queryBuilder = ObjectUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+        $rows =
+            $queryBuilder->select('marker')->from(Field::TABLE_NAME)->where('uid=' . (int)$uid)->execute()->fetchAll();
+        if (!empty($rows[0]['marker'])) {
+            $marker = $rows[0]['marker'];
         }
         return $marker;
     }
@@ -255,16 +253,14 @@ class FieldRepository extends AbstractRepository
      * @param int $uid
      * @return string
      */
-    public function getTypeFromUid($uid)
+    public function getTypeFromUid(int $uid): string
     {
         $type = '';
-        $row = (array)ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
-            'type',
-            Field::TABLE_NAME,
-            'uid=' . (int)$uid
-        );
-        if (!empty($row['type'])) {
-            $type = $row['type'];
+        $queryBuilder = ObjectUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+        $rows =
+            $queryBuilder->select('type')->from(Field::TABLE_NAME)->where('uid=' . (int)$uid)->execute()->fetchAll();
+        if (!empty($rows[0]['type'])) {
+            $type = $rows[0]['type'];
         }
         return $type;
     }
