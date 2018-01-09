@@ -2,31 +2,26 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
-use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * PowermailVersionNoteViewHelper
- *
- * @package TYPO3
- * @subpackage Fluid
  */
 class PowermailVersionNoteViewHelper extends AbstractViewHelper
 {
     const TABLE_NAME = 'tx_extensionmanager_domain_model_extension';
+    const EXTENSION_VERSION_NOINFORMATION = 0;
+    const EXTENSION_VERSION_OK = 1;
+    const EXTENSION_VERSION_SECURITYNOTE = 2;
+    const EXTENSION_VERSION_UPDATE = 3;
 
     /**
-     * Status of powermail version
-     *        0 => no version information available
-     *        1 => ok (no security note, no update)
-     *        2 => security note
-     *        3 => no security note but update available
-     *
      * @var int
      */
-    protected $status = 0;
+    protected $status = self::EXTENSION_VERSION_NOINFORMATION;
 
     /**
      * Current powermail version
@@ -82,19 +77,18 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
             return $this->getStatus();
         }
         if ($this->getCurrentVersionInExtensionTableExists()) {
-            $this->setStatus(1);
+            $this->setStatus(self::EXTENSION_VERSION_OK);
             if ($this->getIsNewerVersionAvailable()) {
-                $this->setStatus(3);
+                $this->setStatus(self::EXTENSION_VERSION_UPDATE);
             }
             if ($this->getIsCurrentVersionUnsecure()) {
-                $this->setStatus(2);
+                $this->setStatus(self::EXTENSION_VERSION_SECURITYNOTE);
             }
         }
         return $this->getStatus();
     }
 
     /**
-     * Database Preflight
      * @return void
      */
     protected function init()
@@ -103,11 +97,11 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
             $this->setVersion(ExtensionManagementUtility::getExtensionVersion('powermail'));
         }
         if ($this->getCheckFromDatabase()) {
-            $this->setIsCurrentVersionUnsecure($this->getIsCurrentVersionUnsecureFromDatabase());
-            $this->setIsNewerVersionAvailable($this->getIsNewerVersionAvailableFromDatabase());
-            $this->setExtensionTableExists($this->getExtensionTableExistsFromDatabase());
+            $this->setIsCurrentVersionUnsecure($this->isCurrentVersionUnsaveCheck());
+            $this->setIsNewerVersionAvailable($this->isNewerVersionAvailableCheck());
+            $this->setExtensionTableExists(DatabaseUtility::isTableExisting(self::TABLE_NAME));
             $this->setCurrentVersionInExtensionTableExists(
-                $this->getCurrentVersionInExtensionTableExistsFromDatabase()
+                $this->isCurrentVersionInExtensionTableExistingCheck()
             );
         }
     }
@@ -115,71 +109,62 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    protected function getIsCurrentVersionUnsecureFromDatabase()
+    protected function isCurrentVersionUnsaveCheck(): bool
     {
-        $select = 'review_state';
-        $from = self::TABLE_NAME;
-        $where = 'extension_key = "powermail" and version = "' . $this->getVersion() . '"';
-        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
-        if ($res) {
-            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
-            if ($row['review_state'] === '0') {
-                return false;
-            }
+        $unsafe = true;
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
+        $rows = $queryBuilder
+            ->select('review_state')
+            ->from(self::TABLE_NAME)
+            ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchAll();
+        if (!empty($rows[0]['review_state']) && $rows[0]['review_state'] === '0') {
+            $unsafe = false;
         }
-        return true;
+        return $unsafe;
     }
 
     /**
      * @return bool
      */
-    protected function getIsNewerVersionAvailableFromDatabase()
+    protected function isNewerVersionAvailableCheck(): bool
     {
-        $select = 'version';
-        $from = self::TABLE_NAME;
-        $where = 'extension_key = "powermail"';
-        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', 'version DESC', 1);
-        if ($res) {
-            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
-            if (!empty($row['version'])) {
-                $newestVersion = VersionNumberUtility::convertVersionNumberToInteger($row['version']);
-                $currentVersion = VersionNumberUtility::convertVersionNumberToInteger($this->getVersion());
-                if ($currentVersion < $newestVersion) {
-                    return true;
-                }
+        $newVersionAvailable = false;
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
+        $rows = $queryBuilder
+            ->select('version')
+            ->from(self::TABLE_NAME)
+            ->where('extension_key = "powermail"')
+            ->orderBy('version', 'desc')
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchAll();
+        if (!empty($rows[0]['version'])) {
+            $newestVersion = VersionNumberUtility::convertVersionNumberToInteger($rows[0]['version']);
+            $currentVersion = VersionNumberUtility::convertVersionNumberToInteger($this->getVersion());
+            if ($currentVersion < $newestVersion) {
+                $newVersionAvailable = true;
             }
         }
-        return false;
+        return $newVersionAvailable;
     }
 
     /**
      * @return bool
      */
-    protected function getExtensionTableExistsFromDatabase()
+    protected function isCurrentVersionInExtensionTableExistingCheck(): bool
     {
-        $allTables = ObjectUtility::getDatabaseConnection()->admin_get_tables();
-        if (array_key_exists(self::TABLE_NAME, $allTables)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function getCurrentVersionInExtensionTableExistsFromDatabase()
-    {
-        $select = 'uid';
-        $from = self::TABLE_NAME;
-        $where = 'extension_key = "powermail" and version = "' . $this->getVersion() . '"';
-        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
-        if ($res) {
-            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
-            if (!empty($row['uid'])) {
-                return true;
-            }
-        }
-        return false;
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
+        $rows = $queryBuilder
+            ->select('uid')
+            ->from(self::TABLE_NAME)
+            ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchAll();
+        return !empty($rows[0]['uid']);
     }
 
     /**

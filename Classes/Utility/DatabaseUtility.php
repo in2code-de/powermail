@@ -37,6 +37,24 @@ class DatabaseUtility extends AbstractUtility
     }
 
     /**
+     * @param string $tableName
+     * @return bool
+     */
+    public static function isTableExisting(string $tableName): bool
+    {
+        $existing = false;
+        $connection = self::getConnectionForTable($tableName);
+        $queryResult = $connection->query('show tables;')->fetchAll();
+        foreach ($queryResult as $tableProperties) {
+            if (in_array($tableName, array_values($tableProperties))) {
+                $existing = true;
+                break;
+            }
+        }
+        return $existing;
+    }
+
+    /**
      * @param string $fieldName
      * @param string $tableName
      * @return bool
