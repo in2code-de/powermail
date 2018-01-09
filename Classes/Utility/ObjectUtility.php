@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -58,20 +59,6 @@ class ObjectUtility extends AbstractUtility
     public static function getDatabaseConnection()
     {
         return parent::getDatabaseConnection();
-    }
-
-    /**
-     * @param string $tableName
-     * @param bool $removeRestrictions
-     * @return QueryBuilder
-     */
-    public static function getQueryBuilderForTable(string $tableName, bool $removeRestrictions = false): QueryBuilder
-    {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
-        if ($removeRestrictions === true) {
-            $queryBuilder->getRestrictions()->removeAll();
-        }
-        return $queryBuilder;
     }
 
     /**

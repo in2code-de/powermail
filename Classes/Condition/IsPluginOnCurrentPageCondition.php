@@ -2,8 +2,8 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Condition;
 
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Configuration\TypoScript\ConditionMatching\AbstractCondition;
 
 class IsPluginOnCurrentPageCondition extends AbstractCondition
@@ -46,7 +46,7 @@ class IsPluginOnCurrentPageCondition extends AbstractCondition
     protected function conditionFits(string $conditionParameter): bool
     {
         $listType = ltrim($conditionParameter, ' =');
-        $queryBuilder = ObjectUtility::getQueryBuilderForTable('tt_content');
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_content');
         $result = $queryBuilder
             ->select('*')
             ->from('tt_content')

@@ -5,6 +5,7 @@ namespace In2code\Powermail\Tca;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Utility\BackendUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Database\QueryGenerator;
@@ -108,7 +109,7 @@ class FormSelectorUserFunc
      */
     protected function getAllForms(int $startPid, int $language): array
     {
-        $queryBuilder = ObjectUtility::getQueryBuilderForTable(Form::TABLE_NAME);
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
         $result = $queryBuilder
             ->select('*')
             ->from(Form::TABLE_NAME)

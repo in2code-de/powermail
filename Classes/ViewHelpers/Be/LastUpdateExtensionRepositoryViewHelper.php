@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
-use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -20,7 +20,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
     public function render()
     {
         if ($this->extensionTableExists()) {
-            $queryBuilder = ObjectUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
+            $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
             $rows = $queryBuilder->select('last_update')->from(self::TABLE_NAME)->execute()->fetchAll();
             if (!empty($rows[0]['last_update'])) {
                 return $rows[0]['last_update'];
@@ -34,7 +34,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
      */
     protected function extensionTableExists(): bool
     {
-        $queryBuilder = ObjectUtility::getQueryBuilderForTable(self::TABLE_NAME);
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME);
         $queryBuilder->select('*')->from(self::TABLE_NAME);
         $tableExists = true;
         try {

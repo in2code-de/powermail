@@ -8,7 +8,7 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ExportService;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
@@ -156,7 +156,7 @@ class TaskCommandController extends CommandController
         $markers = $markerService->getMarkersForFieldsDependingOnForm($formUid, $forceReset);
         foreach ($markers as $formMarkers) {
             foreach ($formMarkers as $uid => $marker) {
-                $queryBuilder = ObjectUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+                $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
                 $queryBuilder
                     ->update(Field::TABLE_NAME)
                     ->where($queryBuilder->expr()->eq('uid', (int)$uid))

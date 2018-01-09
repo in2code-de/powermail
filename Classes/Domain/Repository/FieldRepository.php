@@ -5,9 +5,7 @@ namespace In2code\Powermail\Domain\Repository;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extensionmanager\Utility\DatabaseUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -240,7 +238,7 @@ class FieldRepository extends AbstractRepository
     public function getMarkerFromUid(int $uid): string
     {
         $marker = '';
-        $queryBuilder = ObjectUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
         $rows =
             $queryBuilder->select('marker')->from(Field::TABLE_NAME)->where('uid=' . (int)$uid)->execute()->fetchAll();
         if (!empty($rows[0]['marker'])) {
@@ -256,7 +254,7 @@ class FieldRepository extends AbstractRepository
     public function getTypeFromUid(int $uid): string
     {
         $type = '';
-        $queryBuilder = ObjectUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
         $rows =
             $queryBuilder->select('type')->from(Field::TABLE_NAME)->where('uid=' . (int)$uid)->execute()->fetchAll();
         if (!empty($rows[0]['type'])) {

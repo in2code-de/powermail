@@ -4,7 +4,7 @@ namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
-use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -142,7 +142,7 @@ class PageRepository extends AbstractRepository
      */
     public function getAllPages()
     {
-        $querybuilder = ObjectUtility::getQueryBuilderForTable('pages', true);
+        $querybuilder = DatabaseUtility::getQueryBuilderForTable('pages', true);
         $rows = $querybuilder->select('uid')->from('pages')->execute()->fetchAll();
         $pids = [];
         foreach ($rows as $row) {

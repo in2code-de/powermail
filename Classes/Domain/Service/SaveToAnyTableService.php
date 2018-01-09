@@ -2,7 +2,9 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
-use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -66,16 +68,10 @@ class SaveToAnyTableService
     protected $devLog = false;
 
     /**
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected $databaseConnection = null;
-
-    /**
      * @param string $table
      */
     public function __construct($table)
     {
-        $this->databaseConnection = ObjectUtility::getDatabaseConnection();
         $this->setTable($table);
     }
 
@@ -107,10 +103,11 @@ class SaveToAnyTableService
      *
      * @return int uid of inserted record
      */
-    protected function insert()
+    protected function insert(): int
     {
-        $this->databaseConnection->exec_INSERTquery($this->getTable(), $this->getProperties());
-        return $this->databaseConnection->sql_insert_id();
+        $connection = $this->getConnection();
+        $connection->insert($this->getTable(), $this->getProperties());
+        return (int)$connection->lastInsertId($this->getTable());
     }
 
     /**
@@ -128,10 +125,11 @@ class SaveToAnyTableService
 
         // update existing entry (only if mode is not "none")
         if ($this->getMode() !== self::MODE_NONE) {
-            $this->databaseConnection->exec_UPDATEquery(
+            $connection = $this->getConnection();
+            $connection->update(
                 $this->getTable(),
-                $this->getUniqueIdentifier() . ' = ' . (int)$row[$this->getUniqueIdentifier()],
-                $this->getProperties()
+                $this->getProperties(),
+                [$this->getUniqueIdentifier() => (int)$row[$this->getUniqueIdentifier()]]
             );
         }
 
@@ -327,22 +325,26 @@ class SaveToAnyTableService
     /**
      * Find existing record in database
      *
-     * @return array|FALSE|NULL
+     * @return array|FALSE
      */
     protected function getExistingEntry()
     {
-        $searchterm = $this->databaseConnection->fullQuoteStr(
-            $this->getProperty($this->getUniqueField()),
-            $this->getTable()
-        );
+        $queryBuilder = $this->getQueryBuilder();
+        $searchterm = $queryBuilder->createNamedParameter($this->getProperty($this->getUniqueField()));
         $where = $this->getUniqueField() . ' = ' . $searchterm;
         $where .= $this->getDeletedWhereClause();
         $where .= $this->getAdditionalWhere();
-        return $this->databaseConnection->exec_SELECTgetSingleRow(
-            $this->getUniqueIdentifier(),
-            $this->getTable(),
-            $where
-        );
+        $rows = $queryBuilder
+            ->select($this->getUniqueIdentifier())
+            ->from($this->getTable())
+            ->where($where)
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchAll();
+        if (!empty($rows[0])) {
+            return $rows[0];
+        }
+        return false;
     }
 
     /**
@@ -371,14 +373,27 @@ class SaveToAnyTableService
     }
 
     /**
-     * Check if field exists in table
-     *
      * @param string $field
      * @return bool
      */
     protected function isFieldExisting($field)
     {
-        $fields = $this->databaseConnection->admin_get_fields($this->getTable());
-        return array_key_exists($field, $fields);
+        return DatabaseUtility::isFieldExistingInTable($field, $this->getTable());
+    }
+
+    /**
+     * @return Connection
+     */
+    protected function getConnection(): Connection
+    {
+        return DatabaseUtility::getConnectionForTable($this->getTable());
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    protected function getQueryBuilder(): QueryBuilder
+    {
+        return DatabaseUtility::getQueryBuilderForTable($this->getTable(), true);
     }
 }
