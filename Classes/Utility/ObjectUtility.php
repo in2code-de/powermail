@@ -62,11 +62,16 @@ class ObjectUtility extends AbstractUtility
 
     /**
      * @param string $tableName
+     * @param bool $removeRestrictions
      * @return QueryBuilder
      */
-    public static function getQueryBuilderForTable(string $tableName): QueryBuilder
+    public static function getQueryBuilderForTable(string $tableName, bool $removeRestrictions = false): QueryBuilder
     {
-        return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
+        if ($removeRestrictions === true) {
+            $queryBuilder->getRestrictions()->removeAll();
+        }
+        return $queryBuilder;
     }
 
     /**

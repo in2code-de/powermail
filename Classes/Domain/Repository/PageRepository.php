@@ -142,7 +142,8 @@ class PageRepository extends AbstractRepository
      */
     public function getAllPages()
     {
-        $rows = ObjectUtility::getDatabaseConnection()->exec_SELECTgetRows('uid', 'pages', 'deleted = 0');
+        $querybuilder = ObjectUtility::getQueryBuilderForTable('pages', true);
+        $rows = $querybuilder->select('uid')->from('pages')->execute()->fetchAll();
         $pids = [];
         foreach ($rows as $row) {
             $pids[] = (int)$row['uid'];
