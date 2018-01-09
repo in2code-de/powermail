@@ -37,7 +37,7 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
         foreach ($form->getFields($fieldType) as $field) {
             $fieldProperty = ObjectAccess::getProperty($field, $property);
             if ($htmlSpecialChars) {
-                $fieldProperty = htmlspecialchars($fieldProperty);
+                $fieldProperty = htmlspecialchars((string)$fieldProperty);
             }
             $fields[] = $fieldProperty;
         }
