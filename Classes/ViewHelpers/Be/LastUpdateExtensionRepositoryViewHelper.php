@@ -7,13 +7,9 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * PowermailVersionViewHelper
- *
- * @package TYPO3
- * @subpackage Fluid
  */
 class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
 {
-
     const TABLE_NAME = 'tx_extensionmanager_domain_model_repository';
 
     /**
@@ -23,17 +19,11 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
      */
     public function render()
     {
-        if (!$this->extensionTableExists()) {
-            return 0;
-        }
-        $select = 'last_update';
-        $from = self::TABLE_NAME;
-        $where = 1;
-        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
-        if ($res) {
-            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
-            if (!empty($row['last_update'])) {
-                return (int)$row['last_update'];
+        if ($this->extensionTableExists()) {
+            $queryBuilder = ObjectUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
+            $rows = $queryBuilder->select('last_update')->from(self::TABLE_NAME)->execute()->fetchAll();
+            if (!empty($rows[0]['last_update'])) {
+                return $rows[0]['last_update'];
             }
         }
         return 0;
@@ -42,12 +32,17 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    protected function extensionTableExists()
+    protected function extensionTableExists(): bool
     {
-        $allTables = ObjectUtility::getDatabaseConnection()->admin_get_tables();
-        if (array_key_exists(self::TABLE_NAME, $allTables)) {
-            return true;
+        $queryBuilder = ObjectUtility::getQueryBuilderForTable(self::TABLE_NAME);
+        $queryBuilder->select('*')->from(self::TABLE_NAME);
+        $tableExists = true;
+        try {
+            $queryBuilder->execute();
+        } catch (\Exception $exception) {
+            unset($exception);
+            $tableExists = false;
         }
-        return false;
+        return $tableExists;
     }
 }
