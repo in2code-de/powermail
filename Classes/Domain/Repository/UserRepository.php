@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\User;
+use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 /***************************************************************
@@ -72,25 +73,20 @@ class UserRepository extends AbstractRepository
      * @param string $uid FE_user UID
      * @return array Usergroups
      */
-    public function getUserGroupsFromUser($uid)
+    public function getUserGroupsFromUser($uid): array
     {
         $groups = [];
-        $select = 'fe_groups.uid';
-        $from = 'fe_users, fe_groups, sys_refindex';
-        $where = 'sys_refindex.tablename = "fe_users"';
-        $where .= ' AND sys_refindex.ref_table = "fe_groups"';
-        $where .= ' AND fe_users.uid = sys_refindex.recuid AND fe_groups.uid = sys_refindex.ref_uid';
-        $where .= ' AND fe_users.uid = ' . (int)$uid;
-        $groupBy = '';
-        $orderBy = '';
-        $limit = 1000;
-        $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-        if ($res) {
-            while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
+        $sql = 'select fe_groups.uid from fe_users, fe_groups, sys_refindex where';
+        $sql .= ' sys_refindex.tablename = "fe_users" and sys_refindex.ref_table = "fe_groups"';
+        $sql .= ' and fe_users.uid = sys_refindex.recuid and fe_groups.uid = sys_refindex.ref_uid';
+        $sql .= ' and fe_users.uid = ' . (int)$uid;
+        $connection = DatabaseUtility::getConnectionForTable('fe_groups');
+        $rows = $connection->query($sql)->fetchAll();
+        foreach ($rows as $row) {
+            if (!empty($row['uid'])) {
                 $groups[] = $row['uid'];
             }
         }
-
         return $groups;
     }
 }
