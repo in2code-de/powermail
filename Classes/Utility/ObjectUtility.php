@@ -53,15 +53,6 @@ class ObjectUtility extends AbstractUtility
     }
 
     /**
-     * @return DatabaseConnection
-     * @codeCoverageIgnore
-     */
-    public static function getDatabaseConnection()
-    {
-        return parent::getDatabaseConnection();
-    }
-
-    /**
      * @return ObjectManager
      */
     public static function getObjectManager()

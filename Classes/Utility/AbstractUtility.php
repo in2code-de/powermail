@@ -36,16 +36,6 @@ abstract class AbstractUtility
     }
 
     /**
-     * @return DatabaseConnection
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @codeCoverageIgnore
-     */
-    protected static function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
-    }
-
-    /**
      * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
      */
