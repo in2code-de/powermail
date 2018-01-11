@@ -149,7 +149,7 @@ class CalculatingCaptchaService
         $imageResource = imagecreatefrompng($this->getBackgroundImage(true));
         imagettftext(
             $imageResource,
-            $this->configuration['textSize'],
+            (float)$this->configuration['textSize'],
             $this->getFontAngleForCaptcha(),
             $this->getHorizontalDistanceForCaptcha(),
             $this->getVerticalDistanceForCaptcha(),
