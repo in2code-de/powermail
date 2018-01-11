@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Utility\DatabaseUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -318,7 +319,8 @@ class SaveToAnyTableService
             $subject = 'SaveToAnyTable (Table: ' . $this->getTable();
             $subject .= ', Mode: ' . $this->getMode();
             $subject .= ', UniqueField: ' . $this->getUniqueField() . ')';
-            GeneralUtility::devLog($subject, 'powermail', 0, $this->getProperties());
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->info($subject, $this->getProperties());
         }
     }
 

@@ -83,7 +83,8 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     protected function writeToDevelopmentLog()
     {
         if ($this->configuration['debug']) {
-            GeneralUtility::devLog('SendPost Values', 'powermail', 0, $this->getCurlSettings());
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->alert('SendPost Values', $this->getCurlSettings());
         }
     }
 

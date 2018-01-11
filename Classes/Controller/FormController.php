@@ -12,6 +12,7 @@ use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
 use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\OptinUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
@@ -192,8 +193,8 @@ class FormController extends AbstractController
                 }
             }
         } catch (\Exception $exception) {
-            GeneralUtility::sysLog($exception->getMessage(), 'powermail', GeneralUtility::SYSLOG_SEVERITY_ERROR);
-            $this->addFlashMessage(LocalizationUtility::translate('mail_created_failure'), '', AbstractMessage::ERROR);
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->critical('Mail could not be sent', $exception->getMessage());
         }
     }
 
@@ -291,7 +292,8 @@ class FormController extends AbstractController
         $this->conf = $configurationService->getTypoScriptConfiguration();
         ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
         if ($this->settings['debug']['settings']) {
-            GeneralUtility::devLog('Settings', $this->extensionName, 0, $this->settings);
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->info('Powermail settings', $this->settings);
         }
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this]);
     }
@@ -337,7 +339,8 @@ class FormController extends AbstractController
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
-            GeneralUtility::devLog('Redirect (mail empty)', $this->extensionName, 2, $arguments);
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->alert('Redirect (mail empty)', $arguments);
             $this->forward('form');
         }
     }
@@ -354,7 +357,8 @@ class FormController extends AbstractController
         if ($mail !== null) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
-                GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array)$mail]);
+                $logger = ObjectUtility::getLogger(__CLASS__);
+                $logger->alert('Redirect (optin)', [$formsToContent, (array)$mail]);
                 $this->forward('form');
             }
         }
@@ -397,7 +401,8 @@ class FormController extends AbstractController
     protected function debugVariables()
     {
         if (!empty($this->settings['debug']['variables'])) {
-            GeneralUtility::devLog('Variables', $this->extensionName, 0, GeneralUtility::_POST());
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->info('Variables', GeneralUtility::_POST());
         }
     }
 
