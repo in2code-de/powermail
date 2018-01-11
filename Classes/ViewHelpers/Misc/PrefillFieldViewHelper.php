@@ -238,7 +238,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
             if (isset($this->configuration['prefill.'][$this->getMarker() . '.']['0'])) {
                 $value = [];
                 foreach (array_keys($this->configuration['prefill.'][$this->getMarker() . '.']) as $key) {
-                    if (stristr($key, '.')) {
+                    if (stristr((string)$key, '.')) {
                         continue;
                     }
                     $value[] = $this->contentObject->cObjGetSingle(

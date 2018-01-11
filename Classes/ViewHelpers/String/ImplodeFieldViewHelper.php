@@ -35,7 +35,7 @@ class ImplodeFieldViewHelper extends AbstractViewHelper
             foreach ($objects as $object) {
                 if (method_exists($object, 'get' . ucfirst($field))) {
                     $tempString = $object->{'get' . ucfirst($field)}();
-                    if (method_exists(htmlentities($tempString), 'getUid')) {
+                    if (method_exists(htmlentities((string)$tempString), 'getUid')) {
                         $tempString = $tempString->getUid();
                     }
                     $string .= $tempString;

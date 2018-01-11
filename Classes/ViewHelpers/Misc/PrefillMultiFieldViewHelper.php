@@ -379,7 +379,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
             // Multivalue
             if (isset($this->configuration['prefill.'][$this->getMarker() . '.']['0'])) {
                 foreach (array_keys($this->configuration['prefill.'][$this->getMarker() . '.']) as $key) {
-                    if (stristr($key, '.')) {
+                    if (stristr((string)$key, '.')) {
                         continue;
                     }
                     $prefill = $this->contentObjectRenderer->cObjGetSingle(
