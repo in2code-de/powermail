@@ -72,9 +72,9 @@ class ArrayUtility extends ArrayUtilityExtbase
         $newArray = [];
         foreach ((array)$array as $key => $value) {
             if (is_array($value)) {
-                $newArray[htmlspecialchars($key)] = self::htmlspecialcharsOnArray($value);
+                $newArray[htmlspecialchars((string)$key)] = self::htmlspecialcharsOnArray($value);
             } else {
-                $newArray[htmlspecialchars($key)] = htmlspecialchars($value);
+                $newArray[htmlspecialchars((string)$key)] = htmlspecialchars((string)$value);
             }
         }
         unset($array);

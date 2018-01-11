@@ -18,7 +18,7 @@ class LocalizationUtilityTest extends UnitTestCase
      */
     public function translateReturnsString()
     {
-        $value = rand();
+        $value = (string)rand();
         $this->assertSame($value, LocalizationUtility::translate($value));
         $this->assertSame('Y-m-d H:i', LocalizationUtility::translate('datepicker_format'));
     }

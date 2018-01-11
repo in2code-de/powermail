@@ -72,17 +72,19 @@ class GetLocationEid
      *        ['country'] = 'Germany';
      *        ['postal_code'] = '83026';
      */
-    protected function getAddressFromGeo($lat, $lng)
+    protected function getAddressFromGeo($lat, $lng): array
     {
         $result = [];
         $json = GeneralUtility::getUrl(
             'https://maps.googleapis.com/maps/api/geocode/json' .
             '?sensor=false&language=' . $this->language . '&latlng=' . urlencode($lat . ',' . $lng)
         );
-        $jsonDecoded = json_decode($json, true);
-        if (!empty($jsonDecoded['results'])) {
-            foreach ((array)$jsonDecoded['results'][0]['address_components'] as $values) {
-                $result[$values['types'][0]] = $values['long_name'];
+        if ($json !== false) {
+            $jsonDecoded = json_decode($json, true);
+            if (!empty($jsonDecoded['results'])) {
+                foreach ((array)$jsonDecoded['results'][0]['address_components'] as $values) {
+                    $result[$values['types'][0]] = $values['long_name'];
+                }
             }
         }
         return $result;

@@ -184,7 +184,7 @@ class CalculatingCaptchaService
     protected function getFontAngleForCaptcha()
     {
         $angles = GeneralUtility::trimExplode(',', $this->configuration['textAngle'], true);
-        return mt_rand($angles[0], $angles[1]);
+        return mt_rand((int)$angles[0], (int)$angles[1]);
     }
 
     /**
@@ -195,7 +195,7 @@ class CalculatingCaptchaService
     protected function getHorizontalDistanceForCaptcha()
     {
         $distances = GeneralUtility::trimExplode(',', $this->configuration['distanceHor'], true);
-        return mt_rand($distances[0], $distances[1]);
+        return mt_rand((int)$distances[0], (int)$distances[1]);
     }
 
     /**
@@ -206,7 +206,7 @@ class CalculatingCaptchaService
     protected function getVerticalDistanceForCaptcha()
     {
         $distances = GeneralUtility::trimExplode(',', $this->configuration['distanceVer'], true);
-        return mt_rand($distances[0], $distances[1]);
+        return mt_rand((int)$distances[0], (int)$distances[1]);
     }
 
     /**

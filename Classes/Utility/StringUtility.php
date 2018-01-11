@@ -24,13 +24,13 @@ class StringUtility
         }
         // string (default fields)
         if (!is_array($value)) {
-            if (isset($value) && strlen($value)) {
+            if (isset($value) && strlen((string)$value)) {
                 return true;
             }
             // array (checkboxes)
         } else {
             foreach ($value as $subValue) {
-                if (isset($value) && strlen($subValue)) {
+                if (isset($value) && strlen((string)$subValue)) {
                     return true;
                 }
             }

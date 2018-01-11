@@ -22,10 +22,10 @@ class LocalizationUtility extends AbstractUtility
     public static function translate($key, $extensionName = 'powermail', $arguments = null): string
     {
         if (ConfigurationUtility::isDatabaseConnectionAvailable() === false) {
-            if (stristr($key, 'datepicker_format')) {
+            if (stristr((string)$key, 'datepicker_format')) {
                 return 'Y-m-d H:i';
             }
-            return $key;
+            return (string)$key;
         }
         // @codeCoverageIgnoreStart
         return LocalizationUtilityExtbase::translate($key, $extensionName, $arguments);
