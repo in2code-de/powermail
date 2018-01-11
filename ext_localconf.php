@@ -43,14 +43,13 @@ call_user_func(function () {
      */
     $cmsLayout = 'cms/layout/class.tx_cms_layout.php';
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$cmsLayout]['tt_content_drawItem']['powermail'] =
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') .
-        'Classes/Hook/PluginPreview.php:In2code\Powermail\Hook\PluginPreview';
+        \In2code\Powermail\Hook\PluginPreview::class;
 
     /**
      * Hook for initially filling the marker field in backend
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
-        'EXT:powermail/Classes/Hook/CreateMarker.php:In2code\Powermail\Hook\CreateMarker';
+        \In2code\Powermail\Hook\CreateMarker::class;
 
     /**
      * Hook to extend the FlexForm
