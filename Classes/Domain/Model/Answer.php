@@ -62,7 +62,7 @@ class Answer extends AbstractEntity
         if ($this->isTypeDateForTimestamp($value)) {
             $value = date(
                 LocalizationUtility::translate('datepicker_format_' . $this->getField()->getDatepickerSettings()),
-                $value
+                (int)$value
             );
         }
 

@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -11,18 +9,9 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 abstract class AbstractRepository extends Repository
 {
-
     /**
      * @var \In2code\Powermail\Domain\Repository\FormRepository
      * @inject
      */
     protected $formRepository;
-
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabaseConnection()
-    {
-        return ObjectUtility::getDatabaseConnection();
-    }
 }

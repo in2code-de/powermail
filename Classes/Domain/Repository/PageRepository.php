@@ -101,19 +101,15 @@ class PageRepository extends AbstractRepository
      *
      * @return array
      */
-    public function findAllWrongLocalizedPages()
+    public function findAllWrongLocalizedPages(): array
     {
-        $pages = [];
-        $select = 'uid,pid,title,l10n_parent,sys_language_uid';
-        $from = Page::TABLE_NAME;
-        $where = '(forms = "" or forms = 0) and sys_language_uid > 0 and deleted = 0';
-        $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where);
-        if ($res) {
-            while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
-                $pages[] = $row;
-            }
-        }
-        return $pages;
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Page::TABLE_NAME, true);
+        return $queryBuilder
+            ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
+            ->from(Page::TABLE_NAME)
+            ->where('(forms = "" or forms = 0) and sys_language_uid > 0 and deleted = 0')
+            ->execute()
+            ->fetchAll();
     }
 
     /**
@@ -127,11 +123,12 @@ class PageRepository extends AbstractRepository
             $defaultPageUid = $page['l10n_parent'];
             $defaultFormUid = $this->getFormUidFromPageUid($defaultPageUid);
             $localizedFormUid = $this->getLocalizedFormUidFromFormUid($defaultFormUid, $page['sys_language_uid']);
-            $this->getDatabaseConnection()->exec_UPDATEquery(
-                Page::TABLE_NAME,
-                'uid = ' . (int)$page['uid'],
-                ['forms' => $localizedFormUid]
-            );
+            $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Page::TABLE_NAME);
+            $queryBuilder
+                ->update(Page::TABLE_NAME)
+                ->where('uid = ' . (int)$page['uid'])
+                ->set('forms', $localizedFormUid)
+                ->execute();
         }
     }
 
