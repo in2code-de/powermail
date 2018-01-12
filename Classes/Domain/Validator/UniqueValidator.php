@@ -4,23 +4,15 @@ namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 
 /**
- * UniqueValidator
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class UniqueValidator
  */
 class UniqueValidator extends AbstractValidator
 {
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
-     * @inject
-     */
-    protected $mailRepository;
 
     /**
      * Validation of given Params
@@ -40,7 +32,8 @@ class UniqueValidator extends AbstractValidator
             foreach ($mail->getAnswers() as $answer) {
                 /** @var Answer $answer */
                 if ($answer->getField()->getMarker() === $marker) {
-                    $numberOfMails = $this->mailRepository->findByMarkerValueForm(
+                    $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+                    $numberOfMails = $mailRepository->findByMarkerValueForm(
                         $marker,
                         $answer->getValue(),
                         $mail->getForm(),

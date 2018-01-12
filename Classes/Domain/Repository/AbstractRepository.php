@@ -9,9 +9,4 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 abstract class AbstractRepository extends Repository
 {
-    /**
-     * @var \In2code\Powermail\Domain\Repository\FormRepository
-     * @inject
-     */
-    protected $formRepository;
 }

@@ -2,66 +2,21 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Finisher;
 
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\SaveToAnyTableService;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * Save values to any table after a submit
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class SaveToAnyTableFinisher
  */
 class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterface
 {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-     * @inject
-     */
-    protected $typoScriptService;
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
-     * @inject
-     */
-    protected $mailRepository;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @inject
-     */
-    protected $objectManager;
-
-    /**
-     * Inject a complete new content object
-     *
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     * @inject
+     * @var ContentObjectRenderer
      */
     protected $contentObject;
 
@@ -99,7 +54,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     protected function saveSpecifiedTablePreflight($numberKey, array $tableConfiguration)
     {
         /* @var $saveService SaveToAnyTableService */
-        $saveService = $this->objectManager->get(
+        $saveService = ObjectUtility::getObjectManager()->get(
             SaveToAnyTableService::class,
             $this->getTableName($tableConfiguration)
         );
@@ -259,13 +214,24 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     public function initializeFinisher()
     {
-        $configuration = $this->typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
+        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         if (!empty($configuration['dbEntry.'])) {
             $this->configuration = $configuration['dbEntry.'];
         }
         if ($this->isConfigurationAvailable()) {
             $this->addArrayToDataArray(['uid' => $this->mail->getUid()]);
-            $this->addArrayToDataArray($this->mailRepository->getVariablesWithMarkersFromMail($this->mail));
+            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $this->addArrayToDataArray($mailRepository->getVariablesWithMarkersFromMail($this->mail));
         }
+    }
+
+    /**
+     * @param ContentObjectRenderer $contentObject
+     * @return void
+     */
+    public function injectContentObject(ContentObjectRenderer $contentObject)
+    {
+        $this->contentObject = $contentObject;
     }
 }

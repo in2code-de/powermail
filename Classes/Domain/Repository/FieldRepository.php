@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 
 /**
  * Class FieldRepository
@@ -153,7 +154,8 @@ class FieldRepository extends AbstractRepository
     protected function findByMarkerAndFormAlternative($marker, $formUid = 0)
     {
         // get pages from form
-        $form = $this->formRepository->findByUid($formUid);
+        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $form = $formRepository->findByUid($formUid);
         $pageUids = [];
         foreach ($form->getPages() as $page) {
             $pageUids[] = $page->getUid();

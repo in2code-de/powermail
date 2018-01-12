@@ -18,6 +18,7 @@ use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * Class FormController
@@ -26,7 +27,12 @@ class FormController extends AbstractController
 {
 
     /**
-     * @var \In2code\Powermail\DataProcessor\DataProcessorRunner
+     * @var PersistenceManager
+     */
+    protected $persistenceManager;
+
+    /**
+     * @var DataProcessorRunner
      */
     protected $dataProcessorRunner;
 
@@ -437,5 +443,14 @@ class FormController extends AbstractController
     public function injectDataProcessorRunner(DataProcessorRunner $dataProcessorRunner)
     {
         $this->dataProcessorRunner = $dataProcessorRunner;
+    }
+
+    /**
+     * @param PersistenceManager $persistenceManager
+     * @return void
+     */
+    public function injectPersistenceManager(PersistenceManager $persistenceManager)
+    {
+        $this->persistenceManager = $persistenceManager;
     }
 }

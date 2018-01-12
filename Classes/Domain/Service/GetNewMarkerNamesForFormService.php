@@ -5,6 +5,8 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
+use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -19,12 +21,6 @@ class GetNewMarkerNamesForFormService
      * @var string
      */
     protected static $defaultMarker = 'marker';
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\FormRepository
-     * @inject
-     */
-    protected $formRepository;
 
     /**
      * Restricted Marker Names
@@ -59,10 +55,11 @@ class GetNewMarkerNamesForFormService
      */
     public function getMarkersForFieldsDependingOnForm($formUid, $forceReset)
     {
+        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         if ($formUid === 0) {
-            $forms = $this->formRepository->findAll();
+            $forms = $formRepository->findAll();
         } else {
-            $forms = [$this->formRepository->findByUid($formUid)];
+            $forms = [$formRepository->findByUid($formUid)];
         }
         $markers = [];
         /** @var Form $form */

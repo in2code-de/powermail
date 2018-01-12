@@ -2,9 +2,10 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Finisher;
 
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * SendParametersFinisher to send params via CURL
@@ -13,16 +14,9 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
 {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
+     * @var ConfigurationManagerInterface
      */
     protected $configurationManager;
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
-     * @inject
-     */
-    protected $mailRepository;
 
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -137,9 +131,19 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     public function initializeFinisher()
     {
         $this->contentObject = $this->configurationManager->getContentObject();
-        $this->contentObject->start($this->mailRepository->getVariablesWithMarkersFromMail($this->mail));
+        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $this->contentObject->start($mailRepository->getVariablesWithMarkersFromMail($this->mail));
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $configuration = $configurationService->getTypoScriptConfiguration();
         $this->configuration = $configuration['marketing.']['sendPost.'];
+    }
+
+    /**
+     * @param ConfigurationManagerInterface $configurationManager
+     * @return void
+     */
+    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
+    {
+        $this->configurationManager = $configurationManager;
     }
 }
