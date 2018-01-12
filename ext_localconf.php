@@ -54,12 +54,6 @@ call_user_func(function () {
     /**
      * Hook to extend the FlexForm
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass'][] =
-        'EXT:powermail/Classes/Hook/FlexFormManipulationHook.php:In2code\Powermail\Hook\FlexFormManipulationHook';
-
-    /**
-     * Hook to extend the FlexForm since core version 8.5
-     */
     $ffTools = \TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$ffTools]['flexParsing']['powermail'] =
         In2code\Powermail\Hook\FlexFormManipulationHook::class;
