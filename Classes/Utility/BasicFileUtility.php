@@ -63,7 +63,7 @@ class BasicFileUtility extends AbstractUtility
     {
         if (!is_dir($path) && !GeneralUtility::mkdir($path)) {
             throw new \UnexpectedValueException(
-                'Folder ' . self::getRelativeFolder($path) . ' does not exists',
+                'Folder ' . self::getRelativeFolder($path) . ' could not be created',
                 1514817474234
             );
         }
