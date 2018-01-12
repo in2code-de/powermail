@@ -84,7 +84,7 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
      */
-    public function createAction(Mail $mail, $hash = null)
+    public function createAction(Mail $mail, string $hash = null)
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $this->dataProcessorRunner->callDataProcessors(
@@ -144,14 +144,7 @@ class FormController extends AbstractController
      * Show Confirmation message after submit (if view is activated)
      *
      * @param Mail $mail
-     * @validate $mail In2code\Powermail\Domain\Validator\UploadValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
+     * @validate $mail \In2code\Powermail\Domain\Validator\InputValidator
      * @return void
      */
     public function confirmationAction(Mail $mail)
@@ -171,7 +164,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return void
      */
-    protected function sendMailPreflight(Mail $mail, $hash = null)
+    protected function sendMailPreflight(Mail $mail, string $hash = null)
     {
         try {
             if ($this->isSenderMailEnabled() && $this->mailRepository->getSenderMailFromArguments($mail)) {
@@ -248,7 +241,7 @@ class FormController extends AbstractController
      * @param string $hash Given Hash String
      * @return void
      */
-    public function optinConfirmAction($mail, $hash)
+    public function optinConfirmAction(int $mail, string $hash)
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
@@ -278,7 +271,7 @@ class FormController extends AbstractController
      * @return void
      * @codeCoverageIgnore
      */
-    public function marketingAction($referer = null, $language = 0, $pid = 0, $mobileDevice = 0)
+    public function marketingAction($referer = null, int $language = 0, int $pid = 0, int $mobileDevice = 0)
     {
         SessionUtility::storeMarketingInformation($referer, $language, $pid, $mobileDevice);
     }
@@ -377,7 +370,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return bool
      */
-    protected function isMailPersistActive($hash)
+    protected function isMailPersistActive(string $hash = null): bool
     {
         return ($this->isPersistActive() || !empty($this->settings['main']['optin'])) && $hash === null;
     }
@@ -392,7 +385,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return bool
      */
-    protected function isNoOptin(Mail $mail, $hash)
+    protected function isNoOptin(Mail $mail, string $hash = null): bool
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
@@ -413,7 +406,7 @@ class FormController extends AbstractController
     /**
      * @return bool
      */
-    protected function isPersistActive()
+    protected function isPersistActive(): bool
     {
         return $this->settings['db']['enable'] === '1';
     }
@@ -421,7 +414,7 @@ class FormController extends AbstractController
     /**
      * @return bool
      */
-    protected function isSenderMailEnabled()
+    protected function isSenderMailEnabled(): bool
     {
         return $this->settings['sender']['enable'] === '1';
     }
@@ -429,7 +422,7 @@ class FormController extends AbstractController
     /**
      * @return bool
      */
-    protected function isReceiverMailEnabled()
+    protected function isReceiverMailEnabled(): bool
     {
         return $this->settings['receiver']['enable'] === '1';
     }

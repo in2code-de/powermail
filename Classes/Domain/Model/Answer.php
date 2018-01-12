@@ -77,7 +77,6 @@ class Answer extends AbstractEntity
      * Sets the value
      *
      * @param mixed $value
-     * @dontvalidate $value
      * @return Answer
      */
     public function setValue($value)
