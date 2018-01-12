@@ -16,7 +16,7 @@ class StringUtility
      * @param mixed $value
      * @return bool
      */
-    public static function isNotEmpty($value)
+    public static function isNotEmpty($value): bool
     {
         // bool
         if (is_bool($value)) {

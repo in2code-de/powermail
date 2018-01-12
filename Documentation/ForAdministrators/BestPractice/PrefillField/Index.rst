@@ -20,15 +20,11 @@ listen to the following methods and parameters (in this ordering):
 
 2. GET/POST param like **&tx\_powermail\_pi1[marker]=value**
 
-3. GET/POST param like **&tx\_powermail\_pi1[field][123]=value**
+3. If field should be filled with values from FE\_User (see field configuration)
 
-4. GET/POST param like **&tx\_powermail\_pi1[uid123]=value**
+4. If field should be prefilled from static Setting (see field configuration)
 
-5. If field should be filled with values from FE\_User (see field configuration)
-
-6. If field should be prefilled from static Setting (see field configuration)
-
-7. Fill with TypoScript cObject like
+5. Fill with TypoScript cObject like
 
 .. code-block:: text
 
@@ -38,7 +34,7 @@ listen to the following methods and parameters (in this ordering):
 		email.value = mail@domain.org
 	}
 
-8. Fill with simple TypoScript like
+6. Fill with simple TypoScript like
 
 .. code-block:: text
 
@@ -47,7 +43,7 @@ listen to the following methods and parameters (in this ordering):
 		email = mail@domain.org
 	}
 
-9. Fill with your own PHP with a Signal. Look at In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render()
+7. Fill with your own PHP with a Signal. Look at In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render()
 
 
 Example markup

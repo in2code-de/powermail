@@ -3,32 +3,35 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Link for Powermail Assets on Backend Call
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class LinkViewHelper to build a link in backend context
  */
 class LinkViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Link for Powermail Assets on Backend Call
-     *
-     * @param string $path like uploads/tx_powermail/file.txt
-     * @param bool $absolute
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('path', 'string', 'like "uploads/tx_powermail/file.txt"', true);
+        $this->registerArgument('absolute', 'bool', 'Want an absolute path?', false, false);
+    }
+
+    /**
      * @return string
      */
-    public function render($path, $absolute = false)
+    public function render(): string
     {
         $uri = '';
-        if ($absolute) {
+        if ($this->arguments['absolute'] === true) {
             $uri .= parse_url(GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'), PHP_URL_SCHEME);
             $uri .= '://' . GeneralUtility::getIndpEnv('HTTP_HOST') . '/';
             $uri .= rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'), '/');
         }
-        return $uri . $path;
+        return $uri . $this->arguments['path'];
     }
 }

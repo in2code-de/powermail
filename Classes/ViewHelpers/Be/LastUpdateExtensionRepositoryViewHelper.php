@@ -3,10 +3,10 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use In2code\Powermail\Utility\DatabaseUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * PowermailVersionViewHelper
+ * Class LastUpdateExtensionRepositoryViewHelper
  */
 class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
 {
@@ -17,7 +17,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
      *
      * @return int
      */
-    public function render()
+    public function render(): int
     {
         if ($this->extensionTableExists()) {
             $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);

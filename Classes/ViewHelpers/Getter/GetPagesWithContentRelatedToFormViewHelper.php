@@ -3,33 +3,33 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use In2code\Powermail\Domain\Model\Form;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Get Pages with contents which are related to a tt_content-powermail-plugin
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class GetPagesWithContentRelatedToFormViewHelper
  */
 class GetPagesWithContentRelatedToFormViewHelper extends AbstractViewHelper
 {
 
     /**
-     * pageRepository
-     *
-     * @var \In2code\Powermail\Domain\Repository\PageRepository
-     * @inject
+     * @return void
      */
-    protected $pageRepository;
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('form', Form::class, 'Form', true);
+    }
 
     /**
      * Get Pages with contents which are related to a tt_content-powermail-plugin
      *
-     * @param Form $form
      * @return array
      */
-    public function render(Form $form)
+    public function render(): array
     {
-        return $this->pageRepository->getPagesWithContentRelatedToForm($form);
+        $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+        return $pageRepository->getPagesWithContentRelatedToForm($this->arguments['form']);
     }
 }

@@ -2,16 +2,13 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 
 /**
- * Backend Check Viewhelper: Check if TYPO3 Version is correct
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class T3VersionViewHelper
  */
 class T3VersionViewHelper extends AbstractViewHelper
 {
@@ -21,7 +18,7 @@ class T3VersionViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    public function render()
+    public function render(): bool
     {
         $EM_CONF = [];
         $_EXTKEY = 'powermail';
@@ -38,7 +35,7 @@ class T3VersionViewHelper extends AbstractViewHelper
      * @param string $minTypo3Version
      * @return bool
      */
-    protected function isAboveMinVersion($minTypo3Version)
+    protected function isAboveMinVersion($minTypo3Version): bool
     {
         return $this->getCurrentTypo3Version() >= VersionNumberUtility::convertVersionNumberToInteger($minTypo3Version);
     }
@@ -49,7 +46,7 @@ class T3VersionViewHelper extends AbstractViewHelper
      * @param string $maxTypo3Version
      * @return bool
      */
-    protected function isBelowMaxVersion($maxTypo3Version)
+    protected function isBelowMaxVersion($maxTypo3Version): bool
     {
         return $this->getCurrentTypo3Version() <= VersionNumberUtility::convertVersionNumberToInteger($maxTypo3Version);
     }
@@ -59,7 +56,7 @@ class T3VersionViewHelper extends AbstractViewHelper
      *
      * @return int
      */
-    protected function getCurrentTypo3Version()
+    protected function getCurrentTypo3Version(): int
     {
         return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
     }

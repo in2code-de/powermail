@@ -4,27 +4,31 @@ namespace In2code\Powermail\ViewHelpers\Condition;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\FrontendUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Check if logged in User is allowed to edit
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class IsAllowedToEditViewHelper
  */
 class IsAllowedToEditViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Check if logged in User is allowed to edit
-     *
-     * @param Mail $mail
-     * @param array $settings TypoScript and FlexForm Settings
-     * @return bool
+     * @return void
      */
-    public function render(Mail $mail, $settings = array())
+    public function initializeArguments()
     {
-        return FrontendUtility::isAllowedToEdit($settings, $mail);
+        parent::initializeArguments();
+        $this->registerArgument('mail', Mail::class, 'Mail object', true);
+        $this->registerArgument('settings', 'array', 'TypoScript settings', false, []);
     }
 
+    /**
+     * Check if logged in User is allowed to edit
+     *
+     * @return bool
+     */
+    public function render(): bool
+    {
+        return FrontendUtility::isAllowedToEdit($this->arguments['settings'], $this->arguments['mail']);
+    }
 }

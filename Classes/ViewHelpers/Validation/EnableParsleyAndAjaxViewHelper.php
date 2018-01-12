@@ -7,11 +7,7 @@ use In2code\Powermail\Domain\Service\RedirectUriService;
 use In2code\Powermail\Utility\ObjectUtility;
 
 /**
- * Adds additional attributes for parsley or AJAX submit
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class EnableParsleyAndAjaxViewHelper
  */
 class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
 {
@@ -24,14 +20,25 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
     protected $addRedirectUri = true;
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('form', Form::class, 'Form', true);
+        $this->registerArgument('additionalAttributes', 'array', 'additionalAttributes', false, []);
+    }
+
+    /**
      * Returns Data Attribute Array to enable parsley
      *
-     * @param Form $form
-     * @param array $additionalAttributes To add further attributes
      * @return array for data attributes
      */
-    public function render(Form $form, $additionalAttributes = [])
+    public function render(): array
     {
+        /** @var Form $field */
+        $form = $this->arguments['form'];
+        $additionalAttributes = $this->arguments['additionalAttributes'];
         if ($this->isClientValidationEnabled()) {
             $additionalAttributes['data-parsley-validate'] = 'data-parsley-validate';
         }

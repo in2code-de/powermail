@@ -6,7 +6,8 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -16,8 +17,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
 {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
+     * @var ConfigurationManagerInterface
      */
     protected $configurationManager;
 
@@ -123,7 +123,8 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     public function initialize()
     {
-        $this->extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
+        $this->configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
+        $this->extensionName = 'Powermail';
         $this->contentObject = $this->configurationManager->getContentObject();
         if ($this->arguments['extensionName'] !== null) {
             $this->extensionName = $this->arguments['extensionName'];

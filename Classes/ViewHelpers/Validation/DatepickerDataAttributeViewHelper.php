@@ -6,25 +6,34 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
 
 /**
- * Returns Data-Attributes for JS and Native Validation
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class DatepickerDataAttributeViewHelper
  */
 class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
 {
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('field', Field::class, 'Field', true);
+        $this->registerArgument('additionalAttributes', 'array', 'additionalAttributes', false, []);
+        $this->registerArgument('value', 'string', 'Value of this field', false, '');
+    }
+
+    /**
      * Returns Data Attribute Array Datepicker settings (FE + BE)
      *
-     * @param Field $field
-     * @param array $additionalAttributes To add further attributes
-     * @param string $value of this field
      * @return array for data attributes
      */
-    public function render(Field $field = null, $additionalAttributes = [], $value = '')
+    public function render(): array
     {
+        /** @var Field $field */
+        $field = $this->arguments['field'];
+        $additionalAttributes = $this->arguments['additionalAttributes'];
+        $value = $this->arguments['value'];
+
         $additionalAttributes['data-datepicker-force'] =
             $this->settings['misc']['datepicker']['forceJavaScriptDatePicker'];
         $additionalAttributes['data-datepicker-settings'] = $this->getDatepickerSettings($field);

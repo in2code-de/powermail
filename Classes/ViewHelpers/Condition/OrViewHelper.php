@@ -2,32 +2,35 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * OrViewHelper
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class OrViewHelper
  */
 class OrViewHelper extends AbstractViewHelper
 {
 
     /**
-     * OR viewhelper for if widget in fluid
-     *
-     * @param array $array Array with strings
-     * @param string $string String to compare
-     * @return boolean
+     * @return void
      */
-    public function render($array, $string = null)
+    public function initializeArguments()
     {
-        foreach ((array)$array as $value) {
-            if (!$string && $value) {
+        parent::initializeArguments();
+        $this->registerArgument('array', 'array', 'Array with strings', true);
+        $this->registerArgument('string', 'string', 'String to compare', false, '');
+    }
+
+    /**
+     * @return bool
+     */
+    public function render(): bool
+    {
+        $string = $this->arguments['string'];
+        foreach ($this->arguments['array'] as $value) {
+            if (!empty($string) && $value) {
                 return true;
             }
-            if ($string && $value === $string) {
+            if (!empty($string) && $value === $string) {
                 return true;
             }
         }

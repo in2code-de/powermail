@@ -3,13 +3,10 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\String;
 
 use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Trim Inner HTML
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class TrimViewHelper
  */
 class TrimViewHelper extends AbstractViewHelper
 {

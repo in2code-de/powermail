@@ -3,27 +3,34 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Utility\BackendUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * BackendEditLinkViewHelper
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class BackendEditLinkViewHelper
  */
 class BackendEditLinkViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Create a link for backend edit
-     *
-     * @param string $tableName
-     * @param int $identifier
-     * @param bool $addReturnUrl
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('tableName', 'string', 'tableName', true);
+        $this->registerArgument('identifier', 'int', 'identifier', true);
+        $this->registerArgument('addReturnUrl', 'bool', 'addReturnUrl', false, true);
+    }
+
+    /**
      * @return string
      */
-    public function render($tableName, $identifier, $addReturnUrl = true)
+    public function render(): string
     {
-        return BackendUtility::createEditUri($tableName, $identifier, $addReturnUrl);
+        return BackendUtility::createEditUri(
+            $this->arguments['tableName'],
+            $this->arguments['identifier'],
+            $this->arguments['addReturnUrl']
+        );
     }
 }

@@ -2,28 +2,37 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\String;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * View helper to implode an array or objects to a list
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class ImplodeFieldViewHelper
  */
 class ImplodeFieldViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('objects', 'mixed', 'Object', true);
+        $this->registerArgument('field', 'string', 'Object proerty', false, 'uid');
+        $this->registerArgument('separator', 'string', 'Separator character', false, ',');
+        $this->registerArgument('htmlSpecialChars', 'bool', 'Escape output?', false, true);
+    }
+
+    /**
      * View helper to implode an array or objects to a list
      *
-     * @param mixed $objects Any objects with submethod getUid()
-     * @param string $field Field to use in object
-     * @param string $separator Separator sign (e.g. ",")
-     * @param bool $htmlSpecialChars
      * @return string
      */
-    public function render($objects, $field = 'uid', $separator = ',', $htmlSpecialChars = true)
+    public function render(): string
     {
+        $objects = $this->arguments['objects'];
+        $field = $this->arguments['field'];
+        $separator = $this->arguments['separator'];
+        $htmlSpecialChars = $this->arguments['htmlSpecialChars'];
         $string = '';
         if (count($objects) === 0 || is_string($objects)) {
             return $string;

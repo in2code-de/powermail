@@ -3,13 +3,10 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use In2code\Powermail\Utility\BackendUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Is Backend Admin?
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class IsAdminViewHelper
  */
 class IsAdminViewHelper extends AbstractViewHelper
 {
@@ -19,7 +16,7 @@ class IsAdminViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    public function render()
+    public function render(): bool
     {
         return BackendUtility::isBackendAdmin();
     }

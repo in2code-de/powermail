@@ -2,23 +2,18 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\String;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Remove Quotes from Inner HTML
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class RemoveQuoteViewHelper
  */
 class RemoveQuoteViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Remove Quotes from Inner HTML
-     *
-     * @return    boolean
+     * @return string
      */
-    public function render()
+    public function render(): string
     {
         return str_replace('"', '\'', $this->renderChildren());
     }

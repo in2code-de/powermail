@@ -2,13 +2,13 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /**
- * Backend Check Viewhelper: Check if Session works correct on the server
+ * Class SessionViewHelper
  */
 class SessionViewHelper extends AbstractViewHelper
 {

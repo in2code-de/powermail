@@ -2,13 +2,10 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Reporting;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * View helper check if given value is array or not
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class GetLabelsForChartsViewHelper
  */
 class GetLabelsForChartsViewHelper extends AbstractViewHelper
 {
@@ -19,19 +16,32 @@ class GetLabelsForChartsViewHelper extends AbstractViewHelper
     protected $notAllowedSign = '"';
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('answers', 'array', 'Grouped Answers', true);
+        $this->registerArgument('fieldUidOrKey', 'string', 'fieldUidOrKey', true);
+        $this->registerArgument('separator', 'string', 'separator', false, '|');
+        $this->registerArgument('crop', 'int', 'crop', false, 15);
+        $this->registerArgument('append', 'string', 'append', false, '...');
+        $this->registerArgument('urlEncode', 'bool', 'urlEncode', false, true);
+    }
+
+    /**
      * Get labels string for charts JavaScript like "label1|label2|label3"
      *
-     * @param array $answers Grouped Answers
-     * @param string $fieldUidOrKey
-     * @param string $separator
-     * @param int $crop Crop each label after X signs
-     * @param string $append append after crop
-     * @param bool $urlEncode
      * @return string
      */
-    public function render($answers, $fieldUidOrKey, $separator = '|', $crop = 15, $append = '...', $urlEncode = true)
+    public function render(): string
     {
         $string = '';
+        $answers = $this->arguments['answers'];
+        $fieldUidOrKey = $this->arguments['fieldUidOrKey'];
+        $separator = $this->arguments['separator'];
+        $crop = $this->arguments['crop'];
+        $append = $this->arguments['append'];
         if (empty($answers[$fieldUidOrKey]) || !is_array($answers[$fieldUidOrKey])) {
             return $string;
         }
@@ -47,7 +57,7 @@ class GetLabelsForChartsViewHelper extends AbstractViewHelper
         }
         $string = rtrim($string, $separator);
 
-        if ($urlEncode) {
+        if ($this->arguments['urlEncode']) {
             $string = urlencode($string);
         }
         return $string;

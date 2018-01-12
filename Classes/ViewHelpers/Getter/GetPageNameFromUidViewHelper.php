@@ -2,33 +2,31 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * View helper check if given value is array or not
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class GetPageNameFromUidViewHelper
  */
 class GetPageNameFromUidViewHelper extends AbstractViewHelper
 {
 
     /**
-     * pageRepository
-     *
-     * @var \In2code\Powermail\Domain\Repository\PageRepository
-     * @inject
+     * @return void
      */
-    protected $pageRepository;
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('uid', 'int', 'UID', false, 0);
+    }
 
     /**
-     * View helper check if given value is array or not
-     *
-     * @param int $uid PID
-     * @return string Page Name
+     * @return string
      */
-    public function render($uid = 0)
+    public function render(): string
     {
-        return $this->pageRepository->getPageNameFromUid($uid);
+        $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+        return $pageRepository->getPageNameFromUid($this->arguments['uid']);
     }
 }

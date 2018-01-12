@@ -5,10 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Form;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper;
 
 /**
- * View helper to get a country array
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class MultiUploadViewHelper
  */
 class MultiUploadViewHelper extends UploadViewHelper
 {

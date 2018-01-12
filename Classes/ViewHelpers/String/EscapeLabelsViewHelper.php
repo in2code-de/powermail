@@ -4,7 +4,7 @@ namespace In2code\Powermail\ViewHelpers\String;
 
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class EscapeLabelsViewHelper

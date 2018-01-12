@@ -2,13 +2,12 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * Shows Content Element
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class ContentElementViewHelper
  */
 class ContentElementViewHelper extends AbstractViewHelper
 {
@@ -19,24 +18,27 @@ class ContentElementViewHelper extends AbstractViewHelper
     protected $escapeOutput = false;
 
     /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     * @inject
+     * @return void
      */
-    protected $contentObject;
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('uid', 'int', 'tt_content.uid', true);
+    }
 
     /**
      * Parse a content element
      *
-     * @param int $uid UID of any content element
-     * @return string Parsed Content Element
+     * @return string
      */
-    public function render($uid)
+    public function render()
     {
+        $contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
         $configuration = [
             'tables' => 'tt_content',
-            'source' => (int)$uid,
+            'source' => (int)$this->arguments['uid'],
             'dontCheckPid' => 1
         ];
-        return $this->contentObject->cObjGetSingle('RECORDS', $configuration);
+        return $contentObject->cObjGetSingle('RECORDS', $configuration);
     }
 }

@@ -5,10 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 use In2code\Powermail\Domain\Model\Field;
 
 /**
- * Get Field Type for input fields
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class FieldTypeFromValidationViewHelper
  */
 class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
 {
@@ -27,13 +24,21 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
     ];
 
     /**
-     * Parses variables again
-     *
-     * @param \In2code\Powermail\Domain\Model\Field $field
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('field', Field::class, 'Field', true);
+    }
+
+    /**
      * @return string
      */
-    public function render(Field $field)
+    public function render()
     {
+        /** @var Field $field */
+        $field = $this->arguments['field'];
         if (!$this->isNativeValidationEnabled()) {
             return 'text';
         }
@@ -42,5 +47,4 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
         }
         return 'text';
     }
-
 }

@@ -3,14 +3,11 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use In2code\Powermail\Domain\Model\Answer;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * View helper check if value should be returned or not
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class IsNotExcludedFromPowermailAllViewHelper
  */
 class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
 {
@@ -27,18 +24,30 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
     ];
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('answer', Answer::class, 'Answer', true);
+        $this->registerArgument('type', 'string', 'Type of answer like "creatAction" or "sender", etc...', true);
+        $this->registerArgument('settings', 'array', 'TypoScript settings', false, []);
+    }
+
+    /**
      * View helper check if value should be returned or not
      *
-     * @param \In2code\Powermail\Domain\Model\Answer $answer
-     * @param string $type "createAction", "confirmationAction", "sender", "receiver"
-     * @param array $settings
      * @return bool
      */
-    public function render(Answer $answer, $type, $settings = [])
+    public function render(): bool
     {
+        /** @var Answer $answer */
+        $answer = $this->arguments['answer'];
+        $type = $this->arguments['type'];
+        $settings = $this->arguments['settings'];
+
         // excludeFromFieldTypes
-        if (
-            $answer->getField() &&
+        if ($answer->getField() &&
             in_array(
                 $answer->getField()->getType(),
                 $this->getExcludedValues($type, $settings, 'excludeFromFieldTypes')
@@ -48,8 +57,7 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
         }
 
         // excludeFromMarkerNames
-        if (
-            $answer->getField() &&
+        if ($answer->getField() &&
             in_array(
                 $answer->getField()->getMarker(),
                 $this->getExcludedValues($type, $settings, 'excludeFromMarkerNames')
@@ -73,10 +81,9 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
      * @param string $configurationType
      * @return array
      */
-    protected function getExcludedValues($type, $settings, $configurationType = 'excludeFromFieldTypes')
+    protected function getExcludedValues($type, $settings, $configurationType = 'excludeFromFieldTypes'): array
     {
-        if (
-            !empty($settings['excludeFromPowermailAllMarker'][$this->typeToTypoScriptType[$type]][$configurationType])
+        if (!empty($settings['excludeFromPowermailAllMarker'][$this->typeToTypoScriptType[$type]][$configurationType])
         ) {
             return GeneralUtility::trimExplode(
                 ',',

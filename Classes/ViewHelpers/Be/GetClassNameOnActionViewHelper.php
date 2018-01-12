@@ -2,36 +2,48 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Utility\FrontendUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class GetClassNameOnActionViewHelper
- * @package In2code\Powermail\ViewHelpers\Be
  */
 class GetClassNameOnActionViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('actionName', 'string', 'Given action name', true);
+        $this->registerArgument('className', 'string', 'Classname to return if action fits', false, ' btn-primary');
+        $this->registerArgument('fallbackClassName', 'string', 'Classname for another action', false, ' btn-default');
+    }
+
+    /**
      * Return className if actionName fits to current action
      *
-     * @param string $actionName action name to compare with current action
-     * @param string $className classname that should be returned if action fits
-     * @param string $fallbackClassName fallback classname if action does not fit
      * @return string
      */
-    public function render($actionName, $className = ' btn-primary', $fallbackClassName = ' btn-default')
+    public function render(): string
     {
-        if ($this->getCurrentActionName() === $actionName) {
-            return $className;
+        if ($this->getCurrentActionName() === $this->arguments['actionName']) {
+            return $this->arguments['className'];
         }
-        return $fallbackClassName;
+        return $this->arguments['fallbackClassName'];
     }
 
     /**
      * @return string
      */
-    protected function getCurrentActionName()
+    protected function getCurrentActionName(): string
     {
-        return $this->controllerContext->getRequest()->getControllerActionName();
+        $actionName = FrontendUtility::getActionName();
+        if ($actionName === '') {
+            $actionName = 'list';
+        }
+        return $actionName;
     }
 }

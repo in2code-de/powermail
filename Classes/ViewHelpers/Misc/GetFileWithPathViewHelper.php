@@ -4,7 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Get Upload Path ViewHelper
@@ -20,14 +20,25 @@ class GetFileWithPathViewHelper extends AbstractViewHelper
     protected $uploadPathFallback = 'uploads/tx_powermail/';
 
     /**
-     * Get Upload Path
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('fileName', 'string', 'Filename like "picture.jpg"', true);
+        $this->registerArgument('path', 'string', 'Path like "fileadmin/powermail/uploads/"', true);
+    }
+
+    /**
+     * Get path and filename
      *
-     * @param string $fileName like picture.jpg
-     * @param string $path like fileadmin/powermail/uploads/
      * @return string
      */
-    public function render($fileName, $path)
+    public function render(): string
     {
+        $fileName = $this->arguments['fileName'];
+        $path = $this->arguments['path'];
+
         // using FAL although plain path/file is supplied to trigger all hooks and signals
         $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
         $allStorages = $storageRepository->findAll();
@@ -43,7 +54,7 @@ class GetFileWithPathViewHelper extends AbstractViewHelper
                     }
                 }
             } catch (\Exception $e) {
-                // Catch all exceptions from core
+                unset($e);
             }
         }
         // fallback from FAL storages

@@ -12,7 +12,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -43,28 +43,33 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     protected $piVars;
 
     /**
-     * Field
-     *
      * @var Field $field
      */
     protected $field = null;
 
     /**
-     * Mail
-     *
      * @var Mail $mail
      */
     protected $mail = null;
 
     /**
-     * Markername
-     *
      * @var string
      */
     protected $marker = '';
 
     /**
-     * Prefill fields from type
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('field', Field::class, 'Field', true);
+        $this->registerArgument('mail', Mail::class, 'Mail for a prefill in edit action', false, null);
+        $this->registerArgument('default', 'string', 'Fallback value', false, null);
+    }
+
+    /**
+     * Prefill fields of type
      *        input
      *        textarea
      *        select
@@ -74,13 +79,14 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *        date
      *        location
      *
-     * @param Field $field
-     * @param Mail $mail To prefill in Edit Action
-     * @param string $default Fallback value
      * @return string|array Prefill field
      */
-    public function render(Field $field, Mail $mail = null, $default = '')
+    public function render()
     {
+        /** @var Field $field */
+        $field = $this->arguments['field'];
+        $mail = $this->arguments['mail'];
+        $default = $this->arguments['default'];
         $this->setMarker($field->getMarker())
             ->setField($field)
             ->setMail($mail)
@@ -101,8 +107,6 @@ class PrefillFieldViewHelper extends AbstractViewHelper
         $value = $this->getFromMail($value);
         $value = $this->getFromMarker($value);
         $value = $this->getFromRawMarker($value);
-        $value = $this->getFromFieldUid($value);
-        $value = $this->getFromOldPowermailFieldUid($value);
         $value = $this->getFromFrontendUser($value);
         $value = $this->getFromPrefillValue($value);
         $value = $this->getFromTypoScriptContentObject($value);
@@ -153,34 +157,6 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     {
         if (empty($value) && isset($this->piVars[$this->getMarker()])) {
             $value = $this->piVars[$this->getMarker()];
-        }
-        return $value;
-    }
-
-    /**
-     * Get value from GET/POST param &tx_powermail_pi1[field][123]
-     *
-     * @param string $value
-     * @return string
-     */
-    protected function getFromFieldUid($value)
-    {
-        if (empty($value) && isset($this->piVars['field'][$this->getField()->getUid()])) {
-            $value = $this->piVars['field'][$this->getField()->getUid()];
-        }
-        return $value;
-    }
-
-    /**
-     * Get value from GET/POST param &tx_powermail_pi1[uid123]
-     *
-     * @param string $value
-     * @return string
-     */
-    protected function getFromOldPowermailFieldUid($value)
-    {
-        if (empty($value) && isset($this->piVars['uid' . $this->getField()->getUid()])) {
-            $value = $this->piVars['uid' . $this->getField()->getUid()];
         }
         return $value;
     }
@@ -385,7 +361,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     public function initialize()
     {
         $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
-        $this->contentObject = $this->objectManager->get(ContentObjectRenderer::class);
+        $this->contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
     }

@@ -3,25 +3,28 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * View helper check if given value is empty (also empty arrays)
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class IsNotEmptyViewHelper
  */
 class IsNotEmptyViewHelper extends AbstractViewHelper
 {
 
     /**
-     * View helper check if given value is empty
-     *
-     * @param mixed $val String or Number
-     * @return boolean
+     * @return void
      */
-    public function render($val)
+    public function initializeArguments()
     {
-        return StringUtility::isNotEmpty($val);
+        parent::initializeArguments();
+        $this->registerArgument('val', 'string', 'Value', true);
+    }
+
+    /**
+     * @return bool
+     */
+    public function render(): bool
+    {
+        return StringUtility::isNotEmpty($this->arguments['val']);
     }
 }

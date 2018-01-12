@@ -5,10 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Form;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
 
 /**
- * View helper to generate select field with empty values, preselected, etc...
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class SelectFieldViewHelper
  */
 class SelectFieldViewHelper extends SelectViewHelper
 {
@@ -69,6 +66,7 @@ class SelectFieldViewHelper extends SelectViewHelper
      */
     protected function renderOptionTag($value, $label, $isSelected = false)
     {
+        unset($isSelected);
         return parent::renderOptionTag(
             $value,
             $label,
@@ -110,8 +108,7 @@ class SelectFieldViewHelper extends SelectViewHelper
      */
     protected function isSelectedAlternativeForString($option)
     {
-        if (
-            ($option['selected'] && !$this->getValueAttribute()) ||
+        if (($option['selected'] && !$this->getValueAttribute()) ||
             ($this->getValueAttribute() &&
                 ($option['value'] === $this->getValueAttribute() || $option['label'] === $this->getValueAttribute()))
         ) {

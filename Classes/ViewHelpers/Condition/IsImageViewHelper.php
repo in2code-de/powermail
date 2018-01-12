@@ -2,13 +2,10 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Check if Path or File is an image
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class IsImageViewHelper
  */
 class IsImageViewHelper extends AbstractViewHelper
 {
@@ -27,14 +24,22 @@ class IsImageViewHelper extends AbstractViewHelper
     ];
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('path', 'string', 'Path', true);
+    }
+
+    /**
      * Check if Path or File is an image
      *
-     * @param string $path
-     * @return boolean
+     * @return bool
      */
-    public function render($path)
+    public function render(): bool
     {
-        $fileInfo = pathinfo($path);
+        $fileInfo = pathinfo($this->arguments['path']);
         return in_array($fileInfo['extension'], $this->imageExtensions);
     }
 }
