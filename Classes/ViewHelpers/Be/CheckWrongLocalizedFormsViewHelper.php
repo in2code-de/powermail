@@ -22,6 +22,6 @@ class CheckWrongLocalizedFormsViewHelper extends AbstractViewHelper
     {
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         $forms = $formRepository->findAllWrongLocalizedForms();
-        return count($forms) > 0;
+        return count($forms) === 0;
     }
 }

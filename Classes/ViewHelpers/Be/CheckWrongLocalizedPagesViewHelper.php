@@ -22,6 +22,6 @@ class CheckWrongLocalizedPagesViewHelper extends AbstractViewHelper
     {
         $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
         $pages = $pageRepository->findAllWrongLocalizedPages();
-        return count($pages) > 0;
+        return count($pages) === 0;
     }
 }
