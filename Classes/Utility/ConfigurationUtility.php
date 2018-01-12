@@ -201,7 +201,7 @@ class ConfigurationUtility extends AbstractUtility
      */
     public static function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup')
     {
-        $settings = ArrayUtility::mergeRecursiveOverrule(
+        $settings = ArrayUtility::arrayMergeRecursiveOverrule(
             (array)$settings[$typoScriptLevel],
             (array)$settings['flexform'],
             false,

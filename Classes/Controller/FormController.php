@@ -82,7 +82,6 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
-     * @required $mail
      * @return void
      */
     public function createAction(Mail $mail, $hash = null)
@@ -153,7 +152,6 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
-     * @required $mail
      * @return void
      */
     public function confirmationAction(Mail $mail)
