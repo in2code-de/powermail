@@ -5,6 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Domain\Service\ConfigurationService;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
@@ -88,7 +89,8 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($settings)) {
             case 'captcha':
                 $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
-                $image = ExtensionManagementUtility::siteRelPath('captcha') . 'captcha/captcha.php';
+                $image = BasicFileUtility::getRelativeFolder(ExtensionManagementUtility::extPath('captcha'))
+                    . 'captcha/captcha.php';
                 if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
                     $imageTag = Utility::makeCaptcha($field->getUid());
                     return StringUtility::getSrcFromImageTag($imageTag);
