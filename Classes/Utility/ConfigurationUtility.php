@@ -220,6 +220,8 @@ class ConfigurationUtility extends AbstractUtility
     }
 
     /**
+     * Decide if TYPO3 8.7 is used or newer
+     *
      * @return bool
      * @codeCoverageIgnore
      */

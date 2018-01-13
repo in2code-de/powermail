@@ -28,7 +28,7 @@ class ObjectUtility extends AbstractUtility
     /**
      * @return ObjectManager
      */
-    public static function getObjectManager()
+    public static function getObjectManager(): ObjectManager
     {
         return parent::getObjectManager();
     }
@@ -36,7 +36,7 @@ class ObjectUtility extends AbstractUtility
     /**
      * @return ContentObjectRenderer
      */
-    public static function getContentObject()
+    public static function getContentObject(): ContentObjectRenderer
     {
         return parent::getContentObject();
     }
@@ -44,7 +44,7 @@ class ObjectUtility extends AbstractUtility
     /**
      * @return array
      */
-    public static function getFilesArray()
+    public static function getFilesArray(): array
     {
         return parent::getFilesArray();
     }
@@ -52,7 +52,7 @@ class ObjectUtility extends AbstractUtility
     /**
      * @return LanguageService
      */
-    public static function getLanguageService()
+    public static function getLanguageService(): LanguageService
     {
         return parent::getLanguageService();
     }
