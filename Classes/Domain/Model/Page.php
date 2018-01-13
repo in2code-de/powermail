@@ -35,6 +35,7 @@ class Page extends AbstractEntity
     /**
      * @var \In2code\Powermail\Domain\Model\Form
      * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $forms = null;
 
@@ -45,14 +46,14 @@ class Page extends AbstractEntity
 
     /**
      * Container for fields with marker as key
-     * 
+     *
      * @var array
      */
     protected $fieldsByFieldMarker = [];
 
     /**
      * Container for fields with uid as key
-     * 
+     *
      * @var array
      */
     protected $fieldsByFieldUid = [];

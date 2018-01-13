@@ -143,6 +143,7 @@ class Field extends AbstractEntity
     /**
      * @var \In2code\Powermail\Domain\Model\Page
      * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $pages = null;
 
