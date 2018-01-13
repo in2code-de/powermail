@@ -118,7 +118,7 @@ abstract class AbstractUtility
      * @return LanguageService
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected static function getLanguageService(): LanguageService
+    protected static function getLanguageService()
     {
         return $GLOBALS['LANG'];
     }

@@ -172,7 +172,12 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
 
         $this->enableParsleyAndAjaxViewHelperMock->_set('addRedirectUri', false);
         $this->enableParsleyAndAjaxViewHelperMock->_set('settings', $settings);
-        $result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render', $form, $additionalAttributes);
+        $arguments = [
+            'form' => $form,
+            'additionalAttributes' => $additionalAttributes
+        ];
+        $this->enableParsleyAndAjaxViewHelperMock->_set('arguments', $arguments);
+        $result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 }

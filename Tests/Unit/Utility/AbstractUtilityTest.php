@@ -13,10 +13,10 @@ class AbstractUtilityTest extends UnitTestCase
 
     /**
      * @return void
-     * @test
+     * @SuppressWarnings(PHPMD.Superglobals)
      * @covers ::getEncryptionKey
      */
-    public function getEncryptionKey()
+    public function testGetEncryptionKey()
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = '';
         $this->expectExceptionCode(1514910284796);

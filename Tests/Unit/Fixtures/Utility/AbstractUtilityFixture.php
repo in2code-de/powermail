@@ -12,7 +12,7 @@ class AbstractUtilityFixture extends AbstractUtility
     /**
      * @return string
      */
-    public static function getEncryptionKey()
+    public static function getEncryptionKey(): string
     {
         return parent::getEncryptionKey();
     }

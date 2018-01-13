@@ -195,8 +195,14 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
         $request->setControllerExtensionName('powermail');
         $controllerContext->setRequest($request);
         $this->abstractValidationViewHelperMock->_set('controllerContext', $controllerContext);
+        $arguments = [
+            'field' => $field,
+            'additionalAttributes' => $additionalAttributes,
+            'value' => $value
+        ];
+        $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
 
-        $result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes, $value);
+        $result = $this->abstractValidationViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 }

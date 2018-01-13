@@ -129,7 +129,8 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
         $field = new Field;
         $field->setValidation($validation);
 
-        $result = $this->abstractValidationViewHelperMock->_callRef('render', $field);
+        $this->abstractValidationViewHelperMock->_set('arguments', ['field' => $field]);
+        $result = $this->abstractValidationViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 

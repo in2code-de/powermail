@@ -97,6 +97,13 @@ class GetValuesForChartsViewHelperTest extends \TYPO3\CMS\Core\Tests\UnitTestCas
      */
     public function renderReturnsString($answers, $field, $glue, $urlEncode, $expectedResult)
     {
+        $arguments = [
+            'answers' => $answers,
+            'fieldUidOrKey' => $field,
+            'separator' => $glue,
+            'urlEncode' => $urlEncode
+        ];
+        $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
         $result = $this->abstractValidationViewHelperMock->_callRef('render', $answers, $field, $glue, $urlEncode);
         $this->assertSame($expectedResult, $result);
     }

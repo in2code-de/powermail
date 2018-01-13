@@ -52,7 +52,7 @@ class ObjectUtility extends AbstractUtility
     /**
      * @return LanguageService
      */
-    public static function getLanguageService(): LanguageService
+    public static function getLanguageService()
     {
         return parent::getLanguageService();
     }

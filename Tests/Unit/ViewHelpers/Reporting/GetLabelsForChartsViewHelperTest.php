@@ -119,15 +119,16 @@ class GetLabelsForChartsViewHelperTest extends \TYPO3\CMS\Core\Tests\UnitTestCas
      */
     public function renderReturnsString($answers, $field, $separator, $crop, $append, $urlEncode, $expectedResult)
     {
-        $result = $this->abstractValidationViewHelperMock->_callRef(
-            'render',
-            $answers,
-            $field,
-            $separator,
-            $crop,
-            $append,
-            $urlEncode
-        );
+        $arguments = [
+            'answers' => $answers,
+            'fieldUidOrKey' => $field,
+            'separator' => $separator,
+            'crop' => $crop,
+            'append' => $append,
+            'urlEncode' => $urlEncode
+        ];
+        $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
+        $result = $this->abstractValidationViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 }

@@ -152,7 +152,12 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
             $field->_setProperty($propertyName, $propertyValue);
         }
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
-        $result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes);
+        $arguments = [
+            'field' => $field,
+            'additionalAttributes' => $additionalAttributes
+        ];
+        $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
+        $result = $this->abstractValidationViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 
