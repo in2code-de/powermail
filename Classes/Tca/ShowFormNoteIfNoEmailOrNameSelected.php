@@ -136,7 +136,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
     protected function getLabel($key)
     {
         $languageService = ObjectUtility::getLanguageService();
-        return $languageService->sL($this->locallangPath . Form::TABLE_NAME . '.' . $key, true);
+        return htmlspecialchars($languageService->sL($this->locallangPath . Form::TABLE_NAME . '.' . $key));
     }
 
     /**

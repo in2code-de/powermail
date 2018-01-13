@@ -121,7 +121,7 @@ class ShowFormNoteEditForm
     protected function getLabel($key)
     {
         $languageService = ObjectUtility::getLanguageService();
-        return $languageService->sL($this->locallangPath . 'flexform.main.' . $key, true);
+        return htmlspecialchars($languageService->sL($this->locallangPath . 'flexform.main.' . $key));
     }
 
     /**
