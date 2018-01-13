@@ -207,6 +207,7 @@ class BackendUtility extends AbstractUtility
     {
         $array = [];
         try {
+            // @extensionScannerIgnoreLine Seems to be a false positive: getPagesTSconfig() still need 3 params
             $array = BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
         } catch (\Exception $exception) {
             unset($exception);

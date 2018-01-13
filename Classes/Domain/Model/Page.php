@@ -34,8 +34,9 @@ class Page extends AbstractEntity
 
     /**
      * @var \In2code\Powermail\Domain\Model\Form
-     * @lazy
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
+     * @lazy
      */
     protected $forms = null;
 

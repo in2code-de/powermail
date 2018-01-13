@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
+use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -14,11 +15,10 @@ class ExtMngConfigViewHelper extends AbstractViewHelper
      * Check if Extension Manager Settings are available
      *
      * @return bool
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function render(): bool
     {
-        $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail']);
-        return is_array($confArr) && count($confArr) > 2;
+        $configuration = ConfigurationUtility::getExtensionConfiguration();
+        return is_array($configuration) && count($configuration) > 2;
     }
 }

@@ -16,7 +16,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisableIpLogActive()
+    public static function isDisableIpLogActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disableIpLog'] === '1';
@@ -27,7 +27,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisableMarketingInformationActive()
+    public static function isDisableMarketingInformationActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disableMarketingInformation'] === '1';
@@ -38,7 +38,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisableBackendModuleActive()
+    public static function isDisableBackendModuleActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disableBackendModule'] === '1';
@@ -49,7 +49,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisablePluginInformationActive()
+    public static function isDisablePluginInformationActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disablePluginInformation'] === '1';
@@ -60,7 +60,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisablePluginInformationMailPreviewActive()
+    public static function isDisablePluginInformationMailPreviewActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disablePluginInformationMailPreview'] === '1';
@@ -71,7 +71,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isEnableCachingActive()
+    public static function isEnableCachingActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['enableCaching'] === '1';
@@ -82,10 +82,18 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isReplaceIrreWithElementBrowserActive()
+    public static function isReplaceIrreWithElementBrowserActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['replaceIrreWithElementBrowser'] === '1';
+    }
+
+    /**
+     * @return array
+     */
+    public static function getExtensionConfiguration(): array
+    {
+        return parent::getExtensionConfiguration();
     }
 
     /**

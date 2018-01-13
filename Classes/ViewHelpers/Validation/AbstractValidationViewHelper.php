@@ -125,6 +125,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     {
         $this->configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
         $this->extensionName = 'Powermail';
+        // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
         $this->contentObject = $this->configurationManager->getContentObject();
         if ($this->arguments['extensionName'] !== null) {
             $this->extensionName = $this->arguments['extensionName'];

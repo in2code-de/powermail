@@ -79,6 +79,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
                     $tableConfiguration[$field],
                     $tableConfiguration[$field . '.']
                 );
+                // @extensionScannerIgnoreLine Seems to be a false positive: addProperty()
                 $saveService->addProperty($field, $value);
             }
         }

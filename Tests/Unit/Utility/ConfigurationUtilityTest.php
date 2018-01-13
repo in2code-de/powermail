@@ -22,6 +22,7 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isDisableIpLogActive
+     * @covers ::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
@@ -30,6 +31,7 @@ class ConfigurationUtilityTest extends UnitTestCase
         $configuration = [
             'disableIpLog' => '1'
         ];
+        // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'] = serialize($configuration);
         $this->assertTrue(ConfigurationUtility::isDisableIpLogActive());
     }
@@ -39,6 +41,7 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isDisableMarketingInformationActive
+     * @covers ::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
@@ -47,6 +50,7 @@ class ConfigurationUtilityTest extends UnitTestCase
         $configuration = [
             'disableMarketingInformation' => '1'
         ];
+        // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'] = serialize($configuration);
         $this->assertTrue(ConfigurationUtility::isDisableMarketingInformationActive());
     }
@@ -56,6 +60,7 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isDisableBackendModuleActive
+     * @covers ::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
@@ -64,6 +69,7 @@ class ConfigurationUtilityTest extends UnitTestCase
         $configuration = [
             'disableBackendModule' => '1'
         ];
+        // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'] = serialize($configuration);
         $this->assertTrue(ConfigurationUtility::isDisableBackendModuleActive());
     }
@@ -73,6 +79,7 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isDisablePluginInformationActive
+     * @covers ::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
@@ -81,6 +88,7 @@ class ConfigurationUtilityTest extends UnitTestCase
         $configuration = [
             'disablePluginInformation' => '1'
         ];
+        // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'] = serialize($configuration);
         $this->assertTrue(ConfigurationUtility::isDisablePluginInformationActive());
     }
@@ -90,6 +98,7 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isDisablePluginInformationMailPreviewActive
+     * @covers ::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
@@ -98,6 +107,7 @@ class ConfigurationUtilityTest extends UnitTestCase
         $configuration = [
             'disablePluginInformationMailPreview' => '1'
         ];
+        // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'] = serialize($configuration);
         $this->assertTrue(ConfigurationUtility::isDisablePluginInformationMailPreviewActive());
     }
@@ -107,6 +117,7 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isEnableCachingActive
+     * @covers ::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
@@ -115,6 +126,7 @@ class ConfigurationUtilityTest extends UnitTestCase
         $configuration = [
             'enableCaching' => '1'
         ];
+        // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'] = serialize($configuration);
         $this->assertTrue(ConfigurationUtility::isEnableCachingActive());
     }
@@ -124,6 +136,7 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isReplaceIrreWithElementBrowserActive
+     * @covers ::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
@@ -132,6 +145,7 @@ class ConfigurationUtilityTest extends UnitTestCase
         $configuration = [
             'replaceIrreWithElementBrowser' => '1'
         ];
+        // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'] = serialize($configuration);
         $this->assertTrue(ConfigurationUtility::isReplaceIrreWithElementBrowserActive());
     }
@@ -141,6 +155,7 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isL10nModeMergeActive
+     * @covers ::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getExtensionConfiguration
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
@@ -149,6 +164,7 @@ class ConfigurationUtilityTest extends UnitTestCase
         $configuration = [
             'l10n_mode_merge' => '1'
         ];
+        // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['powermail'] = serialize($configuration);
         $this->assertTrue(ConfigurationUtility::isL10nModeMergeActive());
     }

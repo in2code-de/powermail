@@ -130,6 +130,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     public function initializeFinisher()
     {
+        // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
         $this->contentObject = $this->configurationManager->getContentObject();
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         $this->contentObject->start($mailRepository->getVariablesWithMarkersFromMail($this->mail));
