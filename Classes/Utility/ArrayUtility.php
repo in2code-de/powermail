@@ -67,7 +67,14 @@ class ArrayUtility extends ArrayUtilityCore
      */
     public static function getValueByPath(array $array, $path, $delimiter = '.')
     {
-        return parent::getValueByPath($array, $path, $delimiter);
+        try {
+            $value = parent::getValueByPath($array, $path, $delimiter);
+        } catch (\Exception $exception) {
+            // If path is not available in array
+            unset($exception);
+            $value = '';
+        }
+        return $value;
     }
 
     /**
