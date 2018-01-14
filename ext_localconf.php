@@ -39,6 +39,31 @@ call_user_func(function () {
     );
 
     /**
+     * ContentElementWizard for Pi1
+     */
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript">'
+    );
+
+    /**
+     * Table description files for localization
+     */
+    $tables = [
+        \In2code\Powermail\Domain\Model\Form::TABLE_NAME,
+        \In2code\Powermail\Domain\Model\Page::TABLE_NAME,
+        \In2code\Powermail\Domain\Model\Field::TABLE_NAME,
+        \In2code\Powermail\Domain\Model\Mail::TABLE_NAME,
+        \In2code\Powermail\Domain\Model\Answer::TABLE_NAME
+    ];
+    foreach ($tables as $table) {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
+            $table,
+            'EXT:powermail/Resources/Private/Language/locallang_csh_' . $table . '.xlf'
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages($table);
+    }
+
+    /**
      * Hook to show PluginInformation under a tt_content element in page module of type powermail
      */
     $cmsLayout = 'cms/layout/class.tx_cms_layout.php';
@@ -81,15 +106,4 @@ call_user_func(function () {
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] =
         \In2code\Powermail\Command\TaskCommandController::class;
-
-    /**
-     * SignalSlot to convert old tablenames to new tablenames automaticly after installing
-     */
-    $dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
-    $dispatcher->connect(
-        \TYPO3\CMS\Extensionmanager\Utility\InstallUtility::class,
-        'afterExtensionInstall',
-        \In2code\Powermail\Slot\ConvertTableNames::class,
-        'convert'
-    );
 });
