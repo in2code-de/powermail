@@ -71,7 +71,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
      */
     protected function isNoteMuted($params)
     {
-        return isset($params['row']['note']) && $params['row']['note'] === '1';
+        return isset($params['row']['note']) && (int)$params['row']['note'] === 1;
     }
 
     /**
@@ -100,10 +100,10 @@ class ShowFormNoteIfNoEmailOrNameSelected
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
         foreach ($fields as $property) {
             foreach ($property as $column => $value) {
-                if ($column === 'sender_email' && $value === '1') {
+                if ($column === 'sender_email' && (int)$value === 1) {
                     return true;
                 }
-                if ($column === 'sender_name' && $value === '1') {
+                if ($column === 'sender_name' && (int)$value === 1) {
                     return true;
                 }
             }
