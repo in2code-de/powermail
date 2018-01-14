@@ -73,7 +73,7 @@ class SendMailService
         $this->parseAndOverwriteVariables($email, $mail);
         if ($settings['debug']['mail']) {
             $logger = ObjectUtility::getLogger(__CLASS__);
-            $logger->info('Mail propertie', $email);
+            $logger->info('Mail properties', [$email]);
         }
         if (!GeneralUtility::validEmail($email['receiverEmail']) ||
             !GeneralUtility::validEmail($email['senderEmail'])) {
@@ -255,7 +255,7 @@ class SendMailService
                     $message->attach(\Swift_Attachment::fromPath($file));
                 } else {
                     $logger = ObjectUtility::getLogger(__CLASS__);
-                    $logger->critical('File to attach does not exist', $file);
+                    $logger->critical('File to attach does not exist', [$file]);
                 }
             }
         }

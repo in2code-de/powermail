@@ -198,7 +198,7 @@ class FormController extends AbstractController
             }
         } catch (\Exception $exception) {
             $logger = ObjectUtility::getLogger(__CLASS__);
-            $logger->critical('Mail could not be sent', $exception->getMessage());
+            $logger->critical('Mail could not be sent', [$exception->getMessage()]);
         }
     }
 
