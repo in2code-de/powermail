@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -7,26 +8,34 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Returns Data-Attributes for JS and Native Validation
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class ValidationDataAttributeViewHelper
  */
 class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
 {
     use SignalTrait;
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('field', Field::class, 'Field', true);
+        $this->registerArgument('additionalAttributes', 'array', 'additionalAttributes', false, []);
+        $this->registerArgument('iteration', 'mixed', 'Iterationarray for Multi Fields (Radio, Check)', false, null);
+    }
+
+    /**
      * Returns Data Attribute Array for JS validation with parsley.js
      *
-     * @param Field $field
-     * @param array $additionalAttributes To add further attributes
-     * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
      * @return array for data attributes
      */
-    public function render(Field $field, array $additionalAttributes = [], $iteration = null)
+    public function render()
     {
+        /** @var Field $field */
+        $field = $this->arguments['field'];
+        $additionalAttributes = $this->arguments['additionalAttributes'];
+        $iteration = $this->arguments['iteration'];
         switch ($field->getType()) {
             case 'check':
                 // multiple field radiobuttons

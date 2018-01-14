@@ -243,6 +243,7 @@
 								<type>text</type>
 								<default>{powermail_all}</default>
 								<enableRichtext>1</enableRichtext>
+								<richtextConfiguration>default</richtextConfiguration>
 							</config>
 							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>
@@ -295,6 +296,7 @@
 								<type>text</type>
 								<default>{powermail_all}</default>
 								<enableRichtext>1</enableRichtext>
+								<richtextConfiguration>default</richtextConfiguration>
 							</config>
 							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>
@@ -317,6 +319,7 @@
 								<type>text</type>
 								<default>{powermail_all}</default>
 								<enableRichtext>1</enableRichtext>
+								<richtextConfiguration>default</richtextConfiguration>
 							</config>
 							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 						</TCEforms>

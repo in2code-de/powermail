@@ -1,39 +1,43 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class GetFieldPropertyFromMarkerAndFormViewHelper
- *
- * @package In2code\Powermail\ViewHelpers\Getter
  */
 class GetFieldPropertyFromMarkerAndFormViewHelper extends AbstractViewHelper
 {
 
     /**
-     * fieldRepository
-     *
-     * @var \In2code\Powermail\Domain\Repository\FieldRepository
-     * @inject
+     * @return void
      */
-    protected $fieldRepository;
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('marker', 'string', 'markername', true);
+        $this->registerArgument('form', Form::class, 'Form', true);
+        $this->registerArgument('property', 'string', 'Field property', true);
+    }
 
     /**
-     * Get a Property from Field by given Marker and Form
+     * Get any property from tx_powermail_domain_model_field by markername and form
      *
-     * @param string $marker Field Marker
-     * @param Form $form
-     * @param string $property Field Property
-     * @return string Property
+     * @return mixed|string
      */
-    public function render($marker, Form $form, $property)
+    public function render()
     {
-        $field = $this->fieldRepository->findByMarkerAndForm($marker, $form->getUid());
+        /** @var Form $form */
+        $form = $this->arguments['form'];
+        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+        $field = $fieldRepository->findByMarkerAndForm($this->arguments['marker'], $form->getUid());
         if ($field !== null) {
-            return ObjectAccess::getProperty($field, $property);
+            return ObjectAccess::getProperty($field, $this->arguments['property']);
         }
         return '';
     }

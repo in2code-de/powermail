@@ -1,16 +1,14 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /**
- * Backend Check Viewhelper: Check if Session works correct on the server
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class SessionViewHelper
  */
 class SessionViewHelper extends AbstractViewHelper
 {
@@ -37,7 +35,7 @@ class SessionViewHelper extends AbstractViewHelper
      * @return bool
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected function checkSession()
+    protected function checkSession(): bool
     {
         $value = $this->getRandomValue();
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->sessionKey, $value);
@@ -48,9 +46,9 @@ class SessionViewHelper extends AbstractViewHelper
     /**
      * @return string
      */
-    protected function getRandomValue()
+    protected function getRandomValue(): string
     {
-        return md5(time());
+        return md5((string)time());
     }
 
     /**

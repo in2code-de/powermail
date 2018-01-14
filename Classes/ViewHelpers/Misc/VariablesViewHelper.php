@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -7,11 +8,11 @@ use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
- * Parses Variables for powermail
+ * Class VariablesViewHelper
  */
 class VariablesViewHelper extends AbstractViewHelper
 {
@@ -34,15 +35,26 @@ class VariablesViewHelper extends AbstractViewHelper
     protected $settings = [];
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('mail', Mail::class, 'Mail', true);
+        $this->registerArgument('type', 'string', '"web" or "mail"', false, 'web');
+        $this->registerArgument('function', 'string', 'createAction, senderMail, receiverMail', false, 'createAction');
+    }
+
+    /**
      * Enable variables within variable {powermail_rte} - so string will be parsed again
      *
-     * @param Mail $mail Variables and Labels array
-     * @param string $type "web" or "mail"
-     * @param string $function "createAction", "senderMail", "receiverMail"
-     * @return string Changed string
+     * @return string
      */
-    public function render(Mail $mail, $type = 'web', $function = 'createAction')
+    public function render(): string
     {
+        $mail = $this->arguments['mail'];
+        $type = $this->arguments['type'];
+        $function = $this->arguments['function'];
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         $parseObject = ObjectUtility::getObjectManager()->get(StandaloneView::class);
         $parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));

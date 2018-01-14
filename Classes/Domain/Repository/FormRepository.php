@@ -1,38 +1,17 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\BackendUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2012 in2code GmbH <info@in2code.de>
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
 
 /**
  * Class FormRepository
@@ -187,11 +166,12 @@ class FormRepository extends AbstractRepository
      */
     public function fixWrongLocalizedForms()
     {
-        $this->getDatabaseConnection()->exec_UPDATEquery(
-            Form::TABLE_NAME,
-            'sys_language_uid > 0 and deleted = 0 and pages = ""',
-            ['pages' => 0]
-        );
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
+        $queryBuilder
+            ->update(Form::TABLE_NAME)
+            ->where('sys_language_uid > 0 and deleted = 0 and pages = ""')
+            ->set('pages', 0)
+            ->execute();
     }
 
     /**
@@ -200,27 +180,21 @@ class FormRepository extends AbstractRepository
      * @param int $formUid Form UID
      * @return array
      */
-    public function getFieldsFromFormWithSelectQuery($formUid)
+    public function getFieldsFromFormWithSelectQuery($formUid): array
     {
-        $select = 'f.uid, f.title, f.sender_email, f.sender_name, f.marker';
-        $from = Field::TABLE_NAME . ' f ' .
-            'left join ' . Page::TABLE_NAME . ' p on f.pages = p.uid ' .
-            'left join ' . Form::TABLE_NAME . ' fo on p.forms = fo.uid';
-        $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" ' .
-            'and f.sys_language_uid IN (-1,0) and fo.uid = ' . (int)$formUid;
-        $groupBy = '';
-        $orderBy = 'f.sorting ASC';
-        $limit = 10000;
-        $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where, $groupBy, $orderBy, $limit);
-
-        $array = [];
-        if ($res) {
-            while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
-                $array[] = $row;
-            }
-        }
-
-        return $array;
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME, true);
+        $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" and f.sys_language_uid IN (-1,0)' .
+            ' and fo.uid = ' . (int)$formUid;
+        return $queryBuilder
+            ->select('f.uid', 'f.title', 'f.sender_email', 'f.sender_name', 'f.marker')
+            ->from(Field::TABLE_NAME, 'f')
+            ->join('f', Page::TABLE_NAME, 'p', 'f.pages = p.uid')
+            ->join('p', Form::TABLE_NAME, 'fo', 'p.forms = fo.uid')
+            ->where($where)
+            ->orderBy('f.sorting', 'asc')
+            ->setMaxResults(10000)
+            ->execute()
+            ->fetchAll();
     }
 
     /**

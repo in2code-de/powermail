@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -71,7 +72,8 @@ class SendMailService
         $this->initialize($mail, $settings, $type);
         $this->parseAndOverwriteVariables($email, $mail);
         if ($settings['debug']['mail']) {
-            GeneralUtility::devLog('Mail properties', 'powermail', 0, $email);
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->info('Mail properties', [$email]);
         }
         if (!GeneralUtility::validEmail($email['receiverEmail']) ||
             !GeneralUtility::validEmail($email['senderEmail'])) {
@@ -252,7 +254,8 @@ class SendMailService
                 if (file_exists(GeneralUtility::getFileAbsFileName($file))) {
                     $message->attach(\Swift_Attachment::fromPath($file));
                 } else {
-                    GeneralUtility::devLog('Error: File to attach does not exist', 'powermail', 2, $file);
+                    $logger = ObjectUtility::getLogger(__CLASS__);
+                    $logger->critical('File to attach does not exist', [$file]);
                 }
             }
         }

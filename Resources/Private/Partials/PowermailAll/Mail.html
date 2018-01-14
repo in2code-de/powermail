@@ -7,7 +7,7 @@
 
 <tr>
 	<td valign="top">
-		<b><vh:string.RawAndRemoveXss>{answer.field.title}</vh:string.RawAndRemoveXss></b>
+		<b><vh:string.escapeLabels>{answer.field.title}</vh:string.escapeLabels></b>
 	</td>
 	<td valign="top">
 		<f:if condition="{vh:Condition.IsArray(val:answer.value)}">

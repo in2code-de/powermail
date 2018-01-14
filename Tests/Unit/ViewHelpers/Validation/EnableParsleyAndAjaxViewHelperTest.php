@@ -1,7 +1,8 @@
 <?php
-namespace In2code\Powermail\Tests\ViewHelpers\Validation;
+namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Form;
+use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelperFixture;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
@@ -12,7 +13,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
 {
 
     /**
-     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var EnableParsleyAndAjaxViewHelperFixture
      */
     protected $enableParsleyAndAjaxViewHelperMock;
 
@@ -21,10 +22,8 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
      */
     public function setUp()
     {
-        require_once(dirname(dirname(dirname(__FILE__))) .
-            '/Fixtures/ViewHelpers/Validation/EnableParsleyAndAjaxViewHelperFixture.php');
         $this->enableParsleyAndAjaxViewHelperMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Tests\Fixtures\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelperFixture',
+            EnableParsleyAndAjaxViewHelperFixture::class,
             ['dummy']
         );
     }
@@ -173,7 +172,12 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
 
         $this->enableParsleyAndAjaxViewHelperMock->_set('addRedirectUri', false);
         $this->enableParsleyAndAjaxViewHelperMock->_set('settings', $settings);
-        $result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render', $form, $additionalAttributes);
+        $arguments = [
+            'form' => $form,
+            'additionalAttributes' => $additionalAttributes
+        ];
+        $this->enableParsleyAndAjaxViewHelperMock->_set('arguments', $arguments);
+        $result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 }

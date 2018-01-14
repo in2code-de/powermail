@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -79,6 +80,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
         $this->settings = $configurationService->getTypoScriptSettings();
         $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);
         $this->flexForm = $flexFormService->convertFlexFormContentToArray(
+            // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
             $configurationManager->getContentObject()->data['pi_flexform']
         );
     }

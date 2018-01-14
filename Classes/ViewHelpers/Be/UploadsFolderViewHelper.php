@@ -1,14 +1,12 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Backend Check Viewhelper: Check if uploads folder exists
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class UploadsFolderViewHelper
  */
 class UploadsFolderViewHelper extends AbstractViewHelper
 {

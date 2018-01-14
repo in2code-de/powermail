@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -10,6 +11,7 @@ use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  * Class SessionUtility
+ * @codeCoverageIgnore
  */
 class SessionUtility extends AbstractUtility
 {

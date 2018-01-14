@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -15,7 +16,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisableIpLogActive()
+    public static function isDisableIpLogActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disableIpLog'] === '1';
@@ -26,7 +27,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisableMarketingInformationActive()
+    public static function isDisableMarketingInformationActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disableMarketingInformation'] === '1';
@@ -37,7 +38,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisableBackendModuleActive()
+    public static function isDisableBackendModuleActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disableBackendModule'] === '1';
@@ -48,7 +49,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisablePluginInformationActive()
+    public static function isDisablePluginInformationActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disablePluginInformation'] === '1';
@@ -59,7 +60,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isDisablePluginInformationMailPreviewActive()
+    public static function isDisablePluginInformationMailPreviewActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['disablePluginInformationMailPreview'] === '1';
@@ -70,7 +71,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isEnableCachingActive()
+    public static function isEnableCachingActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['enableCaching'] === '1';
@@ -81,10 +82,18 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isReplaceIrreWithElementBrowserActive()
+    public static function isReplaceIrreWithElementBrowserActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return $extensionConfig['replaceIrreWithElementBrowser'] === '1';
+    }
+
+    /**
+     * @return array
+     */
+    public static function getExtensionConfiguration(): array
+    {
+        return parent::getExtensionConfiguration();
     }
 
     /**
@@ -102,6 +111,7 @@ class ConfigurationUtility extends AbstractUtility
      * Get development email (only if in dev context)
      *
      * @return false|string
+     * @codeCoverageIgnore
      */
     public static function getDevelopmentContextEmail()
     {
@@ -180,22 +190,13 @@ class ConfigurationUtility extends AbstractUtility
      * Check if gdlib is loaded on this server
      *
      * @throws \Exception
+     * @codeCoverageIgnore
      */
     public static function testGdExtension()
     {
         if (!extension_loaded('gd')) {
-            throw new \InvalidArgumentException('PHP extension gd not loaded.');
+            throw new \InvalidArgumentException('PHP extension gd not loaded.', 1514819369374);
         }
-    }
-
-    /**
-     * Check if TYPO3 smaller then 8.7 is running
-     *
-     * @return bool
-     */
-    public static function isOlderThan8Lts()
-    {
-        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 8007000;
     }
 
     /**
@@ -214,5 +215,26 @@ class ConfigurationUtility extends AbstractUtility
             false,
             false
         );
+    }
+
+    /**
+     * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @codeCoverageIgnore
+     */
+    public static function isDatabaseConnectionAvailable(): bool
+    {
+        return !empty($GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']);
+    }
+
+    /**
+     * Decide if TYPO3 8.7 is used or newer
+     *
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public static function isTypo3OlderThen9(): bool
+    {
+        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9000000;
     }
 }

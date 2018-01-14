@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Condition;
 
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Configuration\TypoScript\ConditionMatching\AbstractCondition;
 
 class IsPluginOnCurrentPageCondition extends AbstractCondition
@@ -38,17 +39,21 @@ class IsPluginOnCurrentPageCondition extends AbstractCondition
     }
 
     /**
-     * @param $conditionParameter
+     * @param string $conditionParameter like "= value1"
      * @return bool
+     * @codeCoverageIgnore
      */
-    protected function conditionFits($conditionParameter)
+    protected function conditionFits(string $conditionParameter): bool
     {
         $listType = ltrim($conditionParameter, ' =');
-        $row = (array)ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
-            'uid',
-            'tt_content',
-            'deleted=0 and pid=' . FrontendUtility::getCurrentPageIdentifier() . ' and list_type="' . $listType . '"'
-        );
-        return !empty($row['uid']);
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_content');
+        $result = $queryBuilder
+            ->select('*')
+            ->from('tt_content')
+            ->where('pid=' . FrontendUtility::getCurrentPageIdentifier() . ' and list_type="' . $listType . '"')
+            ->setMaxResults(1)
+            ->execute();
+        $rows = $result->fetchAll();
+        return !empty($rows[0]['uid']);
     }
 }

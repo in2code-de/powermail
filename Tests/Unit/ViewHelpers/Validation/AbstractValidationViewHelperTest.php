@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\ViewHelpers\Validation;
+namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\ViewHelpers\Validation\AbstractValidationViewHelper;
 use TYPO3\CMS\Core\Tests\UnitTestCase;

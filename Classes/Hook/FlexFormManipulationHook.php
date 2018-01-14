@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Utility\ObjectUtility;
@@ -6,33 +8,8 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2016 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
  * Class FlexFormManipulationHook
- * @package In2code\Powermail\Hook
  */
 class FlexFormManipulationHook
 {
@@ -87,8 +64,13 @@ class FlexFormManipulationHook
      * @param array $identifier
      * @return array $identifier Modified identifier
      */
-    public function getDataStructureIdentifierPostProcess(array $fieldTca, string $tableName, string $fieldName, array $row, array $identifier)
-    {
+    public function getDataStructureIdentifierPostProcess(
+        array $fieldTca,
+        string $tableName,
+        string $fieldName,
+        array $row,
+        array $identifier
+    ) {
         if ($tableName === 'tt_content' && $fieldName === 'pi_flexform' && $row['CType'] === 'list' && $row['list_type'] === 'powermail_pi1') {
             // Add pid to identifier to fetch pageTs in parseDataStructureByIdentifierPostProcess hook
             $identifier['pid'] = $row['pid'];
@@ -117,7 +99,9 @@ class FlexFormManipulationHook
      */
     public function parseDataStructureByIdentifierPostProcess(array $dataStructure, array $identifier)
     {
-        if ($identifier['type'] === 'tca' && $identifier['tableName'] === 'tt_content' && $identifier['fieldName'] === 'pi_flexform'
+        if ($identifier['type'] === 'tca'
+            && $identifier['tableName'] === 'tt_content'
+            && $identifier['fieldName'] === 'pi_flexform'
             && $identifier['dataStructureKey'] === 'powermail_pi1,list'
             && !empty($identifier['pid'])
             && MathUtility::canBeInterpretedAsInteger($identifier['pid'])

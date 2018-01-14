@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -9,11 +10,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * PasswordValidator
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class PasswordValidator
  */
 class PasswordValidator extends AbstractValidator
 {

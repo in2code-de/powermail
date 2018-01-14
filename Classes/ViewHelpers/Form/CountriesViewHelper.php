@@ -1,40 +1,45 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Form;
 
 use In2code\Powermail\Domain\Service\CountriesFromStaticInfoTablesService;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
- * View helper to get a country array
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class CountriesViewHelper
  */
 class CountriesViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('key', 'string', 'key', false, 'isoCodeA3');
+        $this->registerArgument('value', 'string', 'value', false, 'officialNameLocal');
+        $this->registerArgument('sortbyField', 'string', 'sortbyField', false, 'isoCodeA3');
+        $this->registerArgument('sorting', 'string', 'sorting', false, 'asc');
+    }
+
+    /**
      * Get array with countries
      *
-     * @param string $key
-     * @param string $value
-     * @param string $sortbyField
-     * @param string $sorting
      * @return array
      */
-    public function render(
-        $key = 'isoCodeA3',
-        $value = 'officialNameLocal',
-        $sortbyField = 'isoCodeA3',
-        $sorting = 'asc'
-    ) {
+    public function render(): array
+    {
         $countries = $this->getCountries();
 
-        // get countries from static_info_tables
         if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
-            /** @var CountriesFromStaticInfoTablesService $countriesService */
-            $countriesService = $this->objectManager->get(CountriesFromStaticInfoTablesService::class);
+            $key = $this->arguments['key'];
+            $value = $this->arguments['value'];
+            $sortbyField = $this->arguments['sortbyField'];
+            $sorting = $this->arguments['sorting'];
+            $countriesService = ObjectUtility::getObjectManager()->get(CountriesFromStaticInfoTablesService::class);
             $countries = $countriesService->getCountries($key, $value, $sortbyField, $sorting);
         }
 
@@ -46,7 +51,7 @@ class CountriesViewHelper extends AbstractViewHelper
      *
      * @return array
      */
-    protected function getCountries()
+    protected function getCountries(): array
     {
         $countries = [
             'AND' => 'Andorra',

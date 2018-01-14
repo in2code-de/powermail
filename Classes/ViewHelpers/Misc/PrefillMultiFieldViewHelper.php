@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -11,7 +12,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -42,22 +43,16 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     protected $contentObjectRenderer;
 
     /**
-     * Field
-     *
      * @var Field $field
      */
     protected $field = null;
 
     /**
-     * Mail
-     *
      * @var Mail $mail
      */
     protected $mail = null;
 
     /**
-     * Markername
-     *
      * @var string
      */
     protected $marker = '';
@@ -73,18 +68,31 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     protected $index = 0;
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('field', Field::class, 'Field', true);
+        $this->registerArgument('mail', Mail::class, 'Mail for a prefill in edit action', false, null);
+        $this->registerArgument('cycle', 'int', 'Cycle Number (1,2,3...) - if filled checkbox/radiobutton', false, 0);
+        $this->registerArgument('default', 'string', 'Fallback value', false, null);
+    }
+
+    /**
      * Prefill fields from type
      *        check
      *        radio
      *
-     * @param Field $field
-     * @param Mail $mail To prefill in Edit Action
-     * @param int $cycle Cycle Number (1,2,3...) - if filled checkbox or radiobutton
-     * @param bool $default Fallback value
      * @return bool Prefill field
      */
-    public function render(Field $field, Mail $mail = null, $cycle = 0, $default = false)
+    public function render()
     {
+        /** @var Field $field */
+        $field = $this->arguments['field'];
+        $mail = $this->arguments['mail'];
+        $cycle = $this->arguments['cycle'];
+        $default = $this->arguments['default'];
         $this
             ->setMarker($field->getMarker())
             ->setField($field)
@@ -378,7 +386,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
             // Multivalue
             if (isset($this->configuration['prefill.'][$this->getMarker() . '.']['0'])) {
                 foreach (array_keys($this->configuration['prefill.'][$this->getMarker() . '.']) as $key) {
-                    if (stristr($key, '.')) {
+                    if (stristr((string)$key, '.')) {
                         continue;
                     }
                     $prefill = $this->contentObjectRenderer->cObjGetSingle(
@@ -518,7 +526,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     public function initialize()
     {
         $this->variables = GeneralUtility::_GP('tx_powermail_pi1');
-        $this->contentObjectRenderer = $this->objectManager->get(ContentObjectRenderer::class);
+        $this->contentObjectRenderer = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
     }

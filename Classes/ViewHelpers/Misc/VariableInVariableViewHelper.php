@@ -1,17 +1,18 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
  * Class VariableInVariableViewHelper
  */
-class VariableInVariableViewHelper extends AbstractViewHelper implements CompilableInterface
+class VariableInVariableViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
     use CompileWithRenderStatic;
 
@@ -36,8 +37,11 @@ class VariableInVariableViewHelper extends AbstractViewHelper implements Compila
      *
      * @return mixed
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
-    {
+    public static function renderStatic(
+        array $arguments,
+        \Closure $renderChildrenClosure,
+        RenderingContextInterface $renderingContext
+    ) {
         $obj = $arguments['obj'];
         $prop = $arguments['prop'];
         if (is_array($obj) && array_key_exists($prop, $obj)) {

@@ -1,45 +1,19 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2016 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * Class to autofill field marker with value from title e.g. {firstname}
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class CreateMarker to autofill field marker with value from title e.g. {firstname}
  */
 class CreateMarker
 {
@@ -194,17 +168,14 @@ class CreateMarker
     protected function checkAndRenameMarkers(array $markers)
     {
         foreach ($markers as $uid => $marker) {
-            $row = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord(
+            $row = BackendUtilityCore::getRecord(
                 Field::TABLE_NAME,
                 (int)$uid,
                 'marker'
             );
             if ($row['marker'] !== $marker) {
-                ObjectUtility::getDatabaseConnection()->exec_UPDATEquery(
-                    Field::TABLE_NAME,
-                    'uid=' . (int)$uid,
-                    ['marker' => $marker]
-                );
+                $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+                $queryBuilder->update(Field::TABLE_NAME)->where('uid=' . (int)$uid)->set('marker', $marker)->execute();
             }
         }
     }
@@ -215,7 +186,7 @@ class CreateMarker
      * @param $marker
      * @return void
      */
-    protected function setMarkerProperty($marker)
+    protected function setMarkerProperty(string $marker)
     {
         $this->properties['marker'] = $marker;
     }
@@ -275,22 +246,18 @@ class CreateMarker
      *
      * @return array
      */
-    protected function getFieldProperties()
+    protected function getFieldProperties(): array
     {
-        $result = [];
-        $select = 'f.*';
-        $from = Form::TABLE_NAME . ' fo ' .
-            'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
-            'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
-        $where = 'fo.uid = ' . $this->getFormUid() . ' and f.deleted = 0';
-        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1000);
-        if ($res) {
-            while (($row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res))) {
-                $result[$row['uid']] = $row;
-            }
-        }
-
-        return $result;
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME, true);
+        return $queryBuilder
+            ->select('f.*')
+            ->from(Form::TABLE_NAME, 'fo')
+            ->join('fo', Page::TABLE_NAME, 'p', 'p.forms = fo.uid')
+            ->join('p', Field::TABLE_NAME, 'f', 'f.pages = p.uid')
+            ->where('fo.uid = ' . $this->getFormUid() . ' and f.deleted = 0')
+            ->setMaxResults(1000)
+            ->execute()
+            ->fetchAll();
     }
 
     /**
@@ -322,7 +289,7 @@ class CreateMarker
         if ($formUid === 0) {
             foreach (array_keys((array)$this->data[Field::TABLE_NAME]) as $uid) {
                 if (!empty($this->data[Field::TABLE_NAME][$uid]['pages'])) {
-                    $formUid = $this->getFormUidFromRelatedPage($this->data[Field::TABLE_NAME][$uid]['pages']);
+                    $formUid = $this->getFormUidFromRelatedPage((int)$this->data[Field::TABLE_NAME][$uid]['pages']);
                 }
             }
         }
@@ -336,18 +303,20 @@ class CreateMarker
      * @param int $pageUid
      * @return int
      */
-    protected function getFormUidFromRelatedPage($pageUid)
+    protected function getFormUidFromRelatedPage(int $pageUid): int
     {
         $formUid = 0;
-        $select = 'fo.uid';
-        $from = Form::TABLE_NAME . ' fo ' .
-            'LEFT JOIN ' . Page::TABLE_NAME . ' p ON p.forms = fo.uid ' .
-            'LEFT JOIN ' . Field::TABLE_NAME . ' f ON f.pages = p.uid';
-        $where = 'p.uid = ' . (int)$pageUid;
-        $res = ObjectUtility::getDatabaseConnection()->exec_SELECTquery($select, $from, $where, '', '', 1);
-        if ($res) {
-            $row = ObjectUtility::getDatabaseConnection()->sql_fetch_assoc($res);
-            $formUid = (int)$row['uid'];
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME, true);
+        $rows = $queryBuilder
+            ->select('fo.uid')
+            ->from(Form::TABLE_NAME, 'fo')
+            ->join('fo', Page::TABLE_NAME, 'p', 'p.forms = fo.uid')
+            ->where('p.uid = ' . (int)$pageUid)
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchAll();
+        if (!empty($rows[0]['uid'])) {
+            $formUid = (int)$rows[0]['uid'];
         }
         return $formUid;
     }
@@ -370,7 +339,7 @@ class CreateMarker
      * @param string $table
      * @return bool
      */
-    protected function shouldProcess($table)
+    protected function shouldProcess(string $table): bool
     {
         return in_array($table, $this->allowedTableNames);
     }
@@ -380,16 +349,16 @@ class CreateMarker
      *
      * @return bool
      */
-    protected function shouldProcessField()
+    protected function shouldProcessField(): bool
     {
-        return isset($this->data[Field::TABLE_NAME][$this->uid]['marker']) || stristr($this->uid, 'NEW');
+        return isset($this->data[Field::TABLE_NAME][$this->uid]['marker']) || stristr((string)$this->uid, 'NEW');
     }
 
     /**
      * @param array $markers
      * @return bool
      */
-    protected function shouldRenameMarker(array $markers)
+    protected function shouldRenameMarker(array $markers): bool
     {
         return !empty($markers[$this->uid]) && $markers[$this->uid] !== $this->properties['marker'];
     }

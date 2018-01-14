@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\ViewHelpers\Validation;
+namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\FieldTypeFromValidationViewHelper;
@@ -129,7 +129,8 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
         $field = new Field;
         $field->setValidation($validation);
 
-        $result = $this->abstractValidationViewHelperMock->_callRef('render', $field);
+        $this->abstractValidationViewHelperMock->_set('arguments', ['field' => $field]);
+        $result = $this->abstractValidationViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 

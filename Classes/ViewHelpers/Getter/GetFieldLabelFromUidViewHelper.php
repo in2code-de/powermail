@@ -1,40 +1,39 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Read Marker of a field from given UID
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class GetFieldLabelFromUidViewHelper
  */
 class GetFieldLabelFromUidViewHelper extends AbstractViewHelper
 {
 
     /**
-     * fieldRepository
-     *
-     * @var \In2code\Powermail\Domain\Repository\FieldRepository
-     * @inject
+     * @return void
      */
-    protected $fieldRepository;
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('uid', 'int', 'UID', true);
+    }
 
     /**
-     * Read Label of a field from given UID
+     * get tx_powermail_domain_model_field.title from .uid
      *
-     * @param int $uid
-     * @return string Label
+     * @return string
      */
-    public function render($uid)
+    public function render(): string
     {
         $result = '';
-        $field = $this->fieldRepository->findByUid($uid);
+        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+        $field = $fieldRepository->findByUid($this->arguments['uid']);
         if (method_exists($field, 'getTitle')) {
             $result = $field->getTitle();
         }
-
         return $result;
     }
 }

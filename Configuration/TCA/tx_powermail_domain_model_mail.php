@@ -403,17 +403,4 @@ if (ConfigurationUtility::isDisableMarketingInformationActive()) {
     }
 }
 
-// Todo: Can be removed with 7.6 support drop
-if (ConfigurationUtility::isOlderThan8Lts()) {
-    $mailsTca['types']['1']['columnsOverrides'] = [
-        'body' => [
-            'defaultExtras' => 'richtext[]'
-        ]
-    ];
-    unset($mailsTca['columns']['starttime']['config']['renderType']);
-    unset($mailsTca['columns']['endtime']['config']['renderType']);
-    unset($mailsTca['columns']['crdate']['config']['renderType']);
-    unset($mailsTca['columns']['time']['config']['renderType']);
-}
-
 return $mailsTca;

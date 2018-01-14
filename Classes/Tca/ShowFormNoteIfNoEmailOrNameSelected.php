@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -70,7 +71,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
      */
     protected function isNoteMuted($params)
     {
-        return isset($params['row']['note']) && $params['row']['note'] === '1';
+        return isset($params['row']['note']) && (int)$params['row']['note'] === 1;
     }
 
     /**
@@ -99,10 +100,10 @@ class ShowFormNoteIfNoEmailOrNameSelected
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
         foreach ($fields as $property) {
             foreach ($property as $column => $value) {
-                if ($column === 'sender_email' && $value === '1') {
+                if ($column === 'sender_email' && (int)$value === 1) {
                     return true;
                 }
-                if ($column === 'sender_name' && $value === '1') {
+                if ($column === 'sender_name' && (int)$value === 1) {
                     return true;
                 }
             }
@@ -135,7 +136,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
     protected function getLabel($key)
     {
         $languageService = ObjectUtility::getLanguageService();
-        return $languageService->sL($this->locallangPath . Form::TABLE_NAME . '.' . $key, true);
+        return htmlspecialchars($languageService->sL($this->locallangPath . Form::TABLE_NAME . '.' . $key));
     }
 
     /**

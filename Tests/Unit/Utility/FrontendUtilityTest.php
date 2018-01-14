@@ -1,6 +1,7 @@
 <?php
-namespace In2code\Powermail\Tests\Utility;
+namespace In2code\Powermail\Tests\Unit\Utility;
 
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -18,13 +19,92 @@ class FrontendUtilityTest extends UnitTestCase
 
     /**
      * @return void
+     */
+    public function setUp()
+    {
+        TestingHelper::setDefaultConstants();
+        TestingHelper::initializeTsfe(7684);
+    }
+
+    /**
+     * @return void
      * @test
      * @covers ::getStoragePage
      */
     public function getStoragePageReturnsInt()
     {
-        $result = FrontendUtility::getStoragePage(123);
-        $this->assertSame(123, $result);
+        $this->assertSame(123, FrontendUtility::getStoragePage(123));
+        $this->assertSame(7684, FrontendUtility::getStoragePage());
+    }
+
+    /**
+     * @return void
+     * @test
+     * @covers ::getCurrentPageIdentifier
+     * @covers \In2code\Powermail\Utility\AbstractUtility::getTyposcriptFrontendController
+     */
+    public function getCurrentPageIdentifierReturnsInt()
+    {
+        $result = FrontendUtility::getCurrentPageIdentifier();
+        $this->assertSame(7684, $result);
+    }
+
+    /**
+     * @return void
+     * @test
+     * @covers ::getSysLanguageUid
+     * @covers \In2code\Powermail\Utility\AbstractUtility::getTyposcriptFrontendController
+     */
+    public function getSysLanguageUidReturnsInt()
+    {
+        $this->assertSame(1, FrontendUtility::getSysLanguageUid());
+    }
+
+    /**
+     * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @test
+     * @covers ::getPluginName
+     */
+    public function getPluginNameReturnsString()
+    {
+        $this->assertSame('tx_powermail_pi1', FrontendUtility::getPluginName());
+        $_GET['tx_powermail_pi2']['action'] = 'test';
+        $this->assertSame('tx_powermail_pi2', FrontendUtility::getPluginName());
+    }
+
+    /**
+     * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @test
+     * @covers ::getCharset
+     */
+    public function getCharsetReturnsString()
+    {
+        $this->assertSame('utf-8', FrontendUtility::getCharset());
+    }
+
+    /**
+     * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @test
+     * @covers ::isLoggedInFrontendUser
+     */
+    public function isLoggedInFrontendUserReturnsBool()
+    {
+        $this->assertTrue(FrontendUtility::isLoggedInFrontendUser());
+    }
+
+    /**
+     * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @test
+     * @covers ::getPropertyFromLoggedInFrontendUser
+     */
+    public function getPropertyFromLoggedInFrontendUserReturnsString()
+    {
+        $this->assertSame(4784, FrontendUtility::getPropertyFromLoggedInFrontendUser('uid'));
+        $this->assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('foobar'));
     }
 
     /**
@@ -95,16 +175,16 @@ class FrontendUtilityTest extends UnitTestCase
     }
 
     /**
-     * @param string $ip
+     * @param string $ipAddress
      * @param string $expectedResult
      * @dataProvider getCountryFromIpReturnsStringDataProvider
      * @return void
      * @test
      * @covers ::getCountryFromIp
      */
-    public function getCountryFromIpReturnsString($ip, $expectedResult)
+    public function getCountryFromIpReturnsString($ipAddress, $expectedResult)
     {
-        $this->assertSame($expectedResult, FrontendUtility::getCountryFromIp($ip));
+        $this->assertSame($expectedResult, FrontendUtility::getCountryFromIp($ipAddress));
     }
 
     /**

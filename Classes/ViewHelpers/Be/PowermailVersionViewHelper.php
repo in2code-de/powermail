@@ -1,24 +1,20 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * PowermailVersionViewHelper
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class PowermailVersionViewHelper
  */
 class PowermailVersionViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Return powermail version
-     *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         return ExtensionManagementUtility::getExtensionVersion('powermail');
     }

@@ -19,12 +19,15 @@ Quick guide:
 
 Please look at https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/Index.html
 
-## Supported version (for latest powermail)
+## Which TYPO3 and PHP for which powermail?
 
-| Software    | Versions   | Note                                                             |
-| ----------- | ---------- | ---------------------------------------------------------------- |
-| TYPO3       | 7.6 - 8.7  | TYPO3 7.6 is only supported without extension **compatibility6** |
-| PHP         | 5.5 - 7.1  |                                                                  |
+| Powermail   | TYPO3      | PHP       | Support/Development                     |
+| ----------- | ---------- | ----------|---------------------------------------- |
+| 5.x         | 8.7 - 9.x  | 7.0 - 7.x | Features, Bugfixes, Security Updates    |
+| 4.x         | 7.6 - 8.7  | 5.5 - 7.2 | Bugfixes, Security Updates              |
+| 3.x         | 7.6 - 8.7  | 5.5 - 7.2 | Security Updates                        |
+| 2.18 - 2.25 | 6.2 - 7.6  | 5.5 - 7.0 | Security Updates                        |
+| 2.2 - 2.17  | 6.2 - 7.6  | 5.3 - 7.0 | Support dropped                         |
 
 ## Need some extension possibilities for powermail?
 - Automatically convert emails to a link to a powermail form with **email2powermail** (see https://github.com/einpraegsam/email2powermail)
@@ -41,6 +44,12 @@ Please look at https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/In
 
 ![Backend Module](https://box.everhelper.me/attachment/445409/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-HFuHtr8E9DoGfJE6/screen.png "Backend Module")
 
+
+## Whats the difference between version 5 and 4
+
+- A large refactoring
+  - For TYPO3 9.x
+  - And for PHP 7.0 - 7.2
 
 ## Whats the difference between version 4 and 3
 

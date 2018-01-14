@@ -1,42 +1,15 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extensionmanager\Utility\DatabaseUtility;
-
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2012 in2code GmbH <info@in2code.de>
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
 
 /**
- * FieldRepository
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class FieldRepository
  */
 class FieldRepository extends AbstractRepository
 {
@@ -123,14 +96,15 @@ class FieldRepository extends AbstractRepository
     public function findAllWrongLocalizedFields()
     {
         $pages = [];
-        $select = 'uid,pid,title,l10n_parent,sys_language_uid';
-        $from = Field::TABLE_NAME;
-        $where = '(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0';
-        $res = $this->getDatabaseConnection()->exec_SELECTquery($select, $from, $where);
-        if ($res) {
-            while (($row = $this->getDatabaseConnection()->sql_fetch_assoc($res))) {
-                $pages[] = $row;
-            }
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME, true);
+        $rows = $queryBuilder
+            ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
+            ->from(Field::TABLE_NAME)
+            ->where('(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0')
+            ->execute()
+            ->fetchAll();
+        foreach ($rows as $row) {
+            $pages[] = $row;
         }
         return $pages;
     }
@@ -180,7 +154,8 @@ class FieldRepository extends AbstractRepository
     protected function findByMarkerAndFormAlternative($marker, $formUid = 0)
     {
         // get pages from form
-        $form = $this->formRepository->findByUid($formUid);
+        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $form = $formRepository->findByUid($formUid);
         $pageUids = [];
         foreach ($form->getPages() as $page) {
             $pageUids[] = $page->getUid();
@@ -236,16 +211,14 @@ class FieldRepository extends AbstractRepository
      * @param int $uid
      * @return string
      */
-    public function getMarkerFromUid($uid)
+    public function getMarkerFromUid(int $uid): string
     {
         $marker = '';
-        $row = (array)ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
-            'marker',
-            Field::TABLE_NAME,
-            'uid=' . (int)$uid
-        );
-        if (!empty($row['marker'])) {
-            $marker = $row['marker'];
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+        $rows =
+            $queryBuilder->select('marker')->from(Field::TABLE_NAME)->where('uid=' . (int)$uid)->execute()->fetchAll();
+        if (!empty($rows[0]['marker'])) {
+            $marker = $rows[0]['marker'];
         }
         return $marker;
     }
@@ -254,16 +227,14 @@ class FieldRepository extends AbstractRepository
      * @param int $uid
      * @return string
      */
-    public function getTypeFromUid($uid)
+    public function getTypeFromUid(int $uid): string
     {
         $type = '';
-        $row = (array)ObjectUtility::getDatabaseConnection()->exec_SELECTgetSingleRow(
-            'type',
-            Field::TABLE_NAME,
-            'uid=' . (int)$uid
-        );
-        if (!empty($row['type'])) {
-            $type = $row['type'];
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
+        $rows =
+            $queryBuilder->select('type')->from(Field::TABLE_NAME)->where('uid=' . (int)$uid)->execute()->fetchAll();
+        if (!empty($rows[0]['type'])) {
+            $type = $rows[0]['type'];
         }
         return $type;
     }

@@ -183,11 +183,8 @@ $pagesTca = [
                     'showAllLocalizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
                     'showRemovedLocalizationRecords' => 1,
-                ],
-                'behaviour' => [
-                    'localizeChildrenAtParentLocalization' => 1
-                ],
-            ],
+                ]
+            ]
         ],
         'forms' => [
             'exclude' => 1,
@@ -208,9 +205,9 @@ $pagesTca = [
             'label' => 'Sorting',
             'config' => [
                 'type' => 'none',
-            ],
-        ],
-    ],
+            ]
+        ]
+    ]
 ];
 
 /**
@@ -218,12 +215,6 @@ $pagesTca = [
  */
 if (ConfigurationUtility::isL10nModeMergeActive()) {
     $pagesTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
-}
-
-// Todo: Can be removed with 7.6 support drop
-if (ConfigurationUtility::isOlderThan8Lts()) {
-    unset($pagesTca['columns']['starttime']['config']['renderType']);
-    unset($pagesTca['columns']['endtime']['config']['renderType']);
 }
 
 return $pagesTca;

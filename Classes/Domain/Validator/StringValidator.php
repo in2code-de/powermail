@@ -1,15 +1,12 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * StringValidator
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- *          GNU Lesser General Public License, version 3 or later
+ * Class StringValidator
  */
 class StringValidator extends AbstractValidator
 {
@@ -66,7 +63,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validatePhone($value)
     {
-        preg_match('/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/', $value, $result);
+        preg_match('/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/', (string)$value, $result);
         return !empty($result[0]) && $result[0] === $value;
     }
 
@@ -166,7 +163,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validatePattern($value, $configuration)
     {
-        return preg_match('~' . $configuration . '~', $value) === 1;
+        return preg_match('~' . $configuration . '~', (string)$value) === 1;
     }
 
     /**

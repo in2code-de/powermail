@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use In2code\Powermail\Domain\Model\Form;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class GetFieldsFromFormViewHelper
@@ -22,21 +23,31 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
     protected $escapeOutput = false;
 
     /**
-     * Get all fields from form
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('form', Form::class, 'Form', true);
+        $this->registerArgument('property', 'string', 'Field property', false, 'title');
+        $this->registerArgument('htmlSpecialChars', 'bool', 'htmlSpecialChars', false, true);
+        $this->registerArgument('fieldType', 'string', 'Empty=allFieldtypes or $field::FIELD_TYPE_*', false, '');
+    }
+
+    /**
+     * Get all fields from a form
      *
-     * @param Form $form
-     * @param string $property
-     * @param bool $htmlSpecialChars
-     * @param string $fieldType Empty=allFieldtypes or $field::FIELD_TYPE_*
      * @return array
      */
-    public function render(Form $form, $property = 'title', $htmlSpecialChars = true, $fieldType = '')
+    public function render(): array
     {
         $fields = [];
-        foreach ($form->getFields($fieldType) as $field) {
-            $fieldProperty = ObjectAccess::getProperty($field, $property);
-            if ($htmlSpecialChars) {
-                $fieldProperty = htmlspecialchars($fieldProperty);
+        /** @var Form $form */
+        $form = $this->arguments['form'];
+        foreach ($form->getFields($this->arguments['fieldType']) as $field) {
+            $fieldProperty = ObjectAccess::getProperty($field, $this->arguments['property']);
+            if ($this->arguments['htmlSpecialChars']) {
+                $fieldProperty = htmlspecialchars((string)$fieldProperty);
             }
             $fields[] = $fieldProperty;
         }

@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -10,35 +11,8 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Lang\LanguageService;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 in2code.de
- *  Alex Kellner <alexander.kellner@in2code.de>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
  * Class AbstractUtility
- *
- * @package In2code\Powermail\Utility
  */
 abstract class AbstractUtility
 {
@@ -62,19 +36,10 @@ abstract class AbstractUtility
     }
 
     /**
-     * @return DatabaseConnection
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected static function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
-    }
-
-    /**
      * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected static function getFilesArray()
+    protected static function getFilesArray(): array
     {
         return (array)$_FILES;
     }
@@ -84,10 +49,16 @@ abstract class AbstractUtility
      *
      * @return array
      */
-    protected static function getExtensionConfiguration()
+    protected static function getExtensionConfiguration(): array
     {
-        $configVariables = self::getTypo3ConfigurationVariables();
-        return unserialize($configVariables['EXT']['extConf']['powermail']);
+        if (ConfigurationUtility::isTypo3OlderThen9()) {
+            $configVariables = self::getTypo3ConfigurationVariables();
+            // @extensionScannerIgnoreLine We still need to access extConf for TYPO3 8.7
+            $configuration = unserialize((string)$configVariables['EXT']['extConf']['powermail']);
+        } else {
+            $configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('powermail');
+        }
+        return $configuration;
     }
 
     /**
@@ -96,9 +67,9 @@ abstract class AbstractUtility
      * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected static function getTypo3ConfigurationVariables()
+    protected static function getTypo3ConfigurationVariables(): array
     {
-        return $GLOBALS['TYPO3_CONF_VARS'];
+        return (array)$GLOBALS['TYPO3_CONF_VARS'];
     }
 
     /**
@@ -108,27 +79,29 @@ abstract class AbstractUtility
      * @throws \Exception
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected static function getEncryptionKey()
+    protected static function getEncryptionKey(): string
     {
         $confVars = self::getTypo3ConfigurationVariables();
         if (empty($confVars['SYS']['encryptionKey'])) {
-            throw new \DomainException('No encryption key found in this TYPO3 installation');
+            throw new \DomainException('No encryption key found in this TYPO3 installation', 1514910284796);
         }
         return $confVars['SYS']['encryptionKey'];
     }
 
     /**
      * @return ContentObjectRenderer
+     * @codeCoverageIgnore
      */
-    protected static function getContentObject()
+    protected static function getContentObject(): ContentObjectRenderer
     {
         return self::getObjectManager()->get(ContentObjectRenderer::class);
     }
 
     /**
      * @return ConfigurationManager
+     * @codeCoverageIgnore
      */
-    protected static function getConfigurationManager()
+    protected static function getConfigurationManager(): ConfigurationManager
     {
         return self::getObjectManager()->get(ConfigurationManager::class);
     }
@@ -136,7 +109,7 @@ abstract class AbstractUtility
     /**
      * @return ObjectManager
      */
-    protected static function getObjectManager()
+    protected static function getObjectManager(): ObjectManager
     {
         return GeneralUtility::makeInstance(ObjectManager::class);
     }

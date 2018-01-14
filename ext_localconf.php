@@ -39,27 +39,27 @@ call_user_func(function () {
     );
 
     /**
+     * ContentElementWizard for Pi1
+     */
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript">'
+    );
+
+    /**
      * Hook to show PluginInformation under a tt_content element in page module of type powermail
      */
     $cmsLayout = 'cms/layout/class.tx_cms_layout.php';
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$cmsLayout]['tt_content_drawItem']['powermail'] =
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('powermail') .
-        'Classes/Hook/PluginPreview.php:In2code\Powermail\Hook\PluginPreview';
+        \In2code\Powermail\Hook\PluginPreview::class;
 
     /**
      * Hook for initially filling the marker field in backend
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
-        'EXT:powermail/Classes/Hook/CreateMarker.php:In2code\Powermail\Hook\CreateMarker';
+        \In2code\Powermail\Hook\CreateMarker::class;
 
     /**
      * Hook to extend the FlexForm
-     */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass'][] =
-        'EXT:powermail/Classes/Hook/FlexFormManipulationHook.php:In2code\Powermail\Hook\FlexFormManipulationHook';
-
-    /**
-     * Hook to extend the FlexForm since core version 8.5
      */
     $ffTools = \TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$ffTools]['flexParsing']['powermail'] =
@@ -88,15 +88,4 @@ call_user_func(function () {
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] =
         \In2code\Powermail\Command\TaskCommandController::class;
-
-    /**
-     * SignalSlot to convert old tablenames to new tablenames automaticly after installing
-     */
-    $dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
-    $dispatcher->connect(
-        \TYPO3\CMS\Extensionmanager\Utility\InstallUtility::class,
-        'afterExtensionInstall',
-        \In2code\Powermail\Slot\ConvertTableNames::class,
-        'convert'
-    );
 });

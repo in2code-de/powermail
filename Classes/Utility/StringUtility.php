@@ -1,36 +1,11 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 in2code.de
- *  Alex Kellner <alexander.kellner@in2code.de>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class StringUtility
- *
- * @package In2code\Powermail\Utility
  */
 class StringUtility
 {
@@ -41,7 +16,7 @@ class StringUtility
      * @param mixed $value
      * @return bool
      */
-    public static function isNotEmpty($value)
+    public static function isNotEmpty($value): bool
     {
         // bool
         if (is_bool($value)) {
@@ -49,13 +24,13 @@ class StringUtility
         }
         // string (default fields)
         if (!is_array($value)) {
-            if (isset($value) && strlen($value)) {
+            if (isset($value) && strlen((string)$value)) {
                 return true;
             }
             // array (checkboxes)
         } else {
             foreach ($value as $subValue) {
-                if (isset($value) && strlen($subValue)) {
+                if (isset($value) && strlen((string)$subValue)) {
                     return true;
                 }
             }
@@ -199,7 +174,7 @@ class StringUtility
     /**
      * Get src from image tag
      *      <img src="abc" class="" /> => abc
-     * 
+     *
      * @param string $tag
      * @return string
      */

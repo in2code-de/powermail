@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -6,35 +7,8 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 in2code.de
- *  Alex Kellner <alexander.kellner@in2code.de>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
  * Class FrontendUtility
- *
- * @package In2code\Powermail\Utility
  */
 class FrontendUtility extends AbstractUtility
 {
@@ -76,13 +50,30 @@ class FrontendUtility extends AbstractUtility
     /**
      * @return string
      */
-    public static function getPluginName()
+    public static function getPluginName(): string
     {
         $pluginName = 'tx_powermail_pi1';
         if (!empty(GeneralUtility::_GPmerged('tx_powermail_pi2'))) {
             $pluginName = 'tx_powermail_pi2';
         }
+        if (!empty(GeneralUtility::_GPmerged('tx_powermail_web_powermailm1'))) {
+            $pluginName = 'tx_powermail_web_powermailm1';
+        }
         return $pluginName;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getActionName(): string
+    {
+        $action = '';
+        $plugin = self::getPluginName();
+        $arguments = GeneralUtility::_GPmerged($plugin);
+        if (!empty($arguments['action'])) {
+            $action = $arguments['action'];
+        }
+        return $action;
     }
 
     /**
@@ -101,6 +92,7 @@ class FrontendUtility extends AbstractUtility
      * @param array $settings $settings TypoScript and Flexform Settings
      * @param int|Mail $mail
      * @return bool
+     * @codeCoverageIgnore
      */
     public static function isAllowedToEdit($settings, $mail)
     {
@@ -193,16 +185,19 @@ class FrontendUtility extends AbstractUtility
     public static function getCountryFromIp($ipAddress = null)
     {
         if ($ipAddress === null) {
+            // @codeCoverageIgnoreStart
             $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
+            // @codeCoverageIgnoreEnd
         }
+        $country = '';
         $json = GeneralUtility::getUrl('http://ip-api.com/json/' . $ipAddress);
         if ($json) {
             $geoInfo = json_decode($json);
             if (!empty($geoInfo->country)) {
-                return $geoInfo->country;
+                $country = $geoInfo->country;
             }
         }
-        return '';
+        return $country;
     }
 
     /**

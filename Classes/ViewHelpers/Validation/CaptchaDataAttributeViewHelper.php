@@ -1,15 +1,12 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
 
 /**
- * Returns Data-Attributes for JS and Native Validation
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class CaptchaDataAttributeViewHelper
  */
 class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
 {
@@ -17,17 +14,16 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
     /**
      * Returns Data Attribute Array for JS validation with parsley.js
      *
-     * @param Field $field
-     * @param array $additionalAttributes To add further attributes
-     * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
      * @return array for data attributes
      */
-    public function render(Field $field, array $additionalAttributes = [], $iteration = null)
+    public function render(): array
     {
+        /** @var Field $field */
+        $field = $this->arguments['field'];
         if ($field->getType() !== 'captcha') {
-            return $additionalAttributes;
+            return $this->arguments['additionalAttributes'];
         }
-        $dataArray = parent::render($field, $additionalAttributes, $iteration);
+        $dataArray = parent::render();
 
         if ($this->isNativeValidationEnabled()) {
             $dataArray['required'] = 'required';

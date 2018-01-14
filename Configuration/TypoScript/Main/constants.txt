@@ -262,10 +262,10 @@ plugin.tx_powermail {
 			image = EXT:powermail/Resources/Private/Image/captcha_bg.png
 
 			# cat=powermail_spam//0940; type=text; label= Captcha Font: Set TTF-Font for captcha image (e.g. fileadmin/font.ttf)
-			font = EXT:powermail/Resources/Private/Fonts/ARCADE.TTF
+			font = EXT:powermail/Resources/Private/Fonts/Segment16cBold.ttf
 
 			# cat=powermail_spam//0950; type=text; label= Captcha Text Color: Define your text color in hex code - must start with # (e.g. #ff0000)
-			textColor = #444444
+			textColor = #111111
 
 			# cat=powermail_spam//0960; type=int+; label= Captcha Text Size: Define your text size in px (e.g. 24)
 			textSize = 32
@@ -274,10 +274,10 @@ plugin.tx_powermail {
 			textAngle = -5,5
 
 			# cat=powermail_spam//0980; type=text; label= Captcha Text Distance Hor: Define two different values (start and stop) for your text horizontal random distance and separate it with a comma (e.g. 20,80)
-			distanceHor = 20,80
+			distanceHor = 20,100
 
 			# cat=powermail_spam//0990; type=text; label= Captcha Text Distance Ver: Define two different values (start and stop) for your text vertical random distance and separate it with a comma (e.g. 30,60)
-			distanceVer = 30,60
+			distanceVer = 30,45
 		}
 
 		javascript {

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -365,12 +366,8 @@ class SpamShieldValidator extends AbstractValidator
     protected function saveSpamPropertiesInDevelopmentLog()
     {
         if (!empty($this->settings['debug']['spamshield'])) {
-            GeneralUtility::devLog(
-                'Spamshield (Spamfactor ' . $this->getCalculatedSpamFactor(true) . ')',
-                'powermail',
-                0,
-                $this->getMessages()
-            );
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->info('Spamshield (Spamfactor ' . $this->getCalculatedSpamFactor(true) . ')', $this->getMessages());
         }
     }
 

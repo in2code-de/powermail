@@ -1,5 +1,5 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<f:Be.Container
+<vh:Be.Container
 		includeCssFiles="{0: '{f:uri.resource(path:\'Css/Backend.css\')}'}"
 		includeJsFiles="{0: '{f:uri.resource(path:\'JavaScripts/Libraries/jquery-ui.min.js\')}',
 			1: '{f:uri.resource(path:\'JavaScripts/Libraries/jquery.datetimepicker.min.js\')}',
@@ -58,10 +58,10 @@
 		</div>
 		<div class="module-body powermail-backend">
 			<f:alias map="{flashMessageClass:''}">
-				<f:render partial="FlashMessages/{vh:Misc.GetFlashMessagesPartialName()}" arguments="{_all}" />
+				<f:render partial="Misc/FlashMessages" arguments="{_all}" />
 			</f:alias>
 
 			<f:render section="content" />
 		</div>
 	</div>
-</f:Be.Container>
+</vh:Be.Container>

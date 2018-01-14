@@ -1,6 +1,7 @@
 <?php
-namespace In2code\Powermail\Tests\ViewHelpers\String;
+namespace In2code\Powermail\Tests\Unit\ViewHelpers\String;
 
+use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\String\TrimViewHelperFixture;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
@@ -11,7 +12,7 @@ class TrimViewHelperTest extends UnitTestCase
 {
 
     /**
-     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var TrimViewHelperFixture
      */
     protected $trimViewHelperMock;
 
@@ -20,9 +21,8 @@ class TrimViewHelperTest extends UnitTestCase
      */
     public function setUp()
     {
-        require_once(dirname(dirname(dirname(__FILE__))) . '/Fixtures/ViewHelpers/String/TrimViewHelperFixture.php');
         $this->trimViewHelperMock = $this->getAccessibleMock(
-            '\In2code\Powermail\Tests\Fixtures\ViewHelpers\String\TrimViewHelperFixture',
+            TrimViewHelperFixture::class,
             ['dummy']
         );
     }

@@ -1,13 +1,11 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Reporting;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * View helper check if given value is array or not
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class GetValuesForChartsViewHelper
  */
 class GetValuesForChartsViewHelper extends AbstractViewHelper
 {
@@ -18,17 +16,26 @@ class GetValuesForChartsViewHelper extends AbstractViewHelper
     protected $notAllowedSign = '"';
 
     /**
-     * View helper check if given value is array or not
-     *
-     * @param array $answers Grouped Answers
-     * @param string $fieldUidOrKey
-     * @param string $separator
-     * @param bool $urlEncode
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('answers', 'array', 'Grouped Answers', true);
+        $this->registerArgument('fieldUidOrKey', 'string', 'fieldUidOrKey', true);
+        $this->registerArgument('separator', 'string', 'separator', false, '|');
+        $this->registerArgument('urlEncode', 'bool', 'urlEncode', false, true);
+    }
+
+    /**
      * @return string "label1|label2|label3"
      */
-    public function render($answers, $fieldUidOrKey, $separator = ',', $urlEncode = true)
+    public function render(): string
     {
         $string = '';
+        $answers = $this->arguments['answers'];
+        $fieldUidOrKey = $this->arguments['fieldUidOrKey'];
+        $separator = $this->arguments['separator'];
         if (empty($answers[$fieldUidOrKey]) || !is_array($answers[$fieldUidOrKey])) {
             return $string;
         }
@@ -41,7 +48,7 @@ class GetValuesForChartsViewHelper extends AbstractViewHelper
         }
 
         $string = substr($string, 0, -1);
-        if ($urlEncode) {
+        if ($this->arguments['urlEncode']) {
             $string = urlencode($string);
         }
         return $string;

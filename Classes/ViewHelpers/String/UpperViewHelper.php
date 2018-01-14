@@ -1,26 +1,29 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\String;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * View helper for upper (ucfirst())
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class UpperViewHelper
  */
 class UpperViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Use PHP Function ucfirst()
-     *
-     * @param string $string Any string
-     * @return string Changed string
+     * @return void
      */
-    public function render($string)
+    public function initializeArguments()
     {
-        return ucfirst($string);
+        parent::initializeArguments();
+        $this->registerArgument('string', 'string', 'Any string', true);
+    }
+
+    /**
+     * @return string
+     */
+    public function render(): string
+    {
+        return ucfirst($this->arguments['string']);
     }
 }

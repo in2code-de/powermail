@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\String;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class Utf8ToUtf16ViewHelper
@@ -24,7 +25,7 @@ class Utf8ToUtf16ViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $string = chr(255) . chr(254);
         $string .= mb_convert_encoding($this->renderChildren(), 'UTF-16LE', 'UTF-8');

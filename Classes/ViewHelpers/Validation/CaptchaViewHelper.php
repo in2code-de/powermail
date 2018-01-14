@@ -1,16 +1,18 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Domain\Service\ConfigurationService;
+use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * Class CaptchaViewHelper
@@ -87,7 +89,8 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($settings)) {
             case 'captcha':
                 $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
-                $image = ExtensionManagementUtility::siteRelPath('captcha') . 'captcha/captcha.php';
+                $image = BasicFileUtility::getRelativeFolder(ExtensionManagementUtility::extPath('captcha'))
+                    . 'captcha/captcha.php';
                 if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
                     $imageTag = Utility::makeCaptcha($field->getUid());
                     return StringUtility::getSrcFromImageTag($imageTag);
@@ -95,7 +98,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
                 break;
 
             default:
-                $captchaService = $this->objectManager->get(CalculatingCaptchaService::class);
+                $captchaService = ObjectUtility::getObjectManager()->get(CalculatingCaptchaService::class);
                 $image = $captchaService->render($field);
         }
         return $image;

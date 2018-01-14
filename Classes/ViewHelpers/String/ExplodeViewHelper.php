@@ -1,28 +1,36 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\String;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * View helper to explode a list
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class ExplodeViewHelper
  */
 class ExplodeViewHelper extends AbstractViewHelper
 {
 
     /**
-     * View helper to explode a list
-     *
-     * @param string $string Any list (e.g. "a,b,c,d")
-     * @param string $separator Separator sign (e.g. ",")
-     * @param bool $trim should be trimmed?
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('string', 'string', 'Any list (e.g. "a,b,c,d")', false, '');
+        $this->registerArgument('separator', 'string', 'Separator sign (e.g. ",")', false, ',');
+        $this->registerArgument('trim', 'bool', 'Should be trimmed?', false, true);
+    }
+
+    /**
      * @return array
      */
-    public function render($string = '', $separator = ',', $trim = true)
+    public function render(): array
     {
-        return GeneralUtility::trimExplode($separator, $string, $trim);
+        return GeneralUtility::trimExplode(
+            $this->arguments['separator'],
+            $this->arguments['string'],
+            $this->arguments['trim']
+        );
     }
 }

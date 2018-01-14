@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\DataProcessor\DataProcessorRunner;
@@ -11,11 +12,13 @@ use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
 use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\OptinUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * Class FormController
@@ -24,7 +27,12 @@ class FormController extends AbstractController
 {
 
     /**
-     * @var \In2code\Powermail\DataProcessor\DataProcessorRunner
+     * @var PersistenceManager
+     */
+    protected $persistenceManager;
+
+    /**
+     * @var DataProcessorRunner
      */
     protected $dataProcessorRunner;
 
@@ -74,10 +82,9 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
-     * @required $mail
      * @return void
      */
-    public function createAction(Mail $mail, $hash = null)
+    public function createAction(Mail $mail, string $hash = null)
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $this->dataProcessorRunner->callDataProcessors(
@@ -145,7 +152,6 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
-     * @required $mail
      * @return void
      */
     public function confirmationAction(Mail $mail)
@@ -165,7 +171,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return void
      */
-    protected function sendMailPreflight(Mail $mail, $hash = null)
+    protected function sendMailPreflight(Mail $mail, string $hash = null)
     {
         try {
             if ($this->isSenderMailEnabled() && $this->mailRepository->getSenderMailFromArguments($mail)) {
@@ -191,8 +197,8 @@ class FormController extends AbstractController
                 }
             }
         } catch (\Exception $exception) {
-            GeneralUtility::sysLog($exception->getMessage(), 'powermail', GeneralUtility::SYSLOG_SEVERITY_ERROR);
-            $this->addFlashMessage(LocalizationUtility::translate('mail_created_failure'), '', AbstractMessage::ERROR);
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->critical('Mail could not be sent', [$exception->getMessage()]);
         }
     }
 
@@ -225,6 +231,7 @@ class FormController extends AbstractController
      *
      * @param Mail $mail
      * @return void
+     * @codeCoverageIgnore
      */
     protected function saveMail(Mail $mail)
     {
@@ -241,7 +248,7 @@ class FormController extends AbstractController
      * @param string $hash Given Hash String
      * @return void
      */
-    public function optinConfirmAction($mail, $hash)
+    public function optinConfirmAction(int $mail, string $hash)
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
@@ -269,8 +276,9 @@ class FormController extends AbstractController
      * @param int $pid Page Id
      * @param int $mobileDevice Is mobile device?
      * @return void
+     * @codeCoverageIgnore
      */
-    public function marketingAction($referer = null, $language = 0, $pid = 0, $mobileDevice = 0)
+    public function marketingAction($referer = null, int $language = 0, int $pid = 0, int $mobileDevice = 0)
     {
         SessionUtility::storeMarketingInformation($referer, $language, $pid, $mobileDevice);
     }
@@ -279,15 +287,18 @@ class FormController extends AbstractController
      * Initializes this object
      *
      * @return void
+     * @codeCoverageIgnore
      */
     public function initializeObject()
     {
+        // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
         $this->contentObject = $this->configurationManager->getContentObject();
         $configurationService = $this->objectManager->get(ConfigurationService::class);
         $this->conf = $configurationService->getTypoScriptConfiguration();
         ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
         if ($this->settings['debug']['settings']) {
-            GeneralUtility::devLog('Settings', $this->extensionName, 0, $this->settings);
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->info('Powermail settings', $this->settings);
         }
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this]);
     }
@@ -296,11 +307,13 @@ class FormController extends AbstractController
      * Initialize Action
      *
      * @return void
+     * @codeCoverageIgnore
      */
     public function initializeAction()
     {
         parent::initializeAction();
 
+        // @codeCoverageIgnoreStart
         if (!isset($this->settings['staticTemplate'])) {
             $this->controllerContext = $this->buildControllerContext();
             $this->addFlashMessage(LocalizationUtility::translate('error_no_typoscript'), '', AbstractMessage::ERROR);
@@ -331,7 +344,8 @@ class FormController extends AbstractController
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
-            GeneralUtility::devLog('Redirect (mail empty)', $this->extensionName, 2, $arguments);
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->alert('Redirect (mail empty)', $arguments);
             $this->forward('form');
         }
     }
@@ -348,7 +362,8 @@ class FormController extends AbstractController
         if ($mail !== null) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
-                GeneralUtility::devLog('Redirect (optin)', $this->extensionName, 2, [$formsToContent, (array)$mail]);
+                $logger = ObjectUtility::getLogger(__CLASS__);
+                $logger->alert('Redirect (optin)', [$formsToContent, (array)$mail]);
                 $this->forward('form');
             }
         }
@@ -363,7 +378,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return bool
      */
-    protected function isMailPersistActive($hash)
+    protected function isMailPersistActive(string $hash = null): bool
     {
         return ($this->isPersistActive() || !empty($this->settings['main']['optin'])) && $hash === null;
     }
@@ -378,7 +393,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return bool
      */
-    protected function isNoOptin(Mail $mail, $hash)
+    protected function isNoOptin(Mail $mail, string $hash = null): bool
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
@@ -386,18 +401,20 @@ class FormController extends AbstractController
 
     /**
      * @return void
+     * @codeCoverageIgnore
      */
     protected function debugVariables()
     {
         if (!empty($this->settings['debug']['variables'])) {
-            GeneralUtility::devLog('Variables', $this->extensionName, 0, GeneralUtility::_POST());
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->info('Variables', GeneralUtility::_POST());
         }
     }
 
     /**
      * @return bool
      */
-    protected function isPersistActive()
+    protected function isPersistActive(): bool
     {
         return $this->settings['db']['enable'] === '1';
     }
@@ -405,7 +422,7 @@ class FormController extends AbstractController
     /**
      * @return bool
      */
-    protected function isSenderMailEnabled()
+    protected function isSenderMailEnabled(): bool
     {
         return $this->settings['sender']['enable'] === '1';
     }
@@ -413,7 +430,7 @@ class FormController extends AbstractController
     /**
      * @return bool
      */
-    protected function isReceiverMailEnabled()
+    protected function isReceiverMailEnabled(): bool
     {
         return $this->settings['receiver']['enable'] === '1';
     }
@@ -425,5 +442,14 @@ class FormController extends AbstractController
     public function injectDataProcessorRunner(DataProcessorRunner $dataProcessorRunner)
     {
         $this->dataProcessorRunner = $dataProcessorRunner;
+    }
+
+    /**
+     * @param PersistenceManager $persistenceManager
+     * @return void
+     */
+    public function injectPersistenceManager(PersistenceManager $persistenceManager)
+    {
+        $this->persistenceManager = $persistenceManager;
     }
 }

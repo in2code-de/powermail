@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -7,11 +8,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ObjectUtility;
 
 /**
- * InputValidator
- *
- * @package powermail
- * @license http://www.gnu.org/licenses/lgpl.html
- * GNU Lesser General Public License, version 3 or later
+ * Class InputValidator
  */
 class InputValidator extends StringValidator
 {
@@ -30,7 +27,7 @@ class InputValidator extends StringValidator
      * @param Mail $mail
      * @return bool
      */
-    public function isValid($mail)
+    public function isValid($mail): bool
     {
         // stop validation if it's turned off
         if (!$this->isServerValidationEnabled()) {
@@ -52,7 +49,7 @@ class InputValidator extends StringValidator
      *
      * @param Field $field
      * @param Mail $mail
-     * @return string Answer value
+     * @return string|array
      */
     protected function getAnswerFromField(Field $field, Mail $mail)
     {
@@ -177,8 +174,8 @@ class InputValidator extends StringValidator
                             $extendedValidator = ObjectUtility::getObjectManager()->get(
                                 $this->settings['validation']['customValidation'][$validation]
                             );
-                            if (method_exists($extendedValidator, 'validate' . ucfirst($validation))) {
-                                if (!$extendedValidator->{'validate' . ucfirst($validation)}($value,
+                            if (method_exists($extendedValidator, 'validate' . ucfirst((string)$validation))) {
+                                if (!$extendedValidator->{'validate' . ucfirst((string)$validation)}($value,
                                     $field->getValidationConfiguration())
                                 ) {
                                     $this->setErrorAndMessage($field, 'validation.' . $validation);

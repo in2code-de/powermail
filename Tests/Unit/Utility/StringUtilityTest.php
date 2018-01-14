@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Utility;
+namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
@@ -424,5 +424,41 @@ class StringUtilityTest extends UnitTestCase
     public function getStringLengthReturnInt($string, $expectedResult)
     {
         $this->assertSame($expectedResult, StringUtility::getStringLength($string));
+    }
+
+    /**
+     *
+     * @return void
+     * @test
+     * @covers ::cleanString
+     */
+    public function cleanStringReturnsString()
+    {
+        $this->assertSame('iu.asd__________-3test', StringUtility::cleanString('iu.asd?ßü**^%_-3test'));
+    }
+
+    /**
+     *
+     * @return void
+     * @test
+     * @covers ::integerList
+     */
+    public function integerListReturnsString()
+    {
+        $this->assertSame('5,8,0', StringUtility::integerList('5,8,a4'));
+        $this->assertSame('5,8,4', StringUtility::integerList('5,8,4a'));
+        $this->assertSame('5,8,4', StringUtility::integerList('5,8,4'));
+    }
+
+    /**
+     *
+     * @return void
+     * @test
+     * @covers ::getSrcFromImageTag
+     */
+    public function getSrcFromImageTagReturnsString()
+    {
+        $tag = '<img id="ab3src" src="test.jpg" class="src=" data-action="test" />';
+        $this->assertSame('test.jpg', StringUtility::getSrcFromImageTag($tag));
     }
 }

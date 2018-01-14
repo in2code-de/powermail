@@ -1,40 +1,18 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
+use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2016 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
  * Class GetNewMarkerNamesForFormService
- * @package In2code\Powermail\Domain\Service
  */
 class GetNewMarkerNamesForFormService
 {
@@ -43,12 +21,6 @@ class GetNewMarkerNamesForFormService
      * @var string
      */
     protected static $defaultMarker = 'marker';
-
-    /**
-     * @var \In2code\Powermail\Domain\Repository\FormRepository
-     * @inject
-     */
-    protected $formRepository;
 
     /**
      * Restricted Marker Names
@@ -83,10 +55,11 @@ class GetNewMarkerNamesForFormService
      */
     public function getMarkersForFieldsDependingOnForm($formUid, $forceReset)
     {
+        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         if ($formUid === 0) {
-            $forms = $this->formRepository->findAll();
+            $forms = $formRepository->findAll();
         } else {
-            $forms = [$this->formRepository->findByUid($formUid)];
+            $forms = [$formRepository->findByUid($formUid)];
         }
         $markers = [];
         /** @var Form $form */
@@ -209,7 +182,7 @@ class GetNewMarkerNamesForFormService
     {
         $part = '[0-9]';
         $pattern = '';
-        for ($i = 0; $i < strlen($this->iterations); $i++) {
+        for ($i = 0; $i < strlen((string)$this->iterations); $i++) {
             $pattern .= $part;
         }
         return $string = preg_replace('/_' . $pattern . '$/', '', $string);
@@ -224,7 +197,7 @@ class GetNewMarkerNamesForFormService
      */
     protected function addAppendix($string, $iteration)
     {
-        $string .= '_' . str_pad($iteration, strlen($this->iterations), '0', STR_PAD_LEFT);
+        $string .= '_' . str_pad((string)$iteration, strlen((string)$this->iterations), '0', STR_PAD_LEFT);
         return $string;
     }
 

@@ -1,26 +1,32 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Check if there is a string in another string
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class IsStringInStringViewHelper
  */
 class IsStringInStringViewHelper extends AbstractViewHelper
 {
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('haystack', 'string', 'Haystack', true);
+        $this->registerArgument('needle', 'string', 'Needle', true);
+    }
+
+    /**
      * Check if there is a string in another string
      *
-     * @param string $haystack
-     * @param string $needle
      * @return bool
      */
-    public function render($haystack, $needle)
+    public function render(): bool
     {
-        return stristr($haystack, $needle);
+        return stristr($this->arguments['haystack'], $this->arguments['needle']) !== false;
     }
 }

@@ -1,29 +1,32 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Returns Morestep Class if morestep is given
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class MorestepClassViewHelper
  */
 class MorestepClassViewHelper extends AbstractViewHelper
 {
 
     /**
-     * Returns CSS class for morestep
-     *
-     * @param boolean $activate Current field
-     * @param string $class Any string for class
-     * @return string Class
+     * @return void
      */
-    public function render($activate, $class = 'powermail_morestep')
+    public function initializeArguments()
     {
-        if (!empty($activate)) {
-            return $class;
+        parent::initializeArguments();
+        $this->registerArgument('activate', 'bool', 'Activate', true);
+        $this->registerArgument('class', 'string', 'classname', false, 'powermail_morestep');
+    }
+
+    /**
+     * @return string
+     */
+    public function render(): string
+    {
+        if (!empty($this->arguments['activate'])) {
+            return $this->arguments['class'];
         }
         return '';
     }

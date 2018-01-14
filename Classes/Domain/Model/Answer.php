@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\ArrayUtility;
@@ -61,7 +62,7 @@ class Answer extends AbstractEntity
         if ($this->isTypeDateForTimestamp($value)) {
             $value = date(
                 LocalizationUtility::translate('datepicker_format_' . $this->getField()->getDatepickerSettings()),
-                $value
+                (int)$value
             );
         }
 
@@ -76,7 +77,6 @@ class Answer extends AbstractEntity
      * Sets the value
      *
      * @param mixed $value
-     * @dontvalidate $value
      * @return Answer
      */
     public function setValue($value)

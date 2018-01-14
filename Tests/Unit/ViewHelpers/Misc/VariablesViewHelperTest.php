@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\ViewHelpers\Misc;
+namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper;
 use TYPO3\CMS\Core\Tests\UnitTestCase;

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Factory;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -21,6 +22,7 @@ class MailFactory
      * @param Mail $mail
      * @param array $settings
      * @return void
+     * @codeCoverageIgnore
      */
     public function prepareMailForPersistence(Mail $mail, array $settings)
     {

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -6,24 +7,32 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Array for multiple upload
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class UploadAttributesViewHelper
  */
 class UploadAttributesViewHelper extends AbstractValidationViewHelper
 {
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('field', Field::class, 'Field', true);
+        $this->registerArgument('additionalAttributes', 'array', 'additionalAttributes', false, []);
+    }
+
+    /**
      * Array for multiple upload
      *
-     * @param Field $field
-     * @param array $additionalAttributes To add further attributes
      * @return array
      */
-    public function render(Field $field, $additionalAttributes = [])
+    public function render(): array
     {
+        /** @var Field $field */
+        $field = $this->arguments['field'];
+        $additionalAttributes = $this->arguments['additionalAttributes'];
+
         $this->addMandatoryAttributes($additionalAttributes, $field);
         if ($field->getMultiselectForField()) {
             $additionalAttributes['multiple'] = 'multiple';
@@ -56,7 +65,7 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
      * @param string $extensionList
      * @return string
      */
-    protected function getDottedListOfExtensions($extensionList)
+    protected function getDottedListOfExtensions(string $extensionList): string
     {
         $extensions = GeneralUtility::trimExplode(',', $extensionList, true);
         $dottedList = implode(',.', $extensions);

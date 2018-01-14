@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Domain\Service;
+namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Domain\Service\ExportService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;

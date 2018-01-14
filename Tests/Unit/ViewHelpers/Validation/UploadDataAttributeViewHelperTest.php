@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\ViewHelpers\Validation;
+namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper;
@@ -152,7 +152,12 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
             $field->_setProperty($propertyName, $propertyValue);
         }
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
-        $result = $this->abstractValidationViewHelperMock->_callRef('render', $field, $additionalAttributes);
+        $arguments = [
+            'field' => $field,
+            'additionalAttributes' => $additionalAttributes
+        ];
+        $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
+        $result = $this->abstractValidationViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 

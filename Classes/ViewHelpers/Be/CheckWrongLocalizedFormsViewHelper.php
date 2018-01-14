@@ -1,24 +1,16 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Backend Check Viewhelper
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class CheckWrongLocalizedFormsViewHelper
  */
 class CheckWrongLocalizedFormsViewHelper extends AbstractViewHelper
 {
-
-    /**
-     * formRepository
-     *
-     * @var \In2code\Powermail\Domain\Repository\FormRepository
-     * @inject
-     */
-    protected $formRepository;
 
     /**
      * Check if there are localized records with
@@ -26,12 +18,10 @@ class CheckWrongLocalizedFormsViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    public function render()
+    public function render(): bool
     {
-        $forms = $this->formRepository->findAllWrongLocalizedForms();
-        if (count($forms) > 0) {
-            return false;
-        }
-        return true;
+        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $forms = $formRepository->findAllWrongLocalizedForms();
+        return count($forms) === 0;
     }
 }

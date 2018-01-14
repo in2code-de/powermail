@@ -1,19 +1,17 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\String;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
- * Underscored value to lower camel case value
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class UnderscoredToLowerCamelCaseViewHelper
  */
-class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper implements CompilableInterface
+class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
     use CompileWithRenderStatic;
 
@@ -37,8 +35,11 @@ class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper implement
      *
      * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
-    {
+    public static function renderStatic(
+        array $arguments,
+        \Closure $renderChildrenClosure,
+        RenderingContextInterface $renderingContext
+    ): string {
         return GeneralUtility::underscoredToLowerCamelCase($arguments['val']);
     }
 }

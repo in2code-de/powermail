@@ -1,15 +1,12 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
 
 /**
- * Returns Data-Attributes for JS and Native Validation
- *
- * @package TYPO3
- * @subpackage Fluid
- * @version
+ * Class PasswordValidationDataAttributeViewHelper
  */
 class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeViewHelper
 {
@@ -17,16 +14,15 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
     /**
      * Returns Data Attribute Array for JS validation with parsley.js
      *
-     * @param Field $field
-     * @param array $additionalAttributes To add further attributes
-     * @param mixed $iteration Iterationarray for Multi Fields (Radio, Check, ...)
      * @return array for data attributes
      */
-    public function render(Field $field, array $additionalAttributes = [], $iteration = null)
+    public function render()
     {
-        $additionalAttributes = parent::render($field, $additionalAttributes, $iteration);
+        $additionalAttributes = parent::render();
 
         if ($this->isClientValidationEnabled()) {
+            /** @var Field $field */
+            $field = $this->arguments['field'];
             $additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
             $additionalAttributes['data-parsley-equalto-message'] =
                 LocalizationUtility::translate('validationerror_password');

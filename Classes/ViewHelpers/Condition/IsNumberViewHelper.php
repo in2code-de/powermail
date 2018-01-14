@@ -1,18 +1,16 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
  * View helper check if given value is number or not
- *
- * @package TYPO3
- * @subpackage Fluid
  */
-class IsNumberViewHelper extends AbstractViewHelper implements CompilableInterface
+class IsNumberViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
     use CompileWithRenderStatic;
 
@@ -34,8 +32,11 @@ class IsNumberViewHelper extends AbstractViewHelper implements CompilableInterfa
      *
      * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
-    {
+    public static function renderStatic(
+        array $arguments,
+        \Closure $renderChildrenClosure,
+        RenderingContextInterface $renderingContext
+    ) {
         return is_numeric($arguments['val']);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Utility;
+namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
@@ -10,27 +10,6 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  */
 class ArrayUtilityTest extends UnitTestCase
 {
-
-    /**
-     * @var \In2code\Powermail\Utility\ArrayUtility
-     */
-    protected $generalValidatorMock;
-
-    /**
-     * @return void
-     */
-    public function setUp()
-    {
-        $this->generalValidatorMock = $this->getAccessibleMock(ArrayUtility::class, ['dummy']);
-    }
-
-    /**
-     * @return void
-     */
-    public function tearDown()
-    {
-        unset($this->generalValidatorMock);
-    }
 
     /**
      * @return void
@@ -100,6 +79,10 @@ class ArrayUtilityTest extends UnitTestCase
                 'a,b:c',
                 false
             ],
+            [
+                [],
+                false
+            ]
         ];
     }
 

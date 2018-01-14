@@ -7,18 +7,6 @@ call_user_func(
     function () {
 
         /**
-         * Include Plugins
-         */
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('powermail', 'Pi1', 'Powermail');
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('powermail', 'Pi2', 'Powermail_Frontend');
-
-        /**
-         * Disable not needed fields in tt_content
-         */
-        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['powermail_pi1'] =
-            'select_key,pages,recursive';
-
-        /**
          * Include Backend Module
          */
         if (TYPO3_MODE === 'BE' &&
@@ -45,57 +33,7 @@ call_user_func(
         }
 
         /**
-         * Include Flexform
-         */
-        // Pi1
-        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['powermail_pi1'] = 'pi_flexform';
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-            'powermail_pi1',
-            'FILE:EXT:powermail/Configuration/FlexForms/FlexformPi1.xml'
-        );
-
-        // Pi2
-        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['powermail_pi2'] = 'pi_flexform';
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-            'powermail_pi2',
-            'FILE:EXT:powermail/Configuration/FlexForms/FlexformPi2.xml'
-        );
-
-        /**
-         * ContentElementWizard for Pi1
-         */
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-            '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript">'
-        );
-
-        /**
-         * Include TypoScript
-         */
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-            'powermail',
-            'Configuration/TypoScript/Main',
-            'Main Template'
-        );
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-            'powermail',
-            'Configuration/TypoScript/Powermail_Frontend',
-            'Powermail_Frontend'
-        );
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-            'powermail',
-            'Configuration/TypoScript/BootstrapClassesAndLayout',
-            'Add classes and CSS based on bootstrap'
-        );
-        if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableMarketingInformationActive()) {
-            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-                'powermail',
-                'Configuration/TypoScript/Marketing',
-                'Marketing Information'
-            );
-        }
-
-        /**
-         * Table Configuration
+         * Table description files for localization and allowing powermail tables on pages of type default
          */
         $tables = [
             \In2code\Powermail\Domain\Model\Form::TABLE_NAME,

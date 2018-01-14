@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
@@ -173,7 +174,10 @@ class BackendUtility extends AbstractUtility
         }
         $urlParts = parse_url($returnUrl);
         parse_str($urlParts['query'], $queryParts);
-        return (int)$queryParts['id'];
+        if (array_key_exists('id', $queryParts)) {
+            return (int)$queryParts['id'];
+        }
+        return 0;
     }
 
     /**
@@ -201,7 +205,14 @@ class BackendUtility extends AbstractUtility
      */
     public static function getPagesTSconfig($pid, $rootLine = null, $returnPartArray = false)
     {
-        return BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
+        $array = [];
+        try {
+            // @extensionScannerIgnoreLine Seems to be a false positive: getPagesTSconfig() still need 3 params
+            $array = BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
+        } catch (\Exception $exception) {
+            unset($exception);
+        }
+        return $array;
     }
 
     /**
@@ -215,6 +226,7 @@ class BackendUtility extends AbstractUtility
     {
         if (!self::isBackendAdmin()) {
             $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+            // @codeCoverageIgnoreStart
             $newPids = [];
             foreach ($pids as $pid) {
                 $properties = $pageRepository->getPropertiesFromUid($pid);
@@ -223,6 +235,7 @@ class BackendUtility extends AbstractUtility
                 }
             }
             $pids = $newPids;
+            // @codeCoverageIgnoreEnd
         }
         return $pids;
     }

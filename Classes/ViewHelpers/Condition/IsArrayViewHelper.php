@@ -1,25 +1,21 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
- * View helper check if given value is array or not
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class IsArrayViewHelper
  */
-class IsArrayViewHelper extends AbstractViewHelper implements CompilableInterface
+class IsArrayViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
     use CompileWithRenderStatic;
 
     /**
-     * Initialize arguments.
-     *
-     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
+     * @return void
      */
     public function initializeArguments()
     {
@@ -34,8 +30,11 @@ class IsArrayViewHelper extends AbstractViewHelper implements CompilableInterfac
      *
      * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
-    {
+    public static function renderStatic(
+        array $arguments,
+        \Closure $renderChildrenClosure,
+        RenderingContextInterface $renderingContext
+    ) {
         return is_array($arguments['val']);
     }
 }

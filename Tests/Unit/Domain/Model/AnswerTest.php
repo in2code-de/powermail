@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Domain\Model;
+namespace In2code\Powermail\Tests\Unit\Domain\Model;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
