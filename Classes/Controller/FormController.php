@@ -144,7 +144,14 @@ class FormController extends AbstractController
      * Show Confirmation message after submit (if view is activated)
      *
      * @param Mail $mail
-     * @validate $mail \In2code\Powermail\Domain\Validator\InputValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\UploadValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
+     * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
      */
     public function confirmationAction(Mail $mail)
