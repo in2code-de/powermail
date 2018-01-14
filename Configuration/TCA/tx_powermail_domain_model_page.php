@@ -183,11 +183,8 @@ $pagesTca = [
                     'showAllLocalizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
                     'showRemovedLocalizationRecords' => 1,
-                ],
-                'behaviour' => [
-                    'localizeChildrenAtParentLocalization' => 1
-                ],
-            ],
+                ]
+            ]
         ],
         'forms' => [
             'exclude' => 1,
@@ -208,9 +205,9 @@ $pagesTca = [
             'label' => 'Sorting',
             'config' => [
                 'type' => 'none',
-            ],
-        ],
-    ],
+            ]
+        ]
+    ]
 ];
 
 /**
