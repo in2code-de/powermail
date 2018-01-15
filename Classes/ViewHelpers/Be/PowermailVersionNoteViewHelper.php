@@ -97,7 +97,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
             $this->setVersion(ExtensionManagementUtility::getExtensionVersion('powermail'));
         }
         if ($this->getCheckFromDatabase()) {
-            $this->setIsCurrentVersionUnsecure($this->isCurrentVersionUnsaveCheck());
+            $this->setIsCurrentVersionUnsecure($this->isCurrentVersionUnsafeCheck());
             $this->setIsNewerVersionAvailable($this->isNewerVersionAvailableCheck());
             $this->setExtensionTableExists(DatabaseUtility::isTableExisting(self::TABLE_NAME));
             $this->setCurrentVersionInExtensionTableExists(
@@ -109,18 +109,18 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    protected function isCurrentVersionUnsaveCheck(): bool
+    protected function isCurrentVersionUnsafeCheck(): bool
     {
         $unsafe = true;
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
         $rows = $queryBuilder
             ->select('review_state')
             ->from(self::TABLE_NAME)
-            ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
+            ->where('extension_key = "powermail" and version = "2.9.0"')
             ->setMaxResults(1)
             ->execute()
             ->fetchAll();
-        if (!empty($rows[0]['review_state']) && $rows[0]['review_state'] === '0') {
+        if (array_key_exists('review_state', $rows[0]) && $rows[0]['review_state'] === 0) {
             $unsafe = false;
         }
         return $unsafe;
