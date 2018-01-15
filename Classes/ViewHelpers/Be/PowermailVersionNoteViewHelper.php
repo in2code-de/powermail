@@ -116,7 +116,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $rows = $queryBuilder
             ->select('review_state')
             ->from(self::TABLE_NAME)
-            ->where('extension_key = "powermail" and version = "2.9.0"')
+            ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
             ->setMaxResults(1)
             ->execute()
             ->fetchAll();
