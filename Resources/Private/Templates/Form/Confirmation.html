@@ -13,9 +13,7 @@ Show Confirmation Page
 	<div class="powermail_confirmation" data-powermail-form="{mail.form.uid}">
 		<h4><f:translate key="confirmation_message" /></h4>
 
-		<vh:string.RawAndRemoveXss>
-			{powermail_all}
-		</vh:string.RawAndRemoveXss>
+		<f:format.raw>{powermail_all}</f:format.raw>
 
 		<f:comment>
 			Link: Back to form

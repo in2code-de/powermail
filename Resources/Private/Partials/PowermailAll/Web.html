@@ -5,22 +5,20 @@
 	Answer: {answer}
 </f:comment>
 
-<vh:string.RawAndRemoveXss>
-	<dt class="powermail_all_label powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
-		{answer.field.title}
-	</dt>
-	<dd class="powermail_all_value powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
-		<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
-			<f:else>
-				<vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}"><f:format.nl2br>{answer.value}</f:format.nl2br></vh:Misc.ManipulateValueWithTypoScript>
-			</f:else>
-			<f:then>
-				<f:for each="{answer.value}" as="subValue" iteration="index">
-					<f:if condition="{subValue}">
-						<vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}">{subValue}</vh:Misc.ManipulateValueWithTypoScript><f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
-					</f:if>
-				</f:for>
-			</f:then>
-		</f:if>
-	</dd>
-</vh:string.RawAndRemoveXss>
+<dt class="powermail_all_label powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
+    {answer.field.title}
+</dt>
+<dd class="powermail_all_value powermail_all_type_{answer.field.type} powermail_all_marker_{answer.field.marker}">
+    <f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+        <f:else>
+            <vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}"><f:format.nl2br>{answer.value}</f:format.nl2br></vh:Misc.ManipulateValueWithTypoScript>
+        </f:else>
+        <f:then>
+            <f:for each="{answer.value}" as="subValue" iteration="index">
+                <f:if condition="{subValue}">
+                    <vh:Misc.ManipulateValueWithTypoScript answer="{answer}" type="{type}">{subValue}</vh:Misc.ManipulateValueWithTypoScript><f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
+                </f:if>
+            </f:for>
+        </f:then>
+    </f:if>
+</dd>

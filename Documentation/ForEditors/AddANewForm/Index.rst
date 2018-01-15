@@ -529,7 +529,7 @@ Field Types
  - :Field:
       Show HTML
    :Description:
-      Add some html text. Text is automaticle parsed through a removeXSS-Function. If you are aware of what you are doing, you can disable the removeXSS function with TypoScript constants.
+      Add some html text. Per default output of fields of type HTML is parsed through a htmlspecialchars() function to avoid Cross-Site-Scripting for security reasons. If you are aware of possible XSS-problems, caused by editors, you can enable it and your original HTML is shown in the Frontend.
    :HTML:
       This is a <b>Test</b>
    :Category:

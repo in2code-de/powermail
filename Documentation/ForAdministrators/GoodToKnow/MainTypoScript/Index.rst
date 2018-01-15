@@ -469,9 +469,18 @@ Constants Overview
       1
 
  - :Constants:
-      misc.disableRemoveXss
+      misc.htmlForHtmlFields
    :Description:
-      HTML without RemoveXSS: Per default HTML-Output is parsed through a RemoveXSS-Function to avoid Cross-Site-Scripting for security reasons. If you are aware of possible XSS-Problems, caused by editors, you can disable removeXSS and your original HTML is shown in the Frontend.
+      Allow html in html fields: Per default output of fields of type HTML is parsed through a htmlspecialchars() function to avoid Cross-Site-Scripting for security reasons. If you are aware of possible XSS-problems, caused by editors, you can enable it and your original HTML is shown in the Frontend.
+   :Type:
+      bool
+   :Default:
+      0
+
+ - :Constants:
+      misc.htmlForLabels
+   :Description:
+      Allow html in field labels: Per default labels are generated with htmlspecialchars() to prevent xss. This also disables links in labels. If you aware of possible XSS-problems, caused by editors, you can enable it.
    :Type:
       bool
    :Default:
@@ -1122,11 +1131,14 @@ Setup
 
                 # Misc Settings
                 misc {
+                    # HTML Output for type HMTL fields
+                    htmlForHtmlFields = {$plugin.tx_powermail.settings.misc.htmlForHtmlFields}
+
+                    # HTML for labels
+                    htmlForLabels = {$plugin.tx_powermail.settings.misc.htmlForLabels}
+
                     # Show only values if they are filled (for all views and for mails)
                     showOnlyFilledValues = {$plugin.tx_powermail.settings.misc.showOnlyFilledValues}
-
-                    # HTML Output without removeXSS
-                    disableRemoveXss = {$plugin.tx_powermail.settings.misc.disableRemoveXss}
 
                     # Submit Powermail Forms with AJAX (browser will not reload complete page)
                     ajaxSubmit = {$plugin.tx_powermail.settings.misc.ajaxSubmit}
