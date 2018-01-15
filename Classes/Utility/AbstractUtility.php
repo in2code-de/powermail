@@ -51,10 +51,14 @@ abstract class AbstractUtility
      */
     protected static function getExtensionConfiguration(): array
     {
+        $configuration = [];
         if (ConfigurationUtility::isTypo3OlderThen9()) {
             $configVariables = self::getTypo3ConfigurationVariables();
             // @extensionScannerIgnoreLine We still need to access extConf for TYPO3 8.7
-            $configuration = unserialize((string)$configVariables['EXT']['extConf']['powermail']);
+            $possibleConfig = unserialize((string)$configVariables['EXT']['extConf']['powermail']);
+            if (!empty($possibleConfig) && is_array($possibleConfig)) {
+                $configuration = $possibleConfig;
+            }
         } else {
             $configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('powermail');
         }
