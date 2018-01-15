@@ -31,6 +31,7 @@ For Developers
    AddFinisherClasses/Index
    AddDataProcessors/Index
    AddSpamshieldMethods/Index
+   DisableSpamshield/Index
    SignalSlots/Index
    UserfuncsWithCobject/Index
    DatabaseModel/Index

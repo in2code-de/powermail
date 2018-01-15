@@ -407,6 +407,12 @@ Register own spamcheck methods
 Of course you can register own spamshield methods. See manual part "for developers" for examples.
 
 
+Disable spamcheck on some condition
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Of course you can disable all spamshield methods on some conditions. See manual part "for developers" for examples.
+
+
 Captcha
 ^^^^^^^
 

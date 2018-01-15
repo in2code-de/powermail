@@ -330,8 +330,28 @@ plugin.tx_powermail {
 
 			# Spam Settings
 			spamshield {
-				# enable or disabe spam regocnition
+				# enable or disable spam check
 				_enable = {$plugin.tx_powermail.settings.spamshield.enable}
+
+				# disable complete spam check on individual conditions (overrules ._enable=1)
+#				_disable {
+#					1 {
+						# Disable spamcheck if visitor is in IP-Range
+#						class = In2code\Powermail\Domain\Validator\SpamShield\Breaker\IpBreaker
+#						configuration {
+#							// Commaseparated list of IPs. Use * for wildcards in the IP-address
+#							ipWhitelist = 127.0.0.1,192.168.0.*
+#						}
+#					}
+
+#					2 {
+						# Disable spamcheck if any field contains a given value - like "powermailTestCase"
+#						class = In2code\Powermail\Domain\Validator\SpamShield\Breaker\ValueBreaker
+#						configuration {
+#							value = powermailTestCase
+#						}
+#					}
+#				}
 
 				# Spam Factor Limit in %
 				factor = {$plugin.tx_powermail.settings.spamshield.factor}
