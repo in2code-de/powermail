@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\AbstractMethod;
+use In2code\Powermail\Domain\Validator\SpamShield\Breaker\BreakerRunner;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -67,7 +68,7 @@ class SpamShieldValidator extends AbstractValidator
      */
     public function isValid($mail)
     {
-        if (!empty($this->settings['spamshield']['_enable'])) {
+        if ($this->isSpamShieldEnabled($mail)) {
             $this->runAllSpamMethods($mail);
             $this->calculateMailSpamFactor();
             $this->saveSpamFactorInSession();
@@ -399,5 +400,21 @@ class SpamShieldValidator extends AbstractValidator
     protected function getIpAddress()
     {
         return !ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '';
+    }
+
+    /**
+     * @param Mail $mail
+     * @return bool
+     */
+    protected function isSpamShieldEnabled(Mail $mail): bool
+    {
+        $breakerRunner = ObjectUtility::getObjectManager()->get(
+            BreakerRunner::class,
+            $mail,
+            $this->settings,
+            $this->flexForm
+        );
+        return !empty($this->settings['spamshield']['_enable'])
+            && $breakerRunner->isSpamCheckDisabledByAnyBreaker() !== true;
     }
 }
