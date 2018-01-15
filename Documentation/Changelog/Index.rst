@@ -18,6 +18,16 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.0.1
+   :Date:
+      2018-01-15
+   :Changes:
+
+      * Task: Very small code cleanup
+      * Bugfix: Fix test for secure version in backend
+      * Bugfix: Prevent exception if extension configuration is empty
+
+ - :Version:
       5.0.0
    :Date:
       2018-01-14
@@ -30,6 +40,7 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       * Task: Larger refactoring for PHP 7 strict mode and TYPO3 9
       * Task: Add readme how to start unit tests (with and without code coverage)
       * Task: Add readme how to start behaviour tests (behat with selenium)
+      * Task: Replace font of calculating captcha with a complete free one and add a notice
 
  - :Version:
       4.4.0
