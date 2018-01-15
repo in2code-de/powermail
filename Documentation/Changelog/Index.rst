@@ -18,6 +18,16 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.1.0
+   :Date:
+      2018-01-15
+   :Changes:
+
+      * Feature: Add breaker class to disable spamshield if given IP address matches
+      * Feature: Add breaker class to disable spamshield if there is a defined string in an answer
+      * Feature: Possibility to add own breaker classes to disable spamshield on individual conditions
+
+ - :Version:
       5.0.1
    :Date:
       2018-01-15
