@@ -1001,3 +1001,8 @@ page {
 	}
 }
 [end]
+
+# Make sure that email addresses aren't obfuscated in created emails
+[globalVar = _GET|tx_powermail_pi1|action = create]
+  config.spamProtectEmailAddresses = 0
+[global]
