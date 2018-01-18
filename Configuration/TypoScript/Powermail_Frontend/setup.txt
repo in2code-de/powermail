@@ -18,7 +18,7 @@ plugin.tx_powermail {
 			}
 
 			rss {
-				title = Powermail 2.0 RSS Feed
+				title = Powermail RSS Feed
 				link = http://www.in2code.de
 				description = Powermail_Frontend RSS Feed
 				language = en
