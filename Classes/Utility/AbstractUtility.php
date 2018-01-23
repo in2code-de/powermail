@@ -60,7 +60,9 @@ abstract class AbstractUtility
                 $configuration = $possibleConfig;
             }
         } else {
+            // @codeCoverageIgnoreStart
             $configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('powermail');
+            // @codeCoverageIgnoreEnd
         }
         return $configuration;
     }

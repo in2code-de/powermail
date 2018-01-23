@@ -3,6 +3,7 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -72,5 +73,15 @@ class ObjectUtilityTest extends UnitTestCase
     {
         $result = ObjectUtility::getLanguageService();
         $this->assertNull($result);
+    }
+
+    /**
+     * @return void
+     * @covers ::getLogger
+     */
+    public function testGetLogger()
+    {
+        $logger = ObjectUtility::getLogger(__CLASS__);
+        $this->assertInstanceOf(Logger::class, $logger);
     }
 }
