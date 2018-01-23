@@ -327,9 +327,9 @@ ext_localconf.php
         \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
     );
     $signalSlotDispatcher->connect(
-        'In2code\Powermail\Domain\Service\SendMailService',
+        'In2code\Powermail\Domain\Service\Mail\SendMailService',
         'sendTemplateEmailBeforeSend',
-        'In2code\Powermailextended\Domain\Service\SendMailService',
+        'In2code\Powermailextended\Domain\Service\Mail\SendMailService',
         'manipulateMail',
         FALSE
     );
@@ -341,9 +341,9 @@ Classes/Domain/Service/SendMailService.php
 ::
 
     <?php
-    namespace In2code\Powermailextended\Domain\Service;
+    namespace In2code\Powermailextended\Domain\Service\Mail;
 
-    use In2code\Powermail\Domain\Service\SendMailService as SendMailServicePowermail;
+    use In2code\Powermail\Domain\Service\Mail\SendMailService as SendMailServicePowermail;
     use TYPO3\CMS\Core\Mail\MailMessage;
 
     /**

@@ -366,6 +366,7 @@ class SendMailService
         if ($this->type === 'receiver' && $email['variables']['hash'] === null) {
             $this->mail->setSenderMail($email['senderEmail']);
             $this->mail->setSenderName($email['senderName']);
+            $this->mail->setReceiverMail($email['receiverEmail']);
             $this->mail->setSubject($email['subject']);
         }
     }
