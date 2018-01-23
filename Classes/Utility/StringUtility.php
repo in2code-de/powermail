@@ -183,4 +183,17 @@ class StringUtility
         preg_match('/.*src="(.*)".*/U', $tag, $matches);
         return $matches[1];
     }
+
+    /**
+     * Add a trailing slash to a string (e.g. path)
+     *        folder1/folder2 => folder1/folder2/
+     *        folder1/folder2/ => folder1/folder2/
+     *
+     * @param string $string
+     * @return string
+     */
+    public static function addTrailingSlash($string)
+    {
+        return rtrim($string, '/') . '/';
+    }
 }

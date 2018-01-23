@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
-use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -253,7 +253,7 @@ class File
      */
     public function setUploadFolder($uploadFolder)
     {
-        $this->uploadFolder = BasicFileUtility::addTrailingSlash($uploadFolder);
+        $this->uploadFolder = StringUtility::addTrailingSlash($uploadFolder);
         return $this;
     }
 
