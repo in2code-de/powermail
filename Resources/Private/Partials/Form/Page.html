@@ -1,6 +1,8 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 <fieldset class="powermail_fieldset powermail_fieldset_{page.uid} {page.css}">
-	<legend class="powermail_legend">{page.title}</legend>
+	<f:if condition="{page.css} != 'nolabel'">
+		<legend class="powermail_legend">{page.title}</legend>
+	</f:if>
 
 	<f:for each="{page.fields}" as="field" iteration="iteration">
 		<vh:misc.createRowTags columns="{settings.styles.numberOfColumns}" class="{settings.styles.framework.rowClasses}" iteration="{iteration}">
