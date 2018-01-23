@@ -63,7 +63,7 @@ class TemplateUtility extends AbstractUtility
         $templatePaths = array_unique($templatePaths);
         $absolutePaths = [];
         foreach ($templatePaths as $templatePath) {
-            $absolutePaths[] = GeneralUtility::getFileAbsFileName($templatePath);
+            $absolutePaths[] = BasicFileUtility::addTrailingSlash(GeneralUtility::getFileAbsFileName($templatePath));
         }
         return $absolutePaths;
     }
