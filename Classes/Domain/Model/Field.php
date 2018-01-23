@@ -777,6 +777,7 @@ class Field extends AbstractEntity
      */
     public function dataTypeFromFieldType($fieldType)
     {
+        $dataType = 0;
         static $types = null;
         if (is_null($types)) {
             $types = [
@@ -807,9 +808,9 @@ class Field extends AbstractEntity
         }
 
         if (array_key_exists($fieldType, $types)) {
-            return $types[$fieldType];
+            $dataType = $types[$fieldType];
         }
-        return 0;
+        return $dataType;
     }
 
     /**
