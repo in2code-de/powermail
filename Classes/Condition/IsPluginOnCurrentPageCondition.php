@@ -6,6 +6,9 @@ use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Configuration\TypoScript\ConditionMatching\AbstractCondition;
 
+/**
+ * Class IsPluginOnCurrentPageCondition
+ */
 class IsPluginOnCurrentPageCondition extends AbstractCondition
 {
 
@@ -22,7 +25,7 @@ class IsPluginOnCurrentPageCondition extends AbstractCondition
      * @param array $conditionParameters e.g. array('= value1', '= value2')
      * @return bool
      */
-    public function matchCondition(array $conditionParameters)
+    public function matchCondition(array $conditionParameters): bool
     {
         if (!empty($conditionParameters)) {
             foreach ($conditionParameters as $conditionParameter) {

@@ -548,7 +548,7 @@ This is easy to handle, just add this line of TypoScript to your **Constants**:
 
 	plugin.tx_powermail.settings.misc.addQueryString = 1
 
-.. _powermailconditions:
+.. _powermailconditionplugin:
 
 I want to include CSS or JavaScript only if there is a powermail plugin on this page
 ------------------------------------------------------------------------------------
@@ -569,6 +569,21 @@ The condition can be used for every plugin and every extension. Example for a de
 	[In2code\Powermail\Condition\IsPluginOnCurrentPageCondition = powermail_pi1, = powermail_pi2]
 	// do something but only if Pi1 or Pi2 of powermail is on the same page
 	[end]
+
+.. _powermailconditionsubmitted:
+
+If you want to do something in TypoScript if powermail was just submitted
+-------------------------------------------------------------------------
+
+If you want to listen if a powermail form was just submitted via conditions, you can use a globalVar (e.g.) condition
+or simply use the build in condition from powermail.
+Note: This will probably not work on AJAX submit and if you are using a redirect on submit
+
+.. code-block:: text
+
+    [In2code\Powermail\Condition\IsPowermailSubmittedCondition]
+    // do something, but only if powermail was submitted
+    [end]
 
 .. _ihaveaproblem:
 
