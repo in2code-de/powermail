@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
+use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -10,6 +11,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class File
 {
+    use SignalTrait;
 
     /**
      * Field marker name
@@ -339,6 +341,7 @@ class File
         if ($absolute) {
             $pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
         }
+        $this->signalDispatch(__CLASS__, __FUNCTION__, [$pathAndFilename, $this]);
         return $pathAndFilename;
     }
 }

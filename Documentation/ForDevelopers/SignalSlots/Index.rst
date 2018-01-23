@@ -261,6 +261,17 @@ extend the functions from your extension. Please report to
       Change files array from upload-fields whenever files will be read
 
  - :Class:
+      In2code\\Powermail\\Domain\\Model\\File
+   :Name:
+      getNewPathAndFilename
+   :Method:
+      getNewPathAndFilename()
+   :Arguments:
+      $pathAndFilename, $this
+   :Description:
+      Change path and filename of a single file for uploading, attaching to email or something else
+
+ - :Class:
       In2code\\Powermail\\ViewHelpers\\Validation\\ValidationDataAttributeViewHelper
    :Name:
       render
