@@ -15,32 +15,14 @@ class TemplateUtility extends AbstractUtility
 {
 
     /**
-     * Get absolute path for templates with fallback
-     *        In case of multiple paths this will just return the first one.
-     *        See getTemplateFolders() for an array of paths.
-     *
-     * @param string $part "template", "partial", "layout"
-     * @return string
-     * @see getTemplateFolders()
-     */
-    public static function getTemplateFolder($part = 'template')
-    {
-        $matches = self::getTemplateFolders($part);
-        return !empty($matches) ? $matches[0] : '';
-    }
-
-    /**
      * Get absolute paths for templates with fallback
-     *        Returns paths from *RootPaths and *RootPath and "hardcoded"
+     *        Returns paths from *RootPaths and "hardcoded"
      *        paths pointing to the EXT:powermail-resources.
      *
      * @param string $part "template", "partial", "layout"
-     * @param boolean $returnAllPaths Default: FALSE, If FALSE only paths
-     *        for the first configuration (Paths, Path, hardcoded)
-     *        will be returned. If TRUE all (possible) paths will be returned.
      * @return array
      */
-    public static function getTemplateFolders($part = 'template', $returnAllPaths = false)
+    public static function getTemplateFolders($part = 'template')
     {
         $templatePaths = [];
         $extbaseConfig = self::getConfigurationManager()->getConfiguration(
@@ -51,19 +33,13 @@ class TemplateUtility extends AbstractUtility
             $templatePaths = $extbaseConfig['view'][$part . 'RootPaths'];
             $templatePaths = array_values($templatePaths);
         }
-        if ($returnAllPaths || empty($templatePaths)) {
-            $path = $extbaseConfig['view'][$part . 'RootPath'];
-            if (!empty($path)) {
-                $templatePaths[] = $path;
-            }
-        }
-        if ($returnAllPaths || empty($templatePaths)) {
+        if (empty($templatePaths)) {
             $templatePaths[] = 'EXT:powermail/Resources/Private/' . ucfirst($part) . 's/';
         }
         $templatePaths = array_unique($templatePaths);
         $absolutePaths = [];
         foreach ($templatePaths as $templatePath) {
-            $absolutePaths[] = GeneralUtility::getFileAbsFileName($templatePath);
+            $absolutePaths[] = StringUtility::addTrailingSlash(GeneralUtility::getFileAbsFileName($templatePath));
         }
         return $absolutePaths;
     }
@@ -71,7 +47,7 @@ class TemplateUtility extends AbstractUtility
     /**
      * Return path and filename for a file or path.
      *        Only the first existing file/path will be returned.
-     *        respect *RootPaths and *RootPath
+     *        respect *RootPaths
      *
      * @param string $pathAndFilename e.g. Email/Name.html
      * @param string $part "template", "partial", "layout"
@@ -86,7 +62,7 @@ class TemplateUtility extends AbstractUtility
     /**
      * Return path and filename for one or many files/paths.
      *        Only existing files/paths will be returned.
-     *        respect *RootPaths and *RootPath
+     *        respect *RootPaths
      *
      * @param string $pathAndFilename Path/filename (Email/Name.html) or path
      * @param string $part "template", "partial", "layout"
@@ -95,7 +71,7 @@ class TemplateUtility extends AbstractUtility
     public static function getTemplatePaths($pathAndFilename, $part = 'template')
     {
         $matches = [];
-        $absolutePaths = self::getTemplateFolders($part, true);
+        $absolutePaths = self::getTemplateFolders($part);
         foreach ($absolutePaths as $absolutePath) {
             if (file_exists($absolutePath . $pathAndFilename)) {
                 $matches[] = $absolutePath . $pathAndFilename;

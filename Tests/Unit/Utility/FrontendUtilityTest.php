@@ -63,14 +63,30 @@ class FrontendUtilityTest extends UnitTestCase
     /**
      * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
      * @covers ::getPluginName
      */
-    public function getPluginNameReturnsString()
+    public function testGetPluginNameReturnsString()
     {
         $this->assertSame('tx_powermail_pi1', FrontendUtility::getPluginName());
+
         $_GET['tx_powermail_pi2']['action'] = 'test';
         $this->assertSame('tx_powermail_pi2', FrontendUtility::getPluginName());
+
+        unset($_GET['tx_powermail_pi2']);
+        $_GET['tx_powermail_web_powermailm1']['action'] = 'test';
+        $this->assertSame('tx_powermail_web_powermailm1', FrontendUtility::getPluginName());
+    }
+
+    /**
+     * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @covers ::getActionName
+     */
+    public function testGetActionName()
+    {
+        $this->assertSame('', FrontendUtility::getActionName());
+        $_GET['tx_powermail_pi1']['action'] = 'test';
+        $this->assertSame('test', FrontendUtility::getActionName());
     }
 
     /**

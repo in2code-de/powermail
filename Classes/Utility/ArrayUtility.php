@@ -109,11 +109,13 @@ class ArrayUtility extends ArrayUtilityCore
                 }
             } else {
                 if ($dontAddNewKeys) {
+                    // @codeCoverageIgnoreStart
                     if (array_key_exists($key, $firstArray)) {
                         if ($emptyValuesOverride || !empty($value)) {
                             $firstArray[$key] = $value;
                         }
                     }
+                    // @codeCoverageIgnoreEnd
                 } else {
                     if ($emptyValuesOverride || !empty($value)) {
                         $firstArray[$key] = $value;

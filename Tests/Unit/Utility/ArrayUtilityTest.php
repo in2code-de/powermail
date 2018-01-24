@@ -144,4 +144,19 @@ class ArrayUtilityTest extends UnitTestCase
     {
         $this->assertSame($expectedResult, ArrayUtility::htmlspecialcharsOnArray($array));
     }
+
+    /**
+     * @return void
+     * @covers ::getValueByPath
+     */
+    public function testGetValueByPath()
+    {
+        $array = [
+            'foo' => [
+                'bar' => 123
+            ]
+        ];
+        $this->assertSame(123, ArrayUtility::getValueByPath($array, 'foo.bar'));
+        $this->assertSame('', ArrayUtility::getValueByPath($array, 'foo.test'));
+    }
 }

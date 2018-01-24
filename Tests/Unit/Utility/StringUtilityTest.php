@@ -461,4 +461,45 @@ class StringUtilityTest extends UnitTestCase
         $tag = '<img id="ab3src" src="test.jpg" class="src=" data-action="test" />';
         $this->assertSame('test.jpg', StringUtility::getSrcFromImageTag($tag));
     }
+
+    /**
+     * @return array
+     */
+    public function addTrailingSlashReturnStringDataProvider()
+    {
+        return [
+            [
+                'folder1/folder2',
+                'folder1/folder2/'
+            ],
+            [
+                'folder1/folder2/',
+                'folder1/folder2/'
+            ],
+            [
+                'folder1',
+                'folder1/'
+            ],
+            [
+                'folder1///',
+                'folder1/'
+            ],
+            [
+                '/fo/ld/er1//',
+                '/fo/ld/er1/'
+            ],
+        ];
+    }
+
+    /**
+     * @param string $string
+     * @param string $expectedResult
+     * @dataProvider addTrailingSlashReturnStringDataProvider
+     * @return void
+     * @covers ::addTrailingSlash
+     */
+    public function testAddTrailingSlashReturnString($string, $expectedResult)
+    {
+        $this->assertSame($expectedResult, StringUtility::addTrailingSlash($string));
+    }
 }

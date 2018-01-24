@@ -24,7 +24,9 @@ Render Powermail Form
 						addQueryString="{settings.misc.addQueryString}"
 						class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:Misc.MorestepClass(activate:settings.main.moresteps)}">
 
-					<h3>{form.title}</h3>
+					<f:if condition="{form.css} != 'nolabel'">
+						<h3>{form.title}</h3>
+					</f:if>
 					<f:render partial="Misc/FormError" arguments="{_all}" />
 
 					<f:for each="{form.pages}" as="page">

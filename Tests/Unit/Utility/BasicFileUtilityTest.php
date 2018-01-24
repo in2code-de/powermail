@@ -33,50 +33,6 @@ class BasicFileUtiltyTest extends UnitTestCase
     }
 
     /**
-     * Data Provider for addTrailingSlashReturnString()
-     *
-     * @return array
-     */
-    public function addTrailingSlashReturnStringDataProvider()
-    {
-        return [
-            [
-                'folder1/folder2',
-                'folder1/folder2/'
-            ],
-            [
-                'folder1/folder2/',
-                'folder1/folder2/'
-            ],
-            [
-                'folder1',
-                'folder1/'
-            ],
-            [
-                'folder1///',
-                'folder1/'
-            ],
-            [
-                '/fo/ld/er1//',
-                '/fo/ld/er1/'
-            ],
-        ];
-    }
-
-    /**
-     * @param string $string
-     * @param string $expectedResult
-     * @dataProvider addTrailingSlashReturnStringDataProvider
-     * @return void
-     * @test
-     * @covers ::addTrailingSlash
-     */
-    public function addTrailingSlashReturnString($string, $expectedResult)
-    {
-        $this->assertSame($expectedResult, BasicFileUtility::addTrailingSlash($string));
-    }
-
-    /**
      * @return void
      * @test
      * @covers ::getPathFromPathAndFilename

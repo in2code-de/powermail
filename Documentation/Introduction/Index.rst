@@ -52,51 +52,32 @@ between powermail and the most other form extensions
 
 .. _whats-new:
 
+What's new in powermail 5?
+--------------------------
+
+- A large refactoring for TYPO3 9.x
+- A large refactoring for PHP 7.0 - 7.2
+
+What's new in powermail 4?
+--------------------------
+
+- A small refactoring of the mail related service classes
+- Add a possibility to create columns in a form for e.g. bootstrap
+- TYPO3 7.6 is still supported in this major version
+
 What's new in powermail 3?
 --------------------------
 
 - General update for TYPO3 7.6 and 8.x
 - Table name correction from plural to singular (..mails => ..mail, ..fields => ..field)
-
-  - Updated ext_tables.sql
-  - Converter script to convert old tablenames to new tablenames
-
-    - Automaticly on extension installation
-    - Start manually from extension manager **Click the Configure Icon**
-
 - Add bootstrap
-
-  - Frontend
-
-    - Add static template to add bootstrap classes to forms and fields
-    - Add constant to load bootstrap.css from powermail folder
-    - Update Layouts, Templates, Partials (Pi1 and Pi2)
-
-  - Backend
-
-    - Update modules with new markup
-
-- Backend
-
-  - PluginInformation refactoring
-  - Remove old form converter (converted 1.x to 2.x forms)
-  - Remove unneeded overview actions
-  - Enable table garbage collector scheduler tasks per default
-
-- General
-
-  - Add DataProcessors to change mail object before it's persisted or used in mails
-  - Own spamshield methods could be registered via TypoScript now
-  - Refactoring of upload function
-  - Add signals to ValidationDataAttributeViewHelper, PrefillFieldViewHelper and PrefillMultiFieldViewHelper
-  - Remove outdated parts of code (PHP, Templates)
-  - Some code cleanup
-  - Manual update
-
-What's new in powermail 2?
---------------------------
-
-Powermail 2 (with Extbase/Fluid) was a complete new refactored version of powermail 1 (pibase)
+- Remove old form converter (converted 1.x to 2.x forms)
+- Enable table garbage collector scheduler tasks per default
+- Add DataProcessors to change mail object before it's persisted or used in mails
+- Own spamshield methods could be registered via TypoScript now
+- Refactoring of upload function
+- Add signals to ValidationDataAttributeViewHelper, PrefillFieldViewHelper and PrefillMultiFieldViewHelper
+- Some code cleanup
 
 University Package
 ^^^^^^^^^^^^^^^^^^

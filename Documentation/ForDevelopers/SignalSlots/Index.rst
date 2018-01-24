@@ -261,6 +261,17 @@ extend the functions from your extension. Please report to
       Change files array from upload-fields whenever files will be read
 
  - :Class:
+      In2code\\Powermail\\Domain\\Model\\File
+   :Name:
+      getNewPathAndFilename
+   :Method:
+      getNewPathAndFilename()
+   :Arguments:
+      $pathAndFilename, $this
+   :Description:
+      Change path and filename of a single file for uploading, attaching to email or something else
+
+ - :Class:
       In2code\\Powermail\\ViewHelpers\\Validation\\ValidationDataAttributeViewHelper
    :Name:
       render
@@ -327,9 +338,9 @@ ext_localconf.php
         \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
     );
     $signalSlotDispatcher->connect(
-        'In2code\Powermail\Domain\Service\SendMailService',
+        'In2code\Powermail\Domain\Service\Mail\SendMailService',
         'sendTemplateEmailBeforeSend',
-        'In2code\Powermailextended\Domain\Service\SendMailService',
+        'In2code\Powermailextended\Domain\Service\Mail\SendMailService',
         'manipulateMail',
         FALSE
     );
@@ -341,9 +352,9 @@ Classes/Domain/Service/SendMailService.php
 ::
 
     <?php
-    namespace In2code\Powermailextended\Domain\Service;
+    namespace In2code\Powermailextended\Domain\Service\Mail;
 
-    use In2code\Powermail\Domain\Service\SendMailService as SendMailServicePowermail;
+    use In2code\Powermail\Domain\Service\Mail\SendMailService as SendMailServicePowermail;
     use TYPO3\CMS\Core\Mail\MailMessage;
 
     /**

@@ -241,8 +241,6 @@ class ConfigurationUtilityTest extends UnitTestCase
     }
 
     /**
-     * Data Provider for mergeTypoScript2FlexFormReturnsVoid()
-     *
      * @return array
      */
     public function mergeTypoScript2FlexFormReturnsVoidDataProvider()
@@ -398,10 +396,10 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @param array $expectedResult
      * @dataProvider mergeTypoScript2FlexFormReturnsVoidDataProvider
      * @return void
-     * @test
      * @covers ::mergeTypoScript2FlexForm
+     * @covers \In2code\Powermail\Utility\ArrayUtility::arrayMergeRecursiveOverrule
      */
-    public function mergeTypoScript2FlexFormReturnsVoid($settings, $level, $expectedResult)
+    public function testMergeTypoScript2FlexFormReturnsVoid($settings, $level, $expectedResult)
     {
         ConfigurationUtility::mergeTypoScript2FlexForm($settings, $level);
         $this->assertSame($expectedResult, $settings);
