@@ -609,6 +609,15 @@
 			<trans-unit id="BackendCheckStaticTemplateFailed">
 				<source>Static TypoScript Template is not available on current page.</source>
 			</trans-unit>
+			<trans-unit id="BackendCheckComposerModeTitle">
+				<source>Composer Mode</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckComposerModeComposer">
+				<source>Your TYPO3 is running in Composer Mode</source>
+			</trans-unit>
+			<trans-unit id="BackendCheckComposerModeClassic">
+				<source>Your TYPO3 is running in Classic Mode</source>
+			</trans-unit>
 			<trans-unit id="BackendListTitle">
 				<source>Mail Listings</source>
 			</trans-unit>

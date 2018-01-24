@@ -1,7 +1,12 @@
 {
   "name": "in2code/powermail",
   "description": "Powermail is a well-known, editor-friendly, powerful and easy to use mailform extension with a lots of features",
-  "keywords": ["typo3", "form", "mailform", "spamprevention"],
+  "keywords": [
+    "typo3",
+    "form",
+    "mailform",
+    "spamprevention"
+  ],
   "homepage": "https://github.com/einpraegsam/powermail",
   "authors": [
     {
@@ -10,7 +15,7 @@
     }
   ],
   "type": "typo3-cms-extension",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-or-later",
   "require": {
     "typo3/cms-core": ">=8.7.0 <10.0.0"
   },

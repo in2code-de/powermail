@@ -4,28 +4,32 @@
 	<f:case value="0">
 		<div class="alert alert-warning">
 			<div class="header-container">
-				<div class="message-header">
+				<h4 class="message-header">
 					<f:translate key="BackendCheckVersionTitle">Version</f:translate>
 					{vh:Be.PowermailVersion()}
-				</div>
+				</h4>
 			</div>
-			<div class="message-body">
-				<p>
-					<f:translate key="BackendCheckVersionNoInformation">It could not be verified if this version is secure or unsecure</f:translate>
+			<f:if condition="{vh:condition.isComposerMode()}">
+				<f:else>
+					<div class="message-body">
+						<p>
+							<f:translate key="BackendCheckVersionNoInformation">It could not be verified if this version is secure or unsecure</f:translate>
 
-					(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
-					<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:Be.LastUpdateExtensionRepository()}</f:format.date>)
-				</p>
-			</div>
+							(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
+							<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:Be.LastUpdateExtensionRepository()}</f:format.date>)
+						</p>
+					</div>
+				</f:else>
+			</f:if>
 		</div>
 	</f:case>
 	<f:case value="1">
 		<div class="alert alert-success">
 			<div class="header-container">
-				<div class="message-header">
+				<h4 class="message-header">
 					<f:translate key="BackendCheckVersionTitle">Version</f:translate>
 					{vh:Be.PowermailVersion()}
-				</div>
+				</h4>
 			</div>
 			<div class="message-body">
 				<p>
@@ -40,10 +44,10 @@
 	<f:case value="2">
 		<div class="alert alert-danger">
 			<div class="header-container">
-				<div class="message-header">
+				<h4 class="message-header">
 					<f:translate key="BackendCheckVersionTitle">Version</f:translate>
 					{vh:Be.PowermailVersion()}
-				</div>
+				</h4>
 			</div>
 			<div class="message-body">
 				<p>
@@ -58,10 +62,10 @@
 	<f:case value="3">
 		<div class="alert alert-warning">
 			<div class="header-container">
-				<div class="message-header">
+				<h4 class="message-header">
 					<f:translate key="BackendCheckVersionTitle">Version</f:translate>
 					{vh:Be.PowermailVersion()}
-				</div>
+				</h4>
 			</div>
 			<div class="message-body">
 				<p>

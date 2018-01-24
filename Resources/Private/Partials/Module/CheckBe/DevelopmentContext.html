@@ -5,9 +5,9 @@
 		<f:then>
 			<div class="alert alert-info">
 				<div class="header-container">
-					<div class="message-header">
+					<h4 class="message-header">
 						<f:translate key="BackendCheckDevelopmentContextTitle">Development Context</f:translate>
-					</div>
+					</h4>
 				</div>
 				<div class="message-body">
 					<p>
@@ -18,9 +18,9 @@
 		</f:then>
 		<f:else>
 			<div class="alert alert-warning">
-				<div class="message-header">
+				<h4 class="message-header">
 					<f:translate key="BackendCheckDevelopmentContextTitle">Development Context</f:translate>
-				</div>
+				</h4>
 				<div class="message-body">
 					<p>
 						<f:translate key="BackendCheckDevelopmentContextAvailable" arguments="{0: '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXT\'][\'powermailDevelopContextEmail\']=\'force@email.org\';'}">This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</f:translate>

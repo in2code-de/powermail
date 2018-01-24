@@ -18,6 +18,17 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.2.1
+   :Date:
+      2018-01-24
+   :Changes:
+
+      * Task: Change GPL string in composer.json to make packagist happy
+      * Task: BE Module: Add notice if TYPO3 is running in composer mode
+      * Task: BE Module: Add notice for "no version information" only in Classic Mode
+      * Bugfix: Prevent exception in backend module function test if extensionmanager table is empty
+
+ - :Version:
       5.2.0
    :Date:
       2018-01-24

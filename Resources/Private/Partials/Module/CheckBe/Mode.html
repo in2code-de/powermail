@@ -1,0 +1,20 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+<div class="alert alert-info">
+	<div class="header-container">
+		<h4 class="message-header">
+			<f:translate key="BackendCheckComposerModeTitle">Composer mode</f:translate>
+		</h4>
+	</div>
+	<div class="message-body">
+		<p>
+			<f:if condition="{vh:condition.isComposerMode()}">
+				<f:then>
+					<f:translate key="BackendCheckComposerModeComposer">Composer Mode</f:translate>
+				</f:then>
+				<f:then>
+					<f:translate key="BackendCheckComposerModeComposer">Classic Mode</f:translate>
+				</f:then>
+			</f:if>
+		</p>
+	</div>
+</div>
