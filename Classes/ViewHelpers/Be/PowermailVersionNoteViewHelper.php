@@ -120,7 +120,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
             ->setMaxResults(1)
             ->execute()
             ->fetchAll();
-        if (array_key_exists('review_state', $rows[0]) && $rows[0]['review_state'] === 0) {
+        if (!empty($rows[0]['review_state']) && $rows[0]['review_state'] === 0) {
             $unsafe = false;
         }
         return $unsafe;
