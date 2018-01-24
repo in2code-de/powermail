@@ -18,6 +18,22 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.2.0
+   :Date:
+      2018-01-24
+   :Changes:
+
+      * Feature: Don't render labels (form, page, field) if layout is turned to "nolabel"
+      * Feature: Add a condition for TypoScript to listen to form submits: [In2code\Powermail\Condition\IsPowermailSubmittedCondition]
+      * Bugfix: Accept also partialRootPaths without trailing slash
+      * Bugfix: Remove powermail version note from RSS in Pi2
+      * Task: Add another signal to manipulate filenames of uploaded files
+      * Task: Add some more unit tests
+      * Task: Some code cleanup
+      * Task: Remove outdated include of partialRootPath
+      * Task: Some documentation updates
+
+ - :Version:
       5.1.0
    :Date:
       2018-01-15
