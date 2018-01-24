@@ -819,6 +819,18 @@
 				<source>Static TypoScript Template is not available on current page.</source>
 				<target state="translated">Statisches TypoScript Template ist auf der aktuellen Seite nicht verfügbar.</target>
 			</trans-unit>
+			<trans-unit id="BackendCheckComposerModeTitle">
+				<source>Composer Mode</source>
+				<target state="translated">Composer Modus</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckComposerModeComposer">
+				<source>Your TYPO3 is running in Composer Mode</source>
+				<target state="translated">TYPO3 läuft im Composer Mode</target>
+			</trans-unit>
+			<trans-unit id="BackendCheckComposerModeClassic">
+				<source>Your TYPO3 is running in Classic Mode</source>
+				<target state="translated">TYPO3 läuft im Classic Mode</target>
+			</trans-unit>
 			<trans-unit id="BackendListTitle">
 				<source>Mail Listings</source>
 				<target state="translated">E-Mail Auflistung</target>
