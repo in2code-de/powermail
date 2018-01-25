@@ -18,6 +18,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.2.2
+   :Date:
+      2018-01-25
+   :Changes:
+
+      * Bugfix: Correct notice if TYPO3 is running in classic mode
+      * Bugfix: Don't mark powermail as unsafe if there are no informations about the current version
+
+ - :Version:
       5.2.1
    :Date:
       2018-01-24
