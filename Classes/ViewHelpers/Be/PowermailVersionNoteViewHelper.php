@@ -111,7 +111,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      */
     protected function isCurrentVersionUnsafeCheck(): bool
     {
-        $unsafe = true;
+        $unsafe = false;
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
         $rows = $queryBuilder
             ->select('review_state')
@@ -120,8 +120,8 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
             ->setMaxResults(1)
             ->execute()
             ->fetchAll();
-        if (!empty($rows[0]['review_state']) && $rows[0]['review_state'] === 0) {
-            $unsafe = false;
+        if (!empty($rows[0]['review_state']) && $rows[0]['review_state'] === -1) {
+            $unsafe = true;
         }
         return $unsafe;
     }
