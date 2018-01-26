@@ -1,11 +1,7 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
 <div class="powermail_fieldwrap powermail_fieldwrap_type_check powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
-	<f:if condition="{field.css} != 'nolabel'">
-		<label class="{settings.styles.framework.labelClasses}" title="{field.description}">
-			<vh:string.escapeLabels>{field.title}</vh:string.escapeLabels><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
-		</label>
-	</f:if>
+	<f:render partial="Form/FieldLabel" arguments="{_all}" />
 
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
 		<f:for each="{field.modifiedSettings}" as="setting" iteration="index">
