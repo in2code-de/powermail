@@ -18,6 +18,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.3.0
+   :Date:
+      2018-01-26
+   :Changes:
+
+      * Feature: Collect markup of all fieldlabels in one partial. Should be not a breaking change.
+      * Feature: Use spaceless ViewHelper for Form outputs to increase FE performance
+
+ - :Version:
       5.2.2
    :Date:
       2018-01-25
