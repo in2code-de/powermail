@@ -1,0 +1,11 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:comment>
+    Partial file for the HTML-structure of nearly all field labels
+</f:comment>
+
+<f:if condition="{field.css} != 'nolabel'">
+    <label for="powermail_field_{field.marker}" class="{settings.styles.framework.labelClasses}" title="{field.description}">
+        <vh:string.escapeLabels>{field.title}</vh:string.escapeLabels><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+    </label>
+</f:if>
