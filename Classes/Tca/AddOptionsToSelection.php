@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
@@ -103,7 +104,7 @@ class AddOptionsToSelection
     protected function addOptions()
     {
         foreach ($this->getFieldOptionsFromTsConfig() as $value => $label) {
-            if (substr((string)$value, -1, 1) !== '.') {
+            if (StringUtility::endsWith((string)$value, '.') === false) {
                 $this->addOption($value, $label);
             }
         }
