@@ -7,8 +7,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * Class AddOptionsToSelection allows to add individual options
- *
- * @package In2code\Powermail\Tca
  */
 class AddOptionsToSelection
 {

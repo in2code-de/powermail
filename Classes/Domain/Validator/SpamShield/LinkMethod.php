@@ -4,7 +4,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
 
 /**
  * Class LinkMethod
- * @package In2code\Powermail\Domain\Validator\SpamShield
  */
 class LinkMethod extends AbstractMethod
 {

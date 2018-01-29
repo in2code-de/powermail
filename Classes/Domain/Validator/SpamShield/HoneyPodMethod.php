@@ -4,7 +4,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
 
 /**
  * Class HoneyPodMethod
- * @package In2code\Powermail\Domain\Validator\SpamShield
  */
 class HoneyPodMethod extends AbstractMethod
 {

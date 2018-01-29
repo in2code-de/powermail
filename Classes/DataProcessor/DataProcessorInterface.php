@@ -6,7 +6,6 @@ use In2code\Powermail\Domain\Model\Mail;
 
 /**
  * Interface DataProcessorInterface
- * @package In2code\Powermail\Finisher
  */
 interface DataProcessorInterface
 {

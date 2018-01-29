@@ -12,7 +12,6 @@ use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Class ObjectUtility
- * @package In2code\Powermail\Utility
  */
 class ObjectUtility extends AbstractUtility
 {
