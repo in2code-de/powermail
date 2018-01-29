@@ -6,7 +6,6 @@ use In2code\Powermail\Utility\SessionUtility;
 
 /**
  * Class SessionMethod
- * @package In2code\Powermail\Domain\Validator\SpamShield
  */
 class SessionMethod extends AbstractMethod
 {

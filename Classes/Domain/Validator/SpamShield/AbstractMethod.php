@@ -7,7 +7,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class AbstractMethod
- * @package In2code\Powermail\Domain\Validator\SpamShield
  */
 abstract class AbstractMethod implements MethodInterface
 {

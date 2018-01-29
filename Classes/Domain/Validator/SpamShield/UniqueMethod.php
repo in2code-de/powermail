@@ -4,7 +4,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
 
 /**
  * Class UniqueMethod
- * @package In2code\Powermail\Domain\Validator\SpamShield
  */
 class UniqueMethod extends AbstractMethod
 {

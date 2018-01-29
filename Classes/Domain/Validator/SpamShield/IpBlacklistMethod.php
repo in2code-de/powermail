@@ -7,7 +7,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class IpBlacklistMethod
- * @package In2code\Powermail\Domain\Validator\SpamShield
  */
 class IpBlacklistMethod extends AbstractMethod
 {

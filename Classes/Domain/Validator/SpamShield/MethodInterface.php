@@ -6,7 +6,6 @@ use In2code\Powermail\Domain\Model\Mail;
 
 /**
  * Interface MethodInterface
- * @package In2code\Powermail\Domain\Validator\SpamShield
  */
 interface MethodInterface
 {

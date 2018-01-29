@@ -83,7 +83,7 @@ class StringUtility
      * @param string $needle
      * @return bool
      */
-    public static function startsWith($haystack, $needle)
+    public static function startsWith(string $haystack, string $needle): bool
     {
         return stristr($haystack, $needle) && strrpos($haystack, $needle, -strlen($haystack)) !== false;
     }
@@ -93,9 +93,9 @@ class StringUtility
      *
      * @param string $haystack
      * @param string $needle
-     * @return string
+     * @return bool
      */
-    public static function endsWith($haystack, $needle)
+    public static function endsWith(string $haystack, string $needle): bool
     {
         return stristr($haystack, $needle) && strlen($haystack) - strlen($needle) === strpos($haystack, $needle);
     }
@@ -106,7 +106,7 @@ class StringUtility
      * @param $string
      * @return string
      */
-    public static function removeLastDot($string)
+    public static function removeLastDot(string $string): string
     {
         if (substr($string, -1) === '.') {
             $string = substr($string, 0, -1);
@@ -120,7 +120,7 @@ class StringUtility
      * @param string $content
      * @return string
      */
-    public static function br2nl($content)
+    public static function br2nl(string $content): string
     {
         $array = [
             '<br >',
@@ -137,7 +137,7 @@ class StringUtility
      * @param string $string
      * @return int
      */
-    public static function getStringLength($string)
+    public static function getStringLength($string): int
     {
         $string = str_replace("\r\n", ' ', $string);
         $length = mb_strlen($string, 'utf-8');
@@ -153,7 +153,7 @@ class StringUtility
      * @param string $replace
      * @return string
      */
-    public static function cleanString($string, $replace = '_')
+    public static function cleanString(string $string, string $replace = '_'): string
     {
         $string = strtolower(trim($string));
         $string = preg_replace('~[^a-z0-9-\.]~', $replace, $string);
@@ -166,7 +166,7 @@ class StringUtility
      * @param string $list
      * @return string
      */
-    public static function integerList($list)
+    public static function integerList(string $list): string
     {
         return implode(',', GeneralUtility::intExplode(',', $list));
     }
@@ -178,7 +178,7 @@ class StringUtility
      * @param string $tag
      * @return string
      */
-    public static function getSrcFromImageTag($tag)
+    public static function getSrcFromImageTag(string $tag): string
     {
         preg_match('/.*src="(.*)".*/U', $tag, $matches);
         return $matches[1];
@@ -192,7 +192,7 @@ class StringUtility
      * @param string $string
      * @return string
      */
-    public static function addTrailingSlash($string)
+    public static function addTrailingSlash(string $string): string
     {
         return rtrim($string, '/') . '/';
     }

@@ -18,6 +18,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.3.1
+   :Date:
+      2018-01-29
+   :Changes:
+
+      * Bugfix: Fix type error in backend if custom validators are used
+      * Task: Small code cleanup
+
+ - :Version:
       5.3.0
    :Date:
       2018-01-26

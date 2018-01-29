@@ -7,8 +7,6 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Interface Validator
- *
- * @package In2code\Powermail\Finisher
  */
 interface ValidatorInterface
 {
