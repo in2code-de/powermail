@@ -4,7 +4,7 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension for TYPO3 with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-## Quick installation
+## Installation
 
 Please look at the manual for a detailed documentation at [official extension documentation of TYPO3](https://docs.typo3.org/typo3cms/extensions/powermail)
 
@@ -19,7 +19,10 @@ Quick guide:
 
 Please look into the [official extension documentation in changelog chapter](https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/Index.html)
 
-## Which powermail for which TYPO3 and PHP?
+
+## Administration corner
+
+### Versions and support
 
 | Powermail   | TYPO3      | PHP       | Support/Development                     |
 | ----------- | ---------- | ----------|---------------------------------------- |
@@ -29,12 +32,80 @@ Please look into the [official extension documentation in changelog chapter](htt
 | 2.18 - 2.25 | 6.2 - 7.6  | 5.5 - 7.0 | Security Updates                        |
 | 2.2 - 2.17  | 6.2 - 7.6  | 5.3 - 7.0 | Support dropped                         |
 
+### Future plans
+
+There are some ideas for future developments (like removing jQuery dependency, etc...) but there is no final roadmap.
+Nevertheless it's planned to release a version for TYPO3 10 (TYPO3 9 will be already supported).
+
+### Responsible
+
+The product owner and author of the extension is Alex Kellner from [in2code](https://www.in2code.de). Beside that every in2code colleague is allowed to support further
+development if she/he wants. In addition there are a lot of other contributors that helped to improve the extension with
+their *Pull Requests* - thank you for that! 
+
+### Release Management
+
+Powermail uses **semantic versioning** which basicly means for you, that 
+- **bugfix updates** (e.g. 1.0.0 => 1.0.1) just includes small bugfixes or security relevant stuff without breaking changes.
+- **minor updates** (e.g. 1.0.0 => 1.1.0) includes new features and smaller tasks without breaking changes.
+- **major updates** (e.g. 1.0.0 => 2.0.0) normally includes basic refactoring, new features and also breaking changes.
+
+We try to mark breaking changes in the [changelog](https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/Index.html)
+with a leading **!!!** and try to explain what to do on an upgrade (e.g. VieHelper name changed from vh:foo to vh:bar in templates).
+
+In addition powermail is using [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) as Git workflow.
+That means that there is one branch which contains new and untested code: **develop**.
+The branch **master** only contains tested code which will also be tagged from time to time.
+
+Based on `release early, release often` we release a new version every **1-2 weeks** into TER and to github.
+
+### Packagist
+
+This extension is, of course available on packagist. 
+You can install it via composer with `composer require in2code/powermail`
+
+### Automatic Testing
+
+#### Behaviour tests
+
+There is a huge testparcours that have to be passed before every release. For example there is an 
+[automatic test](https://github.com/einpraegsam/powermail/blob/develop/Tests/Behavior/Features/Pi1/Validation/Input/JsPhpValidation.feature)
+where the browser tries to submit 18 different strings and numbers to a field that accepts only phone numbers to test 
+serverside validation. After that the same process is done for clientside valiation.
+There are also some smaller tests like "Is it possible to submit a form on a page where two different forms are located?".
+
+See [readme.md](https://github.com/einpraegsam/powermail/tree/develop/Tests/Behavior) for some more information about behat and selenium tests on powermail.
+
+#### Unit tests
+
+At the moment powermail offers 543 (and growing) unit tests that have to be passed before every release. See more information
+about unit tests or code coverage in powermail in the [readme.md](https://github.com/einpraegsam/powermail/tree/develop/Tests/Unit)
+
+### Code quality
+
+Beside respecting PSR-2 and TYPO3 coding guidelines, it's very important for the project to leave a file cleaner as before. 
+Especially because it's a really large extension with a lot of functionality and a history of 10 years (!) and of course some 
+technical debts, that have to be fixed step by step (e.g. moving logic completely to Domain folder, ...). 
+Look at [Sonarqube](https://ter-sonarqube.marketing-factory.de/dashboard?id=powermail) for some interesting details on that.
+
+### Contribution
+
+**Pull requests** are welcome in general! Nevertheless please don't forget to add a description to your pull requests. This
+is very helpful to understand what kind of issue the **PR** is going to solve.
+
+- Bugfixes: Please describe what kind of bug your fix solve and give us feedback how to reproduce the issue. We're going
+to accept only bugfixes if I can reproduce the issue.
+- Features: Not every feature is relevant for the bulk of powermail users. In addition: We don't want to make powermail
+even more complicated in usability for an edge case feature. Please discuss a new feature before.
+
+
 ## Need some extension possibilities for powermail?
 
 - Automatically convert emails to a link to a powermail form with **email2powermail** (see https://github.com/einpraegsam/email2powermail)
 - Google recaptcha with **powermailrecaptcha** (see https://github.com/einpraegsam/powermailrecaptcha)
 - Google invisible recaptcha with **invisiblerecaptcha** (see https://github.com/einpraegsam/invisiblerecaptcha)
 - **powermailextended** is just an example extension how to extend powermail with new fields or use signals (see https://github.com/einpraegsam/powermailextended)
+
 
 ## Example form with bootstrap classes:
 
@@ -45,15 +116,6 @@ Please look into the [official extension documentation in changelog chapter](htt
 
 ![Backend Module](https://box.everhelper.me/attachment/445409/3910b9da-83f9-477d-83b1-f7e21ead9433/262407-HFuHtr8E9DoGfJE6/screen.png "Backend Module")
 
-## Your Contribution
-
-**Pull requests** are welcome in general! Nevertheless please don't forget to add a description to your pull requests. This
-is very helpful to understand what kind of issue the **PR** is going to solve.
-
-- Bugfixes: Please describe what kind of bug your fix solve and give me feedback how to reproduce the issue. I'm going
-to accept only bugfixes if I can reproduce the issue.
-- Features: Not every feature is relevant for the bulk of powermail users. In addition: I don't want to make powermail
-even more complicated in usability for an edge case feature. Please discuss a new feature before.
 
 ## What's new
 

@@ -20,3 +20,9 @@
 * Open another console and go to `EXT:powermail/Tests/Behavior/`
 * Start behat with `sh behat.sh` or with `sh behats.sh` (for stopping on first failure)
 * As an alternative, you could specify a single test by its tag like `../../.Build/vendor/behat/behat/bin/behat --tags=Mod1Basic`
+
+## Screenshot
+
+Screen from the huge testparcours that has to be passed before every release:
+
+<img src="https://s.nimbus.everhelper.me/attachment/1427661/h7antft74egdzrck2xq8/262407-yUdChFKtnZ475SlH/screen.png" width="200" />
