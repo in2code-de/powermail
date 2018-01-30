@@ -59,10 +59,12 @@ The branch **master** only contains tested code which will also be tagged from t
 
 Based on `release early, release often` we release a new version every **1-2 weeks** into TER and to github.
 
-### Packagist
+### Composer and Packagist
 
 This extension is, of course available on packagist. 
 You can install it via composer with `composer require in2code/powermail`
+
+And of course you don't need to run your TYPO3-environment in composer mode. Powermail works also in classic mode.
 
 ### Automatic Testing
 
@@ -124,6 +126,7 @@ even more complicated in usability for an edge case feature. Please discuss a ne
 - A large refactoring
   - For TYPO3 9.x
   - And for PHP 7.0 - 7.2
+- Migration for powermail 2.x was removed - see my [post](https://gist.github.com/einpraegsam/a02bb69c29aa747de4ffb613704bbd7a) how to upgrade from 2.x to 5.x
 
 ### Whats the difference between version 4 and 3
 
