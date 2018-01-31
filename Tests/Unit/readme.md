@@ -21,6 +21,8 @@
 * On command line you can run it like `/usr/bin/php -dxdebug.coverage_enable=1 .Build/vendor/phpunit/phpunit/phpunit --configuration phpunit.xml.dist --coverage-text`
 * In PhpStorm you could simply right-click on file `phpunit.xml.dist` with `Run 'phpunit.xml.dist with Coverage'`
 
-Example:
+## Screenshot
+
+Example of code coverage in PhpStorm:
 
 <img src="https://s.nimbus.everhelper.me/attachment/1353365/kcg8w0a40ppr7htreayb/262407-oC7bipiqa5MZw9F4/screen.png" />

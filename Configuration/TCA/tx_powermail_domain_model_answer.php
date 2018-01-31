@@ -62,6 +62,7 @@ $answersTca = [
                 'foreign_table' => Answer::TABLE_NAME,
                 'foreign_table_where' => 'AND ' . Answer::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
                     Answer::TABLE_NAME . '.sys_language_uid IN (-1,0)',
+                'default' => 0
             ],
         ],
         'l10n_diffsource' => [

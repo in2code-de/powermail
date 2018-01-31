@@ -369,6 +369,7 @@ $fieldsTca = [
                 'foreign_table' => Field::TABLE_NAME,
                 'foreign_table_where' => 'AND ' . Field::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
                     Field::TABLE_NAME . '.sys_language_uid IN (-1,0)',
+                'default' => 0
             ],
         ],
         'l10n_diffsource' => [

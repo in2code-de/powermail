@@ -67,6 +67,7 @@ $pagesTca = [
                 'foreign_table' => Page::TABLE_NAME,
                 'foreign_table_where' => 'and ' . Page::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
                     Page::TABLE_NAME . '.sys_language_uid IN (-1,0)',
+                'default' => 0
             ],
         ],
         'l10n_diffsource' => [
