@@ -82,6 +82,7 @@ $mailsTca = [
                 'foreign_table' => Mail::TABLE_NAME,
                 'foreign_table_where' => 'and ' . Mail::TABLE_NAME . '.pid=###CURRENT_PID### and ' .
                     Mail::TABLE_NAME . '.sys_language_uid IN (-1,0)',
+                'default' => 0
             ],
         ],
         'l10n_diffsource' => [
