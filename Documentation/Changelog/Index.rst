@@ -18,6 +18,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.3.2
+   :Date:
+      2018-01-31
+   :Changes:
+
+      * Bugfix: Prevent SQL error for strict mode if a form is copied in backend
+      * Task: Add some administration documentation to readme.md
+
+ - :Version:
       5.3.1
    :Date:
       2018-01-29
