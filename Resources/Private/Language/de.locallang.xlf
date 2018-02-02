@@ -96,6 +96,10 @@
 				<source>Page Funnel</source>
 				<target state="translated">Diese Seitenaufrufe führten zu dieser Mail (pagefunnel)</target>
 			</trans-unit>
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.hidden">
+				<source>Disabled</source>
+				<target state="translated">Deaktiviert</target>
+			</trans-unit>
 			<trans-unit id="note_html">
 				<source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
 				<target state="translated">Aus Sicherheitsgründen ist es nicht erlaubt, in der Standardkonfiguration HTML anzuzeigen. Dies kann jedoch über TypoScript aktiviert werden (siehe powermail Handbuch). Bitte denken Sie jedoch daran, dass auch Redakteure HTML und XSS verwenden können.</target>
