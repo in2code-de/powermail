@@ -104,7 +104,19 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
         if ($field->getType() !== 'input' && $field->getType() !== 'textarea') {
             return;
         }
+        $this->addValidationAttributesInternal($additionalAttributes, $field);
+    }
+    
 
+    /**
+     * Set different validation attributes (without type check)
+     *
+     * @param array &$additionalAttributes
+     * @param Field $field
+     * @return void
+     */
+    protected function addValidationAttributesInternal(array &$additionalAttributes, Field $field)
+    {
         switch ($field->getValidation()) {
 
             /**
