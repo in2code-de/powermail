@@ -18,6 +18,16 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.4.0
+   :Date:
+      2018-02-03
+   :Changes:
+
+      * Bugfix: Prevent SQL error when powermail is in replaceIrreWithElementBrowser-mode
+      * Feature: Allow exporting of hidden property of mails in backend module
+      * Task: Small code refactoring to simplify extending of ValidationDataAttributeViewHelper
+
+ - :Version:
       5.3.2
    :Date:
       2018-01-31
