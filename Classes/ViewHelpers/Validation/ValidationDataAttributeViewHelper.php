@@ -30,7 +30,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      *
      * @return array for data attributes
      */
-    public function render()
+    public function render(): array
     {
         /** @var Field $field */
         $field = $this->arguments['field'];
@@ -45,7 +45,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             default:
                 $this->addMandatoryAttributes($additionalAttributes, $field);
         }
-        $this->addValidationAttributes($additionalAttributes, $field);
+        $this->addValidationAttributesForInputOrTextarea($additionalAttributes, $field);
         $signalArguments = [&$additionalAttributes, $field, $iteration, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $additionalAttributes;
@@ -93,7 +93,22 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
     }
 
     /**
-     * Set different validation attributes
+     * Add validation attributes for input or textarea field types.
+     *
+     * @param array &$additionalAttributes
+     * @param Field $field
+     * @return void
+     */
+    protected function addValidationAttributesForInputOrTextarea(array &$additionalAttributes, Field $field)
+    {
+        if ($field->getType() === 'input' || $field->getType() === 'textarea') {
+            $this->addValidationAttributes($additionalAttributes, $field);
+        }
+    }
+    
+
+    /**
+     * Add validation attributes.
      *
      * @param array &$additionalAttributes
      * @param Field $field
@@ -101,10 +116,6 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      */
     protected function addValidationAttributes(array &$additionalAttributes, Field $field)
     {
-        if ($field->getType() !== 'input' && $field->getType() !== 'textarea') {
-            return;
-        }
-
         switch ($field->getValidation()) {
 
             /**

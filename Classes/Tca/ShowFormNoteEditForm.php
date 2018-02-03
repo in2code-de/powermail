@@ -314,7 +314,7 @@ class ShowFormNoteEditForm
      *
      * @return array
      */
-    protected function getRelatedFieldsAlternative()
+    protected function getRelatedFieldsAlternative(): array
     {
         $fieldTitlesReduced = [];
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
@@ -325,6 +325,7 @@ class ShowFormNoteEditForm
             ->execute()
             ->fetchAll();
         if (!empty($pageUids[0]['pages'])) {
+            $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Page::TABLE_NAME, true);
             $pageUids = $queryBuilder
                 ->select('uid')
                 ->from(Page::TABLE_NAME)
@@ -332,6 +333,7 @@ class ShowFormNoteEditForm
                 ->execute()
                 ->fetchAll();
             foreach ($pageUids as $uidRow) {
+                $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
                 $rows = $queryBuilder
                     ->select('title')
                     ->from(Field::TABLE_NAME)

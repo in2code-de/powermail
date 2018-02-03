@@ -72,6 +72,9 @@
 			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel">
 				<source>Page Funnel</source>
 			</trans-unit>
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.hidden">
+				<source>Disabled</source>
+			</trans-unit>
 			<trans-unit id="note_html">
 				<source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
 			</trans-unit>
