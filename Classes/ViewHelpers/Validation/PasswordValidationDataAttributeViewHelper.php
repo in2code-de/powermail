@@ -16,7 +16,7 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
      *
      * @return array for data attributes
      */
-    public function render()
+    public function render(): array
     {
         $additionalAttributes = parent::render();
 
