@@ -19,7 +19,7 @@ class PlaintextService
      */
     public function makePlain($content)
     {
-        $content = $this->removeHeadElement($content);
+        $content = $this->removeInvisibleElements($content);
         $content = $this->removeLinebreaksAndTabs($content);
         $content = $this->addLineBreaks($content);
         $content = $this->addSpaceToTableCells($content);
@@ -30,14 +30,31 @@ class PlaintextService
     }
 
     /**
-     * Remove head tag from content
+     * Remove all invisible elements
      *
      * @param string $content
      * @return string
      */
-    protected function removeHeadElement($content)
+    protected function removeInvisibleElements($content)
     {
-        return preg_replace('/<head>(.*?)<\/head>/i', '', $content);
+        $content = preg_replace(
+            [
+                '/<head[^>]*?>.*?<\/head>/siu',
+                '/<style[^>]*?>.*?<\/style>/siu',
+                '/<script[^>]*?>.*?<\/script>/siu',
+                '/<object[^>]*?>.*?<\/object>/siu',
+                '/<embed[^>]*?>.*?<\/embed>/siu',
+                '/<applet[^>]*?>.*?<\/applet>/siu',
+                '/<noframes[^>]*?>.*?<\/noframes>/siu',
+                '/<noscript[^>]*?>.*?<\/noscript>/siu',
+                '/<noembed[^>]*?>.*?<\/noembed>/siu',
+            ],
+            [
+                '', '', '', '', '', '', '', '', ''
+            ],
+            $content
+        );
+        return $content;
     }
 
     /**
