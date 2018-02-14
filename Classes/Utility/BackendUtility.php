@@ -173,7 +173,7 @@ class BackendUtility extends AbstractUtility
             $returnUrl = GeneralUtility::_GP('returnUrl');
         }
         $urlParts = parse_url($returnUrl);
-        parse_str($urlParts['query'], $queryParts);
+        parse_str((string)$urlParts['query'], $queryParts);
         if (array_key_exists('id', $queryParts)) {
             return (int)$queryParts['id'];
         }
