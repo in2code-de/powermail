@@ -18,6 +18,17 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.5.0
+   :Date:
+      2018-02-21
+   :Changes:
+
+      * Feature: Remove all invisible HTML tags in plaintext mails
+      * Bugfix: Prevent exception in Pi2 (regression related to strict_types in PHP)
+      * Bugfix: Prevent exception when using marketing reports in backend (regression related to strict_types in PHP)
+      * Bugfix: Prevent exception when using password fields (regression related to strict_types in PHP)
+
+ - :Version:
       5.4.0
    :Date:
       2018-02-03
