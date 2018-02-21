@@ -62,8 +62,12 @@ class PlaintextServiceTest extends UnitTestCase
                 "a\nb\nc\nd"
             ],
             [
-                '<head><title>x</title></head>a<ul><li>b</li><li>c</li></ul>d',
+                "<head>\n\t<title>x</title>\n</head>a<ul><li>b</li><li>c</li></ul>d",
                 "a\nb\nc\nd"
+            ],
+            [
+                "<body>\n\t<style>a {color: blue;}</style>\nactual content</body>",
+                "actual content"
             ],
             [
                 'Please click <a href="http://www.google.com">this</a> link',
@@ -104,13 +108,13 @@ class PlaintextServiceTest extends UnitTestCase
     /**
      * @return void
      * @test
-     * @covers ::removeHeadElement
+     * @covers ::removeInvisibleElements
      */
-    public function removeHeadElementReturnString()
+    public function removeInvisibleElementsReturnString()
     {
-        $content = '<b>abc</b><head>test</head>test';
+        $content = "<b>abc</b><head>\n\t<title>test</title>\n</head><style>\n\ta {color: blue;}\n</style>test<script>\n\talert('hello');\n</script>";
         $expectedResult = '<b>abc</b>test';
-        $result = $this->generalValidatorMock->_call('removeHeadElement', $content);
+        $result = $this->generalValidatorMock->_call('removeInvisibleElements', $content);
         $this->assertSame($expectedResult, $result);
     }
 

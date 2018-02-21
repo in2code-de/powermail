@@ -13,23 +13,19 @@ class PageRepository extends AbstractRepository
 {
 
     /**
-     * Get title from table "pages" in TYPO3
-     *
      * @param int $uid
      * @return string
      */
-    public function getPageNameFromUid($uid)
+    public function getPageNameFromUid($uid): string
     {
+        $pageName = '';
         $query = $this->createQuery();
-
-        $sql = 'select uid,title';
-        $sql .= ' from pages';
-        $sql .= ' where uid = ' . (int)$uid;
-        $sql .= ' limit 1';
-
+        $sql = 'select uid,title from pages where uid = ' . (int)$uid . ' limit 1';
         $result = $query->statement($sql)->execute(true);
-
-        return $result[0]['title'];
+        if (!empty($result[0]['title'])) {
+            $pageName = $result[0]['title'];
+        }
+        return $pageName;
     }
 
     /**

@@ -50,9 +50,9 @@ Nevertheless it's planned to release a version for **TYPO3 10** (TYPO3 9 is alre
 
 ### 2.6. Product Owner
 
-The product owner and author of the extension is Alex Kellner from [in2code](https://www.in2code.de). Beside that every in2code colleague is allowed to support further
-development if she/he wants. In addition there are a lot of other contributors that helped to improve the extension with
-their *Pull Requests* - thank you for that! 
+The product owner and author of the extension is Alex Kellner from [in2code](https://www.in2code.de). Beside that every
+in2code colleague is allowed to support further development if she/he wants. In addition there are a lot of other
+contributors that helped to improve the extension with their *Pull Requests* - thank you for that!
 
 ### 2.7. Release Management
 
