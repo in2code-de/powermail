@@ -8,11 +8,15 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 
 /**
- * Controller for powermail frontend output
+ * Controller for powermail frontend output in Pi2
  * (former part of the powermail_frontend extension)
  */
 class OutputController extends AbstractController
@@ -79,9 +83,8 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Rewrite Arguments to receive a clean mail object
-     *
      * @return void
+     * @throws StopActionException
      */
     public function initializeUpdateAction()
     {
@@ -99,11 +102,13 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Update mail
-     *
      * @param Mail $mail
      * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
      * @return void
+     * @throws StopActionException
+     * @throws UnsupportedRequestTypeException
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
      */
     public function updateAction(Mail $mail)
     {
@@ -114,9 +119,8 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Check authentication
-     *
      * @return void
+     * @throws StopActionException
      */
     public function initializeDeleteAction()
     {
@@ -133,10 +137,9 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Delete mail
-     *
      * @param Mail $mail
      * @return void
+     * @throws IllegalObjectTypeException
      */
     public function deleteAction(Mail $mail)
     {
@@ -146,11 +149,10 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Export mails
-     *
      * @param array $export Field Array with mails and format
      * @dontvalidate $export
      * @return void
+     * @throws StopActionException
      */
     public function exportAction($export = [])
     {
@@ -174,8 +176,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Export mails XLS
-     *
      * @param QueryResult $mails mails objects
      * @param array $fields uid field list
      * @dontvalidate $mails
@@ -189,8 +189,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Export mails CSV
-     *
      * @param QueryResult $mails mails objects
      * @param array $fields uid field list
      * @dontvalidate $mails
@@ -204,8 +202,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * RSS Action List
-     *
      * @return void
      */
     public function rssAction()
