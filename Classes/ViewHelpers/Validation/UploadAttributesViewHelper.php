@@ -40,23 +40,30 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
         if ($field->getMultiselectForField()) {
             $additionalAttributes['multiple'] = 'multiple';
         }
-        
+
         $filesize = $this->settings['misc']['file']['extension'];
         if (null !== $this->arguments['filesize']) {
         	$filesize = $this->arguments['filesize'];
        	}
-        $this->addFilesizeValidation($additionalAttributes, (int)$filesize);
-        
+        $this->addFilesizeValidation($additionalAttributes, $field, (int) $filesize);
+
         $extension = $this->settings['misc']['file']['extension'];
         if (null !== $this->arguments['extension']) {
-        	$extension = $this->arguments['extension';
+        	$extension = $this->arguments['extension'];
        	}
-       	$this->addExtensionValidation($additionalAttributes, $extension);
-       	
+       	$this->addExtensionValidation($additionalAttributes, $field, $extension);
+
         return $additionalAttributes;
     }
-    
-    protected function addFilesizeValidation(array &$additionalAttributes, int $filesize): void
+
+    /**
+     * Set attributes for filesize validation
+     * @param array &$additionalAttributes
+     * @param Field $field
+     * @param int   $filesize
+     * @return void
+     */
+    protected function addFilesizeValidation(array &$additionalAttributes, Field $field, int $filesize)
     {
         if ($this->isClientValidationEnabled()) {
             if (!empty($filesize)) {
@@ -65,10 +72,17 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
                 $additionalAttributes['data-parsley-powermailfilesize-message'] =
                     LocalizationUtility::translate('validationerror_upload_size');
             }
-		}    
+		}
     }
-    
-    protected function addExtensionValidation(array &$additionalAttributes, string $extension): void
+
+    /**
+     * Set attributes for file extension validation
+     * @param array  &$additionalAttributes
+     * @param Field $field
+     * @param string $extension
+     */
+    protected function addExtensionValidation(array &$additionalAttributes, Field $field, string $extension)
+    {
         if (!empty($extension)) {
             $additionalAttributes['accept'] =
                 $this->getDottedListOfExtensions($extension);
@@ -81,7 +95,7 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
             }
         }
     }
-    
+
 
     /**
      * Get extensions with dot as prefix
