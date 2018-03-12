@@ -184,7 +184,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     protected function getFromMarker()
     {
         $selected = false;
-        if (isset($this->variables['field'][$this->getMarker()])) {
+        if (isset($this->variables['field'][$this->getMarker()]) && $this->isSameContentElement()) {
             if (is_array($this->variables['field'][$this->getMarker()])) {
                 foreach (array_keys($this->variables['field'][$this->getMarker()]) as $key) {
                     if ($this->variables['field'][$this->getMarker()][$key] === $this->options[$this->index]['value'] ||
@@ -215,7 +215,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     protected function getFromRawMarker()
     {
         $selected = false;
-        if (isset($this->variables[$this->getMarker()])) {
+        if (isset($this->variables[$this->getMarker()]) && $this->isSameContentElement()) {
             if (is_array($this->variables[$this->getMarker()])) {
                 foreach (array_keys($this->variables[$this->getMarker()]) as $key) {
                     if ($this->variables[$this->getMarker()][$key] === $this->options[$this->index]['value'] ||
@@ -529,5 +529,36 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
         $this->contentObjectRenderer = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
+    }
+
+    /**
+     * Check whether GET / POST values may be used by this form,
+     * because they are from the same content element as the form was submitted
+     */
+    protected function isSameContentElement(): bool
+    {
+        $currentContentObjectData = $this->getCurrentContentObjectData();
+
+        if (isset($currentContentObjectData['uid']) && isset($this->piVars['field']['__ttcontentuid'])) {
+            return (int) $currentContentObjectData['uid'] === (int) $this->piVars['field']['__ttcontentuid'];
+        }
+
+        return true;
+    }
+
+    /**
+     * Retrieving data of content object that is currently being rendered
+     *
+     * @return array
+     */
+    protected function getCurrentContentObjectData(): array
+    {
+        $tsfe = ObjectUtility::getTyposcriptFrontendController();
+
+        if (isset($tsfe->applicationData['tx_powermail']['currentContentObjectData'])) {
+            return $tsfe->applicationData['tx_powermail']['currentContentObjectData'];
+        }
+
+        return [];
     }
 }

@@ -27,6 +27,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
         parent::initializeArguments();
         $this->registerArgument('form', Form::class, 'Form', true);
         $this->registerArgument('additionalAttributes', 'array', 'additionalAttributes', false, []);
+        $this->registerArgument('ttContentData', 'array', 'ttContentData', false, []);
     }
 
     /**
@@ -50,6 +51,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
         if ($this->settings['misc']['ajaxSubmit'] === '1') {
             $additionalAttributes['data-powermail-ajax'] = 'true';
             $additionalAttributes['data-powermail-form'] = $form->getUid();
+            $additionalAttributes['data-powermail-ttcontentuid'] = $this->arguments['ttContentData']['uid'];
 
             if ($this->addRedirectUri) {
                 /** @var RedirectUriService $redirectService */

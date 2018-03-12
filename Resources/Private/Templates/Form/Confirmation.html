@@ -46,7 +46,7 @@ Show Confirmation Page
 					enctype="multipart/form-data"
 					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
 					addQueryString="{settings.misc.addQueryString}"
-					additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form: mail.form)}">
+					additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form: mail.form, ttContentData: ttContentData)}">
 				<f:render section="HiddenFields" arguments="{_all}" />
 				<f:form.submit
 						value="{f:translate(key: 'confirmation_next')}"
@@ -73,5 +73,6 @@ Show Confirmation Page
 		</f:if>
 	</f:for>
 
+	<f:form.hidden name="field[__ttcontentuid]" value="{ttContentData.uid}" />
 	<f:form.hidden name="mail[form]" value="{mail.form.uid}" class="powermail_form_uid" />
 </f:section>
