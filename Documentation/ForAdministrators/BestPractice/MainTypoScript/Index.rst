@@ -628,6 +628,15 @@ Constants Overview
       text
    :Default:
       EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+      
+ - :Constants:
+      spamshield.senderEmail
+   :Description:
+      Spamshield Notifymail sender Email address: Define a specific Email address as sender of the notification Email
+   :Type:
+      text
+   :Default:
+      'powermail@' + the TYPO3 host (e.g. powermail@www.example.com)
 
  - :Constants:
       spamshield.logfileLocation
