@@ -1204,7 +1204,7 @@ Setup
                     email = {$plugin.tx_powermail.settings.spamshield.email}
 
                     # Email address sending out spam mail. Set this if your mail transport limits allowed sender addresses
-                    senderEmail =
+                    senderEmail = {$plugin.tx_powermail.settings.spamshield.senderEmail}
 
                     # Subject for notification Email to Admin
                     emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}

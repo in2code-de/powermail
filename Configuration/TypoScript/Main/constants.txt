@@ -244,6 +244,9 @@ plugin.tx_powermail {
 			# cat=powermail_spam//0920; type=text; label= Spamshield Notifymail: Admin can get an email if he/she wants to get informed if a mail failed. Let this field empty and no mail will be sent (e.g. admin@mail.com)
 			email =
 
+			# cat=powermail_spam//0925; type=text; label= Spamshield Notifymail sendermail: Define sender email address for mails
+			senderEmail =
+
 			# cat=powermail_spam//0930; type=text; label= Spamshield Notifymail Subject: Subject for notification Email to Admin
 			emailSubject = Spam in powermail form recognized
 
