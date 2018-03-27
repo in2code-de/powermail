@@ -98,6 +98,7 @@ class GetNewMarkerNamesForFormService
             if ($field->isLocalized()) {
                 $markerArray[$uid] = '';
             } else {
+                $marker = $this->dontAllowNumbersOnly($marker);
                 if ($this->isMarkerAllowed($marker, $markerArray)) {
                     $markerArray[$uid] = $marker;
                 } else {
@@ -199,6 +200,20 @@ class GetNewMarkerNamesForFormService
     {
         $string .= '_' . str_pad((string)$iteration, strlen((string)$this->iterations), '0', STR_PAD_LEFT);
         return $string;
+    }
+
+    /**
+     * add appendix "marker" if marker is only a number
+     *
+     * @param string $marker
+     * @return string
+     */
+    protected function dontAllowNumbersOnly(string $marker): string
+    {
+        if (is_numeric($marker)) {
+            $marker = 'marker' . $marker;
+        }
+        return $marker;
     }
 
     /**
