@@ -68,7 +68,7 @@ In addition powermail is using [Git Flow](https://www.atlassian.com/git/tutorial
 That means that there is one branch which contains new and untested code: **develop**.
 The branch **master** only contains tested code which will also be tagged from time to time.
 
-Based on `release early, release often` we release a new version every **1-2 weeks** into TER and to github.
+Based on `release early, release often` we release a new version every **month** into TER and to github.
 
 ### 2.8. Composer and Packagist
 

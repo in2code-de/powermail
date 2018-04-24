@@ -18,6 +18,20 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      5.6.0
+   :Date:
+      2018-04-24
+   :Changes:
+
+      * Task: Add constant for sender email for spam notification mails
+      * Task: Update spamshield documentation
+      * Task: Some code cleanup
+      * Bugfix: Allow disabling of localized records in backend
+      * Bugfix: Don't allow numeric markers
+      * Bugfix: Fix typo in documentation
+      * Bugfix: Fix CSV/XLS export in Pi2
+
+ - :Version:
       5.5.0
    :Date:
       2018-02-21
