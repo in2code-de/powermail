@@ -386,7 +386,6 @@ $fieldsTca = [
             ]
         ],
         'hidden' => [
-            'l10n_mode' => 'exclude',
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.hidden',
             'config' => [

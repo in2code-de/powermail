@@ -18,7 +18,12 @@ use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class FormController
@@ -37,9 +42,9 @@ class FormController extends AbstractController
     protected $dataProcessorRunner;
 
     /**
-     * action show form for creating new mails
-     *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function formAction()
     {
@@ -60,6 +65,7 @@ class FormController extends AbstractController
      * Rewrite Arguments to receive a clean mail object in createAction
      *
      * @return void
+     * @throws StopActionException
      */
     public function initializeCreateAction()
     {
@@ -70,8 +76,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * Action create entry
-     *
      * @param Mail $mail
      * @param string $hash
      * @validate $mail In2code\Powermail\Domain\Validator\UploadValidator
@@ -83,6 +87,10 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
+     * @throws IllegalObjectTypeException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws UnknownObjectException
      */
     public function createAction(Mail $mail, string $hash = null)
     {
@@ -131,6 +139,7 @@ class FormController extends AbstractController
      * Rewrite Arguments to receive a clean mail object in confirmationAction
      *
      * @return void
+     * @throws StopActionException
      */
     public function initializeConfirmationAction()
     {
@@ -153,6 +162,8 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function confirmationAction(Mail $mail)
     {
@@ -231,6 +242,7 @@ class FormController extends AbstractController
      *
      * @param Mail $mail
      * @return void
+     * @throws IllegalObjectTypeException
      * @codeCoverageIgnore
      */
     protected function saveMail(Mail $mail)
@@ -247,6 +259,11 @@ class FormController extends AbstractController
      * @param int $mail mail uid
      * @param string $hash Given Hash String
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws StopActionException
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
      */
     public function optinConfirmAction(int $mail, string $hash)
     {
@@ -288,6 +305,8 @@ class FormController extends AbstractController
      *
      * @return void
      * @codeCoverageIgnore
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function initializeObject()
     {
@@ -325,6 +344,7 @@ class FormController extends AbstractController
      *        used for createAction() and confirmationAction()
      *
      * @return void
+     * @throws StopActionException
      */
     protected function forwardIfFormParamsDoNotMatch()
     {
@@ -339,6 +359,7 @@ class FormController extends AbstractController
      * Forward to formAction if no mail param given
      *
      * @return void
+     * @throws StopActionException
      */
     protected function forwardIfMailParamEmpty()
     {
@@ -354,8 +375,9 @@ class FormController extends AbstractController
      * Forward to formAction if wrong form in plugin variables given
      *        used in optinConfirmAction()
      *
-     * @param Mail $mail
+     * @param Mail|null $mail
      * @return void
+     * @throws StopActionException
      */
     protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null)
     {
