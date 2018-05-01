@@ -20,6 +20,8 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
         parent::initializeArguments();
         $this->registerArgument('field', Field::class, 'Field', true);
         $this->registerArgument('additionalAttributes', 'array', 'additionalAttributes', false, []);
+        $this->registerArgument('filesize', 'int', 'filesize', false, null);
+        $this->registerArgument('extension', 'string', 'extension', false, null);
     }
 
     /**
@@ -34,28 +36,66 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
         $additionalAttributes = $this->arguments['additionalAttributes'];
 
         $this->addMandatoryAttributes($additionalAttributes, $field);
+
         if ($field->getMultiselectForField()) {
             $additionalAttributes['multiple'] = 'multiple';
         }
-        if (!empty($this->settings['misc']['file']['extension'])) {
-            $additionalAttributes['accept'] =
-                $this->getDottedListOfExtensions($this->settings['misc']['file']['extension']);
-        }
+
+        $filesize = $this->settings['misc']['file']['extension'];
+        if (null !== $this->arguments['filesize']) {
+        	$filesize = $this->arguments['filesize'];
+       	}
+        $this->addFilesizeValidation($additionalAttributes, $field, (int) $filesize);
+
+        $extension = $this->settings['misc']['file']['extension'];
+        if (null !== $this->arguments['extension']) {
+        	$extension = $this->arguments['extension'];
+       	}
+       	$this->addExtensionValidation($additionalAttributes, $field, $extension);
+
+        return $additionalAttributes;
+    }
+
+    /**
+     * Set attributes for filesize validation
+     * @param array &$additionalAttributes
+     * @param Field $field
+     * @param int   $filesize
+     * @return void
+     */
+    protected function addFilesizeValidation(array &$additionalAttributes, Field $field, int $filesize)
+    {
         if ($this->isClientValidationEnabled()) {
-            if (!empty($this->settings['misc']['file']['size'])) {
+            if (!empty($filesize)) {
                 $additionalAttributes['data-parsley-powermailfilesize'] =
-                    (int)$this->settings['misc']['file']['size'] . ',' . $field->getMarker();
+                    $filesize . ',' . $field->getMarker();
                 $additionalAttributes['data-parsley-powermailfilesize-message'] =
                     LocalizationUtility::translate('validationerror_upload_size');
             }
-            if (!empty($this->settings['misc']['file']['extension'])) {
+		}
+    }
+
+    /**
+     * Set attributes for file extension validation
+     * @param array  &$additionalAttributes
+     * @param Field $field
+     * @param string $extension
+     */
+    protected function addExtensionValidation(array &$additionalAttributes, Field $field, string $extension)
+    {
+        if (!empty($extension)) {
+            $additionalAttributes['accept'] =
+                $this->getDottedListOfExtensions($extension);
+        }
+        if ($this->isClientValidationEnabled()) {
+            if (!empty($extension)) {
                 $additionalAttributes['data-parsley-powermailfileextensions'] = $field->getMarker();
                 $additionalAttributes['data-parsley-powermailfileextensions-message'] =
                     LocalizationUtility::translate('validationerror_upload_extension');
             }
         }
-        return $additionalAttributes;
     }
+
 
     /**
      * Get extensions with dot as prefix
