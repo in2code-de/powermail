@@ -18,6 +18,20 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      6.0.0
+   :Date:
+      2018-05-07
+   :Changes:
+
+      * General GDPR release:
+      * !!! Task: Disable session-spam-check by default (to prevent generating a cookie)
+      * !!! Task: Disable IP-logging by default
+      * Task: Add a privacy documentation with some hints
+      * !!! Task: Randomize filenames of uploaded files by default
+      * Task: Update testing readme
+      * Bugfix: Update testing requirements
+
+ - :Version:
       5.6.0
    :Date:
       2018-04-24
@@ -25,11 +39,6 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
 
       * Task: Add constant for sender email for spam notification mails
       * Task: Update spamshield documentation
-      * Task: Some code cleanup
-      * Bugfix: Allow disabling of localized records in backend
-      * Bugfix: Don't allow numeric markers
-      * Bugfix: Fix typo in documentation
-      * Bugfix: Fix CSV/XLS export in Pi2
 
  - :Version:
       5.5.0
