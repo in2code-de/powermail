@@ -29,4 +29,5 @@ For Administrators
    PowermailFrontend/Index
    SchedulerTasks/Index
    BestPractice/Index
+   Privacy/Index
    Upgrade/Index
