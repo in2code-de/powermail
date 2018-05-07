@@ -431,9 +431,9 @@ plugin.tx_powermail {
 						}
 					}
 
-					# Session check
+					# Session check: Enabling session check means to store a cookie on form load. If forms are submitted powermail checks for that cookie again. If this check is disabled, powermail will not set a cookie by default.
 					4 {
-						_enable = 1
+						_enable = 0
 
 						# Spamcheck name
 						name = Session check

@@ -5,6 +5,7 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
+use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\BasicFileUtility;
@@ -13,6 +14,8 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class UploadService
@@ -43,6 +46,8 @@ class UploadService implements SingletonInterface
     /**
      * @param array $settings
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function preflight(array $settings)
     {
@@ -58,6 +63,7 @@ class UploadService implements SingletonInterface
      * Upload all files to upload folder
      *
      * @return bool true if files where uploaded correctly
+     * @throws \Exception
      */
     public function uploadAllFiles()
     {
@@ -84,6 +90,8 @@ class UploadService implements SingletonInterface
      *
      * @param string $marker
      * @return array
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function getNewFileNamesByMarker($marker)
     {
@@ -160,6 +168,8 @@ class UploadService implements SingletonInterface
      * This will happen, if a confirmation page is in use and file values are no more stored in $_FILES per default
      *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function fillFilesFromHiddenFields()
     {
@@ -190,6 +200,7 @@ class UploadService implements SingletonInterface
         $arguments = $this->getArguments();
         if ($this->isOptinConfirmWithExistingMail($arguments)) {
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            /** @var Mail $mail */
             $mail = $mailRepository->findByUid((int)$arguments['mail']);
             if ($mail !== null) {
                 $answers = $mail->getAnswersByValueType(Answer::VALUE_TYPE_UPLOAD);
@@ -220,6 +231,8 @@ class UploadService implements SingletonInterface
      * Rename filenames if needed
      *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function makeUniqueFilenames()
     {
@@ -282,6 +295,8 @@ class UploadService implements SingletonInterface
 
     /**
      * @return File[]
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function getFiles()
     {

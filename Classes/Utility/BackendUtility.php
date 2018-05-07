@@ -170,7 +170,7 @@ class BackendUtility extends AbstractUtility
     public static function getPidFromBackendPage($returnUrl = '')
     {
         if (empty($returnUrl)) {
-            $returnUrl = GeneralUtility::_GP('returnUrl');
+            $returnUrl = GeneralUtility::_GP('returnUrl') ?: '';
         }
         $urlParts = parse_url($returnUrl);
         parse_str((string)$urlParts['query'], $queryParts);
