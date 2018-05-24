@@ -18,6 +18,14 @@ All changes are documented on `http://forge.typo3.org/projects/extension-powerma
       Release Description
 
  - :Version:
+      2.25.3
+   :Date:
+      2018-05-24
+   :Changes:
+
+      * !!! Security fix: powermail used the core functionality GeneralUtility::removeXSS() in the past. This function contains a security issue. This fix is a backport and removes all usages of removeXSS() in powermail. Note: This is a breaking change what introduces new constants `htmlForHtmlFields` and `htmlForLabels`. See https://forge.typo3.org/issues/80888 for some discussion on the issue itself.
+
+ - :Version:
       2.25.2
    :Date:
       2016-04-11
