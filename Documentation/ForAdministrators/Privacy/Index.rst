@@ -43,7 +43,7 @@ Just use an option in your FlexForm like (with an example link to page 123 where
 
 .. code-block:: text
 
-    I accept the <f:link.page pageUid="123">privacy terms</f:link> | privacy terms accepted
+    I accept the <f:link.page pageUid="123">privacy terms</f:link.page> | privacy terms accepted
 
 After that you have to enable html in labels (this feature is turned off for security reasons). Example TypoScript
 constants:
