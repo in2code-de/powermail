@@ -22,7 +22,7 @@ Quick guide:
 | Powermail   | TYPO3      | PHP       | Support/Development                     |
 | ----------- | ---------- | ----------|---------------------------------------- |
 | 6.x         | 8.7 - 9.x  | 7.0 - 7.x | Features, Bugfixes, Security Updates    |
-| 5.x         | 8.7 - 9.x  | 7.0 - 7.x | Suppored dropped                        |
+| 5.x         | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                         |
 | 4.x         | 7.6 - 8.7  | 5.5 - 7.2 | Bugfixes, Security Updates              |
 | 3.x         | 7.6 - 8.7  | 5.5 - 7.2 | Security Updates                        |
 | 2.18 - 2.25 | 6.2 - 7.6  | 5.5 - 7.0 | Security Updates                        |
