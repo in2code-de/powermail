@@ -73,6 +73,8 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
                     $additionalAttributes['data-parsley-required'] = 'true';
                 }
             }
+			$additionalAttributes['aria-required'] = 'true';
+
             if ($this->isClientValidationEnabled()) {
                 $additionalAttributes['data-parsley-required-message'] =
                     LocalizationUtility::translate('validationerror_mandatory');

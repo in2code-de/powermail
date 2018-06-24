@@ -65,15 +65,18 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             if ($field->isMandatory()) {
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['required'] = 'required';
+					$additionalAttributes['aria-required'] = 'true';
 
                     // remove required attribute if more checkboxes than 1
                     if ($field->getType() === 'check' && $iteration['total'] > 1) {
                         unset($additionalAttributes['required']);
+						unset($additionalAttributes['aria-required']);
                     }
                 } else {
                     if ($this->isClientValidationEnabled()) {
                         $additionalAttributes['data-parsley-required'] = 'true';
-                    }
+						$additionalAttributes['aria-required'] = 'true';
+					}
                 }
                 if ($this->isClientValidationEnabled()) {
                     $additionalAttributes['data-parsley-required-message'] =
@@ -83,6 +86,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                             LocalizationUtility::translate('validationerror_mandatory_multi');
                         if ($field->getType() === 'check') {
                             $additionalAttributes['data-parsley-required'] = 'true';
+							$additionalAttributes['aria-required'] = 'true';
                         }
                     }
                 }
