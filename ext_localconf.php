@@ -95,4 +95,10 @@ call_user_func(function () {
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] =
         \In2code\Powermail\Command\TaskCommandController::class;
+
+    /**
+     * Hook to reset mandatory of changed fields
+     */
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
+        \In2code\Powermail\Hook\Save::class;
 });
