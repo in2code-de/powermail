@@ -15,7 +15,7 @@
 				options="{vh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc')}"
 				prependOptionLabel="{f:translate(key:'pleaseChoose')}"
 				class="powermail_country {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
-				value="{vh:Misc.PrefillField(field:field)}"
+				value="{vh:Misc.PrefillField(field:field, mail:mail)}"
 				additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field)}"
 				id="powermail_field_{field.marker}" />
 	</div>
