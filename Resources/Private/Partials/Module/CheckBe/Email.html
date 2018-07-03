@@ -3,7 +3,7 @@
 <f:if condition="{email}">
 	<f:if condition="{issent}">
 		<f:then>
-			<div class="typo3-message message-ok powermail-message">
+			<div class="alert alert-success typo3-message message-ok powermail-message">
 				<div class="header-container">
 					<h4 class="message-header">
 						<f:translate key="BackendCheckEmailTitle" />
@@ -17,7 +17,7 @@
 			</div>
 		</f:then>
 		<f:else>
-			<div class="typo3-message message-error powermail-message">
+			<div class="alert alert-error typo3-message message-error powermail-message">
 				<h4 class="message-header">
 					<f:translate key="BackendCheckEmailTitle" />
 				</h4>
@@ -35,7 +35,8 @@
 	<div class="message-body powermail-padding-bottom powermail_email">
 		<f:form
 				class="form-horizontal"
-				action="checkBe">
+				action="checkBe"
+				section="testMail">
 			<div class="form-group">
 				<label for="powermail_email" class="col-sm-2 control-label">
 					<f:translate key="BackendEmailFormReceiver" />
