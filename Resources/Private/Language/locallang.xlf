@@ -603,6 +603,21 @@
 			<trans-unit id="BackendCheckEmailFailed">
 				<source>Email cound not send properly (ask your Adminstrator)</source>
 			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsTitle">
+				<source>Delete all mails</source>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsFinished">
+				<source>All mails and answers on this page have been deleted</source>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsReally">
+				<source>Yes, delete all mails on this page</source>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailDoNot">
+				<source>No, do not delete all mails</source>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailSubmit">
+				<source>Delete all mails on this page</source>
+			</trans-unit>
 			<trans-unit id="BackendCheckStaticTemplateTitle">
 				<source>TypoScript Static Template</source>
 			</trans-unit>

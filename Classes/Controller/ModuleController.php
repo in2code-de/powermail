@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
@@ -175,13 +176,23 @@ class ModuleController extends AbstractController
     /**
      * Check View Backend
      *
+     * @param string $mode  Action to run (testMail, deleteAllMails)
      * @param string $email email address
      * @return void
      */
-    public function checkBeAction($email = null)
+    public function checkBeAction($mode = null, $email = null)
     {
         $this->view->assign('pid', $this->id);
-        $this->sendTestEmail($email);
+
+        if ($mode == 'testMail') {
+            $this->sendTestEmail($email);
+
+        } else if ($mode == 'deleteAllMails') {
+            $args = $this->request->getArguments();
+            if ($args['reallyDelete'] === '1' && $args['keepAll'] === '' && $this->id > 0) {
+                $this->deleteAllMails();
+            }
+        }
     }
 
     /**
@@ -203,6 +214,26 @@ class ModuleController extends AbstractController
                 ]
             );
         }
+    }
+
+    /**
+     * Delete all mails and answers on the current page
+     *
+     * @return void
+     */
+    protected function deleteAllMails()
+    {
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Answer::TABLE_NAME, true);
+        $queryBuilder->delete(Answer::TABLE_NAME)
+            ->where($queryBuilder->expr()->eq('pid', $this->id))
+            ->execute();
+
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Mail::TABLE_NAME, true);
+        $queryBuilder->delete(Mail::TABLE_NAME)
+            ->where($queryBuilder->expr()->eq('pid', $this->id))
+            ->execute();
+
+        $this->view->assign('deleted', true);
     }
 
     /**

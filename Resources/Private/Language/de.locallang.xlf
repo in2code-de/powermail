@@ -811,6 +811,26 @@
 				<source>Email cound not send properly (ask your Adminstrator)</source>
 				<target state="translated">E-Mail konnte nicht erfolgreich versandt werden (bitte an Administrator wenden)</target>
 			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsFinished">
+				<source>All mails and answers on this page have been deleted</source>
+				<target state="translated">Alle Mails und Antworten auf dieser Seite wurden gelöscht.</target>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsTitle">
+				<source>Delete all mails</source>
+				<target state="translated">Alle Mails löschen</target>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsReally">
+				<source>Yes, delete all mails on this page</source>
+				<target state="translated">Ja, alle Mails auf dieser Seite löschen</target>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailDoNot">
+				<source>No, do not delete all mails</source>
+				<target state="translated">Nein, Mails nicht löschen</target>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailSubmit">
+				<source>Delete all mails on this page</source>
+				<target state="translated">Alle Mails auf dieser Seite löschen</target>
+			</trans-unit>
 			<trans-unit id="BackendCheckStaticTemplateTitle">
 				<source>TypoScript Static Template</source>
 				<target state="translated">TypoScript Static Template</target>
