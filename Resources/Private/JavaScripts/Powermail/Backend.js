@@ -524,8 +524,8 @@ function PowermailBackend($) {
 		if ($icon.hasClass('fa')) {
 			// TYPO3 7.x
 			$icon
-				.toggleClass('fa-plus')
-				.toggleClass('fa-minus')
+				.toggleClass('fa-square')
+				.toggleClass('fa-check-square')
 				.closest('tr')
 				.toggleClass('selectLine');
 		} else {
@@ -642,26 +642,3 @@ jQuery(document).ready(function($) {
 	var PowermailBackend = new window.PowermailBackend($);
 	PowermailBackend.initialize();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
