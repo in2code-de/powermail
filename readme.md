@@ -114,6 +114,17 @@ to accept only bugfixes if I can reproduce the issue.
 even more complicated in usability for an edge case feature. Please discuss a new feature before.
 
 
+### 2.12. Development
+
+Compile and minify (uglify) JavaScript, compress CSS:
+
+```
+$ cd Resources/Private
+$ npm install
+$ ./node_modules/.bin/gulp
+```
+
+
 ## 3. Screenshots
 
 ### 3.1. Example form with bootstrap classes:
