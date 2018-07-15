@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -73,7 +74,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
                     $additionalAttributes['data-parsley-required'] = 'true';
                 }
             }
-			$additionalAttributes['aria-required'] = 'true';
+            $additionalAttributes['aria-required'] = 'true';
 
             if ($this->isClientValidationEnabled()) {
                 $additionalAttributes['data-parsley-required-message'] =
