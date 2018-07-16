@@ -22,7 +22,7 @@ Quick guide:
 | Powermail   | TYPO3      | PHP       | Support/Development                     |
 | ----------- | ---------- | ----------|---------------------------------------- |
 | 6.x         | 8.7 - 9.x  | 7.0 - 7.x | Features, Bugfixes, Security Updates    |
-| 5.x         | 8.7 - 9.x  | 7.0 - 7.x | Suppored dropped                        |
+| 5.x         | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                         |
 | 4.x         | 7.6 - 8.7  | 5.5 - 7.2 | Bugfixes, Security Updates              |
 | 3.x         | 7.6 - 8.7  | 5.5 - 7.2 | Security Updates                        |
 | 2.18 - 2.25 | 6.2 - 7.6  | 5.5 - 7.0 | Security Updates                        |
@@ -38,6 +38,7 @@ Please look into the [official extension documentation in changelog chapter](htt
 - **powermailrecaptcha** Google recaptcha [Link](https://github.com/einpraegsam/powermailrecaptcha)
 - **invisiblerecaptcha** Google invisible recaptcha [Link](https://github.com/einpraegsam/invisiblerecaptcha)
 - **powermailextended** Is just an example extension how to extend powermail with new fields or use signals [Link](https://github.com/einpraegsam/powermailextended)
+- **powermail_fastexport** Extend powermail for faster export to .xlsx / .csv files. This is useful if you have many records to be exported. [Link](https://github.com/bithost-gmbh/powermail_fastexport)
 
 ### 2.4. Conflicts
 
@@ -111,6 +112,17 @@ is very helpful to understand what kind of issue the **PR** is going to solve.
 to accept only bugfixes if I can reproduce the issue.
 - Features: Not every feature is relevant for the bulk of powermail users. In addition: We don't want to make powermail
 even more complicated in usability for an edge case feature. Please discuss a new feature before.
+
+
+### 2.12. Development
+
+Compile and minify (uglify) JavaScript, compress CSS:
+
+```
+$ cd Resources/Private
+$ npm install
+$ ./node_modules/.bin/gulp
+```
 
 
 ## 3. Screenshots
