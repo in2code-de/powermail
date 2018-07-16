@@ -18,6 +18,21 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      6.1.0
+   :Date:
+      2018-07-16
+   :Changes:
+
+      * Feature: Sort powermail tables in backend list view in a useful direction
+      * Feature: Add CSS-Classes for powermail_frontend that are reflecting the current action
+      * Feature: Add aria-required attributes for required fields
+      * Task: Update documentation
+      * Task: Add .editorconfig
+      * Bugfix: Allow a preselection of country fields
+      * Bugfix: Don't validate on not-supported fields in FE (because of a possible misconfiguration)
+      * Bugfix: Fix typos in documentation
+
+ - :Version:
       6.0.0
    :Date:
       2018-05-07
