@@ -7,7 +7,9 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class ReceiverMailSenderPropertiesService to get email array for sender attributes
@@ -58,6 +60,8 @@ class ReceiverMailSenderPropertiesService
      * Get sender email from configuration in fields and params. If empty, take default from TypoScript
      *
      * @return string
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function getSenderEmail()
     {
@@ -77,6 +81,8 @@ class ReceiverMailSenderPropertiesService
      * Get sender name from configuration in fields and params. If empty, take default from TypoScript
      *
      * @return string
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function getSenderName()
     {

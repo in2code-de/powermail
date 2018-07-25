@@ -11,7 +11,6 @@ use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  * Class CalculatingCaptchaService
