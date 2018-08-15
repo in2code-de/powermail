@@ -77,6 +77,10 @@ class DateConverter
         $this->initialize($configuration);
         $this->createDateFromFormat();
         if ($this->getDate() !== null) {
+            // If a time only should be converted to a timestamp, convert to seconds manually to avoid offset issues
+            if(($this->getInputFormat() == 'H' || $this->getInputFormat() == 'H:i' || $this->getInputFormat() == 'H:i:s') && ($this->outputFormat == 'U')){
+                return $this->getDate()->format('H') * 3600 + $this->getDate()->format('i') * 60 + $this->getDate()->format('s');
+            }
             return $this->getDate()->format($this->getOutputFormat());
         }
         return '';
