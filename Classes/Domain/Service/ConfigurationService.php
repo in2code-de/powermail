@@ -5,7 +5,6 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  * Class ConfigurationService to get the typoscript configuration from powermail and cache it for multiple calls

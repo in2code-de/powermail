@@ -97,7 +97,7 @@ class StringUtility
      */
     public static function endsWith(string $haystack, string $needle): bool
     {
-        return stristr($haystack, $needle) && strlen($haystack) - strlen($needle) === strpos($haystack, $needle);
+        return stristr($haystack, $needle) !== false && substr($haystack, (strlen($needle) * -1)) === $needle;
     }
 
     /**
