@@ -66,7 +66,7 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
                 );
             }
         }
-        return $value;
+        return (string)$value;
     }
 
     /**
