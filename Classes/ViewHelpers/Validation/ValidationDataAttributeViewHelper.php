@@ -273,6 +273,9 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              * LENGTH
              *
              * Note: Field validation_configuration for editors viewable
+             * html5 example:
+             *        <input type="text" maxlength="10" />
+             *        <textarea maxlength="500" />
              * javascript example:
              *        <input type="text" data-parsley-length="[6, 10]" />
              */
@@ -285,8 +288,12 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                     $values[1] = (int)$values[0];
                     $values[0] = 1;
                 }
-                if ($this->isClientValidationEnabled()) {
-                    $additionalAttributes['data-parsley-length'] = '[' . implode(', ', $values) . ']';
+                if ($this->isNativeValidationEnabled()) {
+                    $additionalAttributes['maxlength'] = $values[1];
+                } else {
+                    if ($this->isClientValidationEnabled()) {
+                        $additionalAttributes['data-parsley-length'] = '[' . implode(', ', $values) . ']';
+                    }
                 }
                 break;
 
