@@ -2,9 +2,10 @@
 
 ## Preperations
 
-* First of all, do a `composer update` in powermail root folder
+* First of all, do a `composer update` in powermail root folder (currently this requires PHP php >=5.3 < 7.2)
 * You have to install a local TYPO3-instance (8.7) next and it should be available under `powermail.localhost.de`
-* A dump is available under http://powermail.in2code.ws/fileadmin/behat/powermail.sql.gz
+* Move (or symlink) the powermail-Folder into typo3conf/ext/ and activate the extension.
+* Them import the database dump from http://powermail.in2code.ws/fileadmin/behat/powermail.sql.gz
 
 ## Command line
 

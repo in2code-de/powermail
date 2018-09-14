@@ -6,8 +6,8 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  * Class SessionUtility

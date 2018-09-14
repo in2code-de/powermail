@@ -73,6 +73,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-format' => 'Y-m-d H:i',
                     'data-date-value' => 'anyvalue',
                     'required' => 'required',
+                    'aria-required' => 'true',
                     'data-parsley-required-message' => 'validationerror_mandatory',
                     'data-parsley-trigger' => 'change'
                 ]

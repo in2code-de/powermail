@@ -19,7 +19,7 @@ class ConfigurationUtility extends AbstractUtility
     public static function isDisableIpLogActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['disableIpLog'] === '1';
+        return (bool)$extensionConfig['disableIpLog'] === true;
     }
 
     /**
@@ -30,7 +30,7 @@ class ConfigurationUtility extends AbstractUtility
     public static function isDisableMarketingInformationActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['disableMarketingInformation'] === '1';
+        return (bool)$extensionConfig['disableMarketingInformation'] === true;
     }
 
     /**
@@ -41,7 +41,7 @@ class ConfigurationUtility extends AbstractUtility
     public static function isDisableBackendModuleActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['disableBackendModule'] === '1';
+        return (bool)$extensionConfig['disableBackendModule'] === true;
     }
 
     /**
@@ -52,7 +52,7 @@ class ConfigurationUtility extends AbstractUtility
     public static function isDisablePluginInformationActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['disablePluginInformation'] === '1';
+        return (bool)$extensionConfig['disablePluginInformation'] === true;
     }
 
     /**
@@ -63,7 +63,7 @@ class ConfigurationUtility extends AbstractUtility
     public static function isDisablePluginInformationMailPreviewActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['disablePluginInformationMailPreview'] === '1';
+        return (bool)$extensionConfig['disablePluginInformationMailPreview'] === true;
     }
 
     /**
@@ -74,7 +74,7 @@ class ConfigurationUtility extends AbstractUtility
     public static function isEnableCachingActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['enableCaching'] === '1';
+        return (bool)$extensionConfig['enableCaching'] === true;
     }
 
     /**
@@ -85,15 +85,7 @@ class ConfigurationUtility extends AbstractUtility
     public static function isReplaceIrreWithElementBrowserActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['replaceIrreWithElementBrowser'] === '1';
-    }
-
-    /**
-     * @return array
-     */
-    public static function getExtensionConfiguration(): array
-    {
-        return parent::getExtensionConfiguration();
+        return (bool)$extensionConfig['replaceIrreWithElementBrowser'] === true;
     }
 
     /**
@@ -104,7 +96,15 @@ class ConfigurationUtility extends AbstractUtility
     public static function isL10nModeMergeActive()
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return $extensionConfig['l10n_mode_merge'] === '1';
+        return (bool)$extensionConfig['l10n_mode_merge'] === true;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getExtensionConfiguration(): array
+    {
+        return parent::getExtensionConfiguration();
     }
 
     /**

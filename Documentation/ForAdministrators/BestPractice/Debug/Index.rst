@@ -20,7 +20,7 @@ Comprehensive Example
 			settings = 0
 			variables = 0
 			mail = 0
-			SaveToTable = 0
+			saveToTable = 0
 			spamshield = 0
 		}
 	}

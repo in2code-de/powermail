@@ -538,7 +538,7 @@ Constants Overview
    :Type:
       bool
    :Default:
-      0
+      1
 
  - :Constants:
       misc.forceJavaScriptDatePicker
@@ -628,6 +628,15 @@ Constants Overview
       text
    :Default:
       EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+      
+ - :Constants:
+      spamshield.senderEmail
+   :Description:
+      Spamshield Notifymail sender Email address: Define a specific Email address as sender of the notification Email
+   :Type:
+      text
+   :Default:
+      'powermail@' + the TYPO3 host (e.g. powermail@www.example.com)
 
  - :Constants:
       spamshield.logfileLocation
@@ -1195,7 +1204,7 @@ Setup
                     email = {$plugin.tx_powermail.settings.spamshield.email}
 
                     # Email address sending out spam mail. Set this if your mail transport limits allowed sender addresses
-                    senderEmail =
+                    senderEmail = {$plugin.tx_powermail.settings.spamshield.senderEmail}
 
                     # Subject for notification Email to Admin
                     emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}

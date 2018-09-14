@@ -16,7 +16,22 @@ class InputValidator extends StringValidator
     /**
      * @var array
      */
-    protected $validationFieldTypes = [
+    protected $mandatoryValidationFieldTypes = [
+        'input',
+        'textarea',
+        'radio',
+        'check',
+        'select',
+        'country',
+        'password',
+        'file',
+        'date'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $stringValidationFieldTypes = [
         'input',
         'textarea'
     ];
@@ -37,7 +52,9 @@ class InputValidator extends StringValidator
         // iterate through all fields of current form
         foreach ($mail->getForm()->getPages() as $page) {
             foreach ($page->getFields() as $field) {
-                $this->isValidField($field, $this->getAnswerFromField($field, $mail));
+                $answer = $this->getAnswerFromField($field, $mail);
+                $this->isValidFieldInMandatoryValidation($field, $answer);
+                $this->isValidFieldInStringValidation($field, $answer);
             }
         }
 
@@ -63,23 +80,32 @@ class InputValidator extends StringValidator
     }
 
     /**
-     * Validate a single field
+     * Validate a single field for mandatory validation
      *
      * @param Field $field
      * @param mixed $value
      * @return void
      */
-    protected function isValidField(Field $field, $value)
+    protected function isValidFieldInMandatoryValidation(Field $field, $value)
     {
         // Mandatory Check
-        if ($field->isMandatory()) {
+        if (in_array($field->getType(), $this->mandatoryValidationFieldTypes) && $field->isMandatory()) {
             if (!$this->validateMandatory($value)) {
                 $this->setErrorAndMessage($field, 'mandatory');
             }
         }
+    }
 
-        // String Checks
-        if (!empty($value) && in_array($field->getType(), $this->validationFieldTypes)) {
+    /**
+     * Validate a single field for any string validation
+     *
+     * @param Field $field
+     * @param mixed $value
+     * @return void
+     */
+    protected function isValidFieldInStringValidation(Field $field, $value)
+    {
+        if (!empty($value) && in_array($field->getType(), $this->stringValidationFieldTypes)) {
             switch ($field->getValidation()) {
 
                 // email

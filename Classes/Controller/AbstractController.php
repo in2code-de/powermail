@@ -10,6 +10,7 @@ use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
@@ -114,7 +115,7 @@ abstract class AbstractController extends ActionController
         $iteration = 0;
         foreach ((array)$arguments['field'] as $marker => $value) {
             // ignore internal fields (honeypod)
-            if (substr($marker, 0, 2) === '__') {
+            if (StringUtility::startsWith((string)$marker, '__')) {
                 continue;
             }
             $fieldUid = $this->fieldRepository->getFieldUidFromMarker($marker, $arguments['mail']['form']);

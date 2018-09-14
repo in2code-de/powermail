@@ -18,6 +18,44 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      6.1.0
+   :Date:
+      2018-07-16
+   :Changes:
+
+      * Feature: Sort powermail tables in backend list view in a useful direction
+      * Feature: Add CSS-Classes for powermail_frontend that are reflecting the current action
+      * Feature: Add aria-required attributes for required fields
+      * Task: Update documentation
+      * Task: Add .editorconfig
+      * Bugfix: Allow a preselection of country fields
+      * Bugfix: Don't validate on not-supported fields in FE (because of a possible misconfiguration)
+      * Bugfix: Fix typos in documentation
+
+ - :Version:
+      6.0.0
+   :Date:
+      2018-05-07
+   :Changes:
+
+      * General GDPR release:
+      * !!! Task: Disable session-spam-check by default (to prevent generating a cookie)
+      * !!! Task: Disable IP-logging by default
+      * Task: Add a privacy documentation with some hints
+      * !!! Task: Randomize filenames of uploaded files by default
+      * Task: Update testing readme
+      * Bugfix: Update testing requirements
+
+ - :Version:
+      5.6.0
+   :Date:
+      2018-04-24
+   :Changes:
+
+      * Task: Add constant for sender email for spam notification mails
+      * Task: Update spamshield documentation
+
+ - :Version:
       5.5.0
    :Date:
       2018-02-21

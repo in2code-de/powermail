@@ -46,6 +46,13 @@ call_user_func(function () {
     );
 
     /**
+     * PageTSConfig for backend mod list
+     */
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/WebList.typoscript">'
+    );
+    
+    /**
      * Hook to show PluginInformation under a tt_content element in page module of type powermail
      */
     $cmsLayout = 'cms/layout/class.tx_cms_layout.php';

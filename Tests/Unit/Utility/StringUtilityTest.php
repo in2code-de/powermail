@@ -238,6 +238,16 @@ class StringUtilityTest extends UnitTestCase
                 'abc',
                 true
             ],
+            [
+                '/test//',
+                '/',
+                true
+            ],
+            [
+                '/test//x',
+                '/',
+                false
+            ],
         ];
     }
 
