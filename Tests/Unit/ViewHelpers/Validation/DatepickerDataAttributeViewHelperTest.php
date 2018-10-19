@@ -71,6 +71,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
+                    'data-datepicker-start' => 1,
                     'data-date-value' => 'anyvalue',
                     'required' => 'required',
                     'aria-required' => 'true',
@@ -98,6 +99,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
+                    'data-datepicker-start' => 1,
                     'data-date-value' => 'anyvalue',
                 ]
             ],
@@ -121,6 +123,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
+                    'data-datepicker-start' => 1,
                 ]
             ],
             'datepickerWithClientvalidation' => [
@@ -143,6 +146,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
+                    'data-datepicker-start' => 1,
                 ]
             ],
             'datepickerWithoutValidation' => [
@@ -165,6 +169,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
                         'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
                     'data-datepicker-format' => 'Y-m-d H:i',
+                    'data-datepicker-start' => 1,
                 ]
             ],
         ];
@@ -206,4 +211,116 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
         $result = $this->abstractValidationViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
+
+
+    /**
+     * Dataprovider for configuredFirstWeekDayIsReturnedCorrectly()
+     *
+     * @return array
+     */
+    public function configuredFirstWeekDayIsReturnedCorrectlyDataProvider()
+    {
+        return [
+            'configuredValueIsNumericMoreThanOneLessThanEight' => [
+                [
+                    'misc' => [
+                        'datepicker' => [
+                            'lang'=> [
+                                '1' => '4'
+                            ],
+                        ],
+                    ],
+                ],
+                '1',
+                4
+            ],
+            'languageKeyIsNotConfigured' => [
+                [
+                    'misc' => [
+                        'datepicker' => [
+                            'lang'=> [
+                                '2' => '4'
+                            ],
+                        ],
+                    ],
+                ],
+                '1',
+                1
+            ],
+            'configuredValueIsNotNumeric' => [
+                [
+                    'misc' => [
+                        'datepicker' => [
+                            'lang'=> [
+                                '1' => 'test'
+                            ],
+                        ],
+                    ],
+                ],
+                '1',
+                1
+            ],
+            'configuredValueIsNumericHigherThanSeven' => [
+                [
+                    'misc' => [
+                        'datepicker' => [
+                            'lang'=> [
+                                '1' => '18'
+                            ],
+                        ],
+                    ],
+                ],
+                '1',
+                1
+            ],
+            'configuredValueIsNumericLowerThanTwo' => [
+                [
+                    'misc' => [
+                        'datepicker' => [
+                            'lang'=> [
+                                '1' => '-2'
+                            ],
+                        ],
+                    ],
+                ],
+                '1',
+                1
+            ],
+            'configuredValueIsArray' => [
+                [
+                    'misc' => [
+                        'datepicker' => [
+                            'lang'=> [
+                                '1' => []
+                            ],
+                        ],
+                    ],
+                ],
+                '1',
+                1
+            ],
+        ];
+    }
+
+
+    /**
+     * @param array $settings
+     * @param string $language
+     * @param int $expectedResult
+     * @return void
+     * @dataProvider configuredFirstWeekDayIsReturnedCorrectlyDataProvider
+     * @test
+     * @covers ::getFirstWeekDay
+     */
+    public function configuredFirstWeekDayIsReturnedCorrectly($settings,$language,$expectedResult)
+    {
+        $this->abstractValidationViewHelperMock->_set('settings', $settings);
+        $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'] = $language;
+        $result = $this->abstractValidationViewHelperMock->_callRef('getFirstWeekDay');
+        $this->assertSame($expectedResult, $result);
+    }
+
+
+
+
 }

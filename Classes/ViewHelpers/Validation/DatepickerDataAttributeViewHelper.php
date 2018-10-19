@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
+
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 
 /**
@@ -40,6 +42,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
         $additionalAttributes['data-datepicker-months'] = $this->getMonthNames();
         $additionalAttributes['data-datepicker-days'] = $this->getDayNames();
         $additionalAttributes['data-datepicker-format'] = $this->getFormat($field);
+        $additionalAttributes['data-datepicker-start'] = $this->getFirstWeekDay();
         if ($value) {
             $additionalAttributes['data-date-value'] = $value;
         }
@@ -123,5 +126,30 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
             $monthArray[] = LocalizationUtility::translate('datepicker_month_' . $month);
         }
         return implode(',', $monthArray);
+    }
+
+    /**
+     * Returns language to determine the first week day setting
+     *
+     * @return int
+     */
+
+    public function getApplicableLanguage(){
+       return FrontendUtility::getSysLanguageUid();
+    }
+
+    /**
+     * Get first week day out of configuration
+     *
+     *
+     * @return integer
+     */
+    protected function getFirstWeekDay()
+    {
+        $firstWeekDay = (int)$this->settings['misc']['datepicker']['lang'][$this->getApplicableLanguage()]['firstDayOfWeek'];
+        if (($firstWeekDay > 1) && ($firstWeekDay < 8)) {
+            return $firstWeekDay;
+        }
+        return 1;
     }
 }

@@ -117,7 +117,8 @@ function PowermailForm($) {
 				// create datepicker
 				$this.datetimepicker({
 					format: $this.data('datepicker-format'),
-					timepicker: timepickerStatus,
+                    dayOfWeekStart: $this.data('datepicker-start'),
+                    timepicker: timepickerStatus,
 					datepicker: datepickerStatus,
 					lang: 'en',
 					i18n:{

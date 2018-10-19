@@ -232,6 +232,9 @@ plugin.tx_powermail {
 
 			# cat=powermail_additional//0890; type=boolean; label= Debug Spamshield: Show Spamshield Functions in Devlog
 			debugSpamshield = 0
+
+			# cat=powermail_additional//0820; type=int[1-7]; label= Default Datepicker First Week Day: First day to appear in JS Datepicker for default language (1 = Monday). Configurable in Setup for other languages.
+            firstWeekDayForDefaultLanguage = 1
 		}
 
 		spamshield {

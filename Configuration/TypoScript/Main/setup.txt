@@ -541,6 +541,19 @@ plugin.tx_powermail {
 				datepicker {
 					# Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
 					forceJavaScriptDatePicker = {$plugin.tx_powermail.settings.misc.forceJavaScriptDatePicker}
+
+				    # Configure first day of the week shown in JS Datepicker.
+				    # Integer key corresponds to sys_language_uid. Default is 1 (= Monday)
+				    # For sys_language_uid = 0 value is configurable via constants
+				    lang {
+				        0 {
+				            firstDayOfWeek = {$plugin.tx_powermail.settings.misc.firstWeekDayForDefaultLanguage}
+				        }
+				     # Example for another language
+#				        1 {
+#				            firstDayOfWeek = 6
+#				        }
+				    }
 				}
 			}
 
