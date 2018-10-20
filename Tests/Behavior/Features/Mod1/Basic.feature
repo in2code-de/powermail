@@ -14,7 +14,7 @@ Feature: Basic
     And I wait "6" seconds
     Then I click on the element "#web_PowermailM1"
     And I wait "3" seconds
-    Then I follow "All Fields"
+    Then I click on the element ".identifier-1_10"
     And I wait "6" seconds
 
     And I swith to iframe "typo3-contentIframe"
