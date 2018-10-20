@@ -292,12 +292,13 @@ class FormController extends AbstractController
      * @param int $language Frontend Language Uid
      * @param int $pid Page Id
      * @param int $mobileDevice Is mobile device?
-     * @return void
+     * @return string
      * @codeCoverageIgnore
      */
-    public function marketingAction($referer = null, int $language = 0, int $pid = 0, int $mobileDevice = 0)
+    public function marketingAction($referer = null, int $language = 0, int $pid = 0, int $mobileDevice = 0): string
     {
         SessionUtility::storeMarketingInformation($referer, $language, $pid, $mobileDevice);
+        return json_encode([]);
     }
 
     /**
