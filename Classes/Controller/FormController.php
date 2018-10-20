@@ -341,16 +341,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * Make $this->settings accessable when extending the controller with signals
-     *
-     * @return array
-     */
-    public function getSettings(): array
-    {
-        return $this->settings;
-    }
-
-    /**
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
      *
