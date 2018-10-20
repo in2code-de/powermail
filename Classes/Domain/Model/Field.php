@@ -23,7 +23,6 @@ class Field extends AbstractEntity
 
     /**
      * @var string
-     * @validate NotEmpty
      */
     protected $title = '';
 
@@ -36,7 +35,6 @@ class Field extends AbstractEntity
      *        "country", "location", "typoscript"
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $type = '';
 
