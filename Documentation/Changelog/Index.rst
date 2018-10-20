@@ -18,6 +18,29 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      6.2.0
+   :Date:
+      2018-10-21
+   :Changes:
+
+      * Feature: Improve performance with sql indices
+      * Feature: Also alow markers in fields in additional languages with no parent element
+      * Feature: Make $this->settings readable when extending controller with signals
+      * Task: Replace eID script for marketing tracking with a TypeNum script - that bypasses the chash-problem now
+      * Task: Update frontend toolchain gulp task and commit a package-lock.json
+      * Task: Some documentation updates
+      * Task: Make ConfigurationUtility more future proof
+      * Task: Remove some other deprecated function calls for future TYPO3 versions
+      * Task: Remove deprecated @validate notations
+      * Task: Remove deprecated Extbase TypoScriptService calls
+      * Bugfix: Don't show forms twice in plugin selection in TYPO3 9.5
+      * Bugfix: Make endsWith() more robust
+      * Bugfix: Allow also arrays with ManipulateValueWithTypoScriptViewHelper
+      * Bugfix: Prevent exception in GetFileWithPathViewHelper
+      * Bugfix: Prevent exception in ManipulateValueWithTypoScriptViewHelper
+      * Bugfix: Prevent exception in LocalizationUtility
+
+ - :Version:
       6.1.0
    :Date:
       2018-07-16

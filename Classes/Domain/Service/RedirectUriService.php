@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+// @extensionScannerIgnoreLine Still needed for TYPO3 8.7
 use TYPO3\CMS\Extbase\Service\FlexFormService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 

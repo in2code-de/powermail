@@ -14,8 +14,9 @@ use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-
 
 /**
  * Class AbstractController
@@ -78,9 +79,21 @@ abstract class AbstractController extends ActionController
     protected $id = 0;
 
     /**
+     * Make $this->settings accessable when extending the controller with signals
+     *
+     * @return array
+     */
+    public function getSettings(): array
+    {
+        return $this->settings;
+    }
+
+    /**
      * Reformat array for createAction
      *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function reformatParamsForAction()
     {

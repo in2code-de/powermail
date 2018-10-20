@@ -13,6 +13,7 @@ use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+// @extensionScannerIgnoreLine Still needed for TYPO3 8.7
 use TYPO3\CMS\Extbase\Service\FlexFormService;
 
 /**

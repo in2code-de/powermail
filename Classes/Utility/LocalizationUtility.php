@@ -28,6 +28,6 @@ class LocalizationUtility extends AbstractUtility
             return (string)$key;
         }
         // @codeCoverageIgnoreStart
-        return LocalizationUtilityExtbase::translate($key, $extensionName, $arguments);
+        return (string)LocalizationUtilityExtbase::translate($key, $extensionName, $arguments);
     }
 }

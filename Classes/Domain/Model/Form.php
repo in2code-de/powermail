@@ -20,7 +20,6 @@ class Form extends AbstractEntity
 
     /**
      * @var string
-     * @validate NotEmpty
      */
     protected $title = '';
 

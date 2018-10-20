@@ -36,3 +36,30 @@ page {
 		powermailMarketing = EXT:powermail/Resources/Public/JavaScripts/Powermail/Marketing.min.js
 	}
 }
+
+# Tracking for some powermail marketing information on every page
+powermailMarketing = PAGE
+powermailMarketing {
+	typeNum = 1540053358
+	config {
+		additionalHeaders.10.header = Content-Type: application/json
+		no_cache = 1
+		disableAllHeaderCode = 1
+		disablePrefixComment = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		debug = 0
+	}
+
+	10 = USER
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = Powermail
+		pluginName = Pi1
+		vendorName = In2code
+		controller = Form
+		action = marketing
+		switchableControllerActions.Form.1 = marketing
+		features.requireCHashArgumentForActionArguments = 0
+	}
+}

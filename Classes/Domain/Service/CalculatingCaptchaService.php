@@ -9,9 +9,7 @@ use In2code\Powermail\Utility\MathematicUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  * Class CalculatingCaptchaService
@@ -146,7 +144,7 @@ class CalculatingCaptchaService
      */
     protected function createImage($content, $addHash = true)
     {
-        $imageResource = imagecreatefrompng($this->getBackgroundImage(true));
+        $imageResource = imagecreatefrompng($this->getBackgroundImage());
         imagettftext(
             $imageResource,
             (float)$this->configuration['textSize'],
@@ -154,7 +152,7 @@ class CalculatingCaptchaService
             $this->getHorizontalDistanceForCaptcha(),
             $this->getVerticalDistanceForCaptcha(),
             $this->getColorForCaptcha($imageResource),
-            $this->getFontPathAndFilename(true),
+            $this->getFontPathAndFilename(),
             $content
         );
         if (imagepng($imageResource, $this->getPathAndFilename(true)) === false) {
@@ -251,23 +249,6 @@ class CalculatingCaptchaService
     }
 
     /**
-     * @param string $string
-     * @param bool $absolute
-     * @return string
-     */
-    protected function getFilename($string, $absolute = false)
-    {
-        $string = str_replace('EXT:', 'typo3conf/ext/', $string);
-        /** @var TemplateService $templateService */
-        $templateService = ObjectUtility::getObjectManager()->get(TemplateService::class);
-        $fileName = $templateService->getFileName($string);
-        if ($absolute) {
-            $fileName = GeneralUtility::getFileAbsFileName($fileName);
-        }
-        return $fileName;
-    }
-
-    /**
      * @return CalculatingCaptchaService
      */
     public function setConfiguration()
@@ -335,12 +316,11 @@ class CalculatingCaptchaService
     }
 
     /**
-     * @param bool $absolute
      * @return string
      */
-    public function getBackgroundImage($absolute = false)
+    public function getBackgroundImage(): string
     {
-        return $this->getFilename($this->backgroundImage, $absolute);
+        return GeneralUtility::getFileAbsFileName($this->backgroundImage);
     }
 
     /**
@@ -353,21 +333,21 @@ class CalculatingCaptchaService
     public function setBackgroundImage($backgroundImage)
     {
         $this->backgroundImage = $backgroundImage;
-        if (!$this->test && !is_file($this->getBackgroundImage(true))) {
+        if (!$this->test && !is_file($this->getBackgroundImage())) {
             throw new \InvalidArgumentException(
-                'No captcha background image found - please check your TypoScript configuration'
+                'No captcha background image found - please check your TypoScript configuration',
+                1540051516
             );
         }
         return $this;
     }
 
     /**
-     * @param bool $absolute
      * @return string
      */
-    public function getFontPathAndFilename($absolute = false)
+    public function getFontPathAndFilename(): string
     {
-        return $this->getFilename($this->fontPathAndFilename, $absolute);
+        return GeneralUtility::getFileAbsFileName($this->fontPathAndFilename);
     }
 
     /**
@@ -378,9 +358,10 @@ class CalculatingCaptchaService
     public function setFontPathAndFilename($fontPathAndFilename)
     {
         $this->fontPathAndFilename = $fontPathAndFilename;
-        if (!$this->test && !is_file($this->getFontPathAndFilename(true))) {
+        if (!$this->test && !is_file($this->getFontPathAndFilename())) {
             throw new \InvalidArgumentException(
-                'No captcha truetype font found - please check your TypoScript configuration'
+                'No captcha truetype font found - please check your TypoScript configuration',
+                1540051511
             );
         }
         return $this;

@@ -81,6 +81,7 @@ CREATE TABLE tx_powermail_domain_model_page (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
+	KEY parent_form (forms),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
 );
@@ -145,6 +146,7 @@ CREATE TABLE tx_powermail_domain_model_field (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
+	KEY parent_page (pages),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
 );

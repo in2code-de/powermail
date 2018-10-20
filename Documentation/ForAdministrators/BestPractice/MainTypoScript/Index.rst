@@ -538,7 +538,7 @@ Constants Overview
    :Type:
       bool
    :Default:
-      0
+      1
 
  - :Constants:
       misc.forceJavaScriptDatePicker
