@@ -17,7 +17,7 @@ function PowermailMarketing($) {
 	};
 
 	/**
-	 * Send marketing information to eID script
+	 * Send marketing information to typenum
 	 *
 	 * @returns {void}
 	 * @private
@@ -32,7 +32,7 @@ function PowermailMarketing($) {
 		data += '&tx_powermail_pi1[referer]=' + encodeURIComponent(document.referrer);
 
 		jQuery.ajax({
-			url: getBaseUrl() + '/index.php?&eID=powermailEidMarketing',
+			url: getBaseUrl() + '/index.php?&type=1540053358',
 			data: data,
 			cache: false
 		});
