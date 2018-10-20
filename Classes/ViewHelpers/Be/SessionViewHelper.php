@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
+use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -38,9 +39,9 @@ class SessionViewHelper extends AbstractViewHelper
     protected function checkSession(): bool
     {
         $value = $this->getRandomValue();
-        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->sessionKey, $value);
-        $GLOBALS['TSFE']->storeSessionData();
-        return $GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionKey) === $value;
+        ObjectUtility::getTyposcriptFrontendController()->fe_user->setKey('ses', $this->sessionKey, $value);
+        ObjectUtility::getTyposcriptFrontendController()->storeSessionData();
+        return ObjectUtility::getTyposcriptFrontendController()->fe_user->getKey('ses', $this->sessionKey) === $value;
     }
 
     /**
@@ -58,13 +59,13 @@ class SessionViewHelper extends AbstractViewHelper
     protected function initializeTsfe()
     {
         $feUserAuthentication = EidUtility::initFeUser();
-        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+        ObjectUtility::getTyposcriptFrontendController() = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
             ['FE' => ['disableNoCacheParameter' => 0]] + $GLOBALS['TYPO3_CONF_VARS'],
             GeneralUtility::_GET('id'),
             0,
             true
         );
-        $GLOBALS['TSFE']->fe_user = $feUserAuthentication;
+        ObjectUtility::getTyposcriptFrontendController()->fe_user = $feUserAuthentication;
     }
 }
