@@ -139,6 +139,11 @@ class Field extends AbstractEntity
     protected $sorting = 0;
 
     /**
+     * @var integer
+     */
+    protected $l10nParent = 0;
+
+    /**
      * @var \In2code\Powermail\Domain\Model\Page
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
@@ -816,7 +821,8 @@ class Field extends AbstractEntity
      */
     public function isLocalized()
     {
-        return $this->_getProperty('_languageUid') > 0;
+        return $this->_getProperty('_languageUid') > 0 &&
+            $this->_getProperty('l10nParent') > 0;
     }
 
     /**

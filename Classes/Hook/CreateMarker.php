@@ -154,7 +154,8 @@ class CreateMarker
      */
     protected function cleanMarkersInLocalizedFields()
     {
-        if (!empty($this->properties['sys_language_uid']) && $this->properties['sys_language_uid'] > 0) {
+        if (!empty($this->properties['sys_language_uid']) && $this->properties['sys_language_uid'] > 0 &&
+            !empty($this->properties['l10n_parent']) && $this->properties['l10n_parent'] > 0) {
             $this->properties['marker'] = '';
         }
     }
