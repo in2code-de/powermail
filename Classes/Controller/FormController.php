@@ -6,6 +6,7 @@ use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
+use In2code\Powermail\Domain\Service\Mail\SendDisclaimedMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendOptinConfirmationMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendReceiverMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
@@ -103,6 +104,7 @@ class FormController extends AbstractController
     public function createAction(Mail $mail, string $hash = '')
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
+        /** @noinspection PhpUnhandledExceptionInspection */
         $this->dataProcessorRunner->callDataProcessors(
             $mail,
             $this->actionMethodName,
@@ -134,6 +136,7 @@ class FormController extends AbstractController
         $this->prepareOutput($mail);
 
         $finisherRunner = $this->objectManager->get(FinisherRunner::class);
+        /** @noinspection PhpUnhandledExceptionInspection */
         $finisherRunner->callFinishers(
             $mail,
             $this->isNoOptin($mail, $hash),
@@ -180,6 +183,7 @@ class FormController extends AbstractController
     public function confirmationAction(Mail $mail)
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
+        /** @noinspection PhpUnhandledExceptionInspection */
         $this->dataProcessorRunner->callDataProcessors(
             $mail,
             $this->actionMethodName,
@@ -284,6 +288,7 @@ class FormController extends AbstractController
         $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
         $labelKey = 'failed';
 
+        /** @noinspection PhpUnhandledExceptionInspection */
         if ($mail !== null && HashUtility::isHashValid($hash, $mail)) {
             if ($mail->getHidden()) {
                 $mail->setHidden(false);
@@ -309,6 +314,9 @@ class FormController extends AbstractController
         $mail = $this->mailRepository->findByUid($mail);
         $status = false;
         if ($mail !== null && HashUtility::isHashValid($hash, $mail, 'disclaimer')) {
+            /** @noinspection PhpMethodParametersCountMismatchInspection */
+            $mailService = $this->objectManager->get(SendDisclaimedMailPreflight::class, $this->settings, $this->conf);
+            $mailService->sendMail($mail);
             $this->mailRepository->removeFromDatabase($mail->getUid());
             $status = true;
         }

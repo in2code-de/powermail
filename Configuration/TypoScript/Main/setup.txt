@@ -307,6 +307,11 @@ plugin.tx_powermail {
 				}
 			}
 
+			disclaimer {
+				subject = TEXT
+				subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:disclaimed_subject
+			}
+
 
 
 
