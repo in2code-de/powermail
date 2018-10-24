@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class HashUtility
@@ -46,6 +45,15 @@ class HashUtility extends AbstractUtility
     private static function createHashFromMail(Mail $mail, string $role = 'optin'): string
     {
         $string = $mail->getUid() . $mail->getPid() . $mail->getForm()->getUid() . $role . self::getEncryptionKey();
-        return GeneralUtility::shortMD5($string);
+        return self::createHashFromString($string);
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    private static function createHashFromString(string $string): string
+    {
+        return hash('sha256', $string);
     }
 }

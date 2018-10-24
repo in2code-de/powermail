@@ -32,12 +32,12 @@ class OptinUtilityTest extends UnitTestCase
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
         $result = HashUtility::getHash($this->getDummyMail());
-        $this->assertEquals('c7ff4c2bf7', $result);
+        $this->assertEquals('8ac41a60329743651a7ffe42c30953e4d67ab1653bc27e994c493a2937c02a2c', $result);
 
         $result = HashUtility::getHash($this->getDummyMail(), 'foo');
-        $this->assertEquals('d9829bb000', $result);
+        $this->assertEquals('dfb508443aa73e0fbf166c1b006f5c2ca7fc2cce213df1de33708dd00f1b3af4', $result);
 
-        $this->assertTrue(strlen($result) === 10);
+        $this->assertTrue(strlen($result) === 64);
     }
 
     /**
@@ -45,13 +45,25 @@ class OptinUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isHashValid
+     * @throws \Exception
      */
     public function checkOptinHashReturnsBool()
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
         $this->assertFalse(HashUtility::isHashValid('abc123', $this->getDummyMail()));
-        $this->assertTrue(HashUtility::isHashValid('c7ff4c2bf7', $this->getDummyMail()));
-        $this->assertTrue(HashUtility::isHashValid('d9829bb000', $this->getDummyMail(), 'foo'));
+        $this->assertTrue(
+            HashUtility::isHashValid(
+                '8ac41a60329743651a7ffe42c30953e4d67ab1653bc27e994c493a2937c02a2c',
+                $this->getDummyMail()
+            )
+        );
+        $this->assertTrue(
+            HashUtility::isHashValid(
+                'dfb508443aa73e0fbf166c1b006f5c2ca7fc2cce213df1de33708dd00f1b3af4',
+                $this->getDummyMail(),
+                'foo'
+            )
+        );
     }
 
     /**
