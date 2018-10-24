@@ -263,7 +263,7 @@ class FormControllerTest extends UnitTestCase
             'store 0, optin 0, hash NULL' => [
                 '0',
                 '0',
-                null,
+                '',
                 false
             ],
             'store 0, optin 0, hash NOTNULL' => [
@@ -275,7 +275,7 @@ class FormControllerTest extends UnitTestCase
             'store 0, optin 1, hash NULL' => [
                 '0',
                 '1',
-                null,
+                '',
                 true
             ],
             'store 0, optin 1, hash NOTNULL' => [
@@ -287,7 +287,7 @@ class FormControllerTest extends UnitTestCase
             'store 1, optin 0, hash NULL' => [
                 '1',
                 '0',
-                null,
+                '',
                 true
             ],
             'store 1, optin 0, hash NOTNULL' => [
@@ -299,7 +299,7 @@ class FormControllerTest extends UnitTestCase
             'store 1, optin 1, hash NULL' => [
                 '1',
                 '1',
-                null,
+                '',
                 true
             ],
             'store 1, optin 1, hash NOTNULL' => [
