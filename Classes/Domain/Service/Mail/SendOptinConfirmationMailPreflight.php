@@ -6,6 +6,11 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\HashUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class SendOptinConfirmationMailPreflight
@@ -14,12 +19,12 @@ class SendOptinConfirmationMailPreflight
 {
 
     /**
-     * @var \In2code\Powermail\Domain\Service\Mail\SendMailService
+     * @var SendMailService
      */
     protected $sendMailService;
 
     /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
+     * @var MailRepository
      */
     protected $mailRepository;
 
@@ -48,10 +53,13 @@ class SendOptinConfirmationMailPreflight
     }
 
     /**
-     * Send Optin Confirmation Mail to user
-     *
      * @param Mail $mail
      * @return void
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidControllerNameException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function sendOptinConfirmationMail(Mail $mail)
     {

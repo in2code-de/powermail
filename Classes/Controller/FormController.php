@@ -19,6 +19,7 @@ use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
@@ -97,8 +98,9 @@ class FormController extends AbstractController
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      * @throws UnknownObjectException
+     * @throws InvalidControllerNameException
      */
-    public function createAction(Mail $mail, string $hash = null)
+    public function createAction(Mail $mail, string $hash = '')
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $this->dataProcessorRunner->callDataProcessors(
@@ -423,9 +425,9 @@ class FormController extends AbstractController
      * @param string $hash
      * @return bool
      */
-    protected function isMailPersistActive(string $hash = null): bool
+    protected function isMailPersistActive(string $hash = ''): bool
     {
-        return ($this->isPersistActive() || !empty($this->settings['main']['optin'])) && $hash === null;
+        return ($this->isPersistActive() || !empty($this->settings['main']['optin'])) && $hash === '';
     }
 
     /**
@@ -435,11 +437,11 @@ class FormController extends AbstractController
      *            - optin is active AND hash is correct
      *
      * @param Mail $mail
-     * @param string|null $hash
+     * @param string $hash
      * @return bool
      * @throws \Exception
      */
-    protected function isNoOptin(Mail $mail, string $hash = null): bool
+    protected function isNoOptin(Mail $mail, string $hash = ''): bool
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && HashUtility::isHashValid($hash, $mail));
