@@ -5,6 +5,8 @@ namespace In2code\Powermail\Utility;
 use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -21,6 +23,7 @@ class TemplateUtility extends AbstractUtility
      *
      * @param string $part "template", "partial", "layout"
      * @return array
+     * @throws InvalidConfigurationTypeException
      */
     public static function getTemplateFolders($part = 'template')
     {
@@ -52,6 +55,8 @@ class TemplateUtility extends AbstractUtility
      * @param string $pathAndFilename e.g. Email/Name.html
      * @param string $part "template", "partial", "layout"
      * @return string Filename/path
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
     public static function getTemplatePath($pathAndFilename, $part = 'template')
     {
@@ -67,6 +72,8 @@ class TemplateUtility extends AbstractUtility
      * @param string $pathAndFilename Path/filename (Email/Name.html) or path
      * @param string $part "template", "partial", "layout"
      * @return array All existing matches found
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
     public static function getTemplatePaths($pathAndFilename, $part = 'template')
     {
@@ -81,12 +88,14 @@ class TemplateUtility extends AbstractUtility
     }
 
     /**
-     * Get standaloneview with default properties
+     * Get a default Standalone view
      *
      * @param string $extensionName
      * @param string $pluginName
      * @param string $format
      * @return StandaloneView
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
     public static function getDefaultStandAloneView(
         $extensionName = 'Powermail',
@@ -107,10 +116,12 @@ class TemplateUtility extends AbstractUtility
      * This functions renders the powermail_all Template (e.g. useage in Mails)
      *
      * @param Mail $mail
-     * @param string $section Choose a section (web or mail)
-     * @param array $settings TypoScript Settings
-     * @param string $type "createAction", "confirmationAction", "sender", "receiver"
-     * @return string content parsed from powermailAll HTML Template
+     * @param string $section
+     * @param array $settings
+     * @param null $type
+     * @return string
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
     public static function powermailAll(Mail $mail, $section = 'web', $settings = [], $type = null)
     {

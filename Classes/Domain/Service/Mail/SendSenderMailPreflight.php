@@ -5,6 +5,11 @@ namespace In2code\Powermail\Domain\Service\Mail;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class SendSenderMailPreflight
@@ -13,12 +18,12 @@ class SendSenderMailPreflight
 {
 
     /**
-     * @var \In2code\Powermail\Domain\Service\Mail\SendMailService
+     * @var SendMailService
      */
     protected $sendMailService;
 
     /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
+     * @var MailRepository
      */
     protected $mailRepository;
 
@@ -47,10 +52,13 @@ class SendSenderMailPreflight
     }
 
     /**
-     * Mail Generation for Sender
-     *
      * @param Mail $mail
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidControllerNameException
+     * @throws InvalidExtensionNameException
      */
     public function sendSenderMail(Mail $mail)
     {

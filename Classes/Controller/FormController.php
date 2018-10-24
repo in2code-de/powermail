@@ -13,11 +13,13 @@ use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use In2code\Powermail\Utility\OptinUtility;
+use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -65,6 +67,8 @@ class FormController extends AbstractController
      * Rewrite Arguments to receive a clean mail object in createAction
      *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      * @throws StopActionException
      */
     public function initializeCreateAction()
@@ -88,6 +92,8 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
      * @throws IllegalObjectTypeException
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      * @throws UnknownObjectException
@@ -139,6 +145,8 @@ class FormController extends AbstractController
      * Rewrite Arguments to receive a clean mail object in confirmationAction
      *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      * @throws StopActionException
      */
     public function initializeConfirmationAction()
@@ -162,6 +170,8 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
@@ -214,10 +224,10 @@ class FormController extends AbstractController
     }
 
     /**
-     * Prepare output
-     *
      * @param Mail $mail
      * @return void
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
     protected function prepareOutput(Mail $mail)
     {
@@ -272,7 +282,7 @@ class FormController extends AbstractController
         $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
         $labelKey = 'failed';
 
-        if ($mail !== null && OptinUtility::checkOptinHash($hash, $mail)) {
+        if ($mail !== null && HashUtility::isHashValid($hash, $mail)) {
             if ($mail->getHidden()) {
                 $mail->setHidden(false);
                 $this->mailRepository->update($mail);
@@ -283,6 +293,18 @@ class FormController extends AbstractController
             $labelKey = 'done';
         }
         $this->view->assign('labelKey', $labelKey);
+    }
+
+    /**
+     * @param int $mail
+     * @param string $hash
+     * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     */
+    public function disclaimerAction(int $mail, string $hash)
+    {
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
     }
 
     /**
@@ -413,13 +435,14 @@ class FormController extends AbstractController
      *            - optin is active AND hash is correct
      *
      * @param Mail $mail
-     * @param string $hash
+     * @param string|null $hash
      * @return bool
+     * @throws \Exception
      */
     protected function isNoOptin(Mail $mail, string $hash = null): bool
     {
         return empty($this->settings['main']['optin']) ||
-            (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
+            (!empty($this->settings['main']['optin']) && HashUtility::isHashValid($hash, $mail));
     }
 
     /**

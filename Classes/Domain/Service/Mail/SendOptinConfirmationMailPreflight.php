@@ -5,7 +5,7 @@ namespace In2code\Powermail\Domain\Service\Mail;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\ObjectUtility;
-use In2code\Powermail\Utility\OptinUtility;
+use In2code\Powermail\Utility\HashUtility;
 
 /**
  * Class SendOptinConfirmationMailPreflight
@@ -73,7 +73,7 @@ class SendOptinConfirmationMailPreflight
             'rteBody' => '',
             'format' => $this->settings['sender']['mailformat'],
             'variables' => [
-                'hash' => OptinUtility::createOptinHash($mail),
+                'hash' => HashUtility::getHash($mail),
                 'mail' => $mail
             ]
         ];
