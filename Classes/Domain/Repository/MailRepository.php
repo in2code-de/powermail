@@ -8,15 +8,19 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -33,6 +37,7 @@ class MailRepository extends AbstractRepository
      * @param array $settings TypoScript Config Array
      * @param array $piVars Plugin Variables
      * @return QueryResultInterface
+     * @throws InvalidQueryException
      */
     public function findAllInPid($pid = 0, $settings = [], $piVars = [])
     {
@@ -52,6 +57,7 @@ class MailRepository extends AbstractRepository
      * @param QueryResultInterface $result
      * @param QueryInterface $query
      * @return array|QueryResultInterface
+     * @throws InvalidQueryException
      */
     protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query)
     {
@@ -137,9 +143,10 @@ class MailRepository extends AbstractRepository
     /**
      * Query for Pi2
      *
-     * @param array $settings TypoScript Settings
-     * @param array $piVars Plugin Variables
-     * @return QueryResultInterface
+     * @param $settings
+     * @param $piVars
+     * @return array|QueryResultInterface
+     * @throws InvalidQueryException
      */
     public function findListBySettings($settings, $piVars)
     {
@@ -261,6 +268,7 @@ class MailRepository extends AbstractRepository
      * @param string $uidList Commaseparated UID List of mails
      * @param array $sorting array('field' => 'asc')
      * @return QueryResultInterface
+     * @throws InvalidQueryException
      */
     public function findByUidList($uidList, $sorting = [])
     {
@@ -322,6 +330,8 @@ class MailRepository extends AbstractRepository
      * @param Mail $mail
      * @param bool $htmlSpecialChars
      * @return array
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function getVariablesWithMarkersFromMail(Mail $mail, $htmlSpecialChars = false)
     {
@@ -503,8 +513,9 @@ class MailRepository extends AbstractRepository
     /**
      * @param array $piVars
      * @param QueryInterface $query
-     * @param int $pid
+     * @param $pid
      * @return array
+     * @throws InvalidQueryException
      */
     protected function getConstraintsForFindAllInPid(array $piVars, QueryInterface $query, $pid)
     {
@@ -550,5 +561,17 @@ class MailRepository extends AbstractRepository
             }
         }
         return $and;
+    }
+
+    /**
+     * @param int $mailIdentifier
+     * @return void
+     */
+    public function removeFromDatabase(int $mailIdentifier)
+    {
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Mail::TABLE_NAME);
+        $queryBuilder->delete(Mail::TABLE_NAME)->where('uid=' . (int)$mailIdentifier)->execute();
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Answer::TABLE_NAME);
+        $queryBuilder->delete(Answer::TABLE_NAME)->where('mail=' . (int)$mailIdentifier)->execute();
     }
 }

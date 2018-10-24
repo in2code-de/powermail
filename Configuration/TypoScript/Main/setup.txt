@@ -196,6 +196,8 @@ plugin.tx_powermail {
 				# html, plain, both
 				mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
 
+				addDisclaimerLink = {$plugin.tx_powermail.settings.sender.addDisclaimerLink}
+
 				default {
 					senderEmail = TEXT
 					senderEmail.value = {$plugin.tx_powermail.settings.sender.default.senderEmail}

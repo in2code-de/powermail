@@ -3,7 +3,13 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class SendReceiverMailPreflight
@@ -12,7 +18,7 @@ class SendReceiverMailPreflight
 {
 
     /**
-     * @var \In2code\Powermail\Domain\Service\Mail\SendMailService
+     * @var SendMailService
      */
     protected $sendMailService;
 
@@ -33,11 +39,14 @@ class SendReceiverMailPreflight
     }
 
     /**
-     * Mail Generation for Receiver
-     *
      * @param Mail $mail
-     * @param string $hash
+     * @param null $hash
      * @return bool
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidControllerNameException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function sendReceiverMail(Mail $mail, $hash = null)
     {
@@ -67,7 +76,10 @@ class SendReceiverMailPreflight
                 'subject' => $this->settings['receiver']['subject'],
                 'rteBody' => $this->settings['receiver']['body'],
                 'format' => $this->settings['receiver']['mailformat'],
-                'variables' => ['hash' => $hash]
+                'variables' => [
+                    'hash' => $hash,
+                    'L' => FrontendUtility::getSysLanguageUid()
+                ]
             ];
             $isSent = $this->sendMailService->sendMail($email, $mail, $this->settings, 'receiver');
         }

@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\HashUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -82,7 +83,9 @@ class SendOptinConfirmationMailPreflight
             'format' => $this->settings['sender']['mailformat'],
             'variables' => [
                 'hash' => HashUtility::getHash($mail),
-                'mail' => $mail
+                'hashDisclaimer' => HashUtility::getHash($mail, 'disclaimer'),
+                'mail' => $mail,
+                'L' => FrontendUtility::getSysLanguageUid()
             ]
         ];
         $this->sendMailService->sendMail($email, $mail, $this->settings, 'optin');

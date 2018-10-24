@@ -4,6 +4,8 @@ namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
@@ -77,7 +79,11 @@ class SendSenderMailPreflight
             'replyToName' => $senderService->getSenderName(),
             'subject' => $this->settings['sender']['subject'],
             'rteBody' => $this->settings['sender']['body'],
-            'format' => $this->settings['sender']['mailformat']
+            'format' => $this->settings['sender']['mailformat'],
+            'variables' => [
+                'hashDisclaimer' => HashUtility::getHash($mail, 'disclaimer'),
+                'L' => FrontendUtility::getSysLanguageUid()
+            ]
         ];
         $this->sendMailService->sendMail($email, $mail, $this->settings, 'sender');
     }

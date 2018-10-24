@@ -194,7 +194,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return void
      */
-    protected function sendMailPreflight(Mail $mail, string $hash = null)
+    protected function sendMailPreflight(Mail $mail, string $hash = '')
     {
         try {
             if ($this->isSenderMailEnabled() && $this->mailRepository->getSenderMailFromArguments($mail)) {
@@ -230,6 +230,8 @@ class FormController extends AbstractController
      * @return void
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function prepareOutput(Mail $mail)
     {
@@ -250,8 +252,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * Save mail on submit
-     *
      * @param Mail $mail
      * @return void
      * @throws IllegalObjectTypeException
@@ -301,12 +301,18 @@ class FormController extends AbstractController
      * @param int $mail
      * @param string $hash
      * @return void
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws \Exception
      */
     public function disclaimerAction(int $mail, string $hash)
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
+        $mail = $this->mailRepository->findByUid($mail);
+        $status = false;
+        if ($mail !== null && HashUtility::isHashValid($hash, $mail, 'disclaimer')) {
+            $this->mailRepository->removeFromDatabase($mail->getUid());
+            $status = true;
+        }
+        $this->view->assign('status', $status);
     }
 
     /**
