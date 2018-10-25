@@ -18,6 +18,17 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.0.0
+   :Date:
+      2018-10-25
+   :Changes:
+
+      * Feature: Add a disclaimer link functionality to sender- and optinmail (sender can remove his own mail completely from database now)
+      * Task: Increase general hash length from 10 to 64 characters (optin links and new disclaimer links)
+      * Task: Some cleanup
+      * Bugfix: Reanimate location field (broken because of change in the google API). Now we're using openstreetmap for this.
+
+ - :Version:
       6.2.0
    :Date:
       2018-10-21

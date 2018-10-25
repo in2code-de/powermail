@@ -1,0 +1,6 @@
+<f:if condition="{settings.sender.addDisclaimerLink}">
+	<p>
+		<f:translate key="disclaimer_mailmessage">Do you want to delete your request?</f:translate><br />
+		<f:link.action action="disclaimer" absolute="1" arguments="{mail:mail,hash:hashDisclaimer}" additionalParams="{L:L}"><f:translate key="disclaimer_mailmessage_link">delete</f:translate></f:link.action>
+	</p>
+</f:if>

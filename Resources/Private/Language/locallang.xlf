@@ -111,6 +111,21 @@
 			<trans-unit id="optin_mail_confirm_done">
 				<source>The mail was already confirmed</source>
 			</trans-unit>
+			<trans-unit id="disclaimer_mail_deleted">
+				<source>Mail was successfully deleted</source>
+			</trans-unit>
+			<trans-unit id="disclaimer_mailmessage">
+				<source>Was this email a mistake and you want to delete your request?</source>
+			</trans-unit>
+			<trans-unit id="disclaimer_mailmessage_link">
+				<source>Delete all email data.</source>
+			</trans-unit>
+			<trans-unit id="disclaimed_subject">
+				<source>Email was just disclaimed</source>
+			</trans-unit>
+			<trans-unit id="disclaimed_entries">
+				<source>This data was completely disclaimed:</source>
+			</trans-unit>
 			<trans-unit id="error_mail_not_created">
 				<source>Error, Mail could not sent correctly!</source>
 			</trans-unit>
@@ -129,8 +144,15 @@
 			<trans-unit id="error_no_form">
 				<source>No form to show</source>
 			</trans-unit>
+			<trans-unit id="error_mail_not_deleted">
+				<source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+				<target state="translated">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+			</trans-unit>
 			<trans-unit id="error_wrong_captcha">
 				<source>Wrong Captcha value, please try again!</source>
+			</trans-unit>
+			<trans-unit id="error_mail_not_deleted">
+				<source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
 			</trans-unit>
 			<trans-unit id="validationerror_mandatory">
 				<source>This field must be filled!</source>

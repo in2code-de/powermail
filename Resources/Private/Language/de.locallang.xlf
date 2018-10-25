@@ -148,6 +148,26 @@
 				<source>The mail was already confirmed</source>
 				<target state="translated">Die Nachricht wurde bereits bestätigt</target>
 			</trans-unit>
+			<trans-unit id="disclaimer_mail_deleted">
+				<source>Mail was successfully deleted</source>
+				<target state="translated">Die Nachricht wurde erfolgreich gelöscht</target>
+			</trans-unit>
+			<trans-unit id="disclaimer_mailmessage">
+				<source>Was this email a mistake and you want to delete your request?</source>
+				<target state="translated">Handelt es sich bei dieser E-Mail um ein Versehen und möchten Sie Ihre Anfrage löschen?</target>
+			</trans-unit>
+			<trans-unit id="disclaimer_mailmessage_link">
+				<source>Delete all email data.</source>
+				<target state="translated">E-Mail Daten vollständig löschen.</target>
+			</trans-unit>
+			<trans-unit id="disclaimed_subject">
+				<source>Email was just disclaimed</source>
+				<target state="translated">Eine E-Mail wurde vom Benutzer zurückgezogen</target>
+			</trans-unit>
+			<trans-unit id="disclaimed_entries">
+				<source>This data was completely disclaimed:</source>
+				<target state="translated">Diese Angaben wurden vollständig zurückgezogen:</target>
+			</trans-unit>
 			<trans-unit id="error_mail_not_created">
 				<source>Error, Mail could not sent correctly!</source>
 				<target state="translated">Fehler, die Nachricht konnte leider nicht korrekt versendet werden!</target>
@@ -175,6 +195,10 @@
 			<trans-unit id="error_wrong_captcha">
 				<source>Wrong Captcha value, please try again!</source>
 				<target state="translated">Falschen Code eingetragen, bitte erneut versuchen!</target>
+			</trans-unit>
+			<trans-unit id="error_mail_not_deleted">
+				<source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+				<target state="translated">Die Nachricht konnte nicht gelöscht werden. Fehlerhafter Link oder Nachricht wurde bereits zuvor gelöscht.</target>
 			</trans-unit>
 			<trans-unit id="validationerror_mandatory">
 				<source>This field must be filled!</source>
