@@ -280,6 +280,15 @@ Constants Overview
       both
 
  - :Constants:
+      sender.addDisclaimerLink
+   :Description:
+      Add disclaimer link: Add disclaimer link to the sender email (also in optin mail)
+   :Type:
+      bool
+   :Default:
+      1
+
+ - :Constants:
       sender.default.senderName
    :Description:
       Default Sender Name: Sendername if no sender name given
@@ -1040,6 +1049,8 @@ Setup
                     # html, plain, both
                     mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
 
+                    addDisclaimerLink = {$plugin.tx_powermail.settings.sender.addDisclaimerLink}
+
                     default {
                         senderEmail = TEXT
                         senderEmail.value = {$plugin.tx_powermail.settings.sender.default.senderEmail}
@@ -1147,6 +1158,11 @@ Setup
     #					senderEmail = TEXT
     #					senderEmail.value = sender@mail.com
                     }
+                }
+
+                disclaimer {
+                    subject = TEXT
+                    subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:disclaimed_subject
                 }
 
 
@@ -1275,9 +1291,9 @@ Setup
                             }
                         }
 
-                        # Session check
+                        # Session check: Enabling session check means to store a cookie on form load. If forms are submitted powermail checks for that cookie again. If this check is disabled, powermail will not set a cookie by default.
                         4 {
-                            _enable = 1
+                            _enable = 0
 
                             # Spamcheck name
                             name = Session check
@@ -1883,5 +1899,3 @@ Setup
         }
     }
     [end]
-
-
