@@ -11,6 +11,8 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class MailFactory
@@ -22,6 +24,8 @@ class MailFactory
      * @param Mail $mail
      * @param array $settings
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      * @codeCoverageIgnore
      */
     public function prepareMailForPersistence(Mail $mail, array $settings)

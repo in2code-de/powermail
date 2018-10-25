@@ -259,6 +259,8 @@ class FormController extends AbstractController
      * @param Mail $mail
      * @return void
      * @throws IllegalObjectTypeException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      * @codeCoverageIgnore
      */
     protected function saveMail(Mail $mail)
