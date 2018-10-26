@@ -385,7 +385,7 @@ class SendMailService
      */
     protected function updateMail(array $email)
     {
-        if ($this->type === 'receiver' && $email['variables']['hash'] === null) {
+        if ($this->type === 'receiver' && $email['variables']['hash'] === '') {
             $this->mail->setSenderMail($email['senderEmail']);
             $this->mail->setSenderName($email['senderName']);
             $this->mail->setReceiverMail($email['receiverEmail']);
