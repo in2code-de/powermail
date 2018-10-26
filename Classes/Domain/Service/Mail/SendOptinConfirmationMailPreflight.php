@@ -55,7 +55,7 @@ class SendOptinConfirmationMailPreflight
     public function sendOptinConfirmationMail(Mail $mail)
     {
         $email = [
-            'template' => 'Mail/OptinMail',
+            'template' => $this->settings['main']['optin_template'] ?: 'Mail/OptinMail',
             'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
             'receiverName' => $this->mailRepository->getSenderNameFromArguments(
                 $mail,
@@ -65,10 +65,7 @@ class SendOptinConfirmationMailPreflight
             'senderName' => $this->settings['sender']['name'],
             'replyToEmail' => $this->settings['sender']['email'],
             'replyToName' => $this->settings['sender']['name'],
-            'subject' => ObjectUtility::getContentObject()->cObjGetSingle(
-                $this->conf['optin.']['subject'],
-                $this->conf['optin.']['subject.']
-            ),
+            'subject' => $this->settings['main']['optin_subject'] ?: $this->getDefaultSubject(),
             'rteBody' => '',
             'format' => $this->settings['sender']['mailformat'],
             'variables' => [
@@ -77,5 +74,16 @@ class SendOptinConfirmationMailPreflight
             ]
         ];
         $this->sendMailService->sendMail($email, $mail, $this->settings, 'optin');
+    }
+
+    /**
+     * @return string
+     */
+    private function getDefaultSubject()
+    {
+        return ObjectUtility::getContentObject()->cObjGetSingle(
+            $this->conf['optin.']['subject'],
+            $this->conf['optin.']['subject.']
+        );
     }
 }

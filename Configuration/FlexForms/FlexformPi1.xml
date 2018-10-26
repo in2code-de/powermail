@@ -60,8 +60,32 @@
 								<type>check</type>
 								<default>0</default>
 							</config>
+							<onChange>reload</onChange>
 						</TCEforms>
 					</settings.flexform.main.optin>
+					<settings.flexform.main.optin_subject>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.main.optin_subject</label>
+							<displayCond>FIELD:settings.flexform.main.optin:!=:0</displayCond>
+							<config>
+								<type>input</type>
+								<eval>trim</eval>
+							</config>
+						</TCEforms>
+					</settings.flexform.main.optin_subject>
+					<settings.flexform.main.optin_template>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.main.optin_template</label>
+							<displayCond>FIELD:settings.flexform.main.optin:!=:0</displayCond>
+							<config>
+								<type>input</type>
+								<eval>trim</eval>
+								<default>Mail/OptinMail</default>
+							</config>
+						</TCEforms>
+					</settings.flexform.main.optin_template>
 					<settings.flexform.main.moresteps>
 						<TCEforms>
 							<exclude>1</exclude>

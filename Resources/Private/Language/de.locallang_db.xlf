@@ -608,6 +608,14 @@
 				<source>Mail must be confirmed (Double Opt-In)</source>
 				<target state="translated">E-Mail muss bestätigt werden (Double Opt-In)</target>
 			</trans-unit>
+			<trans-unit id="flexform.main.optin_subject">
+				<source>Opt-In Mail Subject</source>
+				<target>Opt-In E-Mail-Betreff</target>
+			</trans-unit>
+			<trans-unit id="flexform.main.optin_template">
+				<source>Opt-In Mail Template File (relative to template root path)</source>
+				<target>Opt-In E-Mail-Template (relativ zum Template Root Path)</target>
+			</trans-unit>
 			<trans-unit id="flexform.main.confirmation">
 				<source>Do you want a confirmation page?</source>
 				<target state="translated">Bestätigungsseite aktivieren</target>

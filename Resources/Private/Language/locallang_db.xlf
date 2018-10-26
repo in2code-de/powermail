@@ -457,6 +457,12 @@
 			<trans-unit id="flexform.main.optin">
 				<source>Mail must be confirmed (Double Opt-In)</source>
 			</trans-unit>
+			<trans-unit id="flexform.main.optin_subject">
+				<source>Opt-In Mail Subject</source>
+			</trans-unit>
+			<trans-unit id="flexform.main.optin_template">
+				<source>Opt-In Mail Template File (relative to template root path)</source>
+			</trans-unit>
 			<trans-unit id="flexform.main.confirmation">
 				<source>Do you want a confirmation page?</source>
 			</trans-unit>
