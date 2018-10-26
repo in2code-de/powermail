@@ -60,7 +60,7 @@ contributors that helped to improve the extension with their *Pull Requests* - t
 
 ### 2.7. Release Management
 
-Powermail uses **semantic versioning** which basicly means for you, that
+Powermail uses **semantic versioning** which basically means for you, that
 - **bugfix updates** (e.g. 1.0.0 => 1.0.1) just includes small bugfixes or security relevant stuff without breaking changes.
 - **minor updates** (e.g. 1.0.0 => 1.1.0) includes new features and smaller tasks without breaking changes.
 - **major updates** (e.g. 1.0.0 => 2.0.0) normally includes basic refactoring, new features and also breaking changes.
