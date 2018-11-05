@@ -244,7 +244,7 @@ class CalculatingCaptchaService
 
         return [
             'result' => $result,
-            'string' => $number1 . ' ' . $operator . ' ' . $number2
+            'string' => $number1 . ' ' . $operator . ' ' . $number2 . ' ='
         ];
     }
 
