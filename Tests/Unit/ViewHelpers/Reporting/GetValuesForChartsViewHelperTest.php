@@ -2,12 +2,13 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Reporting;
 
 use In2code\Powermail\ViewHelpers\Reporting\GetValuesForChartsViewHelper;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class GetValuesForChartsViewHelperTest
  * @coversDefaultClass \In2code\Powermail\ViewHelpers\Reporting\GetValuesForChartsViewHelper
  */
-class GetValuesForChartsViewHelperTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class GetValuesForChartsViewHelperTest extends UnitTestCase
 {
 
     /**

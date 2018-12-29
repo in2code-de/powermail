@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Model;
 
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Model\FieldFixture;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class FieldTest

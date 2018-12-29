@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Condition;
 
 use In2code\Powermail\ViewHelpers\Condition\IsNotExcludedFromPowermailAllViewHelper;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class IsNotExcludedFromPowermailAllViewHelperTest

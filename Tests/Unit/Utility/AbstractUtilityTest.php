@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Tests\Unit\Fixtures\Utility\AbstractUtilityFixture;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class AbstractUtilityTest
