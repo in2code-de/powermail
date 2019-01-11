@@ -85,12 +85,6 @@ call_user_func(function () {
         'EXT:powermail/Classes/Eid/GetLocationEid.php';
 
     /**
-     * eID to store marketing information
-     */
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidMarketing'] =
-        'EXT:powermail/Classes/Eid/MarketingEid.php';
-
-    /**
      * CommandController for powermail tasks
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] =
