@@ -112,6 +112,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
         $value = $this->getFromTypoScriptContentObject($value);
         $value = $this->getFromTypoScriptRaw($value);
         $value = $this->getFromSession($value);
+        $value = $this->getFromDefaultValue($value);
         $this->setValue($value);
     }
 
@@ -268,6 +269,20 @@ class PrefillFieldViewHelper extends AbstractViewHelper
                     }
                 }
             }
+        }
+        return $value;
+    }
+
+    /**
+     * Get value from default ViewHelper argument
+     *
+     * @param string $value
+     * @return string
+     */
+    protected function getFromDefaultValue(string $value): string
+    {
+        if (empty($value)) {
+            $value = $this->getValue();
         }
         return $value;
     }
