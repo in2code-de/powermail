@@ -18,6 +18,20 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.1.0 (!!!)
+   :Date:
+      2019-01-12
+   :Changes:
+
+      * Task: Unit test update
+      * Task: Remove deprecated keys in ext_emconf.php
+      * !!! Bugfix: Make JavaScript work again in BE-Module in TYPO3 9.5 - Path of all JavaScript files changes from Resources/Public/JavaScripts/ to Resources/Public/JavaScript/ - maybe you have to adjust your TypoScript
+      * Bugfix: Allow default values directly in PrefillFieldViewHelper
+      * Bugfix: No mails are sent if database storing was disabled with the disclaimer feature
+      * Bugfix: Remove outdated eID inclusion
+      * Bugfix: Show only allowed froms in plugin (in TYPO3 9.5)
+
+ - :Version:
       7.0.0
    :Date:
       2018-10-25
