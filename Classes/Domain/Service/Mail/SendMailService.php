@@ -385,7 +385,7 @@ class SendMailService
      */
     protected function updateMail(array $email)
     {
-        if ($this->type === 'receiver' && $email['variables']['hash'] === null) {
+        if ($this->type === 'receiver' && $email['variables']['hash'] === '') {
             $this->mail->setSenderMail($email['senderEmail']);
             $this->mail->setSenderName($email['senderName']);
             $this->mail->setReceiverMail($email['receiverEmail']);
@@ -409,6 +409,8 @@ class SendMailService
      * @param array $email
      * @param Mail $mail
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function parseAndOverwriteVariables(array &$email, Mail $mail)
     {
@@ -440,8 +442,11 @@ class SendMailService
      * @param Mail $mail
      * @param array $settings
      * @param string $type
+     * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    protected function initialize(Mail &$mail, array $settings, $type)
+    protected function initialize(Mail &$mail, array $settings, string $type)
     {
         $this->mail = &$mail;
         $this->settings = $settings;

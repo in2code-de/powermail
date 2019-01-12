@@ -1039,10 +1039,10 @@ page.includeJSFooterlibs.powermailJQuery.external = 1
 page {
 	# Inlude JavaScript files
 	includeJSFooter {
-		powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/Libraries/jquery.datetimepicker.min.js
-		powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/Libraries/parsley.min.js
-		powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/Powermail/Tabs.min.js
-		powermailForm = EXT:powermail/Resources/Public/JavaScripts/Powermail/Form.min.js
+		powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScript/Libraries/jquery.datetimepicker.min.js
+		powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScript/Libraries/parsley.min.js
+		powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScript/Powermail/Tabs.min.js
+		powermailForm = EXT:powermail/Resources/Public/JavaScript/Powermail/Form.min.js
 	}
 }
 [end]

@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Unit\Tests\Eid;
 
 use In2code\Powermail\Eid\GetLocationEid;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class GetLocationEidTest

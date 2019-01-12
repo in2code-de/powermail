@@ -153,7 +153,7 @@ EXT:powermailextended/Resources/Private/Partials/Form/Field/Input.html:
   		{field.txPowermailextendedPowermailText}
   	</h2>
   	<label for="powermail_field_{field.marker}" class="powermail_label" title="{field.description}">
-		<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
+		<vh:string.escapeLabels>{field.title}</vh:string.escapeLabels><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
   	</label>
   	<f:if condition="{field.txPowermailextendedPowermailReadonly}">
 		<f:then>

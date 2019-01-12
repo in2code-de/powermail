@@ -39,6 +39,7 @@ Please look into the [official extension documentation in changelog chapter](htt
 - **powermailrecaptcha** Google recaptcha [Link](https://github.com/einpraegsam/powermailrecaptcha)
 - **invisiblerecaptcha** Google invisible recaptcha [Link](https://github.com/einpraegsam/invisiblerecaptcha)
 - **powermailextended** Is just an example extension how to extend powermail with new fields or use signals [Link](https://github.com/einpraegsam/powermailextended)
+- **powermail_cond** Add conditions (via AJAX) to powermail forms for fields and pages [Link](https://github.com/einpraegsam/powermail_cond)
 - **powermail_fastexport** Extend powermail for faster export to .xlsx / .csv files. This is useful if you have many records to be exported. [Link](https://github.com/bithost-gmbh/powermail_fastexport)
 
 ### 2.4. Conflicts
@@ -59,7 +60,7 @@ contributors that helped to improve the extension with their *Pull Requests* - t
 
 ### 2.7. Release Management
 
-Powermail uses **semantic versioning** which basicly means for you, that
+Powermail uses **semantic versioning** which basically means for you, that
 - **bugfix updates** (e.g. 1.0.0 => 1.0.1) just includes small bugfixes or security relevant stuff without breaking changes.
 - **minor updates** (e.g. 1.0.0 => 1.1.0) includes new features and smaller tasks without breaking changes.
 - **major updates** (e.g. 1.0.0 => 2.0.0) normally includes basic refactoring, new features and also breaking changes.

@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Tests\Unit\Condition;
 
 use In2code\Powermail\Condition\IsPowermailSubmittedCondition;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class IsPowermailSubmittedConditionTest

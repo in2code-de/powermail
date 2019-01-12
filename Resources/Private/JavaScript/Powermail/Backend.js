@@ -638,10 +638,51 @@ function PowermailBackend($) {
 	window.PowermailBackend = PowermailBackend;
 }
 
-jQuery(document).ready(function($) {
-	var PowermailBackend = new window.PowermailBackend($);
-	PowermailBackend.initialize();
+requirejs.config({
+	map: {
+		'*': {
+			'jquery.flot.min': 'TYPO3/CMS/Powermail/Libraries/jquery.flot.min'
+		}
+	},
+	shim: {
+		'TYPO3/CMS/Powermail/Libraries/jquery-ui.min': {
+			deps: ['jquery'],
+			exports: 'jQuery'
+		},
+		'TYPO3/CMS/Powermail/Libraries/jquery.datetimepicker.min': {
+			deps: ['jquery', 'TYPO3/CMS/Powermail/Libraries/jquery.flot.min'],
+			exports: 'jQuery'
+		},
+		'TYPO3/CMS/Powermail/Libraries/jquery.flot.min': {
+			deps: ['jquery'],
+			exports: 'jQuery'
+		},
+		'TYPO3/CMS/Powermail/Libraries/jquery.flot.pie.min': {
+			deps: ['jquery', 'TYPO3/CMS/Powermail/Libraries/jquery.flot.min'],
+			exports: 'jQuery'
+		},
+		'TYPO3/CMS/Powermail/Libraries/bootstrap.min': {
+			deps: ['jquery'],
+			exports: 'jQuery'
+		}
+	}
 });
+define(
+	[
+		'jquery',
+		'TYPO3/CMS/Powermail/Libraries/jquery-ui.min',
+		'TYPO3/CMS/Powermail/Libraries/jquery.datetimepicker.min',
+		'TYPO3/CMS/Powermail/Libraries/jquery.flot.min',
+		'TYPO3/CMS/Powermail/Libraries/jquery.flot.pie.min',
+		'TYPO3/CMS/Powermail/Libraries/bootstrap.min',
+	],
+	function($) {
+	$(document).ready(function($) {
+		var PowermailBackend = new window.PowermailBackend($);
+		PowermailBackend.initialize();
+	});
+});
+
 
 
 

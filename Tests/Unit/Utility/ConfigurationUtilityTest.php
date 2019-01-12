@@ -3,7 +3,7 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class ConfigurationUtilityTest

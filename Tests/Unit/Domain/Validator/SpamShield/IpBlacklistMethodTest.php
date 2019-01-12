@@ -3,7 +3,7 @@ namespace In2code\Powermail\Tests\Domain\Unit\Validator\Spamshield;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\IpBlacklistMethod;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class IpBlacklistMethodTest

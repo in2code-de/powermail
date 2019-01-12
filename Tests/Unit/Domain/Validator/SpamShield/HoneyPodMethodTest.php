@@ -3,7 +3,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class HoneyPodMethodTest

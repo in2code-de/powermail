@@ -33,7 +33,7 @@ page.3131 {
 # Add JavaScript
 page {
 	includeJSFooter {
-		powermailMarketing = EXT:powermail/Resources/Public/JavaScripts/Powermail/Marketing.min.js
+		powermailMarketing = EXT:powermail/Resources/Public/JavaScript/Powermail/Marketing.min.js
 	}
 }
 
