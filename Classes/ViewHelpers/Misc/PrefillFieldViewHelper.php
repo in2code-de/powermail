@@ -282,7 +282,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     protected function getFromDefaultValue(string $value): string
     {
         if (empty($value)) {
-            $value = $this->getValue();
+            $value = (string)$this->getValue();
         }
         return $value;
     }
