@@ -127,7 +127,7 @@ class FormSelectorUserFunc
      */
     protected function getWhereStatement(int $startPid, int $language): string
     {
-        $where = 'sys_language_uid IN (-1,0) or (l10n_parent = 0 and sys_language_uid = ' . (int)$language . ')';
+        $where = '(sys_language_uid IN (-1,0) or (l10n_parent = 0 and sys_language_uid = ' . (int)$language . '))';
         if (!empty($startPid)) {
             $where .= ' and pid in (' . $this->getPidListFromStartingPoint($startPid) . ')';
         }
