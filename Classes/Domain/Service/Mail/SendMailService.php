@@ -67,7 +67,7 @@ class SendMailService
      *        $email['template'] = 'PathToTemplate/';
      *        $email['rteBody'] = 'This is the <b>content</b> of the RTE';
      *        $email['format'] = 'both'; // or plain or html
-     * @param Mail &$mail
+     * @param Mail $mail
      * @param array $settings TypoScript Settings
      * @param string $type Email to "sender" or "receiver"
      * @return bool Mail successfully sent
@@ -77,7 +77,7 @@ class SendMailService
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
-    public function sendMail(array $email, Mail &$mail, array $settings, $type = 'receiver')
+    public function sendMail(array $email, Mail $mail, array $settings, $type = 'receiver')
     {
         $this->initialize($mail, $settings, $type);
         $this->parseAndOverwriteVariables($email, $mail);
@@ -93,11 +93,12 @@ class SendMailService
             // don't want an error flashmessage
             return true;
         }
-        return $this->prepareAndSend($email);
+        return $this->prepareAndSend($email, $mail);
     }
 
     /**
      * @param array $email
+     * @param Mail $mail
      * @return bool
      * @throws InvalidConfigurationTypeException
      * @throws InvalidControllerNameException
@@ -105,7 +106,7 @@ class SendMailService
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
-    protected function prepareAndSend(array $email)
+    protected function prepareAndSend(array $email, Mail $mail)
     {
         /** @var MailMessage $message */
         $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
@@ -126,7 +127,7 @@ class SendMailService
         $message = $this->addPlainBody($message, $email);
         $message = $this->addSenderHeader($message);
 
-        $signalArguments = [$message, &$email, $this];
+        $signalArguments = [$message, &$email, $this, $mail];
         $this->signalDispatch(__CLASS__, 'sendTemplateEmailBeforeSend', $signalArguments);
 
         $message->send();
