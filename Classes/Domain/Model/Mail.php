@@ -137,6 +137,15 @@ class Mail extends AbstractEntity
      * @var array
      */
     protected $answersByFieldUid = null;
+    
+    /**
+     * This property can be used by extensions to hold some data over a request
+     * Use e.g. extension key as array key
+     
+     * @var array
+     * @transient
+     */
+    protected $additionalData = [];
 
     /**
      * __construct
@@ -713,5 +722,30 @@ class Mail extends AbstractEntity
             }
         }
         return $answers;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getAdditionalData(): array
+    {
+        return $this->additionalData;
+    }
+
+    /**
+     * @param array $additionalData
+     */
+    public function setAdditionalData($additionalData)
+    {
+        $this->additionalData = $additionalData;
+    }
+    
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
+    public function addAdditionalData($key, $value)
+    {
+        $this->additionalData[$key] = $value;
     }
 }
