@@ -18,6 +18,18 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.2.0
+   :Date:
+      2019-02-18
+   :Changes:
+
+      * Task: Small code cleanup
+      * Feature: Add a transient property to mail model
+      * Bugfix: Prevent type hint exception in PrefillFieldViewHelper
+      * Bugfix: Fix a typo in a css class for a loading bar (AJAX submit)
+      * Bugfix: Fixed a small typo
+
+ - :Version:
       7.1.0 (!!!)
    :Date:
       2019-01-12

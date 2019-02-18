@@ -108,7 +108,7 @@ Example for table tt_address:
 		}
 	}
 
-Best pracitce
+Best practice
 """""""""""""
 
 If you want to enable the function not for every form but for some special cases, the whole world of TypoScript is open
@@ -116,14 +116,14 @@ to you
 
 .. code-block:: text
 
-    # Enabe function only if a special marker is given
+    # Enable function only if a special marker is given
     plugin.tx_powermail.settings.setup.dbEntry.1._enable = TEXT
     plugin.tx_powermail.settings.setup.dbEntry.1._enable.value = 1
     plugin.tx_powermail.settings.setup.dbEntry.1._enable.if.isTrue.data = GP:tx_powermail_pi1|field|anymarkername
 
 .. code-block:: text
 
-    # Enabe function only if the form is located on a defined PID (e.g. 123 in this case)
+    # Enable function only if the form is located on a defined PID (e.g. 123 in this case)
     plugin.tx_powermail.settings.setup.dbEntry.1._enable = TEXT
     plugin.tx_powermail.settings.setup.dbEntry.1._enable.value = 1
     plugin.tx_powermail.settings.setup.dbEntry.1._enable.if.value = 123

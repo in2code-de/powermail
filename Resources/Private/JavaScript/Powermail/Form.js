@@ -391,7 +391,7 @@ function PowermailForm($) {
 
 	/**
 	 * Get markup for progressbar
-	 * 		div.powermail_progressbar>div.powermail_progress>div.powermail_progess_inner
+	 * 		div.powermail_progressbar>div.powermail_progress>div.powermail_progress_inner
 	 *
 	 * @returns {jQuery}
 	 * @private
@@ -399,7 +399,7 @@ function PowermailForm($) {
 	var getProgressbar = function() {
 		return $('<div />').addClass('powermail_progressbar').html(
 			$('<div />').addClass('powermail_progress').html(
-				$('<div />').addClass('powermail_progess_inner')
+				$('<div />').addClass('powermail_progress_inner')
 			)
 		);
 	};
