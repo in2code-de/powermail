@@ -67,7 +67,7 @@ class SendMailService
      *        $email['template'] = 'PathToTemplate/';
      *        $email['rteBody'] = 'This is the <b>content</b> of the RTE';
      *        $email['format'] = 'both'; // or plain or html
-     * @param Mail &$mail
+     * @param Mail $mail
      * @param array $settings TypoScript Settings
      * @param string $type Email to "sender" or "receiver"
      * @return bool Mail successfully sent
@@ -77,7 +77,7 @@ class SendMailService
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
-    public function sendMail(array $email, Mail &$mail, array $settings, $type = 'receiver')
+    public function sendMail(array $email, Mail $mail, array $settings, $type = 'receiver')
     {
         $this->initialize($mail, $settings, $type);
         $this->parseAndOverwriteVariables($email, $mail);
@@ -446,9 +446,9 @@ class SendMailService
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
-    protected function initialize(Mail &$mail, array $settings, string $type)
+    protected function initialize(Mail $mail, array $settings, string $type)
     {
-        $this->mail = &$mail;
+        $this->mail = $mail;
         $this->settings = $settings;
         $this->configuration = $this->getConfigurationFromSettings($settings);
         $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
