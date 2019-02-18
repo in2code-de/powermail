@@ -141,7 +141,7 @@ class Mail extends AbstractEntity
     /**
      * This property can be used by extensions to hold some data over a request
      * Use e.g. extension key as array key
-     
+     *
      * @var array
      * @transient
      */
@@ -735,7 +735,7 @@ class Mail extends AbstractEntity
     /**
      * @param array $additionalData
      */
-    public function setAdditionalData($additionalData)
+    public function setAdditionalData(array $additionalData)
     {
         $this->additionalData = $additionalData;
     }
@@ -744,7 +744,7 @@ class Mail extends AbstractEntity
      * @param string $key
      * @param mixed $value
      */
-    public function addAdditionalData($key, $value)
+    public function addAdditionalData(string $key, $value)
     {
         $this->additionalData[$key] = $value;
     }
