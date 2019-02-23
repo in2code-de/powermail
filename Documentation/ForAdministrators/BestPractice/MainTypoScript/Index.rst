@@ -1396,6 +1396,7 @@ Setup
                         size = {$plugin.tx_powermail.settings.misc.uploadSize}
                         extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
                         randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
+                        randomizePrependOriginalFileName = {$plugin.tx_powermail.settings.misc.randomizePrependOriginalFileName}
                     }
 
                     datepicker {

@@ -240,7 +240,7 @@ class UploadService implements SingletonInterface
             if (!$file->isUploaded()) {
                 $fileName = $file->getNewName();
                 if ($this->isRandomizeFileNameConfigured()) {
-                    $fileName = $this->randomizeFileName($file->getNewName());
+                    $fileName = $this->randomizeFileName($file->getNewName(), $this->isPrependOriginalFileNameConfigured());
                     $file->renameName($fileName);
                 }
                 for ($i = 1; $this->isNotUniqueFilename($file); $i++) {
@@ -285,12 +285,20 @@ class UploadService implements SingletonInterface
 
     /**
      * @param string $filename
+     * @param bool $prependOriginalFileName
+     *
      * @return string
      */
-    protected function randomizeFileName($filename)
+    protected function randomizeFileName($filename, $prependOriginalFileName = false)
     {
         $fileInfo = pathinfo($filename);
-        return StringUtility::getRandomString(32, false) . '.' . $fileInfo['extension'];
+        $randomizedFileName = '';
+        if ($prependOriginalFileName) {
+            $randomizedFileName .= $fileInfo['filename'] . '-';
+        }
+        $randomizedFileName .= StringUtility::getRandomString(32, false);
+        $randomizedFileName .= '.' . $fileInfo['extension'];
+        return $randomizedFileName;
     }
 
     /**
@@ -328,6 +336,14 @@ class UploadService implements SingletonInterface
     protected function isRandomizeFileNameConfigured()
     {
         return $this->settings['misc']['file']['randomizeFileName'] === '1';
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isPrependOriginalFileNameConfigured()
+    {
+        return $this->settings['misc']['file']['randomizePrependOriginalFileName'] === '1';
     }
 
     /**
