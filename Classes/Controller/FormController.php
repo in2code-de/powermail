@@ -360,7 +360,7 @@ class FormController extends AbstractController
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->info('Powermail settings', $this->settings);
         }
-        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [&$this->settings, $this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this, &$this->settings]);
     }
 
     /**
