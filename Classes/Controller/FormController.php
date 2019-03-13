@@ -488,7 +488,7 @@ class FormController extends AbstractController
      */
     protected function isSenderMailEnabled(): bool
     {
-        return $this->settings['sender']['enable'] === '1';
+        return $this->settings['sender']['enable'] === '1' && $this->settings['sender']['subject'] !== '';
     }
 
     /**
@@ -496,7 +496,7 @@ class FormController extends AbstractController
      */
     protected function isReceiverMailEnabled(): bool
     {
-        return $this->settings['receiver']['enable'] === '1';
+        return $this->settings['receiver']['enable'] === '1' && $this->settings['receiver']['subject'] !== '';
     }
 
     /**
