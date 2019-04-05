@@ -14,6 +14,7 @@ use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * Controller for powermail frontend output in Pi2
@@ -150,7 +151,7 @@ class OutputController extends AbstractController
 
     /**
      * @param array $export Field Array with mails and format
-     * @dontvalidate $export
+     * @Extbase\IgnoreValidation("export")
      * @return void
      * @throws StopActionException
      */
@@ -178,8 +179,8 @@ class OutputController extends AbstractController
     /**
      * @param QueryResult $mails mails objects
      * @param array $fields uid field list
-     * @dontvalidate $mails
-     * @dontvalidate $fields
+     * @Extbase\IgnoreValidation("mails")
+     * @Extbase\IgnoreValidation("fields")
      * @return    void
      */
     public function exportXlsAction(QueryResult $mails = null, $fields = [])
@@ -191,8 +192,8 @@ class OutputController extends AbstractController
     /**
      * @param QueryResult $mails mails objects
      * @param array $fields uid field list
-     * @dontvalidate $mails
-     * @dontvalidate $fields
+     * @Extbase\IgnoreValidation("mails")
+     * @Extbase\IgnoreValidation("fields")
      * @return void
      */
     public function exportCsvAction(QueryResult $mails = null, $fields = [])
