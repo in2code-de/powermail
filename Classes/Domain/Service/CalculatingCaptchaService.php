@@ -49,7 +49,7 @@ class CalculatingCaptchaService
      *
      * @var string
      */
-    protected $imagePath = 'typo3temp/tx_powermail/';
+    protected $imagePath = 'typo3temp/assets/tx_powermail/';
 
     /**
      * Relative path and filename of captcha image

@@ -26,4 +26,4 @@ You can call a scheduler task directly from the console (if the backend user _cl
 .. code-block:: text
 
 	typo3/cli_dispatch.phpsh extbase task:cleanunuseduploads
-	# typo3/cli_dispatch.phpsh extbase task:cleanunuseduploads --uploadPath="typo3temp/tx_powermail"
+	# typo3/cli_dispatch.phpsh extbase task:cleanunuseduploads --uploadPath="typo3temp/assets/tx_powermail"

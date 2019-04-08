@@ -102,7 +102,7 @@ class ExportService
     /**
      * @var string
      */
-    protected $storageFolder = 'typo3temp/tx_powermail/';
+    protected $storageFolder = 'typo3temp/assets/tx_powermail/';
 
     /**
      * @var string

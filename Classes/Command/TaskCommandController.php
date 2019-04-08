@@ -55,7 +55,7 @@ class TaskCommandController extends CommandController
         $attachment = true,
         $fieldList = '',
         $format = 'xls',
-        $storageFolder = 'typo3temp/tx_powermail/',
+        $storageFolder = 'typo3temp/assets/tx_powermail/',
         $fileName = null,
         $emailTemplate = 'EXT:powermail/Resources/Private/Templates/Module/ExportTaskMail.html'
     ) {
@@ -121,10 +121,10 @@ class TaskCommandController extends CommandController
     }
 
     /**
-     * Powermail: Remove all export files in typo3temp/tx_powermail/
+     * Powermail: Remove all export files in typo3temp/assets/tx_powermail/
      *
      *        This task will clean up all (!) files which
-     *        are located in typo3temp/tx_powermail/
+     *        are located in typo3temp/assets/tx_powermail/
      *        e.g.: old captcha images and old export files
      *        (from export task - if stored in typo3temp folder)
      *
@@ -133,7 +133,7 @@ class TaskCommandController extends CommandController
      */
     public function cleanExportFilesCommand($period = 0)
     {
-        $this->removeFilesFromRelativeDirectory('typo3temp/tx_powermail/', $period);
+        $this->removeFilesFromRelativeDirectory('typo3temp/assets/tx_powermail/', $period);
     }
 
     /**
