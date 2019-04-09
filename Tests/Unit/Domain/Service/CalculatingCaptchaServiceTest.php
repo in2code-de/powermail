@@ -434,7 +434,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     public function getImagePathReturnString()
     {
         $result = $this->generalValidatorMock->_call('getImagePath');
-        $this->assertSame('typo3temp/tx_powermail/', $result);
+        $this->assertSame('typo3temp/assets/tx_powermail/', $result);
 
         $this->generalValidatorMock->_set('imagePath', 'typo3temp/');
         $result = $this->generalValidatorMock->_call('getImagePath');

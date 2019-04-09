@@ -9,11 +9,11 @@ $EM_CONF[$_EXTKEY] = [
         and easy to use mailform extension with a lots of features
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
-    'version' => '7.2.0',
+    'version' => '7.3.0',
     'module' => '',
     'state' => 'stable',
     'uploadfolder' => 0,
-    'createDirs' => 'uploads/tx_powermail,typo3temp/tx_powermail',
+    'createDirs' => 'uploads/tx_powermail,typo3temp/assets/tx_powermail',
     'clearcacheonload' => 1,
     'author' => 'Powermail Development Team',
     'author_email' => 'alexander.kellner@in2code.de',

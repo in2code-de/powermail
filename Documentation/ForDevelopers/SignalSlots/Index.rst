@@ -124,7 +124,7 @@ extend the functions from your extension. Please report to
    :Method:
       initializeObject()
    :Arguments:
-      $this
+      $this, &settings
    :Description:
       Change Settings from Flexform or TypoScript before Action is called
 

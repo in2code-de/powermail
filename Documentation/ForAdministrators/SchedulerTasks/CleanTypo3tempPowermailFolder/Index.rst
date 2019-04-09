@@ -3,13 +3,13 @@
 
 .. _cleanTypo3tempPowermailFolder:
 
-Clean typo3temp/tx_powermail/ folder
+Clean typo3temp/assets/tx_powermail/ folder
 ------------------------------------
 
 Introduction
 ^^^^^^^^^^^^
 
-If you want to clean the typo3temp/tx_powermail/ folder to remove generated export files
+If you want to clean the typo3temp/assets/tx_powermail/ folder to remove generated export files
 (see :ref:`generateExportMail`), you can use this scheduler task.
 
 Image example

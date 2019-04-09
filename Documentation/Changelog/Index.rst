@@ -18,6 +18,18 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.3.0
+   :Date:
+      2019-04-09
+   :Changes:
+
+      * Task: Some small cleanup
+      * Feature: Support the usage in helhum/typo3-secure-web (Captcha, Export and Extension Icon)
+      * Feature: Pass $this->settings to initializeObjectSettings Signal for a manipulation of settings via SignalSlot
+      * Bugfix: Prevent exception in Pi2 in TYPO3 9.5 LTS
+      * Bugfix: Allow backend module usage together with EXT:securedownloads
+
+ - :Version:
       7.2.0
    :Date:
       2019-02-18
