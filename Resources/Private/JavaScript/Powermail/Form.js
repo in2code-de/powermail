@@ -7,6 +7,8 @@
 function PowermailForm($) {
 	'use strict';
 
+	var self = this;
+
 	/**
 	 * Initialize
 	 *
@@ -19,7 +21,7 @@ function PowermailForm($) {
 		addDatePicker();
 		hidePasswords();
 		addResetListener();
-		deleteAllFilesListener();
+		self.deleteAllFilesListener();
 		uploadValidationListener();
 	};
 
@@ -202,9 +204,10 @@ function PowermailForm($) {
 						addProgressbar($this);
 					},
 					complete: function() {
-						removeProgressbar($this);
-						deleteAllFilesListener();
- 						fireAjaxCompleteEvent($txPowermail);
+						self
+							.removeProgressbar($this)
+							.deleteAllFilesListener()
+							.fireAjaxCompleteEvent($txPowermail);
 					},
 					success: function(data) {
 						var html = $('*[data-powermail-form="' + formUid + '"]:first', data);
@@ -217,11 +220,11 @@ function PowermailForm($) {
 							if ($.fn.parsley) {
 								$('form[data-parsley-validate="data-parsley-validate"]').parsley();
 							}
-							reloadCaptchaImages();
+							self.reloadCaptchaImages();
 						} else {
 							// no form markup found try to redirect via javascript
 							if (redirectUri) {
-								redirectToUri(redirectUri);
+								self.redirectToUri(redirectUri);
 							} else {
 								// fallback if no location found (but will effect 2x submit)
 								$this.submit();
@@ -237,25 +240,25 @@ function PowermailForm($) {
 
 	/**
 	 * @param {jQuery} $this
-	 * @returns {void}
-	 * @private
+	 * @returns {PowermailForm}
 	 */
-	var addProgressbar = function($this) {
-		removeProgressbar($this);
+	this.addProgressbar = function($this) {
+		self.removeProgressbar($this);
 		if ($('.powermail_submit', $this).length) {
 			$('.powermail_submit', $this).parent().append(getProgressbar());
 		} else {
 			$this.closest('.tx-powermail').append(getProgressbar());
 		}
+		return this;
 	};
 
 	/**
 	 * @param {jQuery} $this
-	 * @returns {void}
-	 * @private
+	 * @returns {PowermailForm}
 	 */
-	var removeProgressbar = function($this) {
+	this.removeProgressbar = function($this) {
 		$this.closest('.tx-powermail').find('.powermail_progressbar').remove();
+		return this;
 	};
 
 	/**
@@ -267,19 +270,20 @@ function PowermailForm($) {
 	 * 		console.log('ajax form was submitted');
 	 * })
 	 * @param $txPowermail
+	 * @returns {PowermailForm}
 	 */
-	var fireAjaxCompleteEvent = function($txPowermail) {
+	this.fireAjaxCompleteEvent = function($txPowermail) {
 		var submittedEvent = $.Event('submitted.powermail.form');
 		$txPowermail.trigger(submittedEvent);
+		return this;
 	};
 
 	/**
 	 * Add eventhandler for deleting all files button
 	 *
-	 * @returns {void}
-	 * @private
+	 * @returns {PowermailForm}
 	 */
-	var deleteAllFilesListener = function() {
+	this.deleteAllFilesListener = function() {
 		$('.powermail_fieldwrap_file').find('.deleteAllFiles').each(function() {
 			// initially hide upload fields
 			disableUploadField($(this).closest('.powermail_fieldwrap_file').find('input[type="file"]'));
@@ -290,6 +294,7 @@ function PowermailForm($) {
 				$(this).remove();
 			});
 		});
+		return this;
 	};
 
 	/**
@@ -317,14 +322,15 @@ function PowermailForm($) {
 	/**
 	 * Reload captcha images
 	 *
-	 * @returns {void}
-	 * @private
+	 * @returns {PowermailForm}
 	 */
-	var reloadCaptchaImages = function() {
+	this.reloadCaptchaImages = function() {
 		$('img.powermail_captchaimage').each(function() {
 			var source = getUriWithoutGetParam($(this).prop('src'));
 			$(this).prop('src', source + '?hash=' + getRandomString(5));
 		});
+
+		return this;
 	};
 
 	/**
@@ -500,14 +506,16 @@ function PowermailForm($) {
 	 * Redirect to an external or internal target
 	 *
 	 * @param {string} redirectUri
-	 * @private
+	 * @returns {PowermailForm}
 	 */
-	var redirectToUri = function(redirectUri) {
+	this.redirectToUri = function(redirectUri) {
 		if (redirectUri.indexOf('http') !== -1) {
 			window.location = redirectUri;
 		} else {
 			window.location.pathname = redirectUri;
 		}
+
+		return this;
 	};
 
 	/**
