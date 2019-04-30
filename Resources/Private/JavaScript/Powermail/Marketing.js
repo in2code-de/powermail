@@ -66,11 +66,7 @@ function PowermailMarketing($) {
 		if ($base.length > 0) {
 			baseurl = $base.prop('href');
 		} else {
-			if (window.location.protocol != "https:") {
-				baseurl = 'http://' + window.location.hostname;
-			} else {
-				baseurl = 'https://' + window.location.hostname;
-			}
+			baseurl = window.location.protocol + '//' + window.location.host;
 		}
 		return baseurl;
 	}
