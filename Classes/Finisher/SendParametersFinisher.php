@@ -90,8 +90,13 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function getCurlSettings()
     {
+        if (isset($this->configuration['targetUrl.'])) {
+            $targetUrl = $this->contentObject->cObjGetSingle($this->configuration['targetUrl'], $this->configuration['targetUrl.']);
+        } else {
+            $targetUrl = $this->configuration['targetUrl'];
+        }
         return [
-            'url' => $this->configuration['targetUrl'],
+            'url' => $targetUrl,
             'username' => $this->configuration['username'],
             'password' => $this->configuration['password'],
             'params' => $this->getValues()
