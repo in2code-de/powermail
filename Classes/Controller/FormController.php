@@ -296,6 +296,7 @@ class FormController extends AbstractController
                 $mail->setHidden(false);
                 $this->mailRepository->update($mail);
                 $this->persistenceManager->persistAll();
+                $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterPersist', [$mail, $hash, $this]);
 
                 $this->forward('create', null, null, ['mail' => $mail, 'hash' => $hash]);
             }
