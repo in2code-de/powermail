@@ -18,6 +18,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.3.1
+   :Date:
+      2019-05-21
+   :Changes:
+
+      * Bugfix: Fix table fields for marketing information for mysql strict mode
+      * Bugfix: Ensure to render a-tags as absolute links in mails
+
+ - :Version:
       7.3.0
    :Date:
       2019-04-09
