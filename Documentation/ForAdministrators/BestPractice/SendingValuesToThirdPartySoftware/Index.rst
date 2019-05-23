@@ -26,6 +26,10 @@ See TypoScript Settings example:
 
 				# Target URL for POST values (like http://www.target.com/target.php)
 				targetUrl = http://eloqua.com/e/f.aspx
+				
+				# target url may just be a static string as well as a TS object like this, so wrap can be applied, .data or .field could be used
+				# targetUrl = TEXT
+				# targetUrl.value = foobar
 
 				# Basic Auth Protection - leave empty if Target is not protected
 				username =
@@ -62,6 +66,16 @@ See TypoScript Settings example:
 		}
 	}
 
+**Use case:** Editor wants to have the option to provide custom targets for a certain form, but use a given default for everything else.
+
+**Solution:** Just add a hidden field to your form, for instance "custom_url". Provide your default target url as string as before, but add some lines of TS code to overwrite it, if the field is set in the form:
+
+.. code-block:: text
+
+	[globalString = GP:tx_powermail_pi1|field|custom_url = /.+/]
+		plugin.tx_powermail.settings.setup.marketing.sendPost.targetUrl = TEXT
+		plugin.tx_powermail.settings.setup.marketing.sendPost.targetUrl.field = custom_url
+	[global]
 
 Own implementation
 ------------------
