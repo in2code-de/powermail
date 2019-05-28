@@ -58,8 +58,13 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
         $type = $this->arguments['type'];
         $value = $this->renderChildren();
         if ($answer->getField()) {
+
+            //overwrites possible array value of answer by replacing with current content
+            $dataForProcessing = $answer->_getProperties();
+            $dataForProcessing['value'] = (string)$value;
+
             if (!empty($this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()])) {
-                $this->contentObjectRenderer->start($answer->_getProperties());
+                $this->contentObjectRenderer->start($dataForProcessing);
                 $value = $this->contentObjectRenderer->cObjGetSingle(
                     $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()],
                     $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker() . '.']
