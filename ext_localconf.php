@@ -12,7 +12,7 @@ call_user_func(function () {
     if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableCachingActive()) {
         $uncachedFormActions = '';
     }
-    $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing';
+    $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing, disclaimer';
 
     /**
      * Include Frontend Plugins for Powermail
@@ -21,7 +21,7 @@ call_user_func(function () {
         'In2code.powermail',
         'Pi1',
         [
-            'Form' => 'form, create, confirmation, optinConfirm, marketing'
+            'Form' => 'form, create, confirmation, optinConfirm, marketing, disclaimer'
         ],
         [
             'Form' => $uncachedFormActions
@@ -45,6 +45,13 @@ call_user_func(function () {
         '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript">'
     );
 
+    /**
+     * PageTSConfig for backend mod list
+     */
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/WebList.typoscript">'
+    );
+    
     /**
      * Hook to show PluginInformation under a tt_content element in page module of type powermail
      */
@@ -76,12 +83,6 @@ call_user_func(function () {
      */
     $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] =
         'EXT:powermail/Classes/Eid/GetLocationEid.php';
-
-    /**
-     * eID to store marketing information
-     */
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidMarketing'] =
-        'EXT:powermail/Classes/Eid/MarketingEid.php';
 
     /**
      * CommandController for powermail tasks

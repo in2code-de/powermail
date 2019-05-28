@@ -60,11 +60,9 @@ class SpamShieldValidator extends AbstractValidator
     protected $methodInterface = '\In2code\Powermail\Domain\Validator\SpamShield\MethodInterface';
 
     /**
-     * Spam-Validation of given Params
-     *        see powermail/doc/SpamDetection for formula
-     *
      * @param Mail $mail
      * @return bool
+     * @throws \Exception
      */
     public function isValid($mail)
     {
@@ -84,10 +82,9 @@ class SpamShieldValidator extends AbstractValidator
     }
 
     /**
-     * Run through all spam prevention methods
-     *
      * @param Mail $mail
      * @return void
+     * @throws \Exception
      */
     protected function runAllSpamMethods(Mail $mail)
     {
@@ -124,6 +121,7 @@ class SpamShieldValidator extends AbstractValidator
                 $methodInstance->initializeSpamCheck();
                 if ((int)$method['indication'] > 0 && $methodInstance->spamCheck()) {
                     $this->increaseSpamIndicator((int)$method['indication']);
+                    // @extensionScannerIgnoreLine False positive alert in TYPO3 9.5
                     $this->addMessage($method['name'] . ' failed');
                 }
             } else {
@@ -172,10 +170,9 @@ class SpamShieldValidator extends AbstractValidator
     }
 
     /**
-     * Log Spam Notification
-     *
      * @param Mail $mail
      * @return void
+     * @throws \Exception
      */
     protected function logSpamNotification(Mail $mail)
     {
@@ -335,8 +332,6 @@ class SpamShieldValidator extends AbstractValidator
     }
 
     /**
-     * Add $message
-     *
      * @param $message
      * @return void
      */

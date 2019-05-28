@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\UniqueMethod;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class UniqueMethodTest

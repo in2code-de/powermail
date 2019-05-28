@@ -280,6 +280,15 @@ Constants Overview
       both
 
  - :Constants:
+      sender.addDisclaimerLink
+   :Description:
+      Add disclaimer link: Add disclaimer link to the sender email (also in optin mail)
+   :Type:
+      bool
+   :Default:
+      1
+
+ - :Constants:
       sender.default.senderName
    :Description:
       Default Sender Name: Sendername if no sender name given
@@ -538,7 +547,7 @@ Constants Overview
    :Type:
       bool
    :Default:
-      0
+      1
 
  - :Constants:
       misc.forceJavaScriptDatePicker
@@ -628,6 +637,15 @@ Constants Overview
       text
    :Default:
       EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html
+      
+ - :Constants:
+      spamshield.senderEmail
+   :Description:
+      Spamshield Notifymail sender Email address: Define a specific Email address as sender of the notification Email
+   :Type:
+      text
+   :Default:
+      'powermail@' + the TYPO3 host (e.g. powermail@www.example.com)
 
  - :Constants:
       spamshield.logfileLocation
@@ -1031,6 +1049,8 @@ Setup
                     # html, plain, both
                     mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
 
+                    addDisclaimerLink = {$plugin.tx_powermail.settings.sender.addDisclaimerLink}
+
                     default {
                         senderEmail = TEXT
                         senderEmail.value = {$plugin.tx_powermail.settings.sender.default.senderEmail}
@@ -1140,6 +1160,11 @@ Setup
                     }
                 }
 
+                disclaimer {
+                    subject = TEXT
+                    subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:disclaimed_subject
+                }
+
 
 
 
@@ -1195,7 +1220,7 @@ Setup
                     email = {$plugin.tx_powermail.settings.spamshield.email}
 
                     # Email address sending out spam mail. Set this if your mail transport limits allowed sender addresses
-                    senderEmail =
+                    senderEmail = {$plugin.tx_powermail.settings.spamshield.senderEmail}
 
                     # Subject for notification Email to Admin
                     emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
@@ -1266,9 +1291,9 @@ Setup
                             }
                         }
 
-                        # Session check
+                        # Session check: Enabling session check means to store a cookie on form load. If forms are submitted powermail checks for that cookie again. If this check is disabled, powermail will not set a cookie by default.
                         4 {
-                            _enable = 1
+                            _enable = 0
 
                             # Spamcheck name
                             name = Session check
@@ -1867,12 +1892,10 @@ Setup
     page {
         # Inlude JavaScript files
         includeJSFooter {
-            powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/Libraries/jquery.datetimepicker.min.js
-            powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/Libraries/parsley.min.js
-            powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/Powermail/Tabs.min.js
-            powermailForm = EXT:powermail/Resources/Public/JavaScripts/Powermail/Form.min.js
+            powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScript/Libraries/jquery.datetimepicker.min.js
+            powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScript/Libraries/parsley.min.js
+            powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScript/Powermail/Tabs.min.js
+            powermailForm = EXT:powermail/Resources/Public/JavaScript/Powermail/Form.min.js
         }
     }
     [end]
-
-

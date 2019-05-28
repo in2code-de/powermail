@@ -114,6 +114,9 @@ plugin.tx_powermail {
 			# cat=powermail_main//0420; type=options[both,html,plain]; label= Sender Mail Format: Change mail format
 			mailformat = both
 
+			# cat=powermail_main//0425; type=boolean; label= Add disclaimer link: Add disclaimer link to the sender email (also in optin mail)
+			addDisclaimerLink = 1
+
 			default {
 				# cat=powermail_additional//0430; type=text; label= Sender Mail - Default Sender Name: Sendername if no sender name given
 				senderName =
@@ -156,6 +159,7 @@ plugin.tx_powermail {
 				# cat=powermail_additional//0470; type=options[1,2,3,4,5]; label= Sender Mail Priority: Set mail priority for mail to sender (e.g. 3)
 				priority = 3
 			}
+
 			senderHeader {
 				# cat=powermail_additional//0060; type=text; label= Server-Mail: If set, the Mail-Header Sender is set (RFC 2822 - 3.6.2 Originator fields)
 				email =
@@ -213,7 +217,7 @@ plugin.tx_powermail {
 			uploadFileExtensions = jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,mpg,mpeg,avi,mp3,zip,rar,ace,csv,svg
 
 			# cat=powermail_additional//0840; type=boolean; label= Randomized Filenames: Uploaded filenames can be randomized to respect data privacy
-			randomizeFileName = 0
+			randomizeFileName = 1
 
 			# cat=powermail_additional//0845; type=boolean; label= Force JavaScript Datepicker: Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
 			forceJavaScriptDatePicker = 0
@@ -243,6 +247,9 @@ plugin.tx_powermail {
 
 			# cat=powermail_spam//0920; type=text; label= Spamshield Notifymail: Admin can get an email if he/she wants to get informed if a mail failed. Let this field empty and no mail will be sent (e.g. admin@mail.com)
 			email =
+
+			# cat=powermail_spam//0925; type=text; label= Spamshield Notifymail sendermail: Define sender email address for mails
+			senderEmail =
 
 			# cat=powermail_spam//0930; type=text; label= Spamshield Notifymail Subject: Subject for notification Email to Admin
 			emailSubject = Spam in powermail form recognized

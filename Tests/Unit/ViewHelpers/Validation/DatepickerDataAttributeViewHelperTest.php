@@ -3,7 +3,7 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 use TYPO3\CMS\Extbase\Mvc\Request;
 
@@ -73,6 +73,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-format' => 'Y-m-d H:i',
                     'data-date-value' => 'anyvalue',
                     'required' => 'required',
+                    'aria-required' => 'true',
                     'data-parsley-required-message' => 'validationerror_mandatory',
                     'data-parsley-trigger' => 'change'
                 ]

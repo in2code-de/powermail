@@ -29,16 +29,16 @@ class GetLocationEid
         $lng = GeneralUtility::_GP('lng');
 
         $address = $this->getAddressFromGeo($lat, $lng);
-        return $address['route'] . ' ' . $address['street_number'] . ', ' . $address['locality'];
+        return $address['route'] . ', ' . $address['locality'];
     }
 
     /**
      * Get Address from geo coordinates
+     *      with service from nominatim.openstreetmap.org (since google needs an API key)
      *
      * @param float $lat
      * @param float $lng
      * @return array all location infos
-     *        ['street_number'] = 12;
      *        ['route'] = 'Kunstmuehlstr.';
      *        ['locality'] = 'Rosenheim';
      *        ['country'] = 'Germany';
@@ -47,16 +47,17 @@ class GetLocationEid
     protected function getAddressFromGeo($lat, $lng): array
     {
         $result = [];
-        $json = GeneralUtility::getUrl(
-            'https://maps.googleapis.com/maps/api/geocode/json' .
-            '?sensor=false&language=' . $this->language . '&latlng=' . urlencode($lat . ',' . $lng)
-        );
+        $url = 'https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&lat=' . $lat . '&lon=' . $lng;
+        $json = GeneralUtility::getUrl($url);
         if ($json !== false) {
-            $jsonDecoded = json_decode($json, true);
-            if (!empty($jsonDecoded['results'])) {
-                foreach ((array)$jsonDecoded['results'][0]['address_components'] as $values) {
-                    $result[$values['types'][0]] = $values['long_name'];
-                }
+            $data = json_decode($json, true);
+            if (!empty($data['address'])) {
+                $result = [
+                    'route' => (string)$data['address']['road'],
+                    'locality' => (string)$data['address']['village'] ?: (string)$data['address']['town'],
+                    'country' => (string)$data['address']['country'],
+                    'postal_code' => (string)$data['address']['postcode']
+                ];
             }
         }
         return $result;

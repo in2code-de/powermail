@@ -99,7 +99,7 @@ Configuration
    :Description:
       Define where the export files should be stored.
    :Default:
-      typo3temp/tx_powermail/
+      typo3temp/assets/tx_powermail/
 
  - :Property:
       fileName

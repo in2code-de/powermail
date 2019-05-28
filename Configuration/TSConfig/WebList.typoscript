@@ -1,0 +1,11 @@
+mod.web_list.tableDisplayOrder {
+  tx_powermail_domain_model_answer {
+    after = tx_powermail_domain_model_mail
+  }
+  tx_powermail_domain_model_page {
+    after = tx_powermail_domain_model_form
+  }
+  tx_powermail_domain_model_field {
+    after = tx_powermail_domain_model_page
+  }
+}

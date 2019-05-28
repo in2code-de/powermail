@@ -3,7 +3,7 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\BasicFileUtility;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -29,7 +29,7 @@ class BasicFileUtiltyTest extends UnitTestCase
     public function getFilesFromRelativePathReturnsString()
     {
         $result = BasicFileUtility::getFilesFromRelativePath('typo3/');
-        $this->assertSame(['cli_dispatch.phpsh', 'index.php', 'install.php'], $result);
+        $this->assertSame(['index.php', 'install.php'], $result);
     }
 
     /**

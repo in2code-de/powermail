@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\String;
 
 use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\String\TrimViewHelperFixture;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class TrimViewHelperTest

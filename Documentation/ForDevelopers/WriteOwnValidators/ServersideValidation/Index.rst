@@ -57,7 +57,7 @@ Add a php-file and extend your class with the AbstractValidator from powermail:
        {
            // throw error
            $result = new Result();
-           $result->addError(new Error('Error', 'markername');
+           $result->addError(new Error('Error', 'markername'));
            return $result;
        }
    }

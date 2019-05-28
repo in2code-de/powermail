@@ -196,6 +196,8 @@ plugin.tx_powermail {
 				# html, plain, both
 				mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
 
+				addDisclaimerLink = {$plugin.tx_powermail.settings.sender.addDisclaimerLink}
+
 				default {
 					senderEmail = TEXT
 					senderEmail.value = {$plugin.tx_powermail.settings.sender.default.senderEmail}
@@ -305,6 +307,11 @@ plugin.tx_powermail {
 				}
 			}
 
+			disclaimer {
+				subject = TEXT
+				subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:disclaimed_subject
+			}
+
 
 
 
@@ -360,7 +367,7 @@ plugin.tx_powermail {
 				email = {$plugin.tx_powermail.settings.spamshield.email}
 
 				# Email address sending out spam mail. Set this if your mail transport limits allowed sender addresses
-				senderEmail =
+				senderEmail = {$plugin.tx_powermail.settings.spamshield.senderEmail}
 
 				# Subject for notification Email to Admin
 				emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
@@ -431,9 +438,9 @@ plugin.tx_powermail {
 						}
 					}
 
-					# Session check
+					# Session check: Enabling session check means to store a cookie on form load. If forms are submitted powermail checks for that cookie again. If this check is disabled, powermail will not set a cookie by default.
 					4 {
-						_enable = 1
+						_enable = 0
 
 						# Spamcheck name
 						name = Session check
@@ -967,6 +974,7 @@ plugin.tx_powermail {
 # ParseFunc Configuration for using FAL links in receiver and sender mail
 lib.parseFunc_powermail < lib.parseFunc_RTE
 lib.parseFunc_powermail.tags.link.typolink.forceAbsoluteUrl = 1
+lib.parseFunc_powermail.tags.a.typolink.forceAbsoluteUrl = 1
 
 
 ############################
@@ -1032,10 +1040,10 @@ page.includeJSFooterlibs.powermailJQuery.external = 1
 page {
 	# Inlude JavaScript files
 	includeJSFooter {
-		powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScripts/Libraries/jquery.datetimepicker.min.js
-		powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScripts/Libraries/parsley.min.js
-		powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScripts/Powermail/Tabs.min.js
-		powermailForm = EXT:powermail/Resources/Public/JavaScripts/Powermail/Form.min.js
+		powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScript/Libraries/jquery.datetimepicker.min.js
+		powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScript/Libraries/parsley.min.js
+		powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScript/Powermail/Tabs.min.js
+		powermailForm = EXT:powermail/Resources/Public/JavaScript/Powermail/Form.min.js
 	}
 }
 [end]

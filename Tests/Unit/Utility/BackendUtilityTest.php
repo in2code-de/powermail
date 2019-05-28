@@ -5,7 +5,7 @@ use In2code\Powermail\Tests\Unit\Fixtures\Utility\BackendUtilityFixture;
 use In2code\Powermail\Utility\BackendUtility;
 use TYPO3\CMS\Backend\Routing\Route;
 use TYPO3\CMS\Backend\Routing\Router;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**

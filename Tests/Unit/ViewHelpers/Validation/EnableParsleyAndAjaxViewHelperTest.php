@@ -3,7 +3,7 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelperFixture;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class EnableParsleyAndAjaxViewHelperTest

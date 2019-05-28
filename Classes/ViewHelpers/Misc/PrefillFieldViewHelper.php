@@ -12,6 +12,8 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -80,6 +82,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *        location
      *
      * @return string|array Prefill field
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function render()
     {
@@ -112,6 +116,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
         $value = $this->getFromTypoScriptContentObject($value);
         $value = $this->getFromTypoScriptRaw($value);
         $value = $this->getFromSession($value);
+        $value = $this->getFromDefaultValue($value);
         $this->setValue($value);
     }
 
@@ -268,6 +273,20 @@ class PrefillFieldViewHelper extends AbstractViewHelper
                     }
                 }
             }
+        }
+        return $value;
+    }
+
+    /**
+     * Get value from default ViewHelper argument
+     *
+     * @param string $value
+     * @return string
+     */
+    protected function getFromDefaultValue($value)
+    {
+        if (empty($value)) {
+            $value = (string)$this->getValue();
         }
         return $value;
     }

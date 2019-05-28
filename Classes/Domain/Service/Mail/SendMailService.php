@@ -13,8 +13,13 @@ use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class SendMailService
@@ -62,12 +67,17 @@ class SendMailService
      *        $email['template'] = 'PathToTemplate/';
      *        $email['rteBody'] = 'This is the <b>content</b> of the RTE';
      *        $email['format'] = 'both'; // or plain or html
-     * @param Mail &$mail
+     * @param Mail $mail
      * @param array $settings TypoScript Settings
      * @param string $type Email to "sender" or "receiver"
      * @return bool Mail successfully sent
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidControllerNameException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    public function sendMail(array $email, Mail &$mail, array $settings, $type = 'receiver')
+    public function sendMail(array $email, Mail $mail, array $settings, $type = 'receiver')
     {
         $this->initialize($mail, $settings, $type);
         $this->parseAndOverwriteVariables($email, $mail);
@@ -87,10 +97,13 @@ class SendMailService
     }
 
     /**
-     * Prepare mail and send it
-     *
-     * @param array $email Array with all needed mail information
-     * @return bool Mail successfully sent
+     * @param array $email
+     * @return bool
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidControllerNameException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function prepareAndSend(array $email)
     {
@@ -217,10 +230,10 @@ class SendMailService
     }
 
     /**
-     * Add attachments from upload fields
-     *
      * @param MailMessage $message
      * @return MailMessage
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function addAttachmentsFromUploads(MailMessage $message)
     {
@@ -263,11 +276,14 @@ class SendMailService
     }
 
     /**
-     * Add mail body html
-     *
      * @param MailMessage $message
      * @param array $email
      * @return MailMessage
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidControllerNameException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function addHtmlBody(MailMessage $message, array $email)
     {
@@ -278,11 +294,14 @@ class SendMailService
     }
 
     /**
-     * Add mail body plain
-     *
      * @param MailMessage $message
      * @param array $email
      * @return MailMessage
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidControllerNameException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function addPlainBody(MailMessage $message, array $email)
     {
@@ -320,12 +339,15 @@ class SendMailService
     }
 
     /**
-     * Create Email Body
-     *
-     * @param array $email Array with all needed mail information
-     * @return bool
+     * @param array $email
+     * @return string
+     * @throws InvalidControllerNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
-    protected function createEmailBody($email)
+    protected function createEmailBody(array $email)
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->getRequest()->setControllerName('Form');
@@ -363,7 +385,7 @@ class SendMailService
      */
     protected function updateMail(array $email)
     {
-        if ($this->type === 'receiver' && $email['variables']['hash'] === null) {
+        if ($this->type === 'receiver' && $email['variables']['hash'] === '') {
             $this->mail->setSenderMail($email['senderEmail']);
             $this->mail->setSenderName($email['senderName']);
             $this->mail->setReceiverMail($email['receiverEmail']);
@@ -387,6 +409,8 @@ class SendMailService
      * @param array $email
      * @param Mail $mail
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function parseAndOverwriteVariables(array &$email, Mail $mail)
     {
@@ -418,10 +442,13 @@ class SendMailService
      * @param Mail $mail
      * @param array $settings
      * @param string $type
+     * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    protected function initialize(Mail &$mail, array $settings, $type)
+    protected function initialize(Mail $mail, array $settings, string $type)
     {
-        $this->mail = &$mail;
+        $this->mail = $mail;
         $this->settings = $settings;
         $this->configuration = $this->getConfigurationFromSettings($settings);
         $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];

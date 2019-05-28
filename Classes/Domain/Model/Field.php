@@ -23,7 +23,6 @@ class Field extends AbstractEntity
 
     /**
      * @var string
-     * @validate NotEmpty
      */
     protected $title = '';
 
@@ -36,7 +35,6 @@ class Field extends AbstractEntity
      *        "country", "location", "typoscript"
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $type = '';
 
@@ -139,6 +137,11 @@ class Field extends AbstractEntity
      * @var integer
      */
     protected $sorting = 0;
+
+    /**
+     * @var integer
+     */
+    protected $l10nParent = 0;
 
     /**
      * @var \In2code\Powermail\Domain\Model\Page
@@ -818,7 +821,8 @@ class Field extends AbstractEntity
      */
     public function isLocalized()
     {
-        return $this->_getProperty('_languageUid') > 0;
+        return $this->_getProperty('_languageUid') > 0 &&
+            $this->_getProperty('l10nParent') > 0;
     }
 
     /**

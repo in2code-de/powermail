@@ -6,6 +6,7 @@ use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
+use In2code\Powermail\Domain\Service\Mail\SendDisclaimedMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendOptinConfirmationMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendReceiverMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
@@ -13,12 +14,20 @@ use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use In2code\Powermail\Utility\OptinUtility;
+use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class FormController
@@ -37,9 +46,9 @@ class FormController extends AbstractController
     protected $dataProcessorRunner;
 
     /**
-     * action show form for creating new mails
-     *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function formAction()
     {
@@ -60,6 +69,9 @@ class FormController extends AbstractController
      * Rewrite Arguments to receive a clean mail object in createAction
      *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws StopActionException
      */
     public function initializeCreateAction()
     {
@@ -70,8 +82,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * Action create entry
-     *
      * @param Mail $mail
      * @param string $hash
      * @validate $mail In2code\Powermail\Domain\Validator\UploadValidator
@@ -83,10 +93,18 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
+     * @throws IllegalObjectTypeException
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws UnknownObjectException
+     * @throws InvalidControllerNameException
      */
-    public function createAction(Mail $mail, string $hash = null)
+    public function createAction(Mail $mail, string $hash = '')
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
+        /** @noinspection PhpUnhandledExceptionInspection */
         $this->dataProcessorRunner->callDataProcessors(
             $mail,
             $this->actionMethodName,
@@ -118,6 +136,7 @@ class FormController extends AbstractController
         $this->prepareOutput($mail);
 
         $finisherRunner = $this->objectManager->get(FinisherRunner::class);
+        /** @noinspection PhpUnhandledExceptionInspection */
         $finisherRunner->callFinishers(
             $mail,
             $this->isNoOptin($mail, $hash),
@@ -131,6 +150,9 @@ class FormController extends AbstractController
      * Rewrite Arguments to receive a clean mail object in confirmationAction
      *
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws StopActionException
      */
     public function initializeConfirmationAction()
     {
@@ -153,10 +175,15 @@ class FormController extends AbstractController
      * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
      * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function confirmationAction(Mail $mail)
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
+        /** @noinspection PhpUnhandledExceptionInspection */
         $this->dataProcessorRunner->callDataProcessors(
             $mail,
             $this->actionMethodName,
@@ -171,7 +198,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return void
      */
-    protected function sendMailPreflight(Mail $mail, string $hash = null)
+    protected function sendMailPreflight(Mail $mail, string $hash = '')
     {
         try {
             if ($this->isSenderMailEnabled() && $this->mailRepository->getSenderMailFromArguments($mail)) {
@@ -203,10 +230,12 @@ class FormController extends AbstractController
     }
 
     /**
-     * Prepare output
-     *
      * @param Mail $mail
      * @return void
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function prepareOutput(Mail $mail)
     {
@@ -227,10 +256,11 @@ class FormController extends AbstractController
     }
 
     /**
-     * Save mail on submit
-     *
      * @param Mail $mail
      * @return void
+     * @throws IllegalObjectTypeException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      * @codeCoverageIgnore
      */
     protected function saveMail(Mail $mail)
@@ -247,6 +277,11 @@ class FormController extends AbstractController
      * @param int $mail mail uid
      * @param string $hash Given Hash String
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws StopActionException
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
      */
     public function optinConfirmAction(int $mail, string $hash)
     {
@@ -255,7 +290,8 @@ class FormController extends AbstractController
         $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
         $labelKey = 'failed';
 
-        if ($mail !== null && OptinUtility::checkOptinHash($hash, $mail)) {
+        /** @noinspection PhpUnhandledExceptionInspection */
+        if ($mail !== null && HashUtility::isHashValid($hash, $mail)) {
             if ($mail->getHidden()) {
                 $mail->setHidden(false);
                 $this->mailRepository->update($mail);
@@ -269,18 +305,40 @@ class FormController extends AbstractController
     }
 
     /**
+     * @param int $mail
+     * @param string $hash
+     * @return void
+     * @throws \Exception
+     */
+    public function disclaimerAction(int $mail, string $hash)
+    {
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
+        $mail = $this->mailRepository->findByUid($mail);
+        $status = false;
+        if ($mail !== null && HashUtility::isHashValid($hash, $mail, 'disclaimer')) {
+            /** @noinspection PhpMethodParametersCountMismatchInspection */
+            $mailService = $this->objectManager->get(SendDisclaimedMailPreflight::class, $this->settings, $this->conf);
+            $mailService->sendMail($mail);
+            $this->mailRepository->removeFromDatabase($mail->getUid());
+            $status = true;
+        }
+        $this->view->assign('status', $status);
+    }
+
+    /**
      * Marketing Tracking Action
      *
      * @param string $referer Referer
      * @param int $language Frontend Language Uid
      * @param int $pid Page Id
      * @param int $mobileDevice Is mobile device?
-     * @return void
+     * @return string
      * @codeCoverageIgnore
      */
-    public function marketingAction($referer = null, int $language = 0, int $pid = 0, int $mobileDevice = 0)
+    public function marketingAction($referer = null, int $language = 0, int $pid = 0, int $mobileDevice = 0): string
     {
         SessionUtility::storeMarketingInformation($referer, $language, $pid, $mobileDevice);
+        return json_encode([]);
     }
 
     /**
@@ -288,6 +346,8 @@ class FormController extends AbstractController
      *
      * @return void
      * @codeCoverageIgnore
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function initializeObject()
     {
@@ -300,7 +360,7 @@ class FormController extends AbstractController
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->info('Powermail settings', $this->settings);
         }
-        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this]);
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this, &$this->settings]);
     }
 
     /**
@@ -325,6 +385,7 @@ class FormController extends AbstractController
      *        used for createAction() and confirmationAction()
      *
      * @return void
+     * @throws StopActionException
      */
     protected function forwardIfFormParamsDoNotMatch()
     {
@@ -339,6 +400,7 @@ class FormController extends AbstractController
      * Forward to formAction if no mail param given
      *
      * @return void
+     * @throws StopActionException
      */
     protected function forwardIfMailParamEmpty()
     {
@@ -354,8 +416,9 @@ class FormController extends AbstractController
      * Forward to formAction if wrong form in plugin variables given
      *        used in optinConfirmAction()
      *
-     * @param Mail $mail
+     * @param Mail|null $mail
      * @return void
+     * @throws StopActionException
      */
     protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null)
     {
@@ -378,9 +441,9 @@ class FormController extends AbstractController
      * @param string $hash
      * @return bool
      */
-    protected function isMailPersistActive(string $hash = null): bool
+    protected function isMailPersistActive(string $hash = ''): bool
     {
-        return ($this->isPersistActive() || !empty($this->settings['main']['optin'])) && $hash === null;
+        return ($this->isPersistActive() || !empty($this->settings['main']['optin'])) && $hash === '';
     }
 
     /**
@@ -392,11 +455,12 @@ class FormController extends AbstractController
      * @param Mail $mail
      * @param string $hash
      * @return bool
+     * @throws \Exception
      */
-    protected function isNoOptin(Mail $mail, string $hash = null): bool
+    protected function isNoOptin(Mail $mail, string $hash = ''): bool
     {
         return empty($this->settings['main']['optin']) ||
-            (!empty($this->settings['main']['optin']) && OptinUtility::checkOptinHash($hash, $mail));
+            (!empty($this->settings['main']['optin']) && HashUtility::isHashValid($hash, $mail));
     }
 
     /**

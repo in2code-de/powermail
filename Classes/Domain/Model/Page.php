@@ -18,7 +18,6 @@ class Page extends AbstractEntity
 
     /**
      * @var string
-     * @validate NotEmpty
      */
     protected $title = '';
 

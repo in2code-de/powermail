@@ -8,7 +8,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Tests\Unit\Fixtures\Controller\FormControllerFixture;
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Repository\MailRepositoryFixture;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\Response;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -42,30 +42,6 @@ class FormControllerTest extends UnitTestCase
     public function tearDown()
     {
         unset($this->generalValidatorMock);
-    }
-
-    /**
-     * @return void
-     * @covers ::optinConfirmAction
-     */
-    public function testOptinConfirmAction()
-    {
-        //$formController = new FormController();
-        //$formReflection = new \ReflectionClass($formController);
-        //$mailRepoProp = $formReflection->getProperty('mailRepository');
-        //$mailRepoProp->setAccessible(true);
-        //$mailRepoProp->setValue(new MailRepositoryFixture(TestingHelper::getObjectManager()), 'mailRepository');
-
-        ///**
-        // * @var FormController|\PHPUnit_Framework_MockObject_MockObject $formController
-        // */
-        //$formController = $this
-        //    ->getMockBuilder($formController::class)
-        //    ->setMethods(['signalDispatch'])
-        //    ->getMock();
-        //$formController->method('signalDispatch')->willReturn(true);
-        //$formController->optinConfirmAction(1, '');
-        //$class->optinConfirmAction(123, '');
     }
 
     /**
@@ -157,6 +133,7 @@ class FormControllerTest extends UnitTestCase
             $this->expectExceptionCode(1514993039679);
         }
         $this->generalValidatorMock->_callRef('forwardIfFormParamsDoNotMatch');
+        $this->assertTrue(true);
     }
 
     /**
@@ -198,6 +175,7 @@ class FormControllerTest extends UnitTestCase
             $this->expectExceptionCode(1514993039679);
         }
         $this->generalValidatorMock->_call('forwardIfMailParamEmpty');
+        $this->assertTrue(true);
     }
 
     /**
@@ -250,6 +228,7 @@ class FormControllerTest extends UnitTestCase
             $this->expectExceptionCode(1514993039679);
         }
         $this->generalValidatorMock->_call('forwardIfFormParamsDoNotMatchForOptinConfirm', $mail);
+        $this->assertTrue(true);
     }
 
     /**
@@ -263,7 +242,7 @@ class FormControllerTest extends UnitTestCase
             'store 0, optin 0, hash NULL' => [
                 '0',
                 '0',
-                null,
+                '',
                 false
             ],
             'store 0, optin 0, hash NOTNULL' => [
@@ -275,7 +254,7 @@ class FormControllerTest extends UnitTestCase
             'store 0, optin 1, hash NULL' => [
                 '0',
                 '1',
-                null,
+                '',
                 true
             ],
             'store 0, optin 1, hash NOTNULL' => [
@@ -287,7 +266,7 @@ class FormControllerTest extends UnitTestCase
             'store 1, optin 0, hash NULL' => [
                 '1',
                 '0',
-                null,
+                '',
                 true
             ],
             'store 1, optin 0, hash NOTNULL' => [
@@ -299,7 +278,7 @@ class FormControllerTest extends UnitTestCase
             'store 1, optin 1, hash NULL' => [
                 '1',
                 '1',
-                null,
+                '',
                 true
             ],
             'store 1, optin 1, hash NOTNULL' => [

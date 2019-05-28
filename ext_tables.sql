@@ -81,6 +81,7 @@ CREATE TABLE tx_powermail_domain_model_page (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
+	KEY parent_form (forms),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
 );
@@ -145,6 +146,7 @@ CREATE TABLE tx_powermail_domain_model_field (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
+	KEY parent_page (pages),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
 );
@@ -167,13 +169,13 @@ CREATE TABLE tx_powermail_domain_model_mail (
 	time int(11) DEFAULT '0' NOT NULL,
 	form int(11) DEFAULT '0' NOT NULL,
 	answers int(11) unsigned DEFAULT '0' NOT NULL,
-	marketing_referer_domain text NOT NULL,
-	marketing_referer text NOT NULL,
-	marketing_country text NOT NULL,
+	marketing_referer_domain text,
+	marketing_referer text,
+	marketing_country text,
 	marketing_mobile_device tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	marketing_frontend_language int(11) DEFAULT '0' NOT NULL,
-	marketing_browser_language text NOT NULL,
-	marketing_page_funnel text NOT NULL,
+	marketing_browser_language text,
+	marketing_page_funnel text,
 	spam_factor varchar(255) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

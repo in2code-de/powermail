@@ -1,5 +1,5 @@
-# cat=basic/enable/010; type=boolean; label= Disable IP logging: If you don't want to save the sender IP address in the database, you can use this checkbox.
-disableIpLog = 0
+# cat=basic/enable/010; type=boolean; label= Disable IP logging: If you don't want to save the sender IP address in the database, you can use this checkbox. Storing IP-addresses may help you to protect your system agains spam or hacks.
+disableIpLog = 1
 
 # cat=basic/enable/020; type=boolean; label= Disable Marketing Information: If you want to disable all marketing relevant information of powermail, you can enable this checkbox (effected: mail to admin, backend module, mail records, no static typoscript template)
 disableMarketingInformation = 0

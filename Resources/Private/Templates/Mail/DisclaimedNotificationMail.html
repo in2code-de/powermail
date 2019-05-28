@@ -1,0 +1,18 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+<f:layout name="Mail" />
+
+	Render Powermail Disclaimer Notification Mail
+	This Mail is send to the receiver(s) if a sender disclaimed a mail
+
+
+	{mail}							Complete Mail Object
+	{settings}						TypoScript Settings
+
+
+<f:section name="main">
+	<f:translate key="disclaimed_entries" /><br>
+
+	<f:format.raw>
+		{powermail_all}
+	</f:format.raw>
+</f:section>

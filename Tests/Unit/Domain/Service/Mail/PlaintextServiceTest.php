@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Service\Mail\PlaintextService;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 
 /**

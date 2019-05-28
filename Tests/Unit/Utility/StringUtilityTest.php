@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class StringUtilityTest
@@ -237,6 +237,16 @@ class StringUtilityTest extends UnitTestCase
                 'abc',
                 'abc',
                 true
+            ],
+            [
+                '/test//',
+                '/',
+                true
+            ],
+            [
+                '/test//x',
+                '/',
+                false
             ],
         ];
     }

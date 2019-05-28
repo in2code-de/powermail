@@ -2,7 +2,7 @@
 namespace In2code\Powermail\Unit\Tests\Eid;
 
 use In2code\Powermail\Eid\GetLocationEid;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class GetLocationEidTest
@@ -49,7 +49,7 @@ class GetLocationEidTest extends UnitTestCase
                 [
                     'route' => 'Kunstmühlstraße',
                     'locality' => 'Rosenheim',
-                    'country' => 'Germany',
+                    'country' => 'Deutschland',
                     'postal_code' => '83026'
                 ]
             ],
@@ -57,9 +57,9 @@ class GetLocationEidTest extends UnitTestCase
                 48.0796126,
                 12.0898908,
                 [
-                    'route' => 'Sudhausweg',
+                    'route' => 'Eisweiherweg',
                     'locality' => 'Pfaffing',
-                    'country' => 'Germany',
+                    'country' => 'Deutschland',
                     'postal_code' => '83539'
                 ]
             ],
@@ -68,9 +68,9 @@ class GetLocationEidTest extends UnitTestCase
                 -0.1566651,
                 [
                     'route' => 'Baker Street',
-                    'locality' => 'London',
-                    'country' => 'United Kingdom',
-                    'postal_code' => 'W1U 6TJ'
+                    'locality' => '',
+                    'country' => 'UK',
+                    'postal_code' => 'W1U 6RJ'
                 ]
             ],
         ];

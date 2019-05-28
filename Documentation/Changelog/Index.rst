@@ -18,6 +18,136 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.3.1
+   :Date:
+      2019-05-21
+   :Changes:
+
+      * Bugfix: Fix table fields for marketing information for mysql strict mode
+      * Bugfix: Ensure to render a-tags as absolute links in mails
+
+ - :Version:
+      7.3.0
+   :Date:
+      2019-04-09
+   :Changes:
+
+      * Task: Some small cleanup
+      * Feature: Support the usage in helhum/typo3-secure-web (Captcha, Export and Extension Icon)
+      * Feature: Pass $this->settings to initializeObjectSettings Signal for a manipulation of settings via SignalSlot
+      * Bugfix: Prevent exception in Pi2 in TYPO3 9.5 LTS
+      * Bugfix: Allow backend module usage together with EXT:securedownloads
+
+ - :Version:
+      7.2.0
+   :Date:
+      2019-02-18
+   :Changes:
+
+      * Task: Small code cleanup
+      * Feature: Add a transient property to mail model
+      * Bugfix: Prevent type hint exception in PrefillFieldViewHelper
+      * Bugfix: Fix a typo in a css class for a loading bar (AJAX submit)
+      * Bugfix: Fixed a small typo
+
+ - :Version:
+      7.1.0 (!!!)
+   :Date:
+      2019-01-12
+   :Changes:
+
+      * Task: Unit test update
+      * Task: Remove deprecated keys in ext_emconf.php
+      * !!! Bugfix: Make JavaScript work again in BE-Module in TYPO3 9.5 - Path of all JavaScript files changes from Resources/Public/JavaScripts/ to Resources/Public/JavaScript/ - maybe you have to adjust your TypoScript
+      * Bugfix: Allow default values directly in PrefillFieldViewHelper
+      * Bugfix: No mails are sent if database storing was disabled with the disclaimer feature
+      * Bugfix: Remove outdated eID inclusion
+      * Bugfix: Show only allowed froms in plugin (in TYPO3 9.5)
+
+ - :Version:
+      7.0.0
+   :Date:
+      2018-10-25
+   :Changes:
+
+      * Feature: Add a disclaimer link functionality to sender- and optinmail (sender can remove his own mail completely from database now)
+      * Task: Increase general hash length from 10 to 64 characters (optin links and new disclaimer links)
+      * Task: Some cleanup
+      * Bugfix: Reanimate location field (broken because of change in the google API). Now we're using openstreetmap for this.
+
+ - :Version:
+      6.2.0
+   :Date:
+      2018-10-21
+   :Changes:
+
+      * Feature: Improve performance with sql indices
+      * Feature: Also alow markers in fields in additional languages with no parent element
+      * Feature: Make $this->settings readable when extending controller with signals
+      * Task: Replace eID script for marketing tracking with a TypeNum script - that bypasses the chash-problem now
+      * Task: Update frontend toolchain gulp task and commit a package-lock.json
+      * Task: Some documentation updates
+      * Task: Make ConfigurationUtility more future proof
+      * Task: Remove some other deprecated function calls for future TYPO3 versions
+      * Task: Remove deprecated @validate notations
+      * Task: Remove deprecated Extbase TypoScriptService calls
+      * Bugfix: Don't show forms twice in plugin selection in TYPO3 9.5
+      * Bugfix: Make endsWith() more robust
+      * Bugfix: Allow also arrays with ManipulateValueWithTypoScriptViewHelper
+      * Bugfix: Prevent exception in GetFileWithPathViewHelper
+      * Bugfix: Prevent exception in ManipulateValueWithTypoScriptViewHelper
+      * Bugfix: Prevent exception in LocalizationUtility
+
+ - :Version:
+      6.1.0
+   :Date:
+      2018-07-16
+   :Changes:
+
+      * Feature: Sort powermail tables in backend list view in a useful direction
+      * Feature: Add CSS-Classes for powermail_frontend that are reflecting the current action
+      * Feature: Add aria-required attributes for required fields
+      * Task: Update documentation
+      * Task: Add .editorconfig
+      * Bugfix: Allow a preselection of country fields
+      * Bugfix: Don't validate on not-supported fields in FE (because of a possible misconfiguration)
+      * Bugfix: Fix typos in documentation
+
+ - :Version:
+      6.0.0
+   :Date:
+      2018-05-07
+   :Changes:
+
+      * General GDPR release:
+      * !!! Task: Disable session-spam-check by default (to prevent generating a cookie)
+      * !!! Task: Disable IP-logging by default
+      * Task: Add a privacy documentation with some hints
+      * !!! Task: Randomize filenames of uploaded files by default
+      * Task: Update testing readme
+      * Bugfix: Update testing requirements
+
+ - :Version:
+      5.6.0
+   :Date:
+      2018-04-24
+   :Changes:
+
+      * Task: Add constant for sender email for spam notification mails
+      * Task: Update spamshield documentation
+
+ - :Version:
+      5.5.0
+   :Date:
+      2018-02-21
+   :Changes:
+
+      * Feature: Remove all invisible HTML tags in plaintext mails
+      * Bugfix: Prevent exception in Pi2 (regression related to strict_types in PHP)
+      * Bugfix: Prevent exception when using marketing reports in backend (regression related to strict_types in PHP)
+      * Bugfix: Prevent exception when using password fields (regression related to strict_types in PHP)
+
+ - :Version:
       5.4.0
    :Date:
       2018-02-03
