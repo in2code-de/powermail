@@ -17,7 +17,7 @@ class LinkMethod extends AbstractMethod
     {
         $linkAmount = 0;
         foreach ($this->mail->getAnswers() as $answer) {
-            if (is_array($answer->getValue())) {
+            if (!is_string($answer->getValue())) {
                 continue;
             }
             preg_match_all('@http://|https://|ftp://@', $answer->getValue(), $result);
