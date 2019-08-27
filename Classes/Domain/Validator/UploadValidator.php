@@ -52,8 +52,20 @@ class UploadValidator extends AbstractValidator
     {
         $arguments = GeneralUtility::_GP('tx_powermail_pi1');
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
-        /** @var Form $form */
-        $form = $formRepository->findByUid((int)$arguments['mail']['form']);
+
+        if( gettype($arguments['mail']) === "string" ){
+
+            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            /** @var Mail $mail */
+            $mail = $mailRepository->findByUid((int)$arguments['mail']);
+            /** @var Form $form */
+            $form = $formRepository->findByUid((int)$mail->getForm()->getUid());
+        }
+        else {
+            /** @var Form $form */
+            $form = $formRepository->findByUid((int)$arguments['mail']['form']);
+        }
+        
         return $form->hasUploadField();
     }
 
