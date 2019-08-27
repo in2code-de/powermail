@@ -132,7 +132,10 @@ class SendMailService
         if (!$email['send']) {
             if ($this->settings['debug']['mail']) {
                 $logger = ObjectUtility::getLogger(__CLASS__);
-                $logger->info('Mail was not sent: the signal has aborted sending. Email array after signal execution:', [$email]);
+                $logger->info(
+                    'Mail was not sent: the signal has aborted sending. Email array after signal execution:',
+                    [$email]
+                );
             }
             return false;
         }
