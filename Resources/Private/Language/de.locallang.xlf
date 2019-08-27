@@ -154,7 +154,7 @@
 			</trans-unit>
 			<trans-unit id="disclaimer_mailmessage">
 				<source>Was this email a mistake and you want to delete your request?</source>
-				<target state="translated">Handelt es sich bei dieser E-Mail um ein Versehen und möchten Sie Ihre Anfrage löschen?</target>
+				<target state="translated">Haben Sie diese E-Mail nicht angefordert und möchten Ihre Daten löschen lassen?</target>
 			</trans-unit>
 			<trans-unit id="disclaimer_mailmessage_link">
 				<source>Delete all email data.</source>
