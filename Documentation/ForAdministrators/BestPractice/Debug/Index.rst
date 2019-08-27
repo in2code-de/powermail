@@ -5,10 +5,11 @@
 Debug Powermail
 ---------------
 
-With TypoScript it's possible to enable some Devlog Output,
+With TypoScript it's possible to enable some logging Output,
 which could help you to fix problems or a misconfiguration.
 
-You need an additional extension to show the debug output (e.g. "devlog").
+The logging output will not be saved by default. You need to enable it (see example below).
+https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/Logging/Index.html
 
 Comprehensive Example
 """""""""""""""""""""
@@ -24,6 +25,18 @@ Comprehensive Example
 			spamshield = 0
 		}
 	}
+
+.. code-block:: php
+   $GLOBALS['TYPO3_CONF_VARS']['LOG']['In2code']['Powermail']['writerConfiguration'] = [
+      // configuration for WARNING severity, including all
+      // levels with higher severity (ERROR, CRITICAL, EMERGENCY)
+      \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
+      // add a SyslogWriter
+         'TYPO3\\CMS\\Core\\Log\\Writer\\FileWriter' => [
+            'logFile' => 'typo3temp/logs/powermail.log',
+         ],
+      ],
+   ];
 
 
 Configuration

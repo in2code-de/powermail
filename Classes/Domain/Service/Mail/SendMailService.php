@@ -126,8 +126,16 @@ class SendMailService
         $message = $this->addPlainBody($message, $email);
         $message = $this->addSenderHeader($message);
 
+        $email['send'] = true;
         $signalArguments = [$message, &$email, $this];
         $this->signalDispatch(__CLASS__, 'sendTemplateEmailBeforeSend', $signalArguments);
+        if (!$email['send']) {
+            if ($this->settings['debug']['mail']) {
+                $logger = ObjectUtility::getLogger(__CLASS__);
+                $logger->info('Mail was not sent: the signal has aborted sending. Email array after signal execution:', [$email]);
+            }
+            return false;
+        }
 
         $message->send();
         $this->updateMail($email);
