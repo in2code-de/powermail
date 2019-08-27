@@ -3,11 +3,13 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\File;
-use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class for uploading files and check if they are valid
@@ -20,6 +22,8 @@ class UploadValidator extends AbstractValidator
      *
      * @param \In2code\Powermail\Domain\Model\Mail $mail
      * @return bool
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function isValid($mail)
     {
@@ -52,20 +56,13 @@ class UploadValidator extends AbstractValidator
     {
         $arguments = GeneralUtility::_GP('tx_powermail_pi1');
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
-
-        if( gettype($arguments['mail']) === "string" ){
-
+        if (is_string($arguments['mail'])) {
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
-            /** @var Mail $mail */
             $mail = $mailRepository->findByUid((int)$arguments['mail']);
-            /** @var Form $form */
             $form = $formRepository->findByUid((int)$mail->getForm()->getUid());
-        }
-        else {
-            /** @var Form $form */
+        } else {
             $form = $formRepository->findByUid((int)$arguments['mail']['form']);
         }
-        
         return $form->hasUploadField();
     }
 
