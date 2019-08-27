@@ -18,6 +18,21 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.4.0
+   :Date:
+      2019-08-27
+   :Changes:
+
+      * Feature: Allow aborting of the email sending process via signal
+      * Feature: Add a new signal optinConfirmActionAfterPersist
+      * Feature: Use new documentation rendering
+      * Bugfix: Spamcheck fix while searching for links in answers with non-string values
+      * Bugfix: Fix double opt-in with an upload field
+      * Task: Change German wording for optin mails
+      * Task: Small cleanups
+      * Task: Update documentation
+
+ - :Version:
       7.3.1
    :Date:
       2019-05-21
