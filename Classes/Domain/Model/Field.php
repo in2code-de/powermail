@@ -54,9 +54,9 @@ class Field extends AbstractEntity
     protected $path = '';
 
     /**
-     * @var string
+     * @var int
      */
-    protected $contentElement = '';
+    protected $contentElement = 0;
 
     /**
      * @var string
@@ -329,7 +329,7 @@ class Field extends AbstractEntity
     /**
      * Returns the contentElement
      *
-     * @return string $contentElement
+     * @return int $contentElement
      */
     public function getContentElement()
     {
@@ -339,12 +339,12 @@ class Field extends AbstractEntity
     /**
      * Sets the contentElement
      *
-     * @param string $contentElement
+     * @param int $contentElement
      * @return void
      */
     public function setContentElement($contentElement)
     {
-        $this->contentElement = $contentElement;
+        $this->contentElement = (int) $contentElement;
     }
 
     /**
