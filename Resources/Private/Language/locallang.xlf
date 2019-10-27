@@ -194,10 +194,10 @@
 				<source>Please decrease number!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.8">
-				<source>Number to high or to low!</source>
+				<source>Number too large or too small!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.9">
-				<source>Your input is not valid (too many or too less signs)</source>
+				<source>Your input is not valid (too many or too few signs)</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.10">
 				<source>Error in validation!</source>

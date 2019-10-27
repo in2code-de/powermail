@@ -253,7 +253,7 @@
 				<target state="translated">Bitte niedrigere Zahl eintragen!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.8">
-				<source>Number to high or to low!</source>
+				<source>Number too large or too small!</source>
 				<target state="translated">Zahl zu groß oder zu klein!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.9">
