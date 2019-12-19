@@ -12,13 +12,14 @@ use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 
 /**
  * Class SpamShieldValidator
  */
 class SpamShieldValidator extends AbstractValidator
 {
-
     /**
      * Spam indication
      *
@@ -39,13 +40,6 @@ class SpamShieldValidator extends AbstractValidator
      * @var float
      */
     protected $calculatedSpamFactor = 0.0;
-
-    /**
-     * Referrer action
-     *
-     * @var string
-     */
-    protected $referrer;
 
     /**
      * Error messages for email to admin
@@ -151,6 +145,8 @@ class SpamShieldValidator extends AbstractValidator
      *
      * @param Mail $mail
      * @return void
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
     protected function sendSpamNotificationMail(Mail $mail)
     {
@@ -196,6 +192,8 @@ class SpamShieldValidator extends AbstractValidator
      * @param string $path relative path to mail
      * @param array $multipleAssign
      * @return string
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
     protected function createSpamNotificationMessage($path, $multipleAssign = [])
     {
@@ -211,6 +209,7 @@ class SpamShieldValidator extends AbstractValidator
      * @param Mail $mail
      * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
+     * @throws \Exception
      */
     protected function getVariablesForSpamNotification(Mail $mail)
     {
