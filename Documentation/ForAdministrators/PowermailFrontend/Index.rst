@@ -56,7 +56,7 @@ Plugin Settings
    :Description:
       Select a page with mails (optionsl)
    :Explanation:
-      Only mails which are stored in the given page are shown in the frontent (optional setting).
+      Only mails which are stored in the given page are shown in the frontend (optional setting).
    :Tab:
       Main Settings
 
