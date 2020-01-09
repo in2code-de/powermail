@@ -56,7 +56,7 @@ class IsPluginOnCurrentPageCondition extends AbstractCondition
             ->where('pid=' . FrontendUtility::getCurrentPageIdentifier() . ' and list_type="' . $listType . '"')
             ->setMaxResults(1)
             ->execute();
-        $rows = $result->fetchAll();
-        return !empty($rows[0]['uid']);
+        $row = $result->fetch();
+        return !empty($row['uid']);
     }
 }

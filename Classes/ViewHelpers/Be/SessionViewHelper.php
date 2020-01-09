@@ -25,7 +25,7 @@ class SessionViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    public function render()
+    public function render(): bool
     {
         $this->initializeTsfe();
         return $this->checkSession();
@@ -55,8 +55,9 @@ class SessionViewHelper extends AbstractViewHelper
      * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected function initializeTsfe()
+    protected function initializeTsfe(): void
     {
+        throw new \LogicException('todo', 1578949590);
         $feUserAuthentication = EidUtility::initFeUser();
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,

@@ -45,7 +45,7 @@ class StringUtility
      * @param bool $lowerAndUpperCase
      * @return string
      */
-    public static function getRandomString($length = 32, $lowerAndUpperCase = true)
+    public static function getRandomString(int $length = 32, bool $lowerAndUpperCase = true): string
     {
         $characters = implode('', range(0, 9)) . implode('', range('a', 'z'));
         if ($lowerAndUpperCase) {
@@ -137,7 +137,7 @@ class StringUtility
      * @param string $string
      * @return int
      */
-    public static function getStringLength($string): int
+    public static function getStringLength(string $string): int
     {
         $string = str_replace("\r\n", ' ', $string);
         $length = mb_strlen($string, 'utf-8');

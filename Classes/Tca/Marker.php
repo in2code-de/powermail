@@ -33,8 +33,8 @@ class Marker
             $content .= '<span style="background-color: #F4DA5C; padding: 5px 10px; display: block;">';
             $content .= 'Please save before...';
             $content .= '</span>';
-            // was saved before
         } else {
+            // was saved before
             $content .= '<span style="background-color: #ddd; padding: 5px 10px; display: block;">';
             $content .= '{' . strtolower($marker) . '}';
             $content .= '</span>';
@@ -48,7 +48,8 @@ class Marker
     /**
      * Workarround to only show a label and no field in TCA
      *
-     * @return string empty
+     * @return string
+     * @noinspection PhpUnused
      */
     public function doNothing(): string
     {

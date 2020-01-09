@@ -10,6 +10,7 @@ use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class Field
@@ -146,28 +147,22 @@ class Field extends AbstractEntity
     /**
      * @var \In2code\Powermail\Domain\Model\Page
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-     * @lazy
      */
     protected $pages = null;
 
     /**
-     * Returns the title
-     *
-     * @return string $title
+     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return TemplateUtility::fluidParseString($this->title);
     }
 
     /**
-     * Sets the title
-     *
      * @param string $title
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -176,8 +171,9 @@ class Field extends AbstractEntity
      * Returns the type - must not be empty
      *
      * @return string $type
+     * @throws Exception
      */
-    public function getType()
+    public function getType(): string
     {
         $type = $this->type;
         if (empty($type)) {
@@ -194,12 +190,10 @@ class Field extends AbstractEntity
     }
 
     /**
-     * Sets the type
-     *
      * @param string $type
      * @return void
      */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -211,7 +205,7 @@ class Field extends AbstractEntity
      *
      * @return bool
      */
-    public function isBasicFieldType()
+    public function isBasicFieldType(): bool
     {
         $basicFieldTypes = [
             'input',
@@ -229,7 +223,7 @@ class Field extends AbstractEntity
      *
      * @return bool
      */
-    public function isAdvancedFieldType()
+    public function isAdvancedFieldType(): bool
     {
         $advancedFieldTypes = [
             'hidden',
@@ -243,11 +237,9 @@ class Field extends AbstractEntity
     }
 
     /**
-     * Check if this field is exportable
-     *
      * @return bool
      */
-    public function isExportableFieldType()
+    public function isExportableFieldType(): bool
     {
         return $this->isAdvancedFieldType() || in_array($this->getType(), $this->getExportableTypesFromTypoScript());
     }
@@ -256,7 +248,7 @@ class Field extends AbstractEntity
      * @param string $type
      * @return bool
      */
-    public function isTypeOf($type)
+    public function isTypeOf(string $type): bool
     {
         if ($type === self::FIELD_TYPE_BASIC) {
             return $this->isBasicFieldType();
@@ -271,22 +263,18 @@ class Field extends AbstractEntity
     }
 
     /**
-     * Returns the settings
-     *
-     * @return string $settings
+     * @return string
      */
-    public function getSettings()
+    public function getSettings(): string
     {
         return $this->settings;
     }
 
     /**
-     * Sets the settings
-     *
      * @param string $settings
      * @return void
      */
-    public function setSettings($settings)
+    public function setSettings(string $settings): void
     {
         $this->settings = $settings;
     }
@@ -300,91 +288,75 @@ class Field extends AbstractEntity
      *
      * @return array
      */
-    public function getModifiedSettings()
+    public function getModifiedSettings(): array
     {
         return $this->optionArray($this->getSettings(), $this->getCreateFromTyposcript());
     }
 
     /**
-     * Returns the path
-     *
-     * @return string $path
+     * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
 
     /**
-     * Sets the path
-     *
      * @param string $path
      * @return void
      */
-    public function setPath($path)
+    public function setPath(string $path): void
     {
         $this->path = $path;
     }
 
     /**
-     * Returns the contentElement
-     *
-     * @return int $contentElement
+     * @return int
      */
-    public function getContentElement()
+    public function getContentElement(): int
     {
         return $this->contentElement;
     }
 
     /**
-     * Sets the contentElement
-     *
      * @param int $contentElement
      * @return void
      */
-    public function setContentElement($contentElement)
+    public function setContentElement(int $contentElement): void
     {
         $this->contentElement = (int) $contentElement;
     }
 
     /**
-     * Returns the text
-     *
-     * @return string $text
+     * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
     /**
-     * Sets the text
-     *
      * @param string $text
      * @return void
      */
-    public function setText($text)
+    public function setText(string $text): void
     {
         $this->text = $text;
     }
 
     /**
-     * Returns the prefillValue
-     *
-     * @return string $prefillValue
+     * @return string
      */
-    public function getPrefillValue()
+    public function getPrefillValue(): string
     {
         return $this->prefillValue;
     }
 
     /**
-     * Sets the prefillValue
-     *
      * @param string $prefillValue
      * @return void
      */
-    public function setPrefillValue($prefillValue)
+    public function setPrefillValue(string $prefillValue): void
     {
         $this->prefillValue = $prefillValue;
     }
@@ -393,7 +365,7 @@ class Field extends AbstractEntity
      * @param string $placeholder
      * @return void
      */
-    public function setPlaceholder($placeholder)
+    public function setPlaceholder(string $placeholder): void
     {
         $this->placeholder = $placeholder;
     }
@@ -401,7 +373,7 @@ class Field extends AbstractEntity
     /**
      * @return string
      */
-    public function getPlaceholder()
+    public function getPlaceholder(): string
     {
         return $this->placeholder;
     }
@@ -410,7 +382,7 @@ class Field extends AbstractEntity
      * @param string $createFromTyposcript
      * @return void
      */
-    public function setCreateFromTyposcript($createFromTyposcript)
+    public function setCreateFromTyposcript(string $createFromTyposcript): void
     {
         $this->createFromTyposcript = $createFromTyposcript;
     }
@@ -418,28 +390,24 @@ class Field extends AbstractEntity
     /**
      * @return string
      */
-    public function getCreateFromTyposcript()
+    public function getCreateFromTyposcript(): string
     {
         return $this->createFromTyposcript;
     }
 
     /**
-     * Returns the validation
-     *
-     * @return integer $validation
+     * @return int
      */
-    public function getValidation()
+    public function getValidation(): int
     {
         return $this->validation;
     }
 
     /**
-     * Sets the validation
-     *
-     * @param integer $validation
+     * @param int $validation
      * @return void
      */
-    public function setValidation($validation)
+    public function setValidation(int $validation): void
     {
         $this->validation = $validation;
     }
@@ -448,7 +416,7 @@ class Field extends AbstractEntity
      * @param string $validationConfiguration
      * @return void
      */
-    public function setValidationConfiguration($validationConfiguration)
+    public function setValidationConfiguration(string $validationConfiguration): void
     {
         $this->validationConfiguration = $validationConfiguration;
     }
@@ -456,28 +424,24 @@ class Field extends AbstractEntity
     /**
      * @return string
      */
-    public function getValidationConfiguration()
+    public function getValidationConfiguration(): string
     {
         return $this->validationConfiguration;
     }
 
     /**
-     * Returns the css
-     *
-     * @return string $css
+     * @return string
      */
-    public function getCss()
+    public function getCss(): string
     {
         return $this->css;
     }
 
     /**
-     * Sets the css
-     *
      * @param string $css
      * @return void
      */
-    public function setCss($css)
+    public function setCss(string $css): void
     {
         $this->css = $css;
     }
@@ -486,7 +450,7 @@ class Field extends AbstractEntity
      * @param string $description
      * @return void
      */
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -494,24 +458,24 @@ class Field extends AbstractEntity
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param boolean $multiselect
+     * @param bool $multiselect
      * @return void
      */
-    public function setMultiselect($multiselect)
+    public function setMultiselect(bool $multiselect): void
     {
         $this->multiselect = $multiselect;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isMultiselect()
+    public function isMultiselect(): bool
     {
         return $this->multiselect;
     }
@@ -519,7 +483,7 @@ class Field extends AbstractEntity
     /**
      * @return string
      */
-    public function getMultiselectForField()
+    public function getMultiselectForField(): string
     {
         $value = $this->isMultiselect();
         if ($value) {
@@ -534,7 +498,7 @@ class Field extends AbstractEntity
      * @param string $datepickerSettings
      * @return void
      */
-    public function setDatepickerSettings($datepickerSettings)
+    public function setDatepickerSettings(string $datepickerSettings): void
     {
         $this->datepickerSettings = $datepickerSettings;
     }
@@ -542,7 +506,7 @@ class Field extends AbstractEntity
     /**
      * @return string
      */
-    public function getDatepickerSettings()
+    public function getDatepickerSettings(): string
     {
         $datepickerSettings = $this->datepickerSettings;
         if (empty($datepickerSettings)) {
@@ -556,7 +520,7 @@ class Field extends AbstractEntity
      *
      * @return string
      */
-    public function getDatepickerSettingsOptimized()
+    public function getDatepickerSettingsOptimized(): string
     {
         $settings = $this->getDatepickerSettings();
         if ($settings === 'datetime') {
@@ -566,95 +530,78 @@ class Field extends AbstractEntity
     }
 
     /**
-     * Returns the feuserValue
-     *
-     * @return string $feuserValue
+     * @return string
      */
-    public function getFeuserValue()
+    public function getFeuserValue(): string
     {
         return $this->feuserValue;
     }
 
     /**
-     * Sets the feuserValue
-     *
      * @param string $feuserValue
      * @return void
      */
-    public function setFeuserValue($feuserValue)
+    public function setFeuserValue(string $feuserValue): void
     {
         $this->feuserValue = $feuserValue;
     }
 
     /**
-     * Returns the senderEmail
-     *
-     * @return bool $senderEmail
+     * @return bool
      */
-    public function isSenderEmail()
+    public function isSenderEmail(): bool
     {
         return $this->senderEmail;
     }
 
     /**
-     * Sets the senderEmail
-     *
      * @param bool $senderEmail
      * @return void
      */
-    public function setSenderEmail($senderEmail)
+    public function setSenderEmail(bool $senderEmail): void
     {
         $this->senderEmail = $senderEmail;
     }
 
     /**
-     * Returns the senderName
-     *
-     * @return bool $senderName
+     * @return bool
      */
-    public function isSenderName()
+    public function isSenderName(): bool
     {
         return $this->senderName;
     }
 
     /**
-     * Sets the senderName
-     *
      * @param bool $senderName
      * @return void
      */
-    public function setSenderName($senderName)
+    public function setSenderName(bool $senderName): void
     {
         $this->senderName = $senderName;
     }
 
     /**
-     * Returns the mandatory
-     *
-     * @return boolean $mandatory
+     * @return bool
      */
-    public function isMandatory()
+    public function isMandatory(): bool
     {
         return $this->mandatory;
     }
 
     /**
-     * Sets the mandatory
-     *
-     * @param boolean $mandatory
+     * @param bool $mandatory
      * @return void
      */
-    public function setMandatory($mandatory)
+    public function setMandatory(bool $mandatory): void
     {
         $this->mandatory = $mandatory;
     }
 
     /**
-     * Returns the marker
-     *
      * @return string $marker
+     * @throws Exception
      */
-    public function getMarker()
+    public function getMarker(): string
     {
         $marker = $this->marker;
         if ($this->isLocalized()) {
@@ -672,56 +619,50 @@ class Field extends AbstractEntity
      *
      * @return string $marker
      */
-    public function getMarkerOriginal()
+    public function getMarkerOriginal(): string
     {
         return $this->marker;
     }
 
     /**
-     * Sets the marker
-     *
      * @param string $marker
      * @return void
      */
-    public function setMarker($marker)
+    public function setMarker(string $marker): void
     {
         $this->marker = $marker;
     }
 
     /**
-     * Returns the sorting
-     *
-     * @return integer $sorting
+     * @return int
      */
-    public function getSorting()
+    public function getSorting(): int
     {
         return $this->sorting;
     }
 
     /**
-     * Sets the sorting
-     *
-     * @param integer $sorting
+     * @param int $sorting
      * @return void
      */
-    public function setSorting($sorting)
+    public function setSorting(int $sorting): void
     {
         $this->sorting = $sorting;
     }
 
     /**
-     * @param \In2code\Powermail\Domain\Model\Page $pages
+     * @param Page $pages
      * @return void
      */
-    public function setPages($pages)
+    public function setPages(Page $pages): void
     {
         $this->pages = $pages;
     }
 
     /**
-     * @return \In2code\Powermail\Domain\Model\Page
+     * @return Page
      */
-    public function getPages()
+    public function getPages(): Page
     {
         return $this->pages;
     }
@@ -738,7 +679,7 @@ class Field extends AbstractEntity
      * @param bool $parse
      * @return array Options Array
      */
-    protected function optionArray($string, $typoScriptObjectPath, $parse = true)
+    protected function optionArray(string $string, string $typoScriptObjectPath, bool $parse = true): array
     {
         if (empty($string)) {
             $string = TypoScriptUtility::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
@@ -751,10 +692,10 @@ class Field extends AbstractEntity
 
     /**
      * @param string $string Options from the Textarea
-     * @param $parse
+     * @param bool $parse
      * @return array
      */
-    protected function buildOptions($string, $parse)
+    protected function buildOptions(string $string, bool $parse): array
     {
         $options = [];
         $string = str_replace('[\n]', PHP_EOL, $string);
@@ -778,7 +719,7 @@ class Field extends AbstractEntity
      * @param string $fieldType
      * @return int
      */
-    public function dataTypeFromFieldType($fieldType)
+    public function dataTypeFromFieldType(string $fieldType): int
     {
         $dataType = 0;
         static $types = null;
@@ -819,7 +760,7 @@ class Field extends AbstractEntity
     /**
      * @return bool
      */
-    public function isLocalized()
+    public function isLocalized(): bool
     {
         return $this->_getProperty('_languageUid') > 0 &&
             $this->_getProperty('l10nParent') > 0;
@@ -835,7 +776,7 @@ class Field extends AbstractEntity
      * @param array $types
      * @return array
      */
-    protected function extendTypeArrayWithTypoScriptTypes(array $types)
+    protected function extendTypeArrayWithTypoScriptTypes(array $types): array
     {
         $typoScript = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
         $configuration = $typoScript['tx_powermail.']['flexForm.'];
@@ -857,7 +798,7 @@ class Field extends AbstractEntity
      *
      * @return array ['new', 'myownfield']
      */
-    protected function getExportableTypesFromTypoScript()
+    protected function getExportableTypesFromTypoScript(): array
     {
         $types = [];
         $typoScript = BackendUtility::getPagesTSconfig($this->getPid());

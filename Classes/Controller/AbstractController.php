@@ -13,6 +13,8 @@ use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -79,7 +81,7 @@ abstract class AbstractController extends ActionController
     protected $id = 0;
 
     /**
-     * Make $this->settings accessable when extending the controller with signals
+     * Make $this->settings accessible when extending the controller with signals
      *
      * @return array
      */
@@ -94,8 +96,10 @@ abstract class AbstractController extends ActionController
      * @return void
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws InvalidArgumentNameException
+     * @throws NoSuchArgumentException
      */
-    protected function reformatParamsForAction()
+    protected function reformatParamsForAction(): void
     {
         $this->uploadService->preflight($this->settings);
         $arguments = $this->request->getArguments();
@@ -199,7 +203,7 @@ abstract class AbstractController extends ActionController
      * @param FormRepository $formRepository
      * @return void
      */
-    public function injectFormRepository(FormRepository $formRepository)
+    public function injectFormRepository(FormRepository $formRepository): void
     {
         $this->formRepository = $formRepository;
     }
@@ -208,7 +212,7 @@ abstract class AbstractController extends ActionController
      * @param FieldRepository $fieldRepository
      * @return void
      */
-    public function injectFieldRepository(FieldRepository $fieldRepository)
+    public function injectFieldRepository(FieldRepository $fieldRepository): void
     {
         $this->fieldRepository = $fieldRepository;
     }
@@ -217,7 +221,7 @@ abstract class AbstractController extends ActionController
      * @param MailRepository $mailRepository
      * @return void
      */
-    public function injectMailRepository(MailRepository $mailRepository)
+    public function injectMailRepository(MailRepository $mailRepository): void
     {
         $this->mailRepository = $mailRepository;
     }
@@ -226,7 +230,7 @@ abstract class AbstractController extends ActionController
      * @param UploadService $uploadService
      * @return void
      */
-    public function injectUploadService(UploadService $uploadService)
+    public function injectUploadService(UploadService $uploadService): void
     {
         $this->uploadService = $uploadService;
     }
@@ -236,7 +240,7 @@ abstract class AbstractController extends ActionController
      *
      * @return bool
      */
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): bool
     {
         return false;
     }

@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -34,8 +35,6 @@ class Page extends AbstractEntity
     /**
      * @var \In2code\Powermail\Domain\Model\Form
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-     * @lazy
      */
     protected $forms = null;
 
@@ -67,117 +66,95 @@ class Page extends AbstractEntity
     }
 
     /**
-     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
      * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->fields = new ObjectStorage();
     }
 
     /**
-     * Returns the title
-     *
-     * @return string $title
+     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Sets the title
-     *
      * @param string $title
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
     /**
-     * Returns the css
-     *
-     * @return string $css
+     * @return string
      */
-    public function getCss()
+    public function getCss(): string
     {
         return $this->css;
     }
 
     /**
-     * Sets the css
-     *
      * @param string $css
      * @return void
      */
-    public function setCss($css)
+    public function setCss(string $css): void
     {
         $this->css = $css;
     }
 
     /**
-     * Adds a Fields
-     *
      * @param Field $field
      * @return void
      */
-    public function addField(Field $field)
+    public function addField(Field $field): void
     {
         $this->fields->attach($field);
     }
 
     /**
-     * Removes a Fields
-     *
      * @param Field $fieldToRemove
      * @return void
      */
-    public function removeField(Field $fieldToRemove)
+    public function removeField(Field $fieldToRemove): void
     {
         $this->fields->detach($fieldToRemove);
     }
 
     /**
-     * Returns the fields
-     *
      * @return ObjectStorage
      */
-    public function getFields()
+    public function getFields(): ObjectStorage
     {
         return $this->fields;
     }
 
     /**
-     * Sets the fields
-     *
-     * @var ObjectStorage
+     * @param ObjectStorage $fields
      * @return void
      */
-    public function setFields(ObjectStorage $fields)
+    public function setFields(ObjectStorage $fields): void
     {
         $this->fields = $fields;
     }
 
     /**
-     * Returns the sorting
-     *
-     * @return integer $sorting
+     * @return int
      */
-    public function getSorting()
+    public function getSorting(): int
     {
         return $this->sorting;
     }
 
     /**
-     * Sets the sorting
-     *
-     * @param integer $sorting
+     * @param int $sorting
      * @return void
      */
-    public function setSorting($sorting)
+    public function setSorting(int $sorting): void
     {
         $this->sorting = $sorting;
     }
@@ -186,22 +163,23 @@ class Page extends AbstractEntity
      * @param Form $forms
      * @return void
      */
-    public function setForms($forms)
+    public function setForms(Form $forms): void
     {
         $this->forms = $forms;
     }
 
     /**
      * @return Form
+     * @throws Exception
      */
-    public function getForms()
+    public function getForms(): Form
     {
-        // if elementbrowser instead of IRRE (get related form)
+        $form = $this->forms;
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
             $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
-            return $formRepository->findByPages($this->uid);
+            $form = $formRepository->findByPages($this->uid);
         }
-        return $this->forms;
+        return $form;
     }
 
     /**
@@ -213,7 +191,7 @@ class Page extends AbstractEntity
      *
      * @return array
      */
-    public function getFieldsByFieldMarker()
+    public function getFieldsByFieldMarker(): array
     {
         if (empty($this->fieldsByFieldMarker)) {
             $fieldsArray = $this->getFields()->toArray();
@@ -233,7 +211,7 @@ class Page extends AbstractEntity
      *
      * @return array
      */
-    public function getFieldsByFieldUid()
+    public function getFieldsByFieldUid(): array
     {
         if (empty($this->fieldsByFieldUid)) {
             $fieldsArray = $this->getFields()->toArray();

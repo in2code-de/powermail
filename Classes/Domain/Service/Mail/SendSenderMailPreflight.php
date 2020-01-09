@@ -10,6 +10,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -40,10 +41,9 @@ class SendSenderMailPreflight
     protected $conf = [];
 
     /**
-     * SendSenderMailPreflight constructor.
-     *
      * @param array $settings
      * @param array $conf
+     * @throws Exception
      */
     public function __construct(array $settings, array $conf)
     {
@@ -56,15 +56,15 @@ class SendSenderMailPreflight
     /**
      * @param Mail $mail
      * @return void
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      * @throws InvalidConfigurationTypeException
      * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function sendSenderMail(Mail $mail)
+    public function sendSenderMail(Mail $mail): void
     {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $senderService = ObjectUtility::getObjectManager()->get(SenderMailPropertiesService::class, $this->settings);
         $email = [
             'template' => 'Mail/SenderMail',

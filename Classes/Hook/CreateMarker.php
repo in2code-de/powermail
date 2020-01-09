@@ -10,6 +10,7 @@ use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
@@ -77,8 +78,9 @@ class CreateMarker
      * @param string $uid identifier of the record
      * @param array $properties the properties that can be manipulated before storing
      * @return void
+     * @throws Exception
      */
-    public function initialize($status, $table, $uid, &$properties)
+    public function initialize(string $status, string $table, string $uid, array &$properties): void
     {
         $this->status = $status;
         $this->table = $table;
@@ -98,9 +100,14 @@ class CreateMarker
      * @param string $uid identifier of the record
      * @param array $properties the properties that can be manipulated before storing
      * @return void
+     * @throws Exception
      */
-    public function processDatamap_postProcessFieldArray($status, $table, $uid, &$properties)
-    {
+    public function processDatamap_postProcessFieldArray(
+        string $status,
+        string $table,
+        string $uid,
+        array &$properties
+    ): void {
         if ($this->shouldProcess($table)) {
             $this->initialize($status, $table, $uid, $properties);
             /** @var GetNewMarkerNamesForFormService $markerService */
@@ -122,7 +129,7 @@ class CreateMarker
      * @param array $markers
      * @return void
      */
-    protected function setMarkerForFields(array $markers)
+    protected function setMarkerForFields(array $markers): void
     {
         if ($this->shouldProcessField()) {
             if (isset($this->properties['marker']) && empty($this->properties['marker'])) {
@@ -140,7 +147,7 @@ class CreateMarker
      * @param array $markers
      * @return void
      */
-    protected function renameMarker(array $markers)
+    protected function renameMarker(array $markers): void
     {
         if ($this->shouldRenameMarker($markers)) {
             $this->setMarkerProperty($markers[$this->uid]);
@@ -152,7 +159,7 @@ class CreateMarker
      *
      * @return void
      */
-    protected function cleanMarkersInLocalizedFields()
+    protected function cleanMarkersInLocalizedFields(): void
     {
         if (!empty($this->properties['sys_language_uid']) && $this->properties['sys_language_uid'] > 0 &&
             !empty($this->properties['l10n_parent']) && $this->properties['l10n_parent'] > 0) {
@@ -166,7 +173,7 @@ class CreateMarker
      * @param array $markers
      * @return void
      */
-    protected function checkAndRenameMarkers(array $markers)
+    protected function checkAndRenameMarkers(array $markers): void
     {
         foreach ($markers as $uid => $marker) {
             $row = BackendUtilityCore::getRecord(
@@ -182,12 +189,10 @@ class CreateMarker
     }
 
     /**
-     * Set new property
-     *
      * @param $marker
      * @return void
      */
-    protected function setMarkerProperty(string $marker)
+    protected function setMarkerProperty(string $marker): void
     {
         $this->properties['marker'] = $marker;
     }
@@ -196,8 +201,9 @@ class CreateMarker
      * Add existing fields from database to field array
      *
      * @return void
+     * @throws Exception
      */
-    protected function addExistingFields()
+    protected function addExistingFields(): void
     {
         $fieldProperties = $this->getFieldProperties();
         foreach ($fieldProperties as $properties) {
@@ -209,8 +215,9 @@ class CreateMarker
      * Add new fields to field array
      *
      * @return void
+     * @throws Exception
      */
-    protected function addNewFields()
+    protected function addNewFields(): void
     {
         foreach ((array)$this->data[Field::TABLE_NAME] as $fieldUid => $properties) {
             $this->addField($this->makeFieldFromProperties($properties, $fieldUid));
@@ -227,8 +234,9 @@ class CreateMarker
      * @param array $properties
      * @param int $uid
      * @return Field
+     * @throws Exception
      */
-    protected function makeFieldFromProperties(array $properties, $uid = null)
+    protected function makeFieldFromProperties(array $properties, int $uid = 0)
     {
         /** @var Field $field */
         $field = $this->objectManager->get(Field::class);
@@ -238,7 +246,7 @@ class CreateMarker
         if (!empty($properties['sys_language_uid'])) {
             $field->_setProperty('_languageUid', $properties['sys_language_uid']);
         }
-        $field->setDescription((int)$properties['uid'] > 0 ? (int)$properties['uid'] : $uid);
+        $field->setDescription((string)$properties['uid'] > 0 ? (string)$properties['uid'] : $uid);
         return $field;
     }
 
@@ -266,7 +274,7 @@ class CreateMarker
      *
      * @return int form uid
      */
-    protected function getFormUid()
+    protected function getFormUid(): int
     {
         $formUid = 0;
 
@@ -306,28 +314,24 @@ class CreateMarker
      */
     protected function getFormUidFromRelatedPage(int $pageUid): int
     {
-        $formUid = 0;
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME, true);
-        $rows = $queryBuilder
+        return (int)$queryBuilder
             ->select('fo.uid')
             ->from(Form::TABLE_NAME, 'fo')
             ->join('fo', Page::TABLE_NAME, 'p', 'p.forms = fo.uid')
             ->where('p.uid = ' . (int)$pageUid)
             ->setMaxResults(1)
             ->execute()
-            ->fetchAll();
-        if (!empty($rows[0]['uid'])) {
-            $formUid = (int)$rows[0]['uid'];
-        }
-        return $formUid;
+            ->fetchColumn();
     }
 
     /**
      * Add field to array (and may overwrite existing field from array)
      *
      * @param Field $field
+     * @return void
      */
-    protected function addField(Field $field)
+    protected function addField(Field $field): void
     {
         if ($field->getDescription() && $field->getTitle()) {
             $this->fieldArray[$field->getDescription()] = $field;

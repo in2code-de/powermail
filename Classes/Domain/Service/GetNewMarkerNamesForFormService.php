@@ -10,6 +10,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class GetNewMarkerNamesForFormService
@@ -52,8 +53,9 @@ class GetNewMarkerNamesForFormService
      * @param int $formUid
      * @param bool $forceReset
      * @return array
+     * @throws Exception
      */
-    public function getMarkersForFieldsDependingOnForm($formUid, $forceReset)
+    public function getMarkersForFieldsDependingOnForm(int $formUid, bool $forceReset): array
     {
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         if ($formUid === 0) {
@@ -88,7 +90,7 @@ class GetNewMarkerNamesForFormService
      * @param bool $forceReset
      * @return array
      */
-    public function makeUniqueValueInArray(array $fieldArray, $forceReset = false)
+    public function makeUniqueValueInArray(array $fieldArray, bool $forceReset = false): array
     {
         $markerArray = [];
         /** @var Field $field */
@@ -121,8 +123,9 @@ class GetNewMarkerNamesForFormService
      *
      * @param Form $form
      * @return array
+     * @throws Exception
      */
-    protected function getFieldsToForm(Form $form)
+    protected function getFieldsToForm(Form $form): array
     {
         $fields = [];
         foreach ($form->getPages() as $page) {
@@ -161,7 +164,7 @@ class GetNewMarkerNamesForFormService
      * @param bool $forceReset
      * @return string
      */
-    protected function fallbackMarkerIfEmpty(Field $field, $forceReset)
+    protected function fallbackMarkerIfEmpty(Field $field, bool $forceReset): string
     {
         $marker = $field->getMarkerOriginal();
         if (empty($marker) || $forceReset) {
@@ -179,7 +182,7 @@ class GetNewMarkerNamesForFormService
      * @param string $string
      * @return string
      */
-    protected function removeAppendix($string)
+    protected function removeAppendix(string $string): string
     {
         $part = '[0-9]';
         $pattern = '';
@@ -196,7 +199,7 @@ class GetNewMarkerNamesForFormService
      * @param int $iteration
      * @return string
      */
-    protected function addAppendix($string, $iteration)
+    protected function addAppendix(string $string, int $iteration): string
     {
         $string .= '_' . str_pad((string)$iteration, strlen((string)$this->iterations), '0', STR_PAD_LEFT);
         return $string;
@@ -221,7 +224,7 @@ class GetNewMarkerNamesForFormService
      * @param array $newArray
      * @return bool
      */
-    protected function isMarkerAllowed($marker, array $newArray)
+    protected function isMarkerAllowed(string $marker, array $newArray): bool
     {
         return !in_array($marker, $newArray) && !in_array($marker, $this->restrictedMarkers);
     }
@@ -233,7 +236,7 @@ class GetNewMarkerNamesForFormService
      * @param string $string Any String
      * @return string
      */
-    protected function cleanString($string)
+    protected function cleanString(string $string): string
     {
         $csConverter = GeneralUtility::makeInstance(CharsetConverter::class);
         $string = $csConverter->specCharsToASCII('utf-8', $string);
@@ -246,7 +249,7 @@ class GetNewMarkerNamesForFormService
     /**
      * @return string
      */
-    public static function getRandomMarkerName()
+    public static function getRandomMarkerName(): string
     {
         return self::$defaultMarker . '_' . StringUtility::getRandomString(8, false);
     }

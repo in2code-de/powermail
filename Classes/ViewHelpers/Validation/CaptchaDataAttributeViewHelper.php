@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class CaptchaDataAttributeViewHelper
@@ -15,6 +16,7 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
      * Returns Data Attribute Array for JS validation with parsley.js
      *
      * @return array for data attributes
+     * @throws Exception
      */
     public function render(): array
     {

@@ -17,8 +17,6 @@ abstract class AbstractDataProcessor implements DataProcessorInterface
     protected $mail;
 
     /**
-     * Extension settings
-     *
      * @var array
      */
     protected $settings;
@@ -45,16 +43,16 @@ abstract class AbstractDataProcessor implements DataProcessorInterface
     /**
      * @return Mail
      */
-    public function getMail()
+    public function getMail(): Mail
     {
         return $this->mail;
     }
 
     /**
      * @param Mail $mail
-     * @return AbstractDataProcessor
+     * @return DataProcessorInterface
      */
-    public function setMail($mail)
+    public function setMail(Mail $mail): DataProcessorInterface
     {
         $this->mail = $mail;
         return $this;
@@ -63,16 +61,16 @@ abstract class AbstractDataProcessor implements DataProcessorInterface
     /**
      * @return array
      */
-    public function getSettings()
+    public function getSettings(): array
     {
         return $this->settings;
     }
 
     /**
      * @param array $settings
-     * @return AbstractDataProcessor
+     * @return DataProcessorInterface
      */
-    public function setSettings($settings)
+    public function setSettings(array $settings): DataProcessorInterface
     {
         $this->settings = $settings;
         return $this;
@@ -81,34 +79,34 @@ abstract class AbstractDataProcessor implements DataProcessorInterface
     /**
      * @return array
      */
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
     /**
      * @param array $configuration
-     * @return AbstractDataProcessor
+     * @return DataProcessorInterface
      */
-    public function setConfiguration($configuration)
+    public function setConfiguration(array $configuration): DataProcessorInterface
     {
         $this->configuration = $configuration;
         return $this;
     }
 
     /**
-     * @return null
+     * @return string
      */
-    public function getActionMethodName()
+    public function getActionMethodName(): string
     {
-        return $this->actionMethodName;
+        return (string)$this->actionMethodName;
     }
 
     /**
-     * @param null $actionMethodName
-     * @return AbstractDataProcessor
+     * @param string $actionMethodName
+     * @return DataProcessorInterface
      */
-    public function setActionMethodName($actionMethodName)
+    public function setActionMethodName($actionMethodName): DataProcessorInterface
     {
         $this->actionMethodName = $actionMethodName;
         return $this;
@@ -117,7 +115,7 @@ abstract class AbstractDataProcessor implements DataProcessorInterface
     /**
      * @return void
      */
-    public function initializeDataProcessor()
+    public function initializeDataProcessor(): void
     {
     }
 
@@ -125,14 +123,14 @@ abstract class AbstractDataProcessor implements DataProcessorInterface
      * @param Mail $mail
      * @param array $configuration
      * @param array $settings
-     * @param ContentObjectRenderer $contentObject
      * @param string $actionMethodName
+     * @param ContentObjectRenderer $contentObject
      */
     public function __construct(
         Mail $mail,
         array $configuration,
         array $settings,
-        $actionMethodName,
+        string $actionMethodName,
         ContentObjectRenderer $contentObject
     ) {
         $this->setMail($mail);

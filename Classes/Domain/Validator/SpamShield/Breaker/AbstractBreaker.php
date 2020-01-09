@@ -47,7 +47,7 @@ abstract class AbstractBreaker implements BreakerInterface
     /**
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
     }
 
@@ -63,7 +63,7 @@ abstract class AbstractBreaker implements BreakerInterface
      * @param Mail $mail
      * @return AbstractBreaker
      */
-    public function setMail(Mail $mail)
+    public function setMail(Mail $mail): BreakerInterface
     {
         $this->mail = $mail;
         return $this;
@@ -81,7 +81,7 @@ abstract class AbstractBreaker implements BreakerInterface
      * @param array $configuration
      * @return AbstractBreaker
      */
-    public function setConfiguration(array $configuration)
+    public function setConfiguration(array $configuration): BreakerInterface
     {
         $this->configuration = $configuration;
         return $this;
@@ -99,7 +99,7 @@ abstract class AbstractBreaker implements BreakerInterface
      * @param array $settings
      * @return AbstractBreaker
      */
-    public function setSettings(array $settings)
+    public function setSettings(array $settings): BreakerInterface
     {
         $this->settings = $settings;
         return $this;
@@ -117,7 +117,7 @@ abstract class AbstractBreaker implements BreakerInterface
      * @param array $flexForm
      * @return AbstractBreaker
      */
-    public function setFlexForm(array $flexForm)
+    public function setFlexForm(array $flexForm): BreakerInterface
     {
         $this->flexForm = $flexForm;
         return $this;

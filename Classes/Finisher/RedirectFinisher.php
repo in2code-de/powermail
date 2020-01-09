@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Service\RedirectUriService;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class RedirectFinisher
@@ -22,8 +23,9 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
      * Redirect user after form submit
      *
      * @return void
+     * @throws Exception
      */
-    public function redirectToUriFinisher()
+    public function redirectToUriFinisher(): void
     {
         /** @var RedirectUriService $redirectService */
         $redirectService = ObjectUtility::getObjectManager()->get(RedirectUriService::class, $this->contentObject);
@@ -36,7 +38,7 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
     /**
      * @return bool
      */
-    protected function isRedirectEnabled()
+    protected function isRedirectEnabled(): bool
     {
         return !(!empty($this->settings['main']['optin']) && empty($this->arguments['hash']));
     }
@@ -44,7 +46,7 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
     /**
      * Initialize
      */
-    public function initializeFinisher()
+    public function initializeFinisher(): void
     {
         $this->arguments = GeneralUtility::_GP('tx_powermail_pi1');
     }

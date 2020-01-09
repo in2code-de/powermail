@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -18,8 +19,6 @@ class VariableInVariableViewHelper extends AbstractViewHelper implements ViewHel
 
     /**
      * Initialize arguments.
-     *
-     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
      */
     public function initializeArguments()
     {
@@ -36,6 +35,7 @@ class VariableInVariableViewHelper extends AbstractViewHelper implements ViewHel
      * @param RenderingContextInterface $renderingContext
      *
      * @return mixed
+     * @throws PropertyNotAccessibleException
      */
     public static function renderStatic(
         array $arguments,

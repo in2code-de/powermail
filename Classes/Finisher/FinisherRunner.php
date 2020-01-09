@@ -31,9 +31,9 @@ class FinisherRunner
      */
     public function callFinishers(
         Mail $mail,
-        $formSubmitted,
-        $actionMethodName,
-        $settings,
+        bool $formSubmitted,
+        string $actionMethodName,
+        array $settings,
         ContentObjectRenderer $contentObject
     ) {
         foreach ($this->getFinisherClasses($settings) as $finisherSettings) {
@@ -41,12 +41,12 @@ class FinisherRunner
             $this->requireFile($finisherSettings);
             if (!class_exists($class)) {
                 throw new \UnexpectedValueException(
-                    'Finisher class ' . $class . ' does not exists - check if file was loaded correctly'
+                    'Finisher class ' . $class . ' does not exists - check if file was loaded correctly',
+                    1578644684
                 );
             }
             if (is_subclass_of($class, $this->interface)) {
                 /** @var AbstractFinisher $finisher */
-                /** @noinspection PhpMethodParametersCountMismatchInspection */
                 $finisher = ObjectUtility::getObjectManager()->get(
                     $class,
                     $mail,
@@ -59,7 +59,7 @@ class FinisherRunner
                 $finisher->initializeFinisher();
                 $this->callFinisherMethods($finisher);
             } else {
-                throw new \UnexpectedValueException('Finisher does not implement ' . $this->interface);
+                throw new \UnexpectedValueException('Finisher does not implement ' . $this->interface, 1578644680);
             }
         }
     }
@@ -71,7 +71,7 @@ class FinisherRunner
      * @param AbstractFinisher $finisher
      * @return void
      */
-    protected function callFinisherMethods(AbstractFinisher $finisher)
+    protected function callFinisherMethods(AbstractFinisher $finisher): void
     {
         foreach (get_class_methods($finisher) as $method) {
             if (StringUtility::endsWith($method, 'Finisher') && !StringUtility::startsWith($method, 'initialize')) {
@@ -88,7 +88,7 @@ class FinisherRunner
      * @param string $finisherMethod
      * @return void
      */
-    protected function callInitializeFinisherMethod(AbstractFinisher $finisher, $finisherMethod)
+    protected function callInitializeFinisherMethod(AbstractFinisher $finisher, string $finisherMethod): void
     {
         if (method_exists($finisher, 'initialize' . ucFirst($finisherMethod))) {
             $finisher->{'initialize' . ucFirst($finisherMethod)}();
@@ -101,7 +101,7 @@ class FinisherRunner
      * @param array $settings
      * @return array
      */
-    protected function getFinisherClasses($settings)
+    protected function getFinisherClasses(array $settings): array
     {
         $finishers = (array)$settings['finishers'];
         ksort($finishers);
@@ -111,7 +111,7 @@ class FinisherRunner
     /**
      * @param array $finisherSettings
      */
-    protected function requireFile(array $finisherSettings)
+    protected function requireFile(array $finisherSettings): void
     {
         if (!empty($finisherSettings['require'])) {
             if (file_exists($finisherSettings['require'])) {

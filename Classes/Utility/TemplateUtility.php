@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -24,8 +25,9 @@ class TemplateUtility extends AbstractUtility
      * @param string $part "template", "partial", "layout"
      * @return array
      * @throws InvalidConfigurationTypeException
+     * @throws Exception
      */
-    public static function getTemplateFolders($part = 'template')
+    public static function getTemplateFolders(string $part = 'template'): array
     {
         $templatePaths = [];
         $extbaseConfig = self::getConfigurationManager()->getConfiguration(
@@ -58,7 +60,7 @@ class TemplateUtility extends AbstractUtility
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      */
-    public static function getTemplatePath($pathAndFilename, $part = 'template')
+    public static function getTemplatePath(string $pathAndFilename, string $part = 'template'): string
     {
         $matches = self::getTemplatePaths($pathAndFilename, $part);
         return !empty($matches) ? end($matches) : '';
@@ -75,7 +77,7 @@ class TemplateUtility extends AbstractUtility
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      */
-    public static function getTemplatePaths($pathAndFilename, $part = 'template')
+    public static function getTemplatePaths(string $pathAndFilename, string $part = 'template'): array
     {
         $matches = [];
         $absolutePaths = self::getTemplateFolders($part);
@@ -96,12 +98,13 @@ class TemplateUtility extends AbstractUtility
      * @return StandaloneView
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws Exception
      */
     public static function getDefaultStandAloneView(
-        $extensionName = 'Powermail',
-        $pluginName = 'Pi1',
-        $format = 'html'
-    ) {
+        string $extensionName = 'Powermail',
+        string $pluginName = 'Pi1',
+        string $format = 'html'
+    ): StandaloneView {
         /** @var StandaloneView $standaloneView */
         $standaloneView = self::getObjectManager()->get(StandaloneView::class);
         $standaloneView->getRequest()->setControllerExtensionName($extensionName);
@@ -118,13 +121,18 @@ class TemplateUtility extends AbstractUtility
      * @param Mail $mail
      * @param string $section
      * @param array $settings
-     * @param null $type
+     * @param string $type
      * @return string
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws Exception
      */
-    public static function powermailAll(Mail $mail, $section = 'web', $settings = [], $type = null)
-    {
+    public static function powermailAll(
+        Mail $mail,
+        string $section = 'web',
+        array $settings = [],
+        string $type = null
+    ): string {
         $standaloneView = self::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(self::getTemplatePath('Form/PowermailAll.html'));
         $standaloneView->assignMultiple(
@@ -144,14 +152,14 @@ class TemplateUtility extends AbstractUtility
      * @param string $string Any string
      * @param array $variables Variables
      * @return string Parsed string
+     * @throws Exception
      */
-    public static function fluidParseString($string, $variables = [])
+    public static function fluidParseString(string $string, array $variables = []): string
     {
         if (empty($string) || ConfigurationUtility::isDatabaseConnectionAvailable() === false
             || BackendUtility::isBackendContext()) {
             return $string;
         }
-        /** @var StandaloneView $standaloneView */
         $standaloneView = self::getObjectManager()->get(StandaloneView::class);
         $standaloneView->setTemplateSource($string);
         $standaloneView->assignMultiple($variables);

@@ -5,6 +5,7 @@ namespace In2code\Powermail\Domain\Validator\SpamShield\Breaker;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class BreakerRunner
@@ -45,6 +46,7 @@ class BreakerRunner
 
     /**
      * @return bool
+     * @throws Exception
      */
     public function isSpamCheckDisabledByAnyBreaker(): bool
     {
@@ -85,6 +87,7 @@ class BreakerRunner
 
     /**
      * @return array
+     * @throws Exception
      */
     protected function getBreaker(): array
     {

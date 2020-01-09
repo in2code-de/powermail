@@ -6,6 +6,9 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * SendParametersFinisher to send params via CURL
@@ -50,7 +53,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      *
      * @return void
      */
-    public function sendFinisher()
+    public function sendFinisher(): void
     {
         if ($this->isEnabled()) {
             $curlSettings = $this->getCurlSettings();
@@ -70,11 +73,9 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     }
 
     /**
-     * Write devlog entry
-     *
      * @return void
      */
-    protected function writeToDevelopmentLog()
+    protected function writeToDevelopmentLog(): void
     {
         if ($this->configuration['debug']) {
             $logger = ObjectUtility::getLogger(__CLASS__);
@@ -83,12 +84,9 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     }
 
     /**
-     * CURL settings
-     *
      * @return array
-     * @return void
      */
-    protected function getCurlSettings()
+    protected function getCurlSettings(): array
     {
         return [
             'url' => $this->configuration['targetUrl'],
@@ -103,7 +101,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      *
      * @return string
      */
-    protected function getValues()
+    protected function getValues(): string
     {
         return $this->contentObject->cObjGetSingle($this->configuration['values'], $this->configuration['values.']);
     }
@@ -115,7 +113,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      *
      * @return bool
      */
-    protected function isEnabled()
+    protected function isEnabled(): bool
     {
         return $this->contentObject->cObjGetSingle(
             $this->configuration['_enable'],
@@ -124,11 +122,12 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     }
 
     /**
-     * Initialize
-     *
      * @return void
+     * @throws Exception
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    public function initializeFinisher()
+    public function initializeFinisher(): void
     {
         // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
         $this->contentObject = $this->configurationManager->getContentObject();
@@ -143,7 +142,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      * @param ConfigurationManagerInterface $configurationManager
      * @return void
      */
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
+    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
     {
         $this->configurationManager = $configurationManager;
     }

@@ -54,14 +54,14 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
     }
 
     /**
      * @return void
      */
-    public function initializeSpamCheck()
+    public function initializeSpamCheck(): void
     {
     }
 
@@ -70,7 +70,7 @@ abstract class AbstractMethod implements MethodInterface
      *
      * @return bool
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         return false;
     }

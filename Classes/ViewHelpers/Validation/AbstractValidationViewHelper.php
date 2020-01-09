@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -8,6 +7,7 @@ use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -35,14 +35,14 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     /**
      * @var string
      */
-    protected $extensionName;
+    protected $extensionName = '';
 
     /**
      * Check if native validation is activated
      *
      * @return bool
      */
-    protected function isNativeValidationEnabled()
+    protected function isNativeValidationEnabled(): bool
     {
         return !empty($this->settings['validation']['native']) && $this->settings['validation']['native'] === '1';
     }
@@ -52,7 +52,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function isClientValidationEnabled()
+    protected function isClientValidationEnabled(): bool
     {
         return !empty($this->settings['validation']['client']) && $this->settings['validation']['client'] === '1';
     }
@@ -60,11 +60,12 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     /**
      * Set mandatory attributes
      *
-     * @param array &$additionalAttributes
+     * @param array $additionalAttributes
      * @param Field $field
-     * @return void
+     * @return array
+     * @throws Exception
      */
-    protected function addMandatoryAttributes(array &$additionalAttributes, Field $field = null)
+    protected function addMandatoryAttributes(array $additionalAttributes, Field $field = null): array
     {
         if ($field !== null && $field->isMandatory()) {
             if ($this->isNativeValidationEnabled()) {
@@ -87,10 +88,11 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
                  * So we define for this case where the errors should be included
                  */
                 if ($field->getType() === 'select' && $field->isMultiselect()) {
-                    $this->addErrorContainer($additionalAttributes, $field);
+                    $additionalAttributes = $this->addErrorContainer($additionalAttributes, $field);
                 }
             }
         }
+        return $additionalAttributes;
     }
 
     /**
@@ -99,8 +101,9 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
+     * @throws Exception
      */
-    protected function addErrorContainer(array &$additionalAttributes, Field $field)
+    protected function addErrorContainer(array $additionalAttributes, Field $field): array
     {
         $additionalAttributes['data-parsley-errors-container'] =
             '.powermail_field_error_container_' . $field->getMarker();
@@ -113,8 +116,9 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
+     * @throws Exception
      */
-    protected function addClassHandler(array &$additionalAttributes, Field $field)
+    protected function addClassHandler(array $additionalAttributes, Field $field): array
     {
         $additionalAttributes['data-parsley-class-handler'] =
             '.powermail_fieldwrap_' . $field->getMarker() . ' div:first > div';
@@ -123,6 +127,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
 
     /**
      * @return void
+     * @throws Exception
      */
     public function initialize()
     {

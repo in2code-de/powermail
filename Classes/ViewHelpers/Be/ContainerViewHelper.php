@@ -5,6 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Be;
 
 use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\ContainerViewHelper as ContainerViewHelperFluid;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 
 /**
  * Class ContainerViewHelper
@@ -15,7 +16,7 @@ class ContainerViewHelper extends ContainerViewHelperFluid
     /**
      * Initialize arguments.
      *
-     * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
+     * @throws Exception
      */
     public function initializeArguments()
     {
@@ -29,7 +30,7 @@ class ContainerViewHelper extends ContainerViewHelperFluid
      *
      * @return void
      */
-    protected function allowOutdatedArgumentsInTypo39()
+    protected function allowOutdatedArgumentsInTypo39(): void
     {
         if (ConfigurationUtility::isTypo3OlderThen9() === false) {
             $this->registerArgument(

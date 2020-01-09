@@ -13,7 +13,7 @@ class EncodeViewHelper extends AbstractViewHelper
     /**
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         return htmlspecialchars($this->renderChildren());
     }

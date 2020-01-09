@@ -11,48 +11,40 @@ interface DataProcessorInterface
 {
 
     /**
-     * Get mail
-     *
      * @return Mail
      */
-    public function getMail();
+    public function getMail(): Mail;
 
     /**
-     * Set mail
-     *
      * @param Mail $mail
-     * @return AbstractDataProcessor
+     * @return DataProcessorInterface
      */
-    public function setMail($mail);
+    public function setMail(Mail $mail): DataProcessorInterface;
 
     /**
-     * Get settings
-     *
      * @return array
      */
-    public function getSettings();
+    public function getSettings(): array;
 
     /**
-     * Set settings
-     *
      * @param array $settings
-     * @return AbstractDataProcessor
+     * @return DataProcessorInterface
      */
-    public function setSettings($settings);
+    public function setSettings(array $settings): DataProcessorInterface;
 
     /**
-     * @return null
+     * @return string
      */
-    public function getActionMethodName();
+    public function getActionMethodName(): string;
 
     /**
-     * @param null $actionMethodName
-     * @return AbstractDataProcessor
+     * @param string $actionMethodName
+     * @return DataProcessorInterface
      */
-    public function setActionMethodName($actionMethodName);
+    public function setActionMethodName(string $actionMethodName): DataProcessorInterface;
 
     /**
      * @return void
      */
-    public function initializeDataProcessor();
+    public function initializeDataProcessor(): void;
 }

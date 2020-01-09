@@ -17,3 +17,4 @@ Resources/Private/node_modules/
 dynamicReturnTypeMeta.json
 .Build/
 composer.lock
+.php_cs.cache

@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
@@ -15,6 +17,8 @@ class ConfigurationUtility extends AbstractUtility
      * Check if disableIpLog is active
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisableIpLogActive(): bool
     {
@@ -26,6 +30,8 @@ class ConfigurationUtility extends AbstractUtility
      * Check if disableMarketingInformation is active
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisableMarketingInformationActive(): bool
     {
@@ -37,6 +43,8 @@ class ConfigurationUtility extends AbstractUtility
      * Check if disableBackendModule is active
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisableBackendModuleActive(): bool
     {
@@ -48,6 +56,8 @@ class ConfigurationUtility extends AbstractUtility
      * Check if disablePluginInformation is active
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisablePluginInformationActive(): bool
     {
@@ -59,6 +69,8 @@ class ConfigurationUtility extends AbstractUtility
      * Check if disablePluginInformationMailPreview is active
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisablePluginInformationMailPreviewActive(): bool
     {
@@ -70,6 +82,8 @@ class ConfigurationUtility extends AbstractUtility
      * Check if enableCaching is active
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isEnableCachingActive(): bool
     {
@@ -81,6 +95,8 @@ class ConfigurationUtility extends AbstractUtility
      * Check if replaceIrreWithElementBrowser is active
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isReplaceIrreWithElementBrowserActive(): bool
     {
@@ -92,8 +108,10 @@ class ConfigurationUtility extends AbstractUtility
      * Check if l10n_mode_merge is active
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    public static function isL10nModeMergeActive()
+    public static function isL10nModeMergeActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
         return (bool)$extensionConfig['l10n_mode_merge'] === true;
@@ -101,6 +119,8 @@ class ConfigurationUtility extends AbstractUtility
 
     /**
      * @return array
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function getExtensionConfiguration(): array
     {
@@ -110,17 +130,17 @@ class ConfigurationUtility extends AbstractUtility
     /**
      * Get development email (only if in dev context)
      *
-     * @return false|string
+     * @return string
      * @codeCoverageIgnore
      */
-    public static function getDevelopmentContextEmail()
+    public static function getDevelopmentContextEmail(): string
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (GeneralUtility::getApplicationContext()->isDevelopment() &&
             GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])) {
             return $configVariables['EXT']['powermailDevelopContextEmail'];
         }
-        return false;
+        return '';
     }
 
     /**
@@ -129,7 +149,7 @@ class ConfigurationUtility extends AbstractUtility
      * @param string $fallback
      * @return string
      */
-    public static function getDefaultMailFromAddress($fallback = null)
+    public static function getDefaultMailFromAddress(string $fallback = null): string
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (!empty($configVariables['MAIL']['defaultMailFromAddress'])) {
@@ -146,7 +166,7 @@ class ConfigurationUtility extends AbstractUtility
      *
      * @return string
      */
-    public static function getDefaultMailFromName()
+    public static function getDefaultMailFromName(): string
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (!empty($configVariables['MAIL']['defaultMailFromName'])) {
@@ -161,7 +181,7 @@ class ConfigurationUtility extends AbstractUtility
      * @param string $fileName
      * @return string
      */
-    public static function getIconPath($fileName)
+    public static function getIconPath(string $fileName): string
     {
         return 'EXT:powermail/Resources/Public/Icons/' . $fileName;
     }
@@ -174,7 +194,7 @@ class ConfigurationUtility extends AbstractUtility
      * @param string $className
      * @return bool
      */
-    public static function isValidationEnabled(array $settings, $className)
+    public static function isValidationEnabled(array $settings, string $className): bool
     {
         $validationActivated = false;
         foreach ((array)$settings['spamshield']['methods'] as $method) {
@@ -189,10 +209,9 @@ class ConfigurationUtility extends AbstractUtility
     /**
      * Check if gdlib is loaded on this server
      *
-     * @throws \Exception
      * @codeCoverageIgnore
      */
-    public static function testGdExtension()
+    public static function testGdExtension(): void
     {
         if (!extension_loaded('gd')) {
             throw new \InvalidArgumentException('PHP extension gd not loaded.', 1514819369374);
@@ -207,7 +226,7 @@ class ConfigurationUtility extends AbstractUtility
      * @param string $typoScriptLevel Startpoint
      * @return void
      */
-    public static function mergeTypoScript2FlexForm(&$settings, $typoScriptLevel = 'setup')
+    public static function mergeTypoScript2FlexForm(array &$settings, string $typoScriptLevel = 'setup')
     {
         $settings = ArrayUtility::arrayMergeRecursiveOverrule(
             (array)$settings[$typoScriptLevel],

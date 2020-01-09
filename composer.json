@@ -19,7 +19,9 @@
   "require": {
     "typo3/cms-core": ">=9.5.0 <11.0.0",
     "ext-json": "*",
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "ext-fileinfo": "*",
+    "ext-curl": "*"
   },
   "replace": {
     "powermail": "self.version",

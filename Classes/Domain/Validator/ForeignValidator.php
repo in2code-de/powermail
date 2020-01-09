@@ -16,7 +16,7 @@ class ForeignValidator extends AbstractValidator
     /**
      * @var string
      */
-    protected $validatorInterface = 'In2code\Powermail\Domain\Validator\ValidatorInterface';
+    protected $validatorInterface = ValidatorInterface::class;
 
     /**
      * Include foreign validators
@@ -31,7 +31,8 @@ class ForeignValidator extends AbstractValidator
             $this->loadFile($validatorConf['require']);
             if (!class_exists($validatorConf['class'])) {
                 throw new \UnexpectedValueException(
-                    'Class ' . $validatorConf['class'] . ' does not exists - check if file was loaded with autoloader'
+                    'Class ' . $validatorConf['class'] . ' does not exists - check if file was loaded with autoloader',
+                    1578609804
                 );
             }
             if (is_subclass_of($validatorConf['class'], $this->validatorInterface)) {
@@ -42,7 +43,10 @@ class ForeignValidator extends AbstractValidator
                 /** @var Result $result */
                 $this->addErrors($validator->validate($mail));
             } else {
-                throw new \UnexpectedValueException('Validator does not implement ' . $this->validatorInterface);
+                throw new \UnexpectedValueException(
+                    'Validator does not implement ' . $this->validatorInterface,
+                    1578609814
+                );
             }
         }
 
@@ -55,7 +59,7 @@ class ForeignValidator extends AbstractValidator
      * @param Result $result
      * @return void
      */
-    protected function addErrors(Result $result)
+    protected function addErrors(Result $result): void
     {
         $errors = $result->getErrors();
         if (!empty($errors)) {
@@ -71,9 +75,10 @@ class ForeignValidator extends AbstractValidator
      * @param string $pathAndFile
      * @return void
      */
-    protected function loadFile($pathAndFile)
+    protected function loadFile($pathAndFile): void
     {
         if (!empty($pathAndFile) && file_exists($pathAndFile)) {
+            /** @noinspection PhpIncludeInspection */
             require_once($pathAndFile);
         }
     }

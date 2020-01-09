@@ -30,7 +30,7 @@ class ValueBreaker extends AbstractBreaker
      * @param array $configuration
      * @return void
      */
-    protected function checkConfiguration(array $configuration)
+    protected function checkConfiguration(array $configuration): void
     {
         if (empty($configuration['value'])) {
             throw new \UnexpectedValueException('No value given to check for', 1516025541289);

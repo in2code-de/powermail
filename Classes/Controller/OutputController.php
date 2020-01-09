@@ -8,6 +8,8 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
@@ -29,7 +31,7 @@ class OutputController extends AbstractController
      * @return void
      * @throws InvalidQueryException
      */
-    public function listAction()
+    public function listAction(): void
     {
         $this->prepareFilterPluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
         $fieldArray = $this->getFieldList($this->settings['list']['fields']);
@@ -52,7 +54,7 @@ class OutputController extends AbstractController
      * @param Mail $mail
      * @return void
      */
-    public function showAction(Mail $mail)
+    public function showAction(Mail $mail): void
     {
         $fieldArray = $this->getFieldList($this->settings['single']['fields']);
         $this->view->assignMultiple(
@@ -68,7 +70,7 @@ class OutputController extends AbstractController
      * @param Mail $mail
      * @return void
      */
-    public function editAction(Mail $mail = null)
+    public function editAction(Mail $mail = null): void
     {
         $fieldArray = $this->getFieldList($this->settings['edit']['fields']);
         $this->view->assignMultiple(
@@ -82,11 +84,13 @@ class OutputController extends AbstractController
 
     /**
      * @return void
-     * @throws StopActionException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws StopActionException
+     * @throws InvalidArgumentNameException
+     * @throws NoSuchArgumentException
      */
-    public function initializeUpdateAction()
+    public function initializeUpdateAction(): void
     {
         $arguments = $this->request->getArguments();
         if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
@@ -109,8 +113,9 @@ class OutputController extends AbstractController
      * @throws UnsupportedRequestTypeException
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
+     * @throws \Exception
      */
-    public function updateAction(Mail $mail)
+    public function updateAction(Mail $mail): void
     {
         $this->uploadService->uploadAllFiles();
         $this->mailRepository->update($mail);
@@ -122,7 +127,7 @@ class OutputController extends AbstractController
      * @return void
      * @throws StopActionException
      */
-    public function initializeDeleteAction()
+    public function initializeDeleteAction(): void
     {
         $arguments = $this->request->getArguments();
         if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['mail'])) {
@@ -141,7 +146,7 @@ class OutputController extends AbstractController
      * @return void
      * @throws IllegalObjectTypeException
      */
-    public function deleteAction(Mail $mail)
+    public function deleteAction(Mail $mail): void
     {
         $this->assignMultipleActions();
         $this->mailRepository->remove($mail);
@@ -154,7 +159,7 @@ class OutputController extends AbstractController
      * @throws InvalidQueryException
      * @throws StopActionException
      */
-    public function exportAction($export = [])
+    public function exportAction(array $export = []): void
     {
         if (!$this->settings['list']['export']) {
             return;
@@ -180,7 +185,7 @@ class OutputController extends AbstractController
      * @param array $fields uid field list
      * @return void
      */
-    public function exportXlsAction(QueryResult $mails = null, $fields = [])
+    public function exportXlsAction(QueryResult $mails = null, array $fields = []): void
     {
         $this->view->assign('mails', $mails);
         $this->view->assign('fields', $fields);
@@ -191,7 +196,7 @@ class OutputController extends AbstractController
      * @param array $fields uid field list
      * @return void
      */
-    public function exportCsvAction(QueryResult $mails = null, $fields = [])
+    public function exportCsvAction(QueryResult $mails = null, array $fields = []): void
     {
         $this->view->assign('mails', $mails);
         $this->view->assign('fields', $fields);
@@ -201,7 +206,7 @@ class OutputController extends AbstractController
      * @return void
      * @throws InvalidQueryException
      */
-    public function rssAction()
+    public function rssAction(): void
     {
         $mails = $this->mailRepository->findListBySettings($this->settings, $this->piVars);
         $this->view->assign('mails', $mails);
@@ -209,11 +214,9 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Object initialization
-     *
      * @return void
      */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         ConfigurationUtility::mergeTypoScript2FlexForm($this->settings, 'Pi2');
     }
@@ -224,7 +227,7 @@ class OutputController extends AbstractController
      * @param string $list
      * @return array
      */
-    protected function getFieldList($list = '')
+    protected function getFieldList(string $list = ''): array
     {
         if (!empty($list)) {
             $fieldArray = GeneralUtility::trimExplode(',', $list, true);
@@ -235,11 +238,9 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Assign variables
-     *
      * @return void
      */
-    protected function assignMultipleActions()
+    protected function assignMultipleActions(): void
     {
         if (empty($this->settings['single']['pid'])) {
             $this->settings['single']['pid'] = FrontendUtility::getCurrentPageIdentifier();
@@ -256,8 +257,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * Action initialization
-     *
      * @return void
      */
     protected function initializeAction()
@@ -282,7 +281,7 @@ class OutputController extends AbstractController
      * @param array $parameters
      * @return void
      */
-    protected function prepareFilterPluginVariables(&$pluginVariables, $parameters)
+    protected function prepareFilterPluginVariables(array &$pluginVariables, array $parameters): void
     {
         if (!empty($parameters['filter'])) {
             $pluginVariables = (array)$pluginVariables + (array)$parameters;

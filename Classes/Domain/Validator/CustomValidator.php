@@ -4,6 +4,8 @@ namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Signal\SignalTrait;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class CustomValidator
@@ -17,6 +19,8 @@ class CustomValidator extends StringValidator
      *
      * @param Mail $mail
      * @return bool
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function isValid($mail)
     {

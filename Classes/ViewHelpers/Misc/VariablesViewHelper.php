@@ -8,6 +8,11 @@ use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -49,6 +54,11 @@ class VariablesViewHelper extends AbstractViewHelper
      * Enable variables within variable {powermail_rte} - so string will be parsed again
      *
      * @return string
+     * @throws Exception
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function render(): string
     {
@@ -89,7 +99,7 @@ class VariablesViewHelper extends AbstractViewHelper
      * @param string $content
      * @return string
      */
-    protected function removePowermailAllParagraphTagWrap($content)
+    protected function removePowermailAllParagraphTagWrap(string $content): string
     {
         return preg_replace('#<p([^>]*)>\s*{powermail_all}\s*<\/p>#', '{powermail_all}', $content);
     }
@@ -98,6 +108,7 @@ class VariablesViewHelper extends AbstractViewHelper
      * Init to get TypoScript Configuration
      *
      * @return void
+     * @throws Exception
      */
     public function initialize()
     {

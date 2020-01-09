@@ -93,7 +93,7 @@ class ValueBlacklistMethodTest extends UnitTestCase
      * @return void
      * @dataProvider findStringInStringReturnsStringDataProvider
      * @test
-     * @covers ::findStringInString
+     * @covers ::isStringInString
      */
     public function findStringInStringReturnsString($string, $expectedResult)
     {

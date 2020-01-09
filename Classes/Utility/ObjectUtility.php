@@ -19,7 +19,7 @@ class ObjectUtility extends AbstractUtility
     /**
      * @return TypoScriptFrontendController
      */
-    public static function getTyposcriptFrontendController()
+    public static function getTyposcriptFrontendController(): TypoScriptFrontendController
     {
         return parent::getTyposcriptFrontendController();
     }
@@ -51,7 +51,7 @@ class ObjectUtility extends AbstractUtility
     /**
      * @return LanguageService
      */
-    public static function getLanguageService()
+    public static function getLanguageService(): LanguageService
     {
         return parent::getLanguageService();
     }

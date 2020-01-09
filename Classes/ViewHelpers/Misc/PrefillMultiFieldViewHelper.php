@@ -10,7 +10,10 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -40,7 +43,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     protected $variables;
 
     /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @var ContentObjectRenderer
      */
     protected $contentObjectRenderer;
 
@@ -87,10 +90,13 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *        radio
      *
      * @return bool
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
-    public function render()
+    public function render(): bool
     {
         /** @var Field $field */
         $field = $this->arguments['field'];
@@ -111,7 +117,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
             $this->buildSelectedValue();
         }
         $this->signalDispatch(__CLASS__, __FUNCTION__, [$field, $mail, $cycle, $default, $this]);
-        return $this->getSelected();
+        return $this->isSelected();
     }
 
     /**
@@ -119,35 +125,35 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return void
      */
-    protected function buildSelectedValue()
+    protected function buildSelectedValue(): void
     {
-        $selected = $this->getFromMail();
+        $selected = $this->isFromMail();
         if (!$selected) {
-            $selected = $this->getFromMarker();
+            $selected = $this->isFromMarker();
         }
         if (!$selected) {
-            $selected = $this->getFromRawMarker();
+            $selected = $this->isFromRawMarker();
         }
         if (!$selected) {
-            $selected = $this->getFromFieldUid();
+            $selected = $this->isFromFieldUid();
         }
         if (!$selected) {
-            $selected = $this->getFromOldPowermailFieldUid();
+            $selected = $this->isFromOldPowermailFieldUid();
         }
         if (!$selected) {
-            $selected = $this->getFromFrontendUser();
+            $selected = $this->isFromFrontendUser();
         }
         if (!$selected) {
-            $selected = $this->getFromPrefillValue();
+            $selected = $this->isFromPrefillValue();
         }
         if (!$selected) {
-            $selected = $this->getFromTypoScriptContentObject();
+            $selected = $this->isFromTypoScriptContentObject();
         }
         if (!$selected) {
-            $selected = $this->getFromTypoScriptRaw();
+            $selected = $this->isFromTypoScriptRaw();
         }
         if (!$selected) {
-            $selected = $this->getFromSession();
+            $selected = $this->isFromSession();
         }
         $this->setSelected($selected);
     }
@@ -158,7 +164,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromMail()
+    protected function isFromMail(): bool
     {
         $selected = false;
         if ($this->getMail() !== null && $this->getMail()->getAnswers()) {
@@ -186,7 +192,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromMarker()
+    protected function isFromMarker(): bool
     {
         $selected = false;
         if (isset($this->variables['field'][$this->getMarker()])) {
@@ -217,7 +223,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromRawMarker()
+    protected function isFromRawMarker(): bool
     {
         $selected = false;
         if (isset($this->variables[$this->getMarker()])) {
@@ -248,7 +254,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromFieldUid()
+    protected function isFromFieldUid(): bool
     {
         $selected = false;
         $fieldUid = $this->getField()->getUid();
@@ -278,7 +284,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromOldPowermailFieldUid()
+    protected function isFromOldPowermailFieldUid(): bool
     {
         $selected = false;
         if (isset($this->variables['uid' . $this->getField()->getUid()])) {
@@ -296,7 +302,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromFrontendUser()
+    protected function isFromFrontendUser(): bool
     {
         $selected = false;
         $feUserValue = $this->getField()->getFeuserValue();
@@ -317,7 +323,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromPrefillValue()
+    protected function isFromPrefillValue(): bool
     {
         $selected = false;
         if ($this->options[$this->index]['selected']) {
@@ -332,7 +338,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromTypoScriptRaw()
+    protected function isFromTypoScriptRaw(): bool
     {
         $selected = false;
         if (!empty($this->configuration['prefill.'][$this->getMarker()])) {
@@ -348,9 +354,9 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from session if defined in TypoScript
      *
-     * @return string
+     * @return bool
      */
-    protected function getFromSession()
+    protected function isFromSession(): bool
     {
         $selected = false;
         $sessionValues = SessionUtility::getSessionValuesForPrefill($this->configuration);
@@ -381,7 +387,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    protected function getFromTypoScriptContentObject()
+    protected function isFromTypoScriptContentObject(): bool
     {
         $selected = false;
         if (isset($this->configuration['prefill.'][$this->getMarker() . '.']) &&
@@ -423,7 +429,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    public function getSelected()
+    public function isSelected(): bool
     {
         return $this->selected;
     }
@@ -432,7 +438,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * @param bool $selected
      * @return PrefillMultiFieldViewHelper
      */
-    public function setSelected($selected)
+    public function setSelected(bool $selected): PrefillMultiFieldViewHelper
     {
         $this->selected = $selected;
         return $this;
@@ -441,7 +447,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * @return Field
      */
-    public function getField()
+    public function getField(): Field
     {
         return $this->field;
     }
@@ -450,7 +456,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * @param Field $field
      * @return PrefillMultiFieldViewHelper
      */
-    public function setField($field)
+    public function setField(Field $field): PrefillMultiFieldViewHelper
     {
         $this->field = $field;
         return $this;
@@ -459,7 +465,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * @return Mail
      */
-    public function getMail()
+    public function getMail(): Mail
     {
         return $this->mail;
     }
@@ -468,7 +474,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * @param Mail $mail
      * @return PrefillMultiFieldViewHelper
      */
-    public function setMail($mail)
+    public function setMail(Mail $mail): PrefillMultiFieldViewHelper
     {
         $this->mail = $mail;
         return $this;
@@ -477,7 +483,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * @return string
      */
-    public function getMarker()
+    public function getMarker(): string
     {
         return $this->marker;
     }
@@ -486,7 +492,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * @param string $marker
      * @return PrefillMultiFieldViewHelper
      */
-    public function setMarker($marker)
+    public function setMarker(string $marker): PrefillMultiFieldViewHelper
     {
         $this->marker = $marker;
         return $this;
@@ -496,7 +502,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * @param array $options
      * @return PrefillMultiFieldViewHelper
      */
-    public function setOptions($options)
+    public function setOptions(array $options): PrefillMultiFieldViewHelper
     {
         $this->options = $options;
         return $this;
@@ -506,29 +512,28 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * @param int $index
      * @return PrefillMultiFieldViewHelper
      */
-    public function setIndex($index)
+    public function setIndex(int $index): PrefillMultiFieldViewHelper
     {
         $this->index = $index;
         return $this;
     }
 
     /**
-     * Check if form is cached
-     *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    protected function isCachedForm()
+    protected function isCachedForm(): bool
     {
         return ConfigurationUtility::isEnableCachingActive()
             && ObjectUtility::getTyposcriptFrontendController()->no_cache !== true;
     }
 
     /**
-     * Init
-     *
      * @return void
+     * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->variables = GeneralUtility::_GP('tx_powermail_pi1');
         $this->contentObjectRenderer = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);

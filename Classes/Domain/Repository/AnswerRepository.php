@@ -18,7 +18,7 @@ class AnswerRepository extends AbstractRepository
      * @param int $mailUid
      * @return Answer
      */
-    public function findByFieldAndMail($fieldUid, $mailUid)
+    public function findByFieldAndMail($fieldUid, $mailUid): Answer
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -31,7 +31,9 @@ class AnswerRepository extends AbstractRepository
         $constraint = $query->logicalAnd($and);
         $query->matching($constraint);
         $query->setLimit(1);
-        return $query->execute()->getFirst();
+        /** @var Answer $answer */
+        $answer = $query->execute()->getFirst();
+        return $answer;
     }
 
     /**
@@ -39,7 +41,7 @@ class AnswerRepository extends AbstractRepository
      *
      * @return QueryResultInterface
      */
-    public function findByAnyUpload()
+    public function findByAnyUpload(): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);

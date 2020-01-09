@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -34,6 +35,7 @@ class IsDateTimeVariableInVariableViewHelper extends AbstractViewHelper implemen
      * @param RenderingContextInterface $renderingContext
      *
      * @return string
+     * @throws PropertyNotAccessibleException
      */
     public static function renderStatic(
         array $arguments,

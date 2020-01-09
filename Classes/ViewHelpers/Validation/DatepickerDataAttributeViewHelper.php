@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class DatepickerDataAttributeViewHelper
@@ -26,6 +27,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
      * Returns Data Attribute Array Datepicker settings (FE + BE)
      *
      * @return array for data attributes
+     * @throws Exception
      */
     public function render(): array
     {
@@ -44,7 +46,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
             $additionalAttributes['data-date-value'] = $value;
         }
 
-        $this->addMandatoryAttributes($additionalAttributes, $field);
+        $additionalAttributes = $this->addMandatoryAttributes($additionalAttributes, $field);
 
         return $additionalAttributes;
     }
@@ -55,7 +57,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param Field $field
      * @return string
      */
-    protected function getDatepickerSettings(Field $field = null)
+    protected function getDatepickerSettings(Field $field = null): string
     {
         if ($field === null) {
             return 'datetime';
@@ -69,7 +71,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param Field $field
      * @return string
      */
-    protected function getFormat(Field $field = null)
+    protected function getFormat(Field $field = null): string
     {
         return LocalizationUtility::translate('datepicker_format_' . $this->getDatepickerSettings($field));
     }
@@ -79,7 +81,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
      *
      * @return string
      */
-    protected function getDayNames()
+    protected function getDayNames(): string
     {
         $days = [
             'so',
@@ -102,7 +104,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
      *
      * @return string
      */
-    protected function getMonthNames()
+    protected function getMonthNames(): string
     {
         $months = [
             'jan',

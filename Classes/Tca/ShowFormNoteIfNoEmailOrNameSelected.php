@@ -8,6 +8,9 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class ShowFormNoteIfNoEmailOrNameSelected shows one or two warnings in backend below a form if
@@ -33,8 +36,11 @@ class ShowFormNoteIfNoEmailOrNameSelected
     /**
      * @param array $params
      * @return string
+     * @throws Exception
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
-    public function showNote(array $params)
+    public function showNote(array $params): string
     {
         if ($this->isShowNote($params)) {
             $standaloneView = TemplateUtility::getDefaultStandAloneView();
@@ -53,12 +59,11 @@ class ShowFormNoteIfNoEmailOrNameSelected
     }
 
     /**
-     * Show note
-     *
      * @param array $params
      * @return bool
+     * @throws Exception
      */
-    protected function isShowNote(array $params)
+    protected function isShowNote(array $params): bool
     {
         return $this->canBeRendered($params) && !$this->senderEmailOrSenderNameSet((int)$params['row']['uid']);
     }
@@ -69,7 +74,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
      * @param array $params Config Array
      * @return bool
      */
-    protected function isNoteMuted($params)
+    protected function isNoteMuted(array $params): bool
     {
         return isset($params['row']['note']) && (int)$params['row']['note'] === 1;
     }
@@ -82,7 +87,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
      * @param array $params Config Array
      * @return bool
      */
-    protected function canBeRendered(array $params)
+    protected function canBeRendered(array $params): bool
     {
         return !empty($params['row']['uid']) && is_numeric($params['row']['uid']) &&
             !ConfigurationUtility::isReplaceIrreWithElementBrowserActive();
@@ -93,8 +98,9 @@ class ShowFormNoteIfNoEmailOrNameSelected
      *
      * @param int $formIdentifier
      * @return bool
+     * @throws Exception
      */
-    protected function senderEmailOrSenderNameSet($formIdentifier)
+    protected function senderEmailOrSenderNameSet(int $formIdentifier): bool
     {
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
@@ -114,9 +120,9 @@ class ShowFormNoteIfNoEmailOrNameSelected
     /**
      * @return array
      */
-    protected function getLabels()
+    protected function getLabels(): array
     {
-        $labels = [
+        return [
             'note1' => $this->getLabel('note.1'),
             'note2' => $this->getLabel('note.2'),
             'note3' => $this->getLabel('note.3'),
@@ -124,7 +130,6 @@ class ShowFormNoteIfNoEmailOrNameSelected
             'error1' => $this->getLabel('error.1'),
             'error2' => $this->getLabel('error.2')
         ];
-        return $labels;
     }
 
     /**
@@ -133,7 +138,7 @@ class ShowFormNoteIfNoEmailOrNameSelected
      * @param string $key
      * @return string
      */
-    protected function getLabel($key)
+    protected function getLabel(string $key): string
     {
         $languageService = ObjectUtility::getLanguageService();
         return htmlspecialchars($languageService->sL($this->locallangPath . Form::TABLE_NAME . '.' . $key));
@@ -144,8 +149,9 @@ class ShowFormNoteIfNoEmailOrNameSelected
      *
      * @param int $formIdentifier
      * @return bool
+     * @throws Exception
      */
-    protected function hasFormUniqueAndFilledFieldMarkers($formIdentifier)
+    protected function hasFormUniqueAndFilledFieldMarkers(int $formIdentifier): bool
     {
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);

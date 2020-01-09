@@ -5,6 +5,7 @@ namespace In2code\Powermail\Utility;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
@@ -34,8 +35,11 @@ class ReportingUtility
      * @param string $limitLabel Label for "Max Labels" - could be "all others"
      * @return array
      */
-    public static function getGroupedAnswersFromMails($mails, $limit = 5, $limitLabel = 'All others')
-    {
+    public static function getGroupedAnswersFromMails(
+        QueryResult $mails,
+        int $limit = 5,
+        string $limitLabel = 'All others'
+    ): array {
         $groupedAnswers = [];
         foreach ($mails as $mail) {
             /** @var Mail $mail */
@@ -64,9 +68,13 @@ class ReportingUtility
      * @param int $limit Max Labels
      * @param string $limitLabel Label for "Max Labels" - could be "all others"
      * @return array
+     * @throws PropertyNotAccessibleException
      */
-    public static function getGroupedMarketingPropertiesFromMails($mails, $limit = 10, $limitLabel = 'All others')
-    {
+    public static function getGroupedMarketingPropertiesFromMails(
+        QueryResult $mails,
+        int $limit = 10,
+        string $limitLabel = 'All others'
+    ): array {
         $groupedProperties = self::$groupedProperties;
         foreach ($mails as $mail) {
             /** @var Mail $mail */
@@ -93,7 +101,7 @@ class ReportingUtility
      * @param array $reportingArray
      * @return void
      */
-    public static function sortReportingArrayDescending(&$reportingArray)
+    public static function sortReportingArrayDescending(array &$reportingArray): void
     {
         foreach (array_keys($reportingArray) as $key) {
             arsort($reportingArray[$key]);
@@ -125,8 +133,11 @@ class ReportingUtility
      * @param string $limitLabel
      * @return void
      */
-    public static function cutArrayByKeyLimitAndAddTotalValues(&$reportingArray, $limit, $limitLabel)
-    {
+    public static function cutArrayByKeyLimitAndAddTotalValues(
+        array &$reportingArray,
+        int $limit,
+        string $limitLabel
+    ): void {
         foreach (array_keys($reportingArray) as $key) {
             if (count($reportingArray[$key]) >= $limit) {
                 $i = $totalAmount = 0;

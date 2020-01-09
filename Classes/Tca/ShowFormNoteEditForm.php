@@ -13,6 +13,8 @@ use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 
 /**
  * Class ShowFormNoteEditForm to display chosen form and some
@@ -49,8 +51,10 @@ class ShowFormNoteEditForm
      *
      * @param array $params TCA configuration array
      * @return string
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
-    public function showNote(array $params)
+    public function showNote(array $params): string
     {
         $this->params = $params;
         return $this->renderMarkup();
@@ -58,8 +62,10 @@ class ShowFormNoteEditForm
 
     /**
      * @return string
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
-    protected function renderMarkup()
+    protected function renderMarkup(): string
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
@@ -80,7 +86,7 @@ class ShowFormNoteEditForm
     /**
      * @return array
      */
-    protected function getLabels()
+    protected function getLabels(): array
     {
         $labels = [
             'formname' => $this->getLabel('formnote.formname'),
@@ -101,7 +107,7 @@ class ShowFormNoteEditForm
      * @param int $sysLanguageUid
      * @return int
      */
-    protected function getLocalizedFormUid($uid, $sysLanguageUid)
+    protected function getLocalizedFormUid(int $uid, int $sysLanguageUid): int
     {
         if ($sysLanguageUid > 0) {
             $row = BackendUtilityCore::getRecordLocalization(Form::TABLE_NAME, (int)$uid, (int)$sysLanguageUid);
@@ -118,7 +124,7 @@ class ShowFormNoteEditForm
      * @param string $key
      * @return string
      */
-    protected function getLabel($key)
+    protected function getLabel(string $key): string
     {
         $languageService = ObjectUtility::getLanguageService();
         return htmlspecialchars($languageService->sL($this->locallangPath . 'flexform.main.' . $key));
@@ -129,7 +135,7 @@ class ShowFormNoteEditForm
      *
      * @return string
      */
-    protected function getEditFormLink()
+    protected function getEditFormLink(): string
     {
         return BackendUtility::createEditUri(Form::TABLE_NAME, $this->getFormProperties()['uid']);
     }
@@ -139,7 +145,7 @@ class ShowFormNoteEditForm
      *
      * @return string
      */
-    protected function getNewFormLink()
+    protected function getNewFormLink(): string
     {
         return BackendUtility::createNewUri(Form::TABLE_NAME, $this->getPageIdentifierForNewForms());
     }
@@ -151,7 +157,7 @@ class ShowFormNoteEditForm
      *
      * @return int
      */
-    protected function getPageIdentifierForNewForms()
+    protected function getPageIdentifierForNewForms(): int
     {
         $pageIdentifier = $this->getPageIdentifierFromExistingContentElements((int)$this->params['row']['pid']);
         $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
@@ -168,7 +174,7 @@ class ShowFormNoteEditForm
      * @param int $pageIdentifier
      * @return int
      */
-    protected function getPageIdentifierFromExistingContentElements($pageIdentifier)
+    protected function getPageIdentifierFromExistingContentElements(int $pageIdentifier): int
     {
         if ($pageIdentifier < 0) {
             $parentRec = BackendUtilityCore::getRecord('tt_content', abs($pageIdentifier), 'pid');
@@ -180,7 +186,7 @@ class ShowFormNoteEditForm
     /**
      * @return array
      */
-    protected function getFormProperties()
+    protected function getFormProperties(): array
     {
         if (empty($this->formProperties)) {
             $row = BackendUtilityCore::getRecord(Form::TABLE_NAME, (int)$this->getRelatedFormUid());
@@ -196,7 +202,7 @@ class ShowFormNoteEditForm
      *
      * @return int
      */
-    protected function getRelatedFormUid()
+    protected function getRelatedFormUid(): int
     {
         $flexFormArray = (array)$this->params['row']['pi_flexform']['data']['main']['lDEF'];
         $formUid = (int)$flexFormArray['settings.flexform.main.form']['vDEF'][0];
@@ -207,16 +213,11 @@ class ShowFormNoteEditForm
     /**
      * pages.* form page where current form is stored
      *
-     * @return array|FALSE|NULL
+     * @return array
      */
-    protected function getStoragePageProperties()
+    protected function getStoragePageProperties(): array
     {
-        $properties = [];
-        $row = BackendUtilityCore::getRecord('pages', (int)$this->getFormProperties()['pid'], '*', '', false);
-        if (!empty($row)) {
-            $properties = $row;
-        }
-        return $properties;
+        return (array)BackendUtilityCore::getRecord('pages', (int)$this->getFormProperties()['pid'], '*', '', false);
     }
 
     /**

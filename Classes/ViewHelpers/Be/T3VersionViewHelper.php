@@ -6,7 +6,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-
 /**
  * Class T3VersionViewHelper
  */
@@ -35,7 +34,7 @@ class T3VersionViewHelper extends AbstractViewHelper
      * @param string $minTypo3Version
      * @return bool
      */
-    protected function isAboveMinVersion($minTypo3Version): bool
+    protected function isAboveMinVersion(string $minTypo3Version): bool
     {
         return $this->getCurrentTypo3Version() >= VersionNumberUtility::convertVersionNumberToInteger($minTypo3Version);
     }
@@ -46,7 +45,7 @@ class T3VersionViewHelper extends AbstractViewHelper
      * @param string $maxTypo3Version
      * @return bool
      */
-    protected function isBelowMaxVersion($maxTypo3Version): bool
+    protected function isBelowMaxVersion(string $maxTypo3Version): bool
     {
         return $this->getCurrentTypo3Version() <= VersionNumberUtility::convertVersionNumberToInteger($maxTypo3Version);
     }

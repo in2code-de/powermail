@@ -13,7 +13,7 @@ class NameMethod extends AbstractMethod
      *
      * @return bool true if spam recognized
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         $firstname = $lastname = '';
         $keysFirstName = [

@@ -9,6 +9,7 @@ use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FileFactory
@@ -36,13 +37,14 @@ class FileFactory
      * @param string $marker
      * @param string $key
      * @return File|null
+     * @throws Exception
      */
-    public function getInstanceFromFilesArray(array $filesArray, $marker, $key)
+    public function getInstanceFromFilesArray(array $filesArray, string $marker, string $key): ?File
     {
-        $originalName = $filesArray['name']['field'][$marker][$key];
-        $size = $filesArray['size']['field'][$marker][$key];
-        $type = $filesArray['type']['field'][$marker][$key];
-        $temporaryName = $filesArray['tmp_name']['field'][$marker][$key];
+        $originalName = (string)$filesArray['name']['field'][$marker][$key];
+        $size = (int)$filesArray['size']['field'][$marker][$key];
+        $type = (string)$filesArray['type']['field'][$marker][$key];
+        $temporaryName = (string)$filesArray['tmp_name']['field'][$marker][$key];
         if (!empty($originalName) && !empty($temporaryName) && $size > 0) {
             return $this->makeFileInstance($marker, $originalName, $size, $type, $temporaryName);
         }
@@ -56,14 +58,14 @@ class FileFactory
      * @param string $value
      * @param array $arguments
      * @return File|null
+     * @throws Exception
      */
-    public function getInstanceFromUploadArguments($marker, $value, array $arguments)
+    public function getInstanceFromUploadArguments(string $marker, string $value, array $arguments): ?File
     {
-        /** @var FieldRepository $fieldRepository */
         $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
         $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
         if ($field !== null && $field->dataTypeFromFieldType($field->getType()) === 3 && !empty($value)) {
-            return $this->makeFileInstance($marker, $value, null, null, null, true);
+            return $this->makeFileInstance($marker, $value, 0, '', '', true);
         }
         return null;
     }
@@ -73,18 +75,17 @@ class FileFactory
      *
      * @param string $fileName
      * @param Answer $answer
-     * @return File|null
+     * @return File
+     * @throws Exception
      */
-    public function getInstanceFromExistingAnswerValue($fileName, Answer $answer)
+    public function getInstanceFromExistingAnswerValue(string $fileName, Answer $answer): File
     {
         $form = $answer->getField()->getPages()->getForms();
         $marker = $answer->getField()->getMarker();
-        return $this->makeFileInstance($marker, $fileName, null, null, null, true, $form);
+        return $this->makeFileInstance($marker, $fileName, 0, '', '', true, $form);
     }
 
     /**
-     * Get File instance
-     *
      * @param string $marker
      * @param string $originalName
      * @param int $size
@@ -93,25 +94,25 @@ class FileFactory
      * @param bool $uploaded
      * @param Form $form
      * @return File
+     * @throws Exception
      */
     protected function makeFileInstance(
-        $marker,
-        $originalName,
-        $size = null,
-        $type = null,
-        $temporaryName = null,
-        $uploaded = false,
+        string $marker,
+        string $originalName,
+        int $size = 0,
+        string $type = '',
+        string $temporaryName = '',
+        bool $uploaded = false,
         Form $form = null
-    ) {
-        /** @var File $file */
+    ): File {
         $file = ObjectUtility::getObjectManager()->get(File::class, $marker, $originalName, $temporaryName);
         $file->setNewName(StringUtility::cleanString($originalName));
         $file->setUploadFolder($this->getUploadFolder());
-        if ($size === null) {
+        if ($size === 0) {
             $size = filesize($file->getNewPathAndFilename(true));
         }
         $file->setSize($size);
-        if ($type === null) {
+        if ($type === '') {
             $type = mime_content_type($file->getNewPathAndFilename(true));
         }
         $file->setType($type);
@@ -126,16 +127,16 @@ class FileFactory
     /**
      * @return string
      */
-    protected function getUploadFolder()
+    protected function getUploadFolder(): string
     {
         return $this->settings['misc']['file']['folder'];
     }
 
     /**
-     * @param Form|null $form
+     * @param Form $form
      * @return int
      */
-    protected function getFormUid(Form $form = null)
+    protected function getFormUid(Form $form = null): int
     {
         if ($form === null) {
             $arguments = $this->getArguments();
@@ -148,7 +149,7 @@ class FileFactory
     /**
      * @return array
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return (array)GeneralUtility::_GP('tx_powermail_pi1');
     }

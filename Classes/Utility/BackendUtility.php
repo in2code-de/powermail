@@ -8,6 +8,7 @@ use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class BackendUtility
@@ -20,7 +21,7 @@ class BackendUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isBackendAdmin()
+    public static function isBackendAdmin(): bool
     {
         if (isset(self::getBackendUserAuthentication()->user)) {
             return self::getBackendUserAuthentication()->user['admin'] === 1;
@@ -34,7 +35,7 @@ class BackendUtility extends AbstractUtility
      * @param string $property
      * @return string
      */
-    public static function getPropertyFromBackendUser($property = 'uid')
+    public static function getPropertyFromBackendUser(string $property = 'uid'): string
     {
         if (!empty(self::getBackendUserAuthentication()->user[$property])) {
             return self::getBackendUserAuthentication()->user[$property];
@@ -45,7 +46,7 @@ class BackendUtility extends AbstractUtility
     /**
      * @return BackendUserAuthentication
      */
-    public static function getBackendUserAuthentication()
+    public static function getBackendUserAuthentication(): BackendUserAuthentication
     {
         return parent::getBackendUserAuthentication();
     }
@@ -58,7 +59,7 @@ class BackendUtility extends AbstractUtility
      * @param bool $addReturnUrl
      * @return string
      */
-    public static function createEditUri($tableName, $identifier, $addReturnUrl = true)
+    public static function createEditUri(string $tableName, int $identifier, bool $addReturnUrl = true): string
     {
         $uriParameters = [
             'edit' => [
@@ -70,7 +71,7 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+        return self::getModuleUrl('record_edit', $uriParameters);
     }
 
     /**
@@ -81,7 +82,7 @@ class BackendUtility extends AbstractUtility
      * @param bool $addReturnUrl
      * @return string
      */
-    public static function createNewUri($tableName, $pageIdentifier, $addReturnUrl = true)
+    public static function createNewUri(string $tableName, int $pageIdentifier, bool $addReturnUrl = true): string
     {
         $uriParameters = [
             'edit' => [
@@ -93,7 +94,7 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+        return self::getModuleUrl('record_edit', $uriParameters);
     }
 
     /**
@@ -101,7 +102,7 @@ class BackendUtility extends AbstractUtility
      *
      * @return string
      */
-    protected static function getReturnUrl()
+    protected static function getReturnUrl(): string
     {
         return self::getModuleUrl(self::getModuleName(), self::getCurrentParameters());
     }
@@ -111,7 +112,7 @@ class BackendUtility extends AbstractUtility
      *
      * @return string
      */
-    protected static function getModuleName()
+    protected static function getModuleName(): string
     {
         $moduleName = 'web_layout';
         if (GeneralUtility::_GET('M') !== null) {
@@ -136,7 +137,7 @@ class BackendUtility extends AbstractUtility
      * @param array $getParameters
      * @return array
      */
-    public static function getCurrentParameters($getParameters = [])
+    public static function getCurrentParameters(array $getParameters = []): array
     {
         if (empty($getParameters)) {
             $getParameters = GeneralUtility::_GET();
@@ -167,7 +168,7 @@ class BackendUtility extends AbstractUtility
      * @param string $returnUrl normally used for testing
      * @return int
      */
-    public static function getPidFromBackendPage($returnUrl = '')
+    public static function getPidFromBackendPage(string $returnUrl = ''): int
     {
         if (empty($returnUrl)) {
             $returnUrl = GeneralUtility::_GP('returnUrl') ?: '';
@@ -189,9 +190,10 @@ class BackendUtility extends AbstractUtility
      * @param array $urlParameters URL parameters that should be added as key value pairs
      * @return string Calculated URL
      */
-    public static function getModuleUrl($moduleName, $urlParameters = [])
+    public static function getModuleUrl(string $moduleName, array $urlParameters = []): string
     {
-        return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
+        throw new \LogicException('moduleUrl is not existing any more in powermail', 1578947506);
+//        return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
     }
 
     /**
@@ -201,14 +203,16 @@ class BackendUtility extends AbstractUtility
      * @param array $rootLine
      * @param bool $returnPartArray
      * @return array Page TSconfig
-     * @see \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser
      */
-    public static function getPagesTSconfig($pid, $rootLine = null, $returnPartArray = false)
+    public static function getPagesTSconfig(int $pid, array $rootLine = null, bool $returnPartArray = false): array
     {
+        if ($rootLine !== null || $returnPartArray === true) {
+            throw new \LogicException('arguments not supported any more in powermail', 1578947408);
+        }
         $array = [];
         try {
             // @extensionScannerIgnoreLine Seems to be a false positive: getPagesTSconfig() still need 3 params
-            $array = BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
+            $array = BackendUtilityCore::getPagesTSconfig($pid);
         } catch (\Exception $exception) {
             unset($exception);
         }
@@ -221,8 +225,9 @@ class BackendUtility extends AbstractUtility
      *
      * @param array $pids
      * @return array
+     * @throws Exception
      */
-    public static function filterPagesForAccess(array $pids)
+    public static function filterPagesForAccess(array $pids): array
     {
         if (!self::isBackendAdmin()) {
             $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
@@ -243,7 +248,7 @@ class BackendUtility extends AbstractUtility
     /**
      * @return bool
      */
-    public static function isBackendContext()
+    public static function isBackendContext(): bool
     {
         return TYPO3_MODE === 'BE';
     }

@@ -10,6 +10,7 @@ use In2code\Powermail\Utility\HashUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -40,10 +41,9 @@ class SendOptinConfirmationMailPreflight
     protected $conf = [];
 
     /**
-     * SendOptinConfirmationMailPreflight constructor.
-     *
      * @param array $settings
      * @param array $conf
+     * @throws Exception
      */
     public function __construct(array $settings, array $conf)
     {
@@ -61,8 +61,9 @@ class SendOptinConfirmationMailPreflight
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function sendOptinConfirmationMail(Mail $mail)
+    public function sendOptinConfirmationMail(Mail $mail): void
     {
         $email = [
             'template' => 'Mail/OptinMail',

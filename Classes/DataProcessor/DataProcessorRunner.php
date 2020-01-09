@@ -19,8 +19,6 @@ class DataProcessorRunner
     protected $interface = 'In2code\Powermail\DataProcessor\DataProcessorInterface';
 
     /**
-     * Call all data processors
-     *
      * @param Mail $mail
      * @param string $actionMethodName
      * @param array $settings
@@ -29,21 +27,21 @@ class DataProcessorRunner
      */
     public function callDataProcessors(
         Mail $mail,
-        $actionMethodName,
+        string $actionMethodName,
         array $settings,
         ContentObjectRenderer $contentObject
-    ) {
+    ): void {
         foreach ($this->getDataProcessorClasses($settings) as $dpSettings) {
             $class = $dpSettings['class'];
             $this->requireFile($dpSettings);
             if (!class_exists($class)) {
                 throw new \UnexpectedValueException(
-                    'Data processor class ' . $class . ' does not exists - check if file was loaded correctly'
+                    'Data processor class ' . $class . ' does not exists - check if file was loaded correctly',
+                    1578601123
                 );
             }
             if (is_subclass_of($class, $this->interface)) {
                 /** @var AbstractDataProcessor $dataProcessor */
-                /** @noinspection PhpMethodParametersCountMismatchInspection */
                 $dataProcessor =  ObjectUtility::getObjectManager()->get(
                     $dpSettings['class'],
                     $mail,
@@ -55,7 +53,7 @@ class DataProcessorRunner
                 $dataProcessor->initializeDataProcessor();
                 $this->callDataProcessorMethods($dataProcessor);
             } else {
-                throw new \UnexpectedValueException('DataProcessor does not implement ' . $this->interface);
+                throw new \UnexpectedValueException('DataProcessor does not implement ' . $this->interface, 1578601128);
             }
         }
     }
@@ -67,7 +65,7 @@ class DataProcessorRunner
      * @param AbstractDataProcessor $dataProcessor
      * @return void
      */
-    protected function callDataProcessorMethods(AbstractDataProcessor $dataProcessor)
+    protected function callDataProcessorMethods(AbstractDataProcessor $dataProcessor): void
     {
         foreach (get_class_methods($dataProcessor) as $method) {
             if (StringUtility::endsWith($method, 'DataProcessor') &&
@@ -86,8 +84,10 @@ class DataProcessorRunner
      * @param string $finisherMethod
      * @return void
      */
-    protected function callInitializeDataProcessorMethod(AbstractDataProcessor $dataProcessor, $finisherMethod)
-    {
+    protected function callInitializeDataProcessorMethod(
+        AbstractDataProcessor $dataProcessor,
+        string $finisherMethod
+    ): void {
         if (method_exists($dataProcessor, 'initialize' . ucFirst($finisherMethod))) {
             $dataProcessor->{'initialize' . ucFirst($finisherMethod)}();
         }
@@ -99,7 +99,7 @@ class DataProcessorRunner
      * @param array $settings
      * @return array
      */
-    protected function getDataProcessorClasses($settings)
+    protected function getDataProcessorClasses(array $settings): array
     {
         $dataProcessors = (array)$settings['dataProcessors'];
         ksort($dataProcessors);
@@ -108,8 +108,9 @@ class DataProcessorRunner
 
     /**
      * @param array $dpSettings
+     * @return void
      */
-    protected function requireFile(array $dpSettings)
+    protected function requireFile(array $dpSettings): void
     {
         if (!empty($dpSettings['require'])) {
             if (file_exists($dpSettings['require'])) {

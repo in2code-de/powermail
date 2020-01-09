@@ -5,6 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Service\RedirectUriService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class EnableParsleyAndAjaxViewHelper
@@ -33,6 +34,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
      * Returns Data Attribute Array to enable parsley
      *
      * @return array for data attributes
+     * @throws Exception
      */
     public function render(): array
     {

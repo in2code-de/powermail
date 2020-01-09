@@ -12,6 +12,9 @@ use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 /**
  * Class ModuleController for backend modules
@@ -21,20 +24,19 @@ class ModuleController extends AbstractController
 
     /**
      * @param string $forwardToAction
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     * @throws StopActionException
      * @return void
      */
-    public function dispatchAction($forwardToAction = 'list')
+    public function dispatchAction($forwardToAction = 'list'): void
     {
         $this->forward($forwardToAction);
     }
 
     /**
-     * List View Backend
-     *
      * @return void
+     * @throws InvalidQueryException
      */
-    public function listAction()
+    public function listAction(): void
     {
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
@@ -55,11 +57,10 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Export Action for XLS Files
-     *
      * @return void
+     * @throws InvalidQueryException
      */
-    public function exportXlsAction()
+    public function exportXlsAction(): void
     {
         $this->view->assignMultiple(
             [
@@ -79,11 +80,10 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Export Action for CSV Files
-     *
      * @return void
+     * @throws InvalidQueryException
      */
-    public function exportCsvAction()
+    public function exportCsvAction(): void
     {
         $this->view->assignMultiple(
             [
@@ -103,11 +103,10 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Reporting Form
-     *
      * @return void
+     * @throws InvalidQueryException
      */
-    public function reportingFormBeAction()
+    public function reportingFormBeAction(): void
     {
         $mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
@@ -127,11 +126,10 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Reporting Marketing
-     *
      * @return void
+     * @throws InvalidQueryException
      */
-    public function reportingMarketingBeAction()
+    public function reportingMarketingBeAction(): void
     {
         $mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
@@ -151,11 +149,9 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Form Overview
-     *
      * @return void
      */
-    public function overviewBeAction()
+    public function overviewBeAction(): void
     {
         $forms = $this->formRepository->findAllInPidAndRootline($this->id);
         $this->view->assign('forms', $forms);
@@ -163,34 +159,29 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Check Permissions
-     *
      * @return void
+     * @throws StopActionException
      */
-    public function initializeCheckBeAction()
+    public function initializeCheckBeAction(): void
     {
         $this->checkAdminPermissions();
     }
 
     /**
-     * Check View Backend
-     *
      * @param string $email email address
      * @return void
      */
-    public function checkBeAction($email = null)
+    public function checkBeAction($email = null): void
     {
         $this->view->assign('pid', $this->id);
         $this->sendTestEmail($email);
     }
 
     /**
-     * Send plain test mail with swiftmailer
-     *
      * @param null $email
      * @return void
      */
-    protected function sendTestEmail($email = null)
+    protected function sendTestEmail($email = null): void
     {
         if ($email !== null && GeneralUtility::validEmail($email)) {
             $body = 'New Test Email from User ' . BackendUtility::getPropertyFromBackendUser('username');
@@ -206,73 +197,70 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * Check Permissions
-     *
      * @return void
+     * @throws StopActionException
      */
-    public function initializeConverterBeAction()
+    public function initializeConverterBeAction(): void
     {
         $this->checkAdminPermissions();
     }
 
     /**
-     * Check Permissions
-     *
      * @return void
+     * @throws StopActionException
      */
-    public function initializeFixUploadFolderAction()
+    public function initializeFixUploadFolderAction(): void
     {
         $this->checkAdminPermissions();
     }
 
     /**
-     * Create an upload folder
-     *
      * @return void
+     * @throws StopActionException
+     * @throws UnsupportedRequestTypeException
+     * @throws \Exception
      */
-    public function fixUploadFolderAction()
+    public function fixUploadFolderAction(): void
     {
         BasicFileUtility::createFolderIfNotExists(GeneralUtility::getFileAbsFileName('uploads/tx_powermail/'));
         $this->redirect('checkBe');
     }
 
     /**
-     * Check Permissions
-     *
      * @return void
+     * @throws StopActionException
      */
-    public function initializeFixWrongLocalizedFormsAction()
+    public function initializeFixWrongLocalizedFormsAction(): void
     {
         $this->checkAdminPermissions();
     }
 
     /**
-     * Fix wrong localized forms
-     *
      * @return void
+     * @throws StopActionException
+     * @throws UnsupportedRequestTypeException
      */
-    public function fixWrongLocalizedFormsAction()
+    public function fixWrongLocalizedFormsAction(): void
     {
         $this->formRepository->fixWrongLocalizedForms();
         $this->redirect('checkBe');
     }
 
     /**
-     * Check Permissions
-     *
      * @return void
+     * @throws StopActionException
      */
-    public function initializeFixWrongLocalizedPagesAction()
+    public function initializeFixWrongLocalizedPagesAction(): void
     {
         $this->checkAdminPermissions();
     }
 
     /**
-     * Fix wrong localized pages
-     *
      * @return void
+     * @throws StopActionException
+     * @throws UnsupportedRequestTypeException
      */
-    public function fixWrongLocalizedPagesAction()
+    public function fixWrongLocalizedPagesAction(): void
     {
         $pageRepository = $this->objectManager->get(PageRepository::class);
         $pageRepository->fixWrongLocalizedPages();
@@ -284,8 +272,9 @@ class ModuleController extends AbstractController
      *        If not, forward to tools overview
      *
      * @return void
+     * @throws StopActionException
      */
-    protected function checkAdminPermissions()
+    protected function checkAdminPermissions(): void
     {
         if (!BackendUtility::isBackendAdmin()) {
             $this->controllerContext = $this->buildControllerContext();

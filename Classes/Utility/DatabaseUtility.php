@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use Doctrine\DBAL\DBALException;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -40,6 +41,7 @@ class DatabaseUtility extends AbstractUtility
     /**
      * @param string $tableName
      * @return bool
+     * @throws DBALException
      */
     public static function isTableExisting(string $tableName): bool
     {
@@ -59,6 +61,7 @@ class DatabaseUtility extends AbstractUtility
      * @param string $fieldName
      * @param string $tableName
      * @return bool
+     * @throws DBALException
      */
     public static function isFieldExistingInTable(string $fieldName, string $tableName): bool
     {

@@ -11,6 +11,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -26,14 +27,14 @@ class MailFactory
      * @return void
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      * @codeCoverageIgnore
      */
-    public function prepareMailForPersistence(Mail $mail, array $settings)
+    public function prepareMailForPersistence(Mail $mail, array $settings): void
     {
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         $marketingInfos = SessionUtility::getMarketingInfos();
         $mail
-            ->setPid(FrontendUtility::getStoragePage($settings['main']['pid']))
             ->setSenderMail($mailRepository->getSenderMailFromArguments($mail))
             ->setSenderName($mailRepository->getSenderNameFromArguments($mail))
             ->setSubject($settings['receiver']['subject'])
@@ -49,6 +50,7 @@ class MailFactory
             ->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
             ->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
             ->setMarketingPageFunnel($marketingInfos['pageFunnel']);
+        $mail->setPid(FrontendUtility::getStoragePage($settings['main']['pid']));
         $this->setFeuser($mail);
         $this->setSenderIp($mail);
         $this->setHidden($mail, $settings);
@@ -58,8 +60,9 @@ class MailFactory
     /**
      * @param Mail $mail
      * @return void
+     * @throws Exception
      */
-    protected function setFeuser(Mail $mail)
+    protected function setFeuser(Mail $mail): void
     {
         if (FrontendUtility::isLoggedInFrontendUser()) {
             $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
@@ -71,7 +74,7 @@ class MailFactory
      * @param Mail $mail
      * @return void
      */
-    protected function setSenderIp(Mail $mail)
+    protected function setSenderIp(Mail $mail): void
     {
         if (!ConfigurationUtility::isDisableIpLogActive()) {
             $mail->setSenderIp(GeneralUtility::getIndpEnv('REMOTE_ADDR'));
@@ -83,7 +86,7 @@ class MailFactory
      * @param array $settings
      * @return void
      */
-    protected function setHidden(Mail $mail, array $settings)
+    protected function setHidden(Mail $mail, array $settings): void
     {
         if ($settings['main']['optin'] || $settings['db']['hidden']) {
             $mail->setHidden(true);
@@ -95,7 +98,7 @@ class MailFactory
      * @param array $settings
      * @return void
      */
-    protected function setAnswersPid(Mail $mail, array $settings)
+    protected function setAnswersPid(Mail $mail, array $settings): void
     {
         foreach ($mail->getAnswers() as $answer) {
             $answer->setPid(FrontendUtility::getStoragePage($settings['main']['pid']));

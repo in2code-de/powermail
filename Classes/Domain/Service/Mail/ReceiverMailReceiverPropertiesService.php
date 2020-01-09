@@ -10,12 +10,14 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
-use TYPO3\CMS\Beuser\Domain\Model\BackendUserGroup;
-use TYPO3\CMS\Beuser\Domain\Model\Demand;
-use TYPO3\CMS\Beuser\Domain\Repository\BackendUserRepository;
-use TYPO3\CMS\Beuser\Domain\Repository\BackendUserGroupRepository;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Repository\BackendUserGroupRepository;
+use TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class ReceiverService to get email array for receivers
@@ -53,6 +55,10 @@ class ReceiverMailReceiverPropertiesService
     /**
      * @param Mail $mail
      * @param array $settings
+     * @throws Exception
+     * @throws InvalidQueryException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function __construct(Mail $mail, array $settings)
     {
@@ -66,7 +72,7 @@ class ReceiverMailReceiverPropertiesService
     /**
      * @return array
      */
-    public function getReceiverEmails()
+    public function getReceiverEmails(): array
     {
         return $this->receiverEmails;
     }
@@ -74,7 +80,7 @@ class ReceiverMailReceiverPropertiesService
     /**
      * @return string
      */
-    public function getReceiverEmailsString()
+    public function getReceiverEmailsString(): string
     {
         return implode(PHP_EOL, $this->receiverEmails);
     }
@@ -83,8 +89,10 @@ class ReceiverMailReceiverPropertiesService
      * Get receiver name with fallback
      *
      * @return string
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    public function getReceiverName()
+    public function getReceiverName(): string
     {
         $receiverName = 'Powermail';
         if (!empty($this->settings['receiver']['name'])) {
@@ -97,11 +105,13 @@ class ReceiverMailReceiverPropertiesService
     }
 
     /**
-     * Set receiver mails
-     *
      * @return void
+     * @throws Exception
+     * @throws InvalidQueryException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    protected function setReceiverEmails()
+    protected function setReceiverEmails(): void
     {
         $emailArray = $this->getEmailsFromFlexForm();
         $emailArray = $this->getEmailsFromFeGroup($emailArray, $this->settings['receiver']['fe_group']);
@@ -119,8 +129,11 @@ class ReceiverMailReceiverPropertiesService
      * Get emails from FlexForm and parse with fluid
      *
      * @return array
+     * @throws Exception
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    protected function getEmailsFromFlexForm()
+    protected function getEmailsFromFlexForm(): array
     {
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         $emailString = TemplateUtility::fluidParseString(
@@ -136,8 +149,10 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param int $uid fe_groups.uid
      * @return array Array with emails
+     * @throws Exception
+     * @throws InvalidQueryException
      */
-    protected function getEmailsFromFeGroup(array $emailArray, $uid)
+    protected function getEmailsFromFeGroup(array $emailArray, int $uid): array
     {
         if ((int)$this->settings['receiver']['type'] === 1 && !empty($uid)) {
             $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
@@ -158,13 +173,14 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param int $uid be_groups.uid
      * @return array
+     * @throws Exception
      */
-    protected function getEmailsFromBeGroup(array $emailArray, $uid)
+    protected function getEmailsFromBeGroup(array $emailArray, int $uid): array
     {
+        // todo
         if ((int)$this->settings['receiver']['type'] === 3 && !empty($uid)) {
             $beUserRepository = ObjectUtility::getObjectManager()->get(BackendUserRepository::class);
             $beGroupRepository = ObjectUtility::getObjectManager()->get(BackendUserGroupRepository::class);
-            /** @var BackendUserGroup $userGroup */
             $userGroup = $beGroupRepository->findByUid($uid);
             $demand = ObjectUtility::getObjectManager()->get(Demand::class);
             $demand->setBackendUserGroup($userGroup);
@@ -191,7 +207,7 @@ class ReceiverMailReceiverPropertiesService
      * @param string $predefinedString
      * @return array
      */
-    protected function getEmailsFromPredefinedEmail(array $emailArray, $predefinedString)
+    protected function getEmailsFromPredefinedEmail(array $emailArray, string $predefinedString): array
     {
         if ((int)$this->settings['receiver']['type'] === 2 && !empty($predefinedString)) {
             $receiverString = '';
@@ -211,7 +227,7 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @return array
      */
-    protected function overWriteEmailsWithTypoScript(array $emailArray)
+    protected function overWriteEmailsWithTypoScript(array $emailArray): array
     {
         $receiverString = '';
         TypoScriptUtility::overwriteValueFromTypoScript(
@@ -232,9 +248,9 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @return array
      */
-    protected function getEmailFromDevelopmentContext(array $emailArray)
+    protected function getEmailFromDevelopmentContext(array $emailArray): array
     {
-        if (ConfigurationUtility::getDevelopmentContextEmail()) {
+        if (ConfigurationUtility::getDevelopmentContextEmail() !== '') {
             $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
         }
         return $emailArray;
@@ -246,7 +262,7 @@ class ReceiverMailReceiverPropertiesService
      * @param string $string Any given string from a textarea with some emails
      * @return array Array with emails
      */
-    protected function parseEmailsFromString($string)
+    protected function parseEmailsFromString(string $string): array
     {
         $array = [];
         $string = str_replace(

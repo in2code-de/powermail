@@ -14,6 +14,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /**
  * Class TaskCommandController
+ * Todo change to symfony cc
  */
 class TaskCommandController extends CommandController
 {

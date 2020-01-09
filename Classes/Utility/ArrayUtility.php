@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Utility\ArrayUtility as ArrayUtilityCore;
 /**
  * Class ArrayUtility
  */
-class ArrayUtility extends ArrayUtilityCore
+class ArrayUtility
 {
 
     /**
@@ -15,7 +15,7 @@ class ArrayUtility extends ArrayUtilityCore
      *
      * @return array
      */
-    public static function getAbcArray()
+    public static function getAbcArray(): array
     {
         return range('A', 'Z');
     }
@@ -26,7 +26,7 @@ class ArrayUtility extends ArrayUtilityCore
      * @param string $string
      * @return bool
      */
-    public static function isJsonArray($string)
+    public static function isJsonArray(string $string): bool
     {
         if (!is_string($string)) {
             return false;
@@ -40,7 +40,7 @@ class ArrayUtility extends ArrayUtilityCore
      * @param array $array Any array
      * @return array Cleaned array
      */
-    public static function htmlspecialcharsOnArray($array)
+    public static function htmlspecialcharsOnArray(array $array): array
     {
         $newArray = [];
         foreach ((array)$array as $key => $value) {
@@ -59,16 +59,16 @@ class ArrayUtility extends ArrayUtilityCore
      * Overrule delimiter with a "." instead of "/"
      *
      * @param array $array Input array
-     * @param array|string $path Path within the array
+     * @param string $path Path within the array
      * @param string $delimiter Defined path delimiter, default .
      * @return mixed
      * @throws \RuntimeException if the path is empty, or if the path does not exist
      * @throws \InvalidArgumentException if the path is neither array nor string
      */
-    public static function getValueByPath(array $array, $path, $delimiter = '.')
+    public static function getValueByPath(array $array, string $path, string $delimiter = '.')
     {
         try {
-            $value = parent::getValueByPath($array, $path, $delimiter);
+            $value = ArrayUtilityCore::getValueByPath($array, $path, $delimiter);
         } catch (\Exception $exception) {
             // If path is not available in array
             unset($exception);
@@ -85,16 +85,16 @@ class ArrayUtility extends ArrayUtilityCore
      *
      * @param array $firstArray First array
      * @param array $secondArray Second array, overruling the first array
-     * @param bool $dontAddNewKeys If set, keys that are NOT found in $firstArray (first array) will not be set. Thus only existing value can/will be overruled from second array.
-     * @param bool $emptyValuesOverride If set (which is the default), values from $secondArray will overrule if they are empty (according to PHP's empty() function)
+     * @param bool $dontAddNewKeys If set, keys that are NOT found in $firstArray (first array) will not be set.
+     * @param bool $emptyValuesOverride If set, values from $secondArray will overrule if they are empty.
      * @return array Resulting array where $secondArray values has overruled $firstArray values
      */
     public static function arrayMergeRecursiveOverrule(
         array $firstArray,
         array $secondArray,
-        $dontAddNewKeys = false,
-        $emptyValuesOverride = true
-    ) {
+        bool $dontAddNewKeys = false,
+        bool $emptyValuesOverride = true
+    ): array {
         foreach ($secondArray as $key => $value) {
             if (array_key_exists($key, $firstArray) && is_array($firstArray[$key])) {
                 if (is_array($secondArray[$key])) {

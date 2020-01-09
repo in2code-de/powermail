@@ -17,7 +17,7 @@ class BasicFileUtility extends AbstractUtility
      * @param string $path Relative Path
      * @return array
      */
-    public static function getFilesFromRelativePath($path)
+    public static function getFilesFromRelativePath(string $path): array
     {
         $array = [];
         $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName($path));
@@ -33,20 +33,17 @@ class BasicFileUtility extends AbstractUtility
      * @param string $pathAndFilename
      * @return string
      */
-    public static function getPathFromPathAndFilename($pathAndFilename)
+    public static function getPathFromPathAndFilename(string $pathAndFilename): string
     {
         $pathInfo = pathinfo($pathAndFilename);
         return $pathInfo['dirname'];
     }
 
     /**
-     * Create folder
-     *
-     * @param $path
+     * @param string $path
      * @return void
-     * @throws \Exception
      */
-    public static function createFolderIfNotExists($path)
+    public static function createFolderIfNotExists(string $path): void
     {
         if (!is_dir($path) && !GeneralUtility::mkdir($path)) {
             throw new \UnexpectedValueException(
@@ -63,7 +60,7 @@ class BasicFileUtility extends AbstractUtility
      * @param string $content
      * @return void
      */
-    public static function prependContentToFile($pathAndFile, $content)
+    public static function prependContentToFile(string $pathAndFile, string $content): void
     {
         $absolutePathAndFile = GeneralUtility::getFileAbsFileName($pathAndFile);
         $lines = [];
@@ -80,7 +77,7 @@ class BasicFileUtility extends AbstractUtility
      * @param string $path
      * @return string
      */
-    public static function getRelativeFolder($path)
+    public static function getRelativeFolder(string $path): string
     {
         if (PathUtility::isAbsolutePath($path)) {
             $path = PathUtility::getRelativePathTo($path);

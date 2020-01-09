@@ -7,6 +7,9 @@ use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Class FieldRepository
@@ -21,7 +24,7 @@ class FieldRepository extends AbstractRepository
      * @param array $uids
      * @return array
      */
-    public function findByUids($uids)
+    public function findByUids(array $uids): array
     {
         $result = [];
         foreach ($uids as $uid) {
@@ -42,8 +45,10 @@ class FieldRepository extends AbstractRepository
      * @param string $marker
      * @param int $formUid
      * @return Field
+     * @throws Exception
+     * @throws InvalidQueryException
      */
-    public function findByMarkerAndForm($marker, $formUid = 0)
+    public function findByMarkerAndForm(string $marker, int $formUid = 0): Field
     {
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
             return $this->findByMarkerAndFormAlternative($marker, $formUid);
@@ -61,17 +66,18 @@ class FieldRepository extends AbstractRepository
             )
         );
         $query->setLimit(1);
-        $result = $query->execute()->getFirst();
-        return $result;
+        /** @var Field $field */
+        $field = $query->execute()->getFirst();
+        return $field;
     }
 
     /**
      * Find all localized records with
      *        tx_powermail_domain_model_field.marker != ""
      *
-     * @return mixed
+     * @return QueryResultInterface
      */
-    public function findAllFieldsWithFilledMarkerrsInLocalizedFields()
+    public function findAllFieldsWithFilledMarkerrsInLocalizedFields(): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -82,9 +88,7 @@ class FieldRepository extends AbstractRepository
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
 
-        $result = $query->statement($sql)->execute(true);
-
-        return $result;
+        return $query->statement($sql)->execute(true);
     }
 
     /**
@@ -93,7 +97,7 @@ class FieldRepository extends AbstractRepository
      *
      * @return array
      */
-    public function findAllWrongLocalizedFields()
+    public function findAllWrongLocalizedFields(): array
     {
         $pages = [];
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME, true);
@@ -115,7 +119,7 @@ class FieldRepository extends AbstractRepository
      * @param int $fieldUid
      * @return int
      */
-    protected function getPageUidFromFieldUid($fieldUid)
+    protected function getPageUidFromFieldUid(int $fieldUid): int
     {
         $query = $this->createQuery();
         $sql = 'select pages';
@@ -132,7 +136,7 @@ class FieldRepository extends AbstractRepository
      * @param int $sysLanguageUid
      * @return int
      */
-    protected function getLocalizedPageUidFromPageUid($pageUid, $sysLanguageUid)
+    protected function getLocalizedPageUidFromPageUid(int $pageUid, int $sysLanguageUid): int
     {
         $query = $this->createQuery();
         $sql = 'select uid';
@@ -150,8 +154,10 @@ class FieldRepository extends AbstractRepository
      * @param string $marker
      * @param int $formUid
      * @return Field
+     * @throws Exception
+     * @throws InvalidQueryException
      */
-    protected function findByMarkerAndFormAlternative($marker, $formUid = 0)
+    protected function findByMarkerAndFormAlternative(string $marker, int $formUid = 0): Field
     {
         // get pages from form
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
@@ -172,7 +178,9 @@ class FieldRepository extends AbstractRepository
                 ]
             )
         );
-        return $query->setLimit(1)->execute()->getFirst();
+        /** @var Field $field */
+        $field = $query->setLimit(1)->execute()->getFirst();
+        return $field;
     }
 
     /**
@@ -181,8 +189,9 @@ class FieldRepository extends AbstractRepository
      * @param string $marker Field marker
      * @param integer $formUid Form UID
      * @return string Field Type
+     * @throws Exception
      */
-    public function getFieldTypeFromMarker($marker, $formUid = 0)
+    public function getFieldTypeFromMarker(string $marker, int $formUid = 0): string
     {
         $field = $this->findByMarkerAndForm($marker, $formUid);
         if (method_exists($field, 'getType')) {
@@ -198,7 +207,7 @@ class FieldRepository extends AbstractRepository
      * @param integer $formUid Form UID
      * @return int Field UID
      */
-    public function getFieldUidFromMarker($marker, $formUid = 0)
+    public function getFieldUidFromMarker(string $marker, int $formUid = 0): int
     {
         $field = $this->findByMarkerAndForm($marker, $formUid);
         if (method_exists($field, 'getUid')) {
@@ -213,14 +222,14 @@ class FieldRepository extends AbstractRepository
      */
     public function getMarkerFromUid(int $uid): string
     {
-        $marker = '';
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
-        $rows =
-            $queryBuilder->select('marker')->from(Field::TABLE_NAME)->where('uid=' . (int)$uid)->execute()->fetchAll();
-        if (!empty($rows[0]['marker'])) {
-            $marker = $rows[0]['marker'];
-        }
-        return $marker;
+        return (string)$queryBuilder
+            ->select('marker')
+            ->from(Field::TABLE_NAME)
+            ->where('uid=' . (int)$uid)
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchColumn();
     }
 
     /**
@@ -229,13 +238,13 @@ class FieldRepository extends AbstractRepository
      */
     public function getTypeFromUid(int $uid): string
     {
-        $type = '';
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
-        $rows =
-            $queryBuilder->select('type')->from(Field::TABLE_NAME)->where('uid=' . (int)$uid)->execute()->fetchAll();
-        if (!empty($rows[0]['type'])) {
-            $type = $rows[0]['type'];
-        }
-        return $type;
+        return (string)$queryBuilder
+            ->select('type')
+            ->from(Field::TABLE_NAME)
+            ->where('uid=' . (int)$uid)
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchColumn();
     }
 }

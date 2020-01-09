@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class PasswordValidator
@@ -20,6 +21,7 @@ class PasswordValidator extends AbstractValidator
      *
      * @param Mail $mail
      * @return bool
+     * @throws Exception
      */
     public function isValid($mail)
     {
@@ -45,8 +47,9 @@ class PasswordValidator extends AbstractValidator
      *
      * @param Field $field
      * @return string
+     * @throws Exception
      */
-    protected function getMirroredValueOfPasswordField(Field $field)
+    protected function getMirroredValueOfPasswordField(Field $field): string
     {
         $piVars = GeneralUtility::_GP($this->variablesPrefix);
         $mirroredValue = $piVars['field'][$field->getMarker() . '_mirror'];
@@ -57,9 +60,10 @@ class PasswordValidator extends AbstractValidator
      * Checks if given form has a password field
      *
      * @param Form $form
-     * @return boolean
+     * @return bool
+     * @throws Exception
      */
-    protected function formHasPassword(Form $form)
+    protected function formHasPassword(Form $form): bool
     {
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         $form = $formRepository->hasPassword($form);
@@ -71,7 +75,7 @@ class PasswordValidator extends AbstractValidator
      *
      * @return bool
      */
-    protected function ignoreValidationIfConfirmation()
+    protected function ignoreValidationIfConfirmation(): bool
     {
         $piVars = GeneralUtility::_GP($this->variablesPrefix);
         $piVarsGet = GeneralUtility::_GET($this->variablesPrefix);

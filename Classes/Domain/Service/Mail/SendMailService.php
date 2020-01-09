@@ -18,6 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -76,8 +77,9 @@ class SendMailService
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function sendMail(array $email, Mail $mail, array $settings, $type = 'receiver')
+    public function sendMail(array $email, Mail $mail, array $settings, string $type = 'receiver'): bool
     {
         $this->initialize($mail, $settings, $type);
         $this->parseAndOverwriteVariables($email, $mail);
@@ -104,8 +106,9 @@ class SendMailService
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    protected function prepareAndSend(array $email)
+    protected function prepareAndSend(array $email): bool
     {
         /** @var MailMessage $message */
         $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
@@ -151,7 +154,7 @@ class SendMailService
      * @param MailMessage $message
      * @return MailMessage
      */
-    protected function addCc(MailMessage $message)
+    protected function addCc(MailMessage $message): MailMessage
     {
         $ccValue = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->overwriteConfig['cc'],
@@ -169,7 +172,7 @@ class SendMailService
      * @param MailMessage $message
      * @return MailMessage
      */
-    protected function addBcc(MailMessage $message)
+    protected function addBcc(MailMessage $message): MailMessage
     {
         $bccValue = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->overwriteConfig['bcc'],
@@ -187,7 +190,7 @@ class SendMailService
      * @param MailMessage $message
      * @return MailMessage
      */
-    protected function addReturnPath(MailMessage $message)
+    protected function addReturnPath(MailMessage $message): MailMessage
     {
         $returnPathValue = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->overwriteConfig['returnPath'],
@@ -205,7 +208,7 @@ class SendMailService
      * @param MailMessage $message
      * @return MailMessage
      */
-    protected function addReplyAddresses(MailMessage $message)
+    protected function addReplyAddresses(MailMessage $message): MailMessage
     {
         $replyToEmail = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->overwriteConfig['replyToEmail'],
@@ -231,7 +234,7 @@ class SendMailService
      * @param MailMessage $message
      * @return MailMessage
      */
-    protected function addPriority(MailMessage $message)
+    protected function addPriority(MailMessage $message): MailMessage
     {
         $priorityValue = (int)$this->settings[$this->type]['overwrite']['priority'];
         if ($priorityValue > 0) {
@@ -245,8 +248,9 @@ class SendMailService
      * @return MailMessage
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    protected function addAttachmentsFromUploads(MailMessage $message)
+    protected function addAttachmentsFromUploads(MailMessage $message): MailMessage
     {
         if (!empty($this->settings[$this->type]['attachment']) && !empty($this->settings['misc']['file']['folder'])) {
             /** @var UploadService $uploadService */
@@ -266,7 +270,7 @@ class SendMailService
      * @param MailMessage $message
      * @return MailMessage
      */
-    protected function addAttachmentsFromTypoScript(MailMessage $message)
+    protected function addAttachmentsFromTypoScript(MailMessage $message): MailMessage
     {
         $filesValue = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->configuration[$this->type . '.']['addAttachment'],
@@ -295,8 +299,9 @@ class SendMailService
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    protected function addHtmlBody(MailMessage $message, array $email)
+    protected function addHtmlBody(MailMessage $message, array $email): MailMessage
     {
         if ($email['format'] !== 'plain') {
             $message->setBody($this->createEmailBody($email), 'text/html');
@@ -313,8 +318,9 @@ class SendMailService
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    protected function addPlainBody(MailMessage $message, array $email)
+    protected function addPlainBody(MailMessage $message, array $email): MailMessage
     {
         if ($email['format'] !== 'html') {
             $plaintextService = ObjectUtility::getObjectManager()->get(PlaintextService::class);
@@ -329,7 +335,7 @@ class SendMailService
      * @param MailMessage $message
      * @return MailMessage
      */
-    protected function addSenderHeader(MailMessage $message)
+    protected function addSenderHeader(MailMessage $message): MailMessage
     {
         $senderHeaderConfig = $this->configuration[$this->type . '.']['senderHeader.'];
         $email = ObjectUtility::getContentObject()->cObjGetSingle(
@@ -357,8 +363,9 @@ class SendMailService
      * @throws InvalidSlotReturnException
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws Exception
      */
-    protected function createEmailBody(array $email)
+    protected function createEmailBody(array $email): string
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->getRequest()->setControllerName('Form');
@@ -393,8 +400,9 @@ class SendMailService
      * Update mail record with parsed fields
      *
      * @param array $email
+     * @return void
      */
-    protected function updateMail(array $email)
+    protected function updateMail(array $email): void
     {
         if ($this->type === 'receiver' && $email['variables']['hash'] === '') {
             $this->mail->setSenderMail($email['senderEmail']);
@@ -407,8 +415,9 @@ class SendMailService
     /**
      * @param array $settings
      * @return array
+     * @throws Exception
      */
-    protected function getConfigurationFromSettings(array $settings)
+    protected function getConfigurationFromSettings(array $settings): array
     {
         $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
         return $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
@@ -422,8 +431,9 @@ class SendMailService
      * @return void
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    protected function parseAndOverwriteVariables(array &$email, Mail $mail)
+    protected function parseAndOverwriteVariables(array &$email, Mail $mail): void
     {
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfig, 'subject');
@@ -456,8 +466,9 @@ class SendMailService
      * @return void
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    protected function initialize(Mail $mail, array $settings, string $type)
+    protected function initialize(Mail $mail, array $settings, string $type): void
     {
         $this->mail = $mail;
         $this->settings = $settings;
@@ -469,41 +480,41 @@ class SendMailService
     }
 
     /**
-     * @return Mail $this->mail
+     * @return Mail
      */
-    public function getMail()
+    public function getMail(): Mail
     {
         return $this->mail;
     }
 
     /**
-     * @return string $this->type
+     * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
     /**
-     * @return array $this->settings
+     * @return array
      */
-    public function getSettings()
+    public function getSettings(): array
     {
         return $this->settings;
     }
 
     /**
-     * @return array $this->configuration
+     * @return array
      */
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
     /**
-     * @return array $this->overwriteConfig
+     * @return array
      */
-    public function getOverwriteConfig()
+    public function getOverwriteConfig(): array
     {
         return $this->overwriteConfig;
     }

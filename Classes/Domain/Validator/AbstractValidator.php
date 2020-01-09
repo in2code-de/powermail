@@ -6,10 +6,10 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-// @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-use TYPO3\CMS\Extbase\Service\FlexFormService;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
 
@@ -47,13 +47,12 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     protected $configuration = [];
 
     /**
-     * Set Error
-     *
      * @param Field $field
      * @param string $label
      * @return void
+     * @throws Exception
      */
-    public function setErrorAndMessage(Field $field, $label)
+    public function setErrorAndMessage(Field $field, string $label): void
     {
         $this->setValidState(false);
         $this->addError($label, $field->getMarker());
@@ -64,7 +63,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      *
      * @return bool
      */
-    public function isServerValidationEnabled()
+    public function isServerValidationEnabled(): bool
     {
         return $this->settings['validation']['server'] === '1';
     }
@@ -74,8 +73,9 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      *
      * @param ConfigurationManagerInterface $configurationManager
      * @return void
+     * @throws Exception
      */
-    public function injectTypoScript(ConfigurationManagerInterface $configurationManager)
+    public function injectTypoScript(ConfigurationManagerInterface $configurationManager): void
     {
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $this->settings = $configurationService->getTypoScriptSettings();
@@ -87,11 +87,9 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     }
 
     /**
-     * Init
-     *
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
     }
 
@@ -105,18 +103,18 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     }
 
     /**
-     * @param boolean $validState
+     * @param $validState
      * @return void
      */
-    public function setValidState($validState)
+    public function setValidState(bool $validState): void
     {
         $this->validState = $validState;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isValidState()
+    public function isValidState(): bool
     {
         return $this->validState;
     }
@@ -124,16 +122,16 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     /**
      * @return array
      */
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
     /**
      * @param array $configuration
-     * @return AbstractValidator
+     * @return ValidatorInterface
      */
-    public function setConfiguration(array $configuration)
+    public function setConfiguration(array $configuration): ValidatorInterface
     {
         $this->configuration = $configuration;
         return $this;
@@ -145,7 +143,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      *
      * @return bool
      */
-    public function isFirstActionForValidation()
+    public function isFirstActionForValidation(): bool
     {
         $arguments = GeneralUtility::_GPmerged($this->variablesPrefix);
         if ($this->isConfirmationActivated()) {
@@ -169,7 +167,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     /**
      * @return bool
      */
-    public function isConfirmationActivated()
+    public function isConfirmationActivated(): bool
     {
         return $this->flexForm['settings']['flexform']['main']['confirmation'] === '1';
     }

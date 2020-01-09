@@ -4,6 +4,7 @@ namespace In2code\Powermail\DataProcessor;
 
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class UploadDataProcessor
@@ -12,9 +13,11 @@ class UploadDataProcessor extends AbstractDataProcessor
 {
 
     /**
-     * Upload files
+     * @return void
+     * @throws Exception
+     * @throws \Exception
      */
-    public function uploadFilesDataProcessor()
+    public function uploadFilesDataProcessor(): void
     {
         $uploadService = ObjectUtility::getObjectManager()->get(UploadService::class);
         $uploadService->uploadAllFiles();

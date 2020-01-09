@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use In2code\Powermail\Domain\Model\Form;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -38,6 +39,7 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
      * Get all fields from a form
      *
      * @return array
+     * @throws PropertyNotAccessibleException
      */
     public function render(): array
     {

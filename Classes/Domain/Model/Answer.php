@@ -79,7 +79,7 @@ class Answer extends AbstractEntity
      * @param mixed $value
      * @return Answer
      */
-    public function setValue($value)
+    public function setValue($value): Answer
     {
         $value = $this->convertToJson($value);
         $value = $this->convertToTimestamp($value);
@@ -94,7 +94,7 @@ class Answer extends AbstractEntity
      * @param string $glue
      * @return string
      */
-    public function getStringValue($glue = ', ')
+    public function getStringValue(string $glue = ', '): string
     {
         $value = $this->getValue();
         if (is_array($value)) {
@@ -111,7 +111,7 @@ class Answer extends AbstractEntity
      *
      * @return string
      */
-    public function getRawValue()
+    public function getRawValue(): string
     {
         return $this->value;
     }
@@ -120,7 +120,7 @@ class Answer extends AbstractEntity
      * @param int $valueType
      * @return Answer
      */
-    public function setValueType($valueType)
+    public function setValueType(int $valueType): Answer
     {
         $this->valueType = (int)$valueType;
         return $this;
@@ -129,7 +129,7 @@ class Answer extends AbstractEntity
     /**
      * @return int
      */
-    public function getValueType()
+    public function getValueType(): int
     {
         if ($this->valueType === null) {
             if ($this->getField() !== null) {
@@ -143,63 +143,55 @@ class Answer extends AbstractEntity
     }
 
     /**
-     * Returns the mail
-     *
      * @return Mail $mail
      */
-    public function getMail()
+    public function getMail(): Mail
     {
         return $this->mail;
     }
 
     /**
-     * Sets the mail
-     *
      * @param Mail $mail
      * @return Answer
      */
-    public function setMail(Mail $mail)
+    public function setMail(Mail $mail): Answer
     {
         $this->mail = $mail;
         return $this;
     }
 
     /**
-     * Returns the field
-     *
      * @return Field $field
      */
-    public function getField()
+    public function getField(): Field
     {
         return $this->field;
     }
 
     /**
-     * Sets the field
-     *
      * @param Field $field
      * @return Answer
      */
-    public function setField(Field $field)
+    public function setField(Field $field): Answer
     {
         $this->field = $field;
         return $this;
     }
 
     /**
-     * @param string $value
+     * @param string|array $value
      * @return bool
      */
-    protected function isTypeDateForTimestamp($value)
+    protected function isTypeDateForTimestamp($value): bool
     {
         return $this->getValueType() === self::VALUE_TYPE_DATE && is_numeric($value) && $this->getField() !== null;
     }
 
     /**
-     * @param string $value
+     * @param string|array $value
      * @return bool
      */
-    protected function isTypeDateForDate($value)
+    protected function isTypeDateForDate($value): bool
     {
         return !empty($value) && method_exists($this->getField(), 'getType')
             && $this->getValueType() === self::VALUE_TYPE_DATE && !is_numeric($value);
@@ -208,10 +200,10 @@ class Answer extends AbstractEntity
     /**
      * If multitext or upload force array
      *
-     * @param string $value
+     * @param string|array $value
      * @return bool
      */
-    protected function isTypeMultiple($value)
+    protected function isTypeMultiple($value): bool
     {
         return ($this->getValueType() === self::VALUE_TYPE_ARRAY || $this->getValueType() === self::VALUE_TYPE_UPLOAD)
             && !is_array($value);
@@ -223,7 +215,7 @@ class Answer extends AbstractEntity
      * @param string|array $value
      * @return string
      */
-    protected function convertToJson($value)
+    protected function convertToJson($value): string
     {
         if (is_array($value)) {
             $value = json_encode($value);
@@ -234,10 +226,10 @@ class Answer extends AbstractEntity
     /**
      * Convert string to timestamp for date fields (datepicker)
      *
-     * @param $value
+     * @param string $value
      * @return int|string
      */
-    protected function convertToTimestamp($value)
+    protected function convertToTimestamp(string $value)
     {
         if ($this->isTypeDateForDate($value)) {
             if (empty($this->translateFormat)) {

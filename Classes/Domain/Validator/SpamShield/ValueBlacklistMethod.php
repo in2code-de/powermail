@@ -21,14 +21,14 @@ class ValueBlacklistMethod extends AbstractMethod
      *
      * @return bool true if spam recognized
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         foreach ($this->mail->getAnswers() as $answer) {
             if (is_array($answer->getValue())) {
                 continue;
             }
             foreach ($this->getValues() as $blackword) {
-                if ($this->findStringInString($answer->getValue(), $blackword)) {
+                if ($this->isStringInString($answer->getValue(), $blackword)) {
                     return true;
                 }
             }
@@ -41,7 +41,7 @@ class ValueBlacklistMethod extends AbstractMethod
      *
      * @return array
      */
-    protected function getValues()
+    protected function getValues(): array
     {
         $values = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->configuration['values']['_typoScriptNodeValue'],
@@ -56,7 +56,7 @@ class ValueBlacklistMethod extends AbstractMethod
      * @param string $string
      * @return string
      */
-    protected function reduceDelimiters($string)
+    protected function reduceDelimiters(string $string): string
     {
         return str_replace([',', ';', ' ', PHP_EOL], $this->delimiter, $string);
     }
@@ -75,7 +75,7 @@ class ValueBlacklistMethod extends AbstractMethod
      * @param string $needle
      * @return bool
      */
-    protected function findStringInString($haystack, $needle)
+    protected function isStringInString(string $haystack, string $needle): bool
     {
         return preg_match('/(?:\A|[@\s\b_-]|\.)' . $needle . '(?:$|[\s\b_-]|\.)/i', $haystack) === 1;
     }

@@ -5,6 +5,9 @@ namespace In2code\Powermail\ViewHelpers\Getter;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -29,6 +32,9 @@ class GetFieldPropertyFromMarkerAndFormViewHelper extends AbstractViewHelper
      * Get any property from tx_powermail_domain_model_field by markername and form
      *
      * @return mixed|string
+     * @throws Exception
+     * @throws InvalidQueryException
+     * @throws PropertyNotAccessibleException
      */
     public function render()
     {

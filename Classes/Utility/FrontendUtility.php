@@ -2,10 +2,12 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FrontendUtility
@@ -16,10 +18,10 @@ class FrontendUtility extends AbstractUtility
     /**
      * Returns given number or the current PID
      *
-     * @param integer $pid Storage PID or nothing
-     * @return integer $pid
+     * @param int $pid Storage PID or nothing
+     * @return int $pid
      */
-    public static function getStoragePage($pid = 0)
+    public static function getStoragePage(int $pid = 0): int
     {
         if (!$pid) {
             $pid = self::getCurrentPageIdentifier();
@@ -32,7 +34,7 @@ class FrontendUtility extends AbstractUtility
      *
      * @return int
      */
-    public static function getCurrentPageIdentifier()
+    public static function getCurrentPageIdentifier(): int
     {
         return (int)self::getTyposcriptFrontendController()->id;
     }
@@ -42,7 +44,7 @@ class FrontendUtility extends AbstractUtility
      *
      * @return int
      */
-    public static function getSysLanguageUid()
+    public static function getSysLanguageUid(): int
     {
         return (int)self::getTyposcriptFrontendController()->tmpl->setup['config.']['sys_language_uid'];
     }
@@ -81,7 +83,7 @@ class FrontendUtility extends AbstractUtility
      *
      * @return string
      */
-    public static function getCharset()
+    public static function getCharset(): string
     {
         return self::getTyposcriptFrontendController()->metaCharset;
     }
@@ -92,9 +94,11 @@ class FrontendUtility extends AbstractUtility
      * @param array $settings $settings TypoScript and Flexform Settings
      * @param int|Mail $mail
      * @return bool
+     * @throws DBALException
+     * @throws Exception
      * @codeCoverageIgnore
      */
-    public static function isAllowedToEdit($settings, $mail)
+    public static function isAllowedToEdit(array $settings, $mail): bool
     {
         if (!is_a($mail, Mail::class)) {
             /** @var MailRepository $mailRepository */
@@ -144,7 +148,7 @@ class FrontendUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isLoggedInFrontendUser()
+    public static function isLoggedInFrontendUser(): bool
     {
         return !empty(self::getTyposcriptFrontendController()->fe_user->user['uid']);
     }
@@ -155,7 +159,7 @@ class FrontendUtility extends AbstractUtility
      * @param string $propertyName
      * @return string
      */
-    public static function getPropertyFromLoggedInFrontendUser($propertyName = 'uid')
+    public static function getPropertyFromLoggedInFrontendUser(string $propertyName = 'uid'): string
     {
         $tsfe = self::getTyposcriptFrontendController();
         if (!empty($tsfe->fe_user->user[$propertyName])) {
@@ -170,7 +174,7 @@ class FrontendUtility extends AbstractUtility
      * @param string $uri
      * @return string
      */
-    public static function getDomainFromUri($uri)
+    public static function getDomainFromUri(string $uri): string
     {
         $uriParts = parse_url($uri);
         return $uriParts['host'];
@@ -180,9 +184,9 @@ class FrontendUtility extends AbstractUtility
      * Get Country Name out of an IP address
      *
      * @param string $ipAddress
-     * @return string Countryname
+     * @return string
      */
-    public static function getCountryFromIp($ipAddress = null)
+    public static function getCountryFromIp(string $ipAddress = null): string
     {
         if ($ipAddress === null) {
             // @codeCoverageIgnoreStart
@@ -211,10 +215,10 @@ class FrontendUtility extends AbstractUtility
      * @return string
      */
     public static function getSubFolderOfCurrentUrl(
-        $leadingSlash = true,
-        $trailingSlash = true,
-        $testHost = null,
-        $testUrl = null
+        bool $leadingSlash = true,
+        bool $trailingSlash = true,
+        string $testHost = null,
+        string $testUrl = null
     ) {
         $subfolder = '';
         $typo3RequestHost = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST');
