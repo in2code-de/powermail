@@ -4,7 +4,7 @@
 <p>
 	<h2>
 		<core:Icon identifier="extension-powermail-main" size="default" />
-		<a href="{vh:Be.EditLink(table:'tt_content',identifier:row.uid)}">
+		<a href="{vh:be.editLink(table:'tt_content',identifier:row.uid)}">
 			<f:if condition="{row.header}">
 				<f:then>{row.header}</f:then>
 				<f:else><f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:BackendPluginInformationNoHeader">[no header]</f:translate></f:else>
@@ -14,7 +14,6 @@
 	</h2>
 </p>
 
-
 <f:if condition="{pluginName} == 'Pi1'">
 	<f:then>
 		<f:render section="Pi1" arguments="{_all}" />
@@ -23,7 +22,6 @@
 		<f:render section="Pi2" arguments="{_all}" />
 	</f:else>
 </f:if>
-
 
 
 

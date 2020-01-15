@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -336,9 +337,9 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * @return Form $form
+     * @return null|Form|LazyLoadingProxy $form
      */
-    public function getForm(): Form
+    public function getForm()
     {
         return $this->form;
     }

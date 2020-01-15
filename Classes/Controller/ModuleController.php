@@ -11,10 +11,13 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 
 /**
  * Class ModuleController for backend modules
@@ -35,20 +38,21 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
+     * @throws RouteNotFoundException
      */
     public function listAction(): void
     {
-        $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
+        $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
         $this->view->assignMultiple(
             [
-                'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
+                'mails' => $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars),
                 'formUids' => $formUids,
                 'firstForm' => $this->formRepository->findByUid($firstFormUid),
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
+                'moduleUri' => BackendUtility::getRoute('web_PowermailM1'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
                 'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                     && $beUser->check('tables_modify', Mail::TABLE_NAME),
@@ -105,6 +109,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
+     * @throws RouteNotFoundException
      */
     public function reportingFormBeAction(): void
     {
@@ -119,7 +124,7 @@ class ModuleController extends AbstractController
                 'firstMail' => $firstMail,
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
+                'moduleUri' => BackendUtility::getRoute('web_PowermailM1'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             ]
         );
@@ -128,6 +133,8 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
+     * @throws RouteNotFoundException
+     * @throws PropertyNotAccessibleException
      */
     public function reportingMarketingBeAction(): void
     {
@@ -142,7 +149,7 @@ class ModuleController extends AbstractController
                 'firstMail' => $firstMail,
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'moduleUri' => BackendUtility::getModuleUrl('tce_db'),
+                'moduleUri' => BackendUtility::getRoute('web_PowermailM1'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             ]
         );
@@ -150,6 +157,8 @@ class ModuleController extends AbstractController
 
     /**
      * @return void
+     * @throws InvalidQueryException
+     * @throws Exception
      */
     public function overviewBeAction(): void
     {
@@ -170,6 +179,7 @@ class ModuleController extends AbstractController
     /**
      * @param string $email email address
      * @return void
+     * @throws Exception
      */
     public function checkBeAction($email = null): void
     {
@@ -180,6 +190,7 @@ class ModuleController extends AbstractController
     /**
      * @param null $email
      * @return void
+     * @throws Exception
      */
     protected function sendTestEmail($email = null): void
     {

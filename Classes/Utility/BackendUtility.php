@@ -4,7 +4,9 @@ namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
 use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\Router;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
@@ -58,6 +60,7 @@ class BackendUtility extends AbstractUtility
      * @param int $identifier
      * @param bool $addReturnUrl
      * @return string
+     * @throws RouteNotFoundException
      */
     public static function createEditUri(string $tableName, int $identifier, bool $addReturnUrl = true): string
     {
@@ -71,7 +74,7 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return self::getModuleUrl('record_edit', $uriParameters);
+        return self::getRoute('record_edit', $uriParameters);
     }
 
     /**
@@ -81,6 +84,7 @@ class BackendUtility extends AbstractUtility
      * @param int $pageIdentifier where to save the new record
      * @param bool $addReturnUrl
      * @return string
+     * @throws RouteNotFoundException
      */
     public static function createNewUri(string $tableName, int $pageIdentifier, bool $addReturnUrl = true): string
     {
@@ -94,17 +98,30 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return self::getModuleUrl('record_edit', $uriParameters);
+        return self::getRoute('record_edit', $uriParameters);
     }
 
     /**
      * Get return URL from current request
      *
      * @return string
+     * @throws RouteNotFoundException
      */
     protected static function getReturnUrl(): string
     {
-        return self::getModuleUrl(self::getModuleName(), self::getCurrentParameters());
+        return self::getRoute(self::getModuleName(), self::getCurrentParameters());
+    }
+
+    /**
+     * @param string $route
+     * @param array $parameters
+     * @return string
+     * @throws RouteNotFoundException
+     */
+    public static function getRoute(string $route, array $parameters = []): string
+    {
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        return (string)$uriBuilder->buildUriFromRoute($route, $parameters);
     }
 
     /**
@@ -114,10 +131,7 @@ class BackendUtility extends AbstractUtility
      */
     protected static function getModuleName(): string
     {
-        $moduleName = 'web_layout';
-        if (GeneralUtility::_GET('M') !== null) {
-            $moduleName = (string)GeneralUtility::_GET('M');
-        }
+        $moduleName = 'record_edit';
         if (GeneralUtility::_GET('route') !== null) {
             $routePath = (string)GeneralUtility::_GET('route');
             $router = GeneralUtility::makeInstance(Router::class);
@@ -179,21 +193,6 @@ class BackendUtility extends AbstractUtility
             return (int)$queryParts['id'];
         }
         return 0;
-    }
-
-    /**
-     * Returns the URL to a given module
-     *      mainly used for visibility settings or deleting
-     *      a record via AJAX
-     *
-     * @param string $moduleName Name of the module
-     * @param array $urlParameters URL parameters that should be added as key value pairs
-     * @return string Calculated URL
-     */
-    public static function getModuleUrl(string $moduleName, array $urlParameters = []): string
-    {
-        throw new \LogicException('moduleUrl is not existing any more in powermail', 1578947506);
-//        return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
     }
 
     /**

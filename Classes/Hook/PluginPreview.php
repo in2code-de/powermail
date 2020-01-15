@@ -11,6 +11,8 @@ use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -49,6 +51,8 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      * @param array $row Record row of tt_content
      * @return void
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      */
@@ -83,9 +87,11 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     /**
      * @param string @pluginName
      * @return string
+     * @throws Exception
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
-     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     protected function getPluginInformation(string $pluginName): string
     {
@@ -102,7 +108,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
                 'pluginName' => $pluginName,
                 'enableMailPreview' => !ConfigurationUtility::isDisablePluginInformationMailPreviewActive(),
                 'form' => $this->getFormTitleByUid(
-                    ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
+                    (int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
                 )
             ]
         );
@@ -120,7 +126,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
         /** @var MailRepository $mailRepository */
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         return $mailRepository->findLatestByForm(
-            ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
+            (int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
         );
     }
 

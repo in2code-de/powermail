@@ -5,6 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Be;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -37,6 +38,7 @@ class EditLinkViewHelper extends AbstractViewHelper
      * Create backend edit links
      *
      * @return string
+     * @throws RouteNotFoundException
      */
     public function render(): string
     {

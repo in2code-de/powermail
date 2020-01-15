@@ -112,7 +112,6 @@ class BackendUtilityTest extends UnitTestCase
      * @return void
      * @test
      * @covers ::createEditUri
-     * @covers ::getModuleUrl
      * @covers ::getReturnUrl
      * @covers ::getModuleName
      */
@@ -127,7 +126,6 @@ class BackendUtilityTest extends UnitTestCase
      * @return void
      * @test
      * @covers ::createNewUri
-     * @covers ::getModuleUrl
      * @covers ::getReturnUrl
      * @covers ::getModuleName
      */
