@@ -20,12 +20,14 @@ use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -52,6 +54,7 @@ class FormController extends AbstractController
      * @return void
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function formAction(): void
     {
@@ -90,14 +93,15 @@ class FormController extends AbstractController
     /**
      * @param Mail $mail
      * @param string $hash
-     * @validate $mail In2code\Powermail\Domain\Validator\UploadValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UploadValidator", param="mail")
+     * [at]validate $mail In2code\Powermail\Domain\Validator\UploadValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\InputValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
      * @throws IllegalObjectTypeException
      * @throws InvalidConfigurationTypeException
@@ -174,19 +178,20 @@ class FormController extends AbstractController
      * Show Confirmation message after submit (if view is activated)
      *
      * @param Mail $mail
-     * @validate $mail In2code\Powermail\Domain\Validator\UploadValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
-     * @validate $mail In2code\Powermail\Domain\Validator\CustomValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\UploadValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\InputValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
+     * [at]validate $mail In2code\Powermail\Domain\Validator\CustomValidator
      * @return void
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function confirmationAction(Mail $mail): void
     {
@@ -242,6 +247,7 @@ class FormController extends AbstractController
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     protected function prepareOutput(Mail $mail): void
     {
@@ -267,6 +273,7 @@ class FormController extends AbstractController
      * @throws IllegalObjectTypeException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      * @codeCoverageIgnore
      */
     protected function saveMail(Mail $mail): void
@@ -288,6 +295,7 @@ class FormController extends AbstractController
      * @throws StopActionException
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
+     * @throws Exception
      */
     public function optinConfirmAction(int $mail, string $hash): void
     {
@@ -356,6 +364,7 @@ class FormController extends AbstractController
      * @codeCoverageIgnore
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function initializeObject()
     {

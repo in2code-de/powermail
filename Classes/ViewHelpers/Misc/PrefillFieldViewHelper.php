@@ -336,7 +336,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @return Mail
      */
-    public function getMail(): Mail
+    public function getMail(): ?Mail
     {
         return $this->mail;
     }
@@ -345,7 +345,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * @param Mail $mail
      * @return PrefillFieldViewHelper
      */
-    public function setMail(Mail $mail): PrefillFieldViewHelper
+    public function setMail(Mail $mail = null): PrefillFieldViewHelper
     {
         $this->mail = $mail;
         return $this;
