@@ -247,7 +247,7 @@ class SessionUtility extends AbstractUtility
      */
     public static function getSpamFactorFromSession(): string
     {
-        return self::getTyposcriptFrontendController()->fe_user->getKey('ses', 'powermail_spamfactor');
+        return (string)self::getTyposcriptFrontendController()->fe_user->getKey('ses', 'powermail_spamfactor');
     }
 
     /**

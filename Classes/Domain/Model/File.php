@@ -5,6 +5,7 @@ namespace In2code\Powermail\Domain\Model;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -329,6 +330,7 @@ class File
      * @return bool
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function isFileExisting(): bool
     {
@@ -340,6 +342,7 @@ class File
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function getNewPathAndFilename($absolute = false): string
     {

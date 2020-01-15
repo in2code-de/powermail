@@ -7,6 +7,8 @@ use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -47,8 +49,10 @@ class FieldRepository extends AbstractRepository
      * @return Field
      * @throws Exception
      * @throws InvalidQueryException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    public function findByMarkerAndForm(string $marker, int $formUid = 0): Field
+    public function findByMarkerAndForm(string $marker, int $formUid = 0): ?Field
     {
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
             return $this->findByMarkerAndFormAlternative($marker, $formUid);
@@ -190,6 +194,9 @@ class FieldRepository extends AbstractRepository
      * @param integer $formUid Form UID
      * @return string Field Type
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      */
     public function getFieldTypeFromMarker(string $marker, int $formUid = 0): string
     {
@@ -206,6 +213,10 @@ class FieldRepository extends AbstractRepository
      * @param string $marker Field marker
      * @param integer $formUid Form UID
      * @return int Field UID
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      */
     public function getFieldUidFromMarker(string $marker, int $formUid = 0): int
     {

@@ -11,10 +11,14 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -94,10 +98,14 @@ abstract class AbstractController extends ActionController
      * Reformat array for createAction
      *
      * @return void
+     * @throws InvalidArgumentNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws InvalidArgumentNameException
      * @throws NoSuchArgumentException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws Exception
+     * @throws InvalidQueryException
      */
     protected function reformatParamsForAction(): void
     {
@@ -135,7 +143,7 @@ abstract class AbstractController extends ActionController
             if (StringUtility::startsWith((string)$marker, '__')) {
                 continue;
             }
-            $fieldUid = $this->fieldRepository->getFieldUidFromMarker($marker, $arguments['mail']['form']);
+            $fieldUid = $this->fieldRepository->getFieldUidFromMarker($marker, (int)$arguments['mail']['form']);
             // Skip fields without Uid (secondary password, upload)
             if ($fieldUid === 0) {
                 continue;
@@ -150,7 +158,7 @@ abstract class AbstractController extends ActionController
             /** @var Field $field */
             $field = $this->fieldRepository->findByUid($fieldUid);
             $valueType = $field->dataTypeFromFieldType(
-                $this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
+                $this->fieldRepository->getFieldTypeFromMarker($marker, (int)$arguments['mail']['form'])
             );
             if ($valueType === Answer::VALUE_TYPE_UPLOAD && is_array($value)) {
                 $value = $this->uploadService->getNewFileNamesByMarker($marker);

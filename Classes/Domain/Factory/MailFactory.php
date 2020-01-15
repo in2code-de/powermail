@@ -9,6 +9,8 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -25,9 +27,11 @@ class MailFactory
      * @param Mail $mail
      * @param array $settings
      * @return void
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws Exception
      * @codeCoverageIgnore
      */
     public function prepareMailForPersistence(Mail $mail, array $settings): void
@@ -46,11 +50,11 @@ class MailFactory
             ->setMarketingRefererDomain($marketingInfos['refererDomain'])
             ->setMarketingReferer($marketingInfos['referer'])
             ->setMarketingCountry($marketingInfos['country'])
-            ->setMarketingMobileDevice($marketingInfos['mobileDevice'])
+            ->setMarketingMobileDevice((bool)$marketingInfos['mobileDevice'])
             ->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
             ->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
             ->setMarketingPageFunnel($marketingInfos['pageFunnel']);
-        $mail->setPid(FrontendUtility::getStoragePage($settings['main']['pid']));
+        $mail->setPid(FrontendUtility::getStoragePage((int)$settings['main']['pid']));
         $this->setFeuser($mail);
         $this->setSenderIp($mail);
         $this->setHidden($mail, $settings);
@@ -73,6 +77,8 @@ class MailFactory
     /**
      * @param Mail $mail
      * @return void
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     protected function setSenderIp(Mail $mail): void
     {
@@ -101,7 +107,7 @@ class MailFactory
     protected function setAnswersPid(Mail $mail, array $settings): void
     {
         foreach ($mail->getAnswers() as $answer) {
-            $answer->setPid(FrontendUtility::getStoragePage($settings['main']['pid']));
+            $answer->setPid(FrontendUtility::getStoragePage((int)$settings['main']['pid']));
         }
     }
 }

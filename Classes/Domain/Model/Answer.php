@@ -145,7 +145,7 @@ class Answer extends AbstractEntity
     /**
      * @return Mail $mail
      */
-    public function getMail(): Mail
+    public function getMail(): ?Mail
     {
         return $this->mail;
     }

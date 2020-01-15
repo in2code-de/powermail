@@ -102,7 +102,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
         $field = $this->arguments['field'];
         $mail = $this->arguments['mail'];
         $cycle = $this->arguments['cycle'];
-        $default = $this->arguments['default'];
+        $default = (bool)$this->arguments['default'];
         // @extensionScannerIgnoreLine False positive alert in TYPO3 9.5
         $this
             ->setMarker($field->getMarker())
@@ -465,7 +465,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * @return Mail
      */
-    public function getMail(): Mail
+    public function getMail(): ?Mail
     {
         return $this->mail;
     }
@@ -474,7 +474,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * @param Mail $mail
      * @return PrefillMultiFieldViewHelper
      */
-    public function setMail(Mail $mail): PrefillMultiFieldViewHelper
+    public function setMail(Mail $mail = null): PrefillMultiFieldViewHelper
     {
         $this->mail = $mail;
         return $this;

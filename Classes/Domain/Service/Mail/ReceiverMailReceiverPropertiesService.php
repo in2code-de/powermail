@@ -91,6 +91,7 @@ class ReceiverMailReceiverPropertiesService
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function getReceiverName(): string
     {
@@ -114,9 +115,12 @@ class ReceiverMailReceiverPropertiesService
     protected function setReceiverEmails(): void
     {
         $emailArray = $this->getEmailsFromFlexForm();
-        $emailArray = $this->getEmailsFromFeGroup($emailArray, $this->settings['receiver']['fe_group']);
-        $emailArray = $this->getEmailsFromBeGroup($emailArray, $this->settings['receiver']['be_group']);
-        $emailArray = $this->getEmailsFromPredefinedEmail($emailArray, $this->settings['receiver']['predefinedemail']);
+        $emailArray = $this->getEmailsFromFeGroup($emailArray, (int)$this->settings['receiver']['fe_group']);
+        $emailArray = $this->getEmailsFromBeGroup($emailArray, (int)$this->settings['receiver']['be_group']);
+        $emailArray = $this->getEmailsFromPredefinedEmail(
+            $emailArray,
+            (string)$this->settings['receiver']['predefinedemail']
+        );
         $emailArray = $this->overWriteEmailsWithTypoScript($emailArray);
         $emailArray = $this->getEmailFromDevelopmentContext($emailArray);
 
@@ -206,6 +210,7 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param string $predefinedString
      * @return array
+     * @throws Exception
      */
     protected function getEmailsFromPredefinedEmail(array $emailArray, string $predefinedString): array
     {
@@ -226,6 +231,7 @@ class ReceiverMailReceiverPropertiesService
      *
      * @param array $emailArray
      * @return array
+     * @throws Exception
      */
     protected function overWriteEmailsWithTypoScript(array $emailArray): array
     {

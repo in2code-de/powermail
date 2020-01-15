@@ -146,12 +146,12 @@ class Field extends AbstractEntity
 
     /**
      * @var \In2code\Powermail\Domain\Model\Page
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $pages = null;
 
     /**
      * @return string
+     * @throws Exception
      */
     public function getTitle(): string
     {
@@ -204,6 +204,7 @@ class Field extends AbstractEntity
      *        "input", "textarea", "select", "check", "radio"
      *
      * @return bool
+     * @throws Exception
      */
     public function isBasicFieldType(): bool
     {
@@ -222,6 +223,7 @@ class Field extends AbstractEntity
      * basicly used for export and frontend editing
      *
      * @return bool
+     * @throws Exception
      */
     public function isAdvancedFieldType(): bool
     {
@@ -238,6 +240,7 @@ class Field extends AbstractEntity
 
     /**
      * @return bool
+     * @throws Exception
      */
     public function isExportableFieldType(): bool
     {
@@ -287,6 +290,7 @@ class Field extends AbstractEntity
      *            selected => 1
      *
      * @return array
+     * @throws Exception
      */
     public function getModifiedSettings(): array
     {
@@ -489,7 +493,7 @@ class Field extends AbstractEntity
         if ($value) {
             $value = 'multiple';
         } else {
-            $value = null;
+            $value = '';
         }
         return $value;
     }
@@ -660,9 +664,9 @@ class Field extends AbstractEntity
     }
 
     /**
-     * @return Page
+     * @return null|Page|
      */
-    public function getPages(): Page
+    public function getPages(): ?Page
     {
         return $this->pages;
     }
@@ -678,6 +682,7 @@ class Field extends AbstractEntity
      * @param string $typoScriptObjectPath Path to TypoScript like lib.blabla
      * @param bool $parse
      * @return array Options Array
+     * @throws Exception
      */
     protected function optionArray(string $string, string $typoScriptObjectPath, bool $parse = true): array
     {
@@ -694,6 +699,7 @@ class Field extends AbstractEntity
      * @param string $string Options from the Textarea
      * @param bool $parse
      * @return array
+     * @throws Exception
      */
     protected function buildOptions(string $string, bool $parse): array
     {

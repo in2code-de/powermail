@@ -51,7 +51,7 @@ class UploadService implements SingletonInterface
      * @throws InvalidSlotReturnException
      * @throws Exception
      */
-    public function preflight(array $settings): bool
+    public function preflight(array $settings): void
     {
         $this->settings = $settings;
         $this->fillFilesFromFilesArray();

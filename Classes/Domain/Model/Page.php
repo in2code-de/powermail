@@ -5,6 +5,8 @@ namespace In2code\Powermail\Domain\Model;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -34,7 +36,6 @@ class Page extends AbstractEntity
 
     /**
      * @var \In2code\Powermail\Domain\Model\Form
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $forms = null;
 
@@ -171,6 +172,8 @@ class Page extends AbstractEntity
     /**
      * @return Form
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function getForms(): Form
     {

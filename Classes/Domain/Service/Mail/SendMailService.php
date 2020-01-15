@@ -110,14 +110,12 @@ class SendMailService
      */
     protected function prepareAndSend(array $email): bool
     {
-        /** @var MailMessage $message */
         $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
         $message
             ->setTo([$email['receiverEmail'] => $email['receiverName']])
             ->setFrom([$email['senderEmail'] => $email['senderName']])
             ->setReplyTo([$email['replyToEmail'] => $email['replyToName']])
-            ->setSubject($email['subject'])
-            ->setCharset(FrontendUtility::getCharset());
+            ->setSubject($email['subject']);
         $message = $this->addCc($message);
         $message = $this->addBcc($message);
         $message = $this->addReturnPath($message);
@@ -238,7 +236,7 @@ class SendMailService
     {
         $priorityValue = (int)$this->settings[$this->type]['overwrite']['priority'];
         if ($priorityValue > 0) {
-            $message->setPriority($priorityValue);
+            $message->priority($priorityValue);
         }
         return $message;
     }
@@ -257,7 +255,7 @@ class SendMailService
             $uploadService = ObjectUtility::getObjectManager()->get(UploadService::class);
             foreach ($uploadService->getFiles() as $file) {
                 if ($file->isUploaded() && $file->isValid() && $file->isFileExisting()) {
-                    $message->attach(\Swift_Attachment::fromPath($file->getNewPathAndFilename(true)));
+                    $message->attachFromPath($file->getNewPathAndFilename(true));
                 }
             }
         }
@@ -279,8 +277,9 @@ class SendMailService
         if (!empty($filesValue)) {
             $files = GeneralUtility::trimExplode(',', $filesValue, true);
             foreach ($files as $file) {
-                if (file_exists(GeneralUtility::getFileAbsFileName($file))) {
-                    $message->attach(\Swift_Attachment::fromPath($file));
+                $fileAbsolute = GeneralUtility::getFileAbsFileName($file);
+                if (file_exists($fileAbsolute)) {
+                    $message->attachFromPath($fileAbsolute);
                 } else {
                     $logger = ObjectUtility::getLogger(__CLASS__);
                     $logger->critical('File to attach does not exist', [$file]);
@@ -304,7 +303,7 @@ class SendMailService
     protected function addHtmlBody(MailMessage $message, array $email): MailMessage
     {
         if ($email['format'] !== 'plain') {
-            $message->setBody($this->createEmailBody($email), 'text/html');
+            $message->html($this->createEmailBody($email), FrontendUtility::getCharset());
         }
         return $message;
     }
@@ -324,7 +323,7 @@ class SendMailService
     {
         if ($email['format'] !== 'html') {
             $plaintextService = ObjectUtility::getObjectManager()->get(PlaintextService::class);
-            $message->addPart($plaintextService->makePlain($this->createEmailBody($email)), 'text/plain');
+            $message->text($plaintextService->makePlain($this->createEmailBody($email)), FrontendUtility::getCharset());
         }
         return $message;
     }
