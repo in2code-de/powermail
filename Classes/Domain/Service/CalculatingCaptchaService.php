@@ -3,6 +3,8 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Exception\FileCannotBeCreatedException;
+use In2code\Powermail\Exception\FileNotFoundException;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MathematicUtility;
@@ -139,6 +141,7 @@ class CalculatingCaptchaService
      * @param string $content
      * @param bool $addHash
      * @return string Image URI
+     * @throws FileCannotBeCreatedException
      */
     protected function createImage(string $content, bool $addHash = true): string
     {
@@ -154,7 +157,10 @@ class CalculatingCaptchaService
             $content
         );
         if (imagepng($imageResource, $this->getPathAndFilename(true)) === false) {
-            throw new \DomainException('Captcha image could not be generated under ' . $this->getPathAndFilename());
+            throw new FileCannotBeCreatedException(
+                'Captcha image could not be generated under ' . $this->getPathAndFilename(),
+                1579186519
+            );
         }
         imagedestroy($imageResource);
         return $this->getPathAndFilename(false, $addHash);
@@ -327,12 +333,13 @@ class CalculatingCaptchaService
      *
      * @param string $backgroundImage e.g. EXT:ext/filename.png
      * @return CalculatingCaptchaService
+     * @throws FileNotFoundException
      */
     public function setBackgroundImage(string $backgroundImage): CalculatingCaptchaService
     {
         $this->backgroundImage = $backgroundImage;
         if (!$this->test && !is_file($this->getBackgroundImage())) {
-            throw new \InvalidArgumentException(
+            throw new FileNotFoundException(
                 'No captcha background image found - please check your TypoScript configuration',
                 1540051516
             );
@@ -351,12 +358,13 @@ class CalculatingCaptchaService
     /**
      * @param string $fontPathAndFilename
      * @return CalculatingCaptchaService
+     * @throws FileNotFoundException
      */
     public function setFontPathAndFilename(string $fontPathAndFilename): CalculatingCaptchaService
     {
         $this->fontPathAndFilename = $fontPathAndFilename;
         if (!$this->test && !is_file($this->getFontPathAndFilename())) {
-            throw new \InvalidArgumentException(
+            throw new FileNotFoundException(
                 'No captcha truetype font found - please check your TypoScript configuration',
                 1540051511
             );

@@ -3,6 +3,8 @@ declare(strict_types=1);
 namespace In2code\Powermail\DataProcessor;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Exception\ClassDoesNotExistException;
+use In2code\Powermail\Exception\InterfaceNotImplementedException;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -35,7 +37,7 @@ class DataProcessorRunner
             $class = $dpSettings['class'];
             $this->requireFile($dpSettings);
             if (!class_exists($class)) {
-                throw new \UnexpectedValueException(
+                throw new ClassDoesNotExistException(
                     'Data processor class ' . $class . ' does not exists - check if file was loaded correctly',
                     1578601123
                 );
@@ -53,7 +55,10 @@ class DataProcessorRunner
                 $dataProcessor->initializeDataProcessor();
                 $this->callDataProcessorMethods($dataProcessor);
             } else {
-                throw new \UnexpectedValueException('DataProcessor does not implement ' . $this->interface, 1578601128);
+                throw new InterfaceNotImplementedException(
+                    'DataProcessor does not implement ' . $this->interface,
+                    1578601128
+                );
             }
         }
     }

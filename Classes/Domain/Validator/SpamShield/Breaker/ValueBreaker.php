@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield\Breaker;
 
 use In2code\Powermail\Domain\Model\Answer;
+use In2code\Powermail\Exception\ConfigurationIsMissingException;
 
 /**
  * Class ValueBreaker
@@ -12,6 +13,7 @@ class ValueBreaker extends AbstractBreaker
 
     /**
      * @return bool
+     * @throws ConfigurationIsMissingException
      */
     public function isDisabled(): bool
     {
@@ -29,11 +31,12 @@ class ValueBreaker extends AbstractBreaker
     /**
      * @param array $configuration
      * @return void
+     * @throws ConfigurationIsMissingException
      */
     protected function checkConfiguration(array $configuration): void
     {
         if (empty($configuration['value'])) {
-            throw new \UnexpectedValueException('No value given to check for', 1516025541289);
+            throw new ConfigurationIsMissingException('No value given to check for', 1516025541289);
         }
     }
 }

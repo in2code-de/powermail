@@ -6,12 +6,16 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\AbstractMethod;
 use In2code\Powermail\Domain\Validator\SpamShield\Breaker\BreakerRunner;
 use In2code\Powermail\Domain\Validator\SpamShield\MethodInterface;
+use In2code\Powermail\Exception\ClassDoesNotExistException;
+use In2code\Powermail\Exception\InterfaceNotImplementedException;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
@@ -95,13 +99,15 @@ class SpamShieldValidator extends AbstractValidator
      * @param Mail $mail
      * @param array $method
      * @return void
-     * @throws \Exception
+     * @throws ClassDoesNotExistException
+     * @throws Exception
+     * @throws InterfaceNotImplementedException
      */
     protected function runSingleSpamMethod(Mail $mail, array $method = []): void
     {
         if (!empty($method['_enable'])) {
             if (!class_exists($method['class'])) {
-                throw new \UnexpectedValueException(
+                throw new ClassDoesNotExistException(
                     'Class ' . $method['class'] . ' does not exists - check if file was loaded with autoloader',
                     1578609568
                 );
@@ -123,7 +129,7 @@ class SpamShieldValidator extends AbstractValidator
                     $this->addMessage($method['name'] . ' failed');
                 }
             } else {
-                throw new \UnexpectedValueException(
+                throw new InterfaceNotImplementedException(
                     'Spam method does not implement ' . $this->methodInterface,
                     1578609554
                 );
@@ -154,6 +160,8 @@ class SpamShieldValidator extends AbstractValidator
      * @return void
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws Exception
+     * @throws \Exception
      */
     protected function sendSpamNotificationMail(Mail $mail): void
     {
@@ -201,6 +209,7 @@ class SpamShieldValidator extends AbstractValidator
      * @return string
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws Exception
      */
     protected function createSpamNotificationMessage(string $path, array $multipleAssign = []): string
     {
@@ -394,6 +403,8 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * @return string
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     protected function getIpAddress(): string
     {

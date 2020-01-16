@@ -3,8 +3,11 @@ declare(strict_types=1);
 namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Exception\ClassDoesNotExistException;
+use In2code\Powermail\Exception\InterfaceNotImplementedException;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -27,7 +30,9 @@ class FinisherRunner
      * @param array $settings
      * @param ContentObjectRenderer $contentObject
      * @return void
-     * @throws \Exception
+     * @throws ClassDoesNotExistException
+     * @throws InterfaceNotImplementedException
+     * @throws Exception
      */
     public function callFinishers(
         Mail $mail,
@@ -40,7 +45,7 @@ class FinisherRunner
             $class = $finisherSettings['class'];
             $this->requireFile($finisherSettings);
             if (!class_exists($class)) {
-                throw new \UnexpectedValueException(
+                throw new ClassDoesNotExistException(
                     'Finisher class ' . $class . ' does not exists - check if file was loaded correctly',
                     1578644684
                 );
@@ -59,7 +64,10 @@ class FinisherRunner
                 $finisher->initializeFinisher();
                 $this->callFinisherMethods($finisher);
             } else {
-                throw new \UnexpectedValueException('Finisher does not implement ' . $this->interface, 1578644680);
+                throw new InterfaceNotImplementedException(
+                    'Finisher does not implement ' . $this->interface,
+                    1578644680
+                );
             }
         }
     }

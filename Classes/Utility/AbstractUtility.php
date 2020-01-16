@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use In2code\Powermail\Exception\ConfigurationIsMissingException;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
@@ -74,14 +75,17 @@ abstract class AbstractUtility
      * Get TYPO3 encryption key
      *
      * @return string
-     * @throws \Exception
      * @SuppressWarnings(PHPMD.Superglobals)
+     * @throws ConfigurationIsMissingException
      */
     protected static function getEncryptionKey(): string
     {
         $confVars = self::getTypo3ConfigurationVariables();
         if (empty($confVars['SYS']['encryptionKey'])) {
-            throw new \DomainException('No encryption key found in this TYPO3 installation', 1514910284796);
+            throw new ConfigurationIsMissingException(
+                'No encryption key found in this TYPO3 installation',
+                1514910284796
+            );
         }
         return $confVars['SYS']['encryptionKey'];
     }

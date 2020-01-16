@@ -3,9 +3,12 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Exception\ClassDoesNotExistException;
+use In2code\Powermail\Exception\InterfaceNotImplementedException;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Error\Result;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * ForeignValidator
@@ -23,14 +26,16 @@ class ForeignValidator extends AbstractValidator
      *
      * @param Mail $mail
      * @return bool
-     * @throws \Exception
+     * @throws ClassDoesNotExistException
+     * @throws InterfaceNotImplementedException
+     * @throws Exception
      */
     public function isValid($mail)
     {
         foreach ((array)$this->settings['validators'] as $validatorConf) {
             $this->loadFile($validatorConf['require']);
             if (!class_exists($validatorConf['class'])) {
-                throw new \UnexpectedValueException(
+                throw new ClassDoesNotExistException(
                     'Class ' . $validatorConf['class'] . ' does not exists - check if file was loaded with autoloader',
                     1578609804
                 );
@@ -43,7 +48,7 @@ class ForeignValidator extends AbstractValidator
                 /** @var Result $result */
                 $this->addErrors($validator->validate($mail));
             } else {
-                throw new \UnexpectedValueException(
+                throw new InterfaceNotImplementedException(
                     'Validator does not implement ' . $this->validatorInterface,
                     1578609814
                 );

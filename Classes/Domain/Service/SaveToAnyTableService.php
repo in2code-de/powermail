@@ -2,6 +2,9 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
+use Doctrine\DBAL\DBALException;
+use In2code\Powermail\Exception\DatabaseFieldMissingException;
+use In2code\Powermail\Exception\PropertiesMissingException;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\Connection;
@@ -69,6 +72,7 @@ class SaveToAnyTableService
 
     /**
      * @param string $table
+     * @throws PropertiesMissingException
      */
     public function __construct(string $table)
     {
@@ -79,6 +83,9 @@ class SaveToAnyTableService
      * Executes the storage
      *
      * @return int uid of inserted record
+     * @throws DBALException
+     * @throws DatabaseFieldMissingException
+     * @throws PropertiesMissingException
      */
     public function execute(): int
     {
@@ -114,6 +121,7 @@ class SaveToAnyTableService
      * Update existing record
      *
      * @return int uid of updated record
+     * @throws DBALException
      */
     protected function update(): int
     {
@@ -140,11 +148,12 @@ class SaveToAnyTableService
      * Check if there are properties
      *
      * @return void
+     * @throws PropertiesMissingException
      */
     protected function checkProperties(): void
     {
         if (empty($this->getProperties())) {
-            throw new \UnexpectedValueException('No properties to insert/update given', 1578607503);
+            throw new PropertiesMissingException('No properties to insert/update given', 1578607503);
         }
     }
 
@@ -153,11 +162,12 @@ class SaveToAnyTableService
      *
      * @param string $table
      * @return void
+     * @throws PropertiesMissingException
      */
     public function setTable(string $table): void
     {
         if (empty($table)) {
-            throw new \UnexpectedValueException('No tablename given', 1578607506);
+            throw new PropertiesMissingException('No tablename given', 1578607506);
         }
         $this->removeNotAllowedSigns($table);
         $this->table = $table;
@@ -326,6 +336,7 @@ class SaveToAnyTableService
      * Find existing record in database
      *
      * @return array
+     * @throws DBALException
      */
     protected function getExistingEntry(): array
     {
@@ -345,6 +356,7 @@ class SaveToAnyTableService
 
     /**
      * @return string
+     * @throws DBALException
      */
     protected function getDeletedWhereClause(): string
     {
@@ -357,13 +369,16 @@ class SaveToAnyTableService
 
     /**
      * @return void
+     * @throws DatabaseFieldMissingException
+     * @throws DBALException
      */
     protected function checkIfIdentifierFieldExists(): void
     {
         if (!$this->isFieldExisting($this->getUniqueIdentifier())) {
-            throw new \InvalidArgumentException(
+            throw new DatabaseFieldMissingException(
                 'Field ' . $this->getUniqueIdentifier() . ' in table ' . $this->getTable() . ' does not exist,' .
-                ' but it\'s needed for _ifUnique functionality'
+                ' but it\'s needed for _ifUnique functionality',
+                1579186701
             );
         }
     }
@@ -371,6 +386,7 @@ class SaveToAnyTableService
     /**
      * @param string $field
      * @return bool
+     * @throws DBALException
      */
     protected function isFieldExisting(string $field): bool
     {

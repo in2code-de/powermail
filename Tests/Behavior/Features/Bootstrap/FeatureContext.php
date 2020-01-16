@@ -1,5 +1,6 @@
 <?php
 use Behat\MinkExtension\Context\MinkContext;
+use In2code\Powermail\Exception\ElementNotFoundException;
 
 /**
  * Class FeatureContext
@@ -44,6 +45,7 @@ class FeatureContext extends MinkContext
      *
      * @param string $locator
      * @return void
+     * @throws ElementNotFoundException
      */
     public function iClickOnTheElement($locator)
     {
@@ -51,7 +53,10 @@ class FeatureContext extends MinkContext
         $element = $session->getPage()->find('css', $locator);
 
         if (null === $element) {
-            throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector: "%s"', $locator));
+            throw new ElementNotFoundException(
+                sprintf('Could not evaluate CSS selector: "%s"', $locator),
+                1579187286
+            );
         }
 
         $element->click();

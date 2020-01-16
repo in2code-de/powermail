@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use In2code\Powermail\Exception\SoftwareIsMissingException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Core\Environment;
@@ -212,11 +213,12 @@ class ConfigurationUtility extends AbstractUtility
      * Check if gdlib is loaded on this server
      *
      * @codeCoverageIgnore
+     * @throws SoftwareIsMissingException
      */
     public static function testGdExtension(): void
     {
         if (!extension_loaded('gd')) {
-            throw new \InvalidArgumentException('PHP extension gd not loaded.', 1514819369374);
+            throw new SoftwareIsMissingException('PHP extension gd not loaded.', 1514819369374);
         }
     }
 

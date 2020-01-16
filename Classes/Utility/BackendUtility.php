@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Exception\DeprecatedException;
 use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\Router;
@@ -202,11 +203,12 @@ class BackendUtility extends AbstractUtility
      * @param array $rootLine
      * @param bool $returnPartArray
      * @return array Page TSconfig
+     * @throws DeprecatedException
      */
     public static function getPagesTSconfig(int $pid, array $rootLine = null, bool $returnPartArray = false): array
     {
         if ($rootLine !== null || $returnPartArray === true) {
-            throw new \LogicException('arguments not supported any more in powermail', 1578947408);
+            throw new DeprecatedException('arguments not supported any more in powermail', 1578947408);
         }
         $array = [];
         try {
