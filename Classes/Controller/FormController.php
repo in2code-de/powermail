@@ -18,6 +18,8 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
@@ -29,6 +31,7 @@ use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -76,11 +79,15 @@ class FormController extends AbstractController
      * Rewrite Arguments to receive a clean mail object in createAction
      *
      * @return void
+     * @throws Exception
+     * @throws InvalidArgumentNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws StopActionException
-     * @throws InvalidArgumentNameException
      * @throws NoSuchArgumentException
+     * @throws StopActionException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      */
     public function initializeCreateAction(): void
     {
@@ -160,11 +167,15 @@ class FormController extends AbstractController
      * Rewrite Arguments to receive a clean mail object in confirmationAction
      *
      * @return void
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidArgumentNameException
+     * @throws InvalidQueryException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws StopActionException
-     * @throws InvalidArgumentNameException
      * @throws NoSuchArgumentException
+     * @throws StopActionException
      */
     public function initializeConfirmationAction(): void
     {
@@ -270,10 +281,12 @@ class FormController extends AbstractController
     /**
      * @param Mail $mail
      * @return void
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws IllegalObjectTypeException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws Exception
      * @codeCoverageIgnore
      */
     protected function saveMail(Mail $mail): void
