@@ -125,17 +125,15 @@ class ExportService
     }
 
     /**
-     * send mail
-     *
-     * @return mixed mail send status
+     * @return bool
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      */
-    public function send()
+    public function send(): bool
     {
         $result = $this->createExportFile();
         if (!$result) {
-            return 'File could not be generated';
+            return false;
         }
         return $this->sendEmail();
     }

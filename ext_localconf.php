@@ -18,7 +18,7 @@ call_user_func(function () {
      * Include Frontend Plugins for Powermail
      */
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'In2code.powermail',
+        'Powermail',
         'Pi1',
         [
             'Form' => 'form, create, confirmation, optinConfirm, marketing, disclaimer'
@@ -28,7 +28,7 @@ call_user_func(function () {
         ]
     );
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'In2code.powermail',
+        'Powermail',
         'Pi2',
         [
             'Output' => 'list, show, edit, update, export, rss, delete'
