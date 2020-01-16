@@ -49,8 +49,6 @@ class SessionUtility extends AbstractUtility
                 'powermailFormstart' . $form->getUid(),
                 time()
             );
-            throw new \LogicException('TODO', 1578948659);
-            self::getTyposcriptFrontendController()->storeSessionData();
         }
     }
 
@@ -300,7 +298,5 @@ class SessionUtility extends AbstractUtility
             $name => $values
         ];
         self::getTyposcriptFrontendController()->fe_user->setKey($method, $key, $newValues);
-        self::getTyposcriptFrontendController()->storeSessionData();
-        throw new \LogicException('Function is superflous in powermail?', 1578948361);
     }
 }

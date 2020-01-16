@@ -4,6 +4,7 @@ namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
@@ -135,8 +136,9 @@ class ConfigurationUtility extends AbstractUtility
      */
     public static function getDevelopmentContextEmail(): string
     {
+
         $configVariables = self::getTypo3ConfigurationVariables();
-        if (GeneralUtility::getApplicationContext()->isDevelopment() &&
+        if (Environment::getContext()->isDevelopment() &&
             GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])) {
             return $configVariables['EXT']['powermailDevelopContextEmail'];
         }
@@ -244,16 +246,5 @@ class ConfigurationUtility extends AbstractUtility
     public static function isDatabaseConnectionAvailable(): bool
     {
         return !empty($GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']);
-    }
-
-    /**
-     * Decide if TYPO3 8.7 is used or newer
-     *
-     * @return bool
-     * @codeCoverageIgnore
-     */
-    public static function isTypo3OlderThen9(): bool
-    {
-        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 9000000;
     }
 }

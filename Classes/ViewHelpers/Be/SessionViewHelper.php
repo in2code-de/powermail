@@ -39,7 +39,6 @@ class SessionViewHelper extends AbstractViewHelper
     {
         $value = $this->getRandomValue();
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->sessionKey, $value);
-        $GLOBALS['TSFE']->storeSessionData();
         return $GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionKey) === $value;
     }
 
@@ -57,8 +56,6 @@ class SessionViewHelper extends AbstractViewHelper
      */
     protected function initializeTsfe(): void
     {
-        throw new \LogicException('todo', 1578949590);
-        $feUserAuthentication = EidUtility::initFeUser();
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
             ['FE' => ['disableNoCacheParameter' => 0]] + $GLOBALS['TYPO3_CONF_VARS'],
@@ -66,6 +63,5 @@ class SessionViewHelper extends AbstractViewHelper
             0,
             true
         );
-        $GLOBALS['TSFE']->fe_user = $feUserAuthentication;
     }
 }
