@@ -21,20 +21,21 @@ call_user_func(function () {
         'Powermail',
         'Pi1',
         [
-            'Form' => 'form, create, confirmation, optinConfirm, marketing, disclaimer'
+            \In2code\Powermail\Controller\FormController::class =>
+                'form, create, confirmation, optinConfirm, marketing, disclaimer'
         ],
         [
-            'Form' => $uncachedFormActions
+            \In2code\Powermail\Controller\FormController::class => $uncachedFormActions
         ]
     );
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Powermail',
         'Pi2',
         [
-            'Output' => 'list, show, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, export, rss, delete'
         ],
         [
-            'Output' => 'list, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, export, rss, delete'
         ]
     );
 
