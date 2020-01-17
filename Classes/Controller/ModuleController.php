@@ -29,6 +29,7 @@ class ModuleController extends AbstractController
      * @param string $forwardToAction
      * @throws StopActionException
      * @return void
+     * @noinspection PhpUnused
      */
     public function dispatchAction($forwardToAction = 'list'): void
     {
@@ -39,6 +40,7 @@ class ModuleController extends AbstractController
      * @return void
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
+     * @noinspection PhpUnused
      */
     public function listAction(): void
     {
@@ -63,6 +65,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
+     * @noinspection PhpUnused
      */
     public function exportXlsAction(): void
     {
@@ -86,6 +89,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
+     * @noinspection PhpUnused
      */
     public function exportCsvAction(): void
     {
@@ -110,6 +114,7 @@ class ModuleController extends AbstractController
      * @return void
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
+     * @noinspection PhpUnused
      */
     public function reportingFormBeAction(): void
     {
@@ -135,6 +140,7 @@ class ModuleController extends AbstractController
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @throws PropertyNotAccessibleException
+     * @noinspection PhpUnused
      */
     public function reportingMarketingBeAction(): void
     {
@@ -159,6 +165,7 @@ class ModuleController extends AbstractController
      * @return void
      * @throws InvalidQueryException
      * @throws Exception
+     * @noinspection PhpUnused
      */
     public function overviewBeAction(): void
     {
@@ -170,6 +177,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
+     * @noinspection PhpUnused
      */
     public function initializeCheckBeAction(): void
     {
@@ -180,6 +188,7 @@ class ModuleController extends AbstractController
      * @param string $email email address
      * @return void
      * @throws Exception
+     * @noinspection PhpUnused
      */
     public function checkBeAction($email = null): void
     {
@@ -210,6 +219,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
+     * @noinspection PhpUnused
      */
     public function initializeConverterBeAction(): void
     {
@@ -219,6 +229,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
+     * @noinspection PhpUnused
      */
     public function initializeFixUploadFolderAction(): void
     {
@@ -230,6 +241,7 @@ class ModuleController extends AbstractController
      * @throws StopActionException
      * @throws UnsupportedRequestTypeException
      * @throws \Exception
+     * @noinspection PhpUnused
      */
     public function fixUploadFolderAction(): void
     {
@@ -240,6 +252,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
+     * @noinspection PhpUnused
      */
     public function initializeFixWrongLocalizedFormsAction(): void
     {
@@ -250,6 +263,7 @@ class ModuleController extends AbstractController
      * @return void
      * @throws StopActionException
      * @throws UnsupportedRequestTypeException
+     * @noinspection PhpUnused
      */
     public function fixWrongLocalizedFormsAction(): void
     {
@@ -260,6 +274,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
+     * @noinspection PhpUnused
      */
     public function initializeFixWrongLocalizedPagesAction(): void
     {
@@ -270,6 +285,7 @@ class ModuleController extends AbstractController
      * @return void
      * @throws StopActionException
      * @throws UnsupportedRequestTypeException
+     * @noinspection PhpUnused
      */
     public function fixWrongLocalizedPagesAction(): void
     {

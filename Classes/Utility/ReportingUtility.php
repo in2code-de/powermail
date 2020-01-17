@@ -5,6 +5,7 @@ namespace In2code\Powermail\Utility;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
@@ -30,13 +31,13 @@ class ReportingUtility
     /**
      * Get grouped mail answers for reporting
      *
-     * @param QueryResult $mails Mail array
+     * @param QueryResultInterface $mails Mail array
      * @param int $limit Max number of allowed Labels
      * @param string $limitLabel Label for "Max Labels" - could be "all others"
      * @return array
      */
     public static function getGroupedAnswersFromMails(
-        QueryResult $mails,
+        QueryResultInterface $mails,
         int $limit = 5,
         string $limitLabel = 'All others'
     ): array {
@@ -64,14 +65,14 @@ class ReportingUtility
     /**
      * Get grouped marketing stuff for reporting
      *
-     * @param QueryResult $mails Mails
+     * @param QueryResultInterface $mails Mails
      * @param int $limit Max Labels
      * @param string $limitLabel Label for "Max Labels" - could be "all others"
      * @return array
      * @throws PropertyNotAccessibleException
      */
     public static function getGroupedMarketingPropertiesFromMails(
-        QueryResult $mails,
+        QueryResultInterface $mails,
         int $limit = 10,
         string $limitLabel = 'All others'
     ): array {

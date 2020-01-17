@@ -2,16 +2,20 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -30,6 +34,7 @@ class OutputController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
+     * @noinspection PhpUnused
      */
     public function listAction(): void
     {
@@ -53,6 +58,7 @@ class OutputController extends AbstractController
     /**
      * @param Mail $mail
      * @return void
+     * @noinspection PhpUnused
      */
     public function showAction(Mail $mail): void
     {
@@ -69,6 +75,7 @@ class OutputController extends AbstractController
     /**
      * @param Mail $mail
      * @return void
+     * @noinspection PhpUnused
      */
     public function editAction(Mail $mail = null): void
     {
@@ -84,11 +91,17 @@ class OutputController extends AbstractController
 
     /**
      * @return void
+     * @throws InvalidArgumentNameException
+     * @throws InvalidQueryException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws StopActionException
-     * @throws InvalidArgumentNameException
      * @throws NoSuchArgumentException
+     * @throws StopActionException
+     * @throws DBALException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws Exception
+     * @noinspection PhpUnused
      */
     public function initializeUpdateAction(): void
     {
@@ -114,6 +127,7 @@ class OutputController extends AbstractController
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      * @throws \Exception
+     * @noinspection PhpUnused
      */
     public function updateAction(Mail $mail): void
     {
@@ -125,7 +139,10 @@ class OutputController extends AbstractController
 
     /**
      * @return void
+     * @throws DBALException
+     * @throws Exception
      * @throws StopActionException
+     * @noinspection PhpUnused
      */
     public function initializeDeleteAction(): void
     {
@@ -145,6 +162,7 @@ class OutputController extends AbstractController
      * @param Mail $mail
      * @return void
      * @throws IllegalObjectTypeException
+     * @noinspection PhpUnused
      */
     public function deleteAction(Mail $mail): void
     {
@@ -158,6 +176,7 @@ class OutputController extends AbstractController
      * @return void
      * @throws InvalidQueryException
      * @throws StopActionException
+     * @noinspection PhpUnused
      */
     public function exportAction(array $export = []): void
     {
@@ -184,6 +203,7 @@ class OutputController extends AbstractController
      * @param QueryResult $mails mails objects
      * @param array $fields uid field list
      * @return void
+     * @noinspection PhpUnused
      */
     public function exportXlsAction(QueryResult $mails = null, array $fields = []): void
     {
@@ -195,6 +215,7 @@ class OutputController extends AbstractController
      * @param QueryResult $mails mails objects
      * @param array $fields uid field list
      * @return void
+     * @noinspection PhpUnused
      */
     public function exportCsvAction(QueryResult $mails = null, array $fields = []): void
     {
@@ -205,6 +226,7 @@ class OutputController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
+     * @noinspection PhpUnused
      */
     public function rssAction(): void
     {

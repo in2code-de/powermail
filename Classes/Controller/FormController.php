@@ -58,6 +58,7 @@ class FormController extends AbstractController
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      * @throws Exception
+     * @noinspection PhpUnused
      */
     public function formAction(): void
     {
@@ -88,6 +89,7 @@ class FormController extends AbstractController
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
+     * @noinspection PhpUnused
      */
     public function initializeCreateAction(): void
     {
@@ -118,6 +120,7 @@ class FormController extends AbstractController
      * @throws UnknownObjectException
      * @throws InvalidControllerNameException
      * @throws \Exception
+     * @noinspection PhpUnused
      */
     public function createAction(Mail $mail, string $hash = ''): void
     {
@@ -176,6 +179,7 @@ class FormController extends AbstractController
      * @throws InvalidSlotReturnException
      * @throws NoSuchArgumentException
      * @throws StopActionException
+     * @noinspection PhpUnused
      */
     public function initializeConfirmationAction(): void
     {
@@ -203,6 +207,7 @@ class FormController extends AbstractController
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      * @throws Exception
+     * @noinspection PhpUnused
      */
     public function confirmationAction(Mail $mail): void
     {
@@ -309,6 +314,7 @@ class FormController extends AbstractController
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      * @throws Exception
+     * @noinspection PhpUnused
      */
     public function optinConfirmAction(int $mail, string $hash): void
     {
@@ -337,6 +343,7 @@ class FormController extends AbstractController
      * @param string $hash
      * @return void
      * @throws \Exception
+     * @noinspection PhpUnused
      */
     public function disclaimerAction(int $mail, string $hash): void
     {
@@ -358,6 +365,7 @@ class FormController extends AbstractController
      * @param int $pid Page Id
      * @param bool $mobileDevice Is mobile device?
      * @return string
+     * @noinspection PhpUnused
      * @codeCoverageIgnore
      */
     public function marketingAction(
@@ -394,8 +402,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * Initialize Action
-     *
      * @return void
      * @codeCoverageIgnore
      */

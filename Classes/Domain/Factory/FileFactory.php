@@ -8,8 +8,13 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class FileFactory
@@ -35,11 +40,16 @@ class FileFactory
      *
      * @param array $filesArray normally $_FILES['tx_powermail_pi1']
      * @param string $marker
-     * @param string $key
+     * @param int $key
      * @return File|null
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    public function getInstanceFromFilesArray(array $filesArray, string $marker, string $key): ?File
+    public function getInstanceFromFilesArray(array $filesArray, string $marker, int $key): ?File
     {
         $originalName = (string)$filesArray['name']['field'][$marker][$key];
         $size = (int)$filesArray['size']['field'][$marker][$key];
@@ -59,6 +69,9 @@ class FileFactory
      * @param array $arguments
      * @return File|null
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      */
     public function getInstanceFromUploadArguments(string $marker, string $value, array $arguments): ?File
     {
@@ -77,6 +90,9 @@ class FileFactory
      * @param Answer $answer
      * @return File
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      */
     public function getInstanceFromExistingAnswerValue(string $fileName, Answer $answer): File
     {
@@ -95,6 +111,11 @@ class FileFactory
      * @param Form $form
      * @return File
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function makeFileInstance(
         string $marker,

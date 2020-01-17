@@ -210,6 +210,7 @@ abstract class AbstractController extends ActionController
     /**
      * @param FormRepository $formRepository
      * @return void
+     * @noinspection PhpUnused
      */
     public function injectFormRepository(FormRepository $formRepository): void
     {
@@ -219,6 +220,7 @@ abstract class AbstractController extends ActionController
     /**
      * @param FieldRepository $fieldRepository
      * @return void
+     * @noinspection PhpUnused
      */
     public function injectFieldRepository(FieldRepository $fieldRepository): void
     {
@@ -228,6 +230,7 @@ abstract class AbstractController extends ActionController
     /**
      * @param MailRepository $mailRepository
      * @return void
+     * @noinspection PhpUnused
      */
     public function injectMailRepository(MailRepository $mailRepository): void
     {
@@ -237,6 +240,7 @@ abstract class AbstractController extends ActionController
     /**
      * @param UploadService $uploadService
      * @return void
+     * @noinspection PhpUnused
      */
     public function injectUploadService(UploadService $uploadService): void
     {
