@@ -77,6 +77,62 @@ class FormController extends AbstractController
     }
 
     /**
+     * Rewrite Arguments to receive a clean mail object in confirmationAction
+     *
+     * @return void
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidArgumentNameException
+     * @throws InvalidQueryException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws NoSuchArgumentException
+     * @throws StopActionException
+     * @noinspection PhpUnused
+     */
+    public function initializeConfirmationAction(): void
+    {
+        $this->forwardIfFormParamsDoNotMatch();
+        $this->forwardIfMailParamEmpty();
+        $this->reformatParamsForAction();
+        $this->debugVariables();
+    }
+
+    /**
+     * Show a "Are your values ok?" message before final submit (if turned on)
+     *
+     * @param Mail $mail
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UploadValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\InputValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\PasswordValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CaptchaValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\SpamShieldValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UniqueValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\ForeignValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CustomValidator", param="mail")
+     * @return void
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws Exception
+     * @noinspection PhpUnused
+     */
+    public function confirmationAction(Mail $mail): void
+    {
+        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->dataProcessorRunner->callDataProcessors(
+            $mail,
+            $this->actionMethodName,
+            $this->settings,
+            $this->contentObject
+        );
+        $this->prepareOutput($mail);
+    }
+
+    /**
      * Rewrite Arguments to receive a clean mail object in createAction
      *
      * @return void
@@ -103,14 +159,13 @@ class FormController extends AbstractController
      * @param Mail $mail
      * @param string $hash
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UploadValidator", param="mail")
-     * [at]validate $mail In2code\Powermail\Domain\Validator\UploadValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\InputValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\CustomValidator
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\InputValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\PasswordValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CaptchaValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\SpamShieldValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UniqueValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\ForeignValidator", param="mail")
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CustomValidator", param="mail")
      * @return void
      * @throws IllegalObjectTypeException
      * @throws InvalidConfigurationTypeException
@@ -164,62 +219,6 @@ class FormController extends AbstractController
             $this->settings,
             $this->contentObject
         );
-    }
-
-    /**
-     * Rewrite Arguments to receive a clean mail object in confirmationAction
-     *
-     * @return void
-     * @throws Exception
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws InvalidArgumentNameException
-     * @throws InvalidQueryException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws NoSuchArgumentException
-     * @throws StopActionException
-     * @noinspection PhpUnused
-     */
-    public function initializeConfirmationAction(): void
-    {
-        $this->forwardIfFormParamsDoNotMatch();
-        $this->forwardIfMailParamEmpty();
-        $this->reformatParamsForAction();
-        $this->debugVariables();
-    }
-
-    /**
-     * Show Confirmation message after submit (if view is activated)
-     *
-     * @param Mail $mail
-     * [at]validate $mail In2code\Powermail\Domain\Validator\UploadValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\InputValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\PasswordValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\CaptchaValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\SpamShieldValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\UniqueValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\ForeignValidator
-     * [at]validate $mail In2code\Powermail\Domain\Validator\CustomValidator
-     * @return void
-     * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
-     * @noinspection PhpUnused
-     */
-    public function confirmationAction(Mail $mail): void
-    {
-        $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $this->dataProcessorRunner->callDataProcessors(
-            $mail,
-            $this->actionMethodName,
-            $this->settings,
-            $this->contentObject
-        );
-        $this->prepareOutput($mail);
     }
 
     /**

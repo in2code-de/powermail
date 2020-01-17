@@ -47,11 +47,15 @@ class BasicFileUtility
      */
     public static function createFolderIfNotExists(string $path): void
     {
-        if (!is_dir($path) && !GeneralUtility::mkdir($path)) {
-            throw new FileCannotBeCreatedException(
-                'Folder ' . self::getRelativeFolder($path) . ' could not be created',
-                1514817474234
-            );
+        if (is_dir($path) === false) {
+            try {
+                GeneralUtility::mkdir_deep($path);
+            } catch (\Exception $exception) {
+                throw new FileCannotBeCreatedException(
+                    'Folder ' . self::getRelativeFolder($path) . ' could not be created',
+                    1514817474234
+                );
+            }
         }
     }
 

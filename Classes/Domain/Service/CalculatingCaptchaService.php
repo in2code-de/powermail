@@ -5,6 +5,7 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use In2code\Powermail\Exception\FileNotFoundException;
+use In2code\Powermail\Exception\SoftwareIsMissingException;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MathematicUtility;
@@ -99,6 +100,9 @@ class CalculatingCaptchaService
      *
      * @param Field $field
      * @return string|null
+     * @throws FileCannotBeCreatedException
+     * @throws FileNotFoundException
+     * @throws SoftwareIsMissingException
      */
     public function render(Field $field): ?string
     {
@@ -110,7 +114,7 @@ class CalculatingCaptchaService
                 ->setPathAndFilename($field);
             BasicFileUtility::createFolderIfNotExists($this->getImagePath(true));
             $captchaValue = $this->getStringAndResultForCaptcha();
-            SessionUtility::setCaptchaSession($captchaValue['result'], $field->getUid());
+            SessionUtility::setCaptchaSession((string)$captchaValue['result'], $field->getUid());
             return $this->createImage($captchaValue['string']);
         }
         return null;

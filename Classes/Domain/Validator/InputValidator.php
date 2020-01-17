@@ -47,7 +47,7 @@ class InputValidator extends StringValidator
     public function isValid($mail): bool
     {
         // stop validation if it's turned off
-        if (!$this->isServerValidationEnabled()) {
+        if ($this->isServerValidationEnabled() === false) {
             return true;
         }
 

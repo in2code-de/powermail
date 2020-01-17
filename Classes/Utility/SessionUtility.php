@@ -254,9 +254,9 @@ class SessionUtility
      * @param string $name session name
      * @param string $method "user" or "ses"
      * @param string $key name to save session
-     * @return string Values from session
+     * @return string|array Values from session
      */
-    protected static function getSessionValue(string $name = '', string $method = 'ses', string $key = ''): string
+    protected static function getSessionValue(string $name = '', string $method = 'ses', string $key = '')
     {
         if (empty($key)) {
             $key = self::$extKey;
