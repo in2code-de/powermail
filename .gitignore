@@ -18,3 +18,4 @@ dynamicReturnTypeMeta.json
 .Build/
 composer.lock
 .php_cs.cache
+var/

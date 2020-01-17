@@ -28,8 +28,8 @@
     "typo3-ter/powermail": "self.version"
   },
   "require-dev": {
-    "typo3/cms-core": ">=8.7.0 <=8.7.99",
-    "nimut/testing-framework": "^4.0",
+    "typo3/cms-core": ">=10.2.0 <11.0.0",
+    "nimut/testing-framework": "^5.0",
     "mikey179/vfsStream": "^1.4",
     "phpunit/phpunit": "^6.0",
     "behat/behat": "^3.4",

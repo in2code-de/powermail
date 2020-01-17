@@ -1,7 +1,7 @@
 <?php
 namespace In2code\Powermail\Tests\Unit\Condition;
 
-use In2code\Powermail\Condition\IsPowermailSubmittedCondition;
+use In2code\Powermail\Tests\Unit\Fixtures\Condition\IsPowermailSubmittedConditionFixture;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
@@ -20,11 +20,11 @@ class IsPowermailSubmittedConditionTest extends UnitTestCase
      * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @covers ::matchCondition
-     * @covers ::getArgumentsForPlugin1
+     * @covers ::getArguments
      */
     public function testMatchCondition()
     {
-        $condition = new IsPowermailSubmittedCondition();
+        $condition = new IsPowermailSubmittedConditionFixture();
         $this->assertFalse($condition->matchCondition([]));
 
         $arguments = [

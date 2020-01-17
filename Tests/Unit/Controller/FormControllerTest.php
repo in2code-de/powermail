@@ -7,7 +7,6 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Tests\Unit\Fixtures\Controller\FormControllerFixture;
-use In2code\Powermail\Tests\Unit\Fixtures\Domain\Repository\MailRepositoryFixture;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\Response;

@@ -22,6 +22,7 @@ class TestingHelper
         $_SERVER['HTTPS'] = 'on';
         $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] = '';
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['requestURIvar'] = null;
+        $GLOBALS['TYPO3_CONF_VARS']['LOG'] = [];
         // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['enable_DLOG'] = false;
         if (!defined('TYPO3_OS')) {

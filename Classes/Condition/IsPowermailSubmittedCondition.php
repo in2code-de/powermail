@@ -25,7 +25,15 @@ class IsPowermailSubmittedCondition extends AbstractCondition
     public function matchCondition(array $conditionParameters): bool
     {
         unset($conditionParameters);
-        $arguments = FrontendUtility::getArguments();
+        $arguments = $this->getArguments();
         return !empty($arguments['action']) && $arguments['action'] === 'create' && !empty($arguments['mail']['form']);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getArguments(): array
+    {
+        return FrontendUtility::getArguments();
     }
 }
