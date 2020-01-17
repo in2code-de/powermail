@@ -6,11 +6,11 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -160,18 +160,10 @@ class FileFactory
     protected function getFormUid(Form $form = null): int
     {
         if ($form === null) {
-            $arguments = $this->getArguments();
+            $arguments = FrontendUtility::getArguments();
             return (int)$arguments['mail']['form'];
         } else {
             return $form->getUid();
         }
-    }
-
-    /**
-     * @return array
-     */
-    protected function getArguments(): array
-    {
-        return (array)GeneralUtility::_GP('tx_powermail_pi1');
     }
 }

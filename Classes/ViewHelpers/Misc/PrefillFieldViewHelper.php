@@ -12,7 +12,6 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -45,7 +44,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @var array
      */
-    protected $piVars;
+    protected $variables;
 
     /**
      * @var Field $field
@@ -152,8 +151,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      */
     protected function getFromMarker(string $value): string
     {
-        if (empty($value) && isset($this->piVars['field'][$this->getMarker()])) {
-            $value = $this->piVars['field'][$this->getMarker()];
+        if (empty($value) && isset($this->variables['field'][$this->getMarker()])) {
+            $value = $this->variables['field'][$this->getMarker()];
         }
         return $value;
     }
@@ -166,8 +165,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      */
     protected function getFromRawMarker(string $value): string
     {
-        if (empty($value) && isset($this->piVars[$this->getMarker()])) {
-            $value = $this->piVars[$this->getMarker()];
+        if (empty($value) && isset($this->variables[$this->getMarker()])) {
+            $value = $this->variables[$this->getMarker()];
         }
         return $value;
     }
@@ -388,7 +387,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      */
     public function initialize()
     {
-        $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
+        $this->variables = FrontendUtility::getArguments();
         $this->contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();

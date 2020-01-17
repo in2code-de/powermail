@@ -215,9 +215,8 @@ class ReceiverMailReceiverPropertiesService
     protected function getEmailsFromPredefinedEmail(array $emailArray, string $predefinedString): array
     {
         if ((int)$this->settings['receiver']['type'] === 2 && !empty($predefinedString)) {
-            $receiverString = '';
-            TypoScriptUtility::overwriteValueFromTypoScript(
-                $receiverString,
+            $receiverString = TypoScriptUtility::overwriteValueFromTypoScript(
+                '',
                 $this->configuration['receiver.']['predefinedReceiver.'][$predefinedString . '.'],
                 'email'
             );
@@ -235,9 +234,8 @@ class ReceiverMailReceiverPropertiesService
      */
     protected function overWriteEmailsWithTypoScript(array $emailArray): array
     {
-        $receiverString = '';
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $receiverString,
+        $receiverString = TypoScriptUtility::overwriteValueFromTypoScript(
+            '',
             $this->configuration['receiver.']['overwrite.'],
             'email'
         );

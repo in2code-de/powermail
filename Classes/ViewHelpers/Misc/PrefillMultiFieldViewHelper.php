@@ -12,7 +12,6 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -535,7 +534,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      */
     public function initialize(): void
     {
-        $this->variables = GeneralUtility::_GP('tx_powermail_pi1');
+        $this->variables = FrontendUtility::getArguments();
         $this->contentObjectRenderer = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();

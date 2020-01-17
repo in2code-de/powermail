@@ -18,18 +18,19 @@ class TypoScriptUtility
      * @param string $string Value to overwrite
      * @param array $conf TypoScript Configuration Array
      * @param string $key Key for TypoScript Configuration
-     * @return void
+     * @return string
      * @codeCoverageIgnore
      * @throws Exception
      */
     public static function overwriteValueFromTypoScript(
-        string &$string = null,
+        string $string = '',
         array $conf = [],
         string $key = ''
-    ): void {
+    ): string {
         if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
             $string = ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
         }
+        return $string;
     }
 
     /**

@@ -7,8 +7,8 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -58,7 +58,7 @@ class UploadValidator extends AbstractValidator
      */
     protected function formHasUploadFields(): bool
     {
-        $arguments = GeneralUtility::_GP('tx_powermail_pi1');
+        $arguments = FrontendUtility::getArguments();
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         if (is_string($arguments['mail'])) {
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);

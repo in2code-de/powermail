@@ -6,6 +6,8 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use TYPO3\CMS\Core\Routing\PageArguments;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
@@ -46,7 +48,9 @@ class FrontendUtility
      */
     public static function getSysLanguageUid(): int
     {
-        return (int)ObjectUtility::getTyposcriptFrontendController()->tmpl->setup['config.']['sys_language_uid'];
+        /** @var SiteLanguage $siteLanguage */
+        $siteLanguage = ObjectUtility::getTyposcriptFrontendController()->getLanguage();
+        return $siteLanguage->getLanguageId();
     }
 
     /**
@@ -55,10 +59,10 @@ class FrontendUtility
     public static function getPluginName(): string
     {
         $pluginName = 'tx_powermail_pi1';
-        if (!empty(GeneralUtility::_GPmerged('tx_powermail_pi2'))) {
+        if (self::isArgumentExisting('tx_powermail_pi2')) {
             $pluginName = 'tx_powermail_pi2';
         }
-        if (!empty(GeneralUtility::_GPmerged('tx_powermail_web_powermailm1'))) {
+        if (self::isArgumentExisting('tx_powermail_web_powermailm1')) {
             $pluginName = 'tx_powermail_web_powermailm1';
         }
         return $pluginName;
@@ -70,8 +74,7 @@ class FrontendUtility
     public static function getActionName(): string
     {
         $action = '';
-        $plugin = self::getPluginName();
-        $arguments = GeneralUtility::_GPmerged($plugin);
+        $arguments = self::getArguments(self::getPluginName());
         if (!empty($arguments['action'])) {
             $action = $arguments['action'];
         }
@@ -101,7 +104,6 @@ class FrontendUtility
     public static function isAllowedToEdit(array $settings, $mail): bool
     {
         if (!is_a($mail, Mail::class)) {
-            /** @var MailRepository $mailRepository */
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$mail);
         }
@@ -241,5 +243,54 @@ class FrontendUtility
             $subfolder = '/' . $subfolder;
         }
         return $subfolder;
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public static function isArgumentExisting(string $key): bool
+    {
+        return self::getArguments($key) !== [];
+    }
+
+    /**
+     * Because GET params can be rewritten via routing configuration and so only available via TSFE on the one hand
+     * and on the other hand some POST params are still available when a form is submitted, we need a function that
+     * merges both sources
+     *
+     * @param string $key
+     * @return array
+     */
+    public static function getArguments(string $key = 'tx_powermail_pi1'): array
+    {
+        return array_merge(
+            self::getArgumentsFromTyposcriptFrontendController($key),
+            self::getArgumentsFromGetOrPostRequest($key)
+        );
+    }
+
+    /**
+     * @param string $key
+     * @return array
+     */
+    protected static function getArgumentsFromGetOrPostRequest(string $key): array
+    {
+        return (array)GeneralUtility::_GP($key);
+    }
+
+    /**
+     * @param string $key
+     * @return array
+     */
+    protected static function getArgumentsFromTyposcriptFrontendController(string $key): array
+    {
+        /** @var PageArguments $pageArguments */
+        $pageArguments = ObjectUtility::getTyposcriptFrontendController()->getPageArguments();
+        $arguments = $pageArguments->getArguments();
+        if (array_key_exists($key, $arguments)) {
+            return (array)$arguments[$key];
+        }
+        return [];
     }
 }

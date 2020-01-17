@@ -64,11 +64,12 @@ class ReceiverMailSenderPropertiesService
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function getSenderEmail(): string
     {
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $defaultSenderEmail,
+        $defaultSenderEmail = TypoScriptUtility::overwriteValueFromTypoScript(
+            '',
             $this->configuration['receiver.']['default.'],
             'senderEmail'
         );
@@ -89,8 +90,8 @@ class ReceiverMailSenderPropertiesService
      */
     public function getSenderName(): string
     {
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $defaultSenderName,
+        $defaultSenderName = TypoScriptUtility::overwriteValueFromTypoScript(
+            '',
             $this->configuration['receiver.']['default.'],
             'senderName'
         );

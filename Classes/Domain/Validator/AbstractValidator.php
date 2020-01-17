@@ -5,9 +5,9 @@ namespace In2code\Powermail\Domain\Validator;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Service\FlexFormService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
@@ -18,12 +18,6 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractV
  */
 abstract class AbstractValidator extends ExtbaseAbstractValidator implements ValidatorInterface
 {
-
-    /**
-     * @var string
-     */
-    protected $variablesPrefix = 'tx_powermail_pi1';
-
     /**
      * Return variable
      *
@@ -145,7 +139,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      */
     public function isFirstActionForValidation(): bool
     {
-        $arguments = GeneralUtility::_GPmerged($this->variablesPrefix);
+        $arguments = FrontendUtility::getArguments();
         if ($this->isConfirmationActivated()) {
             return $arguments['action'] === 'confirmation';
         } else {

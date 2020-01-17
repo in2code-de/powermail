@@ -441,13 +441,33 @@ class SendMailService
     protected function parseAndOverwriteVariables(array &$email, Mail $mail): void
     {
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
-        TypoScriptUtility::overwriteValueFromTypoScript($email['subject'], $this->overwriteConfig, 'subject');
-        TypoScriptUtility::overwriteValueFromTypoScript($email['senderName'], $this->overwriteConfig, 'senderName');
-        TypoScriptUtility::overwriteValueFromTypoScript($email['senderEmail'], $this->overwriteConfig, 'senderEmail');
-        TypoScriptUtility::overwriteValueFromTypoScript($email['receiverName'], $this->overwriteConfig, 'name');
+        $email['subject'] = TypoScriptUtility::overwriteValueFromTypoScript(
+            $email['subject'],
+            $this->overwriteConfig,
+            'subject'
+        );
+        $email['senderName'] = TypoScriptUtility::overwriteValueFromTypoScript(
+            $email['senderName'],
+            $this->overwriteConfig,
+            'senderName'
+        );
+        $email['senderEmail'] = TypoScriptUtility::overwriteValueFromTypoScript(
+            $email['senderEmail'],
+            $this->overwriteConfig,
+            'senderEmail'
+        );
+        $email['receiverName'] = TypoScriptUtility::overwriteValueFromTypoScript(
+            $email['receiverName'],
+            $this->overwriteConfig,
+            'name'
+        );
         if ($this->type !== 'receiver') {
             // overwrite with TypoScript already done in ReceiverMailReceiverPropertiesService
-            TypoScriptUtility::overwriteValueFromTypoScript($email['receiverEmail'], $this->overwriteConfig, 'email');
+            $email['receiverEmail'] = TypoScriptUtility::overwriteValueFromTypoScript(
+                $email['receiverEmail'],
+                $this->overwriteConfig,
+                'email'
+            );
         }
         $parse = [
             'receiverName',

@@ -13,9 +13,11 @@ use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException as InvalidQueryExceptionAlias;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -38,7 +40,7 @@ class MailRepository extends AbstractRepository
      * @param array $settings TypoScript Config Array
      * @param array $piVars Plugin Variables
      * @return QueryResultInterface
-     * @throws InvalidQueryException
+     * @throws InvalidQueryExceptionAlias
      */
     public function findAllInPid(int $pid = 0, array $settings = [], array $piVars = []): QueryResultInterface
     {
@@ -58,7 +60,7 @@ class MailRepository extends AbstractRepository
      * @param QueryResultInterface $result
      * @param QueryInterface $query
      * @return QueryResultInterface
-     * @throws InvalidQueryException
+     * @throws InvalidQueryExceptionAlias
      */
     protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query): QueryResultInterface
     {
@@ -127,6 +129,10 @@ class MailRepository extends AbstractRepository
      * @param Form $form
      * @param int $pageUid
      * @return QueryResultInterface
+     * @throws Exception
+     * @throws InvalidQueryExceptionAlias
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function findByMarkerValueForm(string $marker, string $value, Form $form, int $pageUid): QueryResultInterface
     {
@@ -145,7 +151,7 @@ class MailRepository extends AbstractRepository
      * @param array $settings
      * @param array $piVars
      * @return QueryResultInterface
-     * @throws InvalidQueryException
+     * @throws InvalidQueryExceptionAlias
      */
     public function findListBySettings(array $settings, array $piVars): QueryResultInterface
     {
@@ -266,7 +272,7 @@ class MailRepository extends AbstractRepository
      * @param string $uidList Commaseparated UID List of mails
      * @param array $sorting array('field' => 'asc')
      * @return QueryResultInterface
-     * @throws InvalidQueryException
+     * @throws InvalidQueryExceptionAlias
      */
     public function findByUidList(string $uidList, array $sorting = []): QueryResultInterface
     {
@@ -362,7 +368,7 @@ class MailRepository extends AbstractRepository
      * @param string $default
      * @return string Sender Email
      */
-    public function getSenderMailFromArguments(Mail $mail, string $default = null): string
+    public function getSenderMailFromArguments(Mail $mail, string $default = ''): string
     {
         $email = '';
         foreach ($mail->getAnswers() as $answer) {
@@ -511,7 +517,7 @@ class MailRepository extends AbstractRepository
      * @param QueryInterface $query
      * @param int $pid
      * @return array
-     * @throws InvalidQueryException
+     * @throws InvalidQueryExceptionAlias
      */
     protected function getConstraintsForFindAllInPid(array $piVars, QueryInterface $query, int $pid): array
     {

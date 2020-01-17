@@ -50,6 +50,7 @@ class SenderMailPropertiesService
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function getSenderEmail(): string
     {
@@ -57,7 +58,7 @@ class SenderMailPropertiesService
             $senderEmail = $this->settings['sender']['email'];
         } else {
             $senderEmail = ConfigurationUtility::getDefaultMailFromAddress();
-            TypoScriptUtility::overwriteValueFromTypoScript(
+            $senderEmail = TypoScriptUtility::overwriteValueFromTypoScript(
                 $senderEmail,
                 $this->configuration['sender.']['default.'],
                 'senderEmail'
@@ -75,6 +76,7 @@ class SenderMailPropertiesService
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function getSenderName(): string
     {
@@ -82,7 +84,7 @@ class SenderMailPropertiesService
             $senderName = $this->settings['sender']['name'];
         } else {
             $senderName = ConfigurationUtility::getDefaultMailFromName();
-            TypoScriptUtility::overwriteValueFromTypoScript(
+            $senderName = TypoScriptUtility::overwriteValueFromTypoScript(
                 $senderName,
                 $this->configuration['sender.']['default.'],
                 'senderName'

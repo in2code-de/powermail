@@ -2,8 +2,8 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Condition;
 
+use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Configuration\TypoScript\ConditionMatching\AbstractCondition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class IsPowermailSubmittedCondition
@@ -25,15 +25,7 @@ class IsPowermailSubmittedCondition extends AbstractCondition
     public function matchCondition(array $conditionParameters): bool
     {
         unset($conditionParameters);
-        $arguments = $this->getArgumentsForPlugin1();
+        $arguments = FrontendUtility::getArguments();
         return !empty($arguments['action']) && $arguments['action'] === 'create' && !empty($arguments['mail']['form']);
-    }
-
-    /**
-     * @return array
-     */
-    protected function getArgumentsForPlugin1(): array
-    {
-        return GeneralUtility::_GPmerged('tx_powermail_pi1');
     }
 }

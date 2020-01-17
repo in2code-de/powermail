@@ -6,8 +6,8 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -51,9 +51,7 @@ class PasswordValidator extends AbstractValidator
      */
     protected function getMirroredValueOfPasswordField(Field $field): string
     {
-        $piVars = GeneralUtility::_GP($this->variablesPrefix);
-        $mirroredValue = $piVars['field'][$field->getMarker() . '_mirror'];
-        return $mirroredValue;
+        return (string)FrontendUtility::getArguments()['field'][$field->getMarker() . '_mirror'];
     }
 
     /**
@@ -77,11 +75,7 @@ class PasswordValidator extends AbstractValidator
      */
     protected function ignoreValidationIfConfirmation(): bool
     {
-        $piVars = GeneralUtility::_GP($this->variablesPrefix);
-        $piVarsGet = GeneralUtility::_GET($this->variablesPrefix);
-        if ($piVars['__referrer']['@action'] === 'confirmation' && $piVarsGet['action'] === 'create') {
-            return true;
-        }
-        return false;
+        return FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
+            && FrontendUtility::getArguments()['action'] === 'create';
     }
 }

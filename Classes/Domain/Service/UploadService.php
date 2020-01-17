@@ -12,9 +12,12 @@ use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -47,9 +50,12 @@ class UploadService implements SingletonInterface
     /**
      * @param array $settings
      * @return void
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     public function preflight(array $settings): void
     {
@@ -94,6 +100,7 @@ class UploadService implements SingletonInterface
      * @return array
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function getNewFileNamesByMarker(string $marker): array
     {
@@ -143,6 +150,11 @@ class UploadService implements SingletonInterface
      *
      * @return void
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function fillFilesFromFilesArray(): void
     {
@@ -167,9 +179,12 @@ class UploadService implements SingletonInterface
      * This will happen, if a confirmation page is in use and file values are no more stored in $_FILES per default
      *
      * @return void
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     protected function fillFilesFromHiddenFields(): void
     {
@@ -195,6 +210,9 @@ class UploadService implements SingletonInterface
      *
      * @return void
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      */
     protected function fillFilesFromExistingMail(): void
     {
@@ -234,6 +252,7 @@ class UploadService implements SingletonInterface
      * @return void
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     protected function makeUniqueFilenames(): void
     {
@@ -280,6 +299,7 @@ class UploadService implements SingletonInterface
      * @return bool
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     protected function isFileExistingInUploadFolder(File $file): bool
     {
@@ -300,6 +320,7 @@ class UploadService implements SingletonInterface
      * @return File[]
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function getFiles(): array
     {
@@ -347,7 +368,7 @@ class UploadService implements SingletonInterface
      */
     protected function getArguments(): array
     {
-        return (array)GeneralUtility::_GP(FrontendUtility::getPluginName());
+        return FrontendUtility::getArguments(FrontendUtility::getPluginName());
     }
 
     /**
@@ -370,6 +391,8 @@ class UploadService implements SingletonInterface
      *
      * @param File $file
      * @return bool
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     protected function isNotUniqueFilename(File $file): bool
     {

@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Service\RedirectUriService;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
@@ -48,6 +48,6 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
      */
     public function initializeFinisher(): void
     {
-        $this->arguments = GeneralUtility::_GP('tx_powermail_pi1');
+        $this->arguments = FrontendUtility::getArguments();
     }
 }
