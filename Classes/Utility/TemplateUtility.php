@@ -14,7 +14,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  * Class TemplateUtility
  * @codeCoverageIgnore
  */
-class TemplateUtility extends AbstractUtility
+class TemplateUtility
 {
 
     /**
@@ -30,7 +30,7 @@ class TemplateUtility extends AbstractUtility
     public static function getTemplateFolders(string $part = 'template'): array
     {
         $templatePaths = [];
-        $extbaseConfig = self::getConfigurationManager()->getConfiguration(
+        $extbaseConfig = ObjectUtility::getConfigurationManager()->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'powermail'
         );
@@ -58,7 +58,7 @@ class TemplateUtility extends AbstractUtility
      * @param string $part "template", "partial", "layout"
      * @return string Filename/path
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
+     * @throws Exception
      */
     public static function getTemplatePath(string $pathAndFilename, string $part = 'template'): string
     {
@@ -75,7 +75,7 @@ class TemplateUtility extends AbstractUtility
      * @param string $part "template", "partial", "layout"
      * @return array All existing matches found
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
+     * @throws Exception
      */
     public static function getTemplatePaths(string $pathAndFilename, string $part = 'template'): array
     {
@@ -106,7 +106,7 @@ class TemplateUtility extends AbstractUtility
         string $format = 'html'
     ): StandaloneView {
         /** @var StandaloneView $standaloneView */
-        $standaloneView = self::getObjectManager()->get(StandaloneView::class);
+        $standaloneView = ObjectUtility::getObjectManager()->get(StandaloneView::class);
         $standaloneView->getRequest()->setControllerExtensionName($extensionName);
         $standaloneView->getRequest()->setPluginName($pluginName);
         $standaloneView->setFormat($format);
@@ -160,7 +160,7 @@ class TemplateUtility extends AbstractUtility
             || BackendUtility::isBackendContext()) {
             return $string;
         }
-        $standaloneView = self::getObjectManager()->get(StandaloneView::class);
+        $standaloneView = ObjectUtility::getObjectManager()->get(StandaloneView::class);
         $standaloneView->setTemplateSource($string);
         $standaloneView->assignMultiple($variables);
         return $standaloneView->render();

@@ -12,7 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class DatabaseUtility
  * @codeCoverageIgnore
  */
-class DatabaseUtility extends AbstractUtility
+class DatabaseUtility
 {
 
     /**

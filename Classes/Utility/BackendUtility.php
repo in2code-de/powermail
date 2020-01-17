@@ -16,7 +16,7 @@ use TYPO3\CMS\Extbase\Object\Exception;
 /**
  * Class BackendUtility
  */
-class BackendUtility extends AbstractUtility
+class BackendUtility
 {
 
     /**
@@ -48,10 +48,11 @@ class BackendUtility extends AbstractUtility
 
     /**
      * @return BackendUserAuthentication
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function getBackendUserAuthentication(): BackendUserAuthentication
     {
-        return parent::getBackendUserAuthentication();
+        return $GLOBALS['BE_USER'];
     }
 
     /**

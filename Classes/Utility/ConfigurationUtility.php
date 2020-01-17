@@ -5,14 +5,14 @@ namespace In2code\Powermail\Utility;
 use In2code\Powermail\Exception\SoftwareIsMissingException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Class ConfigurationUtility
  */
-class ConfigurationUtility extends AbstractUtility
+class ConfigurationUtility
 {
 
     /**
@@ -126,7 +126,7 @@ class ConfigurationUtility extends AbstractUtility
      */
     public static function getExtensionConfiguration(): array
     {
-        return parent::getExtensionConfiguration();
+        return (array)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('powermail');
     }
 
     /**
@@ -248,5 +248,16 @@ class ConfigurationUtility extends AbstractUtility
     public static function isDatabaseConnectionAvailable(): bool
     {
         return !empty($GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']);
+    }
+
+    /**
+     * Get extension configuration from LocalConfiguration.php
+     *
+     * @return array
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    public static function getTypo3ConfigurationVariables(): array
+    {
+        return (array)$GLOBALS['TYPO3_CONF_VARS'];
     }
 }

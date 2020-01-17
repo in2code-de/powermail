@@ -12,7 +12,7 @@ use TYPO3\CMS\Extbase\Object\Exception;
 /**
  * Class FrontendUtility
  */
-class FrontendUtility extends AbstractUtility
+class FrontendUtility
 {
 
     /**
@@ -36,7 +36,7 @@ class FrontendUtility extends AbstractUtility
      */
     public static function getCurrentPageIdentifier(): int
     {
-        return (int)self::getTyposcriptFrontendController()->id;
+        return (int)ObjectUtility::getTyposcriptFrontendController()->id;
     }
 
     /**
@@ -46,7 +46,7 @@ class FrontendUtility extends AbstractUtility
      */
     public static function getSysLanguageUid(): int
     {
-        return (int)self::getTyposcriptFrontendController()->tmpl->setup['config.']['sys_language_uid'];
+        return (int)ObjectUtility::getTyposcriptFrontendController()->tmpl->setup['config.']['sys_language_uid'];
     }
 
     /**
@@ -85,7 +85,7 @@ class FrontendUtility extends AbstractUtility
      */
     public static function getCharset(): string
     {
-        return self::getTyposcriptFrontendController()->metaCharset;
+        return ObjectUtility::getTyposcriptFrontendController()->metaCharset;
     }
 
     /**
@@ -105,13 +105,13 @@ class FrontendUtility extends AbstractUtility
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$mail);
         }
-        if (!self::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === null) {
+        if (!ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === null) {
             return false;
         }
 
         $usergroups = GeneralUtility::trimExplode(
             ',',
-            self::getTyposcriptFrontendController()->fe_user->user['usergroup'],
+            ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'],
             true
         );
         $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'], true);
@@ -131,7 +131,7 @@ class FrontendUtility extends AbstractUtility
         }
 
         // 1. check user
-        if (in_array(self::getTyposcriptFrontendController()->fe_user->user['uid'], $usersSettings)) {
+        if (in_array(ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'], $usersSettings)) {
             return true;
         }
 
@@ -150,7 +150,7 @@ class FrontendUtility extends AbstractUtility
      */
     public static function isLoggedInFrontendUser(): bool
     {
-        return !empty(self::getTyposcriptFrontendController()->fe_user->user['uid']);
+        return !empty(ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid']);
     }
 
     /**
@@ -161,7 +161,7 @@ class FrontendUtility extends AbstractUtility
      */
     public static function getPropertyFromLoggedInFrontendUser(string $propertyName = 'uid'): string
     {
-        $tsfe = self::getTyposcriptFrontendController();
+        $tsfe = ObjectUtility::getTyposcriptFrontendController();
         if (!empty($tsfe->fe_user->user[$propertyName])) {
             return $tsfe->fe_user->user[$propertyName];
         }

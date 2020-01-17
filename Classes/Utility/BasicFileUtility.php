@@ -9,7 +9,7 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 /**
  * Class BasicFileUtility
  */
-class BasicFileUtility extends AbstractUtility
+class BasicFileUtility
 {
 
     /**

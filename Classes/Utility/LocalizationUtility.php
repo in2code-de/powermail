@@ -7,7 +7,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
 /**
  * Class LocalizationUtility
  */
-class LocalizationUtility extends AbstractUtility
+class LocalizationUtility
 {
 
     /**

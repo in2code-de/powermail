@@ -32,7 +32,7 @@ class MailUtility
         $message->setTo([$receiverEmail => '']);
         $message->setFrom([$senderEmail => 'Sender']);
         $message->setSubject($subject);
-        $message->setBody($body);
+        $message->text($body);
         $message->send();
         return $message->isSent();
     }

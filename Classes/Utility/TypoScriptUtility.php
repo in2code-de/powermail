@@ -9,7 +9,7 @@ use TYPO3\CMS\Extbase\Object\Exception;
 /**
  * Class TypoScriptUtility
  */
-class TypoScriptUtility extends AbstractUtility
+class TypoScriptUtility
 {
 
     /**
@@ -27,8 +27,8 @@ class TypoScriptUtility extends AbstractUtility
         array $conf = [],
         string $key = ''
     ): void {
-        if (self::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
-            $string = self::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
+        if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
+            $string = ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
         }
     }
 
@@ -45,13 +45,13 @@ class TypoScriptUtility extends AbstractUtility
         if (empty($typoScriptObjectPath)) {
             return '';
         }
-        $setup = self::getTyposcriptFrontendController()->tmpl->setup;
+        $setup = ObjectUtility::getTyposcriptFrontendController()->tmpl->setup;
         $pathSegments = GeneralUtility::trimExplode('.', $typoScriptObjectPath);
         $lastSegment = array_pop($pathSegments);
         foreach ($pathSegments as $segment) {
             $setup = $setup[$segment . '.'];
         }
-        return self::getContentObject()->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
+        return ObjectUtility::getContentObject()->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
     }
 
     /**

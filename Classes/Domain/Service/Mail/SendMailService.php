@@ -151,6 +151,7 @@ class SendMailService
      *
      * @param MailMessage $message
      * @return MailMessage
+     * @throws Exception
      */
     protected function addCc(MailMessage $message): MailMessage
     {
@@ -169,6 +170,7 @@ class SendMailService
      *
      * @param MailMessage $message
      * @return MailMessage
+     * @throws Exception
      */
     protected function addBcc(MailMessage $message): MailMessage
     {
@@ -187,6 +189,7 @@ class SendMailService
      *
      * @param MailMessage $message
      * @return MailMessage
+     * @throws Exception
      */
     protected function addReturnPath(MailMessage $message): MailMessage
     {
@@ -205,6 +208,7 @@ class SendMailService
      *
      * @param MailMessage $message
      * @return MailMessage
+     * @throws Exception
      */
     protected function addReplyAddresses(MailMessage $message): MailMessage
     {
@@ -267,6 +271,7 @@ class SendMailService
      *
      * @param MailMessage $message
      * @return MailMessage
+     * @throws Exception
      */
     protected function addAttachmentsFromTypoScript(MailMessage $message): MailMessage
     {
@@ -333,6 +338,7 @@ class SendMailService
      *
      * @param MailMessage $message
      * @return MailMessage
+     * @throws Exception
      */
     protected function addSenderHeader(MailMessage $message): MailMessage
     {
