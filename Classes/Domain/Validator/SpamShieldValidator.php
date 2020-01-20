@@ -299,9 +299,9 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * @param bool $readableOutput
-     * @return float
+     * @return float|string
      */
-    public function getCalculatedSpamFactor(bool $readableOutput = false): float
+    public function getCalculatedSpamFactor(bool $readableOutput = false)
     {
         $calculatedSpamFactor = $this->calculatedSpamFactor;
         if ($readableOutput) {

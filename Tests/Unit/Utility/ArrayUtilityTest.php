@@ -80,7 +80,7 @@ class ArrayUtilityTest extends UnitTestCase
                 false
             ],
             [
-                [],
+                '',
                 false
             ]
         ];

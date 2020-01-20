@@ -244,8 +244,8 @@ class CalculatingCaptchaService
                 $this->configuration['forceValue'],
                 $matches
             );
-            $number1 = $matches[1][0];
-            $number2 = $matches[3][0];
+            $number1 = (int)$matches[1][0];
+            $number2 = (int)$matches[3][0];
             $operator = $matches[2][0];
             $result = MathematicUtility::mathematicOperation($number1, $number2, $operator);
         }

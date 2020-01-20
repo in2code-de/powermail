@@ -5,12 +5,10 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\SessionUtility;
-use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
-use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Core\Exception;
 
 /**
  * Class SessionMethodTest
@@ -26,10 +24,11 @@ class SessionMethodTest extends UnitTestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     public function setUp()
     {
-        $this->initializeTsfe();
+        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             SessionMethod::class,
             ['dummy'],
@@ -76,24 +75,5 @@ class SessionMethodTest extends UnitTestCase
 
         $this->generalValidatorMock->_set('mail', $mail);
         $this->assertSame(true, $this->generalValidatorMock->_callRef('spamCheck'));
-    }
-
-    /**
-     * Initialize TSFE object
-     *
-     * @return void
-     */
-    protected function initializeTsfe()
-    {
-        $configurationManager = new ConfigurationManager();
-        $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
-            'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject',
-            'COA' => 'TYPO3\CMS\Frontend\ContentObject\ContentObjectArrayContentObject'
-        ];
-        $GLOBALS['TT'] = new TimeTracker();
-        $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
-        $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
     }
 }

@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ReportingUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 
 /**
  * Class ReportingUtilityTest
@@ -34,6 +35,7 @@ class ReportingUtilityTest extends UnitTestCase
      * @return void
      * @test
      * @covers ::getGroupedMarketingPropertiesFromMails
+     * @throws PropertyNotAccessibleException
      */
     public function getGroupedMarketingPropertiesFromMailsReturnsArray()
     {

@@ -31,13 +31,13 @@ class ReportingUtility
     /**
      * Get grouped mail answers for reporting
      *
-     * @param QueryResultInterface $mails Mail array
+     * @param QueryResultInterface|array $mails Mail array
      * @param int $limit Max number of allowed Labels
      * @param string $limitLabel Label for "Max Labels" - could be "all others"
      * @return array
      */
     public static function getGroupedAnswersFromMails(
-        QueryResultInterface $mails,
+        iterable $mails,
         int $limit = 5,
         string $limitLabel = 'All others'
     ): array {
@@ -65,14 +65,14 @@ class ReportingUtility
     /**
      * Get grouped marketing stuff for reporting
      *
-     * @param QueryResultInterface $mails Mails
+     * @param QueryResultInterface|array $mails Mails
      * @param int $limit Max Labels
      * @param string $limitLabel Label for "Max Labels" - could be "all others"
      * @return array
      * @throws PropertyNotAccessibleException
      */
     public static function getGroupedMarketingPropertiesFromMails(
-        QueryResultInterface $mails,
+        iterable $mails,
         int $limit = 10,
         string $limitLabel = 'All others'
     ): array {

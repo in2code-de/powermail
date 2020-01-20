@@ -25,7 +25,7 @@ class FrontendUtility
      */
     public static function getStoragePage(int $pid = 0): int
     {
-        if (!$pid) {
+        if ($pid === 0) {
             $pid = self::getCurrentPageIdentifier();
         }
         return (int)$pid;
@@ -38,7 +38,10 @@ class FrontendUtility
      */
     public static function getCurrentPageIdentifier(): int
     {
-        return (int)ObjectUtility::getTyposcriptFrontendController()->id;
+        if (ObjectUtility::getTyposcriptFrontendController() !== null) {
+            return (int)ObjectUtility::getTyposcriptFrontendController()->id;
+        }
+        return 0;
     }
 
     /**

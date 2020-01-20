@@ -4,6 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\FrontendUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Exception;
 
 /**
  * Class FrontendUtilityTest
@@ -19,11 +20,12 @@ class FrontendUtilityTest extends UnitTestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     public function setUp()
     {
         TestingHelper::setDefaultConstants();
-        TestingHelper::initializeTsfe(7684);
+        TestingHelper::initializeTypoScriptFrontendController();
     }
 
     /**
@@ -34,7 +36,7 @@ class FrontendUtilityTest extends UnitTestCase
     public function getStoragePageReturnsInt()
     {
         $this->assertSame(123, FrontendUtility::getStoragePage(123));
-        $this->assertSame(7684, FrontendUtility::getStoragePage());
+        $this->assertSame(1, FrontendUtility::getStoragePage());
     }
 
     /**
@@ -46,7 +48,7 @@ class FrontendUtilityTest extends UnitTestCase
     public function getCurrentPageIdentifierReturnsInt()
     {
         $result = FrontendUtility::getCurrentPageIdentifier();
-        $this->assertSame(7684, $result);
+        $this->assertSame(1, $result);
     }
 
     /**
@@ -57,7 +59,7 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getSysLanguageUidReturnsInt()
     {
-        $this->assertSame(1, FrontendUtility::getSysLanguageUid());
+        $this->assertSame(0, FrontendUtility::getSysLanguageUid());
     }
 
     /**
@@ -75,6 +77,7 @@ class FrontendUtilityTest extends UnitTestCase
         unset($_GET['tx_powermail_pi2']);
         $_GET['tx_powermail_web_powermailm1']['action'] = 'test';
         $this->assertSame('tx_powermail_web_powermailm1', FrontendUtility::getPluginName());
+        unset($_GET);
     }
 
     /**
@@ -84,6 +87,7 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function testGetActionName()
     {
+        $_GET['tx_powermail_pi1']['action'] = '';
         $this->assertSame('', FrontendUtility::getActionName());
         $_GET['tx_powermail_pi1']['action'] = 'test';
         $this->assertSame('test', FrontendUtility::getActionName());
@@ -108,7 +112,7 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function isLoggedInFrontendUserReturnsBool()
     {
-        $this->assertTrue(FrontendUtility::isLoggedInFrontendUser());
+        $this->assertFalse(FrontendUtility::isLoggedInFrontendUser());
     }
 
     /**
@@ -119,7 +123,7 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getPropertyFromLoggedInFrontendUserReturnsString()
     {
-        $this->assertSame(4784, FrontendUtility::getPropertyFromLoggedInFrontendUser('uid'));
+        $this->assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('uid'));
         $this->assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('foobar'));
     }
 

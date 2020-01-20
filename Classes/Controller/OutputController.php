@@ -240,7 +240,7 @@ class OutputController extends AbstractController
      */
     public function initializeObject(): void
     {
-        ConfigurationUtility::mergeTypoScript2FlexForm($this->settings, 'Pi2');
+        $this->settings = ConfigurationUtility::mergeTypoScript2FlexForm($this->settings, 'Pi2');
     }
 
     /**

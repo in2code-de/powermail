@@ -35,10 +35,10 @@ class BackendUtility
     /**
      * Get property from backend user
      *
-     * @param string $property
+     * @param string|int $property
      * @return string
      */
-    public static function getPropertyFromBackendUser(string $property = 'uid'): string
+    public static function getPropertyFromBackendUser(string $property = 'uid')
     {
         if (!empty(self::getBackendUserAuthentication()->user[$property])) {
             return self::getBackendUserAuthentication()->user[$property];

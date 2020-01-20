@@ -228,16 +228,19 @@ class ConfigurationUtility
      *
      * @param array $settings All settings
      * @param string $typoScriptLevel Startpoint
-     * @return void
+     * @return array
      */
-    public static function mergeTypoScript2FlexForm(array &$settings, string $typoScriptLevel = 'setup')
+    public static function mergeTypoScript2FlexForm(array $settings, string $typoScriptLevel = 'setup'): array
     {
-        $settings = ArrayUtility::arrayMergeRecursiveOverrule(
-            (array)$settings[$typoScriptLevel],
-            (array)$settings['flexform'],
-            false,
-            false
-        );
+        if (array_key_exists($typoScriptLevel, $settings) && array_key_exists('flexform', $settings)) {
+            $settings = ArrayUtility::arrayMergeRecursiveOverrule(
+                (array)$settings[$typoScriptLevel],
+                (array)$settings['flexform'],
+                false,
+                false
+            );
+        }
+        return $settings;
     }
 
     /**

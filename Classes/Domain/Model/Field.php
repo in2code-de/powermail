@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
@@ -241,6 +242,7 @@ class Field extends AbstractEntity
     /**
      * @return bool
      * @throws Exception
+     * @throws DeprecatedException
      */
     public function isExportableFieldType(): bool
     {
@@ -250,6 +252,8 @@ class Field extends AbstractEntity
     /**
      * @param string $type
      * @return bool
+     * @throws Exception
+     * @throws DeprecatedException
      */
     public function isTypeOf(string $type): bool
     {
@@ -724,6 +728,7 @@ class Field extends AbstractEntity
      *
      * @param string $fieldType
      * @return int
+     * @throws DeprecatedException
      */
     public function dataTypeFromFieldType(string $fieldType): int
     {
@@ -781,15 +786,18 @@ class Field extends AbstractEntity
      *
      * @param array $types
      * @return array
+     * @throws DeprecatedException
      */
     protected function extendTypeArrayWithTypoScriptTypes(array $types): array
     {
         $typoScript = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
-        $configuration = $typoScript['tx_powermail.']['flexForm.'];
-        foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
-            if (!empty($fieldType['dataType'])) {
-                $fieldTypeName = substr($fieldTypeName, 0, -1);
-                $types[$fieldTypeName] = (int)$fieldType['dataType'];
+        if (!empty($typoScript['tx_powermail.']['flexForm.'])) {
+            $configuration = $typoScript['tx_powermail.']['flexForm.'];
+            foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
+                if (!empty($fieldType['dataType'])) {
+                    $fieldTypeName = substr($fieldTypeName, 0, -1);
+                    $types[$fieldTypeName] = (int)$fieldType['dataType'];
+                }
             }
         }
         return $types;
@@ -803,6 +811,7 @@ class Field extends AbstractEntity
      *          tx_powermail.flexForm.type.addFieldOptions.new.export = 1
      *
      * @return array ['new', 'myownfield']
+     * @throws DeprecatedException
      */
     protected function getExportableTypesFromTypoScript(): array
     {

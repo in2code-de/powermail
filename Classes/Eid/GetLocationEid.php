@@ -25,11 +25,19 @@ class GetLocationEid
      */
     public function main(): string
     {
-        $lat = GeneralUtility::_GP('lat');
-        $lng = GeneralUtility::_GP('lng');
+        $address = $this->getAddressFromGeo((float)GeneralUtility::_GP('lat'), (float)GeneralUtility::_GP('lng'));
 
-        $address = $this->getAddressFromGeo($lat, $lng);
-        return $address['route'] . ', ' . $address['locality'];
+        $output = '';
+        if (!empty($address['route'])) {
+            $output .= $address['route'];
+        }
+        if (!empty($address['locality'])) {
+            $output .= ', ' . $address['locality'];
+        }
+        if (!empty($address['country'])) {
+            $output .= ', ' . $address['country'];
+        }
+        return $output;
     }
 
     /**

@@ -111,12 +111,15 @@ class ExportService
     protected $emailTemplate = 'Module/ExportTaskMail.html';
 
     /**
-     * @param QueryResult $mails Given mails for export
+     * @param null|QueryResultInterface $mails Given mails for export
      * @param string $format can be 'xls' or 'csv'
      * @param array $additionalProperties add additional properties
      */
-    public function __construct(QueryResult $mails = null, string $format = 'xls', array $additionalProperties = [])
-    {
+    public function __construct(
+        ?QueryResultInterface $mails = null,
+        string $format = 'xls',
+        array $additionalProperties = []
+    ) {
         $this->setMails($mails);
         $this->setFormat($format);
         $this->setAdditionalProperties($additionalProperties);
@@ -247,10 +250,10 @@ class ExportService
     }
 
     /**
-     * @param QueryResultInterface $mails
+     * @param null|QueryResultInterface $mails
      * @return ExportService
      */
-    public function setMails(QueryResultInterface $mails): ExportService
+    public function setMails(?QueryResultInterface $mails): ExportService
     {
         $this->mails = $mails;
         return $this;

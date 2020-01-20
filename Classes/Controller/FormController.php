@@ -392,7 +392,7 @@ class FormController extends AbstractController
         $this->contentObject = $this->configurationManager->getContentObject();
         $configurationService = $this->objectManager->get(ConfigurationService::class);
         $this->conf = $configurationService->getTypoScriptConfiguration();
-        ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
+        $this->settings = ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
         if ($this->settings['debug']['settings']) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->info('Powermail settings', $this->settings);

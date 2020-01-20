@@ -1,12 +1,11 @@
 <?php
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Service\RedirectUriServiceFixture;
-use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Class RedirectUriServiceTest
@@ -22,10 +21,11 @@ class RedirectUriServiceTest extends UnitTestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     public function setUp()
     {
-        $this->initializeTsfe();
+        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             RedirectUriServiceFixture::class,
             ['dummy'],
@@ -143,23 +143,5 @@ class RedirectUriServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock->_set('typoScriptFixture', $configuration);
         $this->assertEquals($expectedResult, $this->generalValidatorMock->_call('getTargetFromTypoScript'));
-    }
-
-    /**
-     * Initialize TSFE object
-     *
-     * @return void
-     */
-    protected function initializeTsfe()
-    {
-        $configurationManager = new ConfigurationManager();
-        $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
-            'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject',
-            'COA' => 'TYPO3\CMS\Frontend\ContentObject\ContentObjectArrayContentObject'
-        ];
-        $GLOBALS['TT'] = new TimeTracker();
-        $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
     }
 }

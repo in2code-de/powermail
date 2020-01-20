@@ -52,7 +52,7 @@ class Answer extends AbstractEntity
         $value = $this->value;
 
         // if serialized, change to array
-        if (ArrayUtility::isJsonArray($this->value)) {
+        if (ArrayUtility::isJsonArray((string)$this->value)) {
             // only if type multivalue or upload
             if ($this->getValueType() === self::VALUE_TYPE_ARRAY || $this->getValueType() === self::VALUE_TYPE_UPLOAD) {
                 $value = json_decode($value, true);
@@ -109,9 +109,9 @@ class Answer extends AbstractEntity
      *        - Timestamp (Date fields) instead of human readable date
      *        - JSON string for multiple fields instead of array
      *
-     * @return string
+     * @return string|int
      */
-    public function getRawValue(): string
+    public function getRawValue()
     {
         return $this->value;
     }
@@ -163,7 +163,7 @@ class Answer extends AbstractEntity
     /**
      * @return Field $field
      */
-    public function getField(): Field
+    public function getField(): ?Field
     {
         return $this->field;
     }

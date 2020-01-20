@@ -65,7 +65,7 @@ class HashUtility
      * @SuppressWarnings(PHPMD.Superglobals)
      * @throws ConfigurationIsMissingException
      */
-    private static function getEncryptionKey(): string
+    protected static function getEncryptionKey(): string
     {
         $confVars = ConfigurationUtility::getTypo3ConfigurationVariables();
         if (empty($confVars['SYS']['encryptionKey'])) {

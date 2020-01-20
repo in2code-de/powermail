@@ -5,7 +5,7 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
-use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
@@ -30,7 +30,8 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function setUp()
     {
-        $objectManager = ObjectUtility::getObjectManager();
+        TestingHelper::setDefaultConstants();
+        $objectManager = TestingHelper::getObjectManager();
         $this->generalValidatorMock = $this->getAccessibleMock(MailRepository::class, ['dummy'], [$objectManager]);
     }
 
@@ -206,7 +207,7 @@ class MailRepositoryTest extends UnitTestCase
                     'no email',
                     'abc@def.gh'
                 ],
-                null,
+                '',
                 null,
                 'abc@def.gh'
             ],
@@ -215,7 +216,7 @@ class MailRepositoryTest extends UnitTestCase
                     'alexander.kellner@in2code.de',
                     'abc@def.gh'
                 ],
-                null,
+                '',
                 null,
                 'alexander.kellner@in2code.de'
             ],
@@ -239,7 +240,7 @@ class MailRepositoryTest extends UnitTestCase
                 [
                     'no email'
                 ],
-                null,
+                '',
                 'test2@email.org',
                 'test2@email.org'
             ],
