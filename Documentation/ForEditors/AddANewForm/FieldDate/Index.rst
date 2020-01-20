@@ -171,7 +171,13 @@ There is no change to define another dateformat.
 
 But it's possible to enforce the JavaScript Datepicker even in Chrome with a line of TypoScript Constants:
 
-:typoscript:`plugin.tx_powermail.settings.misc.forceJavaScriptDatePicker = 1`
+:typoscript:`plugin.tx_powermail.settings.setup.misc.datepicker.forceJavaScriptDatePicker = 1`
+
+To activate the datepicker, you have to make sure that
+
+- jquery is loaded first
+- Public/JavaScript/Libraries/jquery.datetimepicker.min.js is loaded second
+- Public/JavaScript/Powermail/Form.min.js is loaded third
 
 Beside that, you can define the dateformat for the JavaScript Datepicker.
 Depending on the datepicker settings (date, datetime, time), there are different entries in the locallang files.
