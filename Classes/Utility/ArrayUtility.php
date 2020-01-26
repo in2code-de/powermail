@@ -78,6 +78,39 @@ class ArrayUtility
     }
 
     /**
+     * Flatten an multidimensional array by key
+     * [
+     *  [
+     *      'title' => 'abc,
+     *      'uid' => 1
+     *  ],
+     *  [
+     *      'title' => 'def
+     *  ]
+     * ]
+     *
+     * =>
+     *
+     * [
+     *  'abc',
+     *  'def'
+     * ]
+     *
+     * @param array $array
+     * @return array
+     */
+    public static function flatten(array $array, string $key): array
+    {
+        $result = [];
+        foreach ($array as $sub) {
+            if (array_key_exists($key, $sub)) {
+                $result[] = $sub[$key];
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Merges two arrays recursively and "binary safe" (integer keys are overridden as well),
      * overruling similar values in the first array ($firstArray) with the values of the second array ($secondArray)
      * In case of identical keys, ie. keeping the values of the second.

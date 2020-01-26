@@ -4,6 +4,7 @@ namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
@@ -14,6 +15,8 @@ use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FormSelectorUserFunc
+ * shows forms in FlexForm (selection can be filtered via Page TSConfig)
+ * @noinspection PhpUnused
  */
 class FormSelectorUserFunc
 {
@@ -33,6 +36,7 @@ class FormSelectorUserFunc
     /**
      * FormSelectorUserFunc constructor.
      * @throws Exception
+     * @throws DeprecatedException
      */
     public function __construct()
     {
@@ -59,6 +63,7 @@ class FormSelectorUserFunc
      * @param array $params
      * @return void
      * @throws Exception
+     * @noinspection PhpUnused
      */
     public function getForms(array &$params): void
     {

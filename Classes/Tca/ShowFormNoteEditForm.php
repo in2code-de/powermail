@@ -5,38 +5,36 @@ namespace In2code\Powermail\Tca;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
+use In2code\Powermail\Exception\DeprecatedException;
+use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
- * Class ShowFormNoteEditForm to display chosen form and some
- * more information in the FlexForm of an opened powermail
- * content element
+ * Class ShowFormNoteEditForm
+ * to display chosen form and some more information in the FlexForm of an opened powermail content element
  */
-class ShowFormNoteEditForm
+class ShowFormNoteEditForm extends AbstractFormElement
 {
-
-    /**
-     * @var array
-     */
-    public $params = [];
-
     /**
      * @var array
      */
     protected $formProperties = [];
 
     /**
-     * Path to locallang file (with : as postfix)
-     *
      * @var string
      */
     protected $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:';
@@ -51,21 +49,32 @@ class ShowFormNoteEditForm
      *
      * @param array $params TCA configuration array
      * @return string
+     * @throws DeprecatedException
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws RouteNotFoundException
      */
-    public function showNote(array $params): string
+    public function render()
     {
-        $this->params = $params;
-        return $this->renderMarkup();
+        $result = $this->initializeResultArray();
+        $result['html'] = $this->getHtml();
+        return $result;
     }
 
     /**
      * @return string
+     * @throws DeprecatedException
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws RouteNotFoundException
      */
-    protected function renderMarkup(): string
+    protected function getHtml(): string
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
@@ -134,6 +143,7 @@ class ShowFormNoteEditForm
      * Build URI for edit link
      *
      * @return string
+     * @throws RouteNotFoundException
      */
     protected function getEditFormLink(): string
     {
@@ -144,6 +154,8 @@ class ShowFormNoteEditForm
      * Build URI for new link
      *
      * @return string
+     * @throws DeprecatedException
+     * @throws RouteNotFoundException
      */
     protected function getNewFormLink(): string
     {
@@ -156,10 +168,11 @@ class ShowFormNoteEditForm
      * If empty, the current pid will be taken
      *
      * @return int
+     * @throws DeprecatedException
      */
     protected function getPageIdentifierForNewForms(): int
     {
-        $pageIdentifier = $this->getPageIdentifierFromExistingContentElements((int)$this->params['row']['pid']);
+        $pageIdentifier = $this->getPageIdentifierFromExistingContentElements($this->data['databaseRow']['pid']);
         $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'])) {
             $pageIdentifier = (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];
@@ -204,9 +217,9 @@ class ShowFormNoteEditForm
      */
     protected function getRelatedFormUid(): int
     {
-        $flexFormArray = (array)$this->params['row']['pi_flexform']['data']['main']['lDEF'];
+        $flexFormArray = (array)$this->data['databaseRow']['pi_flexform']['data']['main']['lDEF'];
         $formUid = (int)$flexFormArray['settings.flexform.main.form']['vDEF'][0];
-        $formUid = $this->getLocalizedFormUid($formUid, (int)$this->params['row']['sys_language_uid'][0]);
+        $formUid = $this->getLocalizedFormUid($formUid, (int)$this->data['databaseRow']['sys_language_uid'][0]);
         return $formUid;
     }
 
@@ -225,6 +238,8 @@ class ShowFormNoteEditForm
      *      ["page1", "page2"]
      *
      * @return array
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     protected function getRelatedPages(): array
     {
@@ -232,9 +247,8 @@ class ShowFormNoteEditForm
             return $this->getRelatedPagesAlternative();
         }
 
-        $titles = [];
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME, true);
-        $rows = $queryBuilder
+        $rows = (array)$queryBuilder
             ->select('p.title')
             ->from(Form::TABLE_NAME, 'fo')
             ->join('fo', Page::TABLE_NAME, 'p', 'p.forms = fo.uid')
@@ -242,10 +256,7 @@ class ShowFormNoteEditForm
             ->setMaxResults(1000)
             ->execute()
             ->fetchAll();
-        foreach ($rows as $row) {
-            $titles[] = $row['title'];
-        }
-        return $titles;
+        return ArrayUtility::flatten($rows, 'title');
     }
 
     /**
@@ -269,7 +280,7 @@ class ShowFormNoteEditForm
             $pageTitles = $queryBuilder
                 ->select('title')
                 ->from(Page::TABLE_NAME)
-                ->where('uid in (' . StringUtility::integerList($pageUids[0]['pages']) . ') and deleted=0')
+                ->where('uid in (' . StringUtility::integerList($pageUids[0]['pages']) . ')')
                 ->execute()
                 ->fetchAll();
 
@@ -285,6 +296,8 @@ class ShowFormNoteEditForm
      *      ["firstname", "lastname", "email"]
      *
      * @return array
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     protected function getRelatedFields(): array
     {

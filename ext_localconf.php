@@ -86,7 +86,7 @@ call_user_func(function () {
         'EXT:powermail/Classes/Eid/GetLocationEid.php';
 
     /**
-     * User field registrations in TCA
+     * User field registrations in TCA/FlexForm
      */
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1580037906] = [
         'nodeName' => 'powermailShowFormNoteIfNoEmailOrNameSelected',
@@ -97,5 +97,10 @@ call_user_func(function () {
         'nodeName' => 'powermailMarker',
         'priority' => 50,
         'class' => \In2code\Powermail\Tca\Marker::class,
+    ];
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1580065317] = [
+        'nodeName' => 'powermailShowFormNoteEditForm',
+        'priority' => 50,
+        'class' => \In2code\Powermail\Tca\ShowFormNoteEditForm::class,
     ];
 });

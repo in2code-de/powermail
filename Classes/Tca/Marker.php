@@ -8,7 +8,7 @@ use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 
 /**
  * Class Marker
- * to extend tableview for fields with marker e.g. {firstname}
+ * to extend tableview for tx_powermail_domain_model_field with a marker value e.g. {firstname}
  */
 class Marker extends AbstractFormElement
 {
@@ -55,16 +55,5 @@ class Marker extends AbstractFormElement
         }
 
         return $content;
-    }
-
-    /**
-     * Workarround to only show a label and no field in TCA
-     *
-     * @return string
-     * @noinspection PhpUnused
-     */
-    public function doNothing(): string
-    {
-        return '';
     }
 }
