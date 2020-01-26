@@ -7,7 +7,11 @@ use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -17,8 +21,23 @@ use TYPO3\CMS\Extbase\Object\Exception;
  *      - a form has now chosen sender-name or sender-email
  *      - a form contains two fields with the same markername
  */
-class ShowFormNoteIfNoEmailOrNameSelected
+class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
 {
+
+    /**
+     * @return array
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
+     */
+    public function render()
+    {
+        $result = $this->initializeResultArray();
+        $result['html'] = $this->getHtml();
+        return $result;
+    }
 
     /**
      * @var string
@@ -34,23 +53,24 @@ class ShowFormNoteIfNoEmailOrNameSelected
     protected $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:';
 
     /**
-     * @param array $params
      * @return string
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      */
-    public function showNote(array $params): string
+    protected function getHtml(): string
     {
-        if ($this->isShowNote($params)) {
+        if ($this->shouldNotebeShown()) {
             $standaloneView = TemplateUtility::getDefaultStandAloneView();
             $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
             $standaloneView->assignMultiple(
                 [
-                    'mutedNote' => $this->isNoteMuted($params),
-                    'form' => $params['row'],
+                    'mutedNote' => $this->isNoteMuted(),
+                    'form' => $this->data['databaseRow'],
                     'labels' => $this->getLabels(),
-                    'markerWarning' => !$this->hasFormUniqueAndFilledFieldMarkers((int)$params['row']['uid'])
+                    'markerWarning' => $this->hasFormUniqueAndFilledFieldMarkers() === false
                 ]
             );
             return $standaloneView->render();
@@ -59,24 +79,24 @@ class ShowFormNoteIfNoEmailOrNameSelected
     }
 
     /**
-     * @param array $params
      * @return bool
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    protected function isShowNote(array $params): bool
+    protected function shouldNotebeShown(): bool
     {
-        return $this->canBeRendered($params) && !$this->senderEmailOrSenderNameSet((int)$params['row']['uid']);
+        return $this->canBeRendered() && $this->senderEmailOrSenderNameSet() === false;
     }
 
     /**
      * Check if notefield was disabled
      *
-     * @param array $params Config Array
      * @return bool
      */
-    protected function isNoteMuted(array $params): bool
+    protected function isNoteMuted(): bool
     {
-        return isset($params['row']['note']) && (int)$params['row']['note'] === 1;
+        return isset($this->data['databaseRow']['note']) && (int)$this->data['databaseRow']['note'] === 1;
     }
 
     /**
@@ -84,24 +104,26 @@ class ShowFormNoteIfNoEmailOrNameSelected
      *      - Do we have a form uid (form is stored) AND
      *      - Is ReplaceIrre Feature disabled
      *
-     * @param array $params Config Array
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    protected function canBeRendered(array $params): bool
+    protected function canBeRendered(): bool
     {
-        return !empty($params['row']['uid']) && is_numeric($params['row']['uid']) &&
-            !ConfigurationUtility::isReplaceIrreWithElementBrowserActive();
+        return !empty($this->data['databaseRow']['uid'])
+            && MathUtility::canBeInterpretedAsInteger($this->data['databaseRow']['uid'])
+            && !ConfigurationUtility::isReplaceIrreWithElementBrowserActive();
     }
 
     /**
      * Check if sender_email or sender_name was set
      *
-     * @param int $formIdentifier
      * @return bool
      * @throws Exception
      */
-    protected function senderEmailOrSenderNameSet(int $formIdentifier): bool
+    protected function senderEmailOrSenderNameSet(): bool
     {
+        $formIdentifier = $this->data['databaseRow']['uid'];
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
         foreach ($fields as $property) {
@@ -147,14 +169,13 @@ class ShowFormNoteIfNoEmailOrNameSelected
     /**
      * Check if form has unique and filled field markers
      *
-     * @param int $formIdentifier
      * @return bool
      * @throws Exception
      */
-    protected function hasFormUniqueAndFilledFieldMarkers(int $formIdentifier): bool
+    protected function hasFormUniqueAndFilledFieldMarkers(): bool
     {
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
-        $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
+        $fields = $formRepository->getFieldsFromFormWithSelectQuery($this->data['databaseRow']['uid']);
         $markers = [];
         foreach ($fields as $field) {
             if (empty($field['marker'])) {

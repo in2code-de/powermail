@@ -84,4 +84,13 @@ call_user_func(function () {
      */
     $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] =
         'EXT:powermail/Classes/Eid/GetLocationEid.php';
+
+    /**
+     * User field registration in TCA
+     */
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1580037906] = [
+        'nodeName' => 'powermailShowFormNoteIfNoEmailOrNameSelected',
+        'priority' => 50,
+        'class' => \In2code\Powermail\Tca\ShowFormNoteIfNoEmailOrNameSelected::class,
+    ];
 });

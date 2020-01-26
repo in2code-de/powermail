@@ -220,7 +220,7 @@ class CreateMarker
     protected function addNewFields(): void
     {
         foreach ((array)$this->data[Field::TABLE_NAME] as $fieldUid => $properties) {
-            $this->addField($this->makeFieldFromProperties($properties, $fieldUid));
+            $this->addField($this->makeFieldFromProperties($properties, (string)$fieldUid));
         }
     }
 
@@ -232,11 +232,11 @@ class CreateMarker
      * if it's new - like "new12abc"
      *
      * @param array $properties
-     * @param int $uid
+     * @param string $uid Number for persisted and string for new fields like "NEW5e2d7c8f48f4a868804329"
      * @return Field
      * @throws Exception
      */
-    protected function makeFieldFromProperties(array $properties, int $uid = 0)
+    protected function makeFieldFromProperties(array $properties, string $uid = '0')
     {
         /** @var Field $field */
         $field = $this->objectManager->get(Field::class);
