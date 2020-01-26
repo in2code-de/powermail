@@ -986,7 +986,9 @@ $fieldsTca = [
                 Field::TABLE_NAME . '.auto_marker',
             'config' => [
                 'type' => 'user',
-                'userFunc' => 'In2code\Powermail\Tca\Marker->createMarker'
+                'renderType' => 'powermailMarker',
+                'parameters' => [
+                ]
             ],
             'displayCond' => 'FIELD:own_marker_select:REQ:false'
         ],
