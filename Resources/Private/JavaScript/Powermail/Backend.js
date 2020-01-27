@@ -103,6 +103,8 @@ function PowermailBackend($) {
 		$('.powermail_list .pagination a').click(function(event) {
 			event.preventDefault();
 
+			$('#forwardToAction').val('list');
+
 			var href = $(this).prop('href');
 			var hrefParts = href.split('&');
 			var params = '';
