@@ -288,11 +288,14 @@ class FrontendUtility
      */
     protected static function getArgumentsFromTyposcriptFrontendController(string $key): array
     {
-        /** @var PageArguments $pageArguments */
-        $pageArguments = ObjectUtility::getTyposcriptFrontendController()->getPageArguments();
-        $arguments = $pageArguments->getArguments();
-        if (array_key_exists($key, $arguments)) {
-            return (array)$arguments[$key];
+        $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController();
+        if ($typoScriptFrontend !== null) {
+            /** @var PageArguments $pageArguments */
+            $pageArguments = $typoScriptFrontend->getPageArguments();
+            $arguments = $pageArguments->getArguments();
+            if (array_key_exists($key, $arguments)) {
+                return (array)$arguments[$key];
+            }
         }
         return [];
     }
