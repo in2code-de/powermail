@@ -141,9 +141,9 @@ class FormRepository extends AbstractRepository
      * Find all localized records with
      *        tx_powermail_domain_model_form.pages = ""
      *
-     * @return QueryResultInterface
+     * @return array
      */
-    public function findAllWrongLocalizedForms(): QueryResultInterface
+    public function findAllWrongLocalizedForms(): array
     {
         $query = $this->createQuery();
 

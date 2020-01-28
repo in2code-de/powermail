@@ -30,7 +30,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      *
      * @var string
      */
-    protected $version = null;
+    protected $version = '';
 
     /**
      * Extension Manager table with all extensions exist

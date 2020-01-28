@@ -9,6 +9,7 @@ use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
@@ -106,6 +107,7 @@ abstract class AbstractController extends ActionController
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws Exception
      * @throws InvalidQueryException
+     * @throws DeprecatedException
      */
     protected function reformatParamsForAction(): void
     {
@@ -204,7 +206,7 @@ abstract class AbstractController extends ActionController
     protected function initializeAction()
     {
         $this->piVars = $this->request->getArguments();
-        $this->id = GeneralUtility::_GP('id');
+        $this->id = (int)GeneralUtility::_GP('id');
     }
 
     /**

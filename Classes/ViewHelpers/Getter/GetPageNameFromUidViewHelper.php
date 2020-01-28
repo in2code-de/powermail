@@ -29,6 +29,6 @@ class GetPageNameFromUidViewHelper extends AbstractViewHelper
     public function render(): string
     {
         $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
-        return $pageRepository->getPageNameFromUid($this->arguments['uid']);
+        return $pageRepository->getPageNameFromUid((int)$this->arguments['uid']);
     }
 }
