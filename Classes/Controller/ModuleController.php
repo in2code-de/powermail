@@ -54,7 +54,7 @@ class ModuleController extends AbstractController
                 'firstForm' => $this->formRepository->findByUid($firstFormUid),
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'moduleUri' => BackendUtility::getRoute('web_PowermailM1'),
+                'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
                 'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                     && $beUser->check('tables_modify', Mail::TABLE_NAME),
@@ -129,7 +129,7 @@ class ModuleController extends AbstractController
                 'firstMail' => $firstMail,
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'moduleUri' => BackendUtility::getRoute('web_PowermailM1'),
+                'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             ]
         );
@@ -155,7 +155,7 @@ class ModuleController extends AbstractController
                 'firstMail' => $firstMail,
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
-                'moduleUri' => BackendUtility::getRoute('web_PowermailM1'),
+                'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             ]
         );
