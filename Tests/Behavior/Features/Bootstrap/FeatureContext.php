@@ -1,4 +1,5 @@
 <?php
+
 use Behat\MinkExtension\Context\MinkContext;
 use In2code\Powermail\Exception\ElementNotFoundException;
 
@@ -31,6 +32,7 @@ class FeatureContext extends MinkContext
      *
      * @param string $html
      * @return void
+     * @throws \Behat\Mink\Exception\ExpectationException
      */
     public function theSourcecodeShouldContain($html)
     {
@@ -65,12 +67,12 @@ class FeatureContext extends MinkContext
     /**
      * Select an iframe
      *
-     * @Given /^I swith to iframe "([^"]*)"$/
+     * @Given /^I switch to iframe "([^"]*)"$/
      *
      * @param string $arg1
      * @return void
      */
-    public function iSwithToIframe($arg1 = null)
+    public function iSwitchToIframe($arg1 = null)
     {
         $this->getSession()->switchToIFrame($arg1);
     }
@@ -81,6 +83,7 @@ class FeatureContext extends MinkContext
      * @When /^(?:|I )fill in "(?P<field>(?:[^"]|\\")*)" with a random value$/
      * @param string $field
      * @return void
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
     public function fillWithRandomValue($field)
     {
@@ -96,6 +99,7 @@ class FeatureContext extends MinkContext
      * @When /^(?:|I )fill in "(?P<field>(?:[^"]|\\")*)" with a random email$/
      * @param string $field
      * @return void
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
     public function fillWithRandomEmail($field)
     {
@@ -103,6 +107,83 @@ class FeatureContext extends MinkContext
         $field = $this->fixStepArgument($field);
         $value = $this->fixStepArgument($value);
         $this->getSession()->getPage()->fillField($field, $value);
+    }
+
+    /**
+     * @When I scroll to top
+     *
+     * @throws \Exception
+     */
+    public function scrollToTop()
+    {
+        $function = <<<JS
+(function(){
+  var elem = document.querySelector("body");
+  elem.scrollIntoView(false);
+})()
+JS;
+    }
+
+    /**
+     * @When I scroll :selector into view
+     *
+     * @param string $selector Allowed selectors: #id, .className, //xpath
+     * @throws \Exception
+     */
+    public function scrollIntoView($selector)
+    {
+        $locator = substr($selector, 0, 1);
+
+        switch ($locator) {
+            case '$' : // Query selector
+                $selector = substr($selector, 1);
+                $function = <<<JS
+(function(){
+  var elem = document.querySelector("$selector");
+  elem.scrollIntoView(false);
+})()
+JS;
+                break;
+
+            case '/' : // XPath selector
+                $function = <<<JS
+(function(){
+  var elem = document.evaluate("$selector", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  elem.scrollIntoView(false);
+})()
+JS;
+                break;
+
+            case '#' : // ID selector
+                $selector = substr($selector, 1);
+                $function = <<<JS
+(function(){
+  var elem = document.getElementById("$selector");
+  elem.scrollIntoView(false);
+})()
+JS;
+                break;
+
+            case '.' : // Class selector
+                $selector = substr($selector, 1);
+                $function = <<<JS
+(function(){
+  var elem = document.getElementsByClassName("$selector");
+  elem[0].scrollIntoView(false);
+})()
+JS;
+                break;
+
+            default:
+                throw new \Exception(__METHOD__ . ' Couldn\'t find selector: ' . $selector . ' - Allowed selectors: #id, .className, //xpath');
+                break;
+        }
+
+        try {
+            $this->getSession()->executeScript($function);
+        } catch (Exception $e) {
+            throw new \Exception(__METHOD__ . ' failed');
+        }
     }
 
     /**

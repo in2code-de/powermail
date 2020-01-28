@@ -146,10 +146,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from GET/POST param &tx_powermail_pi1[field][marker]
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
-    protected function getFromMarker(string $value): string
+    protected function getFromMarker($value)
     {
         if (empty($value) && isset($this->variables['field'][$this->getMarker()])) {
             $value = $this->variables['field'][$this->getMarker()];
@@ -160,10 +160,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from GET/POST param &tx_powermail_pi1[marker]
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
-    protected function getFromRawMarker(string $value): string
+    protected function getFromRawMarker($value)
     {
         if (empty($value) && isset($this->variables[$this->getMarker()])) {
             $value = $this->variables[$this->getMarker()];
@@ -174,10 +174,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from current logged in Frontend User
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
-    protected function getFromFrontendUser(string $value): string
+    protected function getFromFrontendUser($value)
     {
         if (empty($value) && $this->getField()->getFeuserValue()) {
             $value = FrontendUtility::getPropertyFromLoggedInFrontendUser($this->getField()->getFeuserValue());
@@ -188,10 +188,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from prefill value from field record
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
-    protected function getFromPrefillValue(string $value): string
+    protected function getFromPrefillValue($value)
     {
         if (empty($value) && $this->getField()->getPrefillValue()) {
             $value = $this->getField()->getPrefillValue();
@@ -210,10 +210,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *        plugin.tx_powermail.settings.setup.prefill.marker.0 = TEXT
      *        plugin.tx_powermail.settings.setup.prefill.marker.0.value = red
      *
-     * @param string $value
+     * @param string|array $value
      * @return array|string
      */
-    protected function getFromTypoScriptContentObject(string $value)
+    protected function getFromTypoScriptContentObject($value)
     {
         if (empty($value) &&
             isset($this->configuration['prefill.'][$this->getMarker() . '.']) &&
@@ -247,10 +247,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * Get from raw TypoScript settings like
      *        plugin.tx_powermail.settings.setup.prefill.marker = red
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
-    protected function getFromTypoScriptRaw(string $value): string
+    protected function getFromTypoScriptRaw($value)
     {
         if (empty($value) &&
             !empty($this->configuration['prefill.'][$this->getMarker()]) &&
@@ -264,10 +264,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from session if defined in TypoScript
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
-    protected function getFromSession(string $value): string
+    protected function getFromSession($value)
     {
         if (empty($value)) {
             $sessionValues = SessionUtility::getSessionValuesForPrefill($this->configuration);
@@ -285,10 +285,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from default ViewHelper argument
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
-    protected function getFromDefaultValue(string $value): string
+    protected function getFromDefaultValue($value)
     {
         if (empty($value)) {
             $value = (string)$this->getValue();

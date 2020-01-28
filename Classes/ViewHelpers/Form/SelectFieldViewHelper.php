@@ -70,7 +70,7 @@ class SelectFieldViewHelper extends SelectViewHelper
         return parent::renderOptionTag(
             $value,
             $label,
-            $this->isSelectedAlternative($this->getOptionFromOriginalOptionsByValue($value))
+            $this->isSelectedAlternative($this->getOptionFromOriginalOptionsByValue((string)$value))
         );
     }
 

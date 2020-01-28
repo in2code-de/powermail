@@ -13,11 +13,9 @@ Feature: Basic
 
     And I wait "6" seconds
     Then I click on the element "#web_PowermailM1"
-    And I wait "3" seconds
-    Then I click on the element ".identifier-1_10"
     And I wait "6" seconds
 
-    And I swith to iframe "typo3-contentIframe"
+    And I switch to iframe "typo3-contentIframe"
     Then I should see an "#powermail_module_search" element
     Then I should see "Mail Listings"
     Then I should see "Fulltext Search"

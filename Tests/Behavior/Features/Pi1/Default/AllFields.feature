@@ -40,6 +40,7 @@ Feature: AllFields
     When I fill in "tx_powermail_pi1[field][marker_12]" with "09.07.2014 14:00"
     When I fill in "tx_powermail_pi1[field][marker_13]" with "Kunstmühlstraße 12a, Rosenheim"
     When I fill in "tx_powermail_pi1[field][marker_01]" with "7"
+    And I scroll "$[type='submit']" into view
     And I press "Submit"
 
     Then I should see "Sind diese Eingaben korrekt?"
@@ -58,12 +59,14 @@ Feature: AllFields
     Then I should see "7"
     And I press "Zurück"
 
+    When I scroll to top
     When I fill in "tx_powermail_pi1[field][input]" with "new@email.org"
     When I fill in "tx_powermail_pi1[field][marker]" with "Test for Textarea."
     When I additionally select "red" from "tx_powermail_pi1[field][selectmulti][]"
     When I select "Angola" from "tx_powermail_pi1[field][country]"
     When I fill in "tx_powermail_pi1[field][marker_12]" with "10.07.2014 14:30"
     When I fill in "tx_powermail_pi1[field][marker_01]" with "7"
+    And I scroll "$[type='submit']" into view
     And I press "Submit"
 
     Then I should see "Sind diese Eingaben korrekt?"
