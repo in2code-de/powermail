@@ -31,7 +31,7 @@ class PowermailRelationUpdateWizard implements UpgradeWizardInterface
      */
     public function getTitle(): string
     {
-        return 'Update relations in database from powermail version < 8.0.0 to a powermail version >= 8.0.0.';
+        return 'Powermail: Update relations in database (relevant for entries from < 8.0.0)';
     }
 
     /**

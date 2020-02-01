@@ -107,6 +107,8 @@ call_user_func(function () {
     /**
      * Update Wizards
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailUpdateWizard']
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailRelationUpdateWizard']
         = \In2code\Powermail\Update\PowermailRelationUpdateWizard::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailLanguageUpdateWizard']
+        = \In2code\Powermail\Update\PowermailLanguageUpdateWizard::class;
 });
