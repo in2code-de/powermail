@@ -131,7 +131,7 @@ class Mail extends AbstractEntity
      * @var array
      */
     protected $answersByFieldUid = null;
-    
+
     /**
      * This property can be used by extensions to hold some data over a request
      * Use e.g. extension key as array key
@@ -139,6 +139,14 @@ class Mail extends AbstractEntity
      * @var array
      */
     protected $additionalData = [];
+
+    /**
+     * All mails and answers should be stored with sys_language_uid=-1 to get those values from persisted objects
+     * in fe requests in every language (e.g. for optin mails, etc...)
+     *
+     * @var int
+     */
+    protected $_languageUid = -1;
 
     /**
      * __construct
@@ -653,7 +661,7 @@ class Mail extends AbstractEntity
         }
         return $answers;
     }
-    
+
     /**
      * @return array
      */

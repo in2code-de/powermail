@@ -45,6 +45,14 @@ class Answer extends AbstractEntity
     protected $field = null;
 
     /**
+     * All mails and answers should be stored with sys_language_uid=-1 to get those values from persisted objects
+     * in fe requests in every language (e.g. for optin mails, etc...)
+     *
+     * @var int
+     */
+    protected $_languageUid = -1;
+
+    /**
      * @return mixed $value
      */
     public function getValue()
