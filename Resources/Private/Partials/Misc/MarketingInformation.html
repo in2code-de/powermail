@@ -1,5 +1,5 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<f:if condition="{vh:Condition.IsMarketingInformationActive(marketingInformation:marketingInfos, settings:settings)}">
+<f:if condition="{vh:condition.isMarketingInformationActive(marketingInformation:marketingInfos, settings:settings)}">
 	<p> </p>
 	<table width="500px">
 		<tr>
@@ -11,17 +11,17 @@
 			<tr valign="top">
 
 				<td style="font-size: 12px;" width="50%">
-					<b><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketing{vh:String.Upper(string:'{key}')}" default="{key}" /></b>
+					<b><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketing{vh:string.upper(string:'{key}')}" default="{key}" /></b>
 				</td>
 
-				<f:if condition="{vh:Condition.IsArray(val:'{value}')}">
+				<f:if condition="{vh:condition.isArray(val:'{value}')}">
 					<f:else>
 						<td style="font-size: 12px;" width="50%">{value}</td>
 					</f:else>
 					<f:then>
 						<td style="font-size: 12px;" width="50%">
 							<f:for each="{value}" as="subvalue" iteration="index">
-								<f:link.page pageUid="{subvalue}" absolute="1"><vh:Getter.GetPageNameFromUid uid="{subvalue}" /></f:link.page><f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
+								<f:link.page pageUid="{subvalue}" absolute="1"><vh:getter.getPageNameFromUid uid="{subvalue}" /></f:link.page><f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
 							</f:for>
 						</td>
 					</f:then>

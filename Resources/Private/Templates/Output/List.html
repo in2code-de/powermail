@@ -50,7 +50,7 @@ Render Powermail_Frontend List View
 
 											<f:comment>Data Type Array</f:comment>
 											<f:if condition="{answer.valueType} == 1">
-												<vh:String.ImplodeField objects="{answer.value}" separator=", " />
+												<vh:string.implodeField objects="{answer.value}" separator=", " />
 											</f:if>
 
 											<f:comment>Data Type Date (already parsed Timestamp by Model)</f:comment>
@@ -62,9 +62,9 @@ Render Powermail_Frontend List View
 											<f:if condition="{answer.valueType} == 3">
 												<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
 													<f:link.page pageUid="{settings.misc.file.folder}{subValue}" target="_blank">
-														<f:if condition="{vh:Condition.IsImage(path:subValue)}">
+														<f:if condition="{vh:condition.isImage(path:subValue)}">
 															<f:then>
-																<f:if condition="{vh:Condition.FileExists(file:'{settings.misc.file.folder}{subValue}')}">
+																<f:if condition="{vh:condition.fileExists(file:'{settings.misc.file.folder}{subValue}')}">
 																	<f:then>
 																		<f:image src="{settings.misc.file.folder}{subValue}" alt="{subValue}" width="200" maxHeight="200" />
 																	</f:then>
@@ -92,13 +92,13 @@ Render Powermail_Frontend List View
 									</f:link.action>
 								</f:if>
 
-								<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
+								<f:if condition="{vh:condition.isAllowedToEdit(settings:settings, mail:mail)}">
 									<f:link.action action="edit" pageUid="{editPid}" arguments="{mail:mail}">
 										<f:translate key="PowermailFrontendEditView">Edit</f:translate>
 									</f:link.action>
 								</f:if>
 
-								<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
+								<f:if condition="{vh:condition.isAllowedToEdit(settings:settings, mail:mail)}">
 									<f:link.action action="delete" pageUid="{editPid}" arguments="{mail:mail}">
 										<f:translate key="PowermailFrontendDeleteView">Delete</f:translate>
 									</f:link.action>

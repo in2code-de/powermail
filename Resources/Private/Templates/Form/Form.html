@@ -20,9 +20,9 @@ Render Powermail Form
 						section="c{ttContentData.uid}"
 						name="field"
 						enctype="multipart/form-data"
-						additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:form)}"
+						additionalAttributes="{vh:validation.enableParsleyAndAjax(form:form)}"
 						addQueryString="{settings.misc.addQueryString}"
-						class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:Misc.MorestepClass(activate:settings.main.moresteps)}">
+						class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:misc.morestepClass(activate:settings.main.moresteps)}">
 
 					<f:if condition="{form.css} != 'nolabel'">
 						<h3>{form.title}</h3>

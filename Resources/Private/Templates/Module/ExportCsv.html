@@ -5,18 +5,18 @@
 	{mails}					All Mails for exporting
 	{fieldsUids}			Fields to export (drag'n drop settings in module)
 
-<f:section name="main"><vh:String.Utf8ToUtf16><vh:string.Trim>
+<f:section name="main"><vh:string.utf8ToUtf16><vh:string.trim>
 
 	<f:comment>
 		Headline
 	</f:comment>
 	<f:for each="{fieldUids}" as="fieldUid">
-		<f:if condition="{vh:Condition.IsNumber(val:fieldUid)}">
+		<f:if condition="{vh:condition.isNumber(val:fieldUid)}">
 			<f:then>
-				"<vh:String.RemoveQuote><vh:Getter.GetFieldLabelFromUid uid="{fieldUid}" /></vh:String.RemoveQuote>";
+				"<vh:string.removeQuote><vh:getter.getFieldLabelFromUid uid="{fieldUid}" /></vh:string.removeQuote>";
 			</f:then>
 			<f:else>
-				"<vh:String.RemoveQuote><f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:String.UnderscoredToLowerCamelCase(val:fieldUid)}" /></vh:String.RemoveQuote>";
+				"<vh:string.removeQuote><f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:String.UnderscoredToLowerCamelCase(val:fieldUid)}" /></vh:string.removeQuote>";
 			</f:else>
 		</f:if>
 	</f:for>
@@ -28,43 +28,43 @@
 	</f:comment>
 	<f:for each="{mails}" as="mail" iteration="index">
 		<f:for each="{fieldUids}" as="fieldUid">
-			<f:if condition="{vh:Condition.IsNumber(val:fieldUid)}">
+			<f:if condition="{vh:condition.isNumber(val:fieldUid)}">
 				<f:then>
 					<f:for each="{mail.answers}" as="answer">
 						<f:if condition="{fieldUid} == {answer.field.uid}">
-							<f:if condition="{vh:Condition.IsArray(val:answer.value)}">
+							<f:if condition="{vh:condition.isArray(val:answer.value)}">
 								<f:then>
-									"<vh:String.RemoveQuote>
+									"<vh:string.removeQuote>
 									<f:for each="{answer.value}" as="singleValue" iteration="arrayIndex">
 										<f:if condition="{singleValue}">
 											{singleValue}<f:if condition="{arrayIndex.isLast}"><f:else>,</f:else></f:if>
 										</f:if>
 									</f:for>
-								</vh:String.RemoveQuote>";
+								</vh:string.removeQuote>";
 								</f:then>
 								<f:else>
-									"<vh:String.RemoveQuote>{answer.value}</vh:String.RemoveQuote>";
+									"<vh:string.removeQuote>{answer.value}</vh:string.removeQuote>";
 								</f:else>
 							</f:if>
 						</f:if>
 					</f:for>
 				</f:then>
 				<f:else>
-					<f:if condition="{vh:Condition.IsDateTimeVariableInVariable(obj:mail, prop:fieldUid)}">
+					<f:if condition="{vh:condition.isDateTimeVariableInVariable(obj:mail, prop:fieldUid)}">
 						<f:then>
 							<f:if condition="{0: fieldUid} == {0: 'crdate'}">
 								<f:then>
-									"<vh:String.RemoveQuote><f:format.date format="d.m.Y H:i:s"><vh:Misc.VariableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date>
-									<f:translate key="Clock" /></vh:String.RemoveQuote>";
+									"<vh:string.removeQuote><f:format.date format="d.m.Y H:i:s"><vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date>
+									<f:translate key="Clock" /></vh:string.removeQuote>";
 								</f:then>
 								<f:else>
 
 									<f:if condition="{0: fieldUid} == {0: 'time'}">
 										<f:then>
-											"<vh:String.RemoveQuote><f:format.date format="%M:%S"><vh:Misc.VariableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date></vh:String.RemoveQuote>";
+											"<vh:string.removeQuote><f:format.date format="%M:%S"><vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date></vh:string.removeQuote>";
 										</f:then>
 										<f:else>
-											"<vh:String.RemoveQuote><f:format.date format="H:i:s"><vh:Misc.VariableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date></vh:String.RemoveQuote>";
+											"<vh:string.removeQuote><f:format.date format="H:i:s"><vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date></vh:string.removeQuote>";
 										</f:else>
 									</f:if>
 								</f:else>
@@ -73,12 +73,12 @@
 						<f:else>
 							<f:if condition="{0: fieldUid} == {0: 'marketing_page_funnel'}">
 								<f:then>
-									<f:if condition="{vh:Condition.IsArray(val: '{vh:Misc.VariableInVariable(obj:mail, prop:fieldUid)}')}">
-										"<f:for each="{vh:Misc.VariableInVariable(obj:mail, prop:fieldUid)}" as="pid" iteration="pageIndex"><vh:Getter.GetPageNameFromUid uid="{pid}" /><f:if condition="{pageIndex.isLast}"><f:else> > </f:else></f:if></f:for>"
+									<f:if condition="{vh:condition.isArray(val: '{vh:misc.variableInVariable(obj:mail, prop:fieldUid)}')}">
+										"<f:for each="{vh:misc.variableInVariable(obj:mail, prop:fieldUid)}" as="pid" iteration="pageIndex"><vh:getter.getPageNameFromUid uid="{pid}" /><f:if condition="{pageIndex.isLast}"><f:else> > </f:else></f:if></f:for>"
 									</f:if>
 								</f:then>
 								<f:else>
-									"<vh:String.RemoveQuote><vh:Misc.VariableInVariable obj="{mail}" prop="{fieldUid}" /></vh:String.RemoveQuote>";
+									"<vh:string.removeQuote><vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" /></vh:string.removeQuote>";
 								</f:else>
 							</f:if>
 						</f:else>
@@ -90,4 +90,4 @@
 		<br />
 	</f:for>
 
-</vh:String.Trim></vh:String.Utf8ToUtf16></f:section>
+</vh:string.trim></vh:string.utf8ToUtf16></f:section>

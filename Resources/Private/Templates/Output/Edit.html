@@ -14,7 +14,7 @@
 	<div class="powermail_frontend edit">
 		<f:if condition="{mail}">
 			<f:then>
-				<f:if condition="{vh:Condition.IsAllowedToEdit(settings:settings, mail:mail)}">
+				<f:if condition="{vh:condition.isAllowedToEdit(settings:settings, mail:mail)}">
 
 					<f:then>
 						<f:form
@@ -22,7 +22,7 @@
 								name="field"
 								object="{mail}"
 								enctype="multipart/form-data"
-								additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:mail.form)}"
+								additionalAttributes="{vh:validation.enableParsleyAndAjax(form:mail.form)}"
 								class="powermail_form powermail_form_{mail.form.uid} {form.css} {settings.styles.framework.formClasses}">
 
 							<fieldset class="powermail_fieldset">
@@ -40,7 +40,7 @@
 											<f:if condition="{selectedField} == {field}">
 												<f:if condition="{field.advancedFieldType}">
 													<f:then>
-														<f:render partial="Form/Field/{vh:String.Upper(string:field.type)}" arguments="{_all}" />
+														<f:render partial="Form/Field/{vh:string.upper(string:field.type)}" arguments="{_all}" />
 													</f:then>
 													<f:else>
 														<f:render partial="Output/EditHidden" arguments="{_all}" />

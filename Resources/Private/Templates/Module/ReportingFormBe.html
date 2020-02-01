@@ -31,8 +31,8 @@
 								<div class="flotContainer"
 									 data-flot-active="1"
 									 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-									 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator: ',', urlEncode:0)}"
-									 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator:',', urlEncode:0)}"></div>
+									 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator: ',', urlEncode:0)}"
+									 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator:',', urlEncode:0)}"></div>
 
 								<div class="powermail_reporting_form_fields_table_absolute">
 									<table class="powermail_reporting_form_fields_table">
@@ -40,7 +40,7 @@
 											<th style="width: 90%; text-align: center;" class="powermail-close"><f:translate key="BackendReportingFormValue" /></th>
 											<th style="width: 10%;" class="powermail_reporting_form_fields_table_right"><f:translate key="BackendReportingFormAmount" /></th>
 										</tr>
-										<f:for each="{vh:Misc.VariableInVariable(obj:'{groupedAnswers}', prop: '{answer.field.uid}')}" as="amount" key="value">
+										<f:for each="{vh:misc.variableInVariable(obj:'{groupedAnswers}', prop: '{answer.field.uid}')}" as="amount" key="value">
 											<tr>
 												<td>{value}</td>
 												<td class="powermail_reporting_form_fields_table_right">{amount}</td>

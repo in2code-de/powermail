@@ -10,22 +10,22 @@
 				<div class="module-docheader-bar module-docheader-bar-navigation">
 					<div class="module-docheader-bar-column-left">
 						<div class="btn-group btn-group-xs" role="group">
-							<f:link.action action="list" class="btn btn-default{vh:Be.GetClassNameOnAction(actionName:'list')}">
+							<f:link.action action="list" class="btn btn-default{vh:be.getClassNameOnAction(actionName:'list')}">
 								<f:translate key="BackendSelectionList">Mail list</f:translate>
 							</f:link.action>
-							<f:link.action action="overviewBe" class="btn btn-default{vh:Be.GetClassNameOnAction(actionName:'overviewBe')}">
+							<f:link.action action="overviewBe" class="btn btn-default{vh:be.getClassNameOnAction(actionName:'overviewBe')}">
 								<f:translate key="BackendSelectionOverview">Form overview</f:translate>
 							</f:link.action>
-							<f:link.action action="reportingFormBe" class="btn btn-default{vh:Be.GetClassNameOnAction(actionName:'reportingFormBe')}">
+							<f:link.action action="reportingFormBe" class="btn btn-default{vh:be.getClassNameOnAction(actionName:'reportingFormBe')}">
 								<f:translate key="BackendSelectionReportingForm">Answer reporting</f:translate>
 							</f:link.action>
-							<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
-								<f:link.action action="reportingMarketingBe" class="btn btn-default{vh:Be.GetClassNameOnAction(actionName:'reportingMarketingBe')}">
+							<f:if condition="{vh:condition.isMarketingInformationEnabledGlobally()}">
+								<f:link.action action="reportingMarketingBe" class="btn btn-default{vh:be.getClassNameOnAction(actionName:'reportingMarketingBe')}">
 									<f:translate key="BackendSelectionReportingMarketing">Marketing analysis</f:translate>
 								</f:link.action>
 							</f:if>
-							<f:if condition="{vh:Be.IsAdmin()}">
-								<f:link.action action="checkBe" class="btn btn-default{vh:Be.GetClassNameOnAction(actionName:'checkBe')}">
+							<f:if condition="{vh:be.isAdmin()}">
+								<f:link.action action="checkBe" class="btn btn-default{vh:be.getClassNameOnAction(actionName:'checkBe')}">
 									<f:translate key="BackendSelectionCheck">Function check</f:translate>
 								</f:link.action>
 							</f:if>

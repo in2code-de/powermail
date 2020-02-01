@@ -5,14 +5,14 @@
 
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
 		<f:for each="{field.modifiedSettings}" as="setting" iteration="index">
-			<div class="{settings.styles.framework.checkClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}">
+			<div class="{settings.styles.framework.checkClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}">
 				<label>
 					<f:form.checkbox
 							property="{field.marker}."
 							value="{setting.value}"
-							checked="{vh:Misc.PrefillMultiField(field:field, mail:mail, cycle:index.cycle)}"
+							checked="{vh:misc.prefillMultiField(field:field, mail:mail, cycle:index.cycle)}"
 							id="powermail_field_{field.marker}_{index.cycle}"
-							additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field, iteration:index)}"
+							additionalAttributes="{vh:validation.validationDataAttribute(field:field, iteration:index)}"
 							class="powermail_checkbox powermail_checkbox_{field.uid}" />
 					<vh:string.escapeLabels>{setting.label}</vh:string.escapeLabels>
 				</label>
