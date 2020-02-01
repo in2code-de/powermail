@@ -37,7 +37,7 @@ class Page extends AbstractEntity
     /**
      * @var \In2code\Powermail\Domain\Model\Form
      */
-    protected $forms = null;
+    protected $form = null;
 
     /**
      * @var integer
@@ -161,12 +161,12 @@ class Page extends AbstractEntity
     }
 
     /**
-     * @param Form $forms
+     * @param Form $form
      * @return void
      */
-    public function setForms(Form $forms): void
+    public function setForm(Form $form): void
     {
-        $this->forms = $forms;
+        $this->form = $form;
     }
 
     /**
@@ -175,9 +175,9 @@ class Page extends AbstractEntity
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    public function getForms(): Form
+    public function getForm(): Form
     {
-        $form = $this->forms;
+        $form = $this->form;
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
             $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
             $form = $formRepository->findByPages($this->uid);

@@ -11,6 +11,7 @@ use In2code\Powermail\Domain\Service\Mail\SendDisclaimedMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendOptinConfirmationMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendReceiverMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
@@ -22,7 +23,6 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
@@ -89,6 +89,7 @@ class FormController extends AbstractController
      * @throws InvalidSlotReturnException
      * @throws NoSuchArgumentException
      * @throws StopActionException
+     * @throws DeprecatedException
      * @noinspection PhpUnused
      */
     public function initializeConfirmationAction(): void
@@ -145,6 +146,7 @@ class FormController extends AbstractController
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
+     * @throws DeprecatedException
      * @noinspection PhpUnused
      */
     public function initializeCreateAction(): void

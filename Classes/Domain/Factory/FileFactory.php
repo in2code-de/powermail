@@ -96,7 +96,7 @@ class FileFactory
      */
     public function getInstanceFromExistingAnswerValue(string $fileName, Answer $answer): File
     {
-        $form = $answer->getField()->getPages()->getForms();
+        $form = $answer->getField()->getPage()->getForm();
         $marker = $answer->getField()->getMarker();
         return $this->makeFileInstance($marker, $fileName, 0, '', '', true, $form);
     }

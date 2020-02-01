@@ -34,7 +34,7 @@ $pagesTca = [
         '1' => [
             'showitem' => 'title, fields, --div--;LLL:EXT:powermail/Resources/Private/Language/' .
                 'locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, css, --div--;LLL:EXT:' .
-                'powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, forms, ' .
+                'powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, form, ' .
                 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime'
         ],
     ],
@@ -186,7 +186,7 @@ $pagesTca = [
                 ]
             ]
         ],
-        'forms' => [
+        'form' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.forms',
             'config' => [

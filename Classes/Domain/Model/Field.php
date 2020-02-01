@@ -48,11 +48,6 @@ class Field extends AbstractEntity
     /**
      * @var string
      */
-    protected $modifiedSettings = '';
-
-    /**
-     * @var string
-     */
     protected $path = '';
 
     /**
@@ -148,7 +143,7 @@ class Field extends AbstractEntity
     /**
      * @var \In2code\Powermail\Domain\Model\Page
      */
-    protected $pages = null;
+    protected $page = null;
 
     /**
      * @return string
@@ -659,20 +654,20 @@ class Field extends AbstractEntity
     }
 
     /**
-     * @param Page $pages
+     * @param Page $page
      * @return void
      */
-    public function setPages(Page $pages): void
+    public function setPage(Page $page): void
     {
-        $this->pages = $pages;
+        $this->page = $page;
     }
 
     /**
-     * @return null|Page|
+     * @return null|Page
      */
-    public function getPages(): ?Page
+    public function getPage(): ?Page
     {
-        return $this->pages;
+        return $this->page;
     }
 
     /**
