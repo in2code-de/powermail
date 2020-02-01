@@ -1,3 +1,0 @@
-.. |developer_new_validation2|      image:: ../../../Images/developer_new_validation2.png
-.. :align: left
-.. :name: developer_new_validation2

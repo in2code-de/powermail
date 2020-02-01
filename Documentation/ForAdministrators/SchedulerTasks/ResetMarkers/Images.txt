@@ -1,9 +1,0 @@
-.. |scheduler_resetmarkers1|      image:: ../../../Images/scheduler_resetmarkers1.png
-   :width: 800
-.. :align: left
-.. :name: scheduler_resetmarkers1
-
-.. |scheduler_resetmarkers2|      image:: ../../../Images/scheduler_resetmarkers2.png
-   :width: 800
-.. :align: left
-.. :name: scheduler_resetmarkers2

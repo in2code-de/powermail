@@ -1,3 +1,0 @@
-.. |developer_database_model|      image:: ../../Images/developer_database_model.jpg
-.. :align: left
-.. :name: developer_database_model

@@ -1,3 +1,0 @@
-.. |bestpractice_setpidfornewforms|     image:: ../../../Images/bestpractice_setpidfornewforms.png
-.. :align: left
-.. :name: bestpractice_setpidfornewforms
