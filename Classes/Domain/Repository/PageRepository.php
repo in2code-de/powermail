@@ -63,7 +63,7 @@ class PageRepository extends AbstractRepository
 
     /**
      * Find all localized records with
-     *        tx_powermail_domain_model_page.forms = "0"
+     *        tx_powermail_domain_model_page.form = "0"
      *
      * @return array
      */
@@ -73,7 +73,7 @@ class PageRepository extends AbstractRepository
         return $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Page::TABLE_NAME)
-            ->where('(forms = "" or forms = 0) and sys_language_uid > 0 and deleted = 0')
+            ->where('(form = "" or form = 0) and sys_language_uid > 0 and deleted = 0')
             ->execute()
             ->fetchAll();
     }
@@ -93,7 +93,7 @@ class PageRepository extends AbstractRepository
             $queryBuilder
                 ->update(Page::TABLE_NAME)
                 ->where('uid = ' . (int)$page['uid'])
-                ->set('forms', $localizedFormUid)
+                ->set('form', $localizedFormUid)
                 ->execute();
         }
     }
@@ -123,13 +123,13 @@ class PageRepository extends AbstractRepository
     protected function getFormUidFromPageUid(int $pageUid): int
     {
         $query = $this->createQuery();
-        $sql = 'select forms';
+        $sql = 'select form';
         $sql .= ' from ' . Page::TABLE_NAME;
         $sql .= ' where uid = ' . (int)$pageUid;
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
         $row = $query->statement($sql)->execute(true);
-        return (int)$row[0]['forms'];
+        return (int)$row[0]['form'];
     }
 
     /**

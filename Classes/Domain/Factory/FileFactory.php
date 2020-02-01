@@ -6,6 +6,7 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
@@ -72,6 +73,7 @@ class FileFactory
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
+     * @throws DeprecatedException
      */
     public function getInstanceFromUploadArguments(string $marker, string $value, array $arguments): ?File
     {

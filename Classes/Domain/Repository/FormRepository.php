@@ -186,8 +186,8 @@ class FormRepository extends AbstractRepository
         return $queryBuilder
             ->select('f.uid', 'f.title', 'f.sender_email', 'f.sender_name', 'f.marker')
             ->from(Field::TABLE_NAME, 'f')
-            ->join('f', Page::TABLE_NAME, 'p', 'f.pages = p.uid')
-            ->join('p', Form::TABLE_NAME, 'fo', 'p.forms = fo.uid')
+            ->join('f', Page::TABLE_NAME, 'p', 'f.page = p.uid')
+            ->join('p', Form::TABLE_NAME, 'fo', 'p.form = fo.uid')
             ->where($where)
             ->orderBy('f.sorting', 'asc')
             ->setMaxResults(10000)
@@ -200,6 +200,7 @@ class FormRepository extends AbstractRepository
      *
      * @param int $formUid
      * @return array e.g. array(123, 234, 567)
+     * @throws Exception
      */
     public function getFieldUidsFromForm(int $formUid): array
     {

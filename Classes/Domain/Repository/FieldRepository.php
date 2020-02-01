@@ -65,7 +65,7 @@ class FieldRepository extends AbstractRepository
             $query->logicalAnd(
                 [
                     $query->equals('marker', $marker),
-                    $query->equals('pages.forms.uid', $formUid)
+                    $query->equals('page.form.uid', $formUid)
                 ]
             )
         );
@@ -97,7 +97,7 @@ class FieldRepository extends AbstractRepository
 
     /**
      * Find all localized records with
-     *        tx_powermail_domain_model_field.pages = "0"
+     *        tx_powermail_domain_model_field.page = "0"
      *
      * @return array
      */
@@ -108,7 +108,7 @@ class FieldRepository extends AbstractRepository
         $rows = $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Field::TABLE_NAME)
-            ->where('(pages = "" or pages = 0) and sys_language_uid > 0 and deleted = 0')
+            ->where('(page = "" or page = 0) and sys_language_uid > 0 and deleted = 0')
             ->execute()
             ->fetchAll();
         foreach ($rows as $row) {
@@ -126,13 +126,13 @@ class FieldRepository extends AbstractRepository
     protected function getPageUidFromFieldUid(int $fieldUid): int
     {
         $query = $this->createQuery();
-        $sql = 'select pages';
+        $sql = 'select page';
         $sql .= ' from ' . Field::TABLE_NAME;
         $sql .= ' where uid = ' . (int)$fieldUid;
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
         $row = $query->statement($sql)->execute(true);
-        return (int)$row[0]['pages'];
+        return (int)$row[0]['page'];
     }
 
     /**
@@ -166,9 +166,10 @@ class FieldRepository extends AbstractRepository
         // get pages from form
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         $form = $formRepository->findByUid($formUid);
-        $pageUids = [];
+        $pageIdentifiers = [];
+        /** @var Page $page */
         foreach ($form->getPages() as $page) {
-            $pageUids[] = $page->getUid();
+            $pageIdentifiers[] = $page->getUid();
         }
 
         $query = $this->createQuery();
@@ -178,7 +179,7 @@ class FieldRepository extends AbstractRepository
             $query->logicalAnd(
                 [
                     $query->equals('marker', $marker),
-                    $query->in('pages', $pageUids)
+                    $query->in('page', $pageIdentifiers)
                 ]
             )
         );
