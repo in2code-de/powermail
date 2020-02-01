@@ -14,7 +14,7 @@ of a lot of breaking changes in the core. Roadmap:
 * done [TASK] Add typehints for PHP 7.2
 * done [TASK] Use a different way for GET/POST params (to respect routing)
 * done [TASK] Rename _field.pages to .page and _page.forms to .form and add an upgrade wizard for it
-* [TASK] Save mails in future with sys_language_uid=-1 and add an upgrade wizard for it
+* done [TASK] Save mails in future with sys_language_uid=-1 and add an upgrade wizard for it
 * done [TASK] Some modernization and code cleanup (Own exceptions, remove AbstractUtility)
 * done [TASK] Update unit tests
 * [TASK] Update behaviour tests
