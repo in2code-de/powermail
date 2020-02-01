@@ -76,4 +76,26 @@ class DatabaseUtility
         }
         return $found;
     }
+
+    /**
+     * Check if there are any values in a table field (don't care about deleted property)
+     *
+     * @param string $fieldName
+     * @param string $tableName
+     * @return bool
+     * @throws DBALException
+     */
+    public static function isFieldFilled(string $fieldName, string $tableName): bool
+    {
+        if (self::isFieldExistingInTable($fieldName, $tableName)) {
+            $queryBuilder = self::getQueryBuilderForTable($tableName, true);
+            return (int)$queryBuilder
+                    ->count($fieldName)
+                    ->from($tableName)
+                    ->where($fieldName . ' != "" and ' . $fieldName . ' != 0')
+                    ->execute()
+                    ->fetchColumn() > 0;
+        }
+        return false;
+    }
 }

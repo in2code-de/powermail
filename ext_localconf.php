@@ -52,7 +52,7 @@ call_user_func(function () {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/WebList.typoscript">'
     );
-    
+
     /**
      * Hook to show PluginInformation under a tt_content element in page module of type powermail
      */
@@ -103,4 +103,10 @@ call_user_func(function () {
         'priority' => 50,
         'class' => \In2code\Powermail\Tca\ShowFormNoteEditForm::class,
     ];
+
+    /**
+     * Update Wizards
+     */
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailUpdateWizard']
+        = \In2code\Powermail\Update\PowermailUpdateWizard::class;
 });
