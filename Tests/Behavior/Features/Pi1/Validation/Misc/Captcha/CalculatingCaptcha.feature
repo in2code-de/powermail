@@ -6,7 +6,7 @@ Feature: CaptchaValidation
   # language_mode is default
   @Pi1ValidationMiscCaptchaCalculatingCaptchaL0
   Scenario: Searching for a Form with a captcha
-    Given I am on "/index.php?id=70"
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
@@ -30,7 +30,7 @@ Feature: CaptchaValidation
 
   @Pi1ValidationMiscCaptchaCalculatingCaptchaL1
   Scenario: Searching for a Form with a captcha
-    Given I am on "/index.php?id=70&L=1"
+    Given I am on "/en/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
@@ -56,7 +56,7 @@ Feature: CaptchaValidation
   # language_mode is strict
   @Pi1ValidationMiscCaptchaCalculatingCaptchaStrictL0
   Scenario: Searching for a Form with a captcha
-    Given I am on "/index.php?id=155"
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm-languagemodestrict"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
@@ -80,7 +80,7 @@ Feature: CaptchaValidation
 
   @Pi1ValidationMiscCaptchaCalculatingCaptchaStrictL1
   Scenario: Searching for a Form with a captcha
-    Given I am on "/index.php?id=155&L=1"
+    Given I am on "/en/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm-languagemodestrict"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
@@ -105,7 +105,7 @@ Feature: CaptchaValidation
   # Two captchas in one form
   @Pi1ValidationMiscCaptchaCalculatingCaptchaCalculatingCaptcha2
   Scenario: Test if two captchas work in one form
-    Given I am on "/index.php?id=166"
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha2"
     Then I should see "Email"
     Then I should see "captcha 1"
     Then I should see "captcha 2"
@@ -142,7 +142,7 @@ Feature: CaptchaValidation
   # Two forms with one captcha per form
   @Pi1ValidationMiscCaptchaCalculatingCaptcha2Forms
   Scenario: Test if two forms with captcha are working
-    Given I am on "/index.php?id=164"
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/2-forms"
     Then I should see "Email"
     Then I should see "Email2"
     Then I should see "Captcha"
@@ -166,7 +166,7 @@ Feature: CaptchaValidation
   # Two forms with one captcha per form with AJAX
   @javascript @Pi1ValidationMiscCaptchaCalculatingCaptcha2FormsAjax
   Scenario: Test if two forms with captcha are working together with AJAX
-    Given I am on "/index.php?id=167"
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/2-forms-ajax"
     Then I should see "Email"
     Then I should see "Email2"
     Then I should see "Captcha"

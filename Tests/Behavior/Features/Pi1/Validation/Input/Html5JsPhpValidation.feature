@@ -4,7 +4,7 @@ Feature: Html5JsPhpValidation
 
   @javascript @Pi1ValidationInputHtml5JsPhpValidationPhone
   Scenario: Check if phone validation are working correct
-    Given I am on "/index.php?id=87"
+    Given I am on "/powermail/pi1/validation/input/html5jsphp"
     Then I should see "Email"
     Then I should see "Mandatory*"
     Then I should see "URL"
@@ -111,7 +111,7 @@ Feature: Html5JsPhpValidation
 
   @javascript @Pi1ValidationInputHtml5JsPhpValidationLength
   Scenario: Check if length validation are working correct
-    Given I am on "/index.php?id=87"
+    Given I am on "/powermail/pi1/validation/input/html5jsphp"
     Then I should see "Length 10"
     Then I should see "Length 10 (Textarea)"
 

@@ -4,6 +4,7 @@ namespace In2code\Powermail\Controller;
 
 use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -11,6 +12,7 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
@@ -34,12 +36,13 @@ class OutputController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
+     * @throws Exception
      * @noinspection PhpUnused
      */
     public function listAction(): void
     {
-        $this->prepareFilterPluginVariables($this->piVars, $this->settings['search']['staticPluginsVariables']);
-        $fieldArray = $this->getFieldList($this->settings['list']['fields']);
+        $this->prepareFilterPluginVariables($this->piVars, (array)$this->settings['search']['staticPluginsVariables']);
+        $fieldArray = $this->getFieldList((string)$this->settings['list']['fields']);
         $searchFields = $this->fieldRepository->findByUids(
             GeneralUtility::trimExplode(',', $this->settings['search']['fields'], true)
         );
@@ -59,6 +62,7 @@ class OutputController extends AbstractController
      * @param Mail $mail
      * @return void
      * @noinspection PhpUnused
+     * @throws Exception
      */
     public function showAction(Mail $mail): void
     {
@@ -76,6 +80,7 @@ class OutputController extends AbstractController
      * @param Mail $mail
      * @return void
      * @noinspection PhpUnused
+     * @throws Exception
      */
     public function editAction(Mail $mail = null): void
     {
@@ -101,6 +106,7 @@ class OutputController extends AbstractController
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws Exception
+     * @throws DeprecatedException
      * @noinspection PhpUnused
      */
     public function initializeUpdateAction(): void
@@ -120,7 +126,7 @@ class OutputController extends AbstractController
 
     /**
      * @param Mail $mail
-     * @validate $mail In2code\Powermail\Domain\Validator\InputValidator
+     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\InputValidator", param="mail")
      * @return void
      * @throws StopActionException
      * @throws UnsupportedRequestTypeException
@@ -176,6 +182,7 @@ class OutputController extends AbstractController
      * @return void
      * @throws InvalidQueryException
      * @throws StopActionException
+     * @throws Exception
      * @noinspection PhpUnused
      */
     public function exportAction(array $export = []): void
@@ -248,13 +255,14 @@ class OutputController extends AbstractController
      *
      * @param string $list
      * @return array
+     * @throws Exception
      */
     protected function getFieldList(string $list = ''): array
     {
         if (!empty($list)) {
             $fieldArray = GeneralUtility::trimExplode(',', $list, true);
         } else {
-            $fieldArray = $this->formRepository->getFieldUidsFromForm($this->settings['main']['form']);
+            $fieldArray = $this->formRepository->getFieldUidsFromForm((int)$this->settings['main']['form']);
         }
         return (array)$fieldArray;
     }

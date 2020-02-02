@@ -4,7 +4,7 @@ Feature: NumberEmailValidation
 
   # Test NumberEmailValidation Form with different values
   Scenario: Show NumberEmailValidation Form
-    Given I am on "/index.php?id=69"
+    Given I am on "/powermail/pi1/validation/misc/validation-number/email-php"
     Then I should see "Number"
     Then I should see "E-Mail"
     When I fill in "tx_powermail_pi1[field][number]" with "abc"
@@ -25,7 +25,7 @@ Feature: NumberEmailValidation
 
   # Test NumberEmailValidation Form with empty values
   Scenario: Show NumberEmailValidation Form
-    Given I am on "/index.php?id=69"
+    Given I am on "/powermail/pi1/validation/misc/validation-number/email-php"
     Then I should see "Number"
     Then I should see "E-Mail"
     And I press "Einfach Leer Absenden"

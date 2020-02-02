@@ -4,7 +4,7 @@ Feature: ShortFormAjax
 
   # L=0
   Scenario: Searching for a DefaultForm that does exist in german (&L=0)
-    Given I am on "/index.php?id=9"
+    Given I am on "/powermail/pi1/default/shortform-ajax"
     Then I should see "ShortForm (AJAX)"
     Then I should see "Vorname"
     Then I should see "Nachname"
@@ -12,7 +12,7 @@ Feature: ShortFormAjax
 
   @javascript @Pi1DefaultShortFormAjax0
   Scenario: Test AJAX submit in german (&L=0)
-    Given I am on "/index.php?id=9"
+    Given I am on "/powermail/pi1/default/shortform-ajax"
     When I fill in "tx_powermail_pi1[field][firstname]" with "Marcus"
     When I fill in "tx_powermail_pi1[field][lastname]" with "Schwemer"
     When I fill in "tx_powermail_pi1[field][email]" with "ms@in2code.de"
@@ -48,7 +48,7 @@ Feature: ShortFormAjax
 
   @javascript @Pi1DefaultShortFormAjax1
   Scenario: Searching for a DefaultForm that does exist in english (&L=1)
-    Given I am on "/index.php?id=9&L=1"
+    Given I am on "/en/powermail/pi1/default/shortform-ajax"
     Then I should see "ShortForm (AJAX) EN"
     Then I should see "Firstname"
     Then I should see "Lastname"

@@ -4,7 +4,7 @@ Feature: PasswordJsValidation
 
   @javascript
   Scenario: Check if mandatory Validation works (on &L=0)
-    Given I am on "/index.php?id=81"
+    Given I am on "/powermail/pi1/validation/password/password-all"
     Then I should see "Name"
     Then I should see "Password"
     Then I should see "Bitte erneut eintragen"

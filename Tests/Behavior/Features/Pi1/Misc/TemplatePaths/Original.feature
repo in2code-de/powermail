@@ -3,7 +3,7 @@
 Feature: Original
 
   Scenario: Check if original Templates render the form
-    Given I am on "/index.php?id=100"
+    Given I am on "/powermail/pi1/misc/templatepaths/original"
     Then I should see "Vorname"
     Then I should see "Nachname"
     Then I should see "E-Mail"

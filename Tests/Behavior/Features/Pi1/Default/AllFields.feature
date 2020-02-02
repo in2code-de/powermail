@@ -5,7 +5,7 @@ Feature: AllFields
   # L=0
   @javascript
   Scenario: Check if AllFields Form is rendered correctly
-    Given I am on "/index.php?id=10"
+    Given I am on "/powermail/pi1/default/all-fields"
     Then I should see "Input (E-Mail)"
     Then I should see "Textarea"
     Then I should see "Select Statisch"

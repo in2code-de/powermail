@@ -4,7 +4,7 @@ Feature: JsPhpValidation
 
   @javascript
   Scenario: Check if mandatory Validation works (on &L=0)
-    Given I am on "/index.php?id=22"
+    Given I am on "/powermail/pi1/validation/mandatory/jsphp"
     Then I should see "Input"
     Then I should see "Input (Pattern http://ww)"
     Then I should see "Textarea"
@@ -73,7 +73,7 @@ Feature: JsPhpValidation
 
   @javascript @Pi1ValidationJsPhpValidation1
   Scenario: Check if mandatory Validation works (on &L=1)
-    Given I am on "/index.php?id=22&L=1"
+    Given I am on "/en/powermail/pi1/validation/mandatory/jsphp"
     Then I should see "Input EN"
     Then I should see "Input (Pattern http://ww) EN"
     Then I should see "Textarea EN"

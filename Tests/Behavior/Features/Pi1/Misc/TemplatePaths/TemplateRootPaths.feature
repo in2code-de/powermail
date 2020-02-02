@@ -3,7 +3,7 @@
 Feature: Original
 
   Scenario: Check if templateRootPaths will work
-    Given I am on "/index.php?id=102"
+    Given I am on "/powermail/pi1/misc/templatepaths/templaterootpaths"
     Then I should see "Vorname"
     Then I should see "Nachname"
     Then I should see "E-Mail"

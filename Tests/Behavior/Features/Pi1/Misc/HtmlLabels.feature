@@ -3,7 +3,7 @@
 Feature: HtmlLabels
 
   Scenario: Check if Html-Labels are rendered correct with removeXSS()
-    Given I am on "/index.php?id=61"
+    Given I am on "/powermail/pi1/misc/link-labels-allow-html"
     Then I should see "AGB accepted"
     Then the sourcecode should contain 'Email <a href="/index.php?id=3">AGB accepted</a>'
     Then the sourcecode should contain 'XSS Test <script>alert'

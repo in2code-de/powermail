@@ -3,9 +3,9 @@
 Feature: AddQueryString
 
   Scenario: Check third-party GET-params are passed after a submit
-    Given I am on "/index.php?id=199"
+    Given I am on "/powermail/pi1/misc/addquerystring"
     Then I should see "GET param NOT available"
-    Given I am on "/index.php?id=199&get=xxx"
+    Given I am on "/powermail/pi1/misc/addquerystring?get=xxx"
     Then I should see "GET param available"
     And I press "Jetzt Absenden"
     Then I should see "GET param available"

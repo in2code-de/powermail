@@ -3,6 +3,6 @@
 Feature: DisabledByBreakerValue
 
   Scenario: Check if spamshield can be disabled by breaker Value
-    Given I am on "/index.php?id=264"
+    Given I am on "/powermail/pi1/validation/misc/spamshield/breaker-string"
     And I press "Submit"
     Then I should not see "Spam-Wahrscheinlichkeit in dieser Nachricht!"

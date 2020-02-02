@@ -3,5 +3,5 @@
 Feature: NoTypoScript
 
   Scenario: Check if No-TypoScript-Message appears
-    Given I am on "/index.php?id=13"
+    Given I am on "/powermail/pi1/misc/form-ohne-ts"
     Then I should see "Kein TypoScript gefunden"

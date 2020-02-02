@@ -4,7 +4,7 @@ Feature: ShortFormDoubleOptinRedirect
 
   # German
   Scenario: Redirect should not work here
-    Given I am on "/index.php?id=122"
+    Given I am on "/powermail/pi1/default/shortform-doubleoptin-redirect"
     Then I should see "Vorname"
     Then I should see "Nachname"
     Then I should see "E-Mail"
