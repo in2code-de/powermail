@@ -46,12 +46,16 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             case 'check':
                 // multiple field radiobuttons
             case 'radio':
-                $this->addMandatoryAttributesForMultipleFields($additionalAttributes, $field, $iteration);
+                $additionalAttributes = $this->addMandatoryAttributesForMultipleFields(
+                    $additionalAttributes,
+                    $field,
+                    $iteration
+                );
                 break;
             default:
                 $additionalAttributes = $this->addMandatoryAttributes($additionalAttributes, $field);
         }
-        $this->addValidationAttributesForInputOrTextarea($additionalAttributes, $field);
+        $additionalAttributes = $this->addValidationAttributesForInputOrTextarea($additionalAttributes, $field);
         $signalArguments = [&$additionalAttributes, $field, $iteration, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $additionalAttributes;
