@@ -12,6 +12,7 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -153,10 +154,9 @@ class ExportService
         $email->setTo($this->getReceiverEmails());
         $email->setFrom($this->getSenderEmails());
         $email->setSubject($this->getSubject());
-        $email->setBody($this->createMailBody());
-        $email->setFormat('html');
+        $email->html($this->createMailBody());
         if ($this->isAddAttachment()) {
-            $email->attach(\Swift_Attachment::fromPath($this->getAbsolutePathAndFileName()));
+            $email->attachFromPath($this->getAbsolutePathAndFileName());
         }
         $email->send();
         return $email->isSent();
@@ -196,6 +196,7 @@ class ExportService
      * @return string
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
+     * @throws Exception
      */
     protected function getFileContent(): string
     {

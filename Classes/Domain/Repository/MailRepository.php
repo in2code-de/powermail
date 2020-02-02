@@ -48,7 +48,9 @@ class MailRepository extends AbstractRepository
         $query->getQuerySettings()->setIgnoreEnableFields(true);
         $and = $this->getConstraintsForFindAllInPid($piVars, $query, $pid);
         $query->matching($query->logicalAnd($and));
-        $query->setOrderings($this->getSorting($settings['sortby'], $settings['order'], $piVars));
+        $query->setOrderings(
+            $this->getSorting((string)$settings['sortby'], (string)$settings['order'], (array)$piVars)
+        );
         $mails = $query->execute();
         $mails = $this->makeUniqueQuery($mails, $query);
         return $mails;
