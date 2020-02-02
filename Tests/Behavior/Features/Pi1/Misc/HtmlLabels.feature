@@ -7,5 +7,5 @@ Feature: HtmlLabels
     Then I should see "AGB accepted"
     Then the sourcecode should contain 'Email <a href="/index.php?id=3">AGB accepted</a>'
     Then the sourcecode should contain 'XSS Test <script>alert'
-    Then the sourcecode should contain 'index.php?id=2">General Terms</a>'
+    Then the sourcecode should contain '/welcome-to-powermail">General Terms</a>'
     Then the sourcecode should contain '<a href="/index.php?id=15">Terms 3</a>'
