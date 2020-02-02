@@ -61,5 +61,6 @@ class ResetMarkersCommand extends Command
             }
         }
         $output->writeln('Markers successfully resetted');
+        return 0;
     }
 }

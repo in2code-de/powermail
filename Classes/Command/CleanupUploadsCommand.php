@@ -36,5 +36,6 @@ class CleanupUploadsCommand extends AbstractCleanupCommand
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->removeFilesFromRelativeDirectory($output, 'uploads/tx_powermail/', (int)$input->getArgument('period'));
+        return 0;
     }
 }

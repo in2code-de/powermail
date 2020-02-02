@@ -40,5 +40,6 @@ class CleanupExportsCommand extends AbstractCleanupCommand
             'typo3temp/assets/tx_powermail/',
             (int)$input->getArgument('period')
         );
+        return 0;
     }
 }
