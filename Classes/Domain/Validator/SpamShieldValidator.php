@@ -72,7 +72,7 @@ class SpamShieldValidator extends AbstractValidator
             $this->saveSpamFactorInSession();
             $this->saveSpamPropertiesInDevelopmentLog();
             if ($this->isSpamToleranceLimitReached()) {
-                $this->addError('spam_details', $this->getCalculatedSpamFactor(true));
+                $this->addError('spam_details', 1580681599, ['spamfactor' => $this->getCalculatedSpamFactor(true)]);
                 $this->setValidState(false);
                 $this->sendSpamNotificationMail($mail);
                 $this->logSpamNotification($mail);

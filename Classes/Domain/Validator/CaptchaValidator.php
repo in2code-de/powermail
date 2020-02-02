@@ -61,7 +61,7 @@ class CaptchaValidator extends AbstractValidator
 
             // if no captcha arguments given (maybe deleted from DOM)
             if (!$this->hasCaptchaArgument()) {
-                $this->addError('captcha', 0);
+                $this->addError('captcha', 1580681526);
                 $this->setValidState(false);
             }
         }

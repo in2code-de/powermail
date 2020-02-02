@@ -37,7 +37,8 @@ class ErrorClassViewHelper extends AbstractViewHelper
         foreach ($errors as $error) {
             /** @var Error $singleError */
             foreach ((array)$error as $singleError) {
-                if ($field->getMarker() === $singleError->getCode()) {
+                if (!empty($singleError->getArguments()['marker'])
+                    && $field->getMarker() === $singleError->getArguments()['marker']) {
                     return $this->arguments['class'];
                 }
             }
