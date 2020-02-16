@@ -1,5 +1,7 @@
 <?php
 
+use Behat\Mink\Exception\DriverException;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\MinkExtension\Context\MinkContext;
 use In2code\Powermail\Exception\ElementNotFoundException;
 
@@ -65,7 +67,7 @@ class FeatureContext extends MinkContext
     }
 
     /**
-     * Select an iframe
+     * Select an iframe by name
      *
      * @Given /^I switch to iframe "([^"]*)"$/
      *
@@ -75,6 +77,21 @@ class FeatureContext extends MinkContext
     public function iSwitchToIframe($arg1 = null)
     {
         $this->getSession()->switchToIFrame($arg1);
+    }
+
+    /**
+     * Select an iframe by number
+     *
+     * @Given /^I switch to iframe number ([0-9]+)$/
+     *
+     * @param int $arg1
+     * @return void
+     * @throws DriverException
+     * @throws UnsupportedDriverActionException
+     */
+    public function iSwitchToIframeNumber(int $arg1 = 0)
+    {
+        $this->getSession()->getDriver()->switchToIFrame($arg1);
     }
 
     /**
