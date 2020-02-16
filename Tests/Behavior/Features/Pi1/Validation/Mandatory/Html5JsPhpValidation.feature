@@ -3,7 +3,7 @@
 Feature: Html5JsPhpValidation
 
   @javascript @Pi1ValidationMandatoryHtml5JsPhpValidation0
-  Scenario: Check if mandatory Validation works (on &L=0)
+  Scenario: Check if mandatory Validation works (on PID8 with &L=0)
     Given I am on "/powermail/pi1/validation/mandatory/html5jsphp"
     Then I should see "Input"
     Then I should see "Input (Pattern http://ww)"
@@ -12,12 +12,14 @@ Feature: Html5JsPhpValidation
     Then I should see "Select Multi"
     Then I should see "Check"
     Then I should see "Radio"
+    And I scroll "$[type='submit']" into view
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
     Then I should see "Fehler in Validierung!"
     Then I should see "Eines dieser Felder muss ausgefüllt werden!"
     Then I fill in "tx_powermail_pi1[field][lastname]" with "Christian"
+    And I scroll "$[type='submit']" into view
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
@@ -72,7 +74,7 @@ Feature: Html5JsPhpValidation
     Then I should see "DEU"
 
   @javascript @Pi1ValidationMandatoryHtml5JsPhpValidation1
-  Scenario: Check if mandatory Validation works (on &L=1)
+  Scenario: Check if mandatory Validation works (on PID8 with &L=1)
     Given I am on "/en/powermail/pi1/validation/mandatory/html5jsphp"
     Then I should see "Input EN"
     Then I should see "Input (Pattern http://ww) EN"
@@ -81,12 +83,14 @@ Feature: Html5JsPhpValidation
     Then I should see "Select Multi EN"
     Then I should see "Check EN"
     Then I should see "Radio EN"
+    And I scroll "$[type='submit']" into view
     And I press "Submit EN"
 
     Then I should see "This field must be filled!"
     Then I should see "Error in validation!"
     Then I should see "One of these fields must be filled!"
     Then I fill in "tx_powermail_pi1[field][lastname]" with "Richter"
+    And I scroll "$[type='submit']" into view
     And I press "Submit EN"
 
     Then I should see "This field must be filled!"
