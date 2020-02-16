@@ -6,8 +6,7 @@ and easy to use mailform extension for TYPO3 with a lots of features
 
 ## TYPO3 10
 
-We're working hard on a release for TYPO3 10 (see branch feature/8.0.0). This release will run only for TYPO3 10 because
-of a lot of breaking changes in the core. Roadmap:
+Changes in TYPO3:
 
 * done [TASK] Update for TYPO3 10 (Backendroutes, Conditions, Validators, UserFuncs in Tca, MailMessage class)
 * done [TASK] Remove code dependencies to former TYPO3 versions
@@ -17,8 +16,8 @@ of a lot of breaking changes in the core. Roadmap:
 * done [TASK] Save mails in future with sys_language_uid=-1 and add an upgrade wizard for it
 * done [TASK] Some modernization and code cleanup (Own exceptions, remove AbstractUtility)
 * done [TASK] Update unit tests
-* [TASK] Update behaviour tests
-* [TASK] Manual tests (especially in backend context)
+* done [TASK] Update behaviour tests
+* done [TASK] Manual tests (especially in backend context)
 * done [TASK] Update documentation from rst to markdown
 
 ## 2. Documentation overview
