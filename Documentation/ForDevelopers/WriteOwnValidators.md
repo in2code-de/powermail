@@ -122,9 +122,9 @@ class ZipValidator
     public function validate100($value, $validationConfiguration)
     {
         if (is_numeric($value) && $value >= $validationConfiguration) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 }
 ```
@@ -183,8 +183,6 @@ class DoSomethingValidator extends AbstractValidator
 {
 
     /**
-     * validate
-     *
      * @param Mail $mail
      * @return Result
      */
@@ -192,7 +190,7 @@ class DoSomethingValidator extends AbstractValidator
     {
         // throw error
         $result = new Result();
-        $result->addError(new Error('Error', 'markername'));
+        $result->addError(new Error('Error', 123456789, ['marker'=> 'firstname']));
         return $result;
     }
 }
@@ -272,7 +270,7 @@ class AlexValidator extends AbstractValidator
       if ((int)$this->configuration['form'] === $mail->getForm()->getUid()) {
           foreach ($mail->getAnswers() as $answer) {
               if ($answer->getField()->getMarker() === $this->fieldMarker && !$this->isAllowedValue($answer->getValue())) {
-                  $result->addError(new Error('Firstname must be "Alexander"', $this->fieldMarker));
+                  $result->addError(new Error('Firstname must be "Alexander"', 123456789, ['marker' => $this->fieldMarker]));
               }
           }
       }
@@ -329,7 +327,7 @@ $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
       'isValid',
       'Vendor\Extkey\Domain\Validator\CustomValidator',
       'addInformation',
-      FALSE
+      false
  );
 ```
 
