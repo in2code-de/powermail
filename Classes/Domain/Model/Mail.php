@@ -67,7 +67,6 @@ class Mail extends AbstractEntity
 
     /**
      * @var \In2code\Powermail\Domain\Model\Form
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $form = null;
 
