@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Model\User;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use In2code\Powermail\Signal\SignalTrait;
@@ -10,9 +11,9 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Beuser\Domain\Model\Demand;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Repository\BackendUserGroupRepository;
 use TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
@@ -27,6 +28,10 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 class ReceiverMailReceiverPropertiesService
 {
     use SignalTrait;
+
+    const RECEIVERS_FRONTENDGROUP = 1;
+    const RECEIVERS_PREDEFINED = 2;
+    const RECEIVERS_BACKENDGROUP = 3;
 
     /**
      * @var Mail|null
@@ -158,7 +163,7 @@ class ReceiverMailReceiverPropertiesService
      */
     protected function getEmailsFromFeGroup(array $emailArray, int $uid): array
     {
-        if ((int)$this->settings['receiver']['type'] === 1 && !empty($uid)) {
+        if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_FRONTENDGROUP && !empty($uid)) {
             $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
             $users = $userRepository->findByUsergroup($uid);
             $emailArray = [];
@@ -181,15 +186,13 @@ class ReceiverMailReceiverPropertiesService
      */
     protected function getEmailsFromBeGroup(array $emailArray, int $uid): array
     {
-        // todo
-        if ((int)$this->settings['receiver']['type'] === 3 && !empty($uid)) {
+        if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_BACKENDGROUP && !empty($uid)) {
             $beUserRepository = ObjectUtility::getObjectManager()->get(BackendUserRepository::class);
-            $beGroupRepository = ObjectUtility::getObjectManager()->get(BackendUserGroupRepository::class);
-            $userGroup = $beGroupRepository->findByUid($uid);
             $demand = ObjectUtility::getObjectManager()->get(Demand::class);
-            $demand->setBackendUserGroup($userGroup);
+            $demand->setBackendUserGroup($uid);
             $users = $beUserRepository->findDemanded($demand);
             $emailArray = [];
+            /** @var User $user */
             foreach ($users as $user) {
                 if (GeneralUtility::validEmail($user->getEmail())) {
                     $emailArray[] = $user->getEmail();
@@ -214,7 +217,7 @@ class ReceiverMailReceiverPropertiesService
      */
     protected function getEmailsFromPredefinedEmail(array $emailArray, string $predefinedString): array
     {
-        if ((int)$this->settings['receiver']['type'] === 2 && !empty($predefinedString)) {
+        if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_PREDEFINED && !empty($predefinedString)) {
             $receiverString = TypoScriptUtility::overwriteValueFromTypoScript(
                 '',
                 $this->configuration['receiver.']['predefinedReceiver.'][$predefinedString . '.'],

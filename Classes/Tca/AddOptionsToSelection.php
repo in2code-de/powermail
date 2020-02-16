@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
@@ -26,10 +27,16 @@ class AddOptionsToSelection
     protected $type = '';
 
     /**
-     * Todo
-     * @var \TYPO3\CMS\Lang\LanguageService
+     * @param string $type "type", "validation", "feUserProperty"
+     * @param array $params
+     * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected $languageService = null;
+    protected function initialize(string $type, array &$params): void
+    {
+        $this->setType($type);
+        $this->params = $params;
+    }
 
     /**
      * Add options to TCA Selection - Options can be defined in TSConfig
@@ -157,7 +164,7 @@ class AddOptionsToSelection
     protected function getLabel(string $label, string $fallback): string
     {
         if (strpos($label, 'LLL:') === 0) {
-            $label = $this->languageService->sL($label);
+            $label = ObjectUtility::getLanguageService()->sL($label);
         }
         if (empty($label)) {
             $label = $fallback;
@@ -198,18 +205,5 @@ class AddOptionsToSelection
     {
         $this->type = $type;
         return $this;
-    }
-
-    /**
-     * @param string $type "type", "validation", "feUserProperty"
-     * @param array $params
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected function initialize(string $type, array &$params): void
-    {
-        $this->setType($type);
-        $this->params = $params;
-        $this->languageService = $GLOBALS['LANG'];
     }
 }
