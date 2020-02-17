@@ -36,7 +36,7 @@
 						<TCEforms>
 							<config>
 								<type>user</type>
-								<userFunc>In2code\Powermail\Tca\ShowFormNoteEditForm->showNote</userFunc>
+								<renderType>powermailShowFormNoteEditForm</renderType>
 							</config>
 						</TCEforms>
 					</settings.flexform.main.formnote>

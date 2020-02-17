@@ -8,6 +8,7 @@ use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -45,6 +46,7 @@ class ReceiverMailSenderPropertiesService
     /**
      * @param Mail $mail
      * @param array $settings
+     * @throws Exception
      */
     public function __construct(Mail $mail, array $settings)
     {
@@ -62,11 +64,12 @@ class ReceiverMailSenderPropertiesService
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function getSenderEmail()
+    public function getSenderEmail(): string
     {
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $defaultSenderEmail,
+        $defaultSenderEmail = TypoScriptUtility::overwriteValueFromTypoScript(
+            '',
             $this->configuration['receiver.']['default.'],
             'senderEmail'
         );
@@ -83,11 +86,12 @@ class ReceiverMailSenderPropertiesService
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function getSenderName()
+    public function getSenderName(): string
     {
-        TypoScriptUtility::overwriteValueFromTypoScript(
-            $defaultSenderName,
+        $defaultSenderName = TypoScriptUtility::overwriteValueFromTypoScript(
+            '',
             $this->configuration['receiver.']['default.'],
             'senderName'
         );

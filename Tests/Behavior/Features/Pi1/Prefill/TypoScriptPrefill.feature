@@ -3,7 +3,7 @@
 Feature: TypoScriptPrefill
 
   Scenario: Check if Form can be prefilled with TypoScript Configuration
-    Given I am on "/index.php?id=16"
+    Given I am on "/powermail/pi1/prefill-ml/standard-fields-prefilled-with-typoscript"
     Then I should see "Input"
     Then I should see "Textarea"
     Then I should see "Select"

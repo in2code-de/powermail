@@ -3,7 +3,7 @@
 Feature: 2Forms
 
   Scenario: Check if 2 Powermail Forms work properly on one page
-    Given I am on "/index.php?id=54"
+    Given I am on "/powermail/pi1/misc/2-forms-on-1-page/standard"
     Then I should see "String"
     Then I should see "Vorname"
     When I fill in "tx_powermail_pi1[field][string]" with "Sandra Pohl"

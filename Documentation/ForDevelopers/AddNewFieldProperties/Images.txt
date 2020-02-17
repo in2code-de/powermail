@@ -1,7 +1,0 @@
-.. |developer_new_fieldproperties1|      image:: ../../Images/developer_new_fieldproperties1.png
-.. :align: left
-.. :name: developer_new_fieldproperties1
-
-.. |developer_new_fieldproperties2|      image:: ../../Images/developer_new_fieldproperties2.png
-.. :align: left
-.. :name: developer_new_fieldproperties2

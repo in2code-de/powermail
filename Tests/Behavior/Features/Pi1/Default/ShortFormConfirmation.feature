@@ -4,14 +4,14 @@ Feature: ShortFormConfirmation
 
   # German
   Scenario: Searching for a DefaultForm that does exist in german
-    Given I am on "/index.php?id=72"
+    Given I am on "/powermail/pi1/default/shortform-confirmation"
     Then I should see "ShortForm (Confirmation)"
     Then I should see "Vorname"
     Then I should see "Nachname"
     Then I should see "E-Mail"
 
   Scenario: Fill out DefaultForm and submit
-    Given I am on "/index.php?id=72"
+    Given I am on "/powermail/pi1/default/shortform-confirmation"
     When I fill in "tx_powermail_pi1[field][firstname]" with "Martin"
     When I fill in "tx_powermail_pi1[field][lastname]" with "Huber"
     When I fill in "tx_powermail_pi1[field][email]" with "mh@in2code.de"
@@ -27,7 +27,7 @@ Feature: ShortFormConfirmation
     Then I should see "mh@in2code.de"
 
   Scenario: Fill out DefaultForm, submit confirm and final submit
-    Given I am on "/index.php?id=72"
+    Given I am on "/powermail/pi1/default/shortform-confirmation"
     When I fill in "tx_powermail_pi1[field][firstname]" with "Thomas"
     When I fill in "tx_powermail_pi1[field][lastname]" with "Scheibitz"
     When I fill in "tx_powermail_pi1[field][email]" with "ts@in2code.de"
@@ -58,14 +58,14 @@ Feature: ShortFormConfirmation
 
   # English
   Scenario: Searching for a DefaultForm that does exist in english
-    Given I am on "/index.php?id=72&L=1"
+    Given I am on "/en/powermail/pi1/default/shortform-confirmation"
     Then I should see "ShortForm (Confirmation) EN"
     Then I should see "Firstname"
     Then I should see "Lastname"
     Then I should see "Email"
 
   Scenario: Fill out DefaultForm, submit confirm and final submit
-    Given I am on "/index.php?id=72&L=1"
+    Given I am on "/en/powermail/pi1/default/shortform-confirmation"
     When I fill in "tx_powermail_pi1[field][firstname]" with "Martin"
     When I fill in "tx_powermail_pi1[field][lastname]" with "Huber"
     When I fill in "tx_powermail_pi1[field][email]" with "mh@in2code.de"
@@ -81,7 +81,7 @@ Feature: ShortFormConfirmation
     Then I should see "mh@in2code.de"
 
   Scenario: Fill out DefaultForm, submit confirm go back, change a value, submit confirm and final submit
-    Given I am on "/index.php?id=72&L=1"
+    Given I am on "/en/powermail/pi1/default/shortform-confirmation"
     When I fill in "tx_powermail_pi1[field][firstname]" with "Thomas"
     When I fill in "tx_powermail_pi1[field][lastname]" with "Scheibitz"
     When I fill in "tx_powermail_pi1[field][email]" with "ts@in2code.de"

@@ -11,9 +11,12 @@ use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
+use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 
 /**
  * Class CaptchaValidator
@@ -40,6 +43,8 @@ class CaptchaValidator extends AbstractValidator
      *
      * @param Mail $mail
      * @return bool
+     * @throws Exception
+     * @throws ExceptionCore
      */
     public function isValid($mail)
     {
@@ -56,7 +61,7 @@ class CaptchaValidator extends AbstractValidator
 
             // if no captcha arguments given (maybe deleted from DOM)
             if (!$this->hasCaptchaArgument()) {
-                $this->addError('captcha', 0);
+                $this->addError('captcha', 1580681526);
                 $this->setValidState(false);
             }
         }
@@ -70,8 +75,10 @@ class CaptchaValidator extends AbstractValidator
      * @param string $value
      * @param Field $field
      * @return bool
+     * @throws Exception
+     * @throws ExceptionCore
      */
-    protected function validCodePreflight($value, $field)
+    protected function validCodePreflight(string $value, Field $field): bool
     {
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
             case 'captcha':
@@ -88,8 +95,9 @@ class CaptchaValidator extends AbstractValidator
      * @param string $value
      * @param Field $field
      * @return bool
+     * @throws Exception
      */
-    protected function validatePowermailCaptcha($value, Field $field)
+    protected function validatePowermailCaptcha(string $value, Field $field): bool
     {
         $captchaService = ObjectUtility::getObjectManager()->get(CalculatingCaptchaService::class);
         return $captchaService->validCode($value, $field, $this->isClearSession());
@@ -99,8 +107,9 @@ class CaptchaValidator extends AbstractValidator
      * @param string $value
      * @param Field $field
      * @return bool
+     * @throws ExceptionCore
      */
-    protected function validateCaptcha($value, Field $field)
+    protected function validateCaptcha(string $value, Field $field): bool
     {
         $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
         if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
@@ -115,7 +124,7 @@ class CaptchaValidator extends AbstractValidator
      * @return bool
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected function validateCaptchaOld($value)
+    protected function validateCaptchaOld(string $value): bool
     {
         session_start();
         $captchaString = $_SESSION['tx_captcha_string'];
@@ -128,10 +137,11 @@ class CaptchaValidator extends AbstractValidator
     /**
      * Checks if given form has a captcha
      *
-     * @param \In2code\Powermail\Domain\Model\Form $form
-     * @return boolean
+     * @param Form $form
+     * @return bool
+     * @throws Exception
      */
-    protected function formHasCaptcha(Form $form)
+    protected function formHasCaptcha(Form $form): bool
     {
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         $form = $formRepository->hasCaptcha($form);
@@ -139,26 +149,26 @@ class CaptchaValidator extends AbstractValidator
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isClearSession()
+    public function isClearSession(): bool
     {
         return $this->clearSession;
     }
 
     /**
-     * @param boolean $clearSession
+     * @param bool $clearSession
      * @return void
      */
-    public function setClearSession($clearSession)
+    public function setClearSession(bool $clearSession): void
     {
         $this->clearSession = $clearSession;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function hasCaptchaArgument()
+    public function hasCaptchaArgument(): bool
     {
         return $this->captchaArgument;
     }
@@ -167,14 +177,14 @@ class CaptchaValidator extends AbstractValidator
      * @param boolean $captchaArgument
      * @return void
      */
-    public function setCaptchaArgument($captchaArgument)
+    public function setCaptchaArgument($captchaArgument): void
     {
         $this->captchaArgument = $captchaArgument;
     }
 
     /**
-     * CaptchaValidator constructor.
      * @param array $options
+     * @throws InvalidValidationOptionsException
      */
     public function __construct(array $options = [])
     {

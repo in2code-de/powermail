@@ -9,7 +9,7 @@ use In2code\Powermail\Utility\ConfigurationUtility;
  *        input
  *        textarea
  */
-$typeDefault = 'pages, title, type, ' .
+$typeDefault = 'page, title, type, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.palette1;1, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -29,7 +29,7 @@ $typeDefault = 'pages, title, type, ' .
  *        radio
  *        check
  */
-$typeSettings = 'pages, title, type, settings, ' .
+$typeSettings = 'page, title, type, settings, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.palette1;1, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -48,7 +48,7 @@ $typeSettings = 'pages, title, type, settings, ' .
  * Fieldtypes
  *        select
  */
-$typeSettingsMultiple = 'pages, title, type, settings, ' .
+$typeSettingsMultiple = 'page, title, type, settings, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.palette1;1, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -68,7 +68,7 @@ $typeSettingsMultiple = 'pages, title, type, settings, ' .
  *        submit
  *        reset
  */
-$typeSmall = 'pages, title, type, ' .
+$typeSmall = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -81,7 +81,7 @@ $typeSmall = 'pages, title, type, ' .
  *        captcha
  *        location
  */
-$typeSmallDescription = 'pages, title, type, ' .
+$typeSmallDescription = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
@@ -94,7 +94,7 @@ $typeSmallDescription = 'pages, title, type, ' .
  * Fieldtypes
  *        hidden
  */
-$typeSmallPrefill = 'pages, title, type, ' .
+$typeSmallPrefill = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.prefill_title;31, ' .
@@ -107,7 +107,7 @@ $typeSmallPrefill = 'pages, title, type, ' .
  * Fieldtypes
  *        country
  */
-$typeSmallPrefillDescription = 'pages, title, type, ' .
+$typeSmallPrefillDescription = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;21, ' .
@@ -124,7 +124,7 @@ $typeSmallPrefillDescription = 'pages, title, type, ' .
  * Fieldtypes
  *        password
  */
-$typeSmallMandatory = 'pages, title, type, ' .
+$typeSmallMandatory = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;21, ' .
@@ -140,7 +140,7 @@ $typeSmallMandatory = 'pages, title, type, ' .
  *        text
  *        html
  */
-$typeText = 'pages, title, type, text, ' .
+$typeText = 'page, title, type, text, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -152,7 +152,7 @@ $typeText = 'pages, title, type, text, ' .
  * Fieldtypes
  *        content_element
  */
-$typeContent = 'pages, title, type, content_element, ' .
+$typeContent = 'page, title, type, content_element, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -164,7 +164,7 @@ $typeContent = 'pages, title, type, content_element, ' .
  * Fieldtypes
  *        file
  */
-$typeFile = 'pages, title, type, ' .
+$typeFile = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;21, ' .
@@ -180,7 +180,7 @@ $typeFile = 'pages, title, type, ' .
  * Fieldtypes
  *        date
  */
-$typeDate = 'pages, title, type, ' .
+$typeDate = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;21, ' .
@@ -196,7 +196,7 @@ $typeDate = 'pages, title, type, ' .
  * Fieldtypes
  *        typoscript
  */
-$typeTypoScript = 'pages, title, type, path, ' .
+$typeTypoScript = 'page, title, type, path, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;Layout;43, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -351,8 +351,8 @@ $fieldsTca = [
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'default' => 0,
                 'items' => [
-                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xml:LGL.allLanguages', -1],
-                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xml:LGL.default_value', 0]
+                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.default_value', 0]
                 ],
             ],
         ],
@@ -399,7 +399,7 @@ $fieldsTca = [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
+                'eval' => 'datetime,int',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -415,7 +415,7 @@ $fieldsTca = [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
+                'eval' => 'datetime,int',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -986,7 +986,9 @@ $fieldsTca = [
                 Field::TABLE_NAME . '.auto_marker',
             'config' => [
                 'type' => 'user',
-                'userFunc' => 'In2code\Powermail\Tca\Marker->createMarker'
+                'renderType' => 'powermailMarker',
+                'parameters' => [
+                ]
             ],
             'displayCond' => 'FIELD:own_marker_select:REQ:false'
         ],
@@ -1025,11 +1027,10 @@ $fieldsTca = [
                 'eval' => 'trim'
             ],
         ],
-        'pages' => [
+        'page' => [
             'exclude' => 1,
             'displayCond' => 'FIELD:sys_language_uid:<=:0',
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
-                Field::TABLE_NAME . '.pages',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.pages',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -1063,7 +1064,7 @@ if (ConfigurationUtility::isL10nModeMergeActive()) {
     $fieldsTca['columns']['feuser_value']['l10n_mode'] = 'mergeIfNotBlank';
     $fieldsTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
     $fieldsTca['columns']['own_marker_select']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['pages']['l10n_mode'] = 'mergeIfNotBlank';
+    $fieldsTca['columns']['page']['l10n_mode'] = 'mergeIfNotBlank';
 }
 
 return $fieldsTca;

@@ -15,7 +15,7 @@ class SessionDataProcessor extends AbstractDataProcessor
      *
      * @return void
      */
-    public function saveSessionDataProcessor()
+    public function saveSessionDataProcessor(): void
     {
         if ($this->getActionMethodName() === 'createAction') {
             SessionUtility::saveSessionValuesForPrefill($this->getMail(), $this->getSettings());

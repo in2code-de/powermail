@@ -16,37 +16,38 @@ interface ValidatorInterface
      * @param string $label
      * @return void
      */
-    public function setErrorAndMessage(Field $field, $label);
+    public function setErrorAndMessage(Field $field, string $label): void;
 
     /**
      * @return bool
      */
-    public function isServerValidationEnabled();
+    public function isServerValidationEnabled(): bool;
 
     /**
      * @param ConfigurationManagerInterface $configurationManager
      * @return void
      */
-    public function injectTypoScript(ConfigurationManagerInterface $configurationManager);
+    public function injectTypoScript(ConfigurationManagerInterface $configurationManager): void;
 
     /**
+     * @param bool $validState
      * @return void
      */
-    public function setValidState($validState);
+    public function setValidState(bool $validState): void;
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isValidState();
+    public function isValidState(): bool;
 
     /**
      * @param array $configuration
-     * @return AbstractValidator
+     * @return ValidatorInterface
      */
-    public function setConfiguration(array $configuration);
+    public function setConfiguration(array $configuration): ValidatorInterface;
 
     /**
      * @return array
      */
-    public function getConfiguration();
+    public function getConfiguration(): array;
 }

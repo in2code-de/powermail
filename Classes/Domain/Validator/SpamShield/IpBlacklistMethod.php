@@ -21,7 +21,7 @@ class IpBlacklistMethod extends AbstractMethod
      *
      * @return bool true if spam recognized
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         return in_array(GeneralUtility::getIndpEnv('REMOTE_ADDR'), $this->getValues());
     }
@@ -31,7 +31,7 @@ class IpBlacklistMethod extends AbstractMethod
      *
      * @return array
      */
-    protected function getValues()
+    protected function getValues(): array
     {
         $values = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->configuration['values']['_typoScriptNodeValue'],
@@ -46,7 +46,7 @@ class IpBlacklistMethod extends AbstractMethod
      * @param string $string
      * @return string
      */
-    protected function reduceDelimiters($string)
+    protected function reduceDelimiters(string $string): string
     {
         return str_replace([',', ';', ' ', PHP_EOL], $this->delimiter, $string);
     }

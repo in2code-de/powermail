@@ -1,3 +1,0 @@
-.. |faq_style|      image:: ../Images/faq_style.png
-.. :align: left
-.. :name: faq_style

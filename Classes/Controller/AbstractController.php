@@ -9,10 +9,17 @@ use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -79,7 +86,7 @@ abstract class AbstractController extends ActionController
     protected $id = 0;
 
     /**
-     * Make $this->settings accessable when extending the controller with signals
+     * Make $this->settings accessible when extending the controller with signals
      *
      * @return array
      */
@@ -92,10 +99,17 @@ abstract class AbstractController extends ActionController
      * Reformat array for createAction
      *
      * @return void
+     * @throws InvalidArgumentNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws NoSuchArgumentException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws Exception
+     * @throws InvalidQueryException
+     * @throws DeprecatedException
      */
-    protected function reformatParamsForAction()
+    protected function reformatParamsForAction(): void
     {
         $this->uploadService->preflight($this->settings);
         $arguments = $this->request->getArguments();
@@ -131,7 +145,7 @@ abstract class AbstractController extends ActionController
             if (StringUtility::startsWith((string)$marker, '__')) {
                 continue;
             }
-            $fieldUid = $this->fieldRepository->getFieldUidFromMarker($marker, $arguments['mail']['form']);
+            $fieldUid = $this->fieldRepository->getFieldUidFromMarker($marker, (int)$arguments['mail']['form']);
             // Skip fields without Uid (secondary password, upload)
             if ($fieldUid === 0) {
                 continue;
@@ -146,7 +160,7 @@ abstract class AbstractController extends ActionController
             /** @var Field $field */
             $field = $this->fieldRepository->findByUid($fieldUid);
             $valueType = $field->dataTypeFromFieldType(
-                $this->fieldRepository->getFieldTypeFromMarker($marker, $arguments['mail']['form'])
+                $this->fieldRepository->getFieldTypeFromMarker($marker, (int)$arguments['mail']['form'])
             );
             if ($valueType === Answer::VALUE_TYPE_UPLOAD && is_array($value)) {
                 $value = $this->uploadService->getNewFileNamesByMarker($marker);
@@ -192,14 +206,15 @@ abstract class AbstractController extends ActionController
     protected function initializeAction()
     {
         $this->piVars = $this->request->getArguments();
-        $this->id = GeneralUtility::_GP('id');
+        $this->id = (int)GeneralUtility::_GP('id');
     }
 
     /**
      * @param FormRepository $formRepository
      * @return void
+     * @noinspection PhpUnused
      */
-    public function injectFormRepository(FormRepository $formRepository)
+    public function injectFormRepository(FormRepository $formRepository): void
     {
         $this->formRepository = $formRepository;
     }
@@ -207,8 +222,9 @@ abstract class AbstractController extends ActionController
     /**
      * @param FieldRepository $fieldRepository
      * @return void
+     * @noinspection PhpUnused
      */
-    public function injectFieldRepository(FieldRepository $fieldRepository)
+    public function injectFieldRepository(FieldRepository $fieldRepository): void
     {
         $this->fieldRepository = $fieldRepository;
     }
@@ -216,8 +232,9 @@ abstract class AbstractController extends ActionController
     /**
      * @param MailRepository $mailRepository
      * @return void
+     * @noinspection PhpUnused
      */
-    public function injectMailRepository(MailRepository $mailRepository)
+    public function injectMailRepository(MailRepository $mailRepository): void
     {
         $this->mailRepository = $mailRepository;
     }
@@ -225,8 +242,9 @@ abstract class AbstractController extends ActionController
     /**
      * @param UploadService $uploadService
      * @return void
+     * @noinspection PhpUnused
      */
-    public function injectUploadService(UploadService $uploadService)
+    public function injectUploadService(UploadService $uploadService): void
     {
         $this->uploadService = $uploadService;
     }
@@ -236,7 +254,7 @@ abstract class AbstractController extends ActionController
      *
      * @return bool
      */
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): bool
     {
         return false;
     }

@@ -26,7 +26,7 @@ class MultiUploadViewHelper extends UploadViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $name = $this->getName();
         $allowedFields = ['name', 'type', 'tmp_name', 'error', 'size'];

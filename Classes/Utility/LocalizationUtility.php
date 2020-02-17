@@ -7,7 +7,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
 /**
  * Class LocalizationUtility
  */
-class LocalizationUtility extends AbstractUtility
+class LocalizationUtility
 {
 
     /**
@@ -16,10 +16,10 @@ class LocalizationUtility extends AbstractUtility
      *
      * @param string $key
      * @param string $extensionName
-     * @param null $arguments
+     * @param null|array $arguments
      * @return string
      */
-    public static function translate($key, $extensionName = 'powermail', $arguments = null): string
+    public static function translate(string $key, string $extensionName = 'powermail', array $arguments = null): string
     {
         if (ConfigurationUtility::isDatabaseConnectionAvailable() === false) {
             if (stristr((string)$key, 'datepicker_format')) {

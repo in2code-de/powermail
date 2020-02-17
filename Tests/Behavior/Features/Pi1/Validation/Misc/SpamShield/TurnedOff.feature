@@ -4,7 +4,7 @@ Feature: TurnedOff
 
   # Test turned off Spamshield Form
   Scenario: Validator should NOT calculate 92% chance of spam and should NOt prevent submit
-    Given I am on "/index.php?id=146"
+    Given I am on "/powermail/pi1/validation/misc/spamshield/turned-off"
     Then I should see "Name"
     Then I should see "E-Mail"
     Then I should see "Text"

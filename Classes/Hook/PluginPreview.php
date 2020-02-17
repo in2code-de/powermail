@@ -11,10 +11,14 @@ use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Backend\View\PageLayoutView;
 use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-// @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-use TYPO3\CMS\Extbase\Service\FlexFormService;
 
 /**
  * Contains a preview rendering for the powermail page module
@@ -46,6 +50,11 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      * @param string $itemContent Item content
      * @param array $row Record row of tt_content
      * @return void
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
      */
     public function preProcess(
         PageLayoutView &$parentObject,
@@ -78,8 +87,13 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     /**
      * @param string @pluginName
      * @return string
+     * @throws Exception
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    protected function getPluginInformation($pluginName)
+    protected function getPluginInformation(string $pluginName): string
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
@@ -94,7 +108,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
                 'pluginName' => $pluginName,
                 'enableMailPreview' => !ConfigurationUtility::isDisablePluginInformationMailPreviewActive(),
                 'form' => $this->getFormTitleByUid(
-                    ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
+                    (int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
                 )
             ]
         );
@@ -105,13 +119,14 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      * Get latest three emails to this form
      *
      * @return QueryResultInterface
+     * @throws Exception
      */
-    protected function getLatestMails()
+    protected function getLatestMails(): QueryResultInterface
     {
         /** @var MailRepository $mailRepository */
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         return $mailRepository->findLatestByForm(
-            ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
+            (int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
         );
     }
 
@@ -120,7 +135,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      *
      * @return string
      */
-    protected function getReceiverEmail()
+    protected function getReceiverEmail(): string
     {
         $receiver = ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.receiver.email');
         if ((int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.receiver.type') === 1) {
@@ -140,7 +155,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      * @param int $uid Form uid
      * @return string
      */
-    protected function getFormTitleByUid($uid)
+    protected function getFormTitleByUid(int $uid): string
     {
         $uid = $this->getLocalizedFormUid($uid, $this->getSysLanguageUid());
         $row = BackendUtilityCore::getRecord(
@@ -160,7 +175,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      * @param int $sysLanguageUid
      * @return int
      */
-    protected function getLocalizedFormUid($uid, $sysLanguageUid)
+    protected function getLocalizedFormUid(int $uid, int $sysLanguageUid): int
     {
         if ($sysLanguageUid > 0) {
             $row = BackendUtilityCore::getRecordLocalization(
@@ -180,7 +195,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      *
      * @return int
      */
-    protected function getFormUid()
+    protected function getFormUid(): int
     {
         return (int)$this->flexFormData['settings']['flexform']['main']['form'];
     }
@@ -190,7 +205,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      *
      * @return int
      */
-    protected function getSysLanguageUid()
+    protected function getSysLanguageUid(): int
     {
         if (!empty($this->row['sys_language_uid'])) {
             return (int)$this->row['sys_language_uid'];
@@ -201,8 +216,9 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     /**
      * @param array $row
      * @return void
+     * @throws Exception
      */
-    protected function initialize(array $row)
+    protected function initialize(array $row): void
     {
         $this->row = $row;
         $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);

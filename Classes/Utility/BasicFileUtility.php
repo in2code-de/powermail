@@ -2,13 +2,14 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * Class BasicFileUtility
  */
-class BasicFileUtility extends AbstractUtility
+class BasicFileUtility
 {
 
     /**
@@ -17,7 +18,7 @@ class BasicFileUtility extends AbstractUtility
      * @param string $path Relative Path
      * @return array
      */
-    public static function getFilesFromRelativePath($path)
+    public static function getFilesFromRelativePath(string $path): array
     {
         $array = [];
         $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName($path));
@@ -33,26 +34,28 @@ class BasicFileUtility extends AbstractUtility
      * @param string $pathAndFilename
      * @return string
      */
-    public static function getPathFromPathAndFilename($pathAndFilename)
+    public static function getPathFromPathAndFilename(string $pathAndFilename): string
     {
         $pathInfo = pathinfo($pathAndFilename);
         return $pathInfo['dirname'];
     }
 
     /**
-     * Create folder
-     *
-     * @param $path
+     * @param string $path
      * @return void
-     * @throws \Exception
+     * @throws FileCannotBeCreatedException
      */
-    public static function createFolderIfNotExists($path)
+    public static function createFolderIfNotExists(string $path): void
     {
-        if (!is_dir($path) && !GeneralUtility::mkdir($path)) {
-            throw new \UnexpectedValueException(
-                'Folder ' . self::getRelativeFolder($path) . ' could not be created',
-                1514817474234
-            );
+        if (is_dir($path) === false) {
+            try {
+                GeneralUtility::mkdir_deep($path);
+            } catch (\Exception $exception) {
+                throw new FileCannotBeCreatedException(
+                    'Folder ' . self::getRelativeFolder($path) . ' could not be created',
+                    1514817474234
+                );
+            }
         }
     }
 
@@ -63,7 +66,7 @@ class BasicFileUtility extends AbstractUtility
      * @param string $content
      * @return void
      */
-    public static function prependContentToFile($pathAndFile, $content)
+    public static function prependContentToFile(string $pathAndFile, string $content): void
     {
         $absolutePathAndFile = GeneralUtility::getFileAbsFileName($pathAndFile);
         $lines = [];
@@ -80,7 +83,7 @@ class BasicFileUtility extends AbstractUtility
      * @param string $path
      * @return string
      */
-    public static function getRelativeFolder($path)
+    public static function getRelativeFolder(string $path): string
     {
         if (PathUtility::isAbsolutePath($path)) {
             $path = PathUtility::getRelativePathTo($path);

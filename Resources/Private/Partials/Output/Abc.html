@@ -4,7 +4,7 @@
 	<div class="pull-right">
 		<ul class="pagination">
 			<f:for each="{abc}" as="letter">
-				<f:if condition="{vh:Condition.IsThereAMailWithStartingLetter(mails:mails, letter:letter, answerField:settings.search.abc)}">
+				<f:if condition="{vh:condition.isThereAMailWithStartingLetter(mails:mails, letter:letter, answerField:settings.search.abc)}">
 					<f:then>
 						<li><f:link.action action="list" arguments="{filter:{abc:letter}}">{letter}</f:link.action></li>
 					</f:then>

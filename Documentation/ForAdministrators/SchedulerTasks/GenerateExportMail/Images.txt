@@ -1,4 +1,0 @@
-.. |scheduler_export1|      image:: ../../../Images/scheduler_export1.png
-   :width: 800
-.. :align: left
-.. :name: scheduler_export1

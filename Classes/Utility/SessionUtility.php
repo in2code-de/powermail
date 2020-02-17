@@ -8,12 +8,15 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class SessionUtility
  * @codeCoverageIgnore
  */
-class SessionUtility extends AbstractUtility
+class SessionUtility
 {
 
     /**
@@ -38,29 +41,28 @@ class SessionUtility extends AbstractUtility
      * @param array $settings
      * @return void
      */
-    public static function saveFormStartInSession(array $settings, Form $form = null)
+    public static function saveFormStartInSession(array $settings, Form $form = null): void
     {
         if ($form !== null && self::sessionCheckEnabled($settings)) {
-            self::getTyposcriptFrontendController()->fe_user->setKey(
+            ObjectUtility::getTyposcriptFrontendController()->fe_user->setKey(
                 'ses',
                 'powermailFormstart' . $form->getUid(),
                 time()
             );
-            self::getTyposcriptFrontendController()->storeSessionData();
         }
     }
 
     /**
      * Read form rendering timestamp from session
      *
-     * @param integer $formUid Form UID
+     * @param int $formUid Form UID
      * @param array $settings
-     * @return integer Timestamp
+     * @return int Timestamp
      */
-    public static function getFormStartFromSession($formUid, array $settings)
+    public static function getFormStartFromSession(int $formUid, array $settings): int
     {
         if (self::sessionCheckEnabled($settings)) {
-            return (int)self::getTyposcriptFrontendController()->fe_user->getKey(
+            return (int)ObjectUtility::getTyposcriptFrontendController()->fe_user->getKey(
                 'ses',
                 'powermailFormstart' . $formUid
             );
@@ -82,11 +84,15 @@ class SessionUtility extends AbstractUtility
      * @param string $referer Referer
      * @param int $language Frontend Language Uid
      * @param int $pid Page Id
-     * @param int $mobileDevice Is mobile device?
+     * @param bool $mobileDevice Is mobile device?
      * @return void
      */
-    public static function storeMarketingInformation($referer = null, $language = 0, $pid = 0, $mobileDevice = 0)
-    {
+    public static function storeMarketingInformation(
+        string $referer = '',
+        int $language = 0,
+        int $pid = 0,
+        bool $mobileDevice = false
+    ): void {
         $marketingInfo = self::getSessionValue('powermail_marketing');
 
         // initially create array with marketing info
@@ -119,7 +125,7 @@ class SessionUtility extends AbstractUtility
      *
      * @return array
      */
-    public static function getMarketingInfos()
+    public static function getMarketingInfos(): array
     {
         $marketingInfo = self::getSessionValue('powermail_marketing');
         if (!is_array($marketingInfo)) {
@@ -142,17 +148,20 @@ class SessionUtility extends AbstractUtility
      * @param Mail $mail
      * @param array $settings Settings array
      * @return void
+     * @throws Exception
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    public static function saveSessionValuesForPrefill(Mail $mail, $settings)
+    public static function saveSessionValuesForPrefill(Mail $mail, array $settings): void
     {
         $valuesToSave = [];
-        $typoScriptService = self::getObjectManager()->get(TypoScriptService::class);
-        $contentObject = self::getContentObject();
+        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $contentObject = ObjectUtility::getContentObject();
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
         if (!empty($configuration['saveSession.']) &&
             array_key_exists($configuration['saveSession.']['_method'], self::$methods)
         ) {
-            $mailRepository = self::getObjectManager()->get(MailRepository::class);
+            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
             $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($mail);
             $contentObject->start($variablesWithMarkers);
             foreach (array_keys($variablesWithMarkers) as $marker) {
@@ -182,7 +191,7 @@ class SessionUtility extends AbstractUtility
      * @param array $configuration TypoScript configuration
      * @return array
      */
-    public static function getSessionValuesForPrefill($configuration)
+    public static function getSessionValuesForPrefill(array $configuration): array
     {
         $values = [];
         if (!empty($configuration['saveSession.']) &&
@@ -202,7 +211,7 @@ class SessionUtility extends AbstractUtility
      * @param int $fieldUid
      * @return void
      */
-    public static function setCaptchaSession($result, $fieldUid)
+    public static function setCaptchaSession(string $result, int $fieldUid): void
     {
         self::setSessionValue('captcha', [$fieldUid => $result], false, 'ses', 'powermail_captcha');
     }
@@ -211,7 +220,7 @@ class SessionUtility extends AbstractUtility
      * @param int $fieldUid
      * @return int
      */
-    public static function getCaptchaSession($fieldUid)
+    public static function getCaptchaSession(int $fieldUid): int
     {
         $sessionArray = self::getSessionValue('captcha', 'ses', 'powermail_captcha');
         return (int)$sessionArray[$fieldUid];
@@ -224,7 +233,7 @@ class SessionUtility extends AbstractUtility
      * @param array $settings
      * @return bool
      */
-    protected static function sessionCheckEnabled(array $settings)
+    protected static function sessionCheckEnabled(array $settings): bool
     {
         return ConfigurationUtility::isValidationEnabled($settings, SessionMethod::class);
     }
@@ -234,9 +243,9 @@ class SessionUtility extends AbstractUtility
      *
      * @return string
      */
-    public static function getSpamFactorFromSession()
+    public static function getSpamFactorFromSession(): string
     {
-        return self::getTyposcriptFrontendController()->fe_user->getKey('ses', 'powermail_spamfactor');
+        return (string)ObjectUtility::getTyposcriptFrontendController()->fe_user->getKey('ses', 'powermail_spamfactor');
     }
 
     /**
@@ -245,14 +254,14 @@ class SessionUtility extends AbstractUtility
      * @param string $name session name
      * @param string $method "user" or "ses"
      * @param string $key name to save session
-     * @return string Values from session
+     * @return string|array Values from session
      */
-    protected static function getSessionValue($name = '', $method = 'ses', $key = '')
+    protected static function getSessionValue(string $name = '', string $method = 'ses', string $key = '')
     {
         if (empty($key)) {
             $key = self::$extKey;
         }
-        $powermailSession = self::getTyposcriptFrontendController()->fe_user->getKey($method, $key);
+        $powermailSession = ObjectUtility::getTyposcriptFrontendController()->fe_user->getKey($method, $key);
         if (!empty($name) && isset($powermailSession[$name])) {
             return $powermailSession[$name];
         }
@@ -269,8 +278,13 @@ class SessionUtility extends AbstractUtility
      * @param string $key name to save session
      * @return void
      */
-    protected static function setSessionValue($name, $values, $overwrite = false, $method = 'ses', $key = '')
-    {
+    protected static function setSessionValue(
+        string $name,
+        array $values,
+        bool $overwrite = false,
+        string $method = 'ses',
+        string $key = ''
+    ): void {
         if (empty($key)) {
             $key = self::$extKey;
         }
@@ -283,7 +297,6 @@ class SessionUtility extends AbstractUtility
         $newValues = [
             $name => $values
         ];
-        self::getTyposcriptFrontendController()->fe_user->setKey($method, $key, $newValues);
-        self::getTyposcriptFrontendController()->storeSessionData();
+        ObjectUtility::getTyposcriptFrontendController()->fe_user->setKey($method, $key, $newValues);
     }
 }

@@ -5,6 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class UploadAttributesViewHelper
@@ -26,6 +27,7 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
      * Array for multiple upload
      *
      * @return array
+     * @throws Exception
      */
     public function render(): array
     {
@@ -33,7 +35,7 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
         $field = $this->arguments['field'];
         $additionalAttributes = $this->arguments['additionalAttributes'];
 
-        $this->addMandatoryAttributes($additionalAttributes, $field);
+        $additionalAttributes = $this->addMandatoryAttributes($additionalAttributes, $field);
         if ($field->getMultiselectForField()) {
             $additionalAttributes['multiple'] = 'multiple';
         }

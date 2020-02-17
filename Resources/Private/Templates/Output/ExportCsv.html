@@ -5,12 +5,12 @@ Render Powermail CSV Export
 {mails}					All Mails for exporting
 {fields}				Fields to export (drag'n drop settings in module)
 
-<f:section name="main"><vh:String.Utf8ToUtf16><vh:string.Trim>
+<f:section name="main"><vh:string.utf8ToUtf16><vh:string.trim>
 
 	<f:for each="{mails}" as="mail" iteration="index">
 		<f:if condition="{index.isFirst}">
 			<f:for each="{fields}" as="field">
-				"<vh:String.RemoveQuote>{field.title}</vh:String.RemoveQuote>";
+				"<vh:string.removeQuote>{field.title}</vh:string.removeQuote>";
 			</f:for>
 			<br />
 		</f:if>
@@ -20,18 +20,18 @@ Render Powermail CSV Export
 			<f:for each="{mail.answers}" as="answer">
 				<f:if condition="{field} == {answer.field}">
 
-					<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+					<f:if condition="{vh:condition.isArray(val: '{answer.value}')}">
 						<f:else>
-							"<vh:String.RemoveQuote>{answer.value}</vh:String.RemoveQuote>";
+							"<vh:string.removeQuote>{answer.value}</vh:string.removeQuote>";
 						</f:else>
 						<f:then>
-							"<vh:String.RemoveQuote>
+							"<vh:string.removeQuote>
 								<f:for each="{answer.value}" as="singleValue">
 									<f:if condition="{singleValue}">
 										{singleValue},
 									</f:if>
 								</f:for>
-							</vh:String.RemoveQuote>";
+							</vh:string.removeQuote>";
 						</f:then>
 					</f:if>
 
@@ -41,4 +41,4 @@ Render Powermail CSV Export
 		<br />
 	</f:for>
 
-</vh:String.Trim></vh:String.Utf8ToUtf16></f:section>
+</vh:string.trim></vh:string.utf8ToUtf16></f:section>

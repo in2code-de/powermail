@@ -34,7 +34,7 @@ $pagesTca = [
         '1' => [
             'showitem' => 'title, fields, --div--;LLL:EXT:powermail/Resources/Private/Language/' .
                 'locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, css, --div--;LLL:EXT:' .
-                'powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, forms, ' .
+                'powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, form, ' .
                 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime'
         ],
     ],
@@ -49,8 +49,8 @@ $pagesTca = [
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'default' => 0,
                 'items' => [
-                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xml:LGL.allLanguages', -1],
-                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xml:LGL.default_value', 0]
+                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.default_value', 0]
                 ],
             ],
         ],
@@ -97,7 +97,7 @@ $pagesTca = [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
+                'eval' => 'datetime,int',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -113,7 +113,7 @@ $pagesTca = [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
+                'eval' => 'datetime,int',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -186,7 +186,7 @@ $pagesTca = [
                 ]
             ]
         ],
-        'forms' => [
+        'form' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.forms',
             'config' => [

@@ -80,7 +80,7 @@ class ArrayUtilityTest extends UnitTestCase
                 false
             ],
             [
-                [],
+                '',
                 false
             ]
         ];
@@ -158,5 +158,63 @@ class ArrayUtilityTest extends UnitTestCase
         ];
         $this->assertSame(123, ArrayUtility::getValueByPath($array, 'foo.bar'));
         $this->assertSame('', ArrayUtility::getValueByPath($array, 'foo.test'));
+    }
+
+    /**
+     * Data Provider for htmlspecialcharsOnArrayReturnsArray()
+     *
+     * @return array
+     */
+    public function flattenDataProvider()
+    {
+        return [
+            'simple' => [
+                [
+                    [
+                        'title' => 'foo'
+                    ],
+                    [
+                        'title' => 'bar'
+                    ]
+                ],
+                'title',
+                [
+                    'foo',
+                    'bar'
+                ]
+            ],
+            'multiple keys' => [
+                [
+                    [
+                        'uid' => 123,
+                        'title' => 'foo'
+                    ],
+                    [
+                        'uid' => 234,
+                        'title' => 'bar'
+                    ]
+                ],
+                'title',
+                [
+                    'foo',
+                    'bar'
+                ]
+            ],
+            'invalid' => [
+                [],
+                '',
+                []
+            ]
+        ];
+    }
+
+    /**
+     * @return void
+     * @dataProvider flattenDataProvider
+     * @covers ::flatten
+     */
+    public function testFlatten(array $testcase, string $key, array $expected)
+    {
+        $this->assertSame($expected, ArrayUtility::flatten($testcase, $key));
     }
 }

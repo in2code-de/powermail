@@ -6,21 +6,23 @@ use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
- * Powermail Field Selector for Pi2 (powermail_frontend)
- * Used in FlexForm
+ * Class FieldSelectorUserFunc
+ * Powermail Field Selector for Pi2 (powermail_frontend) - used in FlexForm
  */
 class FieldSelectorUserFunc
 {
 
     /**
-     * Cretae Array for Field Selector
+     * Create Array for Field Selector
      *
      * @param array $params
      * @return void
+     * @throws Exception
      */
-    public function getFieldSelection(&$params)
+    public function getFieldSelection(array &$params): void
     {
         /** @var FormRepository $formRepository */
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
@@ -48,7 +50,7 @@ class FieldSelectorUserFunc
      * @param int $ttContentUid
      * @return int
      */
-    protected function getFormUidFromTtContentUid($ttContentUid)
+    protected function getFormUidFromTtContentUid(int $ttContentUid): int
     {
         $row = BackendUtilityCore::getRecord('tt_content', (int)$ttContentUid, 'pi_flexform', '', false);
         $flexform = GeneralUtility::xml2array($row['pi_flexform']);

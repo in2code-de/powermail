@@ -17,7 +17,7 @@ class PlaintextService
      * @param string $content HTML Mail bodytext
      * @return string $content
      */
-    public function makePlain($content)
+    public function makePlain(string $content): string
     {
         $content = $this->removeInvisibleElements($content);
         $content = $this->removeLinebreaksAndTabs($content);
@@ -35,7 +35,7 @@ class PlaintextService
      * @param string $content
      * @return string
      */
-    protected function removeInvisibleElements($content)
+    protected function removeInvisibleElements(string $content): string
     {
         $content = preg_replace(
             [
@@ -63,7 +63,7 @@ class PlaintextService
      * @param string $content
      * @return string
      */
-    protected function removeLinebreaksAndTabs($content)
+    protected function removeLinebreaksAndTabs(string $content): string
     {
         $content = trim(str_replace(["\n", "\r", "\t"], '', $content));
         return $content;
@@ -73,9 +73,9 @@ class PlaintextService
      * add linebreaks on some parts (</p> => </p><br />)
      *
      * @param string $content
-     * @return array
+     * @return string
      */
-    protected function addLineBreaks($content)
+    protected function addLineBreaks(string $content): string
     {
         $tags2LineBreaks = [
             '</p>',
@@ -103,7 +103,7 @@ class PlaintextService
      * @param string $content
      * @return string
      */
-    protected function addSpaceToTableCells($content)
+    protected function addSpaceToTableCells(string $content): string
     {
         return str_replace(['</td>', '</th>'], '</td> ', $content);
     }
@@ -114,7 +114,7 @@ class PlaintextService
      * @param string $content
      * @return string
      */
-    protected function removeTags($content)
+    protected function removeTags(string $content): string
     {
         return strip_tags($content, '<br><address>');
     }
@@ -130,7 +130,7 @@ class PlaintextService
      * @param string $content
      * @return string
      */
-    protected function extractLinkForPlainTextContent($content)
+    protected function extractLinkForPlainTextContent(string $content): string
     {
         $pattern = '/<a[^>]+href\s*=\s*["\']([^"\']+)["\'][^>]*>(.*?)<\/a>/misu';
         return preg_replace_callback($pattern, function ($matches) {

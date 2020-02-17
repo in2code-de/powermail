@@ -72,8 +72,9 @@ class DateConverter
      * @param array $configuration TypoScript configuration from userFunc
      * @return string
      */
-    public function convert($content = '', $configuration = [])
+    public function convert(string $content = '', array $configuration = []): string
     {
+        unset($content);
         $this->initialize($configuration);
         $this->createDateFromFormat();
         if ($this->getDate() !== null) {
@@ -83,11 +84,9 @@ class DateConverter
     }
 
     /**
-     * Create date from format
-     *
      * @return void
      */
-    protected function createDateFromFormat()
+    protected function createDateFromFormat(): void
     {
         $date = \DateTime::createFromFormat($this->getInputFormat(), $this->getInput());
         if ($date !== false) {
@@ -101,7 +100,7 @@ class DateConverter
      * @param array $configuration
      * @return void
      */
-    protected function initialize($configuration)
+    protected function initialize(array $configuration): void
     {
         $this->configuration = $configuration;
         $this->setInput()->setInputFormat()->setOutputFormat();
@@ -110,7 +109,7 @@ class DateConverter
     /**
      * @return DateConverter
      */
-    protected function setInput()
+    protected function setInput(): DateConverter
     {
         $input = $this->cObj->cObjGetSingle($this->configuration['input'], $this->configuration['input.']);
         if (!empty($input)) {
@@ -122,7 +121,7 @@ class DateConverter
     /**
      * @return string
      */
-    public function getInput()
+    public function getInput(): string
     {
         return $this->input;
     }
@@ -130,7 +129,7 @@ class DateConverter
     /**
      * @return DateConverter
      */
-    protected function setInputFormat()
+    protected function setInputFormat(): DateConverter
     {
         $inputFormat = $this->cObj->cObjGetSingle(
             $this->configuration['inputFormat'],
@@ -145,7 +144,7 @@ class DateConverter
     /**
      * @return string
      */
-    public function getInputFormat()
+    public function getInputFormat(): string
     {
         return $this->inputFormat;
     }
@@ -153,7 +152,7 @@ class DateConverter
     /**
      * @return DateConverter
      */
-    protected function setOutputFormat()
+    protected function setOutputFormat(): DateConverter
     {
         $outputFormat = $this->cObj->cObjGetSingle(
             $this->configuration['outputFormat'],
@@ -168,15 +167,16 @@ class DateConverter
     /**
      * @return string
      */
-    public function getOutputFormat()
+    public function getOutputFormat(): string
     {
         return $this->outputFormat;
     }
 
     /**
      * @param \DateTime $date
+     * @return void
      */
-    public function setDate(\DateTime $date)
+    public function setDate(\DateTime $date): void
     {
         $this->date = $date;
     }
@@ -184,7 +184,7 @@ class DateConverter
     /**
      * @return \DateTime
      */
-    public function getDate()
+    public function getDate(): \DateTime
     {
         return $this->date;
     }

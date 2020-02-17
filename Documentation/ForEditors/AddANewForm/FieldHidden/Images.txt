@@ -1,7 +1,0 @@
-.. |record_field_hidden_tab1|      image:: ../../../Images/record_field_hidden_tab1.png
-.. :align: left
-.. :name: record_field_hidden_tab1
-
-.. |record_field_hidden_tab2|      image:: ../../../Images/record_field_hidden_tab2.png
-.. :align: left
-.. :name: record_field_hidden_tab2

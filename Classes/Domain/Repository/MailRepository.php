@@ -13,8 +13,11 @@ use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException as InvalidQueryExceptionAlias;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -37,15 +40,17 @@ class MailRepository extends AbstractRepository
      * @param array $settings TypoScript Config Array
      * @param array $piVars Plugin Variables
      * @return QueryResultInterface
-     * @throws InvalidQueryException
+     * @throws InvalidQueryExceptionAlias
      */
-    public function findAllInPid($pid = 0, $settings = [], $piVars = [])
+    public function findAllInPid(int $pid = 0, array $settings = [], array $piVars = []): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
         $and = $this->getConstraintsForFindAllInPid($piVars, $query, $pid);
         $query->matching($query->logicalAnd($and));
-        $query->setOrderings($this->getSorting($settings['sortby'], $settings['order'], $piVars));
+        $query->setOrderings(
+            $this->getSorting((string)$settings['sortby'], (string)$settings['order'], (array)$piVars)
+        );
         $mails = $query->execute();
         $mails = $this->makeUniqueQuery($mails, $query);
         return $mails;
@@ -56,10 +61,10 @@ class MailRepository extends AbstractRepository
      *
      * @param QueryResultInterface $result
      * @param QueryInterface $query
-     * @return array|QueryResultInterface
-     * @throws InvalidQueryException
+     * @return QueryResultInterface
+     * @throws InvalidQueryExceptionAlias
      */
-    protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query)
+    protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query): QueryResultInterface
     {
         if ($result->count() > 0) {
             $items = [];
@@ -80,7 +85,7 @@ class MailRepository extends AbstractRepository
      * @param int $pid
      * @return Mail
      */
-    public function findFirstInPid($pid = 0)
+    public function findFirstInPid(int $pid = 0): Mail
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
@@ -126,8 +131,12 @@ class MailRepository extends AbstractRepository
      * @param Form $form
      * @param int $pageUid
      * @return QueryResultInterface
+     * @throws Exception
+     * @throws InvalidQueryExceptionAlias
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    public function findByMarkerValueForm($marker, $value, $form, $pageUid)
+    public function findByMarkerValueForm(string $marker, string $value, Form $form, int $pageUid): QueryResultInterface
     {
         $query = $this->createQuery();
         $fieldRepository = $this->objectManager->get(FieldRepository::class);
@@ -141,14 +150,12 @@ class MailRepository extends AbstractRepository
     }
 
     /**
-     * Query for Pi2
-     *
-     * @param $settings
-     * @param $piVars
-     * @return array|QueryResultInterface
-     * @throws InvalidQueryException
+     * @param array $settings
+     * @param array $piVars
+     * @return QueryResultInterface
+     * @throws InvalidQueryExceptionAlias
      */
-    public function findListBySettings($settings, $piVars)
+    public function findListBySettings(array $settings, array $piVars): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -228,8 +235,7 @@ class MailRepository extends AbstractRepository
             $query->setLimit((int)$settings['list']['limit']);
         }
 
-        $mails = $query->execute();
-        return $mails;
+        return $query->execute();
     }
 
     /**
@@ -238,7 +244,7 @@ class MailRepository extends AbstractRepository
      * @param int $pageUid
      * @return array
      */
-    public function findGroupedFormUidsToGivenPageUid($pageUid = 0)
+    public function findGroupedFormUidsToGivenPageUid(int $pageUid = 0): array
     {
         /** @var Query $query */
         $query = $this->createQuery();
@@ -268,9 +274,9 @@ class MailRepository extends AbstractRepository
      * @param string $uidList Commaseparated UID List of mails
      * @param array $sorting array('field' => 'asc')
      * @return QueryResultInterface
-     * @throws InvalidQueryException
+     * @throws InvalidQueryExceptionAlias
      */
-    public function findByUidList($uidList, $sorting = [])
+    public function findByUidList(string $uidList, array $sorting = []): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
@@ -296,7 +302,7 @@ class MailRepository extends AbstractRepository
      * @param int $limit
      * @return QueryResultInterface
      */
-    public function findLatestByForm($formUid, $limit = 3)
+    public function findLatestByForm(int $formUid, int $limit = 3): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->matching($query->equals('form', $formUid));
@@ -311,8 +317,9 @@ class MailRepository extends AbstractRepository
      *
      * @param Mail $mail
      * @return array
+     * @throws Exception
      */
-    public function getLabelsWithMarkersFromMail(Mail $mail)
+    public function getLabelsWithMarkersFromMail(Mail $mail): array
     {
         $variables = [];
         foreach ($mail->getAnswers() as $answer) {
@@ -332,8 +339,9 @@ class MailRepository extends AbstractRepository
      * @return array
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function getVariablesWithMarkersFromMail(Mail $mail, $htmlSpecialChars = false)
+    public function getVariablesWithMarkersFromMail(Mail $mail, bool $htmlSpecialChars = false): array
     {
         $variables = [];
         foreach ($mail->getAnswers() as $answer) {
@@ -362,7 +370,7 @@ class MailRepository extends AbstractRepository
      * @param string $default
      * @return string Sender Email
      */
-    public function getSenderMailFromArguments(Mail $mail, $default = null)
+    public function getSenderMailFromArguments(Mail $mail, string $default = ''): string
     {
         $email = '';
         foreach ($mail->getAnswers() as $answer) {
@@ -387,8 +395,9 @@ class MailRepository extends AbstractRepository
      * @param string|array $default String as default or cObject array
      * @param string $glue
      * @return string Sender Name
+     * @throws Exception
      */
-    public function getSenderNameFromArguments(Mail $mail, $default = null, $glue = ' ')
+    public function getSenderNameFromArguments(Mail $mail, $default = null, string $glue = ' '): string
     {
         $name = '';
         foreach ($mail->getAnswers() as $answer) {
@@ -435,7 +444,7 @@ class MailRepository extends AbstractRepository
      * @param array $piVars
      * @return array
      */
-    protected function getSorting($sortby, $order, $piVars = [])
+    protected function getSorting(string $sortby, string $order, array $piVars = []): array
     {
         $sorting = [
             $this->cleanStringForQuery(StringUtility::conditionalVariable($sortby, 'crdate')) =>
@@ -456,7 +465,7 @@ class MailRepository extends AbstractRepository
      * @param string $sortOrderString
      * @return string
      */
-    protected function getSortOrderByString($sortOrderString)
+    protected function getSortOrderByString(string $sortOrderString): string
     {
         $sortOrder = QueryInterface::ORDER_ASCENDING;
         if ($sortOrderString !== 'asc') {
@@ -466,26 +475,21 @@ class MailRepository extends AbstractRepository
     }
 
     /**
-     * Make in impossible to hack a sql string
-     * if we just remove as much unneeded characters
-     * as possible
+     * Make in impossible to hack a sql string if we just remove as much unneeded characters as possible
      *
      * @param string $string
      * @return string
      */
-    protected function cleanStringForQuery($string)
+    protected function cleanStringForQuery(string $string): string
     {
         return preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
     }
 
     /**
-     * General settings
-     *
      * @return void
      */
-    public function initializeObject()
+    public function initializeObject(): void
     {
-        /** @var Typo3QuerySettings $querySettings */
         $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
@@ -497,7 +501,7 @@ class MailRepository extends AbstractRepository
      * @param string $default
      * @return string
      */
-    protected function getSenderMailFromDefault($default)
+    protected function getSenderMailFromDefault(string $default): string
     {
         $email = LocalizationUtility::translate('error_no_sender_email') . '@';
         $email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
@@ -513,11 +517,11 @@ class MailRepository extends AbstractRepository
     /**
      * @param array $piVars
      * @param QueryInterface $query
-     * @param $pid
+     * @param int $pid
      * @return array
-     * @throws InvalidQueryException
+     * @throws InvalidQueryExceptionAlias
      */
-    protected function getConstraintsForFindAllInPid(array $piVars, QueryInterface $query, $pid)
+    protected function getConstraintsForFindAllInPid(array $piVars, QueryInterface $query, int $pid): array
     {
         $and = [
             $query->equals('deleted', 0),
@@ -567,7 +571,7 @@ class MailRepository extends AbstractRepository
      * @param int $mailIdentifier
      * @return void
      */
-    public function removeFromDatabase(int $mailIdentifier)
+    public function removeFromDatabase(int $mailIdentifier): void
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Mail::TABLE_NAME);
         $queryBuilder->delete(Mail::TABLE_NAME)->where('uid=' . (int)$mailIdentifier)->execute();

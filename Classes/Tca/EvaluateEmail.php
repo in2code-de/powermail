@@ -13,11 +13,11 @@ class EvaluateEmail
     /**
      * Adds new JavaScript function for evaluation of the TCA fields in backend
      *
-     * @return    string        JavaScript
+     * @return string
      */
-    public function returnFieldJS()
+    public function returnFieldJS(): string
     {
-        $content = '
+        return '
 			if (value === "" || validEmail(value)) {
 				return value;
 			} else {
@@ -46,8 +46,6 @@ class EvaluateEmail
 				return(res);
 			}
 		';
-
-        return $content;
     }
 
     /**
@@ -58,8 +56,9 @@ class EvaluateEmail
      * @param bool $set defining if the value is written to the database or not.
      * @return string
      */
-    public function evaluateFieldValue($value, $isIn, &$set)
+    public function evaluateFieldValue(string $value, string $isIn, bool &$set): string
     {
+        unset($isIn);
         if (GeneralUtility::validEmail($value)) {
             $set = 1;
         } else {

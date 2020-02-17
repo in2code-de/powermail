@@ -16,7 +16,7 @@ class PageRepository extends AbstractRepository
      * @param int $uid
      * @return string
      */
-    public function getPageNameFromUid($uid): string
+    public function getPageNameFromUid(int $uid): string
     {
         $pageName = '';
         $query = $this->createQuery();
@@ -29,12 +29,10 @@ class PageRepository extends AbstractRepository
     }
 
     /**
-     * Get properties from table "pages"
-     *
      * @param int $uid
      * @return array
      */
-    public function getPropertiesFromUid($uid)
+    public function getPropertiesFromUid(int $uid): array
     {
         $query = $this->createQuery();
         $sql = 'select * from pages where uid = ' . (int)$uid . ' limit 1';
@@ -48,7 +46,7 @@ class PageRepository extends AbstractRepository
      * @param Form $form
      * @return array
      */
-    public function getPagesWithContentRelatedToForm($form)
+    public function getPagesWithContentRelatedToForm(Form $form): array
     {
         $query = $this->createQuery();
 
@@ -60,13 +58,12 @@ class PageRepository extends AbstractRepository
         $sql .= ' and tt_content.deleted = 0 and pages.deleted = 0';
         $sql .= ' and tt_content.pi_flexform like "' . $searchString . '"';
 
-        $result = $query->statement($sql)->execute(true);
-        return $result;
+        return $query->statement($sql)->execute(true);
     }
 
     /**
      * Find all localized records with
-     *        tx_powermail_domain_model_page.forms = "0"
+     *        tx_powermail_domain_model_page.form = "0"
      *
      * @return array
      */
@@ -76,7 +73,7 @@ class PageRepository extends AbstractRepository
         return $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Page::TABLE_NAME)
-            ->where('(forms = "" or forms = 0) and sys_language_uid > 0 and deleted = 0')
+            ->where('(form = "" or form = 0) and sys_language_uid > 0 and deleted = 0')
             ->execute()
             ->fetchAll();
     }
@@ -86,7 +83,7 @@ class PageRepository extends AbstractRepository
      *
      * @return void
      */
-    public function fixWrongLocalizedPages()
+    public function fixWrongLocalizedPages(): void
     {
         foreach ($this->findAllWrongLocalizedPages() as $page) {
             $defaultPageUid = $page['l10n_parent'];
@@ -96,7 +93,7 @@ class PageRepository extends AbstractRepository
             $queryBuilder
                 ->update(Page::TABLE_NAME)
                 ->where('uid = ' . (int)$page['uid'])
-                ->set('forms', $localizedFormUid)
+                ->set('form', $localizedFormUid)
                 ->execute();
         }
     }
@@ -106,7 +103,7 @@ class PageRepository extends AbstractRepository
      *
      * @return int[]
      */
-    public function getAllPages()
+    public function getAllPages(): array
     {
         $querybuilder = DatabaseUtility::getQueryBuilderForTable('pages', true);
         $rows = $querybuilder->select('uid')->from('pages')->execute()->fetchAll();
@@ -123,16 +120,16 @@ class PageRepository extends AbstractRepository
      * @param int $pageUid
      * @return int
      */
-    protected function getFormUidFromPageUid($pageUid)
+    protected function getFormUidFromPageUid(int $pageUid): int
     {
         $query = $this->createQuery();
-        $sql = 'select forms';
+        $sql = 'select form';
         $sql .= ' from ' . Page::TABLE_NAME;
         $sql .= ' where uid = ' . (int)$pageUid;
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
         $row = $query->statement($sql)->execute(true);
-        return (int)$row[0]['forms'];
+        return (int)$row[0]['form'];
     }
 
     /**
@@ -140,7 +137,7 @@ class PageRepository extends AbstractRepository
      * @param int $sysLanguageUid
      * @return int
      */
-    protected function getLocalizedFormUidFromFormUid($formUid, $sysLanguageUid)
+    protected function getLocalizedFormUidFromFormUid(int $formUid, int $sysLanguageUid): int
     {
         $query = $this->createQuery();
         $sql = 'select uid';

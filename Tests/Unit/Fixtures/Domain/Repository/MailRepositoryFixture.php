@@ -1,7 +1,6 @@
 <?php
 namespace In2code\Powermail\Tests\Unit\Fixtures\Domain\Repository;
 
-use Doctrine\Common\Proxy\Exception\UnexpectedValueException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 
@@ -29,6 +28,6 @@ class MailRepositoryFixture extends MailRepository
     public function add($object)
     {
         unset($object);
-        throw new UnexpectedValueException('Object stored', 1515088469408);
+        throw new \UnexpectedValueException('Object stored', 1515088469408);
     }
 }

@@ -4,7 +4,7 @@ Feature: Upload
 
   @javascript
   Scenario: Check if Uploads in a Form work as expected
-    Given I am on "/index.php?id=26"
+    Given I am on "/powermail/pi1/upload/upload"
     Then I should see "Name"
     Then I should see "E-Mail"
     Then I should see "Upload"

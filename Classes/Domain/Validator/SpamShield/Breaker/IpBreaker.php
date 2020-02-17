@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield\Breaker;
 
+use In2code\Powermail\Exception\ConfigurationIsMissingException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -12,6 +13,7 @@ class IpBreaker extends AbstractBreaker
 
     /**
      * @return bool
+     * @throws ConfigurationIsMissingException
      */
     public function isDisabled(): bool
     {
@@ -51,12 +53,13 @@ class IpBreaker extends AbstractBreaker
 
     /**
      * @return array
+     * @throws ConfigurationIsMissingException
      */
     protected function getIpAddresses(): array
     {
         $configuration = $this->getConfiguration();
         if (empty($configuration['ipWhitelist'])) {
-            throw new \UnexpectedValueException(
+            throw new ConfigurationIsMissingException(
                 'Setup ...spamshield.disable.NO.configuration.ipWhitelist not given',
                 1516024283512
             );

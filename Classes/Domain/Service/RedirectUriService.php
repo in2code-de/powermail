@@ -3,9 +3,9 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-// @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-use TYPO3\CMS\Extbase\Service\FlexFormService;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -23,14 +23,15 @@ class RedirectUriService
      * Get redirect URI from FlexForm or TypoScript
      *
      * @return string|null
+     * @throws Exception
      */
-    public function getRedirectUri()
+    public function getRedirectUri(): ?string
     {
         $uri = null;
         $target = $this->getTarget();
         if ($target !== null) {
             $uriBuilder = ObjectUtility::getObjectManager()->get(UriBuilder::class);
-            $uriBuilder->setTargetPageUid($target);
+            $uriBuilder->setTargetPageUid((int)$target);
             $uri = $uriBuilder->build();
         }
         return $uri;
@@ -40,8 +41,9 @@ class RedirectUriService
      * Get target
      *
      * @return string|null
+     * @throws Exception
      */
-    protected function getTarget()
+    protected function getTarget(): ?string
     {
         $target = $this->getTargetFromTypoScript();
         if ($target === null) {
@@ -56,8 +58,9 @@ class RedirectUriService
      *      settings.flexform.thx.redirect
      *
      * @return string|null
+     * @throws Exception
      */
-    protected function getTargetFromFlexForm()
+    protected function getTargetFromFlexForm(): ?string
     {
         $target = null;
         $flexFormArray = $this->getFlexFormArray();
@@ -74,8 +77,9 @@ class RedirectUriService
      *      plugin.tx_powermail.settings.setup.thx.overwrite.redirect.value = 123
      *
      * @return string|null
+     * @throws Exception
      */
-    protected function getTargetFromTypoScript()
+    protected function getTargetFromTypoScript(): ?string
     {
         $target = null;
         $overwriteConfig = $this->getOverwriteTypoScript();
@@ -89,10 +93,10 @@ class RedirectUriService
      * Get FlexForm array from contentObject
      *
      * @return array|null
+     * @throws Exception
      */
-    protected function getFlexFormArray()
+    protected function getFlexFormArray(): ?array
     {
-        /** @var FlexFormService $flexFormService */
         $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);
         return $flexFormService->convertFlexFormContentToArray($this->contentObject->data['pi_flexform']);
     }
@@ -101,8 +105,9 @@ class RedirectUriService
      * Get TypoScript array
      *
      * @return array|null
+     * @throws Exception
      */
-    protected function getOverwriteTypoScript()
+    protected function getOverwriteTypoScript(): ?array
     {
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $configuration = $configurationService->getTypoScriptConfiguration();

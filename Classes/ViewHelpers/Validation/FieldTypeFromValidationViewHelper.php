@@ -35,7 +35,7 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
     /**
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         /** @var Field $field */
         $field = $this->arguments['field'];

@@ -4,9 +4,9 @@
 	Show Backend Module: Powermail Reporting Marketing
 
 <f:section name="content">
-	
+
 	<h1><f:translate key="BackendReportingMarketingTitle" /></h1>
-	
+
 	<div class="powermail_reporting_marketing">
 		<div class="powermail_module_search">
 			<div class="powermail_module_search_inner">
@@ -15,7 +15,7 @@
 				</f:alias>
 			</div>
 		</div>
-		
+
 		<f:if condition="{mails}">
 			<f:then>
 				<h3><f:translate key="BackendReportingFormSubtitle1" /> <f:count subject="{mails}" /> <f:translate key="Emails" />:</h3>
@@ -24,13 +24,13 @@
 					<div class="col-md-6">
 						<div class="powermail_reporting_marketing_fields_item">
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain">Referer Domain</f:translate></h4>
-							<f:if condition="{vh:Reporting.GetLabelsForCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingRefererDomain')}">
+							<f:if condition="{vh:reporting.getLabelsForCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingRefererDomain')}">
 								<f:then>
 									<div class="flotContainer"
 										 data-flot-active="1"
 										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-										 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: ',', urlEncode:0)}"
-										 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator:',', urlEncode:0)}"></div>
+										 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingRefererDomain', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -63,13 +63,13 @@
 					<div class="col-md-6">
 						<div class="powermail_reporting_marketing_fields_item">
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer">Referer</f:translate></h4>
-							<f:if condition="{vh:Reporting.GetLabelsForCharts(answers: '{groupedMarketingStuff}', fieldUidOrKey: 'marketingReferer')}">
+							<f:if condition="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey: 'marketingReferer')}">
 								<f:then>
 									<div class="flotContainer"
 										 data-flot-active="1"
 										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-										 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingReferer', separator: ',', urlEncode:0)}"
-										 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingReferer', separator:',', urlEncode:0)}"></div>
+										 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingReferer', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingReferer', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -106,8 +106,8 @@
 									<div class="flotContainer"
 										 data-flot-active="1"
 										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-										 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry', separator: ',', urlEncode:0)}"
-										 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry', separator:',', urlEncode:0)}"></div>
+										 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingCountry', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -139,13 +139,13 @@
 					<div class="col-md-6">
 						<div class="powermail_reporting_marketing_fields_item">
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice">Mobile Device</f:translate></h4>
-							<f:if condition="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice')}">
+							<f:if condition="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice')}">
 								<f:then>
 									<div class="flotContainer"
 										 data-flot-active="1"
 										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-										 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice', separator: ',', urlEncode:0)}"
-										 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice', separator:',', urlEncode:0)}"></div>
+										 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingMobileDevice', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -177,13 +177,13 @@
 					<div class="col-md-6">
 						<div class="powermail_reporting_marketing_fields_item">
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage">Frontend Language</f:translate></h4>
-							<f:if condition="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage')}">
+							<f:if condition="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage')}">
 								<f:then>
 									<div class="flotContainer"
 										 data-flot-active="1"
 										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-										 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage', separator: ',', urlEncode:0)}"
-										 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage', separator:',', urlEncode:0)}"></div>
+										 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingFrontendLanguage', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -215,13 +215,13 @@
 					<div class="col-md-6">
 						<div class="powermail_reporting_marketing_fields_item">
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage">Browser Language</f:translate></h4>
-							<f:if condition="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff,fieldUidOrKey:'marketingBrowserLanguage')}">
+							<f:if condition="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff,fieldUidOrKey:'marketingBrowserLanguage')}">
 								<f:then>
 									<div class="flotContainer"
 										 data-flot-active="1"
 										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-										 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingBrowserLanguage', separator: ',', urlEncode:0)}"
-										 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingBrowserLanguage', separator:',', urlEncode:0)}"></div>
+										 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingBrowserLanguage', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingBrowserLanguage', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -253,13 +253,13 @@
 					<div class="col-md-6">
 						<div class="powermail_reporting_marketing_fields_item">
 							<h4><f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel">Page Funnel</f:translate></h4>
-							<f:if condition="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff,fieldUidOrKey:'marketingPageFunnelString')}">
+							<f:if condition="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff,fieldUidOrKey:'marketingPageFunnelString')}">
 								<f:then>
 									<div class="flotContainer"
 										 data-flot-active="1"
 										 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-										 data-flot-data-values="{vh:Reporting.GetValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingPageFunnelString', separator: ',', urlEncode:0)}"
-										 data-flot-data-labels="{vh:Reporting.GetLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingPageFunnelString', separator:',', urlEncode:0)}"></div>
+										 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingPageFunnelString', separator: ',', urlEncode:0)}"
+										 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedMarketingStuff, fieldUidOrKey:'marketingPageFunnelString', separator:',', urlEncode:0)}"></div>
 								</f:then>
 								<f:else>
 									<p class="noValuesToShow"><f:translate key="BackendReportingNoValues">No Values to Show</f:translate></p>
@@ -280,8 +280,8 @@
 														{value}
 													</f:then>
 													<f:else>
-														<f:for each="{vh:String.Explode(string:value)}" as="page" iteration="index">
-															<vh:Getter.GetPageNameFromUid uid="{page}" /><f:if condition="{index.isLast}"><f:else> &gt;</f:else></f:if>
+														<f:for each="{vh:string.explode(string:value)}" as="page" iteration="index">
+															<vh:getter.getPageNameFromUid uid="{page}" /><f:if condition="{index.isLast}"><f:else> &gt;</f:else></f:if>
 														</f:for>
 													</f:else>
 												</f:if>

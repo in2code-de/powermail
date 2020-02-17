@@ -4,7 +4,7 @@ Feature: List
 
   @Pi2ListEntry
   Scenario: Add a new dummy Entry
-    Given I am on "/index.php?id=40"
+    Given I am on "/powermail/pi2/standard/form"
     When I fill in "tx_powermail_pi1[field][string]" with "Andy Kräuter"
     When I fill in "tx_powermail_pi1[field][textarea]" with "Das ist ein Test"
     When I select "Sandra" from "tx_powermail_pi1[field][marker]"
@@ -18,7 +18,7 @@ Feature: List
 
   @Pi2ListCheck
   Scenario: Check entries in List View
-    Given I am on "/index.php?id=30"
+    Given I am on "/powermail/pi2/standard/list"
     Then I should see "Andy Kräuter"
     Then I should see "Das ist ein Test"
     Then I should see "Sandra"
@@ -29,7 +29,7 @@ Feature: List
 
   @Pi2ListFilterEmpty
   Scenario: Check empty Filter over List View
-    Given I am on "/index.php?id=30"
+    Given I am on "/powermail/pi2/standard/list"
     When I fill in "tx_powermail_pi2[filter][_all]" with "öoijasd908püuß980asdöijo"
     And I press "Jetzt Filtern"
     Then I should see "Keine Mails gefunden"
@@ -37,7 +37,7 @@ Feature: List
 
   @Pi2ListFilter
   Scenario: Check empty Filter over List View
-    Given I am on "/index.php?id=30"
+    Given I am on "/powermail/pi2/standard/list"
     When I fill in "tx_powermail_pi2[filter][_all]" with "Andy"
     And I press "Jetzt Filtern"
     Then I should not see "Keine Mails gefunden"

@@ -13,7 +13,7 @@ class UniqueMethod extends AbstractMethod
      *
      * @return bool true if spam recognized
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         $answers = [];
         foreach ($this->mail->getAnswers() as $answer) {

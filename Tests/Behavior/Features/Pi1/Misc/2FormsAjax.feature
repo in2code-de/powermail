@@ -4,7 +4,7 @@ Feature: 2Forms
 
   @javascript
   Scenario: Check if 2 Powermail Forms work properly on one page (with activated AJAX submit)
-    Given I am on "/index.php?id=133"
+    Given I am on "/powermail/pi1/misc/2-forms-on-1-page/ajax"
     Then I should see "send to alex@in2code.de"
     Then I should see "send to alexander.kellner@einpraegsam.net"
     And I press "Jetzt Absenden"

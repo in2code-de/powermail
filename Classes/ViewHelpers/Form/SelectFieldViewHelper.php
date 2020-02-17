@@ -47,7 +47,7 @@ class SelectFieldViewHelper extends SelectViewHelper
      *
      * @return void
      */
-    protected function setOptions()
+    protected function setOptions(): void
     {
         $optionArray = [];
         foreach ($this->arguments['options'] as $option) {
@@ -70,7 +70,7 @@ class SelectFieldViewHelper extends SelectViewHelper
         return parent::renderOptionTag(
             $value,
             $label,
-            $this->isSelectedAlternative($this->getOptionFromOriginalOptionsByValue($value))
+            $this->isSelectedAlternative($this->getOptionFromOriginalOptionsByValue((string)$value))
         );
     }
 
@@ -78,7 +78,7 @@ class SelectFieldViewHelper extends SelectViewHelper
      * @param string $value
      * @return array
      */
-    protected function getOptionFromOriginalOptionsByValue($value)
+    protected function getOptionFromOriginalOptionsByValue(string $value): array
     {
         foreach ($this->originalOptions as $option) {
             if ((string) $value === $option['value'] || (string) $value === $option['label']) {
@@ -92,9 +92,9 @@ class SelectFieldViewHelper extends SelectViewHelper
      * Check if option is selected
      *
      * @param array $option Current option
-     * @return boolean TRUE if the value marked a s selected; FALSE otherwise
+     * @return bool TRUE if the value marked a s selected; FALSE otherwise
      */
-    protected function isSelectedAlternative($option)
+    protected function isSelectedAlternative(array $option): bool
     {
         if (is_array($this->getValueAttribute())) {
             return $this->isSelectedAlternativeForArray($option);
@@ -106,7 +106,7 @@ class SelectFieldViewHelper extends SelectViewHelper
      * @param array $option
      * @return bool
      */
-    protected function isSelectedAlternativeForString($option)
+    protected function isSelectedAlternativeForString(array $option): bool
     {
         if (($option['selected'] && !$this->getValueAttribute()) ||
             ($this->getValueAttribute() &&
@@ -121,7 +121,7 @@ class SelectFieldViewHelper extends SelectViewHelper
      * @param array $option
      * @return bool
      */
-    protected function isSelectedAlternativeForArray($option)
+    protected function isSelectedAlternativeForArray(array $option): bool
     {
         foreach ($this->getValueAttribute() as $singleValue) {
             if (!empty($singleValue) && ($option['value'] === $singleValue || $option['label'] === $singleValue)) {

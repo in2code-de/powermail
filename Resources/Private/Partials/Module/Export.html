@@ -38,96 +38,96 @@
 				<f:translate key="BackendListFilterExtendedExportRightLabel" />
 			</label>
 			<ul class="extended_export_field_container connected list-group" id="export_field_selection_container">
-				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'crdate')}">
+				<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'crdate')}">
 					<li id="crdate" class="list-group-item list-group-item-warning pointer">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
 					</li>
 				</f:if>
-				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'sender_name')}">
+				<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'sender_name')}">
 					<li id="sender_name" class="list-group-item list-group-item-warning pointer">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderName" />
 					</li>
 				</f:if>
-				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'sender_mail')}">
+				<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'sender_mail')}">
 					<li id="sender_mail" class="list-group-item list-group-item-warning pointer">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderMail" />
 					</li>
 				</f:if>
-				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'receiver_mail')}">
+				<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'receiver_mail')}">
 					<li id="receiver_mail" class="list-group-item list-group-item-warning pointer">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.receiverMail" />
 					</li>
 				</f:if>
-				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'subject')}">
+				<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'subject')}">
 					<li id="subject" class="list-group-item list-group-item-warning pointer">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
 					</li>
 				</f:if>
-				<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_referer_domain')}">
+				<f:if condition="{vh:condition.isMarketingInformationEnabledGlobally()}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_referer_domain')}">
 						<li id="marketing_referer_domain" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" />
 						</li>
 					</f:if>
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_referer')}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_referer')}">
 						<li id="marketing_referer" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingReferer" />
 						</li>
 					</f:if>
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_frontend_language')}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_frontend_language')}">
 						<li id="marketing_frontend_language" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" />
 						</li>
 					</f:if>
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_browser_language')}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_browser_language')}">
 						<li id="marketing_browser_language" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" />
 						</li>
 					</f:if>
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_country')}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_country')}">
 						<li id="marketing_country" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingCountry" />
 						</li>
 					</f:if>
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_mobile_device')}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_mobile_device')}">
 						<li id="marketing_mobile_device" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" />
 						</li>
 					</f:if>
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_mobile_device')}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'marketing_mobile_device')}">
 						<li id="marketing_page_funnel" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" />
 						</li>
 					</f:if>
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'user_agent')}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'user_agent')}">
 						<li id="user_agent" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.userAgent" />
 						</li>
 					</f:if>
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'time')}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'time')}">
 						<li id="time" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.time" />
 						</li>
 					</f:if>
 				</f:if>
-				<f:if condition="{vh:Condition.IsIpInformationEnabledGlobally()}">
-					<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'sender_ip')}">
+				<f:if condition="{vh:condition.isIpInformationEnabledGlobally()}">
+					<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'sender_ip')}">
 						<li id="sender_ip" class="list-group-item list-group-item-warning pointer">
 							<f:translate key="\In2code\Powermail\Domain\Model\Mail.senderIp" />
 						</li>
 					</f:if>
 				</f:if>
-				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'uid')}">
+				<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'uid')}">
 					<li id="uid" class="list-group-item list-group-item-warning pointer">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.uid" />
 					</li>
 				</f:if>
-				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'feuser')}">
+				<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'feuser')}">
 					<li id="feuser" class="list-group-item list-group-item-warning pointer">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.feuser" />
 					</li>
 				</f:if>
-				<f:if condition="{vh:Condition.IsBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'hidden')}">
+				<f:if condition="{vh:condition.isBackendUserAllowedToViewField(table:'tx_powermail_domain_model_mail',field:'hidden')}">
 					<li id="hidden" class="list-group-item list-group-item-warning pointer">
 						<f:translate key="\In2code\Powermail\Domain\Model\Mail.hidden">disabled</f:translate>
 					</li>

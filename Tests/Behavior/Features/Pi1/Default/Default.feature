@@ -4,7 +4,7 @@ Feature: AllFields
   Check all default fields
 
   Scenario: Check if AllFields Form is rendered correctly
-    Given I am on "/index.php?id=140"
+    Given I am on "/powermail/pi1/default/default-fields"
     Then I should see "Input"
     Then I should see "Textarea"
     Then I should see "Select"

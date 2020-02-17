@@ -10,8 +10,10 @@ use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Class FormRepository
@@ -23,26 +25,23 @@ class FormRepository extends AbstractRepository
      * Find Form by given Page Uid
      *
      * @param int $uid page uid
-     * @return QueryResult
+     * @return QueryResultInterface
      */
-    public function findByPages($uid)
+    public function findByPages(int $uid)
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
-
         $query->matching($query->equals('pages.uid', $uid));
-
-        $result = $query->execute()->getFirst();
-        return $result;
+        return $query->execute()->getFirst();
     }
 
     /**
      * Returns form with captcha from given UID
      *
      * @param Form $form
-     * @return QueryResult
+     * @return QueryResultInterface
      */
-    public function hasCaptcha(Form $form)
+    public function hasCaptcha(Form $form): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
@@ -58,9 +57,9 @@ class FormRepository extends AbstractRepository
      * Returns form with password from given UID
      *
      * @param Form $form
-     * @return QueryResult
+     * @return QueryResultInterface
      */
-    public function hasPassword(Form $form)
+    public function hasPassword(Form $form): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -80,7 +79,7 @@ class FormRepository extends AbstractRepository
      * @param int $uid Form UID
      * @return string
      */
-    public function getPagesValue($uid)
+    public function getPagesValue(int $uid): string
     {
         $query = $this->createQuery();
 
@@ -91,14 +90,13 @@ class FormRepository extends AbstractRepository
         $sql .= ' limit 1';
 
         $result = $query->statement($sql)->execute(true);
-
         return $result[0]['pages'];
     }
 
     /**
      * Find all and don't respect Storage
      *
-     * @return QueryResult
+     * @return QueryResultInterface
      */
     public function findAll()
     {
@@ -111,9 +109,11 @@ class FormRepository extends AbstractRepository
      * Find all within a Page and all subpages
      *
      * @param int $pid start page identifier
-     * @return QueryResult
+     * @return QueryResultInterface
+     * @throws Exception
+     * @throws InvalidQueryException
      */
-    public function findAllInPidAndRootline($pid)
+    public function findAllInPidAndRootline(int $pid): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -141,9 +141,9 @@ class FormRepository extends AbstractRepository
      * Find all localized records with
      *        tx_powermail_domain_model_form.pages = ""
      *
-     * @return mixed
+     * @return array
      */
-    public function findAllWrongLocalizedForms()
+    public function findAllWrongLocalizedForms(): array
     {
         $query = $this->createQuery();
 
@@ -154,9 +154,7 @@ class FormRepository extends AbstractRepository
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
 
-        $result = $query->statement($sql)->execute(true);
-
-        return $result;
+        return $query->statement($sql)->execute(true);
     }
 
     /**
@@ -164,7 +162,7 @@ class FormRepository extends AbstractRepository
      *
      * @return void
      */
-    public function fixWrongLocalizedForms()
+    public function fixWrongLocalizedForms(): void
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
         $queryBuilder
@@ -180,7 +178,7 @@ class FormRepository extends AbstractRepository
      * @param int $formUid Form UID
      * @return array
      */
-    public function getFieldsFromFormWithSelectQuery($formUid): array
+    public function getFieldsFromFormWithSelectQuery(int $formUid): array
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME, true);
         $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" and f.sys_language_uid IN (-1,0)' .
@@ -188,8 +186,8 @@ class FormRepository extends AbstractRepository
         return $queryBuilder
             ->select('f.uid', 'f.title', 'f.sender_email', 'f.sender_name', 'f.marker')
             ->from(Field::TABLE_NAME, 'f')
-            ->join('f', Page::TABLE_NAME, 'p', 'f.pages = p.uid')
-            ->join('p', Form::TABLE_NAME, 'fo', 'p.forms = fo.uid')
+            ->join('f', Page::TABLE_NAME, 'p', 'f.page = p.uid')
+            ->join('p', Form::TABLE_NAME, 'fo', 'p.form = fo.uid')
             ->where($where)
             ->orderBy('f.sorting', 'asc')
             ->setMaxResults(10000)
@@ -200,10 +198,11 @@ class FormRepository extends AbstractRepository
     /**
      * Get Field Uid List from given Form Uid
      *
-     * @param integer $formUid
+     * @param int $formUid
      * @return array e.g. array(123, 234, 567)
+     * @throws Exception
      */
-    public function getFieldUidsFromForm($formUid)
+    public function getFieldUidsFromForm(int $formUid): array
     {
         $fields = [];
         $form = $this->findByUid($formUid);

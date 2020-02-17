@@ -5,12 +5,12 @@
 
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
 		<f:form.textfield
-				type="{vh:Validation.FieldTypeFromValidation(field:field)}"
+				type="{vh:validation.fieldTypeFromValidation(field:field)}"
 				property="{field.marker}"
 				placeholder="{field.placeholder}"
-				value="{vh:Misc.PrefillField(field:field, mail:mail)}"
-				class="powermail_input {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
-				additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field)}"
+				value="{vh:misc.prefillField(field:field, mail:mail)}"
+				class="powermail_input {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
+				additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
 				id="powermail_field_{field.marker}" />
 	</div>
 </div>

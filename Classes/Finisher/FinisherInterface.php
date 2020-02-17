@@ -11,59 +11,51 @@ interface FinisherInterface
 {
 
     /**
-     * Get mail
-     *
      * @return Mail
      */
-    public function getMail();
+    public function getMail(): Mail;
 
     /**
-     * Set mail
-     *
      * @param Mail $mail
-     * @return AbstractFinisher
+     * @return FinisherInterface
      */
-    public function setMail($mail);
+    public function setMail(Mail $mail): FinisherInterface;
 
     /**
-     * Get settings
-     *
      * @return array
      */
-    public function getSettings();
+    public function getSettings(): array;
 
     /**
-     * Set settings
-     *
      * @param array $settings
-     * @return AbstractFinisher
+     * @return FinisherInterface
      */
-    public function setSettings($settings);
+    public function setSettings(array $settings): FinisherInterface;
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isFormSubmitted();
+    public function isFormSubmitted(): bool;
 
     /**
-     * @param boolean $formSubmitted
-     * @return AbstractFinisher
+     * @param bool $formSubmitted
+     * @return FinisherInterface
      */
-    public function setFormSubmitted($formSubmitted);
+    public function setFormSubmitted(bool $formSubmitted): FinisherInterface;
 
     /**
-     * @return null
+     * @return string
      */
-    public function getActionMethodName();
+    public function getActionMethodName(): string;
 
     /**
-     * @param null $actionMethodName
-     * @return AbstractFinisher
+     * @param string $actionMethodName
+     * @return FinisherInterface
      */
-    public function setActionMethodName($actionMethodName);
+    public function setActionMethodName(string $actionMethodName): FinisherInterface;
 
     /**
      * @return void
      */
-    public function initializeFinisher();
+    public function initializeFinisher(): void;
 }

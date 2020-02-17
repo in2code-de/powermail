@@ -1,3 +1,0 @@
-.. |developer_cobject|      image:: ../../Images/developer_cobject.png
-.. :align: left
-.. :name: developer_cobject

@@ -3,16 +3,20 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Exception\DeprecatedException;
 use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\Router;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class BackendUtility
  */
-class BackendUtility extends AbstractUtility
+class BackendUtility
 {
 
     /**
@@ -20,7 +24,7 @@ class BackendUtility extends AbstractUtility
      *
      * @return bool
      */
-    public static function isBackendAdmin()
+    public static function isBackendAdmin(): bool
     {
         if (isset(self::getBackendUserAuthentication()->user)) {
             return self::getBackendUserAuthentication()->user['admin'] === 1;
@@ -31,10 +35,10 @@ class BackendUtility extends AbstractUtility
     /**
      * Get property from backend user
      *
-     * @param string $property
+     * @param string|int $property
      * @return string
      */
-    public static function getPropertyFromBackendUser($property = 'uid')
+    public static function getPropertyFromBackendUser(string $property = 'uid')
     {
         if (!empty(self::getBackendUserAuthentication()->user[$property])) {
             return self::getBackendUserAuthentication()->user[$property];
@@ -44,10 +48,11 @@ class BackendUtility extends AbstractUtility
 
     /**
      * @return BackendUserAuthentication
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
-    public static function getBackendUserAuthentication()
+    public static function getBackendUserAuthentication(): BackendUserAuthentication
     {
-        return parent::getBackendUserAuthentication();
+        return $GLOBALS['BE_USER'];
     }
 
     /**
@@ -57,8 +62,9 @@ class BackendUtility extends AbstractUtility
      * @param int $identifier
      * @param bool $addReturnUrl
      * @return string
+     * @throws RouteNotFoundException
      */
-    public static function createEditUri($tableName, $identifier, $addReturnUrl = true)
+    public static function createEditUri(string $tableName, int $identifier, bool $addReturnUrl = true): string
     {
         $uriParameters = [
             'edit' => [
@@ -70,7 +76,7 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+        return self::getRoute('record_edit', $uriParameters);
     }
 
     /**
@@ -80,8 +86,9 @@ class BackendUtility extends AbstractUtility
      * @param int $pageIdentifier where to save the new record
      * @param bool $addReturnUrl
      * @return string
+     * @throws RouteNotFoundException
      */
-    public static function createNewUri($tableName, $pageIdentifier, $addReturnUrl = true)
+    public static function createNewUri(string $tableName, int $pageIdentifier, bool $addReturnUrl = true): string
     {
         $uriParameters = [
             'edit' => [
@@ -93,17 +100,30 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+        return self::getRoute('record_edit', $uriParameters);
     }
 
     /**
      * Get return URL from current request
      *
      * @return string
+     * @throws RouteNotFoundException
      */
-    protected static function getReturnUrl()
+    protected static function getReturnUrl(): string
     {
-        return self::getModuleUrl(self::getModuleName(), self::getCurrentParameters());
+        return self::getRoute(self::getModuleName(), self::getCurrentParameters());
+    }
+
+    /**
+     * @param string $route
+     * @param array $parameters
+     * @return string
+     * @throws RouteNotFoundException
+     */
+    public static function getRoute(string $route, array $parameters = []): string
+    {
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        return (string)$uriBuilder->buildUriFromRoute($route, $parameters);
     }
 
     /**
@@ -111,12 +131,9 @@ class BackendUtility extends AbstractUtility
      *
      * @return string
      */
-    protected static function getModuleName()
+    protected static function getModuleName(): string
     {
-        $moduleName = 'web_layout';
-        if (GeneralUtility::_GET('M') !== null) {
-            $moduleName = (string)GeneralUtility::_GET('M');
-        }
+        $moduleName = 'record_edit';
         if (GeneralUtility::_GET('route') !== null) {
             $routePath = (string)GeneralUtility::_GET('route');
             $router = GeneralUtility::makeInstance(Router::class);
@@ -136,7 +153,7 @@ class BackendUtility extends AbstractUtility
      * @param array $getParameters
      * @return array
      */
-    public static function getCurrentParameters($getParameters = [])
+    public static function getCurrentParameters(array $getParameters = []): array
     {
         if (empty($getParameters)) {
             $getParameters = GeneralUtility::_GET();
@@ -167,7 +184,7 @@ class BackendUtility extends AbstractUtility
      * @param string $returnUrl normally used for testing
      * @return int
      */
-    public static function getPidFromBackendPage($returnUrl = '')
+    public static function getPidFromBackendPage(string $returnUrl = ''): int
     {
         if (empty($returnUrl)) {
             $returnUrl = GeneralUtility::_GP('returnUrl') ?: '';
@@ -181,34 +198,23 @@ class BackendUtility extends AbstractUtility
     }
 
     /**
-     * Returns the URL to a given module
-     *      mainly used for visibility settings or deleting
-     *      a record via AJAX
-     *
-     * @param string $moduleName Name of the module
-     * @param array $urlParameters URL parameters that should be added as key value pairs
-     * @return string Calculated URL
-     */
-    public static function getModuleUrl($moduleName, $urlParameters = [])
-    {
-        return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
-    }
-
-    /**
      * Returns the Page TSconfig for page with id, $id
      *
      * @param int $pid
      * @param array $rootLine
      * @param bool $returnPartArray
      * @return array Page TSconfig
-     * @see \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser
+     * @throws DeprecatedException
      */
-    public static function getPagesTSconfig($pid, $rootLine = null, $returnPartArray = false)
+    public static function getPagesTSconfig(int $pid, array $rootLine = null, bool $returnPartArray = false): array
     {
+        if ($rootLine !== null || $returnPartArray === true) {
+            throw new DeprecatedException('arguments not supported any more in powermail', 1578947408);
+        }
         $array = [];
         try {
             // @extensionScannerIgnoreLine Seems to be a false positive: getPagesTSconfig() still need 3 params
-            $array = BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
+            $array = BackendUtilityCore::getPagesTSconfig($pid);
         } catch (\Exception $exception) {
             unset($exception);
         }
@@ -221,8 +227,9 @@ class BackendUtility extends AbstractUtility
      *
      * @param array $pids
      * @return array
+     * @throws Exception
      */
-    public static function filterPagesForAccess(array $pids)
+    public static function filterPagesForAccess(array $pids): array
     {
         if (!self::isBackendAdmin()) {
             $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
@@ -243,7 +250,7 @@ class BackendUtility extends AbstractUtility
     /**
      * @return bool
      */
-    public static function isBackendContext()
+    public static function isBackendContext(): bool
     {
         return TYPO3_MODE === 'BE';
     }

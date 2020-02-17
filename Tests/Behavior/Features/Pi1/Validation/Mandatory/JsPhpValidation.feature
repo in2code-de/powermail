@@ -3,8 +3,8 @@
 Feature: JsPhpValidation
 
   @javascript
-  Scenario: Check if mandatory Validation works (on &L=0)
-    Given I am on "/index.php?id=22"
+  Scenario: Check if mandatory Validation works (on PID22 in &L=0)
+    Given I am on "/powermail/pi1/validation/mandatory/jsphp"
     Then I should see "Input"
     Then I should see "Input (Pattern http://ww)"
     Then I should see "Textarea"
@@ -12,12 +12,14 @@ Feature: JsPhpValidation
     Then I should see "Select Multi"
     Then I should see "Check"
     Then I should see "Radio"
+    And I scroll "$[type='submit']" into view
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
     Then I should see "Fehler in Validierung!"
     Then I should see "Eines dieser Felder muss ausgefüllt werden!"
     Then I fill in "tx_powermail_pi1[field][lastname]" with "Christian"
+    And I scroll "$[type='submit']" into view
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
@@ -72,8 +74,8 @@ Feature: JsPhpValidation
     Then I should see "DEU"
 
   @javascript @Pi1ValidationJsPhpValidation1
-  Scenario: Check if mandatory Validation works (on &L=1)
-    Given I am on "/index.php?id=22&L=1"
+  Scenario: Check if mandatory Validation works (on PID22 in &L=1)
+    Given I am on "/en/powermail/pi1/validation/mandatory/jsphp"
     Then I should see "Input EN"
     Then I should see "Input (Pattern http://ww) EN"
     Then I should see "Textarea EN"
@@ -81,12 +83,14 @@ Feature: JsPhpValidation
     Then I should see "Select Multi EN"
     Then I should see "Check EN"
     Then I should see "Radio EN"
+    And I scroll "$[type='submit']" into view
     And I press "Submit EN"
 
     Then I should see "This field must be filled!"
     Then I should see "Error in validation!"
     Then I should see "One of these fields must be filled!"
     Then I fill in "tx_powermail_pi1[field][lastname]" with "Richter"
+    And I scroll "$[type='submit']" into view
     And I press "Submit EN"
 
     Then I should see "This field must be filled!"

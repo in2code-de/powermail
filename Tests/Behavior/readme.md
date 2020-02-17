@@ -2,8 +2,8 @@
 
 ## Preperations
 
-* First of all, do a `composer update` in powermail root folder (currently this requires PHP php >=5.3 < 7.2)
-* You have to install a local TYPO3-instance (8.7) next and it should be available under `powermail.localhost.de`
+* First of all, do a `composer update` in powermail root folder
+* You have to install a local TYPO3-instance in the next step and it should be available under `powermail.localhost.de`
 * Move (or symlink) the powermail-Folder into typo3conf/ext/ and activate the extension.
 * Them import the database dump from http://powermail.in2code.ws/fileadmin/behat/powermail.sql.gz
 
@@ -11,16 +11,17 @@
 
 ### Start Selenium
 
+* Download geckodriver from https://github.com/mozilla/geckodriver/releases, make it executable and move it to `/usr/local/bin/`
 * Open a console and go to `EXT:powermail/Tests/Behavior/`
 * Start a selenium server with `sh selenium.sh`
-* As an alternative, you could specify which browser version should be used (if you installed a second firefox - probably older then quantum) - in my case: 
+* As an alternative, you could specify which browser version should be used (if you installed a second firefox - probably older then quantum) - in my case:
 `java -jar ../../.Build/vendor/se/selenium-server-standalone/bin/selenium-server-standalone.jar -Dwebdriver.firefox.bin="/var/www/Webtools/firefox/42/firefox"`
 
 ### Start Behat
 
 * Open another console and go to `EXT:powermail/Tests/Behavior/`
 * Start behat with `sh behat.sh` or with `sh behats.sh` (for stopping on first failure)
-* As an alternative, you could specify a single test by its tag like `../../.Build/vendor/behat/behat/bin/behat --tags=Mod1Basic`
+* As an alternative, you could specify a single test by its tag like `sh behatt.sh Pi1Default` (to start all tests @Pi1Default)
 
 ## Screenshot
 

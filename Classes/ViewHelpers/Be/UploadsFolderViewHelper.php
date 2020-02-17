@@ -23,7 +23,7 @@ class UploadsFolderViewHelper extends AbstractViewHelper
      *
      * @return bool
      */
-    public function render()
+    public function render(): bool
     {
         return file_exists(GeneralUtility::getFileAbsFileName($this->folder));
     }

@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\String;
 
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -27,8 +28,9 @@ class EscapeLabelsViewHelper extends AbstractViewHelper
      *      settings.misc.htmlForLabels=1
      *
      * @return string
+     * @throws Exception
      */
-    public function render()
+    public function render(): string
     {
         $string = $this->renderChildren();
         if ($this->isHtmlEnabled() === false) {
@@ -39,8 +41,9 @@ class EscapeLabelsViewHelper extends AbstractViewHelper
 
     /**
      * @return bool
+     * @throws Exception
      */
-    protected function isHtmlEnabled()
+    protected function isHtmlEnabled(): bool
     {
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $settings = $configurationService->getTypoScriptSettings();

@@ -3,14 +3,14 @@
 Feature: ShortFormDoubleOptin
 
   Scenario: Check if form is rendered correct
-    Given I am on "/index.php?id=65"
+    Given I am on "/powermail/pi1/default/shortform-doubleoptin"
     Then I should see "Short Form Prefilled"
     Then I should see "Vorname"
     Then I should see "Nachname"
     Then I should see "E-Mail"
 
   Scenario: Check if submit works properly
-    Given I am on "/index.php?id=65"
+    Given I am on "/powermail/pi1/default/shortform-doubleoptin"
     When I fill in "tx_powermail_pi1[field][firstname]" with "Alex"
     When I fill in "tx_powermail_pi1[field][lastname]" with "Kellner"
     When I fill in "tx_powermail_pi1[field][email]" with "alex@in2code.de"

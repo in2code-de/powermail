@@ -3,7 +3,7 @@
 Feature: UniqueValidation
 
   Scenario: Check if sending is disabled
-    Given I am on "/index.php?id=118"
+    Given I am on "/powermail/pi1/validation/misc/uniquevalidation"
     Then I should see "Short Form Prefilled"
     And I press "Jetzt Absenden"
 

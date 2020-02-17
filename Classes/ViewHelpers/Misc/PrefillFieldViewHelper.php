@@ -10,7 +10,9 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -25,7 +27,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     use SignalTrait;
 
     /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @var ContentObjectRenderer
      */
     protected $contentObject;
 
@@ -42,7 +44,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @var array
      */
-    protected $piVars;
+    protected $variables;
 
     /**
      * @var Field $field
@@ -82,6 +84,9 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *        location
      *
      * @return string|array Prefill field
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
@@ -105,7 +110,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @return void
      */
-    protected function buildValue()
+    protected function buildValue(): void
     {
         $value = '';
         $value = $this->getFromMail($value);
@@ -126,7 +131,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * @param string $value
      * @return string|array
      */
-    protected function getFromMail($value)
+    protected function getFromMail(string $value)
     {
         if (empty($value) && $this->getMail() !== null && $this->getMail()->getAnswers()) {
             foreach ($this->getMail()->getAnswers() as $answer) {
@@ -141,13 +146,13 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from GET/POST param &tx_powermail_pi1[field][marker]
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
     protected function getFromMarker($value)
     {
-        if (empty($value) && isset($this->piVars['field'][$this->getMarker()])) {
-            $value = $this->piVars['field'][$this->getMarker()];
+        if (empty($value) && isset($this->variables['field'][$this->getMarker()])) {
+            $value = $this->variables['field'][$this->getMarker()];
         }
         return $value;
     }
@@ -155,13 +160,13 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from GET/POST param &tx_powermail_pi1[marker]
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
     protected function getFromRawMarker($value)
     {
-        if (empty($value) && isset($this->piVars[$this->getMarker()])) {
-            $value = $this->piVars[$this->getMarker()];
+        if (empty($value) && isset($this->variables[$this->getMarker()])) {
+            $value = $this->variables[$this->getMarker()];
         }
         return $value;
     }
@@ -169,8 +174,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from current logged in Frontend User
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
     protected function getFromFrontendUser($value)
     {
@@ -183,8 +188,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from prefill value from field record
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
     protected function getFromPrefillValue($value)
     {
@@ -205,7 +210,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *        plugin.tx_powermail.settings.setup.prefill.marker.0 = TEXT
      *        plugin.tx_powermail.settings.setup.prefill.marker.0.value = red
      *
-     * @param string $value
+     * @param string|array $value
      * @return array|string
      */
     protected function getFromTypoScriptContentObject($value)
@@ -242,8 +247,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * Get from raw TypoScript settings like
      *        plugin.tx_powermail.settings.setup.prefill.marker = red
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
     protected function getFromTypoScriptRaw($value)
     {
@@ -259,8 +264,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from session if defined in TypoScript
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
     protected function getFromSession($value)
     {
@@ -280,8 +285,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from default ViewHelper argument
      *
-     * @param string $value
-     * @return string
+     * @param string|array $value
+     * @return string|array
      */
     protected function getFromDefaultValue($value)
     {
@@ -303,7 +308,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * @param string|array $value
      * @return PrefillFieldViewHelper
      */
-    public function setValue($value)
+    public function setValue($value): PrefillFieldViewHelper
     {
         $this->value = $value;
         return $this;
@@ -312,7 +317,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @return Field
      */
-    public function getField()
+    public function getField(): Field
     {
         return $this->field;
     }
@@ -321,7 +326,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * @param Field $field
      * @return PrefillFieldViewHelper
      */
-    public function setField($field)
+    public function setField(Field $field): PrefillFieldViewHelper
     {
         $this->field = $field;
         return $this;
@@ -330,7 +335,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @return Mail
      */
-    public function getMail()
+    public function getMail(): ?Mail
     {
         return $this->mail;
     }
@@ -339,7 +344,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * @param Mail $mail
      * @return PrefillFieldViewHelper
      */
-    public function setMail($mail)
+    public function setMail(Mail $mail = null): PrefillFieldViewHelper
     {
         $this->mail = $mail;
         return $this;
@@ -348,7 +353,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @return string
      */
-    public function getMarker()
+    public function getMarker(): string
     {
         return $this->marker;
     }
@@ -357,7 +362,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * @param string $marker
      * @return PrefillFieldViewHelper
      */
-    public function setMarker($marker)
+    public function setMarker(string $marker): PrefillFieldViewHelper
     {
         $this->marker = $marker;
         return $this;
@@ -367,8 +372,10 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      * Check if form is cached (stop prefilling for cached forms to prevent wrong or outdated values)
      *
      * @return bool
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    protected function isCachedForm()
+    protected function isCachedForm(): bool
     {
         return ConfigurationUtility::isEnableCachingActive()
             && ObjectUtility::getTyposcriptFrontendController()->no_cache !== true;
@@ -376,10 +383,11 @@ class PrefillFieldViewHelper extends AbstractViewHelper
 
     /**
      * @return void
+     * @throws Exception
      */
     public function initialize()
     {
-        $this->piVars = GeneralUtility::_GP('tx_powermail_pi1');
+        $this->variables = FrontendUtility::getArguments();
         $this->contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();

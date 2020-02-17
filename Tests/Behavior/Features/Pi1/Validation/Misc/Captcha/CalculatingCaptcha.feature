@@ -5,12 +5,12 @@ Feature: CaptchaValidation
 
   # language_mode is default
   @Pi1ValidationMiscCaptchaCalculatingCaptchaL0
-  Scenario: Searching for a Form with a captcha
-    Given I am on "/index.php?id=70"
+  Scenario: Searching for a Form with a captcha on PID 70
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
-    Then the sourcecode should contain '<img src="typo3temp/assets/tx_powermail/Captcha'
+    Then the sourcecode should contain '<img src="/typo3temp/assets/tx_powermail/Captcha'
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
     And I press "Submit"
@@ -29,12 +29,12 @@ Feature: CaptchaValidation
     Then I should see "3"
 
   @Pi1ValidationMiscCaptchaCalculatingCaptchaL1
-  Scenario: Searching for a Form with a captcha
-    Given I am on "/index.php?id=70&L=1"
+  Scenario: Searching for a Form with a captcha on PID 70
+    Given I am on "/en/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
-    Then the sourcecode should contain '<img src="typo3temp/assets/tx_powermail/Captcha'
+    Then the sourcecode should contain '<img src="/typo3temp/assets/tx_powermail/Captcha'
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
     And I press "Submit"
@@ -55,12 +55,12 @@ Feature: CaptchaValidation
 
   # language_mode is strict
   @Pi1ValidationMiscCaptchaCalculatingCaptchaStrictL0
-  Scenario: Searching for a Form with a captcha
-    Given I am on "/index.php?id=155"
+  Scenario: Searching for a Form with a captcha on PID 155
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm-languagemodestrict"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
-    Then the sourcecode should contain '<img src="typo3temp/assets/tx_powermail/Captcha'
+    Then the sourcecode should contain '<img src="/typo3temp/assets/tx_powermail/Captcha'
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
     And I press "Submit"
@@ -79,12 +79,12 @@ Feature: CaptchaValidation
     Then I should see "3"
 
   @Pi1ValidationMiscCaptchaCalculatingCaptchaStrictL1
-  Scenario: Searching for a Form with a captcha
-    Given I am on "/index.php?id=155&L=1"
+  Scenario: Searching for a Form with a captcha on PID 155
+    Given I am on "/en/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm-languagemodestrict"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
-    Then the sourcecode should contain '<img src="typo3temp/assets/tx_powermail/Captcha'
+    Then the sourcecode should contain '<img src="/typo3temp/assets/tx_powermail/Captcha'
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
     And I press "Submit"
@@ -104,15 +104,15 @@ Feature: CaptchaValidation
 
   # Two captchas in one form
   @Pi1ValidationMiscCaptchaCalculatingCaptchaCalculatingCaptcha2
-  Scenario: Test if two captchas work in one form
-    Given I am on "/index.php?id=166"
+  Scenario: Test if two captchas work in one form on PID 166
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha2"
     Then I should see "Email"
     Then I should see "captcha 1"
     Then I should see "captcha 2"
     Then I should see an "#powermail_field_captcha1" element
     Then I should see an "#powermail_field_captcha2" element
-    Then the sourcecode should contain '<img src="typo3temp/assets/tx_powermail/Captcha1951.png'
-    Then the sourcecode should contain '<img src="typo3temp/assets/tx_powermail/Captcha1952.png'
+    Then the sourcecode should contain '<img src="/typo3temp/assets/tx_powermail/Captcha1951.png'
+    Then the sourcecode should contain '<img src="/typo3temp/assets/tx_powermail/Captcha1952.png'
 
     When I fill in "tx_powermail_pi1[field][captcha1]" with "anystring"
     When I fill in "tx_powermail_pi1[field][captcha2]" with "7"
@@ -141,16 +141,16 @@ Feature: CaptchaValidation
 
   # Two forms with one captcha per form
   @Pi1ValidationMiscCaptchaCalculatingCaptcha2Forms
-  Scenario: Test if two forms with captcha are working
-    Given I am on "/index.php?id=164"
+  Scenario: Test if two forms with captcha are working on PID 164
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/2-forms"
     Then I should see "Email"
     Then I should see "Email2"
     Then I should see "Captcha"
     Then I should see "Captcha2"
     Then I should see an "#powermail_field_captcha" element
     Then I should see an "#powermail_field_captcha2" element
-    Then the sourcecode should contain '<img src="typo3temp/assets/tx_powermail/Captcha1587.png'
-    Then the sourcecode should contain '<img src="typo3temp/assets/tx_powermail/Captcha1948.png'
+    Then the sourcecode should contain '<img src="/typo3temp/assets/tx_powermail/Captcha1587.png'
+    Then the sourcecode should contain '<img src="/typo3temp/assets/tx_powermail/Captcha1948.png'
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "1"
     And I press "Submit"
@@ -165,16 +165,16 @@ Feature: CaptchaValidation
 
   # Two forms with one captcha per form with AJAX
   @javascript @Pi1ValidationMiscCaptchaCalculatingCaptcha2FormsAjax
-  Scenario: Test if two forms with captcha are working together with AJAX
-    Given I am on "/index.php?id=167"
+  Scenario: Test if two forms with captcha are working together with AJAX on PID 167
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/2-forms-ajax"
     Then I should see "Email"
     Then I should see "Email2"
     Then I should see "Captcha"
     Then I should see "Captcha2"
     Then I should see an "#powermail_field_captcha" element
     Then I should see an "#powermail_field_captcha2" element
-    Then the sourcecode should contain 'src="typo3temp/assets/tx_powermail/Captcha1587.png'
-    Then the sourcecode should contain 'src="typo3temp/assets/tx_powermail/Captcha1948.png'
+    Then the sourcecode should contain 'src="/typo3temp/assets/tx_powermail/Captcha1587.png'
+    Then the sourcecode should contain 'src="/typo3temp/assets/tx_powermail/Captcha1948.png'
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "25"
     And I press "Submit"

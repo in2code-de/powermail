@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
-
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class ValidationDataAttributeViewHelper
@@ -30,6 +32,9 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * Returns Data Attribute Array for JS validation with parsley.js
      *
      * @return array for data attributes
+     * @throws Exception
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function render(): array
     {
@@ -41,12 +46,16 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             case 'check':
                 // multiple field radiobuttons
             case 'radio':
-                $this->addMandatoryAttributesForMultipleFields($additionalAttributes, $field, $iteration);
+                $additionalAttributes = $this->addMandatoryAttributesForMultipleFields(
+                    $additionalAttributes,
+                    $field,
+                    $iteration
+                );
                 break;
             default:
-                $this->addMandatoryAttributes($additionalAttributes, $field);
+                $additionalAttributes = $this->addMandatoryAttributes($additionalAttributes, $field);
         }
-        $this->addValidationAttributesForInputOrTextarea($additionalAttributes, $field);
+        $additionalAttributes = $this->addValidationAttributesForInputOrTextarea($additionalAttributes, $field);
         $signalArguments = [&$additionalAttributes, $field, $iteration, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $additionalAttributes;
@@ -55,13 +64,17 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
     /**
      * Set different mandatory attributes for checkboxes and radiobuttons
      *
-     * @param array &$additionalAttributes
+     * @param array $additionalAttributes
      * @param Field $field
-     * @param mixed $iteration
-     * @return void
+     * @param array $iteration
+     * @return array
+     * @throws Exception
      */
-    protected function addMandatoryAttributesForMultipleFields(array &$additionalAttributes, Field $field, $iteration)
-    {
+    protected function addMandatoryAttributesForMultipleFields(
+        array $additionalAttributes,
+        Field $field,
+        array $iteration
+    ): array {
         if ($iteration['index'] === 0) {
             if ($field->isMandatory()) {
                 if ($this->isNativeValidationEnabled()) {
@@ -95,31 +108,35 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             $additionalAttributes = $this->addErrorContainerAndClassHandlerAttributes($additionalAttributes, $field);
         }
         $additionalAttributes = $this->addMultipleDataAttributeForCheckboxes($additionalAttributes, $field, $iteration);
+
+        return $additionalAttributes;
     }
 
     /**
      * Add validation attributes for input or textarea field types.
      *
-     * @param array &$additionalAttributes
+     * @param array $additionalAttributes
      * @param Field $field
-     * @return void
+     * @return array
+     * @throws Exception
      */
-    protected function addValidationAttributesForInputOrTextarea(array &$additionalAttributes, Field $field)
+    protected function addValidationAttributesForInputOrTextarea(array $additionalAttributes, Field $field): array
     {
         if ($field->getType() === 'input' || $field->getType() === 'textarea') {
-            $this->addValidationAttributes($additionalAttributes, $field);
+            $additionalAttributes = $this->addValidationAttributes($additionalAttributes, $field);
         }
+        return $additionalAttributes;
     }
 
 
     /**
-     * Add validation attributes.
+     * Add validation attributes
      *
-     * @param array &$additionalAttributes
+     * @param array $additionalAttributes
      * @param Field $field
-     * @return void
+     * @return array
      */
-    protected function addValidationAttributes(array &$additionalAttributes, Field $field)
+    protected function addValidationAttributes(array $additionalAttributes, Field $field): array
     {
         switch ($field->getValidation()) {
 
@@ -331,6 +348,8 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             $additionalAttributes['data-parsley-error-message'] =
                 LocalizationUtility::translate('validationerror_validation.' . $field->getValidation());
         }
+
+        return $additionalAttributes;
     }
 
     /**
@@ -338,11 +357,15 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      *
      * @param array $additionalAttributes
      * @param Field $field
-     * @param mixed $iteration
+     * @param array $iteration
      * @return array
+     * @throws Exception
      */
-    protected function addMultipleDataAttributeForCheckboxes(array $additionalAttributes, Field $field, $iteration)
-    {
+    protected function addMultipleDataAttributeForCheckboxes(
+        array $additionalAttributes,
+        Field $field,
+        array $iteration
+    ): array {
         if ($field->isMandatory() &&
             $this->isClientValidationEnabled() &&
             $field->getType() === 'check' &&
@@ -357,6 +380,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
+     * @throws Exception
      */
     protected function addErrorContainerAndClassHandlerAttributes(array $additionalAttributes, Field $field)
     {

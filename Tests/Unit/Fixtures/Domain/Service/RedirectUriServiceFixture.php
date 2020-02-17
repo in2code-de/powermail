@@ -24,12 +24,12 @@ class RedirectUriServiceFixture extends RedirectUriService
      *
      * @return array
      */
-    protected function getOverwriteTypoScript()
+    protected function getOverwriteTypoScript(): ?array
     {
         return $this->typoScriptFixture;
     }
 
-    protected function getFlexFormArray()
+    protected function getFlexFormArray(): ?array
     {
         return $this->flexFormFixture;
     }

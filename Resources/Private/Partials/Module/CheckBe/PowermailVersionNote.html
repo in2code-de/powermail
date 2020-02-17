@@ -1,12 +1,12 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
-<f:switch expression="{vh:Be.PowermailVersionNote()}">
+<f:switch expression="{vh:be.powermailVersionNote()}">
 	<f:case value="0">
 		<div class="alert alert-warning">
 			<div class="header-container">
 				<h4 class="message-header">
 					<f:translate key="BackendCheckVersionTitle">Version</f:translate>
-					{vh:Be.PowermailVersion()}
+					{vh:be.powermailVersion()}
 				</h4>
 			</div>
 			<f:if condition="{vh:condition.isComposerMode()}">
@@ -16,7 +16,7 @@
 							<f:translate key="BackendCheckVersionNoInformation">It could not be verified if this version is secure or unsecure</f:translate>
 
 							(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
-							<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:Be.LastUpdateExtensionRepository()}</f:format.date>)
+							<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:be.lastUpdateExtensionRepository()}</f:format.date>)
 						</p>
 					</div>
 				</f:else>
@@ -28,7 +28,7 @@
 			<div class="header-container">
 				<h4 class="message-header">
 					<f:translate key="BackendCheckVersionTitle">Version</f:translate>
-					{vh:Be.PowermailVersion()}
+					{vh:be.powermailVersion()}
 				</h4>
 			</div>
 			<div class="message-body">
@@ -36,7 +36,7 @@
 					<f:translate key="BackendCheckVersionUpToDate">Powermail version is up-to-date</f:translate>
 
 					(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
-					<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:Be.LastUpdateExtensionRepository()}</f:format.date>)
+					<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:be.lastUpdateExtensionRepository()}</f:format.date>)
 				</p>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 			<div class="header-container">
 				<h4 class="message-header">
 					<f:translate key="BackendCheckVersionTitle">Version</f:translate>
-					{vh:Be.PowermailVersion()}
+					{vh:be.powermailVersion()}
 				</h4>
 			</div>
 			<div class="message-body">
@@ -54,7 +54,7 @@
 					<f:translate key="BackendCheckVersionSecurity">The installed powermail version is not secure, please update your version as soon as possible!</f:translate>
 
 					(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
-					<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:Be.LastUpdateExtensionRepository()}</f:format.date>)
+					<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:be.lastUpdateExtensionRepository()}</f:format.date>)
 				</p>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 			<div class="header-container">
 				<h4 class="message-header">
 					<f:translate key="BackendCheckVersionTitle">Version</f:translate>
-					{vh:Be.PowermailVersion()}
+					{vh:be.powermailVersion()}
 				</h4>
 			</div>
 			<div class="message-body">
@@ -72,7 +72,7 @@
 					<f:translate key="BackendCheckVersionUpgrade">A newer powermail version is available</f:translate>
 
 					(<f:translate key="BackendCheckVersionLastUpdate">Last update:</f:translate>
-					<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:Be.LastUpdateExtensionRepository()}</f:format.date>)
+					<f:format.date format="{f:translate(key:'datepicker_format_datetime', default:'Y-m-d')}">@{vh:be.lastUpdateExtensionRepository()}</f:format.date>)
 				</p>
 			</div>
 		</div>

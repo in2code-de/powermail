@@ -4,8 +4,8 @@ defined('TYPO3_MODE') || die();
 /**
  * Include Plugins
  */
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('powermail', 'Pi1', 'Powermail');
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('powermail', 'Pi2', 'Powermail_Frontend');
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('Powermail', 'Pi1', 'Powermail');
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('Powermail', 'Pi2', 'Powermail_Frontend');
 
 /**
  * Disable not needed fields in tt_content

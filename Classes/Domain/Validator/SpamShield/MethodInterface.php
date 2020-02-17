@@ -21,15 +21,15 @@ interface MethodInterface
     /**
      * @return void
      */
-    public function initialize();
+    public function initialize(): void;
 
     /**
      * @return void
      */
-    public function initializeSpamCheck();
+    public function initializeSpamCheck(): void;
 
     /**
      * @return bool
      */
-    public function spamCheck();
+    public function spamCheck(): bool;
 }

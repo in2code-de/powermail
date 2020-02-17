@@ -15,7 +15,7 @@ class MathematicUtility
      * @param string $operator +|-|x|:
      * @return int
      */
-    public static function mathematicOperation($number1, $number2, $operator = '+')
+    public static function mathematicOperation(int $number1, int $number2, string $operator = '+'): int
     {
         switch ($operator) {
             case '-':

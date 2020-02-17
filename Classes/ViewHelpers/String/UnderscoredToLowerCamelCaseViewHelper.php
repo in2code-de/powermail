@@ -17,8 +17,6 @@ class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper implement
 
     /**
      * Initialize arguments.
-     *
-     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
      */
     public function initializeArguments()
     {

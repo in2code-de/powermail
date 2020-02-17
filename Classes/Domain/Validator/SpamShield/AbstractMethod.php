@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Mail;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use In2code\Powermail\Utility\FrontendUtility;
 
 /**
  * Class AbstractMethod
@@ -48,20 +48,20 @@ abstract class AbstractMethod implements MethodInterface
         $this->settings = $settings;
         $this->flexForm = $flexForm;
         $this->configuration = $configuration;
-        $this->arguments = GeneralUtility::_GP('tx_powermail_pi1');
+        $this->arguments = FrontendUtility::getArguments();
     }
 
     /**
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
     }
 
     /**
      * @return void
      */
-    public function initializeSpamCheck()
+    public function initializeSpamCheck(): void
     {
     }
 
@@ -70,7 +70,7 @@ abstract class AbstractMethod implements MethodInterface
      *
      * @return bool
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         return false;
     }

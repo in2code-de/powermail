@@ -6,8 +6,11 @@ use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -48,51 +51,44 @@ class Form extends AbstractEntity
     protected $pagesByUid = [];
 
     /**
-     * Returns the title
-     *
-     * @return string $title
+     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Sets the title
-     *
      * @param string $title
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
     /**
-     * Returns the css
-     *
-     * @return string $css
+     * @return string
      */
-    public function getCss()
+    public function getCss(): string
     {
         return $this->css;
     }
 
     /**
-     * Sets the css
-     *
      * @param string $css
      * @return void
      */
-    public function setCss($css)
+    public function setCss(string $css): void
     {
         $this->css = $css;
     }
 
     /**
-     * Returns the pages
-     *
      * @return ObjectStorage|array
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function getPages()
     {
@@ -113,22 +109,19 @@ class Form extends AbstractEntity
     }
 
     /**
-     * Sets the pages
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @param ObjectStorage $pages
      * @return void
      */
-    public function setPages(ObjectStorage $pages)
+    public function setPages(ObjectStorage $pages): void
     {
         $this->pages = $pages;
     }
 
     /**
-     * Check if this form has an upload field
-     *
      * @return bool
+     * @throws Exception
      */
-    public function hasUploadField()
+    public function hasUploadField(): bool
     {
         foreach ($this->getPages() as $page) {
             /** @var Field $field */
@@ -150,7 +143,7 @@ class Form extends AbstractEntity
      *
      * @return array
      */
-    public function getPagesByTitle()
+    public function getPagesByTitle(): array
     {
         if (empty($this->pagesByTitle)) {
             $pagesArray = $this->getPages()->toArray();
@@ -170,7 +163,7 @@ class Form extends AbstractEntity
      *
      * @return array
      */
-    public function getPagesByUid()
+    public function getPagesByUid(): array
     {
         if (empty($this->pagesByUid)) {
             $pagesArray = $this->getPages()->toArray();
@@ -187,10 +180,11 @@ class Form extends AbstractEntity
      * @param string $fieldType "" => allFieldtypes OR $field::FIELD_TYPE_* => Field of this type
      * @return Field[]
      */
-    public function getFields($fieldType = '')
+    public function getFields(string $fieldType = ''): array
     {
         $fields = [];
         foreach ($this->getPages() as $page) {
+            /** @var Field $field */
             foreach ($page->getFields() as $field) {
                 if ($this->isCorrectFieldType($field, $fieldType)) {
                     $fields[] = $field;
@@ -202,10 +196,10 @@ class Form extends AbstractEntity
 
     /**
      * @param Field $field
-     * @param $fieldType
+     * @param string $fieldType
      * @return bool
      */
-    protected function isCorrectFieldType(Field $field, $fieldType)
+    protected function isCorrectFieldType(Field $field, string $fieldType): bool
     {
         if ($fieldType === '') {
             return true;

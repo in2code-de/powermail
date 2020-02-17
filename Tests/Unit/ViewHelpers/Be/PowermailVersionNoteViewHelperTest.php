@@ -12,16 +12,16 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
 {
 
     /**
-     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface|PowermailVersionNoteViewHelper
      */
-    protected $abstractValidationViewHelperMock;
+    protected $powermailVersionNoteViewHelperMock;
 
     /**
      * @return void
      */
     public function setUp()
     {
-        $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
+        $this->powermailVersionNoteViewHelperMock = $this->getAccessibleMock(
             PowermailVersionNoteViewHelper::class,
             ['dummy']
         );
@@ -106,15 +106,16 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
         $isCurrentVersionUnsecure,
         $expectedResult
     ) {
-        $this->abstractValidationViewHelperMock->_set('checkFromDatabase', false);
-        $this->abstractValidationViewHelperMock->_callRef('setExtensionTableExists', $extensionTableExists);
-        $this->abstractValidationViewHelperMock->_callRef('setIsNewerVersionAvailable', $isNewerVersionAvailable);
-        $this->abstractValidationViewHelperMock->_callRef(
+        $this->powermailVersionNoteViewHelperMock->setVersion('1.0.0');
+        $this->powermailVersionNoteViewHelperMock->_set('checkFromDatabase', false);
+        $this->powermailVersionNoteViewHelperMock->_callRef('setExtensionTableExists', $extensionTableExists);
+        $this->powermailVersionNoteViewHelperMock->_callRef('setIsNewerVersionAvailable', $isNewerVersionAvailable);
+        $this->powermailVersionNoteViewHelperMock->_callRef(
             'setCurrentVersionInExtensionTableExists',
             $currentVersionInExtensionTableExists
         );
-        $this->abstractValidationViewHelperMock->_callRef('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
-        $result = $this->abstractValidationViewHelperMock->_callRef('render');
+        $this->powermailVersionNoteViewHelperMock->_callRef('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
+        $result = $this->powermailVersionNoteViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 }

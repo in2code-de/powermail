@@ -4,7 +4,7 @@ Feature: Html5Validation
 
   @javascript
   Scenario: Check if mandatory Validation works (on &L=0)
-    Given I am on "/index.php?id=27"
+    Given I am on "/powermail/pi1/validation/mandatory/html5"
     Then I should see "Input"
     Then I should see "Input (Pattern http://ww)"
     Then I should see "Date"

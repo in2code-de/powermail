@@ -4,14 +4,14 @@
 	<f:render partial="Form/FieldLabel" arguments="{_all}" />
 
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
-		<vh:Form.SelectField
+		<vh:form.selectField
 				options="{field.modifiedSettings}"
 				property="{field.marker}"
-				class="powermail_select {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
+				class="powermail_select {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
 				id="powermail_field_{field.marker}"
-				additionalAttributes="{vh:Validation.ValidationDataAttribute(field:field)}"
+				additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
 				multiple="{field.multiselectForField}"
-				value="{vh:Misc.PrefillField(field:field, mail:mail)}" />
+				value="{vh:misc.prefillField(field:field, mail:mail)}" />
 
 		<f:if condition="{field.multiselect}">
 			<f:if condition="{settings.validation.client}">
