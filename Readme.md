@@ -6,19 +6,19 @@ and easy to use mailform extension for TYPO3 with a lots of features
 
 ## TYPO3 10
 
-Changes in TYPO3:
+Changes done for powermail 8 with TYPO3 10:
 
-* done [TASK] Update for TYPO3 10 (Backendroutes, Conditions, Validators, UserFuncs in Tca, MailMessage class)
-* done [TASK] Remove code dependencies to former TYPO3 versions
-* done [TASK] Add typehints for PHP 7.2
-* done [TASK] Use a different way for GET/POST params (to respect routing)
-* done [TASK] Rename _field.pages to .page and _page.forms to .form and add an upgrade wizard for it
-* done [TASK] Save mails in future with sys_language_uid=-1 and add an upgrade wizard for it
-* done [TASK] Some modernization and code cleanup (Own exceptions, remove AbstractUtility)
-* done [TASK] Update unit tests
-* done [TASK] Update behaviour tests
-* done [TASK] Manual tests (especially in backend context)
-* done [TASK] Update documentation from rst to markdown
+* [TASK] Update for TYPO3 10 (Backendroutes, Conditions, Validators, UserFuncs in Tca, MailMessage class)
+* [TASK] Remove code dependencies to former TYPO3 versions
+* [TASK] Add typehints for PHP 7.2
+* [TASK] Use a different way for GET/POST params (to respect routing)
+* [TASK] Rename _field.pages to .page and _page.forms to .form and add an upgrade wizard for it
+* [TASK] Save mails in future with sys_language_uid=-1 and add an upgrade wizard for it
+* [TASK] Some modernization and code cleanup (Own exceptions, remove AbstractUtility)
+* [TASK] Update unit tests
+* [TASK] Update behaviour tests
+* [TASK] Manual tests (especially in backend context)
+* [TASK] Update documentation from rst to markdown
 
 ## 2. Documentation overview
 
@@ -46,7 +46,7 @@ Quick guide:
 
 | Powermail           | TYPO3      | PHP       | Support/Development                     |
 | ------------------- | ---------- | ----------|---------------------------------------- |
-| 8.x (released soon) | 10.x       | >= 7.2    | Features, Bugfixes, Security Updates    |
+| 8.x                 | 10.x       | >= 7.2    | Features, Bugfixes, Security Updates    |
 | 7.x                 | 8.7 - 9.x  | 7.0 - 7.x | Bugfixes, Security Updates              |
 | 6.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                         |
 | 5.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                         |
