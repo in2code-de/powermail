@@ -16,7 +16,7 @@ class TrimViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $string = $this->renderChildren();
         $string = $this->removeDuplicatedWhitespace($string);
@@ -32,17 +32,18 @@ class TrimViewHelper extends AbstractViewHelper
      * @param string $string
      * @return string
      */
-    protected function removeDuplicatedWhitespace($string)
+    protected function removeDuplicatedWhitespace(string $string): string
     {
         return preg_replace('/\\s\\s+/', ' ', $string);
     }
 
     /**
      * Trim every single line
-     * @param $string
+     *
+     * @param string $string
      * @return string
      */
-    protected function removeWhiteSpaceForEveryLine($string)
+    protected function removeWhiteSpaceForEveryLine(string $string): string
     {
         return preg_replace('/^\s+|\s+$/m', '', $string);
     }
@@ -53,7 +54,7 @@ class TrimViewHelper extends AbstractViewHelper
      * @param string $string
      * @return string
      */
-    protected function removeCsvWhitespace($string)
+    protected function removeCsvWhitespace(string $string): string
     {
         return str_replace(['"; "', '" ; "', '" ;"'], '";"', $string);
     }

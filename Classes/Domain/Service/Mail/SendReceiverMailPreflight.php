@@ -8,6 +8,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -28,9 +29,8 @@ class SendReceiverMailPreflight
     protected $settings = [];
 
     /**
-     * SendReceiverMailService constructor.
-     *
      * @param array $settings
+     * @throws Exception
      */
     public function __construct(array $settings)
     {
@@ -40,24 +40,23 @@ class SendReceiverMailPreflight
 
     /**
      * @param Mail $mail
-     * @param null $hash
+     * @param string $hash
      * @return bool
      * @throws InvalidConfigurationTypeException
      * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function sendReceiverMail(Mail $mail, $hash = null)
+    public function sendReceiverMail(Mail $mail, string $hash = null): bool
     {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $receiverService = ObjectUtility::getObjectManager()->get(
             ReceiverMailReceiverPropertiesService::class,
             $mail,
             $this->settings
         );
         $mail->setReceiverMail($receiverService->getReceiverEmailsString());
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $senderService = ObjectUtility::getObjectManager()->get(
             ReceiverMailSenderPropertiesService::class,
             $mail,

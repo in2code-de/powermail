@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
-
 namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FlexFormManipulationHook
@@ -42,9 +42,17 @@ class FlexFormManipulationHook
      * @param array $row table properties
      * @param string $table tableName
      * @param string $fieldName fieldName
+     * @return void
+     * @throws Exception
      */
-    public function getFlexFormDS_postProcessDS(&$dataStructArray, $configuration, $row, $table, $fieldName)
-    {
+    public function getFlexFormDS_postProcessDS(
+        array &$dataStructArray,
+        array $configuration,
+        array $row,
+        string $table,
+        string $fieldName
+    ): void {
+        unset($configuration, $fieldName);
         if ($this->isPowermailFlexForm($table, $row)) {
             foreach ($this->getFieldConfiguration($row['pid']) as $key => $fieldConfiguration) {
                 $sheet = $this->getSheetNameAndRemoveFromConfiguration($fieldConfiguration);
@@ -70,8 +78,10 @@ class FlexFormManipulationHook
         string $fieldName,
         array $row,
         array $identifier
-    ) {
-        if ($tableName === 'tt_content' && $fieldName === 'pi_flexform' && $row['CType'] === 'list' && $row['list_type'] === 'powermail_pi1') {
+    ): array {
+        unset($fieldTca);
+        if ($tableName === 'tt_content' && $fieldName === 'pi_flexform'
+            && $row['CType'] === 'list' && $row['list_type'] === 'powermail_pi1') {
             // Add pid to identifier to fetch pageTs in parseDataStructureByIdentifierPostProcess hook
             $identifier['pid'] = $row['pid'];
         }
@@ -96,8 +106,9 @@ class FlexFormManipulationHook
      * @param array $dataStructure
      * @param array $identifier
      * @return array Modified data structure
+     * @throws Exception
      */
-    public function parseDataStructureByIdentifierPostProcess(array $dataStructure, array $identifier)
+    public function parseDataStructureByIdentifierPostProcess(array $dataStructure, array $identifier): array
     {
         if ($identifier['type'] === 'tca'
             && $identifier['tableName'] === 'tt_content'
@@ -119,16 +130,16 @@ class FlexFormManipulationHook
      *
      * @param integer $pid Record pid
      * @return array
+     * @throws Exception
      */
-    protected function getFieldConfiguration($pid)
+    protected function getFieldConfiguration(int $pid): array
     {
         $tsConfiguration = BackendUtility::getPagesTSconfig((int)$pid);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['addField.'])) {
             $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.']['addField.'];
             /** @var TypoScriptService $tsService */
             $tsService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
-            $configuration = $tsService->convertTypoScriptArrayToPlainArray($eConfiguration);
-            return $configuration;
+            return $tsService->convertTypoScriptArrayToPlainArray($eConfiguration);
         }
         return [];
     }
@@ -136,11 +147,10 @@ class FlexFormManipulationHook
     /**
      * Get sheetname and remove from configuration array
      *
-     *
      * @param array $configuration
      * @return string
      */
-    protected function getSheetNameAndRemoveFromConfiguration(array &$configuration)
+    protected function getSheetNameAndRemoveFromConfiguration(array &$configuration): string
     {
         $sheet = $this->allowedSheets[0];
         if (!empty($configuration['_sheet']) && in_array($configuration['_sheet'], $this->allowedSheets)) {
@@ -157,7 +167,7 @@ class FlexFormManipulationHook
      * @param array $row
      * @return bool
      */
-    protected function isPowermailFlexForm($table, $row)
+    protected function isPowermailFlexForm(string $table, array $row): bool
     {
         return $table === 'tt_content' && $row['CType'] === 'list'
             && $row['list_type'] === 'powermail_pi1';

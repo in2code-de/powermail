@@ -4,7 +4,7 @@ Feature: PhpValidation
 
   # Form is rendered?
   Scenario: Searching for a ValidationForm
-    Given I am on "/index.php?id=23"
+    Given I am on "/powermail/pi1/validation/mandatory/php"
     Then I should see "Input"
     Then I should see "Input (Pattern http://ww)"
     Then I should see "Textarea"

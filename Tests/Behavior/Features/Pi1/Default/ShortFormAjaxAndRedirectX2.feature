@@ -5,7 +5,7 @@ Feature: AllFields
 
   @javascript
   Scenario: Check redirect URI for form 1
-    Given I am on "/index.php?id=183"
+    Given I am on "/powermail/pi1/default/shortform-ajax-redirect/2x-ajax-redirect"
     Then I should see "Redirect to page \"Welcome\""
     And I press "Jetzt Absenden"
     And I wait "a few" seconds
@@ -14,7 +14,7 @@ Feature: AllFields
 
   @javascript
   Scenario: Check redirect URI for form 2
-    Given I am on "/index.php?id=183"
+    Given I am on "/powermail/pi1/default/shortform-ajax-redirect/2x-ajax-redirect"
     Then I should see "Redirect to page \"All Fields\""
     And I press "submit"
     And I wait "a few" seconds

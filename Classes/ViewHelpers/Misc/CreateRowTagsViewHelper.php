@@ -66,7 +66,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
      * @param array $arguments
      * @return string
      */
-    public static function getBeginningTag(array $arguments)
+    public static function getBeginningTag(array $arguments): string
     {
         $content = '';
         if (self::shouldAddBeginningTag($arguments)) {
@@ -79,7 +79,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
      * @param array $arguments
      * @return string
      */
-    public static function getEndingTag(array $arguments)
+    public static function getEndingTag(array $arguments): string
     {
         $content = '';
         if (self::shouldAddEndingTag($arguments)) {
@@ -92,7 +92,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
      * @param array $arguments
      * @return string
      */
-    protected static function getTagName(array $arguments)
+    protected static function getTagName(array $arguments): string
     {
         $tagName = 'div';
         if (!empty($arguments['tagName'])) {
@@ -105,7 +105,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
      * @param array $arguments
      * @return string
      */
-    protected static function getAttributes(array $arguments)
+    protected static function getAttributes(array $arguments): string
     {
         $attributes = '';
         if (!empty($arguments['additionalAttributes'])) {
@@ -123,7 +123,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
      * @param array $arguments
      * @return bool
      */
-    protected static function shouldAddBeginningTag(array $arguments)
+    protected static function shouldAddBeginningTag(array $arguments): bool
     {
         return $arguments['iteration']['isFirst'] === true
             || !(($arguments['iteration']['cycle'] - 1) % $arguments['columns']);
@@ -133,7 +133,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
      * @param array $arguments
      * @return bool
      */
-    protected static function shouldAddEndingTag(array $arguments)
+    protected static function shouldAddEndingTag(array $arguments): bool
     {
         return $arguments['iteration']['isLast'] === true
             || !($arguments['iteration']['cycle'] % $arguments['columns']);

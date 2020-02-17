@@ -42,17 +42,17 @@
 							<core:Icon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
 						</td>
 						<td nowrap="nowrap">
-							<a title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
+							<a title="Edit" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
 								<span title="id={form.uid}">{form.title}</span>
 							</a>
 						</td>
 						<td nowrap="nowrap">
 							<a title="id={form.pid}" onclick="top.loadEditId({form.pid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
-								<vh:Getter.GetPageNameFromUid uid="{form.pid}" />
+								<vh:getter.getPageNameFromUid uid="{form.pid}" />
 							</a>
 						</td>
 						<td nowrap="nowrap">
-							<f:for each="{vh:Getter.GetPagesWithContentRelatedToForm(form:form)}" as="page">
+							<f:for each="{vh:getter.getPagesWithContentRelatedToForm(form:form)}" as="page">
 								<a title="id={page.uid}" onclick="top.loadEditId({page.uid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
 									{page.title}
 								</a>
@@ -60,19 +60,19 @@
 							</f:for>
 						</td>
 						<td nowrap="nowrap">
-							<span title="{vh:String.ImplodeField(objects:form.pages, field:'title', separator:', ')}">
+							<span title="{vh:string.implodeField(objects:form.pages, field:'title', separator:', ')}">
 								<f:count>{form.pages}</f:count> <f:translate key="BackendOverviewPages">Pages</f:translate>
 							</span>
 						</td>
 						<td nowrap="nowrap">
-							<span title="{vh:String.ImplodeField(objects:'{vh:Getter.GetFieldsFromForm(form:form)}', separator:', ')}">
-								<f:count><vh:Getter.GetFieldsFromForm form="{form}" /></f:count> <f:translate key="BackendOverviewFields">Fields</f:translate>
+							<span title="{vh:string.implodeField(objects:'{vh:getter.getFieldsFromForm(form:form)}', separator:', ')}">
+								<f:count><vh:getter.getFieldsFromForm form="{form}" /></f:count> <f:translate key="BackendOverviewFields">Fields</f:translate>
 							</span>
 						</td>
 
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
-								<a class="btn" title="Edit" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
+								<a class="btn" title="Edit" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
 									<span class="t3-icon fa fa-pencil">&nbsp;</span>
 								</a>
 							</div>

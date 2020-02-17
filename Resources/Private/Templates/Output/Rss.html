@@ -21,14 +21,14 @@ RSS Feed for Powermail_Frontend
 					<title>{mail.senderName}</title>
 					<description>
 						<f:for each="{mail.answers}" as="answer">
-							<f:if condition="{vh:Condition.IsArray(val: '{answer.value}')}">
+							<f:if condition="{vh:condition.isArray(val: '{answer.value}')}">
 								<f:else>
 									{answer.field.title}: {answer.value};
 								</f:else>
 							</f:if>
 						</f:for>
 					</description>
-					<link><vh:String.Encode><f:uri.action pageUid="{singlePid}" absolute="1" action="show" arguments="{mail: mail}" /></vh:String.Encode></link>
+					<link><vh:string.encode><f:uri.action pageUid="{singlePid}" absolute="1" action="show" arguments="{mail: mail}" /></vh:string.encode></link>
 					<pubDate><f:format.date format="D, d M Y H:i:s +0200">{mail.crdate}</f:format.date></pubDate>
 				</item>
 			</f:for>

@@ -21,14 +21,14 @@ abstract class AbstractFinisher implements FinisherInterface
      *
      * @var array
      */
-    protected $settings;
+    protected $settings = [];
 
     /**
      * Finisher service configuration
      *
      * @var array
      */
-    protected $configuration;
+    protected $configuration = [];
 
     /**
      * Was form finally submitted?
@@ -40,9 +40,9 @@ abstract class AbstractFinisher implements FinisherInterface
     /**
      * Controller actionName - usually "createAction" or "confirmationAction"
      *
-     * @var null
+     * @var string
      */
-    protected $actionMethodName = null;
+    protected $actionMethodName = '';
 
     /**
      * @var ContentObjectRenderer
@@ -52,16 +52,16 @@ abstract class AbstractFinisher implements FinisherInterface
     /**
      * @return Mail
      */
-    public function getMail()
+    public function getMail(): Mail
     {
         return $this->mail;
     }
 
     /**
      * @param Mail $mail
-     * @return AbstractFinisher
+     * @return FinisherInterface
      */
-    public function setMail($mail)
+    public function setMail(Mail $mail): FinisherInterface
     {
         $this->mail = $mail;
         return $this;
@@ -70,16 +70,16 @@ abstract class AbstractFinisher implements FinisherInterface
     /**
      * @return array
      */
-    public function getSettings()
+    public function getSettings(): array
     {
         return $this->settings;
     }
 
     /**
      * @param array $settings
-     * @return AbstractFinisher
+     * @return FinisherInterface
      */
-    public function setSettings($settings)
+    public function setSettings(array $settings): FinisherInterface
     {
         $this->settings = $settings;
         return $this;
@@ -88,16 +88,16 @@ abstract class AbstractFinisher implements FinisherInterface
     /**
      * @return array
      */
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
     /**
      * @param array $configuration
-     * @return AbstractFinisher
+     * @return FinisherInterface
      */
-    public function setConfiguration($configuration)
+    public function setConfiguration(array $configuration): FinisherInterface
     {
         $this->configuration = $configuration;
         return $this;
@@ -106,36 +106,36 @@ abstract class AbstractFinisher implements FinisherInterface
     /**
      * Form is not marked as submitted in case of optin usage
      *
-     * @return boolean
+     * @return bool
      */
-    public function isFormSubmitted()
+    public function isFormSubmitted(): bool
     {
         return $this->formSubmitted;
     }
 
     /**
-     * @param boolean $formSubmitted
-     * @return AbstractFinisher
+     * @param bool $formSubmitted
+     * @return FinisherInterface
      */
-    public function setFormSubmitted($formSubmitted)
+    public function setFormSubmitted(bool $formSubmitted): FinisherInterface
     {
         $this->formSubmitted = $formSubmitted;
         return $this;
     }
 
     /**
-     * @return null
+     * @return string
      */
-    public function getActionMethodName()
+    public function getActionMethodName(): string
     {
         return $this->actionMethodName;
     }
 
     /**
-     * @param null $actionMethodName
-     * @return AbstractFinisher
+     * @param string $actionMethodName
+     * @return FinisherInterface
      */
-    public function setActionMethodName($actionMethodName)
+    public function setActionMethodName(string $actionMethodName): FinisherInterface
     {
         $this->actionMethodName = $actionMethodName;
         return $this;
@@ -144,7 +144,7 @@ abstract class AbstractFinisher implements FinisherInterface
     /**
      * @return void
      */
-    public function initializeFinisher()
+    public function initializeFinisher(): void
     {
     }
 
@@ -153,15 +153,15 @@ abstract class AbstractFinisher implements FinisherInterface
      * @param array $configuration
      * @param array $settings
      * @param bool $formSubmitted
-     * @param ContentObjectRenderer $contentObject
      * @param string $actionMethodName
+     * @param ContentObjectRenderer $contentObject
      */
     public function __construct(
         Mail $mail,
         array $configuration,
         array $settings,
-        $formSubmitted,
-        $actionMethodName,
+        bool $formSubmitted,
+        string $actionMethodName,
         ContentObjectRenderer $contentObject
     ) {
         $this->setMail($mail);

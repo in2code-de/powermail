@@ -5,6 +5,7 @@ namespace In2code\Powermail\Domain\Service;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class ConfigurationService to get the typoscript configuration from powermail and cache it for multiple calls
@@ -25,8 +26,9 @@ class ConfigurationService implements SingletonInterface
     /**
      * @param string $pluginName
      * @return array
+     * @throws Exception
      */
-    public function getTypoScriptSettings($pluginName = 'Pi1')
+    public function getTypoScriptSettings(string $pluginName = 'Pi1'): array
     {
         if (empty($this->settings[$pluginName])) {
             $this->settings[$pluginName] = $this->getTypoScriptSettingsFromOverallConfiguration($pluginName);
@@ -39,8 +41,9 @@ class ConfigurationService implements SingletonInterface
      *
      * @param string $pluginName
      * @return array
+     * @throws Exception
      */
-    public function getTypoScriptConfiguration($pluginName = 'Pi1')
+    public function getTypoScriptConfiguration(string $pluginName = 'Pi1'): array
     {
         if (empty($this->configuration[$pluginName])) {
             $this->configuration[$pluginName] = $this->getTypoScriptConfigurationFromOverallConfiguration($pluginName);
@@ -51,8 +54,9 @@ class ConfigurationService implements SingletonInterface
     /**
      * @param string $pluginName
      * @return array
+     * @throws Exception
      */
-    protected function getTypoScriptSettingsFromOverallConfiguration($pluginName)
+    protected function getTypoScriptSettingsFromOverallConfiguration(string $pluginName): array
     {
         $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
         $setup = $configurationManager->getConfiguration(
@@ -66,8 +70,9 @@ class ConfigurationService implements SingletonInterface
     /**
      * @param string $pluginName
      * @return array
+     * @throws Exception
      */
-    protected function getTypoScriptConfigurationFromOverallConfiguration($pluginName)
+    protected function getTypoScriptConfigurationFromOverallConfiguration(string $pluginName): array
     {
         $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
         $configuration = $configurationManager->getConfiguration(

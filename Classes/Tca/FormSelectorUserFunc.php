@@ -4,15 +4,19 @@ namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FormSelectorUserFunc
+ * shows forms in FlexForm (selection can be filtered via Page TSConfig)
+ * @noinspection PhpUnused
  */
 class FormSelectorUserFunc
 {
@@ -31,6 +35,8 @@ class FormSelectorUserFunc
 
     /**
      * FormSelectorUserFunc constructor.
+     * @throws Exception
+     * @throws DeprecatedException
      */
     public function __construct()
     {
@@ -56,8 +62,10 @@ class FormSelectorUserFunc
      *
      * @param array $params
      * @return void
+     * @throws Exception
+     * @noinspection PhpUnused
      */
-    public function getForms(array &$params)
+    public function getForms(array &$params): void
     {
         $params['items'] = [];
         $language = (int)$params['flexParentDatabaseRow']['sys_language_uid'];
@@ -79,7 +87,7 @@ class FormSelectorUserFunc
      *
      * @return array
      */
-    protected function getStartPids()
+    protected function getStartPids(): array
     {
         $startPids = [];
         if (!empty($this->tsConfiguration['tx_powermail.']['flexForm.']['formSelection'])) {
@@ -106,6 +114,7 @@ class FormSelectorUserFunc
      * @param int $startPid
      * @param int $language
      * @return array
+     * @throws Exception
      */
     protected function getAllForms(int $startPid, int $language): array
     {
@@ -124,6 +133,7 @@ class FormSelectorUserFunc
      * @param int $startPid
      * @param int $language
      * @return string
+     * @throws Exception
      */
     protected function getWhereStatement(int $startPid, int $language): string
     {
@@ -139,8 +149,9 @@ class FormSelectorUserFunc
      *
      * @param int $startPid
      * @return string
+     * @throws Exception
      */
-    protected function getPidListFromStartingPoint($startPid = 0)
+    protected function getPidListFromStartingPoint(int $startPid = 0): string
     {
         $queryGenerator = ObjectUtility::getObjectManager()->get(QueryGenerator::class);
         return $queryGenerator->getTreeList($startPid, 10, 0, 1);
@@ -152,7 +163,7 @@ class FormSelectorUserFunc
      * @param int $pageIdentifier
      * @return bool
      */
-    protected function hasUserAccessToPage($pageIdentifier)
+    protected function hasUserAccessToPage(int $pageIdentifier): bool
     {
         if (!$this->hasFullAccess()) {
             $properties = $this->pageRepository->getPropertiesFromUid($pageIdentifier);
@@ -168,7 +179,7 @@ class FormSelectorUserFunc
      *
      * @return bool
      */
-    protected function hasFullAccess()
+    protected function hasFullAccess(): bool
     {
         return BackendUtility::isBackendAdmin() ||
         (!empty($this->tsConfiguration['tx_powermail.']['flexForm.']['formSelection']) &&

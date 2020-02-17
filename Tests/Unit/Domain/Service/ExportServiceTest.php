@@ -56,7 +56,7 @@ class ExportServiceTest extends UnitTestCase
                 'Module/ExportXls.html'
             ],
             [
-                null,
+                '',
                 'Module/ExportXls.html'
             ],
         ];
@@ -93,7 +93,7 @@ class ExportServiceTest extends UnitTestCase
                 'xls'
             ],
             [
-                null,
+                '',
                 'xls'
             ],
             [

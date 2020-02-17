@@ -4,7 +4,7 @@ Feature: Active
 
   # Test Spamshield Form
   Scenario: Validator should calculate 92% chance of spam on submit
-    Given I am on "/index.php?id=37"
+    Given I am on "/powermail/pi1/validation/misc/spamshield/active-mail-notify"
     Then I should see "Name"
     Then I should see "E-Mail"
     Then I should see "Text"

@@ -15,7 +15,7 @@ class FieldFixture extends Field
      * @param array $types
      * @return array
      */
-    protected function extendTypeArrayWithTypoScriptTypes(array $types)
+    protected function extendTypeArrayWithTypoScriptTypes(array $types): array
     {
         return $types;
     }

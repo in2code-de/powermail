@@ -4,7 +4,7 @@ Feature: ForeignValidator
 
   # Check if Validator class will work
   Scenario: Searching for a Form with extended Validators
-    Given I am on "/index.php?id=195"
+    Given I am on "/powermail/pi1/validation/misc/foreignvalidator"
     Then I should see "Vorname"
     Then I fill in "tx_powermail_pi1[field][firstname]" with "Alexa"
     And I press "Jetzt Absenden"

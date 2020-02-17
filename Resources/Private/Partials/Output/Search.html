@@ -3,7 +3,7 @@
 <f:if condition="{settings.search.fields}">
 	<f:form action="list" name="filter" class="form-horizontal">
 		<f:comment>Fulltext Search</f:comment>
-		<f:for each="{vh:String.Explode(string: '{settings.search.fields}')}" as="fieldUid">
+		<f:for each="{vh:string.explode(string: '{settings.search.fields}')}" as="fieldUid">
 			<f:if condition="{0 : fieldUid} == {0 : '_all'}">
 				<f:then>
 					<div class="form-group">
@@ -33,7 +33,7 @@
 							property="{searchField.uid}"
 							id="powermail_frontend_search_{searchField.marker}"
 							class="powermail_frontend_search powermail_frontend_search_{searchField.marker} form-control"
-							value="{vh:Misc.VariableInVariable(obj:piVars.filter, prop:searchField.uid)}" />
+							value="{vh:misc.variableInVariable(obj:piVars.filter, prop:searchField.uid)}" />
 				</div>
 			</div>
 		</f:for>

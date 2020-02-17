@@ -2,8 +2,8 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class IsDevelopmentContextViewHelper
@@ -16,6 +16,6 @@ class IsDevelopmentContextViewHelper extends AbstractViewHelper
      */
     public function render(): bool
     {
-        return GeneralUtility::getApplicationContext()->isDevelopment();
+        return Environment::getContext()->isDevelopment();
     }
 }

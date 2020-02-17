@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -11,7 +12,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class Mail extends AbstractEntity
 {
-
     const TABLE_NAME = 'tx_powermail_domain_model_mail';
 
     /**
@@ -42,8 +42,6 @@ class Mail extends AbstractEntity
     /**
      * @var \In2code\Powermail\Domain\Model\User
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-     * @lazy
      */
     protected $feuser = null;
 
@@ -69,17 +67,12 @@ class Mail extends AbstractEntity
 
     /**
      * @var \In2code\Powermail\Domain\Model\Form
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-     * @lazy
      */
     protected $form = null;
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Answer>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @extensionScannerIgnoreLine Still needed for TYPO3 8.7
-     * @lazy
      */
     protected $answers = null;
 
@@ -137,15 +130,22 @@ class Mail extends AbstractEntity
      * @var array
      */
     protected $answersByFieldUid = null;
-    
+
     /**
      * This property can be used by extensions to hold some data over a request
      * Use e.g. extension key as array key
      *
      * @var array
-     * @transient
      */
     protected $additionalData = [];
+
+    /**
+     * All mails and answers should be stored with sys_language_uid=-1 to get those values from persisted objects
+     * in fe requests in every language (e.g. for optin mails, etc...)
+     *
+     * @var int
+     */
+    protected $_languageUid = -1;
 
     /**
      * __construct
@@ -156,239 +156,195 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
      * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->answers = new ObjectStorage();
     }
 
     /**
-     * Returns the senderName
-     *
-     * @return string $senderName
+     * @return string
      */
-    public function getSenderName()
+    public function getSenderName(): string
     {
         return $this->senderName;
     }
 
     /**
-     * Sets the senderName
-     *
      * @param string $senderName
      * @return Mail
      */
-    public function setSenderName($senderName)
+    public function setSenderName(string $senderName): Mail
     {
         $this->senderName = $senderName;
         return $this;
     }
 
     /**
-     * Returns the senderMail
-     *
-     * @return string $senderMail
+     * @return string
      */
-    public function getSenderMail()
+    public function getSenderMail(): string
     {
         return $this->senderMail;
     }
 
     /**
-     * Sets the senderMail
-     *
      * @param string $senderMail
      * @return Mail
      */
-    public function setSenderMail($senderMail)
+    public function setSenderMail(string $senderMail): Mail
     {
         $this->senderMail = $senderMail;
         return $this;
     }
 
     /**
-     * Returns the subject
-     *
-     * @return string $subject
+     * @return string
      */
-    public function getSubject()
+    public function getSubject(): string
     {
         return $this->subject;
     }
 
     /**
-     * Sets the subject
-     *
      * @param string $subject
      * @return Mail
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): Mail
     {
         $this->subject = $subject;
         return $this;
     }
 
     /**
-     * Returns the receiverMail
-     *
-     * @return string $receiverMail
+     * @return string
      */
-    public function getReceiverMail()
+    public function getReceiverMail(): string
     {
         return $this->receiverMail;
     }
 
     /**
-     * Sets the receiverMail
-     *
      * @param string $receiverMail
      * @return Mail
      */
-    public function setReceiverMail($receiverMail)
+    public function setReceiverMail(string $receiverMail): Mail
     {
         $this->receiverMail = $receiverMail;
         return $this;
     }
 
     /**
-     * Returns the body
-     *
-     * @return string $body
+     * @return string
      */
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }
 
     /**
-     * Sets the body
-     *
      * @param string $body
      * @return Mail
      */
-    public function setBody($body)
+    public function setBody(string $body): Mail
     {
         $this->body = $body;
         return $this;
     }
 
     /**
-     * Returns the feuser
-     *
-     * @return \In2code\Powermail\Domain\Model\User $feuser
+     * @return User|null
      */
-    public function getFeuser()
+    public function getFeuser(): ?User
     {
         return $this->feuser;
     }
 
     /**
-     * Sets the feuser
-     *
-     * @param \In2code\Powermail\Domain\Model\User $feuser
+     * @param User $feuser
      * @return Mail
      */
-    public function setFeuser(User $feuser)
+    public function setFeuser(User $feuser): Mail
     {
         $this->feuser = $feuser;
         return $this;
     }
 
     /**
-     * Returns the spamFactor
-     *
-     * @return string $spamFactor
+     * @return string
      */
-    public function getSpamFactor()
+    public function getSpamFactor(): string
     {
         return $this->spamFactor;
     }
 
     /**
-     * Sets the spamFactor
-     *
      * @param string $spamFactor
      * @return Mail
      */
-    public function setSpamFactor($spamFactor)
+    public function setSpamFactor(string $spamFactor): Mail
     {
         $this->spamFactor = $spamFactor;
         return $this;
     }
 
     /**
-     * Returns the time
-     *
-     * @return int $time
+     * @return int
      */
-    public function getTime()
+    public function getTime(): int
     {
         return $this->time;
     }
 
     /**
-     * Sets the time
-     *
      * @param int $time
      * @return Mail
      */
-    public function setTime($time)
+    public function setTime(int $time): Mail
     {
         $this->time = $time;
         return $this;
     }
 
     /**
-     * Returns the senderIp
-     *
-     * @return string $senderIp
+     * @return string
      */
-    public function getSenderIp()
+    public function getSenderIp(): string
     {
         return $this->senderIp;
     }
 
     /**
-     * Sets the senderIp
-     *
      * @param string $senderIp
      * @return Mail
      */
-    public function setSenderIp($senderIp)
+    public function setSenderIp(string $senderIp): Mail
     {
         $this->senderIp = $senderIp;
         return $this;
     }
 
     /**
-     * Returns the userAgent
-     *
-     * @return string $userAgent
+     * @return string
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->userAgent;
     }
 
     /**
-     * Sets the userAgent
-     *
      * @param string $userAgent
      * @return Mail
      */
-    public function setUserAgent($userAgent)
+    public function setUserAgent(string $userAgent): Mail
     {
         $this->userAgent = $userAgent;
         return $this;
     }
 
     /**
-     * Returns the form
-     *
-     * @return \In2code\Powermail\Domain\Model\Form $form
+     * @return null|Form|LazyLoadingProxy $form
      */
     public function getForm()
     {
@@ -396,100 +352,82 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * Sets the form
-     *
-     * @param \In2code\Powermail\Domain\Model\Form $form
+     * @param Form $form
      * @return Mail
      */
-    public function setForm(Form $form)
+    public function setForm(Form $form): Mail
     {
         $this->form = $form;
         return $this;
     }
 
     /**
-     * Returns the answers
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage
      */
-    public function getAnswers()
+    public function getAnswers(): ObjectStorage
     {
         return $this->answers;
     }
 
     /**
-     * Sets the answers
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @var ObjectStorage
      * @return Mail
      */
-    public function setAnswers(ObjectStorage $answers)
+    public function setAnswers(ObjectStorage $answers): Mail
     {
         $this->answers = $answers;
         return $this;
     }
 
     /**
-     * Adds an answer
-     *
-     * @param \In2code\Powermail\Domain\Model\Answer $answer
+     * @param Answer $answer
      * @return void
      */
-    public function addAnswer(Answer $answer)
+    public function addAnswer(Answer $answer): void
     {
         $this->answers->attach($answer);
     }
 
     /**
-     * Removes an answer
-     *
-     * @param \In2code\Powermail\Domain\Model\Answer $answerToRemove
+     * @param Answer $answerToRemove
      * @return void
      */
-    public function removeAnswer(Answer $answerToRemove)
+    public function removeAnswer(Answer $answerToRemove): void
     {
         $this->answers->detach($answerToRemove);
     }
 
     /**
-     * Returns the crdate
-     *
-     * @return \DateTime $crdate
+     * @return \DateTime
      */
-    public function getCrdate()
+    public function getCrdate(): \DateTime
     {
         return $this->crdate;
     }
 
     /**
-     * Sets the crdate
-     *
      * @param \DateTime $crdate
      * @return Mail
      */
-    public function setCrdate($crdate)
+    public function setCrdate(\DateTime $crdate): Mail
     {
         $this->crdate = $crdate;
         return $this;
     }
 
     /**
-     * Returns the hidden
-     *
-     * @return bool $hidden
+     * @return bool
      */
-    public function getHidden()
+    public function getHidden(): bool
     {
         return $this->hidden;
     }
 
     /**
-     * Sets the hidden
-     *
      * @param bool $hidden
      * @return Mail
      */
-    public function setHidden($hidden)
+    public function setHidden(bool $hidden): Mail
     {
         $this->hidden = $hidden;
         return $this;
@@ -499,7 +437,7 @@ class Mail extends AbstractEntity
      * @param string $marketingBrowserLanguage
      * @return Mail
      */
-    public function setMarketingBrowserLanguage($marketingBrowserLanguage)
+    public function setMarketingBrowserLanguage(string $marketingBrowserLanguage): Mail
     {
         $this->marketingBrowserLanguage = $marketingBrowserLanguage;
         return $this;
@@ -508,7 +446,7 @@ class Mail extends AbstractEntity
     /**
      * @return string
      */
-    public function getMarketingBrowserLanguage()
+    public function getMarketingBrowserLanguage(): string
     {
         return $this->marketingBrowserLanguage;
     }
@@ -517,7 +455,7 @@ class Mail extends AbstractEntity
      * @param string $marketingCountry
      * @return Mail
      */
-    public function setMarketingCountry($marketingCountry)
+    public function setMarketingCountry(string $marketingCountry): Mail
     {
         $this->marketingCountry = $marketingCountry;
         return $this;
@@ -526,7 +464,7 @@ class Mail extends AbstractEntity
     /**
      * @return string
      */
-    public function getMarketingCountry()
+    public function getMarketingCountry(): string
     {
         return $this->marketingCountry;
     }
@@ -535,7 +473,7 @@ class Mail extends AbstractEntity
      * @param int $marketingFrontendLanguage
      * @return Mail
      */
-    public function setMarketingFrontendLanguage($marketingFrontendLanguage)
+    public function setMarketingFrontendLanguage(int $marketingFrontendLanguage): Mail
     {
         $this->marketingFrontendLanguage = $marketingFrontendLanguage;
         return $this;
@@ -544,25 +482,25 @@ class Mail extends AbstractEntity
     /**
      * @return int
      */
-    public function getMarketingFrontendLanguage()
+    public function getMarketingFrontendLanguage(): int
     {
         return $this->marketingFrontendLanguage;
     }
 
     /**
-     * @param boolean $marketingMobileDevice
+     * @param bool $marketingMobileDevice
      * @return Mail
      */
-    public function setMarketingMobileDevice($marketingMobileDevice)
+    public function setMarketingMobileDevice(bool $marketingMobileDevice): Mail
     {
         $this->marketingMobileDevice = $marketingMobileDevice;
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function getMarketingMobileDevice()
+    public function getMarketingMobileDevice(): bool
     {
         return $this->marketingMobileDevice;
     }
@@ -571,7 +509,7 @@ class Mail extends AbstractEntity
      * @param array $marketingPageFunnel
      * @return Mail
      */
-    public function setMarketingPageFunnel($marketingPageFunnel)
+    public function setMarketingPageFunnel(array $marketingPageFunnel): Mail
     {
         if (is_array($marketingPageFunnel)) {
             $marketingPageFunnel = json_encode($marketingPageFunnel);
@@ -583,7 +521,7 @@ class Mail extends AbstractEntity
     /**
      * @return array
      */
-    public function getMarketingPageFunnel()
+    public function getMarketingPageFunnel(): array
     {
         if (ArrayUtility::isJsonArray($this->marketingPageFunnel)) {
             return json_decode($this->marketingPageFunnel);
@@ -596,7 +534,7 @@ class Mail extends AbstractEntity
      *
      * @return int
      */
-    public function getMarketingPageFunnelLastPage()
+    public function getMarketingPageFunnelLastPage(): int
     {
         $pageFunnel = $this->getMarketingPageFunnel();
         if (count($pageFunnel)) {
@@ -611,7 +549,7 @@ class Mail extends AbstractEntity
      * @param string $glue
      * @return string
      */
-    public function getMarketingPageFunnelString($glue = ', ')
+    public function getMarketingPageFunnelString(string $glue = ', '): string
     {
         $pageFunnel = $this->getMarketingPageFunnel();
         return implode($glue, $pageFunnel);
@@ -621,7 +559,7 @@ class Mail extends AbstractEntity
      * @param string $marketingReferer
      * @return Mail
      */
-    public function setMarketingReferer($marketingReferer)
+    public function setMarketingReferer(string $marketingReferer): Mail
     {
         $this->marketingReferer = $marketingReferer;
         return $this;
@@ -630,7 +568,7 @@ class Mail extends AbstractEntity
     /**
      * @return string
      */
-    public function getMarketingReferer()
+    public function getMarketingReferer(): string
     {
         return $this->marketingReferer;
     }
@@ -639,7 +577,7 @@ class Mail extends AbstractEntity
      * @param string $marketingRefererDomain
      * @return Mail
      */
-    public function setMarketingRefererDomain($marketingRefererDomain)
+    public function setMarketingRefererDomain(string $marketingRefererDomain): Mail
     {
         $value = '';
         if (!empty($marketingRefererDomain)) {
@@ -652,19 +590,18 @@ class Mail extends AbstractEntity
     /**
      * @return string
      */
-    public function getMarketingRefererDomain()
+    public function getMarketingRefererDomain(): string
     {
         return $this->marketingRefererDomain;
     }
 
     /**
      * @param int $pid
-     * @return Mail
+     * @return void
      */
-    public function setPid($pid)
+    public function setPid($pid): void
     {
         parent::setPid($pid);
-        return $this;
     }
 
     /**
@@ -676,7 +613,7 @@ class Mail extends AbstractEntity
      *
      * @return array
      */
-    public function getAnswersByFieldMarker()
+    public function getAnswersByFieldMarker(): array
     {
         if (is_null($this->answersByFieldMarker)) {
             $answersArray = $this->getAnswers()->toArray();
@@ -696,7 +633,7 @@ class Mail extends AbstractEntity
      *
      * @return array
      */
-    public function getAnswersByFieldUid()
+    public function getAnswersByFieldUid(): array
     {
         if (is_null($this->answersByFieldUid)) {
             $answersArray = $this->getAnswers()->toArray();
@@ -711,7 +648,7 @@ class Mail extends AbstractEntity
      * @param int $type
      * @return Answer[]
      */
-    public function getAnswersByValueType($type)
+    public function getAnswersByValueType(int $type): array
     {
         $answers = [];
         $answersArray = $this->getAnswers()->toArray();
@@ -723,7 +660,7 @@ class Mail extends AbstractEntity
         }
         return $answers;
     }
-    
+
     /**
      * @return array
      */
@@ -734,17 +671,19 @@ class Mail extends AbstractEntity
 
     /**
      * @param array $additionalData
+     * @return void
      */
-    public function setAdditionalData(array $additionalData)
+    public function setAdditionalData(array $additionalData): void
     {
         $this->additionalData = $additionalData;
     }
-    
+
     /**
      * @param string $key
      * @param mixed $value
+     * @return void
      */
-    public function addAdditionalData(string $key, $value)
+    public function addAdditionalData(string $key, $value): void
     {
         $this->additionalData[$key] = $value;
     }

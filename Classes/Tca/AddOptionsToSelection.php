@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
+use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
@@ -26,9 +27,16 @@ class AddOptionsToSelection
     protected $type = '';
 
     /**
-     * @var \TYPO3\CMS\Lang\LanguageService
+     * @param string $type "type", "validation", "feUserProperty"
+     * @param array $params
+     * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected $languageService = null;
+    protected function initialize(string $type, array &$params): void
+    {
+        $this->setType($type);
+        $this->params = $params;
+    }
 
     /**
      * Add options to TCA Selection - Options can be defined in TSConfig
@@ -40,7 +48,7 @@ class AddOptionsToSelection
      * @param array $params
      * @return void
      */
-    public function addOptionsForType(&$params)
+    public function addOptionsForType(array &$params): void
     {
         $this->initialize('type', $params);
         $this->addOptions();
@@ -56,7 +64,7 @@ class AddOptionsToSelection
      * @param array $params
      * @return void
      */
-    public function addOptionsForValidation(&$params)
+    public function addOptionsForValidation(array &$params): void
     {
         $this->initialize('validation', $params);
         $this->addOptions();
@@ -72,7 +80,7 @@ class AddOptionsToSelection
      * @param array $params
      * @return void
      */
-    public function addOptionsForFeUserProperty(&$params)
+    public function addOptionsForFeUserProperty(array &$params): void
     {
         $this->initialize('feUserProperty', $params);
         $this->addOptions();
@@ -88,7 +96,7 @@ class AddOptionsToSelection
      * @param array $params
      * @return void
      */
-    public function addOptionsForPredefinedReceivers(&$params)
+    public function addOptionsForPredefinedReceivers(array &$params): void
     {
         $this->initialize('predefinedReceivers', $params);
         $this->addOptions();
@@ -99,7 +107,7 @@ class AddOptionsToSelection
      *
      * @return void
      */
-    protected function addOptions()
+    protected function addOptions(): void
     {
         foreach ($this->getFieldOptionsFromTsConfig() as $value => $label) {
             if (StringUtility::endsWith((string)$value, '.') === false) {
@@ -113,7 +121,7 @@ class AddOptionsToSelection
      *
      * @return array
      */
-    protected function getFieldOptionsFromTsConfig()
+    protected function getFieldOptionsFromTsConfig(): array
     {
         $fieldOptions = [];
         $tsConfiguration = BackendUtility::getPagesTSconfig($this->getPageIdentifier());
@@ -134,8 +142,9 @@ class AddOptionsToSelection
      *
      * @param string $value
      * @param null|string $label
+     * @return void
      */
-    protected function addOption($value, $label = null)
+    protected function addOption(string $value, string $label = null): void
     {
         $this->params['items'][] = [
             $this->getLabel($label, $value),
@@ -148,14 +157,14 @@ class AddOptionsToSelection
      *        if LLL parse
      *        if empty take value
      *
-     * @param null|string $label
+     * @param string $label
      * @param string $fallback
      * @return string
      */
-    protected function getLabel($label, $fallback)
+    protected function getLabel(string $label, string $fallback): string
     {
         if (strpos($label, 'LLL:') === 0) {
-            $label = $this->languageService->sL($label);
+            $label = ObjectUtility::getLanguageService()->sL($label);
         }
         if (empty($label)) {
             $label = $fallback;
@@ -168,7 +177,7 @@ class AddOptionsToSelection
      *
      * @return int
      */
-    protected function getPageIdentifier()
+    protected function getPageIdentifier(): int
     {
         $pageIdentifier = 0;
         if (!empty($this->params['row']['pid'])) {
@@ -183,7 +192,7 @@ class AddOptionsToSelection
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -192,24 +201,9 @@ class AddOptionsToSelection
      * @param string $type
      * @return AddOptionsToSelection
      */
-    public function setType($type)
+    public function setType(string $type): AddOptionsToSelection
     {
         $this->type = $type;
         return $this;
-    }
-
-    /**
-     * Initialize
-     *
-     * @param string $type "type", "validation", "feUserProperty"
-     * @param array $params
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected function initialize($type, &$params)
-    {
-        $this->setType($type);
-        $this->params = $params;
-        $this->languageService = $GLOBALS['LANG'];
     }
 }

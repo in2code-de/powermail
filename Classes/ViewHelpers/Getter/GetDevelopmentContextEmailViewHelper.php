@@ -12,9 +12,9 @@ class GetDevelopmentContextEmailViewHelper extends AbstractViewHelper
 {
 
     /**
-     * @return  false|string
+     * @return string
      */
-    public function render()
+    public function render(): string
     {
         return ConfigurationUtility::getDevelopmentContextEmail();
     }

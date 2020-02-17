@@ -28,7 +28,7 @@ class StringValidator extends AbstractValidator
      * @param string $value
      * @return bool
      */
-    protected function validateEmail($value)
+    protected function validateEmail(string $value): bool
     {
         return GeneralUtility::validEmail($value);
     }
@@ -39,7 +39,7 @@ class StringValidator extends AbstractValidator
      * @param string $value
      * @return bool
      */
-    protected function validateUrl($value)
+    protected function validateUrl(string $value): bool
     {
         return filter_var($value, FILTER_VALIDATE_URL) !== false;
     }
@@ -61,7 +61,7 @@ class StringValidator extends AbstractValidator
      * @param string $value
      * @return bool
      */
-    protected function validatePhone($value)
+    protected function validatePhone(string $value): bool
     {
         preg_match('/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/', (string)$value, $result);
         return !empty($result[0]) && $result[0] === $value;
@@ -73,7 +73,7 @@ class StringValidator extends AbstractValidator
      * @param string $value
      * @return bool
      */
-    protected function validateNumbersOnly($value)
+    protected function validateNumbersOnly(string $value): bool
     {
         return strval((int)$value) === strval($value);
     }
@@ -84,7 +84,7 @@ class StringValidator extends AbstractValidator
      * @param string $value
      * @return bool
      */
-    protected function validateLettersOnly($value)
+    protected function validateLettersOnly(string $value): bool
     {
         return preg_replace('/[^a-zA-Z]/', '', $value) === $value;
     }
@@ -96,7 +96,7 @@ class StringValidator extends AbstractValidator
      * @param string $configuration e.g. "4"
      * @return bool
      */
-    protected function validateMinNumber($value, $configuration)
+    protected function validateMinNumber(string $value, string $configuration): bool
     {
         return $value >= $configuration;
     }
@@ -108,7 +108,7 @@ class StringValidator extends AbstractValidator
      * @param string $configuration e.g. "4"
      * @return bool
      */
-    protected function validateMaxNumber($value, $configuration)
+    protected function validateMaxNumber(string $value, string $configuration): bool
     {
         return floatval($value) <= floatval($configuration);
     }
@@ -120,7 +120,7 @@ class StringValidator extends AbstractValidator
      * @param string $configuration e.g. "1,6" or "6"
      * @return bool
      */
-    protected function validateRange($value, $configuration)
+    protected function validateRange(string $value, string $configuration): bool
     {
         $values = GeneralUtility::trimExplode(',', $configuration, true);
         if ((int)$values[0] <= 0) {
@@ -140,7 +140,7 @@ class StringValidator extends AbstractValidator
      * @param string $configuration e.g. "1,6" or "6"
      * @return bool
      */
-    protected function validateLength($value, $configuration)
+    protected function validateLength(string $value, string $configuration): bool
     {
         $values = GeneralUtility::trimExplode(',', $configuration, true);
         if ((int)$values[0] <= 0) {
@@ -161,7 +161,7 @@ class StringValidator extends AbstractValidator
      * @param string $configuration e.g. "https?://.+"
      * @return bool
      */
-    protected function validatePattern($value, $configuration)
+    protected function validatePattern(string $value, string $configuration): bool
     {
         return preg_match('~' . $configuration . '~', (string)$value) === 1;
     }

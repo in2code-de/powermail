@@ -5,6 +5,7 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Mvc\Request;
 
 /**
@@ -51,10 +52,15 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'validation' => [
                         'native' => '1',
                         'client' => '1'
+                    ],
+                    'misc' => [
+                        'datepicker' => [
+                            'forceJavaScriptDatePicker' => ''
+                        ]
                     ]
                 ],
                 [
-                    'mandatory' => 1
+                    'mandatory' => true
                 ],
                 [
                     'data-company' => 'in2code'
@@ -62,7 +68,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                 'anyvalue',
                 [
                     'data-company' => 'in2code',
-                    'data-datepicker-force' => null,
+                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -83,13 +89,18 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'validation' => [
                         'native' => '1',
                         'client' => '1'
+                    ],
+                    'misc' => [
+                        'datepicker' => [
+                            'forceJavaScriptDatePicker' => ''
+                        ]
                     ]
                 ],
                 [],
                 [],
                 'anyvalue',
                 [
-                    'data-datepicker-force' => null,
+                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -106,13 +117,18 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'validation' => [
                         'native' => '1',
                         'client' => '0'
+                    ],
+                    'misc' => [
+                        'datepicker' => [
+                            'forceJavaScriptDatePicker' => ''
+                        ]
                     ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => null,
+                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -128,13 +144,18 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'validation' => [
                         'native' => '0',
                         'client' => '1'
+                    ],
+                    'misc' => [
+                        'datepicker' => [
+                            'forceJavaScriptDatePicker' => ''
+                        ]
                     ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => null,
+                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -150,13 +171,18 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'validation' => [
                         'native' => '0',
                         'client' => '0'
+                    ],
+                    'misc' => [
+                        'datepicker' => [
+                            'forceJavaScriptDatePicker' => ''
+                        ]
                     ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => null,
+                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -180,6 +206,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
      * @dataProvider renderReturnsArrayDataProvider
      * @test
      * @covers ::render
+     * @throws InvalidExtensionNameException
      */
     public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $value, $expectedResult)
     {

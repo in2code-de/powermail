@@ -25,7 +25,7 @@ Render Powermail_Frontend Show View
 
 								<f:comment>Data Type Array</f:comment>
 								<f:if condition="{answer.valueType} == 1">
-									<vh:String.ImplodeField objects="{answer.value}" separator=", " />
+									<vh:string.implodeField objects="{answer.value}" separator=", " />
 								</f:if>
 
 								<f:comment>Data Type Date (already parsed Timestamp by Model)</f:comment>
@@ -37,7 +37,7 @@ Render Powermail_Frontend Show View
 								<f:if condition="{answer.valueType} == 3">
 									<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
 										<f:link.page pageUid="{settings.misc.file.folder}{subValue}" target="_blank">
-											<f:if condition="{vh:Condition.IsImage(path:subValue)}">
+											<f:if condition="{vh:condition.isImage(path:subValue)}">
 												<f:then>
 													<f:image src="{settings.misc.file.folder}{subValue}" alt="{subValue}" width="200" maxHeight="200" />
 												</f:then>

@@ -3,7 +3,9 @@ namespace In2code\Powermail\Tests\Domain\Unit\Validator\Spamshield;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\IpBlacklistMethod;
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Exception;
 
 /**
  * Class IpBlacklistMethodTest
@@ -19,9 +21,11 @@ class IpBlacklistMethodTest extends UnitTestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     public function setUp()
     {
+        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             IpBlacklistMethod::class,
             ['dummy'],

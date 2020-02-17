@@ -3,7 +3,7 @@
 Feature: Google Adwords
 
   Scenario: Check if conversion JavaScript is rendered correct
-    Given I am on "/index.php?id=113"
+    Given I am on "/powermail/pi1/misc/google-adwords-conversion"
     Then I should see "Short Form Prefilled"
     And I press "Jetzt Absenden"
 

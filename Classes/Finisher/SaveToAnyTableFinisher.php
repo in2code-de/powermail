@@ -7,6 +7,9 @@ use In2code\Powermail\Domain\Service\SaveToAnyTableService;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -29,14 +32,15 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * Preperation function for every table
      *
      * @return void
+     * @throws Exception
      */
-    public function savePreflightFinisher()
+    public function savePreflightFinisher(): void
     {
         if ($this->isConfigurationAvailable()) {
             foreach (array_keys($this->configuration) as $key) {
                 $this->contentObject->start($this->getDataArray());
                 $tableConfiguration = $this->configuration[$key];
-                $numberKey = StringUtility::removeLastDot($key);
+                $numberKey = (int)StringUtility::removeLastDot($key);
                 if ($this->isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration)) {
                     $this->saveSpecifiedTablePreflight($numberKey, $tableConfiguration);
                 }
@@ -50,8 +54,9 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param int $numberKey
      * @param array $tableConfiguration
      * @return void
+     * @throws Exception
      */
-    protected function saveSpecifiedTablePreflight($numberKey, array $tableConfiguration)
+    protected function saveSpecifiedTablePreflight(int $numberKey, array $tableConfiguration): void
     {
         /* @var $saveService SaveToAnyTableService */
         $saveService = ObjectUtility::getObjectManager()->get(
@@ -71,7 +76,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param array $tableConfiguration
      * @return void
      */
-    protected function setPropertiesInSaveService(SaveToAnyTableService $saveService, array $tableConfiguration)
+    protected function setPropertiesInSaveService(SaveToAnyTableService $saveService, array $tableConfiguration): void
     {
         foreach (array_keys($tableConfiguration) as $field) {
             if (!$this->isSkippedKey($field)) {
@@ -92,7 +97,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param array $tableConfiguration
      * @return void
      */
-    protected function setModeInSaveService(SaveToAnyTableService $saveService, array $tableConfiguration)
+    protected function setModeInSaveService(SaveToAnyTableService $saveService, array $tableConfiguration): void
     {
         if (!empty($tableConfiguration['_ifUnique.'])) {
             $uniqueFields = array_keys($tableConfiguration['_ifUnique.']);
@@ -116,7 +121,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param array $tableConfiguration
      * @return void
      */
-    protected function addAdditionalWhereClause(SaveToAnyTableService $saveService, array $tableConfiguration)
+    protected function addAdditionalWhereClause(SaveToAnyTableService $saveService, array $tableConfiguration): void
     {
         $whereClause = '';
         if (!empty($tableConfiguration['_ifUniqueWhereClause'])
@@ -143,7 +148,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param array $tableConfiguration
      * @return string
      */
-    protected function getTableName(array $tableConfiguration)
+    protected function getTableName(array $tableConfiguration): string
     {
         return $this->contentObject->cObjGetSingle($tableConfiguration['_table'], $tableConfiguration['_table.']);
     }
@@ -152,7 +157,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param array $tableConfiguration
      * @return bool
      */
-    protected function isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration)
+    protected function isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration): bool
     {
         $enable = $this->contentObject->cObjGetSingle($tableConfiguration['_enable'], $tableConfiguration['_enable.']);
         return !empty($enable);
@@ -163,7 +168,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      *
      * @return bool
      */
-    protected function isConfigurationAvailable()
+    protected function isConfigurationAvailable(): bool
     {
         return !empty($this->configuration) && is_array($this->configuration);
     }
@@ -174,7 +179,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param string $key
      * @return bool
      */
-    protected function isSkippedKey($key)
+    protected function isSkippedKey(string $key): bool
     {
         return StringUtility::startsWith($key, '_') || StringUtility::endsWith($key, '.');
     }
@@ -185,7 +190,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param array $array
      * @return void
      */
-    protected function addArrayToDataArray(array $array)
+    protected function addArrayToDataArray(array $array): void
     {
         $dataArray = $this->getDataArray();
         $dataArray = array_merge($dataArray, $array);
@@ -195,7 +200,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     /**
      * @return array
      */
-    public function getDataArray()
+    public function getDataArray(): array
     {
         return $this->dataArray;
     }
@@ -204,16 +209,19 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param array $dataArray
      * @return SaveToAnyTableFinisher
      */
-    public function setDataArray(array $dataArray)
+    public function setDataArray(array $dataArray): SaveToAnyTableFinisher
     {
         $this->dataArray = $dataArray;
         return $this;
     }
 
     /**
-     * Initialize
+     * @return void
+     * @throws Exception
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
-    public function initializeFinisher()
+    public function initializeFinisher(): void
     {
         $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
@@ -231,7 +239,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param ContentObjectRenderer $contentObject
      * @return void
      */
-    public function injectContentObject(ContentObjectRenderer $contentObject)
+    public function injectContentObject(ContentObjectRenderer $contentObject): void
     {
         $this->contentObject = $contentObject;
     }

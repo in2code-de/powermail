@@ -14,12 +14,13 @@ call_user_func(
             !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
         ) {
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-                'In2code.powermail',
+                'Powermail',
                 'web',
                 'm1',
                 '',
                 [
-                    'Module' => 'dispatch, list, exportXls, exportCsv, reportingBe, toolsBe, overviewBe, ' .
+                    \In2code\Powermail\Controller\ModuleController::class =>
+                        'dispatch, list, exportXls, exportCsv, reportingBe, toolsBe, overviewBe, ' .
                         'checkBe, converterBe, converterUpdateBe, reportingFormBe, reportingMarketingBe, ' .
                         'fixUploadFolder, fixWrongLocalizedForms, fixFilledMarkersInLocalizedFields, ' .
                         'fixWrongLocalizedPages, fixFilledMarkersInLocalizedPages'

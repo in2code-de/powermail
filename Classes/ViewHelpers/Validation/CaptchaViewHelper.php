@@ -10,8 +10,10 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
+use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
@@ -55,8 +57,10 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
 
     /**
      * @return string
+     * @throws Exception
+     * @throws ExceptionCore
      */
-    protected function getImage()
+    protected function getImage(): string
     {
         $this->tag->setTagName('img');
         $this->tag->addAttribute('src', $this->getImageSource($this->arguments['field']));
@@ -70,7 +74,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
      * @param \Exception $exception
      * @return string
      */
-    protected function getErrorMessage(\Exception $exception)
+    protected function getErrorMessage(\Exception $exception): string
     {
         $this->tag->setTagName('p');
         $this->tag->addAttribute('class', 'bg-danger');
@@ -82,8 +86,10 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     /**
      * @param Field $field
      * @return string image URL
+     * @throws Exception
+     * @throws ExceptionCore
      */
-    protected function getImageSource(Field $field)
+    protected function getImageSource(Field $field): string
     {
         $settings = $this->getSettings();
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($settings)) {
@@ -106,8 +112,9 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
 
     /**
      * @return array
+     * @throws Exception
      */
-    public function getSettings()
+    public function getSettings(): array
     {
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         return $configurationService->getTypoScriptSettings();

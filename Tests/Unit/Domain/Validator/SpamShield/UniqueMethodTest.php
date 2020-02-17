@@ -4,7 +4,9 @@ namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\UniqueMethod;
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Exception;
 
 /**
  * Class UniqueMethodTest
@@ -20,9 +22,11 @@ class UniqueMethodTest extends UnitTestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     public function setUp()
     {
+        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             UniqueMethod::class,
             ['dummy'],

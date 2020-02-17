@@ -133,7 +133,7 @@
 									<f:comment>
 										Edit
 									</f:comment>
-									<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:Misc.BackendEditLink(tableName:'tx_powermail_domain_model_mail',identifier:mail.uid)}">
+									<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_mail',identifier:mail.uid)}">
 										<span class="t3-icon fa fa-pencil">&nbsp;</span>
 									</a>
 
@@ -199,7 +199,7 @@
 
 												<f:comment>Data Type Array</f:comment>
 												<f:if condition="{answer.valueType} == 1">
-													<vh:String.ImplodeField objects="{answer.value}" separator=", " />
+													<vh:string.implodeField objects="{answer.value}" separator=", " />
 												</f:if>
 
 												<f:comment>Data Type Date (already parsed Timestamp by Model)</f:comment>
@@ -210,12 +210,12 @@
 												<f:comment>Data Type Fileupload</f:comment>
 												<f:if condition="{answer.valueType} == 3">
 													<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
-														<a href="{vh:Misc.Link(path:'{vh:Misc.GetFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}', absolute:1)}" title="{settings.uploadPath}{subValue}" target="_blank">
-															<f:if condition="{vh:Condition.IsImage(path:subValue)}">
+														<a href="{vh:misc.link(path:'{vh:misc.getFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}', absolute:1)}" title="{settings.uploadPath}{subValue}" target="_blank">
+															<f:if condition="{vh:condition.isImage(path:subValue)}">
 																<f:then>
-																	<f:if condition="{vh:Condition.FileExists(file:'{vh:Misc.GetFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}')}">
+																	<f:if condition="{vh:condition.fileExists(file:'{vh:misc.getFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}')}">
 																		<f:then>
-																			<f:image src="{vh:Misc.GetFileWithPath(path:'{settings.uploadPath}',fileName:'{subValue}')}" alt="{subValue}" width="200" maxHeight="200" />
+																			<f:image src="{vh:misc.getFileWithPath(path:'{settings.uploadPath}',fileName:'{subValue}')}" alt="{subValue}" width="200" maxHeight="200" />
 																		</f:then>
 																		<f:else>
 																			File does not exist
@@ -244,7 +244,7 @@
 										</dd>
 									</dl>
 								</f:if>
-								<f:if condition="{vh:Condition.IsMarketingInformationEnabledGlobally()}">
+								<f:if condition="{vh:condition.isMarketingInformationEnabledGlobally()}">
 									<f:if condition="{mail.marketingRefererDomain}">
 										<dl class="powermail_listbe_details_dl powermail_listbe_details_dl_additional">
 											<dt>
@@ -314,7 +314,7 @@
 											</dt>
 											<dd>
 												<f:for each="{mail.marketingPageFunnel}" as="page" iteration="index">
-													<span title="id={page}"><vh:Getter.GetPageNameFromUid uid="{page}" /></span> <f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
+													<span title="id={page}"><vh:getter.getPageNameFromUid uid="{page}" /></span> <f:if condition="{index.isLast}"><f:else> &gt; </f:else></f:if>
 												</f:for>
 											</dd>
 										</dl>

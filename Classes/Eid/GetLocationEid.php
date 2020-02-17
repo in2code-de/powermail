@@ -21,15 +21,23 @@ class GetLocationEid
     /**
      * Generates the output
      *
-     * @return string        from action
+     * @return string from action
      */
-    public function main()
+    public function main(): string
     {
-        $lat = GeneralUtility::_GP('lat');
-        $lng = GeneralUtility::_GP('lng');
+        $address = $this->getAddressFromGeo((float)GeneralUtility::_GP('lat'), (float)GeneralUtility::_GP('lng'));
 
-        $address = $this->getAddressFromGeo($lat, $lng);
-        return $address['route'] . ', ' . $address['locality'];
+        $output = '';
+        if (!empty($address['route'])) {
+            $output .= $address['route'];
+        }
+        if (!empty($address['locality'])) {
+            $output .= ', ' . $address['locality'];
+        }
+        if (!empty($address['country'])) {
+            $output .= ', ' . $address['country'];
+        }
+        return $output;
     }
 
     /**
@@ -44,7 +52,7 @@ class GetLocationEid
      *        ['country'] = 'Germany';
      *        ['postal_code'] = '83026';
      */
-    protected function getAddressFromGeo($lat, $lng): array
+    protected function getAddressFromGeo(float $lat, float $lng): array
     {
         $result = [];
         $url = 'https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&lat=' . $lat . '&lon=' . $lng;

@@ -1,4 +1,0 @@
-.. |scheduler_garbage_collector|      image:: ../../../Images/scheduler_garbage_collector.png
-   :width: 800
-.. :align: left
-.. :name: scheduler_garbage_collector

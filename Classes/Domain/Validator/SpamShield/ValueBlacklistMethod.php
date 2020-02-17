@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class ValueBlacklistMethod
@@ -20,15 +21,16 @@ class ValueBlacklistMethod extends AbstractMethod
      * Blacklist String Check: Check if a blacklisted word is in given values
      *
      * @return bool true if spam recognized
+     * @throws Exception
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         foreach ($this->mail->getAnswers() as $answer) {
             if (is_array($answer->getValue())) {
                 continue;
             }
             foreach ($this->getValues() as $blackword) {
-                if ($this->findStringInString($answer->getValue(), $blackword)) {
+                if ($this->isStringInString($answer->getValue(), $blackword)) {
                     return true;
                 }
             }
@@ -40,8 +42,9 @@ class ValueBlacklistMethod extends AbstractMethod
      * Get blacklisted values
      *
      * @return array
+     * @throws Exception
      */
-    protected function getValues()
+    protected function getValues(): array
     {
         $values = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->configuration['values']['_typoScriptNodeValue'],
@@ -56,7 +59,7 @@ class ValueBlacklistMethod extends AbstractMethod
      * @param string $string
      * @return string
      */
-    protected function reduceDelimiters($string)
+    protected function reduceDelimiters(string $string): string
     {
         return str_replace([',', ';', ' ', PHP_EOL], $this->delimiter, $string);
     }
@@ -75,7 +78,7 @@ class ValueBlacklistMethod extends AbstractMethod
      * @param string $needle
      * @return bool
      */
-    protected function findStringInString($haystack, $needle)
+    protected function isStringInString(string $haystack, string $needle): bool
     {
         return preg_match('/(?:\A|[@\s\b_-]|\.)' . $needle . '(?:$|[\s\b_-]|\.)/i', $haystack) === 1;
     }

@@ -3,13 +3,11 @@ namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\SessionUtility;
-use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Class CalculatingCaptchaServiceTest
@@ -28,6 +26,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function setUp()
     {
+        TestingHelper::setDefaultConstants();
         $this->generalValidatorMock = $this->getAccessibleMock(
             CalculatingCaptchaService::class,
             ['dummy'],
@@ -103,16 +102,6 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
                 false
             ],
             [
-                '',
-                null,
-                false
-            ],
-            [
-                null,
-                null,
-                false
-            ],
-            [
                 false,
                 false,
                 false
@@ -127,10 +116,11 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      * @dataProvider validCodeReturnsBoolDataProvider
      * @test
      * @covers ::validCode
+     * @throws Exception
      */
     public function validCodeReturnsBool($code, $codeInSession, $expectedResult)
     {
-        $this->initializeTsfe();
+        TestingHelper::initializeTypoScriptFrontendController();
         $field = new Field();
         $field->_setProperty('uid', 123);
         SessionUtility::setCaptchaSession($codeInSession, 123);
@@ -460,25 +450,5 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set('imageFilenamePrefix', 'abc%ddef.png');
         $this->generalValidatorMock->_call('setPathAndFilename', $field);
         $this->assertSame('typo3temp/abc123def.png', $this->generalValidatorMock->_get('pathAndFilename'));
-    }
-
-    /**
-     * Initialize TSFE object
-     *
-     * @return void
-     */
-    protected function initializeTsfe()
-    {
-        $_SERVER['REMOTE_ADDR'] = '';
-        $configurationManager = new ConfigurationManager();
-        $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
-            'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject',
-            'COA' => 'TYPO3\CMS\Frontend\ContentObject\ContentObjectArrayContentObject'
-        ];
-        $GLOBALS['TT'] = new TimeTracker();
-        $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
-        $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
     }
 }

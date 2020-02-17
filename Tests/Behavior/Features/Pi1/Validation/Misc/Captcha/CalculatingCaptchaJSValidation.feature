@@ -4,7 +4,7 @@ Feature: Pi1ValidationMiscCaptchaCalculatingCaptchaJSValidation
 
   @javascript
   Scenario: Check if JavaScript mandatory validation works
-    Given I am on "/index.php?id=220"
+    Given I am on "/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-jsphp"
     Then I should see "Captcha"
     Then I should see an "#powermail_field_captcha" element
     And I press "Submit"

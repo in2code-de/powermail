@@ -7,8 +7,8 @@
 		<f:form.textfield
 				id="powermail_field_{field.marker}"
 				property="{field.marker}"
-				value="{vh:Misc.PrefillField(field:field, mail:mail)}"
+				value="{vh:misc.prefillField(field:field, mail:mail)}"
 				additionalAttributes="{data-powermail-location:'prefill'}"
-				class="powermail_location {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}" />
+				class="powermail_location {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}" />
 	</div>
 </div>

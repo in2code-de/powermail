@@ -3,7 +3,7 @@
 Feature: ExcludeFromPowermailAll
 
   Scenario: Check if values can be removed from {powermail_all} via configuration
-    Given I am on "/index.php?id=109"
+    Given I am on "/powermail/pi1/misc/exclude-from-powermailall"
     Then I should see "Admin Only"
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "123"

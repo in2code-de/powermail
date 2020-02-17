@@ -3,11 +3,12 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Exception\ConfigurationIsMissingException;
 
 /**
  * Class HashUtility
  */
-class HashUtility extends AbstractUtility
+class HashUtility
 {
 
     /**
@@ -55,5 +56,24 @@ class HashUtility extends AbstractUtility
     private static function createHashFromString(string $string): string
     {
         return hash('sha256', $string);
+    }
+
+    /**
+     * Get TYPO3 encryption key
+     *
+     * @return string
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @throws ConfigurationIsMissingException
+     */
+    protected static function getEncryptionKey(): string
+    {
+        $confVars = ConfigurationUtility::getTypo3ConfigurationVariables();
+        if (empty($confVars['SYS']['encryptionKey'])) {
+            throw new ConfigurationIsMissingException(
+                'No encryption key found in this TYPO3 installation',
+                1514910284796
+            );
+        }
+        return $confVars['SYS']['encryptionKey'];
     }
 }

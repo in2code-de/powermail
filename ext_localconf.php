@@ -18,23 +18,24 @@ call_user_func(function () {
      * Include Frontend Plugins for Powermail
      */
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'In2code.powermail',
+        'Powermail',
         'Pi1',
         [
-            'Form' => 'form, create, confirmation, optinConfirm, marketing, disclaimer'
+            \In2code\Powermail\Controller\FormController::class =>
+                'form, create, confirmation, optinConfirm, marketing, disclaimer'
         ],
         [
-            'Form' => $uncachedFormActions
+            \In2code\Powermail\Controller\FormController::class => $uncachedFormActions
         ]
     );
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'In2code.powermail',
+        'Powermail',
         'Pi2',
         [
-            'Output' => 'list, show, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, export, rss, delete'
         ],
         [
-            'Output' => 'list, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, export, rss, delete'
         ]
     );
 
@@ -51,7 +52,7 @@ call_user_func(function () {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/WebList.typoscript">'
     );
-    
+
     /**
      * Hook to show PluginInformation under a tt_content element in page module of type powermail
      */
@@ -85,8 +86,29 @@ call_user_func(function () {
         'EXT:powermail/Classes/Eid/GetLocationEid.php';
 
     /**
-     * CommandController for powermail tasks
+     * User field registrations in TCA/FlexForm
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] =
-        \In2code\Powermail\Command\TaskCommandController::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1580037906] = [
+        'nodeName' => 'powermailShowFormNoteIfNoEmailOrNameSelected',
+        'priority' => 50,
+        'class' => \In2code\Powermail\Tca\ShowFormNoteIfNoEmailOrNameSelected::class,
+    ];
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1580039839] = [
+        'nodeName' => 'powermailMarker',
+        'priority' => 50,
+        'class' => \In2code\Powermail\Tca\Marker::class,
+    ];
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1580065317] = [
+        'nodeName' => 'powermailShowFormNoteEditForm',
+        'priority' => 50,
+        'class' => \In2code\Powermail\Tca\ShowFormNoteEditForm::class,
+    ];
+
+    /**
+     * Update Wizards
+     */
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailRelationUpdateWizard']
+        = \In2code\Powermail\Update\PowermailRelationUpdateWizard::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailLanguageUpdateWizard']
+        = \In2code\Powermail\Update\PowermailLanguageUpdateWizard::class;
 });

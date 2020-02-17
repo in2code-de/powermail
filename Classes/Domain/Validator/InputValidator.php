@@ -6,6 +6,9 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class InputValidator
@@ -41,11 +44,14 @@ class InputValidator extends StringValidator
      *
      * @param Mail $mail
      * @return bool
+     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function isValid($mail): bool
     {
         // stop validation if it's turned off
-        if (!$this->isServerValidationEnabled()) {
+        if ($this->isServerValidationEnabled() === false) {
             return true;
         }
 
@@ -85,8 +91,9 @@ class InputValidator extends StringValidator
      * @param Field $field
      * @param mixed $value
      * @return void
+     * @throws Exception
      */
-    protected function isValidFieldInMandatoryValidation(Field $field, $value)
+    protected function isValidFieldInMandatoryValidation(Field $field, $value): void
     {
         // Mandatory Check
         if (in_array($field->getType(), $this->mandatoryValidationFieldTypes) && $field->isMandatory()) {
@@ -102,12 +109,12 @@ class InputValidator extends StringValidator
      * @param Field $field
      * @param mixed $value
      * @return void
+     * @throws Exception
      */
-    protected function isValidFieldInStringValidation(Field $field, $value)
+    protected function isValidFieldInStringValidation(Field $field, $value): void
     {
         if (!empty($value) && in_array($field->getType(), $this->stringValidationFieldTypes)) {
             switch ($field->getValidation()) {
-
                 // email
                 case 1:
                     if (!$this->validateEmail($value)) {
@@ -201,9 +208,10 @@ class InputValidator extends StringValidator
                                 $this->settings['validation']['customValidation'][$validation]
                             );
                             if (method_exists($extendedValidator, 'validate' . ucfirst((string)$validation))) {
-                                if (!$extendedValidator->{'validate' . ucfirst((string)$validation)}($value,
-                                    $field->getValidationConfiguration())
-                                ) {
+                                if (!$extendedValidator->{'validate' . ucfirst((string)$validation)}(
+                                    $value,
+                                    $field->getValidationConfiguration()
+                                )) {
                                     $this->setErrorAndMessage($field, 'validation.' . $validation);
                                 }
                             }

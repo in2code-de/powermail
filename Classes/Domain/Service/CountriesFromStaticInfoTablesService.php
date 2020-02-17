@@ -4,6 +4,8 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use SJBR\StaticInfoTables\Domain\Repository\CountryRepository;
+use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
@@ -20,13 +22,15 @@ class CountriesFromStaticInfoTablesService
      * @param string $sortbyField
      * @param string $sorting
      * @return array
+     * @throws Exception
+     * @throws PropertyNotAccessibleException
      */
     public function getCountries(
         $key = 'isoCodeA3',
         $value = 'officialNameLocal',
         $sortbyField = 'isoCodeA3',
         $sorting = 'asc'
-    ) {
+    ): array {
         $countryRepository = ObjectUtility::getObjectManager()->get(CountryRepository::class);
         $countries = $countryRepository->findAllOrderedBy($sortbyField, $sorting);
         $countriesArray = [];

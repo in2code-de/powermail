@@ -11,6 +11,14 @@
 				<source>Language:</source>
 				<target state="translated">Sprache:</target>
 			</trans-unit>
+			<trans-unit id="LGL.allLanguages">
+				<source>All</source>
+				<target state="translated">Alle</target>
+			</trans-unit>
+			<trans-unit id="LGL.default_value">
+				<source>Default</source>
+				<target state="translated">Standard</target>
+			</trans-unit>
 			<trans-unit id="LGL.l18n_parent">
 				<source>Transl.Orig:</source>
 				<target state="translated">Original Übersetzung:</target>

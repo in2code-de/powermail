@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use Doctrine\DBAL\DBALException;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -11,7 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class DatabaseUtility
  * @codeCoverageIgnore
  */
-class DatabaseUtility extends AbstractUtility
+class DatabaseUtility
 {
 
     /**
@@ -40,6 +41,7 @@ class DatabaseUtility extends AbstractUtility
     /**
      * @param string $tableName
      * @return bool
+     * @throws DBALException
      */
     public static function isTableExisting(string $tableName): bool
     {
@@ -59,6 +61,7 @@ class DatabaseUtility extends AbstractUtility
      * @param string $fieldName
      * @param string $tableName
      * @return bool
+     * @throws DBALException
      */
     public static function isFieldExistingInTable(string $fieldName, string $tableName): bool
     {
@@ -72,5 +75,27 @@ class DatabaseUtility extends AbstractUtility
             }
         }
         return $found;
+    }
+
+    /**
+     * Check if there are any values in a table field (don't care about deleted property)
+     *
+     * @param string $fieldName
+     * @param string $tableName
+     * @return bool
+     * @throws DBALException
+     */
+    public static function isFieldFilled(string $fieldName, string $tableName): bool
+    {
+        if (self::isFieldExistingInTable($fieldName, $tableName)) {
+            $queryBuilder = self::getQueryBuilderForTable($tableName, true);
+            return (int)$queryBuilder
+                    ->count($fieldName)
+                    ->from($tableName)
+                    ->where($fieldName . ' != "" and ' . $fieldName . ' != 0')
+                    ->execute()
+                    ->fetchColumn() > 0;
+        }
+        return false;
     }
 }

@@ -2,11 +2,13 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
+use Doctrine\DBAL\DBALException;
+use In2code\Powermail\Exception\DatabaseFieldMissingException;
+use In2code\Powermail\Exception\PropertiesMissingException;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * This class allows you to save values to any table in TYPO3 database
@@ -70,8 +72,9 @@ class SaveToAnyTableService
 
     /**
      * @param string $table
+     * @throws PropertiesMissingException
      */
-    public function __construct($table)
+    public function __construct(string $table)
     {
         $this->setTable($table);
     }
@@ -80,8 +83,11 @@ class SaveToAnyTableService
      * Executes the storage
      *
      * @return int uid of inserted record
+     * @throws DBALException
+     * @throws DatabaseFieldMissingException
+     * @throws PropertiesMissingException
      */
-    public function execute()
+    public function execute(): int
     {
         $this->checkProperties();
         switch ($this->getMode()) {
@@ -115,8 +121,9 @@ class SaveToAnyTableService
      * Update existing record
      *
      * @return int uid of updated record
+     * @throws DBALException
      */
-    protected function update()
+    protected function update(): int
     {
         $row = $this->getExistingEntry();
         if (empty($row[$this->getUniqueIdentifier()])) {
@@ -140,13 +147,13 @@ class SaveToAnyTableService
     /**
      * Check if there are properties
      *
-     * @throws \Exception
      * @return void
+     * @throws PropertiesMissingException
      */
-    protected function checkProperties()
+    protected function checkProperties(): void
     {
         if (empty($this->getProperties())) {
-            throw new \UnexpectedValueException('No properties to insert/update given');
+            throw new PropertiesMissingException('No properties to insert/update given', 1578607503);
         }
     }
 
@@ -155,12 +162,12 @@ class SaveToAnyTableService
      *
      * @param string $table
      * @return void
-     * @throws \Exception
+     * @throws PropertiesMissingException
      */
-    public function setTable($table)
+    public function setTable(string $table): void
     {
         if (empty($table)) {
-            throw new \UnexpectedValueException('No tablename given');
+            throw new PropertiesMissingException('No tablename given', 1578607506);
         }
         $this->removeNotAllowedSigns($table);
         $this->table = $table;
@@ -171,7 +178,7 @@ class SaveToAnyTableService
      *
      * @return string
      */
-    public function getTable()
+    public function getTable(): string
     {
         return $this->table;
     }
@@ -181,7 +188,7 @@ class SaveToAnyTableService
      *
      * @return array
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return $this->properties;
     }
@@ -189,10 +196,10 @@ class SaveToAnyTableService
     /**
      * Get one property value
      *
-     * @param $propertyName
+     * @param string $propertyName
      * @return string
      */
-    public function getProperty($propertyName)
+    public function getProperty(string $propertyName): string
     {
         $currentProperty = '';
         $properties = $this->getProperties();
@@ -205,11 +212,11 @@ class SaveToAnyTableService
     /**
      * Add property/value pair to array
      *
-     * @param $propertyName
-     * @param $value
+     * @param string $propertyName
+     * @param string $value
      * @return void
      */
-    public function addProperty($propertyName, $value)
+    public function addProperty(string $propertyName, string $value): void
     {
         $this->removeNotAllowedSigns($propertyName);
         $this->properties[$propertyName] = $value;
@@ -219,7 +226,7 @@ class SaveToAnyTableService
      * @param string $mode
      * @return void
      */
-    public function setMode($mode)
+    public function setMode(string $mode): void
     {
         $possibleModes = [
             self::MODE_INSERT,
@@ -234,7 +241,7 @@ class SaveToAnyTableService
     /**
      * @return string
      */
-    public function getMode()
+    public function getMode(): string
     {
         return $this->mode;
     }
@@ -243,7 +250,7 @@ class SaveToAnyTableService
      * @param string $uniqueField
      * @return void
      */
-    public function setUniqueField($uniqueField)
+    public function setUniqueField(string $uniqueField): void
     {
         $this->uniqueField = $uniqueField;
     }
@@ -251,7 +258,7 @@ class SaveToAnyTableService
     /**
      * @return string
      */
-    public function getUniqueField()
+    public function getUniqueField(): string
     {
         return $this->uniqueField;
     }
@@ -259,24 +266,24 @@ class SaveToAnyTableService
     /**
      * @return string
      */
-    public function getUniqueIdentifier()
+    public function getUniqueIdentifier(): string
     {
         return $this->uniqueIdentifier;
     }
 
     /**
-     * @param boolean $devLog
+     * @param bool $devLog
      * @return void
      */
-    public function setDevLog($devLog)
+    public function setDevLog(bool $devLog): void
     {
         $this->devLog = $devLog;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isDevLog()
+    public function isDevLog(): bool
     {
         return $this->devLog;
     }
@@ -284,15 +291,16 @@ class SaveToAnyTableService
     /**
      * @return string
      */
-    public function getAdditionalWhere()
+    public function getAdditionalWhere(): string
     {
         return $this->additionalWhere;
     }
 
     /**
      * @param string $additionalWhere
+     * @return void
      */
-    public function setAdditionalWhere($additionalWhere)
+    public function setAdditionalWhere(string $additionalWhere): void
     {
         $this->additionalWhere = ' ' . $additionalWhere;
     }
@@ -303,7 +311,7 @@ class SaveToAnyTableService
      * @param $string
      * @return void
      */
-    protected function removeNotAllowedSigns(&$string)
+    protected function removeNotAllowedSigns(string &$string): void
     {
         $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
     }
@@ -313,7 +321,7 @@ class SaveToAnyTableService
      *
      * @return void
      */
-    protected function writeToDevLog()
+    protected function writeToDevLog(): void
     {
         if ($this->isDevLog()) {
             $subject = 'SaveToAnyTable (Table: ' . $this->getTable();
@@ -327,32 +335,30 @@ class SaveToAnyTableService
     /**
      * Find existing record in database
      *
-     * @return array|FALSE
+     * @return array
+     * @throws DBALException
      */
-    protected function getExistingEntry()
+    protected function getExistingEntry(): array
     {
         $queryBuilder = $this->getQueryBuilder();
         $searchterm = $queryBuilder->createNamedParameter($this->getProperty($this->getUniqueField()));
         $where = $this->getUniqueField() . ' = ' . $searchterm;
         $where .= $this->getDeletedWhereClause();
         $where .= $this->getAdditionalWhere();
-        $rows = $queryBuilder
+        return $queryBuilder
             ->select($this->getUniqueIdentifier())
             ->from($this->getTable())
             ->where($where)
             ->setMaxResults(1)
             ->execute()
-            ->fetchAll();
-        if (!empty($rows[0])) {
-            return $rows[0];
-        }
-        return false;
+            ->fetch();
     }
 
     /**
      * @return string
+     * @throws DBALException
      */
-    protected function getDeletedWhereClause()
+    protected function getDeletedWhereClause(): string
     {
         $where = '';
         if ($this->isFieldExisting('deleted')) {
@@ -362,14 +368,17 @@ class SaveToAnyTableService
     }
 
     /**
-     * @throws \Exception
+     * @return void
+     * @throws DatabaseFieldMissingException
+     * @throws DBALException
      */
-    protected function checkIfIdentifierFieldExists()
+    protected function checkIfIdentifierFieldExists(): void
     {
         if (!$this->isFieldExisting($this->getUniqueIdentifier())) {
-            throw new \InvalidArgumentException(
+            throw new DatabaseFieldMissingException(
                 'Field ' . $this->getUniqueIdentifier() . ' in table ' . $this->getTable() . ' does not exist,' .
-                ' but it\'s needed for _ifUnique functionality'
+                ' but it\'s needed for _ifUnique functionality',
+                1579186701
             );
         }
     }
@@ -377,8 +386,9 @@ class SaveToAnyTableService
     /**
      * @param string $field
      * @return bool
+     * @throws DBALException
      */
-    protected function isFieldExisting($field)
+    protected function isFieldExisting(string $field): bool
     {
         return DatabaseUtility::isFieldExistingInTable($field, $this->getTable());
     }

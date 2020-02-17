@@ -2,7 +2,9 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Utility\DatabaseUtility;
+use TYPO3\CMS\Core\Package\Exception;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
@@ -28,7 +30,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      *
      * @var string
      */
-    protected $version = null;
+    protected $version = '';
 
     /**
      * Extension Manager table with all extensions exist
@@ -69,8 +71,10 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      * Return powermail version
      *
      * @return int
+     * @throws DBALException
+     * @throws Exception
      */
-    public function render()
+    public function render(): int
     {
         $this->init();
         if (!$this->getExtensionTableExists()) {
@@ -90,8 +94,10 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
 
     /**
      * @return void
+     * @throws DBALException
+     * @throws Exception
      */
-    protected function init()
+    protected function init(): void
     {
         if (!$this->getVersion()) {
             $this->setVersion(ExtensionManagementUtility::getExtensionVersion('powermail'));
@@ -113,14 +119,14 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     {
         $unsafe = false;
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
-        $rows = $queryBuilder
+        $row = $queryBuilder
             ->select('review_state')
             ->from(self::TABLE_NAME)
             ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
             ->setMaxResults(1)
             ->execute()
-            ->fetchAll();
-        if (!empty($rows[0]['review_state']) && $rows[0]['review_state'] === -1) {
+            ->fetch();
+        if (!empty($row['review_state']) && $row['review_state'] === -1) {
             $unsafe = true;
         }
         return $unsafe;
@@ -133,16 +139,16 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     {
         $newVersionAvailable = false;
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
-        $rows = $queryBuilder
+        $row = $queryBuilder
             ->select('version')
             ->from(self::TABLE_NAME)
             ->where('extension_key = "powermail"')
             ->orderBy('version', 'desc')
             ->setMaxResults(1)
             ->execute()
-            ->fetchAll();
-        if (!empty($rows[0]['version'])) {
-            $newestVersion = VersionNumberUtility::convertVersionNumberToInteger($rows[0]['version']);
+            ->fetch();
+        if (!empty($row['version'])) {
+            $newestVersion = VersionNumberUtility::convertVersionNumberToInteger($row['version']);
             $currentVersion = VersionNumberUtility::convertVersionNumberToInteger($this->getVersion());
             if ($currentVersion < $newestVersion) {
                 $newVersionAvailable = true;
@@ -157,20 +163,20 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     protected function isCurrentVersionInExtensionTableExistingCheck(): bool
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
-        $rows = $queryBuilder
+        $row = $queryBuilder
             ->select('uid')
             ->from(self::TABLE_NAME)
             ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
             ->setMaxResults(1)
             ->execute()
-            ->fetchAll();
-        return !empty($rows[0]['uid']);
+            ->fetch();
+        return !empty($row['uid']);
     }
 
     /**
      * @return int
      */
-    public function getStatus()
+    public function getStatus(): int
     {
         return $this->status;
     }
@@ -179,7 +185,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      * @param int $status
      * @return void
      */
-    public function setStatus($status)
+    public function setStatus(int $status): void
     {
         $this->status = $status;
     }
@@ -187,7 +193,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     /**
      * @return string
      */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->version;
     }
@@ -196,7 +202,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      * @param string $version
      * @return void
      */
-    public function setVersion($version)
+    public function setVersion(string $version): void
     {
         $this->version = $version;
     }
@@ -204,7 +210,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    public function getCheckFromDatabase()
+    public function getCheckFromDatabase(): bool
     {
         return $this->checkFromDatabase;
     }
@@ -213,7 +219,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      * @param bool $checkFromDatabase
      * @return void
      */
-    public function setCheckFromDatabase($checkFromDatabase)
+    public function setCheckFromDatabase(bool $checkFromDatabase): void
     {
         $this->checkFromDatabase = $checkFromDatabase;
     }
@@ -221,7 +227,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    public function getExtensionTableExists()
+    public function getExtensionTableExists(): bool
     {
         return $this->extensionTableExists;
     }
@@ -230,7 +236,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      * @param bool $extensionTableExists
      * @return void
      */
-    public function setExtensionTableExists($extensionTableExists)
+    public function setExtensionTableExists(bool $extensionTableExists): void
     {
         $this->extensionTableExists = $extensionTableExists;
     }
@@ -238,7 +244,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    public function getIsCurrentVersionUnsecure()
+    public function getIsCurrentVersionUnsecure(): bool
     {
         return $this->isCurrentVersionUnsecure;
     }
@@ -247,7 +253,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      * @param bool $isCurrentVersionUnsecure
      * @return void
      */
-    public function setIsCurrentVersionUnsecure($isCurrentVersionUnsecure)
+    public function setIsCurrentVersionUnsecure(bool $isCurrentVersionUnsecure): void
     {
         $this->isCurrentVersionUnsecure = $isCurrentVersionUnsecure;
     }
@@ -255,7 +261,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    public function getIsNewerVersionAvailable()
+    public function getIsNewerVersionAvailable(): bool
     {
         return $this->isNewerVersionAvailable;
     }
@@ -264,7 +270,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      * @param bool $isNewerVersionAvailable
      * @return void
      */
-    public function setIsNewerVersionAvailable($isNewerVersionAvailable)
+    public function setIsNewerVersionAvailable(bool $isNewerVersionAvailable): void
     {
         $this->isNewerVersionAvailable = $isNewerVersionAvailable;
     }
@@ -272,7 +278,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
     /**
      * @return bool
      */
-    public function getCurrentVersionInExtensionTableExists()
+    public function getCurrentVersionInExtensionTableExists(): bool
     {
         return $this->currentVersionInExtensionTableExists;
     }
@@ -281,7 +287,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
      * @param bool $currentVersionInExtensionTableExists
      * @return void
      */
-    public function setCurrentVersionInExtensionTableExists($currentVersionInExtensionTableExists)
+    public function setCurrentVersionInExtensionTableExists(bool $currentVersionInExtensionTableExists): void
     {
         $this->currentVersionInExtensionTableExists = $currentVersionInExtensionTableExists;
     }

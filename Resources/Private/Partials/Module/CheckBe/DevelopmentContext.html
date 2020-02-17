@@ -1,7 +1,7 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
-<f:if condition="{vh:Condition.IsDevelopmentContext()}">
-	<f:if condition="{vh:Getter.GetDevelopmentContextEmail()}">
+<f:if condition="{vh:condition.isDevelopmentContext()}">
+	<f:if condition="{vh:getter.getDevelopmentContextEmail()}">
 		<f:then>
 			<div class="alert alert-info">
 				<div class="header-container">
@@ -11,7 +11,7 @@
 				</div>
 				<div class="message-body">
 					<p>
-						<f:translate key="BackendCheckDevelopmentContextActive" arguments="{0: '{vh:Getter.GetDevelopmentContextEmail()}'}">This TYPO3 instance is running in development context. All mails will be send to %s only.</f:translate>
+						<f:translate key="BackendCheckDevelopmentContextActive" arguments="{0: '{vh:getter.getDevelopmentContextEmail()}'}">This TYPO3 instance is running in development context. All mails will be send to %s only.</f:translate>
 					</p>
 				</div>
 			</div>

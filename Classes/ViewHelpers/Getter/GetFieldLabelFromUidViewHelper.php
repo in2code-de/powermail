@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Getter;
 
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -25,6 +26,7 @@ class GetFieldLabelFromUidViewHelper extends AbstractViewHelper
      * get tx_powermail_domain_model_field.title from .uid
      *
      * @return string
+     * @throws Exception
      */
     public function render(): string
     {

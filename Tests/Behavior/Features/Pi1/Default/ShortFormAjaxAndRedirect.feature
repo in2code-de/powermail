@@ -5,7 +5,7 @@ Feature: AllFields
 
   @javascript
   Scenario: Check if redirect works correct with AJAX submit
-    Given I am on "/index.php?id=163"
+    Given I am on "/powermail/pi1/default/shortform-ajax-redirect"
     Then I should see "Redirect to page \"Welcome\""
     And I press "Jetzt Absenden"
     And I wait "a few" seconds

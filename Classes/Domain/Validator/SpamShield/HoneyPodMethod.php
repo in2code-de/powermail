@@ -13,7 +13,7 @@ class HoneyPodMethod extends AbstractMethod
      *
      * @return bool true if spam recognized
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         return !empty($this->arguments['field']['__hp']);
     }

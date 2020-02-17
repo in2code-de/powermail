@@ -3,11 +3,13 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\File;
+use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
+use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -20,10 +22,11 @@ class UploadValidator extends AbstractValidator
     /**
      * Validation of given upload paramaters
      *
-     * @param \In2code\Powermail\Domain\Model\Mail $mail
+     * @param Mail $mail
      * @return bool
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function isValid($mail)
     {
@@ -32,14 +35,14 @@ class UploadValidator extends AbstractValidator
         foreach ($uploadService->getFiles() as $file) {
             if (!$this->formHasUploadFields() || !$this->basicFileCheck($file)) {
                 $file->setValid(false);
-                $this->addError('upload_error', $file->getMarker());
+                $this->addError('upload_error', 1580681638, ['marker' => $file->getMarker()]);
                 $this->setValidState(false);
             }
-            if (!$uploadService->checkExtension($file, $this->getAllowedFileExtensions())) {
+            if (!$uploadService->isFileExtensionAllowed($file, $this->getAllowedFileExtensions())) {
                 $this->setErrorAndMessage($file->getField(), 'upload_extension');
                 $file->setValid(false);
             }
-            if (!$uploadService->checkFilesize($file, $this->getMaximumFileSize())) {
+            if (!$uploadService->isFileSizeSmallerThenAllowed($file, $this->getMaximumFileSize())) {
                 $this->setErrorAndMessage($file->getField(), 'upload_size');
                 $file->setValid(false);
             }
@@ -51,10 +54,11 @@ class UploadValidator extends AbstractValidator
      * Check if given form has upload fields
      *
      * @return bool
+     * @throws Exception
      */
-    protected function formHasUploadFields()
+    protected function formHasUploadFields(): bool
     {
-        $arguments = GeneralUtility::_GP('tx_powermail_pi1');
+        $arguments = FrontendUtility::getArguments();
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         if (is_string($arguments['mail'])) {
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
@@ -72,7 +76,7 @@ class UploadValidator extends AbstractValidator
      * @param File $file
      * @return bool
      */
-    protected function basicFileCheck(File $file)
+    protected function basicFileCheck(File $file): bool
     {
         return $file->getField() !== null && $file->getSize() > 0;
     }
@@ -80,7 +84,7 @@ class UploadValidator extends AbstractValidator
     /**
      * @return string
      */
-    protected function getAllowedFileExtensions()
+    protected function getAllowedFileExtensions(): string
     {
         return $this->settings['misc']['file']['extension'];
     }
@@ -88,7 +92,7 @@ class UploadValidator extends AbstractValidator
     /**
      * @return int
      */
-    protected function getMaximumFileSize()
+    protected function getMaximumFileSize(): int
     {
         return (int)$this->settings['misc']['file']['size'];
     }

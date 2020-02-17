@@ -1,7 +1,0 @@
-.. |frontend_pi2|      image:: ../../Images/frontend_pi2.png
-.. :align: left
-.. :name: frontend_pi2
-
-.. |plugin_pi2_tab1|      image:: ../../Images/plugin_pi2_tab1.png
-.. :align: left
-.. :name: plugin_pi2_tab1

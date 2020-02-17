@@ -50,9 +50,9 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
     /**
      * Manipulate values through TypoScript before rendering
      *
-     * @return string|array
+     * @return string
      */
-    public function render()
+    public function render(): string
     {
         $answer = $this->arguments['answer'];
         $type = $this->arguments['type'];

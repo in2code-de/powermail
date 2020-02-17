@@ -4,7 +4,7 @@ Feature: Search
   Basic test to see if TYPO3 instance is working
 
   Scenario: Searching for the homepage that does exist
-    Given I am on "/index.php?id=2"
+    Given I am on "/welcome-to-powermail"
     Then I should see "Willkommen zum powermail Testparcour"
-    Given I am on "/index.php?id=2&L=1"
+    Given I am on "/en/welcome-to-powermail"
     Then I should see "Welcome to powermail Testparcour"

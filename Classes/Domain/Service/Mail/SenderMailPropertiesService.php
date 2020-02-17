@@ -7,6 +7,7 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -34,11 +35,11 @@ class SenderMailPropertiesService
 
     /**
      * @param array $settings
+     * @throws Exception
      */
     public function __construct(array $settings)
     {
         $this->settings = $settings;
-        /** @var TypoScriptService $typoScriptService */
         $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
     }
@@ -49,14 +50,15 @@ class SenderMailPropertiesService
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function getSenderEmail()
+    public function getSenderEmail(): string
     {
         if ($this->settings['sender']['email'] !== '') {
             $senderEmail = $this->settings['sender']['email'];
         } else {
             $senderEmail = ConfigurationUtility::getDefaultMailFromAddress();
-            TypoScriptUtility::overwriteValueFromTypoScript(
+            $senderEmail = TypoScriptUtility::overwriteValueFromTypoScript(
                 $senderEmail,
                 $this->configuration['sender.']['default.'],
                 'senderEmail'
@@ -74,14 +76,15 @@ class SenderMailPropertiesService
      * @return string
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws Exception
      */
-    public function getSenderName()
+    public function getSenderName(): string
     {
         if ($this->settings['sender']['name'] !== '') {
             $senderName = $this->settings['sender']['name'];
         } else {
             $senderName = ConfigurationUtility::getDefaultMailFromName();
-            TypoScriptUtility::overwriteValueFromTypoScript(
+            $senderName = TypoScriptUtility::overwriteValueFromTypoScript(
                 $senderName,
                 $this->configuration['sender.']['default.'],
                 'senderName'

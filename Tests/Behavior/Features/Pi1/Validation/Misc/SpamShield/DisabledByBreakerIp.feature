@@ -3,6 +3,6 @@
 Feature: DisabledByBreakerIp
 
   Scenario: Check if spamshield can be disabled by breaker IP
-    Given I am on "/index.php?id=263"
+    Given I am on "/powermail/pi1/validation/misc/spamshield/breaker-ip"
     And I press "Submit"
     Then I should not see "Spam-Wahrscheinlichkeit in dieser Nachricht!"

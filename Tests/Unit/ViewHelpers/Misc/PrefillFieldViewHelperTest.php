@@ -2,12 +2,11 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
-use TYPO3\CMS\Core\Configuration\ConfigurationManager;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Class PrefillFieldViewHelperTest
@@ -49,12 +48,12 @@ class PrefillFieldViewHelperTest extends UnitTestCase
     {
         return [
             [
-                [
+                [ // field values
                     'uid' => 123,
                     'marker' => 'marker',
                     'prefillValue' => 'mno'
                 ],
-                [
+                [ // variables from POST
                     'field' => [
                         'marker' => 'abc',
                         '123' => 'ghi'
@@ -62,12 +61,12 @@ class PrefillFieldViewHelperTest extends UnitTestCase
                     'marker' => 'def',
                     'uid123' => 'jkl'
                 ],
-                [
+                [ // configuration
                     'prefill.' => [
                         'marker' => 'pqr'
                     ]
                 ],
-                'abc'
+                'abc' // expected
             ],
             [
                 [
@@ -196,7 +195,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
 
     /**
      * @param array $fieldValues
-     * @param array $piVars
+     * @param array $variables
      * @param array $configuration
      * @param string $expectedResult
      * @return void
@@ -205,15 +204,16 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      * @covers ::render
      * @covers ::getValue
      * @covers ::buildValue
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
-    public function getDefaultValueReturnsString($fieldValues, $piVars, $configuration, $expectedResult)
+    public function getDefaultValueReturnsString($fieldValues, $variables, $configuration, $expectedResult)
     {
         $field = new Field();
         foreach ($fieldValues as $name => $value) {
             $field->_setProperty($name, $value);
         }
         $this->abstractValidationViewHelperMock->_set('contentObject', new ContentObjectRenderer());
-        $this->abstractValidationViewHelperMock->_set('piVars', $piVars);
+        $this->abstractValidationViewHelperMock->_set('variables', $variables);
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
         $this->abstractValidationViewHelperMock->_set('field', $field);
         $this->abstractValidationViewHelperMock->_set('marker', $field->getMarker());
@@ -266,10 +266,11 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      * @dataProvider getFromTypoScriptContentObjectReturnsStringDataProvider
      * @test
      * @covers ::getFromTypoScriptContentObject
+     * @throws Exception
      */
     public function getFromTypoScriptContentObjectReturnsString(array $configuration, $marker, $expectedResult)
     {
-        $this->initializeTsfe();
+        TestingHelper::initializeTypoScriptFrontendController();
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
         $field = new Field();
         $field->setMarker($marker);
@@ -342,22 +343,5 @@ class PrefillFieldViewHelperTest extends UnitTestCase
             $expectedResult,
             $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptRaw', $value)
         );
-    }
-
-    /**
-     * Initialize TSFE object
-     *
-     * @return void
-     */
-    protected function initializeTsfe()
-    {
-        $configurationManager = new ConfigurationManager();
-        $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
-        $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
-            'TEXT' => 'TYPO3\CMS\Frontend\ContentObject\TextContentObject'
-        ];
-        $GLOBALS['TT'] = new TimeTracker();
-        $GLOBALS['TSFE'] = new TypoScriptFrontendController($GLOBALS['TYPO3_CONF_VARS'], 1, 0, true);
     }
 }

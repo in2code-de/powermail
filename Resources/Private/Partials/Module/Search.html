@@ -42,7 +42,7 @@
 							property="start"
 							id="searchStart"
 							class="form-control"
-							additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field,additionalAttributes:'{data-datepicker:\'true\'}')}"
+							additionalAttributes="{vh:validation.datepickerDataAttribute(field:field,additionalAttributes:'{data-datepicker:\'true\'}')}"
 							value="{piVars.filter.start}" />
 					<span class="input-group-addon pointer" data-datepicker-opener="true">
 						<core:Icon identifier="actions-edit-pick-date" />
@@ -58,7 +58,7 @@
 							property="stop"
 							id="searchEnd"
 							class="form-control"
-							additionalAttributes="{vh:Validation.DatepickerDataAttribute(field:field,additionalAttributes:'{data-datepicker:\'true\'}')}"
+							additionalAttributes="{vh:validation.datepickerDataAttribute(field:field,additionalAttributes:'{data-datepicker:\'true\'}')}"
 							value="{piVars.filter.stop}" />
 					<span class="input-group-addon pointer" data-datepicker-opener="true">
 						<core:Icon identifier="actions-edit-pick-date" />
@@ -127,7 +127,7 @@
 									property="answer.{field.uid}"
 									id="answer{field.uid}"
 									class="form-control"
-									value="{vh:Getter.GetPiVarAnswerField(piVars:piVars, field:field)}" />
+									value="{vh:getter.getPiVarAnswerField(piVars:piVars, field:field)}" />
 						</div>
 					</f:if>
 				</f:for>

@@ -4,6 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Be;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -17,6 +18,7 @@ class CheckWrongLocalizedPagesViewHelper extends AbstractViewHelper
      *        tx_powermail_domain_model_page.forms = 0
      *
      * @return bool
+     * @throws Exception
      */
     public function render(): bool
     {

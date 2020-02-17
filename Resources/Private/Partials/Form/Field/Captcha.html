@@ -3,15 +3,15 @@
 <div class="powermail_fieldwrap powermail_fieldwrap_type_captcha powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
 	<f:render partial="Form/FieldLabel" arguments="{_all}" />
 
-	<div class="{settings.styles.framework.fieldWrappingClasses} {vh:Validation.ErrorClass(field:field, class: 'powermail_field_error')}">
+	<div class="{settings.styles.framework.fieldWrappingClasses} {vh:validation.errorClass(field:field, class: 'powermail_field_error')}">
 		<f:form.textfield
 				id="powermail_field_{field.marker}"
 				property="{field.marker}"
 				value=""
-				class="powermail_captcha {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
-				additionalAttributes="{vh:Validation.CaptchaDataAttribute(field:field)}" />
+				class="powermail_captcha {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
+				additionalAttributes="{vh:validation.captchaDataAttribute(field:field)}" />
 
-		<vh:Validation.Captcha field="{field}" alt="captcha" class="powermail_captchaimage" id="powermail_captchaimage" />
+		<vh:validation.captcha field="{field}" alt="captcha" class="powermail_captchaimage" id="powermail_captchaimage" />
 
 		<f:if condition="{settings.validation.client}">
 			<div class="powermail_field_error_container powermail_field_error_container_{field.marker}"></div>

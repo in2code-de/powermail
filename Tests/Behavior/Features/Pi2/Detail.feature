@@ -4,7 +4,7 @@ Feature: Detail
 
   @Pi2DetailEntry
   Scenario: Add a new dummy Entry
-    Given I am on "/index.php?id=40"
+    Given I am on "/powermail/pi2/standard/form"
     When I fill in "tx_powermail_pi1[field][string]" with "Andy Kräuter"
     When I fill in "tx_powermail_pi1[field][textarea]" with "Das ist ein Test"
     When I select "Sandra" from "tx_powermail_pi1[field][marker]"
@@ -18,7 +18,7 @@ Feature: Detail
 
   @Pi2DetailCheckEntry
   Scenario: Follow detaillink in listview
-    Given I am on "/index.php?id=30"
+    Given I am on "/powermail/pi2/standard/list"
     Then I follow "Details"
     Then I wait "a few" seconds
     Then I should see "String"

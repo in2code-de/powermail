@@ -15,7 +15,7 @@ class SessionMethod extends AbstractMethod
      *
      * @return bool true if spam recognized
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         $timeFromSession = SessionUtility::getFormStartFromSession(
             $this->mail->getForm()->getUid(),

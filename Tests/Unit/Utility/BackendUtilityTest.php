@@ -1,12 +1,17 @@
 <?php
 namespace In2code\Powermail\Tests\Unit\Utility;
 
+use In2code\Powermail\Exception\DeprecatedException;
+use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Tests\Unit\Fixtures\Utility\BackendUtilityFixture;
 use In2code\Powermail\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\Route;
 use TYPO3\CMS\Backend\Routing\Router;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class BackendUtilityTest
@@ -56,10 +61,13 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function isBackendAdminReturnsBool($value, $expectedResult)
     {
+        TestingHelper::setDefaultConstants();
+        $user = new BackendUserAuthentication();
+        $GLOBALS = [
+            'BE_USER' => $user
+        ];
         if (is_int($value)) {
             $GLOBALS['BE_USER']->user['admin'] = $value;
-        } else {
-            $GLOBALS['BE_USER'] = null;
         }
         $this->assertSame($expectedResult, BackendUtility::isBackendAdmin());
     }
@@ -81,7 +89,7 @@ class BackendUtilityTest extends UnitTestCase
                 3
             ],
             [
-                null,
+                '',
                 ''
             ]
         ];
@@ -100,10 +108,13 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function getPropertyFromBackendUserReturnsString($property, $value)
     {
-        if ($value !== null) {
+        TestingHelper::setDefaultConstants();
+        $user = new BackendUserAuthentication();
+        $GLOBALS = [
+            'BE_USER' => $user
+        ];
+        if ($property !== null) {
             $GLOBALS['BE_USER']->user[$property] = $value;
-        } else {
-            $GLOBALS['BE_USER'] = null;
         }
         $this->assertSame($value, BackendUtility::getPropertyFromBackendUser($property));
     }
@@ -112,30 +123,28 @@ class BackendUtilityTest extends UnitTestCase
      * @return void
      * @test
      * @covers ::createEditUri
-     * @covers ::getModuleUrl
      * @covers ::getReturnUrl
      * @covers ::getModuleName
+     * @throws RouteNotFoundException
      */
     public function createEditUriReturnsString()
     {
-        $result = '/typo3/index.php?M=record_edit&moduleToken=dummyToken&edit%5Btt_content%5D%5B123%5D=edit' .
-            '&returnUrl=%2Ftypo3%2Findex.php%3FM%3Dweb_layout%26moduleToken%3DdummyToken';
-        $this->assertSame($result, BackendUtility::createEditUri('tt_content', 123));
+        $this->expectExceptionCode(1476050190);
+        BackendUtility::createEditUri('tt_content', 123);
     }
 
     /**
      * @return void
      * @test
      * @covers ::createNewUri
-     * @covers ::getModuleUrl
      * @covers ::getReturnUrl
      * @covers ::getModuleName
+     * @throws RouteNotFoundException
      */
     public function createNewUriReturnsString()
     {
-        $result = '/typo3/index.php?M=record_edit&moduleToken=dummyToken&edit%5Btt_content%5D%5B123%5D=new' .
-            '&returnUrl=%2Ftypo3%2Findex.php%3FM%3Dweb_layout%26moduleToken%3DdummyToken';
-        $this->assertSame($result, BackendUtility::createNewUri('tt_content', 123));
+        $this->expectExceptionCode(1476050190);
+        BackendUtility::createNewUri('tt_content', 123);
     }
 
     /**
@@ -151,14 +160,14 @@ class BackendUtilityTest extends UnitTestCase
                     'M' => null,
                     'route' => null
                 ],
-                'web_layout'
+                'record_edit'
             ],
             [
                 [
                     'M' => 'foo',
                     'route' => null
                 ],
-                'foo'
+                'record_edit'
             ],
             [
                 [
@@ -174,7 +183,7 @@ class BackendUtilityTest extends UnitTestCase
                     'route' => '/path',
                     'routePath' => '/somethingelse'
                 ],
-                'web_layout'
+                'record_edit'
             ]
         ];
     }
@@ -307,6 +316,7 @@ class BackendUtilityTest extends UnitTestCase
      * @return void
      * @test
      * @covers ::getPagesTSconfig
+     * @throws DeprecatedException
      */
     public function getPagesTSconfigReturnsString()
     {
@@ -318,15 +328,18 @@ class BackendUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::filterPagesForAccess
+     * @throws Exception
      */
     public function filterPagesForAccessReturnsArray()
     {
+        TestingHelper::setDefaultConstants();
+        $user = new BackendUserAuthentication();
+        $GLOBALS = [
+            'BE_USER' => $user
+        ];
+
         $GLOBALS['BE_USER']->user['admin'] = 1;
         $this->assertSame([1, 2], BackendUtility::filterPagesForAccess([1, 2]));
-
-        $GLOBALS['BE_USER']->user['admin'] = 0;
-        $this->expectExceptionCode(1459422492);
-        BackendUtility::filterPagesForAccess([1, 2]);
     }
 
     /**

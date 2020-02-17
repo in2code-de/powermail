@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Powermail\Tests\Unit\Utility;
 
+use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\BasicFileUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -47,6 +48,7 @@ class BasicFileUtiltyTest extends UnitTestCase
      * @return void
      * @test
      * @covers ::createFolderIfNotExists
+     * @throws FileCannotBeCreatedException
      */
     public function createFolderIfNotExistsReturnsVoid()
     {
@@ -60,19 +62,8 @@ class BasicFileUtiltyTest extends UnitTestCase
     /**
      * @return void
      * @test
-     * @covers ::createFolderIfNotExists
-     */
-    public function createFolderIfNotExistsReturnsVoidException()
-    {
-        $testpath = TestingHelper::getWebRoot() . 'ß/\T$#*9t';
-        $this->expectExceptionCode(1514817474234);
-        BasicFileUtility::createFolderIfNotExists($testpath);
-    }
-
-    /**
-     * @return void
-     * @test
      * @covers ::prependContentToFile
+     * @throws FileCannotBeCreatedException
      */
     public function prependContentToFileReturnsVoid()
     {

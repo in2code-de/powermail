@@ -13,7 +13,7 @@ class LinkMethod extends AbstractMethod
      *
      * @return bool true if spam recognized
      */
-    public function spamCheck()
+    public function spamCheck(): bool
     {
         $linkAmount = 0;
         foreach ($this->mail->getAnswers() as $answer) {

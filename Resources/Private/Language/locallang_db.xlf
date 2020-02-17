@@ -9,6 +9,12 @@
 			<trans-unit id="LGL.language">
 				<source>Language:</source>
 			</trans-unit>
+			<trans-unit id="LGL.allLanguages">
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="LGL.default_value">
+				<source>Default</source>
+			</trans-unit>
 			<trans-unit id="LGL.l18n_parent">
 				<source>Transl.Orig:</source>
 			</trans-unit>

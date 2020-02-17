@@ -4,7 +4,7 @@ Feature: Date
 
   # Form is rendered?
   Scenario: Check if Date Form is rendered correctly
-    Given I am on "/index.php?id=28"
+    Given I am on "/powermail/pi1/default/datedatetimetime"
     Then I should see "Date,Datetime,Time"
     Then I should see "String"
     Then I should see "Datum"
@@ -14,7 +14,7 @@ Feature: Date
 
   # Fill out form, see confirmation, go back and change something, see confirmation, see submit
   Scenario: Fill out DateForm and try to change dates
-    Given I am on "/index.php?id=28"
+    Given I am on "/powermail/pi1/default/datedatetimetime"
     When I fill in "tx_powermail_pi1[field][string]" with "Datetest"
     When I fill in "tx_powermail_pi1[field][datum]" with "09.07.2014"
     When I fill in "tx_powermail_pi1[field][datumunduhrzeit]" with "07.07.2014 18:00"
