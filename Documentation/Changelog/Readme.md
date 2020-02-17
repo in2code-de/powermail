@@ -4,7 +4,8 @@
 
 | Version     | Release Date | Description |
 |------------ |--------------|-------------|
-| 8.0.0 (!!!) | soon         | Task: Support for TYPO3 10 (and only for this version)                                                                |
+| 8.0.0 (!!!) | 2020-02-17   | Please use the TYPO3 upgrade wizard for an update to powermail 8.x!                                                   |
+|             |              | Task: Support for TYPO3 10 (and only for this version)                                                                |
 |             |              | Task: Add typehints for all functions                                                                                 |
 |             |              | Task: Remove outdated functions                                                                                       |
 |             |              | Task: Update notations for validators, lazy loading, etc...                                                           |
