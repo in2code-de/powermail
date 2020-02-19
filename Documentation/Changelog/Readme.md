@@ -4,6 +4,7 @@
 
 | Version     | Release Date | Description |
 |------------ |--------------|-------------|
+| 8.0.1       | 2020-02-19   | Bugfix: Small fix in ext_tables.sql for new fieldnames                                                                |
 | 8.0.0 (!!!) | 2020-02-17   | Please use the TYPO3 upgrade wizard for an update to powermail 8.x!                                                   |
 |             |              | Task: Support for TYPO3 10 (and only for this version)                                                                |
 |             |              | Task: Add typehints for all functions                                                                                 |
