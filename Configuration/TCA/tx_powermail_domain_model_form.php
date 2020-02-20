@@ -183,7 +183,7 @@ $formsTca = [
                 'foreign_table_where' => 'AND ' . Page::TABLE_NAME . '.deleted = 1 ' .
                     'aND ' . Page::TABLE_NAME . '.hidden = 0 ' .
                     'and ' . Page::TABLE_NAME . '.sys_language_uid = 0',
-                'foreign_field' => 'forms',
+                'foreign_field' => 'form',
                 'foreign_sortby' => 'sorting',
                 'maxitems' => 1000,
                 'appearance' => [
