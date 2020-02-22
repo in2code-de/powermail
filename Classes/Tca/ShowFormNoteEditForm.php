@@ -147,7 +147,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getEditFormLink(): string
     {
-        return BackendUtility::createEditUri(Form::TABLE_NAME, $this->getFormProperties()['uid']);
+        return BackendUtility::createEditUri(Form::TABLE_NAME, (int)$this->getFormProperties()['uid']);
     }
 
     /**
