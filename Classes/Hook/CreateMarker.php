@@ -25,6 +25,11 @@ class CreateMarker
     protected $objectManager = null;
 
     /**
+     * Contains data of open record - depends on context and could contain:
+     * - tx_powermail_domain_model_form.*
+     * - tx_powermail_domain_model_page.*
+     * - tx_powermail_domain_model_field.*
+     *
      * @var array
      */
     protected $data = [];
@@ -330,6 +335,7 @@ class CreateMarker
      *
      * @param Field $field
      * @return void
+     * @throws Exception
      */
     protected function addField(Field $field): void
     {

@@ -270,17 +270,17 @@ class ShowFormNoteEditForm extends AbstractFormElement
         $pageTitlesReduced = [];
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
         $pageUids = $queryBuilder
-            ->select('page')
+            ->select('pages')
             ->from(Form::TABLE_NAME)
             ->where('uid = ' . (int)$this->getFormProperties()['uid'])
             ->execute()
             ->fetchAll();
-        if (!empty($pageUids[0]['page'])) {
+        if (!empty($pageUids[0]['pages'])) {
             $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Page::TABLE_NAME);
             $pageTitles = $queryBuilder
                 ->select('title')
                 ->from(Page::TABLE_NAME)
-                ->where('uid in (' . StringUtility::integerList($pageUids[0]['page']) . ')')
+                ->where('uid in (' . StringUtility::integerList($pageUids[0]['pages']) . ')')
                 ->execute()
                 ->fetchAll();
 
@@ -333,17 +333,17 @@ class ShowFormNoteEditForm extends AbstractFormElement
         $fieldTitlesReduced = [];
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
         $pageUids = $queryBuilder
-            ->select('page')
+            ->select('pages')
             ->from(Form::TABLE_NAME)
             ->where('uid = ' . (int)$this->getFormProperties()['uid'])
             ->execute()
             ->fetchAll();
-        if (!empty($pageUids[0]['page'])) {
+        if (!empty($pageUids[0]['pages'])) {
             $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Page::TABLE_NAME, true);
             $pageUids = $queryBuilder
                 ->select('uid')
                 ->from(Page::TABLE_NAME)
-                ->where('uid in (' . StringUtility::integerList($pageUids[0]['page']) . ') and deleted=0')
+                ->where('uid in (' . StringUtility::integerList($pageUids[0]['pages']) . ') and deleted=0')
                 ->execute()
                 ->fetchAll();
             foreach ($pageUids as $uidRow) {
