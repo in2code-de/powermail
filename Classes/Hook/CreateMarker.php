@@ -25,6 +25,11 @@ class CreateMarker
     protected $objectManager = null;
 
     /**
+     * Contains data of open record - depends on context and could contain:
+     * - tx_powermail_domain_model_form.*
+     * - tx_powermail_domain_model_page.*
+     * - tx_powermail_domain_model_field.*
+     *
      * @var array
      */
     protected $data = [];
@@ -261,8 +266,8 @@ class CreateMarker
         return $queryBuilder
             ->select('f.*')
             ->from(Form::TABLE_NAME, 'fo')
-            ->join('fo', Page::TABLE_NAME, 'p', 'p.forms = fo.uid')
-            ->join('p', Field::TABLE_NAME, 'f', 'f.pages = p.uid')
+            ->join('fo', Page::TABLE_NAME, 'p', 'p.form = fo.uid')
+            ->join('p', Field::TABLE_NAME, 'f', 'f.page = p.uid')
             ->where('fo.uid = ' . $this->getFormUid() . ' and f.deleted = 0')
             ->setMaxResults(1000)
             ->execute()
@@ -288,8 +293,8 @@ class CreateMarker
         // if pages open (fields via IRRE)
         if ($formUid === 0) {
             foreach (array_keys((array)$this->data[Page::TABLE_NAME]) as $uid) {
-                if (!empty($this->data[Page::TABLE_NAME][$uid]['forms'])) {
-                    $formUid = (int)$this->data[Page::TABLE_NAME][$uid]['forms'];
+                if (!empty($this->data[Page::TABLE_NAME][$uid]['form'])) {
+                    $formUid = (int)$this->data[Page::TABLE_NAME][$uid]['form'];
                 }
             }
         }
@@ -297,8 +302,8 @@ class CreateMarker
         // if field is directly opened (no IRRE OR opened pages with their IRRE fields
         if ($formUid === 0) {
             foreach (array_keys((array)$this->data[Field::TABLE_NAME]) as $uid) {
-                if (!empty($this->data[Field::TABLE_NAME][$uid]['pages'])) {
-                    $formUid = $this->getFormUidFromRelatedPage((int)$this->data[Field::TABLE_NAME][$uid]['pages']);
+                if (!empty($this->data[Field::TABLE_NAME][$uid]['page'])) {
+                    $formUid = $this->getFormUidFromRelatedPage((int)$this->data[Field::TABLE_NAME][$uid]['page']);
                 }
             }
         }
@@ -318,7 +323,7 @@ class CreateMarker
         return (int)$queryBuilder
             ->select('fo.uid')
             ->from(Form::TABLE_NAME, 'fo')
-            ->join('fo', Page::TABLE_NAME, 'p', 'p.forms = fo.uid')
+            ->join('fo', Page::TABLE_NAME, 'p', 'p.form = fo.uid')
             ->where('p.uid = ' . (int)$pageUid)
             ->setMaxResults(1)
             ->execute()
@@ -330,6 +335,7 @@ class CreateMarker
      *
      * @param Field $field
      * @return void
+     * @throws Exception
      */
     protected function addField(Field $field): void
     {
