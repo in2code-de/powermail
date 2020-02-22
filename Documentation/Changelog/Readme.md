@@ -4,6 +4,8 @@
 
 | Version     | Release Date | Description |
 |------------ |--------------|-------------|
+| 8.0.2       | 2020-02-22   | Bugfix: Typehints in 8.x prevents plugins from inserting into pages with an exception                                 |
+|             |              | Bugfix: Update some sql queries with changed fieldnames in powermail 8                                                |
 | 8.0.1       | 2020-02-19   | Bugfix: Small fix in ext_tables.sql for new fieldnames                                                                |
 | 8.0.0 (!!!) | 2020-02-17   | Please use the TYPO3 upgrade wizard for an update to powermail 8.x!                                                   |
 |             |              | Task: Support for TYPO3 10 (and only for this version)                                                                |
