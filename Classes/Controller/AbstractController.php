@@ -96,6 +96,17 @@ abstract class AbstractController extends ActionController
     }
 
     /**
+     * Make $this->settings writable when extending the controller with signals
+     *
+     * @param array $settings
+     * @return void
+     */
+    public function setSettings(array $settings): void
+    {
+        $this->settings = $settings;
+    }
+
+    /**
      * Reformat array for createAction
      *
      * @return void
