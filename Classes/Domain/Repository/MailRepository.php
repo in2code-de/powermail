@@ -83,9 +83,9 @@ class MailRepository extends AbstractRepository
      * Find first mail in given PID
      *
      * @param int $pid
-     * @return Mail
+     * @return Mail|null
      */
-    public function findFirstInPid(int $pid = 0): Mail
+    public function findFirstInPid(int $pid = 0): ?Mail
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
