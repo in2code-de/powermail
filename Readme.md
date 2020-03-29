@@ -8,17 +8,17 @@ and easy to use mailform extension for TYPO3 with a lots of features
 
 Changes done for powermail 8 with TYPO3 10:
 
-* [TASK] Update for TYPO3 10 (Backendroutes, Conditions, Validators, UserFuncs in Tca, MailMessage class)
-* [TASK] Remove code dependencies to former TYPO3 versions
-* [TASK] Add typehints for PHP 7.2
-* [TASK] Use a different way for GET/POST params (to respect routing)
-* [TASK] Rename _field.pages to .page and _page.forms to .form and add an upgrade wizard for it
-* [TASK] Save mails in future with sys_language_uid=-1 and add an upgrade wizard for it
-* [TASK] Some modernization and code cleanup (Own exceptions, remove AbstractUtility)
-* [TASK] Update unit tests
-* [TASK] Update behaviour tests
-* [TASK] Manual tests (especially in backend context)
-* [TASK] Update documentation from rst to markdown
+*  Update for TYPO3 10 (Backendroutes, Conditions, Validators, UserFuncs in Tca, MailMessage class)
+*  Remove code dependencies to former TYPO3 versions
+*  Add typehints for PHP 7.2
+*  Use a different way for GET/POST params (to respect routing)
+*  Rename _field.pages to .page and _page.forms to .form and add an upgrade wizard for it
+*  Save mails in future with sys_language_uid=-1 and add an upgrade wizard for it
+*  Some modernization and code cleanup (Own exceptions, remove AbstractUtility)
+*  Update unit tests
+*  Update behaviour tests
+*  Manual tests (especially in backend context)
+*  Update documentation from rst to markdown
 
 ## 2. Documentation overview
 
