@@ -4,7 +4,6 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Service\FlexFormService;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -30,9 +29,7 @@ class RedirectUriService
         $uri = null;
         $target = $this->getTarget();
         if ($target !== null) {
-            $uriBuilder = ObjectUtility::getObjectManager()->get(UriBuilder::class);
-            $uriBuilder->setTargetPageUid((int)$target);
-            $uri = $uriBuilder->build();
+            $uri = $this->contentObject->typoLink_URL(['parameter' => $target]);
         }
         return $uri;
     }
