@@ -712,7 +712,7 @@ class Field extends AbstractEntity
             $options[] = [
                 'label' => $label,
                 'value' => $value,
-                'selected' => isset($settings[2]) ? 1 : 0
+                'selected' => !empty($settings[2]) && $settings[2] === '*' ? 1 : 0
             ];
         }
         return $options;
