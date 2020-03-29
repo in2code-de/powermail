@@ -83,9 +83,9 @@ class MailRepository extends AbstractRepository
      * Find first mail in given PID
      *
      * @param int $pid
-     * @return Mail
+     * @return Mail|null
      */
-    public function findFirstInPid(int $pid = 0): Mail
+    public function findFirstInPid(int $pid = 0): ?Mail
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
@@ -139,6 +139,7 @@ class MailRepository extends AbstractRepository
     public function findByMarkerValueForm(string $marker, string $value, Form $form, int $pageUid): QueryResultInterface
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
         $fieldRepository = $this->objectManager->get(FieldRepository::class);
         $and = [
             $query->equals('answers.field', $fieldRepository->findByMarkerAndForm($marker, $form->getUid())),

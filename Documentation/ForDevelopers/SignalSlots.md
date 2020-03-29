@@ -18,7 +18,7 @@ Please report to https://github.com/einpraegsam/powermail/issues if you need a n
 | `In2code\Powermail\Controller\FormController` | initializeObjectSettings | initializeObject() | $this, &$settings | Change Settings from Flexform or TypoScript before Action is called |
 | `In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper` | render | render() | $field, $mail, $default, $this | Prefill fields by your own magic |
 | `In2code\Powermail\ViewHelpers\Misc\PrefillMultiFieldViewHelper` | render | render() | $field, $mail, $cycle, $default, $this | Prefill multiple fields by your own magic |
-| `In2code\Powermail\Domain\Service\ReceiverMailReceiverPropertiesService` | setReceiverEmails | setReceiverEmails() | &$emailArray, $this | Manipulate receiver emails short before the mails will be send |
+| `In2code\Powermail\Domain\Service\Mail\ReceiverMailReceiverPropertiesService` | setReceiverEmails | setReceiverEmails() | &$emailArray, $this | Manipulate receiver emails short before the mails will be send |
 | `In2code\Powermail\Domain\Service\Mail\ReceiverMailReceiverPropertiesService` | getReceiverName | getReceiverName() | &$receiverName, $this | Manipulate receiver name when getting it |
 | `In2code\Powermail\Domain\Service\Mail\SendMailService` | sendTemplateEmailBeforeSend | prepareAndSend() | $message, &$email, $this | Change the message object before sending |
 | `In2code\Powermail\Domain\Service\Mail\SendMailService` | createEmailBodyBeforeRender | createEmailBody() | $standaloneView, $email, $this | Manipulate standaloneView-object before the mail object will be rendered |
