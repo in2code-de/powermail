@@ -6,15 +6,35 @@ Prefilling (input, textarea, hidden) or preselecting (select, check, radio)
 of fields will be done by the PrefillFieldViewHelper. It
 listen to the following methods and parameters (in this ordering):
 
-1. GET/POST param like `&tx_powermail_pi1[field][marker]=value
+### 1. GET/POST param like `&tx_powermail_pi1[field][marker]=value`
 
-2. GET/POST param like `&tx_powermail_pi1[marker]=value`
+**NOTE:** If you want to a get parameter to prefill a form field, you need to exclude this parameter
+in `[FE][cacheHash][excludedParameters]`, otherwise you will create 404 request, if `[FE][pageNotFoundOnCHashError]`
+is enabled (what should be enabled for security reasons!)
 
-3. If field should be filled with values from FE_User (see field configuration)
+Example part in the LocalConfiguration.php:
 
-4. If field should be prefilled from static Setting (see field configuration)
+```
+'FE' => [
+    'cacheHash' => [
+        'excludedParameters' => [
+            'L',
+            'utm_source',
+            'utm_medium',
+            'utm_campaign',
+            'utm_term',
+            'utm_content',
+            'tx_powermail_pi1[field][marker]',
+        ]
+    ]
+],
+```
 
-5. Fill with TypoScript cObject like
+### 2. If field should be filled with values from FE_User (see field configuration)
+
+### 3. If field should be prefilled from static Setting (see field configuration)
+
+### 4. Fill with TypoScript cObject like
 
 ```
 plugin.tx_powermail.settings.setup.prefill {
@@ -24,7 +44,7 @@ plugin.tx_powermail.settings.setup.prefill {
 }
 ```
 
-6. Fill with simple TypoScript like
+### 5. Fill with simple TypoScript like
 
 ```
 plugin.tx_powermail.settings.setup.prefill {
@@ -33,7 +53,9 @@ plugin.tx_powermail.settings.setup.prefill {
 }
 ```
 
-7. Fill with your own PHP with a Signal. Look at In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render()
+### 6. Fill with your own PHP with a Signal.
+
+Look at In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render()
 
 
 ### Example markup
