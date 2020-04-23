@@ -236,7 +236,7 @@ class BackendUtility
             // @codeCoverageIgnoreStart
             $newPids = [];
             foreach ($pids as $pid) {
-                $properties = $pageRepository->getPropertiesFromUid($pid);
+                $properties = $pageRepository->getPropertiesFromUid((int)$pid);
                 if (self::getBackendUserAuthentication()->doesUserHaveAccess($properties, 1)) {
                     $newPids[] = $pid;
                 }
