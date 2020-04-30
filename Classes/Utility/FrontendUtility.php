@@ -168,7 +168,7 @@ class FrontendUtility
     {
         $tsfe = ObjectUtility::getTyposcriptFrontendController();
         if (!empty($tsfe->fe_user->user[$propertyName])) {
-            return (string) $tsfe->fe_user->user[$propertyName];
+            return (string)$tsfe->fe_user->user[$propertyName];
         }
         return '';
     }
