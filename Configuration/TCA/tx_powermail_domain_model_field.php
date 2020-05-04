@@ -544,8 +544,8 @@ $fieldsTca = [
                 Field::TABLE_NAME . '.settings',
             'config' => [
                 'type' => 'text',
-                'cols' => '32',
-                'rows' => '5',
+                'cols' => 32,
+                'rows' => 5,
                 'default' => ''
             ],
         ],
@@ -577,8 +577,8 @@ $fieldsTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.text',
             'config' => [
                 'type' => 'text',
-                'cols' => '32',
-                'rows' => '5',
+                'cols' => 32,
+                'rows' => 5,
                 'default' => ''
             ],
         ],
@@ -790,8 +790,8 @@ $fieldsTca = [
                 Field::TABLE_NAME . '.prefill_value',
             'config' => [
                 'type' => 'text',
-                'cols' => '26',
-                'rows' => '2',
+                'cols' => 26,
+                'rows' => 2,
                 'default' => ''
             ],
         ],
@@ -801,8 +801,8 @@ $fieldsTca = [
                 Field::TABLE_NAME . '.placeholder',
             'config' => [
                 'type' => 'text',
-                'cols' => '26',
-                'rows' => '2',
+                'cols' => 26,
+                'rows' => 2,
                 'default' => ''
             ],
         ],
@@ -1004,8 +1004,8 @@ $fieldsTca = [
                 Field::TABLE_NAME . '.description',
             'config' => [
                 'type' => 'text',
-                'cols' => '26',
-                'rows' => '2',
+                'cols' => 26,
+                'rows' => 2,
                 'eval' => 'trim'
             ],
         ],

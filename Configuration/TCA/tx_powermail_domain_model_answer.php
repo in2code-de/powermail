@@ -110,8 +110,8 @@ $answersTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Answer::TABLE_NAME . '.value',
             'config' => [
                 'type' => 'text',
-                'cols' => '60',
-                'rows' => '3'
+                'cols' => 60,
+                'rows' => 3
             ],
         ],
         'value_type' => [

@@ -139,8 +139,8 @@ $mailsTca = [
                 Mail::TABLE_NAME . '.receiver_mail',
             'config' => [
                 'type' => 'text',
-                'cols' => '30',
-                'rows' => '5'
+                'cols' => 30,
+                'rows' => 5
             ],
         ],
         'sender_mail' => [
@@ -177,8 +177,8 @@ $mailsTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.body',
             'config' => [
                 'type' => 'text',
-                'cols' => '30',
-                'rows' => '5',
+                'cols' => 30,
+                'rows' => 5,
                 'enableRichtext' => true,
                 'fieldControl' => [
                     'fullScreenRichtext' => [
@@ -309,8 +309,8 @@ $mailsTca = [
                 Mail::TABLE_NAME . '.marketing_referer',
             'config' => [
                 'type' => 'text',
-                'cols' => '30',
-                'rows' => '5',
+                'cols' => 30,
+                'rows' => 5,
                 'readOnly' => 1,
                 'default' => ''
             ],
@@ -365,8 +365,8 @@ $mailsTca = [
                 Mail::TABLE_NAME . '.marketing_page_funnel',
             'config' => [
                 'type' => 'text',
-                'cols' => '30',
-                'rows' => '5',
+                'cols' => 30,
+                'rows' => 5,
                 'readOnly' => 1,
                 'default' => ''
             ],
