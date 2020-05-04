@@ -82,7 +82,7 @@ $formsTca = [
         ],
         'starttime' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel',
             'config' => [
                 'type' => 'input',
@@ -98,7 +98,7 @@ $formsTca = [
         ],
         'endtime' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
             'config' => [
                 'type' => 'input',
@@ -113,7 +113,6 @@ $formsTca = [
             ],
         ],
         'title' => [
-            'exclude' => 0,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.title',
             'config' => [
                 'type' => 'input',
@@ -132,7 +131,7 @@ $formsTca = [
         ],
         'css' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.css',
             'config' => [
                 'type' => 'select',
@@ -165,7 +164,6 @@ $formsTca = [
             ],
         ],
         'pages' => [
-            'exclude' => 0,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.pages',
             'config' => [
                 'type' => 'inline',
@@ -197,7 +195,6 @@ $formsTca = [
 if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
     $formsTca['columns']['pages'] = [
         'l10n_mode' => 'exclude',
-        'exclude' => 0,
         'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.pages',
         'config' => [
             'type' => 'group',
