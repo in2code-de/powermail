@@ -39,6 +39,11 @@ $mailsTca = [
         'searchFields' => 'sender_mail, sender_name, subject, body'
     ],
     'interface' => [
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, ' .
+            'crdate, receiver_mail, sender_name, sender_mail, subject, form, answers, body, ' .
+            'feuser, spam_factor, time, sender_ip, user_agent, marketing_referer_domain, ' .
+            'marketing_referer, marketing_country, marketing_mobile_device, ' .
+            'marketing_frontend_language, marketing_browser_language, marketing_page_funnel',
     ],
     'types' => [
         '1' => [
@@ -50,8 +55,8 @@ $mailsTca = [
     ],
     'columns' => [
         'sys_language_uid' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
+            'exclude' => 1,
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.language',
             'config' => [
                 'type' => 'select',
                 'foreign_table' => 'sys_language',
@@ -59,15 +64,14 @@ $mailsTca = [
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'default' => 0,
                 'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
+                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.default_value', 0]
                 ]
             ],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -94,16 +98,16 @@ $mailsTca = [
             ]
         ],
         'hidden' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
+            'exclude' => 1,
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'starttime' => [
-            'exclude' => true,
+            'exclude' => 1,
             'l10n_mode' => 'exclude',
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -117,9 +121,9 @@ $mailsTca = [
             ],
         ],
         'endtime' => [
-            'exclude' => true,
+            'exclude' => 1,
             'l10n_mode' => 'exclude',
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -133,7 +137,7 @@ $mailsTca = [
             ],
         ],
         'crdate' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.crdate',
             'config' => [
                 'type' => 'input',
@@ -144,7 +148,7 @@ $mailsTca = [
             ],
         ],
         'receiver_mail' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.receiver_mail',
             'config' => [
@@ -154,7 +158,7 @@ $mailsTca = [
             ],
         ],
         'sender_mail' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.sender_mail',
             'config' => [
@@ -164,7 +168,7 @@ $mailsTca = [
             ],
         ],
         'sender_name' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.sender_name',
             'config' => [
@@ -174,7 +178,7 @@ $mailsTca = [
             ],
         ],
         'subject' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.subject',
             'config' => [
                 'type' => 'input',
@@ -183,7 +187,7 @@ $mailsTca = [
             ],
         ],
         'body' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.body',
             'config' => [
                 'type' => 'text',
@@ -214,7 +218,7 @@ $mailsTca = [
             ],
         ],
         'form' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.form',
             'config' => [
                 'type' => 'select',
@@ -225,7 +229,7 @@ $mailsTca = [
             ],
         ],
         'answers' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.answers',
             'config' => [
                 'type' => 'inline',
@@ -242,7 +246,7 @@ $mailsTca = [
             ],
         ],
         'feuser' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.feuser',
             'config' => [
                 'type' => 'group',
@@ -255,7 +259,7 @@ $mailsTca = [
             ]
         ],
         'spam_factor' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.spam_factor',
             'config' => [
@@ -266,7 +270,7 @@ $mailsTca = [
             ],
         ],
         'time' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.time',
             'config' => [
                 'type' => 'input',
@@ -279,7 +283,7 @@ $mailsTca = [
             ],
         ],
         'sender_ip' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.sender_ip',
             'config' => [
@@ -291,7 +295,7 @@ $mailsTca = [
             ],
         ],
         'user_agent' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.user_agent',
             'config' => [
@@ -303,7 +307,7 @@ $mailsTca = [
             ],
         ],
         'marketing_referer_domain' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.marketing_referer_domain',
             'config' => [
@@ -314,7 +318,7 @@ $mailsTca = [
             ],
         ],
         'marketing_referer' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.marketing_referer',
             'config' => [
@@ -326,7 +330,7 @@ $mailsTca = [
             ],
         ],
         'marketing_country' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.marketing_country',
             'config' => [
@@ -337,7 +341,7 @@ $mailsTca = [
             ],
         ],
         'marketing_mobile_device' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.marketing_mobile_device',
             'config' => [
@@ -347,7 +351,7 @@ $mailsTca = [
             ],
         ],
         'marketing_frontend_language' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.marketing_frontend_language',
             'config' => [
@@ -359,7 +363,7 @@ $mailsTca = [
             ],
         ],
         'marketing_browser_language' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.marketing_browser_language',
             'config' => [
@@ -370,7 +374,7 @@ $mailsTca = [
             ],
         ],
         'marketing_page_funnel' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.marketing_page_funnel',
             'config' => [
@@ -382,7 +386,7 @@ $mailsTca = [
             ],
         ],
         'uid' => [
-            'exclude' => true,
+            'exclude' => 1,
             'label' => 'UID',
             'config' => [
                 'type' => 'none',
