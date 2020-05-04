@@ -7,39 +7,6 @@
 				<source>Access</source>
 				<target state="translated">Zugriff</target>
 			</trans-unit>
-			<trans-unit id="LGL.language">
-				<source>Language:</source>
-				<target state="translated">Sprache:</target>
-			</trans-unit>
-			<trans-unit id="LGL.allLanguages">
-				<source>All</source>
-				<target state="translated">Alle</target>
-			</trans-unit>
-			<trans-unit id="LGL.default_value">
-				<source>Default</source>
-				<target state="translated">Standard</target>
-			</trans-unit>
-			<trans-unit id="LGL.l18n_parent">
-				<source>Transl.Orig:</source>
-				<target state="translated">Original Übersetzung:</target>
-			</trans-unit>
-			<trans-unit id="LGL.versionLabel">
-				<source>Versioning Label:</source>
-				<target state="translated">Versionierung:</target>
-			</trans-unit>
-			<trans-unit id="LGL.hidden">
-				<source>Hide:</source>
-				<target state="translated">Verberge:</target>
-			</trans-unit>
-			<trans-unit id="LGL.starttime">
-				<source>Start:</source>
-				<target state="translated">Start:</target>
-			</trans-unit>
-			<trans-unit id="LGL.endtime">
-				<source>Stop:</source>
-				<target state="translated">Stop:</target>
-			</trans-unit>
-
 			<trans-unit id="tx_powermail_domain_model_mail">
 				<source>Mails</source>
 				<target state="translated">Mails</target>
