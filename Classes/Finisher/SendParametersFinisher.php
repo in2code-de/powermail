@@ -79,7 +79,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     {
         if ($this->configuration['debug']) {
             $logger = ObjectUtility::getLogger(__CLASS__);
-            $logger->alert('SendPost Values', $this->getCurlSettings());
+            $logger->info('SendPost Values', $this->getCurlSettings());
         }
     }
 

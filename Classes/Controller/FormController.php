@@ -445,7 +445,7 @@ class FormController extends AbstractController
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
             $logger = ObjectUtility::getLogger(__CLASS__);
-            $logger->alert('Redirect (mail empty)', $arguments);
+            $logger->warning('Redirect (mail empty)', $arguments);
             $this->forward('form');
         }
     }
@@ -464,7 +464,7 @@ class FormController extends AbstractController
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
                 $logger = ObjectUtility::getLogger(__CLASS__);
-                $logger->alert('Redirect (optin)', [$formsToContent, (array)$mail]);
+                $logger->warning('Redirect (optin)', [$formsToContent, (array)$mail]);
                 $this->forward('form');
             }
         }
