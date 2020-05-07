@@ -1,847 +1,847 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-05-02T12:00:00Z" product-name="powermail">
+	<file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail">
 		<header/>
 		<body>
-			<trans-unit id="pleaseChoose">
+			<trans-unit id="pleaseChoose" resname="pleaseChoose">
 				<source>Please choose...</source>
 			</trans-unit>
-			<trans-unit id="back">
+			<trans-unit id="back" resname="back">
 				<source>Go back</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName" resname="\In2code\Powermail\Domain\Model\Mail.senderName">
 				<source>Senders Name</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail" resname="\In2code\Powermail\Domain\Model\Mail.senderMail">
 				<source>Senders Email</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.subject">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.subject" resname="\In2code\Powermail\Domain\Model\Mail.subject">
 				<source>Subject</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail" resname="\In2code\Powermail\Domain\Model\Mail.receiverMail">
 				<source>Receivers Email</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.body">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body">
 				<source>Email Text</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser" resname="\In2code\Powermail\Domain\Model\Mail.feuser">
 				<source>Frontend User</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderIp">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderIp" resname="\In2code\Powermail\Domain\Model\Mail.senderIp">
 				<source>Senders IP-Address</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent" resname="\In2code\Powermail\Domain\Model\Mail.userAgent">
 				<source>Senders Browser-Signature</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.spamFactor">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.spamFactor" resname="\In2code\Powermail\Domain\Model\Mail.spamFactor">
 				<source>Spamfactor</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.time">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.time" resname="\In2code\Powermail\Domain\Model\Mail.time">
 				<source>Time for form submit</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.uid">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.uid" translate="no" resname="\In2code\Powermail\Domain\Model\Mail.uid">
 				<source>Uid</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate" resname="\In2code\Powermail\Domain\Model\Mail.crdate">
 				<source>Date</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.date">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.date" resname="\In2code\Powermail\Domain\Model\Mail.date">
 				<source>Date</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime" resname="\In2code\Powermail\Domain\Model\Mail.datetime">
 				<source>Time</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" resname="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain">
 				<source>Referer Domain</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingReferer">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingReferer" resname="\In2code\Powermail\Domain\Model\Mail.marketingReferer">
 				<source>Referer URI</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingCountry">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingCountry" resname="\In2code\Powermail\Domain\Model\Mail.marketingCountry">
 				<source>Visitors Country</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" resname="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice">
 				<source>Visitor uses a Mobile Device</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage">
 				<source>Website Language</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage">
 				<source>Browser Language</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" resname="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel">
 				<source>Page Funnel</source>
 			</trans-unit>
-			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.hidden">
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.hidden" resname="\In2code\Powermail\Domain\Model\Mail.hidden">
 				<source>Disabled</source>
 			</trans-unit>
-			<trans-unit id="note_html">
+			<trans-unit id="note_html" resname="note_html">
 				<source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
 			</trans-unit>
-			<trans-unit id="mail_created">
+			<trans-unit id="mail_created" resname="mail_created">
 				<source>Mail successfully sent!</source>
 			</trans-unit>
-			<trans-unit id="mail_created_failure">
+			<trans-unit id="mail_created_failure" resname="mail_created_failure">
 				<source>Failure, mail could not be sent!</source>
 			</trans-unit>
-			<trans-unit id="confirmation_message">
+			<trans-unit id="confirmation_message" resname="confirmation_message">
 				<source>Are these values correct?</source>
 			</trans-unit>
-			<trans-unit id="confirmation_next">
+			<trans-unit id="confirmation_next" resname="confirmation_next">
 				<source>Next</source>
 			</trans-unit>
-			<trans-unit id="confirmation_prev">
+			<trans-unit id="confirmation_prev" resname="confirmation_prev">
 				<source>Previous</source>
 			</trans-unit>
-			<trans-unit id="optin_seeMail">
+			<trans-unit id="optin_seeMail" resname="optin_seeMail">
 				<source>Please have a look into your mail account and confirm this action.</source>
 			</trans-unit>
-			<trans-unit id="optin_subject">
+			<trans-unit id="optin_subject" resname="optin_subject">
 				<source>Please confirm your Email</source>
 			</trans-unit>
-			<trans-unit id="optin_mail_entries">
+			<trans-unit id="optin_mail_entries" resname="optin_mail_entries">
 				<source>These are your given entries:</source>
 			</trans-unit>
-			<trans-unit id="optin_mail_link">
+			<trans-unit id="optin_mail_link" resname="optin_mail_link">
 				<source>Please confirm with a click:</source>
 			</trans-unit>
-			<trans-unit id="optin_mail_confirm_failed">
+			<trans-unit id="optin_mail_confirm_failed" resname="optin_mail_confirm_failed">
 				<source>The given Link is not correct</source>
 			</trans-unit>
-			<trans-unit id="optin_mail_confirm_done">
+			<trans-unit id="optin_mail_confirm_done" resname="optin_mail_confirm_done">
 				<source>The mail was already confirmed</source>
 			</trans-unit>
-			<trans-unit id="disclaimer_mail_deleted">
+			<trans-unit id="disclaimer_mail_deleted" resname="disclaimer_mail_deleted">
 				<source>Mail was successfully deleted</source>
 			</trans-unit>
-			<trans-unit id="disclaimer_mailmessage">
+			<trans-unit id="disclaimer_mailmessage" resname="disclaimer_mailmessage">
 				<source>Was this email a mistake and you want to delete your request?</source>
 			</trans-unit>
-			<trans-unit id="disclaimer_mailmessage_link">
+			<trans-unit id="disclaimer_mailmessage_link" resname="disclaimer_mailmessage_link">
 				<source>Delete all email data.</source>
 			</trans-unit>
-			<trans-unit id="disclaimed_subject">
+			<trans-unit id="disclaimed_subject" resname="disclaimed_subject">
 				<source>Email was just disclaimed</source>
 			</trans-unit>
-			<trans-unit id="disclaimed_entries">
+			<trans-unit id="disclaimed_entries" resname="disclaimed_entries">
 				<source>This data was completely disclaimed:</source>
 			</trans-unit>
-			<trans-unit id="error_mail_not_created">
+			<trans-unit id="error_mail_not_created" resname="error_mail_not_created">
 				<source>Error, Mail could not sent correctly!</source>
 			</trans-unit>
-			<trans-unit id="error_no_typoscript">
+			<trans-unit id="error_no_typoscript" resname="error_no_typoscript">
 				<source>No TypoScript settings given. Admin, did you already include the "Main" static template?</source>
 			</trans-unit>
-			<trans-unit id="error_no_typoscript_pi2">
+			<trans-unit id="error_no_typoscript_pi2" resname="error_no_typoscript_pi2">
 				<source>No TypoScript settings given. Admin, did you already include the "Powermail_Frontend" static template?</source>
 			</trans-unit>
-			<trans-unit id="error_no_sender_name">
+			<trans-unit id="error_no_sender_name" resname="error_no_sender_name">
 				<source>No Sendername</source>
 			</trans-unit>
-			<trans-unit id="error_no_sender_email">
+			<trans-unit id="error_no_sender_email" resname="error_no_sender_email">
 				<source>noreply</source>
 			</trans-unit>
-			<trans-unit id="error_no_form">
+			<trans-unit id="error_no_form" resname="error_no_form">
 				<source>No form to show</source>
 			</trans-unit>
-			<trans-unit id="error_mail_not_deleted">
+			<trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted">
 				<source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
 				<target state="translated">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
 			</trans-unit>
-			<trans-unit id="error_wrong_captcha">
+			<trans-unit id="error_wrong_captcha" resname="error_wrong_captcha">
 				<source>Wrong Captcha value, please try again!</source>
 			</trans-unit>
-			<trans-unit id="error_mail_not_deleted">
+			<trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted">
 				<source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
 			</trans-unit>
-			<trans-unit id="validationerror_mandatory">
+			<trans-unit id="validationerror_mandatory" resname="validationerror_mandatory">
 				<source>This field must be filled!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_mandatory_multi">
+			<trans-unit id="validationerror_mandatory_multi" resname="validationerror_mandatory_multi">
 				<source>One of these fields must be filled!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_captcha">
+			<trans-unit id="validationerror_captcha" resname="validationerror_captcha">
 				<source>Wrong captcha code entered - please try again!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_password">
+			<trans-unit id="validationerror_password" resname="validationerror_password">
 				<source>Both Password-Fields are not equal!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_unique">
+			<trans-unit id="validationerror_unique" resname="validationerror_unique">
 				<source>This value is already in use - please use a new one!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation">
+			<trans-unit id="validationerror_validation" resname="validationerror_validation">
 				<source>Your input is not allowed!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.1">
+			<trans-unit id="validationerror_validation.1" resname="validationerror_validation.1">
 				<source>This is not a valid email address!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.2">
+			<trans-unit id="validationerror_validation.2" resname="validationerror_validation.2">
 				<source>This is not a valid URL!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.3">
+			<trans-unit id="validationerror_validation.3" resname="validationerror_validation.3">
 				<source>This is not a valid Phone Number!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.4">
+			<trans-unit id="validationerror_validation.4" resname="validationerror_validation.4">
 				<source>Please insert numbers only!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.5">
+			<trans-unit id="validationerror_validation.5" resname="validationerror_validation.5">
 				<source>Please insert letters only!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.6">
+			<trans-unit id="validationerror_validation.6" resname="validationerror_validation.6">
 				<source>Please increase number!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.7">
+			<trans-unit id="validationerror_validation.7" resname="validationerror_validation.7">
 				<source>Please decrease number!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.8">
+			<trans-unit id="validationerror_validation.8" resname="validationerror_validation.8">
 				<source>Number to high or to low!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.9">
+			<trans-unit id="validationerror_validation.9" resname="validationerror_validation.9">
 				<source>Your input is not valid (too many or too less signs)</source>
 			</trans-unit>
-			<trans-unit id="validationerror_validation.10">
+			<trans-unit id="validationerror_validation.10" resname="validationerror_validation.10">
 				<source>Error in validation!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_upload_extension">
+			<trans-unit id="validationerror_upload_extension" resname="validationerror_upload_extension">
 				<source>It's not allowed to upload a file with this extension!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_upload_size">
+			<trans-unit id="validationerror_upload_size" resname="validationerror_upload_size">
 				<source>The file, that you want to upload is too large!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_upload_error">
+			<trans-unit id="validationerror_upload_error" resname="validationerror_upload_error">
 				<source>Upload failed, please check permissons on the server!</source>
 			</trans-unit>
-			<trans-unit id="validationerror_spam">
+			<trans-unit id="validationerror_spam" resname="validationerror_spam">
 				<source>Spam recognized:</source>
 			</trans-unit>
-			<trans-unit id="validationerror_spam_details">
+			<trans-unit id="validationerror_spam_details" resname="validationerror_spam_details">
 				<source>Spam chance in this message!</source>
 			</trans-unit>
-			<trans-unit id="writePasswordAgain">
+			<trans-unit id="writePasswordAgain" resname="writePasswordAgain">
 				<source>Please write again</source>
 			</trans-unit>
-			<trans-unit id="datepicker_format_date">
+			<trans-unit id="datepicker_format_date" resname="datepicker_format_date">
 				<source>Y-m-d</source>
 			</trans-unit>
-			<trans-unit id="datepicker_format_datetime">
+			<trans-unit id="datepicker_format_datetime" resname="datepicker_format_datetime">
 				<source>Y-m-d H:i</source>
 			</trans-unit>
-			<trans-unit id="datepicker_format_time">
+			<trans-unit id="datepicker_format_time" resname="datepicker_format_time">
 				<source>H:i</source>
 			</trans-unit>
-			<trans-unit id="datepicker_day_so">
+			<trans-unit id="datepicker_day_so" resname="datepicker_day_so">
 				<source>So</source>
 			</trans-unit>
-			<trans-unit id="datepicker_day_mo">
+			<trans-unit id="datepicker_day_mo" resname="datepicker_day_mo">
 				<source>Mo</source>
 			</trans-unit>
-			<trans-unit id="datepicker_day_tu">
+			<trans-unit id="datepicker_day_tu" resname="datepicker_day_tu">
 				<source>Tu</source>
 			</trans-unit>
-			<trans-unit id="datepicker_day_we">
+			<trans-unit id="datepicker_day_we" resname="datepicker_day_we">
 				<source>We</source>
 			</trans-unit>
-			<trans-unit id="datepicker_day_th">
+			<trans-unit id="datepicker_day_th" resname="datepicker_day_th">
 				<source>Th</source>
 			</trans-unit>
-			<trans-unit id="datepicker_day_fr">
+			<trans-unit id="datepicker_day_fr" resname="datepicker_day_fr">
 				<source>Fr</source>
 			</trans-unit>
-			<trans-unit id="datepicker_day_sa">
+			<trans-unit id="datepicker_day_sa" resname="datepicker_day_sa">
 				<source>Sa</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_jan">
+			<trans-unit id="datepicker_month_jan" resname="datepicker_month_jan">
 				<source>January</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_feb">
+			<trans-unit id="datepicker_month_feb" resname="datepicker_month_feb">
 				<source>February</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_mar">
+			<trans-unit id="datepicker_month_mar" resname="datepicker_month_mar">
 				<source>March</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_apr">
+			<trans-unit id="datepicker_month_apr" resname="datepicker_month_apr">
 				<source>April</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_may">
+			<trans-unit id="datepicker_month_may" resname="datepicker_month_may">
 				<source>May</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_jun">
+			<trans-unit id="datepicker_month_jun" resname="datepicker_month_jun">
 				<source>June</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_jul">
+			<trans-unit id="datepicker_month_jul" resname="datepicker_month_jul">
 				<source>July</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_aug">
+			<trans-unit id="datepicker_month_aug" resname="datepicker_month_aug">
 				<source>August</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_sep">
+			<trans-unit id="datepicker_month_sep" resname="datepicker_month_sep">
 				<source>September</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_oct">
+			<trans-unit id="datepicker_month_oct" resname="datepicker_month_oct">
 				<source>October</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_nov">
+			<trans-unit id="datepicker_month_nov" resname="datepicker_month_nov">
 				<source>November</source>
 			</trans-unit>
-			<trans-unit id="datepicker_month_dec">
+			<trans-unit id="datepicker_month_dec" resname="datepicker_month_dec">
 				<source>December</source>
 			</trans-unit>
-			<trans-unit id="JsValidationCheckCheckboxes">
+			<trans-unit id="JsValidationCheckCheckboxes" resname="JsValidationCheckCheckboxes">
 				<source>Please check min. 1</source>
 			</trans-unit>
-			<trans-unit id="JsValidationCheckInteger">
+			<trans-unit id="JsValidationCheckInteger" resname="JsValidationCheckInteger">
 				<source>Not a valid number</source>
 			</trans-unit>
-			<trans-unit id="JsValidationCheckRequired">
+			<trans-unit id="JsValidationCheckRequired" resname="JsValidationCheckRequired">
 				<source>This field is required</source>
 			</trans-unit>
-			<trans-unit id="JsValidationCheckRequiredOption">
+			<trans-unit id="JsValidationCheckRequiredOption" resname="JsValidationCheckRequiredOption">
 				<source>Please select an option</source>
 			</trans-unit>
-			<trans-unit id="JsValidationCheckEmail">
+			<trans-unit id="JsValidationCheckEmail" resname="JsValidationCheckEmail">
 				<source>Invalid Email</source>
 			</trans-unit>
-			<trans-unit id="JsValidationCheckUrl">
+			<trans-unit id="JsValidationCheckUrl" resname="JsValidationCheckUrl">
 				<source>Invalid URL</source>
 			</trans-unit>
-			<trans-unit id="JsValidationCheckPhone">
+			<trans-unit id="JsValidationCheckPhone" resname="JsValidationCheckPhone">
 				<source>Invalid Phone No</source>
 			</trans-unit>
-			<trans-unit id="JsValidationCheckLetters">
+			<trans-unit id="JsValidationCheckLetters" resname="JsValidationCheckLetters">
 				<source>Only Letters allowed</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionList">
+			<trans-unit id="BackendSelectionList" resname="BackendSelectionList">
 				<source>Mail List</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionReporting">
+			<trans-unit id="BackendSelectionReporting" resname="BackendSelectionReporting">
 				<source>Reporting</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionReportingForm">
+			<trans-unit id="BackendSelectionReportingForm" resname="BackendSelectionReportingForm">
 				<source>Reporting (Form)</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionReportingMarketing">
+			<trans-unit id="BackendSelectionReportingMarketing" resname="BackendSelectionReportingMarketing">
 				<source>Reporting (Marketing)</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionTools">
+			<trans-unit id="BackendSelectionTools" resname="BackendSelectionTools">
 				<source>Tools</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionOverview">
+			<trans-unit id="BackendSelectionOverview" resname="BackendSelectionOverview">
 				<source>Form Overview</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionCheck">
+			<trans-unit id="BackendSelectionCheck" resname="BackendSelectionCheck">
 				<source>Function Check</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionConverterTitle">
+			<trans-unit id="BackendSelectionConverterTitle" resname="BackendSelectionConverterTitle">
 				<source>Form Converter</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionConverterTitle2">
+			<trans-unit id="BackendSelectionConverterTitle2" resname="BackendSelectionConverterTitle2">
 				<source>Converts all Powermail 1.x to 2.x Forms</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionConverterTitle3">
+			<trans-unit id="BackendSelectionConverterTitle3" resname="BackendSelectionConverterTitle3">
 				<source>Old records (from Tables tx_powermail_fieldsets, tx_powermail_fields and tt_content) will be flagged with deleted=1. New Records will be generated (Tables tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field, tt_content)</source>
 			</trans-unit>
-			<trans-unit id="BackendSelectionConverterTitle4">
+			<trans-unit id="BackendSelectionConverterTitle4" resname="BackendSelectionConverterTitle4">
 				<source>Attention: Please backup your database before converting. This step is irreversible.</source>
 			</trans-unit>
-			<trans-unit id="BackendListMultiselectLabel">
+			<trans-unit id="BackendListMultiselectLabel" resname="BackendListMultiselectLabel">
 				<source>record(s) selected:</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFormSave">
+			<trans-unit id="BackendConverterFormSave" resname="BackendConverterFormSave">
 				<source>Save new forms on page with PID</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFormDefaultReceiverName">
+			<trans-unit id="BackendConverterFormDefaultReceiverName" resname="BackendConverterFormDefaultReceiverName">
 				<source>Default Receiver Name</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFormDefaultSenderNameConfirmationMail">
+			<trans-unit id="BackendConverterFormDefaultSenderNameConfirmationMail" resname="BackendConverterFormDefaultSenderNameConfirmationMail">
 				<source>Default Sender Name for Confirmation Mail</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFormDefaultSenderMailConfirmationMail">
+			<trans-unit id="BackendConverterFormDefaultSenderMailConfirmationMail" resname="BackendConverterFormDefaultSenderMailConfirmationMail">
 				<source>Default Sender Email for Confirmation Mail</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFormDefaultParseFunc">
+			<trans-unit id="BackendConverterFormDefaultParseFunc" resname="BackendConverterFormDefaultParseFunc">
 				<source>ParseFunc Path in TypoScript (without prefix lib.).</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFormDefaultParseFuncTroubleText">
+			<trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText">
 				<source>If you have trouble with form converting, you can let this value completely empty.</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFormHidden">
+			<trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden">
 				<source>Ignore Old Hidden Forms</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFormDryrun">
+			<trans-unit id="BackendConverterFormDryrun" resname="BackendConverterFormDryrun">
 				<source>Do only a Test Run (no records will be generated or deleted)</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterOldForms">
+			<trans-unit id="BackendConverterOldForms" resname="BackendConverterOldForms">
 				<source>Old Forms (tt_content)</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterTtContentUid">
+			<trans-unit id="BackendConverterTtContentUid" translate="no" resname="BackendConverterTtContentUid">
 				<source>Uid</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterPage">
+			<trans-unit id="BackendConverterPage" translate="no" resname="BackendConverterPage">
 				<source>Pid</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterLanguage">
+			<trans-unit id="BackendConverterLanguage" resname="BackendConverterLanguage">
 				<source>Language</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterTitle">
+			<trans-unit id="BackendConverterTitle" resname="BackendConverterTitle">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterRecipient">
+			<trans-unit id="BackendConverterRecipient" resname="BackendConverterRecipient">
 				<source>Recipient</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterSubject">
+			<trans-unit id="BackendConverterSubject" resname="BackendConverterSubject">
 				<source>Subject</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterFieldsetAmount">
+			<trans-unit id="BackendConverterFieldsetAmount" resname="BackendConverterFieldsetAmount">
 				<source>Number of Fieldsets</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterConfirmationPage">
+			<trans-unit id="BackendConverterConfirmationPage" resname="BackendConverterConfirmationPage">
 				<source>Confirmation Page</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterMultiple">
+			<trans-unit id="BackendConverterMultiple" resname="BackendConverterMultiple">
 				<source>Multiple</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterNoOldForms">
+			<trans-unit id="BackendConverterNoOldForms" resname="BackendConverterNoOldForms">
 				<source>No old Forms found</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateTitle2">
+			<trans-unit id="BackendConverterUpdateTitle2" resname="BackendConverterUpdateTitle2">
 				<source>Overview: Converted Forms</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateMessageOk">
+			<trans-unit id="BackendConverterUpdateMessageOk" resname="BackendConverterUpdateMessageOk">
 				<source>Form(s) successfully generated!</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateMessageNote">
+			<trans-unit id="BackendConverterUpdateMessageNote" resname="BackendConverterUpdateMessageNote">
 				<source>Form(s) could be migrated</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFormUid">
+			<trans-unit id="BackendConverterUpdateFormUid" translate="no" resname="BackendConverterUpdateFormUid">
 				<source>Uid</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFormUidAutogenerated">
+			<trans-unit id="BackendConverterUpdateFormUidAutogenerated" resname="BackendConverterUpdateFormUidAutogenerated">
 				<source>[auto]</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFormPid">
+			<trans-unit id="BackendConverterUpdateFormPid" translate="no" resname="BackendConverterUpdateFormPid">
 				<source>Pid</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFormTitle">
+			<trans-unit id="BackendConverterUpdateFormTitle" resname="BackendConverterUpdateFormTitle">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFormHidden">
+			<trans-unit id="BackendConverterUpdateFormHidden" resname="BackendConverterUpdateFormHidden">
 				<source>Hidden</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFormPageAmount">
+			<trans-unit id="BackendConverterUpdateFormPageAmount" resname="BackendConverterUpdateFormPageAmount">
 				<source>Page Amount</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFormPages">
+			<trans-unit id="BackendConverterUpdateFormPages" resname="BackendConverterUpdateFormPages">
 				<source>Pages</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdatePageUid">
+			<trans-unit id="BackendConverterUpdatePageUid" resname="BackendConverterUpdatePageUid">
 				<source>Uid</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdatePageUidAutogenerated">
+			<trans-unit id="BackendConverterUpdatePageUidAutogenerated" resname="BackendConverterUpdatePageUidAutogenerated">
 				<source>[auto]</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdatePagePid">
+			<trans-unit id="BackendConverterUpdatePagePid" translate="no" resname="BackendConverterUpdatePagePid">
 				<source>Pid</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdatePageTitle">
+			<trans-unit id="BackendConverterUpdatePageTitle" resname="BackendConverterUpdatePageTitle">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdatePageLayout">
+			<trans-unit id="BackendConverterUpdatePageLayout" resname="BackendConverterUpdatePageLayout">
 				<source>Layout</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdatePageFieldAmount">
+			<trans-unit id="BackendConverterUpdatePageFieldAmount" resname="BackendConverterUpdatePageFieldAmount">
 				<source>Field Amount</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdatePageFields">
+			<trans-unit id="BackendConverterUpdatePageFields" resname="BackendConverterUpdatePageFields">
 				<source>Fields</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFieldUid">
+			<trans-unit id="BackendConverterUpdateFieldUid" translate="no" resname="BackendConverterUpdateFieldUid">
 				<source>Uid</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFieldUidAutogenerated">
+			<trans-unit id="BackendConverterUpdateFieldUidAutogenerated" resname="BackendConverterUpdateFieldUidAutogenerated">
 				<source>[auto]</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFieldPid">
+			<trans-unit id="BackendConverterUpdateFieldPid" translate="no" resname="BackendConverterUpdateFieldPid">
 				<source>Pid</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFieldTitle">
+			<trans-unit id="BackendConverterUpdateFieldTitle" resname="BackendConverterUpdateFieldTitle">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateFieldProperties">
+			<trans-unit id="BackendConverterUpdateFieldProperties" resname="BackendConverterUpdateFieldProperties">
 				<source>Properties</source>
 			</trans-unit>
-			<trans-unit id="BackendConverterUpdateNoFormsConverted">
+			<trans-unit id="BackendConverterUpdateNoFormsConverted" resname="BackendConverterUpdateNoFormsConverted">
 				<source>No Forms converted</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckTitle">
+			<trans-unit id="BackendCheckTitle" resname="BackendCheckTitle">
 				<source>Powermail Check</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckTryToFix">
+			<trans-unit id="BackendCheckTryToFix" resname="BackendCheckTryToFix">
 				<source>Solve problem</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckSessionTitle">
+			<trans-unit id="BackendCheckSessionTitle" resname="BackendCheckSessionTitle">
 				<source>Frontend Session Check</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckSessionCorrect">
+			<trans-unit id="BackendCheckSessionCorrect" resname="BackendCheckSessionCorrect">
 				<source>Frontend Sessions are working properly by using $GLOBALS['TSFE']->fe_user->getKey() and ->setKey()</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckSessionFailed">
+			<trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed">
 				<source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']->fe_user->getKey() and ->setKey() - please ask your Administrator</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckExtMngConfigTitle">
+			<trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle">
 				<source>Extension Manager Updated</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckExtMngConfigCorrect">
+			<trans-unit id="BackendCheckExtMngConfigCorrect" resname="BackendCheckExtMngConfigCorrect">
 				<source>Extension is correct installed - all settings available from localconf.php</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckExtMngConfigFailed">
+			<trans-unit id="BackendCheckExtMngConfigFailed" resname="BackendCheckExtMngConfigFailed">
 				<source>Extension was not correct installed - please click the update button in the Extension Manager</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckVersionTitle">
+			<trans-unit id="BackendCheckVersionTitle" resname="BackendCheckVersionTitle">
 				<source>Version</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckVersionLastUpdate">
+			<trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate">
 				<source>Last Extension Manager update</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckVersionNoInformation">
+			<trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation">
 				<source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckVersionUpToDate">
+			<trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate">
 				<source>The installed version of powermail is up-to-date</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckVersionSecurity">
+			<trans-unit id="BackendCheckVersionSecurity" resname="BackendCheckVersionSecurity">
 				<source>The installed version of powermail contains a known security bug. Please update your powermail extension as soon as possible.</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckVersionUpgrade">
+			<trans-unit id="BackendCheckVersionUpgrade" resname="BackendCheckVersionUpgrade">
 				<source>A newer version of powermail is available</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckT3VersionTitle">
+			<trans-unit id="BackendCheckT3VersionTitle" resname="BackendCheckT3VersionTitle">
 				<source>TYPO3 Version</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckT3VersionCorrect">
+			<trans-unit id="BackendCheckT3VersionCorrect" resname="BackendCheckT3VersionCorrect">
 				<source>The used TYPO3 version is correct for this Powermail version</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckT3VersionFailed">
+			<trans-unit id="BackendCheckT3VersionFailed" resname="BackendCheckT3VersionFailed">
 				<source>Please check the TYPO3 version - maybe Powermail works not properly in this version</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckUploadsFolderTitle">
+			<trans-unit id="BackendCheckUploadsFolderTitle" resname="BackendCheckUploadsFolderTitle">
 				<source>Upload Folder</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckUploadsFolderCorrect">
+			<trans-unit id="BackendCheckUploadsFolderCorrect" resname="BackendCheckUploadsFolderCorrect">
 				<source>Default Upload Folder exists (uploads/tx_powermail/)</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckUploadsFolderFailed">
+			<trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed">
 				<source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckWrongLocalizedFormsTitle">
+			<trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle">
 				<source>Localized Forms</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckWrongLocalizedFormsCorrect">
+			<trans-unit id="BackendCheckWrongLocalizedFormsCorrect" resname="BackendCheckWrongLocalizedFormsCorrect">
 				<source>No failures in forms found on this system</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckWrongLocalizedFormsFailed">
+			<trans-unit id="BackendCheckWrongLocalizedFormsFailed" resname="BackendCheckWrongLocalizedFormsFailed">
 				<source>There are localized forms with empty tx_powermail_domain_model_form.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckWrongLocalizedPagesTitle">
+			<trans-unit id="BackendCheckWrongLocalizedPagesTitle" resname="BackendCheckWrongLocalizedPagesTitle">
 				<source>Localized Pages</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckWrongLocalizedPagesCorrect">
+			<trans-unit id="BackendCheckWrongLocalizedPagesCorrect" resname="BackendCheckWrongLocalizedPagesCorrect">
 				<source>No failures in pages found on this system</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckWrongLocalizedPagesFailed">
+			<trans-unit id="BackendCheckWrongLocalizedPagesFailed" resname="BackendCheckWrongLocalizedPagesFailed">
 				<source>There are localized pages with empty tx_powermail_domain_model_page.forms fields which can lead to problems in managing localized pages</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckBackupBefore">
+			<trans-unit id="BackendCheckBackupBefore" resname="BackendCheckBackupBefore">
 				<source>Note: Please backup all powermail tables before you choose this option!</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckDevelopmentContextTitle">
+			<trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle">
 				<source>Development Context</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckDevelopmentContextActive">
+			<trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive">
 				<source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckDevelopmentContextAvailable">
+			<trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable">
 				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewTitle">
+			<trans-unit id="BackendOverviewTitle" resname="BackendOverviewTitle">
 				<source>Form Overview</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewTitle2">
+			<trans-unit id="BackendOverviewTitle2" resname="BackendOverviewTitle2">
 				<source>All Forms within page</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewTitle3">
+			<trans-unit id="BackendOverviewTitle3" resname="BackendOverviewTitle3">
 				<source>(and its subpages)</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewTitle4">
+			<trans-unit id="BackendOverviewTitle4" resname="BackendOverviewTitle4">
 				<source>Show All Forms</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewTitle5">
+			<trans-unit id="BackendOverviewTitle5" resname="BackendOverviewTitle5">
 				<source>All Forms in this CMS</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewTable">
+			<trans-unit id="BackendOverviewTable" resname="BackendOverviewTable">
 				<source>Forms</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewCol1">
+			<trans-unit id="BackendOverviewCol1" resname="BackendOverviewCol1">
 				<source>Form Title</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewCol2">
+			<trans-unit id="BackendOverviewCol2" resname="BackendOverviewCol2">
 				<source>Stored on Page</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewCol3">
+			<trans-unit id="BackendOverviewCol3" resname="BackendOverviewCol3">
 				<source>Used on Page</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewCol4">
+			<trans-unit id="BackendOverviewCol4" resname="BackendOverviewCol4">
 				<source>Powermail Pages</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewCol5">
+			<trans-unit id="BackendOverviewCol5" resname="BackendOverviewCol5">
 				<source>Powermail Fields</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewPages">
+			<trans-unit id="BackendOverviewPages" resname="BackendOverviewPages">
 				<source>Page(s)</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewFields">
+			<trans-unit id="BackendOverviewFields" resname="BackendOverviewFields">
 				<source>Field(s)</source>
 			</trans-unit>
-			<trans-unit id="BackendOverviewNoForms">
+			<trans-unit id="BackendOverviewNoForms" resname="BackendOverviewNoForms">
 				<source>No Forms found</source>
 			</trans-unit>
-			<trans-unit id="BackendFunctionTitle">
+			<trans-unit id="BackendFunctionTitle" resname="BackendFunctionTitle">
 				<source>Function-Test Section</source>
 			</trans-unit>
-			<trans-unit id="BackendEmailTitle">
+			<trans-unit id="BackendEmailTitle" resname="BackendEmailTitle">
 				<source>Test Email Sending</source>
 			</trans-unit>
-			<trans-unit id="BackendEmailFormTitle">
+			<trans-unit id="BackendEmailFormTitle" resname="BackendEmailFormTitle">
 				<source>Test email generation with powermail</source>
 			</trans-unit>
-			<trans-unit id="BackendEmailFormReceiver">
+			<trans-unit id="BackendEmailFormReceiver" resname="BackendEmailFormReceiver">
 				<source>Receiver Email</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckEmailTitle">
+			<trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle">
 				<source>Email Sending Status</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckEmailCorrect">
+			<trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect">
 				<source>Email send without problems (mail transmitted to mailserver)</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckEmailFailed">
+			<trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed">
 				<source>Email cound not send properly (ask your Adminstrator)</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckStaticTemplateTitle">
+			<trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle">
 				<source>TypoScript Static Template</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckStaticTemplateCorrect">
+			<trans-unit id="BackendCheckStaticTemplateCorrect" resname="BackendCheckStaticTemplateCorrect">
 				<source>Static TypoScript Template is available on current page.</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckStaticTemplateFailed">
+			<trans-unit id="BackendCheckStaticTemplateFailed" resname="BackendCheckStaticTemplateFailed">
 				<source>Static TypoScript Template is not available on current page.</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckComposerModeTitle">
+			<trans-unit id="BackendCheckComposerModeTitle" resname="BackendCheckComposerModeTitle">
 				<source>Composer Mode</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckComposerModeComposer">
+			<trans-unit id="BackendCheckComposerModeComposer" resname="BackendCheckComposerModeComposer">
 				<source>Your TYPO3 is running in Composer Mode</source>
 			</trans-unit>
-			<trans-unit id="BackendCheckComposerModeClassic">
+			<trans-unit id="BackendCheckComposerModeClassic" resname="BackendCheckComposerModeClassic">
 				<source>Your TYPO3 is running in Classic Mode</source>
 			</trans-unit>
-			<trans-unit id="BackendListTitle">
+			<trans-unit id="BackendListTitle" resname="BackendListTitle">
 				<source>Mail Listings</source>
 			</trans-unit>
-			<trans-unit id="BackendListMails">
+			<trans-unit id="BackendListMails" resname="BackendListMails">
 				<source>Mails</source>
 			</trans-unit>
-			<trans-unit id="BackendListMailDelete">
+			<trans-unit id="BackendListMailDelete" resname="BackendListMailDelete">
 				<source>Delete Mail</source>
 			</trans-unit>
-			<trans-unit id="BackendListMailDeleteConfirmation">
+			<trans-unit id="BackendListMailDeleteConfirmation" resname="BackendListMailDeleteConfirmation">
 				<source>Really Delete This Mail?</source>
 			</trans-unit>
-			<trans-unit id="BackendListHelpDetails">
+			<trans-unit id="BackendListHelpDetails" resname="BackendListHelpDetails">
 				<source>Show Mail Details</source>
 			</trans-unit>
-			<trans-unit id="BackendListHelpEdit">
+			<trans-unit id="BackendListHelpEdit" resname="BackendListHelpEdit">
 				<source>Edit this Mail</source>
 			</trans-unit>
-			<trans-unit id="BackendListHelpUnhide">
+			<trans-unit id="BackendListHelpUnhide" resname="BackendListHelpUnhide">
 				<source>Activate this Mail</source>
 			</trans-unit>
-			<trans-unit id="BackendListHelpHide">
+			<trans-unit id="BackendListHelpHide" resname="BackendListHelpHide">
 				<source>Deactivate this Mail</source>
 			</trans-unit>
-			<trans-unit id="BackendListNoMails">
+			<trans-unit id="BackendListNoMails" resname="BackendListNoMails">
 				<source>No Mails to show</source>
 			</trans-unit>
-			<trans-unit id="BackendListNoMailsSub">
+			<trans-unit id="BackendListNoMailsSub" resname="BackendListNoMailsSub">
 				<source>Please choose another page or modify your filter settings</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterFulltextSearch">
+			<trans-unit id="BackendListFilterFulltextSearch" resname="BackendListFilterFulltextSearch">
 				<source>Fulltext Search:</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterFulltextSearchFormFilter">
+			<trans-unit id="BackendListFilterFulltextSearchFormFilter" resname="BackendListFilterFulltextSearchFormFilter">
 				<source>Reduce to one form:</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterFulltextSearchSubmit">
+			<trans-unit id="BackendListFilterFulltextSearchSubmit" resname="BackendListFilterFulltextSearchSubmit">
 				<source>Filter List</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterExtendedSearch">
+			<trans-unit id="BackendListFilterExtendedSearch" resname="BackendListFilterExtendedSearch">
 				<source>Extended Search</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterStart">
+			<trans-unit id="BackendListFilterStart" resname="BackendListFilterStart">
 				<source>Start</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterEnd">
+			<trans-unit id="BackendListFilterEnd" resname="BackendListFilterEnd">
 				<source>Stop</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterName">
+			<trans-unit id="BackendListFilterName" resname="BackendListFilterName">
 				<source>Sender Name</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterMail">
+			<trans-unit id="BackendListFilterMail" resname="BackendListFilterMail">
 				<source>Sender Email</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterSubject">
+			<trans-unit id="BackendListFilterSubject" resname="BackendListFilterSubject">
 				<source>Subject</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterHidden">
+			<trans-unit id="BackendListFilterHidden" resname="BackendListFilterHidden">
 				<source>Deactivated Mails</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterDefaultFields">
+			<trans-unit id="BackendListFilterDefaultFields" resname="BackendListFilterDefaultFields">
 				<source>Default Fields</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterAddField">
+			<trans-unit id="BackendListFilterAddField" resname="BackendListFilterAddField">
 				<source>Additional Fields</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterClean">
+			<trans-unit id="BackendListFilterClean" resname="BackendListFilterClean">
 				<source>Delete Filters</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterCleanLink">
+			<trans-unit id="BackendListFilterCleanLink" resname="BackendListFilterCleanLink">
 				<source>Show all Mails</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterShowHidden">
+			<trans-unit id="BackendListFilterShowHidden" resname="BackendListFilterShowHidden">
 				<source>Show only deactivated Mails</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterShowNonHidden">
+			<trans-unit id="BackendListFilterShowNonHidden" resname="BackendListFilterShowNonHidden">
 				<source>Show only activated Mails</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterExtendedExport">
+			<trans-unit id="BackendListFilterExtendedExport" resname="BackendListFilterExtendedExport">
 				<source>Extended Export Settings</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterExtendedExportLeftLabel">
+			<trans-unit id="BackendListFilterExtendedExportLeftLabel" resname="BackendListFilterExtendedExportLeftLabel">
 				<source>Columns in Export file</source>
 			</trans-unit>
-			<trans-unit id="BackendListFilterExtendedExportRightLabel">
+			<trans-unit id="BackendListFilterExtendedExportRightLabel" resname="BackendListFilterExtendedExportRightLabel">
 				<source>Available Columns</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingTitle">
+			<trans-unit id="BackendReportingTitle" resname="BackendReportingTitle">
 				<source>Mail Reporting</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingForm">
+			<trans-unit id="BackendReportingForm" resname="BackendReportingForm">
 				<source>Form Reporting</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingFormTitle">
+			<trans-unit id="BackendReportingFormTitle" resname="BackendReportingFormTitle">
 				<source>Form Reporting</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingFormValue">
+			<trans-unit id="BackendReportingFormValue" resname="BackendReportingFormValue">
 				<source>Value</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingFormSubtitle1">
+			<trans-unit id="BackendReportingFormSubtitle1" resname="BackendReportingFormSubtitle1">
 				<source>Reporting with</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingFormAmount">
+			<trans-unit id="BackendReportingFormAmount" resname="BackendReportingFormAmount">
 				<source>Amount</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingMarketing">
+			<trans-unit id="BackendReportingMarketing" resname="BackendReportingMarketing">
 				<source>Marketing Reporting</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingMarketingTitle">
+			<trans-unit id="BackendReportingMarketingTitle" resname="BackendReportingMarketingTitle">
 				<source>Marketing Reporting</source>
 			</trans-unit>
-			<trans-unit id="BackendReportingNoValues">
+			<trans-unit id="BackendReportingNoValues" resname="BackendReportingNoValues">
 				<source>No Values to Show</source>
 			</trans-unit>
-			<trans-unit id="BackendPluginInformationNoHeader">
+			<trans-unit id="BackendPluginInformationNoHeader" resname="BackendPluginInformationNoHeader">
 				<source>[no header]</source>
 			</trans-unit>
-			<trans-unit id="BackendPluginInformationTitleMailForm">
+			<trans-unit id="BackendPluginInformationTitleMailForm" resname="BackendPluginInformationTitleMailForm">
 				<source>Mailform configuration</source>
 			</trans-unit>
-			<trans-unit id="BackendPluginInformationTitleLastMails">
+			<trans-unit id="BackendPluginInformationTitleLastMails" resname="BackendPluginInformationTitleLastMails">
 				<source>Last mails from this form</source>
 			</trans-unit>
-			<trans-unit id="BackendPluginInformationTitlePi2">
+			<trans-unit id="BackendPluginInformationTitlePi2" resname="BackendPluginInformationTitlePi2">
 				<source>Show and manage mails in Frontend</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendNoMails">
+			<trans-unit id="PowermailFrontendNoMails" resname="PowermailFrontendNoMails">
 				<source>No Mails found.</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendFilterAll">
+			<trans-unit id="PowermailFrontendFilterAll" resname="PowermailFrontendFilterAll">
 				<source>All</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendFilterSubmit">
+			<trans-unit id="PowermailFrontendFilterSubmit" resname="PowermailFrontendFilterSubmit">
 				<source>Filter Now</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendNoMailsDetail">
+			<trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail">
 				<source>Please edit your filtersettings.</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendDetailView">
+			<trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView">
 				<source>Details</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendEditView">
+			<trans-unit id="PowermailFrontendEditView" resname="PowermailFrontendEditView">
 				<source>Edit</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendDeleteView">
+			<trans-unit id="PowermailFrontendDeleteView" resname="PowermailFrontendDeleteView">
 				<source>Delete</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendEditSubmit">
+			<trans-unit id="PowermailFrontendEditSubmit" resname="PowermailFrontendEditSubmit">
 				<source>Save Changes</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendEditConfirm">
+			<trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm">
 				<source>Changes successfully saved</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendEditNoMail">
+			<trans-unit id="PowermailFrontendEditNoMail" resname="PowermailFrontendEditNoMail">
 				<source>Missing required Mail parameter</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendEditFailed">
+			<trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed">
 				<source>You are not allowed to make changes</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendEditSuccessful">
+			<trans-unit id="PowermailFrontendEditSuccessful" resname="PowermailFrontendEditSuccessful">
 				<source>Changes successfully saved</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendDeleteFailed">
+			<trans-unit id="PowermailFrontendDeleteFailed" resname="PowermailFrontendDeleteFailed">
 				<source>Record could not be removed</source>
 			</trans-unit>
-			<trans-unit id="PowermailFrontendDeleteSuccessful">
+			<trans-unit id="PowermailFrontendDeleteSuccessful" resname="PowermailFrontendDeleteSuccessful">
 				<source>Record successfully removed</source>
 			</trans-unit>
-			<trans-unit id="ExtensionManagerConvertingScriptSuccess">
+			<trans-unit id="ExtensionManagerConvertingScriptSuccess" resname="ExtensionManagerConvertingScriptSuccess">
 				<source>All tables successfully converted</source>
 			</trans-unit>
-			<trans-unit id="ExtensionManagerConvertingScriptStopAlreadyExist">
+			<trans-unit id="ExtensionManagerConvertingScriptStopAlreadyExist" resname="ExtensionManagerConvertingScriptStopAlreadyExist">
 				<source>Failure! Tables could not be converted because there is already one or more new tables (tx_powermail_domain_model_mail, tx_powermail_domain_model_answer, tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field) and they are not empty</source>
 			</trans-unit>
-			<trans-unit id="ExtensionManagerConvertingScriptStopNoTablesFound">
+			<trans-unit id="ExtensionManagerConvertingScriptStopNoTablesFound" resname="ExtensionManagerConvertingScriptStopNoTablesFound">
 				<source>Failure! Tables could not be converted because there is one or more old tables missing (tx_powermail_domain_model_mails, tx_powermail_domain_model_answers, tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields)</source>
 			</trans-unit>
-			<trans-unit id="Back">
+			<trans-unit id="Back" resname="Back">
 				<source>Back</source>
 			</trans-unit>
-			<trans-unit id="Clock">
+			<trans-unit id="Clock" resname="Clock">
 				<source>o'clock</source>
 			</trans-unit>
-			<trans-unit id="ClearFilter">
+			<trans-unit id="ClearFilter" resname="ClearFilter">
 				<source>Delete Filter</source>
 			</trans-unit>
-			<trans-unit id="Emails">
+			<trans-unit id="Emails" resname="Emails">
 				<source>Emails</source>
 			</trans-unit>
-			<trans-unit id="FormField">
+			<trans-unit id="FormField" resname="FormField">
 				<source>Formfield</source>
 			</trans-unit>
-			<trans-unit id="MarketingInformation">
+			<trans-unit id="MarketingInformation" resname="MarketingInformation">
 				<source>Marketing Information</source>
 			</trans-unit>
-			<trans-unit id="honeypodLabel">
+			<trans-unit id="honeypodLabel" resname="honeypodLabel">
 				<source>Don't fill this field!</source>
 			</trans-unit>
-			<trans-unit id="deleteAllFiles">
+			<trans-unit id="deleteAllFiles" resname="deleteAllFiles">
 				<source>Delete All Files</source>
 			</trans-unit>
 		</body>
