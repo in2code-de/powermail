@@ -34,6 +34,7 @@ class TemplateUtility extends AbstractUtility
         );
         if (!empty($extbaseConfig['view'][$part . 'RootPaths'])) {
             $templatePaths = $extbaseConfig['view'][$part . 'RootPaths'];
+            ksort($templatePaths, SORT_NUMERIC);
             $templatePaths = array_values($templatePaths);
         }
         if (empty($templatePaths)) {
