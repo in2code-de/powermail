@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Factory;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Model\User;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
