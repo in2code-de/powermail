@@ -196,7 +196,7 @@ class OutputController extends AbstractController
         if ($this->settings['list']['fields']) {
             $fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], true);
         } else {
-            $fieldArray = $this->formRepository->getFieldUidsFromForm($this->settings['main']['form']);
+            $fieldArray = $this->formRepository->getFieldUidsFromForm((int)$this->settings['main']['form']);
         }
         $fields = $this->fieldRepository->findByUids($fieldArray);
 
