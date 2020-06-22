@@ -57,7 +57,10 @@ powermail_frontend_xls {
 		disablePrefixComment = 1
 		xhtml_cleaning = 0
 		admPanel = 0
-		additionalHeaders.10.header = Content-type:application/xls | Content-Disposition: inline; filename=export.xls | Cache-control: | Pragma:
+		additionalHeaders.10.header = Content-type:application/xls
+		additionalHeaders.20.header = Content-Disposition: inline; filename=export.xls
+		additionalHeaders.30.header = Cache-control:
+		additionalHeaders.40.header = Pragma:
 	}
 
 	10 < styles.content.get
@@ -65,7 +68,10 @@ powermail_frontend_xls {
 powermail_frontend_csv < powermail_frontend_xls
 powermail_frontend_csv {
 	typeNum = 31312
-	config.additionalHeaders.10.header = Content-type:text/x-csv | Content-Disposition: inline; filename=export.csv | Cache-control: | Pragma:
+	config {
+		additionalHeaders.10.header = Content-type:text/x-csv
+		additionalHeaders.20.header = Content-Disposition: inline; filename=export.csv
+	}
 }
 
 
@@ -83,7 +89,7 @@ powermail_frontend_rss {
 		disablePrefixComment = 1
 		xhtml_cleaning = 0
 		admPanel = 0
-    	additionalHeaders.10.header = Content-type:application/xml
+			additionalHeaders.10.header = Content-type:application/xml
 	}
 
 	10 < styles.content.get

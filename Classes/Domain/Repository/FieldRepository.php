@@ -161,7 +161,7 @@ class FieldRepository extends AbstractRepository
      * @throws Exception
      * @throws InvalidQueryException
      */
-    protected function findByMarkerAndFormAlternative(string $marker, int $formUid = 0): Field
+    protected function findByMarkerAndFormAlternative(string $marker, int $formUid = 0): ?Field
     {
         // get pages from form
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
