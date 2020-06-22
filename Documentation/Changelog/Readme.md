@@ -4,6 +4,9 @@
 
 | Version     | Release Date | Description |
 |------------ |--------------|-------------|
+| 8.1.1       | 2020-06-22   | Bugfix: Fix mapping to fe_users and fe_groups                                                                         |
+|             |              | Bugfix: Fix some wrong type hint declarations                                                                         |
+|             |              | Bugfix: Fix missing filenames and extensions for XLS/CSV exports in Pi2                                               |
 | 8.1.0       | 2020-03-29   | Feature: Make $settings writable from signals in all controllers                                                      |
 |             |              | Bugfix: Unique validator should also work with double opt in feature                                                  |
 |             |              | Bugfix: Prevent exception if there are no mails stored yet                                                            |
