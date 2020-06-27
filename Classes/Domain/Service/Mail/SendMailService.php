@@ -459,12 +459,12 @@ class SendMailService
         $email['replyToName'] = TypoScriptUtility::overwriteValueFromTypoScript(
             $email['replyToName'],
             $this->overwriteConfig,
-            'senderName'
+            'replyToName'
         );
         $email['replyToEmail'] = TypoScriptUtility::overwriteValueFromTypoScript(
             $email['replyToEmail'],
             $this->overwriteConfig,
-            'senderEmail'
+            'replyToEmail'
         );
         $email['receiverName'] = TypoScriptUtility::overwriteValueFromTypoScript(
             $email['receiverName'],
