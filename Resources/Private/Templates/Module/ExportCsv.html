@@ -30,10 +30,10 @@
 		<f:for each="{fieldUids}" as="fieldUid">
 			<f:if condition="{vh:condition.isNumber(val:fieldUid)}">
 				<f:then>
-                    <f:variable name="fieldUidCheck">1</f:variable>
+					<f:variable name="fieldUidCheck">1</f:variable>
 					<f:for each="{mail.answers}" as="answer">
 						<f:if condition="{fieldUid} == {answer.field.uid}">
-                            <f:variable name="fieldUidCheck">0</f:variable>
+							<f:variable name="fieldUidCheck">0</f:variable>
 							<f:if condition="{vh:condition.isArray(val:answer.value)}">
 								<f:then>
 									"<vh:string.removeQuote>
@@ -50,7 +50,7 @@
 							</f:if>
 						</f:if>
 					</f:for>
-                    <f:if condition="{fieldUidCheck}">"";</f:if>
+					<f:if condition="{fieldUidCheck}">"";</f:if>
 				</f:then>
 				<f:else>
 					<f:if condition="{vh:condition.isDateTimeVariableInVariable(obj:mail, prop:fieldUid)}">
