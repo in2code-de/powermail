@@ -2,7 +2,10 @@
 
 ## What does it do?
 
-- **General:** If you want to show some html-text in the form, use this field. Per default the text is parsed through a htmlspecialchars() function. If you are aware of possible security problems from your editors, the admin can enable HTML via TypoScript. This text is not submitted.
+- **General:** If you want to show some html-text in the form, use this field. This text is not submitted. Per default the text is parsed through a htmlspecialchars() function, which makes no HTML tags possible.
+ If your editors are aware of possible security problems, the admin can enable HTML under Constants:: 
+
+  plugin.tx_powermail.settings.misc.htmlForHtmlFields = 1. 
 
 ## Frontend Output Example
 
