@@ -2,8 +2,10 @@
 
 **Note:** Breaking changes are marked with !!!
 
-| Version     | Release Date | Description |
-|------------ |--------------|-------------|
+| Version     | Release Date | Description                                                                                                           |
+|------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.1.2       | 2020-07-10   | Bugfix: Fix typo in TypoScript condition for Pi2                                                                      |
+|             |              | Task: Small documentation update                                                                                      |
 | 8.1.1       | 2020-06-22   | Bugfix: Fix mapping to fe_users and fe_groups                                                                         |
 |             |              | Bugfix: Fix some wrong type hint declarations                                                                         |
 |             |              | Bugfix: Fix missing filenames and extensions for XLS/CSV exports in Pi2                                               |

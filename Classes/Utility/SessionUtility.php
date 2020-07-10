@@ -96,7 +96,7 @@ class SessionUtility
         $marketingInfo = self::getSessionValue('powermail_marketing');
 
         // initially create array with marketing info
-        if (!is_array($marketingInfo)) {
+        if (empty($marketingInfo)) {
             $marketingInfo = [
                 'refererDomain' => FrontendUtility::getDomainFromUri($referer),
                 'referer' => $referer,
@@ -128,7 +128,7 @@ class SessionUtility
     public static function getMarketingInfos(): array
     {
         $marketingInfo = self::getSessionValue('powermail_marketing');
-        if (!is_array($marketingInfo)) {
+        if (empty($marketingInfo)) {
             $marketingInfo = [
                 'refererDomain' => '',
                 'referer' => '',
@@ -203,6 +203,7 @@ class SessionUtility
                 'powermailSaveSession'
             );
         }
+
         return $values;
     }
 
@@ -223,7 +224,10 @@ class SessionUtility
     public static function getCaptchaSession(int $fieldUid): int
     {
         $sessionArray = self::getSessionValue('captcha', 'ses', 'powermail_captcha');
-        return (int)$sessionArray[$fieldUid];
+        if (array_key_exists($fieldUid, $sessionArray)) {
+            return (int)$sessionArray[$fieldUid];
+        }
+        return 0;
     }
 
     /**
@@ -254,9 +258,9 @@ class SessionUtility
      * @param string $name session name
      * @param string $method "user" or "ses"
      * @param string $key name to save session
-     * @return string|array Values from session
+     * @return array values from session
      */
-    protected static function getSessionValue(string $name = '', string $method = 'ses', string $key = '')
+    protected static function getSessionValue(string $name = '', string $method = 'ses', string $key = ''): array
     {
         if (empty($key)) {
             $key = self::$extKey;
@@ -265,7 +269,7 @@ class SessionUtility
         if (!empty($name) && isset($powermailSession[$name])) {
             return $powermailSession[$name];
         }
-        return '';
+        return [];
     }
 
     /**
@@ -290,7 +294,7 @@ class SessionUtility
         }
         if (!$overwrite) {
             $oldValues = self::getSessionValue($name, $method, $key);
-            if (!empty($oldValues)) {
+            if ($oldValues) {
                 $values = ArrayUtility::arrayMergeRecursiveOverrule((array)$oldValues, (array)$values);
             }
         }
