@@ -345,7 +345,7 @@ class SaveToAnyTableService
         $where = $this->getUniqueField() . ' = ' . $searchterm;
         $where .= $this->getDeletedWhereClause();
         $where .= $this->getAdditionalWhere();
-        return $queryBuilder
+        return (array)$queryBuilder
             ->select($this->getUniqueIdentifier())
             ->from($this->getTable())
             ->where($where)
