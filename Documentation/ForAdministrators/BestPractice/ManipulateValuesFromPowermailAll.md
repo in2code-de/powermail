@@ -9,7 +9,7 @@ All you need is the:
 
 - Marker name of the field that you want to manipulate - e.g. {markerName}
 
-on differnt views:
+on different views:
 
 - Confirmation Page
 - Submit Page
