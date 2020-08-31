@@ -4,6 +4,8 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.1.3       | 2020-08-31   | Bugfix: Don't parse FlexForm field receivers if a different type is used                                              |
+|             |              | Bugfix: Prevent exception when saving values to third party table                                                     |
 | 8.1.2       | 2020-07-10   | Bugfix: Fix typo in TypoScript condition for Pi2                                                                      |
 |             |              | Task: Small documentation update                                                                                      |
 | 8.1.1       | 2020-06-22   | Bugfix: Fix mapping to fe_users and fe_groups                                                                         |
