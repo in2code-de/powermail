@@ -254,9 +254,9 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * @return User|null
+     * @return User|LazyLoadingProxy|null
      */
-    public function getFeuser(): ?User
+    public function getFeuser()
     {
         return $this->feuser;
     }
