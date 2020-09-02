@@ -1005,7 +1005,7 @@ plugin.tx_powermail {
 }
 
 # Overwrite classes if bootrap classes given
-[globalVar = LIT:0 < {$plugin.tx_powermail.settings.styles.bootstrap.important}]
+[{$plugin.tx_powermail.settings.styles.bootstrap.important} == 1]
 plugin.tx_powermail {
 	settings.setup {
 		styles {
@@ -1030,13 +1030,13 @@ plugin.tx_powermail {
 [end]
 
 # add jQuery if it was turned on in the constants
-[globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle}]
+[{$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle} == 1]
 page.includeJSFooterlibs.powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
 page.includeJSFooterlibs.powermailJQuery.external = 1
 [end]
 
 # add jQuery if it was turned on in the constants
-[globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addAdditionalJavaScript}]
+[{$plugin.tx_powermail.settings.javascript.addAdditionalJavaScript} == 1]
 page {
 	# Inlude JavaScript files
 	includeJSFooter {

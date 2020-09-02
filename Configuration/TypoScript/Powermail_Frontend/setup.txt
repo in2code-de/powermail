@@ -88,7 +88,7 @@ powermail_frontend_rss {
 
 	10 < styles.content.get
 }
-[globalVar = GP:type = 31311] || [globalVar = GP:type = 31312] || [globalVar = GP:type = 31319]
+[getTSFE().type == 31311 || getTSFE().type == 31312 || getTSFE().type == 31319]
 	# we don't want the wrapper div in our export files
 	tt_content.stdWrap.innerWrap >
 [end]
@@ -101,7 +101,7 @@ powermail_frontend_rss {
 ############################
 
 # add jQuery if it was turned on in the constants
-[globalVar = LIT:0 < {$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle}]
+[{$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle} == 1]
 page {
 	# Inlude JavaScript files
 	includeJSFooterlibs {
@@ -131,7 +131,7 @@ plugin.tx_powermail {
 }
 
 # Overwrite classes if bootrap classes given
-[globalVar = LIT:0 < {$plugin.tx_powermail.settings.styles.bootstrap.important}]
+[{$plugin.tx_powermail.settings.styles.bootstrap.important} == 1]
 	plugin.tx_powermail {
 		settings.Pi2 {
 			styles {
