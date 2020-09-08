@@ -337,6 +337,9 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0190; type=text; label= Framework classname(s) for "create" message after submit
 				createClasses = powermail_create
 			}
+
+			# Disable bootstrap classes per default. Line will be overwritten if static template for bootstrap classes is added after main template
+			bootstrap.important = 0
 		}
 	}
 }
