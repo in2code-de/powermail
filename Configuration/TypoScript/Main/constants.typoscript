@@ -338,8 +338,10 @@ plugin.tx_powermail {
 				createClasses = powermail_create
 			}
 
-			# Disable bootstrap classes per default. Line will be overwritten if static template for bootstrap classes is added after main template
-			bootstrap.important = 0
+			bootstrap {
+        # cat=powermail_styles//0200; type=boolean; label= Activate bootstrap classes (constants in {$plugin.tx_powermail.settings.styles.bootstrap.*} override {$plugin.tx_powermail.settings.styles.framework.*})
+        important = 0
+      }
 		}
 	}
 }

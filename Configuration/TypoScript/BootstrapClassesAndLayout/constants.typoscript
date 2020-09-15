@@ -13,7 +13,6 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0020; type=int+; label= Number of columns
 				numberOfColumns = 2
 
-
 				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for row containers
 				rowClasses = row
 
@@ -47,7 +46,7 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0190; type=text; label= Framework classname(s) for "create" message after submit
 				createClasses = powermail_create
 
-				# if this constant is set, constants {$plugin.tx_powermail.settings.styles.bootstrap.*} overrides {$plugin.tx_powermail.settings.styles.framework.*}
+        # cat=powermail_styles//0200; type=boolean; label= Activate bootstrap classes (constants in {$plugin.tx_powermail.settings.styles.bootstrap.*} override {$plugin.tx_powermail.settings.styles.framework.*})
 				important = 1
 			}
 		}
