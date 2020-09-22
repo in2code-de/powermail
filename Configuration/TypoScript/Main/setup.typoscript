@@ -1004,31 +1004,6 @@ plugin.tx_powermail {
 	}
 }
 
-# Overwrite classes if bootrap classes given
-[{$plugin.tx_powermail.settings.styles.bootstrap.important} == 1]
-plugin.tx_powermail {
-	settings.setup {
-		styles {
-			numberOfColumns = {$plugin.tx_powermail.settings.styles.bootstrap.numberOfColumns}
-
-			framework {
-				rowClasses = {$plugin.tx_powermail.settings.styles.bootstrap.rowClasses}
-				formClasses = {$plugin.tx_powermail.settings.styles.bootstrap.formClasses}
-				fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldAndLabelWrappingClasses}
-				fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldWrappingClasses}
-				labelClasses = {$plugin.tx_powermail.settings.styles.bootstrap.labelClasses}
-				fieldClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldClasses}
-				offsetClasses = {$plugin.tx_powermail.settings.styles.bootstrap.offsetClasses}
-				radioClasses = {$plugin.tx_powermail.settings.styles.bootstrap.radioClasses}
-				checkClasses = {$plugin.tx_powermail.settings.styles.bootstrap.checkClasses}
-				submitClasses = {$plugin.tx_powermail.settings.styles.bootstrap.submitClasses}
-				createClasses = {$plugin.tx_powermail.settings.styles.bootstrap.createClasses}
-			}
-		}
-	}
-}
-[end]
-
 # add jQuery if it was turned on in the constants
 
 [{$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle} == 1]
@@ -1036,11 +1011,11 @@ page.includeJSFooterlibs.powermailJQuery = {$plugin.tx_powermail.settings.javasc
 page.includeJSFooterlibs.powermailJQuery.external = 1
 [end]
 
-# add jQuery if it was turned on in the constants
+# add additional javascript libs, if it was turned on in the constants
 
 [{$plugin.tx_powermail.settings.javascript.addAdditionalJavaScript} == 1]
 page {
-	# Inlude JavaScript files
+	# Include JavaScript files
 	includeJSFooter {
 		powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScript/Libraries/jquery.datetimepicker.min.js
 		powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScript/Libraries/parsley.min.js
