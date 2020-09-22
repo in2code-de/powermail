@@ -337,6 +337,11 @@ plugin.tx_powermail {
 				# cat=powermail_styles//0190; type=text; label= Framework classname(s) for "create" message after submit
 				createClasses = powermail_create
 			}
+
+			bootstrap {
+        # cat=powermail_styles//0200; type=boolean; label= Activate bootstrap classes (constants in {$plugin.tx_powermail.settings.styles.bootstrap.*} override {$plugin.tx_powermail.settings.styles.framework.*})
+        important = 0
+      }
 		}
 	}
 }
