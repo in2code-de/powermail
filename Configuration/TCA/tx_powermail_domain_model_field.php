@@ -342,8 +342,8 @@ $fieldsTca = [
     ],
     'columns' => [
         'sys_language_uid' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.language',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -351,15 +351,15 @@ $fieldsTca = [
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'default' => 0,
                 'items' => [
-                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.allLanguages', -1],
-                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.default_value', 0]
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
                 ],
             ],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.l18n_parent',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -386,16 +386,16 @@ $fieldsTca = [
             ]
         ],
         'hidden' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.hidden',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'starttime' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.starttime',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -410,8 +410,8 @@ $fieldsTca = [
         ],
         'endtime' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.endtime',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -425,7 +425,7 @@ $fieldsTca = [
             ],
         ],
         'title' => [
-            'exclude' => 0,
+            'exclude' => false,
             'label' =>
                 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.title',
             'config' => [
@@ -436,7 +436,7 @@ $fieldsTca = [
         ],
         'type' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 0,
+            'exclude' => false,
             'label' =>
                 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.type',
             'config' => [
@@ -556,7 +556,7 @@ $fieldsTca = [
             ],
         ],
         'settings' => [
-            'exclude' => 0,
+            'exclude' => false,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.settings',
             'config' => [
@@ -568,7 +568,7 @@ $fieldsTca = [
         ],
         'path' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.path',
             'config' => [
                 'type' => 'input',
@@ -577,7 +577,7 @@ $fieldsTca = [
             ],
         ],
         'content_element' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.content_element',
             'config' => [
@@ -591,7 +591,7 @@ $fieldsTca = [
             ],
         ],
         'text' => [
-            'exclude' => 0,
+            'exclude' => false,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.text',
             'config' => [
                 'type' => 'text',
@@ -602,7 +602,7 @@ $fieldsTca = [
         ],
         'sender_email' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.sender_email',
             'config' => [
@@ -611,7 +611,7 @@ $fieldsTca = [
         ],
         'sender_name' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.sender_name',
             'config' => [
@@ -620,7 +620,7 @@ $fieldsTca = [
         ],
         'mandatory' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.mandatory',
             'config' => [
@@ -629,7 +629,7 @@ $fieldsTca = [
         ],
         'validation' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'onChange' => 'reload',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.validation',
@@ -793,7 +793,7 @@ $fieldsTca = [
         ],
         'validation_configuration' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.validationConfiguration',
             'config' => [
@@ -803,7 +803,7 @@ $fieldsTca = [
             'displayCond' => 'FIELD:validation:>:5'
         ],
         'prefill_value' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.prefill_value',
             'config' => [
@@ -814,7 +814,7 @@ $fieldsTca = [
             ],
         ],
         'placeholder' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.placeholder',
             'config' => [
@@ -826,7 +826,7 @@ $fieldsTca = [
         ],
         'feuser_value' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.feuser_value',
             'config' => [
@@ -895,7 +895,7 @@ $fieldsTca = [
             ],
         ],
         'create_from_typoscript' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.create_from_typoscript',
             'config' => [
@@ -907,7 +907,7 @@ $fieldsTca = [
         ],
         'css' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css',
             'config' => [
                 'type' => 'select',
@@ -941,7 +941,7 @@ $fieldsTca = [
         ],
         'multiselect' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.multiselect',
             'config' => [
@@ -950,7 +950,7 @@ $fieldsTca = [
         ],
         'datepicker_settings' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.datepicker_settings',
             'config' => [
@@ -981,7 +981,7 @@ $fieldsTca = [
         'auto_marker' => [
             // show marker in Backend record {markername}
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.auto_marker',
             'config' => [
@@ -1007,7 +1007,7 @@ $fieldsTca = [
         'own_marker_select' => [
             // checkbox to edit a marker
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'onChange' => 'reload',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.own_marker_select',
@@ -1017,7 +1017,7 @@ $fieldsTca = [
             ]
         ],
         'description' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.description',
             'config' => [
@@ -1028,7 +1028,7 @@ $fieldsTca = [
             ],
         ],
         'page' => [
-            'exclude' => 1,
+            'exclude' => true,
             'displayCond' => 'FIELD:sys_language_uid:<=:0',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.pages',
             'config' => [

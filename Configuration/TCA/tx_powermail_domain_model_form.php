@@ -40,8 +40,8 @@ $formsTca = [
     ],
     'columns' => [
         'sys_language_uid' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.language',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -49,15 +49,15 @@ $formsTca = [
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'default' => 0,
                 'items' => [
-                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.allLanguages', -1],
-                    ['LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.default_value', 0]
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
                 ],
             ],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.l18n_parent',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -76,7 +76,7 @@ $formsTca = [
             ],
         ],
         't3ver_label' => [
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.versionLabel',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.versionLabel',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -84,16 +84,16 @@ $formsTca = [
             ]
         ],
         'hidden' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.hidden',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'starttime' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.starttime',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -108,8 +108,8 @@ $formsTca = [
         ],
         'endtime' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
-            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:LGL.endtime',
+            'exclude' => true,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -123,7 +123,7 @@ $formsTca = [
             ],
         ],
         'title' => [
-            'exclude' => 0,
+            'exclude' => false,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.title',
             'config' => [
                 'type' => 'input',
@@ -142,7 +142,7 @@ $formsTca = [
         ],
         'css' => [
             'l10n_mode' => 'exclude',
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.css',
             'config' => [
                 'type' => 'select',
@@ -175,7 +175,7 @@ $formsTca = [
             ],
         ],
         'pages' => [
-            'exclude' => 0,
+            'exclude' => false,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.pages',
             'config' => [
                 'type' => 'inline',
@@ -207,7 +207,7 @@ $formsTca = [
 if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
     $formsTca['columns']['pages'] = [
         'l10n_mode' => 'exclude',
-        'exclude' => 0,
+        'exclude' => false,
         'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.pages',
         'config' => [
             'type' => 'group',
