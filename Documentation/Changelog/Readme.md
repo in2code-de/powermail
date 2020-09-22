@@ -4,6 +4,9 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.2.0       | 2020-09-22   | Feature: Add a Services.yaml with a default configuration to improve extension possibilities                          |
+|             |              | Bugfix: Fix a possible type hint exception in FormSelectorUserFunc                                                    |
+|             |              | Bugfix: Add missing translations in TCA for default fields again                                                      |
 | 8.1.4       | 2020-09-01   | Bugfix: Fix possible exception with logged in frontend users and optin                                                |
 |             |              | Task: Fix typo in documentation                                                                                       |
 | 8.1.3       | 2020-08-31   | Bugfix: Don't parse FlexForm field receivers if a different type is used                                              |
