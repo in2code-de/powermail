@@ -91,7 +91,7 @@ class SendDisclaimedMailPreflight
                 'format' => $this->settings['sender']['mailformat'],
                 'variables' => ['mail' => $mail]
             ];
-            $this->sendMailService->sendMail($email, $mail, $this->settings, 'optin');
+            $this->sendMailService->sendMail($email, $mail, $this->settings, 'disclaimer');
         }
     }
 }
