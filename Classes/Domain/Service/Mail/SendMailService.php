@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Domain\Service\Mail\PlaintextService;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ArrayUtility;
@@ -12,6 +13,8 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use Symfony\Component\Mime\Address;
+use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -110,12 +113,17 @@ class SendMailService
      */
     protected function prepareAndSend(array $email): bool
     {
-        $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
+        /** @var FluidEmail $message */
+        $message = GeneralUtility::makeInstance(FluidEmail::class);
+
         $message
-            ->setTo([$email['receiverEmail'] => $email['receiverName']])
-            ->setFrom([$email['senderEmail'] => $email['senderName']])
-            ->setReplyTo([$email['replyToEmail'] => $email['replyToName']])
-            ->setSubject($email['subject']);
+            ->to(new Address($email['receiverEmail'], $email['receiverName']))
+            ->from(new Address($email['senderEmail'], $email['senderName']))
+            ->replyTo(new Address($email['replyToEmail'], $email['replyToName']))
+            ->subject($email['subject'])
+            ->setTemplate('PowermailDefault');
+        $message = $this->addHtmlBody($message, $email);
+        $message = $this->addPlainBody($message, $email);
         $message = $this->addCc($message);
         $message = $this->addBcc($message);
         $message = $this->addReturnPath($message);
@@ -123,9 +131,8 @@ class SendMailService
         $message = $this->addPriority($message);
         $message = $this->addAttachmentsFromUploads($message);
         $message = $this->addAttachmentsFromTypoScript($message);
-        $message = $this->addHtmlBody($message, $email);
-        $message = $this->addPlainBody($message, $email);
         $message = $this->addSenderHeader($message);
+
 
         $email['send'] = true;
         $signalArguments = [$message, &$email, $this];
@@ -141,26 +148,30 @@ class SendMailService
             return false;
         }
 
-        $message->send();
+        GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\Mailer::class)->send($message);
+
         $this->updateMail($email);
-        return $message->isSent();
+        return true;
     }
 
     /**
      * Add CC receivers
      *
-     * @param MailMessage $message
-     * @return MailMessage
+     * @param FluidEmail $message
+     * @return FluidEmail
      * @throws Exception
      */
-    protected function addCc(MailMessage $message): MailMessage
+    protected function addCc(FluidEmail $message): FluidEmail
     {
         $ccValue = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->overwriteConfig['cc'],
             $this->overwriteConfig['cc.']
         );
+
         if (!empty($ccValue)) {
-            $message->setCc(GeneralUtility::trimExplode(',', $ccValue, true));
+            foreach (GeneralUtility::trimExplode(',', $ccValue, true) as $mail){
+                $message->cc(new Address($mail, ''));
+            }
         }
         return $message;
     }
@@ -168,18 +179,20 @@ class SendMailService
     /**
      * Add BCC receivers
      *
-     * @param MailMessage $message
-     * @return MailMessage
+     * @param FluidEmail $message
+     * @return FluidEmail
      * @throws Exception
      */
-    protected function addBcc(MailMessage $message): MailMessage
+    protected function addBcc(FluidEmail $message): FluidEmail
     {
         $bccValue = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->overwriteConfig['bcc'],
             $this->overwriteConfig['bcc.']
         );
         if (!empty($bccValue)) {
-            $message->setBcc(GeneralUtility::trimExplode(',', $bccValue, true));
+            foreach (GeneralUtility::trimExplode(',', $bccValue, true) as $mail){
+                $message->bcc(new Address($mail, ''));
+            }
         }
         return $message;
     }
@@ -187,18 +200,18 @@ class SendMailService
     /**
      * Add return path
      *
-     * @param MailMessage $message
-     * @return MailMessage
+     * @param FluidEmail $message
+     * @return FluidEmail
      * @throws Exception
      */
-    protected function addReturnPath(MailMessage $message): MailMessage
+    protected function addReturnPath(FluidEmail $message): FluidEmail
     {
         $returnPathValue = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->overwriteConfig['returnPath'],
             $this->overwriteConfig['returnPath.']
         );
         if (!empty($returnPathValue)) {
-            $message->setReturnPath($returnPathValue);
+            $message->returnPath($returnPathValue);
         }
         return $message;
     }
@@ -206,11 +219,11 @@ class SendMailService
     /**
      * Add reply addresses if replyToEmail and replyToName isset
      *
-     * @param MailMessage $message
-     * @return MailMessage
+     * @param FluidEmail $message
+     * @return FluidEmail
      * @throws Exception
      */
-    protected function addReplyAddresses(MailMessage $message): MailMessage
+    protected function addReplyAddresses(FluidEmail $message): FluidEmail
     {
         $replyToEmail = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->overwriteConfig['replyToEmail'],
@@ -221,11 +234,7 @@ class SendMailService
             $this->overwriteConfig['replyToName.']
         );
         if (!empty($replyToEmail) && !empty($replyToName)) {
-            $message->setReplyTo(
-                [
-                    $replyToEmail => $replyToName
-                ]
-            );
+            $message->replyTo(new Address($replyToEmail, $replyToName));
         }
         return $message;
     }
@@ -233,10 +242,10 @@ class SendMailService
     /**
      * Add mail priority
      *
-     * @param MailMessage $message
-     * @return MailMessage
+     * @param FluidEmail $message
+     * @return FluidEmail
      */
-    protected function addPriority(MailMessage $message): MailMessage
+    protected function addPriority(FluidEmail $message): FluidEmail
     {
         $priorityValue = (int)$this->settings[$this->type]['overwrite']['priority'];
         if ($priorityValue > 0) {
@@ -246,13 +255,13 @@ class SendMailService
     }
 
     /**
-     * @param MailMessage $message
-     * @return MailMessage
+     * @param FluidEmail $message
+     * @return FluidEmail
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      * @throws Exception
      */
-    protected function addAttachmentsFromUploads(MailMessage $message): MailMessage
+    protected function addAttachmentsFromUploads(FluidEmail $message): FluidEmail
     {
         if (!empty($this->settings[$this->type]['attachment']) && !empty($this->settings['misc']['file']['folder'])) {
             /** @var UploadService $uploadService */
@@ -269,11 +278,11 @@ class SendMailService
     /**
      * Add attachments from TypoScript definition
      *
-     * @param MailMessage $message
-     * @return MailMessage
+     * @param FluidEmail $message
+     * @return FluidEmail
      * @throws Exception
      */
-    protected function addAttachmentsFromTypoScript(MailMessage $message): MailMessage
+    protected function addAttachmentsFromTypoScript(FluidEmail $message): FluidEmail
     {
         $filesValue = ObjectUtility::getContentObject()->cObjGetSingle(
             $this->configuration[$this->type . '.']['addAttachment'],
@@ -295,9 +304,9 @@ class SendMailService
     }
 
     /**
-     * @param MailMessage $message
+     * @param FluidEmail $message
      * @param array $email
-     * @return MailMessage
+     * @return FluidEmail
      * @throws InvalidConfigurationTypeException
      * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
@@ -305,18 +314,18 @@ class SendMailService
      * @throws InvalidSlotReturnException
      * @throws Exception
      */
-    protected function addHtmlBody(MailMessage $message, array $email): MailMessage
+    protected function addHtmlBody(FluidEmail $message, array $email): FluidEmail
     {
         if ($email['format'] !== 'plain') {
-            $message->html($this->createEmailBody($email), FrontendUtility::getCharset());
+            $message->assign('htmlContent', $this->createEmailBody($email));
         }
         return $message;
     }
 
     /**
-     * @param MailMessage $message
+     * @param FluidEmail $message
      * @param array $email
-     * @return MailMessage
+     * @return FluidEmail
      * @throws InvalidConfigurationTypeException
      * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
@@ -324,11 +333,11 @@ class SendMailService
      * @throws InvalidSlotReturnException
      * @throws Exception
      */
-    protected function addPlainBody(MailMessage $message, array $email): MailMessage
+    protected function addPlainBody(FluidEmail $message, array $email): FluidEmail
     {
         if ($email['format'] !== 'html') {
-            $plaintextService = ObjectUtility::getObjectManager()->get(PlaintextService::class);
-            $message->text($plaintextService->makePlain($this->createEmailBody($email)), FrontendUtility::getCharset());
+            $plaintextService = GeneralUtility::makeInstance(PlaintextService::class);
+            $message->assign('txtContent', $plaintextService->makePlain($this->createEmailBody($email)));
         }
         return $message;
     }
@@ -336,11 +345,11 @@ class SendMailService
     /**
      * Set Sender Header according to RFC 2822 - 3.6.2 Originator fields
      *
-     * @param MailMessage $message
-     * @return MailMessage
+     * @param FluidEmail $message
+     * @return FluidEmail
      * @throws Exception
      */
-    protected function addSenderHeader(MailMessage $message): MailMessage
+    protected function addSenderHeader(FluidEmail $message): FluidEmail
     {
         $senderHeaderConfig = $this->configuration[$this->type . '.']['senderHeader.'];
         $email = ObjectUtility::getContentObject()->cObjGetSingle(
@@ -355,7 +364,7 @@ class SendMailService
             if (empty($name)) {
                 $name = null;
             }
-            $message->setSender($email, $name);
+            $message->sender(new Address($email, $name));
         }
         return $message;
     }

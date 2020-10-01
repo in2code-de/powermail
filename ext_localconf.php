@@ -111,4 +111,8 @@ call_user_func(function () {
         = \In2code\Powermail\Update\PowermailRelationUpdateWizard::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailLanguageUpdateWizard']
         = \In2code\Powermail\Update\PowermailLanguageUpdateWizard::class;
+
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'][100] = 'EXT:powermail/Resources/Private/Templates/Email/Templates';
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths'][100] = 'EXT:powermail/Resources/Private/Templates/Email/Partials';
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths'][100] = 'EXT:powermail/Resources/Private/Templates/Email/Layouts';
 });
