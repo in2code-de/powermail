@@ -10,7 +10,7 @@ default:
   extensions:
     Behat\MinkExtension:
       base_url: "https://www.powermail.docker"
-      files_path: "/app/fileadmin/user_upload"
+      files_path: "/app/packages/powermail/Tests/Behavior/Assets"
       default_session: goutte
       javascript_session: selenium2
       goutte:
