@@ -57,3 +57,15 @@ services:
 The path to the config file is the path within the docker container of behat. If you want to change some values in the
 config file, you can copy it outside the repo and then use this file. Please pay attention not to change and commit the
 defaults.
+
+## Testing file uploads
+
+All necessary file for testing the file upload are available in `EXT:powermail/Tests/Behavior/Assets`. Depending on
+your setup, you must adjust the path info in `behat.yml` and / or copy them to an appropriate location.
+
+```
+  extensions:
+    Behat\MinkExtension:
+      # adjust this path
+      files_path: "/app/packages/powermail/Tests/Behavior/Assets"
+```
