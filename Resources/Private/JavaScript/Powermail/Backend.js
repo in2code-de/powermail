@@ -477,7 +477,7 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var sendVisibilityRequest = function(table, uid, hidden, moduleUri) {
-		var url = moduleUri + '&data[' + table + '][' + uid + '][hidden]=' + hidden + '&redirect=' + T3_THIS_LOCATION;
+		var url = moduleUri + '&data[' + table + '][' + uid + '][hidden]=' + hidden;
 		$.ajax({
 			url: url
 		});
@@ -493,7 +493,7 @@ function PowermailBackend($) {
 	 * @private
 	 */
 	var sendDeleteRequest = function(table, uid, moduleUri) {
-		var url = moduleUri + '&cmd[' + table + '][' + uid + '][delete]=1&redirect=' + T3_THIS_LOCATION;
+		var url = moduleUri + '&cmd[' + table + '][' + uid + '][delete]=1';
 		$.ajax({
 			url: url
 		});
