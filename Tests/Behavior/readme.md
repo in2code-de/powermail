@@ -5,7 +5,7 @@
 * First of all, do a `composer update` in powermail root folder
 * You have to install a local TYPO3-instance in the next step and it should be available under `powermail.localhost.de`
 * Move (or symlink) the powermail-Folder into typo3conf/ext/ and activate the extension.
-* Them import the database dump from http://powermail.in2code.ws/fileadmin/behat/powermail.sql.gz
+* Then import the database dump from http://powermail.in2code.ws/fileadmin/behat/powermail.sql.gz
 
 ## Command line
 
@@ -28,3 +28,44 @@
 Screen from the huge testparcours that has to be passed before every release:
 
 <img src="https://s.nimbus.everhelper.me/attachment/1427661/h7antft74egdzrck2xq8/262407-yUdChFKtnZ475SlH/screen.png" width="200" />
+
+## Behaviour tests with docker
+
+### Preparation
+
+* update docker-compose.yml with the following lines
+
+```
+services:
+  behat:
+    hostname: behat
+    image: docksal/behat
+    volumes:
+      - ./:/app/:cached
+    # Run a built-in web server for access to HTML reports
+    entrypoint: "php -S 0.0.0.0:8000"
+
+  browser:
+    hostname: browser
+    # Pick/uncomment one
+    image: selenium/standalone-chrome
+```
+
+* run `docker-compose up -d --build` to fetch the images and start the container
+* run `docker exec $(docker-compose ps -q behat) behat --colors --format=pretty --out=std --out=html_report.html --verbose --config "/app/packages/powermail/Tests/Behavior/behat-docker.yml"`
+
+The path to the config file is the path within the docker container of behat. If you want to change some values in the
+config file, you can copy it outside the repo and then use this file. Please pay attention not to change and commit the
+defaults.
+
+## Testing file uploads
+
+All necessary file for testing the file upload are available in `EXT:powermail/Tests/Behavior/Assets`. Depending on
+your setup, you must adjust the path info in `behat.yml` and / or copy them to an appropriate location.
+
+```
+  extensions:
+    Behat\MinkExtension:
+      # adjust this path
+      files_path: "/app/packages/powermail/Tests/Behavior/Assets"
+```

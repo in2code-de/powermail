@@ -43,7 +43,7 @@ class EditLinkViewHelper extends AbstractViewHelper
     public function render(): string
     {
         $table = $this->arguments['table'];
-        $identifier = $this->arguments['identifier'];
+        $identifier = (int)$this->arguments['identifier'];
         if (array_key_exists($table, $this->tables)) {
             $table = $this->tables[$table];
         }

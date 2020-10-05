@@ -111,7 +111,7 @@ class AddOptionsToSelection
     {
         foreach ($this->getFieldOptionsFromTsConfig() as $value => $label) {
             if (StringUtility::endsWith((string)$value, '.') === false) {
-                $this->addOption($value, $label);
+                $this->addOption((string)$value, $label);
             }
         }
     }

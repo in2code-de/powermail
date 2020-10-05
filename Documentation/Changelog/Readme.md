@@ -4,6 +4,9 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.2.1       | 2020-10-05   | Bugfix: Fix AJAX requests for hiding/enabling and deleting mails in backend module                                    |
+|             |              | Bugfix: Fix a possible type hint exception when powermail gets extended from third party extensions                   |
+|             |              | Bugfix: Fix a possible type hint exception in Pi2                                                                     |
 | 8.2.0       | 2020-09-22   | Feature: Add a Services.yaml with a default configuration to improve extension possibilities                          |
 |             |              | Bugfix: Fix a possible type hint exception in FormSelectorUserFunc                                                    |
 |             |              | Bugfix: Add missing translations in TCA for default fields again                                                      |
