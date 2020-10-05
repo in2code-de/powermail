@@ -27,8 +27,6 @@ $answersTca = [
         'iconfile' => ConfigurationUtility::getIconPath(Answer::TABLE_NAME . '.gif')
     ],
     'interface' => [
-        'showRecordFieldList' =>
-            'sys_language_uid, l10n_parent, l10n_diffsource, hidden, value, value_type, field, mail',
     ],
     'types' => [
         '1' => ['showitem' => 'value, value_type, field, mail'],

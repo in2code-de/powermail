@@ -39,11 +39,6 @@ $mailsTca = [
         'searchFields' => 'sender_mail, sender_name, subject, body'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, ' .
-            'crdate, receiver_mail, sender_name, sender_mail, subject, form, answers, body, ' .
-            'feuser, spam_factor, time, sender_ip, user_agent, marketing_referer_domain, ' .
-            'marketing_referer, marketing_country, marketing_mobile_device, ' .
-            'marketing_frontend_language, marketing_browser_language, marketing_page_funnel',
     ],
     'types' => [
         '1' => [
