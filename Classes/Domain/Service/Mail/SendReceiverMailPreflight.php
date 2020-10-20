@@ -63,6 +63,10 @@ class SendReceiverMailPreflight
             $this->settings
         );
         $isSent = false;
+        if (empty($this->settings['receiver']['subject'])) {
+            // avoid error flashmessage if subject is deliberately empty (and thus deactivates mailing)
+            return true;
+        }
         foreach ($receiverService->getReceiverEmails() as $receiver) {
             $email = [
                 'template' => 'Mail/ReceiverMail',
