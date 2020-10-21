@@ -229,10 +229,6 @@ $fieldsTca = [
         'iconfile' => ConfigurationUtility::getIconPath(Field::TABLE_NAME . '.gif')
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, type, settings, ' .
-            'path, content_element, text, prefill_value, placeholder, create_from_typoscript, mandatory, ' .
-            'validation, validation_configuration, css, description, multiselect, datepicker_settings, ' .
-            'feuser_value, sender_email, sender_name, own_marker_select, auto_marker, marker',
     ],
     'palettes' => [
         '1' => [

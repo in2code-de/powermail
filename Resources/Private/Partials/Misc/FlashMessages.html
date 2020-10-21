@@ -1,6 +1,6 @@
-<f:comment>
-    Flashmessages for TYPO3 8.6 and newer
-</f:comment>
+{namespace vh=In2code\Powermail\ViewHelpers}
+<vh:misc.checkForTypoScript settings="{settings}" />
+
 <f:flashMessages as="flashMessages">
     <ul class="powermail_message {flashMessageClass}">
         <f:for each="{flashMessages}" as="flashMessage">

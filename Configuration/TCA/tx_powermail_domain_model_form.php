@@ -27,7 +27,6 @@ $formsTca = [
         'iconfile' => ConfigurationUtility::getIconPath(Form::TABLE_NAME . '.gif')
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, css, pages, note',
     ],
     'types' => [
         '1' => [

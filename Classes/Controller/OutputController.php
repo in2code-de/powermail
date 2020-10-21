@@ -32,7 +32,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class OutputController extends AbstractController
 {
-
     /**
      * @return void
      * @throws InvalidQueryException
@@ -284,24 +283,6 @@ class OutputController extends AbstractController
         $this->view->assign('singlePid', $this->settings['single']['pid']);
         $this->view->assign('listPid', $this->settings['list']['pid']);
         $this->view->assign('editPid', $this->settings['edit']['pid']);
-    }
-
-    /**
-     * @return void
-     */
-    protected function initializeAction()
-    {
-        parent::initializeAction();
-
-        // check if ts is included
-        if (!isset($this->settings['staticTemplate'])) {
-            $this->controllerContext = $this->buildControllerContext();
-            $this->addFlashMessage(
-                LocalizationUtility::translate('error_no_typoscript_pi2'),
-                '',
-                AbstractMessage::ERROR
-            );
-        }
     }
 
     /**

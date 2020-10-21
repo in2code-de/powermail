@@ -51,9 +51,13 @@ class FrontendUtility
      */
     public static function getSysLanguageUid(): int
     {
-        /** @var SiteLanguage $siteLanguage */
-        $siteLanguage = ObjectUtility::getTyposcriptFrontendController()->getLanguage();
-        return $siteLanguage->getLanguageId();
+        $tsfe = ObjectUtility::getTyposcriptFrontendController();
+        if ($tsfe !== null) {
+            /** @var SiteLanguage $siteLanguage */
+            $siteLanguage = $tsfe->getLanguage();
+            return $siteLanguage->getLanguageId();
+        }
+        return 0;
     }
 
     /**
@@ -182,7 +186,7 @@ class FrontendUtility
     public static function getDomainFromUri(string $uri): string
     {
         $uriParts = parse_url($uri);
-        return $uriParts['host'];
+        return (string)$uriParts['host'];
     }
 
     /**
