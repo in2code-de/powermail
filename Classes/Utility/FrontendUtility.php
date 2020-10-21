@@ -186,7 +186,7 @@ class FrontendUtility
     public static function getDomainFromUri(string $uri): string
     {
         $uriParts = parse_url($uri);
-        return $uriParts['host'];
+        return (string)$uriParts['host'];
     }
 
     /**
