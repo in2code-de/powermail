@@ -173,12 +173,8 @@
 				<target state="translated">Fehler, die Nachricht konnte leider nicht korrekt versendet werden!</target>
 			</trans-unit>
 			<trans-unit id="error_no_typoscript">
-				<source>No TypoScript settings given. Admin, did you already include the "Main" static template?</source>
-				<target state="translated">Kein TypoScript gefunden. Sind Sie sicher, dass Sie das "Main" Static Template eingebunden haben?</target>
-			</trans-unit>
-			<trans-unit id="error_no_typoscript_pi2">
-				<source>No TypoScript settings given. Admin, did you already include the "Powermail_Frontend" static template?</source>
-				<target state="translated">Kein TypoScript gefunden. Sind Sie sicher, dass Sie das "Powermail_Frontend" Static Template eingebunden haben?</target>
+				<source>TypoScript settings are missing. Did you include the related static templates?</source>
+				<target state="translated">TypoScript benötigt. Sind Sie sicher, dass Sie die erforderlichen Static Templates eingebunden haben?</target>
 			</trans-unit>
 			<trans-unit id="error_no_sender_name">
 				<source>No Sendername</source>

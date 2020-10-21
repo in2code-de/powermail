@@ -404,21 +404,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * @return void
-     * @codeCoverageIgnore
-     */
-    public function initializeAction()
-    {
-        parent::initializeAction();
-
-        // @codeCoverageIgnoreStart
-        if (!isset($this->settings['staticTemplate'])) {
-            $this->controllerContext = $this->buildControllerContext();
-            $this->addFlashMessage(LocalizationUtility::translate('error_no_typoscript'), '', AbstractMessage::ERROR);
-        }
-    }
-
-    /**
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
      *
