@@ -4,6 +4,9 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.2.2       | 2020-10-21   | Bugfix: Fix false positive error message in frontend "TypoScript is missing" together with marketing information      |
+|             |              | Bugfix: Fix a possible type hint error logs when no referrer is available                                             |
+|             |              | Bugfix: Fix a possible type hint exception if TSFE is not available                                                   |
 | 8.2.1       | 2020-10-05   | Bugfix: Fix AJAX requests for hiding/enabling and deleting mails in backend module                                    |
 |             |              | Bugfix: Fix a possible type hint exception when powermail gets extended from third party extensions                   |
 |             |              | Bugfix: Fix a possible type hint exception in Pi2                                                                     |
