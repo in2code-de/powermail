@@ -30,10 +30,10 @@ With this TSConfig a new Option is available:
 ![developer_new_fields2](../Images/developer_new_fields2.png)
 
 If an editor chose the new field, powermail searches by default for a Partial with Name New.html
-(Default Path is powermail/Resources/Private/Partials/Form/New.html).
+(Default Path is powermail/Resources/Private/Partials/Form/Field/New.html).
 
 Because you should not modify anything within an extension-folder (because of upcoming extension-updates),
-you should create a new file in your fileadmin folder - e.g.: fileadmin/powermail/Partials/Form/New.html
+you should create a new file in your fileadmin folder - e.g.: fileadmin/powermail/Partials/Form/Field/New.html
 
 ### Example Content:
 
