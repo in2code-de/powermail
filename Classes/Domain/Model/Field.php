@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Exception\DeprecatedException;
+use In2code\Powermail\Enumeration\AutocompleteType;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
@@ -144,6 +145,24 @@ class Field extends AbstractEntity
      * @var \In2code\Powermail\Domain\Model\Page
      */
     protected $page = null;
+
+    /**
+     * autocomplete
+     *        Powermail field autocomplete types are:
+     *        "on", "off", "name", "honorific-prefix", "given-name", "additional-name", "family-name",
+     *        "honorific-suffix", "nickname", "username", "new-password", "current-password",
+     *        "organization-title", "organization", "street-address", "address-line1", "address-line2",
+     *        "address-line3", "address-level4", "address-level3", "address-level2",
+     *        "address-level1", "country", "country-name", "postal-code", "cc-name",
+     *        "cc-given-name", "cc-additional-name", "cc-family-name", "cc-number", "cc-exp",
+     *        "cc-exp-month", "cc-exp-year", "cc-csc", "cc-type", "transaction-currency",
+     *        "transaction-amount", "language", "bday", "bday-day", "bday-month", "bday-year",
+     *        "sex", "url", "photo", "tel", "tel-country-code", "tel-national", "tel-area-code",
+     *        "tel-local", "tel-local-prefix", "tel-local-suffix", "tel-extension", "email", "impp"
+     *
+     * @var string
+     */
+    protected $autocomplete = '';
 
     /**
      * @return string
@@ -822,5 +841,32 @@ class Field extends AbstractEntity
             }
         }
         return $types;
+    }
+
+    /**
+     * Returns the autocomplete. If the autocomplete value is invalid we return off state.
+     *
+     * @return string $autocomplete
+     */
+    public function getAutocomplete()
+    {
+        try {
+            $autocomplete = AutocompleteType::cast($this->autocomplete);
+        } catch (\TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException $exception) {
+            $autocomplete = AutocompleteType::cast(AutocompleteType::OFF);
+        }
+
+        return $autocomplete;
+    }
+
+    /**
+     * Sets the autocomplete type
+     *
+     * @param string $autocomplete
+     * @return void
+     */
+    public function setAutocomplete($autocomplete)
+    {
+        $this->autocomplete = $autocomplete;
     }
 }

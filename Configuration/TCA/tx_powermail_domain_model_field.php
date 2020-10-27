@@ -14,6 +14,7 @@ $typeDefault = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;2, ' .
+    '--palette--;Autocomplete;50, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.prefill_title;32, ' .
     '--palette--;Layout;43, ' .
@@ -53,6 +54,7 @@ $typeSettingsMultiple = 'page, title, type, settings, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;21, ' .
+    '--palette--;Autocomplete;50, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.prefill_title;33, ' .
     '--palette--;Layout;41, ' .
@@ -98,6 +100,7 @@ $typeSmallPrefill = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.prefill_title;31, ' .
+    '--palette--;Autocomplete;50, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
@@ -111,6 +114,7 @@ $typeSmallPrefillDescription = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;21, ' .
+    '--palette--;Autocomplete;50, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.prefill_title;31, ' .
     '--palette--;Layout;43, ' .
@@ -184,6 +188,7 @@ $typeDate = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;21, ' .
+    '--palette--;Autocomplete;50, ' .
     '--palette--;Layout;42, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -273,6 +278,10 @@ $fieldsTca = [
         ],
         '5' => [
             'showitem' => 'auto_marker, marker, own_marker_select',
+            'canNotCollapse' => 1
+        ],
+        '50' => [
+            'showitem' => 'autocomplete',
             'canNotCollapse' => 1
         ],
         'canNotCollapse' => '1'
@@ -1037,6 +1046,327 @@ $fieldsTca = [
                 'foreign_table_where' => 'AND ' . Page::TABLE_NAME . '.pid=###CURRENT_PID### ' .
                     'AND ' . Page::TABLE_NAME . '.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
                 'default' => 0
+            ],
+        ],
+        'autocomplete' => [
+            'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' =>
+                'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.autocomplete',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.spacer1',
+                        '--div--'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.on',
+                        'on'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.off',
+                        'off'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.spacer2',
+                        '--div--'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.name',
+                        'name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.honorific-prefix',
+                        'honorific-prefix'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.given-name',
+                        'given-name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.additional-name',
+                        'additional-name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.family-name',
+                        'family-name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.honorific-suffix',
+                        'honorific-suffix'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.nickname',
+                        'nickname'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.spacer3',
+                        '--div--'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.tel',
+                        'tel'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.tel-country-code',
+                        'tel-country-code'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.tel-national',
+                        'tel-national'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.tel-area-code',
+                        'tel-area-code'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.tel-local',
+                        'tel-local'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.tel-local-prefix',
+                        'tel-local-prefix'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.tel-local-suffix',
+                        'tel-local-suffix'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.tel-extension',
+                        'tel-extension'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.username',
+                        'username'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.new-password',
+                        'new-password'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.current-password',
+                        'current-password'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.organization-title',
+                        'organization-title'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.organization',
+                        'organization'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.spacer4',
+                        '--div--'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.street-address',
+                        'street-address'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.address-line1',
+                        'address-line1'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.address-line2',
+                        'address-line2'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.address-line3',
+                        'address-line3'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.address-level4',
+                        'address-level4'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.address-level3',
+                        'address-level3'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.address-level2',
+                        'address-level3'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.address-level1',
+                        'address-level1'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.country',
+                        'country'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.country-name',
+                        'country-name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.postal-code',
+                        'postal-code'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.spacer6',
+                        '--div--'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-name',
+                        'cc-name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-given-name',
+                        'cc-given-name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-additional-name',
+                        'cc-additional-name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-family-name',
+                        'cc-family-name'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-number',
+                        'cc-number'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-exp',
+                        'input'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-exp-month',
+                        'cc-exp-month'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-exp-year',
+                        'cc-exp-year'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-csc',
+                        'cc-csc'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.cc-type',
+                        'cc-type'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.spacer5',
+                        '--div--'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.transaction-currency',
+                        'transaction-currency'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.transaction-amount',
+                        'transaction-amount'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.language',
+                        'language'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.bday',
+                        'bday'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.bday-day',
+                        'bday-day'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.bday-month',
+                        'bday-month'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.bday-year',
+                        'bday-year'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.sex',
+                        'sex'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.url',
+                        'url'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.photo',
+                        'photo'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.email',
+                        'email'
+                    ],
+                    [
+                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        Field::TABLE_NAME . '.autocomplete.impp',
+                        'impp'
+                    ],
+                ],
+                'default' => \In2code\Powermail\Enumeration\AutocompleteType::OFF,
+                'size' => 1,
+                'maxitems' => 1,
+                'eval' => 'required',
             ],
         ],
         'sorting' => [

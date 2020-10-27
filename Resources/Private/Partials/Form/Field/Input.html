@@ -10,7 +10,7 @@
 				placeholder="{field.placeholder}"
 				value="{vh:misc.prefillField(field:field, mail:mail)}"
 				class="powermail_input {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
-				additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
+				additionalAttributes="{vh:validation.validationDataAttribute(field:field, additionalAttributes:'{autocomplete: field.autocomplete}')}"
 				id="powermail_field_{field.marker}" />
 	</div>
 </div>

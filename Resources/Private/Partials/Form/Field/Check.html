@@ -12,7 +12,7 @@
 							value="{setting.value}"
 							checked="{vh:misc.prefillMultiField(field:field, mail:mail, cycle:index.cycle)}"
 							id="powermail_field_{field.marker}_{index.cycle}"
-							additionalAttributes="{vh:validation.validationDataAttribute(field:field, iteration:index)}"
+							additionalAttributes="{vh:validation.validationDataAttribute(field:field, iteration:index, additionalAttributes:'{autocomplete: field.autocomplete}')}"
 							class="powermail_checkbox powermail_checkbox_{field.uid}" />
 					<vh:string.escapeLabels>{setting.label}</vh:string.escapeLabels>
 				</label>

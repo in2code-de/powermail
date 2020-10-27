@@ -9,7 +9,7 @@
 				property="{field.marker}"
 				class="powermail_select {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
 				id="powermail_field_{field.marker}"
-				additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
+				additionalAttributes="{vh:validation.validationDataAttribute(field:field, additionalAttributes:'{autocomplete: field.autocomplete}')}"
 				multiple="{field.multiselectForField}"
 				value="{vh:misc.prefillField(field:field, mail:mail)}" />
 

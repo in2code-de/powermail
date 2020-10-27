@@ -16,7 +16,7 @@
 				prependOptionLabel="{f:translate(key:'pleaseChoose')}"
 				class="powermail_country {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
 				value="{vh:misc.prefillField(field:field, mail:mail)}"
-				additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
+				additionalAttributes="{vh:validation.validationDataAttribute(field:field, additionalAttributes:'{autocomplete: field.autocomplete}')}"
 				id="powermail_field_{field.marker}" />
 	</div>
 </div>
