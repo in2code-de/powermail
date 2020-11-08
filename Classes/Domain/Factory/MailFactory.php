@@ -72,7 +72,7 @@ class MailFactory
             $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
             $feUserUid = FrontendUtility::getPropertyFromLoggedInFrontendUser('uid');
             $user = $userRepository->findByUid($feUserUid);
-            if ($user instanceof User) {
+            if ($user !== null) {
                 $mail->setFeuser($user);
             }
         }

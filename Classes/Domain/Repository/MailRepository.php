@@ -131,10 +131,6 @@ class MailRepository extends AbstractRepository
      * @param Form $form
      * @param int $pageUid
      * @return QueryResultInterface
-     * @throws Exception
-     * @throws InvalidQueryExceptionAlias
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function findByMarkerValueForm(string $marker, string $value, Form $form, int $pageUid): QueryResultInterface
     {
