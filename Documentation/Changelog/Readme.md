@@ -4,6 +4,12 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.2.3       | 2020-11-08   | Bugfix: Set tx_powermail_domain_model_mail.fe_user value for logged in users                                          |
+|             |              | Bugfix: Fix link from PluginPreview to powermail module                                                               |
+|             |              | Bugfix: Prevent possible exception if not existing form is selected in a plugin (e.g. from old data garbage)          |
+|             |              | Bugfix: Re-add english mail label for backend list view                                                               |
+|             |              | Task: Small code cleanup                                                                                              |
+|             |              | Task: Small documentation update                                                                                      |
 | 8.2.2       | 2020-10-21   | Bugfix: Fix false positive error message in frontend "TypoScript is missing" together with marketing information      |
 |             |              | Bugfix: Fix a possible type hint error logs when no referrer is available                                             |
 |             |              | Bugfix: Fix a possible type hint exception if TSFE is not available                                                   |
