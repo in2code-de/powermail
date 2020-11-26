@@ -3,26 +3,66 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_mails.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="fr">
     <header/>
     <body>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</body>
+      <trans-unit id="crdate.description" resname="crdate.description" approved="yes">
+        <source>Time of mail creation</source>
+        <target state="final">Heure de création du mail</target>
+      </trans-unit>
+      <trans-unit id="sender_mail.description" resname="sender_mail.description" approved="yes">
+        <source>This is the email of the sender</source>
+        <target state="final">Ceci est l'email de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="sender_name.description" resname="sender_name.description" approved="yes">
+        <source>This is the name of the sender</source>
+        <target state="final">Ceci est le nom de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="subject.description" resname="subject.description" approved="yes">
+        <source>E-Mail Subject</source>
+        <target state="final">Sujet du mail</target>
+      </trans-unit>
+      <trans-unit id="body.description" resname="body.description" approved="yes">
+        <source>All input values at a glance</source>
+        <target state="final">Toutes les valeurs d'entrée en un coup d'œil</target>
+      </trans-unit>
+      <trans-unit id="receiver_mail.description" resname="receiver_mail.description" approved="yes">
+        <source>E-Mail Receiver</source>
+        <target state="final">E-mail du destinataire</target>
+      </trans-unit>
+      <trans-unit id="form.description" resname="form.description" approved="yes">
+        <source>Related Form</source>
+        <target state="final">Formulaire connexe</target>
+      </trans-unit>
+      <trans-unit id="answers.description" resname="answers.description" approved="yes">
+        <source>All transferred Answers</source>
+        <target state="final">Toutes les réponses transférées</target>
+      </trans-unit>
+      <trans-unit id="spam_factor.description" resname="spam_factor.description" approved="yes">
+        <source>Powermail identifies this mail as spam with this factor (if factor is too high, mail sending will be refused)</source>
+        <target state="final">Powermail identifie cet e-mail comme spam avec ce facteur (si le facteur est trop élevé, l'envoi de courrier sera refusé)</target>
+      </trans-unit>
+      <trans-unit id="time.description" resname="time.description" approved="yes">
+        <source>User needs this time to fill out the form</source>
+        <target state="final">L'utilisateur a besoin de ce temps pour remplir le formulaire</target>
+      </trans-unit>
+      <trans-unit id="sender_ip.description" resname="sender_ip.description" approved="yes">
+        <source>IP-Address of the sender</source>
+        <target state="final">Adresse IP de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="user_agent.description" resname="user_agent.description" approved="yes">
+        <source>Browser characteristic of the sender</source>
+        <target state="final">Caractéristique du navigateur de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="marketing_referer_domain.description" resname="marketing_referer_domain.description" approved="yes">
+        <source>Last Domain of the user before he surfed to this URL</source>
+        <target state="final">Dernier domaine de l'utilisateur avant de naviguer vers cette URL</target>
+      </trans-unit>
+      <trans-unit id="marketing_referer.description" resname="marketing_referer.description" approved="yes">
+        <source>Last URL of the user before he surfed to this URL</source>
+        <target state="final">Dernière URL de l'utilisateur avant de naviguer vers cette URL</target>
+      </trans-unit>
+      <trans-unit id="marketing_country.description" resname="marketing_country.description" approved="yes">
+        <source>User is located in this country</source>
+        <target state="final">L'utilisateur est situé dans ce pays</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
