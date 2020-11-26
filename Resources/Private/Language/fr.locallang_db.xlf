@@ -3,222 +3,510 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_db.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="fr">
     <header/>
     <body>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</body>
+      <trans-unit id="tabs.access" resname="tabs.access" approved="yes">
+        <source>Access</source>
+        <target state="final">Accès</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
+        <source>Mails</source>
+        <target state="final">Emails</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1" approved="yes">
+        <source>Sender</source>
+        <target state="final">Expéditeur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_mail" resname="tx_powermail_domain_model_mail.sender_mail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">Emails des expéditeurs</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_name" resname="tx_powermail_domain_model_mail.sender_name" approved="yes">
+        <source>Senders Name</source>
+        <target state="final">Nom de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.subject" resname="tx_powermail_domain_model_mail.subject" approved="yes">
+        <source>Mail Subject</source>
+        <target state="final">Sujet du mail</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.body" resname="tx_powermail_domain_model_mail.body" approved="yes">
+        <source>Email Body</source>
+        <target state="final">Corps du message</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.receiver_mail" resname="tx_powermail_domain_model_mail.receiver_mail" approved="yes">
+        <source>Receivers Mail</source>
+        <target state="final">Adresse e-mail du destinataire</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.form" resname="tx_powermail_domain_model_mail.form" approved="yes">
+        <source>Related Form</source>
+        <target state="final">Formulaire connexe</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.answers" resname="tx_powermail_domain_model_mail.answers" approved="yes">
+        <source>Answers</source>
+        <target state="final">Réponses</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_country" resname="tx_powermail_domain_model_mail.marketing_country" approved="yes">
+        <source>Visitors Country</source>
+        <target state="final">Pays des visiteurs</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_frontend_language" resname="tx_powermail_domain_model_mail.marketing_frontend_language" approved="yes">
+        <source>Website Language</source>
+        <target state="final">Langue du site web</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
+        <source>Forms</source>
+        <target state="final">Formulaires</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titre</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.1" resname="tx_powermail_domain_model_form.note.1" approved="yes">
+        <source>Note:</source>
+        <target state="final">Remarque :</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.4" resname="tx_powermail_domain_model_form.note.4" approved="yes">
+        <source>Note hidden</source>
+        <target state="final">Remarque masquée</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css" resname="tx_powermail_domain_model_form.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Disposition</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.1" resname="tx_powermail_domain_model_form.css.1" approved="yes">
+        <source>Layout1</source>
+        <target state="final">Disposition 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.2" resname="tx_powermail_domain_model_form.css.2" approved="yes">
+        <source>Layout2</source>
+        <target state="final">Disposition 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.3" resname="tx_powermail_domain_model_form.css.3" approved="yes">
+        <source>Layout3</source>
+        <target state="final">Disposition 3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.pages" resname="tx_powermail_domain_model_form.pages" approved="yes">
+        <source>Pages</source>
+        <target state="final">Pages</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
+        <source>Pages</source>
+        <target state="final">Pages</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titre</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css" resname="tx_powermail_domain_model_page.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Disposition</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.1" resname="tx_powermail_domain_model_page.css.1" approved="yes">
+        <source>Layout1</source>
+        <target state="final">Disposition 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.2" resname="tx_powermail_domain_model_page.css.2" approved="yes">
+        <source>Layout2</source>
+        <target state="final">Disposition 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.3" resname="tx_powermail_domain_model_page.css.3" approved="yes">
+        <source>Layout3</source>
+        <target state="final">Disposition 3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.4" resname="tx_powermail_domain_model_page.css.4" approved="yes">
+        <source>Hide label</source>
+        <target state="final">Masquer le libellé</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.fields" resname="tx_powermail_domain_model_page.fields" approved="yes">
+        <source>Fields</source>
+        <target state="final">Champs</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
+        <source>Related Form</source>
+        <target state="final">Formulaire connexe</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
+        <source>Fields</source>
+        <target state="final">Champs</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titre</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type" resname="tx_powermail_domain_model_field.type" approved="yes">
+        <source>Type</source>
+        <target state="final">Type</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer1" resname="tx_powermail_domain_model_field.type.spacer1" approved="yes">
+        <source>Standard</source>
+        <target state="final">Standard</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer2" resname="tx_powermail_domain_model_field.type.spacer2" approved="yes">
+        <source>Extra</source>
+        <target state="final">Extra</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer3" resname="tx_powermail_domain_model_field.type.spacer3" approved="yes">
+        <source>Extensions</source>
+        <target state="final">Extensions</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.0" resname="tx_powermail_domain_model_field.type.0" approved="yes">
+        <source>Textfield (Input)</source>
+        <target state="final">Champ de texte (Input)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.1" resname="tx_powermail_domain_model_field.type.1" approved="yes">
+        <source>Textfield with more Rows (Textarea)</source>
+        <target state="final">Champ de texte avec plus de lignes (Zone de texte)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.2" resname="tx_powermail_domain_model_field.type.2" approved="yes">
+        <source>Selectfield</source>
+        <target state="final">Champ de sélection</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.3" resname="tx_powermail_domain_model_field.type.3" approved="yes">
+        <source>Checkboxes</source>
+        <target state="final">Cases à cocher</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.4" resname="tx_powermail_domain_model_field.type.4" approved="yes">
+        <source>Radiobuttons</source>
+        <target state="final">Boutons radio</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.5" resname="tx_powermail_domain_model_field.type.5" approved="yes">
+        <source>Submit</source>
+        <target state="final">Envoyer</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.6" resname="tx_powermail_domain_model_field.type.6" approved="yes">
+        <source>Captcha Field</source>
+        <target state="final">Champ Captcha</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.7" resname="tx_powermail_domain_model_field.type.7" approved="yes">
+        <source>Reset</source>
+        <target state="final">Réinitialiser</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.8" resname="tx_powermail_domain_model_field.type.8" approved="yes">
+        <source>Show some Text</source>
+        <target state="final">Afficher du texte</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.9" resname="tx_powermail_domain_model_field.type.9" approved="yes">
+        <source>Content Element</source>
+        <target state="final">Elément de contenu</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.10" resname="tx_powermail_domain_model_field.type.10" approved="yes">
+        <source>Show HTML</source>
+        <target state="final">Afficher le HTML</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.11" resname="tx_powermail_domain_model_field.type.11" approved="yes">
+        <source>Password Field</source>
+        <target state="final">Champ 'Mot de passe'</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.12" resname="tx_powermail_domain_model_field.type.12" approved="yes">
+        <source>File Upload</source>
+        <target state="final">Télécharger un fichier</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.13" resname="tx_powermail_domain_model_field.type.13" approved="yes">
+        <source>Hidden Field</source>
+        <target state="final">Champ caché</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.14" resname="tx_powermail_domain_model_field.type.14" approved="yes">
+        <source>Date</source>
+        <target state="final">Date</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.15" resname="tx_powermail_domain_model_field.type.15" approved="yes">
+        <source>Location</source>
+        <target state="final">Lieu</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.16" resname="tx_powermail_domain_model_field.type.16" approved="yes">
+        <source>TypoScript</source>
+        <target state="final">TypoScript</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.17" resname="tx_powermail_domain_model_field.type.17" approved="yes">
+        <source>Country Selection</source>
+        <target state="final">Sélection des pays</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.settings" resname="tx_powermail_domain_model_field.settings" approved="yes">
+        <source>Options</source>
+        <target state="final">Options</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.path" resname="tx_powermail_domain_model_field.path" approved="yes">
+        <source>TypoScript Path (e.g. lib.test)</source>
+        <target state="final">Chemin du TypoScript (par exemple lib.test)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.content_element" resname="tx_powermail_domain_model_field.content_element" approved="yes">
+        <source>Select Content Element</source>
+        <target state="final">Sélectionner un élément de contenu</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.text" resname="tx_powermail_domain_model_field.text" approved="yes">
+        <source>Add some text</source>
+        <target state="final">Ajouter du texte</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation_title" resname="tx_powermail_domain_model_field.validation_title" approved="yes">
+        <source>Validation</source>
+        <target state="final">Validation</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory" resname="tx_powermail_domain_model_field.mandatory" approved="yes">
+        <source>Mandatory Field</source>
+        <target state="final">Champ obligatoire</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation" approved="yes">
+        <source>Validation</source>
+        <target state="final">Validation</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.1" resname="tx_powermail_domain_model_field.validation.1" approved="yes">
+        <source>Email</source>
+        <target state="final">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.2" resname="tx_powermail_domain_model_field.validation.2" approved="yes">
+        <source>URL</source>
+        <target state="final">URL</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.3" resname="tx_powermail_domain_model_field.validation.3" approved="yes">
+        <source>Phone</source>
+        <target state="final">Téléphone</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.4" resname="tx_powermail_domain_model_field.validation.4" approved="yes">
+        <source>Numbers Only</source>
+        <target state="final">Chiffres uniquement</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.5" resname="tx_powermail_domain_model_field.validation.5" approved="yes">
+        <source>Letters Only</source>
+        <target state="final">Lettres uniquement</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.6" resname="tx_powermail_domain_model_field.validation.6" approved="yes">
+        <source>Min Number</source>
+        <target state="final">Nombre minimum</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.7" resname="tx_powermail_domain_model_field.validation.7" approved="yes">
+        <source>Max Number</source>
+        <target state="final">Nombre minimum</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.9" resname="tx_powermail_domain_model_field.validation.9" approved="yes">
+        <source>Length</source>
+        <target state="final">Longueur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.10" resname="tx_powermail_domain_model_field.validation.10" approved="yes">
+        <source>Pattern (RegEx)</source>
+        <target state="final">Modèle (RegEx)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validationConfiguration" resname="tx_powermail_domain_model_field.validationConfiguration" approved="yes">
+        <source>Validation Configuration</source>
+        <target state="final">Configuration de la validation</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css" resname="tx_powermail_domain_model_field.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Disposition</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.1" resname="tx_powermail_domain_model_field.css.1" approved="yes">
+        <source>Layout 1</source>
+        <target state="final">Disposition 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.2" resname="tx_powermail_domain_model_field.css.2" approved="yes">
+        <source>Layout 2</source>
+        <target state="final">Disposition 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.3" resname="tx_powermail_domain_model_field.css.3" approved="yes">
+        <source>Layout 3</source>
+        <target state="final">Disposition 3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.4" resname="tx_powermail_domain_model_field.css.4" approved="yes">
+        <source>Hide label</source>
+        <target state="final">Masquer l'étiquette</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.1" resname="tx_powermail_domain_model_field.datepicker_settings.1" approved="yes">
+        <source>Date</source>
+        <target state="final">Date</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.2" resname="tx_powermail_domain_model_field.datepicker_settings.2" approved="yes">
+        <source>Date and Time</source>
+        <target state="final">Date et heure</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.3" resname="tx_powermail_domain_model_field.datepicker_settings.3" approved="yes">
+        <source>Time</source>
+        <target state="final">Heure</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name" approved="yes">
+        <source>Name</source>
+        <target state="final">Nom</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.address" resname="tx_powermail_domain_model_field.feuser_value.address" approved="yes">
+        <source>Address</source>
+        <target state="final">Adresse</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.phone" resname="tx_powermail_domain_model_field.feuser_value.phone" approved="yes">
+        <source>Phone</source>
+        <target state="final">Téléphone</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.fax" resname="tx_powermail_domain_model_field.feuser_value.fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">Fax</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.email" resname="tx_powermail_domain_model_field.feuser_value.email" approved="yes">
+        <source>Email</source>
+        <target state="final">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.zip" resname="tx_powermail_domain_model_field.feuser_value.zip" approved="yes">
+        <source>ZIP</source>
+        <target state="final">Code postal</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.city" resname="tx_powermail_domain_model_field.feuser_value.city" approved="yes">
+        <source>City</source>
+        <target state="final">Localité</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.country" resname="tx_powermail_domain_model_field.feuser_value.country" approved="yes">
+        <source>Country</source>
+        <target state="final">Pays</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.www" resname="tx_powermail_domain_model_field.feuser_value.www" approved="yes">
+        <source>Website</source>
+        <target state="final">Site Web</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.company" resname="tx_powermail_domain_model_field.feuser_value.company" approved="yes">
+        <source>Company</source>
+        <target state="final">Entreprise</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.marker_title" resname="tx_powermail_domain_model_field.marker_title" approved="yes">
+        <source>Variables</source>
+        <target state="final">Variables</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.description" resname="tx_powermail_domain_model_field.description" approved="yes">
+        <source>Description</source>
+        <target state="final">Description</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.own_marker" resname="tx_powermail_domain_model_field.own_marker" approved="yes">
+        <source>Enter your own Variable Name</source>
+        <target state="final">Entrez votre propre nom de variable</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet2" resname="tx_powermail_domain_model_field.sheet2" approved="yes">
+        <source>Marketing</source>
+        <target state="final">Marketing</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1" approved="yes">
+        <source>Email or Name</source>
+        <target state="final">Courriel ou nom</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
+        <source>Answers</source>
+        <target state="final">Réponses</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.0" resname="tx_powermail_domain_model_answer.value_type.0" approved="yes">
+        <source>Text</source>
+        <target state="final">Texte</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.2" resname="tx_powermail_domain_model_answer.value_type.2" approved="yes">
+        <source>Date</source>
+        <target state="final">Date</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.3" resname="tx_powermail_domain_model_answer.value_type.3" approved="yes">
+        <source>Upload</source>
+        <target state="final">Télécharger</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.mail" resname="tx_powermail_domain_model_answer.mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.field" resname="tx_powermail_domain_model_answer.field" approved="yes">
+        <source>Field</source>
+        <target state="final">Champ</target>
+      </trans-unit>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose" approved="yes">
+        <source>Please choose...</source>
+        <target state="final">Veuillez choisir...</target>
+      </trans-unit>
+      <trans-unit id="flexform.main" resname="flexform.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">Paramètres principaux</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.formname" resname="flexform.main.formnote.formname" approved="yes">
+        <source>Form Name</source>
+        <target state="final">Nom du formulaire</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.storedinpage" resname="flexform.main.formnote.storedinpage" approved="yes">
+        <source>Stored in Page</source>
+        <target state="final">Stocké dans la page</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.pages" resname="flexform.main.formnote.pages" approved="yes">
+        <source>Pages</source>
+        <target state="final">Pages</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.fields" resname="flexform.main.formnote.fields" approved="yes">
+        <source>Fields</source>
+        <target state="final">Champs</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.email" resname="flexform.sender.email" approved="yes">
+        <source>Sender Email (For Confirmation Mail to User)</source>
+        <target state="final">E-mail de l'expéditeur (Pour le courrier de confirmation à l'utilisateur)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.name" resname="flexform.sender.name" approved="yes">
+        <source>Sender Name (For Confirmation Mail to User)</source>
+        <target state="final">Nom de l'expéditeur (Pour le courrier de confirmation à l'utilisateur)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.subject" resname="flexform.sender.subject" approved="yes">
+        <source>Subject for Email to Sender (Empty subject disables mail)</source>
+        <target state="final">Sujet du courrier à l'expéditeur (ce qui désactive le courrier)</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
+        <source>Submit Page</source>
+        <target state="final">Soumettre la page</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.body" resname="flexform.thx.body" approved="yes">
+        <source>Text on submit page</source>
+        <target state="final">Texte sur la page d'envoi</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect" approved="yes">
+        <source>Redirect to any other Page after submit</source>
+        <target state="final">Rediriger vers une autre page après soumission</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote" approved="yes">
+        <source>ATTENTION: Please select a form in Settings before!</source>
+        <target state="final">ATTENTION : Veuillez d'abord sélectionner un formulaire dans Paramètres !</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main" resname="flexform_pi2.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">Paramètres Principaux</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions" resname="flexform_pi2.main.switchableControllerActions" approved="yes">
+        <source>Choose your view</source>
+        <target state="final">Choisissez votre vue</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.0" resname="flexform_pi2.main.switchableControllerActions.0" approved="yes">
+        <source>List or Detail View</source>
+        <target state="final">Vue Liste ou Détail</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.1" resname="flexform_pi2.main.switchableControllerActions.1" approved="yes">
+        <source>Detail View</source>
+        <target state="final">Vue de détail</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.2" resname="flexform_pi2.main.switchableControllerActions.2" approved="yes">
+        <source>Edit View</source>
+        <target state="final">Editer la vue</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.3" resname="flexform_pi2.main.switchableControllerActions.3" approved="yes">
+        <source>All Views</source>
+        <target state="final">Toutes les vues</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form" approved="yes">
+        <source>Choose a form</source>
+        <target state="final">Choisir un formulaire</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid" approved="yes">
+        <source>Select a page with mails (optional)</source>
+        <target state="final">Sélectionnez une page avec des mails (facultatif)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list" approved="yes">
+        <source>Listview</source>
+        <target state="final">Vue liste</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.subject" resname="pluginInfo.subject" approved="yes">
+        <source>Mail subject</source>
+        <target state="final">Sujet du mail</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.form" resname="pluginInfo.form" approved="yes">
+        <source>Form title</source>
+        <target state="final">Titre du formulaire</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.confirmationPage" resname="pluginInfo.confirmationPage" approved="yes">
+        <source>Confirmation page activated</source>
+        <target state="final">Page de confirmation activée</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.more" resname="pluginInfo.more" approved="yes">
+        <source>More ...</source>
+        <target state="final">Plus...</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
