@@ -603,6 +603,206 @@
         <source>Version</source>
         <target state="final">Version</target>
       </trans-unit>
+      <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
+        <source>Last Extension Manager update</source>
+        <target state="final">Dernière mise à jour du gestionnaire d'extension</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
+        <source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+        <target state="final">Il n'a pas pu être vérifié si cette version est sécurisée ou non sécurisée. Veuillez mettre à jour les extensions dans le gestionnaire d'extensions.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
+        <source>The installed version of powermail is up-to-date</source>
+        <target state="final">La version installée de powermail est à jour</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionSecurity" resname="BackendCheckVersionSecurity" approved="yes">
+        <source>The installed version of powermail contains a known security bug. Please update your powermail extension as soon as possible.</source>
+        <target state="final">La version installée de powermail contient un bug de sécurité connu. Veuillez mettre à jour votre extension powermail dès que possible.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionUpgrade" resname="BackendCheckVersionUpgrade" approved="yes">
+        <source>A newer version of powermail is available</source>
+        <target state="final">Une nouvelle version de powermail est disponible</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionTitle" resname="BackendCheckT3VersionTitle" approved="yes">
+        <source>TYPO3 Version</source>
+        <target state="final">Version TYPO3</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionCorrect" resname="BackendCheckT3VersionCorrect" approved="yes">
+        <source>The used TYPO3 version is correct for this Powermail version</source>
+        <target state="final">La version utilisée de TYPO3 est correcte pour cette version de Powermail</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionFailed" resname="BackendCheckT3VersionFailed" approved="yes">
+        <source>Please check the TYPO3 version - maybe Powermail works not properly in this version</source>
+        <target state="final">Veuillez vérifier la version de TYPO3 - peut-être que Powermail ne fonctionne pas correctement dans cette version</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderCorrect" resname="BackendCheckUploadsFolderCorrect" approved="yes">
+        <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
+        <target state="final">Le dossier de téléchargement par défaut existe (uploads/tx_powermail/)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
+        <source>Localized Forms</source>
+        <target state="final">Formulaires localisés</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsCorrect" resname="BackendCheckWrongLocalizedFormsCorrect" approved="yes">
+        <source>No failures in forms found on this system</source>
+        <target state="final">Aucun échec dans les formulaires trouvés dans ce système</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsFailed" resname="BackendCheckWrongLocalizedFormsFailed" approved="yes">
+        <source>There are localized forms with empty tx_powermail_domain_model_form.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
+        <target state="final">Il y a des formulaires localisés avec des champs vide tx_powermail_domain_model_form.pages qui peuvent causer des problèmes dans le rendu des formulaires localisés dans le Frontend</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle" approved="yes">
+        <source>Development Context</source>
+        <target state="final">Contexte de développement</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive" approved="yes">
+        <source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+        <target state="final">Cette instance de TYPO3 est en cours d'exécution dans le contexte de développement. Tous les courriels ne seront envoyés qu'à %s.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable" approved="yes">
+        <source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
+        <target state="final">Cette instance TYPO3 est en cours d'exécution dans le contexte de développement. Vous pouvez utiliser %s dans le fichier AdditionalConfiguration.php pour imposer à powermail l'envoi des testmails à cette adresse email seulement.</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle" resname="BackendOverviewTitle" approved="yes">
+        <source>Form Overview</source>
+        <target state="final">Aperçu des formulaires</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle2" resname="BackendOverviewTitle2" approved="yes">
+        <source>All Forms within page</source>
+        <target state="final">Tous les formulaires de la page</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle3" resname="BackendOverviewTitle3" approved="yes">
+        <source>(and its subpages)</source>
+        <target state="final">(et ses sous-pages)</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle4" resname="BackendOverviewTitle4" approved="yes">
+        <source>Show All Forms</source>
+        <target state="final">Afficher tous les formulaires</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle5" resname="BackendOverviewTitle5" approved="yes">
+        <source>All Forms in this CMS</source>
+        <target state="final">Tous les formulaires présents dans le CMS</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTable" resname="BackendOverviewTable" approved="yes">
+        <source>Forms</source>
+        <target state="final">Formulaires</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol1" resname="BackendOverviewCol1" approved="yes">
+        <source>Form Title</source>
+        <target state="final">Titre du formulaire</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol2" resname="BackendOverviewCol2" approved="yes">
+        <source>Stored on Page</source>
+        <target state="final">Stocké dans la page</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol3" resname="BackendOverviewCol3" approved="yes">
+        <source>Used on Page</source>
+        <target state="final">Utilisé sur la page</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol4" resname="BackendOverviewCol4" approved="yes">
+        <source>Powermail Pages</source>
+        <target state="final">Pages Powermail</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol5" resname="BackendOverviewCol5" approved="yes">
+        <source>Powermail Fields</source>
+        <target state="final">Champs Powermail</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewPages" resname="BackendOverviewPages" approved="yes">
+        <source>Page(s)</source>
+        <target state="final">Page(s)</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewFields" resname="BackendOverviewFields" approved="yes">
+        <source>Field(s)</source>
+        <target state="final">Champ(s)</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewNoForms" resname="BackendOverviewNoForms" approved="yes">
+        <source>No Forms found</source>
+        <target state="final">Aucun formulaire trouvé</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailTitle" resname="BackendEmailTitle" approved="yes">
+        <source>Test Email Sending</source>
+        <target state="final">Envoi de l'e-mail de test</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailFormReceiver" resname="BackendEmailFormReceiver" approved="yes">
+        <source>Receiver Email</source>
+        <target state="final">Adresse e-mail du destinataire</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle" approved="yes">
+        <source>Email Sending Status</source>
+        <target state="final">Statut de l'envoi d'email</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
+        <source>Email send without problems (mail transmitted to mailserver)</source>
+        <target state="final">E-mail envoyé sans problème (mail transmis au serveur de messagerie)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
+        <source>Email cound not send properly (ask your Adminstrator)</source>
+        <target state="final">L'email n'a pas pu être envoyé correctement (demandez à votre administrateur)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
+        <source>TypoScript Static Template</source>
+        <target state="final">Template statique TypoScript</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateCorrect" resname="BackendCheckStaticTemplateCorrect" approved="yes">
+        <source>Static TypoScript Template is available on current page.</source>
+        <target state="final">Le template statique TypoScript est disponible sur la page courante.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateFailed" resname="BackendCheckStaticTemplateFailed" approved="yes">
+        <source>Static TypoScript Template is not available on current page.</source>
+        <target state="final">Le template statique TypoScript n'est pas disponible sur la page courante.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeTitle" resname="BackendCheckComposerModeTitle" approved="yes">
+        <source>Composer Mode</source>
+        <target state="final">Mode composer</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeComposer" resname="BackendCheckComposerModeComposer" approved="yes">
+        <source>Your TYPO3 is running in Composer Mode</source>
+        <target state="final">Votre TYPO3 tourne en mode Composer</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeClassic" resname="BackendCheckComposerModeClassic" approved="yes">
+        <source>Your TYPO3 is running in Classic Mode</source>
+        <target state="final">Votre TYPO3 tourne en mode classique</target>
+      </trans-unit>
+      <trans-unit id="BackendListTitle" resname="BackendListTitle" approved="yes">
+        <source>Mail Listings</source>
+        <target state="final">Liste des e-mails</target>
+      </trans-unit>
+      <trans-unit id="BackendListMails" resname="BackendListMails" approved="yes">
+        <source>Mails</source>
+        <target state="final">Emails</target>
+      </trans-unit>
+      <trans-unit id="BackendListMailDelete" resname="BackendListMailDelete" approved="yes">
+        <source>Delete Mail</source>
+        <target state="final">Supprimer l'e-mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListMailDeleteConfirmation" resname="BackendListMailDeleteConfirmation" approved="yes">
+        <source>Really Delete This Mail?</source>
+        <target state="final">Voulez-vous vraiment supprimer cet e-mail?</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpDetails" resname="BackendListHelpDetails" approved="yes">
+        <source>Show Mail Details</source>
+        <target state="final">Afficher les détails du mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpEdit" resname="BackendListHelpEdit" approved="yes">
+        <source>Edit this Mail</source>
+        <target state="final">Editer cet e-mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpUnhide" resname="BackendListHelpUnhide" approved="yes">
+        <source>Activate this Mail</source>
+        <target state="final">Activer cet e-mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpHide" resname="BackendListHelpHide" approved="yes">
+        <source>Deactivate this Mail</source>
+        <target state="final">Désactiver cet e-mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListNoMails" resname="BackendListNoMails" approved="yes">
+        <source>No Mails to show</source>
+        <target state="final">Aucun e-mail à afficher</target>
+      </trans-unit>
+      <trans-unit id="BackendListNoMailsSub" resname="BackendListNoMailsSub" approved="yes">
+        <source>Please choose another page or modify your filter settings</source>
+        <target state="final">Veuillez choisir une autre page ou modifier vos paramètres de filtre</target>
+      </trans-unit>
       <trans-unit id="BackendListFilterFulltextSearch" resname="BackendListFilterFulltextSearch" approved="yes">
         <source>Fulltext Search:</source>
         <target state="final">Recherche dans le texte complet:</target>
