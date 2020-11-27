@@ -43,6 +43,10 @@
         <source>Spamfactor</source>
         <target state="final">Facteur de spam</target>
       </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.time" resname="\In2code\Powermail\Domain\Model\Mail.time" approved="yes">
+        <source>Time for form submit</source>
+        <target state="final">Délai d'envoi du formulaire</target>
+      </trans-unit>
       <trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate" resname="\In2code\Powermail\Domain\Model\Mail.crdate" approved="yes">
         <source>Date</source>
         <target state="final">Date</target>
