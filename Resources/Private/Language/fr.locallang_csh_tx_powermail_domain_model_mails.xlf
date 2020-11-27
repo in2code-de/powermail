@@ -35,6 +35,10 @@
         <source>All transferred Answers</source>
         <target state="final">Toutes les réponses transférées</target>
       </trans-unit>
+      <trans-unit id="feuser.description" resname="feuser.description" approved="yes">
+        <source>This FE User send the mail (if empty, no logged in User sends the mail)</source>
+        <target state="final">Cet utilisateur Front-end envoie le mail (si vide, aucun utilisateur connecté n'envoie le mail)</target>
+      </trans-unit>
       <trans-unit id="spam_factor.description" resname="spam_factor.description" approved="yes">
         <source>Powermail identifies this mail as spam with this factor (if factor is too high, mail sending will be refused)</source>
         <target state="final">Powermail identifie cet e-mail comme spam avec ce facteur (si le facteur est trop élevé, l'envoi de courrier sera refusé)</target>
@@ -62,6 +66,22 @@
       <trans-unit id="marketing_country.description" resname="marketing_country.description" approved="yes">
         <source>User is located in this country</source>
         <target state="final">L'utilisateur est situé dans ce pays</target>
+      </trans-unit>
+      <trans-unit id="marketing_mobile_device.description" resname="marketing_mobile_device.description" approved="yes">
+        <source>User uses a mobile device</source>
+        <target state="final">Visiteur utilisant un appareil mobile</target>
+      </trans-unit>
+      <trans-unit id="marketing_frontend_language.description" resname="marketing_frontend_language.description" approved="yes">
+        <source>User surfed in this TYPO3-Frontend-Language</source>
+        <target state="final">Utilisateur front-end surfe dans cette langue</target>
+      </trans-unit>
+      <trans-unit id="marketing_browser_language.description" resname="marketing_browser_language.description" approved="yes">
+        <source>Users Browser Language</source>
+        <target state="final">Langue du navigateur des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="marketing_page_funnel.description" resname="marketing_page_funnel.description" approved="yes">
+        <source>Internal Page funnel up to the form submit</source>
+        <target state="final">Canal de la page interne jusqu'à la soumission du formulaire</target>
       </trans-unit>
     </body>
   </file>
