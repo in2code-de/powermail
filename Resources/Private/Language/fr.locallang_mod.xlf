@@ -7,6 +7,22 @@
         <source>Mails</source>
         <target state="final">Emails</target>
       </trans-unit>
+      <trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr" approved="yes">
+        <source>List of all registered mails in database. Possibility to filter and export to CSV (Excel).</source>
+        <target state="final">Liste de tous les e-mails enregistrés dans la base de données. Possibilité de filtrer et d'exporter en CSV (Excel).</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tablabel" resname="mlang_labels_tablabel" approved="yes">
+        <source>Powermail list</source>
+        <target state="final">Liste Powermail</target>
+      </trans-unit>
+      <trans-unit id="pluginWizardTitle" resname="pluginWizardTitle" approved="yes">
+        <source>Powermail</source>
+        <target state="final">Powermail</target>
+      </trans-unit>
+      <trans-unit id="pluginWizardDescription" resname="pluginWizardDescription" approved="yes">
+        <source>Powerful and easy mailform extension optimized for editors. Powermail offers data storing, extended input validation, advanced spam-prevention, marketing analyses and a lot of configuration settings.</source>
+        <target state="final">Puissante extension de formulaires mail, optimisée pour les éditeurs. Powermail propose le stockage de données, une validation étendue des entrées, une prévention avancée des spams, des analyses marketing et de nombreux paramètres de configuration.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
