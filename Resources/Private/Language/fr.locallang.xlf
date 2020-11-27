@@ -39,6 +39,10 @@
         <source>Senders IP-Address</source>
         <target state="final">Adresse IP de l'expéditeur</target>
       </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent" resname="\In2code\Powermail\Domain\Model\Mail.userAgent" approved="yes">
+        <source>Senders Browser-Signature</source>
+        <target state="final">Signature du navigateur de l'expéditeur</target>
+      </trans-unit>
       <trans-unit id="\In2code\Powermail\Domain\Model\Mail.spamFactor" resname="\In2code\Powermail\Domain\Model\Mail.spamFactor" approved="yes">
         <source>Spamfactor</source>
         <target state="final">Facteur de spam</target>
@@ -267,6 +271,10 @@
         <source>Spam recognized:</source>
         <target state="final">Spam reconnu :</target>
       </trans-unit>
+      <trans-unit id="validationerror_spam_details" resname="validationerror_spam_details" approved="yes">
+        <source>Spam chance in this message!</source>
+        <target state="final">Probabilité de spam dans ce message !</target>
+      </trans-unit>
       <trans-unit id="writePasswordAgain" resname="writePasswordAgain" approved="yes">
         <source>Please write again</source>
         <target state="final">Veuillez réessayer</target>
@@ -339,10 +347,6 @@
         <source>July</source>
         <target state="final">Juillet</target>
       </trans-unit>
-      <trans-unit id="datepicker_month_aug" resname="datepicker_month_aug" approved="yes">
-        <source>August</source>
-        <target state="final">Août</target>
-      </trans-unit>
       <trans-unit id="datepicker_month_sep" resname="datepicker_month_sep" approved="yes">
         <source>September</source>
         <target state="final">Septembre</target>
@@ -358,6 +362,10 @@
       <trans-unit id="datepicker_month_dec" resname="datepicker_month_dec" approved="yes">
         <source>December</source>
         <target state="final">Décembre</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckCheckboxes" resname="JsValidationCheckCheckboxes" approved="yes">
+        <source>Please check min. 1</source>
+        <target state="final">Veuillez contrôler au min 1</target>
       </trans-unit>
       <trans-unit id="JsValidationCheckInteger" resname="JsValidationCheckInteger" approved="yes">
         <source>Not a valid number</source>
@@ -462,58 +470,6 @@
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Ignorer les anciens formulaires cachés</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterFormDryrun" resname="BackendConverterFormDryrun" approved="yes">
-        <source>Do only a Test Run (no records will be generated or deleted)</source>
-        <target state="final">Ne faire qu'une exécution de test (aucun enregistrement ne sera généré ou supprimé)</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterOldForms" resname="BackendConverterOldForms" approved="yes">
-        <source>Old Forms (tt_content)</source>
-        <target state="final">Anciens formulaires (tt_content)</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterLanguage" resname="BackendConverterLanguage" approved="yes">
-        <source>Language</source>
-        <target state="final">Langue</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterTitle" resname="BackendConverterTitle" approved="yes">
-        <source>Title</source>
-        <target state="final">Titre</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterRecipient" resname="BackendConverterRecipient" approved="yes">
-        <source>Recipient</source>
-        <target state="final">Destinataire</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterSubject" resname="BackendConverterSubject" approved="yes">
-        <source>Subject</source>
-        <target state="final">Sujet</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterFieldsetAmount" resname="BackendConverterFieldsetAmount" approved="yes">
-        <source>Number of Fieldsets</source>
-        <target state="final">Nombre de champs</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterConfirmationPage" resname="BackendConverterConfirmationPage" approved="yes">
-        <source>Confirmation Page</source>
-        <target state="final">Page de confirmation</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterMultiple" resname="BackendConverterMultiple" approved="yes">
-        <source>Multiple</source>
-        <target state="final">Multiple</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterNoOldForms" resname="BackendConverterNoOldForms" approved="yes">
-        <source>No old Forms found</source>
-        <target state="final">Aucun ancien formulaire trouvé</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterUpdateTitle2" resname="BackendConverterUpdateTitle2" approved="yes">
-        <source>Overview: Converted Forms</source>
-        <target state="final">Aperçu : Formulaires convertis</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterUpdateMessageOk" resname="BackendConverterUpdateMessageOk" approved="yes">
-        <source>Form(s) successfully generated!</source>
-        <target state="final">Formulaire(s) généré(s) avec succès!</target>
-      </trans-unit>
-      <trans-unit id="BackendConverterUpdateMessageNote" resname="BackendConverterUpdateMessageNote" approved="yes">
-        <source>Form(s) could be migrated</source>
-        <target state="final">Formulaire(s) pouvant être migré(s)</target>
       </trans-unit>
       <trans-unit id="BackendConverterUpdateFormUidAutogenerated" resname="BackendConverterUpdateFormUidAutogenerated" approved="yes">
         <source>[auto]</source>
