@@ -459,6 +459,30 @@
         <source>Send Email to Frontend User Group</source>
         <target state="final">Envoyer un e-mail au groupe d'utilisateurs du Frontend</target>
       </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail" resname="flexform.receiver.predefinedemail" approved="yes">
+        <source>Predefined receivers</source>
+        <target state="final">Destinataires prédéfinis</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.be_group" resname="flexform.receiver.be_group" approved="yes">
+        <source>Send Email to Backend User Group</source>
+        <target state="final">Envoyer un e-mail au groupe d'utilisateurs backend</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail.1" resname="flexform.receiver.predefinedemail.1" approved="yes">
+        <source>Example receivers 1</source>
+        <target state="final">Exemple de destinataires 1</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.subject" resname="flexform.receiver.subject" approved="yes">
+        <source>Subject for Email to Receiver (Empty subject disables mail)</source>
+        <target state="final">Sujet du mail à l'expéditeur (ce qui désactive le mail)</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.body" resname="flexform.receiver.body" approved="yes">
+        <source>Bodytext for Email to Receiver</source>
+        <target state="final">Corps du texte pour le destinataire de l'e-mail</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender" resname="flexform.sender" approved="yes">
+        <source>Mail to User</source>
+        <target state="final">Envoyer à l'utilisateur</target>
+      </trans-unit>
       <trans-unit id="flexform.sender.email" resname="flexform.sender.email" approved="yes">
         <source>Sender Email (For Confirmation Mail to User)</source>
         <target state="final">E-mail de l'expéditeur (Pour le courrier de confirmation à l'utilisateur)</target>
@@ -470,6 +494,10 @@
       <trans-unit id="flexform.sender.subject" resname="flexform.sender.subject" approved="yes">
         <source>Subject for Email to Sender (Empty subject disables mail)</source>
         <target state="final">Sujet du courrier à l'expéditeur (ce qui désactive le courrier)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.body" resname="flexform.sender.body" approved="yes">
+        <source>Bodytext for Email to Sender</source>
+        <target state="final">Texte pour l'e-mail à l'expéditeur</target>
       </trans-unit>
       <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
         <source>Submit Page</source>
@@ -522,6 +550,30 @@
       <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list" approved="yes">
         <source>Listview</source>
         <target state="final">Vue liste</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">Choisissez les champs à afficher (Si vide: Tous les champs)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta" approved="yes">
+        <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
+        <target state="final">Afficher les entrées des dernières X secondes (Si vide: Fonction désactivée)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit" approved="yes">
+        <source>Show max. X entries (Empty: No Limit)</source>
+        <target state="final">Afficher max. X entrées (Si vide: Aucune limite)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid" approved="yes">
+        <source>Page with Plugin for list view (Empty: Same page)</source>
+        <target state="final">Page avec Plugin pour la vue liste (Si vide: même page)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly" approved="yes">
+        <source>Own entries</source>
+        <target state="final">Vos propres entrées</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0" approved="yes">
+        <source>Show only entries from logged in Frontend-User</source>
+        <target state="final">Afficher uniquement les entrées des utilisateurs connectés en frontend</target>
       </trans-unit>
       <trans-unit id="pluginInfo.subject" resname="pluginInfo.subject" approved="yes">
         <source>Mail subject</source>
