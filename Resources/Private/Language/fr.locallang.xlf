@@ -51,6 +51,10 @@
         <source>Time for form submit</source>
         <target state="final">Délai d'envoi du formulaire</target>
       </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.uid" translate="no" resname="\In2code\Powermail\Domain\Model\Mail.uid" approved="yes">
+        <source>Uid</source>
+        <target state="final">Uid</target>
+      </trans-unit>
       <trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate" resname="\In2code\Powermail\Domain\Model\Mail.crdate" approved="yes">
         <source>Date</source>
         <target state="final">Date</target>
@@ -86,6 +90,10 @@
       <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" approved="yes">
         <source>Browser Language</source>
         <target state="final">Langue du navigateur</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" resname="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" approved="yes">
+        <source>Page Funnel</source>
+        <target state="final">Entonnoir de page</target>
       </trans-unit>
       <trans-unit id="\In2code\Powermail\Domain\Model\Mail.hidden" resname="\In2code\Powermail\Domain\Model\Mail.hidden" approved="yes">
         <source>Disabled</source>
@@ -347,6 +355,10 @@
         <source>July</source>
         <target state="final">Juillet</target>
       </trans-unit>
+      <trans-unit id="datepicker_month_aug" resname="datepicker_month_aug" approved="yes">
+        <source>August</source>
+        <target state="final">Août</target>
+      </trans-unit>
       <trans-unit id="datepicker_month_sep" resname="datepicker_month_sep" approved="yes">
         <source>September</source>
         <target state="final">Septembre</target>
@@ -471,9 +483,77 @@
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Ignorer les anciens formulaires cachés</target>
       </trans-unit>
+      <trans-unit id="BackendConverterFormDryrun" resname="BackendConverterFormDryrun" approved="yes">
+        <source>Do only a Test Run (no records will be generated or deleted)</source>
+        <target state="final">Ne faire qu'une exécution de test (aucun enregistrement ne sera généré ou supprimé)</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterOldForms" resname="BackendConverterOldForms" approved="yes">
+        <source>Old Forms (tt_content)</source>
+        <target state="final">Anciens formulaires (tt_content)</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterTtContentUid" translate="no" resname="BackendConverterTtContentUid" approved="yes">
+        <source>Uid</source>
+        <target state="final">Uid</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterPage" translate="no" resname="BackendConverterPage" approved="yes">
+        <source>Pid</source>
+        <target state="final">Pid</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterLanguage" resname="BackendConverterLanguage" approved="yes">
+        <source>Language</source>
+        <target state="final">Langue</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterTitle" resname="BackendConverterTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">Titre</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterRecipient" resname="BackendConverterRecipient" approved="yes">
+        <source>Recipient</source>
+        <target state="final">Destinataire</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterSubject" resname="BackendConverterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Sujet</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFieldsetAmount" resname="BackendConverterFieldsetAmount" approved="yes">
+        <source>Number of Fieldsets</source>
+        <target state="final">Nombre de champs</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterConfirmationPage" resname="BackendConverterConfirmationPage" approved="yes">
+        <source>Confirmation Page</source>
+        <target state="final">Page de confirmation</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterMultiple" resname="BackendConverterMultiple" approved="yes">
+        <source>Multiple</source>
+        <target state="final">Multiple</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterNoOldForms" resname="BackendConverterNoOldForms" approved="yes">
+        <source>No old Forms found</source>
+        <target state="final">Aucun ancien formulaire trouvé</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateTitle2" resname="BackendConverterUpdateTitle2" approved="yes">
+        <source>Overview: Converted Forms</source>
+        <target state="final">Aperçu : Formulaires convertis</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateMessageOk" resname="BackendConverterUpdateMessageOk" approved="yes">
+        <source>Form(s) successfully generated!</source>
+        <target state="final">Formulaire(s) généré(s) avec succès!</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateMessageNote" resname="BackendConverterUpdateMessageNote" approved="yes">
+        <source>Form(s) could be migrated</source>
+        <target state="final">Formulaire(s) pouvant être migré(s)</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormUid" translate="no" resname="BackendConverterUpdateFormUid" approved="yes">
+        <source>Uid</source>
+        <target state="final">Uid</target>
+      </trans-unit>
       <trans-unit id="BackendConverterUpdateFormUidAutogenerated" resname="BackendConverterUpdateFormUidAutogenerated" approved="yes">
         <source>[auto]</source>
         <target state="final">[auto]</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormPid" translate="no" resname="BackendConverterUpdateFormPid" approved="yes">
+        <source>Pid</source>
+        <target state="final">Pid</target>
       </trans-unit>
       <trans-unit id="BackendConverterUpdateFormTitle" resname="BackendConverterUpdateFormTitle" approved="yes">
         <source>Title</source>
@@ -499,6 +579,10 @@
         <source>[auto]</source>
         <target state="final">[auto]</target>
       </trans-unit>
+      <trans-unit id="BackendConverterUpdatePagePid" translate="no" resname="BackendConverterUpdatePagePid" approved="yes">
+        <source>Pid</source>
+        <target state="final">Pid</target>
+      </trans-unit>
       <trans-unit id="BackendConverterUpdatePageTitle" resname="BackendConverterUpdatePageTitle" approved="yes">
         <source>Title</source>
         <target state="final">Titre</target>
@@ -515,9 +599,17 @@
         <source>Fields</source>
         <target state="final">Champs</target>
       </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldUid" translate="no" resname="BackendConverterUpdateFieldUid" approved="yes">
+        <source>Uid</source>
+        <target state="final">Uid</target>
+      </trans-unit>
       <trans-unit id="BackendConverterUpdateFieldUidAutogenerated" resname="BackendConverterUpdateFieldUidAutogenerated" approved="yes">
         <source>[auto]</source>
         <target state="final">[auto]</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldPid" translate="no" resname="BackendConverterUpdateFieldPid" approved="yes">
+        <source>Pid</source>
+        <target state="final">Pid</target>
       </trans-unit>
       <trans-unit id="BackendConverterUpdateFieldTitle" resname="BackendConverterUpdateFieldTitle" approved="yes">
         <source>Title</source>
@@ -599,9 +691,17 @@
         <source>Please check the TYPO3 version - maybe Powermail works not properly in this version</source>
         <target state="final">Veuillez vérifier la version de TYPO3 - peut-être que Powermail ne fonctionne pas correctement dans cette version</target>
       </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderTitle" resname="BackendCheckUploadsFolderTitle" approved="yes">
+        <source>Upload Folder</source>
+        <target state="final">Télécharger le dossier</target>
+      </trans-unit>
       <trans-unit id="BackendCheckUploadsFolderCorrect" resname="BackendCheckUploadsFolderCorrect" approved="yes">
         <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
         <target state="final">Le dossier de téléchargement par défaut existe (uploads/tx_powermail/)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
+        <source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
+        <target state="final">Le dossier de téléchargement par défaut n'existe pas (uploads/tx_powermail/)</target>
       </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
@@ -614,6 +714,22 @@
       <trans-unit id="BackendCheckWrongLocalizedFormsFailed" resname="BackendCheckWrongLocalizedFormsFailed" approved="yes">
         <source>There are localized forms with empty tx_powermail_domain_model_form.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
         <target state="final">Il y a des formulaires localisés avec des champs vide tx_powermail_domain_model_form.pages qui peuvent causer des problèmes dans le rendu des formulaires localisés dans le Frontend</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesTitle" resname="BackendCheckWrongLocalizedPagesTitle" approved="yes">
+        <source>Localized Pages</source>
+        <target state="final">Pages localisées</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesCorrect" resname="BackendCheckWrongLocalizedPagesCorrect" approved="yes">
+        <source>No failures in pages found on this system</source>
+        <target state="final">Aucun échec dans les pages trouvées sur ce système</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesFailed" resname="BackendCheckWrongLocalizedPagesFailed" approved="yes">
+        <source>There are localized pages with empty tx_powermail_domain_model_page.forms fields which can lead to problems in managing localized pages</source>
+        <target state="final">Il y a des pages localisées avec des champs vide tx_powermail_domain_model_page.forms qui peuvent causer des problèmes dans la gestion des pages localisées</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckBackupBefore" resname="BackendCheckBackupBefore" approved="yes">
+        <source>Note: Please backup all powermail tables before you choose this option!</source>
+        <target state="final">Note: Veuillez sauvegarder toutes les tables powermail avant de choisir cette option!</target>
       </trans-unit>
       <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle" approved="yes">
         <source>Development Context</source>
@@ -683,9 +799,17 @@
         <source>No Forms found</source>
         <target state="final">Aucun formulaire trouvé</target>
       </trans-unit>
+      <trans-unit id="BackendFunctionTitle" resname="BackendFunctionTitle" approved="yes">
+        <source>Function-Test Section</source>
+        <target state="final">Test de fonctionnement de la section</target>
+      </trans-unit>
       <trans-unit id="BackendEmailTitle" resname="BackendEmailTitle" approved="yes">
         <source>Test Email Sending</source>
         <target state="final">Envoi de l'e-mail de test</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailFormTitle" resname="BackendEmailFormTitle" approved="yes">
+        <source>Test email generation with powermail</source>
+        <target state="final">Tester la génération d'e-mails avec powermail</target>
       </trans-unit>
       <trans-unit id="BackendEmailFormReceiver" resname="BackendEmailFormReceiver" approved="yes">
         <source>Receiver Email</source>
@@ -907,6 +1031,10 @@
         <source>Filter Now</source>
         <target state="final">Filtrer maintenant</target>
       </trans-unit>
+      <trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail" approved="yes">
+        <source>Please edit your filtersettings.</source>
+        <target state="final">Veuillez modifier vos paramètres de filtre.</target>
+      </trans-unit>
       <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
         <source>Details</source>
         <target state="final">Détails</target>
@@ -926,6 +1054,10 @@
       <trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm" approved="yes">
         <source>Changes successfully saved</source>
         <target state="final">Modifications enregistrées avec succès</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditNoMail" resname="PowermailFrontendEditNoMail" approved="yes">
+        <source>Missing required Mail parameter</source>
+        <target state="final">Paramètres requis manquants</target>
       </trans-unit>
       <trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed" approved="yes">
         <source>You are not allowed to make changes</source>
