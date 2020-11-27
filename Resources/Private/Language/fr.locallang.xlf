@@ -239,6 +239,10 @@
         <source>Number to high or to low!</source>
         <target state="final">Nombre trop élevé ou trop faible !</target>
       </trans-unit>
+      <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
+        <source>Your input is not valid (too many or too less signs)</source>
+        <target state="final">Votre entrée n'est pas valide (trop ou pas assez de caractères)</target>
+      </trans-unit>
       <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10" approved="yes">
         <source>Error in validation!</source>
         <target state="final">Erreur de validation !</target>
