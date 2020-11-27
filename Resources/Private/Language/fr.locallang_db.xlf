@@ -427,6 +427,38 @@
         <source>Fields</source>
         <target state="final">Champs</target>
       </trans-unit>
+      <trans-unit id="flexform.receiver.name" resname="flexform.receiver.name" approved="yes">
+        <source>Receivers Name</source>
+        <target state="final">Nom du Destinataire</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type" resname="flexform.receiver.type" approved="yes">
+        <source>Receiver type</source>
+        <target state="final">Type de destinataire</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.0" resname="flexform.receiver.type.0" approved="yes">
+        <source>Email addresses</source>
+        <target state="final">Adresses e-mail</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.1" resname="flexform.receiver.type.1" approved="yes">
+        <source>Frontend user group</source>
+        <target state="final">Groupe d'utilisateurs frontend</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.2" resname="flexform.receiver.type.2" approved="yes">
+        <source>Predefined receivers</source>
+        <target state="final">Destinataires prédéfinis</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.3" resname="flexform.receiver.type.3" approved="yes">
+        <source>Backend user group</source>
+        <target state="final">Groupe d'utilisateurs backend</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.email" resname="flexform.receiver.email" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">Adresse e-mail du destinataire</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.fe_group" resname="flexform.receiver.fe_group" approved="yes">
+        <source>Send Email to Frontend User Group</source>
+        <target state="final">Envoyer un e-mail au groupe d'utilisateurs du Frontend</target>
+      </trans-unit>
       <trans-unit id="flexform.sender.email" resname="flexform.sender.email" approved="yes">
         <source>Sender Email (For Confirmation Mail to User)</source>
         <target state="final">E-mail de l'expéditeur (Pour le courrier de confirmation à l'utilisateur)</target>
