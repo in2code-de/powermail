@@ -43,13 +43,57 @@
         <source>Answers</source>
         <target state="final">Réponses</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.feuser" resname="tx_powermail_domain_model_mail.feuser" approved="yes">
+        <source>FE_User</source>
+        <target state="final">FE_User</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.spam_factor" resname="tx_powermail_domain_model_mail.spam_factor" approved="yes">
+        <source>Spam Factor</source>
+        <target state="final">Facteur de spam</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.time" resname="tx_powermail_domain_model_mail.time" approved="yes">
+        <source>Time for submitting form (in seconds)</source>
+        <target state="final">Temps d'envoi du formulaire (en secondes)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_ip" resname="tx_powermail_domain_model_mail.sender_ip" approved="yes">
+        <source>Senders IP address</source>
+        <target state="final">Adresse IP de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.user_agent" resname="tx_powermail_domain_model_mail.user_agent" approved="yes">
+        <source>Senders User Agent</source>
+        <target state="final">User Agent de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.crdate" resname="tx_powermail_domain_model_mail.crdate" approved="yes">
+        <source>Creation Date</source>
+        <target state="final">Date de création</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_referer_domain" resname="tx_powermail_domain_model_mail.marketing_referer_domain" approved="yes">
+        <source>Referer Domain</source>
+        <target state="final">Domaine référant</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_referer" resname="tx_powermail_domain_model_mail.marketing_referer" approved="yes">
+        <source>Referer URI</source>
+        <target state="final">URL référente</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.marketing_country" resname="tx_powermail_domain_model_mail.marketing_country" approved="yes">
         <source>Visitors Country</source>
         <target state="final">Pays des visiteurs</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_mobile_device" resname="tx_powermail_domain_model_mail.marketing_mobile_device" approved="yes">
+        <source>Visitor uses a Mobile Device</source>
+        <target state="final">Le visiteur utilise un appareil mobile</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.marketing_frontend_language" resname="tx_powermail_domain_model_mail.marketing_frontend_language" approved="yes">
         <source>Website Language</source>
         <target state="final">Langue du site web</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_browser_language" resname="tx_powermail_domain_model_mail.marketing_browser_language" approved="yes">
+        <source>Browser Language</source>
+        <target state="final">Langue du navigateur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_page_funnel" resname="tx_powermail_domain_model_mail.marketing_page_funnel" approved="yes">
+        <source>Page Funnel which leads to this mail</source>
+        <target state="final">Entonnoir de la page qui mène à cet e-mail</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
         <source>Forms</source>
@@ -63,9 +107,25 @@
         <source>Note:</source>
         <target state="final">Remarque :</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.2" resname="tx_powermail_domain_model_form.note.2" approved="yes">
+        <source>There are no fields marked as sender-email or sender-name</source>
+        <target state="final">Il n'y a aucun champ marqué comme e-mail d'expéditeur ou nom de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.3" resname="tx_powermail_domain_model_form.note.3" approved="yes">
+        <source>Do not show this note again for this form</source>
+        <target state="final">Ne plus afficher cette note pour ce formulaire</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.note.4" resname="tx_powermail_domain_model_form.note.4" approved="yes">
         <source>Note hidden</source>
         <target state="final">Remarque masquée</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.error.1" resname="tx_powermail_domain_model_form.error.1" approved="yes">
+        <source>Error: Non-Unique or empty marker names in the fields of this form detected</source>
+        <target state="final">Erreur: Des noms de marqueurs non uniques ou vides dans les champs de ce formulaire ont été détectés</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.error.2" resname="tx_powermail_domain_model_form.error.2" approved="yes">
+        <source>This should not happen in powermail. The problem should be solved if you save the form again. If not, please check marker names of all fields to this form and fix it manually.</source>
+        <target state="final">Cela ne devrait pas se produire dans powermail. Le problème devrait être résolu si vous enregistrez le formulaire à nouveau. Dans le cas contraire, vérifiez les noms des marqueurs de tous les champs de ce formulaire et corrigez-les manuellement.</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.css" resname="tx_powermail_domain_model_form.css" approved="yes">
         <source>Layout</source>
@@ -82,6 +142,10 @@
       <trans-unit id="tx_powermail_domain_model_form.css.3" resname="tx_powermail_domain_model_form.css.3" approved="yes">
         <source>Layout3</source>
         <target state="final">Disposition 3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.4" resname="tx_powermail_domain_model_form.css.4" approved="yes">
+        <source>Hide label</source>
+        <target state="final">Masquer le libellé</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.pages" resname="tx_powermail_domain_model_form.pages" approved="yes">
         <source>Pages</source>
@@ -118,6 +182,54 @@
       <trans-unit id="tx_powermail_domain_model_page.fields" resname="tx_powermail_domain_model_page.fields" approved="yes">
         <source>Fields</source>
         <target state="final">Champs</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
+        <source>Related Form</source>
+        <target state="final">Formulaire connexe</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
+        <source>Fields</source>
+        <target state="final">Champs</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titre</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type" resname="tx_powermail_domain_model_field.type" approved="yes">
+        <source>Type</source>
+        <target state="final">Type</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer1" resname="tx_powermail_domain_model_field.type.spacer1" approved="yes">
+        <source>Standard</source>
+        <target state="final">Standard</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer2" resname="tx_powermail_domain_model_field.type.spacer2" approved="yes">
+        <source>Extra</source>
+        <target state="final">Extra</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer3" resname="tx_powermail_domain_model_field.type.spacer3" approved="yes">
+        <source>Extensions</source>
+        <target state="final">Extensions</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.0" resname="tx_powermail_domain_model_field.type.0" approved="yes">
+        <source>Textfield (Input)</source>
+        <target state="final">Champ de texte (Input)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.1" resname="tx_powermail_domain_model_field.type.1" approved="yes">
+        <source>Textfield with more Rows (Textarea)</source>
+        <target state="final">Champ de texte avec plus de lignes (Zone de texte)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.2" resname="tx_powermail_domain_model_field.type.2" approved="yes">
+        <source>Selectfield</source>
+        <target state="final">Champ de sélection</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.3" resname="tx_powermail_domain_model_field.type.3" approved="yes">
+        <source>Checkboxes</source>
+        <target state="final">Cases à cocher</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.4" resname="tx_powermail_domain_model_field.type.4" approved="yes">
+        <source>Radiobuttons</source>
+        <target state="final">Boutons radio</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.type.5" resname="tx_powermail_domain_model_field.type.5" approved="yes">
         <source>Submit</source>
@@ -227,6 +339,10 @@
         <source>Max Number</source>
         <target state="final">Nombre minimum</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.8" resname="tx_powermail_domain_model_field.validation.8" approved="yes">
+        <source>Range</source>
+        <target state="final">Intervalle</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.validation.9" resname="tx_powermail_domain_model_field.validation.9" approved="yes">
         <source>Length</source>
         <target state="final">Longueur</target>
@@ -259,6 +375,14 @@
         <source>Hide label</source>
         <target state="final">Masquer l'étiquette</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.multiselect" resname="tx_powermail_domain_model_field.multiselect" approved="yes">
+        <source>Multiselect</source>
+        <target state="final">Sélection multiple</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings" resname="tx_powermail_domain_model_field.datepicker_settings" approved="yes">
+        <source>Datepicker Mode</source>
+        <target state="final">Mode de sélection de la date</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.1" resname="tx_powermail_domain_model_field.datepicker_settings.1" approved="yes">
         <source>Date</source>
         <target state="final">Date</target>
@@ -270,6 +394,26 @@
       <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.3" resname="tx_powermail_domain_model_field.datepicker_settings.3" approved="yes">
         <source>Time</source>
         <target state="final">Heure</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.prefill_title" resname="tx_powermail_domain_model_field.prefill_title" approved="yes">
+        <source>Prefill Field</source>
+        <target state="final">Champ pré-rempli</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.prefill_value" resname="tx_powermail_domain_model_field.prefill_value" approved="yes">
+        <source>With Value</source>
+        <target state="final">Avec valeur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.placeholder" resname="tx_powermail_domain_model_field.placeholder" approved="yes">
+        <source>Placeholder</source>
+        <target state="final">Texte indicatif</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.create_from_typoscript" resname="tx_powermail_domain_model_field.create_from_typoscript" approved="yes">
+        <source>Create from TypoScript (e.g. lib.fieldvalues)</source>
+        <target state="final">Créer à partir de TypoScript (par exemple lib.fieldvalues)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value" resname="tx_powermail_domain_model_field.feuser_value" approved="yes">
+        <source>Value from logged in Frontent User</source>
+        <target state="final">Valeur de l'utilisateur frontend connecté</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name" approved="yes">
         <source>Name</source>
@@ -311,6 +455,14 @@
         <source>Company</source>
         <target state="final">Entreprise</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sender_email" resname="tx_powermail_domain_model_field.sender_email" approved="yes">
+        <source>This field contains the Email of the sender</source>
+        <target state="final">Ce champ contient l'email de l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sender_name" resname="tx_powermail_domain_model_field.sender_name" approved="yes">
+        <source>This field contains the Name of the sender</source>
+        <target state="final">Ce champ contient le nom de l'expéditeur</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.marker_title" resname="tx_powermail_domain_model_field.marker_title" approved="yes">
         <source>Variables</source>
         <target state="final">Variables</target>
@@ -323,6 +475,22 @@
         <source>Enter your own Variable Name</source>
         <target state="final">Entrez votre propre nom de variable</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.auto_marker" resname="tx_powermail_domain_model_field.auto_marker" approved="yes">
+        <source>Individual Fieldname to use as Variable (automaticly wrapped with {})</source>
+        <target state="final">Champ individuel à utiliser comme variable (automatiquement mis entre {})</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.own_marker_select" resname="tx_powermail_domain_model_field.own_marker_select" approved="yes">
+        <source>Add my own Variable Name</source>
+        <target state="final">Ajouter mon propre nom de variable</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.pages" resname="tx_powermail_domain_model_field.pages" approved="yes">
+        <source>Related Page</source>
+        <target state="final">Page associée</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet1" resname="tx_powermail_domain_model_field.sheet1" approved="yes">
+        <source>Extended</source>
+        <target state="final">Étendu</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.sheet2" resname="tx_powermail_domain_model_field.sheet2" approved="yes">
         <source>Marketing</source>
         <target state="final">Marketing</target>
@@ -330,6 +498,194 @@
       <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1" approved="yes">
         <source>Email or Name</source>
         <target state="final">Courriel ou nom</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
+        <source>Answers</source>
+        <target state="final">Réponses</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
+        <source>The transferred value</source>
+        <target state="final">La valeur transférée</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type" resname="tx_powermail_domain_model_answer.value_type" approved="yes">
+        <source>Data Type</source>
+        <target state="final">Type de donnée</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.0" resname="tx_powermail_domain_model_answer.value_type.0" approved="yes">
+        <source>Text</source>
+        <target state="final">Texte</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.1" resname="tx_powermail_domain_model_answer.value_type.1" approved="yes">
+        <source>Multi Text (Array)</source>
+        <target state="final">Multi texte (tableau)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.2" resname="tx_powermail_domain_model_answer.value_type.2" approved="yes">
+        <source>Date</source>
+        <target state="final">Date</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.3" resname="tx_powermail_domain_model_answer.value_type.3" approved="yes">
+        <source>Upload</source>
+        <target state="final">Télécharger</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.mail" resname="tx_powermail_domain_model_answer.mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.field" resname="tx_powermail_domain_model_answer.field" approved="yes">
+        <source>Field</source>
+        <target state="final">Champ</target>
+      </trans-unit>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose" approved="yes">
+        <source>Please choose...</source>
+        <target state="final">Veuillez choisir...</target>
+      </trans-unit>
+      <trans-unit id="flexform.main" resname="flexform.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">Paramètres principaux</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.form" resname="flexform.main.form" approved="yes">
+        <source>Choose a Powermail Form</source>
+        <target state="final">Choisissez un formulaire Powermail</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.noform" resname="flexform.main.formnote.noform" approved="yes">
+        <source>Please select a form</source>
+        <target state="final">Veuillez sélectionner un formulaire</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.new" resname="flexform.main.formnote.new" approved="yes">
+        <source>Add a new form</source>
+        <target state="final">Ajouter un nouveau formulaire</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.edit" resname="flexform.main.formnote.edit" approved="yes">
+        <source>Manage the current form</source>
+        <target state="final">Gérer le présent actuel</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.formname" resname="flexform.main.formnote.formname" approved="yes">
+        <source>Form Name</source>
+        <target state="final">Nom du formulaire</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.storedinpage" resname="flexform.main.formnote.storedinpage" approved="yes">
+        <source>Stored in Page</source>
+        <target state="final">Stocké dans la page</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.pages" resname="flexform.main.formnote.pages" approved="yes">
+        <source>Pages</source>
+        <target state="final">Pages</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.fields" resname="flexform.main.formnote.fields" approved="yes">
+        <source>Fields</source>
+        <target state="final">Champs</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.pid" resname="flexform.main.pid" approved="yes">
+        <source>Where to save Mails (empty = same page)</source>
+        <target state="final">Où enregistrer les e-mails (Si vide : même page)</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.optin" resname="flexform.main.optin" approved="yes">
+        <source>Mail must be confirmed (Double Opt-In)</source>
+        <target state="final">L'email doit être confirmé (double opt-in)</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.confirmation" resname="flexform.main.confirmation" approved="yes">
+        <source>Do you want a confirmation page?</source>
+        <target state="final">Voulez-vous une page de confirmation ?</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.moresteps" resname="flexform.main.moresteps" approved="yes">
+        <source>Do you want to split each page (step by step)?</source>
+        <target state="final">Voulez-vous séparer chaque page (étape par étape) ?</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver" resname="flexform.receiver" approved="yes">
+        <source>Mail to Receiver</source>
+        <target state="final">Envoyer au destinataire</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.name" resname="flexform.receiver.name" approved="yes">
+        <source>Receivers Name</source>
+        <target state="final">Nom du Destinataire</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type" resname="flexform.receiver.type" approved="yes">
+        <source>Receiver type</source>
+        <target state="final">Type de destinataire</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.0" resname="flexform.receiver.type.0" approved="yes">
+        <source>Email addresses</source>
+        <target state="final">Adresses e-mail</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.1" resname="flexform.receiver.type.1" approved="yes">
+        <source>Frontend user group</source>
+        <target state="final">Groupe d'utilisateurs frontend</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.2" resname="flexform.receiver.type.2" approved="yes">
+        <source>Predefined receivers</source>
+        <target state="final">Destinataires prédéfinis</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.3" resname="flexform.receiver.type.3" approved="yes">
+        <source>Backend user group</source>
+        <target state="final">Groupe d'utilisateurs backend</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.email" resname="flexform.receiver.email" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">Adresse e-mail du destinataire</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.fe_group" resname="flexform.receiver.fe_group" approved="yes">
+        <source>Send Email to Frontend User Group</source>
+        <target state="final">Envoyer un e-mail au groupe d'utilisateurs du Frontend</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail" resname="flexform.receiver.predefinedemail" approved="yes">
+        <source>Predefined receivers</source>
+        <target state="final">Destinataires prédéfinis</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.be_group" resname="flexform.receiver.be_group" approved="yes">
+        <source>Send Email to Backend User Group</source>
+        <target state="final">Envoyer un e-mail au groupe d'utilisateurs backend</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail.1" resname="flexform.receiver.predefinedemail.1" approved="yes">
+        <source>Example receivers 1</source>
+        <target state="final">Exemple de destinataires 1</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.subject" resname="flexform.receiver.subject" approved="yes">
+        <source>Subject for Email to Receiver (Empty subject disables mail)</source>
+        <target state="final">Sujet du mail à l'expéditeur (ce qui désactive le mail)</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.body" resname="flexform.receiver.body" approved="yes">
+        <source>Bodytext for Email to Receiver</source>
+        <target state="final">Corps du texte pour le destinataire de l'e-mail</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender" resname="flexform.sender" approved="yes">
+        <source>Mail to User</source>
+        <target state="final">Envoyer à l'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.email" resname="flexform.sender.email" approved="yes">
+        <source>Sender Email (For Confirmation Mail to User)</source>
+        <target state="final">E-mail de l'expéditeur (Pour le courrier de confirmation à l'utilisateur)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.name" resname="flexform.sender.name" approved="yes">
+        <source>Sender Name (For Confirmation Mail to User)</source>
+        <target state="final">Nom de l'expéditeur (Pour le courrier de confirmation à l'utilisateur)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.subject" resname="flexform.sender.subject" approved="yes">
+        <source>Subject for Email to Sender (Empty subject disables mail)</source>
+        <target state="final">Sujet du courrier à l'expéditeur (ce qui désactive le courrier)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.body" resname="flexform.sender.body" approved="yes">
+        <source>Bodytext for Email to Sender</source>
+        <target state="final">Texte pour l'e-mail à l'expéditeur</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
+        <source>Submit Page</source>
+        <target state="final">Soumettre la page</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.body" resname="flexform.thx.body" approved="yes">
+        <source>Text on submit page</source>
+        <target state="final">Texte sur la page d'envoi</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect" approved="yes">
+        <source>Redirect to any other Page after submit</source>
+        <target state="final">Rediriger vers une autre page après soumission</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote" approved="yes">
+        <source>ATTENTION: Please select a form in Settings before!</source>
+        <target state="final">ATTENTION : Veuillez d'abord sélectionner un formulaire dans Paramètres !</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main" resname="flexform_pi2.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">Paramètres Principaux</target>
       </trans-unit>
       <trans-unit id="flexform_pi2.main.switchableControllerActions" resname="flexform_pi2.main.switchableControllerActions" approved="yes">
         <source>Choose your view</source>
@@ -342,6 +698,66 @@
       <trans-unit id="flexform_pi2.main.switchableControllerActions.1" resname="flexform_pi2.main.switchableControllerActions.1" approved="yes">
         <source>Detail View</source>
         <target state="final">Vue de détail</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.2" resname="flexform_pi2.main.switchableControllerActions.2" approved="yes">
+        <source>Edit View</source>
+        <target state="final">Editer la vue</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.3" resname="flexform_pi2.main.switchableControllerActions.3" approved="yes">
+        <source>All Views</source>
+        <target state="final">Toutes les vues</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form" approved="yes">
+        <source>Choose a form</source>
+        <target state="final">Choisir un formulaire</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid" approved="yes">
+        <source>Select a page with mails (optional)</source>
+        <target state="final">Sélectionnez une page avec des mails (facultatif)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list" approved="yes">
+        <source>Listview</source>
+        <target state="final">Vue liste</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">Choisissez les champs à afficher (Si vide: Tous les champs)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta" approved="yes">
+        <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
+        <target state="final">Afficher les entrées des dernières X secondes (Si vide: Fonction désactivée)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit" approved="yes">
+        <source>Show max. X entries (Empty: No Limit)</source>
+        <target state="final">Afficher max. X entrées (Si vide: Aucune limite)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid" approved="yes">
+        <source>Page with Plugin for list view (Empty: Same page)</source>
+        <target state="final">Page avec Plugin pour la vue liste (Si vide: même page)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly" approved="yes">
+        <source>Own entries</source>
+        <target state="final">Vos propres entrées</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0" approved="yes">
+        <source>Show only entries from logged in Frontend-User</source>
+        <target state="final">Afficher uniquement les entrées des utilisateurs connectés en frontend</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export" resname="flexform_pi2.list.export" approved="yes">
+        <source>Export Formats</source>
+        <target state="final">Formats d'exportation</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.0" resname="flexform_pi2.list.export.0" approved="yes">
+        <source>XLS Export</source>
+        <target state="final">Export XLS</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.1" resname="flexform_pi2.list.export.1" approved="yes">
+        <source>CSV Export</source>
+        <target state="final">Export CSV</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.2" resname="flexform_pi2.list.export.2" approved="yes">
+        <source>RSS Feed</source>
+        <target state="final">Flux RSS</target>
       </trans-unit>
       <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single" approved="yes">
         <source>Detailview</source>
