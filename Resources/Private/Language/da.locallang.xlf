@@ -3,9 +3,65 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="da">
     <header/>
     <body>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail" resname="\In2code\Powermail\Domain\Model\Mail.senderMail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">Afsenders e-Mail</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail" resname="\In2code\Powermail\Domain\Model\Mail.receiverMail" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">Modtager e-Mail</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body" approved="yes">
+        <source>Email Text</source>
+        <target state="final">Email tekst</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser" resname="\In2code\Powermail\Domain\Model\Mail.feuser" approved="yes">
+        <source>Frontend User</source>
+        <target state="final">Frontend bruger</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent" resname="\In2code\Powermail\Domain\Model\Mail.userAgent" approved="yes">
+        <source>Senders Browser-Signature</source>
+        <target state="final">Afsendere browser-signatur</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" resname="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" approved="yes">
+        <source>Referer Domain</source>
+        <target state="final">Omdøb domæne</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingCountry" resname="\In2code\Powermail\Domain\Model\Mail.marketingCountry" approved="yes">
+        <source>Visitors Country</source>
+        <target state="final">Besøgendes land</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" approved="yes">
+        <source>Website Language</source>
+        <target state="final">Hjemmeside sprog</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" approved="yes">
+        <source>Browser Language</source>
+        <target state="final">Browser sprog</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" resname="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" approved="yes">
+        <source>Page Funnel</source>
+        <target state="final">Side tragt</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
+        <source>Error, Mail could not sent correctly!</source>
+        <target state="final">Fejl, mail kunne ikke sendes korrekt!</target>
+      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">TypoScript indstillinger mangler. Har du inkluderet de relaterede statiske skabeloner?</target>
+      </trans-unit>
+      <trans-unit id="error_no_sender_name" resname="error_no_sender_name" approved="yes">
+        <source>No Sendername</source>
+        <target state="final">Intet afsendernavn</target>
+      </trans-unit>
+      <trans-unit id="error_wrong_captcha" resname="error_wrong_captcha" approved="yes">
+        <source>Wrong Captcha value, please try again!</source>
+        <target state="final">Forkert captcha værdi, prøv igen!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.4" resname="validationerror_validation.4" approved="yes">
+        <source>Please insert numbers only!</source>
+        <target state="final">Indsæt venligst kun numre!</target>
       </trans-unit>
     </body>
   </file>
