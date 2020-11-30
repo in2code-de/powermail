@@ -275,6 +275,26 @@
         <source>Spam recognized:</source>
         <target state="final">Spam genkendt:</target>
       </trans-unit>
+      <trans-unit id="validationerror_spam_details" resname="validationerror_spam_details" approved="yes">
+        <source>Spam chance in this message!</source>
+        <target state="final">Spam chance i denne besked!</target>
+      </trans-unit>
+      <trans-unit id="writePasswordAgain" resname="writePasswordAgain" approved="yes">
+        <source>Please write again</source>
+        <target state="final">Skriv venligst igen</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_date" resname="datepicker_format_date" approved="yes">
+        <source>Y-m-d</source>
+        <target state="final">Å-m-d</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_datetime" resname="datepicker_format_datetime" approved="yes">
+        <source>Y-m-d H:i</source>
+        <target state="final">Å-m-d H:i</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_time" resname="datepicker_format_time" approved="yes">
+        <source>H:i</source>
+        <target state="final">H:i</target>
+      </trans-unit>
       <trans-unit id="datepicker_day_so" resname="datepicker_day_so" approved="yes">
         <source>So</source>
         <target state="final">Søn</target>
@@ -303,17 +323,105 @@
         <source>Sa</source>
         <target state="final">Lør</target>
       </trans-unit>
+      <trans-unit id="datepicker_month_jan" resname="datepicker_month_jan" approved="yes">
+        <source>January</source>
+        <target state="final">Januar</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_feb" resname="datepicker_month_feb" approved="yes">
+        <source>February</source>
+        <target state="final">Februar</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_mar" resname="datepicker_month_mar" approved="yes">
+        <source>March</source>
+        <target state="final">Marts</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_apr" resname="datepicker_month_apr" approved="yes">
+        <source>April</source>
+        <target state="final">April</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_may" resname="datepicker_month_may" approved="yes">
+        <source>May</source>
+        <target state="final">Maj</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jun" resname="datepicker_month_jun" approved="yes">
+        <source>June</source>
+        <target state="final">Juni</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jul" resname="datepicker_month_jul" approved="yes">
+        <source>July</source>
+        <target state="final">Juli</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_aug" resname="datepicker_month_aug" approved="yes">
+        <source>August</source>
+        <target state="final">August</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_sep" resname="datepicker_month_sep" approved="yes">
+        <source>September</source>
+        <target state="final">September</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_oct" resname="datepicker_month_oct" approved="yes">
+        <source>October</source>
+        <target state="final">Oktober</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_nov" resname="datepicker_month_nov" approved="yes">
+        <source>November</source>
+        <target state="final">November</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_dec" resname="datepicker_month_dec" approved="yes">
+        <source>December</source>
+        <target state="final">December</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckCheckboxes" resname="JsValidationCheckCheckboxes" approved="yes">
+        <source>Please check min. 1</source>
+        <target state="final">Kontroller venligst min. 1</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckInteger" resname="JsValidationCheckInteger" approved="yes">
+        <source>Not a valid number</source>
+        <target state="final">Ikke et gyldigt tal</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckRequired" resname="JsValidationCheckRequired" approved="yes">
+        <source>This field is required</source>
+        <target state="final">Dette felt er påkrævet</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckRequiredOption" resname="JsValidationCheckRequiredOption" approved="yes">
+        <source>Please select an option</source>
+        <target state="final">Vælg venligst en mulighed</target>
+      </trans-unit>
       <trans-unit id="JsValidationCheckEmail" resname="JsValidationCheckEmail" approved="yes">
         <source>Invalid Email</source>
         <target state="final">Ugyldig e-mail</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckUrl" resname="JsValidationCheckUrl" approved="yes">
+        <source>Invalid URL</source>
+        <target state="final">Ugyldig URL</target>
       </trans-unit>
       <trans-unit id="JsValidationCheckPhone" resname="JsValidationCheckPhone" approved="yes">
         <source>Invalid Phone No</source>
         <target state="final">Ugyldigt telefonnummer</target>
       </trans-unit>
+      <trans-unit id="JsValidationCheckLetters" resname="JsValidationCheckLetters" approved="yes">
+        <source>Only Letters allowed</source>
+        <target state="final">Kun bogstaver tilladt</target>
+      </trans-unit>
       <trans-unit id="BackendSelectionList" resname="BackendSelectionList" approved="yes">
         <source>Mail List</source>
         <target state="final">Mail liste</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReporting" resname="BackendSelectionReporting" approved="yes">
+        <source>Reporting</source>
+        <target state="final">Rapportering</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReportingForm" resname="BackendSelectionReportingForm" approved="yes">
+        <source>Reporting (Form)</source>
+        <target state="final">Rapportering (Formular)</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReportingMarketing" resname="BackendSelectionReportingMarketing" approved="yes">
+        <source>Reporting (Marketing)</source>
+        <target state="final">Rapportering (markedsføring)</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionTools" resname="BackendSelectionTools" approved="yes">
+        <source>Tools</source>
+        <target state="final">Værktøjer</target>
       </trans-unit>
       <trans-unit id="BackendSelectionOverview" resname="BackendSelectionOverview" approved="yes">
         <source>Form Overview</source>
@@ -327,13 +435,109 @@
         <source>Form Converter</source>
         <target state="final">Formular konvertering</target>
       </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle2" resname="BackendSelectionConverterTitle2" approved="yes">
+        <source>Converts all Powermail 1.x to 2.x Forms</source>
+        <target state="final">Konverterer alle Powermail 1.x til 2.x formularer</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle3" resname="BackendSelectionConverterTitle3" approved="yes">
+        <source>Old records (from Tables tx_powermail_fieldsets, tx_powermail_fields and tt_content) will be flagged with deleted=1. New Records will be generated (Tables tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field, tt_content)</source>
+        <target state="final">Gamle elementer (fra tabeller tx_powermail_fieldsets, tx_powermail_fields og tt_content) vil blive markeret med slettede=1. Nye elementer vil blive genereret (tabeller tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_field, tt_content)</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle4" resname="BackendSelectionConverterTitle4" approved="yes">
+        <source>Attention: Please backup your database before converting. This step is irreversible.</source>
+        <target state="final">Vær opmærksom: Sikkerhedskopiér venligst din database før konvertering. Dette trin kan ikke fortrydes.</target>
+      </trans-unit>
+      <trans-unit id="BackendListMultiselectLabel" resname="BackendListMultiselectLabel" approved="yes">
+        <source>record(s) selected:</source>
+        <target state="final">valgte elementer:</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormSave" resname="BackendConverterFormSave" approved="yes">
+        <source>Save new forms on page with PID</source>
+        <target state="final">Gem nye formularer på siden med PID</target>
+      </trans-unit>
       <trans-unit id="BackendConverterFormDefaultReceiverName" resname="BackendConverterFormDefaultReceiverName" approved="yes">
         <source>Default Receiver Name</source>
         <target state="final">Standard modtagers navn</target>
       </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultSenderNameConfirmationMail" resname="BackendConverterFormDefaultSenderNameConfirmationMail" approved="yes">
+        <source>Default Sender Name for Confirmation Mail</source>
+        <target state="final">Standard afsendernavn for bekræftelsesmail</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultSenderMailConfirmationMail" resname="BackendConverterFormDefaultSenderMailConfirmationMail" approved="yes">
+        <source>Default Sender Email for Confirmation Mail</source>
+        <target state="final">Standard afsender e-mail til bekræftelsesmail</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFunc" resname="BackendConverterFormDefaultParseFunc" approved="yes">
+        <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
+        <target state="final">ParseFunc Sti i TypoScript (uden præfiks lib.).</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
+        <source>If you have trouble with form converting, you can let this value completely empty.</source>
+        <target state="final">Hvis du har problemer med at omdanne formularen, kan du lade denne værdi være helt tom.</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
+        <source>Ignore Old Hidden Forms</source>
+        <target state="final">Ignorér gamle skjulte formularer</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDryrun" resname="BackendConverterFormDryrun" approved="yes">
+        <source>Do only a Test Run (no records will be generated or deleted)</source>
+        <target state="final">Kør kun en testkørsel (ingen elementer vil blive genereret eller slettet)</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterOldForms" resname="BackendConverterOldForms" approved="yes">
+        <source>Old Forms (tt_content)</source>
+        <target state="final">Gamle formularer (tt_content)</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterLanguage" resname="BackendConverterLanguage" approved="yes">
+        <source>Language</source>
+        <target state="final">Sprog</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterTitle" resname="BackendConverterTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterRecipient" resname="BackendConverterRecipient" approved="yes">
+        <source>Recipient</source>
+        <target state="final">Modtager</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterSubject" resname="BackendConverterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Emne</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFieldsetAmount" resname="BackendConverterFieldsetAmount" approved="yes">
+        <source>Number of Fieldsets</source>
+        <target state="final">Antal feltsæt</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterConfirmationPage" resname="BackendConverterConfirmationPage" approved="yes">
+        <source>Confirmation Page</source>
+        <target state="final">Bekræftelseside</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterMultiple" resname="BackendConverterMultiple" approved="yes">
+        <source>Multiple</source>
+        <target state="final">Flere</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterNoOldForms" resname="BackendConverterNoOldForms" approved="yes">
+        <source>No old Forms found</source>
+        <target state="final">Ingen gamle formularer fundet</target>
+      </trans-unit>
       <trans-unit id="BackendConverterUpdateTitle2" resname="BackendConverterUpdateTitle2" approved="yes">
         <source>Overview: Converted Forms</source>
         <target state="final">Oversigt: Konverterede formularer</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateMessageOk" resname="BackendConverterUpdateMessageOk" approved="yes">
+        <source>Form(s) successfully generated!</source>
+        <target state="final">Formularer blev genereret!</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateMessageNote" resname="BackendConverterUpdateMessageNote" approved="yes">
+        <source>Form(s) could be migrated</source>
+        <target state="final">Formular(er) kunne migreres</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormUidAutogenerated" resname="BackendConverterUpdateFormUidAutogenerated" approved="yes">
+        <source>[auto]</source>
+        <target state="final">[auto]</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormTitle" resname="BackendConverterUpdateFormTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
       </trans-unit>
       <trans-unit id="BackendConverterUpdateFormHidden" resname="BackendConverterUpdateFormHidden" approved="yes">
         <source>Hidden</source>
@@ -343,25 +547,117 @@
         <source>Page Amount</source>
         <target state="final">Sideantal</target>
       </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormPages" resname="BackendConverterUpdateFormPages" approved="yes">
+        <source>Pages</source>
+        <target state="final">Sider</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageUid" resname="BackendConverterUpdatePageUid" approved="yes">
+        <source>Uid</source>
+        <target state="final">Uid</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageUidAutogenerated" resname="BackendConverterUpdatePageUidAutogenerated" approved="yes">
+        <source>[auto]</source>
+        <target state="final">[auto]</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageTitle" resname="BackendConverterUpdatePageTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageLayout" resname="BackendConverterUpdatePageLayout" approved="yes">
+        <source>Layout</source>
+        <target state="final">Layout</target>
+      </trans-unit>
       <trans-unit id="BackendConverterUpdatePageFieldAmount" resname="BackendConverterUpdatePageFieldAmount" approved="yes">
         <source>Field Amount</source>
         <target state="final">Felt antal</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageFields" resname="BackendConverterUpdatePageFields" approved="yes">
+        <source>Fields</source>
+        <target state="final">Felter</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldUidAutogenerated" resname="BackendConverterUpdateFieldUidAutogenerated" approved="yes">
+        <source>[auto]</source>
+        <target state="final">[auto]</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldTitle" resname="BackendConverterUpdateFieldTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldProperties" resname="BackendConverterUpdateFieldProperties" approved="yes">
+        <source>Properties</source>
+        <target state="final">Egenskaber</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateNoFormsConverted" resname="BackendConverterUpdateNoFormsConverted" approved="yes">
+        <source>No Forms converted</source>
+        <target state="final">Ingen formularer konverteret</target>
       </trans-unit>
       <trans-unit id="BackendCheckTitle" resname="BackendCheckTitle" approved="yes">
         <source>Powermail Check</source>
         <target state="final">Powermail tjek</target>
       </trans-unit>
+      <trans-unit id="BackendCheckTryToFix" resname="BackendCheckTryToFix" approved="yes">
+        <source>Solve problem</source>
+        <target state="final">Løs problem</target>
+      </trans-unit>
       <trans-unit id="BackendCheckSessionTitle" resname="BackendCheckSessionTitle" approved="yes">
         <source>Frontend Session Check</source>
         <target state="final">Frontend session tjek</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckSessionCorrect" resname="BackendCheckSessionCorrect" approved="yes">
+        <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
+        <target state="final">Frontend sessioner fungerer korrekt ved at bruge $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() og -&gt;setKey()</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
+        <source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
+        <target state="final">Frontend sessioner fungerer ikke korrekt ved at bruge $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() og -&gt;setKey() - spørg venligst din administrator</target>
       </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">Udvidelsesmanager opdateret</target>
       </trans-unit>
+      <trans-unit id="BackendCheckExtMngConfigCorrect" resname="BackendCheckExtMngConfigCorrect" approved="yes">
+        <source>Extension is correct installed - all settings available from localconf.php</source>
+        <target state="final">Udvidelse er korrekt installeret - alle tilgængelige indstillinger fra localconf.php</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckExtMngConfigFailed" resname="BackendCheckExtMngConfigFailed" approved="yes">
+        <source>Extension was not correct installed - please click the update button in the Extension Manager</source>
+        <target state="final">Udvidelse blev ikke korrekt installeret - klik venligst på opdateringsknappen i Udvidelsesmanager</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionTitle" resname="BackendCheckVersionTitle" approved="yes">
+        <source>Version</source>
+        <target state="final">Version</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
+        <source>Last Extension Manager update</source>
+        <target state="final">Sidste udvidelseshåndterings opdatering</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
+        <source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+        <target state="final">Det kunne ikke bekræftes, om denne version er sikker eller usikker. Opdater venligst udvidelserne i Udvidelsemanager.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
+        <source>The installed version of powermail is up-to-date</source>
+        <target state="final">Den installerede version af powermail er up-to-date</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionSecurity" resname="BackendCheckVersionSecurity" approved="yes">
+        <source>The installed version of powermail contains a known security bug. Please update your powermail extension as soon as possible.</source>
+        <target state="final">Den installerede version af powermail indeholder en kendt sikkerhedsfejl. Opdater venligst din powermail udvidelse så hurtigt som muligt.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionUpgrade" resname="BackendCheckVersionUpgrade" approved="yes">
+        <source>A newer version of powermail is available</source>
+        <target state="final">En nyere version af powermail er tilgængelig</target>
+      </trans-unit>
       <trans-unit id="BackendCheckT3VersionTitle" resname="BackendCheckT3VersionTitle" approved="yes">
         <source>TYPO3 Version</source>
         <target state="final">TYPO3 version</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionCorrect" resname="BackendCheckT3VersionCorrect" approved="yes">
+        <source>The used TYPO3 version is correct for this Powermail version</source>
+        <target state="final">Den anvendte TYPO3 version er korrekt for denne Powermail version</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionFailed" resname="BackendCheckT3VersionFailed" approved="yes">
+        <source>Please check the TYPO3 version - maybe Powermail works not properly in this version</source>
+        <target state="final">Tjek venligst TYPO3 versionen - måske fungerer Powermail ikke korrekt i denne version</target>
       </trans-unit>
       <trans-unit id="BackendCheckUploadsFolderTitle" resname="BackendCheckUploadsFolderTitle" approved="yes">
         <source>Upload Folder</source>
@@ -379,6 +675,10 @@
         <source>Localized Forms</source>
         <target state="final">Lokaliserede formularer</target>
       </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsCorrect" resname="BackendCheckWrongLocalizedFormsCorrect" approved="yes">
+        <source>No failures in forms found on this system</source>
+        <target state="final">Ingen fejl i formularer fundet på dette system</target>
+      </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsFailed" resname="BackendCheckWrongLocalizedFormsFailed" approved="yes">
         <source>There are localized forms with empty tx_powermail_domain_model_form.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
         <target state="final">Der er oversatte formularer med tomme tx_powermail_domain_model_form.pages felter, der kan føre til problemer med at rendere oversatte formularer i Frontend</target>
@@ -387,25 +687,405 @@
         <source>Localized Pages</source>
         <target state="final">Oversatte sider</target>
       </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesCorrect" resname="BackendCheckWrongLocalizedPagesCorrect" approved="yes">
+        <source>No failures in pages found on this system</source>
+        <target state="final">Ingen fejl på sider fundet på dette system</target>
+      </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedPagesFailed" resname="BackendCheckWrongLocalizedPagesFailed" approved="yes">
         <source>There are localized pages with empty tx_powermail_domain_model_page.forms fields which can lead to problems in managing localized pages</source>
         <target state="final">Der er oversatte sider med tomme tx_powermail_domain_model_page.forms felter, som kan føre til problemer i håndteringen af oversatte sider</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckBackupBefore" resname="BackendCheckBackupBefore" approved="yes">
+        <source>Note: Please backup all powermail tables before you choose this option!</source>
+        <target state="final">Bemærk: Sikkerhedskopiér venligst alle powermail tabeller, før du vælger denne mulighed!</target>
       </trans-unit>
       <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle" approved="yes">
         <source>Development Context</source>
         <target state="final">Udviklingskontekst</target>
       </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive" approved="yes">
+        <source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+        <target state="final">Denne TYPO3 instans kører i udviklingstilstand. Alle e-mails vil kun blive sendt til %s.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable" approved="yes">
+        <source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
+        <target state="final">Denne TYPO3-instans kører i udviklingstilstand. Du kan bruge %s i AdditionalConfiguration.php til at håndhæve powermail til kun at sende testmails til denne e-mail.</target>
+      </trans-unit>
       <trans-unit id="BackendOverviewTitle" resname="BackendOverviewTitle" approved="yes">
         <source>Form Overview</source>
         <target state="final">Formular oversigt</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle2" resname="BackendOverviewTitle2" approved="yes">
+        <source>All Forms within page</source>
+        <target state="final">Alle formularer på siden</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle3" resname="BackendOverviewTitle3" approved="yes">
+        <source>(and its subpages)</source>
+        <target state="final">(og dens undersider)</target>
       </trans-unit>
       <trans-unit id="BackendOverviewTitle4" resname="BackendOverviewTitle4" approved="yes">
         <source>Show All Forms</source>
         <target state="final">Vis alle formularer</target>
       </trans-unit>
+      <trans-unit id="BackendOverviewTitle5" resname="BackendOverviewTitle5" approved="yes">
+        <source>All Forms in this CMS</source>
+        <target state="final">Alle formularer i dette CMS</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTable" resname="BackendOverviewTable" approved="yes">
+        <source>Forms</source>
+        <target state="final">Formularer</target>
+      </trans-unit>
       <trans-unit id="BackendOverviewCol1" resname="BackendOverviewCol1" approved="yes">
         <source>Form Title</source>
         <target state="final">Formular titel</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol2" resname="BackendOverviewCol2" approved="yes">
+        <source>Stored on Page</source>
+        <target state="final">Gemt på side</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol3" resname="BackendOverviewCol3" approved="yes">
+        <source>Used on Page</source>
+        <target state="final">Brugt på side</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol4" resname="BackendOverviewCol4" approved="yes">
+        <source>Powermail Pages</source>
+        <target state="final">Powermail sider</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol5" resname="BackendOverviewCol5" approved="yes">
+        <source>Powermail Fields</source>
+        <target state="final">Powermail felter</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewPages" resname="BackendOverviewPages" approved="yes">
+        <source>Page(s)</source>
+        <target state="final">Side(r)</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewFields" resname="BackendOverviewFields" approved="yes">
+        <source>Field(s)</source>
+        <target state="final">Felt(er)</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewNoForms" resname="BackendOverviewNoForms" approved="yes">
+        <source>No Forms found</source>
+        <target state="final">Ingen formularer fundet</target>
+      </trans-unit>
+      <trans-unit id="BackendFunctionTitle" resname="BackendFunctionTitle" approved="yes">
+        <source>Function-Test Section</source>
+        <target state="final">Afsnittet til funktionstest</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailTitle" resname="BackendEmailTitle" approved="yes">
+        <source>Test Email Sending</source>
+        <target state="final">Test e-mail afsendelse</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailFormTitle" resname="BackendEmailFormTitle" approved="yes">
+        <source>Test email generation with powermail</source>
+        <target state="final">Test e-mail generation med powermail</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailFormReceiver" resname="BackendEmailFormReceiver" approved="yes">
+        <source>Receiver Email</source>
+        <target state="final">Modtager e-mail</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle" approved="yes">
+        <source>Email Sending Status</source>
+        <target state="final">E-mail afsend-status</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
+        <source>Email send without problems (mail transmitted to mailserver)</source>
+        <target state="final">Sendt e-mail uden problemer (mail sendt til mailserver)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
+        <source>Email cound not send properly (ask your Adminstrator)</source>
+        <target state="final">E-mail tæller sender ikke korrekt (spørg din adminstrator)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
+        <source>TypoScript Static Template</source>
+        <target state="final">TypoScript statisk skabelon</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateCorrect" resname="BackendCheckStaticTemplateCorrect" approved="yes">
+        <source>Static TypoScript Template is available on current page.</source>
+        <target state="final">Statisk TypoScript skabelon er tilgængelig på denne side.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateFailed" resname="BackendCheckStaticTemplateFailed" approved="yes">
+        <source>Static TypoScript Template is not available on current page.</source>
+        <target state="final">Statisk TypoScript skabelon er ikke tilgængelig på nuværende side.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeTitle" resname="BackendCheckComposerModeTitle" approved="yes">
+        <source>Composer Mode</source>
+        <target state="final">Composertilstand</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeComposer" resname="BackendCheckComposerModeComposer" approved="yes">
+        <source>Your TYPO3 is running in Composer Mode</source>
+        <target state="final">Din TYPO3 kører i composertilstand</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeClassic" resname="BackendCheckComposerModeClassic" approved="yes">
+        <source>Your TYPO3 is running in Classic Mode</source>
+        <target state="final">Din TYPO3 kører i klassisk tilstand</target>
+      </trans-unit>
+      <trans-unit id="BackendListTitle" resname="BackendListTitle" approved="yes">
+        <source>Mail Listings</source>
+        <target state="final">Mail lister</target>
+      </trans-unit>
+      <trans-unit id="BackendListMails" resname="BackendListMails" approved="yes">
+        <source>Mails</source>
+        <target state="final">Mails</target>
+      </trans-unit>
+      <trans-unit id="BackendListMailDelete" resname="BackendListMailDelete" approved="yes">
+        <source>Delete Mail</source>
+        <target state="final">Slet mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListMailDeleteConfirmation" resname="BackendListMailDeleteConfirmation" approved="yes">
+        <source>Really Delete This Mail?</source>
+        <target state="final">Slet denne mail?</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpDetails" resname="BackendListHelpDetails" approved="yes">
+        <source>Show Mail Details</source>
+        <target state="final">Vis mail detaljer</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpEdit" resname="BackendListHelpEdit" approved="yes">
+        <source>Edit this Mail</source>
+        <target state="final">Rediger denne mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpUnhide" resname="BackendListHelpUnhide" approved="yes">
+        <source>Activate this Mail</source>
+        <target state="final">Aktivér denne mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpHide" resname="BackendListHelpHide" approved="yes">
+        <source>Deactivate this Mail</source>
+        <target state="final">Deaktiver denne mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListNoMails" resname="BackendListNoMails" approved="yes">
+        <source>No Mails to show</source>
+        <target state="final">Ingen mails at vise</target>
+      </trans-unit>
+      <trans-unit id="BackendListNoMailsSub" resname="BackendListNoMailsSub" approved="yes">
+        <source>Please choose another page or modify your filter settings</source>
+        <target state="final">Vælg venligst en anden side eller rediger dine filterindstillinger</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterFulltextSearch" resname="BackendListFilterFulltextSearch" approved="yes">
+        <source>Fulltext Search:</source>
+        <target state="final">Fuldtekst søgning:</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterFulltextSearchFormFilter" resname="BackendListFilterFulltextSearchFormFilter" approved="yes">
+        <source>Reduce to one form:</source>
+        <target state="final">Reducér til én form:</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterFulltextSearchSubmit" resname="BackendListFilterFulltextSearchSubmit" approved="yes">
+        <source>Filter List</source>
+        <target state="final">Filtrer liste</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterExtendedSearch" resname="BackendListFilterExtendedSearch" approved="yes">
+        <source>Extended Search</source>
+        <target state="final">Udvidet søgning</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterStart" resname="BackendListFilterStart" approved="yes">
+        <source>Start</source>
+        <target state="final">Start</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterEnd" resname="BackendListFilterEnd" approved="yes">
+        <source>Stop</source>
+        <target state="final">Stop</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterName" resname="BackendListFilterName" approved="yes">
+        <source>Sender Name</source>
+        <target state="final">Afsenders Navn</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterMail" resname="BackendListFilterMail" approved="yes">
+        <source>Sender Email</source>
+        <target state="final">Afsender E-Mail</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterSubject" resname="BackendListFilterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Emne</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterHidden" resname="BackendListFilterHidden" approved="yes">
+        <source>Deactivated Mails</source>
+        <target state="final">Deaktiverede Mails</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterDefaultFields" resname="BackendListFilterDefaultFields" approved="yes">
+        <source>Default Fields</source>
+        <target state="final">Standard Felter</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterAddField" resname="BackendListFilterAddField" approved="yes">
+        <source>Additional Fields</source>
+        <target state="final">Yderligere Felter</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterClean" resname="BackendListFilterClean" approved="yes">
+        <source>Delete Filters</source>
+        <target state="final">Slet Filtre</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterCleanLink" resname="BackendListFilterCleanLink" approved="yes">
+        <source>Show all Mails</source>
+        <target state="final">Vis alle mails</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterShowHidden" resname="BackendListFilterShowHidden" approved="yes">
+        <source>Show only deactivated Mails</source>
+        <target state="final">Vis kun deaktiverede mails</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterShowNonHidden" resname="BackendListFilterShowNonHidden" approved="yes">
+        <source>Show only activated Mails</source>
+        <target state="final">Vis kun aktiverede mails</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterExtendedExport" resname="BackendListFilterExtendedExport" approved="yes">
+        <source>Extended Export Settings</source>
+        <target state="final">Udvidet eksportindstillinger</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterExtendedExportLeftLabel" resname="BackendListFilterExtendedExportLeftLabel" approved="yes">
+        <source>Columns in Export file</source>
+        <target state="final">Kolonner i eksportfil</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterExtendedExportRightLabel" resname="BackendListFilterExtendedExportRightLabel" approved="yes">
+        <source>Available Columns</source>
+        <target state="final">Tilgængelige kolonner</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingTitle" resname="BackendReportingTitle" approved="yes">
+        <source>Mail Reporting</source>
+        <target state="final">Mail rapportering</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingForm" resname="BackendReportingForm" approved="yes">
+        <source>Form Reporting</source>
+        <target state="final">Formular rapportering</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingFormTitle" resname="BackendReportingFormTitle" approved="yes">
+        <source>Form Reporting</source>
+        <target state="final">Formular rapportering</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingFormValue" resname="BackendReportingFormValue" approved="yes">
+        <source>Value</source>
+        <target state="final">Værdi</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingFormSubtitle1" resname="BackendReportingFormSubtitle1" approved="yes">
+        <source>Reporting with</source>
+        <target state="final">Rapportering med</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingFormAmount" resname="BackendReportingFormAmount" approved="yes">
+        <source>Amount</source>
+        <target state="final">Beløb</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingMarketing" resname="BackendReportingMarketing" approved="yes">
+        <source>Marketing Reporting</source>
+        <target state="final">Marketing rapportering</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingMarketingTitle" resname="BackendReportingMarketingTitle" approved="yes">
+        <source>Marketing Reporting</source>
+        <target state="final">Marketing rapportering</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingNoValues" resname="BackendReportingNoValues" approved="yes">
+        <source>No Values to Show</source>
+        <target state="final">Ingen værdier at vise</target>
+      </trans-unit>
+      <trans-unit id="BackendPluginInformationNoHeader" resname="BackendPluginInformationNoHeader" approved="yes">
+        <source>[no header]</source>
+        <target state="final">[ingen header]</target>
+      </trans-unit>
+      <trans-unit id="BackendPluginInformationTitleMailForm" resname="BackendPluginInformationTitleMailForm" approved="yes">
+        <source>Mailform configuration</source>
+        <target state="final">Mailform konfiguration</target>
+      </trans-unit>
+      <trans-unit id="BackendPluginInformationTitleLastMails" resname="BackendPluginInformationTitleLastMails" approved="yes">
+        <source>Last mails from this form</source>
+        <target state="final">Seneste mails fra denne formular</target>
+      </trans-unit>
+      <trans-unit id="BackendPluginInformationTitlePi2" resname="BackendPluginInformationTitlePi2" approved="yes">
+        <source>Show and manage mails in Frontend</source>
+        <target state="final">Vis og håndtér mails i frontend</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendNoMails" resname="PowermailFrontendNoMails" approved="yes">
+        <source>No Mails found.</source>
+        <target state="final">Ingen mails fundet.</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendFilterAll" resname="PowermailFrontendFilterAll" approved="yes">
+        <source>All</source>
+        <target state="final">Alle</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendFilterSubmit" resname="PowermailFrontendFilterSubmit" approved="yes">
+        <source>Filter Now</source>
+        <target state="final">Filtrer nu</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail" approved="yes">
+        <source>Please edit your filtersettings.</source>
+        <target state="final">Redigér venligst dine filterindstillinger.</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
+        <source>Details</source>
+        <target state="final">Detaljer</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditView" resname="PowermailFrontendEditView" approved="yes">
+        <source>Edit</source>
+        <target state="final">Rediger</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendDeleteView" resname="PowermailFrontendDeleteView" approved="yes">
+        <source>Delete</source>
+        <target state="final">Slet</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditSubmit" resname="PowermailFrontendEditSubmit" approved="yes">
+        <source>Save Changes</source>
+        <target state="final">Gem ændringer</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm" approved="yes">
+        <source>Changes successfully saved</source>
+        <target state="final">Ændringerne blev gemt</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditNoMail" resname="PowermailFrontendEditNoMail" approved="yes">
+        <source>Missing required Mail parameter</source>
+        <target state="final">Mangler påkrævet mail parameter</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed" approved="yes">
+        <source>You are not allowed to make changes</source>
+        <target state="final">Du har ikke tilladelse til at foretage ændringer</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditSuccessful" resname="PowermailFrontendEditSuccessful" approved="yes">
+        <source>Changes successfully saved</source>
+        <target state="final">Ændringerne blev gemt</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendDeleteFailed" resname="PowermailFrontendDeleteFailed" approved="yes">
+        <source>Record could not be removed</source>
+        <target state="final">Elementet kunne ikke fjernes</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendDeleteSuccessful" resname="PowermailFrontendDeleteSuccessful" approved="yes">
+        <source>Record successfully removed</source>
+        <target state="final">Elementet blev slettet</target>
+      </trans-unit>
+      <trans-unit id="ExtensionManagerConvertingScriptSuccess" resname="ExtensionManagerConvertingScriptSuccess" approved="yes">
+        <source>All tables successfully converted</source>
+        <target state="final">Alle tabeller blev konverteret</target>
+      </trans-unit>
+      <trans-unit id="ExtensionManagerConvertingScriptStopAlreadyExist" resname="ExtensionManagerConvertingScriptStopAlreadyExist" approved="yes">
+        <source>Failure! Tables could not be converted because there is already one or more new tables (tx_powermail_domain_model_mail, tx_powermail_domain_model_answer, tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field) and they are not empty</source>
+        <target state="final">Fejl! Tabeller kunne ikke konverteres fordi der allerede er en eller flere nye tabeller (tx_powermail_domain_model_mail, tx_powermail_domain_model_answer, tx_powermail_domain_model_form, tx_powermail_domain_domain_model_page, tx_powermail_domain_model_field), og de er ikke tomme</target>
+      </trans-unit>
+      <trans-unit id="ExtensionManagerConvertingScriptStopNoTablesFound" resname="ExtensionManagerConvertingScriptStopNoTablesFound" approved="yes">
+        <source>Failure! Tables could not be converted because there is one or more old tables missing (tx_powermail_domain_model_mails, tx_powermail_domain_model_answers, tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields)</source>
+        <target state="final">Fejl! Tabeller kunne ikke konverteres fordi der mangler en eller flere gamle tabeller (tx_powermail_domain_model_mails, tx_powermail_domain_model_answers, tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields)</target>
+      </trans-unit>
+      <trans-unit id="Back" resname="Back" approved="yes">
+        <source>Back</source>
+        <target state="final">Tilbage</target>
+      </trans-unit>
+      <trans-unit id="Clock" resname="Clock" approved="yes">
+        <source>o'clock</source>
+        <target state="final">klokken</target>
+      </trans-unit>
+      <trans-unit id="ClearFilter" resname="ClearFilter" approved="yes">
+        <source>Delete Filter</source>
+        <target state="final">Slet filter</target>
+      </trans-unit>
+      <trans-unit id="Emails" resname="Emails" approved="yes">
+        <source>Emails</source>
+        <target state="final">E-mails</target>
+      </trans-unit>
+      <trans-unit id="FormField" resname="FormField" approved="yes">
+        <source>Formfield</source>
+        <target state="final">Formfelt</target>
+      </trans-unit>
+      <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
+        <source>Marketing Information</source>
+        <target state="final">Oplysninger om markedsføring</target>
+      </trans-unit>
+      <trans-unit id="honeypodLabel" resname="honeypodLabel" approved="yes">
+        <source>Don't fill this field!</source>
+        <target state="final">Udfyld ikke dette felt!</target>
+      </trans-unit>
+      <trans-unit id="deleteAllFiles" resname="deleteAllFiles" approved="yes">
+        <source>Delete All Files</source>
+        <target state="final">Slet alle filer</target>
       </trans-unit>
     </body>
   </file>
