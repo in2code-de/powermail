@@ -607,9 +607,37 @@
         <source>Email addresses</source>
         <target state="final">E-mail adresser</target>
       </trans-unit>
+      <trans-unit id="flexform.receiver.type.1" resname="flexform.receiver.type.1" approved="yes">
+        <source>Frontend user group</source>
+        <target state="final">Frontend brugergruppe</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.2" resname="flexform.receiver.type.2" approved="yes">
+        <source>Predefined receivers</source>
+        <target state="final">Prædefinerede modtagere</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.3" resname="flexform.receiver.type.3" approved="yes">
+        <source>Backend user group</source>
+        <target state="final">Backend brugergruppe</target>
+      </trans-unit>
       <trans-unit id="flexform.receiver.email" resname="flexform.receiver.email" approved="yes">
         <source>Receivers Email</source>
         <target state="final">Modtager e-mail</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.fe_group" resname="flexform.receiver.fe_group" approved="yes">
+        <source>Send Email to Frontend User Group</source>
+        <target state="final">Send e-mail til frontend brugergruppe</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail" resname="flexform.receiver.predefinedemail" approved="yes">
+        <source>Predefined receivers</source>
+        <target state="final">Prædefinerede modtagere</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.be_group" resname="flexform.receiver.be_group" approved="yes">
+        <source>Send Email to Backend User Group</source>
+        <target state="final">Send e-mail til backend brugergruppe</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail.1" resname="flexform.receiver.predefinedemail.1" approved="yes">
+        <source>Example receivers 1</source>
+        <target state="final">Eksempel på modtagere 1</target>
       </trans-unit>
       <trans-unit id="flexform.receiver.subject" resname="flexform.receiver.subject" approved="yes">
         <source>Subject for Email to Receiver (Empty subject disables mail)</source>
@@ -619,9 +647,225 @@
         <source>Bodytext for Email to Receiver</source>
         <target state="final">Brødtekst for e-mail til modtager</target>
       </trans-unit>
+      <trans-unit id="flexform.sender" resname="flexform.sender" approved="yes">
+        <source>Mail to User</source>
+        <target state="final">Mail til bruger</target>
+      </trans-unit>
       <trans-unit id="flexform.sender.email" resname="flexform.sender.email" approved="yes">
         <source>Sender Email (For Confirmation Mail to User)</source>
         <target state="final">Afsender e-mail (til bekræftelsesmail til bruger)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.name" resname="flexform.sender.name" approved="yes">
+        <source>Sender Name (For Confirmation Mail to User)</source>
+        <target state="final">Afsendernavn (til bekræftelsesmail til bruger)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.subject" resname="flexform.sender.subject" approved="yes">
+        <source>Subject for Email to Sender (Empty subject disables mail)</source>
+        <target state="final">Emne for e-mail til afsender (tom emne deaktiverer mail)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.body" resname="flexform.sender.body" approved="yes">
+        <source>Bodytext for Email to Sender</source>
+        <target state="final">Brødtekst for e-mail til afsender</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
+        <source>Submit Page</source>
+        <target state="final">Send side</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.body" resname="flexform.thx.body" approved="yes">
+        <source>Text on submit page</source>
+        <target state="final">Tekst på send side</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect" approved="yes">
+        <source>Redirect to any other Page after submit</source>
+        <target state="final">Omdirigér til hvilken som helst anden side efter indsendelse</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote" approved="yes">
+        <source>ATTENTION: Please select a form in Settings before!</source>
+        <target state="final">BEMÆRK: Vælg venligst en formular i Indstillinger før!</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main" resname="flexform_pi2.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">Hovedindstillinger</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions" resname="flexform_pi2.main.switchableControllerActions" approved="yes">
+        <source>Choose your view</source>
+        <target state="final">Vælg din visning</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.0" resname="flexform_pi2.main.switchableControllerActions.0" approved="yes">
+        <source>List or Detail View</source>
+        <target state="final">Liste eller detaljevisning</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.1" resname="flexform_pi2.main.switchableControllerActions.1" approved="yes">
+        <source>Detail View</source>
+        <target state="final">Detaljevisning</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.2" resname="flexform_pi2.main.switchableControllerActions.2" approved="yes">
+        <source>Edit View</source>
+        <target state="final">Redigér visning</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.3" resname="flexform_pi2.main.switchableControllerActions.3" approved="yes">
+        <source>All Views</source>
+        <target state="final">Alle visninger</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form" approved="yes">
+        <source>Choose a form</source>
+        <target state="final">Vælg en formular</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid" approved="yes">
+        <source>Select a page with mails (optional)</source>
+        <target state="final">Vælg en side med mails (valgfri)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list" approved="yes">
+        <source>Listview</source>
+        <target state="final">Listevisning</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">Vælg felter der skal vises (tom: Alle felter)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta" approved="yes">
+        <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
+        <target state="final">Vis indgange fra de sidste X sekunder (Tom: Funktion deaktiveret)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit" approved="yes">
+        <source>Show max. X entries (Empty: No Limit)</source>
+        <target state="final">Vis max. X elementer (tom: Ubegrænset)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid" approved="yes">
+        <source>Page with Plugin for list view (Empty: Same page)</source>
+        <target state="final">Side med Plugin for listevisning (tom: Samme side)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly" approved="yes">
+        <source>Own entries</source>
+        <target state="final">Egne poster</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0" approved="yes">
+        <source>Show only entries from logged in Frontend-User</source>
+        <target state="final">Vis kun poster fra logget på Frontend-bruger</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export" resname="flexform_pi2.list.export" approved="yes">
+        <source>Export Formats</source>
+        <target state="final">Eksportér formater</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.0" resname="flexform_pi2.list.export.0" approved="yes">
+        <source>XLS Export</source>
+        <target state="final">XLS eksport</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.1" resname="flexform_pi2.list.export.1" approved="yes">
+        <source>CSV Export</source>
+        <target state="final">CSV eksport</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.2" resname="flexform_pi2.list.export.2" approved="yes">
+        <source>RSS Feed</source>
+        <target state="final">RSS feed</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single" approved="yes">
+        <source>Detailview</source>
+        <target state="final">Detaljevisning</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.fields" resname="flexform_pi2.single.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">Vælg felter der skal vises (tom: Alle felter)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.activateLink" resname="flexform_pi2.single.activateLink" approved="yes">
+        <source>Link to detail view</source>
+        <target state="final">Link til detaljevisning</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.activateLink.0" resname="flexform_pi2.single.activateLink.0" approved="yes">
+        <source>active</source>
+        <target state="final">aktiv</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.pid" resname="flexform_pi2.single.pid" approved="yes">
+        <source>Page with Plugin for detail view (Empty: Same page)</source>
+        <target state="final">Side med Plugin for detaljevisning (tom: Samme side)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search" resname="flexform_pi2.search" approved="yes">
+        <source>Searchsettings</source>
+        <target state="final">Søgningsindstillinger</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields" resname="flexform_pi2.search.fields" approved="yes">
+        <source>Add searchfield</source>
+        <target state="final">Tilføj søgefelt</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields.all" resname="flexform_pi2.search.fields.all" approved="yes">
+        <source>[Fulltext Search]</source>
+        <target state="final">[Fuldtekst søg]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator" resname="flexform_pi2.search.operator" approved="yes">
+        <source>search fields operator (AND / OR)</source>
+        <target state="final">søgefeltoperatør (AND / OR)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.0" resname="flexform_pi2.search.operator.0" approved="yes">
+        <source>OR (Find keyword in Field1 OR Field2)</source>
+        <target state="final">ELLER (Find søgeord i felt1 ELLER felt2)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.1" resname="flexform_pi2.search.operator.1" approved="yes">
+        <source>AND (Find keyword in Field1 AND Field2)</source>
+        <target state="final">OG (Find søgeord i felt1 OG felt2)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc" resname="flexform_pi2.search.abc" approved="yes">
+        <source>Add ABC filter</source>
+        <target state="final">Tilføj ABC filter</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc.off" resname="flexform_pi2.search.abc.off" approved="yes">
+        <source>[Deactivated]</source>
+        <target state="final">[Deactivated]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit" resname="flexform_pi2.edit" approved="yes">
+        <source>Editview</source>
+        <target state="final">Redigérvisning</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fields" resname="flexform_pi2.edit.fields" approved="yes">
+        <source>Choose Fields to edit (Empty: All fields)</source>
+        <target state="final">Vælg felter at redigere (tom: Alle felter)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser" resname="flexform_pi2.edit.feuser" approved="yes">
+        <source>Choose one or more Frontend-Users with permission to change</source>
+        <target state="final">Vælg en eller flere Frontend-brugere med tilladelse til at ændre</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser.owner" resname="flexform_pi2.edit.feuser.owner" approved="yes">
+        <source>[Owner]</source>
+        <target state="final">[Owner]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fegroup" resname="flexform_pi2.edit.fegroup" approved="yes">
+        <source>Choose one or more Frontend-Groups with permission to change</source>
+        <target state="final">Vælg en eller flere frontend-grupper med tilladelse til at ændre</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.pid" resname="flexform_pi2.edit.pid" approved="yes">
+        <source>Page with Plugin for edit view (Empty: Same page)</source>
+        <target state="final">Side med plugin for redigeringsvisning (tom: Samme side)</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.receiverEmail" resname="pluginInfo.receiverEmail" approved="yes">
+        <source>Receiver email address</source>
+        <target state="final">Modtagers e-mailadresse</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.receiverName" resname="pluginInfo.receiverName" approved="yes">
+        <source>Receiver name</source>
+        <target state="final">Modtagers navn</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.subject" resname="pluginInfo.subject" approved="yes">
+        <source>Mail subject</source>
+        <target state="final">Mail emne</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.form" resname="pluginInfo.form" approved="yes">
+        <source>Form title</source>
+        <target state="final">Formular titel</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.savePid" resname="pluginInfo.savePid" approved="yes">
+        <source>Storage Location for Mails</source>
+        <target state="final">Lagerplads for mails</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.confirmationPage" resname="pluginInfo.confirmationPage" approved="yes">
+        <source>Confirmation page activated</source>
+        <target state="final">Bekræftelse side aktiveret</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.optin" resname="pluginInfo.optin" approved="yes">
+        <source>Double-opt-in activated</source>
+        <target state="final">Dobbelt-opt-in aktiveret</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.more" resname="pluginInfo.more" approved="yes">
+        <source>More ...</source>
+        <target state="final">Mere ...</target>
       </trans-unit>
     </body>
   </file>
