@@ -4,6 +4,7 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.2.4       | 2020-12-02   | Bugfix: Fix possible exception when extending powermail with own validators and using a confirmation view             |
 | 8.2.3       | 2020-11-08   | Bugfix: Set tx_powermail_domain_model_mail.fe_user value for logged in users                                          |
 |             |              | Bugfix: Fix link from PluginPreview to powermail module                                                               |
 |             |              | Bugfix: Prevent possible exception if not existing form is selected in a plugin (e.g. from old data garbage)          |
