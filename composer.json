@@ -22,7 +22,6 @@
     "ext-gd": "*"
   },
   "replace": {
-    "powermail": "self.version",
     "typo3-ter/powermail": "self.version"
   },
   "require-dev": {
