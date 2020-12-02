@@ -456,6 +456,22 @@ class FormController extends AbstractController
     }
 
     /**
+     * Always forward to formAction if a validation fails. Otherwise it could happen that when
+     * a validator for createAction fails, confirmationAction is called (if function is turned on) and same validators
+     * are firing again
+     *
+     * @return void
+     * @throws StopActionException
+     */
+    protected function forwardToReferringRequest()
+    {
+        $originalRequest = clone $this->request;
+        $this->request->setOriginalRequest($originalRequest);
+        $this->request->setOriginalRequestMappingResults($this->arguments->validate());
+        $this->forward('form');
+    }
+
+    /**
      * Decide if the mail object should be persisted or not
      *        persist if
      *            - enabled with TypoScript AND hash is not set OR
