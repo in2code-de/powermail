@@ -18,6 +18,14 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.4.1
+   :Date:
+      2020-12-02
+   :Changes:
+
+      * Bugfix: Fix possible exception when adding spamshield methods and using a confirmation view
+
+ - :Version:
       7.4.0
    :Date:
       2019-08-27
