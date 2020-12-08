@@ -7,6 +7,10 @@
         <source>Access</source>
         <target state="final">Zugriff</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
+        <source>Mails</source>
+        <target state="final">Mails</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1" approved="yes">
         <source>Sender</source>
         <target state="final">Absender</target>
@@ -123,6 +127,22 @@
         <source>This should not happen in powermail. The problem should be solved if you save the form again. If not, please check marker names of all fields to this form and fix it manually.</source>
         <target state="final">Das sollte in powermail nicht vorkommen. Das Problem sollte behoben sein, wenn das Formular erneut gespeichert wird. Falls nicht, überprüfe die Namen aller Marker in diesem Formular und behebe den Fehler manuell.</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css" resname="tx_powermail_domain_model_form.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Layout</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.1" resname="tx_powermail_domain_model_form.css.1" approved="yes">
+        <source>Layout1</source>
+        <target state="final">Layout 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.2" resname="tx_powermail_domain_model_form.css.2" approved="yes">
+        <source>Layout2</source>
+        <target state="final">Layout 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.3" resname="tx_powermail_domain_model_form.css.3" approved="yes">
+        <source>Layout3</source>
+        <target state="final">Layout 3</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.css.4" resname="tx_powermail_domain_model_form.css.4" approved="yes">
         <source>Hide label</source>
         <target state="final">Bezeichnung verstecken</target>
@@ -138,6 +158,22 @@
       <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
         <source>Title</source>
         <target state="final">Bezeichnung</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css" resname="tx_powermail_domain_model_page.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Layout</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.1" resname="tx_powermail_domain_model_page.css.1" approved="yes">
+        <source>Layout1</source>
+        <target state="final">Layout 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.2" resname="tx_powermail_domain_model_page.css.2" approved="yes">
+        <source>Layout2</source>
+        <target state="final">Layout 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.3" resname="tx_powermail_domain_model_page.css.3" approved="yes">
+        <source>Layout3</source>
+        <target state="final">Layout 3</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page.css.4" resname="tx_powermail_domain_model_page.css.4" approved="yes">
         <source>Hide label</source>
@@ -163,9 +199,17 @@
         <source>Type</source>
         <target state="final">Typ</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer1" resname="tx_powermail_domain_model_field.type.spacer1" approved="yes">
+        <source>Standard</source>
+        <target state="final">Standard</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.type.spacer2" resname="tx_powermail_domain_model_field.type.spacer2" approved="yes">
         <source>Extra</source>
         <target state="final">Erweitert</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer3" resname="tx_powermail_domain_model_field.type.spacer3" approved="yes">
+        <source>Extensions</source>
+        <target state="final">Extensions</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.type.0" resname="tx_powermail_domain_model_field.type.0" approved="yes">
         <source>Textfield (Input)</source>
@@ -227,6 +271,14 @@
         <source>Date</source>
         <target state="final">Datum</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.15" resname="tx_powermail_domain_model_field.type.15" approved="yes">
+        <source>Location</source>
+        <target state="final">Location</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.16" resname="tx_powermail_domain_model_field.type.16" approved="yes">
+        <source>TypoScript</source>
+        <target state="final">TypoScript</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.type.17" resname="tx_powermail_domain_model_field.type.17" approved="yes">
         <source>Country Selection</source>
         <target state="final">Länderauswahl</target>
@@ -263,6 +315,10 @@
         <source>Email</source>
         <target state="final">E-Mail</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.2" resname="tx_powermail_domain_model_field.validation.2" approved="yes">
+        <source>URL</source>
+        <target state="final">URL</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.validation.3" resname="tx_powermail_domain_model_field.validation.3" approved="yes">
         <source>Phone</source>
         <target state="final">Telefon</target>
@@ -298,6 +354,22 @@
       <trans-unit id="tx_powermail_domain_model_field.validationConfiguration" resname="tx_powermail_domain_model_field.validationConfiguration" approved="yes">
         <source>Validation Configuration</source>
         <target state="final">Konfiguration der Validierung</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css" resname="tx_powermail_domain_model_field.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Layout</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.1" resname="tx_powermail_domain_model_field.css.1" approved="yes">
+        <source>Layout 1</source>
+        <target state="final">Layout 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.2" resname="tx_powermail_domain_model_field.css.2" approved="yes">
+        <source>Layout 2</source>
+        <target state="final">Layout 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.3" resname="tx_powermail_domain_model_field.css.3" approved="yes">
+        <source>Layout 3</source>
+        <target state="final">Layout 3</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.css.4" resname="tx_powermail_domain_model_field.css.4" approved="yes">
         <source>Hide label</source>
@@ -343,6 +415,10 @@
         <source>Value from logged in Frontent User</source>
         <target state="final">Aus Frontend-Benutzer-Datenbank</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name" approved="yes">
+        <source>Name</source>
+        <target state="final">Name</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.feuser_value.address" resname="tx_powermail_domain_model_field.feuser_value.address" approved="yes">
         <source>Address</source>
         <target state="final">Adresse</target>
@@ -350,6 +426,10 @@
       <trans-unit id="tx_powermail_domain_model_field.feuser_value.phone" resname="tx_powermail_domain_model_field.feuser_value.phone" approved="yes">
         <source>Phone</source>
         <target state="final">Telefon</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.fax" resname="tx_powermail_domain_model_field.feuser_value.fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">Fax</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.feuser_value.email" resname="tx_powermail_domain_model_field.feuser_value.email" approved="yes">
         <source>Email</source>
@@ -411,6 +491,10 @@
         <source>Extended</source>
         <target state="final">Erweitert</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet2" resname="tx_powermail_domain_model_field.sheet2" approved="yes">
+        <source>Marketing</source>
+        <target state="final">Marketing</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1" approved="yes">
         <source>Email or Name</source>
         <target state="final">E-Mail oder Name</target>
@@ -427,6 +511,10 @@
         <source>Data Type</source>
         <target state="final">Datentyp</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.0" resname="tx_powermail_domain_model_answer.value_type.0" approved="yes">
+        <source>Text</source>
+        <target state="final">Text</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer.value_type.1" resname="tx_powermail_domain_model_answer.value_type.1" approved="yes">
         <source>Multi Text (Array)</source>
         <target state="final">Mehrfach-Text (Array)</target>
@@ -434,6 +522,14 @@
       <trans-unit id="tx_powermail_domain_model_answer.value_type.2" resname="tx_powermail_domain_model_answer.value_type.2" approved="yes">
         <source>Date</source>
         <target state="final">Datum</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.3" resname="tx_powermail_domain_model_answer.value_type.3" approved="yes">
+        <source>Upload</source>
+        <target state="final">Upload</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.mail" resname="tx_powermail_domain_model_answer.mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">Mail</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer.field" resname="tx_powermail_domain_model_answer.field" approved="yes">
         <source>Field</source>
@@ -650,6 +746,18 @@
       <trans-unit id="flexform_pi2.list.export" resname="flexform_pi2.list.export" approved="yes">
         <source>Export Formats</source>
         <target state="final">Export Formate</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.0" resname="flexform_pi2.list.export.0" approved="yes">
+        <source>XLS Export</source>
+        <target state="final">XLS Export</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.1" resname="flexform_pi2.list.export.1" approved="yes">
+        <source>CSV Export</source>
+        <target state="final">CSV Export</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.2" resname="flexform_pi2.list.export.2" approved="yes">
+        <source>RSS Feed</source>
+        <target state="final">RSS Feed</target>
       </trans-unit>
       <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single" approved="yes">
         <source>Detailview</source>
