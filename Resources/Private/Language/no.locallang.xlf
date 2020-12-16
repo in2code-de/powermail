@@ -3,285 +3,102 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="no">
     <header/>
     <body>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</body>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose" approved="yes">
+        <source>Please choose...</source>
+        <target state="final">Vennligst velg</target>
+      </trans-unit>
+      <trans-unit id="back" resname="back" approved="yes">
+        <source>Go back</source>
+        <target state="final">Gå tilbake</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName" resname="\In2code\Powermail\Domain\Model\Mail.senderName" approved="yes">
+        <source>Senders Name</source>
+        <target state="final">Avsenders navn</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail" resname="\In2code\Powermail\Domain\Model\Mail.senderMail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">Avsenders epost</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.subject" resname="\In2code\Powermail\Domain\Model\Mail.subject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Emne</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail" resname="\In2code\Powermail\Domain\Model\Mail.receiverMail" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">Mottakers epost</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body" approved="yes">
+        <source>Email Text</source>
+        <target state="final">Tekst i epost</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser" resname="\In2code\Powermail\Domain\Model\Mail.feuser" approved="yes">
+        <source>Frontend User</source>
+        <target state="final">Nettstedsbruker</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderIp" resname="\In2code\Powermail\Domain\Model\Mail.senderIp" approved="yes">
+        <source>Senders IP-Address</source>
+        <target state="final">Avsenders IP-adresse</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent" resname="\In2code\Powermail\Domain\Model\Mail.userAgent" approved="yes">
+        <source>Senders Browser-Signature</source>
+        <target state="final">Avsenders nettlesersignatur</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.spamFactor" resname="\In2code\Powermail\Domain\Model\Mail.spamFactor" approved="yes">
+        <source>Spamfactor</source>
+        <target state="final">Spamfaktor</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.time" resname="\In2code\Powermail\Domain\Model\Mail.time" approved="yes">
+        <source>Time for form submit</source>
+        <target state="final">Tid for å sende inn skjemaet</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate" resname="\In2code\Powermail\Domain\Model\Mail.crdate" approved="yes">
+        <source>Date</source>
+        <target state="final">Dato</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.date" resname="\In2code\Powermail\Domain\Model\Mail.date" approved="yes">
+        <source>Date</source>
+        <target state="final">Dato</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime" resname="\In2code\Powermail\Domain\Model\Mail.datetime" approved="yes">
+        <source>Time</source>
+        <target state="final">Tid</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" resname="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" approved="yes">
+        <source>Referer Domain</source>
+        <target state="final">Referer Domain</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingReferer" resname="\In2code\Powermail\Domain\Model\Mail.marketingReferer" approved="yes">
+        <source>Referer URI</source>
+        <target state="final">Referer URI</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingCountry" resname="\In2code\Powermail\Domain\Model\Mail.marketingCountry" approved="yes">
+        <source>Visitors Country</source>
+        <target state="final">Besøkendes land</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_mandatory" resname="validationerror_mandatory" approved="yes">
+        <source>This field must be filled!</source>
+        <target state="final">Dette feltet må fylles ut.</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterSubject" resname="BackendConverterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Emne</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageUid" resname="BackendConverterUpdatePageUid" approved="yes">
+        <source>Uid</source>
+        <target state="final">Uid</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterSubject" resname="BackendListFilterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Emne</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
