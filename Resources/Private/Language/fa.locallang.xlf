@@ -3,285 +3,670 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="fa">
     <header/>
     <body>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</body>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose" approved="yes">
+        <source>Please choose...</source>
+        <target state="final">لطفاً انتخاب کنید</target>
+      </trans-unit>
+      <trans-unit id="back" resname="back" approved="yes">
+        <source>Go back</source>
+        <target state="final">بازگشت به عقب</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName" resname="\In2code\Powermail\Domain\Model\Mail.senderName" approved="yes">
+        <source>Senders Name</source>
+        <target state="final">نام فرستنده</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail" resname="\In2code\Powermail\Domain\Model\Mail.senderMail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">رایانامۀ فرستنده</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.subject" resname="\In2code\Powermail\Domain\Model\Mail.subject" approved="yes">
+        <source>Subject</source>
+        <target state="final">موضوع</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail" resname="\In2code\Powermail\Domain\Model\Mail.receiverMail" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">رایانامۀ دریافت کننده</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body" approved="yes">
+        <source>Email Text</source>
+        <target state="final">متن رایانامه</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser" resname="\In2code\Powermail\Domain\Model\Mail.feuser" approved="yes">
+        <source>Frontend User</source>
+        <target state="final">کاربر خروجی سایت</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderIp" resname="\In2code\Powermail\Domain\Model\Mail.senderIp" approved="yes">
+        <source>Senders IP-Address</source>
+        <target state="final">درگاه اینترنتی فرستنده</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent" resname="\In2code\Powermail\Domain\Model\Mail.userAgent" approved="yes">
+        <source>Senders Browser-Signature</source>
+        <target state="final">امضای مرورگر فرستنده</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.spamFactor" resname="\In2code\Powermail\Domain\Model\Mail.spamFactor" approved="yes">
+        <source>Spamfactor</source>
+        <target state="final">ضریب هرزنامه</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.time" resname="\In2code\Powermail\Domain\Model\Mail.time" approved="yes">
+        <source>Time for form submit</source>
+        <target state="final">طول مدت پرکردن و ارسال برگه</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate" resname="\In2code\Powermail\Domain\Model\Mail.crdate" approved="yes">
+        <source>Date</source>
+        <target state="final">تاریخ</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.date" resname="\In2code\Powermail\Domain\Model\Mail.date" approved="yes">
+        <source>Date</source>
+        <target state="final">تاریخ</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime" resname="\In2code\Powermail\Domain\Model\Mail.datetime" approved="yes">
+        <source>Time</source>
+        <target state="final">زمان</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" resname="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" approved="yes">
+        <source>Referer Domain</source>
+        <target state="final">دامنۀ ارجاع‌دهنده</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingReferer" resname="\In2code\Powermail\Domain\Model\Mail.marketingReferer" approved="yes">
+        <source>Referer URI</source>
+        <target state="final">نشانی ارجاع‌دهنده</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingCountry" resname="\In2code\Powermail\Domain\Model\Mail.marketingCountry" approved="yes">
+        <source>Visitors Country</source>
+        <target state="final">کشور بازدیدکننده</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" resname="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" approved="yes">
+        <source>Visitor uses a Mobile Device</source>
+        <target state="final">بازدیدکننده از ابزار همراه استفاده می‌کند</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" approved="yes">
+        <source>Website Language</source>
+        <target state="final">زبان وبگاه</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" approved="yes">
+        <source>Browser Language</source>
+        <target state="final">زبان مرورگر</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" resname="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" approved="yes">
+        <source>Page Funnel</source>
+        <target state="final">Funnel صفحه</target>
+      </trans-unit>
+      <trans-unit id="note_html" resname="note_html" approved="yes">
+        <source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
+        <target state="final">به‌علل امنیتی، درحالت پیش‌فرضامکان نمایش برچسب‌های html وجود ندارد. شما می‌توانید این قابلیت را از طریق تایپواسکریپت فعال کنید (به دستورالعمل powermail مراجعه کنید)، اما توجه داشته باشید ویرایشگرها از آن پس پذیرای HTML و XSS خواهند بود.</target>
+      </trans-unit>
+      <trans-unit id="mail_created" resname="mail_created" approved="yes">
+        <source>Mail successfully sent!</source>
+        <target state="final">رایانامه با موفقیت ارسال شد!</target>
+      </trans-unit>
+      <trans-unit id="mail_created_failure" resname="mail_created_failure" approved="yes">
+        <source>Failure, mail could not be sent!</source>
+        <target state="final">خطا، امکان ارسال رایانامه وجود نداشت!</target>
+      </trans-unit>
+      <trans-unit id="confirmation_message" resname="confirmation_message" approved="yes">
+        <source>Are these values correct?</source>
+        <target state="final">آیا مقادیر درست می‌باشند؟</target>
+      </trans-unit>
+      <trans-unit id="confirmation_next" resname="confirmation_next" approved="yes">
+        <source>Next</source>
+        <target state="final">بعدی</target>
+      </trans-unit>
+      <trans-unit id="confirmation_prev" resname="confirmation_prev" approved="yes">
+        <source>Previous</source>
+        <target state="final">قبلی</target>
+      </trans-unit>
+      <trans-unit id="optin_seeMail" resname="optin_seeMail" approved="yes">
+        <source>Please have a look into your mail account and confirm this action.</source>
+        <target state="final">لطفا به حساب رایانامۀ خود مراجعه کرده و از انجام این عمل اطمینان حاصل کنید.</target>
+      </trans-unit>
+      <trans-unit id="optin_subject" resname="optin_subject" approved="yes">
+        <source>Please confirm your Email</source>
+        <target state="final">لطفا نشانی رایانامۀ خود را تائید کنید</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_entries" resname="optin_mail_entries" approved="yes">
+        <source>These are your given entries:</source>
+        <target state="final">این مقادیری است که وارد نموده‌اید:</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_link" resname="optin_mail_link" approved="yes">
+        <source>Please confirm with a click:</source>
+        <target state="final">لطفا با یک کلیک تائید نمایید:</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_confirm_failed" resname="optin_mail_confirm_failed" approved="yes">
+        <source>The given Link is not correct</source>
+        <target state="final">پیوند ارائه شده درست نیست</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_confirm_done" resname="optin_mail_confirm_done" approved="yes">
+        <source>The mail was already confirmed</source>
+        <target state="final">این رایانامه قبلا مورد تایید قرار گرفته است</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
+        <source>Error, Mail could not sent correctly!</source>
+        <target state="final">بروز خطا، امکان درست فرستادن رایانامه وجود ندارد!</target>
+      </trans-unit>
+      <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
+        <source>TypoScript settings are missing. Did you include the related static templates?</source>
+        <target state="final">تنظیمات تایپواسکریپت ارائه نشده است. آیا شالودۀ ایستای "اصلی" در قالب شامل شده است؟</target>
+      </trans-unit>
+      <trans-unit id="error_no_sender_name" resname="error_no_sender_name" approved="yes">
+        <source>No Sendername</source>
+        <target state="final">برای فرستنده نام وارد نشده</target>
+      </trans-unit>
+      <trans-unit id="error_no_sender_email" resname="error_no_sender_email" approved="yes">
+        <source>noreply</source>
+        <target state="final">noreply</target>
+      </trans-unit>
+      <trans-unit id="error_no_form" resname="error_no_form" approved="yes">
+        <source>No form to show</source>
+        <target state="final">فرمی برای نمایش وجود ندارد</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="error_wrong_captcha" resname="error_wrong_captcha" approved="yes">
+        <source>Wrong Captcha value, please try again!</source>
+        <target state="final">مقدار وارد شده برای کدامنیتی صحیح نیست، لطفا دوباره تلاش کنید!</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_mandatory" resname="validationerror_mandatory" approved="yes">
+        <source>This field must be filled!</source>
+        <target state="final">این بخش باید پر شود!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_mandatory_multi" resname="validationerror_mandatory_multi" approved="yes">
+        <source>One of these fields must be filled!</source>
+        <target state="final">یکی از بخش‌های این قسمت باید پر شود!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_captcha" resname="validationerror_captcha" approved="yes">
+        <source>Wrong captcha code entered - please try again!</source>
+        <target state="final">کدامنیتی به درستی وارد نشده است - لطفا دوباره تلاش کنید!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_password" resname="validationerror_password" approved="yes">
+        <source>Both Password-Fields are not equal!</source>
+        <target state="final">دو گذرواژۀ وارد شده با هم یکی نیستند!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_unique" resname="validationerror_unique" approved="yes">
+        <source>This value is already in use - please use a new one!</source>
+        <target state="final">این مقدار قبلا استفاده شده است - لطفا یک مقدار جدید ارائه دهید!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation" resname="validationerror_validation" approved="yes">
+        <source>Your input is not allowed!</source>
+        <target state="final">مقدار واردشده مجاز نیست!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.1" resname="validationerror_validation.1" approved="yes">
+        <source>This is not a valid email address!</source>
+        <target state="final">این یک نشانی رایانامۀ معتبر شناخته نمی‌شود!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.2" resname="validationerror_validation.2" approved="yes">
+        <source>This is not a valid URL!</source>
+        <target state="final">این یک نشانی اینترنتی معتبر نمی‌باشد!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.3" resname="validationerror_validation.3" approved="yes">
+        <source>This is not a valid Phone Number!</source>
+        <target state="final">این یک شمارۀ تلفن معتبر نمی‌باشد!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.4" resname="validationerror_validation.4" approved="yes">
+        <source>Please insert numbers only!</source>
+        <target state="final">لطفا فقط از اعداد استفاده نمایید!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.5" resname="validationerror_validation.5" approved="yes">
+        <source>Please insert letters only!</source>
+        <target state="final">لطفا فقط از حروف استفاده نمایید!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.6" resname="validationerror_validation.6" approved="yes">
+        <source>Please increase number!</source>
+        <target state="final">لطفا عدد بزرگتری وارد کنید!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.7" resname="validationerror_validation.7" approved="yes">
+        <source>Please decrease number!</source>
+        <target state="final">لطفا عدد کوچکتری وارد نمایید!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
+        <source>Number to high or to low!</source>
+        <target state="final">عدد یا بسیار بزرگ یا بسیار کوچک است!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10" approved="yes">
+        <source>Error in validation!</source>
+        <target state="final">خطا در اعتبارسنجی!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_extension" resname="validationerror_upload_extension" approved="yes">
+        <source>It's not allowed to upload a file with this extension!</source>
+        <target state="final">امکان ارسال فایل با این پسوند وجود ندارد!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
+        <source>The file, that you want to upload is too large!</source>
+        <target state="final">فایلی که قصد ارسال آن را داشتید فراتر از حجم مورد نظر است!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
+        <source>Upload failed, please check permissons on the server!</source>
+        <target state="final">بالاگذاری با اشکال مواجه شد، لطفا مجوزهای مربوط به سرویس‌دهنده را بررسی کنید!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
+        <source>Spam recognized:</source>
+        <target state="final">تشخیص هرزنامه:</target>
+      </trans-unit>
+      <trans-unit id="validationerror_spam_details" resname="validationerror_spam_details" approved="yes">
+        <source>Spam chance in this message!</source>
+        <target state="final">احتمال هرزنامه در این پیام!</target>
+      </trans-unit>
+      <trans-unit id="writePasswordAgain" resname="writePasswordAgain" approved="yes">
+        <source>Please write again</source>
+        <target state="final">لطفا دوباره بنویسید</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_date" resname="datepicker_format_date" approved="yes">
+        <source>Y-m-d</source>
+        <target state="final">Y-m-d</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_datetime" resname="datepicker_format_datetime" approved="yes">
+        <source>Y-m-d H:i</source>
+        <target state="final">Y-m-d H:i</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_time" resname="datepicker_format_time" approved="yes">
+        <source>H:i</source>
+        <target state="final">H:i</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_so" resname="datepicker_day_so" approved="yes">
+        <source>So</source>
+        <target state="final">یکشنبه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_mo" resname="datepicker_day_mo" approved="yes">
+        <source>Mo</source>
+        <target state="final">دوشنبه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_tu" resname="datepicker_day_tu" approved="yes">
+        <source>Tu</source>
+        <target state="final">سه‌شنبه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_we" resname="datepicker_day_we" approved="yes">
+        <source>We</source>
+        <target state="final">چهارشنبه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_th" resname="datepicker_day_th" approved="yes">
+        <source>Th</source>
+        <target state="final">پنج‌شنبه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_fr" resname="datepicker_day_fr" approved="yes">
+        <source>Fr</source>
+        <target state="final">جمعه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_sa" resname="datepicker_day_sa" approved="yes">
+        <source>Sa</source>
+        <target state="final">شنبه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jan" resname="datepicker_month_jan" approved="yes">
+        <source>January</source>
+        <target state="final">ژانویه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_feb" resname="datepicker_month_feb" approved="yes">
+        <source>February</source>
+        <target state="final">فوریه</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_mar" resname="datepicker_month_mar" approved="yes">
+        <source>March</source>
+        <target state="final">مارس</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_apr" resname="datepicker_month_apr" approved="yes">
+        <source>April</source>
+        <target state="final">آوریل</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_may" resname="datepicker_month_may" approved="yes">
+        <source>May</source>
+        <target state="final">می</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jun" resname="datepicker_month_jun" approved="yes">
+        <source>June</source>
+        <target state="final">جون</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jul" resname="datepicker_month_jul" approved="yes">
+        <source>July</source>
+        <target state="final">جولای</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_aug" resname="datepicker_month_aug" approved="yes">
+        <source>August</source>
+        <target state="final">آگوست</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_sep" resname="datepicker_month_sep" approved="yes">
+        <source>September</source>
+        <target state="final">سپتامبر</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_oct" resname="datepicker_month_oct" approved="yes">
+        <source>October</source>
+        <target state="final">اکتبر</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_nov" resname="datepicker_month_nov" approved="yes">
+        <source>November</source>
+        <target state="final">نوامبر</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_dec" resname="datepicker_month_dec" approved="yes">
+        <source>December</source>
+        <target state="final">دسامبر</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckCheckboxes" resname="JsValidationCheckCheckboxes" approved="yes">
+        <source>Please check min. 1</source>
+        <target state="final">لطفا حداقل 1 را بررسی نمایید</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckInteger" resname="JsValidationCheckInteger" approved="yes">
+        <source>Not a valid number</source>
+        <target state="final">عدد معتبری نیست</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckRequired" resname="JsValidationCheckRequired" approved="yes">
+        <source>This field is required</source>
+        <target state="final">این بخش الزامی است</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckRequiredOption" resname="JsValidationCheckRequiredOption" approved="yes">
+        <source>Please select an option</source>
+        <target state="final">لطفا یک مورد را برگزینید</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckEmail" resname="JsValidationCheckEmail" approved="yes">
+        <source>Invalid Email</source>
+        <target state="final">رایانامۀ نامعتبر</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckUrl" resname="JsValidationCheckUrl" approved="yes">
+        <source>Invalid URL</source>
+        <target state="final">نشانی اینترنتی نامعتبر</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckPhone" resname="JsValidationCheckPhone" approved="yes">
+        <source>Invalid Phone No</source>
+        <target state="final">شماره تلفن نامعتبر</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckLetters" resname="JsValidationCheckLetters" approved="yes">
+        <source>Only Letters allowed</source>
+        <target state="final">تنها حروف پذیرفته می‌شوند</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionList" resname="BackendSelectionList" approved="yes">
+        <source>Mail List</source>
+        <target state="final">فهرست پستی</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReporting" resname="BackendSelectionReporting" approved="yes">
+        <source>Reporting</source>
+        <target state="final">گزارش</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReportingForm" resname="BackendSelectionReportingForm" approved="yes">
+        <source>Reporting (Form)</source>
+        <target state="final">گزارش (فرم)</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReportingMarketing" resname="BackendSelectionReportingMarketing" approved="yes">
+        <source>Reporting (Marketing)</source>
+        <target state="final">گزارش (بازاریابی)</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionTools" resname="BackendSelectionTools" approved="yes">
+        <source>Tools</source>
+        <target state="final">ابزار</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionOverview" resname="BackendSelectionOverview" approved="yes">
+        <source>Form Overview</source>
+        <target state="final">خلاصه فرم</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionCheck" resname="BackendSelectionCheck" approved="yes">
+        <source>Function Check</source>
+        <target state="final">بررسی عملکرد</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle" resname="BackendSelectionConverterTitle" approved="yes">
+        <source>Form Converter</source>
+        <target state="final">تبدیل فرم</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle2" resname="BackendSelectionConverterTitle2" approved="yes">
+        <source>Converts all Powermail 1.x to 2.x Forms</source>
+        <target state="final">تبدیل همۀ فرم‌های Powermail 1.x به فرمهای 2.x</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle4" resname="BackendSelectionConverterTitle4" approved="yes">
+        <source>Attention: Please backup your database before converting. This step is irreversible.</source>
+        <target state="final">توجه: لطفا پیش از عملیات تبدیل، از بانک دادۀ خود نسخۀ پشتیبان تهیه نمایید. این کار غیر قابل بازگشت است.</target>
+      </trans-unit>
+      <trans-unit id="BackendListMultiselectLabel" resname="BackendListMultiselectLabel" approved="yes">
+        <source>record(s) selected:</source>
+        <target state="final">ردیف(های) انتخاب شده:</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormSave" resname="BackendConverterFormSave" approved="yes">
+        <source>Save new forms on page with PID</source>
+        <target state="final">ذخیرۀ فرم‌های جدید روی صفحه با شناسۀ:</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultReceiverName" resname="BackendConverterFormDefaultReceiverName" approved="yes">
+        <source>Default Receiver Name</source>
+        <target state="final">پیش‌فرض نام گیرنده</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultSenderNameConfirmationMail" resname="BackendConverterFormDefaultSenderNameConfirmationMail" approved="yes">
+        <source>Default Sender Name for Confirmation Mail</source>
+        <target state="final">پیش‌فرض نام فرستندۀ رایانامۀ تایید</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultSenderMailConfirmationMail" resname="BackendConverterFormDefaultSenderMailConfirmationMail" approved="yes">
+        <source>Default Sender Email for Confirmation Mail</source>
+        <target state="final">پیش‌فرض نام فرستندۀ رایانامۀ تایید</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFunc" resname="BackendConverterFormDefaultParseFunc" approved="yes">
+        <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
+        <target state="final">مسیر ParseFunc در تایپواسکریپت (بدون کتابخانۀ پیشوند).</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
+        <source>If you have trouble with form converting, you can let this value completely empty.</source>
+        <target state="final">اگر ایرادی در تبدیل فرم پیش آمد، شما می‌توانید این مقدار را خالی باقی بگذارید.</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
+        <source>Ignore Old Hidden Forms</source>
+        <target state="final">نادیده گرفتن فرم‌های پنهان قدیمی</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDryrun" resname="BackendConverterFormDryrun" approved="yes">
+        <source>Do only a Test Run (no records will be generated or deleted)</source>
+        <target state="final">انجام امتحانی عملیات (هیچ ردیفی تولید یا حذف نمی‌شود)</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterOldForms" resname="BackendConverterOldForms" approved="yes">
+        <source>Old Forms (tt_content)</source>
+        <target state="final">فرم‌های قدیمی (tt_content)</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterLanguage" resname="BackendConverterLanguage" approved="yes">
+        <source>Language</source>
+        <target state="final">زبان</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterTitle" resname="BackendConverterTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">عنوان</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterRecipient" resname="BackendConverterRecipient" approved="yes">
+        <source>Recipient</source>
+        <target state="final">گیرنده</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterSubject" resname="BackendConverterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">موضوع</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFieldsetAmount" resname="BackendConverterFieldsetAmount" approved="yes">
+        <source>Number of Fieldsets</source>
+        <target state="final">تعداد دسته‌های بخش‌ها (Filedsets)</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterConfirmationPage" resname="BackendConverterConfirmationPage" approved="yes">
+        <source>Confirmation Page</source>
+        <target state="final">صفحۀ تایید</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterMultiple" resname="BackendConverterMultiple" approved="yes">
+        <source>Multiple</source>
+        <target state="final">چندتایی</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterNoOldForms" resname="BackendConverterNoOldForms" approved="yes">
+        <source>No old Forms found</source>
+        <target state="final">فرمی قدیمی پیدا نشد</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateTitle2" resname="BackendConverterUpdateTitle2" approved="yes">
+        <source>Overview: Converted Forms</source>
+        <target state="final">بازبینی: فرم‌های تبدیل‌شده</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateMessageOk" resname="BackendConverterUpdateMessageOk" approved="yes">
+        <source>Form(s) successfully generated!</source>
+        <target state="final">فرم‌(ها) با دقت تولید شدند!</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateMessageNote" resname="BackendConverterUpdateMessageNote" approved="yes">
+        <source>Form(s) could be migrated</source>
+        <target state="final">فرم(ها) امکان انتقال را دارند</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormUidAutogenerated" resname="BackendConverterUpdateFormUidAutogenerated" approved="yes">
+        <source>[auto]</source>
+        <target state="final">[خودکار]</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormTitle" resname="BackendConverterUpdateFormTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">عنوان</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormHidden" resname="BackendConverterUpdateFormHidden" approved="yes">
+        <source>Hidden</source>
+        <target state="final">مخفی</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormPageAmount" resname="BackendConverterUpdateFormPageAmount" approved="yes">
+        <source>Page Amount</source>
+        <target state="final">مقدار صفحه</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormPages" resname="BackendConverterUpdateFormPages" approved="yes">
+        <source>Pages</source>
+        <target state="final">صفحه‌ها</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageUid" resname="BackendConverterUpdatePageUid" approved="yes">
+        <source>Uid</source>
+        <target state="final">شناسۀ انحصاری</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageUidAutogenerated" resname="BackendConverterUpdatePageUidAutogenerated" approved="yes">
+        <source>[auto]</source>
+        <target state="final">[خودکار]</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageTitle" resname="BackendConverterUpdatePageTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">عنوان</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageLayout" resname="BackendConverterUpdatePageLayout" approved="yes">
+        <source>Layout</source>
+        <target state="final">طرح‌بندی</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageFieldAmount" resname="BackendConverterUpdatePageFieldAmount" approved="yes">
+        <source>Field Amount</source>
+        <target state="final">مقدار بخش</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageFields" resname="BackendConverterUpdatePageFields" approved="yes">
+        <source>Fields</source>
+        <target state="final">بخش‌ها</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldUidAutogenerated" resname="BackendConverterUpdateFieldUidAutogenerated" approved="yes">
+        <source>[auto]</source>
+        <target state="final">[خودکار]</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldTitle" resname="BackendConverterUpdateFieldTitle" approved="yes">
+        <source>Title</source>
+        <target state="final">عنوان</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldProperties" resname="BackendConverterUpdateFieldProperties" approved="yes">
+        <source>Properties</source>
+        <target state="final">ویژگی‌ها</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateNoFormsConverted" resname="BackendConverterUpdateNoFormsConverted" approved="yes">
+        <source>No Forms converted</source>
+        <target state="final">فرمی تبدیل نشد</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckTitle" resname="BackendCheckTitle" approved="yes">
+        <source>Powermail Check</source>
+        <target state="final">بررسی Powermail</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckTryToFix" resname="BackendCheckTryToFix" approved="yes">
+        <source>Solve problem</source>
+        <target state="final">حل مشکل</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckSessionTitle" resname="BackendCheckSessionTitle" approved="yes">
+        <source>Frontend Session Check</source>
+        <target state="final">بررسی نشست صفحۀ خروجی</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckSessionCorrect" resname="BackendCheckSessionCorrect" approved="yes">
+        <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
+        <target state="final">نشست‌های صفحات خروجی با استفاده از $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() و -&gt;setKey() مشغول انجام وظیفه هستند</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
+        <source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
+        <target state="final">نشست‌های صفحات خروجی با استفاده از $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() و -&gt;setKey() مشغول انجام وظیفه نیستند- لطفا از مدیر خود سوال کنید</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
+        <source>Extension Manager Updated</source>
+        <target state="final">مدیریت افزونه‌ها روزآمد شد</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckExtMngConfigCorrect" resname="BackendCheckExtMngConfigCorrect" approved="yes">
+        <source>Extension is correct installed - all settings available from localconf.php</source>
+        <target state="final">افزونه به درستی نصب شده است - همۀ تنظیمات localconf.php موجود است.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckExtMngConfigFailed" resname="BackendCheckExtMngConfigFailed" approved="yes">
+        <source>Extension was not correct installed - please click the update button in the Extension Manager</source>
+        <target state="final">افزونه به درستی نصب نشده - لطفا بر روی کلید روزآمدسازی در مدیریت افزونه‌ها کلیک کنید</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionTitle" resname="BackendCheckVersionTitle" approved="yes">
+        <source>Version</source>
+        <target state="final">نسخه</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
+        <source>Last Extension Manager update</source>
+        <target state="final">آخرین روزآمدسازی مدیریت افزونه‌ها</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
+        <source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+        <target state="final">امکان برآورد امن بودن یا نبودن این نسخه وجود ندارد. لطفا افزونه را در بخش مدیریت افزونه‌ها روزآمد کنید.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
+        <source>The installed version of powermail is up-to-date</source>
+        <target state="final">نسخۀ نصب شدۀ Powermail روزآمد است</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionSecurity" resname="BackendCheckVersionSecurity" approved="yes">
+        <source>The installed version of powermail contains a known security bug. Please update your powermail extension as soon as possible.</source>
+        <target state="final">نسخۀ نصب شدۀ Powermail یک اشکال امنیتی شناخته شده دارد. لطفا افزونۀ Powermail خود را در اسرع وقت روزآمد کنید.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionUpgrade" resname="BackendCheckVersionUpgrade" approved="yes">
+        <source>A newer version of powermail is available</source>
+        <target state="final">نسخۀ جدیدی از Powermail ارائه شده است</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionTitle" resname="BackendCheckT3VersionTitle" approved="yes">
+        <source>TYPO3 Version</source>
+        <target state="final">نسخۀ TYPO3</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionCorrect" resname="BackendCheckT3VersionCorrect" approved="yes">
+        <source>The used TYPO3 version is correct for this Powermail version</source>
+        <target state="final">نسخۀ استفاده شدۀ TYPO3 به درستی متناظر با این نسخۀ Powermail می‌باشد</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionFailed" resname="BackendCheckT3VersionFailed" approved="yes">
+        <source>Please check the TYPO3 version - maybe Powermail works not properly in this version</source>
+        <target state="final">لطفا نسخۀ TYPO3 را بررسی کنید - ممکن است Powermail با این نسخه همخوان نبوده و کار نکند.</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderTitle" resname="BackendCheckUploadsFolderTitle" approved="yes">
+        <source>Upload Folder</source>
+        <target state="final">پوشۀ بارگذاری</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderCorrect" resname="BackendCheckUploadsFolderCorrect" approved="yes">
+        <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
+        <target state="final">پوشۀ پیش‌فرض بارگذاری موجود است (uploads/tx_powermail/)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
+        <source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
+        <target state="final">پوشۀ پیش‌فرض بارگذاری وجود ندارد (uploads/tx_powermail/)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
+        <source>Localized Forms</source>
+        <target state="final">فرم‌های بومی شده</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsCorrect" resname="BackendCheckWrongLocalizedFormsCorrect" approved="yes">
+        <source>No failures in forms found on this system</source>
+        <target state="final">مشکلی با فرم‌های موجود در این سامانه وجود ندارد</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesTitle" resname="BackendCheckWrongLocalizedPagesTitle" approved="yes">
+        <source>Localized Pages</source>
+        <target state="final">صفحات بومی‌شده</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesCorrect" resname="BackendCheckWrongLocalizedPagesCorrect" approved="yes">
+        <source>No failures in pages found on this system</source>
+        <target state="final">هیچ نارسائی‌ای در صفحات این سامانه وجود ندارد</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckBackupBefore" resname="BackendCheckBackupBefore" approved="yes">
+        <source>Note: Please backup all powermail tables before you choose this option!</source>
+        <target state="final">توضیح: لطفا قبل از پیشروی با این گزینه از همۀ جداول powermail نسخۀ پشتیبان تهیه نمایید!</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle" resname="BackendOverviewTitle" approved="yes">
+        <source>Form Overview</source>
+        <target state="final">خلاصه فرم</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterSubject" resname="BackendListFilterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">موضوع</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
