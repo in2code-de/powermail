@@ -3,285 +3,202 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="fi">
     <header/>
     <body>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</body>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName" resname="\In2code\Powermail\Domain\Model\Mail.senderName" approved="yes">
+        <source>Senders Name</source>
+        <target state="final">Lähettäjän nimi</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail" resname="\In2code\Powermail\Domain\Model\Mail.senderMail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">Lähettäjän sähköposti</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.subject" resname="\In2code\Powermail\Domain\Model\Mail.subject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Aihe</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail" resname="\In2code\Powermail\Domain\Model\Mail.receiverMail" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">Vastaanottajan sähköposti</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body" approved="yes">
+        <source>Email Text</source>
+        <target state="final">Sähköpostiviesti</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_confirm_failed" resname="optin_mail_confirm_failed" approved="yes">
+        <source>The given Link is not correct</source>
+        <target state="final">Annettu linkki ei ole oikeanlainen</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
+        <source>Error, Mail could not sent correctly!</source>
+        <target state="final">Virhe, lomaketta ei voitu lähettää.</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_mandatory" resname="validationerror_mandatory" approved="yes">
+        <source>This field must be filled!</source>
+        <target state="final">Pakollinen kenttä!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_mandatory_multi" resname="validationerror_mandatory_multi" approved="yes">
+        <source>One of these fields must be filled!</source>
+        <target state="final">Jokin kentistä tulee täyttää.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_captcha" resname="validationerror_captcha" approved="yes">
+        <source>Wrong captcha code entered - please try again!</source>
+        <target state="final">Väärä captcha-koodi, ole hyvä ja yritä uudelleen.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_password" resname="validationerror_password" approved="yes">
+        <source>Both Password-Fields are not equal!</source>
+        <target state="final">Anna samanlaiset salasanat.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.1" resname="validationerror_validation.1" approved="yes">
+        <source>This is not a valid email address!</source>
+        <target state="final">Tämä ei ole oikea sähköpostiosoite.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.2" resname="validationerror_validation.2" approved="yes">
+        <source>This is not a valid URL!</source>
+        <target state="final">Tämä ei ole oikea URL.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.3" resname="validationerror_validation.3" approved="yes">
+        <source>This is not a valid Phone Number!</source>
+        <target state="final">Tämä ei ole oikea puhelinnumero.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.4" resname="validationerror_validation.4" approved="yes">
+        <source>Please insert numbers only!</source>
+        <target state="final">Ole hyvä anna vain numeroita.</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.5" resname="validationerror_validation.5" approved="yes">
+        <source>Please insert letters only!</source>
+        <target state="final">Ole hyvä anna vain kirjaimia.</target>
+      </trans-unit>
+      <trans-unit id="writePasswordAgain" resname="writePasswordAgain" approved="yes">
+        <source>Please write again</source>
+        <target state="final">Kirjoita uudelleen</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_date" resname="datepicker_format_date" approved="yes">
+        <source>Y-m-d</source>
+        <target state="final">d.m.Y</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_datetime" resname="datepicker_format_datetime" approved="yes">
+        <source>Y-m-d H:i</source>
+        <target state="final">d.m.Y H:i</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_so" resname="datepicker_day_so" approved="yes">
+        <source>So</source>
+        <target state="final">Su</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_mo" resname="datepicker_day_mo" approved="yes">
+        <source>Mo</source>
+        <target state="final">Ma</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_tu" resname="datepicker_day_tu" approved="yes">
+        <source>Tu</source>
+        <target state="final">Ti</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_we" resname="datepicker_day_we" approved="yes">
+        <source>We</source>
+        <target state="final">Ke</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_th" resname="datepicker_day_th" approved="yes">
+        <source>Th</source>
+        <target state="final">To</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_fr" resname="datepicker_day_fr" approved="yes">
+        <source>Fr</source>
+        <target state="final">Pe</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_sa" resname="datepicker_day_sa" approved="yes">
+        <source>Sa</source>
+        <target state="final">La</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jan" resname="datepicker_month_jan" approved="yes">
+        <source>January</source>
+        <target state="final">Tammikuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_feb" resname="datepicker_month_feb" approved="yes">
+        <source>February</source>
+        <target state="final">Helmikuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_mar" resname="datepicker_month_mar" approved="yes">
+        <source>March</source>
+        <target state="final">Maaliskuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_apr" resname="datepicker_month_apr" approved="yes">
+        <source>April</source>
+        <target state="final">Huhtikuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_may" resname="datepicker_month_may" approved="yes">
+        <source>May</source>
+        <target state="final">Toukokuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jun" resname="datepicker_month_jun" approved="yes">
+        <source>June</source>
+        <target state="final">Kesäkuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jul" resname="datepicker_month_jul" approved="yes">
+        <source>July</source>
+        <target state="final">Heinäkuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_aug" resname="datepicker_month_aug" approved="yes">
+        <source>August</source>
+        <target state="final">Elokuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_sep" resname="datepicker_month_sep" approved="yes">
+        <source>September</source>
+        <target state="final">Syyskuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_oct" resname="datepicker_month_oct" approved="yes">
+        <source>October</source>
+        <target state="final">Lokakuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_nov" resname="datepicker_month_nov" approved="yes">
+        <source>November</source>
+        <target state="final">Marraskuu</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_dec" resname="datepicker_month_dec" approved="yes">
+        <source>December</source>
+        <target state="final">Joulukuu</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckInteger" resname="JsValidationCheckInteger" approved="yes">
+        <source>Not a valid number</source>
+        <target state="final">Ei oikea numero</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckRequired" resname="JsValidationCheckRequired" approved="yes">
+        <source>This field is required</source>
+        <target state="final">Tämä kenttä on pakollinen.</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckRequiredOption" resname="JsValidationCheckRequiredOption" approved="yes">
+        <source>Please select an option</source>
+        <target state="final">Ole hyvä ja valitse</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckEmail" resname="JsValidationCheckEmail" approved="yes">
+        <source>Invalid Email</source>
+        <target state="final">Vääränlainen sähköposti</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckUrl" resname="JsValidationCheckUrl" approved="yes">
+        <source>Invalid URL</source>
+        <target state="final">Vääränlainen URL</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckPhone" resname="JsValidationCheckPhone" approved="yes">
+        <source>Invalid Phone No</source>
+        <target state="final">Vääränlainen puhelinnumero</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckLetters" resname="JsValidationCheckLetters" approved="yes">
+        <source>Only Letters allowed</source>
+        <target state="final">Vain kirjaimet sallittuja</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterSubject" resname="BackendConverterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Aihe</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterSubject" resname="BackendListFilterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Aihe</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
