@@ -46,7 +46,7 @@ class UploadValidator extends AbstractValidator
                 $this->setErrorAndMessage($file->getField(), 'upload_size');
                 $file->setValid(false);
             }
-        };
+        }
         return $this->isValidState();
     }
 
