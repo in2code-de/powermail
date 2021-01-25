@@ -88,14 +88,14 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *        check
      *        radio
      *
-     * @return bool|null
+     * @return bool
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
-    public function render(): ?bool
+    public function render(): bool
     {
         /** @var Field $field */
         $field = $this->arguments['field'];
@@ -127,47 +127,46 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     protected function buildSelectedValue(): void
     {
         $selected = $this->isFromMail();
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromMarker();
         }
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromRawMarker();
         }
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromFieldUid();
         }
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromOldPowermailFieldUid();
         }
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromFrontendUser();
         }
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromPrefillValue();
         }
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromTypoScriptContentObject();
         }
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromTypoScriptRaw();
         }
-        if ($selected === null) {
+        if (!$selected) {
             $selected = $this->isFromSession();
         }
-        $this->setSelected($selected ?? false);
+        $this->setSelected($selected);
     }
 
     /**
      * Check if value from existing answer (for edit view)
      * is set to current value
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromMail(): ?bool
+    protected function isFromMail(): bool
     {
-        $selected = null;
+        $selected = false;
         if ($this->getMail() !== null && $this->getMail()->getAnswers()) {
-            $selected = false;
             foreach ($this->getMail()->getAnswers() as $answer) {
                 if ($answer->getField() === $this->getField()) {
                     $values = $answer->getValue();
@@ -190,13 +189,12 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * &tx_powermail_pi1[field][marker]
      * is current value
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromMarker(): ?bool
+    protected function isFromMarker(): bool
     {
-        $selected = null;
+        $selected = false;
         if (isset($this->variables['field'][$this->getMarker()])) {
-            $selected = false;
             if (is_array($this->variables['field'][$this->getMarker()])) {
                 foreach (array_keys($this->variables['field'][$this->getMarker()]) as $key) {
                     if ($this->variables['field'][$this->getMarker()][$key] === $this->options[$this->index]['value'] ||
@@ -222,13 +220,12 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * &tx_powermail_pi1[marker]
      * is current value
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromRawMarker(): ?bool
+    protected function isFromRawMarker(): bool
     {
-        $selected = null;
+        $selected = false;
         if (isset($this->variables[$this->getMarker()])) {
-            $selected = false;
             if (is_array($this->variables[$this->getMarker()])) {
                 foreach (array_keys($this->variables[$this->getMarker()]) as $key) {
                     if ($this->variables[$this->getMarker()][$key] === $this->options[$this->index]['value'] ||
@@ -254,14 +251,13 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * &tx_powermail_pi1[field][123]
      * is current value
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromFieldUid(): ?bool
+    protected function isFromFieldUid(): bool
     {
-        $selected = null;
+        $selected = false;
         $fieldUid = $this->getField()->getUid();
         if (isset($this->variables['field'][$fieldUid])) {
-            $selected = false;
             if (is_array($this->variables['field'][$fieldUid])) {
                 foreach (array_keys($this->variables['field'][$fieldUid]) as $key) {
                     if ($this->variables['field'][$fieldUid][$key] === $this->options[$this->index]['value'] ||
@@ -285,13 +281,12 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * Check if value from GET/POST param &tx_powermail_pi1[uid123]
      * is set to current value
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromOldPowermailFieldUid(): ?bool
+    protected function isFromOldPowermailFieldUid(): bool
     {
-        $selected = null;
+        $selected = false;
         if (isset($this->variables['uid' . $this->getField()->getUid()])) {
-            $selected = false;
             if ($this->variables['uid' . $this->getField()->getUid()] === $this->options[$this->index]['value'] ||
                 $this->variables['uid' . $this->getField()->getUid()] === $this->options[$this->index]['label']
             ) {
@@ -304,14 +299,13 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from current logged in Frontend User
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromFrontendUser(): ?bool
+    protected function isFromFrontendUser(): bool
     {
-        $selected = null;
+        $selected = false;
         $feUserValue = $this->getField()->getFeuserValue();
         if ($feUserValue && FrontendUtility::isLoggedInFrontendUser()) {
-            $selected = false;
             if (FrontendUtility::getPropertyFromLoggedInFrontendUser($feUserValue)
                 === $this->options[$this->index]['value'] ||
                 FrontendUtility::getPropertyFromLoggedInFrontendUser($feUserValue)
@@ -326,11 +320,11 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from prefill value from field record
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromPrefillValue(): ?bool
+    protected function isFromPrefillValue(): bool
     {
-        $selected = null;
+        $selected = false;
         if ($this->options[$this->index]['selected']) {
             $selected = true;
         }
@@ -341,13 +335,12 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      * Get from raw TypoScript settings like
      *        plugin.tx_powermail.settings.setup.prefill.marker = red
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromTypoScriptRaw(): ?bool
+    protected function isFromTypoScriptRaw(): bool
     {
-        $selected = null;
+        $selected = false;
         if (!empty($this->configuration['prefill.'][$this->getMarker()])) {
-            $selected = false;
             if ($this->configuration['prefill.'][$this->getMarker()] === $this->options[$this->index]['value'] ||
                 $this->configuration['prefill.'][$this->getMarker()] === $this->options[$this->index]['label']
             ) {
@@ -360,14 +353,13 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * Get value from session if defined in TypoScript
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromSession(): ?bool
+    protected function isFromSession(): bool
     {
-        $selected = null;
+        $selected = false;
         $sessionValues = SessionUtility::getSessionValuesForPrefill($this->configuration);
         if (!empty($sessionValues) && count($sessionValues)) {
-            $selected = false;
             foreach ($sessionValues as $marker => $valueInSession) {
                 if ($this->getMarker() === $marker) {
                     if ($valueInSession === $this->options[$this->index]['value'] ||
@@ -392,15 +384,14 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *        plugin.tx_powermail.settings.setup.prefill.marker.0 = TEXT
      *        plugin.tx_powermail.settings.setup.prefill.marker.0.value = red
      *
-     * @return bool|null
+     * @return bool
      */
-    protected function isFromTypoScriptContentObject(): ?bool
+    protected function isFromTypoScriptContentObject(): bool
     {
-        $selected = null;
+        $selected = false;
         if (isset($this->configuration['prefill.'][$this->getMarker() . '.']) &&
             is_array($this->configuration['prefill.'][$this->getMarker() . '.'])
         ) {
-            $selected = false;
             $this->contentObjectRenderer->start(ObjectAccess::getGettableProperties($this->getField()));
             // Multivalue
             if (isset($this->configuration['prefill.'][$this->getMarker() . '.']['0'])) {
