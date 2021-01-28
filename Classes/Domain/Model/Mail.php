@@ -258,6 +258,9 @@ class Mail extends AbstractEntity
      */
     public function getFeuser()
     {
+        if ($this->feuser instanceof LazyLoadingProxy) {
+            $this->feuser->_loadRealInstance();
+        }
         return $this->feuser;
     }
 
