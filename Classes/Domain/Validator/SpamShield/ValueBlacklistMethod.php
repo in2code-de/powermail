@@ -30,7 +30,10 @@ class ValueBlacklistMethod extends AbstractMethod
                 continue;
             }
             foreach ($this->getValues() as $blackword) {
-                if ($this->isStringInString($answer->getValue(), $blackword)) {
+                if (is_bool($answer->getValue()) {
+                    continue;   
+                }
+                if ($this->isStringInString((string)$answer->getValue(), $blackword)) {
                     return true;
                 }
             }
