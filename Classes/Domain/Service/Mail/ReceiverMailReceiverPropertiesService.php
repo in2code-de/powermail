@@ -11,11 +11,11 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
-use TYPO3\CMS\Beuser\Domain\Model\Demand;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository;
 use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
@@ -182,14 +182,15 @@ class ReceiverMailReceiverPropertiesService
      * @param int $uid be_groups.uid
      * @return array
      * @throws Exception
+     * @throws InvalidQueryException
      */
     protected function getEmailsFromBeGroup(array $emailArray, int $uid): array
     {
         if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_BACKENDGROUP && !empty($uid)) {
+            /** @var BackendUserRepository $beUserRepository */
             $beUserRepository = ObjectUtility::getObjectManager()->get(BackendUserRepository::class);
-            $demand = ObjectUtility::getObjectManager()->get(Demand::class);
-            $demand->setBackendUserGroup($uid);
-            $users = $beUserRepository->findDemanded($demand);
+            $query = $beUserRepository->createQuery();
+            $users = $query->matching($query->contains('usergroup', $uid))->execute();
             $emailArray = [];
             /** @var User $user */
             foreach ($users as $user) {
