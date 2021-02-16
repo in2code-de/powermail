@@ -4,6 +4,11 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.3.0       | 2021-02-16   | Feature: Add autodeployment functionality to TER                                                                      |
+|             |              | Bugfix: Foreign-Validator compatibility to core methods                                                               |
+|             |              | Bugfix: Reanimate sending emails to backend users                                                                     |
+|             |              | Bugfix: Harden template utility functions against type errors                                                         |
+|             |              | Bugfix: Resolve LazyLoadingProxy to fe_users relations                                                                |
 | 8.2.4       | 2020-12-02   | Bugfix: Fix possible exception when extending powermail with own validators and using a confirmation view             |
 | 8.2.3       | 2020-11-08   | Bugfix: Set tx_powermail_domain_model_mail.fe_user value for logged in users                                          |
 |             |              | Bugfix: Fix link from PluginPreview to powermail module                                                               |
