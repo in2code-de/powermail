@@ -54,7 +54,7 @@ class CaptchaValidator extends AbstractValidator
                      * Resolves: https://github.com/einpraegsam/powermail/issues/376
                      * Resolves: https://projekte.in2code.de/issues/44174
                      */
-                    if (null === $answer->getUid()) {
+                    if ($answer->getUid() === null) {
                         if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
                             $this->setErrorAndMessage($answer->getField(), 'captcha');
                         }
