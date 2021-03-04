@@ -48,8 +48,16 @@ class CaptchaValidator extends AbstractValidator
                 /** @var Answer $answer */
                 if ($answer->getField()->getType() === 'captcha') {
                     $this->setCaptchaArgument(true);
-                    if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
-                        $this->setErrorAndMessage($answer->getField(), 'captcha');
+                    /* If the answer has a UID it has already been validated an persisted.
+                     * There's no reason to validate it twice. Also, there's no possibility, since the value to check
+                     * against got removed from the user's session on the first validation.
+                     * Resolves: https://github.com/einpraegsam/powermail/issues/376
+                     * Resolves: https://projekte.in2code.de/issues/44174
+                     */
+                    if (null === $answer->getUid()) {
+                        if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
+                            $this->setErrorAndMessage($answer->getField(), 'captcha');
+                        }
                     }
                 }
             }
