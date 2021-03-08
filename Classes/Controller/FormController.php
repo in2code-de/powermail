@@ -445,7 +445,12 @@ class FormController extends AbstractController
     {
         $originalRequest = clone $this->request;
         $this->request->setOriginalRequest($originalRequest);
-        $this->request->setOriginalRequestMappingResults($this->arguments->validate());
+        if (\In2code\Powermail\Utility\ConfigurationUtility::isTypo3OlderThen9()) {
+            $validationResult = $this->arguments->getValidationResults();
+        } else {
+            $validationResult = $this->arguments->validate();
+        }
+        $this->request->setOriginalRequestMappingResults($validationResult);
         $this->forward('form');
     }
 
