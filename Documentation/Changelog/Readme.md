@@ -4,6 +4,7 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.3.1       | 2021-03-08   | Bugfix: Don't validate captcha fields of already persisted mails (in double optin)                                    |
 | 8.3.0       | 2021-02-16   | Feature: Add autodeployment functionality to TER                                                                      |
 |             |              | Bugfix: Foreign-Validator compatibility to core methods                                                               |
 |             |              | Bugfix: Reanimate sending emails to backend users                                                                     |
