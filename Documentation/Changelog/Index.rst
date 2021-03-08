@@ -18,6 +18,16 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.4.2
+   :Date:
+      2020-03-08
+   :Changes:
+
+      * Task: Add autodeployment to TER via Github actions
+      * Bugfix: Skip captcha validation of already persisted mails (with double optin)
+      * Bugfix: Fix regression of 95084339151e6b47ac45cc951b02586286bea316 (introduced in 7.4.1 for TYPO3 8)
+
+ - :Version:
       7.4.1
    :Date:
       2020-12-02
