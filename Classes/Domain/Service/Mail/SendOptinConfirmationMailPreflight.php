@@ -55,6 +55,7 @@ class SendOptinConfirmationMailPreflight
 
     /**
      * @param Mail $mail
+     * @param array $ttContentData
      * @return void
      * @throws InvalidConfigurationTypeException
      * @throws InvalidControllerNameException
@@ -63,7 +64,7 @@ class SendOptinConfirmationMailPreflight
      * @throws InvalidSlotReturnException
      * @throws Exception
      */
-    public function sendOptinConfirmationMail(Mail $mail): void
+    public function sendOptinConfirmationMail(Mail $mail, $ttContentData): void
     {
         $email = [
             'template' => 'Mail/OptinMail',
@@ -86,7 +87,8 @@ class SendOptinConfirmationMailPreflight
                 'hash' => HashUtility::getHash($mail),
                 'hashDisclaimer' => HashUtility::getHash($mail, 'disclaimer'),
                 'mail' => $mail,
-                'L' => FrontendUtility::getSysLanguageUid()
+                'L' => FrontendUtility::getSysLanguageUid(),
+                'ttContentData' => $ttContentData
             ]
         ];
         $this->sendMailService->sendMail($email, $mail, $this->settings, 'optin');
