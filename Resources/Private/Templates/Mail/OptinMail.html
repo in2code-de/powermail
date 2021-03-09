@@ -9,6 +9,7 @@
 	{mail}							Complete Mail Object
 	{hash}							Hash for optin URI
 	{settings}						TypoScript Settings
+	{ttContentData}					All values from content element with plugin
 
 
 <f:section name="main">
@@ -16,7 +17,7 @@
 
 	<f:format.htmlentitiesDecode>
 		<f:link.action action="optinConfirm" absolute="1" arguments="{hash: hash, mail: mail}">
-			<f:uri.action action="optinConfirm" absolute="1" arguments="{hash: hash, mail: mail}" />
+			<f:uri.action action="optinConfirm" absolute="1" arguments="{hash: hash, mail: mail}" section="c{ttContentData.uid}" />
 		</f:link.action>
 	</f:format.htmlentitiesDecode>
 

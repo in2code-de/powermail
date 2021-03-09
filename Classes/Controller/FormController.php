@@ -202,7 +202,7 @@ class FormController extends AbstractController
                 $this->settings,
                 $this->conf
             );
-            $mailPreflight->sendOptinConfirmationMail($mail);
+            $mailPreflight->sendOptinConfirmationMail($mail, $this->contentObject->data);
             $this->view->assign('optinActive', true);
         }
         if ($this->isPersistActive()) {
@@ -238,7 +238,7 @@ class FormController extends AbstractController
                     $this->settings,
                     $this->conf
                 );
-                $mailPreflight->sendSenderMail($mail);
+                $mailPreflight->sendSenderMail($mail, $this->contentObject->data);
             }
             if ($this->isReceiverMailEnabled()) {
                 $mailPreflight = $this->objectManager->get(SendReceiverMailPreflight::class, $this->settings);

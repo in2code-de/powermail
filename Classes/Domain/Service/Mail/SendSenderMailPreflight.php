@@ -55,6 +55,7 @@ class SendSenderMailPreflight
 
     /**
      * @param Mail $mail
+     * @param array $ttContentData
      * @return void
      * @throws InvalidConfigurationTypeException
      * @throws InvalidControllerNameException
@@ -63,7 +64,7 @@ class SendSenderMailPreflight
      * @throws InvalidSlotReturnException
      * @throws Exception
      */
-    public function sendSenderMail(Mail $mail): void
+    public function sendSenderMail(Mail $mail, $ttContentData): void
     {
         $senderService = ObjectUtility::getObjectManager()->get(SenderMailPropertiesService::class, $this->settings);
         $email = [
@@ -82,7 +83,8 @@ class SendSenderMailPreflight
             'format' => $this->settings['sender']['mailformat'],
             'variables' => [
                 'hashDisclaimer' => HashUtility::getHash($mail, 'disclaimer'),
-                'L' => FrontendUtility::getSysLanguageUid()
+                'L' => FrontendUtility::getSysLanguageUid(),
+                'ttContentData' => $ttContentData
             ]
         ];
         $this->sendMailService->sendMail($email, $mail, $this->settings, 'sender');
