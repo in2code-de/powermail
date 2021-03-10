@@ -89,29 +89,4 @@ class SendOptinConfirmationMailPreflight
         ];
         $this->sendMailService->sendMail($email, $mail, $this->settings, 'optin');
     }
-
-    /**
-     * Get optin subject from form settings. If empty, take value from TypoScript.
-     *
-     * @param string $typoScriptValue
-     * @return string
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
-     */
-    public function getOptinSubject(): string
-    {
-        if ($this->settings['optin']['subject'] !== '') {
-            $optinSubject = $this->settings['optin']['subject'];
-        } else {
-            $optinSubject = ObjectUtility::getContentObject()->cObjGetSingle(
-                $this->conf['optin.']['subject'],
-                $this->conf['optin.']['subject.']
-            );
-        }
-
-        $signalArguments = [&$optinSubject, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        return $optinSubject;
-    }
 }
