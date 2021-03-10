@@ -302,6 +302,39 @@
 				</el>
 			</ROOT>
 		</sender>
+		<optin>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.optin</sheetTitle>
+				</TCEforms>
+				<displayCond>FIELD:main.settings.flexform.main.optin:=:1</displayCond>
+				<type>array</type>
+				<el>
+					<settings.flexform.optin.subject>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.optin.subject</label>
+							<config>
+								<type>input</type>
+								<eval>trim</eval>
+							</config>
+						</TCEforms>
+					</settings.flexform.optin.subject>
+					<settings.flexform.optin.body>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.optin.body</label>
+							<config>
+								<type>text</type>
+								<enableRichtext>1</enableRichtext>
+								<richtextConfiguration>default</richtextConfiguration>
+							</config>
+							<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
+						</TCEforms>
+					</settings.flexform.optin.body>
+				</el>
+			</ROOT>
+		</optin>
 		<thx>
 			<ROOT>
 				<TCEforms>

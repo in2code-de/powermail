@@ -700,6 +700,18 @@
 				<source>Bodytext for Email to Sender</source>
 				<target state="translated">Inhalt der Mail an Absender</target>
 			</trans-unit>
+			<trans-unit id="flexform.optin">
+				<source>Double Opt-In Mail</source>
+				<target state="translated">Double Opt-In</target>
+			</trans-unit>
+			<trans-unit id="flexform.optin.subject">
+				<source>Subject for Double Opt-In Email</source>
+				<target state="translated">Betreff der Double Opt-In E-Mail</target>
+			</trans-unit>
+			<trans-unit id="flexform.optin.body">
+				<source>Bodytext for Double Opt-in Email</source>
+				<target state="translated">Inhalt der Double Opt-In E-Mail</target>
+			</trans-unit>
 			<trans-unit id="flexform.thx">
 				<source>Submit Page</source>
 				<target state="translated">Antwortseite</target>

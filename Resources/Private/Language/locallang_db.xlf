@@ -501,6 +501,15 @@
 			<trans-unit id="flexform.sender.body" resname="flexform.sender.body">
 				<source>Bodytext for Email to Sender</source>
 			</trans-unit>
+			<trans-unit id="flexform.optin" resname="flexform.optin">
+				<source>Double Opt-In Mail</source>
+			</trans-unit>
+			<trans-unit id="flexform.optin.subject" resname="flexform.optin.subject">
+				<source>Subject for Double Opt-In Email</source>
+			</trans-unit>
+			<trans-unit id="flexform.optin.body" resname="flexform.optin.body">
+				<source>Bodytext for Double Opt-In Email</source>
+			</trans-unit>
 			<trans-unit id="flexform.thx" resname="flexform.thx">
 				<source>Submit Page</source>
 			</trans-unit>

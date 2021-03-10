@@ -6,13 +6,24 @@
 	Mail will only be send, if Optin was enabled by editor
 
 
+	{powermail_rte}					Variable is filled with values from RTE in backend
+	{powermail_all}					Outputs all fields
 	{mail}							Complete Mail Object
 	{hash}							Hash for optin URI
 	{settings}						TypoScript Settings
 
 
 <f:section name="main">
-	<f:translate key="optin_mail_link" /><br>
+	<f:if condition="{settings.optin.body}">
+		<f:then>
+			<vh:misc.variables mail="{mail}" type="mail" function="sender">
+				<f:format.html parseFuncTSPath="lib.parseFunc_powermail">{powermail_rte}</f:format.html>
+			</vh:misc.variables>
+		</f:then>
+		<f:else>
+			<f:translate key="optin_mail_link" /><br>
+		</f:else>
+	</f:if>
 
 	<f:format.htmlentitiesDecode>
 		<f:link.action action="optinConfirm" absolute="1" arguments="{hash: hash, mail: mail}">

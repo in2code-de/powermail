@@ -35,13 +35,13 @@ class SenderMailPropertiesService
 
     /**
      * @param array $settings
+     * @param array $configuration
      * @throws Exception
      */
-    public function __construct(array $settings)
+    public function __construct(array $settings, array $configuration)
     {
         $this->settings = $settings;
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
-        $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
+        $this->configuration = $configuration;
     }
 
     /**
@@ -94,5 +94,29 @@ class SenderMailPropertiesService
         $signalArguments = [&$senderName, $this];
         $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
         return $senderName;
+    }
+
+    /**
+     * Get optin subject from form settings. If empty, take value from TypoScript.
+     *
+     * @return string
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws Exception
+     */
+    public function getOptinSubject(): string
+    {
+        if ($this->settings['optin']['subject'] !== '') {
+            $optinSubject = $this->settings['optin']['subject'];
+        } else {
+            $optinSubject = ObjectUtility::getContentObject()->cObjGetSingle(
+                $this->configuration['optin.']['subject'],
+                $this->configuration['optin.']['subject.']
+            );
+        }
+
+        $signalArguments = [&$optinSubject, $this];
+        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
+        return $optinSubject;
     }
 }
