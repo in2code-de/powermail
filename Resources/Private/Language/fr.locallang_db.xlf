@@ -411,10 +411,6 @@
         <source>Create from TypoScript (e.g. lib.fieldvalues)</source>
         <target state="final">Créer à partir de TypoScript (par exemple lib.fieldvalues)</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_field.feuser_value" resname="tx_powermail_domain_model_field.feuser_value" approved="yes">
-        <source>Value from logged in Frontent User</source>
-        <target state="final">Valeur de l'utilisateur frontend connecté</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name" approved="yes">
         <source>Name</source>
         <target state="final">Nom</target>
