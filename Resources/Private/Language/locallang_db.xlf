@@ -310,7 +310,7 @@
 				<source>Create from TypoScript (e.g. lib.fieldvalues)</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.feuser_value" resname="tx_powermail_domain_model_field.feuser_value">
-				<source>Value from logged in Frontent User</source>
+				<source>Value from logged in Frontend User</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name">
 				<source>Name</source>

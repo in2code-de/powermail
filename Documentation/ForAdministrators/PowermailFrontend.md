@@ -18,7 +18,7 @@ values again.
 |-------|-------------|-------------|-----|
 | Choose your view | Choose a view | List or Detail, Edit, All Views | Main Settings |
 | Choose a form | Choose an existing form | Select a Form and click save | Main Settings |
-| Select a page with mails | Select a page with mails (optionsl) | Only mails which are stored in the given page are shown in the frontent (optional setting). | Main Settings |
+| Select a page with mails | Select a page with mails (optionsl) | Only mails which are stored in the given page are shown in the frontend (optional setting). | Main Settings |
 | Choose Fields | Choose Fields (Empty: All Fields) | Let the selection empty if you want to see all form values. | Listview |
 | Export Formats | Add links to different export methods by adding some. | XLS, CSV or RSS feed is possible in powermail_frontend. | Listview |
 | Show entries... | If you want to show only mails within a timeperiod, add some seconds. | If you want to show the mails of the last 24h add “86400”. Let this field empty to disable this function. | Listview |

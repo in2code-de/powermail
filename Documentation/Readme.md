@@ -21,7 +21,7 @@ Some basic points:
   values in the frontend again (Pi2).
 
 - Powermail send one or more mails to a static receiver or to dynamic receivers or
-  to a whole Frontent-User Group.
+  to a whole Frontend-User Group.
 
 - Different HTML-Templates (Fluid) and RTE fields in backend for all
   needed views.

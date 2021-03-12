@@ -78,7 +78,7 @@
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_mail.feuser">
 				<source>FE_User</source>
-				<target state="translated">Frontent-Benutzer</target>
+				<target state="translated">Frontend-Benutzer</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_mail.spam_factor">
 				<source>Spam Factor</source>
@@ -445,7 +445,7 @@
 				<target state="translated">Über TypoScript erstellen (z.B. lib.fieldvalues)</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.feuser_value">
-				<source>Value from logged in Frontent User</source>
+				<source>Value from logged in Frontend User</source>
 				<target state="translated">Aus Frontend-Benutzer-Datenbank</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.feuser_value.name">
