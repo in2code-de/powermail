@@ -295,10 +295,6 @@
         <source>With Value</source>
         <target state="final">Met waarde</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_field.feuser_value" resname="tx_powermail_domain_model_field.feuser_value" approved="yes">
-        <source>Value from logged in Frontent User</source>
-        <target state="final">Waarde van ingelogde frontend user</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name" approved="yes">
         <source>Name</source>
         <target state="final">Naam</target>
