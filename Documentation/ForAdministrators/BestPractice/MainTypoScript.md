@@ -231,6 +231,9 @@ plugin.tx_powermail {
 			# cat=powermail_additional//0840; type=boolean; label= Randomized Filenames: Uploaded filenames can be randomized to respect data privacy
 			randomizeFileName = 1
 
+            # cat=powermail_additional//0840; type=boolean; label= Prepend original file name: Prepend original file name to randomized file name if randomizeFileName is enabled
+			randomizePrependOriginalFileName = 0
+
 			# cat=powermail_additional//0845; type=boolean; label= Force JavaScript Datepicker: Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
 			forceJavaScriptDatePicker = 0
 
@@ -903,6 +906,7 @@ plugin.tx_powermail {
 					size = {$plugin.tx_powermail.settings.misc.uploadSize}
 					extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
 					randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
+					randomizePrependOriginalFileName = {$plugin.tx_powermail.settings.misc.randomizePrependOriginalFileName}
 				}
 
 				datepicker {
