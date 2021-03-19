@@ -559,6 +559,21 @@
 			<trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable">
 				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
 			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsButton">
+				<source>Cleanup</source>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsTitle">
+				<source>Delete all mails</source>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsFinished">
+				<source>All mails and answers on this page have been deleted</source>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsReally">
+				<source>Yes, delete all mails and answers on this page</source>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailSubmit">
+				<source>Delete all</source>
+			</trans-unit>
 			<trans-unit id="BackendOverviewTitle" resname="BackendOverviewTitle">
 				<source>Form Overview</source>
 			</trans-unit>

@@ -39,4 +39,8 @@
 		</f:if>
 	</div>
 
+	<f:if condition="{writeAccess}">
+		<f:render partial="Module/DeleteAllMails" arguments="{_all}" />
+	</f:if>
+
 </f:section>

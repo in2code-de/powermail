@@ -747,6 +747,26 @@
 				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
 				<target state="translated">Diese TYPO3-Instanz läuft aktuell im Development Context. Mit %s in der AdditionalConfiguration.php kann man powermail anweisen, nur noch an diese Formulare zu senden.</target>
 			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsButton">
+				<source>Cleanup</source>
+				<target state="translated">Aufräumen</target>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsTitle">
+				<source>Delete all mails</source>
+				<target state="translated">Alle Mails löschen</target>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsFinished">
+				<source>All mails and answers on this page have been deleted</source>
+				<target state="translated">Alle Mails und Antworten auf dieser Seite wurden gelöscht.</target>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailsReally">
+				<source>Yes, delete all mails and answers on this page</source>
+				<target state="translated">Ja, alle Mails und Antworten auf dieser Seite löschen</target>
+			</trans-unit>
+			<trans-unit id="BackendDeleteAllMailSubmit">
+				<source>Delete all</source>
+				<target state="translated">Alle löschen</target>
+			</trans-unit>
 			<trans-unit id="BackendOverviewTitle">
 				<source>Form Overview</source>
 				<target state="translated">Formular Übersicht</target>

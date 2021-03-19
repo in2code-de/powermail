@@ -8,6 +8,8 @@ use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
@@ -59,6 +61,47 @@ class ModuleController extends AbstractController
                 'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                     && $beUser->check('tables_modify', Mail::TABLE_NAME),
             ]
+        );
+    }
+
+    /**
+     * Delete all mails and answers if the confirmation checkbox has been checked
+     *
+     * @return void
+     */
+    public function deleteAllMailsBeAction(): void
+    {
+        $args = $this->request->getArguments();
+        if ($args['reallyDelete'] === '1' && $this->id > 0) {
+            $this->deleteAllMails();
+        }
+        $this->forward('list');
+    }
+
+    /**
+     * Delete all mails and answers on the current page
+     *
+     * @return void
+     */
+    protected function deleteAllMails(): void
+    {
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Answer::TABLE_NAME);
+        $queryBuilder->delete(Answer::TABLE_NAME)
+            ->where(
+                $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($this->id))
+            )
+            ->execute();
+
+        $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Answer::TABLE_NAME);
+        $queryBuilder->delete(Mail::TABLE_NAME)
+            ->where(
+                $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($this->id))
+            )
+            ->execute();
+
+        $this->addFlashMessage(
+            LocalizationUtility::translate('BackendDeleteAllMailsFinished'),
+            ''
         );
     }
 

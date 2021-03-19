@@ -21,6 +21,7 @@ call_user_func(
                 [
                     \In2code\Powermail\Controller\ModuleController::class =>
                         'dispatch, list, exportXls, exportCsv, reportingBe, toolsBe, overviewBe, ' .
+                        'deleteAllMailsBe, ' .
                         'checkBe, converterBe, converterUpdateBe, reportingFormBe, reportingMarketingBe, ' .
                         'fixUploadFolder, fixWrongLocalizedForms, fixFilledMarkersInLocalizedFields, ' .
                         'fixWrongLocalizedPages, fixFilledMarkersInLocalizedPages'

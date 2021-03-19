@@ -1,0 +1,41 @@
+<div class="clearfix">
+	<div class="pull-right">
+		<f:form.button
+				class="btn btn-default"
+				type="button"
+				additionalAttributes="{data-toggle:'collapse',data-target:'#deleteAllMails',aria-expanded:'false',aria-controls:'collapseExample'}">
+			<f:translate key="BackendDeleteAllMailsButton">Cleanup</f:translate>
+		</f:form.button>
+	</div>
+</div>
+
+<div class="collapse" id="deleteAllMails">
+	<h2 class="powermail-padding-top" id="deleteAllMails">
+		<f:translate key="BackendDeleteAllMailsTitle">Delete all mails</f:translate>
+	</h2>
+
+	<div class="message-body powermail-padding-bottom powermail_email">
+	    <f:form
+				class="form-horizontal"
+				action="deleteAllMailsBe">
+			<f:form.hidden name="mode" value="deleteAllMails"/>
+			<div class="form-group">
+				<div class="col-sm-6 checkbox">
+					<label>
+						<f:form.checkbox
+								name="reallyDelete"
+								value="1"
+								additionalAttributes="{required:''}"
+								/>
+						<f:translate key="BackendDeleteAllMailsReally" />
+					</label>
+				</div>
+				<div class="col-sm-6">
+					<f:form.button type="submit" class="btn btn-primary">
+						<f:translate key="BackendDeleteAllMailSubmit"/>
+					</f:form.button>
+				</div>
+			</div>
+		</f:form>
+	</div>
+</div>
