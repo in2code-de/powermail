@@ -20,7 +20,7 @@ Render Powermail Form
 						section="c{ttContentData.uid}"
 						name="field"
 						enctype="multipart/form-data"
-						additionalAttributes="{vh:validation.enableParsleyAndAjax(form:form)}"
+						additionalAttributes="{vh:Validation.EnableParsleyAndAjax(form:form, ttContentData:ttContentData)}"
 						addQueryString="{settings.misc.addQueryString}"
 						class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:misc.morestepClass(activate:settings.main.moresteps)}">
 
@@ -33,6 +33,7 @@ Render Powermail Form
 						<f:render partial="Form/Page" arguments="{_all}" />
 					</f:for>
 
+					<f:form.hidden name="field[__ttcontentuid]" value="{ttContentData.uid}" />
 					<f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid" />
 					<f:render partial="Misc/HoneyPod" arguments="{form:form}" />
 				</f:form>

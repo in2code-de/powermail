@@ -189,7 +189,7 @@ function PowermailForm($) {
 			if ($this.data('powermail-ajax-uri')) {
 				redirectUri = $this.data('powermail-ajax-uri');
 			}
-			var formUid = $this.data('powermail-form');
+			var ttContentUid = $this.data('powermail-ttcontentuid');
 
 			if (!regularSubmitOnAjax) {
 				$.ajax({
@@ -207,9 +207,9 @@ function PowermailForm($) {
  						fireAjaxCompleteEvent($txPowermail);
 					},
 					success: function(data) {
-						var html = $('*[data-powermail-form="' + formUid + '"]:first', data);
+						var html = $('*[data-powermail-ttcontentuid="' + ttContentUid + '"]:first', data);
 						if (html.length) {
-							$('*[data-powermail-form="' + formUid + '"]:first').closest('.tx-powermail').html(html);
+							$('*[data-powermail-ttcontentuid="' + ttContentUid + '"]:first').closest('.tx-powermail').html(html);
 							// fire tabs and parsley again
 							if ($.fn.powermailTabs) {
 								$('.powermail_morestep').powermailTabs();

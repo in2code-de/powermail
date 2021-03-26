@@ -70,7 +70,7 @@ class FormController extends AbstractController
         $this->view->assignMultiple(
             [
                 'form' => $form,
-                'ttContentData' => $this->contentObject->data,
+                'ttContentData' => $this->getCurrentContentObjectData(),
                 'messageClass' => $this->messageClass,
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
             ]
@@ -95,6 +95,7 @@ class FormController extends AbstractController
      */
     public function initializeConfirmationAction(): void
     {
+        $this->forwardIfTtContentUidDoesNotMatch();
         $this->forwardIfFormParamsDoNotMatch();
         $this->forwardIfMailParamEmpty();
         $this->reformatParamsForAction();
@@ -152,6 +153,7 @@ class FormController extends AbstractController
      */
     public function initializeCreateAction(): void
     {
+        $this->forwardIfTtContentUidDoesNotMatch();
         $this->forwardIfFormParamsDoNotMatch();
         $this->forwardIfMailParamEmpty();
         $this->reformatParamsForAction();
@@ -202,7 +204,7 @@ class FormController extends AbstractController
                 $this->settings,
                 $this->conf
             );
-            $mailPreflight->sendOptinConfirmationMail($mail);
+            $mailPreflight->sendOptinConfirmationMail($mail, $this->contentObject->data);
             $this->view->assign('optinActive', true);
         }
         if ($this->isPersistActive()) {
@@ -238,7 +240,7 @@ class FormController extends AbstractController
                     $this->settings,
                     $this->conf
                 );
-                $mailPreflight->sendSenderMail($mail);
+                $mailPreflight->sendSenderMail($mail, $this->contentObject->data);
             }
             if ($this->isReceiverMailEnabled()) {
                 $mailPreflight = $this->objectManager->get(SendReceiverMailPreflight::class, $this->settings);
@@ -275,7 +277,7 @@ class FormController extends AbstractController
                 'mail' => $mail,
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'messageClass' => $this->messageClass,
-                'ttContentData' => $this->contentObject->data,
+                'ttContentData' => $this->getCurrentContentObjectData(),
                 'uploadService' => $this->uploadService,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
@@ -401,6 +403,37 @@ class FormController extends AbstractController
             $logger->info('Powermail settings', $this->settings);
         }
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'Settings', [$this, &$this->settings]);
+    }
+
+    /**
+     * Initialize Action
+     *
+     * @return void
+     * @codeCoverageIgnore
+     */
+    public function initializeAction(): void
+    {
+        parent::initializeAction();
+
+        $this->storeCurrentContentObjectData();
+    }
+
+    /**
+     * Forward to formAction if content element uids do not match
+     *        used for createAction() and confirmationAction()
+     *
+     * @return void
+     */
+    protected function forwardIfTtContentUidDoesNotMatch()
+    {
+        $arguments = $this->request->getArguments();
+        $currentContentObjectData = $this->getCurrentContentObjectData();
+
+        if (isset($arguments['field']['__ttcontentuid']) && isset($currentContentObjectData['uid'])
+            && (int) $arguments['field']['__ttcontentuid'] !== (int) $currentContentObjectData['uid']
+        ) {
+            $this->forward('form');
+        }
     }
 
     /**
@@ -554,5 +587,41 @@ class FormController extends AbstractController
     public function injectPersistenceManager(PersistenceManager $persistenceManager): void
     {
         $this->persistenceManager = $persistenceManager;
+    }
+
+    /**
+     * Storing the current content object data to a global variable. That is necessary
+     * because content object data gets lost after a request is being forwarded to its
+     * referring request after an errorAction
+     *
+     * @return void
+     */
+    protected function storeCurrentContentObjectData(): void
+    {
+        if (!empty($this->contentObject->data)) {
+            $tsfe = ObjectUtility::getTyposcriptFrontendController();
+
+            if (!is_array($tsfe->applicationData['tx_powermail'])) {
+                $tsfe->applicationData['tx_powermail'] = [];
+            }
+
+            $tsfe->applicationData['tx_powermail']['currentContentObjectData'] = $this->contentObject->data;
+        }
+    }
+
+    /**
+     * Retrieving data of content object that is currently being rendered
+     *
+     * @return array
+     */
+    protected function getCurrentContentObjectData(): array
+    {
+        $tsfe = ObjectUtility::getTyposcriptFrontendController();
+
+        if (isset($tsfe->applicationData['tx_powermail']['currentContentObjectData'])) {
+            return $tsfe->applicationData['tx_powermail']['currentContentObjectData'];
+        }
+
+        return [];
     }
 }
