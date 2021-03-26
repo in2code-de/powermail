@@ -87,13 +87,13 @@ class SendMailService
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->info('Mail properties', [$email]);
         }
-        if (!GeneralUtility::validEmail($email['receiverEmail']) ||
-            !GeneralUtility::validEmail($email['senderEmail'])) {
-            return false;
-        }
         if (empty($email['subject'])) {
             // don't want an error flashmessage
             return true;
+        }
+        if (!GeneralUtility::validEmail($email['receiverEmail']) ||
+            !GeneralUtility::validEmail($email['senderEmail'])) {
+            return false;
         }
         return $this->prepareAndSend($email);
     }
