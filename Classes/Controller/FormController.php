@@ -413,8 +413,6 @@ class FormController extends AbstractController
      */
     public function initializeAction(): void
     {
-        parent::initializeAction();
-
         $this->storeCurrentContentObjectData();
     }
 
@@ -424,7 +422,7 @@ class FormController extends AbstractController
      *
      * @return void
      */
-    protected function forwardIfTtContentUidDoesNotMatch()
+    protected function forwardIfTtContentUidDoesNotMatch(): void
     {
         $arguments = $this->request->getArguments();
         $currentContentObjectData = $this->getCurrentContentObjectData();
