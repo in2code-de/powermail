@@ -5,7 +5,7 @@
 
 	<div class="{settings.styles.framework.fieldWrappingClasses} {vh:validation.errorClass(field:field, class: 'powermail_field_error')}">
 		<f:form.textfield
-				id="powermail_field_{field.marker}"
+				id="powermail_field_{field.marker}_{ttContentUid}"
 				property="{field.marker}"
 				value=""
 				class="powermail_captcha {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"

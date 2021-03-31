@@ -8,7 +8,7 @@
 				options="{field.modifiedSettings}"
 				property="{field.marker}"
 				class="powermail_select {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
-				id="powermail_field_{field.marker}"
+				id="powermail_field_{field.marker}_{ttContentUid}"
 				additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
 				multiple="{field.multiselectForField}"
 				value="{vh:misc.prefillField(field:field, mail:mail)}" />

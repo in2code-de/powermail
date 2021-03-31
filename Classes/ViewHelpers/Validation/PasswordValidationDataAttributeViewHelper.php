@@ -13,6 +13,15 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
 {
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('ttContentUid', 'int', 'UID of content element', false);
+    }
+
+    /**
      * Returns Data Attribute Array for JS validation with parsley.js
      *
      * @return array for data attributes
@@ -25,7 +34,11 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
         if ($this->isClientValidationEnabled()) {
             /** @var Field $field */
             $field = $this->arguments['field'];
+            $ttContentUid = $this->arguments['ttContentUid'];
             $additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
+            if ($ttContentUid) {
+                $additionalAttributes['data-parsley-equalto'] = $additionalAttributes['data-parsley-equalto'] . '_' . $ttContentUid;
+            }
             $additionalAttributes['data-parsley-equalto-message'] =
                 LocalizationUtility::translate('validationerror_password');
         }

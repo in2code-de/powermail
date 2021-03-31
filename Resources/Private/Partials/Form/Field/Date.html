@@ -6,7 +6,7 @@
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
 		<f:form.textfield
 				type="{field.datepickerSettingsOptimized}"
-				id="powermail_field_{field.marker}"
+				id="powermail_field_{field.marker}_{ttContentUid}"
 				property="{field.marker}"
 				value="{vh:misc.prefillField(field:field, mail:mail)}"
 				additionalAttributes="{vh:validation.datepickerDataAttribute(field:field, value:'{vh:misc.prefillField(field:field)}')}"

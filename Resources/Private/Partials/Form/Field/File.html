@@ -5,7 +5,7 @@
 
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
 		<vh:form.multiUpload
-				id="powermail_field_{field.marker}"
+				id="powermail_field_{field.marker}_{ttContentUid}"
 				property="{field.marker}"
 				additionalAttributes="{vh:validation.uploadAttributes(field:field)}"
 				class="powermail_file {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class: 'powermail_field_error')}" />
