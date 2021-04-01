@@ -42,6 +42,9 @@ Export Area gives you the possibility to export your mails in XLS or
 CSV format.
 Note: For editors only enabled fields are free to export.
 
+If it is not possible to select any fields, please check if the form itself is disabled or a start / stop date
+is set. For the export to work, the form must be in an "active" state. 
+
 ![backend_module_export](../Images/backend_module_export.png)
 
 | Field | Description | Explanation |
