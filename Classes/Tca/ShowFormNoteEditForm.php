@@ -119,9 +119,9 @@ class ShowFormNoteEditForm extends AbstractFormElement
     protected function getLocalizedFormUid(int $uid, int $sysLanguageUid): int
     {
         if ($sysLanguageUid > 0) {
-            $row = BackendUtilityCore::getRecordLocalization(Form::TABLE_NAME, (int)$uid, (int)$sysLanguageUid);
-            if (!empty($row['uid'])) {
-                $uid = (int)$row['uid'];
+            $results = BackendUtilityCore::getRecordLocalization(Form::TABLE_NAME, (int)$uid, (int)$sysLanguageUid);
+            if($results !== false && !empty($results[0]['uid'])) {
+                $uid = (int)$results[0]['uid'];
             }
         }
         return $uid;
