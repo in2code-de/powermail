@@ -18,9 +18,17 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.4.3
+   :Date:
+      2021-04-21
+   :Changes:
+
+      * Bugfix: Save mails + answers with sys_language_uid=-1 to allow double-opt-in together with additional languages
+
+ - :Version:
       7.4.2
    :Date:
-      2020-03-08
+      2021-03-08
    :Changes:
 
       * Task: Add autodeployment to TER via Github actions
