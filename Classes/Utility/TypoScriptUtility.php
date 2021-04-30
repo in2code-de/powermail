@@ -16,7 +16,7 @@ class TypoScriptUtility
      * Overwrite a string if a TypoScript cObject is available
      *
      * @param string $string Value to overwrite
-     * @param array $conf TypoScript Configuration Array
+     * @param array|null $conf TypoScript Configuration Array
      * @param string $key Key for TypoScript Configuration
      * @return string
      * @codeCoverageIgnore
@@ -24,7 +24,7 @@ class TypoScriptUtility
      */
     public static function overwriteValueFromTypoScript(
         string $string = '',
-        array $conf = [],
+        ?array $conf = [],
         string $key = ''
     ): string {
         if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
