@@ -498,7 +498,7 @@ class SendMailService
         $this->mail = $mail;
         $this->settings = $settings;
         $this->configuration = $this->getConfigurationFromSettings($settings);
-        $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
+        $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'] ?? [];
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         ObjectUtility::getContentObject()->start($mailRepository->getVariablesWithMarkersFromMail($mail));
         $this->type = $type;
