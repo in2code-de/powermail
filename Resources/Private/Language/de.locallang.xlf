@@ -436,6 +436,10 @@
 				<source>Function Check</source>
 				<target state="translated">Funktions-Check</target>
 			</trans-unit>
+			<trans-unit id="BackendSelectionCleanup">
+				<source>Cleanup</source>
+				<target state="translated">Cleanup</target>
+			</trans-unit>
 			<trans-unit id="BackendSelectionConverterTitle">
 				<source>Form Converter</source>
 				<target state="translated">Formular-Konverter</target>
@@ -632,6 +636,10 @@
 				<source>Powermail Function Check</source>
 				<target state="translated">Powermail Funktionstests</target>
 			</trans-unit>
+			<trans-unit id="BackendCleanupTitle">
+				<source>Powermail Cleanup</source>
+				<target state="translated">Powermail Cleanup</target>
+			</trans-unit>
 			<trans-unit id="BackendCheckTryToFix">
 				<source>Solve problem</source>
 				<target state="translated">Problem beheben</target>
@@ -751,6 +759,30 @@
 				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
 				<target state="translated">Diese TYPO3-Instanz läuft aktuell im Development Context. Mit %s in der AdditionalConfiguration.php kann man powermail anweisen, nur noch an diese Formulare zu senden.</target>
 			</trans-unit>
+			<trans-unit id="BackendCleanupDone">
+				<source>Cleanup finished</source>
+				<target state="translated">Bereinigung durchgeführt</target>
+			</trans-unit>
+			<trans-unit id="BackendCleanupStatistics">
+				<source>Deleted %d mails containing %d answers and %d files</source>
+				<target state="translated">Es wurden %d Mails mit %d Antworten und %d Dateien gelöscht.</target>
+			</trans-unit>
+			<trans-unit id="BackendCleanupAge">
+				<source>Age in seconds</source>
+				<target state="translated">Alter in Sekunden</target>
+			</trans-unit>
+			<trans-unit id="BackendCleanupAgeExplanation">
+				<source>Examples: "5184000" equals 60 days, "31536000" = 1 year</source>
+				<target state="translated">Beispiel: "5184000" entspricht 60 Tage, "31536000" = 1 Jahr</target>
+			</trans-unit>
+			<trans-unit id="BackendCleanupPid">
+				<source>Optional: Restrict the cleanup to a specific PID. You can select a page from the page tree to prefill this field</source>
+				<target state="translated">Es wurden %d Mails mit %d Antworten und %d Dateien gelöscht.</target>
+			</trans-unit>
+			<trans-unit id="BackendCleanupPidExplanation">
+				<source>You can select a page from the page tree to prefill this field with the selected page's ID.</source>
+				<target state="translated">Sie können hier eine Seite eintragen um die Operation auf diese Seite einzugrenzen. Ist ene Seite im Seitenbaum ausgewählt so enthält ideses Feld die Seite.</target>
+			</trans-unit>
 			<trans-unit id="BackendOverviewTitle">
 				<source>Form Overview</source>
 				<target state="translated">Formular Übersicht</target>
@@ -810,6 +842,10 @@
 			<trans-unit id="BackendFunctionTitle">
 				<source>Function-Test Section</source>
 				<target state="translated">Bereich der Funktionstests</target>
+			</trans-unit>
+			<trans-unit id="BackendCleanupTitle">
+				<source>Delete old answers from the database</source>
+				<target state="translated">Alte Formularantworten aus der Datenabank löschen</target>
 			</trans-unit>
 			<trans-unit id="BackendEmailTitle">
 				<source>Test Email Sending</source>

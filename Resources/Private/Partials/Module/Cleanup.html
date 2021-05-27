@@ -1,0 +1,37 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:if condition="{stats}">
+	<div class="alert alert-success">
+		<div class="header-container">
+			<h4 class="message-header">
+				<f:translate key="BackendCleanupDone" />
+			</h4>
+		</div>
+		<div class="message-body">
+			<p>
+				<f:translate key="BackendCleanupStatistics" arguments="{0: stats.mails, 1: stats.answers, 2: stats.files}" />
+			</p>
+		</div>
+	</div>
+</f:if>
+
+<f:form action="cleanup" method="post">
+	<fieldset>
+		<div class="form-group">
+			<label for="cleanup_age"><f:translate key="BackendCleanupAge" /></label>
+			<f:form.textfield id="cleanup_age" class="form-control" name="age" type="number"
+							  additionalAttributes="{min: 1}" value="{age}" required="true"/>
+			<small><f:translate key="BackendCleanupAgeExplanation" /></small>
+		</div>
+		<div class="form-group">
+			<label for="cleanup_age"><f:translate key="BackendCleanupPid" /></label>
+			<f:form.textfield id="cleanup_pid" class="form-control" name="pid" type="number"
+							  additionalAttributes="{min: 0}" value="{pid}"/>
+			<small><f:translate key="BackendCleanupPidExplanation" /></small>
+		</div>
+
+		<div class="form-group">
+			<f:form.submit class="btn btn-primary" value="Cleanup"/>
+		</div>
+	</fieldset>
+</f:form>

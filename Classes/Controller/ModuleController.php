@@ -5,6 +5,7 @@ namespace In2code\Powermail\Controller;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Domain\Service\CleanupService;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -182,6 +183,31 @@ class ModuleController extends AbstractController
     {
         $this->view->assign('pid', $this->id);
         $this->sendTestEmail($email);
+    }
+
+    /**
+     * Check Permissions
+     *
+     * @return void
+     */
+    public function initializeCleanupAction()
+    {
+        $this->checkAdminPermissions();
+    }
+
+    /**
+     * @param int $age
+     * @param int $pid
+     */
+    public function cleanupAction(int $age = null, int $pid = null): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && null !== $age && $age > 0) {
+            $cleanupService = $this->objectManager->get(CleanupService::class);
+            $stats = $cleanupService->deleteMailsOlderThanAgeInPid($age, $pid);
+            $this->view->assign('stats', $stats);
+        }
+        $this->view->assign('pid', $pid ?: GeneralUtility::_GET('id') ?: null);
+        $this->view->assign('age', $age);
     }
 
     /**

@@ -331,6 +331,9 @@
 			<trans-unit id="BackendSelectionCheck">
 				<source>Function Check</source>
 			</trans-unit>
+			<trans-unit id="BackendSelectionCleanup">
+				<source>Cleanup</source>
+			</trans-unit>
 			<trans-unit id="BackendSelectionConverterTitle">
 				<source>Form Converter</source>
 			</trans-unit>
@@ -475,6 +478,9 @@
 			<trans-unit id="BackendCheckTitle">
 				<source>Powermail Check</source>
 			</trans-unit>
+			<trans-unit id="BackendCleanupTitle">
+				<source>Powermail Cleanup</source>
+			</trans-unit>
 			<trans-unit id="BackendCheckTryToFix">
 				<source>Solve problem</source>
 			</trans-unit>
@@ -562,6 +568,24 @@
 			<trans-unit id="BackendCheckDevelopmentContextAvailable">
 				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
 			</trans-unit>
+			<trans-unit id="BackendCleanupDone">
+				<source>Cleanup finished</source>
+			</trans-unit>
+			<trans-unit id="BackendCleanupStatistics">
+				<source>Deleted %d mails containing %d answers and %d files</source>
+			</trans-unit>
+			<trans-unit id="BackendCleanupAge">
+				<source>Age in seconds</source>
+			</trans-unit>
+			<trans-unit id="BackendCleanupAgeExplanation">
+				<source>Examples: "5184000" equals 60 days, "31536000" = 1 year</source>
+			</trans-unit>
+			<trans-unit id="BackendCleanupPid">
+				<source>Optional: Restrict the cleanup to a specific PID. You can select a page from the page tree to prefill this field</source>
+			</trans-unit>
+			<trans-unit id="BackendCleanupPidExplanation">
+				<source>You can select a page from the page tree to prefill this field with the selected page's ID.</source>
+			</trans-unit>
 			<trans-unit id="BackendOverviewTitle">
 				<source>Form Overview</source>
 			</trans-unit>
@@ -606,6 +630,9 @@
 			</trans-unit>
 			<trans-unit id="BackendFunctionTitle">
 				<source>Function-Test Section</source>
+			</trans-unit>
+			<trans-unit id="BackendCleanupTitle">
+				<source>Delete old answers from the database</source>
 			</trans-unit>
 			<trans-unit id="BackendEmailTitle">
 				<source>Test Email Sending</source>

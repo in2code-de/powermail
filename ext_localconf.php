@@ -89,4 +89,6 @@ call_user_func(function () {
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] =
         \In2code\Powermail\Command\TaskCommandController::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] =
+        \In2code\Powermail\Command\CleanupAnswersCommandController::class;
 });

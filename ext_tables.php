@@ -22,7 +22,7 @@ call_user_func(
                     'Module' => 'dispatch, list, exportXls, exportCsv, reportingBe, toolsBe, overviewBe, ' .
                         'checkBe, converterBe, converterUpdateBe, reportingFormBe, reportingMarketingBe, ' .
                         'fixUploadFolder, fixWrongLocalizedForms, fixFilledMarkersInLocalizedFields, ' .
-                        'fixWrongLocalizedPages, fixFilledMarkersInLocalizedPages'
+                        'fixWrongLocalizedPages, fixFilledMarkersInLocalizedPages, cleanup'
                 ],
                 [
                     'access' => 'user,group',
