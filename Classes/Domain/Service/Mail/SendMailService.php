@@ -198,7 +198,7 @@ class SendMailService
             $this->overwriteConfig['returnPath.']
         );
         if (!empty($returnPathValue)) {
-            $message->setReturnPath($returnPathValue);
+            $message->setSender($returnPathValue);
         }
         return $message;
     }
