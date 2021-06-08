@@ -228,7 +228,7 @@ class Answer extends AbstractEntity
         if (is_array($value)) {
             $value = json_encode($value);
         }
-        return $value;
+        return (string)$value;
     }
 
     /**
