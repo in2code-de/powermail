@@ -59,7 +59,7 @@ class SaveToAnyTableService
      *
      * @var string
      */
-    protected $additionalWhere;
+    protected $additionalWhere = '';
 
     /**
      * Switch on devLog
