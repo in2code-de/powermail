@@ -1,6 +1,8 @@
 <?php
+
+use In2code\Powermail\Condition\PowermailTypoScriptConditionProvider;
 return [
     'typoscript' => [
-        \In2code\Powermail\Condition\PowermailTypoScriptConditionProvider::class
+        PowermailTypoScriptConditionProvider::class
     ]
 ];

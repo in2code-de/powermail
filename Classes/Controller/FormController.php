@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Form;
@@ -19,6 +20,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -61,7 +63,7 @@ class FormController extends AbstractController
      * @throws Exception
      * @noinspection PhpUnused
      */
-    public function formAction(): void
+    public function formAction(): ResponseInterface
     {
         /** @var Form $form */
         $form = $this->formRepository->findByUid($this->settings['main']['form']);
@@ -75,6 +77,7 @@ class FormController extends AbstractController
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
             ]
         );
+        return $this->htmlResponse();
     }
 
     /**
@@ -121,7 +124,7 @@ class FormController extends AbstractController
      * @throws Exception
      * @noinspection PhpUnused
      */
-    public function confirmationAction(Mail $mail): void
+    public function confirmationAction(Mail $mail): ResponseInterface
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -132,6 +135,7 @@ class FormController extends AbstractController
             $this->contentObject
         );
         $this->prepareOutput($mail);
+        return $this->htmlResponse();
     }
 
     /**
@@ -180,7 +184,7 @@ class FormController extends AbstractController
      * @throws \Exception
      * @noinspection PhpUnused
      */
-    public function createAction(Mail $mail, string $hash = ''): void
+    public function createAction(Mail $mail, string $hash = ''): ResponseInterface
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -222,6 +226,7 @@ class FormController extends AbstractController
             $this->settings,
             $this->contentObject
         );
+        return $this->htmlResponse();
     }
 
     /**
@@ -318,7 +323,7 @@ class FormController extends AbstractController
      * @throws Exception
      * @noinspection PhpUnused
      */
-    public function optinConfirmAction(int $mail, string $hash): void
+    public function optinConfirmAction(int $mail, string $hash): ResponseInterface
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
@@ -333,11 +338,12 @@ class FormController extends AbstractController
                 $this->persistenceManager->persistAll();
                 $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterPersist', [$mail, $hash, $this]);
 
-                $this->forward('create', null, null, ['mail' => $mail, 'hash' => $hash]);
+                return (new ForwardResponse('create'))->withArguments(['mail' => $mail, 'hash' => $hash]);
             }
             $labelKey = 'done';
         }
         $this->view->assign('labelKey', $labelKey);
+        return $this->htmlResponse();
     }
 
     /**
@@ -347,7 +353,7 @@ class FormController extends AbstractController
      * @throws \Exception
      * @noinspection PhpUnused
      */
-    public function disclaimerAction(int $mail, string $hash): void
+    public function disclaimerAction(int $mail, string $hash): ResponseInterface
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
@@ -359,6 +365,7 @@ class FormController extends AbstractController
             $status = true;
         }
         $this->view->assign('status', $status);
+        return $this->htmlResponse();
     }
 
     /**
@@ -375,9 +382,9 @@ class FormController extends AbstractController
         int $language = 0,
         int $pid = 0,
         bool $mobileDevice = false
-    ): string {
+    ): ResponseInterface {
         SessionUtility::storeMarketingInformation($referer, $language, $pid, $mobileDevice);
-        return json_encode([]);
+        return $this->responseFactory->createJsonResponse(json_encode([]));
     }
 
     /**
@@ -410,12 +417,12 @@ class FormController extends AbstractController
      * @return void
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatch(): void
+    protected function forwardIfFormParamsDoNotMatch()
     {
         $arguments = $this->request->getArguments();
         $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
         if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $formsToContent)) {
-            $this->forward('form');
+            return new ForwardResponse('form');
         }
     }
 
@@ -425,13 +432,13 @@ class FormController extends AbstractController
      * @return void
      * @throws StopActionException
      */
-    protected function forwardIfMailParamEmpty(): void
+    protected function forwardIfMailParamEmpty()
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->warning('Redirect (mail empty)', $arguments);
-            $this->forward('form');
+            return new ForwardResponse('form');
         }
     }
 
@@ -443,14 +450,14 @@ class FormController extends AbstractController
      * @return void
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): void
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ResponseInterface
     {
         if ($mail !== null) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
                 $logger = ObjectUtility::getLogger(__CLASS__);
                 $logger->warning('Redirect (optin)', [$formsToContent, (array)$mail]);
-                $this->forward('form');
+                return new ForwardResponse('form');
             }
         }
     }
@@ -463,12 +470,12 @@ class FormController extends AbstractController
      * @return void
      * @throws StopActionException
      */
-    protected function forwardToReferringRequest()
+    protected function forwardToReferringRequest(): ?ResponseInterface
     {
         $originalRequest = clone $this->request;
         $this->request->setOriginalRequest($originalRequest);
         $this->request->setOriginalRequestMappingResults($this->arguments->validate());
-        $this->forward('form');
+        return new ForwardResponse('form');
     }
 
     /**

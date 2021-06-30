@@ -6,6 +6,7 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -16,7 +17,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class FrontendUtility
 {
-
     /**
      * Returns given number or the current PID
      *
@@ -203,7 +203,10 @@ class FrontendUtility
             // @codeCoverageIgnoreEnd
         }
         $country = '';
-        $json = GeneralUtility::getUrl('http://ip-api.com/json/' . $ipAddress);
+        $json = GeneralUtility::makeInstance(RequestFactory::class)
+            ->request('http://ip-api.com/json/' . $ipAddress)
+            ->getBody()
+            ->getContents();
         if ($json) {
             $geoInfo = json_decode($json);
             if (!empty($geoInfo->country)) {

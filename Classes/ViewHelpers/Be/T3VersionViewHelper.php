@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -20,8 +22,7 @@ class T3VersionViewHelper extends AbstractViewHelper
     public function render(): bool
     {
         $EM_CONF = [];
-        $_EXTKEY = 'powermail';
-        require(ExtensionManagementUtility::extPath($_EXTKEY) . 'ext_emconf.php');
+        require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
         $versionString = $EM_CONF['powermail']['constraints']['depends']['typo3'];
         $versions = explode('-', $versionString);
 
@@ -57,6 +58,8 @@ class T3VersionViewHelper extends AbstractViewHelper
      */
     protected function getCurrentTypo3Version(): int
     {
-        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        return VersionNumberUtility::convertVersionNumberToInteger(
+            GeneralUtility::makeInstance(Typo3Version::class)->getVersion()
+        );
     }
 }

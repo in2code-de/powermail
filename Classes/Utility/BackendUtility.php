@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use TYPO3\CMS\Core\Http\ApplicationType;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
@@ -252,6 +253,6 @@ class BackendUtility
      */
     public static function isBackendContext(): bool
     {
-        return TYPO3_MODE === 'BE';
+        return ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend();
     }
 }
