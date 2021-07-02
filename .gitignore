@@ -1,6 +1,7 @@
 msi.iws
 .idea/
 nbproject/
+Resources/Private/node_modules/
 .DS_Store
 .DS_Store?
 ._*
@@ -10,12 +11,12 @@ ehthumbs.db
 Thumbs.db
 .svn
 .sass-cache
-node_modules/
-.sass-cache/
-npm-debug.log
-Resources/Private/node_modules/
-dynamicReturnTypeMeta.json
-.Build/
+.Build
 composer.lock
+package-lock.json
+var
+dynamicReturnTypeMeta.json
+/Documentation-GENERATED-temp/
+docker-compose.yml
 .php_cs.cache
-var/
+config/

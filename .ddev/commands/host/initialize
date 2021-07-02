@@ -1,0 +1,18 @@
+#!/bin/bash
+
+## Description: import given test data into ddev (database and configurations)
+## Usage: initialize
+## Example: "ddev import-data"
+
+if ! command -v "git-lfs" &> /dev/null
+then
+    echo "COMMAND "git lfs" could not be found"
+    echo "Please install git-lfs support, see: https://git-lfs.github.com/"
+    exit
+fi
+
+git lfs pull
+ddev import-db --src=.project/data/db.sql.gz
+mkdir -p config/sites/main && cp .project/TYPO3/config.yaml config/sites/main/
+cp .ddev/typo3/AdditionalConfiguration.php .Build/Web/typo3conf/
+ddev typo3cms install:setup

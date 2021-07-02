@@ -1,0 +1,13 @@
+version: '3.6'
+services:
+  chromedriver:
+    container_name: ddev-${DDEV_SITENAME}-chromedriver
+    image: selenium/standalone-chrome-debug
+    restart: "no"
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - 4444
+      - "5900:5900"
+    external_links:
+      - "ddev-router:${DDEV_SITENAME}.ddev.site"

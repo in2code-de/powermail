@@ -89,6 +89,7 @@ See the reporting about the delivered mails (Form or Marketing Data Analyses are
 * [Documentation for editors](/Documentation/ForEditors/Readme.md)
 * [Documentation for administrators](/Documentation/ForAdministrators/Readme.md)
 * [Documentation for developers](/Documentation/ForDevelopers/Readme.md)
+* [Documentation for contributors](/Documentation/ForContributors/Readme.md)
 * [FAQ](/Documentation/FAQ/Readme.md) (with a lot of stuff and best practice)
 * [Changelog](/Documentation/Changelog/Readme.md)
 * [Support](/Documentation/Support/Readme.md)

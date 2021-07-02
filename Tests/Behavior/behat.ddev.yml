@@ -1,0 +1,34 @@
+default:
+  autoload:
+    '': '%paths.base%/Features/Bootstrap'
+  suites:
+    default:
+      paths:
+        features: '%paths.base%/Features'
+        bootstrap: '%paths.base%/Features/Bootstrap'
+      contexts:
+        - FeatureContext
+        - FailAid\Context\FailureContext
+  extensions:
+    FailAid\Extension: ~
+    Behat\MinkExtension:
+      base_url: https://powermail.ddev.site/
+      files_path: /var/www/html/Tests/Behavior/Assets
+      goutte:
+        guzzle_parameters:
+          verify: false
+      selenium2: ~
+      browser_name: 'chrome'
+      sessions:
+        default:
+          selenium2:
+            capabilities:
+              acceptSslCerts: true
+              browser: chrome
+              extra_capabilities:
+                acceptInsecureCerts: true
+            wd_host: 'http://chrome:4444/wd/hub'
+        my_session:
+          goutte:
+            guzzle_parameters:
+              verify: false
