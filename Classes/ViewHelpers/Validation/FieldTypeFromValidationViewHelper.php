@@ -20,6 +20,8 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
         2 => 'url',
         3 => 'tel',
         4 => 'number',
+        6 => 'number',
+        7 => 'number',
         8 => 'range'
     ];
 
