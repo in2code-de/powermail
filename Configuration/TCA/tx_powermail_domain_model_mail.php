@@ -108,12 +108,7 @@ $mailsTca = [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'size' => 13,
-                'checkbox' => 0,
-                'default' => 0,
-                'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-                ],
+                'default' => 0
             ],
         ],
         'endtime' => [
@@ -124,12 +119,7 @@ $mailsTca = [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'size' => 13,
-                'checkbox' => 0,
-                'default' => 0,
-                'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-                ],
+                'default' => 0
             ],
         ],
         'crdate' => [
