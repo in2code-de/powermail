@@ -11,7 +11,15 @@
   "authors": [
     {
       "name": "Alex Kellner",
-      "email": "alexander.kellner@in2code.de"
+      "email": "alexander.kellner@in2code.de",
+      "role": "Product and technical owner",
+      "homepage": "https://www.in2code.de"
+    },
+    {
+      "name": "Marcus Schwemer",
+      "email": "marcus.schwemer@in2code.de",
+      "role": "Developer",
+      "homepage": "https://www.in2code.de"
     }
   ],
   "type": "typo3-cms-extension",

@@ -134,7 +134,7 @@ class FileFactory
         if ($size === 0) {
             $size = filesize($file->getNewPathAndFilename(true));
         }
-        $file->setSize($size);
+        $file->setSize((int)$size);
         if ($type === '') {
             $type = mime_content_type($file->getNewPathAndFilename(true));
         }

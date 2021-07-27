@@ -527,7 +527,7 @@ class Mail extends AbstractEntity
     public function getMarketingPageFunnel(): array
     {
         if (ArrayUtility::isJsonArray($this->marketingPageFunnel)) {
-            return json_decode($this->marketingPageFunnel);
+            return json_decode($this->marketingPageFunnel, true);
         }
         return (array)$this->marketingPageFunnel;
     }
