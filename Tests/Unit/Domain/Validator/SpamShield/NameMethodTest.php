@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
@@ -15,7 +15,6 @@ use TYPO3\CMS\Core\Exception;
  */
 class NameMethodTest extends UnitTestCase
 {
-
     /**
      * @var \In2code\Powermail\Domain\Validator\SpamShield\NameMethod
      */
@@ -23,11 +22,9 @@ class NameMethodTest extends UnitTestCase
 
     /**
      * @return void
-     * @throws Exception
      */
     public function setUp()
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             NameMethod::class,
             ['dummy'],

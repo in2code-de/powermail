@@ -106,7 +106,7 @@ class StringValidatorTest extends UnitTestCase
             ],
             'email6' => [
                 'alex@lalala',
-                false
+                true
             ],
             'email7' => [
                 'alex.lalala.de',

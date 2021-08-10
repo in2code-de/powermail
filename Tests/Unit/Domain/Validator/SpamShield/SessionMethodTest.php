@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
@@ -16,7 +16,6 @@ use TYPO3\CMS\Core\Exception;
  */
 class SessionMethodTest extends UnitTestCase
 {
-
     /**
      * @var \In2code\Powermail\Domain\Validator\SpamShield\SessionMethod
      */
@@ -24,11 +23,9 @@ class SessionMethodTest extends UnitTestCase
 
     /**
      * @return void
-     * @throws Exception
      */
     public function setUp()
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             SessionMethod::class,
             ['dummy'],

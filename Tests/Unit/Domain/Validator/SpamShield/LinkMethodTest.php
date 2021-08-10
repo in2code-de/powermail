@@ -1,12 +1,10 @@
 <?php
-namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\LinkMethod;
-use In2code\Powermail\Tests\Helper\TestingHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
 
 /**
  * Class LinkMethodTest
@@ -14,7 +12,6 @@ use TYPO3\CMS\Core\Exception;
  */
 class LinkMethodTest extends UnitTestCase
 {
-
     /**
      * @var \In2code\Powermail\Domain\Validator\SpamShield\LinkMethod
      */
@@ -22,11 +19,9 @@ class LinkMethodTest extends UnitTestCase
 
     /**
      * @return void
-     * @throws Exception
      */
     public function setUp()
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             LinkMethod::class,
             ['dummy'],

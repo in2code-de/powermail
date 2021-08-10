@@ -222,69 +222,6 @@ class PrefillFieldViewHelperTest extends UnitTestCase
     }
 
     /**
-     * Dataprovider for getDefaultValueReturnsString()
-     *
-     * @return array
-     */
-    public function getFromTypoScriptContentObjectReturnsStringDataProvider()
-    {
-        return [
-            [
-                [
-                    'prefill.' => [
-                        'marker' => 'TEXT',
-                        'marker.' => [
-                            'value' => 'y',
-                            'wrap' => 'x|z'
-                        ]
-                    ]
-                ],
-                'marker',
-                'xyz'
-            ],
-            [
-                [
-                    'prefill.' => [
-                        'email' => 'TEXT',
-                        'email.' => [
-                            'data' => 'date:U',
-                            'strftime' => '%d.%m.%Y %H:%M'
-                        ]
-                    ]
-                ],
-                'email',
-                (string) strftime('%d.%m.%Y %H:%M')
-            ],
-        ];
-    }
-
-    /**
-     * @param array $configuration
-     * @param string $marker
-     * @param string $expectedResult
-     * @return void
-     * @dataProvider getFromTypoScriptContentObjectReturnsStringDataProvider
-     * @test
-     * @covers ::getFromTypoScriptContentObject
-     * @throws Exception
-     */
-    public function getFromTypoScriptContentObjectReturnsString(array $configuration, $marker, $expectedResult)
-    {
-        TestingHelper::initializeTypoScriptFrontendController();
-        $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
-        $field = new Field();
-        $field->setMarker($marker);
-        $this->abstractValidationViewHelperMock->_set('field', $field);
-        $this->abstractValidationViewHelperMock->_set('marker', $marker);
-        $this->abstractValidationViewHelperMock->_set('contentObject', new ContentObjectRenderer());
-        $value = '';
-        $this->assertSame(
-            $expectedResult,
-            $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptContentObject', $value)
-        );
-    }
-
-    /**
      * Dataprovider for getFromTypoScriptRawReturnsString()
      *
      * @return array
