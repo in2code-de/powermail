@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -22,7 +22,7 @@ class FormSelectorUserFunc
 {
 
     /**
-     * @var null|PageRepository
+     * @var PageRepository|null
      */
     protected $pageRepository = null;
 

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Form;
 
 use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
@@ -24,6 +24,6 @@ class AdvancedSelectViewHelper extends SelectViewHelper
      */
     protected function getOptions(): array
     {
-        return array('' => $this->arguments['defaultOption']) + parent::getOptions();
+        return ['' => $this->arguments['defaultOption']] + parent::getOptions();
     }
 }

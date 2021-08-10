@@ -93,7 +93,8 @@ class TestingHelper
         } catch (\Exception $exception) {
             unset($exception);
         }
-        $GLOBALS['TSFE'] = new TypoScriptFrontendController(
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+            TypoScriptFrontendController::class,
             GeneralUtility::makeInstance(Context::class),
             $site,
             $siteLanguage,

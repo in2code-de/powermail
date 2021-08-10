@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -122,9 +122,8 @@ class CaptchaValidator extends AbstractValidator
         $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
         if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
             return Utility::checkCaptcha($value, $field->getUid());
-        } else {
-            return $this->validateCaptchaOld($value);
         }
+        return $this->validateCaptchaOld($value);
     }
 
     /**
@@ -182,7 +181,7 @@ class CaptchaValidator extends AbstractValidator
     }
 
     /**
-     * @param boolean $captchaArgument
+     * @param bool $captchaArgument
      * @return void
      */
     public function setCaptchaArgument($captchaArgument): void

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\File;
@@ -46,7 +46,7 @@ class UploadValidator extends AbstractValidator
                 $this->setErrorAndMessage($file->getField(), 'upload_size');
                 $file->setValid(false);
             }
-        };
+        }
         return $this->isValidState();
     }
 

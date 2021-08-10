@@ -4,9 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Service;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use In2code\Powermail\Utility\SessionUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -54,80 +52,6 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     }
 
     /**
-     * Data Provider for validCodeReturnsBool
-     *
-     * @return array
-     */
-    public function validCodeReturnsBoolDataProvider()
-    {
-        return [
-            [
-                '123',
-                '123',
-                true
-            ],
-            [
-                '1234',
-                '123',
-                false
-            ],
-            [
-                '0',
-                '0',
-                false
-            ],
-            [
-                '',
-                '',
-                false
-            ],
-            [
-                'test',
-                'test',
-                false
-            ],
-            [
-                'a123',
-                'a123',
-                false
-            ],
-            [
-                'a123',
-                '',
-                false
-            ],
-            [
-                '123a',
-                '',
-                false
-            ],
-            [
-                false,
-                false,
-                false
-            ]
-        ];
-    }
-
-    /**
-     * @param string $code Given from input field (should be a string)
-     * @param string $codeInSession (string or empty)
-     * @param bool $expectedResult
-     * @dataProvider validCodeReturnsBoolDataProvider
-     * @test
-     * @covers ::validCode
-     * @throws Exception
-     */
-    public function validCodeReturnsBool($code, $codeInSession, $expectedResult)
-    {
-        TestingHelper::initializeTypoScriptFrontendController();
-        $field = new Field();
-        $field->_setProperty('uid', 123);
-        SessionUtility::setCaptchaSession($codeInSession, 123);
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_call('validCode', $code, $field, false));
-    }
-
-    /**
      * Data Provider for getColorForCaptchaReturnInt()
      *
      * @return array
@@ -156,7 +80,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getColorForCaptchaReturnInt($hexColorString, $expectedResult)
     {
-        $imageResource = ImageCreateFromPNG(
+        $imageResource = imagecreatefrompng(
             GeneralUtility::getFileAbsFileName('typo3conf/ext/powermail/Resources/Private/Image/captcha_bg.png')
         );
         $this->generalValidatorMock->_set(

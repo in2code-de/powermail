@@ -4,62 +4,62 @@
 
 # Enable marketing information in mail to administrator
 plugin.tx_powermail {
-	settings.setup.marketing.information = 1
-	features.requireCHashArgumentForActionArguments = 0
+  settings.setup.marketing.information = 1
+  features.requireCHashArgumentForActionArguments = 0
 }
 
 # storing misc user informations in session via JavaScript (last page, google keyword, page funnel)
-page.3131 = COA
-page.3131 {
-	wrap = <script id="powermail_marketing_information"|></script>
-
-	# Current Page Id
-	10 = TEXT
-	10 {
-		noTrimWrap = | data-pid="|"|
-		data = TSFE:id
-		intval = 1
-	}
-
-	# Current FE Language Uid
-	20 = TEXT
-	20 {
-		noTrimWrap = | data-language="|"|
-		data = TSFE:sys_language_uid
-		intval = 1
-	}
-}
-
-# Add JavaScript
 page {
-	includeJSFooter {
-		powermailMarketing = EXT:powermail/Resources/Public/JavaScript/Powermail/Marketing.min.js
-	}
+  3131 = COA
+  3131 {
+    wrap = <script id="powermail_marketing_information"|></script>
+
+    # Current Page Id
+    10 = TEXT
+    10 {
+      noTrimWrap = | data-pid="|"|
+      data = TSFE:id
+      intval = 1
+    }
+
+    # Current FE Language Uid
+    20 = TEXT
+    20 {
+      noTrimWrap = | data-language="|"|
+      data = TSFE:sys_language_uid
+      intval = 1
+    }
+  }
+
+  # Add JavaScript
+  includeJSFooter {
+    powermailMarketing = EXT:powermail/Resources/Public/JavaScript/Powermail/Marketing.min.js
+  }
 }
 
 # Tracking for some powermail marketing information on every page
 powermailMarketing = PAGE
 powermailMarketing {
-	typeNum = 1540053358
-	config {
-		additionalHeaders.10.header = Content-Type: application/json
-		no_cache = 1
-		disableAllHeaderCode = 1
-		disablePrefixComment = 1
-		xhtml_cleaning = 0
-		admPanel = 0
-		debug = 0
-	}
+  typeNum = 1540053358
+  config {
+    additionalHeaders.10.header = Content-Type: application/json
+    no_cache = 1
+    disableAllHeaderCode = 1
+    disablePrefixComment = 1
+    xhtml_cleaning = 0
+    admPanel = 0
+    debug = 0
+  }
 
-	10 = USER
-	10 {
-		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-		extensionName = Powermail
-		pluginName = Pi1
-		vendorName = In2code
-		controller = Form
-		action = marketing
-		switchableControllerActions.Form.1 = marketing
-		features.requireCHashArgumentForActionArguments = 0
-	}
+  10 = USER
+  10 {
+    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+    extensionName = Powermail
+    pluginName = Pi1
+    vendorName = In2code
+    controller = Form
+    action = marketing
+    switchableControllerActions.Form.1 = marketing
+    features.requireCHashArgumentForActionArguments = 0
+  }
 }

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\ArrayUtility;
@@ -347,7 +347,7 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * @return null|Form|LazyLoadingProxy $form
+     * @return Form|LazyLoadingProxy|null $form
      */
     public function getForm()
     {

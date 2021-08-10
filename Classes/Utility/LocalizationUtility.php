@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
@@ -16,7 +16,7 @@ class LocalizationUtility
      *
      * @param string $key
      * @param string $extensionName
-     * @param null|array $arguments
+     * @param array|null $arguments
      * @return string
      */
     public static function translate(string $key, string $extensionName = 'powermail', array $arguments = null): string

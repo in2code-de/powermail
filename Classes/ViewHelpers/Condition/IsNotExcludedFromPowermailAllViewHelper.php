@@ -1,11 +1,11 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use In2code\Powermail\Domain\Model\Answer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class IsNotExcludedFromPowermailAllViewHelper

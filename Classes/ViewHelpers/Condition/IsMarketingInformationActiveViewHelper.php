@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -33,7 +33,7 @@ class IsMarketingInformationActiveViewHelper extends AbstractViewHelper
     public function render(): bool
     {
         $settings = $this->arguments['settings'];
-        return (!empty($this->arguments['marketingInformation']) && !empty($settings['marketing']['information']) &&
-            !ConfigurationUtility::isDisableMarketingInformationActive());
+        return !empty($this->arguments['marketingInformation']) && !empty($settings['marketing']['information']) &&
+            !ConfigurationUtility::isDisableMarketingInformationActive();
     }
 }

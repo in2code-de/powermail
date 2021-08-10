@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -20,7 +20,7 @@ class CreateMarker
 {
 
     /**
-     * @var null|ObjectManager
+     * @var ObjectManager|null
      */
     protected $objectManager = null;
 

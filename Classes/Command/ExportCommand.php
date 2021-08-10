@@ -1,20 +1,14 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Command;
 
-use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Domain\Repository\AnswerRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ExportService;
-use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
-use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -94,10 +88,9 @@ class ExportCommand extends Command
         if ($exportService->send() === true) {
             $output->writeln('Export finished');
             return 0;
-        } else {
-            $output->writeln('Export could not be generated');
-            return 1;
         }
+        $output->writeln('Export could not be generated');
+        return 1;
     }
 
     /**

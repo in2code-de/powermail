@@ -1,9 +1,9 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Service;
 
-use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
@@ -25,7 +25,7 @@ class ExportService
     /**
      * Contains mails for export
      *
-     * @var null|QueryResult
+     * @var QueryResult|null
      */
     protected $mails = null;
 
@@ -112,7 +112,7 @@ class ExportService
     protected $emailTemplate = 'Module/ExportTaskMail.html';
 
     /**
-     * @param null|QueryResultInterface $mails Given mails for export
+     * @param QueryResultInterface|null $mails Given mails for export
      * @param string $format can be 'xls' or 'csv'
      * @param array $additionalProperties add additional properties
      */
@@ -251,7 +251,7 @@ class ExportService
     }
 
     /**
-     * @param null|QueryResultInterface $mails
+     * @param QueryResultInterface|null $mails
      * @return ExportService
      */
     public function setMails(?QueryResultInterface $mails): ExportService

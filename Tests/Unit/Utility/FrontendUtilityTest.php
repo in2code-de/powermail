@@ -4,7 +4,6 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\FrontendUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
 
 /**
  * Class FrontendUtilityTest
@@ -12,7 +11,6 @@ use TYPO3\CMS\Core\Exception;
  */
 class FrontendUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */
@@ -20,12 +18,10 @@ class FrontendUtilityTest extends UnitTestCase
 
     /**
      * @return void
-     * @throws Exception
      */
     public function setUp()
     {
         TestingHelper::setDefaultConstants();
-        TestingHelper::initializeTypoScriptFrontendController();
     }
 
     /**
@@ -36,7 +32,7 @@ class FrontendUtilityTest extends UnitTestCase
     public function getStoragePageReturnsInt()
     {
         $this->assertSame(123, FrontendUtility::getStoragePage(123));
-        $this->assertSame(1, FrontendUtility::getStoragePage());
+        $this->assertNotSame(1, FrontendUtility::getStoragePage());
     }
 
     /**
@@ -48,7 +44,7 @@ class FrontendUtilityTest extends UnitTestCase
     public function getCurrentPageIdentifierReturnsInt()
     {
         $result = FrontendUtility::getCurrentPageIdentifier();
-        $this->assertSame(1, $result);
+        $this->assertSame(0, $result);
     }
 
     /**
@@ -91,17 +87,6 @@ class FrontendUtilityTest extends UnitTestCase
         $this->assertSame('', FrontendUtility::getActionName());
         $_GET['tx_powermail_pi1']['action'] = 'test';
         $this->assertSame('test', FrontendUtility::getActionName());
-    }
-
-    /**
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
-     * @covers ::getCharset
-     */
-    public function getCharsetReturnsString()
-    {
-        $this->assertSame('utf-8', FrontendUtility::getCharset());
     }
 
     /**

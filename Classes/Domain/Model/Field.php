@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FieldRepository;
@@ -76,7 +76,7 @@ class Field extends AbstractEntity
     protected $createFromTyposcript = '';
 
     /**
-     * @var integer
+     * @var int
      */
     protected $validation = 0;
 
@@ -121,7 +121,7 @@ class Field extends AbstractEntity
     protected $senderEmail = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $mandatory = false;
 
@@ -131,12 +131,12 @@ class Field extends AbstractEntity
     protected $marker = '';
 
     /**
-     * @var integer
+     * @var int
      */
     protected $sorting = 0;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $l10nParent = 0;
 
@@ -327,7 +327,7 @@ class Field extends AbstractEntity
      */
     public function setContentElement(int $contentElement): void
     {
-        $this->contentElement = (int) $contentElement;
+        $this->contentElement = (int)$contentElement;
     }
 
     /**
@@ -663,7 +663,7 @@ class Field extends AbstractEntity
     }
 
     /**
-     * @return null|Page
+     * @return Page|null
      */
     public function getPage(): ?Page
     {

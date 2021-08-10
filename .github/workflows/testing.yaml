@@ -1,0 +1,75 @@
+name: testing
+on: [push, pull_request]
+
+jobs:
+  php-lint:
+    name: "PHP linter"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: none
+          tools: composer:v2
+      - name: "Run PHP lint"
+        run: "composer test:php:lint"
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - 7.2
+          - 7.3
+          - 7.4
+  typoscript-lint:
+    name: "TypoScript linter"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+      - name: "Run TypoScript lint"
+        uses: TYPO3-Continuous-Integration/TYPO3-CI-Typoscript-Lint@v1
+        with:
+          files: "./Configuration"
+          config_file: ".project/tests/typoscript-lint.yml"
+  php-cs-fixer:
+    name: "PHP CS Fixer"
+    runs-on: ubuntu-20.04
+    needs: php-lint
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+      - name: "Composer Install"
+        run: "composer install"
+      - name: "Run PHP CS Fixer"
+        run: "composer test:php:cs"
+  unit-tests:
+    name: "PHP Unit Tests"
+    runs-on: ubuntu-20.04
+    needs: php-lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: none
+          tools: composer:v2
+      - name: "Composer Install"
+        run: "composer install"
+      - name: "Run Unit Tests"
+        run: "composer test:unit"
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - 7.2
+          - 7.3
+          - 7.4

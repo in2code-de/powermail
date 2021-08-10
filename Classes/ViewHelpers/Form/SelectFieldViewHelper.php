@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Form;
 
 use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
@@ -81,7 +81,7 @@ class SelectFieldViewHelper extends SelectViewHelper
     protected function getOptionFromOriginalOptionsByValue(string $value): array
     {
         foreach ($this->originalOptions as $option) {
-            if ((string) $value === $option['value'] || (string) $value === $option['label']) {
+            if ((string)$value === $option['value'] || (string)$value === $option['label']) {
                 return $option;
             }
         }

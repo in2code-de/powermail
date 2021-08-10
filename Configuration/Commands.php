@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use In2code\Powermail\Command\CleanupExportsCommand;
 use In2code\Powermail\Command\CleanupUnusedUploadsCommand;
