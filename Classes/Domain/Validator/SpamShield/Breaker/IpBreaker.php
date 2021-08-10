@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Validator\SpamShield\Breaker;
 
 use In2code\Powermail\Exception\ConfigurationIsMissingException;

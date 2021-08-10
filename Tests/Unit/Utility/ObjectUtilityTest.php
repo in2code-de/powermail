@@ -2,8 +2,8 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Log\Logger;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Log\Logger;
 
 /**
  * Class ObjectUtilityTest

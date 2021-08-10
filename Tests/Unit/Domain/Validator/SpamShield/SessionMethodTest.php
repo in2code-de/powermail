@@ -5,10 +5,8 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
-use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\SessionUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
 
 /**
  * Class SessionMethodTest

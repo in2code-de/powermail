@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -192,7 +192,7 @@ class FieldRepository extends AbstractRepository
      * Return type from given field marker and form
      *
      * @param string $marker Field marker
-     * @param integer $formUid Form UID
+     * @param int $formUid Form UID
      * @return string Field Type
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -212,7 +212,7 @@ class FieldRepository extends AbstractRepository
      * Return uid from given field marker and form
      *
      * @param string $marker Field marker
-     * @param integer $formUid Form UID
+     * @param int $formUid Form UID
      * @return int Field UID
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException

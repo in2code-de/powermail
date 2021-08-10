@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Signal\SignalTrait;
@@ -289,7 +289,7 @@ class File
     }
 
     /**
-     * @param boolean $renamed
+     * @param bool $renamed
      * @return File
      */
     public function setRenamed(bool $renamed): File

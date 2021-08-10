@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Utility\ObjectUtility;
@@ -141,7 +141,7 @@ class AddOptionsToSelection
      * Add item to $this->params['items'] with value and label
      *
      * @param string $value
-     * @param null|string $label
+     * @param string|null $label
      * @return void
      */
     protected function addOption(string $value, string $label = null): void

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -29,7 +29,7 @@ class SpamShieldValidator extends AbstractValidator
     /**
      * Spam indication
      *
-     * @var integer
+     * @var int
      */
     protected $spamIndicator = 0;
 
@@ -134,7 +134,6 @@ class SpamShieldValidator extends AbstractValidator
                     1578609554
                 );
             }
-
         }
     }
 

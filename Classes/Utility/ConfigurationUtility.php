@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Exception\SoftwareIsMissingException;
@@ -137,7 +137,6 @@ class ConfigurationUtility
      */
     public static function getDevelopmentContextEmail(): string
     {
-
         $configVariables = self::getTypo3ConfigurationVariables();
         if (Environment::getContext()->isDevelopment() &&
             GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])) {

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\DataProcessor;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -93,8 +93,8 @@ class DataProcessorRunner
         AbstractDataProcessor $dataProcessor,
         string $finisherMethod
     ): void {
-        if (method_exists($dataProcessor, 'initialize' . ucFirst($finisherMethod))) {
-            $dataProcessor->{'initialize' . ucFirst($finisherMethod)}();
+        if (method_exists($dataProcessor, 'initialize' . ucfirst($finisherMethod))) {
+            $dataProcessor->{'initialize' . ucfirst($finisherMethod)}();
         }
     }
 

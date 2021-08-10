@@ -152,7 +152,7 @@ JS;
         $locator = substr($selector, 0, 1);
 
         switch ($locator) {
-            case '$' : // Query selector
+            case '$': // Query selector
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){
@@ -162,7 +162,7 @@ JS;
 JS;
                 break;
 
-            case '/' : // XPath selector
+            case '/': // XPath selector
                 $function = <<<JS
 (function(){
   var elem = document.evaluate("$selector", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -171,7 +171,7 @@ JS;
 JS;
                 break;
 
-            case '#' : // ID selector
+            case '#': // ID selector
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){
@@ -181,7 +181,7 @@ JS;
 JS;
                 break;
 
-            case '.' : // Class selector
+            case '.': // Class selector
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){

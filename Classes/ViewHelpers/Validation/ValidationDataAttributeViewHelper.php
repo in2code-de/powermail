@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -127,7 +127,6 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
         }
         return $additionalAttributes;
     }
-
 
     /**
      * Add validation attributes

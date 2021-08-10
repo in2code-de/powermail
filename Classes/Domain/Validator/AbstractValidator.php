@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -142,9 +142,8 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
         $arguments = FrontendUtility::getArguments();
         if ($this->isConfirmationActivated()) {
             return $arguments['action'] === 'confirmation';
-        } else {
-            return $arguments['action'] === 'create';
         }
+        return $arguments['action'] === 'create';
     }
 
     /**

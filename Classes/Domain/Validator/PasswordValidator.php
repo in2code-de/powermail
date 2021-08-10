@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -36,7 +36,6 @@ class PasswordValidator extends AbstractValidator
             if ($answer->getValue() !== $this->getMirroredValueOfPasswordField($answer->getField())) {
                 $this->setErrorAndMessage($answer->getField(), 'password');
             }
-
         }
 
         return $this->isValidState();

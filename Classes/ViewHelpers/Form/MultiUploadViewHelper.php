@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Form;
 
 use TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper;

@@ -4,9 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Service;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use In2code\Powermail\Utility\SessionUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -82,7 +80,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
      */
     public function getColorForCaptchaReturnInt($hexColorString, $expectedResult)
     {
-        $imageResource = ImageCreateFromPNG(
+        $imageResource = imagecreatefrompng(
             GeneralUtility::getFileAbsFileName('typo3conf/ext/powermail/Resources/Private/Image/captcha_bg.png')
         );
         $this->generalValidatorMock->_set(

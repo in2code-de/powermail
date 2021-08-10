@@ -2,10 +2,8 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**

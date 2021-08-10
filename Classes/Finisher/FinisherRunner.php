@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -98,8 +98,8 @@ class FinisherRunner
      */
     protected function callInitializeFinisherMethod(AbstractFinisher $finisher, string $finisherMethod): void
     {
-        if (method_exists($finisher, 'initialize' . ucFirst($finisherMethod))) {
-            $finisher->{'initialize' . ucFirst($finisherMethod)}();
+        if (method_exists($finisher, 'initialize' . ucfirst($finisherMethod))) {
+            $finisher->{'initialize' . ucfirst($finisherMethod)}();
         }
     }
 

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -11,8 +11,8 @@ use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
@@ -23,7 +23,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
 {
 
     /**
-     * @var null|string
+     * @var string|null
      */
     protected $error = null;
 

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\ArrayUtility;
@@ -11,7 +11,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Answer extends AbstractEntity
 {
-
     const TABLE_NAME = 'tx_powermail_domain_model_answer';
     const VALUE_TYPE_TEXT = 0;
     const VALUE_TYPE_ARRAY = 1;
@@ -108,7 +107,7 @@ class Answer extends AbstractEntity
         if (is_array($value)) {
             $value = implode($glue, $value);
         }
-        return (string) $value;
+        return (string)$value;
     }
 
     /**
