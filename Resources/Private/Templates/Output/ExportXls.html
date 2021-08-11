@@ -32,12 +32,12 @@ Render Powermail XLS Export
 										<f:then>
 											<f:for each="{answer.value}" as="singleValue">
 												<f:if condition="{singleValue}">
-													{singleValue},
+													<vh:string.sanitizeCsvCell>{singleValue}</vh:string.sanitizeCsvCell>,
 												</f:if>
 											</f:for>
 										</f:then>
 										<f:else>
-											{answer.value}
+											<vh:string.sanitizeCsvCell>{answer.value}</vh:string.sanitizeCsvCell>
 										</f:else>
 									</f:if>
 								</f:if>
