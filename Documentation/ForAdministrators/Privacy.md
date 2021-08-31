@@ -57,3 +57,7 @@ See the Scheduler section in the manual to see how you can remove old mails from
 
 Please consider to not ask your website visitors for more information then you need for the request to meet
 the requirements of the GDPR.
+
+The GDPR also requires that you only store data with personal information as long as is necessary for the
+purpose for which it was obtained. This only applies to records containing personal data (which is already
+the case if you obtained email address or name).
