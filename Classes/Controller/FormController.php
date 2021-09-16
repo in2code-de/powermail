@@ -66,7 +66,7 @@ class FormController extends AbstractController
     public function formAction(): ResponseInterface
     {
         /** @var Form $form */
-        $form = $this->formRepository->findByUid($this->settings['main']['form']);
+        $form = $this->formRepository->findByUid($this->settings['main']['form'] ?? 0);
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$form, $this]);
         SessionUtility::saveFormStartInSession($this->settings, $form);
         $this->view->assignMultiple(
@@ -74,7 +74,7 @@ class FormController extends AbstractController
                 'form' => $form,
                 'ttContentData' => $this->contentObject->data,
                 'messageClass' => $this->messageClass,
-                'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
+                'action' => (($this->settings['main']['confirmation'] ?? false) ? 'confirmation' : 'create')
             ]
         );
         return $this->htmlResponse();
@@ -327,7 +327,9 @@ class FormController extends AbstractController
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
-        $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
+        if ($forward = $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail)) {
+            return $forward;
+        }
         $labelKey = 'failed';
 
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -403,7 +405,7 @@ class FormController extends AbstractController
         $configurationService = $this->objectManager->get(ConfigurationService::class);
         $this->conf = $configurationService->getTypoScriptConfiguration();
         $this->settings = ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
-        if ($this->settings['debug']['settings']) {
+        if ($this->settings['debug']['settings'] ?? false) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->info('Powermail settings', $this->settings);
         }
@@ -447,10 +449,9 @@ class FormController extends AbstractController
      *        used in optinConfirmAction()
      *
      * @param Mail|null $mail
-     * @return void
-     * @throws StopActionException
+     * @return ResponseInterface|null
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ResponseInterface
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ResponseInterface
     {
         if ($mail !== null) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
@@ -460,6 +461,8 @@ class FormController extends AbstractController
                 return new ForwardResponse('form');
             }
         }
+
+        return null;
     }
 
     /**
@@ -467,10 +470,9 @@ class FormController extends AbstractController
      * a validator for createAction fails, confirmationAction is called (if function is turned on) and same validators
      * are firing again
      *
-     * @return void
-     * @throws StopActionException
+     * @return ResponseInterface
      */
-    protected function forwardToReferringRequest(): ?ResponseInterface
+    protected function forwardToReferringRequest(): ResponseInterface
     {
         $originalRequest = clone $this->request;
         $this->request->setOriginalRequest($originalRequest);

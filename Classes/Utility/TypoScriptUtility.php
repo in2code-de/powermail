@@ -27,8 +27,8 @@ class TypoScriptUtility
         ?array $conf = [],
         string $key = ''
     ): string {
-        if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
-            $string = ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
+        if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key] ?? '', $conf[$key . '.'] ?? [])) {
+            $string = ObjectUtility::getContentObject()->cObjGetSingle($conf[$key] ?? '', $conf[$key . '.'] ?? []);
         }
         return $string;
     }
@@ -52,7 +52,7 @@ class TypoScriptUtility
         foreach ($pathSegments as $segment) {
             $setup = $setup[$segment . '.'];
         }
-        return ObjectUtility::getContentObject()->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
+        return ObjectUtility::getContentObject()->cObjGetSingle($setup[$lastSegment] ?? '', $setup[$lastSegment . '.'] ?? []);
     }
 
     /**

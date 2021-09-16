@@ -421,8 +421,8 @@ class SpamShieldValidator extends AbstractValidator
         $breakerRunner = ObjectUtility::getObjectManager()->get(
             BreakerRunner::class,
             $mail,
-            $this->settings,
-            $this->flexForm
+            $this->settings ?? [],
+            $this->flexForm ?? []
         );
         return !empty($this->settings['spamshield']['_enable'])
             && $breakerRunner->isSpamCheckDisabledByAnyBreaker() !== true;

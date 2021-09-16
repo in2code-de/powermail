@@ -125,7 +125,7 @@ class AddOptionsToSelection
     {
         $fieldOptions = [];
         $tsConfiguration = BackendUtility::getPagesTSconfig($this->getPageIdentifier());
-        $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'];
+        $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'] ?? null;
 
         if (!empty($eConfiguration[$this->getType() . '.']['addFieldOptions.'])) {
             $options = $eConfiguration[$this->getType() . '.']['addFieldOptions.'];

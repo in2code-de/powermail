@@ -33,7 +33,7 @@ class ConfigurationService implements SingletonInterface
         if (empty($this->settings[$pluginName])) {
             $this->settings[$pluginName] = $this->getTypoScriptSettingsFromOverallConfiguration($pluginName);
         }
-        return $this->settings[$pluginName];
+        return $this->settings[$pluginName] ?? [];
     }
 
     /**
@@ -48,7 +48,7 @@ class ConfigurationService implements SingletonInterface
         if (empty($this->configuration[$pluginName])) {
             $this->configuration[$pluginName] = $this->getTypoScriptConfigurationFromOverallConfiguration($pluginName);
         }
-        return $this->configuration[$pluginName];
+        return $this->configuration[$pluginName] ?? [];
     }
 
     /**
@@ -64,7 +64,7 @@ class ConfigurationService implements SingletonInterface
             'Powermail',
             $pluginName
         );
-        return (array)$setup['setup'];
+        return (array)($setup['setup'] ?? []);
     }
 
     /**
@@ -80,6 +80,6 @@ class ConfigurationService implements SingletonInterface
             'Powermail',
             $pluginName
         );
-        return (array)$configuration['plugin.']['tx_powermail.']['settings.']['setup.'];
+        return (array)($configuration['plugin.']['tx_powermail.']['settings.']['setup.'] ?? []);
     }
 }

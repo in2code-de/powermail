@@ -159,7 +159,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     {
         $uid = $this->getLocalizedFormUid($uid, $this->getSysLanguageUid());
         $row = BackendUtilityCore::getRecord(Form::TABLE_NAME, $uid, 'title', '', false);
-        return (string)$row['title'];
+        return (string)($row['title'] ?? '');
     }
 
     /**
@@ -191,7 +191,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      */
     protected function getFormUid(): int
     {
-        return (int)$this->flexFormData['settings']['flexform']['main']['form'];
+        return (int)($this->flexFormData['settings']['flexform']['main']['form'] ?? 0);
     }
 
     /**

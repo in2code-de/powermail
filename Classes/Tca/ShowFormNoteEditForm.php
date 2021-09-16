@@ -147,7 +147,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getEditFormLink(): string
     {
-        return BackendUtility::createEditUri(Form::TABLE_NAME, (int)$this->getFormProperties()['uid']);
+        return BackendUtility::createEditUri(Form::TABLE_NAME, (int)($this->getFormProperties()['uid'] ?? 0));
     }
 
     /**
@@ -218,8 +218,8 @@ class ShowFormNoteEditForm extends AbstractFormElement
     protected function getRelatedFormUid(): int
     {
         $flexFormArray = (array)$this->data['databaseRow']['pi_flexform']['data']['main']['lDEF'];
-        $formUid = (int)$flexFormArray['settings.flexform.main.form']['vDEF'][0];
-        $formUid = $this->getLocalizedFormUid($formUid, (int)$this->data['databaseRow']['sys_language_uid'][0]);
+        $formUid = (int)($flexFormArray['settings.flexform.main.form']['vDEF'][0] ?? 0);
+        $formUid = $this->getLocalizedFormUid($formUid, (int)($this->data['databaseRow']['sys_language_uid'][0] ?? 0));
         return $formUid;
     }
 
@@ -230,7 +230,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getStoragePageProperties(): array
     {
-        return (array)BackendUtilityCore::getRecord('pages', (int)$this->getFormProperties()['pid'], '*', '', false);
+        return (array)BackendUtilityCore::getRecord('pages', (int)($this->getFormProperties()['pid'] ?? 0), '*', '', false);
     }
 
     /**
@@ -252,7 +252,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
             ->select('p.title')
             ->from(Form::TABLE_NAME, 'fo')
             ->join('fo', Page::TABLE_NAME, 'p', 'p.form = fo.uid')
-            ->where('fo.uid = ' . (int)$this->getFormProperties()['uid'] . ' and p.deleted = 0')
+            ->where('fo.uid = ' . (int)($this->getFormProperties()['uid'] ?? 0) . ' and p.deleted = 0')
             ->setMaxResults(1000)
             ->execute()
             ->fetchAll();
@@ -272,7 +272,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
         $pageUids = $queryBuilder
             ->select('pages')
             ->from(Form::TABLE_NAME)
-            ->where('uid = ' . (int)$this->getFormProperties()['uid'])
+            ->where('uid = ' . (int)($this->getFormProperties()['uid'] ?? 0))
             ->execute()
             ->fetchAll();
         if (!empty($pageUids[0]['pages'])) {
@@ -312,7 +312,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
             ->from(Form::TABLE_NAME, 'fo')
             ->join('fo', Page::TABLE_NAME, 'p', 'p.form = fo.uid')
             ->join('p', Field::TABLE_NAME, 'f', 'f.page = p.uid')
-            ->where('fo.uid = ' . (int)$this->getFormProperties()['uid'] . ' and p.deleted = 0 and f.deleted = 0')
+            ->where('fo.uid = ' . (int)($this->getFormProperties()['uid'] ?? 0) . ' and p.deleted = 0 and f.deleted = 0')
             ->setMaxResults(1000)
             ->execute()
             ->fetchAll();
@@ -335,7 +335,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
         $pageUids = $queryBuilder
             ->select('pages')
             ->from(Form::TABLE_NAME)
-            ->where('uid = ' . (int)$this->getFormProperties()['uid'])
+            ->where('uid = ' . (int)($this->getFormProperties()['uid'] ?? 0))
             ->execute()
             ->fetchAll();
         if (!empty($pageUids[0]['pages'])) {

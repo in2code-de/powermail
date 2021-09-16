@@ -59,7 +59,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      */
     public function isServerValidationEnabled(): bool
     {
-        return $this->settings['validation']['server'] === '1';
+        return ($this->settings['validation']['server'] ?? null) === '1';
     }
 
     /**

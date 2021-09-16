@@ -47,7 +47,7 @@ class DataProcessorRunner
                 $dataProcessor =  ObjectUtility::getObjectManager()->get(
                     $dpSettings['class'],
                     $mail,
-                    (array)$dpSettings['config'],
+                    (array)($dpSettings['config'] ?? []),
                     $settings,
                     $actionMethodName,
                     $contentObject

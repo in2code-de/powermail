@@ -186,7 +186,7 @@ class CreateMarker
                 (int)$uid,
                 'marker'
             );
-            if ($row['marker'] !== $marker) {
+            if (($row['marker'] ?? null) !== $marker) {
                 $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
                 $queryBuilder->update(Field::TABLE_NAME)->where('uid=' . (int)$uid)->set('marker', $marker)->execute();
             }
@@ -251,7 +251,7 @@ class CreateMarker
         if (!empty($properties['sys_language_uid'])) {
             $field->_setProperty('_languageUid', $properties['sys_language_uid']);
         }
-        $field->setDescription((string)$properties['uid'] > 0 ? (string)$properties['uid'] : $uid);
+        $field->setDescription((int)($properties['uid'] ?? 0) > 0 ? (string)$properties['uid'] : $uid);
         return $field;
     }
 
@@ -371,6 +371,6 @@ class CreateMarker
      */
     protected function shouldRenameMarker(array $markers): bool
     {
-        return !empty($markers[$this->uid]) && $markers[$this->uid] !== $this->properties['marker'];
+        return !empty($markers[$this->uid]) && $markers[$this->uid] !== ($this->properties['marker'] ?? null);
     }
 }

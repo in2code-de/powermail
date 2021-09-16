@@ -150,7 +150,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function getTableName(array $tableConfiguration): string
     {
-        return $this->contentObject->cObjGetSingle($tableConfiguration['_table'], $tableConfiguration['_table.']);
+        return $this->contentObject->cObjGetSingle($tableConfiguration['_table'] ?? '', $tableConfiguration['_table.'] ?? []);
     }
 
     /**
@@ -159,7 +159,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration): bool
     {
-        $enable = $this->contentObject->cObjGetSingle($tableConfiguration['_enable'], $tableConfiguration['_enable.']);
+        $enable = $this->contentObject->cObjGetSingle($tableConfiguration['_enable'] ?? '', $tableConfiguration['_enable.'] ?? []);
         return !empty($enable);
     }
 

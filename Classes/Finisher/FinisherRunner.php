@@ -55,7 +55,7 @@ class FinisherRunner
                 $finisher = ObjectUtility::getObjectManager()->get(
                     $class,
                     $mail,
-                    (array)$finisherSettings['config'],
+                    (array)($finisherSettings['config'] ?? []),
                     $settings,
                     $formSubmitted,
                     $actionMethodName,

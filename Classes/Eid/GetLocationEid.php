@@ -61,10 +61,10 @@ class GetLocationEid
             $data = json_decode($json, true);
             if (!empty($data['address'])) {
                 $result = [
-                    'route' => (string)$data['address']['road'],
-                    'locality' => (string)$data['address']['village'] ?: (string)$data['address']['town'],
-                    'country' => (string)$data['address']['country'],
-                    'postal_code' => (string)$data['address']['postcode']
+                    'route' => (string)($data['address']['road'] ?? ''),
+                    'locality' => (string)($data['address']['village'] ?? '') ?: (string)($data['address']['town'] ?? ''),
+                    'country' => (string)($data['address']['country'] ?? ''),
+                    'postal_code' => (string)($data['address']['postcode'] ?? '')
                 ];
             }
         }

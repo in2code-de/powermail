@@ -190,7 +190,7 @@ class UploadService implements SingletonInterface
     protected function fillFilesFromHiddenFields(): void
     {
         $arguments = $this->getArguments();
-        foreach ((array)$arguments['field'] as $marker => $values) {
+        foreach ((array)($arguments['field'] ?? []) as $marker => $values) {
             $fileNames = $this->getNewFileNamesByMarker($marker);
             if (empty($fileNames)) {
                 foreach ((array)$values as $value) {
