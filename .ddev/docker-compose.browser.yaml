@@ -9,5 +9,3 @@ services:
     ports:
       - 4444
       - "5900:5900"
-    external_links:
-      - "ddev-router:${DDEV_SITENAME}.ddev.site"
