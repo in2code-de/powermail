@@ -2,47 +2,60 @@
 # POWERMAIL_FRONTEND
 ############################
 plugin.tx_powermail {
-	settings {
-		Pi2 {
-			search {
-				logicalRelation = OR
+  settings {
+    Pi2 {
+      search {
+        logicalRelation = OR
 
-				# predefine some filter variables
-				staticPluginsVariables {
-					filter {
-						# examples
-						# [uid] = [value]
-						# _all = [value]
-					}
-				}
-			}
+        # predefine some filter variables
+        staticPluginsVariables {
+          filter {
+            # examples
+            # [uid] = [value]
+            # _all = [value]
+          }
+        }
+      }
 
-			rss {
-				title = Powermail RSS Feed
-				link = http://www.in2code.de
-				description = Powermail_Frontend RSS Feed
-				language = en
-				copyright = in2code.de
-				updatePeriod = hourly
-				updateFrequency = 1
-			}
+      rss {
+        title = Powermail RSS Feed
+        link = http://www.in2code.de
+        description = Powermail_Frontend RSS Feed
+        language = en
+        copyright = in2code.de
+        updatePeriod = hourly
+        updateFrequency = 1
+      }
 
-			misc {
-				file {
-					folder = uploads/tx_powermail/
-					size = {$plugin.tx_powermail.settings.misc.uploadSize}
-					extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
-					randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
+      misc {
+        file {
+          folder = uploads/tx_powermail/
+          size = {$plugin.tx_powermail.settings.misc.uploadSize}
+          extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
+          randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
           randomizePrependOriginalFileName = {$plugin.tx_powermail.settings.misc.randomizePrependOriginalFileName}
-				}
-			}
+        }
+      }
 
-			# Don't touch this (this is just to let the extension know, that there is TypoScript included)
-			staticTemplate = 1
-		}
-	}
+      # Don't touch this (this is just to let the extension know, that there is TypoScript included)
+      staticTemplate = 1
+
+      # CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
+      styles {
+        framework {
+          formClasses = {$plugin.tx_powermail.settings.styles.framework.formClasses}
+          fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses}
+          fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses}
+          labelClasses = {$plugin.tx_powermail.settings.styles.framework.labelClasses}
+          fieldClasses = {$plugin.tx_powermail.settings.styles.framework.fieldClasses}
+          offsetClasses = {$plugin.tx_powermail.settings.styles.framework.offsetClasses}
+          radioClasses = {$plugin.tx_powermail.settings.styles.framework.radioClasses}
+          checkClasses = {$plugin.tx_powermail.settings.styles.framework.checkClasses}
+        }
+      }
+    }
+  }
 }
-
 
 
 ############################
@@ -51,30 +64,34 @@ plugin.tx_powermail {
 
 powermail_frontend_xls = PAGE
 powermail_frontend_xls {
-	typeNum = 31311
+  typeNum = 31311
 
-	config {
-		disableAllHeaderCode = 1
-		disablePrefixComment = 1
-		xhtml_cleaning = 0
-		admPanel = 0
-		additionalHeaders.10.header = Content-type:application/xls
-		additionalHeaders.20.header = Content-Disposition: inline; filename=export.xls
-		additionalHeaders.30.header = Cache-control:
-		additionalHeaders.40.header = Pragma:
-	}
+  config {
+    disableAllHeaderCode = 1
+    disablePrefixComment = 1
+    xhtml_cleaning = 0
+    admPanel = 0
+    additionalHeaders {
+      10.header = Content-type:application/xls
+      20.header = Content-Disposition: inline; filename=export.xls
+      30.header = Cache-control:
+      40.header = Pragma:
+    }
+  }
 
-	10 < styles.content.get
+  10 < styles.content.get
 }
+
 powermail_frontend_csv < powermail_frontend_xls
 powermail_frontend_csv {
-	typeNum = 31312
-	config {
-		additionalHeaders.10.header = Content-type:text/x-csv
-		additionalHeaders.20.header = Content-Disposition: inline; filename=export.csv
-	}
+  typeNum = 31312
+  config {
+    additionalHeaders {
+      10.header = Content-type:text/x-csv
+      20.header = Content-Disposition: inline; filename=export.csv
+    }
+  }
 }
-
 
 
 ############################
@@ -83,24 +100,23 @@ powermail_frontend_csv {
 
 powermail_frontend_rss = PAGE
 powermail_frontend_rss {
-	typeNum = 31319
+  typeNum = 31319
 
-	config {
-		disableAllHeaderCode = 1
-		disablePrefixComment = 1
-		xhtml_cleaning = 0
-		admPanel = 0
-			additionalHeaders.10.header = Content-type:application/xml
-	}
+  config {
+    disableAllHeaderCode = 1
+    disablePrefixComment = 1
+    xhtml_cleaning = 0
+    admPanel = 0
+    additionalHeaders.10.header = Content-type:application/xml
+  }
 
-	10 < styles.content.get
+  10 < styles.content.get
 }
+
 [getTSFE().type == 31311 || getTSFE().type == 31312 || getTSFE().type == 31319]
-	# we don't want the wrapper div in our export files
-	tt_content.stdWrap.innerWrap >
+# we don't want the wrapper div in our export files
+tt_content.stdWrap.innerWrap >
 [end]
-
-
 
 
 ############################
@@ -110,49 +126,30 @@ powermail_frontend_rss {
 # add jQuery if it was turned on in the constants
 [{$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle} == 1]
 page {
-	# Inlude JavaScript files
-	includeJSFooterlibs {
-		powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
-		powermailJQuery.external = 1
-	}
+  # Inlude JavaScript files
+  includeJSFooterlibs {
+    powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
+    powermailJQuery.external = 1
+  }
 }
 [end]
 
-
-# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
-plugin.tx_powermail {
-	settings.Pi2 {
-		styles {
-			framework {
-				formClasses = {$plugin.tx_powermail.settings.styles.framework.formClasses}
-				fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses}
-				fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses}
-				labelClasses = {$plugin.tx_powermail.settings.styles.framework.labelClasses}
-				fieldClasses = {$plugin.tx_powermail.settings.styles.framework.fieldClasses}
-				offsetClasses = {$plugin.tx_powermail.settings.styles.framework.offsetClasses}
-				radioClasses = {$plugin.tx_powermail.settings.styles.framework.radioClasses}
-				checkClasses = {$plugin.tx_powermail.settings.styles.framework.checkClasses}
-			}
-		}
-	}
-}
-
 # Overwrite classes if bootrap classes given
 [{$plugin.tx_powermail.settings.styles.bootstrap.important} == 1]
-	plugin.tx_powermail {
-		settings.Pi2 {
-			styles {
-				framework {
-					formClasses = {$plugin.tx_powermail.settings.styles.bootstrap.formClasses}
-					fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldAndLabelWrappingClasses}
-					fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldWrappingClasses}
-					labelClasses = {$plugin.tx_powermail.settings.styles.bootstrap.labelClasses}
-					fieldClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldClasses}
-					offsetClasses = {$plugin.tx_powermail.settings.styles.bootstrap.offsetClasses}
-					radioClasses = {$plugin.tx_powermail.settings.styles.bootstrap.radioClasses}
-					checkClasses = {$plugin.tx_powermail.settings.styles.bootstrap.checkClasses}
-				}
-			}
-		}
-	}
+plugin.tx_powermail {
+  settings.Pi2 {
+    styles {
+      framework {
+        formClasses = {$plugin.tx_powermail.settings.styles.bootstrap.formClasses}
+        fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldAndLabelWrappingClasses}
+        fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldWrappingClasses}
+        labelClasses = {$plugin.tx_powermail.settings.styles.bootstrap.labelClasses}
+        fieldClasses = {$plugin.tx_powermail.settings.styles.bootstrap.fieldClasses}
+        offsetClasses = {$plugin.tx_powermail.settings.styles.bootstrap.offsetClasses}
+        radioClasses = {$plugin.tx_powermail.settings.styles.bootstrap.radioClasses}
+        checkClasses = {$plugin.tx_powermail.settings.styles.bootstrap.checkClasses}
+      }
+    }
+  }
+}
 [end]

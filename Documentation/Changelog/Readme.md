@@ -4,6 +4,11 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 8.4.1       | 2021-08-11   | Task: Also Sanitize CSV and XLS export in Pi2 (not only the export in the backend module)                             |
+| 8.4.0       | 2021-08-11   | Task: Sanitize CSV and XLS export against excel hacks (see https://typo3.org/security/advisory/typo3-psa-2021-002)    |
+|             |              | Task: Add automatic test via github actions                                                                           |
+| 8.3.3       | 2021-07-27   | Bugfix: Fix some more typehint problems                                                                               |
+|             |              | Bugfix: Fix a problem with start- and endtime in backend records                                                      |
 | 8.3.2       | 2021-04-30   | Bugfix: Fix typehint error with overwriteValueFromTypoScript()                                                        |
 | 8.3.1       | 2021-03-08   | Bugfix: Don't validate captcha fields of already persisted mails (in double optin)                                    |
 | 8.3.0       | 2021-02-16   | Feature: Add autodeployment functionality to TER                                                                      |

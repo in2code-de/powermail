@@ -2,7 +2,7 @@ page.includeCSS.powermailBasicCss = {$plugin.tx_powermail.settings.BasicCss}
 
 # add bootstrap.min.css from maxcdn.bootstrapcdn.com
 [{$plugin.tx_powermail.settings.styles.bootstrap.addBootstrap} == 1]
-	page.includeCSS.powermailBootstrapPath = {$plugin.tx_powermail.settings.styles.bootstrap.bootstrapPath}
+page.includeCSS.powermailBootstrapPath = {$plugin.tx_powermail.settings.styles.bootstrap.bootstrapPath}
 [end]
 
 # Overwrite classes if bootstrap classes given

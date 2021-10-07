@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -135,7 +135,6 @@ class FormRepository extends AbstractRepository
 
         return $query->execute();
     }
-
 
     /**
      * Find all localized records with

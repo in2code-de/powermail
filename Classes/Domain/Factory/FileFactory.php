@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Factory;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -22,7 +22,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class FileFactory
 {
-
     /**
      * @var array
      */
@@ -134,7 +133,7 @@ class FileFactory
         if ($size === 0) {
             $size = filesize($file->getNewPathAndFilename(true));
         }
-        $file->setSize($size);
+        $file->setSize((int)$size);
         if ($type === '') {
             $type = mime_content_type($file->getNewPathAndFilename(true));
         }
@@ -156,7 +155,7 @@ class FileFactory
     }
 
     /**
-     * @param Form $form
+     * @param ?Form $form
      * @return int
      */
     protected function getFormUid(Form $form = null): int
@@ -164,8 +163,7 @@ class FileFactory
         if ($form === null) {
             $arguments = FrontendUtility::getArguments();
             return (int)$arguments['mail']['form'];
-        } else {
-            return $form->getUid();
         }
+        return $form->getUid();
     }
 }

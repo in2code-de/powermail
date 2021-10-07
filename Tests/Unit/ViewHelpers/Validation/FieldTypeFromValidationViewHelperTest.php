@@ -133,5 +133,4 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
         $result = $this->abstractValidationViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
-
 }

@@ -1,7 +1,6 @@
 <?php
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
-use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Service\RedirectUriServiceFixture;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Exception;
@@ -13,7 +12,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class RedirectUriServiceTest extends UnitTestCase
 {
-
     /**
      * @var RedirectUriServiceFixture
      */
@@ -25,7 +23,6 @@ class RedirectUriServiceTest extends UnitTestCase
      */
     public function setUp()
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             RedirectUriServiceFixture::class,
             ['dummy'],
@@ -92,56 +89,5 @@ class RedirectUriServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock->_set('flexFormFixture', $flexFormArray);
         $this->assertEquals($expectedResult, $this->generalValidatorMock->_call('getTargetFromFlexForm'));
-    }
-
-    /**
-     * Data Provider for getTargetFromTypoScriptReturnString()
-     *
-     * @return array
-     */
-    public function getTargetFromTypoScriptReturnStringDataProvider()
-    {
-        return [
-            '123' => [
-                [
-                    'redirect' => 'TEXT',
-                    'redirect.' => [
-                        'value' => '123'
-                    ]
-                ],
-                '123'
-            ],
-            'file.pdf' => [
-                [
-                    'redirect' => 'COA',
-                    'redirect.' => [
-                        '10' => 'TEXT',
-                        '10.' => [
-                            'wrap' => 'fileadmin/|',
-                            'value' => 'file.pdf'
-                        ]
-                    ]
-                ],
-                'fileadmin/file.pdf'
-            ],
-            'empty' => [
-                [],
-                null
-            ],
-        ];
-    }
-
-    /**
-     * @param array $configuration
-     * @param string $expectedResult
-     * @dataProvider getTargetFromTypoScriptReturnStringDataProvider
-     * @return void
-     * @test
-     * @covers ::getTargetFromTypoScript
-     */
-    public function getTargetFromTypoScriptReturnString(array $configuration, $expectedResult)
-    {
-        $this->generalValidatorMock->_set('typoScriptFixture', $configuration);
-        $this->assertEquals($expectedResult, $this->generalValidatorMock->_call('getTargetFromTypoScript'));
     }
 }

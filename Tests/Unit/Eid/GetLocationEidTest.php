@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Powermail\Unit\Tests\Eid;
+namespace In2code\Powermail\Tests\Unit\Eid;
 
 use In2code\Powermail\Eid\GetLocationEid;
 use In2code\Powermail\Tests\Helper\TestingHelper;
@@ -20,27 +20,25 @@ class GetLocationEidTest extends UnitTestCase
     }
 
     /**
-     * Dataprovider getAddressFromGeoReturnsArray()
-     *
      * @return array
      */
-    public function getAddressFromGeoReturnsArrayDataProvider()
+    public function mainDataProvider(): array
     {
         return [
             'in2code GmbH, Rosenheim, Germany' => [
                 47.84787,
                 12.113768,
-                'Kunstmühlstraße, Rosenheim, Deutschland'
+                'Kunstmühlstraße'
             ],
             'Eisweiherweg, Pfaffing, Germany' => [
                 48.0796126,
                 12.0898908,
-                'Eisweiherweg, Pfaffing, Deutschland'
+                'Eisweiherweg'
             ],
             'Baker Street, London, UK' => [
                 51.5205573,
                 -0.1566651,
-                'Baker Street, United Kingdom'
+                'Baker Street'
             ],
         ];
     }
@@ -50,15 +48,16 @@ class GetLocationEidTest extends UnitTestCase
      * @param float $longitude
      * @param string $expectedResult
      * @return void
-     * @dataProvider getAddressFromGeoReturnsArrayDataProvider
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @dataProvider mainDataProvider
      * @covers ::main
      * @covers ::getAddressFromGeo
      */
-    public function testMain($latitude, $longitude, $expectedResult)
+    public function testMain(float $latitude, float $longitude, string $expectedResult): void
     {
         $_GET['lat'] = $latitude;
         $_GET['lng'] = $longitude;
         $getLocationEid = new GetLocationEid();
-        $this->assertSame($expectedResult, $getLocationEid->main());
+        $this->assertContains($expectedResult, $getLocationEid->main());
     }
 }

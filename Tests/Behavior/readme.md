@@ -3,7 +3,8 @@
 ## Preperations
 
 * First of all, do a `composer update` in powermail root folder
-* You have to install a local TYPO3-instance in the next step and it should be available under `powermail.localhost.de`
+* You have to install a local TYPO3-instance in the next step and it should be available under `powermail102.
+  localhost.de`
 * Move (or symlink) the powermail-Folder into typo3conf/ext/ and activate the extension.
 * Then import the database dump from http://powermail.in2code.ws/fileadmin/behat/powermail.sql.gz
 
@@ -31,41 +32,24 @@ Screen from the huge testparcours that has to be passed before every release:
 
 ## Behaviour tests with docker
 
-### Preparation
+### Using ddev
 
-* update docker-compose.yml with the following lines
+Run the following commands in the project root
 
-```
-services:
-  behat:
-    hostname: behat
-    image: docksal/behat
-    volumes:
-      - ./:/app/:cached
-    # Run a built-in web server for access to HTML reports
-    entrypoint: "php -S 0.0.0.0:8000"
+- `ddev start`
+- `ddev initialize`
 
-  browser:
-    hostname: browser
-    # Pick/uncomment one
-    image: selenium/standalone-chrome
-```
+Then ssh into ddev `ddev ssh` and then run the behat tests via composer
 
-* run `docker-compose up -d --build` to fetch the images and start the container
-* run `docker exec $(docker-compose ps -q behat) behat --colors --format=pretty --out=std --out=html_report.html --verbose --config "/app/packages/powermail/Tests/Behavior/behat-docker.yml"`
+`composer run test:behaviour:ddev`
 
-The path to the config file is the path within the docker container of behat. If you want to change some values in the
-config file, you can copy it outside the repo and then use this file. Please pay attention not to change and commit the
-defaults.
+### "Plain" docker
 
-## Testing file uploads
+- Prerequisite: https://github.com/codekitchen/dinghy-http-proxy \
+  This is a local proxy, that enables you to run multiple docker projects in parallel
+- Run `make install-project`
+- Run `make login-php`
 
-All necessary file for testing the file upload are available in `EXT:powermail/Tests/Behavior/Assets`. Depending on
-your setup, you must adjust the path info in `behat.yml` and / or copy them to an appropriate location.
+In the container run
 
-```
-  extensions:
-    Behat\MinkExtension:
-      # adjust this path
-      files_path: "/app/packages/powermail/Tests/Behavior/Assets"
-```
+`composer run test:behaviour:docker`

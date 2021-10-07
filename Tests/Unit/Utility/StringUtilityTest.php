@@ -423,7 +423,6 @@ class StringUtilityTest extends UnitTestCase
     }
 
     /**
-     *
      * @param string $string
      * @param int $expectedResult
      * @return void
@@ -437,7 +436,6 @@ class StringUtilityTest extends UnitTestCase
     }
 
     /**
-     *
      * @return void
      * @test
      * @covers ::cleanString
@@ -448,7 +446,6 @@ class StringUtilityTest extends UnitTestCase
     }
 
     /**
-     *
      * @return void
      * @test
      * @covers ::integerList
@@ -461,7 +458,6 @@ class StringUtilityTest extends UnitTestCase
     }
 
     /**
-     *
      * @return void
      * @test
      * @covers ::getSrcFromImageTag

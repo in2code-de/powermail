@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Utility\ObjectUtility;
@@ -54,7 +54,7 @@ class FlexFormManipulationHook
     ): void {
         unset($configuration, $fieldName);
         if ($this->isPowermailFlexForm($table, $row)) {
-            foreach ($this->getFieldConfiguration($row['pid']) as $key => $fieldConfiguration) {
+            foreach ($this->getFieldConfiguration((int)$row['pid']) as $key => $fieldConfiguration) {
                 $sheet = $this->getSheetNameAndRemoveFromConfiguration($fieldConfiguration);
                 $dataStructArray['sheets'][$sheet]['ROOT']['el'][$key]['TCEforms'] = $fieldConfiguration;
             }
@@ -117,7 +117,7 @@ class FlexFormManipulationHook
             && !empty($identifier['pid'])
             && MathUtility::canBeInterpretedAsInteger($identifier['pid'])
         ) {
-            foreach ($this->getFieldConfiguration($identifier['pid']) as $key => $fieldConfiguration) {
+            foreach ($this->getFieldConfiguration((int)$identifier['pid']) as $key => $fieldConfiguration) {
                 $sheet = $this->getSheetNameAndRemoveFromConfiguration($fieldConfiguration);
                 $dataStructure['sheets'][$sheet]['ROOT']['el'][$key]['TCEforms'] = $fieldConfiguration;
             }
@@ -128,7 +128,7 @@ class FlexFormManipulationHook
     /**
      * Get field configuration from page TSconfig
      *
-     * @param integer $pid Record pid
+     * @param int $pid Record pid
      * @return array
      * @throws Exception
      */

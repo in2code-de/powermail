@@ -10,11 +10,9 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class TypoScriptUtilityTest extends UnitTestCase
 {
-
     protected $testFilesToDelete = [];
 
     /**
-     *
      * @return void
      * @test
      * @covers ::getCaptchaExtensionFromSettings

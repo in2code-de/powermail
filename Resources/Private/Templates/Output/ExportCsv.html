@@ -22,15 +22,17 @@ Render Powermail CSV Export
 
 					<f:if condition="{vh:condition.isArray(val: '{answer.value}')}">
 						<f:else>
-							"<vh:string.removeQuote>{answer.value}</vh:string.removeQuote>";
+							"<vh:string.removeQuote><vh:string.sanitizeCsvCell>{answer.value}</vh:string.sanitizeCsvCell></vh:string.removeQuote>";
 						</f:else>
 						<f:then>
 							"<vh:string.removeQuote>
-								<f:for each="{answer.value}" as="singleValue">
-									<f:if condition="{singleValue}">
-										{singleValue},
-									</f:if>
-								</f:for>
+                                <vh:string.sanitizeCsvCell>
+                                    <f:for each="{answer.value}" as="singleValue">
+                                        <f:if condition="{singleValue}">
+                                            {singleValue},
+                                        </f:if>
+                                    </f:for>
+                                </vh:string.sanitizeCsvCell>
 							</vh:string.removeQuote>";
 						</f:then>
 					</f:if>

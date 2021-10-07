@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FormRepository;
@@ -16,7 +16,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class Page extends AbstractEntity
 {
-
     const TABLE_NAME = 'tx_powermail_domain_model_page';
 
     /**
@@ -40,7 +39,7 @@ class Page extends AbstractEntity
     protected $form = null;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $sorting = 0;
 

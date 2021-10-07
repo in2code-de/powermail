@@ -4,7 +4,6 @@ namespace In2code\Powermail\Tests\Unit\Domain\Service\Mail;
 use In2code\Powermail\Domain\Service\Mail\PlaintextService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
-
 /**
  * Class PlaintextServiceTest
  * @coversDefaultClass \In2code\Powermail\Domain\Service\Mail\PlaintextService
@@ -67,7 +66,7 @@ class PlaintextServiceTest extends UnitTestCase
             ],
             [
                 "<body>\n\t<style>a {color: blue;}</style>\nactual content</body>",
-                "actual content"
+                'actual content'
             ],
             [
                 'Please click <a href="http://www.google.com">this</a> link',
