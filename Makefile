@@ -39,6 +39,7 @@ destroy: stop
 start:
 	echo "$(EMOJI_up) Starting the docker project"
 	docker-compose up -d --build
+	make .fix-mount-perms
 	make urls
 
 ## Creates a backup of the database
@@ -210,6 +211,13 @@ login-php:
 login-mysql:
 	echo "$(EMOJI_dolphin) Logging into MySQL Container"
 	docker-compose exec mysql bash
+
+## Set correct onwership of mounts. Docker creates mounts owned by root:root.
+.fix-mount-perms:
+ifeq ($(shell uname -s), Darwin)
+	echo "$(EMOJI_rocket) Fixing docker mount permissions"
+	docker-compose exec -u root php chown -R app:app /app/$(TYPO3_CACHE_DIR)/;
+endif
 
 include .env
 
