@@ -160,7 +160,7 @@ lfs-fetch:
 	git lfs checkout
 
 ## To start an existing project incl. rsync from fileadmin, uploads and database dump
-install-project: lfs-fetch link-compose-file destroy add-hosts-entry init-docker composer-install npm-install typo3-add-site typo3-add-dockerconfig typo3-install-autocomplete typo3-setupinstall mysql-restore typo3-clearcache typo3-comparedb
+install-project: lfs-fetch link-compose-file destroy add-hosts-entry init-docker .fix-mount-perms composer-install typo3-add-site typo3-add-dockerconfig typo3-install-autocomplete typo3-setupinstall mysql-restore typo3-clearcache typo3-comparedb
 	echo "---------------------"
 	echo ""
 	echo "The project is online $(EMOJI_thumbsup)"
