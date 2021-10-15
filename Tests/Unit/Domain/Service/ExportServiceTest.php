@@ -19,7 +19,7 @@ class ExportServiceTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             ExportService::class,
@@ -30,7 +30,7 @@ class ExportServiceTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown():void
     {
         unset($this->generalValidatorMock);
     }
