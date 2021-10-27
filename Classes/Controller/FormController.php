@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Controller;
 
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Form;
@@ -27,6 +26,7 @@ use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
@@ -77,6 +77,7 @@ class FormController extends AbstractController
                 'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
             ]
         );
+
         return $this->htmlResponse();
     }
 
@@ -135,6 +136,7 @@ class FormController extends AbstractController
             $this->contentObject
         );
         $this->prepareOutput($mail);
+
         return $this->htmlResponse();
     }
 
@@ -226,6 +228,7 @@ class FormController extends AbstractController
             $this->settings,
             $this->contentObject
         );
+
         return $this->htmlResponse();
     }
 
@@ -327,7 +330,10 @@ class FormController extends AbstractController
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
-        $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
+        $response = $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
+        if ($response !== null) {
+            return $response;
+        }
         $labelKey = 'failed';
 
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -343,6 +349,7 @@ class FormController extends AbstractController
             $labelKey = 'done';
         }
         $this->view->assign('labelKey', $labelKey);
+
         return $this->htmlResponse();
     }
 
@@ -365,6 +372,7 @@ class FormController extends AbstractController
             $status = true;
         }
         $this->view->assign('status', $status);
+
         return $this->htmlResponse();
     }
 
@@ -384,6 +392,7 @@ class FormController extends AbstractController
         bool $mobileDevice = false
     ): ResponseInterface {
         SessionUtility::storeMarketingInformation($referer, $language, $pid, $mobileDevice);
+
         return $this->responseFactory->createJsonResponse(json_encode([]));
     }
 
@@ -414,30 +423,32 @@ class FormController extends AbstractController
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
      *
-     * @return void
+     * @return null|ResponseInterface
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatch()
+    protected function forwardIfFormParamsDoNotMatch(): ?ResponseInterface
     {
         $arguments = $this->request->getArguments();
         $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
         if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $formsToContent)) {
             return new ForwardResponse('form');
         }
+        return null;
     }
 
     /**
      * Forward to formAction if no mail param given
      *
-     * @return void
+     * @return null|ForwardResponse
      * @throws StopActionException
      */
-    protected function forwardIfMailParamEmpty()
+    protected function forwardIfMailParamEmpty():?ForwardResponse
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->warning('Redirect (mail empty)', $arguments);
+
             return new ForwardResponse('form');
         }
     }
@@ -447,19 +458,22 @@ class FormController extends AbstractController
      *        used in optinConfirmAction()
      *
      * @param Mail|null $mail
-     * @return void
+     * @return null|ResponseInterface
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ResponseInterface
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ResponseInterface
     {
         if ($mail !== null) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
                 $logger = ObjectUtility::getLogger(__CLASS__);
                 $logger->warning('Redirect (optin)', [$formsToContent, (array)$mail]);
+
                 return new ForwardResponse('form');
             }
         }
+
+        return null;
     }
 
     /**
@@ -475,6 +489,7 @@ class FormController extends AbstractController
         $originalRequest = clone $this->request;
         $this->request->setOriginalRequest($originalRequest);
         $this->request->setOriginalRequestMappingResults($this->arguments->validate());
+
         return new ForwardResponse('form');
     }
 

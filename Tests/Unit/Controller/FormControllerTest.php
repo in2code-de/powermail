@@ -8,8 +8,12 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Tests\Unit\Fixtures\Controller\FormControllerFixture;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PDepend\Metrics\Analyzer\CodeRankAnalyzer\StrategyFactory;
+use TYPO3\CMS\Core\Http\ResponseFactory;
+use TYPO3\CMS\Core\Http\StreamFactory;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\Mvc\Response;
+use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 /**
@@ -128,10 +132,11 @@ class FormControllerTest extends UnitTestCase
     {
         $this->setDefaultControllerProperties($arguments);
         $this->generalValidatorMock->_set('settings', $settings);
+
+        $response = $this->generalValidatorMock->_callRef('forwardIfFormParamsDoNotMatch');
         if ($forward === true) {
-            $this->expectExceptionCode(1514993039679);
+            $this->assertInstanceOf(ForwardResponse::class, $response);
         }
-        $this->generalValidatorMock->_callRef('forwardIfFormParamsDoNotMatch');
         $this->assertTrue(true);
     }
 
@@ -170,10 +175,11 @@ class FormControllerTest extends UnitTestCase
     {
         TestingHelper::setDefaultConstants();
         $this->setDefaultControllerProperties($arguments);
+
+        $response = $this->generalValidatorMock->_call('forwardIfMailParamEmpty');
         if ($forward === true) {
-            $this->expectExceptionCode(1514993039679);
+            $this->assertInstanceOf(ForwardResponse::class, $response);
         }
-        $this->generalValidatorMock->_call('forwardIfMailParamEmpty');
         $this->assertTrue(true);
     }
 
@@ -223,10 +229,14 @@ class FormControllerTest extends UnitTestCase
         $form->_setProperty('uid', $formUid);
         $mail = new Mail();
         $mail->setForm($form);
+
+        $this->generalValidatorMock->injectResponseFactory(new ResponseFactory());
+        $this->generalValidatorMock->injectStreamFactory(new StreamFactory());
+        $response = $this->generalValidatorMock->_call('forwardIfFormParamsDoNotMatchForOptinConfirm', $mail);
         if ($forward === true) {
-            $this->expectExceptionCode(1514993039679);
+            $this->assertInstanceOf(ForwardResponse::class, $response);
+
         }
-        $this->generalValidatorMock->_call('forwardIfFormParamsDoNotMatchForOptinConfirm', $mail);
         $this->assertTrue(true);
     }
 
@@ -396,7 +406,7 @@ class FormControllerTest extends UnitTestCase
         $request = new Request();
         $request->setArguments($arguments);
         $this->generalValidatorMock->_set('request', $request);
-        $this->generalValidatorMock->_set('response', new Response());
+        $this->generalValidatorMock->_set('response', new Response() );
         $this->generalValidatorMock->_set('uriBuilder', new UriBuilder());
         $this->generalValidatorMock->_set('settings', ['staticTemplate' => '1']);
         $this->generalValidatorMock->_set('objectManager', TestingHelper::getObjectManager());
