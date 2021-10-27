@@ -384,22 +384,6 @@ class FormControllerTest extends UnitTestCase
 
     /**
      * @return void
-     * @test
-     * @covers ::injectDataProcessorRunner
-     */
-    public function injectDataProcessorRunner()
-    {
-        $dataProcessorRunner = new DataProcessorRunner();
-        $this->generalValidatorMock->_call('injectDataProcessorRunner', $dataProcessorRunner);
-        $this->assertAttributeInstanceOf(
-            DataProcessorRunner::class,
-            'dataProcessorRunner',
-            $this->generalValidatorMock
-        );
-    }
-
-    /**
-     * @return void
      */
     protected function setDefaultControllerProperties($arguments = [])
     {
