@@ -358,7 +358,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $result = $this->generalValidatorMock->_call('getImagePath', true);
         $this->assertSame('/', $result[0]);
         $this->assertNotEquals('typo3temp/', $result);
-        $this->assertContains('typo3temp/', $result);
+        $this->assertStringContainsString('typo3temp/', $result);
     }
 
     /**
