@@ -58,6 +58,6 @@ class GetLocationEidTest extends UnitTestCase
         $_GET['lat'] = $latitude;
         $_GET['lng'] = $longitude;
         $getLocationEid = new GetLocationEid();
-        $this->assertContains($expectedResult, $getLocationEid->main());
+        $this->assertStringContainsString($expectedResult, $getLocationEid->main());
     }
 }
