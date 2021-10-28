@@ -10,7 +10,7 @@ $EM_CONF[$_EXTKEY] = [
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
     'version' => '9.0.0',
-    'state' => 'stable',
+    'state' => 'beta',
     'author' => 'Powermail Development Team',
     'author_email' => 'service@in2code.de',
     'author_company' => 'in2code.de',
