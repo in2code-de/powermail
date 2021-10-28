@@ -451,6 +451,7 @@ class FormController extends AbstractController
 
             return new ForwardResponse('form');
         }
+        return null;
     }
 
     /**
