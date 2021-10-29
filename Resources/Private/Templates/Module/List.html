@@ -15,15 +15,11 @@
 		<f:render partial="Module/Filter" arguments="{_all}" />
 	</f:alias>
 
-
-
 	<div class="powermail_list">
 		<f:if condition="{mails}">
 			<f:then>
-				<f:for each="{pagination.paginator.paginatedItems}" as="mailsPage" iteration="iterator">
 					<f:render partial="Module/List" arguments="{_all}" />
 					<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
-				</f:for>
 				<f:render partial="Module/Pagination" arguments="{pagination: pagination.pagination, paginator: pagination.paginator}" />
 			</f:then>
 			<f:else>

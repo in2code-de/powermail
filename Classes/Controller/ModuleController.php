@@ -79,8 +79,7 @@ class ModuleController extends AbstractController
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'pagination',
-                [
+                'pagination' => [
                     'pagination' => $pagination,
                     'paginator' => $paginator
                 ],
@@ -334,14 +333,15 @@ class ModuleController extends AbstractController
      * Check if admin is logged in
      *        If not, forward to tools overview
      *
-     * @return void
+     * @return null|ResponseInterface
      * @throws StopActionException
      */
-    protected function checkAdminPermissions(): ResponseInterface
+    protected function checkAdminPermissions(): ?ResponseInterface
     {
         if (!BackendUtility::isBackendAdmin()) {
             $this->controllerContext = $this->buildControllerContext();
             return new ForwardResponse('toolsBe');
         }
+        return null;
     }
 }
