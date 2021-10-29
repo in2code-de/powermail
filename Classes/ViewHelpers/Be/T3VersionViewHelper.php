@@ -23,7 +23,10 @@ class T3VersionViewHelper extends AbstractViewHelper
     {
         $EM_CONF = [];
         require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
-        $versionString = $EM_CONF['powermail']['constraints']['depends']['typo3'];
+
+        $config = current($EM_CONF);
+        $versionString = $config['constraints']['depends']['typo3'];
+
         $versions = explode('-', $versionString);
 
         return $this->isAboveMinVersion($versions[0]) && $this->isBelowMaxVersion($versions[1]);

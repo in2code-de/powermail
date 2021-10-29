@@ -18,8 +18,8 @@
 	<div class="powermail_list">
 		<f:if condition="{mails}">
 			<f:then>
-					<f:render partial="Module/List" arguments="{_all}" />
-					<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
+				<f:render partial="Module/List" arguments="{_all}" />
+				<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
 				<f:render partial="Module/Pagination" arguments="{pagination: pagination.pagination, paginator: pagination.paginator}" />
 			</f:then>
 			<f:else>
