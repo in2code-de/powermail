@@ -160,8 +160,7 @@ $pagesTca = [
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 0,
                     'showAllLocalizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1,
-                    'showRemovedLocalizationRecords' => 1,
+                    'showPossibleLocalizationRecords' => 1
                 ]
             ]
         ],
