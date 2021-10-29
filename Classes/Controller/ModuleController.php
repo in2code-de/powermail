@@ -47,17 +47,43 @@ class ModuleController extends AbstractController
      */
     public function listAction(): ResponseInterface
     {
+
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
+        $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
+
+        $currentPage = $this->request->hasArgument('currentPage')
+            ? (int)$this->request->getArgument('currentPage')
+            : 1;
+
+        $itemsPerPage = (int) $this->settings['perPage'] ? (int) $this->settings['perPage'] : 10;
+        $maximumLinks = 15;
+
+        // Pagination for Mails
+        $paginator = new \TYPO3\CMS\Extbase\Pagination\QueryResultPaginator(
+            $mails,
+            $currentPage,
+            $itemsPerPage
+        );
+        $pagination = new \In2code\Powermail\Utility\SlidingWindowPagination(
+            $paginator,
+            $maximumLinks
+        );
+
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
         $this->view->assignMultiple(
             [
-                'mails' => $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars),
+                'mails' => $mails,
                 'formUids' => $formUids,
                 'firstForm' => $this->formRepository->findByUid($firstFormUid),
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
+                'pagination',
+                [
+                    'pagination' => $pagination,
+                    'paginator' => $paginator
+                ],
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
                 'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                     && $beUser->check('tables_modify', Mail::TABLE_NAME),
