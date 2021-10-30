@@ -4,6 +4,7 @@
 
 | Version     | Release Date | Description                                                                                                           |
 |------------ |--------------|-----------------------------------------------------------------------------------------------------------------------|
+| 9.0.0       | 2022-11-11   | Feature: Add Support TYPO3 11, drop support for TYPO3 10                                                              |
 | 8.4.1       | 2021-08-11   | Task: Also Sanitize CSV and XLS export in Pi2 (not only the export in the backend module)                             |
 | 8.4.0       | 2021-08-11   | Task: Sanitize CSV and XLS export against excel hacks (see https://typo3.org/security/advisory/typo3-psa-2021-002)    |
 |             |              | Task: Add automatic test via github actions                                                                           |
