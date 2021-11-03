@@ -8,12 +8,19 @@ and easy to use mailform extension for TYPO3 with a lots of features
 
 Changes done for powermail 9 with TYPO3 11:
 
-*  Update for TYPO3 11 ()
-*  Remove code dependencies to former TYPO3 versions
-*  Add Responses to Actions
-*  Update unit tests
-*  Update behaviour tests
-*  Manual tests (especially in backend context)
+* Update for TYPO3 11 ()
+* Remove code dependencies to former TYPO3 versions
+* Add Responses to Actions
+* Update unit tests
+* Update behaviour tests
+* Manual tests (especially in backend context)
+
+### Known Issues
+
+* PHP based validation shows no error messages
+* date Picker formats are not respected in the frontend
+* Spam Shield does not work
+* BEHAT tests do not work
 
 ## 2. Documentation overview
 
