@@ -16,7 +16,7 @@ services:
           - ${HOST}
 
   php:
-    image: in2code/php-dev:7.2-fpm
+    image: in2code/php-dev:7.4-fpm
     volumes:
       - ./:/app/:cached
       - $HOME/.composer/auth.json:/tmp/composer/auth.json
