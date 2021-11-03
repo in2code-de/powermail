@@ -491,7 +491,8 @@ class FormController extends AbstractController
         $this->request->setOriginalRequest($originalRequest);
         $this->request->setOriginalRequestMappingResults($this->arguments->validate());
 
-        return new ForwardResponse('form');
+        $response = new ForwardResponse('form');
+        return $response->withArgumentsValidationResult($this->arguments->validate());
     }
 
     /**
