@@ -4,21 +4,16 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension for TYPO3 with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-## TYPO3 10
+## TYPO3 11
 
-Changes done for powermail 8 with TYPO3 10:
+Changes done for powermail 9 with TYPO3 11:
 
-*  Update for TYPO3 10 (Backendroutes, Conditions, Validators, UserFuncs in Tca, MailMessage class)
+*  Update for TYPO3 11 ()
 *  Remove code dependencies to former TYPO3 versions
-*  Add typehints for PHP 7.2
-*  Use a different way for GET/POST params (to respect routing)
-*  Rename _field.pages to .page and _page.forms to .form and add an upgrade wizard for it
-*  Save mails in future with sys_language_uid=-1 and add an upgrade wizard for it
-*  Some modernization and code cleanup (Own exceptions, remove AbstractUtility)
+*  Add Responses to Actions
 *  Update unit tests
 *  Update behaviour tests
 *  Manual tests (especially in backend context)
-*  Update documentation from rst to markdown
 
 ## 2. Documentation overview
 
@@ -44,13 +39,14 @@ Quick guide:
 
 ### 2.1. Versions and Support
 
-| Powermail           | TYPO3      | PHP       | Support/Development                     |
-| ------------------- | ---------- | ----------|---------------------------------------- |
-| 8.x                 | 10.x       | >= 7.2    | Features, Bugfixes, Security Updates    |
-| 7.x                 | 8.7 - 9.x  | 7.0 - 7.x | Security Updates                        |
-| 6.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                         |
-| 5.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                         |
-| 4.x                 | 7.6 - 8.7  | 5.5 - 7.2 | Security Updates                        |
+| Powermail           | TYPO3      | PHP       | Support/Development                             |
+| ------------------- | ---------- | ----------|------------------------------------------------ |
+| 9.x                 | 11.x       | 7.4       | Features, Bugfixes, Security Updates            |
+| 8.x                 | 10.x       | >= 7.2    | Security Updates (paid backports are possible)  |
+| 7.x                 | 8.7 - 9.x  | 7.0 - 7.x | Security Updates (paid backports are possible)  |
+| 6.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                                 |
+| 5.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                                 |
+| 4.x                 | 7.6 - 8.7  | 5.5 - 7.2 | Security Updates (paid backports are possible)  |
 | 3.x                 | 7.6 - 8.7  | 5.5 - 7.2 | Support dropped                         |
 | 2.18 - 2.25         | 6.2 - 7.6  | 5.5 - 7.0 | Support dropped                         |
 | 2.2 - 2.17          | 6.2 - 7.6  | 5.3 - 7.0 | Support dropped                         |
