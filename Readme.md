@@ -17,10 +17,15 @@ Changes done for powermail 9 with TYPO3 11:
 
 ### Known Issues
 
-* PHP based validation shows no error messages
-* date Picker formats are not respected in the frontend
-* Spam Shield does not work
-* BEHAT tests do not work
+* ~~PHP based validation shows no error messages (https://projekte.in2code.de/issues/47816)~~ Fixed
+* ~~date Picker formats are not respected in the frontend https://projekte.in2code.de/issues/47811)~~ (fixed) - happens only if you did upgrade your installation correct (TYPO3 7->8)
+* Spam Shield does not work (https://projekte.in2code.de/issues/47817) 
+* ~~BEHAT tests do not work~~ (fixed)
+* Powermails Commands via CLI (https://projekte.in2code.de/issues/47884)
+* 2 form plugin at the same page deliver not yet fully expected behaviour 
+* Unit Tests do not fully work (https://projekte.in2code.de/issues/47896)
+* ~~Behaviour Tests can not be started (https://projekte.in2code.de/issues/47788)~~ (fixed)
+* Behaviour Tests do fully work (https://projekte.in2code.de/issues/47897)
 
 ## 2. Documentation overview
 
