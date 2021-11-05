@@ -5,7 +5,7 @@ Feature: GetPrefill
   # id=17 will be redirected to id=19 with some GET-Parameters
   Scenario: Check if Form can be prefilled with GET-Parameters
     Given I am on "/index.php?id=17"
-    Then the "tx_powermail_pi1[field][input]" field should contain "Alexandra Kellner"
+    Then the "tx_powermail_pi1[field][input]" field should contain "Daniel Boxhammer"
     Then the "tx_powermail_pi1[field][marker]" field should contain "Der Test"
     Then the sourcecode should contain '<option value="green" selected="selected">green</option>'
     Then the sourcecode should contain '<option value="brown" selected="selected">brown</option>'
