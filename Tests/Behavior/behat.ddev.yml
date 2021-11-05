@@ -8,9 +8,7 @@ default:
         bootstrap: '%paths.base%/Features/Bootstrap'
       contexts:
         - FeatureContext
-        - FailAid\Context\FailureContext
   extensions:
-    FailAid\Extension: ~
     Behat\MinkExtension:
       base_url: https://powermail.ddev.site/
       files_path: /var/www/html/Tests/Behavior/Assets
