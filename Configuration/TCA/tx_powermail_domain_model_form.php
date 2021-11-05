@@ -198,11 +198,4 @@ if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
     ];
 }
 
-/**
- * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
- */
-if (ConfigurationUtility::isL10nModeMergeActive()) {
-    $formsTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
-}
-
 return $formsTca;

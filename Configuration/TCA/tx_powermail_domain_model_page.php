@@ -188,11 +188,4 @@ $pagesTca = [
     ]
 ];
 
-/**
- * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
- */
-if (ConfigurationUtility::isL10nModeMergeActive()) {
-    $pagesTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
-}
-
 return $pagesTca;

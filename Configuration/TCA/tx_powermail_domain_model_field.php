@@ -1026,21 +1026,4 @@ $fieldsTca = [
         ],
     ],
 ];
-
-/**
- * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
- */
-if (ConfigurationUtility::isL10nModeMergeActive()) {
-    $fieldsTca['columns']['path']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['sender_email']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['sender_name']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['mandatory']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['validation']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['validation_configuration']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['feuser_value']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['own_marker_select']['l10n_mode'] = 'mergeIfNotBlank';
-    $fieldsTca['columns']['page']['l10n_mode'] = 'mergeIfNotBlank';
-}
-
 return $fieldsTca;
