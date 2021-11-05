@@ -11,8 +11,8 @@ Feature: ShortFormDoubleOptinRedirect
     And I press "Jetzt Absenden"
 
     Then I should see "Sind diese Eingaben korrekt?"
-    Then I should see "Alex"
-    Then I should see "Kellner"
-    Then I should see "alexander.kellner@einpraegsam.net"
+    Then I should see "Daniel"
+    Then I should see "Boxhammer"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     And I press "Weiter"
     Then I should see "Bitte überprüfen Sie Ihr E-Mail-Postfach und bestätigen Sie diese Aktion."
