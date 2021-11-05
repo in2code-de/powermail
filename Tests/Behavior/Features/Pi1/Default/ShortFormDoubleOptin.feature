@@ -11,14 +11,14 @@ Feature: ShortFormDoubleOptin
 
   Scenario: Check if submit works properly
     Given I am on "/powermail/pi1/default/shortform-doubleoptin"
-    When I fill in "tx_powermail_pi1[field][firstname]" with "Alex"
-    When I fill in "tx_powermail_pi1[field][lastname]" with "Kellner"
-    When I fill in "tx_powermail_pi1[field][email]" with "alex@in2code.de"
+    When I fill in "tx_powermail_pi1[field][firstname]" with "Daniel"
+    When I fill in "tx_powermail_pi1[field][lastname]" with "Boxhammer"
+    When I fill in "tx_powermail_pi1[field][email]" with "Daniel_Boxhammer25@fake-yahoo-10000.com"
     And I press "Jetzt Absenden"
     Then I should see "Sind diese Eingaben korrekt?"
-    Then I should see "Alex"
-    Then I should see "Kellner"
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel"
+    Then I should see "Boxhammer"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     And I press "Weiter"
     Then I should see "Bitte überprüfen Sie Ihr E-Mail-Postfach und bestätigen Sie diese Aktion."
 
