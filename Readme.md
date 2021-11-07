@@ -27,6 +27,25 @@ Changes done for powermail 9 with TYPO3 11:
 * ~~Behaviour Tests can not be started (https://projekte.in2code.de/issues/47788)~~ (fixed)
 * Behaviour Tests do fully work (https://projekte.in2code.de/issues/47897)
 
+### Early Access Programm
+
+From now on an Early Access Programm is available for Powermail. You can get access for 12 month by donating any ammount >100 € net.
+
+You will receive:
+* Private Access to a github repository
+* Early access to new releases
+* guaranteed paid support options
+
+Get member of the programm at: https://www.in2code.de/en/agency/typo3-extensions/#c3643
+
+### Supporters for TYPO3 11
+
+* B13.com 
+* Studio Mitte Digital Media GmbH
+* SKALM GmbH
+* mexan AG
+* Wittkiel Gruppe GmbH
+
 ## 2. Documentation overview
 
 * [Introduction](/Documentation/Readme.md)
