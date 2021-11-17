@@ -51,21 +51,33 @@ plugin.tx_powermail {
 powermail_frontend_xls = PAGE
 powermail_frontend_xls {
 	typeNum = 31311
-
 	config {
 		disableAllHeaderCode = 1
 		disablePrefixComment = 1
 		xhtml_cleaning = 0
 		admPanel = 0
-		additionalHeaders.10.header = Content-type:application/xls | Content-Disposition: inline; filename=export.xls | Cache-control: | Pragma:
+		additionalHeaders {
+			10.header = Content-type: application/xls
+			20.header = Content-disposition: attachement; filename=export.xls
+			30.header = Cache-control:
+			40.header = Pragma:
+		}
 	}
 
 	10 < styles.content.get
 }
+
 powermail_frontend_csv < powermail_frontend_xls
 powermail_frontend_csv {
 	typeNum = 31312
-	config.additionalHeaders.10.header = Content-type:text/x-csv | Content-Disposition: inline; filename=export.csv | Cache-control: | Pragma:
+	config {
+		additionalHeaders {
+			10.header = Content-type: application/csv
+			20.header = Content-disposition: attachement; filename=export.csv
+			30.header = Cache-control:
+			40.header = Pragma:
+		}
+	}
 }
 
 
