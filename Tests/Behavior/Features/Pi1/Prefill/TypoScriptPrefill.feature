@@ -17,4 +17,4 @@ Feature: TypoScriptPrefill
     Then the sourcecode should contain '<option value="black" selected="selected">black</option>'
     Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_03][]" value="black" checked="checked">'
     Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_03][]" value="pink" checked="checked">'
-    Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_04]" value="pink" checked="checked">'
+    Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_04]" value="pink" checked="checked"'
