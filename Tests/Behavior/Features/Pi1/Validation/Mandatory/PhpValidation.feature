@@ -16,7 +16,7 @@ Feature: PhpValidation
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
     Then I should see 10 ".powermail_message_error > li" elements
-    Then I fill in "tx_powermail_pi1[field][lastname]" with "Christian"
+    Then I fill in "tx_powermail_pi1[field][lastname]" with "Daniel"
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
@@ -27,7 +27,7 @@ Feature: PhpValidation
     Then I should see "Dieses Feld muss ausgefüllt werden!"
     Then I should see 9 ".powermail_message_error > li" elements
     Then I fill in "tx_powermail_pi1[field][inputpattern]" with "http://www.test.de"
-    Then I fill in "tx_powermail_pi1[field][firstname]" with "Sonntag"
+    Then I fill in "tx_powermail_pi1[field][firstname]" with "Boxhammer"
     Then I fill in "tx_powermail_pi1[field][date]" with "17.10.2014"
     Then I select "gelb" from "tx_powermail_pi1[field][email]"
     Then I select "blau" from "tx_powermail_pi1[field][selectmulti][]"
@@ -40,8 +40,8 @@ Feature: PhpValidation
 
     Then I should see "Sind diese Eingaben korrekt?"
     Then I should see "17.10.2014"
-    Then I should see "Christian"
-    Then I should see "Sonntag"
+    Then I should see "Daniel"
+    Then I should see "Boxhammer"
     Then I should see "test"
     Then I should see "http://www.test.de"
     Then I should see "gelb"
@@ -53,8 +53,8 @@ Feature: PhpValidation
 
     Then I should see "Danke, Ihre Eingaben:"
     Then I should see "17.10.2014"
-    Then I should see "Christian"
-    Then I should see "Sonntag"
+    Then I should see "Daniel"
+    Then I should see "Boxhammer"
     Then I should see "test"
     Then I should see "http://www.test.de"
     Then I should see "gelb"

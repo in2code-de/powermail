@@ -16,7 +16,7 @@ Feature: AJAX Upload
     And I wait "a few" seconds
 
     Then I should see "Sind diese Eingaben korrekt?"
-    Then I should see "Alex"
+    Then I should see "Daniel Boxhammer"
     Then I should see text matching "test_\d+.txt|test.txt"
     And I press "Zurück"
     And I wait "a few" seconds
@@ -27,7 +27,7 @@ Feature: AJAX Upload
     And I wait "a few" seconds
 
     Then I should see "Sind diese Eingaben korrekt?"
-    Then I should see "Alex"
+    Then I should see "Daniel Boxhammer"
     Then I should see text matching "test_\d+.txt|test.txt"
     Then I should see text matching "logo2_\d+.png|logo2.png"
     Then I should see text matching "sally_\d+.jpg|sally.jpg"
@@ -35,7 +35,7 @@ Feature: AJAX Upload
     And I wait "a few" seconds
 
     Then I should see "Alle Werte:"
-    Then I should see "Alex"
+    Then I should see "Daniel Boxhammer"
     Then I should see text matching "test_\d+.txt|test.txt"
     Then I should see text matching "logo2_\d+.png|logo2.png"
     Then I should see text matching "sally_\d+.jpg|sally.jpg"
