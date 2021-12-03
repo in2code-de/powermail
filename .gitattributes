@@ -5,7 +5,6 @@
 /Resources/Private/gulpfile.js
 /Resources/Private/package.json
 /readme.md
-
 # Enforce checkout with linux lf consistent over all plattforms
 *.html text eol=lf
 *.css text eol=lf
@@ -22,3 +21,4 @@
 *.sql text eol=lf
 *.t3s text eol=lf
 *.txt text eol=lf
+*.tar.gz filter=lfs diff=lfs merge=lfs -text
