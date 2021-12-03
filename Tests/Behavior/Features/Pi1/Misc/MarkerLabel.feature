@@ -5,6 +5,6 @@ Feature: MarkerLabel
   Scenario: Check if labels are shown after submit
     Given I am on "/powermail/pi1/misc/label-marker/marker-label-in-rte-shortform"
     And I press "Jetzt Absenden"
-    Then I should see "Vorname: Tuana"
-    Then I should see "Nachname: Köhler"
-    Then I should see "E-Mail: Tuana.Koehler20@yahoo.com"
+    Then I should see "Vorname: Daniel"
+    Then I should see "Nachname: Boxhammer"
+    Then I should see "E-Mail: Daniel_Boxhammer25@fake-yahoo-10000.com"
