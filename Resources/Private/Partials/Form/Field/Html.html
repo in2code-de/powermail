@@ -10,7 +10,7 @@
 	<div class="{settings.styles.framework.fieldWrappingClasses} {settings.styles.framework.offsetClasses}">
 		<f:if condition="{settings.misc.htmlForHtmlFields}">
 			<f:then>
-				<f:format.raw>{field.text}</f:format.raw>
+				<f:sanitize.html>{field.text}</f:sanitize.html>
 			</f:then>
 			<f:else>
 				{field.text}
