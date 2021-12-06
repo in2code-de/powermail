@@ -1,4 +1,4 @@
-# Upgrade Powermail
+y# Upgrade Powermail
 
 ## Introduction
 
@@ -6,6 +6,9 @@ Maybe you need to upgrade powermail to this version. The following instructions 
 as possible.
 **Note:** Please do not modify any extension files to ensure easy upgrading.
 
+## Upgrade Instructions
+
+You find instructions for each major version. [Upgrade Instructions](/Documentation/Changelog/RUpgradeInstructions.md)
 
 ## Any Upgrade
 
