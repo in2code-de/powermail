@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Eid;
 
+use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Exception;
@@ -43,6 +44,9 @@ class GetLocationEid
                 isset($this->request->getQueryParams()['lat']) ? (float)$this->request->getQueryParams()['lat'] : 0.0,
                 isset($this->request->getQueryParams()['lng']) ? (float)$this->request->getQueryParams()['lng'] : 0.0,
             );
+            if (empty($address)) {
+                throw new Exception();
+            }
 
             if (!empty($address['route'])) {
                 $this->content .= $address['route'];
@@ -80,25 +84,30 @@ class GetLocationEid
     {
         $result = [];
         $url = 'https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&lat=' . $lat . '&lon=' . $lng;
-        $json = GeneralUtility::getUrl($url);
-        if ($json !== false) {
-            $data = json_decode($json, true);
-            if (!empty($data['address'])) {
-                $locality = '';
-                if (isset($data['address']['village'])) {
-                    $locality = (string)$data['address']['village'];
-                } elseif (isset($data['address']['town'])) {
-                    $locality = (string)$data['address']['town'];
-                }
 
-                $result = [
-                    'route' => isset($data['address']['road']) ? (string)$data['address']['road'] : '',
-                    'locality' => $locality,
-                    'country' => isset($data['address']['country']) ? (string)$data['address']['country'] : '',
-                    'postal_code' => isset($data['address']['postcode']) ? (string)$data['address']['postcode'] : '',
-                ];
+        try {
+            $json = GeneralUtility::getUrl($url);
+            if ($json !== false) {
+                $data = json_decode($json, true);
+                if (!empty($data['address'])) {
+                    $locality = '';
+                    if (isset($data['address']['village'])) {
+                        $locality = (string)$data['address']['village'];
+                    } elseif (isset($data['address']['town'])) {
+                        $locality = (string)$data['address']['town'];
+                    }
+
+                    $result = [
+                        'route' => isset($data['address']['road']) ? (string)$data['address']['road'] : '',
+                        'locality' => $locality !== ''? $locality : '',
+                        'country' => isset($data['address']['country']) ? (string)$data['address']['country'] : '',
+                        'postal_code' => isset($data['address']['postcode']) ? (string)$data['address']['postcode'] : '',
+                    ];
+                }
             }
+        } catch (\Exception $e) {
         }
+
         return $result;
     }
 }
