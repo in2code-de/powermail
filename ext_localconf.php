@@ -83,7 +83,7 @@ call_user_func(function () {
      * eID to get location from geo coordinates
      */
     $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] =
-        'EXT:powermail/Classes/Eid/GetLocationEid.php';
+        \In2code\Powermail\Eid\GetLocationEid::class . '::main';
 
     /**
      * User field registrations in TCA/FlexForm

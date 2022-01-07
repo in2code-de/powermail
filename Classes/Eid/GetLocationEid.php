@@ -2,6 +2,10 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Eid;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Exception;
+use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -10,34 +14,54 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class GetLocationEid
 {
+    /**
+     * @var ServerRequestInterface
+     */
+    protected ServerRequestInterface $request;
+
+    /**
+     * @var string
+     */
+    protected string $content = '';
 
     /**
      * Language settings for google maps
      *
      * @var string
      */
-    protected $language = 'en';
+    protected string $language = 'en';
 
     /**
      * Generates the output
-     *
-     * @return string from action
      */
-    public function main(): string
+    public function main(ServerRequestInterface $request): ResponseInterface
     {
-        $address = $this->getAddressFromGeo((float)GeneralUtility::_GP('lat'), (float)GeneralUtility::_GP('lng'));
+        $this->request = $request;
 
-        $output = '';
-        if (!empty($address['route'])) {
-            $output .= $address['route'];
+        try {
+            $address = $this->getAddressFromGeo(
+                isset($this->request->getQueryParams()['lat']) ? (float)$this->request->getQueryParams()['lat'] : 0.0,
+                isset($this->request->getQueryParams()['lng']) ? (float)$this->request->getQueryParams()['lng'] : 0.0,
+            );
+
+            if (!empty($address['route'])) {
+                $this->content .= $address['route'];
+            }
+            if (!empty($address['locality'])) {
+                $this->content .= ', ' . $address['locality'];
+            }
+            if (!empty($address['country'])) {
+                $this->content .= ', ' . $address['country'];
+            }
+            $response = new Response();
+            $response->getBody()->write($this->content);
+            return $response;
+        } catch (\InvalidArgumentException $e) {
+            // add a 410 "gone" if invalid parameters given
+            return (new Response())->withStatus(410);
+        } catch (Exception $e) {
+            return (new Response())->withStatus(404);
         }
-        if (!empty($address['locality'])) {
-            $output .= ', ' . $address['locality'];
-        }
-        if (!empty($address['country'])) {
-            $output .= ', ' . $address['country'];
-        }
-        return $output;
     }
 
     /**
@@ -78,7 +102,3 @@ class GetLocationEid
         return $result;
     }
 }
-
-$eid = GeneralUtility::makeInstance(GetLocationEid::class);
-// @extensionScannerIgnoreLine Seems to be a false positive ->main()
-echo $eid->main();
