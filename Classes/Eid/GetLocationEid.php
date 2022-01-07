@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Eid;
 
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Exception;
