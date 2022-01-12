@@ -161,7 +161,7 @@ class FileFactory
     protected function getFormUid(Form $form = null): int
     {
         if ($form === null) {
-            $arguments = FrontendUtility::getArguments();
+            $arguments = FrontendUtility::getArguments(FrontendUtility::getPluginName());
             return (int)$arguments['mail']['form'];
         }
         return $form->getUid();
