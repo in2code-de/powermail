@@ -68,7 +68,9 @@
 		"nimut/testing-framework": "6.x-dev",
 		"friends-of-behat/mink-extension": "^2.5",
 		"behat/mink-selenium2-driver": "^1.5",
-		"friends-of-behat/mink-browserkit-driver": "^1.5"
+		"friends-of-behat/mink-browserkit-driver": "^1.5",
+		"ext-http": "*",
+		"phpspec/prophecy-phpunit": "^2.0"
 	},
 	"autoload": {
 		"psr-4": {
