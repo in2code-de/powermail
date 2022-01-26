@@ -423,7 +423,7 @@ class FormController extends AbstractController
     {
         $arguments = $this->request->getArguments();
         $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-        if (is_array($arguments['mail']) && !in_array($arguments['mail']['form'], $formsToContent)) {
+        if (is_array($arguments['mail'] ?? null) && !in_array($arguments['mail']['form'], $formsToContent)) {
             return new ForwardResponse('form');
         }
     }
