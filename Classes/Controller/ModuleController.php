@@ -48,7 +48,7 @@ class ModuleController extends AbstractController
     public function listAction(): ResponseInterface
     {
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
-        $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
+        $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'] ?? null, key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
         $this->view->assignMultiple(
             [
