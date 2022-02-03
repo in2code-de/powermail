@@ -43,11 +43,16 @@ class DataProcessorRunner
                 );
             }
             if (is_subclass_of($class, $this->interface)) {
+                if (!isset($dpSettings['config'])) {
+                    $dpSettings['config'] = [];
+                } else {
+                    $dpSettings['config'] = (array)$dpSettings['config'];
+                }
                 /** @var AbstractDataProcessor $dataProcessor */
                 $dataProcessor =  ObjectUtility::getObjectManager()->get(
                     $dpSettings['class'],
                     $mail,
-                    (array)$dpSettings['config'],
+                    $dpSettings['config'],
                     $settings,
                     $actionMethodName,
                     $contentObject
