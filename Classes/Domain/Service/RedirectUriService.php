@@ -95,7 +95,7 @@ class RedirectUriService
     protected function getFlexFormArray(): ?array
     {
         $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);
-        return $flexFormService->convertFlexFormContentToArray($this->contentObject->data['pi_flexform']);
+        return $flexFormService->convertFlexFormContentToArray($this->contentObject->data['pi_flexform']??'');
     }
 
     /**

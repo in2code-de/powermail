@@ -156,8 +156,8 @@ class SendMailService
     protected function addCc(MailMessage $message): MailMessage
     {
         $ccValue = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->overwriteConfig['cc'],
-            $this->overwriteConfig['cc.']
+            $this->overwriteConfig['cc']??'',
+            $this->overwriteConfig['cc.']??[]
         );
         if (!empty($ccValue)) {
             $message->setCc(GeneralUtility::trimExplode(',', $ccValue, true));
@@ -175,8 +175,8 @@ class SendMailService
     protected function addBcc(MailMessage $message): MailMessage
     {
         $bccValue = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->overwriteConfig['bcc'],
-            $this->overwriteConfig['bcc.']
+            $this->overwriteConfig['bcc']??'',
+            $this->overwriteConfig['bcc.']??[]
         );
         if (!empty($bccValue)) {
             $message->setBcc(GeneralUtility::trimExplode(',', $bccValue, true));
@@ -194,8 +194,8 @@ class SendMailService
     protected function addReturnPath(MailMessage $message): MailMessage
     {
         $returnPathValue = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->overwriteConfig['returnPath'],
-            $this->overwriteConfig['returnPath.']
+            $this->overwriteConfig['returnPath']??'',
+            $this->overwriteConfig['returnPath.']??[]
         );
         if (!empty($returnPathValue)) {
             $message->setReturnPath($returnPathValue);
@@ -213,12 +213,12 @@ class SendMailService
     protected function addReplyAddresses(MailMessage $message): MailMessage
     {
         $replyToEmail = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->overwriteConfig['replyToEmail'],
-            $this->overwriteConfig['replyToEmail.']
+            $this->overwriteConfig['replyToEmail']??'',
+            $this->overwriteConfig['replyToEmail.']??[]
         );
         $replyToName = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->overwriteConfig['replyToName'],
-            $this->overwriteConfig['replyToName.']
+            $this->overwriteConfig['replyToName']??'',
+            $this->overwriteConfig['replyToName.']??[]
         );
         if (!empty($replyToEmail) && !empty($replyToName)) {
             $message->setReplyTo(
@@ -238,9 +238,13 @@ class SendMailService
      */
     protected function addPriority(MailMessage $message): MailMessage
     {
-        $priorityValue = (int)$this->settings[$this->type]['overwrite']['priority'];
-        if ($priorityValue > 0) {
-            $message->priority($priorityValue);
+        $message->priority(1);
+        if ($this->type === 'sender') {
+            $this->settings['sender']['overwrite'] = $this->settings['sender']['overwrite']??[];
+            $message->priority($this->settings['sender']['overwrite']['priority']??0);
+        } elseif ($this->type === 'receiver') {
+            $this->settings['receiver']['overwrite'] = $this->settings['receiver']['overwrite']??[];
+            $message->priority($this->settings['receiver']['overwrite']['priority']??0);
         }
         return $message;
     }
@@ -276,8 +280,8 @@ class SendMailService
     protected function addAttachmentsFromTypoScript(MailMessage $message): MailMessage
     {
         $filesValue = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->configuration[$this->type . '.']['addAttachment'],
-            $this->configuration[$this->type . '.']['addAttachment.']
+            $this->configuration[$this->type . '.']['addAttachment']??'',
+            $this->configuration[$this->type . '.']['addAttachment.']??[]
         );
         if (!empty($filesValue)) {
             $files = GeneralUtility::trimExplode(',', $filesValue, true);
@@ -342,14 +346,19 @@ class SendMailService
      */
     protected function addSenderHeader(MailMessage $message): MailMessage
     {
-        $senderHeaderConfig = $this->configuration[$this->type . '.']['senderHeader.'];
+        if ($this->type === 'sender') {
+            $senderHeaderConfig= $this->configuration['sender.']['senderHeader.']??[];
+        } elseif ($this->type === 'receiver') {
+            $senderHeaderConfig = $this->settings['receiver.']['senderHeader.']??[];
+        }
+
         $email = ObjectUtility::getContentObject()->cObjGetSingle(
-            $senderHeaderConfig['email'],
-            $senderHeaderConfig['email.']
+            $senderHeaderConfig['email']??'',
+            $senderHeaderConfig['email.']??[]
         );
         $name = ObjectUtility::getContentObject()->cObjGetSingle(
-            $senderHeaderConfig['name'],
-            $senderHeaderConfig['name.']
+            $senderHeaderConfig['name']??'',
+            $senderHeaderConfig['name.']??[]
         );
         if (GeneralUtility::validEmail($email)) {
             if (empty($name)) {
