@@ -37,7 +37,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
         $value = $this->arguments['value'];
 
         $additionalAttributes['data-datepicker-force'] =
-            $this->settings['misc']['datepicker']['forceJavaScriptDatePicker'];
+            $this->settings['misc']['datepicker']['forceJavaScriptDatePicker'] ?? 0;
         $additionalAttributes['data-datepicker-settings'] = $this->getDatepickerSettings($field);
         $additionalAttributes['data-datepicker-months'] = $this->getMonthNames();
         $additionalAttributes['data-datepicker-days'] = $this->getDayNames();

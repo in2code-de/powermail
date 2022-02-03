@@ -126,7 +126,7 @@ class ConfigurationUtility
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (Environment::getContext()->isDevelopment() &&
-            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])) {
+            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'] ?? '')) {
             return $configVariables['EXT']['powermailDevelopContextEmail'];
         }
         return '';

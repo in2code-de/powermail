@@ -69,7 +69,7 @@ class ModuleController extends AbstractController
             $maximumLinks
         );
 
-        $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
+        $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'] ?? '', key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
         $this->view->assignMultiple(
             [
