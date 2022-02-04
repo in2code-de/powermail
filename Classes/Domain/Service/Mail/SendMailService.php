@@ -241,10 +241,10 @@ class SendMailService
         $message->priority(1);
         if ($this->type === 'sender') {
             $this->settings['sender']['overwrite'] = $this->settings['sender']['overwrite']??[];
-            $message->priority($this->settings['sender']['overwrite']['priority']??0);
+            $message->priority((int)($this->settings['sender']['overwrite']['priority']??0));
         } elseif ($this->type === 'receiver') {
             $this->settings['receiver']['overwrite'] = $this->settings['receiver']['overwrite']??[];
-            $message->priority($this->settings['receiver']['overwrite']['priority']??0);
+            $message->priority((int)($this->settings['receiver']['overwrite']['priority']??0));
         }
         return $message;
     }
