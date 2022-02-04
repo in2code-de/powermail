@@ -186,7 +186,7 @@ class FormController extends AbstractController
      * @throws \Exception
      * @noinspection PhpUnused
      */
-    public function createAction(Mail $mail, string $hash = ''): ResponseInterface
+    public function createAction(Mail $mail, string $hash = '')
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -228,8 +228,6 @@ class FormController extends AbstractController
             $this->settings,
             $this->contentObject
         );
-
-        return $this->htmlResponse();
     }
 
     /**
