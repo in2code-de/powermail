@@ -42,10 +42,12 @@ class OutputController extends AbstractController
      */
     public function listAction(): ResponseInterface
     {
-        $this->prepareFilterPluginVariables($this->piVars, (array)$this->settings['search']['staticPluginsVariables']);
-        $fieldArray = $this->getFieldList((string)$this->settings['list']['fields']);
+        $searchSettings = $this->settings['search'] ?? [];
+        $listSettings = $this->settings['list'] ?? [];
+        $this->prepareFilterPluginVariables($this->piVars, (array)($searchSettings['staticPluginsVariables'] ?? []));
+        $fieldArray = $this->getFieldList((string)($listSettings['fields'] ?? ''));
         $searchFields = $this->fieldRepository->findByUids(
-            GeneralUtility::trimExplode(',', $this->settings['search']['fields'], true)
+            GeneralUtility::trimExplode(',', $searchSettings['fields'] ?? '', true)
         );
         $this->view->assignMultiple(
             [
@@ -271,7 +273,8 @@ class OutputController extends AbstractController
         if (!empty($list)) {
             $fieldArray = GeneralUtility::trimExplode(',', $list, true);
         } else {
-            $fieldArray = $this->formRepository->getFieldUidsFromForm((int)$this->settings['main']['form']);
+            $mainSettings = $this->settings['main'] ?? [];
+            $fieldArray = $this->formRepository->getFieldUidsFromForm($mainSettings['form'] ?? 0);
         }
         return (array)$fieldArray;
     }
