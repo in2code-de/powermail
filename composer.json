@@ -68,7 +68,11 @@
 		"nimut/testing-framework": "6.x-dev",
 		"friends-of-behat/mink-extension": "^2.5",
 		"behat/mink-selenium2-driver": "^1.5",
-		"friends-of-behat/mink-browserkit-driver": "^1.5"
+		"friends-of-behat/mink-browserkit-driver": "^1.5",
+		"typo3/cms-adminpanel": "^11.5",
+		"typo3/cms-belog": "^11.5",
+		"typo3/cms-beuser": "^11.5",
+		"typo3/cms-dashboard": "^11.5"
 	},
 	"autoload": {
 		"psr-4": {
