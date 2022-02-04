@@ -114,17 +114,19 @@ class FrontendUtility
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$mail);
         }
-        if (!ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === null) {
+        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+        if ($feUser === 0 || $mail === null) {
             return false;
         }
 
+        $feUserGroups = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'] ?? [];
         $usergroups = GeneralUtility::trimExplode(
             ',',
-            ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'],
+            $feUserGroups,
             true
         );
-        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'], true);
-        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'], true);
+        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? [], true);
+        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? [], true);
 
         // replace "_owner" with uid of owner in array with users
         if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usersSettings))) {
@@ -140,7 +142,7 @@ class FrontendUtility
         }
 
         // 1. check user
-        if (in_array(ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'], $usersSettings)) {
+        if (in_array($feUser, $usersSettings)) {
             return true;
         }
 
