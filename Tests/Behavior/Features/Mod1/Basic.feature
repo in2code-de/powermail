@@ -1,7 +1,7 @@
-# Features/Pi1/Default/ShortForm.feature
+# Features/Mod1/Basic.feature
 @Mod1 @Mod1Basic
 Feature: Basic
-  Basicly checks backend module
+  Basically checks if the backend module exists
 
   @javascript
   Scenario: Login into backend
@@ -12,9 +12,6 @@ Feature: Basic
     And I press "t3-login-submit"
 
     And I wait "3" seconds
-    Given I am on "typo3/module/web/PowermailM1?id=15"
+    Given I am on "/typo3/module/web/PowermailM1"
 
-    And I switch to iframe number 1
-    Then I should see "Mail Listings"
-    Then I should see "Fulltext Search"
-    Then I should see "Senders Name"
+      Then the response should contain "typo3-backend-module-router"
