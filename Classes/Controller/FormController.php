@@ -433,8 +433,8 @@ class FormController extends AbstractController
         } else {
             $arguments['mail'] = (array)$arguments['mail'];
         }
-        if (!in_array($arguments['mail']['form']??[], $formsToContent)) {
-            $this->forward('form');
+        if (!in_array($arguments['mail']['form'] ?? [], $formsToContent)) {
+            return new ForwardResponse('form');
         }
         return null;
     }
