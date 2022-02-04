@@ -2,7 +2,7 @@
 
 ## Description: import given test data into ddev (database and configurations)
 ## Usage: initialize
-## Example: "ddev import-data"
+## Example: "ddev initialize"
 
 if ! command -v "git-lfs" &> /dev/null
 then

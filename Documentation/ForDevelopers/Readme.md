@@ -14,3 +14,4 @@ If you want to add own spamshield methods, look in this chapter, etc...
 * [AddDataProcessors](/Documentation/ForDevelopers/AddDataProcessors.md)
 * [UserfuncsWithCobject](/Documentation/ForDevelopers/UserfuncsWithCobject.md)
 * [DatabaseModel](/Documentation/ForDevelopers/DatabaseModel.md)
+* [Local Development with Docker](/Documentation/ForDevelopers/LocalDevelopment.md)
