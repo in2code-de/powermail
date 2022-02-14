@@ -28,3 +28,5 @@ config/
 !.ddev/typo3/config.yaml
 /.phpunit.result.cache
 /phpunit.xml.dist.bak
+
+.project/data/screenshots
