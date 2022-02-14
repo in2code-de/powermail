@@ -26,3 +26,7 @@ config/
 !.ddev/commands/typo3cms
 !.ddev/typo3/AdditionalConfiguration.php
 !.ddev/typo3/config.yaml
+/.phpunit.result.cache
+/phpunit.xml.dist.bak
+
+.project/data/screenshots
