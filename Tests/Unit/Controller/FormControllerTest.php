@@ -2,19 +2,18 @@
 namespace In2code\Powermail\Tests\Unit\Controller;
 
 use In2code\Powermail\Controller\FormController;
-use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use In2code\Powermail\Tests\Unit\Fixtures\Controller\FormControllerFixture;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use PDepend\Metrics\Analyzer\CodeRankAnalyzer\StrategyFactory;
 use TYPO3\CMS\Core\Http\ResponseFactory;
 use TYPO3\CMS\Core\Http\StreamFactory;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+use UnexpectedValueException;
 
 /**
  * Class FormControllerTest
@@ -34,7 +33,7 @@ class FormControllerTest extends UnitTestCase
     public function setUp():void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
-            FormControllerFixture::class,
+            FormController::class,
             ['dummy']
         );
     }
@@ -67,6 +66,10 @@ class FormControllerTest extends UnitTestCase
      */
     public function forwardIfFormParamsDoNotMatchReturnsVoidDataProvider()
     {
+        $form = new Form();
+        $form->_setProperty('uid', 2);
+        $mail = new Mail();
+        $mail->setForm($form);
         return [
             'not allowed form given, forward' => [
                 [
@@ -96,7 +99,7 @@ class FormControllerTest extends UnitTestCase
             ],
             'mail object given, do not forward' => [
                 [
-                    'mail' => new Mail()
+                    'mail' => $mail
                 ],
                 [
                     'main' => [
@@ -133,11 +136,12 @@ class FormControllerTest extends UnitTestCase
         $this->setDefaultControllerProperties($arguments);
         $this->generalValidatorMock->_set('settings', $settings);
 
-        $response = $this->generalValidatorMock->_callRef('forwardIfFormParamsDoNotMatch');
         if ($forward === true) {
-            $this->assertInstanceOf(ForwardResponse::class, $response);
+            $this->expectException(StopActionException::class);
         }
-        $this->assertTrue(true);
+
+        $response = $this->generalValidatorMock->_callRef('forwardIfFormParamsDoNotMatch');
+        $this->assertNull($response);
     }
 
     /**

@@ -4,8 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Eid;
 use In2code\Powermail\Eid\GetLocationEid;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\ServerRequest;
 
 /**
  * Class GetLocationEidTest
@@ -13,8 +12,6 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class GetLocationEidTest extends UnitTestCase
 {
-    use ProphecyTrait;
-
     /**
      * @return void
      */
@@ -59,15 +56,18 @@ class GetLocationEidTest extends UnitTestCase
      */
     public function testMain(float $latitude, float $longitude, string $expectedResult): void
     {
-        $requestProphecy = $this->prophesize(ServerRequestInterface::class);
-        $requestProphecy->getQueryParams()->shouldBeCalled()->willReturn(
+        $request = new ServerRequest();
+        $request = $request->withQueryParams(
             [
                 'lat' => $latitude,
-                'lng' => $longitude
+                'lng' => $longitude,
             ]
         );
-
         $getLocationEid = new GetLocationEid();
-        $this->assertStringContainsString($expectedResult, $getLocationEid->main($requestProphecy->reveal())->getBody());
+        $response = $getLocationEid->main($request);
+        $this->assertSame(200, $response->getStatusCode());
+        $stream = $response->getBody();
+        $stream->rewind();
+        $this->assertStringContainsString($expectedResult, $stream->getContents());
     }
 }

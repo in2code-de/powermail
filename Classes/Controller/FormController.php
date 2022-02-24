@@ -40,12 +40,13 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
+use function in_array;
+
 /**
  * Class FormController
  */
 class FormController extends AbstractController
 {
-
     /**
      * @var PersistenceManager
      */
@@ -186,7 +187,7 @@ class FormController extends AbstractController
      * @throws \Exception
      * @noinspection PhpUnused
      */
-    public function createAction(Mail $mail, string $hash = '')
+    public function createAction(Mail $mail, string $hash = ''): ResponseInterface
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -228,6 +229,8 @@ class FormController extends AbstractController
             $this->settings,
             $this->contentObject
         );
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -421,22 +424,28 @@ class FormController extends AbstractController
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
      *
-     * @return null|ResponseInterface
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatch(): ?ResponseInterface
+    protected function forwardIfFormParamsDoNotMatch(): void
     {
         $arguments = $this->request->getArguments();
-        $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-        if (!isset($arguments['mail'])) {
-            $arguments['mail'] = [];
-        } else {
-            $arguments['mail'] = (array)$arguments['mail'];
+        if (isset($arguments['mail'])) {
+            $formUid = null;
+            if ($arguments['mail'] instanceof Mail) {
+                $form = $arguments['mail']->getForm();
+                if (null !== $form) {
+                    $formUid = $form->getUid();
+                }
+            } else {
+                $formUid = $arguments['mail']['form'] ?? null;
+            }
+
+            $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
+            if (null === $formUid || in_array($formUid, $formsToContent, false)) {
+                return;
+            }
+            $this->forward('form');
         }
-        if (!in_array($arguments['mail']['form'] ?? [], $formsToContent)) {
-            return new ForwardResponse('form');
-        }
-        return null;
     }
 
     /**

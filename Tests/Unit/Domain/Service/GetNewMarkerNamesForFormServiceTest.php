@@ -4,6 +4,8 @@ namespace In2code\Powermail\Tests\Unit\Domain\Service;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Charset\CharsetConverter;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class GetNewMarkerNamesForFormServiceTest
@@ -24,7 +26,7 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     {
         $this->createMarkerMock = $this->getAccessibleMock(
             GetNewMarkerNamesForFormService::class,
-            ['dummy']
+            ['cleanString']
         );
     }
 
@@ -34,51 +36,6 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     public function tearDown():void
     {
         unset($this->createMarkerMock);
-    }
-
-    /**
-     * Dataprovider cleanStringReturnsString()
-     *
-     * @return array
-     */
-    public function cleanStringReturnsStringDataProvider()
-    {
-        return [
-            [
-                'test',
-                'default',
-                'test',
-            ],
-            [
-                'This is A Test',
-                'default',
-                'thisisatest',
-            ],
-            [
-                '$T h%is_-',
-                'default',
-                'this__',
-            ],
-            [
-                'ęąśółżźćäöüśćóß',
-                'default',
-                'easolzzcaeoeuescoss',
-            ]
-        ];
-    }
-
-    /**
-     * @param string $string
-     * @param string $defaultValue
-     * @param string $expectedResult
-     * @return void
-     * @dataProvider cleanStringReturnsStringDataProvider
-     * @test
-     * @covers ::cleanString
-     */
-    public function cleanStringReturnsString($string, $defaultValue, $expectedResult)
-    {
-        $this->assertSame($expectedResult, $this->createMarkerMock->_callRef('cleanString', $string, $defaultValue));
     }
 
     /**
@@ -229,6 +186,9 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
                 $field->_setProperty($key, $value);
             }
             $fieldArray[$field->getUid()] = $field;
+        }
+        if ($forceReset) {
+            $this->createMarkerMock->method('cleanString')->willReturnOnConsecutiveCalls('def', 'def_01');
         }
         $this->assertSame(
             $expectedResult,
