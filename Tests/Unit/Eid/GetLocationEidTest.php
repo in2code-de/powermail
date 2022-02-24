@@ -4,6 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Eid;
 use In2code\Powermail\Eid\GetLocationEid;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Http\ServerRequest;
 
 /**
  * Class GetLocationEidTest
@@ -55,9 +56,18 @@ class GetLocationEidTest extends UnitTestCase
      */
     public function testMain(float $latitude, float $longitude, string $expectedResult): void
     {
-        $_GET['lat'] = $latitude;
-        $_GET['lng'] = $longitude;
+        $request = new ServerRequest();
+        $request = $request->withQueryParams(
+            [
+                'lat' => $latitude,
+                'lng' => $longitude,
+            ]
+        );
         $getLocationEid = new GetLocationEid();
-        $this->assertStringContainsString($expectedResult, $getLocationEid->main());
+        $response = $getLocationEid->main($request);
+        $this->assertSame(200, $response->getStatusCode());
+        $stream = $response->getBody();
+        $stream->rewind();
+        $this->assertStringContainsString($expectedResult, $stream->getContents());
     }
 }

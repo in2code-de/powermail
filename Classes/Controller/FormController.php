@@ -40,12 +40,13 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
+use function in_array;
+
 /**
  * Class FormController
  */
 class FormController extends AbstractController
 {
-
     /**
      * @var PersistenceManager
      */
@@ -423,22 +424,28 @@ class FormController extends AbstractController
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
      *
-     * @return null|ResponseInterface
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatch(): ?ResponseInterface
+    protected function forwardIfFormParamsDoNotMatch(): void
     {
         $arguments = $this->request->getArguments();
-        $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-        if (!isset($arguments['mail'])) {
-            $arguments['mail'] = [];
-        } else {
-            $arguments['mail'] = (array)$arguments['mail'];
-        }
-        if (!in_array($arguments['mail']['form']??[], $formsToContent)) {
+        if (isset($arguments['mail'])) {
+            $formUid = null;
+            if ($arguments['mail'] instanceof Mail) {
+                $form = $arguments['mail']->getForm();
+                if (null !== $form) {
+                    $formUid = $form->getUid();
+                }
+            } else {
+                $formUid = $arguments['mail']['form'] ?? null;
+            }
+
+            $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
+            if (null === $formUid || in_array($formUid, $formsToContent, false)) {
+                return;
+            }
             $this->forward('form');
         }
-        return null;
     }
 
     /**
