@@ -29,6 +29,8 @@ Powermail does not store the IP-address of the visitor by default since version 
 
 **Note:** If you update your TYPO3, the configuration to save the IP-address may be already stored and must be turned off.
 
+**Note:** If you enable "Marketing" information, the IP Adress is collected and send https to ip-api.com. Please refer https://ip-api.com/docs/legal for further information.
+
 ## Add a link in a checkbox label
 
 Now, with the GDPR change, we get a lot of questions how to add a link like "privacy terms accepted" in a checkbox

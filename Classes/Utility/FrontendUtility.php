@@ -206,7 +206,7 @@ class FrontendUtility
         }
         $country = '';
         $json = GeneralUtility::makeInstance(RequestFactory::class)
-            ->request('http://ip-api.com/json/' . $ipAddress)
+            ->request('https://ip-api.com/json/' . $ipAddress)
             ->getBody()
             ->getContents();
         if ($json) {
