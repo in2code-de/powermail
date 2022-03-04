@@ -9,6 +9,7 @@ use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -812,13 +813,15 @@ class Field extends AbstractEntity
     {
         $types = [];
         $typoScript = BackendUtility::getPagesTSconfig($this->getPid());
-        $configuration = $typoScript['tx_powermail.']['flexForm.'] ?? [];
-        $configuration['type.'] = $configuration['type.']??[];
-        foreach ((array)($configuration['type.']['addFieldOptions.'] ?? []) as $fieldTypeName => $fieldType) {
-            if (!empty($fieldType['export'])) {
-                if ($fieldType['export'] === '1') {
-                    $fieldTypeName = rtrim($fieldTypeName, '.');
-                    $types[] = $fieldTypeName;
+        if (ArrayUtility::isValidPath($typoScript, 'tx_powermail./flexForm.')) {
+            $configuration = $typoScript['tx_powermail.']['flexForm.'];
+            $configuration['type.'] = $configuration['type.'] ?? [];
+            foreach ((array)($configuration['type.']['addFieldOptions.'] ?? []) as $fieldTypeName => $fieldType) {
+                if (!empty($fieldType['export'])) {
+                    if ($fieldType['export'] === '1') {
+                        $fieldTypeName = rtrim($fieldTypeName, '.');
+                        $types[] = $fieldTypeName;
+                    }
                 }
             }
         }

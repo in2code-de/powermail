@@ -271,12 +271,13 @@ class OutputController extends AbstractController
     protected function getFieldList(string $list = ''): array
     {
         if (!empty($list)) {
-            $fieldArray = GeneralUtility::trimExplode(',', $list, true);
-        } else {
-            $mainSettings = $this->settings['main'] ?? [];
-            $fieldArray = $this->formRepository->getFieldUidsFromForm(((int)$mainSettings['form'] ?? 0));
+            return GeneralUtility::trimExplode(',', $list, true);
         }
-        return (array)$fieldArray;
+
+        if (\TYPO3\CMS\Core\Utility\ArrayUtility::isValidPath($this->settings, 'main/form')) {
+           return $this->formRepository->getFieldUidsFromForm(((int)$this->settings['main']['form']));
+        }
+        return [];
     }
 
     /**

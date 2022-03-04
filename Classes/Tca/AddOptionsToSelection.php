@@ -5,6 +5,7 @@ namespace In2code\Powermail\Tca;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * Class AddOptionsToSelection allows to add individual options
@@ -125,12 +126,17 @@ class AddOptionsToSelection
     {
         $fieldOptions = [];
         $tsConfiguration = BackendUtility::getPagesTSconfig($this->getPageIdentifier());
-        $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'];
+        if (ArrayUtility::isValidPath($tsConfiguration, 'tx_powermail./flexForm.')) {
+            $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'];
 
-        if (!empty($eConfiguration[$this->getType() . '.']['addFieldOptions.'])) {
-            $options = $eConfiguration[$this->getType() . '.']['addFieldOptions.'];
-            if (is_array($options)) {
-                $fieldOptions = $options;
+            if (
+                ArrayUtility::isValidPath($eConfiguration, $this->getType() . './addFieldOptions.')
+                && !empty($eConfiguration[$this->getType() . '.']['addFieldOptions.'])
+            ) {
+                $options = $eConfiguration[$this->getType() . '.']['addFieldOptions.'];
+                if (is_array($options)) {
+                    $fieldOptions = $options;
+                }
             }
         }
 

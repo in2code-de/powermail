@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use In2code\Powermail\Domain\Model\Answer;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -88,9 +89,12 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
         array $settings,
         string $configurationType = 'excludeFromFieldTypes'
     ): array {
-        $excludeSettings = $settings['excludeFromPowermailAllMarker'] ?? [];
-        $excludeFromTsTypeSettings = $excludeSettings[$type] ?? [];
-        $excludeFields = (string)($excludeFromTsTypeSettings[$configurationType] ?? '');
+        $excludeSettings = $settings['excludeFromPowermailAllMarker'] ?: [];
+        if (ArrayUtility::isValidPath($excludeSettings, $type . '/' . $configurationType)) {
+            $excludeFields = (string)$excludeSettings[$type][$configurationType];
+        } else {
+            $excludeFields = '';
+        }
         return GeneralUtility::trimExplode(
             ',',
             $excludeFields,
