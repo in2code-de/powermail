@@ -200,8 +200,11 @@ class Answer extends AbstractEntity
      */
     protected function isTypeDateForDate($value): bool
     {
-        return !empty($value) && method_exists($this->getField(), 'getType')
+        if (is_object($this->getField()) || is_string($this->getField())) {
+            return !empty($value) && method_exists($this->getField(), 'getType')
             && $this->getValueType() === self::VALUE_TYPE_DATE && !is_numeric($value);
+        }
+        return false;
     }
 
     /**

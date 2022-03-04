@@ -89,16 +89,17 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
         array $settings,
         string $configurationType = 'excludeFromFieldTypes'
     ): array {
-        $excludeSettings = $settings['excludeFromPowermailAllMarker'] ?: [];
-        if (ArrayUtility::isValidPath($excludeSettings, $type . '/' . $configurationType)) {
-            $excludeFields = (string)$excludeSettings[$type][$configurationType];
-        } else {
-            $excludeFields = '';
+
+        if (
+            ArrayUtility::isValidPath($settings, 'excludeFromPowermailAllMarker/' . $this->typeToTypoScriptType[$type] . '/' . $configurationType)
+            && !empty($settings['excludeFromPowermailAllMarker'][$this->typeToTypoScriptType[$type]][$configurationType])
+        ) {
+            return GeneralUtility::trimExplode(
+                ',',
+                $settings['excludeFromPowermailAllMarker'][$this->typeToTypoScriptType[$type]][$configurationType],
+                true
+            );
         }
-        return GeneralUtility::trimExplode(
-            ',',
-            $excludeFields,
-            true
-        );
+        return [];
     }
 }
