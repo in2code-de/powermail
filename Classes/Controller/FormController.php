@@ -23,6 +23,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -66,6 +67,9 @@ class FormController extends AbstractController
      */
     public function formAction(): ResponseInterface
     {
+        if (!ArrayUtility::isValidPath($this->settings, 'main/form')) {
+            return $this->htmlResponse();
+        }
         /** @var Form $form */
         $form = $this->formRepository->findByUid($this->settings['main']['form']);
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$form, $this]);
