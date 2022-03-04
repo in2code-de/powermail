@@ -1115,6 +1115,11 @@
 				<source>Marketing Information</source>
 				<target state="translated">Marketing Informationen</target>
 			</trans-unit>
+			<trans-unit id="MarketingInformationCountryDisabled" resname="MarketingInformationCountryDisabled">
+				<source>Country From Ip is disabled.</source>
+				<target state="translated">Länderermittlung von IP Adresse ist deaktiviert.></target>
+			</trans-unit>
+
 			<trans-unit id="honeypodLabel">
 				<source>Don't fill this field!</source>
 				<target state="translated">Bitte dieses Feld NICHT ausfüllen!</target>
