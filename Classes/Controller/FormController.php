@@ -392,8 +392,10 @@ class FormController extends AbstractController
         bool $mobileDevice = false
     ): ResponseInterface {
         SessionUtility::storeMarketingInformation($referer, $language, $pid, $mobileDevice, $this->settings);
-
-        return $this->responseFactory->createJsonResponse(json_encode([]));
+        $response = $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', 'application/json; charset=utf-8');
+        $response->getBody()->write(json_encode([]));
+        return $response;
     }
 
     /**
