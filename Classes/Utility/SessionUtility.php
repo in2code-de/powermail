@@ -98,7 +98,7 @@ class SessionUtility
         // initially create array with marketing info
         if (empty($marketingInfo)) {
             $country = LocalizationUtility::translate('MarketingInformationCountryDisabled');
-            if (isset($settings['setup']['marketing']['determineCountry']) && $settings['setup']['marketing']['determineCountry'] === 1) {
+            if (isset($settings['setup']['marketing']['determineCountry']) && $settings['setup']['marketing']['determineCountry'] == 1) {
                 $country = FrontendUtility::getCountryFromIp();
             }
             $marketingInfo = [
