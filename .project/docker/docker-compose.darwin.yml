@@ -47,13 +47,18 @@ services:
     working_dir: /home/node/app/Resources/Private
 
   chrome:
-    image: seleniarm/standalone-chromium
-    environment:
-      HTTP_EXPOSE: 4444
+    image: selenium/standalone-firefox:latest
+    depends_on:
+      - seleniarm-hub
+
     volumes:
       - /dev/shm:/dev/shm
     ports:
       - ${CHROMEPORT}:5900
+
+  seleniarm-hub:
+    image: seleniarm/hub
+    container_name: seleniarm-hub
 
   mail:
     image: mailhog/mailhog

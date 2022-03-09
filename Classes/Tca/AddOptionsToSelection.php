@@ -126,17 +126,12 @@ class AddOptionsToSelection
     {
         $fieldOptions = [];
         $tsConfiguration = BackendUtility::getPagesTSconfig($this->getPageIdentifier());
-        if (ArrayUtility::isValidPath($tsConfiguration, 'tx_powermail./flexForm.')) {
-            $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'];
+        $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'] ?? [];
 
-            if (
-                ArrayUtility::isValidPath($eConfiguration, $this->getType() . './addFieldOptions.')
-                && !empty($eConfiguration[$this->getType() . '.']['addFieldOptions.'])
-            ) {
-                $options = $eConfiguration[$this->getType() . '.']['addFieldOptions.'];
-                if (is_array($options)) {
-                    $fieldOptions = $options;
-                }
+        if (!empty($eConfiguration[$this->getType() . '.']['addFieldOptions.'])) {
+            $options = $eConfiguration[$this->getType() . '.']['addFieldOptions.'];
+            if (is_array($options)) {
+                $fieldOptions = $options;
             }
         }
 
