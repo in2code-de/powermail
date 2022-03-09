@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -21,15 +22,19 @@ class T3VersionViewHelper extends AbstractViewHelper
      */
     public function render(): bool
     {
-        $EM_CONF = [];
-        require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
+        if (!Environment::isComposerMode()) {
+            $EM_CONF = [];
+            require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
 
-        $config = current($EM_CONF);
-        $versionString = $config['constraints']['depends']['typo3'];
+            $config = current($EM_CONF);
+            $versionString = $config['constraints']['depends']['typo3'];
 
-        $versions = explode('-', $versionString);
+            $versions = explode('-', $versionString);
 
-        return $this->isAboveMinVersion($versions[0]) && $this->isBelowMaxVersion($versions[1]);
+            return $this->isAboveMinVersion($versions[0]) && $this->isBelowMaxVersion($versions[1]);
+        } else {
+            return true;
+        }
     }
 
     /**
