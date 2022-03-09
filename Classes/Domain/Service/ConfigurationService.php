@@ -65,7 +65,8 @@ class ConfigurationService implements SingletonInterface
             'Powermail',
             $pluginName
         );
-        return (array)$setup['setup'];
+
+        return $setup['setup'] ?? [];
     }
 
     /**
