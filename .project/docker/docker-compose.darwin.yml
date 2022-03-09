@@ -50,6 +50,7 @@ services:
     image: selenium/standalone-firefox:latest
     depends_on:
       - seleniarm-hub
+
     volumes:
       - /dev/shm:/dev/shm
     ports:

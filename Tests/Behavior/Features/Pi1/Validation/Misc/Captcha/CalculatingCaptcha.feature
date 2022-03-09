@@ -25,7 +25,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "3"
 
   @Pi1ValidationMiscCaptchaCalculatingCaptchaL1
@@ -49,7 +49,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "3"
 
 
@@ -75,7 +75,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "3"
 
   @Pi1ValidationMiscCaptchaCalculatingCaptchaStrictL1
@@ -99,7 +99,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "3"
 
   # Two captchas in one form

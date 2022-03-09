@@ -23,6 +23,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -40,12 +41,13 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
+use function in_array;
+
 /**
  * Class FormController
  */
 class FormController extends AbstractController
 {
-
     /**
      * @var PersistenceManager
      */
@@ -65,6 +67,9 @@ class FormController extends AbstractController
      */
     public function formAction(): ResponseInterface
     {
+        if (!ArrayUtility::isValidPath($this->settings, 'main/form')) {
+            return $this->htmlResponse();
+        }
         /** @var Form $form */
         $form = $this->formRepository->findByUid($this->settings['main']['form']);
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$form, $this]);
@@ -412,7 +417,7 @@ class FormController extends AbstractController
         $configurationService = $this->objectManager->get(ConfigurationService::class);
         $this->conf = $configurationService->getTypoScriptConfiguration();
         $this->settings = ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
-        if ($this->settings['debug']['settings']) {
+        if (ArrayUtility::isValidPath($this->settings, 'debug/settings') && $this->settings['debug']['settings']) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->info('Powermail settings', $this->settings);
         }
@@ -423,22 +428,28 @@ class FormController extends AbstractController
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
      *
-     * @return null|ResponseInterface
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatch(): ?ResponseInterface
+    protected function forwardIfFormParamsDoNotMatch(): void
     {
         $arguments = $this->request->getArguments();
-        $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-        if (!isset($arguments['mail'])) {
-            $arguments['mail'] = [];
-        } else {
-            $arguments['mail'] = (array)$arguments['mail'];
-        }
-        if (!in_array($arguments['mail']['form']??[], $formsToContent)) {
+        if (isset($arguments['mail'])) {
+            $formUid = null;
+            if ($arguments['mail'] instanceof Mail) {
+                $form = $arguments['mail']->getForm();
+                if (null !== $form) {
+                    $formUid = $form->getUid();
+                }
+            } else {
+                $formUid = $arguments['mail']['form'] ?? null;
+            }
+
+            $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
+            if (null === $formUid || in_array($formUid, $formsToContent, false)) {
+                return;
+            }
             $this->forward('form');
         }
-        return null;
     }
 
     /**
