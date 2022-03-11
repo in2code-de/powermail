@@ -285,11 +285,11 @@
       </trans-unit>
       <trans-unit id="datepicker_format_date" resname="datepicker_format_date" approved="yes">
         <source>Y-m-d</source>
-        <target state="final">Å-m-d</target>
+        <target state="final">Y-m-d</target>
       </trans-unit>
       <trans-unit id="datepicker_format_datetime" resname="datepicker_format_datetime" approved="yes">
         <source>Y-m-d H:i</source>
-        <target state="final">Å-m-d H:i</target>
+        <target state="final">Y-m-d H:i</target>
       </trans-unit>
       <trans-unit id="datepicker_format_time" resname="datepicker_format_time" approved="yes">
         <source>H:i</source>
