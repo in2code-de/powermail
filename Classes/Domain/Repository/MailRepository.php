@@ -386,7 +386,7 @@ class MailRepository extends AbstractRepository
             }
         }
         if (empty($email)) {
-            $email = $this->getSenderMailFromDefault($default);
+            $email = $this->getSenderMailFromSystemDefaults($default);
         }
         return $email;
     }
@@ -504,15 +504,12 @@ class MailRepository extends AbstractRepository
      * @param string $default
      * @return string
      */
-    protected function getSenderMailFromDefault(string $default): string
+    protected function getSenderMailFromSystemDefaults(string $default): string
     {
         $email = LocalizationUtility::translate('error_no_sender_email') . '@';
         $email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
         if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
             $email = ConfigurationUtility::getDefaultMailFromAddress();
-        }
-        if (!empty($default)) {
-            $email = $default;
         }
         return $email;
     }
