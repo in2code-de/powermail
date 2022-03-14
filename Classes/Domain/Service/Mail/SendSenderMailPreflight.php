@@ -68,7 +68,10 @@ class SendSenderMailPreflight
         $senderService = ObjectUtility::getObjectManager()->get(SenderMailPropertiesService::class, $this->settings);
         $email = [
             'template' => 'Mail/SenderMail',
-            'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),
+            'receiverEmail' => $this->mailRepository->getSenderMailFromArguments(
+                $mail,
+                [$this->conf['sender.']['default.'], 'senderEmail']
+            ),
             'receiverName' => $this->mailRepository->getSenderNameFromArguments(
                 $mail,
                 [$this->conf['sender.']['default.'], 'senderName']
