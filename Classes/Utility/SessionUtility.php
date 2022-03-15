@@ -97,19 +97,7 @@ class SessionUtility
         $marketingInfo = self::getSessionValue('powermail_marketing');
         // initially create array with marketing info
         if (empty($marketingInfo)) {
-            $country = LocalizationUtility::translate('MarketingInformationCountryDisabled');
-            if (isset($settings['setup']['marketing']['determineCountry']) && $settings['setup']['marketing']['determineCountry'] == 1) {
-                $country = FrontendUtility::getCountryFromIp();
-            }
-            $marketingInfo = [
-                'refererDomain' => FrontendUtility::getDomainFromUri($referer),
-                'referer' => $referer,
-                'country' => $country,
-                'mobileDevice' => $mobileDevice,
-                'frontendLanguage' => $language,
-                'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
-                'pageFunnel' => [$pid]
-            ];
+            $marketingInfo = self::initMarketingInfo($referer, $language, $pid, $mobileDevice, $settings);
         } else {
             // add current pid to funnel
             $marketingInfo['pageFunnel'][] = $pid;
@@ -133,15 +121,7 @@ class SessionUtility
     {
         $marketingInfo = self::getSessionValue('powermail_marketing');
         if (empty($marketingInfo)) {
-            $marketingInfo = [
-                'refererDomain' => '',
-                'referer' => '',
-                'country' => '',
-                'mobileDevice' => 0,
-                'frontendLanguage' => 0,
-                'browserLanguage' => '',
-                'pageFunnel' => []
-            ];
+            $marketingInfo = self::initMarketingInfo();
         }
         return $marketingInfo;
     }
@@ -274,6 +254,30 @@ class SessionUtility
             return $powermailSession[$name];
         }
         return [];
+    }
+
+    protected static function initMarketingInfo(
+        string $referer = '',
+        int $language = 0,
+        int $pid = 0,
+        bool $mobileDevice = false,
+        array $settings = []
+    ) {
+        $country = LocalizationUtility::translate('MarketingInformationCountryDisabled');
+        if (isset($settings['setup']['marketing']['determineCountry']) && $settings['setup']['marketing']['determineCountry'] == 1) {
+            $country = FrontendUtility::getCountryFromIp();
+        }
+        $marketingInfo = [
+            'refererDomain' => FrontendUtility::getDomainFromUri($referer),
+            'referer' => $referer,
+            'country' => $country,
+            'mobileDevice' => $mobileDevice,
+            'frontendLanguage' => $language,
+            'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
+            'pageFunnel' => [$pid]
+        ];
+
+        return $marketingInfo;
     }
 
     /**
