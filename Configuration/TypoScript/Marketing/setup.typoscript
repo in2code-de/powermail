@@ -5,6 +5,9 @@
 # Enable marketing information in mail to administrator
 plugin.tx_powermail {
   settings.setup.marketing.information = 1
+  # if enabled the service ip-api.com is used
+  # please check http://ip-api.com/docs/legal for terms & conditions
+  settings.setup.marketing.determineCountry = 0
   features.requireCHashArgumentForActionArguments = 0
 }
 

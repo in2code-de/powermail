@@ -835,6 +835,9 @@
 			<trans-unit id="MarketingInformation" resname="MarketingInformation">
 				<source>Marketing Information</source>
 			</trans-unit>
+			<trans-unit id="MarketingInformationCountryDisabled" resname="MarketingInformationCountryDisabled">
+				<source>Country From Ip is disabled.</source>
+			</trans-unit>
 			<trans-unit id="honeypodLabel" resname="honeypodLabel">
 				<source>Don't fill this field!</source>
 			</trans-unit>
