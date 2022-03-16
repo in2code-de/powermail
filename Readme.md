@@ -15,18 +15,6 @@ Changes done for powermail 9 with TYPO3 11:
 * Update behaviour tests
 * Manual tests (especially in backend context)
 
-### Known Issues
-
-* ~~PHP based validation shows no error messages (https://projekte.in2code.de/issues/47816)~~ Fixed
-* ~~date Picker formats are not respected in the frontend https://projekte.in2code.de/issues/47811)~~ (fixed) - happens only if you did upgrade your installation correct (TYPO3 7->8)
-* ~~Spam Shield does not work (https://projekte.in2code.de/issues/47817)~~ (fixed)
-* ~~BEHAT tests do not work~~ (fixed)
-* ~~Powermails Commands via CLI (https://projekte.in2code.de/issues/47884)~~ (fixed)
-* ~~2 form plugin at the same page deliver not yet fully expected behaviour~~  (fixed)
-* Unit Tests do not fully work (https://projekte.in2code.de/issues/47896)
-* ~~Behaviour Tests can not be started (https://projekte.in2code.de/issues/47788)~~ (fixed)
-* Behaviour Tests do fully work (https://projekte.in2code.de/issues/47897)
-
 ### Early Access Programm
 
 From now on an Early Access Programm is available for Powermail. You can get access for 12 month by donating any ammount >100 € net.
