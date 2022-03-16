@@ -20,7 +20,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         $this->enableParsleyAndAjaxViewHelperMock = $this->getAccessibleMock(
             EnableParsleyAndAjaxViewHelperFixture::class,
@@ -31,7 +31,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown():void
+    public function tearDown(): void
     {
         unset($this->enableParsleyAndAjaxViewHelperMock);
     }

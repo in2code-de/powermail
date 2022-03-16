@@ -19,6 +19,7 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use function in_array;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
@@ -39,9 +40,8 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
-use function in_array;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class FormController
@@ -457,10 +457,10 @@ class FormController extends AbstractController
     /**
      * Forward to formAction if no mail param given
      *
-     * @return null|ForwardResponse
+     * @return ForwardResponse|null
      * @throws StopActionException
      */
-    protected function forwardIfMailParamEmpty():?ForwardResponse
+    protected function forwardIfMailParamEmpty(): ?ForwardResponse
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
@@ -477,7 +477,7 @@ class FormController extends AbstractController
      *        used in optinConfirmAction()
      *
      * @param Mail|null $mail
-     * @return null|ResponseInterface
+     * @return ResponseInterface|null
      * @throws StopActionException
      */
     protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ResponseInterface

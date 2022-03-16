@@ -61,7 +61,7 @@ class GetNewMarkerNamesForFormService
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         if ($formUid === 0) {
             $forms = $formRepository->findAll();
-        } else if ( $form = $formRepository->findByUid($formUid) ){
+        } elseif ($form = $formRepository->findByUid($formUid)) {
             $forms = [$form];
         }
         $markers = [];

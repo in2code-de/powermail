@@ -19,7 +19,7 @@ class HoneyPodMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             HoneyPodMethod::class,
@@ -35,7 +35,7 @@ class HoneyPodMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown():void
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }

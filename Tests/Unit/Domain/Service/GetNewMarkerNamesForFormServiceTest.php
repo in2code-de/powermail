@@ -4,8 +4,6 @@ namespace In2code\Powermail\Tests\Unit\Domain\Service;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Charset\CharsetConverter;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class GetNewMarkerNamesForFormServiceTest
@@ -22,7 +20,7 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         $this->createMarkerMock = $this->getAccessibleMock(
             GetNewMarkerNamesForFormService::class,
@@ -33,7 +31,7 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown():void
+    public function tearDown(): void
     {
         unset($this->createMarkerMock);
     }

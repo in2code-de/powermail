@@ -90,6 +90,6 @@ class SessionViewHelper extends AbstractViewHelper
             $frontendUser
         );
         $GLOBALS['TSFE']->fe_user->initializeUserSessionManager();
-        $GLOBALS['TSFE']->fe_user->createUserSession(array());
+        $GLOBALS['TSFE']->fe_user->createUserSession([]);
     }
 }

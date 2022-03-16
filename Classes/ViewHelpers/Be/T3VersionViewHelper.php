@@ -3,11 +3,11 @@ declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Information\Typo3Version;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class T3VersionViewHelper
@@ -32,9 +32,8 @@ class T3VersionViewHelper extends AbstractViewHelper
             $versions = explode('-', $versionString);
 
             return $this->isAboveMinVersion($versions[0]) && $this->isBelowMaxVersion($versions[1]);
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**

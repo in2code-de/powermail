@@ -3,14 +3,9 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use In2code\Powermail\Tests\Unit\Fixtures\Utility\BackendUtilityFixture;
 use In2code\Powermail\Utility\BackendUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
-use TYPO3\CMS\Backend\Routing\Route;
-use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**

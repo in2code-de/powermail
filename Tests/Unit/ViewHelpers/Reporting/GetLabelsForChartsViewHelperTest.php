@@ -19,7 +19,7 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             GetLabelsForChartsViewHelper::class,
@@ -30,7 +30,7 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown():void
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }

@@ -17,7 +17,7 @@ class BasicFileUtiltyTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         TestingHelper::setDefaultConstants();
     }

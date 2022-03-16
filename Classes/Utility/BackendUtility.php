@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Utility;
 
-use TYPO3\CMS\Core\Http\ApplicationType;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
@@ -11,6 +10,7 @@ use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 

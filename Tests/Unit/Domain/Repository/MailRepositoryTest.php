@@ -28,7 +28,7 @@ class MailRepositoryTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         TestingHelper::setDefaultConstants();
         $objectManager = TestingHelper::getObjectManager();

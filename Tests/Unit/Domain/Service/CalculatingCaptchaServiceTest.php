@@ -22,7 +22,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         TestingHelper::setDefaultConstants();
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -46,7 +46,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown():void
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }

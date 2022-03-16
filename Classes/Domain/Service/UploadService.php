@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Service;
 
-use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
@@ -15,6 +14,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;

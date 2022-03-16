@@ -6,14 +6,13 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Http\ResponseFactory;
 use TYPO3\CMS\Core\Http\StreamFactory;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use UnexpectedValueException;
 
 /**
  * Class FormControllerTest
@@ -30,7 +29,7 @@ class FormControllerTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             FormController::class,
@@ -41,7 +40,7 @@ class FormControllerTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown():void
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -239,7 +238,6 @@ class FormControllerTest extends UnitTestCase
         $response = $this->generalValidatorMock->_call('forwardIfFormParamsDoNotMatchForOptinConfirm', $mail);
         if ($forward === true) {
             $this->assertInstanceOf(ForwardResponse::class, $response);
-
         }
         $this->assertTrue(true);
     }
@@ -394,7 +392,7 @@ class FormControllerTest extends UnitTestCase
         $request = new Request();
         $request->setArguments($arguments);
         $this->generalValidatorMock->_set('request', $request);
-        $this->generalValidatorMock->_set('response', new Response() );
+        $this->generalValidatorMock->_set('response', new Response());
         $this->generalValidatorMock->_set('uriBuilder', new UriBuilder());
         $this->generalValidatorMock->_set('settings', ['staticTemplate' => '1']);
         $this->generalValidatorMock->_set('objectManager', TestingHelper::getObjectManager());

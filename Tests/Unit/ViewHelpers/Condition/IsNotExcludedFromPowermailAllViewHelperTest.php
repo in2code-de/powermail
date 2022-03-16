@@ -19,7 +19,7 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         $this->isNotExcludedFromPowermailAllViewHelperMock = $this->getAccessibleMock(
             IsNotExcludedFromPowermailAllViewHelper::class,
@@ -30,7 +30,7 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown():void
+    public function tearDown(): void
     {
         unset($this->isNotExcludedFromPowermailAllViewHelperMock);
     }

@@ -20,7 +20,7 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp():void
+    public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             UploadAttributesViewHelper::class,
@@ -31,7 +31,7 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown():void
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }

@@ -1,6 +1,7 @@
 <?php
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 defined('TYPO3') || die();
 
 /**

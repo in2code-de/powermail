@@ -5,7 +5,6 @@ namespace In2code\Powermail\Tca;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * Class AddOptionsToSelection allows to add individual options
