@@ -74,7 +74,7 @@ return $config
         'array_syntax' => ['syntax' => 'short'],
         'whitespace_after_comma_in_array' => true,
         'function_typehint_space' => true,
-        'single_line_comment_style' => true,
+        'single_line_comment_style' => ['comment_types' => ['hash']],
         'no_alias_functions' => true,
         'lowercase_cast' => true,
         'no_leading_namespace_whitespace' => true,
