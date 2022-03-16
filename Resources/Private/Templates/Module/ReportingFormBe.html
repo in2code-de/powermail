@@ -20,8 +20,6 @@
 		<f:if condition="{mails}">
 			<f:then>
 				<h3><f:translate key="BackendReportingFormSubtitle1" /> <f:count subject="{mails}" /> <f:translate key="Emails" />:</h3>
-
-
 				<div class="row">
 					<f:for each="{firstMail.answers}" as="answer">
 						<div class="col-md-6">

@@ -36,7 +36,8 @@ class CheckForTypoScriptViewHelper extends AbstractViewHelper
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ): void {
-        if ($arguments['settings']['staticTemplate'] !== '1') {
+        $argumentsSettings = $arguments['settings'] ?? [];
+        if (($argumentsSettings['staticTemplate'] ?? 1) !== '1') {
             /** @var FlashMessageQueue $flashMessageQueue */
             $flashMessageQueue = $renderingContext->getControllerContext()->getFlashMessageQueue(null);
             /** @var FlashMessage $flashMessage */

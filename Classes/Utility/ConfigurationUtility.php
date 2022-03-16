@@ -107,19 +107,6 @@ class ConfigurationUtility
     }
 
     /**
-     * Check if l10n_mode_merge is active
-     *
-     * @return bool
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
-     */
-    public static function isL10nModeMergeActive(): bool
-    {
-        $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['l10n_mode_merge'] === true;
-    }
-
-    /**
      * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -139,7 +126,7 @@ class ConfigurationUtility
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (Environment::getContext()->isDevelopment() &&
-            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])) {
+            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'] ?? '')) {
             return $configVariables['EXT']['powermailDevelopContextEmail'];
         }
         return '';

@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Controller;
 
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Exception\DeprecatedException;
@@ -38,12 +40,14 @@ class OutputController extends AbstractController
      * @throws Exception
      * @noinspection PhpUnused
      */
-    public function listAction(): void
+    public function listAction(): ResponseInterface
     {
-        $this->prepareFilterPluginVariables($this->piVars, (array)$this->settings['search']['staticPluginsVariables']);
-        $fieldArray = $this->getFieldList((string)$this->settings['list']['fields']);
+        $searchSettings = $this->settings['search'] ?? [];
+        $listSettings = $this->settings['list'] ?? [];
+        $this->prepareFilterPluginVariables($this->piVars, (array)($searchSettings['staticPluginsVariables'] ?? []));
+        $fieldArray = $this->getFieldList((string)($listSettings['fields'] ?? ''));
         $searchFields = $this->fieldRepository->findByUids(
-            GeneralUtility::trimExplode(',', $this->settings['search']['fields'], true)
+            GeneralUtility::trimExplode(',', $searchSettings['fields'] ?? '', true)
         );
         $this->view->assignMultiple(
             [
@@ -55,6 +59,7 @@ class OutputController extends AbstractController
             ]
         );
         $this->assignMultipleActions();
+        return $this->htmlResponse();
     }
 
     /**
@@ -63,7 +68,7 @@ class OutputController extends AbstractController
      * @noinspection PhpUnused
      * @throws Exception
      */
-    public function showAction(Mail $mail): void
+    public function showAction(Mail $mail): ResponseInterface
     {
         $fieldArray = $this->getFieldList($this->settings['single']['fields']);
         $this->view->assignMultiple(
@@ -73,6 +78,7 @@ class OutputController extends AbstractController
             ]
         );
         $this->assignMultipleActions();
+        return $this->htmlResponse();
     }
 
     /**
@@ -81,7 +87,7 @@ class OutputController extends AbstractController
      * @noinspection PhpUnused
      * @throws Exception
      */
-    public function editAction(Mail $mail = null): void
+    public function editAction(Mail $mail = null): ResponseInterface
     {
         $fieldArray = $this->getFieldList($this->settings['edit']['fields']);
         $this->view->assignMultiple(
@@ -91,6 +97,7 @@ class OutputController extends AbstractController
             ]
         );
         $this->assignMultipleActions();
+        return $this->htmlResponse();
     }
 
     /**
@@ -108,7 +115,7 @@ class OutputController extends AbstractController
      * @throws DeprecatedException
      * @noinspection PhpUnused
      */
-    public function initializeUpdateAction(): void
+    public function initializeUpdateAction()
     {
         $arguments = $this->request->getArguments();
         if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
@@ -118,7 +125,7 @@ class OutputController extends AbstractController
                 '',
                 AbstractMessage::ERROR
             );
-            $this->forward('list');
+            return new ForwardResponse('list');
         }
         $this->reformatParamsForAction();
     }
@@ -149,7 +156,7 @@ class OutputController extends AbstractController
      * @throws StopActionException
      * @noinspection PhpUnused
      */
-    public function initializeDeleteAction(): void
+    public function initializeDeleteAction()
     {
         $arguments = $this->request->getArguments();
         if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['mail'])) {
@@ -159,7 +166,7 @@ class OutputController extends AbstractController
                 '',
                 AbstractMessage::ERROR
             );
-            $this->forward('list');
+            return new ForwardResponse('list');
         }
     }
 
@@ -169,11 +176,12 @@ class OutputController extends AbstractController
      * @throws IllegalObjectTypeException
      * @noinspection PhpUnused
      */
-    public function deleteAction(Mail $mail): void
+    public function deleteAction(Mail $mail): ResponseInterface
     {
         $this->assignMultipleActions();
         $this->mailRepository->remove($mail);
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendDeleteSuccessful'));
+        return $this->htmlResponse();
     }
 
     /**
@@ -184,10 +192,10 @@ class OutputController extends AbstractController
      * @throws Exception
      * @noinspection PhpUnused
      */
-    public function exportAction(array $export = []): void
+    public function exportAction(array $export = []): ResponseInterface
     {
         if (!$this->settings['list']['export']) {
-            return;
+            return $this->htmlResponse(null);
         }
         $mails = $this->mailRepository->findByUidList($export['fields']);
 
@@ -200,9 +208,10 @@ class OutputController extends AbstractController
         $fields = $this->fieldRepository->findByUids($fieldArray);
 
         if ($export['format'] === 'xls') {
-            $this->forward('exportXls', null, null, ['mails' => $mails, 'fields' => $fields]);
+            return (new ForwardResponse('exportXls'))->withArguments(['mails' => $mails, 'fields' => $fields]);
         }
-        $this->forward('exportCsv', null, null, ['mails' => $mails, 'fields' => $fields]);
+        return (new ForwardResponse('exportCsv'))->withArguments(['mails' => $mails, 'fields' => $fields]);
+        return $this->htmlResponse();
     }
 
     /**
@@ -211,10 +220,11 @@ class OutputController extends AbstractController
      * @return void
      * @noinspection PhpUnused
      */
-    public function exportXlsAction(QueryResult $mails = null, array $fields = []): void
+    public function exportXlsAction(QueryResult $mails = null, array $fields = []): ResponseInterface
     {
         $this->view->assign('mails', $mails);
         $this->view->assign('fields', $fields);
+        return $this->htmlResponse();
     }
 
     /**
@@ -223,10 +233,11 @@ class OutputController extends AbstractController
      * @return void
      * @noinspection PhpUnused
      */
-    public function exportCsvAction(QueryResult $mails = null, array $fields = []): void
+    public function exportCsvAction(QueryResult $mails = null, array $fields = []): ResponseInterface
     {
         $this->view->assign('mails', $mails);
         $this->view->assign('fields', $fields);
+        return $this->htmlResponse();
     }
 
     /**
@@ -234,11 +245,12 @@ class OutputController extends AbstractController
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
-    public function rssAction(): void
+    public function rssAction(): ResponseInterface
     {
         $mails = $this->mailRepository->findListBySettings($this->settings, $this->piVars);
         $this->view->assign('mails', $mails);
         $this->assignMultipleActions();
+        return $this->htmlResponse();
     }
 
     /**
@@ -259,11 +271,13 @@ class OutputController extends AbstractController
     protected function getFieldList(string $list = ''): array
     {
         if (!empty($list)) {
-            $fieldArray = GeneralUtility::trimExplode(',', $list, true);
-        } else {
-            $fieldArray = $this->formRepository->getFieldUidsFromForm((int)$this->settings['main']['form']);
+            return GeneralUtility::trimExplode(',', $list, true);
         }
-        return (array)$fieldArray;
+
+        if (\TYPO3\CMS\Core\Utility\ArrayUtility::isValidPath($this->settings, 'main/form')) {
+           return $this->formRepository->getFieldUidsFromForm(((int)$this->settings['main']['form']));
+        }
+        return [];
     }
 
     /**

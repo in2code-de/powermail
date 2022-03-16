@@ -22,6 +22,7 @@ abstract class AbstractCleanupCommand extends Command
         string $directory,
         int $period
     ): void {
+        // todo: should have a return value (success / error)
         $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName($directory), '', true);
         $counter = 0;
         foreach ($files as $file) {

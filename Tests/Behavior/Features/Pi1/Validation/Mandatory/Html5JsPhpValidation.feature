@@ -18,7 +18,7 @@ Feature: Html5JsPhpValidation
     Then I should see "Dieses Feld muss ausgefüllt werden!"
     Then I should see "Fehler in Validierung!"
     Then I should see "Eines dieser Felder muss ausgefüllt werden!"
-    Then I fill in "tx_powermail_pi1[field][lastname]" with "Christian"
+    Then I fill in "tx_powermail_pi1[field][lastname]" with "Daniel"
     And I scroll "$[type='submit']" into view
     And I press "Submit"
 
@@ -38,7 +38,7 @@ Feature: Html5JsPhpValidation
     Then I should not see "Fehler in Validierung!"
     Then I should see "Eines dieser Felder muss ausgefüllt werden!"
     Then I fill in "tx_powermail_pi1[field][date]" with "17.10.2014"
-    Then I fill in "tx_powermail_pi1[field][firstname]" with "Sonntag"
+    Then I fill in "tx_powermail_pi1[field][firstname]" with "Boxhammer"
     Then I select "gelb" from "tx_powermail_pi1[field][email]"
     Then I select "blau" from "tx_powermail_pi1[field][selectmulti][]"
     Then I additionally select "lila" from "tx_powermail_pi1[field][selectmulti][]"
@@ -49,9 +49,9 @@ Feature: Html5JsPhpValidation
     And I press "Submit"
 
     Then I should see "Sind diese Eingaben korrekt?"
-    Then I should see "Christian"
+    Then I should see "Daniel"
     Then I should see "17.10.2014"
-    Then I should see "Sonntag"
+    Then I should see "Boxhammer"
     Then I should see "test"
     Then I should see "http://www.test.de"
     Then I should see "gelb"
@@ -62,9 +62,9 @@ Feature: Html5JsPhpValidation
     And I press "Weiter"
 
     Then I should see "Danke, Ihre Eingaben:"
-    Then I should see "Christian"
+    Then I should see "Daniel"
     Then I should see "17.10.2014"
-    Then I should see "Sonntag"
+    Then I should see "Boxhammer"
     Then I should see "test"
     Then I should see "http://www.test.de"
     Then I should see "gelb"
@@ -89,7 +89,7 @@ Feature: Html5JsPhpValidation
     Then I should see "This field must be filled!"
     Then I should see "Error in validation!"
     Then I should see "One of these fields must be filled!"
-    Then I fill in "tx_powermail_pi1[field][lastname]" with "Richter"
+    Then I fill in "tx_powermail_pi1[field][lastname]" with "Boxhammer"
     And I scroll "$[type='submit']" into view
     And I press "Submit EN"
 
@@ -109,7 +109,7 @@ Feature: Html5JsPhpValidation
     Then I should not see "Error in validation!"
     Then I should see "One of these fields must be filled!"
     Then I fill in "tx_powermail_pi1[field][date]" with "2014-10-17"
-    Then I fill in "tx_powermail_pi1[field][firstname]" with "Dave"
+    Then I fill in "tx_powermail_pi1[field][firstname]" with "Daniel"
     Then I select "yellow" from "tx_powermail_pi1[field][email]"
     Then I select "blue" from "tx_powermail_pi1[field][selectmulti][]"
     Then I additionally select "green" from "tx_powermail_pi1[field][selectmulti][]"
@@ -120,9 +120,9 @@ Feature: Html5JsPhpValidation
     And I press "Submit EN"
 
     Then I should see "Are these values correct?"
-    Then I should see "Dave"
+    Then I should see "Daniel"
     Then I should see "2014-10-17"
-    Then I should see "Richter"
+    Then I should see "Boxhammer"
     Then I should see "test"
     Then I should see "http://www.test.de"
     Then I should see "yellow"
@@ -133,9 +133,9 @@ Feature: Html5JsPhpValidation
     And I press "Next"
 
     Then I should see "Thx, your values:"
-    Then I should see "Dave"
+    Then I should see "Daniel"
     Then I should see "2014-10-17"
-    Then I should see "Richter"
+    Then I should see "Boxhammer"
     Then I should see "test"
     Then I should see "http://www.test.de"
     Then I should see "yellow"

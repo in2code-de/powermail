@@ -39,6 +39,7 @@ destroy: stop
 start:
 	echo "$(EMOJI_up) Starting the docker project"
 	docker-compose up -d --build
+	make .fix-mount-perms
 	make urls
 
 ## Creates a backup of the database
@@ -159,7 +160,7 @@ lfs-fetch:
 	git lfs checkout
 
 ## To start an existing project incl. rsync from fileadmin, uploads and database dump
-install-project: lfs-fetch link-compose-file destroy add-hosts-entry init-docker composer-install npm-install typo3-add-site typo3-add-dockerconfig typo3-install-autocomplete typo3-setupinstall mysql-restore typo3-clearcache typo3-comparedb
+install-project: lfs-fetch link-compose-file destroy add-hosts-entry init-docker .fix-mount-perms composer-install typo3-add-site typo3-add-dockerconfig typo3-install-autocomplete typo3-setupinstall mysql-restore typo3-clearcache typo3-comparedb
 	echo "---------------------"
 	echo ""
 	echo "The project is online $(EMOJI_thumbsup)"
@@ -210,6 +211,13 @@ login-php:
 login-mysql:
 	echo "$(EMOJI_dolphin) Logging into MySQL Container"
 	docker-compose exec mysql bash
+
+## Set correct onwership of mounts. Docker creates mounts owned by root:root.
+.fix-mount-perms:
+ifeq ($(shell uname -s), Darwin)
+	echo "$(EMOJI_rocket) Fixing docker mount permissions"
+	docker-compose exec -u root php chown -R app:app /app/$(TYPO3_CACHE_DIR)/;
+endif
 
 include .env
 

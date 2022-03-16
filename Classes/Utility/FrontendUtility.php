@@ -6,6 +6,7 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -16,7 +17,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class FrontendUtility
 {
-
     /**
      * Returns given number or the current PID
      *
@@ -114,17 +114,19 @@ class FrontendUtility
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$mail);
         }
-        if (!ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === null) {
+        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+        if ($feUser === 0 || $mail === null) {
             return false;
         }
 
+        $feUserGroups = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'] ?? [];
         $usergroups = GeneralUtility::trimExplode(
             ',',
-            ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'],
+            $feUserGroups,
             true
         );
-        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'], true);
-        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'], true);
+        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? [], true);
+        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? [], true);
 
         // replace "_owner" with uid of owner in array with users
         if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usersSettings))) {
@@ -140,7 +142,7 @@ class FrontendUtility
         }
 
         // 1. check user
-        if (in_array(ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'], $usersSettings)) {
+        if (in_array($feUser, $usersSettings)) {
             return true;
         }
 
@@ -203,7 +205,10 @@ class FrontendUtility
             // @codeCoverageIgnoreEnd
         }
         $country = '';
-        $json = GeneralUtility::getUrl('http://ip-api.com/json/' . $ipAddress);
+        $json = GeneralUtility::makeInstance(RequestFactory::class)
+            ->request('http://ip-api.com/json/' . $ipAddress)
+            ->getBody()
+            ->getContents();
         if ($json) {
             $geoInfo = json_decode($json);
             if (!empty($geoInfo->country)) {

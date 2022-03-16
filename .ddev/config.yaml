@@ -1,7 +1,7 @@
 name: powermail
 type: typo3
 docroot: .Build/Web/
-php_version: "7.2"
+php_version: "8.0"
 webserver_type: nginx-fpm
 router_http_port: "80"
 router_https_port: "443"
@@ -17,7 +17,7 @@ hooks:
   post-start:
     - exec: composer install
     - exec: cp .ddev/typo3/AdditionalConfiguration.php .Build/Web/typo3conf/
-
+host_db_port: "28262"
 
 # This config.yaml was created with ddev version v1.17.5
 # webimage: drud/ddev-webserver:v1.17.4

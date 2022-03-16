@@ -57,7 +57,6 @@ class BackendUtilityTest extends UnitTestCase
      * @test
      * @covers ::isBackendAdmin
      * @covers ::getBackendUserAuthentication
-     * @covers \In2code\Powermail\Utility\AbstractUtility::getBackendUserAuthentication
      */
     public function isBackendAdminReturnsBool($value, $expectedResult)
     {
@@ -104,7 +103,6 @@ class BackendUtilityTest extends UnitTestCase
      * @test
      * @covers ::getPropertyFromBackendUser
      * @covers ::getBackendUserAuthentication
-     * @covers \In2code\Powermail\Utility\AbstractUtility::getBackendUserAuthentication
      */
     public function getPropertyFromBackendUserReturnsString($property, $value)
     {
@@ -117,95 +115,6 @@ class BackendUtilityTest extends UnitTestCase
             $GLOBALS['BE_USER']->user[$property] = $value;
         }
         $this->assertSame($value, BackendUtility::getPropertyFromBackendUser($property));
-    }
-
-    /**
-     * @return void
-     * @test
-     * @covers ::createEditUri
-     * @covers ::getReturnUrl
-     * @covers ::getModuleName
-     * @throws RouteNotFoundException
-     */
-    public function createEditUriReturnsString()
-    {
-        $this->expectExceptionCode(1476050190);
-        BackendUtility::createEditUri('tt_content', 123);
-    }
-
-    /**
-     * @return void
-     * @test
-     * @covers ::createNewUri
-     * @covers ::getReturnUrl
-     * @covers ::getModuleName
-     * @throws RouteNotFoundException
-     */
-    public function createNewUriReturnsString()
-    {
-        $this->expectExceptionCode(1476050190);
-        BackendUtility::createNewUri('tt_content', 123);
-    }
-
-    /**
-     * Data Provider for getModuleNameReturnsString()
-     *
-     * @return array
-     */
-    public function getModuleNameReturnsStringDataProvider()
-    {
-        return [
-            [
-                [
-                    'M' => null,
-                    'route' => null
-                ],
-                'record_edit'
-            ],
-            [
-                [
-                    'M' => 'foo',
-                    'route' => null
-                ],
-                'record_edit'
-            ],
-            [
-                [
-                    'M' => null,
-                    'route' => '/path',
-                    'routePath' => '/path'
-                ],
-                '/path'
-            ],
-            [
-                [
-                    'M' => null,
-                    'route' => '/path',
-                    'routePath' => '/somethingelse'
-                ],
-                'record_edit'
-            ]
-        ];
-    }
-
-    /**
-     * @param array $getParams
-     * @param string $value
-     * @dataProvider getModuleNameReturnsStringDataProvider
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
-     * @covers ::getModuleName
-     */
-    public function getModuleNameReturnsString(array $getParams, $value)
-    {
-        if (!empty($getParams['route'])) {
-            $router = GeneralUtility::makeInstance(Router::class);
-            $router->addRoute($getParams['route'], new Route($getParams['routePath'], ['some', 'options']));
-        }
-
-        $_GET = $getParams;
-        $this->assertSame($value, BackendUtilityFixture::getModuleNamePublic());
     }
 
     /**
@@ -340,16 +249,5 @@ class BackendUtilityTest extends UnitTestCase
 
         $GLOBALS['BE_USER']->user['admin'] = 1;
         $this->assertSame([1, 2], BackendUtility::filterPagesForAccess([1, 2]));
-    }
-
-    /**
-     * @return void
-     * @test
-     * @covers ::isBackendContext
-     */
-    public function isBackendContextReturnsBool()
-    {
-        define('TYPO3_MODE', 'BE');
-        $this->assertTrue(BackendUtility::isBackendContext());
     }
 }

@@ -82,7 +82,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<f:for each="{mailsPage}" as="mail" iteration="iteration">
+				<f:for each="{pagination.paginator.paginatedItems}" as="mail" iteration="iteration">
 
 					<f:comment>Basic mail information</f:comment>
 					<tr class="{f:if(condition:iteration.isFirst,then:' firstcol')}{f:if(condition:iteration.isLast,then:' lastcol')}">

@@ -19,7 +19,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->powermailVersionNoteViewHelperMock = $this->getAccessibleMock(
             PowermailVersionNoteViewHelper::class,
@@ -30,7 +30,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown():void
     {
         unset($this->generalValidatorMock);
     }

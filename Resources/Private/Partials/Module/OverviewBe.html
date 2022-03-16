@@ -34,7 +34,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<f:for each="{formsPage}" as="form" iteration="iteration">
+				<f:for each="{forms}" as="form" iteration="iteration">
 
 					<f:comment>Basic form information</f:comment>
 					<tr class="{f:if(condition:iteration.isFirst,then:' firstcol')}{f:if(condition:iteration.isLast,then:' lastcol')}">

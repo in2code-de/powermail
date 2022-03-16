@@ -6,14 +6,18 @@ default:
       paths:
         features: '%paths.base%/Features'
         bootstrap: '%paths.base%/Features/Bootstrap'
-      contexts: [FeatureContext]
+      contexts:
+        - DrevOps\BehatScreenshotExtension\Context\ScreenshotContext
+        - FeatureContext
   extensions:
+    DrevOps\BehatScreenshotExtension:
+      dir: '%paths.base%/../../.project/data/screenshots'
+      fail: true
+      fail_prefix: 'failed_'
+      purge: true
     Behat\MinkExtension:
       base_url: https://local.powermail.de
       files_path: /app/Tests/Behavior/Assets
-      goutte:
-        guzzle_parameters:
-          verify: false
       selenium2: ~
       browser_name: 'chrome'
       sessions:
@@ -21,11 +25,7 @@ default:
           selenium2:
             capabilities:
               acceptSslCerts: true
-              browser:              chrome
+              browser: chrome
               extra_capabilities:
                 acceptInsecureCerts: true
             wd_host: 'http://chrome:4444/wd/hub'
-        my_session:
-          goutte:
-            guzzle_parameters:
-              verify: false

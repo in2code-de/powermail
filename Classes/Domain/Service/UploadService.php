@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Service;
 
+use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
@@ -126,7 +127,7 @@ class UploadService implements SingletonInterface
         if (!empty($extension) &&
             !empty($fileExtensions) &&
             GeneralUtility::inList($fileExtensions, $extension) &&
-            GeneralUtility::verifyFilenameAgainstDenyPattern($filename) &&
+            GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename) &&
             GeneralUtility::validPathStr($filename)
         ) {
             return true;
@@ -189,7 +190,7 @@ class UploadService implements SingletonInterface
     protected function fillFilesFromHiddenFields(): void
     {
         $arguments = $this->getArguments();
-        foreach ((array)$arguments['field'] as $marker => $values) {
+        foreach ((array)($arguments['field'] ?? []) as $marker => $values) {
             $fileNames = $this->getNewFileNamesByMarker($marker);
             if (empty($fileNames)) {
                 foreach ((array)$values as $value) {

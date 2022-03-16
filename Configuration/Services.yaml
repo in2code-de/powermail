@@ -6,3 +6,35 @@ services:
 
   In2code\Powermail\:
     resource: '../Classes/*'
+
+  # Commands
+
+  In2code\Powermail\Command\CleanupExportsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'powermail:cleanupExports'
+        description: 'Powermail: Remove all export files in typo3temp/assets/tx_powermail/'
+
+  In2code\Powermail\Command\CleanupUnusedUploadsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'powermail:cleanupUnusedUploads'
+        description: 'Remove unused uploaded Files with a scheduler task'
+
+  In2code\Powermail\Command\CleanupUploadsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'powermail:cleanupUploads'
+        description: 'Remove all (!) uploaded files in uploads/tx_powermail/'
+
+  In2code\Powermail\Command\ExportCommand:
+    tags:
+      - name: 'console.command'
+        command: 'powermail:export'
+        description: 'This task can send a mail export with an attachment (XLS or CSV) to a receiver or a group of receivers'
+
+  In2code\Powermail\Command\ResetMarkersCommand:
+    tags:
+      - name: 'console.command'
+        command: 'powermail:resetMarkers'
+        description: 'Reset all marker names in fields if there are broken fields without or duplicated markernames.'

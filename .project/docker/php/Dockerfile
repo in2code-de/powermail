@@ -1,3 +1,3 @@
-FROM in2code/php-dev:7.2-fpm
+FROM in2code/php-dev:8.0-fpm
 
-COPY xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY zz_xdebug.ini /usr/local/etc/php/conf.d/zz_xdebug.ini

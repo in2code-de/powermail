@@ -24,12 +24,6 @@ interface ValidatorInterface
     public function isServerValidationEnabled(): bool;
 
     /**
-     * @param ConfigurationManagerInterface $configurationManager
-     * @return void
-     */
-    public function injectTypoScript(ConfigurationManagerInterface $configurationManager): void;
-
-    /**
      * @param bool $validState
      * @return void
      */

@@ -20,7 +20,7 @@ class LinkMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             LinkMethod::class,
@@ -36,7 +36,7 @@ class LinkMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown():void
     {
         unset($this->generalValidatorMock);
     }

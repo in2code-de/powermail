@@ -20,22 +20,22 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     /**
      * @var ConfigurationManagerInterface
      */
-    protected $configurationManager;
+    protected ConfigurationManagerInterface $configurationManager;
 
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObject;
+    protected ContentObjectRenderer $contentObject;
 
     /**
      * Configuration
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * @var string
      */
-    protected $extensionName = '';
+    protected string $extensionName = '';
 
     /**
      * Check if native validation is activated
@@ -61,11 +61,11 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * Set mandatory attributes
      *
      * @param array $additionalAttributes
-     * @param Field $field
+     * @param Field|null $field
      * @return array
      * @throws Exception
      */
-    protected function addMandatoryAttributes(array $additionalAttributes, Field $field = null): array
+    protected function addMandatoryAttributes(array $additionalAttributes, ?Field $field): array
     {
         if ($field !== null && $field->isMandatory()) {
             if ($this->isNativeValidationEnabled()) {
@@ -135,7 +135,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
         $this->extensionName = 'Powermail';
         // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
         $this->contentObject = $this->configurationManager->getContentObject();
-        if ($this->arguments['extensionName'] !== null) {
+        if (isset($this->arguments['extensionName']) && $this->arguments['extensionName'] !== '') {
             $this->extensionName = $this->arguments['extensionName'];
         }
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);

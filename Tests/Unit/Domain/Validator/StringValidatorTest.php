@@ -19,18 +19,21 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             StringValidator::class,
-            ['dummy']
+            ['dummy'],
+            [],
+            '',
+            false
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown():void
     {
         unset($this->generalValidatorMock);
     }

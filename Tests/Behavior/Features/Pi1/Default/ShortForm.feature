@@ -12,13 +12,13 @@ Feature: ShortForm
 
   Scenario: Fill out DefaultForm and submit
     Given I am on "/powermail/pi1/default/shortform"
-    When I fill in "tx_powermail_pi1[field][firstname]" with "Alex"
-    When I fill in "tx_powermail_pi1[field][lastname]" with "Kellner"
-    When I fill in "tx_powermail_pi1[field][email]" with "alex@in2code.de"
+    When I fill in "tx_powermail_pi1[field][firstname]" with "Kim"
+    When I fill in "tx_powermail_pi1[field][lastname]" with "Salow"
+    When I fill in "tx_powermail_pi1[field][email]" with "Kim_Salow@fake-gmail-128.com"
     And I press "Jetzt Absenden"
-    Then I should see "Alex"
-    Then I should see "Kellner"
-    Then I should see "alex@in2code.de"
+    Then I should see "Kim"
+    Then I should see "Salow"
+    Then I should see "Kim_Salow@fake-gmail-128.com"
 
 # L=1
   Scenario: Searching for a DefaultForm that does exist in english
@@ -30,10 +30,10 @@ Feature: ShortForm
 
   Scenario: Fill out DefaultForm (english) and submit
     Given I am on "/en/powermail/pi1/default/shortform"
-    When I fill in "tx_powermail_pi1[field][firstname]" with "Alexandra"
-    When I fill in "tx_powermail_pi1[field][lastname]" with "Kellner"
-    When I fill in "tx_powermail_pi1[field][email]" with "alexandra@in2code.de"
+    When I fill in "tx_powermail_pi1[field][firstname]" with "Kim"
+    When I fill in "tx_powermail_pi1[field][lastname]" with "Salow"
+    When I fill in "tx_powermail_pi1[field][email]" with "Kim_Salow@fake-gmail-128.com"
     And I press "Submit"
-    Then I should see "Alexandra"
-    Then I should see "Kellner"
-    Then I should see "alexandra@in2code.de"
+    Then I should see "Kim"
+    Then I should see "Salow"
+    Then I should see "Kim_Salow@fake-gmail-128.com"

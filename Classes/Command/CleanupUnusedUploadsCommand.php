@@ -50,7 +50,8 @@ class CleanupUnusedUploadsCommand extends Command
         }
         $output->writeln('Overall Files: ' . count($allUploads));
         $output->writeln('Removed Files: ' . $removeCounter);
-        return 0;
+        // todo implement error handling
+        return Command::SUCCESS;
     }
 
     /**

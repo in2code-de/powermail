@@ -2,7 +2,7 @@
 
 ## Description: import given test data into ddev (database and configurations)
 ## Usage: initialize
-## Example: "ddev import-data"
+## Example: "ddev initialize"
 
 if ! command -v "git-lfs" &> /dev/null
 then
@@ -16,3 +16,5 @@ ddev import-db --src=.project/data/db.sql.gz
 mkdir -p config/sites/main && cp .project/TYPO3/config.yaml config/sites/main/
 cp .ddev/typo3/AdditionalConfiguration.php .Build/Web/typo3conf/
 ddev typo3cms install:setup
+mkdir -p .Build/Web/fileadmin
+cd .Build/Web && tar xf ../../.project/data/fileadmin.tar.gz

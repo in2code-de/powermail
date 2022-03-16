@@ -87,10 +87,10 @@ class ExportCommand extends Command
             ->setEmailTemplate($input->getArgument('emailTemplate'));
         if ($exportService->send() === true) {
             $output->writeln('Export finished');
-            return 0;
+            return Command::SUCCESS;
         }
         $output->writeln('Export could not be generated');
-        return 1;
+        return Command::FAILURE;
     }
 
     /**
