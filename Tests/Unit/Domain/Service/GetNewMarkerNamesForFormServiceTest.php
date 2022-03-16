@@ -20,65 +20,20 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->createMarkerMock = $this->getAccessibleMock(
             GetNewMarkerNamesForFormService::class,
-            ['dummy']
+            ['cleanString']
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->createMarkerMock);
-    }
-
-    /**
-     * Dataprovider cleanStringReturnsString()
-     *
-     * @return array
-     */
-    public function cleanStringReturnsStringDataProvider()
-    {
-        return [
-            [
-                'test',
-                'default',
-                'test',
-            ],
-            [
-                'This is A Test',
-                'default',
-                'thisisatest',
-            ],
-            [
-                '$T h%is_-',
-                'default',
-                'this__',
-            ],
-            [
-                'ęąśółżźćäöüśćóß',
-                'default',
-                'easolzzcaeoeuescoss',
-            ]
-        ];
-    }
-
-    /**
-     * @param string $string
-     * @param string $defaultValue
-     * @param string $expectedResult
-     * @return void
-     * @dataProvider cleanStringReturnsStringDataProvider
-     * @test
-     * @covers ::cleanString
-     */
-    public function cleanStringReturnsString($string, $defaultValue, $expectedResult)
-    {
-        $this->assertSame($expectedResult, $this->createMarkerMock->_callRef('cleanString', $string, $defaultValue));
     }
 
     /**
@@ -229,6 +184,9 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
                 $field->_setProperty($key, $value);
             }
             $fieldArray[$field->getUid()] = $field;
+        }
+        if ($forceReset) {
+            $this->createMarkerMock->method('cleanString')->willReturnOnConsecutiveCalls('def', 'def_01');
         }
         $this->assertSame(
             $expectedResult,

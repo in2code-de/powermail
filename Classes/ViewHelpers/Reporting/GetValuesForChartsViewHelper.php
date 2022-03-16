@@ -41,7 +41,7 @@ class GetValuesForChartsViewHelper extends AbstractViewHelper
         }
 
         foreach ($answers[$fieldUidOrKey] as $amount) {
-            $amount = str_replace([$this->notAllowedSign, $separator], '', $amount);
+            $amount = str_replace([$this->notAllowedSign, $separator], '', (string)$amount);
             $amount = htmlspecialchars($amount);
             $string .= $amount;
             $string .= $separator;

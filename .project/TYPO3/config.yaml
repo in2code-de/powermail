@@ -1,0 +1,38 @@
+base: 'https://local.powermail.de/'
+errorHandling: {  }
+baseVariants:
+  -
+    base: 'https://powermail.ddev.site/'
+    condition: 'applicationContext == "Development/DDEV"'
+languages:
+  -
+    title: deutsch
+    enabled: true
+    base: /
+    typo3Language: de
+    locale: de_DE
+    iso-639-1: de
+    websiteTitle: Powermail
+    navigationTitle: Deutsch
+    hreflang: de-DE
+    direction: ''
+    fallbackType: strict
+    fallbacks: ''
+    flag: de
+    languageId: '0'
+  -
+    title: English
+    enabled: true
+    base: /en/
+    typo3Language: default
+    locale: en_US.UTF-8
+    iso-639-1: en
+    websiteTitle: ''
+    navigationTitle: English
+    hreflang: en-US
+    direction: ltr
+    flag: en-us-gb
+    languageId: '1'
+rootPageId: 1
+routes: {  }
+websiteTitle: ''

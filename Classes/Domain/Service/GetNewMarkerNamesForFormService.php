@@ -57,11 +57,12 @@ class GetNewMarkerNamesForFormService
      */
     public function getMarkersForFieldsDependingOnForm(int $formUid, bool $forceReset): array
     {
+        $forms = [];
         $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
         if ($formUid === 0) {
             $forms = $formRepository->findAll();
-        } else {
-            $forms = [$formRepository->findByUid($formUid)];
+        } elseif ($form = $formRepository->findByUid($formUid)) {
+            $forms = [$form];
         }
         $markers = [];
         /** @var Form $form */

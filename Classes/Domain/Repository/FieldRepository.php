@@ -221,7 +221,7 @@ class FieldRepository extends AbstractRepository
      */
     public function getFieldUidFromMarker(string $marker, int $formUid = 0): int
     {
-        $field = $this->findByMarkerAndForm($marker, $formUid);
+        $field = $this->findByMarkerAndForm($marker, $formUid)??'';
         if (method_exists($field, 'getUid')) {
             return $field->getUid();
         }

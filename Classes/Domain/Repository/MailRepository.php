@@ -162,22 +162,25 @@ class MailRepository extends AbstractRepository
         ];
 
         // FILTER: form
-        if ((int)$settings['main']['form'] > 0) {
-            $and[] = $query->equals('form', $settings['main']['form']);
+        $mainSettings = $settings['main'] ?? [];
+        $listSettings = $settings['list'] ?? [];
+        $searchSettings = $settings['search'] ?? [];
+        if ((int)($mainSettings['form'] ?? 0) > 0) {
+            $and[] = $query->equals('form', $mainSettings['form']);
         }
 
         // FILTER: pid
-        if ((int)$settings['main']['pid'] > 0) {
-            $and[] = $query->equals('pid', $settings['main']['pid']);
+        if ((int)($mainSettings['pid'] ?? 0) > 0) {
+            $and[] = $query->equals('pid', $mainSettings['pid']);
         }
 
         // FILTER: delta
-        if ((int)$settings['list']['delta'] > 0) {
-            $and[] = $query->greaterThan('crdate', (time() - $settings['list']['delta']));
+        if ((int)($listSettings['delta'] ?? 0) > 0) {
+            $and[] = $query->greaterThan('crdate', (time() - $listSettings['delta']));
         }
 
         // FILTER: showownonly
-        if ($settings['list']['showownonly']) {
+        if ($listSettings['showownonly'] ?? false) {
             $and[] = $query->equals('feuser', FrontendUtility::getPropertyFromLoggedInFrontendUser());
         }
 
@@ -225,8 +228,8 @@ class MailRepository extends AbstractRepository
         $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
 
         // set limit
-        if ((int)$settings['list']['limit'] > 0) {
-            $query->setLimit((int)$settings['list']['limit']);
+        if ((int)($listSettings['limit'] ?? 0) > 0) {
+            $query->setLimit((int)$listSettings['limit']);
         }
 
         return $query->execute();

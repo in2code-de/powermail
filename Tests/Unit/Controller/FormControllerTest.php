@@ -2,14 +2,16 @@
 namespace In2code\Powermail\Tests\Unit\Controller;
 
 use In2code\Powermail\Controller\FormController;
-use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use In2code\Powermail\Tests\Unit\Fixtures\Controller\FormControllerFixture;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Http\Response;
+use TYPO3\CMS\Core\Http\ResponseFactory;
+use TYPO3\CMS\Core\Http\StreamFactory;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\Mvc\Response;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 /**
@@ -27,10 +29,10 @@ class FormControllerTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
-            FormControllerFixture::class,
+            FormController::class,
             ['dummy']
         );
     }
@@ -38,7 +40,7 @@ class FormControllerTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -63,6 +65,10 @@ class FormControllerTest extends UnitTestCase
      */
     public function forwardIfFormParamsDoNotMatchReturnsVoidDataProvider()
     {
+        $form = new Form();
+        $form->_setProperty('uid', 2);
+        $mail = new Mail();
+        $mail->setForm($form);
         return [
             'not allowed form given, forward' => [
                 [
@@ -92,7 +98,7 @@ class FormControllerTest extends UnitTestCase
             ],
             'mail object given, do not forward' => [
                 [
-                    'mail' => new Mail()
+                    'mail' => $mail
                 ],
                 [
                     'main' => [
@@ -128,11 +134,13 @@ class FormControllerTest extends UnitTestCase
     {
         $this->setDefaultControllerProperties($arguments);
         $this->generalValidatorMock->_set('settings', $settings);
+
         if ($forward === true) {
-            $this->expectExceptionCode(1514993039679);
+            $this->expectException(StopActionException::class);
         }
-        $this->generalValidatorMock->_callRef('forwardIfFormParamsDoNotMatch');
-        $this->assertTrue(true);
+
+        $response = $this->generalValidatorMock->_callRef('forwardIfFormParamsDoNotMatch');
+        $this->assertNull($response);
     }
 
     /**
@@ -170,10 +178,11 @@ class FormControllerTest extends UnitTestCase
     {
         TestingHelper::setDefaultConstants();
         $this->setDefaultControllerProperties($arguments);
+
+        $response = $this->generalValidatorMock->_call('forwardIfMailParamEmpty');
         if ($forward === true) {
-            $this->expectExceptionCode(1514993039679);
+            $this->assertInstanceOf(ForwardResponse::class, $response);
         }
-        $this->generalValidatorMock->_call('forwardIfMailParamEmpty');
         $this->assertTrue(true);
     }
 
@@ -223,10 +232,13 @@ class FormControllerTest extends UnitTestCase
         $form->_setProperty('uid', $formUid);
         $mail = new Mail();
         $mail->setForm($form);
+
+        $this->generalValidatorMock->injectResponseFactory(new ResponseFactory());
+        $this->generalValidatorMock->injectStreamFactory(new StreamFactory());
+        $response = $this->generalValidatorMock->_call('forwardIfFormParamsDoNotMatchForOptinConfirm', $mail);
         if ($forward === true) {
-            $this->expectExceptionCode(1514993039679);
+            $this->assertInstanceOf(ForwardResponse::class, $response);
         }
-        $this->generalValidatorMock->_call('forwardIfFormParamsDoNotMatchForOptinConfirm', $mail);
         $this->assertTrue(true);
     }
 
@@ -370,22 +382,6 @@ class FormControllerTest extends UnitTestCase
         ];
         $this->generalValidatorMock->_set('settings', $settings);
         $this->assertTrue($this->generalValidatorMock->_call('isReceiverMailEnabled'));
-    }
-
-    /**
-     * @return void
-     * @test
-     * @covers ::injectDataProcessorRunner
-     */
-    public function injectDataProcessorRunner()
-    {
-        $dataProcessorRunner = new DataProcessorRunner();
-        $this->generalValidatorMock->_call('injectDataProcessorRunner', $dataProcessorRunner);
-        $this->assertAttributeInstanceOf(
-            DataProcessorRunner::class,
-            'dataProcessorRunner',
-            $this->generalValidatorMock
-        );
     }
 
     /**

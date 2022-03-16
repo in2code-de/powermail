@@ -11,8 +11,10 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -31,9 +33,10 @@ class ModuleController extends AbstractController
      * @return void
      * @noinspection PhpUnused
      */
-    public function dispatchAction($forwardToAction = 'list'): void
+    public function dispatchAction($forwardToAction = 'list'): ResponseInterface
     {
         $this->forward($forwardToAction);
+        return $this->htmlResponse();
     }
 
     /**
@@ -42,24 +45,49 @@ class ModuleController extends AbstractController
      * @throws RouteNotFoundException
      * @noinspection PhpUnused
      */
-    public function listAction(): void
+    public function listAction(): ResponseInterface
     {
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
-        $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'], key($formUids));
+        $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
+
+        $currentPage = $this->request->hasArgument('currentPage')
+            ? (int)$this->request->getArgument('currentPage')
+            : 1;
+
+        $itemsPerPage = (int)$this->settings['perPage'] ? (int)$this->settings['perPage'] : 10;
+        $maximumLinks = 15;
+
+        // Pagination for Mails
+        $paginator = new \TYPO3\CMS\Extbase\Pagination\QueryResultPaginator(
+            $mails,
+            $currentPage,
+            $itemsPerPage
+        );
+        $pagination = new \In2code\Powermail\Utility\SlidingWindowPagination(
+            $paginator,
+            $maximumLinks
+        );
+
+        $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'] ?? '', key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
         $this->view->assignMultiple(
             [
-                'mails' => $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars),
+                'mails' => $mails,
                 'formUids' => $formUids,
                 'firstForm' => $this->formRepository->findByUid($firstFormUid),
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
+                'pagination' => [
+                    'pagination' => $pagination,
+                    'paginator' => $paginator
+                ],
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
                 'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                     && $beUser->check('tables_modify', Mail::TABLE_NAME),
             ]
         );
+        return $this->htmlResponse();
     }
 
     /**
@@ -67,7 +95,7 @@ class ModuleController extends AbstractController
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
-    public function exportXlsAction(): void
+    public function exportXlsAction(): ResponseInterface
     {
         $this->view->assignMultiple(
             [
@@ -84,6 +112,7 @@ class ModuleController extends AbstractController
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: inline; filename="' . $fileName . '"');
         header('Pragma: no-cache');
+        return $this->htmlResponse();
     }
 
     /**
@@ -91,7 +120,7 @@ class ModuleController extends AbstractController
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
-    public function exportCsvAction(): void
+    public function exportCsvAction(): ResponseInterface
     {
         $this->view->assignMultiple(
             [
@@ -108,6 +137,7 @@ class ModuleController extends AbstractController
         header('Content-Type: text/x-csv');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         header('Pragma: no-cache');
+        return $this->htmlResponse();
     }
 
     /**
@@ -116,7 +146,7 @@ class ModuleController extends AbstractController
      * @throws RouteNotFoundException
      * @noinspection PhpUnused
      */
-    public function reportingFormBeAction(): void
+    public function reportingFormBeAction(): ResponseInterface
     {
         $mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
@@ -133,6 +163,7 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             ]
         );
+        return $this->htmlResponse();
     }
 
     /**
@@ -142,7 +173,7 @@ class ModuleController extends AbstractController
      * @throws PropertyNotAccessibleException
      * @noinspection PhpUnused
      */
-    public function reportingMarketingBeAction(): void
+    public function reportingMarketingBeAction(): ResponseInterface
     {
         $mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
@@ -159,6 +190,7 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
             ]
         );
+        return $this->htmlResponse();
     }
 
     /**
@@ -167,11 +199,12 @@ class ModuleController extends AbstractController
      * @throws Exception
      * @noinspection PhpUnused
      */
-    public function overviewBeAction(): void
+    public function overviewBeAction(): ResponseInterface
     {
         $forms = $this->formRepository->findAllInPidAndRootline($this->id);
         $this->view->assign('forms', $forms);
         $this->view->assign('pid', $this->id);
+        return $this->htmlResponse();
     }
 
     /**
@@ -190,10 +223,11 @@ class ModuleController extends AbstractController
      * @throws Exception
      * @noinspection PhpUnused
      */
-    public function checkBeAction($email = null): void
+    public function checkBeAction($email = null): ResponseInterface
     {
         $this->view->assign('pid', $this->id);
         $this->sendTestEmail($email);
+        return $this->htmlResponse();
     }
 
     /**
@@ -298,14 +332,15 @@ class ModuleController extends AbstractController
      * Check if admin is logged in
      *        If not, forward to tools overview
      *
-     * @return void
+     * @return ResponseInterface|null
      * @throws StopActionException
      */
-    protected function checkAdminPermissions(): void
+    protected function checkAdminPermissions(): ?ResponseInterface
     {
         if (!BackendUtility::isBackendAdmin()) {
             $this->controllerContext = $this->buildControllerContext();
-            $this->forward('toolsBe');
+            return new ForwardResponse('toolsBe');
         }
+        return null;
     }
 }

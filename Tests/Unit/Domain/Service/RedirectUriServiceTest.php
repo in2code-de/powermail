@@ -21,7 +21,7 @@ class RedirectUriServiceTest extends UnitTestCase
      * @return void
      * @throws Exception
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             RedirectUriServiceFixture::class,
@@ -33,7 +33,7 @@ class RedirectUriServiceTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }

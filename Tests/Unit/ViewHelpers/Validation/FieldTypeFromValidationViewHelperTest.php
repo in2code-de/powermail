@@ -20,7 +20,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             FieldTypeFromValidationViewHelper::class,
@@ -31,7 +31,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }

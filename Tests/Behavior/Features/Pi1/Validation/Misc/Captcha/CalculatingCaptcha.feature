@@ -25,12 +25,12 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "3"
 
   @Pi1ValidationMiscCaptchaCalculatingCaptchaL1
   Scenario: Searching for a Form with a captcha on PID 70
-    Given I am on "/en/powermail/pi1/validation/misc/captcha/calculatingcaptcha/calculatingcaptcha-confirm"
+    Given I am on "/en/powermail/pi1/validation/misc/captcha/calculatingcaptcha/captcha-confirmation"
     Then I should see "Email"
     Then I should see "Captcha"
     Then I should see an "#powermail_captchaimage" element
@@ -49,7 +49,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "3"
 
 
@@ -75,7 +75,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "3"
 
   @Pi1ValidationMiscCaptchaCalculatingCaptchaStrictL1
@@ -99,7 +99,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "3"
 
   # Two captchas in one form
@@ -160,7 +160,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha2]" with "1"
     And I press "Submit"
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "1"
 
   # Two forms with one captcha per form with AJAX
@@ -186,5 +186,5 @@ Feature: CaptchaValidation
     And I press "Submit"
     And I wait "a few" seconds
 
-    Then I should see "alex@in2code.de"
+    Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "1"

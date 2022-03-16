@@ -4,6 +4,7 @@ namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\Exception;
 
@@ -64,7 +65,8 @@ class ConfigurationService implements SingletonInterface
             'Powermail',
             $pluginName
         );
-        return (array)$setup['setup'];
+
+        return $setup['setup'] ?? [];
     }
 
     /**
@@ -80,6 +82,9 @@ class ConfigurationService implements SingletonInterface
             'Powermail',
             $pluginName
         );
-        return (array)$configuration['plugin.']['tx_powermail.']['settings.']['setup.'];
+        if (ArrayUtility::isValidPath($configuration, 'plugin./tx_powermail./settings./setup.')) {
+            return (array)$configuration['plugin.']['tx_powermail.']['settings.']['setup.'];
+        }
+        return [];
     }
 }

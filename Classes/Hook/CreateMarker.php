@@ -186,7 +186,7 @@ class CreateMarker
                 (int)$uid,
                 'marker'
             );
-            if ($row['marker'] !== $marker) {
+            if (($row['marker'] ?? false) !== $marker) {
                 $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
                 $queryBuilder->update(Field::TABLE_NAME)->where('uid=' . (int)$uid)->set('marker', $marker)->execute();
             }
@@ -224,7 +224,7 @@ class CreateMarker
      */
     protected function addNewFields(): void
     {
-        foreach ((array)$this->data[Field::TABLE_NAME] as $fieldUid => $properties) {
+        foreach ((array)($this->data[Field::TABLE_NAME] ?? []) as $fieldUid => $properties) {
             $this->addField($this->makeFieldFromProperties($properties, (string)$fieldUid));
         }
     }
@@ -251,7 +251,7 @@ class CreateMarker
         if (!empty($properties['sys_language_uid'])) {
             $field->_setProperty('_languageUid', $properties['sys_language_uid']);
         }
-        $field->setDescription((string)$properties['uid'] > 0 ? (string)$properties['uid'] : $uid);
+        $field->setDescription((string)($properties['uid'] ?? '') > 0 ? (string)$properties['uid'] : $uid);
         return $field;
     }
 
@@ -292,7 +292,7 @@ class CreateMarker
 
         // if pages open (fields via IRRE)
         if ($formUid === 0) {
-            foreach (array_keys((array)$this->data[Page::TABLE_NAME]) as $uid) {
+            foreach (array_keys((array)($this->data[Page::TABLE_NAME] ?? [])) as $uid) {
                 if (!empty($this->data[Page::TABLE_NAME][$uid]['form'])) {
                     $formUid = (int)$this->data[Page::TABLE_NAME][$uid]['form'];
                 }
@@ -301,7 +301,7 @@ class CreateMarker
 
         // if field is directly opened (no IRRE OR opened pages with their IRRE fields
         if ($formUid === 0) {
-            foreach (array_keys((array)$this->data[Field::TABLE_NAME]) as $uid) {
+            foreach (array_keys((array)($this->data[Field::TABLE_NAME] ?? [])) as $uid) {
                 if (!empty($this->data[Field::TABLE_NAME][$uid]['page'])) {
                     $formUid = $this->getFormUidFromRelatedPage((int)$this->data[Field::TABLE_NAME][$uid]['page']);
                 }

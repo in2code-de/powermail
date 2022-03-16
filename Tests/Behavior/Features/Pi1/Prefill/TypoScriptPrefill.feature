@@ -10,11 +10,11 @@ Feature: TypoScriptPrefill
     Then I should see "Select Multi"
     Then I should see "Check"
     Then I should see "Radio"
-    Then the "tx_powermail_pi1[field][input]" field should contain "Alex Kellner"
+    Then the "tx_powermail_pi1[field][input]" field should contain "Daniel Boxhammer"
     Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker]">Das'
     Then the sourcecode should contain '<option value="green" selected="selected">green</option>'
     Then the sourcecode should contain '<option value="brown" selected="selected">brown</option>'
     Then the sourcecode should contain '<option value="black" selected="selected">black</option>'
-    Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_03][]" value="black" checked="checked" />'
-    Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_03][]" value="pink" checked="checked" />'
-    Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_04]" value="pink" checked="checked" />'
+    Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_03][]" value="black" checked="checked">'
+    Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_03][]" value="pink" checked="checked">'
+    Then the sourcecode should contain 'name="tx_powermail_pi1[field][marker_04]" value="pink" checked="checked"'

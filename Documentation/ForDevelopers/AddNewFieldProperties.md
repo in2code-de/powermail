@@ -5,10 +5,11 @@
 You can extend powermail fields with new properties to insert (e.g.) a checkbox for readonly or disabled or
 something else.
 
-Following example shows two new fields in a new tab "Powermailextended".
-The first is a textarea. If there is text stored, this should be outputted before the Input field is rendered.
-The second is a checkbox. If this checkbox was checked from an editor, the input field should use the html-attribute
-readonly="readonly".
+Following example shows two new fields in a new tab "Powermailextended".  
+The first is an input field of type textarea. If the user entered text for this field this text shall
+be displayed.  
+The second field is a checkbox. If this checkbox was checked from an editor, the input field should use
+the html-attribute readonly="readonly".
 
 ![developer_new_fieldproperties1](../Images/developer_new_fieldproperties1.png)
 

@@ -50,7 +50,12 @@ $finder = PhpCsFixer\Finder::create()
 //  - Remove unused use statements in the PHP source code
 //  - Ensure Concatenation to have at least one whitespace around
 //  - Remove trailing whitespace at the end of blank lines.
-return PhpCsFixer\Config::create()->setRiskyAllowed(true)->setRules([
+
+$config = new PhpCsFixer\Config();
+
+return $config
+    ->setRiskyAllowed(true)
+    ->setRules([
         '@PSR2' => true,
         '@DoctrineAnnotation' => true,
         'no_leading_import_slash' => true,
@@ -62,14 +67,14 @@ return PhpCsFixer\Config::create()->setRiskyAllowed(true)->setRules([
         'ordered_imports' => true,
         'single_quote' => true,
         'no_empty_statement' => true,
-        'no_extra_consecutive_blank_lines' => true,
+        'no_extra_blank_lines' => true,
         'phpdoc_no_package' => true,
         'phpdoc_scalar' => true,
         'no_blank_lines_after_phpdoc' => true,
         'array_syntax' => ['syntax' => 'short'],
         'whitespace_after_comma_in_array' => true,
         'function_typehint_space' => true,
-        'hash_to_slash_comment' => true,
+        'single_line_comment_style' => ['comment_types' => ['hash']],
         'no_alias_functions' => true,
         'lowercase_cast' => true,
         'no_leading_namespace_whitespace' => true,

@@ -76,6 +76,7 @@ class SessionViewHelper extends AbstractViewHelper
         $pageArguments = GeneralUtility::makeInstance(PageArguments::class, 1, 0, []);
         $nullFrontend = GeneralUtility::makeInstance(NullFrontend::class, 'pages');
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $frontendUser = new FrontendUserAuthentication();
         try {
             $cacheManager->registerCache($nullFrontend);
         } catch (\Exception $exception) {
@@ -85,8 +86,10 @@ class SessionViewHelper extends AbstractViewHelper
             GeneralUtility::makeInstance(Context::class),
             $site,
             $siteLanguage,
-            $pageArguments
+            $pageArguments,
+            $frontendUser
         );
-        $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
+        $GLOBALS['TSFE']->fe_user->initializeUserSessionManager();
+        $GLOBALS['TSFE']->fe_user->createUserSession([]);
     }
 }

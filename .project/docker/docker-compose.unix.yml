@@ -1,0 +1,61 @@
+version: "3.7"
+
+services:
+  httpd:
+    image: in2code/httpd:2.4-alpine
+    environment:
+      WEB_DOCUMENT_ROOT: /app/${WEBROOT}/
+      VIRTUAL_HOST: ${HOST}
+      VIRTUAL_PORT: 443
+      VIRTUAL_PROTO: https
+    volumes:
+      - ./:/app/:cached
+    networks:
+      default:
+        aliases:
+          - ${HOST}
+
+  php:
+    image: in2code/php-dev:8.0-fpm
+    volumes:
+      - ./:/app/:cached
+      - $HOME/.composer/auth.json:/tmp/composer/auth.json
+      - $HOME/.composer/cache/:/tmp/composer/cache/
+    env_file:
+      - .env
+
+  mysql:
+    image: in2code/mysql:5.7
+    env_file:
+      - .env
+    volumes:
+      - mysql:/var/lib/mysql/
+      - ${SQLDUMPSDIR}:/${SQLDUMPSDIR}
+    ports:
+      - ${SQLPORT}:3306
+
+  node:
+    image: node:10
+    user: node
+    command: ["bash"]
+    tty: true
+    volumes:
+      - ./:/home/node/app/
+    working_dir: /home/node/app/Resources/Private
+
+  chrome:
+    image: selenium/standalone-chrome-debug:3.141
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - ${CHROMEPORT}:5900
+
+  mail:
+    image: mailhog/mailhog
+    environment:
+      VIRTUAL_PORT: 8025
+      VIRTUAL_HOST: ${MAIL}
+
+volumes:
+  typo3var:
+  mysql:

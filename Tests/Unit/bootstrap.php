@@ -1,4 +1,6 @@
 <?php
+use In2code\Powermail\Exception\FileNotFoundException;
+
 if (empty($webRoot = getenv('TYPO3_PATH_WEB'))) {
     putenv('TYPO3_PATH_WEB=' . $webRoot = realpath(__DIR__ . '/../../.Build/Web') . '/');
 } else {
@@ -7,7 +9,7 @@ if (empty($webRoot = getenv('TYPO3_PATH_WEB'))) {
 $buildRoot = realpath($webRoot . '/..');
 $autoload = $buildRoot . '/vendor/autoload.php';
 if (!file_exists($autoload)) {
-    throw new \In2code\Powermail\Exception\FileNotFoundException('Can not find autoload path', 1579187349);
+    throw new FileNotFoundException('Can not find autoload path', 1579187349);
 }
 
 $bootstrapLoaded = false;
@@ -21,7 +23,7 @@ if (file_exists($bootstrap)) {
     $bootstrapLoaded = true;
 }
 if ($bootstrapLoaded === false) {
-    throw new \In2code\Powermail\Exception\FileNotFoundException(
+    throw new FileNotFoundException(
         'Can not find unit test bootstrap file. Did you do a composer update?',
         1579187344
     );

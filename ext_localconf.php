@@ -1,5 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
@@ -76,14 +76,14 @@ call_user_func(function () {
     /**
      * JavaScript evaluation of TCA fields
      */
-    $TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =
         'EXT:powermail/Classes/Tca/EvaluateEmail.php';
 
     /**
      * eID to get location from geo coordinates
      */
     $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] =
-        'EXT:powermail/Classes/Eid/GetLocationEid.php';
+        \In2code\Powermail\Eid\GetLocationEid::class . '::main';
 
     /**
      * User field registrations in TCA/FlexForm

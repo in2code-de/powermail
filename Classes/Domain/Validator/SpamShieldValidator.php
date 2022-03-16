@@ -417,6 +417,7 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function isSpamShieldEnabled(Mail $mail): bool
     {
+        $this->initializeObject();
         $breakerRunner = ObjectUtility::getObjectManager()->get(
             BreakerRunner::class,
             $mail,

@@ -27,13 +27,6 @@ Feature: Active
 
     And I press "Submit"
 
-    Then I should see "Sind diese Eingaben korrekt?"
-    Then I should see "Barbapappa"
-    Then I should see "This is a text"
-    Then I should see "test"
-
-    And I press "Weiter"
-
     Then I should see "Barbapappa"
     Then I should see "This is a text"
     Then I should see "test"

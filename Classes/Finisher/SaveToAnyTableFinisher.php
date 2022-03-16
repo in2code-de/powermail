@@ -159,7 +159,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration): bool
     {
-        $enable = $this->contentObject->cObjGetSingle($tableConfiguration['_enable'], $tableConfiguration['_enable.']);
+        $enable = $this->contentObject->cObjGetSingle($tableConfiguration['_enable']??'', $tableConfiguration['_enable.']??null);
         return !empty($enable);
     }
 

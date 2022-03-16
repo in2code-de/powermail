@@ -16,9 +16,12 @@ Feature: AllFields
   Scenario: Check redirect URI for form 2
     Given I am on "/powermail/pi1/default/shortform-ajax-redirect/2x-ajax-redirect"
     Then I should see "Redirect to page \"All Fields\""
-    And I press "submit"
+    And I scroll ".powermail_fieldwrap_marker_02" into view
+    And I press "Submit2"
     And I wait "a few" seconds
-
+    When I fill in "tx_powermail_pi1[field][marker_01]" with "3"
+    And I press "Submit2"
+    And I wait "a few" seconds
     Then I should see "Sind diese Eingaben korrekt"
     And I press "Weiter"
     And I wait "a few" seconds

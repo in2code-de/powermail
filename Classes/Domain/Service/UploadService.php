@@ -14,6 +14,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -126,7 +127,7 @@ class UploadService implements SingletonInterface
         if (!empty($extension) &&
             !empty($fileExtensions) &&
             GeneralUtility::inList($fileExtensions, $extension) &&
-            GeneralUtility::verifyFilenameAgainstDenyPattern($filename) &&
+            GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename) &&
             GeneralUtility::validPathStr($filename)
         ) {
             return true;
@@ -189,7 +190,7 @@ class UploadService implements SingletonInterface
     protected function fillFilesFromHiddenFields(): void
     {
         $arguments = $this->getArguments();
-        foreach ((array)$arguments['field'] as $marker => $values) {
+        foreach ((array)($arguments['field'] ?? []) as $marker => $values) {
             $fileNames = $this->getNewFileNamesByMarker($marker);
             if (empty($fileNames)) {
                 foreach ((array)$values as $value) {

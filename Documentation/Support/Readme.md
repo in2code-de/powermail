@@ -5,7 +5,6 @@
 * A list of known bugs is viewable on GitHub https://github.com/einpraegsam/powermail/issues
 * If you want to support a bugfix, you can write us an email (see https://www.in2code.de)
 
-
 ## Features
 
 * A list of useful features is viewable at GitHub https://github.com/einpraegsam/powermail/issues

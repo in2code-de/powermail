@@ -1,85 +1,121 @@
 {
-  "name": "in2code/powermail",
-  "description": "Powermail is a well-known, editor-friendly, powerful and easy to use mailform extension with a lots of features",
-  "keywords": [
-    "typo3",
-    "form",
-    "mailform",
-    "spamprevention"
-  ],
-  "homepage": "https://github.com/einpraegsam/powermail",
-  "authors": [
-    {
-      "name": "Alex Kellner",
-      "email": "alexander.kellner@in2code.de",
-      "role": "Product and technical owner",
-      "homepage": "https://www.in2code.de"
-    },
-    {
-      "name": "Marcus Schwemer",
-      "email": "marcus.schwemer@in2code.de",
-      "role": "Developer",
-      "homepage": "https://www.in2code.de"
-    }
-  ],
-  "type": "typo3-cms-extension",
-  "license": "GPL-2.0-or-later",
-  "require": {
-    "typo3/cms-core": "^10.4",
-    "ext-json": "*",
-    "ext-gd": "*",
-    "ext-fileinfo": "*",
-    "ext-curl": "*"
-  },
-  "replace": {
-    "typo3-ter/powermail": "self.version"
-  },
-  "require-dev": {
-    "typo3/cms-core": "^10.4",
-    "nimut/testing-framework": "^5.0",
-    "mikey179/vfsstream": "^1.6",
-    "phpunit/phpunit": "^6.0",
-    "behat/behat": "^3.5",
-    "behat/mink-extension": "^2.3",
-    "behat/mink-goutte-driver": "^1.2",
-    "behat/mink-selenium2-driver": "^1.3",
-    "se/selenium-server-standalone": "^3",
-    "squizlabs/php_codesniffer": "^3.5",
-    "phpmd/phpmd": "^2.8",
-    "friendsofphp/php-cs-fixer": "^2.19",
-    "helmich/typo3-typoscript-lint": "^2.5"
-  },
-  "autoload": {
-    "psr-4": {
-      "In2code\\Powermail\\": "Classes/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "In2code\\Powermail\\Tests\\": "Tests",
-      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
-      "TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
-    }
-  },
-  "config": {
-    "vendor-dir": ".Build/vendor",
-    "bin-dir": ".Build/bin"
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "mkdir -p .Build/Web/typo3conf/ext/",
-      "[ -L .Build/Web/typo3conf/ext/powermail ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/powermail"
-    ],
-    "test:unit": "phpunit -c phpunit.xml.dist",
-    "test:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
-    "test:php:cs": "php-cs-fixer fix --dry-run --config=.project/tests/.php-cs-fixer.php --diff",
-    "test:ts:lint": "typoscript-lint -c .project/tests/typoscript-lint.yml --fail-on-warnings"
-  },
-  "extra": {
-    "typo3/cms": {
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/Web",
-      "extension-key": "powermail"
-    }
-  }
+	"name": "in2code/powermail",
+	"description": "Powermail is a well-known, editor-friendly, powerful and easy to use mailform extension with a lots of features",
+	"keywords": [
+		"typo3",
+		"form",
+		"mailform",
+		"spamprevention"
+	],
+	"homepage": "https://github.com/einpraegsam/powermail",
+	"authors": [
+		{
+			"name": "Alex Kellner",
+			"email": "alexander.kellner@in2code.de",
+            "role": "Product owner, Technical owner",
+            "homepage": "https://www.in2code.de"
+		},
+		{
+			"name": "Marcus Schwemer",
+			"email": "marcus.schwemer@in2code.de",
+			"role": "Developer",
+			"homepage": "https://www.in2code.de"
+		}
+	],
+	"type": "typo3-cms-extension",
+	"license": "GPL-2.0-or-later",
+	"require": {
+      "typo3/cms-core": "^11.5.6",
+		"ext-json": "*",
+		"ext-gd": "*",
+		"ext-fileinfo": "*",
+		"ext-curl": "*"
+	},
+	"replace": {
+		"typo3-ter/powermail": "self.version"
+	},
+	"require-dev": {
+		"typo3/cms-extbase": "^11.5.6",
+		"typo3/cms-extensionmanager": "^11.5.6",
+		"typo3/cms-felogin": "^11.5.6",
+		"typo3/cms-filelist": "^11.5.6",
+		"typo3/cms-fluid-styled-content": "^11.5.6",
+		"typo3/cms-frontend": "^11.5.6",
+		"typo3/cms-info": "^11.5.6",
+		"typo3/cms-install": "^11.5.6",
+		"typo3/cms-recordlist": "^11.5.6",
+		"typo3/cms-rte-ckeditor": "^11.5.6",
+		"typo3/cms-scheduler": "^11.5.6",
+		"typo3/cms-setup": "^11.5.6",
+		"typo3/cms-t3editor": "^11.5.6",
+		"typo3/cms-tstemplate": "^11.5.6",
+		"typo3/cms-lowlevel": "^11.5.6",
+		"helmich/typo3-typoscript-lint": "^2.5",
+		"mikey179/vfsstream": "^1.6",
+		"friendsofphp/php-cs-fixer": "^3.2",
+		"squizlabs/php_codesniffer": "^3.5",
+		"phpmd/phpmd": "^2.8",
+		"behat/behat": "^3.8",
+		"helhum/typo3-console": "^7.0",
+		"se/selenium-server-standalone": "^3.141",
+		"symfony/config": "^5.3",
+		"nimut/testing-framework": "6.x-dev",
+		"friends-of-behat/mink-extension": "^2.5",
+		"behat/mink-selenium2-driver": "^1.5",
+		"typo3/cms-adminpanel": "^11.5.6",
+		"typo3/cms-belog": "^11.5.6",
+		"typo3/cms-beuser": "^11.5.6",
+		"typo3/cms-dashboard": "^11.5.6",
+		"friends-of-behat/mink-browserkit-driver": "^1.5",
+		"drevops/behat-screenshot": "^1.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"In2code\\Powermail\\": "Classes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"In2code\\Powermail\\Tests\\": "Tests",
+			"TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
+			"TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+		}
+	},
+	"config": {
+		"vendor-dir": ".Build/vendor",
+		"bin-dir": ".Build/bin",
+		"allow-plugins": {
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		}
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"mkdir -p .Build/Web/typo3conf/ext/",
+			"[ -L .Build/Web/typo3conf/ext/powermail ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/powermail",
+			"@package-states",
+			"TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+		],
+		"package-states": [
+			".Build/bin/typo3cms install:fixfolderstructure"
+		],
+		"test:unit": "phpunit -c phpunit.xml.dist",
+		"test:behaviour:docker:tag": "behat --config Tests/Behavior/behat.docker.yml --tags",
+		"test:behaviour:docker": "behat --config Tests/Behavior/behat.docker.yml",
+		"test:behaviour:ddev": "behat --config Tests/Behavior/behat.ddev.yml",
+		"test:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+		"test:php:cs": "php-cs-fixer fix --dry-run --config=.project/tests/.php-cs-fixer.php --diff",
+		"test:typoscript:lint": "typoscript-lint --config=.project/tests/typoscript-lint.yml"
+	},
+	"extra": {
+		"typo3/cms": {
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"web-dir": ".Build/Web",
+			"extension-key": "powermail",
+			"ignore-as-root": false
+		},
+		"branch-alias": {
+			"dev-feature/typo3_11": "9.0.x-dev"
+		}
+	}
 }
