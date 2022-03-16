@@ -1,6 +1,9 @@
 name: TER release
 
 on:
+  workflow_dispatch:
+    tags:
+      - '*'
   push:
     tags:
       - '*'
