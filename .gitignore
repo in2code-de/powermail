@@ -11,6 +11,7 @@ ehthumbs.db
 Thumbs.db
 .svn
 .sass-cache
+.php-cs-fixer.cache
 .Build
 composer.lock
 package-lock.json
