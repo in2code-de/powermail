@@ -1079,6 +1079,10 @@
         <source>Marketing Information</source>
         <target state="final">Oplysninger om markedsføring</target>
       </trans-unit>
+      <trans-unit id="MarketingInformationCountryDisabled" resname="MarketingInformationCountryDisabled" approved="yes">
+        <source>Country From Ip is disabled.</source>
+        <target state="final">Land fra IP er deaktiveret.</target>
+      </trans-unit>
       <trans-unit id="honeypodLabel" resname="honeypodLabel" approved="yes">
         <source>Don't fill this field!</source>
         <target state="final">Udfyld ikke dette felt!</target>
