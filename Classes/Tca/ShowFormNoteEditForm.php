@@ -219,7 +219,8 @@ class ShowFormNoteEditForm extends AbstractFormElement
     {
         $flexFormArray = (array)$this->data['databaseRow']['pi_flexform']['data']['main']['lDEF'];
         $formUid = (int)$flexFormArray['settings.flexform.main.form']['vDEF'][0];
-        $formUid = $this->getLocalizedFormUid($formUid, (int)$this->data['databaseRow']['sys_language_uid'][0]);
+        $language = (int)($this->data['databaseRow']['sys_language_uid'][0] ?? $this->data['databaseRow']['sys_language_uid'] ?? 0);
+        $formUid = $this->getLocalizedFormUid($formUid, $language);
         return $formUid;
     }
 
