@@ -9,7 +9,7 @@ $EM_CONF[$_EXTKEY] = [
         and easy to use mailform extension with a lots of features
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
-    'version' => '9.0.1',
+    'version' => '9.0.2',
     'state' => 'beta',
     'author' => 'Powermail Development Team',
     'author_email' => 'service@in2code.de',
