@@ -371,6 +371,6 @@ class CreateMarker
      */
     protected function shouldRenameMarker(array $markers): bool
     {
-        return !empty($markers[$this->uid]) && $markers[$this->uid] !== $this->properties['marker'];
+        return !empty($markers[$this->uid]) && isset($this->properties['marker']) && $markers[$this->uid] !== $this->properties['marker'];
     }
 }
