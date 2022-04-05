@@ -1,0 +1,24 @@
+##################
+# All settings for double optin mails
+##################
+plugin.tx_powermail.settings.setup {
+  optin {
+    subject = TEXT
+    subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:optin_subject
+
+    overwrite {
+      # EXAMPLE:
+      # email = TEXT
+      # email.value = alexander.kellner@in2code.de
+
+      # name = TEXT
+      # name.value = Receivers Name
+
+      # senderName = TEXT
+      # senderName.value = Sender Name
+
+      # senderEmail = TEXT
+      # senderEmail.value = sender@mail.com
+    }
+  }
+}

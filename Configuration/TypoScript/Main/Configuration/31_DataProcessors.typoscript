@@ -1,0 +1,27 @@
+##################
+# DataProcessor classes that will be called before the mail object will be persisted and used in mails
+##################
+plugin.tx_powermail.settings.setup {
+  dataProcessors {
+    # Powermail data processors
+    10.class = In2code\Powermail\DataProcessor\UploadDataProcessor
+    20.class = In2code\Powermail\DataProcessor\SessionDataProcessor
+
+    # EXAMPLE Add your own data processor classes (e.g. if you want to do something with form values by your own before they are used in powermail to persist or in mails)
+    # 1 {
+    #   Classname that should be called with method *Finisher()
+    #   class = Vendor\Ext\Finisher\DoSomethingFinisher
+
+    #   optional: Add configuration for your PHP
+    #   config {
+    #     foo = bar
+
+    #     fooCObject = TEXT
+    #     fooCObject.value = do something with this text
+    #   }
+
+    #   optional: If file will not be loaded from autoloader, add path and it will be called with require_once
+    #   require = fileadmin/powermail/finisher/DoSomethingFinisher.php
+    # }
+  }
+}

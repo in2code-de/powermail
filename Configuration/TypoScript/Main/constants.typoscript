@@ -1,6 +1,5 @@
 plugin.tx_powermail {
 
-
   view {
     # cat=powermail_main/file; type=string; label= Path to template root (FE)
     templateRootPath = EXT:powermail/Resources/Private/Templates/
@@ -13,7 +12,6 @@ plugin.tx_powermail {
   }
 
   settings {
-
 
     main {
       # cat=powermail_additional//0010; type=int+; label= Storage PID: Save mails in a defined Page (normally set via Flexform)

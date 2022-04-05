@@ -1,0 +1,25 @@
+##################
+# Prefill fields with their marker - e.g. {firstname} (Fields available for prefill: input, textarea, select, select multi, radio, checkbox)
+##################
+plugin.tx_powermail.settings.setup {
+  prefill {
+    # example: fill with string
+    # firstname = Alex
+
+    # example: fill with TypoScript
+    # email = TEXT
+    # email.value = alex@in2code.de
+    # email.wrap = <b>|</b>
+
+    # example: fill checkboxes or multiselect with more values
+    # category.0 = TEXT
+    # category.0.value = IT
+    # category.1 = TEXT
+    # category.1.value = Real Estate
+
+    # example: fill with value from Field Record
+    # available: uid, title, type, settings, css, feuserValue, mandatory, marker, pid, prefillValue, senderEmail, senderName, sorting, validation
+    # comment = TEXT
+    # comment.field = type
+  }
+}

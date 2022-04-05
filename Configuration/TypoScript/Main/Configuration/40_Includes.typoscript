@@ -1,0 +1,20 @@
+# add jQuery if it was turned on in the constants
+[{$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle} == 1]
+page.includeJSFooterlibs {
+  powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
+  powermailJQuery.external = 1
+}
+[end]
+
+# add additional javascript libs, if it was turned on in the constants
+[{$plugin.tx_powermail.settings.javascript.addAdditionalJavaScript} == 1]
+page {
+  # Include JavaScript files
+  includeJSFooter {
+    powermailJQueryDatepicker = EXT:powermail/Resources/Public/JavaScript/Libraries/jquery.datetimepicker.min.js
+    powermailJQueryFormValidation = EXT:powermail/Resources/Public/JavaScript/Libraries/parsley.min.js
+    powermailJQueryTabs = EXT:powermail/Resources/Public/JavaScript/Powermail/Tabs.min.js
+    powermailForm = EXT:powermail/Resources/Public/JavaScript/Powermail/Form.min.js
+  }
+}
+[end]
