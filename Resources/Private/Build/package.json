@@ -21,8 +21,5 @@
   "scripts": {
     "build": "./node_modules/gulp/bin/gulp.js build",
     "watch": "./node_modules/gulp/bin/gulp.js default"
-  },
-  "dependencies": {
-    "@yaireo/validator": "^3.4.0"
   }
 }

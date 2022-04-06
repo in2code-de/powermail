@@ -45,14 +45,14 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
         }
         if ($this->isClientValidationEnabled()) {
             if (!empty($this->settings['misc']['file']['size'])) {
-                $additionalAttributes['data-parsley-powermailfilesize'] =
+                $additionalAttributes['data-powermail-powermailfilesize'] =
                     (int)$this->settings['misc']['file']['size'] . ',' . $field->getMarker();
-                $additionalAttributes['data-parsley-powermailfilesize-message'] =
+                $additionalAttributes['data-powermail-powermailfilesize-message'] =
                     LocalizationUtility::translate('validationerror_upload_size');
             }
             if (!empty($this->settings['misc']['file']['extension'])) {
-                $additionalAttributes['data-parsley-powermailfileextensions'] = $field->getMarker();
-                $additionalAttributes['data-parsley-powermailfileextensions-message'] =
+                $additionalAttributes['data-powermail-powermailfileextensions'] = $field->getMarker();
+                $additionalAttributes['data-powermail-powermailfileextensions-message'] =
                     LocalizationUtility::translate('validationerror_upload_extension');
             }
         }

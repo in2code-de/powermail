@@ -1,25 +1,18 @@
-import FormValidator from '@yaireo/validator'
 import MoreStepForm from './MoreStepForm';
+import FormValidation from './FormValidation';
 
 function PowermailForm() {
   'use strict';
 
   this.initialize = function () {
-    // formValidationListener();
+    formValidationListener();
     moreStepFormListener();
     locationFieldListener();
   };
 
   let formValidationListener = function() {
-    // todo
-
-    var validator = new FormValidator();
-    // select your "form" element from the DOM and attach an "onsubmit" event handler to it:
-    document.forms[0].onsubmit = function (e) {
-      var validatorResult = validator.checkAll(this); // "this" reffers to the currently submitetd form element
-
-      return !!validatorResult.valid;
-    };
+    let formValidation = new FormValidation();
+    formValidation.validate();
   };
 
   let moreStepFormListener = function() {

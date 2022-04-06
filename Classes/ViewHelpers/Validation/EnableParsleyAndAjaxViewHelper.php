@@ -12,7 +12,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * Could be disabled for testing
      *
@@ -42,7 +41,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
         $form = $this->arguments['form'];
         $additionalAttributes = $this->arguments['additionalAttributes'];
         if ($this->isClientValidationEnabled()) {
-            $additionalAttributes['data-parsley-validate'] = 'data-parsley-validate';
+            $additionalAttributes['data-powermail-validate'] = 'data-powermail-validate';
         }
 
         if ($this->isNativeValidationEnabled()) {

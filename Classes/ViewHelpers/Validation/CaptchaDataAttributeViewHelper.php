@@ -30,12 +30,12 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
         if ($this->isNativeValidationEnabled()) {
             $dataArray['required'] = 'required';
         } elseif ($this->isClientValidationEnabled()) {
-            $dataArray['data-parsley-required'] = 'true';
+            $dataArray['data-powermail-required'] = 'true';
         }
         if ($this->isClientValidationEnabled()) {
-            $dataArray['data-parsley-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
-            $dataArray['data-parsley-class-handler'] = '#powermail_field_' . $field->getMarker();
-            $dataArray['data-parsley-required-message'] = LocalizationUtility::translate('validationerror_mandatory');
+            $dataArray['data-powermail-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
+            $dataArray['data-powermail-class-handler'] = '#powermail_field_' . $field->getMarker();
+            $dataArray['data-powermail-required-message'] = LocalizationUtility::translate('validationerror_mandatory');
         }
 
         return $dataArray;

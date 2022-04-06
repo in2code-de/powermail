@@ -56,7 +56,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 ],
                 [],
                 [
-                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-validate' => 'data-powermail-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
@@ -74,7 +74,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 ],
                 [],
                 [
-                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-validate' => 'data-powermail-validate',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
                 ]
@@ -124,7 +124,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 ],
                 [],
                 [
-                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-validate' => 'data-powermail-validate',
                     'data-validate' => 'html5'
                 ]
             ],
@@ -147,7 +147,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                     'www' => 'in2code.de',
                     'email' => 'service@in2code.de',
                     'data-uid' => 234,
-                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-validate' => 'data-powermail-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123

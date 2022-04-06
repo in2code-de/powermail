@@ -25,8 +25,8 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
         if ($this->isClientValidationEnabled()) {
             /** @var Field $field */
             $field = $this->arguments['field'];
-            $additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
-            $additionalAttributes['data-parsley-equalto-message'] =
+            $additionalAttributes['data-powermail-equalto'] = '#powermail_field_' . $field->getMarker();
+            $additionalAttributes['data-powermail-equalto-message'] =
                 LocalizationUtility::translate('validationerror_password');
         }
 

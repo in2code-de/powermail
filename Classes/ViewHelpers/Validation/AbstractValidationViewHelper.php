@@ -72,15 +72,15 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
                 $additionalAttributes['required'] = 'required';
             } else {
                 if ($this->isClientValidationEnabled()) {
-                    $additionalAttributes['data-parsley-required'] = 'true';
+                    $additionalAttributes['data-powermail-required'] = 'true';
                 }
             }
             $additionalAttributes['aria-required'] = 'true';
 
             if ($this->isClientValidationEnabled()) {
-                $additionalAttributes['data-parsley-required-message'] =
+                $additionalAttributes['data-powermail-required-message'] =
                     LocalizationUtility::translate('validationerror_mandatory');
-                $additionalAttributes['data-parsley-trigger'] = 'change';
+                $additionalAttributes['data-powermail-trigger'] = 'change';
 
                 /**
                  * Special case multiselect:
@@ -105,7 +105,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     protected function addErrorContainer(array $additionalAttributes, Field $field): array
     {
-        $additionalAttributes['data-parsley-errors-container'] =
+        $additionalAttributes['data-powermail-errors-container'] =
             '.powermail_field_error_container_' . $field->getMarker();
         return $additionalAttributes;
     }
@@ -120,8 +120,8 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     protected function addClassHandler(array $additionalAttributes, Field $field): array
     {
-        $additionalAttributes['data-parsley-class-handler'] =
-            '.powermail_fieldwrap_' . $field->getMarker() . ' div:first > div';
+        $additionalAttributes['data-powermail-class-handler'] =
+            '.powermail_fieldwrap_' . $field->getMarker() . ' > div > div';
         return $additionalAttributes;
     }
 

@@ -24,9 +24,6 @@ function css() {
 	return src(__dirname + '/../Sass/*.scss')
 		.pipe(plumber())
 		.pipe(sass(config))
-		.pipe(rename({
-			suffix: '.min'
-		}))
 		.pipe(dest(project.css));
 };
 

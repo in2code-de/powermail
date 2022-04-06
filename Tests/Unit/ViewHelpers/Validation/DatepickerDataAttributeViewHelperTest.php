@@ -80,8 +80,8 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-date-value' => 'anyvalue',
                     'required' => 'required',
                     'aria-required' => 'true',
-                    'data-parsley-required-message' => 'validationerror_mandatory',
-                    'data-parsley-trigger' => 'change'
+                    'data-powermail-required-message' => 'validationerror_mandatory',
+                    'data-powermail-trigger' => 'change'
                 ]
             ],
             'datepickerWithNativevalidationAndClientvalidation' => [
