@@ -11,9 +11,8 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
 {
-
     /**
-     * Returns Data Attribute Array for JS validation with parsley.js
+     * Returns Data Attribute Array for JS validation
      *
      * @return array for data attributes
      * @throws Exception

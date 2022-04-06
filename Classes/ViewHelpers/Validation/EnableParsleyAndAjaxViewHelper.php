@@ -30,7 +30,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
     }
 
     /**
-     * Returns Data Attribute Array to enable parsley
+     * Returns Data Attribute Array to enable validation
      *
      * @return array for data attributes
      * @throws Exception

@@ -84,7 +84,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
 
                 /**
                  * Special case multiselect:
-                 * Parsley sets the error messages after the wrapping div (but only for multiselect)
+                 * JS sets the error messages after the wrapping div (but only for multiselect)
                  * So we define for this case where the errors should be included
                  */
                 if ($field->getType() === 'select' && $field->isMultiselect()) {

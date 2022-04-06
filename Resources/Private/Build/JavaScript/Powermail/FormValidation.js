@@ -2,10 +2,9 @@ export default function FormValidation() {
   'use strict';
 
   let formValidationSelector = '[data-powermail-validate]';
-  let fieldErrorClass = 'parsley-error';
+  let fieldErrorClass = 'powermail_field_error';
   let errorContainerClass = 'data-powermail-class-handler';
-  let errorMessageContainerClass = 'parsley-errors-list';
-  let errorMessageRequiredClass = 'parsley-required';
+  let errorMessageContainerClass = 'powermail-errors-list';
 
   this.validate = function() {
     validateFormsSubmit();
@@ -328,7 +327,6 @@ export default function FormValidation() {
     errorContainer.classList.add('filled');
     errorContainer.setAttribute('data-powermail-error', getFieldIdentifier(field));
     let errorElement = document.createElement('li');
-    errorElement.classList.add(errorMessageRequiredClass);
     errorContainer.appendChild(errorElement);
     let textNode = document.createTextNode(message);
     errorElement.appendChild(textNode);
