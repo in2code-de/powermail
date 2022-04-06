@@ -34,11 +34,6 @@ plugin.tx_powermail.settings.setup {
       randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
       randomizePrependOriginalFileName = {$plugin.tx_powermail.settings.misc.randomizePrependOriginalFileName}
     }
-
-    datepicker {
-      # Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
-      forceJavaScriptDatePicker = {$plugin.tx_powermail.settings.misc.forceJavaScriptDatePicker}
-    }
   }
 
   # Don't touch this (this is just to let the extension know, that there is TypoScript included)
