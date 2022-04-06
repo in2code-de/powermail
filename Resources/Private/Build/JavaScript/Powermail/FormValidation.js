@@ -58,7 +58,22 @@ export default function FormValidation() {
   let validateField = function(field) {
     field = getValidationField(field);
     let error = false;
+    error = validateFieldRequired(field, error);
+    error = validateFieldEmail(field, error);
+    error = validateFieldUrl(field, error);
+    error = validateFieldPattern(field, error);
+    error = validateFieldNumber(field, error);
+    error = validateFieldMinimum(field, error);
+    error = validateFieldMaximum(field, error);
+    error = validateFieldLength(field, error);
+    return error;
+  };
 
+  /*
+   * Initialize single validations
+   */
+
+  let validateFieldRequired = function(field, error) {
     if (error === false) {
       if (isRequiredField(field) && isValidationRequiredConfirmed(field) === false) {
         setError('required', field);
@@ -67,7 +82,34 @@ export default function FormValidation() {
         removeError('required', field);
       }
     }
+    return error;
+  };
 
+  let validateFieldEmail = function(field, error) {
+    if (error === false) {
+      if (isEmailField(field) && isValidationEmailConfirmed(field) === false) {
+        setError('email', field);
+        error = true;
+      } else {
+        removeError('email', field);
+      }
+    }
+    return error;
+  };
+
+  let validateFieldUrl = function(field, error) {
+    if (error === false) {
+      if (isUrlField(field) && isValidationUrlConfirmed(field) === false) {
+        setError('url', field);
+        error = true;
+      } else {
+        removeError('url', field);
+      }
+    }
+    return error;
+  };
+
+  let validateFieldPattern = function(field, error) {
     if (error === false) {
       if (isPatternField(field) && isValidationPatternConfirmed(field) === false) {
         setError('pattern', field);
@@ -76,26 +118,165 @@ export default function FormValidation() {
         removeError('pattern', field);
       }
     }
-
     return error;
   };
 
+  let validateFieldNumber = function(field, error) {
+    if (error === false) {
+      if (isNumberField(field) && isValidationNumberConfirmed(field) === false) {
+        setError('number', field);
+        error = true;
+      } else {
+        removeError('number', field);
+      }
+    }
+    return error;
+  };
+
+  let validateFieldMinimum = function(field, error) {
+    if (error === false) {
+      if (isMinimumField(field) && isValidationMinimumConfirmed(field) === false) {
+        setError('min', field);
+        error = true;
+      } else {
+        removeError('min', field);
+      }
+    }
+    return error;
+  };
+
+  let validateFieldMaximum = function(field, error) {
+    if (error === false) {
+      if (isMaximumField(field) && isValidationMaximumConfirmed(field) === false) {
+        setError('max', field);
+        error = true;
+      } else {
+        removeError('max', field);
+      }
+    }
+    return error;
+  };
+
+  let validateFieldLength = function(field, error) {
+    if (error === false) {
+      if (isLengthField(field) && isValidationLengthConfirmed(field) === false) {
+        setError('length', field);
+        error = true;
+      } else {
+        removeError('length', field);
+      }
+    }
+    return error;
+  };
+
+  /*
+   * Check for validations
+   */
+
   let isRequiredField = function(field) {
     return field.hasAttribute('required') || field.getAttribute('data-powermail-required') === 'true';
+  };
+
+  let isEmailField = function(field) {
+    return field.getAttribute('type') === 'email' || field.getAttribute('data-powermail-type') === 'email';
+  };
+
+  let isUrlField = function(field) {
+    return field.getAttribute('type') === 'url' || field.getAttribute('data-powermail-type') === 'url';
   };
 
   let isPatternField = function(field) {
     return field.hasAttribute('pattern') || field.hasAttribute('data-powermail-pattern');
   };
 
+  let isNumberField = function(field) {
+    return field.getAttribute('type') === 'number' || field.getAttribute('data-powermail-type') === 'integer';
+  };
+
+  let isMinimumField = function(field) {
+    return field.hasAttribute('min') || field.hasAttribute('data-powermail-min');
+  };
+
+  let isMaximumField = function(field) {
+    return field.hasAttribute('max') || field.hasAttribute('data-powermail-max');
+  };
+
+  let isLengthField = function(field) {
+    return field.hasAttribute('data-powermail-length');
+  };
+
+  /*
+   * Single validators
+   */
+
   let isValidationRequiredConfirmed = function(field) {
     return getFieldValue(field) !== '';
   };
 
+  let isValidationEmailConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
+    let pattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    let constraint = new RegExp(pattern, '');
+    return constraint.test(getFieldValue(field));
+  };
+
+  let isValidationUrlConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
+    let pattern = '^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$'
+    let constraint = new RegExp(pattern, '');
+    return constraint.test(getFieldValue(field));
+  };
+
   let isValidationPatternConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
     let pattern = field.getAttribute('data-powermail-pattern') || field.getAttribute('pattern');
     let constraint = new RegExp(pattern, '');
     return constraint.test(getFieldValue(field));
+  };
+
+  let isValidationNumberConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
+    return isNaN(field.value) === false;
+  };
+
+  let isValidationMinimumConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
+    let minimum = field.getAttribute('min') || field.getAttribute('data-powermail-min');
+    return parseInt(field.value) >= parseInt(minimum);
+  };
+
+  let isValidationMaximumConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
+    let maximum = field.getAttribute('max') || field.getAttribute('data-powermail-max');
+    return parseInt(field.value) <= parseInt(maximum);
+  };
+
+  let isValidationLengthConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
+    let lengthConfiguration = field.getAttribute('data-powermail-length');
+    let length = lengthConfiguration.replace('[', '').replace(']', '').split(',');
+    let minimum = length[0].trim();
+    let maximum = length[1].trim();
+    return parseInt(field.value.length) >= parseInt(minimum) && parseInt(field.value.length) <= parseInt(maximum);
   };
 
   /**
@@ -212,5 +393,5 @@ export default function FormValidation() {
       field = fields[0];
     }
     return field;
-  }
+  };
 }
