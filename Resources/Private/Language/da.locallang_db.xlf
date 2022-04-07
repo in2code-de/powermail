@@ -469,7 +469,7 @@
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.description" resname="tx_powermail_domain_model_field.description" approved="yes">
         <source>Description</source>
-        <target state="final">Varebeskrivelse</target>
+        <target state="final">Beskrivelse</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.own_marker" resname="tx_powermail_domain_model_field.own_marker" approved="yes">
         <source>Enter your own Variable Name</source>
