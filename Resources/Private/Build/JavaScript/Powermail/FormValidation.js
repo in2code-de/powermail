@@ -1,196 +1,234 @@
 import Utility from './Utility';
 
-export default function FormValidation() {
+export default class FormValidation {
+  #formValidationSelector = '[data-powermail-validate]';
+
+  validate() {
+    const forms = document.querySelectorAll(this.#formValidationSelector);
+    forms.forEach(function(form) {
+      form = new Form(form);
+      form.validate();
+    });
+  };
+}
+
+
+class Form {
   'use strict';
 
-  let formValidationSelector = '[data-powermail-validate]';
-  let fieldErrorClass = 'powermail_field_error';
-  let errorContainerClass = 'data-powermail-class-handler';
-  let errorMessageContainerClass = 'powermail-errors-list';
+  /**
+   * Form element (filled via constructor)
+   */
+  #form;
 
-  this.validate = function() {
-    validateFormsSubmit();
-    validateFieldListener();
-  };
+  /**
+   * Has form any errors?
+   *
+   * @type {boolean}
+   */
+  #error = false;
 
-  let validateFormsSubmit = function() {
-    let forms = document.querySelectorAll(formValidationSelector);
-    for (let i = 0; i < forms.length; i++) {
-      let form = forms[i];
-      form.setAttribute('novalidate', 'novalidate')
-      form.addEventListener('submit', function(event) {
+  /**
+   * List all fieldnames and errors
+   * @type {{}}
+   */
+  #errorFields = {};
+
+  /**
+   * Already validated?
+   *
+   * @type {boolean}
+   */
+  #validated = false;
+
+  #formErrorClass = 'powermail_form_error';
+  #fieldsetErrorClass = 'powermail_fieldset_error';
+  #fieldErrorClass = 'powermail_field_error';
+  #errorContainerClass = 'data-powermail-class-handler';
+  #errorMessageContainerClass = 'powermail-errors-list';
+
+  constructor(form) {
+    this.#form = form;
+  }
+
+  validate() {
+    this.#validateFormSubmit();
+    this.#validateFieldListener();
+  }
+
+  #validateFormSubmit() {
+    const that = this;
+    this.#form.setAttribute('novalidate', 'novalidate')
+    this.#form.addEventListener('submit', function(event) {
+      if (that.#validated === false || that.#hasFormErrors()) {
         event.preventDefault();
-        let errorResult = validateForm(forms[i]);
-        if (errorResult === false) {
-          //event.target.submit();
-          alert('todo submit');
-        }
-      })
-    }
-  };
-
-  let validateFieldListener = function() {
-    let forms = document.querySelectorAll(formValidationSelector);
-    for (let i = 0; i < forms.length; i++) {
-      let fields = getFieldsFromForm(forms[i]);
-      for (let j = 0; j < fields.length; j++) {
-        fields[j].addEventListener('blur', function() {
-          validateField(fields[j]);
-        });
-        fields[j].addEventListener('change', function() {
-          validateField(fields[j]);
-        });
       }
-    }
+      that.#validateForm();
+      if (that.#hasFormErrors() === false) {
+        that.#form.requestSubmit();
+      }
+    })
   };
 
-  let validateForm = function(form) {
-    let error = false;
-    let fields = getFieldsFromForm(form);
+  #validateFieldListener() {
+    const fields = this.#getFieldsFromForm();
+    const that = this;
+    fields.forEach(function(field) {
+      field.addEventListener('blur', function() {
+        that.#validateField(field);
+      });
+      field.addEventListener('change', function() {
+        that.#validateField(field);
+      });
+    });
+  };
+
+  #validateForm() {
+    let fields = this.#getFieldsFromForm();
     for (let i = 0; i < fields.length; i++) {
-      let errorResult = validateField(fields[i]);
-      if (errorResult === true) {
-        error = errorResult;
-      }
+      this.#validateField(fields[i]);
     }
-    return error;
   };
 
-  let validateField = function(field) {
-    field = getValidationField(field);
+  #validateField(field) {
     let error = false;
-    error = validateFieldRequired(field, error);
-    error = validateFieldEmail(field, error);
-    error = validateFieldUrl(field, error);
-    error = validateFieldPattern(field, error);
-    error = validateFieldNumber(field, error);
-    error = validateFieldMinimum(field, error);
-    error = validateFieldMaximum(field, error);
-    error = validateFieldLength(field, error);
-    error = validateUploadFieldSize(field, error);
-    error = validateUploadFieldExtension(field, error);
-    return error;
+    field = this.#getValidationField(field);
+    error = this.#validateFieldRequired(field, error);
+    error = this.#validateFieldEmail(field, error);
+    error = this.#validateFieldUrl(field, error);
+    error = this.#validateFieldPattern(field, error);
+    error = this.#validateFieldNumber(field, error);
+    error = this.#validateFieldMinimum(field, error);
+    error = this.#validateFieldMaximum(field, error);
+    error = this.#validateFieldLength(field, error);
+    error = this.#validateUploadFieldSize(field, error);
+    error = this.#validateUploadFieldExtension(field, error);
+
+    this.#addFieldErrorStatus(field, error);
+    this.#calculateError();
+    this.#updateErrorClassesForFormAndFieldsets(field);
+    this.#validated = true;
   };
 
   /*
    * Initialize single validations
    */
 
-  let validateFieldRequired = function(field, error) {
+  #validateFieldRequired(field, error) {
     if (error === false) {
-      if (isRequiredField(field) && isValidationRequiredConfirmed(field) === false) {
-        setError('required', field);
+      if (this.#isRequiredField(field) && this.#isValidationRequiredConfirmed(field) === false) {
+        this.#setError('required', field);
         error = true;
       } else {
-        removeError('required', field);
+        this.#removeError('required', field);
       }
     }
     return error;
   };
 
-  let validateFieldEmail = function(field, error) {
+  #validateFieldEmail(field, error) {
     if (error === false) {
-      if (isEmailField(field) && isValidationEmailConfirmed(field) === false) {
-        setError('email', field);
+      if (this.#isEmailField(field) && this.#isValidationEmailConfirmed(field) === false) {
+        this.#setError('email', field);
         error = true;
       } else {
-        removeError('email', field);
+        this.#removeError('email', field);
       }
     }
     return error;
   };
 
-  let validateFieldUrl = function(field, error) {
+  #validateFieldUrl(field, error) {
     if (error === false) {
-      if (isUrlField(field) && isValidationUrlConfirmed(field) === false) {
-        setError('url', field);
+      if (this.#isUrlField(field) && this.#isValidationUrlConfirmed(field) === false) {
+        this.#setError('url', field);
         error = true;
       } else {
-        removeError('url', field);
+        this.#removeError('url', field);
       }
     }
     return error;
   };
 
-  let validateFieldPattern = function(field, error) {
+  #validateFieldPattern(field, error) {
     if (error === false) {
-      if (isPatternField(field) && isValidationPatternConfirmed(field) === false) {
-        setError('pattern', field);
+      if (this.#isPatternField(field) && this.#isValidationPatternConfirmed(field) === false) {
+        this.#setError('pattern', field);
         error = true;
       } else {
-        removeError('pattern', field);
+        this.#removeError('pattern', field);
       }
     }
     return error;
   };
 
-  let validateFieldNumber = function(field, error) {
+  #validateFieldNumber(field, error) {
     if (error === false) {
-      if (isNumberField(field) && isValidationNumberConfirmed(field) === false) {
-        setError('number', field);
+      if (this.#isNumberField(field) && this.#isValidationNumberConfirmed(field) === false) {
+        this.#setError('number', field);
         error = true;
       } else {
-        removeError('number', field);
+        this.#removeError('number', field);
       }
     }
     return error;
   };
 
-  let validateFieldMinimum = function(field, error) {
+  #validateFieldMinimum(field, error) {
     if (error === false) {
-      if (isMinimumField(field) && isValidationMinimumConfirmed(field) === false) {
-        setError('min', field);
+      if (this.#isMinimumField(field) && this.#isValidationMinimumConfirmed(field) === false) {
+        this.#setError('min', field);
         error = true;
       } else {
-        removeError('min', field);
+        this.#removeError('min', field);
       }
     }
     return error;
   };
 
-  let validateFieldMaximum = function(field, error) {
+  #validateFieldMaximum(field, error) {
     if (error === false) {
-      if (isMaximumField(field) && isValidationMaximumConfirmed(field) === false) {
-        setError('max', field);
+      if (this.#isMaximumField(field) && this.#isValidationMaximumConfirmed(field) === false) {
+        this.#setError('max', field);
         error = true;
       } else {
-        removeError('max', field);
+        this.#removeError('max', field);
       }
     }
     return error;
   };
 
-  let validateFieldLength = function(field, error) {
+  #validateFieldLength(field, error) {
     if (error === false) {
-      if (isLengthField(field) && isValidationLengthConfirmed(field) === false) {
-        setError('length', field);
+      if (this.#isLengthField(field) && this.#isValidationLengthConfirmed(field) === false) {
+        this.#setError('length', field);
         error = true;
       } else {
-        removeError('length', field);
+        this.#removeError('length', field);
       }
     }
     return error;
   };
 
-  let validateUploadFieldSize = function(field, error) {
+  #validateUploadFieldSize(field, error) {
     if (error === false) {
-      if (isUploadField(field) && isValidationUploadFieldSizeConfirmed(field) === false) {
-        setError('powermailfilesize', field);
+      if (this.#isUploadField(field) && this.#isValidationUploadFieldSizeConfirmed(field) === false) {
+        this.#setError('powermailfilesize', field);
         error = true;
       } else {
-        removeError('powermailfilesize', field);
+        this.#removeError('powermailfilesize', field);
       }
     }
     return error;
   };
 
-  let validateUploadFieldExtension = function(field, error) {
+  #validateUploadFieldExtension(field, error) {
     if (error === false) {
-      if (isUploadField(field) && isValidationUploadFieldExtensionConfirmed(field) === false) {
-        setError('powermailfileextensions', field);
+      if (this.#isUploadField(field) && this.#isValidationUploadFieldExtensionConfirmed(field) === false) {
+        this.#setError('powermailfileextensions', field);
         error = true;
       } else {
-        removeError('powermailfileextensions', field);
+        this.#removeError('powermailfileextensions', field);
       }
     }
     return error;
@@ -200,39 +238,39 @@ export default function FormValidation() {
    * Check for validations
    */
 
-  let isRequiredField = function(field) {
+  #isRequiredField(field) {
     return field.hasAttribute('required') || field.getAttribute('data-powermail-required') === 'true';
   };
 
-  let isEmailField = function(field) {
+  #isEmailField(field) {
     return field.getAttribute('type') === 'email' || field.getAttribute('data-powermail-type') === 'email';
   };
 
-  let isUrlField = function(field) {
+  #isUrlField(field) {
     return field.getAttribute('type') === 'url' || field.getAttribute('data-powermail-type') === 'url';
   };
 
-  let isPatternField = function(field) {
+  #isPatternField(field) {
     return field.hasAttribute('pattern') || field.hasAttribute('data-powermail-pattern');
   };
 
-  let isNumberField = function(field) {
+  #isNumberField(field) {
     return field.getAttribute('type') === 'number' || field.getAttribute('data-powermail-type') === 'integer';
   };
 
-  let isMinimumField = function(field) {
+  #isMinimumField(field) {
     return field.hasAttribute('min') || field.hasAttribute('data-powermail-min');
   };
 
-  let isMaximumField = function(field) {
+  #isMaximumField(field) {
     return field.hasAttribute('max') || field.hasAttribute('data-powermail-max');
   };
 
-  let isLengthField = function(field) {
+  #isLengthField(field) {
     return field.hasAttribute('data-powermail-length');
   };
 
-  let isUploadField = function(field) {
+  #isUploadField(field) {
     return field.getAttribute('type') === 'file';
   };
 
@@ -240,20 +278,20 @@ export default function FormValidation() {
    * Single validators
    */
 
-  let isValidationRequiredConfirmed = function(field) {
-    return getFieldValue(field) !== '';
+  #isValidationRequiredConfirmed(field) {
+    return this.#getFieldValue(field) !== '';
   };
 
-  let isValidationEmailConfirmed = function(field) {
+  #isValidationEmailConfirmed(field) {
     if (field.value === '') {
       return true;
     }
     let pattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     let constraint = new RegExp(pattern, '');
-    return constraint.test(getFieldValue(field));
+    return constraint.test(this.#getFieldValue(field));
   };
 
-  let isValidationUrlConfirmed = function(field) {
+  #isValidationUrlConfirmed(field) {
     if (field.value === '') {
       return true;
     }
@@ -264,26 +302,26 @@ export default function FormValidation() {
       '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
       '(\\#[-a-z\\d_]*)?$'
     let constraint = new RegExp(pattern, '');
-    return constraint.test(getFieldValue(field));
+    return constraint.test(this.#getFieldValue(field));
   };
 
-  let isValidationPatternConfirmed = function(field) {
+  #isValidationPatternConfirmed(field) {
     if (field.value === '') {
       return true;
     }
     let pattern = field.getAttribute('data-powermail-pattern') || field.getAttribute('pattern');
     let constraint = new RegExp(pattern, '');
-    return constraint.test(getFieldValue(field));
+    return constraint.test(this.#getFieldValue(field));
   };
 
-  let isValidationNumberConfirmed = function(field) {
+  #isValidationNumberConfirmed(field) {
     if (field.value === '') {
       return true;
     }
     return isNaN(field.value) === false;
   };
 
-  let isValidationMinimumConfirmed = function(field) {
+  #isValidationMinimumConfirmed(field) {
     if (field.value === '') {
       return true;
     }
@@ -291,7 +329,7 @@ export default function FormValidation() {
     return parseInt(field.value) >= parseInt(minimum);
   };
 
-  let isValidationMaximumConfirmed = function(field) {
+  #isValidationMaximumConfirmed(field) {
     if (field.value === '') {
       return true;
     }
@@ -299,7 +337,7 @@ export default function FormValidation() {
     return parseInt(field.value) <= parseInt(maximum);
   };
 
-  let isValidationLengthConfirmed = function(field) {
+  #isValidationLengthConfirmed(field) {
     if (field.value === '') {
       return true;
     }
@@ -310,16 +348,16 @@ export default function FormValidation() {
     return parseInt(field.value.length) >= parseInt(minimum) && parseInt(field.value.length) <= parseInt(maximum);
   };
 
-  let isValidationUploadFieldSizeConfirmed = function(field) {
+  #isValidationUploadFieldSizeConfirmed(field) {
     if (field.value === '') {
       return true;
     }
     let size = Utility.getLargestFileSize(field);
     let sizeConfiguration = field.getAttribute('data-powermail-powermailfilesize').split(',');
-    return parseInt(size) <= parseInt(sizeConfiguration[0]);
+    return size <= parseInt(sizeConfiguration[0]);
   };
 
-  let isValidationUploadFieldExtensionConfirmed = function(field) {
+  #isValidationUploadFieldExtensionConfirmed(field) {
     if (field.value === '') {
       return true;
     }
@@ -330,50 +368,50 @@ export default function FormValidation() {
    * @param type like "required" or "pattern"
    * @param field
    */
-  let setError = function(type, field) {
-    removeError(type, field);
-    addErrorClass(field);
+  #setError(type, field) {
+    this.#removeError(type, field);
+    this.#addErrorClass(field);
     let message = field.getAttribute('data-powermail-' + type + '-message') ||
       field.getAttribute('data-powermail-error-message') || 'Validation error';
-    addErrorMessage(message, field);
+    this.#addErrorMessage(message, field);
   };
 
   /**
    * @param type like "required" or "pattern"
    * @param field
    */
-  let removeError = function(type, field) {
-    removeErrorClass(field);
-    removeErrorMessages(field);
+  #removeError(type, field) {
+    this.#removeErrorClass(field);
+    this.#removeErrorMessages(field);
   };
 
-  let addErrorClass = function(field) {
-    if (field.getAttribute(errorContainerClass)) {
-      let elements = document.querySelectorAll(field.getAttribute(errorContainerClass));
+  #addErrorClass(field) {
+    if (field.getAttribute(this.#errorContainerClass)) {
+      let elements = document.querySelectorAll(field.getAttribute(this.#errorContainerClass));
       for (let i = 0; i < elements.length; i++) {
-        elements[i].classList.add(fieldErrorClass);
+        elements[i].classList.add(this.#fieldErrorClass);
       }
     } else {
-      field.classList.add(fieldErrorClass);
+      field.classList.add(this.#fieldErrorClass);
     }
   };
 
-  let removeErrorClass = function(field) {
-    if (field.getAttribute(errorContainerClass)) {
-      let elements = document.querySelectorAll(field.getAttribute(errorContainerClass));
+  #removeErrorClass(field) {
+    if (field.getAttribute(this.#errorContainerClass)) {
+      let elements = document.querySelectorAll(field.getAttribute(this.#errorContainerClass));
       for (let i = 0; i < elements.length; i++) {
-        elements[i].classList.remove(fieldErrorClass);
+        elements[i].classList.remove(this.#fieldErrorClass);
       }
     } else {
-      field.classList.remove(fieldErrorClass);
+      field.classList.remove(this.#fieldErrorClass);
     }
   };
 
-  let addErrorMessage = function(message, field) {
+  #addErrorMessage(message, field) {
     let errorContainer = document.createElement('ul');
-    errorContainer.classList.add(errorMessageContainerClass);
+    errorContainer.classList.add(this.#errorMessageContainerClass);
     errorContainer.classList.add('filled');
-    errorContainer.setAttribute('data-powermail-error', getFieldIdentifier(field));
+    errorContainer.setAttribute('data-powermail-error', this.#getFieldIdentifier(field));
     let errorElement = document.createElement('li');
     errorContainer.appendChild(errorElement);
     let textNode = document.createTextNode(message);
@@ -389,14 +427,16 @@ export default function FormValidation() {
     }
   };
 
-  let removeErrorMessages = function(field) {
-    let errorMessageContainer = document.querySelector('[data-powermail-error="' + getFieldIdentifier(field) + '"]');
+  #removeErrorMessages(field) {
+    let errorMessageContainer = document.querySelector(
+      '[data-powermail-error="' + this.#getFieldIdentifier(field) + '"]'
+    );
     if (errorMessageContainer !== null) {
       errorMessageContainer.remove();
     }
   };
 
-  let getFieldValue = function(field) {
+  #getFieldValue(field) {
     let value = field.value;
 
     // Special case radiobuttons & checkboxes: take value from selected field
@@ -412,13 +452,13 @@ export default function FormValidation() {
     return value;
   };
 
-  let getFieldIdentifier = function(field) {
+  #getFieldIdentifier(field) {
     let name = field.getAttribute('name');
     return name.replace(/[^\w\s]/gi, '');
   };
 
-  let getFieldsFromForm = function(form) {
-    return form.querySelectorAll(
+  #getFieldsFromForm() {
+    return this.#form.querySelectorAll(
       'input:not([data-powermail-validation="disabled"]):not([type="hidden"]):not([type="submit"])'
       + ', textarea:not([data-powermail-validation="disabled"])'
       + ', select:not([data-powermail-validation="disabled"])'
@@ -431,7 +471,7 @@ export default function FormValidation() {
    * @param field
    * @returns {*}
    */
-  let getValidationField = function(field) {
+  #getValidationField(field) {
     if (field.getAttribute('type') === 'radio' || field.getAttribute('type') === 'checkbox') {
       let name = field.getAttribute('name');
       let form = field.closest('form');
@@ -440,4 +480,40 @@ export default function FormValidation() {
     }
     return field;
   };
+
+  #hasFormErrors() {
+    return this.#error;
+  }
+
+  #addFieldErrorStatus(field, error) {
+    this.#errorFields[field.getAttribute('name')] = error;
+  }
+
+  #calculateError() {
+    let error = false;
+    for (let property in this.#errorFields) {
+      if (!this.#errorFields.hasOwnProperty(property)) {
+        continue;
+      }
+      if (this.#errorFields[property] === true) {
+        error = true;
+      }
+    }
+    this.#error = error;
+  }
+
+  #updateErrorClassesForFormAndFieldsets(field) {
+    const fieldset = field.closest('fieldset.powermail_fieldset');
+    if (this.#hasFormErrors()) {
+      this.#form.classList.add(this.#formErrorClass);
+      if (fieldset !== null) {
+        fieldset.classList.add(this.#fieldsetErrorClass);
+      }
+    } else {
+      this.#form.classList.remove(this.#formErrorClass);
+      if (fieldset !== null) {
+        fieldset.classList.remove(this.#fieldsetErrorClass);
+      }
+    }
+  }
 }

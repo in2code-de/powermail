@@ -5,9 +5,7 @@ const { src, dest, watch, series, parallel } = require('gulp');
 const sass = require('gulp-sass')(require('node-sass'));
 const rollup = require('rollup').rollup;
 const rollupConfig = require('./rollup.config');
-const uglify = require('gulp-uglify');
 const plumber = require('gulp-plumber');
-const rename = require('gulp-rename');
 
 const project = {
 	base: __dirname + '/../../Public',

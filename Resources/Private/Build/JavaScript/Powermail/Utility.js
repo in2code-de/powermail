@@ -41,4 +41,43 @@ export default class Utility {
   static getExtensionFromFileName = function(fileName) {
     return fileName.split('.').pop().toLowerCase();
   };
+
+  /**
+   * Get uri without get params
+   *
+   * @param {string} uri
+   * @returns {string}
+   */
+  static getUriWithoutGetParam = function(uri) {
+    const parts = uri.split('?');
+    return parts[0];
+  };
+
+  /**
+   * Get random string
+   *
+   * @param {int} length
+   * @returns {string}
+   */
+  static getRandomString = function(length) {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  };
+
+  /**
+   * Redirect to an external or internal target
+   *
+   * @param {string} redirectUri
+   */
+  static redirectToUri(redirectUri) {
+    if (redirectUri.indexOf('http') !== -1) {
+      window.location = redirectUri;
+    } else {
+      window.location.pathname = redirectUri;
+    }
+  };
 }
