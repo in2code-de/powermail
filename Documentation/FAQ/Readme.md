@@ -173,7 +173,7 @@ And adds the class “formgrey”, "form2cols" or “default” to all forms, pa
 
 ### Hiding fields in tables form, page or field
 
-For editors (not administrators) fields can be disabled in the right management of TYPO3
+For editors (not administrators) fields can be disabled in the rights management of TYPO3
 (see TYPO3 documentation how to show or hide fields for editors).
 
 Another way is to hide fields for editors (and administrators) via Page TSConfig:
