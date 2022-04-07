@@ -6,7 +6,7 @@ export default class Utility {
    * @param field
    * @returns {number}
    */
-  static getLargestFileSize = function(field) {
+  static getLargestFileSize(field) {
     let size = 0;
     for (let i = 0; i < field.files.length; i++) {
       let file = field.files[i];
@@ -26,7 +26,7 @@ export default class Utility {
    * @param {string} list
    * @returns {boolean}
    */
-  static isFileExtensionInList = function(extension, list) {
+  static isFileExtensionInList(extension, list) {
     return list.indexOf('.' + extension) !== -1;
   };
 
@@ -38,7 +38,7 @@ export default class Utility {
    * @param {string} fileName
    * @returns {string}
    */
-  static getExtensionFromFileName = function(fileName) {
+  static getExtensionFromFileName(fileName) {
     return fileName.split('.').pop().toLowerCase();
   };
 
@@ -48,7 +48,7 @@ export default class Utility {
    * @param {string} uri
    * @returns {string}
    */
-  static getUriWithoutGetParam = function(uri) {
+  static getUriWithoutGetParam(uri) {
     const parts = uri.split('?');
     return parts[0];
   };
@@ -59,7 +59,7 @@ export default class Utility {
    * @param {int} length
    * @returns {string}
    */
-  static getRandomString = function(length) {
+  static getRandomString(length) {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < length; i++) {
@@ -80,4 +80,16 @@ export default class Utility {
       window.location.pathname = redirectUri;
     }
   };
+
+  static hideElement(element) {
+    if (element !== null) {
+      element.style.display = 'none';
+    }
+  }
+
+  static showElement(element) {
+    if (element !== null) {
+      element.style.display = 'block';
+    }
+  }
 }

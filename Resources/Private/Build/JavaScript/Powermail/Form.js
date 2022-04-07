@@ -12,6 +12,7 @@ class PowermailForm {
     that.#ajaxSubmitListener();
     that.#locationFieldListener();
     that.#hidePasswordsListener();
+    that.#deleteAllFilesListener();
   };
 
   #formValidationListener() {
@@ -142,6 +143,38 @@ class PowermailForm {
       let source = Utility.getUriWithoutGetParam(image.getAttribute('src'));
       image.setAttribute('src', source + '?hash=' + Utility.getRandomString(5));
     });
+  };
+
+  #deleteAllFilesListener() {
+    const that = this;
+    const deleteAllFiles = document.querySelectorAll('.deleteAllFiles');
+    deleteAllFiles.forEach(function(file) {
+      let fileWrapper = file.closest('.powermail_fieldwrap_file');
+      if (fileWrapper !== null) {
+        let element = fileWrapper.querySelector('input[type="file"]');
+        that.#disableUploadField(element);
+      }
+
+      file.addEventListener('click', function() {
+        let fileWrapper = file.closest('.powermail_fieldwrap_file');
+        if (fileWrapper !== null) {
+          let element = fileWrapper.querySelector('input[type="hidden"]');
+          that.#enableUploadField(element);
+        }
+        let ul = file.closest('ul');
+        if (ul !== null) {
+          ul.remove();
+        }
+      });
+    });
+  };
+
+  #disableUploadField($element) {
+    $element.prop('disabled', 'disabled').addClass('hide').prop('type', 'hidden');
+  };
+
+  #enableUploadField($element) {
+    $element.prop('disabled', false).removeClass('hide').prop('type', 'file');
   };
 }
 
