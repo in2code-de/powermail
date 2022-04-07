@@ -8,6 +8,7 @@ function PowermailForm() {
     formValidationListener();
     moreStepFormListener();
     locationFieldListener();
+    hidePasswordsListener();
   };
 
   let formValidationListener = function() {
@@ -40,6 +41,13 @@ function PowermailForm() {
             console.log(error);
           });
       });
+    }
+  };
+
+  let hidePasswordsListener = function() {
+    let elements = document.querySelectorAll('.powermail_all_type_password.powermail_all_value');
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].innerText = '********';
     }
   };
 }

@@ -1,3 +1,5 @@
+import Utility from './Utility';
+
 export default function FormValidation() {
   'use strict';
 
@@ -65,6 +67,8 @@ export default function FormValidation() {
     error = validateFieldMinimum(field, error);
     error = validateFieldMaximum(field, error);
     error = validateFieldLength(field, error);
+    error = validateUploadFieldSize(field, error);
+    error = validateUploadFieldExtension(field, error);
     return error;
   };
 
@@ -168,6 +172,30 @@ export default function FormValidation() {
     return error;
   };
 
+  let validateUploadFieldSize = function(field, error) {
+    if (error === false) {
+      if (isUploadField(field) && isValidationUploadFieldSizeConfirmed(field) === false) {
+        setError('powermailfilesize', field);
+        error = true;
+      } else {
+        removeError('powermailfilesize', field);
+      }
+    }
+    return error;
+  };
+
+  let validateUploadFieldExtension = function(field, error) {
+    if (error === false) {
+      if (isUploadField(field) && isValidationUploadFieldExtensionConfirmed(field) === false) {
+        setError('powermailfileextensions', field);
+        error = true;
+      } else {
+        removeError('powermailfileextensions', field);
+      }
+    }
+    return error;
+  };
+
   /*
    * Check for validations
    */
@@ -202,6 +230,10 @@ export default function FormValidation() {
 
   let isLengthField = function(field) {
     return field.hasAttribute('data-powermail-length');
+  };
+
+  let isUploadField = function(field) {
+    return field.getAttribute('type') === 'file';
   };
 
   /*
@@ -276,6 +308,22 @@ export default function FormValidation() {
     let minimum = length[0].trim();
     let maximum = length[1].trim();
     return parseInt(field.value.length) >= parseInt(minimum) && parseInt(field.value.length) <= parseInt(maximum);
+  };
+
+  let isValidationUploadFieldSizeConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
+    let size = Utility.getLargestFileSize(field);
+    let sizeConfiguration = field.getAttribute('data-powermail-powermailfilesize').split(',');
+    return parseInt(size) <= parseInt(sizeConfiguration[0]);
+  };
+
+  let isValidationUploadFieldExtensionConfirmed = function(field) {
+    if (field.value === '') {
+      return true;
+    }
+    return Utility.isFileExtensionInList(Utility.getExtensionFromFileName(field.value), field.getAttribute('accept'));
   };
 
   /**
