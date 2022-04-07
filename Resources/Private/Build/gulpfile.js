@@ -5,7 +5,9 @@ const { src, dest, watch, series, parallel } = require('gulp');
 const sass = require('gulp-sass')(require('node-sass'));
 const rollup = require('rollup').rollup;
 const rollupConfig = require('./rollup.config');
+const uglify = require('gulp-uglify');
 const plumber = require('gulp-plumber');
+const rename = require('gulp-rename');
 
 const project = {
 	base: __dirname + '/../../Public',
@@ -25,25 +27,36 @@ function css() {
 		.pipe(dest(project.css));
 };
 
-function js(done) {
+function jsForm(done) {
   rollup(rollupConfig).then(bundle => {
     rollupConfig.output.plugins = rollupConfig
     bundle.write(rollupConfig.output).then(() => done());
   });
 };
 
+function jsMarketing() {
+  return src([__dirname + '/JavaScript/Powermail/Marketing.js'])
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(dest(project.js));
+};
+
 // "npm run build"
-const build = series(js, css);
+const build = series(jsForm, jsMarketing, css);
 
 // "npm run watch"
 const def = parallel(
   function watchSCSS() { return watch(__dirname + '/../Sass/**/*.scss', series(css)) },
-  function watchJS() { return watch(__dirname + '/JavaScript/**/*.js', series(js)) }
+  function watchJS() { return watch(__dirname + '/JavaScript/**/*.js', series(jsForm, jsMarketing)) }
 );
 
 module.exports = {
   default: def,
   build,
   css,
-  js
+  jsForm,
+  jsMarketing
 };
