@@ -99,13 +99,14 @@
 		"package-states": [
 			".Build/bin/typo3cms install:fixfolderstructure"
 		],
-		"test:unit": "phpunit -c phpunit.xml.dist",
-		"test:behaviour:docker:tag": "behat --config Tests/Behavior/behat.docker.yml --tags",
-		"test:behaviour:docker": "behat --config Tests/Behavior/behat.docker.yml",
 		"test:behaviour:ddev": "behat --config Tests/Behavior/behat.ddev.yml",
-		"test:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+		"test:behaviour:docker": "behat --config Tests/Behavior/behat.docker.yml",
+		"test:behaviour:docker:tag": "behat --config Tests/Behavior/behat.docker.yml --tags",
+		"test:behaviour:docker:stop": "behat --config Tests/Behavior/behat.docker.yml --stop-on-failure",
 		"test:php:cs": "php-cs-fixer fix --dry-run --config=.project/tests/.php-cs-fixer.php --diff",
-		"test:typoscript:lint": "typoscript-lint --config=.project/tests/typoscript-lint.yml"
+		"test:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+		"test:typoscript:lint": "typoscript-lint --config=.project/tests/typoscript-lint.yml",
+		"test:unit": "phpunit -c phpunit.xml.dist"
 	},
 	"extra": {
 		"typo3/cms": {
