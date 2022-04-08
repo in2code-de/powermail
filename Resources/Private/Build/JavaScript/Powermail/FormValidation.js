@@ -64,18 +64,12 @@ class Form {
    *    forms.forEach(function(form) {
    *      let formValidation = form.powermailFormValidation;
    *
-   *      formValidation.addValidator('zip', function(field, error) {
+   *      formValidation.addValidator('custom100', function(field) {
    *        if (field.hasAttribute('data-powermail-custom100')) {
-   *          if (error === false) {
-   *            if (field.value < parseInt(field.getAttribute('data-powermail-custom100'))) {
-   *              formValidation.setError('zip', field);
-   *              error = true;
-   *            } else {
-   *              formValidation.removeError('zip', field);
-   *            }
-   *          }
+   *          // return true means validation has failed
+   *          return field.value < parseInt(field.getAttribute('data-powermail-custom100'));
    *        }
-   *        return error;
+   *        return false;
    *      });
    *    });
    *
@@ -125,115 +119,35 @@ class Form {
    * @type {{name: function(*=, *): boolean}}
    */
   #validators = {
-    'required': (field, error) => {
-      if (error === false) {
-        if (this.#isRequiredField(field) && this.#isValidationRequiredConfirmed(field) === false) {
-          this.setError('required', field);
-          error = true;
-        } else {
-          this.removeError('required', field);
-        }
-      }
-      return error;
+    'required': (field) => {
+      return this.#isRequiredField(field) && this.#isValidationRequiredConfirmed(field) === false;
     },
-    'email': (field, error) => {
-      if (error === false) {
-        if (this.#isEmailField(field) && this.#isValidationEmailConfirmed(field) === false) {
-          this.setError('email', field);
-          error = true;
-        } else {
-          this.removeError('email', field);
-        }
-      }
-      return error;
+    'email': (field) => {
+      return this.#isEmailField(field) && this.#isValidationEmailConfirmed(field) === false;
     },
-    'url': (field, error) => {
-      if (error === false) {
-        if (this.#isUrlField(field) && this.#isValidationUrlConfirmed(field) === false) {
-          this.setError('url', field);
-          error = true;
-        } else {
-          this.removeError('url', field);
-        }
-      }
-      return error;
+    'url': (field) => {
+      return this.#isUrlField(field) && this.#isValidationUrlConfirmed(field) === false;
     },
-    'pattern': (field, error) => {
-      if (error === false) {
-        if (this.#isPatternField(field) && this.#isValidationPatternConfirmed(field) === false) {
-          this.setError('pattern', field);
-          error = true;
-        } else {
-          this.removeError('pattern', field);
-        }
-      }
-      return error;
+    'pattern': (field) => {
+      return this.#isPatternField(field) && this.#isValidationPatternConfirmed(field) === false;
     },
-    'number': (field, error) => {
-      if (error === false) {
-        if (this.#isNumberField(field) && this.#isValidationNumberConfirmed(field) === false) {
-          this.setError('number', field);
-          error = true;
-        } else {
-          this.removeError('number', field);
-        }
-      }
-      return error;
+    'number': (field) => {
+      return this.#isNumberField(field) && this.#isValidationNumberConfirmed(field) === false;
     },
-    'minimum': (field, error) => {
-      if (error === false) {
-        if (this.#isMinimumField(field) && this.#isValidationMinimumConfirmed(field) === false) {
-          this.setError('min', field);
-          error = true;
-        } else {
-          this.removeError('min', field);
-        }
-      }
-      return error;
+    'minimum': (field) => {
+      return this.#isMinimumField(field) && this.#isValidationMinimumConfirmed(field) === false;
     },
-    'maximum': (field, error) => {
-      if (error === false) {
-        if (this.#isMaximumField(field) && this.#isValidationMaximumConfirmed(field) === false) {
-          this.setError('max', field);
-          error = true;
-        } else {
-          this.removeError('max', field);
-        }
-      }
-      return error;
+    'maximum': (field) => {
+      return this.#isMaximumField(field) && this.#isValidationMaximumConfirmed(field) === false;
     },
-    'length': (field, error) => {
-      if (error === false) {
-        if (this.#isLengthField(field) && this.#isValidationLengthConfirmed(field) === false) {
-          this.setError('length', field);
-          error = true;
-        } else {
-          this.removeError('length', field);
-        }
-      }
-      return error;
+    'length': (field) => {
+      return this.#isLengthField(field) && this.#isValidationLengthConfirmed(field) === false;
     },
-    'uploadSize': (field, error) => {
-      if (error === false) {
-        if (this.#isUploadField(field) && this.#isValidationUploadFieldSizeConfirmed(field) === false) {
-          this.setError('powermailfilesize', field);
-          error = true;
-        } else {
-          this.removeError('powermailfilesize', field);
-        }
-      }
-      return error;
+    'powermailfilesize': (field) => {
+      return this.#isUploadField(field) && this.#isValidationUploadFieldSizeConfirmed(field) === false;
     },
-    'uploadExtensions': (field, error) => {
-      if (error === false) {
-        if (this.#isUploadField(field) && this.#isValidationUploadFieldExtensionConfirmed(field) === false) {
-          this.setError('powermailfileextensions', field);
-          error = true;
-        } else {
-          this.removeError('powermailfileextensions', field);
-        }
-      }
-      return error;
+    'powermailfileextensions': (field) => {
+      return this.#isUploadField(field) && this.#isValidationUploadFieldExtensionConfirmed(field) === false;
     },
   };
 
@@ -245,7 +159,7 @@ class Form {
       if (this.#validators.hasOwnProperty(validator) === false) {
         continue;
       }
-      error = this.#validators[validator](field, error);
+      error = this.#runValidator(validator, this.#validators[validator], field, error);
     }
 
     this.#addFieldErrorStatus(field, error);
@@ -253,6 +167,15 @@ class Form {
     this.#updateErrorClassesForFormAndFieldsets(field);
     this.#validated = true;
   };
+
+  #runValidator(name, validator, field, error) {
+    if (error === true) {
+      return error;
+    }
+    error = validator(field);
+    error ? this.setError(name, field) : this.removeError(name, field);
+    return error;
+  }
 
   /*
    * Check for validations

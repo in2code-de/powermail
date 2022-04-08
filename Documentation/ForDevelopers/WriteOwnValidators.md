@@ -69,24 +69,21 @@ page.includeJSFooter.powermailextended.defer = 1
 ```
 
 ```
-# Add a ZIP validation to all powermail forms on the current page
+/**
+ * Add a ZIP validation to all powermail forms on the current page and listen to those fields:
+ * <input type="text" data-powermail-custom100="80000" data-powermail-error-message="Please try again" />
+ */
 const forms = document.querySelectorAll('.powermail_form');
 forms.forEach(function(form) {
-	let formValidation = form.powermailFormValidation;
+    let formValidation = form.powermailFormValidation;
 
-	formValidation.addValidator('zip', function(field, error) {
-		if (field.hasAttribute('data-powermail-custom100')) {
-			if (error === false) {
-				if (field.value < parseInt(field.getAttribute('data-powermail-custom100'))) {
-					formValidation.setError('zip', field);
-					error = true;
-				} else {
-					formValidation.removeError('zip', field);
-				}
-			}
-		}
-		return error;
-	});
+    formValidation.addValidator('custom100', function(field) {
+        if (field.hasAttribute('data-powermail-custom100')) {
+            // return true means validation has failed
+            return field.value < parseInt(field.getAttribute('data-powermail-custom100'));
+        }
+        return false;
+    });
 });
 ```
 
@@ -402,18 +399,10 @@ message also via data-attribute:
     const form = field.closest('form');
     const formValidation = form.powermailFormValidation;
 
-    formValidation.addValidator('emailverification', function(field, error) {
+    formValidation.addValidator('emailverification', function(field) {
         if (field.hasAttribute('data-powermail-emailverification')) {
-            if (error === false) {
-                if (field.value.indexOf(field.getAttribute('data-powermail-emailverification')) === false) {
-                    formValidation.setError('emailverification', field);
-                    error = true;
-                } else {
-                    formValidation.removeError('emailverification', field);
-                }
-            }
+            return field.value.indexOf(field.getAttribute('data-powermail-emailverification')) === false;
         }
-        return error;
     });
 </script>
 ```
@@ -472,17 +461,10 @@ The example JavaScript:
     const form = field.closest('form');
     const formValidation = form.powermailFormValidation;
 
-    formValidation.addValidator('emailverification', function(field, error) {
+    formValidation.addValidator('emailverification', function(field) {
         if (field.hasAttribute('data-powermail-emailverification')) {
-            if (error === false) {
-                const id = field.getAttribute('id');
-                if (field.value !== document.querySelector('#' + id + '_mirror')) {
-                    formValidation.setError('emailverification', field);
-                    error = true;
-                } else {
-                    formValidation.removeError('emailverification', field);
-                }
-            }
+            const id = field.getAttribute('id');
+            return field.value !== document.querySelector('#' + id + '_mirror').value;
         }
         return error;
     });
