@@ -235,41 +235,6 @@ you can do this with a simple line of Page TSConfig:
 `TCEFORM.tx_powermail_domain_model_field.type.removeItems = captcha,location,typoscript`
 
 
-## JavaScript validation does not work – what's wrong?
-
-Powermail loads jQuery (if you activated it with TypoScript) from googleapis.com.
-You can change that behaviour with constants or typoscript.
-
-It's importand to have the correct ordering of the JavaScript files.
-First you need the libraries (jQuery, Datepicker, Parsley) and after that your JavaScript.
-
-Check the correct including of your JavaScript in the HTML source –
-example Footer could be:
-
-```
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
-<script src="typo3conf/ext/powermail/Resources/Public/JavaScript/Libraries/jquery.datetimepicker.min.js?1400758352" type="text/javascript"></script>
-<script src="typo3conf/ext/powermail/Resources/Public/JavaScript/Libraries/parsley.min.js?1400758352" type="text/javascript"></script>
-<script src="typo3conf/ext/powermail/Resources/Public/JavaScript/Powermail/Tabs.min.js?1400758352" type="text/javascript"></script>
-<script src="typo3conf/ext/powermail/Resources/Public/JavaScript/Powermail/Form.min.js?1400758352" type="text/javascript"></script>
-<script src="typo3conf/ext/powermail/Resources/Public/JavaScript/Powermail/Marketing.min.js?1400758352" type="text/javascript"></script>
-```
-
-## The datetimepicker is not working – what's wrong?
-
-First of all, check if there are all JavaScript loaded correctly (see :ref:`javascriptvalidationdoesnotwork`).
-In addition the datetimepicker needs some CSS to get shown in frontend. You can try to add the demo.css in Static TypoScript Template section.
-
-If you want to get more information to the used datetimepicker (JavaScript, CSS, examples, etc...) see:
-
-* http://xdsoft.net/jqplugins/datetimepicker
-* https://github.com/xdan/datetimepicker
-
-*Note:* There is a check, if the browser supports fields like `input[type="date"]` (e.g. Chrome).
-Per default the datetimepicker is disabled in this case.
-If you want to enforce datetimepicker for all browsers, you can enable this via TypoScript Constants.
-
-
 # I want to use additionalAttributes in a field partial, but it's already in use
 
 All Field partials are original stored under EXT:powermail/Resources/Private/Partials/Form/Field/*

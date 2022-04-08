@@ -53,11 +53,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                         'native' => '1',
                         'client' => '1'
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [
                     'mandatory' => true
@@ -68,7 +63,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                 'anyvalue',
                 [
                     'data-company' => 'in2code',
-                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -90,17 +84,11 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                         'native' => '1',
                         'client' => '1'
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [],
                 [],
                 'anyvalue',
                 [
-                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -118,17 +106,11 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                         'native' => '1',
                         'client' => '0'
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -145,17 +127,11 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                         'native' => '0',
                         'client' => '1'
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
@@ -172,17 +148,11 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                         'native' => '0',
                         'client' => '0'
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => '',
                     'data-datepicker-settings' => 'date',
                     'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
                         'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
