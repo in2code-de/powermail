@@ -35,7 +35,17 @@ function jsForm(done) {
 };
 
 function jsMarketing() {
-  return src([__dirname + '/JavaScript/Powermail/Marketing.js'])
+  return src([__dirname + '/JavaScript/Marketing.js'])
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(dest(project.js));
+};
+
+function jsBackend() {
+  return src([__dirname + '/JavaScript/Backend.js'])
     .pipe(plumber())
     .pipe(uglify())
     .pipe(rename({
@@ -45,12 +55,12 @@ function jsMarketing() {
 };
 
 // "npm run build"
-const build = series(jsForm, jsMarketing, css);
+const build = series(jsForm, jsMarketing, jsBackend, css);
 
 // "npm run watch"
 const def = parallel(
   function watchSCSS() { return watch(__dirname + '/../Sass/**/*.scss', series(css)) },
-  function watchJS() { return watch(__dirname + '/JavaScript/**/*.js', series(jsForm, jsMarketing)) }
+  function watchJS() { return watch(__dirname + '/JavaScript/*.js', series(jsForm, jsMarketing)) }
 );
 
 module.exports = {
@@ -58,5 +68,6 @@ module.exports = {
   build,
   css,
   jsForm,
-  jsMarketing
+  jsMarketing,
+  jsBackend,
 };

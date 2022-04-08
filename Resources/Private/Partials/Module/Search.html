@@ -2,137 +2,137 @@
 {namespace core=TYPO3\CMS\Core\ViewHelpers}
 
 <fieldset>
-	<div class="form-group">
-		<label for="searchall_mails">
-			<f:translate key="BackendListFilterFulltextSearch" />
-		</label>
-		<f:form.textfield
-				property="all"
-				value="{piVars.filter.all}"
-				id="searchall_mails"
-				class="form-control" />
-	</div>
-	<div class="form-group">
-		<f:if condition="{formUids -> f:count()} > 1">
-			<label for="searchall_mails">
-				<f:translate key="BackendListFilterFulltextSearchFormFilter" default="Reduce to one form:" />
-			</label>
-			<f:form.select
-					property="form"
-					options="{formUids}"
-					value="{piVars.filter.form}"
-					class="form-control"
-					prependOptionLabel=""
-					prependOptionValue="" />
-		</f:if>
-	</div>
-	<f:render partial="Module/SearchButtons" arguments="{_all}" />
+    <div class="form-group">
+        <label for="searchall_mails">
+            <f:translate key="BackendListFilterFulltextSearch" />
+        </label>
+        <f:form.textfield
+                property="all"
+                value="{piVars.filter.all}"
+                id="searchall_mails"
+                class="form-control" />
+    </div>
+    <div class="form-group">
+        <f:if condition="{formUids -> f:count()} > 1">
+            <label for="searchall_mails">
+                <f:translate key="BackendListFilterFulltextSearchFormFilter" default="Reduce to one form:" />
+            </label>
+            <f:form.select
+                    property="form"
+                    options="{formUids}"
+                    value="{piVars.filter.form}"
+                    class="form-control"
+                    prependOptionLabel=""
+                    prependOptionValue="" />
+        </f:if>
+    </div>
+    <f:render partial="Module/SearchButtons" arguments="{_all}" />
 </fieldset>
 
 <div class="collapse" id="extended_search">
-	<fieldset>
-		<legend><f:translate key="BackendListFilterDefaultFields">default fields</f:translate></legend>
-		<div class="row">
-			<div class="form-group col-md-6">
-				<label for="searchStart">
-					<f:translate key="BackendListFilterStart" />
-				</label>
-				<div class="input-group">
-					<f:form.textfield
-							property="start"
-							id="searchStart"
-							class="form-control"
-							additionalAttributes="{vh:validation.datepickerDataAttribute(field:field,additionalAttributes:'{data-datepicker:\'true\'}')}"
-							value="{piVars.filter.start}" />
-					<span class="input-group-addon pointer" data-datepicker-opener="true">
-						<core:Icon identifier="actions-edit-pick-date" />
-					</span>
-				</div>
-			</div>
-			<div class="form-group col-md-6">
-				<label for="searchEnd">
-					<f:translate key="BackendListFilterEnd" />
-				</label>
-				<div class="input-group">
-					<f:form.textfield
-							property="stop"
-							id="searchEnd"
-							class="form-control"
-							additionalAttributes="{vh:validation.datepickerDataAttribute(field:field,additionalAttributes:'{data-datepicker:\'true\'}')}"
-							value="{piVars.filter.stop}" />
-					<span class="input-group-addon pointer" data-datepicker-opener="true">
-						<core:Icon identifier="actions-edit-pick-date" />
-					</span>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-md-6">
-				<label for="searchName">
-					<f:translate key="BackendListFilterName" />
-				</label>
-				<f:form.textfield
-						property="sender_name"
-						id="searchName"
-						class="form-control"
-						value="{piVars.filter.sender_name}" />
-			</div>
-			<div class="form-group col-md-6">
-				<label for="searchMail">
-					<f:translate key="BackendListFilterMail" />
-				</label>
-				<f:form.textfield
-						property="sender_mail"
-						id="searchMail"
-						class="form-control"
-						value="{piVars.filter.sender_mail}" />
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-md-6">
-				<label for="searchSubject">
-					<f:translate key="BackendListFilterSubject" />
-				</label>
-				<f:form.textfield
-						property="subject"
-						id="searchSubject"
-						class="form-control"
-						value="{piVars.filter.subject}" />
-			</div>
-			<div class="form-group col-md-6">
-				<label for="searchHidden">
-					<f:translate key="BackendListFilterHidden" />
-				</label>
-				<vh:form.advancedSelect
-						property="hidden"
-						options="{1: '{f:translate(key: \'BackendListFilterShowNonHidden\')}', 2: '{f:translate(key: \'BackendListFilterShowHidden\')}'}"
-						id="searchHidden"
-						defaultOption="{f:translate(key: 'pleaseChoose')}"
-						class="form-control"
-						value="{piVars.filter.hidden}" />
-			</div>
-		</div>
-	</fieldset>
-	<fieldset>
-		<legend><f:translate key="BackendListFilterAddField">additional fields</f:translate></legend>
-		<div class="row">
-			<f:for each="{firstForm.pages}" as="page">
-				<f:for each="{page.fields}" as="field">
-					<f:if condition="{field.advancedFieldType}">
-						<div class="form-group col-md-6">
-							<label for="answer{field.uid}">
-								{field.title}
-							</label>
-							<f:form.textfield
-									property="answer.{field.uid}"
-									id="answer{field.uid}"
-									class="form-control"
-									value="{vh:getter.getPiVarAnswerField(piVars:piVars, field:field)}" />
-						</div>
-					</f:if>
-				</f:for>
-			</f:for>
-		</div>
-	</fieldset>
-	<f:render partial="Module/SearchButtons" arguments="{_all}" />
+    <fieldset>
+        <legend><f:translate key="BackendListFilterDefaultFields">default fields</f:translate></legend>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="searchStart">
+                    <f:translate key="BackendListFilterStart" />
+                </label>
+                <div class="input-group">
+                    <f:form.textfield
+                            type="datetime-local"
+                            property="start"
+                            id="searchStart"
+                            class="form-control"
+                            value="{piVars.filter.start}" />
+                    <span class="input-group-addon pointer" data-datepicker-opener="true">
+                        <core:Icon identifier="actions-edit-pick-date" />
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="searchEnd">
+                    <f:translate key="BackendListFilterEnd" />
+                </label>
+                <div class="input-group">
+                    <f:form.textfield
+                            type="datetime-local"
+                            property="stop"
+                            id="searchEnd"
+                            class="form-control"
+                            value="{piVars.filter.stop}" />
+                    <span class="input-group-addon pointer" data-datepicker-opener="true">
+                        <core:Icon identifier="actions-edit-pick-date" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="searchName">
+                    <f:translate key="BackendListFilterName" />
+                </label>
+                <f:form.textfield
+                        property="sender_name"
+                        id="searchName"
+                        class="form-control"
+                        value="{piVars.filter.sender_name}" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="searchMail">
+                    <f:translate key="BackendListFilterMail" />
+                </label>
+                <f:form.textfield
+                        property="sender_mail"
+                        id="searchMail"
+                        class="form-control"
+                        value="{piVars.filter.sender_mail}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="searchSubject">
+                    <f:translate key="BackendListFilterSubject" />
+                </label>
+                <f:form.textfield
+                        property="subject"
+                        id="searchSubject"
+                        class="form-control"
+                        value="{piVars.filter.subject}" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="searchHidden">
+                    <f:translate key="BackendListFilterHidden" />
+                </label>
+                <vh:form.advancedSelect
+                        property="hidden"
+                        options="{1: '{f:translate(key: \'BackendListFilterShowNonHidden\')}', 2: '{f:translate(key: \'BackendListFilterShowHidden\')}'}"
+                        id="searchHidden"
+                        defaultOption="{f:translate(key: 'pleaseChoose')}"
+                        class="form-control"
+                        value="{piVars.filter.hidden}" />
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend><f:translate key="BackendListFilterAddField">additional fields</f:translate></legend>
+        <div class="row">
+            <f:for each="{firstForm.pages}" as="page">
+                <f:for each="{page.fields}" as="field">
+                    <f:if condition="{field.advancedFieldType}">
+                        <div class="form-group col-md-6">
+                            <label for="answer{field.uid}">
+                                {field.title}
+                            </label>
+                            <f:form.textfield
+                                    property="answer.{field.uid}"
+                                    id="answer{field.uid}"
+                                    class="form-control"
+                                    value="{vh:getter.getPiVarAnswerField(piVars:piVars, field:field)}" />
+                        </div>
+                    </f:if>
+                </f:for>
+            </f:for>
+        </div>
+    </fieldset>
+    <f:render partial="Module/SearchButtons" arguments="{_all}" />
 </div>

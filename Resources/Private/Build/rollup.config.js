@@ -4,7 +4,7 @@ const commonjs = require('@rollup/plugin-commonjs');
 const { terser } = require('rollup-plugin-terser');
 
 module.exports = {
-  input: './JavaScript/Powermail/Form.js',
+  input: './JavaScript/Form.js',
   plugins: [
     resolve({
       browser: true
