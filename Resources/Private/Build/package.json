@@ -21,5 +21,8 @@
   "scripts": {
     "build": "./node_modules/gulp/bin/gulp.js build",
     "watch": "./node_modules/gulp/bin/gulp.js default"
+  },
+  "dependencies": {
+    "moment": "^2.29.2"
   }
 }

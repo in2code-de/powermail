@@ -1,6 +1,7 @@
 import Utility from './Utility';
 import MoreStepForm from './MoreStepForm';
 import FormValidation from './FormValidation';
+import moment from 'moment';
 
 class PowermailForm {
   'use strict';
@@ -13,6 +14,7 @@ class PowermailForm {
     that.#locationFieldListener();
     that.#hidePasswordsListener();
     that.#deleteAllFilesListener();
+    that.#prefillDateFieldsListener();
   };
 
   #formValidationListener() {
@@ -164,6 +166,32 @@ class PowermailForm {
         let ul = file.closest('ul');
         if (ul !== null) {
           ul.remove();
+        }
+      });
+    });
+  };
+
+  #prefillDateFieldsListener() {
+    const forms = document.querySelectorAll('form.powermail_form');
+    forms.forEach(function(form) {
+      let fields = form.querySelectorAll('input');
+      fields.forEach(function(field) {
+        const type = field.getAttribute('type');
+        if (type === 'date' || type === 'datetime-local' || type === 'time') {
+          let formatOutput = 'YYYY-MM-DD';
+          if (type === 'datetime-local') {
+            formatOutput = 'YYYY-MM-DD HH:mm';
+          } else if (type === 'time') {
+            formatOutput = 'HH:mm';
+          }
+          let value = field.getAttribute('data-date-value');
+          if (value !== null) {
+            let formatInput = field.getAttribute('data-datepicker-format');
+            let momentDate = moment(value, formatInput);
+            if (momentDate.isValid) {
+              field.value = momentDate.format(formatOutput);
+            }
+          }
         }
       });
     });
