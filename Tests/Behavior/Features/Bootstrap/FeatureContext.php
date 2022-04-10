@@ -33,7 +33,8 @@ class FeatureContext extends MinkContext
      * @param string $field input name
      * @return void
      */
-    public function fillDateTimeField($datetime, $field) {
+    public function fillDateTimeField(string $datetime, string $field): void
+    {
         $time = DateTime::createFromFormat('d.m.Y H:i', $datetime);
         $javascript = 'document.querySelector("[name=\'' . $field . '\']").value="' . $time->format('Y-m-d\TH:i') . '"';
         $this->getSession()->executeScript($javascript);
