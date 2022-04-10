@@ -8,9 +8,9 @@ use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
- * Class EnableParsleyAndAjaxViewHelper
+ * Class EnableJavascriptValidationAndAjaxViewHelper
  */
-class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
+class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationViewHelper
 {
     /**
      * Could be disabled for testing
