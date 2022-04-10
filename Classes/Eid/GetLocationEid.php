@@ -2,8 +2,10 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Eid;
 
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Throwable;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -59,7 +61,7 @@ class GetLocationEid
             $response = new Response();
             $response->getBody()->write($this->content);
             return $response;
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             // add a 410 "gone" if invalid parameters given
             return (new Response())->withStatus(410);
         } catch (Exception $e) {
@@ -104,9 +106,8 @@ class GetLocationEid
                     ];
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
         }
-
         return $result;
     }
 }

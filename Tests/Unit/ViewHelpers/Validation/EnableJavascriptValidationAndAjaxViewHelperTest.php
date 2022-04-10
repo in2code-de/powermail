@@ -2,28 +2,28 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Form;
-use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelperFixture;
+use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\Validation\EnableJavascriptValidationAndAjaxViewHelperFixture;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
- * Class EnableParsleyAndAjaxViewHelperTest
- * @coversDefaultClass \In2code\Powermail\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelper
+ * Class EnableJavascriptValidationAndAjaxViewHelperTest
+ * @coversDefaultClass \In2code\Powermail\ViewHelpers\Validation\EnableJavascriptValidationAndAjaxViewHelper
  */
-class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
+class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
 {
 
     /**
-     * @var EnableParsleyAndAjaxViewHelperFixture
+     * @var EnableJavascriptValidationAndAjaxViewHelperFixture
      */
-    protected $enableParsleyAndAjaxViewHelperMock;
+    protected $enableJavascriptValidationAndAjaxViewHelperMock;
 
     /**
      * @return void
      */
     public function setUp(): void
     {
-        $this->enableParsleyAndAjaxViewHelperMock = $this->getAccessibleMock(
-            EnableParsleyAndAjaxViewHelperFixture::class,
+        $this->enableJavascriptValidationAndAjaxViewHelperMock = $this->getAccessibleMock(
+            EnableJavascriptValidationAndAjaxViewHelperFixture::class,
             ['dummy']
         );
     }
@@ -33,7 +33,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
      */
     public function tearDown(): void
     {
-        unset($this->enableParsleyAndAjaxViewHelperMock);
+        unset($this->enableJavascriptValidationAndAjaxViewHelperMock);
     }
 
     /**
@@ -56,7 +56,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 ],
                 [],
                 [
-                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-validate' => 'data-powermail-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
@@ -74,7 +74,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 ],
                 [],
                 [
-                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-validate' => 'data-powermail-validate',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
                 ]
@@ -124,7 +124,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                 ],
                 [],
                 [
-                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-validate' => 'data-powermail-validate',
                     'data-validate' => 'html5'
                 ]
             ],
@@ -147,7 +147,7 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
                     'www' => 'in2code.de',
                     'email' => 'service@in2code.de',
                     'data-uid' => 234,
-                    'data-parsley-validate' => 'data-parsley-validate',
+                    'data-powermail-validate' => 'data-powermail-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
                     'data-powermail-form' => 123
@@ -170,14 +170,14 @@ class EnableParsleyAndAjaxViewHelperTest extends UnitTestCase
         $form = new Form;
         $form->_setProperty('uid', 123);
 
-        $this->enableParsleyAndAjaxViewHelperMock->_set('addRedirectUri', false);
-        $this->enableParsleyAndAjaxViewHelperMock->_set('settings', $settings);
+        $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('addRedirectUri', false);
+        $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('settings', $settings);
         $arguments = [
             'form' => $form,
             'additionalAttributes' => $additionalAttributes
         ];
-        $this->enableParsleyAndAjaxViewHelperMock->_set('arguments', $arguments);
-        $result = $this->enableParsleyAndAjaxViewHelperMock->_callRef('render');
+        $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('arguments', $arguments);
+        $result = $this->enableJavascriptValidationAndAjaxViewHelperMock->_callRef('render');
         $this->assertSame($expectedResult, $result);
     }
 }

@@ -123,17 +123,6 @@ tt_content.stdWrap.innerWrap >
 # JavaScript and CSS section
 ############################
 
-# add jQuery if it was turned on in the constants
-[{$plugin.tx_powermail.settings.javascript.addJQueryFromGoogle} == 1]
-page {
-  # Inlude JavaScript files
-  includeJSFooterlibs {
-    powermailJQuery = {$plugin.tx_powermail.settings.javascript.powermailJQuery}
-    powermailJQuery.external = 1
-  }
-}
-[end]
-
 # Overwrite classes if bootrap classes given
 [{$plugin.tx_powermail.settings.styles.bootstrap.important} == 1]
 plugin.tx_powermail {

@@ -1,46 +1,54 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<f:layout name="Default" />
+<f:layout name="Default"/>
 
 Render Powermail Form
-{form} 			All Forms with their Pages and their Fields
-{ttContentData}		All values from content element with plugin
+{form}            All Forms with their Pages and their Fields
+{ttContentData}        All values from content element with plugin
 
 
 <f:section name="main">
-	<f:alias map="{flashMessageClass:'powermail_message_error'}">
-		<f:render partial="Misc/FlashMessages" arguments="{_all}" />
-	</f:alias>
+    <f:alias map="{flashMessageClass:'powermail_message_error'}">
+        <f:render partial="Misc/FlashMessages" arguments="{_all}"/>
+    </f:alias>
 
 
-	<f:if condition="{form}">
-		<f:then>
-			<div class="container-fluid">
-				<f:form
-						action="{action}"
-						section="c{ttContentData.uid}"
-						name="field"
-						enctype="multipart/form-data"
-						additionalAttributes="{vh:validation.enableParsleyAndAjax(form:form)}"
-						addQueryString="{settings.misc.addQueryString}"
-						class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:misc.morestepClass(activate:settings.main.moresteps)}">
+    <f:if condition="{form}">
+        <f:then>
+            <div class="container-fluid">
+                <f:form
+                    action="{action}"
+                    section="c{ttContentData.uid}"
+                    name="field"
+                    enctype="multipart/form-data"
+                    additionalAttributes="{vh:validation.enableJavascriptValidationAndAjax(form:form)}"
+                    addQueryString="{settings.misc.addQueryString}"
+                    class="powermail_form powermail_form_{form.uid} {form.css} {settings.styles.framework.formClasses} {vh:misc.morestepClass(activate:settings.main.moresteps)}">
 
-					<f:if condition="{form.css} != 'nolabel'">
-						<h3>{form.title}</h3>
-					</f:if>
-					<f:render partial="Misc/FormError" arguments="{_all}" />
+                    <f:if condition="{form.css} != 'nolabel'">
+                        <h3>{form.title}</h3>
+                    </f:if>
+                    <f:render partial="Misc/FormError" arguments="{_all}"/>
 
-					<f:for each="{form.pages}" as="page">
-						<f:render partial="Form/Page" arguments="{_all}" />
-					</f:for>
+                    <f:if condition="{settings.main.moresteps}">
+                        <div class="btn-group">
+                            <f:for each="{form.pages}" as="page" iteration="iterationPages">
+                                <button class="btn btn-default{f:if(condition:iterationPages.isFirst,then:' btn-primary')}" type="button" data-powermail-morestep-current="{iterationPages.index}" data-powermail-morestep-show="{iterationPages.index}">{page.title}</button>
+                            </f:for>
+                        </div>
+                    </f:if>
 
-					<f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid" />
-					<f:render partial="Misc/HoneyPod" arguments="{form:form}" />
-				</f:form>
-			</div>
-		</f:then>
-		<f:else>
-			<f:translate key="error_no_form" />
-		</f:else>
-	</f:if>
+                    <f:for each="{form.pages}" as="page" iteration="iterationPages">
+                        <f:render partial="Form/Page" arguments="{_all}"/>
+                    </f:for>
+
+                    <f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid"/>
+                    <f:render partial="Misc/HoneyPod" arguments="{form:form}"/>
+                </f:form>
+            </div>
+        </f:then>
+        <f:else>
+            <f:translate key="error_no_form"/>
+        </f:else>
+    </f:if>
 
 </f:section>

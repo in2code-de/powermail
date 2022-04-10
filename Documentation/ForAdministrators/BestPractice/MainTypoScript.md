@@ -233,9 +233,6 @@ plugin.tx_powermail {
       # cat=powermail_additional//0840; type=boolean; label= Prepend original file name: Prepend original file name to randomized file name if randomizeFileName is enabled
       randomizePrependOriginalFileName = 0
 
-      # cat=powermail_additional//0845; type=boolean; label= Force JavaScript Datepicker: Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
-      forceJavaScriptDatePicker = 0
-
       # cat=powermail_additional//0850; type=boolean; label= Debug Settings: Show all Settings from TypoScript, Flexform and Global Config in Devlog
       debugSettings = 0
 
