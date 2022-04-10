@@ -16,14 +16,12 @@ Feature: Html5JsPhpValidation
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
-    Then I should see "Fehler in Validierung!"
     Then I should see "Eines dieser Felder muss ausgefüllt werden!"
     Then I fill in "tx_powermail_pi1[field][lastname]" with "Daniel"
     And I scroll "$[type='submit']" into view
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
-    Then I should see "Fehler in Validierung!"
     Then I should see "Eines dieser Felder muss ausgefüllt werden!"
     Then I fill in "tx_powermail_pi1[field][inputpattern]" with "test"
     And I press "Submit"
@@ -87,14 +85,12 @@ Feature: Html5JsPhpValidation
     And I press "Submit EN"
 
     Then I should see "This field must be filled!"
-    Then I should see "Error in validation!"
     Then I should see "One of these fields must be filled!"
     Then I fill in "tx_powermail_pi1[field][lastname]" with "Boxhammer"
     And I scroll "$[type='submit']" into view
     And I press "Submit EN"
 
     Then I should see "This field must be filled!"
-    Then I should see "Error in validation!"
     Then I should see "One of these fields must be filled!"
     Then I fill in "tx_powermail_pi1[field][inputpattern]" with "test"
     And I press "Submit EN"
