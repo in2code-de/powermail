@@ -28,7 +28,7 @@ Feature: PhpValidation
     Then I should see 9 ".powermail_message_error > li" elements
     Then I fill in "tx_powermail_pi1[field][inputpattern]" with "http://www.test.de"
     Then I fill in "tx_powermail_pi1[field][firstname]" with "Boxhammer"
-    Then I fill in "tx_powermail_pi1[field][date]" with "17.10.2014"
+    Then I fill in "tx_powermail_pi1[field][date]" with "10/17/2014"
     Then I select "gelb" from "tx_powermail_pi1[field][email]"
     Then I select "blau" from "tx_powermail_pi1[field][selectmulti][]"
     Then I additionally select "lila" from "tx_powermail_pi1[field][selectmulti][]"
