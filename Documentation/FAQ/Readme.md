@@ -255,17 +255,6 @@ In some case you need to set your own additionalAttributes - see following code 
     ... />
 ```
 
-## How can I add a callback function on ajax submit?
-
-See this example JavaScript how to add an own callback function in JavaScript when an ajaxsubmit is done
-(e.g. to close a lightbox or something else).
-
-```
-// Note: this event fires on the .tx-powermail element, since its inner html is replaced
-$('.tx-powermail').on('submitted.powermail.form', function(){
-    console.log('ajax form was submitted');
-})
-```
 
 ## I want to use powermail on a news-detail-page, but the error **Reason: No news entry found.** comes up
 

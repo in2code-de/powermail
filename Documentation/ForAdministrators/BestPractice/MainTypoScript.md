@@ -298,17 +298,6 @@ plugin.tx_powermail {
       distanceVer = 30,45
     }
 
-    javascript {
-      # cat=powermail_main//1000; type=boolean; label= Include jQuery From Google: Add jQuery JavaScript (will be loaded from ajax.googleapis.com)
-      addJQueryFromGoogle = 0
-
-      # cat=powermail_additional//1010; type=boolean; label= Include additional JavaScript: Add additional JavaScript and CSS Files (form validation, datepicker, etc...)
-      addAdditionalJavaScript = 1
-
-      # cat=powermail_additional//1020; type=text; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
-      powermailJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
-    }
-
     # CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
     styles {
       framework {
