@@ -1,0 +1,58 @@
+##################
+# All marketing related settings
+##################
+plugin.tx_powermail.settings.setup {
+  marketing {
+
+    # Use Google Adwords Conversion JavaScript on form submit
+    googleAdwords {
+      _enable = {$plugin.tx_powermail.settings.marketing.enable}
+      google_conversion_id = {$plugin.tx_powermail.settings.marketing.google_conversion_id}
+      google_conversion_label = {$plugin.tx_powermail.settings.marketing.google_conversion_label}
+      google_conversion_language = {$plugin.tx_powermail.settings.marketing.google_conversion_language}
+      google_conversion_format = 3
+    }
+
+    # Send Form values to a third party software (like a CRM - e.g. salesforce or eloqua)
+    sendPost {
+      # Activate sendPost (0/1)
+      _enable = TEXT
+      _enable.value = 0
+
+      # Target URL for POST values (like http://www.target.com/target.php)
+      targetUrl = http://eloqua.com/e/f.aspx
+
+      # Basic Auth Protection - leave empty if Target is not protected
+      username =
+      password =
+
+      # build your post values like &param1=value1&param2=value2
+      values = COA
+      values {
+        10 = TEXT
+        10 {
+          # value from field {firstname}
+          field = vorname
+          wrap = &firstname=|
+        }
+
+        20 = TEXT
+        20 {
+          # value from field {e_mail}
+          field = e_mail
+          wrap = &email=|
+        }
+
+        30 = TEXT
+        30 {
+          # value from field {comment}
+          field = comment
+          wrap = &text=|
+        }
+      }
+
+      # activate debug - log all configuration from curl settings
+      debug = 0
+    }
+  }
+}

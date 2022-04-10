@@ -126,10 +126,10 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
                     'data-additional' => 'true',
                     'multiple' => 'multiple',
                     'accept' => '.jpg,.gif',
-                    'data-parsley-powermailfilesize' => '123456,firstname',
-                    'data-parsley-powermailfilesize-message' => 'validationerror_upload_size',
-                    'data-parsley-powermailfileextensions' => 'firstname',
-                    'data-parsley-powermailfileextensions-message' => 'validationerror_upload_extension'
+                    'data-powermail-powermailfilesize' => '123456,firstname',
+                    'data-powermail-powermailfilesize-message' => 'validationerror_upload_size',
+                    'data-powermail-powermailfileextensions' => 'firstname',
+                    'data-powermail-powermailfileextensions-message' => 'validationerror_upload_extension'
                 ]
             ],
         ];

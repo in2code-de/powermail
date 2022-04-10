@@ -29,7 +29,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
     }
 
     /**
-     * Returns Data Attribute Array for JS validation with parsley.js
+     * Returns Data Attribute Array for JS validation with internal framework
      *
      * @return array for data attributes
      * @throws Exception
@@ -88,18 +88,18 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                     }
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-parsley-required'] = 'true';
+                        $additionalAttributes['data-powermail-required'] = 'true';
                         $additionalAttributes['aria-required'] = 'true';
                     }
                 }
                 if ($this->isClientValidationEnabled()) {
-                    $additionalAttributes['data-parsley-required-message'] =
+                    $additionalAttributes['data-powermail-required-message'] =
                         LocalizationUtility::translate('validationerror_mandatory');
                     if ($iteration['total'] > 1) {
-                        $additionalAttributes['data-parsley-required-message'] =
+                        $additionalAttributes['data-powermail-required-message'] =
                             LocalizationUtility::translate('validationerror_mandatory_multi');
                         if ($field->getType() === 'check') {
-                            $additionalAttributes['data-parsley-required'] = 'true';
+                            $additionalAttributes['data-powermail-required'] = 'true';
                             $additionalAttributes['aria-required'] = 'true';
                         }
                     }
@@ -143,11 +143,11 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              * EMAIL (+html5)
              *
              * html5 example: <input type="email" />
-             * javascript example: <input type="text" data-parsley-type="email" />
+             * javascript example: <input type="text" data-powermail-type="email" />
              */
             case 1:
                 if ($this->isClientValidationEnabled() && !$this->isNativeValidationEnabled()) {
-                    $additionalAttributes['data-parsley-type'] = 'email';
+                    $additionalAttributes['data-powermail-type'] = 'email';
                 }
                 break;
 
@@ -155,11 +155,11 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              * URL (+html5)
              *
              * html5 example: <input type="url" />
-             * javascript example: <input type="text" data-parsley-type="url" />
+             * javascript example: <input type="text" data-powermail-type="url" />
              */
             case 2:
                 if ($this->isClientValidationEnabled() && !$this->isNativeValidationEnabled()) {
-                    $additionalAttributes['data-parsley-type'] = 'url';
+                    $additionalAttributes['data-powermail-type'] = 'url';
                 }
                 break;
 
@@ -181,7 +181,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              *        <input type="text"
              *            pattern="/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
              * javascript example:
-             *        <input ... data-parsley-pattern=
+             *        <input ... data-powermail-pattern=
              *            "/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
              */
             case 3:
@@ -190,7 +190,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                     $additionalAttributes['pattern'] = $pattern;
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-parsley-pattern'] = $pattern;
+                        $additionalAttributes['data-powermail-pattern'] = $pattern;
                     }
                 }
                 break;
@@ -199,11 +199,11 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              * NUMBER/INTEGER (+html5)
              *
              * html5 example: <input type="number" />
-             * javascript example: <input type="text" data-parsley-type="integer" />
+             * javascript example: <input type="text" data-powermail-type="integer" />
              */
             case 4:
                 if ($this->isClientValidationEnabled() && !$this->isNativeValidationEnabled()) {
-                    $additionalAttributes['data-parsley-type'] = 'integer';
+                    $additionalAttributes['data-powermail-type'] = 'integer';
                 }
                 break;
 
@@ -211,14 +211,14 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              * LETTERS (+html5)
              *
              * html5 example: <input type="text" pattern="[a-zA-Z]." />
-             * javascript example: <input type="text" data-parsley-pattern="[a-zA-Z]." />
+             * javascript example: <input type="text" data-powermail-pattern="[a-zA-Z]." />
              */
             case 5:
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['pattern'] = '[A-Za-z]+';
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-parsley-pattern'] = '[a-zA-Z]+';
+                        $additionalAttributes['data-powermail-pattern'] = '[a-zA-Z]+';
                     }
                 }
                 break;
@@ -228,14 +228,14 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              *
              * Note: Field validation_configuration for editors viewable
              * html5 example: <input type="text" min="6" />
-             * javascript example: <input type="text" data-parsley-min="6" />
+             * javascript example: <input type="text" data-powermail-min="6" />
              */
             case 6:
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['min'] = $field->getValidationConfiguration();
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-parsley-min'] = $field->getValidationConfiguration();
+                        $additionalAttributes['data-powermail-min'] = $field->getValidationConfiguration();
                     }
                 }
                 break;
@@ -245,14 +245,14 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              *
              * Note: Field validation_configuration for editors viewable
              * html5 example: <input type="text" max="12" />
-             * javascript example: <input type="text" data-parsley-max="12" />
+             * javascript example: <input type="text" data-powermail-max="12" />
              */
             case 7:
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['max'] = $field->getValidationConfiguration();
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-parsley-max'] = $field->getValidationConfiguration();
+                        $additionalAttributes['data-powermail-max'] = $field->getValidationConfiguration();
                     }
                 }
                 break;
@@ -263,7 +263,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              * Note: Field validation_configuration for editors viewable
              * html5 example: <input type="range" min="1" max="10" />
              * javascript example:
-             *        <input type="text" data-parsley-type="range" min="1" max="10" />
+             *        <input type="text" data-powermail-type="range" min="1" max="10" />
              */
             case 8:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
@@ -279,8 +279,8 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                     $additionalAttributes['max'] = (int)$values[1];
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-parsley-min'] = (int)$values[0];
-                        $additionalAttributes['data-parsley-max'] = (int)$values[1];
+                        $additionalAttributes['data-powermail-min'] = (int)$values[0];
+                        $additionalAttributes['data-powermail-max'] = (int)$values[1];
                     }
                 }
                 break;
@@ -290,7 +290,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              *
              * Note: Field validation_configuration for editors viewable
              * javascript example:
-             *        <input type="text" data-parsley-length="[6, 10]" />
+             *        <input type="text" data-powermail-length="[6, 10]" />
              */
             case 9:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
@@ -302,7 +302,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                     $values[0] = 1;
                 }
                 if ($this->isClientValidationEnabled()) {
-                    $additionalAttributes['data-parsley-length'] = '[' . implode(', ', $values) . ']';
+                    $additionalAttributes['data-powermail-length'] = '[' . implode(', ', $values) . ']';
                 }
                 break;
 
@@ -312,14 +312,14 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              * Note: Field validation_configuration for editors viewable
              * html5 example: <input type="text" pattern="https?://.+" />
              * javascript example:
-             *        <input type="text" data-parsley-pattern="https?://.+" />
+             *        <input type="text" data-powermail-pattern="https?://.+" />
              */
             case 10:
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['pattern'] = $field->getValidationConfiguration();
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-parsley-pattern'] = $field->getValidationConfiguration();
+                        $additionalAttributes['data-powermail-pattern'] = $field->getValidationConfiguration();
                     }
                 }
                 break;
@@ -330,7 +330,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
              * If CustomValidation was added via Page TSConfig
              *        tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
              *
-             * <input type="text" data-parsley-custom100="1" />
+             * <input type="text" data-powermail-custom100="1" />
              */
             default:
                 if ($field->getValidation() && $this->isClientValidationEnabled()) {
@@ -338,13 +338,13 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                     if ($field->getValidationConfiguration()) {
                         $value = $field->getValidationConfiguration();
                     }
-                    $additionalAttributes['data-parsley-custom' . $field->getValidation()] = $value;
+                    $additionalAttributes['data-powermail-custom' . $field->getValidation()] = $value;
                 }
         }
 
         // set errormessage if javascript validation active
         if ($field->getValidation() && $this->isClientValidationEnabled()) {
-            $additionalAttributes['data-parsley-error-message'] =
+            $additionalAttributes['data-powermail-error-message'] =
                 LocalizationUtility::translate('validationerror_validation.' . $field->getValidation());
         }
 
@@ -352,7 +352,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
     }
 
     /**
-     * Add multiple attribute to bundle checkboxes for parsley
+     * Add multiple attribute to bundle checkboxes for JS validation framework
      *
      * @param array $additionalAttributes
      * @param Field $field
@@ -370,7 +370,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
             $field->getType() === 'check' &&
             $iteration['total'] > 1
         ) {
-            $additionalAttributes['data-parsley-multiple'] = $field->getMarker();
+            $additionalAttributes['data-powermail-multiple'] = $field->getMarker();
         }
         return $additionalAttributes;
     }

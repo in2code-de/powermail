@@ -629,7 +629,7 @@ $fieldsTca = [
                      * EMAIL (+html5)
                      *
                      * html5 example: <input type="email" />
-                     * javascript example: <input type="text" data-parsley-type="email" />
+                     * javascript example: <input type="text" data-powermail-type="email" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -640,7 +640,7 @@ $fieldsTca = [
                      * URL (+html5)
                      *
                      * html5 example: <input type="url" />
-                     * javascript example: <input type="text" data-parsley-type="url" />
+                     * javascript example: <input type="text" data-powermail-type="url" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -653,7 +653,7 @@ $fieldsTca = [
                      * html5 example:
                      *        <input type="text" pattern="[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}" />
                      * javascript example:
-                     *        <input ... data-parsley-pattern="[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}" />
+                     *        <input ... data-powermail-pattern="[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -664,7 +664,7 @@ $fieldsTca = [
                      * NUMBER/INTEGER (+html5)
                      *
                      * html5 example: <input type="number" />
-                     * javascript example: <input type="text" data-parsley-type="integer" />
+                     * javascript example: <input type="text" data-powermail-type="integer" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -675,7 +675,7 @@ $fieldsTca = [
                      * LETTERS (+html5)
                      *
                      * html5 example: <input type="text" pattern="[a-zA-Z]*" />
-                     * javascript example: <input type="text" data-parsley-pattern="[a-zA-Z]*" />
+                     * javascript example: <input type="text" data-powermail-pattern="[a-zA-Z]*" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -695,7 +695,7 @@ $fieldsTca = [
                      *
                      * Note: Field validation_configuration for editors viewable
                      * html5 example: <input type="text" min="6" />
-                     * javascript example: <input type="text" data-parsley-min="6" />
+                     * javascript example: <input type="text" data-powermail-min="6" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -707,7 +707,7 @@ $fieldsTca = [
                      *
                      * Note: Field validation_configuration for editors viewable
                      * html5 example: <input type="text" max="12" />
-                     * javascript example: <input type="text" data-parsley-max="12" />
+                     * javascript example: <input type="text" data-powermail-max="12" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -720,7 +720,7 @@ $fieldsTca = [
                      * Note: Field validation_configuration for editors viewable
                      * html5 example: <input type="range" min="1" max="10" />
                      * javascript example:
-                     *        <input type="text" data-parsley-type="range" min="1" max="10" />
+                     *        <input type="text" data-powermail-type="range" min="1" max="10" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -732,7 +732,7 @@ $fieldsTca = [
                      *
                      * Note: Field validation_configuration for editors viewable
                      * javascript example:
-                     *        <input type="text" data-parsley-length="[6, 10]" />
+                     *        <input type="text" data-powermail-length="[6, 10]" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -745,7 +745,7 @@ $fieldsTca = [
                      * Note: Field validation_configuration for editors viewable
                      * html5 example: <input type="text" pattern="https?://.+" />
                      * javascript example:
-                     *        <input type="text" data-parsley-pattern="https?://.+" />
+                     *        <input type="text" data-powermail-pattern="https?://.+" />
                      */
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .

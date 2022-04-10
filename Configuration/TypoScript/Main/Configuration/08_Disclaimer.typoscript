@@ -1,0 +1,9 @@
+##################
+# All settings for disclaimer notification
+##################
+plugin.tx_powermail.settings.setup {
+  disclaimer {
+    subject = TEXT
+    subject.data = LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:disclaimed_subject
+  }
+}

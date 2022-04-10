@@ -8,11 +8,10 @@ use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
- * Class EnableParsleyAndAjaxViewHelper
+ * Class EnableJavascriptValidationAndAjaxViewHelper
  */
-class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
+class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * Could be disabled for testing
      *
@@ -31,7 +30,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
     }
 
     /**
-     * Returns Data Attribute Array to enable parsley
+     * Returns Data Attribute Array to enable validation
      *
      * @return array for data attributes
      * @throws Exception
@@ -42,7 +41,7 @@ class EnableParsleyAndAjaxViewHelper extends AbstractValidationViewHelper
         $form = $this->arguments['form'];
         $additionalAttributes = $this->arguments['additionalAttributes'];
         if ($this->isClientValidationEnabled()) {
-            $additionalAttributes['data-parsley-validate'] = 'data-parsley-validate';
+            $additionalAttributes['data-powermail-validate'] = 'data-powermail-validate';
         }
 
         if ($this->isNativeValidationEnabled()) {

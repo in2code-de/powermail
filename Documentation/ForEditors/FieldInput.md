@@ -44,7 +44,7 @@
 Administrator can enable or disable the validation in general with TypoScript (see TypoScript part in manual).
 
 - HTML5 Validation
-- Clientside Validation with JavaScript (see parsleyjs.org)
+- Clientside Validation with own JavaScript framework
 - Serverside Validation with PHP
 
 | Validation Type | Description | Examples | Note |

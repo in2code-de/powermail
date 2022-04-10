@@ -1,6 +1,5 @@
 plugin.tx_powermail {
 
-
   view {
     # cat=powermail_main/file; type=string; label= Path to template root (FE)
     templateRootPath = EXT:powermail/Resources/Private/Templates/
@@ -13,7 +12,6 @@ plugin.tx_powermail {
   }
 
   settings {
-
 
     main {
       # cat=powermail_additional//0010; type=int+; label= Storage PID: Save mails in a defined Page (normally set via Flexform)
@@ -223,9 +221,6 @@ plugin.tx_powermail {
       # cat=powermail_additional//0840; type=boolean; label= Prepend original file name: Prepend original file name to randomized file name if randomizeFileName is enabled
       randomizePrependOriginalFileName = 0
 
-      # cat=powermail_additional//0845; type=boolean; label= Force JavaScript Datepicker: Per default html5 Date or Datetime format is used. If you don't want to use it and want to have the same datepicker all over all browsers, you can enable this feature
-      forceJavaScriptDatePicker = 0
-
       # cat=powermail_additional//0850; type=boolean; label= Debug Settings: Show all Settings from TypoScript, Flexform and Global Config in Devlog
       debugSettings = 0
 
@@ -289,17 +284,6 @@ plugin.tx_powermail {
 
       # cat=powermail_spam//0990; type=text; label= Captcha Text Distance Ver: Define two different values (start and stop) for your text vertical random distance and separate it with a comma (e.g. 30,60)
       distanceVer = 30,45
-    }
-
-    javascript {
-      # cat=powermail_main//1000; type=boolean; label= Include jQuery From Google: Add jQuery JavaScript (will be loaded from ajax.googleapis.com)
-      addJQueryFromGoogle = 0
-
-      # cat=powermail_additional//1010; type=boolean; label= Include additional JavaScript: Add additional JavaScript and CSS Files (form validation, datepicker, etc...)
-      addAdditionalJavaScript = 1
-
-      # cat=powermail_additional//1020; type=text; label= jQuery Source: Change jQuery Source - per default it will be loaded from googleapis.com
-      powermailJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
     }
 
     # CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)

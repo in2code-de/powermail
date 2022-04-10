@@ -1,0 +1,83 @@
+##################
+# All settings for mail to user
+##################
+plugin.tx_powermail.settings.setup {
+  sender {
+    enable = {$plugin.tx_powermail.settings.sender.enable}
+
+    # Following settings are normally set via Flexform
+    name =
+    email =
+    subject =
+    body =
+
+    # add file attachments from upload fields
+    attachment = {$plugin.tx_powermail.settings.sender.attachment}
+
+    # html, plain, both
+    mailformat = {$plugin.tx_powermail.settings.sender.mailformat}
+
+    addDisclaimerLink = {$plugin.tx_powermail.settings.sender.addDisclaimerLink}
+
+    default {
+      senderEmail = TEXT
+      senderEmail.value = {$plugin.tx_powermail.settings.sender.default.senderEmail}
+
+      senderName = TEXT
+      senderName.value = {$plugin.tx_powermail.settings.sender.default.senderName}
+    }
+
+    # Normally you do not need to overwrite a flexform settings, but this allows you to use cObject functions
+    overwrite {
+      email = TEXT
+      email.value = {$plugin.tx_powermail.settings.sender.overwrite.email}
+
+      name = TEXT
+      name.value = {$plugin.tx_powermail.settings.sender.overwrite.name}
+
+      senderName = TEXT
+      senderName.value = {$plugin.tx_powermail.settings.sender.overwrite.senderName}
+
+      senderEmail = TEXT
+      senderEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.senderEmail}
+
+      subject = TEXT
+      subject.value = {$plugin.tx_powermail.settings.sender.overwrite.subject}
+
+      # Add further CC Receivers (split them via comma)
+      cc = TEXT
+      cc.value = {$plugin.tx_powermail.settings.sender.overwrite.cc}
+
+      # Add further BCC Receivers (split them via comma)
+      bcc = TEXT
+      bcc.value = {$plugin.tx_powermail.settings.sender.overwrite.bcc}
+
+      # Add return path
+      returnPath = TEXT
+      returnPath.value = {$plugin.tx_powermail.settings.sender.overwrite.returnPath}
+
+      # Reply address (both required)
+      replyToEmail = TEXT
+      replyToEmail.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToEmail}
+      replyToName = TEXT
+      replyToName.value = {$plugin.tx_powermail.settings.sender.overwrite.replyToName}
+
+      # Set mail priority from 1 to 5
+      priority = {$plugin.tx_powermail.settings.sender.overwrite.priority}
+    }
+
+    # EXAMPLE: Add additional attachments to the mail (separate each with comma)
+    # addAttachment = TEXT
+    # addAttachment.value = fileadmin/file.jpg
+    # addAttachment.wrap = |,
+
+    # Mail Header "Sender:" see RFC 2822 - 3.6.2 Originator fields f.e. webserver@example.com, leave empty if you do not want to set a Sender-Header
+    senderHeader {
+      email = TEXT
+      email.value = {$plugin.tx_powermail.settings.sender.senderHeader.email}
+      # optional: f.e. Webserver
+      name = TEXT
+      name.value = {$plugin.tx_powermail.settings.sender.senderHeader.name}
+    }
+  }
+}
