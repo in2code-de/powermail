@@ -80,7 +80,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
             if ($this->isClientValidationEnabled()) {
                 $additionalAttributes['data-powermail-required-message'] =
                     LocalizationUtility::translate('validationerror_mandatory');
-                $additionalAttributes['data-powermail-trigger'] = 'change';
 
                 /**
                  * Special case multiselect:

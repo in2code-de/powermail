@@ -139,6 +139,9 @@ class Form {
     'length': (field) => {
       return this.#isLengthField(field) && this.#isValidationLengthConfirmed(field) === false;
     },
+    'equalto': (field) => {
+      return this.#isEqualtoField(field) && this.#isValidationEqualtoConfirmed(field) === false;
+    },
     'powermailfilesize': (field) => {
       return this.#isUploadField(field) && this.#isValidationUploadFieldSizeConfirmed(field) === false;
     },
@@ -206,6 +209,10 @@ class Form {
 
   #isLengthField(field) {
     return field.hasAttribute('data-powermail-length');
+  };
+
+  #isEqualtoField(field) {
+    return field.hasAttribute('data-powermail-equalto');
   };
 
   #isUploadField(field) {
@@ -284,6 +291,15 @@ class Form {
     let minimum = length[0].trim();
     let maximum = length[1].trim();
     return parseInt(field.value.length) >= parseInt(minimum) && parseInt(field.value.length) <= parseInt(maximum);
+  };
+
+  #isValidationEqualtoConfirmed(field) {
+    const comparisonSelector = field.getAttribute('data-powermail-equalto');
+    const comparisonField = this.#form.querySelector(comparisonSelector);
+    if (comparisonField !== null) {
+      return comparisonField.value === field.value;
+    }
+    return false;
   };
 
   #isValidationUploadFieldSizeConfirmed(field) {
