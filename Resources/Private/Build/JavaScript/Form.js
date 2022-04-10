@@ -180,7 +180,7 @@ class PowermailForm {
         if (type === 'date' || type === 'datetime-local' || type === 'time') {
           let formatOutput = 'YYYY-MM-DD';
           if (type === 'datetime-local') {
-            formatOutput = 'YYYY-MM-DD HH:mm';
+            formatOutput = 'YYYY-MM-DD\THH:mm';
           } else if (type === 'time') {
             formatOutput = 'HH:mm';
           }
