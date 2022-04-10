@@ -34,13 +34,6 @@ class Form {
    */
   #errorFields = {};
 
-  /**
-   * Already validated?
-   *
-   * @type {boolean}
-   */
-  #validated = false;
-
   #formErrorClass = 'powermail_form_error';
   #fieldsetErrorClass = 'powermail_fieldset_error';
   #fieldErrorClass = 'powermail_field_error';
@@ -84,12 +77,9 @@ class Form {
     const that = this;
     this.#form.setAttribute('novalidate', 'novalidate')
     this.#form.addEventListener('submit', function(event) {
-      if (that.#validated === false || that.#hasFormErrors()) {
-        event.preventDefault();
-      }
       that.#validateForm();
-      if (that.#hasFormErrors() === false) {
-        that.#form.requestSubmit();
+      if (that.#hasFormErrors() === true) {
+        event.preventDefault();
       }
     })
   };
@@ -97,10 +87,16 @@ class Form {
   #validateFieldListener() {
     const fields = this.#getFieldsFromForm();
     fields.forEach((field) => {
+      field.addEventListener('input', () => {
+        // When user types something in a field
+        this.#validateField(field);
+      });
       field.addEventListener('blur', () => {
+        // When field focus gets lost
         this.#validateField(field);
       });
       field.addEventListener('change', () => {
+        // When a checkbox, radiobutton or option in a select was chosen
         this.#validateField(field);
       });
     });
@@ -165,7 +161,6 @@ class Form {
     this.#addFieldErrorStatus(field, error);
     this.#calculateError();
     this.#updateErrorClassesForFormAndFieldsets(field);
-    this.#validated = true;
   };
 
   #runValidator(name, validator, field, error) {
@@ -173,7 +168,7 @@ class Form {
       return error;
     }
     error = validator(field);
-    error ? this.setError(name, field) : this.removeError(name, field);
+    error ? this.#setError(name, field) : this.#removeError(name, field);
     return error;
   }
 
@@ -311,8 +306,8 @@ class Form {
    * @param type like "required" or "pattern"
    * @param field
    */
-  setError(type, field) {
-    this.removeError(type, field);
+  #setError(type, field) {
+    this.#removeError(type, field);
     this.#addErrorClass(field);
     let message = field.getAttribute('data-powermail-' + type + '-message') ||
       field.getAttribute('data-powermail-error-message') || 'Validation error';
@@ -323,7 +318,7 @@ class Form {
    * @param type like "required" or "pattern"
    * @param field
    */
-  removeError(type, field) {
+  #removeError(type, field) {
     this.#removeErrorClass(field);
     this.#removeErrorMessages(field);
   };
