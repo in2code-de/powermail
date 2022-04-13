@@ -40,17 +40,9 @@ class Form {
   #errorContainerClass = 'data-powermail-class-handler';
   #errorMessageContainerClass = 'powermail-errors-list';
 
-  constructor(form) {
-    this.#form = form;
-    this.#form.powermailFormValidation = this;
-  }
-
-  validate() {
-    this.#validateFormSubmit();
-    this.#validateFieldListener();
-  }
-
   /**
+   * Validator configuration
+   *
    * Add possibility to add own validators from outside like:
    *
    *    const forms = document.querySelectorAll('.powermail_form');
@@ -65,52 +57,6 @@ class Form {
    *        return false;
    *      });
    *    });
-   *
-   * @param name
-   * @param validator
-   */
-  addValidator(name, validator) {
-    this.#validators[name] = validator;
-  }
-
-  #validateFormSubmit() {
-    const that = this;
-    this.#form.setAttribute('novalidate', 'novalidate')
-    this.#form.addEventListener('submit', function(event) {
-      that.#validateForm();
-      if (that.#hasFormErrors() === true) {
-        event.preventDefault();
-      }
-    })
-  };
-
-  #validateFieldListener() {
-    const fields = this.#getFieldsFromForm();
-    fields.forEach((field) => {
-      field.addEventListener('input', () => {
-        // When user types something in a field
-        this.#validateField(field);
-      });
-      field.addEventListener('blur', () => {
-        // When field focus gets lost
-        this.#validateField(field);
-      });
-      field.addEventListener('change', () => {
-        // When a checkbox, radiobutton or option in a select was chosen
-        this.#validateField(field);
-      });
-    });
-  };
-
-  #validateForm() {
-    let fields = this.#getFieldsFromForm();
-    for (let i = 0; i < fields.length; i++) {
-      this.#validateField(fields[i]);
-    }
-  };
-
-  /**
-   * Validator configuration
    *
    * @type {{name: function(*=, *): boolean}}
    */
@@ -150,6 +96,87 @@ class Form {
     },
   };
 
+  /**
+   * Submit error callback configuration
+   *
+   * Add possibility to add own callbacks when a user submits a form and an error happens from outside like:
+   *
+   *    const forms = document.querySelectorAll('.powermail_form');
+   *    forms.forEach(function(form) {
+   *      let formValidation = form.powermailFormValidation;
+   *
+   *      formValidation.addSubmitErrorCallback('custom100', function() {
+   *        // error happens, do something
+   *      });
+   *    });
+   *
+   * @type {{name: function(*=, *): boolean}}
+   */
+  #submitErrorCallbacks = {};
+
+  constructor(form) {
+    this.#form = form;
+    this.#form.powermailFormValidation = this;
+  }
+
+  validate() {
+    this.#validateFormSubmit();
+    this.#validateFieldListener();
+  }
+
+  /**
+   * @param name
+   * @param validator
+   */
+  addValidator(name, validator) {
+    this.#validators[name] = validator;
+  }
+
+  /**
+   * @param name
+   * @param callback
+   */
+  addSubmitErrorCallback(name, callback) {
+    this.#submitErrorCallbacks[name] = callback;
+  }
+
+  #validateFormSubmit() {
+    const that = this;
+    this.#form.setAttribute('novalidate', 'novalidate')
+    this.#form.addEventListener('submit', function(event) {
+      that.#validateForm();
+      if (that.#hasFormErrors() === true) {
+        that.#runSubmitErrorCallbacks();
+        event.preventDefault();
+      }
+    })
+  };
+
+  #validateFieldListener() {
+    const fields = this.#getFieldsFromForm();
+    fields.forEach((field) => {
+      field.addEventListener('input', () => {
+        // When user types something in a field
+        this.#validateField(field);
+      });
+      field.addEventListener('blur', () => {
+        // When field focus gets lost
+        this.#validateField(field);
+      });
+      field.addEventListener('change', () => {
+        // When a checkbox, radiobutton or option in a select was chosen
+        this.#validateField(field);
+      });
+    });
+  };
+
+  #validateForm() {
+    let fields = this.#getFieldsFromForm();
+    for (let i = 0; i < fields.length; i++) {
+      this.#validateField(fields[i]);
+    }
+  };
+
   #validateField(field) {
     let error = false;
     field = this.#getValidationField(field);
@@ -173,6 +200,15 @@ class Form {
     error = validator(field);
     error ? this.#setError(name, field) : this.#removeError(name, field);
     return error;
+  }
+
+  #runSubmitErrorCallbacks() {
+    for (let callback in this.#submitErrorCallbacks) {
+      if (this.#submitErrorCallbacks.hasOwnProperty(callback) === false) {
+        continue;
+      }
+      this.#submitErrorCallbacks[callback]();
+    }
   }
 
   /*
