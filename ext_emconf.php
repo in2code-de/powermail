@@ -9,8 +9,8 @@ $EM_CONF[$_EXTKEY] = [
         and easy to use mailform extension with a lots of features
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
-    'version' => '10.0.0',
-    'state' => 'beta',
+    'version' => '10.1.0',
+    'state' => 'stable',
     'author' => 'Powermail Development Team',
     'author_email' => 'service@in2code.de',
     'author_company' => 'in2code.de',
@@ -23,5 +23,4 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'suggests' => [],
     ],
-    '_md5_values_when_last_written' => '',
 ];
