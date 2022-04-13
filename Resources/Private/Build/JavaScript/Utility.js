@@ -92,4 +92,14 @@ export default class Utility {
       element.style.display = 'block';
     }
   }
+
+  /**
+   * Check if an element is really visible (not only check for style visibility)
+   *
+   * @param element
+   * @returns {boolean}
+   */
+  static isElementVisible(element) {
+    return element.offsetParent !== null;
+  }
 }

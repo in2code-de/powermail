@@ -112,7 +112,21 @@ class Form {
    *
    * @type {{name: function(*=, *): boolean}}
    */
-  #submitErrorCallbacks = {};
+  #submitErrorCallbacks = {
+    'scrollToFirstError': () => {
+      try {
+        const fieldsWithError = this.#form.querySelectorAll('.powermail_field_error');
+        fieldsWithError.forEach((field) => {
+          if (Utility.isElementVisible(field)) {
+            field.scrollIntoView({behavior:'smooth'});
+            throw 'StopException';
+          }
+        });
+      } catch (exception) {
+        // stop, do nothing
+      }
+    }
+  };
 
   constructor(form) {
     this.#form = form;
