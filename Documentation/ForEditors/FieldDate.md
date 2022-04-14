@@ -2,7 +2,7 @@
 
 ## What does it do?
 
-- **General:** Do you want to render a datepicker for date (or datetime or time), you can use this field type. Per default html5 date fields are used with a JavaScript fallback. If you want to force the JavaScript Datepicker, you can use TypoScript. Dateformat will change by the frontend language. You can use TypoScript to use any dateformat (locallang.xlf).
+- **General:** Do you want to render a datepicker for date (or datetime or time), you can use this field type. Per default html5 date fields are used in modern browsers.
 
 ## Frontend Output Example
 
@@ -33,16 +33,7 @@
 
 ## Date Formats
 
-If you use a browser, that support modern date fields (e.g. Chrome),
-JavaScript Datepicker will not be loaded by default.
-In this case the Browser takes the configured language of the OS to set the date-format automaticly.
-There is no change to define another dateformat.
-
-But it's possible to enforce the JavaScript Datepicker even in Chrome with a line of TypoScript Constants:
-
-`plugin.tx_powermail.settings.misc.forceJavaScriptDatePicker = 1`
-
-Beside that, you can define the dateformat for the JavaScript Datepicker.
+You can define the dateformat for the JavaScript Datepicker.
 Depending on the datepicker settings (date, datetime, time), there are different entries in the locallang files.
 You can overwrite that via TypoScript:
 

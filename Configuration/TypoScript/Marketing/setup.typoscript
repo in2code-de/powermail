@@ -38,11 +38,23 @@ page {
       data = TSFE:sys_language_uid
       intval = 1
     }
+
+    30 = TEXT
+    30 {
+      noTrimWrap = | data-url="|"|
+      typolink {
+        parameter.data = TSFE:id
+        additionalParams = &type=1540053358
+        returnLast = url
+        forceAbsoluteUrl = 1
+      }
+    }
   }
 
   # Add JavaScript
   includeJSFooter {
     powermailMarketing = EXT:powermail/Resources/Public/JavaScript/Powermail/Marketing.min.js
+    powermailMarketing.defer = 1
   }
 }
 

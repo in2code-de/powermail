@@ -18,6 +18,6 @@ class SanitizeCsvCellViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
-        return CsvUtility::sanitizeCell($this->renderChildren());
+        return CsvUtility::sanitizeCell((string)$this->renderChildren());
     }
 }

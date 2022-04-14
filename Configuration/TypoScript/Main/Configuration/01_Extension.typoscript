@@ -1,0 +1,31 @@
+##################
+# Basic plugin configuration of the extension
+##################
+plugin.tx_powermail {
+  view {
+    templateRootPaths {
+      0 = EXT:powermail/Resources/Private/Templates/
+      1 = {$plugin.tx_powermail.view.templateRootPath}
+    }
+
+    partialRootPaths {
+      0 = EXT:powermail/Resources/Private/Partials/
+      1 = {$plugin.tx_powermail.view.partialRootPath}
+    }
+
+    layoutRootPaths {
+      0 = EXT:powermail/Resources/Private/Layouts/
+      1 = {$plugin.tx_powermail.view.layoutRootPath}
+    }
+  }
+
+  # EXAMPLE: Modify localization of labels
+  # _LOCAL_LANG {
+  #   default {
+  #     confirmation_message = Are these values correct?
+  #   }
+  #   de {
+  #     confirmation_message = Sind diese Eingaben korrekt?
+  #   }
+  # }
+}

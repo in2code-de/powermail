@@ -1,0 +1,48 @@
+##################
+# Various settings
+##################
+plugin.tx_powermail.settings.setup {
+  main {
+    pid = {$plugin.tx_powermail.settings.main.pid}
+    form = {$plugin.tx_powermail.settings.main.form}
+    confirmation = {$plugin.tx_powermail.settings.main.confirmation}
+    optin = {$plugin.tx_powermail.settings.main.optin}
+    moresteps = {$plugin.tx_powermail.settings.main.moresteps}
+  }
+
+  misc {
+    # HTML Output for type HMTL fields
+    htmlForHtmlFields = {$plugin.tx_powermail.settings.misc.htmlForHtmlFields}
+
+    # HTML for labels
+    htmlForLabels = {$plugin.tx_powermail.settings.misc.htmlForLabels}
+
+    # Show only values if they are filled (for all views and for mails)
+    showOnlyFilledValues = {$plugin.tx_powermail.settings.misc.showOnlyFilledValues}
+
+    # Submit Powermail Forms with AJAX (browser will not reload complete page)
+    ajaxSubmit = {$plugin.tx_powermail.settings.misc.ajaxSubmit}
+
+    # Keep third-party GET/POST variables on submit with addQueryString="1" in form
+    addQueryString = {$plugin.tx_powermail.settings.misc.addQueryString}
+
+    # File upload settings
+    file {
+      folder = {$plugin.tx_powermail.settings.misc.uploadFolder}
+      size = {$plugin.tx_powermail.settings.misc.uploadSize}
+      extension = {$plugin.tx_powermail.settings.misc.uploadFileExtensions}
+      randomizeFileName = {$plugin.tx_powermail.settings.misc.randomizeFileName}
+      randomizePrependOriginalFileName = {$plugin.tx_powermail.settings.misc.randomizePrependOriginalFileName}
+    }
+  }
+
+  # Don't touch this (this is just to let the extension know, that there is TypoScript included)
+  staticTemplate = 1
+}
+
+# ParseFunc Configuration for using FAL links in receiver and sender mail
+lib.parseFunc_powermail < lib.parseFunc_RTE
+lib.parseFunc_powermail.tags {
+  link.typolink.forceAbsoluteUrl = 1
+  a.typolink.forceAbsoluteUrl = 1
+}

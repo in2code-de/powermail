@@ -1,14 +1,13 @@
 <?php
 namespace In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\Validation;
 
-use In2code\Powermail\ViewHelpers\Validation\EnableParsleyAndAjaxViewHelper;
+use In2code\Powermail\ViewHelpers\Validation\EnableJavascriptValidationAndAjaxViewHelper;
 
 /**
  * Fixture class for mocking getPagesTSconfig
  */
-class EnableParsleyAndAjaxViewHelperFixture extends EnableParsleyAndAjaxViewHelper
+class EnableJavascriptValidationAndAjaxViewHelperFixture extends EnableJavascriptValidationAndAjaxViewHelper
 {
-
     /**
      * @var string
      */

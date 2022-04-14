@@ -23,7 +23,6 @@ function PowermailBackend($) {
 		addDeleteLinesListener();
 		addToggleLinesVisibilityListener();
 		addExtendedSearchListener();
-		addDatePickerListener();
 		addExportListener();
 		addConverterDetailsOpenListener();
 		hidePasswords();
@@ -224,42 +223,6 @@ function PowermailBackend($) {
 				return;
 			}
 		});
-	};
-
-	/**
-	 * Add datepicker to date fields
-	 *
-	 * @returns {void}
-	 * @private
-	 */
-	var addDatePickerListener = function() {
-		if ($.fn.datetimepicker) {
-			$('input[data-datepicker="true"]').each(function () {
-				var $this = $(this);
-				var datepickerStatus = true;
-				var timepickerStatus = true;
-				if ($this.data('datepicker-settings') === 'date') {
-					timepickerStatus = false;
-				} else if ($this.data('datepicker-settings') === 'time') {
-					datepickerStatus = false;
-				}
-				$this.datetimepicker({
-					format: $this.data('datepicker-format'),
-					timepicker: timepickerStatus,
-					datepicker: datepickerStatus,
-					lang: 'en',
-					i18n: {
-						en: {
-							months: $this.data('datepicker-months').split(','),
-							dayOfWeek: $this.data('datepicker-days').split(',')
-						}
-					}
-				});
-			});
-			$('*[data-datepicker-opener="true"]').click(function () {
-				$(this).prev().datetimepicker('show');
-			});
-		}
 	};
 
 	/**
@@ -671,7 +634,6 @@ define(
 	[
 		'jquery',
 		'TYPO3/CMS/Powermail/Libraries/jquery-ui.min',
-		'TYPO3/CMS/Powermail/Libraries/jquery.datetimepicker.min',
 		'TYPO3/CMS/Powermail/Libraries/jquery.flot.min',
 		'TYPO3/CMS/Powermail/Libraries/jquery.flot.pie.min',
 		'TYPO3/CMS/Powermail/Libraries/bootstrap.min',

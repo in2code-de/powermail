@@ -43,14 +43,14 @@ call_user_func(function () {
      * ContentElementWizard for Pi1
      */
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript">'
+        '@import \'EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript\''
     );
 
     /**
      * PageTSConfig for backend mod list
      */
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/WebList.typoscript">'
+        '@import \'EXT:powermail/Configuration/TSConfig/WebList.typoscript\''
     );
 
     /**

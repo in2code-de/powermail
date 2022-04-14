@@ -1,0 +1,51 @@
+##################
+# Exclude values from {powermail_all} by markername or fieldtype
+##################
+plugin.tx_powermail.settings.setup {
+  excludeFromPowermailAllMarker {
+    # On Confirmation Page (if activated)
+    confirmationPage {
+      # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+      excludeFromMarkerNames =
+
+      # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+      excludeFromFieldTypes =
+    }
+
+    # On Submitpage
+    submitPage {
+      # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+      excludeFromMarkerNames =
+
+      # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+      excludeFromFieldTypes =
+    }
+
+    # In Mail to receiver
+    receiverMail {
+      # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+      excludeFromMarkerNames =
+
+      # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+      excludeFromFieldTypes =
+    }
+
+    # In Mail to sender (if activated)
+    senderMail {
+      # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+      excludeFromMarkerNames =
+
+      # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+      excludeFromFieldTypes =
+    }
+
+    # In double-opt-in Mail to sender (if activated)
+    optinMail {
+      # add some markernames (commaseparated) which should be excluded (e.g. firstname, email, referrer)
+      excludeFromMarkerNames =
+
+      # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
+      excludeFromFieldTypes =
+    }
+  }
+}

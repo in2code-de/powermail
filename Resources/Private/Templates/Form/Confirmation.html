@@ -27,7 +27,7 @@ Show Confirmation Page
 					enctype="multipart/form-data"
 					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
  					addQueryString="{settings.misc.addQueryString}"
-					additionalAttributes="{vh:validation.enableParsleyAndAjax(form: mail.form)}">
+					additionalAttributes="{vh:validation.enableJavascriptValidationAndAjax(form: mail.form)}">
 				<f:render section="HiddenFields" arguments="{_all}" />
 				<f:form.submit
 						value="{f:translate(key: 'confirmation_prev')}"
@@ -46,7 +46,7 @@ Show Confirmation Page
 					enctype="multipart/form-data"
 					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
 					addQueryString="{settings.misc.addQueryString}"
-					additionalAttributes="{vh:validation.enableParsleyAndAjax(form: mail.form)}">
+					additionalAttributes="{vh:validation.enableJavascriptValidationAndAjax(form: mail.form)}">
 				<f:render section="HiddenFields" arguments="{_all}" />
 				<f:form.submit
 						value="{f:translate(key: 'confirmation_next')}"

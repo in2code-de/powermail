@@ -2,13 +2,13 @@
 
 ## Introduction
 
-Since powermail 2.1 a combination of different validation types is possible:
+In powermail a combination of different validation types is possible:
 
 - Serverside Validation (PHP)
 - Clientside Validation (JavaScript)
 - Clientside Validation (Native with HTML5)
 
-You can enable or disable or combine some of the validation via TypoScript
+You can enable or disable or combine some of the validation methods via TypoScript
 
 ```
 plugin.tx_powermail.settings.setup {
@@ -21,8 +21,7 @@ plugin.tx_powermail.settings.setup {
 ```
 
 
-Parsley.js allows us to have a robust solution for JavaScript and Native HTML5
-Validation
+Meanwhile we added an own robust JavaScript validation which also supports native HTML5 validation
 
 ![developer_new_validation2](../Images/developer_new_validation2.png)
 
@@ -32,8 +31,6 @@ Serverside Validation Example
 ![developer_new_validation1](../Images/developer_new_validation1.png)
 
 Clientside Validation Example
-
-Want to learn more about Parsley.js? Look at https://parsleyjs.org/
 
 
 ## 1. Add a new validation type
@@ -61,23 +58,36 @@ This leads to a new validation option for the editors:
 
 You will see a HTML-Code like this for this field
 
-`<input type="text" ... data-parsley-error-message="" data-parsley-custom100="80000" />`
+`<input type="text" ... data-powermail-error-message="" data-powermail-custom100="80000" />`
 
 Add a new Extension or simply a JavaScript File with this content. Please pay attention to the ordering.
-This code must be included after all JavaScript of powermail.
+This code must be included after all JavaScripts of powermail.
 
 ```
-window.ParsleyValidator
-.addValidator('custom100', function (value, requirement) {
-if (value >= 80000) {
-    return true;
-}
-return false;
-}, 32)
-.addMessage('en', 'custom100', 'Error');
+page.includeJSFooter.powermailextended = EXT:powermailextended/Resources/Public/JavaScripts/ZipValidation.js
+page.includeJSFooter.powermailextended.defer = 1
 ```
 
-See Extension powermailextended.zip in your powermail folder powermail/Resources/Private/Software/
+```
+/**
+ * Add a ZIP validation to all powermail forms on the current page and listen to those fields:
+ * <input type="text" data-powermail-custom100="80000" data-powermail-error-message="Please try again" />
+ */
+const forms = document.querySelectorAll('.powermail_form');
+forms.forEach(function(form) {
+    let formValidation = form.powermailFormValidation;
+
+    formValidation.addValidator('custom100', function(field) {
+        if (field.hasAttribute('data-powermail-custom100')) {
+            // return true means validation has failed
+            return field.value < parseInt(field.getAttribute('data-powermail-custom100'));
+        }
+        return false;
+    });
+});
+```
+
+See Extension powermailextended https://github.com/einpraegsam/powermailextended for details
 
 ### Add new PHP Validation
 
@@ -359,13 +369,13 @@ This extension allows you to:
 
 A global validator is something that could normally not be selected by an editor.
 
-### Parsley Introduction
+### Javascript validation introduction
 
-Example form, validated with parsley.js, with a required and an email field.
-In addition to HTML5, this input fields are validated with parsley:
+Example form, validated with form validation framework, with a required and an email field.
+In addition to HTML5, this input fields are validated now:
 
 ```
-<form data-parsley-validate>
+<form data-powermail-validate>
     <input type="text" name="firstname" required="required" />
 
     <input type="email" name="email" />
@@ -374,7 +384,7 @@ In addition to HTML5, this input fields are validated with parsley:
 </form>
 ```
 
-### Own Parsley Validator
+### Own JavaScript validator
 
 #### Quick example
 
@@ -382,14 +392,17 @@ See how you can relate a JavaScript validator to a field with a data-attribute. 
 message also via data-attribute:
 
 ```
-<input type="text" data-parsley-emailverification="@" data-parsley-emailverification-message="No email address" />
+<input type="text" data-powermail-emailverification="@" data-powermail-emailverification-message="No email address" />
     [...]
 <script type="text/javascript">
-    window.Parsley.addValidator('emailverification', {
-        validateNumber: function(value, requirement) {
-            return value.indexOf(requirement) !== -1;
-        },
-        requirementType: 'string'
+    const field = document.querySelector('[data-powermail-emailverification]');
+    const form = field.closest('form');
+    const formValidation = form.powermailFormValidation;
+
+    formValidation.addValidator('emailverification', function(field) {
+        if (field.hasAttribute('data-powermail-emailverification')) {
+            return field.value.indexOf(field.getAttribute('data-powermail-emailverification')) === false;
+        }
     });
 </script>
 ```
@@ -416,7 +429,7 @@ The example fluid template (partial):
 				id="powermail_field_{field.marker}"
 				property="{field.marker}"
 				value=""
-				additionalAttributes="{data-parsley-emailverification-message:'{f:translate(key:\'powermail.validation.emailverification\',extensionName:\'In2template\')}',data-parsley-emailverification:'{field.marker}_mirror'}"
+				additionalAttributes="{data-powermail-emailverification-message:'{f:translate(key:\'powermail.validation.emailverification\',extensionName:\'In2template\')}',data-powermail-emailverification:'{field.marker}_mirror'}"
 				class="powermail_emailverification {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}" />
 	</div>
 </div>
@@ -432,7 +445,7 @@ The example fluid template (partial):
 				id="powermail_field_{field.marker}_mirror"
 				property="{field.marker}_mirror"
 				value=""
-				additionalAttributes="{data-parsley-emailverification-message:'{f:translate(key:\'powermail.validation.emailverification\',extensionName:\'In2template\')}',data-parsley-emailverification:'{field.marker}'}"
+				additionalAttributes="{data-powermail-emailverification-message:'{f:translate(key:\'powermail.validation.emailverification\',extensionName:\'In2template\')}',data-powermail-emailverification:'{field.marker}'}"
 				class="powermail_emailverification {settings.styles.framework.fieldClasses} {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}" />
 	</div>
 </div>
@@ -443,32 +456,20 @@ The example fluid template (partial):
 The example JavaScript:
 
 ```
-/**
- * @returns {void}
- */
-var addEmailVerificationValidation = function() {
-	window.Parsley.addValidator('emailverification', {
-		validateString: function(value, markerMirror) {
-			return value === getMirrorValue(markerMirror);
-		},
-		requirementType: 'string'
-	});
-};
+<script type="text/javascript">
+    const field = document.querySelector('[data-powermail-emailverification]');
+    const form = field.closest('form');
+    const formValidation = form.powermailFormValidation;
 
-/**
- * @param {string} marker
- * @returns {string}
- */
-var getMirrorValue = function(marker) {
-	var elements = document.querySelectorAll('input[name="tx_powermail_pi1[field][' + marker + ']"]');
-	return elements[0].value;
-};
+    formValidation.addValidator('emailverification', function(field) {
+        if (field.hasAttribute('data-powermail-emailverification')) {
+            const id = field.getAttribute('id');
+            return field.value !== document.querySelector('#' + id + '_mirror').value;
+        }
+        return error;
+    });
+</script>
 ```
-
-
-### Documentation
-
-Look at http://parsleyjs.org/doc/examples/customvalidator.html for more examples of individual parsley.js validation
 
 
 ### Example Code

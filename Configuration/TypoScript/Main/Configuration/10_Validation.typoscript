@@ -1,0 +1,60 @@
+plugin.tx_powermail.settings.setup {
+  validation {
+    # enable native HTML5 validation
+    native = {$plugin.tx_powermail.settings.validation.native}
+
+    # enable clientside validation
+    client = {$plugin.tx_powermail.settings.validation.client}
+
+    # enable serverside validation
+    server = {$plugin.tx_powermail.settings.validation.server}
+
+    unique {
+      # EXAMPLE: Enable unique check for {email}
+      #email = 1
+
+      # EXAMPLE: Enable a max limit of 3 times for the same entry for {event}
+      #event = 3
+    }
+
+    ##########################################################
+    # EXAMPLE: CUSTOMVALIDATION
+    #
+    # E.g. Validation was extended with Page TSconfig
+    #    tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
+    #
+    # Register your Class and Method with TypoScript Setup
+    #    plugin.tx_powermail.settings.setup.validation.customValidation.100 =
+    #      In2code\Powermailextended\Domain\Validator\ZipValidator
+    #
+    # Add method to your class
+    #    validate100($value, $validationConfiguration)
+    #
+    # Define your Errormessage with TypoScript Setup
+    #    plugin.tx_powermail._LOCAL_LANG.default.validationerror_validation.100 = Error happens!
+    #
+    # ##########################################################
+    customValidation {
+      # 100 = In2code\Powermailextended\Domain\Validator\ZipValidator
+    }
+  }
+
+  # EXAMPLE: Add own validator classes that will be called before create action (if you want to validate user input with own PHP classes)
+  validators {
+    # 1 {
+    #   Classname that should be called with method *Validator()
+    #   class = Vendor\Ext\Domain\Model\DoSomethingValidator
+
+    #   optional: Add configuration for your PHP
+    #   config {
+    #     foo = bar
+
+    #     fooCObject = TEXT
+    #     fooCObject.value = do something with this text
+    #   }
+
+    #   optional: If file will not be loaded from autoloader, add path and it will be called with require_once
+    #   require = fileadmin/powermail/validator/DoSomethingValidator.php
+    # }
+  }
+}

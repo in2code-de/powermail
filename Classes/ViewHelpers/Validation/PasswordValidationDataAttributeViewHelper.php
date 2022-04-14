@@ -11,9 +11,8 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeViewHelper
 {
-
     /**
-     * Returns Data Attribute Array for JS validation with parsley.js
+     * Returns Data Attribute Array for JS validation
      *
      * @return array for data attributes
      * @throws Exception
@@ -25,8 +24,8 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
         if ($this->isClientValidationEnabled()) {
             /** @var Field $field */
             $field = $this->arguments['field'];
-            $additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
-            $additionalAttributes['data-parsley-equalto-message'] =
+            $additionalAttributes['data-powermail-equalto'] = '#powermail_field_' . $field->getMarker();
+            $additionalAttributes['data-powermail-equalto-message'] =
                 LocalizationUtility::translate('validationerror_password');
         }
 
