@@ -111,6 +111,20 @@ class SendMailService
     protected function prepareAndSend(array $email): bool
     {
         $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
+        $email['send'] = true;
+        $signalArguments = [$message, &$email, $this];
+        $this->signalDispatch(__CLASS__, 'sendTemplateEmailBeforeSend', $signalArguments);
+        if (!$email['send']) {
+            if ($this->settings['debug']['mail']) {
+                $logger = ObjectUtility::getLogger(__CLASS__);
+                $logger->info(
+                    'Mail was not sent: the signal has aborted sending. Email array after signal execution:',
+                    [$email]
+                );
+            }
+            return false;
+        }
+
         $message
             ->setTo([$email['receiverEmail'] => $email['receiverName']])
             ->setFrom([$email['senderEmail'] => $email['senderName']])
@@ -126,20 +140,6 @@ class SendMailService
         $message = $this->addHtmlBody($message, $email);
         $message = $this->addPlainBody($message, $email);
         $message = $this->addSenderHeader($message);
-
-        $email['send'] = true;
-        $signalArguments = [$message, &$email, $this];
-        $this->signalDispatch(__CLASS__, 'sendTemplateEmailBeforeSend', $signalArguments);
-        if (!$email['send']) {
-            if ($this->settings['debug']['mail']) {
-                $logger = ObjectUtility::getLogger(__CLASS__);
-                $logger->info(
-                    'Mail was not sent: the signal has aborted sending. Email array after signal execution:',
-                    [$email]
-                );
-            }
-            return false;
-        }
 
         $message->send();
         $this->updateMail($email);
