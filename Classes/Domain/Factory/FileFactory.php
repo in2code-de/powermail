@@ -12,6 +12,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Type\File\FileInfo;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -131,11 +132,11 @@ class FileFactory
         $file->setNewName(StringUtility::cleanString($originalName));
         $file->setUploadFolder($this->getUploadFolder());
         if ($size === 0) {
-            $size = filesize($file->getNewPathAndFilename(true));
+            $size = filesize($file->getTemporaryName());
         }
         $file->setSize((int)$size);
         if ($type === '') {
-            $type = mime_content_type($file->getNewPathAndFilename(true));
+            $type = (new FileInfo($file->getTemporaryName()))->getMimeType() ?: 'application/octet-stream';
         }
         $file->setType($type);
         $file->setUploaded($uploaded);
