@@ -59,7 +59,7 @@ class FormController extends AbstractController
     protected $dataProcessorRunner;
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      * @throws Exception
@@ -122,7 +122,7 @@ class FormController extends AbstractController
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UniqueValidator", param="mail")
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\ForeignValidator", param="mail")
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CustomValidator", param="mail")
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
@@ -180,7 +180,7 @@ class FormController extends AbstractController
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UniqueValidator", param="mail")
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\ForeignValidator", param="mail")
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CustomValidator", param="mail")
-     * @return void
+     * @return ResponseInterface
      * @throws IllegalObjectTypeException
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
@@ -322,10 +322,9 @@ class FormController extends AbstractController
      *
      * @param int $mail mail uid
      * @param string $hash Given Hash String
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
-     * @throws StopActionException
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      * @throws Exception
@@ -361,7 +360,7 @@ class FormController extends AbstractController
     /**
      * @param int $mail
      * @param string $hash
-     * @return void
+     * @return ResponseInterface
      * @throws \Exception
      * @noinspection PhpUnused
      */
@@ -386,7 +385,7 @@ class FormController extends AbstractController
      * @param int $language Frontend Language Uid
      * @param int $pid Page Id
      * @param bool $mobileDevice Is mobile device?
-     * @return string
+     * @return ResponseInterface
      * @noinspection PhpUnused
      * @codeCoverageIgnore
      */
@@ -458,7 +457,6 @@ class FormController extends AbstractController
      * Forward to formAction if no mail param given
      *
      * @return ForwardResponse|null
-     * @throws StopActionException
      */
     protected function forwardIfMailParamEmpty(): ?ForwardResponse
     {
@@ -478,7 +476,6 @@ class FormController extends AbstractController
      *
      * @param Mail|null $mail
      * @return ResponseInterface|null
-     * @throws StopActionException
      */
     protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ResponseInterface
     {
@@ -500,8 +497,7 @@ class FormController extends AbstractController
      * a validator for createAction fails, confirmationAction is called (if function is turned on) and same validators
      * are firing again
      *
-     * @return void
-     * @throws StopActionException
+     * @return ResponseInterface|null
      */
     protected function forwardToReferringRequest(): ?ResponseInterface
     {
