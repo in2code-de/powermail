@@ -90,6 +90,7 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
         string $configurationType = 'excludeFromFieldTypes'
     ): array {
         if (
+            isset($this->typeToTypoScriptType[$type]) &&
             ArrayUtility::isValidPath($settings, 'excludeFromPowermailAllMarker/' . $this->typeToTypoScriptType[$type] . '/' . $configurationType)
             && !empty($settings['excludeFromPowermailAllMarker'][$this->typeToTypoScriptType[$type]][$configurationType])
         ) {
