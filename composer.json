@@ -7,7 +7,13 @@
 		"mailform",
 		"spamprevention"
 	],
-	"homepage": "https://github.com/einpraegsam/powermail",
+	"homepage": "https://extensions.typo3.org/extension/powermail",
+	"support": {
+		"source": "https://github.com/einpraegsam/powermail",
+		"issues": "https://github.com/einpraegsam/powermail/issues",
+		"docs": "https://github.com/einpraegsam/powermail",
+		"chat": "https://typo3.slack.com/archives/C06P2DQG2"
+	},
 	"authors": [
 		{
 			"name": "Alex Kellner",
