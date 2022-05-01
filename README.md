@@ -1,8 +1,20 @@
-# TYPO3 Extension powermail
+[![Latest Stable Version](https://poser.pugx.org/in2code/powermail/v/stable)](https://extensions.typo3.org/extension/powermail/)
+[![TYPO3 11](https://img.shields.io/badge/TYPO3-11-orange.svg?style=flat-square)](https://get.typo3.org/version/11)
+[![Total Downloads](https://poser.pugx.org/in2code/powermail/d/total)](https://packagist.org/packages/in2code/powermail)
+[![Monthly Downloads](https://poser.pugx.org/in2code/powermail/d/monthly)](https://packagist.org/packages/in2code/powermail)
 
-Powermail is a well-known, editor-friendly, powerful
-and easy to use mailform extension for TYPO3 with a lots of features
-(spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
+# TYPO3 extension `powermail`
+
+Powermail is a well-known, editor-friendly, powerful and easy-to-use mailform
+extension for TYPO3 with many features (spam protection, marketing information,
+opt-in, Ajax submit, diagram analysis, etc...).
+
+|                  | URL                                               |
+|------------------|---------------------------------------------------|
+| **Repository:**  | https://github.com/einpraegsam/powermail          |
+| **Read online:** | https://github.com/einpraegsam/powermail          |
+| **TER:**         | https://extensions.typo3.org/extension/powermail/ |
+
 
 ## TYPO3 11
 

@@ -6,8 +6,8 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'powermail',
     'description' => 'Powermail is a well-known, editor-friendly, powerful
-        and easy to use mailform extension with a lots of features
-        (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
+        and easy-to-use mailform extension with many features
+        (spam protection, marketing information, opt-in, Ajax submit, diagram analysis, etc...).',
     'category' => 'plugin',
     'version' => '10.1.0',
     'state' => 'stable',

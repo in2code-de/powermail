@@ -1,6 +1,6 @@
 {
 	"name": "in2code/powermail",
-	"description": "Powermail is a well-known, editor-friendly, powerful and easy to use mailform extension for TYPO3 with a lots of features",
+	"description": "Powermail is a well-known, editor-friendly, powerful and easy-to-use mailform extension for TYPO3 with many features (spam protection, marketing information, opt-in, Ajax submit, diagram analysis, etc...).",
 	"keywords": [
 		"typo3",
 		"form",

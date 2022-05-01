@@ -20,6 +20,11 @@ indent_style = tab
 indent_size = 3
 max_line_length = 80
 
+# Markdown-Files
+[*.md]
+indent_size = 4
+max_line_length = 80
+
 # YAML-Files
 [*.{yaml,yml}]
 indent_size = 2
