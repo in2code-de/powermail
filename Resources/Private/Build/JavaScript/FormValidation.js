@@ -120,6 +120,32 @@ class Form {
           if (Utility.isElementVisible(field)) {
             field.scrollIntoView({behavior:'smooth'});
             throw 'StopException';
+          } else {
+            let fieldset = field.closest('fieldset.powermail_fieldset');
+            if (window.getComputedStyle(fieldset).display === "none") {
+              let thisForm = field.closest('form');
+              let fieldsets = thisForm.querySelectorAll('.powermail_fieldset');
+              let activePageIndex = -1;
+              for (let i = 0; i < fieldsets.length; i++) {
+                fieldsets[i].style.display = 'none';
+              }
+              fieldset.style.display = "block";
+
+              for (let i = 0; i < fieldsets.length; i++) {
+                if (fieldsets[i].style.display !== 'none') {
+                  activePageIndex = i;
+                }
+              }
+              let buttons = thisForm.querySelectorAll('[data-powermail-morestep-current]');
+              for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('btn-primary');
+                if (i === activePageIndex) {
+                  buttons[i].classList.add('btn-primary');
+                }
+              }
+              field.scrollIntoView({behavior:'smooth'});
+              throw 'StopException';
+            }
           }
         });
       } catch (exception) {
