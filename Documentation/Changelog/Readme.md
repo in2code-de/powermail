@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 10.2.0       | 2022-05-25   | Fix some tests, XLS export should be opened in a new window, fix some undefined array keys                                                                                                              |
 | 10.1.0       | 2022-04-13   | Feature: New form validation: Add callbacks on form submits with errors, scroll to error field on submit                                                                                                              |
 | 10.0.0 (!!!) | 2022-04-10   | Feature: Remove jQuery, parsley.js and other old JS frameworks and replace it                                                                                                                                         |
 | 9.0.0 (!!!)  | 2022-11-11   | Feature: Add Support TYPO3 11, drop support for TYPO3 10                                                                                                                                                              |
