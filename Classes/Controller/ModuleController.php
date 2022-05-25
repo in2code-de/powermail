@@ -110,7 +110,7 @@ class ModuleController extends AbstractController
 
         $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: inline; filename="' . $fileName . '"');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
         header('Pragma: no-cache');
         return $this->htmlResponse();
     }

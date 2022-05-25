@@ -18,6 +18,7 @@ use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
@@ -147,6 +148,9 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getEditFormLink(): string
     {
+        if (!CoreArrayUtility::isValidPath($this->getFormProperties(), 'uid')) {
+            return '';
+        }
         return BackendUtility::createEditUri(Form::TABLE_NAME, (int)$this->getFormProperties()['uid']);
     }
 
@@ -218,7 +222,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
     protected function getRelatedFormUid(): int
     {
         $flexFormArray = (array)$this->data['databaseRow']['pi_flexform']['data']['main']['lDEF'];
-        $formUid = (int)$flexFormArray['settings.flexform.main.form']['vDEF'][0];
+        $formUid = (int)($flexFormArray['settings.flexform.main.form']['vDEF'][0] ?? 0);
         $language = (int)($this->data['databaseRow']['sys_language_uid'][0] ?? $this->data['databaseRow']['sys_language_uid'] ?? 0);
         $formUid = $this->getLocalizedFormUid($formUid, $language);
         return $formUid;
@@ -231,7 +235,17 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getStoragePageProperties(): array
     {
-        return (array)BackendUtilityCore::getRecord('pages', (int)$this->getFormProperties()['pid'], '*', '', false);
+        if (!CoreArrayUtility::isValidPath($this->getFormProperties(), 'pid')) {
+            return [];
+        }
+
+        return (array)BackendUtilityCore::getRecord(
+            'pages',
+            (int)$this->getFormProperties()['pid'],
+            '*',
+            '',
+            false
+        );
     }
 
     /**
@@ -248,6 +262,9 @@ class ShowFormNoteEditForm extends AbstractFormElement
             return $this->getRelatedPagesAlternative();
         }
 
+        if (!CoreArrayUtility::isValidPath($this->getFormProperties(), 'uid')) {
+            return [];
+        }
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME, true);
         $rows = (array)$queryBuilder
             ->select('p.title')
@@ -306,6 +323,9 @@ class ShowFormNoteEditForm extends AbstractFormElement
             return $this->getRelatedFieldsAlternative();
         }
 
+        if (!CoreArrayUtility::isValidPath($this->getFormProperties(), 'uid')) {
+            return [];
+        }
         $titles = [];
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME, true);
         $rows = $queryBuilder
