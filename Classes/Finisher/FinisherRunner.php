@@ -49,17 +49,11 @@ class FinisherRunner
                 );
             }
             if (is_subclass_of($class, $this->interface)) {
-                if (!isset($dpSettings['config'])) {
-                    $finisherSettings['config'] = [];
-                } else {
-                    $finisherSettings['config'] = (array)$finisherSettings['config'];
-                }
-
                 /** @var AbstractFinisher $finisher */
                 $finisher = GeneralUtility::makeInstance(
                     $class,
                     $mail,
-                    $finisherSettings['config'],
+                    (array)$finisherSettings['config'] ?? [],
                     $settings,
                     $formSubmitted,
                     $actionMethodName,
