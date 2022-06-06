@@ -1,4 +1,5 @@
 import Utility from './Utility';
+import MoreStepForm from './MoreStepForm';
 
 export default class FormValidation {
   #formValidationSelector = '[data-powermail-validate]';
@@ -113,6 +114,15 @@ class Form {
    * @type {{name: function(*=, *): boolean}}
    */
   #submitErrorCallbacks = {
+    'openTabWithError': () => {
+      const firstFieldWithError = this.#form.querySelector('.powermail_field_error');
+      if (firstFieldWithError !== null) {
+        let fieldsetError = firstFieldWithError.closest('.powermail_fieldset');
+        const fieldsetErrorIndex = [...this.#form.querySelectorAll('.powermail_fieldset')].indexOf(fieldsetError);
+        let moreStepForm = new MoreStepForm();
+        moreStepForm.showFieldset(fieldsetErrorIndex, this.#form);
+      }
+    },
     'scrollToFirstError': () => {
       try {
         const fieldsWithError = this.#form.querySelectorAll('.powermail_field_error');
