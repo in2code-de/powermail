@@ -4,7 +4,11 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension for TYPO3 with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-## TYPO3 11
+## Powermail 9 and 10
+
+Changes for powermail 10 with TYPO3 11:
+
+* Remove jQuery from all frontend renderings
 
 Changes done for powermail 9 with TYPO3 11:
 
