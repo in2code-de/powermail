@@ -497,7 +497,7 @@ class SendMailService
         $this->mail = $mail;
         $this->settings = $settings;
         $this->configuration = $this->getConfigurationFromSettings($settings);
-        if (ArrayUtilityCore::isValidPath($this->configuration, $type . './overwrite')) {
+        if (ArrayUtilityCore::isValidPath($this->configuration, $type . './overwrite.')) {
             $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
         }
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
