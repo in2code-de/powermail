@@ -5,8 +5,8 @@ namespace In2code\Powermail\Finisher;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -15,11 +15,10 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class FinisherRunner
 {
-
     /**
      * @var string
      */
-    protected $interface = 'In2code\Powermail\Finisher\FinisherInterface';
+    protected $interface = FinisherInterface::class;
 
     /**
      * Call finisher classes after submit
@@ -32,7 +31,6 @@ class FinisherRunner
      * @return void
      * @throws ClassDoesNotExistException
      * @throws InterfaceNotImplementedException
-     * @throws Exception
      */
     public function callFinishers(
         Mail $mail,
@@ -58,7 +56,7 @@ class FinisherRunner
                 }
 
                 /** @var AbstractFinisher $finisher */
-                $finisher = ObjectUtility::getObjectManager()->get(
+                $finisher = GeneralUtility::makeInstance(
                     $class,
                     $mail,
                     $finisherSettings['config'],
