@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Tca;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
@@ -48,8 +49,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
     /**
      * Show Note which form was selected
      *
-     * @param array $params TCA configuration array
-     * @return string
+     * @return array
      * @throws DeprecatedException
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -98,7 +98,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getLabels(): array
     {
-        $labels = [
+        return [
             'formname' => $this->getLabel('formnote.formname'),
             'storedinpage' => $this->getLabel('formnote.storedinpage'),
             'pages' => $this->getLabel('formnote.pages'),
@@ -107,7 +107,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
             'new' => $this->getLabel('formnote.new'),
             'edit' => $this->getLabel('formnote.edit')
         ];
-        return $labels;
     }
 
     /**
@@ -221,9 +220,10 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getRelatedFormUid(): int
     {
-        $flexFormArray = (array)$this->data['databaseRow']['pi_flexform']['data']['main']['lDEF'];
+        $flexFormArray = (array)$this->data['databaseRow']['pi_flexform']['data']['main']['lDEF'] ?? [];
         $formUid = (int)($flexFormArray['settings.flexform.main.form']['vDEF'][0] ?? 0);
-        $language = (int)($this->data['databaseRow']['sys_language_uid'][0] ?? $this->data['databaseRow']['sys_language_uid'] ?? 0);
+        $language = (int)($this->data['databaseRow']['sys_language_uid'][0]
+            ?? $this->data['databaseRow']['sys_language_uid'] ?? 0);
         $formUid = $this->getLocalizedFormUid($formUid, $language);
         return $formUid;
     }
@@ -255,6 +255,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws DBALException
      */
     protected function getRelatedPages(): array
     {
@@ -282,6 +283,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * if replaceIrreWithElementBrowser is active
      *
      * @return array
+     * @throws DBALException
      */
     protected function getRelatedPagesAlternative(): array
     {
@@ -316,6 +318,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws DBALException
      */
     protected function getRelatedFields(): array
     {
@@ -348,6 +351,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * if replaceIrreWithElementBrowser is active
      *
      * @return array
+     * @throws DBALException
      */
     protected function getRelatedFieldsAlternative(): array
     {
