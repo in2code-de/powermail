@@ -10,15 +10,14 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class AnswerRepository extends AbstractRepository
 {
-
     /**
      * Find single Answer by field uid and mail uid
      *
      * @param int $fieldUid
      * @param int $mailUid
-     * @return Answer
+     * @return Answer|null
      */
-    public function findByFieldAndMail($fieldUid, $mailUid): Answer
+    public function findByFieldAndMail($fieldUid, $mailUid): ?Answer
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
