@@ -473,7 +473,7 @@ class Form {
 
   #getFieldsFromForm() {
     return this.#form.querySelectorAll(
-      'input:not([data-powermail-validation="disabled"]):not([type="hidden"]):not([type="submit"])'
+      'input:not([data-powermail-validation="disabled"]):not([type="hidden"]):not([type="reset"]):not([type="submit"])'
       + ', textarea:not([data-powermail-validation="disabled"])'
       + ', select:not([data-powermail-validation="disabled"])'
     );
