@@ -10,19 +10,12 @@ use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class SaveToAnyTableFinisher
  */
 class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterface
 {
-
-    /**
-     * @var ContentObjectRenderer
-     */
-    protected $contentObject;
-
     /**
      * @var array
      */
@@ -233,14 +226,5 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
             $this->addArrayToDataArray($mailRepository->getVariablesWithMarkersFromMail($this->mail));
         }
-    }
-
-    /**
-     * @param ContentObjectRenderer $contentObject
-     * @return void
-     */
-    public function injectContentObject(ContentObjectRenderer $contentObject): void
-    {
-        $this->contentObject = $contentObject;
     }
 }
