@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 10.3.1       | 2022-06-07   | Small bugfix update: Prevent exception on form submit, repair CSV/XLS/RSS in Pi2                                                                                                                                      |
 | 10.3.0       | 2022-06-06   | JS validation opens tab with first error field on morestep forms, Fix overrule TS settings, Fix pagebrowser in backend module, Fix finisher runner, Some more smaller fixes and code cleanups                         |
 | 10.2.0       | 2022-05-25   | Fix some tests, XLS export should be opened in a new window, fix some undefined array keys                                                                                                                            |
 | 10.1.0       | 2022-04-13   | Feature: New form validation: Add callbacks on form submits with errors, scroll to error field on submit                                                                                                              |
