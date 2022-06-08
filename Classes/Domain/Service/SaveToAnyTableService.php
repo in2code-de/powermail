@@ -308,7 +308,7 @@ class SaveToAnyTableService
     /**
      * Remove not allowed signs
      *
-     * @param $string
+     * @param string $string
      * @return void
      */
     protected function removeNotAllowedSigns(string &$string): void
