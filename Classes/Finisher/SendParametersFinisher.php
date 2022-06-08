@@ -2,13 +2,16 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Finisher;
 
+use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * SendParametersFinisher to send params via CURL
@@ -17,8 +20,14 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
 {
     /**
      * @var ConfigurationManagerInterface
+     * local instance that can be manipulated via start() and has no influence to parent::contentObject
      */
     protected $configurationManager;
+
+    /**
+     * @var ContentObjectRenderer
+     */
+    protected $contentObjectLocal = null;
 
     /**
      * TypoScript configuration part sendPost
@@ -41,6 +50,27 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      * @var array
      */
     protected $configuration;
+
+    /**
+     * @param Mail $mail
+     * @param array $configuration
+     * @param array $settings
+     * @param bool $formSubmitted
+     * @param string $actionMethodName
+     * @param ContentObjectRenderer $contentObject
+     */
+    public function __construct(
+        Mail $mail,
+        array $configuration,
+        array $settings,
+        bool $formSubmitted,
+        string $actionMethodName,
+        ContentObjectRenderer $contentObject
+    ) {
+        parent::__construct($mail, $configuration, $settings, $formSubmitted, $actionMethodName, $contentObject);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $this->contentObjectLocal = $configurationManager->getContentObject();
+    }
 
     /**
      * Send values via curl to a third party software
@@ -97,7 +127,10 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function getValues(): string
     {
-        return $this->contentObject->cObjGetSingle($this->configuration['values'], $this->configuration['values.']);
+        return $this->contentObjectLocal->cObjGetSingle(
+            $this->configuration['values'],
+            $this->configuration['values.']
+        );
     }
 
     /**
@@ -109,7 +142,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function isEnabled(): bool
     {
-        return $this->contentObject->cObjGetSingle(
+        return $this->contentObjectLocal->cObjGetSingle(
             $this->configuration['_enable'],
             $this->configuration['_enable.']
         ) === '1' && $this->isFormSubmitted();
@@ -124,18 +157,9 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     public function initializeFinisher(): void
     {
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
-        $this->contentObject->start($mailRepository->getVariablesWithMarkersFromMail($this->mail));
+        $this->contentObjectLocal->start($mailRepository->getVariablesWithMarkersFromMail($this->mail));
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
         $configuration = $configurationService->getTypoScriptConfiguration();
         $this->configuration = $configuration['marketing.']['sendPost.'];
-    }
-
-    /**
-     * @param ConfigurationManagerInterface $configurationManager
-     * @return void
-     */
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
-    {
-        $this->configurationManager = $configurationManager;
     }
 }

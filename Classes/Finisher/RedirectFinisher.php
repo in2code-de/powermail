@@ -4,7 +4,7 @@ namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Service\RedirectUriService;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
@@ -13,7 +13,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class RedirectFinisher extends AbstractFinisher implements FinisherInterface
 {
-
     /**
      * @var array
      */
@@ -27,8 +26,7 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
      */
     public function redirectToUriFinisher(): void
     {
-        /** @var RedirectUriService $redirectService */
-        $redirectService = ObjectUtility::getObjectManager()->get(RedirectUriService::class, $this->contentObject);
+        $redirectService = GeneralUtility::makeInstance(RedirectUriService::class, $this->contentObject);
         $uri = $redirectService->getRedirectUri();
         if (!empty($uri) && $this->isRedirectEnabled()) {
             HttpUtility::redirect($uri);

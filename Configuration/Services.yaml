@@ -7,8 +7,6 @@ services:
   In2code\Powermail\:
     resource: '../Classes/*'
 
-  # Commands
-
   In2code\Powermail\Command\CleanupExportsCommand:
     tags:
       - name: 'console.command'

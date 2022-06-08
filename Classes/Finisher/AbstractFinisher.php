@@ -10,7 +10,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 abstract class AbstractFinisher implements FinisherInterface
 {
-
     /**
      * @var Mail
      */
@@ -48,6 +47,30 @@ abstract class AbstractFinisher implements FinisherInterface
      * @var ContentObjectRenderer
      */
     protected $contentObject;
+
+    /**
+     * @param Mail $mail
+     * @param array $configuration
+     * @param array $settings
+     * @param bool $formSubmitted
+     * @param string $actionMethodName
+     * @param ContentObjectRenderer $contentObject
+     */
+    public function __construct(
+        Mail $mail,
+        array $configuration,
+        array $settings,
+        bool $formSubmitted,
+        string $actionMethodName,
+        ContentObjectRenderer $contentObject
+    ) {
+        $this->setMail($mail);
+        $this->setConfiguration($configuration);
+        $this->setSettings($settings);
+        $this->setFormSubmitted($formSubmitted);
+        $this->setActionMethodName($actionMethodName);
+        $this->contentObject = $contentObject;
+    }
 
     /**
      * @return Mail
@@ -146,29 +169,5 @@ abstract class AbstractFinisher implements FinisherInterface
      */
     public function initializeFinisher(): void
     {
-    }
-
-    /**
-     * @param Mail $mail
-     * @param array $configuration
-     * @param array $settings
-     * @param bool $formSubmitted
-     * @param string $actionMethodName
-     * @param ContentObjectRenderer $contentObject
-     */
-    public function __construct(
-        Mail $mail,
-        array $configuration,
-        array $settings,
-        bool $formSubmitted,
-        string $actionMethodName,
-        ContentObjectRenderer $contentObject
-    ) {
-        $this->setMail($mail);
-        $this->setConfiguration($configuration);
-        $this->setSettings($settings);
-        $this->setFormSubmitted($formSubmitted);
-        $this->setActionMethodName($actionMethodName);
-        $this->contentObject = $contentObject;
     }
 }
