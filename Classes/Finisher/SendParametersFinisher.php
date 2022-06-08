@@ -15,10 +15,16 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class SendParametersFinisher extends AbstractFinisher implements FinisherInterface
 {
+
     /**
      * @var ConfigurationManagerInterface
      */
     protected $configurationManager;
+
+    /**
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected $contentObject = null;
 
     /**
      * TypoScript configuration part sendPost
@@ -123,6 +129,8 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     public function initializeFinisher(): void
     {
+        // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
+        $this->contentObject = $this->configurationManager->getContentObject();
         $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
         $this->contentObject->start($mailRepository->getVariablesWithMarkersFromMail($this->mail));
         $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
