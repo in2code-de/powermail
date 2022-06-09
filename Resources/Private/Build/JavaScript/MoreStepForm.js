@@ -1,3 +1,5 @@
+import Utility from './Utility';
+
 export default function MoreStepForm() {
   'use strict';
 
@@ -7,9 +9,20 @@ export default function MoreStepForm() {
 
   let buttonActiveClass = 'btn-primary';
 
+  let that = this;
+
   this.initialize = function() {
     showListener();
     initializeForms();
+  };
+
+  this.showFieldset = function(index, form) {
+    if (form.classList.contains(formClass)) {
+      hideAllFieldsets(form);
+      let fieldsets = getAllFieldsetsOfForm(form);
+      Utility.showElement(fieldsets[index]);
+      updateButtonStatus(form);
+    }
   };
 
   let initializeForms = function() {
@@ -20,7 +33,7 @@ export default function MoreStepForm() {
   };
 
   let initializeForm = function(form) {
-    showFieldset(0, form);
+    that.showFieldset(0, form);
   };
 
   let showListener = function() {
@@ -29,22 +42,15 @@ export default function MoreStepForm() {
       moreButtons[i].addEventListener('click', function(event) {
         let targetFieldset = event.target.getAttribute('data-powermail-morestep-show');
         let form = event.target.closest('form');
-        showFieldset(targetFieldset, form);
+        that.showFieldset(targetFieldset, form);
       });
     }
   }
 
-  let showFieldset = function(index, form) {
-    hideAllFieldsets(form);
-    let fieldsets = getAllFieldsetsOfForm(form);
-    showElement(fieldsets[index]);
-    updateButtonStatus(form);
-  };
-
   let hideAllFieldsets = function(form) {
     let fieldsets = getAllFieldsetsOfForm(form);
     for (let i = 0; i < fieldsets.length; i++) {
-      hideElement(fieldsets[i]);
+      Utility.hideElement(fieldsets[i]);
     }
   };
 
@@ -76,13 +82,5 @@ export default function MoreStepForm() {
 
   let getAllFieldsetsOfForm = function(form) {
     return form.querySelectorAll('.' + fieldsetClass);
-  };
-
-  let hideElement = function(element) {
-    element.style.display = 'none';
-  };
-
-  let showElement = function(element) {
-    element.style.display = 'block';
   };
 }

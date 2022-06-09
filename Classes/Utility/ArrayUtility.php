@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Utility;
 
+use Throwable;
 use TYPO3\CMS\Core\Utility\ArrayUtility as ArrayUtilityCore;
 
 /**
@@ -9,7 +10,6 @@ use TYPO3\CMS\Core\Utility\ArrayUtility as ArrayUtilityCore;
  */
 class ArrayUtility
 {
-
     /**
      * Returns array with alphabetical letters
      *
@@ -43,7 +43,7 @@ class ArrayUtility
     public static function htmlspecialcharsOnArray(array $array): array
     {
         $newArray = [];
-        foreach ((array)$array as $key => $value) {
+        foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $newArray[htmlspecialchars((string)$key)] = self::htmlspecialcharsOnArray($value);
             } else {
@@ -62,14 +62,12 @@ class ArrayUtility
      * @param string $path Path within the array
      * @param string $delimiter Defined path delimiter, default .
      * @return mixed
-     * @throws \RuntimeException if the path is empty, or if the path does not exist
-     * @throws \InvalidArgumentException if the path is neither array nor string
      */
     public static function getValueByPath(array $array, string $path, string $delimiter = '.')
     {
         try {
             $value = ArrayUtilityCore::getValueByPath($array, $path, $delimiter);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             // If path is not available in array
             unset($exception);
             $value = '';
@@ -97,6 +95,7 @@ class ArrayUtility
      * ]
      *
      * @param array $array
+     * @param string $key
      * @return array
      */
     public static function flatten(array $array, string $key): array

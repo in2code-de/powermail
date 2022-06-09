@@ -92,6 +92,6 @@ See the reporting about the delivered mails (Form or Marketing Data Analyses are
 * [Documentation for contributors](/Documentation/ForContributors/Readme.md)
 * [FAQ](/Documentation/FAQ/Readme.md) (with a lot of stuff and best practice)
 * [Changelog](/Documentation/Changelog/Readme.md)
-* [Upgrade Instructions](/Documentation/Changelog/RUpgradeInstructions.md)
+* [Upgrade Instructions](/Documentation/Changelog/UpgradeInstructions.md)
 * [Support](/Documentation/Support/Readme.md)
 * [Additional links](/Documentation/Links/Readme.md)

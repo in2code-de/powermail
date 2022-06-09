@@ -14,9 +14,9 @@ use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\ArrayUtility as ArrayUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -73,7 +73,6 @@ class SendMailService
      * @param string $type Email to "sender" or "receiver"
      * @return bool Mail successfully sent
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
@@ -102,7 +101,6 @@ class SendMailService
      * @param array $email
      * @return bool
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
@@ -110,7 +108,7 @@ class SendMailService
      */
     protected function prepareAndSend(array $email): bool
     {
-        $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
+        $message = GeneralUtility::makeInstance(MailMessage::class);
         $message
             ->setTo([$email['receiverEmail'] => $email['receiverName']])
             ->setFrom([$email['senderEmail'] => $email['senderName']])
@@ -156,8 +154,8 @@ class SendMailService
     protected function addCc(MailMessage $message): MailMessage
     {
         $ccValue = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->overwriteConfig['cc']??'',
-            $this->overwriteConfig['cc.']??[]
+            $this->overwriteConfig['cc'] ?? '',
+            $this->overwriteConfig['cc.'] ?? []
         );
         if (!empty($ccValue)) {
             $message->setCc(GeneralUtility::trimExplode(',', $ccValue, true));
@@ -175,8 +173,8 @@ class SendMailService
     protected function addBcc(MailMessage $message): MailMessage
     {
         $bccValue = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->overwriteConfig['bcc']??'',
-            $this->overwriteConfig['bcc.']??[]
+            $this->overwriteConfig['bcc'] ?? '',
+            $this->overwriteConfig['bcc.'] ?? []
         );
         if (!empty($bccValue)) {
             $message->setBcc(GeneralUtility::trimExplode(',', $bccValue, true));
@@ -194,8 +192,8 @@ class SendMailService
     protected function addReturnPath(MailMessage $message): MailMessage
     {
         $returnPathValue = ObjectUtility::getContentObject()->cObjGetSingle(
-            $this->overwriteConfig['returnPath']??'',
-            $this->overwriteConfig['returnPath.']??[]
+            $this->overwriteConfig['returnPath'] ?? '',
+            $this->overwriteConfig['returnPath.'] ?? []
         );
         if (!empty($returnPathValue)) {
             $message->setReturnPath($returnPathValue);
@@ -221,11 +219,7 @@ class SendMailService
             $this->overwriteConfig['replyToName.']??[]
         );
         if (!empty($replyToEmail) && !empty($replyToName)) {
-            $message->setReplyTo(
-                [
-                    $replyToEmail => $replyToName
-                ]
-            );
+            $message->setReplyTo([$replyToEmail => $replyToName]);
         }
         return $message;
     }
@@ -260,7 +254,7 @@ class SendMailService
     {
         if (!empty($this->settings[$this->type]['attachment']) && !empty($this->settings['misc']['file']['folder'])) {
             /** @var UploadService $uploadService */
-            $uploadService = ObjectUtility::getObjectManager()->get(UploadService::class);
+            $uploadService = GeneralUtility::makeInstance(UploadService::class);
             foreach ($uploadService->getFiles() as $file) {
                 if ($file->isUploaded() && $file->isValid() && $file->isFileExisting()) {
                     $message->attachFromPath($file->getNewPathAndFilename(true));
@@ -303,7 +297,6 @@ class SendMailService
      * @param array $email
      * @return MailMessage
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
@@ -322,7 +315,6 @@ class SendMailService
      * @param array $email
      * @return MailMessage
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
@@ -331,7 +323,7 @@ class SendMailService
     protected function addPlainBody(MailMessage $message, array $email): MailMessage
     {
         if ($email['format'] !== 'html') {
-            $plaintextService = ObjectUtility::getObjectManager()->get(PlaintextService::class);
+            $plaintextService = GeneralUtility::makeInstance(PlaintextService::class);
             $message->text($plaintextService->makePlain($this->createEmailBody($email)), FrontendUtility::getCharset());
         }
         return $message;
@@ -372,7 +364,6 @@ class SendMailService
     /**
      * @param array $email
      * @return string
-     * @throws InvalidControllerNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      * @throws InvalidConfigurationTypeException
@@ -386,7 +377,7 @@ class SendMailService
         $standaloneView->setTemplatePathAndFilename(TemplateUtility::getTemplatePath($email['template'] . '.html'));
 
         // variables
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($this->mail);
         $standaloneView->assignMultiple($variablesWithMarkers);
         $standaloneView->assignMultiple($mailRepository->getLabelsWithMarkersFromMail($this->mail));
@@ -429,11 +420,10 @@ class SendMailService
     /**
      * @param array $settings
      * @return array
-     * @throws Exception
      */
     protected function getConfigurationFromSettings(array $settings): array
     {
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         return $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
     }
 
@@ -449,7 +439,7 @@ class SendMailService
      */
     protected function parseAndOverwriteVariables(array &$email, Mail $mail): void
     {
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $email['subject'] = TypoScriptUtility::overwriteValueFromTypoScript(
             $email['subject'],
             $this->overwriteConfig,
@@ -507,10 +497,10 @@ class SendMailService
         $this->mail = $mail;
         $this->settings = $settings;
         $this->configuration = $this->getConfigurationFromSettings($settings);
-        if (\TYPO3\CMS\Core\Utility\ArrayUtility::isValidPath($this->configuration, $type . './overwrite')) {
+        if (ArrayUtilityCore::isValidPath($this->configuration, $type . './overwrite.')) {
             $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
         }
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         ObjectUtility::getContentObject()->start($mailRepository->getVariablesWithMarkersFromMail($mail));
         $this->type = $type;
     }

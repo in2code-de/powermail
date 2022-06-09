@@ -2,11 +2,17 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Finisher;
 
+use Doctrine\DBAL\DBALException;
+use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\SaveToAnyTableService;
+use In2code\Powermail\Exception\DatabaseFieldMissingException;
+use In2code\Powermail\Exception\PropertiesMissingException;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -17,11 +23,11 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterface
 {
-
     /**
      * @var ContentObjectRenderer
+     * local instance that can be manipulated via start() and has no influence to parent::contentObject
      */
-    protected $contentObject;
+    protected $contentObjectLocal;
 
     /**
      * @var array
@@ -29,16 +35,39 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     protected $dataArray = [];
 
     /**
+     * @param Mail $mail
+     * @param array $configuration
+     * @param array $settings
+     * @param bool $formSubmitted
+     * @param string $actionMethodName
+     * @param ContentObjectRenderer $contentObject
+     */
+    public function __construct(
+        Mail $mail,
+        array $configuration,
+        array $settings,
+        bool $formSubmitted,
+        string $actionMethodName,
+        ContentObjectRenderer $contentObject
+    ) {
+        parent::__construct($mail, $configuration, $settings, $formSubmitted, $actionMethodName, $contentObject);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $this->contentObjectLocal = $configurationManager->getContentObject();
+    }
+
+    /**
      * Preperation function for every table
      *
      * @return void
-     * @throws Exception
+     * @throws DBALException
+     * @throws DatabaseFieldMissingException
+     * @throws PropertiesMissingException
      */
     public function savePreflightFinisher(): void
     {
         if ($this->isConfigurationAvailable()) {
             foreach (array_keys($this->configuration) as $key) {
-                $this->contentObject->start($this->getDataArray());
+                $this->contentObjectLocal->start($this->getDataArray());
                 $tableConfiguration = $this->configuration[$key];
                 $numberKey = (int)StringUtility::removeLastDot($key);
                 if ($this->isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration)) {
@@ -54,12 +83,14 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @param int $numberKey
      * @param array $tableConfiguration
      * @return void
-     * @throws Exception
+     * @throws DBALException
+     * @throws DatabaseFieldMissingException
+     * @throws PropertiesMissingException
      */
     protected function saveSpecifiedTablePreflight(int $numberKey, array $tableConfiguration): void
     {
         /* @var $saveService SaveToAnyTableService */
-        $saveService = ObjectUtility::getObjectManager()->get(
+        $saveService = GeneralUtility::makeInstance(
             SaveToAnyTableService::class,
             $this->getTableName($tableConfiguration)
         );
@@ -80,7 +111,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     {
         foreach (array_keys($tableConfiguration) as $field) {
             if (!$this->isSkippedKey($field)) {
-                $value = $this->contentObject->cObjGetSingle(
+                $value = $this->contentObjectLocal->cObjGetSingle(
                     $tableConfiguration[$field],
                     $tableConfiguration[$field . '.']
                 );
@@ -130,7 +161,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         }
         if (!empty($tableConfiguration['_ifUniqueWhereClause'])
             && !empty($tableConfiguration['_ifUniqueWhereClause.'])) {
-            $whereClause = $this->contentObject->cObjGetSingle(
+            $whereClause = $this->contentObjectLocal->cObjGetSingle(
                 $tableConfiguration['_ifUniqueWhereClause'],
                 $tableConfiguration['_ifUniqueWhereClause.']
             );
@@ -150,7 +181,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function getTableName(array $tableConfiguration): string
     {
-        return $this->contentObject->cObjGetSingle($tableConfiguration['_table'], $tableConfiguration['_table.']);
+        return $this->contentObjectLocal->cObjGetSingle($tableConfiguration['_table'], $tableConfiguration['_table.']);
     }
 
     /**
@@ -159,7 +190,10 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration): bool
     {
-        $enable = $this->contentObject->cObjGetSingle($tableConfiguration['_enable']??'', $tableConfiguration['_enable.']??null);
+        $enable = $this->contentObjectLocal->cObjGetSingle(
+            $tableConfiguration['_enable'] ?? '',
+            $tableConfiguration['_enable.'] ?? null
+        );
         return !empty($enable);
     }
 
@@ -233,14 +267,5 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
             $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
             $this->addArrayToDataArray($mailRepository->getVariablesWithMarkersFromMail($this->mail));
         }
-    }
-
-    /**
-     * @param ContentObjectRenderer $contentObject
-     * @return void
-     */
-    public function injectContentObject(ContentObjectRenderer $contentObject): void
-    {
-        $this->contentObject = $contentObject;
     }
 }

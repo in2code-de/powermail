@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Model;
 
+use DateTime;
 use In2code\Powermail\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
@@ -77,7 +78,7 @@ class Mail extends AbstractEntity
     protected $answers = null;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $crdate = null;
 
@@ -401,18 +402,18 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime|null
      */
-    public function getCrdate(): \DateTime
+    public function getCrdate(): ?DateTime
     {
         return $this->crdate;
     }
 
     /**
-     * @param \DateTime $crdate
+     * @param DateTime $crdate
      * @return Mail
      */
-    public function setCrdate(\DateTime $crdate): Mail
+    public function setCrdate(DateTime $crdate): Mail
     {
         $this->crdate = $crdate;
         return $this;

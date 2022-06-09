@@ -1,4 +1,5 @@
 import Utility from './Utility';
+import MoreStepForm from './MoreStepForm';
 import moment from 'moment';
 
 export default class FormValidation {
@@ -114,6 +115,15 @@ class Form {
    * @type {{name: function(*=, *): boolean}}
    */
   #submitErrorCallbacks = {
+    'openTabWithError': () => {
+      const firstFieldWithError = this.#form.querySelector('.powermail_field_error');
+      if (firstFieldWithError !== null) {
+        let fieldsetError = firstFieldWithError.closest('.powermail_fieldset');
+        const fieldsetErrorIndex = [...this.#form.querySelectorAll('.powermail_fieldset')].indexOf(fieldsetError);
+        let moreStepForm = new MoreStepForm();
+        moreStepForm.showFieldset(fieldsetErrorIndex, this.#form);
+      }
+    },
     'scrollToFirstError': () => {
       try {
         const fieldsWithError = this.#form.querySelectorAll('.powermail_field_error');
@@ -482,7 +492,7 @@ class Form {
 
   #getFieldsFromForm() {
     return this.#form.querySelectorAll(
-      'input:not([data-powermail-validation="disabled"]):not([type="hidden"]):not([type="submit"])'
+      'input:not([data-powermail-validation="disabled"]):not([type="hidden"]):not([type="reset"]):not([type="submit"])'
       + ', textarea:not([data-powermail-validation="disabled"])'
       + ', select:not([data-powermail-validation="disabled"])'
     );
