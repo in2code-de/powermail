@@ -52,7 +52,7 @@ class FinisherRunner
                 $finisher = GeneralUtility::makeInstance(
                     $class,
                     $mail,
-                    (array)$finisherSettings['config'] ?? [],
+                    $finisherSettings['config'] ?? [],
                     $settings,
                     $formSubmitted,
                     $actionMethodName,
