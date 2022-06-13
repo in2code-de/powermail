@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 10.3.3       | 2022-06-13   | Bugfix of undefined array key in PHP 8 (in FinisherRunner)                                                                                                                                                            |
 | 10.3.2       | 2022-06-08   | Fix regression that prevented redirects after submit, Fix JS validation with reset buttons                                                                                                                            |
 | 10.3.1       | 2022-06-07   | Small bugfix update: Prevent exception on form submit, repair CSV/XLS/RSS in Pi2                                                                                                                                      |
 | 10.3.0       | 2022-06-06   | JS validation opens tab with first error field on morestep forms, Fix overrule TS settings, Fix pagebrowser in backend module, Fix finisher runner, Some more smaller fixes and code cleanups                         |
