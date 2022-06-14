@@ -13,40 +13,40 @@ abstract class AbstractFinisher implements FinisherInterface
     /**
      * @var Mail
      */
-    protected $mail;
+    protected Mail $mail;
 
     /**
      * Extension settings
      *
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * Finisher service configuration
      *
      * @var array
      */
-    protected $configuration = [];
+    protected array $configuration = [];
 
     /**
      * Was form finally submitted?
      *
      * @var bool
      */
-    protected $formSubmitted = false;
+    protected bool $formSubmitted = false;
 
     /**
      * Controller actionName - usually "createAction" or "confirmationAction"
      *
      * @var string
      */
-    protected $actionMethodName = '';
+    protected string $actionMethodName = '';
 
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObject;
+    protected ContentObjectRenderer $contentObject;
 
     /**
      * @param Mail $mail

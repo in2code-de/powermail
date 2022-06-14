@@ -8,7 +8,6 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\SaveToAnyTableService;
 use In2code\Powermail\Exception\DatabaseFieldMissingException;
 use In2code\Powermail\Exception\PropertiesMissingException;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -27,12 +26,12 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * @var ContentObjectRenderer
      * local instance that can be manipulated via start() and has no influence to parent::contentObject
      */
-    protected $contentObjectLocal;
+    protected ContentObjectRenderer $contentObjectLocal;
 
     /**
      * @var array
      */
-    protected $dataArray = [];
+    protected array $dataArray = [];
 
     /**
      * @param Mail $mail
@@ -257,14 +256,14 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     public function initializeFinisher(): void
     {
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         if (!empty($configuration['dbEntry.'])) {
             $this->configuration = $configuration['dbEntry.'];
         }
         if ($this->isConfigurationAvailable()) {
             $this->addArrayToDataArray(['uid' => $this->mail->getUid()]);
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $this->addArrayToDataArray($mailRepository->getVariablesWithMarkersFromMail($this->mail));
         }
     }

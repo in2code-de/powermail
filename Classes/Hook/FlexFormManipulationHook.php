@@ -2,22 +2,20 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Hook;
 
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FlexFormManipulationHook
  */
 class FlexFormManipulationHook
 {
-
     /**
      * @var array
      */
-    protected $allowedSheets = [
+    protected array $allowedSheets = [
         'main',
         'receiver',
         'sender',
@@ -43,7 +41,6 @@ class FlexFormManipulationHook
      * @param string $table tableName
      * @param string $fieldName fieldName
      * @return void
-     * @throws Exception
      */
     public function getFlexFormDS_postProcessDS(
         array &$dataStructArray,
@@ -106,7 +103,6 @@ class FlexFormManipulationHook
      * @param array $dataStructure
      * @param array $identifier
      * @return array Modified data structure
-     * @throws Exception
      */
     public function parseDataStructureByIdentifierPostProcess(array $dataStructure, array $identifier): array
     {
@@ -130,15 +126,13 @@ class FlexFormManipulationHook
      *
      * @param int $pid Record pid
      * @return array
-     * @throws Exception
      */
     protected function getFieldConfiguration(int $pid): array
     {
         $tsConfiguration = BackendUtility::getPagesTSconfig((int)$pid);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['addField.'])) {
             $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.']['addField.'];
-            /** @var TypoScriptService $tsService */
-            $tsService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+            $tsService = GeneralUtility::makeInstance(TypoScriptService::class);
             return $tsService->convertTypoScriptArrayToPlainArray($eConfiguration);
         }
         return [];

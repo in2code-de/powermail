@@ -6,9 +6,8 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\HashUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -19,45 +18,42 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class SendSenderMailPreflight
 {
-
     /**
      * @var SendMailService
      */
-    protected $sendMailService;
+    protected SendMailService $sendMailService;
 
     /**
      * @var MailRepository
      */
-    protected $mailRepository;
+    protected MailRepository $mailRepository;
 
     /**
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * @var array
      */
-    protected $conf = [];
+    protected array $conf = [];
 
     /**
      * @param array $settings
      * @param array $conf
-     * @throws Exception
      */
     public function __construct(array $settings, array $conf)
     {
         $this->settings = $settings;
         $this->conf = $conf;
-        $this->sendMailService = ObjectUtility::getObjectManager()->get(SendMailService::class);
-        $this->mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class);
+        $this->mailRepository = GeneralUtility::makeInstance(MailRepository::class);
     }
 
     /**
      * @param Mail $mail
      * @return void
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
@@ -65,7 +61,7 @@ class SendSenderMailPreflight
      */
     public function sendSenderMail(Mail $mail): void
     {
-        $senderService = ObjectUtility::getObjectManager()->get(SenderMailPropertiesService::class, $this->settings);
+        $senderService = GeneralUtility::makeInstance(SenderMailPropertiesService::class, $this->settings);
         $email = [
             'template' => 'Mail/SenderMail',
             'receiverEmail' => $this->mailRepository->getSenderMailFromArguments($mail),

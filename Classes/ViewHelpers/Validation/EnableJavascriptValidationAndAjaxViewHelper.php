@@ -4,8 +4,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Service\RedirectUriService;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class EnableJavascriptValidationAndAjaxViewHelper
@@ -17,7 +16,7 @@ class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationView
      *
      * @var bool
      */
-    protected $addRedirectUri = true;
+    protected bool $addRedirectUri = true;
 
     /**
      * @return void
@@ -33,7 +32,6 @@ class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationView
      * Returns Data Attribute Array to enable validation
      *
      * @return array for data attributes
-     * @throws Exception
      */
     public function render(): array
     {
@@ -53,11 +51,7 @@ class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationView
             $additionalAttributes['data-powermail-form'] = $form->getUid();
 
             if ($this->addRedirectUri) {
-                /** @var RedirectUriService $redirectService */
-                $redirectService = ObjectUtility::getObjectManager()->get(
-                    RedirectUriService::class,
-                    $this->contentObject
-                );
+                $redirectService = GeneralUtility::makeInstance(RedirectUriService::class, $this->contentObject);
                 $redirectUri = $redirectService->getRedirectUri();
                 if ($redirectUri) {
                     $additionalAttributes['data-powermail-ajax-uri'] = $redirectUri;

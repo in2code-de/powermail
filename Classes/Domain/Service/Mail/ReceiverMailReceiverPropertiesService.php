@@ -8,7 +8,6 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
@@ -36,26 +35,26 @@ class ReceiverMailReceiverPropertiesService
     /**
      * @var Mail|null
      */
-    protected $mail = null;
+    protected ?Mail $mail = null;
 
     /**
      * TypoScript settings as plain array
      *
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * TypoScript configuration for cObject parsing
      *
      * @var array
      */
-    protected $configuration = [];
+    protected array $configuration = [];
 
     /**
      * @var array
      */
-    protected $receiverEmails = [];
+    protected array $receiverEmails = [];
 
     /**
      * @param Mail $mail
@@ -68,7 +67,7 @@ class ReceiverMailReceiverPropertiesService
     {
         $this->mail = $mail;
         $this->settings = $settings;
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         $this->setReceiverEmails();
     }
@@ -114,6 +113,7 @@ class ReceiverMailReceiverPropertiesService
      * @throws Exception
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws InvalidQueryException
      */
     protected function setReceiverEmails(): void
     {
@@ -141,7 +141,7 @@ class ReceiverMailReceiverPropertiesService
     protected function getEmailsFromFlexForm(): array
     {
         if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_DEFAULT) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $emailString = TemplateUtility::fluidParseString(
                 $this->settings['receiver']['email'],
                 $mailRepository->getVariablesWithMarkersFromMail($this->mail)
@@ -157,12 +157,12 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param int $uid fe_groups.uid
      * @return array Array with emails
-     * @throws Exception
+     * @throws InvalidQueryException
      */
     protected function getEmailsFromFeGroup(array $emailArray, int $uid): array
     {
         if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_FRONTENDGROUP && !empty($uid)) {
-            $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
+            $userRepository = GeneralUtility::makeInstance(UserRepository::class);
             $users = $userRepository->findByUsergroup($uid);
             $emailArray = [];
             /** @var User $user */
@@ -181,14 +181,13 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param int $uid be_groups.uid
      * @return array
-     * @throws Exception
      * @throws InvalidQueryException
      */
     protected function getEmailsFromBeGroup(array $emailArray, int $uid): array
     {
         if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_BACKENDGROUP && !empty($uid)) {
             /** @var BackendUserRepository $beUserRepository */
-            $beUserRepository = ObjectUtility::getObjectManager()->get(BackendUserRepository::class);
+            $beUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
             $query = $beUserRepository->createQuery();
             $users = $query->matching($query->contains('usergroup', $uid))->execute();
             $emailArray = [];

@@ -2,12 +2,12 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Repository;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
@@ -25,9 +25,9 @@ class FormRepository extends AbstractRepository
      * Find Form by given Page Uid
      *
      * @param int $uid page uid
-     * @return QueryResultInterface
+     * @return ?Form
      */
-    public function findByPages(int $uid)
+    public function findByPages(int $uid): ?Form
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
@@ -119,13 +119,13 @@ class FormRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false);
 
         if ($pid > 0) {
-            $queryGenerator = ObjectUtility::getObjectManager()->get(QueryGenerator::class);
+            $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
             $pids = GeneralUtility::trimExplode(',', $queryGenerator->getTreeList($pid, 20, 0, 1), true);
             $pids = BackendUtility::filterPagesForAccess($pids);
             $query->matching($query->in('pid', $pids));
         } else {
             if (!BackendUtility::isBackendAdmin()) {
-                $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+                $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
                 $pids = $pageRepository->getAllPages();
                 $pids = BackendUtility::filterPagesForAccess($pids);
                 $query->matching($query->in('pid', $pids));
@@ -160,6 +160,7 @@ class FormRepository extends AbstractRepository
      * Fix wrong localized forms
      *
      * @return void
+     * @throws DBALException
      */
     public function fixWrongLocalizedForms(): void
     {
@@ -176,6 +177,7 @@ class FormRepository extends AbstractRepository
      *
      * @param int $formUid Form UID
      * @return array
+     * @throws DBALException
      */
     public function getFieldsFromFormWithSelectQuery(int $formUid): array
     {
@@ -199,7 +201,6 @@ class FormRepository extends AbstractRepository
      *
      * @param int $formUid
      * @return array e.g. array(123, 234, 567)
-     * @throws Exception
      */
     public function getFieldUidsFromForm(int $formUid): array
     {

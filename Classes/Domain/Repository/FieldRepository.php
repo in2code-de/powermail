@@ -2,13 +2,14 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Repository;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -18,7 +19,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class FieldRepository extends AbstractRepository
 {
-
     /**
      * Find all records from given uids and
      * respect the sorting
@@ -158,13 +158,12 @@ class FieldRepository extends AbstractRepository
      * @param string $marker
      * @param int $formUid
      * @return Field
-     * @throws Exception
      * @throws InvalidQueryException
      */
     protected function findByMarkerAndFormAlternative(string $marker, int $formUid = 0): ?Field
     {
         // get pages from form
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $form = $formRepository->findByUid($formUid);
         $pageIdentifiers = [];
         /** @var Page $page */
@@ -231,6 +230,7 @@ class FieldRepository extends AbstractRepository
     /**
      * @param int $uid
      * @return string
+     * @throws DBALException
      */
     public function getMarkerFromUid(int $uid): string
     {
@@ -247,6 +247,7 @@ class FieldRepository extends AbstractRepository
     /**
      * @param int $uid
      * @return string
+     * @throws DBALException
      */
     public function getTypeFromUid(int $uid): string
     {

@@ -12,6 +12,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -29,47 +30,47 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     /**
      * @var bool
      */
-    protected $selected = false;
+    protected bool $selected = false;
 
     /**
      * @var array
      */
-    protected $configuration;
+    protected array $configuration;
 
     /**
      * @var array
      */
-    protected $variables;
+    protected array $variables;
 
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObjectRenderer;
+    protected ContentObjectRenderer $contentObjectRenderer;
 
     /**
-     * @var Field $field
+     * @var ?Field $field
      */
-    protected $field = null;
+    protected ?Field $field = null;
 
     /**
-     * @var Mail $mail
+     * @var ?Mail $mail
      */
-    protected $mail = null;
+    protected ?Mail $mail = null;
 
     /**
      * @var string
      */
-    protected $marker = '';
+    protected string $marker = '';
 
     /**
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * @var int
      */
-    protected $index = 0;
+    protected int $index = 0;
 
     /**
      * @return void
@@ -470,7 +471,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @param Mail $mail
+     * @param ?Mail $mail
      * @return PrefillMultiFieldViewHelper
      */
     public function setMail(Mail $mail = null): PrefillMultiFieldViewHelper
@@ -530,13 +531,12 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
 
     /**
      * @return void
-     * @throws Exception
      */
     public function initialize(): void
     {
         $this->variables = FrontendUtility::getArguments();
-        $this->contentObjectRenderer = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
     }
 }

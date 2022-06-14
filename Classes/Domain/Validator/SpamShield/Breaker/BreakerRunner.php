@@ -7,7 +7,7 @@ use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\ConfigurationIsMissingException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
-use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -18,22 +18,22 @@ class BreakerRunner
     /**
      * @var string
      */
-    protected $interface = BreakerInterface::class;
+    protected string $interface = BreakerInterface::class;
 
     /**
-     * @var Mail
+     * @var ?Mail
      */
-    protected $mail = null;
-
-    /**
-     * @var array
-     */
-    protected $settings = [];
+    protected ?Mail $mail = null;
 
     /**
      * @var array
      */
-    protected $flexForm = [];
+    protected array $settings = [];
+
+    /**
+     * @var array
+     */
+    protected array $flexForm = [];
 
     /**
      * @param Mail $mail
@@ -76,12 +76,12 @@ class BreakerRunner
                 );
             }
             /** @var AbstractBreaker $breakerInstance */
-            $breakerInstance = ObjectUtility::getObjectManager()->get(
+            $breakerInstance = GeneralUtility::makeInstance(
                 $breaker['class'],
                 $this->mail,
                 $this->settings,
                 $this->flexForm,
-                !empty($breaker['configuration']) ? $breaker['configuration'] : []
+                $breaker['configuration'] ?? []
             );
             $breakerInstance->initialize();
             if ($breakerInstance->isDisabled() === true) {
@@ -93,12 +93,11 @@ class BreakerRunner
 
     /**
      * @return array
-     * @throws Exception
      */
     protected function getBreaker(): array
     {
         $breakerConfiguration = [];
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $settings = $configurationService->getTypoScriptSettings();
         if (!empty($settings['spamshield']['_disable'])) {
             $breakerConfiguration = $settings['spamshield']['_disable'];

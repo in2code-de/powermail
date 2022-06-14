@@ -3,8 +3,7 @@ declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\String;
 
 use In2code\Powermail\Domain\Service\ConfigurationService;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -12,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class EscapeLabelsViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var bool
      */
@@ -28,7 +26,6 @@ class EscapeLabelsViewHelper extends AbstractViewHelper
      *      settings.misc.htmlForLabels=1
      *
      * @return string
-     * @throws Exception
      */
     public function render(): string
     {
@@ -41,11 +38,10 @@ class EscapeLabelsViewHelper extends AbstractViewHelper
 
     /**
      * @return bool
-     * @throws Exception
      */
     protected function isHtmlEnabled(): bool
     {
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $settings = $configurationService->getTypoScriptSettings();
         return $settings['misc']['htmlForLabels'] === '1';
     }

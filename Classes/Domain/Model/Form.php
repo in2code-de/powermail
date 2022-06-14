@@ -3,14 +3,13 @@ declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -23,12 +22,12 @@ class Form extends AbstractEntity
     /**
      * @var string
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
      * @var string
      */
-    protected $css = '';
+    protected string $css = '';
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Page>
@@ -40,14 +39,14 @@ class Form extends AbstractEntity
      *
      * @var array
      */
-    protected $pagesByTitle = [];
+    protected array $pagesByTitle = [];
 
     /**
      * Container for pages with uid as key
      *
      * @var array
      */
-    protected $pagesByUid = [];
+    protected array $pagesByUid = [];
 
     /**
      * @return string
@@ -85,7 +84,6 @@ class Form extends AbstractEntity
 
     /**
      * @return ObjectStorage|array
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -93,7 +91,7 @@ class Form extends AbstractEntity
     {
         // if elementbrowser instead of IRRE (sorting workarround)
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
-            $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+            $formRepository = GeneralUtility::makeInstance(FormRepository::class);
             $formSorting = GeneralUtility::trimExplode(',', $formRepository->getPagesValue($this->uid), true);
             $formSorting = array_flip($formSorting);
             $pageArray = [];
@@ -118,7 +116,9 @@ class Form extends AbstractEntity
 
     /**
      * @return bool
-     * @throws Exception
+     * @throws DeprecatedException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function hasUploadField(): bool
     {
@@ -141,6 +141,8 @@ class Form extends AbstractEntity
      *          FLUID: {form.pagesByTitle.page1}
      *
      * @return array
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function getPagesByTitle(): array
     {
@@ -161,6 +163,8 @@ class Form extends AbstractEntity
      *          FLUID: {form.pagesByUid.123}
      *
      * @return array
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function getPagesByUid(): array
     {
@@ -178,6 +182,9 @@ class Form extends AbstractEntity
      *
      * @param string $fieldType "" => allFieldtypes OR $field::FIELD_TYPE_* => Field of this type
      * @return Field[]
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws DeprecatedException
      */
     public function getFields(string $fieldType = ''): array
     {
@@ -197,6 +204,7 @@ class Form extends AbstractEntity
      * @param Field $field
      * @param string $fieldType
      * @return bool
+     * @throws DeprecatedException
      */
     protected function isCorrectFieldType(Field $field, string $fieldType): bool
     {

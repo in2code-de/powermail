@@ -22,12 +22,12 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      * @var ConfigurationManagerInterface
      * local instance that can be manipulated via start() and has no influence to parent::contentObject
      */
-    protected $configurationManager;
+    protected ConfigurationManagerInterface $configurationManager;
 
     /**
-     * @var ContentObjectRenderer
+     * @var ?ContentObjectRenderer
      */
-    protected $contentObjectLocal = null;
+    protected ?ContentObjectRenderer $contentObjectLocal = null;
 
     /**
      * TypoScript configuration part sendPost
@@ -49,7 +49,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      *
      * @var array
      */
-    protected $configuration;
+    protected array $configuration;
 
     /**
      * @param Mail $mail
@@ -156,9 +156,9 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     public function initializeFinisher(): void
     {
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $this->contentObjectLocal->start($mailRepository->getVariablesWithMarkersFromMail($this->mail));
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $configuration = $configurationService->getTypoScriptConfiguration();
         $this->configuration = $configuration['marketing.']['sendPost.'];
     }

@@ -2,18 +2,18 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Exception;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
@@ -25,7 +25,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     /**
      * @var string|null
      */
-    protected $error = null;
+    protected ?string $error = null;
 
     /**
      * Constructor
@@ -50,14 +50,13 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     {
         try {
             return $this->getImage();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $this->getErrorMessage($exception);
         }
     }
 
     /**
      * @return string
-     * @throws Exception
      * @throws ExceptionCore
      */
     protected function getImage(): string
@@ -71,10 +70,10 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     }
 
     /**
-     * @param \Exception $exception
+     * @param Exception $exception
      * @return string
      */
-    protected function getErrorMessage(\Exception $exception): string
+    protected function getErrorMessage(Exception $exception): string
     {
         $this->tag->setTagName('p');
         $this->tag->addAttribute('class', 'bg-danger');
@@ -86,7 +85,6 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     /**
      * @param Field $field
      * @return string image URL
-     * @throws Exception
      * @throws ExceptionCore
      */
     protected function getImageSource(Field $field): string
@@ -104,7 +102,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
                 break;
 
             default:
-                $captchaService = ObjectUtility::getObjectManager()->get(CalculatingCaptchaService::class);
+                $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
                 $image = $captchaService->render($field);
         }
         return $image;
@@ -112,11 +110,10 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
 
     /**
      * @return array
-     * @throws Exception
      */
     public function getSettings(): array
     {
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         return $configurationService->getTypoScriptSettings();
     }
 }

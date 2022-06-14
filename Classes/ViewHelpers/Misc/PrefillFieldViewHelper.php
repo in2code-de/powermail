@@ -12,6 +12,7 @@ use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -29,37 +30,37 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObject;
+    protected ContentObjectRenderer $contentObject;
 
     /**
-     * @var string|array
+     * @var string|array|null
      */
     protected $value = null;
 
     /**
      * @var array
      */
-    protected $configuration;
+    protected array $configuration;
 
     /**
      * @var array
      */
-    protected $variables;
+    protected array $variables;
 
     /**
-     * @var Field $field
+     * @var ?Field $field
      */
-    protected $field = null;
+    protected ?Field $field = null;
 
     /**
-     * @var Mail $mail
+     * @var ?Mail $mail
      */
-    protected $mail = null;
+    protected ?Mail $mail = null;
 
     /**
      * @var string
      */
-    protected $marker = '';
+    protected string $marker = '';
 
     /**
      * @return void
@@ -333,7 +334,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @return Mail
+     * @return ?Mail
      */
     public function getMail(): ?Mail
     {
@@ -341,7 +342,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @param Mail $mail
+     * @param ?Mail $mail
      * @return PrefillFieldViewHelper
      */
     public function setMail(Mail $mail = null): PrefillFieldViewHelper
@@ -383,13 +384,12 @@ class PrefillFieldViewHelper extends AbstractViewHelper
 
     /**
      * @return void
-     * @throws Exception
      */
     public function initialize()
     {
         $this->variables = FrontendUtility::getArguments();
-        $this->contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
     }
 }

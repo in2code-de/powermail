@@ -318,12 +318,11 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
-     * @throws UnsupportedRequestTypeException
      * @noinspection PhpUnused
      */
     public function fixWrongLocalizedPagesAction(): void
     {
-        $pageRepository = $this->objectManager->get(PageRepository::class);
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $pageRepository->fixWrongLocalizedPages();
         $this->redirect('checkBe');
     }
@@ -333,7 +332,6 @@ class ModuleController extends AbstractController
      *        If not, forward to tools overview
      *
      * @return ResponseInterface|null
-     * @throws StopActionException
      */
     protected function checkAdminPermissions(): ?ResponseInterface
     {

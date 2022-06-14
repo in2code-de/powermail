@@ -8,7 +8,6 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
@@ -23,20 +22,19 @@ use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
  */
 class CaptchaValidator extends AbstractValidator
 {
-
     /**
      * Captcha Session clean (only if mail is out)
      *
      * @var bool
      */
-    protected $clearSession = true;
+    protected bool $clearSession = true;
 
     /**
      * Any Captcha arguments found?
      *
      * @var bool
      */
-    protected $captchaArgument = false;
+    protected bool $captchaArgument = false;
 
     /**
      * Validation of given Params
@@ -83,7 +81,6 @@ class CaptchaValidator extends AbstractValidator
      * @param string $value
      * @param Field $field
      * @return bool
-     * @throws Exception
      * @throws ExceptionCore
      */
     protected function validCodePreflight(string $value, Field $field): bool
@@ -103,11 +100,10 @@ class CaptchaValidator extends AbstractValidator
      * @param string $value
      * @param Field $field
      * @return bool
-     * @throws Exception
      */
     protected function validatePowermailCaptcha(string $value, Field $field): bool
     {
-        $captchaService = ObjectUtility::getObjectManager()->get(CalculatingCaptchaService::class);
+        $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
         return $captchaService->validCode($value, $field, $this->isClearSession());
     }
 
@@ -146,13 +142,12 @@ class CaptchaValidator extends AbstractValidator
      *
      * @param Form $form
      * @return bool
-     * @throws Exception
      */
     protected function formHasCaptcha(Form $form): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $form = $formRepository->hasCaptcha($form);
-        return count($form) ? true : false;
+        return (bool)count($form);
     }
 
     /**
@@ -184,7 +179,7 @@ class CaptchaValidator extends AbstractValidator
      * @param bool $captchaArgument
      * @return void
      */
-    public function setCaptchaArgument($captchaArgument): void
+    public function setCaptchaArgument(bool $captchaArgument): void
     {
         $this->captchaArgument = $captchaArgument;
     }
@@ -199,6 +194,6 @@ class CaptchaValidator extends AbstractValidator
 
         // clear captcha only on create action
         $pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
-        $this->setClearSession(($pluginVariables['action'] === 'create' ? true : false));
+        $this->setClearSession($pluginVariables['action'] === 'create');
     }
 }

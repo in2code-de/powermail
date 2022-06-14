@@ -8,7 +8,7 @@ use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -18,7 +18,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class UploadValidator extends AbstractValidator
 {
-
     /**
      * Validation of given upload paramaters
      *
@@ -31,7 +30,7 @@ class UploadValidator extends AbstractValidator
     public function isValid($mail)
     {
         /** @var UploadService $uploadService */
-        $uploadService = ObjectUtility::getObjectManager()->get(UploadService::class);
+        $uploadService = GeneralUtility::makeInstance(UploadService::class);
         foreach ($uploadService->getFiles() as $file) {
             if (!$this->formHasUploadFields() || !$this->basicFileCheck($file)) {
                 $file->setValid(false);
@@ -54,14 +53,13 @@ class UploadValidator extends AbstractValidator
      * Check if given form has upload fields
      *
      * @return bool
-     * @throws Exception
      */
     protected function formHasUploadFields(): bool
     {
         $arguments = FrontendUtility::getArguments();
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         if (is_string($arguments['mail'])) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$arguments['mail']);
             $form = $formRepository->findByUid((int)$mail->getForm()->getUid());
         } else {

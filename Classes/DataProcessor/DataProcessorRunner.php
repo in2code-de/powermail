@@ -2,11 +2,12 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\DataProcessor;
 
+use Exception;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -14,18 +15,17 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class DataProcessorRunner
 {
-
     /**
      * @var string
      */
-    protected $interface = 'In2code\Powermail\DataProcessor\DataProcessorInterface';
+    protected string $interface = 'In2code\Powermail\DataProcessor\DataProcessorInterface';
 
     /**
      * @param Mail $mail
      * @param string $actionMethodName
      * @param array $settings
      * @param ContentObjectRenderer $contentObject
-     * @throws \Exception
+     * @throws Exception
      */
     public function callDataProcessors(
         Mail $mail,
@@ -49,7 +49,7 @@ class DataProcessorRunner
                     $dpSettings['config'] = (array)$dpSettings['config'];
                 }
                 /** @var AbstractDataProcessor $dataProcessor */
-                $dataProcessor =  ObjectUtility::getObjectManager()->get(
+                $dataProcessor =  GeneralUtility::makeInstance(
                     $dpSettings['class'],
                     $mail,
                     $dpSettings['config'],

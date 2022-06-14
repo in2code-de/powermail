@@ -2,16 +2,15 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Tca;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FormSelectorUserFunc
@@ -20,27 +19,25 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class FormSelectorUserFunc
 {
-
     /**
      * @var PageRepository|null
      */
-    protected $pageRepository = null;
+    protected ?PageRepository $pageRepository = null;
 
     /**
      * PageTS of current page
      *
      * @var array
      */
-    protected $tsConfiguration = [];
+    protected array $tsConfiguration = [];
 
     /**
      * FormSelectorUserFunc constructor.
-     * @throws Exception
      * @throws DeprecatedException
      */
     public function __construct()
     {
-        $this->pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+        $this->pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $this->tsConfiguration = BackendUtility::getPagesTSconfig(BackendUtility::getPidFromBackendPage());
     }
 
@@ -62,7 +59,7 @@ class FormSelectorUserFunc
      *
      * @param array $params
      * @return void
-     * @throws Exception
+     * @throws DBALException
      * @noinspection PhpUnused
      */
     public function getForms(array &$params): void
@@ -114,7 +111,7 @@ class FormSelectorUserFunc
      * @param int $startPid
      * @param int $language
      * @return array
-     * @throws Exception
+     * @throws DBALException
      */
     protected function getAllForms(int $startPid, int $language): array
     {
@@ -133,7 +130,6 @@ class FormSelectorUserFunc
      * @param int $startPid
      * @param int $language
      * @return string
-     * @throws Exception
      */
     protected function getWhereStatement(int $startPid, int $language): string
     {
@@ -149,11 +145,10 @@ class FormSelectorUserFunc
      *
      * @param int $startPid
      * @return string
-     * @throws Exception
      */
     protected function getPidListFromStartingPoint(int $startPid = 0): string
     {
-        $queryGenerator = ObjectUtility::getObjectManager()->get(QueryGenerator::class);
+        $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
         return (string)$queryGenerator->getTreeList($startPid, 10, 0, 1);
     }
 

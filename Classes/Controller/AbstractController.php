@@ -191,7 +191,7 @@ abstract class AbstractController extends ActionController
 
             // edit form: add answer id
             if (!empty($arguments['field']['__identity'])) {
-                $answerRepository = $this->objectManager->get(AnswerRepository::class);
+                $answerRepository = GeneralUtility::makeInstance(AnswerRepository::class);
                 $answer = $answerRepository->findByFieldAndMail($fieldUid, $arguments['field']['__identity']);
                 if ($answer !== null) {
                     $newArguments['mail']['answers'][$iteration]['__identity'] = $answer->getUid();

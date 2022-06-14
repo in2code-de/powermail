@@ -10,10 +10,16 @@
 	"homepage": "https://github.com/einpraegsam/powermail",
 	"authors": [
 		{
+			"name": "Stefan Busemann",
+			"email": "stefan.busemann@in2code.de",
+			"role": "Update Manager",
+			"homepage": "https://www.in2code.de"
+		},
+		{
 			"name": "Alex Kellner",
 			"email": "alexander.kellner@in2code.de",
-            "role": "Product owner, Technical owner",
-            "homepage": "https://www.in2code.de"
+			"role": "Product owner, Technical owner",
+			"homepage": "https://www.in2code.de"
 		},
 		{
 			"name": "Marcus Schwemer",
@@ -25,7 +31,7 @@
 	"type": "typo3-cms-extension",
 	"license": "GPL-2.0-or-later",
 	"require": {
-      "typo3/cms-core": "^11.5.6",
+		"typo3/cms-core": "^11.5.6",
 		"ext-json": "*",
 		"ext-gd": "*",
 		"ext-fileinfo": "*",

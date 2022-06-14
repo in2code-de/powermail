@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class MailUtility
@@ -11,7 +11,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class MailUtility
 {
-
     /**
      * Send a plain mail for simple notifies
      *
@@ -20,7 +19,6 @@ class MailUtility
      * @param string $subject Subject line
      * @param string $body Message content
      * @return bool mail was sent?
-     * @throws Exception
      */
     public static function sendPlainMail(
         string $receiverEmail,
@@ -28,7 +26,7 @@ class MailUtility
         string $subject,
         string $body
     ): bool {
-        $message = ObjectUtility::getObjectManager()->get(MailMessage::class);
+        $message = GeneralUtility::makeInstance(MailMessage::class);
         $message->setTo([$receiverEmail => '']);
         $message->setFrom([$senderEmail => 'Sender']);
         $message->setSubject($subject);

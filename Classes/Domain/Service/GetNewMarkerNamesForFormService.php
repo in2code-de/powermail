@@ -6,9 +6,10 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Domain\Repository\FormRepository;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
@@ -17,18 +18,17 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class GetNewMarkerNamesForFormService
 {
-
     /**
      * @var string
      */
-    protected static $defaultMarker = 'marker';
+    protected static string $defaultMarker = 'marker';
 
     /**
      * Restricted Marker Names
      *
      * @var array
      */
-    protected $restrictedMarkers = [
+    protected array $restrictedMarkers = [
         'mail',
         'powermail_rte',
         'powermail_all'
@@ -37,17 +37,16 @@ class GetNewMarkerNamesForFormService
     /**
      * @var int
      */
-    protected $iterations = 99;
+    protected int $iterations = 99;
 
     /**
      * Get array with formUids and fieldUids and their new marker names
      *
      *  [
-     *      123 =>
-     *          [
-     *              12 => 'newmarkername',
-     *              13 => 'newmarkername_01',
-     *          ]
+     *      123 => [
+     *          12 => 'newmarkername',
+     *          13 => 'newmarkername_01',
+     *      ]
      *  ]
      *
      * @param int $formUid
@@ -58,7 +57,7 @@ class GetNewMarkerNamesForFormService
     public function getMarkersForFieldsDependingOnForm(int $formUid, bool $forceReset): array
     {
         $forms = [];
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         if ($formUid === 0) {
             $forms = $formRepository->findAll();
         } elseif ($form = $formRepository->findByUid($formUid)) {
@@ -124,7 +123,8 @@ class GetNewMarkerNamesForFormService
      *
      * @param Form $form
      * @return array
-     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     protected function getFieldsToForm(Form $form): array
     {
@@ -164,6 +164,7 @@ class GetNewMarkerNamesForFormService
      * @param Field $field
      * @param bool $forceReset
      * @return string
+     * @throws Exception
      */
     protected function fallbackMarkerIfEmpty(Field $field, bool $forceReset): string
     {

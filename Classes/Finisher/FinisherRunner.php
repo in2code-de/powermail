@@ -17,7 +17,7 @@ class FinisherRunner
     /**
      * @var string
      */
-    protected $interface = FinisherInterface::class;
+    protected string $interface = FinisherInterface::class;
 
     /**
      * Call finisher classes after submit

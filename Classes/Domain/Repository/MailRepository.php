@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Repository;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
@@ -11,8 +12,9 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException as InvalidQueryExceptionAlias;
@@ -129,12 +131,16 @@ class MailRepository extends AbstractRepository
      * @param Form $form
      * @param int $pageUid
      * @return QueryResultInterface
+     * @throws Exception
+     * @throws InvalidQueryExceptionAlias
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function findByMarkerValueForm(string $marker, string $value, Form $form, int $pageUid): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
-        $fieldRepository = $this->objectManager->get(FieldRepository::class);
+        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $and = [
             $query->equals('answers.field', $fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
             $query->equals('answers.value', $value),
@@ -314,7 +320,6 @@ class MailRepository extends AbstractRepository
      *
      * @param Mail $mail
      * @return array
-     * @throws Exception
      */
     public function getLabelsWithMarkersFromMail(Mail $mail): array
     {
@@ -392,7 +397,6 @@ class MailRepository extends AbstractRepository
      * @param string|array $default String as default or cObject array
      * @param string $glue
      * @return string Sender Name
-     * @throws Exception
      */
     public function getSenderNameFromArguments(Mail $mail, $default = null, string $glue = ' '): string
     {
@@ -414,7 +418,7 @@ class MailRepository extends AbstractRepository
                 $name = $default;
             } else {
                 /** @var ContentObjectRenderer $contentObject */
-                $contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
+                $contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
                 $name = $contentObject->cObjGetSingle($default[0][$default[1]], $default[0][$default[1] . '.']);
             }
         }
@@ -487,7 +491,7 @@ class MailRepository extends AbstractRepository
      */
     public function initializeObject(): void
     {
-        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }
@@ -567,6 +571,7 @@ class MailRepository extends AbstractRepository
     /**
      * @param int $mailIdentifier
      * @return void
+     * @throws DBALException
      */
     public function removeFromDatabase(int $mailIdentifier): void
     {
