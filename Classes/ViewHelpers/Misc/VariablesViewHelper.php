@@ -6,10 +6,9 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ArrayUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -21,7 +20,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class VariablesViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var bool
      */
@@ -37,7 +35,7 @@ class VariablesViewHelper extends AbstractViewHelper
      *
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * @return void
@@ -56,7 +54,6 @@ class VariablesViewHelper extends AbstractViewHelper
      * @return string
      * @throws Exception
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
      */
@@ -65,8 +62,8 @@ class VariablesViewHelper extends AbstractViewHelper
         $mail = $this->arguments['mail'];
         $type = $this->arguments['type'];
         $function = $this->arguments['function'];
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
-        $parseObject = ObjectUtility::getObjectManager()->get(StandaloneView::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
+        $parseObject = GeneralUtility::makeInstance(StandaloneView::class);
         $parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
         $parseObject->assignMultiple(
             ArrayUtility::htmlspecialcharsOnArray($mailRepository->getVariablesWithMarkersFromMail($mail))
@@ -108,11 +105,10 @@ class VariablesViewHelper extends AbstractViewHelper
      * Init to get TypoScript Configuration
      *
      * @return void
-     * @throws Exception
      */
     public function initialize()
     {
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->settings = $configurationService->getTypoScriptSettings();
     }
 }

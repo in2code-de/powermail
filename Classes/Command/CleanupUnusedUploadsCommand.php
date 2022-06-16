@@ -4,13 +4,11 @@ namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Repository\AnswerRepository;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class CleanupUnusedUploadsCommand
@@ -32,7 +30,6 @@ class CleanupUnusedUploadsCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
-     * @throws Exception
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -56,11 +53,10 @@ class CleanupUnusedUploadsCommand extends Command
 
     /**
      * @return array
-     * @throws Exception
      */
-    protected function getUsedUploads()
+    protected function getUsedUploads(): array
     {
-        $answerRepository = ObjectUtility::getObjectManager()->get(AnswerRepository::class);
+        $answerRepository = GeneralUtility::makeInstance(AnswerRepository::class);
         $answers = $answerRepository->findByAnyUpload();
         $usedUploads = [];
         foreach ($answers as $answer) {

@@ -6,8 +6,11 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 /**
  * Class UniqueValidator
@@ -19,6 +22,9 @@ class UniqueValidator extends AbstractValidator
      * @param Mail $mail
      * @return bool
      * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
      */
     public function isValid($mail)
     {
@@ -29,7 +35,7 @@ class UniqueValidator extends AbstractValidator
                         /** @var Answer $answer */
                         if ($answer->getField()->getMarker() === $marker) {
                             /** @var MailRepository $mailRepository */
-                            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+                            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
                             $numberOfMails = $mailRepository->findByMarkerValueForm(
                                 $marker,
                                 $answer->getValue(),

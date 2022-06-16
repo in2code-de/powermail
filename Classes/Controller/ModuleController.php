@@ -2,9 +2,12 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Controller;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Domain\Service\SlidingWindowPagination;
+use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -15,9 +18,10 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 
@@ -26,23 +30,23 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
  */
 class ModuleController extends AbstractController
 {
-
     /**
      * @param string $forwardToAction
      * @throws StopActionException
      * @return void
      * @noinspection PhpUnused
      */
-    public function dispatchAction($forwardToAction = 'list'): ResponseInterface
+    public function dispatchAction(string $forwardToAction = 'list'): ResponseInterface
     {
         $this->forward($forwardToAction);
         return $this->htmlResponse();
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
+     * @throws NoSuchArgumentException
      * @noinspection PhpUnused
      */
     public function listAction(): ResponseInterface
@@ -50,23 +54,13 @@ class ModuleController extends AbstractController
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
         $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
 
-        $currentPage = $this->request->hasArgument('currentPage')
-            ? (int)$this->request->getArgument('currentPage')
-            : 1;
-
-        $itemsPerPage = (int)$this->settings['perPage'] ? (int)$this->settings['perPage'] : 10;
-        $maximumLinks = 15;
-
-        // Pagination for Mails
-        $paginator = new \TYPO3\CMS\Extbase\Pagination\QueryResultPaginator(
-            $mails,
-            $currentPage,
-            $itemsPerPage
-        );
-        $pagination = new \In2code\Powermail\Utility\SlidingWindowPagination(
-            $paginator,
-            $maximumLinks
-        );
+        $currentPage = 1;
+        if ($this->request->hasArgument('currentPage')) {
+            $currentPage =  $this->request->getArgument('currentPage');
+        }
+        $itemsPerPage = $this->settings['perPage'] ?? 10;
+        $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $mails, $currentPage, $itemsPerPage);
+        $pagination = GeneralUtility::makeInstance(SlidingWindowPagination::class, $paginator, 15);
 
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'] ?? '', key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
@@ -82,7 +76,7 @@ class ModuleController extends AbstractController
                     'pagination' => $pagination,
                     'paginator' => $paginator
                 ],
-                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
+                'perPage' => $this->settings['perPage'] ?? 10,
                 'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                     && $beUser->check('tables_modify', Mail::TABLE_NAME),
             ]
@@ -209,8 +203,6 @@ class ModuleController extends AbstractController
 
     /**
      * @return void
-     * @throws StopActionException
-     * @noinspection PhpUnused
      */
     public function initializeCheckBeAction(): void
     {
@@ -218,12 +210,10 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @param string $email email address
-     * @return void
-     * @throws Exception
-     * @noinspection PhpUnused
+     * @param string|null $email
+     * @return ResponseInterface
      */
-    public function checkBeAction($email = null): ResponseInterface
+    public function checkBeAction(string $email = null): ResponseInterface
     {
         $this->view->assign('pid', $this->id);
         $this->sendTestEmail($email);
@@ -233,7 +223,6 @@ class ModuleController extends AbstractController
     /**
      * @param null $email
      * @return void
-     * @throws Exception
      */
     protected function sendTestEmail($email = null): void
     {
@@ -252,7 +241,6 @@ class ModuleController extends AbstractController
 
     /**
      * @return void
-     * @throws StopActionException
      * @noinspection PhpUnused
      */
     public function initializeConverterBeAction(): void
@@ -262,7 +250,6 @@ class ModuleController extends AbstractController
 
     /**
      * @return void
-     * @throws StopActionException
      * @noinspection PhpUnused
      */
     public function initializeFixUploadFolderAction(): void
@@ -273,8 +260,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
-     * @throws UnsupportedRequestTypeException
-     * @throws \Exception
+     * @throws FileCannotBeCreatedException
      * @noinspection PhpUnused
      */
     public function fixUploadFolderAction(): void
@@ -285,7 +271,6 @@ class ModuleController extends AbstractController
 
     /**
      * @return void
-     * @throws StopActionException
      * @noinspection PhpUnused
      */
     public function initializeFixWrongLocalizedFormsAction(): void
@@ -296,7 +281,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
-     * @throws UnsupportedRequestTypeException
+     * @throws DBALException
      * @noinspection PhpUnused
      */
     public function fixWrongLocalizedFormsAction(): void
@@ -307,7 +292,6 @@ class ModuleController extends AbstractController
 
     /**
      * @return void
-     * @throws StopActionException
      * @noinspection PhpUnused
      */
     public function initializeFixWrongLocalizedPagesAction(): void
@@ -318,12 +302,11 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws StopActionException
-     * @throws UnsupportedRequestTypeException
      * @noinspection PhpUnused
      */
     public function fixWrongLocalizedPagesAction(): void
     {
-        $pageRepository = $this->objectManager->get(PageRepository::class);
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $pageRepository->fixWrongLocalizedPages();
         $this->redirect('checkBe');
     }
@@ -333,7 +316,6 @@ class ModuleController extends AbstractController
      *        If not, forward to tools overview
      *
      * @return ResponseInterface|null
-     * @throws StopActionException
      */
     protected function checkAdminPermissions(): ?ResponseInterface
     {

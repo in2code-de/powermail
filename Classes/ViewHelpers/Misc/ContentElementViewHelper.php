@@ -2,8 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -12,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ContentElementViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var bool
      */
@@ -31,11 +29,10 @@ class ContentElementViewHelper extends AbstractViewHelper
      * Parse a content element
      *
      * @return string
-     * @throws Exception
      */
     public function render(): string
     {
-        $contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
+        $contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $configuration = [
             'tables' => 'tt_content',
             'source' => (int)$this->arguments['uid'],

@@ -3,8 +3,9 @@ declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Form;
 
 use In2code\Powermail\Domain\Service\CountriesFromStaticInfoTablesService;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -12,7 +13,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class CountriesViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */
@@ -29,6 +29,7 @@ class CountriesViewHelper extends AbstractViewHelper
      * Get array with countries
      *
      * @return array
+     * @throws PropertyNotAccessibleException
      */
     public function render(): array
     {
@@ -39,7 +40,7 @@ class CountriesViewHelper extends AbstractViewHelper
             $value = $this->arguments['value'];
             $sortbyField = $this->arguments['sortbyField'];
             $sorting = $this->arguments['sorting'];
-            $countriesService = ObjectUtility::getObjectManager()->get(CountriesFromStaticInfoTablesService::class);
+            $countriesService = GeneralUtility::makeInstance(CountriesFromStaticInfoTablesService::class);
             $countries = $countriesService->getCountries($key, $value, $sortbyField, $sorting);
         }
 

@@ -9,7 +9,6 @@ use In2code\Powermail\Exception\SoftwareIsMissingException;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MathematicUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -263,7 +262,7 @@ class CalculatingCaptchaService
     public function setConfiguration(): CalculatingCaptchaService
     {
         if (!$this->test) {
-            $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+            $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
             $allConfiguration = $configurationService->getTypoScriptConfiguration();
             $this->configuration = $allConfiguration['captcha.']['default.'];
         }

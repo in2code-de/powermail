@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Tca;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -23,9 +24,22 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
 {
+    /**
+     * @var string
+     */
+    protected string $templatePathAndFile =
+        'EXT:powermail/Resources/Private/Templates/Tca/ShowFormNoteIfNoEmailOrNameSelected.html';
+
+    /**
+     * Path to locallang file (with : as postfix)
+     *
+     * @var string
+     */
+    protected string $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:';
 
     /**
      * @return array
+     * @throws DBALException
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -40,20 +54,8 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
     }
 
     /**
-     * @var string
-     */
-    protected $templatePathAndFile =
-        'EXT:powermail/Resources/Private/Templates/Tca/ShowFormNoteIfNoEmailOrNameSelected.html';
-
-    /**
-     * Path to locallang file (with : as postfix)
-     *
-     * @var string
-     */
-    protected $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:';
-
-    /**
      * @return string
+     * @throws DBALException
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -80,7 +82,7 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
 
     /**
      * @return bool
-     * @throws Exception
+     * @throws DBALException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -119,12 +121,12 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
      * Check if sender_email or sender_name was set
      *
      * @return bool
-     * @throws Exception
+     * @throws DBALException
      */
     protected function senderEmailOrSenderNameSet(): bool
     {
         $formIdentifier = $this->data['databaseRow']['uid'];
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($formIdentifier);
         foreach ($fields as $property) {
             foreach ($property as $column => $value) {
@@ -170,11 +172,11 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
      * Check if form has unique and filled field markers
      *
      * @return bool
-     * @throws Exception
+     * @throws DBALException
      */
     protected function hasFormUniqueAndFilledFieldMarkers(): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $fields = $formRepository->getFieldsFromFormWithSelectQuery($this->data['databaseRow']['uid']);
         $markers = [];
         foreach ($fields as $field) {

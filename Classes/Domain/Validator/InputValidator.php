@@ -5,21 +5,19 @@ namespace In2code\Powermail\Domain\Validator;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class InputValidator
  */
 class InputValidator extends StringValidator
 {
-
     /**
      * @var array
      */
-    protected $mandatoryValidationFieldTypes = [
+    protected array $mandatoryValidationFieldTypes = [
         'input',
         'textarea',
         'radio',
@@ -34,7 +32,7 @@ class InputValidator extends StringValidator
     /**
      * @var array
      */
-    protected $stringValidationFieldTypes = [
+    protected array $stringValidationFieldTypes = [
         'input',
         'textarea'
     ];
@@ -44,7 +42,6 @@ class InputValidator extends StringValidator
      *
      * @param Mail $mail
      * @return bool
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -91,7 +88,6 @@ class InputValidator extends StringValidator
      * @param Field $field
      * @param mixed $value
      * @return void
-     * @throws Exception
      */
     protected function isValidFieldInMandatoryValidation(Field $field, $value): void
     {
@@ -109,7 +105,6 @@ class InputValidator extends StringValidator
      * @param Field $field
      * @param mixed $value
      * @return void
-     * @throws Exception
      */
     protected function isValidFieldInStringValidation(Field $field, $value): void
     {
@@ -204,7 +199,7 @@ class InputValidator extends StringValidator
                     if ($field->getValidation()) {
                         $validation = $field->getValidation();
                         if (!empty($this->settings['validation']['customValidation'][$validation])) {
-                            $extendedValidator = ObjectUtility::getObjectManager()->get(
+                            $extendedValidator = GeneralUtility::makeInstance(
                                 $this->settings['validation']['customValidation'][$validation]
                             );
                             if (method_exists($extendedValidator, 'validate' . ucfirst((string)$validation))) {

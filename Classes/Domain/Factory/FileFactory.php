@@ -8,11 +8,11 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Type\File\FileInfo;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -26,7 +26,7 @@ class FileFactory
     /**
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * @param array $settings
@@ -52,10 +52,10 @@ class FileFactory
      */
     public function getInstanceFromFilesArray(array $filesArray, string $marker, int $key): ?File
     {
-        $originalName = (string)$filesArray['name']['field'][$marker][$key];
-        $size = (int)$filesArray['size']['field'][$marker][$key];
-        $type = (string)$filesArray['type']['field'][$marker][$key];
-        $temporaryName = (string)$filesArray['tmp_name']['field'][$marker][$key];
+        $originalName = $filesArray['name']['field'][$marker][$key] ?? '';
+        $size = $filesArray['size']['field'][$marker][$key] ?? 0;
+        $type = $filesArray['type']['field'][$marker][$key] ?? '';
+        $temporaryName = $filesArray['tmp_name']['field'][$marker][$key] ?? '';
         if (!empty($originalName) && !empty($temporaryName) && $size > 0) {
             return $this->makeFileInstance($marker, $originalName, $size, $type, $temporaryName);
         }
@@ -77,7 +77,7 @@ class FileFactory
      */
     public function getInstanceFromUploadArguments(string $marker, string $value, array $arguments): ?File
     {
-        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
         if ($field !== null && $field->dataTypeFromFieldType($field->getType()) === 3 && !empty($value)) {
             return $this->makeFileInstance($marker, $value, 0, '', '', true);
@@ -104,13 +104,16 @@ class FileFactory
     }
 
     /**
+     * This subfunction is used to create a file instance. E.g. when a file was just uploaded or when a confirmation
+     * page is active, when a file was already uploaded in the step before.
+     *
      * @param string $marker
      * @param string $originalName
      * @param int $size
      * @param string $type
      * @param string $temporaryName
      * @param bool $uploaded
-     * @param Form $form
+     * @param ?Form $form
      * @return File
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -128,13 +131,13 @@ class FileFactory
         bool $uploaded = false,
         Form $form = null
     ): File {
-        $file = ObjectUtility::getObjectManager()->get(File::class, $marker, $originalName, $temporaryName);
+        $file = GeneralUtility::makeInstance(File::class, $marker, $originalName, $temporaryName);
         $file->setNewName(StringUtility::cleanString($originalName));
         $file->setUploadFolder($this->getUploadFolder());
         if ($size === 0) {
-            $size = filesize($file->getTemporaryName());
+            $size = (int)filesize($file->getNewPathAndFilename(true));
         }
-        $file->setSize((int)$size);
+        $file->setSize($size);
         if ($type === '') {
             $type = (new FileInfo($file->getTemporaryName()))->getMimeType() ?: 'application/octet-stream';
         }
@@ -142,7 +145,7 @@ class FileFactory
         $file->setUploaded($uploaded);
 
         /* @var FieldRepository $fieldRepository */
-        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $file->setField($fieldRepository->findByMarkerAndForm($marker, $this->getFormUid($form)));
         return $file;
     }

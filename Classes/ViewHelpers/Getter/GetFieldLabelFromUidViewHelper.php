@@ -3,8 +3,7 @@ declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use In2code\Powermail\Domain\Repository\FieldRepository;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -12,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetFieldLabelFromUidViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */
@@ -26,12 +24,11 @@ class GetFieldLabelFromUidViewHelper extends AbstractViewHelper
      * get tx_powermail_domain_model_field.title from .uid
      *
      * @return string
-     * @throws Exception
      */
     public function render(): string
     {
         $result = '';
-        $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $field = $fieldRepository->findByUid($this->arguments['uid']);
         if (method_exists($field, 'getTitle')) {
             $result = $field->getTitle();

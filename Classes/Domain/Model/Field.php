@@ -6,7 +6,6 @@ use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
@@ -27,7 +26,7 @@ class Field extends AbstractEntity
     /**
      * @var string
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
      * type
@@ -39,112 +38,112 @@ class Field extends AbstractEntity
      *
      * @var string
      */
-    protected $type = '';
+    protected string $type = '';
 
     /**
      * @var string
      */
-    protected $settings = '';
+    protected string $settings = '';
 
     /**
      * @var string
      */
-    protected $path = '';
+    protected string $path = '';
 
     /**
      * @var int
      */
-    protected $contentElement = 0;
+    protected int $contentElement = 0;
 
     /**
      * @var string
      */
-    protected $text = '';
+    protected string $text = '';
 
     /**
      * @var string
      */
-    protected $prefillValue = '';
+    protected string $prefillValue = '';
 
     /**
      * @var string
      */
-    protected $placeholder = '';
+    protected string $placeholder = '';
 
     /**
      * @var string
      */
-    protected $createFromTyposcript = '';
+    protected string $createFromTyposcript = '';
 
     /**
      * @var int
      */
-    protected $validation = 0;
+    protected int $validation = 0;
 
     /**
      * @var string
      */
-    protected $validationConfiguration = '';
+    protected string $validationConfiguration = '';
 
     /**
      * @var string
      */
-    protected $css = '';
+    protected string $css = '';
 
     /**
      * @var string
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * @var bool
      */
-    protected $multiselect = false;
+    protected bool $multiselect = false;
 
     /**
      * @var string
      */
-    protected $datepickerSettings = '';
+    protected string $datepickerSettings = '';
 
     /**
      * @var string
      */
-    protected $feuserValue = '';
+    protected string $feuserValue = '';
 
     /**
      * @var bool
      */
-    protected $senderName = false;
+    protected bool $senderName = false;
 
     /**
      * @var bool
      */
-    protected $senderEmail = false;
+    protected bool $senderEmail = false;
 
     /**
      * @var bool
      */
-    protected $mandatory = false;
+    protected bool $mandatory = false;
 
     /**
      * @var string
      */
-    protected $marker = '';
+    protected string $marker = '';
 
     /**
      * @var int
      */
-    protected $sorting = 0;
+    protected int $sorting = 0;
 
     /**
      * @var int
      */
-    protected $l10nParent = 0;
+    protected int $l10nParent = 0;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Page
+     * @var ?Page
      */
-    protected $page = null;
+    protected ?Page $page = null;
 
     /**
      * @return string
@@ -168,7 +167,6 @@ class Field extends AbstractEntity
      * Returns the type - must not be empty
      *
      * @return string $type
-     * @throws Exception
      */
     public function getType(): string
     {
@@ -176,7 +174,7 @@ class Field extends AbstractEntity
         if (empty($type)) {
             $type = 'input';
             if ($this->isLocalized()) {
-                $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+                $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
                 $originalType = $fieldRepository->getTypeFromUid($this->getUid());
                 if (!empty($originalType)) {
                     $type = $originalType;
@@ -201,7 +199,6 @@ class Field extends AbstractEntity
      *        "input", "textarea", "select", "check", "radio"
      *
      * @return bool
-     * @throws Exception
      */
     public function isBasicFieldType(): bool
     {
@@ -220,7 +217,6 @@ class Field extends AbstractEntity
      * basicly used for export and frontend editing
      *
      * @return bool
-     * @throws Exception
      */
     public function isAdvancedFieldType(): bool
     {
@@ -237,7 +233,6 @@ class Field extends AbstractEntity
 
     /**
      * @return bool
-     * @throws Exception
      * @throws DeprecatedException
      */
     public function isExportableFieldType(): bool
@@ -248,7 +243,6 @@ class Field extends AbstractEntity
     /**
      * @param string $type
      * @return bool
-     * @throws Exception
      * @throws DeprecatedException
      */
     public function isTypeOf(string $type): bool
@@ -603,13 +597,12 @@ class Field extends AbstractEntity
 
     /**
      * @return string $marker
-     * @throws Exception
      */
     public function getMarker(): string
     {
         $marker = $this->marker;
         if ($this->isLocalized()) {
-            $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+            $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
             $marker = $fieldRepository->getMarkerFromUid($this->getUid());
         }
         if (empty($marker)) {
@@ -708,7 +701,7 @@ class Field extends AbstractEntity
         $settingsField = GeneralUtility::trimExplode(PHP_EOL, $string, true);
         foreach ($settingsField as $line) {
             $settings = GeneralUtility::trimExplode('|', $line, false);
-            $value = (isset($settings[1]) ? $settings[1] : $settings[0]);
+            $value = ($settings[1] ?? $settings[0]);
             $label = ($parse ? TemplateUtility::fluidParseString($settings[0]) : $settings[0]);
             $options[] = [
                 'label' => $label,

@@ -12,14 +12,12 @@ use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class BackendUtility
  */
 class BackendUtility
 {
-
     /**
      * Check if backend user is admin
      *
@@ -202,7 +200,7 @@ class BackendUtility
      * Returns the Page TSconfig for page with id, $id
      *
      * @param int $pid
-     * @param array $rootLine
+     * @param ?array $rootLine
      * @param bool $returnPartArray
      * @return array Page TSconfig
      * @throws DeprecatedException
@@ -228,12 +226,11 @@ class BackendUtility
      *
      * @param array $pids
      * @return array
-     * @throws Exception
      */
     public static function filterPagesForAccess(array $pids): array
     {
         if (!self::isBackendAdmin()) {
-            $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+            $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
             // @codeCoverageIgnoreStart
             $newPids = [];
             foreach ($pids as $pid) {

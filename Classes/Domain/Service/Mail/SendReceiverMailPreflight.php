@@ -4,9 +4,8 @@ namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -17,33 +16,30 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class SendReceiverMailPreflight
 {
-
     /**
      * @var SendMailService
      */
-    protected $sendMailService;
+    protected SendMailService $sendMailService;
 
     /**
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * @param array $settings
-     * @throws Exception
      */
     public function __construct(array $settings)
     {
         $this->settings = $settings;
-        $this->sendMailService = ObjectUtility::getObjectManager()->get(SendMailService::class);
+        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class);
     }
 
     /**
      * @param Mail $mail
-     * @param string $hash
+     * @param string|null $hash
      * @return bool
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidControllerNameException
      * @throws InvalidExtensionNameException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
@@ -51,13 +47,13 @@ class SendReceiverMailPreflight
      */
     public function sendReceiverMail(Mail $mail, string $hash = null): bool
     {
-        $receiverService = ObjectUtility::getObjectManager()->get(
+        $receiverService = GeneralUtility::makeInstance(
             ReceiverMailReceiverPropertiesService::class,
             $mail,
             $this->settings
         );
         $mail->setReceiverMail($receiverService->getReceiverEmailsString());
-        $senderService = ObjectUtility::getObjectManager()->get(
+        $senderService = GeneralUtility::makeInstance(
             ReceiverMailSenderPropertiesService::class,
             $mail,
             $this->settings

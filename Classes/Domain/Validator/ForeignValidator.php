@@ -5,21 +5,18 @@ namespace In2code\Powermail\Domain\Validator;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Error\Error;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Result;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * ForeignValidator
  */
 class ForeignValidator extends AbstractValidator
 {
-
     /**
      * @var string
      */
-    protected $validatorInterface = ValidatorInterface::class;
+    protected string $validatorInterface = ValidatorInterface::class;
 
     /**
      * Include foreign validators
@@ -28,7 +25,6 @@ class ForeignValidator extends AbstractValidator
      * @return bool
      * @throws ClassDoesNotExistException
      * @throws InterfaceNotImplementedException
-     * @throws Exception
      */
     public function isValid($mail)
     {
@@ -42,7 +38,7 @@ class ForeignValidator extends AbstractValidator
             }
             if (is_subclass_of($validatorConf['class'], $this->validatorInterface)) {
                 /** @var AbstractValidator $validator */
-                $validator = ObjectUtility::getObjectManager()->get($validatorConf['class']);
+                $validator = GeneralUtility::makeInstance($validatorConf['class']);
                 $validator->setConfiguration((array)$validatorConf['config']);
                 $validator->initialize();
                 /** @var Result $result */
@@ -68,7 +64,6 @@ class ForeignValidator extends AbstractValidator
     {
         $errors = $result->getErrors();
         if (!empty($errors)) {
-            /** @var Error $error */
             foreach ($errors as $error) {
                 $this->addError($error->getMessage(), $error->getCode(), $error->getArguments(), $error->getTitle());
             }
@@ -80,10 +75,9 @@ class ForeignValidator extends AbstractValidator
      * @param string $pathAndFile
      * @return void
      */
-    protected function loadFile($pathAndFile): void
+    protected function loadFile(string $pathAndFile): void
     {
         if (!empty($pathAndFile) && file_exists($pathAndFile)) {
-            /** @noinspection PhpIncludeInspection */
             require_once($pathAndFile);
         }
     }

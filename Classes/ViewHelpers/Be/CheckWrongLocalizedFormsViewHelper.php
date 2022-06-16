@@ -3,8 +3,7 @@ declare(strict_types = 1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use In2code\Powermail\Domain\Repository\FormRepository;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -12,17 +11,15 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class CheckWrongLocalizedFormsViewHelper extends AbstractViewHelper
 {
-
     /**
      * Check if there are localized records with
      *        tx_powermail_domain_model_form.pages = ""
      *
      * @return bool
-     * @throws Exception
      */
     public function render(): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $forms = $formRepository->findAllWrongLocalizedForms();
         return count($forms) === 0;
     }

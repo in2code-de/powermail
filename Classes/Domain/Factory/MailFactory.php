@@ -7,7 +7,6 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
@@ -22,7 +21,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class MailFactory
 {
-
     /**
      * @param Mail $mail
      * @param array $settings
@@ -36,7 +34,7 @@ class MailFactory
      */
     public function prepareMailForPersistence(Mail $mail, array $settings): void
     {
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $marketingInfos = SessionUtility::getMarketingInfos();
         $mail
             ->setSenderMail($mailRepository->getSenderMailFromArguments($mail))
@@ -64,12 +62,11 @@ class MailFactory
     /**
      * @param Mail $mail
      * @return void
-     * @throws Exception
      */
     protected function setFeuser(Mail $mail): void
     {
         if (FrontendUtility::isLoggedInFrontendUser()) {
-            $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
+            $userRepository = GeneralUtility::makeInstance(UserRepository::class);
             $feUserUid = FrontendUtility::getPropertyFromLoggedInFrontendUser('uid');
             $user = $userRepository->findByUid($feUserUid);
             if ($user !== null) {

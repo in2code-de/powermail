@@ -6,7 +6,6 @@ use In2code\Powermail\Domain\Service\RedirectUriService;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class RedirectFinisher
@@ -16,13 +15,12 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
     /**
      * @var array
      */
-    protected $arguments = [];
+    protected array $arguments = [];
 
     /**
      * Redirect user after form submit
      *
      * @return void
-     * @throws Exception
      */
     public function redirectToUriFinisher(): void
     {

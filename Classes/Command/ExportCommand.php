@@ -4,14 +4,13 @@ namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ExportService;
-use In2code\Powermail\Utility\ObjectUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 /**
@@ -60,18 +59,17 @@ class ExportCommand extends Command
      * @return int
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
-     * @throws Exception
      * @throws InvalidQueryException
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
-        $exportService = ObjectUtility::getObjectManager()->get(
+        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
+        $exportService = GeneralUtility::makeInstance(
             ExportService::class,
             $mailRepository->findAllInPid(
                 (int)$input->getArgument('pageUid'),
                 [],
-                $this->getFilterVariables($input->getArgument('period'))
+                $this->getFilterVariables((int)$input->getArgument('period'))
             ),
             $input->getArgument('format'),
             ['domain' => $input->getArgument('domain')]
@@ -99,7 +97,7 @@ class ExportCommand extends Command
      * @param int $period
      * @return array
      */
-    protected function getFilterVariables($period)
+    protected function getFilterVariables(int $period): array
     {
         $variables = ['filter' => []];
         if ($period > 0) {

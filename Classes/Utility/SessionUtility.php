@@ -18,18 +18,17 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class SessionUtility
 {
-
     /**
      * Extension Key
      */
-    public static $extKey = 'powermail';
+    public static string $extKey = 'powermail';
 
     /**
      * Session methods
      *
      * @var array
      */
-    protected static $methods = [
+    protected static array $methods = [
         'temporary' => 'ses',
         'permanently' => 'user'
     ];
@@ -37,7 +36,7 @@ class SessionUtility
     /**
      * Save current timestamp to session
      *
-     * @param Form $form
+     * @param ?Form $form
      * @param array $settings
      * @return void
      */
@@ -85,6 +84,7 @@ class SessionUtility
      * @param int $language Frontend Language Uid
      * @param int $pid Page Id
      * @param bool $mobileDevice Is mobile device?
+     * @param array $settings
      * @return void
      */
     public static function storeMarketingInformation(
@@ -139,13 +139,13 @@ class SessionUtility
     public static function saveSessionValuesForPrefill(Mail $mail, array $settings): void
     {
         $valuesToSave = [];
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $contentObject = ObjectUtility::getContentObject();
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
         if (!empty($configuration['saveSession.']) &&
             array_key_exists($configuration['saveSession.']['_method'], self::$methods)
         ) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($mail);
             $contentObject->start($variablesWithMarkers);
             foreach (array_keys($variablesWithMarkers) as $marker) {
@@ -256,6 +256,14 @@ class SessionUtility
         return [];
     }
 
+    /**
+     * @param string $referer
+     * @param int $language
+     * @param int $pid
+     * @param bool $mobileDevice
+     * @param array $settings
+     * @return array
+     */
     protected static function initMarketingInfo(
         string $referer = '',
         int $language = 0,
@@ -264,7 +272,8 @@ class SessionUtility
         array $settings = []
     ) {
         $country = LocalizationUtility::translate('MarketingInformationCountryDisabled');
-        if (isset($settings['setup']['marketing']['determineCountry']) && $settings['setup']['marketing']['determineCountry'] == 1) {
+        if (isset($settings['setup']['marketing']['determineCountry'])
+            && $settings['setup']['marketing']['determineCountry'] == 1) {
             $country = FrontendUtility::getCountryFromIp();
         }
         $marketingInfo = [

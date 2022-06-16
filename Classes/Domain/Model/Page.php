@@ -4,11 +4,10 @@ namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -21,12 +20,12 @@ class Page extends AbstractEntity
     /**
      * @var string
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
      * @var string
      */
-    protected $css = '';
+    protected string $css = '';
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Field>
@@ -34,28 +33,28 @@ class Page extends AbstractEntity
     protected $fields = null;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Form
+     * @var ?Form
      */
-    protected $form = null;
+    protected ?Form $form = null;
 
     /**
      * @var int
      */
-    protected $sorting = 0;
+    protected int $sorting = 0;
 
     /**
      * Container for fields with marker as key
      *
      * @var array
      */
-    protected $fieldsByFieldMarker = [];
+    protected array $fieldsByFieldMarker = [];
 
     /**
      * Container for fields with uid as key
      *
      * @var array
      */
-    protected $fieldsByFieldUid = [];
+    protected array $fieldsByFieldUid = [];
 
     /**
      * __construct
@@ -170,7 +169,6 @@ class Page extends AbstractEntity
 
     /**
      * @return Form
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -178,7 +176,7 @@ class Page extends AbstractEntity
     {
         $form = $this->form;
         if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
-            $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+            $formRepository = GeneralUtility::makeInstance(FormRepository::class);
             $form = $formRepository->findByPages($this->uid);
         }
         return $form;

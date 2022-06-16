@@ -5,7 +5,7 @@ namespace In2code\Powermail\ViewHelpers\Validation;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\LocalizationUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -16,7 +16,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 abstract class AbstractValidationViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var ConfigurationManagerInterface
      */
@@ -63,7 +62,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * @param array $additionalAttributes
      * @param Field|null $field
      * @return array
-     * @throws Exception
      */
     protected function addMandatoryAttributes(array $additionalAttributes, ?Field $field): array
     {
@@ -100,7 +98,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
-     * @throws Exception
      */
     protected function addErrorContainer(array $additionalAttributes, Field $field): array
     {
@@ -115,7 +112,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
-     * @throws Exception
      */
     protected function addClassHandler(array $additionalAttributes, Field $field): array
     {
@@ -130,14 +126,14 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     public function initialize()
     {
-        $this->configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
+        $this->configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $this->extensionName = 'Powermail';
         // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
         $this->contentObject = $this->configurationManager->getContentObject();
         if (isset($this->arguments['extensionName']) && $this->arguments['extensionName'] !== '') {
             $this->extensionName = $this->arguments['extensionName'];
         }
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->settings = $configurationService->getTypoScriptSettings();
     }
 }

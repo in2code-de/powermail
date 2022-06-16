@@ -5,9 +5,9 @@ namespace In2code\Powermail\Domain\Service\Mail;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Signal\SignalTrait;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -20,41 +20,39 @@ class ReceiverMailSenderPropertiesService
     use SignalTrait;
 
     /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
+     * @var MailRepository
      */
     protected $mailRepository;
 
     /**
      * @var Mail|null
      */
-    protected $mail = null;
+    protected ?Mail $mail = null;
 
     /**
      * TypoScript settings as plain array
      *
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * TypoScript configuration for cObject parsing
      *
      * @var array
      */
-    protected $configuration = [];
+    protected array $configuration = [];
 
     /**
      * @param Mail $mail
      * @param array $settings
-     * @throws Exception
      */
     public function __construct(Mail $mail, array $settings)
     {
         $this->mail = $mail;
         $this->settings = $settings;
-        $this->mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
-        /** @var TypoScriptService $typoScriptService */
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $this->mailRepository = GeneralUtility::makeInstance(MailRepository::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
     }
 

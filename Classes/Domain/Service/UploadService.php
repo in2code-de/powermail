@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Powermail\Domain\Service;
 
+use Exception;
 use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
@@ -17,7 +18,7 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExis
 use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
@@ -34,29 +35,29 @@ class UploadService implements SingletonInterface
      *
      * @var File[]
      */
-    protected $files = [];
+    protected array $files = [];
 
     /**
      * Temporary filenames array to find duplicates
      *
      * @var array
      */
-    protected $fileNames = [];
+    protected array $fileNames = [];
 
     /**
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * @param array $settings
      * @return void
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws InvalidSlotException
      * @throws InvalidSlotReturnException
+     * @throws ExceptionExtbaseObject
      */
     public function preflight(array $settings): void
     {
@@ -72,7 +73,7 @@ class UploadService implements SingletonInterface
      * Upload all files to upload folder
      *
      * @return bool true if files where uploaded correctly
-     * @throws \Exception
+     * @throws Exception
      */
     public function uploadAllFiles(): bool
     {
@@ -165,7 +166,7 @@ class UploadService implements SingletonInterface
             foreach ((array)$filesArray['name']['field'] as $marker => $files) {
                 foreach ((array)array_keys($files) as $key) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $file = $fileFactory->getInstanceFromFilesArray($filesArray, $marker, $key);
                     if ($file !== null) {
                         $this->addFile($file);
@@ -195,7 +196,7 @@ class UploadService implements SingletonInterface
             if (empty($fileNames)) {
                 foreach ((array)$values as $value) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $file = $fileFactory->getInstanceFromUploadArguments($marker, $value, $arguments);
                     if ($file !== null) {
                         $this->addFile($file);
@@ -219,14 +220,14 @@ class UploadService implements SingletonInterface
     {
         $arguments = $this->getArguments();
         if ($this->isOptinConfirmWithExistingMail($arguments)) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             /** @var Mail $mail */
             $mail = $mailRepository->findByUid((int)$arguments['mail']);
             if ($mail !== null) {
                 $answers = $mail->getAnswersByValueType(Answer::VALUE_TYPE_UPLOAD);
                 foreach ($answers as $answer) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $value = $answer->getValue();
                     if (is_array($value)) {
                         foreach ($value as $valueItem) {
