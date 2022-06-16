@@ -52,10 +52,10 @@ class FileFactory
      */
     public function getInstanceFromFilesArray(array $filesArray, string $marker, int $key): ?File
     {
-        $originalName = (string)$filesArray['name']['field'][$marker][$key];
-        $size = (int)$filesArray['size']['field'][$marker][$key];
-        $type = (string)$filesArray['type']['field'][$marker][$key];
-        $temporaryName = (string)$filesArray['tmp_name']['field'][$marker][$key];
+        $originalName = $filesArray['name']['field'][$marker][$key] ?? '';
+        $size = $filesArray['size']['field'][$marker][$key] ?? 0;
+        $type = $filesArray['type']['field'][$marker][$key] ?? '';
+        $temporaryName = $filesArray['tmp_name']['field'][$marker][$key] ?? '';
         if (!empty($originalName) && !empty($temporaryName) && $size > 0) {
             return $this->makeFileInstance($marker, $originalName, $size, $type, $temporaryName);
         }

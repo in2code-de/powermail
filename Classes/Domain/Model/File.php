@@ -21,77 +21,77 @@ class File
      *
      * @var string
      */
-    protected $marker = '';
+    protected string $marker = '';
 
     /**
      * Original name
      *
      * @var string
      */
-    protected $originalName = '';
+    protected string $originalName = '';
 
     /**
      * Temporary uploaded name
      *
      * @var string|null
      */
-    protected $temporaryName = null;
+    protected ?string $temporaryName = null;
 
     /**
      * New, cleaned and unique filename
      *
      * @var string
      */
-    protected $newName = '';
+    protected string $newName = '';
 
     /**
      * Is there a problem with this file?
      *
      * @var bool
      */
-    protected $valid = true;
+    protected bool $valid = true;
 
     /**
      * Like "image/png"
      *
      * @var string
      */
-    protected $type = '';
+    protected string $type = '';
 
     /**
      * Filesize
      *
      * @var int
      */
-    protected $size = 0;
+    protected int $size = 0;
 
     /**
      * Uploadfolder for this file
      *
      * @var string
      */
-    protected $uploadFolder = 'uploads/tx_powermail/';
+    protected string $uploadFolder = 'uploads/tx_powermail/';
 
     /**
      * Already uploaded to uploadfolder?
      *
      * @var bool
      */
-    protected $uploaded = false;
+    protected bool $uploaded = false;
 
     /**
      * File must be renamed?
      *
      * @var bool
      */
-    protected $renamed = false;
+    protected bool $renamed = false;
 
     /**
      * Related field
      *
      * @var Field|null
      */
-    protected $field = null;
+    protected ?Field $field = null;
 
     /**
      * @param string $marker
@@ -134,8 +134,9 @@ class File
     /**
      * @param string $originalName
      * @return File
+     * @noinspection PhpUnused
      */
-    public function setOriginalName($originalName): File
+    public function setOriginalName(string $originalName): File
     {
         $this->originalName = $originalName;
         return $this;
@@ -152,6 +153,7 @@ class File
     /**
      * @param string $temporaryName
      * @return File
+     * @noinspection PhpUnused
      */
     public function setTemporaryName(string $temporaryName): File
     {
@@ -344,10 +346,10 @@ class File
      * @throws InvalidSlotReturnException
      * @throws Exception
      */
-    public function getNewPathAndFilename($absolute = false): string
+    public function getNewPathAndFilename(bool $absolute = false): string
     {
         $pathAndFilename = $this->getUploadFolder() . $this->getNewName();
-        if ($absolute) {
+        if ($absolute === true) {
             $pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
         }
         $this->signalDispatch(__CLASS__, __FUNCTION__, [$pathAndFilename, $this]);
