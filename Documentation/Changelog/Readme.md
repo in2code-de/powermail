@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 10.4.0       | 2022-06-16   | Reduce technical debt for easier upgrade for upcoming TYPO3 versions, fix file upload with confirmation page, small code cleanup                                                                                      |
 | 10.3.3       | 2022-06-13   | Bugfix of undefined array key in PHP 8 (in FinisherRunner)                                                                                                                                                            |
 | 10.3.2       | 2022-06-08   | Fix regression that prevented redirects after submit, Fix JS validation with reset buttons                                                                                                                            |
 | 10.3.1       | 2022-06-07   | Small bugfix update: Prevent exception on form submit, repair CSV/XLS/RSS in Pi2                                                                                                                                      |
