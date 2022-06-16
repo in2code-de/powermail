@@ -104,6 +104,9 @@ class FileFactory
     }
 
     /**
+     * This subfunction is used to create a file instance. E.g. when a file was just uploaded or when a confirmation
+     * page is active, when a file was already uploaded in the step before.
+     *
      * @param string $marker
      * @param string $originalName
      * @param int $size
@@ -132,9 +135,9 @@ class FileFactory
         $file->setNewName(StringUtility::cleanString($originalName));
         $file->setUploadFolder($this->getUploadFolder());
         if ($size === 0) {
-            $size = filesize($file->getTemporaryName());
+            $size = (int)filesize($file->getNewPathAndFilename(true));
         }
-        $file->setSize((int)$size);
+        $file->setSize($size);
         if ($type === '') {
             $type = (new FileInfo($file->getTemporaryName()))->getMimeType() ?: 'application/octet-stream';
         }
