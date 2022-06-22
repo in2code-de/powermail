@@ -11,6 +11,7 @@ use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 /**
  * Class CreateMarker to autofill field marker with value from title e.g. {firstname}
@@ -207,7 +208,7 @@ class CreateMarker
     {
         $fieldProperties = $this->getFieldProperties();
         foreach ($fieldProperties as $properties) {
-            $this->addField($this->makeFieldFromProperties($properties));
+            $this->addField($this->getFieldObjectFromProperties($properties));
         }
     }
 
@@ -220,7 +221,7 @@ class CreateMarker
     protected function addNewFields(): void
     {
         foreach ((array)($this->data[Field::TABLE_NAME] ?? []) as $fieldUid => $properties) {
-            $this->addField($this->makeFieldFromProperties($properties, (string)$fieldUid));
+            $this->addField($this->getFieldObjectFromProperties($properties, (string)$fieldUid));
         }
     }
 
@@ -235,14 +236,12 @@ class CreateMarker
      * @param string $uid Number for persisted and string for new fields like "NEW5e2d7c8f48f4a868804329"
      * @return Field
      */
-    protected function makeFieldFromProperties(array $properties, string $uid = '0')
+    protected function getFieldObjectFromProperties(array $properties, string $uid = '0'): Field
     {
-        $field = GeneralUtility::makeInstance(Field::class);
-        foreach ($properties as $key => $value) {
-            $field->_setProperty(GeneralUtility::underscoredToLowerCamelCase($key), $value);
-        }
+        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
+        $field = $dataMapper->map(Field::class, [$properties])[0];
         if (!empty($properties['sys_language_uid'])) {
-            $field->_setProperty('_languageUid', $properties['sys_language_uid']);
+            $field->_setProperty('_languageUid', (int)$properties['sys_language_uid']);
         }
         $field->setDescription((string)($properties['uid'] ?? '') > 0 ? (string)$properties['uid'] : $uid);
         return $field;
