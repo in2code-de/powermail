@@ -239,6 +239,9 @@ class CreateMarker
     protected function getFieldObjectFromProperties(array $properties, string $uid = '0'): Field
     {
         $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
+        if (isset($properties['uid']) === false) {
+            $properties['uid'] = null;
+        }
         $field = $dataMapper->map(Field::class, [$properties])[0];
         if (!empty($properties['sys_language_uid'])) {
             $field->_setProperty('_languageUid', (int)$properties['sys_language_uid']);
