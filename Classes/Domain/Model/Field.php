@@ -141,9 +141,10 @@ class Field extends AbstractEntity
     protected int $l10nParent = 0;
 
     /**
-     * @var ?Page
+     * @var Page
+     * This property can hold Page|int|null (depending on the context). "@var" must set to Page for property mapping.
      */
-    protected ?Page $page = null;
+    protected $page = null;
 
     /**
      * @return string
