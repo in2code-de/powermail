@@ -188,7 +188,10 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      */
     protected function getFormUid(): int
     {
-        return (int)$this->flexFormData['settings']['flexform']['main']['form'];
+        if (isset($this->flexFormData['settings']['flexform']['main']['form'])) {
+            return (int)$this->flexFormData['settings']['flexform']['main']['form'];
+        }
+        return 0;
     }
 
     /**
