@@ -72,10 +72,10 @@ class ForeignValidator extends AbstractValidator
     }
 
     /**
-     * @param string $pathAndFile
+     * @param string|null $pathAndFile
      * @return void
      */
-    protected function loadFile(string $pathAndFile): void
+    protected function loadFile(string $pathAndFile = null): void
     {
         if (!empty($pathAndFile) && file_exists($pathAndFile)) {
             require_once($pathAndFile);

@@ -11,7 +11,6 @@ use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 /**
  * Class CreateMarker to autofill field marker with value from title e.g. {firstname}
@@ -238,13 +237,20 @@ class CreateMarker
      */
     protected function getFieldObjectFromProperties(array $properties, string $uid = '0'): Field
     {
-        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
-        if (isset($properties['uid']) === false) {
-            $properties['uid'] = null;
+        $field = GeneralUtility::makeInstance(Field::class);
+        $properties['contentelement'] = (int)($properties['contentelement'] ?? 0);
+        $properties['validation'] = (int)($properties['validation'] ?? 0);
+        $properties['multiselect'] = (bool)($properties['multiselect'] ?? false);
+        $properties['sender_name'] = (bool)($properties['sender_name'] ?? false);
+        $properties['sender_email'] = (bool)($properties['sender_email'] ?? false);
+        $properties['mandatory'] = (bool)($properties['mandatory'] ?? false);
+        $properties['sorting'] = (int)($properties['sorting'] ?? 0);
+        $properties['l10n_parent'] = (int)($properties['l10n_parent'] ?? 0);
+        foreach ($properties as $key => $value) {
+            $field->_setProperty(GeneralUtility::underscoredToLowerCamelCase($key), $value);
         }
-        $field = $dataMapper->map(Field::class, [$properties])[0];
         if (!empty($properties['sys_language_uid'])) {
-            $field->_setProperty('_languageUid', (int)$properties['sys_language_uid']);
+            $field->_setProperty('_languageUid', $properties['sys_language_uid']);
         }
         $field->setDescription((string)($properties['uid'] ?? '') > 0 ? (string)$properties['uid'] : $uid);
         return $field;

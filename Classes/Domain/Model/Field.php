@@ -141,9 +141,10 @@ class Field extends AbstractEntity
     protected int $l10nParent = 0;
 
     /**
-     * @var ?Page
+     * @var Page
+     * This property can hold Page|int|null (depending on the context). "@var" must set to Page for property mapping.
      */
-    protected ?Page $page = null;
+    protected $page = null;
 
     /**
      * @return string
@@ -782,10 +783,12 @@ class Field extends AbstractEntity
         $typoScript = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
         if (!empty($typoScript['tx_powermail.']['flexForm.'])) {
             $configuration = $typoScript['tx_powermail.']['flexForm.'];
-            foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
-                if (!empty($fieldType['dataType'])) {
-                    $fieldTypeName = substr($fieldTypeName, 0, -1);
-                    $types[$fieldTypeName] = (int)$fieldType['dataType'];
+            if (isset($configuration['type.']['addFieldOptions.'])) {
+                foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
+                    if (!empty($fieldType['dataType'])) {
+                        $fieldTypeName = substr($fieldTypeName, 0, -1);
+                        $types[$fieldTypeName] = (int)$fieldType['dataType'];
+                    }
                 }
             }
         }
