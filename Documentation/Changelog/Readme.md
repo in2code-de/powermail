@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 10.4.2       | 2022-07-20   | Catch some more undefined array key, fix creating new unique marker names, fix another possible exception in ForeignValidator class                                                                                   |
 | 10.4.1       | 2022-06-26   | Respect class property types when creating fields in backend                                                                                                                                                          |
 | 10.4.0       | 2022-06-16   | Reduce technical debt for easier upgrade for upcoming TYPO3 versions, fix file upload with confirmation page, small code cleanup                                                                                      |
 | 10.3.3       | 2022-06-13   | Bugfix of undefined array key in PHP 8 (in FinisherRunner)                                                                                                                                                            |
