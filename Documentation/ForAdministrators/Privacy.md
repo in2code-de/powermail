@@ -46,7 +46,7 @@ Just use an option in your FlexForm like (with an example link to page 123 where
 After that you have to enable html in labels (this feature is turned off for security reasons). Example TypoScript
 constants:
 
-`plugin.tx_powermail.settings.misc.htmlForLabels = 1`
+`plugin.tx_powermail.settings.setup.misc.htmlForLabels = 1`
 
 ## Disable storing of mails in database
 
