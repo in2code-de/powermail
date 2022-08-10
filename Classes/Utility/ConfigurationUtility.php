@@ -186,10 +186,15 @@ class ConfigurationUtility
     public static function isValidationEnabled(array $settings, string $className): bool
     {
         $validationActivated = false;
-        foreach ((array)$settings['spamshield']['methods'] as $method) {
-            if ($method['class'] === $className && $method['_enable'] === '1') {
-                $validationActivated = true;
-                break;
+        if (\TYPO3\CMS\Core\Utility\ArrayUtility::isValidPath($settings, 'spamshield/methods')) {
+            foreach ((array)$settings['spamshield']['methods'] as $method) {
+                if (!empty($method['class'])
+                    && !empty($method['_enable'])
+                    && $method['class'] === $className
+                    && $method['_enable'] === '1') {
+                    $validationActivated = true;
+                    break;
+                }
             }
         }
         return !empty($settings['spamshield']['_enable']) && $validationActivated;
