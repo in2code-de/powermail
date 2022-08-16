@@ -341,7 +341,7 @@ class SendMailService
         if ($this->type === 'sender') {
             $senderHeaderConfig= $this->configuration['sender.']['senderHeader.']??[];
         } elseif ($this->type === 'receiver') {
-            $senderHeaderConfig = $this->settings['receiver.']['senderHeader.']??[];
+            $senderHeaderConfig = $this->configuration['receiver.']['senderHeader.']??[];
         }
 
         $email = ObjectUtility::getContentObject()->cObjGetSingle(
