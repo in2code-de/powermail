@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExis
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
 
 /**
  * Class ConfigurationUtility
@@ -186,10 +187,15 @@ class ConfigurationUtility
     public static function isValidationEnabled(array $settings, string $className): bool
     {
         $validationActivated = false;
-        foreach ((array)$settings['spamshield']['methods'] as $method) {
-            if ($method['class'] === $className && $method['_enable'] === '1') {
-                $validationActivated = true;
-                break;
+        if (CoreArrayUtility::isValidPath($settings, 'spamshield/methods')) {
+            foreach ((array)$settings['spamshield']['methods'] as $method) {
+                if (!empty($method['class'])
+                    && !empty($method['_enable'])
+                    && $method['class'] === $className
+                    && $method['_enable'] === '1') {
+                    $validationActivated = true;
+                    break;
+                }
             }
         }
         return !empty($settings['spamshield']['_enable']) && $validationActivated;
