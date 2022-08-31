@@ -150,13 +150,19 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      * Get form title from uid
      *
      * @param int $uid Form uid
-     * @return string
+     * @return string|null
      */
-    protected function getFormTitleByUid(int $uid): string
+    protected function getFormTitleByUid(int $uid): ?string
     {
         $uid = $this->getLocalizedFormUid($uid, $this->getSysLanguageUid());
         $row = BackendUtilityCore::getRecord(Form::TABLE_NAME, $uid, 'title', '', false);
-        return (string)$row['title'];
+        if ($row === null) {
+            return null;
+        } elseif (empty($row['title'])) {
+            return '';
+        } else {
+            return (string)$row['title'];
+        }
     }
 
     /**
