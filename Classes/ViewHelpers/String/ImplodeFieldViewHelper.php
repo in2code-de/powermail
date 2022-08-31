@@ -9,7 +9,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ImplodeFieldViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */

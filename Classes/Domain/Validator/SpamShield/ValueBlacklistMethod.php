@@ -11,7 +11,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class ValueBlacklistMethod extends AbstractMethod
 {
-
     /**
      * @var string
      */

@@ -10,7 +10,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class VariablesViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */

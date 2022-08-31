@@ -7,7 +7,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
  */
 class NameMethod extends AbstractMethod
 {
-
     /**
      * Name Check: Compares first- and lastname (shouldn't be the same)
      *

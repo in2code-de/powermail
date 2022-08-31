@@ -18,7 +18,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class SendDisclaimedMailPreflight
 {
-
     /**
      * @var SendMailService
      */

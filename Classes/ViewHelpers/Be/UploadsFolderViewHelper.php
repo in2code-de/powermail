@@ -10,7 +10,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class UploadsFolderViewHelper extends AbstractViewHelper
 {
-
     /**
      * Upload Filder
      *

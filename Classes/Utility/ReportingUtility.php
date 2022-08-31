@@ -13,7 +13,6 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 class ReportingUtility
 {
-
     /**
      * @var array
      */

@@ -11,7 +11,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  */
 class AddOptionsToSelection
 {
-
     /**
      * Parameters given from Backend
      *

@@ -9,7 +9,6 @@ use In2code\Powermail\Domain\Model\Mail;
  */
 abstract class AbstractBreaker implements BreakerInterface
 {
-
     /**
      * @var Mail
      */

@@ -13,7 +13,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class EditLinkViewHelper extends AbstractViewHelper
 {
-
     /**
      * Short writings of table names
      *

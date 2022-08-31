@@ -9,7 +9,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsImageViewHelper extends AbstractViewHelper
 {
-
     /**
      * Webimage Formats
      *

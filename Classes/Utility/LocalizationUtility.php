@@ -9,7 +9,6 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
  */
 class LocalizationUtility
 {
-
     /**
      * Translate function with predefined extensionName
      * Could also be used together with unit tests

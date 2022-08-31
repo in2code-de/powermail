@@ -117,84 +117,84 @@ class InputValidator extends StringValidator
                     }
                     break;
 
-                // URL
+                    // URL
                 case 2:
                     if (!$this->validateUrl($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                // phone
+                    // phone
                 case 3:
                     if (!$this->validatePhone($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                // numbers only
+                    // numbers only
                 case 4:
                     if (!$this->validateNumbersOnly($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                // letters only
+                    // letters only
                 case 5:
                     if (!$this->validateLettersOnly($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                // min number
+                    // min number
                 case 6:
                     if (!$this->validateMinNumber($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                // max number
+                    // max number
                 case 7:
                     if (!$this->validateMaxNumber($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                // range
+                    // range
                 case 8:
                     if (!$this->validateRange($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                // length
+                    // length
                 case 9:
                     if (!$this->validateLength($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                // pattern
+                    // pattern
                 case 10:
                     if (!$this->validatePattern($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
                     break;
 
-                /**
-                 * E.g. Validation was extended with Page TSconfig
-                 *        tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
-                 *
-                 * Register your Class and Method with TypoScript Setup
-                 *        plugin.tx_powermail.settings.setup.validation.customValidation.100 =
-                 *            In2code\Powermailextended\Domain\Validator\ZipValidator
-                 *
-                 * Add method to your class
-                 *        validate100($value, $validationConfiguration)
-                 *
-                 * Define your Errormessage with TypoScript Setup
-                 *        plugin.tx_powermail._LOCAL_LANG.default.validationerror_validation.100 =
-                 *            Error happens!
-                 */
+                    /**
+                     * E.g. Validation was extended with Page TSconfig
+                     *        tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
+                     *
+                     * Register your Class and Method with TypoScript Setup
+                     *        plugin.tx_powermail.settings.setup.validation.customValidation.100 =
+                     *            In2code\Powermailextended\Domain\Validator\ZipValidator
+                     *
+                     * Add method to your class
+                     *        validate100($value, $validationConfiguration)
+                     *
+                     * Define your Errormessage with TypoScript Setup
+                     *        plugin.tx_powermail._LOCAL_LANG.default.validationerror_validation.100 =
+                     *            Error happens!
+                     */
                 default:
                     if ($field->getValidation()) {
                         $validation = $field->getValidation();

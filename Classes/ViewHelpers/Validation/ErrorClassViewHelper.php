@@ -13,7 +13,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ErrorClassViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */

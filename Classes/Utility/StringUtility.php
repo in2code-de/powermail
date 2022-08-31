@@ -9,7 +9,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class StringUtility
 {
-
     /**
      * Check if String/Array is filled
      *
@@ -27,7 +26,7 @@ class StringUtility
             if (isset($value) && strlen((string)$value)) {
                 return true;
             }
-            // array (checkboxes)
+        // array (checkboxes)
         } else {
             foreach ($value as $subValue) {
                 if (isset($value) && strlen((string)$subValue)) {

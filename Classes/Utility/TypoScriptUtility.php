@@ -11,7 +11,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class TypoScriptUtility
 {
-
     /**
      * Overwrite a string if a TypoScript cObject is available
      *

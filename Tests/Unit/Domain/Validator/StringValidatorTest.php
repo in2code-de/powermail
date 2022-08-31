@@ -10,7 +10,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class StringValidatorTest extends UnitTestCase
 {
-
     /**
      * @var \In2code\Powermail\Domain\Validator\StringValidator
      */

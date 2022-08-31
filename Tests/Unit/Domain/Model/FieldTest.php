@@ -10,7 +10,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class FieldTest extends UnitTestCase
 {
-
     /**
      * @var FieldFixture
      */

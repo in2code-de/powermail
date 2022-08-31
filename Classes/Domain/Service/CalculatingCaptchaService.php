@@ -19,7 +19,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class CalculatingCaptchaService
 {
-
     /**
      * TypoScript with captcha configuration
      *

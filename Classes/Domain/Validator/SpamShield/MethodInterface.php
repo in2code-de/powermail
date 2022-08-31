@@ -9,7 +9,6 @@ use In2code\Powermail\Domain\Model\Mail;
  */
 interface MethodInterface
 {
-
     /**
      * @param Mail $mail
      * @param array $settings

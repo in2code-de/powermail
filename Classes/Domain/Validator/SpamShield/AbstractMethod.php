@@ -10,7 +10,6 @@ use In2code\Powermail\Utility\FrontendUtility;
  */
 abstract class AbstractMethod implements MethodInterface
 {
-
     /**
      * @var Mail|null
      */

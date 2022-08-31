@@ -11,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class HashUtilityTest extends UnitTestCase
 {
-
     /**
      * @return void
      * @SuppressWarnings(PHPMD.Superglobals)

@@ -9,7 +9,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class EvaluateEmail
 {
-
     /**
      * Adds new JavaScript function for evaluation of the TCA fields in backend
      *

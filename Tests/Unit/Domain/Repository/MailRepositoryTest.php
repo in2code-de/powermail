@@ -14,7 +14,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class MailRepositoryTest extends UnitTestCase
 {
-
     /**
      * @var array
      */

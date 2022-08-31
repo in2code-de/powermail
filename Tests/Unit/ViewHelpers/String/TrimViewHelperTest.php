@@ -10,7 +10,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class TrimViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var TrimViewHelperFixture
      */

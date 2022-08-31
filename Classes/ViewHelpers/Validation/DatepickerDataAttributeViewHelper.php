@@ -11,7 +11,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * @return void
      */

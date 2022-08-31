@@ -8,7 +8,6 @@ use In2code\Powermail\Domain\Service\RedirectUriService;
  */
 class RedirectUriServiceFixture extends RedirectUriService
 {
-
     /**
      * @var array
      */

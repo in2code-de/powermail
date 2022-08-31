@@ -10,7 +10,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class SpamShieldValidatorTest extends UnitTestCase
 {
-
     /**
      * @var \In2code\Powermail\Domain\Validator\SpamShieldValidator
      */

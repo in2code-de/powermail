@@ -13,7 +13,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class UserRepository extends AbstractRepository
 {
-
     /**
      * @param int $uid
      * @return QueryResultInterface

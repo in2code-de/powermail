@@ -9,7 +9,6 @@ use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
  */
 class SelectFieldViewHelper extends SelectViewHelper
 {
-
     /**
      * @var array
      */

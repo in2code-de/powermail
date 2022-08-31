@@ -9,7 +9,6 @@ use In2code\Powermail\Utility\SessionUtility;
  */
 class SessionDataProcessor extends AbstractDataProcessor
 {
-
     /**
      * Save values to session to prefill forms if needed
      *

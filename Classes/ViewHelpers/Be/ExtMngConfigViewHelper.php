@@ -12,7 +12,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ExtMngConfigViewHelper extends AbstractViewHelper
 {
-
     /**
      * Check if Extension Manager Settings are available
      *

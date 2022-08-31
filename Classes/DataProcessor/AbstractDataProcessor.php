@@ -10,7 +10,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 abstract class AbstractDataProcessor implements DataProcessorInterface
 {
-
     /**
      * @var Mail
      */

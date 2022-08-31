@@ -21,7 +21,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class CaptchaViewHelper extends AbstractTagBasedViewHelper
 {
-
     /**
      * @var string|null
      */

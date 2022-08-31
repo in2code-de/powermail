@@ -9,7 +9,6 @@ use In2code\Powermail\Utility\HashUtility;
  */
 class HashUtilityFixture extends HashUtility
 {
-
     /**
      * @return string
      * @throws ConfigurationIsMissingException

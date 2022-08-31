@@ -14,7 +14,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class BackendUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */

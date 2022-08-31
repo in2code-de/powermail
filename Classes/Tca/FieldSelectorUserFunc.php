@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class FieldSelectorUserFunc
 {
-
     /**
      * Create Array for Field Selector
      *

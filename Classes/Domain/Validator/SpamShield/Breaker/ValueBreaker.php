@@ -10,7 +10,6 @@ use In2code\Powermail\Exception\ConfigurationIsMissingException;
  */
 class ValueBreaker extends AbstractBreaker
 {
-
     /**
      * @return bool
      * @throws ConfigurationIsMissingException

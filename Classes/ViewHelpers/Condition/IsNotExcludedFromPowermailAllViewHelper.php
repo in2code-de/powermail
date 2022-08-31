@@ -13,7 +13,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var array
      */

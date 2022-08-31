@@ -11,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class PowermailVersionViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return string
      * @throws Exception

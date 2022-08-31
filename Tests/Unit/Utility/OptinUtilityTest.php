@@ -13,7 +13,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class OptinUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */

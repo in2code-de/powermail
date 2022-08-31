@@ -10,7 +10,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class IpBreaker extends AbstractBreaker
 {
-
     /**
      * @return bool
      * @throws ConfigurationIsMissingException

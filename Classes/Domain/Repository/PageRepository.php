@@ -11,7 +11,6 @@ use In2code\Powermail\Utility\DatabaseUtility;
  */
 class PageRepository extends AbstractRepository
 {
-
     /**
      * @param int $uid
      * @return string

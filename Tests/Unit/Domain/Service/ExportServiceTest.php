@@ -10,7 +10,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class ExportServiceTest extends UnitTestCase
 {
-
     /**
      * @var \In2code\Powermail\Domain\Service\ExportService
      */

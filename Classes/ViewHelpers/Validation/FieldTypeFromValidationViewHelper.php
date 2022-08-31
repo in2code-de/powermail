@@ -9,7 +9,6 @@ use In2code\Powermail\Domain\Model\Field;
  */
 class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * InputTypes
      *

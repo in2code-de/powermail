@@ -9,7 +9,6 @@ use In2code\Powermail\Domain\Model\Field;
  */
 interface ValidatorInterface
 {
-
     /**
      * @param Field $field
      * @param string $label

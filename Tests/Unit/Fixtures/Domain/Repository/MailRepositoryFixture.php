@@ -9,7 +9,6 @@ use In2code\Powermail\Domain\Repository\MailRepository;
  */
 class MailRepositoryFixture extends MailRepository
 {
-
     /**
      * @param int $uid
      * @return Mail

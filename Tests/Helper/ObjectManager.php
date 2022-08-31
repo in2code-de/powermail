@@ -8,7 +8,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 class ObjectManager implements ObjectManagerInterface
 {
-
     /**
      * @param string $objectName
      * @return bool

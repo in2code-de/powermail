@@ -8,7 +8,6 @@ use In2code\Powermail\Domain\Model\Field;
  */
 class FieldFixture extends Field
 {
-
     /**
      * Extend dataType with TSConfig
      *

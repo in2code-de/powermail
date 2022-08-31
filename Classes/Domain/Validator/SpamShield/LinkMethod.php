@@ -7,7 +7,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
  */
 class LinkMethod extends AbstractMethod
 {
-
     /**
      * Link Check: Counts numbers of links in message
      *

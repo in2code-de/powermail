@@ -11,7 +11,6 @@ use TYPO3\CMS\Core\Utility\PathUtility;
  */
 class BasicFileUtility
 {
-
     /**
      * Get all Files from a folder
      *

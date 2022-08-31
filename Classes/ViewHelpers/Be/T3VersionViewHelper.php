@@ -14,7 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class T3VersionViewHelper extends AbstractViewHelper
 {
-
     /**
      * Check if TYPO3 Version is within dependency settings
      *

@@ -11,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class AnswerTest extends UnitTestCase
 {
-
     /**
      * @var \In2code\Powermail\Domain\Model\Answer
      */

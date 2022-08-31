@@ -9,7 +9,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class Utf8ToUtf16ViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var bool
      */

@@ -14,7 +14,6 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
  */
 class ReportingUtilityTest extends UnitTestCase
 {
-
     /**
      * @return void
      * @test

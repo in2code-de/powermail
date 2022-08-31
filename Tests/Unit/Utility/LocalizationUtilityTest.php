@@ -10,7 +10,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class LocalizationUtilityTest extends UnitTestCase
 {
-
     /**
      * @return void
      * @test

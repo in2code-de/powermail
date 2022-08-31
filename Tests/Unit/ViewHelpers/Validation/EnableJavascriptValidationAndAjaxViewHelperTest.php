@@ -11,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var EnableJavascriptValidationAndAjaxViewHelperFixture
      */

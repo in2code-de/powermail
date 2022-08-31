@@ -12,7 +12,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class UploadAttributesViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * @return void
      */

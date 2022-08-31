@@ -10,7 +10,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class TrimViewHelper extends AbstractViewHelper
 {
-
     /**
      * Trim outer and inner HTML for CSV files
      *

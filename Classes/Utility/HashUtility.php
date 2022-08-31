@@ -10,7 +10,6 @@ use In2code\Powermail\Exception\ConfigurationIsMissingException;
  */
 class HashUtility
 {
-
     /**
      * @param string $hash
      * @param Mail $mail

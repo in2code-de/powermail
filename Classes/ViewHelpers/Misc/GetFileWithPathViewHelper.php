@@ -11,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
 {
-
     /**
      * uploadPathFallback
      *

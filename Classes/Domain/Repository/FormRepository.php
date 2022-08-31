@@ -20,7 +20,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class FormRepository extends AbstractRepository
 {
-
     /**
      * Find Form by given Page Uid
      *

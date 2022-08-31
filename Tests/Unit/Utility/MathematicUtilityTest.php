@@ -10,7 +10,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class MathematicUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */

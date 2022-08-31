@@ -12,7 +12,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsIpInformationEnabledGloballyViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException

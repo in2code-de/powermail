@@ -9,7 +9,6 @@ use TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper;
  */
 class MultiUploadViewHelper extends UploadViewHelper
 {
-
     /**
      * Initialize the arguments.
      *

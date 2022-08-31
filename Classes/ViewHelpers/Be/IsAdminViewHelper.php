@@ -10,7 +10,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsAdminViewHelper extends AbstractViewHelper
 {
-
     /**
      * Is Backend Admin?
      *

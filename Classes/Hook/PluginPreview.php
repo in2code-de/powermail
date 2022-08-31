@@ -160,9 +160,8 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
             return null;
         } elseif (empty($row['title'])) {
             return '';
-        } else {
-            return (string)$row['title'];
         }
+        return (string)$row['title'];
     }
 
     /**

@@ -8,7 +8,6 @@ use In2code\Powermail\ViewHelpers\String\TrimViewHelper;
  */
 class TrimViewHelperFixture extends TrimViewHelper
 {
-
     /**
      * @var string
      */

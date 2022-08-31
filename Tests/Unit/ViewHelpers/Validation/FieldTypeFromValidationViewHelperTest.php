@@ -11,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class FieldTypeFromValidationViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */

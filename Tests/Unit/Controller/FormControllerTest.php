@@ -20,7 +20,6 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
  */
 class FormControllerTest extends UnitTestCase
 {
-
     /**
      * @var FormController|\PHPUnit_Framework_MockObject_MockObject
      */
