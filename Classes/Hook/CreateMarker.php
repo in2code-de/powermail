@@ -238,7 +238,7 @@ class CreateMarker
     protected function getFieldObjectFromProperties(array $properties, string $uid = '0'): Field
     {
         $field = GeneralUtility::makeInstance(Field::class);
-        $properties['contentelement'] = (int)($properties['contentelement'] ?? 0);
+        $properties['content_element'] = (int)($properties['content_element'] ?? 0);
         $properties['validation'] = (int)($properties['validation'] ?? 0);
         $properties['multiselect'] = (bool)($properties['multiselect'] ?? false);
         $properties['sender_name'] = (bool)($properties['sender_name'] ?? false);
