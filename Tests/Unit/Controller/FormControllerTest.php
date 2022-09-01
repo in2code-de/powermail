@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Controller;
 
 use In2code\Powermail\Controller\FormController;
@@ -20,7 +21,6 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
  */
 class FormControllerTest extends UnitTestCase
 {
-
     /**
      * @var FormController|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -53,9 +53,9 @@ class FormControllerTest extends UnitTestCase
     {
         $this->setDefaultControllerProperties();
         $this->generalValidatorMock->_call('initializeAction');
-        $this->assertObjectHasAttribute('settings', $this->generalValidatorMock);
-        $this->assertObjectHasAttribute('objectManager', $this->generalValidatorMock);
-        $this->assertObjectHasAttribute('request', $this->generalValidatorMock);
+        self::assertObjectHasAttribute('settings', $this->generalValidatorMock);
+        self::assertObjectHasAttribute('objectManager', $this->generalValidatorMock);
+        self::assertObjectHasAttribute('request', $this->generalValidatorMock);
     }
 
     /**
@@ -73,50 +73,50 @@ class FormControllerTest extends UnitTestCase
             'not allowed form given, forward' => [
                 [
                     'mail' => [
-                        'form' => '1'
-                    ]
+                        'form' => '1',
+                    ],
                 ],
                 [
                     'main' => [
-                        'form' => '2,3'
-                    ]
+                        'form' => '2,3',
+                    ],
                 ],
-                true
+                true,
             ],
             'allowed form given, do not forward' => [
                 [
                     'mail' => [
-                        'form' => '1'
-                    ]
+                        'form' => '1',
+                    ],
                 ],
                 [
                     'main' => [
-                        'form' => '1,2,3'
-                    ]
+                        'form' => '1,2,3',
+                    ],
                 ],
-                false
+                false,
             ],
             'mail object given, do not forward' => [
                 [
-                    'mail' => $mail
+                    'mail' => $mail,
                 ],
                 [
                     'main' => [
-                        'form' => '2,3'
-                    ]
+                        'form' => '2,3',
+                    ],
                 ],
-                false
+                false,
             ],
             'nothing given, do not forward' => [
                 [
-                    'mail' => null
+                    'mail' => null,
                 ],
                 [
                     'main' => [
-                        'form' => '2,3'
-                    ]
+                        'form' => '2,3',
+                    ],
                 ],
-                false
+                false,
             ],
         ];
     }
@@ -140,7 +140,7 @@ class FormControllerTest extends UnitTestCase
         }
 
         $response = $this->generalValidatorMock->_callRef('forwardIfFormParamsDoNotMatch');
-        $this->assertNull($response);
+        self::assertNull($response);
     }
 
     /**
@@ -154,15 +154,15 @@ class FormControllerTest extends UnitTestCase
             'no redirect, form param given' => [
                 [
                     'mail' => [
-                        'form' => '1'
-                    ]
+                        'form' => '1',
+                    ],
                 ],
-                false
+                false,
             ],
             'redirect, form param is missing' => [
                 [],
-                true
-            ]
+                true,
+            ],
         ];
     }
 
@@ -181,9 +181,9 @@ class FormControllerTest extends UnitTestCase
 
         $response = $this->generalValidatorMock->_call('forwardIfMailParamEmpty');
         if ($forward === true) {
-            $this->assertInstanceOf(ForwardResponse::class, $response);
+            self::assertInstanceOf(ForwardResponse::class, $response);
         }
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -197,21 +197,21 @@ class FormControllerTest extends UnitTestCase
             'redirect, wrong form uid' => [
                 [
                     'main' => [
-                        'form' => '55,6,7'
-                    ]
+                        'form' => '55,6,7',
+                    ],
                 ],
                 5,
-                true
+                true,
             ],
             'no redirect, correct form uid' => [
                 [
                     'main' => [
-                        'form' => '55,6,7'
-                    ]
+                        'form' => '55,6,7',
+                    ],
                 ],
                 6,
-                false
-            ]
+                false,
+            ],
         ];
     }
 
@@ -237,9 +237,9 @@ class FormControllerTest extends UnitTestCase
         $this->generalValidatorMock->injectStreamFactory(new StreamFactory());
         $response = $this->generalValidatorMock->_call('forwardIfFormParamsDoNotMatchForOptinConfirm', $mail);
         if ($forward === true) {
-            $this->assertInstanceOf(ForwardResponse::class, $response);
+            self::assertInstanceOf(ForwardResponse::class, $response);
         }
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -254,50 +254,50 @@ class FormControllerTest extends UnitTestCase
                 '0',
                 '0',
                 '',
-                false
+                false,
             ],
             'store 0, optin 0, hash NOTNULL' => [
                 '0',
                 '0',
                 'abc',
-                false
+                false,
             ],
             'store 0, optin 1, hash NULL' => [
                 '0',
                 '1',
                 '',
-                true
+                true,
             ],
             'store 0, optin 1, hash NOTNULL' => [
                 '0',
                 '1',
                 'abc',
-                false
+                false,
             ],
             'store 1, optin 0, hash NULL' => [
                 '1',
                 '0',
                 '',
-                true
+                true,
             ],
             'store 1, optin 0, hash NOTNULL' => [
                 '1',
                 '0',
                 'abc',
-                false
+                false,
             ],
             'store 1, optin 1, hash NULL' => [
                 '1',
                 '1',
                 '',
-                true
+                true,
             ],
             'store 1, optin 1, hash NOTNULL' => [
                 '1',
                 '1',
                 'abc',
-                false
-            ]
+                false,
+            ],
         ];
     }
 
@@ -315,14 +315,14 @@ class FormControllerTest extends UnitTestCase
     {
         $settings = [
             'db' => [
-                'enable' => $store
+                'enable' => $store,
             ],
             'main' => [
-                'optin' => $optin
-            ]
+                'optin' => $optin,
+            ],
         ];
         $this->generalValidatorMock->_set('settings', $settings);
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('isMailPersistActive', $hash));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_callRef('isMailPersistActive', $hash));
     }
 
     /**
@@ -333,7 +333,7 @@ class FormControllerTest extends UnitTestCase
     public function isNoOptinReturnsBool()
     {
         $this->generalValidatorMock->_set('settings', []);
-        $this->assertTrue($this->generalValidatorMock->_call('isNoOptin', new Mail(), ''));
+        self::assertTrue($this->generalValidatorMock->_call('isNoOptin', new Mail(), ''));
     }
 
     /**
@@ -345,11 +345,11 @@ class FormControllerTest extends UnitTestCase
     {
         $settings = [
             'db' => [
-                'enable' => '1'
-            ]
+                'enable' => '1',
+            ],
         ];
         $this->generalValidatorMock->_set('settings', $settings);
-        $this->assertTrue($this->generalValidatorMock->_call('isPersistActive'));
+        self::assertTrue($this->generalValidatorMock->_call('isPersistActive'));
     }
 
     /**
@@ -361,11 +361,11 @@ class FormControllerTest extends UnitTestCase
     {
         $settings = [
             'sender' => [
-                'enable' => '1'
-            ]
+                'enable' => '1',
+            ],
         ];
         $this->generalValidatorMock->_set('settings', $settings);
-        $this->assertTrue($this->generalValidatorMock->_call('isSenderMailEnabled'));
+        self::assertTrue($this->generalValidatorMock->_call('isSenderMailEnabled'));
     }
 
     /**
@@ -377,11 +377,11 @@ class FormControllerTest extends UnitTestCase
     {
         $settings = [
             'receiver' => [
-                'enable' => '1'
-            ]
+                'enable' => '1',
+            ],
         ];
         $this->generalValidatorMock->_set('settings', $settings);
-        $this->assertTrue($this->generalValidatorMock->_call('isReceiverMailEnabled'));
+        self::assertTrue($this->generalValidatorMock->_call('isReceiverMailEnabled'));
     }
 
     /**

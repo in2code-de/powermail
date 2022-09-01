@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use TYPO3\CMS\Core\Resource\StorageRepository;
@@ -11,7 +12,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
 {
-
     /**
      * uploadPathFallback
      *

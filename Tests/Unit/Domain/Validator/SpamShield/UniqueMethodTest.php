@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -28,7 +29,7 @@ class UniqueMethodTest extends UnitTestCase
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -56,7 +57,7 @@ class UniqueMethodTest extends UnitTestCase
                     '123',
                     '123',
                 ],
-                true
+                true,
             ],
             [
                 [
@@ -66,10 +67,10 @@ class UniqueMethodTest extends UnitTestCase
                     'This is an example text',
                     [
                         'abc',
-                        'def'
-                    ]
+                        'def',
+                    ],
                 ],
-                false
+                false,
             ],
         ];
     }
@@ -93,6 +94,6 @@ class UniqueMethodTest extends UnitTestCase
         }
 
         $this->generalValidatorMock->_set('mail', $mail);
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_callRef('spamCheck'));
     }
 }

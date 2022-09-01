@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use Throwable;
@@ -147,7 +148,7 @@ class ArrayUtility
                             $firstArray[$key] = $value;
                         }
                     }
-                    // @codeCoverageIgnoreEnd
+                // @codeCoverageIgnoreEnd
                 } else {
                     if ($emptyValuesOverride || !empty($value)) {
                         $firstArray[$key] = $value;

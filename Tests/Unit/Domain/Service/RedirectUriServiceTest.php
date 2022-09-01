@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Service\RedirectUriServiceFixture;
@@ -51,29 +52,29 @@ class RedirectUriServiceTest extends UnitTestCase
                     'settings' => [
                         'flexform' => [
                             'thx' => [
-                                'redirect' => '234'
-                            ]
-                        ]
-                    ]
+                                'redirect' => '234',
+                            ],
+                        ],
+                    ],
                 ],
-                '234'
+                '234',
             ],
             'test.jpg' => [
                 [
                     'settings' => [
                         'flexform' => [
                             'thx' => [
-                                'redirect' => 'fileadmin/test.jpg'
-                            ]
-                        ]
-                    ]
+                                'redirect' => 'fileadmin/test.jpg',
+                            ],
+                        ],
+                    ],
                 ],
-                'fileadmin/test.jpg'
+                'fileadmin/test.jpg',
             ],
             'empty' => [
                 [],
-                null
-            ]
+                null,
+            ],
         ];
     }
 
@@ -88,6 +89,6 @@ class RedirectUriServiceTest extends UnitTestCase
     public function getTargetFromFlexFormReturnString($flexFormArray, $expectedResult)
     {
         $this->generalValidatorMock->_set('flexFormFixture', $flexFormArray);
-        $this->assertEquals($expectedResult, $this->generalValidatorMock->_call('getTargetFromFlexForm'));
+        self::assertEquals($expectedResult, $this->generalValidatorMock->_call('getTargetFromFlexForm'));
     }
 }

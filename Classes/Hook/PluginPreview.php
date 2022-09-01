@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -107,7 +108,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
                 'enableMailPreview' => !ConfigurationUtility::isDisablePluginInformationMailPreviewActive(),
                 'form' => $this->getFormTitleByUid(
                     (int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
-                )
+                ),
             ]
         );
         return $standaloneView->render();

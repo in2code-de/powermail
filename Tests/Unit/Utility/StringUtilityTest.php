@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\StringUtility;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class StringUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */
@@ -26,67 +26,67 @@ class StringUtilityTest extends UnitTestCase
         return [
             'string "in2code.de"' => [
                 'in2code.de',
-                true
+                true,
             ],
             'string "a"' => [
                 'a',
-                true
+                true,
             ],
             'string empty' => [
                 '',
-                false
+                false,
             ],
             'string "0"' => [
                 '0',
-                true
+                true,
             ],
             'int 0' => [
                 0,
-                true
+                true,
             ],
             'int 1' => [
                 1,
-                true
+                true,
             ],
             'float 0.0' => [
                 0.0,
-                true
+                true,
             ],
             'float 1.0' => [
                 1.0,
-                true
+                true,
             ],
             'null' => [
                 null,
-                false
+                false,
             ],
             'bool false' => [
                 false,
-                false
+                false,
             ],
             'bool true' => [
                 true,
-                false
+                false,
             ],
             'array: string empty' => [
                 [''],
-                false
+                false,
             ],
             'array: int 0' => [
                 [0],
-                true
+                true,
             ],
             'array: int 1' => [
                 [1],
-                true
+                true,
             ],
             'array: "abc" => "def"' => [
                 ['abc' => 'def'],
-                true
+                true,
             ],
             'array: empty' => [
                 [],
-                false
+                false,
             ],
         ];
     }
@@ -101,7 +101,7 @@ class StringUtilityTest extends UnitTestCase
      */
     public function isNotEmptyReturnsBool($value, $expectedResult)
     {
-        $this->assertSame($expectedResult, StringUtility::isNotEmpty($value));
+        self::assertSame($expectedResult, StringUtility::isNotEmpty($value));
     }
 
     /**
@@ -151,7 +151,7 @@ class StringUtilityTest extends UnitTestCase
                 $regex = '~[a-zA-Z0-9]{' . $length . '}~';
             }
 
-            $this->assertSame(1, preg_match($regex, $string));
+            self::assertSame(1, preg_match($regex, $string));
         }
     }
 
@@ -166,28 +166,28 @@ class StringUtilityTest extends UnitTestCase
             [
                 'string',
                 'fallbackstring',
-                'string'
+                'string',
             ],
             [
                 ['abc'],
                 ['def'],
-                ['abc']
+                ['abc'],
             ],
             [
                 '',
                 'fallback',
-                'fallback'
+                'fallback',
             ],
             [
                 null,
                 true,
-                true
+                true,
             ],
             [
                 123,
                 234,
-                123
-            ]
+                123,
+            ],
         ];
     }
 
@@ -202,7 +202,7 @@ class StringUtilityTest extends UnitTestCase
      */
     public function conditionalVariableReturnsMixed($variable, $fallback, $expectedResult)
     {
-        $this->assertSame($expectedResult, StringUtility::conditionalVariable($variable, $fallback));
+        self::assertSame($expectedResult, StringUtility::conditionalVariable($variable, $fallback));
     }
 
     /**
@@ -216,37 +216,37 @@ class StringUtilityTest extends UnitTestCase
             [
                 'xFinisher',
                 'Finisher',
-                true
+                true,
             ],
             [
                 'inisher',
                 'Finisher',
-                false
+                false,
             ],
             [
                 'abc',
                 'c',
-                true
+                true,
             ],
             [
                 'abc',
                 'bc',
-                true
+                true,
             ],
             [
                 'abc',
                 'abc',
-                true
+                true,
             ],
             [
                 '/test//',
                 '/',
-                true
+                true,
             ],
             [
                 '/test//x',
                 '/',
-                false
+                false,
             ],
         ];
     }
@@ -262,7 +262,7 @@ class StringUtilityTest extends UnitTestCase
      */
     public function endsWithReturnsString($haystack, $needle, $expectedResult)
     {
-        $this->assertSame($expectedResult, StringUtility::endsWith($haystack, $needle));
+        self::assertSame($expectedResult, StringUtility::endsWith($haystack, $needle));
     }
 
     /**
@@ -276,27 +276,27 @@ class StringUtilityTest extends UnitTestCase
             [
                 'Finisherx',
                 'Finisher',
-                true
+                true,
             ],
             [
                 'inisher',
                 'Finisher',
-                false
+                false,
             ],
             [
                 'abc',
                 'a',
-                true
+                true,
             ],
             [
                 'abc',
                 'ab',
-                true
+                true,
             ],
             [
                 'abc',
                 'abc',
-                true
+                true,
             ],
         ];
     }
@@ -312,7 +312,7 @@ class StringUtilityTest extends UnitTestCase
      */
     public function startsWithReturnsString($haystack, $needle, $expectedResult)
     {
-        $this->assertSame($expectedResult, StringUtility::startsWith($haystack, $needle));
+        self::assertSame($expectedResult, StringUtility::startsWith($haystack, $needle));
     }
 
     /**
@@ -325,23 +325,23 @@ class StringUtilityTest extends UnitTestCase
         return [
             [
                 'abc',
-                'abc'
+                'abc',
             ],
             [
                 'abc.',
-                'abc'
+                'abc',
             ],
             [
                 '.abc.',
-                '.abc'
+                '.abc',
             ],
             [
                 '.a.b.c.',
-                '.a.b.c'
+                '.a.b.c',
             ],
             [
                 'abc..',
-                'abc.'
+                'abc.',
             ],
         ];
     }
@@ -356,7 +356,7 @@ class StringUtilityTest extends UnitTestCase
      */
     public function removeLastDotReturnsString($string, $expectedResult)
     {
-        $this->assertSame($expectedResult, StringUtility::removeLastDot($string));
+        self::assertSame($expectedResult, StringUtility::removeLastDot($string));
     }
 
     /**
@@ -369,15 +369,15 @@ class StringUtilityTest extends UnitTestCase
         return [
             [
                 'a<br>b',
-                "a\nb"
+                "a\nb",
             ],
             [
                 'a<br><br /><br/>b',
-                "a\n\n\nb"
+                "a\n\n\nb",
             ],
             [
                 'a\nbr[br]b',
-                'a\nbr[br]b'
+                'a\nbr[br]b',
             ],
         ];
     }
@@ -392,7 +392,7 @@ class StringUtilityTest extends UnitTestCase
      */
     public function br2nlReturnString($content, $expectedResult)
     {
-        $this->assertSame($expectedResult, StringUtility::br2nl($content));
+        self::assertSame($expectedResult, StringUtility::br2nl($content));
     }
 
     /**
@@ -405,19 +405,19 @@ class StringUtilityTest extends UnitTestCase
         return [
             [
                 'abc',
-                3
+                3,
             ],
             [
                 'äbc',
-                3
+                3,
             ],
             [
                 "a\nb",
-                3
+                3,
             ],
             [
                 "a\r\nb",
-                3
+                3,
             ],
         ];
     }
@@ -432,7 +432,7 @@ class StringUtilityTest extends UnitTestCase
      */
     public function getStringLengthReturnInt($string, $expectedResult)
     {
-        $this->assertSame($expectedResult, StringUtility::getStringLength($string));
+        self::assertSame($expectedResult, StringUtility::getStringLength($string));
     }
 
     /**
@@ -442,7 +442,7 @@ class StringUtilityTest extends UnitTestCase
      */
     public function cleanStringReturnsString()
     {
-        $this->assertSame('iu.asd__________-3test', StringUtility::cleanString('iu.asd?ßü**^%_-3test'));
+        self::assertSame('iu.asd__________-3test', StringUtility::cleanString('iu.asd?ßü**^%_-3test'));
     }
 
     /**
@@ -452,9 +452,9 @@ class StringUtilityTest extends UnitTestCase
      */
     public function integerListReturnsString()
     {
-        $this->assertSame('5,8,0', StringUtility::integerList('5,8,a4'));
-        $this->assertSame('5,8,4', StringUtility::integerList('5,8,4a'));
-        $this->assertSame('5,8,4', StringUtility::integerList('5,8,4'));
+        self::assertSame('5,8,0', StringUtility::integerList('5,8,a4'));
+        self::assertSame('5,8,4', StringUtility::integerList('5,8,4a'));
+        self::assertSame('5,8,4', StringUtility::integerList('5,8,4'));
     }
 
     /**
@@ -465,7 +465,7 @@ class StringUtilityTest extends UnitTestCase
     public function getSrcFromImageTagReturnsString()
     {
         $tag = '<img id="ab3src" src="test.jpg" class="src=" data-action="test" />';
-        $this->assertSame('test.jpg', StringUtility::getSrcFromImageTag($tag));
+        self::assertSame('test.jpg', StringUtility::getSrcFromImageTag($tag));
     }
 
     /**
@@ -476,23 +476,23 @@ class StringUtilityTest extends UnitTestCase
         return [
             [
                 'folder1/folder2',
-                'folder1/folder2/'
+                'folder1/folder2/',
             ],
             [
                 'folder1/folder2/',
-                'folder1/folder2/'
+                'folder1/folder2/',
             ],
             [
                 'folder1',
-                'folder1/'
+                'folder1/',
             ],
             [
                 'folder1///',
-                'folder1/'
+                'folder1/',
             ],
             [
                 '/fo/ld/er1//',
-                '/fo/ld/er1/'
+                '/fo/ld/er1/',
             ],
         ];
     }
@@ -506,6 +506,6 @@ class StringUtilityTest extends UnitTestCase
      */
     public function testAddTrailingSlashReturnString($string, $expectedResult)
     {
-        $this->assertSame($expectedResult, StringUtility::addTrailingSlash($string));
+        self::assertSame($expectedResult, StringUtility::addTrailingSlash($string));
     }
 }

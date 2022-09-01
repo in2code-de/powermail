@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Fixtures\Domain\Model;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -8,7 +9,6 @@ use In2code\Powermail\Domain\Model\Field;
  */
 class FieldFixture extends Field
 {
-
     /**
      * Extend dataType with TSConfig
      *

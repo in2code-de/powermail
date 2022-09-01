@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use Doctrine\DBAL\DBALException;
@@ -13,7 +14,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class FieldSelectorUserFunc
 {
-
     /**
      * Create Array for Field Selector
      *
@@ -29,15 +29,15 @@ class FieldSelectorUserFunc
             $params['items'] = [
                 [
                     'Please select a form (Main Settings)',
-                    ''
-                ]
+                    '',
+                ],
             ];
             return;
         }
         foreach ((array)$formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
             $params['items'][] = [
                 $field['title'] . ' {' . $field['marker'] . '}',
-                $field['uid']
+                $field['uid'],
             ];
         }
     }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -24,7 +25,7 @@ class AnswerRepository extends AbstractRepository
 
         $and = [
             $query->equals('mail', $mailUid),
-            $query->equals('field', $fieldUid)
+            $query->equals('field', $fieldUid),
         ];
 
         $constraint = $query->logicalAnd($and);
@@ -51,7 +52,7 @@ class AnswerRepository extends AbstractRepository
             $query->logicalAnd(
                 [
                     $query->equals('valueType', Answer::VALUE_TYPE_UPLOAD),
-                    $query->logicalNot($query->equals('value', ''))
+                    $query->logicalNot($query->equals('value', '')),
                 ]
             )
         );

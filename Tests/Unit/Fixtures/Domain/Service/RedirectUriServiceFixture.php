@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Fixtures\Domain\Service;
 
 use In2code\Powermail\Domain\Service\RedirectUriService;
@@ -8,7 +9,6 @@ use In2code\Powermail\Domain\Service\RedirectUriService;
  */
 class RedirectUriServiceFixture extends RedirectUriService
 {
-
     /**
      * @var array
      */

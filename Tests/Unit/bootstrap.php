@@ -1,4 +1,5 @@
 <?php
+
 use In2code\Powermail\Exception\FileNotFoundException;
 
 if (empty($webRoot = getenv('TYPO3_PATH_WEB'))) {

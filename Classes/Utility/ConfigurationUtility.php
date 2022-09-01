@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Exception\SoftwareIsMissingException;
@@ -15,7 +16,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ConfigurationUtility
 {
-
     /**
      * Check if disableIpLog is active
      *

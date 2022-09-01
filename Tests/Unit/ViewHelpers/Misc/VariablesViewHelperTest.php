@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class VariablesViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -45,39 +45,39 @@ class VariablesViewHelperTest extends UnitTestCase
         return [
             [
                 '<p class="abc">xyz</p><p>{powermail_all}</p><p class="abc">xyz</p>',
-                '<p class="abc">xyz</p>{powermail_all}<p class="abc">xyz</p>'
+                '<p class="abc">xyz</p>{powermail_all}<p class="abc">xyz</p>',
             ],
             [
                 '<p>{powermail_all}</p>',
-                '{powermail_all}'
+                '{powermail_all}',
             ],
             [
                 '<b>{powermail_all}</b>',
-                '<b>{powermail_all}</b>'
+                '<b>{powermail_all}</b>',
             ],
             [
                 '<p> {powermail_all} </p>',
-                '{powermail_all}'
+                '{powermail_all}',
             ],
             [
                 '{powermail_all}',
-                '{powermail_all}'
+                '{powermail_all}',
             ],
             [
                 '<p class="abc">xyz</p><p>{powermail_all}</p>',
-                '<p class="abc">xyz</p>{powermail_all}'
+                '<p class="abc">xyz</p>{powermail_all}',
             ],
             [
                 '<p>{powermail_all}</p><p class="abc">xyz</p>',
-                '{powermail_all}<p class="abc">xyz</p>'
+                '{powermail_all}<p class="abc">xyz</p>',
             ],
             [
                 '<table><tr><td>{powermail_all}</td></tr></table>',
-                '<table><tr><td>{powermail_all}</td></tr></table>'
+                '<table><tr><td>{powermail_all}</td></tr></table>',
             ],
             [
                 '<table><tr><td><p>	{powermail_all} </p></td></tr></table>',
-                '<table><tr><td>{powermail_all}</td></tr></table>'
+                '<table><tr><td>{powermail_all}</td></tr></table>',
             ],
         ];
     }
@@ -93,6 +93,6 @@ class VariablesViewHelperTest extends UnitTestCase
     public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult)
     {
         $result = $this->abstractValidationViewHelperMock->_callRef('removePowermailAllParagraphTagWrap', $content);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

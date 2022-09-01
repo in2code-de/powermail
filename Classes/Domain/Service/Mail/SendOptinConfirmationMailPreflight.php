@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -83,8 +84,8 @@ class SendOptinConfirmationMailPreflight
                 'hash' => HashUtility::getHash($mail),
                 'hashDisclaimer' => HashUtility::getHash($mail, 'disclaimer'),
                 'mail' => $mail,
-                'L' => FrontendUtility::getSysLanguageUid()
-            ]
+                'L' => FrontendUtility::getSysLanguageUid(),
+            ],
         ];
         $this->sendMailService->sendMail($email, $mail, $this->settings, 'optin');
     }

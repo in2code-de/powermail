@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -9,7 +10,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsImageViewHelper extends AbstractViewHelper
 {
-
     /**
      * Webimage Formats
      *
@@ -20,7 +20,7 @@ class IsImageViewHelper extends AbstractViewHelper
         'jpeg',
         'bmp',
         'gif',
-        'png'
+        'png',
     ];
 
     /**

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -116,7 +117,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
             'url' => $this->configuration['targetUrl'],
             'username' => $this->configuration['username'],
             'password' => $this->configuration['password'],
-            'params' => $this->getValues()
+            'params' => $this->getValues(),
         ];
     }
 

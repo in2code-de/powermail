@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -13,7 +14,6 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 class ReportingUtility
 {
-
     /**
      * @var array
      */

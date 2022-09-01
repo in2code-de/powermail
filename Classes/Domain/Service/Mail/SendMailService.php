@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -389,7 +390,7 @@ class SendMailService
                 'marketingInfos' => SessionUtility::getMarketingInfos(),
                 'mail' => $this->mail,
                 'email' => $email,
-                'settings' => $this->settings
+                'settings' => $this->settings,
             ]
         );
         if (!empty($email['variables'])) {
@@ -473,7 +474,7 @@ class SendMailService
             'receiverEmail',
             'senderName',
             'senderEmail',
-            'subject'
+            'subject',
         ];
         foreach ($parse as $value) {
             $email[$value] = TemplateUtility::fluidParseString(

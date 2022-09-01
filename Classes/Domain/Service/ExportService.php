@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use Exception;
@@ -43,7 +44,7 @@ class ExportService
      * @var array
      */
     protected array $senderEmails = [
-        'powermail@domain.org'
+        'powermail@domain.org',
     ];
 
     /**
@@ -208,7 +209,7 @@ class ExportService
         $standaloneView->assignMultiple(
             [
                 'mails' => $this->getMails(),
-                'fieldUids' => $this->getFieldList()
+                'fieldUids' => $this->getFieldList(),
             ]
         );
         return $standaloneView->render();
@@ -271,7 +272,7 @@ class ExportService
     {
         $allowedFormats = [
             'xls',
-            'csv'
+            'csv',
         ];
         if (!in_array($this->format, $allowedFormats)) {
             return 'xls';

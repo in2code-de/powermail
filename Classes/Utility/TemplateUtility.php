@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -131,7 +132,7 @@ class TemplateUtility
                 'mail' => $mail,
                 'section' => $section,
                 'settings' => $settings,
-                'type' => $type
+                'type' => $type,
             ]
         );
         return $standaloneView->render();

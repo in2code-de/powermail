@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Hook;
 
 use Doctrine\DBAL\DBALException;
@@ -55,7 +56,7 @@ class CreateMarker
     protected array $allowedTableNames = [
         Form::TABLE_NAME,
         Page::TABLE_NAME,
-        Field::TABLE_NAME
+        Field::TABLE_NAME,
     ];
 
     /**

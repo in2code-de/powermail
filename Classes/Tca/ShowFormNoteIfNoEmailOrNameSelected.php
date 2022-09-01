@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use Doctrine\DBAL\DBALException;
@@ -72,7 +73,7 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
                     'mutedNote' => $this->isNoteMuted(),
                     'form' => $this->data['databaseRow'],
                     'labels' => $this->getLabels(),
-                    'markerWarning' => $this->hasFormUniqueAndFilledFieldMarkers() === false
+                    'markerWarning' => $this->hasFormUniqueAndFilledFieldMarkers() === false,
                 ]
             );
             return $standaloneView->render();
@@ -152,7 +153,7 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
             'note3' => $this->getLabel('note.3'),
             'note4' => $this->getLabel('note.4'),
             'error1' => $this->getLabel('error.1'),
-            'error2' => $this->getLabel('error.2')
+            'error2' => $this->getLabel('error.2'),
         ];
     }
 

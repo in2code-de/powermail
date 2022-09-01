@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Eid;
 
 use In2code\Powermail\Eid\GetLocationEid;
@@ -29,17 +30,17 @@ class GetLocationEidTest extends UnitTestCase
             'in2code GmbH, Rosenheim, Germany' => [
                 47.84787,
                 12.113768,
-                'Kunstmühlstraße'
+                'Kunstmühlstraße',
             ],
             'Eisweiherweg, Pfaffing, Germany' => [
                 48.0796126,
                 12.0898908,
-                'Eisweiherweg'
+                'Eisweiherweg',
             ],
             'Baker Street, London, UK' => [
                 51.5205573,
                 -0.1566651,
-                'Baker Street'
+                'Baker Street',
             ],
         ];
     }
@@ -65,9 +66,9 @@ class GetLocationEidTest extends UnitTestCase
         );
         $getLocationEid = new GetLocationEid();
         $response = $getLocationEid->main($request);
-        $this->assertSame(200, $response->getStatusCode());
+        self::assertSame(200, $response->getStatusCode());
         $stream = $response->getBody();
         $stream->rewind();
-        $this->assertStringContainsString($expectedResult, $stream->getContents());
+        self::assertStringContainsString($expectedResult, $stream->getContents());
     }
 }

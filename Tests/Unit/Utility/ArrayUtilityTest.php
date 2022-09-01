@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ArrayUtility;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class ArrayUtilityTest extends UnitTestCase
 {
-
     /**
      * @return void
      * @test
@@ -18,7 +18,7 @@ class ArrayUtilityTest extends UnitTestCase
      */
     public function getAbcArrayReturnsArray()
     {
-        $this->assertSame(
+        self::assertSame(
             [
                 'A',
                 'B',
@@ -45,7 +45,7 @@ class ArrayUtilityTest extends UnitTestCase
                 'W',
                 'X',
                 'Y',
-                'Z'
+                'Z',
             ],
             ArrayUtility::getAbcArray()
         );
@@ -61,28 +61,28 @@ class ArrayUtilityTest extends UnitTestCase
         return [
             [
                 json_encode(['a']),
-                true
+                true,
             ],
             [
                 json_encode('a,b:c'),
-                false
+                false,
             ],
             [
                 json_encode(['object' => 'a']),
-                true
+                true,
             ],
             [
                 json_encode([['title' => 'test2'], ['title' => 'test2']]),
-                true
+                true,
             ],
             [
                 'a,b:c',
-                false
+                false,
             ],
             [
                 '',
-                false
-            ]
+                false,
+            ],
         ];
     }
 
@@ -96,7 +96,7 @@ class ArrayUtilityTest extends UnitTestCase
      */
     public function isJsonArrayReturnsBool($value, $expectedResult)
     {
-        $this->assertSame($expectedResult, ArrayUtility::isJsonArray($value));
+        self::assertSame($expectedResult, ArrayUtility::isJsonArray($value));
     }
 
     /**
@@ -109,25 +109,25 @@ class ArrayUtilityTest extends UnitTestCase
         return [
             [
                 [
-                    '<te&st>'
+                    '<te&st>',
                 ],
                 [
-                    '&lt;te&amp;st&gt;'
-                ]
+                    '&lt;te&amp;st&gt;',
+                ],
             ],
             [
                 [
                     '<test>',
                     [
-                        '<test>' => '<test>'
-                    ]
+                        '<test>' => '<test>',
+                    ],
                 ],
                 [
                     '&lt;test&gt;',
                     [
-                        '&lt;test&gt;' => '&lt;test&gt;'
-                    ]
-                ]
+                        '&lt;test&gt;' => '&lt;test&gt;',
+                    ],
+                ],
             ],
         ];
     }
@@ -142,7 +142,7 @@ class ArrayUtilityTest extends UnitTestCase
      */
     public function htmlspecialcharsOnArrayReturnsArray($array, $expectedResult)
     {
-        $this->assertSame($expectedResult, ArrayUtility::htmlspecialcharsOnArray($array));
+        self::assertSame($expectedResult, ArrayUtility::htmlspecialcharsOnArray($array));
     }
 
     /**
@@ -153,11 +153,11 @@ class ArrayUtilityTest extends UnitTestCase
     {
         $array = [
             'foo' => [
-                'bar' => 123
-            ]
+                'bar' => 123,
+            ],
         ];
-        $this->assertSame(123, ArrayUtility::getValueByPath($array, 'foo.bar'));
-        $this->assertSame('', ArrayUtility::getValueByPath($array, 'foo.test'));
+        self::assertSame(123, ArrayUtility::getValueByPath($array, 'foo.bar'));
+        self::assertSame('', ArrayUtility::getValueByPath($array, 'foo.test'));
     }
 
     /**
@@ -171,40 +171,40 @@ class ArrayUtilityTest extends UnitTestCase
             'simple' => [
                 [
                     [
-                        'title' => 'foo'
+                        'title' => 'foo',
                     ],
                     [
-                        'title' => 'bar'
-                    ]
+                        'title' => 'bar',
+                    ],
                 ],
                 'title',
                 [
                     'foo',
-                    'bar'
-                ]
+                    'bar',
+                ],
             ],
             'multiple keys' => [
                 [
                     [
                         'uid' => 123,
-                        'title' => 'foo'
+                        'title' => 'foo',
                     ],
                     [
                         'uid' => 234,
-                        'title' => 'bar'
-                    ]
+                        'title' => 'bar',
+                    ],
                 ],
                 'title',
                 [
                     'foo',
-                    'bar'
-                ]
+                    'bar',
+                ],
             ],
             'invalid' => [
                 [],
                 '',
-                []
-            ]
+                [],
+            ],
         ];
     }
 
@@ -215,6 +215,6 @@ class ArrayUtilityTest extends UnitTestCase
      */
     public function testFlatten(array $testcase, string $key, array $expected)
     {
-        $this->assertSame($expected, ArrayUtility::flatten($testcase, $key));
+        self::assertSame($expected, ArrayUtility::flatten($testcase, $key));
     }
 }

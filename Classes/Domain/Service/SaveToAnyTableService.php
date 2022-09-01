@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use Doctrine\DBAL\DBALException;
@@ -231,7 +232,7 @@ class SaveToAnyTableService
         $possibleModes = [
             self::MODE_INSERT,
             self::MODE_UPDATE,
-            self::MODE_NONE
+            self::MODE_NONE,
         ];
         if (in_array($mode, $possibleModes)) {
             $this->mode = $mode;

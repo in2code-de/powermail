@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\String;
 
 use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\String\TrimViewHelperFixture;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class TrimViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var TrimViewHelperFixture
      */
@@ -93,7 +93,7 @@ class TrimViewHelperTest extends UnitTestCase
     public function renderReturnsString($string, $expectedResult)
     {
         $this->trimViewHelperMock->_set('renderChildrenString', $string);
-        $this->assertSame($expectedResult, $this->trimViewHelperMock->_callRef('render'));
+        self::assertSame($expectedResult, $this->trimViewHelperMock->_callRef('render'));
     }
 
     /**
@@ -115,7 +115,7 @@ class TrimViewHelperTest extends UnitTestCase
             [
                 "\t\na\t\n",
                 ' a ',
-            ]
+            ],
         ];
     }
 
@@ -129,6 +129,6 @@ class TrimViewHelperTest extends UnitTestCase
      */
     public function removeDuplicatedWhitespaceReturnsString($string, $expectedResult)
     {
-        $this->assertSame($expectedResult, $this->trimViewHelperMock->_callRef('removeDuplicatedWhitespace', $string));
+        self::assertSame($expectedResult, $this->trimViewHelperMock->_callRef('removeDuplicatedWhitespace', $string));
     }
 }

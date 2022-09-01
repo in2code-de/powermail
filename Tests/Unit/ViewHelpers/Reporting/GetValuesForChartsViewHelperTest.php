@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Reporting;
 
 use In2code\Powermail\ViewHelpers\Reporting\GetValuesForChartsViewHelper;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class GetValuesForChartsViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -49,12 +49,12 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
                         'label1' => '10',
                         'label2' => '70',
                         'label3' => '20',
-                    ]
+                    ],
                 ],
                 'test',
                 ',',
                 false,
-                '10,70,20'
+                '10,70,20',
             ],
             [
                 [
@@ -62,12 +62,12 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
                         'label1' => '12',
                         'label2' => '70',
                         'label3' => '18',
-                    ]
+                    ],
                 ],
                 'a',
                 ',',
                 true,
-                '12%2C70%2C18'
+                '12%2C70%2C18',
             ],
             [
                 [
@@ -75,12 +75,12 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
                         'label1' => '"1|2"',
                         'label2' => '70|',
                         'label3' => '|18',
-                    ]
+                    ],
                 ],
                 'a',
                 '|',
                 false,
-                '12|70|18'
+                '12|70|18',
             ],
         ];
     }
@@ -102,10 +102,10 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
             'answers' => $answers,
             'fieldUidOrKey' => $field,
             'separator' => $glue,
-            'urlEncode' => $urlEncode
+            'urlEncode' => $urlEncode,
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
         $result = $this->abstractValidationViewHelperMock->_callRef('render', $answers, $field, $glue, $urlEncode);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

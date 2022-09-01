@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use In2code\Powermail\Utility\StringUtility;
@@ -10,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsNotEmptyViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */

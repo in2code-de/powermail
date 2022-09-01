@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use Doctrine\DBAL\DBALException;
@@ -65,7 +66,7 @@ class FieldRepository extends AbstractRepository
             $query->logicalAnd(
                 [
                     $query->equals('marker', $marker),
-                    $query->equals('page.form.uid', $formUid)
+                    $query->equals('page.form.uid', $formUid),
                 ]
             )
         );
@@ -178,7 +179,7 @@ class FieldRepository extends AbstractRepository
             $query->logicalAnd(
                 [
                     $query->equals('marker', $marker),
-                    $query->in('page', $pageIdentifiers)
+                    $query->in('page', $pageIdentifiers),
                 ]
             )
         );

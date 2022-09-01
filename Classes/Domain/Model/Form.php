@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FormRepository;
@@ -210,11 +211,14 @@ class Form extends AbstractEntity
     {
         if ($fieldType === '') {
             return true;
-        } elseif ($fieldType === $field::FIELD_TYPE_BASIC) {
+        }
+        if ($fieldType === $field::FIELD_TYPE_BASIC) {
             return $field->isTypeOf($field::FIELD_TYPE_BASIC);
-        } elseif ($fieldType === $field::FIELD_TYPE_ADVANCED) {
+        }
+        if ($fieldType === $field::FIELD_TYPE_ADVANCED) {
             return $field->isTypeOf($field::FIELD_TYPE_ADVANCED);
-        } elseif ($fieldType === $field::FIELD_TYPE_EXTPORTABLE) {
+        }
+        if ($fieldType === $field::FIELD_TYPE_EXTPORTABLE) {
             return $field->isTypeOf($field::FIELD_TYPE_EXTPORTABLE);
         }
         return false;

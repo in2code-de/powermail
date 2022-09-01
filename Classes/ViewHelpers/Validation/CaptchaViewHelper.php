@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use Exception;
@@ -21,7 +22,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class CaptchaViewHelper extends AbstractTagBasedViewHelper
 {
-
     /**
      * @var string|null
      */

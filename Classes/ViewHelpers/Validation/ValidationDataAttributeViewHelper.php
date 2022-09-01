@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -138,7 +139,6 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
     protected function addValidationAttributes(array $additionalAttributes, Field $field): array
     {
         switch ($field->getValidation()) {
-
             /**
              * EMAIL (+html5)
              *
@@ -151,39 +151,39 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 break;
 
-            /**
-             * URL (+html5)
-             *
-             * html5 example: <input type="url" />
-             * javascript example: <input type="text" data-powermail-type="url" />
-             */
+                /**
+                 * URL (+html5)
+                 *
+                 * html5 example: <input type="url" />
+                 * javascript example: <input type="text" data-powermail-type="url" />
+                 */
             case 2:
                 if ($this->isClientValidationEnabled() && !$this->isNativeValidationEnabled()) {
                     $additionalAttributes['data-powermail-type'] = 'url';
                 }
                 break;
 
-            /**
-             * PHONE (+html5)
-             *        01234567890
-             *        0123 4567890
-             *        0123 456 789
-             *        (0123) 45678 - 90
-             *        0012 345 678 9012
-             *        0012 (0)345 / 67890 - 12
-             *        +123456789012
-             *        +12 345 678 9012
-             *        +12 3456 7890123
-             *        +49 (0) 123 3456789
-             *        +49 (0)123 / 34567 - 89
-             *
-             * html5 example:
-             *        <input type="text"
-             *            pattern="/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
-             * javascript example:
-             *        <input ... data-powermail-pattern=
-             *            "/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
-             */
+                /**
+                 * PHONE (+html5)
+                 *        01234567890
+                 *        0123 4567890
+                 *        0123 456 789
+                 *        (0123) 45678 - 90
+                 *        0012 345 678 9012
+                 *        0012 (0)345 / 67890 - 12
+                 *        +123456789012
+                 *        +12 345 678 9012
+                 *        +12 3456 7890123
+                 *        +49 (0) 123 3456789
+                 *        +49 (0)123 / 34567 - 89
+                 *
+                 * html5 example:
+                 *        <input type="text"
+                 *            pattern="/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
+                 * javascript example:
+                 *        <input ... data-powermail-pattern=
+                 *            "/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
+                 */
             case 3:
                 $pattern = '^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$';
                 if ($this->isNativeValidationEnabled()) {
@@ -195,24 +195,24 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 break;
 
-            /**
-             * NUMBER/INTEGER (+html5)
-             *
-             * html5 example: <input type="number" />
-             * javascript example: <input type="text" data-powermail-type="integer" />
-             */
+                /**
+                 * NUMBER/INTEGER (+html5)
+                 *
+                 * html5 example: <input type="number" />
+                 * javascript example: <input type="text" data-powermail-type="integer" />
+                 */
             case 4:
                 if ($this->isClientValidationEnabled() && !$this->isNativeValidationEnabled()) {
                     $additionalAttributes['data-powermail-type'] = 'integer';
                 }
                 break;
 
-            /**
-             * LETTERS (+html5)
-             *
-             * html5 example: <input type="text" pattern="[a-zA-Z]." />
-             * javascript example: <input type="text" data-powermail-pattern="[a-zA-Z]." />
-             */
+                /**
+                 * LETTERS (+html5)
+                 *
+                 * html5 example: <input type="text" pattern="[a-zA-Z]." />
+                 * javascript example: <input type="text" data-powermail-pattern="[a-zA-Z]." />
+                 */
             case 5:
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['pattern'] = '[A-Za-z]+';
@@ -223,13 +223,13 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 break;
 
-            /**
-             * MIN NUMBER (+html5)
-             *
-             * Note: Field validation_configuration for editors viewable
-             * html5 example: <input type="text" min="6" />
-             * javascript example: <input type="text" data-powermail-min="6" />
-             */
+                /**
+                 * MIN NUMBER (+html5)
+                 *
+                 * Note: Field validation_configuration for editors viewable
+                 * html5 example: <input type="text" min="6" />
+                 * javascript example: <input type="text" data-powermail-min="6" />
+                 */
             case 6:
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['min'] = $field->getValidationConfiguration();
@@ -240,13 +240,13 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 break;
 
-            /**
-             * MAX NUMBER (+html5)
-             *
-             * Note: Field validation_configuration for editors viewable
-             * html5 example: <input type="text" max="12" />
-             * javascript example: <input type="text" data-powermail-max="12" />
-             */
+                /**
+                 * MAX NUMBER (+html5)
+                 *
+                 * Note: Field validation_configuration for editors viewable
+                 * html5 example: <input type="text" max="12" />
+                 * javascript example: <input type="text" data-powermail-max="12" />
+                 */
             case 7:
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['max'] = $field->getValidationConfiguration();
@@ -257,14 +257,14 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 break;
 
-            /**
-             * RANGE (+html5)
-             *
-             * Note: Field validation_configuration for editors viewable
-             * html5 example: <input type="range" min="1" max="10" />
-             * javascript example:
-             *        <input type="text" data-powermail-type="range" min="1" max="10" />
-             */
+                /**
+                 * RANGE (+html5)
+                 *
+                 * Note: Field validation_configuration for editors viewable
+                 * html5 example: <input type="range" min="1" max="10" />
+                 * javascript example:
+                 *        <input type="text" data-powermail-type="range" min="1" max="10" />
+                 */
             case 8:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
                 if ((int)$values[0] <= 0) {
@@ -285,13 +285,13 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 break;
 
-            /**
-             * LENGTH
-             *
-             * Note: Field validation_configuration for editors viewable
-             * javascript example:
-             *        <input type="text" data-powermail-length="[6, 10]" />
-             */
+                /**
+                 * LENGTH
+                 *
+                 * Note: Field validation_configuration for editors viewable
+                 * javascript example:
+                 *        <input type="text" data-powermail-length="[6, 10]" />
+                 */
             case 9:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
                 if ((int)$values[0] <= 0) {
@@ -306,14 +306,14 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 break;
 
-            /**
-             * PATTERN (+html5)
-             *
-             * Note: Field validation_configuration for editors viewable
-             * html5 example: <input type="text" pattern="https?://.+" />
-             * javascript example:
-             *        <input type="text" data-powermail-pattern="https?://.+" />
-             */
+                /**
+                 * PATTERN (+html5)
+                 *
+                 * Note: Field validation_configuration for editors viewable
+                 * html5 example: <input type="text" pattern="https?://.+" />
+                 * javascript example:
+                 *        <input type="text" data-powermail-pattern="https?://.+" />
+                 */
             case 10:
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['pattern'] = $field->getValidationConfiguration();
@@ -324,14 +324,14 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
                 break;
 
-            /**
-             * Custom Validation Attribute
-             *
-             * If CustomValidation was added via Page TSConfig
-             *        tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
-             *
-             * <input type="text" data-powermail-custom100="1" />
-             */
+                /**
+                 * Custom Validation Attribute
+                 *
+                 * If CustomValidation was added via Page TSConfig
+                 *        tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
+                 *
+                 * <input type="text" data-powermail-custom100="1" />
+                 */
             default:
                 if ($field->getValidation() && $this->isClientValidationEnabled()) {
                     $value = 1;

@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\Validation;
 
 use In2code\Powermail\ViewHelpers\Validation\EnableJavascriptValidationAndAjaxViewHelper;

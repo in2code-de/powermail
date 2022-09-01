@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use TYPO3\CMS\Core\Core\Environment;
@@ -14,7 +15,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class T3VersionViewHelper extends AbstractViewHelper
 {
-
     /**
      * Check if TYPO3 Version is within dependency settings
      *

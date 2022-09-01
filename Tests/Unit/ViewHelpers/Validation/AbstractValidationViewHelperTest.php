@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\ViewHelpers\Validation\AbstractValidationViewHelper;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class AbstractValidationViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -49,41 +49,41 @@ class AbstractValidationViewHelperTest extends UnitTestCase
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '1'
-                    ]
+                        'client' => '1',
+                    ],
                 ],
                 true,
-                true
+                true,
             ],
             'nativeOnlyActivated' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '0'
-                    ]
+                        'client' => '0',
+                    ],
                 ],
                 true,
-                false
+                false,
             ],
             'clientOnlyActivated' => [
                 [
                     'validation' => [
                         'native' => '0',
-                        'client' => '1'
-                    ]
+                        'client' => '1',
+                    ],
                 ],
                 false,
-                true
+                true,
             ],
             'nothingActivated' => [
                 [
                     'validation' => [
                         'native' => '0',
-                        'client' => '0'
-                    ]
+                        'client' => '0',
+                    ],
                 ],
                 false,
-                false
+                false,
             ],
         ];
     }
@@ -102,7 +102,7 @@ class AbstractValidationViewHelperTest extends UnitTestCase
         unset($expectedClientResult);
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
         $result = $this->abstractValidationViewHelperMock->_callRef('isNativeValidationEnabled');
-        $this->assertSame($expectedNativeResult, $result);
+        self::assertSame($expectedNativeResult, $result);
     }
 
     /**
@@ -119,6 +119,6 @@ class AbstractValidationViewHelperTest extends UnitTestCase
         unset($expectedNativeResult);
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
         $result = $this->abstractValidationViewHelperMock->_callRef('isClientValidationEnabled');
-        $this->assertSame($expectedClientResult, $result);
+        self::assertSame($expectedClientResult, $result);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
@@ -23,7 +24,7 @@ $formsTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'iconfile' => ConfigurationUtility::getIconPath(Form::TABLE_NAME . '.gif')
+        'iconfile' => ConfigurationUtility::getIconPath(Form::TABLE_NAME . '.gif'),
     ],
     'interface' => [
     ],
@@ -33,7 +34,7 @@ $formsTca = [
                 '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.sheet1, ' .
                 'css, --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
-                'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime'
+                'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime',
         ],
     ],
     'columns' => [
@@ -56,7 +57,7 @@ $formsTca = [
                 'foreign_table' => Form::TABLE_NAME,
                 'foreign_table_where' => 'AND ' . Form::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
                     Form::TABLE_NAME . '.sys_language_uid IN (-1,0)',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
@@ -70,7 +71,7 @@ $formsTca = [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-            ]
+            ],
         ],
         'hidden' => [
             'exclude' => true,
@@ -87,7 +88,7 @@ $formsTca = [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'endtime' => [
@@ -98,7 +99,7 @@ $formsTca = [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'title' => [
@@ -107,7 +108,7 @@ $formsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim,required',
             ],
         ],
         'note' => [
@@ -116,8 +117,8 @@ $formsTca = [
                 'type' => 'user',
                 'renderType' => 'powermailShowFormNoteIfNoEmailOrNameSelected',
                 'parameters' => [
-                ]
-            ]
+                ],
+            ],
         ],
         'css' => [
             'l10n_mode' => 'exclude',
@@ -129,28 +130,28 @@ $formsTca = [
                 'items' => [
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
-                        ''
+                        '',
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.css.1',
-                        'layout1'
+                        'layout1',
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.css.2',
-                        'layout2'
+                        'layout2',
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.css.3',
-                        'layout3'
+                        'layout3',
                     ],
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.css.4',
-                        'nolabel'
+                        'nolabel',
                     ],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => ''
+                'eval' => '',
             ],
         ],
         'pages' => [
@@ -172,11 +173,11 @@ $formsTca = [
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 0,
                     'showAllLocalizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1
-                ]
-            ]
-        ]
-    ]
+                    'showPossibleLocalizationRecords' => 1,
+                ],
+            ],
+        ],
+    ],
 ];
 
 /**
@@ -193,7 +194,7 @@ if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
             'allowed' => Page::TABLE_NAME,
             'foreign_table' => Page::TABLE_NAME,
             'minitems' => 1,
-            'maxitems' => 100
+            'maxitems' => 100,
         ],
     ];
 }

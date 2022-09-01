@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ObjectUtility;
@@ -20,7 +21,7 @@ class ObjectUtilityTest extends UnitTestCase
     public function getFilesArray()
     {
         $result = ObjectUtility::getFilesArray();
-        $this->assertTrue(is_array($result));
+        self::assertTrue(is_array($result));
     }
 
     /**
@@ -30,6 +31,6 @@ class ObjectUtilityTest extends UnitTestCase
     public function testGetLogger()
     {
         $logger = ObjectUtility::getLogger(__CLASS__);
-        $this->assertInstanceOf(Logger::class, $logger);
+        self::assertInstanceOf(Logger::class, $logger);
     }
 }

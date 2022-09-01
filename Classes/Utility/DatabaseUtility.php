@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use Doctrine\DBAL\DBALException;
@@ -14,7 +15,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class DatabaseUtility
 {
-
     /**
      * @param string $tableName
      * @param bool $removeRestrictions

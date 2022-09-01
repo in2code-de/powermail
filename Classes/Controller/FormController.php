@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\DataProcessor\DataProcessorRunner;
@@ -79,7 +80,7 @@ class FormController extends AbstractController
                 'form' => $form,
                 'ttContentData' => $this->contentObject->data,
                 'messageClass' => $this->messageClass,
-                'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create')
+                'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create'),
             ]
         );
 
@@ -291,7 +292,7 @@ class FormController extends AbstractController
                 'ttContentData' => $this->contentObject->data,
                 'uploadService' => $this->uploadService,
                 'powermail_rte' => $this->settings['thx']['body'],
-                'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName)
+                'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName),
             ]
         );
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));
@@ -442,7 +443,7 @@ class FormController extends AbstractController
             $formUid = null;
             if ($arguments['mail'] instanceof Mail) {
                 $form = $arguments['mail']->getForm();
-                if (null !== $form) {
+                if ($form !== null) {
                     $formUid = $form->getUid();
                 }
             } else {
@@ -450,7 +451,7 @@ class FormController extends AbstractController
             }
 
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
-            if (null === $formUid || in_array($formUid, $formsToContent, false)) {
+            if ($formUid === null || in_array($formUid, $formsToContent, false)) {
                 return;
             }
             $this->forward('form');

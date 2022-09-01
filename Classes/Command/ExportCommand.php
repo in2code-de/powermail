@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Repository\MailRepository;
@@ -104,8 +105,8 @@ class ExportCommand extends Command
             $variables = [
                 'filter' => [
                     'start' => strftime('%Y-%m-%d %H:%M:%S', (time() - $period)),
-                    'stop' => 'now'
-                ]
+                    'stop' => 'now',
+                ],
             ];
         }
         return $variables;

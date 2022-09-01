@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use In2code\Powermail\Utility\FrontendUtility;
@@ -10,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetClassNameOnActionViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */

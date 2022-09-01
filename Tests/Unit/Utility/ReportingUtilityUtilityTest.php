@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -14,7 +15,6 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
  */
 class ReportingUtilityTest extends UnitTestCase
 {
-
     /**
      * @return void
      * @test
@@ -25,10 +25,10 @@ class ReportingUtilityTest extends UnitTestCase
         $result = ReportingUtility::getGroupedAnswersFromMails($this->getDummyMails());
         $expected = [
             123 => [
-                'abc' => 4
-            ]
+                'abc' => 4,
+            ],
         ];
-        $this->assertSame($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     /**
@@ -42,28 +42,28 @@ class ReportingUtilityTest extends UnitTestCase
         $result = ReportingUtility::getGroupedMarketingPropertiesFromMails($this->getDummyMails());
         $expected = [
             'marketingRefererDomain' => [
-                '-' => 4
+                '-' => 4,
             ],
             'marketingReferer' => [
-                '-' => 4
+                '-' => 4,
             ],
             'marketingCountry' => [
-                '-' => 4
+                '-' => 4,
             ],
             'marketingMobileDevice' => [
-                '-' => 4
+                '-' => 4,
             ],
             'marketingFrontendLanguage' => [
-                '-' => 4
+                '-' => 4,
             ],
             'marketingBrowserLanguage' => [
-                '-' => 4
+                '-' => 4,
             ],
             'marketingPageFunnelString' => [
-                '-' => 4
+                '-' => 4,
             ],
         ];
-        $this->assertSame($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     /**
@@ -99,17 +99,17 @@ class ReportingUtilityTest extends UnitTestCase
                         'blue' => 5,
                         'black' => 1,
                         'red' => 2,
-                        'yellow' => 9
-                    ]
+                        'yellow' => 9,
+                    ],
                 ],
                 [
                     [
                         'yellow' => 9,
                         'blue' => 5,
                         'red' => 2,
-                        'black' => 1
-                    ]
-                ]
+                        'black' => 1,
+                    ],
+                ],
             ],
             [
                 [
@@ -117,17 +117,17 @@ class ReportingUtilityTest extends UnitTestCase
                         'a' => 5,
                         '' => 11,
                         '23' => 2,
-                        'x ' => 9
-                    ]
+                        'x ' => 9,
+                    ],
                 ],
                 [
                     [
                         '' => 11,
                         'x ' => 9,
                         'a' => 5,
-                        '23' => 2
-                    ]
-                ]
+                        '23' => 2,
+                    ],
+                ],
             ],
         ];
     }
@@ -143,7 +143,7 @@ class ReportingUtilityTest extends UnitTestCase
     public function sortReportingArrayDescendingReturnsVoid($array, $expectedResult)
     {
         ReportingUtility::sortReportingArrayDescending($array);
-        $this->assertSame($array, $expectedResult);
+        self::assertSame($array, $expectedResult);
     }
 
     /**
@@ -160,16 +160,16 @@ class ReportingUtilityTest extends UnitTestCase
                         'blue' => 5,
                         'black' => 1,
                         'red' => 2,
-                        'yellow' => 9
-                    ]
+                        'yellow' => 9,
+                    ],
                 ],
                 [
                     [
                         'blue' => 5,
                         'black' => 1,
                         'others' => 11,
-                    ]
-                ]
+                    ],
+                ],
             ],
             [
                 [
@@ -182,16 +182,16 @@ class ReportingUtilityTest extends UnitTestCase
                         'pink' => 7,
                         'orange' => 8,
                         'violet' => 9,
-                        'green' => 3
-                    ]
+                        'green' => 3,
+                    ],
                 ],
                 [
                     [
                         'blue' => 2,
                         'black' => 3,
                         'others' => 42,
-                    ]
-                ]
+                    ],
+                ],
             ],
         ];
     }
@@ -207,6 +207,6 @@ class ReportingUtilityTest extends UnitTestCase
     public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoid($array, $expectedResult)
     {
         ReportingUtility::cutArrayByKeyLimitAndAddTotalValues($array, 3, 'others');
-        $this->assertSame($array, $expectedResult);
+        self::assertSame($array, $expectedResult);
     }
 }

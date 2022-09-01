@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
@@ -9,7 +10,6 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
  */
 class LocalizationUtility
 {
-
     /**
      * Translate function with predefined extensionName
      * Could also be used together with unit tests

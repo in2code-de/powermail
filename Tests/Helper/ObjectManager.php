@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Helper;
 
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
@@ -8,7 +9,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 class ObjectManager implements ObjectManagerInterface
 {
-
     /**
      * @param string $objectName
      * @return bool
@@ -27,7 +27,7 @@ class ObjectManager implements ObjectManagerInterface
     public function get(string $objectName, ...$constructorArguments): object
     {
         unset($constructorArguments);
-        return new $objectName;
+        return new $objectName();
     }
 
     /**

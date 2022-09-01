@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -18,7 +19,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class SendDisclaimedMailPreflight
 {
-
     /**
      * @var SendMailService
      */
@@ -87,7 +87,7 @@ class SendDisclaimedMailPreflight
                 ),
                 'rteBody' => '',
                 'format' => $this->settings['sender']['mailformat'],
-                'variables' => ['mail' => $mail]
+                'variables' => ['mail' => $mail],
             ];
             $this->sendMailService->sendMail($email, $mail, $this->settings, 'disclaimer');
         }

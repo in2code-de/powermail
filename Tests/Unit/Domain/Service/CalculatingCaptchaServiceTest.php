@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -13,7 +14,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class CalculatingCaptchaServiceTest extends UnitTestCase
 {
-
     /**
      * @var \In2code\Powermail\Domain\Service\CalculatingCaptchaService
      */
@@ -36,9 +36,9 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
                 'captcha.' => [
                     'default.' => [
                         'image' => 'EXT:powermail/Resources/Private/Image/captcha_bg.png',
-                        'font' => 'EXT:powermail/Resources/Private/Fonts/ARCADE.TTF'
-                    ]
-                ]
+                        'font' => 'EXT:powermail/Resources/Private/Fonts/ARCADE.TTF',
+                    ],
+                ],
             ]
         );
     }
@@ -61,12 +61,12 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         return [
             [
                 '#444444',
-                4473924
+                4473924,
             ],
             [
                 '#af584c',
-                11491404
-            ]
+                11491404,
+            ],
         ];
     }
 
@@ -86,12 +86,12 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set(
             'configuration',
             [
-                'textColor' => $hexColorString
+                'textColor' => $hexColorString,
             ]
         );
 
         $result = $this->generalValidatorMock->_call('getColorForCaptcha', $imageResource);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -106,23 +106,23 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
                 '-5,5',
                 [
                     -5,
-                    5
-                ]
+                    5,
+                ],
             ],
             [
                 '0,20',
                 [
                     0,
-                    20
-                ]
+                    20,
+                ],
             ],
             [
                 '-100,99',
                 [
                     -100,
-                    99
-                ]
-            ]
+                    99,
+                ],
+            ],
         ];
     }
 
@@ -141,16 +141,16 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
             [
                 'captcha.' => [
                     'default.' => [
-                        'textAngle' => $hexColorString
-                    ]
-                ]
+                        'textAngle' => $hexColorString,
+                    ],
+                ],
             ]
         );
 
         for ($i = 0; $i < 20; $i++) {
             $result = $this->generalValidatorMock->_call('getFontAngleForCaptcha');
-            $this->assertLessThanOrEqual($expectedResult[1], $result);
-            $this->assertGreaterThanOrEqual($expectedResult[0], $result);
+            self::assertLessThanOrEqual($expectedResult[1], $result);
+            self::assertGreaterThanOrEqual($expectedResult[0], $result);
         }
     }
 
@@ -166,23 +166,23 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
                 '-5,5',
                 [
                     -5,
-                    5
-                ]
+                    5,
+                ],
             ],
             [
                 '0,20',
                 [
                     0,
-                    20
-                ]
+                    20,
+                ],
             ],
             [
                 '-100,99',
                 [
                     -100,
-                    99
-                ]
-            ]
+                    99,
+                ],
+            ],
         ];
     }
 
@@ -201,16 +201,16 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
             [
                 'captcha.' => [
                     'default.' => [
-                        'distanceHor' => $hexColorString
-                    ]
-                ]
+                        'distanceHor' => $hexColorString,
+                    ],
+                ],
             ]
         );
 
         for ($i = 0; $i < 20; $i++) {
             $result = $this->generalValidatorMock->_call('getHorizontalDistanceForCaptcha');
-            $this->assertLessThanOrEqual($expectedResult[1], $result);
-            $this->assertGreaterThanOrEqual($expectedResult[0], $result);
+            self::assertLessThanOrEqual($expectedResult[1], $result);
+            self::assertGreaterThanOrEqual($expectedResult[0], $result);
         }
     }
 
@@ -226,23 +226,23 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
                 '-5,5',
                 [
                     -5,
-                    5
-                ]
+                    5,
+                ],
             ],
             [
                 '0,20',
                 [
                     0,
-                    20
-                ]
+                    20,
+                ],
             ],
             [
                 '-100,99',
                 [
                     -100,
-                    99
-                ]
-            ]
+                    99,
+                ],
+            ],
         ];
     }
 
@@ -261,16 +261,16 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
             [
                 'captcha.' => [
                     'default.' => [
-                        'distanceVer' => $hexColorString
-                    ]
-                ]
+                        'distanceVer' => $hexColorString,
+                    ],
+                ],
             ]
         );
 
         for ($i = 0; $i < 20; $i++) {
             $result = $this->generalValidatorMock->_call('getVerticalDistanceForCaptcha');
-            $this->assertLessThanOrEqual($expectedResult[1], $result);
-            $this->assertGreaterThanOrEqual($expectedResult[0], $result);
+            self::assertLessThanOrEqual($expectedResult[1], $result);
+            self::assertGreaterThanOrEqual($expectedResult[0], $result);
         }
     }
 
@@ -286,36 +286,36 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
                 '1+3',
                 [
                     'result' => 4,
-                    'string' => '1 + 3'
-                ]
+                    'string' => '1 + 3',
+                ],
             ],
             [
                 '88 + 11',
                 [
                     'result' => 99,
-                    'string' => '88 + 11'
-                ]
+                    'string' => '88 + 11',
+                ],
             ],
             [
                 '12 - 8',
                 [
                     'result' => 4,
-                    'string' => '12 - 8'
-                ]
+                    'string' => '12 - 8',
+                ],
             ],
             [
                 '6:3',
                 [
                     'result' => 2,
-                    'string' => '6 : 3'
-                ]
+                    'string' => '6 : 3',
+                ],
             ],
             [
                 '33x3',
                 [
                     'result' => 99,
-                    'string' => '33 x 3'
-                ]
+                    'string' => '33 x 3',
+                ],
             ],
         ];
     }
@@ -333,11 +333,11 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set(
             'configuration',
             [
-                'forceValue' => $forceValue
+                'forceValue' => $forceValue,
             ]
         );
         $result = $this->generalValidatorMock->_call('getStringAndResultForCaptcha');
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -348,17 +348,17 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     public function getImagePathReturnString()
     {
         $result = $this->generalValidatorMock->_call('getImagePath');
-        $this->assertSame('typo3temp/assets/tx_powermail/', $result);
+        self::assertSame('typo3temp/assets/tx_powermail/', $result);
 
         $this->generalValidatorMock->_set('imagePath', 'typo3temp/');
         $result = $this->generalValidatorMock->_call('getImagePath');
-        $this->assertSame('typo3temp/', $result);
+        self::assertSame('typo3temp/', $result);
 
         $this->generalValidatorMock->_set('imagePath', 'typo3temp/');
         $result = $this->generalValidatorMock->_call('getImagePath', true);
-        $this->assertSame('/', $result[0]);
-        $this->assertNotEquals('typo3temp/', $result);
-        $this->assertStringContainsString('typo3temp/', $result);
+        self::assertSame('/', $result[0]);
+        self::assertNotEquals('typo3temp/', $result);
+        self::assertStringContainsString('typo3temp/', $result);
     }
 
     /**
@@ -373,6 +373,6 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set('imagePath', 'typo3temp/');
         $this->generalValidatorMock->_set('imageFilenamePrefix', 'abc%ddef.png');
         $this->generalValidatorMock->_call('setPathAndFilename', $field);
-        $this->assertSame('typo3temp/abc123def.png', $this->generalValidatorMock->_get('pathAndFilename'));
+        self::assertSame('typo3temp/abc123def.png', $this->generalValidatorMock->_get('pathAndFilename'));
     }
 }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
@@ -68,9 +69,9 @@ class BackendUtility
         $uriParameters = [
             'edit' => [
                 $tableName => [
-                    $identifier => 'edit'
-                ]
-            ]
+                    $identifier => 'edit',
+                ],
+            ],
         ];
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
@@ -92,9 +93,9 @@ class BackendUtility
         $uriParameters = [
             'edit' => [
                 $tableName => [
-                    $pageIdentifier => 'new'
-                ]
-            ]
+                    $pageIdentifier => 'new',
+                ],
+            ],
         ];
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
@@ -162,7 +163,7 @@ class BackendUtility
             'M',
             'moduleToken',
             'route',
-            'token'
+            'token',
         ];
         foreach ($getParameters as $key => $value) {
             if (in_array($key, $ignoreKeys)) {

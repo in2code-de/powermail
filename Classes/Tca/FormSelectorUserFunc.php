@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use Doctrine\DBAL\DBALException;
@@ -71,7 +72,7 @@ class FormSelectorUserFunc
                 if ($this->hasUserAccessToPage((int)$form['pid'])) {
                     $params['items'][] = [
                         BackendUtilityCore::getRecordTitle(Form::TABLE_NAME, $form),
-                        (int)$form['uid']
+                        (int)$form['uid'],
                     ];
                 }
             }
