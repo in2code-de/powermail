@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -275,7 +276,7 @@ class ReceiverMailReceiverPropertiesService
             [
                 PHP_EOL,
                 '|',
-                ','
+                ',',
             ],
             ';',
             $string

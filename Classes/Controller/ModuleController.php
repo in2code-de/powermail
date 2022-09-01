@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
 use Doctrine\DBAL\DBALException;
@@ -74,7 +75,7 @@ class ModuleController extends AbstractController
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
                 'pagination' => [
                     'pagination' => $pagination,
-                    'paginator' => $paginator
+                    'paginator' => $paginator,
                 ],
                 'perPage' => $this->settings['perPage'] ?? 10,
                 'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
@@ -98,7 +99,7 @@ class ModuleController extends AbstractController
                     ',',
                     StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
                     true
-                )
+                ),
             ]
         );
 
@@ -123,7 +124,7 @@ class ModuleController extends AbstractController
                     ',',
                     StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
                     true
-                )
+                ),
             ]
         );
 
@@ -154,7 +155,7 @@ class ModuleController extends AbstractController
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
+                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
             ]
         );
         return $this->htmlResponse();
@@ -181,7 +182,7 @@ class ModuleController extends AbstractController
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10)
+                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
             ]
         );
         return $this->htmlResponse();
@@ -233,7 +234,7 @@ class ModuleController extends AbstractController
             $this->view->assignMultiple(
                 [
                     'issent' => MailUtility::sendPlainMail($email, $senderEmail, 'New Powermail Test Email', $body),
-                    'email' => $email
+                    'email' => $email,
                 ]
             );
         }

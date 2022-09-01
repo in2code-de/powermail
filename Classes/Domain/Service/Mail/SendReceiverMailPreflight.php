@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -73,8 +74,8 @@ class SendReceiverMailPreflight
                 'format' => $this->settings['receiver']['mailformat'],
                 'variables' => [
                     'hash' => $hash,
-                    'L' => FrontendUtility::getSysLanguageUid()
-                ]
+                    'L' => FrontendUtility::getSysLanguageUid(),
+                ],
             ];
             $isSent = $this->sendMailService->sendMail($email, $mail, $this->settings, 'receiver');
         }

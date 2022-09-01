@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use Exception;
@@ -234,7 +235,7 @@ class SpamShieldValidator extends AbstractValidator
             'ipAddress' => $this->getIpAddress(),
             'time' => new \DateTime(),
             'request' => $_REQUEST,
-            'requestPlain' => print_r($_REQUEST, true)
+            'requestPlain' => print_r($_REQUEST, true),
         ];
     }
 

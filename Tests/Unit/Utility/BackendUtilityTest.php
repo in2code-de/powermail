@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Exception\DeprecatedException;
@@ -14,7 +15,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class BackendUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */
@@ -30,16 +30,16 @@ class BackendUtilityTest extends UnitTestCase
         return [
             [
                 1,
-                true
+                true,
             ],
             [
                 0,
-                false
+                false,
             ],
             [
                 null,
-                false
-            ]
+                false,
+            ],
         ];
     }
 
@@ -58,12 +58,12 @@ class BackendUtilityTest extends UnitTestCase
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
         $GLOBALS = [
-            'BE_USER' => $user
+            'BE_USER' => $user,
         ];
         if (is_int($value)) {
             $GLOBALS['BE_USER']->user['admin'] = $value;
         }
-        $this->assertSame($expectedResult, BackendUtility::isBackendAdmin());
+        self::assertSame($expectedResult, BackendUtility::isBackendAdmin());
     }
 
     /**
@@ -80,12 +80,12 @@ class BackendUtilityTest extends UnitTestCase
             ],
             [
                 'warningMax',
-                3
+                3,
             ],
             [
                 '',
-                ''
-            ]
+                '',
+            ],
         ];
     }
 
@@ -104,12 +104,12 @@ class BackendUtilityTest extends UnitTestCase
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
         $GLOBALS = [
-            'BE_USER' => $user
+            'BE_USER' => $user,
         ];
         if ($property !== null) {
             $GLOBALS['BE_USER']->user[$property] = $value;
         }
-        $this->assertSame($value, BackendUtility::getPropertyFromBackendUser($property));
+        self::assertSame($value, BackendUtility::getPropertyFromBackendUser($property));
     }
 
     /**
@@ -123,23 +123,23 @@ class BackendUtilityTest extends UnitTestCase
             [
                 ['a' => 'b', 'c' => 'd', 'e' => 'f'],
                 ['a' => 'b', 'c' => 'd', 'e' => 'f'],
-                false
+                false,
             ],
             [
                 ['a' => 'b', 'c' => 'd', 'M' => 'f'],
                 ['a' => 'b', 'c' => 'd'],
-                false
+                false,
             ],
             [
                 ['a' => 'b', 'moduleToken' => 'd', 'M' => 'f'],
                 ['a' => 'b'],
-                false
+                false,
             ],
             [
                 ['a' => 'b', 'moduleToken' => 'd', 'M' => 'f'],
                 ['a' => 'b'],
-                true
-            ]
+                true,
+            ],
         ];
     }
 
@@ -156,10 +156,10 @@ class BackendUtilityTest extends UnitTestCase
     public function getCurrentParametersReturnsArray($getParameters, $expectedResult, $injectAsGetParam)
     {
         if ($injectAsGetParam === false) {
-            $this->assertSame($expectedResult, BackendUtility::getCurrentParameters($getParameters));
+            self::assertSame($expectedResult, BackendUtility::getCurrentParameters($getParameters));
         } else {
             $_GET = $getParameters;
-            $this->assertSame($expectedResult, BackendUtility::getCurrentParameters([]));
+            self::assertSame($expectedResult, BackendUtility::getCurrentParameters([]));
         }
     }
 
@@ -173,28 +173,28 @@ class BackendUtilityTest extends UnitTestCase
         return [
             'TYPO3 6.2 returnUrl' => [
                 '/typo3/sysext/cms/layout/db_layout.php?id=17#element-tt_content-14&edit[tt_content][14]=edit',
-                17
+                17,
             ],
             'TYPO3 6.2 returnUrl II' => [
                 '/typo3/sysext/cms/layout/db_layout.php?id=15#element-tt_content-34',
-                15
+                15,
             ],
             'TYPO3 7.6 returnUrl' => [
                 '/typo3/index.php?M=web_layout&moduleToken=' .
                     'afcd9cc86e6cd393edac6a60c33f38f2c2b48721&id=15#element-tt_content-34',
-                15
+                15,
             ],
             'Any example' => [
                 '&returnUrl=abc.html?id=1243&abc=123',
-                1243
+                1243,
             ],
             'Any example II' => [
                 '&returnUrl=abc.html?abc=1243&xyz=abc',
-                0
+                0,
             ],
             'Any example III' => [
                 '',
-                1514816014062
+                1514816014062,
             ],
         ];
     }
@@ -213,7 +213,7 @@ class BackendUtilityTest extends UnitTestCase
         if (empty($returnUrl)) {
             $_GET['returnUrl'] = '&returnUrl=sdaf.html?id=1514816014062&ied=abc';
         }
-        $this->assertSame($expectedResult, BackendUtility::getPidFromBackendPage($returnUrl));
+        self::assertSame($expectedResult, BackendUtility::getPidFromBackendPage($returnUrl));
     }
 
     /**
@@ -224,7 +224,7 @@ class BackendUtilityTest extends UnitTestCase
      */
     public function getPagesTSconfigReturnsString()
     {
-        $this->assertEmpty(BackendUtility::getPagesTSconfig(1));
+        self::assertEmpty(BackendUtility::getPagesTSconfig(1));
     }
 
     /**
@@ -239,10 +239,10 @@ class BackendUtilityTest extends UnitTestCase
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
         $GLOBALS = [
-            'BE_USER' => $user
+            'BE_USER' => $user,
         ];
 
         $GLOBALS['BE_USER']->user['admin'] = 1;
-        $this->assertSame([1, 2], BackendUtility::filterPagesForAccess([1, 2]));
+        self::assertSame([1, 2], BackendUtility::filterPagesForAccess([1, 2]));
     }
 }

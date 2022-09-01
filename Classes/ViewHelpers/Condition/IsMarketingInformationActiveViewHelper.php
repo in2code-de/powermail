@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -12,7 +13,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsMarketingInformationActiveViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */

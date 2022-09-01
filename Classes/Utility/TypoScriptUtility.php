@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -11,7 +12,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class TypoScriptUtility
 {
-
     /**
      * Overwrite a string if a TypoScript cObject is available
      *
@@ -64,7 +64,7 @@ class TypoScriptUtility
     public static function getCaptchaExtensionFromSettings(array $settings): string
     {
         $allowedExtensions = [
-            'captcha'
+            'captcha',
         ];
         if (in_array($settings['captcha']['use'], $allowedExtensions) &&
             ExtensionManagementUtility::isLoaded($settings['captcha']['use'])) {

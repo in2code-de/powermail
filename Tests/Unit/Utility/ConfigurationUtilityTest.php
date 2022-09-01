@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class ConfigurationUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */
@@ -27,14 +27,14 @@ class ConfigurationUtilityTest extends UnitTestCase
     {
         $testString1 = 'test@mail.org';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
-        $this->assertSame($testString1, ConfigurationUtility::getDefaultMailFromAddress($testString1));
+        self::assertSame($testString1, ConfigurationUtility::getDefaultMailFromAddress($testString1));
 
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
-        $this->assertEmpty(ConfigurationUtility::getDefaultMailFromAddress());
+        self::assertEmpty(ConfigurationUtility::getDefaultMailFromAddress());
 
         $testString2 = 'test@mail.com';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $testString2;
-        $this->assertSame($testString2, ConfigurationUtility::getDefaultMailFromAddress());
+        self::assertSame($testString2, ConfigurationUtility::getDefaultMailFromAddress());
     }
 
     /**
@@ -48,10 +48,10 @@ class ConfigurationUtilityTest extends UnitTestCase
     {
         $testString = 'randomName';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = $testString;
-        $this->assertSame($testString, ConfigurationUtility::getDefaultMailFromName());
+        self::assertSame($testString, ConfigurationUtility::getDefaultMailFromName());
 
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = '';
-        $this->assertEmpty(ConfigurationUtility::getDefaultMailFromName());
+        self::assertEmpty(ConfigurationUtility::getDefaultMailFromName());
     }
 
     /**
@@ -63,7 +63,7 @@ class ConfigurationUtilityTest extends UnitTestCase
     public function getIconPathReturnsString()
     {
         $icon = 'random';
-        $this->assertSame('EXT:powermail/Resources/Public/Icons/' . $icon, ConfigurationUtility::getIconPath($icon));
+        self::assertSame('EXT:powermail/Resources/Public/Icons/' . $icon, ConfigurationUtility::getIconPath($icon));
     }
 
     /**
@@ -79,12 +79,12 @@ class ConfigurationUtilityTest extends UnitTestCase
                 'methods' => [
                     [
                         'class' => 'anyClass',
-                        '_enable' => '1'
-                    ]
-                ]
-            ]
+                        '_enable' => '1',
+                    ],
+                ],
+            ],
         ];
-        $this->assertTrue(ConfigurationUtility::isvalidationenabled($settings, 'anyClass'));
+        self::assertTrue(ConfigurationUtility::isvalidationenabled($settings, 'anyClass'));
     }
 
     /**
@@ -96,82 +96,82 @@ class ConfigurationUtilityTest extends UnitTestCase
             'empty' => [
                 [],
                 '',
-                []
+                [],
             ],
             'simple' => [
                 [
                     'setup' => [
-                        'abc' => 'def'
+                        'abc' => 'def',
                     ],
                     'flexform' => [
-                        'ghi' => 'jkl'
-                    ]
+                        'ghi' => 'jkl',
+                    ],
                 ],
                 'setup',
                 [
                     'abc' => 'def',
                     'ghi' => 'jkl',
-                ]
+                ],
             ],
             'override settings with flexform - level 1' => [
                 [
                     'setup' => [
                         'main' => [
-                            'pid' => '124'
-                        ]
+                            'pid' => '124',
+                        ],
                     ],
                     'flexform' => [
                         'main' => [
-                            'pid' => '123'
-                        ]
-                    ]
+                            'pid' => '123',
+                        ],
+                    ],
                 ],
                 'setup',
                 [
                     'main' => [
-                        'pid' => '123'
-                    ]
-                ]
+                        'pid' => '123',
+                    ],
+                ],
             ],
             'override flexform only if not empty' => [
                 [
                     'setup' => [
                         'prop1' => 'val1',
-                        'prop2' => 'val2'
+                        'prop2' => 'val2',
                     ],
                     'flexform' => [
                         'prop1' => '',
-                        'prop2' => 'val3'
-                    ]
+                        'prop2' => 'val3',
+                    ],
                 ],
                 'setup',
                 [
                     'prop1' => 'val1',
-                    'prop2' => 'val3'
-                ]
+                    'prop2' => 'val3',
+                ],
             ],
             'override flexform only if not empty - level 2' => [
                 [
                     'setup' => [
                         'prop1' => [
                             'prop11' => 'val1',
-                            'prop12' => 'val2'
+                            'prop12' => 'val2',
                         ],
                     ],
                     'flexform' => [
                         'prop1' => [
                             'prop11' => '',
-                            'prop12' => 'val3'
+                            'prop12' => 'val3',
                         ],
-                    ]
+                    ],
                 ],
                 'setup',
                 [
                     'prop1' => [
                         'prop11' => 'val1',
-                        'prop12' => 'val3'
+                        'prop12' => 'val3',
                     ],
-                ]
+                ],
             ],
             'complex' => [
                 [
@@ -181,26 +181,26 @@ class ConfigurationUtilityTest extends UnitTestCase
                             'default' => [
                                 'senderName' => 'TEXT',
                                 'senderName.' => [
-                                    'value' => 'abc'
+                                    'value' => 'abc',
                                 ],
-                            ]
+                            ],
                         ],
                         'captcha' => [
                             'default' => [
-                                'image' => 'abc.jpg'
-                            ]
-                        ]
+                                'image' => 'abc.jpg',
+                            ],
+                        ],
                     ],
                     'flexform' => [
                         'receiver' => [
-                            'mailformat' => ''
+                            'mailformat' => '',
                         ],
                         'captcha' => [
                             'default' => [
-                                'image' => 'def.jpg'
-                            ]
-                        ]
-                    ]
+                                'image' => 'def.jpg',
+                            ],
+                        ],
+                    ],
                 ],
                 'setup',
                 [
@@ -209,34 +209,34 @@ class ConfigurationUtilityTest extends UnitTestCase
                         'default' => [
                             'senderName' => 'TEXT',
                             'senderName.' => [
-                                'value' => 'abc'
+                                'value' => 'abc',
                             ],
-                        ]
+                        ],
                     ],
                     'captcha' => [
                         'default' => [
-                            'image' => 'def.jpg'
-                        ]
-                    ]
-                ]
+                            'image' => 'def.jpg',
+                        ],
+                    ],
+                ],
             ],
             'Pi2' => [
                 [
                     'setup' => [
-                        'prop' => 'props'
+                        'prop' => 'props',
                     ],
                     'Pi2' => [
-                        'prop' => 'propp'
-                    ]
+                        'prop' => 'propp',
+                    ],
                 ],
                 'Pi2',
                 [
                     'setup' => [
-                        'prop' => 'props'
+                        'prop' => 'props',
                     ],
                     'Pi2' => [
-                        'prop' => 'propp'
-                    ]
+                        'prop' => 'propp',
+                    ],
                 ],
             ],
         ];
@@ -254,6 +254,6 @@ class ConfigurationUtilityTest extends UnitTestCase
     public function testMergeTypoScript2FlexFormReturnsVoid($settings, $level, $expectedResult)
     {
         $settings = ConfigurationUtility::mergeTypoScript2FlexForm($settings, $level);
-        $this->assertSame($expectedResult, $settings);
+        self::assertSame($expectedResult, $settings);
     }
 }

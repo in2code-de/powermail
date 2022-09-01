@@ -1,4 +1,5 @@
 <?php
+
 use In2code\Powermail\Utility\ConfigurationUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 

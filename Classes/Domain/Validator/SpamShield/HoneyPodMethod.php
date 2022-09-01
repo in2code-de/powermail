@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
 /**
@@ -7,7 +8,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
  */
 class HoneyPodMethod extends AbstractMethod
 {
-
     /**
      * Honeypod Check: Spam recognized if Honeypod field is filled
      *

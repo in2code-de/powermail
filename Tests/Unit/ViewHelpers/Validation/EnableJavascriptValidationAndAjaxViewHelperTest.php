@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -11,7 +12,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var EnableJavascriptValidationAndAjaxViewHelperFixture
      */
@@ -48,100 +48,100 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '1'
+                        'client' => '1',
                     ],
                     'misc' => [
-                        'ajaxSubmit' => '1'
-                    ]
+                        'ajaxSubmit' => '1',
+                    ],
                 ],
                 [],
                 [
                     'data-powermail-validate' => 'data-powermail-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123
-                ]
+                    'data-powermail-form' => 123,
+                ],
             ],
             'clientAndAjaxAndNoAdditionalAttributes' => [
                 [
                     'validation' => [
                         'native' => '0',
-                        'client' => '1'
+                        'client' => '1',
                     ],
                     'misc' => [
-                        'ajaxSubmit' => '1'
-                    ]
+                        'ajaxSubmit' => '1',
+                    ],
                 ],
                 [],
                 [
                     'data-powermail-validate' => 'data-powermail-validate',
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123
-                ]
+                    'data-powermail-form' => 123,
+                ],
             ],
             'nativeAndAjaxAndNoAdditionalAttributes' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '0'
+                        'client' => '0',
                     ],
                     'misc' => [
-                        'ajaxSubmit' => '1'
-                    ]
+                        'ajaxSubmit' => '1',
+                    ],
                 ],
                 [],
                 [
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123
-                ]
+                    'data-powermail-form' => 123,
+                ],
             ],
             'AjaxAndNoAdditionalAttributes' => [
                 [
                     'validation' => [
                         'native' => '0',
-                        'client' => '0'
+                        'client' => '0',
                     ],
                     'misc' => [
-                        'ajaxSubmit' => '1'
-                    ]
+                        'ajaxSubmit' => '1',
+                    ],
                 ],
                 [],
                 [
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123
-                ]
+                    'data-powermail-form' => 123,
+                ],
             ],
             'nativeAndClientAndNoAdditionalAttributes' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '1'
+                        'client' => '1',
                     ],
                     'misc' => [
-                        'ajaxSubmit' => '0'
-                    ]
+                        'ajaxSubmit' => '0',
+                    ],
                 ],
                 [],
                 [
                     'data-powermail-validate' => 'data-powermail-validate',
-                    'data-validate' => 'html5'
-                ]
+                    'data-validate' => 'html5',
+                ],
             ],
             'nativeAndClientAndAjaxAndAdditionalAttributes' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '1'
+                        'client' => '1',
                     ],
                     'misc' => [
-                        'ajaxSubmit' => '1'
-                    ]
+                        'ajaxSubmit' => '1',
+                    ],
                 ],
                 [
                     'www' => 'in2code.de',
                     'email' => 'service@in2code.de',
-                    'data-uid' => 234
+                    'data-uid' => 234,
                 ],
                 [
                     'www' => 'in2code.de',
@@ -150,8 +150,8 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
                     'data-powermail-validate' => 'data-powermail-validate',
                     'data-validate' => 'html5',
                     'data-powermail-ajax' => 'true',
-                    'data-powermail-form' => 123
-                ]
+                    'data-powermail-form' => 123,
+                ],
             ],
         ];
     }
@@ -167,17 +167,17 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArray($settings, $additionalAttributes, $expectedResult)
     {
-        $form = new Form;
+        $form = new Form();
         $form->_setProperty('uid', 123);
 
         $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('addRedirectUri', false);
         $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('settings', $settings);
         $arguments = [
             'form' => $form,
-            'additionalAttributes' => $additionalAttributes
+            'additionalAttributes' => $additionalAttributes,
         ];
         $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('arguments', $arguments);
         $result = $this->enableJavascriptValidationAndAjaxViewHelperMock->_callRef('render');
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

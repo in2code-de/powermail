@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Exception\SoftwareIsMissingException;
@@ -7,6 +8,7 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -14,7 +16,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ConfigurationUtility
 {
-
     /**
      * Check if disableIpLog is active
      *
@@ -186,10 +187,15 @@ class ConfigurationUtility
     public static function isValidationEnabled(array $settings, string $className): bool
     {
         $validationActivated = false;
-        foreach ((array)$settings['spamshield']['methods'] as $method) {
-            if ($method['class'] === $className && $method['_enable'] === '1') {
-                $validationActivated = true;
-                break;
+        if (CoreArrayUtility::isValidPath($settings, 'spamshield/methods')) {
+            foreach ((array)$settings['spamshield']['methods'] as $method) {
+                if (!empty($method['class'])
+                    && !empty($method['_enable'])
+                    && $method['class'] === $className
+                    && $method['_enable'] === '1') {
+                    $validationActivated = true;
+                    break;
+                }
             }
         }
         return !empty($settings['spamshield']['_enable']) && $validationActivated;

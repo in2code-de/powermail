@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -21,7 +22,7 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
         'confirmationAction' => 'confirmationPage',
         'sender' => 'senderMail',
         'receiver' => 'receiverMail',
-        'optin' => 'optinMail'
+        'optin' => 'optinMail',
     ];
 
     /**

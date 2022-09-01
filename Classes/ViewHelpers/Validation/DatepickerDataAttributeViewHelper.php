@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -11,7 +12,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * @return void
      */
@@ -92,7 +92,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
                 'DD',
                 'HH',
                 'mm',
-            ]
+            ],
         ];
         return str_replace($replace[0], $replace[1], $format);
     }

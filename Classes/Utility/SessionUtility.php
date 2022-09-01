@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -30,7 +31,7 @@ class SessionUtility
      */
     protected static array $methods = [
         'temporary' => 'ses',
-        'permanently' => 'user'
+        'permanently' => 'user',
     ];
 
     /**
@@ -283,7 +284,7 @@ class SessionUtility
             'mobileDevice' => $mobileDevice,
             'frontendLanguage' => $language,
             'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
-            'pageFunnel' => [$pid]
+            'pageFunnel' => [$pid],
         ];
 
         return $marketingInfo;
@@ -316,7 +317,7 @@ class SessionUtility
             }
         }
         $newValues = [
-            $name => $values
+            $name => $values,
         ];
         ObjectUtility::getTyposcriptFrontendController()->fe_user->setKey($method, $key, $newValues);
     }

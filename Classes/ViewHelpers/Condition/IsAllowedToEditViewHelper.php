@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use Doctrine\DBAL\DBALException;
@@ -13,7 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsAllowedToEditViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */

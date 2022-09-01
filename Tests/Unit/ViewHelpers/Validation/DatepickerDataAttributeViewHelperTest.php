@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -50,14 +51,14 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '1'
+                        'client' => '1',
                     ],
                 ],
                 [
-                    'mandatory' => true
+                    'mandatory' => true,
                 ],
                 [
-                    'data-company' => 'in2code'
+                    'data-company' => 'in2code',
                 ],
                 'anyvalue',
                 [
@@ -66,14 +67,14 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-date-value' => 'anyvalue',
                     'required' => 'required',
                     'aria-required' => 'true',
-                    'data-powermail-required-message' => 'validationerror_mandatory'
-                ]
+                    'data-powermail-required-message' => 'validationerror_mandatory',
+                ],
             ],
             'datepickerWithNativevalidationAndClientvalidation' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '1'
+                        'client' => '1',
                     ],
                 ],
                 [],
@@ -82,13 +83,13 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                 [
                     'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
                     'data-date-value' => 'anyvalue',
-                ]
+                ],
             ],
             'datepickerWithNativevalidation' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '0'
+                        'client' => '0',
                     ],
                 ],
                 [],
@@ -96,13 +97,13 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                 '',
                 [
                     'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
-                ]
+                ],
             ],
             'datepickerWithClientvalidation' => [
                 [
                     'validation' => [
                         'native' => '0',
-                        'client' => '1'
+                        'client' => '1',
                     ],
                 ],
                 [],
@@ -110,13 +111,13 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                 '',
                 [
                     'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
-                ]
+                ],
             ],
             'datepickerWithoutValidation' => [
                 [
                     'validation' => [
                         'native' => '0',
-                        'client' => '0'
+                        'client' => '0',
                     ],
                 ],
                 [],
@@ -124,7 +125,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                 '',
                 [
                     'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
-                ]
+                ],
             ],
         ];
     }
@@ -143,7 +144,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $value, $expectedResult)
     {
-        $field = new Field;
+        $field = new Field();
         foreach ($fieldProperties as $propertyName => $propertyValue) {
             $field->_setProperty($propertyName, $propertyValue);
         }
@@ -151,19 +152,19 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
         $this->abstractValidationViewHelperMock->_set('test', true);
 
-        $controllerContext = new ControllerContext;
-        $request = new Request;
+        $controllerContext = new ControllerContext();
+        $request = new Request();
         $request->setControllerExtensionName('powermail');
         $controllerContext->setRequest($request);
         $this->abstractValidationViewHelperMock->_set('controllerContext', $controllerContext);
         $arguments = [
             'field' => $field,
             'additionalAttributes' => $additionalAttributes,
-            'value' => $value
+            'value' => $value,
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
 
         $result = $this->abstractValidationViewHelperMock->_callRef('render');
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

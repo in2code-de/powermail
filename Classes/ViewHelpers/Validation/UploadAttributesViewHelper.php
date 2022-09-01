@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -12,7 +13,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class UploadAttributesViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * @return void
      */

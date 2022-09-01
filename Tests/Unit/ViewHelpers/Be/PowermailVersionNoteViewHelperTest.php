@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Be;
 
 use In2code\Powermail\ViewHelpers\Be\PowermailVersionNoteViewHelper;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class PowermailVersionNoteViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface|PowermailVersionNoteViewHelper
      */
@@ -48,42 +48,42 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
                 false,
                 false,
                 false,
-                0
+                0,
             ],
             [
                 true,
                 true,
                 true,
                 false,
-                3
+                3,
             ],
             [
                 false,
                 true,
                 true,
                 true,
-                0
+                0,
             ],
             [
                 true,
                 false,
                 true,
                 false,
-                1
+                1,
             ],
             [
                 true,
                 true,
                 true,
                 true,
-                2
+                2,
             ],
             [
                 true,
                 false,
                 true,
                 true,
-                2
+                2,
             ],
         ];
     }
@@ -116,6 +116,6 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
         );
         $this->powermailVersionNoteViewHelperMock->_callRef('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
         $result = $this->powermailVersionNoteViewHelperMock->_callRef('render');
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

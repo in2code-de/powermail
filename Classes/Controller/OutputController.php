@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
 use Doctrine\DBAL\DBALException;
@@ -55,7 +56,7 @@ class OutputController extends AbstractController
                 'searchFields' => $searchFields,
                 'fields' => $this->fieldRepository->findByUids($fieldArray),
                 'piVars' => $this->piVars,
-                'abc' => ArrayUtility::getAbcArray()
+                'abc' => ArrayUtility::getAbcArray(),
             ]
         );
         $this->assignMultipleActions();
@@ -74,7 +75,7 @@ class OutputController extends AbstractController
         $this->view->assignMultiple(
             [
                 'fields' => $this->fieldRepository->findByUids($fieldArray),
-                'mail' => $mail
+                'mail' => $mail,
             ]
         );
         $this->assignMultipleActions();
@@ -93,7 +94,7 @@ class OutputController extends AbstractController
         $this->view->assignMultiple(
             [
                 'selectedFields' => $this->fieldRepository->findByUids($fieldArray),
-                'mail' => $mail
+                'mail' => $mail,
             ]
         );
         $this->assignMultipleActions();

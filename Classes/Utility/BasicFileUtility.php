@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
@@ -11,7 +12,6 @@ use TYPO3\CMS\Core\Utility\PathUtility;
  */
 class BasicFileUtility
 {
-
     /**
      * Get all Files from a folder
      *

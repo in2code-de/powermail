@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Domain\Repository\FieldRepository;
@@ -208,7 +209,7 @@ class Field extends AbstractEntity
             'textarea',
             'select',
             'check',
-            'radio'
+            'radio',
         ];
         return in_array($this->getType(), $basicFieldTypes);
     }
@@ -227,7 +228,7 @@ class Field extends AbstractEntity
             'location',
             'date',
             'country',
-            'password'
+            'password',
         ];
         return $this->isBasicFieldType() || in_array($this->getType(), $advancedFieldTypes);
     }
@@ -707,7 +708,7 @@ class Field extends AbstractEntity
             $options[] = [
                 'label' => $label,
                 'value' => $value,
-                'selected' => !empty($settings[2]) && $settings[2] === '*' ? 1 : 0
+                'selected' => !empty($settings[2]) && $settings[2] === '*' ? 1 : 0,
             ];
         }
         return $options;
@@ -742,7 +743,7 @@ class Field extends AbstractEntity
                 'submit' => Answer::VALUE_TYPE_TEXT,
                 'text' => Answer::VALUE_TYPE_TEXT,
                 'textarea' => Answer::VALUE_TYPE_TEXT,
-                'typoscript' => Answer::VALUE_TYPE_TEXT
+                'typoscript' => Answer::VALUE_TYPE_TEXT,
             ];
             $types = $this->extendTypeArrayWithTypoScriptTypes($types);
         }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -9,7 +10,6 @@ use In2code\Powermail\Domain\Model\Field;
  */
 interface ValidatorInterface
 {
-
     /**
      * @param Field $field
      * @param string $label

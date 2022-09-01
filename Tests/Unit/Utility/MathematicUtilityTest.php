@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\MathematicUtility;
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class MathematicUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */
@@ -28,25 +28,25 @@ class MathematicUtilityTest extends UnitTestCase
                 1,
                 3,
                 '+',
-                4
+                4,
             ],
             [
                 7,
                 2,
                 '-',
-                5
+                5,
             ],
             [
                 6,
                 3,
                 ':',
-                2
+                2,
             ],
             [
                 11,
                 3,
                 'x',
-                33
+                33,
             ],
         ];
     }
@@ -64,6 +64,6 @@ class MathematicUtilityTest extends UnitTestCase
     public function mathematicOperationReturnsInt($number1, $number2, $operator, $expectedResult)
     {
         $result = MathematicUtility::mathematicOperation($number1, $number2, $operator);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

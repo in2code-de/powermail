@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -31,7 +32,7 @@ class GetNewMarkerNamesForFormService
     protected array $restrictedMarkers = [
         'mail',
         'powermail_rte',
-        'powermail_all'
+        'powermail_all',
     ];
 
     /**

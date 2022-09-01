@@ -69,7 +69,7 @@ class FeatureContext extends MinkContext
         $session = $this->getSession();
         $element = $session->getPage()->find('css', $locator);
 
-        if (null === $element) {
+        if ($element === null) {
             throw new ElementNotFoundException(
                 sprintf('Could not evaluate CSS selector: "%s"', $locator),
                 1579187286

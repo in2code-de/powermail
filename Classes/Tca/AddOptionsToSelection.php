@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use In2code\Powermail\Utility\ObjectUtility;
@@ -11,7 +12,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  */
 class AddOptionsToSelection
 {
-
     /**
      * Parameters given from Backend
      *
@@ -148,7 +148,7 @@ class AddOptionsToSelection
     {
         $this->params['items'][] = [
             $this->getLabel($label, $value),
-            $value
+            $value,
         ];
     }
 

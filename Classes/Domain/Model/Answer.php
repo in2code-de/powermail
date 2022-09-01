@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
 use In2code\Powermail\Utility\ArrayUtility;
@@ -74,7 +75,7 @@ class Answer extends AbstractEntity
         }
 
         if ($this->isTypeMultiple($value)) {
-            $value = (empty($value) ? [] : [strval($value)]);
+            $value = (empty($value) ? [] : [(string)$value]);
         }
 
         return $value;

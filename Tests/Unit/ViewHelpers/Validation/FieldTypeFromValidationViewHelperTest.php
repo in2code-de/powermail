@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -11,7 +12,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class FieldTypeFromValidationViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -47,62 +47,62 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
             'defaultWithHtml5' => [
                 0,
                 'text',
-                true
+                true,
             ],
             'defaultWithoutHtml5' => [
                 0,
                 'text',
-                false
+                false,
             ],
             'emailValidationWithoutHtml5' => [
                 1,
                 'text',
-                false
+                false,
             ],
             'emailValidationWithHtml5' => [
                 1,
                 'email',
-                true
+                true,
             ],
             'urlValidationWithoutHtml5' => [
                 2,
                 'text',
-                false
+                false,
             ],
             'urlValidationWithHtml5' => [
                 2,
                 'url',
-                true
+                true,
             ],
             'telValidationWithoutHtml5' => [
                 3,
                 'text',
-                false
+                false,
             ],
             'telValidationWithHtml5' => [
                 3,
                 'tel',
-                true
+                true,
             ],
             'numberValidationWithoutHtml5' => [
                 4,
                 'text',
-                false
+                false,
             ],
             'numberValidationWithHtml5' => [
                 4,
                 'number',
-                true
+                true,
             ],
             'rangeValidationWithoutHtml5' => [
                 8,
                 'text',
-                false
+                false,
             ],
             'rangeValidationWithHtml5' => [
                 8,
                 'range',
-                true
+                true,
             ],
         ];
     }
@@ -122,15 +122,15 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
             'settings',
             [
                 'validation' => [
-                    'native' => ($nativeValidationEnabled ? '1' : '0')
-                ]
+                    'native' => ($nativeValidationEnabled ? '1' : '0'),
+                ],
             ]
         );
-        $field = new Field;
+        $field = new Field();
         $field->setValidation($validation);
 
         $this->abstractValidationViewHelperMock->_set('arguments', ['field' => $field]);
         $result = $this->abstractValidationViewHelperMock->_callRef('render');
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use Doctrine\DBAL\DBALException;
@@ -13,7 +14,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class UserRepository extends AbstractRepository
 {
-
     /**
      * @param int $uid
      * @return QueryResultInterface

@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -11,7 +12,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class UploadDataAttributeViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -48,79 +48,79 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
                 [],
                 [],
                 [],
-                []
+                [],
             ],
             [
                 [],
                 [
-                    'marker' => 'firstname'
+                    'marker' => 'firstname',
                 ],
                 [
-                    'data-additional' => 'abc'
+                    'data-additional' => 'abc',
                 ],
                 [
-                    'data-additional' => 'abc'
-                ]
-            ],
-            [
-                [
-                    'misc' => [
-                        'file' => [
-                            'extension' => 'jpg,gif'
-                        ]
-                    ]
+                    'data-additional' => 'abc',
                 ],
-                [
-                    'marker' => 'firstname'
-                ],
-                [
-                    'data-additional' => 'true'
-                ],
-                [
-                    'data-additional' => 'true',
-                    'accept' => '.jpg,.gif'
-                ]
             ],
             [
                 [
                     'misc' => [
                         'file' => [
                             'extension' => 'jpg,gif',
-                            'size' => '123456'
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 [
                     'marker' => 'firstname',
-                    'multiselect' => true
                 ],
                 [
-                    'data-additional' => 'true'
+                    'data-additional' => 'true',
+                ],
+                [
+                    'data-additional' => 'true',
+                    'accept' => '.jpg,.gif',
+                ],
+            ],
+            [
+                [
+                    'misc' => [
+                        'file' => [
+                            'extension' => 'jpg,gif',
+                            'size' => '123456',
+                        ],
+                    ],
+                ],
+                [
+                    'marker' => 'firstname',
+                    'multiselect' => true,
+                ],
+                [
+                    'data-additional' => 'true',
                 ],
                 [
                     'data-additional' => 'true',
                     'multiple' => 'multiple',
-                    'accept' => '.jpg,.gif'
-                ]
+                    'accept' => '.jpg,.gif',
+                ],
             ],
             [
                 [
                     'misc' => [
                         'file' => [
                             'extension' => 'jpg,gif',
-                            'size' => '123456'
-                        ]
+                            'size' => '123456',
+                        ],
                     ],
                     'validation' => [
-                        'client' => '1'
-                    ]
+                        'client' => '1',
+                    ],
                 ],
                 [
                     'marker' => 'firstname',
-                    'multiselect' => true
+                    'multiselect' => true,
                 ],
                 [
-                    'data-additional' => 'true'
+                    'data-additional' => 'true',
                 ],
                 [
                     'data-additional' => 'true',
@@ -129,8 +129,8 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
                     'data-powermail-powermailfilesize' => '123456,firstname',
                     'data-powermail-powermailfilesize-message' => 'validationerror_upload_size',
                     'data-powermail-powermailfileextensions' => 'firstname',
-                    'data-powermail-powermailfileextensions-message' => 'validationerror_upload_extension'
-                ]
+                    'data-powermail-powermailfileextensions-message' => 'validationerror_upload_extension',
+                ],
             ],
         ];
     }
@@ -154,11 +154,11 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
         $arguments = [
             'field' => $field,
-            'additionalAttributes' => $additionalAttributes
+            'additionalAttributes' => $additionalAttributes,
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
         $result = $this->abstractValidationViewHelperMock->_callRef('render');
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -171,19 +171,19 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
         return [
             [
                 'jpg,gif,jpeg',
-                '.jpg,.gif,.jpeg'
+                '.jpg,.gif,.jpeg',
             ],
             [
                 '',
-                ''
+                '',
             ],
             [
                 'php',
-                '.php'
+                '.php',
             ],
             [
                 'jpg,gif,jpeg,doc,docx,xls,xlsx',
-                '.jpg,.gif,.jpeg,.doc,.docx,.xls,.xlsx'
+                '.jpg,.gif,.jpeg,.doc,.docx,.xls,.xlsx',
             ],
         ];
     }
@@ -199,6 +199,6 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
     public function getDottedListOfExtensionsReturnsString($string, $expectedResult)
     {
         $result = $this->abstractValidationViewHelperMock->_callRef('getDottedListOfExtensions', $string);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

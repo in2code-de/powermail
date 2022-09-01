@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -30,7 +31,7 @@ class SessionMethodTest extends UnitTestCase
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -55,11 +56,11 @@ class SessionMethodTest extends UnitTestCase
                 'methods' => [
                     [
                         'class' => HoneyPodMethod::class,
-                        '_enable' => '1'
+                        '_enable' => '1',
                     ],
                 ],
-                '_enable' => '1'
-            ]
+                '_enable' => '1',
+            ],
         ];
         $form = new Form();
         $form->_setProperty('uid', 123);
@@ -69,6 +70,6 @@ class SessionMethodTest extends UnitTestCase
         $mail->setForm($form);
 
         $this->generalValidatorMock->_set('mail', $mail);
-        $this->assertSame(true, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertTrue($this->generalValidatorMock->_callRef('spamCheck'));
     }
 }

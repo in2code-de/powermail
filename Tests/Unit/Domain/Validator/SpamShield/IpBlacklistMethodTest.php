@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -27,7 +28,7 @@ class IpBlacklistMethodTest extends UnitTestCase
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -48,6 +49,6 @@ class IpBlacklistMethodTest extends UnitTestCase
     public function reduceDelimitersReturnsString()
     {
         $string = ',;,' . PHP_EOL . ',';
-        $this->assertSame(',,,,,', $this->generalValidatorMock->_callRef('reduceDelimiters', $string));
+        self::assertSame(',,,,,', $this->generalValidatorMock->_callRef('reduceDelimiters', $string));
     }
 }

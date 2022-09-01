@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use Doctrine\DBAL\DBALException;
@@ -20,7 +21,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class FormRepository extends AbstractRepository
 {
-
     /**
      * Find Form by given Page Uid
      *
@@ -47,7 +47,7 @@ class FormRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
         $and = [
             $query->equals('uid', $form->getUid()),
-            $query->equals('pages.fields.type', 'captcha')
+            $query->equals('pages.fields.type', 'captcha'),
         ];
         $query->matching($query->logicalAnd($and));
         return $query->execute();
@@ -65,7 +65,7 @@ class FormRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false);
         $and = [
             $query->equals('uid', $form->getUid()),
-            $query->equals('pages.fields.type', 'password')
+            $query->equals('pages.fields.type', 'password'),
         ];
         $query->matching($query->logicalAnd($and));
         return $query->execute();

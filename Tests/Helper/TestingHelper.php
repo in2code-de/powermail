@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Helper;
 
 use TYPO3\CMS\Core\Cache\CacheManager;
@@ -74,7 +75,7 @@ class TestingHelper
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';
         $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = [
             'TEXT' => TextContentObject::class,
-            'COA' => ContentObjectArrayContentObject::class
+            'COA' => ContentObjectArrayContentObject::class,
         ];
         $GLOBALS['TT'] = new TimeTracker();
         $site = GeneralUtility::makeInstance(Site::class, $pid, 1, []);

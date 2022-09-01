@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -19,7 +20,6 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class CalculatingCaptchaService
 {
-
     /**
      * TypoScript with captcha configuration
      *
@@ -36,7 +36,7 @@ class CalculatingCaptchaService
         '+',
         '-',
         'x',
-        ':'
+        ':',
     ];
 
     /**
@@ -251,7 +251,7 @@ class CalculatingCaptchaService
 
         return [
             'result' => $result,
-            'string' => $number1 . ' ' . $operator . ' ' . $number2
+            'string' => $number1 . ' ' . $operator . ' ' . $number2,
         ];
     }
 

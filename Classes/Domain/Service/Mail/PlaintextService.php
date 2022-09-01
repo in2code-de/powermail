@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Utility\StringUtility;
@@ -9,7 +10,6 @@ use In2code\Powermail\Utility\StringUtility;
  */
 class PlaintextService
 {
-
     /**
      * Function makePlain() removes html tags and add linebreaks
      *        Easy generate a plain email bodytext from a html bodytext
@@ -50,7 +50,7 @@ class PlaintextService
                 '/<noembed[^>]*?>.*?<\/noembed>/siu',
             ],
             [
-                '', '', '', '', '', '', '', '', ''
+                '', '', '', '', '', '', '', '', '',
             ],
             $content
         );
@@ -92,7 +92,7 @@ class PlaintextService
             '</legend>',
             '</fieldset>',
             '</dd>',
-            '</dt>'
+            '</dt>',
         ];
         return str_replace($tags2LineBreaks, '</p><br />', $content);
     }

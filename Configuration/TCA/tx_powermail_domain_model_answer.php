@@ -1,4 +1,5 @@
 <?php
+
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
@@ -23,7 +24,7 @@ $answersTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'iconfile' => ConfigurationUtility::getIconPath(Answer::TABLE_NAME . '.gif')
+        'iconfile' => ConfigurationUtility::getIconPath(Answer::TABLE_NAME . '.gif'),
     ],
     'interface' => [
     ],
@@ -50,7 +51,7 @@ $answersTca = [
                 'foreign_table' => Answer::TABLE_NAME,
                 'foreign_table_where' => 'AND ' . Answer::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
                     Answer::TABLE_NAME . '.sys_language_uid IN (-1,0)',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
@@ -64,7 +65,7 @@ $answersTca = [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-            ]
+            ],
         ],
         'hidden' => [
             'exclude' => true,
@@ -81,7 +82,7 @@ $answersTca = [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'endtime' => [
@@ -92,7 +93,7 @@ $answersTca = [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'value' => [
@@ -101,7 +102,7 @@ $answersTca = [
             'config' => [
                 'type' => 'text',
                 'cols' => '60',
-                'rows' => '3'
+                'rows' => '3',
             ],
         ],
         'value_type' => [
@@ -119,7 +120,7 @@ $answersTca = [
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Answer::TABLE_NAME . '.value_type.0',
-                        '0'
+                        '0',
                     ],
                     /**
                      * Multi Text (Array)
@@ -127,7 +128,7 @@ $answersTca = [
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Answer::TABLE_NAME . '.value_type.1',
-                        '1'
+                        '1',
                     ],
                     /**
                      * Date
@@ -135,7 +136,7 @@ $answersTca = [
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Answer::TABLE_NAME . '.value_type.2',
-                        '2'
+                        '2',
                     ],
                     /**
                      * Upload
@@ -143,7 +144,7 @@ $answersTca = [
                     [
                         'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Answer::TABLE_NAME . '.value_type.3',
-                        '3'
+                        '3',
                     ],
                 ],
             ],
@@ -158,7 +159,7 @@ $answersTca = [
                 'size' => 1,
                 'maxitems' => 1,
                 'multiple' => 0,
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'mail' => [
@@ -171,7 +172,7 @@ $answersTca = [
                 'size' => 1,
                 'maxitems' => 1,
                 'multiple' => 0,
-                'default' => 0
+                'default' => 0,
             ],
         ],
     ],

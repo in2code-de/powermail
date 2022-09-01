@@ -1,4 +1,5 @@
 <?php
+
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
@@ -35,13 +36,13 @@ $mailsTca = [
             'endtime' => 'endtime',
         ],
         'iconfile' => ConfigurationUtility::getIconPath(Mail::TABLE_NAME . '.gif'),
-        'searchFields' => 'sender_mail, sender_name, subject, body'
+        'searchFields' => 'sender_mail, sender_name, subject, body',
     ],
     'interface' => [
     ],
     'types' => [
         '1' => [
-            'showitem' => $typeDefault
+            'showitem' => $typeDefault,
         ],
     ],
     'palettes' => [
@@ -67,7 +68,7 @@ $mailsTca = [
                 'foreign_table' => Mail::TABLE_NAME,
                 'foreign_table_where' => 'and ' . Mail::TABLE_NAME . '.pid=###CURRENT_PID### and ' .
                     Mail::TABLE_NAME . '.sys_language_uid IN (-1,0)',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
@@ -81,7 +82,7 @@ $mailsTca = [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-            ]
+            ],
         ],
         'hidden' => [
             'exclude' => true,
@@ -98,7 +99,7 @@ $mailsTca = [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'endtime' => [
@@ -109,7 +110,7 @@ $mailsTca = [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'crdate' => [
@@ -120,7 +121,7 @@ $mailsTca = [
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
                 'size' => 30,
-                'readOnly' => 1
+                'readOnly' => 1,
             ],
         ],
         'receiver_mail' => [
@@ -130,7 +131,7 @@ $mailsTca = [
             'config' => [
                 'type' => 'text',
                 'cols' => '30',
-                'rows' => '5'
+                'rows' => '5',
             ],
         ],
         'sender_mail' => [
@@ -140,7 +141,7 @@ $mailsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'sender_name' => [
@@ -150,7 +151,7 @@ $mailsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'subject' => [
@@ -159,7 +160,7 @@ $mailsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'body' => [
@@ -174,9 +175,9 @@ $mailsTca = [
                     'fullScreenRichtext' => [
                         'disabled' => '',
                         'options' => [
-                            'title' => 'RTE'
-                        ]
-                    ]
+                            'title' => 'RTE',
+                        ],
+                    ],
                 ],
                 'wizards' => [
                     '_PADDING' => 2,
@@ -187,8 +188,8 @@ $mailsTca = [
                         'title' => 'RTE',
                         'icon' => 'actions-wizard-rte',
                         'module' => [
-                            'name' => 'wizard_rte'
-                        ]
+                            'name' => 'wizard_rte',
+                        ],
                     ],
                 ],
             ],
@@ -217,7 +218,7 @@ $mailsTca = [
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
+                    'showAllLocalizationLink' => 1,
                 ],
             ],
         ],
@@ -231,8 +232,8 @@ $mailsTca = [
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,
-                'default' => 0
-            ]
+                'default' => 0,
+            ],
         ],
         'spam_factor' => [
             'exclude' => true,
@@ -242,7 +243,7 @@ $mailsTca = [
                 'type' => 'input',
                 'size' => 13,
                 'eval' => 'trim',
-                'readOnly' => 1
+                'readOnly' => 1,
             ],
         ],
         'time' => [
@@ -255,7 +256,7 @@ $mailsTca = [
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
-                'readOnly' => 1
+                'readOnly' => 1,
             ],
         ],
         'sender_ip' => [
@@ -267,7 +268,7 @@ $mailsTca = [
                 'size' => 30,
                 'eval' => 'trim',
                 'readOnly' => 1,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'user_agent' => [
@@ -279,7 +280,7 @@ $mailsTca = [
                 'size' => 30,
                 'eval' => 'trim',
                 'readOnly' => 1,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'marketing_referer_domain' => [
@@ -290,7 +291,7 @@ $mailsTca = [
                 'type' => 'input',
                 'size' => 30,
                 'readOnly' => 1,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'marketing_referer' => [
@@ -302,7 +303,7 @@ $mailsTca = [
                 'cols' => '30',
                 'rows' => '5',
                 'readOnly' => 1,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'marketing_country' => [
@@ -313,7 +314,7 @@ $mailsTca = [
                 'type' => 'input',
                 'size' => 30,
                 'readOnly' => 1,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'marketing_mobile_device' => [
@@ -323,7 +324,7 @@ $mailsTca = [
             'config' => [
                 'type' => 'check',
                 'readOnly' => 1,
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'marketing_frontend_language' => [
@@ -335,7 +336,7 @@ $mailsTca = [
                 'size' => 2,
                 'eval' => 'int',
                 'readOnly' => 1,
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'marketing_browser_language' => [
@@ -346,7 +347,7 @@ $mailsTca = [
                 'type' => 'input',
                 'size' => 30,
                 'readOnly' => 1,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'marketing_page_funnel' => [
@@ -358,7 +359,7 @@ $mailsTca = [
                 'cols' => '30',
                 'rows' => '5',
                 'readOnly' => 1,
-                'default' => ''
+                'default' => '',
             ],
         ],
         'uid' => [

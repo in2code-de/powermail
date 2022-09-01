@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -13,7 +14,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class OptinUtilityTest extends UnitTestCase
 {
-
     /**
      * @var array
      */
@@ -32,12 +32,12 @@ class OptinUtilityTest extends UnitTestCase
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
         $result = HashUtility::getHash($this->getDummyMail());
-        $this->assertEquals('8ac41a60329743651a7ffe42c30953e4d67ab1653bc27e994c493a2937c02a2c', $result);
+        self::assertEquals('8ac41a60329743651a7ffe42c30953e4d67ab1653bc27e994c493a2937c02a2c', $result);
 
         $result = HashUtility::getHash($this->getDummyMail(), 'foo');
-        $this->assertEquals('dfb508443aa73e0fbf166c1b006f5c2ca7fc2cce213df1de33708dd00f1b3af4', $result);
+        self::assertEquals('dfb508443aa73e0fbf166c1b006f5c2ca7fc2cce213df1de33708dd00f1b3af4', $result);
 
-        $this->assertTrue(strlen($result) === 64);
+        self::assertTrue(strlen($result) === 64);
     }
 
     /**
@@ -50,14 +50,14 @@ class OptinUtilityTest extends UnitTestCase
     public function checkOptinHashReturnsBool()
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
-        $this->assertFalse(HashUtility::isHashValid('abc123', $this->getDummyMail()));
-        $this->assertTrue(
+        self::assertFalse(HashUtility::isHashValid('abc123', $this->getDummyMail()));
+        self::assertTrue(
             HashUtility::isHashValid(
                 '8ac41a60329743651a7ffe42c30953e4d67ab1653bc27e994c493a2937c02a2c',
                 $this->getDummyMail()
             )
         );
-        $this->assertTrue(
+        self::assertTrue(
             HashUtility::isHashValid(
                 'dfb508443aa73e0fbf166c1b006f5c2ca7fc2cce213df1de33708dd00f1b3af4',
                 $this->getDummyMail(),

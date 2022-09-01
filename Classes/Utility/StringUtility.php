@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -9,7 +10,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class StringUtility
 {
-
     /**
      * Check if String/Array is filled
      *
@@ -27,7 +27,7 @@ class StringUtility
             if (isset($value) && strlen((string)$value)) {
                 return true;
             }
-            // array (checkboxes)
+        // array (checkboxes)
         } else {
             foreach ($value as $subValue) {
                 if (isset($value) && strlen((string)$subValue)) {
@@ -126,7 +126,7 @@ class StringUtility
             '<br >',
             '<br>',
             '<br/>',
-            '<br />'
+            '<br />',
         ];
         return str_replace($array, PHP_EOL, $content);
     }

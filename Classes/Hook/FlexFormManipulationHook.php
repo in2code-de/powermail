@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Hook;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -19,7 +20,7 @@ class FlexFormManipulationHook
         'main',
         'receiver',
         'sender',
-        'thx'
+        'thx',
     ];
 
     /**

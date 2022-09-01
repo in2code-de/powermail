@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -11,7 +12,6 @@ use In2code\Powermail\Utility\DatabaseUtility;
  */
 class PageRepository extends AbstractRepository
 {
-
     /**
      * @param int $uid
      * @return string

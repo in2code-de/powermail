@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -128,7 +129,7 @@ abstract class AbstractController extends ActionController
             return;
         }
         $newArguments = [
-            'mail' => $arguments['mail']
+            'mail' => $arguments['mail'],
         ];
 
         // allow subvalues in new property mapper
@@ -146,7 +147,7 @@ abstract class AbstractController extends ActionController
             PersistentObjectConverter::class,
             [
                 PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED => true,
-                PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED => true
+                PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED => true,
             ]
         );
 
@@ -184,9 +185,9 @@ abstract class AbstractController extends ActionController
                 }
             }
             $newArguments['mail']['answers'][$iteration] = [
-                'field' => strval($fieldUid),
+                'field' => (string)$fieldUid,
                 'value' => $value,
-                'valueType' => $valueType
+                'valueType' => $valueType,
             ];
 
             // edit form: add answer id

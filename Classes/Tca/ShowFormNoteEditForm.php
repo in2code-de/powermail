@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use Doctrine\DBAL\DBALException;
@@ -105,7 +106,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
             'fields' => $this->getLabel('formnote.fields'),
             'noform' => $this->getLabel('formnote.noform'),
             'new' => $this->getLabel('formnote.new'),
-            'edit' => $this->getLabel('formnote.edit')
+            'edit' => $this->getLabel('formnote.edit'),
         ];
     }
 

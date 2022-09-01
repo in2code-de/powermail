@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -9,7 +10,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class EvaluateEmail
 {
-
     /**
      * Adds new JavaScript function for evaluation of the TCA fields in backend
      *

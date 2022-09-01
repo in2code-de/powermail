@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Utility\SessionUtility;
@@ -9,7 +10,6 @@ use In2code\Powermail\Utility\SessionUtility;
  */
 class SessionMethod extends AbstractMethod
 {
-
     /**
      * Session Check: Checks if session was started correct on form delivery
      *

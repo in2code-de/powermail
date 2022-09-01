@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -14,7 +15,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class MailRepositoryTest extends UnitTestCase
 {
-
     /**
      * @var array
      */
@@ -47,32 +47,32 @@ class MailRepositoryTest extends UnitTestCase
                 [
                     [
                         'marker',
-                        'title'
+                        'title',
                     ],
                 ],
                 [
-                    'label_marker' => 'title'
+                    'label_marker' => 'title',
                 ],
             ],
             [
                 [
                     [
                         'firstname',
-                        'Firstname'
+                        'Firstname',
                     ],
                     [
                         'lastname',
-                        'Lastname'
+                        'Lastname',
                     ],
                     [
                         'email',
-                        'Email Address'
+                        'Email Address',
                     ],
                 ],
                 [
                     'label_firstname' => 'Firstname',
                     'label_lastname' => 'Lastname',
-                    'label_email' => 'Email Address'
+                    'label_email' => 'Email Address',
                 ],
             ],
         ];
@@ -101,7 +101,7 @@ class MailRepositoryTest extends UnitTestCase
         }
 
         $result = $this->generalValidatorMock->_callRef('getLabelsWithMarkersFromMail', $mail);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -116,32 +116,32 @@ class MailRepositoryTest extends UnitTestCase
                 [
                     [
                         'marker',
-                        'value'
+                        'value',
                     ],
                 ],
                 [
-                    'marker' => 'value'
+                    'marker' => 'value',
                 ],
             ],
             [
                 [
                     [
                         'firstname',
-                        'Alex'
+                        'Alex',
                     ],
                     [
                         'lastname',
-                        'Kellner'
+                        'Kellner',
                     ],
                     [
                         'email',
-                        'alex@in2code.de'
+                        'alex@in2code.de',
                     ],
                 ],
                 [
                     'firstname' => 'Alex',
                     'lastname' => 'Kellner',
-                    'email' => 'alex@in2code.de'
+                    'email' => 'alex@in2code.de',
                 ],
             ],
             [
@@ -150,17 +150,17 @@ class MailRepositoryTest extends UnitTestCase
                         'checkbox',
                         [
                             'red',
-                            'blue'
-                        ]
+                            'blue',
+                        ],
                     ],
                     [
                         'firstname',
-                        'Alex'
+                        'Alex',
                     ],
                 ],
                 [
                     'checkbox' => 'red, blue',
-                    'firstname' => 'Alex'
+                    'firstname' => 'Alex',
                 ],
             ],
         ];
@@ -176,11 +176,11 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function getVariablesWithMarkersFromMailReturnsArray($values, $expectedResult)
     {
-        $mail = new Mail;
+        $mail = new Mail();
         if (is_array($values)) {
             foreach ($values as $markerValueMix) {
-                $answer = new Answer;
-                $field = new Field;
+                $answer = new Answer();
+                $field = new Field();
                 $field->setMarker($markerValueMix[0]);
                 $answer->setValue($markerValueMix[1]);
                 $answer->setValueType((is_array($markerValueMix[1]) ? 1 : 0));
@@ -191,7 +191,7 @@ class MailRepositoryTest extends UnitTestCase
 
         $this->generalValidatorMock->_callRef('disableSignals');
         $result = $this->generalValidatorMock->_callRef('getVariablesWithMarkersFromMail', $mail);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -205,55 +205,55 @@ class MailRepositoryTest extends UnitTestCase
             [
                 [
                     'no email',
-                    'abc@def.gh'
+                    'abc@def.gh',
                 ],
                 '',
                 null,
-                'abc@def.gh'
+                'abc@def.gh',
             ],
             [
                 [
                     'alexander.kellner@in2code.de',
-                    'abc@def.gh'
+                    'abc@def.gh',
                 ],
                 '',
                 null,
-                'alexander.kellner@in2code.de'
+                'alexander.kellner@in2code.de',
             ],
             [
                 [
-                    'no email'
+                    'no email',
                 ],
                 'test1@email.org',
                 'test2@email.org',
-                'test1@email.org'
+                'test1@email.org',
             ],
             [
                 [
-                    'no email'
+                    'no email',
                 ],
                 'test1@email.org',
                 null,
-                'test1@email.org'
+                'test1@email.org',
             ],
             [
                 [
-                    'no email'
+                    'no email',
                 ],
                 '',
                 'test2@email.org',
-                'test2@email.org'
+                'test2@email.org',
             ],
             [
                 [
                     'abc',
                     'def',
-                    'ghi'
+                    'ghi',
                 ],
                 'test1@email.org',
                 'test2@email.org',
-                'test1@email.org'
-            ]
+                'test1@email.org',
+            ],
         ];
     }
 
@@ -274,13 +274,13 @@ class MailRepositoryTest extends UnitTestCase
         $expectedResult
     ) {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $defaultMailFromAddress;
-        $mail = new Mail;
+        $mail = new Mail();
         if (is_array($values)) {
             foreach ($values as $value) {
-                $answer = new Answer;
+                $answer = new Answer();
                 $answer->_setProperty('value', $value);
                 $answer->_setProperty('valueType', (is_array($values) ? 2 : 0));
-                $field = new Field;
+                $field = new Field();
                 $field->setType('input');
                 $field->setSenderEmail(true);
                 $answer->setField($field);
@@ -289,7 +289,7 @@ class MailRepositoryTest extends UnitTestCase
         }
 
         $result = $this->generalValidatorMock->_callRef('getSenderMailFromArguments', $mail, $fallback);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -303,46 +303,46 @@ class MailRepositoryTest extends UnitTestCase
             [
                 [
                     'Alex',
-                    'Kellner'
+                    'Kellner',
                 ],
                 null,
                 null,
-                'Alex Kellner'
+                'Alex Kellner',
             ],
             [
                 [
                     'Prof. Dr.',
-                    'Müller'
+                    'Müller',
                 ],
                 'abc',
                 'def',
-                'Prof. Dr. Müller'
+                'Prof. Dr. Müller',
             ],
             [
                 null,
                 null,
                 'Fallback Name',
-                'Fallback Name'
+                'Fallback Name',
             ],
             [
                 null,
                 'Fallback Name',
                 null,
-                'Fallback Name'
+                'Fallback Name',
             ],
             [
                 [
                     // test multivalue (e.g. checkbox)
                     [
                         'Prof.',
-                        'Dr.'
+                        'Dr.',
                     ],
                     'Max',
-                    'Muster'
+                    'Muster',
                 ],
                 'xyz',
                 'abc',
-                'Prof. Dr. Max Muster'
+                'Prof. Dr. Max Muster',
             ],
         ];
     }
@@ -364,13 +364,13 @@ class MailRepositoryTest extends UnitTestCase
         $expectedResult
     ) {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = $defaultMailFromAddress;
-        $mail = new Mail;
+        $mail = new Mail();
         if (is_array($values)) {
             foreach ($values as $value) {
-                $answer = new Answer;
+                $answer = new Answer();
                 $answer->_setProperty('translateFormat', 'Y-m-d');
                 $answer->_setProperty('valueType', (is_array($values) ? 2 : 0));
-                $field = new Field;
+                $field = new Field();
                 $field->setType('input');
                 $field->setSenderName(true);
                 $answer->_setProperty('value', $value);
@@ -381,7 +381,7 @@ class MailRepositoryTest extends UnitTestCase
         }
 
         $result = $this->generalValidatorMock->_callRef('getSenderNameFromArguments', $mail, $fallback);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -393,6 +393,6 @@ class MailRepositoryTest extends UnitTestCase
     {
         $str = '1a2b3+üßT$st';
         $result = $this->generalValidatorMock->_call('cleanStringForQuery', $str);
-        $this->assertSame('1a2b3Tst', $result);
+        self::assertSame('1a2b3Tst', $result);
     }
 }

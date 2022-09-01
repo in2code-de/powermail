@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
 /**
@@ -7,7 +8,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
  */
 class NameMethod extends AbstractMethod
 {
-
     /**
      * Name Check: Compares first- and lastname (shouldn't be the same)
      *
@@ -19,7 +19,7 @@ class NameMethod extends AbstractMethod
         $keysFirstName = [
             'first_name',
             'firstname',
-            'vorname'
+            'vorname',
         ];
         $keysLastName = [
             'last_name',
@@ -27,7 +27,7 @@ class NameMethod extends AbstractMethod
             'sur_name',
             'surname',
             'nachname',
-            'name'
+            'name',
         ];
         foreach ($this->mail->getAnswers() as $answer) {
             if (is_array($answer->getValue())) {

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
 use Doctrine\DBAL\DBALException;
@@ -91,7 +92,7 @@ class MailRepository extends AbstractRepository
         $query->getQuerySettings()->setIgnoreEnableFields(true);
         $and = [
             $query->equals('deleted', 0),
-            $query->equals('pid', $pid)
+            $query->equals('pid', $pid),
         ];
         $query->matching($query->logicalAnd($and));
         $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
@@ -116,7 +117,7 @@ class MailRepository extends AbstractRepository
 
         $and = [
             $query->equals('uid', $uid),
-            $query->equals('deleted', 0)
+            $query->equals('deleted', 0),
         ];
         $query->matching($query->logicalAnd($and));
 
@@ -144,7 +145,7 @@ class MailRepository extends AbstractRepository
         $and = [
             $query->equals('answers.field', $fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
             $query->equals('answers.value', $value),
-            $query->equals('pid', $pageUid)
+            $query->equals('pid', $pageUid),
         ];
         $query->matching($query->logicalAnd($and));
         return $query->execute();
@@ -164,7 +165,7 @@ class MailRepository extends AbstractRepository
          * FILTER start
          */
         $and = [
-            $query->greaterThan('uid', 0)
+            $query->greaterThan('uid', 0),
         ];
 
         // FILTER: form
@@ -209,7 +210,7 @@ class MailRepository extends AbstractRepository
                 if (is_numeric($field) && !empty($value)) {
                     $filterAnd = [
                         $query->equals('answers.field', $field),
-                        $query->like('answers.value', '%' . $value . '%')
+                        $query->like('answers.value', '%' . $value . '%'),
                     ];
                     $filter[] = $query->logicalAnd($filterAnd);
                 }
@@ -285,7 +286,7 @@ class MailRepository extends AbstractRepository
         $query->getQuerySettings()->setIgnoreEnableFields(true);
         $and = [
             $query->equals('deleted', 0),
-            $query->in('uid', GeneralUtility::trimExplode(',', $uidList, true))
+            $query->in('uid', GeneralUtility::trimExplode(',', $uidList, true)),
         ];
         $query->matching($query->logicalAnd($and));
         $query->setOrderings($this->getSorting('crdate', 'desc'));
@@ -449,7 +450,7 @@ class MailRepository extends AbstractRepository
     {
         $sorting = [
             $this->cleanStringForQuery(StringUtility::conditionalVariable($sortby, 'crdate')) =>
-                $this->getSortOrderByString($order)
+                $this->getSortOrderByString($order),
         ];
         if (!empty($piVars['sorting'])) {
             $sorting = [];
@@ -526,7 +527,7 @@ class MailRepository extends AbstractRepository
     {
         $and = [
             $query->equals('deleted', 0),
-            $query->equals('pid', $pid)
+            $query->equals('pid', $pid),
         ];
         if (isset($piVars['filter'])) {
             foreach ((array)$piVars['filter'] as $field => $value) {
@@ -538,7 +539,7 @@ class MailRepository extends AbstractRepository
                             $query->like('subject', '%' . $value . '%'),
                             $query->like('receiver_mail', '%' . $value . '%'),
                             $query->like('sender_ip', '%' . $value . '%'),
-                            $query->like('answers.value', '%' . $value . '%')
+                            $query->like('answers.value', '%' . $value . '%'),
                         ];
                         $and[] = $query->logicalOr($or);
                     } elseif ($field === 'form' && !empty($value)) {

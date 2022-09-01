@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -12,7 +13,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetFieldsFromFormViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var bool
      */
