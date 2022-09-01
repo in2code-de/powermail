@@ -157,7 +157,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     {
         $uid = $this->getLocalizedFormUid($uid, $this->getSysLanguageUid());
         $row = BackendUtilityCore::getRecord(Form::TABLE_NAME, $uid, 'title', '', false);
-        return (string)$row['title'];
+        return $row['title'] ?? '';
     }
 
     /**
