@@ -16,8 +16,6 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExis
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -49,11 +47,9 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      * @param string $itemContent Item content
      * @param array $row Record row of tt_content
      * @return void
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
      */
     public function preProcess(
         PageLayoutView &$parentObject,
@@ -86,9 +82,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     /**
      * @param string @pluginName
      * @return string
-     * @throws Exception
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */

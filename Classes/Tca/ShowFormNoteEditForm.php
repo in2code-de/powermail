@@ -23,8 +23,6 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExis
 use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class ShowFormNoteEditForm
@@ -51,12 +49,11 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * Show Note which form was selected
      *
      * @return array
+     * @throws DBALException
      * @throws DeprecatedException
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
      * @throws RouteNotFoundException
      */
     public function render()
@@ -68,12 +65,11 @@ class ShowFormNoteEditForm extends AbstractFormElement
 
     /**
      * @return string
+     * @throws DBALException
      * @throws DeprecatedException
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
      * @throws RouteNotFoundException
      */
     protected function getHtml(): string

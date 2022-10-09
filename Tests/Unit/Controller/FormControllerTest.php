@@ -5,8 +5,18 @@ namespace In2code\Powermail\Tests\Unit\Controller;
 use In2code\Powermail\Controller\FormController;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Domain\Service\UploadService;
+use In2code\Powermail\Tests\Helper\ObjectManager;
 use In2code\Powermail\Tests\Helper\TestingHelper;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Prophecy\Prophet;
+use Psr\EventDispatcher\ListenerProviderInterface;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Http\ResponseFactory;
 use TYPO3\CMS\Core\Http\StreamFactory;
@@ -22,7 +32,12 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 class FormControllerTest extends UnitTestCase
 {
     /**
-     * @var FormController|\PHPUnit_Framework_MockObject_MockObject
+     * @var Prophet
+     */
+    private Prophet $prophet;
+
+    /**
+     * @var AccessibleMockObjectInterface|MockObject
      */
     protected $generalValidatorMock;
 
@@ -31,9 +46,20 @@ class FormControllerTest extends UnitTestCase
      */
     public function setUp(): void
     {
+        $this->prophet = new Prophet();
+        $listenerProviderProphecy = $this->prophet->prophesize(ListenerProviderInterface::class);
+        $eventDispatcher = new EventDispatcher($listenerProviderProphecy->reveal());
+
         $this->generalValidatorMock = $this->getAccessibleMock(
             FormController::class,
-            ['dummy']
+            ['dummy'],
+            [
+                new FormRepository(new ObjectManager()),
+                new FieldRepository(new ObjectManager()),
+                new MailRepository(new ObjectManager()),
+                $this->prophet->prophesize(UploadService::class)->reveal(),
+                $eventDispatcher,
+            ]
         );
     }
 
@@ -43,6 +69,7 @@ class FormControllerTest extends UnitTestCase
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
+        $this->prophet->checkPredictions();
     }
 
     /**

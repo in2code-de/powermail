@@ -4,7 +4,12 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Prophecy\Prophet;
+use Psr\EventDispatcher\ListenerProviderInterface;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -14,7 +19,12 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 class PrefillFieldViewHelperTest extends UnitTestCase
 {
     /**
-     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var Prophet
+     */
+    private Prophet $prophet;
+
+    /**
+     * @var AccessibleMockObjectInterface|MockObject
      */
     protected $abstractValidationViewHelperMock;
 
@@ -23,9 +33,13 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      */
     public function setUp(): void
     {
+        $this->prophet = new Prophet();
+        $listenerProviderProphecy = $this->prophet->prophesize(ListenerProviderInterface::class);
+        $eventDispatcher = new EventDispatcher($listenerProviderProphecy->reveal());
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             PrefillFieldViewHelper::class,
-            ['dummy']
+            ['dummy'],
+            [$eventDispatcher]
         );
     }
 

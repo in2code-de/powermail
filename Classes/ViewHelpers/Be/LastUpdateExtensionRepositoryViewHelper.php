@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
 use In2code\Powermail\Utility\DatabaseUtility;
+use Throwable;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -44,7 +45,7 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
         $tableExists = true;
         try {
             $queryBuilder->execute();
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             unset($exception);
             $tableExists = false;
         }

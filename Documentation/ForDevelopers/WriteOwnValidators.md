@@ -253,20 +253,19 @@ use TYPO3\CMS\Extbase\Error\Error;
 */
 class AlexValidator extends AbstractValidator
 {
-
   /**
    * Field to check - select by {markername}
    *
    * @var string
    */
-  protected $fieldMarker = 'firstname';
+  protected string $fieldMarker = 'firstname';
 
   /**
    * Validator configuration
    *
    * @var array
    */
-  protected $configuration = [];
+  protected array $configuration = [];
 
   /**
    * Check if value in Firstname-Field is allowed
@@ -292,7 +291,7 @@ class AlexValidator extends AbstractValidator
    *
    * @return bool
    */
-  protected function isAllowedValue($value)
+  protected function isAllowedValue(string $value): bool
   {
       $allowedValues = GeneralUtility::trimExplode(',', $this->configuration['allowedValues'], true);
       return in_array(strtolower($value), $allowedValues);
@@ -303,7 +302,7 @@ class AlexValidator extends AbstractValidator
 
 ![developer_new_validation2](../Images/developer_new_validationtype1.png)
 
-### 2b. Use a slot with CustomValidator
+### 2b. Use an event with CustomValidator
 
 #### Introduction
 
@@ -312,46 +311,35 @@ FormsController: confirmationAction and createAction) to write your
 own field validation after a form submit.
 
 The customValidator is located at
-powermail/Classes/Domain/Validator/CustomValidator.php. A signalSlot
-Dispatcher within the class waits for your extension.
+powermail/Classes/Domain/Validator/CustomValidator.php. An eventdispatcher within the class waits for your extension.
 
 
-#### SignalSlot in CustomValidator
-
-| Signal Class Name | Signal Name | Located in Method | Passed arguments | Description |
-|-------------------|-------------|-------------------|------------------|-------------|
-| `In2code\Powermail\Domain\Validator\CustomValidator` | isValid | isValid() | $mail, $this | Add your own serverside Validation |
-
-### Call the Custom Validator from your Extension
+#### Call the Custom Validator from your Extension
 
 Add a new extension (example key powermail_extend).
 
-Example ext_localconf.php:
+Register a new listener in Configuration/Services.yaml:
 
 ```
-$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-     \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
- );
- $signalSlotDispatcher->connect(
-      'In2code\Powermail\Domain\Validator\CustomValidator',
-      'isValid',
-      'Vendor\Extkey\Domain\Validator\CustomValidator',
-      'addInformation',
-      false
- );
+services:
+  Vendor\PowermailExtend\EventListeners\CustomValidator:
+    tags:
+      - name: event.listener
+        identifier: 'customValidator'
+        event: In2code\Powermail\Events\CustomValidatorEvent
 ```
 
 Example file:
 
 ```
- class \Vendor\Extkey\Domain\Validator\CustomValidator
- {
-         public function addInformation($params, $obj)
-         {
-                 // $field failed - set error
-                 $obj->setErrorAndMessage($field, 'error message');
-         }
- }
+class Vendor\PowermailExtend\EventListeners\CustomValidator
+{
+    public function __invoke(\In2code\Powermail\Events\CustomValidatorEvent $event): void
+    {
+        // $field failed - set error
+        $event->getCustomValidator()->setErrorAndMessage($field, 'error message');;
+    }
+}
 ```
 
 ### Example Code

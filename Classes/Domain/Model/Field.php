@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
@@ -12,7 +13,7 @@ use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class Field
@@ -149,7 +150,6 @@ class Field extends AbstractEntity
 
     /**
      * @return string
-     * @throws Exception
      */
     public function getTitle(): string
     {
@@ -169,6 +169,7 @@ class Field extends AbstractEntity
      * Returns the type - must not be empty
      *
      * @return string $type
+     * @throws DBALException
      */
     public function getType(): string
     {
@@ -201,6 +202,7 @@ class Field extends AbstractEntity
      *        "input", "textarea", "select", "check", "radio"
      *
      * @return bool
+     * @throws DBALException
      */
     public function isBasicFieldType(): bool
     {
@@ -219,6 +221,7 @@ class Field extends AbstractEntity
      * basicly used for export and frontend editing
      *
      * @return bool
+     * @throws DBALException
      */
     public function isAdvancedFieldType(): bool
     {
@@ -236,6 +239,7 @@ class Field extends AbstractEntity
     /**
      * @return bool
      * @throws DeprecatedException
+     * @throws DBALException
      */
     public function isExportableFieldType(): bool
     {
@@ -246,6 +250,7 @@ class Field extends AbstractEntity
      * @param string $type
      * @return bool
      * @throws DeprecatedException
+     * @throws DBALException
      */
     public function isTypeOf(string $type): bool
     {
@@ -286,7 +291,7 @@ class Field extends AbstractEntity
      *            selected => 1
      *
      * @return array
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     public function getModifiedSettings(): array
     {
@@ -599,6 +604,7 @@ class Field extends AbstractEntity
 
     /**
      * @return string $marker
+     * @throws DBALException
      */
     public function getMarker(): string
     {
@@ -677,7 +683,7 @@ class Field extends AbstractEntity
      * @param string $typoScriptObjectPath Path to TypoScript like lib.blabla
      * @param bool $parse
      * @return array Options Array
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     protected function optionArray(string $string, string $typoScriptObjectPath, bool $parse = true): array
     {
@@ -694,7 +700,6 @@ class Field extends AbstractEntity
      * @param string $string Options from the Textarea
      * @param bool $parse
      * @return array
-     * @throws Exception
      */
     protected function buildOptions(string $string, bool $parse): array
     {

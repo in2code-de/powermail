@@ -3,8 +3,11 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
+use DateTime;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
+use Throwable;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -53,7 +56,8 @@ class Answer extends AbstractEntity
     protected $_languageUid = -1;
 
     /**
-     * @return mixed $value
+     * @return array|false|mixed|string|string[]
+     * @throws DeprecatedException
      */
     public function getValue()
     {
@@ -136,6 +140,7 @@ class Answer extends AbstractEntity
 
     /**
      * @return int
+     * @throws DeprecatedException
      */
     public function getValueType(): int
     {
@@ -250,23 +255,23 @@ class Answer extends AbstractEntity
             } else {
                 $format = $this->translateFormat;
             }
-            $date = \DateTime::createFromFormat($format, $value);
+            $date = DateTime::createFromFormat($format, $value);
             if ($date) {
                 if ($this->getField()->getDatepickerSettings() === 'date') {
-                    $date->setTime(0, 0, 0);
+                    $date->setTime(0, 0);
                 }
                 $value = $date->getTimestamp();
             } else {
                 try {
                     // fallback html5 date field - always Y-m-d H:i
-                    $date = new \DateTime($value);
-                } catch (\Exception $e) {
+                    $date = new DateTime($value);
+                } catch (Throwable $e) {
                     // clean value if string could not be converted
                     $value = '';
                 }
                 if ($date) {
                     if ($this->getField()->getDatepickerSettings() === 'date') {
-                        $date->setTime(0, 0, 0);
+                        $date->setTime(0, 0);
                     }
                     $value = $date->getTimestamp();
                 }

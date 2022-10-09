@@ -11,7 +11,7 @@ use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class CreateMarker to autofill field marker with value from title e.g. {firstname}
@@ -77,7 +77,6 @@ class CreateMarker
      * @param string $uid identifier of the record
      * @param array $properties the properties that can be manipulated before storing
      * @return void
-     * @throws Exception
      * @throws DBALException
      */
     public function initialize(string $status, string $table, string $uid, array &$properties): void
@@ -100,7 +99,7 @@ class CreateMarker
      * @param array $properties the properties that can be manipulated before storing
      * @return void
      * @throws DBALException
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     public function processDatamap_postProcessFieldArray(
         string $status,
@@ -206,7 +205,6 @@ class CreateMarker
      *
      * @return void
      * @throws DBALException
-     * @throws Exception
      */
     protected function addExistingFields(): void
     {
@@ -220,7 +218,6 @@ class CreateMarker
      * Add new fields to field array
      *
      * @return void
-     * @throws Exception
      */
     protected function addNewFields(): void
     {
@@ -344,7 +341,6 @@ class CreateMarker
      *
      * @param Field $field
      * @return void
-     * @throws Exception
      */
     protected function addField(Field $field): void
     {

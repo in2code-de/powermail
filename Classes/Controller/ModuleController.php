@@ -28,7 +28,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
@@ -227,7 +227,7 @@ class ModuleController extends AbstractController
     /**
      * @return void
      * @throws InvalidQueryException
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
      */
     public function overviewBeAction(): ResponseInterface

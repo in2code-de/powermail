@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-
 namespace In2code\Powermail\Domain\Repository;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -60,11 +60,14 @@ class FieldRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->getQuerySettings()->setRespectSysLanguage(false);
-        $and = [
-            $query->equals('marker', $marker),
-            $query->equals('page.form.uid', $formUid),
-        ];
-        $query->matching($query->logicalAnd(...$and));
+        $query->matching(
+            $query->logicalAnd(
+                [
+                    $query->equals('marker', $marker),
+                    $query->equals('page.form.uid', $formUid),
+                ]
+            )
+        );
         $query->setLimit(1);
         /** @var Field $field */
         $field = $query->execute()->getFirst();
@@ -77,7 +80,7 @@ class FieldRepository extends AbstractRepository
      *
      * @return QueryResultInterface
      */
-    public function findAllFieldsWithFilledMarkersInLocalizedFields(): QueryResultInterface
+    public function findAllFieldsWithFilledMarkerrsInLocalizedFields(): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -96,6 +99,7 @@ class FieldRepository extends AbstractRepository
      *        tx_powermail_domain_model_field.page = "0"
      *
      * @return array
+     * @throws DBALException
      */
     public function findAllWrongLocalizedFields(): array
     {
@@ -105,8 +109,8 @@ class FieldRepository extends AbstractRepository
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Field::TABLE_NAME)
             ->where('(page = "" or page = 0) and sys_language_uid > 0 and deleted = 0')
-            ->executeQuery()
-            ->fetchAllAssociative();
+            ->execute()
+            ->fetchAll();
         foreach ($rows as $row) {
             $pages[] = $row;
         }
@@ -170,11 +174,14 @@ class FieldRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->getQuerySettings()->setRespectSysLanguage(false);
-        $and = [
-            $query->equals('marker', $marker),
-            $query->in('page', $pageIdentifiers),
-        ];
-        $query->matching($query->logicalAnd(...$and));
+        $query->matching(
+            $query->logicalAnd(
+                [
+                    $query->equals('marker', $marker),
+                    $query->in('page', $pageIdentifiers),
+                ]
+            )
+        );
         /** @var Field $field */
         $field = $query->setLimit(1)->execute()->getFirst();
         return $field;
@@ -186,6 +193,7 @@ class FieldRepository extends AbstractRepository
      * @param string $marker Field marker
      * @param int $formUid Form UID
      * @return string Field Type
+     * @throws DBALException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -221,7 +229,7 @@ class FieldRepository extends AbstractRepository
     /**
      * @param int $uid
      * @return string
-     * @throws \Doctrine\DBAL\Exception
+     * @throws DBALException
      */
     public function getMarkerFromUid(int $uid): string
     {
@@ -229,14 +237,16 @@ class FieldRepository extends AbstractRepository
         return (string)$queryBuilder
             ->select('marker')
             ->from(Field::TABLE_NAME)
-            ->where('uid=' . (int)$uid)->setMaxResults(1)->executeQuery()
-            ->fetchOne();
+            ->where('uid=' . (int)$uid)
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchColumn();
     }
 
     /**
      * @param int $uid
      * @return string
-     * @throws \Doctrine\DBAL\Exception
+     * @throws DBALException
      */
     public function getTypeFromUid(int $uid): string
     {
@@ -244,7 +254,9 @@ class FieldRepository extends AbstractRepository
         return (string)$queryBuilder
             ->select('type')
             ->from(Field::TABLE_NAME)
-            ->where('uid=' . (int)$uid)->setMaxResults(1)->executeQuery()
-            ->fetchOne();
+            ->where('uid=' . (int)$uid)
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchColumn();
     }
 }

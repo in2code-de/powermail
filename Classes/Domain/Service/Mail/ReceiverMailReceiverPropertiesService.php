@@ -7,17 +7,17 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\User;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\ReceiverMailReceiverPropertiesServiceGetReceiverNameEvent;
+use In2code\Powermail\Events\ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class ReceiverService to get email array for receivers
@@ -26,8 +26,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class ReceiverMailReceiverPropertiesService
 {
-    use SignalTrait;
-
     const RECEIVERS_DEFAULT = 0;
     const RECEIVERS_FRONTENDGROUP = 1;
     const RECEIVERS_PREDEFINED = 2;
@@ -58,11 +56,15 @@ class ReceiverMailReceiverPropertiesService
     protected array $receiverEmails = [];
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /**
      * @param Mail $mail
      * @param array $settings
-     * @throws Exception
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws InvalidQueryException
+     * @throws ExceptionExtbaseObject
      */
     public function __construct(Mail $mail, array $settings)
     {
@@ -70,6 +72,7 @@ class ReceiverMailReceiverPropertiesService
         $this->settings = $settings;
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
         $this->setReceiverEmails();
     }
 
@@ -93,9 +96,6 @@ class ReceiverMailReceiverPropertiesService
      * Get receiver name with fallback
      *
      * @return string
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     public function getReceiverName(): string
     {
@@ -104,17 +104,21 @@ class ReceiverMailReceiverPropertiesService
             $receiverName = $this->settings['receiver']['name'];
         }
 
-        $signalArguments = [&$receiverName, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        return $receiverName;
+        /** @var ReceiverMailReceiverPropertiesServiceGetReceiverNameEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(
+                ReceiverMailReceiverPropertiesServiceGetReceiverNameEvent::class,
+                $receiverName,
+                $this
+            )
+        );
+        return $event->getReceiverName();
     }
 
     /**
      * @return void
-     * @throws Exception
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      * @throws InvalidQueryException
+     * @throws ExceptionExtbaseObject
      */
     protected function setReceiverEmails(): void
     {
@@ -128,16 +132,21 @@ class ReceiverMailReceiverPropertiesService
         $emailArray = $this->overWriteEmailsWithTypoScript($emailArray);
         $emailArray = $this->getEmailFromDevelopmentContext($emailArray);
 
-        $signalArguments = [&$emailArray, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        $this->receiverEmails = $emailArray;
+        /** @var ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(
+                ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent::class,
+                $emailArray,
+                $this
+            )
+        );
+        $this->receiverEmails = $event->getEmailArray();
     }
 
     /**
      * Get emails from FlexForm and parse with fluid
      *
      * @return array
-     * @throws Exception
      */
     protected function getEmailsFromFlexForm(): array
     {
@@ -213,7 +222,7 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param string $predefinedString
      * @return array
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     protected function getEmailsFromPredefinedEmail(array $emailArray, string $predefinedString): array
     {
@@ -233,7 +242,7 @@ class ReceiverMailReceiverPropertiesService
      *
      * @param array $emailArray
      * @return array
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     protected function overWriteEmailsWithTypoScript(array $emailArray): array
     {

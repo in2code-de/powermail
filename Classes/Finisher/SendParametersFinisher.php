@@ -9,9 +9,6 @@ use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -151,9 +148,6 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
 
     /**
      * @return void
-     * @throws Exception
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      */
     public function initializeFinisher(): void
     {

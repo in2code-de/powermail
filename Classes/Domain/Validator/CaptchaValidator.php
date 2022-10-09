@@ -9,14 +9,13 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Error\Error;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 
 /**
@@ -43,10 +42,10 @@ class CaptchaValidator extends AbstractValidator
      *
      * @param Mail $mail
      * @return bool
-     * @throws Exception
      * @throws ExceptionCore
+     * @throws DeprecatedException
      */
-    public function isValid($mail): void
+    public function isValid($mail)
     {
         if ($this->formHasCaptcha($mail->getForm())) {
             foreach ($mail->getAnswers() as $answer) {
@@ -69,10 +68,12 @@ class CaptchaValidator extends AbstractValidator
 
             // if no captcha arguments given (maybe deleted from DOM)
             if (!$this->hasCaptchaArgument()) {
-                $this->result->addError(new Error('captcha', 1580681526));
+                $this->addError('captcha', 1580681526);
                 $this->setValidState(false);
             }
         }
+
+        return $this->isValidState();
     }
 
     /**
@@ -188,8 +189,10 @@ class CaptchaValidator extends AbstractValidator
      * @param array $options
      * @throws InvalidValidationOptionsException
      */
-    public function __construct()
+    public function __construct(array $options = [])
     {
+        parent::__construct($options);
+
         // clear captcha only on create action
         $pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
         $this->setClearSession($pluginVariables['action'] === 'create');

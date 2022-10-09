@@ -8,10 +8,7 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class SendDisclaimedMailPreflight
@@ -55,10 +52,7 @@ class SendDisclaimedMailPreflight
      * @param Mail $mail
      * @return void
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     public function sendMail(Mail $mail): void
     {

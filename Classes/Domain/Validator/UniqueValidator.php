@@ -6,12 +6,12 @@ namespace In2code\Powermail\Domain\Validator;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Error\Result;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 /**
@@ -23,43 +23,38 @@ class UniqueValidator extends AbstractValidator
     /**
      * @param Mail $mail
      * @return bool
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
+     * @throws DeprecatedException
+     * @throws ExceptionExtbaseObject
      */
-    public function validate($mail): Result
+    public function isValid($mail)
     {
-        $this->result = new Result();
         if (!empty($this->settings['validation']['unique'])) {
-            $this->isValid($mail);
-        }
-        return $this->result;
-    }
+            foreach ($this->settings['validation']['unique'] as $marker => $amount) {
+                if ($amount > 0) {
+                    foreach ($mail->getAnswers() as $answer) {
+                        /** @var Answer $answer */
+                        if ($answer->getField()->getMarker() === $marker) {
+                            /** @var MailRepository $mailRepository */
+                            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
+                            $numberOfMails = $mailRepository->findByMarkerValueForm(
+                                $marker,
+                                $answer->getValue(),
+                                $mail->getForm(),
+                                FrontendUtility::getStoragePage($this->getStoragePid())
+                            )->count();
 
-    protected function isValid($mail): void
-    {
-        foreach ($this->settings['validation']['unique'] as $marker => $amount) {
-            if ($amount > 0) {
-                foreach ($mail->getAnswers() as $answer) {
-                    /** @var Answer $answer */
-                    if ($answer->getField()->getMarker() === $marker) {
-                        /** @var MailRepository $mailRepository */
-                        $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
-                        $numberOfMails = $mailRepository->findByMarkerValueForm(
-                            $marker,
-                            $answer->getValue(),
-                            $mail->getForm(),
-                            FrontendUtility::getStoragePage($this->getStoragePid())
-                        )->count();
-
-                        if ($amount <= $numberOfMails) {
-                            $this->setErrorAndMessage($answer->getField(), 'unique');
+                            if ($amount <= $numberOfMails) {
+                                $this->setErrorAndMessage($answer->getField(), 'unique');
+                            }
                         }
                     }
                 }
             }
         }
+        return $this->isValidState();
     }
 
     /**

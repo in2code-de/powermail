@@ -11,7 +11,6 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FrontendUtility
@@ -106,7 +105,6 @@ class FrontendUtility
      * @param int|Mail $mail
      * @return bool
      * @throws DBALException
-     * @throws Exception
      * @codeCoverageIgnore
      */
     public static function isAllowedToEdit(array $settings, $mail): bool

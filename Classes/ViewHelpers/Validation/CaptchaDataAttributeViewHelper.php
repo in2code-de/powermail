@@ -3,9 +3,10 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class CaptchaDataAttributeViewHelper
@@ -16,7 +17,8 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
      * Returns Data Attribute Array for JS validation
      *
      * @return array for data attributes
-     * @throws Exception
+     * @throws DBALException
+     * @throws ExceptionExtbaseObject
      */
     public function render(): array
     {

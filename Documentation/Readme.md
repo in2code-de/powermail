@@ -35,7 +35,7 @@ Some basic points:
   (funnel, browser, language, country, etc...)
 
 - For Developers: Powermail is a very flexible extension, which also
-  could be extended by your code or extension (hooks, signalslots,
+  could be extended by your code or extension (hooks, eventdispatchers,
   own Finishers, own DataProcessors, own Spam-Prevention-Methods,
   own Validators, TypoScript cObjects and userFuncs, debugoutput, etc...).
 

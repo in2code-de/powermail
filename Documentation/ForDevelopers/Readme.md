@@ -6,7 +6,7 @@ If you want to add own spamshield methods, look in this chapter, etc...
 * [AddFinisherClasses](/Documentation/ForDevelopers/AddFinisherClasses.md)
 * [AddSpamshieldMethods](/Documentation/ForDevelopers/AddSpamshieldMethods.md)
 * [DisableSpamshield](/Documentation/ForDevelopers/DisableSpamshield.md)
-* [SignalSlots](/Documentation/ForDevelopers/SignalSlots.md)
+* [EventDispatcher](/Documentation/ForDevelopers/EventDispatcher.md)
 * [AddNewFields](/Documentation/ForDevelopers/AddNewFields.md)
 * [AddNewFieldProperties](/Documentation/ForDevelopers/AddNewFieldProperties.md)
 * [AddNewFlexFormProperties](/Documentation/ForDevelopers/AddNewFlexFormProperties.md)
