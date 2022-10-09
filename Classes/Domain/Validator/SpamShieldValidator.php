@@ -396,7 +396,7 @@ class SpamShieldValidator extends AbstractValidator
      */
     public function initializeObject(): void
     {
-        $this->setSpamFactorLimit($this->settings['spamshield']['factor'] / 100);
+        $this->setSpamFactorLimit((int)($this->settings['spamshield']['factor'] ?? 0) / 100);
     }
 
     /**

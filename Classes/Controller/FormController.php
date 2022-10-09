@@ -450,7 +450,7 @@ class FormController extends AbstractController
                 $formUid = $arguments['mail']['form'] ?? null;
             }
 
-            $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
+            $formsToContent = GeneralUtility::intExplode(',', ($this->settings['main']['form'] ?? ''));
             if ($formUid === null || in_array($formUid, $formsToContent, false)) {
                 return;
             }

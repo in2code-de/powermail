@@ -1,20 +1,20 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
-	<f:comment>
-		Per default the HTML-Output is parsed through a htmlspecialchars() function for security reasons.
-		If you are aware of possible security issues from your editory, you can enable html output via TypoScript constants:
-			plugin.tx_powermail.settings.setup.misc.htmlForHtmlFields = 1
-	</f:comment>
+<f:comment>
+    Per default the HTML-Output is parsed through a htmlspecialchars() function for security reasons.
+    If you are aware of possible security issues from your editory, you can enable html output via TypoScript constants:
+    plugin.tx_powermail.settings.setup.misc.htmlForHtmlFields = 1
+</f:comment>
 
 <div class="powermail_fieldwrap powermail_fieldwrap_type_html powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
-	<div class="{settings.styles.framework.fieldWrappingClasses} {settings.styles.framework.offsetClasses}">
-		<f:if condition="{settings.misc.htmlForHtmlFields}">
-			<f:then>
-				<f:sanitize.html>{field.text}</f:sanitize.html>
-			</f:then>
-			<f:else>
-				{field.text}
-			</f:else>
-		</f:if>
-	</div>
+    <div class="{settings.styles.framework.fieldWrappingClasses} {settings.styles.framework.offsetClasses}">
+        <f:if condition="{settings.misc.htmlForHtmlFields}">
+            <f:then>
+                <f:sanitize.html>{field.text -> f:format.raw()}</f:sanitize.html>
+            </f:then>
+            <f:else>
+                {field.text}
+            </f:else>
+        </f:if>
+    </div>
 </div>
