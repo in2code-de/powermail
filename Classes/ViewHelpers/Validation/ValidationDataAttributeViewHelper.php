@@ -267,11 +267,11 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                  */
             case 8:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
-                if ((int)$values[0] <= 0) {
+                if ((int)($values[0] ?? null) <= 0) {
                     break;
                 }
                 if (!isset($values[1])) {
-                    $values[1] = $values[0];
+                    $values[1] = (int)($values[0] ?? null);
                     $values[0] = 1;
                 }
                 if ($this->isNativeValidationEnabled()) {
