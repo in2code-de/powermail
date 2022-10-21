@@ -289,7 +289,7 @@
       </trans-unit>
       <trans-unit id="datepicker_format_date" resname="datepicker_format_date" approved="yes">
         <source>Y-m-d</source>
-        <target state="final">A-m-j</target>
+        <target state="final">d-m-Y</target>
       </trans-unit>
       <trans-unit id="datepicker_format_datetime" resname="datepicker_format_datetime" approved="yes">
         <source>Y-m-d H:i</source>
