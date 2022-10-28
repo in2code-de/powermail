@@ -267,20 +267,20 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                  */
             case 8:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
-                if ((int)$values[0] <= 0) {
+                if ((int)($values[0] ?? 0) <= 0) {
                     break;
                 }
                 if (!isset($values[1])) {
-                    $values[1] = $values[0];
+                    $values[1] = (int)($values[0] ?? 0);
                     $values[0] = 1;
                 }
                 if ($this->isNativeValidationEnabled()) {
-                    $additionalAttributes['min'] = (int)$values[0];
-                    $additionalAttributes['max'] = (int)$values[1];
+                    $additionalAttributes['min'] = (int)($values[0] ?? 0);
+                    $additionalAttributes['max'] = (int)($values[1] ?? 0);
                 } else {
                     if ($this->isClientValidationEnabled()) {
-                        $additionalAttributes['data-powermail-min'] = (int)$values[0];
-                        $additionalAttributes['data-powermail-max'] = (int)$values[1];
+                        $additionalAttributes['data-powermail-min'] = (int)($values[0] ?? 0);
+                        $additionalAttributes['data-powermail-max'] = (int)($values[1] ?? 0);
                     }
                 }
                 break;
@@ -294,11 +294,11 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                  */
             case 9:
                 $values = GeneralUtility::trimExplode(',', $field->getValidationConfiguration(), true);
-                if ((int)$values[0] <= 0) {
+                if ((int)($values[0] ?? 0) <= 0) {
                     break;
                 }
                 if (!isset($values[1])) {
-                    $values[1] = (int)$values[0];
+                    $values[1] = (int)($values[0] ?? 0);
                     $values[0] = 1;
                 }
                 if ($this->isClientValidationEnabled()) {
