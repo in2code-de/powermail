@@ -489,8 +489,10 @@ class Form {
     if (field.getAttribute('type') === 'radio' || field.getAttribute('type') === 'checkbox') {
       let name = field.getAttribute('name');
       let form = field.closest('form');
-      let fields = form.querySelectorAll('[name="' + name + '"]');
-      field = fields[0];
+      let fieldNew = form.querySelector('[name="' + name + '"]');
+      if (fieldNew !== null) {
+        field = fieldNew;
+      }
     }
     return field;
   };
