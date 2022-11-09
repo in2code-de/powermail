@@ -147,13 +147,9 @@
         <source>Mail was successfully deleted</source>
         <target state="final">Mail blev slettet</target>
       </trans-unit>
-      <trans-unit id="disclaimer_mailmessage" resname="disclaimer_mailmessage" approved="yes">
-        <source>Was this email a mistake and you want to delete your request?</source>
-        <target state="final">Var denne e-mail en fejl, og du vil slette din anmodning?</target>
-      </trans-unit>
       <trans-unit id="disclaimer_mailmessage_link" resname="disclaimer_mailmessage_link" approved="yes">
         <source>Delete all email data.</source>
-        <target state="final">Slet alle e-mail data.</target>
+        <target state="final">Slet alle indtastede informationer.</target>
       </trans-unit>
       <trans-unit id="disclaimed_subject" resname="disclaimed_subject" approved="yes">
         <source>Email was just disclaimed</source>
