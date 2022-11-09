@@ -379,7 +379,13 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      */
     protected function isCachedForm(): bool
     {
-        return ConfigurationUtility::isEnableCachingActive()
+        $requestIsCached = true;
+        // as getControllerContext is not part of the RenderingContextInterface we have to check first
+        if (is_callable([$this->renderingContext, 'getControllerContext'])) {
+            $controllerContext = $this->renderingContext->getControllerContext();
+            $requestIsCached = $controllerContext->getRequest()->isCached();
+        }
+        return $requestIsCached && ConfigurationUtility::isEnableCachingActive()
             && ObjectUtility::getTyposcriptFrontendController()->no_cache !== true;
     }
 
