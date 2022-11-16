@@ -115,10 +115,6 @@
         <source>The given Link is not correct</source>
         <target state="final">Zadaný odkaz není správně</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">Chyba. Email nebylo možné odeslat.</target>
-      </trans-unit>
       <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
         <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
         <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
@@ -182,10 +178,6 @@
       <trans-unit id="validationerror_validation.7" resname="validationerror_validation.7" approved="yes">
         <source>Please decrease number!</source>
         <target state="final">Snižte prosím číslo!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number to high or to low!</source>
-        <target state="final">Číslo je příliš velké nebo příliš malé!</target>
       </trans-unit>
       <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10" approved="yes">
         <source>Error in validation!</source>
