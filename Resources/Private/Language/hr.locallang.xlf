@@ -111,10 +111,6 @@
         <source>The given Link is not correct</source>
         <target state="final">Dana poveznica nije ispravna</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">Greška, nije bilo moguće poslati e-mail!</target>
-      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">TypoScript postavke ne postoje. Administratoru, jeste li već uključili "Main" statični predložak?</target>
@@ -191,10 +187,6 @@
         <source>Please decrease number!</source>
         <target state="final">Molimo Vas da unesete manji broj!</target>
       </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number to high or to low!</source>
-        <target state="final">Broj je ili prevelik ili premali!</target>
-      </trans-unit>
       <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10" approved="yes">
         <source>Error in validation!</source>
         <target state="final">Pogreška kod validacije!</target>
@@ -206,10 +198,6 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">Datoteka koju pokušavate predati je veća od ograničenja!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
-        <source>Upload failed, please check permissons on the server!</source>
-        <target state="final">Predavanje datoteke nije uspjelo, molimo provjerite dopuštenja na serveru!</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
