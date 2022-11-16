@@ -163,10 +163,6 @@
         <source>This data was completely disclaimed:</source>
         <target state="final">Следующие данные были указаны как неверные:</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">Ошибка, невозможно отправить письмо!</target>
-      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">Настройки TypoScript не заданы. Проверьте, включен ли "основной" (Mine) статический шаблон?</target>
@@ -247,10 +243,6 @@
         <source>Please decrease number!</source>
         <target state="final">Уменьшите число!</target>
       </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number to high or to low!</source>
-        <target state="final">Количество цифр больше или меньше!</target>
-      </trans-unit>
       <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
         <source>Your input is not valid (too many or too less signs)</source>
         <target state="final">Неверное значение (слишком мало или много знаков)</target>
@@ -266,10 +258,6 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">Слишком большой размер загружаемого файла!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
-        <source>Upload failed, please check permissons on the server!</source>
-        <target state="final">Загрузка не удалась, проверьте разрешения на сервере!</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
@@ -471,10 +459,6 @@
         <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
         <target state="final">Путь к ParseFunc в TypoScript (без приставки lib.).</target>
       </trans-unit>
-      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
-        <source>If you have trouble with form converting, you can let this value completely empty.</source>
-        <target state="final">Если возникли проблемы с преобразованием формы, можно оставить это значение совсем пустым.</target>
-      </trans-unit>
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Игнорировать старые скрытые формы</target>
@@ -607,10 +591,6 @@
         <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
         <target state="final">Сессии сайта правильно работают посредством $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() и -&gt;setKey()</target>
       </trans-unit>
-      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
-        <source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
-        <target state="final">Сессии сайта неверно работают с использованием $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() и -&gt;setKey(), поставьте в известность администратора</target>
-      </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">Обновлен модуль управления расширениями</target>
@@ -630,10 +610,6 @@
       <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
         <source>Last Extension Manager update</source>
         <target state="final">Последнее обновление модуля Управления расширениями</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
-        <source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
-        <target state="final">Невозможно проверить, является ли эта версия безопасной. Обновите расширения через модуль Управления расширениями.</target>
       </trans-unit>
       <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
         <source>The installed version of powermail is up-to-date</source>
@@ -667,10 +643,6 @@
         <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
         <target state="final">Папка загрузок по умолчанию существует (uploads/tx_powermail/)</target>
       </trans-unit>
-      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
-        <source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
-        <target state="final">Папка загрузок по умолчанию не существует (uploads/tx_powermail/)</target>
-      </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
         <target state="final">Локализованные формы</target>
@@ -702,10 +674,6 @@
       <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle" approved="yes">
         <source>Development Context</source>
         <target state="final">Контекст Разработка</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive" approved="yes">
-        <source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
-        <target state="final">TYPO3 работает в контексте разработки. Все письма будут отправляться только на %s.</target>
       </trans-unit>
       <trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable" approved="yes">
         <source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
@@ -786,14 +754,6 @@
       <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle" approved="yes">
         <source>Email Sending Status</source>
         <target state="final">Статус отправки письма</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
-        <source>Email send without problems (mail transmitted to mailserver)</source>
-        <target state="final">Письмо без проблем отправлено (передано на почтовый сервер)</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
-        <source>Email cound not send properly (ask your Adminstrator)</source>
-        <target state="final">Невозможно отправить письмо (сообщите администратору)</target>
       </trans-unit>
       <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
         <source>TypoScript Static Template</source>
@@ -999,10 +959,6 @@
         <source>Filter Now</source>
         <target state="final">Отфильтровать</target>
       </trans-unit>
-      <trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail" approved="yes">
-        <source>Please edit your filtersettings.</source>
-        <target state="final">Отредактируйте настройки фильтрации.</target>
-      </trans-unit>
       <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
         <source>Details</source>
         <target state="final">Дополнительно</target>
@@ -1070,10 +1026,6 @@
       <trans-unit id="Emails" resname="Emails" approved="yes">
         <source>Emails</source>
         <target state="final">Письма</target>
-      </trans-unit>
-      <trans-unit id="FormField" resname="FormField" approved="yes">
-        <source>Formfield</source>
-        <target state="final">Поле формы</target>
       </trans-unit>
       <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
         <source>Marketing Information</source>
