@@ -169,7 +169,7 @@
 				<target state="translated">Diese Angaben wurden vollständig zurückgezogen:</target>
 			</trans-unit>
 			<trans-unit id="error_mail_not_created">
-				<source>Error, Mail could not sent correctly!</source>
+				<source>Error, Email could not be sent correctly!</source>
 				<target state="translated">Fehler, die Nachricht konnte leider nicht korrekt versendet werden!</target>
 			</trans-unit>
 			<trans-unit id="error_no_typoscript">
