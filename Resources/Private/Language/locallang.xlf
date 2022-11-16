@@ -191,7 +191,7 @@
 				<source>Please decrease number!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.8" resname="validationerror_validation.8">
-				<source>Number to high or to low!</source>
+				<source>Number too high or too low!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.9" resname="validationerror_validation.9">
 				<source>Your input is not valid (too many or too less signs)</source>
@@ -206,7 +206,7 @@
 				<source>The file, that you want to upload is too large!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_upload_error" resname="validationerror_upload_error">
-				<source>Upload failed, please check permissons on the server!</source>
+				<source>Upload failed, please check permissions on the server!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_spam" resname="validationerror_spam">
 				<source>Spam recognized:</source>
@@ -554,7 +554,7 @@
 				<source>Development Context</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive">
-				<source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+				<source>This TYPO3 instance is running in development context. All mails will be sent to %s only.</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable">
 				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
@@ -617,10 +617,10 @@
 				<source>Email Sending Status</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect">
-				<source>Email send without problems (mail transmitted to mailserver)</source>
+				<source>Email was sent without problems (mail transmitted to mailserver)</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed">
-				<source>Email cound not send properly (ask your Adminstrator)</source>
+				<source>Email could not be sent properly (ask your Adminstrator)</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle">
 				<source>TypoScript Static Template</source>
@@ -776,7 +776,7 @@
 				<source>Filter Now</source>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail">
-				<source>Please edit your filtersettings.</source>
+				<source>Please edit your filter settings.</source>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView">
 				<source>Details</source>
@@ -830,7 +830,7 @@
 				<source>Emails</source>
 			</trans-unit>
 			<trans-unit id="FormField" resname="FormField">
-				<source>Formfield</source>
+				<source>Form field</source>
 			</trans-unit>
 			<trans-unit id="MarketingInformation" resname="MarketingInformation">
 				<source>Marketing Information</source>
