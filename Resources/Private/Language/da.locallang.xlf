@@ -159,10 +159,6 @@
         <source>This data was completely disclaimed:</source>
         <target state="final">Disse data blev afvist fuldstændig:</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">Fejl, mail kunne ikke sendes korrekt!</target>
-      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">TypoScript indstillinger mangler. Har du inkluderet de relaterede statiske skabeloner?</target>
@@ -243,10 +239,6 @@
         <source>Please decrease number!</source>
         <target state="final">Venligst formindsk antal!</target>
       </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number to high or to low!</source>
-        <target state="final">Nummer for højt eller lavt!</target>
-      </trans-unit>
       <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
         <source>Your input is not valid (too many or too less signs)</source>
         <target state="final">Dit input er ikke gyldigt (for mange eller for få tegn)</target>
@@ -262,10 +254,6 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">Filen, som du vil uploade, er for stor!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
-        <source>Upload failed, please check permissons on the server!</source>
-        <target state="final">Upload mislykkedes, tjek venligst tilladelser på serveren!</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
@@ -467,10 +455,6 @@
         <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
         <target state="final">ParseFunc Sti i TypoScript (uden præfiks lib.).</target>
       </trans-unit>
-      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
-        <source>If you have trouble with form converting, you can let this value completely empty.</source>
-        <target state="final">Hvis du har problemer med at omdanne formularen, kan du lade denne værdi være helt tom.</target>
-      </trans-unit>
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Ignorér gamle skjulte formularer</target>
@@ -603,10 +587,6 @@
         <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
         <target state="final">Frontend sessioner fungerer korrekt ved at bruge $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() og -&gt;setKey()</target>
       </trans-unit>
-      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
-        <source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
-        <target state="final">Frontend sessioner fungerer ikke korrekt ved at bruge $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() og -&gt;setKey() - spørg venligst din administrator</target>
-      </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">Udvidelsesmanager opdateret</target>
@@ -626,10 +606,6 @@
       <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
         <source>Last Extension Manager update</source>
         <target state="final">Sidste udvidelseshåndterings opdatering</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
-        <source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
-        <target state="final">Det kunne ikke bekræftes, om denne version er sikker eller usikker. Opdater venligst udvidelserne i Udvidelsemanager.</target>
       </trans-unit>
       <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
         <source>The installed version of powermail is up-to-date</source>
@@ -663,10 +639,6 @@
         <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
         <target state="final">Standard upload mappe findes (uploads/tx_powermail/)</target>
       </trans-unit>
-      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
-        <source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
-        <target state="final">Standard upload mappe findes ikke (uploads/tx_powermail/)</target>
-      </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
         <target state="final">Lokaliserede formularer</target>
@@ -698,10 +670,6 @@
       <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle" approved="yes">
         <source>Development Context</source>
         <target state="final">Udviklingskontekst</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive" approved="yes">
-        <source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
-        <target state="final">Denne TYPO3 instans kører i udviklingstilstand. Alle e-mails vil kun blive sendt til %s.</target>
       </trans-unit>
       <trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable" approved="yes">
         <source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
@@ -782,14 +750,6 @@
       <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle" approved="yes">
         <source>Email Sending Status</source>
         <target state="final">E-mail afsend-status</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
-        <source>Email send without problems (mail transmitted to mailserver)</source>
-        <target state="final">Sendt e-mail uden problemer (mail sendt til mailserver)</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
-        <source>Email cound not send properly (ask your Adminstrator)</source>
-        <target state="final">E-mail tæller sender ikke korrekt (spørg din adminstrator)</target>
       </trans-unit>
       <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
         <source>TypoScript Static Template</source>
@@ -995,10 +955,6 @@
         <source>Filter Now</source>
         <target state="final">Filtrer nu</target>
       </trans-unit>
-      <trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail" approved="yes">
-        <source>Please edit your filtersettings.</source>
-        <target state="final">Redigér venligst dine filterindstillinger.</target>
-      </trans-unit>
       <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
         <source>Details</source>
         <target state="final">Detaljer</target>
@@ -1066,10 +1022,6 @@
       <trans-unit id="Emails" resname="Emails" approved="yes">
         <source>Emails</source>
         <target state="final">E-mails</target>
-      </trans-unit>
-      <trans-unit id="FormField" resname="FormField" approved="yes">
-        <source>Formfield</source>
-        <target state="final">Formfelt</target>
       </trans-unit>
       <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
         <source>Marketing Information</source>
