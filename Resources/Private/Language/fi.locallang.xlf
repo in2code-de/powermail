@@ -27,10 +27,6 @@
         <source>The given Link is not correct</source>
         <target state="final">Annettu linkki ei ole oikeanlainen</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">Virhe, lomaketta ei voitu lähettää.</target>
-      </trans-unit>
       <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
         <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
         <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
