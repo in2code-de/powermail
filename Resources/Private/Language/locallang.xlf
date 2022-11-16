@@ -127,7 +127,7 @@
 				<source>This data was completely disclaimed:</source>
 			</trans-unit>
 			<trans-unit id="error_mail_not_created" resname="error_mail_not_created">
-				<source>Error, Mail could not sent correctly!</source>
+				<source>Error, Email could not be sent correctly!</source>
 			</trans-unit>
 			<trans-unit id="error_no_typoscript" resname="error_no_typoscript">
 				<source>TypoScript settings are missing. Did you include the related static templates?</source>
