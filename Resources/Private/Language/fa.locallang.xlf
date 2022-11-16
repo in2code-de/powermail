@@ -139,10 +139,6 @@
         <source>The mail was already confirmed</source>
         <target state="final">این رایانامه قبلا مورد تایید قرار گرفته است</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">بروز خطا، امکان درست فرستادن رایانامه وجود ندارد!</target>
-      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">تنظیمات تایپواسکریپت ارائه نشده است. آیا شالودۀ ایستای "اصلی" در قالب شامل شده است؟</target>
@@ -223,10 +219,6 @@
         <source>Please decrease number!</source>
         <target state="final">لطفا عدد کوچکتری وارد نمایید!</target>
       </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number to high or to low!</source>
-        <target state="final">عدد یا بسیار بزرگ یا بسیار کوچک است!</target>
-      </trans-unit>
       <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10" approved="yes">
         <source>Error in validation!</source>
         <target state="final">خطا در اعتبارسنجی!</target>
@@ -238,10 +230,6 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">فایلی که قصد ارسال آن را داشتید فراتر از حجم مورد نظر است!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
-        <source>Upload failed, please check permissons on the server!</source>
-        <target state="final">بالاگذاری با اشکال مواجه شد، لطفا مجوزهای مربوط به سرویس‌دهنده را بررسی کنید!</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
@@ -439,10 +427,6 @@
         <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
         <target state="final">مسیر ParseFunc در تایپواسکریپت (بدون کتابخانۀ پیشوند).</target>
       </trans-unit>
-      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
-        <source>If you have trouble with form converting, you can let this value completely empty.</source>
-        <target state="final">اگر ایرادی در تبدیل فرم پیش آمد، شما می‌توانید این مقدار را خالی باقی بگذارید.</target>
-      </trans-unit>
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">نادیده گرفتن فرم‌های پنهان قدیمی</target>
@@ -575,10 +559,6 @@
         <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
         <target state="final">نشست‌های صفحات خروجی با استفاده از $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() و -&gt;setKey() مشغول انجام وظیفه هستند</target>
       </trans-unit>
-      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
-        <source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
-        <target state="final">نشست‌های صفحات خروجی با استفاده از $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() و -&gt;setKey() مشغول انجام وظیفه نیستند- لطفا از مدیر خود سوال کنید</target>
-      </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">مدیریت افزونه‌ها روزآمد شد</target>
@@ -598,10 +578,6 @@
       <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
         <source>Last Extension Manager update</source>
         <target state="final">آخرین روزآمدسازی مدیریت افزونه‌ها</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
-        <source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
-        <target state="final">امکان برآورد امن بودن یا نبودن این نسخه وجود ندارد. لطفا افزونه را در بخش مدیریت افزونه‌ها روزآمد کنید.</target>
       </trans-unit>
       <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
         <source>The installed version of powermail is up-to-date</source>
@@ -634,10 +610,6 @@
       <trans-unit id="BackendCheckUploadsFolderCorrect" resname="BackendCheckUploadsFolderCorrect" approved="yes">
         <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
         <target state="final">پوشۀ پیش‌فرض بارگذاری موجود است (uploads/tx_powermail/)</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
-        <source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
-        <target state="final">پوشۀ پیش‌فرض بارگذاری وجود ندارد (uploads/tx_powermail/)</target>
       </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
