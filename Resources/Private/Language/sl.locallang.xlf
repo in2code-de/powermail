@@ -99,10 +99,6 @@
         <source>The given Link is not correct</source>
         <target state="final">Dana povezava ni pravilna</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">Napaka pri pošiljanju e-sporočila!</target>
-      </trans-unit>
       <trans-unit id="error_no_sender_name" resname="error_no_sender_name" approved="yes">
         <source>No Sendername</source>
         <target state="final">Ime pošiljatelja ni podano</target>
@@ -178,10 +174,6 @@
       <trans-unit id="validationerror_validation.7" resname="validationerror_validation.7" approved="yes">
         <source>Please decrease number!</source>
         <target state="final">Prosimo, zmanjšajte vrednost!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number to high or to low!</source>
-        <target state="final">Številka je prenizka ali previsoka!</target>
       </trans-unit>
       <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10" approved="yes">
         <source>Error in validation!</source>
