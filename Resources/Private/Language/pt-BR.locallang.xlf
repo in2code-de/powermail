@@ -163,10 +163,6 @@
         <source>This data was completely disclaimed:</source>
         <target state="final">Esta informação foi completamente recusada:</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">Erro, o email não pode ser enviado corretamente!</target>
-      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">Nenhuma configuração TypoScript existente. Admin, você já incluiu o template estático "Principal"?</target>
@@ -247,10 +243,6 @@
         <source>Please decrease number!</source>
         <target state="final">Por favor diminua o número!</target>
       </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number to high or to low!</source>
-        <target state="final">Número muito alto ou muito baixo!</target>
-      </trans-unit>
       <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
         <source>Your input is not valid (too many or too less signs)</source>
         <target state="final">Sua entrada não é válida (muito ou poucos sinais).</target>
@@ -266,10 +258,6 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">O arquivo que você quer enviar é muito grande!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
-        <source>Upload failed, please check permissons on the server!</source>
-        <target state="final">O envio do arquivo falhou, por favor verifique as permissões no servidor!</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
@@ -471,10 +459,6 @@
         <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
         <target state="final">Caminho ParseFunc no TypoScript (sem prefixo lib.).</target>
       </trans-unit>
-      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
-        <source>If you have trouble with form converting, you can let this value completely empty.</source>
-        <target state="final">Se você tiver problemas com a conversão de formulários, você pode deixar este valor completamente vazio.</target>
-      </trans-unit>
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Ignorar Antigos Formulários Ocultos</target>
@@ -607,10 +591,6 @@
         <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
         <target state="final">As Sessões Frontend estão funcionando corretamente utilizando $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() e -&gt;setKey()</target>
       </trans-unit>
-      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
-        <source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
-        <target state="final">As Sessões Frontend não estão funcionando corretamente utilizando $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() e -&gt;setKey() - por favor consulte seu Administrador</target>
-      </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">Gerenciador de Extensões Atualizado</target>
@@ -630,10 +610,6 @@
       <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
         <source>Last Extension Manager update</source>
         <target state="final">Última atualização do Gerenciador de Extensões</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
-        <source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
-        <target state="final">Não pode ser ver verificado se esta versão é segura ou insegura. Por favor atualize as extensões no Gerenciador de Extensões</target>
       </trans-unit>
       <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
         <source>The installed version of powermail is up-to-date</source>
