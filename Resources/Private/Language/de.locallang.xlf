@@ -249,7 +249,7 @@
 				<target state="translated">Bitte niedrigere Zahl eintragen!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.8">
-				<source>Number to high or to low!</source>
+				<source>Number too high or too low!</source>
 				<target state="translated">Zahl zu groß oder zu klein!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.9">
@@ -269,7 +269,7 @@
 				<target state="translated">Die ausgewählte Datei ist zu groß!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_upload_error">
-				<source>Upload failed, please check permissons on the server!</source>
+				<source>Upload failed, please check permissions on the server!</source>
 				<target state="translated">Upload fehlgeschlagen, bitte Berechtigungen auf Server überprüfen!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_spam">
@@ -740,7 +740,7 @@
 				<target state="translated">Development Context</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckDevelopmentContextActive">
-				<source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+				<source>This TYPO3 instance is running in development context. All mails will be sent to %s only.</source>
 				<target state="translated">Diese TYPO3-Instanz läuft aktuell im Development Context. Alle E-Mails werden an %s versendet.</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckDevelopmentContextAvailable">
@@ -824,11 +824,11 @@
 				<target state="translated">E-Mail Versand Status</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckEmailCorrect">
-				<source>Email send without problems (mail transmitted to mailserver)</source>
+				<source>Email was sent without problems (mail transmitted to mailserver)</source>
 				<target state="translated">E-Mail erfolgreich versandt (Mail an Mailserver übergeben)</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckEmailFailed">
-				<source>Email cound not send properly (ask your Adminstrator)</source>
+				<source>Email could not be sent properly (ask your Adminstrator)</source>
 				<target state="translated">E-Mail konnte nicht erfolgreich versandt werden (bitte an Administrator wenden)</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckStaticTemplateTitle">
@@ -1036,7 +1036,7 @@
 				<target state="translated">Jetzt Filtern</target>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendNoMailsDetail">
-				<source>Please edit your filtersettings.</source>
+				<source>Please edit your filter settings.</source>
 				<target state="translated">Bitte passen Sie Ihre Filtereinstellungen an.</target>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendDetailView">
@@ -1108,7 +1108,7 @@
 				<target state="translated">E-Mails</target>
 			</trans-unit>
 			<trans-unit id="FormField">
-				<source>Formfield</source>
+				<source>Form field</source>
 				<target state="translated">Formularfeld</target>
 			</trans-unit>
 			<trans-unit id="MarketingInformation">
