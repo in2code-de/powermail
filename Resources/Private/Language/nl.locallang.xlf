@@ -163,10 +163,6 @@
         <source>This data was completely disclaimed:</source>
         <target state="final">Deze gegevens zijn compleet verworpen:</target>
       </trans-unit>
-      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
-        <source>Error, Mail could not sent correctly!</source>
-        <target state="final">Fout, de e-mail kon niet worden verstuurd!</target>
-      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">Geen TypoScript instellingen gevonden. Admin heb je het "Main" statische sjabloon ingevoegd?</target>
@@ -247,10 +243,6 @@
         <source>Please decrease number!</source>
         <target state="final">Verlaag het getal!</target>
       </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number to high or to low!</source>
-        <target state="final">Getal te hoog of te laag!</target>
-      </trans-unit>
       <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
         <source>Your input is not valid (too many or too less signs)</source>
         <target state="final">De invoer is niet geldig (te veel of te weinig tekens)</target>
@@ -266,10 +258,6 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">Het bestand dat je probeert te uploaden is te groot!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
-        <source>Upload failed, please check permissons on the server!</source>
-        <target state="final">Uploaden is mislukt, controleer de rechten op de server!</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
@@ -471,10 +459,6 @@
         <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
         <target state="final">ParseFunc pad in TypoScript (zonder prefix lib.).</target>
       </trans-unit>
-      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
-        <source>If you have trouble with form converting, you can let this value completely empty.</source>
-        <target state="final">In het geval van problemen met het converteren van formulieren kan deze waarde leeggelaten worden.</target>
-      </trans-unit>
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Verborgen, oude formulieren negeren</target>
@@ -587,10 +571,6 @@
         <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
         <target state="final">Frontend sessies werken correct via $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() en -&gt;setKey()</target>
       </trans-unit>
-      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
-        <source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
-        <target state="final">Frontend sessies werken niet correct via $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() en -&gt;setKey() - raadpleeg je systeembeheerder</target>
-      </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">Extensiebeheer bijgewerkt</target>
@@ -635,10 +615,6 @@
         <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
         <target state="final">Standaard upload-map bestaat (uploads/tx_powermail/)</target>
       </trans-unit>
-      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
-        <source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
-        <target state="final">Standaard upload-map bestaat niet (uploads/tx_powermail/)</target>
-      </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
         <target state="final">Vertaalde formulieren</target>
@@ -678,14 +654,6 @@
       <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle" approved="yes">
         <source>Email Sending Status</source>
         <target state="final">Status e-mailverzending</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
-        <source>Email send without problems (mail transmitted to mailserver)</source>
-        <target state="final">E-mail probleemloos verstuurd (e-mail is afgeleverd bij de mail server)</target>
-      </trans-unit>
-      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
-        <source>Email cound not send properly (ask your Adminstrator)</source>
-        <target state="final">E-mail kon niet juist worden verstuurd (raadpleeg de systeembeheerder)</target>
       </trans-unit>
       <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
         <source>TypoScript Static Template</source>
@@ -843,10 +811,6 @@
         <source>No Mails found.</source>
         <target state="final">Geen e-mails gevonden.</target>
       </trans-unit>
-      <trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail" approved="yes">
-        <source>Please edit your filtersettings.</source>
-        <target state="final">Pas de filter instellingen aan.</target>
-      </trans-unit>
       <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
         <source>Details</source>
         <target state="final">Details</target>
@@ -886,10 +850,6 @@
       <trans-unit id="Emails" resname="Emails" approved="yes">
         <source>Emails</source>
         <target state="final">E-mails</target>
-      </trans-unit>
-      <trans-unit id="FormField" resname="FormField" approved="yes">
-        <source>Formfield</source>
-        <target state="final">Invoerveld</target>
       </trans-unit>
       <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
         <source>Marketing Information</source>
