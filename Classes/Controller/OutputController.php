@@ -158,7 +158,7 @@ class OutputController extends AbstractController
         $this->mailRepository->update($mail);
         /** @var CacheManager $cacheManager */
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
-        $cacheManager->getCache('pages')->flushByTag('powermail');
+        $cacheManager->getCache('pages')->flushByTag('tx_powermail');
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
         $this->redirect('edit', null, null, ['mail' => $mail]);
     }
