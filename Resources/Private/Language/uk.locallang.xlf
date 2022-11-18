@@ -3,286 +3,94 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="uk">
     <header/>
     <body>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</body>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose" approved="yes">
+        <source>Please choose...</source>
+        <target state="final">Будь ласка, оберіть...</target>
+      </trans-unit>
+      <trans-unit id="back" resname="back" approved="yes">
+        <source>Go back</source>
+        <target state="final">Перейти назад</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName" resname="\In2code\Powermail\Domain\Model\Mail.senderName" approved="yes">
+        <source>Senders Name</source>
+        <target state="final">Ім'я відправника</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail" resname="\In2code\Powermail\Domain\Model\Mail.senderMail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">Електронна пошта відправника</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.subject" resname="\In2code\Powermail\Domain\Model\Mail.subject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Тема</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail" resname="\In2code\Powermail\Domain\Model\Mail.receiverMail" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">Отримувачі електронної пошти</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body" approved="yes">
+        <source>Email Text</source>
+        <target state="final">Текст електронної пошти</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser" resname="\In2code\Powermail\Domain\Model\Mail.feuser" approved="yes">
+        <source>Frontend User</source>
+        <target state="final">Frontend користувач</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderIp" resname="\In2code\Powermail\Domain\Model\Mail.senderIp" approved="yes">
+        <source>Senders IP-Address</source>
+        <target state="final">IP-адреса відправника</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent" resname="\In2code\Powermail\Domain\Model\Mail.userAgent" approved="yes">
+        <source>Senders Browser-Signature</source>
+        <target state="final">Підпис браузера відправників</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.spamFactor" resname="\In2code\Powermail\Domain\Model\Mail.spamFactor" approved="yes">
+        <source>Spamfactor</source>
+        <target state="final">Спамфактор</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.time" resname="\In2code\Powermail\Domain\Model\Mail.time" approved="yes">
+        <source>Time for form submit</source>
+        <target state="final">Час для надсилання форми</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate" resname="\In2code\Powermail\Domain\Model\Mail.crdate" approved="yes">
+        <source>Date</source>
+        <target state="final">Дата</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.date" resname="\In2code\Powermail\Domain\Model\Mail.date" approved="yes">
+        <source>Date</source>
+        <target state="final">Дата</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime" resname="\In2code\Powermail\Domain\Model\Mail.datetime" approved="yes">
+        <source>Time</source>
+        <target state="final">Час</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" resname="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" approved="yes">
+        <source>Referer Domain</source>
+        <target state="final">Домен реферера</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingReferer" resname="\In2code\Powermail\Domain\Model\Mail.marketingReferer" approved="yes">
+        <source>Referer URI</source>
+        <target state="final">URI реферера</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingCountry" resname="\In2code\Powermail\Domain\Model\Mail.marketingCountry" approved="yes">
+        <source>Visitors Country</source>
+        <target state="final">Країна відвідувачів</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" resname="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" approved="yes">
+        <source>Visitor uses a Mobile Device</source>
+        <target state="final">Відвідувач використовує мобільний пристрій</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" approved="yes">
+        <source>Website Language</source>
+        <target state="final">Мова сайту</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" approved="yes">
+        <source>Browser Language</source>
+        <target state="final">Мова браузера</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" resname="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" approved="yes">
+        <source>Page Funnel</source>
+        <target state="final">Воронка сторінки</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
