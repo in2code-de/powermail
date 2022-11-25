@@ -64,7 +64,6 @@ powermailMarketing {
   typeNum = 1540053358
   config {
     additionalHeaders.10.header = Content-Type: application/json
-    no_cache = 1
     disableAllHeaderCode = 1
     disablePrefixComment = 1
     xhtml_cleaning = 0
@@ -72,7 +71,7 @@ powermailMarketing {
     debug = 0
   }
 
-  10 = USER
+  10 = USER_INT
   10 {
     userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
     extensionName = Powermail
