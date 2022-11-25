@@ -51,7 +51,7 @@ class FinisherRunner
                 );
             }
             if (is_subclass_of($class, $this->interface)) {
-                if (!isset($dpSettings['config'])) {
+                if (!isset($finisherSettings['config'])) {
                     $finisherSettings['config'] = [];
                 } else {
                     $finisherSettings['config'] = (array)$finisherSettings['config'];
