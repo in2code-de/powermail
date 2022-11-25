@@ -30,7 +30,7 @@ class ForeignValidator extends AbstractValidator
     public function isValid($mail)
     {
         foreach ((array)$this->settings['validators'] as $validatorConf) {
-            $this->loadFile($validatorConf['require']);
+            $this->loadFile($validatorConf);
             if (!class_exists($validatorConf['class'])) {
                 throw new ClassDoesNotExistException(
                     'Class ' . $validatorConf['class'] . ' does not exists - check if file was loaded with autoloader',
@@ -73,12 +73,13 @@ class ForeignValidator extends AbstractValidator
     }
 
     /**
-     * @param string|null $pathAndFile
+     * @param array $validatorConf
      * @return void
      */
-    protected function loadFile(string $pathAndFile = null): void
+    protected function loadFile(array $validatorConf): void
     {
-        if (!empty($pathAndFile) && file_exists($pathAndFile)) {
+        $pathAndFile = $validatorConf['require'] ?? '';
+        if ($pathAndFile !== '' && file_exists($pathAndFile)) {
             require_once($pathAndFile);
         }
     }

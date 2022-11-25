@@ -169,7 +169,7 @@
 				<target state="translated">Diese Angaben wurden vollständig zurückgezogen:</target>
 			</trans-unit>
 			<trans-unit id="error_mail_not_created">
-				<source>Error, Mail could not sent correctly!</source>
+				<source>Error, Email could not be sent correctly!</source>
 				<target state="translated">Fehler, die Nachricht konnte leider nicht korrekt versendet werden!</target>
 			</trans-unit>
 			<trans-unit id="error_no_typoscript">
@@ -249,7 +249,7 @@
 				<target state="translated">Bitte niedrigere Zahl eintragen!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.8">
-				<source>Number to high or to low!</source>
+				<source>Number too high or too low!</source>
 				<target state="translated">Zahl zu groß oder zu klein!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.9">
@@ -269,7 +269,7 @@
 				<target state="translated">Die ausgewählte Datei ist zu groß!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_upload_error">
-				<source>Upload failed, please check permissons on the server!</source>
+				<source>Upload failed, please check permissions on the server!</source>
 				<target state="translated">Upload fehlgeschlagen, bitte Berechtigungen auf Server überprüfen!</target>
 			</trans-unit>
 			<trans-unit id="validationerror_spam">
@@ -473,7 +473,7 @@
 				<target state="translated">ParseFunc Pfad in TypoScript (ohne Präfix lib.).</target>
 			</trans-unit>
 			<trans-unit id="BackendConverterFormDefaultParseFuncTroubleText">
-				<source>If you have trouble with form converting, you can let this value completely empty.</source>
+				<source>If you have trouble with form converting, you can leave this value empty.</source>
 				<target state="translated">Wenn beim Konvertieren Probleme auftreten, kann dieses Feld komplett leer gelassen werden.</target>
 			</trans-unit>
 			<trans-unit id="BackendConverterFormHidden">
@@ -642,7 +642,7 @@
 			</trans-unit>
 			<trans-unit id="BackendCheckSessionFailed">
 				<target state="translated">Frontend Sessions funktionieren nicht richtig - Nutzung von $GLOBALS['TSFE']->fe_user->getKey() und ->setKey() - bitte Administrator fragen</target>
-				<source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']->fe_user->getKey() and ->setKey() - please ask your Administrator</source>
+				<source>Frontend Sessions are not working properly by using $GLOBALS['TSFE']->fe_user->getKey() and ->setKey() - please ask your Administrator</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckExtMngConfigTitle">
 				<source>Extension Manager Updated</source>
@@ -669,7 +669,7 @@
 				<target state="translated">Letzte Aktualisierung des Extension Managers</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckVersionNoInformation">
-				<source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+				<source>It could not be determined whether this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
 				<target state="translated">Es konnte nicht festgestellt werden, ob die installierte Version von powermail sicher oder unsicher ist. Bitte die Daten des Extension Managers aktualisieren um weitere Informationen zu erhalten.</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckVersionUpToDate">
@@ -704,7 +704,7 @@
 				<target state="translated">Standard Upload Verzeichnis existiert (uploads/tx_powermail/)</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckUploadsFolderFailed">
-				<source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
+				<source>Default Upload Folder doesn't exist (uploads/tx_powermail/)</source>
 				<target state="translated">Standard Upload Verzeichnis existiert nicht (uploads/tx_powermail/)</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckWrongLocalizedFormsTitle">
@@ -740,7 +740,7 @@
 				<target state="translated">Development Context</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckDevelopmentContextActive">
-				<source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+				<source>This TYPO3 instance is running in development context. All mails will be sent to %s only.</source>
 				<target state="translated">Diese TYPO3-Instanz läuft aktuell im Development Context. Alle E-Mails werden an %s versendet.</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckDevelopmentContextAvailable">
@@ -824,11 +824,11 @@
 				<target state="translated">E-Mail Versand Status</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckEmailCorrect">
-				<source>Email send without problems (mail transmitted to mailserver)</source>
+				<source>Email was sent without problems (mail transmitted to mailserver)</source>
 				<target state="translated">E-Mail erfolgreich versandt (Mail an Mailserver übergeben)</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckEmailFailed">
-				<source>Email cound not send properly (ask your Adminstrator)</source>
+				<source>Email could not be sent properly (ask your Adminstrator)</source>
 				<target state="translated">E-Mail konnte nicht erfolgreich versandt werden (bitte an Administrator wenden)</target>
 			</trans-unit>
 			<trans-unit id="BackendCheckStaticTemplateTitle">
@@ -1036,7 +1036,7 @@
 				<target state="translated">Jetzt Filtern</target>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendNoMailsDetail">
-				<source>Please edit your filtersettings.</source>
+				<source>Please edit your filter settings.</source>
 				<target state="translated">Bitte passen Sie Ihre Filtereinstellungen an.</target>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendDetailView">
@@ -1108,7 +1108,7 @@
 				<target state="translated">E-Mails</target>
 			</trans-unit>
 			<trans-unit id="FormField">
-				<source>Formfield</source>
+				<source>Form field</source>
 				<target state="translated">Formularfeld</target>
 			</trans-unit>
 			<trans-unit id="MarketingInformation">

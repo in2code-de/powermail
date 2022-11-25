@@ -127,7 +127,7 @@
 				<source>This data was completely disclaimed:</source>
 			</trans-unit>
 			<trans-unit id="error_mail_not_created" resname="error_mail_not_created">
-				<source>Error, Mail could not sent correctly!</source>
+				<source>Error, Email could not be sent correctly!</source>
 			</trans-unit>
 			<trans-unit id="error_no_typoscript" resname="error_no_typoscript">
 				<source>TypoScript settings are missing. Did you include the related static templates?</source>
@@ -191,7 +191,7 @@
 				<source>Please decrease number!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.8" resname="validationerror_validation.8">
-				<source>Number to high or to low!</source>
+				<source>Number too high or too low!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_validation.9" resname="validationerror_validation.9">
 				<source>Your input is not valid (too many or too less signs)</source>
@@ -206,7 +206,7 @@
 				<source>The file, that you want to upload is too large!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_upload_error" resname="validationerror_upload_error">
-				<source>Upload failed, please check permissons on the server!</source>
+				<source>Upload failed, please check permissions on the server!</source>
 			</trans-unit>
 			<trans-unit id="validationerror_spam" resname="validationerror_spam">
 				<source>Spam recognized:</source>
@@ -359,7 +359,7 @@
 				<source>ParseFunc Path in TypoScript (without prefix lib.).</source>
 			</trans-unit>
 			<trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText">
-				<source>If you have trouble with form converting, you can let this value completely empty.</source>
+				<source>If you have trouble with form converting, you can leave this value empty.</source>
 			</trans-unit>
 			<trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden">
 				<source>Ignore Old Hidden Forms</source>
@@ -482,7 +482,7 @@
 				<source>Frontend Sessions are working properly by using $GLOBALS['TSFE']->fe_user->getKey() and ->setKey()</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed">
-				<source>Frontend Sessions are working not properly by using $GLOBALS['TSFE']->fe_user->getKey() and ->setKey() - please ask your Administrator</source>
+				<source>Frontend Sessions are not working properly by using $GLOBALS['TSFE']->fe_user->getKey() and ->setKey() - please ask your Administrator</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle">
 				<source>Extension Manager Updated</source>
@@ -500,7 +500,7 @@
 				<source>Last Extension Manager update</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation">
-				<source>It could not be verified if this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+				<source>It could not be determined whether this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate">
 				<source>The installed version of powermail is up-to-date</source>
@@ -527,7 +527,7 @@
 				<source>Default Upload Folder exists (uploads/tx_powermail/)</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed">
-				<source>Default Upload Folder don't exists (uploads/tx_powermail/)</source>
+				<source>Default Upload Folder doesn't exist (uploads/tx_powermail/)</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle">
 				<source>Localized Forms</source>
@@ -554,7 +554,7 @@
 				<source>Development Context</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive">
-				<source>This TYPO3 instance is running in development context. All mails will be send to %s only.</source>
+				<source>This TYPO3 instance is running in development context. All mails will be sent to %s only.</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable">
 				<source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
@@ -617,10 +617,10 @@
 				<source>Email Sending Status</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect">
-				<source>Email send without problems (mail transmitted to mailserver)</source>
+				<source>Email was sent without problems (mail transmitted to mailserver)</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed">
-				<source>Email cound not send properly (ask your Adminstrator)</source>
+				<source>Email could not be sent properly (ask your Adminstrator)</source>
 			</trans-unit>
 			<trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle">
 				<source>TypoScript Static Template</source>
@@ -776,7 +776,7 @@
 				<source>Filter Now</source>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail">
-				<source>Please edit your filtersettings.</source>
+				<source>Please edit your filter settings.</source>
 			</trans-unit>
 			<trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView">
 				<source>Details</source>
@@ -830,7 +830,7 @@
 				<source>Emails</source>
 			</trans-unit>
 			<trans-unit id="FormField" resname="FormField">
-				<source>Formfield</source>
+				<source>Form field</source>
 			</trans-unit>
 			<trans-unit id="MarketingInformation" resname="MarketingInformation">
 				<source>Marketing Information</source>
