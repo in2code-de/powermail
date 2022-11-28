@@ -426,6 +426,8 @@ class Form {
     errorContainer.classList.add(this.#errorMessageContainerClass);
     errorContainer.classList.add('filled');
     errorContainer.setAttribute('data-powermail-error', this.#getFieldIdentifier(field));
+    errorContainer.setAttribute('id', this.#getFieldIdentifier(field) + '-errormessage');
+    field.setAttribute('aria-describedby', this.#getFieldIdentifier(field) + '-errormessage');
     let errorElement = document.createElement('li');
     errorContainer.appendChild(errorElement);
     let textNode = document.createTextNode(message);
@@ -448,6 +450,7 @@ class Form {
     if (errorMessageContainer !== null) {
       errorMessageContainer.remove();
     }
+    field.removeAttribute('aria-describedby');
   };
 
   #getFieldValue(field) {
