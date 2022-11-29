@@ -264,7 +264,7 @@ class ReceiverMailReceiverPropertiesService
     }
 
     /**
-     * Read emails from String and split it on break, pipe, comma and semicolon
+     * Read emails from String and split it on break, pipe, comma, semicolon and space
      *
      * @param string $string Any given string from a textarea with some emails
      * @return array Array with emails
@@ -277,6 +277,7 @@ class ReceiverMailReceiverPropertiesService
                 PHP_EOL,
                 '|',
                 ',',
+                ' ',
             ],
             ';',
             $string

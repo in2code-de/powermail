@@ -47,13 +47,13 @@
 							</a>
 						</td>
 						<td nowrap="nowrap">
-							<a title="id={form.pid}" onclick="top.loadEditId({form.pid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
+							<a title="id={form.pid}" href="{f:be.uri(route:'web_layout',parameters:'{id:form.pid}')}">
 								<vh:getter.getPageNameFromUid uid="{form.pid}" />
 							</a>
 						</td>
 						<td nowrap="nowrap">
 							<f:for each="{vh:getter.getPagesWithContentRelatedToForm(form:form)}" as="page">
-								<a title="id={page.uid}" onclick="top.loadEditId({page.uid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
+								<a title="id={page.uid}" href="{f:be.uri(route:'web_layout',parameters:'{id:page.uid}')}">
 									{page.title}
 								</a>
 								<br />
