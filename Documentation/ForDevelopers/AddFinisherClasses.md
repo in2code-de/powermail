@@ -169,4 +169,4 @@ class DoSomethingFinisher extends AbstractFinisher
 * The method `initializeFinisher()` will always be called at first.
 * Every finisher method could have its own initialize method, which will be called before. Like `initializeMyFinisher()` before `myFinisher()`.
 * Classes in extensions (if namespace and filename fits) will be automatically included from TYPO3 autoloader. If you place a single file in fileadmin, use "require" in TypoScript.
-* Per default 10, 20 and 30 is already in use from powermail itself (SaveToAnyTableFinisher, SendParametersFinisher, RedirectFinisher).
+* Per default 10, 20 and 100 is already in use from powermail itself (SaveToAnyTableFinisher, SendParametersFinisher, RedirectFinisher).
