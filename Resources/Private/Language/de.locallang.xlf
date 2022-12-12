@@ -163,6 +163,10 @@
         <source>This data was completely disclaimed:</source>
         <target state="final">Diese Daten wurden komplett verworfen:</target>
       </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
+        <source>Error, Email could not be sent correctly!</source>
+        <target state="final">Fehler beim Versenden der E-Mail!</target>
+      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">Keine TypoScript-Konfiguration gefunden. Admin, haben Sie das statische Template "Main" eingebunden?</target>
@@ -243,6 +247,10 @@
         <source>Please decrease number!</source>
         <target state="final">Bitte eine kleinere Zahl eingeben.</target>
       </trans-unit>
+      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
+        <source>Number too high or too low!</source>
+        <target state="final">Die Zahl ist zu groß oder zu klein!</target>
+      </trans-unit>
       <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
         <source>Your input is not valid (too many or too less signs)</source>
         <target state="final">Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)</target>
@@ -258,6 +266,10 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">Diese Datei ist zu groß!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
+        <source>Upload failed, please check permissions on the server!</source>
+        <target state="final">Hochladen fehlgeschlagen, bitte überprüfen Sie die Berechtigungen auf dem Server!</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
@@ -459,6 +471,10 @@
         <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
         <target state="final">ParseFunc Pfad in TypoScript (ohne Präfix lib.).</target>
       </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
+        <source>If you have trouble with form converting, you can leave this value empty.</source>
+        <target state="final">Wenn beim Konvertieren Probleme auftreten, kann dieses Feld leer gelassen werden.</target>
+      </trans-unit>
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Versteckte Formulare nicht beachten</target>
@@ -591,6 +607,10 @@
         <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
         <target state="final">Frontend Sessions funktionieren richtig, indem Sie $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() und -&gt;setKey() benutzen.</target>
       </trans-unit>
+      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
+        <source>Frontend Sessions are not working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
+        <target state="final">Frontend Sessions funktionieren nicht, wenn $GLOBALS['TSFE'] -&gt;fe_user-&gt;getKey () und -&gt;setKey() verwendet werden. - Fragen Sie bitte Ihren Administrator</target>
+      </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">Erweiterungsmanager aktualisiert</target>
@@ -610,6 +630,10 @@
       <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
         <source>Last Extension Manager update</source>
         <target state="final">Letzte Aktualisierung des Erweiterungsmanagers</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
+        <source>It could not be determined whether this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+        <target state="final">Es konnte nicht sichergestellt werden, ob die Version sicher oder unsicher ist. Bitte aktualisieren Sie die Erweiterungen im Erweiterungsmanager.</target>
       </trans-unit>
       <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
         <source>The installed version of powermail is up-to-date</source>
@@ -643,6 +667,10 @@
         <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
         <target state="final">Der Standard-Hochlade-Ordner existiert (uploads/tx_powermail/)</target>
       </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
+        <source>Default Upload Folder doesn't exist (uploads/tx_powermail/)</source>
+        <target state="final">Der Standard-Ordner für Uploads existiert nicht (uploads/tx_powermail/)</target>
+      </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
         <target state="final">Lokalisierte Formulare</target>
@@ -674,6 +702,10 @@
       <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle" approved="yes">
         <source>Development Context</source>
         <target state="final">Development Context</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive" approved="yes">
+        <source>This TYPO3 instance is running in development context. All mails will be sent to %s only.</source>
+        <target state="final">Diese TYPO3 Instanz verwendet den "Development Context". Alle E-Mails werden nur an %s gesendet.</target>
       </trans-unit>
       <trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable" approved="yes">
         <source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
@@ -754,6 +786,14 @@
       <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle" approved="yes">
         <source>Email Sending Status</source>
         <target state="final">Email-Versandstatus</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
+        <source>Email was sent without problems (mail transmitted to mailserver)</source>
+        <target state="final">Die E-Mail wurde ohne Probleme versandt (E-Mail wurde zum Mailserver übertragen)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
+        <source>Email could not be sent properly (ask your Adminstrator)</source>
+        <target state="final">Die E-Mail konnte nicht korrekt versendet werden (Fragen Sie Ihren Administrator)</target>
       </trans-unit>
       <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
         <source>TypoScript Static Template</source>
@@ -959,6 +999,10 @@
         <source>Filter Now</source>
         <target state="final">Jetzt Filtern</target>
       </trans-unit>
+      <trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail" approved="yes">
+        <source>Please edit your filter settings.</source>
+        <target state="final">Bitte bearbeiten Sie Ihre Filter-Einstellungen.</target>
+      </trans-unit>
       <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
         <source>Details</source>
         <target state="final">Details</target>
@@ -1027,9 +1071,17 @@
         <source>Emails</source>
         <target state="final">E-Mails</target>
       </trans-unit>
+      <trans-unit id="FormField" resname="FormField" approved="yes">
+        <source>Form field</source>
+        <target state="final">Formularfeld</target>
+      </trans-unit>
       <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
         <source>Marketing Information</source>
         <target state="final">Marketing Informationen</target>
+      </trans-unit>
+      <trans-unit id="MarketingInformationCountryDisabled" resname="MarketingInformationCountryDisabled" approved="yes">
+        <source>Country From Ip is disabled.</source>
+        <target state="final">Länderermittlung von IP-Adresse ist deaktiviert.</target>
       </trans-unit>
       <trans-unit id="honeypodLabel" resname="honeypodLabel" approved="yes">
         <source>Don't fill this field!</source>
