@@ -123,7 +123,7 @@ class StringValidator extends AbstractValidator
     protected function validateRange(string $value, string $configuration): bool
     {
         $values = GeneralUtility::trimExplode(',', $configuration, true);
-        if ((int)$values[0] <= 0) {
+        if (!isset($values[0]) || (int)$values[0] <= 0) {
             return true;
         }
         if (!isset($values[1])) {
