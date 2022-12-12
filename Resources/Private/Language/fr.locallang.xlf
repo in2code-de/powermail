@@ -167,6 +167,10 @@
         <source>This data was completely disclaimed:</source>
         <target state="final">Ces données ont été complètement rejetées :</target>
       </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
+        <source>Error, Email could not be sent correctly!</source>
+        <target state="final">Erreur, le courriel n'a pas pu être envoyé correctement !</target>
+      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">Les paramètres TypoScript sont manquants. Avez-vous inclus les templates statiques ?</target>
@@ -1062,6 +1066,10 @@
       <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
         <source>Marketing Information</source>
         <target state="final">Information marketing</target>
+      </trans-unit>
+      <trans-unit id="MarketingInformationCountryDisabled" resname="MarketingInformationCountryDisabled" approved="yes">
+        <source>Country From Ip is disabled.</source>
+        <target state="final">IP par pays est désactivé.</target>
       </trans-unit>
       <trans-unit id="honeypodLabel" resname="honeypodLabel" approved="yes">
         <source>Don't fill this field!</source>
