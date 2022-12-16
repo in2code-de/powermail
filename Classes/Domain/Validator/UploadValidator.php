@@ -24,7 +24,7 @@ class UploadValidator extends AbstractValidator
      * @return bool
      * @throws Exception
      */
-    public function isValid($mail)
+    public function isValid($mail): void
     {
         /** @var UploadService $uploadService */
         $uploadService = GeneralUtility::makeInstance(UploadService::class);
@@ -43,7 +43,6 @@ class UploadValidator extends AbstractValidator
                 $file->setValid(false);
             }
         }
-        return $this->isValidState();
     }
 
     /**

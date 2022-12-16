@@ -41,11 +41,11 @@ class CaptchaValidator extends AbstractValidator
      * Validation of given Params
      *
      * @param Mail $mail
-     * @return bool
+     * @return void
      * @throws ExceptionCore
      * @throws DeprecatedException
      */
-    public function isValid($mail)
+    public function isValid($mail): void
     {
         if ($this->formHasCaptcha($mail->getForm())) {
             foreach ($mail->getAnswers() as $answer) {
@@ -72,8 +72,6 @@ class CaptchaValidator extends AbstractValidator
                 $this->setValidState(false);
             }
         }
-
-        return $this->isValidState();
     }
 
     /**
