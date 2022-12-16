@@ -19,6 +19,34 @@
         <source>Add a path to the TypoScript that should be rendered (e.g. lib.showsometext)</source>
         <target state="final">Додайте шлях до TypoScript, який потрібно відобразити (наприклад, lib.showsometext)</target>
       </trans-unit>
+      <trans-unit id="content_element.description" resname="content_element.description" approved="yes">
+        <source>Choose a content element that should be renderen within your form</source>
+        <target state="final">Виберіть елемент вмісту, який має бути відображено у вашій формі</target>
+      </trans-unit>
+      <trans-unit id="text.description" resname="text.description" approved="yes">
+        <source>Save a text for a frontend output</source>
+        <target state="final">Збережіть текст для виводу у фронтенд</target>
+      </trans-unit>
+      <trans-unit id="sender_email.description" resname="sender_email.description" approved="yes">
+        <source>Will this field contain the Email of the user?</source>
+        <target state="final">Чи міститиме це поле адресу електронної пошти користувача?</target>
+      </trans-unit>
+      <trans-unit id="sender_name.description" resname="sender_name.description" approved="yes">
+        <source>Will this field contain the Name or a part of the Name of the user?</source>
+        <target state="final">Чи міститиме це поле Ім’я або частину Ім’я користувача?</target>
+      </trans-unit>
+      <trans-unit id="validation_title.description" resname="validation_title.description" approved="yes">
+        <source>Validation Settings</source>
+        <target state="final">Налаштування перевірки</target>
+      </trans-unit>
+      <trans-unit id="mandatory.description" resname="mandatory.description" approved="yes">
+        <source>Should this field be a mandatory field?</source>
+        <target state="final">Чи повинно це поле бути обов'язковим полем?</target>
+      </trans-unit>
+      <trans-unit id="validation.description" resname="validation.description" approved="yes">
+        <source>Validate the field value (url, email, etc...)</source>
+        <target state="final">Перевірте значення поля (Url-адреса, електронна адреса тощо)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
