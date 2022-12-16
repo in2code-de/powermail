@@ -77,9 +77,7 @@ class PowermailConditionFunctionsProvider implements ExpressionFunctionProviderI
             ->from('tt_content')
             ->where('pid=' . FrontendUtility::getCurrentPageIdentifier()
                 . ' and CType="list" and list_type in ("' . $listTypes . '") and sys_language_uid='
-                . FrontendUtility::getSysLanguageUid())
-            ->setMaxResults(1)
-            ->execute()
+                . FrontendUtility::getSysLanguageUid())->setMaxResults(1)->executeQuery()
             ->fetch();
         return !empty($row['uid']);
     }

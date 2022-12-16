@@ -19,11 +19,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -56,21 +53,21 @@ abstract class AbstractController extends ActionController
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObject;
+    protected ContentObjectRenderer $contentObject;
 
     /**
      * TypoScript configuration
      *
      * @var array
      */
-    protected $conf;
+    protected array $conf;
 
     /**
      * Plugin variables
      *
      * @var array
      */
-    protected $piVars;
+    protected array $piVars;
 
     /**
      * message Class
@@ -215,7 +212,7 @@ abstract class AbstractController extends ActionController
      *
      * @return void
      */
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         $this->piVars = $this->request->getArguments();
         $this->id = (int)GeneralUtility::_GP('id');

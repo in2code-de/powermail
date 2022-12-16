@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Controller;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\PageRepository;
@@ -16,7 +16,12 @@ use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
@@ -31,6 +36,28 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
  */
 class ModuleController extends AbstractController
 {
+    protected ?ModuleData $moduleData = null;
+    protected ModuleTemplate $moduleTemplate;
+
+    public function __construct(
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
+        protected readonly IconFactory $iconFactory,
+        protected readonly PageRenderer $pageRenderer,
+    ) {
+    }
+
+
+    public function initializeAction(): void
+    {
+        $this->piVars = $this->request->getArguments();
+        $this->id = (int)GeneralUtility::_GP('id');
+
+        $this->moduleData = $this->request->getAttribute('moduleData');
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->moduleTemplate->setTitle('Test');
+        $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
+    }
+
     /**
      * @param string $forwardToAction
      * @throws StopActionException
@@ -66,24 +93,24 @@ class ModuleController extends AbstractController
 
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'] ?? '', key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
-        $this->view->assignMultiple(
-            [
-                'mails' => $mails,
-                'formUids' => $formUids,
-                'firstForm' => $this->formRepository->findByUid($firstFormUid),
-                'piVars' => $this->piVars,
-                'pid' => $this->id,
-                'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'pagination' => [
-                    'pagination' => $pagination,
-                    'paginator' => $paginator,
-                ],
-                'perPage' => $this->settings['perPage'] ?? 10,
-                'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
-                    && $beUser->check('tables_modify', Mail::TABLE_NAME),
-            ]
-        );
-        return $this->htmlResponse();
+        $this->moduleTemplate->assignMultiple([
+            'mails' => $mails,
+            'formUids' => $formUids,
+            'firstForm' => $this->formRepository->findByUid($firstFormUid),
+            'piVars' => $this->piVars,
+            'pid' => $this->id,
+            'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
+            'pagination' => [
+                'pagination' => $pagination,
+                'paginator' => $paginator,
+            ],
+            'perPage' => $this->settings['perPage'] ?? 10,
+            'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
+                && $beUser->check('tables_modify', Mail::TABLE_NAME),
+        ]);
+
+        // $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        return $this->moduleTemplate->renderResponse('List');
     }
 
     /**
