@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -11,7 +11,6 @@ use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -48,7 +47,6 @@ class FieldRepository extends AbstractRepository
      * @param string $marker
      * @param int $formUid
      * @return Field
-     * @throws Exception
      * @throws InvalidQueryException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -62,14 +60,11 @@ class FieldRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->getQuerySettings()->setRespectSysLanguage(false);
-        $query->matching(
-            $query->logicalAnd(
-                [
-                    $query->equals('marker', $marker),
-                    $query->equals('page.form.uid', $formUid),
-                ]
-            )
-        );
+        $and = [
+            $query->equals('marker', $marker),
+            $query->equals('page.form.uid', $formUid),
+        ];
+        $query->matching($query->logicalAnd(...$and));
         $query->setLimit(1);
         /** @var Field $field */
         $field = $query->execute()->getFirst();
@@ -82,7 +77,7 @@ class FieldRepository extends AbstractRepository
      *
      * @return QueryResultInterface
      */
-    public function findAllFieldsWithFilledMarkerrsInLocalizedFields(): QueryResultInterface
+    public function findAllFieldsWithFilledMarkersInLocalizedFields(): QueryResultInterface
     {
         $query = $this->createQuery();
 
@@ -110,8 +105,8 @@ class FieldRepository extends AbstractRepository
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Field::TABLE_NAME)
             ->where('(page = "" or page = 0) and sys_language_uid > 0 and deleted = 0')
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         foreach ($rows as $row) {
             $pages[] = $row;
         }
@@ -175,14 +170,11 @@ class FieldRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->getQuerySettings()->setRespectSysLanguage(false);
-        $query->matching(
-            $query->logicalAnd(
-                [
-                    $query->equals('marker', $marker),
-                    $query->in('page', $pageIdentifiers),
-                ]
-            )
-        );
+        $and = [
+            $query->equals('marker', $marker),
+            $query->in('page', $pageIdentifiers),
+        ];
+        $query->matching($query->logicalAnd(...$and));
         /** @var Field $field */
         $field = $query->setLimit(1)->execute()->getFirst();
         return $field;
@@ -194,7 +186,6 @@ class FieldRepository extends AbstractRepository
      * @param string $marker Field marker
      * @param int $formUid Form UID
      * @return string Field Type
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -214,7 +205,6 @@ class FieldRepository extends AbstractRepository
      * @param string $marker Field marker
      * @param int $formUid Form UID
      * @return int Field UID
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -231,7 +221,7 @@ class FieldRepository extends AbstractRepository
     /**
      * @param int $uid
      * @return string
-     * @throws DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
     public function getMarkerFromUid(int $uid): string
     {
@@ -239,16 +229,14 @@ class FieldRepository extends AbstractRepository
         return (string)$queryBuilder
             ->select('marker')
             ->from(Field::TABLE_NAME)
-            ->where('uid=' . (int)$uid)
-            ->setMaxResults(1)
-            ->execute()
-            ->fetchColumn();
+            ->where('uid=' . (int)$uid)->setMaxResults(1)->executeQuery()
+            ->fetchOne();
     }
 
     /**
      * @param int $uid
      * @return string
-     * @throws DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
     public function getTypeFromUid(int $uid): string
     {
@@ -256,9 +244,7 @@ class FieldRepository extends AbstractRepository
         return (string)$queryBuilder
             ->select('type')
             ->from(Field::TABLE_NAME)
-            ->where('uid=' . (int)$uid)
-            ->setMaxResults(1)
-            ->execute()
-            ->fetchColumn();
+            ->where('uid=' . (int)$uid)->setMaxResults(1)->executeQuery()
+            ->fetchOne();
     }
 }

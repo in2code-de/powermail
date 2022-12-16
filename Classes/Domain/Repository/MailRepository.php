@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
@@ -17,14 +17,11 @@ use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException as InvalidQueryExceptionAlias;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -48,7 +45,7 @@ class MailRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
         $and = $this->getConstraintsForFindAllInPid($piVars, $query, $pid);
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         $query->setOrderings(
             $this->getSorting($settings['sortby'] ?? '', $settings['order'] ?? '', $piVars)
         );
@@ -94,7 +91,7 @@ class MailRepository extends AbstractRepository
             $query->equals('deleted', 0),
             $query->equals('pid', $pid),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
         $query->setLimit(1);
         $mails = $query->execute();
@@ -119,7 +116,7 @@ class MailRepository extends AbstractRepository
             $query->equals('uid', $uid),
             $query->equals('deleted', 0),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
 
         $mail = $query->execute()->getFirst();
         /** @var Mail $mail */
@@ -132,7 +129,6 @@ class MailRepository extends AbstractRepository
      * @param Form $form
      * @param int $pageUid
      * @return QueryResultInterface
-     * @throws Exception
      * @throws InvalidQueryExceptionAlias
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -147,7 +143,7 @@ class MailRepository extends AbstractRepository
             $query->equals('answers.value', $value),
             $query->equals('pid', $pageUid),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         return $query->execute();
     }
 
@@ -212,7 +208,7 @@ class MailRepository extends AbstractRepository
                         $query->equals('answers.field', $field),
                         $query->like('answers.value', '%' . $value . '%'),
                     ];
-                    $filter[] = $query->logicalAnd($filterAnd);
+                    $filter[] = $query->logicalAnd(...$filterAnd);
                 }
             }
 
@@ -220,15 +216,15 @@ class MailRepository extends AbstractRepository
                 // switch between AND and OR
                 if (!empty($settings['search']['logicalRelation']) &&
                     strtolower($settings['search']['logicalRelation']) === 'and') {
-                    $and[] = $query->logicalAnd($filter);
+                    $and[] = $query->logicalAnd(...$filter);
                 } else {
-                    $and[] = $query->logicalOr($filter);
+                    $and[] = $query->logicalOr(...$filter);
                 }
             }
         }
 
         // FILTER: create constraint
-        $constraint = $query->logicalAnd($and);
+        $constraint = $query->logicalAnd(...$and);
         $query->matching($constraint);
 
         // sorting
@@ -288,7 +284,7 @@ class MailRepository extends AbstractRepository
             $query->equals('deleted', 0),
             $query->in('uid', GeneralUtility::trimExplode(',', $uidList, true)),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         $query->setOrderings($this->getSorting('crdate', 'desc'));
         foreach ((array)$sorting as $field => $order) {
             if (empty($order)) {
@@ -340,9 +336,6 @@ class MailRepository extends AbstractRepository
      * @param Mail $mail
      * @param bool $htmlSpecialChars
      * @return array
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     public function getVariablesWithMarkersFromMail(Mail $mail, bool $htmlSpecialChars = false): array
     {
@@ -577,8 +570,12 @@ class MailRepository extends AbstractRepository
     public function removeFromDatabase(int $mailIdentifier): void
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Mail::TABLE_NAME);
-        $queryBuilder->delete(Mail::TABLE_NAME)->where('uid=' . (int)$mailIdentifier)->execute();
+        $queryBuilder
+            ->delete(Mail::TABLE_NAME)
+            ->where('uid=' . (int)$mailIdentifier)->executeStatement();
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Answer::TABLE_NAME);
-        $queryBuilder->delete(Answer::TABLE_NAME)->where('mail=' . (int)$mailIdentifier)->execute();
+        $queryBuilder
+            ->delete(Answer::TABLE_NAME)
+            ->where('mail=' . (int)$mailIdentifier)->executeStatement();
     }
 }
