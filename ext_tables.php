@@ -9,10 +9,7 @@ call_user_func(
         /**
          * Include Backend Module
          */
-        if (TYPO3_MODE === 'BE' &&
-            !\In2code\Powermail\Utility\ConfigurationUtility::isDisableBackendModuleActive() &&
-            !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
-        ) {
+        if (!\In2code\Powermail\Utility\ConfigurationUtility::isDisableBackendModuleActive()) {
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
                 'Powermail',
                 'web',
