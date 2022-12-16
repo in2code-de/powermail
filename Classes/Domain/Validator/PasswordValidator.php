@@ -9,6 +9,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Error\Result;
 
 /**
  * Class PasswordValidator
@@ -21,12 +22,17 @@ class PasswordValidator extends AbstractValidator
      * @param Mail $mail
      * @return bool
      */
-    public function isValid($mail)
+    public function validate($mail): Result
     {
+        $this->result = new Result();
         if (!$this->formHasPassword($mail->getForm()) || $this->ignoreValidationIfConfirmation()) {
-            return true;
+            $this->isValid($mail);
         }
+        return $this->result;
+    }
 
+    protected function isValid($mail): void
+    {
         foreach ($mail->getAnswers() as $answer) {
             if ($answer->getField()->getType() !== 'password') {
                 continue;
@@ -35,8 +41,6 @@ class PasswordValidator extends AbstractValidator
                 $this->setErrorAndMessage($answer->getField(), 'password');
             }
         }
-
-        return $this->isValidState();
     }
 
     /**

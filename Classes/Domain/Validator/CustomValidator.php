@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -25,9 +26,8 @@ class CustomValidator extends StringValidator
      * @throws InvalidSlotReturnException
      * @throws Exception
      */
-    public function isValid($mail)
+    public function isValid($mail): void
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__, [$mail, $this]);
-        return $this->isValidState();
     }
 }

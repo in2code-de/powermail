@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 
@@ -45,7 +46,7 @@ class CaptchaValidator extends AbstractValidator
      * @throws Exception
      * @throws ExceptionCore
      */
-    public function isValid($mail)
+    public function isValid($mail): void
     {
         if ($this->formHasCaptcha($mail->getForm())) {
             foreach ($mail->getAnswers() as $answer) {
@@ -68,12 +69,10 @@ class CaptchaValidator extends AbstractValidator
 
             // if no captcha arguments given (maybe deleted from DOM)
             if (!$this->hasCaptchaArgument()) {
-                $this->addError('captcha', 1580681526);
+                $this->result->addError(new Error('captcha', 1580681526));
                 $this->setValidState(false);
             }
         }
-
-        return $this->isValidState();
     }
 
     /**
@@ -189,10 +188,8 @@ class CaptchaValidator extends AbstractValidator
      * @param array $options
      * @throws InvalidValidationOptionsException
      */
-    public function __construct(array $options = [])
+    public function __construct()
     {
-        parent::__construct($options);
-
         // clear captcha only on create action
         $pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
         $this->setClearSession($pluginVariables['action'] === 'create');

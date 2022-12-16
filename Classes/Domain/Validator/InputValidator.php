@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -9,6 +10,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Error\Result;
 
 /**
  * Class InputValidator
@@ -39,6 +41,21 @@ class InputValidator extends StringValidator
     ];
 
     /**
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     */
+    public function validate($mail): Result
+    {
+        $this->result = new Result();
+        // execute validation if it's turned on
+        if ($this->isServerValidationEnabled() === true) {
+            $this->isValid($mail);
+        }
+        return $this->result;
+    }
+
+
+    /**
      * Validation of given Params
      *
      * @param Mail $mail
@@ -46,13 +63,8 @@ class InputValidator extends StringValidator
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    public function isValid($mail): bool
+    public function isValid($mail): void
     {
-        // stop validation if it's turned off
-        if ($this->isServerValidationEnabled() === false) {
-            return true;
-        }
-
         // iterate through all fields of current form
         foreach ($mail->getForm()->getPages() as $page) {
             foreach ($page->getFields() as $field) {
@@ -61,8 +73,6 @@ class InputValidator extends StringValidator
                 $this->isValidFieldInStringValidation($field, $answer);
             }
         }
-
-        return $this->isValidState();
     }
 
     /**

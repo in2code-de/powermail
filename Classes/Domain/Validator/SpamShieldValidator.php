@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 
 /**
@@ -65,21 +66,31 @@ class SpamShieldValidator extends AbstractValidator
      * @return bool
      * @throws Exception
      */
-    public function isValid($mail)
+    public function validate($mail): Result
     {
+        $this->result = new Result();
         if ($this->isSpamShieldEnabled($mail)) {
-            $this->runAllSpamMethods($mail);
-            $this->calculateMailSpamFactor();
-            $this->saveSpamFactorInSession();
-            $this->saveSpamPropertiesInDevelopmentLog();
-            if ($this->isSpamToleranceLimitReached()) {
-                $this->addError('spam_details', 1580681599, ['spamfactor' => $this->getCalculatedSpamFactor(true)]);
-                $this->setValidState(false);
-                $this->sendSpamNotificationMail($mail);
-                $this->logSpamNotification($mail);
-            }
+            $this->isValid($mail);
         }
-        return $this->isValidState();
+        return $this->result;
+    }
+
+    /**
+     * @throws InvalidConfigurationTypeException
+     * @throws InvalidExtensionNameException
+     */
+    public function isValid($mail): void
+    {
+        $this->runAllSpamMethods($mail);
+        $this->calculateMailSpamFactor();
+        $this->saveSpamFactorInSession();
+        $this->saveSpamPropertiesInDevelopmentLog();
+        if ($this->isSpamToleranceLimitReached()) {
+            $this->addError('spam_details', 1580681599, ['spamfactor' => $this->getCalculatedSpamFactor(true)]);
+            $this->setValidState(false);
+            $this->sendSpamNotificationMail($mail);
+            $this->logSpamNotification($mail);
+        }
     }
 
     /**
