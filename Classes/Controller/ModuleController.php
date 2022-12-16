@@ -39,8 +39,9 @@ class ModuleController extends AbstractController
      */
     public function dispatchAction(string $forwardToAction = 'list'): ResponseInterface
     {
-        $this->forward($forwardToAction);
-        return $this->htmlResponse();
+        return (new ForwardResponse($forwardToAction))
+            ->withControllerName('Module')
+            ->withExtensionName('Powermail');
     }
 
     /**
