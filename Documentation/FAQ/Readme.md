@@ -1,9 +1,5 @@
 # FAQ
 
-## How to migrate to powermail 8.0.0?
-
-Just execute the both upgrade wizard steps regarding to powermail
-
 ## How to use responsive columns in powermail?
 
 Since powermail 4.0 it's possible to use wrapping containers for (e.g.) every 2/3/4 fields to get a markup like
@@ -109,6 +105,21 @@ Please ask your server administrator for a valid email address.
 
 If a mail could not be sent this message is coming up. You can turn on logs to see what's happening here (look at
 the documentation part for logging and debugging)
+
+
+## Disclaimer or OptIn links are confirmed but email receiver didn't click on any link
+
+Some Microsoft email servers have activated a spam recognition method, which try to follow every link in a mail to
+identify if the target may be evil before the receiver can catch some malware. Problem here is, that if the link to
+disclaim or to confirm a double optin is clicked by the automatism of the email server, the mail was just
+disclaimed/confirmed.
+
+Possible solutions at the moment
+
+* The email server admin could turn of the "spam recognition" function
+* Disable disclaimer links or don't use double optin in powermail
+* You or your agency can develop a middleware in TYPO3 to catch those server requests before powermail
+* You or your agency can develop an individual disclaimer function. E.g. the link in the mail redirects to a page where a button "really disclaim" is shown
 
 
 ## Can I attach files to any mail?
