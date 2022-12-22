@@ -35,12 +35,12 @@ class Answer extends AbstractEntity
     protected $valueType = null;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Mail
+     * @var Mail
      */
     protected $mail = null;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Field
+     * @var Field
      */
     protected $field = null;
 

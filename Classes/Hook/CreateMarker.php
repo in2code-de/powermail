@@ -183,7 +183,11 @@ class CreateMarker
             );
             if (($row['marker'] ?? false) !== $marker) {
                 $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
-                $queryBuilder->update(Field::TABLE_NAME)->where('uid=' . (int)$uid)->set('marker', $marker)->execute();
+                $queryBuilder
+                    ->update(Field::TABLE_NAME)
+                    ->where('uid=' . (int)$uid)
+                    ->set('marker', $marker)
+                    ->executeStatement();
             }
         }
     }
@@ -273,8 +277,8 @@ class CreateMarker
             ->join('p', Field::TABLE_NAME, 'f', 'f.page = p.uid')
             ->where('fo.uid = ' . $this->getFormUid() . ' and f.deleted = 0')
             ->setMaxResults(1000)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
@@ -331,7 +335,7 @@ class CreateMarker
             ->join('fo', Page::TABLE_NAME, 'p', 'p.form = fo.uid')
             ->where('p.uid = ' . (int)$pageUid)
             ->setMaxResults(1)
-            ->execute()
+            ->executeQuery()
             ->fetchColumn();
     }
 

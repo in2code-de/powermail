@@ -21,7 +21,7 @@ class MailRepositoryTest extends UnitTestCase
     protected $testFilesToDelete = [];
 
     /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
+     * @var MailRepository
      */
     protected $generalValidatorMock;
 

@@ -89,8 +89,8 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
             ->count('sys_language_uid')
             ->from(Mail::TABLE_NAME)
             ->where('sys_language_uid > -1')
-            ->execute()
-            ->fetchColumn() > 0;
+            ->executeQuery()
+            ->rowCount() > 0;
     }
 
     /**
@@ -103,7 +103,7 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
             ->count('sys_language_uid')
             ->from(Answer::TABLE_NAME)
             ->where('sys_language_uid > -1')
-            ->execute()
-            ->fetchColumn() > 0;
+            ->executeQuery()
+            ->rowCount() > 0;
     }
 }

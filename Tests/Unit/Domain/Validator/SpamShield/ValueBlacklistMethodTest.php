@@ -13,7 +13,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class ValueBlacklistMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\ValueBlacklistMethod
+     * @var ValueBlacklistMethod
      */
     protected $generalValidatorMock;
 

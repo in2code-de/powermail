@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class CalculatingCaptchaServiceTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Service\CalculatingCaptchaService
+     * @var CalculatingCaptchaService
      */
     protected $generalValidatorMock;
 

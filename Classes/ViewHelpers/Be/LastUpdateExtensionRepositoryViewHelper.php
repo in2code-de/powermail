@@ -22,7 +22,11 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
     {
         if ($this->extensionTableExists()) {
             $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME, true);
-            $rows = $queryBuilder->select('last_update')->from(self::TABLE_NAME)->execute()->fetchAll();
+            $rows = $queryBuilder
+                ->select('last_update')
+                ->from(self::TABLE_NAME)
+                ->executeQuery()
+                ->fetchAllAssociative();
             if (!empty($rows[0]['last_update'])) {
                 return $rows[0]['last_update'];
             }

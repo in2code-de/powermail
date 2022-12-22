@@ -227,7 +227,6 @@ $mailsTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.feuser',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'fe_users',
                 'size' => 1,
                 'minitems' => 0,

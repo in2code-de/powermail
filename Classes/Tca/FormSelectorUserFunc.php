@@ -117,14 +117,14 @@ class FormSelectorUserFunc
     protected function getAllForms(int $startPid, int $language): array
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
-        $result = $queryBuilder
+        return $queryBuilder
             ->select('*')
             ->from(Form::TABLE_NAME)
             ->where($this->getWhereStatement($startPid, $language))
             ->orderBy('title')
             ->setMaxResults(10000)
-            ->execute();
-        return $result->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**

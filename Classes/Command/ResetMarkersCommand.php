@@ -60,7 +60,7 @@ class ResetMarkersCommand extends Command
                     ->update(Field::TABLE_NAME)
                     ->where($queryBuilder->expr()->eq('uid', (int)$uid))
                     ->set('marker', $marker)
-                    ->execute();
+                    ->executeStatement();
             }
         }
         $output->writeln('Markers successfully resetted');

@@ -68,7 +68,7 @@ class Mail extends AbstractEntity
     protected $time = null;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Form
+     * @var Form
      */
     protected $form = null;
 

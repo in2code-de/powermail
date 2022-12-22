@@ -16,7 +16,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class SessionMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\SessionMethod
+     * @var SessionMethod
      */
     protected $generalValidatorMock;
 

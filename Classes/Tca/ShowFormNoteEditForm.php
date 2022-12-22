@@ -274,8 +274,8 @@ class ShowFormNoteEditForm extends AbstractFormElement
             ->join('fo', Page::TABLE_NAME, 'p', 'p.form = fo.uid')
             ->where('fo.uid = ' . (int)$this->getFormProperties()['uid'] . ' and p.deleted = 0')
             ->setMaxResults(1000)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         return ArrayUtility::flatten($rows, 'title');
     }
 
@@ -294,16 +294,16 @@ class ShowFormNoteEditForm extends AbstractFormElement
             ->select('pages')
             ->from(Form::TABLE_NAME)
             ->where('uid = ' . (int)$this->getFormProperties()['uid'])
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         if (!empty($pageUids[0]['pages'])) {
             $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Page::TABLE_NAME);
             $pageTitles = $queryBuilder
                 ->select('title')
                 ->from(Page::TABLE_NAME)
                 ->where('uid in (' . StringUtility::integerList($pageUids[0]['pages']) . ')')
-                ->execute()
-                ->fetchAll();
+                ->executeQuery()
+                ->fetchAllAssociative();
 
             foreach ($pageTitles as $titleRow) {
                 $pageTitlesReduced[] = $titleRow['title'];
@@ -339,8 +339,8 @@ class ShowFormNoteEditForm extends AbstractFormElement
             ->join('p', Field::TABLE_NAME, 'f', 'f.page = p.uid')
             ->where('fo.uid = ' . (int)$this->getFormProperties()['uid'] . ' and p.deleted = 0 and f.deleted = 0')
             ->setMaxResults(1000)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         foreach ($rows as $row) {
             $titles[] = $row['title'];
         }
@@ -362,24 +362,24 @@ class ShowFormNoteEditForm extends AbstractFormElement
             ->select('pages')
             ->from(Form::TABLE_NAME)
             ->where('uid = ' . (int)$this->getFormProperties()['uid'])
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         if (!empty($pageUids[0]['pages'])) {
             $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Page::TABLE_NAME, true);
             $pageUids = $queryBuilder
                 ->select('uid')
                 ->from(Page::TABLE_NAME)
                 ->where('uid in (' . StringUtility::integerList($pageUids[0]['pages']) . ') and deleted=0')
-                ->execute()
-                ->fetchAll();
+                ->executeQuery()
+                ->fetchAllAssociative();
             foreach ($pageUids as $uidRow) {
                 $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
                 $rows = $queryBuilder
                     ->select('title')
                     ->from(Field::TABLE_NAME)
                     ->where('page = ' . (int)$uidRow['uid'])
-                    ->execute()
-                    ->fetchAll();
+                    ->executeQuery()
+                    ->fetchAllAssociative();
                 foreach ($rows as $row) {
                     $fieldTitlesReduced[] = $row['title'];
                 }

@@ -436,7 +436,7 @@ class FormController extends AbstractController
      *
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatch(): void
+    protected function forwardIfFormParamsDoNotMatch(): ResponseInterface
     {
         $arguments = $this->request->getArguments();
         if (isset($arguments['mail'])) {
@@ -451,10 +451,9 @@ class FormController extends AbstractController
             }
 
             $formsToContent = GeneralUtility::intExplode(',', ($this->settings['main']['form'] ?? ''));
-            if ($formUid === null || in_array($formUid, $formsToContent, false)) {
-                return;
+            if (!($formUid === null || in_array($formUid, $formsToContent, false))) {
+                return new ForwardResponse('form');
             }
-            $this->forward('form');
         }
     }
 

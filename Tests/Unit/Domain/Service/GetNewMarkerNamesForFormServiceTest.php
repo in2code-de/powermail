@@ -13,7 +13,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService
+     * @var GetNewMarkerNamesForFormService
      */
     protected $createMarkerMock;
 

@@ -15,7 +15,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class NameMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\NameMethod
+     * @var NameMethod
      */
     protected $generalValidatorMock;
 

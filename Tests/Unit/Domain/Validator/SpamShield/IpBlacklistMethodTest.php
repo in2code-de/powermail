@@ -13,7 +13,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class IpBlacklistMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\IpBlacklistMethod
+     * @var IpBlacklistMethod
      */
     protected $generalValidatorMock;
 

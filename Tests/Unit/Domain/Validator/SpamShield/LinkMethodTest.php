@@ -14,7 +14,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class LinkMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\LinkMethod
+     * @var LinkMethod
      */
     protected $generalValidatorMock;
 

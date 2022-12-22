@@ -93,8 +93,8 @@ class DatabaseUtility
                     ->count($fieldName)
                     ->from($tableName)
                     ->where($fieldName . ' != "" and ' . $fieldName . ' != 0')
-                    ->execute()
-                    ->fetchColumn() > 0;
+                    ->executeQuery()
+                    ->rowCount() > 0;
         }
         return false;
     }

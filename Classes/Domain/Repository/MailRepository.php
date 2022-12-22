@@ -34,9 +34,6 @@ class MailRepository extends AbstractRepository
     /**
      * Find all mails in given PID (BE List)
      *
-     * @param int $pid
-     * @param array $settings TypoScript Config Array
-     * @param array $piVars Plugin Variables
      * @return QueryResultInterface
      * @throws InvalidQueryExceptionAlias
      */

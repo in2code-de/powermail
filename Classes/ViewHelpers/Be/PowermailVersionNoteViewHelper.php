@@ -125,8 +125,8 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
             ->from(self::TABLE_NAME)
             ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
             ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchOne();
         if (!empty($row['review_state']) && $row['review_state'] === -1) {
             $unsafe = true;
         }
@@ -146,8 +146,8 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
             ->where('extension_key = "powermail"')
             ->orderBy('version', 'desc')
             ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchOne();
         if (!empty($row['version'])) {
             $newestVersion = VersionNumberUtility::convertVersionNumberToInteger($row['version']);
             $currentVersion = VersionNumberUtility::convertVersionNumberToInteger($this->getVersion());
@@ -169,8 +169,8 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
             ->from(self::TABLE_NAME)
             ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
             ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchOne();
         return !empty($row['uid']);
     }
 

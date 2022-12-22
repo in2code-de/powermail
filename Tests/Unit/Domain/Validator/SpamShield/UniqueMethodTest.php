@@ -14,7 +14,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class UniqueMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\UniqueMethod
+     * @var UniqueMethod
      */
     protected $generalValidatorMock;
 

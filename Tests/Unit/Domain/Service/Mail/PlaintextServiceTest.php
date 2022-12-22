@@ -12,7 +12,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class PlaintextServiceTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Service\Mail\PlaintextService
+     * @var PlaintextService
      */
     protected $generalValidatorMock;
 

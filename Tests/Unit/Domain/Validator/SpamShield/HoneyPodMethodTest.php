@@ -13,7 +13,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class HoneyPodMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod
+     * @var HoneyPodMethod
      */
     protected $generalValidatorMock;
 
