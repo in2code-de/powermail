@@ -36,8 +36,8 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
      */
     public function render(): string
     {
-        $fileName = $this->arguments['fileName'];
-        $path = $this->arguments['path'];
+        $fileName = $this->arguments['fileName'] ?? '';
+        $path = $this->arguments['path'] ?? '';
 
         // using FAL although plain path/file is supplied to trigger all hooks and signals
         $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);

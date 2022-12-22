@@ -12,12 +12,14 @@ use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
+use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -41,6 +43,7 @@ class ModuleController extends AbstractController
 
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
+        protected readonly BackendUriBuilder $backendUriBuilder,
         protected readonly IconFactory $iconFactory,
         protected readonly PageRenderer $pageRenderer,
     ) {
@@ -54,13 +57,14 @@ class ModuleController extends AbstractController
 
         $this->moduleData = $this->request->getAttribute('moduleData');
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $this->moduleTemplate->setTitle('Test');
+        $this->moduleTemplate->setTitle('Powermail');
         $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
+
+        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Powermail/Powermail/Backend.min');
+        $this->pageRenderer->addCssFile('Css/Backend.css', 'stylesheet');
     }
 
     /**
-     * @param string $forwardToAction
-     * @throws StopActionException
      * @return void
      * @noinspection PhpUnused
      */
@@ -109,7 +113,7 @@ class ModuleController extends AbstractController
                 && $beUser->check('tables_modify', Mail::TABLE_NAME),
         ]);
 
-        // $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        $this->addDefaultMenu('list');
         return $this->moduleTemplate->renderResponse('List');
     }
 
@@ -120,7 +124,7 @@ class ModuleController extends AbstractController
      */
     public function exportXlsAction(): ResponseInterface
     {
-        $this->view->assignMultiple(
+        $this->moduleTemplate->assignMultiple(
             [
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                 'fieldUids' => GeneralUtility::trimExplode(
@@ -177,7 +181,7 @@ class ModuleController extends AbstractController
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
         $groupedAnswers = ReportingUtility::getGroupedAnswersFromMails($mails);
 
-        $this->view->assignMultiple(
+        $this->moduleTemplate->assignMultiple(
             [
                 'groupedAnswers' => $groupedAnswers,
                 'mails' => $mails,
@@ -188,7 +192,8 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
             ]
         );
-        return $this->htmlResponse();
+        $this->addDefaultMenu('reportingFormBe');
+        return $this->moduleTemplate->renderResponse('ReportingFormBe');
     }
 
     /**
@@ -204,7 +209,7 @@ class ModuleController extends AbstractController
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
         $groupedMarketing = ReportingUtility::getGroupedMarketingPropertiesFromMails($mails);
 
-        $this->view->assignMultiple(
+        $this->moduleTemplate->assignMultiple(
             [
                 'groupedMarketingStuff' => $groupedMarketing,
                 'mails' => $mails,
@@ -215,7 +220,8 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
             ]
         );
-        return $this->htmlResponse();
+        $this->addDefaultMenu('reportingMarketingBe');
+        return $this->moduleTemplate->renderResponse('ReportingMarketingBe');
     }
 
     /**
@@ -227,9 +233,10 @@ class ModuleController extends AbstractController
     public function overviewBeAction(): ResponseInterface
     {
         $forms = $this->formRepository->findAllInPidAndRootline($this->id);
-        $this->view->assign('forms', $forms);
-        $this->view->assign('pid', $this->id);
-        return $this->htmlResponse();
+        $this->moduleTemplate->assign('forms', $forms);
+        $this->moduleTemplate->assign('pid', $this->id);
+        $this->addDefaultMenu('overviewBe');
+        return $this->moduleTemplate->renderResponse('OverviewBe');
     }
 
     /**
@@ -241,14 +248,14 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @param string|null $email
      * @return ResponseInterface
      */
-    public function checkBeAction(string $email = null): ResponseInterface
+    public function checkBeAction(): ResponseInterface
     {
-        $this->view->assign('pid', $this->id);
-        $this->sendTestEmail($email);
-        return $this->htmlResponse();
+        $this->moduleTemplate->assign('pid', $this->id);
+        $this->sendTestEmail(null);
+        $this->addDefaultMenu('checkBe');
+        return $this->moduleTemplate->renderResponse('CheckBe');
     }
 
     /**
@@ -289,15 +296,13 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
-     * @throws StopActionException
      * @throws FileCannotBeCreatedException
      * @noinspection PhpUnused
      */
-    public function fixUploadFolderAction(): void
+    public function fixUploadFolderAction(): ResponseInterface
     {
         BasicFileUtility::createFolderIfNotExists(GeneralUtility::getFileAbsFileName('uploads/tx_powermail/'));
-        $this->redirect('checkBe');
+        return (new ForwardResponse('checkBe'));
     }
 
     /**
@@ -310,15 +315,12 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
-     * @throws StopActionException
-     * @throws DBALException
      * @noinspection PhpUnused
      */
-    public function fixWrongLocalizedFormsAction(): void
+    public function fixWrongLocalizedFormsAction(): ResponseInterface
     {
         $this->formRepository->fixWrongLocalizedForms();
-        $this->redirect('checkBe');
+        return (new ForwardResponse('checkBe'));
     }
 
     /**
@@ -331,15 +333,13 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
-     * @throws StopActionException
      * @noinspection PhpUnused
      */
-    public function fixWrongLocalizedPagesAction(): void
+    public function fixWrongLocalizedPagesAction(): ResponseInterface
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $pageRepository->fixWrongLocalizedPages();
-        $this->redirect('checkBe');
+        return (new ForwardResponse('checkBe'));
     }
 
     /**
@@ -355,5 +355,43 @@ class ModuleController extends AbstractController
             return new ForwardResponse('toolsBe');
         }
         return null;
+    }
+
+    protected function addDefaultMenu(string $currentAction): void
+    {
+        $this->uriBuilder->setRequest($this->request);
+        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu->setIdentifier('Powermail');
+        $menu->addMenuItem(
+            $menu->makeMenuItem()
+                ->setTitle(LocalizationUtility::translate('BackendSelectionList'))
+                ->setHref($this->uriBuilder->uriFor('list'))
+                ->setActive($currentAction === 'list')
+        );
+        $menu->addMenuItem(
+            $menu->makeMenuItem()
+                ->setTitle(LocalizationUtility::translate('BackendSelectionOverview'))
+                ->setHref($this->uriBuilder->uriFor('overviewBe'))
+                ->setActive($currentAction === 'overviewBe')
+        );
+        $menu->addMenuItem(
+            $menu->makeMenuItem()
+                ->setTitle(LocalizationUtility::translate('BackendSelectionReportingForm'))
+                ->setHref($this->uriBuilder->uriFor('reportingFormBe'))
+                ->setActive($currentAction === 'reportingFormBe')
+        );
+        $menu->addMenuItem(
+            $menu->makeMenuItem()
+                ->setTitle(LocalizationUtility::translate('BackendSelectionReportingMarketing'))
+                ->setHref($this->uriBuilder->uriFor('reportingMarketingBe'))
+                ->setActive($currentAction === 'reportingMarketingBe')
+        );
+        $menu->addMenuItem(
+            $menu->makeMenuItem()
+                ->setTitle(LocalizationUtility::translate('BackendSelectionCheck'))
+                ->setHref($this->uriBuilder->uriFor('checkBe'))
+                ->setActive($currentAction === 'checkBe')
+        );
+        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 }

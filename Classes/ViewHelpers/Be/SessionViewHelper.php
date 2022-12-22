@@ -65,7 +65,7 @@ class SessionViewHelper extends AbstractViewHelper
      */
     protected function initializeTsfe(): void
     {
-        $site = GeneralUtility::makeInstance(Site::class, 1, 1, []);
+        $site = GeneralUtility::makeInstance(Site::class, '1', 1, []);
         $siteLanguage = GeneralUtility::makeInstance(
             SiteLanguage::class,
             0,
@@ -73,7 +73,7 @@ class SessionViewHelper extends AbstractViewHelper
             new Uri('https://domain.org/page'),
             []
         );
-        $pageArguments = GeneralUtility::makeInstance(PageArguments::class, 1, 0, []);
+        $pageArguments = GeneralUtility::makeInstance(PageArguments::class, 1, '0', []);
         $nullFrontend = GeneralUtility::makeInstance(NullFrontend::class, 'pages');
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $frontendUser = new FrontendUserAuthentication();
