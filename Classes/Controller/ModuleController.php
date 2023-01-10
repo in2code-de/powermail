@@ -104,10 +104,11 @@ class ModuleController extends AbstractController
         );
 
         $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment; filename="' . $fileName . '"');
-        header('Pragma: no-cache');
-        return $this->htmlResponse();
+        return $this->htmlResponse()
+            ->withHeader('Content-Type', 'application/vnd.ms-excel')
+            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+            ->withAddedHeader('Pragma', 'no-cache')
+        ;
     }
 
     /**
@@ -129,10 +130,11 @@ class ModuleController extends AbstractController
         );
 
         $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
-        header('Content-Type: text/x-csv');
-        header('Content-Disposition: attachment; filename="' . $fileName . '"');
-        header('Pragma: no-cache');
-        return $this->htmlResponse();
+        return $this->htmlResponse()
+            ->withHeader('Content-Type', 'text/x-csv')
+            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+            ->withAddedHeader('Pragma', 'no-cache')
+        ;
     }
 
     /**
