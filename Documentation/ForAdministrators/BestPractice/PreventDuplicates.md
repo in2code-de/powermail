@@ -6,14 +6,14 @@ In some use cases it could happen, that visitors double- (or triple-) click the 
 Powermail is not able to prevent duplicates automatically and will store those mails/answers twice or even more.
 If you dig into the issue "Preventing double-click in html forms" in general it will turn out that it's not that simple
 to solve.
-Nevertheless I will give you some hints how to get rid of those problems in powermail or mail-forms.
+Nevertheless, I will give you some hints how to get rid of those problems in powermail or mail-forms.
 
 
 ## 1. Solving usability issues
 
-We took over a large TYPO3 instance of an insurance company with a lot of powermail forms on there webpage.
+We took over a large TYPO3 instance of an insurance company with a lot of powermail forms on their webpage.
 Facts like an old TYPO3 and PHP version, a small server and some bad caching configuration pulled the performance down.
-In addition there was no feedback for the visitors on a form submit.
+In addition, there was no feedback for the visitors on a form submit.
 
 Going into details: If the visitor clicked submit, he could not see if a validation rule stops the submit-process or
 if the server is simply too slow to answer within 5 seconds.
@@ -21,12 +21,12 @@ It turned out, that the visitors wanted to pass huge forms with a couple of vali
 submit, but clientside validation prevented sending the form. Because the visitors where more and more bothered, they
 tend to click submit multiple times.
 
-How to improve mail form usabilty on web projects:
+How to improve mail form usability on web projects:
 
 * Show your visitors what validation rules are needed to pass a form before they click on submit
 * Give a quick feedback on submit (probably a loading image in submit button, etc...)
 * If you have large forms, split them into smaller parts
-* Think about enabling the submitbutton if all validation rules are passed (e.g. change color from grey to blue)
+* Think about enabling the submit button if all validation rules are passed (e.g. change color from grey to blue)
 * Think about removing useless fields in your forms. Large Forms reduced your conversion rate.
 
 
@@ -34,7 +34,7 @@ How to improve mail form usabilty on web projects:
 
 Beside the usability stuff, it must be possible to use some magic to prevent duplicates.
 You could use validation.unique settings in powermail TypoScript to prevent duplicated emails.
-If a form would have a hidden field, that is filled automatically on form-load with a timestamp (or even better with
+If a form had a hidden field, that is filled automatically on form-load with a timestamp (or even better with
 a random value), a validation rule should check on submit if this value is unique otherwise show a message
 (see TypoScript example below how to enable it).
 
@@ -62,8 +62,8 @@ plugin.tx_powermail.settings.setup {
 }
 
 # turn validation on if GET/POST param with field timestamppreventduplicates exists
-[globalVar = GP:tx_powermail_pi1|field|timestamppreventduplicates > 0]
-plugin.tx_powermail.settings.setup.validation.unique.timestamppreventduplicates = 1
+[traverse(request.getQueryParams(), 'tx_powermail_pi1/field/timestamppreventduplicates') > 0]
+    plugin.tx_powermail.settings.setup.validation.unique.timestamppreventduplicates = 1
 [end]
 ```
 
@@ -81,14 +81,37 @@ submitting)
 See a possible solution for an inline JavaScript in the Submit-Partial of powermail:
 
 ```
-<div id="powermail_fieldwrap_{field.uid}"
-    class="powermail_fieldwrap powermail_fieldwrap_submit powermail_fieldwrap_{field.uid} {field.css}">
+<div class="powermail_fieldwrap powermail_fieldwrap_type_submit powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
+    <div class="{settings.styles.framework.fieldWrappingClasses} {settings.styles.framework.offsetClasses}">
+        <f:form.submit value="{field.title}" class="{settings.styles.framework.submitClasses}" />
 
-    <script>var submitAmount = 0;</script>
-    <style type="text/css">input[disabled]{background-color: #f2f2f2 !important;}</style>
-    <f:form.submit
-        value="{field.title}"
-        class="powermail_field powermail_submit"
-        additionalAttributes="{onmousedown:'submitAmount++;var field=this;if(submitAmount>1)field.disabled=true;setTimeout(function enable(){submitAmount=0;field.disabled=false;}, 6000);'}" />
+        <f:comment>
+            New from here: Prevent duplicate clicks within 6 seconds
+        </comment
+        <f:asset.css identifier="powermailSubmit">
+            input.{settings.styles.framework.submitClasses}[disabled] {
+                opacity: 0.3;
+            }
+        </f:asset.css>
+        <f:asset.script identifier="powermailSubmit">
+            let submitAmount = 0;
+            const elements = document.querySelectorAll('.powermail_fieldwrap input[type="submit"]');
+
+            elements.forEach(function(element) {
+                element.addEventListener('click', function(event) {
+                    submitAmount++;
+                    if (submitAmount > 1) {
+                        event.target.disabled = true;
+                        setTimeout(
+                            function() {
+                                element.disabled = false;
+                                submitAmount = 0;
+                            }, 6000
+                        );
+                    }
+                });
+            });
+        </f:asset.script>
+    </div>
 </div>
 ```
