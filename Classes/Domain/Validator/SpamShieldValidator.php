@@ -163,7 +163,7 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function sendSpamNotificationMail(Mail $mail): void
     {
-        if (GeneralUtility::validEmail($this->settings['spamshield']['email'])) {
+        if (GeneralUtility::validEmail($this->settings['spamshield']['email'] ?? '')) {
             $senderEmail = $this->settings['spamshield']['senderEmail'] ?:
                     'powermail@' . GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY');
             MailUtility::sendPlainMail(
