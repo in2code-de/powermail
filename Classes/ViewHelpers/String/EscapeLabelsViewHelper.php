@@ -44,6 +44,6 @@ class EscapeLabelsViewHelper extends AbstractViewHelper
     {
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $settings = $configurationService->getTypoScriptSettings();
-        return $settings['misc']['htmlForLabels'] === '1';
+        return ($settings['misc']['htmlForLabels'] ?? '') === '1';
     }
 }
