@@ -3,6 +3,8 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Repository;
 
+use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Exception as ExceptionDbal;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\DatabaseUtility;
@@ -31,13 +33,13 @@ class PageRepository extends AbstractRepository
     /**
      * @param int $uid
      * @return array
+     * @throws Exception
+     * @throws ExceptionDbal
      */
     public function getPropertiesFromUid(int $uid): array
     {
-        $query = $this->createQuery();
-        $sql = 'select * from pages where uid = ' . (int)$uid . ' limit 1';
-        $result = $query->statement($sql)->execute(true);
-        return $result[0];
+        $connection = DatabaseUtility::getConnectionForTable('pages');
+        return $connection->executeQuery('select * from pages where uid=' . (int)$uid . ' limit 1')->fetchAssociative();
     }
 
     /**
