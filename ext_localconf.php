@@ -74,10 +74,9 @@ call_user_func(function () {
         In2code\Powermail\Hook\FlexFormManipulationHook::class;
 
     /**
-     * JavaScript evaluation of TCA fields
+     * JavaScript's evaluation of TCA fields
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =
-        'EXT:powermail/Classes/Tca/EvaluateEmail.php';
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals'][In2code\Powermail\Tca\EvaluateEmail::class] = '';
 
     /**
      * eID to get location from geo coordinates
