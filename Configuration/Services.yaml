@@ -6,3 +6,4 @@ services:
 
   In2code\Powermail\:
     resource: '../Classes/*'
+    exclude: '../Classes/Eid/GetLocationEid.php'
