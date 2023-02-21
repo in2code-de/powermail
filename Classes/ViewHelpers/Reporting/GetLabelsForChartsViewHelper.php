@@ -47,7 +47,7 @@ class GetLabelsForChartsViewHelper extends AbstractViewHelper
         }
 
         foreach (array_keys($answers[$fieldUidOrKey]) as $value) {
-            $value = str_replace([$this->notAllowedSign, $separator], '', $value);
+            $value = str_replace([$this->notAllowedSign, $separator], '', (string)$value);
             $value = htmlspecialchars($value);
             if (strlen($value) > $crop) {
                 $value = substr($value, 0, $crop) . $append;
