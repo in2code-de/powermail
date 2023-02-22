@@ -25,16 +25,16 @@ to execute the upgrade wizard. Two steps are added from powermail 8.0.0
 
 Main configuration for powermail for CMS wide settings.
 
-| Field | Description | Default value |
-|-------|-------------|---------------|
-| Disable IP logging | If you generally don't want to save the sender IP address in the database, you can use this checkbox. | 1 |
-| Disable marketing information | If you want to disable all marketing relevant information of powermail, you can enable this checkbox (effected: mail to admin, backend module, mail records, no static typoscript template). | 0 |
-| Disable BE module | You can disable the backend module if you don't store mails in your database or if you don't need the module. | 0 |
-| Disable plugin information | Below every powermail plugin is a short info table with form settings. You can disable these information. | 0 |
-| Disable plugin information mail preview | The plugin information shows 3 latest mails. If you want to disable this preview, you can check the button. | 0 |
-| Enable Form caching | With this setting, you can enable the caching of the form generation, what speeds up sites with powermail forms in the frontend. On the other hand, some additional features (like prefilling values from GET paramter, etc...) are not working any more. | 0 |
-| Enable Merge for l10n_mode | All fields with l10n_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages. | 0 |
-| ElementBrowser replaces IRRE | Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation. Note: this is a beta-feature and not completely tested! | 0 |
+| Field                                   | Description                                                                                                                                                                                                                                               | Default value |
+|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| Disable IP logging                      | If you generally don't want to save the sender IP address in the database, you can use this checkbox.                                                                                                                                                     | 1             |
+| Disable marketing information           | If you want to disable all marketing relevant information of powermail, you can enable this checkbox (effected: mail to admin, backend module, mail records, no static typoscript template).                                                              | 0             |
+| Disable BE module                       | You can disable the backend module if you don't store mails in your database or if you don't need the module.                                                                                                                                             | 0             |
+| Disable plugin information              | Below every powermail plugin is a short info table with form settings. You can disable these information.                                                                                                                                                 | 0             |
+| Disable plugin information mail preview | The plugin information shows 3 latest mails. If you want to disable this preview, you can check the button.                                                                                                                                               | 0             |
+| Enable Form caching                     | With this setting, you can enable the caching of the form generation, what speeds up sites with powermail forms in the frontend. On the other hand, some additional features (like prefilling values from GET paramter, etc...) are not working any more. | 0             |
+| Enable Merge for l10n_mode              | All fields with l10n_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages.                                                                                    | 0             |
+| ElementBrowser replaces IRRE            | Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation. Note: this is a beta-feature and not completely tested!                                                                   | 0             |
 
 ## Static Templates
 

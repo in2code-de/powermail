@@ -318,9 +318,9 @@ Dispatcher within the class waits for your extension.
 
 #### SignalSlot in CustomValidator
 
-| Signal Class Name | Signal Name | Located in Method | Passed arguments | Description |
-|-------------------|-------------|-------------------|------------------|-------------|
-| `In2code\Powermail\Domain\Validator\CustomValidator` | isValid | isValid() | $mail, $this | Add your own serverside Validation |
+| Signal Class Name                                    | Signal Name | Located in Method | Passed arguments | Description                        |
+|------------------------------------------------------|-------------|-------------------|------------------|------------------------------------|
+| `In2code\Powermail\Domain\Validator\CustomValidator` | isValid     | isValid()         | $mail, $this     | Add your own serverside Validation |
 
 ### Call the Custom Validator from your Extension
 
