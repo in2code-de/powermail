@@ -103,7 +103,7 @@ class MailRepository extends AbstractRepository
      * @param int $uid
      * @return Mail
      */
-    public function findByUid($uid)
+    public function findByUid($uid): Mail
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);

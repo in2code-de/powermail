@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace In2code\Powermail\Domain\Repository;
 
+use Doctrine\DBAL\Exception;
 use In2code\Powermail\Database\QueryGenerator;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
@@ -31,7 +32,9 @@ class FormRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
         $query->matching($query->equals('pages.uid', $uid));
-        return $query->execute()->getFirst();
+        /** @var Form $form */
+        $form = $query->execute()->getFirst();
+        return $form;
     }
 
     /**
@@ -174,7 +177,7 @@ class FormRepository extends AbstractRepository
      *
      * @param int $formUid Form UID
      * @return array
-     * @throws DBALException
+     * @throws Exception
      */
     public function getFieldsFromFormWithSelectQuery(int $formUid): array
     {

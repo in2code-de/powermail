@@ -69,6 +69,7 @@ class PageRepository extends AbstractRepository
      *        tx_powermail_domain_model_page.form = "0"
      *
      * @return array
+     * @throws ExceptionDbal
      */
     public function findAllWrongLocalizedPages(): array
     {
@@ -105,6 +106,7 @@ class PageRepository extends AbstractRepository
      * Get all not deleted pages
      *
      * @return int[]
+     * @throws ExceptionDbal
      */
     public function getAllPages(): array
     {
