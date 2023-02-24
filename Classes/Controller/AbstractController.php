@@ -225,8 +225,8 @@ abstract class AbstractController extends ActionController
             $newArguments['mail']['__identity'] = $arguments['field']['__identity'];
         }
 
-        $this->request->setArguments($newArguments);
-        $this->request->setArgument('field', null);
+        $this->request = $this->request->withArguments($newArguments);
+        $this->request = $this->request->withArgument('field', null);
     }
 
     /**
