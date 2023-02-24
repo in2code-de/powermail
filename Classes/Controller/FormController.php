@@ -502,7 +502,7 @@ class FormController extends AbstractController
     }
 
     /**
-     * Always forward to formAction if a validation fails. Otherwise it could happen that when
+     * Always forward to formAction if a validation fails. Otherwise, it could happen that when
      * a validator for createAction fails, confirmationAction is called (if function is turned on) and same validators
      * are firing again
      *
@@ -510,10 +510,6 @@ class FormController extends AbstractController
      */
     protected function forwardToReferringRequest(): ?ResponseInterface
     {
-        $originalRequest = clone $this->request;
-        $this->request->setOriginalRequest($originalRequest);
-        $this->request->setOriginalRequestMappingResults($this->arguments->validate());
-
         $response = new ForwardResponse('form');
         return $response->withArgumentsValidationResult($this->arguments->validate());
     }
