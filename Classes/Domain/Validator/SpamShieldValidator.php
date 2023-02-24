@@ -130,7 +130,7 @@ class SpamShieldValidator extends AbstractValidator
                     $mail,
                     $this->settings,
                     $this->flexForm,
-                    $method['configuration']
+                    $method['configuration'] ?: []
                 );
                 $methodInstance->initialize();
                 $methodInstance->initializeSpamCheck();
