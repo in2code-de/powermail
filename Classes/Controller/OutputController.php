@@ -14,7 +14,6 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
@@ -114,7 +113,7 @@ class OutputController extends AbstractController
             $this->addFlashmessage(
                 LocalizationUtility::translate('PowermailFrontendEditFailed'),
                 '',
-                AbstractMessage::ERROR
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
             );
             return new ForwardResponse('list');
         }
@@ -153,7 +152,7 @@ class OutputController extends AbstractController
             $this->addFlashmessage(
                 LocalizationUtility::translate('PowermailFrontendDeleteFailed'),
                 '',
-                AbstractMessage::ERROR
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
             );
             return new ForwardResponse('list');
         }

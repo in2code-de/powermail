@@ -35,7 +35,6 @@ use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
@@ -262,7 +261,7 @@ class FormController extends AbstractController
                     $this->addFlashMessage(
                         LocalizationUtility::translate('error_mail_not_created'),
                         '',
-                        AbstractMessage::ERROR
+                        \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
                     );
                     $this->messageClass = 'error';
                 }
@@ -450,7 +449,7 @@ class FormController extends AbstractController
      *
      * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatch(): ResponseInterface
+    protected function forwardIfFormParamsDoNotMatch(): void
     {
         $arguments = $this->request->getArguments();
         if (isset($arguments['mail'])) {

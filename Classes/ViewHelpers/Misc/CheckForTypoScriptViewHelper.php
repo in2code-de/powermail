@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
 use In2code\Powermail\Utility\LocalizationUtility;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -46,7 +45,7 @@ class CheckForTypoScriptViewHelper extends AbstractViewHelper
                 FlashMessage::class,
                 LocalizationUtility::translate('error_no_typoscript'),
                 '',
-                AbstractMessage::ERROR
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
             );
             $flashMessageQueue->addMessage($flashMessage);
         }
