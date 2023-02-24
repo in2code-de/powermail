@@ -95,14 +95,10 @@ class TemplateUtility
      * @throws InvalidConfigurationTypeException
      */
     public static function getDefaultStandAloneView(
-        string $extensionName = 'Powermail',
-        string $pluginName = 'Pi1',
         string $format = 'html'
     ): StandaloneView {
         /** @var StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        $standaloneView->getRequest()->setControllerExtensionName($extensionName);
-        $standaloneView->getRequest()->setPluginName($pluginName);
         $standaloneView->setFormat($format);
         $standaloneView->setLayoutRootPaths(self::getTemplateFolders('layout'));
         $standaloneView->setPartialRootPaths(self::getTemplateFolders('partial'));
