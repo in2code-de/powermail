@@ -41,8 +41,6 @@ use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -101,9 +99,7 @@ class FormController extends AbstractController
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
-     * @throws StopActionException
      * @throws DeprecatedException
-     * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
      */
     public function initializeConfirmationAction(): void
@@ -152,12 +148,10 @@ class FormController extends AbstractController
      *
      * @return void
      * @throws NoSuchArgumentException
-     * @throws StopActionException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws DeprecatedException
-     * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
      */
     public function initializeCreateAction(): void
@@ -446,10 +440,8 @@ class FormController extends AbstractController
     /**
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
-     *
-     * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatch(): void
+    protected function forwardIfFormParamsDoNotMatch(): ?ForwardResponse
     {
         $arguments = $this->request->getArguments();
         if (isset($arguments['mail'])) {
@@ -468,6 +460,7 @@ class FormController extends AbstractController
                 return new ForwardResponse('form');
             }
         }
+        return null;
     }
 
     /**
@@ -492,9 +485,9 @@ class FormController extends AbstractController
      *        used in optinConfirmAction()
      *
      * @param Mail|null $mail
-     * @return ResponseInterface|null
+     * @return ForwardResponse|null
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ResponseInterface
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ForwardResponse
     {
         if ($mail !== null) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
@@ -505,7 +498,6 @@ class FormController extends AbstractController
                 return new ForwardResponse('form');
             }
         }
-
         return null;
     }
 
