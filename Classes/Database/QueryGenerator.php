@@ -15,10 +15,10 @@
 
 namespace In2code\Powermail\Database;
 
+use Doctrine\DBAL\Exception;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryHelper;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
@@ -935,7 +935,7 @@ class QueryGenerator
                             }
                             if ($from_table === 'pages') {
                                 $queryBuilder->where(
-                                    QueryHelper::stripLogicalOperatorPrefix($perms_clause),
+                                    $this->stripLogicalOperatorPrefix($perms_clause),
                                     $queryBuilder->expr()->in(
                                         'uid',
                                         $queryBuilder->createNamedParameter(
@@ -988,6 +988,24 @@ class QueryGenerator
             }
         }
         return implode(LF, $out);
+    }
+
+    /**
+     * Copied from TYPO3s QueryHelper. QueryHelper is marked as internal.
+     *
+     * Removes the prefixes AND/OR from the input string.
+     *
+     * This function should be used when you can't guarantee that the string
+     * that you want to use as a WHERE fragment is not prefixed.
+     *
+     * @internal
+     *
+     * @param string $constraint The where part fragment with a possible leading AND or OR operator
+     * @return string The modified where part without leading operator
+     */
+    public function stripLogicalOperatorPrefix(string $constraint): string
+    {
+        return preg_replace('/^(?:(AND|OR)[[:space:]]*)+/i', '', trim($constraint)) ?: '';
     }
 
     /**
@@ -1572,6 +1590,7 @@ class QueryGenerator
      * @param int $begin
      * @param string $permClause
      * @return string comma separated list of descendant pages
+     * @throws Exception
      */
     public function getTreeList($id, $depth, $begin = 0, $permClause = '')
     {
@@ -1597,10 +1616,10 @@ class QueryGenerator
                 )
                 ->orderBy('uid');
             if ($permClause !== '') {
-                $queryBuilder->andWhere(QueryHelper::stripLogicalOperatorPrefix($permClause));
+                $queryBuilder->andWhere($this->stripLogicalOperatorPrefix($permClause));
             }
-            $statement = $queryBuilder->execute();
-            while ($row = $statement->fetch()) {
+            $statement = $queryBuilder->executeQuery();
+            while ($row = $statement->fetchAssociative()) {
                 if ($begin <= 0) {
                     $theList .= ',' . $row['uid'];
                 }
@@ -1678,7 +1697,7 @@ class QueryGenerator
             // placeholder would be lost in the process.
             if ($this->table === 'pages') {
                 $queryBuilder->where(
-                    QueryHelper::stripLogicalOperatorPrefix($perms_clause),
+                    $this->stripLogicalOperatorPrefix($perms_clause),
                     $queryBuilder->expr()->in(
                         'uid',
                         GeneralUtility::intExplode(',', $webMountPageTree)
@@ -1696,7 +1715,7 @@ class QueryGenerator
         if (!$qString) {
             $qString = $this->getQuery($this->queryConfig);
         }
-        $queryBuilder->andWhere(QueryHelper::stripLogicalOperatorPrefix($qString));
+        $queryBuilder->andWhere($this->stripLogicalOperatorPrefix($qString));
 
         return $queryBuilder->getSQL();
     }
