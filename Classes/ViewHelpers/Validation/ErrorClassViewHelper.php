@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\ViewHelpers\Validation;
 
 use Doctrine\DBAL\DBALException;
@@ -32,7 +33,7 @@ class ErrorClassViewHelper extends AbstractViewHelper
     {
         /** @var Field $field */
         $field = $this->arguments['field'];
-        $validationResults = $this->getRequest()->getOriginalRequestMappingResults();
+        $validationResults = $this->getRequest()->getAttribute('extbase')->getOriginalRequestMappingResults();
         $errors = $validationResults->getFlattenedErrors();
         foreach ($errors as $error) {
             /** @var Error $singleError */
@@ -53,6 +54,6 @@ class ErrorClassViewHelper extends AbstractViewHelper
      */
     protected function getRequest()
     {
-        return $this->renderingContext->getControllerContext()->getRequest();
+        return $this->renderingContext->getRequest();
     }
 }
