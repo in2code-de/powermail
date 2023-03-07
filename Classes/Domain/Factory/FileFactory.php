@@ -78,10 +78,12 @@ class FileFactory
      */
     public function getInstanceFromUploadArguments(string $marker, string $value, array $arguments): ?File
     {
-        $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
-        $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
-        if ($field !== null && $field->dataTypeFromFieldType($field->getType()) === 3 && !empty($value)) {
-            return $this->makeFileInstance($marker, $value, 0, '', '', true);
+        if(isset($arguments['mail']['form'])) {
+            $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
+            $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
+            if ($field !== null && $field->dataTypeFromFieldType($field->getType()) === 3 && !empty($value)) {
+                return $this->makeFileInstance($marker, $value, 0, '', '', true);
+            }
         }
         return null;
     }
