@@ -107,12 +107,12 @@ class MailRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
-        $query->getQuerySettings()->setLanguageMode(null);
 
         $and = [
             $query->equals('uid', $uid),
             $query->equals('deleted', 0),
         ];
+
         $query->matching($query->logicalAnd(...$and));
 
         $mail = $query->execute()->getFirst();
