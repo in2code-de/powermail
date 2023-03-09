@@ -81,13 +81,6 @@ call_user_func(function () {
     );
 
     /**
-     * Hook to show PluginInformation under a tt_content element in page module of type powermail
-     */
-    $cmsLayout = 'cms/layout/class.tx_cms_layout.php';
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$cmsLayout]['tt_content_drawItem']['powermail'] =
-        \In2code\Powermail\Hook\PluginPreview::class;
-
-    /**
      * Hook for initially filling the marker field in backend
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =

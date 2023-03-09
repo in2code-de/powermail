@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Domain\Model\Form;
@@ -8,9 +9,9 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Backend\Preview\StandardContentPreviewRenderer;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
-use TYPO3\CMS\Backend\View\PageLayoutView;
-use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
+use TYPO3\CMS\Backend\View\BackendLayout\Grid\GridColumnItem;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Service\FlexFormService;
@@ -21,72 +22,53 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /**
  * Contains a preview rendering for the powermail page module
  */
-class PluginPreview implements PageLayoutViewDrawItemHookInterface
+class PluginPreviewRenderer extends StandardContentPreviewRenderer
 {
     /**
      * @var array
      */
-    protected array $row = [];
+    protected array $rows = [];
 
     /**
      * @var array
      */
-    protected array $flexFormData;
+    protected array $flexFormData = [];
 
     /**
      * @var string
      */
     protected string $templatePathAndFile = 'EXT:powermail/Resources/Private/Templates/Hook/PluginPreview.html';
 
-    /**
-     * Preprocesses the preview rendering of a content element
-     *
-     * @param PageLayoutView $parentObject Calling parent object
-     * @param bool $drawItem Whether to draw the item using the default functionality
-     * @param string $headerContent Header content
-     * @param string $itemContent Item content
-     * @param array $row Record row of tt_content
-     * @return void
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws InvalidConfigurationTypeException
-     */
-    public function preProcess(
-        PageLayoutView &$parentObject,
-        &$drawItem,
-        &$headerContent,
-        &$itemContent,
-        array &$row
-    ) {
-        if (!ConfigurationUtility::isDisablePluginInformationActive()) {
+    public function renderPageModulePreviewContent(GridColumnItem $item): string
+    {
+        $row = $item->getRecord();
+
+        $flexforms = GeneralUtility::xml2array($row['pi_flexform']);
+        if (is_string($flexforms)) {
+            return 'ERROR: ' . htmlspecialchars($flexforms);
+        }
+        $this->flexFormData = (array)$flexforms;
+
+        $preview = '';
+        if (!ConfigurationUtility::isDisablePluginInformationActive() && !empty($this->flexFormData)) {
             switch ($row['CType']) {
                 case 'powermail_pi1':
-                    $this->initialize($row);
-                    $drawItem = false;
-                    $headerContent = '';
-                    $itemContent = $this->getPluginInformation('Pi1');
+                    $preview = $this->getPluginInformation('Pi1', $row);
                     break;
                 case 'powermail_pi2':
-                    $this->initialize($row);
-                    $drawItem = false;
-                    $headerContent = '';
-                    $itemContent = $this->getPluginInformation('Pi2');
+                    $preview = $this->getPluginInformation('Pi2', $row);
                     break;
                 case 'powermail_pi3':
-                    $this->initialize($row);
-                    $drawItem = false;
-                    $headerContent = '';
-                    $itemContent = $this->getPluginInformation('Pi3');
+                    $preview = $this->getPluginInformation('Pi3', $row);
                     break;
                 case 'powermail_pi4':
-                    $this->initialize($row);
-                    $drawItem = false;
-                    $headerContent = '';
-                    $itemContent = $this->getPluginInformation('Pi4');
+                    $preview = $this->getPluginInformation('Pi4', $row);
                     break;
                 default:
+                    $preview = '';
             }
         }
+        return $preview;
     }
 
     /**
@@ -96,22 +78,25 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    protected function getPluginInformation(string $pluginName): string
+    protected function getPluginInformation(string $pluginName, array $row): string
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($this->templatePathAndFile));
         $standaloneView->assignMultiple(
             [
-                'row' => $this->row,
+                'row' => $row,
                 'flexFormData' => $this->flexFormData,
-                'formUid' => $this->getLocalizedFormUid($this->getFormUid(), $this->getSysLanguageUid()),
+                'formUid' => $this->getLocalizedFormUid(
+                    (int)$this->getFieldFromFlexform('settings.flexform.main.form', 'main'),
+                    $row['sys_language_uid']
+                ),
                 'receiverEmail' => $this->getReceiverEmail(),
                 'receiverEmailDevelopmentContext' => ConfigurationUtility::getDevelopmentContextEmail(),
                 'mails' => $this->getLatestMails(),
                 'pluginName' => $pluginName,
                 'enableMailPreview' => !ConfigurationUtility::isDisablePluginInformationMailPreviewActive(),
                 'form' => $this->getFormTitleByUid(
-                    (int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
+                    (int)$this->getFieldFromFlexform('settings.flexform.main.form', 'main')
                 ),
             ]
         );
@@ -128,7 +113,7 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
         /** @var MailRepository $mailRepository */
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         return $mailRepository->findLatestByForm(
-            (int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.main.form')
+            (int)$this->getFieldFromFlexform('settings.flexform.main.form', 'main')
         );
     }
 
@@ -139,16 +124,16 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
      */
     protected function getReceiverEmail(): string
     {
-        $receiver = ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.receiver.email');
-        if ((int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.receiver.type') === 1) {
+        $receiver = $this->getFieldFromFlexform('settings.flexform.receiver.email', 'receiver');
+        if ((int)$this->getFieldFromFlexform('settings.flexform.receiver.type', 'receiver') === 1) {
             $receiver = 'Frontenduser Group '
-                . ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.receiver.fe_group');
+                . (int)$this->getFieldFromFlexform('settings.flexform.receiver.fe_group', 'receiver');
         }
-        if ((int)ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.receiver.type') === 2) {
+        if ((int)$this->getFieldFromFlexform('settings.flexform.receiver.type', 'receiver') === 2) {
             $receiver = 'Predefined "' .
-                ArrayUtility::getValueByPath($this->flexFormData, 'settings.flexform.receiver.predefinedemail') . '"';
+                (int)$this->getFieldFromFlexform('settings.flexform.receiver.predefinedemail', 'receiver') . '"';
         }
-        return $receiver;
+        return $receiver ?? '';
     }
 
     /**
@@ -187,19 +172,6 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
     }
 
     /**
-     * Get form uid
-     *
-     * @return int
-     */
-    protected function getFormUid(): int
-    {
-        if (isset($this->flexFormData['settings']['flexform']['main']['form'])) {
-            return (int)$this->flexFormData['settings']['flexform']['main']['form'];
-        }
-        return 0;
-    }
-
-    /**
      * Get current sys_language_uid from page content
      *
      * @return int
@@ -212,14 +184,16 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
         return 0;
     }
 
-    /**
-     * @param array $row
-     * @return void
-     */
-    protected function initialize(array $row): void
+    public function getFieldFromFlexform(string $key, string $sheet = 'sDEF'): ?string
     {
-        $this->row = $row;
-        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
-        $this->flexFormData = $flexFormService->convertFlexFormContentToArray($this->row['pi_flexform']);
+        $flexform = $this->flexFormData;
+        if (isset($flexform['data'])) {
+            $flexform = $flexform['data'];
+            if (isset($flexform[$sheet]['lDEF'][$key]['vDEF'])
+            ) {
+                return $flexform[$sheet]['lDEF'][$key]['vDEF'];
+            }
+        }
+        return null;
     }
 }

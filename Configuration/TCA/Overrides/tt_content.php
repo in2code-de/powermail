@@ -50,6 +50,8 @@ foreach ($plugins as $plugin) {
             rowDescription,
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
     ';
+    $GLOBALS['TCA']['tt_content']['types'][$CType]['previewRenderer']
+        = In2code\Powermail\Hook\PluginPreviewRenderer::class;
 }
 
 
