@@ -26,17 +26,44 @@ call_user_func(function () {
         ],
         [
             \In2code\Powermail\Controller\FormController::class => $uncachedFormActions
-        ]
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
+
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Powermail',
         'Pi2',
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'list, show, export, rss'
+        ],
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'list, export, rss'
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Powermail',
+        'Pi3',
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
+        ],
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Powermail',
+        'Pi4',
         [
             \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, export, rss, delete'
         ],
         [
             \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, export, rss, delete'
-        ]
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
     /**
@@ -111,4 +138,6 @@ call_user_func(function () {
         = \In2code\Powermail\Update\PowermailRelationUpdateWizard::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailLanguageUpdateWizard']
         = \In2code\Powermail\Update\PowermailLanguageUpdateWizard::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPluginUpdater']
+        = \In2code\Powermail\Update\PowermailPluginUpdater::class;
 });

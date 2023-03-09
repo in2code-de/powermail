@@ -18,6 +18,30 @@
 			<trans-unit id="pluginWizardDescription" resname="pluginWizardDescription">
 				<source>Powerful and easy mailform extension optimized for editors. Powermail offers data storing, extended input validation, advanced spam-prevention, marketing analyses and a lot of configuration settings.</source>
 			</trans-unit>
+			<trans-unit id="powermail_pi1.title">
+				<source>Powermail</source>
+			</trans-unit>
+			<trans-unit id="powermail_pi1.description">
+				<source>Powerful and easy mailform extension optimized for editors.</source>
+			</trans-unit>
+			<trans-unit id="powermail_pi2.title">
+				<source>Powermail Frontend (List, Detail, Export)</source>
+			</trans-unit>
+			<trans-unit id="powermail_pi2.description">
+				<source>Displays powermail mails in the frontend with export possibilities</source>
+			</trans-unit>
+			<trans-unit id="powermail_pi3.title">
+				<source>Powermail Frontend (Edit, Update, Delete)</source>
+			</trans-unit>
+			<trans-unit id="powermail_pi3.description">
+				<source>Displays an edit form and allows to delete sent emails</source>
+			</trans-unit>
+			<trans-unit id="powermail_pi4.title">
+				<source>Powermail Frontend (All functions)</source>
+			</trans-unit>
+			<trans-unit id="powermail_pi4.description">
+				<source>A plugin with all actions</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

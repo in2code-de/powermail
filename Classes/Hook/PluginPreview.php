@@ -59,22 +59,32 @@ class PluginPreview implements PageLayoutViewDrawItemHookInterface
         array &$row
     ) {
         if (!ConfigurationUtility::isDisablePluginInformationActive()) {
-            if ($row['CType'] === 'list') {
-                switch ($row['list_type']) {
-                    case 'powermail_pi1':
-                        $this->initialize($row);
-                        $drawItem = false;
-                        $headerContent = '';
-                        $itemContent = $this->getPluginInformation('Pi1');
-                        break;
-                    case 'powermail_pi2':
-                        $this->initialize($row);
-                        $drawItem = false;
-                        $headerContent = '';
-                        $itemContent = $this->getPluginInformation('Pi2');
-                        break;
-                    default:
-                }
+            switch ($row['CType']) {
+                case 'powermail_pi1':
+                    $this->initialize($row);
+                    $drawItem = false;
+                    $headerContent = '';
+                    $itemContent = $this->getPluginInformation('Pi1');
+                    break;
+                case 'powermail_pi2':
+                    $this->initialize($row);
+                    $drawItem = false;
+                    $headerContent = '';
+                    $itemContent = $this->getPluginInformation('Pi2');
+                    break;
+                case 'powermail_pi3':
+                    $this->initialize($row);
+                    $drawItem = false;
+                    $headerContent = '';
+                    $itemContent = $this->getPluginInformation('Pi3');
+                    break;
+                case 'powermail_pi4':
+                    $this->initialize($row);
+                    $drawItem = false;
+                    $headerContent = '';
+                    $itemContent = $this->getPluginInformation('Pi4');
+                    break;
+                default:
             }
         }
     }

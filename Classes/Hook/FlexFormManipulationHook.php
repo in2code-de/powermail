@@ -79,7 +79,7 @@ class FlexFormManipulationHook
     ): array {
         unset($fieldTca);
         if ($tableName === 'tt_content' && $fieldName === 'pi_flexform'
-            && $row['CType'] === 'list' && $row['list_type'] === 'powermail_pi1') {
+            && $row['CType'] === 'powermail_pi1') {
             // Add pid to identifier to fetch pageTs in parseDataStructureByIdentifierPostProcess hook
             $identifier['pid'] = $row['pid'];
         }
@@ -164,7 +164,6 @@ class FlexFormManipulationHook
      */
     protected function isPowermailFlexForm(string $table, array $row): bool
     {
-        return $table === 'tt_content' && $row['CType'] === 'list'
-            && $row['list_type'] === 'powermail_pi1';
+        return $table === 'tt_content' && $row['CType'] === 'powermail_pi1';
     }
 }
