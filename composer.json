@@ -57,16 +57,15 @@
 		"typo3/cms-t3editor": "^12.2",
 		"typo3/cms-tstemplate": "^12.2",
 		"typo3/cms-lowlevel": "^12.2",
-		"helmich/typo3-typoscript-lint": "^2.5",
+		"helmich/typo3-typoscript-lint": "^3.1",
 		"mikey179/vfsstream": "^1.6",
 		"friendsofphp/php-cs-fixer": "^3.10",
 		"squizlabs/php_codesniffer": "^3.5",
 		"phpmd/phpmd": "^2.8",
 		"behat/behat": "^3.8",
-		"helhum/typo3-console": "^7.0",
+		"helhum/typo3-console": "^8.0.x-dev",
 		"se/selenium-server-standalone": "^3.141",
-		"symfony/config": "^5.3",
-		"nimut/testing-framework": "6.x-dev",
+		"symfony/config": "^6.2",
 		"friends-of-behat/mink-extension": "^2.5",
 		"behat/mink-selenium2-driver": "^1.5",
 		"typo3/cms-adminpanel": "^12.2",
@@ -98,15 +97,6 @@
 		}
 	},
 	"scripts": {
-		"post-autoload-dump": [
-			"mkdir -p .Build/Web/typo3conf/ext/",
-			"[ -L .Build/Web/typo3conf/ext/powermail ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/powermail",
-			"@package-states",
-			"TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
-		],
-		"package-states": [
-			".Build/bin/typo3cms install:fixfolderstructure"
-		],
 		"test:behaviour:ddev": "behat --config Tests/Behavior/behat.ddev.yml",
 		"test:behaviour:docker": "behat --config Tests/Behavior/behat.docker.yml",
 		"test:behaviour:docker:tag": "behat --config Tests/Behavior/behat.docker.yml --tags",

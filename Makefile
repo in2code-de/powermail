@@ -130,23 +130,23 @@ typo3-add-site:
 ## Copies the Additional/DockerConfiguration.php to the correct directory
 typo3-add-dockerconfig:
 	echo "$(EMOJI_plug) Copying the docker specific configuration for TYPO3"
-	mkdir -p $(WEBROOT)/typo3conf/AdditionalConfiguration
-	cp -f .project/TYPO3/DockerConfiguration.php $(WEBROOT)/typo3conf/AdditionalConfiguration.php
+	mkdir -p ./config/system
+	cp -f .project/TYPO3/additional.php ./config/system/additional.php
 
 ## Runs the TYPO3 Database Compare
 typo3-comparedb:
 	echo "$(EMOJI_leftright) Running database:updateschema"
-	docker-compose exec php ./.Build/bin/typo3cms database:updateschema
+	docker-compose exec php ./.Build/bin/typo3 database:updateschema
 
 ## Starts the TYPO3 setup process
 typo3-setupinstall:
 	echo "$(EMOJI_upright) Running install:setup"
-	docker-compose exec php ./.Build/bin/typo3cms install:setup
+	docker-compose exec php ./.Build/bin/typo3 install:setup
 
 ## Clears TYPO3 caches via typo3-console
 typo3-clearcache:
 	echo "$(EMOJI_broom) Clearing TYPO3 caches"
-	docker-compose exec php ./.Build/bin/typo3cms cache:flush
+	docker-compose exec php ./.Build/bin/typo3 cache:flush
 
 ## Downloads the dynamicReturnTypeMeta.json for the PhpStorm dynamic return type plugin
 typo3-install-autocomplete:
