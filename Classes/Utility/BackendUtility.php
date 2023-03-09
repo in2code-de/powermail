@@ -191,6 +191,7 @@ class BackendUtility
             $returnUrl = GeneralUtility::_GP('returnUrl') ?: '';
         }
         $urlParts = parse_url($returnUrl);
+        $urlParts['query'] = $urlParts['query'] ?? '';
         parse_str((string)$urlParts['query'], $queryParts);
         if (array_key_exists('id', $queryParts)) {
             return (int)$queryParts['id'];
