@@ -68,9 +68,6 @@ class ModuleController extends AbstractController
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->moduleTemplate->setTitle('Powermail');
         $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
-
-        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Powermail/Powermail/Backend.min');
-        $this->pageRenderer->addCssFile('Css/Backend.css', 'stylesheet');
     }
 
     /**
