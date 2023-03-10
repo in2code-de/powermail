@@ -5,6 +5,7 @@ namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\User;
+use In2code\Powermail\Domain\Repository\BackendUserRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
 use In2code\Powermail\Events\ReceiverMailReceiverPropertiesServiceGetReceiverNameEvent;
@@ -15,7 +16,6 @@ use In2code\Powermail\Utility\TypoScriptUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository;
 use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
