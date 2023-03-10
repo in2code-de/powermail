@@ -40,15 +40,24 @@ class ModuleController extends AbstractController
 {
     protected ?ModuleData $moduleData = null;
     protected ModuleTemplate $moduleTemplate;
+    protected ModuleTemplateFactory $moduleTemplateFactory;
+    protected IconFactory $iconFactory;
+    protected PageRenderer $pageRenderer;
 
-    public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        protected readonly BackendUriBuilder $backendUriBuilder,
-        protected readonly IconFactory $iconFactory,
-        protected readonly PageRenderer $pageRenderer,
-    ) {
+    public function injectModuleTemplateFactory(ModuleTemplateFactory $moduleTemplateFactory)
+    {
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
     }
 
+    public function injectIconFactory(IconFactory $iconFactory)
+    {
+        $this->iconFactory = $iconFactory;
+    }
+
+    public function injectPageRenderer(PageRenderer $pageRenderer)
+    {
+        $this->pageRenderer = $pageRenderer;
+    }
 
     public function initializeAction(): void
     {
