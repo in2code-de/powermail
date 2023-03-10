@@ -24,8 +24,8 @@ config/
 
 .ddev/**
 !.ddev/commands/typo3
-!.ddev/commands/typo3cms
-!.ddev/typo3/AdditionalConfiguration.php
+!.ddev/typo3/additional.php
+!.ddev/typo3/settings.php
 !.ddev/typo3/config.yaml
 /.phpunit.result.cache
 /phpunit.xml.dist.bak

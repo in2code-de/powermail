@@ -112,9 +112,6 @@
 			"web-dir": ".Build/Web",
 			"extension-key": "powermail",
 			"ignore-as-root": false
-		},
-		"branch-alias": {
-			"dev-feature/typo3_11": "9.0.x-dev"
 		}
 	}
 }
