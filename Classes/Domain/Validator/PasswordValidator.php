@@ -51,7 +51,7 @@ class PasswordValidator extends AbstractValidator
      */
     protected function getMirroredValueOfPasswordField(Field $field): string
     {
-        return (string)FrontendUtility::getArguments()['field'][$field->getMarker() . '_mirror'];
+        return FrontendUtility::getArguments()['field'][$field->getMarker() . '_mirror'] ?? '';
     }
 
     /**
