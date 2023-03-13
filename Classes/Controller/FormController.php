@@ -102,12 +102,24 @@ class FormController extends AbstractController
      * @throws DeprecatedException
      * @noinspection PhpUnused
      */
-    public function initializeConfirmationAction(): void
+    public function initializeConfirmationAction(): ResponseInterface
     {
-        $this->forwardIfFormParamsDoNotMatch();
-        $this->forwardIfMailParamEmpty();
+        $response = $this->forwardIfFormParamsDoNotMatch();
+
+        if ($response !== null) {
+            return $response;
+        }
+
+        $response = $this->forwardIfMailParamEmpty();
+
+        if ($response !== null) {
+            return $response;
+        }
+
         $this->reformatParamsForAction();
         $this->debugVariables();
+
+        return new ForwardResponse('confirmation');
     }
 
     /**
@@ -154,12 +166,24 @@ class FormController extends AbstractController
      * @throws DeprecatedException
      * @noinspection PhpUnused
      */
-    public function initializeCreateAction(): void
+    public function initializeCreateAction(): ResponseInterface
     {
-        $this->forwardIfFormParamsDoNotMatch();
-        $this->forwardIfMailParamEmpty();
+        $response = $this->forwardIfFormParamsDoNotMatch();
+
+        if ($response !== null) {
+            return $response;
+        }
+
+        $response = $this->forwardIfMailParamEmpty();
+
+        if ($response !== null) {
+            return $response;
+        }
+
         $this->reformatParamsForAction();
         $this->debugVariables();
+
+        return new ForwardResponse('create');
     }
 
     /**
