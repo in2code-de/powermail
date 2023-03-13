@@ -5,13 +5,13 @@ Feature: Basic
 
   @javascript
   Scenario: Login into backend
-    Given I am on "/typo3/index.php"
+    Given I am on "/typo3/"
     Then the sourcecode should contain 'typo3-login-logo'
     When I fill in "username" with "editor"
     When I fill in "p_field" with "editor"
     And I press "t3-login-submit"
 
     And I wait "3" seconds
-    Given I am on "/typo3/module/web/PowermailM1"
+    Given I am on "/typo3/module/web/Powermail"
 
       Then the response should contain "typo3-backend-module-router"
