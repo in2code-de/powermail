@@ -25,7 +25,7 @@ class PasswordValidator extends AbstractValidator
     public function validate($mail): Result
     {
         $this->result = new Result();
-        if (!$this->formHasPassword($mail->getForm()) || $this->ignoreValidationIfConfirmation()) {
+        if ($this->formHasPassword($mail->getForm()) || !$this->ignoreValidationIfConfirmation()) {
             $this->isValid($mail);
         }
         return $this->result;
