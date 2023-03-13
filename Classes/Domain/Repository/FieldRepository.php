@@ -229,13 +229,15 @@ class FieldRepository extends AbstractRepository
     public function getMarkerFromUid(int $uid): string
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
-        return (string)$queryBuilder
+        $result = $queryBuilder
             ->select('marker')
             ->from(Field::TABLE_NAME)
             ->where('uid=' . (int)$uid)
             ->setMaxResults(1)
             ->executeQuery()
             ->fetchAssociative();
+
+        return $result['marker'] ?? '';
     }
 
     /**
