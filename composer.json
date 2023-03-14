@@ -99,6 +99,8 @@
 	},
 	"scripts": {
 		"test:behaviour:ddev": "behat --config Tests/Behavior/behat.ddev.yml",
+		"test:behaviour:ddev:tag": "behat --config Tests/Behavior/behat.ddev.yml --tags",
+		"test:behaviour:ddev:stop": "behat --config Tests/Behavior/behat.ddev.yml --stop-on-failure",
 		"test:behaviour:docker": "behat --config Tests/Behavior/behat.docker.yml",
 		"test:behaviour:docker:tag": "behat --config Tests/Behavior/behat.docker.yml --tags",
 		"test:behaviour:docker:stop": "behat --config Tests/Behavior/behat.docker.yml --stop-on-failure",
