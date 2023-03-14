@@ -4,7 +4,7 @@ return [
     'web_powermail' => [
         'parent' => 'web',
         'position' => [],
-        'access' => 'user, group',
+        'access' => 'user',
         'iconIdentifier' => 'extension-powermail-main',
         'labels' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf',
         'path' => '/module/web/Powermail',
