@@ -5,7 +5,7 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Prophecy\Prophet;
 use Psr\EventDispatcher\ListenerProviderInterface;
@@ -229,8 +229,8 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
         $this->abstractValidationViewHelperMock->_set('field', $field);
         $this->abstractValidationViewHelperMock->_set('marker', $field->getMarker());
-        $this->abstractValidationViewHelperMock->_callRef('buildValue');
-        self::assertSame($expectedResult, $this->abstractValidationViewHelperMock->_callRef('getValue'));
+        $this->abstractValidationViewHelperMock->_call('buildValue');
+        self::assertSame($expectedResult, $this->abstractValidationViewHelperMock->_call('getValue'));
     }
 
     /**
@@ -290,7 +290,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $value = '';
         self::assertSame(
             $expectedResult,
-            $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptRaw', $value)
+            $this->abstractValidationViewHelperMock->_call('getFromTypoScriptRaw', $value)
         );
     }
 }

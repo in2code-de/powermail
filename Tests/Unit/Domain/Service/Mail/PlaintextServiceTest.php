@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Service\Mail\PlaintextService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PlaintextServiceTest

@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Validator;
 
 use In2code\Powermail\Domain\Validator\SpamShieldValidator;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class SpamShieldValidatorTest
@@ -91,11 +91,11 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function getCalculatedSpamFactorReturnsVoid($spamIndicator, $expectedCalculateMailSpamFactor)
     {
-        $this->generalValidatorMock->_callRef('setSpamIndicator', $spamIndicator);
-        $this->generalValidatorMock->_callRef('calculateMailSpamFactor');
+        $this->generalValidatorMock->_call('setSpamIndicator', $spamIndicator);
+        $this->generalValidatorMock->_call('calculateMailSpamFactor');
         self::assertSame(
             number_format($expectedCalculateMailSpamFactor, 4),
-            number_format($this->generalValidatorMock->_callRef('getCalculatedSpamFactor'), 4)
+            number_format($this->generalValidatorMock->_call('getCalculatedSpamFactor'), 4)
         );
     }
 
@@ -136,7 +136,7 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function formatSpamFactorReturnsString($factor, $expectedResult)
     {
-        self::assertSame($expectedResult, $this->generalValidatorMock->_callRef('formatSpamFactor', $factor));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('formatSpamFactor', $factor));
     }
 
     /**
@@ -193,6 +193,6 @@ class SpamShieldValidatorTest extends UnitTestCase
     {
         $this->generalValidatorMock->_set('calculatedSpamFactor', $calculatedSpamFactor);
         $this->generalValidatorMock->_set('spamFactorLimit', $spamFactorLimit);
-        self::assertSame($expectedResult, $this->generalValidatorMock->_callRef('isSpamToleranceLimitReached'));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('isSpamToleranceLimitReached'));
     }
 }

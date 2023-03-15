@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\Validation\EnableJavascriptValidationAndAjaxViewHelperFixture;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class EnableJavascriptValidationAndAjaxViewHelperTest
@@ -177,7 +177,7 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
             'additionalAttributes' => $additionalAttributes,
         ];
         $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('arguments', $arguments);
-        $result = $this->enableJavascriptValidationAndAjaxViewHelperMock->_callRef('render');
+        $result = $this->enableJavascriptValidationAndAjaxViewHelperMock->_call('render');
         self::assertSame($expectedResult, $result);
     }
 }

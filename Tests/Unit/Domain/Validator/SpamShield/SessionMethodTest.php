@@ -7,7 +7,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
 use In2code\Powermail\Utility\SessionUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class SessionMethodTest
@@ -70,6 +70,6 @@ class SessionMethodTest extends UnitTestCase
         $mail->setForm($form);
 
         $this->generalValidatorMock->_set('mail', $mail);
-        self::assertTrue($this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertTrue($this->generalValidatorMock->_call('spamCheck'));
     }
 }

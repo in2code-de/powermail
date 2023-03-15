@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class HoneyPodMethodTest
@@ -75,6 +75,6 @@ class HoneyPodMethodTest extends UnitTestCase
     public function spamCheckReturnsVoid($pot, $expectedResult)
     {
         $this->generalValidatorMock->_set('arguments', ['field' => ['__hp' => $pot]]);
-        self::assertSame($expectedResult, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('spamCheck'));
     }
 }

@@ -4,10 +4,11 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
+use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContext;
 
 /**
  * Class DatepickerDataAttributeViewHelperTest
@@ -152,11 +153,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
         $this->abstractValidationViewHelperMock->_set('test', true);
 
-        $controllerContext = new ControllerContext();
-        $request = new Request();
-        $request->setControllerExtensionName('powermail');
-        $controllerContext->setRequest($request);
-        $this->abstractValidationViewHelperMock->_set('controllerContext', $controllerContext);
         $arguments = [
             'field' => $field,
             'additionalAttributes' => $additionalAttributes,
@@ -164,7 +160,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
 
-        $result = $this->abstractValidationViewHelperMock->_callRef('render');
+        $result = $this->abstractValidationViewHelperMock->_call('render');
         self::assertSame($expectedResult, $result);
     }
 }

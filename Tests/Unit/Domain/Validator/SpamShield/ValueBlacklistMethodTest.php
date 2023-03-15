@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\ValueBlacklistMethod;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ValueBlacklistMethodTest
@@ -49,7 +49,7 @@ class ValueBlacklistMethodTest extends UnitTestCase
     public function reduceDelimitersReturnsString()
     {
         $string = ',;,' . PHP_EOL . ',';
-        self::assertSame(',,,,,', $this->generalValidatorMock->_callRef('reduceDelimiters', $string));
+        self::assertSame(',,,,,', $this->generalValidatorMock->_call('reduceDelimiters', $string));
     }
 
     /**
@@ -100,7 +100,7 @@ class ValueBlacklistMethodTest extends UnitTestCase
         $needle = 'sex';
         self::assertSame(
             $expectedResult,
-            $this->generalValidatorMock->_callRef('isStringInString', $string, $needle)
+            $this->generalValidatorMock->_call('isStringInString', $string, $needle)
         );
     }
 }

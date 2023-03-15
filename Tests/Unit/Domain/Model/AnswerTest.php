@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Model;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class AnswerTest
@@ -127,12 +127,12 @@ class AnswerTest extends UnitTestCase
             if ($datepickerSettings) {
                 $field->setDatepickerSettings($datepickerSettings);
             }
-            $this->generalValidatorMock->_callRef('setField', $field);
+            $this->generalValidatorMock->_call('setField', $field);
         }
-        $this->generalValidatorMock->_callRef('setValueType', $valueType);
+        $this->generalValidatorMock->_call('setValueType', $valueType);
 
         $this->generalValidatorMock->_setProperty('value', $value);
-        self::assertSame($expectedResult, $this->generalValidatorMock->_callRef('getValue', $value));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('getValue', $value));
     }
 
     /**
@@ -145,7 +145,7 @@ class AnswerTest extends UnitTestCase
     public function getRawValueReturnString($value)
     {
         $this->generalValidatorMock->_setProperty('value', $value);
-        self::assertSame($value, $this->generalValidatorMock->_callRef('getRawValue'));
+        self::assertSame($value, $this->generalValidatorMock->_call('getRawValue'));
     }
 
     /**
@@ -247,10 +247,10 @@ class AnswerTest extends UnitTestCase
                 $this->generalValidatorMock->_setProperty('valueType', 2);
                 $field->setDatepickerSettings($datepickerSettings);
             }
-            $this->generalValidatorMock->_callRef('setField', $field);
+            $this->generalValidatorMock->_call('setField', $field);
         }
 
-        $this->generalValidatorMock->_callRef('setValue', $value);
+        $this->generalValidatorMock->_call('setValue', $value);
         self::assertSame($expectedResult, $this->generalValidatorMock->_getProperty('value'));
     }
 }

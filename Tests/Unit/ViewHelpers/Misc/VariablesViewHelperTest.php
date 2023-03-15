@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class VariablesViewHelperTest
@@ -92,7 +92,7 @@ class VariablesViewHelperTest extends UnitTestCase
      */
     public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult)
     {
-        $result = $this->abstractValidationViewHelperMock->_callRef('removePowermailAllParagraphTagWrap', $content);
+        $result = $this->abstractValidationViewHelperMock->_call('removePowermailAllParagraphTagWrap', $content);
         self::assertSame($expectedResult, $result);
     }
 }

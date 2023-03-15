@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\MathematicUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class MathematicUtilityTest
@@ -11,11 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class MathematicUtilityTest extends UnitTestCase
 {
-    /**
-     * @var array
-     */
-    protected $testFilesToDelete = [];
-
     /**
      * Data Provider for mathematicOperationReturnsInt()
      *

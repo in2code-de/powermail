@@ -7,7 +7,7 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class MailRepositoryTest
@@ -16,9 +16,9 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class MailRepositoryTest extends UnitTestCase
 {
     /**
-     * @var array
+     * @var bool
      */
-    protected $testFilesToDelete = [];
+    protected bool $resetSingletonInstances = true;
 
     /**
      * @var MailRepository
@@ -30,6 +30,7 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
         TestingHelper::setDefaultConstants();
         $objectManager = TestingHelper::getObjectManager();
         $this->generalValidatorMock = $this->getAccessibleMock(MailRepository::class, ['dummy'], [$objectManager]);
@@ -100,7 +101,7 @@ class MailRepositoryTest extends UnitTestCase
             }
         }
 
-        $result = $this->generalValidatorMock->_callRef('getLabelsWithMarkersFromMail', $mail);
+        $result = $this->generalValidatorMock->_call('getLabelsWithMarkersFromMail', $mail);
         self::assertSame($expectedResult, $result);
     }
 
@@ -198,7 +199,7 @@ class MailRepositoryTest extends UnitTestCase
             }
         }
 
-        $result = $this->generalValidatorMock->_callRef('getSenderMailFromArguments', $mail, $fallback);
+        $result = $this->generalValidatorMock->_call('getSenderMailFromArguments', $mail, $fallback);
         self::assertSame($expectedResult, $result);
     }
 
@@ -290,7 +291,7 @@ class MailRepositoryTest extends UnitTestCase
             }
         }
 
-        $result = $this->generalValidatorMock->_callRef('getSenderNameFromArguments', $mail, $fallback);
+        $result = $this->generalValidatorMock->_call('getSenderNameFromArguments', $mail, $fallback);
         self::assertSame($expectedResult, $result);
     }
 

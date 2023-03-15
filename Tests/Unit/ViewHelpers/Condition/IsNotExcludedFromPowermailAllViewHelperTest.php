@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Condition;
 
 use In2code\Powermail\ViewHelpers\Condition\IsNotExcludedFromPowermailAllViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class IsNotExcludedFromPowermailAllViewHelperTest
@@ -154,7 +154,7 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
      */
     public function getExcludedValuesReturnArray($type, $settings, $configurationType, $expectedResult)
     {
-        $result = $this->isNotExcludedFromPowermailAllViewHelperMock->_callRef(
+        $result = $this->isNotExcludedFromPowermailAllViewHelperMock->_call(
             'getExcludedValues',
             $type,
             $settings,

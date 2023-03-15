@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\UploadAttributesViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class UploadDataAttributeViewHelperTest
@@ -157,7 +157,7 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
             'additionalAttributes' => $additionalAttributes,
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
-        $result = $this->abstractValidationViewHelperMock->_callRef('render');
+        $result = $this->abstractValidationViewHelperMock->_call('render');
         self::assertSame($expectedResult, $result);
     }
 
@@ -198,7 +198,7 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
      */
     public function getDottedListOfExtensionsReturnsString($string, $expectedResult)
     {
-        $result = $this->abstractValidationViewHelperMock->_callRef('getDottedListOfExtensions', $string);
+        $result = $this->abstractValidationViewHelperMock->_call('getDottedListOfExtensions', $string);
         self::assertSame($expectedResult, $result);
     }
 }

@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\FrontendUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class FrontendUtilityTest
@@ -13,15 +13,11 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class FrontendUtilityTest extends UnitTestCase
 {
     /**
-     * @var array
-     */
-    protected $testFilesToDelete = [];
-
-    /**
      * @return void
      */
     public function setUp(): void
     {
+        parent::setUp();
         TestingHelper::setDefaultConstants();
     }
 

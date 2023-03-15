@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Domain\Service\ExportService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ExportServiceTest

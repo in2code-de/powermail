@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\StringUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class StringUtilityTest
@@ -11,11 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class StringUtilityTest extends UnitTestCase
 {
-    /**
-     * @var array
-     */
-    protected $testFilesToDelete = [];
-
     /**
      * Dataprovider isNotEmptyReturnsBool()
      *

@@ -5,9 +5,8 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\BackendUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class BackendUtilityTest
@@ -16,9 +15,9 @@ use TYPO3\CMS\Extbase\Object\Exception;
 class BackendUtilityTest extends UnitTestCase
 {
     /**
-     * @var array
+     * @var bool
      */
-    protected $testFilesToDelete = [];
+    protected bool $resetSingletonInstances = true;
 
     /**
      * Data Provider for isBackendAdminReturnsBool()
@@ -57,9 +56,8 @@ class BackendUtilityTest extends UnitTestCase
     {
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
-        $GLOBALS = [
-            'BE_USER' => $user,
-        ];
+        $GLOBALS['BE_USER'] = $user;
+
         if (is_int($value)) {
             $GLOBALS['BE_USER']->user['admin'] = $value;
         }
@@ -103,9 +101,8 @@ class BackendUtilityTest extends UnitTestCase
     {
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
-        $GLOBALS = [
-            'BE_USER' => $user,
-        ];
+        $GLOBALS['BE_USER'] = $user;
+
         if ($property !== null) {
             $GLOBALS['BE_USER']->user[$property] = $value;
         }
@@ -232,15 +229,12 @@ class BackendUtilityTest extends UnitTestCase
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::filterPagesForAccess
-     * @throws Exception
      */
     public function filterPagesForAccessReturnsArray()
     {
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
-        $GLOBALS = [
-            'BE_USER' => $user,
-        ];
+        $GLOBALS['BE_USER'] = $user;
 
         $GLOBALS['BE_USER']->user['admin'] = 1;
         self::assertSame([1, 2], BackendUtility::filterPagesForAccess([1, 2]));
