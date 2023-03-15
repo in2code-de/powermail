@@ -81,7 +81,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     public function getColorForCaptchaReturnInt($hexColorString, $expectedResult)
     {
         $imageResource = imagecreatefrompng(
-            GeneralUtility::getFileAbsFileName('EXT:powermail/Resources/Private/Image/captcha_bg.png')
+            __DIR__ . '/../../../../Resources/Private/Image/captcha_bg.png'
         );
         $this->generalValidatorMock->_set(
             'configuration',
