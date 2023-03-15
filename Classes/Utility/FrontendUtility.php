@@ -7,6 +7,7 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use TYPO3\CMS\Core\Http\Client\GuzzleClientFactory;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
@@ -203,7 +204,8 @@ class FrontendUtility
             // @codeCoverageIgnoreEnd
         }
         $country = '';
-        $json = GeneralUtility::makeInstance(RequestFactory::class)
+        $guzzleFactory = GeneralUtility::makeInstance(GuzzleClientFactory::class);
+        $json = GeneralUtility::makeInstance(RequestFactory::class, $guzzleFactory)
             ->request('http://ip-api.com/json/' . $ipAddress)
             ->getBody()
             ->getContents();
