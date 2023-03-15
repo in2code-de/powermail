@@ -74,7 +74,8 @@
 		"typo3/cms-dashboard": "^12.2",
 		"friends-of-behat/mink-browserkit-driver": "^1.5",
 		"drevops/behat-screenshot": "^1.1",
-		"phpspec/prophecy": "^1.15"
+		"phpspec/prophecy": "^1.15",
+		"typo3/testing-framework": "dev-main"
 	},
 	"autoload": {
 		"psr-4": {
