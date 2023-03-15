@@ -18,6 +18,7 @@ class GetLocationEidTest extends UnitTestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
         TestingHelper::setDefaultConstants();
     }
 
@@ -32,7 +33,7 @@ class GetLocationEidTest extends UnitTestCase
                 12.113768,
                 'Kunstmühlstraße',
             ],
-            'Eisweiherweg, Pfaffing, Germany' => [
+            'Eisweiherweg, Forsting, Germany' => [
                 48.0796126,
                 12.0898908,
                 'Eisweiherweg',
