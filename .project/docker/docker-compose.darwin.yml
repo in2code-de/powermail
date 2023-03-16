@@ -27,6 +27,8 @@ services:
       - $HOME/.composer/cache/:/tmp/composer/cache/
     env_file:
       - .env
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   mysql:
     image: in2code/mysql:5.7
