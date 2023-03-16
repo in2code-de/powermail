@@ -54,9 +54,7 @@ foreach ($plugins as $plugin) {
         = In2code\Powermail\Hook\PluginPreviewRenderer::class;
 }
 
-
 /**
  * Disable not needed fields in tt_content
  */
 // $GLOBALS['TCA']['tt_content']['types']['powermail_pi1']['subtypes_excludelist']['powermail_pi1'] = 'select_key,pages,recursive';
-

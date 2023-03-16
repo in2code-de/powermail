@@ -362,5 +362,4 @@ class SelectFieldViewHelper extends AbstractFormFieldViewHelper
         }
         return $valueElement;
     }
-
 }

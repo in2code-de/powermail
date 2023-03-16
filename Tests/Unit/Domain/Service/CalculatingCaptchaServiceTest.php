@@ -6,7 +6,6 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class CalculatingCaptchaServiceTest

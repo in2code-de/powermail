@@ -532,5 +532,4 @@ class User extends AbstractEntity
     {
         return $this->lastlogin;
     }
-
 }

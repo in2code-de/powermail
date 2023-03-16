@@ -5,12 +5,12 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Prophecy\Prophet;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PrefillFieldViewHelperTest

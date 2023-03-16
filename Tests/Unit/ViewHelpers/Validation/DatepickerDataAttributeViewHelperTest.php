@@ -4,11 +4,8 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper;
-use TYPO3\CMS\Core\Http\ServerRequest;
-use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContext;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class DatepickerDataAttributeViewHelperTest

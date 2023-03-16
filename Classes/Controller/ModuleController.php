@@ -19,7 +19,6 @@ use In2code\Powermail\Utility\StringUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
-use TYPO3\CMS\Backend\Routing\UriBuilder as BackendUriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -27,7 +26,6 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
@@ -308,7 +306,7 @@ class ModuleController extends AbstractController
     public function fixUploadFolderAction(): ResponseInterface
     {
         BasicFileUtility::createFolderIfNotExists(GeneralUtility::getFileAbsFileName('uploads/tx_powermail/'));
-        return (new ForwardResponse('checkBe'));
+        return new ForwardResponse('checkBe');
     }
 
     /**
@@ -326,7 +324,7 @@ class ModuleController extends AbstractController
     public function fixWrongLocalizedFormsAction(): ResponseInterface
     {
         $this->formRepository->fixWrongLocalizedForms();
-        return (new ForwardResponse('checkBe'));
+        return new ForwardResponse('checkBe');
     }
 
     /**
@@ -345,7 +343,7 @@ class ModuleController extends AbstractController
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $pageRepository->fixWrongLocalizedPages();
-        return (new ForwardResponse('checkBe'));
+        return new ForwardResponse('checkBe');
     }
 
     /**

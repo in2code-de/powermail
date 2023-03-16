@@ -171,5 +171,7 @@ class StringValidator extends AbstractValidator
      * @param string $value
      * @return void
      */
-    public function isValid($value): void { }
+    public function isValid($value): void
+    {
+    }
 }

@@ -46,7 +46,7 @@ class FieldRepository extends AbstractRepository
      *
      * @param string $marker
      * @param int $formUid
-     * @return null|Field
+     * @return Field|null
      * @throws InvalidQueryException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -155,7 +155,7 @@ class FieldRepository extends AbstractRepository
      *
      * @param string $marker
      * @param int $formUid
-     * @return null|Field
+     * @return Field|null
      * @throws InvalidQueryException
      */
     protected function findByMarkerAndFormAlternative(string $marker, int $formUid = 0): ?Field

@@ -4,8 +4,8 @@ namespace In2code\Powermail\Tests\Unit\Eid;
 
 use In2code\Powermail\Eid\GetLocationEid;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class GetLocationEidTest

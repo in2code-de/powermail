@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace In2code\Powermail\Update;
 
-use Doctrine\DBAL\DBALException;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
@@ -32,7 +31,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
 
     private const LIST_TYPES = [
         'powermail_pi1',
-        'powermail_pi2'
+        'powermail_pi2',
     ];
 
     /** @var FlexFormService */
@@ -90,7 +89,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
     {
         $success = false;
         foreach (self::LIST_TYPES as $list_type) {
-           $success = $this->performMigration($list_type);
+            $success = $this->performMigration($list_type);
         }
         return $success;
     }

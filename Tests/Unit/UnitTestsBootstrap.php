@@ -1,6 +1,6 @@
 <?php
 
-use \TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Core\Environment;
 
 /*
  * This file is part of the TYPO3 CMS project.

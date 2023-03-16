@@ -54,7 +54,6 @@ class InputValidator extends StringValidator
         return $this->result;
     }
 
-
     /**
      * Validation of given Params
      *

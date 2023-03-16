@@ -5,8 +5,8 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\BasicFileUtility;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class BasicFileUtiltyTest

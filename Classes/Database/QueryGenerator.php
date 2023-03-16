@@ -25,7 +25,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class QueryGenerator
 {
-
     /**
      * Copied from TYPO3s QueryHelper. QueryHelper is marked as internal.
      *
