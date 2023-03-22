@@ -143,7 +143,7 @@ abstract class AbstractController extends ActionController
     protected function reformatParamsForAction(): void
     {
         $this->uploadService->preflight($this->settings);
-        $arguments = $this->request->getArguments();
+        $arguments = array_merge_recursive($this->request->getArguments(), $this->request->getUploadedFiles());
         if (!isset($arguments['field'])) {
             return;
         }
