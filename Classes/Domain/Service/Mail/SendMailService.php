@@ -21,6 +21,7 @@ use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\ArrayUtility as ArrayUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Request;
 
 /**
  * Class SendMailService
@@ -40,7 +41,7 @@ class SendMailService
     /**
      * @var array
      */
-    protected array $overwriteConfig;
+    protected ?array $overwriteConfig = null;
 
     /**
      * @var Mail
@@ -56,13 +57,15 @@ class SendMailService
      * @var EventDispatcherInterface
      */
     private EventDispatcherInterface $eventDispatcher;
+    private Request $request;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+        $this->request = $request;
     }
 
     /**
@@ -299,7 +302,7 @@ class SendMailService
     protected function addHtmlBody(MailMessage $message, array $email): MailMessage
     {
         if ($email['format'] !== 'plain') {
-            $message->html($this->createEmailBody($email), FrontendUtility::getCharset());
+            $message->html($this->createEmailBody($email));
         }
         return $message;
     }
@@ -315,7 +318,7 @@ class SendMailService
     {
         if ($email['format'] !== 'html') {
             $plaintextService = GeneralUtility::makeInstance(PlaintextService::class);
-            $message->text($plaintextService->makePlain($this->createEmailBody($email)), FrontendUtility::getCharset());
+            $message->text($plaintextService->makePlain($this->createEmailBody($email)));
         }
         return $message;
     }
@@ -360,7 +363,7 @@ class SendMailService
     protected function createEmailBody(array $email): string
     {
         $standaloneView = TemplateUtility::getDefaultStandAloneView();
-        $standaloneView->getRequest()->setControllerName('Form');
+        $standaloneView->setRequest($this->request);
         $standaloneView->setTemplatePathAndFilename(TemplateUtility::getTemplatePath($email['template'] . '.html'));
 
         // variables

@@ -7,6 +7,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
@@ -24,13 +25,15 @@ class SendReceiverMailPreflight
      */
     protected array $settings = [];
 
+    protected Request $request;
+
     /**
      * @param array $settings
      */
-    public function __construct(array $settings)
+    public function __construct(array $settings, Request $request)
     {
         $this->settings = $settings;
-        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class);
+        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class, $request);
     }
 
     /**

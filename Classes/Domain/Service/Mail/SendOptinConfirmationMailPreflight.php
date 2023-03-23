@@ -10,6 +10,7 @@ use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Mvc\Request;
 
 /**
  * Class SendOptinConfirmationMailPreflight
@@ -40,11 +41,11 @@ class SendOptinConfirmationMailPreflight
      * @param array $settings
      * @param array $conf
      */
-    public function __construct(array $settings, array $conf)
+    public function __construct(array $settings, array $conf, Request $request)
     {
         $this->settings = $settings;
         $this->conf = $conf;
-        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class);
+        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class, $request);
         $this->mailRepository = GeneralUtility::makeInstance(MailRepository::class);
     }
 

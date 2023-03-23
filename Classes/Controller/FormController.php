@@ -228,7 +228,8 @@ class FormController extends AbstractController
             $mailPreflight = GeneralUtility::makeInstance(
                 SendOptinConfirmationMailPreflight::class,
                 $this->settings,
-                $this->conf
+                $this->conf,
+                $this->request
             );
             $mailPreflight->sendOptinConfirmationMail($mail);
             $this->view->assign('optinActive', true);
@@ -268,12 +269,17 @@ class FormController extends AbstractController
                 $mailPreflight = GeneralUtility::makeInstance(
                     SendSenderMailPreflight::class,
                     $this->settings,
-                    $this->conf
+                    $this->conf,
+                    $this->request
                 );
                 $mailPreflight->sendSenderMail($mail);
             }
             if ($this->isReceiverMailEnabled()) {
-                $mailPreflight = GeneralUtility::makeInstance(SendReceiverMailPreflight::class, $this->settings);
+                $mailPreflight = GeneralUtility::makeInstance(
+                    SendReceiverMailPreflight::class,
+                    $this->settings,
+                    $this->request
+                );
                 $isSent = $mailPreflight->sendReceiverMail($mail, $hash);
                 if ($isSent === false) {
                     $this->addFlashMessage(
@@ -405,7 +411,8 @@ class FormController extends AbstractController
             $mailService = GeneralUtility::makeInstance(
                 SendDisclaimedMailPreflight::class,
                 $this->settings,
-                $this->conf
+                $this->conf,
+                $this->request
             );
             $mailService->sendMail($mail);
             $this->mailRepository->removeFromDatabase($mail->getUid());

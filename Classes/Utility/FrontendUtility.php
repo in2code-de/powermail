@@ -90,16 +90,6 @@ class FrontendUtility
     }
 
     /**
-     * Get charset for frontend rendering
-     *
-     * @return string
-     */
-    public static function getCharset(): string
-    {
-        return ObjectUtility::getTyposcriptFrontendController()->metaCharset;
-    }
-
-    /**
      * Check if logged in user is allowed to make changes in Pi2
      *
      * @param array $settings $settings TypoScript and Flexform Settings
