@@ -6,6 +6,7 @@ namespace In2code\Powermail\Finisher;
 use In2code\Powermail\Domain\Service\RedirectUriService;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
+use TYPO3\CMS\Core\Http\ResponseFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -29,7 +30,8 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
         $redirectService = GeneralUtility::makeInstance(RedirectUriService::class, $this->contentObject);
         $uri = $redirectService->getRedirectUri();
         if (!empty($uri) && $this->isRedirectEnabled()) {
-            $response = $this->responseFactory
+            $responseFactory = GeneralUtility::makeInstance(ResponseFactory::class);
+            $response = $responseFactory
                 ->createResponse(303)
                 ->withAddedHeader('location', $uri);
             throw new PropagateResponseException($response);
