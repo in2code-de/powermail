@@ -62,18 +62,18 @@ Quick guide:
 
 ### 3.1. Versions and Support
 
-| Powermail           | TYPO3      | PHP       | Support/Development                             |
-| ------------------- | ---------- | ----------|------------------------------------------------ |
-| 10.x                | 11.x       | >= 7.4    | Features, Bugfixes, Security Updates            |
-| 9.x                 | 11.x       | >= 7.4    | Support dropped                                 |
-| 8.x                 | 10.x       | >= 7.2    | Security Updates (paid backports are possible)  |
-| 7.x                 | 8.7 - 9.x  | 7.0 - 7.x | Security Updates (paid backports are possible)  |
-| 6.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                                 |
-| 5.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                                 |
-| 4.x                 | 7.6 - 8.7  | 5.5 - 7.2 | Security Updates (paid backports are possible)  |
-| 3.x                 | 7.6 - 8.7  | 5.5 - 7.2 | Support dropped                                 |
-| 2.18 - 2.25         | 6.2 - 7.6  | 5.5 - 7.0 | Support dropped                                 |
-| 2.2 - 2.17          | 6.2 - 7.6  | 5.3 - 7.0 | Support dropped                                 |
+| Powermail   | TYPO3     | PHP       | Support/Development                            |
+|-------------|-----------|-----------|------------------------------------------------|
+| 10.x        | 11.x      | >= 7.4    | Features, Bugfixes, Security Updates           |
+| 9.x         | 11.x      | >= 7.4    | Support dropped                                |
+| 8.x         | 10.x      | >= 7.2    | Security Updates (paid backports are possible) |
+| 7.x         | 8.7 - 9.x | 7.0 - 7.x | Security Updates (paid backports are possible) |
+| 6.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
+| 5.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
+| 4.x         | 7.6 - 8.7 | 5.5 - 7.2 | Security Updates (paid backports are possible) |
+| 3.x         | 7.6 - 8.7 | 5.5 - 7.2 | Support dropped                                |
+| 2.18 - 2.25 | 6.2 - 7.6 | 5.5 - 7.0 | Support dropped                                |
+| 2.2 - 2.17  | 6.2 - 7.6 | 5.3 - 7.0 | Support dropped                                |
 
 Do you need free support? There is a kind TYPO3 community that could help you.
 You can ask questions at https://stackoverflow.com and tag your question with `TYPO3` and `Powermail`.

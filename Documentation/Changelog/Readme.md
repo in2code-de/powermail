@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 10.7.2       | 2023-03-23   | Fix possible type error on Pi2 if there is no field availabe to an answer, documentation update                                                                                                                       |
 | 10.7.1       | 2023-02-21   | Fix smaller PHP 8 issues, small documentation updates                                                                                                                                                                 |
 | 10.7.0       | 2022-11-29   | Make JS validation accessible, support also space as separator for emails, fix some links in backend context, fix export task (when called from CLI)                                                                  |
 | 10.6.1       | 2022-11-25   | Remove no_cache=1, fix missing array key for PHP8, some label bugfixes                                                                                                                                                |
