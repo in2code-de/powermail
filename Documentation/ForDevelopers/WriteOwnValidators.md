@@ -8,7 +8,7 @@ In powermail a combination of different validation types is possible:
 - Clientside Validation (JavaScript)
 - Clientside Validation (Native with HTML5)
 
-You can enable or disable or combine some of the validation methods via TypoScript
+You can enable or disable or combine some validation methods via TypoScript
 
 ```
 plugin.tx_powermail.settings.setup {
@@ -21,7 +21,7 @@ plugin.tx_powermail.settings.setup {
 ```
 
 
-Meanwhile we added an own robust JavaScript validation which also supports native HTML5 validation
+Meanwhile, we added an own robust JavaScript validation which also supports native HTML5 validation
 
 ![developer_new_validation2](../Images/developer_new_validation2.png)
 
@@ -35,7 +35,7 @@ Clientside Validation Example
 
 ## 1. Add a new validation type
 
-A new validation types is a validiation that can be selected for a single field by the editor.
+A new validation type is a validation that can be selected for a single field by the editor.
 The following example includes clientside and serverside validation.
 
 ### Add new Option
@@ -56,7 +56,7 @@ This leads to a new validation option for the editors:
 
 ### Add new JavaScript Validation
 
-You will see a HTML-Code like this for this field
+You will see an HTML-Code like this for this field
 
 `<input type="text" ... data-powermail-error-message="" data-powermail-custom100="80000" />`
 
@@ -318,9 +318,9 @@ Dispatcher within the class waits for your extension.
 
 #### SignalSlot in CustomValidator
 
-| Signal Class Name | Signal Name | Located in Method | Passed arguments | Description |
-|-------------------|-------------|-------------------|------------------|-------------|
-| `In2code\Powermail\Domain\Validator\CustomValidator` | isValid | isValid() | $mail, $this | Add your own serverside Validation |
+| Signal Class Name                                    | Signal Name | Located in Method | Passed arguments | Description                        |
+|------------------------------------------------------|-------------|-------------------|------------------|------------------------------------|
+| `In2code\Powermail\Domain\Validator\CustomValidator` | isValid     | isValid()         | $mail, $this     | Add your own serverside Validation |
 
 ### Call the Custom Validator from your Extension
 
