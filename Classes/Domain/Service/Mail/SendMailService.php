@@ -10,7 +10,6 @@ use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Events\SendMailServiceCreateEmailBodyEvent;
 use In2code\Powermail\Events\SendMailServicePrepareAndSendEvent;
 use In2code\Powermail\Utility\ArrayUtility;
-use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
