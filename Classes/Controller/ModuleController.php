@@ -193,7 +193,7 @@ class ModuleController extends AbstractController
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
+                'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
         $this->addDefaultMenu('reportingFormBe');
@@ -221,7 +221,7 @@ class ModuleController extends AbstractController
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
+                'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
         $this->addDefaultMenu('reportingMarketingBe');
