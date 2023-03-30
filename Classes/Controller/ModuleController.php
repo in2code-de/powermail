@@ -159,13 +159,13 @@ class ModuleController extends AbstractController
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                 'fieldUids' => GeneralUtility::trimExplode(
                     ',',
-                    StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
+                    StringUtility::conditionalVariable($this->piVars['export']['fields'] ?? '', ''),
                     true
                 ),
             ]
         );
 
-        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
+        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameCsv'] ?? '', 'export.csv');
         return $this->htmlResponse()
             ->withHeader('Content-Type', 'text/x-csv')
             ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
