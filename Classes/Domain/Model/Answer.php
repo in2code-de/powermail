@@ -53,7 +53,7 @@ class Answer extends AbstractEntity
      *
      * @var int
      */
-    protected $_languageUid = -1;
+    protected ?int $_languageUid = -1;
 
     /**
      * @return array|false|mixed|string|string[]

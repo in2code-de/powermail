@@ -147,7 +147,7 @@ class Mail extends AbstractEntity
      *
      * @var int
      */
-    protected $_languageUid = -1;
+    protected ?int $_languageUid = -1;
 
     /**
      * __construct
