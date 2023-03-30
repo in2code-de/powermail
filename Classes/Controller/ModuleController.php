@@ -104,7 +104,7 @@ class ModuleController extends AbstractController
         $this->moduleTemplate->assignMultiple([
             'mails' => $mails,
             'formUids' => $formUids,
-            'firstForm' => $this->formRepository->findByUid($firstFormUid),
+            'firstForm' => $this->formRepository->findByUid((int)$firstFormUid),
             'piVars' => $this->piVars,
             'pid' => $this->id,
             'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
