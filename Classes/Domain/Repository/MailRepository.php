@@ -450,7 +450,7 @@ class MailRepository extends AbstractRepository
         if (!empty($piVars['sorting'])) {
             $sorting = [];
             foreach ((array)array_reverse($piVars['sorting']) as $property => $sortOrderName) {
-                $sorting[$this->cleanStringForQuery($property)] = $this->getSortOrderByString($sortOrderName);
+                $sorting[$this->cleanStringForQuery(StringUtility::conditionalVariable($property, 'crdate'))] = $this->getSortOrderByString($sortOrderName);
             }
         }
         return $sorting;
