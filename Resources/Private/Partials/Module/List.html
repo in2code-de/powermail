@@ -1,5 +1,6 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 {namespace core=TYPO3\CMS\Core\ViewHelpers}
+{namespace be=TYPO3\CMS\Backend\ViewHelpers}
 
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -74,8 +75,8 @@
 					</th>
 					<th nowrap="nowrap" class="col-control">
 						<f:if condition="{writeAccess}">
-							<span class="btn">
-								<span class="t3-icon fa fa-plus addPowermailSelectionAll" title="add all">&nbsp;</span>
+							<span class="btn addPowermailSelectionAll">
+								<core:Icon identifier="actions-variable-add"/>
 							</span>
 						</f:if>
 					</th>
@@ -125,23 +126,29 @@
 
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
-								<span class="btn">
-									<span class="t3-icon fa fa-desktop" data-action="openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
+								<span class="btn" data-action="openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">
+									<core:Icon identifier="actions-device-desktop"/>
 								</span>
 
 								<f:if condition="{writeAccess}">
 									<f:comment>
 										Edit
 									</f:comment>
-									<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_mail',identifier:mail.uid)}">
-										<span class="t3-icon fa fa-pencil">&nbsp;</span>
-									</a>
-
+									<span class="btn">
+										<be:link.editRecord
+												returnUrl="{f:be.uri(route: 'web_powermail', parameters: '{id: pid}')}"
+												table="tx_powermail_domain_model_mail"
+												title="{f:translate(key: 'BackendListHelpEdit')}"
+												uid="{mail.uid}">
+											<core:Icon identifier="actions-open"/>
+										</be:link.editRecord>
+									</span>
 									<f:comment>
 										Delete
 									</f:comment>
-									<span class="btn">
-										<span class="t3-icon fa fa-trash" data-action="deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
+									<span class="btn" data-action="deleteMail"
+										  title="{f:translate(key:'BackendListMailDelete')}">
+										<core:Icon identifier="actions-delete"/>
 									</span>
 
 									<f:comment>
@@ -150,10 +157,16 @@
 									<span class="btn">
 										<f:if condition="{mail.hidden}">
 											<f:then>
-												<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off unhideMail visibilityButton">&nbsp;</span>
+												<span class="unhideMail visibilityButton"
+													  title="{f:translate(key:'BackendListHelpUnhide')}">
+													<core:Icon identifier="actions-toggle-off"/>
+												</span>
 											</f:then>
 											<f:else>
-												<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on hideMail visibilityButton">&nbsp;</span>
+												<span class="hideMail visibilityButton"
+													  title="{f:translate(key:'BackendListHelpHide')}">
+													<core:Icon identifier="actions-toggle-on"/>
+												</span>
 											</f:else>
 										</f:if>
 									</span>
@@ -161,8 +174,8 @@
 									<f:comment>
 										Select
 									</f:comment>
-									<span class="btn">
-										<span class="t3-icon fa fa-plus addPowermailSelection" title="add">&nbsp;</span>
+									<span class="btn addPowermailSelection">
+										<core:Icon identifier="actions-variable-add"/>
 									</span>
 								</f:if>
 
