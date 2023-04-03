@@ -1,5 +1,6 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 {namespace core=TYPO3\CMS\Core\ViewHelpers}
+{namespace be=TYPO3\CMS\Backend\ViewHelpers}
 
 <p>
 	<h2>
@@ -30,7 +31,6 @@
 </f:comment>
 <f:section name="Pi1">
 	<h3><f:translate key="LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:BackendPluginInformationTitleMailForm">Mailform configuration</f:translate></h3>
-
 	<table>
 		<f:if condition="{form}">
 			<tr>
@@ -40,10 +40,10 @@
 					</strong>
 				</td>
 				<td>
-					<a href="{vh:be.editLink(table:'form',identifier:formUid)}">
+                    <be:link.editRecord uid="{formUid}" table="tx_powermail_domain_model_form" returnUrl="{f:be.uri(route: 'web_layout', parameters: '{id: row.pid}')}">
 						{form}
 						<core:Icon identifier="actions-open" />
-					</a>
+                    </be:link.editRecord>
 				</td>
 			</tr>
 		</f:if>
@@ -154,10 +154,10 @@
 							&lt;{mail.senderMail}&gt;
 						</td>
 						<td style="padding: 2px 10px 2px 5px">
-							<a href="{vh:be.editLink(table:'mail',identifier:mail.uid)}">
+                            <be:link.editRecord uid="{mail.uid}" table="tx_powermail_domain_model_mail" returnUrl="{f:be.uri(route: 'web_layout', parameters: '{id: row.pid}' )}">
 								{mail.subject}
 								<core:Icon identifier="actions-open" />
-							</a>
+                            </be:link.editRecord>
 						</td>
 					</tr>
 					<f:if condition="{index.isLast}">
