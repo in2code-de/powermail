@@ -13,7 +13,7 @@ return [
         'path' => '/powermail/reportingform',
         'target' => \In2code\Powermail\Controller\ModuleController::class . '::reportingFormBeAction',
     ],
-    'powermail_reportingform' => [
+    'powermail_reportingmarketing' => [
         'path' => '/powermail/reportingmarketing',
         'target' => \In2code\Powermail\Controller\ModuleController::class . '::reportingMarketingBeAction',
     ],
