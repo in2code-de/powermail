@@ -155,22 +155,15 @@
 										Hide/Show
 									</f:comment>
 									<span class="btn">
-										<f:if condition="{mail.hidden}">
-											<f:then>
-												<span class="unhideMail visibilityButton"
-													  title="{f:translate(key:'BackendListHelpUnhide')}">
-													<core:Icon identifier="actions-toggle-off"/>
-												</span>
-											</f:then>
-											<f:else>
-												<span class="hideMail visibilityButton"
-													  title="{f:translate(key:'BackendListHelpHide')}">
-													<core:Icon identifier="actions-toggle-on"/>
-												</span>
-											</f:else>
-										</f:if>
+										<span class="unhideMail visibilityButton {f:if(condition:mail.hidden, else:' hide')}"
+											  title="{f:translate(key:'BackendListHelpUnhide')}">
+											<core:Icon identifier="actions-toggle-off"/>
+										</span>
+										<span class="hideMail visibilityButton {f:if(condition:mail.hidden, then: 'hide')}"
+											  title="{f:translate(key:'BackendListHelpHide')}">
+											<core:Icon identifier="actions-toggle-on"/>
+										</span>
 									</span>
-
 									<f:comment>
 										Select
 									</f:comment>
