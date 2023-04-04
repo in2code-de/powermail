@@ -536,7 +536,7 @@ class MailRepository extends AbstractRepository
                             $query->like('sender_ip', '%' . $value . '%'),
                             $query->like('answers.value', '%' . $value . '%'),
                         ];
-                        $and[] = $query->logicalOr($or);
+                        $and[] = $query->logicalOr(...$or);
                     } elseif ($field === 'form' && !empty($value)) {
                         $and[] = $query->equals('form', $value);
                     } elseif ($field === 'start' && !empty($value)) {
