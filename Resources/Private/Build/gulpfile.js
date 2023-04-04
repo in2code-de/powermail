@@ -60,7 +60,7 @@ const build = series(jsForm, jsMarketing, jsBackend, css);
 // "npm run watch"
 const def = parallel(
   function watchSCSS() { return watch(__dirname + '/../Sass/**/*.scss', series(css)) },
-  function watchJS() { return watch(__dirname + '/JavaScript/*.js', series(jsForm, jsMarketing)) }
+  function watchJS() { return watch(__dirname + '/JavaScript/*.js', series(jsForm, jsMarketing, jsBackend)) }
 );
 
 module.exports = {
