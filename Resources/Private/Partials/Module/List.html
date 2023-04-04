@@ -13,24 +13,17 @@
 				<tr>
 					<th nowrap="nowrap" class="col-icon"></th>
 					<th nowrap="nowrap">
-						<f:if condition="{piVars.tx_powermail_web_powermailm1.sorting.crdate}">
+						<f:if condition="{piVars.tx_powermail_web_powermailm1.sorting.crdate} && {0 : piVars.tx_powermail_web_powermailm1.sorting.crdate} == {0 : 'asc'}">
 							<f:then>
-								<f:if condition="{0 : piVars.tx_powermail_web_powermailm1.sorting.crdate} == {0 : 'desc'}">
-									<f:then>
-										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting sorting_desc">
-											<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
-										</f:link.action>
-									</f:then>
-									<f:else>
-										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}" class="sorting sorting_asc">
-											<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
-										</f:link.action>
-									</f:else>
-								</f:if>
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}" class="sorting">
+									<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
+									<core:Icon identifier="actions-move-up" />
+								</f:link.action>
 							</f:then>
 							<f:else>
 								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting">
 									<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
+									<core:Icon identifier="actions-move-down" />
 								</f:link.action>
 							</f:else>
 						</f:if>
@@ -51,24 +44,17 @@
 						</strong>
 					</th>
 					<th nowrap="nowrap">
-						<f:if condition="{piVars.tx_powermail_web_powermailm1.sorting.subject}">
+						<f:if condition="{piVars.tx_powermail_web_powermailm1.sorting.subject} && {0 : piVars.tx_powermail_web_powermailm1.sorting.subject} == {0 : 'asc'}">
 							<f:then>
-								<f:if condition="{0 : piVars.tx_powermail_web_powermailm1.sorting.subject} == {0 : 'desc'}">
-									<f:then>
-										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting sorting_desc">
-											<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
-										</f:link.action>
-									</f:then>
-									<f:else>
-										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'desc'}}}" class="sorting sorting_asc">
-											<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
-										</f:link.action>
-									</f:else>
-								</f:if>
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'desc'}}}" class="sorting">
+									<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
+									<core:Icon identifier="actions-move-up" />
+								</f:link.action>
 							</f:then>
 							<f:else>
 								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting">
 									<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
+									<core:Icon identifier="actions-move-down" />
 								</f:link.action>
 							</f:else>
 						</f:if>
