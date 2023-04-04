@@ -447,9 +447,9 @@ class MailRepository extends AbstractRepository
             $this->cleanStringForQuery(StringUtility::conditionalVariable($sortby, 'crdate')) =>
                 $this->getSortOrderByString($order),
         ];
-        if (!empty($piVars['sorting'])) {
+        if (!empty($piVars['tx_powermail_web_powermailm1']['sorting'])) {
             $sorting = [];
-            foreach ((array)array_reverse($piVars['sorting']) as $property => $sortOrderName) {
+            foreach ((array)array_reverse($piVars['tx_powermail_web_powermailm1']['sorting']) as $property => $sortOrderName) {
                 $sorting[$this->cleanStringForQuery(StringUtility::conditionalVariable($property, 'crdate'))] = $this->getSortOrderByString($sortOrderName);
             }
         }
