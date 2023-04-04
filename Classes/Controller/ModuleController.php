@@ -92,9 +92,13 @@ class ModuleController extends AbstractController
         $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
 
         $currentPage = 1;
-        if ($this->request->hasArgument('currentPage')) {
-            $currentPage =  $this->request->getArgument('currentPage');
+        if ($this->request->hasArgument('tx_powermail_web_powermailm1')) {
+            $moduleArguments = $this->request->getArgument('tx_powermail_web_powermailm1');
+            if (array_key_exists('currentPage', $moduleArguments)) {
+                $currentPage =  (int)$moduleArguments['currentPage'];
+            }
         }
+
         $itemsPerPage = $this->settings['perPage'] ?? 10;
         $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $mails, $currentPage, $itemsPerPage);
         $pagination = GeneralUtility::makeInstance(SlidingWindowPagination::class, $paginator, 15);

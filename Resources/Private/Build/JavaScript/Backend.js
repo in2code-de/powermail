@@ -115,7 +115,7 @@ function PowermailBackend($) {
         if (page > 0) {
           const form = document.querySelector('#powermail_module_search');
           const paginationHiddenField = document.createElement('input');
-          paginationHiddenField.setAttribute('type', 'text');
+          paginationHiddenField.setAttribute('type', 'hidden');
           paginationHiddenField.setAttribute('name', 'tx_powermail_web_powermailm1[currentPage]');
           paginationHiddenField.setAttribute('value', page.toString());
           form.appendChild(paginationHiddenField);
