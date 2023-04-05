@@ -87,13 +87,6 @@ call_user_func(function () {
         \In2code\Powermail\Hook\CreateMarker::class;
 
     /**
-     * Hook to extend the FlexForm
-     */
-    $ffTools = \TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$ffTools]['flexParsing']['powermail'] =
-        In2code\Powermail\Hook\FlexFormManipulationHook::class;
-
-    /**
      * JavaScript evaluation of TCA fields
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =

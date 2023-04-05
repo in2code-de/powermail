@@ -36,3 +36,15 @@ services:
       - name: 'console.command'
         command: 'powermail:resetMarkers'
         description: 'Reset all marker names in fields if there are broken fields without or duplicated markernames.'
+
+  In2code\Powermail\EventListener\FlexFormParsingModifyEventListener:
+    tags:
+      - name: 'event.listener'
+        identifier: 'form-framework/set-data-structure'
+        method: 'setDataStructure'
+      - name: 'event.listener'
+        identifier: 'form-framework/modify-data-structure'
+        method: 'modifyDataStructure'
+      - name: 'event.listener'
+        identifier: 'form-framework/set-data-structure-identifier'
+        method: 'setDataStructureIdentifier'

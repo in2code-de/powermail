@@ -57,6 +57,19 @@ class DatabaseUtility
         return $existing;
     }
 
+    public static function getPidForRecord(int $uid, string $tableName): int
+    {
+        $queryBuilder = self::getQueryBuilderForTable($tableName);
+        $pid = $queryBuilder
+            ->select('pid')
+            ->from($tableName)
+            ->where('uid = ' . $uid)
+            ->executeQuery()
+            ->fetchOne();
+
+        return (int)$pid;
+    }
+
     /**
      * @param string $fieldName
      * @param string $tableName
