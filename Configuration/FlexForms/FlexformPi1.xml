@@ -34,6 +34,7 @@
 					</settings.flexform.main.form>
 					<settings.flexform.main.formnote>
 						<TCEforms>
+							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.main.formnote</label>
 							<config>
 								<type>user</type>
 								<renderType>powermailShowFormNoteEditForm</renderType>

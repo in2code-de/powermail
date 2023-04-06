@@ -580,6 +580,10 @@
 				<source>Choose a Powermail Form</source>
 				<target state="translated">Powermail Formular wählen</target>
 			</trans-unit>
+            <trans-unit id="flexform.main.formnote" resname="flexform.main.formnote.noform">
+                <source>Form overview</source>
+                <target state"=translated">Formular Übersicht</target>
+            </trans-unit>
 			<trans-unit id="flexform.main.formnote.noform">
 				<source>Please select a form</source>
 				<target state="translated">Bitte Formular wählen</target>
