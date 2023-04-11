@@ -446,6 +446,16 @@ class SendMailService
             $this->overwriteConfig,
             'senderEmail'
         );
+        $email['replyToName'] = TypoScriptUtility::overwriteValueFromTypoScript(
+            $email['replyToName'],
+            $this->overwriteConfig,
+            'replyToName'
+        );
+        $email['replyToEmail'] = TypoScriptUtility::overwriteValueFromTypoScript(
+            $email['replyToEmail'],
+            $this->overwriteConfig,
+            'replyToEmail'
+        );
         $email['receiverName'] = TypoScriptUtility::overwriteValueFromTypoScript(
             $email['receiverName'],
             $this->overwriteConfig,
@@ -464,6 +474,8 @@ class SendMailService
             'receiverEmail',
             'senderName',
             'senderEmail',
+            'replyToName',
+            'replyToEmail',
             'subject',
         ];
         foreach ($parse as $value) {
