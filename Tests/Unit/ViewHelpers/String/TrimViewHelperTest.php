@@ -23,7 +23,7 @@ class TrimViewHelperTest extends UnitTestCase
     {
         $this->trimViewHelperMock = $this->getAccessibleMock(
             TrimViewHelperFixture::class,
-            ['dummy']
+            null
         );
     }
 

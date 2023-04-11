@@ -23,7 +23,7 @@ class StringValidatorTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             StringValidator::class,
-            ['dummy'],
+            null,
             [],
             '',
             false

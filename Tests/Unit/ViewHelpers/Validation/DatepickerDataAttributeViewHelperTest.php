@@ -25,7 +25,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             DatepickerDataAttributeViewHelper::class,
-            ['dummy']
+            null
         );
     }
 

@@ -26,7 +26,7 @@ class NameMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             NameMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],

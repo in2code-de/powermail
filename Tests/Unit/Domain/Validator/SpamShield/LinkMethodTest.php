@@ -25,7 +25,7 @@ class LinkMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             LinkMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],

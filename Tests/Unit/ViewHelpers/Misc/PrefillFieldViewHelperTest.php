@@ -38,7 +38,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $eventDispatcher = new EventDispatcher($listenerProviderProphecy->reveal());
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             PrefillFieldViewHelper::class,
-            ['dummy'],
+            null,
             [$eventDispatcher]
         );
     }

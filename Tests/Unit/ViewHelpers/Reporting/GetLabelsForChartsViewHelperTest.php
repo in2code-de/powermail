@@ -23,7 +23,7 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             GetLabelsForChartsViewHelper::class,
-            ['dummy']
+            null
         );
     }
 

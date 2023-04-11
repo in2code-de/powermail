@@ -24,7 +24,7 @@ class ValueBlacklistMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             ValueBlacklistMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],

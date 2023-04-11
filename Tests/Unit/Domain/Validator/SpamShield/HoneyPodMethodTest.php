@@ -24,7 +24,7 @@ class HoneyPodMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             HoneyPodMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],

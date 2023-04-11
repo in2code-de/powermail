@@ -26,7 +26,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         TestingHelper::setDefaultConstants();
         $this->generalValidatorMock = $this->getAccessibleMock(
             CalculatingCaptchaService::class,
-            ['dummy'],
+            null,
             [true]
         );
         $this->generalValidatorMock->_set(

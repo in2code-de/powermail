@@ -54,7 +54,7 @@ class FormControllerTest extends UnitTestCase
 
         $this->generalValidatorMock = $this->getAccessibleMock(
             FormController::class,
-            ['dummy'],
+            null,
             [
                 new FormRepository(new ObjectManager()),
                 new FieldRepository(new ObjectManager()),

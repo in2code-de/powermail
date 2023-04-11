@@ -23,7 +23,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     {
         $this->powermailVersionNoteViewHelperMock = $this->getAccessibleMock(
             PowermailVersionNoteViewHelper::class,
-            ['dummy']
+            null
         );
     }
 

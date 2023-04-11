@@ -25,7 +25,7 @@ class UniqueMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             UniqueMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],

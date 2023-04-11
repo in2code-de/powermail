@@ -23,7 +23,7 @@ class VariablesViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             VariablesViewHelper::class,
-            ['dummy']
+            null
         );
     }
 

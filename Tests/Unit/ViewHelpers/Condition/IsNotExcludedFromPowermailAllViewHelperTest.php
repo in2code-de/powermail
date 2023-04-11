@@ -23,7 +23,7 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
     {
         $this->isNotExcludedFromPowermailAllViewHelperMock = $this->getAccessibleMock(
             IsNotExcludedFromPowermailAllViewHelper::class,
-            ['dummy']
+            null
         );
     }
 

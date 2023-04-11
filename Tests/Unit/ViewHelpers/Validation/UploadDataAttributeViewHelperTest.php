@@ -24,7 +24,7 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             UploadAttributesViewHelper::class,
-            ['dummy']
+            null
         );
     }
 

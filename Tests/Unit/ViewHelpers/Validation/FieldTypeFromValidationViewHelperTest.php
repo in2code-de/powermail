@@ -24,7 +24,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             FieldTypeFromValidationViewHelper::class,
-            ['dummy']
+            null
         );
     }
 

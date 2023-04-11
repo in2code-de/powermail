@@ -22,7 +22,7 @@ class AnswerTest extends UnitTestCase
      */
     public function setUp(): void
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(Answer::class, ['dummy']);
+        $this->generalValidatorMock = $this->getAccessibleMock(Answer::class, null);
     }
 
     /**

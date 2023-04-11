@@ -24,7 +24,7 @@ class IpBlacklistMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             IpBlacklistMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],

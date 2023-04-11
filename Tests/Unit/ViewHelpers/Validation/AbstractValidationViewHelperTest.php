@@ -23,7 +23,7 @@ class AbstractValidationViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             AbstractValidationViewHelper::class,
-            ['dummy']
+            null
         );
     }
 

@@ -24,7 +24,7 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
     {
         $this->enableJavascriptValidationAndAjaxViewHelperMock = $this->getAccessibleMock(
             EnableJavascriptValidationAndAjaxViewHelperFixture::class,
-            ['dummy']
+            null
         );
     }
 

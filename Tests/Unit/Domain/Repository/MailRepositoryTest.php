@@ -33,7 +33,11 @@ class MailRepositoryTest extends UnitTestCase
         parent::setUp();
         TestingHelper::setDefaultConstants();
         $objectManager = TestingHelper::getObjectManager();
-        $this->generalValidatorMock = $this->getAccessibleMock(MailRepository::class, ['dummy'], [$objectManager]);
+        $this->generalValidatorMock = $this->getAccessibleMock(
+            MailRepository::class,
+            null,
+            [$objectManager],
+        );
     }
 
     /**

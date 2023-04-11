@@ -23,7 +23,7 @@ class SpamShieldValidatorTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             SpamShieldValidator::class,
-            ['dummy'],
+            null,
             [],
             '',
             false

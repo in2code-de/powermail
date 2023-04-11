@@ -26,7 +26,7 @@ class RedirectUriServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             RedirectUriServiceFixture::class,
-            ['dummy'],
+            null,
             [new ContentObjectRenderer()]
         );
     }

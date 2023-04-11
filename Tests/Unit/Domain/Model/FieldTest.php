@@ -21,10 +21,7 @@ class FieldTest extends UnitTestCase
      */
     public function setUp(): void
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(
-            FieldFixture::class,
-            ['dummy']
-        );
+        $this->generalValidatorMock = $this->getAccessibleMock(FieldFixture::class, null);
     }
 
     /**

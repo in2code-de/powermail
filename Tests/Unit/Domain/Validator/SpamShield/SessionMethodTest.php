@@ -27,7 +27,7 @@ class SessionMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             SessionMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],

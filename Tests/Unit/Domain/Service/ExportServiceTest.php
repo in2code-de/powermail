@@ -23,7 +23,7 @@ class ExportServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             ExportService::class,
-            ['dummy']
+            null
         );
     }
 

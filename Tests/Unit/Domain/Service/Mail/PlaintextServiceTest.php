@@ -21,7 +21,7 @@ class PlaintextServiceTest extends UnitTestCase
      */
     public function setUp(): void
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(PlaintextService::class, ['addSender']);
+        $this->generalValidatorMock = $this->getAccessibleMock(PlaintextService::class, null);
     }
 
     /**
