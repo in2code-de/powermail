@@ -101,6 +101,4 @@ final class FlexFormParsingModifyEventListener
     {
         return $GLOBALS['TYPO3_REQUEST'];
     }
-
-
 }
