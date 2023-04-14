@@ -2,7 +2,7 @@ version: '3.6'
 services:
   chrome:
     container_name: ddev-${DDEV_SITENAME}-chromedriver
-    image: selenium/standalone-chrome:3.141
+    image: seleniarm/standalone-chromium
     restart: "no"
     volumes:
       - /dev/shm:/dev/shm
