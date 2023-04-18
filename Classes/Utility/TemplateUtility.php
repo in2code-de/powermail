@@ -148,6 +148,7 @@ class TemplateUtility
             return $string;
         }
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        $standaloneView->setRequest($GLOBALS['TYPO3_REQUEST']);
         $standaloneView->setTemplateSource($string);
         $standaloneView->assignMultiple($variables);
         return $standaloneView->render() ?? '';
