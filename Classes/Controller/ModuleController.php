@@ -261,6 +261,7 @@ class ModuleController extends AbstractController
     public function checkBeAction(): ResponseInterface
     {
         $this->moduleTemplate->assign('pid', $this->id);
+        $this->moduleTemplate->assign('settings', $this->settings['setup'] ?? []);
         $this->sendTestEmail(null);
         $this->addDefaultMenu('checkBe');
         return $this->moduleTemplate->renderResponse('CheckBe');
