@@ -4,6 +4,9 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension for TYPO3 with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
+> :warning: **TYPO3 12 compatibility**\
+> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how to get access to a TYPO3 12 version
+
 ## Powermail 9 and 10
 
 Changes for powermail 10 with TYPO3 11:
@@ -18,17 +21,6 @@ Changes done for powermail 9 with TYPO3 11:
 * Update unit tests
 * Update behaviour tests
 * Manual tests (especially in backend context)
-
-### Early Access Programm
-
-From now on an Early Access Programm is available for Powermail. You can get access for 12 month by donating any ammount >100 € net.
-
-You will receive:
-* Private Access to a github repository
-* Early access to new releases
-* guaranteed paid support options
-
-Get member of the programm at: https://www.in2code.de/en/agency/typo3-extensions/#c3643
 
 ### Supporters for TYPO3 11
 
