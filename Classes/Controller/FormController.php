@@ -84,7 +84,7 @@ class FormController extends AbstractController
                 'form' => $form,
                 'ttContentData' => $this->contentObject->data,
                 'messageClass' => $this->messageClass,
-                'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create'),
+                'action' => ($this->settings['main']['confirmation'] ? 'checkConfirmation' : 'checkCreate'),
             ]
         );
 
@@ -92,17 +92,15 @@ class FormController extends AbstractController
     }
 
     /**
-     * Rewrite Arguments to receive a clean mail object in confirmationAction
-     *
-     * @return void
+     * @param Mail $mail
+     * @return ResponseInterface
+     * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
-     * @throws DeprecatedException
-     * @noinspection PhpUnused
      */
-    public function initializeConfirmationAction(): ResponseInterface
+    public function checkConfirmationAction(Mail $mail): ResponseInterface
     {
         $response = $this->forwardIfFormParamsDoNotMatch();
 
@@ -116,10 +114,21 @@ class FormController extends AbstractController
             return $response;
         }
 
+        return (new ForwardResponse('confirmation'))->withArguments($this->request->getArguments());
+    }
+
+    /**
+     * @return void
+     * @throws DeprecatedException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
+     * @throws NoSuchArgumentException
+     */
+    public function initializeConfirmationAction(): void
+    {
         $this->reformatParamsForAction();
         $this->debugVariables();
-
-        return new ForwardResponse('confirmation');
     }
 
     /**
@@ -156,17 +165,15 @@ class FormController extends AbstractController
     }
 
     /**
-     * Rewrite Arguments to receive a clean mail object in createAction
-     *
-     * @return void
-     * @throws NoSuchArgumentException
+     * @param Mail $mail
+     * @return ResponseInterface
+     * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
-     * @throws DeprecatedException
-     * @noinspection PhpUnused
+     * @throws NoSuchArgumentException
      */
-    public function initializeCreateAction(): ResponseInterface
+    public function checkCreateAction(Mail $mail): ResponseInterface
     {
         $response = $this->forwardIfFormParamsDoNotMatch();
 
@@ -180,10 +187,21 @@ class FormController extends AbstractController
             return $response;
         }
 
+        return (new ForwardResponse('create'))->withArguments($this->request->getArguments());
+    }
+
+    /**
+     * @return void
+     * @throws DeprecatedException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidQueryException
+     * @throws NoSuchArgumentException
+     */
+    public function initializeCreateAction(): void
+    {
         $this->reformatParamsForAction();
         $this->debugVariables();
-
-        return new ForwardResponse('create');
     }
 
     /**
