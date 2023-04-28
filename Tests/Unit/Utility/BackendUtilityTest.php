@@ -24,7 +24,7 @@ class BackendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function isBackendAdminReturnsBoolDataProvider()
+    public static function isBackendAdminReturnsBoolDataProvider(): array
     {
         return [
             [
@@ -69,7 +69,7 @@ class BackendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getPropertyFromBackendUserReturnsStringDataProvider()
+    public static function getPropertyFromBackendUserReturnsStringDataProvider(): array
     {
         return [
             [
@@ -114,7 +114,7 @@ class BackendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getCurrentParametersReturnsArrayDataProvider()
+    public static function getCurrentParametersReturnsArrayDataProvider(): array
     {
         return [
             [
@@ -165,7 +165,7 @@ class BackendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getPidFromBackendPageReturnsIntDataProvider()
+    public static function getPidFromBackendPageReturnsIntDataProvider(): array
     {
         return [
             'TYPO3 6.2 returnUrl' => [

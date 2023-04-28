@@ -16,7 +16,7 @@ class MathematicUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function mathematicOperationReturnsIntDataProvider()
+    public static function mathematicOperationReturnsIntDataProvider(): array
     {
         return [
             [

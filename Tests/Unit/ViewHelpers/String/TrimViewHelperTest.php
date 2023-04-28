@@ -40,7 +40,7 @@ class TrimViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsStringDataProvider()
+    public static function renderReturnsStringDataProvider(): array
     {
         return [
             [
@@ -101,7 +101,7 @@ class TrimViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function removeDuplicatedWhitespaceReturnsStringDataProvider()
+    public static function removeDuplicatedWhitespaceReturnsStringDataProvider(): array
     {
         return [
             [

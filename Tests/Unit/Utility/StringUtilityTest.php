@@ -16,7 +16,7 @@ class StringUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function isNotEmptyReturnsBoolDataProvider()
+    public static function isNotEmptyReturnsBoolDataProvider(): array
     {
         return [
             'string "in2code.de"' => [
@@ -104,7 +104,7 @@ class StringUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider()
+    public static function getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider(): array
     {
         return [
             'default params' => [
@@ -155,7 +155,7 @@ class StringUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function conditionalVariableReturnsMixedDataProvider()
+    public static function conditionalVariableReturnsMixedDataProvider(): array
     {
         return [
             [
@@ -205,7 +205,7 @@ class StringUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function endsWithReturnsStringDataProvider()
+    public static function endsWithReturnsStringDataProvider(): array
     {
         return [
             [
@@ -265,7 +265,7 @@ class StringUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function startsWithReturnsStringDataProvider()
+    public static function startsWithReturnsStringDataProvider(): array
     {
         return [
             [
@@ -315,7 +315,7 @@ class StringUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function removeLastDotReturnsStringDataProvider()
+    public static function removeLastDotReturnsStringDataProvider(): array
     {
         return [
             [
@@ -359,7 +359,7 @@ class StringUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function br2nlReturnStringDataProvider()
+    public static function br2nlReturnStringDataProvider(): array
     {
         return [
             [
@@ -395,7 +395,7 @@ class StringUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getStringLengthReturnIntDataProvider()
+    public static function getStringLengthReturnIntDataProvider(): array
     {
         return [
             [
@@ -466,7 +466,7 @@ class StringUtilityTest extends UnitTestCase
     /**
      * @return array
      */
-    public function addTrailingSlashReturnStringDataProvider()
+    public static function addTrailingSlashReturnStringDataProvider(): array
     {
         return [
             [

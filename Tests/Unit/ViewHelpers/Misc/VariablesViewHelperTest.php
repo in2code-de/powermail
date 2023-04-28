@@ -40,7 +40,7 @@ class VariablesViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function removePowermailAllParagraphTagWrapReturnsStringDataProvider()
+    public static function removePowermailAllParagraphTagWrapReturnsStringDataProvider(): array
     {
         return [
             [

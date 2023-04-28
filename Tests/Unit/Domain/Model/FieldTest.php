@@ -32,12 +32,7 @@ class FieldTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Dataprovider optionArrayReturnsArray()
-     *
-     * @return array
-     */
-    public function optionArrayReturnsArrayDataProvider()
+    public static function optionArrayReturnsArrayDataProvider(): array
     {
         return [
             [
@@ -142,12 +137,7 @@ class FieldTest extends UnitTestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Dataprovider dataTypeFromFieldTypeReturnsString()
-     *
-     * @return array
-     */
-    public function dataTypeFromFieldTypeReturnsStringDataProvider()
+    public static function dataTypeFromFieldTypeReturnsStringDataProvider(): array
     {
         return [
             [

@@ -41,7 +41,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsStringDataProvider()
+    public static function renderReturnsStringDataProvider(): array
     {
         return [
             'defaultWithHtml5' => [

@@ -85,7 +85,7 @@ class ConfigurationUtilityTest extends UnitTestCase
     /**
      * @return array
      */
-    public function mergeTypoScript2FlexFormReturnsVoidDataProvider()
+    public static function mergeTypoScript2FlexFormReturnsVoidDataProvider(): array
     {
         return [
             'empty' => [

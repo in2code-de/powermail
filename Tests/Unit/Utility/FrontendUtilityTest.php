@@ -114,7 +114,7 @@ class FrontendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getDomainFromUriReturnsStringDataProvider()
+    public static function getDomainFromUriReturnsStringDataProvider(): array
     {
         return [
             [
@@ -150,7 +150,7 @@ class FrontendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getCountryFromIpReturnsStringDataProvider()
+    public static function getCountryFromIpReturnsStringDataProvider(): array
     {
         return [
             [
@@ -194,7 +194,7 @@ class FrontendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getSubFolderOfCurrentUrlReturnsStringDataProvider()
+    public static function getSubFolderOfCurrentUrlReturnsStringDataProvider(): array
     {
         return [
             [

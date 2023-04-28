@@ -43,7 +43,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateMandatoryForStringOrArrayReturnsBoolDataProvider()
+    public static function validateMandatoryForStringOrArrayReturnsBoolDataProvider(): array
     {
         return [
             'string "in2code.de"' => [
@@ -84,7 +84,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateEmailReturnsBoolDataProvider()
+    public static function validateEmailReturnsBoolDataProvider(): array
     {
         return [
             'email' => [
@@ -141,7 +141,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateUrlReturnsBoolDataProvider()
+    public static function validateUrlReturnsBoolDataProvider(): array
     {
         return [
             'url1' => [
@@ -194,7 +194,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validatePhoneReturnsBoolDataProvider()
+    public static function validatePhoneReturnsBoolDataProvider(): array
     {
         return [
             'phone1' => [
@@ -295,7 +295,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateNumbersOnlyReturnsBoolDataProvider()
+    public static function validateNumbersOnlyReturnsBoolDataProvider(): array
     {
         return [
             'number1' => [
@@ -344,7 +344,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateLettersOnlyReturnsBoolDataProvider()
+    public static function validateLettersOnlyReturnsBoolDataProvider(): array
     {
         return [
             'letter1' => [
@@ -405,7 +405,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateMinNumberReturnsBoolDataProvider()
+    public static function validateMinNumberReturnsBoolDataProvider(): array
     {
         return [
             'minimum1' => [
@@ -476,7 +476,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateMaxNumberReturnsBoolDataProvider()
+    public static function validateMaxNumberReturnsBoolDataProvider(): array
     {
         return [
             'maximum1' => [
@@ -547,7 +547,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateRangeReturnsBoolDataProvider()
+    public static function validateRangeReturnsBoolDataProvider(): array
     {
         return [
             'range1' => [
@@ -613,7 +613,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validateLengthReturnsBoolDataProvider()
+    public static function validateLengthReturnsBoolDataProvider(): array
     {
         return [
             'length1' => [
@@ -679,7 +679,7 @@ class StringValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function validatePatternReturnsBoolDataProvider()
+    public static function validatePatternReturnsBoolDataProvider(): array
     {
         return [
             'pattern1' => [

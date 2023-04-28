@@ -33,12 +33,7 @@ class AnswerTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Dataprovider getValueReturnVoid()
-     *
-     * @return array
-     */
-    public function getValueReturnVoidDataProvider()
+    public static function getValueReturnVoidDataProvider(): array
     {
         return [
             'string 1' => [
@@ -148,12 +143,7 @@ class AnswerTest extends UnitTestCase
         self::assertSame($value, $this->generalValidatorMock->_call('getRawValue'));
     }
 
-    /**
-     * Dataprovider setValueReturnVoid()
-     *
-     * @return array
-     */
-    public function setValueReturnVoidDataProvider()
+    public static function setValueReturnVoidDataProvider(): array
     {
         return [
             'string 1' => [

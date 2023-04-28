@@ -25,7 +25,7 @@ class GetLocationEidTest extends UnitTestCase
     /**
      * @return array
      */
-    public function mainDataProvider(): array
+    public static function mainDataProvider(): array
     {
         return [
             'in2code GmbH, Rosenheim, Germany' => [

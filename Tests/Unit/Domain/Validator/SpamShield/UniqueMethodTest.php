@@ -47,7 +47,7 @@ class UniqueMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function spamCheckReturnsVoidDataProvider()
+    public static function spamCheckReturnsVoidDataProvider(): array
     {
         return [
             [

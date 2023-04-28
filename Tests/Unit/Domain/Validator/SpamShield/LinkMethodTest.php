@@ -47,7 +47,7 @@ class LinkMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function spamCheckReturnsVoidDataProvider()
+    public static function spamCheckReturnsVoidDataProvider(): array
     {
         return [
             'links allowed 1, 2 links given' => [

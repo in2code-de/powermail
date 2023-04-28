@@ -40,7 +40,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsIntDataProvider()
+    public static function renderReturnsIntDataProvider(): array
     {
         return [
             [

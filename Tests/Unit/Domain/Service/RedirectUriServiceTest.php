@@ -39,12 +39,7 @@ class RedirectUriServiceTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Data Provider for getTargetFromFlexFormReturnString()
-     *
-     * @return array
-     */
-    public function getTargetFromFlexFormReturnStringDataProvider()
+    public static function getTargetFromFlexFormReturnStringDataProvider(): array
     {
         return [
             '234' => [

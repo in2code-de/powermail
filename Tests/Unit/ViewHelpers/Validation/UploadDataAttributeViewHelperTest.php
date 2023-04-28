@@ -41,7 +41,7 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsArrayDataProvider()
+    public static function renderReturnsArrayDataProvider(): array
     {
         return [
             [
@@ -166,7 +166,7 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function getDottedListOfExtensionsReturnsStringDataProvider()
+    public static function getDottedListOfExtensionsReturnsStringDataProvider(): array
     {
         return [
             [

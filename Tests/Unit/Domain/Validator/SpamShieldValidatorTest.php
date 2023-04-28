@@ -43,7 +43,7 @@ class SpamShieldValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function getCalculatedSpamFactorReturnsVoidDataProvider()
+    public static function getCalculatedSpamFactorReturnsVoidDataProvider(): array
     {
         return [
             'indication of 0' => [
@@ -104,7 +104,7 @@ class SpamShieldValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function formatSpamFactorReturnsStringDataProvider()
+    public static function formatSpamFactorReturnsStringDataProvider(): array
     {
         return [
             [
@@ -144,7 +144,7 @@ class SpamShieldValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function isSpamToleranceLimitReachedReturnsBoolDataProvider()
+    public static function isSpamToleranceLimitReachedReturnsBoolDataProvider(): array
     {
         return [
             [

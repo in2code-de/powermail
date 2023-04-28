@@ -41,7 +41,7 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsArrayDataProvider()
+    public static function renderReturnsArrayDataProvider(): array
     {
         return [
             'nativeAndClientAndAjaxAndNoAdditionalAttributes' => [

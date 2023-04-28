@@ -37,7 +37,7 @@ class PlaintextServiceTest extends UnitTestCase
      *
      * @return array
      */
-    public function makePlainReturnStringDataProvider()
+    public static function makePlainReturnStringDataProvider(): array
     {
         return [
             [

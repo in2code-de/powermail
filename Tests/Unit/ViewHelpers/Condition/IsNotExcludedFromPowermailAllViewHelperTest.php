@@ -40,7 +40,7 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function getExcludedValuesReturnArrayDataProvider()
+    public static function getExcludedValuesReturnArrayDataProvider(): array
     {
         return [
             [

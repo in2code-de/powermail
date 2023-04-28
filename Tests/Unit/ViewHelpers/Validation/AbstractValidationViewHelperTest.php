@@ -42,7 +42,7 @@ class AbstractValidationViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function isValidationEnabledReturnsBoolDataProvider()
+    public static function isValidationEnabledReturnsBoolDataProvider(): array
     {
         return [
             'nativeAndClientActivated' => [

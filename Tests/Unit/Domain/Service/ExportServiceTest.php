@@ -35,12 +35,7 @@ class ExportServiceTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Data Provider for getRelativeTemplatePathAndFileNameReturnsString()
-     *
-     * @return array
-     */
-    public function getRelativeTemplatePathAndFileNameReturnsStringDataProvider()
+    public static function getRelativeTemplatePathAndFileNameReturnsStringDataProvider(): array
     {
         return [
             [
@@ -76,12 +71,7 @@ class ExportServiceTest extends UnitTestCase
         self::assertSame($this->generalValidatorMock->_call('getRelativeTemplatePathAndFileName'), $expectedResult);
     }
 
-    /**
-     * Data Provider for getFormatReturnsString()
-     *
-     * @return array
-     */
-    public function getFormatReturnsStringDataProvider()
+    public static function getFormatReturnsStringDataProvider(): array
     {
         return [
             [

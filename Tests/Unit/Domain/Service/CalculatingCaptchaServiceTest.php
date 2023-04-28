@@ -50,12 +50,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Data Provider for getColorForCaptchaReturnInt()
-     *
-     * @return array
-     */
-    public function getColorForCaptchaReturnIntDataProvider()
+    public static function getColorForCaptchaReturnIntDataProvider(): array
     {
         return [
             [
@@ -93,12 +88,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Data Provider for getFontAngleForCaptchaReturnInt()
-     *
-     * @return array
-     */
-    public function getFontAngleForCaptchaReturnIntDataProvider()
+    public static function getFontAngleForCaptchaReturnIntDataProvider(): array
     {
         return [
             [
@@ -153,12 +143,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         }
     }
 
-    /**
-     * Data Provider for getHorizontalDistanceForCaptchaReturnInt()
-     *
-     * @return array
-     */
-    public function getHorizontalDistanceForCaptchaReturnIntDataProvider()
+    public static function getHorizontalDistanceForCaptchaReturnIntDataProvider(): array
     {
         return [
             [
@@ -213,12 +198,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         }
     }
 
-    /**
-     * Data Provider for getVerticalDistanceForCaptchaReturnInt()
-     *
-     * @return array
-     */
-    public function getVerticalDistanceForCaptchaReturnIntDataProvider()
+    public static function getVerticalDistanceForCaptchaReturnIntDataProvider(): array
     {
         return [
             [
@@ -273,12 +253,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         }
     }
 
-    /**
-     * Data Provider for getStringAndResultForCaptchaReturnsArray()
-     *
-     * @return array
-     */
-    public function getStringAndResultForCaptchaReturnsArrayDataProvider()
+    public static function getStringAndResultForCaptchaReturnsArrayDataProvider(): array
     {
         return [
             [

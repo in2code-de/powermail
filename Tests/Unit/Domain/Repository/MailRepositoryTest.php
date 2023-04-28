@@ -40,12 +40,7 @@ class MailRepositoryTest extends UnitTestCase
         );
     }
 
-    /**
-     * Dataprovider getLabelsWithMarkersFromMailReturnsArray()
-     *
-     * @return array
-     */
-    public function getLabelsWithMarkersFromMailReturnsArrayDataProvider()
+    public static function getLabelsWithMarkersFromMailReturnsArrayDataProvider(): array
     {
         return [
             [
@@ -109,12 +104,7 @@ class MailRepositoryTest extends UnitTestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Dataprovider getSenderMailFromArgumentsReturnsString()
-     *
-     * @return array
-     */
-    public function getSenderMailFromArgumentsReturnsStringDataProvider()
+    public static function getSenderMailFromArgumentsReturnsStringDataProvider(): array
     {
         return [
             [
@@ -207,12 +197,7 @@ class MailRepositoryTest extends UnitTestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Dataprovider getSenderNameFromArgumentsReturnsString()
-     *
-     * @return array
-     */
-    public function getSenderNameFromArgumentsReturnsStringDataProvider()
+    public static function getSenderNameFromArgumentsReturnsStringDataProvider(): array
     {
         return [
             [

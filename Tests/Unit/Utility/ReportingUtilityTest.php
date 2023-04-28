@@ -95,7 +95,7 @@ class ReportingUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function sortReportingArrayDescendingReturnsVoidDataProvider()
+    public static function sortReportingArrayDescendingReturnsVoidDataProvider(): array
     {
         return [
             [
@@ -156,7 +156,7 @@ class ReportingUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider()
+    public static function cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider(): array
     {
         return [
             [

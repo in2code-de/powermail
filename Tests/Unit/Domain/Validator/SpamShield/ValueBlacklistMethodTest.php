@@ -57,7 +57,7 @@ class ValueBlacklistMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function findStringInStringReturnsStringDataProvider()
+    public static function findStringInStringReturnsStringDataProvider(): array
     {
         return [
             [
