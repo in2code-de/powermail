@@ -31,3 +31,4 @@ config/
 /phpunit.xml.dist.bak
 
 .project/data/screenshots
+/.phpunit.cache/
