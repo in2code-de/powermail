@@ -252,7 +252,7 @@ class CreateMarker
             $field->_setProperty(GeneralUtility::underscoredToLowerCamelCase($key), $value);
         }
         if (!empty($properties['sys_language_uid'])) {
-            $field->_setProperty('_languageUid', $properties['sys_language_uid']);
+            $field->_setProperty('_languageUid', (int)$properties['sys_language_uid']);
         }
         $field->setDescription((string)($properties['uid'] ?? '') > 0 ? (string)$properties['uid'] : $uid);
         return $field;
