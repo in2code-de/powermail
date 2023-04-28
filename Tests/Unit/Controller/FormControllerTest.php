@@ -9,10 +9,8 @@ use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
-use In2code\Powermail\Tests\Helper\ObjectManager;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use PHPUnit\Framework\MockObject\MockObject;
-use Prophecy\Prophet;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Http\Response;
@@ -34,11 +32,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class FormControllerTest extends UnitTestCase
 {
     /**
-     * @var Prophet
-     */
-    private Prophet $prophet;
-
-    /**
      * @var AccessibleObjectInterface|MockObject
      */
     protected $generalValidatorMock;
@@ -48,18 +41,17 @@ class FormControllerTest extends UnitTestCase
      */
     public function setUp(): void
     {
-        $this->prophet = new Prophet();
-        $listenerProviderProphecy = $this->prophet->prophesize(ListenerProviderInterface::class);
-        $eventDispatcher = new EventDispatcher($listenerProviderProphecy->reveal());
+        $listenerProviderMock = $this->getMockBuilder(ListenerProviderInterface::class)->getMock();
+        $eventDispatcher = new EventDispatcher($listenerProviderMock);
 
         $this->generalValidatorMock = $this->getAccessibleMock(
             FormController::class,
             null,
             [
-                new FormRepository(new ObjectManager()),
-                new FieldRepository(new ObjectManager()),
-                new MailRepository(new ObjectManager()),
-                $this->prophet->prophesize(UploadService::class)->reveal(),
+                new FormRepository(),
+                new FieldRepository(),
+                new MailRepository(),
+                $this->getMockBuilder(UploadService::class)->disableOriginalConstructor()->getMock(),
                 $eventDispatcher,
             ]
         );
@@ -71,30 +63,10 @@ class FormControllerTest extends UnitTestCase
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
-        $this->prophet->checkPredictions();
+        // $this->prophet->checkPredictions();
     }
 
-    /**
-     * @return void
-     * @covers ::initializeAction
-     */
-    public function testInitializeAction()
-    {
-        $this->setDefaultControllerProperties();
-        $this->generalValidatorMock->_call('initializeAction');
-        $properties = get_object_vars($this->generalValidatorMock);
-        // TODO: These checks do not work anymore, fix them
-        // self::assertArrayHasKey('settings', $properties);
-        self::assertArrayHasKey('objectManager', $properties);
-        // self::assertArrayHasKey('request', $properties);
-    }
-
-    /**
-     * Dataprovider forwardIfFormParamsDoNotMatchReturnsVoid()
-     *
-     * @return array
-     */
-    public function forwardIfFormParamsDoNotMatchReturnsVoidDataProvider()
+    public static function forwardIfFormParamsDoNotMatchReturnsVoidDataProvider(): array
     {
         $form = new Form();
         $form->_setProperty('uid', 2);
@@ -153,15 +125,11 @@ class FormControllerTest extends UnitTestCase
     }
 
     /**
-     * @param array $arguments
-     * @param array $settings
-     * @param bool $forward
-     * @return void
      * @dataProvider forwardIfFormParamsDoNotMatchReturnsVoidDataProvider
      * @test
      * @covers ::forwardIfFormParamsDoNotMatch
      */
-    public function forwardIfFormParamsDoNotMatchReturnsVoid($arguments, $settings, $forward)
+    public function forwardIfFormParamsDoNotMatchReturnsVoid(array $arguments, array $settings, bool $forward): void
     {
         $this->setDefaultControllerProperties($arguments);
         $this->generalValidatorMock->_set('settings', $settings);
@@ -175,12 +143,7 @@ class FormControllerTest extends UnitTestCase
         self::assertNull($response);
     }
 
-    /**
-     * Dataprovider forwardIfMailParamEmpty()
-     *
-     * @return array
-     */
-    public function forwardIfMailParamEmptyDataProvider()
+    public static function forwardIfMailParamEmptyDataProvider(): array
     {
         return [
             'no redirect, form param given' => [
@@ -199,14 +162,12 @@ class FormControllerTest extends UnitTestCase
     }
 
     /**
-     * @param array $arguments
-     * @param bool $forward
-     * @return void
+     * @test
      * @dataProvider forwardIfMailParamEmptyDataProvider
      * @test
      * @covers ::forwardIfMailParamEmpty
      */
-    public function forwardIfMailParamEmpty($arguments, $forward)
+    public function forwardIfMailParamEmpty(array $arguments, bool $forward): void
     {
         TestingHelper::setDefaultConstants();
         $this->setDefaultControllerProperties($arguments);
@@ -218,12 +179,7 @@ class FormControllerTest extends UnitTestCase
         self::assertTrue(true);
     }
 
-    /**
-     * Dataprovider forwardIfFormParamsDoNotMatchForOptinConfirm()
-     *
-     * @return array
-     */
-    public function forwardIfFormParamsDoNotMatchForOptinConfirmDataProvider()
+    public static function forwardIfFormParamsDoNotMatchForOptinConfirmDataProvider(): array
     {
         return [
             'redirect, wrong form uid' => [
@@ -248,15 +204,11 @@ class FormControllerTest extends UnitTestCase
     }
 
     /**
-     * @param array $settings
-     * @param int $formUid
-     * @param bool $forward
-     * @return void
      * @dataProvider forwardIfFormParamsDoNotMatchForOptinConfirmDataProvider
      * @test
      * @covers ::forwardIfFormParamsDoNotMatchForOptinConfirm
      */
-    public function forwardIfFormParamsDoNotMatchForOptinConfirm(array $settings, $formUid, $forward)
+    public function forwardIfFormParamsDoNotMatchForOptinConfirm(array $settings, int $formUid, bool $forward): void
     {
         TestingHelper::setDefaultConstants();
         $this->generalValidatorMock->_set('settings', $settings);
@@ -274,12 +226,7 @@ class FormControllerTest extends UnitTestCase
         self::assertTrue(true);
     }
 
-    /**
-     * Dataprovider isMailPersistActiveReturnBool()
-     *
-     * @return array
-     */
-    public function isMailPersistActiveReturnBoolDataProvider()
+    public static function isMailPersistActiveReturnBoolDataProvider(): array
     {
         return [
             'store 0, optin 0, hash NULL' => [
@@ -401,11 +348,10 @@ class FormControllerTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::isReceiverMailEnabled
      */
-    public function isReceiverMailEnabledReturnsBool()
+    public function isReceiverMailEnabledReturnsBool(): void
     {
         $settings = [
             'receiver' => [

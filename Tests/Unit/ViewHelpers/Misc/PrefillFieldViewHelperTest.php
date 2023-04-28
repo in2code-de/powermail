@@ -4,9 +4,7 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
-use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use Prophecy\Prophet;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -18,24 +16,12 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class PrefillFieldViewHelperTest extends UnitTestCase
 {
-    /**
-     * @var Prophet
-     */
-    private Prophet $prophet;
+    protected MockObject $abstractValidationViewHelperMock;
 
-    /**
-     * @var AccessibleMockObjectInterface|MockObject
-     */
-    protected $abstractValidationViewHelperMock;
-
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
-        $this->prophet = new Prophet();
-        $listenerProviderProphecy = $this->prophet->prophesize(ListenerProviderInterface::class);
-        $eventDispatcher = new EventDispatcher($listenerProviderProphecy->reveal());
+        $listenerProviderMock = $this->getMockBuilder(ListenerProviderInterface::class)->getMock();
+        $eventDispatcher = new EventDispatcher($listenerProviderMock);
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             PrefillFieldViewHelper::class,
             null,
@@ -43,20 +29,12 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Dataprovider for getDefaultValueReturnsString()
-     *
-     * @return array
-     */
-    public function getDefaultValueReturnsStringDataProvider()
+    public static function getDefaultValueReturnsStringDataProvider(): array
     {
         return [
             [
@@ -233,12 +211,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         self::assertSame($expectedResult, $this->abstractValidationViewHelperMock->_call('getValue'));
     }
 
-    /**
-     * Dataprovider for getFromTypoScriptRawReturnsString()
-     *
-     * @return array
-     */
-    public function getFromTypoScriptRawReturnsStringDataProvider()
+    public static function getFromTypoScriptRawReturnsStringDataProvider(): array
     {
         return [
             [
