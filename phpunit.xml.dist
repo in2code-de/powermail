@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" backupGlobals="true" backupStaticAttributes="false" colors="true" bootstrap="Tests/Unit/bootstrap.php" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" forceCoversAnnotation="true" processIsolation="false" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" stopOnRisky="false" timeoutForSmallTests="1" timeoutForMediumTests="10" timeoutForLargeTests="60" verbose="false">
-  <coverage includeUncoveredFiles="false" processUncoveredFiles="false">
-    <include>
-      <directory suffix=".php">Classes/</directory>
-    </include>
-  </coverage>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" backupGlobals="true" colors="true" bootstrap="Tests/Unit/bootstrap.php" processIsolation="false" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" stopOnRisky="false" timeoutForSmallTests="1" timeoutForMediumTests="10" timeoutForLargeTests="60" cacheDirectory=".phpunit.cache" backupStaticProperties="false" requireCoverageMetadata="true">
+  <coverage includeUncoveredFiles="false"/>
   <php>
     <ini name="error_reporting" value="E_ERROR"/>
     <ini name="intl.default_locale" value="en"/>
@@ -17,4 +13,9 @@
       <directory>Tests/Unit/</directory>
     </testsuite>
   </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">Classes/</directory>
+    </include>
+  </source>
 </phpunit>
