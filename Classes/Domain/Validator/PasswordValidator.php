@@ -75,6 +75,6 @@ class PasswordValidator extends AbstractValidator
     protected function ignoreValidationIfConfirmation(): bool
     {
         return FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
-            && FrontendUtility::getArguments()['action'] === 'create';
+            && FrontendUtility::getArguments()['action'] === 'checkCreate';
     }
 }
