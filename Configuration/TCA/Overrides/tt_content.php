@@ -52,6 +52,8 @@ foreach ($plugins as $plugin) {
     ';
     $GLOBALS['TCA']['tt_content']['types'][$CType]['previewRenderer']
         = In2code\Powermail\Hook\PluginPreviewRenderer::class;
+
+    $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes'][$CType] = 'extension-powermail-main';
 }
 
 /**
